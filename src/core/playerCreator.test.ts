@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { attributeKeys, canReroll, createCareerState, generateStartingPlayerProfile, identityInputSchema, type CreatorInput } from './playerCreator';
 import { careerStateSchema } from '../schemas/domainSchemas';
 
@@ -24,14 +24,26 @@ describe('player creator', () => {
     expect(winger.pace + winger.technique).toBeGreaterThan(winger.defending + winger.finishing - 12);
     expect(striker.finishing).toBeGreaterThan(striker.defending);
   });
-  it('does not use Math.random in profile generator source', async () => {
-    const source = await import('node:fs/promises').then((fs) => fs.readFile(new URL('./playerCreator.ts', import.meta.url), 'utf8'));
-    expect(source).not.toContain('Math.random');
+  it('does not use Math.random in profile generation', () => {
+    const randomSpy = vi.spyOn(Math, 'random').mockImplementation(() => {
+      throw new Error('Math.random must not be used');
+    });
+
+    try {
+      expect(() => generateStartingPlayerProfile(base, 'seed', 0)).not.toThrow();
+      expect(randomSpy).not.toHaveBeenCalled();
+    } finally {
+      randomSpy.mockRestore();
+    }
   });
   it('validates identity form data with Polish errors', () => {
     const result = identityInputSchema.safeParse({ ...base, firstName: 'J', age: 20 });
     expect(result.success).toBe(false);
-    if (!result.success) expect(result.error.issues.map((i) => i.message).join(' ')).toContain('Minimalny');
+    if (!result.success) {
+      const messages = result.error.issues.map((issue) => issue.message);
+      expect(messages).toContain('Podaj imię zawodnika.');
+      expect(messages).toContain('Maksymalny wiek startowy to 18 lat.');
+    }
   });
   it('creates a valid CareerState with initial history fact', () => {
     const state = createCareerState(generateStartingPlayerProfile(base, 'seed', 0), 'seed');
