@@ -9,3 +9,9 @@
 7. Rozbudowa treści.
 8. Interfejs mobilny.
 9. Opcjonalne funkcje społecznościowe.
+
+## Etap 2 — pierwszy grywalny wycinek
+
+Zrealizowany przepływ obejmuje: start gry, nową karierę, kreator tożsamości i profilu, trzy deterministyczne losowania atrybutów, kartę zawodnika z własnym wykresem SVG, utworzenie `CareerState`, zapis w `localStorage` i ekran „Lipiec 2026 — pierwszy dzień w akademii”.
+
+Na później pozostają: właściwa pętla rozgrywki, treningi, decyzje, wydarzenia meczowe, sezon, transfery, generator klubów, zaawansowane relacje, pełny portret i wersja mobilna.
