@@ -61,12 +61,24 @@ export interface StartingPlayerProfile { player: Player; profileDescriptionKey: 
 export const generateStartingPlayerProfile = (input: CreatorInput, seed: string, rollIndex: number): StartingPlayerProfile => {
   const parsed = creatorInputSchema.parse({ ...input, seed });
   const rng = RandomGenerator.fromSeed(`${seed}:${parsed.firstName}:${parsed.lastName}:${parsed.position}:${rollIndex}`);
-  const attributes = Object.fromEntries(attributeKeys.map((key) => {
+  const rollAttribute = (key: AttributeKey): number => {
     const base = rng.int(31, 50);
     const ageBonus = parsed.age - 16;
     const noise = rng.int(-6, 8);
-    return [key, clamp(base + ageBonus + (biases[parsed.position][key] ?? 0) + noise, 24, 66)];
-  })) as PlayerAttributes;
+
+    return clamp(base + ageBonus + (biases[parsed.position][key] ?? 0) + noise, 24, 66);
+  };
+
+  const attributes: PlayerAttributes = {
+    technique: rollAttribute('technique'),
+    vision: rollAttribute('vision'),
+    pace: rollAttribute('pace'),
+    stamina: rollAttribute('stamina'),
+    finishing: rollAttribute('finishing'),
+    defending: rollAttribute('defending'),
+    leadership: rollAttribute('leadership'),
+    composure: rollAttribute('composure'),
+  };
   const potential = clamp(62 + rng.int(0, 24) + (18 - parsed.age) * 2, 60, 88);
   const player: Player = {
     id: `player_${seed.toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 28) || 'career'}`,
