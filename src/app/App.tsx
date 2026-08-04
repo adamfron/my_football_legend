@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { previewRandomSequence } from '../devtools/randomPreview';
 import { validateSampleContent } from '../schemas/validateContent';
 import { translate } from '../core/narrative/localization';
-import { attributeKeys, canReroll, createCareerState, defaultBodyForPosition, generateStartingPlayerProfile, identityInputSchema, makeReadableSeed, positionIds, profileInputSchema, type CreatorInput, type PositionId, type StartingPlayerProfile } from '../core/playerCreator';
+import { attributeKeys, canReroll, createCareerState, defaultBodyForPosition, generateStartingPlayerProfile, identityInputSchema, makeReadableSeed, positionIds, profileInputSchema, type PositionId, type StartingPlayerProfile } from '../core/playerCreator';
 import { hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
 import type { CareerState, PlayerAttributes } from '../types/domain';
 import './App.css';

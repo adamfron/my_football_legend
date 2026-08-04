@@ -13,7 +13,10 @@ describe('player creator', () => {
   });
   it('keeps academy attributes in a reasonable range', () => {
     const attributes = generateStartingPlayerProfile(base, 'seed', 0).player.attributes;
-    for (const key of attributeKeys) expect(attributes[key]).toBeGreaterThanOrEqual(24), expect(attributes[key]).toBeLessThanOrEqual(66);
+    for (const key of attributeKeys) {
+      expect(attributes[key]).toBeGreaterThanOrEqual(24);
+      expect(attributes[key]).toBeLessThanOrEqual(66);
+    }
   });
   it('applies position bias without fixed classes', () => {
     const winger = generateStartingPlayerProfile({ ...base, position: 'winger' }, 'bias', 0).player.attributes;
