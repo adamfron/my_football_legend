@@ -13,3 +13,13 @@ Pierwszy plan zakłada localStorage dla małych zapisów, walidację wersji Zod 
 
 ## Symulacja sezonów
 Późniejsza symulacja ma być lekka: najpierw istotne decyzje, relacje i fakty, a nie pełna symulacja wszystkich meczów.
+
+## Kreator zawodnika i zapis lokalny
+
+Logika kreatora jest domenowa i niezależna od Reacta. `src/core/playerCreator.ts` definiuje schematy Zod dla formularzy, listę pozycji, domyślne parametry ciała, limit ponownych losowań, deterministyczne generowanie profilu oraz fabrykę początkowego `CareerState`.
+
+Deterministyczność profilu wynika z użycia `RandomGenerator.fromSeed` z kluczem złożonym z seeda kariery, podstawowych danych zawodnika, pozycji i `rollIndex`. Pozycja wpływa na bias atrybutów, ale dodatkowy szum deterministyczny pozwala tworzyć nietypowe profile.
+
+`src/core/persistence.ts` jest małym modułem bez zależności od UI. Zapisuje `version`, `savedAt` i `career` w `localStorage`, a przy odczycie odróżnia brak zapisu, uszkodzony JSON, niezgodną wersję oraz dane niezgodne ze schematem `careerStateSchema`.
+
+Pierwszy ekran kariery pozostaje statycznym prologiem. Nie zawiera jeszcze symulacji czasu, wydarzeń narracyjnych ani mechanik sezonu.

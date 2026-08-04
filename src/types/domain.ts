@@ -75,15 +75,15 @@ export interface Person {
   nationality: string;
   age: number;
   personality: string[];
-  clubId?: Id;
+  clubId?: Id | undefined;
   persistence: PersistenceLevel;
   relationshipParameters: RelationshipScores;
   faceSeed: string;
-  faceGenome?: FaceGenome;
+  faceGenome?: FaceGenome | undefined;
   narrativeTags: string[];
 }
 
-export interface ClubSeasonHistory { season: number; summary: string; placement?: number }
+export interface ClubSeasonHistory { season: number; summary: string; placement?: number | undefined }
 export interface Club {
   id: Id;
   name: string;
@@ -102,8 +102,8 @@ export interface Club {
 }
 
 export interface EventDecision { id: Id; labelKey: string; descriptionKey: string; visiblePros: string[]; visibleCons: string[] }
-export interface HiddenTest { id: Id; attribute: string; difficulty: number; successChanceModifier?: number }
-export interface EventConsequence { id: Id; type: string; data: Record<string, unknown>; factType?: string }
+export interface HiddenTest { id: Id; attribute: string; difficulty: number; successChanceModifier?: number | undefined }
+export interface EventConsequence { id: Id; type: string; data: Record<string, unknown>; factType?: string | undefined }
 export interface EventDefinition {
   id: Id;
   version: number;
@@ -124,9 +124,9 @@ export interface EventInstance {
   definitionId: Id;
   context: Record<string, unknown>;
   cast: Record<string, Id>;
-  selectedDecisionId?: Id;
+  selectedDecisionId?: Id | undefined;
   randomState: string;
-  result?: Record<string, unknown>;
+  result?: Record<string, unknown> | undefined;
   createdFactIds: Id[];
   threadChanges: Record<Id, string>;
 }
@@ -172,5 +172,5 @@ export interface CareerState {
   historyFacts: HistoryFact[];
   storyThreads: StoryThread[];
   statistics: Record<string, number>;
-  activeEvent?: EventInstance;
+  activeEvent?: EventInstance | undefined;
 }
