@@ -134,7 +134,7 @@ export const canReroll = (rollIndex: number) => rollIndex < MAX_PROFILE_VARIANTS
 
 export const createCareerState = (profile: StartingPlayerProfile, seed: string): CareerState => {
   const playerId = profile.player.id;
-  const firstFact: HistoryFact = { id: 'fact_career_started_2026', factType: 'career_started', season: 2026, date: '2026-07-01', actors: [playerId], targets: [samplePerson.id], clubs: [sampleClub.id], competitions: [], data: { academy: sampleClub.name, action: 'academy_training_started' }, causes: [], tags: ['career_start','academy','vistula_nova'], visibility: 'public', narrativeImportance: 45, emotionalTone: 'positive' };
+  const firstFact: HistoryFact = { id: 'fact_career_started_2026', factType: 'career_started', season: 2026, date: '2026-07-01', actors: [playerId], targets: [], clubs: [sampleClub.id], competitions: [], data: { academy: sampleClub.name, action: 'academy_training_started' }, causes: [], tags: ['career_start','academy','vistula_nova'], visibility: 'public', narrativeImportance: 45, emotionalTone: 'positive' };
   return { seed, currentSeason: 2026, player: profile.player, currentClub: sampleClub, previousClubIds: [], significantPeople: [samplePerson], relationships: { [samplePerson.id]: { liking: 50, trust: 50, respect: 50, rivalry: 0, resentment: 0, gratitude: 0, professionalDependence: 25 } }, historyFacts: [firstFact], storyThreads: [], statistics: { appearances: 0, goals: 0, assists: 0, trainings: 0 } };
 };
 

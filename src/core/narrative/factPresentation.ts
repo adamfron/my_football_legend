@@ -1,0 +1,51 @@
+import type { CareerState, HistoryFact } from '../../types/domain';
+
+export interface FactPresentation {
+  title: string;
+  summary: string;
+  toneLabel: string;
+  participantNames: string[];
+  clubName?: string;
+}
+
+const toneLabels = { positive: 'budujące', neutral: 'spokojne', negative: 'trudne', bittersweet: 'niejednoznaczne' } as const;
+const fullName = (career: CareerState, id: string) => id === career.player.id ? `${career.player.firstName} ${career.player.lastName}` : career.significantPeople.find((p) => p.id === id) ? `${career.significantPeople.find((p) => p.id === id)!.firstName} ${career.significantPeople.find((p) => p.id === id)!.lastName}` : '';
+const person = (career: CareerState, role: string) => career.significantPeople.find((p) => p.role === role);
+const coachName = (career: CareerState) => person(career, 'coach') ? `${person(career, 'coach')!.firstName} ${person(career, 'coach')!.lastName}` : 'trener';
+const rivalName = (career: CareerState) => person(career, 'academy_rival') ? `${person(career, 'academy_rival')!.firstName} ${person(career, 'academy_rival')!.lastName}` : 'konkurent';
+
+const firstImpression = (career: CareerState, decisionId: string) => ({
+  ask_team_needs: ['Zespołowe pierwsze wrażenie', `W pierwszej rozmowie z ${coachName(career)} zapytałeś przede wszystkim o to, czego potrzebuje drużyna. Trener zapamiętał twoje podejście.`],
+  declare_senior_ambition: ['Ambicja powiedziana głośno', `W rozmowie z ${coachName(career)} jasno powiedziałeś, że chcesz wywalczyć szansę u seniorów. Trener dostrzegł odwagę, ale podniósł wobec ciebie oczekiwania.`],
+  humble_learning: ['Gotowość do nauki', `Przy ${coachName(career)} podkreśliłeś, że najpierw chcesz zrozumieć wymagania akademii. Zostawiłeś po sobie obraz zawodnika cierpliwego i uważnego.`],
+}[decisionId] ?? ['Pierwsze spotkanie w akademii', `Rozmowa z ${coachName(career)} została zapamiętana jako początek twojej pracy w klubie.`]);
+
+const trainingTitles: Record<string, string> = { take_action: 'Próba osobistego przełomu', play_rival: 'Wspólna akcja z konkurentem', organize_team: 'Porządek zamiast popisu', gk_long_counter: 'Dalekie rozpoczęcie akcji', gk_short_shape: 'Spokój i ustawienie zespołu', gk_safe: 'Bezpieczna decyzja bramkarza' };
+const tierText: Record<string, string> = { criticalFailure: 'Decyzja przyniosła kłopoty, ale pokazała, jak reagujesz pod presją.', failure: 'Efekt był słabszy niż zamierzałeś, a trener zauważył koszt wyboru.', mixed: 'Akcja zostawiła niejednoznaczne wrażenie: coś zyskałeś, ale bez przełomu.', success: 'Decyzja przyniosła dobry rezultat i została zauważona przez trenera.', criticalSuccess: 'Końcówka treningu wyraźnie pracowała na twoją korzyść.' };
+const decisionText = (career: CareerState, decisionId: string) => ({
+  take_action: 'W końcówce gry treningowej wziąłeś ciężar akcji na siebie i poszukałeś osobistego błysku.',
+  play_rival: `W końcówce gry treningowej szybko poszukałeś współpracy z ${rivalName(career)}, choć walczycie o podobną pozycję.`,
+  organize_team: 'W końcówce gry treningowej cofnąłeś się, uporządkowałeś ustawienie zespołu i pomogłeś mu rozsądnie zakończyć akcję.',
+  gk_long_counter: 'Jako bramkarz odważnie uruchomiłeś zespół dalekim podaniem.',
+  gk_short_shape: 'Jako bramkarz wybrałeś krótkie rozegranie i spokojnie ustawiłeś kolegów przed sobą.',
+  gk_safe: 'Jako bramkarz ograniczyłeś ryzyko i wybrałeś najbezpieczniejsze rozwiązanie.',
+}[decisionId] ?? 'Najważniejsza decyzja treningowa wpłynęła na sposób, w jaki patrzą na ciebie inni.');
+
+const relation = (career: CareerState, decisionId: string) => ({
+  share_credit: ['Uznanie podzielone po treningu', `Po treningu podzieliłeś się uznaniem z ${rivalName(career)}. Relacja dostała pierwszy sygnał wzajemnego zaufania.`],
+  stress_rivalry: ['Rywalizacja nazwana wprost', `W rozmowie z ${rivalName(career)} jasno zaznaczyłeś, że nadal walczycie o swoje miejsce. Szacunek miesza się z napięciem.`],
+  dismiss_reaction: ['Chłód po ostatnim gwizdku', `Zlekceważyłeś reakcję, z którą przyszedł ${rivalName(career)}. Po treningu między wami zostało więcej dystansu niż zaufania.`],
+}[decisionId] ?? ['Rozmowa po treningu', `Twoja reakcja po treningu wpłynęła na relację z ${rivalName(career)}.`]);
+
+export const getFactPresentation = (career: CareerState, fact: HistoryFact): FactPresentation => {
+  const participants = Array.from(new Set([...fact.actors, ...fact.targets])).map((id) => fullName(career, id)).filter(Boolean);
+  const clubName = fact.clubs.includes(career.currentClub.id) ? career.currentClub.name : undefined;
+  let pair: string[];
+  if (fact.factType === 'career_started') pair = ['Początek kariery w akademii', `Dołączyłeś do akademii ${career.currentClub.name} jako szesnastoletni zawodnik gotowy walczyć o swoją pierwszą poważną szansę.`];
+  else if (fact.factType === 'academy_first_impression') pair = firstImpression(career, String(fact.data.decisionId ?? ''));
+  else if (fact.factType === 'academy_training_result') pair = [trainingTitles[String(fact.data.decisionId)] ?? 'Decyzja w grze treningowej', `${decisionText(career, String(fact.data.decisionId))} ${tierText[String(fact.data.resolutionTier)] ?? ''}`.trim()];
+  else if (fact.factType === 'academy_relationship_turn') pair = relation(career, String(fact.data.decisionId ?? ''));
+  else if (fact.factType === 'academy_first_week_completed') pair = ['Pierwszy tydzień domknięty', `Pierwszy tydzień w ${career.currentClub.name} stworzył podstawę pod walkę o trening z seniorami.`];
+  else pair = ['Wydarzenie kariery', 'Opis wydarzenia jest chwilowo niedostępny.'];
+  return { title: pair[0]!, summary: pair[1]!, toneLabel: toneLabels[fact.emotionalTone], participantNames: participants, ...(clubName ? { clubName } : {}) };
+};

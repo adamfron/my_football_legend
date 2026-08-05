@@ -47,3 +47,7 @@ Lokalny zapis ma format `{ version, savedAt, career }` i jest obsługiwany przez
 Gra zawiera pierwszy grywalny tydzień w akademii Vistula Nova: rozmowę z trenerem Markiem Wroną, deterministycznie generowanego konkurenta, grę treningową, rozmowę po treningu i podsumowanie tygodnia. Wydarzenia zapisują kanoniczne fakty, relacje i wątki; widoczny tekst jest tylko lokalizowaną interpretacją tych danych.
 
 Weryfikacja projektu odbywa się komendą `npm run verify`, która uruchamia lint, testy i build.
+
+## Aktualny etap prezentacji narracji
+
+Interfejs akademii prezentuje decyzje jako osobne karty z opisem, możliwymi korzyściami i ryzykami zapisanymi językiem świata gry. Historia i relacje korzystają z warstwy prezentacji faktów, dzięki czemu gracz widzi tytuły, streszczenia, ton i uczestników zamiast technicznych identyfikatorów. Zakładka Klub pokazuje pierwszy profil Vistula Nova oparty na danych `Club`, a relacje używają deterministycznych awatarów SVG.
