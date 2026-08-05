@@ -33,3 +33,9 @@ Moduły `src/core/events` są niezależne od Reacta. `eventRegistry.ts` udostęp
 `src/core/narrative/factPresentation.ts` tłumaczy kanoniczne fakty kariery na tytuł, opis, ton, uczestników i klub bez modyfikowania `HistoryFact`. React korzysta z tej warstwy w historii, relacjach i podsumowaniu tygodnia, ale logika pozostaje w `src/core` i nie zależy od komponentów.
 
 `src/core/characters/avatarGenome.ts` generuje deterministyczny opis prostego awatara SVG na podstawie seedu, wieku i wersji generatora. Komponent `PersonAvatar` renderuje ten genom, a nie zapisuje twarzy w stanie kariery.
+
+## Resolver registry wydarzeń akademii
+
+Logika rozstrzygania decyzji jest podzielona na resolvery pierwszego i drugiego tygodnia w `src/core/events/resolvers`. Publiczna funkcja `resolveEventChoice` pobiera aktywne wydarzenie i deleguje do rejestru resolverów, dzięki czemu komponenty Reacta nie zawierają logiki scen, a logika `src/core` pozostaje niezależna od UI.
+
+Drugi tydzień jest inicjalizowany idempotentnie przez `initializeSecondAcademyWeek`: wymaga ukończenia pierwszego tygodnia, braku aktywnego wydarzenia i braku zapisanego wyniku selekcji. Dane mieszczą się w istniejących strukturach `HistoryFact`, `StoryThread`, `EventInstance` i `relationships`, więc nie zwiększają wersji zapisu.

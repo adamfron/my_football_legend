@@ -30,3 +30,9 @@
 - Czy rezultat ma wersję narracyjną?
 - Czy fakt ma prezentację w historii?
 - Czy może zostać użyty w późniejszym callbacku?
+
+## Treści drugiego tygodnia akademii
+
+Teksty wydarzeń drugiego tygodnia są lokalizowane po polsku i opisują świat gry, nie mechanikę. Nie wolno ujawniać `selectionOutcome`, `resolutionTier`, identyfikatorów decyzji, wartości punktowych ani technicznych nazw pól. Warianty bramkarza muszą używać języka rozpoczęcia gry, organizowania obrony i reakcji na ustawienie rywali; nie mogą wspominać o dryblingu, skrzydle ani wejściu w pole karne.
+
+Nowe prezentacje historii powinny odczytywać fakty `academy_training_focus`, `academy_rival_preparation`, `academy_final_assessment`, `academy_selection_result`, `academy_selection_response` i `academy_second_week_completed` oraz budować opis z danych i relacji.
