@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { CAREER_SAVE_KEY, deleteCareer, hasValidCareer, loadCareer, saveCareer } from './persistence';
 import { createCareerState, generateStartingPlayerProfile, type CreatorInput } from './playerCreator';
 
-const input: CreatorInput = { firstName: 'Jan', lastName: 'Nowak', nationality: 'PL', age: 17, dominantFoot: 'right', customSeed: '', seed: 'save-seed', position: 'central_midfielder', heightCm: 179, weightKg: 73 };
+const input: CreatorInput = { firstName: 'Jan', lastName: 'Nowak', nationality: 'PL', age: 16, dominantFoot: 'right', customSeed: '', seed: 'save-seed', position: 'central_midfielder', heightCm: 179, weightKg: 73 };
 const career = () => createCareerState(generateStartingPlayerProfile(input, 'save-seed', 0), 'save-seed');
 
 describe('career persistence', () => {

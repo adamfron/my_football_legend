@@ -14,4 +14,4 @@
 
 Zrealizowany przepływ obejmuje: start gry, nową karierę, kreator tożsamości i profilu, trzy deterministyczne losowania atrybutów, kartę zawodnika z własnym wykresem SVG, utworzenie `CareerState`, zapis w `localStorage` i ekran „Lipiec 2026 — pierwszy dzień w akademii”.
 
-Na później pozostają: właściwa pętla rozgrywki, treningi, decyzje, wydarzenia meczowe, sezon, transfery, generator klubów, zaawansowane relacje, pełny portret i wersja mobilna.
+Na później pozostają: właściwa pętla rozgrywki, treningi, decyzje, wydarzenia meczowe, sezon, transfery, generator klubów, zaawansowane relacje, pełny portret, wersja mobilna oraz przyszły system budowy ciała, kondycji, treningu i zmiany masy podczas kariery.
