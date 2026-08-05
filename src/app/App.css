@@ -41,3 +41,21 @@ small { color: #b6c5bd; font-weight: 500; line-height: 1.45; }
 .field-error { margin: 0; color: #ffd0d0; font-weight: 600; }
 .variant-picker { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
 .variant-picker button.active { outline: 2px solid #44d19d; background: rgba(68,209,157,.16); color: #fff; }
+.choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+.decision-note { color: #b9c9c1; font-size: .95rem; }
+.decision-card { display: flex; flex-direction: column; gap: 14px; padding: 20px; border: 1px solid rgba(255,255,255,.14); border-radius: 22px; background: #111c25; min-height: 100%; }
+.decision-card h3 { margin: 0; font-size: 1.25rem; }
+.decision-description { color: #e8f2ed; line-height: 1.55; }
+.decision-consequences { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: auto; }
+.decision-consequences section { border-radius: 16px; padding: 14px; background: rgba(255,255,255,.06); color: #edf8f2; }
+.decision-consequences h4 { margin: 0 0 8px; font-size: 1rem; color: #9de7c8; }
+.decision-consequences p { margin: 0; font-size: .98rem; line-height: 1.5; color: #edf8f2; }
+.person-avatar { width: 82px; height: 82px; border-radius: 22px; flex: 0 0 auto; }
+.relation-card, .coach-card { display: grid; gap: 10px; }
+.club-profile { display: grid; gap: 22px; }
+.club-header { display: flex; gap: 22px; align-items: center; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,.12); }
+.club-crest { width: 92px; height: 110px; }
+.club-profile section { padding: 18px; border-radius: 18px; background: rgba(255,255,255,.05); }
+.tone-badge { display: inline-block; margin-left: 8px; padding: 4px 10px; border-radius: 999px; background: rgba(68,209,157,.16); color: #b8f4dc; font-size: .82rem; }
+.history-item p { line-height: 1.55; }
+@media (max-width: 1000px) { .choices, .positions, .card, .career-grid { grid-template-columns: 1fr; } }

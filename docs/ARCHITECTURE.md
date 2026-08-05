@@ -27,3 +27,9 @@ Pierwszy ekran kariery pozostaje statycznym prologiem. Nie zawiera jeszcze symul
 ## Minimalny silnik wydarzeń akademii
 
 Moduły `src/core/events` są niezależne od Reacta. `eventRegistry.ts` udostępnia deklaratywne definicje wydarzeń, `instantiateEvent.ts` tworzy instancje, `resolveEventChoice.ts` rozstrzyga wybory i ukryte testy przez `RandomGenerator`, a `applyEventResolution.ts` stosuje obiektywne konsekwencje do `CareerState` i zapisuje karierę po decyzji. `academyArc.ts` zapewnia idempotentną inicjalizację trenera, konkurenta i aktywnego wydarzenia dla nowych oraz starszych zapisów.
+
+## Warstwa prezentacji narracji
+
+`src/core/narrative/factPresentation.ts` tłumaczy kanoniczne fakty kariery na tytuł, opis, ton, uczestników i klub bez modyfikowania `HistoryFact`. React korzysta z tej warstwy w historii, relacjach i podsumowaniu tygodnia, ale logika pozostaje w `src/core` i nie zależy od komponentów.
+
+`src/core/characters/avatarGenome.ts` generuje deterministyczny opis prostego awatara SVG na podstawie seedu, wieku i wersji generatora. Komponent `PersonAvatar` renderuje ten genom, a nie zapisuje twarzy w stanie kariery.

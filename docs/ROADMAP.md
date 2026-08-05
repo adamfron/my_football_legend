@@ -19,3 +19,10 @@ Na później pozostają: właściwa pętla rozgrywki, treningi, decyzje, wydarze
 ## Aktualny etap: pierwszy tydzień akademii
 
 Zrealizowany kolejny kamień milowy to pierwszy grywalny łuk narracyjny akademii Vistula Nova oraz minimalny deklaratywny silnik wydarzeń. Poza zakresem nadal pozostają pełny sezon, liga, transfery, symulacja spotkań i backend.
+
+## Ukończone w etapie prezentacji
+
+- Przebudowa kart decyzji na czytelne karty z osobnym przyciskiem akcji.
+- Warstwa prezentacji faktów oraz deterministyczne podsumowanie pierwszego tygodnia.
+- Pierwszy profil klubu Vistula Nova bez tabel ligowych i generatora klubów.
+- Deterministyczne awatary SVG v1 dla relacji i trenera w profilu klubu.

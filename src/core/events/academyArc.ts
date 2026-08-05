@@ -30,7 +30,10 @@ export const ensureRival = (career: CareerState): CareerState => {
   const rival = generateAcademyRival(career);
   return { ...career, significantPeople: [...career.significantPeople, rival], relationships: { ...career.relationships, [RIVAL_ID]: career.relationships[RIVAL_ID] ?? neutralRelationship() } };
 };
-export const makeEventInstance = (career: CareerState, definitionId = FIRST_EVENT_ID): EventInstance => ({ id: `event_${definitionId}`, definitionId, context: { date: '2026-07-01', stageKey: 'events.academy.stage.first_week' }, cast: { player: career.player.id, coach: COACH_ID, rival: RIVAL_ID }, randomState: RandomGenerator.fromSeed(`${career.seed}:${definitionId}`).export(), createdFactIds: [], threadChanges: {} });
+export const makeEventInstance = (career: CareerState, definitionId = FIRST_EVENT_ID): EventInstance => {
+  const castByEvent = definitionId === 'academy_coach_introduction' ? { player: career.player.id, coach: COACH_ID } : definitionId === 'academy_rival_reaction' ? { player: career.player.id, rival: RIVAL_ID } : { player: career.player.id, coach: COACH_ID, rival: RIVAL_ID };
+  return { id: `event_${definitionId}`, definitionId, context: { date: '2026-07-01', stageKey: 'events.academy.stage.first_week' }, cast: castByEvent, randomState: RandomGenerator.fromSeed(`${career.seed}:${definitionId}`).export(), createdFactIds: [], threadChanges: {} };
+};
 export const upsertThread = (career: CareerState, thread: StoryThread): CareerState => ({ ...career, storyThreads: career.storyThreads.some((t) => t.id === thread.id) ? career.storyThreads.map((t) => t.id === thread.id ? { ...t, ...thread, relatedFactIds: Array.from(new Set([...t.relatedFactIds, ...thread.relatedFactIds])), recallTags: Array.from(new Set([...t.recallTags, ...thread.recallTags])) } : t) : [...career.storyThreads, thread] });
 export const hasCompletedAcademyArc = (career: CareerState) => career.historyFacts.some((f) => f.id === WEEK_COMPLETED_FACT_ID || f.factType === 'academy_first_week_completed');
 export const initializeAcademyArc = (career: CareerState): CareerState => {
