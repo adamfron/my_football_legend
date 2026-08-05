@@ -17,3 +17,9 @@ Gotowe teksty nie są źródłem prawdy o historii. Źródłem prawdy są fakty,
 ## Prezentacja faktów i podsumowań
 
 Fakty pozostają źródłem prawdy: zapisują typ, decyzję, rezultat, aktorów, cele, klub i powiązania przyczynowe. Teksty dla gracza powstają dopiero w warstwie prezentacji faktów. Podsumowanie pierwszego tygodnia jest deterministycznie składane z faktów pierwszego wrażenia, gry treningowej, rozmowy z konkurentem i aktualnego kontekstu walki o szansę u seniorów.
+
+## Selekcja seniorów jako fakty i interpretacje
+
+Końcowy sprawdzian nie jest tym samym co decyzja trenera. Sprawdzian zapisuje fakt występu i wewnętrzny raport oceny kandydata, natomiast decyzja Marka Wrony zapisuje osobny fakt selekcji. Decyzja uwzględnia wcześniejsze fakty: pierwsze wrażenie, pierwszą grę treningową, kierunek przygotowań, dodatkową pracę z konkurentem oraz relacje z trenerem i rywalem.
+
+Konkurent ma lekki deterministyczny profil akademii zamiast pełnej symulacji składu. Profil opisuje jakość bazową, gotowość, dopasowanie taktyczne i reakcję na presję, ale liczby nigdy nie są prezentowane graczowi. Podsumowanie drugiego tygodnia jest składane z kanonicznych faktów, relacji i wątków, a nie zapisywane jako gotowy tekst źródłowy.

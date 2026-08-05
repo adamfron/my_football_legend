@@ -26,3 +26,9 @@ Zrealizowany kolejny kamień milowy to pierwszy grywalny łuk narracyjny akademi
 - Warstwa prezentacji faktów oraz deterministyczne podsumowanie pierwszego tygodnia.
 - Pierwszy profil klubu Vistula Nova bez tabel ligowych i generatora klubów.
 - Deterministyczne awatary SVG v1 dla relacji i trenera w profilu klubu.
+
+## Aktualny zakres po drugim tygodniu akademii
+
+Zaimplementowany łuk kończy się decyzją o najbliższej ścieżce: trening seniorów, wspólna szansa z konkurentem, indywidualny plan albo dodatkowy sprawdzian akademii. Właściwy trening seniorów, dodatkowy mecz akademii, pełny system rozwoju, liga, transfery i backend pozostają poza zakresem kolejnych scen bazowej wersji.
+
+Balans selekcji można sprawdzać w devtools przez symulację naboru do seniorów. Symulator uruchamia deterministyczne serie seedów dla kilku strategii i raportuje rozkład wyników, tierów sprawdzianu oraz średnią kondycję przed oceną.

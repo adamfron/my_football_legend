@@ -51,3 +51,9 @@ Weryfikacja projektu odbywa się komendą `npm run verify`, która uruchamia lin
 ## Aktualny etap prezentacji narracji
 
 Interfejs akademii prezentuje decyzje jako osobne karty z opisem, możliwymi korzyściami i ryzykami zapisanymi językiem świata gry. Historia i relacje korzystają z warstwy prezentacji faktów, dzięki czemu gracz widzi tytuły, streszczenia, ton i uczestników zamiast technicznych identyfikatorów. Zakładka Klub pokazuje pierwszy profil Vistula Nova oparty na danych `Club`, a relacje używają deterministycznych awatarów SVG.
+
+## Drugi tydzień akademii
+
+Po domknięciu pierwszego tygodnia gra pozwala rozpocząć drugi łuk akademii Vistula Nova. Łuk obejmuje informację zwrotną Marka Wrony, wybór przygotowania, dodatkowy trening z konkurentem, końcowy sprawdzian, decyzję o treningach z seniorami, odpowiedź zawodnika i podsumowanie dwóch tygodni. Brak zaproszenia jest ścieżką fail-forward: prowadzi do indywidualnego planu albo dodatkowego sprawdzianu akademii, a nie do końca kariery.
+
+W narzędziach developerskich (`?devtools=1`) dostępna jest ręcznie uruchamiana symulacja naboru do seniorów, która sprawdza rozkład decyzji trenera dla deterministycznych seedów bez zapisywania wyników w stanie kariery.
