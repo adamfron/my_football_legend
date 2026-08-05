@@ -15,3 +15,7 @@
 Zrealizowany przepływ obejmuje: start gry, nową karierę, kreator tożsamości i profilu, trzy deterministyczne losowania atrybutów, kartę zawodnika z własnym wykresem SVG, utworzenie `CareerState`, zapis w `localStorage` i ekran „Lipiec 2026 — pierwszy dzień w akademii”.
 
 Na później pozostają: właściwa pętla rozgrywki, treningi, decyzje, wydarzenia meczowe, sezon, transfery, generator klubów, zaawansowane relacje, pełny portret, wersja mobilna oraz przyszły system budowy ciała, kondycji, treningu i zmiany masy podczas kariery.
+
+## Aktualny etap: pierwszy tydzień akademii
+
+Zrealizowany kolejny kamień milowy to pierwszy grywalny łuk narracyjny akademii Vistula Nova oraz minimalny deklaratywny silnik wydarzeń. Poza zakresem nadal pozostają pełny sezon, liga, transfery, symulacja spotkań i backend.

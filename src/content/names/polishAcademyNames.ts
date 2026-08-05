@@ -1,0 +1,2 @@
+export const polishAcademyFirstNames = ['Adam','Bartosz','Cezary','Dawid','Emil','Filip','Grzegorz','Hubert','Igor','Jan','Kamil','Leon','Michał','Natan','Oskar','Paweł'];
+export const polishAcademyLastNames = ['Bąk','Cichy','Domański','Flis','Gajda','Kaczmarek','Lis','Maj','Nowak','Olejnik','Pawlak','Rutkowski','Sikora','Tomczak','Wójcik','Zając'];
