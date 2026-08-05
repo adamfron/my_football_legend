@@ -23,3 +23,7 @@ Deterministyczność profilu wynika z użycia `RandomGenerator.fromSeed` z klucz
 `src/core/persistence.ts` jest małym modułem bez zależności od UI. Zapisuje `version`, `savedAt` i `career` w `localStorage`, a przy odczycie odróżnia brak zapisu, uszkodzony JSON, niezgodną wersję oraz dane niezgodne ze schematem `careerStateSchema`.
 
 Pierwszy ekran kariery pozostaje statycznym prologiem. Nie zawiera jeszcze symulacji czasu, wydarzeń narracyjnych ani mechanik sezonu.
+
+## Minimalny silnik wydarzeń akademii
+
+Moduły `src/core/events` są niezależne od Reacta. `eventRegistry.ts` udostępnia deklaratywne definicje wydarzeń, `instantiateEvent.ts` tworzy instancje, `resolveEventChoice.ts` rozstrzyga wybory i ukryte testy przez `RandomGenerator`, a `applyEventResolution.ts` stosuje obiektywne konsekwencje do `CareerState` i zapisuje karierę po decyzji. `academyArc.ts` zapewnia idempotentną inicjalizację trenera, konkurenta i aktywnego wydarzenia dla nowych oraz starszych zapisów.

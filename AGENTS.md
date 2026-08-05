@@ -7,6 +7,7 @@
 - Wszystkie losowania mają korzystać z deterministycznego generatora.
 - Historia ma być przechowywana jako fakty, wątki i interpretacje, nie tylko gotowe teksty.
 - Nie wolno dodawać ciężkich zależności bez uzasadnienia.
-- Przed zakończeniem zadania należy uruchomić testy, lint i build.
+- Przed zakończeniem zadania należy uruchomić npm run verify.
+- PR nie może być opisany jako gotowy, jeżeli verify nie przeszło.
 - Nowe typy danych muszą mieć schematy walidacyjne.
 - Językiem produktu jest polski, a językiem kodu angielski.

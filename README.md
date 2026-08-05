@@ -41,3 +41,9 @@ Tworzenie profilu odbywa się poza Reactem w `src/core/playerCreator.ts`. Genera
 Lokalny zapis ma format `{ version, savedAt, career }` i jest obsługiwany przez `src/core/persistence.ts`. Dane pozostają w tej przeglądarce; etap nie dodaje backendu, kont, zewnętrznych API, analityki ani cookies.
 
 Świadomie odłożone elementy: sezony, mecze, transfery, decyzje treningowe, pełny generator twarzy, archetypy fantasy, poziom trudności, zmiana pozycji i generowana narracja sezonowa.
+
+## Pierwszy łuk akademii
+
+Gra zawiera pierwszy grywalny tydzień w akademii Vistula Nova: rozmowę z trenerem Markiem Wroną, deterministycznie generowanego konkurenta, grę treningową, rozmowę po treningu i podsumowanie tygodnia. Wydarzenia zapisują kanoniczne fakty, relacje i wątki; widoczny tekst jest tylko lokalizowaną interpretacją tych danych.
+
+Weryfikacja projektu odbywa się komendą `npm run verify`, która uruchamia lint, testy i build.
