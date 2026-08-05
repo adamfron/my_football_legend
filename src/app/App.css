@@ -33,3 +33,11 @@ input, select { padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(
 .errors { margin-top: 18px; padding: 14px 18px; border-radius: 16px; background: rgba(255, 99, 99, .14); color: #ffd0d0; }
 .devgrid { display: grid; gap: 16px; }
 code, pre { color: #9de7c8; white-space: pre-wrap; }
+label { display: grid; gap: 8px; font-weight: 800; }
+label input, label select { font-weight: 500; }
+small { color: #b6c5bd; font-weight: 500; line-height: 1.45; }
+.unit-field { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
+.unit-field span { color: #c8d8d0; font-weight: 800; }
+.field-error { margin: 0; color: #ffd0d0; font-weight: 600; }
+.variant-picker { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.variant-picker button.active { outline: 2px solid #44d19d; background: rgba(68,209,157,.16); color: #fff; }
