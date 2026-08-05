@@ -19,14 +19,26 @@ export type DominantFoot = (typeof dominantFootIds)[number];
 export const nationalityIds = ['PL'] as const;
 export type NationalityId = (typeof nationalityIds)[number];
 
-const integerField = (emptyMessage: string, numberMessage: string) => z.preprocess((value) => {
-  if (typeof value === 'string') {
-    const trimmed = value.trim();
-    if (trimmed === '') return undefined;
-    return Number(trimmed);
-  }
-  return value;
-}, z.number({ error: emptyMessage }).finite(numberMessage).int(numberMessage));
+const integerField = (
+  emptyMessage: string,
+  numberMessage: string,
+  configure?: (schema: z.ZodNumber) => z.ZodNumber,
+) => {
+  const baseSchema = z.number({ error: emptyMessage }).finite(numberMessage).int(numberMessage);
+  const numberSchema = configure ? configure(baseSchema) : baseSchema;
+
+  return z.preprocess((value) => {
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+
+      if (trimmed === '') return undefined;
+
+      return Number(trimmed);
+    }
+
+    return value;
+  }, numberSchema);
+};
 
 export const getAllowedWeightRange = (heightCm: number): { min: number; max: number } => {
   const meters = heightCm / 100;
@@ -45,8 +57,17 @@ export const identityInputSchema = z.object({
 });
 export type IdentityInput = z.infer<typeof identityInputSchema>;
 
-const heightCmSchema = integerField('Podaj wzrost zawodnika.', 'Wzrost musi być liczbą całkowitą.').min(MIN_HEIGHT_CM, `Minimalny wzrost to ${MIN_HEIGHT_CM} cm.`).max(MAX_HEIGHT_CM, `Maksymalny wzrost to ${MAX_HEIGHT_CM} cm.`);
-const weightKgSchema = integerField('Podaj masę ciała zawodnika.', 'Masa musi być liczbą całkowitą.');
+const heightCmSchema = integerField(
+  'Podaj wzrost zawodnika.',
+  'Wzrost musi być liczbą całkowitą.',
+  (schema) => schema
+    .min(MIN_HEIGHT_CM, `Minimalny wzrost to ${MIN_HEIGHT_CM} cm.`)
+    .max(MAX_HEIGHT_CM, `Maksymalny wzrost to ${MAX_HEIGHT_CM} cm.`),
+);
+const weightKgSchema = integerField(
+  'Podaj masę ciała zawodnika.',
+  'Masa musi być liczbą całkowitą.',
+);
 
 export const profileInputSchema = z.object({
   position: z.enum(positionIds, { error: 'Wybierz pozycję.' }),

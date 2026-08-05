@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isDevToolsEnabled } from './App';
+import { isDevToolsEnabled } from './devTools';
 
 describe('devtools visibility flag', () => {
   it('hides devtools without the query parameter', () => {

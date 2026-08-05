@@ -5,6 +5,7 @@ import { translate } from '../core/narrative/localization';
 import { attributeKeys, canReroll, createCareerState, defaultBodyForPosition, generateStartingPlayerProfile, getAllowedWeightRange, identityInputSchema, makeReadableSeed, MAX_PROFILE_VARIANTS, positionIds, profileInputSchema, STARTING_AGE, type CreatorInput, type IdentityInput, type PositionId, type StartingPlayerProfile } from '../core/playerCreator';
 import { hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
 import type { CareerState, PlayerAttributes } from '../types/domain';
+import { isDevToolsEnabled } from './devTools';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
@@ -20,7 +21,6 @@ type TabId = (typeof baseTabs)[number][0] | typeof devtoolsTab[0];
 type ProfileFormState = { position: PositionId; heightCm: string; weightKg: string };
 type FieldErrors = Partial<Record<'firstName'|'lastName'|'nationality'|'dominantFoot'|'customSeed'|'heightCm'|'weightKg'|'position', string[]>>;
 
-export const isDevToolsEnabled = (search = globalThis.location?.search ?? '') => new URLSearchParams(search).get('devtools') === '1';
 
 const tParam = (key: string, params: Record<string,string>) => translate(key, Object.fromEntries(Object.entries(params).map(([k,v]) => [k, translate(v)])));
 const initials = (first: string, last: string) => `${first[0] ?? 'M'}${last[0] ?? 'F'}`.toUpperCase();
@@ -33,7 +33,7 @@ const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
 };
 
 const PlayerCard = ({ profile, seed }: { profile: StartingPlayerProfile; seed: string }) => <section className="card"><div className={`portrait portrait-${seed.length % 4}`}><span>{initials(profile.player.firstName, profile.player.lastName)}</span></div><div><h3>{profile.player.firstName} {profile.player.lastName}</h3><p>{profile.player.age} lat · {translate(`nationality.${profile.player.nationality}`)} · {translate(`position.${profile.player.primaryPosition}`)}</p><p>{profile.player.heightCm} cm · {profile.player.weightKg} kg · {translate(profile.player.traits[0] === 'foot_left' ? 'foot.left' : 'foot.right')}</p><p>{tParam(profile.profileDescriptionKey, profile.profileDescriptionParams)}</p><p><strong>Seed kariery:</strong> <code>{seed}</code></p><p><strong>Pierwszy klub:</strong> Vistula Nova</p></div><RadarChart attributes={profile.player.attributes}/><ul className="attrs">{attributeKeys.map((key) => <li key={key}><span>{translate(`attribute.${key}`)}</span><strong>{profile.player.attributes[key]}</strong></li>)}</ul></section>;
-const FieldError = ({ errors }: { errors?: string[] }) => errors?.map((error) => <p className="field-error" key={error}>{error}</p>) ?? null;
+const FieldError = ({ errors }: { errors?: string[] | undefined }) => errors?.map((error) => <p className="field-error" key={error}>{error}</p>) ?? null;
 
 export const App = () => {
   const devtoolsEnabled = isDevToolsEnabled();
