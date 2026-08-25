@@ -25,34 +25,35 @@ const clubSeeds: Array<[string, string, number, number, number]> = [
   ['club_start_brzezina', 'Start Brzezina', 50, 53, 47],
 ];
 
-const roundDates = [
-  '2026-09-05',
-  '2026-09-12',
-  '2026-09-19',
-  '2026-09-26',
-  '2026-10-03',
-  '2026-10-10',
-  '2026-10-17',
-  '2026-10-24',
-  '2026-10-31',
-  '2026-11-07',
-  '2026-11-14',
-  '2027-03-06',
-  '2027-03-13',
-  '2027-03-20',
-  '2027-03-27',
-  '2027-04-03',
-  '2027-04-10',
-  '2027-04-17',
-  '2027-04-24',
-  '2027-05-01',
-  '2027-05-08',
-  '2027-05-15',
-];
+const scheduleDates = (startYear: number) => {
+  const dates: string[] = [];
+  const add = (start: string, count: number) => {
+    const date = new Date(`${start}T00:00:00Z`);
+    for (let i = 0; i < count; i++) {
+      dates.push(date.toISOString().slice(0, 10));
+      date.setUTCDate(date.getUTCDate() + 7);
+    }
+  };
+  add(`${startYear}-08-29`, 11);
+  add(`${startYear + 1}-03-06`, 11);
+  return dates;
+};
 
 /** Circle-method schedule: every pair meets twice and swaps venue. */
-export const createLeagueSeason = (seed: string): LeagueSeason => {
+export interface LeagueSeasonOptions {
+  startYear?: number;
+  controlledClubId?: string;
+  controlledClubName?: string;
+  professional?: boolean;
+  professionalLevel?: number;
+}
+export const createLeagueSeason = (
+  seed: string,
+  options: LeagueSeasonOptions = {},
+): LeagueSeason => {
   void seed;
+  const startYear = options.startYear ?? 2026;
+  const roundDates = scheduleDates(startYear);
   const clubs: LeagueClubProfile[] = clubSeeds.map(
     ([clubId, name, strength, attackStrength, defenseStrength]) => ({
       clubId,
@@ -73,7 +74,7 @@ export const createLeagueSeason = (seed: string): LeagueSeason => {
       const b = rotation[ids.length - 1 - i]!;
       const swap = (round + i) % 2 === 1;
       fixtures.push({
-        id: `league_2026_${round + 1}_${i + 1}`,
+        id: `league_${startYear}_${round + 1}_${i + 1}`,
         roundIndex: round,
         date: roundDates[round]!,
         homeClubId: swap ? b : a,
@@ -97,7 +98,7 @@ export const createLeagueSeason = (seed: string): LeagueSeason => {
       completed: false,
       fixtures: fixtures.map((fixture, i) => ({
         ...fixture,
-        id: `league_2026_${index + 12}_${i + 1}`,
+        id: `league_${startYear}_${index + 12}_${i + 1}`,
         roundIndex: index + 11,
         date: roundDates[index + 11]!,
         homeClubId: fixture.awayClubId,
@@ -106,10 +107,31 @@ export const createLeagueSeason = (seed: string): LeagueSeason => {
     }),
   );
   return {
-    id: '2026-27',
-    name: 'Liga regionalna 2026/27',
+    id: `${startYear}-${String(startYear + 1).slice(-2)}`,
+    name: `${startYear}/${String(startYear + 1).slice(-2)}`,
+    competition: options.professional
+      ? {
+          id: `polish-professional-${options.professionalLevel ?? 3}`,
+          name:
+            (options.professionalLevel ?? 3) <= 2
+              ? 'Polska Liga Krajowa'
+              : (options.professionalLevel ?? 3) === 3
+                ? 'Polska Liga Regionalna'
+                : 'Polska Liga Okręgowa',
+          country: 'Polska',
+          category: 'professional',
+          tier: options.professionalLevel ?? 3,
+        }
+      : {
+          id: 'polish-u17',
+          name: 'Polska Liga U-17',
+          country: 'Polska',
+          category: 'youth',
+          ageLevel: 'U17',
+        },
+    controlledClubId: options.controlledClubId ?? VISTULA_NOVA_ID,
     startDate: roundDates[0]!,
-    endDate: '2027-05-31',
+    endDate: `${startYear + 1}-05-31`,
     clubIds: ids,
     clubs,
     rounds,
@@ -160,8 +182,8 @@ export const settleLeagueRound = (
   if (!season || !round || round.completed) return career;
   const fixtures = round.fixtures.map((fixture) => {
     if (fixture.completed) return fixture;
-    const vistula = [fixture.homeClubId, fixture.awayClubId].includes(VISTULA_NOVA_ID);
-    return vistula && knownVistulaResult
+    const controlled = [fixture.homeClubId, fixture.awayClubId].includes(season.controlledClubId);
+    return controlled && knownVistulaResult
       ? { ...fixture, ...knownVistulaResult, completed: true }
       : simulateLeagueFixture(season, fixture, career.seed);
   });
@@ -180,13 +202,13 @@ export const settleLeagueRound = (
   };
   if (!next.leagueSeason.completed) return next;
   const finalPosition =
-    getLeagueTable(next).find((row) => row.clubId === VISTULA_NOVA_ID)?.position ?? 12;
+    getLeagueTable(next).find((row) => row.clubId === season.controlledClubId)?.position ?? 12;
   return {
     ...next,
     seasonOutcome: {
       finalPosition,
       champion: finalPosition === 1,
-      competitionType: 'academy',
+      competitionType: season.competition.category === 'youth' ? 'academy' : 'professional',
     },
   };
 };
@@ -255,19 +277,20 @@ export const getLeagueTable = (career: Pick<CareerState, 'leagueSeason'>): Leagu
 
 export const getSeasonContext = (career: CareerState) => {
   const table = getLeagueTable(career);
-  const row = table.find((item) => item.clubId === VISTULA_NOVA_ID);
+  const row = table.find((item) => item.clubId === career.leagueSeason?.controlledClubId);
   const season = career.leagueSeason;
+  const controlledClubId = season?.controlledClubId ?? career.currentClub.id;
   const roundsRemaining = season ? season.rounds.length - season.currentRound : 22;
   const recent =
     season?.rounds
       .flatMap((r) => r.fixtures)
-      .filter((f) => f.completed && [f.homeClubId, f.awayClubId].includes(VISTULA_NOVA_ID))
+      .filter((f) => f.completed && [f.homeClubId, f.awayClubId].includes(controlledClubId))
       .slice(-5) ?? [];
   const wins = recent.filter((f) =>
-    f.homeClubId === VISTULA_NOVA_ID ? f.homeGoals! > f.awayGoals! : f.awayGoals! > f.homeGoals!,
+    f.homeClubId === controlledClubId ? f.homeGoals! > f.awayGoals! : f.awayGoals! > f.homeGoals!,
   ).length;
   const winless = recent.filter((f) =>
-    f.homeClubId === VISTULA_NOVA_ID ? f.homeGoals! <= f.awayGoals! : f.awayGoals! <= f.homeGoals!,
+    f.homeClubId === controlledClubId ? f.homeGoals! <= f.awayGoals! : f.awayGoals! <= f.homeGoals!,
   ).length;
   return {
     position: row?.position ?? 1,

@@ -95,3 +95,7 @@ Kariera obejmuje pełny pierwszy sezon 2026/27: deterministyczny terminarz dwuna
 ## Academy prologue and professional career
 
 Season 1 (2026/27) is a prologue in the Vistula Nova youth academy, not a professional-club season. Academy graduation and the first professional contract open the main multi-season career loop.
+
+## Zasada kontekstu kariery
+
+Kontekst historyczny jest niezmienny. Bieżący kontekst interfejsu i symulacji wynika z aktualnego sezonu kariery, klubu i rozgrywek. OVR jest ważoną pozycyjnie, czytelną dla gracza syntezą umiejętności; nie zastępuje atrybutów, formy, roli, zdrowia, morale ani decyzji trenera.

@@ -72,10 +72,18 @@ import {
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import { advanceUntilDecision } from '../core/careerSimulation';
-import { getLeagueTable, VISTULA_NOVA_ID } from '../core/leagueSeason';
+import { getLeagueTable } from '../core/leagueSeason';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
 import { acceptProfessionalOffer, continueWithProfessionalTrial } from '../core/careerSeasons';
+import { getPlayerOverall } from '../core/playerOverall';
+import {
+  clubArchetypeLabel,
+  getCareerHeader,
+  getCareerSubtitle,
+  getCurrentHeadCoach,
+  squadRoleLabel,
+} from '../core/careerPresentation';
 import {
   getRegularSeasonEvent,
   resolveRegularSeasonEvent,
@@ -295,20 +303,10 @@ const playerStatus = (career: CareerState) => {
   if (outcome === 'extended_assessment') return 'Czeka na dodatkowy sprawdzian';
   return hasCompletedAcademyArc(career) ? 'Kandydat do treningów z seniorami' : 'Zawodnik akademii';
 };
-const careerHeader = (career: CareerState) => {
-  const key = String(
-    career.activeEvent?.context.stageKey ??
-      (career.historyFacts.some((f) => f.factType === 'academy_selection_result')
-        ? 'events.academy.stage.selection_decision'
-        : hasCompletedAcademyArc(career)
-          ? 'events.academy.stage.deciding_week'
-          : 'events.academy.stage.first_week'),
-  );
-  return `Lipiec 2026 — ${translate(key).toLowerCase()}`;
-};
 const eventParams = (career: CareerState) => {
   const rival = career.significantPeople.find((p) => p.role === 'academy_rival');
-  const coach = career.significantPeople.find((p) => p.role === 'coach');
+  const coach =
+    getCurrentHeadCoach(career) ?? career.significantPeople.find((p) => p.role === 'coach');
   return {
     rivalFirstName: rival?.firstName ?? 'Konkurent',
     rivalFullName: rival ? `${rival.firstName} ${rival.lastName}` : 'Konkurent',
@@ -383,16 +381,23 @@ const ClubCrest = ({ name }: { name: string }) => (
     />
     <path d="M25 24h50v16H25zM28 51l22 35 22-35" fill="#44d19d" />
     <text x="50" y="103" textAnchor="middle" fontSize="14" fontWeight="900" fill="#eef7f1">
-      VN
+      {name
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((word) => word[0])
+        .join('')
+        .toUpperCase()}
     </text>
   </svg>
 );
 const ClubProfile = ({ career }: { career: CareerState }) => {
   const club = career.currentClub;
-  const coach = career.significantPeople.find((p) => p.role === 'coach');
+  const coach = getCurrentHeadCoach(career);
   const role = assignedRole(career);
-  const importantPeople = career.significantPeople.filter((person) =>
-    ['coach', 'academy_rival', 'senior_head_coach', 'senior_captain'].includes(person.role),
+  const importantPeople = career.significantPeople.filter(
+    (person) =>
+      person.clubId === club.id &&
+      ['coach', 'academy_rival', 'senior_head_coach', 'senior_captain'].includes(person.role),
   );
   return (
     <div className="club-profile">
@@ -406,20 +411,20 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
           <strong>{prestigeLabel(club.prestige)}</strong>
         </div>
       </header>
-      {role && (
+      {(career.currentContract || role) && (
         <section>
           <h3>Twoja obecna rola</h3>
-          <p>{roleStatus(role)}</p>
+          <p>
+            {career.currentContract
+              ? squadRoleLabel(career.currentContract.squadRole)
+              : roleStatus(role!)}
+          </p>
         </section>
       )}
       <section>
         <h3>Tożsamość klubu</h3>
         <p>
-          {club.name} buduje reputację przez cierpliwe rozwijanie zawodników i spokojną pracę
-          akademii.
-        </p>
-        <p>
-          <strong>DNA:</strong> cierpliwość w rozwoju, techniczne szkolenie i wiara w akademię.
+          <strong>DNA:</strong> {club.dna.join(', ')}.
         </p>
         <p>
           <strong>Styl gry:</strong> {club.playStyle}.
@@ -431,21 +436,22 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
           <strong>Sytuacja:</strong> {club.currentSituation}
         </p>
       </section>
-      <section>
-        <h3>Ostatni sezon</h3>
-        {club.seasonHistory.map((s) => (
-          <p key={s.season}>
-            {s.season}: {s.placement ? `${s.placement}. miejsce. ` : ''}
-            {s.summary}
-          </p>
-        ))}
-      </section>
+      {club.seasonHistory.length > 0 && (
+        <section>
+          <h3>Ostatni sezon</h3>
+          {club.seasonHistory.map((s) => (
+            <p key={s.season}>
+              {s.season}: {s.placement ? `${s.placement}. miejsce. ` : ''}
+              {s.summary}
+            </p>
+          ))}
+        </section>
+      )}
       <section>
         <h3>Co to oznacza dla ciebie</h3>
         <p>
-          {club.name} rzeczywiście daje szanse wychowankom, ale oczekuje cierpliwości i gry zgodnej
-          z zespołową filozofią. {coach ? `${coach.firstName} ${coach.lastName}` : 'Trener'}{' '}
-          obserwuje, czy potrafisz połączyć rozwój indywidualny z potrzebami drużyny.
+          {club.youthApproach} {coach ? `${coach.firstName} ${coach.lastName}` : 'Sztab'} obserwuje,
+          czy potrafisz połączyć rozwój indywidualny z potrzebami drużyny.
         </p>
       </section>
       {importantPeople.length > 0 && (
@@ -735,7 +741,7 @@ const SeasonEndSummary = ({
   onCareer: (career: CareerState) => void;
 }) => {
   const table = getLeagueTable(career);
-  const club = table.find((row) => row.clubId === VISTULA_NOVA_ID);
+  const club = table.find((row) => row.clubId === career.leagueSeason?.controlledClubId);
   const summary = buildSeasonSummary(career, career.currentSeason);
   const availability = availabilityState(career);
   const position = club?.position ?? 12;
@@ -800,7 +806,7 @@ const SeasonEndSummary = ({
                   : 'Solidny klub zawodowy'}
               </p>
               <p>
-                <strong>Rola:</strong> {offer.contract.squadRole.replaceAll('_', ' ')}
+                <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
               </p>
               <p>
                 <strong>Pensja:</strong> {offer.contract.monthlySalary.toLocaleString('pl-PL')} PLN
@@ -817,8 +823,7 @@ const SeasonEndSummary = ({
                 <strong>Konkurencja:</strong> {offer.competitionAssessment}
               </p>
               <p>
-                <strong>Filozofia:</strong>{' '}
-                {offer.club.archetype.replaceAll('_', ' ').toLowerCase()}
+                <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}
               </p>
               <p>
                 <strong>Szansa:</strong> {offer.opportunity}
@@ -860,8 +865,10 @@ const CareerHud = ({ career }: { career: CareerState }) => {
       <strong>
         Sezon {season.careerSeasonNumber} · {season.seasonLabel} · {career.currentClub.name}
       </strong>
+      <small>{career.leagueSeason?.competition.name}</small>
       <span>
-        Morale {career.player.morale} · Kondycja {career.player.fitness} · {health}
+        OVR {getPlayerOverall(career.player, career.player.primaryPosition)} · Morale{' '}
+        {career.player.morale} · Kondycja {career.player.fitness} · {health}
       </span>
       <label>
         Postęp sezonu{' '}
@@ -881,12 +888,13 @@ const CareerHud = ({ career }: { career: CareerState }) => {
 
 const SeasonView = ({ career }: { career: CareerState }) => {
   const table = getLeagueTable(career);
-  const own = table.find((row) => row.clubId === VISTULA_NOVA_ID);
+  const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
+  const own = table.find((row) => row.clubId === controlledClubId);
   const season = career.leagueSeason;
   const fixtures =
     season?.rounds
       .flatMap((round) => round.fixtures)
-      .filter((fixture) => [fixture.homeClubId, fixture.awayClubId].includes(VISTULA_NOVA_ID)) ??
+      .filter((fixture) => [fixture.homeClubId, fixture.awayClubId].includes(controlledClubId)) ??
     [];
   const visible = fixtures
     .filter((fixture) => fixture.completed)
@@ -895,10 +903,11 @@ const SeasonView = ({ career }: { career: CareerState }) => {
   const name = (id: string) => season?.clubs.find((club) => club.clubId === id)?.name ?? id;
   return (
     <section>
-      <h2>Sezon 2026/27</h2>
+      <h2>Sezon {season?.name ?? getSeasonProgress(career).seasonLabel}</h2>
+      <strong>{season?.competition.name}</strong>
       <p>
-        {season?.currentRound ?? 0}. kolejka z 22 · Vistula Nova zajmuje {own?.position ?? '—'}.
-        miejsce
+        {season?.currentRound ?? 0}. kolejka z {season?.rounds.length ?? 0} ·{' '}
+        {career.currentClub.name} zajmuje {own?.position ?? '—'}. miejsce
       </p>
       <h3>Tabela</h3>
       <div className="table-wrap">
@@ -918,7 +927,7 @@ const SeasonView = ({ career }: { career: CareerState }) => {
           </thead>
           <tbody>
             {table.map((row) => (
-              <tr key={row.clubId} className={row.clubId === VISTULA_NOVA_ID ? 'active' : ''}>
+              <tr key={row.clubId} className={row.clubId === controlledClubId ? 'active' : ''}>
                 <td>{row.position}</td>
                 <td>{row.clubName}</td>
                 <td>{row.played}</td>
@@ -946,7 +955,7 @@ const SeasonView = ({ career }: { career: CareerState }) => {
           <article className="mini-card" key={fixture.id}>
             <p>
               {formatDate(fixture.date)} ·{' '}
-              {fixture.homeClubId === VISTULA_NOVA_ID ? 'dom' : 'wyjazd'}
+              {fixture.homeClubId === controlledClubId ? 'dom' : 'wyjazd'}
             </p>
             <strong>
               {name(fixture.homeClubId)}{' '}
@@ -963,6 +972,34 @@ const SeasonView = ({ career }: { career: CareerState }) => {
           </article>
         );
       })}
+      {season?.completed && (
+        <section>
+          <h3>Twoje występy</h3>
+          {(career.matchHistory ?? [])
+            .filter(
+              (appearance) =>
+                appearance.date >= `${career.currentSeason}-07-01` &&
+                appearance.date <= `${career.currentSeason + 1}-06-30`,
+            )
+            .map((appearance) => {
+              const fixture = fixtures.find(
+                (item) =>
+                  item.id === appearance.matchId || `academy_${item.id}` === appearance.matchId,
+              );
+              return (
+                <article className="mini-card" key={appearance.matchId}>
+                  <strong>
+                    {appearance.date.slice(5).split('-').reverse().join('.')} ·{' '}
+                    {fixture
+                      ? `${name(fixture.homeClubId)} ${fixture.homeGoals}:${fixture.awayGoals} ${name(fixture.awayClubId)}`
+                      : name(appearance.opponentId)}
+                  </strong>
+                  <p>{compactAppearance(appearance)}</p>
+                </article>
+              );
+            })}
+        </section>
+      )}
     </section>
   );
 };
@@ -1177,14 +1214,17 @@ const SeptemberGame = ({
         <MatchHud career={career} />
         <h2>Wynik</h2>
         <h3>
-          Vistula Nova {forGoals}:{against} {match.opponent.name}
+          {career.currentClub.name} {forGoals}:{against} {match.opponent.name}
         </h3>
-        {match.momentum && <MatchMomentumChart points={match.momentum} />}
         {match.teamStats && (
           <div className="team-stats">
-            <strong>{match.venue === 'home' ? 'Vistula Nova' : match.opponent.name}</strong>
+            <strong>
+              {match.venue === 'home' ? career.currentClub.name : match.opponent.name}
+            </strong>
             <strong>Statystyka</strong>
-            <strong>{match.venue === 'away' ? 'Vistula Nova' : match.opponent.name}</strong>
+            <strong>
+              {match.venue === 'away' ? career.currentClub.name : match.opponent.name}
+            </strong>
             {(
               [
                 ['Posiadanie', 'possession'],
@@ -1409,12 +1449,9 @@ export const App = () => {
     return (
       <main className="shell">
         <header className="hero">
-          <p>{careerHeader(career)}</p>
+          <p>{getCareerHeader(career)}</p>
           <h1>{translate('app.title')}</h1>
-          <span>
-            Rozpoczynasz przygotowania z zespołem młodzieżowym Vistula Nova. Trener zapowiedział, że
-            podczas najbliższych tygodni zdecyduje, kto otrzyma szansę trenowania z seniorami.
-          </span>
+          <span>{getCareerSubtitle(career)}</span>
         </header>
         <CareerHud career={career} />
         <nav className="tabs">
@@ -1542,7 +1579,7 @@ export const App = () => {
                             miesiąc
                           </p>
                           <p>do {career.currentContract.endDate}</p>
-                          <p>Rola: {career.currentContract.squadRole.replaceAll('_', ' ')}</p>
+                          <p>Rola: {squadRoleLabel(career.currentContract.squadRole)}</p>
                         </section>
                       )}
                       <p>
@@ -1557,10 +1594,15 @@ export const App = () => {
                       </p>
                       <h3>Rozwój</h3>
                       {(() => {
-                        const summary = getSeasonPlayerSummary(career, 2026);
+                        const summary = getSeasonPlayerSummary(career, career.currentSeason);
                         return (
                           <>
-                            <h3>Bieżący sezon — 2026/27</h3>
+                            <h3>Bieżący sezon — {getSeasonProgress(career).seasonLabel}</h3>
+                            <p>
+                              <strong>
+                                OVR {getPlayerOverall(career.player, career.player.primaryPosition)}
+                              </strong>
+                            </p>
                             <div className="season-grid">
                               <div>
                                 Mecze
@@ -1600,7 +1642,15 @@ export const App = () => {
                           </>
                         );
                       })()}
-                      <p>{getMonthlyDevelopmentSummary(career, 2026, 9).narrative}</p>
+                      <p>
+                        {
+                          getMonthlyDevelopmentSummary(
+                            career,
+                            Number(getSeasonProgress(career).currentDate.slice(0, 4)),
+                            Number(getSeasonProgress(career).currentDate.slice(5, 7)),
+                          ).narrative
+                        }
+                      </p>
                       {career.historyFacts
                         .filter((f) => f.factType === 'attribute_changed')
                         .slice(-1)

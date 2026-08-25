@@ -346,6 +346,8 @@ export interface LeagueRound {
 export interface LeagueSeason {
   id: string;
   name: string;
+  competition: CompetitionProfile;
+  controlledClubId: Id;
   startDate: string;
   endDate: string;
   clubIds: string[];
@@ -353,6 +355,14 @@ export interface LeagueSeason {
   rounds: LeagueRound[];
   currentRound: number;
   completed: boolean;
+}
+export interface CompetitionProfile {
+  id: Id;
+  name: string;
+  country: string;
+  category: 'youth' | 'professional';
+  ageLevel?: 'U17' | 'U19' | 'U21' | undefined;
+  tier?: number | undefined;
 }
 export interface LeagueTableRow {
   position: number;

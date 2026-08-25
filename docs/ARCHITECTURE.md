@@ -101,3 +101,7 @@ Zasada projektu: **Routine football is simulated. Meaningful football is played.
 ## Reusable career seasons
 
 `careerSeasonNumber` is persistent and independent from the calendar year. `initializeCareerSeason` creates reusable domain cycles; 2027/28 is its first professional consumer, not a hand-written Season 2 special case. Season progress, professional interest, contracts, and development live in React-independent core modules.
+
+## Kontekst wielu sezonów
+
+Kontekst historyczny jest niezmienny, natomiast bieżący kontekst pochodzi z aktualnego sezonu kariery. `LeagueSeason.controlledClubId` i kanoniczny `CompetitionProfile` wyznaczają klub gracza oraz tożsamość rozgrywek; React nie odgaduje ich z numeru sezonu. OVR pozostaje czystą, ważoną pozycyjnie funkcją prezentacyjną i nigdy nie jest źródłem piłkarskiej prawdy.

@@ -351,6 +351,15 @@ export const leagueRoundSchema = z.object({
 export const leagueSeasonSchema = z.object({
   id,
   name: z.string(),
+  competition: z.object({
+    id,
+    name: z.string(),
+    country: z.string(),
+    category: z.enum(['youth', 'professional']),
+    ageLevel: z.enum(['U17', 'U19', 'U21']).optional(),
+    tier: z.number().int().positive().optional(),
+  }),
+  controlledClubId: id,
   startDate: z.string(),
   endDate: z.string(),
   clubIds: z.array(id).length(12),
