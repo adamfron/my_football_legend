@@ -1,5 +1,4 @@
 import type { CareerState } from '../../types/domain';
-import { saveCareer } from '../persistence';
 import {
   COACH_ID,
   RIVAL_ID,
@@ -162,7 +161,6 @@ export const applyEventResolution = (
         'coach_selection_response',
       ],
     });
-  saveCareer(next);
   return next;
 };
 export const advanceActiveEvent = (career: CareerState): CareerState => {
@@ -196,6 +194,5 @@ export const advanceActiveEvent = (career: CareerState): CareerState => {
     : career.activeEvent.definitionId === 'academy_rival_reaction'
       ? completeAcademyWeek(career)
       : { ...career, activeEvent: undefined };
-  saveCareer(next);
   return next;
 };
