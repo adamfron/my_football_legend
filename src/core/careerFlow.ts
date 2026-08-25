@@ -2,7 +2,7 @@ import type { CareerState } from '../types/domain';
 import { hasCompletedAcademyArc, initializeAcademyArc } from './events/academyArc';
 import { initializePostSelectionPath, POST_PATH_COMPLETED } from './events/postSelectionPath';
 import { initializeCurrentCareerWeek } from './careerWeeks';
-import { generateProfessionalOffers } from './professionalClubs';
+import { generateProfessionalOffers, generateSummerWindowOffers } from './professionalClubs';
 
 const hasFact = (career: CareerState, factType: string) =>
   career.historyFacts.some((fact) => fact.factType === factType);
@@ -12,6 +12,16 @@ const hasFact = (career: CareerState, factType: string) =>
  * The persisted facts remain the source of truth, so calling this repeatedly is safe.
  */
 export const advanceCareerFlow = (career: CareerState): CareerState => {
+  if (
+    career.seasonOutcome?.competitionType === 'professional' &&
+    career.professionalOffers === undefined
+  )
+    return {
+      ...career,
+      careerPhase: 'summer_window',
+      currentDate: career.leagueSeason?.endDate ?? career.currentDate,
+      professionalOffers: generateSummerWindowOffers(career),
+    };
   if (
     career.seasonOutcome?.competitionType === 'academy' &&
     career.professionalOffers === undefined

@@ -16,8 +16,8 @@ import { RandomGenerator } from './random/RandomGenerator';
 import { applyAppearanceConsequences } from './appearanceConsequences';
 import {
   evaluateSquadOpportunity,
+  getCurrentCoachSelectionProfile,
   startFixtureMatch,
-  TOMASZ_RADECKI_PROFILE,
 } from './septemberMatches';
 import {
   applyMatchAvailabilityEffects,
@@ -74,7 +74,7 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
   const selection = evaluateSquadOpportunity(
     career,
     { fixtureIndex, opponent: fixture.opponent, venue: fixture.venue },
-    TOMASZ_RADECKI_PROFILE,
+    getCurrentCoachSelectionProfile(career),
   );
   const availability = getPlayerAvailability(career, fixture.date);
   if (!availability.available) return consumeUnavailableRound(career, fixture.date);
@@ -82,7 +82,12 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
   const bench = selection.status.endsWith('bench');
   const played = started || (bench && rng.bool(0.68));
   const minutes = !played ? 0 : started ? rng.int(64, 90) : rng.int(8, 34);
-  const teamLevel = selection.status.startsWith('senior') ? 'senior' : 'academy';
+  const teamLevel =
+    career.leagueSeason?.competition.category === 'professional' || career.careerSeasonNumber >= 2
+      ? 'senior'
+      : selection.status.startsWith('senior')
+        ? 'senior'
+        : 'academy';
   const quality =
     Object.values(career.player.attributes).reduce((sum, value) => sum + value, 0) / 8;
   const performance =
@@ -239,13 +244,16 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
       const opportunity = evaluateSquadOpportunity(
         career,
         { fixtureIndex: roundIndex, opponent: fixture.opponent, venue: fixture.venue },
-        TOMASZ_RADECKI_PROFILE,
+        getCurrentCoachSelectionProfile(career),
       );
       const available = getPlayerAvailability(career, fixture.date).available;
       const expected = {
-        teamLevel: opportunity.status.startsWith('senior')
-          ? ('senior' as const)
-          : ('academy' as const),
+        teamLevel:
+          career.leagueSeason?.competition.category === 'professional'
+            ? ('senior' as const)
+            : opportunity.status.startsWith('senior')
+              ? ('senior' as const)
+              : ('academy' as const),
         started: opportunity.status.endsWith('starter'),
         willPlay:
           available &&

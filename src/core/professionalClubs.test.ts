@@ -100,7 +100,8 @@ describe('professional transition', () => {
     expect(
       getSeasonProgress({
         ...next,
-        decisionPoint: { type: 'checkpoint', date: '2027-09-01', sourceId: 'test' },
+        currentDate: '2027-09-01',
+        decisionPoint: { type: 'checkpoint', date: '2027-07-02', sourceId: 'test' },
       }).progress,
     ).toBeGreaterThan(getSeasonProgress(next).progress);
     expect(

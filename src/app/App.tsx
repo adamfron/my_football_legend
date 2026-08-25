@@ -75,7 +75,12 @@ import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable } from '../core/leagueSeason';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
-import { acceptProfessionalOffer, continueWithProfessionalTrial } from '../core/careerSeasons';
+import {
+  acceptProfessionalOffer,
+  continueWithProfessionalTrial,
+  stayAtCurrentClub,
+  retireCareer,
+} from '../core/careerSeasons';
 import { getPlayerOverall } from '../core/playerOverall';
 import {
   clubArchetypeLabel,
@@ -755,7 +760,10 @@ const SeasonEndSummary = ({
   const position = club?.position ?? 12;
   return (
     <section>
-      <h2>Podsumowanie sezonu akademii {getSeasonProgress(career).seasonLabel}</h2>
+      <h2>
+        {career.careerSeasonNumber === 1 ? 'Podsumowanie sezonu akademii' : 'Podsumowanie sezonu'}{' '}
+        {getSeasonProgress(career).seasonLabel}
+      </h2>
       <h3>Klub</h3>
       <p>
         {position}. miejsce · {club?.points ?? 0} pkt · {club?.won ?? 0}/{club?.drawn ?? 0}/
@@ -763,7 +771,9 @@ const SeasonEndSummary = ({
       </p>
       <p>
         <strong>
-          {position === 1 ? 'Mistrzostwo ligi akademii' : 'Zakończenie sezonu ligi młodzieżowej'}
+          {position === 1
+            ? `Mistrzostwo: ${career.leagueSeason?.competition.name}`
+            : `Zakończenie sezonu: ${career.leagueSeason?.competition.name}`}
         </strong>
       </p>
       <h3>Zawodnik</h3>
@@ -802,7 +812,24 @@ const SeasonEndSummary = ({
             {getFactPresentation(career, item.fact)?.title ?? item.fact.factType}
           </p>
         ))}
-      <h3>Pierwsze oferty zawodowe</h3>
+      <h3>{career.careerSeasonNumber === 1 ? 'Pierwsze oferty zawodowe' : 'Obecna sytuacja'}</h3>
+      {career.careerSeasonNumber >= 2 && (
+        <article className="mini-card">
+          <h4>{career.currentClub.name}</h4>
+          <p>
+            Kontrakt do {career.currentContract?.endDate ?? 'końca sezonu'} · rola:{' '}
+            {squadRoleLabel(
+              career.currentSportingStatus ?? career.currentContract?.squadRole ?? 'rotation',
+            )}
+          </p>
+          {career.currentContract &&
+            career.currentContract.endDate > `${career.currentSeason + 1}-06-30` && (
+              <button onClick={() => onCareer(stayAtCurrentClub(career))}>
+                Pozostań w {career.currentClub.name}
+              </button>
+            )}
+        </article>
+      )}
       {(career.professionalOffers ?? []).length ? (
         <div className="offer-grid">
           {career.professionalOffers!.map((offer) => (
@@ -845,7 +872,7 @@ const SeasonEndSummary = ({
             </article>
           ))}
         </div>
-      ) : (
+      ) : career.careerSeasonNumber === 1 ? (
         <article className="mini-card">
           <h4>Ścieżka próbna</h4>
           <p>Vistula Nova zapewni ci testy w małym klubie zawodowym. Kariera trwa dalej.</p>
@@ -853,6 +880,19 @@ const SeasonEndSummary = ({
             Przejdź testy
           </button>
         </article>
+      ) : (
+        <p>
+          Brak nowych ofert. Możesz kontynuować w obecnym klubie lub szukać klubu jako wolny
+          zawodnik.
+        </p>
+      )}
+      {career.careerSeasonNumber >= 2 && !career.professionalOffers?.length && (
+        <button onClick={() => onCareer(stayAtCurrentClub(career))}>
+          Pozostań w {career.currentClub.name}
+        </button>
+      )}
+      {career.player.age >= 33 && (
+        <button onClick={() => onCareer(retireCareer(career))}>Zakończ karierę</button>
       )}
     </section>
   );

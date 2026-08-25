@@ -106,7 +106,10 @@ export const shouldScheduleOffFieldEvent = (career: CareerState, week: CareerWee
         item.weekIndex >= start && item.weekIndex < week.weekIndex && item.scheduledEventIds.length,
     );
     const chosen =
-      start + RandomGenerator.fromSeed(`${career.seed}:event-window:${window}`).int(0, end - start);
+      start +
+      RandomGenerator.fromSeed(
+        `${career.seed}:event-window:${career.careerSeasonNumber}:${window}`,
+      ).int(0, end - start);
     return !already && week.weekIndex === chosen;
   });
 };
@@ -210,9 +213,9 @@ const initializeWeekContent = (career: CareerState, index: number): CareerState 
   });
   const scheduledEventIds = shouldScheduleOffFieldEvent(career, week)
     ? [
-        RandomGenerator.fromSeed(`${career.seed}:regular-event:${week.id}`).pick(
-          eligibleEvents.length ? eligibleEvents : REGULAR_SEASON_EVENT_POOL,
-        ),
+        RandomGenerator.fromSeed(
+          `${career.seed}:regular-event:${career.careerSeasonNumber}:${week.id}`,
+        ).pick(eligibleEvents.length ? eligibleEvents : REGULAR_SEASON_EVENT_POOL),
       ]
     : [];
   const updated = { ...week, scheduledEventIds, summaryVariantKey: selectVariant(career, week.id) };
@@ -305,6 +308,8 @@ export const completeCareerWeek = (career: CareerState): CareerState => {
   return {
     ...career,
     activeMatch: undefined,
+    currentDate:
+      !career.currentDate || week.endDate > career.currentDate ? week.endDate : career.currentDate,
     historyFacts: facts,
     recentVariantKeys,
     careerCalendar: {
@@ -339,6 +344,10 @@ export const advanceCareerWeek = (career: CareerState): CareerState => {
   return initializeWeekContent(
     {
       ...developedCareer,
+      currentDate:
+        !developedCareer.currentDate || next.startDate > developedCareer.currentDate
+          ? next.startDate
+          : developedCareer.currentDate,
       careerCalendar: { ...calendar, currentWeekIndex: nextIndex, monthlyCheckpoints: checkpoints },
     },
     nextIndex,

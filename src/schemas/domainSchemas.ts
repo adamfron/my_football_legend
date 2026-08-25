@@ -430,6 +430,17 @@ export const careerStateSchema = z.object({
   careerPhase: z
     .enum(['academy', 'preseason', 'regular_season', 'summer_window', 'offseason'])
     .optional(),
+  currentDate: z.string().optional(),
+  currentProfessionalClub: professionalClubSchema.optional(),
+  currentSportingStatus: z
+    .enum(['development_player', 'rotation', 'first_team_competition', 'important_player'])
+    .optional(),
+  careerStatus: z.enum(['active', 'retired']).optional(),
+  retirementDate: z.string().optional(),
+  retirementAge: z.number().int().min(16).max(40).optional(),
+  retirementReason: z.string().optional(),
+  highestOVR: z.number().min(0).max(100).optional(),
+  highestOVRDate: z.string().optional(),
   seasonOutcome: z
     .object({
       finalPosition: z.number().int().min(1).max(12),

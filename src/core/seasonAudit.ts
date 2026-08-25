@@ -41,6 +41,25 @@ export const auditCareerSeason = (career: CareerState) => {
       season?.competition.category === 'professional' &&
         career.activeMatch?.teamLevel === 'academy',
     ),
+    professionalSeasonMarkedAcademy: Boolean(
+      career.careerSeasonNumber >= 2 && season?.competition.category !== 'professional',
+    ),
+    professionalAppearanceMarkedAcademy: (career.matchHistory ?? []).some(
+      (match) =>
+        match.teamLevel === 'academy' && Number(match.date.slice(0, 4)) >= career.currentSeason,
+    ),
+    ageSeasonMismatch: career.player.age !== 15 + career.careerSeasonNumber,
+    repeatedFirstProfessionalContract:
+      career.historyFacts.filter((fact) => fact.factType === 'first_professional_contract').length >
+      1,
+    repeatedAcademyGraduation:
+      career.historyFacts.filter((fact) => fact.factType === 'academy_graduated').length > 1,
+    oldDevelopmentRole: Boolean(
+      career.player.age > 23 &&
+        (career.currentSportingStatus ?? career.currentContract?.squadRole) ===
+          'development_player',
+    ),
+    activeBeyondAgeLimit: (career.careerStatus ?? 'active') === 'active' && career.player.age > 40,
     currentCoachMismatch: Boolean(
       career.careerSeasonNumber >= 2 &&
         !career.significantPeople.some(

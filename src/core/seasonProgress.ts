@@ -14,6 +14,7 @@ export interface SeasonProgress {
 export const seasonLabelForYear = (year: number) => `${year}/${String(year + 1).slice(-2)}`;
 /** The simulation cursor. `availableThrough` is a content horizon, not elapsed time. */
 export const getCareerCurrentDate = (career: CareerState): string => {
+  if (career.currentDate) return career.currentDate;
   if (career.activeMatch?.date) return career.activeMatch.date;
   if (career.decisionPoint?.date) return career.decisionPoint.date;
   const week = career.careerCalendar?.weeks[career.careerCalendar.currentWeekIndex];
@@ -21,6 +22,11 @@ export const getCareerCurrentDate = (career: CareerState): string => {
   if (career.leagueSeason?.completed) return career.leagueSeason.endDate;
   return `${career.currentSeason}-07-01`;
 };
+
+export const advanceCareerDate = (career: CareerState, date: string): CareerState => ({
+  ...career,
+  currentDate: !career.currentDate || date > career.currentDate ? date : career.currentDate,
+});
 export const getSeasonProgress = (career: CareerState): SeasonProgress => {
   const start = `${career.currentSeason}-07-01`;
   const end = `${career.currentSeason + 1}-06-30`;
