@@ -72,7 +72,7 @@ import {
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import { advanceUntilDecision } from '../core/careerSimulation';
-import { getLeagueTable } from '../core/leagueSeason';
+import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSeason';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
 import {
@@ -84,6 +84,7 @@ import {
 import { getPlayerOverall } from '../core/playerOverall';
 import {
   clubArchetypeLabel,
+  describeLeagueLevelChange,
   getCareerHeader,
   getCareerSubtitle,
   getCurrentHeadCoach,
@@ -789,9 +790,8 @@ const SeasonEndSummary = ({
         {summary.statistics.averageRating?.toFixed(1).replace('.', ',') ?? '—'}
       </p>
       <p>
-        Kartki: {career.matchHistory?.reduce((s, m) => s + (m.yellowCards ?? 0), 0) ?? 0} żółtych ·{' '}
-        {career.matchHistory?.filter((m) => m.redCard).length ?? 0} czerwonych · opuszczone:{' '}
-        {availability.matchesMissedThroughSuspension} przez zawieszenie,{' '}
+        Kartki: {summary.statistics.yellowCards} żółtych · {summary.statistics.redCards} czerwonych
+        · opuszczone: {availability.matchesMissedThroughSuspension} przez zawieszenie,{' '}
         {availability.matchesMissedThroughInjury} przez uraz
       </p>
       <h3>Rozwój</h3>
@@ -817,6 +817,9 @@ const SeasonEndSummary = ({
         <article className="mini-card">
           <h4>{career.currentClub.name}</h4>
           <p>
+            {career.leagueSeason?.competition.name} · Pozostanie w obecnym klubie / ten sam poziom
+          </p>
+          <p>
             Kontrakt do {career.currentContract?.endDate ?? 'końca sezonu'} · rola:{' '}
             {squadRoleLabel(
               career.currentSportingStatus ?? career.currentContract?.squadRole ?? 'rotation',
@@ -835,6 +838,18 @@ const SeasonEndSummary = ({
           {career.professionalOffers!.map((offer) => (
             <article className="mini-card offer-card" key={offer.id}>
               <h3>{offer.club.name}</h3>
+              <p>{getProfessionalCompetitionName(offer.club.professionalLevel)}</p>
+              <p>
+                <strong>Poziom sportowy:</strong>{' '}
+                {offer.offerType === 'renewal'
+                  ? 'Pozostanie w obecnym klubie / ten sam poziom'
+                  : describeLeagueLevelChange(
+                      career.currentProfessionalClub?.professionalLevel ??
+                        career.leagueSeason?.competition.tier ??
+                        offer.club.professionalLevel,
+                      offer.club.professionalLevel,
+                    )}
+              </p>
               <p>
                 {offer.club.professionalLevel <= 2
                   ? 'Ambitny klub zawodowy'

@@ -668,6 +668,8 @@ export interface SeasonPlayerSummary {
   keyPasses: number;
   defensiveActions: number;
   saves: number;
+  yellowCards: number;
+  redCards: number;
   averageRating?: number | undefined;
   bestRating?: number | undefined;
   bestMatchId?: string | undefined;

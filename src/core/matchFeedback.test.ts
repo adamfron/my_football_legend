@@ -18,6 +18,70 @@ const result = (tier: MatchMomentResult['tier'], xG = 0.1): MatchMomentResult =>
   saves: 0,
 });
 describe('match feedback', () => {
+  it('keeps cards local to their season and ignores impossible zero-minute cards', () => {
+    const card = {
+      matchId: 'old-card',
+      date: '2026-09-01',
+      opponentId: 'x',
+      teamLevel: 'senior' as const,
+      started: true,
+      minutes: 90,
+      goals: 0,
+      assists: 0,
+      xG: 0,
+      xA: 0,
+      keyPasses: 0,
+      defensiveActions: 1,
+      saves: 0,
+      personalImpact: 0,
+      yellowCards: 1,
+    };
+    const career = {
+      matchHistory: [
+        card,
+        {
+          ...card,
+          matchId: 'phantom',
+          date: '2027-09-01',
+          minutes: 0,
+          yellowCards: 3,
+          redCard: 'direct' as const,
+        },
+      ],
+    } as CareerState;
+    expect(getSeasonPlayerSummary(career, 2026).yellowCards).toBe(1);
+    expect(getSeasonPlayerSummary(career, 2027)).toMatchObject({
+      appearances: 0,
+      minutes: 0,
+      yellowCards: 0,
+      redCards: 0,
+    });
+  });
+
+  it('counts a current-season dismissal and card exactly once', () => {
+    const match = {
+      matchId: 'current-card',
+      date: '2028-03-01',
+      opponentId: 'x',
+      teamLevel: 'senior' as const,
+      started: true,
+      minutes: 70,
+      goals: 0,
+      assists: 0,
+      xG: 0,
+      xA: 0,
+      keyPasses: 0,
+      defensiveActions: 2,
+      saves: 0,
+      personalImpact: 0,
+      yellowCards: 1,
+      redCard: 'second_yellow' as const,
+    };
+    expect(getSeasonPlayerSummary({ matchHistory: [match] } as CareerState, 2027)).toMatchObject({
+      yellowCards: 1,
+      redCards: 1,
+    });
+  });
   it('does not rate zero minutes and clamps ratings', () => {
     expect(evaluateMatchRating({ position: 'striker', minutes: 0, results: [] })).toBeUndefined();
     expect(

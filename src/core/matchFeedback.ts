@@ -78,6 +78,8 @@ export const getSeasonPlayerSummary = (
     keyPasses: matches.reduce((s, m) => s + m.keyPasses, 0),
     defensiveActions: matches.reduce((s, m) => s + m.defensiveActions, 0),
     saves: matches.reduce((s, m) => s + m.saves, 0),
+    yellowCards: matches.reduce((s, m) => s + (m.minutes > 0 ? (m.yellowCards ?? 0) : 0), 0),
+    redCards: matches.filter((m) => m.minutes > 0 && m.redCard !== undefined).length,
     ...(rated.length
       ? { averageRating: round(rated.reduce((s, m) => s + m.rating!, 0) / rated.length, 1) }
       : {}),

@@ -87,5 +87,17 @@ describe('canonical season clock', () => {
     );
     expect(getCareerCurrentDate(summary)).toBe('2027-05-31');
     expect(getSeasonProgress(summary).weeksUntilSummerWindow).toBe(1);
+    expect(
+      getSeasonProgress({
+        ...summary,
+        seasonOutcome: { finalPosition: 1, champion: true, competitionType: 'academy' },
+      }).progress,
+    ).toBe(1);
+    expect(
+      getSeasonProgress({
+        ...summary,
+        seasonOutcome: { finalPosition: 1, champion: true, competitionType: 'academy' },
+      }).phase,
+    ).toBe('summer_window');
   });
 });

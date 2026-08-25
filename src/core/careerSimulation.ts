@@ -25,6 +25,24 @@ import {
   getPlayerAvailability,
 } from './playerAvailability';
 
+export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
+  if ((career.careerStatus ?? 'active') === 'retired') return 'career is retired';
+  if (career.activeMatch) return 'an active match requires resolution';
+  if (career.activeEvent) return 'an active event requires a choice';
+  if (career.professionalOffers) return 'the transfer window requires an offer choice';
+  if (career.seasonOutcome) return 'the season outcome requires summer-window initialization';
+  const calendar = career.careerCalendar;
+  if (!calendar) return 'career calendar is missing';
+  const week = calendar.weeks[calendar.currentWeekIndex];
+  if (!week) return `week ${calendar.currentWeekIndex} is missing from the career calendar`;
+  return undefined;
+};
+
+export const assertCareerCanProgress = (career: CareerState): void => {
+  const blocker = getCareerProgressBlocker(career);
+  if (blocker) throw new Error(`Career cannot auto-progress: ${blocker}.`);
+};
+
 const fact = (
   career: CareerState,
   factType: string,
@@ -233,6 +251,14 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
     decisionPoint: undefined,
     fastForwardLog: [],
   });
+  // A decision can be resolved after its week was completed but before the cursor moved.
+  // Normalize that valid checkpoint instead of returning the same completed week forever.
+  while (getCurrentCareerWeek(career)?.completed) {
+    const before = career.careerCalendar?.currentWeekIndex;
+    career = advanceCareerWeek(career);
+    if (career.careerCalendar?.currentWeekIndex === before) break;
+  }
+  assertCareerCanProgress(career);
   for (let step = 0; step < Math.max(1, Math.min(8, maxWeeks)); step++) {
     const week = getCurrentCareerWeek(career);
     if (!week || week.completed) break;

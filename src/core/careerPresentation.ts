@@ -34,3 +34,13 @@ export const clubArchetypeLabel = (archetype: ClubArchetype) =>
     UNDERDOG: 'Ambitny outsider',
     AMBITIOUS_CLIMBER: 'Ambitny klub na dorobku',
   })[archetype];
+
+/** Player-facing comparison: league level 1 is the highest, but raw levels stay hidden. */
+export const describeLeagueLevelChange = (currentLevel: number, destinationLevel: number) => {
+  const difference = currentLevel - destinationLevel;
+  if (difference === 0) return 'ten sam poziom';
+  const count = Math.abs(difference);
+  return difference > 0
+    ? `o ${count} ${count === 1 ? 'ligę' : 'ligi'} wyżej ↑`
+    : `o ${count} ${count === 1 ? 'ligę' : 'ligi'} niżej ↓`;
+};
