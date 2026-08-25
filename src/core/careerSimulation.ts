@@ -34,7 +34,7 @@ const fact = (
   actors: [career.player.id],
   targets: [],
   clubs: [career.currentClub.id],
-  competitions: ['Liga regionalna'],
+  competitions: [career.leagueSeason?.competition.name ?? 'Rozgrywki klubowe'],
   data,
   causes: career.historyFacts.slice(-2).map((item) => item.id),
   tags: [factType],
@@ -204,8 +204,8 @@ const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
   const appearance = career.matchHistory?.find(
     (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
   );
-  const home = fixture.venue === 'home' ? 'Vistula Nova' : fixture.opponent.name;
-  const away = fixture.venue === 'away' ? 'Vistula Nova' : fixture.opponent.name;
+  const home = fixture.venue === 'home' ? career.currentClub.name : fixture.opponent.name;
+  const away = fixture.venue === 'away' ? career.currentClub.name : fixture.opponent.name;
   return {
     id: `log_${fixture.id}`,
     date: fixture.date,

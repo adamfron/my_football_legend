@@ -7,6 +7,10 @@ import {
 } from './professionalClubs';
 import { acceptProfessionalOffer } from './careerSeasons';
 import { careerStateSchema } from '../schemas/domainSchemas';
+import { getCurrentHeadCoach } from './careerPresentation';
+import { getSeasonPlayerSummary } from './matchFeedback';
+import { getSeasonProgress } from './seasonProgress';
+import { settleLeagueRound, getLeagueTable } from './leagueSeason';
 const career = () =>
   createCareerState(
     generateStartingPlayerProfile(
@@ -77,6 +81,29 @@ describe('professional transition', () => {
     const next = acceptProfessionalOffer(c, offer.id);
     expect(next.careerSeasonNumber).toBe(2);
     expect(next.currentContract?.clubId).toBe(next.currentClub.id);
+    expect(next.currentSeason).toBe(2027);
+    expect(next.leagueSeason?.controlledClubId).toBe(next.currentClub.id);
+    expect(next.leagueSeason?.competition.category).toBe('professional');
+    expect(next.leagueSeason?.name).toBe('2027/28');
+    expect(next.careerCalendar?.fixtures[0]?.date).toBe('2027-08-29');
+    expect(getCurrentHeadCoach(next)?.clubId).toBe(next.currentClub.id);
+    expect(getSeasonPlayerSummary(next, next.currentSeason).appearances).toBe(0);
+    expect(next.significantPeople.some((person) => person.clubId === 'club_vistula_nova')).toBe(
+      true,
+    );
+    const afterRound = settleLeagueRound(next, 0);
+    expect(getLeagueTable(afterRound).every((row) => row.played === 1)).toBe(true);
+    expect(
+      getSeasonProgress({
+        ...next,
+        decisionPoint: { type: 'checkpoint', date: '2027-09-01', sourceId: 'test' },
+      }).progress,
+    ).toBeGreaterThan(getSeasonProgress(next).progress);
+    expect(
+      next.historyFacts.some(
+        (fact) => fact.factType === 'first_professional_contract' && fact.season === 2027,
+      ),
+    ).toBe(true);
     expect(careerStateSchema.safeParse(next).success).toBe(true);
   });
 });

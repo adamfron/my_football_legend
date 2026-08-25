@@ -54,6 +54,26 @@ export const loadCareer = (): LoadCareerResult => {
     const career = parsed.career as Record<string, unknown>;
     career.careerSeasonNumber ??= 1;
     career.careerPhase ??= career.currentSeason === 2026 ? 'academy' : 'regular_season';
+    if (career.leagueSeason && typeof career.leagueSeason === 'object') {
+      const league = career.leagueSeason as Record<string, unknown>;
+      league.controlledClubId ??= (career.currentClub as Record<string, unknown>).id;
+      league.competition ??=
+        career.currentSeason === 2026
+          ? {
+              id: 'polish-u17',
+              name: 'Polska Liga U-17',
+              country: 'Polska',
+              category: 'youth',
+              ageLevel: 'U17',
+            }
+          : {
+              id: 'polish-professional-3',
+              name: 'Polska Liga Regionalna',
+              country: 'Polska',
+              category: 'professional',
+              tier: 3,
+            };
+    }
     if (career.seasonOutcome && typeof career.seasonOutcome === 'object')
       (career.seasonOutcome as Record<string, unknown>).competitionType ??= 'academy';
   }

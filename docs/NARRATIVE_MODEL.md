@@ -55,3 +55,7 @@ Brak interakcji w rutynowym meczu nie oznacza braku znaczenia narracyjnego. Quic
 ## Academy graduation
 
 Season 1 is an academy prologue. Vistula Nova can win its youth league, but the club is never promoted into professional football: the player graduates. Canonical `academy_graduated`, `first_professional_contract`, and `joined_professional_club` facts preserve the transition and its causes.
+
+## Kontekst historyczny i bieżący
+
+Kontekst historyczny jest niezmienny. Aktualne opisy korzystają z bieżącego sezonu, klubu i afiliowanego sztabu, dzięki czemu dawna relacja z trenerem akademii pozostaje w historii bez przedstawiania go jako trenera kolejnego klubu.

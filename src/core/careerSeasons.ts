@@ -1,6 +1,7 @@
 import type { CareerState, Club, HistoryFact, ProfessionalOffer } from '../types/domain';
 import { createLeagueSeason, VISTULA_NOVA_ID } from './leagueSeason';
-import { generateFixtureSchedule } from './careerWeeks';
+import { RandomGenerator } from './random/RandomGenerator';
+import type { Person, RelationshipScores } from '../types/domain';
 
 const milestone = (
   career: CareerState,
@@ -11,7 +12,7 @@ const milestone = (
 ): HistoryFact => ({
   id: `fact_${type}_${date}`,
   factType: type,
-  season: career.currentSeason,
+  season: Number(date.slice(0, 4)),
   date,
   actors: [career.player.id],
   targets: [],
@@ -34,11 +35,12 @@ export const initializeCareerSeason = (
   career: CareerState,
   config: CareerSeasonConfig,
 ): CareerState => {
-  const season = createLeagueSeason(`${career.seed}:season:${config.careerSeasonNumber}`);
-  season.id = `${config.startYear}-${String(config.startYear + 1).slice(-2)}`;
-  season.name = config.professional ? 'Liga zawodowa' : 'Liga akademii';
-  season.startDate = `${config.startYear}-08-01`;
-  season.endDate = `${config.startYear + 1}-05-31`;
+  const season = createLeagueSeason(`${career.seed}:season:${config.careerSeasonNumber}`, {
+    startYear: config.startYear,
+    controlledClubId: config.club.id,
+    controlledClubName: config.club.name,
+    professional: config.professional,
+  });
   season.clubs = season.clubs.map((c) =>
     c.clubId === VISTULA_NOVA_ID ? { ...c, clubId: config.club.id, name: config.club.name } : c,
   );
@@ -53,14 +55,33 @@ export const initializeCareerSeason = (
       awayClubId: f.awayClubId === VISTULA_NOVA_ID ? config.club.id : f.awayClubId,
     })),
   }));
-  const fixtures = generateFixtureSchedule(
-    `${career.seed}:season:${config.careerSeasonNumber}`,
-    season.id,
-  ).map((f) => ({
-    ...f,
-    date: f.date.replace(/^\d{4}/, String(config.startYear)),
-    competition: config.professional ? ('league' as const) : ('academy_league' as const),
-  }));
+  const fixtures = season.rounds.map((round) => {
+    const leagueFixture = round.fixtures.find((item) =>
+      [item.homeClubId, item.awayClubId].includes(config.club.id),
+    )!;
+    const opponentId =
+      leagueFixture.homeClubId === config.club.id
+        ? leagueFixture.awayClubId
+        : leagueFixture.homeClubId;
+    const opponent = season.clubs.find((item) => item.clubId === opponentId)!;
+    return {
+      id: leagueFixture.id,
+      seasonId: season.id,
+      date: round.date,
+      competition: config.professional ? ('league' as const) : ('academy_league' as const),
+      opponent: {
+        id: opponent.clubId,
+        name: opponent.name,
+        strength: opponent.strength,
+        style: 'zrównoważony',
+        strengths: [],
+        weaknesses: [],
+      },
+      venue: leagueFixture.homeClubId === config.club.id ? ('home' as const) : ('away' as const),
+      importance: 45,
+      matchImportance: 'routine' as const,
+    };
+  });
   const weeks = fixtures.map((fixture, index) => ({
     id: `week_${season.id}_${index}`,
     seasonId: season.id,
@@ -98,6 +119,34 @@ export const initializeCareerSeason = (
     seasonStartingAttributes: { ...career.player.attributes },
   };
 };
+const neutralRelationship = (): RelationshipScores => ({
+  liking: 45,
+  trust: 42,
+  respect: 52,
+  rivalry: 0,
+  resentment: 0,
+  gratitude: 0,
+  professionalDependence: 45,
+});
+const createProfessionalCoach = (career: CareerState, club: Club, date: string): Person => {
+  const rng = RandomGenerator.fromSeed(`${career.seed}:${club.id}:head-coach`);
+  const firstNames = ['Piotr', 'Robert', 'Dariusz', 'Krzysztof'];
+  const lastNames = ['Sikora', 'Maj', 'Kowalik', 'Brzoza'];
+  return {
+    id: `coach_${club.id}`,
+    firstName: firstNames[rng.int(0, firstNames.length - 1)]!,
+    lastName: lastNames[rng.int(0, lastNames.length - 1)]!,
+    role: 'coach',
+    nationality: 'Polska',
+    age: rng.int(38, 57),
+    personality: ['profesjonalny'],
+    clubId: club.id,
+    persistence: 'career',
+    relationshipParameters: neutralRelationship(),
+    faceSeed: `${club.id}:${date}:coach`,
+    narrativeTags: ['head_coach', 'professional'],
+  };
+};
 const asClub = (offer: ProfessionalOffer): Club => ({
   id: offer.club.id,
   name: offer.club.name,
@@ -119,6 +168,7 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
   if (!offer) return career;
   const date = offer.contract.startDate;
   const club = asClub(offer);
+  const coach = createProfessionalCoach(career, club, date);
   const facts = [
     'academy_graduated',
     'first_professional_contract',
@@ -151,6 +201,8 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
       },
     ],
     historyFacts: [...career.historyFacts, ...facts],
+    significantPeople: [...career.significantPeople, coach],
+    relationships: { ...career.relationships, [coach.id]: coach.relationshipParameters },
   };
   return initializeCareerSeason(transitioned, {
     startYear: career.currentSeason + 1,

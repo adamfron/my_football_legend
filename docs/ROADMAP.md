@@ -127,3 +127,7 @@ Docelowy sezon powinien oferować orientacyjnie 8–12 większych strategicznych
 ## Multi-season foundation
 
 Implemented foundation: the academy prologue leads to deterministic professional interest, a first contract, and a generically initialized 2027/28 professional season. Future seasons must reuse the same career-season cycle. Winter transfers, negotiation, agents, loans and a full pyramid remain deliberately out of scope.
+
+## Przyszłość: reprezentacja (poza bieżącym zakresem)
+
+Planowany `NationalTeamCareer` obejmie Polskę U17, U19, U21 i seniorów. Selekcja uwzględni wiek, narodowość, zdolność/OVR, formę, minuty, reputację i konkurencję na pozycji. Rutynowe sparingi będzie można szybko symulować, a ważne kwalifikacje i turnieje mogą być interaktywne. Przyszłe typy faktów: `first_u17_callup`, `first_u17_cap`, `first_u21_callup`, `senior_national_callup`, `senior_national_debut`, `first_international_goal`; żaden z nich nie jest jeszcze generowany.

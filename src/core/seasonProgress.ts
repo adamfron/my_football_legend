@@ -15,11 +15,13 @@ export const seasonLabelForYear = (year: number) => `${year}/${String(year + 1).
 export const getSeasonProgress = (career: CareerState): SeasonProgress => {
   const start = `${career.currentSeason}-07-01`;
   const end = `${career.currentSeason + 1}-06-30`;
-  const currentDate =
-    career.decisionPoint?.date ??
-    career.careerCalendar?.weeks[career.careerCalendar.currentWeekIndex]?.startDate ??
-    career.historyFacts.at(-1)?.date ??
-    start;
+  const week = career.careerCalendar?.weeks[career.careerCalendar.currentWeekIndex];
+  const candidates = [
+    career.decisionPoint?.date,
+    week?.startDate,
+    career.careerCalendar?.availableThrough,
+  ].filter((date): date is string => Boolean(date) && date! >= start && date! <= end);
+  const currentDate = candidates.sort().at(-1) ?? start;
   const elapsed =
     new Date(`${currentDate}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
   const duration =

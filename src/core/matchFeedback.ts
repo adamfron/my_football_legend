@@ -58,7 +58,9 @@ export const getSeasonPlayerSummary = (
   career: CareerState,
   season: number,
 ): SeasonPlayerSummary => {
-  const matches = (career.matchHistory ?? []).filter((m) => Number(m.date.slice(0, 4)) === season);
+  const matches = (career.matchHistory ?? []).filter(
+    (m) => m.date >= `${season}-07-01` && m.date <= `${season + 1}-06-30`,
+  );
   const rated = matches.filter((m) => m.rating !== undefined);
   const best = rated.reduce<MatchAppearance | undefined>(
     (current, match) => (!current || match.rating! > current.rating! ? match : current),
@@ -83,6 +85,21 @@ export const getSeasonPlayerSummary = (
     seniorAppearances: matches.filter((m) => m.minutes > 0 && m.teamLevel === 'senior').length,
     academyAppearances: matches.filter((m) => m.minutes > 0 && m.teamLevel === 'academy').length,
   };
+};
+
+export const getPlayerSeasonHistory = (career: CareerState) => {
+  const seasons = new Set<number>([career.currentSeason]);
+  for (const match of career.matchHistory ?? []) {
+    const year = Number(match.date.slice(0, 4));
+    seasons.add(match.date.slice(5, 7) < '07' ? year - 1 : year);
+  }
+  return [...seasons]
+    .sort((a, b) => b - a)
+    .map((season) => ({
+      season,
+      label: `${season}/${String(season + 1).slice(-2)}`,
+      statistics: getSeasonPlayerSummary(career, season),
+    }));
 };
 
 export const buildSeasonSummary = (career: CareerState, season: number): SeasonSummary => {

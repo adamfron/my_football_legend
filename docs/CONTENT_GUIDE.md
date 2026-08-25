@@ -76,3 +76,7 @@ Treść powinna mieć warianty wejścia i rezultatu zależne od formy lub roli. 
 ## Academy and contracts
 
 Vistula Nova must always be presented as a youth academy and its 2026/27 competition as an academy/youth league. Professional-offer explanations are player-facing assessments; salary, duration and declared squad role are confirmed information. Career seasons are reusable domain cycles rather than hand-written calendar years.
+
+## Treści wielosezonowe
+
+Treści historyczne mogą nazywać konkretny klub, osobę i sezon. Treści wielokrotnego użytku muszą pobierać aktualny kontekst kariery. W warstwie gracza nie wolno eksponować wewnętrznych nazw enumów. OVR wolno opisywać wyłącznie jako orientacyjne podsumowanie pozycyjne, nie jako substytut szczegółowej oceny.

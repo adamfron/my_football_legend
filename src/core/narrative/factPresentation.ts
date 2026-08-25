@@ -207,7 +207,13 @@ export const getFactPresentation = (career: CareerState, fact: HistoryFact): Fac
       'Droga do sierpnia',
       'Pierwszy etap po selekcji został domknięty, a wszystkie relacje i wcześniejsze decyzje pozostają aktywne.',
     ];
-  else if (fact.factType === 'august_2026_started')
+  else if (fact.factType === 'first_professional_contract') {
+    const club = career.currentClub.name;
+    pair = [
+      'Pierwszy zawodowy kontrakt',
+      `${career.player.firstName} ${career.player.lastName} podpisał kontrakt z ${club}.`,
+    ];
+  } else if (fact.factType === 'august_2026_started')
     pair = [
       'Początek sierpnia',
       'Vistula Nova wypłaciła ci szkoleniowe stypendium, a nowa rola zaczęła wyznaczać rytm tygodni.',
