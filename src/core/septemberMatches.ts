@@ -197,11 +197,11 @@ export interface FixtureContext {
 export const evaluateSquadOpportunity = (
   career: CareerState,
   fixture: FixtureContext,
-  coach = TOMASZ_RADECKI_PROFILE,
+  coach = getCurrentCoachSelectionProfile(career),
 ): { status: SquadStatus; reason: string; selectionScore: number } => {
   const role = assignedRole(career);
   const unit = unitFor(career.player.primaryPosition);
-  const competition = VISTULA_NOVA_PROFILE.positionalUnits[unit];
+  const competition = getCurrentClubCompetitiveProfile(career).positionalUnits[unit];
   const absence =
     (fixture.availability ?? career.september?.availability ?? []).find((a) => a.unit === unit)
       ?.severity ?? 'full';
@@ -222,14 +222,17 @@ export const evaluateSquadOpportunity = (
     coach.youthTrust * 0.08 +
     coach.tacticalDiscipline * 0.03 +
     development * 0.25 +
+    { development_player: -7, rotation: 0, first_team_competition: 7, important_player: 14 }[
+      career.currentContract?.squadRole ?? 'rotation'
+    ] +
     (form * coach.formSensitivity) / 400 +
     (absence === 'one_absence' ? 7 : absence === 'several_absences' ? 13 : 0) +
     (rng.float() - 0.5) * 7;
-  const seniorPath = [
-    'senior_training_rotation',
-    'senior_trial_extended',
-    'weekly_senior_access',
-  ].includes(role ?? '');
+  const seniorPath =
+    career.leagueSeason?.competition.category === 'professional' ||
+    ['senior_training_rotation', 'senior_trial_extended', 'weekly_senior_access'].includes(
+      role ?? '',
+    );
   let status: SquadStatus;
   if (seniorPath)
     status =
@@ -260,6 +263,41 @@ export const evaluateSquadOpportunity = (
             ? 'Tym razem konkurenci są wyżej w hierarchii, a weekend oglądasz z boku.'
             : 'Sportowo jesteś blisko podstawowych zawodników i dostajesz szansę od początku.';
   return { status, reason, selectionScore: score };
+};
+
+export const getCurrentClubCompetitiveProfile = (career: CareerState): ClubCompetitiveProfile => {
+  if (career.leagueSeason?.competition.category !== 'professional') return VISTULA_NOVA_PROFILE;
+  const strength =
+    career.leagueSeason.clubs.find((club) => club.clubId === career.currentClub.id)?.strength ??
+    career.currentClub.prestige;
+  const rng = RandomGenerator.fromSeed(`${career.seed}:${career.currentClub.id}:depth`);
+  const unit = (): ClubCompetitiveProfile['positionalUnits']['attack'] => ({
+    starterQuality: Math.max(35, Math.min(85, strength + rng.int(-4, 5))),
+    backupQuality: Math.max(30, strength - rng.int(5, 11)),
+    depth: rng.pick(['thin', 'normal', 'deep'] as const),
+  });
+  return {
+    overallStrength: strength,
+    positionalUnits: { goalkeeper: unit(), defense: unit(), midfield: unit(), attack: unit() },
+  };
+};
+
+export const getCurrentCoachSelectionProfile = (career: CareerState): CoachSelectionProfile => {
+  if (career.leagueSeason?.competition.category !== 'professional') return TOMASZ_RADECKI_PROFILE;
+  const coach = career.significantPeople.find(
+    (person) => person.role === 'coach' && person.clubId === career.currentClub.id,
+  );
+  const rng = RandomGenerator.fromSeed(
+    `${career.seed}:${coach?.id ?? career.currentClub.id}:selection`,
+  );
+  return {
+    youthTrust: rng.int(25, 90),
+    experiencePreference: rng.int(25, 90),
+    tacticalDiscipline: rng.int(35, 92),
+    formSensitivity: rng.int(35, 90),
+    potentialPatience: rng.int(25, 90),
+    riskTolerance: rng.int(20, 85),
+  };
 };
 const decision = (
   id: string,
@@ -498,13 +536,26 @@ const backgroundFeedback = (seed: string, team: number, opp: number, venue: 'hom
   return { teamStats, momentum, homeGoals, awayGoals };
 };
 const scoreAtMinute = (match: MatchState, minute: number) => ({
-  homeGoals: (match.momentum ?? []).filter(
-    (point) => point.minute <= minute && point.event === 'goal' && point.scoringSide === 'home',
+  homeGoals: (match.goalEvents ?? goalsFromMomentum(match)).filter(
+    (event) => event.minute <= minute && event.scoringSide === 'home',
   ).length,
-  awayGoals: (match.momentum ?? []).filter(
-    (point) => point.minute <= minute && point.event === 'goal' && point.scoringSide === 'away',
+  awayGoals: (match.goalEvents ?? goalsFromMomentum(match)).filter(
+    (event) => event.minute <= minute && event.scoringSide === 'away',
   ).length,
 });
+const goalsFromMomentum = (match: MatchState) =>
+  (match.momentum ?? []).flatMap((point, index) =>
+    point.event === 'goal' && point.scoringSide
+      ? [
+          {
+            id: `${match.id}:background:${index}`,
+            minute: point.minute,
+            scoringSide: point.scoringSide,
+            source: 'background' as const,
+          },
+        ]
+      : [],
+  );
 export const startSeptemberMatch = (career: CareerState): CareerState => {
   if (career.activeMatch || !career.september || career.september.completed) return career;
   const i = career.september.fixtureIndex;
@@ -570,6 +621,18 @@ export const startSeptemberMatch = (career: CareerState): CareerState => {
     resolvedMoments: [],
     teamStats: feedback.teamStats,
     momentum: feedback.momentum,
+    goalEvents: feedback.momentum.flatMap((point, index) =>
+      point.event === 'goal' && point.scoringSide
+        ? [
+            {
+              id: `match_2026_09_${i + 1}:background:${index}`,
+              minute: point.minute,
+              scoringSide: point.scoringSide,
+              source: 'background' as const,
+            },
+          ]
+        : [],
+    ),
     completed: false,
   };
   return { ...career, activeMatch };
@@ -600,6 +663,10 @@ export const startFixtureMatch = (career: CareerState, fixture: Fixture): Career
           fixtureIndex,
           date: fixture.date,
           competition: fixture.competition === 'league' ? 'Liga regionalna' : fixture.competition,
+          teamLevel:
+            career.leagueSeason?.competition.category === 'professional'
+              ? 'senior'
+              : started.activeMatch.teamLevel,
           opponent: fixture.opponent,
           venue: fixture.venue,
         }
@@ -701,9 +768,17 @@ export const resolveMatchDecision = (career: CareerState, decisionId: string): C
         ? 'Podaniem wyciąłeś linię rywala i stworzyłeś partnerowi dobrą sytuację.'
         : 'Dobre wykonanie pomogło drużynie utrzymać inicjatywę.'
       : 'Próba nie przyniosła efektu i ułatwiła rywalom przejęcie inicjatywy.';
+  const playerGoalEvents = Array.from({ length: result.goals }, (_, index) => ({
+    id: `${match.id}:player:${match.resolvedMoments.length}:${index}`,
+    minute: moment.minute,
+    scoringSide: match.venue,
+    source: 'player' as const,
+  }));
+  const ledger = [...(match.goalEvents ?? goalsFromMomentum(match)), ...playerGoalEvents];
   const updated = {
     ...match,
-    ...scoreAtMinute(match, moment.minute),
+    goalEvents: ledger,
+    ...scoreAtMinute({ ...match, goalEvents: ledger }, moment.minute),
     currentMinute: moment.minute,
     playerMinutes: Math.min(match.plannedMinutes, moment.minute),
     resolvedMoments: [...match.resolvedMoments, result],
@@ -735,18 +810,8 @@ export const finishMatch = (career: CareerState): CareerState => {
   const m = career.activeMatch;
   if (!m || m.completed) return career;
   const personal = m.resolvedMoments.reduce((s, r) => s + r.personalImpact, 0);
-  const final = backgroundFeedback(
-    `${career.seed}:${m.id}:final`,
-    VISTULA_NOVA_PROFILE.overallStrength,
-    m.opponent.strength,
-    m.venue,
-  );
-  const home =
-      final.homeGoals +
-      (m.venue === 'home' ? m.resolvedMoments.reduce((s, r) => s + r.goals, 0) : 0),
-    away =
-      final.awayGoals +
-      (m.venue === 'away' ? m.resolvedMoments.reduce((s, r) => s + r.goals, 0) : 0);
+  const ledger = m.goalEvents ?? goalsFromMomentum(m);
+  const { homeGoals: home, awayGoals: away } = scoreAtMinute({ ...m, goalEvents: ledger }, 120);
   const rating = evaluateMatchRating({
     position: career.player.primaryPosition,
     minutes: m.plannedMinutes,
@@ -876,8 +941,7 @@ export const finishMatch = (career: CareerState): CareerState => {
       currentMinute: 90,
       completed: true,
       ...(rating !== undefined ? { liveRating: rating } : {}),
-      teamStats: final.teamStats,
-      momentum: final.momentum,
+      goalEvents: ledger,
     },
   };
   const roundIndex =

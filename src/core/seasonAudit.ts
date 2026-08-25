@@ -17,6 +17,14 @@ export const auditCareerSeason = (career: CareerState) => {
         [fixture.homeClubId, fixture.awayClubId].includes(season.controlledClubId),
       ) ?? [];
   const starting = career.seasonStartingAttributes;
+  const activeFixture = calendar?.fixtures.find((fixture) => fixture.id === career.activeMatch?.id);
+  const duplicateClubNames = season
+    ? season.clubs
+        .filter(
+          (club, index) => season.clubs.findIndex((other) => other.name === club.name) !== index,
+        )
+        .map((club) => club.name)
+    : [];
   return {
     currentRound: season?.currentRound ?? 0,
     completedRounds: season?.rounds.filter((round) => round.completed).length ?? 0,
@@ -27,6 +35,25 @@ export const auditCareerSeason = (career: CareerState) => {
       .map((fixture) => fixture.id),
     careerCurrentDate: getCareerCurrentDate(career),
     seasonProgress: getSeasonProgress(career).progress,
+    staleActiveMatch: Boolean(career.activeMatch && !activeFixture),
+    activeMatchClubMismatch: Boolean(season && season.controlledClubId !== career.currentClub.id),
+    professionalMatchMarkedAcademy: Boolean(
+      season?.competition.category === 'professional' &&
+        career.activeMatch?.teamLevel === 'academy',
+    ),
+    currentCoachMismatch: Boolean(
+      career.careerSeasonNumber >= 2 &&
+        !career.significantPeople.some(
+          (person) => person.role === 'coach' && person.clubId === career.currentClub.id,
+        ),
+    ),
+    duplicateClubNames,
+    unableToAdvance: Boolean(
+      calendar &&
+        season &&
+        calendar.currentWeekIndex >= calendar.weeks.length - 1 &&
+        !season.completed,
+    ),
     developmentTotal: starting
       ? Object.keys(starting).reduce(
           (sum, key) =>

@@ -298,6 +298,7 @@ export interface Contract {
 }
 export interface ProfessionalOffer {
   id: Id;
+  offerType?: 'external' | 'renewal';
   club: ProfessionalClub;
   contract: Contract;
   interestReasons: string[];
@@ -586,6 +587,12 @@ export interface MatchMomentumPoint {
   event?: 'goal' | 'big_chance' | 'substitution' | 'red_card' | undefined;
   scoringSide?: 'home' | 'away' | undefined;
 }
+export interface MatchGoalEvent {
+  id: string;
+  minute: number;
+  scoringSide: 'home' | 'away';
+  source: 'background' | 'player';
+}
 export interface MatchState {
   id: string;
   fixtureIndex: number;
@@ -605,6 +612,8 @@ export interface MatchState {
   resolvedMoments: MatchMomentResult[];
   teamStats?: { home: MatchTeamStats; away: MatchTeamStats } | undefined;
   momentum?: MatchMomentumPoint[] | undefined;
+  /** Authoritative, append-only scoring history. Legacy saves are hydrated from momentum. */
+  goalEvents?: MatchGoalEvent[] | undefined;
   liveRating?: number | undefined;
   completed: boolean;
 }

@@ -96,6 +96,11 @@ export const initializeCareerSeason = (
   }));
   return {
     ...career,
+    activeMatch: undefined,
+    activeEvent: undefined,
+    augustPlanning: undefined,
+    september: undefined,
+    fastForwardLog: undefined,
     currentSeason: config.startYear,
     careerSeasonNumber: config.careerSeasonNumber,
     currentClub: config.club,

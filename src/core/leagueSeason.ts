@@ -24,6 +24,20 @@ const clubSeeds: Array<[string, string, number, number, number]> = [
   ['club_orzel_lany', 'Orzeł Łany', 46, 45, 48],
   ['club_start_brzezina', 'Start Brzezina', 50, 53, 47],
 ];
+const professionalNames = [
+  'KS Nadwiśle',
+  'Polonia Bursztyn',
+  'Orzeł Północy',
+  'Stal Grodzisko',
+  'LKS Zielone Wzgórza',
+  'Sporting Rawa',
+  'Kolejarz Mazovia',
+  'Unia Sandomierz',
+  'Warta Kresowa',
+  'Victoria Żary',
+  'MKS Podhale',
+  'Pogoń Jasna',
+];
 
 const scheduleDates = (startYear: number, alignWithSeptemberPrologue: boolean) => {
   const dates: string[] = [];
@@ -56,7 +70,19 @@ export const createLeagueSeason = (
   void seed;
   const startYear = options.startYear ?? 2026;
   const roundDates = scheduleDates(startYear, startYear === 2026 && !options.professional);
-  const clubs: LeagueClubProfile[] = clubSeeds.map(
+  const sourceSeeds = options.professional
+    ? clubSeeds.map(
+        (entry, index) =>
+          [
+            `professional_league_${index}`,
+            professionalNames[index]!,
+            entry[2] + 2,
+            entry[3] + 2,
+            entry[4] + 2,
+          ] as [string, string, number, number, number],
+      )
+    : clubSeeds;
+  const clubs: LeagueClubProfile[] = sourceSeeds.map(
     ([clubId, name, strength, attackStrength, defenseStrength]) => ({
       clubId,
       name,
@@ -66,6 +92,17 @@ export const createLeagueSeason = (
       form: 0,
     }),
   );
+  if (options.professional) {
+    clubs[0] = {
+      ...clubs[0]!,
+      clubId: options.controlledClubId ?? VISTULA_NOVA_ID,
+      name: options.controlledClubName ?? 'Klub zawodnika',
+    };
+    clubs.forEach((club, index) => {
+      if (index > 0 && club.name === clubs[0]!.name)
+        clubs[index] = { ...club, name: `Ruch ${club.name.split(' ').at(-1)}` };
+    });
+  }
   const ids = clubs.map((club) => club.clubId);
   let rotation = [...ids];
   const firstHalf: LeagueFixture[][] = [];

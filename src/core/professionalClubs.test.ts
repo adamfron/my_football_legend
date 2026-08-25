@@ -51,6 +51,7 @@ describe('professional transition', () => {
       rating: 7,
     }));
     expect(generateProfessionalOffers(a)).toEqual(generateProfessionalOffers(a));
+    expect(generateProfessionalOffers(a).length).toBeLessThanOrEqual(4);
   });
   it('need and youth trust increase interest', () => {
     const c = career();
@@ -84,6 +85,9 @@ describe('professional transition', () => {
     expect(next.currentSeason).toBe(2027);
     expect(next.leagueSeason?.controlledClubId).toBe(next.currentClub.id);
     expect(next.leagueSeason?.competition.category).toBe('professional');
+    expect(new Set(next.leagueSeason?.clubs.map((club) => club.name)).size).toBe(12);
+    expect(next.activeMatch).toBeUndefined();
+    expect(next.activeEvent).toBeUndefined();
     expect(next.leagueSeason?.name).toBe('2027/28');
     expect(next.careerCalendar?.fixtures[0]?.date).toBe('2027-08-29');
     expect(getCurrentHeadCoach(next)?.clubId).toBe(next.currentClub.id);

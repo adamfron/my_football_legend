@@ -139,6 +139,7 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
       return [
         {
           id: `offer_${club.id}_${career.currentSeason}`,
+          offerType: 'external',
           club,
           contract: {
             clubId: club.id,
@@ -172,5 +173,9 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
         },
       ];
     })
-    .sort((a, b) => a.id.localeCompare(b.id))
-    .slice(0, 6);
+    .sort((a, b) => {
+      const ai = evaluateClubInterest(career, a.club).score;
+      const bi = evaluateClubInterest(career, b.club).score;
+      return bi - ai || a.id.localeCompare(b.id);
+    })
+    .slice(0, 4);

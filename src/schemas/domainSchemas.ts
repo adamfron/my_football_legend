@@ -688,6 +688,16 @@ export const careerStateSchema = z.object({
           }),
         )
         .optional(),
+      goalEvents: z
+        .array(
+          z.object({
+            id,
+            minute: z.number().min(0).max(120),
+            scoringSide: z.enum(['home', 'away']),
+            source: z.enum(['background', 'player']),
+          }),
+        )
+        .optional(),
       liveRating: z.number().min(3).max(10).optional(),
       completed: z.boolean(),
     })
