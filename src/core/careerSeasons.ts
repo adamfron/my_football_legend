@@ -37,12 +37,13 @@ export const initializeCareerSeason = (
   career: CareerState,
   config: CareerSeasonConfig,
 ): CareerState => {
+  const professionalLevel = career.currentProfessionalClub?.professionalLevel;
   const season = createLeagueSeason(`${career.seed}:season:${config.careerSeasonNumber}`, {
     startYear: config.startYear,
     controlledClubId: config.club.id,
     controlledClubName: config.club.name,
     professional: config.professional,
-    professionalLevel: career.currentProfessionalClub?.professionalLevel,
+    ...(professionalLevel !== undefined ? { professionalLevel } : {}),
   });
   season.clubs = season.clubs.map((c) =>
     c.clubId === VISTULA_NOVA_ID ? { ...c, clubId: config.club.id, name: config.club.name } : c,
