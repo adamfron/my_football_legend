@@ -39,3 +39,20 @@ Balans selekcji można sprawdzać w devtools przez symulację naboru do senioró
 - trzy rozgałęzione ciągi wydarzeń dla czterech wyników selekcji;
 - wspólny jakościowy status roli na początek sezonu 2026/27;
 - symulator rozkładu ścieżek. Pełny sezon, terminarz, tabela i transfery pozostają poza tym etapem.
+
+# Economy v2
+
+- zawodowe kontrakty, pensje, premie i agent;
+- regularne koszty życia, mieszkanie i samochody;
+- sponsorzy, inwestycje i wsparcie rodziny.
+
+# Lifestyle events
+
+- imprezy, alkohol, luksusowe wydatki i relacje romantyczne;
+- ryzykowne znajomości oraz szemrane lub nielegalne propozycje jako abstrakcyjne wydarzenia z ryzykiem sportowym, prawnym i reputacyjnym.
+
+# Development v2
+
+- trenerzy personalni jako postacie, dietetyk, fizjoterapeuta i psycholog;
+- nauka języków, formalna edukacja i wiedza o finansach;
+- zmiana masy, budowa mięśni i zaawansowany trening pozycyjny.

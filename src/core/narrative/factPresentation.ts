@@ -200,6 +200,16 @@ export const getFactPresentation = (career: CareerState, fact: HistoryFact): Fac
       'Droga do sierpnia',
       'Pierwszy etap po selekcji został domknięty, a wszystkie relacje i wcześniejsze decyzje pozostają aktywne.',
     ];
+  else if (fact.factType === 'august_2026_started')
+    pair = [
+      'Początek sierpnia',
+      'Vistula Nova wypłaciła ci szkoleniowe stypendium, a nowa rola zaczęła wyznaczać rytm tygodni.',
+    ];
+  else if (fact.factType === 'august_2026_completed')
+    pair = [
+      'Sierpień — pierwsze tygodnie nowej roli',
+      `Cztery tygodnie pozwoliły połączyć obowiązki klubowe, regenerację i życie poza boiskiem. Kończysz miesiąc ze środkami ${String(fact.data.funds)} PLN.`,
+    ];
   else if (fact.factType === 'academy_second_week_completed')
     pair = [
       'Dwa tygodnie domknięte',

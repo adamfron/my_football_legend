@@ -35,6 +35,18 @@ import {
 } from '../core/events/academyArc';
 import { getEventDefinition } from '../core/events/eventRegistry';
 import { resolveEventChoice } from '../core/events/resolveEventChoice';
+import { getAvailableDecisions } from '../core/events/decisionAvailability';
+import {
+  advanceAugustWeek,
+  augustActivities,
+  canChooseAugustActivity,
+  canInitializeAugust,
+  evaluateWeeklyLoad,
+  getAvailableFunds,
+  getWeeklyClubLoad,
+  initializeAugustPhase,
+  resolveAugustActivity,
+} from '../core/augustPlanning';
 import {
   advanceActiveEvent,
   applyEventResolution,
@@ -214,24 +226,21 @@ const visibleDecisions = (career: CareerState, decisions: EventDecision[]) => {
   const outcome = career.historyFacts.find((f) => f.factType === 'academy_selection_result')?.data
     .selectionOutcome;
   const invited = outcome === 'player_invited' || outcome === 'both_invited';
-  return decisions.filter((d) =>
-    career.activeEvent?.definitionId === 'academy_final_assessment'
-      ? career.player.primaryPosition === 'goalkeeper'
-        ? d.id.startsWith('gk_assessment_')
-        : !d.id.startsWith('gk_')
-      : career.activeEvent?.definitionId === 'academy_selection_response'
-        ? invited
-          ? [
-              'respond_seek_expectations',
-              'respond_stay_grounded',
-              'respond_acknowledge_rival',
-            ].includes(d.id)
-          : [
-              'respond_request_plan',
-              'respond_return_to_work',
-              'respond_challenge_decision',
-            ].includes(d.id)
-        : true,
+  const domainAvailable = career.activeEvent
+    ? getAvailableDecisions(career, career.activeEvent, decisions)
+    : [];
+  return domainAvailable.filter((d) =>
+    career.activeEvent?.definitionId === 'academy_selection_response'
+      ? invited
+        ? [
+            'respond_seek_expectations',
+            'respond_stay_grounded',
+            'respond_acknowledge_rival',
+          ].includes(d.id)
+        : ['respond_request_plan', 'respond_return_to_work', 'respond_challenge_decision'].includes(
+            d.id,
+          )
+      : true,
   );
 };
 const personName = (career: CareerState, id: string) =>
@@ -437,6 +446,7 @@ const EventCard = ({
   onCareer: (career: CareerState) => void;
 }) => {
   const event = career.activeEvent;
+  if (!event && career.augustPlanning) return <AugustPlanner career={career} onCareer={onCareer} />;
   if (!event)
     return (
       <section>
@@ -454,6 +464,11 @@ const EventCard = ({
               {translate('events.ui.startSecondWeek')}
             </button>
           )}
+        {canInitializeAugust(career) && (
+          <button onClick={() => onCareer(initializeAugustPhase(career))}>
+            Przejdź do sierpnia
+          </button>
+        )}
       </section>
     );
   const definition = getEventDefinition(event.definitionId);
@@ -530,6 +545,100 @@ const EventCard = ({
           </div>
         </>
       )}
+    </section>
+  );
+};
+
+const AugustPlanner = ({
+  career,
+  onCareer,
+}: {
+  career: CareerState;
+  onCareer: (career: CareerState) => void;
+}) => {
+  const plan = career.augustPlanning!;
+  if (plan.completed) {
+    const summary = [...career.historyFacts]
+      .reverse()
+      .find((f) => f.factType === 'august_2026_completed');
+    return (
+      <section>
+        <h2>Sierpień 2026 — pierwsze tygodnie nowej roli</h2>
+        <p>
+          <strong>Rola:</strong> {playerStatus(career)}
+        </p>
+        <p>
+          Kondycja: {Number(summary?.data.fitnessChange) >= 0 ? '+' : ''}
+          {String(summary?.data.fitnessChange)} · morale:{' '}
+          {Number(summary?.data.moraleChange) >= 0 ? '+' : ''}
+          {String(summary?.data.moraleChange)}
+        </p>
+        <p>Dostępne środki: {getAvailableFunds(career)} PLN</p>
+        <p>
+          Rozwój: {String(summary?.data.development)} punktów postępu. Najważniejszy moment:{' '}
+          {String(summary?.data.highlight)}
+        </p>
+      </section>
+    );
+  }
+  const latest = plan.results.find((r) => r.week === plan.currentWeek);
+  const load = getWeeklyClubLoad(career);
+  if (latest)
+    return (
+      <section>
+        <p>
+          Tydzień {plan.currentWeek} · {latest.date}
+        </p>
+        <h2>Zamknięcie tygodnia</h2>
+        <p>{latest.narrative}</p>
+        {latest.interlude && <p>{latest.interlude}</p>}
+        <button onClick={() => onCareer(advanceAugustWeek(career))}>
+          {plan.currentWeek === 4 ? 'Podsumuj sierpień' : 'Przejdź do kolejnego tygodnia'}
+        </button>
+      </section>
+    );
+  return (
+    <section>
+      <p>Tydzień {plan.currentWeek} · August 2026 — walka o swoją rolę</p>
+      <h2>Plan tygodnia</h2>
+      <div className="career-grid">
+        <article className="mini-card">
+          <h3>Status</h3>
+          <p>
+            <strong>Rola:</strong> {playerStatus(career)}
+          </p>
+          <p>
+            <strong>Obciążenie:</strong>{' '}
+            {load >= 70 ? 'Duże' : load <= 45 ? 'Stosunkowo lekkie' : 'Średnie'}
+          </p>
+          <p>{evaluateWeeklyLoad(career, 'prioritize_recovery').description}</p>
+          <p>
+            <strong>Kondycja:</strong> {career.player.fitness}
+          </p>
+          <p>
+            <strong>Morale:</strong> {career.player.morale}
+          </p>
+          <p>
+            <strong>Środki:</strong> {getAvailableFunds(career)} PLN
+          </p>
+        </article>
+      </div>
+      <h3>Co robisz poza obowiązkami klubowymi?</h3>
+      <div className="choices">
+        {augustActivities.map((activity) => (
+          <article className="decision-card" key={activity.id}>
+            <h3>{activity.name}</h3>
+            <p>{activity.descriptions[plan.currentWeek % 2]}</p>
+            <p>{activity.cost ? `Koszt: ${activity.cost} PLN` : 'Bez kosztu'}</p>
+            <button
+              disabled={!canChooseAugustActivity(career, activity.id)}
+              onClick={() => onCareer(resolveAugustActivity(career, activity.id))}
+            >
+              {canChooseAugustActivity(career, activity.id) ? 'Wybierz' : 'Brak środków'}
+            </button>
+          </article>
+        ))}
+      </div>
     </section>
   );
 };
@@ -645,6 +754,10 @@ export const App = () => {
     setCareer(next);
     setView('career');
   };
+  const updateCareer = (next: CareerState) => {
+    saveCareer(next);
+    setCareer(next);
+  };
 
   if (view === 'career' && career)
     return (
@@ -688,7 +801,7 @@ export const App = () => {
             </div>
           ) : (
             <>
-              {active === 'game' && <EventCard career={career} onCareer={setCareer} />}{' '}
+              {active === 'game' && <EventCard career={career} onCareer={updateCareer} />}{' '}
               {active === 'relationships' && (
                 <div className="career-grid">
                   {career.significantPeople
@@ -701,22 +814,24 @@ export const App = () => {
               {active === 'history' && (
                 <div>
                   <h2>Oś czasu kariery</h2>
-                  {career.historyFacts.map((f) => {
-                    const fp = getFactPresentation(career, f);
-                    return (
-                      <article className="mini-card history-item" key={f.id}>
-                        <p>
-                          {formatDate(f.date)} <span className="tone-badge">{fp.toneLabel}</span>
-                        </p>
-                        <h3>{fp.title}</h3>
-                        <p>{fp.summary}</p>
-                        <p>
-                          {fp.participantNames.join(', ')}
-                          {fp.clubName ? ` · ${fp.clubName}` : ''}
-                        </p>
-                      </article>
-                    );
-                  })}
+                  {career.historyFacts
+                    .filter((f) => f.narrativeImportance >= 30)
+                    .map((f) => {
+                      const fp = getFactPresentation(career, f);
+                      return (
+                        <article className="mini-card history-item" key={f.id}>
+                          <p>
+                            {formatDate(f.date)} <span className="tone-badge">{fp.toneLabel}</span>
+                          </p>
+                          <h3>{fp.title}</h3>
+                          <p>{fp.summary}</p>
+                          <p>
+                            {fp.participantNames.join(', ')}
+                            {fp.clubName ? ` · ${fp.clubName}` : ''}
+                          </p>
+                        </article>
+                      );
+                    })}
                 </div>
               )}{' '}
               {active === 'club' && <ClubProfile career={career} />}{' '}
@@ -756,6 +871,34 @@ export const App = () => {
                       <p>
                         <strong>Kondycja:</strong> {career.player.fitness}
                       </p>
+                      <h3>Rozwój</h3>
+                      <p>
+                        Kierunek:{' '}
+                        {career.developmentProgress?.[0]?.attribute ?? 'jeszcze nieustalony'}
+                      </p>
+                      <p>
+                        Postęp:{' '}
+                        {(career.developmentProgress?.[0]?.progress ?? 0) < 20
+                          ? 'pierwsze oznaki poprawy'
+                          : (career.developmentProgress?.[0]?.progress ?? 0) < 45
+                            ? 'widoczny postęp'
+                            : 'blisko przełomu'}
+                      </p>
+                      <p>
+                        Ostatnia aktywność:{' '}
+                        {career.augustPlanning?.results.at(-1)?.activityId ?? 'brak'}
+                      </p>
+                      <h3>Finanse</h3>
+                      <p>Dostępne środki: {getAvailableFunds(career)} PLN</p>
+                      {(career.finances ?? [])
+                        .slice(-3)
+                        .reverse()
+                        .map((item) => (
+                          <p key={item.id}>
+                            {item.date}: {item.amount > 0 ? '+' : ''}
+                            {item.amount} PLN
+                          </p>
+                        ))}
                     </aside>
                   </div>
                 )}

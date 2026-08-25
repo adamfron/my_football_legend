@@ -143,6 +143,17 @@ export const eventDefinitionSchema = z.object({
         descriptionKey: z.string(),
         visiblePros: z.array(z.string()),
         visibleCons: z.array(z.string()),
+        availability: z
+          .object({
+            positions: z.array(z.string()).optional(),
+            positionGroups: z
+              .array(z.enum(['goalkeeper', 'defender', 'midfielder', 'attacker', 'outfield']))
+              .optional(),
+            requiredFacts: z.array(z.string()).optional(),
+            excludedFacts: z.array(z.string()).optional(),
+            requiredTags: z.array(z.string()).optional(),
+          })
+          .optional(),
       }),
     )
     .min(1),
@@ -216,6 +227,69 @@ export const careerStateSchema = z.object({
   storyThreads: z.array(storyThreadSchema),
   statistics: z.record(z.string(), z.number()),
   activeEvent: eventInstanceSchema.optional(),
+  finances: z
+    .array(
+      z.object({
+        id,
+        date: z.string(),
+        amount: z.number(),
+        category: z.enum([
+          'stipend',
+          'side_job',
+          'development',
+          'recovery',
+          'education',
+          'lifestyle',
+        ]),
+        sourceFactId: id.optional(),
+      }),
+    )
+    .optional(),
+  developmentProgress: z
+    .array(
+      z.object({
+        attribute: z.enum([
+          'technique',
+          'vision',
+          'pace',
+          'stamina',
+          'finishing',
+          'defending',
+          'leadership',
+          'composure',
+        ]),
+        progress: z.number().min(0),
+      }),
+    )
+    .optional(),
+  augustPlanning: z
+    .object({
+      currentWeek: z.number().int().min(1).max(4),
+      startedFitness: score,
+      startedMorale: score,
+      completed: z.boolean(),
+      results: z.array(
+        z.object({
+          week: z.number().int(),
+          date: z.string(),
+          activityId: z.enum([
+            'extra_individual_training',
+            'hire_personal_coach',
+            'nutrition_consultation',
+            'education_session',
+            'food_delivery_shift',
+            'prioritize_recovery',
+          ]),
+          fitnessDelta: z.number(),
+          moraleDelta: z.number(),
+          development: z.number(),
+          overloaded: z.boolean(),
+          narrative: z.string(),
+          interlude: z.string().optional(),
+        }),
+      ),
+    })
+    .optional(),
 });
 
 export const archetypeSchema = z.object({

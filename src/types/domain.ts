@@ -83,7 +83,11 @@ export interface Person {
   narrativeTags: string[];
 }
 
-export interface ClubSeasonHistory { season: number; summary: string; placement?: number | undefined }
+export interface ClubSeasonHistory {
+  season: number;
+  summary: string;
+  placement?: number | undefined;
+}
 export interface Club {
   id: Id;
   name: string;
@@ -101,9 +105,34 @@ export interface Club {
   rivals: Id[];
 }
 
-export interface EventDecision { id: Id; labelKey: string; descriptionKey: string; visiblePros: string[]; visibleCons: string[] }
-export interface HiddenTest { id: Id; attribute: string; difficulty: number; successChanceModifier?: number | undefined }
-export interface EventConsequence { id: Id; type: string; data: Record<string, unknown>; factType?: string | undefined }
+export type PositionGroup = 'goalkeeper' | 'defender' | 'midfielder' | 'attacker' | 'outfield';
+export interface DecisionAvailability {
+  positions?: string[];
+  positionGroups?: PositionGroup[];
+  requiredFacts?: string[];
+  excludedFacts?: string[];
+  requiredTags?: string[];
+}
+export interface EventDecision {
+  id: Id;
+  labelKey: string;
+  descriptionKey: string;
+  visiblePros: string[];
+  visibleCons: string[];
+  availability?: DecisionAvailability;
+}
+export interface HiddenTest {
+  id: Id;
+  attribute: string;
+  difficulty: number;
+  successChanceModifier?: number | undefined;
+}
+export interface EventConsequence {
+  id: Id;
+  type: string;
+  data: Record<string, unknown>;
+  factType?: string | undefined;
+}
 export interface EventDefinition {
   id: Id;
   version: number;
@@ -173,4 +202,51 @@ export interface CareerState {
   storyThreads: StoryThread[];
   statistics: Record<string, number>;
   activeEvent?: EventInstance | undefined;
+  finances?: FinancialTransaction[] | undefined;
+  developmentProgress?: AttributeDevelopmentProgress[] | undefined;
+  augustPlanning?: AugustPlanningState | undefined;
+}
+
+export type FinancialCategory =
+  | 'stipend'
+  | 'side_job'
+  | 'development'
+  | 'recovery'
+  | 'education'
+  | 'lifestyle';
+export interface FinancialTransaction {
+  id: Id;
+  date: string;
+  amount: number;
+  category: FinancialCategory;
+  sourceFactId?: Id | undefined;
+}
+export interface AttributeDevelopmentProgress {
+  attribute: keyof PlayerAttributes;
+  progress: number;
+}
+export type AugustActivityId =
+  | 'extra_individual_training'
+  | 'hire_personal_coach'
+  | 'nutrition_consultation'
+  | 'education_session'
+  | 'food_delivery_shift'
+  | 'prioritize_recovery';
+export interface AugustWeekResult {
+  week: number;
+  date: string;
+  activityId: AugustActivityId;
+  fitnessDelta: number;
+  moraleDelta: number;
+  development: number;
+  overloaded: boolean;
+  narrative: string;
+  interlude?: string | undefined;
+}
+export interface AugustPlanningState {
+  currentWeek: number;
+  startedFitness: number;
+  startedMorale: number;
+  results: AugustWeekResult[];
+  completed: boolean;
 }
