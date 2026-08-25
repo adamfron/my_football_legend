@@ -58,6 +58,25 @@ describe('reusable career week loop', () => {
     expect(first.careerCalendar?.weeks.some((week) => week.fixtureIds.length === 0)).toBe(true);
     expect(first.careerCalendar?.weeks.some((week) => week.fixtureIds.length > 0)).toBe(true);
   });
+  it('migrates September into four complete and balanced senior rounds', () => {
+    const state = initializeCurrentCareerWeek(career('migration'));
+    expect(state.leagueSeason?.currentRound).toBe(4);
+    expect(
+      state.leagueSeason?.rounds
+        .slice(0, 4)
+        .every((round) => round.completed && round.fixtures.every((fixture) => fixture.completed)),
+    ).toBe(true);
+    const played = state.leagueSeason!.clubIds.map(
+      (clubId) =>
+        state
+          .leagueSeason!.rounds.flatMap((round) => round.fixtures)
+          .filter(
+            (fixture) =>
+              fixture.completed && [fixture.homeClubId, fixture.awayClubId].includes(clubId),
+          ).length,
+    );
+    expect(new Set(played)).toEqual(new Set([4]));
+  });
   it('crosses month boundaries and advances twelve weeks without duplicates', () => {
     let state = initializeCurrentCareerWeek(career());
     for (let index = 0; index < 12; index++) state = advanceCareerWeek(state);

@@ -22,6 +22,8 @@ import { assignedRole } from './events/postSelectionPath';
 import { getWeeklyClubLoad } from './augustPlanning';
 import { evaluateMatchRating, normalizeTeamStats } from './matchFeedback';
 import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyles';
+import { applyMatchAvailabilityEffects } from './playerAvailability';
+import { settleLeagueRound } from './leagueSeason';
 
 export const SEPTEMBER_DATES = ['2026-09-05', '2026-09-12', '2026-09-19', '2026-09-26'] as const;
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
@@ -575,20 +577,32 @@ export const startSeptemberMatch = (career: CareerState): CareerState => {
 /** Adapts an arbitrary generated fixture to the existing match engine. */
 export const startFixtureMatch = (career: CareerState, fixture: Fixture): CareerState => {
   if (career.activeMatch) return career;
-  const fixtureIndex = career.careerCalendar?.fixtures.findIndex((item) => item.id === fixture.id) ?? 0;
+  const fixtureIndex =
+    career.careerCalendar?.fixtures.findIndex((item) => item.id === fixture.id) ?? 0;
   const temporary: CareerState = {
     ...career,
-    september: { fixtureIndex: 0, opponents: [fixture.opponent], availability: generateSquadAvailability(`${career.seed}:${fixture.id}`), completed: false },
+    september: {
+      fixtureIndex: 0,
+      opponents: [fixture.opponent],
+      availability: generateSquadAvailability(`${career.seed}:${fixture.id}`),
+      completed: false,
+    },
   };
   const started = startSeptemberMatch(temporary);
   return {
     ...started,
     september: career.september,
-    activeMatch: started.activeMatch ? {
-      ...started.activeMatch, id: fixture.id, fixtureIndex, date: fixture.date,
-      competition: fixture.competition === 'league' ? 'Liga regionalna' : fixture.competition,
-      opponent: fixture.opponent, venue: fixture.venue,
-    } : undefined,
+    activeMatch: started.activeMatch
+      ? {
+          ...started.activeMatch,
+          id: fixture.id,
+          fixtureIndex,
+          date: fixture.date,
+          competition: fixture.competition === 'league' ? 'Liga regionalna' : fixture.competition,
+          opponent: fixture.opponent,
+          venue: fixture.venue,
+        }
+      : undefined,
   };
 };
 export const resolveMatchDecision = (career: CareerState, decisionId: string): CareerState => {
@@ -739,8 +753,8 @@ export const finishMatch = (career: CareerState): CareerState => {
     goalsFor: m.venue === 'home' ? home : away,
     goalsAgainst: m.venue === 'home' ? away : home,
   });
-  const appearance: MatchAppearance = {
-    matchId: m.id,
+  const rawAppearance: MatchAppearance = {
+    matchId: m.teamLevel === 'academy' && career.leagueSeason ? `academy_${m.id}` : m.id,
     date: m.date,
     opponentId: m.opponent.id,
     teamLevel: m.teamLevel,
@@ -756,6 +770,8 @@ export const finishMatch = (career: CareerState): CareerState => {
     personalImpact: personal,
     ...(rating !== undefined ? { rating } : {}),
   };
+  const effects = applyMatchAvailabilityEffects(career, rawAppearance, m.date);
+  const appearance = effects.appearance;
   const facts = [
     makeFact(
       career,
@@ -800,15 +816,48 @@ export const finishMatch = (career: CareerState): CareerState => {
         90,
       ),
     );
+  if (
+    m.teamLevel === 'senior' &&
+    appearance.started &&
+    !(career.matchHistory ?? []).some((a) => a.teamLevel === 'senior' && a.started)
+  )
+    facts.push(
+      makeFact(
+        career,
+        'first_senior_start',
+        m.date,
+        { matchId: m.id, minutes: appearance.minutes },
+        92,
+      ),
+    );
+  facts.push(
+    makeFact(career, 'interactive_match', m.date, { matchId: m.id, teamLevel: m.teamLevel }, 20),
+  );
   const priorLevel = (career.matchHistory ?? []).filter((a) => a.teamLevel === m.teamLevel);
   const levelName = m.teamLevel === 'senior' ? 'senior' : 'academy';
   if (appearance.goals > 0 && !priorLevel.some((a) => a.goals > 0))
-    facts.push(makeFact(career, `first_${levelName}_goal`, m.date, { matchId: m.id }, m.teamLevel === 'senior' ? 92 : 68));
+    facts.push(
+      makeFact(
+        career,
+        `first_${levelName}_goal`,
+        m.date,
+        { matchId: m.id },
+        m.teamLevel === 'senior' ? 92 : 68,
+      ),
+    );
   if (appearance.assists > 0 && !priorLevel.some((a) => a.assists > 0))
-    facts.push(makeFact(career, `first_${levelName}_assist`, m.date, { matchId: m.id }, m.teamLevel === 'senior' ? 88 : 65));
+    facts.push(
+      makeFact(
+        career,
+        `first_${levelName}_assist`,
+        m.date,
+        { matchId: m.id },
+        m.teamLevel === 'senior' ? 88 : 65,
+      ),
+    );
   const load = getWeeklyClubLoad(career, m.plannedMinutes);
   const completedCareer: CareerState = {
-    ...career,
+    ...effects.career,
     player: {
       ...career.player,
       fitness: Math.max(
@@ -817,7 +866,7 @@ export const finishMatch = (career: CareerState): CareerState => {
       ),
     },
     matchHistory: [...(career.matchHistory ?? []), appearance],
-    historyFacts: [...career.historyFacts, ...facts],
+    historyFacts: [...career.historyFacts, ...facts, ...effects.facts],
     activeMatch: {
       ...m,
       homeGoals: home,
@@ -830,7 +879,21 @@ export const finishMatch = (career: CareerState): CareerState => {
       momentum: final.momentum,
     },
   };
-  return evaluatePlayStyleUnlocks(completedCareer, m.date);
+  const roundIndex =
+    completedCareer.leagueSeason?.rounds.findIndex((round) =>
+      round.fixtures.some((fixture) => fixture.id === m.id),
+    ) ?? -1;
+  const settled =
+    roundIndex >= 0
+      ? settleLeagueRound(
+          completedCareer,
+          roundIndex,
+          m.teamLevel === 'senior'
+            ? { homeGoals: home, awayGoals: away, playerAppearanceMatchId: appearance.matchId }
+            : undefined,
+        )
+      : completedCareer;
+  return evaluatePlayStyleUnlocks(settled, m.date);
 };
 export const advanceSeptemberWeek = (career: CareerState): CareerState => {
   if (!career.activeMatch?.completed || !career.september) return career;

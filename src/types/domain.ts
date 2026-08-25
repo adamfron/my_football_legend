@@ -213,6 +213,32 @@ export interface CareerState {
   leagueSeason?: LeagueSeason | undefined;
   decisionPoint?: PlayerDecisionPoint | undefined;
   fastForwardLog?: FastForwardEntry[] | undefined;
+  playerAvailability?: PlayerAvailabilityState | undefined;
+  seasonOutcome?: SeasonOutcome | undefined;
+  seasonStartingAttributes?: PlayerAttributes | undefined;
+}
+export type InjurySeverity = 'knock' | 'minor' | 'moderate' | 'major';
+export interface PlayerInjury {
+  id: Id;
+  startDate: string;
+  severity: InjurySeverity;
+  matchesRemaining: number;
+  source: 'match' | 'training' | 'overload';
+  status: 'active' | 'recovered';
+  bodyArea?: string | undefined;
+}
+export interface PlayerAvailabilityState {
+  injuries: PlayerInjury[];
+  suspensionMatchesRemaining: number;
+  leagueYellowCards: number;
+  matchesMissedThroughSuspension: number;
+  matchesMissedThroughInjury: number;
+}
+export interface SeasonOutcome {
+  finalPosition: number;
+  champion: boolean;
+  promoted: boolean;
+  relegated: boolean;
 }
 
 export type CareerWeekPhase = 'academy' | 'preseason' | 'regular_season' | 'winter_break';
@@ -523,6 +549,10 @@ export interface MatchAppearance {
   saves: number;
   personalImpact: number;
   rating?: number | undefined;
+  yellowCards?: number | undefined;
+  redCard?: 'second_yellow' | 'direct' | undefined;
+  dismissedMinute?: number | undefined;
+  injuryId?: string | undefined;
 }
 export interface SeasonPlayerSummary {
   appearances: number;

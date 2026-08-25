@@ -1,5 +1,9 @@
 # Model narracyjny
 
+## Uwaga gracza
+
+Routine time should disappear quickly. Player attention is a scarce resource. A season therefore aims for only a few interactive matches and three contextual strategic event windows; ordinary non-selection is not itself a story beat. Injuries interrupt fast-forward only when their consequences are meaningful.
+
 1. `EventDefinition` opisuje możliwą sytuację, obsadę, decyzje, ukryte testy i konsekwencje.
 2. `EventInstance` zapisuje konkretny przebieg, kontekst, wybór i stan losowości.
 3. Obiektywny rezultat jest danymi: co zaszło w świecie gry.

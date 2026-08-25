@@ -1,5 +1,12 @@
 # Roadmapa
 
+## Stabilny pierwszy sezon
+
+- [x] Autorytatywne, idempotentne rozliczanie sześciu spotkań każdej kolejki.
+- [x] Osobne występy akademii oraz deterministyczne kartki, zawieszenia i urazy.
+- [x] Ograniczony budżet interakcji, kontekstowe wydarzenia i podsumowanie sezonu.
+- [ ] Kontrakty, transfery i generowanie następnego sezonu — osobny etap przejścia kariery.
+
 1. Fundament techniczny.
 2. Pierwsza pętla rozgrywki.
 3. Pamięć i narracja.

@@ -10,7 +10,11 @@ import { getFactPresentation } from '../core/narrative/factPresentation';
 import { buildFirstWeekSummary } from '../core/narrative/weekSummary';
 import { PersonAvatar } from '../components/PersonAvatar';
 import { MatchMomentumChart } from '../components/MatchMomentumChart';
-import { describePerformance, getSeasonPlayerSummary } from '../core/matchFeedback';
+import {
+  buildSeasonSummary,
+  describePerformance,
+  getSeasonPlayerSummary,
+} from '../core/matchFeedback';
 import { getMonthlyDevelopmentSummary } from '../core/developmentFeedback';
 import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../core/playStyles';
 import { auditRepeatedPlayerFacingText } from '../core/narrative/repeatedTextAudit';
@@ -69,6 +73,11 @@ import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../c
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, VISTULA_NOVA_ID } from '../core/leagueSeason';
+import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
+import {
+  getRegularSeasonEvent,
+  resolveRegularSeasonEvent,
+} from '../core/events/regularSeasonEvents';
 import type {
   CareerState,
   EventDecision,
@@ -263,6 +272,17 @@ const personName = (career: CareerState, id: string) =>
       ? `${career.significantPeople.find((p) => p.id === id)!.firstName} ${career.significantPeople.find((p) => p.id === id)!.lastName}`
       : '';
 const playerStatus = (career: CareerState) => {
+  const availability = getPlayerAvailability(
+    career,
+    getCurrentCareerWeek(career)?.startDate ?? '2027-05-31',
+  );
+  if (availability.status === 'suspended')
+    return `Zawieszony (${availability.suspensionMatchesRemaining} mecz)`;
+  if (availability.status === 'injured')
+    return `Kontuzjowany (około ${availability.injury.matchesRemaining} mecz.)`;
+  if (availability.status === 'knock')
+    return `Drobny uraz (około ${availability.injury.matchesRemaining} mecz.)`;
+  if (career.careerCalendar) return 'Zdrowy';
   const role = assignedRole(career);
   if (role) return roleStatus(role);
   const outcome = career.historyFacts.find((f) => f.factType === 'academy_selection_result')?.data
@@ -587,48 +607,27 @@ const CareerWeekGame = ({
 }) => {
   const week = getCurrentCareerWeek(career);
   const fixture = getCurrentFixture(career);
-  if (!week || career.leagueSeason?.completed)
-    return (
-      <section>
-        <h2>Sezon 2026/27 dobiegł końca.</h2>
-        <p>Dalsza część kariery zostanie rozwinięta w kolejnym etapie.</p>
-      </section>
-    );
+  if (!week || career.leagueSeason?.completed) return <SeasonEndSummary career={career} />;
   if (career.activeMatch) return <SeptemberGame career={career} onCareer={onCareer} reusable />;
-  if (career.decisionPoint?.type === 'off_field_event')
+  if (career.decisionPoint?.type === 'off_field_event') {
+    const event = getRegularSeasonEvent(career.decisionPoint.sourceId);
+    if (!event) return null;
     return (
       <section>
         <p>{formatDate(career.decisionPoint.date)} · poza boiskiem</p>
-        <h2>Ważna sprawa wymaga twojej uwagi</h2>
-        <p>
-          Sztab i codzienne obowiązki stawiają przed tobą wybór. Możesz poświęcić dodatkowy czas na
-          rozwój, zadbać o regenerację albo zachować dotychczasowy rytm.
-        </p>
+        <h2>{event.title}</h2>
+        <p>{event.situation}</p>
         <div className="choices">
-          {[
-            [
-              'invest',
-              'Podejmij działanie',
-              'Możesz przyspieszyć rozwój.',
-              'Ryzykujesz zmęczenie lub koszt.',
-            ],
-            ['balance', 'Znajdź kompromis', 'Zachowasz równowagę.', 'Efekt będzie wolniejszy.'],
-            [
-              'decline',
-              'Na razie odpuść',
-              'Chronisz czas i środki.',
-              'Nie zyskasz natychmiastowej korzyści.',
-            ],
-          ].map(([id, label, gain, risk]) => (
-            <article className="decision-card" key={id}>
-              <h3>{label}</h3>
+          {event.decisions.map((decision) => (
+            <article className="decision-card" key={decision.id}>
+              <h3>{decision.label}</h3>
               <section className="possible-benefits">
                 <h4>Możesz zyskać</h4>
-                <p>{gain}</p>
+                <p>{decision.gain}</p>
               </section>
               <section className="possible-risks">
                 <h4>Ryzykujesz</h4>
-                <p>{risk}</p>
+                <p>{decision.risk}</p>
               </section>
               <button
                 onClick={() => {
@@ -643,28 +642,8 @@ const CareerWeekGame = ({
                       : item,
                   );
                   onCareer({
-                    ...career,
-                    decisionPoint: undefined,
+                    ...resolveRegularSeasonEvent(career, sourceId, decision.id, week.startDate),
                     careerCalendar: { ...career.careerCalendar!, weeks: updatedWeeks },
-                    historyFacts: [
-                      ...career.historyFacts,
-                      {
-                        id: `fact_regular_event_${week.id}`,
-                        factType: 'regular_season_decision',
-                        season: career.currentSeason,
-                        date: week.startDate,
-                        actors: [career.player.id],
-                        targets: [],
-                        clubs: [career.currentClub.id],
-                        competitions: [],
-                        data: { eventId: sourceId, decisionId: id },
-                        causes: [],
-                        tags: ['off_field'],
-                        visibility: 'partial',
-                        narrativeImportance: 45,
-                        emotionalTone: 'neutral',
-                      },
-                    ],
                   });
                 }}
               >
@@ -675,6 +654,7 @@ const CareerWeekGame = ({
         </div>
       </section>
     );
+  }
   return (
     <section>
       <p>
@@ -725,6 +705,84 @@ const CareerWeekGame = ({
       >
         Symuluj do następnego wydarzenia
       </button>
+    </section>
+  );
+};
+
+const compactAppearance = (appearance: NonNullable<CareerState['matchHistory']>[number]) =>
+  appearance.minutes
+    ? `${appearance.minutes} min · ${appearance.goals} G · ${appearance.assists} A · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}`
+    : 'bez występu';
+const attributeLabels: Record<keyof PlayerAttributes, string> = {
+  technique: 'Technika',
+  vision: 'Przegląd gry',
+  pace: 'Szybkość',
+  stamina: 'Wytrzymałość',
+  finishing: 'Wykończenie',
+  defending: 'Obrona',
+  leadership: 'Przywództwo',
+  composure: 'Opanowanie',
+};
+
+const SeasonEndSummary = ({ career }: { career: CareerState }) => {
+  const table = getLeagueTable(career);
+  const club = table.find((row) => row.clubId === VISTULA_NOVA_ID);
+  const summary = buildSeasonSummary(career, career.currentSeason);
+  const availability = availabilityState(career);
+  const position = club?.position ?? 12;
+  return (
+    <section>
+      <h2>Podsumowanie sezonu 2026/27</h2>
+      <h3>Klub</h3>
+      <p>
+        {position}. miejsce · {club?.points ?? 0} pkt · {club?.won ?? 0}/{club?.drawn ?? 0}/
+        {club?.lost ?? 0} (W/R/P) · bramki {club?.goalsFor ?? 0}:{club?.goalsAgainst ?? 0}
+      </p>
+      <p>
+        <strong>
+          {position === 1
+            ? 'Mistrzostwo i awans'
+            : position === 12
+              ? 'Spadek'
+              : 'Pozostanie na poziomie rozgrywkowym'}
+        </strong>
+      </p>
+      <h3>Zawodnik</h3>
+      <p>
+        Senior: {summary.statistics.seniorAppearances} · akademia:{' '}
+        {summary.statistics.academyAppearances} · starty: {summary.statistics.starts} ·{' '}
+        {summary.statistics.minutes} min
+      </p>
+      <p>
+        {summary.statistics.goals} G · {summary.statistics.assists} A · xG{' '}
+        {summary.statistics.xG.toFixed(2).replace('.', ',')} · xA{' '}
+        {summary.statistics.xA.toFixed(2).replace('.', ',')} · średnia{' '}
+        {summary.statistics.averageRating?.toFixed(1).replace('.', ',') ?? '—'}
+      </p>
+      <p>
+        Kartki: {career.matchHistory?.reduce((s, m) => s + (m.yellowCards ?? 0), 0) ?? 0} żółtych ·{' '}
+        {career.matchHistory?.filter((m) => m.redCard).length ?? 0} czerwonych · opuszczone:{' '}
+        {availability.matchesMissedThroughSuspension} przez zawieszenie,{' '}
+        {availability.matchesMissedThroughInjury} przez uraz
+      </p>
+      <h3>Rozwój</h3>
+      {summary.attributeChanges.length ? (
+        summary.attributeChanges.map((change) => (
+          <p key={`${change.attribute}-${change.date}`}>
+            {attributeLabels[change.attribute]} {change.before} → {change.after}
+          </p>
+        ))
+      ) : (
+        <p>W tym sezonie nie doszło do trwałej zmiany atrybutów.</p>
+      )}
+      <h3>Kamienie milowe</h3>
+      {getCareerMilestones(career)
+        .slice(-6)
+        .map((item) => (
+          <p key={item.fact.id}>
+            {getFactPresentation(career, item.fact)?.title ?? item.fact.factType}
+          </p>
+        ))}
     </section>
   );
 };
@@ -789,7 +847,9 @@ const SeasonView = ({ career }: { career: CareerState }) => {
       </div>
       <h3>Terminarz</h3>
       {visible.map((fixture) => {
-        const appearance = career.matchHistory?.find((item) => item.matchId === fixture.id);
+        const appearance = career.matchHistory?.find(
+          (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
+        );
         return (
           <article className="mini-card" key={fixture.id}>
             <p>
@@ -803,7 +863,7 @@ const SeasonView = ({ career }: { career: CareerState }) => {
             </strong>
             <p>
               {appearance
-                ? `${appearance.minutes} min`
+                ? `${appearance.teamLevel === 'academy' ? 'Mecz akademii · ' : ''}${compactAppearance(appearance)}`
                 : fixture.completed
                   ? 'bez występu'
                   : 'przed meczem'}
