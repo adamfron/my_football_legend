@@ -3,17 +3,21 @@ import type {
   FastForwardEntry,
   Fixture,
   HistoryFact,
-  LeagueFixture,
   MatchAppearance,
 } from '../types/domain';
 import { getCurrentCareerWeek, getCurrentFixture, advanceCareerWeek } from './careerWeeks';
-import { evaluateMatchImportance, simulateLeagueFixture } from './leagueSeason';
+import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
 import {
   evaluateSquadOpportunity,
   startFixtureMatch,
   TOMASZ_RADECKI_PROFILE,
 } from './septemberMatches';
+import {
+  applyMatchAvailabilityEffects,
+  consumeUnavailableRound,
+  getPlayerAvailability,
+} from './playerAvailability';
 
 const fact = (
   career: CareerState,
@@ -48,8 +52,52 @@ const playerGroup = (position: string) =>
         ? 'midfielder'
         : 'attacker';
 
+const applySeasonDevelopment = (career: CareerState, appearance: MatchAppearance): CareerState => {
+  if (!appearance.minutes) return career;
+  const attribute =
+    playerGroup(career.player.primaryPosition) === 'defender'
+      ? 'defending'
+      : playerGroup(career.player.primaryPosition) === 'attacker'
+        ? 'finishing'
+        : playerGroup(career.player.primaryPosition) === 'goalkeeper'
+          ? 'composure'
+          : 'vision';
+  const existing = career.developmentProgress ?? [];
+  const prior = existing
+    .filter((item) => item.attribute === attribute)
+    .reduce((sum, item) => sum + item.progress, 0);
+  const gained = Math.max(
+    1,
+    Math.round(appearance.minutes / 12 + Math.max(0, (appearance.rating ?? 6) - 6) * 3),
+  );
+  const total = prior + gained;
+  const rest = existing.filter((item) => item.attribute !== attribute);
+  if (total < 100)
+    return { ...career, developmentProgress: [...rest, { attribute, progress: total }] };
+  const before = career.player.attributes[attribute];
+  const after = Math.min(100, before + 1);
+  const developmentFact = fact(
+    career,
+    'attribute_changed',
+    appearance.date,
+    { attribute, before, after, source: 'regular_season' },
+    55,
+  );
+  return {
+    ...career,
+    player: { ...career.player, attributes: { ...career.player.attributes, [attribute]: after } },
+    developmentProgress: [...rest, { attribute, progress: total - 100 }],
+    historyFacts: [...career.historyFacts, developmentFact],
+  };
+};
+
 export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture): CareerState => {
-  if ((career.matchHistory ?? []).some((appearance) => appearance.matchId === fixture.id))
+  if (
+    (career.matchHistory ?? []).some(
+      (appearance) =>
+        appearance.matchId === fixture.id || appearance.matchId === `academy_${fixture.id}`,
+    )
+  )
     return career;
   const fixtureIndex =
     career.leagueSeason?.rounds.findIndex((round) =>
@@ -61,6 +109,8 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
     { fixtureIndex, opponent: fixture.opponent, venue: fixture.venue },
     TOMASZ_RADECKI_PROFILE,
   );
+  const availability = getPlayerAvailability(career, fixture.date);
+  if (!availability.available) return consumeUnavailableRound(career, fixture.date);
   const started = selection.status.endsWith('starter');
   const bench = selection.status.endsWith('bench');
   const played = started || (bench && rng.bool(0.68));
@@ -103,8 +153,8 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
         9.5,
       )
     : undefined;
-  const appearance: MatchAppearance = {
-    matchId: fixture.id,
+  const rawAppearance: MatchAppearance = {
+    matchId: teamLevel === 'academy' ? `academy_${fixture.id}` : fixture.id,
     date: fixture.date,
     opponentId: fixture.opponent.id,
     teamLevel,
@@ -132,6 +182,8 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
     personalImpact: minutes ? Math.round((rating! - 6) * 2) : 0,
     ...(rating !== undefined ? { rating } : {}),
   };
+  const effects = applyMatchAvailabilityEffects(career, rawAppearance, fixture.date);
+  const appearance = effects.appearance;
   const priorSenior = (career.matchHistory ?? []).filter(
     (item) => item.teamLevel === 'senior' && item.minutes > 0,
   );
@@ -164,61 +216,32 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
     facts.push(
       fact(career, `first_${teamLevel}_assist`, fixture.date, { matchId: fixture.id }, 84),
     );
-  return {
-    ...career,
-    player: {
-      ...career.player,
-      fitness: clamp(career.player.fitness - Math.round(minutes / 20) + 2, 20, 100),
-      morale: clamp(
-        career.player.morale + (rating && rating >= 7.2 ? 2 : rating && rating < 5.8 ? -2 : 0),
-        0,
-        100,
-      ),
+  return applySeasonDevelopment(
+    {
+      ...effects.career,
+      player: {
+        ...career.player,
+        fitness: clamp(career.player.fitness - Math.round(minutes / 20) + 2, 20, 100),
+        morale: clamp(
+          career.player.morale + (rating && rating >= 7.2 ? 2 : rating && rating < 5.8 ? -2 : 0),
+          0,
+          100,
+        ),
+      },
+      matchHistory: [...(career.matchHistory ?? []), appearance],
+      historyFacts: [...career.historyFacts, ...facts, ...effects.facts],
     },
-    matchHistory: [...(career.matchHistory ?? []), appearance],
-    historyFacts: [...career.historyFacts, ...facts],
-  };
-};
-
-const completeLeagueRound = (career: CareerState, playerFixture?: Fixture): CareerState => {
-  const season = career.leagueSeason;
-  if (!season) return career;
-  const roundIndex = playerFixture
-    ? season.rounds.findIndex((round) =>
-        round.fixtures.some((item) => item.id === playerFixture.id),
-      )
-    : season.currentRound;
-  const round = season.rounds[roundIndex];
-  if (!round) return career;
-  const appearance =
-    playerFixture && (career.matchHistory ?? []).find((item) => item.matchId === playerFixture.id);
-  const fixtures = round.fixtures.map((leagueFixture): LeagueFixture => {
-    if (leagueFixture.completed) return leagueFixture;
-    const simulated = simulateLeagueFixture(season, leagueFixture, career.seed);
-    return appearance && leagueFixture.id === playerFixture?.id
-      ? { ...simulated, playerAppearanceMatchId: appearance.matchId }
-      : simulated;
-  });
-  const completedRounds = season.rounds.map((item, index) =>
-    index === roundIndex ? { ...item, fixtures, completed: true } : item,
+    appearance,
   );
-  const currentRound = Math.max(season.currentRound, roundIndex + 1);
-  return {
-    ...career,
-    leagueSeason: {
-      ...season,
-      rounds: completedRounds,
-      currentRound,
-      completed: currentRound >= season.rounds.length,
-    },
-  };
 };
 
 const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
   const league = career.leagueSeason?.rounds
     .flatMap((round) => round.fixtures)
     .find((item) => item.id === fixture.id);
-  const appearance = career.matchHistory?.find((item) => item.matchId === fixture.id);
+  const appearance = career.matchHistory?.find(
+    (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
+  );
   const home = fixture.venue === 'home' ? 'Vistula Nova' : fixture.opponent.name;
   const away = fixture.venue === 'away' ? 'Vistula Nova' : fixture.opponent.name;
   return {
@@ -227,7 +250,7 @@ const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
     type: 'match',
     fixtureId: fixture.id,
     ...(appearance ? { appearanceMatchId: appearance.matchId } : {}),
-    summary: `${home} ${league?.homeGoals ?? 0}:${league?.awayGoals ?? 0} ${away} · ${appearance?.minutes ? `${appearance.minutes} min · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}` : 'bez występu'}`,
+    summary: `${home} ${league?.homeGoals ?? 0}:${league?.awayGoals ?? 0} ${away}\n${appearance?.teamLevel === 'academy' ? 'Akademia · ' : ''}${appearance?.minutes ? `${appearance.minutes} min · ${appearance.goals} G · ${appearance.assists} A · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}` : 'bez występu'}`,
   };
 };
 
@@ -239,14 +262,33 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
     if (!week || week.completed) break;
     const fixture = getCurrentFixture(career);
     if (fixture) {
-      const importance = evaluateMatchImportance(career, fixture);
+      const roundIndex =
+        career.leagueSeason?.rounds.findIndex((r) => r.fixtures.some((f) => f.id === fixture.id)) ??
+        0;
+      const opportunity = evaluateSquadOpportunity(
+        career,
+        { fixtureIndex: roundIndex, opponent: fixture.opponent, venue: fixture.venue },
+        TOMASZ_RADECKI_PROFILE,
+      );
+      const available = getPlayerAvailability(career, fixture.date).available;
+      const expected = {
+        teamLevel: opportunity.status.startsWith('senior')
+          ? ('senior' as const)
+          : ('academy' as const),
+        started: opportunity.status.endsWith('starter'),
+        willPlay:
+          available &&
+          (opportunity.status.endsWith('starter') || opportunity.status.endsWith('bench')),
+      };
+      const importance = evaluateMatchImportance(career, fixture, expected);
       if (importance !== 'routine')
         return {
           ...startFixtureMatch(career, { ...fixture, matchImportance: importance }),
           decisionPoint: { type: 'important_match', date: fixture.date, sourceId: fixture.id },
         };
       career = simulateRoutinePlayerMatch(career, fixture);
-      career = completeLeagueRound(career, fixture);
+      const appearance = career.matchHistory?.find((a) => a.matchId === fixture.id);
+      career = settleLeagueRound(career, roundIndex, appearance ? undefined : undefined);
       career = {
         ...career,
         fastForwardLog: [...(career.fastForwardLog ?? []), logMatch(career, fixture)],

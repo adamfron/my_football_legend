@@ -8,7 +8,7 @@ import type {
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
 import { assignedRole } from './events/postSelectionPath';
-import { createLeagueSeason, VISTULA_NOVA_ID } from './leagueSeason';
+import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './leagueSeason';
 
 const DAY = 86_400_000;
 export const CAREER_LOOP_START = '2026-10-01';
@@ -93,13 +93,21 @@ export const getPlayerForm = (career: CareerState): { value: number; band: Playe
 };
 
 export const shouldScheduleOffFieldEvent = (career: CareerState, week: CareerWeek): boolean => {
-  const previous = career.careerCalendar?.weeks
-    .filter((item) => item.weekIndex < week.weekIndex && item.scheduledEventIds.length)
-    .at(-1);
-  const gap = previous ? week.weekIndex - previous.weekIndex : week.weekIndex + 3;
-  if (gap < 2) return false;
-  const chance = gap >= 4 ? 0.8 : gap === 3 ? 0.42 : 0.12;
-  return RandomGenerator.fromSeed(`${career.seed}:off-field:${week.id}`).bool(chance);
+  const windows = [
+    [3, 8],
+    [17, 21],
+    [27, 32],
+  ] as const;
+  return windows.some(([start, end], window) => {
+    if (week.weekIndex < start || week.weekIndex > end) return false;
+    const already = career.careerCalendar?.weeks.some(
+      (item) =>
+        item.weekIndex >= start && item.weekIndex < week.weekIndex && item.scheduledEventIds.length,
+    );
+    const chosen =
+      start + RandomGenerator.fromSeed(`${career.seed}:event-window:${window}`).int(0, end - start);
+    return !already && week.weekIndex === chosen;
+  });
 };
 
 const selectVariant = (career: CareerState, weekId: string) => {
@@ -144,26 +152,6 @@ export const initializeCurrentCareerWeek = (career: CareerState): CareerState =>
   const septemberMatches = (career.matchHistory ?? []).filter((match) =>
     match.date.startsWith('2026-09'),
   );
-  leagueSeason.rounds.slice(0, 4).forEach((round, index) => {
-    round.fixtures = round.fixtures.map((fixture) => {
-      if (![fixture.homeClubId, fixture.awayClubId].includes(VISTULA_NOVA_ID)) return fixture;
-      const appearance = septemberMatches[index];
-      const fact =
-        appearance &&
-        career.historyFacts.find(
-          (item) => item.factType === 'match_played' && item.data.matchId === appearance.matchId,
-        );
-      return fact
-        ? {
-            ...fixture,
-            homeGoals: Number(fact.data.homeGoals),
-            awayGoals: Number(fact.data.awayGoals),
-            completed: true,
-            playerAppearanceMatchId: appearance.matchId,
-          }
-        : fixture;
-    });
-  });
   const calendar = {
     seasonId: '2026-27',
     currentWeekIndex: 0,
@@ -172,7 +160,31 @@ export const initializeCurrentCareerWeek = (career: CareerState): CareerState =>
     monthlyCheckpoints: [],
     availableThrough: CAREER_LOOP_END,
   };
-  const base = { ...career, leagueSeason, careerCalendar: calendar };
+  let base: CareerState = {
+    ...career,
+    leagueSeason,
+    careerCalendar: calendar,
+    seasonStartingAttributes: career.seasonStartingAttributes ?? { ...career.player.attributes },
+  };
+  for (let index = 0; index < 4; index++) {
+    const appearance = septemberMatches[index];
+    const matchFact =
+      appearance &&
+      career.historyFacts.find(
+        (item) => item.factType === 'match_played' && item.data.matchId === appearance.matchId,
+      );
+    const known =
+      appearance?.teamLevel === 'senior' &&
+      matchFact &&
+      Number.isFinite(Number(matchFact.data.homeGoals))
+        ? {
+            homeGoals: Number(matchFact.data.homeGoals),
+            awayGoals: Number(matchFact.data.awayGoals),
+            playerAppearanceMatchId: appearance.matchId,
+          }
+        : undefined;
+    base = settleLeagueRound(base, index, known);
+  }
   return initializeWeekContent(base, 0);
 };
 
@@ -180,10 +192,25 @@ const initializeWeekContent = (career: CareerState, index: number): CareerState 
   const calendar = career.careerCalendar;
   const week = calendar?.weeks[index];
   if (!calendar || !week || week.completed || week.summaryVariantKey) return career;
+  const eligibleEvents = REGULAR_SEASON_EVENT_POOL.filter((id) => {
+    const funds = (career.finances ?? []).reduce((sum, item) => sum + item.amount, 0);
+    const recentMinutes = (career.matchHistory ?? [])
+      .slice(-5)
+      .reduce((sum, item) => sum + item.minutes, 0);
+    if (id === 'recovery_needed') return career.player.fitness < 72 || recentMinutes > 260;
+    if (id === 'coach_minutes_tension') return recentMinutes < 90;
+    if (id === 'side_job_offer') return funds < 500;
+    if (id === 'development_purchase') return funds >= 100;
+    if (id === 'competitor_conversation')
+      return career.significantPeople.some((person) => person.role.includes('player'));
+    return !career.historyFacts.some(
+      (fact) => fact.factType === 'regular_season_decision' && fact.data.eventId === id,
+    );
+  });
   const scheduledEventIds = shouldScheduleOffFieldEvent(career, week)
     ? [
         RandomGenerator.fromSeed(`${career.seed}:regular-event:${week.id}`).pick(
-          REGULAR_SEASON_EVENT_POOL,
+          eligibleEvents.length ? eligibleEvents : REGULAR_SEASON_EVENT_POOL,
         ),
       ]
     : [];

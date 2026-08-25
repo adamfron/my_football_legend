@@ -1,5 +1,9 @@
 # Architektura
 
+## Niezmiennik ligi i dostępność
+
+`settleLeagueRound` is the single authoritative operation for a senior round. All six fixtures complete exactly once; the player's academy appearance is a separate match with a separate ID and can never supply Vistula's senior result. After N completed rounds every club has exactly N matches. `getPlayerAvailability` is the canonical input to squad and match paths and accounts for persistent injury and suspension state.
+
 Aplikacja jest lokalną grą przeglądarkową bez backendu. UI w `src/app` czyta stan i prezentuje go, ale reguły kariery pozostają w `src/core`. Treści w `src/content` są deklaratywne i przechodzą przez schematy z `src/schemas`.
 
 ## Przepływ danych

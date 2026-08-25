@@ -1,5 +1,9 @@
 # My Football Legend
 
+> **Filozofia tempa:** rutynowy czas powinien znikać szybko, ponieważ uwaga gracza jest rzadkim zasobem. Sezon zatrzymuje się przede wszystkim przy kilku naprawdę znaczących meczach i decyzjach.
+
+Senior league round is an independent domain unit: it is always settled for all twelve clubs whether the player starts for Vistula Nova, plays an academy match, sits on the bench, is injured, or misses the weekend.
+
 Narracyjny symulator kariery piłkarza działający w przeglądarce.
 
 ## Status

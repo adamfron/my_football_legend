@@ -356,6 +356,34 @@ export const careerStateSchema = z.object({
   leagueSeason: leagueSeasonSchema.optional(),
   decisionPoint: playerDecisionPointSchema.optional(),
   fastForwardLog: z.array(fastForwardEntrySchema).max(16).optional(),
+  seasonStartingAttributes: playerAttributesSchema.optional(),
+  seasonOutcome: z
+    .object({
+      finalPosition: z.number().int().min(1).max(12),
+      champion: z.boolean(),
+      promoted: z.boolean(),
+      relegated: z.boolean(),
+    })
+    .optional(),
+  playerAvailability: z
+    .object({
+      injuries: z.array(
+        z.object({
+          id,
+          startDate: z.string(),
+          severity: z.enum(['knock', 'minor', 'moderate', 'major']),
+          matchesRemaining: z.number().int().nonnegative(),
+          source: z.enum(['match', 'training', 'overload']),
+          status: z.enum(['active', 'recovered']),
+          bodyArea: z.string().optional(),
+        }),
+      ),
+      suspensionMatchesRemaining: z.number().int().nonnegative(),
+      leagueYellowCards: z.number().int().nonnegative(),
+      matchesMissedThroughSuspension: z.number().int().nonnegative(),
+      matchesMissedThroughInjury: z.number().int().nonnegative(),
+    })
+    .optional(),
   finances: z
     .array(
       z.object({
@@ -437,6 +465,10 @@ export const careerStateSchema = z.object({
         saves: z.number(),
         personalImpact: z.number(),
         rating: z.number().min(3).max(10).optional(),
+        yellowCards: z.number().int().min(0).max(2).optional(),
+        redCard: z.enum(['second_yellow', 'direct']).optional(),
+        dismissedMinute: z.number().int().min(1).max(120).optional(),
+        injuryId: id.optional(),
       }),
     )
     .optional(),

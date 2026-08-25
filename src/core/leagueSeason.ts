@@ -143,6 +143,55 @@ export const simulateLeagueFixture = (
   return { ...fixture, homeGoals: goals(homeEdge), awayGoals: goals(awayEdge), completed: true };
 };
 
+export interface KnownVistulaResult {
+  homeGoals: number;
+  awayGoals: number;
+  playerAppearanceMatchId?: string;
+}
+
+/** The only operation which settles a senior league round. It is idempotent. */
+export const settleLeagueRound = (
+  career: CareerState,
+  roundIndex: number,
+  knownVistulaResult?: KnownVistulaResult,
+): CareerState => {
+  const season = career.leagueSeason;
+  const round = season?.rounds[roundIndex];
+  if (!season || !round || round.completed) return career;
+  const fixtures = round.fixtures.map((fixture) => {
+    if (fixture.completed) return fixture;
+    const vistula = [fixture.homeClubId, fixture.awayClubId].includes(VISTULA_NOVA_ID);
+    return vistula && knownVistulaResult
+      ? { ...fixture, ...knownVistulaResult, completed: true }
+      : simulateLeagueFixture(season, fixture, career.seed);
+  });
+  const rounds = season.rounds.map((item, index) =>
+    index === roundIndex ? { ...item, fixtures, completed: true } : item,
+  );
+  const currentRound = rounds.findIndex((item) => !item.completed);
+  const next = {
+    ...career,
+    leagueSeason: {
+      ...season,
+      rounds,
+      currentRound: currentRound < 0 ? rounds.length : currentRound,
+      completed: rounds.every((item) => item.completed),
+    },
+  };
+  if (!next.leagueSeason.completed) return next;
+  const finalPosition =
+    getLeagueTable(next).find((row) => row.clubId === VISTULA_NOVA_ID)?.position ?? 12;
+  return {
+    ...next,
+    seasonOutcome: {
+      finalPosition,
+      champion: finalPosition === 1,
+      promoted: finalPosition === 1,
+      relegated: finalPosition === 12,
+    },
+  };
+};
+
 export const getLeagueTable = (career: Pick<CareerState, 'leagueSeason'>): LeagueTableRow[] => {
   const season = career.leagueSeason;
   if (!season) return [];
@@ -235,21 +284,32 @@ export const getSeasonContext = (career: CareerState) => {
   };
 };
 
-export const evaluateMatchImportance = (career: CareerState, fixture: Fixture): MatchImportance => {
+export const evaluateMatchImportance = (
+  career: CareerState,
+  fixture: Fixture,
+  expected?: { teamLevel: 'senior' | 'academy'; started: boolean; willPlay: boolean },
+): MatchImportance => {
   const senior = (career.matchHistory ?? []).filter(
     (match) => match.teamLevel === 'senior' && match.minutes > 0,
   );
-  if (!senior.length) return 'major';
-  if (!senior.some((match) => match.started)) return 'notable';
+  const priorInteractive = career.historyFacts.filter(
+    (fact) => fact.factType === 'interactive_match',
+  ).length;
+  if (!senior.length && expected?.teamLevel === 'senior' && expected.willPlay) return 'major';
+  if (
+    !senior.some((match) => match.started) &&
+    expected?.teamLevel === 'senior' &&
+    expected.started
+  )
+    return 'notable';
   const context = getSeasonContext(career);
   if (context.roundsRemaining <= 3 && (context.position <= 3 || context.position >= 10))
-    return 'major';
+    return priorInteractive < 5 ? 'major' : 'notable';
   if (
     career.storyThreads.some(
       (thread) => thread.status === 'open' && thread.importance >= 75 && thread.tension >= 65,
     )
   )
-    return 'notable';
-  if ((career.matchHistory ?? []).slice(-5).every((match) => match.minutes === 0)) return 'notable';
-  return fixture.matchImportance;
+    return priorInteractive < 4 ? 'notable' : 'routine';
+  return priorInteractive >= 4 ? 'routine' : fixture.matchImportance;
 };

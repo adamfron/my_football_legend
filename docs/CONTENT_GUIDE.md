@@ -1,5 +1,7 @@
 # Poradnik treści
 
+Regular-season events must be declarative, individually titled, contextually eligible, and provide visible gains and risks without exposing hidden probabilities. Event resolution creates a `HistoryFact`; React must not invent a parallel generic choice. Academy and senior fixtures must always be described as distinct matches.
+
 - Każde wydarzenie musi mieć wyraźny kontekst.
 - Każda decyzja powinna mieć zalety i koszty.
 - Nie każda opcja musi być testem.
