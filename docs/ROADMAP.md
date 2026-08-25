@@ -63,3 +63,30 @@ Balans selekcji można sprawdzać w devtools przez symulację naboru do senioró
 - rywalizacja o seniorów i akademię bez pełnych składów;
 - wejścia z ławki, ważne momenty, statystyki i debiut seniorski;
 - bez tabeli ligowej, transferów i symulacji całego sezonu.
+
+## Season simulation layer
+
+- tabela i wyniki pozostałych klubów;
+- klasyfikacje strzelców i asyst, clean sheets, nagrody oraz cele klubu.
+
+## Contextual season races
+
+- walka o króla strzelców, króla asyst i młodzieżowca;
+- rekordy, mistrzostwo, utrzymanie i awans;
+- decyzje zmieniają parametry zachowania (`shotShare`, `boxPresence`, `creativeRisk`, `defensiveContribution`), nigdy widoczny procent szansy na gola.
+
+## Dynamic club strength
+
+- transfery przychodzące i wychodzące;
+- rozwój starszych i młodych graczy, spadki formy i kontuzje;
+- głębia składu, zmiana trenera i polityki wobec młodzieży.
+
+## Regular-season life planning
+
+- **Preseason:** decyzje pozaboiskowe mogą występować prawie co tydzień.
+- **Regular season:** jedna większa decyzja o rozwoju, regeneracji, edukacji, finansach lub życiu prywatnym mniej więcej raz na 3–4 tygodnie.
+- **Match weeks:** bez automatycznego formularza trening/praca/odpoczynek po każdej kolejce.
+- **Special events:** dodatkowe decyzje wynikają z historii (konflikt, trener, kontrakt, seria, przemęczenie, nagroda, transfer, relacja, kontuzja).
+- **Winter break:** ponownie większa częstotliwość decyzji treningowo-życiowych.
+
+Docelowy sezon powinien oferować orientacyjnie 8–12 większych strategicznych decyzji pozaboiskowych, obok decyzji meczowych i fabularnych; jest to wskazówka, nie twardy limit.

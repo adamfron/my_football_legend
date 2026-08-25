@@ -73,3 +73,7 @@ Po dwóch tygodniach akademii kariera przechodzi do jednej z czterech ścieżek:
 Kariera obejmuje cztery deterministyczne kolejki, lekką rywalizację o skład i tekstowe momenty decyzyjne. Silnik zapisuje strukturalny stan meczu, więc spotkanie można bezpiecznie wznowić po odświeżeniu.
 
 > **The game simulates the player's experience of a football match, not every touch of the ball.**
+
+## Informacja zwrotna meczu i kariery
+
+Wrześniowe spotkania prezentują teraz trwały wynik, minutę, dynamikę, statystyki drużyn i kontekstową ocenę zawodnika. Historia występów pozostaje źródłem bieżących statystyk sezonu, a fakty `attribute_changed` i `play_style_unlocked` tworzą audytowalny zapis rozwoju.
