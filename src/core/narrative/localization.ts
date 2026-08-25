@@ -5,13 +5,26 @@ import history from '../../content/localization/pl/history.json';
 import academyEvents from '../../content/localization/pl/events.academy.json';
 import academyWeek2Events from '../../content/localization/pl/events.academy.week2.json';
 import academyWeek2History from '../../content/localization/pl/history.academy.week2.json';
+import postSelection from '../../content/localization/pl/events.post-selection.json';
 import relationships from '../../content/localization/pl/relationships.json';
 
 type Locale = 'pl';
 type Params = Record<string, string | number>;
 export const missingLocalizationKeys = new Set<string>();
 const fallbackText = 'Opis wydarzenia jest chwilowo niedostępny';
-const dictionaries: Record<Locale, Record<string, string>> = { pl: { ...common, ...clubs, ...matchEvents, ...history, ...academyEvents, ...academyWeek2Events, ...academyWeek2History, ...relationships } };
+const dictionaries: Record<Locale, Record<string, string>> = {
+  pl: {
+    ...common,
+    ...clubs,
+    ...matchEvents,
+    ...history,
+    ...academyEvents,
+    ...academyWeek2Events,
+    ...academyWeek2History,
+    ...postSelection,
+    ...relationships,
+  },
+};
 
 export const translate = (key: string, params: Params = {}, locale: Locale = 'pl'): string => {
   const template = dictionaries[locale][key];

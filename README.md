@@ -3,17 +3,21 @@
 Narracyjny symulator kariery piłkarza działający w przeglądarce.
 
 ## Status
+
 Fundament techniczny: React, TypeScript strict, Vite, Vitest, ESLint, Prettier, Zod, deterministyczny RNG i przykładowa walidowana treść. Pełna rozgrywka nie jest jeszcze implementowana.
 
 ## Wymagania
+
 Node.js 20+ i npm.
 
 ## Instalacja
+
 ```bash
 npm install
 ```
 
 ## Komendy developerskie
+
 - `npm run dev` — lokalny serwer Vite.
 - `npm run lint` — ESLint.
 - `npm run test` — testy Vitest.
@@ -21,6 +25,7 @@ npm install
 - `npm run format:check` — kontrola formatowania.
 
 ## Struktura repozytorium
+
 - `src/app` i `src/components` — powłoka interfejsu.
 - `src/core` — logika gry niezależna od Reacta.
 - `src/content` — deklaratywne dane treści i lokalizacja.
@@ -30,6 +35,7 @@ npm install
 - `docs` — architektura, model narracji, poradnik treści i roadmapa.
 
 ## Lokalizacja i fleksja
+
 Domyślnym językiem jest polski. Obecny system obsługuje klucze i proste parametry. Polska fleksja, odmiana nazwisk, płci i liczebników jest świadomie odłożona do osobnego modułu, aby gotowe teksty nie stały się źródłem prawdy o historii.
 
 ## Pierwszy grywalny wycinek
@@ -57,3 +63,7 @@ Interfejs akademii prezentuje decyzje jako osobne karty z opisem, możliwymi kor
 Po domknięciu pierwszego tygodnia gra pozwala rozpocząć drugi łuk akademii Vistula Nova. Łuk obejmuje informację zwrotną Marka Wrony, wybór przygotowania, dodatkowy trening z konkurentem, końcowy sprawdzian, decyzję o treningach z seniorami, odpowiedź zawodnika i podsumowanie dwóch tygodni. Brak zaproszenia jest ścieżką fail-forward: prowadzi do indywidualnego planu albo dodatkowego sprawdzianu akademii, a nie do końca kariery.
 
 W narzędziach developerskich (`?devtools=1`) dostępna jest ręcznie uruchamiana symulacja naboru do seniorów, która sprawdza rozkład decyzji trenera dla deterministycznych seedów bez zapisywania wyników w stanie kariery.
+
+## Ścieżki po selekcji
+
+Po dwóch tygodniach akademii kariera przechodzi do jednej z czterech ścieżek: próby seniorów, wspólnej szansy, indywidualnego planu albo dodatkowej oceny. Każda kończy się jakościowo opisaną rolą na sierpień 2026; żadna nie jest porażką kończącą karierę. Teksty są wybierane deterministycznie z semantycznych zestawów wariantów.

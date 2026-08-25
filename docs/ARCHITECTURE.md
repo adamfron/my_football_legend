@@ -3,15 +3,19 @@
 Aplikacja jest lokalną grą przeglądarkową bez backendu. UI w `src/app` czyta stan i prezentuje go, ale reguły kariery pozostają w `src/core`. Treści w `src/content` są deklaratywne i przechodzą przez schematy z `src/schemas`.
 
 ## Przepływ danych
+
 Seed tworzy deterministyczny generator. Generator i definicje wydarzeń produkują instancje wydarzeń, konsekwencje, fakty historii oraz zmiany wątków. Warstwa narracji zamienia fakty i interpretacje na tekst.
 
 ## Granice odpowiedzialności
+
 React odpowiada za ekran. Core odpowiada za reguły. Content odpowiada za dane. Persistence będzie odpowiadać za zapis lokalny.
 
 ## Zapis lokalny
+
 Pierwszy plan zakłada localStorage dla małych zapisów, walidację wersji Zod i późniejszą migrację. IndexedDB jest poza aktualnym zakresem.
 
 ## Symulacja sezonów
+
 Późniejsza symulacja ma być lekka: najpierw istotne decyzje, relacje i fakty, a nie pełna symulacja wszystkich meczów.
 
 ## Kreator zawodnika i zapis lokalny
@@ -39,3 +43,7 @@ Moduły `src/core/events` są niezależne od Reacta. `eventRegistry.ts` udostęp
 Logika rozstrzygania decyzji jest podzielona na resolvery pierwszego i drugiego tygodnia w `src/core/events/resolvers`. Publiczna funkcja `resolveEventChoice` pobiera aktywne wydarzenie i deleguje do rejestru resolverów, dzięki czemu komponenty Reacta nie zawierają logiki scen, a logika `src/core` pozostaje niezależna od UI.
 
 Drugi tydzień jest inicjalizowany idempotentnie przez `initializeSecondAcademyWeek`: wymaga ukończenia pierwszego tygodnia, braku aktywnego wydarzenia i braku zapisanego wyniku selekcji. Dane mieszczą się w istniejących strukturach `HistoryFact`, `StoryThread`, `EventInstance` i `relationships`, więc nie zwiększają wersji zapisu.
+
+## Router po selekcji
+
+`initializePostSelectionPath` jest czystym, idempotentnym routerem. Odczytuje ostatni kanoniczny fakt `academy_selection_result`, nie dodaje pola ścieżki do stanu i odtwarza następne wydarzenie z faktów po odświeżeniu. Logika postaci, wyniku i wariantów pozostaje w `src/core`, bez zależności od Reacta. Wszystkie gałęzie zbiegają się w faktach przypisania roli i ukończenia ścieżki.
