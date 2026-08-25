@@ -9,6 +9,7 @@ import {
   advanceSeptemberWeek,
   evaluatePlayerForPosition,
   evaluateSquadOpportunity,
+  finishMatch,
   generateSeptemberOpponents,
   initializeSeptemberPhase,
   MATCH_MOMENT_LIBRARY,
@@ -130,5 +131,32 @@ describe('September match engine', () => {
     expect(() => startSeptemberMatch(initializeSeptemberPhase(ready()))).not.toThrow();
     expect(spy).not.toHaveBeenCalled();
     spy.mockRestore();
+  });
+  it('keeps a canonical 3:0 ledger through the result and history', () => {
+    let c = startSeptemberMatch(initializeSeptemberPhase(ready()));
+    const match = c.activeMatch!;
+    c = {
+      ...c,
+      activeMatch: {
+        ...match,
+        currentMinute: 70,
+        homeGoals: 3,
+        awayGoals: 0,
+        moments: [],
+        goalEvents: [12, 41, 66].map((minute, index) => ({
+          id: `${match.id}:regression:${index}`,
+          minute,
+          scoringSide: 'home' as const,
+          source: 'background' as const,
+        })),
+      },
+    };
+    c = finishMatch(c);
+    expect(c.activeMatch).toMatchObject({ homeGoals: 3, awayGoals: 0, completed: true });
+    const fact = [...c.historyFacts].reverse().find((item) => item.factType === 'match_played')!;
+    expect(fact.data).toMatchObject({ homeGoals: 3, awayGoals: 0 });
+    expect(c.activeMatch!.goalEvents!.filter((event) => event.scoringSide === 'home')).toHaveLength(
+      3,
+    );
   });
 });

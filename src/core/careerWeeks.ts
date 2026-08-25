@@ -9,6 +9,7 @@ import type {
 import { RandomGenerator } from './random/RandomGenerator';
 import { assignedRole } from './events/postSelectionPath';
 import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './leagueSeason';
+import { applyTrainingDevelopmentCheckpoint } from './development';
 
 const DAY = 86_400_000;
 export const CAREER_LOOP_START = '2026-10-01';
@@ -325,16 +326,19 @@ export const advanceCareerWeek = (career: CareerState): CareerState => {
   }
   const nextIndex = calendar.currentWeekIndex + 1;
   let checkpoints = calendar.monthlyCheckpoints;
+  let developedCareer = completedCareer;
   const next = calendar.weeks[nextIndex]!;
   const currentMonth = current.startDate.slice(0, 7);
   if (
     next.startDate.slice(0, 7) !== currentMonth &&
     !checkpoints.some((item) => item.month === currentMonth)
-  )
-    checkpoints = [...checkpoints, checkpoint(completedCareer, currentMonth)];
+  ) {
+    developedCareer = applyTrainingDevelopmentCheckpoint(completedCareer, currentMonth);
+    checkpoints = [...checkpoints, checkpoint(developedCareer, currentMonth)];
+  }
   return initializeWeekContent(
     {
-      ...completedCareer,
+      ...developedCareer,
       careerCalendar: { ...calendar, currentWeekIndex: nextIndex, monthlyCheckpoints: checkpoints },
     },
     nextIndex,

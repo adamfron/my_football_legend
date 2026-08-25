@@ -77,6 +77,32 @@ export const loadCareer = (): LoadCareerResult => {
     }
     if (career.seasonOutcome && typeof career.seasonOutcome === 'object')
       (career.seasonOutcome as Record<string, unknown>).competitionType ??= 'academy';
+    if (career.activeMatch && typeof career.activeMatch === 'object') {
+      const match = career.activeMatch as Record<string, unknown>;
+      const calendar = career.careerCalendar as Record<string, unknown> | undefined;
+      const fixtures = Array.isArray(calendar?.fixtures)
+        ? (calendar.fixtures as Array<Record<string, unknown>>)
+        : [];
+      const belongsToCurrentSeason = fixtures.some((fixture) => fixture.id === match.id);
+      if ((career.careerSeasonNumber as number) >= 2 && !belongsToCurrentSeason) {
+        // Runtime state is disposable; canonical appearances and facts remain untouched.
+        delete career.activeMatch;
+      } else if (!Array.isArray(match.goalEvents) && Array.isArray(match.momentum)) {
+        match.goalEvents = (match.momentum as Array<Record<string, unknown>>).flatMap(
+          (point, index) =>
+            point.event === 'goal' && (point.scoringSide === 'home' || point.scoringSide === 'away')
+              ? [
+                  {
+                    id: `${String(match.id)}:legacy:${index}`,
+                    minute: point.minute,
+                    scoringSide: point.scoringSide,
+                    source: 'background',
+                  },
+                ]
+              : [],
+        );
+      }
+    }
   }
   const result = careerSaveSchema.safeParse(parsed);
   return result.success

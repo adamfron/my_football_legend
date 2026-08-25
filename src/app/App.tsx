@@ -318,18 +318,26 @@ const formatDate = (date: string) =>
   new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }).format(
     new Date(`${date}T12:00:00Z`),
   );
-const relationshipDynamic = (person: Person, scores: RelationshipScores) =>
-  person.role === 'coach'
-    ? 'Trener przygląda ci się z ostrożnym zainteresowaniem.'
-    : scores.resentment > 50
-      ? 'Rozmowa po treningu pozostawiła między wami chłód.'
-      : scores.gratitude > 55
-        ? `${person.firstName} pamięta, że podzieliłeś się z nim uznaniem.`
-        : scores.rivalry > 50
-          ? 'Rywalizacja nabiera wyraźnego charakteru.'
-          : scores.trust > 55
-            ? 'Między wami pojawia się pierwsze wzajemne zaufanie.'
-            : 'Relacja dopiero nabiera kształtu.';
+const relationshipRole = (career: CareerState, person: Person) =>
+  person.role === 'coach' && person.clubId !== career.currentClub.id
+    ? 'Były trener'
+    : person.role === 'academy_rival' && career.careerSeasonNumber > 1
+      ? 'Były konkurent z akademii'
+      : translate(`relationships.role.${person.role}`);
+const relationshipDynamic = (career: CareerState, person: Person, scores: RelationshipScores) =>
+  person.role === 'coach' && person.clubId !== career.currentClub.id
+    ? 'Wasza relacja pozostała z poprzedniego etapu kariery.'
+    : person.role === 'coach'
+      ? 'Trener przygląda ci się z ostrożnym zainteresowaniem.'
+      : scores.resentment > 50
+        ? 'Rozmowa po treningu pozostawiła między wami chłód.'
+        : scores.gratitude > 55
+          ? `${person.firstName} pamięta, że podzieliłeś się z nim uznaniem.`
+          : scores.rivalry > 50
+            ? 'Rywalizacja nabiera wyraźnego charakteru.'
+            : scores.trust > 55
+              ? 'Między wami pojawia się pierwsze wzajemne zaufanie.'
+              : 'Relacja dopiero nabiera kształtu.';
 const RelationshipCard = ({ career, person }: { career: CareerState; person: Person }) => {
   const scores = career.relationships[person.id] ?? person.relationshipParameters;
   const lastFact = [...career.historyFacts]
@@ -347,9 +355,9 @@ const RelationshipCard = ({ career, person }: { career: CareerState; person: Per
       <h3>
         {person.firstName} {person.lastName}
       </h3>
-      <p>{translate(`relationships.role.${person.role}`)}</p>
+      <p>{relationshipRole(career, person)}</p>
       <strong>{relationshipLabel(scores)}</strong>
-      <p>{relationshipDynamic(person, scores)}</p>
+      <p>{relationshipDynamic(career, person, scores)}</p>
       <p>
         {presentation
           ? `Ostatnio: ${presentation.summary}`
@@ -469,7 +477,7 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
                 <h4>
                   {person.firstName} {person.lastName}
                 </h4>
-                <p>{translate(`relationships.role.${person.role}`)}</p>
+                <p>{relationshipRole(career, person)}</p>
               </div>
             </article>
           ))}

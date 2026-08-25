@@ -91,3 +91,102 @@ export const applyDevelopmentCheckpoint = (
     historyFacts: [...career.historyFacts, ...facts],
   };
 };
+
+const positionFocus: Record<string, Array<keyof PlayerAttributes>> = {
+  goalkeeper: ['composure', 'vision', 'leadership', 'technique'],
+  center_back: ['defending', 'composure', 'stamina', 'leadership'],
+  defensive_midfielder: ['defending', 'vision', 'composure', 'stamina'],
+  central_midfielder: ['vision', 'technique', 'stamina', 'composure'],
+  winger: ['pace', 'technique', 'vision', 'finishing'],
+  striker: ['finishing', 'composure', 'technique', 'pace'],
+};
+
+/** Deterministic monthly training growth; appearances remain a separate experience bonus. */
+export const applyTrainingDevelopmentCheckpoint = (
+  career: CareerState,
+  month: string,
+): CareerState => {
+  if (
+    career.historyFacts.some(
+      (fact) => fact.factType === 'training_development_checkpoint' && fact.data.month === month,
+    )
+  )
+    return career;
+  const rng = RandomGenerator.fromSeed(`${career.seed}:training-development:${month}`);
+  const focus = positionFocus[career.player.primaryPosition] ?? [
+    'technique',
+    'stamina',
+    'composure',
+  ];
+  const available = ((career.player.health / 100) * career.player.fitness) / 100;
+  const potentialGap = Math.max(
+    0.45,
+    Math.min(
+      1.35,
+      (career.player.potential -
+        Object.values(career.player.attributes).reduce((a, b) => a + b, 0) / 8 +
+        18) /
+        30,
+    ),
+  );
+  const attrs = { ...career.player.attributes };
+  const progress = new Map(
+    (career.developmentProgress ?? []).map((item) => [item.attribute, item.progress]),
+  );
+  const facts: HistoryFact[] = [];
+  for (const key of keys) {
+    let value =
+      (progress.get(key) ?? 0) +
+      (focus.includes(key) ? 11 : 4) *
+        ageMultiplier(career.player.age) *
+        potentialGap *
+        available *
+        (0.85 + rng.float() * 0.3);
+    while (value >= 100 && attrs[key] < 100) {
+      const before = attrs[key]++;
+      value -= 100;
+      facts.push({
+        id: `fact_training_attribute_${month}_${key}`,
+        factType: 'attribute_changed',
+        season: career.currentSeason,
+        date: `${month}-28`,
+        actors: [career.player.id],
+        targets: [],
+        clubs: [career.currentClub.id],
+        competitions: [],
+        data: { attribute: key, before, after: attrs[key], source: 'training' },
+        causes: [`training_${month}`],
+        tags: ['development', 'training', key],
+        visibility: 'public',
+        narrativeImportance: 55,
+        emotionalTone: 'positive',
+      });
+    }
+    progress.set(key, value);
+  }
+  const checkpointFact: HistoryFact = {
+    id: `fact_training_checkpoint_${month}`,
+    factType: 'training_development_checkpoint',
+    season: career.currentSeason,
+    date: `${month}-28`,
+    actors: [career.player.id],
+    targets: [],
+    clubs: [career.currentClub.id],
+    competitions: [],
+    data: { month },
+    causes: [],
+    tags: ['development', 'training'],
+    visibility: 'hidden',
+    narrativeImportance: 10,
+    emotionalTone: 'neutral',
+  };
+  return {
+    ...career,
+    player: { ...career.player, attributes: attrs },
+    developmentProgress: keys.map((attribute) => ({
+      attribute,
+      progress: progress.get(attribute) ?? 0,
+    })),
+    historyFacts: [...career.historyFacts, ...facts, checkpointFact],
+  };
+};
