@@ -220,7 +220,25 @@ export interface CareerState {
   currentContract?: Contract | undefined;
   professionalOffers?: ProfessionalOffer[] | undefined;
   careerPhase?: SeasonPhase | undefined;
+  /** Authoritative, monotonic simulation frontier (decision dates are descriptive only). */
+  currentDate?: string | undefined;
+  currentProfessionalClub?: ProfessionalClub | undefined;
+  currentSportingStatus?: SquadRole | undefined;
+  careerStatus?: 'active' | 'retired' | undefined;
+  retirementDate?: string | undefined;
+  retirementAge?: number | undefined;
+  retirementReason?: string | undefined;
+  highestOVR?: number | undefined;
+  highestOVRDate?: string | undefined;
 }
+
+export type CareerStage =
+  | 'academy'
+  | 'prospect'
+  | 'developing'
+  | 'prime'
+  | 'experienced'
+  | 'veteran';
 export type InjurySeverity = 'knock' | 'minor' | 'moderate' | 'major';
 export interface PlayerInjury {
   id: Id;

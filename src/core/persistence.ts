@@ -55,6 +55,22 @@ export const loadCareer = (): LoadCareerResult => {
     const career = parsed.career as Record<string, unknown>;
     career.careerSeasonNumber ??= 1;
     career.careerPhase ??= career.currentSeason === 2026 ? 'academy' : 'regular_season';
+    career.careerStatus ??= 'active';
+    const player = career.player as Record<string, unknown>;
+    if (
+      Number(player.age) > 23 &&
+      career.currentContract &&
+      typeof career.currentContract === 'object' &&
+      (career.currentContract as Record<string, unknown>).squadRole === 'development_player'
+    )
+      (career.currentContract as Record<string, unknown>).squadRole = 'rotation';
+    const dates = [
+      career.currentDate,
+      ...(Array.isArray(career.historyFacts)
+        ? (career.historyFacts as Array<Record<string, unknown>>).map((fact) => fact.date)
+        : []),
+    ].filter((date): date is string => typeof date === 'string');
+    career.currentDate = dates.sort().at(-1) ?? `${String(career.currentSeason)}-07-01`;
     if (career.leagueSeason && typeof career.leagueSeason === 'object') {
       const league = career.leagueSeason as Record<string, unknown>;
       league.controlledClubId ??= (career.currentClub as Record<string, unknown>).id;
@@ -74,6 +90,15 @@ export const loadCareer = (): LoadCareerResult => {
               category: 'professional',
               tier: 3,
             };
+      if (
+        Number(career.careerSeasonNumber) >= 2 &&
+        league.competition &&
+        typeof league.competition === 'object'
+      ) {
+        const competition = league.competition as Record<string, unknown>;
+        competition.category = 'professional';
+        delete competition.ageLevel;
+      }
     }
     if (career.seasonOutcome && typeof career.seasonOutcome === 'object')
       (career.seasonOutcome as Record<string, unknown>).competitionType ??= 'academy';

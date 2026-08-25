@@ -6,6 +6,8 @@ import type {
   SquadRole,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
+import { getPlayerOverall } from './playerOverall';
+import { getPlayerForm } from './careerWeeks';
 
 const names = [
   'KS Nadwiśle',
@@ -80,14 +82,20 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
     };
   });
 const overall = (career: CareerState) =>
-  Object.values(career.player.attributes).reduce((a, b) => a + b, 0) / 8;
+  getPlayerOverall(career.player, career.player.primaryPosition);
+const currentSeasonAppearances = (career: CareerState) =>
+  (career.matchHistory ?? []).filter(
+    (match) => Number(match.date.slice(0, 4)) >= career.currentSeason,
+  );
 export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub) => {
   const need = club.positionalNeeds[group(career.player.primaryPosition)];
-  const stats = (career.matchHistory ?? []).reduce(
+  const stats = currentSeasonAppearances(career).reduce(
     (s, m) => s + m.minutes / 500 + (m.rating ?? 6) - 6 + m.goals * 0.7 + m.assists * 0.5,
     0,
   );
-  const scout = RandomGenerator.fromSeed(`${career.seed}:scout:${club.id}`).int(-9, 9);
+  const scout = RandomGenerator.fromSeed(
+    `${career.seed}:scout:${career.careerSeasonNumber}:${club.id}`,
+  ).int(-9, 9);
   const potentialEstimate = career.player.potential + scout;
   const style =
     club.playingStyle === 'techniczny' || club.playingStyle === 'cierpliwe posiadanie'
@@ -99,7 +107,10 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
     need.needLevel * 0.2 +
     club.coachYouthTrust * 0.13 +
     club.youthPolicy * 0.08 +
-    stats -
+    stats +
+    getPlayerForm(career).value * 1.5 +
+    career.player.reputation * 0.08 -
+    Math.max(0, career.player.age - 29) * 1.1 -
     club.overallStrength * 0.55 -
     (need.depth === 'deep' ? 10 : need.depth === 'thin' ? -5 : 0) +
     style;
@@ -110,7 +121,9 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
     .flatMap((club): ProfessionalOffer[] => {
       const interest = evaluateClubInterest(career, club);
       if (!interest.interested) return [];
-      const rng = RandomGenerator.fromSeed(`${career.seed}:offer:${club.id}`);
+      const rng = RandomGenerator.fromSeed(
+        `${career.seed}:offer:${career.careerSeasonNumber}:${club.id}`,
+      );
       const gap = overall(career) - interest.need.starterQuality;
       const role: SquadRole =
         gap > 7
@@ -119,7 +132,9 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
             ? 'first_team_competition'
             : interest.need.depth === 'thin'
               ? 'rotation'
-              : 'development_player';
+              : career.player.age <= 22
+                ? 'development_player'
+                : 'rotation';
       const years = rng.int(1, 3);
       const roleFactor = {
         development_player: 0.75,
@@ -178,4 +193,42 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
       const bi = evaluateClubInterest(career, b.club).score;
       return bi - ai || a.id.localeCompare(b.id);
     })
-    .slice(0, 4);
+    .slice(0, career.player.age >= 33 ? 3 : 4);
+
+export const generateSummerWindowOffers = (career: CareerState): ProfessionalOffer[] => {
+  const external = generateProfessionalOffers(career).filter(
+    (o) => o.club.id !== career.currentClub.id,
+  );
+  if (!career.currentProfessionalClub || !career.currentContract) return external.slice(0, 4);
+  const appearances = currentSeasonAppearances(career);
+  const minutes = appearances.reduce((sum, item) => sum + item.minutes, 0);
+  const contractExpires = career.currentContract.endDate <= `${career.currentSeason + 1}-06-30`;
+  if (
+    !contractExpires ||
+    (minutes < 180 && overall(career) < career.currentProfessionalClub.overallStrength - 8)
+  )
+    return external.slice(0, 4);
+  const role: SquadRole =
+    career.player.age <= 22 && overall(career) < career.currentProfessionalClub.overallStrength
+      ? 'development_player'
+      : overall(career) >= career.currentProfessionalClub.overallStrength
+        ? 'first_team_competition'
+        : 'rotation';
+  const renewal: ProfessionalOffer = {
+    id: `renewal_${career.currentClub.id}_${career.currentSeason}`,
+    offerType: 'renewal',
+    club: career.currentProfessionalClub,
+    contract: {
+      ...career.currentContract,
+      startDate: `${career.currentSeason + 1}-07-01`,
+      endDate: `${career.currentSeason + 3}-06-30`,
+      squadRole: role,
+      contractType: role === 'development_player' ? 'development' : 'professional',
+    },
+    interestReasons: ['Klub ocenił twoją rolę na podstawie występów w bieżącym sezonie.'],
+    opportunity: 'Kontynuacja pracy w znanym środowisku.',
+    risk: 'Pozycję w składzie nadal trzeba potwierdzać formą.',
+    competitionAssessment: 'Znana konkurencja w obecnym zespole',
+  };
+  return [renewal, ...external].slice(0, 4);
+};

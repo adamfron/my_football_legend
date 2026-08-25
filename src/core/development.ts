@@ -6,6 +6,7 @@ import type {
   PlayerAttributes,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
+import { getPlayerOverall } from './playerOverall';
 const keys = Object.keys({
   technique: 0,
   vision: 0,
@@ -27,7 +28,17 @@ const weights = (a: MatchAppearance): Record<keyof PlayerAttributes, number> => 
   composure: 1 + a.goals + a.assists * 0.5,
 });
 const ageMultiplier = (age: number) =>
-  age <= 18 ? 1.35 : age <= 22 ? 1.15 : age <= 27 ? 0.75 : age <= 31 ? 0.4 : 0.15;
+  age <= 18
+    ? 1.35
+    : age <= 21
+      ? 1.25
+      : age <= 24
+        ? 1.05
+        : age <= 27
+          ? 0.68
+          : age <= 30
+            ? 0.3
+            : 0.08;
 export const applyDevelopmentCheckpoint = (
   career: CareerState,
   appearance: MatchAppearance,
@@ -35,7 +46,7 @@ export const applyDevelopmentCheckpoint = (
   if (!appearance.minutes) return career;
   const rng = RandomGenerator.fromSeed(`${career.seed}:development:${appearance.matchId}`);
   const w = weights(appearance);
-  const mean = Object.values(career.player.attributes).reduce((a, b) => a + b, 0) / 8;
+  const mean = getPlayerOverall(career.player, career.player.primaryPosition);
   const potentialFactor = Math.max(
     0.25,
     Math.min(1.35, (career.player.potential - mean + 12) / 30),
@@ -124,12 +135,28 @@ export const applyTrainingDevelopmentCheckpoint = (
     Math.min(
       1.35,
       (career.player.potential -
-        Object.values(career.player.attributes).reduce((a, b) => a + b, 0) / 8 +
+        getPlayerOverall(career.player, career.player.primaryPosition) +
         18) /
         30,
     ),
   );
   const attrs = { ...career.player.attributes };
+  const club = career.currentProfessionalClub;
+  const environment =
+    career.careerSeasonNumber === 1
+      ? 1.05
+      : club
+        ? Math.max(
+            0.65,
+            Math.min(
+              1.35,
+              (club.youthPolicy * 0.3 +
+                club.developmentReputation * 0.45 +
+                club.coachYouthTrust * 0.25) /
+                55,
+            ),
+          )
+        : 0.9;
   const progress = new Map(
     (career.developmentProgress ?? []).map((item) => [item.attribute, item.progress]),
   );
@@ -137,10 +164,11 @@ export const applyTrainingDevelopmentCheckpoint = (
   for (const key of keys) {
     let value =
       (progress.get(key) ?? 0) +
-      (focus.includes(key) ? 11 : 4) *
+      (focus.includes(key) ? 13 : 4) *
         ageMultiplier(career.player.age) *
         potentialGap *
         available *
+        environment *
         (0.85 + rng.float() * 0.3);
     while (value >= 100 && attrs[key] < 100) {
       const before = attrs[key]++;

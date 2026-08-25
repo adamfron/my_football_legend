@@ -2,6 +2,8 @@ import type { CareerState, Club, HistoryFact, ProfessionalOffer } from '../types
 import { createLeagueSeason, VISTULA_NOVA_ID } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
 import type { Person, RelationshipScores } from '../types/domain';
+import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
+import { getPlayerOverall } from './playerOverall';
 
 const milestone = (
   career: CareerState,
@@ -40,6 +42,7 @@ export const initializeCareerSeason = (
     controlledClubId: config.club.id,
     controlledClubName: config.club.name,
     professional: config.professional,
+    professionalLevel: career.currentProfessionalClub?.professionalLevel,
   });
   season.clubs = season.clubs.map((c) =>
     c.clubId === VISTULA_NOVA_ID ? { ...c, clubId: config.club.id, name: config.club.name } : c,
@@ -105,6 +108,7 @@ export const initializeCareerSeason = (
     careerSeasonNumber: config.careerSeasonNumber,
     currentClub: config.club,
     careerPhase: 'preseason',
+    currentDate: `${config.startYear}-07-01`,
     leagueSeason: season,
     careerCalendar: {
       seasonId: season.id,
@@ -124,6 +128,145 @@ export const initializeCareerSeason = (
     seasonStartingAttributes: { ...career.player.attributes },
   };
 };
+
+export const getCareerStage = (
+  career: Pick<CareerState, 'careerSeasonNumber' | 'player'>,
+): CareerStage =>
+  career.careerSeasonNumber === 1
+    ? 'academy'
+    : career.player.age <= 20
+      ? 'prospect'
+      : career.player.age <= 24
+        ? 'developing'
+        : career.player.age <= 29
+          ? 'prime'
+          : career.player.age <= 33
+            ? 'experienced'
+            : 'veteran';
+
+const sensibleRole = (age: number, role: SquadRole): SquadRole =>
+  age > 23 && role === 'development_player' ? 'rotation' : role;
+
+const applyAnnualAging = (career: CareerState, date: string): CareerState => {
+  const age = career.player.age + 1;
+  const attrs = { ...career.player.attributes };
+  const rng = RandomGenerator.fromSeed(`${career.seed}:aging:${age}`);
+  const facts: HistoryFact[] = [];
+  const base = age < 29 ? 0 : age <= 31 ? 0.25 : age <= 34 ? 0.52 : age <= 37 ? 0.78 : 0.95;
+  const physical: Array<keyof PlayerAttributes> = ['pace', 'stamina'];
+  const technical: Array<keyof PlayerAttributes> = [
+    'technique',
+    'vision',
+    'finishing',
+    'defending',
+  ];
+  const resilience =
+    Math.min(0.25, (career.player.potential - 60) / 160) + (career.player.fitness - 70) / 300;
+  for (const attribute of [...physical, ...technical]) {
+    if (rng.float() >= base - resilience - (physical.includes(attribute) ? 0 : 0.35)) continue;
+    const before = attrs[attribute];
+    attrs[attribute] = Math.max(
+      20,
+      before - (age >= 38 && physical.includes(attribute) ? rng.int(1, 3) : 1),
+    );
+    facts.push(
+      milestone(career, 'attribute_changed', date, career.currentClub.id, {
+        attribute,
+        before,
+        after: attrs[attribute],
+        source: 'aging',
+      }),
+    );
+  }
+  if (age >= 29 && age <= 34)
+    for (const attribute of ['leadership', 'composure'] as const)
+      if (rng.bool(0.28) && attrs[attribute] < 100) attrs[attribute]++;
+  return {
+    ...career,
+    player: { ...career.player, age, attributes: attrs },
+    historyFacts: [...career.historyFacts, ...facts],
+  };
+};
+
+export const retireCareer = (career: CareerState, reason = 'decyzja zawodnika'): CareerState => ({
+  ...career,
+  careerStatus: 'retired',
+  retirementDate: career.currentDate ?? `${career.currentSeason + 1}-06-30`,
+  retirementAge: career.player.age,
+  retirementReason: reason,
+  careerPhase: 'offseason',
+  historyFacts: career.historyFacts.some((f) => f.factType === 'retired')
+    ? career.historyFacts
+    : [
+        ...career.historyFacts,
+        milestone(
+          career,
+          'retired',
+          career.currentDate ?? `${career.currentSeason + 1}-06-30`,
+          career.currentClub.id,
+          { age: career.player.age, reason },
+        ),
+      ],
+});
+
+/** Canonical boundary: transfers never age the player; this operation always does. */
+export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
+  if ((career.careerStatus ?? 'active') === 'retired' || career.player.age >= 40)
+    return retireCareer(career, 'limit wieku');
+  const nextDate = `${career.currentSeason + 1}-07-01`;
+  let aged = applyAnnualAging(career, nextDate);
+  if (
+    !aged.historyFacts.some(
+      (f) => f.factType === 'season_completed' && f.season === career.currentSeason,
+    )
+  )
+    aged = {
+      ...aged,
+      historyFacts: [
+        ...aged.historyFacts,
+        milestone(
+          aged,
+          'season_completed',
+          `${career.currentSeason + 1}-06-30`,
+          career.currentClub.id,
+          {
+            competition: career.leagueSeason?.competition.name,
+            finalPosition: career.seasonOutcome?.finalPosition,
+          },
+        ),
+      ],
+    };
+  aged = {
+    ...aged,
+    currentSportingStatus: sensibleRole(
+      aged.player.age,
+      aged.currentSportingStatus ?? aged.currentContract?.squadRole ?? 'rotation',
+    ),
+    playerAvailability: {
+      injuries: aged.playerAvailability?.injuries.filter((i) => i.status === 'active') ?? [],
+      suspensionMatchesRemaining: 0,
+      leagueYellowCards: 0,
+      matchesMissedThroughSuspension: 0,
+      matchesMissedThroughInjury: 0,
+    },
+  };
+  const initialized = initializeCareerSeason(aged, {
+    startYear: career.currentSeason + 1,
+    careerSeasonNumber: career.careerSeasonNumber + 1,
+    club: aged.currentClub,
+    professional: true,
+  });
+  const ovr = getPlayerOverall(initialized.player, initialized.player.primaryPosition);
+  return {
+    ...initialized,
+    careerStatus: 'active',
+    highestOVR: Math.max(career.highestOVR ?? ovr, ovr),
+    highestOVRDate: ovr > (career.highestOVR ?? -1) ? nextDate : career.highestOVRDate,
+  };
+};
+
+export const stayAtCurrentClub = (career: CareerState): CareerState =>
+  advanceToNextCareerSeason(career);
 const neutralRelationship = (): RelationshipScores => ({
   liking: 45,
   trust: 42,
@@ -174,24 +317,37 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
   const date = offer.contract.startDate;
   const club = asClub(offer);
   const coach = createProfessionalCoach(career, club, date);
-  const facts = [
-    'academy_graduated',
-    'first_professional_contract',
-    'joined_professional_club',
-  ].map((type) =>
-    milestone(career, type, date, club.id, {
-      fromClubId: career.currentClub.id,
-      toClubId: club.id,
-      contract: offer.contract,
-    }),
-  );
+  const changedClub = club.id !== career.currentClub.id;
+  const types =
+    career.careerSeasonNumber === 1
+      ? ['academy_graduated', 'first_professional_contract', 'joined_professional_club']
+      : offer.offerType === 'renewal' || !changedClub
+        ? ['contract_renewed']
+        : ['club_left', 'club_joined', 'transfer_completed'];
+  const facts = types
+    .filter(
+      (type) =>
+        !['academy_graduated', 'first_professional_contract'].includes(type) ||
+        !career.historyFacts.some((f) => f.factType === type),
+    )
+    .map((type) =>
+      milestone(career, type, date, club.id, {
+        fromClubId: career.currentClub.id,
+        toClubId: club.id,
+        contract: offer.contract,
+      }),
+    );
   const transitioned = {
     ...career,
     currentContract: offer.contract,
-    previousClubIds: [...career.previousClubIds, career.currentClub.id],
+    currentClub: club,
+    currentProfessionalClub: offer.club,
+    currentSportingStatus: sensibleRole(career.player.age, offer.contract.squadRole),
+    previousClubIds: changedClub
+      ? [...career.previousClubIds, career.currentClub.id]
+      : career.previousClubIds,
     player: {
       ...career.player,
-      age: career.player.age + 1,
       morale: Math.min(100, career.player.morale + 8),
       reputation: Math.min(100, career.player.reputation + 10),
     },
@@ -202,21 +358,17 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
         date,
         amount: offer.contract.signingBonus,
         category: 'signing_bonus' as const,
-        sourceFactId: facts[1]!.id,
+        sourceFactId: facts[0]!.id,
       },
     ],
     historyFacts: [...career.historyFacts, ...facts],
     significantPeople: [...career.significantPeople, coach],
     relationships: { ...career.relationships, [coach.id]: coach.relationshipParameters },
   };
-  return initializeCareerSeason(transitioned, {
-    startYear: career.currentSeason + 1,
-    careerSeasonNumber: career.careerSeasonNumber + 1,
-    club,
-    professional: true,
-  });
+  return advanceToNextCareerSeason(transitioned);
 };
 export const continueWithProfessionalTrial = (career: CareerState): CareerState => {
+  if (career.careerSeasonNumber !== 1) return career;
   const club: Club = {
     id: 'pro_trial_dolina',
     name: 'Hutnik Dolina',
