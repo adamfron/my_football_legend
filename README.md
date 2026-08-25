@@ -67,3 +67,9 @@ W narzędziach developerskich (`?devtools=1`) dostępna jest ręcznie uruchamian
 ## Ścieżki po selekcji
 
 Po dwóch tygodniach akademii kariera przechodzi do jednej z czterech ścieżek: próby seniorów, wspólnej szansy, indywidualnego planu albo dodatkowej oceny. Każda kończy się jakościowo opisaną rolą na sierpień 2026; żadna nie jest porażką kończącą karierę. Teksty są wybierane deterministycznie z semantycznych zestawów wariantów.
+
+## Wrzesień 2026: pierwsze mecze
+
+Kariera obejmuje cztery deterministyczne kolejki, lekką rywalizację o skład i tekstowe momenty decyzyjne. Silnik zapisuje strukturalny stan meczu, więc spotkanie można bezpiecznie wznowić po odświeżeniu.
+
+> **The game simulates the player's experience of a football match, not every touch of the ball.**

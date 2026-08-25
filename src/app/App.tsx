@@ -50,6 +50,15 @@ import {
   completeAcademyWeek,
 } from '../core/events/applyEventResolution';
 import { assignedRole, roleStatus } from '../core/events/postSelectionPath';
+import {
+  advanceMatch,
+  advanceSeptemberWeek,
+  initializeSeptemberPhase,
+  MATCH_MOMENT_LIBRARY,
+  opportunityDescription,
+  resolveMatchDecision,
+  startSeptemberMatch,
+} from '../core/septemberMatches';
 import type {
   CareerState,
   EventDecision,
@@ -439,6 +448,8 @@ const EventCard = ({
   onCareer: (career: CareerState) => void;
 }) => {
   const event = career.activeEvent;
+  if (!event && (career.september || career.activeMatch))
+    return <SeptemberGame career={career} onCareer={onCareer} />;
   if (!event && career.augustPlanning) return <AugustPlanner career={career} onCareer={onCareer} />;
   if (!event) {
     const firstWeekCompleted = hasCompletedAcademyArc(career);
@@ -583,6 +594,10 @@ const AugustPlanner = ({
           Rozwój: {String(summary?.data.development)} punktów postępu. Najważniejszy moment:{' '}
           {String(summary?.data.highlight)}
         </p>
+        <p>Sierpień za tobą. Rozpoczyna się właściwa walka o miejsce na boisku.</p>
+        <button onClick={() => onCareer(initializeSeptemberPhase(career))}>
+          Rozpocznij wrzesień
+        </button>
       </section>
     );
   }
@@ -641,6 +656,133 @@ const AugustPlanner = ({
             >
               {canChooseAugustActivity(career, activity.id) ? 'Wybierz' : 'Brak środków'}
             </button>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const statusLabel: Record<string, string> = {
+  senior_starter: 'Pierwszy skład seniorów',
+  senior_bench: 'Ławka seniorów',
+  senior_out: 'Poza kadrą seniorów',
+  academy_starter: 'Pierwszy skład akademii',
+  academy_bench: 'Ławka akademii',
+  no_match: 'Poza meczem',
+};
+const SeptemberGame = ({
+  career,
+  onCareer,
+}: {
+  career: CareerState;
+  onCareer: (career: CareerState) => void;
+}) => {
+  const match = career.activeMatch;
+  if (career.september?.completed)
+    return (
+      <section>
+        <h2>Wrzesień 2026 zakończony</h2>
+        <p>Cztery pierwsze kolejki są za tobą. Dalsza część sezonu nie jest jeszcze dostępna.</p>
+      </section>
+    );
+  if (!match) {
+    const i = career.september?.fixtureIndex ?? 0;
+    const opponent = career.september?.opponents[i];
+    return (
+      <section>
+        <p>
+          Kolejka {i + 1} · {['2026-09-05', '2026-09-12', '2026-09-19', '2026-09-26'][i]}
+        </p>
+        <h2>Nadchodzi kolejny mecz</h2>
+        <p>
+          {opponent?.name} · {i % 2 === 0 ? 'dom' : 'wyjazd'} ·{' '}
+          {opponent &&
+            (opponent.strength > 59
+              ? 'nieco mocniejszy rywal'
+              : opponent.strength < 52
+                ? 'słabszy rywal'
+                : 'rywal o podobnym poziomie')}
+        </p>
+        <p>{opportunityDescription(career)}</p>
+        <button onClick={() => onCareer(startSeptemberMatch(career))}>Poznaj decyzję sztabu</button>
+      </section>
+    );
+  }
+  const definition =
+    match.currentMoment &&
+    MATCH_MOMENT_LIBRARY.find((m) => m.id === match.currentMoment!.definitionId);
+  if (match.completed) {
+    const a = career.matchHistory?.at(-1);
+    const forGoals = match.venue === 'home' ? match.homeGoals : match.awayGoals;
+    const against = match.venue === 'home' ? match.awayGoals : match.homeGoals;
+    const quality = !a?.minutes
+      ? 'krótki występ bez większego wpływu'
+      : a.personalImpact >= 5
+        ? 'bardzo mocny występ'
+        : a.personalImpact >= 2
+          ? 'solidny występ'
+          : a.personalImpact >= -1
+            ? 'nierówny mecz'
+            : 'trudny wieczór';
+    return (
+      <section>
+        <h2>Wynik</h2>
+        <h3>
+          Vistula Nova {forGoals}:{against} {match.opponent.name}
+        </h3>
+        <p>
+          {a?.minutes ?? 0} minut · gole {a?.goals ?? 0} · asysty {a?.assists ?? 0} · xG{' '}
+          {(a?.xG ?? 0).toFixed(2)} · xA {(a?.xA ?? 0).toFixed(2)}
+        </p>
+        <p>
+          {quality}. Wynik drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
+        </p>
+        <button onClick={() => onCareer(advanceSeptemberWeek(career))}>
+          Przejdź do kolejnego tygodnia
+        </button>
+      </section>
+    );
+  }
+  if (!match.currentMoment)
+    return (
+      <section>
+        <h2>Decyzja sztabu</h2>
+        <p>
+          {match.date} · {match.venue === 'home' ? 'dom' : 'wyjazd'} · {match.opponent.name}
+        </p>
+        <h3>{statusLabel[match.squadStatus]}</h3>
+        <p>
+          {match.squadStatus.includes('bench')
+            ? 'Radecki nie rzuca cię jeszcze od pierwszej minuty, ale zostawia szansę na wejście.'
+            : match.playerMinutes === 0
+              ? 'Ten weekend oglądasz z boku. Potraktuj decyzję jako motywację i zadbaj o gotowość.'
+              : 'Dostajesz szansę od początku. Sztab oczekuje realizacji zadań.'}
+        </p>
+        <button onClick={() => onCareer(advanceMatch(career))}>
+          {match.plannedMinutes ? 'Rozpocznij mecz' : 'Przyjmij decyzję i przejdź dalej'}
+        </button>
+      </section>
+    );
+  return (
+    <section>
+      <p>{match.currentMoment.minute}. minuta · sytuacja meczowa</p>
+      <h2>{match.currentMoment.description}</h2>
+      <p>Widzisz ustawienie rywali i wynik, ale nie znasz ukrytej trudności rozstrzygnięcia.</p>
+      <div className="choices">
+        {definition?.decisions.map((d) => (
+          <article className="decision-card" key={d.id}>
+            <h3>{d.label}</h3>
+            <p>{d.description}</p>
+            <section className="possible-benefits">
+              <h4>Możesz zyskać</h4>
+              <p>{d.visibleGain}</p>
+            </section>
+            <section className="possible-risks">
+              <h4>Ryzykujesz</h4>
+              <p>{d.visibleRisk}</p>
+            </section>
+            <button onClick={() => onCareer(resolveMatchDecision(career, d.id))}>Wybierz</button>
           </article>
         ))}
       </div>
