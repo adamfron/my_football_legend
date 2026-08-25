@@ -12,16 +12,19 @@ export interface SeasonProgress {
   weeksUntilSummerWindow?: number;
 }
 export const seasonLabelForYear = (year: number) => `${year}/${String(year + 1).slice(-2)}`;
+/** The simulation cursor. `availableThrough` is a content horizon, not elapsed time. */
+export const getCareerCurrentDate = (career: CareerState): string => {
+  if (career.activeMatch?.date) return career.activeMatch.date;
+  if (career.decisionPoint?.date) return career.decisionPoint.date;
+  const week = career.careerCalendar?.weeks[career.careerCalendar.currentWeekIndex];
+  if (week) return week.completed ? week.endDate : week.startDate;
+  if (career.leagueSeason?.completed) return career.leagueSeason.endDate;
+  return `${career.currentSeason}-07-01`;
+};
 export const getSeasonProgress = (career: CareerState): SeasonProgress => {
   const start = `${career.currentSeason}-07-01`;
   const end = `${career.currentSeason + 1}-06-30`;
-  const week = career.careerCalendar?.weeks[career.careerCalendar.currentWeekIndex];
-  const candidates = [
-    career.decisionPoint?.date,
-    week?.startDate,
-    career.careerCalendar?.availableThrough,
-  ].filter((date): date is string => Boolean(date) && date! >= start && date! <= end);
-  const currentDate = candidates.sort().at(-1) ?? start;
+  const currentDate = getCareerCurrentDate(career);
   const elapsed =
     new Date(`${currentDate}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
   const duration =

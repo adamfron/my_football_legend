@@ -231,6 +231,20 @@ export const getCurrentFixture = (career: CareerState) => {
   return career.careerCalendar?.fixtures.find((fixture) => week?.fixtureIds.includes(fixture.id));
 };
 
+/** Repairs the narrowly scoped PR #16 save gap without inventing an appearance. */
+export const recoverOrphanedSeasonOneRound = (career: CareerState): CareerState => {
+  const season = career.leagueSeason;
+  const calendar = career.careerCalendar;
+  if (!season || !calendar || season.id !== '2026-27' || season.rounds.length !== 22) return career;
+  const frontier = calendar.weeks[calendar.currentWeekIndex]?.startDate;
+  if (!frontier) return career;
+  return season.rounds.reduce(
+    (state, round, index) =>
+      !round.completed && round.date < frontier ? settleLeagueRound(state, index) : state,
+    career,
+  );
+};
+
 const checkpoint = (career: CareerState, month: string): MonthlyCheckpoint => {
   const matches = (career.matchHistory ?? []).filter((match) => match.date.startsWith(month));
   const ratings = matches.flatMap((match) => (match.rating === undefined ? [] : [match.rating]));
@@ -300,11 +314,15 @@ export const completeCareerWeek = (career: CareerState): CareerState => {
 };
 
 export const advanceCareerWeek = (career: CareerState): CareerState => {
-  const completedCareer = completeCareerWeek(career);
+  const completedCareer = completeCareerWeek(recoverOrphanedSeasonOneRound(career));
   const calendar = completedCareer.careerCalendar;
   const current = getCurrentCareerWeek(completedCareer);
-  if (!calendar || !current?.completed || calendar.currentWeekIndex >= calendar.weeks.length - 1)
+  if (!calendar || !current?.completed) return completedCareer;
+  if (calendar.currentWeekIndex >= calendar.weeks.length - 1) {
+    if (completedCareer.leagueSeason && !completedCareer.leagueSeason.completed)
+      throw new Error('Career calendar ended before every league round was settled.');
     return completedCareer;
+  }
   const nextIndex = calendar.currentWeekIndex + 1;
   let checkpoints = calendar.monthlyCheckpoints;
   const next = calendar.weeks[nextIndex]!;

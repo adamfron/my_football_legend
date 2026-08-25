@@ -5,9 +5,13 @@ import {
   generateFixtureSchedule,
   getCurrentCareerWeek,
   initializeCurrentCareerWeek,
+  recoverOrphanedSeasonOneRound,
   shouldScheduleOffFieldEvent,
 } from './careerWeeks';
 import { careerStateSchema } from '../schemas/domainSchemas';
+import { settleLeagueRound, getLeagueTable } from './leagueSeason';
+import { simulateRoutinePlayerMatch } from './careerSimulation';
+import { auditCareerSeason } from './seasonAudit';
 
 const career = (seed = 'week-test') => {
   const profile = generateStartingPlayerProfile(
@@ -99,5 +103,86 @@ describe('reusable career week loop', () => {
     }
     expect(decisions.some(Boolean)).toBe(true);
     expect(decisions.some((value) => !value)).toBe(true);
+  });
+  it('assigns every post-prologue fixture to exactly one week without a date gap', () => {
+    const state = initializeCurrentCareerWeek(career('coverage'));
+    const fixtures = state.careerCalendar!.fixtures;
+    expect(fixtures).toHaveLength(18);
+    for (const fixture of fixtures) {
+      const containing = state.careerCalendar!.weeks.filter(
+        (week) => fixture.date >= week.startDate && fixture.date <= week.endDate,
+      );
+      expect(containing).toHaveLength(1);
+      expect(containing[0]!.fixtureIds).toContain(fixture.id);
+    }
+    expect(fixtures[0]!.date).toBe('2026-10-03');
+    expect(state.careerCalendar!.weeks[0]!.fixtureIds).toContain(fixtures[0]!.id);
+    expect(auditCareerSeason(state).unassignedFixtures).toEqual([]);
+  });
+
+  it('deterministically completes all 22 rounds without stalling on the final week', () => {
+    let state = initializeCurrentCareerWeek(career('full-season'));
+    while (!state.leagueSeason!.completed) {
+      const week = getCurrentCareerWeek(state)!;
+      const fixture = state.careerCalendar!.fixtures.find((item) =>
+        week.fixtureIds.includes(item.id),
+      );
+      if (fixture) {
+        state = simulateRoutinePlayerMatch(state, fixture);
+        const roundIndex = state.leagueSeason!.rounds.findIndex((round) =>
+          round.fixtures.some((item) => item.id === fixture.id),
+        );
+        state = settleLeagueRound(state, roundIndex);
+      }
+      state = advanceCareerWeek(state);
+    }
+    expect(state.leagueSeason!.rounds).toHaveLength(22);
+    expect(state.leagueSeason!.rounds.every((round) => round.completed)).toBe(true);
+    expect(getLeagueTable(state).every((row) => row.played === 22)).toBe(true);
+    expect(state.leagueSeason!.completed).toBe(true);
+    expect(state.seasonOutcome).toBeDefined();
+    expect(auditCareerSeason(state)).toMatchObject({ completedRounds: 22, unassignedFixtures: [] });
+  });
+
+  it('recovers a PR #16 save stuck at 21/22 without duplicating player history', () => {
+    let state = initializeCurrentCareerWeek(career('old-save'));
+    for (let index = 4; index < 22; index++) state = settleLeagueRound(state, index);
+    state = {
+      ...state,
+      leagueSeason: {
+        ...state.leagueSeason!,
+        rounds: state.leagueSeason!.rounds.map((round, index) =>
+          index === 3
+            ? {
+                ...round,
+                date: '2026-09-26',
+                completed: false,
+                fixtures: round.fixtures.map((fixture) => ({
+                  ...fixture,
+                  date: '2026-09-26',
+                  completed: false,
+                  homeGoals: undefined,
+                  awayGoals: undefined,
+                })),
+              }
+            : round,
+        ),
+        currentRound: 3,
+        completed: false,
+      },
+      seasonOutcome: undefined,
+      careerCalendar: {
+        ...state.careerCalendar!,
+        currentWeekIndex: state.careerCalendar!.weeks.length - 1,
+      },
+    };
+    const appearances = state.matchHistory?.length ?? 0;
+    const facts = state.historyFacts.length;
+    const recovered = recoverOrphanedSeasonOneRound(state);
+    expect(recovered.leagueSeason?.completed).toBe(true);
+    expect(getLeagueTable(recovered).every((row) => row.played === 22)).toBe(true);
+    expect(recovered.matchHistory?.length ?? 0).toBe(appearances);
+    expect(recovered.historyFacts).toHaveLength(facts);
+    expect(recovered.seasonOutcome).toBeDefined();
   });
 });

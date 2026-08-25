@@ -24,6 +24,7 @@ import { evaluateMatchRating, normalizeTeamStats } from './matchFeedback';
 import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyles';
 import { applyMatchAvailabilityEffects } from './playerAvailability';
 import { settleLeagueRound } from './leagueSeason';
+import { applyAppearanceConsequences } from './appearanceConsequences';
 
 export const SEPTEMBER_DATES = ['2026-09-05', '2026-09-12', '2026-09-19', '2026-09-26'] as const;
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
@@ -893,7 +894,7 @@ export const finishMatch = (career: CareerState): CareerState => {
             : undefined,
         )
       : completedCareer;
-  return evaluatePlayStyleUnlocks(settled, m.date);
+  return evaluatePlayStyleUnlocks(applyAppearanceConsequences(settled, appearance), m.date);
 };
 export const advanceSeptemberWeek = (career: CareerState): CareerState => {
   if (!career.activeMatch?.completed || !career.september) return career;

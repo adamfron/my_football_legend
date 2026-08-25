@@ -25,7 +25,7 @@ const clubSeeds: Array<[string, string, number, number, number]> = [
   ['club_start_brzezina', 'Start Brzezina', 50, 53, 47],
 ];
 
-const scheduleDates = (startYear: number) => {
+const scheduleDates = (startYear: number, alignWithSeptemberPrologue: boolean) => {
   const dates: string[] = [];
   const add = (start: string, count: number) => {
     const date = new Date(`${start}T00:00:00Z`);
@@ -34,7 +34,9 @@ const scheduleDates = (startYear: number) => {
       date.setUTCDate(date.getUTCDate() + 7);
     }
   };
-  add(`${startYear}-08-29`, 11);
+  // The academy prologue presents four official September matches. Keeping the
+  // league calendar on the same chronology prevents an unplayable August round.
+  add(`${startYear}-${alignWithSeptemberPrologue ? '09-05' : '08-29'}`, 11);
   add(`${startYear + 1}-03-06`, 11);
   return dates;
 };
@@ -53,7 +55,7 @@ export const createLeagueSeason = (
 ): LeagueSeason => {
   void seed;
   const startYear = options.startYear ?? 2026;
-  const roundDates = scheduleDates(startYear);
+  const roundDates = scheduleDates(startYear, startYear === 2026 && !options.professional);
   const clubs: LeagueClubProfile[] = clubSeeds.map(
     ([clubId, name, strength, attackStrength, defenseStrength]) => ({
       clubId,

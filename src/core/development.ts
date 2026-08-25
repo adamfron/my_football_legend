@@ -26,6 +26,8 @@ const weights = (a: MatchAppearance): Record<keyof PlayerAttributes, number> => 
   leadership: 0.45 + (a.started ? 0.35 : 0),
   composure: 1 + a.goals + a.assists * 0.5,
 });
+const ageMultiplier = (age: number) =>
+  age <= 18 ? 1.35 : age <= 22 ? 1.15 : age <= 27 ? 0.75 : age <= 31 ? 0.4 : 0.15;
 export const applyDevelopmentCheckpoint = (
   career: CareerState,
   appearance: MatchAppearance,
@@ -49,7 +51,8 @@ export const applyDevelopmentCheckpoint = (
       (map.get(key) ?? 0) +
       (appearance.minutes / 90) *
         w[key] *
-        2.7 *
+        1.5 *
+        ageMultiplier(career.player.age) *
         potentialFactor *
         ceilingFactor *
         injuryFactor *
