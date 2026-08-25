@@ -53,3 +53,15 @@ Drugi tydzień jest inicjalizowany idempotentnie przez `initializeSecondAcademyW
 `src/core/septemberMatches.ts` nie zależy od Reacta. Łączy profil konkurencyjny klubu, profil selekcyjny trenera, anonimową dostępność grup pozycyjnych i deterministyczne tło wyniku. `MatchState` jest strukturalnym źródłem prawdy i może być zapisany w połowie meczu; cztery wrześniowe kolejki używają tego samego przebiegu.
 
 **The game simulates the player's experience of a football match, not every touch of the ball.** Wynik drużyny jest symulowany osobno od kilku sytuacji ważnych dla zawodnika.
+
+## Match feedback pipeline
+
+> The game simulates the player's experience of a football match, not every touch of the ball.
+
+Istniejący silnik jest rozszerzany jednym deterministycznym przepływem:
+
+`Match simulation → background segments → score/stats/momentum → player moment → hidden resolution → personal impact → team impact → coach interpretation → live rating → final appearance`.
+
+Wynik, `MatchTeamStats`, punkty `MatchMomentumPoint` i ocena powstają w domenie; React wyłącznie je prezentuje. Dane są częścią `MatchState`, dzięki czemu zapis i odświeżenie nie uruchamiają symulacji ponownie. `matchHistory` jest kanonicznym źródłem agregatów sezonu, a opcjonalne nowe pola zachowują zgodność wcześniejszych zapisów.
+
+`SeasonContextOpportunity` jest deklaratywnym fundamentem przyszłych kontekstów końcówki sezonu. `club_strength_changed` ma model danych, ale fakt powstanie dopiero wraz z rzeczywistą zmianą kadry lub sztabu.

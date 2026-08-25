@@ -304,6 +304,33 @@ export interface MatchMomentResult {
   keyPasses: number;
   defensiveActions: number;
   saves: number;
+  behaviorTags?: MatchBehaviorTag[] | undefined;
+  ratingBefore?: number | undefined;
+  ratingAfter?: number | undefined;
+  ratingExplanation?: string | undefined;
+}
+export type MatchBehaviorTag =
+  | 'progressive_pass'
+  | 'defensive_read'
+  | 'pressure_resistance'
+  | 'late_box_run'
+  | 'long_shot'
+  | 'one_on_one_finish'
+  | 'pressing_action'
+  | 'goalkeeper_distribution';
+export interface MatchTeamStats {
+  possession: number;
+  shots: number;
+  shotsOnTarget: number;
+  xG: number;
+  dangerousActions: number;
+}
+export interface MatchMomentumPoint {
+  minute: number;
+  homeThreat: number;
+  awayThreat: number;
+  event?: 'goal' | 'big_chance' | 'substitution' | 'red_card' | undefined;
+  scoringSide?: 'home' | 'away' | undefined;
 }
 export interface MatchState {
   id: string;
@@ -322,6 +349,9 @@ export interface MatchState {
   moments: MatchMoment[];
   currentMoment?: MatchMoment | undefined;
   resolvedMoments: MatchMomentResult[];
+  teamStats?: { home: MatchTeamStats; away: MatchTeamStats } | undefined;
+  momentum?: MatchMomentumPoint[] | undefined;
+  liveRating?: number | undefined;
   completed: boolean;
 }
 export interface MatchAppearance {
@@ -339,6 +369,79 @@ export interface MatchAppearance {
   defensiveActions: number;
   saves: number;
   personalImpact: number;
+  rating?: number | undefined;
+}
+export interface SeasonPlayerSummary {
+  appearances: number;
+  starts: number;
+  substituteAppearances: number;
+  minutes: number;
+  goals: number;
+  assists: number;
+  xG: number;
+  xA: number;
+  keyPasses: number;
+  defensiveActions: number;
+  saves: number;
+  averageRating?: number | undefined;
+  bestRating?: number | undefined;
+  bestMatchId?: string | undefined;
+  seniorAppearances: number;
+  academyAppearances: number;
+}
+export type PlayStyleId =
+  | 'progressive_passer'
+  | 'between_the_lines'
+  | 'ball_winner'
+  | 'calm_finisher'
+  | 'engine'
+  | 'goalkeeper_distributor';
+export interface PlayStyleUnlock {
+  playStyleId: PlayStyleId;
+  date: string;
+  causes: string[];
+  relevantStats: Record<string, number>;
+  relatedFacts: string[];
+}
+export interface AttributeChange {
+  attribute: keyof PlayerAttributes;
+  before: number;
+  after: number;
+  date: string;
+  source: string;
+  causes: string[];
+}
+export interface SeasonSummary {
+  statistics: SeasonPlayerSummary;
+  bestMatch?: MatchAppearance;
+  majorFacts: HistoryFact[];
+  attributeChanges: AttributeChange[];
+  unlockedPlayStyles: PlayStyleUnlock[];
+}
+export interface SeasonContextOpportunity {
+  id: string;
+  type:
+    | 'top_scorer'
+    | 'top_assists'
+    | 'clean_sheets'
+    | 'young_player'
+    | 'title'
+    | 'promotion'
+    | 'survival'
+    | 'club_record';
+  roundsRemaining: number;
+  gapToLeader?: number;
+}
+export interface ClubStrengthChangedData {
+  reason:
+    | 'transfer_in'
+    | 'transfer_out'
+    | 'squad_availability'
+    | 'development'
+    | 'decline'
+    | 'coach_change';
+  previousBand: string;
+  currentBand: string;
 }
 export interface SeptemberState {
   fixtureIndex: number;

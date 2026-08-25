@@ -307,6 +307,7 @@ export const careerStateSchema = z.object({
         defensiveActions: z.number(),
         saves: z.number(),
         personalImpact: z.number(),
+        rating: z.number().min(3).max(10).optional(),
       }),
     )
     .optional(),
@@ -402,8 +403,55 @@ export const careerStateSchema = z.object({
           keyPasses: z.number(),
           defensiveActions: z.number(),
           saves: z.number(),
+          behaviorTags: z
+            .array(
+              z.enum([
+                'progressive_pass',
+                'defensive_read',
+                'pressure_resistance',
+                'late_box_run',
+                'long_shot',
+                'one_on_one_finish',
+                'pressing_action',
+                'goalkeeper_distribution',
+              ]),
+            )
+            .optional(),
+          ratingBefore: z.number().min(3).max(10).optional(),
+          ratingAfter: z.number().min(3).max(10).optional(),
+          ratingExplanation: z.string().optional(),
         }),
       ),
+      teamStats: z
+        .object({
+          home: z.object({
+            possession: z.number().min(0).max(100),
+            shots: z.number().nonnegative(),
+            shotsOnTarget: z.number().nonnegative(),
+            xG: z.number().nonnegative(),
+            dangerousActions: z.number().nonnegative(),
+          }),
+          away: z.object({
+            possession: z.number().min(0).max(100),
+            shots: z.number().nonnegative(),
+            shotsOnTarget: z.number().nonnegative(),
+            xG: z.number().nonnegative(),
+            dangerousActions: z.number().nonnegative(),
+          }),
+        })
+        .optional(),
+      momentum: z
+        .array(
+          z.object({
+            minute: z.number().min(0).max(90),
+            homeThreat: score,
+            awayThreat: score,
+            event: z.enum(['goal', 'big_chance', 'substitution', 'red_card']).optional(),
+            scoringSide: z.enum(['home', 'away']).optional(),
+          }),
+        )
+        .optional(),
+      liveRating: z.number().min(3).max(10).optional(),
       completed: z.boolean(),
     })
     .optional(),

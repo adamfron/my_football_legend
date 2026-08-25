@@ -59,3 +59,102 @@ small { color: #b6c5bd; font-weight: 500; line-height: 1.45; }
 .tone-badge { display: inline-block; margin-left: 8px; padding: 4px 10px; border-radius: 999px; background: rgba(68,209,157,.16); color: #b8f4dc; font-size: .82rem; }
 .history-item p { line-height: 1.55; }
 @media (max-width: 1000px) { .choices, .positions, .card, .career-grid { grid-template-columns: 1fr; } }
+.match-hud {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border, #334155);
+  border-radius: 12px;
+  background: #111827;
+}
+.match-score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+.match-score strong {
+  font-size: 1.55rem;
+}
+.match-minute {
+  text-align: center;
+  color: #a7f3d0;
+}
+.momentum-chart {
+  margin: 0;
+}
+.momentum-chart svg {
+  width: 100%;
+  height: 120px;
+  overflow: visible;
+}
+.momentum-axis {
+  stroke: #64748b;
+  stroke-width: 0.5;
+}
+.momentum-home,
+.momentum-away {
+  fill: none;
+  stroke-width: 1.6;
+}
+.momentum-home {
+  stroke: #34d399;
+}
+.momentum-away {
+  stroke: #60a5fa;
+}
+.goal-marker {
+  stroke: #fbbf24;
+  stroke-width: 0.45;
+  stroke-dasharray: 2 2;
+}
+.minute-marker {
+  stroke: #f8fafc;
+  stroke-width: 0.4;
+}
+.momentum-chart text {
+  font-size: 5px;
+}
+.momentum-chart figcaption {
+  text-align: center;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+.match-kpis,
+.team-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  text-align: center;
+}
+.rating-change {
+  border-left: 3px solid #34d399;
+  padding: 0.65rem 1rem;
+}
+.season-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.season-grid div {
+  padding: 0.65rem;
+  background: rgba(148, 163, 184, 0.08);
+  border-radius: 8px;
+}
+@media (max-width: 650px) {
+  .match-score {
+    gap: 0.55rem;
+  }
+  .match-score strong {
+    font-size: 1.2rem;
+  }
+  .match-kpis,
+  .team-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .season-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

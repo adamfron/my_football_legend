@@ -9,6 +9,12 @@ import { missingLocalizationKeys, translate } from '../core/narrative/localizati
 import { getFactPresentation } from '../core/narrative/factPresentation';
 import { buildFirstWeekSummary } from '../core/narrative/weekSummary';
 import { PersonAvatar } from '../components/PersonAvatar';
+import { MatchMomentumChart } from '../components/MatchMomentumChart';
+import { describePerformance, getSeasonPlayerSummary } from '../core/matchFeedback';
+import { getMonthlyDevelopmentSummary } from '../core/developmentFeedback';
+import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../core/playStyles';
+import { auditRepeatedPlayerFacingText } from '../core/narrative/repeatedTextAudit';
+import matchLocalization from '../content/localization/pl/events.match.json';
 import {
   attributeKeys,
   canReroll,
@@ -671,6 +677,49 @@ const statusLabel: Record<string, string> = {
   academy_bench: 'Ławka akademii',
   no_match: 'Poza meczem',
 };
+const numberPl = (value: number, digits = 1) =>
+  value.toLocaleString('pl-PL', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+const MatchHud = ({ career }: { career: CareerState }) => {
+  const match = career.activeMatch!;
+  const home = match.venue === 'home' ? career.currentClub.name : match.opponent.name;
+  const away = match.venue === 'away' ? career.currentClub.name : match.opponent.name;
+  return (
+    <div className="match-hud">
+      <div className="match-score">
+        <span>{home}</span>
+        <strong>
+          {match.homeGoals} : {match.awayGoals}
+        </strong>
+        <span>{away}</span>
+      </div>
+      <div className="match-minute">
+        {match.currentMinute}' · {match.teamLevel === 'senior' ? 'Seniorzy' : 'Akademia'}
+      </div>
+      {match.momentum && (
+        <MatchMomentumChart points={match.momentum} currentMinute={match.currentMinute} />
+      )}
+      <div className="match-kpis">
+        {match.liveRating !== undefined && (
+          <span>
+            Ocena <strong>{numberPl(match.liveRating)}</strong>
+          </span>
+        )}
+        <span>
+          Minuty <strong>{match.playerMinutes}</strong>
+        </span>
+        <span>
+          xA{' '}
+          <strong>
+            {numberPl(
+              match.resolvedMoments.reduce((s, r) => s + r.xA, 0),
+              2,
+            )}
+          </strong>
+        </span>
+      </div>
+    </div>
+  );
+};
 const SeptemberGame = ({
   career,
   onCareer,
@@ -727,16 +776,54 @@ const SeptemberGame = ({
             : 'trudny wieczór';
     return (
       <section>
+        <MatchHud career={career} />
         <h2>Wynik</h2>
         <h3>
           Vistula Nova {forGoals}:{against} {match.opponent.name}
         </h3>
+        {match.momentum && <MatchMomentumChart points={match.momentum} />}
+        {match.teamStats && (
+          <div className="team-stats">
+            <strong>{match.venue === 'home' ? 'Vistula Nova' : match.opponent.name}</strong>
+            <strong>Statystyka</strong>
+            <strong>{match.venue === 'away' ? 'Vistula Nova' : match.opponent.name}</strong>
+            {(
+              [
+                ['Posiadanie', 'possession'],
+                ['Strzały', 'shots'],
+                ['Strzały celne', 'shotsOnTarget'],
+                ['xG', 'xG'],
+                ['Groźne akcje', 'dangerousActions'],
+              ] as const
+            ).flatMap(([label, key]) => [
+              <span key={`${key}h`}>
+                {key === 'xG'
+                  ? numberPl(match.teamStats!.home[key], 2)
+                  : match.teamStats!.home[key]}
+                {key === 'possession' ? '%' : ''}
+              </span>,
+              <span key={key}>{label}</span>,
+              <span key={`${key}a`}>
+                {key === 'xG'
+                  ? numberPl(match.teamStats!.away[key], 2)
+                  : match.teamStats!.away[key]}
+                {key === 'possession' ? '%' : ''}
+              </span>,
+            ])}
+          </div>
+        )}
+        <h3>Twój występ</h3>
         <p>
-          {a?.minutes ?? 0} minut · gole {a?.goals ?? 0} · asysty {a?.assists ?? 0} · xG{' '}
-          {(a?.xG ?? 0).toFixed(2)} · xA {(a?.xA ?? 0).toFixed(2)}
+          {a?.started ? 'Pierwszy skład' : 'Rezerwowy'} · {a?.minutes ?? 0} minut · gole{' '}
+          {a?.goals ?? 0} · asysty {a?.assists ?? 0} · xG {numberPl(a?.xG ?? 0, 2)} · xA{' '}
+          {numberPl(a?.xA ?? 0, 2)} · kluczowe podania {a?.keyPasses ?? 0} · akcje defensywne{' '}
+          {a?.defensiveActions ?? 0}
+          {career.player.primaryPosition === 'goalkeeper' ? ` · obrony ${a?.saves ?? 0}` : ''} ·
+          ocena {a?.rating === undefined ? '—' : numberPl(a.rating)}
         </p>
         <p>
-          {quality}. Wynik drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
+          {a ? describePerformance(a.rating, a.minutes, forGoals > against) : quality}. Wynik
+          drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
         </p>
         <button onClick={() => onCareer(advanceSeptemberWeek(career))}>
           Przejdź do kolejnego tygodnia
@@ -747,6 +834,7 @@ const SeptemberGame = ({
   if (!match.currentMoment)
     return (
       <section>
+        <MatchHud career={career} />
         <h2>Decyzja sztabu</h2>
         <p>
           {match.date} · {match.venue === 'home' ? 'dom' : 'wyjazd'} · {match.opponent.name}
@@ -766,7 +854,17 @@ const SeptemberGame = ({
     );
   return (
     <section>
+      <MatchHud career={career} />
       <p>{match.currentMoment.minute}. minuta · sytuacja meczowa</p>
+      {match.resolvedMoments.at(-1)?.ratingAfter !== undefined && (
+        <aside className="rating-change">
+          <strong>
+            Ocena {numberPl(match.resolvedMoments.at(-1)!.ratingBefore ?? 6)} →{' '}
+            {numberPl(match.resolvedMoments.at(-1)!.ratingAfter!)}
+          </strong>
+          <p>{match.resolvedMoments.at(-1)!.ratingExplanation}</p>
+        </aside>
+      )}
       <h2>{match.currentMoment.description}</h2>
       <p>Widzisz ustawienie rywali i wynik, ale nie znasz ukrytej trudności rozstrzygnięcia.</p>
       <div className="choices">
@@ -929,6 +1027,12 @@ export const App = () => {
               <code>{career.seed}</code>
               <pre>{JSON.stringify(randomPreview, null, 2)}</pre>
               <p>Brakujące klucze: {Array.from(missingLocalizationKeys).join(', ') || 'brak'}</p>
+              <section>
+                <h2>Powtarzające się teksty</h2>
+                <pre>
+                  {JSON.stringify(auditRepeatedPlayerFacingText(matchLocalization), null, 2)}
+                </pre>
+              </section>
               <p>
                 OK: {validation.events.length} wydarzeń, {validation.clubs.length} klub,{' '}
                 {validation.people.length} postać.
@@ -1014,22 +1118,81 @@ export const App = () => {
                         <strong>Kondycja:</strong> {career.player.fitness}
                       </p>
                       <h3>Rozwój</h3>
-                      <p>
-                        Kierunek:{' '}
-                        {career.developmentProgress?.[0]?.attribute ?? 'jeszcze nieustalony'}
-                      </p>
-                      <p>
-                        Postęp:{' '}
-                        {(career.developmentProgress?.[0]?.progress ?? 0) < 20
-                          ? 'pierwsze oznaki poprawy'
-                          : (career.developmentProgress?.[0]?.progress ?? 0) < 45
-                            ? 'widoczny postęp'
-                            : 'blisko przełomu'}
-                      </p>
+                      {(() => {
+                        const summary = getSeasonPlayerSummary(career, 2026);
+                        return (
+                          <>
+                            <h3>Bieżący sezon — 2026/27</h3>
+                            <div className="season-grid">
+                              <div>
+                                Mecze
+                                <br />
+                                <strong>{summary.appearances}</strong>
+                              </div>
+                              <div>
+                                Pierwszy skład
+                                <br />
+                                <strong>{summary.starts}</strong>
+                              </div>
+                              <div>
+                                Minuty
+                                <br />
+                                <strong>{summary.minutes}</strong>
+                              </div>
+                              <div>
+                                Gole
+                                <br />
+                                <strong>{summary.goals}</strong>
+                              </div>
+                              <div>
+                                Asysty
+                                <br />
+                                <strong>{summary.assists}</strong>
+                              </div>
+                              <div>
+                                Średnia ocen
+                                <br />
+                                <strong>
+                                  {summary.averageRating === undefined
+                                    ? '—'
+                                    : numberPl(summary.averageRating)}
+                                </strong>
+                              </div>
+                            </div>
+                          </>
+                        );
+                      })()}
+                      <p>{getMonthlyDevelopmentSummary(career, 2026, 9).narrative}</p>
+                      {career.historyFacts
+                        .filter((f) => f.factType === 'attribute_changed')
+                        .slice(-1)
+                        .map((f) => (
+                          <article className="mini-card" key={f.id}>
+                            <strong>Rozwój zawodnika</strong>
+                            <p>
+                              {String(f.data.attribute)}: {String(f.data.before)} →{' '}
+                              {String(f.data.after)}
+                            </p>
+                          </article>
+                        ))}
                       <p>
                         Ostatnia aktywność:{' '}
                         {career.augustPlanning?.results.at(-1)?.activityId ?? 'brak'}
                       </p>
+                      <h3>Atuty</h3>
+                      {getUnlockedPlayStyles(career).length ? (
+                        getUnlockedPlayStyles(career).map((id) => (
+                          <article className="mini-card" key={id}>
+                            <strong>{PLAY_STYLE_PRESENTATION[id].name}</strong>
+                            <p>{PLAY_STYLE_PRESENTATION[id].description}</p>
+                          </article>
+                        ))
+                      ) : (
+                        <p>
+                          Nie wykształciłeś jeszcze wyraźnego stylu, który sztab uznałby za jeden z
+                          twoich znaków rozpoznawczych.
+                        </p>
+                      )}
                       <h3>Finanse</h3>
                       <p>Dostępne środki: {getAvailableFunds(career)} PLN</p>
                       {(career.finances ?? [])

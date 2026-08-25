@@ -31,3 +31,9 @@ Fakty przechowują decyzje, uczestników, przyczyny i semantyczne wyniki, nigdy 
 ## Narracja meczu
 
 Sytuacje są deklaratywnymi `MatchMomentDefinition`, a tekst wejścia ma warianty wybierane deterministycznie. Rozstrzygnięcie zachowuje trzy osobne interpretacje: **personal impact** (jakość i widoczność gracza), **team impact** (korzyść dla wyniku i kontroli) oraz **coach interpretation** (ocena decyzji przez profil trenera). Dobra akcja nie gwarantuje gola, a słabsza nie przesądza wyniku.
+
+## Ocena występu i interpretacja trenera
+
+Rating jest obiektywizującą, kontekstową oceną działań boiskowych (minuty, pozycja, trudność i koszt sytuacji oraz statystyki). Coach interpretation pozostaje subiektywną interpretacją realizacji zadania, dyscypliny taktycznej, relacji i potrzeb zespołu. Mechanizmy nie wyznaczają się wzajemnie: wysoka ocena może współistnieć z zastrzeżeniem trenera, a przeciętna nota z pochwałą taktyczną.
+
+Zmiany atrybutów i atuty są faktami kanonicznymi, nie gotowymi tekstami. Warianty feedbacku powinny korzystać z semantycznego kontekstu: dobrej lub kosztownej akcji, kreacji bez asysty, wyniku drużyny, rozwoju miesiąca i przyczyn odblokowania stylu.

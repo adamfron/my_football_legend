@@ -48,3 +48,7 @@ Dobre warianty zmieniają perspektywę lub istotny szczegół sceny, nie tylko j
 ## Teksty meczowe
 
 Opisuj wyłącznie wiedzę dostępną zawodnikowi: ustawienie, zmęczenie, zachowanie rywala i wynik. Nie ujawniaj trudności, szansy, rolla ani wartości wpływu. Każda decyzja musi mieć konkretną piłkarską korzyść i koszt. `auditRepeatedPlayerFacingText()` raportuje dłuższe polskie duplikaty bez blokowania CI.
+
+## Konkret decyzji i feedbacku
+
+Każda opcja decyzji powinna mieć konkretne i sytuacyjne: `description`, possible benefit oraz possible risk. Nie wolno zastępować ich uniwersalnymi placeholderami. Feedback opisuje zdarzenie na boisku, nie ujawnia rolla, difficulty, `personalImpact` ani liczbowego modyfikatora atutu. Najczęstsze komunikaty powinny mieć kilka znacząco różnych `NarrativeVariant`, dobieranych deterministycznie.

@@ -104,7 +104,14 @@ export const getFactPresentation = (career: CareerState, fact: HistoryFact): Fac
     .filter(Boolean);
   const clubName = fact.clubs.includes(career.currentClub.id) ? career.currentClub.name : undefined;
   let pair: string[];
-  if (fact.factType === 'career_started')
+  if (fact.factType === 'attribute_changed')
+    pair = [
+      'Rozwój zawodnika',
+      `${String(fact.data.attribute)}: ${String(fact.data.before)} → ${String(fact.data.after)}. Regularna praca zaczyna być widoczna w grze.`,
+    ];
+  else if (fact.factType === 'play_style_unlocked')
+    pair = ['Nowy atut', 'Powtarzalne zachowania meczowe wykształciły rozpoznawalny sposób gry.'];
+  else if (fact.factType === 'career_started')
     pair = [
       'Początek kariery w akademii',
       `Dołączyłeś do akademii ${career.currentClub.name} jako szesnastoletni zawodnik gotowy walczyć o swoją pierwszą poważną szansę.`,
