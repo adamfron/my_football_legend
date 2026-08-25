@@ -28,11 +28,8 @@ import {
   type StartingPlayerProfile,
 } from '../core/playerCreator';
 import { hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
-import {
-  hasCompletedAcademyArc,
-  initializeAcademyArc,
-  initializeSecondAcademyWeek,
-} from '../core/events/academyArc';
+import { hasCompletedAcademyArc, initializeSecondAcademyWeek } from '../core/events/academyArc';
+import { advanceCareerFlow } from '../core/careerFlow';
 import { getEventDefinition } from '../core/events/eventRegistry';
 import { resolveEventChoice } from '../core/events/resolveEventChoice';
 import { getAvailableDecisions } from '../core/events/decisionAvailability';
@@ -52,11 +49,7 @@ import {
   applyEventResolution,
   completeAcademyWeek,
 } from '../core/events/applyEventResolution';
-import {
-  assignedRole,
-  initializePostSelectionPath,
-  roleStatus,
-} from '../core/events/postSelectionPath';
+import { assignedRole, roleStatus } from '../core/events/postSelectionPath';
 import type {
   CareerState,
   EventDecision,
@@ -447,30 +440,42 @@ const EventCard = ({
 }) => {
   const event = career.activeEvent;
   if (!event && career.augustPlanning) return <AugustPlanner career={career} onCareer={onCareer} />;
-  if (!event)
+  if (!event) {
+    const firstWeekCompleted = hasCompletedAcademyArc(career);
+    const selectionCompleted = career.historyFacts.some(
+      (fact) => fact.factType === 'academy_selection_result',
+    );
+    const postSelectionCompleted = career.historyFacts.some(
+      (fact) => fact.factType === 'post_selection_path_completed',
+    );
     return (
       <section>
-        <h2>{translate('events.academy.summary.title')}</h2>
-        {buildFirstWeekSummary(career).map((p) => (
-          <p key={p}>{p}</p>
-        ))}
-        {hasCompletedAcademyArc(career) &&
-          !career.historyFacts.some(
-            (f) =>
-              f.factType === 'academy_second_week_completed' ||
-              f.factType === 'academy_selection_result',
-          ) && (
+        {postSelectionCompleted ? (
+          <>
+            <h2>Podsumowanie nowej roli</h2>
+            <p>{playerStatus(career)}</p>
+          </>
+        ) : firstWeekCompleted && !selectionCompleted ? (
+          <>
+            <h2>{translate('events.academy.summary.title')}</h2>
+            {buildFirstWeekSummary(career).map((p) => (
+              <p key={p}>{p}</p>
+            ))}
             <button onClick={() => onCareer(initializeSecondAcademyWeek(career))}>
               {translate('events.ui.startSecondWeek')}
             </button>
-          )}
-        {canInitializeAugust(career) && (
+          </>
+        ) : (
+          <p>Trwa przygotowanie kolejnego etapu kariery.</p>
+        )}
+        {postSelectionCompleted && canInitializeAugust(career) && (
           <button onClick={() => onCareer(initializeAugustPhase(career))}>
             Przejdź do sierpnia
           </button>
         )}
       </section>
     );
+  }
   const definition = getEventDefinition(event.definitionId);
   const people = Object.values(event.cast)
     .map((id) => personName(career, id))
@@ -563,7 +568,7 @@ const AugustPlanner = ({
       .find((f) => f.factType === 'august_2026_completed');
     return (
       <section>
-        <h2>Sierpień 2026 — pierwsze tygodnie nowej roli</h2>
+        <h2>Sierpień 2026 zakończony</h2>
         <p>
           <strong>Rola:</strong> {playerStatus(career)}
         </p>
@@ -651,7 +656,7 @@ export const App = () => {
   );
   const [career, setCareer] = useState<CareerState | null>(() => {
     const loaded = loadCareer();
-    return loaded.ok ? initializePostSelectionPath(initializeAcademyArc(loaded.save.career)) : null;
+    return loaded.ok ? advanceCareerFlow(loaded.save.career) : null;
   });
   const [step, setStep] = useState(0);
   const [active, setActive] = useState<TabId>('game');
@@ -690,6 +695,11 @@ export const App = () => {
     setProfileInput(next);
     clearVariants();
   };
+  const updateCareer = (next: CareerState) => {
+    const advanced = advanceCareerFlow(next);
+    saveCareer(advanced);
+    setCareer(advanced);
+  };
   const startNew = () => {
     if (career && !confirm(translate('start.confirmOverwrite'))) return;
     setView('creator');
@@ -700,11 +710,7 @@ export const App = () => {
   const continueCareer = () => {
     const loaded = loadCareer();
     if (loaded.ok) {
-      const next = initializePostSelectionPath(
-        initializeSecondAcademyWeek(initializeAcademyArc(loaded.save.career)),
-      );
-      saveCareer(next);
-      setCareer(next);
+      updateCareer(loaded.save.career);
       setView('career');
     }
   };
@@ -749,14 +755,8 @@ export const App = () => {
   };
   const finish = () => {
     if (!generated) return;
-    const next = initializeAcademyArc(createCareerState(generated, seed));
-    saveCareer(next);
-    setCareer(next);
+    updateCareer(createCareerState(generated, seed));
     setView('career');
-  };
-  const updateCareer = (next: CareerState) => {
-    saveCareer(next);
-    setCareer(next);
   };
 
   if (view === 'career' && career)
