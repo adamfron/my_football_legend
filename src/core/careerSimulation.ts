@@ -5,10 +5,15 @@ import type {
   HistoryFact,
   MatchAppearance,
 } from '../types/domain';
-import { getCurrentCareerWeek, getCurrentFixture, advanceCareerWeek } from './careerWeeks';
+import {
+  getCurrentCareerWeek,
+  getCurrentFixture,
+  advanceCareerWeek,
+  recoverOrphanedSeasonOneRound,
+} from './careerWeeks';
 import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
-import { applyDevelopmentCheckpoint } from './development';
+import { applyAppearanceConsequences } from './appearanceConsequences';
 import {
   evaluateSquadOpportunity,
   startFixtureMatch,
@@ -178,7 +183,7 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
     facts.push(
       fact(career, `first_${teamLevel}_assist`, fixture.date, { matchId: fixture.id }, 84),
     );
-  return applyDevelopmentCheckpoint(
+  return applyAppearanceConsequences(
     {
       ...effects.career,
       player: {
@@ -218,7 +223,11 @@ const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
 
 /** Advances routine time until an actual player choice, never more than eight weeks. */
 export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): CareerState => {
-  let career: CareerState = { ...initial, decisionPoint: undefined, fastForwardLog: [] };
+  let career: CareerState = recoverOrphanedSeasonOneRound({
+    ...initial,
+    decisionPoint: undefined,
+    fastForwardLog: [],
+  });
   for (let step = 0; step < Math.max(1, Math.min(8, maxWeeks)); step++) {
     const week = getCurrentCareerWeek(career);
     if (!week || week.completed) break;

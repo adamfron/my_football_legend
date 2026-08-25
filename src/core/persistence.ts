@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { CareerState } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
+import { recoverOrphanedSeasonOneRound } from './careerWeeks';
 
 export const CAREER_SAVE_VERSION = 1;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v1';
@@ -78,7 +79,12 @@ export const loadCareer = (): LoadCareerResult => {
       (career.seasonOutcome as Record<string, unknown>).competitionType ??= 'academy';
   }
   const result = careerSaveSchema.safeParse(parsed);
-  return result.success ? { ok: true, save: result.data } : { ok: false, reason: 'invalid_data' };
+  return result.success
+    ? {
+        ok: true,
+        save: { ...result.data, career: recoverOrphanedSeasonOneRound(result.data.career) },
+      }
+    : { ok: false, reason: 'invalid_data' };
 };
 export const deleteCareer = () => {
   if (storageAvailable()) localStorage.removeItem(CAREER_SAVE_KEY);
