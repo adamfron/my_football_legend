@@ -64,7 +64,10 @@ import {
   opportunityDescription,
   resolveMatchDecision,
   startSeptemberMatch,
+  startFixtureMatch,
 } from '../core/septemberMatches';
+import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
+import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import type {
   CareerState,
   EventDecision,
@@ -454,6 +457,7 @@ const EventCard = ({
   onCareer: (career: CareerState) => void;
 }) => {
   const event = career.activeEvent;
+  if (!event && career.careerCalendar) return <CareerWeekGame career={career} onCareer={onCareer} />;
   if (!event && (career.september || career.activeMatch))
     return <SeptemberGame career={career} onCareer={onCareer} />;
   if (!event && career.augustPlanning) return <AugustPlanner career={career} onCareer={onCareer} />;
@@ -569,6 +573,21 @@ const EventCard = ({
       )}
     </section>
   );
+};
+
+const CareerWeekGame = ({ career, onCareer }: { career: CareerState; onCareer: (career: CareerState) => void }) => {
+  const week = getCurrentCareerWeek(career);
+  const fixture = getCurrentFixture(career);
+  if (!week) return <p>Dostępny etap sezonu został zakończony.</p>;
+  if (career.activeMatch) return <SeptemberGame career={career} onCareer={onCareer} reusable />;
+  return <section>
+    <p>{formatDate(week.startDate)}–{formatDate(week.endDate)} · tydzień {week.weekIndex + 1}</p>
+    <h2>{fixture ? 'Nadchodzi kolejny mecz' : 'Tydzień treningowy'}</h2>
+    {fixture ? <><p>{fixture.opponent.name} · {fixture.venue === 'home' ? 'dom' : 'wyjazd'} · liga</p><p>{opportunityDescription(career)}</p></> : <p>Weekend bez spotkania pozwala skupić się na treningu i regeneracji.</p>}
+    {!!week.scheduledEventIds.length && <p>Poza boiskiem: {week.scheduledEventIds[0]!.replaceAll('_', ' ')}.</p>}
+    {!fixture && <p>Tydzień upłynął głównie na treningach. Sztab nadal obserwuje twoją pracę.</p>}
+    {fixture ? <button onClick={() => onCareer(startFixtureMatch(career, fixture))}>Poznaj decyzję sztabu</button> : <button onClick={() => onCareer(advanceCareerWeek(career))}>Przejdź dalej</button>}
+  </section>;
 };
 
 const AugustPlanner = ({
@@ -723,12 +742,14 @@ const MatchHud = ({ career }: { career: CareerState }) => {
 const SeptemberGame = ({
   career,
   onCareer,
+  reusable = false,
 }: {
   career: CareerState;
   onCareer: (career: CareerState) => void;
+  reusable?: boolean;
 }) => {
   const match = career.activeMatch;
-  if (career.september?.completed)
+  if (!reusable && career.september?.completed)
     return (
       <section>
         <h2>Wrzesień 2026 zakończony</h2>
@@ -825,7 +846,7 @@ const SeptemberGame = ({
           {a ? describePerformance(a.rating, a.minutes, forGoals > against) : quality}. Wynik
           drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
         </p>
-        <button onClick={() => onCareer(advanceSeptemberWeek(career))}>
+        <button onClick={() => onCareer(reusable ? advanceCareerWeek(career) : advanceSeptemberWeek(career))}>
           Przejdź do kolejnego tygodnia
         </button>
       </section>
@@ -900,6 +921,7 @@ export const App = () => {
   });
   const [step, setStep] = useState(0);
   const [active, setActive] = useState<TabId>('game');
+  const [showAllHistory, setShowAllHistory] = useState(false);
   const [identity, setIdentity] = useState<IdentityInput>({
     firstName: '',
     lastName: '',
@@ -1060,8 +1082,8 @@ export const App = () => {
               {active === 'history' && (
                 <div>
                   <h2>Oś czasu kariery</h2>
-                  {career.historyFacts
-                    .filter((f) => f.narrativeImportance >= 30)
+                  <div className="tabs"><button className={!showAllHistory ? 'active' : ''} onClick={() => setShowAllHistory(false)}>Najważniejsze</button><button className={showAllHistory ? 'active' : ''} onClick={() => setShowAllHistory(true)}>Wszystko</button></div>
+                  {(showAllHistory ? career.historyFacts : getCareerMilestones(career).map((item) => item.fact))
                     .map((f) => {
                       const fp = getFactPresentation(career, f);
                       return (

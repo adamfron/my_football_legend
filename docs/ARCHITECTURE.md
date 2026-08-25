@@ -65,3 +65,13 @@ Istniejący silnik jest rozszerzany jednym deterministycznym przepływem:
 Wynik, `MatchTeamStats`, punkty `MatchMomentumPoint` i ocena powstają w domenie; React wyłącznie je prezentuje. Dane są częścią `MatchState`, dzięki czemu zapis i odświeżenie nie uruchamiają symulacji ponownie. `matchHistory` jest kanonicznym źródłem agregatów sezonu, a opcjonalne nowe pola zachowują zgodność wcześniejszych zapisów.
 
 `SeasonContextOpportunity` jest deklaratywnym fundamentem przyszłych kontekstów końcówki sezonu. `club_strength_changed` ma model danych, ale fakt powstanie dopiero wraz z rzeczywistą zmianą kadry lub sztabu.
+
+## Career loop
+
+`CareerWeek` jest jednostką kalendarza domenowego, niewidoczną jako techniczny model w UI:
+
+`CareerWeek → schedule events → squad evaluation → fixture / no fixture → match → consequences → optional off-field event → complete week → next week`.
+
+`careerWeeks.ts` tworzy terminarz deterministycznie, pilnuje idempotencji, pamięci wariantów i checkpointów. Dowolny `Fixture` jest przekazywany adapterem do istniejącego silnika meczowego; nie istnieją silniki października czy listopada. **Months are presentation checkpoints, not separate engines** — tydzień może swobodnie przekroczyć granicę miesiąca.
+
+Stare etapy pozostają źródłem prawdy dla rozpoczętych zapisów. Fakt ukończenia września jest granicą migracyjną uruchamiającą reusable loop.

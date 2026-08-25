@@ -90,3 +90,11 @@ Balans selekcji można sprawdzać w devtools przez symulację naboru do senioró
 - **Winter break:** ponownie większa częstotliwość decyzji treningowo-życiowych.
 
 Docelowy sezon powinien oferować orientacyjnie 8–12 większych strategicznych decyzji pozaboiskowych, obok decyzji meczowych i fabularnych; jest to wskazówka, nie twardy limit.
+
+## Następne etapy
+
+1. **Lightweight league simulation:** tabela, wyniki innych drużyn i klasyfikacje indywidualne.
+2. **Contextual season goals:** król strzelców/asyst, walka o skład, awans lub utrzymanie i nagrody.
+3. **Dynamic squad world:** kontuzje, transfery, siła formacji, wypożyczenia i zmiana trenera.
+4. **Visual polish:** avatar generator v2, poprawa match momentum, layout, animacje i responsive UI.
+5. **Narrative polish:** większe pule wariantów, kontrola powtórzeń i polska fleksja imion oraz nazwisk.

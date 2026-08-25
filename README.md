@@ -77,3 +77,7 @@ Kariera obejmuje cztery deterministyczne kolejki, lekką rywalizację o skład i
 ## Informacja zwrotna meczu i kariery
 
 Wrześniowe spotkania prezentują teraz trwały wynik, minutę, dynamikę, statystyki drużyn i kontekstową ocenę zawodnika. Historia występów pozostaje źródłem bieżących statystyk sezonu, a fakty `attribute_changed` i `play_style_unlocked` tworzą audytowalny zapis rozwoju.
+
+## Wielotygodniowa kariera
+
+Po prologu akademii, sierpniowym planowaniu i pierwszych meczach września kariera korzysta z deterministycznej pętli tygodniowej. Lekki terminarz pozwala rozgrywać kolejne spotkania do końca 2026 roku bez osobnych silników miesięcznych, a Historia domyślnie pokazuje kamienie milowe.

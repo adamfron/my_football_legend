@@ -208,6 +208,76 @@ export interface CareerState {
   september?: SeptemberState | undefined;
   activeMatch?: MatchState | undefined;
   matchHistory?: MatchAppearance[] | undefined;
+  careerCalendar?: CareerCalendarState | undefined;
+  recentVariantKeys?: string[] | undefined;
+}
+
+export type CareerWeekPhase = 'academy' | 'preseason' | 'regular_season' | 'winter_break';
+export type MatchImportance = 'routine' | 'notable' | 'major' | 'career_defining';
+export interface Fixture {
+  id: Id;
+  seasonId: string;
+  date: string;
+  competition: 'league' | 'academy_league' | 'friendly';
+  opponent: OpponentProfile;
+  venue: 'home' | 'away';
+  importance: number;
+  matchImportance: MatchImportance;
+}
+export interface CareerWeek {
+  id: Id;
+  seasonId: string;
+  weekIndex: number;
+  startDate: string;
+  endDate: string;
+  phase: CareerWeekPhase;
+  fixtureIds: Id[];
+  scheduledEventIds: Id[];
+  completedEventIds: Id[];
+  summaryVariantKey?: string | undefined;
+  completed: boolean;
+}
+export interface MonthlyCheckpoint {
+  id: Id;
+  month: string;
+  appearances: number;
+  minutes: number;
+  goals: number;
+  assists: number;
+  averageRating?: number | undefined;
+  form: PlayerFormBand;
+  role: string;
+  highlightFactId?: Id | undefined;
+}
+export interface CareerCalendarState {
+  seasonId: string;
+  currentWeekIndex: number;
+  weeks: CareerWeek[];
+  fixtures: Fixture[];
+  monthlyCheckpoints: MonthlyCheckpoint[];
+  availableThrough: string;
+}
+export type PlayerFormBand = 'excellent' | 'good' | 'steady' | 'uneven' | 'poor';
+export type MilestoneCategory =
+  | 'debut' | 'goal' | 'assist' | 'award' | 'title' | 'transfer' | 'role_change'
+  | 'record' | 'major_relationship' | 'career_turning_point';
+export interface CareerMilestone { fact: HistoryFact; category: MilestoneCategory }
+
+export interface CareerEventCandidate {
+  eventDefinitionId: string;
+  weight: number;
+  phases: CareerWeekPhase[];
+  requiredTags?: string[] | undefined;
+  excludedTags?: string[] | undefined;
+  requiredFacts?: string[] | undefined;
+  excludedFacts?: string[] | undefined;
+  requiredPositionGroups?: PositionGroup[] | undefined;
+  minWeek?: number | undefined;
+  maxWeek?: number | undefined;
+  oncePerCareer?: boolean | undefined;
+  conflictsWith?: string[] | undefined;
+  recallTags: string[];
+  relationshipRole?: 'peer' | 'mentor' | 'assistant_coach' | 'physiotherapist' | undefined;
 }
 
 export type PlayerPosition =

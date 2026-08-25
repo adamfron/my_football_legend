@@ -52,3 +52,17 @@ Opisuj wyłącznie wiedzę dostępną zawodnikowi: ustawienie, zmęczenie, zacho
 ## Konkret decyzji i feedbacku
 
 Każda opcja decyzji powinna mieć konkretne i sytuacyjne: `description`, possible benefit oraz possible risk. Nie wolno zastępować ich uniwersalnymi placeholderami. Feedback opisuje zdarzenie na boisku, nie ujawnia rolla, difficulty, `personalImpact` ani liczbowego modyfikatora atutu. Najczęstsze komunikaty powinny mieć kilka znacząco różnych `NarrativeVariant`, dobieranych deterministycznie.
+
+## Academy Event Pool
+
+Wydarzenie akademii jest niezależnym klockiem, a nie „wydarzeniem numer 3”. Każdy kandydat musi deklarować:
+
+- powód i fazy, w których może się pojawić (`phases`, zakres tygodni, waga);
+- dozwolone grupy pozycji;
+- wymagane i wykluczone fakty/tagi;
+- rolę relacji lub postaci, jeżeli jej potrzebuje; postać tworzymy dopiero przy użyciu wydarzenia;
+- fakty i semantyczne `recallTags`, które pozostawia;
+- `oncePerCareer`, jeśli nie jest powtarzalne;
+- `conflictsWith`, jeżeli nie może współistnieć z innym klockiem.
+
+Treść powinna mieć warianty wejścia i rezultatu zależne od formy lub roli. Kotwice (przyjazd, trener, pierwsza ocena, znacząca osoba i decyzja o roli) gwarantują spójność, natomiast 4–6 scen między nimi jest dobieranych z puli deterministycznie.

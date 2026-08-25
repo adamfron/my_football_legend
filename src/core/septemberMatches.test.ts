@@ -57,7 +57,7 @@ describe('September match engine', () => {
     expect(evaluatePlayerForPosition(ready().player, 'central_midfielder')).not.toBe(
       evaluatePlayerForPosition(ready().player, 'striker'),
     );
-    expect(MATCH_MOMENT_LIBRARY).toHaveLength(14);
+    expect(MATCH_MOMENT_LIBRARY.length).toBeGreaterThanOrEqual(34);
   });
   it('initializes idempotently and validates an active match save', () => {
     const a = initializeSeptemberPhase(ready());
