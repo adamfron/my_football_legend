@@ -56,3 +56,10 @@ Balans selekcji można sprawdzać w devtools przez symulację naboru do senioró
 - trenerzy personalni jako postacie, dietetyk, fizjoterapeuta i psycholog;
 - nauka języków, formalna edukacja i wiedza o finansach;
 - zmiana masy, budowa mięśni i zaawansowany trening pozycyjny.
+
+## Dostępny etap: wrzesień 2026
+
+- cztery kolejki (5, 12, 19 i 26 września);
+- rywalizacja o seniorów i akademię bez pełnych składów;
+- wejścia z ławki, ważne momenty, statystyki i debiut seniorski;
+- bez tabeli ligowej, transferów i symulacji całego sezonu.

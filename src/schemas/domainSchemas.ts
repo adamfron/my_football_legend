@@ -290,6 +290,123 @@ export const careerStateSchema = z.object({
       ),
     })
     .optional(),
+  matchHistory: z
+    .array(
+      z.object({
+        matchId: id,
+        date: z.string(),
+        opponentId: id,
+        teamLevel: z.enum(['senior', 'academy']),
+        started: z.boolean(),
+        minutes: z.number(),
+        goals: z.number(),
+        assists: z.number(),
+        xG: z.number(),
+        xA: z.number(),
+        keyPasses: z.number(),
+        defensiveActions: z.number(),
+        saves: z.number(),
+        personalImpact: z.number(),
+      }),
+    )
+    .optional(),
+  september: z
+    .object({
+      fixtureIndex: z.number().int().min(0).max(4),
+      opponents: z.array(
+        z.object({
+          id,
+          name: z.string(),
+          strength: score,
+          style: z.string(),
+          strengths: z.array(z.string()),
+          weaknesses: z.array(z.string()),
+        }),
+      ),
+      availability: z.array(
+        z.object({
+          unit: z.enum(['goalkeeper', 'defense', 'midfield', 'attack']),
+          severity: z.enum(['full', 'one_absence', 'several_absences']),
+          reason: z.enum(['minor_injury', 'major_injury', 'suspension', 'fatigue', 'none']),
+        }),
+      ),
+      completed: z.boolean(),
+    })
+    .optional(),
+  activeMatch: z
+    .object({
+      id,
+      fixtureIndex: z.number().int(),
+      date: z.string(),
+      competition: z.string(),
+      teamLevel: z.enum(['senior', 'academy']),
+      opponent: z.object({
+        id,
+        name: z.string(),
+        strength: score,
+        style: z.string(),
+        strengths: z.array(z.string()),
+        weaknesses: z.array(z.string()),
+      }),
+      venue: z.enum(['home', 'away']),
+      squadStatus: z.enum([
+        'senior_starter',
+        'senior_bench',
+        'senior_out',
+        'academy_starter',
+        'academy_bench',
+        'no_match',
+      ]),
+      currentMinute: z.number(),
+      homeGoals: z.number(),
+      awayGoals: z.number(),
+      playerMinutes: z.number(),
+      plannedMinutes: z.number(),
+      moments: z.array(
+        z.object({
+          definitionId: id,
+          minute: z.number(),
+          scoreFor: z.number(),
+          scoreAgainst: z.number(),
+          description: z.string(),
+        }),
+      ),
+      currentMoment: z
+        .object({
+          definitionId: id,
+          minute: z.number(),
+          scoreFor: z.number(),
+          scoreAgainst: z.number(),
+          description: z.string(),
+        })
+        .optional(),
+      resolvedMoments: z.array(
+        z.object({
+          moment: z.object({
+            definitionId: id,
+            minute: z.number(),
+            scoreFor: z.number(),
+            scoreAgainst: z.number(),
+            description: z.string(),
+          }),
+          decisionId: id,
+          tier: z.enum(['excellent', 'good', 'mixed', 'poor', 'costly']),
+          personalImpact: z.number(),
+          teamImpact: z.number(),
+          coachImpact: z.number(),
+          narrative: z.string(),
+          goals: z.number(),
+          assists: z.number(),
+          xG: z.number(),
+          xA: z.number(),
+          keyPasses: z.number(),
+          defensiveActions: z.number(),
+          saves: z.number(),
+        }),
+      ),
+      completed: z.boolean(),
+    })
+    .optional(),
 });
 
 export const archetypeSchema = z.object({

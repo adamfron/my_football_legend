@@ -44,3 +44,7 @@ Semantyczny zestaw opisuje jeden zamiar narracyjny (np. wejście do szatni), a n
 Fragmenty są pełnymi, krótkimi zdaniami i muszą pasować gramatycznie do obu sąsiadów. Trzeba pilnować interpunkcji, podmiotu i unikać powtórzenia tej samej informacji. `requiredTags` stosujemy wyłącznie, gdy tekst wymaga danego kontekstu; `excludedTags`, gdy byłby z nim sprzeczny. Zawsze powinien istnieć wariant ogólny.
 
 Dobre warianty zmieniają perspektywę lub istotny szczegół sceny, nie tylko jeden synonim. Przed dodaniem tekstu należy sprawdzić, czy nie wymienia progów, poziomu rozstrzygnięcia, seeda, identyfikatora decyzji ani nazwy wariantu. Audit wymaga dwóch różnych tekstów, istniejących kluczy i braku technicznych identyfikatorów.
+
+## Teksty meczowe
+
+Opisuj wyłącznie wiedzę dostępną zawodnikowi: ustawienie, zmęczenie, zachowanie rywala i wynik. Nie ujawniaj trudności, szansy, rolla ani wartości wpływu. Każda decyzja musi mieć konkretną piłkarską korzyść i koszt. `auditRepeatedPlayerFacingText()` raportuje dłuższe polskie duplikaty bez blokowania CI.

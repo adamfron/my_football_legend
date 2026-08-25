@@ -27,3 +27,7 @@ Konkurent ma lekki deterministyczny profil akademii zamiast pełnej symulacji sk
 ## Deterministyczne warianty
 
 Fakty przechowują decyzje, uczestników, przyczyny i semantyczne wyniki, nigdy wybrane akapity. `selectNarrativeVariant` tworzy prywatny generator z seeda kariery, identyfikatora zestawu, zakresu i kanonicznego kontekstu. Dzięki temu warstwa prezentacji może zmieniać opis sceny, rezultatu, historii, relacji i podsumowania bez zużywania generatora symulacji. Podsumowania składają niezależne części: otwarcie, decyzję, wynik, callback relacji i następny krok.
+
+## Narracja meczu
+
+Sytuacje są deklaratywnymi `MatchMomentDefinition`, a tekst wejścia ma warianty wybierane deterministycznie. Rozstrzygnięcie zachowuje trzy osobne interpretacje: **personal impact** (jakość i widoczność gracza), **team impact** (korzyść dla wyniku i kontroli) oraz **coach interpretation** (ocena decyzji przez profil trenera). Dobra akcja nie gwarantuje gola, a słabsza nie przesądza wyniku.

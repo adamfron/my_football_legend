@@ -205,6 +205,146 @@ export interface CareerState {
   finances?: FinancialTransaction[] | undefined;
   developmentProgress?: AttributeDevelopmentProgress[] | undefined;
   augustPlanning?: AugustPlanningState | undefined;
+  september?: SeptemberState | undefined;
+  activeMatch?: MatchState | undefined;
+  matchHistory?: MatchAppearance[] | undefined;
+}
+
+export type PlayerPosition =
+  | 'goalkeeper'
+  | 'center_back'
+  | 'full_back'
+  | 'defensive_midfielder'
+  | 'central_midfielder'
+  | 'attacking_midfielder'
+  | 'winger'
+  | 'striker';
+export type SquadStatus =
+  | 'senior_starter'
+  | 'senior_bench'
+  | 'senior_out'
+  | 'academy_starter'
+  | 'academy_bench'
+  | 'no_match';
+export type MatchTier = 'excellent' | 'good' | 'mixed' | 'poor' | 'costly';
+export interface PositionalUnit {
+  starterQuality: number;
+  backupQuality: number;
+  depth: 'thin' | 'normal' | 'deep';
+}
+export interface ClubCompetitiveProfile {
+  overallStrength: number;
+  positionalUnits: Record<'goalkeeper' | 'defense' | 'midfield' | 'attack', PositionalUnit>;
+}
+export interface CoachSelectionProfile {
+  youthTrust: number;
+  experiencePreference: number;
+  tacticalDiscipline: number;
+  formSensitivity: number;
+  potentialPatience: number;
+  riskTolerance: number;
+}
+export interface SquadAvailability {
+  unit: keyof ClubCompetitiveProfile['positionalUnits'];
+  severity: 'full' | 'one_absence' | 'several_absences';
+  reason: 'minor_injury' | 'major_injury' | 'suspension' | 'fatigue' | 'none';
+}
+export interface OpponentProfile {
+  id: string;
+  name: string;
+  strength: number;
+  style: string;
+  strengths: string[];
+  weaknesses: string[];
+}
+export interface MatchTestWeights {
+  attributes: Partial<Record<keyof PlayerAttributes, number>>;
+  fitnessWeight?: number;
+  moraleWeight?: number;
+  pressureWeight?: number;
+}
+export interface MatchDecision {
+  id: string;
+  label: string;
+  description: string;
+  visibleGain: string;
+  visibleRisk: string;
+  weights: MatchTestWeights;
+  risk: number;
+  personalBias: number;
+  teamBias: number;
+  coachBias: number;
+}
+export interface MatchMomentDefinition {
+  id: string;
+  positionGroups: PositionGroup[];
+  situationTags: string[];
+  introductions: string[];
+  decisions: MatchDecision[];
+}
+export interface MatchMoment {
+  definitionId: string;
+  minute: number;
+  scoreFor: number;
+  scoreAgainst: number;
+  description: string;
+}
+export interface MatchMomentResult {
+  moment: MatchMoment;
+  decisionId: string;
+  tier: MatchTier;
+  personalImpact: number;
+  teamImpact: number;
+  coachImpact: number;
+  narrative: string;
+  goals: number;
+  assists: number;
+  xG: number;
+  xA: number;
+  keyPasses: number;
+  defensiveActions: number;
+  saves: number;
+}
+export interface MatchState {
+  id: string;
+  fixtureIndex: number;
+  date: string;
+  competition: string;
+  teamLevel: 'senior' | 'academy';
+  opponent: OpponentProfile;
+  venue: 'home' | 'away';
+  squadStatus: SquadStatus;
+  currentMinute: number;
+  homeGoals: number;
+  awayGoals: number;
+  playerMinutes: number;
+  plannedMinutes: number;
+  moments: MatchMoment[];
+  currentMoment?: MatchMoment | undefined;
+  resolvedMoments: MatchMomentResult[];
+  completed: boolean;
+}
+export interface MatchAppearance {
+  matchId: string;
+  date: string;
+  opponentId: string;
+  teamLevel: 'senior' | 'academy';
+  started: boolean;
+  minutes: number;
+  goals: number;
+  assists: number;
+  xG: number;
+  xA: number;
+  keyPasses: number;
+  defensiveActions: number;
+  saves: number;
+  personalImpact: number;
+}
+export interface SeptemberState {
+  fixtureIndex: number;
+  opponents: OpponentProfile[];
+  availability: SquadAvailability[];
+  completed: boolean;
 }
 
 export type FinancialCategory =

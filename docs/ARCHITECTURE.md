@@ -47,3 +47,9 @@ Drugi tydzień jest inicjalizowany idempotentnie przez `initializeSecondAcademyW
 ## Router po selekcji
 
 `initializePostSelectionPath` jest czystym, idempotentnym routerem. Odczytuje ostatni kanoniczny fakt `academy_selection_result`, nie dodaje pola ścieżki do stanu i odtwarza następne wydarzenie z faktów po odświeżeniu. Logika postaci, wyniku i wariantów pozostaje w `src/core`, bez zależności od Reacta. Wszystkie gałęzie zbiegają się w faktach przypisania roli i ukończenia ścieżki.
+
+## Reusable match engine
+
+`src/core/septemberMatches.ts` nie zależy od Reacta. Łączy profil konkurencyjny klubu, profil selekcyjny trenera, anonimową dostępność grup pozycyjnych i deterministyczne tło wyniku. `MatchState` jest strukturalnym źródłem prawdy i może być zapisany w połowie meczu; cztery wrześniowe kolejki używają tego samego przebiegu.
+
+**The game simulates the player's experience of a football match, not every touch of the ball.** Wynik drużyny jest symulowany osobno od kilku sytuacji ważnych dla zawodnika.
