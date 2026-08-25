@@ -36,3 +36,11 @@
 Teksty wydarzeń drugiego tygodnia są lokalizowane po polsku i opisują świat gry, nie mechanikę. Nie wolno ujawniać `selectionOutcome`, `resolutionTier`, identyfikatorów decyzji, wartości punktowych ani technicznych nazw pól. Warianty bramkarza muszą używać języka rozpoczęcia gry, organizowania obrony i reakcji na ustawienie rywali; nie mogą wspominać o dryblingu, skrzydle ani wejściu w pole karne.
 
 Nowe prezentacje historii powinny odczytywać fakty `academy_training_focus`, `academy_rival_preparation`, `academy_final_assessment`, `academy_selection_result`, `academy_selection_response` i `academy_second_week_completed` oraz budować opis z danych i relacji.
+
+## Semantyczne zestawy wariantów
+
+Semantyczny zestaw opisuje jeden zamiar narracyjny (np. wejście do szatni), a nie numer ścieżki domenowej. Każdy wariant wskazuje klucz lokalizacji. `scope` powinien nazywać miejsce użycia: `scene`, `result`, `history`, `week_summary`, `relationship`, albo część składanego podsumowania. Nie należy używać jednego scope do dwóch funkcji tekstu.
+
+Fragmenty są pełnymi, krótkimi zdaniami i muszą pasować gramatycznie do obu sąsiadów. Trzeba pilnować interpunkcji, podmiotu i unikać powtórzenia tej samej informacji. `requiredTags` stosujemy wyłącznie, gdy tekst wymaga danego kontekstu; `excludedTags`, gdy byłby z nim sprzeczny. Zawsze powinien istnieć wariant ogólny.
+
+Dobre warianty zmieniają perspektywę lub istotny szczegół sceny, nie tylko jeden synonim. Przed dodaniem tekstu należy sprawdzić, czy nie wymienia progów, poziomu rozstrzygnięcia, seeda, identyfikatora decyzji ani nazwy wariantu. Audit wymaga dwóch różnych tekstów, istniejących kluczy i braku technicznych identyfikatorów.

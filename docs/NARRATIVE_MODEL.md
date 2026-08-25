@@ -23,3 +23,7 @@ Fakty pozostają źródłem prawdy: zapisują typ, decyzję, rezultat, aktorów,
 Końcowy sprawdzian nie jest tym samym co decyzja trenera. Sprawdzian zapisuje fakt występu i wewnętrzny raport oceny kandydata, natomiast decyzja Marka Wrony zapisuje osobny fakt selekcji. Decyzja uwzględnia wcześniejsze fakty: pierwsze wrażenie, pierwszą grę treningową, kierunek przygotowań, dodatkową pracę z konkurentem oraz relacje z trenerem i rywalem.
 
 Konkurent ma lekki deterministyczny profil akademii zamiast pełnej symulacji składu. Profil opisuje jakość bazową, gotowość, dopasowanie taktyczne i reakcję na presję, ale liczby nigdy nie są prezentowane graczowi. Podsumowanie drugiego tygodnia jest składane z kanonicznych faktów, relacji i wątków, a nie zapisywane jako gotowy tekst źródłowy.
+
+## Deterministyczne warianty
+
+Fakty przechowują decyzje, uczestników, przyczyny i semantyczne wyniki, nigdy wybrane akapity. `selectNarrativeVariant` tworzy prywatny generator z seeda kariery, identyfikatora zestawu, zakresu i kanonicznego kontekstu. Dzięki temu warstwa prezentacji może zmieniać opis sceny, rezultatu, historii, relacji i podsumowania bez zużywania generatora symulacji. Podsumowania składają niezależne części: otwarcie, decyzję, wynik, callback relacji i następny krok.

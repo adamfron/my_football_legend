@@ -32,3 +32,10 @@ Zrealizowany kolejny kamień milowy to pierwszy grywalny łuk narracyjny akademi
 Zaimplementowany łuk kończy się decyzją o najbliższej ścieżce: trening seniorów, wspólna szansa z konkurentem, indywidualny plan albo dodatkowy sprawdzian akademii. Właściwy trening seniorów, dodatkowy mecz akademii, pełny system rozwoju, liga, transfery i backend pozostają poza zakresem kolejnych scen bazowej wersji.
 
 Balans selekcji można sprawdzać w devtools przez symulację naboru do seniorów. Symulator uruchamia deterministyczne serie seedów dla kilku strategii i raportuje rozkład wyników, tierów sprawdzianu oraz średnią kondycję przed oceną.
+
+### Zrealizowane: ścieżki po decyzji akademii
+
+- deterministyczne warianty i składane podsumowania;
+- trzy rozgałęzione ciągi wydarzeń dla czterech wyników selekcji;
+- wspólny jakościowy status roli na początek sezonu 2026/27;
+- symulator rozkładu ścieżek. Pełny sezon, terminarz, tabela i transfery pozostają poza tym etapem.
