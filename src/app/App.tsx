@@ -64,10 +64,11 @@ import {
   opportunityDescription,
   resolveMatchDecision,
   startSeptemberMatch,
-  startFixtureMatch,
 } from '../core/septemberMatches';
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
+import { advanceUntilDecision } from '../core/careerSimulation';
+import { getLeagueTable, VISTULA_NOVA_ID } from '../core/leagueSeason';
 import type {
   CareerState,
   EventDecision,
@@ -83,6 +84,7 @@ const baseTabs = [
   ['game', 'nav.game'],
   ['player', 'nav.player'],
   ['club', 'nav.club'],
+  ['season', 'nav.season'],
   ['relationships', 'nav.relationships'],
   ['history', 'nav.history'],
 ] as const;
@@ -457,7 +459,8 @@ const EventCard = ({
   onCareer: (career: CareerState) => void;
 }) => {
   const event = career.activeEvent;
-  if (!event && career.careerCalendar) return <CareerWeekGame career={career} onCareer={onCareer} />;
+  if (!event && career.careerCalendar)
+    return <CareerWeekGame career={career} onCareer={onCareer} />;
   if (!event && (career.september || career.activeMatch))
     return <SeptemberGame career={career} onCareer={onCareer} />;
   if (!event && career.augustPlanning) return <AugustPlanner career={career} onCareer={onCareer} />;
@@ -575,19 +578,241 @@ const EventCard = ({
   );
 };
 
-const CareerWeekGame = ({ career, onCareer }: { career: CareerState; onCareer: (career: CareerState) => void }) => {
+const CareerWeekGame = ({
+  career,
+  onCareer,
+}: {
+  career: CareerState;
+  onCareer: (career: CareerState) => void;
+}) => {
   const week = getCurrentCareerWeek(career);
   const fixture = getCurrentFixture(career);
-  if (!week) return <p>Dostępny etap sezonu został zakończony.</p>;
+  if (!week || career.leagueSeason?.completed)
+    return (
+      <section>
+        <h2>Sezon 2026/27 dobiegł końca.</h2>
+        <p>Dalsza część kariery zostanie rozwinięta w kolejnym etapie.</p>
+      </section>
+    );
   if (career.activeMatch) return <SeptemberGame career={career} onCareer={onCareer} reusable />;
-  return <section>
-    <p>{formatDate(week.startDate)}–{formatDate(week.endDate)} · tydzień {week.weekIndex + 1}</p>
-    <h2>{fixture ? 'Nadchodzi kolejny mecz' : 'Tydzień treningowy'}</h2>
-    {fixture ? <><p>{fixture.opponent.name} · {fixture.venue === 'home' ? 'dom' : 'wyjazd'} · liga</p><p>{opportunityDescription(career)}</p></> : <p>Weekend bez spotkania pozwala skupić się na treningu i regeneracji.</p>}
-    {!!week.scheduledEventIds.length && <p>Poza boiskiem: {week.scheduledEventIds[0]!.replaceAll('_', ' ')}.</p>}
-    {!fixture && <p>Tydzień upłynął głównie na treningach. Sztab nadal obserwuje twoją pracę.</p>}
-    {fixture ? <button onClick={() => onCareer(startFixtureMatch(career, fixture))}>Poznaj decyzję sztabu</button> : <button onClick={() => onCareer(advanceCareerWeek(career))}>Przejdź dalej</button>}
-  </section>;
+  if (career.decisionPoint?.type === 'off_field_event')
+    return (
+      <section>
+        <p>{formatDate(career.decisionPoint.date)} · poza boiskiem</p>
+        <h2>Ważna sprawa wymaga twojej uwagi</h2>
+        <p>
+          Sztab i codzienne obowiązki stawiają przed tobą wybór. Możesz poświęcić dodatkowy czas na
+          rozwój, zadbać o regenerację albo zachować dotychczasowy rytm.
+        </p>
+        <div className="choices">
+          {[
+            [
+              'invest',
+              'Podejmij działanie',
+              'Możesz przyspieszyć rozwój.',
+              'Ryzykujesz zmęczenie lub koszt.',
+            ],
+            ['balance', 'Znajdź kompromis', 'Zachowasz równowagę.', 'Efekt będzie wolniejszy.'],
+            [
+              'decline',
+              'Na razie odpuść',
+              'Chronisz czas i środki.',
+              'Nie zyskasz natychmiastowej korzyści.',
+            ],
+          ].map(([id, label, gain, risk]) => (
+            <article className="decision-card" key={id}>
+              <h3>{label}</h3>
+              <section className="possible-benefits">
+                <h4>Możesz zyskać</h4>
+                <p>{gain}</p>
+              </section>
+              <section className="possible-risks">
+                <h4>Ryzykujesz</h4>
+                <p>{risk}</p>
+              </section>
+              <button
+                onClick={() => {
+                  const sourceId = career.decisionPoint!.sourceId;
+                  const updatedWeeks = career.careerCalendar!.weeks.map((item) =>
+                    item.id === week.id
+                      ? {
+                          ...item,
+                          scheduledEventIds: [],
+                          completedEventIds: [...item.completedEventIds, sourceId],
+                        }
+                      : item,
+                  );
+                  onCareer({
+                    ...career,
+                    decisionPoint: undefined,
+                    careerCalendar: { ...career.careerCalendar!, weeks: updatedWeeks },
+                    historyFacts: [
+                      ...career.historyFacts,
+                      {
+                        id: `fact_regular_event_${week.id}`,
+                        factType: 'regular_season_decision',
+                        season: career.currentSeason,
+                        date: week.startDate,
+                        actors: [career.player.id],
+                        targets: [],
+                        clubs: [career.currentClub.id],
+                        competitions: [],
+                        data: { eventId: sourceId, decisionId: id },
+                        causes: [],
+                        tags: ['off_field'],
+                        visibility: 'partial',
+                        narrativeImportance: 45,
+                        emotionalTone: 'neutral',
+                      },
+                    ],
+                  });
+                }}
+              >
+                Wybierz
+              </button>
+            </article>
+          ))}
+        </div>
+      </section>
+    );
+  return (
+    <section>
+      <p>
+        {formatDate(week.startDate)}–{formatDate(week.endDate)} · tydzień {week.weekIndex + 1}
+      </p>
+      <h2>{fixture ? 'Nadchodzi kolejny mecz' : 'Tydzień treningowy'}</h2>
+      {fixture ? (
+        <>
+          <p>
+            {fixture.opponent.name} · {fixture.venue === 'home' ? 'dom' : 'wyjazd'} · liga
+          </p>
+          <p>{opportunityDescription(career)}</p>
+        </>
+      ) : (
+        <p>Weekend bez spotkania pozwala skupić się na treningu i regeneracji.</p>
+      )}
+      {!fixture && <p>Tydzień upłynął głównie na treningach. Sztab nadal obserwuje twoją pracę.</p>}
+      {(career.fastForwardLog ?? []).length > 0 && (
+        <aside className="mini-card">
+          <h3>Co wydarzyło się po drodze</h3>
+          {career.fastForwardLog!.map((entry) => (
+            <p key={entry.id}>
+              <strong>{formatDate(entry.date)}</strong>
+              <br />
+              {entry.summary}
+            </p>
+          ))}
+        </aside>
+      )}
+      <h3>Najbliższe tygodnie</h3>
+      <ul>
+        {career.careerCalendar!.weeks.slice(week.weekIndex, week.weekIndex + 3).map((nextWeek) => {
+          const nextFixture = career.careerCalendar!.fixtures.find((item) =>
+            nextWeek.fixtureIds.includes(item.id),
+          );
+          return (
+            <li key={nextWeek.id}>
+              {formatDate(nextWeek.startDate)} —{' '}
+              {nextFixture
+                ? `${nextFixture.opponent.name} (${nextFixture.venue === 'home' ? 'dom' : 'wyjazd'})`
+                : 'brak meczu'}
+            </li>
+          );
+        })}
+      </ul>
+      <button
+        onClick={() => onCareer(advanceUntilDecision({ ...career, decisionPoint: undefined }))}
+      >
+        Symuluj do następnego wydarzenia
+      </button>
+    </section>
+  );
+};
+
+const SeasonView = ({ career }: { career: CareerState }) => {
+  const table = getLeagueTable(career);
+  const own = table.find((row) => row.clubId === VISTULA_NOVA_ID);
+  const season = career.leagueSeason;
+  const fixtures =
+    season?.rounds
+      .flatMap((round) => round.fixtures)
+      .filter((fixture) => [fixture.homeClubId, fixture.awayClubId].includes(VISTULA_NOVA_ID)) ??
+    [];
+  const visible = fixtures
+    .filter((fixture) => fixture.completed)
+    .slice(-3)
+    .concat(fixtures.filter((fixture) => !fixture.completed).slice(0, 4));
+  const name = (id: string) => season?.clubs.find((club) => club.clubId === id)?.name ?? id;
+  return (
+    <section>
+      <h2>Sezon 2026/27</h2>
+      <p>
+        {season?.currentRound ?? 0}. kolejka z 22 · Vistula Nova zajmuje {own?.position ?? '—'}.
+        miejsce
+      </p>
+      <h3>Tabela</h3>
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Klub</th>
+              <th>M</th>
+              <th>W</th>
+              <th>R</th>
+              <th>P</th>
+              <th>BR</th>
+              <th>+/-</th>
+              <th>PKT</th>
+            </tr>
+          </thead>
+          <tbody>
+            {table.map((row) => (
+              <tr key={row.clubId} className={row.clubId === VISTULA_NOVA_ID ? 'active' : ''}>
+                <td>{row.position}</td>
+                <td>{row.clubName}</td>
+                <td>{row.played}</td>
+                <td>{row.won}</td>
+                <td>{row.drawn}</td>
+                <td>{row.lost}</td>
+                <td>
+                  {row.goalsFor}:{row.goalsAgainst}
+                </td>
+                <td>{row.goalDifference}</td>
+                <td>
+                  <strong>{row.points}</strong>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <h3>Terminarz</h3>
+      {visible.map((fixture) => {
+        const appearance = career.matchHistory?.find((item) => item.matchId === fixture.id);
+        return (
+          <article className="mini-card" key={fixture.id}>
+            <p>
+              {formatDate(fixture.date)} ·{' '}
+              {fixture.homeClubId === VISTULA_NOVA_ID ? 'dom' : 'wyjazd'}
+            </p>
+            <strong>
+              {name(fixture.homeClubId)}{' '}
+              {fixture.completed ? `${fixture.homeGoals}:${fixture.awayGoals}` : '—'}{' '}
+              {name(fixture.awayClubId)}
+            </strong>
+            <p>
+              {appearance
+                ? `${appearance.minutes} min`
+                : fixture.completed
+                  ? 'bez występu'
+                  : 'przed meczem'}
+            </p>
+          </article>
+        );
+      })}
+    </section>
+  );
 };
 
 const AugustPlanner = ({
@@ -846,7 +1071,11 @@ const SeptemberGame = ({
           {a ? describePerformance(a.rating, a.minutes, forGoals > against) : quality}. Wynik
           drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
         </p>
-        <button onClick={() => onCareer(reusable ? advanceCareerWeek(career) : advanceSeptemberWeek(career))}>
+        <button
+          onClick={() =>
+            onCareer(reusable ? advanceCareerWeek(career) : advanceSeptemberWeek(career))
+          }
+        >
           Przejdź do kolejnego tygodnia
         </button>
       </section>
@@ -887,7 +1116,10 @@ const SeptemberGame = ({
         </aside>
       )}
       <h2>{match.currentMoment.description}</h2>
-      <p>Widzisz ustawienie rywali i wynik, ale nie znasz ukrytej trudności rozstrzygnięcia.</p>
+      <p>
+        Masz niewiele czasu. Rywal szybko skraca dystans, ale za jego plecami otwiera się
+        przestrzeń.
+      </p>
       <div className="choices">
         {definition?.decisions.map((d) => (
           <article className="decision-card" key={d.id}>
@@ -1082,30 +1314,47 @@ export const App = () => {
               {active === 'history' && (
                 <div>
                   <h2>Oś czasu kariery</h2>
-                  <div className="tabs"><button className={!showAllHistory ? 'active' : ''} onClick={() => setShowAllHistory(false)}>Najważniejsze</button><button className={showAllHistory ? 'active' : ''} onClick={() => setShowAllHistory(true)}>Wszystko</button></div>
-                  {(showAllHistory ? career.historyFacts : getCareerMilestones(career).map((item) => item.fact))
-                    .map((f) => {
-                      const fp = getFactPresentation(career, f);
-                      return (
-                        <article className="mini-card history-item" key={f.id}>
-                          <p>
-                            {formatDate(f.date)} <span className="tone-badge">{fp.toneLabel}</span>
-                          </p>
-                          <h3>{fp.title}</h3>
-                          <p>{fp.summary}</p>
-                          <p>
-                            {fp.participantNames.join(', ')}
-                            {fp.clubName ? ` · ${fp.clubName}` : ''}
-                          </p>
-                        </article>
-                      );
-                    })}
+                  <div className="tabs">
+                    <button
+                      className={!showAllHistory ? 'active' : ''}
+                      onClick={() => setShowAllHistory(false)}
+                    >
+                      Najważniejsze
+                    </button>
+                    <button
+                      className={showAllHistory ? 'active' : ''}
+                      onClick={() => setShowAllHistory(true)}
+                    >
+                      Wszystko
+                    </button>
+                  </div>
+                  {(showAllHistory
+                    ? career.historyFacts
+                    : getCareerMilestones(career).map((item) => item.fact)
+                  ).map((f) => {
+                    const fp = getFactPresentation(career, f);
+                    return (
+                      <article className="mini-card history-item" key={f.id}>
+                        <p>
+                          {formatDate(f.date)} <span className="tone-badge">{fp.toneLabel}</span>
+                        </p>
+                        <h3>{fp.title}</h3>
+                        <p>{fp.summary}</p>
+                        <p>
+                          {fp.participantNames.join(', ')}
+                          {fp.clubName ? ` · ${fp.clubName}` : ''}
+                        </p>
+                      </article>
+                    );
+                  })}
                 </div>
               )}{' '}
+              {active === 'season' && <SeasonView career={career} />}{' '}
               {active === 'club' && <ClubProfile career={career} />}{' '}
               {active !== 'game' &&
                 active !== 'relationships' &&
                 active !== 'history' &&
+                active !== 'season' &&
                 active !== 'club' && (
                   <div className="career-grid">
                     <PlayerCard

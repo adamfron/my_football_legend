@@ -81,3 +81,9 @@ Wrześniowe spotkania prezentują teraz trwały wynik, minutę, dynamikę, staty
 ## Wielotygodniowa kariera
 
 Po prologu akademii, sierpniowym planowaniu i pierwszych meczach września kariera korzysta z deterministycznej pętli tygodniowej. Lekki terminarz pozwala rozgrywać kolejne spotkania do końca 2026 roku bez osobnych silników miesięcznych, a Historia domyślnie pokazuje kamienie milowe.
+
+## Sezon i tempo kariery
+
+Kariera obejmuje pełny pierwszy sezon 2026/27: deterministyczny terminarz dwunastu fikcyjnych klubów, tabelę oraz szybkie rozgrywanie rutynowych kolejek. Przycisk „Symuluj do następnego wydarzenia” przesuwa czas do spotkania lub sprawy wymagającej decyzji gracza.
+
+**Routine football is simulated. Meaningful football is played.**

@@ -98,3 +98,21 @@ Docelowy sezon powinien oferować orientacyjnie 8–12 większych strategicznych
 3. **Dynamic squad world:** kontuzje, transfery, siła formacji, wypożyczenia i zmiana trenera.
 4. **Visual polish:** avatar generator v2, poprawa match momentum, layout, animacje i responsive UI.
 5. **Narrative polish:** większe pule wariantów, kontrola powtórzeń i polska fleksja imion oraz nazwisk.
+
+## Individual league context
+
+- klasyfikacja strzelców i asyst;
+- clean sheets i nagrody;
+- `SeasonContextOpportunity`.
+
+## Dynamic squad world
+
+- transfery, kontuzje i wypożyczenia;
+- zmiany trenerów;
+- zmiana strength formacji.
+
+## Career seasons
+
+- przerwa letnia i następny sezon;
+- kontrakty i okna transferowe;
+- starszy wiek zawodnika.

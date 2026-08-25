@@ -66,3 +66,7 @@ Wydarzenie akademii jest niezależnym klockiem, a nie „wydarzeniem numer 3”.
 - `conflictsWith`, jeżeli nie może współistnieć z innym klockiem.
 
 Treść powinna mieć warianty wejścia i rezultatu zależne od formy lub roli. Kotwice (przyjazd, trener, pierwsza ocena, znacząca osoba i decyzja o roli) gwarantują spójność, natomiast 4–6 scen między nimi jest dobieranych z puli deterministycznie.
+
+## Uwaga gracza
+
+**Interactive match moment must earn the player's attention. Do not stop the game for a choice that has no meaningful trade-off.** Rutynowa kolejka nie potrzebuje pozornej decyzji. Ważna scena powinna oferować kontekstowe opcje z odmiennym zyskiem, ryzykiem i interpretacją społeczną.
