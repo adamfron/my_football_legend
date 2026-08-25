@@ -7,6 +7,13 @@ import type {
   LeagueTableRow,
   MatchImportance,
 } from '../types/domain';
+
+export const getProfessionalCompetitionName = (level: number) =>
+  level <= 2
+    ? 'Polska Liga Krajowa'
+    : level === 3
+      ? 'Polska Liga Regionalna'
+      : 'Polska Liga Okręgowa';
 import { RandomGenerator } from './random/RandomGenerator';
 
 export const VISTULA_NOVA_ID = 'club_vistula_nova';
@@ -151,12 +158,7 @@ export const createLeagueSeason = (
     competition: options.professional
       ? {
           id: `polish-professional-${options.professionalLevel ?? 3}`,
-          name:
-            (options.professionalLevel ?? 3) <= 2
-              ? 'Polska Liga Krajowa'
-              : (options.professionalLevel ?? 3) === 3
-                ? 'Polska Liga Regionalna'
-                : 'Polska Liga Okręgowa',
+          name: getProfessionalCompetitionName(options.professionalLevel ?? 3),
           country: 'Polska',
           category: 'professional',
           tier: options.professionalLevel ?? 3,

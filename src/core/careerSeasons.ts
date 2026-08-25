@@ -245,7 +245,8 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     ),
     playerAvailability: {
       injuries: aged.playerAvailability?.injuries.filter((i) => i.status === 'active') ?? [],
-      suspensionMatchesRemaining: 0,
+      // A dismissal in the final fixture may legitimately be served next season.
+      suspensionMatchesRemaining: aged.playerAvailability?.suspensionMatchesRemaining ?? 0,
       leagueYellowCards: 0,
       matchesMissedThroughSuspension: 0,
       matchesMissedThroughInjury: 0,

@@ -28,17 +28,7 @@ const weights = (a: MatchAppearance): Record<keyof PlayerAttributes, number> => 
   composure: 1 + a.goals + a.assists * 0.5,
 });
 const ageMultiplier = (age: number) =>
-  age <= 18
-    ? 1.35
-    : age <= 21
-      ? 1.25
-      : age <= 24
-        ? 1.05
-        : age <= 27
-          ? 0.68
-          : age <= 30
-            ? 0.3
-            : 0.08;
+  age <= 18 ? 1.65 : age <= 21 ? 1.4 : age <= 24 ? 1.05 : age <= 27 ? 0.68 : age <= 30 ? 0.3 : 0.08;
 export const applyDevelopmentCheckpoint = (
   career: CareerState,
   appearance: MatchAppearance,
@@ -62,7 +52,7 @@ export const applyDevelopmentCheckpoint = (
       (map.get(key) ?? 0) +
       (appearance.minutes / 90) *
         w[key] *
-        1.5 *
+        7 *
         ageMultiplier(career.player.age) *
         potentialFactor *
         ceilingFactor *
@@ -130,6 +120,15 @@ export const applyTrainingDevelopmentCheckpoint = (
     'composure',
   ];
   const available = ((career.player.health / 100) * career.player.fitness) / 100;
+  const seasonMinutes = (career.matchHistory ?? [])
+    .filter(
+      (match) =>
+        match.date >= `${career.currentSeason}-07-01` &&
+        match.date <= `${career.currentSeason + 1}-06-30`,
+    )
+    .reduce((sum, match) => sum + match.minutes, 0);
+  // Training supplies the base budget; competitive minutes make that work more effective.
+  const experienceFactor = Math.min(1.15, 0.68 + seasonMinutes / 2400);
   const potentialGap = Math.max(
     0.45,
     Math.min(
@@ -164,11 +163,12 @@ export const applyTrainingDevelopmentCheckpoint = (
   for (const key of keys) {
     let value =
       (progress.get(key) ?? 0) +
-      (focus.includes(key) ? 13 : 4) *
+      (focus.includes(key) ? 34 : 10) *
         ageMultiplier(career.player.age) *
         potentialGap *
         available *
         environment *
+        experienceFactor *
         (0.85 + rng.float() * 0.3);
     while (value >= 100 && attrs[key] < 100) {
       const before = attrs[key]++;

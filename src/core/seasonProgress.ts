@@ -35,16 +35,17 @@ export const getSeasonProgress = (career: CareerState): SeasonProgress => {
     new Date(`${currentDate}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
   const duration =
     new Date(`${end}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
-  const progress = Math.max(0, Math.min(1, elapsed / duration));
-  const phase: SeasonPhase =
-    career.careerPhase ??
-    (career.careerSeasonNumber === 1
-      ? 'academy'
-      : currentDate < `${career.currentSeason}-08-01`
-        ? 'preseason'
-        : currentDate > `${career.currentSeason + 1}-05-31`
-          ? 'summer_window'
-          : 'regular_season');
+  const progress = career.seasonOutcome ? 1 : Math.max(0, Math.min(1, elapsed / duration));
+  const phase: SeasonPhase = career.seasonOutcome
+    ? 'summer_window'
+    : (career.careerPhase ??
+      (career.careerSeasonNumber === 1
+        ? 'academy'
+        : currentDate < `${career.currentSeason}-08-01`
+          ? 'preseason'
+          : currentDate > `${career.currentSeason + 1}-05-31`
+            ? 'summer_window'
+            : 'regular_season'));
   const weeks = Math.ceil(
     (new Date(`${career.currentSeason + 1}-06-01T00:00:00Z`).getTime() -
       new Date(`${currentDate}T00:00:00Z`).getTime()) /

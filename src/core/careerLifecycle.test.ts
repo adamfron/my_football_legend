@@ -48,6 +48,26 @@ describe('professional career lifecycle', () => {
     expect(getSeasonProgress(career).progress).toBeLessThan(0.01);
   });
 
+  it('resets seasonal availability counters but carries an outstanding suspension', () => {
+    const career = {
+      ...careerFor('discipline-rollover'),
+      playerAvailability: {
+        injuries: [],
+        suspensionMatchesRemaining: 2,
+        leagueYellowCards: 3,
+        matchesMissedThroughSuspension: 4,
+        matchesMissedThroughInjury: 1,
+      },
+    };
+    const next = advanceToNextCareerSeason(career);
+    expect(next.playerAvailability).toMatchObject({
+      suspensionMatchesRemaining: 2,
+      leagueYellowCards: 0,
+      matchesMissedThroughSuspension: 0,
+      matchesMissedThroughInjury: 0,
+    });
+  });
+
   it('audits 25 deterministic full careers for veteran decline and retirement', () => {
     let paceDeclines = 0;
     for (let seed = 0; seed < 25; seed++) {
