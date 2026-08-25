@@ -7,6 +7,10 @@ const choice = (id: string) => ({
   visiblePros: [`events.academy.${id}.pros`],
   visibleCons: [`events.academy.${id}.cons`],
 });
+const positionalChoice = (id: string, group: 'goalkeeper' | 'outfield') => ({
+  ...choice(id),
+  availability: { positionGroups: [group] },
+});
 const pathChoice = (id: string) => ({
   id,
   labelKey: `events.post.${id}.label`,
@@ -93,12 +97,12 @@ export const academyEventDefinitions: EventDefinition[] = [
     cast: ['coach', 'rival'],
     playerInformationKeys: ['events.academy.scrimmage.info'],
     decisions: [
-      choice('take_action'),
-      choice('play_rival'),
-      choice('organize_team'),
-      choice('gk_long_counter'),
-      choice('gk_short_shape'),
-      choice('gk_safe'),
+      positionalChoice('take_action', 'outfield'),
+      positionalChoice('play_rival', 'outfield'),
+      positionalChoice('organize_team', 'outfield'),
+      positionalChoice('gk_long_counter', 'goalkeeper'),
+      positionalChoice('gk_short_shape', 'goalkeeper'),
+      positionalChoice('gk_safe', 'goalkeeper'),
     ],
     hiddenTests: [{ id: 'scrimmage', attribute: 'composure', difficulty: 62 }],
     consequences: [],
@@ -173,12 +177,12 @@ export const academyEventDefinitions: EventDefinition[] = [
     cast: ['coach', 'rival'],
     playerInformationKeys: ['events.academy.week2.assessment.info'],
     decisions: [
-      choice('assessment_use_strength'),
-      choice('assessment_follow_plan'),
-      choice('assessment_adapt'),
-      choice('gk_assessment_use_strength'),
-      choice('gk_assessment_follow_plan'),
-      choice('gk_assessment_adapt'),
+      positionalChoice('assessment_use_strength', 'outfield'),
+      positionalChoice('assessment_follow_plan', 'outfield'),
+      positionalChoice('assessment_adapt', 'outfield'),
+      positionalChoice('gk_assessment_use_strength', 'goalkeeper'),
+      positionalChoice('gk_assessment_follow_plan', 'goalkeeper'),
+      positionalChoice('gk_assessment_adapt', 'goalkeeper'),
     ],
     hiddenTests: [{ id: 'final_assessment', attribute: 'composure', difficulty: 66 }],
     consequences: [],
