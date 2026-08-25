@@ -74,6 +74,8 @@ import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, VISTULA_NOVA_ID } from '../core/leagueSeason';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
+import { getSeasonProgress } from '../core/seasonProgress';
+import { acceptProfessionalOffer, continueWithProfessionalTrial } from '../core/careerSeasons';
 import {
   getRegularSeasonEvent,
   resolveRegularSeasonEvent,
@@ -607,7 +609,8 @@ const CareerWeekGame = ({
 }) => {
   const week = getCurrentCareerWeek(career);
   const fixture = getCurrentFixture(career);
-  if (!week || career.leagueSeason?.completed) return <SeasonEndSummary career={career} />;
+  if (!week || career.leagueSeason?.completed)
+    return <SeasonEndSummary career={career} onCareer={onCareer} />;
   if (career.activeMatch) return <SeptemberGame career={career} onCareer={onCareer} reusable />;
   if (career.decisionPoint?.type === 'off_field_event') {
     const event = getRegularSeasonEvent(career.decisionPoint.sourceId);
@@ -724,7 +727,13 @@ const attributeLabels: Record<keyof PlayerAttributes, string> = {
   composure: 'Opanowanie',
 };
 
-const SeasonEndSummary = ({ career }: { career: CareerState }) => {
+const SeasonEndSummary = ({
+  career,
+  onCareer,
+}: {
+  career: CareerState;
+  onCareer: (career: CareerState) => void;
+}) => {
   const table = getLeagueTable(career);
   const club = table.find((row) => row.clubId === VISTULA_NOVA_ID);
   const summary = buildSeasonSummary(career, career.currentSeason);
@@ -732,7 +741,7 @@ const SeasonEndSummary = ({ career }: { career: CareerState }) => {
   const position = club?.position ?? 12;
   return (
     <section>
-      <h2>Podsumowanie sezonu 2026/27</h2>
+      <h2>Podsumowanie sezonu akademii {getSeasonProgress(career).seasonLabel}</h2>
       <h3>Klub</h3>
       <p>
         {position}. miejsce · {club?.points ?? 0} pkt · {club?.won ?? 0}/{club?.drawn ?? 0}/
@@ -740,11 +749,7 @@ const SeasonEndSummary = ({ career }: { career: CareerState }) => {
       </p>
       <p>
         <strong>
-          {position === 1
-            ? 'Mistrzostwo i awans'
-            : position === 12
-              ? 'Spadek'
-              : 'Pozostanie na poziomie rozgrywkowym'}
+          {position === 1 ? 'Mistrzostwo ligi akademii' : 'Zakończenie sezonu ligi młodzieżowej'}
         </strong>
       </p>
       <h3>Zawodnik</h3>
@@ -783,6 +788,93 @@ const SeasonEndSummary = ({ career }: { career: CareerState }) => {
             {getFactPresentation(career, item.fact)?.title ?? item.fact.factType}
           </p>
         ))}
+      <h3>Pierwsze oferty zawodowe</h3>
+      {(career.professionalOffers ?? []).length ? (
+        <div className="offer-grid">
+          {career.professionalOffers!.map((offer) => (
+            <article className="mini-card offer-card" key={offer.id}>
+              <h3>{offer.club.name}</h3>
+              <p>
+                {offer.club.professionalLevel <= 2
+                  ? 'Ambitny klub zawodowy'
+                  : 'Solidny klub zawodowy'}
+              </p>
+              <p>
+                <strong>Rola:</strong> {offer.contract.squadRole.replaceAll('_', ' ')}
+              </p>
+              <p>
+                <strong>Pensja:</strong> {offer.contract.monthlySalary.toLocaleString('pl-PL')} PLN
+                / mies.
+              </p>
+              <p>
+                <strong>Kontrakt:</strong> do {offer.contract.endDate}
+              </p>
+              <h4>Dlaczego interesują się tobą</h4>
+              {offer.interestReasons.map((reason) => (
+                <p key={reason}>{reason}</p>
+              ))}
+              <p>
+                <strong>Konkurencja:</strong> {offer.competitionAssessment}
+              </p>
+              <p>
+                <strong>Filozofia:</strong>{' '}
+                {offer.club.archetype.replaceAll('_', ' ').toLowerCase()}
+              </p>
+              <p>
+                <strong>Szansa:</strong> {offer.opportunity}
+              </p>
+              <p>
+                <strong>Ryzyko:</strong> {offer.risk}
+              </p>
+              <button onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}>
+                Podpisz kontrakt
+              </button>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <article className="mini-card">
+          <h4>Ścieżka próbna</h4>
+          <p>Vistula Nova zapewni ci testy w małym klubie zawodowym. Kariera trwa dalej.</p>
+          <button onClick={() => onCareer(continueWithProfessionalTrial(career))}>
+            Przejdź testy
+          </button>
+        </article>
+      )}
+    </section>
+  );
+};
+
+const CareerHud = ({ career }: { career: CareerState }) => {
+  const season = getSeasonProgress(career);
+  const availability = getPlayerAvailability(career, season.currentDate);
+  const health = !availability.available
+    ? availability.status === 'suspended'
+      ? 'Zawieszony'
+      : 'Kontuzjowany'
+    : career.player.health < 70
+      ? 'Uraz'
+      : 'Zdrowy';
+  return (
+    <section className="career-hud" aria-label="Status kariery">
+      <strong>
+        Sezon {season.careerSeasonNumber} · {season.seasonLabel} · {career.currentClub.name}
+      </strong>
+      <span>
+        Morale {career.player.morale} · Kondycja {career.player.fitness} · {health}
+      </span>
+      <label>
+        Postęp sezonu{' '}
+        <progress value={season.progress} max={1}>
+          {Math.round(season.progress * 100)}%
+        </progress>{' '}
+        {Math.round(season.progress * 100)}%
+      </label>
+      {season.phase === 'summer_window' ? (
+        <span>Letnie okno transferowe</span>
+      ) : season.weeksUntilSummerWindow ? (
+        <span>Letnie okno za {season.weeksUntilSummerWindow} tyg.</span>
+      ) : null}
     </section>
   );
 };
@@ -1324,6 +1416,7 @@ export const App = () => {
             podczas najbliższych tygodni zdecyduje, kto otrzyma szansę trenowania z seniorami.
           </span>
         </header>
+        <CareerHud career={career} />
         <nav className="tabs">
           {tabs.map(([id, label]) => (
             <button
@@ -1438,6 +1531,20 @@ export const App = () => {
                       <p>
                         <strong>Klub:</strong> {career.currentClub.name}
                       </p>
+                      {career.currentContract && (
+                        <section className="mini-card">
+                          <h3>Kontrakt</h3>
+                          <p>
+                            <strong>{career.currentClub.name}</strong>
+                          </p>
+                          <p>
+                            {career.currentContract.monthlySalary.toLocaleString('pl-PL')} PLN /
+                            miesiąc
+                          </p>
+                          <p>do {career.currentContract.endDate}</p>
+                          <p>Rola: {career.currentContract.squadRole.replaceAll('_', ' ')}</p>
+                        </section>
+                      )}
                       <p>
                         <strong>Pozycja:</strong>{' '}
                         {translate(`position.${career.player.primaryPosition}`)}

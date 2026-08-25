@@ -51,3 +51,7 @@ Selektor krótkich podsumowań korzysta z pamięci ostatnich kluczy wariantów. 
 ## Rutynowe mecze jako fakty
 
 Brak interakcji w rutynowym meczu nie oznacza braku znaczenia narracyjnego. Quick simulation zapisuje występ i fakty; mogą one później wyjaśniać formę, serię, zmianę roli albo milestone. Tekst podsumowania jest prezentacją danych, a nie ich źródłem prawdy.
+
+## Academy graduation
+
+Season 1 is an academy prologue. Vistula Nova can win its youth league, but the club is never promoted into professional football: the player graduates. Canonical `academy_graduated`, `first_professional_contract`, and `joined_professional_club` facts preserve the transition and its causes.

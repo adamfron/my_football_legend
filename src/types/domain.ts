@@ -193,6 +193,7 @@ export interface StoryThread {
 export interface CareerState {
   seed: string;
   currentSeason: number;
+  careerSeasonNumber: number;
   player: Player;
   currentClub: Club;
   previousClubIds: Id[];
@@ -216,6 +217,9 @@ export interface CareerState {
   playerAvailability?: PlayerAvailabilityState | undefined;
   seasonOutcome?: SeasonOutcome | undefined;
   seasonStartingAttributes?: PlayerAttributes | undefined;
+  currentContract?: Contract | undefined;
+  professionalOffers?: ProfessionalOffer[] | undefined;
+  careerPhase?: SeasonPhase | undefined;
 }
 export type InjurySeverity = 'knock' | 'minor' | 'moderate' | 'major';
 export interface PlayerInjury {
@@ -237,8 +241,69 @@ export interface PlayerAvailabilityState {
 export interface SeasonOutcome {
   finalPosition: number;
   champion: boolean;
-  promoted: boolean;
-  relegated: boolean;
+  competitionType: 'academy' | 'professional';
+  promoted?: boolean | undefined;
+  relegated?: boolean | undefined;
+}
+
+export type SeasonPhase =
+  | 'academy'
+  | 'preseason'
+  | 'regular_season'
+  | 'summer_window'
+  | 'offseason';
+export type ClubArchetype =
+  | 'YOUTH_TRADER'
+  | 'RESULTS_FIRST'
+  | 'LOCAL_DEVELOPMENT'
+  | 'TECHNICAL_ACADEMY'
+  | 'UNDERDOG'
+  | 'AMBITIOUS_CLIMBER';
+export type SquadRole =
+  | 'development_player'
+  | 'rotation'
+  | 'first_team_competition'
+  | 'important_player';
+export interface PositionalNeed {
+  starterQuality: number;
+  depth: 'thin' | 'normal' | 'deep';
+  needLevel: number;
+}
+export interface ProfessionalClub {
+  id: Id;
+  name: string;
+  country: string;
+  region: string;
+  professionalLevel: number;
+  reputation: number;
+  overallStrength: number;
+  financialLevel: number;
+  playingStyle: string;
+  youthPolicy: number;
+  developmentReputation: number;
+  sellingClubTendency: number;
+  pressureLevel: number;
+  coachYouthTrust: number;
+  archetype: ClubArchetype;
+  positionalNeeds: Record<'goalkeeper' | 'defense' | 'midfield' | 'attack', PositionalNeed>;
+}
+export interface Contract {
+  clubId: Id;
+  startDate: string;
+  endDate: string;
+  monthlySalary: number;
+  signingBonus: number;
+  squadRole: SquadRole;
+  contractType: 'professional' | 'development';
+}
+export interface ProfessionalOffer {
+  id: Id;
+  club: ProfessionalClub;
+  contract: Contract;
+  interestReasons: string[];
+  opportunity: string;
+  risk: string;
+  competitionAssessment: string;
 }
 
 export type CareerWeekPhase = 'academy' | 'preseason' | 'regular_season' | 'winter_break';
@@ -639,7 +704,9 @@ export type FinancialCategory =
   | 'development'
   | 'recovery'
   | 'education'
-  | 'lifestyle';
+  | 'lifestyle'
+  | 'salary'
+  | 'signing_bonus';
 export interface FinancialTransaction {
   id: Id;
   date: string;

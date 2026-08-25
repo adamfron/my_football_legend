@@ -97,3 +97,7 @@ current state
 `src/core/leagueSeason.ts` przechowuje lekki świat ligi, generuje terminarz i wylicza tabelę. `src/core/careerSimulation.ts` używa istniejącej oceny szans na skład i zatrzymuje pętlę przy ważnym meczu albo wydarzeniu. React jedynie prezentuje wynik domeny.
 
 Zasada projektu: **Routine football is simulated. Meaningful football is played.**
+
+## Reusable career seasons
+
+`careerSeasonNumber` is persistent and independent from the calendar year. `initializeCareerSeason` creates reusable domain cycles; 2027/28 is its first professional consumer, not a hand-written Season 2 special case. Season progress, professional interest, contracts, and development live in React-independent core modules.
