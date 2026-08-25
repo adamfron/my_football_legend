@@ -8,6 +8,7 @@ import type {
 import { getCurrentCareerWeek, getCurrentFixture, advanceCareerWeek } from './careerWeeks';
 import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
+import { applyDevelopmentCheckpoint } from './development';
 import {
   evaluateSquadOpportunity,
   startFixtureMatch,
@@ -51,45 +52,6 @@ const playerGroup = (position: string) =>
       : position.includes('mid')
         ? 'midfielder'
         : 'attacker';
-
-const applySeasonDevelopment = (career: CareerState, appearance: MatchAppearance): CareerState => {
-  if (!appearance.minutes) return career;
-  const attribute =
-    playerGroup(career.player.primaryPosition) === 'defender'
-      ? 'defending'
-      : playerGroup(career.player.primaryPosition) === 'attacker'
-        ? 'finishing'
-        : playerGroup(career.player.primaryPosition) === 'goalkeeper'
-          ? 'composure'
-          : 'vision';
-  const existing = career.developmentProgress ?? [];
-  const prior = existing
-    .filter((item) => item.attribute === attribute)
-    .reduce((sum, item) => sum + item.progress, 0);
-  const gained = Math.max(
-    1,
-    Math.round(appearance.minutes / 12 + Math.max(0, (appearance.rating ?? 6) - 6) * 3),
-  );
-  const total = prior + gained;
-  const rest = existing.filter((item) => item.attribute !== attribute);
-  if (total < 100)
-    return { ...career, developmentProgress: [...rest, { attribute, progress: total }] };
-  const before = career.player.attributes[attribute];
-  const after = Math.min(100, before + 1);
-  const developmentFact = fact(
-    career,
-    'attribute_changed',
-    appearance.date,
-    { attribute, before, after, source: 'regular_season' },
-    55,
-  );
-  return {
-    ...career,
-    player: { ...career.player, attributes: { ...career.player.attributes, [attribute]: after } },
-    developmentProgress: [...rest, { attribute, progress: total - 100 }],
-    historyFacts: [...career.historyFacts, developmentFact],
-  };
-};
 
 export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture): CareerState => {
   if (
@@ -216,7 +178,7 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
     facts.push(
       fact(career, `first_${teamLevel}_assist`, fixture.date, { matchId: fixture.id }, 84),
     );
-  return applySeasonDevelopment(
+  return applyDevelopmentCheckpoint(
     {
       ...effects.career,
       player: {

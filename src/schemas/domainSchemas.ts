@@ -127,6 +127,64 @@ export const clubSchema = z.object({
   legends: z.array(id),
   rivals: z.array(id),
 });
+const positionalNeedSchema = z.object({
+  starterQuality: score,
+  depth: z.enum(['thin', 'normal', 'deep']),
+  needLevel: score,
+});
+export const professionalClubSchema = z.object({
+  id,
+  name: z.string(),
+  country: z.string(),
+  region: z.string(),
+  professionalLevel: z.number().int().min(1).max(5),
+  reputation: score,
+  overallStrength: score,
+  financialLevel: score,
+  playingStyle: z.string(),
+  youthPolicy: score,
+  developmentReputation: score,
+  sellingClubTendency: score,
+  pressureLevel: score,
+  coachYouthTrust: score,
+  archetype: z.enum([
+    'YOUTH_TRADER',
+    'RESULTS_FIRST',
+    'LOCAL_DEVELOPMENT',
+    'TECHNICAL_ACADEMY',
+    'UNDERDOG',
+    'AMBITIOUS_CLIMBER',
+  ]),
+  positionalNeeds: z.object({
+    goalkeeper: positionalNeedSchema,
+    defense: positionalNeedSchema,
+    midfield: positionalNeedSchema,
+    attack: positionalNeedSchema,
+  }),
+});
+export const contractSchema = z.object({
+  clubId: id,
+  startDate: z.string(),
+  endDate: z.string(),
+  monthlySalary: z.number().int().positive(),
+  signingBonus: z.number().int().nonnegative(),
+  squadRole: z.enum([
+    'development_player',
+    'rotation',
+    'first_team_competition',
+    'important_player',
+  ]),
+  contractType: z.enum(['professional', 'development']),
+});
+export const professionalOfferSchema = z.object({
+  id,
+  club: professionalClubSchema,
+  contract: contractSchema,
+  interestReasons: z.array(z.string()).min(1),
+  opportunity: z.string(),
+  risk: z.string(),
+  competitionAssessment: z.string(),
+});
 export const eventDefinitionSchema = z.object({
   id,
   version: z.number().int().positive(),
@@ -342,6 +400,7 @@ export const careerEventCandidateSchema = z.object({
 export const careerStateSchema = z.object({
   seed: z.string(),
   currentSeason: z.number().int(),
+  careerSeasonNumber: z.number().int().positive(),
   player: playerSchema,
   currentClub: clubSchema,
   previousClubIds: z.array(id),
@@ -357,12 +416,18 @@ export const careerStateSchema = z.object({
   decisionPoint: playerDecisionPointSchema.optional(),
   fastForwardLog: z.array(fastForwardEntrySchema).max(16).optional(),
   seasonStartingAttributes: playerAttributesSchema.optional(),
+  currentContract: contractSchema.optional(),
+  professionalOffers: z.array(professionalOfferSchema).optional(),
+  careerPhase: z
+    .enum(['academy', 'preseason', 'regular_season', 'summer_window', 'offseason'])
+    .optional(),
   seasonOutcome: z
     .object({
       finalPosition: z.number().int().min(1).max(12),
       champion: z.boolean(),
-      promoted: z.boolean(),
-      relegated: z.boolean(),
+      competitionType: z.enum(['academy', 'professional']),
+      promoted: z.boolean().optional(),
+      relegated: z.boolean().optional(),
     })
     .optional(),
   playerAvailability: z
@@ -397,6 +462,8 @@ export const careerStateSchema = z.object({
           'recovery',
           'education',
           'lifestyle',
+          'salary',
+          'signing_bonus',
         ]),
         sourceFactId: id.optional(),
       }),

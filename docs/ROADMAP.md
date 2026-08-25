@@ -123,3 +123,7 @@ Docelowy sezon powinien oferować orientacyjnie 8–12 większych strategicznych
 - przerwa letnia i następny sezon;
 - kontrakty i okna transferowe;
 - starszy wiek zawodnika.
+
+## Multi-season foundation
+
+Implemented foundation: the academy prologue leads to deterministic professional interest, a first contract, and a generically initialized 2027/28 professional season. Future seasons must reuse the same career-season cycle. Winter transfers, negotiation, agents, loans and a full pyramid remain deliberately out of scope.

@@ -186,8 +186,7 @@ export const settleLeagueRound = (
     seasonOutcome: {
       finalPosition,
       champion: finalPosition === 1,
-      promoted: finalPosition === 1,
-      relegated: finalPosition === 12,
+      competitionType: 'academy',
     },
   };
 };

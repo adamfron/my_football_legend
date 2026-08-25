@@ -72,3 +72,7 @@ Treść powinna mieć warianty wejścia i rezultatu zależne od formy lub roli. 
 ## Uwaga gracza
 
 **Interactive match moment must earn the player's attention. Do not stop the game for a choice that has no meaningful trade-off.** Rutynowa kolejka nie potrzebuje pozornej decyzji. Ważna scena powinna oferować kontekstowe opcje z odmiennym zyskiem, ryzykiem i interpretacją społeczną.
+
+## Academy and contracts
+
+Vistula Nova must always be presented as a youth academy and its 2026/27 competition as an academy/youth league. Professional-offer explanations are player-facing assessments; salary, duration and declared squad role are confirmed information. Career seasons are reusable domain cycles rather than hand-written calendar years.

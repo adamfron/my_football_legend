@@ -91,3 +91,7 @@ Po prologu akademii, sierpniowym planowaniu i pierwszych meczach września karie
 Kariera obejmuje pełny pierwszy sezon 2026/27: deterministyczny terminarz dwunastu fikcyjnych klubów, tabelę oraz szybkie rozgrywanie rutynowych kolejek. Przycisk „Symuluj do następnego wydarzenia” przesuwa czas do spotkania lub sprawy wymagającej decyzji gracza.
 
 **Routine football is simulated. Meaningful football is played.**
+
+## Academy prologue and professional career
+
+Season 1 (2026/27) is a prologue in the Vistula Nova youth academy, not a professional-club season. Academy graduation and the first professional contract open the main multi-season career loop.
