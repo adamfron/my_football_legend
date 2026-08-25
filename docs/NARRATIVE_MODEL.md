@@ -43,3 +43,7 @@ Zmiany atrybutów i atuty są faktami kanonicznymi, nie gotowymi tekstami. Waria
 Opcjonalne wydarzenia zapisują semantyczne `recallTags` (np. presja treningowa, pomoc mentora, poświęcenie dla drużyny), zamiast utrwalać wyłącznie gotowy tekst. `getCareerMilestones` klasyfikuje fakty prezentacyjnie: debiuty, pierwsze gole i asysty, zmiany roli, Play Style oraz punkty zwrotne. Zwykły mecz i techniczny fakt tygodnia pozostają w pełnym logu, ale nie trafiają automatycznie do widoku „Najważniejsze”.
 
 Selektor krótkich podsumowań korzysta z pamięci ostatnich kluczy wariantów. Najpierw preferuje wariant ostatnio niewykorzystany, po czym dokonuje deterministycznego wyboru z seeda i identyfikatora tygodnia.
+
+## Rutynowe mecze jako fakty
+
+Brak interakcji w rutynowym meczu nie oznacza braku znaczenia narracyjnego. Quick simulation zapisuje występ i fakty; mogą one później wyjaśniać formę, serię, zmianę roli albo milestone. Tekst podsumowania jest prezentacją danych, a nie ich źródłem prawdy.

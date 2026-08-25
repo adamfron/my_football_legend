@@ -75,3 +75,21 @@ Wynik, `MatchTeamStats`, punkty `MatchMomentumPoint` i ocena powstają w domenie
 `careerWeeks.ts` tworzy terminarz deterministycznie, pilnuje idempotencji, pamięci wariantów i checkpointów. Dowolny `Fixture` jest przekazywany adapterem do istniejącego silnika meczowego; nie istnieją silniki października czy listopada. **Months are presentation checkpoints, not separate engines** — tydzień może swobodnie przekroczyć granicę miesiąca.
 
 Stare etapy pozostają źródłem prawdy dla rozpoczętych zapisów. Fakt ukończenia września jest granicą migracyjną uruchamiającą reusable loop.
+
+## Career simulation
+
+```text
+current state
+→ simulate routine time
+→ quick fixtures
+→ world results
+→ league table
+→ event scheduling
+→ DecisionPoint?
+   ├─ no → continue
+   └─ yes → stop for player
+```
+
+`src/core/leagueSeason.ts` przechowuje lekki świat ligi, generuje terminarz i wylicza tabelę. `src/core/careerSimulation.ts` używa istniejącej oceny szans na skład i zatrzymuje pętlę przy ważnym meczu albo wydarzeniu. React jedynie prezentuje wynik domeny.
+
+Zasada projektu: **Routine football is simulated. Meaningful football is played.**

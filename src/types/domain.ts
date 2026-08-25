@@ -210,6 +210,9 @@ export interface CareerState {
   matchHistory?: MatchAppearance[] | undefined;
   careerCalendar?: CareerCalendarState | undefined;
   recentVariantKeys?: string[] | undefined;
+  leagueSeason?: LeagueSeason | undefined;
+  decisionPoint?: PlayerDecisionPoint | undefined;
+  fastForwardLog?: FastForwardEntry[] | undefined;
 }
 
 export type CareerWeekPhase = 'academy' | 'preseason' | 'regular_season' | 'winter_break';
@@ -223,6 +226,75 @@ export interface Fixture {
   venue: 'home' | 'away';
   importance: number;
   matchImportance: MatchImportance;
+}
+export interface LeagueClubProfile {
+  clubId: string;
+  name: string;
+  strength: number;
+  attackStrength: number;
+  defenseStrength: number;
+  form: number;
+}
+export interface LeagueFixture {
+  id: string;
+  roundIndex: number;
+  date: string;
+  homeClubId: string;
+  awayClubId: string;
+  homeGoals?: number | undefined;
+  awayGoals?: number | undefined;
+  completed: boolean;
+  playerAppearanceMatchId?: string | undefined;
+}
+export interface LeagueRound {
+  index: number;
+  date: string;
+  fixtures: LeagueFixture[];
+  completed: boolean;
+}
+export interface LeagueSeason {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  clubIds: string[];
+  clubs: LeagueClubProfile[];
+  rounds: LeagueRound[];
+  currentRound: number;
+  completed: boolean;
+}
+export interface LeagueTableRow {
+  position: number;
+  clubId: string;
+  clubName: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  goalDifference: number;
+  points: number;
+}
+export type DecisionPointType =
+  | 'important_match'
+  | 'off_field_event'
+  | 'relationship_event'
+  | 'development_event'
+  | 'season_context'
+  | 'checkpoint';
+export interface PlayerDecisionPoint {
+  type: DecisionPointType;
+  date: string;
+  sourceId: string;
+}
+export interface FastForwardEntry {
+  id: string;
+  date: string;
+  type: 'match' | 'quiet_week' | 'event';
+  summary: string;
+  fixtureId?: string | undefined;
+  appearanceMatchId?: string | undefined;
 }
 export interface CareerWeek {
   id: Id;
@@ -259,9 +331,20 @@ export interface CareerCalendarState {
 }
 export type PlayerFormBand = 'excellent' | 'good' | 'steady' | 'uneven' | 'poor';
 export type MilestoneCategory =
-  | 'debut' | 'goal' | 'assist' | 'award' | 'title' | 'transfer' | 'role_change'
-  | 'record' | 'major_relationship' | 'career_turning_point';
-export interface CareerMilestone { fact: HistoryFact; category: MilestoneCategory }
+  | 'debut'
+  | 'goal'
+  | 'assist'
+  | 'award'
+  | 'title'
+  | 'transfer'
+  | 'role_change'
+  | 'record'
+  | 'major_relationship'
+  | 'career_turning_point';
+export interface CareerMilestone {
+  fact: HistoryFact;
+  category: MilestoneCategory;
+}
 
 export interface CareerEventCandidate {
   eventDefinitionId: string;

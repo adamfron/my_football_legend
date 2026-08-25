@@ -216,31 +216,128 @@ export const storyThreadSchema = z.object({
   recallTags: z.array(z.string()),
 });
 export const fixtureSchema = z.object({
-  id, seasonId: id, date: z.string(), competition: z.enum(['league', 'academy_league', 'friendly']),
-  opponent: z.object({ id, name: z.string(), strength: score, style: z.string(), strengths: z.array(z.string()), weaknesses: z.array(z.string()) }),
-  venue: z.enum(['home', 'away']), importance: score,
+  id,
+  seasonId: id,
+  date: z.string(),
+  competition: z.enum(['league', 'academy_league', 'friendly']),
+  opponent: z.object({
+    id,
+    name: z.string(),
+    strength: score,
+    style: z.string(),
+    strengths: z.array(z.string()),
+    weaknesses: z.array(z.string()),
+  }),
+  venue: z.enum(['home', 'away']),
+  importance: score,
   matchImportance: z.enum(['routine', 'notable', 'major', 'career_defining']),
 });
 export const careerWeekSchema = z.object({
-  id, seasonId: id, weekIndex: z.number().int().nonnegative(), startDate: z.string(), endDate: z.string(),
-  phase: z.enum(['academy', 'preseason', 'regular_season', 'winter_break']), fixtureIds: z.array(id),
-  scheduledEventIds: z.array(id), completedEventIds: z.array(id), summaryVariantKey: id.optional(), completed: z.boolean(),
+  id,
+  seasonId: id,
+  weekIndex: z.number().int().nonnegative(),
+  startDate: z.string(),
+  endDate: z.string(),
+  phase: z.enum(['academy', 'preseason', 'regular_season', 'winter_break']),
+  fixtureIds: z.array(id),
+  scheduledEventIds: z.array(id),
+  completedEventIds: z.array(id),
+  summaryVariantKey: id.optional(),
+  completed: z.boolean(),
 });
 export const monthlyCheckpointSchema = z.object({
-  id, month: z.string(), appearances: z.number().int().nonnegative(), minutes: z.number().nonnegative(),
-  goals: z.number().int().nonnegative(), assists: z.number().int().nonnegative(), averageRating: z.number().optional(),
-  form: z.enum(['excellent', 'good', 'steady', 'uneven', 'poor']), role: z.string(), highlightFactId: id.optional(),
+  id,
+  month: z.string(),
+  appearances: z.number().int().nonnegative(),
+  minutes: z.number().nonnegative(),
+  goals: z.number().int().nonnegative(),
+  assists: z.number().int().nonnegative(),
+  averageRating: z.number().optional(),
+  form: z.enum(['excellent', 'good', 'steady', 'uneven', 'poor']),
+  role: z.string(),
+  highlightFactId: id.optional(),
 });
 export const careerCalendarSchema = z.object({
-  seasonId: id, currentWeekIndex: z.number().int().nonnegative(), weeks: z.array(careerWeekSchema),
-  fixtures: z.array(fixtureSchema), monthlyCheckpoints: z.array(monthlyCheckpointSchema), availableThrough: z.string(),
+  seasonId: id,
+  currentWeekIndex: z.number().int().nonnegative(),
+  weeks: z.array(careerWeekSchema),
+  fixtures: z.array(fixtureSchema),
+  monthlyCheckpoints: z.array(monthlyCheckpointSchema),
+  availableThrough: z.string(),
+});
+export const leagueClubProfileSchema = z.object({
+  clubId: id,
+  name: z.string(),
+  strength: score,
+  attackStrength: score,
+  defenseStrength: score,
+  form: z.number().min(-20).max(20),
+});
+export const leagueFixtureSchema = z.object({
+  id,
+  roundIndex: z.number().int().nonnegative(),
+  date: z.string(),
+  homeClubId: id,
+  awayClubId: id,
+  homeGoals: z.number().int().nonnegative().optional(),
+  awayGoals: z.number().int().nonnegative().optional(),
+  completed: z.boolean(),
+  playerAppearanceMatchId: id.optional(),
+});
+export const leagueRoundSchema = z.object({
+  index: z.number().int().nonnegative(),
+  date: z.string(),
+  fixtures: z.array(leagueFixtureSchema),
+  completed: z.boolean(),
+});
+export const leagueSeasonSchema = z.object({
+  id,
+  name: z.string(),
+  startDate: z.string(),
+  endDate: z.string(),
+  clubIds: z.array(id).length(12),
+  clubs: z.array(leagueClubProfileSchema).length(12),
+  rounds: z.array(leagueRoundSchema).length(22),
+  currentRound: z.number().int().min(0).max(22),
+  completed: z.boolean(),
+});
+export const playerDecisionPointSchema = z.object({
+  type: z.enum([
+    'important_match',
+    'off_field_event',
+    'relationship_event',
+    'development_event',
+    'season_context',
+    'checkpoint',
+  ]),
+  date: z.string(),
+  sourceId: id,
+});
+export const fastForwardEntrySchema = z.object({
+  id,
+  date: z.string(),
+  type: z.enum(['match', 'quiet_week', 'event']),
+  summary: z.string(),
+  fixtureId: id.optional(),
+  appearanceMatchId: id.optional(),
 });
 export const careerEventCandidateSchema = z.object({
-  eventDefinitionId: id, weight: z.number().positive(), phases: z.array(z.enum(['academy', 'preseason', 'regular_season', 'winter_break'])).min(1),
-  requiredTags: z.array(z.string()).optional(), excludedTags: z.array(z.string()).optional(), requiredFacts: z.array(z.string()).optional(),
-  excludedFacts: z.array(z.string()).optional(), requiredPositionGroups: z.array(z.enum(['goalkeeper', 'defender', 'midfielder', 'attacker', 'outfield'])).optional(),
-  minWeek: z.number().int().nonnegative().optional(), maxWeek: z.number().int().nonnegative().optional(), oncePerCareer: z.boolean().optional(),
-  conflictsWith: z.array(id).optional(), recallTags: z.array(z.string()), relationshipRole: z.enum(['peer', 'mentor', 'assistant_coach', 'physiotherapist']).optional(),
+  eventDefinitionId: id,
+  weight: z.number().positive(),
+  phases: z.array(z.enum(['academy', 'preseason', 'regular_season', 'winter_break'])).min(1),
+  requiredTags: z.array(z.string()).optional(),
+  excludedTags: z.array(z.string()).optional(),
+  requiredFacts: z.array(z.string()).optional(),
+  excludedFacts: z.array(z.string()).optional(),
+  requiredPositionGroups: z
+    .array(z.enum(['goalkeeper', 'defender', 'midfielder', 'attacker', 'outfield']))
+    .optional(),
+  minWeek: z.number().int().nonnegative().optional(),
+  maxWeek: z.number().int().nonnegative().optional(),
+  oncePerCareer: z.boolean().optional(),
+  conflictsWith: z.array(id).optional(),
+  recallTags: z.array(z.string()),
+  relationshipRole: z.enum(['peer', 'mentor', 'assistant_coach', 'physiotherapist']).optional(),
 });
 export const careerStateSchema = z.object({
   seed: z.string(),
@@ -256,6 +353,9 @@ export const careerStateSchema = z.object({
   activeEvent: eventInstanceSchema.optional(),
   careerCalendar: careerCalendarSchema.optional(),
   recentVariantKeys: z.array(z.string()).max(12).optional(),
+  leagueSeason: leagueSeasonSchema.optional(),
+  decisionPoint: playerDecisionPointSchema.optional(),
+  fastForwardLog: z.array(fastForwardEntrySchema).max(16).optional(),
   finances: z
     .array(
       z.object({
