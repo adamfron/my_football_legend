@@ -9,6 +9,7 @@ import type {
   MatchMomentResult,
   MatchState,
   MatchTier,
+  Fixture,
   OpponentProfile,
   PlayerAttributes,
   PlayerPosition,
@@ -319,6 +320,28 @@ const positionalMomentSeeds: Array<[string, PositionGroup, string]> = [
   ['att_run', 'attacker', 'Wyjście na wolne pole'],
   ['att_duel', 'attacker', 'Pojedynek z obrońcą'],
   ['att_final', 'attacker', 'Strzał, podanie albo utrzymanie piłki'],
+  ['gk_screened_low', 'goalkeeper', 'Płaski strzał zza zasłony'],
+  ['gk_one_on_one', 'goalkeeper', 'Napastnik wychodzi sam na sam'],
+  ['gk_sweeper', 'goalkeeper', 'Piłka spada za linię obrony'],
+  ['gk_fast_restart', 'goalkeeper', 'Otwiera się szybkie wznowienie'],
+  ['gk_feet_press', 'goalkeeper', 'Rywal pressuje twoje rozegranie nogami'],
+  ['def_touchline', 'defender', 'Skrzydłowy izoluje cię przy linii'],
+  ['def_blind_run', 'defender', 'Napastnik rusza za twoje plecy'],
+  ['def_second_ball', 'defender', 'Druga piłka spada przed polem karnym'],
+  ['def_build_press', 'defender', 'Pressing zamyka krótkie wyprowadzenie'],
+  ['def_set_piece', 'defender', 'Stały fragment wymaga ścisłego krycia'],
+  ['mid_between_lines', 'midfielder', 'Przyjmujesz piłkę między liniami'],
+  ['mid_switch', 'midfielder', 'Druga strona boiska zostaje wolna'],
+  ['mid_counterpress', 'midfielder', 'Po stracie możesz natychmiast doskoczyć'],
+  ['mid_counter_cover', 'midfielder', 'Musisz zabezpieczyć rodzącą się kontrę'],
+  ['mid_long_shot', 'midfielder', 'Masz miejsce na strzał z dystansu'],
+  ['mid_late_run', 'midfielder', 'Otwiera się wejście w pole karne'],
+  ['att_isolation', 'attacker', 'Zostajesz jeden na jednego z obrońcą'],
+  ['att_inside', 'attacker', 'Możesz zejść ze skrzydła do środka'],
+  ['att_cross', 'attacker', 'Partnerzy atakują pole karne'],
+  ['att_cutback', 'attacker', 'Dochodzi do zagrania spod linii końcowej'],
+  ['att_better_teammate', 'attacker', 'Kolega jest ustawiony lepiej od ciebie'],
+  ['att_defender_press', 'attacker', 'Stoper przyjmuje piłkę tyłem do gry'],
 ];
 export const MATCH_MOMENT_LIBRARY: MatchMomentDefinition[] = positionalMomentSeeds
   .map(([id, group, title]) => ({
@@ -548,6 +571,26 @@ export const startSeptemberMatch = (career: CareerState): CareerState => {
   };
   return { ...career, activeMatch };
 };
+
+/** Adapts an arbitrary generated fixture to the existing match engine. */
+export const startFixtureMatch = (career: CareerState, fixture: Fixture): CareerState => {
+  if (career.activeMatch) return career;
+  const fixtureIndex = career.careerCalendar?.fixtures.findIndex((item) => item.id === fixture.id) ?? 0;
+  const temporary: CareerState = {
+    ...career,
+    september: { fixtureIndex: 0, opponents: [fixture.opponent], availability: generateSquadAvailability(`${career.seed}:${fixture.id}`), completed: false },
+  };
+  const started = startSeptemberMatch(temporary);
+  return {
+    ...started,
+    september: career.september,
+    activeMatch: started.activeMatch ? {
+      ...started.activeMatch, id: fixture.id, fixtureIndex, date: fixture.date,
+      competition: fixture.competition === 'league' ? 'Liga regionalna' : fixture.competition,
+      opponent: fixture.opponent, venue: fixture.venue,
+    } : undefined,
+  };
+};
 export const resolveMatchDecision = (career: CareerState, decisionId: string): CareerState => {
   const match = career.activeMatch;
   if (!match || match.completed) return career;
@@ -757,6 +800,12 @@ export const finishMatch = (career: CareerState): CareerState => {
         90,
       ),
     );
+  const priorLevel = (career.matchHistory ?? []).filter((a) => a.teamLevel === m.teamLevel);
+  const levelName = m.teamLevel === 'senior' ? 'senior' : 'academy';
+  if (appearance.goals > 0 && !priorLevel.some((a) => a.goals > 0))
+    facts.push(makeFact(career, `first_${levelName}_goal`, m.date, { matchId: m.id }, m.teamLevel === 'senior' ? 92 : 68));
+  if (appearance.assists > 0 && !priorLevel.some((a) => a.assists > 0))
+    facts.push(makeFact(career, `first_${levelName}_assist`, m.date, { matchId: m.id }, m.teamLevel === 'senior' ? 88 : 65));
   const load = getWeeklyClubLoad(career, m.plannedMinutes);
   const completedCareer: CareerState = {
     ...career,

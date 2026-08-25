@@ -37,3 +37,9 @@ Sytuacje są deklaratywnymi `MatchMomentDefinition`, a tekst wejścia ma wariant
 Rating jest obiektywizującą, kontekstową oceną działań boiskowych (minuty, pozycja, trudność i koszt sytuacji oraz statystyki). Coach interpretation pozostaje subiektywną interpretacją realizacji zadania, dyscypliny taktycznej, relacji i potrzeb zespołu. Mechanizmy nie wyznaczają się wzajemnie: wysoka ocena może współistnieć z zastrzeżeniem trenera, a przeciętna nota z pochwałą taktyczną.
 
 Zmiany atrybutów i atuty są faktami kanonicznymi, nie gotowymi tekstami. Warianty feedbacku powinny korzystać z semantycznego kontekstu: dobrej lub kosztownej akcji, kreacji bez asysty, wyniku drużyny, rozwoju miesiąca i przyczyn odblokowania stylu.
+
+## Recall i kamienie milowe
+
+Opcjonalne wydarzenia zapisują semantyczne `recallTags` (np. presja treningowa, pomoc mentora, poświęcenie dla drużyny), zamiast utrwalać wyłącznie gotowy tekst. `getCareerMilestones` klasyfikuje fakty prezentacyjnie: debiuty, pierwsze gole i asysty, zmiany roli, Play Style oraz punkty zwrotne. Zwykły mecz i techniczny fakt tygodnia pozostają w pełnym logu, ale nie trafiają automatycznie do widoku „Najważniejsze”.
+
+Selektor krótkich podsumowań korzysta z pamięci ostatnich kluczy wariantów. Najpierw preferuje wariant ostatnio niewykorzystany, po czym dokonuje deterministycznego wyboru z seeda i identyfikatora tygodnia.
