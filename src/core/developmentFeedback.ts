@@ -1,4 +1,24 @@
 import type { CareerState, HistoryFact, PlayerAttributes } from '../types/domain';
+import { getPlayerOverall } from './playerOverall';
+
+export const getSeasonAttributeDelta = (
+  current: PlayerAttributes,
+  baseline: PlayerAttributes | undefined,
+  attribute: keyof PlayerAttributes,
+) => (baseline ? current[attribute] - baseline[attribute] : undefined);
+
+export const formatAttributeDelta = (delta: number | undefined): string =>
+  !delta ? '' : delta > 0 ? `(+${delta}) ↑` : `(−${Math.abs(delta)}) ↓`;
+
+export const getSeasonOverallDelta = (career: CareerState): number | undefined => {
+  if (!career.seasonStartingAttributes) return undefined;
+  const current = getPlayerOverall(career.player, career.player.primaryPosition);
+  const baseline = getPlayerOverall(
+    { ...career.player, attributes: career.seasonStartingAttributes },
+    career.player.primaryPosition,
+  );
+  return current - baseline;
+};
 
 export const recordAttributeChange = (
   career: CareerState,

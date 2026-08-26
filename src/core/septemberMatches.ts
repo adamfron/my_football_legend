@@ -22,7 +22,7 @@ import { assignedRole } from './events/postSelectionPath';
 import { getWeeklyClubLoad } from './augustPlanning';
 import { evaluateMatchRating, normalizeTeamStats } from './matchFeedback';
 import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyles';
-import { applyMatchAvailabilityEffects } from './playerAvailability';
+import { applyMatchAvailabilityEffects, getPlayerAvailability } from './playerAvailability';
 import { settleLeagueRound } from './leagueSeason';
 import { applyAppearanceConsequences } from './appearanceConsequences';
 
@@ -190,6 +190,7 @@ export const initializeSeptemberPhase = (career: CareerState): CareerState => {
 };
 export interface FixtureContext {
   fixtureIndex: number;
+  fixtureId?: string;
   opponent: OpponentProfile;
   venue: 'home' | 'away';
   availability?: SquadAvailability[];
@@ -211,7 +212,9 @@ export const evaluateSquadOpportunity = (
     : 0;
   const relation = Object.values(career.relationships)[0]?.respect ?? 50;
   const development = career.augustPlanning?.results.reduce((s, r) => s + r.development, 0) ?? 0;
-  const rng = RandomGenerator.fromSeed(`${career.seed}:selection:${fixture.fixtureIndex}`);
+  const rng = RandomGenerator.fromSeed(
+    `${career.seed}:${career.currentSeason}:selection:${fixture.fixtureId ?? fixture.fixtureIndex}`,
+  );
   const score =
     evaluatePlayerForPosition(career.player, career.player.primaryPosition) * 0.33 +
     (100 - competition.starterQuality) * 0.12 +
@@ -263,6 +266,47 @@ export const evaluateSquadOpportunity = (
             ? 'Tym razem konkurenci są wyżej w hierarchii, a weekend oglądasz z boku.'
             : 'Sportowo jesteś blisko podstawowych zawodników i dostajesz szansę od początku.';
   return { status, reason, selectionScore: score };
+};
+
+export interface ParticipationProjection {
+  status: SquadStatus;
+  teamLevel: 'senior' | 'academy';
+  started: boolean;
+  willPlay: boolean;
+  plannedMinutes: number;
+}
+
+/** Canonical pre-match projection shared by importance selection and match simulation. */
+export const projectFixtureParticipation = (
+  career: CareerState,
+  fixture: Fixture,
+): ParticipationProjection => {
+  const fixtureIndex =
+    career.careerCalendar?.fixtures.findIndex((item) => item.id === fixture.id) ?? 0;
+  const selection = evaluateSquadOpportunity(career, {
+    fixtureIndex,
+    fixtureId: fixture.id,
+    opponent: fixture.opponent,
+    venue: fixture.venue,
+  });
+  const available = getPlayerAvailability(career, fixture.date).available;
+  const started = available && selection.status.endsWith('starter');
+  const bench = available && selection.status.endsWith('bench');
+  const rng = RandomGenerator.fromSeed(
+    `${career.seed}:${career.currentSeason}:${fixture.id}:participation`,
+  );
+  const enters = bench && rng.bool(0.7);
+  return {
+    status: selection.status,
+    teamLevel:
+      career.leagueSeason?.competition.category === 'professional' ||
+      selection.status.startsWith('senior')
+        ? 'senior'
+        : 'academy',
+    started,
+    willPlay: started || enters,
+    plannedMinutes: started ? rng.int(72, 90) : enters ? rng.int(8, 35) : 0,
+  };
 };
 
 export const getCurrentClubCompetitiveProfile = (career: CareerState): ClubCompetitiveProfile => {
@@ -322,32 +366,152 @@ const decision = (
   teamBias,
   coachBias,
 });
-const commonDecisions = [
-  decision(
-    'bold',
-    'Weź odpowiedzialność',
-    'Podejmij odważną próbę.',
-    'Możesz stworzyć bezpośrednie zagrożenie.',
-    'Strata otworzy rywalowi kontrę.',
-    { technique: 0.4, composure: 0.3, vision: 0.3 },
-    13,
-    2,
-    0,
-    -1,
-  ),
-  decision(
-    'team',
-    'Zagraj dla zespołu',
-    'Wybierz rozwiązanie podtrzymujące akcję.',
-    'Drużyna zachowa kontrolę i ustawienie.',
-    'Możesz pozostać mniej widoczny.',
-    { vision: 0.4, composure: 0.35, technique: 0.25 },
-    5,
-    -1,
-    2,
-    2,
-  ),
-];
+const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
+  outfield: [],
+  attacker: [
+    decision(
+      'dribble',
+      'Spróbuj dryblingu',
+      'Podejmij obrońcę.',
+      'Możesz otworzyć drogę do bramki.',
+      'Strata uruchomi kontrę.',
+      { technique: 0.4, pace: 0.35, composure: 0.25 },
+      13,
+      2,
+    ),
+    decision(
+      'progressive_pass',
+      'Zagraj prostopadle',
+      'Poszukaj ruchu partnera.',
+      'Możesz stworzyć czystą okazję.',
+      'Podanie może zostać przecięte.',
+      { vision: 0.4, technique: 0.35, composure: 0.25 },
+      9,
+      0,
+      2,
+      1,
+    ),
+    decision(
+      'shot',
+      'Oddaj strzał',
+      'Szybko zakończ akcję.',
+      'Możesz zdobyć bramkę.',
+      'Niecelna próba zakończy atak.',
+      { finishing: 0.45, composure: 0.3, technique: 0.25 },
+      14,
+      3,
+    ),
+  ],
+  midfielder: [
+    decision(
+      'progressive_pass',
+      'Zagraj progresywnie między liniami',
+      'Przyspiesz atak podaniem.',
+      'Możesz ominąć linię pomocy.',
+      'Rywal może przejąć trudne podanie.',
+      { vision: 0.42, technique: 0.33, composure: 0.25 },
+      10,
+      1,
+      2,
+    ),
+    decision(
+      'switch_play',
+      'Przenieś ciężar gry na drugą stronę',
+      'Wykorzystaj wolną przestrzeń.',
+      'Drużyna rozciągnie obronę.',
+      'Wolne podanie pozwoli rywalom się przesunąć.',
+      { vision: 0.45, technique: 0.3, composure: 0.25 },
+      7,
+      0,
+      2,
+      1,
+    ),
+    decision(
+      'counterpress',
+      'Doskok po stracie',
+      'Natychmiast zaatakuj piłkę.',
+      'Możesz odzyskać ją wysoko.',
+      'Minięcie otworzy środek pola.',
+      { stamina: 0.4, defending: 0.32, composure: 0.28 },
+      12,
+      1,
+      1,
+      2,
+    ),
+  ],
+  defender: [
+    decision(
+      'step_out',
+      'Wyjdź agresywnie do rywala',
+      'Skróć mu czas na decyzję.',
+      'Możesz przerwać akcję wcześnie.',
+      'Rywal może zagrać za twoje plecy.',
+      { defending: 0.42, pace: 0.3, composure: 0.28 },
+      13,
+      1,
+      1,
+    ),
+    decision(
+      'retreat',
+      'Cofnij się i zamknij przestrzeń',
+      'Broń strefy przed bramką.',
+      'Zyskasz czas na asekurację.',
+      'Rywal zachowa piłkę.',
+      { defending: 0.42, composure: 0.38, pace: 0.2 },
+      6,
+      0,
+      2,
+      2,
+    ),
+    decision(
+      'safe_clearance',
+      'Wybij bez ryzyka',
+      'Usuń piłkę ze strefy zagrożenia.',
+      'Natychmiast oddalisz niebezpieczeństwo.',
+      'Drużyna straci posiadanie.',
+      { defending: 0.5, composure: 0.35, technique: 0.15 },
+      4,
+      -1,
+      1,
+      2,
+    ),
+  ],
+  goalkeeper: [
+    decision(
+      'close_angle',
+      'Skróć kąt',
+      'Wyjdź naprzeciw strzelca.',
+      'Zmniejszysz mu dostępną bramkę.',
+      'Lob lub minięcie zostawi pustą bramkę.',
+      { composure: 0.45, pace: 0.3, defending: 0.25 },
+      12,
+      2,
+    ),
+    decision(
+      'hold_line',
+      'Zostań na linii',
+      'Reaguj dopiero na strzał.',
+      'Zachowasz czas na reakcję.',
+      'Strzelec może podejść bliżej.',
+      { composure: 0.5, technique: 0.25, pace: 0.25 },
+      7,
+      0,
+      1,
+      1,
+    ),
+    decision(
+      'safe_parry',
+      'Sparuj w bezpieczne miejsce',
+      'Odbij piłkę poza środek bramki.',
+      'Ograniczysz szansę na dobitkę.',
+      'Trudna piłka może wrócić pod nogi rywala.',
+      { composure: 0.42, technique: 0.3, defending: 0.28 },
+      9,
+      1,
+      1,
+    ),
+  ],
+};
 const positionalMomentSeeds: Array<[string, PositionGroup, string]> = [
   ['gk_close', 'goalkeeper', 'Strzał z bliska'],
   ['gk_cross', 'goalkeeper', 'Dośrodkowanie w tłoku'],
@@ -393,7 +557,7 @@ export const MATCH_MOMENT_LIBRARY: MatchMomentDefinition[] = positionalMomentSee
       `${title}. Rywal jest blisko i musisz zdecydować bez pełnej wiedzy.`,
       `${title}. Tempo rośnie, a ustawienie przeciwnika daje tylko chwilę.`,
     ],
-    decisions: commonDecisions,
+    decisions: footballDecisions[group],
   }))
   .concat([
     {
@@ -451,7 +615,7 @@ export const MATCH_MOMENT_LIBRARY: MatchMomentDefinition[] = positionalMomentSee
         'Prowadzicie, ale rywal przesuwa coraz więcej ludzi do ataku.',
         'Końcówka wymaga wyboru między kolejnym ciosem a kontrolą.',
       ],
-      decisions: commonDecisions,
+      decisions: footballDecisions.midfielder,
     },
   ]);
 const positionGroup = (p: string): PositionGroup =>
@@ -556,7 +720,11 @@ const goalsFromMomentum = (match: MatchState) =>
         ]
       : [],
   );
-export const startSeptemberMatch = (career: CareerState): CareerState => {
+export const startSeptemberMatch = (
+  career: CareerState,
+  adaptedFixture?: Fixture,
+  projected?: ParticipationProjection,
+): CareerState => {
   if (career.activeMatch || !career.september || career.september.completed) return career;
   const i = career.september.fixtureIndex;
   const opponent = career.september.opponents[i];
@@ -564,24 +732,37 @@ export const startSeptemberMatch = (career: CareerState): CareerState => {
   const venue = i % 2 === 0 ? 'home' : 'away';
   const selection = evaluateSquadOpportunity(career, {
     fixtureIndex: i,
+    ...(adaptedFixture ? { fixtureId: adaptedFixture.id } : {}),
     opponent,
     venue,
     availability: career.september.availability,
   });
-  const rng = RandomGenerator.fromSeed(`${career.seed}:match:${i}`);
-  const started = selection.status.endsWith('starter');
+  const namespace = adaptedFixture
+    ? `${career.seed}:${career.currentSeason}:${adaptedFixture.id}:match`
+    : `${career.seed}:match:${i}`;
+  const rng = RandomGenerator.fromSeed(namespace);
+  const started = projected?.started ?? selection.status.endsWith('starter');
   const bench = selection.status.endsWith('bench');
-  const enters = bench && rng.bool(0.7);
-  const plannedMinutes = started ? rng.int(72, 90) : enters ? rng.int(8, 35) : 0;
-  const teamLevel = selection.status.startsWith('senior') ? 'senior' : 'academy';
+  const enters = projected?.willPlay ?? (bench && rng.bool(0.7));
+  const plannedMinutes =
+    projected?.plannedMinutes ?? (started ? rng.int(72, 90) : enters ? rng.int(8, 35) : 0);
+  const teamLevel =
+    projected?.teamLevel ?? (selection.status.startsWith('senior') ? 'senior' : 'academy');
+  const importance = adaptedFixture?.matchImportance ?? 'notable';
   const count =
     plannedMinutes === 0
       ? 0
-      : plannedMinutes <= 25
-        ? 1
-        : plannedMinutes <= 60
+      : importance === 'major' || importance === 'career_defining'
+        ? plannedMinutes <= 15
           ? rng.int(1, 2)
-          : rng.int(2, 3);
+          : plannedMinutes <= 45
+            ? rng.int(2, 3)
+            : rng.int(3, Math.min(5, Math.max(3, Math.floor(plannedMinutes / 18))))
+        : plannedMinutes <= 25
+          ? 1
+          : plannedMinutes <= 60
+            ? rng.int(1, 2)
+            : 2;
   const pool = MATCH_MOMENT_LIBRARY.filter((m) =>
     m.positionGroups.includes(positionGroup(career.player.primaryPosition)),
   );
@@ -598,7 +779,7 @@ export const startSeptemberMatch = (career: CareerState): CareerState => {
       description: rng.pick(m.introductions),
     }));
   const feedback = backgroundFeedback(
-    `${career.seed}:match:${i}:opening`,
+    `${namespace}:opening`,
     VISTULA_NOVA_PROFILE.overallStrength,
     opponent.strength,
     venue,
@@ -641,6 +822,8 @@ export const startSeptemberMatch = (career: CareerState): CareerState => {
 /** Adapts an arbitrary generated fixture to the existing match engine. */
 export const startFixtureMatch = (career: CareerState, fixture: Fixture): CareerState => {
   if (career.activeMatch) return career;
+  const projection = projectFixtureParticipation(career, fixture);
+  if (!projection.willPlay) return career;
   const fixtureIndex =
     career.careerCalendar?.fixtures.findIndex((item) => item.id === fixture.id) ?? 0;
   const temporary: CareerState = {
@@ -652,7 +835,7 @@ export const startFixtureMatch = (career: CareerState, fixture: Fixture): Career
       completed: false,
     },
   };
-  const started = startSeptemberMatch(temporary);
+  const started = startSeptemberMatch(temporary, fixture, projection);
   return {
     ...started,
     september: career.september,
@@ -729,11 +912,20 @@ export const resolveMatchDecision = (career: CareerState, decisionId: string): C
             : tier === 'poor'
               ? 'Nie wszystko wychodzi, ale wracasz do zadania.'
               : 'Błąd daje rywalowi groźną możliwość.',
-    goals: attacker && tier === 'excellent' && choice.id === 'bold' && rng.bool(0.45) ? 1 : 0,
-    assists: !goalkeeper && tier === 'excellent' && choice.id === 'team' && rng.bool(0.35) ? 1 : 0,
-    xG: attacker && choice.id === 'bold' ? 0.18 : goalkeeper ? 0 : 0.03,
-    xA: choice.id === 'team' && !goalkeeper ? 0.14 : 0.02,
-    keyPasses: choice.id === 'team' && level > 0 ? 1 : 0,
+    goals:
+      attacker && tier === 'excellent' && ['shot', 'dribble'].includes(choice.id) && rng.bool(0.45)
+        ? 1
+        : 0,
+    assists:
+      !goalkeeper &&
+      tier === 'excellent' &&
+      ['progressive_pass', 'switch_play'].includes(choice.id) &&
+      rng.bool(0.35)
+        ? 1
+        : 0,
+    xG: attacker && ['shot', 'dribble'].includes(choice.id) ? 0.18 : goalkeeper ? 0 : 0.03,
+    xA: ['progressive_pass', 'switch_play'].includes(choice.id) && !goalkeeper ? 0.14 : 0.02,
+    keyPasses: ['progressive_pass', 'switch_play'].includes(choice.id) && level > 0 ? 1 : 0,
     defensiveActions:
       ['defender', 'midfielder'].includes(positionGroup(career.player.primaryPosition)) && level > 0
         ? 1

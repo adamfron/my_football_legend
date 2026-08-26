@@ -356,8 +356,9 @@ export const evaluateMatchImportance = (
     (match) => match.teamLevel === 'senior' && match.minutes > 0,
   );
   const priorInteractive = career.historyFacts.filter(
-    (fact) => fact.factType === 'interactive_match',
+    (fact) => fact.factType === 'interactive_match' && fact.season === career.currentSeason,
   ).length;
+  if (!expected?.willPlay) return 'routine';
   if (!senior.length && expected?.teamLevel === 'senior' && expected.willPlay) return 'major';
   if (
     !senior.some((match) => match.started) &&
@@ -367,12 +368,17 @@ export const evaluateMatchImportance = (
     return 'notable';
   const context = getSeasonContext(career);
   if (context.roundsRemaining <= 3 && (context.position <= 3 || context.position >= 10))
-    return priorInteractive < 5 ? 'major' : 'notable';
+    return 'major';
   if (
     career.storyThreads.some(
       (thread) => thread.status === 'open' && thread.importance >= 75 && thread.tension >= 65,
     )
   )
     return priorInteractive < 4 ? 'notable' : 'routine';
-  return priorInteractive >= 4 ? 'routine' : fixture.matchImportance;
+  if (priorInteractive >= 4) return 'routine';
+  return career.leagueSeason?.competition.category === 'professional' &&
+    fixture.matchImportance === 'routine' &&
+    priorInteractive < 2
+    ? 'notable'
+    : fixture.matchImportance;
 };

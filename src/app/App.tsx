@@ -15,7 +15,12 @@ import {
   describePerformance,
   getSeasonPlayerSummary,
 } from '../core/matchFeedback';
-import { getMonthlyDevelopmentSummary } from '../core/developmentFeedback';
+import {
+  formatAttributeDelta,
+  getMonthlyDevelopmentSummary,
+  getSeasonAttributeDelta,
+  getSeasonOverallDelta,
+} from '../core/developmentFeedback';
 import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../core/playStyles';
 import { auditRepeatedPlayerFacingText } from '../core/narrative/repeatedTextAudit';
 import matchLocalization from '../content/localization/pl/events.match.json';
@@ -204,7 +209,15 @@ const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
   );
 };
 
-const PlayerCard = ({ profile, seed }: { profile: StartingPlayerProfile; seed: string }) => (
+const PlayerCard = ({
+  profile,
+  seed,
+  baseline,
+}: {
+  profile: StartingPlayerProfile;
+  seed: string;
+  baseline?: PlayerAttributes | undefined;
+}) => (
   <section className="card">
     <div className={`portrait portrait-${seed.length % 4}`}>
       <span>{initials(profile.player.firstName, profile.player.lastName)}</span>
@@ -234,7 +247,12 @@ const PlayerCard = ({ profile, seed }: { profile: StartingPlayerProfile; seed: s
       {attributeKeys.map((key) => (
         <li key={key}>
           <span>{translate(`attribute.${key}`)}</span>
-          <strong>{profile.player.attributes[key]}</strong>
+          <strong>
+            {profile.player.attributes[key]}{' '}
+            {formatAttributeDelta(
+              getSeasonAttributeDelta(profile.player.attributes, baseline, key),
+            )}
+          </strong>
         </li>
       ))}
     </ul>
@@ -627,6 +645,7 @@ const CareerWeekGame = ({
   career: CareerState;
   onCareer: (career: CareerState) => void;
 }) => {
+  const [progressionError, setProgressionError] = useState<string>();
   const week = getCurrentCareerWeek(career);
   const fixture = getCurrentFixture(career);
   if (!week || career.leagueSeason?.completed)
@@ -723,8 +742,21 @@ const CareerWeekGame = ({
           );
         })}
       </ul>
+      {progressionError && (
+        <p className="field-error" role="alert">
+          Nie udało się kontynuować kariery. Spróbuj ponownie lub wczytaj zapis.
+          {isDevToolsEnabled() ? ` ${progressionError}` : ''}
+        </p>
+      )}
       <button
-        onClick={() => onCareer(advanceUntilDecision({ ...career, decisionPoint: undefined }))}
+        onClick={() => {
+          try {
+            setProgressionError(undefined);
+            onCareer(advanceUntilDecision({ ...career, decisionPoint: undefined }));
+          } catch (error) {
+            setProgressionError(error instanceof Error ? error.message : String(error));
+          }
+        }}
       >
         Symuluj do następnego wydarzenia
       </button>
@@ -1623,6 +1655,7 @@ export const App = () => {
                         rollIndex: 0,
                       }}
                       seed={career.seed}
+                      baseline={career.seasonStartingAttributes}
                     />
                     <aside>
                       <p>
@@ -1663,7 +1696,8 @@ export const App = () => {
                             <h3>Bieżący sezon — {getSeasonProgress(career).seasonLabel}</h3>
                             <p>
                               <strong>
-                                OVR {getPlayerOverall(career.player, career.player.primaryPosition)}
+                                OVR {getPlayerOverall(career.player, career.player.primaryPosition)}{' '}
+                                {formatAttributeDelta(getSeasonOverallDelta(career))}
                               </strong>
                             </p>
                             <div className="season-grid">

@@ -143,4 +143,63 @@ describe('compact league season', () => {
       }),
     ).toBe('major');
   });
+
+  it('counts the ordinary interactive-match quota only in the current season', () => {
+    const state = career();
+    const professional = createLeagueSeason(state.seed, { professional: true, startYear: 2028 });
+    const league = professional.rounds[4]!.fixtures.find((f) =>
+      [f.homeClubId, f.awayClubId].includes(professional.controlledClubId),
+    )!;
+    const opponentId =
+      league.homeClubId === professional.controlledClubId ? league.awayClubId : league.homeClubId;
+    const opponent = professional.clubs.find((club) => club.clubId === opponentId)!;
+    const fixture = {
+      id: league.id,
+      seasonId: professional.id,
+      date: league.date,
+      competition: 'league' as const,
+      opponent: { ...opponent, id: opponent.clubId, style: 'test', strengths: [], weaknesses: [] },
+      venue:
+        league.homeClubId === professional.controlledClubId ? ('home' as const) : ('away' as const),
+      importance: 40,
+      matchImportance: 'routine' as const,
+    };
+    const oldFacts = Array.from({ length: 5 }, (_, index) => ({
+      ...state.historyFacts[0]!,
+      id: `old-interactive-${index}`,
+      factType: 'interactive_match',
+      season: 2027,
+    }));
+    const nextSeason = {
+      ...state,
+      currentSeason: 2028,
+      leagueSeason: professional,
+      historyFacts: [...state.historyFacts, ...oldFacts],
+      matchHistory: [
+        {
+          matchId: 'prior-senior',
+          date: '2027-01-01',
+          opponentId: 'x',
+          teamLevel: 'senior' as const,
+          started: true,
+          minutes: 90,
+          goals: 0,
+          assists: 0,
+          xG: 0,
+          xA: 0,
+          keyPasses: 0,
+          defensiveActions: 0,
+          saves: 0,
+          personalImpact: 0,
+        },
+      ],
+    };
+    expect(
+      evaluateMatchImportance(nextSeason, fixture, {
+        teamLevel: 'senior',
+        started: false,
+        willPlay: true,
+      }),
+    ).toBe('notable');
+  });
 });
