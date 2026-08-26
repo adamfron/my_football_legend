@@ -846,10 +846,17 @@ export const startFixtureMatch = (career: CareerState, fixture: Fixture): Career
 export const resolveMatchDecision = (career: CareerState, decisionId: string): CareerState => {
   const match = career.activeMatch;
   if (!match || match.completed) return career;
-  const moment = match.currentMoment ?? match.moments[match.resolvedMoments.length];
+  // The append-only result count is authoritative. currentMoment is only a UI cursor and may be
+  // stale in an old save or in a callback rendered immediately before another transition.
+  const expectedMoment = match.moments[match.resolvedMoments.length];
+  const moment = expectedMoment ?? match.currentMoment;
   if (!moment) return finishMatch(career);
-  const def = MATCH_MOMENT_LIBRARY.find((m) => m.id === moment.definitionId)!;
-  const choice = def.decisions.find((d) => d.id === decisionId)!;
+  const def = MATCH_MOMENT_LIBRARY.find((m) => m.id === moment.definitionId);
+  const choice = def?.decisions.find((d) => d.id === decisionId);
+  // Runtime match cursors are disposable. If content changed or a stale button is submitted,
+  // settle the already simulated match rather than leaving the career behind an unusable card.
+  if (!def || !choice)
+    return finishMatch({ ...career, activeMatch: { ...match, currentMoment: undefined } });
   const fatigue = Math.max(0, moment.minute - 55) * 0.18;
   const weighted = Object.entries(choice.weights.attributes).reduce(
     (s, [k, w]) => s + career.player.attributes[k as keyof PlayerAttributes] * w!,
@@ -973,6 +980,8 @@ export const advanceMatch = (career: CareerState): CareerState => {
   const m = career.activeMatch;
   if (!m || m.completed) return career;
   const next = m.moments[m.resolvedMoments.length];
+  if (next && !MATCH_MOMENT_LIBRARY.some((definition) => definition.id === next.definitionId))
+    return finishMatch({ ...career, activeMatch: { ...m, currentMoment: undefined } });
   return next
     ? {
         ...career,

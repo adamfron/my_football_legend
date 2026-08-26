@@ -10,6 +10,11 @@ import { getFactPresentation } from '../core/narrative/factPresentation';
 import { buildFirstWeekSummary } from '../core/narrative/weekSummary';
 import { PersonAvatar } from '../components/PersonAvatar';
 import { MatchMomentumChart } from '../components/MatchMomentumChart';
+import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
+import { getRadarAxes } from '../core/radar';
+import { aggregateDevelopment } from '../core/seasonDevelopment';
+import { diagnoseCareerProgression, matchStateSummary } from '../core/progressionDiagnostics';
+import { createCompletedSeasonSnapshot } from '../core/seasonArchive';
 import {
   buildSeasonSummary,
   describePerformance,
@@ -107,7 +112,7 @@ import type {
   PlayerAttributes,
   RelationshipScores,
 } from '../types/domain';
-import { isDevToolsEnabled } from './devTools';
+import { getMatchTransitionHistory, isDevToolsEnabled, recordMatchTransition } from './devTools';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
@@ -154,31 +159,29 @@ const addIssues = (issues: { path: PropertyKey[]; message: string }[]) =>
     return acc;
   }, {});
 
-const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
-  const axes = [
-    ['Technika', attributes.technique],
-    ['Atak', attributes.finishing * .45 + attributes.technique * .25 + attributes.composure * .3],
-    ['Kreacja', attributes.vision * .45 + attributes.technique * .25 + attributes.spatialAwareness * .3],
-    ['Mentalność', attributes.composure * .4 + attributes.spatialAwareness * .35 + attributes.determination * .25],
-    ['Charakter', attributes.leadership * .25 + attributes.determination * .3 + attributes.professionalism * .3 + attributes.ambition * .15],
-    ['Fizyczność', attributes.stamina], ['Szybkość', attributes.pace],
-    ['Obrona', attributes.defending * .7 + attributes.spatialAwareness * .3],
-  ] as const;
-  const points = axes
-    .map(([, value], index) => {
-      const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
-      const radius = (value / 100) * RADAR_RADIUS;
-      return `${RADAR_CENTER + Math.cos(angle) * radius},${RADAR_CENTER + Math.sin(angle) * radius}`;
-    })
-    .join(' ');
+const RadarChart = ({
+  attributes,
+  baseline,
+}: {
+  attributes: PlayerAttributes;
+  baseline?: PlayerAttributes | undefined;
+}) => {
+  const axes = getRadarAxes(attributes);
+  const polygon = (values: ReturnType<typeof getRadarAxes>) =>
+    values
+      .map(({ value }, index) => {
+        const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
+        const radius = (value / 100) * RADAR_RADIUS;
+        return `${RADAR_CENTER + Math.cos(angle) * radius},${RADAR_CENTER + Math.sin(angle) * radius}`;
+      })
+      .join(' ');
   return (
     <figure className="radar">
       <svg
         viewBox={`0 0 ${RADAR_VIEWBOX_SIZE} ${RADAR_VIEWBOX_SIZE}`}
         role="img"
-        aria-labelledby="radar-title"
+        aria-label="Porównanie profilu atrybutów"
       >
-        <title id="radar-title">Wykres radarowy atrybutów</title>
         {[0.25, 0.5, 0.75, 1].map((scale) => (
           <circle
             key={scale}
@@ -189,10 +192,8 @@ const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
             stroke="rgba(255,255,255,.14)"
           />
         ))}
-        {axes.map(([label], index) => {
+        {axes.map(({ label }, index) => {
           const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
-          const x = RADAR_CENTER + Math.cos(angle) * RADAR_LABEL_RADIUS;
-          const y = RADAR_CENTER + Math.sin(angle) * RADAR_LABEL_RADIUS;
           return (
             <g key={label}>
               <line
@@ -202,19 +203,40 @@ const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
                 y2={RADAR_CENTER + Math.sin(angle) * RADAR_RADIUS}
                 stroke="rgba(255,255,255,.12)"
               />
-              <text x={x} y={y} textAnchor="middle">
+              <text
+                x={RADAR_CENTER + Math.cos(angle) * RADAR_LABEL_RADIUS}
+                y={RADAR_CENTER + Math.sin(angle) * RADAR_LABEL_RADIUS}
+                textAnchor="middle"
+              >
                 {label}
               </text>
             </g>
           );
         })}
-        <polygon points={points} fill="rgba(68, 209, 157, .35)" stroke="#44d19d" strokeWidth="3" />
+        {baseline && (
+          <polygon
+            points={polygon(getRadarAxes(baseline))}
+            fill="rgba(148,163,184,.05)"
+            stroke="#94a3b8"
+            strokeWidth="1.5"
+          />
+        )}
+        <polygon
+          points={polygon(axes)}
+          fill="rgba(68, 209, 157, .35)"
+          stroke="#44d19d"
+          strokeWidth="3"
+        />
       </svg>
       <figcaption>
-        {axes
-          .map(([label, value]) => `${label} ${Math.round(value)}`)
-          .join(', ')}
+        {axes.map(({ label, value }) => `${label} ${Math.round(value)}`).join(', ')}
       </figcaption>
+      {baseline && (
+        <div className="radar-legend">
+          <span>— początek sezonu</span>
+          <strong>— koniec sezonu</strong>
+        </div>
+      )}
     </figure>
   );
 };
@@ -252,7 +274,7 @@ const PlayerCard = ({
         <strong>Pierwszy klub:</strong> Vistula Nova
       </p>
     </div>
-    <RadarChart attributes={profile.player.attributes} />
+    <RadarChart attributes={profile.player.attributes} baseline={baseline} />
     <ul className="attrs">
       {attributeKeys.map((key) => (
         <li key={key}>
@@ -658,6 +680,29 @@ const CareerWeekGame = ({
   const [progressionError, setProgressionError] = useState<string>();
   const week = getCurrentCareerWeek(career);
   const fixture = getCurrentFixture(career);
+  const gameFixtureItems: CompactFixtureItem[] = (
+    career.leagueSeason?.rounds.flatMap((round) => round.fixtures) ?? []
+  )
+    .filter((item) =>
+      [item.homeClubId, item.awayClubId].includes(career.leagueSeason!.controlledClubId),
+    )
+    .filter((item) => item.completed || item.date >= (career.currentDate ?? week?.startDate ?? ''))
+    .slice(-6)
+    .map((item) => ({
+      fixture: item,
+      opponentName:
+        career.leagueSeason!.clubs.find(
+          (club) =>
+            club.clubId ===
+            (item.homeClubId === career.leagueSeason!.controlledClubId
+              ? item.awayClubId
+              : item.homeClubId),
+        )?.name ?? 'Rywal',
+      venue: item.homeClubId === career.leagueSeason!.controlledClubId ? 'home' : 'away',
+      appearance: career.matchHistory?.find(
+        (match) => match.matchId === item.id || match.matchId === `academy_${item.id}`,
+      ),
+    }));
   if (!week || career.leagueSeason?.completed)
     return <SeasonEndSummary career={career} onCareer={onCareer} />;
   if (career.activeMatch) return <SeptemberGame career={career} onCareer={onCareer} reusable />;
@@ -727,13 +772,7 @@ const CareerWeekGame = ({
       {(career.fastForwardLog ?? []).length > 0 && (
         <aside className="mini-card">
           <h3>Co wydarzyło się po drodze</h3>
-          {career.fastForwardLog!.map((entry) => (
-            <p key={entry.id}>
-              <strong>{formatDate(entry.date)}</strong>
-              <br />
-              {entry.summary}
-            </p>
-          ))}
+          <CompactFixtureList items={gameFixtureItems} />
         </aside>
       )}
       <h3>Najbliższe tygodnie</h3>
@@ -805,6 +844,34 @@ const SeasonEndSummary = ({
   const summary = buildSeasonSummary(career, career.currentSeason);
   const availability = availabilityState(career);
   const position = club?.position ?? 12;
+  const archived =
+    career.completedSeasons?.find((item) => item.seasonId === career.leagueSeason?.id) ??
+    createCompletedSeasonSnapshot(career);
+  const development = aggregateDevelopment(
+    archived.development.seasonStartAttributes,
+    archived.development.seasonEndAttributes,
+  );
+  const fixtureItems: CompactFixtureItem[] = (
+    career.leagueSeason?.rounds.flatMap((round) => round.fixtures) ?? []
+  )
+    .filter((fixture) =>
+      [fixture.homeClubId, fixture.awayClubId].includes(career.leagueSeason!.controlledClubId),
+    )
+    .map((fixture) => ({
+      fixture,
+      opponentName:
+        career.leagueSeason!.clubs.find(
+          (club) =>
+            club.clubId ===
+            (fixture.homeClubId === career.leagueSeason!.controlledClubId
+              ? fixture.awayClubId
+              : fixture.homeClubId),
+        )?.name ?? 'Rywal',
+      venue: fixture.homeClubId === career.leagueSeason!.controlledClubId ? 'home' : 'away',
+      appearance: archived.fixtures.find(
+        (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
+      ),
+    }));
   return (
     <section>
       <h2>
@@ -845,15 +912,30 @@ const SeasonEndSummary = ({
         {availability.matchesMissedThroughInjury} przez uraz
       </p>
       <h3>Rozwój</h3>
-      {summary.attributeChanges.length ? (
-        summary.attributeChanges.map((change) => (
-          <p key={`${change.attribute}-${change.date}`}>
-            {attributeLabels[change.attribute]} {change.before} → {change.after}
+      <RadarChart
+        attributes={archived.development.seasonEndAttributes}
+        baseline={archived.development.seasonStartAttributes}
+      />
+      <p>
+        <strong>
+          OVR {archived.development.seasonStartOVR} → {archived.development.seasonEndOVR} (
+          {archived.development.seasonEndOVR - archived.development.seasonStartOVR >= 0 ? '+' : ''}
+          {archived.development.seasonEndOVR - archived.development.seasonStartOVR})
+        </strong>
+      </p>
+      {development.length ? (
+        development.map((change) => (
+          <p key={change.attribute}>
+            {attributeLabels[change.attribute]} {change.before} → {change.after} (
+            {change.delta > 0 ? '+' : ''}
+            {change.delta})
           </p>
         ))
       ) : (
         <p>W tym sezonie nie doszło do trwałej zmiany atrybutów.</p>
       )}
+      <h3>Występy</h3>
+      <CompactFixtureList items={fixtureItems} />
       <h3>Kamienie milowe</h3>
       {getCareerMilestones(career)
         .slice(-6)
@@ -999,6 +1081,16 @@ const SeasonView = ({ career }: { career: CareerState }) => {
     .slice(-3)
     .concat(fixtures.filter((fixture) => !fixture.completed).slice(0, 4));
   const name = (id: string) => season?.clubs.find((club) => club.clubId === id)?.name ?? id;
+  const compactFixtures: CompactFixtureItem[] = visible.map((fixture) => ({
+    fixture,
+    opponentName: name(
+      fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId,
+    ),
+    venue: fixture.homeClubId === controlledClubId ? 'home' : 'away',
+    appearance: career.matchHistory?.find(
+      (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
+    ),
+  }));
   return (
     <section>
       <h2>Sezon {season?.name ?? getSeasonProgress(career).seasonLabel}</h2>
@@ -1045,31 +1137,7 @@ const SeasonView = ({ career }: { career: CareerState }) => {
         </table>
       </div>
       <h3>Terminarz</h3>
-      {visible.map((fixture) => {
-        const appearance = career.matchHistory?.find(
-          (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
-        );
-        return (
-          <article className="mini-card" key={fixture.id}>
-            <p>
-              {formatDate(fixture.date)} ·{' '}
-              {fixture.homeClubId === controlledClubId ? 'dom' : 'wyjazd'}
-            </p>
-            <strong>
-              {name(fixture.homeClubId)}{' '}
-              {fixture.completed ? `${fixture.homeGoals}:${fixture.awayGoals}` : '—'}{' '}
-              {name(fixture.awayClubId)}
-            </strong>
-            <p>
-              {appearance
-                ? `${appearance.teamLevel === 'academy' ? 'Mecz akademii · ' : ''}${compactAppearance(appearance)}`
-                : fixture.completed
-                  ? 'bez występu'
-                  : 'przed meczem'}
-            </p>
-          </article>
-        );
-      })}
+      <CompactFixtureList items={compactFixtures} />
       {season?.completed && (
         <section>
           <h3>Twoje występy</h3>
@@ -1261,6 +1329,19 @@ const SeptemberGame = ({
   reusable?: boolean;
 }) => {
   const match = career.activeMatch;
+  const transition = (action: string, next: CareerState) => {
+    const before = matchStateSummary(career.activeMatch);
+    const after = matchStateSummary(next.activeMatch);
+    const validTransition = JSON.stringify(before) !== JSON.stringify(after);
+    recordMatchTransition({
+      action,
+      before,
+      after,
+      validTransition,
+      ...(!validTransition ? { warning: 'unchanged actionable match state' } : {}),
+    });
+    onCareer(next);
+  };
   if (!reusable && career.september?.completed)
     return (
       <section>
@@ -1387,7 +1468,7 @@ const SeptemberGame = ({
               ? 'Ten weekend oglądasz z boku. Potraktuj decyzję jako motywację i zadbaj o gotowość.'
               : 'Dostajesz szansę od początku. Sztab oczekuje realizacji zadań.'}
         </p>
-        <button onClick={() => onCareer(advanceMatch(career))}>
+        <button onClick={() => transition('advance', advanceMatch(career))}>
           {match.plannedMinutes ? 'Rozpocznij mecz' : 'Przyjmij decyzję i przejdź dalej'}
         </button>
       </section>
@@ -1423,7 +1504,11 @@ const SeptemberGame = ({
               <h4>Ryzykujesz</h4>
               <p>{d.visibleRisk}</p>
             </section>
-            <button onClick={() => onCareer(resolveMatchDecision(career, d.id))}>Wybierz</button>
+            <button
+              onClick={() => transition(`decision:${d.id}`, resolveMatchDecision(career, d.id))}
+            >
+              Wybierz
+            </button>
           </article>
         ))}
       </div>
@@ -1649,6 +1734,36 @@ export const App = () => {
         <section className="panel">
           {active === 'devtools' && devtoolsEnabled ? (
             <div className="devgrid">
+              <section>
+                <h2>CAREER PROGRESSION</h2>
+                <pre>{JSON.stringify(diagnoseCareerProgression(career), null, 2)}</pre>
+                <strong>
+                  Can advance: {diagnoseCareerProgression(career).canAdvance ? 'YES' : 'NO'}
+                </strong>
+              </section>
+              <section>
+                <h2>MATCH STATE</h2>
+                <pre>
+                  {JSON.stringify(
+                    {
+                      fixtureId: getCurrentFixture(career)?.id,
+                      season: career.currentSeason,
+                      careerWeek: getCurrentCareerWeek(career)?.weekIndex,
+                      ...matchStateSummary(career.activeMatch),
+                      lastSelectedDecision: getMatchTransitionHistory().at(-1)?.action,
+                      lastMatchTransition: getMatchTransitionHistory().at(-1),
+                      nextExpectedState: career.activeMatch?.completed
+                        ? 'career week'
+                        : career.activeMatch?.currentMoment
+                          ? 'resolved or later moment'
+                          : 'next moment or completed',
+                      transitionHistory: getMatchTransitionHistory(),
+                    },
+                    null,
+                    2,
+                  )}
+                </pre>
+              </section>
               <code>{career.seed}</code>
               <pre>{JSON.stringify(randomPreview, null, 2)}</pre>
               <p>Brakujące klucze: {Array.from(missingLocalizationKeys).join(', ') || 'brak'}</p>
