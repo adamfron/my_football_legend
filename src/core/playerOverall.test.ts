@@ -28,11 +28,20 @@ describe('getPlayerOverall', () => {
       defending: 20,
       leadership: 40,
       composure: 75,
+      spatialAwareness: 72,
+      determination: 99,
+      ambition: 99,
+      professionalism: 99,
     };
     const striker = getPlayerOverall(player, 'striker');
     expect(striker).toBe(70);
     expect(striker).toBeGreaterThan(getPlayerOverall(player, 'center_back'));
     expect(striker).toBeGreaterThanOrEqual(1);
+    const before = striker;
+    player.attributes.professionalism = 1;
+    player.attributes.determination = 1;
+    player.attributes.ambition = 1;
+    expect(getPlayerOverall(player, 'striker')).toBe(before);
     expect(striker).toBeLessThanOrEqual(100);
   });
 });

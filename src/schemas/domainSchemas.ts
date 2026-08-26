@@ -67,6 +67,10 @@ export const playerAttributesSchema = z.object({
   defending: score,
   leadership: score,
   composure: score,
+  spatialAwareness: score,
+  determination: score,
+  ambition: score,
+  professionalism: score,
 });
 export const playerSchema = z.object({
   id,
@@ -137,6 +141,9 @@ export const professionalClubSchema = z.object({
   name: z.string(),
   country: z.string(),
   region: z.string(),
+  shortName: z.string().optional(),
+  managerId: id.optional(),
+  philosophyTags: z.array(z.string()).optional(),
   leagueTier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
   professionalLevel: z.number().int().min(1).max(5).optional(),
   reputation: score,
@@ -442,6 +449,20 @@ export const careerStateSchema = z.object({
   retirementReason: z.string().optional(),
   highestOVR: z.number().min(0).max(100).optional(),
   highestOVRDate: z.string().optional(),
+  developmentProfile: z.object({
+    developmentType: z.enum(['early_bloomer', 'normal', 'late_bloomer']), growthRate: z.number().positive(),
+    peakAge: z.number().int(), declineStartAge: z.number().int(), softPotential: score,
+    developmentVolatility: score, physicalPeakAge: z.number().int(), technicalPeakAge: z.number().int(), mentalPeakAge: z.number().int(),
+  }).optional(),
+  clubWorld: z.array(professionalClubSchema).optional(),
+  completedSeasons: z.array(z.object({
+    seasonId: id, seasonNumber: z.number().int().positive(), label: z.string(), age: z.number().int(), clubId: id, clubName: z.string(),
+    leagueLevel: z.number().int().min(0).max(4), leagueName: z.string(), clubFinish: z.number().int(), clubPoints: z.number().int(),
+    clubRecord: z.object({ won: z.number().int(), drawn: z.number().int(), lost: z.number().int() }), goalsFor: z.number().int(), goalsAgainst: z.number().int(),
+    player: z.object({ appearances: z.number(), starts: z.number(), minutes: z.number(), goals: z.number(), assists: z.number(), xG: z.number(), xA: z.number(), keyPasses: z.number(), defensiveActions: z.number(), averageRating: z.number(), yellowCards: z.number(), redCards: z.number(), missedBySuspension: z.number(), missedByInjury: z.number() }),
+    development: z.object({ seasonStartAttributes: playerAttributesSchema, seasonEndAttributes: playerAttributesSchema, seasonStartOVR: z.number(), seasonEndOVR: z.number() }),
+    fixtures: z.array(z.any()), milestones: z.array(id),
+  })).optional(),
   seasonOutcome: z
     .object({
       finalPosition: z.number().int().min(1).max(12),
@@ -498,7 +519,7 @@ export const careerStateSchema = z.object({
   developmentProgress: z
     .array(
       z.object({
-        attribute: z.enum([
+      attribute: z.enum([
           'technique',
           'vision',
           'pace',
@@ -506,7 +527,11 @@ export const careerStateSchema = z.object({
           'finishing',
           'defending',
           'leadership',
-          'composure',
+        'composure',
+        'spatialAwareness',
+        'determination',
+        'ambition',
+        'professionalism',
         ]),
         progress: z.number().min(0),
       }),

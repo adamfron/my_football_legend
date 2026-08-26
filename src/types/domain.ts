@@ -42,6 +42,22 @@ export interface PlayerAttributes {
   defending: number;
   leadership: number;
   composure: number;
+  spatialAwareness: number;
+  determination: number;
+  ambition: number;
+  professionalism: number;
+}
+export type DevelopmentType = 'early_bloomer' | 'normal' | 'late_bloomer';
+export interface DevelopmentProfile {
+  developmentType: DevelopmentType;
+  growthRate: number;
+  peakAge: number;
+  declineStartAge: number;
+  softPotential: number;
+  developmentVolatility: number;
+  physicalPeakAge: number;
+  technicalPeakAge: number;
+  mentalPeakAge: number;
 }
 
 export interface Player {
@@ -230,6 +246,24 @@ export interface CareerState {
   retirementReason?: string | undefined;
   highestOVR?: number | undefined;
   highestOVRDate?: string | undefined;
+  developmentProfile?: DevelopmentProfile | undefined;
+  clubWorld?: ProfessionalClub[] | undefined;
+  completedSeasons?: CompletedSeasonSnapshot[] | undefined;
+}
+
+export interface CompletedSeasonSnapshot {
+  seasonId: string; seasonNumber: number; label: string; age: number;
+  clubId: Id; clubName: string; leagueLevel: number; leagueName: string;
+  clubFinish: number; clubPoints: number;
+  clubRecord: { won: number; drawn: number; lost: number };
+  goalsFor: number; goalsAgainst: number;
+  player: { appearances: number; starts: number; minutes: number; goals: number; assists: number;
+    xG: number; xA: number; keyPasses: number; defensiveActions: number; averageRating: number;
+    yellowCards: number; redCards: number; missedBySuspension: number; missedByInjury: number };
+  development: { seasonStartAttributes: PlayerAttributes; seasonEndAttributes: PlayerAttributes;
+    seasonStartOVR: number; seasonEndOVR: number };
+  fixtures: MatchAppearance[];
+  milestones: Id[];
 }
 
 export type CareerStage =
@@ -295,6 +329,9 @@ export interface ProfessionalClub {
   name: string;
   country: string;
   region: string;
+  shortName?: string | undefined;
+  managerId?: Id | undefined;
+  philosophyTags?: string[] | undefined;
   /** Canonical Polish pyramid tier (1 is strongest). */
   leagueTier: 1 | 2 | 3 | 4;
   /** Legacy save field; new simulation code uses leagueTier. */

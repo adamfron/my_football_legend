@@ -2,6 +2,9 @@ import { z } from 'zod';
 import type { CareerState } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { recoverOrphanedSeasonOneRound } from './careerWeeks';
+import { generateProfessionalClubPool } from './professionalClubs';
+import { dedupePeople } from './people';
+import { RandomGenerator } from './random/RandomGenerator';
 
 export const CAREER_SAVE_VERSION = 1;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v1';
@@ -75,6 +78,20 @@ export const loadCareer = (): LoadCareerResult => {
         )
       : [];
     const player = career.player as Record<string, unknown>;
+    const attributes = player.attributes as Record<string, unknown>;
+    const fallback = Number(attributes.composure ?? 50);
+    attributes.spatialAwareness ??= Math.round((Number(attributes.vision ?? fallback) + fallback) / 2);
+    attributes.determination ??= fallback;
+    attributes.ambition ??= fallback;
+    attributes.professionalism ??= fallback;
+    career.seasonStartingAttributes ??= { ...attributes };
+    const profileRng = RandomGenerator.fromSeed(`${String(career.seed)}:development-profile`);
+    career.developmentProfile ??= { developmentType: 'normal', growthRate: profileRng.int(85, 115) / 100,
+      peakAge: 27, declineStartAge: 31, softPotential: Number(player.potential ?? 75), developmentVolatility: 12,
+      physicalPeakAge: 25, technicalPeakAge: 28, mentalPeakAge: 30 };
+    career.clubWorld ??= generateProfessionalClubPool(String(career.seed));
+    career.completedSeasons ??= [];
+    if (Array.isArray(career.significantPeople)) career.significantPeople = dedupePeople(career.significantPeople as never[]);
     if (
       Number(player.age) > 23 &&
       career.currentContract &&

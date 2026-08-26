@@ -155,10 +155,19 @@ const addIssues = (issues: { path: PropertyKey[]; message: string }[]) =>
   }, {});
 
 const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
-  const points = attributeKeys
-    .map((key, index) => {
-      const angle = -Math.PI / 2 + (Math.PI * 2 * index) / attributeKeys.length;
-      const radius = (attributes[key] / 100) * RADAR_RADIUS;
+  const axes = [
+    ['Technika', attributes.technique],
+    ['Atak', attributes.finishing * .45 + attributes.technique * .25 + attributes.composure * .3],
+    ['Kreacja', attributes.vision * .45 + attributes.technique * .25 + attributes.spatialAwareness * .3],
+    ['Mentalność', attributes.composure * .4 + attributes.spatialAwareness * .35 + attributes.determination * .25],
+    ['Charakter', attributes.leadership * .25 + attributes.determination * .3 + attributes.professionalism * .3 + attributes.ambition * .15],
+    ['Fizyczność', attributes.stamina], ['Szybkość', attributes.pace],
+    ['Obrona', attributes.defending * .7 + attributes.spatialAwareness * .3],
+  ] as const;
+  const points = axes
+    .map(([, value], index) => {
+      const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
+      const radius = (value / 100) * RADAR_RADIUS;
       return `${RADAR_CENTER + Math.cos(angle) * radius},${RADAR_CENTER + Math.sin(angle) * radius}`;
     })
     .join(' ');
@@ -180,12 +189,12 @@ const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
             stroke="rgba(255,255,255,.14)"
           />
         ))}
-        {attributeKeys.map((key, index) => {
-          const angle = -Math.PI / 2 + (Math.PI * 2 * index) / attributeKeys.length;
+        {axes.map(([label], index) => {
+          const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
           const x = RADAR_CENTER + Math.cos(angle) * RADAR_LABEL_RADIUS;
           const y = RADAR_CENTER + Math.sin(angle) * RADAR_LABEL_RADIUS;
           return (
-            <g key={key}>
+            <g key={label}>
               <line
                 x1={RADAR_CENTER}
                 y1={RADAR_CENTER}
@@ -194,7 +203,7 @@ const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
                 stroke="rgba(255,255,255,.12)"
               />
               <text x={x} y={y} textAnchor="middle">
-                {translate(`attribute.${key}`)}
+                {label}
               </text>
             </g>
           );
@@ -202,8 +211,8 @@ const RadarChart = ({ attributes }: { attributes: PlayerAttributes }) => {
         <polygon points={points} fill="rgba(68, 209, 157, .35)" stroke="#44d19d" strokeWidth="3" />
       </svg>
       <figcaption>
-        {attributeKeys
-          .map((key) => `${translate(`attribute.${key}`)} ${attributes[key]}`)
+        {axes
+          .map(([label, value]) => `${label} ${Math.round(value)}`)
           .join(', ')}
       </figcaption>
     </figure>
@@ -778,6 +787,10 @@ const attributeLabels: Record<keyof PlayerAttributes, string> = {
   defending: 'Obrona',
   leadership: 'Przywództwo',
   composure: 'Opanowanie',
+  spatialAwareness: 'Orientacja przestrzenna',
+  determination: 'Determinacja',
+  ambition: 'Ambicja',
+  professionalism: 'Profesjonalizm',
 };
 
 const SeasonEndSummary = ({

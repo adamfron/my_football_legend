@@ -4,6 +4,7 @@ import { promisingAcademyPlayerPremise } from '../content/archetypes/everyman';
 import { samplePerson } from '../content/sampleContent';
 import type { CareerState, HistoryFact, Player, PlayerAttributes } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
+import { generateProfessionalClubPool } from './professionalClubs';
 
 export const STARTING_AGE = 16;
 export const MIN_HEIGHT_CM = 155;
@@ -129,6 +130,10 @@ const attributeKeys = [
   'defending',
   'leadership',
   'composure',
+  'spatialAwareness',
+  'determination',
+  'ambition',
+  'professionalism',
 ] as const;
 export type AttributeKey = (typeof attributeKeys)[number];
 
@@ -182,6 +187,10 @@ export const generateStartingPlayerProfile = (
     defending: rollAttribute('defending'),
     leadership: rollAttribute('leadership'),
     composure: rollAttribute('composure'),
+    spatialAwareness: rollAttribute('spatialAwareness'),
+    determination: rollAttribute('determination'),
+    ambition: rollAttribute('ambition'),
+    professionalism: rollAttribute('professionalism'),
   };
   const player: Player = {
     id: `player_${
@@ -244,6 +253,8 @@ export const createCareerState = (profile: StartingPlayerProfile, seed: string):
     narrativeImportance: 45,
     emotionalTone: 'positive',
   };
+  const profileRng = RandomGenerator.fromSeed(`${seed}:development-profile`);
+  const developmentType = profileRng.pick(['early_bloomer', 'normal', 'late_bloomer'] as const);
   return {
     seed,
     currentSeason: 2026,
@@ -267,6 +278,17 @@ export const createCareerState = (profile: StartingPlayerProfile, seed: string):
     historyFacts: [firstFact],
     storyThreads: [],
     statistics: { appearances: 0, goals: 0, assists: 0, trainings: 0 },
+    developmentProfile: {
+      developmentType,
+      growthRate: profileRng.int(85, 125) / 100,
+      peakAge: developmentType === 'late_bloomer' ? profileRng.int(27, 30) : profileRng.int(23, 28),
+      declineStartAge: profileRng.int(29, 33),
+      softPotential: profile.player.potential,
+      developmentVolatility: profileRng.int(5, 22),
+      physicalPeakAge: profileRng.int(23, 27), technicalPeakAge: profileRng.int(26, 30), mentalPeakAge: profileRng.int(28, 32),
+    },
+    clubWorld: generateProfessionalClubPool(seed),
+    completedSeasons: [],
   };
 };
 
