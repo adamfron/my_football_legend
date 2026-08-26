@@ -8,12 +8,36 @@ import type {
   MatchImportance,
 } from '../types/domain';
 
-export const getProfessionalCompetitionName = (level: number) =>
-  level <= 2
-    ? 'Polska Liga Krajowa'
-    : level === 3
-      ? 'Polska Liga Regionalna'
-      : 'Polska Liga Okręgowa';
+export type ProfessionalLeagueTier = 1 | 2 | 3 | 4;
+export const clampProfessionalLeagueTier = (tier: number): ProfessionalLeagueTier =>
+  Math.max(1, Math.min(4, Math.round(tier))) as ProfessionalLeagueTier;
+export const getProfessionalCompetitionName = (tier: number) =>
+  ({
+    1: 'Polska Liga Elitarna',
+    2: 'Polska Liga Krajowa',
+    3: 'Polska Liga Regionalna',
+    4: 'Polska Liga Okręgowa',
+  })[clampProfessionalLeagueTier(tier)];
+
+export const resolveLeagueTierAfterSeason = (tier: number, position: number) => {
+  const previousLeagueTier = clampProfessionalLeagueTier(tier);
+  const nextLeagueTier = clampProfessionalLeagueTier(
+    position <= 2
+      ? previousLeagueTier - 1
+      : position >= 11
+        ? previousLeagueTier + 1
+        : previousLeagueTier,
+  );
+  const leagueOutcome =
+    position === 1 && previousLeagueTier === 1
+      ? ('champion' as const)
+      : nextLeagueTier < previousLeagueTier
+        ? ('promoted' as const)
+        : nextLeagueTier > previousLeagueTier
+          ? ('relegated' as const)
+          : ('stayed' as const);
+  return { previousLeagueTier, nextLeagueTier, leagueOutcome };
+};
 import { RandomGenerator } from './random/RandomGenerator';
 
 export const VISTULA_NOVA_ID = 'club_vistula_nova';
@@ -244,12 +268,19 @@ export const settleLeagueRound = (
   if (!next.leagueSeason.completed) return next;
   const finalPosition =
     getLeagueTable(next).find((row) => row.clubId === season.controlledClubId)?.position ?? 12;
+  const movement =
+    season.competition.category === 'professional'
+      ? resolveLeagueTierAfterSeason(season.competition.tier ?? 3, finalPosition)
+      : undefined;
   return {
     ...next,
     seasonOutcome: {
       finalPosition,
       champion: finalPosition === 1,
       competitionType: season.competition.category === 'youth' ? 'academy' : 'professional',
+      promoted: movement?.leagueOutcome === 'promoted',
+      relegated: movement?.leagueOutcome === 'relegated',
+      ...movement,
     },
   };
 };

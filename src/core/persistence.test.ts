@@ -12,6 +12,8 @@ import {
   generateStartingPlayerProfile,
   type CreatorInput,
 } from './playerCreator';
+import { generateProfessionalClubPool } from './professionalClubs';
+import { createLeagueSeason } from './leagueSeason';
 
 const input: CreatorInput = {
   firstName: 'Jan',
@@ -65,5 +67,39 @@ describe('career persistence', () => {
     const loaded = loadCareer();
     expect(loaded.ok).toBe(true);
     if (loaded.ok) expect(loaded.save.career.recentVariantKeys).toEqual(['a', 'b']);
+  });
+  it('migrates a professional save without the canonical league tier', () => {
+    const oldClub = {
+      ...generateProfessionalClubPool('save-seed')[0]!,
+      professionalLevel: 2,
+    } as Record<string, unknown>;
+    delete oldClub.leagueTier;
+    const oldCareer = career() as unknown as Record<string, unknown>;
+    oldCareer.currentSeason = 2028;
+    oldCareer.careerSeasonNumber = 3;
+    oldCareer.currentProfessionalClub = oldClub;
+    oldCareer.leagueSeason = createLeagueSeason('legacy-save', {
+      professional: true,
+      professionalLevel: 2,
+      startYear: 2028,
+    });
+    const league = oldCareer.leagueSeason as Record<string, unknown>;
+    const competition = league.competition as Record<string, unknown>;
+    delete competition.tier;
+    localStorage.setItem(
+      CAREER_SAVE_KEY,
+      JSON.stringify({
+        version: 1,
+        savedAt: new Date().toISOString(),
+        career: oldCareer,
+      }),
+    );
+
+    const loaded = loadCareer();
+    expect(loaded.ok).toBe(true);
+    if (loaded.ok) {
+      expect(loaded.save.career.currentProfessionalClub?.leagueTier).toBe(2);
+      expect(loaded.save.career.leagueSeason?.competition.name).toBe('Polska Liga Krajowa');
+    }
   });
 });

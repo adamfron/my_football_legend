@@ -8,6 +8,10 @@ import type {
 import { RandomGenerator } from './random/RandomGenerator';
 import { getPlayerOverall } from './playerOverall';
 import { getPlayerForm } from './careerWeeks';
+import { clampProfessionalLeagueTier } from './leagueSeason';
+
+export const getClubLeagueTier = (club: ProfessionalClub) =>
+  clampProfessionalLeagueTier(club.leagueTier ?? club.professionalLevel ?? 3);
 
 const names = [
   'KS Nadwiśle',
@@ -57,7 +61,9 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
       name,
       country: 'Polska',
       region: rng.pick(['Mazowsze', 'Małopolska', 'Śląsk', 'Pomorze', 'Wielkopolska']),
-      professionalLevel: strength > 68 ? 2 : strength > 55 ? 3 : 4,
+      leagueTier: clampProfessionalLeagueTier(
+        strength >= 67 ? 1 : strength >= 58 ? 2 : strength >= 49 ? 3 : 4,
+      ),
       reputation: Math.min(85, strength + rng.int(-5, 8)),
       overallStrength: strength,
       financialLevel: rng.int(28, 82),
@@ -112,6 +118,9 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
     career.player.reputation * 0.08 -
     Math.max(0, career.player.age - 29) * 1.1 -
     club.overallStrength * 0.55 -
+    Math.max(0, 3 - getClubLeagueTier(club)) *
+      Math.max(0, club.overallStrength - overall(career)) *
+      0.28 -
     (need.depth === 'deep' ? 10 : need.depth === 'thin' ? -5 : 0) +
     style;
   return { score, interested: score >= 37, need, potentialEstimate };
@@ -146,7 +155,7 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
         Math.round(
           ((1200 +
             club.financialLevel * 28 +
-            club.professionalLevel * 180 +
+            (5 - getClubLeagueTier(club)) * 180 +
             career.player.reputation * 16) *
             roleFactor) /
             100,
@@ -203,10 +212,7 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
   const appearances = currentSeasonAppearances(career);
   const minutes = appearances.reduce((sum, item) => sum + item.minutes, 0);
   const contractExpires = career.currentContract.endDate <= `${career.currentSeason + 1}-06-30`;
-  if (
-    !contractExpires ||
-    (minutes < 180 && overall(career) < career.currentProfessionalClub.overallStrength - 8)
-  )
+  if (minutes < 180 && overall(career) < career.currentProfessionalClub.overallStrength - 8)
     return external.slice(0, 4);
   const role: SquadRole =
     career.player.age <= 22 && overall(career) < career.currentProfessionalClub.overallStrength
@@ -217,15 +223,26 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
   const renewal: ProfessionalOffer = {
     id: `renewal_${career.currentClub.id}_${career.currentSeason}`,
     offerType: 'renewal',
-    club: career.currentProfessionalClub,
+    club: {
+      ...career.currentProfessionalClub,
+      leagueTier: clampProfessionalLeagueTier(
+        career.leagueSeason?.competition.tier ?? getClubLeagueTier(career.currentProfessionalClub),
+      ),
+    },
     contract: {
       ...career.currentContract,
       startDate: `${career.currentSeason + 1}-07-01`,
-      endDate: `${career.currentSeason + 3}-06-30`,
+      endDate: contractExpires
+        ? `${career.currentSeason + 3}-06-30`
+        : career.currentContract.endDate,
       squadRole: role,
       contractType: role === 'development_player' ? 'development' : 'professional',
     },
-    interestReasons: ['Klub ocenił twoją rolę na podstawie występów w bieżącym sezonie.'],
+    interestReasons: [
+      contractExpires
+        ? 'Klub proponuje przedłużenie po ocenie twoich występów.'
+        : 'Obecny kontrakt pozwala ci kontynuować pracę w klubie.',
+    ],
     opportunity: 'Kontynuacja pracy w znanym środowisku.',
     risk: 'Pozycję w składzie nadal trzeba potwierdzać formą.',
     competitionAssessment: 'Znana konkurencja w obecnym zespole',

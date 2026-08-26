@@ -137,7 +137,8 @@ export const professionalClubSchema = z.object({
   name: z.string(),
   country: z.string(),
   region: z.string(),
-  professionalLevel: z.number().int().min(1).max(5),
+  leagueTier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+  professionalLevel: z.number().int().min(1).max(5).optional(),
   reputation: score,
   overallStrength: score,
   financialLevel: score,
@@ -448,6 +449,11 @@ export const careerStateSchema = z.object({
       competitionType: z.enum(['academy', 'professional']),
       promoted: z.boolean().optional(),
       relegated: z.boolean().optional(),
+      previousLeagueTier: z
+        .union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)])
+        .optional(),
+      nextLeagueTier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]).optional(),
+      leagueOutcome: z.enum(['promoted', 'relegated', 'stayed', 'champion']).optional(),
     })
     .optional(),
   playerAvailability: z

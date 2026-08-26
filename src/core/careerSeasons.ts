@@ -1,5 +1,10 @@
 import type { CareerState, Club, HistoryFact, ProfessionalOffer } from '../types/domain';
-import { createLeagueSeason, VISTULA_NOVA_ID } from './leagueSeason';
+import {
+  clampProfessionalLeagueTier,
+  createLeagueSeason,
+  getProfessionalCompetitionName,
+  VISTULA_NOVA_ID,
+} from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
 import type { Person, RelationshipScores } from '../types/domain';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
@@ -38,7 +43,8 @@ export const initializeCareerSeason = (
   career: CareerState,
   config: CareerSeasonConfig,
 ): CareerState => {
-  const professionalLevel = career.currentProfessionalClub?.professionalLevel;
+  const professionalLevel =
+    career.currentProfessionalClub?.leagueTier ?? career.currentProfessionalClub?.professionalLevel;
   const season = createLeagueSeason(`${career.seed}:season:${config.careerSeasonNumber}`, {
     startYear: config.startYear,
     controlledClubId: config.club.id,
@@ -198,6 +204,9 @@ export const retireCareer = (career: CareerState, reason = 'decyzja zawodnika'):
   retirementAge: career.player.age,
   retirementReason: reason,
   careerPhase: 'offseason',
+  professionalOffers: undefined,
+  activeMatch: undefined,
+  decisionPoint: undefined,
   historyFacts: career.historyFacts.some((f) => f.factType === 'retired')
     ? career.historyFacts
     : [
@@ -217,7 +226,51 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   if ((career.careerStatus ?? 'active') === 'retired' || career.player.age >= 40)
     return retireCareer(career, 'limit wieku');
   const nextDate = `${career.currentSeason + 1}-07-01`;
-  let aged = applyAnnualAging(career, nextDate);
+  const movement =
+    career.seasonOutcome?.competitionType === 'professional' ? career.seasonOutcome : undefined;
+  const nextTier = clampProfessionalLeagueTier(
+    movement?.nextLeagueTier ??
+      career.currentProfessionalClub?.leagueTier ??
+      career.currentProfessionalClub?.professionalLevel ??
+      3,
+  );
+  const movementFactType =
+    movement?.leagueOutcome === 'promoted'
+      ? 'club_promoted'
+      : movement?.leagueOutcome === 'relegated'
+        ? 'club_relegated'
+        : movement?.leagueOutcome === 'champion'
+          ? 'top_tier_champion'
+          : undefined;
+  const withMovement =
+    movementFactType &&
+    !career.historyFacts.some(
+      (fact) => fact.factType === movementFactType && fact.season === career.currentSeason,
+    )
+      ? {
+          ...career,
+          historyFacts: [
+            ...career.historyFacts,
+            milestone(
+              career,
+              movementFactType,
+              `${career.currentSeason + 1}-06-30`,
+              career.currentClub.id,
+              {
+                fromTier: movement?.previousLeagueTier,
+                toTier: nextTier,
+                competition: getProfessionalCompetitionName(nextTier),
+              },
+            ),
+          ],
+        }
+      : career;
+  let aged = applyAnnualAging(withMovement, nextDate);
+  if (aged.currentProfessionalClub)
+    aged = {
+      ...aged,
+      currentProfessionalClub: { ...aged.currentProfessionalClub, leagueTier: nextTier },
+    };
   if (
     !aged.historyFacts.some(
       (f) => f.factType === 'season_completed' && f.season === career.currentSeason,
@@ -368,6 +421,9 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     historyFacts: [...career.historyFacts, ...facts],
     significantPeople: [...career.significantPeople, coach],
     relationships: { ...career.relationships, [coach.id]: coach.relationshipParameters },
+    // A transfer starts in the destination club's own tier. The previous club's
+    // promotion/relegation belongs only to that club.
+    seasonOutcome: changedClub ? undefined : career.seasonOutcome,
   };
   return advanceToNextCareerSeason(transitioned);
 };
@@ -396,7 +452,7 @@ export const continueWithProfessionalTrial = (career: CareerState): CareerState 
       name: club.name,
       country: club.country,
       region: club.region,
-      professionalLevel: 4,
+      leagueTier: 4,
       reputation: 30,
       overallStrength: 42,
       financialLevel: 25,

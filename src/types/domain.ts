@@ -262,6 +262,9 @@ export interface SeasonOutcome {
   competitionType: 'academy' | 'professional';
   promoted?: boolean | undefined;
   relegated?: boolean | undefined;
+  previousLeagueTier?: 1 | 2 | 3 | 4 | undefined;
+  nextLeagueTier?: 1 | 2 | 3 | 4 | undefined;
+  leagueOutcome?: 'promoted' | 'relegated' | 'stayed' | 'champion' | undefined;
 }
 
 export type SeasonPhase =
@@ -292,7 +295,10 @@ export interface ProfessionalClub {
   name: string;
   country: string;
   region: string;
-  professionalLevel: number;
+  /** Canonical Polish pyramid tier (1 is strongest). */
+  leagueTier: 1 | 2 | 3 | 4;
+  /** Legacy save field; new simulation code uses leagueTier. */
+  professionalLevel?: number | undefined;
   reputation: number;
   overallStrength: number;
   financialLevel: number;
