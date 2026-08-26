@@ -11,6 +11,7 @@ import {
 import type { EventResolution } from './resolveEventChoice';
 import { makePathFact, POST_PATH_COMPLETED } from './postSelectionPath';
 import { nextPostSelectionEvent } from './resolvers/postSelectionResolvers';
+import { RandomGenerator } from '../random/RandomGenerator';
 const addFact = (career: CareerState, fact: CareerState['historyFacts'][number]) =>
   career.historyFacts.some((f) => f.id === fact.id)
     ? career
@@ -29,7 +30,7 @@ export const completeAcademyWeek = (career: CareerState): CareerState => {
   const causes = career.historyFacts
     .filter((f) => f.tags.includes('academy_first_week'))
     .map((f) => f.id);
-  return addFact(
+  let completed = addFact(
     { ...career, activeEvent: undefined },
     {
       id: WEEK_COMPLETED_FACT_ID,
@@ -48,6 +49,60 @@ export const completeAcademyWeek = (career: CareerState): CareerState => {
       emotionalTone: 'bittersweet',
     },
   );
+  // New careers stay in one U-17 squad. These facts replace the obsolete senior-trial path,
+  // while old saves which already contain their detailed selection history remain untouched.
+  if (!completed.historyFacts.some((fact) => fact.factType === 'academy_selection_result'))
+    completed = addFact(completed, {
+      id: 'fact_academy_u17_role_confirmed',
+      factType: 'academy_selection_result',
+      season: completed.currentSeason,
+      date: '2026-07-07',
+      actors: [completed.player.id],
+      targets: [COACH_ID],
+      clubs: [completed.currentClub.id],
+      competitions: ['Polska Liga U-17'],
+      data: { selectionOutcome: 'academy_u17_player', teamLevel: 'academy' },
+      causes,
+      tags: ['academy_onboarding', 'u17_role'],
+      visibility: 'partial',
+      narrativeImportance: 80,
+      emotionalTone: 'positive',
+    });
+  if (!completed.historyFacts.some((fact) => fact.factType === POST_PATH_COMPLETED))
+    completed = addFact(completed, {
+      id: 'fact_academy_onboarding_completed',
+      factType: POST_PATH_COMPLETED,
+      season: completed.currentSeason,
+      date: '2026-07-07',
+      actors: [completed.player.id],
+      targets: [COACH_ID],
+      clubs: [completed.currentClub.id],
+      competitions: ['Polska Liga U-17'],
+      data: { role: 'academy_player', teamLevel: 'academy' },
+      causes: completed.historyFacts.slice(-2).map((fact) => fact.id),
+      tags: ['academy_onboarding', POST_PATH_COMPLETED],
+      visibility: 'partial',
+      narrativeImportance: 75,
+      emotionalTone: 'positive',
+    });
+  if (!completed.historyFacts.some((fact) => fact.factType === 'opening_month_role_assigned'))
+    completed = addFact(completed, {
+      id: 'fact_academy_u17_squad_role',
+      factType: 'opening_month_role_assigned',
+      season: completed.currentSeason,
+      date: '2026-07-07',
+      actors: [completed.player.id],
+      targets: [COACH_ID],
+      clubs: [completed.currentClub.id],
+      competitions: ['Polska Liga U-17'],
+      data: { role: 'academy_leader', teamLevel: 'academy' },
+      causes: completed.historyFacts.slice(-2).map((fact) => fact.id),
+      tags: ['academy_onboarding', 'u17_role'],
+      visibility: 'partial',
+      narrativeImportance: 70,
+      emotionalTone: 'positive',
+    });
+  return completed;
 };
 export const applyEventResolution = (
   career: CareerState,
@@ -177,7 +232,9 @@ export const advanceActiveEvent = (career: CareerState): CareerState => {
       : career.activeEvent.definitionId === 'academy_coach_introduction'
         ? 'academy_first_scrimmage'
         : career.activeEvent.definitionId === 'academy_first_scrimmage'
-          ? 'academy_rival_reaction'
+          ? RandomGenerator.fromSeed(`${career.seed}:academy-onboarding`).bool(0.5)
+            ? 'academy_rival_reaction'
+            : undefined
           : career.activeEvent.definitionId === 'academy_week_two_feedback'
             ? 'academy_rival_extra_session'
             : career.activeEvent.definitionId === 'academy_rival_extra_session'
@@ -191,7 +248,9 @@ export const advanceActiveEvent = (career: CareerState): CareerState => {
                     : undefined);
   const next = nextId
     ? { ...career, activeEvent: makeEventInstance(career, nextId) }
-    : career.activeEvent.definitionId === 'academy_rival_reaction'
+    : ['academy_first_scrimmage', 'academy_rival_reaction'].includes(
+          career.activeEvent.definitionId,
+        )
       ? completeAcademyWeek(career)
       : { ...career, activeEvent: undefined };
   return next;

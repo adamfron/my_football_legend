@@ -11,6 +11,8 @@ import { getCurrentHeadCoach } from './careerPresentation';
 import { getSeasonPlayerSummary } from './matchFeedback';
 import { getSeasonProgress } from './seasonProgress';
 import { settleLeagueRound, getLeagueTable } from './leagueSeason';
+import { advanceCareerWeek } from './careerWeeks';
+import { saveCareer } from './persistence';
 const career = () =>
   createCareerState(
     generateStartingPlayerProfile(
@@ -110,5 +112,13 @@ describe('professional transition', () => {
       ),
     ).toBe(true);
     expect(careerStateSchema.safeParse(next).success).toBe(true);
+    const firstVariant = next.careerCalendar?.weeks[0]?.summaryVariantKey;
+    expect(typeof firstVariant).toBe('string');
+    const afterFirstWeek = advanceCareerWeek(next);
+    const afterSecondWeek = advanceCareerWeek(afterFirstWeek);
+    expect(afterSecondWeek.careerCalendar?.currentWeekIndex).toBe(2);
+    expect(afterSecondWeek.recentVariantKeys?.every((key) => typeof key === 'string')).toBe(true);
+    expect(careerStateSchema.safeParse(afterSecondWeek).success).toBe(true);
+    expect(() => saveCareer(afterSecondWeek)).not.toThrow();
   });
 });

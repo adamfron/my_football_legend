@@ -56,6 +56,11 @@ export const loadCareer = (): LoadCareerResult => {
     career.careerSeasonNumber ??= 1;
     career.careerPhase ??= career.currentSeason === 2026 ? 'academy' : 'regular_season';
     career.careerStatus ??= 'active';
+    career.recentVariantKeys = Array.isArray(career.recentVariantKeys)
+      ? career.recentVariantKeys.filter(
+          (key): key is string => typeof key === 'string' && key.trim().length > 0,
+        )
+      : [];
     const player = career.player as Record<string, unknown>;
     if (
       Number(player.age) > 23 &&

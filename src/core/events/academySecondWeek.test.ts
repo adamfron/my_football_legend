@@ -1,23 +1,64 @@
 import { describe, expect, it } from 'vitest';
-import { createCareerState, generateStartingPlayerProfile, type CreatorInput } from '../playerCreator';
+import {
+  createCareerState,
+  generateStartingPlayerProfile,
+  type CreatorInput,
+} from '../playerCreator';
 import { advanceActiveEvent, applyEventResolution } from './applyEventResolution';
-import { initializeAcademyArc, initializeSecondAcademyWeek, RIVAL_ID } from './academyArc';
+import { initializeAcademyArc, initializeSecondAcademyWeek } from './academyArc';
 import { getEventDefinition } from './eventRegistry';
 import { resolveEventChoice } from './resolveEventChoice';
-import { getEventResolver } from './resolvers/resolverRegistry';
-import { buildRivalAcademyProfile, chooseSelectionOutcome, evaluateAcademyCandidate, selectAcademyFeedbackAttributes } from './resolvers/secondWeekResolvers';
-import { getFactPresentation } from '../narrative/factPresentation';
-import { simulateAcademySelection } from '../../devtools/academySelectionSimulation';
-const input: CreatorInput = { firstName:'Jan', lastName:'Testowy', nationality:'PL', age:16, dominantFoot:'right', customSeed:'', position:'winger', heightCm:174, weightKg:68, seed:'week2' };
-const career = (seed='week2', position: CreatorInput['position']='winger') => initializeAcademyArc(createCareerState(generateStartingPlayerProfile({...input, position}, seed, 0), seed));
-const pick = (eventId: string, decisionId: string) => getEventDefinition(eventId).decisions.find((d) => d.id === decisionId)!;
-const choose = (c: ReturnType<typeof career>, id: string) => applyEventResolution(c, resolveEventChoice(c, pick(c.activeEvent!.definitionId, id)));
-const completeFirst = (seed='week2') => { let c=choose(career(seed),'ask_team_needs'); c=advanceActiveEvent(c); c=choose(c,'play_rival'); c=advanceActiveEvent(c); c=choose(c,'share_credit'); return advanceActiveEvent(c); };
-describe('academy second week', () => {
- it('uses resolver registry and initializes idempotently only after first week', () => { expect(getEventResolver('academy_week_two_feedback')).toBeTypeOf('function'); expect(initializeSecondAcademyWeek(career('early')).activeEvent!.definitionId).toBe('academy_coach_introduction'); const first=completeFirst('start2'); const second=initializeSecondAcademyWeek(first); expect(second.activeEvent!.definitionId).toBe('academy_week_two_feedback'); expect(initializeSecondAcademyWeek(second).activeEvent!.id).toBe(second.activeEvent!.id); });
- it('selects personalized strength and weakness for position', () => { const c=completeFirst('attrs'); const attrs=selectAcademyFeedbackAttributes(c); expect(attrs.strongAttribute).not.toBe(attrs.developmentAttribute); expect(Object.keys(c.player.attributes)).toContain(attrs.strongAttribute); });
- it('persists focus, rival preparation, final assessment and response facts', () => { let c=initializeSecondAcademyWeek(completeFirst('flow')); c=choose(c,'address_weakness'); expect(c.historyFacts.some(f=>f.factType==='academy_training_focus')).toBe(true); c=advanceActiveEvent(c); c=choose(c,'train_together'); expect(c.relationships[RIVAL_ID]!.trust).toBeGreaterThan(50); c=advanceActiveEvent(c); c=choose(c,'assessment_follow_plan'); expect(c.historyFacts.some(f=>f.factType==='academy_final_assessment')).toBe(true); c=advanceActiveEvent(c); c=choose(c,'hear_selection_decision'); expect(c.historyFacts.some(f=>f.factType==='academy_selection_result')).toBe(true); c=advanceActiveEvent(c); const response = ['respond_seek_expectations','respond_request_plan'].find(id=>getEventDefinition(c.activeEvent!.definitionId).decisions.some(d=>d.id===id))!; c=choose(c,response); expect(c.historyFacts.some(f=>f.factType==='academy_selection_response')).toBe(true); c=advanceActiveEvent(c); c=choose(c,'close_second_week'); c=advanceActiveEvent(c); expect(c.historyFacts.some(f=>f.factType==='academy_second_week_completed')).toBe(true); expect(initializeSecondAcademyWeek(c).activeEvent).toBeUndefined(); });
- it('has goalkeeper final assessment choices without field-player action text', () => { initializeSecondAcademyWeek(completeFirst('gk2')); const choices=getEventDefinition('academy_final_assessment').decisions.filter(d=>d.id.startsWith('gk_assessment_')); expect(choices).toHaveLength(3); expect(choices.map(d=>d.labelKey).join(' ')).not.toContain('dribbling'); });
- it('evaluates player and rival deterministically and reaches all outcomes in simulation', () => { const c=initializeSecondAcademyWeek(completeFirst('eval')); const a=evaluateAcademyCandidate(c,{decisionId:'assessment_adapt', tier:'success'}); expect(a).toEqual(evaluateAcademyCandidate(c,{decisionId:'assessment_adapt', tier:'success'})); expect(buildRivalAcademyProfile(c)).toEqual(buildRivalAcademyProfile(c)); const report=simulateAcademySelection({ samples: 125 }); expect(Object.keys(report.outcomes).length).toBeGreaterThanOrEqual(3); expect(Object.values(report.outcomes).every(v=>v < 125*4*.9)).toBe(true); });
- it('presents second-week facts without technical text', () => { let c=initializeSecondAcademyWeek(completeFirst('present')); c=choose(c,'protect_readiness'); const presentation=getFactPresentation(c,c.historyFacts.at(-1)!); expect(presentation.summary).not.toMatch(/decisionId|snake_case|score|selectionOutcome|resolutionTier/); expect(presentation.title).toContain('Kierunek'); expect(chooseSelectionOutcome).toBeTypeOf('function'); });
+
+const input: CreatorInput = {
+  firstName: 'Jan',
+  lastName: 'Testowy',
+  nationality: 'PL',
+  age: 16,
+  dominantFoot: 'right',
+  position: 'winger',
+  heightCm: 174,
+  weightKg: 68,
+  seed: 'onboarding',
+};
+const start = (seed: string) =>
+  initializeAcademyArc(
+    createCareerState(generateStartingPlayerProfile({ ...input, seed }, seed, 0), seed),
+  );
+const chooseFirst = (career: ReturnType<typeof start>) => {
+  const choice = getEventDefinition(career.activeEvent!.definitionId).decisions[0]!;
+  return applyEventResolution(career, resolveEventChoice(career, choice));
+};
+const finish = (seed: string) => {
+  let career = start(seed);
+  let decisions = 0;
+  while (career.activeEvent) {
+    career = chooseFirst(career);
+    decisions++;
+    career = advanceActiveEvent(career);
+  }
+  return { career, decisions };
+};
+
+describe('canonical academy onboarding', () => {
+  it('finishes in two or three decisions and assigns only a U-17 role', () => {
+    for (let index = 0; index < 20; index++) {
+      const { career, decisions } = finish(`onboarding-${index}`);
+      expect(decisions).toBeGreaterThanOrEqual(2);
+      expect(decisions).toBeLessThanOrEqual(3);
+      expect(
+        career.historyFacts.find((fact) => fact.factType === 'opening_month_role_assigned')?.data,
+      ).toMatchObject({ teamLevel: 'academy' });
+      expect(
+        career.historyFacts.some((fact) => fact.factType === 'post_selection_path_completed'),
+      ).toBe(true);
+      expect(initializeSecondAcademyWeek(career).activeEvent).toBeUndefined();
+    }
+  });
+
+  it('records a canonical ambition profile and evaluates it against current ability', () => {
+    const career = chooseFirst(start('ambition-profile'));
+    const fact = career.historyFacts.find((item) => item.factType === 'academy_first_impression');
+    expect(['bold', 'balanced', 'patient']).toContain(fact?.data.ambitionProfile);
+    expect(['aspirational', 'realistic', 'understated']).toContain(fact?.data.ambitionAssessment);
+  });
 });

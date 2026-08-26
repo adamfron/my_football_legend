@@ -4,6 +4,7 @@ import { RandomGenerator } from './random/RandomGenerator';
 import type { Person, RelationshipScores } from '../types/domain';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
 import { getPlayerOverall } from './playerOverall';
+import { initializeWeekContent } from './careerWeeks';
 
 const milestone = (
   career: CareerState,
@@ -98,7 +99,7 @@ export const initializeCareerSeason = (
     completedEventIds: [],
     completed: false,
   }));
-  return {
+  const initialized: CareerState = {
     ...career,
     activeMatch: undefined,
     activeEvent: undefined,
@@ -128,6 +129,7 @@ export const initializeCareerSeason = (
     },
     seasonStartingAttributes: { ...career.player.attributes },
   };
+  return initializeWeekContent(initialized, 0);
 };
 
 export const getCareerStage = (
