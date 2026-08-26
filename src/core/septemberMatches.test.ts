@@ -17,7 +17,9 @@ import {
   startSeptemberMatch,
   TOMASZ_RADECKI_PROFILE,
   VISTULA_NOVA_PROFILE,
+  projectFixtureParticipation,
 } from './septemberMatches';
+import { initializeCareerSeason } from './careerSeasons';
 import { careerStateSchema } from '../schemas/domainSchemas';
 const input: CreatorInput = {
   firstName: 'Jan',
@@ -31,8 +33,8 @@ const input: CreatorInput = {
   weightKg: 70,
   seed: 'match-test',
 };
-const ready = () => {
-  const c = createCareerState(generateStartingPlayerProfile(input, input.seed, 0), input.seed);
+const ready = (seed = input.seed) => {
+  const c = createCareerState(generateStartingPlayerProfile({ ...input, seed }, seed, 0), seed);
   const base = c.historyFacts[0]!;
   return {
     ...c,
@@ -79,9 +81,27 @@ describe('September match engine', () => {
     expect(absent.selectionScore).toBeGreaterThan(
       evaluateSquadOpportunity(c, { ...f, availability: [] }).selectionScore,
     );
-    expect(['senior_starter', 'senior_bench', 'academy_starter', 'senior_out']).toContain(
-      fit.status,
-    );
+    expect(['academy_starter', 'academy_bench', 'no_match']).toContain(fit.status);
+  });
+  it('keeps deterministic standard U-17 careers near the intended minute share', () => {
+    const shares = Array.from({ length: 30 }, (_, index) => {
+      const base = ready(`balance-${index}`);
+      const youth = initializeCareerSeason(base, {
+        startYear: 2026,
+        careerSeasonNumber: 1,
+        club: base.currentClub,
+        professional: false,
+      });
+      const fixtures = youth.careerCalendar!.fixtures;
+      const minutes = fixtures.reduce(
+        (sum, fixture) => sum + projectFixtureParticipation(youth, fixture).plannedMinutes,
+        0,
+      );
+      return minutes / (fixtures.length * 90);
+    }).sort((a, b) => a - b);
+    const median = shares[Math.floor(shares.length / 2)]!;
+    expect(median).toBeGreaterThanOrEqual(0.4);
+    expect(median).toBeLessThanOrEqual(0.6);
   });
   it('creates no moments for zero minutes and deterministically resolves three independent impact axes', () => {
     let c = initializeSeptemberPhase(ready());

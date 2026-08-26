@@ -192,7 +192,8 @@ export const initializeCurrentCareerWeek = (career: CareerState): CareerState =>
   return initializeWeekContent(base, 0);
 };
 
-const initializeWeekContent = (career: CareerState, index: number): CareerState => {
+/** Assigns all deterministic content when a week becomes current, never at completion time. */
+export const initializeWeekContent = (career: CareerState, index: number): CareerState => {
   const calendar = career.careerCalendar;
   const week = calendar?.weeks[index];
   if (!calendar || !week || week.completed || week.summaryVariantKey) return career;
@@ -272,23 +273,26 @@ const checkpoint = (career: CareerState, month: string): MonthlyCheckpoint => {
 };
 
 export const completeCareerWeek = (career: CareerState): CareerState => {
-  const calendar = career.careerCalendar;
-  const week = getCurrentCareerWeek(career);
+  const prepared = career.careerCalendar
+    ? initializeWeekContent(career, career.careerCalendar.currentWeekIndex)
+    : career;
+  const calendar = prepared.careerCalendar;
+  const week = getCurrentCareerWeek(prepared);
   if (!calendar || !week || week.completed || (career.activeMatch && !career.activeMatch.completed))
     return career;
   const completed = { ...week, completed: true, completedEventIds: week.scheduledEventIds };
-  const facts: HistoryFact[] = career.historyFacts.some((f) => f.id === `fact_${week.id}`)
-    ? career.historyFacts
+  const facts: HistoryFact[] = prepared.historyFacts.some((f) => f.id === `fact_${week.id}`)
+    ? prepared.historyFacts
     : [
-        ...career.historyFacts,
+        ...prepared.historyFacts,
         {
           id: `fact_${week.id}`,
           factType: 'career_week_completed',
-          season: career.currentSeason,
+          season: prepared.currentSeason,
           date: week.endDate,
-          actors: [career.player.id],
+          actors: [prepared.player.id],
           targets: [],
-          clubs: [career.currentClub.id],
+          clubs: [prepared.currentClub.id],
           competitions: [],
           data: {
             fixtureIds: week.fixtureIds,
@@ -302,11 +306,16 @@ export const completeCareerWeek = (career: CareerState): CareerState => {
           emotionalTone: 'neutral',
         },
       ];
-  const recentVariantKeys = [...(career.recentVariantKeys ?? []), week.summaryVariantKey!].slice(
-    -3,
-  );
+  const recentVariantKeys = [
+    ...(prepared.recentVariantKeys ?? []).filter(
+      (key): key is string => typeof key === 'string' && key.trim().length > 0,
+    ),
+    ...(typeof week.summaryVariantKey === 'string' && week.summaryVariantKey.trim()
+      ? [week.summaryVariantKey]
+      : []),
+  ].slice(-3);
   return {
-    ...career,
+    ...prepared,
     activeMatch: undefined,
     currentDate:
       !career.currentDate || week.endDate > career.currentDate ? week.endDate : career.currentDate,

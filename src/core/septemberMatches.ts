@@ -18,7 +18,6 @@ import type {
   SquadStatus,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
-import { assignedRole } from './events/postSelectionPath';
 import { getWeeklyClubLoad } from './augustPlanning';
 import { evaluateMatchRating, normalizeTeamStats } from './matchFeedback';
 import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyles';
@@ -28,12 +27,12 @@ import { applyAppearanceConsequences } from './appearanceConsequences';
 
 export const SEPTEMBER_DATES = ['2026-09-05', '2026-09-12', '2026-09-19', '2026-09-26'] as const;
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
-  overallStrength: 56,
+  overallStrength: 52,
   positionalUnits: {
-    goalkeeper: { starterQuality: 59, backupQuality: 48, depth: 'thin' },
-    defense: { starterQuality: 57, backupQuality: 50, depth: 'normal' },
-    midfield: { starterQuality: 60, backupQuality: 53, depth: 'deep' },
-    attack: { starterQuality: 55, backupQuality: 49, depth: 'normal' },
+    goalkeeper: { starterQuality: 53, backupQuality: 45, depth: 'thin' },
+    defense: { starterQuality: 52, backupQuality: 45, depth: 'normal' },
+    midfield: { starterQuality: 54, backupQuality: 47, depth: 'normal' },
+    attack: { starterQuality: 51, backupQuality: 44, depth: 'normal' },
   },
 };
 export const TOMASZ_RADECKI_PROFILE: CoachSelectionProfile = {
@@ -200,7 +199,6 @@ export const evaluateSquadOpportunity = (
   fixture: FixtureContext,
   coach = getCurrentCoachSelectionProfile(career),
 ): { status: SquadStatus; reason: string; selectionScore: number } => {
-  const role = assignedRole(career);
   const unit = unitFor(career.player.primaryPosition);
   const competition = getCurrentClubCompetitiveProfile(career).positionalUnits[unit];
   const absence =
@@ -231,11 +229,8 @@ export const evaluateSquadOpportunity = (
     (form * coach.formSensitivity) / 400 +
     (absence === 'one_absence' ? 7 : absence === 'several_absences' ? 13 : 0) +
     (rng.float() - 0.5) * 7;
-  const seniorPath =
-    career.leagueSeason?.competition.category === 'professional' ||
-    ['senior_training_rotation', 'senior_trial_extended', 'weekly_senior_access'].includes(
-      role ?? '',
-    );
+  // Historical roles from older saves must not turn a U-17 fixture into a senior match.
+  const seniorPath = career.leagueSeason?.competition.category === 'professional';
   let status: SquadStatus;
   if (seniorPath)
     status =
@@ -246,15 +241,7 @@ export const evaluateSquadOpportunity = (
           : score >= 42
             ? 'academy_starter'
             : 'senior_out';
-  else
-    status =
-      score >= 68
-        ? 'senior_bench'
-        : score >= 48
-          ? 'academy_starter'
-          : score >= 40
-            ? 'academy_bench'
-            : 'no_match';
+  else status = score >= 45 ? 'academy_starter' : score >= 39 ? 'academy_bench' : 'no_match';
   const reason =
     absence !== 'full' && score >= 48
       ? 'Brak jednego z regularnie grających zawodników otworzył miejsce wcześniej, niż można było oczekiwać.'
