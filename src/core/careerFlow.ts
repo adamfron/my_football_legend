@@ -12,6 +12,7 @@ const hasFact = (career: CareerState, factType: string) =>
  * The persisted facts remain the source of truth, so calling this repeatedly is safe.
  */
 export const advanceCareerFlow = (career: CareerState): CareerState => {
+  if ((career.careerStatus ?? 'active') === 'retired') return career;
   if (
     career.seasonOutcome?.competitionType === 'professional' &&
     career.professionalOffers === undefined

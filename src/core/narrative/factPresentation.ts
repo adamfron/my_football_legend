@@ -104,7 +104,15 @@ export const getFactPresentation = (career: CareerState, fact: HistoryFact): Fac
     .filter(Boolean);
   const clubName = fact.clubs.includes(career.currentClub.id) ? career.currentClub.name : undefined;
   let pair: string[];
-  if (fact.factType === 'attribute_changed')
+  if (fact.factType === 'club_promoted')
+    pair = ['Awans', `Klub wywalczył awans do: ${String(fact.data.competition)}.`];
+  else if (fact.factType === 'club_relegated')
+    pair = ['Spadek', `Klub spadł do: ${String(fact.data.competition)}.`];
+  else if (fact.factType === 'top_tier_champion')
+    pair = ['Mistrz Polski', 'Klub zakończył sezon mistrzostwem Polskiej Ligi Elitarnej.'];
+  else if (fact.factType === 'retired')
+    pair = ['Koniec kariery', `Zakończyłeś karierę w wieku ${String(fact.data.age)} lat.`];
+  else if (fact.factType === 'attribute_changed')
     pair = [
       'Rozwój zawodnika',
       `${String(fact.data.attribute)}: ${String(fact.data.before)} → ${String(fact.data.after)}. Regularna praca zaczyna być widoczna w grze.`,

@@ -130,6 +130,7 @@ describe('development pipeline', () => {
           country: 'Polska',
           region: 'Mazowsze',
           professionalLevel: 3,
+          leagueTier: 3,
           reputation: 50,
           overallStrength: 50,
           financialLevel: 50,

@@ -22,6 +22,10 @@ const categories: Record<string, MilestoneCategory> = {
   transfer_completed: 'transfer',
   record_broken: 'record',
   first_professional_contract: 'transfer',
+  club_promoted: 'title',
+  club_relegated: 'career_turning_point',
+  top_tier_champion: 'title',
+  retired: 'career_turning_point',
 };
 
 export const classifyMilestone = (fact: HistoryFact): MilestoneCategory | undefined => {

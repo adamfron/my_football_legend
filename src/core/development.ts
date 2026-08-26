@@ -154,7 +154,8 @@ export const applyTrainingDevelopmentCheckpoint = (
                 club.coachYouthTrust * 0.25) /
                 55,
             ),
-          )
+          ) *
+          ({ 1: 1.1, 2: 1.05, 3: 1, 4: 0.93 }[club.leagueTier ?? club.professionalLevel ?? 3] ?? 1)
         : 0.9;
   const progress = new Map(
     (career.developmentProgress ?? []).map((item) => [item.attribute, item.progress]),

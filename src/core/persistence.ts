@@ -56,6 +56,19 @@ export const loadCareer = (): LoadCareerResult => {
     career.careerSeasonNumber ??= 1;
     career.careerPhase ??= career.currentSeason === 2026 ? 'academy' : 'regular_season';
     career.careerStatus ??= 'active';
+    const migrateProfessionalClub = (value: unknown) => {
+      if (!value || typeof value !== 'object') return;
+      const club = value as Record<string, unknown>;
+      club.leagueTier = Math.max(
+        1,
+        Math.min(4, Math.round(Number(club.leagueTier ?? club.professionalLevel ?? 3))),
+      );
+    };
+    migrateProfessionalClub(career.currentProfessionalClub);
+    if (Array.isArray(career.professionalOffers))
+      (career.professionalOffers as Array<Record<string, unknown>>).forEach((offer) =>
+        migrateProfessionalClub(offer.club),
+      );
     career.recentVariantKeys = Array.isArray(career.recentVariantKeys)
       ? career.recentVariantKeys.filter(
           (key): key is string => typeof key === 'string' && key.trim().length > 0,
@@ -103,6 +116,37 @@ export const loadCareer = (): LoadCareerResult => {
         const competition = league.competition as Record<string, unknown>;
         competition.category = 'professional';
         delete competition.ageLevel;
+        competition.tier = Math.max(
+          1,
+          Math.min(
+            4,
+            Math.round(
+              Number(
+                competition.tier ??
+                  (career.currentProfessionalClub as Record<string, unknown> | undefined)
+                    ?.leagueTier ??
+                  (career.currentProfessionalClub as Record<string, unknown> | undefined)
+                    ?.professionalLevel ??
+                  3,
+              ),
+            ),
+          ),
+        );
+        const tierNames: Record<number, string> = {
+          1: 'Polska Liga Elitarna',
+          2: 'Polska Liga Krajowa',
+          3: 'Polska Liga Regionalna',
+          4: 'Polska Liga Okręgowa',
+        };
+        competition.name = tierNames[Number(competition.tier)];
+        if (career.currentProfessionalClub && typeof career.currentProfessionalClub === 'object')
+          (career.currentProfessionalClub as Record<string, unknown>).leagueTier = competition.tier;
+        if (Array.isArray(league.clubs)) {
+          const controlled = (league.clubs as Array<Record<string, unknown>>).find(
+            (club) => club.clubId === league.controlledClubId,
+          );
+          if (controlled) controlled.name = (career.currentClub as Record<string, unknown>).name;
+        }
       }
     }
     if (career.seasonOutcome && typeof career.seasonOutcome === 'object')

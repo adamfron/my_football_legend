@@ -42,7 +42,7 @@ import {
   type PositionId,
   type StartingPlayerProfile,
 } from '../core/playerCreator';
-import { hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
+import { deleteCareer, hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
 import { hasCompletedAcademyArc, initializeSecondAcademyWeek } from '../core/events/academyArc';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { getEventDefinition } from '../core/events/eventRegistry';
@@ -78,6 +78,7 @@ import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../c
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSeason';
+import { getClubLeagueTier } from '../core/professionalClubs';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
 import {
@@ -804,9 +805,13 @@ const SeasonEndSummary = ({
       </p>
       <p>
         <strong>
-          {position === 1
-            ? `Mistrzostwo: ${career.leagueSeason?.competition.name}`
-            : `Zakończenie sezonu: ${career.leagueSeason?.competition.name}`}
+          {career.seasonOutcome?.leagueOutcome === 'promoted'
+            ? `Awans do: ${getProfessionalCompetitionName(career.seasonOutcome.nextLeagueTier ?? 3)}`
+            : career.seasonOutcome?.leagueOutcome === 'relegated'
+              ? `Spadek do: ${getProfessionalCompetitionName(career.seasonOutcome.nextLeagueTier ?? 3)}`
+              : career.seasonOutcome?.leagueOutcome === 'champion'
+                ? `Mistrzostwo: ${career.leagueSeason?.competition.name}`
+                : `Utrzymanie: ${career.leagueSeason?.competition.name}`}
         </strong>
       </p>
       <h3>Zawodnik</h3>
@@ -845,45 +850,30 @@ const SeasonEndSummary = ({
           </p>
         ))}
       <h3>{career.careerSeasonNumber === 1 ? 'Pierwsze oferty zawodowe' : 'Obecna sytuacja'}</h3>
-      {career.careerSeasonNumber >= 2 && (
-        <article className="mini-card">
-          <h4>{career.currentClub.name}</h4>
-          <p>
-            {career.leagueSeason?.competition.name} · Pozostanie w obecnym klubie / ten sam poziom
-          </p>
-          <p>
-            Kontrakt do {career.currentContract?.endDate ?? 'końca sezonu'} · rola:{' '}
-            {squadRoleLabel(
-              career.currentSportingStatus ?? career.currentContract?.squadRole ?? 'rotation',
-            )}
-          </p>
-          {career.currentContract &&
-            career.currentContract.endDate > `${career.currentSeason + 1}-06-30` && (
-              <button onClick={() => onCareer(stayAtCurrentClub(career))}>
-                Pozostań w {career.currentClub.name}
-              </button>
-            )}
-        </article>
-      )}
       {(career.professionalOffers ?? []).length ? (
         <div className="offer-grid">
           {career.professionalOffers!.map((offer) => (
             <article className="mini-card offer-card" key={offer.id}>
               <h3>{offer.club.name}</h3>
-              <p>{getProfessionalCompetitionName(offer.club.professionalLevel)}</p>
+              {offer.offerType === 'renewal' && (
+                <p>
+                  <strong>Obecny klub</strong>
+                </p>
+              )}
+              <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
               <p>
                 <strong>Poziom sportowy:</strong>{' '}
                 {offer.offerType === 'renewal'
                   ? 'Pozostanie w obecnym klubie / ten sam poziom'
                   : describeLeagueLevelChange(
-                      career.currentProfessionalClub?.professionalLevel ??
-                        career.leagueSeason?.competition.tier ??
-                        offer.club.professionalLevel,
-                      offer.club.professionalLevel,
+                      career.currentProfessionalClub
+                        ? getClubLeagueTier(career.currentProfessionalClub)
+                        : (career.leagueSeason?.competition.tier ?? getClubLeagueTier(offer.club)),
+                      getClubLeagueTier(offer.club),
                     )}
               </p>
               <p>
-                {offer.club.professionalLevel <= 2
+                {getClubLeagueTier(offer.club) <= 2
                   ? 'Ambitny klub zawodowy'
                   : 'Solidny klub zawodowy'}
               </p>
@@ -914,7 +904,7 @@ const SeasonEndSummary = ({
                 <strong>Ryzyko:</strong> {offer.risk}
               </p>
               <button onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}>
-                Podpisz kontrakt
+                {offer.offerType === 'renewal' ? 'Pozostań w klubie' : 'Podpisz kontrakt'}
               </button>
             </article>
           ))}
@@ -1428,6 +1418,70 @@ const SeptemberGame = ({
   );
 };
 
+const RetiredCareerSummary = ({
+  career,
+  onHistory,
+  onNewCareer,
+}: {
+  career: CareerState;
+  onHistory: () => void;
+  onNewCareer: () => void;
+}) => {
+  const appearances = career.matchHistory ?? [];
+  const totals = appearances.reduce(
+    (sum, match) => ({
+      appearances: sum.appearances + (match.minutes > 0 ? 1 : 0),
+      starts: sum.starts + (match.started ? 1 : 0),
+      minutes: sum.minutes + match.minutes,
+      goals: sum.goals + match.goals,
+      assists: sum.assists + match.assists,
+    }),
+    { appearances: 0, starts: 0, minutes: 0, goals: 0, assists: 0 },
+  );
+  const milestones = getCareerMilestones(career).filter((item) =>
+    ['club_promoted', 'club_relegated', 'top_tier_champion', 'retired'].includes(
+      item.fact.factType,
+    ),
+  );
+  return (
+    <section className="panel retirement-summary">
+      <p>KARIERA ZAKOŃCZONA</p>
+      <h1>Koniec kariery</h1>
+      <h2>
+        {career.player.firstName} {career.player.lastName}
+      </h2>
+      <p>Wiek zakończenia kariery: {career.retirementAge ?? career.player.age}</p>
+      <p>
+        Sezony: {career.careerSeasonNumber} · Pierwszy klub: Vistula Nova · Ostatni klub:{' '}
+        {career.currentClub.name}
+      </p>
+      <h3>Bilans kariery</h3>
+      <p>
+        Występy: {totals.appearances} · starty: {totals.starts} · minuty: {totals.minutes}
+      </p>
+      <p>
+        Gole: {totals.goals} · asysty: {totals.assists}
+      </p>
+      <p>
+        Najwyższy OVR:{' '}
+        {career.highestOVR ?? getPlayerOverall(career.player, career.player.primaryPosition)}
+      </p>
+      {milestones.length > 0 && (
+        <>
+          <h3>Najważniejsze osiągnięcia</h3>
+          {milestones.map(({ fact }) => (
+            <p key={fact.id}>{getFactPresentation(career, fact)?.title ?? fact.factType}</p>
+          ))}
+        </>
+      )}
+      <div className="tabs">
+        <button onClick={onHistory}>Historia kariery</button>
+        <button onClick={onNewCareer}>Nowa kariera</button>
+      </div>
+    </section>
+  );
+};
+
 export const App = () => {
   const devtoolsEnabled = isDevToolsEnabled();
   const tabs = devtoolsEnabled ? [...baseTabs, devtoolsTab] : baseTabs;
@@ -1488,6 +1542,14 @@ export const App = () => {
     setSeed('');
     clearVariants();
   };
+  const resetCareer = () => {
+    deleteCareer();
+    setCareer(null);
+    setView('creator');
+    setStep(0);
+    setSeed('');
+    clearVariants();
+  };
   const continueCareer = () => {
     const loaded = loadCareer();
     if (loaded.ok) {
@@ -1539,6 +1601,17 @@ export const App = () => {
     updateCareer(createCareerState(generated, seed));
     setView('career');
   };
+
+  if (view === 'career' && career && career.careerStatus === 'retired' && active !== 'history')
+    return (
+      <main className="shell">
+        <RetiredCareerSummary
+          career={career}
+          onHistory={() => setActive('history')}
+          onNewCareer={resetCareer}
+        />
+      </main>
+    );
 
   if (view === 'career' && career)
     return (

@@ -38,9 +38,9 @@ export const clubArchetypeLabel = (archetype: ClubArchetype) =>
 /** Player-facing comparison: league level 1 is the highest, but raw levels stay hidden. */
 export const describeLeagueLevelChange = (currentLevel: number, destinationLevel: number) => {
   const difference = currentLevel - destinationLevel;
-  if (difference === 0) return 'ten sam poziom';
+  if (difference === 0) return '— ten sam poziom';
   const count = Math.abs(difference);
   return difference > 0
-    ? `o ${count} ${count === 1 ? 'ligę' : 'ligi'} wyżej ↑`
-    : `o ${count} ${count === 1 ? 'ligę' : 'ligi'} niżej ↓`;
+    ? `↑ ${count === 1 ? 'liga wyżej' : `${count} poziomy wyżej`}`
+    : `↓ ${count === 1 ? 'liga niżej' : `${count} poziomy niżej`}`;
 };
