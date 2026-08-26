@@ -205,6 +205,29 @@ select {
   position: absolute;
   left: -9999px;
 }
+.radar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+.radar-legend strong {
+  color: #44d19d;
+}
+.compact-fixture-list {
+  display: grid;
+  gap: 0.25rem;
+}
+.compact-fixture-row {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(10rem, 1fr) 3rem minmax(12rem, 1.2fr);
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
 .attrs {
   list-style: none;
   padding: 0;
@@ -462,6 +485,12 @@ small {
   border-radius: 8px;
 }
 @media (max-width: 650px) {
+  .compact-fixture-row {
+    grid-template-columns: 4rem 1fr 2.5rem;
+  }
+  .compact-fixture-row span:last-child {
+    grid-column: 2 / -1;
+  }
   .match-score {
     gap: 0.55rem;
   }

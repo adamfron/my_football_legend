@@ -152,6 +152,81 @@ describe('September match engine', () => {
     expect(spy).not.toHaveBeenCalled();
     spy.mockRestore();
   });
+  it('gives every declared decision a meaningful legal transition', () => {
+    const base = startSeptemberMatch(initializeSeptemberPhase(ready('all-decisions')));
+    for (const definition of MATCH_MOMENT_LIBRARY) {
+      for (const decision of definition.decisions) {
+        const moment = {
+          definitionId: definition.id,
+          minute: 68,
+          scoreFor: 0,
+          scoreAgainst: 0,
+          description: 'test',
+        };
+        const before = {
+          ...base,
+          activeMatch: {
+            ...base.activeMatch!,
+            moments: [moment],
+            currentMoment: moment,
+            resolvedMoments: [],
+            completed: false,
+          },
+        };
+        const after = resolveMatchDecision(before, decision.id);
+        expect(after.activeMatch, `${definition.id}/${decision.id}`).not.toEqual(
+          before.activeMatch,
+        );
+        expect(
+          after.activeMatch?.completed || after.activeMatch?.resolvedMoments.length === 1,
+        ).toBe(true);
+      }
+    }
+  });
+  it('completes a deterministic fuzz-like sample below the transition guard', () => {
+    for (let seed = 0; seed < 60; seed++) {
+      let career = startSeptemberMatch(initializeSeptemberPhase(ready(`fuzz-${seed}`)));
+      let actions = 0;
+      while (career.activeMatch && !career.activeMatch.completed && actions++ < 20) {
+        const definition = MATCH_MOMENT_LIBRARY.find(
+          (item) => item.id === career.activeMatch?.currentMoment?.definitionId,
+        );
+        career = definition
+          ? resolveMatchDecision(
+              career,
+              definition.decisions[seed % definition.decisions.length]!.id,
+            )
+          : advanceMatch(career);
+      }
+      expect(
+        career.activeMatch?.completed,
+        `seed=${seed} minute=${career.activeMatch?.currentMinute} moment=${career.activeMatch?.currentMoment?.definitionId}`,
+      ).toBe(true);
+      expect(actions).toBeLessThan(20);
+    }
+  });
+  it('recovers a missing moment definition instead of softlocking', () => {
+    const base = startSeptemberMatch(initializeSeptemberPhase(ready('stale')));
+    const stale = {
+      definitionId: 'removed_content',
+      minute: 68,
+      scoreFor: 0,
+      scoreAgainst: 0,
+      description: 'stale',
+    };
+    const career = {
+      ...base,
+      activeMatch: {
+        ...base.activeMatch!,
+        moments: [stale],
+        currentMoment: stale,
+        resolvedMoments: [],
+        completed: false,
+      },
+    };
+    const next = resolveMatchDecision(career, 'old_decision');
+    expect(next.activeMatch?.completed).toBe(true);
+  });
   it('keeps a canonical 3:0 ledger through the result and history', () => {
     let c = startSeptemberMatch(initializeSeptemberPhase(ready()));
     const match = c.activeMatch!;
