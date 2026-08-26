@@ -10,6 +10,9 @@ import type { Person, RelationshipScores } from '../types/domain';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
 import { getPlayerOverall } from './playerOverall';
 import { initializeWeekContent } from './careerWeeks';
+import { createCompletedSeasonSnapshot } from './seasonArchive';
+import { generateProfessionalClubPool } from './professionalClubs';
+import { rollOverClubWorld } from './clubWorld';
 
 const milestone = (
   career: CareerState,
@@ -52,6 +55,18 @@ export const initializeCareerSeason = (
     professional: config.professional,
     ...(professionalLevel !== undefined ? { professionalLevel } : {}),
   });
+  if (config.professional) {
+    const world = career.clubWorld ?? generateProfessionalClubPool(career.seed);
+    const tierClubs = world.filter(c => c.leagueTier === (professionalLevel ?? 3));
+    const selected = tierClubs.some(c => c.id === config.club.id) ? tierClubs : [career.currentProfessionalClub!, ...tierClubs.filter(c => c.id !== config.club.id)].slice(0, 12);
+    const replacements = new Map(season.clubs.map((club, index) => [club.clubId, selected[index]]));
+    season.clubs = season.clubs.map(club => { const source = replacements.get(club.clubId); return source ? { clubId: source.id, name: source.name, strength: source.overallStrength, attackStrength: source.overallStrength, defenseStrength: source.overallStrength, form: 0 } : club; });
+    season.rounds = season.rounds.map(round => ({ ...round, fixtures: round.fixtures.map(fixture => ({ ...fixture,
+      homeClubId: replacements.get(fixture.homeClubId)?.id ?? fixture.homeClubId,
+      awayClubId: replacements.get(fixture.awayClubId)?.id ?? fixture.awayClubId })) }));
+    season.controlledClubId = config.club.id;
+    season.clubIds = season.clubs.map(c => c.clubId);
+  }
   season.clubs = season.clubs.map((c) =>
     c.clubId === VISTULA_NOVA_ID ? { ...c, clubId: config.club.id, name: config.club.name } : c,
   );
@@ -226,8 +241,10 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   if ((career.careerStatus ?? 'active') === 'retired' || career.player.age >= 40)
     return retireCareer(career, 'limit wieku');
   const nextDate = `${career.currentSeason + 1}-07-01`;
-  const movement =
-    career.seasonOutcome?.competitionType === 'professional' ? career.seasonOutcome : undefined;
+  const snapshot = career.leagueSeason?.completed ? createCompletedSeasonSnapshot(career) : undefined;
+  const archivedCareer: CareerState = snapshot ? { ...career, completedSeasons: [...(career.completedSeasons ?? []), snapshot] } : career;
+  career = archivedCareer;
+  const movement = career.seasonOutcome?.competitionType === 'professional' ? career.seasonOutcome : undefined;
   const nextTier = clampProfessionalLeagueTier(
     movement?.nextLeagueTier ??
       career.currentProfessionalClub?.leagueTier ??
@@ -266,6 +283,11 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
         }
       : career;
   let aged = applyAnnualAging(withMovement, nextDate);
+  if (aged.clubWorld && movement) {
+    const world = rollOverClubWorld(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`);
+    const current = world.find(c => c.id === aged.currentClub.id);
+    aged = { ...aged, clubWorld: world, ...(current ? { currentProfessionalClub: current } : {}) };
+  }
   if (aged.currentProfessionalClub)
     aged = {
       ...aged,

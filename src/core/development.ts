@@ -16,6 +16,10 @@ const keys = Object.keys({
   defending: 0,
   leadership: 0,
   composure: 0,
+  spatialAwareness: 0,
+  determination: 0,
+  ambition: 0,
+  professionalism: 0,
 }) as (keyof PlayerAttributes)[];
 const weights = (a: MatchAppearance): Record<keyof PlayerAttributes, number> => ({
   technique: 1 + a.keyPasses * 0.25,
@@ -26,6 +30,10 @@ const weights = (a: MatchAppearance): Record<keyof PlayerAttributes, number> => 
   defending: 1 + a.defensiveActions * 0.3,
   leadership: 0.45 + (a.started ? 0.35 : 0),
   composure: 1 + a.goals + a.assists * 0.5,
+  spatialAwareness: 1 + a.keyPasses * 0.25 + a.goals * 0.3,
+  determination: 0.12,
+  ambition: 0.06,
+  professionalism: 0.1,
 });
 const ageMultiplier = (age: number) =>
   age <= 18 ? 1.65 : age <= 21 ? 1.4 : age <= 24 ? 1.05 : age <= 27 ? 0.68 : age <= 30 ? 0.3 : 0.08;
@@ -37,6 +45,8 @@ export const applyDevelopmentCheckpoint = (
   const rng = RandomGenerator.fromSeed(`${career.seed}:development:${appearance.matchId}`);
   const w = weights(appearance);
   const mean = getPlayerOverall(career.player, career.player.primaryPosition);
+  const profile = career.developmentProfile;
+  const character = (career.player.attributes.professionalism * 0.45 + career.player.attributes.determination * 0.4 + career.player.attributes.ambition * 0.15) / 50;
   const potentialFactor = Math.max(
     0.25,
     Math.min(1.35, (career.player.potential - mean + 12) / 30),
@@ -56,7 +66,7 @@ export const applyDevelopmentCheckpoint = (
         ageMultiplier(career.player.age) *
         potentialFactor *
         ceilingFactor *
-        injuryFactor *
+        injuryFactor * character * (profile?.growthRate ?? 1) *
         (0.82 + rng.float() * 0.36);
     while (progress >= 100 && attrs[key] < 100) {
       const before = attrs[key];
@@ -95,11 +105,11 @@ export const applyDevelopmentCheckpoint = (
 
 const positionFocus: Record<string, Array<keyof PlayerAttributes>> = {
   goalkeeper: ['composure', 'vision', 'leadership', 'technique'],
-  center_back: ['defending', 'composure', 'stamina', 'leadership'],
+  center_back: ['defending', 'spatialAwareness', 'composure', 'stamina', 'leadership'],
   defensive_midfielder: ['defending', 'vision', 'composure', 'stamina'],
   central_midfielder: ['vision', 'technique', 'stamina', 'composure'],
   winger: ['pace', 'technique', 'vision', 'finishing'],
-  striker: ['finishing', 'composure', 'technique', 'pace'],
+  striker: ['finishing', 'spatialAwareness', 'composure', 'technique', 'pace'],
 };
 
 /** Deterministic monthly training growth; appearances remain a separate experience bonus. */
