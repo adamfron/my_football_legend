@@ -15,8 +15,7 @@ import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
 import { applyAppearanceConsequences } from './appearanceConsequences';
 import {
-  evaluateSquadOpportunity,
-  getCurrentCoachSelectionProfile,
+  projectFixtureParticipation,
   startFixtureMatch,
 } from './septemberMatches';
 import {
@@ -76,7 +75,11 @@ const playerGroup = (position: string) =>
         ? 'midfielder'
         : 'attacker';
 
-export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture): CareerState => {
+export const simulateRoutinePlayerMatch = (
+  career: CareerState,
+  fixture: Fixture,
+  projected = projectFixtureParticipation(career, fixture),
+): CareerState => {
   if (
     (career.matchHistory ?? []).some(
       (appearance) =>
@@ -84,26 +87,17 @@ export const simulateRoutinePlayerMatch = (career: CareerState, fixture: Fixture
     )
   )
     return career;
-  const fixtureIndex =
-    career.leagueSeason?.rounds.findIndex((round) =>
-      round.fixtures.some((item) => item.id === fixture.id),
-    ) ?? 0;
-  const rng = RandomGenerator.fromSeed(`${career.seed}:quick-player:${fixture.id}`);
-  const selection = evaluateSquadOpportunity(
-    career,
-    { fixtureIndex, opponent: fixture.opponent, venue: fixture.venue },
-    getCurrentCoachSelectionProfile(career),
+  const rng = RandomGenerator.fromSeed(
+    `${career.seed}:${career.currentSeason}:quick-player:${fixture.id}`,
   );
   const availability = getPlayerAvailability(career, fixture.date);
   if (!availability.available) return consumeUnavailableRound(career, fixture.date);
-  const started = selection.status.endsWith('starter');
-  const bench = selection.status.endsWith('bench');
-  const played = started || (bench && rng.bool(0.68));
-  const minutes = !played ? 0 : started ? rng.int(64, 90) : rng.int(8, 34);
+  const started = projected.started;
+  const minutes = projected.plannedMinutes;
   const teamLevel =
     career.leagueSeason?.competition.category === 'professional' || career.careerSeasonNumber >= 2
       ? 'senior'
-      : selection.status.startsWith('senior')
+      : projected.teamLevel === 'senior'
         ? 'senior'
         : 'academy';
   const quality =
@@ -267,31 +261,19 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
       const roundIndex =
         career.leagueSeason?.rounds.findIndex((r) => r.fixtures.some((f) => f.id === fixture.id)) ??
         0;
-      const opportunity = evaluateSquadOpportunity(
-        career,
-        { fixtureIndex: roundIndex, opponent: fixture.opponent, venue: fixture.venue },
-        getCurrentCoachSelectionProfile(career),
-      );
-      const available = getPlayerAvailability(career, fixture.date).available;
+      const projection = projectFixtureParticipation(career, fixture);
       const expected = {
-        teamLevel:
-          career.leagueSeason?.competition.category === 'professional'
-            ? ('senior' as const)
-            : opportunity.status.startsWith('senior')
-              ? ('senior' as const)
-              : ('academy' as const),
-        started: opportunity.status.endsWith('starter'),
-        willPlay:
-          available &&
-          (opportunity.status.endsWith('starter') || opportunity.status.endsWith('bench')),
+        teamLevel: projection.teamLevel,
+        started: projection.started,
+        willPlay: projection.willPlay,
       };
       const importance = evaluateMatchImportance(career, fixture, expected);
-      if (importance !== 'routine')
+      if (importance !== 'routine' && projection.willPlay)
         return {
           ...startFixtureMatch(career, { ...fixture, matchImportance: importance }),
           decisionPoint: { type: 'important_match', date: fixture.date, sourceId: fixture.id },
         };
-      career = simulateRoutinePlayerMatch(career, fixture);
+      career = simulateRoutinePlayerMatch(career, fixture, projection);
       const appearance = career.matchHistory?.find((a) => a.matchId === fixture.id);
       career = settleLeagueRound(career, roundIndex, appearance ? undefined : undefined);
       career = {
@@ -323,7 +305,6 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
       };
     const before = career.careerCalendar?.currentWeekIndex;
     career = advanceCareerWeek(career);
-    if (career.careerCalendar?.currentWeekIndex === before) break;
     if (career.leagueSeason?.completed)
       return {
         ...career,
@@ -333,6 +314,10 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
           sourceId: career.leagueSeason.id,
         },
       };
+    if (career.careerCalendar?.currentWeekIndex === before)
+      throw new Error(
+        `Career progression stalled at week ${before} in season ${career.currentSeason}; the week did not advance and the league is not complete.`,
+      );
   }
   const current = getCurrentCareerWeek(career);
   return {
