@@ -62,24 +62,23 @@ describe('reusable career week loop', () => {
     expect(first.careerCalendar?.weeks.some((week) => week.fixtureIds.length === 0)).toBe(true);
     expect(first.careerCalendar?.weeks.some((week) => week.fixtureIds.length > 0)).toBe(true);
   });
-  it('migrates September into four complete and balanced senior rounds', () => {
+  it('starts season one at round zero without a September bootstrap', () => {
     const state = initializeCurrentCareerWeek(career('migration'));
-    expect(state.leagueSeason?.currentRound).toBe(4);
+    expect(state.leagueSeason?.currentRound).toBe(0);
+    expect(state.leagueSeason?.rounds.every((round) => !round.completed)).toBe(true);
     expect(
       state.leagueSeason?.rounds
-        .slice(0, 4)
-        .every((round) => round.completed && round.fixtures.every((fixture) => fixture.completed)),
+        .flatMap((round) => round.fixtures)
+        .every((fixture) => !fixture.completed),
     ).toBe(true);
-    const played = state.leagueSeason!.clubIds.map(
-      (clubId) =>
-        state
-          .leagueSeason!.rounds.flatMap((round) => round.fixtures)
-          .filter(
-            (fixture) =>
-              fixture.completed && [fixture.homeClubId, fixture.awayClubId].includes(clubId),
-          ).length,
+    expect(state.matchHistory).toEqual(career('migration').matchHistory);
+    const firstFixture = state.careerCalendar!.fixtures[0]!;
+    const firstFixtureWeek = state.careerCalendar!.weeks.find((week) =>
+      week.fixtureIds.includes(firstFixture.id),
     );
-    expect(new Set(played)).toEqual(new Set([4]));
+    expect(firstFixtureWeek).toBeDefined();
+    expect(firstFixtureWeek!.startDate <= firstFixture.date).toBe(true);
+    expect(firstFixture.date).toBe(state.leagueSeason!.rounds[0]!.date);
   });
   it('crosses month boundaries and advances twelve weeks without duplicates', () => {
     let state = initializeCurrentCareerWeek(career());
@@ -104,10 +103,11 @@ describe('reusable career week loop', () => {
     expect(decisions.some(Boolean)).toBe(true);
     expect(decisions.some((value) => !value)).toBe(true);
   });
-  it('assigns every post-prologue fixture to exactly one week without a date gap', () => {
+  it('assigns all 22 full-season fixtures once without a prologue gap', () => {
     const state = initializeCurrentCareerWeek(career('coverage'));
     const fixtures = state.careerCalendar!.fixtures;
-    expect(fixtures).toHaveLength(18);
+    expect(fixtures).toHaveLength(22);
+    expect(new Set(fixtures.map((fixture) => fixture.id)).size).toBe(22);
     for (const fixture of fixtures) {
       const containing = state.careerCalendar!.weeks.filter(
         (week) => fixture.date >= week.startDate && fixture.date <= week.endDate,
@@ -115,8 +115,8 @@ describe('reusable career week loop', () => {
       expect(containing).toHaveLength(1);
       expect(containing[0]!.fixtureIds).toContain(fixture.id);
     }
-    expect(fixtures[0]!.date).toBe('2026-10-03');
-    expect(state.careerCalendar!.weeks[0]!.fixtureIds).toContain(fixtures[0]!.id);
+    expect(fixtures[0]!.date).toBe(state.leagueSeason!.rounds[0]!.date);
+    expect(fixtures[0]!.date >= state.careerCalendar!.weeks[0]!.startDate).toBe(true);
     expect(auditCareerSeason(state).unassignedFixtures).toEqual([]);
   });
 

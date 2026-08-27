@@ -285,6 +285,20 @@ export const settleLeagueRound = (
       completed: rounds.every((item) => item.completed),
     },
   };
+  const controlledFixture = fixtures.find((fixture) =>
+    [fixture.homeClubId, fixture.awayClubId].includes(season.controlledClubId),
+  );
+  if (controlledFixture?.completed) {
+    next.seasonParticipation = (next.seasonParticipation ?? []).map((record) =>
+      record.fixtureId === controlledFixture.id
+        ? {
+            ...record,
+            fixtureStatus: 'completed' as const,
+            score: { home: controlledFixture.homeGoals!, away: controlledFixture.awayGoals! },
+          }
+        : record,
+    );
+  }
   if (!next.leagueSeason.completed) return next;
   const finalPosition =
     getLeagueTable(next).find((row) => row.clubId === season.controlledClubId)?.position ?? 12;

@@ -80,7 +80,12 @@ import {
   resolveMatchDecision,
   startSeptemberMatch,
 } from '../core/septemberMatches';
-import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
+import {
+  advanceCareerWeek,
+  getCurrentCareerWeek,
+  getCurrentFixture,
+  initializeCurrentCareerWeek,
+} from '../core/careerWeeks';
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSeason';
@@ -88,6 +93,7 @@ import { getClubLeagueTier } from '../core/professionalClubs';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
 import { getInjuryDescription } from '../core/seasonParticipation';
+import { MATCH_EFFORT_LABELS, TRAINING_EFFORT_LABELS } from '../core/playerPreferences';
 import {
   acceptProfessionalOffer,
   continueWithProfessionalTrial,
@@ -107,13 +113,7 @@ import {
   getRegularSeasonEvent,
   resolveRegularSeasonEvent,
 } from '../core/events/regularSeasonEvents';
-import type {
-  CareerState,
-  EventDecision,
-  Person,
-  PlayerAttributes,
-  RelationshipScores,
-} from '../types/domain';
+import type { CareerState, EventDecision, Person, PlayerAttributes } from '../types/domain';
 import { getMatchTransitionHistory, isDevToolsEnabled, recordMatchTransition } from './devTools';
 import './App.css';
 
@@ -123,7 +123,6 @@ const baseTabs = [
   ['player', 'nav.player'],
   ['club', 'nav.club'],
   ['season', 'nav.season'],
-  ['relationships', 'nav.relationships'],
   ['history', 'nav.history'],
 ] as const;
 const devtoolsTab = ['devtools', 'nav.devtools'] as const;
@@ -300,18 +299,6 @@ const FieldError = ({ errors }: { errors?: string[] | undefined }) =>
   )) ?? null;
 
 const resultText = (outcome: unknown) => translate(`events.result.${String(outcome)}`);
-const relationshipLabel = (scores: RelationshipScores) =>
-  scores.resentment > 55
-    ? translate('relationships.tense_resentment')
-    : scores.rivalry > 55
-      ? translate('relationships.rising_rivalry')
-      : scores.gratitude > 55
-        ? translate('relationships.gratitude')
-        : scores.respect > 60
-          ? translate('relationships.strong_respect')
-          : scores.trust > 55
-            ? translate('relationships.cautious_trust')
-            : translate('relationships.neutral');
 const visibleDecisions = (career: CareerState, decisions: EventDecision[]) => {
   const outcome = career.historyFacts.find((f) => f.factType === 'academy_selection_result')?.data
     .selectionOutcome;
@@ -382,49 +369,6 @@ const relationshipRole = (career: CareerState, person: Person) =>
     : person.role === 'academy_rival' && career.careerSeasonNumber > 1
       ? 'Były konkurent z akademii'
       : translate(`relationships.role.${person.role}`);
-const relationshipDynamic = (career: CareerState, person: Person, scores: RelationshipScores) =>
-  person.role === 'coach' && person.clubId !== career.currentClub.id
-    ? 'Wasza relacja pozostała z poprzedniego etapu kariery.'
-    : person.role === 'coach'
-      ? 'Trener przygląda ci się z ostrożnym zainteresowaniem.'
-      : scores.resentment > 50
-        ? 'Rozmowa po treningu pozostawiła między wami chłód.'
-        : scores.gratitude > 55
-          ? `${person.firstName} pamięta, że podzieliłeś się z nim uznaniem.`
-          : scores.rivalry > 50
-            ? 'Rywalizacja nabiera wyraźnego charakteru.'
-            : scores.trust > 55
-              ? 'Między wami pojawia się pierwsze wzajemne zaufanie.'
-              : 'Relacja dopiero nabiera kształtu.';
-const RelationshipCard = ({ career, person }: { career: CareerState; person: Person }) => {
-  const scores = career.relationships[person.id] ?? person.relationshipParameters;
-  const lastFact = [...career.historyFacts]
-    .reverse()
-    .find((f) => f.actors.includes(person.id) || f.targets.includes(person.id));
-  const presentation = lastFact ? getFactPresentation(career, lastFact) : undefined;
-  return (
-    <article className="mini-card relation-card">
-      <PersonAvatar
-        seed={person.faceSeed}
-        firstName={person.firstName}
-        lastName={person.lastName}
-        age={person.age}
-      />
-      <h3>
-        {person.firstName} {person.lastName}
-      </h3>
-      <p>{relationshipRole(career, person)}</p>
-      <strong>{relationshipLabel(scores)}</strong>
-      <p>{relationshipDynamic(career, person, scores)}</p>
-      <p>
-        {presentation
-          ? `Ostatnio: ${presentation.summary}`
-          : 'Ostatnie istotne wydarzenie dopiero się pojawi.'}
-      </p>
-    </article>
-  );
-};
-
 const prestigeLabel = (prestige: number) =>
   prestige < 25
     ? 'klub lokalny'
@@ -701,10 +645,7 @@ const CareerWeekGame = ({
               : item.homeClubId),
         )?.name ?? 'Rywal',
       venue: item.homeClubId === career.leagueSeason!.controlledClubId ? 'home' : 'away',
-      appearance: career.matchHistory?.find(
-        (match) => match.matchId === item.id || match.matchId === `academy_${item.id}`,
-      ),
-      participation: career.seasonParticipation?.find((record) => record.fixtureId === item.id),
+      participation: career.seasonParticipation!.find((record) => record.fixtureId === item.id)!,
     }));
   if (!week || career.leagueSeason?.completed)
     return <SeasonEndSummary career={career} onCareer={onCareer} />;
@@ -867,9 +808,7 @@ const SeasonEndSummary = ({
               : fixture.homeClubId),
         )?.name ?? 'Rywal',
       venue: fixture.homeClubId === career.leagueSeason!.controlledClubId ? 'home' : 'away',
-      appearance: archived.fixtures.find(
-        (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
-      ),
+      participation: archived.fixtures.find((item) => item.fixtureId === fixture.id)!,
     }));
   return (
     <section>
@@ -1082,10 +1021,7 @@ const SeasonView = ({ career }: { career: CareerState }) => {
       fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId,
     ),
     venue: fixture.homeClubId === controlledClubId ? 'home' : 'away',
-    appearance: career.matchHistory?.find(
-      (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
-    ),
-    participation: career.seasonParticipation?.find((item) => item.fixtureId === fixture.id),
+    participation: career.seasonParticipation!.find((item) => item.fixtureId === fixture.id)!,
   }));
   return (
     <section>
@@ -1493,14 +1429,14 @@ const RetiredCareerSummary = ({
   onHistory: () => void;
   onNewCareer: () => void;
 }) => {
-  const appearances = career.matchHistory ?? [];
-  const totals = appearances.reduce(
-    (sum, match) => ({
-      appearances: sum.appearances + (match.minutes > 0 ? 1 : 0),
-      starts: sum.starts + (match.started ? 1 : 0),
-      minutes: sum.minutes + match.minutes,
-      goals: sum.goals + match.goals,
-      assists: sum.assists + match.assists,
+  const seasons = career.completedSeasons ?? [];
+  const totals = seasons.reduce(
+    (sum, season) => ({
+      appearances: sum.appearances + season.player.appearances,
+      starts: sum.starts + season.player.starts,
+      minutes: sum.minutes + season.player.minutes,
+      goals: sum.goals + season.player.goals,
+      assists: sum.assists + season.player.assists,
     }),
     { appearances: 0, starts: 0, minutes: 0, goals: 0, assists: 0 },
   );
@@ -1528,6 +1464,47 @@ const RetiredCareerSummary = ({
       <p>
         Gole: {totals.goals} · asysty: {totals.assists}
       </p>
+      <h3>Ścieżka kariery</h3>
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sezon</th>
+              <th>Wiek</th>
+              <th>Klub</th>
+              <th>Liga</th>
+              <th>Miejsce</th>
+              <th>Wyst.</th>
+              <th>Starty</th>
+              <th>Min.</th>
+              <th>G/A</th>
+              <th>Ocena</th>
+              <th>OVR</th>
+            </tr>
+          </thead>
+          <tbody>
+            {seasons.map((season) => (
+              <tr key={season.seasonId}>
+                <td>{season.label}</td>
+                <td>{season.age}</td>
+                <td>{season.clubName}</td>
+                <td>{season.leagueName}</td>
+                <td>{season.clubFinish}.</td>
+                <td>{season.player.appearances}</td>
+                <td>{season.player.starts}</td>
+                <td>{season.player.minutes}</td>
+                <td>
+                  {season.player.goals}G {season.player.assists}A
+                </td>
+                <td>{season.player.averageRating.toFixed(1)}</td>
+                <td>
+                  {season.development.seasonStartOVR}→{season.development.seasonEndOVR}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p>
         Najwyższy OVR:{' '}
         {career.highestOVR ?? getPlayerOverall(career.player, career.player.primaryPosition)}
@@ -1664,7 +1641,7 @@ export const App = () => {
   };
   const finish = () => {
     if (!generated) return;
-    updateCareer(createCareerState(generated, seed));
+    updateCareer(initializeCurrentCareerWeek(createCareerState(generated, seed)));
     setView('career');
   };
 
@@ -1756,15 +1733,6 @@ export const App = () => {
           ) : (
             <>
               {active === 'game' && <EventCard career={career} onCareer={updateCareer} />}{' '}
-              {active === 'relationships' && (
-                <div className="career-grid">
-                  {career.significantPeople
-                    .filter((p) => ['coach', 'academy_rival'].includes(p.role))
-                    .map((p) => (
-                      <RelationshipCard key={p.id} career={career} person={p} />
-                    ))}
-                </div>
-              )}{' '}
               {active === 'history' && (
                 <div>
                   <h2>Oś czasu kariery</h2>
@@ -1806,7 +1774,6 @@ export const App = () => {
               {active === 'season' && <SeasonView career={career} />}{' '}
               {active === 'club' && <ClubProfile career={career} />}{' '}
               {active !== 'game' &&
-                active !== 'relationships' &&
                 active !== 'history' &&
                 active !== 'season' &&
                 active !== 'club' && (
@@ -1862,27 +1829,10 @@ export const App = () => {
                           <strong>Kontuzja:</strong> {getInjuryDescription(career)}
                         </p>
                       )}
-                      <label title="Wyższy poziom przyspiesza rozwój, ale zwiększa zmęczenie i ryzyko przeciążenia.">
-                        Wysiłek treningowy{' '}
-                        <select
-                          value={career.player.trainingEffort ?? 3}
-                          onChange={(event) =>
-                            updateCareer({
-                              ...career,
-                              player: {
-                                ...career.player,
-                                trainingEffort: Number(event.target.value) as 1 | 2 | 3 | 4 | 5,
-                              },
-                            })
-                          }
-                        >
-                          <option value="1">Regeneracja to klucz do sukcesu</option>
-                          <option value="2">Lekki trening</option>
-                          <option value="3">Standardowy plan</option>
-                          <option value="4">Zostaję po treningu</option>
-                          <option value="5">Klub nie potrzebuje już dozorcy</option>
-                        </select>
-                      </label>
+                      <p title="Tendencja zmienia się przez doświadczenia i decyzje fabularne.">
+                        <strong>Podejście do treningu:</strong>{' '}
+                        {TRAINING_EFFORT_LABELS[career.player.trainingEffort ?? 3]}
+                      </p>
                       <label title="Steruje tylko sposobem prezentacji meczów, nie poziomem trudności.">
                         Prezentacja meczów{' '}
                         <select
@@ -1903,27 +1853,10 @@ export const App = () => {
                           <option value="simulate_all">Symuluj wszystkie</option>
                         </select>
                       </label>
-                      <label title="Wyższy wysiłek pomaga wpływać na mecz, lecz szybciej zużywa kondycję.">
-                        Wysiłek meczowy{' '}
-                        <select
-                          value={career.player.matchEffort}
-                          onChange={(event) =>
-                            updateCareer({
-                              ...career,
-                              player: {
-                                ...career.player,
-                                matchEffort: Number(event.target.value) as 1 | 2 | 3 | 4 | 5,
-                              },
-                            })
-                          }
-                        >
-                          <option value="1">Lepiej mądrze stać niż głupio biegać</option>
-                          <option value="2">Oszczędzaj siły</option>
-                          <option value="3">Normalne zaangażowanie</option>
-                          <option value="4">Gryź trawę</option>
-                          <option value="5">Gotów umrzeć na boisku</option>
-                        </select>
-                      </label>
+                      <p title="To nawyk, a nie ustawienie meczu.">
+                        <strong>Podejście do meczu:</strong>{' '}
+                        {MATCH_EFFORT_LABELS[career.player.matchEffort]}
+                      </p>
                       <h3>Rozwój</h3>
                       {(() => {
                         const summary = getSeasonPlayerSummary(career, career.currentSeason);

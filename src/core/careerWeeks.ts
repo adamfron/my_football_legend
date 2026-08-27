@@ -11,9 +11,10 @@ import { assignedRole } from './events/postSelectionPath';
 import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './leagueSeason';
 import { getTrainingEffortEffects } from './playerPreferences';
 import { applyTrainingDevelopmentCheckpoint } from './development';
+import { initializeSeasonParticipation } from './seasonParticipation';
 
 const DAY = 86_400_000;
-export const CAREER_LOOP_START = '2026-10-01';
+export const CAREER_LOOP_START = '2026-08-20';
 export const CAREER_LOOP_END = '2027-05-31';
 export const REGULAR_SEASON_EVENT_POOL = [
   'extra_training_offer',
@@ -40,7 +41,7 @@ const plusDays = (date: string, days: number) =>
 
 export const generateFixtureSchedule = (seed: string, seasonId = '2026-27'): Fixture[] => {
   const season = createLeagueSeason(seed);
-  return season.rounds.slice(4).map((round) => {
+  return season.rounds.map((round) => {
     const leagueFixture = round.fixtures.find(
       (item) => item.homeClubId === VISTULA_NOVA_ID || item.awayClubId === VISTULA_NOVA_ID,
     )!;
@@ -124,11 +125,7 @@ const selectVariant = (career: CareerState, weekId: string) => {
 };
 
 export const initializeCurrentCareerWeek = (career: CareerState): CareerState => {
-  if (
-    career.careerCalendar ||
-    !career.historyFacts.some((fact) => fact.factType === 'september_2026_completed')
-  )
-    return career;
+  if (career.careerCalendar) return career;
   const leagueSeason = createLeagueSeason(career.seed);
   const fixtures = generateFixtureSchedule(career.seed);
   const weekCount = Math.ceil(
@@ -154,9 +151,6 @@ export const initializeCurrentCareerWeek = (career: CareerState): CareerState =>
       completed: false,
     };
   });
-  const septemberMatches = (career.matchHistory ?? []).filter((match) =>
-    match.date.startsWith('2026-09'),
-  );
   const calendar = {
     seasonId: '2026-27',
     currentWeekIndex: 0,
@@ -165,31 +159,12 @@ export const initializeCurrentCareerWeek = (career: CareerState): CareerState =>
     monthlyCheckpoints: [],
     availableThrough: CAREER_LOOP_END,
   };
-  let base: CareerState = {
+  const base: CareerState = initializeSeasonParticipation({
     ...career,
     leagueSeason,
     careerCalendar: calendar,
     seasonStartingAttributes: career.seasonStartingAttributes ?? { ...career.player.attributes },
-  };
-  for (let index = 0; index < 4; index++) {
-    const appearance = septemberMatches[index];
-    const matchFact =
-      appearance &&
-      career.historyFacts.find(
-        (item) => item.factType === 'match_played' && item.data.matchId === appearance.matchId,
-      );
-    const known =
-      appearance?.teamLevel === 'senior' &&
-      matchFact &&
-      Number.isFinite(Number(matchFact.data.homeGoals))
-        ? {
-            homeGoals: Number(matchFact.data.homeGoals),
-            awayGoals: Number(matchFact.data.awayGoals),
-            playerAppearanceMatchId: appearance.matchId,
-          }
-        : undefined;
-    base = settleLeagueRound(base, index, known);
-  }
+  });
   return initializeWeekContent(base, 0);
 };
 

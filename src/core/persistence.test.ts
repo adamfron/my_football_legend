@@ -102,4 +102,74 @@ describe('career persistence', () => {
       expect(loaded.save.career.leagueSeason?.competition.name).toBe('Polska Liga Krajowa');
     }
   });
+
+  it('migrates legacy match history into a complete canonical ledger idempotently on load', () => {
+    const legacy = career() as unknown as Record<string, unknown>;
+    const league = createLeagueSeason('legacy-ledger');
+    const controlledFixture = league.rounds[0]!.fixtures.find((fixture) =>
+      [fixture.homeClubId, fixture.awayClubId].includes(league.controlledClubId),
+    )!;
+    controlledFixture.completed = true;
+    controlledFixture.homeGoals = 2;
+    controlledFixture.awayGoals = 1;
+    legacy.leagueSeason = league;
+    delete legacy.seasonParticipation;
+    legacy.matchHistory = [
+      {
+        matchId: controlledFixture.id,
+        date: controlledFixture.date,
+        opponentId:
+          controlledFixture.homeClubId === league.controlledClubId
+            ? controlledFixture.awayClubId
+            : controlledFixture.homeClubId,
+        teamLevel: 'academy',
+        started: true,
+        minutes: 90,
+        goals: 1,
+        assists: 1,
+        xG: 0.8,
+        xA: 0.4,
+        keyPasses: 2,
+        defensiveActions: 3,
+        saves: 0,
+        personalImpact: 3,
+        rating: 7.8,
+        yellowCards: 1,
+      },
+    ];
+    localStorage.setItem(
+      CAREER_SAVE_KEY,
+      JSON.stringify({
+        version: 1,
+        savedAt: new Date().toISOString(),
+        career: legacy,
+      }),
+    );
+
+    const first = loadCareer();
+    const second = loadCareer();
+    expect(first.ok).toBe(true);
+    expect(second.ok).toBe(true);
+    if (first.ok && second.ok) {
+      expect(first.save.career.seasonParticipation).toHaveLength(22);
+      expect(second.save.career.seasonParticipation).toEqual(first.save.career.seasonParticipation);
+      expect(new Set(first.save.career.seasonParticipation!.map((row) => row.fixtureId)).size).toBe(
+        22,
+      );
+      expect(
+        first.save.career.seasonParticipation!.find(
+          (row) => row.fixtureId === controlledFixture.id,
+        ),
+      ).toMatchObject({
+        fixtureStatus: 'completed',
+        score: { home: 2, away: 1 },
+        minutes: 90,
+        started: true,
+        goals: 1,
+        assists: 1,
+        yellowCards: 1,
+        rating: 7.8,
+      });
+    }
+  });
 });

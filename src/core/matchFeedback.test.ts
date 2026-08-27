@@ -1,6 +1,30 @@
 import { describe, expect, it } from 'vitest';
 import { evaluateMatchRating, getSeasonPlayerSummary, normalizeTeamStats } from './matchFeedback';
-import type { CareerState, MatchMomentResult } from '../types/domain';
+import type { CareerState, MatchMomentResult, SeasonParticipationRecord } from '../types/domain';
+const ledgerRecord = (
+  fixtureId: string,
+  overrides: Partial<SeasonParticipationRecord> = {},
+): SeasonParticipationRecord => ({
+  fixtureId,
+  seasonId: '2026-27',
+  competitionId: 'polish-u17',
+  date: '2026-09-01',
+  homeClubId: 'vistula',
+  awayClubId: 'opponent',
+  opponentId: 'opponent',
+  venue: 'home',
+  competition: 'Polska Liga U-17',
+  fixtureStatus: 'completed',
+  status: 'starter',
+  plannedMinutes: 90,
+  started: true,
+  minutes: 90,
+  goals: 0,
+  assists: 0,
+  xG: 0,
+  xA: 0,
+  ...overrides,
+});
 const result = (tier: MatchMomentResult['tier'], xG = 0.1): MatchMomentResult => ({
   moment: { definitionId: 'test', minute: 70, scoreFor: 0, scoreAgainst: 0, description: 'test' },
   decisionId: 'test',
@@ -19,65 +43,44 @@ const result = (tier: MatchMomentResult['tier'], xG = 0.1): MatchMomentResult =>
 });
 describe('match feedback', () => {
   it('keeps cards local to their season and ignores impossible zero-minute cards', () => {
-    const card = {
-      matchId: 'old-card',
-      date: '2026-09-01',
-      opponentId: 'x',
-      teamLevel: 'senior' as const,
-      started: true,
-      minutes: 90,
-      goals: 0,
-      assists: 0,
-      xG: 0,
-      xA: 0,
-      keyPasses: 0,
-      defensiveActions: 1,
-      saves: 0,
-      personalImpact: 0,
-      yellowCards: 1,
-    };
     const career = {
-      matchHistory: [
-        card,
-        {
-          ...card,
-          matchId: 'phantom',
-          date: '2027-09-01',
+      currentSeason: 2026,
+      seasonParticipation: [
+        ledgerRecord('card', { yellowCards: 1 }),
+        ledgerRecord('phantom', {
+          status: 'not_selected',
+          started: false,
           minutes: 0,
+          plannedMinutes: 0,
           yellowCards: 3,
-          redCard: 'direct' as const,
-        },
+          redCard: 'direct',
+          rating: 9,
+        }),
       ],
     } as CareerState;
     expect(getSeasonPlayerSummary(career, 2026).yellowCards).toBe(1);
-    expect(getSeasonPlayerSummary(career, 2027)).toMatchObject({
-      appearances: 0,
-      minutes: 0,
-      yellowCards: 0,
+    expect(getSeasonPlayerSummary(career, 2026)).toMatchObject({
+      appearances: 1,
+      yellowCards: 1,
       redCards: 0,
     });
   });
 
   it('counts a current-season dismissal and card exactly once', () => {
-    const match = {
-      matchId: 'current-card',
-      date: '2028-03-01',
-      opponentId: 'x',
-      teamLevel: 'senior' as const,
-      started: true,
-      minutes: 70,
-      goals: 0,
-      assists: 0,
-      xG: 0,
-      xA: 0,
-      keyPasses: 0,
-      defensiveActions: 2,
-      saves: 0,
-      personalImpact: 0,
-      yellowCards: 1,
-      redCard: 'second_yellow' as const,
-    };
-    expect(getSeasonPlayerSummary({ matchHistory: [match] } as CareerState, 2027)).toMatchObject({
+    const career = {
+      currentSeason: 2027,
+      seasonParticipation: [
+        ledgerRecord('current-card', {
+          date: '2028-03-01',
+          minutes: 70,
+          plannedMinutes: 70,
+          yellowCards: 1,
+          redCard: 'second_yellow',
+          defensiveActions: 2,
+        }),
+      ],
+    } as CareerState;
+    expect(getSeasonPlayerSummary(career, 2027)).toMatchObject({
       yellowCards: 1,
       redCards: 1,
     });
@@ -113,40 +116,22 @@ describe('match feedback', () => {
   });
   it('aggregates only played and rated appearances', () => {
     const career = {
-      matchHistory: [
-        {
-          matchId: 'a',
-          date: '2026-09-01',
-          opponentId: 'x',
-          teamLevel: 'senior',
-          started: true,
-          minutes: 90,
+      currentSeason: 2026,
+      seasonParticipation: [
+        ledgerRecord('a', {
           goals: 1,
-          assists: 0,
           xG: 0.7,
           xA: 0.1,
           keyPasses: 1,
           defensiveActions: 2,
-          saves: 0,
-          personalImpact: 2,
           rating: 7.4,
-        },
-        {
-          matchId: 'b',
-          date: '2026-09-08',
-          opponentId: 'y',
-          teamLevel: 'academy',
+        }),
+        ledgerRecord('b', {
+          status: 'not_selected',
           started: false,
           minutes: 0,
-          goals: 0,
-          assists: 0,
-          xG: 0,
-          xA: 0,
-          keyPasses: 0,
-          defensiveActions: 0,
-          saves: 0,
-          personalImpact: 0,
-        },
+          plannedMinutes: 0,
+        }),
       ],
     } as CareerState;
     const s = getSeasonPlayerSummary(career, 2026);
@@ -157,8 +142,34 @@ describe('match feedback', () => {
       goals: 1,
       averageRating: 7.4,
       bestMatchId: 'a',
-      seniorAppearances: 1,
-      academyAppearances: 0,
+      academyAppearances: 1,
     });
+  });
+
+  it('never lets contradictory legacy match history override the canonical ledger', () => {
+    const seasonParticipation = Array.from({ length: 12 }, (_, index) =>
+      ledgerRecord(`canonical-${index}`, { goals: index < 7 ? 1 : 0 }),
+    );
+    const matchHistory = Array.from({ length: 20 }, (_, index) => ({
+      matchId: `legacy-${index}`,
+      date: '2026-09-01',
+      opponentId: 'x',
+      teamLevel: 'senior' as const,
+      started: true,
+      minutes: 90,
+      goals: index < 15 ? 1 : 0,
+      assists: 0,
+      xG: 0,
+      xA: 0,
+      keyPasses: 0,
+      defensiveActions: 0,
+      saves: 0,
+      personalImpact: 0,
+    }));
+    const summary = getSeasonPlayerSummary(
+      { currentSeason: 2026, seasonParticipation, matchHistory } as CareerState,
+      2026,
+    );
+    expect(summary).toMatchObject({ appearances: 12, starts: 12, goals: 7 });
   });
 });

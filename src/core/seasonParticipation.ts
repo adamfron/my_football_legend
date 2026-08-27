@@ -163,6 +163,47 @@ export const recordParticipation = (
   return { ...career, seasonParticipation };
 };
 
+/** Creates the season ledger up front; completed rows are never overwritten. */
+export const initializeSeasonParticipation = (career: CareerState): CareerState => {
+  const season = career.leagueSeason;
+  if (!season) return career;
+  const existing = new Map((career.seasonParticipation ?? []).map((row) => [row.fixtureId, row]));
+  const fixtures = season.rounds
+    .flatMap((round) => round.fixtures)
+    .filter((fixture) =>
+      [fixture.homeClubId, fixture.awayClubId].includes(season.controlledClubId),
+    );
+  return {
+    ...career,
+    seasonParticipation: fixtures.map(
+      (fixture) =>
+        existing.get(fixture.id) ?? {
+          fixtureId: fixture.id,
+          seasonId: season.id,
+          competitionId: season.competition.id,
+          date: fixture.date,
+          homeClubId: fixture.homeClubId,
+          awayClubId: fixture.awayClubId,
+          opponentId:
+            fixture.homeClubId === season.controlledClubId
+              ? fixture.awayClubId
+              : fixture.homeClubId,
+          venue: fixture.homeClubId === season.controlledClubId ? 'home' : 'away',
+          competition: season.competition.name,
+          fixtureStatus: 'scheduled',
+          status: 'not_selected',
+          plannedMinutes: 0,
+          minutes: 0,
+          started: false,
+          goals: 0,
+          assists: 0,
+          xG: 0,
+          xA: 0,
+        },
+    ),
+  };
+};
+
 export const updateSelectionStanding = (standing: number | undefined, rating: number | undefined) =>
   Math.max(
     0,

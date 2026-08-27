@@ -6,6 +6,7 @@ import type { CareerState, HistoryFact, Player, PlayerAttributes } from '../type
 import { RandomGenerator } from './random/RandomGenerator';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { deriveGoalkeeperAttributes, goalkeeperAttributeLabels } from './goalkeeperAttributes';
+import { deriveInitialEffort } from './playerPreferences';
 
 export const STARTING_AGE = 16;
 export const MIN_HEIGHT_CM = 155;
@@ -193,6 +194,7 @@ export const generateStartingPlayerProfile = (
     ambition: rollAttribute('ambition'),
     professionalism: rollAttribute('professionalism'),
   };
+  const effort = deriveInitialEffort(`${seed}:${rollIndex}`, attributes);
   const player: Player = {
     id: `player_${
       seed
@@ -230,8 +232,7 @@ export const generateStartingPlayerProfile = (
     morale: 55,
     reputation: 12,
     matchPresentation: 'important_matches',
-    matchEffort: 3,
-    trainingEffort: 3,
+    ...effort,
   };
   const goalkeeperSorted = player.goalkeeperAttributes
     ? (
