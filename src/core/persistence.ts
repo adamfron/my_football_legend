@@ -115,52 +115,79 @@ export const loadCareer = (): LoadCareerResult => {
     career.completedSeasons ??= [];
     career.trainingApproach ??= 'balanced';
     career.selectionStanding ??= 50;
-    if (!Array.isArray(career.seasonParticipation)) {
+    // One-time legacy import: preserve canonical rows and fill only missing controlled fixtures.
+    {
       const history = Array.isArray(career.matchHistory)
         ? (career.matchHistory as Array<Record<string, unknown>>)
         : [];
+      const canonical = Array.isArray(career.seasonParticipation)
+        ? (career.seasonParticipation as Array<Record<string, unknown>>)
+        : [];
+      const byFixture = new Map(canonical.map((row) => [String(row.fixtureId), row]));
       const league = career.leagueSeason as
         | {
+            id?: string;
             controlledClubId?: string;
-            competition?: { name?: string };
+            competition?: { id?: string; name?: string };
             rounds?: Array<{ fixtures?: Array<Record<string, unknown>> }>;
           }
         | undefined;
-      career.seasonParticipation = (league?.rounds ?? [])
+      const controlledFixtures = (league?.rounds ?? [])
         .flatMap((round) => round.fixtures ?? [])
-        .filter(
-          (fixture) =>
-            fixture.completed &&
-            [fixture.homeClubId, fixture.awayClubId].includes(league?.controlledClubId),
-        )
-        .map((fixture) => {
-          const appearance = history.find(
-            (item) =>
-              item.matchId === fixture.id || item.matchId === `academy_${String(fixture.id)}`,
-          );
-          const minutes = Number(appearance?.minutes ?? 0);
-          return {
-            fixtureId: String(fixture.id),
-            date: String(fixture.date),
-            opponentId: String(
-              fixture.homeClubId === league?.controlledClubId
-                ? fixture.awayClubId
-                : fixture.homeClubId,
-            ),
-            venue: fixture.homeClubId === league?.controlledClubId ? 'home' : 'away',
-            competition: league?.competition?.name ?? 'Liga',
-            status: minutes > 0 ? (appearance?.started ? 'starter' : 'substitute') : 'not_selected',
-            plannedMinutes: minutes,
-            minutes,
-            started: Boolean(appearance?.started),
-            ...(appearance ? { appearanceMatchId: String(appearance.matchId) } : {}),
-            goals: Number(appearance?.goals ?? 0),
-            assists: Number(appearance?.assists ?? 0),
-            xG: minutes > 0 ? Number(appearance?.xG ?? 0) : 0,
-            xA: minutes > 0 ? Number(appearance?.xA ?? 0) : 0,
-            ...(typeof appearance?.rating === 'number' ? { rating: appearance.rating } : {}),
-          };
+        .filter((fixture) =>
+          [fixture.homeClubId, fixture.awayClubId].includes(league?.controlledClubId),
+        );
+      for (const fixture of controlledFixtures) {
+        const fixtureId = String(fixture.id);
+        if (byFixture.has(fixtureId)) continue;
+        const appearance = history.find(
+          (item) => item.matchId === fixture.id || item.matchId === `academy_${fixtureId}`,
+        );
+        const minutes = Number(appearance?.minutes ?? 0);
+        const completed = fixture.completed === true;
+        byFixture.set(fixtureId, {
+          fixtureId,
+          seasonId: String(fixture.seasonId ?? league?.id ?? ''),
+          competitionId: String(league?.competition?.id ?? fixture.competition ?? 'league'),
+          date: String(fixture.date),
+          homeClubId: String(fixture.homeClubId),
+          awayClubId: String(fixture.awayClubId),
+          opponentId: String(
+            fixture.homeClubId === league?.controlledClubId
+              ? fixture.awayClubId
+              : fixture.homeClubId,
+          ),
+          venue: fixture.homeClubId === league?.controlledClubId ? 'home' : 'away',
+          competition: league?.competition?.name ?? 'Liga',
+          fixtureStatus: completed ? 'completed' : 'scheduled',
+          ...(completed &&
+          typeof fixture.homeGoals === 'number' &&
+          typeof fixture.awayGoals === 'number'
+            ? { score: { home: fixture.homeGoals, away: fixture.awayGoals } }
+            : {}),
+          status: completed
+            ? minutes > 0
+              ? appearance?.started
+                ? 'starter'
+                : 'substitute'
+              : 'not_selected'
+            : 'not_selected',
+          plannedMinutes: minutes,
+          minutes,
+          started: Boolean(appearance?.started),
+          ...(appearance ? { appearanceMatchId: String(appearance.matchId) } : {}),
+          goals: Number(appearance?.goals ?? 0),
+          assists: Number(appearance?.assists ?? 0),
+          xG: minutes > 0 ? Number(appearance?.xG ?? 0) : 0,
+          xA: minutes > 0 ? Number(appearance?.xA ?? 0) : 0,
+          keyPasses: minutes > 0 ? Number(appearance?.keyPasses ?? 0) : 0,
+          defensiveActions: minutes > 0 ? Number(appearance?.defensiveActions ?? 0) : 0,
+          yellowCards: minutes > 0 ? Number(appearance?.yellowCards ?? 0) : 0,
+          ...(appearance?.redCard ? { redCard: appearance.redCard } : {}),
+          ...(typeof appearance?.rating === 'number' ? { rating: appearance.rating } : {}),
         });
+      }
+      career.seasonParticipation = [...byFixture.values()];
     }
     if (Array.isArray(career.significantPeople))
       career.significantPeople = dedupePeople(career.significantPeople as never[]);
