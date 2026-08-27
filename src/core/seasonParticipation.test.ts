@@ -42,6 +42,8 @@ describe('authoritative participation', () => {
       started: true,
       goals: 1,
       assists: 0,
+      xG: 0.4,
+      xA: 0,
       rating: 7.4,
     };
     const state = recordParticipation(recordParticipation(career(), row), { ...row, minutes: 80 });

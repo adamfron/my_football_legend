@@ -139,6 +139,13 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
   });
 const overall = (career: CareerState) =>
   getPlayerOverall(career.player, career.player.primaryPosition);
+export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub): SquadRole => {
+  const gap = overall(career) - club.overallStrength;
+  if (gap >= 9) return 'important_player';
+  if (gap >= -1) return 'first_team_competition';
+  if (gap >= -7 || career.player.age > 22) return 'rotation';
+  return 'development_player';
+};
 const currentSeasonAppearances = (career: CareerState) =>
   (career.matchHistory ?? []).filter(
     (match) => Number(match.date.slice(0, 4)) >= career.currentSeason,
@@ -183,17 +190,7 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
       const rng = RandomGenerator.fromSeed(
         `${career.seed}:offer:${career.careerSeasonNumber}:${club.id}`,
       );
-      const gap = overall(career) - interest.need.starterQuality;
-      const role: SquadRole =
-        gap > 7
-          ? 'important_player'
-          : gap > 0
-            ? 'first_team_competition'
-            : interest.need.depth === 'thin'
-              ? 'rotation'
-              : career.player.age <= 22
-                ? 'development_player'
-                : 'rotation';
+      const role = getExpectedSquadRole(career, club);
       const years = rng.int(1, 3);
       const roleFactor = {
         development_player: 0.75,
@@ -248,15 +245,12 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
       ];
     })
     .sort((a, b) => {
-      const currentTier = career.currentProfessionalClub
-        ? getClubLeagueTier(career.currentProfessionalClub)
-        : 3;
       const ai =
-        evaluateClubInterest(career, a.club).score -
-        Math.max(0, Math.abs(getClubLeagueTier(a.club) - currentTier) - 1) * 18;
+        evaluateClubInterest(career, a.club).score +
+        Math.max(0, overall(career) - a.club.overallStrength) * 0.35;
       const bi =
-        evaluateClubInterest(career, b.club).score -
-        Math.max(0, Math.abs(getClubLeagueTier(b.club) - currentTier) - 1) * 18;
+        evaluateClubInterest(career, b.club).score +
+        Math.max(0, overall(career) - b.club.overallStrength) * 0.35;
       return bi - ai || a.id.localeCompare(b.id);
     })
     .slice(0, career.player.age >= 33 ? 3 : 4);
@@ -283,7 +277,7 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
     club: {
       ...career.currentProfessionalClub,
       leagueTier: clampProfessionalLeagueTier(
-        career.leagueSeason?.competition.tier ?? getClubLeagueTier(career.currentProfessionalClub),
+        career.seasonOutcome?.nextLeagueTier ?? getClubLeagueTier(career.currentProfessionalClub),
       ),
     },
     contract: {

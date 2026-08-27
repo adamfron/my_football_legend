@@ -78,6 +78,10 @@ export const loadCareer = (): LoadCareerResult => {
         )
       : [];
     const player = career.player as Record<string, unknown>;
+    player.matchPresentation ??= 'important_matches';
+    player.matchEffort ??= 3;
+    player.trainingEffort ??=
+      career.trainingApproach === 'recovery' ? 1 : career.trainingApproach === 'extra_work' ? 5 : 3;
     const attributes = player.attributes as Record<string, unknown>;
     const fallback = Number(attributes.composure ?? 50);
     attributes.spatialAwareness ??= Math.round(
@@ -144,6 +148,8 @@ export const loadCareer = (): LoadCareerResult => {
             ...(appearance ? { appearanceMatchId: String(appearance.matchId) } : {}),
             goals: Number(appearance?.goals ?? 0),
             assists: Number(appearance?.assists ?? 0),
+            xG: minutes > 0 ? Number(appearance?.xG ?? 0) : 0,
+            xA: minutes > 0 ? Number(appearance?.xA ?? 0) : 0,
             ...(typeof appearance?.rating === 'number' ? { rating: appearance.rating } : {}),
           };
         });

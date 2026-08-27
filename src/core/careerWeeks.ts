@@ -9,6 +9,7 @@ import type {
 import { RandomGenerator } from './random/RandomGenerator';
 import { assignedRole } from './events/postSelectionPath';
 import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './leagueSeason';
+import { getTrainingEffortEffects } from './playerPreferences';
 import { applyTrainingDevelopmentCheckpoint } from './development';
 
 const DAY = 86_400_000;
@@ -358,9 +359,7 @@ export const advanceCareerWeek = (career: CareerState): CareerState => {
         fitness: Math.min(
           100,
           developedCareer.player.fitness +
-            { recovery: 14, balanced: 10, extra_work: 6 }[
-              developedCareer.trainingApproach ?? 'balanced'
-            ],
+            getTrainingEffortEffects(developedCareer.player.trainingEffort ?? 3).weeklyRecovery,
         ),
       },
       currentDate:

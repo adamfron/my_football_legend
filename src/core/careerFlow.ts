@@ -13,6 +13,8 @@ const hasFact = (career: CareerState, factType: string) =>
  */
 export const advanceCareerFlow = (career: CareerState): CareerState => {
   if ((career.careerStatus ?? 'active') === 'retired') return career;
+  if (career.seasonOutcome && career.player.age >= 40)
+    return { ...career, careerPhase: 'offseason', professionalOffers: undefined };
   if (
     career.seasonOutcome?.competitionType === 'professional' &&
     career.professionalOffers === undefined

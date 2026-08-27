@@ -93,6 +93,9 @@ export const playerSchema = z.object({
   health: score,
   morale: score,
   reputation: score,
+  matchPresentation: z.enum(['important_matches', 'simulate_all']),
+  matchEffort: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]),
+  trainingEffort: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]),
 });
 export const personSchema = z.object({
   id,
@@ -533,6 +536,8 @@ export const careerStateSchema = z.object({
         appearanceMatchId: z.string().optional(),
         goals: z.number().int().nonnegative(),
         assists: z.number().int().nonnegative(),
+        xG: z.number().nonnegative(),
+        xA: z.number().nonnegative(),
         rating: z.number().optional(),
       }),
     )
