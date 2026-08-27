@@ -72,6 +72,15 @@ export const playerAttributesSchema = z.object({
   ambition: score,
   professionalism: score,
 });
+export const goalkeeperAttributesSchema = z.object({
+  reflexes: score,
+  handling: score,
+  oneOnOnes: score,
+  goalkeeperPositioning: score,
+  aerialCommand: score,
+  distribution: score,
+  communication: score,
+});
 export const playerSchema = z.object({
   id,
   firstName: z.string(),
@@ -81,6 +90,7 @@ export const playerSchema = z.object({
   heightCm: z.number(),
   weightKg: z.number(),
   attributes: playerAttributesSchema,
+  goalkeeperAttributes: goalkeeperAttributesSchema.optional(),
   traits: z.array(z.string()),
   archetypeId: id,
   careerPremiseId: id,
@@ -184,6 +194,7 @@ export const contractSchema = z.object({
     'rotation',
     'first_team_competition',
     'important_player',
+    'star_player',
   ]),
   contractType: z.enum(['professional', 'development']),
 });
@@ -444,7 +455,13 @@ export const careerStateSchema = z.object({
   currentDate: z.string().optional(),
   currentProfessionalClub: professionalClubSchema.optional(),
   currentSportingStatus: z
-    .enum(['development_player', 'rotation', 'first_team_competition', 'important_player'])
+    .enum([
+      'development_player',
+      'rotation',
+      'first_team_competition',
+      'important_player',
+      'star_player',
+    ])
     .optional(),
   careerStatus: z.enum(['active', 'retired']).optional(),
   retirementDate: z.string().optional(),
@@ -529,6 +546,7 @@ export const careerStateSchema = z.object({
           'injured',
           'suspended',
           'unfit',
+          'unavailable',
         ]),
         plannedMinutes: z.number().int().nonnegative(),
         minutes: z.number().int().nonnegative(),
@@ -539,6 +557,35 @@ export const careerStateSchema = z.object({
         xG: z.number().nonnegative(),
         xA: z.number().nonnegative(),
         rating: z.number().optional(),
+        seasonId: z.string().optional(),
+        competitionId: z.string().optional(),
+        homeClubId: z.string().optional(),
+        awayClubId: z.string().optional(),
+        fixtureStatus: z.enum(['scheduled', 'completed', 'postponed']).optional(),
+        score: z
+          .object({ home: z.number().int().nonnegative(), away: z.number().int().nonnegative() })
+          .optional(),
+        keyPasses: z.number().int().nonnegative().optional(),
+        defensiveActions: z.number().int().nonnegative().optional(),
+        yellowCards: z.number().int().nonnegative().optional(),
+        redCard: z.enum(['second_yellow', 'direct']).optional(),
+        goalkeeperStats: z
+          .object({
+            goalsConceded: z.number().int().nonnegative(),
+            shotsOnTargetFaced: z.number().int().nonnegative(),
+            saves: z.number().int().nonnegative(),
+            savePercentage: z.number().min(0).max(100),
+            cleanSheet: z.boolean(),
+            xGA: z.number().nonnegative(),
+            errorsLeadingToGoal: z.number().int().nonnegative(),
+            rating: z.number(),
+            crossesClaimed: z.number().int().nonnegative().optional(),
+            sweeperActions: z.number().int().nonnegative().optional(),
+            distributionCompleted: z.number().int().nonnegative().optional(),
+            distributionAttempted: z.number().int().nonnegative().optional(),
+            detailsAvailable: z.boolean().optional(),
+          })
+          .optional(),
       }),
     )
     .optional(),

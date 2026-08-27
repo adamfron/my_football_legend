@@ -47,6 +47,15 @@ export interface PlayerAttributes {
   ambition: number;
   professionalism: number;
 }
+export interface GoalkeeperAttributes {
+  reflexes: number;
+  handling: number;
+  oneOnOnes: number;
+  goalkeeperPositioning: number;
+  aerialCommand: number;
+  distribution: number;
+  communication: number;
+}
 export type DevelopmentType = 'early_bloomer' | 'normal' | 'late_bloomer';
 export interface DevelopmentProfile {
   developmentType: DevelopmentType;
@@ -69,6 +78,8 @@ export interface Player {
   heightCm: number;
   weightKg: number;
   attributes: PlayerAttributes;
+  /** Present only for goalkeepers. Migrated deterministically for legacy saves. */
+  goalkeeperAttributes?: GoalkeeperAttributes | undefined;
   traits: string[];
   archetypeId: Id;
   careerPremiseId: Id;
@@ -269,11 +280,18 @@ export type ParticipationStatus =
   | 'not_selected'
   | 'injured'
   | 'suspended'
-  | 'unfit';
+  | 'unfit'
+  | 'unavailable';
 export type TrainingApproach = 'recovery' | 'balanced' | 'extra_work';
 export interface SeasonParticipationRecord {
   fixtureId: string;
+  seasonId?: string | undefined;
+  competitionId?: string | undefined;
   date: string;
+  homeClubId?: string | undefined;
+  awayClubId?: string | undefined;
+  fixtureStatus?: 'scheduled' | 'completed' | 'postponed' | undefined;
+  score?: { home: number; away: number } | undefined;
   opponentId: string;
   venue: 'home' | 'away';
   competition: string;
@@ -286,7 +304,29 @@ export interface SeasonParticipationRecord {
   assists: number;
   xG: number;
   xA: number;
+  keyPasses?: number | undefined;
+  defensiveActions?: number | undefined;
+  yellowCards?: number | undefined;
+  redCard?: 'second_yellow' | 'direct' | undefined;
+  goalkeeperStats?: GoalkeeperMatchStats | undefined;
   rating?: number | undefined;
+}
+
+export interface GoalkeeperMatchStats {
+  goalsConceded: number;
+  shotsOnTargetFaced: number;
+  saves: number;
+  savePercentage: number;
+  cleanSheet: boolean;
+  xGA: number;
+  errorsLeadingToGoal: number;
+  rating: number;
+  crossesClaimed?: number | undefined;
+  sweeperActions?: number | undefined;
+  distributionCompleted?: number | undefined;
+  distributionAttempted?: number | undefined;
+  /** False on migrated fixtures whose historical detail cannot be reconstructed safely. */
+  detailsAvailable?: boolean | undefined;
 }
 
 export interface CompletedSeasonSnapshot {
@@ -381,7 +421,8 @@ export type SquadRole =
   | 'development_player'
   | 'rotation'
   | 'first_team_competition'
-  | 'important_player';
+  | 'important_player'
+  | 'star_player';
 export interface PositionalNeed {
   starterQuality: number;
   depth: 'thin' | 'normal' | 'deep';

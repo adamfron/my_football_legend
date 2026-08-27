@@ -15,12 +15,13 @@ export const getExpectedAvailableMinuteShare = (
     rotation: { min: 0.4, target: 0.5, max: 0.6 },
     first_team_competition: { min: 0.55, target: 0.625, max: 0.7 },
     important_player: { min: 0.7, target: 0.775, max: 0.85 },
+    star_player: { min: 0.82, target: 0.9, max: 1 },
   })[role];
 
-export const getParticipationTotals = (records: SeasonParticipationRecord[]) => {
+export const getSeasonAppearanceStats = (records: SeasonParticipationRecord[]) => {
   const played = records.filter((record) => record.minutes > 0);
   const ratings = played.flatMap((record) => (record.rating === undefined ? [] : [record.rating]));
-  return {
+  const result = {
     appearances: played.length,
     starts: played.filter((record) => record.started).length,
     substituteAppearances: played.filter((record) => !record.started).length,
@@ -30,6 +31,50 @@ export const getParticipationTotals = (records: SeasonParticipationRecord[]) => 
     xG: played.reduce((sum, record) => sum + record.xG, 0),
     xA: played.reduce((sum, record) => sum + record.xA, 0),
     averageRating: ratings.length ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0,
+  };
+  const completedFixtures = records.filter((record) => record.fixtureStatus !== 'scheduled').length;
+  if (
+    result.starts < 0 ||
+    result.starts > result.appearances ||
+    result.appearances > completedFixtures
+  )
+    throw new Error('Fixture-ledger appearance invariant violated.');
+  return result;
+};
+
+export const getParticipationTotals = getSeasonAppearanceStats;
+
+export const getSeasonOutfieldStats = (records: SeasonParticipationRecord[]) => {
+  const appearance = getSeasonAppearanceStats(records);
+  const played = records.filter((record) => record.minutes > 0);
+  return {
+    ...appearance,
+    keyPasses: played.reduce((sum, record) => sum + (record.keyPasses ?? 0), 0),
+    defensiveActions: played.reduce((sum, record) => sum + (record.defensiveActions ?? 0), 0),
+    yellowCards: played.reduce((sum, record) => sum + (record.yellowCards ?? 0), 0),
+    redCards: played.filter((record) => record.redCard !== undefined).length,
+  };
+};
+
+export const getSeasonGoalkeeperStats = (records: SeasonParticipationRecord[]) => {
+  const appearance = getSeasonAppearanceStats(records);
+  const played = records.filter((record) => record.minutes > 0);
+  const detailed = played.flatMap((record) =>
+    record.goalkeeperStats ? [record.goalkeeperStats] : [],
+  );
+  const saves = detailed.reduce((sum, stats) => sum + stats.saves, 0);
+  const faced = detailed.reduce((sum, stats) => sum + stats.shotsOnTargetFaced, 0);
+  const goalsConceded = detailed.reduce((sum, stats) => sum + stats.goalsConceded, 0);
+  const xGA = detailed.reduce((sum, stats) => sum + stats.xGA, 0);
+  return {
+    ...appearance,
+    goalsConceded,
+    cleanSheets: detailed.filter((stats) => stats.cleanSheet).length,
+    saves,
+    savePercentage: faced ? (saves / faced) * 100 : 0,
+    xGA: Number(xGA.toFixed(2)),
+    goalsPrevented: Number((xGA - goalsConceded).toFixed(2)),
+    errorsLeadingToGoal: detailed.reduce((sum, stats) => sum + stats.errorsLeadingToGoal, 0),
   };
 };
 
@@ -52,10 +97,15 @@ export const participationFromAppearance = (
   plannedMinutes = appearance.minutes,
 ): SeasonParticipationRecord => ({
   fixtureId: fixture.id,
+  seasonId: fixture.seasonId,
+  competitionId: career.leagueSeason?.competition.id ?? fixture.competition,
   date: fixture.date,
   opponentId: fixture.opponent.id,
   venue: fixture.venue,
   competition: career.leagueSeason?.competition.name ?? fixture.competition,
+  homeClubId: fixture.venue === 'home' ? career.currentClub.id : fixture.opponent.id,
+  awayClubId: fixture.venue === 'away' ? career.currentClub.id : fixture.opponent.id,
+  fixtureStatus: 'completed',
   status: appearance.minutes > 0 ? (appearance.started ? 'starter' : 'substitute') : 'unused_bench',
   plannedMinutes,
   minutes: appearance.minutes,
@@ -65,6 +115,10 @@ export const participationFromAppearance = (
   assists: appearance.assists,
   xG: appearance.minutes > 0 ? appearance.xG : 0,
   xA: appearance.minutes > 0 ? appearance.xA : 0,
+  keyPasses: appearance.minutes > 0 ? appearance.keyPasses : 0,
+  defensiveActions: appearance.minutes > 0 ? appearance.defensiveActions : 0,
+  yellowCards: appearance.minutes > 0 ? (appearance.yellowCards ?? 0) : 0,
+  ...(appearance.redCard ? { redCard: appearance.redCard } : {}),
   ...(appearance.rating === undefined ? {} : { rating: appearance.rating }),
 });
 
@@ -74,10 +128,15 @@ export const nonAppearanceParticipation = (
   plannedMinutes = 0,
 ): SeasonParticipationRecord => ({
   fixtureId: fixture.id,
+  seasonId: fixture.seasonId,
+  competitionId: career.leagueSeason?.competition.id ?? fixture.competition,
   date: fixture.date,
   opponentId: fixture.opponent.id,
   venue: fixture.venue,
   competition: career.leagueSeason?.competition.name ?? fixture.competition,
+  homeClubId: fixture.venue === 'home' ? career.currentClub.id : fixture.opponent.id,
+  awayClubId: fixture.venue === 'away' ? career.currentClub.id : fixture.opponent.id,
+  fixtureStatus: 'completed',
   status: availabilityStatus(career) ?? (plannedMinutes > 0 ? 'unused_bench' : 'not_selected'),
   plannedMinutes,
   minutes: 0,

@@ -37,8 +37,10 @@ export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
       <span>{fixture.completed ? `${fixture.homeGoals}:${fixture.awayGoals}` : '—'}</span>
       {fixture.completed && (
         <span>
-          {appearance?.minutes
-            ? `${appearance.minutes}' · ${appearance.goals} G · ${appearance.assists} A · ${rating(appearance.rating)}`
+          {(participation?.minutes ?? appearance?.minutes)
+            ? participation?.goalkeeperStats
+              ? `${participation.minutes}' · ${participation.goalkeeperStats.saves} obr. · ${participation.goalkeeperStats.cleanSheet ? 'CS · ' : ''}${rating(participation.goalkeeperStats.rating)}`
+              : `${participation?.minutes ?? appearance!.minutes}' · ${participation?.goals ?? appearance!.goals} G · ${participation?.assists ?? appearance!.assists} A · ${rating(participation?.rating ?? appearance?.rating)}`
             : status}
         </span>
       )}

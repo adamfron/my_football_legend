@@ -141,21 +141,32 @@ const overall = (career: CareerState) =>
   getPlayerOverall(career.player, career.player.primaryPosition);
 export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub): SquadRole => {
   const gap = overall(career) - club.overallStrength;
+  if (gap >= 13) return 'star_player';
   if (gap >= 9) return 'important_player';
   if (gap >= -1) return 'first_team_competition';
   if (gap >= -7 || career.player.age > 22) return 'rotation';
   return 'development_player';
 };
 const currentSeasonAppearances = (career: CareerState) =>
-  (career.matchHistory ?? []).filter(
-    (match) => Number(match.date.slice(0, 4)) >= career.currentSeason,
-  );
+  career.seasonParticipation?.length
+    ? career.seasonParticipation.filter((match) => match.minutes > 0)
+    : (career.matchHistory ?? []).filter(
+        (match) => Number(match.date.slice(0, 4)) >= career.currentSeason,
+      );
 export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub) => {
   const need = club.positionalNeeds[group(career.player.primaryPosition)];
-  const stats = currentSeasonAppearances(career).reduce(
-    (s, m) => s + m.minutes / 500 + (m.rating ?? 6) - 6 + m.goals * 0.7 + m.assists * 0.5,
-    0,
-  );
+  const stats = currentSeasonAppearances(career).reduce((s, m) => {
+    const goalkeeperStats = 'goalkeeperStats' in m ? m.goalkeeperStats : undefined;
+    return (
+      s +
+      m.minutes / 500 +
+      (m.rating ?? goalkeeperStats?.rating ?? 6) -
+      6 +
+      (career.player.primaryPosition === 'goalkeeper'
+        ? (goalkeeperStats ? goalkeeperStats.xGA - goalkeeperStats.goalsConceded : 0) * 0.8
+        : m.goals * 0.7 + m.assists * 0.5)
+    );
+  }, 0);
   const scout = RandomGenerator.fromSeed(
     `${career.seed}:scout:${career.careerSeasonNumber}:${club.id}`,
   ).int(-9, 9);
@@ -180,7 +191,8 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
       0.28 -
     (need.depth === 'deep' ? 10 : need.depth === 'thin' ? -5 : 0) +
     style;
-  return { score, interested: score >= 37, need, potentialEstimate };
+  const eliteDomesticCandidate = overall(career) >= 80 && getClubLeagueTier(club) === 1;
+  return { score, interested: eliteDomesticCandidate || score >= 37, need, potentialEstimate };
 };
 export const generateProfessionalOffers = (career: CareerState): ProfessionalOffer[] =>
   (career.clubWorld ?? generateProfessionalClubPool(career.seed))
@@ -197,6 +209,7 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
         rotation: 1,
         first_team_competition: 1.18,
         important_player: 1.4,
+        star_player: 1.65,
       }[role];
       const salary =
         Math.round(

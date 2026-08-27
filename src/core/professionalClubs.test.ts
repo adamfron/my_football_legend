@@ -76,6 +76,45 @@ describe('professional transition', () => {
     };
     expect(evaluateClubInterest(c, high).score).toBeGreaterThan(evaluateClubInterest(c, low).score);
   });
+  it('gives an elite goalkeeper top-tier interest and an appropriate role', () => {
+    const c = career();
+    c.player.primaryPosition = 'goalkeeper';
+    c.player.age = 25;
+    c.player.goalkeeperAttributes = {
+      reflexes: 84,
+      handling: 84,
+      oneOnOnes: 84,
+      goalkeeperPositioning: 84,
+      aerialCommand: 84,
+      distribution: 84,
+      communication: 84,
+    };
+    c.player.attributes.composure = 84;
+    c.player.attributes.spatialAwareness = 84;
+    const topTier = generateProfessionalClubPool(c.seed).filter((club) => club.leagueTier === 1);
+    expect(topTier.some((club) => evaluateClubInterest(c, club).interested)).toBe(true);
+    const weakerClub = { ...topTier[0]!, overallStrength: 68 };
+    expect(
+      generateProfessionalOffers({ ...c, clubWorld: [weakerClub] })[0]?.contract.squadRole,
+    ).toMatch(/important_player|star_player/);
+    const lowNeed = {
+      ...weakerClub,
+      positionalNeeds: {
+        ...weakerClub.positionalNeeds,
+        goalkeeper: { starterQuality: 80, depth: 'deep' as const, needLevel: 5 },
+      },
+    };
+    const highNeed = {
+      ...weakerClub,
+      positionalNeeds: {
+        ...weakerClub.positionalNeeds,
+        goalkeeper: { starterQuality: 60, depth: 'thin' as const, needLevel: 95 },
+      },
+    };
+    expect(
+      evaluateClubInterest(c, highNeed).score - evaluateClubInterest(c, lowNeed).score,
+    ).toBeGreaterThan(20);
+  });
   it('acceptance creates contract and valid season 2', () => {
     const c = career();
     c.professionalOffers = generateProfessionalOffers(c);

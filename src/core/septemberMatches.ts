@@ -246,9 +246,13 @@ export const evaluateSquadOpportunity = (
     development * 0.25 +
     (seniorPath ? (career.selectionStanding ?? 50) * 0.08 : 0) +
     catchUp +
-    { development_player: -7, rotation: 0, first_team_competition: 7, important_player: 14 }[
-      career.currentContract?.squadRole ?? 'rotation'
-    ] +
+    {
+      development_player: -7,
+      rotation: 0,
+      first_team_competition: 7,
+      important_player: 14,
+      star_player: 18,
+    }[career.currentContract?.squadRole ?? 'rotation'] +
     (form * coach.formSensitivity) / 400 +
     (absence === 'one_absence' ? 7 : absence === 'several_absences' ? 13 : 0) +
     (rng.float() - 0.5) * 7;
