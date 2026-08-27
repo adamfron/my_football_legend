@@ -20,7 +20,8 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
     clubId: career.currentClub.id,
     clubName: career.currentClub.name,
     leagueLevel: season.competition.tier ?? 0,
-    leagueName: season.name,
+    leagueName: season.competition.name,
+    leagueTier: season.competition.tier,
     clubFinish: row.position,
     clubPoints: row.points,
     clubRecord: { won: row.won, drawn: row.drawn, lost: row.lost },
@@ -44,5 +45,6 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
     milestones: career.historyFacts
       .filter((f) => f.season === career.currentSeason && f.narrativeImportance >= 80)
       .map((f) => f.id),
+    seasonResult: career.seasonOutcome?.leagueOutcome,
   };
 };

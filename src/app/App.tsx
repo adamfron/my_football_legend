@@ -8,7 +8,6 @@ import { validateSampleContent } from '../schemas/validateContent';
 import { missingLocalizationKeys, translate } from '../core/narrative/localization';
 import { getFactPresentation } from '../core/narrative/factPresentation';
 import { buildFirstWeekSummary } from '../core/narrative/weekSummary';
-import { PersonAvatar } from '../components/PersonAvatar';
 import { MatchMomentumChart } from '../components/MatchMomentumChart';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
 import { getRadarAxes } from '../core/radar';
@@ -87,9 +86,18 @@ import {
   initializeCurrentCareerWeek,
 } from '../core/careerWeeks';
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
+import { getSeasonHonours } from '../core/history/careerHistory';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSeason';
 import { getClubLeagueTier } from '../core/professionalClubs';
+import {
+  describePlayerClubLevel,
+  formatClubStars,
+  getClubStrength,
+  getExpectedSquadRole,
+  getPlayerClubLevelDelta,
+} from '../core/clubStrength';
+import { getCompetitionDefinition } from '../core/competitionStrength';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
 import { getInjuryDescription } from '../core/seasonParticipation';
@@ -113,7 +121,7 @@ import {
   getRegularSeasonEvent,
   resolveRegularSeasonEvent,
 } from '../core/events/regularSeasonEvents';
-import type { CareerState, EventDecision, Person, PlayerAttributes } from '../types/domain';
+import type { CareerState, EventDecision, PlayerAttributes } from '../types/domain';
 import { getMatchTransitionHistory, isDevToolsEnabled, recordMatchTransition } from './devTools';
 import './App.css';
 
@@ -363,12 +371,6 @@ const formatDate = (date: string) =>
   new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }).format(
     new Date(`${date}T12:00:00Z`),
   );
-const relationshipRole = (career: CareerState, person: Person) =>
-  person.role === 'coach' && person.clubId !== career.currentClub.id
-    ? 'Były trener'
-    : person.role === 'academy_rival' && career.careerSeasonNumber > 1
-      ? 'Były konkurent z akademii'
-      : translate(`relationships.role.${person.role}`);
 const prestigeLabel = (prestige: number) =>
   prestige < 25
     ? 'klub lokalny'
@@ -402,13 +404,16 @@ const ClubCrest = ({ name }: { name: string }) => (
 );
 const ClubProfile = ({ career }: { career: CareerState }) => {
   const club = career.currentClub;
-  const coach = getCurrentHeadCoach(career);
   const role = assignedRole(career);
-  const importantPeople = career.significantPeople.filter(
-    (person) =>
-      person.clubId === club.id &&
-      ['coach', 'academy_rival', 'senior_head_coach', 'senior_captain'].includes(person.role),
+  const professionalClub = career.currentProfessionalClub;
+  const competition = getCompetitionDefinition(
+    professionalClub?.leagueTier ?? career.leagueSeason?.competition.tier ?? 4,
   );
+  const strength = professionalClub ? getClubStrength(professionalClub) : 50;
+  const playerOVR = getPlayerOverall(career.player, career.player.primaryPosition);
+  const currentRole = professionalClub
+    ? getExpectedSquadRole(career, professionalClub)
+    : career.currentContract?.squadRole;
   return (
     <div className="club-profile">
       <header className="club-header">
@@ -418,17 +423,27 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
           <p>
             {club.region}, {club.country}
           </p>
+          <p>
+            {competition.name} — poziom {competition.tier}
+          </p>
+          <p aria-label={`${formatClubStars(strength)}, siła klubu ${strength} na 100`}>
+            <strong>{formatClubStars(strength)}</strong> · Siła klubu: {Math.round(strength)}/100
+          </p>
           <strong>{prestigeLabel(club.prestige)}</strong>
         </div>
       </header>
       {(career.currentContract || role) && (
         <section>
           <h3>Twoja obecna rola</h3>
+          <p>{currentRole ? squadRoleLabel(currentRole) : roleStatus(role!)}</p>
           <p>
-            {career.currentContract
-              ? squadRoleLabel(career.currentContract.squadRole)
-              : roleStatus(role!)}
+            OVR zawodnika: {playerOVR} · siła klubu: {Math.round(strength)}
           </p>
+          <strong>
+            {professionalClub
+              ? describePlayerClubLevel(getPlayerClubLevelDelta(career, professionalClub))
+              : describePlayerClubLevel(playerOVR - strength)}
+          </strong>
         </section>
       )}
       <section>
@@ -443,7 +458,10 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
           <strong>Młodzież:</strong> {club.youthApproach}.
         </p>
         <p>
-          <strong>Sytuacja:</strong> {club.currentSituation}
+          <strong>Sytuacja:</strong>{' '}
+          {career.leagueSeason
+            ? `${getLeagueTable(career).find((row) => row.clubId === career.leagueSeason?.controlledClubId)?.position ?? '—'}. miejsce w bieżącym sezonie.`
+            : 'Trwa przygotowanie do kolejnego sezonu.'}
         </p>
       </section>
       {club.seasonHistory.length > 0 && (
@@ -454,34 +472,6 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
               {s.season}: {s.placement ? `${s.placement}. miejsce. ` : ''}
               {s.summary}
             </p>
-          ))}
-        </section>
-      )}
-      <section>
-        <h3>Co to oznacza dla ciebie</h3>
-        <p>
-          {club.youthApproach} {coach ? `${coach.firstName} ${coach.lastName}` : 'Sztab'} obserwuje,
-          czy potrafisz połączyć rozwój indywidualny z potrzebami drużyny.
-        </p>
-      </section>
-      {importantPeople.length > 0 && (
-        <section>
-          <h3>Ważne osoby</h3>
-          {importantPeople.map((person) => (
-            <article className="mini-card coach-card" key={person.id}>
-              <PersonAvatar
-                seed={person.faceSeed}
-                firstName={person.firstName}
-                lastName={person.lastName}
-                age={person.age}
-              />
-              <div>
-                <h4>
-                  {person.firstName} {person.lastName}
-                </h4>
-                <p>{relationshipRole(career, person)}</p>
-              </div>
-            </article>
           ))}
         </section>
       )}
@@ -834,8 +824,7 @@ const SeasonEndSummary = ({
       </p>
       <h3>Zawodnik</h3>
       <p>
-        Senior: {summary.statistics.seniorAppearances} · akademia:{' '}
-        {summary.statistics.academyAppearances} · starty: {summary.statistics.starts} ·{' '}
+        Występy: {summary.statistics.appearances} · starty: {summary.statistics.starts} ·{' '}
         {summary.statistics.minutes} min
       </p>
       <p>
@@ -894,6 +883,11 @@ const SeasonEndSummary = ({
                 </p>
               )}
               <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
+              <p>
+                Poziom {getClubLeagueTier(offer.club)} ·{' '}
+                {formatClubStars(getClubStrength(offer.club))} · Siła klubu:{' '}
+                {Math.round(getClubStrength(offer.club))}/100
+              </p>
               <p>
                 <strong>Poziom sportowy:</strong>{' '}
                 {offer.offerType === 'renewal'
@@ -1441,9 +1435,7 @@ const RetiredCareerSummary = ({
     { appearances: 0, starts: 0, minutes: 0, goals: 0, assists: 0 },
   );
   const milestones = getCareerMilestones(career).filter((item) =>
-    ['club_promoted', 'club_relegated', 'top_tier_champion', 'retired'].includes(
-      item.fact.factType,
-    ),
+    ['top_tier_champion', 'retired'].includes(item.fact.factType),
   );
   return (
     <section className="panel retirement-summary">
@@ -1474,6 +1466,7 @@ const RetiredCareerSummary = ({
               <th>Klub</th>
               <th>Liga</th>
               <th>Miejsce</th>
+              <th>Trofea / wyróżnienia</th>
               <th>Wyst.</th>
               <th>Starty</th>
               <th>Min.</th>
@@ -1488,8 +1481,23 @@ const RetiredCareerSummary = ({
                 <td>{season.label}</td>
                 <td>{season.age}</td>
                 <td>{season.clubName}</td>
-                <td>{season.leagueName}</td>
-                <td>{season.clubFinish}.</td>
+                <td>
+                  {season.leagueName} — poziom {season.leagueTier ?? season.leagueLevel}
+                </td>
+                <td>
+                  {season.clubFinish}.{' '}
+                  {season.seasonResult === 'promoted' && (
+                    <span title="Awans" aria-label="Awans">
+                      ↑
+                    </span>
+                  )}
+                  {season.seasonResult === 'relegated' && (
+                    <span title="Spadek" aria-label="Spadek">
+                      ↓
+                    </span>
+                  )}
+                </td>
+                <td>{getSeasonHonours(career.historyFacts, season).join(', ') || '—'}</td>
                 <td>{season.player.appearances}</td>
                 <td>{season.player.starts}</td>
                 <td>{season.player.minutes}</td>

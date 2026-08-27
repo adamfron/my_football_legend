@@ -3,12 +3,12 @@ import type {
   ClubArchetype,
   ProfessionalClub,
   ProfessionalOffer,
-  SquadRole,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
 import { getPlayerOverall } from './playerOverall';
 import { getPlayerForm } from './careerWeeks';
 import { clampProfessionalLeagueTier } from './leagueSeason';
+import { getClubStrength, getExpectedSquadRole } from './clubStrength';
 
 export const getClubLeagueTier = (club: ProfessionalClub) =>
   clampProfessionalLeagueTier(club.leagueTier ?? club.professionalLevel ?? 3);
@@ -115,7 +115,7 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
       managerId: `coach_pro_${index}`,
       philosophyTags: [archetypes[index % archetypes.length]!.toLowerCase()],
       reputation: Math.min(85, strength + rng.int(-5, 8)),
-      overallStrength: strength,
+      strengthRating: strength,
       financialLevel: rng.int(28, 82),
       playingStyle: rng.pick([
         'techniczny',
@@ -139,14 +139,7 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
   });
 const overall = (career: CareerState) =>
   getPlayerOverall(career.player, career.player.primaryPosition);
-export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub): SquadRole => {
-  const gap = overall(career) - club.overallStrength;
-  if (gap >= 13) return 'star_player';
-  if (gap >= 9) return 'important_player';
-  if (gap >= -1) return 'first_team_competition';
-  if (gap >= -7 || career.player.age > 22) return 'rotation';
-  return 'development_player';
-};
+export { getExpectedSquadRole } from './clubStrength';
 const currentSeasonAppearances = (career: CareerState) =>
   career.seasonParticipation?.length
     ? career.seasonParticipation.filter((match) => match.minutes > 0)
@@ -185,9 +178,9 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
     getPlayerForm(career).value * 1.5 +
     career.player.reputation * 0.08 -
     Math.max(0, career.player.age - 29) * 1.1 -
-    club.overallStrength * 0.55 -
+    getClubStrength(club) * 0.55 -
     Math.max(0, 3 - getClubLeagueTier(club)) *
-      Math.max(0, club.overallStrength - overall(career)) *
+      Math.max(0, getClubStrength(club) - overall(career)) *
       0.28 -
     (need.depth === 'deep' ? 10 : need.depth === 'thin' ? -5 : 0) +
     style;
@@ -260,10 +253,10 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
     .sort((a, b) => {
       const ai =
         evaluateClubInterest(career, a.club).score +
-        Math.max(0, overall(career) - a.club.overallStrength) * 0.35;
+        Math.max(0, overall(career) - getClubStrength(a.club)) * 0.35;
       const bi =
         evaluateClubInterest(career, b.club).score +
-        Math.max(0, overall(career) - b.club.overallStrength) * 0.35;
+        Math.max(0, overall(career) - getClubStrength(b.club)) * 0.35;
       return bi - ai || a.id.localeCompare(b.id);
     })
     .slice(0, career.player.age >= 33 ? 3 : 4);
@@ -276,14 +269,9 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
   const appearances = currentSeasonAppearances(career);
   const minutes = appearances.reduce((sum, item) => sum + item.minutes, 0);
   const contractExpires = career.currentContract.endDate <= `${career.currentSeason + 1}-06-30`;
-  if (minutes < 180 && overall(career) < career.currentProfessionalClub.overallStrength - 8)
+  if (minutes < 180 && overall(career) < getClubStrength(career.currentProfessionalClub) - 8)
     return external.slice(0, 4);
-  const role: SquadRole =
-    career.player.age <= 22 && overall(career) < career.currentProfessionalClub.overallStrength
-      ? 'development_player'
-      : overall(career) >= career.currentProfessionalClub.overallStrength
-        ? 'first_team_competition'
-        : 'rotation';
+  const role = getExpectedSquadRole(career, career.currentProfessionalClub);
   const renewal: ProfessionalOffer = {
     id: `renewal_${career.currentClub.id}_${career.currentSeason}`,
     offerType: 'renewal',

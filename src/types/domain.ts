@@ -338,6 +338,7 @@ export interface CompletedSeasonSnapshot {
   clubName: string;
   leagueLevel: number;
   leagueName: string;
+  leagueTier?: number | undefined;
   clubFinish: number;
   clubPoints: number;
   clubRecord: { won: number; drawn: number; lost: number };
@@ -368,6 +369,7 @@ export interface CompletedSeasonSnapshot {
   /** Frozen canonical controlled-club fixture ledger. */
   fixtures: SeasonParticipationRecord[];
   milestones: Id[];
+  seasonResult?: 'promoted' | 'relegated' | 'stayed' | 'champion' | undefined;
 }
 
 export type CareerStage =
@@ -442,7 +444,10 @@ export interface ProfessionalClub {
   /** Legacy save field; new simulation code uses leagueTier. */
   professionalLevel?: number | undefined;
   reputation: number;
-  overallStrength: number;
+  /** Canonical first-team quality on the shared 0..100 scale. */
+  strengthRating?: number | undefined;
+  /** Legacy save field; read only by migration/fallback helpers. */
+  overallStrength?: number | undefined;
   financialLevel: number;
   playingStyle: string;
   youthPolicy: number;
@@ -823,8 +828,10 @@ export interface SeasonPlayerSummary {
   averageRating?: number | undefined;
   bestRating?: number | undefined;
   bestMatchId?: string | undefined;
-  seniorAppearances: number;
-  academyAppearances: number;
+  /** @deprecated Legacy presentation fields; appearances is authoritative. */
+  seniorAppearances?: number;
+  /** @deprecated Legacy presentation fields; appearances is authoritative. */
+  academyAppearances?: number;
 }
 export type PlayStyleId =
   | 'progressive_passer'

@@ -1,8 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import { getProfessionalCompetitionName, resolveLeagueTierAfterSeason } from './leagueSeason';
 import { describeLeagueLevelChange } from './careerPresentation';
+import { POLISH_LEAGUE_PYRAMID } from './competitionStrength';
 
 describe('Polish professional league pyramid', () => {
+  it('owns tier, strength, reputation and movement destinations', () => {
+    expect(POLISH_LEAGUE_PYRAMID).toHaveLength(4);
+    for (const league of POLISH_LEAGUE_PYRAMID) {
+      expect(league.name).toBeTruthy();
+      expect(league.tier).toBeGreaterThanOrEqual(1);
+      expect(league.strengthRating).toBeGreaterThan(0);
+      expect(league.reputation).toBeGreaterThan(0);
+    }
+  });
   it.each([
     [1, 'Polska Liga Elitarna'],
     [2, 'Polska Liga Krajowa'],

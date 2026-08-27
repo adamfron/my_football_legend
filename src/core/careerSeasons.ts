@@ -5,6 +5,7 @@ import {
   getProfessionalCompetitionName,
   VISTULA_NOVA_ID,
 } from './leagueSeason';
+import { getClubStrength } from './clubStrength';
 import { RandomGenerator } from './random/RandomGenerator';
 import type { Person, RelationshipScores } from '../types/domain';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
@@ -71,9 +72,9 @@ export const initializeCareerSeason = (
         ? {
             clubId: source.id,
             name: source.name,
-            strength: source.overallStrength,
-            attackStrength: source.overallStrength,
-            defenseStrength: source.overallStrength,
+            strength: getClubStrength(source),
+            attackStrength: getClubStrength(source),
+            defenseStrength: getClubStrength(source),
             form: 0,
           }
         : club;
@@ -408,7 +409,7 @@ const asClub = (offer: ProfessionalOffer): Club => ({
   country: offer.club.country,
   region: offer.club.region,
   dna: [offer.club.archetype.toLowerCase(), 'professional'],
-  currentSituation: 'Pierwszy sezon zawodnika w profesjonalnej piłce.',
+  currentSituation: 'Bieżąca sytuacja zależy od tabeli, formy i roli zawodnika.',
   playStyle: offer.club.playingStyle,
   youthApproach: 'Rozwój młodych zależy od polityki klubu i zaufania trenera.',
   prestige: offer.club.reputation,
@@ -504,7 +505,7 @@ export const continueWithProfessionalTrial = (career: CareerState): CareerState 
       region: club.region,
       leagueTier: 4,
       reputation: 30,
-      overallStrength: 42,
+      strengthRating: 42,
       financialLevel: 25,
       playingStyle: club.playStyle,
       youthPolicy: 75,
