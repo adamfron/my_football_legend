@@ -5,6 +5,7 @@ import { recoverOrphanedSeasonOneRound } from './careerWeeks';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { dedupePeople } from './people';
 import { RandomGenerator } from './random/RandomGenerator';
+import { deriveGoalkeeperAttributes } from './goalkeeperAttributes';
 
 export const CAREER_SAVE_VERSION = 1;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v1';
@@ -90,6 +91,13 @@ export const loadCareer = (): LoadCareerResult => {
     attributes.determination ??= fallback;
     attributes.ambition ??= fallback;
     attributes.professionalism ??= fallback;
+    if (player.primaryPosition === 'goalkeeper' && !player.goalkeeperAttributes)
+      player.goalkeeperAttributes = deriveGoalkeeperAttributes(
+        String(career.seed),
+        attributes as never,
+        Number(player.age),
+        typeof career.highestOVR === 'number' ? Number(career.highestOVR) : undefined,
+      );
     career.seasonStartingAttributes ??= { ...attributes };
     const profileRng = RandomGenerator.fromSeed(`${String(career.seed)}:development-profile`);
     career.developmentProfile ??= {

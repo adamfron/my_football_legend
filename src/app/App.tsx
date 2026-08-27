@@ -12,6 +12,7 @@ import { PersonAvatar } from '../components/PersonAvatar';
 import { MatchMomentumChart } from '../components/MatchMomentumChart';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
 import { getRadarAxes } from '../core/radar';
+import { getSeasonGoalkeeperStats } from '../core/seasonParticipation';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
 import { diagnoseCareerProgression, matchStateSummary } from '../core/progressionDiagnostics';
 import { createCompletedSeasonSnapshot } from '../core/seasonArchive';
@@ -703,6 +704,7 @@ const CareerWeekGame = ({
       appearance: career.matchHistory?.find(
         (match) => match.matchId === item.id || match.matchId === `academy_${item.id}`,
       ),
+      participation: career.seasonParticipation?.find((record) => record.fixtureId === item.id),
     }));
   if (!week || career.leagueSeason?.completed)
     return <SeasonEndSummary career={career} onCareer={onCareer} />;
@@ -1925,6 +1927,10 @@ export const App = () => {
                       <h3>Rozwój</h3>
                       {(() => {
                         const summary = getSeasonPlayerSummary(career, career.currentSeason);
+                        const goalkeeperSummary =
+                          career.player.primaryPosition === 'goalkeeper'
+                            ? getSeasonGoalkeeperStats(career.seasonParticipation ?? [])
+                            : undefined;
                         return (
                           <>
                             <h3>Bieżący sezon — {getSeasonProgress(career).seasonLabel}</h3>
@@ -1950,16 +1956,56 @@ export const App = () => {
                                 <br />
                                 <strong>{summary.minutes}</strong>
                               </div>
-                              <div>
-                                Gole
-                                <br />
-                                <strong>{summary.goals}</strong>
-                              </div>
-                              <div>
-                                Asysty
-                                <br />
-                                <strong>{summary.assists}</strong>
-                              </div>
+                              {goalkeeperSummary ? (
+                                <>
+                                  <div>
+                                    Stracone gole
+                                    <br />
+                                    <strong>{goalkeeperSummary.goalsConceded}</strong>
+                                  </div>
+                                  <div>
+                                    Czyste konta
+                                    <br />
+                                    <strong>{goalkeeperSummary.cleanSheets}</strong>
+                                  </div>
+                                  <div>
+                                    Obrony
+                                    <br />
+                                    <strong>{goalkeeperSummary.saves}</strong>
+                                  </div>
+                                  <div>
+                                    Skuteczność obron
+                                    <br />
+                                    <strong>{numberPl(goalkeeperSummary.savePercentage)}%</strong>
+                                  </div>
+                                  <div>
+                                    xGA
+                                    <br />
+                                    <strong>{numberPl(goalkeeperSummary.xGA)}</strong>
+                                  </div>
+                                  <div>
+                                    Gole powstrzymane
+                                    <br />
+                                    <strong>
+                                      {goalkeeperSummary.goalsPrevented > 0 ? '+' : ''}
+                                      {numberPl(goalkeeperSummary.goalsPrevented)}
+                                    </strong>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div>
+                                    Gole
+                                    <br />
+                                    <strong>{summary.goals}</strong>
+                                  </div>
+                                  <div>
+                                    Asysty
+                                    <br />
+                                    <strong>{summary.assists}</strong>
+                                  </div>
+                                </>
+                              )}
                               <div>
                                 Średnia ocen
                                 <br />

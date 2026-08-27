@@ -23,6 +23,7 @@ export const squadRoleLabel = (role: SquadRole) =>
     rotation: 'Zawodnik rotacji',
     first_team_competition: 'Walczy o pierwszy skład',
     important_player: 'Ważny zawodnik zespołu',
+    star_player: 'Gwiazda zespołu',
   })[role];
 
 export const clubArchetypeLabel = (archetype: ClubArchetype) =>

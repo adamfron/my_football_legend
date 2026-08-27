@@ -5,6 +5,7 @@ import { samplePerson } from '../content/sampleContent';
 import type { CareerState, HistoryFact, Player, PlayerAttributes } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
 import { generateProfessionalClubPool } from './professionalClubs';
+import { deriveGoalkeeperAttributes, goalkeeperAttributeLabels } from './goalkeeperAttributes';
 
 export const STARTING_AGE = 16;
 export const MIN_HEIGHT_CM = 155;
@@ -206,6 +207,16 @@ export const generateStartingPlayerProfile = (
     heightCm: parsed.heightCm,
     weightKg: parsed.weightKg,
     attributes,
+    ...(parsed.position === 'goalkeeper'
+      ? {
+          goalkeeperAttributes: deriveGoalkeeperAttributes(
+            `${seed}:${rollIndex}`,
+            attributes,
+            STARTING_AGE,
+            57 + rng.int(-4, 6),
+          ),
+        }
+      : {}),
     traits: [`foot_${parsed.dominantFoot}`],
     archetypeId: 'everyman',
     careerPremiseId: promisingAcademyPlayerPremise.id,
@@ -222,14 +233,25 @@ export const generateStartingPlayerProfile = (
     matchEffort: 3,
     trainingEffort: 3,
   };
+  const goalkeeperSorted = player.goalkeeperAttributes
+    ? (
+        Object.keys(player.goalkeeperAttributes) as Array<keyof typeof player.goalkeeperAttributes>
+      ).sort((a, b) => player.goalkeeperAttributes![b] - player.goalkeeperAttributes![a])
+    : [];
   const sorted = [...attributeKeys].sort((a, b) => attributes[b] - attributes[a]);
   return {
     player,
     profileDescriptionKey: 'creator.profileDescription',
     profileDescriptionParams: {
-      strong1: `attribute.${sorted[0]}`,
-      strong2: `attribute.${sorted[1]}`,
-      weak: `attribute.${sorted.at(-1)}`,
+      strong1: player.goalkeeperAttributes
+        ? goalkeeperAttributeLabels[goalkeeperSorted[0]!]
+        : `attribute.${sorted[0]}`,
+      strong2: player.goalkeeperAttributes
+        ? goalkeeperAttributeLabels[goalkeeperSorted[1]!]
+        : `attribute.${sorted[1]}`,
+      weak: player.goalkeeperAttributes
+        ? goalkeeperAttributeLabels[goalkeeperSorted.at(-1)!]
+        : `attribute.${sorted.at(-1)}`,
       position: `position.${parsed.position}`,
     },
     rollIndex,
