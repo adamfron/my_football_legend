@@ -86,6 +86,7 @@ import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSe
 import { getClubLeagueTier } from '../core/professionalClubs';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
+import { getInjuryDescription } from '../core/seasonParticipation';
 import {
   acceptProfessionalOffer,
   continueWithProfessionalTrial,
@@ -1076,12 +1077,8 @@ const SeasonView = ({ career }: { career: CareerState }) => {
       .flatMap((round) => round.fixtures)
       .filter((fixture) => [fixture.homeClubId, fixture.awayClubId].includes(controlledClubId)) ??
     [];
-  const visible = fixtures
-    .filter((fixture) => fixture.completed)
-    .slice(-3)
-    .concat(fixtures.filter((fixture) => !fixture.completed).slice(0, 4));
   const name = (id: string) => season?.clubs.find((club) => club.clubId === id)?.name ?? id;
-  const compactFixtures: CompactFixtureItem[] = visible.map((fixture) => ({
+  const compactFixtures: CompactFixtureItem[] = fixtures.map((fixture) => ({
     fixture,
     opponentName: name(
       fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId,
@@ -1090,6 +1087,7 @@ const SeasonView = ({ career }: { career: CareerState }) => {
     appearance: career.matchHistory?.find(
       (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
     ),
+    participation: career.seasonParticipation?.find((item) => item.fixtureId === fixture.id),
   }));
   return (
     <section>
@@ -1889,6 +1887,28 @@ export const App = () => {
                       <p>
                         <strong>Kondycja:</strong> {career.player.fitness}
                       </p>
+                      {getInjuryDescription(career) && (
+                        <p>
+                          <strong>Kontuzja:</strong> {getInjuryDescription(career)}
+                        </p>
+                      )}
+                      <label>
+                        Trening{' '}
+                        <select
+                          value={career.trainingApproach ?? 'balanced'}
+                          onChange={(event) =>
+                            updateCareer({
+                              ...career,
+                              trainingApproach: event.target
+                                .value as CareerState['trainingApproach'],
+                            })
+                          }
+                        >
+                          <option value="recovery">Regeneracja</option>
+                          <option value="balanced">Zrównoważony</option>
+                          <option value="extra_work">Dodatkowa praca</option>
+                        </select>
+                      </label>
                       <h3>Rozwój</h3>
                       {(() => {
                         const summary = getSeasonPlayerSummary(career, career.currentSeason);

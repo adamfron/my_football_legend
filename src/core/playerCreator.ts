@@ -285,10 +285,15 @@ export const createCareerState = (profile: StartingPlayerProfile, seed: string):
       declineStartAge: profileRng.int(29, 33),
       softPotential: profile.player.potential,
       developmentVolatility: profileRng.int(5, 22),
-      physicalPeakAge: profileRng.int(23, 27), technicalPeakAge: profileRng.int(26, 30), mentalPeakAge: profileRng.int(28, 32),
+      physicalPeakAge: profileRng.int(23, 27),
+      technicalPeakAge: profileRng.int(26, 30),
+      mentalPeakAge: profileRng.int(28, 32),
     },
     clubWorld: generateProfessionalClubPool(seed),
     completedSeasons: [],
+    seasonParticipation: [],
+    trainingApproach: 'balanced',
+    selectionStanding: 50,
   };
 };
 

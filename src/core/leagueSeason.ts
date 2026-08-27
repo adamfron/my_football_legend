@@ -68,9 +68,17 @@ const professionalNames = [
   'Victoria Żary',
   'MKS Podhale',
   'Pogoń Jasna',
+  'Hutnik Dolina',
+  'Akademik Toruń',
+  'Korona Puszczy',
+  'Zryw Opole',
 ];
 
-const scheduleDates = (startYear: number, alignWithSeptemberPrologue: boolean) => {
+const scheduleDates = (
+  startYear: number,
+  alignWithSeptemberPrologue: boolean,
+  roundsPerHalf: number,
+) => {
   const dates: string[] = [];
   const add = (start: string, count: number) => {
     const date = new Date(`${start}T00:00:00Z`);
@@ -81,8 +89,8 @@ const scheduleDates = (startYear: number, alignWithSeptemberPrologue: boolean) =
   };
   // The academy prologue presents four official September matches. Keeping the
   // league calendar on the same chronology prevents an unplayable August round.
-  add(`${startYear}-${alignWithSeptemberPrologue ? '09-05' : '08-29'}`, 11);
-  add(`${startYear + 1}-03-06`, 11);
+  add(`${startYear}-${alignWithSeptemberPrologue ? '09-05' : '08-29'}`, roundsPerHalf);
+  add(`${startYear + 1}-02-20`, roundsPerHalf);
   return dates;
 };
 
@@ -100,18 +108,23 @@ export const createLeagueSeason = (
 ): LeagueSeason => {
   void seed;
   const startYear = options.startYear ?? 2026;
-  const roundDates = scheduleDates(startYear, startYear === 2026 && !options.professional);
+  const clubCount = options.professional ? 16 : 12;
+  const roundDates = scheduleDates(
+    startYear,
+    startYear === 2026 && !options.professional,
+    clubCount - 1,
+  );
   const sourceSeeds = options.professional
-    ? clubSeeds.map(
-        (entry, index) =>
-          [
-            `professional_league_${index}`,
-            professionalNames[index]!,
-            entry[2] + 2,
-            entry[3] + 2,
-            entry[4] + 2,
-          ] as [string, string, number, number, number],
-      )
+    ? professionalNames.map((name, index) => {
+        const entry = clubSeeds[index % clubSeeds.length]!;
+        return [`professional_league_${index}`, name, entry[2] + 2, entry[3] + 2, entry[4] + 2] as [
+          string,
+          string,
+          number,
+          number,
+          number,
+        ];
+      })
     : clubSeeds;
   const clubs: LeagueClubProfile[] = sourceSeeds.map(
     ([clubId, name, strength, attackStrength, defenseStrength]) => ({
@@ -163,14 +176,14 @@ export const createLeagueSeason = (
   }));
   firstHalf.forEach((fixtures, index) =>
     rounds.push({
-      index: index + 11,
-      date: roundDates[index + 11]!,
+      index: index + firstHalf.length,
+      date: roundDates[index + firstHalf.length]!,
       completed: false,
       fixtures: fixtures.map((fixture, i) => ({
         ...fixture,
-        id: `league_${startYear}_${index + 12}_${i + 1}`,
-        roundIndex: index + 11,
-        date: roundDates[index + 11]!,
+        id: `league_${startYear}_${index + firstHalf.length + 1}_${i + 1}`,
+        roundIndex: index + firstHalf.length,
+        date: roundDates[index + firstHalf.length]!,
         homeClubId: fixture.awayClubId,
         awayClubId: fixture.homeClubId,
       })),
@@ -272,8 +285,39 @@ export const settleLeagueRound = (
     season.competition.category === 'professional'
       ? resolveLeagueTierAfterSeason(season.competition.tier ?? 3, finalPosition)
       : undefined;
+  const available = (next.seasonParticipation ?? []).filter(
+    (record) => !['injured', 'suspended', 'unfit'].includes(record.status),
+  );
+  const share = available.length
+    ? available.reduce((sum, record) => sum + record.minutes, 0) / (available.length * 90)
+    : 0;
+  const brokenPromise =
+    next.currentContract?.squadRole === 'important_player' && available.length >= 10 && share < 0.5;
   return {
     ...next,
+    currentDate:
+      !next.currentDate || season.endDate > next.currentDate ? season.endDate : next.currentDate,
+    historyFacts: brokenPromise
+      ? [
+          ...next.historyFacts,
+          {
+            id: `fact_role_promise_broken_${season.id}`,
+            factType: 'role_promise_broken',
+            season: next.currentSeason,
+            date: season.endDate,
+            actors: [next.player.id],
+            targets: [],
+            clubs: [next.currentClub.id],
+            competitions: [season.competition.name],
+            data: { role: 'important_player', availableMinuteShare: share },
+            causes: [],
+            tags: ['contract', 'selection'],
+            visibility: 'partial',
+            narrativeImportance: 82,
+            emotionalTone: 'negative',
+          },
+        ]
+      : next.historyFacts,
     seasonOutcome: {
       finalPosition,
       champion: finalPosition === 1,

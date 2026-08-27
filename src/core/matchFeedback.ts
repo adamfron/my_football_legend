@@ -62,17 +62,29 @@ export const getSeasonPlayerSummary = (
     (m) => m.date >= `${season}-07-01` && m.date <= `${season + 1}-06-30`,
   );
   const rated = matches.filter((m) => m.rating !== undefined);
+  const ledger = season === career.currentSeason ? (career.seasonParticipation ?? []) : [];
+  const playedLedger = ledger.filter((record) => record.minutes > 0);
   const best = rated.reduce<MatchAppearance | undefined>(
     (current, match) => (!current || match.rating! > current.rating! ? match : current),
     undefined,
   );
   return {
-    appearances: matches.filter((m) => m.minutes > 0).length,
-    starts: matches.filter((m) => m.started && m.minutes > 0).length,
-    substituteAppearances: matches.filter((m) => !m.started && m.minutes > 0).length,
-    minutes: matches.reduce((s, m) => s + m.minutes, 0),
-    goals: matches.reduce((s, m) => s + m.goals, 0),
-    assists: matches.reduce((s, m) => s + m.assists, 0),
+    appearances: ledger.length ? playedLedger.length : matches.filter((m) => m.minutes > 0).length,
+    starts: ledger.length
+      ? playedLedger.filter((record) => record.started).length
+      : matches.filter((m) => m.started && m.minutes > 0).length,
+    substituteAppearances: ledger.length
+      ? playedLedger.filter((record) => !record.started).length
+      : matches.filter((m) => !m.started && m.minutes > 0).length,
+    minutes: ledger.length
+      ? playedLedger.reduce((s, m) => s + m.minutes, 0)
+      : matches.reduce((s, m) => s + m.minutes, 0),
+    goals: ledger.length
+      ? playedLedger.reduce((s, m) => s + m.goals, 0)
+      : matches.reduce((s, m) => s + m.goals, 0),
+    assists: ledger.length
+      ? playedLedger.reduce((s, m) => s + m.assists, 0)
+      : matches.reduce((s, m) => s + m.assists, 0),
     xG: round(matches.reduce((s, m) => s + m.xG, 0)),
     xA: round(matches.reduce((s, m) => s + m.xA, 0)),
     keyPasses: matches.reduce((s, m) => s + m.keyPasses, 0),

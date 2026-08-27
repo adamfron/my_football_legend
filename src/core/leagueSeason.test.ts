@@ -31,6 +31,19 @@ const career = (): CareerState => {
 };
 
 describe('compact league season', () => {
+  it('creates thirty rounds for sixteen unique professional clubs', () => {
+    const season = createLeagueSeason('professional-schedule', { professional: true });
+    expect(new Set(season.clubs.map((club) => club.clubId)).size).toBe(16);
+    expect(season.rounds).toHaveLength(30);
+    const fixtures = season.rounds.flatMap((round) => round.fixtures);
+    expect(fixtures.every((fixture) => fixture.homeClubId !== fixture.awayClubId)).toBe(true);
+    for (const club of season.clubs)
+      expect(
+        fixtures.filter((fixture) =>
+          [fixture.homeClubId, fixture.awayClubId].includes(club.clubId),
+        ),
+      ).toHaveLength(30);
+  });
   it('creates a deterministic double round robin for twelve fictional clubs', () => {
     const season = createLeagueSeason('schedule');
     expect(season.clubs).toHaveLength(12);

@@ -87,7 +87,8 @@ describe('professional transition', () => {
     expect(next.currentSeason).toBe(2027);
     expect(next.leagueSeason?.controlledClubId).toBe(next.currentClub.id);
     expect(next.leagueSeason?.competition.category).toBe('professional');
-    expect(new Set(next.leagueSeason?.clubs.map((club) => club.name)).size).toBe(12);
+    expect(new Set(next.leagueSeason?.clubs.map((club) => club.name)).size).toBe(16);
+    expect(next.leagueSeason?.rounds).toHaveLength(30);
     expect(next.activeMatch).toBeUndefined();
     expect(next.activeEvent).toBeUndefined();
     expect(next.leagueSeason?.name).toBe('2027/28');

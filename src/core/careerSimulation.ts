@@ -14,15 +14,19 @@ import {
 import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
 import { applyAppearanceConsequences } from './appearanceConsequences';
-import {
-  projectFixtureParticipation,
-  startFixtureMatch,
-} from './septemberMatches';
+import { projectFixtureParticipation, startFixtureMatch } from './septemberMatches';
 import {
   applyMatchAvailabilityEffects,
   consumeUnavailableRound,
   getPlayerAvailability,
 } from './playerAvailability';
+import {
+  nonAppearanceParticipation,
+  participationFromAppearance,
+  recordParticipation,
+  updateSelectionStanding,
+} from './seasonParticipation';
+import { getPlayerOverall } from './playerOverall';
 
 export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
   if ((career.careerStatus ?? 'active') === 'retired') return 'career is retired';
@@ -91,7 +95,11 @@ export const simulateRoutinePlayerMatch = (
     `${career.seed}:${career.currentSeason}:quick-player:${fixture.id}`,
   );
   const availability = getPlayerAvailability(career, fixture.date);
-  if (!availability.available) return consumeUnavailableRound(career, fixture.date);
+  if (!availability.available)
+    return recordParticipation(
+      consumeUnavailableRound(career, fixture.date),
+      nonAppearanceParticipation(career, fixture),
+    );
   const started = projected.started;
   const minutes = projected.plannedMinutes;
   const teamLevel =
@@ -100,8 +108,7 @@ export const simulateRoutinePlayerMatch = (
       : projected.teamLevel === 'senior'
         ? 'senior'
         : 'academy';
-  const quality =
-    Object.values(career.player.attributes).reduce((sum, value) => sum + value, 0) / 8;
+  const quality = getPlayerOverall(career.player, career.player.primaryPosition);
   const performance =
     (quality - fixture.opponent.strength) / 14 +
     (career.player.fitness - 60) / 30 +
@@ -200,12 +207,12 @@ export const simulateRoutinePlayerMatch = (
     facts.push(
       fact(career, `first_${teamLevel}_assist`, fixture.date, { matchId: fixture.id }, 84),
     );
-  return applyAppearanceConsequences(
+  const completed = applyAppearanceConsequences(
     {
       ...effects.career,
       player: {
         ...career.player,
-        fitness: clamp(career.player.fitness - Math.round(minutes / 20) + 2, 20, 100),
+        fitness: clamp(career.player.fitness - Math.round(minutes / 14), 0, 100),
         morale: clamp(
           career.player.morale + (rating && rating >= 7.2 ? 2 : rating && rating < 5.8 ? -2 : 0),
           0,
@@ -216,6 +223,15 @@ export const simulateRoutinePlayerMatch = (
       historyFacts: [...career.historyFacts, ...facts, ...effects.facts],
     },
     appearance,
+  );
+  return recordParticipation(
+    {
+      ...completed,
+      selectionStanding: updateSelectionStanding(completed.selectionStanding, appearance.rating),
+    },
+    minutes > 0
+      ? participationFromAppearance(completed, fixture, appearance, projected.plannedMinutes)
+      : nonAppearanceParticipation(completed, fixture, projected.plannedMinutes),
   );
 };
 
