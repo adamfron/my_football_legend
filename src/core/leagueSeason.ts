@@ -7,18 +7,12 @@ import type {
   LeagueTableRow,
   MatchImportance,
 } from '../types/domain';
-import { COMPETITION_STRENGTH } from './competitionStrength';
+import { COMPETITION_STRENGTH, getCompetitionDefinition } from './competitionStrength';
 
 export type ProfessionalLeagueTier = 1 | 2 | 3 | 4;
 export const clampProfessionalLeagueTier = (tier: number): ProfessionalLeagueTier =>
   Math.max(1, Math.min(4, Math.round(tier))) as ProfessionalLeagueTier;
-export const getProfessionalCompetitionName = (tier: number) =>
-  ({
-    1: 'Polska Liga Elitarna',
-    2: 'Polska Liga Krajowa',
-    3: 'Polska Liga Regionalna',
-    4: 'Polska Liga Okręgowa',
-  })[clampProfessionalLeagueTier(tier)];
+export const getProfessionalCompetitionName = (tier: number) => getCompetitionDefinition(tier).name;
 
 export const resolveLeagueTierAfterSeason = (tier: number, position: number) => {
   const previousLeagueTier = clampProfessionalLeagueTier(tier);

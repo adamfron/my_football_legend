@@ -1,5 +1,6 @@
 import type { ProfessionalClub } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
+import { getClubStrength } from './clubStrength';
 
 /** Aggregate background tables and exchange the actual persistent club records. */
 export const rollOverClubWorld = (clubs: ProfessionalClub[], seed: string): ProfessionalClub[] => {
@@ -9,7 +10,7 @@ export const rollOverClubWorld = (clubs: ProfessionalClub[], seed: string): Prof
       .filter((c) => c.leagueTier === tier)
       .sort((a, b) => {
         const score = (club: ProfessionalClub) =>
-          club.overallStrength +
+          getClubStrength(club) +
           RandomGenerator.fromSeed(`${seed}:${tier}:${club.id}`).int(-12, 12);
         return score(b) - score(a) || a.id.localeCompare(b.id);
       });
