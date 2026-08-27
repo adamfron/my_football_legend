@@ -86,9 +86,8 @@ export const simulateRoutinePlayerMatch = (
   projected = projectFixtureParticipation(career, fixture),
 ): CareerState => {
   if (
-    (career.matchHistory ?? []).some(
-      (appearance) =>
-        appearance.matchId === fixture.id || appearance.matchId === `academy_${fixture.id}`,
+    career.seasonParticipation?.some(
+      (row) => row.fixtureId === fixture.id && row.fixtureStatus === 'completed',
     )
   )
     return career;
@@ -226,7 +225,6 @@ export const simulateRoutinePlayerMatch = (
           100,
         ),
       },
-      matchHistory: [...(career.matchHistory ?? []), appearance],
       historyFacts: [...career.historyFacts, ...facts, ...effects.facts],
     },
     appearance,
@@ -246,9 +244,7 @@ const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
   const league = career.leagueSeason?.rounds
     .flatMap((round) => round.fixtures)
     .find((item) => item.id === fixture.id);
-  const appearance = career.matchHistory?.find(
-    (item) => item.matchId === fixture.id || item.matchId === `academy_${fixture.id}`,
-  );
+  const appearance = career.seasonParticipation?.find((item) => item.fixtureId === fixture.id);
   const home = fixture.venue === 'home' ? career.currentClub.name : fixture.opponent.name;
   const away = fixture.venue === 'away' ? career.currentClub.name : fixture.opponent.name;
   return {
@@ -256,8 +252,8 @@ const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
     date: fixture.date,
     type: 'match',
     fixtureId: fixture.id,
-    ...(appearance ? { appearanceMatchId: appearance.matchId } : {}),
-    summary: `${home} ${league?.homeGoals ?? 0}:${league?.awayGoals ?? 0} ${away}\n${appearance?.teamLevel === 'academy' ? 'Akademia · ' : ''}${appearance?.minutes ? `${appearance.minutes} min · ${appearance.goals} G · ${appearance.assists} A · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}` : 'bez występu'}`,
+    ...(appearance?.appearanceMatchId ? { appearanceMatchId: appearance.appearanceMatchId } : {}),
+    summary: `${home} ${league?.homeGoals ?? 0}:${league?.awayGoals ?? 0} ${away}\n${appearance?.minutes ? `${appearance.minutes} min · ${appearance.goals} G · ${appearance.assists} A · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}` : 'bez występu'}`,
   };
 };
 
@@ -301,8 +297,7 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
           decisionPoint: { type: 'important_match', date: fixture.date, sourceId: fixture.id },
         };
       career = simulateRoutinePlayerMatch(career, fixture, projection);
-      const appearance = career.matchHistory?.find((a) => a.matchId === fixture.id);
-      career = settleLeagueRound(career, roundIndex, appearance ? undefined : undefined);
+      career = settleLeagueRound(career, roundIndex);
       career = {
         ...career,
         fastForwardLog: [...(career.fastForwardLog ?? []), logMatch(career, fixture)],

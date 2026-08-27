@@ -2,13 +2,13 @@ import type {
   CareerState,
   Club,
   ClubCompetitiveProfile,
-  MatchAppearance,
   MatchMomentResult,
   MatchTeamStats,
   PlayerPosition,
   SeasonPlayerSummary,
   SeasonSummary,
 } from '../types/domain';
+import { getSeasonOutfieldStats } from './seasonParticipation';
 
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const round = (value: number, digits = 2) => Number(value.toFixed(digits));
@@ -58,55 +58,35 @@ export const getSeasonPlayerSummary = (
   career: CareerState,
   season: number,
 ): SeasonPlayerSummary => {
-  const matches = (career.matchHistory ?? []).filter(
-    (m) => m.date >= `${season}-07-01` && m.date <= `${season + 1}-06-30`,
-  );
-  const rated = matches.filter((m) => m.rating !== undefined);
-  const ledger = season === career.currentSeason ? (career.seasonParticipation ?? []) : [];
-  const playedLedger = ledger.filter((record) => record.minutes > 0);
-  const best = rated.reduce<MatchAppearance | undefined>(
+  const ledger =
+    season === career.currentSeason
+      ? (career.seasonParticipation ?? [])
+      : ((career.completedSeasons ?? []).find((item) => item.label.startsWith(String(season)))
+          ?.fixtures ?? []);
+  const totals = getSeasonOutfieldStats(ledger);
+  const rated = ledger.filter((m) => m.rating !== undefined && m.minutes > 0);
+  const best = rated.reduce<(typeof rated)[number] | undefined>(
     (current, match) => (!current || match.rating! > current.rating! ? match : current),
     undefined,
   );
   return {
-    appearances: ledger.length ? playedLedger.length : matches.filter((m) => m.minutes > 0).length,
-    starts: ledger.length
-      ? playedLedger.filter((record) => record.started).length
-      : matches.filter((m) => m.started && m.minutes > 0).length,
-    substituteAppearances: ledger.length
-      ? playedLedger.filter((record) => !record.started).length
-      : matches.filter((m) => !m.started && m.minutes > 0).length,
-    minutes: ledger.length
-      ? playedLedger.reduce((s, m) => s + m.minutes, 0)
-      : matches.reduce((s, m) => s + m.minutes, 0),
-    goals: ledger.length
-      ? playedLedger.reduce((s, m) => s + m.goals, 0)
-      : matches.reduce((s, m) => s + m.goals, 0),
-    assists: ledger.length
-      ? playedLedger.reduce((s, m) => s + m.assists, 0)
-      : matches.reduce((s, m) => s + m.assists, 0),
-    xG: round(matches.reduce((s, m) => s + m.xG, 0)),
-    xA: round(matches.reduce((s, m) => s + m.xA, 0)),
-    keyPasses: matches.reduce((s, m) => s + m.keyPasses, 0),
-    defensiveActions: matches.reduce((s, m) => s + m.defensiveActions, 0),
-    saves: matches.reduce((s, m) => s + m.saves, 0),
-    yellowCards: matches.reduce((s, m) => s + (m.minutes > 0 ? (m.yellowCards ?? 0) : 0), 0),
-    redCards: matches.filter((m) => m.minutes > 0 && m.redCard !== undefined).length,
+    ...totals,
+    xG: round(totals.xG),
+    xA: round(totals.xA),
+    saves: ledger.reduce((sum, m) => sum + (m.goalkeeperStats?.saves ?? 0), 0),
     ...(rated.length
       ? { averageRating: round(rated.reduce((s, m) => s + m.rating!, 0) / rated.length, 1) }
       : {}),
-    ...(best ? { bestRating: best.rating, bestMatchId: best.matchId } : {}),
-    seniorAppearances: matches.filter((m) => m.minutes > 0 && m.teamLevel === 'senior').length,
-    academyAppearances: matches.filter((m) => m.minutes > 0 && m.teamLevel === 'academy').length,
+    ...(best ? { bestRating: best.rating, bestMatchId: best.fixtureId } : {}),
+    seniorAppearances: 0,
+    academyAppearances: totals.appearances,
   };
 };
 
 export const getPlayerSeasonHistory = (career: CareerState) => {
   const seasons = new Set<number>([career.currentSeason]);
-  for (const match of career.matchHistory ?? []) {
-    const year = Number(match.date.slice(0, 4));
-    seasons.add(match.date.slice(5, 7) < '07' ? year - 1 : year);
-  }
+  for (const snapshot of career.completedSeasons ?? [])
+    seasons.add(Number(snapshot.label.slice(0, 4)));
   return [...seasons]
     .sort((a, b) => b - a)
     .map((season) => ({
@@ -118,7 +98,7 @@ export const getPlayerSeasonHistory = (career: CareerState) => {
 
 export const buildSeasonSummary = (career: CareerState, season: number): SeasonSummary => {
   const statistics = getSeasonPlayerSummary(career, season);
-  const bestMatch = (career.matchHistory ?? []).find((m) => m.matchId === statistics.bestMatchId);
+  const bestMatch = undefined;
   const facts = career.historyFacts.filter((f) => f.season === season);
   return {
     statistics,

@@ -365,7 +365,8 @@ export interface CompletedSeasonSnapshot {
     seasonStartOVR: number;
     seasonEndOVR: number;
   };
-  fixtures: MatchAppearance[];
+  /** Frozen canonical controlled-club fixture ledger. */
+  fixtures: SeasonParticipationRecord[];
   milestones: Id[];
 }
 
