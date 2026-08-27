@@ -81,7 +81,13 @@ export interface Player {
   health: number;
   morale: number;
   reputation: number;
+  matchPresentation: MatchPresentation;
+  matchEffort: EffortLevel;
+  trainingEffort: EffortLevel;
 }
+
+export type MatchPresentation = 'important_matches' | 'simulate_all';
+export type EffortLevel = 1 | 2 | 3 | 4 | 5;
 
 export interface Person {
   id: Id;
@@ -278,6 +284,8 @@ export interface SeasonParticipationRecord {
   appearanceMatchId?: string | undefined;
   goals: number;
   assists: number;
+  xG: number;
+  xA: number;
   rating?: number | undefined;
 }
 
@@ -480,6 +488,8 @@ export interface CompetitionProfile {
   category: 'youth' | 'professional';
   ageLevel?: 'U17' | 'U19' | 'U21' | undefined;
   tier?: number | undefined;
+  strengthRating?: number | undefined;
+  reputation?: number | undefined;
 }
 export interface LeagueTableRow {
   position: number;

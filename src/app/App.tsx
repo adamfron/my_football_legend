@@ -814,10 +814,6 @@ const CareerWeekGame = ({
   );
 };
 
-const compactAppearance = (appearance: NonNullable<CareerState['matchHistory']>[number]) =>
-  appearance.minutes
-    ? `${appearance.minutes} min · ${appearance.goals} G · ${appearance.assists} A · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}`
-    : 'bez występu';
 const attributeLabels: Record<keyof PlayerAttributes, string> = {
   technique: 'Technika',
   vision: 'Przegląd gry',
@@ -1136,34 +1132,6 @@ const SeasonView = ({ career }: { career: CareerState }) => {
       </div>
       <h3>Terminarz</h3>
       <CompactFixtureList items={compactFixtures} />
-      {season?.completed && (
-        <section>
-          <h3>Twoje występy</h3>
-          {(career.matchHistory ?? [])
-            .filter(
-              (appearance) =>
-                appearance.date >= `${career.currentSeason}-07-01` &&
-                appearance.date <= `${career.currentSeason + 1}-06-30`,
-            )
-            .map((appearance) => {
-              const fixture = fixtures.find(
-                (item) =>
-                  item.id === appearance.matchId || `academy_${item.id}` === appearance.matchId,
-              );
-              return (
-                <article className="mini-card" key={appearance.matchId}>
-                  <strong>
-                    {appearance.date.slice(5).split('-').reverse().join('.')} ·{' '}
-                    {fixture
-                      ? `${name(fixture.homeClubId)} ${fixture.homeGoals}:${fixture.awayGoals} ${name(fixture.awayClubId)}`
-                      : name(appearance.opponentId)}
-                  </strong>
-                  <p>{compactAppearance(appearance)}</p>
-                </article>
-              );
-            })}
-        </section>
-      )}
     </section>
   );
 };
@@ -1892,21 +1860,66 @@ export const App = () => {
                           <strong>Kontuzja:</strong> {getInjuryDescription(career)}
                         </p>
                       )}
-                      <label>
-                        Trening{' '}
+                      <label title="Wyższy poziom przyspiesza rozwój, ale zwiększa zmęczenie i ryzyko przeciążenia.">
+                        Wysiłek treningowy{' '}
                         <select
-                          value={career.trainingApproach ?? 'balanced'}
+                          value={career.player.trainingEffort ?? 3}
                           onChange={(event) =>
                             updateCareer({
                               ...career,
-                              trainingApproach: event.target
-                                .value as CareerState['trainingApproach'],
+                              player: {
+                                ...career.player,
+                                trainingEffort: Number(event.target.value) as 1 | 2 | 3 | 4 | 5,
+                              },
                             })
                           }
                         >
-                          <option value="recovery">Regeneracja</option>
-                          <option value="balanced">Zrównoważony</option>
-                          <option value="extra_work">Dodatkowa praca</option>
+                          <option value="1">Regeneracja to klucz do sukcesu</option>
+                          <option value="2">Lekki trening</option>
+                          <option value="3">Standardowy plan</option>
+                          <option value="4">Zostaję po treningu</option>
+                          <option value="5">Klub nie potrzebuje już dozorcy</option>
+                        </select>
+                      </label>
+                      <label title="Steruje tylko sposobem prezentacji meczów, nie poziomem trudności.">
+                        Prezentacja meczów{' '}
+                        <select
+                          value={career.player.matchPresentation}
+                          onChange={(event) =>
+                            updateCareer({
+                              ...career,
+                              player: {
+                                ...career.player,
+                                matchPresentation: event.target.value as
+                                  | 'important_matches'
+                                  | 'simulate_all',
+                              },
+                            })
+                          }
+                        >
+                          <option value="important_matches">Ważne mecze</option>
+                          <option value="simulate_all">Symuluj wszystkie</option>
+                        </select>
+                      </label>
+                      <label title="Wyższy wysiłek pomaga wpływać na mecz, lecz szybciej zużywa kondycję.">
+                        Wysiłek meczowy{' '}
+                        <select
+                          value={career.player.matchEffort}
+                          onChange={(event) =>
+                            updateCareer({
+                              ...career,
+                              player: {
+                                ...career.player,
+                                matchEffort: Number(event.target.value) as 1 | 2 | 3 | 4 | 5,
+                              },
+                            })
+                          }
+                        >
+                          <option value="1">Lepiej mądrze stać niż głupio biegać</option>
+                          <option value="2">Oszczędzaj siły</option>
+                          <option value="3">Normalne zaangażowanie</option>
+                          <option value="4">Gryź trawę</option>
+                          <option value="5">Gotów umrzeć na boisku</option>
                         </select>
                       </label>
                       <h3>Rozwój</h3>

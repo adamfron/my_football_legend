@@ -27,6 +27,8 @@ export const getParticipationTotals = (records: SeasonParticipationRecord[]) => 
     minutes: played.reduce((sum, record) => sum + record.minutes, 0),
     goals: played.reduce((sum, record) => sum + record.goals, 0),
     assists: played.reduce((sum, record) => sum + record.assists, 0),
+    xG: played.reduce((sum, record) => sum + record.xG, 0),
+    xA: played.reduce((sum, record) => sum + record.xA, 0),
     averageRating: ratings.length ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0,
   };
 };
@@ -61,6 +63,8 @@ export const participationFromAppearance = (
   appearanceMatchId: appearance.matchId,
   goals: appearance.goals,
   assists: appearance.assists,
+  xG: appearance.minutes > 0 ? appearance.xG : 0,
+  xA: appearance.minutes > 0 ? appearance.xA : 0,
   ...(appearance.rating === undefined ? {} : { rating: appearance.rating }),
 });
 
@@ -80,6 +84,8 @@ export const nonAppearanceParticipation = (
   started: false,
   goals: 0,
   assists: 0,
+  xG: 0,
+  xA: 0,
 });
 
 /** Idempotently writes the one authoritative row for a fixture. */

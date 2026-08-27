@@ -13,6 +13,7 @@ import {
 } from './careerWeeks';
 import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
+import { getMatchEffortEffects } from './playerPreferences';
 import { applyAppearanceConsequences } from './appearanceConsequences';
 import { projectFixtureParticipation, startFixtureMatch } from './septemberMatches';
 import {
@@ -109,11 +110,13 @@ export const simulateRoutinePlayerMatch = (
         ? 'senior'
         : 'academy';
   const quality = getPlayerOverall(career.player, career.player.primaryPosition);
+  const effort = getMatchEffortEffects(career.player.matchEffort ?? 3);
   const performance =
     (quality - fixture.opponent.strength) / 14 +
     (career.player.fitness - 60) / 30 +
     (career.player.morale - 50) / 35 +
-    (rng.float() - 0.5) * 2.2;
+    (rng.float() - 0.5) * 2.2 +
+    effort.performanceModifier;
   const attacking = ['attacker', 'midfielder'].includes(playerGroup(career.player.primaryPosition));
   const goals =
     minutes &&
@@ -212,7 +215,11 @@ export const simulateRoutinePlayerMatch = (
       ...effects.career,
       player: {
         ...career.player,
-        fitness: clamp(career.player.fitness - Math.round(minutes / 14), 0, 100),
+        fitness: clamp(
+          career.player.fitness - Math.round((minutes / 14) * effort.fitnessCostMultiplier),
+          0,
+          100,
+        ),
         morale: clamp(
           career.player.morale + (rating && rating >= 7.2 ? 2 : rating && rating < 5.8 ? -2 : 0),
           0,
@@ -284,7 +291,11 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
         willPlay: projection.willPlay,
       };
       const importance = evaluateMatchImportance(career, fixture, expected);
-      if (importance !== 'routine' && projection.willPlay)
+      if (
+        career.player.matchPresentation !== 'simulate_all' &&
+        importance !== 'routine' &&
+        projection.willPlay
+      )
         return {
           ...startFixtureMatch(career, { ...fixture, matchImportance: importance }),
           decisionPoint: { type: 'important_match', date: fixture.date, sourceId: fixture.id },

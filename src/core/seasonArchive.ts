@@ -40,8 +40,8 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
       minutes: ledger.length ? participation.minutes : sum('minutes'),
       goals: ledger.length ? participation.goals : sum('goals'),
       assists: ledger.length ? participation.assists : sum('assists'),
-      xG: sum('xG'),
-      xA: sum('xA'),
+      xG: ledger.length ? participation.xG : sum('xG'),
+      xA: ledger.length ? participation.xA : sum('xA'),
       keyPasses: sum('keyPasses'),
       defensiveActions: sum('defensiveActions'),
       averageRating: ledger.length

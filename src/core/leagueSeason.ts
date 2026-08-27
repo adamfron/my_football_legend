@@ -7,6 +7,7 @@ import type {
   LeagueTableRow,
   MatchImportance,
 } from '../types/domain';
+import { COMPETITION_STRENGTH } from './competitionStrength';
 
 export type ProfessionalLeagueTier = 1 | 2 | 3 | 4;
 export const clampProfessionalLeagueTier = (tier: number): ProfessionalLeagueTier =>
@@ -199,6 +200,10 @@ export const createLeagueSeason = (
           country: 'Polska',
           category: 'professional',
           tier: options.professionalLevel ?? 3,
+          strengthRating:
+            COMPETITION_STRENGTH[(options.professionalLevel ?? 3) as 1 | 2 | 3 | 4].strengthRating,
+          reputation:
+            COMPETITION_STRENGTH[(options.professionalLevel ?? 3) as 1 | 2 | 3 | 4].reputation,
         }
       : {
           id: 'polish-u17',
@@ -206,6 +211,8 @@ export const createLeagueSeason = (
           country: 'Polska',
           category: 'youth',
           ageLevel: 'U17',
+          strengthRating: 48,
+          reputation: 35,
         },
     controlledClubId: options.controlledClubId ?? VISTULA_NOVA_ID,
     startDate: roundDates[0]!,

@@ -218,6 +218,9 @@ export const generateStartingPlayerProfile = (
     health: 100,
     morale: 55,
     reputation: 12,
+    matchPresentation: 'important_matches',
+    matchEffort: 3,
+    trainingEffort: 3,
   };
   const sorted = [...attributeKeys].sort((a, b) => attributes[b] - attributes[a]);
   return {
