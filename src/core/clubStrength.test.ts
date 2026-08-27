@@ -1,16 +1,22 @@
 import { describe, expect, it } from 'vitest';
-import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
+import {
+  createCareerState,
+  generateStartingPlayerProfile,
+  STARTING_AGE,
+  type CreatorInput,
+} from './playerCreator';
 import { formatClubStars, getClubStars, getExpectedSquadRole } from './clubStrength';
 import { generateProfessionalClubPool } from './professionalClubs';
 
 const careerAtOverall = (value: number) => {
-  const input = {
+  const input: CreatorInput = {
     firstName: 'Jan',
     lastName: 'Test',
-    nationality: 'Polska',
-    birthDate: '2010-01-01',
-    primaryPosition: 'central_midfielder' as const,
-    dominantFoot: 'right' as const,
+    nationality: 'PL',
+    age: STARTING_AGE,
+    position: 'central_midfielder',
+    dominantFoot: 'right',
+    customSeed: '',
     heightCm: 180,
     weightKg: 74,
     seed: 'club-strength-test',
