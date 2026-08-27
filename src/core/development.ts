@@ -46,7 +46,11 @@ export const applyDevelopmentCheckpoint = (
   const w = weights(appearance);
   const mean = getPlayerOverall(career.player, career.player.primaryPosition);
   const profile = career.developmentProfile;
-  const character = (career.player.attributes.professionalism * 0.45 + career.player.attributes.determination * 0.4 + career.player.attributes.ambition * 0.15) / 50;
+  const character =
+    (career.player.attributes.professionalism * 0.45 +
+      career.player.attributes.determination * 0.4 +
+      career.player.attributes.ambition * 0.15) /
+    50;
   const potentialFactor = Math.max(
     0.25,
     Math.min(1.35, (career.player.potential - mean + 12) / 30),
@@ -66,7 +70,9 @@ export const applyDevelopmentCheckpoint = (
         ageMultiplier(career.player.age) *
         potentialFactor *
         ceilingFactor *
-        injuryFactor * character * (profile?.growthRate ?? 1) *
+        injuryFactor *
+        character *
+        (profile?.growthRate ?? 1) *
         (0.82 + rng.float() * 0.36);
     while (progress >= 100 && attrs[key] < 100) {
       const before = attrs[key];
@@ -130,13 +136,15 @@ export const applyTrainingDevelopmentCheckpoint = (
     'composure',
   ];
   const available = ((career.player.health / 100) * career.player.fitness) / 100;
-  const seasonMinutes = (career.matchHistory ?? [])
-    .filter(
-      (match) =>
-        match.date >= `${career.currentSeason}-07-01` &&
-        match.date <= `${career.currentSeason + 1}-06-30`,
-    )
-    .reduce((sum, match) => sum + match.minutes, 0);
+  const seasonMinutes =
+    career.seasonParticipation?.reduce((sum, match) => sum + match.minutes, 0) ??
+    (career.matchHistory ?? [])
+      .filter(
+        (match) =>
+          match.date >= `${career.currentSeason}-07-01` &&
+          match.date <= `${career.currentSeason + 1}-06-30`,
+      )
+      .reduce((sum, match) => sum + match.minutes, 0);
   // Training supplies the base budget; competitive minutes make that work more effective.
   const experienceFactor = Math.min(1.15, 0.68 + seasonMinutes / 2400);
   const potentialGap = Math.max(
@@ -171,6 +179,9 @@ export const applyTrainingDevelopmentCheckpoint = (
     (career.developmentProgress ?? []).map((item) => [item.attribute, item.progress]),
   );
   const facts: HistoryFact[] = [];
+  const trainingMultiplier = { recovery: 0.78, balanced: 1, extra_work: 1.22 }[
+    career.trainingApproach ?? 'balanced'
+  ];
   for (const key of keys) {
     let value =
       (progress.get(key) ?? 0) +
@@ -180,6 +191,7 @@ export const applyTrainingDevelopmentCheckpoint = (
         available *
         environment *
         experienceFactor *
+        trainingMultiplier *
         (0.85 + rng.float() * 0.3);
     while (value >= 100 && attrs[key] < 100) {
       const before = attrs[key]++;
@@ -203,6 +215,38 @@ export const applyTrainingDevelopmentCheckpoint = (
     }
     progress.set(key, value);
   }
+  // Aging is part of the season timeline, so negative changes are visible against its baseline.
+  const physicalChance =
+    career.player.age < 29
+      ? 0
+      : career.player.age < 32
+        ? 0.025
+        : career.player.age < 35
+          ? 0.07
+          : career.player.age < 38
+            ? 0.13
+            : 0.22;
+  for (const key of ['pace', 'stamina'] as const)
+    if (attrs[key] > 1 && rng.float() < physicalChance) {
+      const before = attrs[key];
+      attrs[key]--;
+      facts.push({
+        id: `fact_aging_attribute_${month}_${key}`,
+        factType: 'attribute_changed',
+        season: career.currentSeason,
+        date: `${month}-28`,
+        actors: [career.player.id],
+        targets: [],
+        clubs: [career.currentClub.id],
+        competitions: [],
+        data: { attribute: key, before, after: attrs[key], source: 'aging' },
+        causes: [`aging_${month}`],
+        tags: ['development', 'aging', key],
+        visibility: 'public',
+        narrativeImportance: 60,
+        emotionalTone: 'negative',
+      });
+    }
   const checkpointFact: HistoryFact = {
     id: `fact_training_checkpoint_${month}`,
     factType: 'training_development_checkpoint',

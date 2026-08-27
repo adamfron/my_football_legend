@@ -80,18 +80,76 @@ export const loadCareer = (): LoadCareerResult => {
     const player = career.player as Record<string, unknown>;
     const attributes = player.attributes as Record<string, unknown>;
     const fallback = Number(attributes.composure ?? 50);
-    attributes.spatialAwareness ??= Math.round((Number(attributes.vision ?? fallback) + fallback) / 2);
+    attributes.spatialAwareness ??= Math.round(
+      (Number(attributes.vision ?? fallback) + fallback) / 2,
+    );
     attributes.determination ??= fallback;
     attributes.ambition ??= fallback;
     attributes.professionalism ??= fallback;
     career.seasonStartingAttributes ??= { ...attributes };
     const profileRng = RandomGenerator.fromSeed(`${String(career.seed)}:development-profile`);
-    career.developmentProfile ??= { developmentType: 'normal', growthRate: profileRng.int(85, 115) / 100,
-      peakAge: 27, declineStartAge: 31, softPotential: Number(player.potential ?? 75), developmentVolatility: 12,
-      physicalPeakAge: 25, technicalPeakAge: 28, mentalPeakAge: 30 };
+    career.developmentProfile ??= {
+      developmentType: 'normal',
+      growthRate: profileRng.int(85, 115) / 100,
+      peakAge: 27,
+      declineStartAge: 31,
+      softPotential: Number(player.potential ?? 75),
+      developmentVolatility: 12,
+      physicalPeakAge: 25,
+      technicalPeakAge: 28,
+      mentalPeakAge: 30,
+    };
     career.clubWorld ??= generateProfessionalClubPool(String(career.seed));
     career.completedSeasons ??= [];
-    if (Array.isArray(career.significantPeople)) career.significantPeople = dedupePeople(career.significantPeople as never[]);
+    career.trainingApproach ??= 'balanced';
+    career.selectionStanding ??= 50;
+    if (!Array.isArray(career.seasonParticipation)) {
+      const history = Array.isArray(career.matchHistory)
+        ? (career.matchHistory as Array<Record<string, unknown>>)
+        : [];
+      const league = career.leagueSeason as
+        | {
+            controlledClubId?: string;
+            competition?: { name?: string };
+            rounds?: Array<{ fixtures?: Array<Record<string, unknown>> }>;
+          }
+        | undefined;
+      career.seasonParticipation = (league?.rounds ?? [])
+        .flatMap((round) => round.fixtures ?? [])
+        .filter(
+          (fixture) =>
+            fixture.completed &&
+            [fixture.homeClubId, fixture.awayClubId].includes(league?.controlledClubId),
+        )
+        .map((fixture) => {
+          const appearance = history.find(
+            (item) =>
+              item.matchId === fixture.id || item.matchId === `academy_${String(fixture.id)}`,
+          );
+          const minutes = Number(appearance?.minutes ?? 0);
+          return {
+            fixtureId: String(fixture.id),
+            date: String(fixture.date),
+            opponentId: String(
+              fixture.homeClubId === league?.controlledClubId
+                ? fixture.awayClubId
+                : fixture.homeClubId,
+            ),
+            venue: fixture.homeClubId === league?.controlledClubId ? 'home' : 'away',
+            competition: league?.competition?.name ?? 'Liga',
+            status: minutes > 0 ? (appearance?.started ? 'starter' : 'substitute') : 'not_selected',
+            plannedMinutes: minutes,
+            minutes,
+            started: Boolean(appearance?.started),
+            ...(appearance ? { appearanceMatchId: String(appearance.matchId) } : {}),
+            goals: Number(appearance?.goals ?? 0),
+            assists: Number(appearance?.assists ?? 0),
+            ...(typeof appearance?.rating === 'number' ? { rating: appearance.rating } : {}),
+          };
+        });
+    }
+    if (Array.isArray(career.significantPeople))
+      career.significantPeople = dedupePeople(career.significantPeople as never[]);
     if (
       Number(player.age) > 23 &&
       career.currentContract &&

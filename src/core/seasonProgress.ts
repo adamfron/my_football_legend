@@ -29,13 +29,13 @@ export const advanceCareerDate = (career: CareerState, date: string): CareerStat
 });
 export const getSeasonProgress = (career: CareerState): SeasonProgress => {
   const start = `${career.currentSeason}-07-01`;
-  const end = `${career.currentSeason + 1}-06-30`;
+  const end = career.leagueSeason?.endDate ?? `${career.currentSeason + 1}-06-30`;
   const currentDate = getCareerCurrentDate(career);
   const elapsed =
     new Date(`${currentDate}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
   const duration =
     new Date(`${end}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
-  const progress = career.seasonOutcome ? 1 : Math.max(0, Math.min(1, elapsed / duration));
+  const progress = Math.max(0, Math.min(1, elapsed / duration));
   const phase: SeasonPhase = career.seasonOutcome
     ? 'summer_window'
     : (career.careerPhase ??

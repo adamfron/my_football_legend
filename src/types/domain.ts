@@ -249,19 +249,74 @@ export interface CareerState {
   developmentProfile?: DevelopmentProfile | undefined;
   clubWorld?: ProfessionalClub[] | undefined;
   completedSeasons?: CompletedSeasonSnapshot[] | undefined;
+  /** Canonical record for every controlled-club fixture in the current season. */
+  seasonParticipation?: SeasonParticipationRecord[] | undefined;
+  trainingApproach?: TrainingApproach | undefined;
+  /** Slow-moving coach confidence, independent from short-term form. */
+  selectionStanding?: number | undefined;
+}
+
+export type ParticipationStatus =
+  | 'starter'
+  | 'substitute'
+  | 'unused_bench'
+  | 'not_selected'
+  | 'injured'
+  | 'suspended'
+  | 'unfit';
+export type TrainingApproach = 'recovery' | 'balanced' | 'extra_work';
+export interface SeasonParticipationRecord {
+  fixtureId: string;
+  date: string;
+  opponentId: string;
+  venue: 'home' | 'away';
+  competition: string;
+  status: ParticipationStatus;
+  plannedMinutes: number;
+  minutes: number;
+  started: boolean;
+  appearanceMatchId?: string | undefined;
+  goals: number;
+  assists: number;
+  rating?: number | undefined;
 }
 
 export interface CompletedSeasonSnapshot {
-  seasonId: string; seasonNumber: number; label: string; age: number;
-  clubId: Id; clubName: string; leagueLevel: number; leagueName: string;
-  clubFinish: number; clubPoints: number;
+  seasonId: string;
+  seasonNumber: number;
+  label: string;
+  age: number;
+  clubId: Id;
+  clubName: string;
+  leagueLevel: number;
+  leagueName: string;
+  clubFinish: number;
+  clubPoints: number;
   clubRecord: { won: number; drawn: number; lost: number };
-  goalsFor: number; goalsAgainst: number;
-  player: { appearances: number; starts: number; minutes: number; goals: number; assists: number;
-    xG: number; xA: number; keyPasses: number; defensiveActions: number; averageRating: number;
-    yellowCards: number; redCards: number; missedBySuspension: number; missedByInjury: number };
-  development: { seasonStartAttributes: PlayerAttributes; seasonEndAttributes: PlayerAttributes;
-    seasonStartOVR: number; seasonEndOVR: number };
+  goalsFor: number;
+  goalsAgainst: number;
+  player: {
+    appearances: number;
+    starts: number;
+    minutes: number;
+    goals: number;
+    assists: number;
+    xG: number;
+    xA: number;
+    keyPasses: number;
+    defensiveActions: number;
+    averageRating: number;
+    yellowCards: number;
+    redCards: number;
+    missedBySuspension: number;
+    missedByInjury: number;
+  };
+  development: {
+    seasonStartAttributes: PlayerAttributes;
+    seasonEndAttributes: PlayerAttributes;
+    seasonStartOVR: number;
+    seasonEndOVR: number;
+  };
   fixtures: MatchAppearance[];
   milestones: Id[];
 }

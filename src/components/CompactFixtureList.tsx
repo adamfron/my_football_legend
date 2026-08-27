@@ -1,4 +1,4 @@
-import type { LeagueFixture, MatchAppearance } from '../types/domain';
+import type { LeagueFixture, MatchAppearance, SeasonParticipationRecord } from '../types/domain';
 
 const months = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
 const date = (iso: string) => {
@@ -12,9 +12,22 @@ export interface CompactFixtureItem {
   opponentName: string;
   venue: 'home' | 'away';
   appearance?: MatchAppearance | undefined;
+  participation?: SeasonParticipationRecord | undefined;
 }
 export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
-  const { fixture, opponentName, venue, appearance } = item;
+  const { fixture, opponentName, venue, appearance, participation } = item;
+  const status =
+    participation?.status === 'injured'
+      ? 'kontuzja'
+      : participation?.status === 'suspended'
+        ? 'zawieszenie'
+        : participation?.status === 'unfit'
+          ? 'niezdolny do gry'
+          : participation?.status === 'unused_bench'
+            ? 'ławka, bez wejścia'
+            : participation?.status === 'not_selected'
+              ? 'poza kadrą'
+              : 'bez występu';
   return (
     <div className="compact-fixture-row">
       <span>{date(fixture.date)}</span>
@@ -26,7 +39,7 @@ export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
         <span>
           {appearance?.minutes
             ? `${appearance.minutes}' · ${appearance.goals} G · ${appearance.assists} A · ${rating(appearance.rating)}`
-            : 'bez występu'}
+            : status}
         </span>
       )}
     </div>

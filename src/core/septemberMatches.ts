@@ -24,6 +24,12 @@ import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyle
 import { applyMatchAvailabilityEffects, getPlayerAvailability } from './playerAvailability';
 import { settleLeagueRound } from './leagueSeason';
 import { applyAppearanceConsequences } from './appearanceConsequences';
+import {
+  getExpectedAvailableMinuteShare,
+  participationFromAppearance,
+  recordParticipation,
+  updateSelectionStanding,
+} from './seasonParticipation';
 
 export const SEPTEMBER_DATES = ['2026-09-05', '2026-09-12', '2026-09-19', '2026-09-26'] as const;
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
@@ -210,6 +216,21 @@ export const evaluateSquadOpportunity = (
     : 0;
   const relation = Object.values(career.relationships)[0]?.respect ?? 50;
   const development = career.augustPlanning?.results.reduce((s, r) => s + r.development, 0) ?? 0;
+  const seniorPath = career.leagueSeason?.competition.category === 'professional';
+  const availableRecords = (career.seasonParticipation ?? []).filter(
+    (record) => !['injured', 'suspended', 'unfit'].includes(record.status),
+  );
+  const actualShare = availableRecords.length
+    ? availableRecords.reduce((sum, record) => sum + record.minutes, 0) /
+      (availableRecords.length * 90)
+    : 0;
+  const catchUp = seniorPath
+    ? Math.max(
+        0,
+        getExpectedAvailableMinuteShare(career.currentContract?.squadRole ?? 'rotation').target -
+          actualShare,
+      ) * 24
+    : 0;
   const rng = RandomGenerator.fromSeed(
     `${career.seed}:${career.currentSeason}:selection:${fixture.fixtureId ?? fixture.fixtureIndex}`,
   );
@@ -223,6 +244,8 @@ export const evaluateSquadOpportunity = (
     coach.youthTrust * 0.08 +
     coach.tacticalDiscipline * 0.03 +
     development * 0.25 +
+    (seniorPath ? (career.selectionStanding ?? 50) * 0.08 : 0) +
+    catchUp +
     { development_player: -7, rotation: 0, first_team_competition: 7, important_player: 14 }[
       career.currentContract?.squadRole ?? 'rotation'
     ] +
@@ -230,7 +253,6 @@ export const evaluateSquadOpportunity = (
     (absence === 'one_absence' ? 7 : absence === 'several_absences' ? 13 : 0) +
     (rng.float() - 0.5) * 7;
   // Historical roles from older saves must not turn a U-17 fixture into a senior match.
-  const seniorPath = career.leagueSeason?.competition.category === 'professional';
   let status: SquadStatus;
   if (seniorPath)
     status =
@@ -1115,7 +1137,7 @@ export const finishMatch = (career: CareerState): CareerState => {
     player: {
       ...career.player,
       fitness: Math.max(
-        20,
+        0,
         career.player.fitness - Math.round(m.plannedMinutes / 18) + (load < 65 ? 2 : 0),
       ),
     },
@@ -1146,7 +1168,30 @@ export const finishMatch = (career: CareerState): CareerState => {
             : undefined,
         )
       : completedCareer;
-  return evaluatePlayStyleUnlocks(applyAppearanceConsequences(settled, appearance), m.date);
+  const fixture: Fixture = {
+    id: m.id,
+    seasonId: settled.leagueSeason?.id ?? String(settled.currentSeason),
+    date: m.date,
+    competition: 'league',
+    opponent: m.opponent,
+    venue: m.venue,
+    importance: 0,
+    matchImportance: 'notable',
+  };
+  const withLedger = recordParticipation(
+    settled,
+    participationFromAppearance(settled, fixture, appearance, m.plannedMinutes),
+  );
+  return evaluatePlayStyleUnlocks(
+    applyAppearanceConsequences(
+      {
+        ...withLedger,
+        selectionStanding: updateSelectionStanding(withLedger.selectionStanding, appearance.rating),
+      },
+      appearance,
+    ),
+    m.date,
+  );
 };
 export const advanceSeptemberWeek = (career: CareerState): CareerState => {
   if (!career.activeMatch?.completed || !career.september) return career;

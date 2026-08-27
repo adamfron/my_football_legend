@@ -30,14 +30,54 @@ const names = [
   'Pogoń Jasna',
   'Hutnik Dolina',
   'Akademik Toruń',
-  'Korona Puszczy', 'Zryw Opole', 'Lechia Srebrna', 'Motor Roztocze',
-  'Bałtyk Hel', 'Sokół Kujawy', 'Gwardia Narew', 'Sparta Beskidy',
-  'Odra Kamienna', 'Wisłoka Dębica', 'Piast Łęczyca', 'Czarni Pojezierze',
-  'Naprzód Bory', 'Olimpia Noteć', 'Włókniarz Łódzki', 'Granica Chełm',
-  'Mazur Ełk', 'Concordia Lubusz', 'Ruch Solny', 'Gryf Kaszuby',
-  'Start Zamość', 'Płomień Sudety', 'Lublinianka Wschód', 'Metal Tarnów',
-  'Orkan Łowicz', 'Powiśle Puławy', 'Jedność Kalisz', 'Świt Bieszczady',
-  'Nadzieja Radom', 'Karkonosze Jelenia', 'Wicher Suwałki', 'Prosną Ostrów',
+  'Korona Puszczy',
+  'Zryw Opole',
+  'Lechia Srebrna',
+  'Motor Roztocze',
+  'Bałtyk Hel',
+  'Sokół Kujawy',
+  'Gwardia Narew',
+  'Sparta Beskidy',
+  'Odra Kamienna',
+  'Wisłoka Dębica',
+  'Piast Łęczyca',
+  'Czarni Pojezierze',
+  'Naprzód Bory',
+  'Olimpia Noteć',
+  'Włókniarz Łódzki',
+  'Granica Chełm',
+  'Mazur Ełk',
+  'Concordia Lubusz',
+  'Ruch Solny',
+  'Gryf Kaszuby',
+  'Start Zamość',
+  'Płomień Sudety',
+  'Lublinianka Wschód',
+  'Metal Tarnów',
+  'Orkan Łowicz',
+  'Powiśle Puławy',
+  'Jedność Kalisz',
+  'Świt Bieszczady',
+  'Nadzieja Radom',
+  'Karkonosze Jelenia',
+  'Wicher Suwałki',
+  'Prosną Ostrów',
+  'Resovia Północ',
+  'Górnik Wałbrzych',
+  'Stomil Jeziorak',
+  'Chemik Police',
+  'Siarka Sandomierz',
+  'Sandecja Dunajec',
+  'Beskid Andrychów',
+  'Cuiavia Inowrocław',
+  'Pelikan Łowicz',
+  'Radunia Kaszuby',
+  'Stal Kraśnik',
+  'Victoria Sulejówek',
+  'Polonia Przemyśl',
+  'Gwarek Tarnowskie Góry',
+  'Ślęza Wrocław',
+  'ŁKS Łomża',
 ];
 const archetypes: ClubArchetype[] = [
   'YOUTH_TRADER',
@@ -58,7 +98,7 @@ const group = (position: string): keyof ProfessionalClub['positionalNeeds'] =>
 export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =>
   names.map((name, index) => {
     const rng = RandomGenerator.fromSeed(`${seed}:professional-club:${index}`);
-    const leagueTier = (Math.floor(index / 12) + 1) as 1 | 2 | 3 | 4;
+    const leagueTier = (Math.floor(index / 16) + 1) as 1 | 2 | 3 | 4;
     const strength = 82 - leagueTier * 9 + rng.int(-5, 5);
     const needs = () => ({
       starterQuality: Math.max(35, strength + rng.int(-7, 6)),
@@ -208,9 +248,15 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
       ];
     })
     .sort((a, b) => {
-      const currentTier = career.currentProfessionalClub ? getClubLeagueTier(career.currentProfessionalClub) : 3;
-      const ai = evaluateClubInterest(career, a.club).score - Math.max(0, Math.abs(getClubLeagueTier(a.club) - currentTier) - 1) * 18;
-      const bi = evaluateClubInterest(career, b.club).score - Math.max(0, Math.abs(getClubLeagueTier(b.club) - currentTier) - 1) * 18;
+      const currentTier = career.currentProfessionalClub
+        ? getClubLeagueTier(career.currentProfessionalClub)
+        : 3;
+      const ai =
+        evaluateClubInterest(career, a.club).score -
+        Math.max(0, Math.abs(getClubLeagueTier(a.club) - currentTier) - 1) * 18;
+      const bi =
+        evaluateClubInterest(career, b.club).score -
+        Math.max(0, Math.abs(getClubLeagueTier(b.club) - currentTier) - 1) * 18;
       return bi - ai || a.id.localeCompare(b.id);
     })
     .slice(0, career.player.age >= 33 ? 3 : 4);

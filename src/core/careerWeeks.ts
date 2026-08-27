@@ -353,6 +353,16 @@ export const advanceCareerWeek = (career: CareerState): CareerState => {
   return initializeWeekContent(
     {
       ...developedCareer,
+      player: {
+        ...developedCareer.player,
+        fitness: Math.min(
+          100,
+          developedCareer.player.fitness +
+            { recovery: 14, balanced: 10, extra_work: 6 }[
+              developedCareer.trainingApproach ?? 'balanced'
+            ],
+        ),
+      },
       currentDate:
         !developedCareer.currentDate || next.startDate > developedCareer.currentDate
           ? next.startDate
