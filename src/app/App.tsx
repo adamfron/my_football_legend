@@ -2,31 +2,21 @@ import { useMemo, useState } from 'react';
 import { previewRandomSequence } from '../devtools/randomPreview';
 import { validateSampleContent } from '../schemas/validateContent';
 import { missingLocalizationKeys, translate } from '../core/narrative/localization';
-import { getFactPresentation } from '../core/narrative/factPresentation';
-import { MatchMomentumChart } from '../components/MatchMomentumChart';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
-import { ClubStrengthTooltip } from '../components/ClubStrengthTooltip';
-import { getRadarAxes } from '../core/radar';
 import { getSeasonGoalkeeperStats } from '../core/seasonParticipation';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
 import { diagnoseCareerProgression, matchStateSummary } from '../core/progressionDiagnostics';
 import { createCompletedSeasonSnapshot } from '../core/seasonArchive';
-import {
-  buildSeasonSummary,
-  describePerformance,
-  getSeasonPlayerSummary,
-} from '../core/matchFeedback';
+import { buildSeasonSummary, getSeasonPlayerSummary } from '../core/matchFeedback';
 import {
   formatAttributeDelta,
   getMonthlyDevelopmentSummary,
-  getSeasonAttributeDelta,
   getSeasonOverallDelta,
 } from '../core/developmentFeedback';
 import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../core/playStyles';
 import { auditRepeatedPlayerFacingText } from '../core/narrative/repeatedTextAudit';
 import matchLocalization from '../content/localization/pl/events.match.json';
 import {
-  attributeKeys,
   canReroll,
   createCareerState,
   defaultBodyForPosition,
@@ -49,27 +39,18 @@ import { getEventDefinition } from '../core/events/eventRegistry';
 import { resolveEventChoice } from '../core/events/resolveEventChoice';
 import { getAvailableDecisions } from '../core/events/decisionAvailability';
 import { advanceActiveEvent, applyEventResolution } from '../core/events/applyEventResolution';
-import {
-  advanceMatch,
-  MATCH_MOMENT_LIBRARY,
-  opportunityDescription,
-  resolveMatchDecision,
-} from '../core/matchEngine';
-import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
+import { opportunityDescription } from '../core/matchEngine';
+import { getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
+import { getFactPresentation } from '../core/narrative/factPresentation';
 import { getSeasonHonours } from '../core/history/careerHistory';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSeason';
 import { getClubLeagueTier } from '../core/professionalClubs';
-import {
-  describePlayerClubLevel,
-  getClubStrength,
-  getExpectedSquadRole,
-  getPlayerClubLevelDelta,
-} from '../core/clubStrength';
+import { getClubStrength, getExpectedSquadRole } from '../core/clubStrength';
 import { StarRating } from '../components/StarRating';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../core/professionalClubs';
-import { getCompetitionDefinition } from '../core/competitionStrength';
+import {} from '../core/clubStrength';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
 import { getInjuryDescription } from '../core/seasonParticipation';
@@ -94,7 +75,12 @@ import {
   resolveRegularSeasonEvent,
 } from '../core/events/regularSeasonEvents';
 import type { CareerState, EventDecision, PlayerAttributes } from '../types/domain';
-import { getMatchTransitionHistory, isDevToolsEnabled, recordMatchTransition } from './devTools';
+import { getMatchTransitionHistory, isDevToolsEnabled } from './devTools';
+import { ClubView } from './career/ClubView';
+import { HistoryView } from './career/HistoryView';
+import { SeasonView } from './career/SeasonView';
+import { PlayerCard, RadarChart } from './shared/PlayerCard';
+import { MatchGame } from './match/MatchGame';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
@@ -106,12 +92,6 @@ const baseTabs = [
   ['history', 'nav.history'],
 ] as const;
 const devtoolsTab = ['devtools', 'nav.devtools'] as const;
-const RADAR_RADIUS = 75;
-const RADAR_LABEL_RADIUS = 104;
-const RADAR_MARGIN = 44;
-const RADAR_CENTER = RADAR_RADIUS + RADAR_MARGIN;
-const RADAR_VIEWBOX_SIZE = (RADAR_RADIUS + RADAR_MARGIN) * 2;
-
 type TabId = (typeof baseTabs)[number][0] | (typeof devtoolsTab)[0];
 type ProfileFormState = { position: PositionId; heightCm: string; weightKg: string };
 type FieldErrors = Partial<
@@ -128,10 +108,6 @@ type FieldErrors = Partial<
   >
 >;
 
-const tParam = (key: string, params: Record<string, string>) =>
-  translate(key, Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translate(v)])));
-const initials = (first: string, last: string) =>
-  `${first[0] ?? 'M'}${last[0] ?? 'F'}`.toUpperCase();
 const emptyErrors = () => ({}) as FieldErrors;
 const addIssues = (issues: { path: PropertyKey[]; message: string }[]) =>
   issues.reduce<FieldErrors>((acc, issue) => {
@@ -140,137 +116,6 @@ const addIssues = (issues: { path: PropertyKey[]; message: string }[]) =>
     return acc;
   }, {});
 
-const RadarChart = ({
-  attributes,
-  baseline,
-}: {
-  attributes: PlayerAttributes;
-  baseline?: PlayerAttributes | undefined;
-}) => {
-  const axes = getRadarAxes(attributes);
-  const polygon = (values: ReturnType<typeof getRadarAxes>) =>
-    values
-      .map(({ value }, index) => {
-        const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
-        const radius = (value / 100) * RADAR_RADIUS;
-        return `${RADAR_CENTER + Math.cos(angle) * radius},${RADAR_CENTER + Math.sin(angle) * radius}`;
-      })
-      .join(' ');
-  return (
-    <figure className="radar">
-      <svg
-        viewBox={`0 0 ${RADAR_VIEWBOX_SIZE} ${RADAR_VIEWBOX_SIZE}`}
-        role="img"
-        aria-label="Porównanie profilu atrybutów"
-      >
-        {[0.25, 0.5, 0.75, 1].map((scale) => (
-          <circle
-            key={scale}
-            cx={RADAR_CENTER}
-            cy={RADAR_CENTER}
-            r={RADAR_RADIUS * scale}
-            fill="none"
-            stroke="rgba(255,255,255,.14)"
-          />
-        ))}
-        {axes.map(({ label }, index) => {
-          const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
-          return (
-            <g key={label}>
-              <line
-                x1={RADAR_CENTER}
-                y1={RADAR_CENTER}
-                x2={RADAR_CENTER + Math.cos(angle) * RADAR_RADIUS}
-                y2={RADAR_CENTER + Math.sin(angle) * RADAR_RADIUS}
-                stroke="rgba(255,255,255,.12)"
-              />
-              <text
-                x={RADAR_CENTER + Math.cos(angle) * RADAR_LABEL_RADIUS}
-                y={RADAR_CENTER + Math.sin(angle) * RADAR_LABEL_RADIUS}
-                textAnchor="middle"
-              >
-                {label}
-              </text>
-            </g>
-          );
-        })}
-        {baseline && (
-          <polygon
-            points={polygon(getRadarAxes(baseline))}
-            fill="rgba(148,163,184,.05)"
-            stroke="#94a3b8"
-            strokeWidth="1.5"
-          />
-        )}
-        <polygon
-          points={polygon(axes)}
-          fill="rgba(68, 209, 157, .35)"
-          stroke="#44d19d"
-          strokeWidth="3"
-        />
-      </svg>
-      <figcaption>
-        {axes.map(({ label, value }) => `${label} ${Math.round(value)}`).join(', ')}
-      </figcaption>
-      {baseline && (
-        <div className="radar-legend">
-          <span>— początek sezonu</span>
-          <strong>— koniec sezonu</strong>
-        </div>
-      )}
-    </figure>
-  );
-};
-
-const PlayerCard = ({
-  profile,
-  seed,
-  baseline,
-}: {
-  profile: StartingPlayerProfile;
-  seed: string;
-  baseline?: PlayerAttributes | undefined;
-}) => (
-  <section className="card">
-    <div className={`portrait portrait-${seed.length % 4}`}>
-      <span>{initials(profile.player.firstName, profile.player.lastName)}</span>
-    </div>
-    <div>
-      <h3>
-        {profile.player.firstName} {profile.player.lastName}
-      </h3>
-      <p>
-        {profile.player.age} lat · {translate(`nationality.${profile.player.nationality}`)} ·{' '}
-        {translate(`position.${profile.player.primaryPosition}`)}
-      </p>
-      <p>
-        {profile.player.heightCm} cm · {profile.player.weightKg} kg ·{' '}
-        {translate(profile.player.traits[0] === 'foot_left' ? 'foot.left' : 'foot.right')}
-      </p>
-      <p>{tParam(profile.profileDescriptionKey, profile.profileDescriptionParams)}</p>
-      <p>
-        <strong>Seed kariery:</strong> <code>{seed}</code>
-      </p>
-      <p>
-        <strong>Pierwszy klub:</strong> Vistula Nova
-      </p>
-    </div>
-    <RadarChart attributes={profile.player.attributes} baseline={baseline} />
-    <ul className="attrs">
-      {attributeKeys.map((key) => (
-        <li key={key}>
-          <span>{translate(`attribute.${key}`)}</span>
-          <strong>
-            {profile.player.attributes[key]}{' '}
-            {formatAttributeDelta(
-              getSeasonAttributeDelta(profile.player.attributes, baseline, key),
-            )}
-          </strong>
-        </li>
-      ))}
-    </ul>
-  </section>
-);
 const FieldError = ({ errors }: { errors?: string[] | undefined }) =>
   errors?.map((error) => (
     <p className="field-error" key={error}>
@@ -334,18 +179,7 @@ const formatDate = (date: string) =>
   new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }).format(
     new Date(`${date}T12:00:00Z`),
   );
-const prestigeLabel = (prestige: number) =>
-  prestige < 25
-    ? 'klub lokalny'
-    : prestige < 45
-      ? 'rozpoznawalny klub regionalny'
-      : prestige < 60
-        ? 'stabilny klub krajowy'
-        : prestige < 75
-          ? 'klub o wysokiej renomie'
-          : prestige < 90
-            ? 'krajowa potęga'
-            : 'światowa marka';
+
 const qualityLabel = (quality: number) =>
   quality >= 85
     ? 'elitarne'
@@ -356,110 +190,8 @@ const qualityLabel = (quality: number) =>
         : quality >= 40
           ? 'przeciętne'
           : 'podstawowe';
-const ClubCrest = ({ name }: { name: string }) => (
-  <svg className="club-crest" viewBox="0 0 100 120" role="img" aria-label={`Herb ${name}`}>
-    <path
-      d="M12 10h76v48c0 29-18 45-38 54C30 103 12 87 12 58z"
-      fill="#123727"
-      stroke="#44d19d"
-      strokeWidth="5"
-    />
-    <path d="M25 24h50v16H25zM28 51l22 35 22-35" fill="#44d19d" />
-    <text x="50" y="103" textAnchor="middle" fontSize="14" fontWeight="900" fill="#eef7f1">
-      {name
-        .split(/\s+/)
-        .slice(0, 2)
-        .map((word) => word[0])
-        .join('')
-        .toUpperCase()}
-    </text>
-  </svg>
-);
-const ClubProfile = ({ career }: { career: CareerState }) => {
-  const club = career.currentClub;
-  const professionalClub = career.currentProfessionalClub;
-  const competition = getCompetitionDefinition(
-    professionalClub?.leagueTier ?? career.leagueSeason?.competition.tier ?? 4,
-  );
-  const strength = professionalClub ? getClubStrength(professionalClub) : 50;
-  const playerOVR = getPlayerOverall(career.player, career.player.primaryPosition);
-  const currentRole = professionalClub
-    ? getExpectedSquadRole(career, professionalClub)
-    : career.currentContract?.squadRole;
-  return (
-    <div className="club-profile">
-      <header className="club-header">
-        <ClubCrest name={club.name} />
-        <div>
-          <h2>{club.name}</h2>
-          <p>
-            {club.region}, {club.country}
-          </p>
-          <p>
-            {competition.name} — poziom {competition.tier}
-          </p>
-          <p>
-            <StarRating strength={strength} /> · Siła klubu: {Math.round(strength)}/100
-          </p>
-          {professionalClub && (
-            <p>
-              Trening: {qualityLabel(getClubDevelopmentEnvironment(professionalClub))} · Zaplecze
-              medyczne: {qualityLabel(getClubMedicalQuality(professionalClub))}
-            </p>
-          )}
-          <strong>{prestigeLabel(club.prestige)}</strong>
-        </div>
-      </header>
-      {career.currentContract && (
-        <section>
-          <h3>Twoja obecna rola</h3>
-          <p>
-            {currentRole
-              ? squadRoleLabel(currentRole)
-              : squadRoleLabel(career.currentContract!.squadRole)}
-          </p>
-          <p>
-            OVR zawodnika: {playerOVR} · siła klubu: {Math.round(strength)}
-          </p>
-          <strong>
-            {professionalClub
-              ? describePlayerClubLevel(getPlayerClubLevelDelta(career, professionalClub))
-              : describePlayerClubLevel(playerOVR - strength)}
-          </strong>
-        </section>
-      )}
-      <section>
-        <h3>Tożsamość klubu</h3>
-        <p>
-          <strong>DNA:</strong> {club.dna.join(', ')}.
-        </p>
-        <p>
-          <strong>Styl gry:</strong> {club.playStyle}.
-        </p>
-        <p>
-          <strong>Młodzież:</strong> {club.youthApproach}.
-        </p>
-        <p>
-          <strong>Sytuacja:</strong>{' '}
-          {career.leagueSeason
-            ? `${getLeagueTable(career).find((row) => row.clubId === career.leagueSeason?.controlledClubId)?.position ?? '—'}. miejsce w bieżącym sezonie.`
-            : 'Trwa przygotowanie do kolejnego sezonu.'}
-        </p>
-      </section>
-      {club.seasonHistory.length > 0 && (
-        <section>
-          <h3>Ostatni sezon</h3>
-          {club.seasonHistory.map((s) => (
-            <p key={s.season}>
-              {s.season}: {s.placement ? `${s.placement}. miejsce. ` : ''}
-              {s.summary}
-            </p>
-          ))}
-        </section>
-      )}
-    </div>
-  );
-};
+const numberPl = (value: number, digits = 1) =>
+  value.toLocaleString('pl-PL', { minimumFractionDigits: digits, maximumFractionDigits: digits });
 
 const EventCard = ({
   career,
@@ -1007,309 +739,6 @@ const CareerHud = ({ career }: { career: CareerState }) => {
   );
 };
 
-export const SeasonView = ({ career }: { career: CareerState }) => {
-  const table = getLeagueTable(career);
-  const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
-  const own = table.find((row) => row.clubId === controlledClubId);
-  const season = career.leagueSeason;
-  const fixtures =
-    season?.rounds
-      .flatMap((round) => round.fixtures)
-      .filter((fixture) => [fixture.homeClubId, fixture.awayClubId].includes(controlledClubId)) ??
-    [];
-  const name = (id: string) => season?.clubs.find((club) => club.clubId === id)?.name ?? id;
-  const compactFixtures: CompactFixtureItem[] = fixtures.map((fixture) => {
-    const opponentStrength = season?.clubs.find(
-      (club) =>
-        club.clubId ===
-        (fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId),
-    )?.strength;
-    return {
-      fixture,
-      opponentName: name(
-        fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId,
-      ),
-      venue: fixture.homeClubId === controlledClubId ? 'home' : 'away',
-      participation: career.seasonParticipation?.find((item) => item.fixtureId === fixture.id),
-      ...(opponentStrength === undefined ? {} : { opponentStrength }),
-    };
-  });
-  return (
-    <section>
-      <h2>Sezon {season?.name ?? getSeasonProgress(career).seasonLabel}</h2>
-      <strong>{season?.competition.name}</strong>
-      <p>
-        {season?.currentRound ?? 0}. kolejka z {season?.rounds.length ?? 0} ·{' '}
-        {career.currentClub.name} zajmuje {own?.position ?? '—'}. miejsce
-      </p>
-      <h3>Tabela</h3>
-      <div className="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Klub</th>
-              <th>M</th>
-              <th>W</th>
-              <th>R</th>
-              <th>P</th>
-              <th>BR</th>
-              <th>+/-</th>
-              <th>PKT</th>
-            </tr>
-          </thead>
-          <tbody>
-            {table.map((row) => (
-              <tr key={row.clubId} className={row.clubId === controlledClubId ? 'active' : ''}>
-                <td>{row.position}</td>
-                <td>
-                  <ClubStrengthTooltip
-                    name={row.clubName}
-                    strength={
-                      season?.clubs.find((club) => club.clubId === row.clubId)?.strength ?? 50
-                    }
-                  />
-                </td>
-                <td>{row.played}</td>
-                <td>{row.won}</td>
-                <td>{row.drawn}</td>
-                <td>{row.lost}</td>
-                <td>
-                  {row.goalsFor}:{row.goalsAgainst}
-                </td>
-                <td>{row.goalDifference}</td>
-                <td>
-                  <strong>{row.points}</strong>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <h3>Terminarz</h3>
-      <CompactFixtureList items={compactFixtures} />
-    </section>
-  );
-};
-
-const statusLabel: Record<string, string> = {
-  senior_starter: 'Pierwszy skład seniorów',
-  senior_bench: 'Ławka seniorów',
-  senior_out: 'Poza kadrą seniorów',
-  academy_starter: 'Pierwszy skład akademii',
-  academy_bench: 'Ławka akademii',
-  no_match: 'Poza meczem',
-};
-const numberPl = (value: number, digits = 1) =>
-  value.toLocaleString('pl-PL', { minimumFractionDigits: digits, maximumFractionDigits: digits });
-const MatchHud = ({ career }: { career: CareerState }) => {
-  const match = career.activeMatch!;
-  const home = match.venue === 'home' ? career.currentClub.name : match.opponent.name;
-  const away = match.venue === 'away' ? career.currentClub.name : match.opponent.name;
-  return (
-    <div className="match-hud">
-      <div className="match-score">
-        <span>{home}</span>
-        <strong>
-          {match.homeGoals} : {match.awayGoals}
-        </strong>
-        <span>{away}</span>
-      </div>
-      <div className="match-minute">
-        {match.currentMinute}' · {match.teamLevel === 'senior' ? 'Seniorzy' : 'Akademia'}
-      </div>
-      {match.momentum && (
-        <MatchMomentumChart points={match.momentum} currentMinute={match.currentMinute} />
-      )}
-      <div className="match-kpis">
-        {match.liveRating !== undefined && (
-          <span>
-            Ocena <strong>{numberPl(match.liveRating)}</strong>
-          </span>
-        )}
-        <span>
-          Minuty <strong>{match.playerMinutes}</strong>
-        </span>
-        <span>
-          xA{' '}
-          <strong>
-            {numberPl(
-              match.resolvedMoments.reduce((s, r) => s + r.xA, 0),
-              2,
-            )}
-          </strong>
-        </span>
-      </div>
-    </div>
-  );
-};
-const MatchGame = ({
-  career,
-  onCareer,
-}: {
-  career: CareerState;
-  onCareer: (career: CareerState) => void;
-}) => {
-  const match = career.activeMatch;
-  const transition = (action: string, next: CareerState) => {
-    const before = matchStateSummary(career.activeMatch);
-    const after = matchStateSummary(next.activeMatch);
-    const validTransition = JSON.stringify(before) !== JSON.stringify(after);
-    recordMatchTransition({
-      action,
-      before,
-      after,
-      validTransition,
-      ...(!validTransition ? { warning: 'unchanged actionable match state' } : {}),
-    });
-    onCareer(next);
-  };
-  if (!match)
-    return (
-      <section>
-        <p>Trwa przygotowanie spotkania.</p>
-      </section>
-    );
-  const definition =
-    match.currentMoment &&
-    MATCH_MOMENT_LIBRARY.find((m) => m.id === match.currentMoment!.definitionId);
-  if (match.completed) {
-    const a = career.matchHistory?.at(-1);
-    const forGoals = match.venue === 'home' ? match.homeGoals : match.awayGoals;
-    const against = match.venue === 'home' ? match.awayGoals : match.homeGoals;
-    const quality = !a?.minutes
-      ? 'krótki występ bez większego wpływu'
-      : a.personalImpact >= 5
-        ? 'bardzo mocny występ'
-        : a.personalImpact >= 2
-          ? 'solidny występ'
-          : a.personalImpact >= -1
-            ? 'nierówny mecz'
-            : 'trudny wieczór';
-    return (
-      <section>
-        <MatchHud career={career} />
-        <h2>Wynik</h2>
-        <h3>
-          {career.currentClub.name} {forGoals}:{against} {match.opponent.name}
-        </h3>
-        {match.teamStats && (
-          <div className="team-stats">
-            <strong>
-              {match.venue === 'home' ? career.currentClub.name : match.opponent.name}
-            </strong>
-            <strong>Statystyka</strong>
-            <strong>
-              {match.venue === 'away' ? career.currentClub.name : match.opponent.name}
-            </strong>
-            {(
-              [
-                ['Posiadanie', 'possession'],
-                ['Strzały', 'shots'],
-                ['Strzały celne', 'shotsOnTarget'],
-                ['xG', 'xG'],
-                ['Groźne akcje', 'dangerousActions'],
-              ] as const
-            ).flatMap(([label, key]) => [
-              <span key={`${key}h`}>
-                {key === 'xG'
-                  ? numberPl(match.teamStats!.home[key], 2)
-                  : match.teamStats!.home[key]}
-                {key === 'possession' ? '%' : ''}
-              </span>,
-              <span key={key}>{label}</span>,
-              <span key={`${key}a`}>
-                {key === 'xG'
-                  ? numberPl(match.teamStats!.away[key], 2)
-                  : match.teamStats!.away[key]}
-                {key === 'possession' ? '%' : ''}
-              </span>,
-            ])}
-          </div>
-        )}
-        <h3>Twój występ</h3>
-        <p>
-          {a?.started ? 'Pierwszy skład' : 'Rezerwowy'} · {a?.minutes ?? 0} minut · gole{' '}
-          {a?.goals ?? 0} · asysty {a?.assists ?? 0} · xG {numberPl(a?.xG ?? 0, 2)} · xA{' '}
-          {numberPl(a?.xA ?? 0, 2)} · kluczowe podania {a?.keyPasses ?? 0} · akcje defensywne{' '}
-          {a?.defensiveActions ?? 0}
-          {career.player.primaryPosition === 'goalkeeper' ? ` · obrony ${a?.saves ?? 0}` : ''} ·
-          ocena {a?.rating === undefined ? '—' : numberPl(a.rating)}
-        </p>
-        <p>
-          {a ? describePerformance(a.rating, a.minutes, forGoals > against) : quality}. Wynik
-          drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
-        </p>
-        <button onClick={() => onCareer(advanceCareerWeek(career))}>
-          Przejdź do kolejnego tygodnia
-        </button>
-      </section>
-    );
-  }
-  if (!match.currentMoment)
-    return (
-      <section>
-        <MatchHud career={career} />
-        <h2>Decyzja sztabu</h2>
-        <p>
-          {match.date} · {match.venue === 'home' ? 'dom' : 'wyjazd'} · {match.opponent.name}
-        </p>
-        <h3>{statusLabel[match.squadStatus]}</h3>
-        <p>
-          {match.squadStatus.includes('bench')
-            ? 'Radecki nie rzuca cię jeszcze od pierwszej minuty, ale zostawia szansę na wejście.'
-            : match.playerMinutes === 0
-              ? 'Ten weekend oglądasz z boku. Potraktuj decyzję jako motywację i zadbaj o gotowość.'
-              : 'Dostajesz szansę od początku. Sztab oczekuje realizacji zadań.'}
-        </p>
-        <button onClick={() => transition('advance', advanceMatch(career))}>
-          {match.plannedMinutes ? 'Rozpocznij mecz' : 'Przyjmij decyzję i przejdź dalej'}
-        </button>
-      </section>
-    );
-  return (
-    <section>
-      <MatchHud career={career} />
-      <p>{match.currentMoment.minute}. minuta · sytuacja meczowa</p>
-      {match.resolvedMoments.at(-1)?.ratingAfter !== undefined && (
-        <aside className="rating-change">
-          <strong>
-            Ocena {numberPl(match.resolvedMoments.at(-1)!.ratingBefore ?? 6)} →{' '}
-            {numberPl(match.resolvedMoments.at(-1)!.ratingAfter!)}
-          </strong>
-          <p>{match.resolvedMoments.at(-1)!.ratingExplanation}</p>
-        </aside>
-      )}
-      <h2>{match.currentMoment.description}</h2>
-      <p>
-        Masz niewiele czasu. Rywal szybko skraca dystans, ale za jego plecami otwiera się
-        przestrzeń.
-      </p>
-      <div className="choices">
-        {definition?.decisions.map((d) => (
-          <article className="decision-card" key={d.id}>
-            <h3>{d.label}</h3>
-            <p>{d.description}</p>
-            <section className="possible-benefits">
-              <h4>Możesz zyskać</h4>
-              <p>{d.visibleGain}</p>
-            </section>
-            <section className="possible-risks">
-              <h4>Ryzykujesz</h4>
-              <p>{d.visibleRisk}</p>
-            </section>
-            <button
-              onClick={() => transition(`decision:${d.id}`, resolveMatchDecision(career, d.id))}
-            >
-              Wybierz
-            </button>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-};
-
 const RetiredCareerSummary = ({
   career,
   onHistory,
@@ -1441,7 +870,6 @@ export const App = () => {
   });
   const [step, setStep] = useState(0);
   const [active, setActive] = useState<TabId>('game');
-  const [showAllHistory, setShowAllHistory] = useState(false);
   const [identity, setIdentity] = useState<IdentityInput>({
     firstName: '',
     lastName: '',
@@ -1629,46 +1057,9 @@ export const App = () => {
           ) : (
             <>
               {active === 'game' && <EventCard career={career} onCareer={updateCareer} />}{' '}
-              {active === 'history' && (
-                <div>
-                  <h2>Oś czasu kariery</h2>
-                  <div className="tabs">
-                    <button
-                      className={!showAllHistory ? 'active' : ''}
-                      onClick={() => setShowAllHistory(false)}
-                    >
-                      Najważniejsze
-                    </button>
-                    <button
-                      className={showAllHistory ? 'active' : ''}
-                      onClick={() => setShowAllHistory(true)}
-                    >
-                      Wszystko
-                    </button>
-                  </div>
-                  {(showAllHistory
-                    ? career.historyFacts
-                    : getCareerMilestones(career).map((item) => item.fact)
-                  ).map((f) => {
-                    const fp = getFactPresentation(career, f);
-                    return (
-                      <article className="mini-card history-item" key={f.id}>
-                        <p>
-                          {formatDate(f.date)} <span className="tone-badge">{fp.toneLabel}</span>
-                        </p>
-                        <h3>{fp.title}</h3>
-                        <p>{fp.summary}</p>
-                        <p>
-                          {fp.participantNames.join(', ')}
-                          {fp.clubName ? ` · ${fp.clubName}` : ''}
-                        </p>
-                      </article>
-                    );
-                  })}
-                </div>
-              )}{' '}
+              {active === 'history' && <HistoryView career={career} />}{' '}
               {active === 'season' && <SeasonView career={career} />}{' '}
-              {active === 'club' && <ClubProfile career={career} />}{' '}
+              {active === 'club' && <ClubView career={career} />}{' '}
               {active !== 'game' &&
                 active !== 'history' &&
                 active !== 'season' &&
