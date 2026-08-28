@@ -1,4 +1,4 @@
-import { academyEventDefinitions } from '../events/eventRegistry';
+import { getEventDefinitions } from '../events/eventRegistry';
 import { translate } from './localization';
 const forbidden = [
   /\[\[/,
@@ -13,7 +13,7 @@ const forbidden = [
 ];
 export const auditPlayerFacingText = (): string[] => {
   const texts: string[] = [];
-  for (const event of academyEventDefinitions) {
+  for (const event of getEventDefinitions()) {
     texts.push(translate(event.localizationKeys.title), translate(event.localizationKeys.summary));
     event.playerInformationKeys.forEach((k) =>
       texts.push(

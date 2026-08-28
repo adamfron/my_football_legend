@@ -15,7 +15,7 @@ import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
 import { getMatchEffortEffects } from './playerPreferences';
 import { applyAppearanceConsequences } from './appearanceConsequences';
-import { projectFixtureParticipation, startFixtureMatch } from './septemberMatches';
+import { projectFixtureParticipation, startFixtureMatch } from './matchEngine';
 import {
   applyMatchAvailabilityEffects,
   consumeUnavailableRound,

@@ -1,101 +1,35 @@
 # My Football Legend
 
-> **Filozofia tempa:** rutynowy czas powinien znikać szybko, ponieważ uwaga gracza jest rzadkim zasobem. Sezon zatrzymuje się przede wszystkim przy kilku naprawdę znaczących meczach i decyzjach.
+Narracyjny, deterministyczny symulator całej kariery jednego piłkarza. **Rutynowy futbol jest symulowany, a znaczący futbol rozgrywany.** Świat piłkarski tworzy kanoniczne wyniki, występy i decyzje; narracja interpretuje zapisane fakty.
 
-Senior league round is an independent domain unit: it is always settled for all twelve clubs whether the player starts for Vistula Nova, plays an academy match, sits on the bench, is injured, or misses the weekend.
+## Aktualny stan
 
-Narracyjny symulator kariery piłkarza działający w przeglądarce.
+Aplikacja działa lokalnie w przeglądarce, bez backendu, kont i zewnętrznych API. Po kreatorze zawodnik rozpoczyna pierwszy sezon młodzieżowy bez fabularnego prologu. Ten sam kalendarz tygodniowy obsługuje kolejne sezony, mecze, rozwój, dostępność, tabele ligowe i punkty decyzyjne. Po sezonie młodzieżowym generyczny cykl kariery obsługuje oferty profesjonalne, kontrakty i następne sezony aż do emerytury.
 
-## Status
+Stan historii składa się z faktów, relacji i wątków. Generyczne definicje oraz instancje wydarzeń pozostają rozszerzalną infrastrukturą, niezależną od Reacta. `ProfessionalClub.strengthRating` jest trwałym źródłem jakości pierwszego zespołu.
 
-Fundament techniczny: React, TypeScript strict, Vite, Vitest, ESLint, Prettier, Zod, deterministyczny RNG i przykładowa walidowana treść. Pełna rozgrywka nie jest jeszcze implementowana.
+Zapisy prototypowe nie są kompatybilne: aktualna wersja zapisu celowo odrzuca starszą architekturę zamiast ją migrować.
 
-## Wymagania
+## Uruchomienie
 
-Node.js 20+ i npm.
-
-## Instalacja
+Wymagane są Node.js 20+ i npm.
 
 ```bash
 npm install
+npm run dev
 ```
 
-## Komendy developerskie
+## Kontrola jakości
 
-- `npm run dev` — lokalny serwer Vite.
-- `npm run lint` — ESLint.
-- `npm run test` — testy Vitest.
-- `npm run build` — produkcyjny build.
-- `npm run format:check` — kontrola formatowania.
+- `npm run lint` — ESLint;
+- `npm run test` — Vitest;
+- `npm run build` — TypeScript i build Vite;
+- `npm run verify` — pełny zestaw powyższych kontroli.
 
-## Struktura repozytorium
+## Struktura
 
-- `src/app` i `src/components` — powłoka interfejsu.
-- `src/core` — logika gry niezależna od Reacta.
-- `src/content` — deklaratywne dane treści i lokalizacja.
-- `src/schemas` — schematy Zod.
-- `src/persistence` — przyszły zapis lokalny.
-- `src/devtools` — narzędzia techniczne.
-- `docs` — architektura, model narracji, poradnik treści i roadmapa.
-
-## Lokalizacja i fleksja
-
-Domyślnym językiem jest polski. Obecny system obsługuje klucze i proste parametry. Polska fleksja, odmiana nazwisk, płci i liczebników jest świadomie odłożona do osobnego modułu, aby gotowe teksty nie stały się źródłem prawdy o historii.
-
-## Pierwszy grywalny wycinek
-
-Aplikacja prowadzi teraz gracza przez ekran startowy, kreator zawodnika, deterministyczne losowanie atrybutów i zapisanie pierwszej kariery w przeglądarce. Przycisk „Kontynuuj” jest aktywny tylko wtedy, gdy zapis w `localStorage` przejdzie walidację schematem Zod.
-
-Tworzenie profilu odbywa się poza Reactem w `src/core/playerCreator.ts`. Generator korzysta z istniejącego `RandomGenerator`, seeda kariery, danych zawodnika, pozycji i numeru losowania. Gracz widzi pierwsze losowanie oraz maksymalnie dwie ponowne próby. Potencjał jest zapisywany w stanie kariery, ale nie jest prezentowany jako dokładna liczba.
-
-Lokalny zapis ma format `{ version, savedAt, career }` i jest obsługiwany przez `src/core/persistence.ts`. Dane pozostają w tej przeglądarce; etap nie dodaje backendu, kont, zewnętrznych API, analityki ani cookies.
-
-Świadomie odłożone elementy: sezony, mecze, transfery, decyzje treningowe, pełny generator twarzy, archetypy fantasy, poziom trudności, zmiana pozycji i generowana narracja sezonowa.
-
-## Pierwszy łuk akademii
-
-Gra zawiera pierwszy grywalny tydzień w akademii Vistula Nova: rozmowę z trenerem Markiem Wroną, deterministycznie generowanego konkurenta, grę treningową, rozmowę po treningu i podsumowanie tygodnia. Wydarzenia zapisują kanoniczne fakty, relacje i wątki; widoczny tekst jest tylko lokalizowaną interpretacją tych danych.
-
-Weryfikacja projektu odbywa się komendą `npm run verify`, która uruchamia lint, testy i build.
-
-## Aktualny etap prezentacji narracji
-
-Interfejs akademii prezentuje decyzje jako osobne karty z opisem, możliwymi korzyściami i ryzykami zapisanymi językiem świata gry. Historia i relacje korzystają z warstwy prezentacji faktów, dzięki czemu gracz widzi tytuły, streszczenia, ton i uczestników zamiast technicznych identyfikatorów. Zakładka Klub pokazuje pierwszy profil Vistula Nova oparty na danych `Club`, a relacje używają deterministycznych awatarów SVG.
-
-## Drugi tydzień akademii
-
-Po domknięciu pierwszego tygodnia gra pozwala rozpocząć drugi łuk akademii Vistula Nova. Łuk obejmuje informację zwrotną Marka Wrony, wybór przygotowania, dodatkowy trening z konkurentem, końcowy sprawdzian, decyzję o treningach z seniorami, odpowiedź zawodnika i podsumowanie dwóch tygodni. Brak zaproszenia jest ścieżką fail-forward: prowadzi do indywidualnego planu albo dodatkowego sprawdzianu akademii, a nie do końca kariery.
-
-W narzędziach developerskich (`?devtools=1`) dostępna jest ręcznie uruchamiana symulacja naboru do seniorów, która sprawdza rozkład decyzji trenera dla deterministycznych seedów bez zapisywania wyników w stanie kariery.
-
-## Ścieżki po selekcji
-
-Po dwóch tygodniach akademii kariera przechodzi do jednej z czterech ścieżek: próby seniorów, wspólnej szansy, indywidualnego planu albo dodatkowej oceny. Każda kończy się jakościowo opisaną rolą na sierpień 2026; żadna nie jest porażką kończącą karierę. Teksty są wybierane deterministycznie z semantycznych zestawów wariantów.
-
-## Wrzesień 2026: pierwsze mecze
-
-Kariera obejmuje cztery deterministyczne kolejki, lekką rywalizację o skład i tekstowe momenty decyzyjne. Silnik zapisuje strukturalny stan meczu, więc spotkanie można bezpiecznie wznowić po odświeżeniu.
-
-> **The game simulates the player's experience of a football match, not every touch of the ball.**
-
-## Informacja zwrotna meczu i kariery
-
-Wrześniowe spotkania prezentują teraz trwały wynik, minutę, dynamikę, statystyki drużyn i kontekstową ocenę zawodnika. Historia występów pozostaje źródłem bieżących statystyk sezonu, a fakty `attribute_changed` i `play_style_unlocked` tworzą audytowalny zapis rozwoju.
-
-## Wielotygodniowa kariera
-
-Po prologu akademii, sierpniowym planowaniu i pierwszych meczach września kariera korzysta z deterministycznej pętli tygodniowej. Lekki terminarz pozwala rozgrywać kolejne spotkania do końca 2026 roku bez osobnych silników miesięcznych, a Historia domyślnie pokazuje kamienie milowe.
-
-## Sezon i tempo kariery
-
-Kariera obejmuje pełny pierwszy sezon 2026/27: deterministyczny terminarz dwunastu fikcyjnych klubów, tabelę oraz szybkie rozgrywanie rutynowych kolejek. Przycisk „Symuluj do następnego wydarzenia” przesuwa czas do spotkania lub sprawy wymagającej decyzji gracza.
-
-**Routine football is simulated. Meaningful football is played.**
-
-## Academy prologue and professional career
-
-Season 1 (2026/27) is a prologue in the Vistula Nova youth academy, not a professional-club season. Academy graduation and the first professional contract open the main multi-season career loop.
-
-## Zasada kontekstu kariery
-
-Kontekst historyczny jest niezmienny. Bieżący kontekst interfejsu i symulacji wynika z aktualnego sezonu kariery, klubu i rozgrywek. OVR jest ważoną pozycyjnie, czytelną dla gracza syntezą umiejętności; nie zastępuje atrybutów, formy, roli, zdrowia, morale ani decyzji trenera.
+- `src/core` — deterministyczna logika domenowa niezależna od Reacta;
+- `src/types` i `src/schemas` — typy oraz walidacja Zod;
+- `src/content` — deklaratywna treść i polska lokalizacja;
+- `src/app` i `src/components` — interfejs;
+- `docs` — opis architektury i kierunku rozwoju.

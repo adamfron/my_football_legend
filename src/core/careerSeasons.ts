@@ -47,18 +47,17 @@ export const initializeCareerSeason = (
   career: CareerState,
   config: CareerSeasonConfig,
 ): CareerState => {
-  const professionalLevel =
-    career.currentProfessionalClub?.leagueTier ?? career.currentProfessionalClub?.professionalLevel;
+  const leagueTier = career.currentProfessionalClub?.leagueTier;
   const season = createLeagueSeason(`${career.seed}:season:${config.careerSeasonNumber}`, {
     startYear: config.startYear,
     controlledClubId: config.club.id,
     controlledClubName: config.club.name,
     professional: config.professional,
-    ...(professionalLevel !== undefined ? { professionalLevel } : {}),
+    ...(leagueTier !== undefined ? { leagueTier } : {}),
   });
   if (config.professional) {
     const world = career.clubWorld ?? generateProfessionalClubPool(career.seed);
-    const tierClubs = world.filter((c) => c.leagueTier === (professionalLevel ?? 3));
+    const tierClubs = world.filter((c) => c.leagueTier === (leagueTier ?? 3));
     const selected = tierClubs.some((c) => c.id === config.club.id)
       ? tierClubs
       : [
@@ -145,8 +144,6 @@ export const initializeCareerSeason = (
     ...career,
     activeMatch: undefined,
     activeEvent: undefined,
-    augustPlanning: undefined,
-    september: undefined,
     fastForwardLog: undefined,
     currentSeason: config.startYear,
     careerSeasonNumber: config.careerSeasonNumber,
@@ -274,10 +271,7 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   const movement =
     career.seasonOutcome?.competitionType === 'professional' ? career.seasonOutcome : undefined;
   const nextTier = clampProfessionalLeagueTier(
-    movement?.nextLeagueTier ??
-      career.currentProfessionalClub?.leagueTier ??
-      career.currentProfessionalClub?.professionalLevel ??
-      3,
+    movement?.nextLeagueTier ?? career.currentProfessionalClub?.leagueTier ?? 3,
   );
   const movementFactType =
     movement?.leagueOutcome === 'promoted'

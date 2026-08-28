@@ -30,28 +30,7 @@ const career = (seed = 'week-test') => {
     0,
   );
   const base = createCareerState(profile, seed);
-  return {
-    ...base,
-    historyFacts: [
-      ...base.historyFacts,
-      {
-        id: 'old-september-complete',
-        factType: 'september_2026_completed',
-        season: 2026,
-        date: '2026-09-30',
-        actors: [base.player.id],
-        targets: [],
-        clubs: [base.currentClub.id],
-        competitions: [],
-        data: {},
-        causes: [],
-        tags: [],
-        visibility: 'public' as const,
-        narrativeImportance: 60,
-        emotionalTone: 'neutral' as const,
-      },
-    ],
-  };
+  return base;
 };
 
 describe('reusable career week loop', () => {

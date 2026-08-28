@@ -129,7 +129,6 @@ describe('development pipeline', () => {
           name: 'Klub Rozwoju',
           country: 'Polska',
           region: 'Mazowsze',
-          professionalLevel: 3,
           leagueTier: 3,
           reputation: 50,
           overallStrength: 50,

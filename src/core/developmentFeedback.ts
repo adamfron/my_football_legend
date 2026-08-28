@@ -63,12 +63,8 @@ export const getMonthlyDevelopmentSummary = (career: CareerState, year: number, 
   const matches = (career.matchHistory ?? []).filter((m) => m.date.startsWith(prefix));
   const minutes = matches.reduce((sum, match) => sum + match.minutes, 0);
   const progress = (career.developmentProgress ?? []).reduce((sum, item) => sum + item.progress, 0);
-  const training =
-    career.augustPlanning?.results.filter(
-      (r) => r.date.startsWith(prefix) && r.activityId.includes('training'),
-    ).length ?? 0;
-  const overload =
-    career.augustPlanning?.results.some((r) => r.date.startsWith(prefix) && r.overloaded) ?? false;
+  const training = 0;
+  const overload = false;
   const level =
     changes.length >= 2 || (minutes >= 180 && training > 0)
       ? 'bardzo dobry miesiąc rozwojowy'
