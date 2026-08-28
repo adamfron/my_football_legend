@@ -455,8 +455,16 @@ export interface ProfessionalClub {
   sellingClubTendency: number;
   pressureLevel: number;
   coachYouthTrust: number;
+  /** Stable facilities and staff quality; distinct from current team strength. */
+  infrastructure?: ClubInfrastructure | undefined;
   archetype: ClubArchetype;
   positionalNeeds: Record<'goalkeeper' | 'defense' | 'midfield' | 'attack', PositionalNeed>;
+}
+export interface ClubInfrastructure {
+  coachingQuality: number;
+  trainingFacilities: number;
+  medicalQuality: number;
+  scoutingQuality: number;
 }
 export interface Contract {
   clubId: Id;

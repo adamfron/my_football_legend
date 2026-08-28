@@ -92,11 +92,12 @@ import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSe
 import { getClubLeagueTier } from '../core/professionalClubs';
 import {
   describePlayerClubLevel,
-  formatClubStars,
   getClubStrength,
   getExpectedSquadRole,
   getPlayerClubLevelDelta,
 } from '../core/clubStrength';
+import { StarRating } from '../components/StarRating';
+import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../core/professionalClubs';
 import { getCompetitionDefinition } from '../core/competitionStrength';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
@@ -383,6 +384,16 @@ const prestigeLabel = (prestige: number) =>
           : prestige < 90
             ? 'krajowa potęga'
             : 'światowa marka';
+const qualityLabel = (quality: number) =>
+  quality >= 85
+    ? 'elitarne'
+    : quality >= 70
+      ? 'bardzo dobre'
+      : quality >= 55
+        ? 'dobre'
+        : quality >= 40
+          ? 'przeciętne'
+          : 'podstawowe';
 const ClubCrest = ({ name }: { name: string }) => (
   <svg className="club-crest" viewBox="0 0 100 120" role="img" aria-label={`Herb ${name}`}>
     <path
@@ -426,9 +437,15 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
           <p>
             {competition.name} — poziom {competition.tier}
           </p>
-          <p aria-label={`${formatClubStars(strength)}, siła klubu ${strength} na 100`}>
-            <strong>{formatClubStars(strength)}</strong> · Siła klubu: {Math.round(strength)}/100
+          <p>
+            <StarRating strength={strength} /> · Siła klubu: {Math.round(strength)}/100
           </p>
+          {professionalClub && (
+            <p>
+              Trening: {qualityLabel(getClubDevelopmentEnvironment(professionalClub))} · Zaplecze
+              medyczne: {qualityLabel(getClubMedicalQuality(professionalClub))}
+            </p>
+          )}
           <strong>{prestigeLabel(club.prestige)}</strong>
         </div>
       </header>
@@ -885,8 +902,12 @@ const SeasonEndSummary = ({
               <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
               <p>
                 Poziom {getClubLeagueTier(offer.club)} ·{' '}
-                {formatClubStars(getClubStrength(offer.club))} · Siła klubu:{' '}
+                <StarRating strength={getClubStrength(offer.club)} /> · Siła klubu:{' '}
                 {Math.round(getClubStrength(offer.club))}/100
+              </p>
+              <p>
+                Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
+                {qualityLabel(getClubMedicalQuality(offer.club))}
               </p>
               <p>
                 <strong>Poziom sportowy:</strong>{' '}

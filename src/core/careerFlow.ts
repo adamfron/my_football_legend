@@ -1,8 +1,7 @@
 import type { CareerState } from '../types/domain';
-import { hasCompletedAcademyArc, initializeAcademyArc } from './events/academyArc';
-import { initializePostSelectionPath, POST_PATH_COMPLETED } from './events/postSelectionPath';
 import { initializeCurrentCareerWeek } from './careerWeeks';
 import { generateProfessionalOffers, generateSummerWindowOffers } from './professionalClubs';
+import { initializeCareerSeason } from './careerSeasons';
 
 const hasFact = (career: CareerState, factType: string) =>
   career.historyFacts.some((fact) => fact.factType === factType);
@@ -34,13 +33,14 @@ export const advanceCareerFlow = (career: CareerState): CareerState => {
       careerPhase: 'summer_window',
       professionalOffers: generateProfessionalOffers(career),
     };
+  if (!career.leagueSeason)
+    return initializeCareerSeason(career, {
+      startYear: 2026,
+      careerSeasonNumber: 1,
+      club: career.currentClub,
+      professional: false,
+    });
   if (career.activeEvent) return career;
-
-  if (!hasCompletedAcademyArc(career)) return initializeAcademyArc(career);
-
-  if (!hasFact(career, 'academy_selection_result')) return career;
-
-  if (!hasFact(career, POST_PATH_COMPLETED)) return initializePostSelectionPath(career);
 
   if (hasFact(career, 'september_2026_completed')) return initializeCurrentCareerWeek(career);
 

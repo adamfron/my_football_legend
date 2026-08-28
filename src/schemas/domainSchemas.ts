@@ -169,6 +169,14 @@ export const professionalClubSchema = z.object({
   sellingClubTendency: score,
   pressureLevel: score,
   coachYouthTrust: score,
+  infrastructure: z
+    .object({
+      coachingQuality: score,
+      trainingFacilities: score,
+      medicalQuality: score,
+      scoutingQuality: score,
+    })
+    .optional(),
   archetype: z.enum([
     'YOUTH_TRADER',
     'RESULTS_FIRST',

@@ -268,9 +268,10 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   const snapshot = career.leagueSeason?.completed
     ? createCompletedSeasonSnapshot(career)
     : undefined;
-  const archivedCareer: CareerState = snapshot
-    ? { ...career, completedSeasons: [...(career.completedSeasons ?? []), snapshot] }
-    : career;
+  const archivedCareer: CareerState =
+    snapshot && !(career.completedSeasons ?? []).some((item) => item.seasonId === snapshot.seasonId)
+      ? { ...career, completedSeasons: [...(career.completedSeasons ?? []), snapshot] }
+      : career;
   career = archivedCareer;
   const movement =
     career.seasonOutcome?.competitionType === 'professional' ? career.seasonOutcome : undefined;
@@ -422,6 +423,14 @@ const asClub = (offer: ProfessionalOffer): Club => ({
 export const acceptProfessionalOffer = (career: CareerState, offerId: string): CareerState => {
   const offer = career.professionalOffers?.find((o) => o.id === offerId);
   if (!offer) return career;
+  if (
+    career.leagueSeason?.completed &&
+    !(career.completedSeasons ?? []).some((item) => item.seasonId === career.leagueSeason!.id)
+  )
+    career = {
+      ...career,
+      completedSeasons: [...(career.completedSeasons ?? []), createCompletedSeasonSnapshot(career)],
+    };
   const date = offer.contract.startDate;
   const club = asClub(offer);
   const coach = createProfessionalCoach(career, club, date);
@@ -513,6 +522,12 @@ export const continueWithProfessionalTrial = (career: CareerState): CareerState 
       sellingClubTendency: 60,
       pressureLevel: 35,
       coachYouthTrust: 80,
+      infrastructure: {
+        coachingQuality: 55,
+        trainingFacilities: 50,
+        medicalQuality: 45,
+        scoutingQuality: 48,
+      },
       archetype: 'UNDERDOG',
       positionalNeeds: {
         goalkeeper: { starterQuality: 45, depth: 'normal', needLevel: 50 },

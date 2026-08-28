@@ -5,7 +5,7 @@ import {
   STARTING_AGE,
   type CreatorInput,
 } from './playerCreator';
-import { formatClubStars, getClubStars, getExpectedSquadRole } from './clubStrength';
+import { getClubStars, getExpectedSquadRole } from './clubStrength';
 import { generateProfessionalClubPool } from './professionalClubs';
 
 const careerAtOverall = (value: number) => {
@@ -32,7 +32,7 @@ const careerAtOverall = (value: number) => {
 describe('canonical club strength model', () => {
   it('maps 0..100 deterministically to half-star increments', () => {
     expect(getClubStars(71)).toBe(3.5);
-    expect(formatClubStars(71)).toBe('★★★½☆');
+    expect(getClubStars(25)).toBe(1.5);
     expect(getClubStars(100)).toBe(5);
   });
   it('protects role calibration from enormous quality gaps', () => {
@@ -45,5 +45,15 @@ describe('canonical club strength model', () => {
     expect(['rotation', 'development_player']).toContain(
       getExpectedSquadRole(careerAtOverall(60), strong),
     );
+  });
+  it('uses one role model across weak, comparable and stronger clubs', () => {
+    const base = generateProfessionalClubPool('role-range')[32]!;
+    const player = careerAtOverall(67);
+    const roleAt = (strengthRating: number) =>
+      getExpectedSquadRole(player, { ...base, strengthRating });
+    expect(['star_player', 'important_player']).toContain(roleAt(45));
+    expect(['important_player', 'first_team_competition']).toContain(roleAt(52));
+    expect(['first_team_competition', 'rotation']).toContain(roleAt(60));
+    expect(['rotation', 'development_player']).toContain(roleAt(68));
   });
 });

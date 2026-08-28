@@ -128,6 +128,12 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
       sellingClubTendency: rng.int(20, 90),
       pressureLevel: rng.int(25, 90),
       coachYouthTrust: rng.int(20, 95),
+      infrastructure: {
+        coachingQuality: Math.max(20, Math.min(95, strength + rng.int(-12, 14))),
+        trainingFacilities: Math.max(20, Math.min(95, strength + rng.int(-15, 15))),
+        medicalQuality: Math.max(20, Math.min(95, strength + rng.int(-18, 18))),
+        scoutingQuality: Math.max(20, Math.min(95, strength + rng.int(-15, 18))),
+      },
       archetype: archetypes[index % archetypes.length]!,
       positionalNeeds: {
         goalkeeper: needs(),
@@ -140,6 +146,20 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
 const overall = (career: CareerState) =>
   getPlayerOverall(career.player, career.player.primaryPosition);
 export { getExpectedSquadRole } from './clubStrength';
+export const getClubInfrastructure = (club: ProfessionalClub) =>
+  club.infrastructure ?? {
+    coachingQuality: getClubStrength(club),
+    trainingFacilities: getClubStrength(club),
+    medicalQuality: getClubStrength(club),
+    scoutingQuality: getClubStrength(club),
+  };
+export const getClubDevelopmentEnvironment = (club: ProfessionalClub) =>
+  Math.round(
+    (getClubInfrastructure(club).coachingQuality + getClubInfrastructure(club).trainingFacilities) /
+      2,
+  );
+export const getClubMedicalQuality = (club: ProfessionalClub) =>
+  getClubInfrastructure(club).medicalQuality;
 const currentSeasonAppearances = (career: CareerState) =>
   career.seasonParticipation?.length
     ? career.seasonParticipation.filter((match) => match.minutes > 0)
@@ -160,9 +180,12 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
         : m.goals * 0.7 + m.assists * 0.5)
     );
   }, 0);
-  const scout = RandomGenerator.fromSeed(
-    `${career.seed}:scout:${career.careerSeasonNumber}:${club.id}`,
-  ).int(-9, 9);
+  const scout =
+    RandomGenerator.fromSeed(`${career.seed}:scout:${career.careerSeasonNumber}:${club.id}`).int(
+      -9,
+      9,
+    ) +
+    (getClubInfrastructure(club).scoutingQuality - 50) * 0.08;
   const potentialEstimate = career.player.potential + scout;
   const style =
     club.playingStyle === 'techniczny' || club.playingStyle === 'cierpliwe posiadanie'
@@ -173,6 +196,7 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
     potentialEstimate * 0.18 +
     need.needLevel * 0.2 +
     club.coachYouthTrust * 0.13 +
+    getClubInfrastructure(club).scoutingQuality * 0.06 +
     club.youthPolicy * 0.08 +
     stats +
     getPlayerForm(career).value * 1.5 +
@@ -187,8 +211,8 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
   const eliteDomesticCandidate = overall(career) >= 80 && getClubLeagueTier(club) === 1;
   return { score, interested: eliteDomesticCandidate || score >= 37, need, potentialEstimate };
 };
-export const generateProfessionalOffers = (career: CareerState): ProfessionalOffer[] =>
-  (career.clubWorld ?? generateProfessionalClubPool(career.seed))
+export const generateProfessionalOffers = (career: CareerState): ProfessionalOffer[] => {
+  const candidates = (career.clubWorld ?? generateProfessionalClubPool(career.seed))
     .flatMap((club): ProfessionalOffer[] => {
       const interest = evaluateClubInterest(career, club);
       if (!interest.interested) return [];
@@ -233,7 +257,9 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
               : 'Sztab widzi dopasowanie do sposobu gry.',
             interest.need.needLevel > 60
               ? 'Klub ma wyraźną potrzebę na twojej pozycji.'
-              : 'Skauci docenili twój sezon w akademii.',
+              : interest.potentialEstimate > overall(career) + 8
+                ? 'Skauci wysoko oceniają twój potencjał jak na ten wiek.'
+                : 'Skauci dobrze ocenili twoją ostatnią formę.',
           ],
           opportunity:
             interest.need.depth === 'thin'
@@ -258,8 +284,27 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
         evaluateClubInterest(career, b.club).score +
         Math.max(0, overall(career) - getClubStrength(b.club)) * 0.35;
       return bi - ai || a.id.localeCompare(b.id);
-    })
-    .slice(0, career.player.age >= 33 ? 3 : 4);
+    });
+  const playerOverall = overall(career);
+  const bands = [
+    (gap: number) => gap <= -8,
+    (gap: number) => gap > -8 && gap <= 3,
+    (gap: number) => gap > 3 && gap <= 12,
+    (gap: number) => gap > 12,
+  ];
+  const selected: ProfessionalOffer[] = [];
+  for (const band of bands) {
+    const offer = candidates.find(
+      (item) => !selected.includes(item) && band(getClubStrength(item.club) - playerOverall),
+    );
+    if (offer) selected.push(offer);
+  }
+  for (const offer of candidates) {
+    if (selected.length >= (career.player.age >= 33 ? 3 : 4)) break;
+    if (!selected.includes(offer)) selected.push(offer);
+  }
+  return selected;
+};
 
 export const generateSummerWindowOffers = (career: CareerState): ProfessionalOffer[] => {
   const external = generateProfessionalOffers(career).filter(
