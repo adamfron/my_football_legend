@@ -121,6 +121,10 @@ export interface ClubSeasonHistory {
   summary: string;
   placement?: number | undefined;
 }
+export interface ClubVisualIdentity {
+  primaryColor: string;
+  secondaryColor: string;
+}
 export interface Club {
   id: Id;
   name: string;
@@ -136,6 +140,7 @@ export interface Club {
   notableCoaches: Id[];
   legends: Id[];
   rivals: Id[];
+  visualIdentity?: ClubVisualIdentity | undefined;
 }
 
 export type PositionGroup = 'goalkeeper' | 'defender' | 'midfielder' | 'attacker' | 'outfield';
@@ -458,6 +463,7 @@ export interface ProfessionalClub {
   infrastructure?: ClubInfrastructure | undefined;
   archetype: ClubArchetype;
   positionalNeeds: Record<'goalkeeper' | 'defense' | 'midfield' | 'attack', PositionalNeed>;
+  visualIdentity?: ClubVisualIdentity | undefined;
 }
 export interface ClubInfrastructure {
   coachingQuality: number;

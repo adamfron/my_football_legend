@@ -39,12 +39,12 @@ export const RadarChart = ({
       >
         {[0.25, 0.5, 0.75, 1].map((scale) => (
           <circle
+            className="radar-grid"
             key={scale}
             cx={RADAR_CENTER}
             cy={RADAR_CENTER}
             r={RADAR_RADIUS * scale}
             fill="none"
-            stroke="rgba(255,255,255,.14)"
           />
         ))}
         {axes.map(({ label }, index) => {
@@ -52,11 +52,11 @@ export const RadarChart = ({
           return (
             <g key={label}>
               <line
+                className="radar-axis"
                 x1={RADAR_CENTER}
                 y1={RADAR_CENTER}
                 x2={RADAR_CENTER + Math.cos(angle) * RADAR_RADIUS}
                 y2={RADAR_CENTER + Math.sin(angle) * RADAR_RADIUS}
-                stroke="rgba(255,255,255,.12)"
               />
               <text
                 x={RADAR_CENTER + Math.cos(angle) * RADAR_LABEL_RADIUS}
@@ -70,18 +70,12 @@ export const RadarChart = ({
         })}
         {baseline && (
           <polygon
+            className="radar-baseline"
             points={polygon(getRadarAxes(baseline))}
-            fill="rgba(148,163,184,.05)"
-            stroke="#94a3b8"
             strokeWidth="1.5"
           />
         )}
-        <polygon
-          points={polygon(axes)}
-          fill="rgba(68, 209, 157, .35)"
-          stroke="#44d19d"
-          strokeWidth="3"
-        />
+        <polygon className="radar-current" points={polygon(axes)} strokeWidth="3" />
       </svg>
       <figcaption>
         {axes.map(({ label, value }) => `${label} ${Math.round(value)}`).join(', ')}

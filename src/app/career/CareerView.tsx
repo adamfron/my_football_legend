@@ -6,6 +6,9 @@ import { advanceSimulationStep, getCareerProgressBlocker } from '../../core/care
 import { getLeagueTable } from '../../core/leagueSeason';
 import { getPlayerOverall } from '../../core/playerOverall';
 import { buildSeasonTimeline } from '../../core/seasonTimeline';
+import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
+import { getParticipationStatusLabel } from '../../core/participationPresentation';
+import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../../core/playStyles';
 import type { CareerState } from '../../types/domain';
 import { ClubView } from './ClubView';
 import { HistoryView } from './HistoryView';
@@ -14,13 +17,15 @@ import { PlayerCard } from '../shared/PlayerCard';
 export const PLAYBACK_INTERVAL_MS = 1000;
 type Detail = 'player' | 'club' | 'contract' | 'career';
 
-const palette = ['#285f8f', '#7b3f57', '#376b4a', '#875d22', '#554c8a', '#276c70'];
-const clubAccent = (id: string) =>
-  palette[
-    [...id].reduce((hash, character) => (hash * 31 + character.charCodeAt(0)) >>> 0, 7) %
-      palette.length
-  ];
 const money = (value: number) => `${value.toLocaleString('pl-PL')} PLN`;
+const effortLabel = (value: number) =>
+  ['bardzo niskie', 'niskie', 'umiarkowane', 'wysokie', 'bardzo wysokie'][value - 1] ??
+  'umiarkowane';
+const trainingApproachLabel = {
+  recovery: 'regeneracyjny',
+  balanced: 'zrównoważony',
+  extra_work: 'dodatkowa praca',
+} as const;
 const initials = (value: string) =>
   value
     .split(/\s+/)
@@ -48,7 +53,12 @@ export const CareerView = ({
   const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
   const own = table.find((row) => row.clubId === controlledClubId);
   const completedCount = timeline.filter((entry) => entry.status === 'completed').length;
-  const accent = useMemo(() => clubAccent(career.currentClub.id), [career.currentClub.id]);
+  const identity = useMemo(
+    () =>
+      resolveClubVisualIdentity(career.seed, career.currentProfessionalClub ?? career.currentClub),
+    [career.currentClub, career.currentProfessionalClub, career.seed],
+  );
+  const playStyles = getUnlockedPlayStyles(career);
 
   useEffect(() => {
     if (!playing) return;
@@ -87,7 +97,15 @@ export const CareerView = ({
     career.leagueSeason?.clubs.find((club) => club.clubId === id)?.name ?? id;
 
   return (
-    <main className="career-view" style={{ '--club-accent': accent } as CSSProperties}>
+    <main
+      className="career-view"
+      style={
+        {
+          '--club-primary': identity.primaryColor,
+          '--club-secondary': identity.secondaryColor,
+        } as CSSProperties
+      }
+    >
       <header className="career-header">
         <strong>MY FOOTBALL LEGEND</strong>
         <span>Sezon {seasonName}</span>
@@ -201,6 +219,29 @@ export const CareerView = ({
                 seed={career.seed}
                 baseline={career.seasonStartingAttributes}
               />
+              <section className="player-projection">
+                <div>
+                  <h3>STYLE GRY / ATUTY</h3>
+                  {playStyles.length ? (
+                    playStyles.map((id) => (
+                      <article key={id}>
+                        <strong>{PLAY_STYLE_PRESENTATION[id].name}</strong>
+                        <p>{PLAY_STYLE_PRESENTATION[id].description}</p>
+                      </article>
+                    ))
+                  ) : (
+                    <p>Brak wykształconych stylów gry.</p>
+                  )}
+                </div>
+                <div>
+                  <h3>PODEJŚCIE</h3>
+                  <p>Zaangażowanie w trening: {effortLabel(career.player.trainingEffort)}</p>
+                  <p>Zaangażowanie w meczu: {effortLabel(career.player.matchEffort)}</p>
+                  <p>
+                    Plan treningowy: {trainingApproachLabel[career.trainingApproach ?? 'balanced']}
+                  </p>
+                </div>
+              </section>
               <fieldset className="match-presentation-control">
                 <legend>MECZE</legend>
                 <label>
@@ -327,7 +368,7 @@ export const CareerView = ({
                 const summary = participation?.minutes
                   ? `${participation.minutes}' · ${participation.goals} G · ${participation.assists} A${participation.rating ? ` · ${participation.rating.toFixed(1)}` : ''}`
                   : participation?.fixtureStatus === 'completed'
-                    ? 'poza składem'
+                    ? getParticipationStatusLabel(participation.status)
                     : 'nadchodzący mecz';
                 return (
                   <li
@@ -348,8 +389,6 @@ export const CareerView = ({
                   </li>
                 );
               }
-              const label =
-                entry.status === 'completed' ? 'Wydarzenie zakończone' : 'Zaplanowane wydarzenie';
               return (
                 <li
                   key={`${entry.kind}:${entry.sourceId}`}
@@ -358,7 +397,7 @@ export const CareerView = ({
                 >
                   <time>{entry.date.slice(5).split('-').reverse().join('.')}</time>
                   <div>
-                    <strong>{label}</strong>
+                    <strong>{entry.label}</strong>
                   </div>
                 </li>
               );

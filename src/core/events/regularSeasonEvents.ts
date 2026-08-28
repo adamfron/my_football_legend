@@ -22,6 +22,11 @@ const eventSchema = z.object({
     .max(4),
 });
 type RegularEvent = z.infer<typeof eventSchema>;
+export interface RegularEventTimelinePresentation {
+  title: string;
+  scheduled: string;
+  resolved: string;
+}
 const choice = (
   id: string,
   label: string,
@@ -286,6 +291,14 @@ const events: RegularEvent[] = [
 ].map((value) => eventSchema.parse(value));
 
 export const getRegularSeasonEvent = (id: string) => events.find((event) => event.id === id);
+/** Timeline copy is resolved from event content, never persisted in CareerState. */
+export const getRegularEventTimelinePresentation = (
+  id: string,
+): RegularEventTimelinePresentation | undefined => {
+  const event = getRegularSeasonEvent(id);
+  if (!event) return undefined;
+  return { title: event.title, scheduled: event.title, resolved: event.title };
+};
 export const resolveRegularSeasonEvent = (
   career: CareerState,
   eventId: string,
