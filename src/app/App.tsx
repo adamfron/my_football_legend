@@ -1,21 +1,9 @@
-import { useMemo, useState } from 'react';
-import { previewRandomSequence } from '../devtools/randomPreview';
-import { validateSampleContent } from '../schemas/validateContent';
-import { missingLocalizationKeys, translate } from '../core/narrative/localization';
+import { useState } from 'react';
+import { translate } from '../core/narrative/localization';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
-import { getSeasonGoalkeeperStats } from '../core/seasonParticipation';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
-import { diagnoseCareerProgression, matchStateSummary } from '../core/progressionDiagnostics';
 import { createCompletedSeasonSnapshot } from '../core/seasonArchive';
-import { buildSeasonSummary, getSeasonPlayerSummary } from '../core/matchFeedback';
-import {
-  formatAttributeDelta,
-  getMonthlyDevelopmentSummary,
-  getSeasonOverallDelta,
-} from '../core/developmentFeedback';
-import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../core/playStyles';
-import { auditRepeatedPlayerFacingText } from '../core/narrative/repeatedTextAudit';
-import matchLocalization from '../content/localization/pl/events.match.json';
+import { buildSeasonSummary } from '../core/matchFeedback';
 import {
   canReroll,
   createCareerState,
@@ -51,11 +39,9 @@ import { getClubStrength, getExpectedSquadRole } from '../core/clubStrength';
 import { StarRating } from '../components/StarRating';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../core/professionalClubs';
 import {} from '../core/clubStrength';
-import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
+import { availabilityState } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
-import { getInjuryDescription } from '../core/seasonParticipation';
 import { completeScheduledEvent } from '../core/careerCalendar';
-import { MATCH_EFFORT_LABELS, TRAINING_EFFORT_LABELS } from '../core/playerPreferences';
 import {
   acceptProfessionalOffer,
   continueWithProfessionalTrial,
@@ -66,8 +52,6 @@ import { getPlayerOverall } from '../core/playerOverall';
 import { acceptRenegotiatedContract, requestContractRenegotiation } from '../core/contracts';
 import {
   clubArchetypeLabel,
-  getCareerHeader,
-  getCareerSubtitle,
   getCurrentHeadCoach,
   squadRoleLabel,
 } from '../core/careerPresentation';
@@ -76,24 +60,13 @@ import {
   resolveRegularSeasonEvent,
 } from '../core/events/regularSeasonEvents';
 import type { CareerState, EventDecision, PlayerAttributes } from '../types/domain';
-import { getMatchTransitionHistory, isDevToolsEnabled } from './devTools';
-import { ClubView } from './career/ClubView';
-import { HistoryView } from './career/HistoryView';
-import { SeasonView } from './career/SeasonView';
+import { isDevToolsEnabled } from './devTools';
+import { CareerView } from './career/CareerView';
 import { PlayerCard, RadarChart } from './shared/PlayerCard';
 import { MatchGame } from './match/MatchGame';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
-const baseTabs = [
-  ['game', 'nav.game'],
-  ['player', 'nav.player'],
-  ['club', 'nav.club'],
-  ['season', 'nav.season'],
-  ['history', 'nav.history'],
-] as const;
-const devtoolsTab = ['devtools', 'nav.devtools'] as const;
-type TabId = (typeof baseTabs)[number][0] | (typeof devtoolsTab)[0];
 type ProfileFormState = { position: PositionId; heightCm: string; weightKg: string };
 type FieldErrors = Partial<
   Record<
@@ -152,19 +125,6 @@ const personName = (career: CareerState, id: string) =>
     : career.significantPeople.find((p) => p.id === id)
       ? `${career.significantPeople.find((p) => p.id === id)!.firstName} ${career.significantPeople.find((p) => p.id === id)!.lastName}`
       : '';
-const playerStatus = (career: CareerState) => {
-  const availability = getPlayerAvailability(
-    career,
-    getCurrentCareerWeek(career)?.startDate ?? '2027-05-31',
-  );
-  if (availability.status === 'suspended')
-    return `Zawieszony (${availability.suspensionMatchesRemaining} mecz)`;
-  if (availability.status === 'injured')
-    return `Kontuzjowany (około ${availability.injury.matchesRemaining} mecz.)`;
-  if (availability.status === 'knock')
-    return `Drobny uraz (około ${availability.injury.matchesRemaining} mecz.)`;
-  return career.careerCalendar ? 'Zdrowy' : 'Oczekuje na rozpoczęcie sezonu';
-};
 const eventParams = (career: CareerState) => {
   const rival = career.significantPeople.find((p) => p.role === 'academy_rival');
   const coach =
@@ -191,8 +151,7 @@ const qualityLabel = (quality: number) =>
         : quality >= 40
           ? 'przeciętne'
           : 'podstawowe';
-const numberPl = (value: number, digits = 1) =>
-  value.toLocaleString('pl-PL', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
 
 const EventCard = ({
   career,
@@ -701,42 +660,6 @@ const SeasonEndSummary = ({
   );
 };
 
-const CareerHud = ({ career }: { career: CareerState }) => {
-  const season = getSeasonProgress(career);
-  const availability = getPlayerAvailability(career, season.currentDate);
-  const health = !availability.available
-    ? availability.status === 'suspended'
-      ? 'Zawieszony'
-      : 'Kontuzjowany'
-    : career.player.health < 70
-      ? 'Uraz'
-      : 'Zdrowy';
-  return (
-    <section className="career-hud" aria-label="Status kariery">
-      <strong>
-        Sezon {season.careerSeasonNumber} · {season.seasonLabel} · {career.currentClub.name}
-      </strong>
-      <small>{career.leagueSeason?.competition.name}</small>
-      <span>
-        OVR {getPlayerOverall(career.player, career.player.primaryPosition)} · Morale{' '}
-        {career.player.morale} · Kondycja {career.player.fitness} · {health}
-      </span>
-      <label>
-        Postęp sezonu{' '}
-        <progress value={season.progress} max={1}>
-          {Math.round(season.progress * 100)}%
-        </progress>{' '}
-        {Math.round(season.progress * 100)}%
-      </label>
-      {season.phase === 'summer_window' ? (
-        <span>Letnie okno transferowe</span>
-      ) : season.weeksUntilSummerWindow ? (
-        <span>Letnie okno za {season.weeksUntilSummerWindow} tyg.</span>
-      ) : null}
-    </section>
-  );
-};
-
 const RetiredCareerSummary = ({
   career,
   onHistory,
@@ -857,8 +780,6 @@ const RetiredCareerSummary = ({
 };
 
 export const App = () => {
-  const devtoolsEnabled = isDevToolsEnabled();
-  const tabs = devtoolsEnabled ? [...baseTabs, devtoolsTab] : baseTabs;
   const [view, setView] = useState<'start' | 'creator' | 'career'>(() =>
     hasValidCareer() ? 'start' : 'start',
   );
@@ -867,7 +788,7 @@ export const App = () => {
     return loaded.ok ? advanceCareerFlow(loaded.save.career) : null;
   });
   const [step, setStep] = useState(0);
-  const [active, setActive] = useState<TabId>('game');
+  const [active, setActive] = useState<'game' | 'history'>('game');
   const [identity, setIdentity] = useState<IdentityInput>({
     firstName: '',
     lastName: '',
@@ -887,8 +808,6 @@ export const App = () => {
   const [variants, setVariants] = useState<StartingPlayerProfile[]>([]);
   const [selectedVariant, setSelectedVariant] = useState(0);
   const generated = variants[selectedVariant] ?? null;
-  const validation = useMemo(() => validateSampleContent(), []);
-  const randomPreview = useMemo(() => previewRandomSequence('mfl-sample-career-2026'), []);
   const heightForHint = Number(profileInput.heightCm);
   const weightRange =
     Number.isInteger(heightForHint) && heightForHint >= 155 && heightForHint <= 205
@@ -985,353 +904,29 @@ export const App = () => {
       </main>
     );
 
-  if (view === 'career' && career)
-    return (
-      <main className="shell">
-        <header className="hero">
-          <p>{getCareerHeader(career)}</p>
-          <h1>{translate('app.title')}</h1>
-          <span>{getCareerSubtitle(career)}</span>
-        </header>
-        <CareerHud career={career} />
-        <nav className="tabs">
-          {tabs.map(([id, label]) => (
-            <button
-              key={id}
-              onClick={() => setActive(id)}
-              className={active === id ? 'active' : ''}
-            >
-              {translate(label)}
-            </button>
-          ))}
-        </nav>
-        <section className="panel">
-          {active === 'devtools' && devtoolsEnabled ? (
-            <div className="devgrid">
-              <section>
-                <h2>CAREER PROGRESSION</h2>
-                <pre>{JSON.stringify(diagnoseCareerProgression(career), null, 2)}</pre>
-                <strong>
-                  Can advance: {diagnoseCareerProgression(career).canAdvance ? 'YES' : 'NO'}
-                </strong>
-              </section>
-              <section>
-                <h2>MATCH STATE</h2>
-                <pre>
-                  {JSON.stringify(
-                    {
-                      fixtureId: getCurrentFixture(career)?.id,
-                      season: career.currentSeason,
-                      careerWeek: getCurrentCareerWeek(career)?.weekIndex,
-                      ...matchStateSummary(career.activeMatch),
-                      lastSelectedDecision: getMatchTransitionHistory().at(-1)?.action,
-                      lastMatchTransition: getMatchTransitionHistory().at(-1),
-                      nextExpectedState: career.activeMatch?.completed
-                        ? 'career week'
-                        : career.activeMatch?.currentMoment
-                          ? 'resolved or later moment'
-                          : 'next moment or completed',
-                      transitionHistory: getMatchTransitionHistory(),
-                    },
-                    null,
-                    2,
-                  )}
-                </pre>
-              </section>
-              <code>{career.seed}</code>
-              <pre>{JSON.stringify(randomPreview, null, 2)}</pre>
-              <p>Brakujące klucze: {Array.from(missingLocalizationKeys).join(', ') || 'brak'}</p>
-              <section>
-                <h2>Powtarzające się teksty</h2>
-                <pre>
-                  {JSON.stringify(auditRepeatedPlayerFacingText(matchLocalization), null, 2)}
-                </pre>
-              </section>
-              <p>
-                OK: {validation.events.length} wydarzeń, {validation.clubs.length} klub,{' '}
-                {validation.people.length} postać.
-              </p>
-            </div>
-          ) : (
-            <>
-              {active === 'game' && <EventCard career={career} onCareer={updateCareer} />}{' '}
-              {active === 'history' && <HistoryView career={career} />}{' '}
-              {active === 'season' && <SeasonView career={career} />}{' '}
-              {active === 'club' && <ClubView career={career} />}{' '}
-              {active !== 'game' &&
-                active !== 'history' &&
-                active !== 'season' &&
-                active !== 'club' && (
-                  <div className="career-grid">
-                    <PlayerCard
-                      profile={{
-                        player: career.player,
-                        profileDescriptionKey: 'creator.profileDescription',
-                        profileDescriptionParams: {
-                          strong1: 'attribute.technique',
-                          strong2: 'attribute.vision',
-                          weak: 'attribute.defending',
-                          position: `position.${career.player.primaryPosition}`,
-                        },
-                        rollIndex: 0,
-                      }}
-                      seed={career.seed}
-                      baseline={career.seasonStartingAttributes}
-                    />
-                    <aside>
-                      <p>
-                        <strong>Status:</strong> {playerStatus(career)}
-                      </p>
-                      <p>
-                        <strong>Klub:</strong> {career.currentClub.name}
-                      </p>
-                      {career.currentContract && (
-                        <section className="mini-card">
-                          <h3>Kontrakt</h3>
-                          <p>
-                            <strong>{career.currentClub.name}</strong>
-                          </p>
-                          <p>
-                            {career.currentContract.monthlySalary.toLocaleString('pl-PL')} PLN /
-                            miesiąc
-                          </p>
-                          <p>do {career.currentContract.endDate}</p>
-                          <p>Rola: {squadRoleLabel(career.currentContract.squadRole)}</p>
-                        </section>
-                      )}
-                      <section className="mini-card">
-                        <h3>Instrukcje dla agenta</h3>
-                        <p>
-                          Wybierz maksymalnie dwa priorytety. Agent porządkuje tylko oferty klubów,
-                          które naprawdę są zainteresowane.
-                        </p>
-                        {(
-                          [
-                            ['sporting_level', 'Poziom sportowy'],
-                            ['important_role', 'Ważna rola'],
-                            ['development', 'Rozwój'],
-                            ['salary', 'Wynagrodzenie'],
-                            ['infrastructure', 'Zaplecze klubu'],
-                          ] as const
-                        ).map(([value, label]) => (
-                          <label key={value}>
-                            <input
-                              type="checkbox"
-                              checked={(career.agentPreferences ?? []).includes(value)}
-                              disabled={
-                                !(career.agentPreferences ?? []).includes(value) &&
-                                (career.agentPreferences ?? []).length >= 2
-                              }
-                              onChange={() => {
-                                const existing = career.agentPreferences ?? [];
-                                updateCareer({
-                                  ...career,
-                                  agentPreferences: existing.includes(value)
-                                    ? existing.filter((item) => item !== value)
-                                    : [...existing, value],
-                                });
-                              }}
-                            />{' '}
-                            {label}
-                          </label>
-                        ))}
-                      </section>
-                      <p>
-                        <strong>Pozycja:</strong>{' '}
-                        {translate(`position.${career.player.primaryPosition}`)}
-                      </p>
-                      <p>
-                        <strong>Morale:</strong> {career.player.morale}
-                      </p>
-                      <p>
-                        <strong>Kondycja:</strong> {career.player.fitness}
-                      </p>
-                      {getInjuryDescription(career) && (
-                        <p>
-                          <strong>Kontuzja:</strong> {getInjuryDescription(career)}
-                        </p>
-                      )}
-                      <p title="Tendencja zmienia się przez doświadczenia i decyzje fabularne.">
-                        <strong>Podejście do treningu:</strong>{' '}
-                        {TRAINING_EFFORT_LABELS[career.player.trainingEffort ?? 3]}
-                      </p>
-                      <label title="Steruje tylko sposobem prezentacji meczów, nie poziomem trudności.">
-                        Prezentacja meczów{' '}
-                        <select
-                          value={career.player.matchPresentation}
-                          onChange={(event) =>
-                            updateCareer({
-                              ...career,
-                              player: {
-                                ...career.player,
-                                matchPresentation: event.target.value as
-                                  | 'important_matches'
-                                  | 'simulate_all',
-                              },
-                            })
-                          }
-                        >
-                          <option value="important_matches">Ważne mecze</option>
-                          <option value="simulate_all">Symuluj wszystkie</option>
-                        </select>
-                      </label>
-                      <p title="To nawyk, a nie ustawienie meczu.">
-                        <strong>Podejście do meczu:</strong>{' '}
-                        {MATCH_EFFORT_LABELS[career.player.matchEffort]}
-                      </p>
-                      <h3>Rozwój</h3>
-                      {(() => {
-                        const summary = getSeasonPlayerSummary(career, career.currentSeason);
-                        const goalkeeperSummary =
-                          career.player.primaryPosition === 'goalkeeper'
-                            ? getSeasonGoalkeeperStats(career.seasonParticipation ?? [])
-                            : undefined;
-                        return (
-                          <>
-                            <h3>Bieżący sezon — {getSeasonProgress(career).seasonLabel}</h3>
-                            <p>
-                              <strong>
-                                OVR {getPlayerOverall(career.player, career.player.primaryPosition)}{' '}
-                                {formatAttributeDelta(getSeasonOverallDelta(career))}
-                              </strong>
-                            </p>
-                            <div className="season-grid">
-                              <div>
-                                Mecze
-                                <br />
-                                <strong>{summary.appearances}</strong>
-                              </div>
-                              <div>
-                                Pierwszy skład
-                                <br />
-                                <strong>{summary.starts}</strong>
-                              </div>
-                              <div>
-                                Minuty
-                                <br />
-                                <strong>{summary.minutes}</strong>
-                              </div>
-                              {goalkeeperSummary ? (
-                                <>
-                                  <div>
-                                    Stracone gole
-                                    <br />
-                                    <strong>{goalkeeperSummary.goalsConceded}</strong>
-                                  </div>
-                                  <div>
-                                    Czyste konta
-                                    <br />
-                                    <strong>{goalkeeperSummary.cleanSheets}</strong>
-                                  </div>
-                                  <div>
-                                    Obrony
-                                    <br />
-                                    <strong>{goalkeeperSummary.saves}</strong>
-                                  </div>
-                                  <div>
-                                    Skuteczność obron
-                                    <br />
-                                    <strong>{numberPl(goalkeeperSummary.savePercentage)}%</strong>
-                                  </div>
-                                  <div>
-                                    xGA
-                                    <br />
-                                    <strong>{numberPl(goalkeeperSummary.xGA)}</strong>
-                                  </div>
-                                  <div>
-                                    Gole powstrzymane
-                                    <br />
-                                    <strong>
-                                      {goalkeeperSummary.goalsPrevented > 0 ? '+' : ''}
-                                      {numberPl(goalkeeperSummary.goalsPrevented)}
-                                    </strong>
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  <div>
-                                    Gole
-                                    <br />
-                                    <strong>{summary.goals}</strong>
-                                  </div>
-                                  <div>
-                                    Asysty
-                                    <br />
-                                    <strong>{summary.assists}</strong>
-                                  </div>
-                                </>
-                              )}
-                              <div>
-                                Średnia ocen
-                                <br />
-                                <strong>
-                                  {summary.averageRating === undefined
-                                    ? '—'
-                                    : numberPl(summary.averageRating)}
-                                </strong>
-                              </div>
-                            </div>
-                          </>
-                        );
-                      })()}
-                      <p>
-                        {
-                          getMonthlyDevelopmentSummary(
-                            career,
-                            Number(getSeasonProgress(career).currentDate.slice(0, 4)),
-                            Number(getSeasonProgress(career).currentDate.slice(5, 7)),
-                          ).narrative
-                        }
-                      </p>
-                      {career.historyFacts
-                        .filter((f) => f.factType === 'attribute_changed')
-                        .slice(-1)
-                        .map((f) => (
-                          <article className="mini-card" key={f.id}>
-                            <strong>Rozwój zawodnika</strong>
-                            <p>
-                              {String(f.data.attribute)}: {String(f.data.before)} →{' '}
-                              {String(f.data.after)}
-                            </p>
-                          </article>
-                        ))}
-                      <p>Ostatnia aktywność: {career.trainingApproach ?? 'balanced'}</p>
-                      <h3>Atuty</h3>
-                      {getUnlockedPlayStyles(career).length ? (
-                        getUnlockedPlayStyles(career).map((id) => (
-                          <article className="mini-card" key={id}>
-                            <strong>{PLAY_STYLE_PRESENTATION[id].name}</strong>
-                            <p>{PLAY_STYLE_PRESENTATION[id].description}</p>
-                          </article>
-                        ))
-                      ) : (
-                        <p>
-                          Nie wykształciłeś jeszcze wyraźnego stylu, który sztab uznałby za jeden z
-                          twoich znaków rozpoznawczych.
-                        </p>
-                      )}
-                      <h3>Finanse</h3>
-                      <p>
-                        Dostępne środki:{' '}
-                        {(career.finances ?? []).reduce((sum, item) => sum + item.amount, 0)} PLN
-                      </p>
-                      {(career.finances ?? [])
-                        .slice(-3)
-                        .reverse()
-                        .map((item) => (
-                          <p key={item.id}>
-                            {item.date}: {item.amount > 0 ? '+' : ''}
-                            {item.amount} PLN
-                          </p>
-                        ))}
-                    </aside>
-                  </div>
-                )}
-            </>
-          )}
-        </section>
-      </main>
+  if (view === 'career' && career) {
+    if (career.activeMatch)
+      return (
+        <main className="shell match-shell">
+          <MatchGame career={career} onCareer={updateCareer} />
+        </main>
+      );
+    const needsDecision = Boolean(
+      career.activeEvent ||
+        career.decisionPoint?.type === 'off_field_event' ||
+        career.leagueSeason?.completed ||
+        career.seasonOutcome ||
+        career.professionalOffers,
     );
+    return (
+      <CareerView
+        career={career}
+        onCareer={updateCareer}
+        decisionPanel={needsDecision ? <EventCard career={career} onCareer={updateCareer} /> : undefined}
+      />
+    );
+  }
+
   if (view === 'creator')
     return (
       <main className="shell narrow">
@@ -1521,7 +1116,7 @@ export const App = () => {
           Kontynuuj
         </button>
         <a href="https://github.com/adamfron/my_football_legend">O projekcie</a>
-        {devtoolsEnabled && (
+        {isDevToolsEnabled() && (
           <button className="subtle" onClick={() => setView('career')}>
             Narzędzia developerskie
           </button>

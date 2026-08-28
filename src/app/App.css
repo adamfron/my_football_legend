@@ -4,6 +4,79 @@
   padding: 48px 32px;
   color: #eef7f1;
 }
+
+.career-view {
+  height: 100vh;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: 38px auto auto minmax(0, 1fr);
+  gap: 8px;
+  background: #f5f5f2;
+  color: #20272b;
+  font-size: 12px;
+}
+.career-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border: 1px solid #aeb4b7;
+  border-top: 3px solid var(--club-accent);
+  padding: 4px 8px;
+  background: #fff;
+}
+.career-header > span { font-weight: 700; }
+.career-header button { justify-self: end; min-width: 92px; }
+.career-view button {
+  border: 1px solid #8c969a;
+  border-radius: 2px;
+  padding: 7px 10px;
+  background: #f6f6f3;
+  color: #20272b;
+  font: inherit;
+  font-weight: 700;
+}
+.career-view button:hover, .career-view button.selected { border-color: var(--club-accent); background: #fff; }
+.summary-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.summary-strip > button { min-height: 84px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; border-top: 3px solid var(--club-accent); }
+.summary-strip small { color: #667177; letter-spacing: .08em; }
+.summary-strip strong { margin: 5px 0 2px; font-size: 13px; }
+.summary-strip b { font-size: 16px; }
+.summary-strip span { margin-top: auto; color: #566167; font-weight: 400; }
+.detail-panel, .career-decision { position: absolute; z-index: 3; top: 142px; left: 5%; width: 90%; max-height: calc(100vh - 170px); overflow: auto; border: 1px solid #747d81; border-top: 4px solid var(--club-accent); padding: 14px; background: #fff; box-shadow: 0 8px 22px #0003; }
+.detail-close { float: right; }
+.detail-panel .card { grid-template-columns: 150px 1fr 290px 240px; }
+.career-decision { z-index: 4; left: 25%; width: 50%; }
+.season-workspace { min-height: 0; display: grid; grid-template-columns: minmax(420px, .9fr) minmax(480px, 1.1fr); gap: 8px; }
+.season-pane { min-height: 0; display: grid; grid-template-rows: 35px minmax(0, 1fr); border: 1px solid #aeb4b7; background: #fff; }
+.season-pane > header { display: flex; justify-content: space-between; align-items: center; padding: 0 9px; border-bottom: 1px solid #c7ccce; background: #eceeed; }
+.season-pane h2 { margin: 0; font-size: 12px; letter-spacing: .07em; }
+.pane-scroll { min-height: 0; overflow: auto; }
+.table-scroll table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+.table-scroll th, .table-scroll td { padding: 6px 7px; border-bottom: 1px solid #e0e2e3; text-align: right; }
+.table-scroll th:nth-child(2), .table-scroll td:nth-child(2) { text-align: left; }
+.table-scroll thead { position: sticky; top: 0; background: #f5f5f2; z-index: 1; }
+.table-scroll tr[aria-current='true'] { background: color-mix(in srgb, var(--club-accent) 14%, white); box-shadow: inset 3px 0 var(--club-accent); }
+.season-timeline { margin: 0; padding: 0; list-style: none; }
+.season-timeline li { display: grid; grid-template-columns: 48px 1fr 36px; gap: 8px; padding: 8px 10px; border-bottom: 1px solid #e2e4e4; align-items: start; }
+.season-timeline time { color: #667177; }
+.season-timeline div { display: grid; gap: 3px; }
+.season-timeline div span { color: #4d585e; }
+.season-timeline li.upcoming { color: #7b8387; background: #fafafa; }
+.season-timeline .timeline-event, .season-timeline .timeline-fact { border-left: 3px solid var(--club-accent); }
+.career-error { margin: 0; padding: 7px; border: 1px solid #a33; background: #fff0f0; }
+.match-shell { min-height: 100vh; }
+
+@media (max-width: 760px) {
+  .career-view { height: auto; min-height: 100vh; grid-template-rows: 38px auto auto auto; padding: 6px; }
+  .career-header { grid-template-columns: 1fr auto; }
+  .career-header > span { display: none; }
+  .summary-strip { display: flex; overflow-x: auto; }
+  .summary-strip > button { min-width: 210px; }
+  .season-workspace { grid-template-columns: 1fr; }
+  .season-pane { height: 48vh; }
+  .detail-panel, .career-decision { position: fixed; top: 8%; left: 3%; width: 94%; max-height: 84vh; }
+  .detail-panel .card { display: block; }
+}
 .shell.narrow {
   max-width: 1180px;
 }
