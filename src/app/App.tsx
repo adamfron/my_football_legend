@@ -67,6 +67,7 @@ import {
   type ProfileFormState,
 } from './creator/PlayerCreator';
 import { MatchGame } from './match/MatchGame';
+import { StartScreen } from './StartScreen';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
@@ -933,36 +934,20 @@ export const App = () => {
       />
     );
   return (
-    <main className="shell start">
-      <header className="hero">
-        <p>{translate('start.subtitle')}</p>
-        <h1>{translate('app.title')}</h1>
-      </header>
-      {showInfo && (
-        <aside className="notice">
-          <p>{translate('start.localSaveNotice')}</p>
-          <button
-            onClick={() => {
-              localStorage.setItem(infoKey, '1');
-              setShowInfo(false);
-            }}
-          >
-            Rozumiem
-          </button>
-        </aside>
-      )}
-      <section className="panel menu">
-        <button onClick={startNew}>Nowa kariera</button>
-        <button disabled={!career} onClick={continueCareer}>
-          Kontynuuj
-        </button>
-        <a href="https://github.com/adamfron/my_football_legend">O projekcie</a>
-        {isDevToolsEnabled() && (
-          <button className="subtle" onClick={() => setView('career')}>
-            Narzędzia developerskie
-          </button>
-        )}
-      </section>
-    </main>
+    <StartScreen
+      canContinue={Boolean(career)}
+      notice={showInfo ? translate('start.localSaveNotice') : undefined}
+      onDismissNotice={() => {
+        localStorage.setItem(infoKey, '1');
+        setShowInfo(false);
+      }}
+      onNewCareer={startNew}
+      onContinue={continueCareer}
+      developerAction={
+        isDevToolsEnabled() ? (
+          <button onClick={() => setView('career')}>Narzędzia developerskie</button>
+        ) : undefined
+      }
+    />
   );
 };

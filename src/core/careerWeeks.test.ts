@@ -9,8 +9,13 @@ import {
   shouldScheduleOffFieldEvent,
 } from './careerWeeks';
 import { careerStateSchema } from '../schemas/domainSchemas';
+import type { CareerState } from '../types/domain';
 import { settleLeagueRound, getLeagueTable } from './leagueSeason';
-import { simulateRoutinePlayerMatch } from './careerSimulation';
+import {
+  getCareerProgressBlocker,
+  advanceSimulationStep,
+  simulateRoutinePlayerMatch,
+} from './careerSimulation';
 import { auditCareerSeason } from './seasonAudit';
 
 const career = (seed = 'week-test') => {
@@ -34,6 +39,78 @@ const career = (seed = 'week-test') => {
 };
 
 describe('reusable career week loop', () => {
+  it('clears only the matching blocker when a completed important match is left', () => {
+    const initial = initializeCurrentCareerWeek(career('important-complete'));
+    const fixture = initial.careerCalendar!.fixtures[0]!;
+    const weekIndex = initial.careerCalendar!.weeks.findIndex((week) =>
+      week.fixtureIds.includes(fixture.id),
+    );
+    const activeMatch = {
+      id: fixture.id,
+      date: fixture.date,
+      completed: true,
+    } as unknown as CareerState['activeMatch'];
+    const ready: CareerState = {
+      ...initial,
+      activeMatch,
+      decisionPoint: { type: 'important_match', date: fixture.date, sourceId: fixture.id },
+      careerCalendar: { ...initial.careerCalendar!, currentWeekIndex: weekIndex },
+    };
+
+    const advanced = advanceCareerWeek(ready);
+
+    expect(advanced.activeMatch).toBeUndefined();
+    expect(advanced.decisionPoint).toBeUndefined();
+    expect(advanced.careerCalendar!.currentWeekIndex).toBe(weekIndex + 1);
+    expect(getCareerProgressBlocker(advanced)).toBeUndefined();
+  });
+
+  it('retains a genuinely unresolved important-match blocker', () => {
+    const initial = initializeCurrentCareerWeek(career('important-open'));
+    const fixture = initial.careerCalendar!.fixtures[0]!;
+    const blocked: CareerState = {
+      ...initial,
+      decisionPoint: { type: 'important_match', date: fixture.date, sourceId: fixture.id },
+    };
+    expect(getCareerProgressBlocker(blocked)).toBe('important_match requires resolution');
+    expect(() => advanceSimulationStep(blocked)).toThrow(/important_match requires resolution/);
+  });
+
+  it('records each routine appearance once in match history and keeps first milestones unique', () => {
+    let state = initializeCurrentCareerWeek(career('routine-ledger'));
+    let appearances = 0;
+    for (const fixture of state.careerCalendar!.fixtures) {
+      state = simulateRoutinePlayerMatch(state, fixture, {
+        status: 'academy_starter',
+        teamLevel: 'academy',
+        started: true,
+        willPlay: true,
+        plannedMinutes: 90,
+      });
+      const once = state.matchHistory!.filter((item) => item.matchId === `academy_${fixture.id}`);
+      if (state.seasonParticipation!.find((row) => row.fixtureId === fixture.id)!.minutes > 0) {
+        appearances += 1;
+        expect(once).toHaveLength(1);
+      } else {
+        expect(once).toHaveLength(0);
+      }
+      const retried = simulateRoutinePlayerMatch(state, fixture, {
+        status: 'academy_starter',
+        teamLevel: 'academy',
+        started: true,
+        willPlay: true,
+        plannedMinutes: 90,
+      });
+      expect(retried.matchHistory).toEqual(state.matchHistory);
+    }
+    expect(appearances).toBeGreaterThan(0);
+    expect(
+      state.historyFacts.filter((fact) => fact.factType === 'first_academy_goal').length,
+    ).toBeLessThanOrEqual(1);
+    expect(
+      state.historyFacts.filter((fact) => fact.factType === 'first_academy_assist').length,
+    ).toBeLessThanOrEqual(1);
+  });
   it('creates an idempotent schedule with fixture and rest weeks', () => {
     const first = initializeCurrentCareerWeek(career());
     expect(initializeCurrentCareerWeek(first)).toEqual(first);

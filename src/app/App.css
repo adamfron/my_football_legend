@@ -15,6 +15,7 @@
   color: #20272b;
   font-size: 12px;
   line-height: 1.25;
+  overflow: hidden;
 }
 .career-header {
   display: grid;
@@ -113,7 +114,7 @@
 .career-decision {
   position: absolute;
   z-index: 3;
-  top: 151px;
+  top: 162px;
   left: 5%;
   width: 90%;
   max-height: calc(100vh - 179px);
@@ -159,6 +160,29 @@
   left: 25%;
   width: 50%;
 }
+.player-detail {
+  display: grid;
+  gap: 8px;
+}
+.match-presentation-control {
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid #b5bbbd;
+}
+.match-presentation-control legend {
+  padding: 0 5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.match-presentation-control label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 18px;
+}
+.match-presentation-control input {
+  accent-color: var(--club-accent);
+}
 .season-workspace {
   min-height: 0;
   display: grid;
@@ -188,11 +212,13 @@
 .pane-scroll {
   min-height: 0;
   overflow: auto;
+  scrollbar-gutter: stable;
 }
 .table-scroll table {
   width: 100%;
   border-collapse: collapse;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .table-scroll th,
 .table-scroll td {
@@ -250,6 +276,75 @@
   padding: 7px;
   border: 1px solid #a33;
   background: #fff0f0;
+}
+.career-decision,
+.detail-panel,
+.career-decision p,
+.detail-panel p,
+.career-decision h2,
+.career-decision h3,
+.detail-panel h2,
+.detail-panel h3,
+.mini-card p,
+.history-item p {
+  line-height: 1.2;
+}
+.career-decision p,
+.detail-panel p,
+.mini-card p,
+.history-item p {
+  margin: 4px 0;
+}
+.career-decision h2,
+.detail-panel h2 {
+  margin: 7px 0 5px;
+}
+.career-decision h3,
+.detail-panel h3,
+.career-decision h4,
+.detail-panel h4 {
+  margin: 7px 0 3px;
+}
+.career-view .choices {
+  gap: 8px;
+}
+.career-view .decision-card {
+  gap: 6px;
+  padding: 9px;
+  border: 1px solid #b5bbbd;
+  border-radius: 1px;
+  background: #f7f7f4;
+  color: #20272b;
+}
+.career-view .decision-card h3,
+.career-view .decision-description,
+.career-view .decision-consequences p {
+  color: #20272b;
+  line-height: 1.2;
+}
+.career-view .decision-consequences {
+  gap: 5px;
+}
+.career-view .decision-consequences section,
+.career-view .possible-benefits,
+.career-view .possible-risks {
+  padding: 6px;
+  border: 1px solid #d4d8d9;
+  border-radius: 0;
+  background: #fff;
+  color: #20272b;
+}
+.career-view .decision-consequences h4,
+.career-view .possible-benefits h4,
+.career-view .possible-risks h4 {
+  color: var(--club-accent);
+}
+.career-view .offer-grid {
+  gap: 7px;
+}
+.career-view .offer-card {
+  padding: 8px;
+  border-left-color: var(--club-accent);
 }
 .match-shell {
   min-height: 100vh;
@@ -893,9 +988,7 @@ tbody tr.active {
   color: inherit;
 }
 .creator-workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 10px;
+  display: block;
   align-items: start;
 }
 .creator-panel,
@@ -910,9 +1003,91 @@ tbody tr.active {
   min-height: 570px;
   padding: 16px;
 }
+.creator-panel p {
+  margin: 5px 0;
+  line-height: 1.2;
+}
 .creator-panel h1 {
   margin: 0 0 13px;
   font-size: 16px;
+}
+
+/* Neutral compact shell before a club supplies the career accent. */
+.start-screen {
+  width: min(720px, calc(100% - 20px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-top: clamp(28px, 12vh, 110px);
+  color: #20272b;
+  font:
+    13px/1.2 Tahoma,
+    'Segoe UI',
+    Arial,
+    sans-serif;
+}
+.start-titlebar,
+.start-panel {
+  border: 1px solid #8d969a;
+  background: #f8f8f5;
+  box-shadow:
+    inset 1px 1px #fff,
+    inset -1px -1px #c4c9ca;
+}
+.start-titlebar {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-top: 3px solid #526b78;
+}
+.start-titlebar span {
+  color: #59656a;
+  font-size: 11px;
+}
+.start-panel {
+  margin-top: 8px;
+  padding: 0 12px 12px;
+}
+.start-panel > header {
+  margin: 0 -12px 10px;
+  padding: 7px 9px;
+  border-bottom: 1px solid #aeb4b7;
+  background: #e6e9e8;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.start-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 7px;
+  border: 1px solid #c6cbcd;
+  background: #fff;
+}
+.start-notice p {
+  margin: 0;
+}
+.start-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.start-actions button,
+.start-actions a {
+  padding: 7px 12px;
+  border: 1px solid #7c878b;
+  border-radius: 1px;
+  background: #eceeec;
+  color: #20272b;
+  box-shadow:
+    inset 1px 1px #fff,
+    inset -1px -1px #bdc3c5;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
 }
 .creator-panel .form {
   gap: 11px;

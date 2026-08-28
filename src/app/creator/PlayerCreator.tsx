@@ -51,21 +51,6 @@ const ErrorText = ({ errors }: { errors?: string[] | undefined }) =>
       {error}
     </p>
   )) ?? null;
-const Preview = ({ identity, generated, seed }: Pick<Props, 'identity' | 'generated' | 'seed'>) =>
-  generated ? (
-    <PlayerCard profile={generated} seed={seed} />
-  ) : (
-    <aside className="creator-empty-preview" aria-label="Podgląd zawodnika">
-      <div aria-hidden="true">
-        {`${identity.firstName[0] ?? ''}${identity.lastName[0] ?? ''}`.toUpperCase() || '?'}
-      </div>
-      <strong>
-        {[identity.firstName, identity.lastName].filter(Boolean).join(' ') || 'Nowy zawodnik'}
-      </strong>
-      <span>{STARTING_AGE} lat · Polska</span>
-      <small>Profil i atrybuty pojawią się w kolejnych krokach.</small>
-    </aside>
-  );
 export const PlayerCreator = (p: Props) => (
   <main className="creator-shell">
     <CreatorHeader />
@@ -231,13 +216,6 @@ export const PlayerCreator = (p: Props) => (
           </div>
         )}
       </section>
-      <div className="creator-preview">
-        <header>PODGLĄD ZAWODNIKA</header>
-        <Preview identity={p.identity} generated={p.generated} seed={p.seed} />
-        <p className="extension-note">
-          Konstrukcja kreatora obsługuje opcjonalne moduły profilu bez zmiany reguł generowania.
-        </p>
-      </div>
     </div>
   </main>
 );

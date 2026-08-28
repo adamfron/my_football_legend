@@ -299,9 +299,14 @@ export const completeCareerWeek = (career: CareerState): CareerState => {
       ? [week.summaryVariantKey]
       : []),
   ].slice(-3);
+  const completedImportantMatch =
+    prepared.activeMatch?.completed &&
+    prepared.decisionPoint?.type === 'important_match' &&
+    prepared.decisionPoint.sourceId === prepared.activeMatch.id;
   return {
     ...prepared,
     activeMatch: undefined,
+    decisionPoint: completedImportantMatch ? undefined : prepared.decisionPoint,
     currentDate:
       !career.currentDate || week.endDate > career.currentDate ? week.endDate : career.currentDate,
     historyFacts: facts,

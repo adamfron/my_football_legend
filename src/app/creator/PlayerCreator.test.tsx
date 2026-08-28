@@ -50,6 +50,8 @@ describe('compact player creator', () => {
         ['Tożsamość', 'Profil', 'Atrybuty', 'Podsumowanie'][step],
       );
       expect(container.querySelectorAll('.creator-steps li')).toHaveLength(4);
+      expect(container.querySelector('.creator-preview')).toBeNull();
+      expect(container.textContent).not.toContain('Konstrukcja kreatora');
     }
     act(() => root.unmount());
   });

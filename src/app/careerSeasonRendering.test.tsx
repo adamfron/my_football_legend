@@ -9,6 +9,7 @@ import type { CareerState } from '../types/domain';
 import { CareerWeekGame } from './App';
 import { SeasonView } from './career/SeasonView';
 import { CareerView } from './career/CareerView';
+import { scheduleEvent } from '../core/careerCalendar';
 
 const initializedCareer = () =>
   advanceCareerFlow(
@@ -65,6 +66,69 @@ describe('canonical career season rendering', () => {
     const close = container.querySelector<HTMLButtonElement>('[aria-label="Zamknij"]')!;
     expect(close.textContent).toBe('×');
     act(() => close.click());
+    expect(container.querySelector('.detail-panel')).toBeNull();
+    act(() => root.unmount());
+  });
+
+  it('keeps fixtures and scheduled decisions in the season timeline but hides internal facts', () => {
+    const initial = initializedCareer();
+    const scheduled = scheduleEvent(initial, {
+      id: 'visible_decision',
+      eventDefinitionId: 'side_job_offer',
+      date: initial.careerCalendar!.weeks[1]!.startDate,
+    });
+    const career: CareerState = {
+      ...scheduled,
+      historyFacts: [
+        ...scheduled.historyFacts,
+        {
+          id: 'internal_week_fact',
+          factType: 'career_week_completed',
+          season: scheduled.currentSeason,
+          date: scheduled.currentDate!,
+          actors: [scheduled.player.id],
+          targets: [],
+          clubs: [scheduled.currentClub.id],
+          competitions: [],
+          data: {},
+          causes: [],
+          tags: ['technical'],
+          visibility: 'partial',
+          narrativeImportance: 1,
+          emotionalTone: 'neutral',
+        },
+      ],
+    };
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() => root.render(<CareerView career={career} onCareer={() => undefined} />));
+    expect(container.querySelectorAll('.season-timeline li').length).toBe(
+      career.careerCalendar!.fixtures.length + 1,
+    );
+    expect(container.querySelector('.timeline-event')).not.toBeNull();
+    expect(container.querySelector('.timeline-fact')).toBeNull();
+    act(() => root.unmount());
+  });
+
+  it('updates the canonical match preference and closes details when Play is pressed', () => {
+    const initial = initializedCareer();
+    let updated: CareerState | undefined;
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() =>
+      root.render(<CareerView career={initial} onCareer={(career) => (updated = career)} />),
+    );
+    act(() => container.querySelectorAll<HTMLButtonElement>('.summary-strip > button')[0]!.click());
+    const simulateAll = Array.from(container.querySelectorAll<HTMLInputElement>('input')).find(
+      (input) => input.parentElement?.textContent?.includes('Symuluj wszystkie'),
+    )!;
+    act(() => simulateAll.click());
+    expect(updated?.player.matchPresentation).toBe('simulate_all');
+    expect(container.querySelector('.detail-panel')).not.toBeNull();
+    const play = Array.from(container.querySelectorAll<HTMLButtonElement>('button')).find(
+      (button) => button.textContent?.includes('Graj'),
+    )!;
+    act(() => play.click());
     expect(container.querySelector('.detail-panel')).toBeNull();
     act(() => root.unmount());
   });

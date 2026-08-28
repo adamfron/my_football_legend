@@ -228,6 +228,11 @@ export const simulateRoutinePlayerMatch = (
         ),
       },
       historyFacts: [...career.historyFacts, ...facts, ...effects.facts],
+      matchHistory:
+        minutes > 0 &&
+        !(effects.career.matchHistory ?? []).some((item) => item.matchId === appearance.matchId)
+          ? [...(effects.career.matchHistory ?? []), appearance]
+          : effects.career.matchHistory,
     },
     appearance,
   );
