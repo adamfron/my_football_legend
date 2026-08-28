@@ -2,6 +2,7 @@ import type { CareerState } from '../types/domain';
 import { initializeCurrentCareerWeek } from './careerWeeks';
 import { generateProfessionalOffers, generateSummerWindowOffers } from './professionalClubs';
 import { initializeCareerSeason } from './careerSeasons';
+import { initializeSeasonParticipation } from './seasonParticipation';
 
 /** Advances only decision-free transitions in the canonical career lifecycle. */
 export const advanceCareerFlow = (career: CareerState): CareerState => {
@@ -25,6 +26,7 @@ export const advanceCareerFlow = (career: CareerState): CareerState => {
       club: career.currentClub,
       professional: career.careerSeasonNumber > 1,
     });
-  if (career.activeEvent) return career;
-  return initializeCurrentCareerWeek(career);
+  const repaired = initializeSeasonParticipation(career);
+  if (repaired.activeEvent) return repaired;
+  return initializeCurrentCareerWeek(repaired);
 };

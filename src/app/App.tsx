@@ -543,7 +543,7 @@ const EventCard = ({
   );
 };
 
-const CareerWeekGame = ({
+export const CareerWeekGame = ({
   career,
   onCareer,
 }: {
@@ -572,7 +572,7 @@ const CareerWeekGame = ({
               : item.homeClubId),
         )?.name ?? 'Rywal',
       venue: item.homeClubId === career.leagueSeason!.controlledClubId ? 'home' : 'away',
-      participation: career.seasonParticipation!.find((record) => record.fixtureId === item.id)!,
+      participation: career.seasonParticipation?.find((record) => record.fixtureId === item.id),
     }));
   if (!week || career.leagueSeason?.completed)
     return <SeasonEndSummary career={career} onCareer={onCareer} />;
@@ -1007,7 +1007,7 @@ const CareerHud = ({ career }: { career: CareerState }) => {
   );
 };
 
-const SeasonView = ({ career }: { career: CareerState }) => {
+export const SeasonView = ({ career }: { career: CareerState }) => {
   const table = getLeagueTable(career);
   const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
   const own = table.find((row) => row.clubId === controlledClubId);
@@ -1030,7 +1030,7 @@ const SeasonView = ({ career }: { career: CareerState }) => {
         fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId,
       ),
       venue: fixture.homeClubId === controlledClubId ? 'home' : 'away',
-      participation: career.seasonParticipation!.find((item) => item.fixtureId === fixture.id)!,
+      participation: career.seasonParticipation?.find((item) => item.fixtureId === fixture.id),
       ...(opponentStrength === undefined ? {} : { opponentStrength }),
     };
   });
