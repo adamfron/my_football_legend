@@ -14,6 +14,8 @@ import { settleLeagueRound, getLeagueTable } from './leagueSeason';
 import { advanceCareerWeek } from './careerWeeks';
 import { saveCareer } from './persistence';
 import { advanceCareerFlow } from './careerFlow';
+import { getPlayerOverall } from './playerOverall';
+import { getClubStrength } from './clubStrength';
 const career = () =>
   createCareerState(
     generateStartingPlayerProfile(
@@ -79,8 +81,12 @@ describe('professional transition', () => {
   });
   it('allows scouting and potential to create stronger-club interest for a youngster', () => {
     const c = career();
+    for (const key of Object.keys(c.player.attributes) as Array<keyof typeof c.player.attributes>)
+      c.player.attributes[key] = 67;
     c.player.age = 18;
     c.player.potential = 94;
+    const playerOverall = getPlayerOverall(c.player, c.player.primaryPosition);
+    expect(playerOverall).toBeCloseTo(67, 0);
     const club = {
       ...generateProfessionalClubPool('young-scouting').find(
         (candidate) => candidate.strengthRating! >= 72,
@@ -92,6 +98,7 @@ describe('professional transition', () => {
         scoutingQuality: 95,
       },
     };
+    expect(getClubStrength(club)).toBeGreaterThan(playerOverall);
     expect(evaluateClubInterest(c, club).interested).toBe(true);
   });
   it('gives an elite goalkeeper top-tier interest and an appropriate role', () => {
@@ -111,7 +118,9 @@ describe('professional transition', () => {
     c.player.attributes.spatialAwareness = 84;
     const topTier = generateProfessionalClubPool(c.seed).filter((club) => club.leagueTier === 1);
     expect(topTier.some((club) => evaluateClubInterest(c, club).interested)).toBe(true);
-    const weakerClub = { ...topTier[0]!, overallStrength: 68 };
+    expect(getPlayerOverall(c.player, c.player.primaryPosition)).toBeCloseTo(84, 0);
+    const weakerClub = { ...topTier[0]!, strengthRating: 68, overallStrength: 68 };
+    expect(getClubStrength(weakerClub)).toBe(68);
     expect(
       generateProfessionalOffers({ ...c, clubWorld: [weakerClub] })[0]?.contract.squadRole,
     ).toMatch(/important_player|star_player/);
