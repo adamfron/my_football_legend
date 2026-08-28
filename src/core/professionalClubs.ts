@@ -12,7 +12,7 @@ import { getClubStrength, getExpectedSquadRole } from './clubStrength';
 import { estimatePlayerMarketValue, evaluateExpectedMonthlySalary } from './playerEconomy';
 
 export const getClubLeagueTier = (club: ProfessionalClub) =>
-  clampProfessionalLeagueTier(club.leagueTier ?? club.professionalLevel ?? 3);
+  clampProfessionalLeagueTier(club.leagueTier);
 
 const names = [
   'KS Nadwiśle',

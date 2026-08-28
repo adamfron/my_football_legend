@@ -158,7 +158,6 @@ export const professionalClubSchema = z.object({
   managerId: id.optional(),
   philosophyTags: z.array(z.string()).optional(),
   leagueTier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
-  professionalLevel: z.number().int().min(1).max(5).optional(),
   reputation: score,
   strengthRating: score.optional(),
   overallStrength: score.optional(),
@@ -690,34 +689,6 @@ export const careerStateSchema = z.object({
       }),
     )
     .optional(),
-  augustPlanning: z
-    .object({
-      currentWeek: z.number().int().min(1).max(4),
-      startedFitness: score,
-      startedMorale: score,
-      completed: z.boolean(),
-      results: z.array(
-        z.object({
-          week: z.number().int(),
-          date: z.string(),
-          activityId: z.enum([
-            'extra_individual_training',
-            'hire_personal_coach',
-            'nutrition_consultation',
-            'education_session',
-            'food_delivery_shift',
-            'prioritize_recovery',
-          ]),
-          fitnessDelta: z.number(),
-          moraleDelta: z.number(),
-          development: z.number(),
-          overloaded: z.boolean(),
-          narrative: z.string(),
-          interlude: z.string().optional(),
-        }),
-      ),
-    })
-    .optional(),
   matchHistory: z
     .array(
       z.object({
@@ -742,29 +713,6 @@ export const careerStateSchema = z.object({
         injuryId: id.optional(),
       }),
     )
-    .optional(),
-  september: z
-    .object({
-      fixtureIndex: z.number().int().min(0).max(4),
-      opponents: z.array(
-        z.object({
-          id,
-          name: z.string(),
-          strength: score,
-          style: z.string(),
-          strengths: z.array(z.string()),
-          weaknesses: z.array(z.string()),
-        }),
-      ),
-      availability: z.array(
-        z.object({
-          unit: z.enum(['goalkeeper', 'defense', 'midfield', 'attack']),
-          severity: z.enum(['full', 'one_absence', 'several_absences']),
-          reason: z.enum(['minor_injury', 'major_injury', 'suspension', 'fatigue', 'none']),
-        }),
-      ),
-      completed: z.boolean(),
-    })
     .optional(),
   activeMatch: z
     .object({

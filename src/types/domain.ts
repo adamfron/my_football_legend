@@ -78,7 +78,7 @@ export interface Player {
   heightCm: number;
   weightKg: number;
   attributes: PlayerAttributes;
-  /** Present only for goalkeepers. Migrated deterministically for legacy saves. */
+  /** Present only for goalkeepers. */
   goalkeeperAttributes?: GoalkeeperAttributes | undefined;
   traits: string[];
   archetypeId: Id;
@@ -238,8 +238,6 @@ export interface CareerState {
   activeEvent?: EventInstance | undefined;
   finances?: FinancialTransaction[] | undefined;
   developmentProgress?: AttributeDevelopmentProgress[] | undefined;
-  augustPlanning?: AugustPlanningState | undefined;
-  september?: SeptemberState | undefined;
   activeMatch?: MatchState | undefined;
   matchHistory?: MatchAppearance[] | undefined;
   careerCalendar?: CareerCalendarState | undefined;
@@ -444,7 +442,6 @@ export interface ProfessionalClub {
   /** Canonical Polish pyramid tier (1 is strongest). */
   leagueTier: 1 | 2 | 3 | 4;
   /** Legacy save field; new simulation code uses leagueTier. */
-  professionalLevel?: number | undefined;
   reputation: number;
   /** Canonical first-team quality on the shared 0..100 scale. */
   strengthRating?: number | undefined;
@@ -910,13 +907,6 @@ export interface ClubStrengthChangedData {
   previousBand: string;
   currentBand: string;
 }
-export interface SeptemberState {
-  fixtureIndex: number;
-  opponents: OpponentProfile[];
-  availability: SquadAvailability[];
-  completed: boolean;
-}
-
 export type FinancialCategory =
   | 'stipend'
   | 'side_job'
@@ -936,29 +926,4 @@ export interface FinancialTransaction {
 export interface AttributeDevelopmentProgress {
   attribute: keyof PlayerAttributes;
   progress: number;
-}
-export type AugustActivityId =
-  | 'extra_individual_training'
-  | 'hire_personal_coach'
-  | 'nutrition_consultation'
-  | 'education_session'
-  | 'food_delivery_shift'
-  | 'prioritize_recovery';
-export interface AugustWeekResult {
-  week: number;
-  date: string;
-  activityId: AugustActivityId;
-  fitnessDelta: number;
-  moraleDelta: number;
-  development: number;
-  overloaded: boolean;
-  narrative: string;
-  interlude?: string | undefined;
-}
-export interface AugustPlanningState {
-  currentWeek: number;
-  startedFitness: number;
-  startedMorale: number;
-  results: AugustWeekResult[];
-  completed: boolean;
 }

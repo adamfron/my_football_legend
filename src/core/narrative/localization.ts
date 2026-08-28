@@ -2,10 +2,6 @@ import common from '../../content/localization/pl/common.json';
 import clubs from '../../content/localization/pl/clubs.json';
 import matchEvents from '../../content/localization/pl/events.match.json';
 import history from '../../content/localization/pl/history.json';
-import academyEvents from '../../content/localization/pl/events.academy.json';
-import academyWeek2Events from '../../content/localization/pl/events.academy.week2.json';
-import academyWeek2History from '../../content/localization/pl/history.academy.week2.json';
-import postSelection from '../../content/localization/pl/events.post-selection.json';
 import relationships from '../../content/localization/pl/relationships.json';
 
 type Locale = 'pl';
@@ -18,10 +14,6 @@ const dictionaries: Record<Locale, Record<string, string>> = {
     ...clubs,
     ...matchEvents,
     ...history,
-    ...academyEvents,
-    ...academyWeek2Events,
-    ...academyWeek2History,
-    ...postSelection,
     ...relationships,
   },
 };

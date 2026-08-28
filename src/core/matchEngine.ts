@@ -18,7 +18,6 @@ import type {
   SquadStatus,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
-import { getWeeklyClubLoad } from './augustPlanning';
 import { evaluateMatchRating, normalizeTeamStats } from './matchFeedback';
 import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyles';
 import { applyMatchAvailabilityEffects, getPlayerAvailability } from './playerAvailability';
@@ -31,7 +30,6 @@ import {
   updateSelectionStanding,
 } from './seasonParticipation';
 
-export const SEPTEMBER_DATES = ['2026-09-05', '2026-09-12', '2026-09-19', '2026-09-26'] as const;
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
   overallStrength: 52,
   positionalUnits: {
@@ -116,8 +114,6 @@ const unitFor = (position: string): keyof ClubCompetitiveProfile['positionalUnit
       : ['striker', 'winger'].includes(normalizePosition(position))
         ? 'attack'
         : 'midfield';
-const hasFact = (career: CareerState, type: string) =>
-  career.historyFacts.some((f) => f.factType === type);
 const makeFact = (
   career: CareerState,
   type: string,
@@ -135,64 +131,11 @@ const makeFact = (
   competitions: ['Liga regionalna'],
   data,
   causes: career.historyFacts.slice(-3).map((f) => f.id),
-  tags: ['september_2026', type],
+  tags: ['match', type],
   visibility: 'partial',
   narrativeImportance: importance,
   emotionalTone: 'neutral',
 });
-export const generateSeptemberOpponents = (seed: string): OpponentProfile[] => {
-  const rng = RandomGenerator.fromSeed(`${seed}:september:opponents`);
-  const names = ['Orkan Brzeziny', 'Pogoń Żurawie', 'LKS Kamienny Brzeg', 'Sokół Nadwiśle'];
-  const strengths = [48, 56, 62, rng.int(49, 64)];
-  const styles = [
-    ['niski blok', 'stałe fragmenty', 'przestrzeń za bocznymi obrońcami'],
-    ['cierpliwe posiadanie', 'gra między liniami', 'powrót po stracie'],
-    ['wysoki pressing', 'intensywność', 'miejsce za pressingiem'],
-    ['bezpośrednia gra', 'drugie piłki', 'wolni stoperzy'],
-  ];
-  return rng.shuffle(
-    names.map((name, i) => ({
-      id: `september_opponent_${i}`,
-      name,
-      strength: strengths[i]!,
-      style: styles[i]![0]!,
-      strengths: [styles[i]![1]!],
-      weaknesses: [styles[i]![2]!],
-    })),
-  );
-};
-export const generateSquadAvailability = (seed: string): SquadAvailability[] => {
-  const rng = RandomGenerator.fromSeed(`${seed}:september:availability`);
-  return (['goalkeeper', 'defense', 'midfield', 'attack'] as const).map((unit) => {
-    const roll = rng.float();
-    const severity = roll < 0.67 ? 'full' : roll < 0.94 ? 'one_absence' : 'several_absences';
-    return {
-      unit,
-      severity,
-      reason:
-        severity === 'full'
-          ? 'none'
-          : rng.pick(['minor_injury', 'major_injury', 'suspension', 'fatigue'] as const),
-    };
-  });
-};
-export const initializeSeptemberPhase = (career: CareerState): CareerState => {
-  if (!hasFact(career, 'august_2026_completed') || hasFact(career, 'september_2026_started'))
-    return career;
-  return {
-    ...career,
-    september: {
-      fixtureIndex: 0,
-      opponents: generateSeptemberOpponents(career.seed),
-      availability: generateSquadAvailability(career.seed),
-      completed: false,
-    },
-    historyFacts: [
-      ...career.historyFacts,
-      makeFact(career, 'september_2026_started', '2026-09-01', {}, 45),
-    ],
-  };
-};
 export interface FixtureContext {
   fixtureIndex: number;
   fixtureId?: string;
@@ -207,15 +150,13 @@ export const evaluateSquadOpportunity = (
 ): { status: SquadStatus; reason: string; selectionScore: number } => {
   const unit = unitFor(career.player.primaryPosition);
   const competition = getCurrentClubCompetitiveProfile(career).positionalUnits[unit];
-  const absence =
-    (fixture.availability ?? career.september?.availability ?? []).find((a) => a.unit === unit)
-      ?.severity ?? 'full';
+  const absence = (fixture.availability ?? []).find((a) => a.unit === unit)?.severity ?? 'full';
   const previous = (career.matchHistory ?? []).slice(-3);
   const form = previous.length
     ? previous.reduce((s, a) => s + a.personalImpact, 0) / previous.length
     : 0;
   const relation = Object.values(career.relationships)[0]?.respect ?? 50;
-  const development = career.augustPlanning?.results.reduce((s, r) => s + r.development, 0) ?? 0;
+  const development = 0;
   const seniorPath = career.leagueSeason?.competition.category === 'professional';
   const availableRecords = (career.seasonParticipation ?? []).filter(
     (record) => !['injured', 'suspended', 'unfit'].includes(record.status),
@@ -733,35 +674,21 @@ const goalsFromMomentum = (match: MatchState) =>
         ]
       : [],
   );
-export const startSeptemberMatch = (
+const startConfiguredMatch = (
   career: CareerState,
-  adaptedFixture?: Fixture,
-  projected?: ParticipationProjection,
+  fixture: Fixture,
+  projected: ParticipationProjection,
 ): CareerState => {
-  if (career.activeMatch || !career.september || career.september.completed) return career;
-  const i = career.september.fixtureIndex;
-  const opponent = career.september.opponents[i];
-  if (!opponent) return career;
-  const venue = i % 2 === 0 ? 'home' : 'away';
-  const selection = evaluateSquadOpportunity(career, {
-    fixtureIndex: i,
-    ...(adaptedFixture ? { fixtureId: adaptedFixture.id } : {}),
-    opponent,
-    venue,
-    availability: career.september.availability,
-  });
-  const namespace = adaptedFixture
-    ? `${career.seed}:${career.currentSeason}:${adaptedFixture.id}:match`
-    : `${career.seed}:match:${i}`;
+  if (career.activeMatch) return career;
+  const i = career.careerCalendar?.fixtures.findIndex((item) => item.id === fixture.id) ?? 0;
+  const opponent = fixture.opponent;
+  const venue = fixture.venue;
+  const namespace = `${career.seed}:${career.currentSeason}:${fixture.id}:match`;
   const rng = RandomGenerator.fromSeed(namespace);
-  const started = projected?.started ?? selection.status.endsWith('starter');
-  const bench = selection.status.endsWith('bench');
-  const enters = projected?.willPlay ?? (bench && rng.bool(0.7));
-  const plannedMinutes =
-    projected?.plannedMinutes ?? (started ? rng.int(72, 90) : enters ? rng.int(8, 35) : 0);
-  const teamLevel =
-    projected?.teamLevel ?? (selection.status.startsWith('senior') ? 'senior' : 'academy');
-  const importance = adaptedFixture?.matchImportance ?? 'notable';
+  const started = projected.started;
+  const plannedMinutes = projected.plannedMinutes;
+  const teamLevel = projected.teamLevel;
+  const importance = fixture.matchImportance;
   const count =
     plannedMinutes === 0
       ? 0
@@ -798,14 +725,14 @@ export const startSeptemberMatch = (
     venue,
   );
   const activeMatch: MatchState = {
-    id: `match_2026_09_${i + 1}`,
+    id: fixture.id,
     fixtureIndex: i,
-    date: SEPTEMBER_DATES[i]!,
-    competition: 'Liga regionalna',
+    date: fixture.date,
+    competition: fixture.competition,
     teamLevel,
     opponent,
     venue,
-    squadStatus: selection.status,
+    squadStatus: projected.status,
     currentMinute: 0,
     homeGoals: 0,
     awayGoals: 0,
@@ -819,7 +746,7 @@ export const startSeptemberMatch = (
       point.event === 'goal' && point.scoringSide
         ? [
             {
-              id: `match_2026_09_${i + 1}:background:${index}`,
+              id: `${fixture.id}:background:${index}`,
               minute: point.minute,
               scoringSide: point.scoringSide,
               source: 'background' as const,
@@ -832,43 +759,13 @@ export const startSeptemberMatch = (
   return { ...career, activeMatch };
 };
 
-/** Adapts an arbitrary generated fixture to the existing match engine. */
+/** Starts an interactive match for an arbitrary generated fixture. */
 export const startFixtureMatch = (career: CareerState, fixture: Fixture): CareerState => {
   if (career.activeMatch) return career;
   const projection = projectFixtureParticipation(career, fixture);
-  if (!projection.willPlay) return career;
-  const fixtureIndex =
-    career.careerCalendar?.fixtures.findIndex((item) => item.id === fixture.id) ?? 0;
-  const temporary: CareerState = {
-    ...career,
-    september: {
-      fixtureIndex: 0,
-      opponents: [fixture.opponent],
-      availability: generateSquadAvailability(`${career.seed}:${fixture.id}`),
-      completed: false,
-    },
-  };
-  const started = startSeptemberMatch(temporary, fixture, projection);
-  return {
-    ...started,
-    september: career.september,
-    activeMatch: started.activeMatch
-      ? {
-          ...started.activeMatch,
-          id: fixture.id,
-          fixtureIndex,
-          date: fixture.date,
-          competition: fixture.competition === 'league' ? 'Liga regionalna' : fixture.competition,
-          teamLevel:
-            career.leagueSeason?.competition.category === 'professional'
-              ? 'senior'
-              : started.activeMatch.teamLevel,
-          opponent: fixture.opponent,
-          venue: fixture.venue,
-        }
-      : undefined,
-  };
+  return projection.willPlay ? startConfiguredMatch(career, fixture, projection) : career;
 };
+
 export const resolveMatchDecision = (career: CareerState, decisionId: string): CareerState => {
   const match = career.activeMatch;
   if (!match || match.completed) return career;
@@ -1135,7 +1032,7 @@ export const finishMatch = (career: CareerState): CareerState => {
         m.teamLevel === 'senior' ? 88 : 65,
       ),
     );
-  const load = getWeeklyClubLoad(career, m.plannedMinutes);
+  const load = m.plannedMinutes + career.player.matchEffort * 8;
   const completedCareer: CareerState = {
     ...effects.career,
     player: {
@@ -1196,37 +1093,6 @@ export const finishMatch = (career: CareerState): CareerState => {
     ),
     m.date,
   );
-};
-export const advanceSeptemberWeek = (career: CareerState): CareerState => {
-  if (!career.activeMatch?.completed || !career.september) return career;
-  const next = career.september.fixtureIndex + 1;
-  if (next >= 4)
-    return {
-      ...career,
-      activeMatch: undefined,
-      september: { ...career.september, fixtureIndex: 4, completed: true },
-      historyFacts: hasFact(career, 'september_2026_completed')
-        ? career.historyFacts
-        : [
-            ...career.historyFacts,
-            makeFact(
-              career,
-              'september_2026_completed',
-              '2026-09-30',
-              { appearances: (career.matchHistory ?? []).length },
-              60,
-            ),
-          ],
-    };
-  return {
-    ...career,
-    activeMatch: undefined,
-    september: {
-      ...career.september,
-      fixtureIndex: next,
-      availability: generateSquadAvailability(`${career.seed}:${next}`),
-    },
-  };
 };
 export const opportunityDescription = (career: CareerState) => {
   const unit = VISTULA_NOVA_PROFILE.positionalUnits[unitFor(career.player.primaryPosition)];

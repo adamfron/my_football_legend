@@ -1,111 +1,27 @@
 # Architektura
 
-## Niezmiennik ligi i dostępność
+## Jedna pętla kariery
 
-`settleLeagueRound` is the single authoritative operation for a senior round. All six fixtures complete exactly once; the player's academy appearance is a separate match with a separate ID and can never supply Vistula's senior result. After N completed rounds every club has exactly N matches. `getPlayerAvailability` is the canonical input to squad and match paths and accounts for persistent injury and suspension state.
+Kariera ma jeden cykl życia: utworzenie zawodnika, inicjalizacja generycznego sezonu, tygodnie kalendarza, zamknięcie sezonu, okno decyzji zawodowych i inicjalizacja następnego sezonu. Pierwszy sezon jest rozgrywką młodzieżową z powodów sportowych, a nie osobnym silnikiem fabularnym. `advanceCareerFlow` wykonuje wyłącznie bezdecyzyjne, idempotentne przejścia.
 
-Aplikacja jest lokalną grą przeglądarkową bez backendu. UI w `src/app` czyta stan i prezentuje go, ale reguły kariery pozostają w `src/core`. Treści w `src/content` są deklaratywne i przechodzą przez schematy z `src/schemas`.
+`CareerWeek`, `CareerCalendarState`, `LeagueSeason` i udział zawodnika w spotkaniach stanowią kanoniczną architekturę każdego sezonu. Mecze rutynowe mogą być symulowane, a znaczące zatrzymują kalendarz na interakcji. Dostępność, kontuzje, zawieszenia, trening, rozwój i starzenie korzystają z tej samej osi czasu.
 
-## Przepływ danych
+## Kanoniczny świat futbolu
 
-Seed tworzy deterministyczny generator. Generator i definicje wydarzeń produkują instancje wydarzeń, konsekwencje, fakty historii oraz zmiany wątków. Warstwa narracji zamienia fakty i interpretacje na tekst.
+Liga rozstrzyga pełne kolejki i przechowuje tabelę oraz wyniki jako fakty świata. `ProfessionalClub.strengthRating` jest trwałym źródłem jakości pierwszego zespołu; oceny meczowe są z niego wyprowadzane. Infrastruktura klubu, historia udziału w sezonach i archiwum sezonów nie są alternatywnymi źródłami siły.
 
-## Granice odpowiedzialności
+Kontrakty, oferty profesjonalne, transfer do pierwszego klubu, kolejne okna transferowe, renegocjacje i preferencje agenta są już częścią generycznego cyklu. Przejście akademia–profesjonalny futbol wynika z wyniku sezonu i decyzji zawodowej, nie ze specjalnego faktu fabularnego.
 
-React odpowiada za ekran. Core odpowiada za reguły. Content odpowiada za dane. Persistence będzie odpowiadać za zapis lokalny.
+## Narracja i wydarzenia
 
-## Zapis lokalny
+`HistoryFact` zapisuje kanoniczne zdarzenia, `RelationshipScores` relacje, a `StoryThread` długotrwałe interpretacyjne konteksty. Tekst lokalizowany jest prezentacją tych danych. `EventDefinition`, `EventInstance`, rejestr, deterministyczna instancjalizacja, resolver i aplikowanie rezultatu pozostają ogólną infrastrukturą dla przyszłych wydarzeń kontekstowych; nie sterują osobnym prologiem.
 
-Pierwszy plan zakłada localStorage dla małych zapisów, walidację wersji Zod i późniejszą migrację. IndexedDB jest poza aktualnym zakresem.
+Cała logika `src/core` pozostaje niezależna od Reacta. Losowania przechodzą przez deterministyczny `RandomGenerator`, a dane domenowe są walidowane schematami Zod.
 
-## Symulacja sezonów
+## Trwałość danych
 
-Późniejsza symulacja ma być lekka: najpierw istotne decyzje, relacje i fakty, a nie pełna symulacja wszystkich meczów.
+Projekt jest wewnętrznym prototypem. Kompatybilność starych zapisów nie jest obecnie ograniczeniem projektowym. Zmiana architektury może podnieść wersję zapisu i czysto odrzucić wcześniejsze dane zamiast utrzymywać migracje oraz pola zapasowe.
 
-## Kreator zawodnika i zapis lokalny
+## Dalszy kierunek
 
-Logika kreatora jest domenowa i niezależna od Reacta. `src/core/playerCreator.ts` definiuje schematy Zod dla formularzy, listę pozycji, domyślne parametry ciała, limit ponownych losowań, deterministyczne generowanie profilu oraz fabrykę początkowego `CareerState`.
-
-Deterministyczność profilu wynika z użycia `RandomGenerator.fromSeed` z kluczem złożonym z seeda kariery, podstawowych danych zawodnika, pozycji i `rollIndex`. Pozycja wpływa na bias atrybutów, ale dodatkowy szum deterministyczny pozwala tworzyć nietypowe profile.
-
-`src/core/persistence.ts` jest małym modułem bez zależności od UI. Zapisuje `version`, `savedAt` i `career` w `localStorage`, a przy odczycie odróżnia brak zapisu, uszkodzony JSON, niezgodną wersję oraz dane niezgodne ze schematem `careerStateSchema`.
-
-Pierwszy ekran kariery pozostaje statycznym prologiem. Nie zawiera jeszcze symulacji czasu, wydarzeń narracyjnych ani mechanik sezonu.
-
-## Minimalny silnik wydarzeń akademii
-
-Moduły `src/core/events` są niezależne od Reacta. `eventRegistry.ts` udostępnia deklaratywne definicje wydarzeń, `instantiateEvent.ts` tworzy instancje, `resolveEventChoice.ts` rozstrzyga wybory i ukryte testy przez `RandomGenerator`, a `applyEventResolution.ts` stosuje obiektywne konsekwencje do `CareerState` i zapisuje karierę po decyzji. `academyArc.ts` zapewnia idempotentną inicjalizację trenera, konkurenta i aktywnego wydarzenia dla nowych oraz starszych zapisów.
-
-## Warstwa prezentacji narracji
-
-`src/core/narrative/factPresentation.ts` tłumaczy kanoniczne fakty kariery na tytuł, opis, ton, uczestników i klub bez modyfikowania `HistoryFact`. React korzysta z tej warstwy w historii, relacjach i podsumowaniu tygodnia, ale logika pozostaje w `src/core` i nie zależy od komponentów.
-
-`src/core/characters/avatarGenome.ts` generuje deterministyczny opis prostego awatara SVG na podstawie seedu, wieku i wersji generatora. Komponent `PersonAvatar` renderuje ten genom, a nie zapisuje twarzy w stanie kariery.
-
-## Resolver registry wydarzeń akademii
-
-Logika rozstrzygania decyzji jest podzielona na resolvery pierwszego i drugiego tygodnia w `src/core/events/resolvers`. Publiczna funkcja `resolveEventChoice` pobiera aktywne wydarzenie i deleguje do rejestru resolverów, dzięki czemu komponenty Reacta nie zawierają logiki scen, a logika `src/core` pozostaje niezależna od UI.
-
-Drugi tydzień jest inicjalizowany idempotentnie przez `initializeSecondAcademyWeek`: wymaga ukończenia pierwszego tygodnia, braku aktywnego wydarzenia i braku zapisanego wyniku selekcji. Dane mieszczą się w istniejących strukturach `HistoryFact`, `StoryThread`, `EventInstance` i `relationships`, więc nie zwiększają wersji zapisu.
-
-## Router po selekcji
-
-`initializePostSelectionPath` jest czystym, idempotentnym routerem. Odczytuje ostatni kanoniczny fakt `academy_selection_result`, nie dodaje pola ścieżki do stanu i odtwarza następne wydarzenie z faktów po odświeżeniu. Logika postaci, wyniku i wariantów pozostaje w `src/core`, bez zależności od Reacta. Wszystkie gałęzie zbiegają się w faktach przypisania roli i ukończenia ścieżki.
-
-## Reusable match engine
-
-`src/core/septemberMatches.ts` nie zależy od Reacta. Łączy profil konkurencyjny klubu, profil selekcyjny trenera, anonimową dostępność grup pozycyjnych i deterministyczne tło wyniku. `MatchState` jest strukturalnym źródłem prawdy i może być zapisany w połowie meczu; cztery wrześniowe kolejki używają tego samego przebiegu.
-
-**The game simulates the player's experience of a football match, not every touch of the ball.** Wynik drużyny jest symulowany osobno od kilku sytuacji ważnych dla zawodnika.
-
-## Match feedback pipeline
-
-> The game simulates the player's experience of a football match, not every touch of the ball.
-
-Istniejący silnik jest rozszerzany jednym deterministycznym przepływem:
-
-`Match simulation → background segments → score/stats/momentum → player moment → hidden resolution → personal impact → team impact → coach interpretation → live rating → final appearance`.
-
-Wynik, `MatchTeamStats`, punkty `MatchMomentumPoint` i ocena powstają w domenie; React wyłącznie je prezentuje. Dane są częścią `MatchState`, dzięki czemu zapis i odświeżenie nie uruchamiają symulacji ponownie. `matchHistory` jest kanonicznym źródłem agregatów sezonu, a opcjonalne nowe pola zachowują zgodność wcześniejszych zapisów.
-
-`SeasonContextOpportunity` jest deklaratywnym fundamentem przyszłych kontekstów końcówki sezonu. `club_strength_changed` ma model danych, ale fakt powstanie dopiero wraz z rzeczywistą zmianą kadry lub sztabu.
-
-## Career loop
-
-`CareerWeek` jest jednostką kalendarza domenowego, niewidoczną jako techniczny model w UI:
-
-`CareerWeek → schedule events → squad evaluation → fixture / no fixture → match → consequences → optional off-field event → complete week → next week`.
-
-`careerWeeks.ts` tworzy terminarz deterministycznie, pilnuje idempotencji, pamięci wariantów i checkpointów. Dowolny `Fixture` jest przekazywany adapterem do istniejącego silnika meczowego; nie istnieją silniki października czy listopada. **Months are presentation checkpoints, not separate engines** — tydzień może swobodnie przekroczyć granicę miesiąca.
-
-Stare etapy pozostają źródłem prawdy dla rozpoczętych zapisów. Fakt ukończenia września jest granicą migracyjną uruchamiającą reusable loop.
-
-## Career simulation
-
-```text
-current state
-→ simulate routine time
-→ quick fixtures
-→ world results
-→ league table
-→ event scheduling
-→ DecisionPoint?
-   ├─ no → continue
-   └─ yes → stop for player
-```
-
-`src/core/leagueSeason.ts` przechowuje lekki świat ligi, generuje terminarz i wylicza tabelę. `src/core/careerSimulation.ts` używa istniejącej oceny szans na skład i zatrzymuje pętlę przy ważnym meczu albo wydarzeniu. React jedynie prezentuje wynik domeny.
-
-`ProfessionalClub.strengthRating` jest jedynym trwałym źródłem jakości pierwszego zespołu. Oceny ataku i obrony ligi są deterministycznymi, nietrwałymi pochodnymi tej wartości i tożsamości klubu. Po każdym sezonie `evolveClubStrength` aktualizuje kanoniczną siłę raz, uwzględniając awans/spadek, miejsce, finanse i małą wariancję z seeda.
-
-Kontrakt zachowuje rolę obiecaną przy podpisaniu i nie zmienia automatycznie pensji; aktualny status sportowy wylicza wspólny evaluator roli. Jedna funkcja oczekiwań płacowych obsługuje oferty, przedłużenia i renegocjacje. Instrukcje dla agenta tylko porządkują autentyczne zainteresowanie klubów — nigdy go nie tworzą.
-
-Zasada projektu: **Routine football is simulated. Meaningful football is played.**
-
-## Reusable career seasons
-
-`careerSeasonNumber` is persistent and independent from the calendar year. `initializeCareerSeason` creates reusable domain cycles; 2027/28 is its first professional consumer, not a hand-written Season 2 special case. Season progress, professional interest, contracts, and development live in React-independent core modules.
-
-## Kontekst wielu sezonów
-
-Kontekst historyczny jest niezmienny, natomiast bieżący kontekst pochodzi z aktualnego sezonu kariery. `LeagueSeason.controlledClubId` i kanoniczny `CompetitionProfile` wyznaczają klub gracza oraz tożsamość rozgrywek; React nie odgaduje ich z numeru sezonu. OVR pozostaje czystą, ważoną pozycyjnie funkcją prezentacyjną i nigdy nie jest źródłem piłkarskiej prawdy.
+Planowane osobno są: ujednolicone rozgrywki i kalendarz, rosnąca oś sezonu, responsywny pojedynczy widok kariery oraz przyszły interaktywny silnik migawkowych momentów meczu. Nie są one jeszcze zaimplementowane w obecnej architekturze.

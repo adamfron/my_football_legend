@@ -7,7 +7,6 @@ import type {
   PlayerFormBand,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
-import { assignedRole } from './events/postSelectionPath';
 import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './leagueSeason';
 import { getTrainingEffortEffects } from './playerPreferences';
 import { applyTrainingDevelopmentCheckpoint } from './development';
@@ -243,7 +242,7 @@ const checkpoint = (career: CareerState, month: string): MonthlyCheckpoint => {
       ? { averageRating: ratings.reduce((a, b) => a + b, 0) / ratings.length }
       : {}),
     form: getPlayerForm(career).band,
-    role: assignedRole(career) ?? 'academy_squad',
+    role: career.currentSportingStatus ?? career.currentContract?.squadRole ?? 'academy_squad',
     ...(highlight ? { highlightFactId: highlight.id } : {}),
   };
 };

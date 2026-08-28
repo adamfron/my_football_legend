@@ -97,7 +97,7 @@ export interface LeagueSeasonOptions {
   controlledClubId?: string;
   controlledClubName?: string;
   professional?: boolean;
-  professionalLevel?: number;
+  leagueTier?: number;
   professionalClubs?: ProfessionalClub[];
 }
 export const createLeagueSeason = (
@@ -197,15 +197,14 @@ export const createLeagueSeason = (
     name: `${startYear}/${String(startYear + 1).slice(-2)}`,
     competition: options.professional
       ? {
-          id: `polish-professional-${options.professionalLevel ?? 3}`,
-          name: getProfessionalCompetitionName(options.professionalLevel ?? 3),
+          id: `polish-professional-${options.leagueTier ?? 3}`,
+          name: getProfessionalCompetitionName(options.leagueTier ?? 3),
           country: 'Polska',
           category: 'professional',
-          tier: options.professionalLevel ?? 3,
+          tier: options.leagueTier ?? 3,
           strengthRating:
-            COMPETITION_STRENGTH[(options.professionalLevel ?? 3) as 1 | 2 | 3 | 4].strengthRating,
-          reputation:
-            COMPETITION_STRENGTH[(options.professionalLevel ?? 3) as 1 | 2 | 3 | 4].reputation,
+            COMPETITION_STRENGTH[(options.leagueTier ?? 3) as 1 | 2 | 3 | 4].strengthRating,
+          reputation: COMPETITION_STRENGTH[(options.leagueTier ?? 3) as 1 | 2 | 3 | 4].reputation,
         }
       : {
           id: 'polish-u17',

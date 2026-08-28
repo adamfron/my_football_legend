@@ -1,13 +1,8 @@
 import { useMemo, useState } from 'react';
 import { previewRandomSequence } from '../devtools/randomPreview';
-import {
-  simulateAcademySelection,
-  type AcademySelectionSimulationReport,
-} from '../devtools/academySelectionSimulation';
 import { validateSampleContent } from '../schemas/validateContent';
 import { missingLocalizationKeys, translate } from '../core/narrative/localization';
 import { getFactPresentation } from '../core/narrative/factPresentation';
-import { buildFirstWeekSummary } from '../core/narrative/weekSummary';
 import { MatchMomentumChart } from '../components/MatchMomentumChart';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
 import { ClubStrengthTooltip } from '../components/ClubStrengthTooltip';
@@ -49,43 +44,18 @@ import {
   type StartingPlayerProfile,
 } from '../core/playerCreator';
 import { deleteCareer, hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
-import { hasCompletedAcademyArc, initializeSecondAcademyWeek } from '../core/events/academyArc';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { getEventDefinition } from '../core/events/eventRegistry';
 import { resolveEventChoice } from '../core/events/resolveEventChoice';
 import { getAvailableDecisions } from '../core/events/decisionAvailability';
-import {
-  advanceAugustWeek,
-  augustActivities,
-  canChooseAugustActivity,
-  canInitializeAugust,
-  evaluateWeeklyLoad,
-  getAvailableFunds,
-  getWeeklyClubLoad,
-  initializeAugustPhase,
-  resolveAugustActivity,
-} from '../core/augustPlanning';
-import {
-  advanceActiveEvent,
-  applyEventResolution,
-  completeAcademyWeek,
-} from '../core/events/applyEventResolution';
-import { assignedRole, roleStatus } from '../core/events/postSelectionPath';
+import { advanceActiveEvent, applyEventResolution } from '../core/events/applyEventResolution';
 import {
   advanceMatch,
-  advanceSeptemberWeek,
-  initializeSeptemberPhase,
   MATCH_MOMENT_LIBRARY,
   opportunityDescription,
   resolveMatchDecision,
-  startSeptemberMatch,
-} from '../core/septemberMatches';
-import {
-  advanceCareerWeek,
-  getCurrentCareerWeek,
-  getCurrentFixture,
-  initializeCurrentCareerWeek,
-} from '../core/careerWeeks';
+} from '../core/matchEngine';
+import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from '../core/careerWeeks';
 import { getCareerMilestones } from '../core/narrative/careerMilestones';
 import { getSeasonHonours } from '../core/history/careerHistory';
 import { advanceUntilDecision } from '../core/careerSimulation';
@@ -347,16 +317,7 @@ const playerStatus = (career: CareerState) => {
     return `Kontuzjowany (około ${availability.injury.matchesRemaining} mecz.)`;
   if (availability.status === 'knock')
     return `Drobny uraz (około ${availability.injury.matchesRemaining} mecz.)`;
-  if (career.careerCalendar) return 'Zdrowy';
-  const role = assignedRole(career);
-  if (role) return roleStatus(role);
-  const outcome = career.historyFacts.find((f) => f.factType === 'academy_selection_result')?.data
-    .selectionOutcome;
-  if (outcome === 'player_invited') return 'Zaproszony na trening seniorów';
-  if (outcome === 'both_invited') return 'Zaproszony razem z konkurentem';
-  if (outcome === 'rival_invited_player_plan') return 'Realizuje indywidualny plan rozwoju';
-  if (outcome === 'extended_assessment') return 'Czeka na dodatkowy sprawdzian';
-  return hasCompletedAcademyArc(career) ? 'Kandydat do treningów z seniorami' : 'Zawodnik akademii';
+  return career.careerCalendar ? 'Zdrowy' : 'Oczekuje na rozpoczęcie sezonu';
 };
 const eventParams = (career: CareerState) => {
   const rival = career.significantPeople.find((p) => p.role === 'academy_rival');
@@ -416,7 +377,6 @@ const ClubCrest = ({ name }: { name: string }) => (
 );
 const ClubProfile = ({ career }: { career: CareerState }) => {
   const club = career.currentClub;
-  const role = assignedRole(career);
   const professionalClub = career.currentProfessionalClub;
   const competition = getCompetitionDefinition(
     professionalClub?.leagueTier ?? career.leagueSeason?.competition.tier ?? 4,
@@ -450,10 +410,14 @@ const ClubProfile = ({ career }: { career: CareerState }) => {
           <strong>{prestigeLabel(club.prestige)}</strong>
         </div>
       </header>
-      {(career.currentContract || role) && (
+      {career.currentContract && (
         <section>
           <h3>Twoja obecna rola</h3>
-          <p>{currentRole ? squadRoleLabel(currentRole) : roleStatus(role!)}</p>
+          <p>
+            {currentRole
+              ? squadRoleLabel(currentRole)
+              : squadRoleLabel(career.currentContract!.squadRole)}
+          </p>
           <p>
             OVR zawodnika: {playerOVR} · siła klubu: {Math.round(strength)}
           </p>
@@ -507,62 +471,17 @@ const EventCard = ({
   const event = career.activeEvent;
   if (!event && career.careerCalendar)
     return <CareerWeekGame career={career} onCareer={onCareer} />;
-  if (!event && (career.september || career.activeMatch))
-    return <SeptemberGame career={career} onCareer={onCareer} />;
-  if (!event && career.augustPlanning) return <AugustPlanner career={career} onCareer={onCareer} />;
-  if (!event) {
-    const firstWeekCompleted = hasCompletedAcademyArc(career);
-    const selectionCompleted = career.historyFacts.some(
-      (fact) => fact.factType === 'academy_selection_result',
-    );
-    const postSelectionCompleted = career.historyFacts.some(
-      (fact) => fact.factType === 'post_selection_path_completed',
-    );
+  if (!event)
     return (
       <section>
-        {postSelectionCompleted ? (
-          <>
-            <h2>Podsumowanie nowej roli</h2>
-            <p>{playerStatus(career)}</p>
-          </>
-        ) : firstWeekCompleted && !selectionCompleted ? (
-          <>
-            <h2>{translate('events.academy.summary.title')}</h2>
-            {buildFirstWeekSummary(career).map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-            <button onClick={() => onCareer(initializeSecondAcademyWeek(career))}>
-              {translate('events.ui.startSecondWeek')}
-            </button>
-          </>
-        ) : (
-          <p>Trwa przygotowanie kolejnego etapu kariery.</p>
-        )}
-        {postSelectionCompleted && canInitializeAugust(career) && (
-          <button onClick={() => onCareer(initializeAugustPhase(career))}>
-            Przejdź do sierpnia
-          </button>
-        )}
+        <p>Trwa przygotowanie kolejnego etapu kariery.</p>
       </section>
     );
-  }
   const definition = getEventDefinition(event.definitionId);
   const people = Object.values(event.cast)
     .map((id) => personName(career, id))
     .filter(Boolean);
   const params = eventParams(career);
-  if (event.definitionId === 'academy_first_week_summary')
-    return (
-      <section>
-        <h2>{translate(definition.localizationKeys.title)}</h2>
-        {buildFirstWeekSummary(career).map((p) => (
-          <p key={p}>{p}</p>
-        ))}
-        <button onClick={() => onCareer(completeAcademyWeek(career))}>
-          {translate('events.ui.next')}
-        </button>
-      </section>
-    );
   return (
     <section>
       <p>
@@ -657,7 +576,7 @@ const CareerWeekGame = ({
     }));
   if (!week || career.leagueSeason?.completed)
     return <SeasonEndSummary career={career} onCareer={onCareer} />;
-  if (career.activeMatch) return <SeptemberGame career={career} onCareer={onCareer} reusable />;
+  if (career.activeMatch) return <MatchGame career={career} onCareer={onCareer} />;
   if (career.decisionPoint?.type === 'off_field_event') {
     const event = getRegularSeasonEvent(career.decisionPoint.sourceId);
     if (!event) return null;
@@ -1173,104 +1092,6 @@ const SeasonView = ({ career }: { career: CareerState }) => {
   );
 };
 
-const AugustPlanner = ({
-  career,
-  onCareer,
-}: {
-  career: CareerState;
-  onCareer: (career: CareerState) => void;
-}) => {
-  const plan = career.augustPlanning!;
-  if (plan.completed) {
-    const summary = [...career.historyFacts]
-      .reverse()
-      .find((f) => f.factType === 'august_2026_completed');
-    return (
-      <section>
-        <h2>Sierpień 2026 zakończony</h2>
-        <p>
-          <strong>Rola:</strong> {playerStatus(career)}
-        </p>
-        <p>
-          Kondycja: {Number(summary?.data.fitnessChange) >= 0 ? '+' : ''}
-          {String(summary?.data.fitnessChange)} · morale:{' '}
-          {Number(summary?.data.moraleChange) >= 0 ? '+' : ''}
-          {String(summary?.data.moraleChange)}
-        </p>
-        <p>Dostępne środki: {getAvailableFunds(career)} PLN</p>
-        <p>
-          Rozwój: {String(summary?.data.development)} punktów postępu. Najważniejszy moment:{' '}
-          {String(summary?.data.highlight)}
-        </p>
-        <p>Sierpień za tobą. Rozpoczyna się właściwa walka o miejsce na boisku.</p>
-        <button onClick={() => onCareer(initializeSeptemberPhase(career))}>
-          Rozpocznij wrzesień
-        </button>
-      </section>
-    );
-  }
-  const latest = plan.results.find((r) => r.week === plan.currentWeek);
-  const load = getWeeklyClubLoad(career);
-  if (latest)
-    return (
-      <section>
-        <p>
-          Tydzień {plan.currentWeek} · {latest.date}
-        </p>
-        <h2>Zamknięcie tygodnia</h2>
-        <p>{latest.narrative}</p>
-        {latest.interlude && <p>{latest.interlude}</p>}
-        <button onClick={() => onCareer(advanceAugustWeek(career))}>
-          {plan.currentWeek === 4 ? 'Podsumuj sierpień' : 'Przejdź do kolejnego tygodnia'}
-        </button>
-      </section>
-    );
-  return (
-    <section>
-      <p>Tydzień {plan.currentWeek} · August 2026 — walka o swoją rolę</p>
-      <h2>Plan tygodnia</h2>
-      <div className="career-grid">
-        <article className="mini-card">
-          <h3>Status</h3>
-          <p>
-            <strong>Rola:</strong> {playerStatus(career)}
-          </p>
-          <p>
-            <strong>Obciążenie:</strong>{' '}
-            {load >= 70 ? 'Duże' : load <= 45 ? 'Stosunkowo lekkie' : 'Średnie'}
-          </p>
-          <p>{evaluateWeeklyLoad(career, 'prioritize_recovery').description}</p>
-          <p>
-            <strong>Kondycja:</strong> {career.player.fitness}
-          </p>
-          <p>
-            <strong>Morale:</strong> {career.player.morale}
-          </p>
-          <p>
-            <strong>Środki:</strong> {getAvailableFunds(career)} PLN
-          </p>
-        </article>
-      </div>
-      <h3>Co robisz poza obowiązkami klubowymi?</h3>
-      <div className="choices">
-        {augustActivities.map((activity) => (
-          <article className="decision-card" key={activity.id}>
-            <h3>{activity.name}</h3>
-            <p>{activity.descriptions[plan.currentWeek % 2]}</p>
-            <p>{activity.cost ? `Koszt: ${activity.cost} PLN` : 'Bez kosztu'}</p>
-            <button
-              disabled={!canChooseAugustActivity(career, activity.id)}
-              onClick={() => onCareer(resolveAugustActivity(career, activity.id))}
-            >
-              {canChooseAugustActivity(career, activity.id) ? 'Wybierz' : 'Brak środków'}
-            </button>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-};
-
 const statusLabel: Record<string, string> = {
   senior_starter: 'Pierwszy skład seniorów',
   senior_bench: 'Ławka seniorów',
@@ -1322,14 +1143,12 @@ const MatchHud = ({ career }: { career: CareerState }) => {
     </div>
   );
 };
-const SeptemberGame = ({
+const MatchGame = ({
   career,
   onCareer,
-  reusable = false,
 }: {
   career: CareerState;
   onCareer: (career: CareerState) => void;
-  reusable?: boolean;
 }) => {
   const match = career.activeMatch;
   const transition = (action: string, next: CareerState) => {
@@ -1345,36 +1164,12 @@ const SeptemberGame = ({
     });
     onCareer(next);
   };
-  if (!reusable && career.september?.completed)
+  if (!match)
     return (
       <section>
-        <h2>Wrzesień 2026 zakończony</h2>
-        <p>Cztery pierwsze kolejki są za tobą. Dalsza część sezonu nie jest jeszcze dostępna.</p>
+        <p>Trwa przygotowanie spotkania.</p>
       </section>
     );
-  if (!match) {
-    const i = career.september?.fixtureIndex ?? 0;
-    const opponent = career.september?.opponents[i];
-    return (
-      <section>
-        <p>
-          Kolejka {i + 1} · {['2026-09-05', '2026-09-12', '2026-09-19', '2026-09-26'][i]}
-        </p>
-        <h2>Nadchodzi kolejny mecz</h2>
-        <p>
-          {opponent?.name} · {i % 2 === 0 ? 'dom' : 'wyjazd'} ·{' '}
-          {opponent &&
-            (opponent.strength > 59
-              ? 'nieco mocniejszy rywal'
-              : opponent.strength < 52
-                ? 'słabszy rywal'
-                : 'rywal o podobnym poziomie')}
-        </p>
-        <p>{opportunityDescription(career)}</p>
-        <button onClick={() => onCareer(startSeptemberMatch(career))}>Poznaj decyzję sztabu</button>
-      </section>
-    );
-  }
   const definition =
     match.currentMoment &&
     MATCH_MOMENT_LIBRARY.find((m) => m.id === match.currentMoment!.definitionId);
@@ -1445,11 +1240,7 @@ const SeptemberGame = ({
           {a ? describePerformance(a.rating, a.minutes, forGoals > against) : quality}. Wynik
           drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
         </p>
-        <button
-          onClick={() =>
-            onCareer(reusable ? advanceCareerWeek(career) : advanceSeptemberWeek(career))
-          }
-        >
+        <button onClick={() => onCareer(advanceCareerWeek(career))}>
           Przejdź do kolejnego tygodnia
         </button>
       </section>
@@ -1665,7 +1456,6 @@ export const App = () => {
     weightKg: '68',
   });
   const [seed, setSeed] = useState('');
-  const [simulation, setSimulation] = useState<AcademySelectionSimulationReport | null>(null);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>(emptyErrors);
   const [showInfo, setShowInfo] = useState(() => localStorage.getItem(infoKey) !== '1');
   const [variants, setVariants] = useState<StartingPlayerProfile[]>([]);
@@ -1754,7 +1544,7 @@ export const App = () => {
   };
   const finish = () => {
     if (!generated) return;
-    updateCareer(initializeCurrentCareerWeek(createCareerState(generated, seed)));
+    updateCareer(createCareerState(generated, seed));
     setView('career');
   };
 
@@ -1835,13 +1625,6 @@ export const App = () => {
                 OK: {validation.events.length} wydarzeń, {validation.clubs.length} klub,{' '}
                 {validation.people.length} postać.
               </p>
-              <section>
-                <h2>Symulacja naboru do seniorów</h2>
-                <button onClick={() => setSimulation(simulateAcademySelection({ samples: 500 }))}>
-                  Uruchom symulację
-                </button>
-                {simulation && <pre>{JSON.stringify(simulation, null, 2)}</pre>}
-              </section>
             </div>
           ) : (
             <>
@@ -2123,10 +1906,7 @@ export const App = () => {
                             </p>
                           </article>
                         ))}
-                      <p>
-                        Ostatnia aktywność:{' '}
-                        {career.augustPlanning?.results.at(-1)?.activityId ?? 'brak'}
-                      </p>
+                      <p>Ostatnia aktywność: {career.trainingApproach ?? 'balanced'}</p>
                       <h3>Atuty</h3>
                       {getUnlockedPlayStyles(career).length ? (
                         getUnlockedPlayStyles(career).map((id) => (
@@ -2142,7 +1922,10 @@ export const App = () => {
                         </p>
                       )}
                       <h3>Finanse</h3>
-                      <p>Dostępne środki: {getAvailableFunds(career)} PLN</p>
+                      <p>
+                        Dostępne środki:{' '}
+                        {(career.finances ?? []).reduce((sum, item) => sum + item.amount, 0)} PLN
+                      </p>
                       {(career.finances ?? [])
                         .slice(-3)
                         .reverse()

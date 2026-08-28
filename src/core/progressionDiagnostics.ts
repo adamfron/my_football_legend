@@ -1,6 +1,6 @@
 import type { CareerState, MatchState } from '../types/domain';
 import { getCurrentCareerWeek, getCurrentFixture } from './careerWeeks';
-import { MATCH_MOMENT_LIBRARY } from './septemberMatches';
+import { MATCH_MOMENT_LIBRARY } from './matchEngine';
 
 export const matchStateSummary = (match?: MatchState) =>
   match

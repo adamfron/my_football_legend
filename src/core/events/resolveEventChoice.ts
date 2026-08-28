@@ -29,7 +29,6 @@ export interface EventResolution {
   fact: HistoryFact;
   nextEventId?: string;
 }
-export { forceTierForTest, testTier } from './resolvers/firstWeekResolvers';
 export const resolveEventChoice = (
   career: CareerState,
   decision: EventDecision,

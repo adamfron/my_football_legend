@@ -37,7 +37,7 @@ Regular-season events must be declarative, individually titled, contextually eli
 
 Teksty wydarzeń drugiego tygodnia są lokalizowane po polsku i opisują świat gry, nie mechanikę. Nie wolno ujawniać `selectionOutcome`, `resolutionTier`, identyfikatorów decyzji, wartości punktowych ani technicznych nazw pól. Warianty bramkarza muszą używać języka rozpoczęcia gry, organizowania obrony i reakcji na ustawienie rywali; nie mogą wspominać o dryblingu, skrzydle ani wejściu w pole karne.
 
-Nowe prezentacje historii powinny odczytywać fakty `academy_training_focus`, `academy_rival_preparation`, `academy_final_assessment`, `academy_selection_result`, `academy_selection_response` i `academy_second_week_completed` oraz budować opis z danych i relacji.
+Nowe prezentacje historii powinny odczytywać kanoniczne fakty, relacje i wątki oraz budować opis z ich danych, zamiast zapisywać gotową narrację jako źródło prawdy.
 
 ## Semantyczne zestawy wariantów
 
