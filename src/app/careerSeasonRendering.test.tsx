@@ -6,7 +6,8 @@ import { resolveRegularSeasonEvent } from '../core/events/regularSeasonEvents';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { createCareerState, generateStartingPlayerProfile } from '../core/playerCreator';
 import type { CareerState } from '../types/domain';
-import { CareerWeekGame, SeasonView } from './App';
+import { CareerWeekGame } from './App';
+import { SeasonView } from './career/SeasonView';
 
 const initializedCareer = () =>
   advanceCareerFlow(
