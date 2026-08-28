@@ -4,7 +4,6 @@ import { getClubStrength } from '../../core/clubStrength';
 import { squadRoleLabel } from '../../core/careerPresentation';
 import { advanceSimulationStep, getCareerProgressBlocker } from '../../core/careerSimulation';
 import { getLeagueTable } from '../../core/leagueSeason';
-import { getFactPresentation } from '../../core/narrative/factPresentation';
 import { getPlayerOverall } from '../../core/playerOverall';
 import { buildSeasonTimeline } from '../../core/seasonTimeline';
 import type { CareerState } from '../../types/domain';
@@ -96,6 +95,7 @@ export const CareerView = ({
           aria-pressed={playing}
           onClick={() => {
             setError(undefined);
+            setDetail(undefined);
             setPlaying((value) => !value);
           }}
         >
@@ -185,21 +185,54 @@ export const CareerView = ({
             </button>
           </header>
           {detail === 'player' && (
-            <PlayerCard
-              profile={{
-                player: career.player,
-                profileDescriptionKey: 'creator.profileDescription',
-                profileDescriptionParams: {
-                  strong1: 'attribute.technique',
-                  strong2: 'attribute.vision',
-                  weak: 'attribute.defending',
-                  position: `position.${career.player.primaryPosition}`,
-                },
-                rollIndex: 0,
-              }}
-              seed={career.seed}
-              baseline={career.seasonStartingAttributes}
-            />
+            <div className="player-detail">
+              <PlayerCard
+                profile={{
+                  player: career.player,
+                  profileDescriptionKey: 'creator.profileDescription',
+                  profileDescriptionParams: {
+                    strong1: 'attribute.technique',
+                    strong2: 'attribute.vision',
+                    weak: 'attribute.defending',
+                    position: `position.${career.player.primaryPosition}`,
+                  },
+                  rollIndex: 0,
+                }}
+                seed={career.seed}
+                baseline={career.seasonStartingAttributes}
+              />
+              <fieldset className="match-presentation-control">
+                <legend>MECZE</legend>
+                <label>
+                  <input
+                    type="radio"
+                    name="match-presentation"
+                    checked={career.player.matchPresentation !== 'simulate_all'}
+                    onChange={() =>
+                      onCareer({
+                        ...career,
+                        player: { ...career.player, matchPresentation: 'important_matches' },
+                      })
+                    }
+                  />
+                  Graj ważne mecze
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="match-presentation"
+                    checked={career.player.matchPresentation === 'simulate_all'}
+                    onChange={() =>
+                      onCareer({
+                        ...career,
+                        player: { ...career.player, matchPresentation: 'simulate_all' },
+                      })
+                    }
+                  />
+                  Symuluj wszystkie
+                </label>
+              </fieldset>
+            </div>
           )}
           {detail === 'club' && <ClubView career={career} />}
           {detail === 'career' && <HistoryView career={career} />}
@@ -316,11 +349,7 @@ export const CareerView = ({
                 );
               }
               const label =
-                entry.kind === 'fact'
-                  ? getFactPresentation(career, entry.fact).title
-                  : entry.status === 'completed'
-                    ? 'Wydarzenie zakończone'
-                    : 'Zaplanowane wydarzenie';
+                entry.status === 'completed' ? 'Wydarzenie zakończone' : 'Zaplanowane wydarzenie';
               return (
                 <li
                   key={`${entry.kind}:${entry.sourceId}`}

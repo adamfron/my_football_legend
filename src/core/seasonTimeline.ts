@@ -1,6 +1,5 @@
 import type {
   CareerState,
-  HistoryFact,
   ScheduledCalendarEvent,
   SeasonParticipationRecord,
 } from '../types/domain';
@@ -21,19 +20,11 @@ export type SeasonTimelineEntry =
       eventId: string;
       status: 'scheduled' | 'completed';
       factId?: string;
-    }
-  | {
-      kind: 'fact';
-      date: string;
-      sourceId: string;
-      factId: string;
-      status: 'completed';
-      fact: HistoryFact;
     };
 
-const priority: Record<SeasonTimelineEntry['kind'], number> = { event: 0, fixture: 1, fact: 2 };
+const priority: Record<SeasonTimelineEntry['kind'], number> = { event: 0, fixture: 1 };
 
-/** Pure projection: entries retain references to canonical participation/fact objects. */
+/** Player-facing schedule projection; canonical facts remain in career history. */
 export const buildSeasonTimeline = (career: CareerState): SeasonTimelineEntry[] => {
   const calendar = career.careerCalendar;
   if (!calendar) return [];
@@ -58,21 +49,7 @@ export const buildSeasonTimeline = (career: CareerState): SeasonTimelineEntry[] 
       ...(event.factId ? { factId: event.factId } : {}),
     }),
   );
-  const factEntries: SeasonTimelineEntry[] = career.historyFacts
-    .filter(
-      (fact) =>
-        fact.season === career.currentSeason &&
-        !calendar.scheduledEvents.some((event) => event.factId === fact.id),
-    )
-    .map((fact) => ({
-      kind: 'fact',
-      date: fact.date,
-      sourceId: fact.id,
-      factId: fact.id,
-      status: 'completed',
-      fact,
-    }));
-  return [...fixtureEntries, ...eventEntries, ...factEntries].sort(
+  return [...fixtureEntries, ...eventEntries].sort(
     (a, b) =>
       a.date.localeCompare(b.date) ||
       priority[a.kind] - priority[b.kind] ||
