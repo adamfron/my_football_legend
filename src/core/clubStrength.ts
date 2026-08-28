@@ -1,5 +1,6 @@
 import type { CareerState, ProfessionalClub, SquadRole } from '../types/domain';
 import { getPlayerOverall } from './playerOverall';
+import { RandomGenerator } from './random/RandomGenerator';
 
 export const getClubStrength = (
   club: Pick<ProfessionalClub, 'strengthRating' | 'overallStrength'>,
@@ -7,6 +8,30 @@ export const getClubStrength = (
 
 export const getClubStars = (strength: number) =>
   Math.round(Math.max(0, Math.min(100, strength)) / 10) / 2;
+
+/** Ephemeral match ratings: identity changes the balance, never the average quality. */
+export const deriveClubMatchRatings = (
+  club: Pick<
+    ProfessionalClub,
+    'id' | 'playingStyle' | 'archetype' | 'strengthRating' | 'overallStrength'
+  >,
+) => {
+  const strength = getClubStrength(club);
+  const rng = RandomGenerator.fromSeed(
+    `club-match-profile:${club.id}:${club.playingStyle}:${club.archetype}`,
+  );
+  const styleBias = club.playingStyle.includes('pressing')
+    ? 2
+    : club.playingStyle.includes('posiadanie')
+      ? 1
+      : 0;
+  const bias = Math.max(-5, Math.min(5, rng.int(-4, 4) + styleBias));
+  return {
+    strength,
+    attackStrength: Math.max(1, Math.min(99, strength + bias)),
+    defenseStrength: Math.max(1, Math.min(99, strength - bias)),
+  };
+};
 
 const positionGroup = (position: string): keyof ProfessionalClub['positionalNeeds'] =>
   position.includes('goal')

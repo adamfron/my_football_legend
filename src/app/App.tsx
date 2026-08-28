@@ -10,6 +10,7 @@ import { getFactPresentation } from '../core/narrative/factPresentation';
 import { buildFirstWeekSummary } from '../core/narrative/weekSummary';
 import { MatchMomentumChart } from '../components/MatchMomentumChart';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
+import { ClubStrengthTooltip } from '../components/ClubStrengthTooltip';
 import { getRadarAxes } from '../core/radar';
 import { getSeasonGoalkeeperStats } from '../core/seasonParticipation';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
@@ -110,9 +111,9 @@ import {
   retireCareer,
 } from '../core/careerSeasons';
 import { getPlayerOverall } from '../core/playerOverall';
+import { acceptRenegotiatedContract, requestContractRenegotiation } from '../core/contracts';
 import {
   clubArchetypeLabel,
-  describeLeagueLevelChange,
   getCareerHeader,
   getCareerSubtitle,
   getCurrentHeadCoach,
@@ -888,74 +889,142 @@ const SeasonEndSummary = ({
             {getFactPresentation(career, item.fact)?.title ?? item.fact.factType}
           </p>
         ))}
-      <h3>{career.careerSeasonNumber === 1 ? 'Pierwsze oferty zawodowe' : 'Obecna sytuacja'}</h3>
+      <h3>{career.currentContract ? 'Twój obecny kontrakt' : 'Obecna sytuacja'}</h3>
+      {career.currentContract && (
+        <article className="mini-card">
+          <h3>{career.currentClub.name}</h3>
+          <p>
+            <strong>Pensja:</strong> {career.currentContract.monthlySalary.toLocaleString('pl-PL')}{' '}
+            PLN / mies.
+          </p>
+          <p>
+            <strong>Umowa do:</strong> {career.currentContract.endDate}
+          </p>
+          <p>
+            <strong>Obecny status w zespole:</strong>{' '}
+            {squadRoleLabel(
+              career.currentProfessionalClub
+                ? getExpectedSquadRole(career, career.currentProfessionalClub)
+                : career.currentContract.squadRole,
+            )}
+          </p>
+          {career.currentProfessionalClub &&
+            getExpectedSquadRole(career, career.currentProfessionalClub) !==
+              career.currentContract.squadRole && (
+              <p>Rola przy podpisaniu umowy: {squadRoleLabel(career.currentContract.squadRole)}</p>
+            )}
+          {career.currentContract.endDate > `${career.currentSeason + 1}-06-30` && (
+            <button onClick={() => onCareer(stayAtCurrentClub(career))}>
+              Pozostań na obecnej umowie
+            </button>
+          )}
+          {career.renegotiation?.season !== career.currentSeason && (
+            <button onClick={() => onCareer(requestContractRenegotiation(career))}>
+              Poproś o renegocjację
+            </button>
+          )}
+          {career.renegotiation?.season === career.currentSeason && (
+            <p>
+              {career.renegotiation.result === 'rejected'
+                ? 'Klub odrzucił prośbę. Obecna umowa pozostaje bez zmian.'
+                : career.renegotiation.result === 'conditional'
+                  ? 'Klub proponuje podwyżkę pod warunkiem przedłużenia umowy.'
+                  : 'Klub proponuje poprawione warunki.'}
+            </p>
+          )}
+          {career.renegotiation?.proposedContract && (
+            <>
+              <p>
+                Nowa pensja:{' '}
+                {career.renegotiation.proposedContract.monthlySalary.toLocaleString('pl-PL')} PLN /
+                mies. · do {career.renegotiation.proposedContract.endDate}
+              </p>
+              <button onClick={() => onCareer(acceptRenegotiatedContract(career))}>
+                Zaakceptuj nowe warunki
+              </button>
+            </>
+          )}
+          {career.professionalOffers?.find((offer) => offer.offerType === 'renewal') && (
+            <button
+              onClick={() =>
+                onCareer(
+                  acceptProfessionalOffer(
+                    career,
+                    career.professionalOffers!.find((offer) => offer.offerType === 'renewal')!.id,
+                  ),
+                )
+              }
+            >
+              Przedłuż kontrakt
+            </button>
+          )}
+        </article>
+      )}
+      <h3>Oferty innych klubów</h3>
       {(career.professionalOffers ?? []).length ? (
         <div className="offer-grid">
-          {career.professionalOffers!.map((offer) => (
-            <article className="mini-card offer-card" key={offer.id}>
-              <h3>{offer.club.name}</h3>
-              {offer.offerType === 'renewal' && (
+          {career
+            .professionalOffers!.filter((offer) => offer.offerType !== 'renewal')
+            .map((offer) => (
+              <article className="mini-card offer-card" key={offer.id}>
+                <h3>{offer.club.name}</h3>
+                {offer.offerType === 'renewal' && (
+                  <p>
+                    <strong>Obecny klub</strong>
+                  </p>
+                )}
+                <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
                 <p>
-                  <strong>Obecny klub</strong>
+                  Poziom {getClubLeagueTier(offer.club)} ·{' '}
+                  <StarRating strength={getClubStrength(offer.club)} /> · Siła klubu:{' '}
+                  {Math.round(getClubStrength(offer.club))}/100
                 </p>
-              )}
-              <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
-              <p>
-                Poziom {getClubLeagueTier(offer.club)} ·{' '}
-                <StarRating strength={getClubStrength(offer.club)} /> · Siła klubu:{' '}
-                {Math.round(getClubStrength(offer.club))}/100
-              </p>
-              <p>
-                Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
-                {qualityLabel(getClubMedicalQuality(offer.club))}
-              </p>
-              <p>
-                <strong>Poziom sportowy:</strong>{' '}
-                {offer.offerType === 'renewal'
-                  ? 'Pozostanie w obecnym klubie / ten sam poziom'
-                  : describeLeagueLevelChange(
-                      career.currentProfessionalClub
-                        ? getClubLeagueTier(career.currentProfessionalClub)
-                        : (career.leagueSeason?.competition.tier ?? getClubLeagueTier(offer.club)),
-                      getClubLeagueTier(offer.club),
-                    )}
-              </p>
-              <p>
-                {getClubLeagueTier(offer.club) <= 2
-                  ? 'Ambitny klub zawodowy'
-                  : 'Solidny klub zawodowy'}
-              </p>
-              <p>
-                <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
-              </p>
-              <p>
-                <strong>Pensja:</strong> {offer.contract.monthlySalary.toLocaleString('pl-PL')} PLN
-                / mies.
-              </p>
-              <p>
-                <strong>Kontrakt:</strong> do {offer.contract.endDate}
-              </p>
-              <h4>Dlaczego interesują się tobą</h4>
-              {offer.interestReasons.map((reason) => (
-                <p key={reason}>{reason}</p>
-              ))}
-              <p>
-                <strong>Konkurencja:</strong> {offer.competitionAssessment}
-              </p>
-              <p>
-                <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}
-              </p>
-              <p>
-                <strong>Szansa:</strong> {offer.opportunity}
-              </p>
-              <p>
-                <strong>Ryzyko:</strong> {offer.risk}
-              </p>
-              <button onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}>
-                {offer.offerType === 'renewal' ? 'Pozostań w klubie' : 'Podpisz kontrakt'}
-              </button>
-            </article>
-          ))}
+                <p>
+                  Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
+                  {qualityLabel(getClubMedicalQuality(offer.club))}
+                </p>
+                <p>
+                  <strong>Transfer:</strong>{' '}
+                  {offer.transferKind === 'free'
+                    ? 'Wolny transfer'
+                    : `Szacowane odstępne: ${(offer.estimatedTransferFee ?? 0).toLocaleString('pl-PL')} PLN`}
+                </p>
+                <p>
+                  {getClubLeagueTier(offer.club) <= 2
+                    ? 'Ambitny klub zawodowy'
+                    : 'Solidny klub zawodowy'}
+                </p>
+                <p>
+                  <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
+                </p>
+                <p>
+                  <strong>Pensja:</strong> {offer.contract.monthlySalary.toLocaleString('pl-PL')}{' '}
+                  PLN / mies.
+                </p>
+                <p>
+                  <strong>Kontrakt:</strong> do {offer.contract.endDate}
+                </p>
+                <h4>Dlaczego interesują się tobą</h4>
+                {offer.interestReasons.map((reason) => (
+                  <p key={reason}>{reason}</p>
+                ))}
+                <p>
+                  <strong>Konkurencja:</strong> {offer.competitionAssessment}
+                </p>
+                <p>
+                  <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}
+                </p>
+                <p>
+                  <strong>Szansa:</strong> {offer.opportunity}
+                </p>
+                <p>
+                  <strong>Ryzyko:</strong> {offer.risk}
+                </p>
+                <button onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}>
+                  {offer.offerType === 'renewal' ? 'Pozostań w klubie' : 'Podpisz kontrakt'}
+                </button>
+              </article>
+            ))}
         </div>
       ) : career.careerSeasonNumber === 1 ? (
         <article className="mini-card">
@@ -1037,6 +1106,11 @@ const SeasonView = ({ career }: { career: CareerState }) => {
     ),
     venue: fixture.homeClubId === controlledClubId ? 'home' : 'away',
     participation: career.seasonParticipation!.find((item) => item.fixtureId === fixture.id)!,
+    opponentStrength: season?.clubs.find(
+      (club) =>
+        club.clubId ===
+        (fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId),
+    )?.strength,
   }));
   return (
     <section>
@@ -1066,7 +1140,14 @@ const SeasonView = ({ career }: { career: CareerState }) => {
             {table.map((row) => (
               <tr key={row.clubId} className={row.clubId === controlledClubId ? 'active' : ''}>
                 <td>{row.position}</td>
-                <td>{row.clubName}</td>
+                <td>
+                  <ClubStrengthTooltip
+                    name={row.clubName}
+                    strength={
+                      season?.clubs.find((club) => club.clubId === row.clubId)?.strength ?? 50
+                    }
+                  />
+                </td>
                 <td>{row.played}</td>
                 <td>{row.won}</td>
                 <td>{row.drawn}</td>
@@ -1843,6 +1924,43 @@ export const App = () => {
                           <p>Rola: {squadRoleLabel(career.currentContract.squadRole)}</p>
                         </section>
                       )}
+                      <section className="mini-card">
+                        <h3>Instrukcje dla agenta</h3>
+                        <p>
+                          Wybierz maksymalnie dwa priorytety. Agent porządkuje tylko oferty klubów,
+                          które naprawdę są zainteresowane.
+                        </p>
+                        {(
+                          [
+                            ['sporting_level', 'Poziom sportowy'],
+                            ['important_role', 'Ważna rola'],
+                            ['development', 'Rozwój'],
+                            ['salary', 'Wynagrodzenie'],
+                            ['infrastructure', 'Zaplecze klubu'],
+                          ] as const
+                        ).map(([value, label]) => (
+                          <label key={value}>
+                            <input
+                              type="checkbox"
+                              checked={(career.agentPreferences ?? []).includes(value)}
+                              disabled={
+                                !(career.agentPreferences ?? []).includes(value) &&
+                                (career.agentPreferences ?? []).length >= 2
+                              }
+                              onChange={() => {
+                                const existing = career.agentPreferences ?? [];
+                                updateCareer({
+                                  ...career,
+                                  agentPreferences: existing.includes(value)
+                                    ? existing.filter((item) => item !== value)
+                                    : [...existing, value],
+                                });
+                              }}
+                            />{' '}
+                            {label}
+                          </label>
+                        ))}
+                      </section>
                       <p>
                         <strong>Pozycja:</strong>{' '}
                         {translate(`position.${career.player.primaryPosition}`)}

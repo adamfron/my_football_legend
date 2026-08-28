@@ -1,4 +1,5 @@
 import type { LeagueFixture, SeasonParticipationRecord } from '../types/domain';
+import { ClubStrengthTooltip } from './ClubStrengthTooltip';
 
 const months = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
 const date = (iso: string) => {
@@ -12,6 +13,7 @@ export interface CompactFixtureItem {
   opponentName: string;
   venue: 'home' | 'away';
   participation: SeasonParticipationRecord;
+  opponentStrength?: number;
 }
 export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
   const { fixture, opponentName, venue, participation } = item;
@@ -31,7 +33,12 @@ export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
     <div className="compact-fixture-row">
       <span>{date(fixture.date)}</span>
       <strong>
-        {opponentName} ({venue === 'home' ? 'D' : 'W'})
+        {item.opponentStrength === undefined ? (
+          opponentName
+        ) : (
+          <ClubStrengthTooltip name={opponentName} strength={item.opponentStrength} />
+        )}{' '}
+        ({venue === 'home' ? 'D' : 'W'})
       </strong>
       <span>{fixture.completed ? `${fixture.homeGoals}:${fixture.awayGoals}` : '—'}</span>
       {fixture.completed && (

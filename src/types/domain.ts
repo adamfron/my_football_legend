@@ -271,6 +271,8 @@ export interface CareerState {
   trainingApproach?: TrainingApproach | undefined;
   /** Slow-moving coach confidence, independent from short-term form. */
   selectionStanding?: number | undefined;
+  agentPreferences?: AgentPreference[] | undefined;
+  renegotiation?: ContractRenegotiationState | undefined;
 }
 
 export type ParticipationStatus =
@@ -475,15 +477,28 @@ export interface Contract {
   squadRole: SquadRole;
   contractType: 'professional' | 'development';
 }
+export type AgentPreference =
+  | 'sporting_level'
+  | 'important_role'
+  | 'development'
+  | 'salary'
+  | 'infrastructure';
+export interface ContractRenegotiationState {
+  season: number;
+  result: 'accepted' | 'conditional' | 'rejected';
+  proposedContract?: Contract | undefined;
+}
 export interface ProfessionalOffer {
   id: Id;
-  offerType?: 'external' | 'renewal';
+  offerType?: 'external' | 'renewal' | undefined;
   club: ProfessionalClub;
   contract: Contract;
   interestReasons: string[];
   opportunity: string;
   risk: string;
   competitionAssessment: string;
+  transferKind?: 'free' | 'fee' | undefined;
+  estimatedTransferFee?: number | undefined;
 }
 
 export type CareerWeekPhase = 'academy' | 'preseason' | 'regular_season' | 'winter_break';

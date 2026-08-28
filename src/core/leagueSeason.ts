@@ -6,6 +6,7 @@ import type {
   LeagueSeason,
   LeagueTableRow,
   MatchImportance,
+  ProfessionalClub,
 } from '../types/domain';
 import { COMPETITION_STRENGTH, getCompetitionDefinition } from './competitionStrength';
 
@@ -34,6 +35,7 @@ export const resolveLeagueTierAfterSeason = (tier: number, position: number) => 
   return { previousLeagueTier, nextLeagueTier, leagueOutcome };
 };
 import { RandomGenerator } from './random/RandomGenerator';
+import { deriveClubMatchRatings } from './clubStrength';
 
 export const VISTULA_NOVA_ID = 'club_vistula_nova';
 const clubSeeds: Array<[string, string, number, number, number]> = [
@@ -96,6 +98,7 @@ export interface LeagueSeasonOptions {
   controlledClubName?: string;
   professional?: boolean;
   professionalLevel?: number;
+  professionalClubs?: ProfessionalClub[];
 }
 export const createLeagueSeason = (
   seed: string,
@@ -140,6 +143,11 @@ export const createLeagueSeason = (
     clubs.forEach((club, index) => {
       if (index > 0 && club.name === clubs[0]!.name)
         clubs[index] = { ...club, name: `Ruch ${club.name.split(' ').at(-1)}` };
+    });
+  }
+  if (options.professionalClubs?.length) {
+    options.professionalClubs.slice(0, clubs.length).forEach((club, index) => {
+      clubs[index] = { clubId: club.id, name: club.name, ...deriveClubMatchRatings(club), form: 0 };
     });
   }
   const ids = clubs.map((club) => club.clubId);
@@ -229,14 +237,14 @@ export const simulateLeagueFixture = (
   const away = season.clubs.find((club) => club.clubId === fixture.awayClubId)!;
   const rng = RandomGenerator.fromSeed(`${seed}:league:${fixture.id}`);
   const homeEdge =
-    4 +
-    (home.strength - away.strength) * 0.35 +
-    (home.attackStrength - away.defenseStrength) * 0.28 +
+    2.5 +
+    (home.strength - away.strength) * 0.42 +
+    (home.attackStrength - away.defenseStrength) * 0.22 +
     home.form -
     away.form;
   const awayEdge =
-    (away.attackStrength - home.defenseStrength) * 0.28 +
-    (away.strength - home.strength) * 0.25 +
+    (away.attackStrength - home.defenseStrength) * 0.22 +
+    (away.strength - home.strength) * 0.42 +
     away.form -
     home.form;
   const goals = (edge: number) =>

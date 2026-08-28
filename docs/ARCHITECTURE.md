@@ -96,6 +96,10 @@ current state
 
 `src/core/leagueSeason.ts` przechowuje lekki świat ligi, generuje terminarz i wylicza tabelę. `src/core/careerSimulation.ts` używa istniejącej oceny szans na skład i zatrzymuje pętlę przy ważnym meczu albo wydarzeniu. React jedynie prezentuje wynik domeny.
 
+`ProfessionalClub.strengthRating` jest jedynym trwałym źródłem jakości pierwszego zespołu. Oceny ataku i obrony ligi są deterministycznymi, nietrwałymi pochodnymi tej wartości i tożsamości klubu. Po każdym sezonie `evolveClubStrength` aktualizuje kanoniczną siłę raz, uwzględniając awans/spadek, miejsce, finanse i małą wariancję z seeda.
+
+Kontrakt zachowuje rolę obiecaną przy podpisaniu i nie zmienia automatycznie pensji; aktualny status sportowy wylicza wspólny evaluator roli. Jedna funkcja oczekiwań płacowych obsługuje oferty, przedłużenia i renegocjacje. Instrukcje dla agenta tylko porządkują autentyczne zainteresowanie klubów — nigdy go nie tworzą.
+
 Zasada projektu: **Routine football is simulated. Meaningful football is played.**
 
 ## Reusable career seasons
