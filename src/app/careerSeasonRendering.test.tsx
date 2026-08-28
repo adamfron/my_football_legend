@@ -51,12 +51,21 @@ describe('canonical career season rendering', () => {
     expect(container.textContent).not.toContain('GraZawodnikKlubSezonHistoria');
 
     const cards = container.querySelectorAll<HTMLButtonElement>('.summary-strip > button');
+    expect(container.querySelector('.player-placeholder')).not.toBeNull();
+    expect(container.querySelector('.crest-placeholder')).not.toBeNull();
     act(() => cards[0]!.click());
     expect(container.querySelector('.detail-panel')?.textContent).toContain('Jan Test');
     expect(container.textContent).toContain('TABELA LIGOWA');
     act(() => cards[1]!.click());
     expect(container.querySelector('.detail-panel')?.textContent).toContain('Vistula Nova');
     expect(container.querySelectorAll('.detail-panel')).toHaveLength(1);
+    act(() => cards[1]!.click());
+    expect(container.querySelector('.detail-panel')).toBeNull();
+    act(() => cards[0]!.click());
+    const close = container.querySelector<HTMLButtonElement>('[aria-label="Zamknij"]')!;
+    expect(close.textContent).toBe('×');
+    act(() => close.click());
+    expect(container.querySelector('.detail-panel')).toBeNull();
     act(() => root.unmount());
   });
 

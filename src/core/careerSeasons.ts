@@ -94,10 +94,10 @@ export const initializeCareerSeason = (
   season.clubIds = season.clubs.map((c) => c.clubId);
   season.rounds = season.rounds.map((r) => ({
     ...r,
-    date: r.date.replace(/^\d{4}/, String(config.startYear)),
+    // createLeagueSeason owns the autumn/spring chronology. In particular, the
+    // second half belongs to startYear + 1 and must not be rebased here.
     fixtures: r.fixtures.map((f) => ({
       ...f,
-      date: f.date.replace(/^\d{4}/, String(config.startYear)),
       homeClubId: f.homeClubId === VISTULA_NOVA_ID ? config.club.id : f.homeClubId,
       awayClubId: f.awayClubId === VISTULA_NOVA_ID ? config.club.id : f.awayClubId,
     })),
@@ -164,11 +164,9 @@ export const initializeCareerSeason = (
     },
     seasonOutcome: undefined,
     professionalOffers: undefined,
-    decisionPoint: {
-      type: 'development_event',
-      date: `${config.startYear}-07-07`,
-      sourceId: 'first_professional_preseason',
-    },
+    // Decisions are introduced by scheduled calendar events. A fresh season
+    // deliberately has no synthetic decision that would block playback.
+    decisionPoint: undefined,
     seasonStartingAttributes: { ...career.player.attributes },
     seasonParticipation: [],
   };
