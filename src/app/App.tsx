@@ -54,6 +54,7 @@ import {} from '../core/clubStrength';
 import { availabilityState, getPlayerAvailability } from '../core/playerAvailability';
 import { getSeasonProgress } from '../core/seasonProgress';
 import { getInjuryDescription } from '../core/seasonParticipation';
+import { completeScheduledEvent } from '../core/careerCalendar';
 import { MATCH_EFFORT_LABELS, TRAINING_EFFORT_LABELS } from '../core/playerPreferences';
 import {
   acceptProfessionalOffer,
@@ -332,19 +333,16 @@ export const CareerWeekGame = ({
               <button
                 onClick={() => {
                   const sourceId = career.decisionPoint!.sourceId;
-                  const updatedWeeks = career.careerCalendar!.weeks.map((item) =>
-                    item.id === week.id
-                      ? {
-                          ...item,
-                          scheduledEventIds: [],
-                          completedEventIds: [...item.completedEventIds, sourceId],
-                        }
-                      : item,
+                  const resolved = resolveRegularSeasonEvent(
+                    career,
+                    sourceId,
+                    decision.id,
+                    week.startDate,
                   );
-                  onCareer({
-                    ...resolveRegularSeasonEvent(career, sourceId, decision.id, week.startDate),
-                    careerCalendar: { ...career.careerCalendar!, weeks: updatedWeeks },
-                  });
+                  const factId = resolved.historyFacts.find(
+                    (fact) => !career.historyFacts.some((old) => old.id === fact.id),
+                  )?.id;
+                  onCareer(completeScheduledEvent(resolved, sourceId, factId));
                 }}
               >
                 Wybierz

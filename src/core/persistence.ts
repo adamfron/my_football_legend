@@ -2,8 +2,8 @@ import { z } from 'zod';
 import type { CareerState } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
 
-export const CAREER_SAVE_VERSION = 2;
-export const CAREER_SAVE_KEY = 'mfl.careerSave.v2';
+export const CAREER_SAVE_VERSION = 3;
+export const CAREER_SAVE_KEY = 'mfl.careerSave.v3';
 export const careerSaveSchema = z.object({
   version: z.literal(CAREER_SAVE_VERSION),
   savedAt: z.string().datetime(),

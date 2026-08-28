@@ -4,7 +4,17 @@
 
 Kariera ma jeden cykl życia: utworzenie zawodnika, inicjalizacja generycznego sezonu, tygodnie kalendarza, zamknięcie sezonu, okno decyzji zawodowych i inicjalizacja następnego sezonu. Pierwszy sezon jest rozgrywką młodzieżową z powodów sportowych, a nie osobnym silnikiem fabularnym. `advanceCareerFlow` wykonuje wyłącznie bezdecyzyjne, idempotentne przejścia.
 
-`CareerWeek`, `CareerCalendarState`, `LeagueSeason` i udział zawodnika w spotkaniach stanowią kanoniczną architekturę każdego sezonu. Mecze rutynowe mogą być symulowane, a znaczące zatrzymują kalendarz na interakcji. Dostępność, kontuzje, zawieszenia, trening, rozwój i starzenie korzystają z tej samej osi czasu.
+`CareerCalendarState` jest kanonicznym, widocznym dla zawodnika terminarzem sezonu. Przechowuje spotkania, datowane wydarzenia kontekstowe i bieżącą datę symulacji. `LeagueSeason` pozostaje tymczasowo autorytetem tabeli i wyników rozgrywek, a operacje domeny kalendarza atomowo synchronizują jego przyszłe daty z terminarzem i rejestrem udziału zawodnika.
+
+### Operacyjne tygodnie i dynamiczna przyszłość
+
+`CareerWeek` jest wyłącznie operacyjnym koszykiem dla systemów działających w rytmie tygodniowym. Nie jest właścicielem dat spotkań ani wydarzeń: jego identyfikatory są przebudowywane z kanonicznego kalendarza. Przyszłe spotkania i wydarzenia mogą być dodawane, przekładane lub odraczane wyłącznie przez jawne operacje domenowe. Wykrywają one konflikty, ale nie narzucają priorytetu rozgrywek.
+
+### Niezmienna przeszłość i projekcja osi
+
+Zakończone wyniki, decyzje i fakty są niezmienne i nie są ponownie losowane po zmianie przyszłego terminarza. Przełożenie zachowuje identyfikator spotkania i powiązanie z rejestrem udziału oraz zapisuje semantyczny `HistoryFact`, a nie gotową narrację.
+
+`SeasonTimeline` jest czystą, deterministycznie sortowaną projekcją kalendarza, udziału zawodnika, wydarzeń i historii. Nie jest zapisywana ani nie kopiuje statystyk meczu; wpis spotkania wskazuje jego kanoniczny `SeasonParticipationRecord`. Przyszłe systemy pucharów krajowych, europejskich i reprezentacji skorzystają z tego samego API planowania zamiast tworzyć własne kalendarze. Te rozgrywki nie są jeszcze zaimplementowane.
 
 ## Kanoniczny świat futbolu
 

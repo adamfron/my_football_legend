@@ -165,3 +165,69 @@ describe('reusable career week loop', () => {
     expect(recovered.seasonOutcome).toBeDefined();
   });
 });
+
+describe('dynamic canonical calendar', () => {
+  it('inserts, detects conflicts and atomically reschedules a future fixture', async () => {
+    const { scheduleFixture, detectCalendarConflict, rescheduleFixture } = await import(
+      './careerCalendar'
+    );
+    const { buildSeasonTimeline } = await import('./seasonTimeline');
+    const initial = initializeCurrentCareerWeek(career('dynamic-calendar'));
+    const existing = initial.careerCalendar!.fixtures[0]!;
+    const added = { ...existing, id: 'future_external_fixture', competition: 'future_competition' };
+    const scheduled = scheduleFixture(initial, added);
+    expect(scheduled.careerCalendar!.fixtures.filter((item) => item.id === added.id)).toHaveLength(
+      1,
+    );
+    expect(
+      scheduled.seasonParticipation!.filter((item) => item.fixtureId === added.id),
+    ).toHaveLength(1);
+    expect(detectCalendarConflict(scheduled.careerCalendar!, added.date)?.fixtureIds).toContain(
+      existing.id,
+    );
+
+    const targetWeek = scheduled.careerCalendar!.weeks.find((week) => !week.fixtureIds.length)!;
+    const moved = rescheduleFixture(
+      scheduled,
+      added.id,
+      targetWeek.startDate,
+      'competition_conflict',
+    );
+    expect(moved.careerCalendar!.fixtures.find((item) => item.id === added.id)?.date).toBe(
+      targetWeek.startDate,
+    );
+    expect(moved.seasonParticipation!.find((item) => item.fixtureId === added.id)?.date).toBe(
+      targetWeek.startDate,
+    );
+    expect(
+      moved.careerCalendar!.weeks.find((week) => week.id === targetWeek.id)?.fixtureIds,
+    ).toContain(added.id);
+    expect(
+      buildSeasonTimeline(moved).find(
+        (item) => item.kind === 'fixture' && item.fixtureId === added.id,
+      ),
+    ).toMatchObject({
+      date: targetWeek.startDate,
+      participation: moved.seasonParticipation!.find((item) => item.fixtureId === added.id),
+    });
+    expect(moved.historyFacts.at(-1)).toMatchObject({
+      factType: 'fixture_rescheduled',
+      data: { fixtureId: added.id },
+    });
+  });
+
+  it('rejects changes to a completed fixture', async () => {
+    const { rescheduleFixture } = await import('./careerCalendar');
+    const initial = initializeCurrentCareerWeek(career('immutable-calendar'));
+    const fixture = initial.careerCalendar!.fixtures[0]!;
+    const completed = {
+      ...initial,
+      seasonParticipation: initial.seasonParticipation!.map((row) =>
+        row.fixtureId === fixture.id ? { ...row, fixtureStatus: 'completed' as const } : row,
+      ),
+    };
+    expect(() => rescheduleFixture(completed, fixture.id, '2026-12-31', 'weather')).toThrow(
+      /Completed historical/,
+    );
+  });
+});

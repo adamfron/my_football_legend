@@ -310,7 +310,7 @@ export const fixtureSchema = z.object({
   id,
   seasonId: id,
   date: z.string(),
-  competition: z.enum(['league', 'academy_league', 'friendly']),
+  competition: z.string().min(1),
   opponent: z.object({
     id,
     name: z.string(),
@@ -350,9 +350,19 @@ export const monthlyCheckpointSchema = z.object({
 });
 export const careerCalendarSchema = z.object({
   seasonId: id,
+  currentDate: z.string(),
   currentWeekIndex: z.number().int().nonnegative(),
   weeks: z.array(careerWeekSchema),
   fixtures: z.array(fixtureSchema),
+  scheduledEvents: z.array(
+    z.object({
+      id,
+      eventDefinitionId: id,
+      date: z.string(),
+      status: z.enum(['scheduled', 'completed']),
+      factId: id.optional(),
+    }),
+  ),
   monthlyCheckpoints: z.array(monthlyCheckpointSchema),
   availableThrough: z.string(),
 });

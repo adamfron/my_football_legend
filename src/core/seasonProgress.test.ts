@@ -33,9 +33,11 @@ describe('canonical season clock', () => {
           decisionPoint: { type: 'checkpoint' as const, date, sourceId: date },
           careerCalendar: {
             seasonId: '2026-27',
+            currentDate: '2026-08-20',
             currentWeekIndex: 0,
             weeks: [],
             fixtures: [],
+            scheduledEvents: [],
             monthlyCheckpoints: [],
             availableThrough: '2027-05-31',
           },

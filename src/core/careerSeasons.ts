@@ -154,9 +154,11 @@ export const initializeCareerSeason = (
     leagueSeason: season,
     careerCalendar: {
       seasonId: season.id,
+      currentDate: `${config.startYear}-07-01`,
       currentWeekIndex: 0,
       weeks,
       fixtures,
+      scheduledEvents: [],
       monthlyCheckpoints: [],
       availableThrough: `${config.startYear}-07-01`,
     },

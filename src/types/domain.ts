@@ -504,7 +504,7 @@ export interface Fixture {
   id: Id;
   seasonId: string;
   date: string;
-  competition: 'league' | 'academy_league' | 'friendly';
+  competition: string;
   opponent: OpponentProfile;
   venue: 'home' | 'away';
   importance: number;
@@ -604,6 +604,14 @@ export interface CareerWeek {
   summaryVariantKey?: string | undefined;
   completed: boolean;
 }
+export type CalendarEventStatus = 'scheduled' | 'completed';
+export interface ScheduledCalendarEvent {
+  id: Id;
+  eventDefinitionId: Id;
+  date: string;
+  status: CalendarEventStatus;
+  factId?: Id | undefined;
+}
 export interface MonthlyCheckpoint {
   id: Id;
   month: string;
@@ -618,9 +626,12 @@ export interface MonthlyCheckpoint {
 }
 export interface CareerCalendarState {
   seasonId: string;
+  /** Player-facing simulation date; kept in step with CareerState.currentDate. */
+  currentDate: string;
   currentWeekIndex: number;
   weeks: CareerWeek[];
   fixtures: Fixture[];
+  scheduledEvents: ScheduledCalendarEvent[];
   monthlyCheckpoints: MonthlyCheckpoint[];
   availableThrough: string;
 }

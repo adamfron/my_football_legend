@@ -11,6 +11,7 @@ import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './league
 import { getTrainingEffortEffects } from './playerPreferences';
 import { applyTrainingDevelopmentCheckpoint } from './development';
 import { initializeSeasonParticipation } from './seasonParticipation';
+import { scheduleEvent } from './careerCalendar';
 
 const DAY = 86_400_000;
 export const CAREER_LOOP_START = '2026-08-20';
@@ -152,9 +153,11 @@ export const initializeCurrentCareerWeek = (career: CareerState): CareerState =>
   });
   const calendar = {
     seasonId: '2026-27',
+    currentDate: CAREER_LOOP_START,
     currentWeekIndex: 0,
     weeks,
     fixtures,
+    scheduledEvents: [],
     monthlyCheckpoints: [],
     availableThrough: CAREER_LOOP_END,
   };
@@ -194,14 +197,21 @@ export const initializeWeekContent = (career: CareerState, index: number): Caree
         ).pick(eligibleEvents.length ? eligibleEvents : REGULAR_SEASON_EVENT_POOL),
       ]
     : [];
-  const updated = { ...week, scheduledEventIds, summaryVariantKey: selectVariant(career, week.id) };
-  return {
+  const updated = { ...week, summaryVariantKey: selectVariant(career, week.id) };
+  let next: CareerState = {
     ...career,
     careerCalendar: {
       ...calendar,
       weeks: calendar.weeks.map((item, i) => (i === index ? updated : item)),
     },
   };
+  for (const eventDefinitionId of scheduledEventIds)
+    next = scheduleEvent(next, {
+      id: `calendar_event_${week.id}_${eventDefinitionId}`,
+      eventDefinitionId,
+      date: week.startDate,
+    });
+  return next;
 };
 
 export const getCurrentCareerWeek = (career: CareerState) =>
@@ -340,7 +350,12 @@ export const advanceCareerWeek = (career: CareerState): CareerState => {
         !developedCareer.currentDate || next.startDate > developedCareer.currentDate
           ? next.startDate
           : developedCareer.currentDate,
-      careerCalendar: { ...calendar, currentWeekIndex: nextIndex, monthlyCheckpoints: checkpoints },
+      careerCalendar: {
+        ...calendar,
+        currentDate: next.startDate,
+        currentWeekIndex: nextIndex,
+        monthlyCheckpoints: checkpoints,
+      },
     },
     nextIndex,
   );
