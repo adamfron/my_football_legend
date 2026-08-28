@@ -209,12 +209,15 @@ export const contractSchema = z.object({
 });
 export const professionalOfferSchema = z.object({
   id,
+  offerType: z.enum(['external', 'renewal']).optional(),
   club: professionalClubSchema,
   contract: contractSchema,
   interestReasons: z.array(z.string()).min(1),
   opportunity: z.string(),
   risk: z.string(),
   competitionAssessment: z.string(),
+  transferKind: z.enum(['free', 'fee']).optional(),
+  estimatedTransferFee: z.number().nonnegative().optional(),
 });
 export const eventDefinitionSchema = z.object({
   id,
@@ -471,6 +474,17 @@ export const careerStateSchema = z.object({
       'important_player',
       'star_player',
     ])
+    .optional(),
+  agentPreferences: z
+    .array(z.enum(['sporting_level', 'important_role', 'development', 'salary', 'infrastructure']))
+    .max(2)
+    .optional(),
+  renegotiation: z
+    .object({
+      season: z.number().int(),
+      result: z.enum(['accepted', 'conditional', 'rejected']),
+      proposedContract: contractSchema.optional(),
+    })
     .optional(),
   careerStatus: z.enum(['active', 'retired']).optional(),
   retirementDate: z.string().optional(),

@@ -9,6 +9,7 @@ import { getPlayerOverall } from './playerOverall';
 import { getPlayerForm } from './careerWeeks';
 import { clampProfessionalLeagueTier } from './leagueSeason';
 import { getClubStrength, getExpectedSquadRole } from './clubStrength';
+import { estimatePlayerMarketValue, evaluateExpectedMonthlySalary } from './playerEconomy';
 
 export const getClubLeagueTier = (club: ProfessionalClub) =>
   clampProfessionalLeagueTier(club.leagueTier ?? club.professionalLevel ?? 3);
@@ -221,22 +222,10 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
       );
       const role = getExpectedSquadRole(career, club);
       const years = rng.int(1, 3);
-      const roleFactor = {
-        development_player: 0.75,
-        rotation: 1,
-        first_team_competition: 1.18,
-        important_player: 1.4,
-        star_player: 1.65,
-      }[role];
-      const salary =
-        Math.round(
-          ((1200 +
-            club.financialLevel * 28 +
-            (5 - getClubLeagueTier(club)) * 180 +
-            career.player.reputation * 16) *
-            roleFactor) /
-            100,
-        ) * 100;
+      const salary = evaluateExpectedMonthlySalary(career, club, role);
+      const free =
+        !career.currentContract ||
+        career.currentContract.endDate <= `${career.currentSeason + 1}-07-01`;
       return [
         {
           id: `offer_${club.id}_${career.currentSeason}`,
@@ -273,17 +262,45 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
             interest.need.depth === 'deep'
               ? 'Duża konkurencja (ocena sztabu)'
               : 'Konkurencja do pokonania (ocena sztabu)',
+          transferKind: free ? 'free' : 'fee',
+          ...(free ? {} : { estimatedTransferFee: estimatePlayerMarketValue(career) }),
         },
       ];
     })
     .sort((a, b) => {
+      const preferenceScore = (offer: ProfessionalOffer) =>
+        (career.agentPreferences ?? []).reduce((score, preference) => {
+          if (preference === 'sporting_level')
+            return score + getClubStrength(offer.club) + (5 - getClubLeagueTier(offer.club)) * 5;
+          if (preference === 'important_role')
+            return (
+              score +
+              [
+                'development_player',
+                'rotation',
+                'first_team_competition',
+                'important_player',
+                'star_player',
+              ].indexOf(offer.contract.squadRole) *
+                10
+            );
+          if (preference === 'development')
+            return score + getClubDevelopmentEnvironment(offer.club);
+          if (preference === 'salary') return score + offer.contract.monthlySalary / 200;
+          return (
+            score +
+            (getClubInfrastructure(offer.club).trainingFacilities +
+              getClubInfrastructure(offer.club).medicalQuality) /
+              2
+          );
+        }, 0);
       const ai =
         evaluateClubInterest(career, a.club).score +
         Math.max(0, overall(career) - getClubStrength(a.club)) * 0.35;
       const bi =
         evaluateClubInterest(career, b.club).score +
         Math.max(0, overall(career) - getClubStrength(b.club)) * 0.35;
-      return bi - ai || a.id.localeCompare(b.id);
+      return preferenceScore(b) - preferenceScore(a) || bi - ai || a.id.localeCompare(b.id);
     });
   const playerOverall = overall(career);
   const bands = [
@@ -334,6 +351,7 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
         : career.currentContract.endDate,
       squadRole: role,
       contractType: role === 'development_player' ? 'development' : 'professional',
+      monthlySalary: evaluateExpectedMonthlySalary(career, career.currentProfessionalClub, role),
     },
     interestReasons: [
       contractExpires

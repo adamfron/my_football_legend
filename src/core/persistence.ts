@@ -115,6 +115,7 @@ export const loadCareer = (): LoadCareerResult => {
     career.completedSeasons ??= [];
     career.trainingApproach ??= 'balanced';
     career.selectionStanding ??= 50;
+    career.agentPreferences ??= [];
     // One-time legacy import: preserve canonical rows and fill only missing controlled fixtures.
     {
       const history = Array.isArray(career.matchHistory)

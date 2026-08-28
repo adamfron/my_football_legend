@@ -5,7 +5,7 @@ import {
   getProfessionalCompetitionName,
   VISTULA_NOVA_ID,
 } from './leagueSeason';
-import { getClubStrength } from './clubStrength';
+import { deriveClubMatchRatings, getExpectedSquadRole } from './clubStrength';
 import { RandomGenerator } from './random/RandomGenerator';
 import type { Person, RelationshipScores } from '../types/domain';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
@@ -72,9 +72,7 @@ export const initializeCareerSeason = (
         ? {
             clubId: source.id,
             name: source.name,
-            strength: getClubStrength(source),
-            attackStrength: getClubStrength(source),
-            defenseStrength: getClubStrength(source),
+            ...deriveClubMatchRatings(source),
             form: 0,
           }
         : club;
@@ -346,10 +344,12 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     };
   aged = {
     ...aged,
-    currentSportingStatus: sensibleRole(
-      aged.player.age,
-      aged.currentSportingStatus ?? aged.currentContract?.squadRole ?? 'rotation',
-    ),
+    currentSportingStatus: aged.currentProfessionalClub
+      ? getExpectedSquadRole(aged, aged.currentProfessionalClub)
+      : sensibleRole(
+          aged.player.age,
+          aged.currentSportingStatus ?? aged.currentContract?.squadRole ?? 'rotation',
+        ),
     playerAvailability: {
       injuries: aged.playerAvailability?.injuries.filter((i) => i.status === 'active') ?? [],
       // A dismissal in the final fixture may legitimately be served next season.

@@ -521,3 +521,25 @@ td {
 tbody tr.active {
   background: rgba(31, 122, 72, 0.14);
 }
+.club-strength-tooltip {
+  position: relative;
+  cursor: help;
+  outline-offset: 3px;
+}
+.club-strength-tooltip__content {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  bottom: 100%;
+  white-space: nowrap;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.35rem;
+  background: #10261d;
+  color: #fff;
+  box-shadow: 0 2px 8px #0006;
+}
+.club-strength-tooltip:hover .club-strength-tooltip__content,
+.club-strength-tooltip:focus .club-strength-tooltip__content {
+  display: block;
+}
