@@ -14,6 +14,7 @@ import { initializeWeekContent } from './careerWeeks';
 import { createCompletedSeasonSnapshot } from './seasonArchive';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { rollOverClubWorld } from './clubWorld';
+import { initializeSeasonParticipation } from './seasonParticipation';
 
 const milestone = (
   career: CareerState,
@@ -169,7 +170,7 @@ export const initializeCareerSeason = (
     seasonStartingAttributes: { ...career.player.attributes },
     seasonParticipation: [],
   };
-  return initializeWeekContent(initialized, 0);
+  return initializeWeekContent(initializeSeasonParticipation(initialized), 0);
 };
 
 export const getCareerStage = (

@@ -12,13 +12,14 @@ export interface CompactFixtureItem {
   fixture: LeagueFixture;
   opponentName: string;
   venue: 'home' | 'away';
-  participation: SeasonParticipationRecord;
+  participation?: SeasonParticipationRecord | undefined;
   opponentStrength?: number;
 }
 export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
   const { fixture, opponentName, venue, participation } = item;
-  const status =
-    participation?.status === 'injured'
+  const status = !participation
+    ? 'brak danych'
+    : participation.status === 'injured'
       ? 'kontuzja'
       : participation?.status === 'suspended'
         ? 'zawieszenie'
@@ -43,7 +44,7 @@ export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
       <span>{fixture.completed ? `${fixture.homeGoals}:${fixture.awayGoals}` : '—'}</span>
       {fixture.completed && (
         <span>
-          {participation.minutes
+          {participation?.minutes
             ? participation.goalkeeperStats
               ? `${participation.minutes}' · ${participation.goalkeeperStats.saves} obr. · ${participation.goalkeeperStats.cleanSheet ? 'CS · ' : ''}${rating(participation.goalkeeperStats.rating)}`
               : `${participation.minutes}' · ${participation.goals} G · ${participation.assists} A · ${rating(participation.rating)}`
