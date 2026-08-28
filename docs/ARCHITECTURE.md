@@ -1,5 +1,34 @@
 # Architektura
 
+## Warstwa prezentacji kariery
+
+### Tożsamość wizualna klubu
+
+Klub jest właścicielem kanonicznej, deterministycznej `ClubVisualIdentity` z kolorem
+podstawowym i dodatkowym. Para jest metadanymi prezentacyjnymi, niezależnymi od siły
+sportowej, i może być później współdzielona przez UI, herby oraz stroje. React korzysta
+z zapisanej tożsamości (z deterministycznym fallbackiem dla starszego zapisu), zamiast
+wyliczać własny kolor z ID. Biel pozostaje bielą w danych; obrys i krawędź zapewniające
+kontrast są wyłącznie zachowaniem CSS.
+
+### Semantyka osi sezonu
+
+Etykiety zdarzeń osi pochodzą z metadanych/treści definicji wydarzenia. Stan kariery
+przechowuje identyfikator, a nie wyrenderowaną polską frazę. Brak specjalnej etykiety
+korzysta z tytułu wydarzenia, nigdy z ogólnego statusu implementacyjnego.
+
+Przy braku występu oś prezentuje kanoniczny `SeasonParticipationRecord.status`, dzięki
+czemu rozróżnia między innymi kontuzję, zawieszenie, ławkę i brak powołania.
+
+### Prezentacja zawodnika
+
+Style gry oraz poziomy zaangażowania są projekcjami istniejących danych `Player` i
+`CareerState`; panel zawodnika nie utrzymuje ich kopii ani nie dodaje drugiego systemu
+cech. Opis zawodnika pozostaje tymczasowo powiązany z profilem startowym. W Player Model
+2.0 powinien stać się opisem wyprowadzanym z aktualnych atrybutów, stylów, roli i etapu
+kariery. Realizm zmian minut (w tym zmian gwiazd około 70–85 minuty) pozostaje zadaniem
+przyszłego projektu selekcji/minut, a nie losową korektą zakresu w tej warstwie.
+
 ## Wspólna powłoka wizualna
 
 Kreator i Career View korzystają z jednego zwartego języka aplikacji: prostokątnych paneli,

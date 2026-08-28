@@ -29,6 +29,10 @@ export const openingMonthRoleSchema = z.enum([
 const score = z.number().min(0).max(100);
 const unit = z.number().min(0).max(1);
 const id = z.string().min(1);
+export const clubVisualIdentitySchema = z.object({
+  primaryColor: z.string().regex(/^#[0-9a-f]{6}$/i),
+  secondaryColor: z.string().regex(/^#[0-9a-f]{6}$/i),
+});
 
 export const relationshipScoresSchema = z.object({
   liking: score,
@@ -143,6 +147,7 @@ export const clubSchema = z.object({
   notableCoaches: z.array(id),
   legends: z.array(id),
   rivals: z.array(id),
+  visualIdentity: clubVisualIdentitySchema.optional(),
 });
 const positionalNeedSchema = z.object({
   starterQuality: score,
@@ -157,6 +162,7 @@ export const professionalClubSchema = z.object({
   shortName: z.string().optional(),
   managerId: id.optional(),
   philosophyTags: z.array(z.string()).optional(),
+  visualIdentity: clubVisualIdentitySchema.optional(),
   leagueTier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
   reputation: score,
   strengthRating: score.optional(),

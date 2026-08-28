@@ -409,6 +409,7 @@ const asClub = (offer: ProfessionalOffer): Club => ({
   playStyle: offer.club.playingStyle,
   youthApproach: 'Rozwój młodych zależy od polityki klubu i zaufania trenera.',
   prestige: offer.club.reputation,
+  visualIdentity: offer.club.visualIdentity,
   seasonHistory: [],
   notablePlayers: [],
   notableCoaches: [],

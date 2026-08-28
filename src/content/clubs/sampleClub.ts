@@ -4,6 +4,7 @@ export const sampleClub: Club = {
   name: 'Vistula Nova',
   country: 'Polska',
   region: 'Małopolska',
+  visualIdentity: { primaryColor: '#f7f7f3', secondaryColor: '#285f8f' },
   dna: ['cierpliwość', 'akademia', 'technika'],
   currentSituation: 'Młodzieżowa akademia przygotowująca wychowanków do zawodowej piłki.',
   playStyle: 'Spokojne budowanie akcji w lidze akademii',

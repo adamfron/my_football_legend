@@ -10,6 +10,7 @@ import { getPlayerForm } from './careerWeeks';
 import { clampProfessionalLeagueTier } from './leagueSeason';
 import { getClubStrength, getExpectedSquadRole } from './clubStrength';
 import { estimatePlayerMarketValue, evaluateExpectedMonthlySalary } from './playerEconomy';
+import { generateClubVisualIdentity } from './clubVisualIdentity';
 
 export const getClubLeagueTier = (club: ProfessionalClub) =>
   clampProfessionalLeagueTier(club.leagueTier);
@@ -111,6 +112,7 @@ export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =
       name,
       country: 'Polska',
       region: rng.pick(['Mazowsze', 'Małopolska', 'Śląsk', 'Pomorze', 'Wielkopolska']),
+      visualIdentity: generateClubVisualIdentity(seed, `pro_${index}`),
       leagueTier,
       shortName: name.slice(0, 18),
       managerId: `coach_pro_${index}`,
