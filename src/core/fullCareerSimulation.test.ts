@@ -137,7 +137,16 @@ describe('deterministic full-career audit', () => {
   });
 
   it('does not cross a real unresolved development decision in a simulation step', () => {
-    const career = createCareer('development-event-blocker');
+    const fresh = createCareer('development-event-blocker');
+    expect(fresh.decisionPoint).toBeUndefined();
+    const career = {
+      ...fresh,
+      decisionPoint: {
+        type: 'development_event' as const,
+        date: fresh.currentDate!,
+        sourceId: 'scheduled_training_choice',
+      },
+    };
 
     expect(career.decisionPoint?.type).toBe('development_event');
     expect(() => advanceSimulationStep(career)).toThrow(

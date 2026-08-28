@@ -1,5 +1,17 @@
 # Architektura
 
+## Wspólna powłoka wizualna
+
+Kreator i Career View korzystają z jednego zwartego języka aplikacji: prostokątnych paneli,
+cienkich obramowań, oszczędnego akcentu klubowego, małej typografii i subtelnych krawędzi
+wgłębionych/wypukłych. Inspiracja oprogramowaniem desktopowym końca lat 90. jest wyłącznie
+warstwą prezentacji i nie zmienia architektury ani balansu rozgrywki.
+
+Kroki kreatora są komponentami funkcji w `src/app/creator`, oddzielonymi od generowania gracza w
+core. Opcjonalne moduły archetypu fizycznego lub zaawansowanego kreatora mogą zostać w przyszłości
+dołączone do tej powłoki bez zmiany istniejących reguł generowania. Są to punkty rozszerzeń, a nie
+zaimplementowane mechaniki.
+
 ## Career View
 
 Stały widok sezonu jest podstawową powierzchnią rozgrywki aktywnej kariery. Tabela ligi i
@@ -9,6 +21,9 @@ postępem kariery; nie zapisujemy osobnego modelu osi w save.
 Karty zawodnika, klubu, kontraktu/finansów i historii pokazują zwarte podsumowania. Ich szczegóły
 rozwijają się nad tym samym widokiem, zamiast przenosić gracza do osobnych ekranów. Na wąskim
 ekranie karty przewijają się poziomo, a tabela i oś układają się w jednej kolumnie.
+Jednocześnie otwarta jest najwyżej jedna współdzielona powierzchnia szczegółów; jej otwarcie nie
+odmontowuje stałego obszaru tabeli i Osi sezonu. Ponowne wybranie aktywnej karty lub przycisk `×`
+zamyka szczegóły.
 
 ## Playback i autopauza
 

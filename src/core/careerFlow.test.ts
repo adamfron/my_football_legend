@@ -3,6 +3,8 @@ import { advanceCareerFlow } from './careerFlow';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { initializeCareerSeason } from './careerSeasons';
 import { initializeSeasonParticipation } from './seasonParticipation';
+import { buildSeasonTimeline } from './seasonTimeline';
+import { getCareerProgressBlocker } from './careerSimulation';
 
 const career = () =>
   createCareerState(
@@ -33,6 +35,38 @@ describe('career flow', () => {
     expect(started.leagueSeason?.competition.name).toMatch(/U-17/);
     expect(started.careerCalendar?.fixtures.length).toBeGreaterThan(10);
     expect(started.activeEvent).toBeUndefined();
+    expect(started.decisionPoint).toBeUndefined();
+    expect(getCareerProgressBlocker(started)).toBeUndefined();
+  });
+
+  it('preserves the canonical autumn-spring chronology in every season projection', () => {
+    const started = initializeCareerSeason(career(), {
+      startYear: 2026,
+      careerSeasonNumber: 1,
+      club: career().currentClub,
+      professional: false,
+    });
+    const leagueFixtures = started.leagueSeason!.rounds.flatMap((round) => round.fixtures);
+    const autumn = leagueFixtures.filter((fixture) => fixture.date.startsWith('2026-'));
+    const spring = leagueFixtures.filter((fixture) => fixture.date.startsWith('2027-'));
+
+    expect(autumn.length).toBeGreaterThan(0);
+    expect(spring.length).toBeGreaterThan(0);
+    expect(leagueFixtures.every((fixture) => fixture.date >= started.currentDate!)).toBe(true);
+    expect(started.leagueSeason!.startDate).toBe(leagueFixtures[0]!.date);
+    expect(started.leagueSeason!.endDate >= leagueFixtures.at(-1)!.date).toBe(true);
+    for (const calendarFixture of started.careerCalendar!.fixtures) {
+      const leagueFixture = leagueFixtures.find((fixture) => fixture.id === calendarFixture.id)!;
+      expect(calendarFixture.date).toBe(leagueFixture.date);
+      expect(
+        started.seasonParticipation!.find((row) => row.fixtureId === calendarFixture.id),
+      ).toBeDefined();
+    }
+    expect(
+      buildSeasonTimeline(started)
+        .filter((entry) => entry.kind === 'fixture')
+        .every((entry) => entry.date >= started.currentDate!),
+    ).toBe(true);
   });
 
   it('initializes exactly one scheduled participation row for every controlled-club fixture', () => {

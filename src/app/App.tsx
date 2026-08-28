@@ -7,13 +7,11 @@ import { buildSeasonSummary } from '../core/matchFeedback';
 import {
   canReroll,
   createCareerState,
-  defaultBodyForPosition,
   generateStartingPlayerProfile,
   getAllowedWeightRange,
   identityInputSchema,
   makeReadableSeed,
   MAX_PROFILE_VARIANTS,
-  positionIds,
   profileInputSchema,
   STARTING_AGE,
   type CreatorInput,
@@ -62,26 +60,17 @@ import {
 import type { CareerState, EventDecision, PlayerAttributes } from '../types/domain';
 import { isDevToolsEnabled } from './devTools';
 import { CareerView } from './career/CareerView';
-import { PlayerCard, RadarChart } from './shared/PlayerCard';
+import { RadarChart } from './shared/PlayerCard';
+import {
+  PlayerCreator,
+  type CreatorFieldErrors,
+  type ProfileFormState,
+} from './creator/PlayerCreator';
 import { MatchGame } from './match/MatchGame';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
-type ProfileFormState = { position: PositionId; heightCm: string; weightKg: string };
-type FieldErrors = Partial<
-  Record<
-    | 'firstName'
-    | 'lastName'
-    | 'nationality'
-    | 'dominantFoot'
-    | 'customSeed'
-    | 'heightCm'
-    | 'weightKg'
-    | 'position',
-    string[]
-  >
->;
-
+type FieldErrors = CreatorFieldErrors;
 const emptyErrors = () => ({}) as FieldErrors;
 const addIssues = (issues: { path: PropertyKey[]; message: string }[]) =>
   issues.reduce<FieldErrors>((acc, issue) => {
@@ -89,13 +78,6 @@ const addIssues = (issues: { path: PropertyKey[]; message: string }[]) =>
     acc[key] = [...(acc[key] ?? []), issue.message];
     return acc;
   }, {});
-
-const FieldError = ({ errors }: { errors?: string[] | undefined }) =>
-  errors?.map((error) => (
-    <p className="field-error" key={error}>
-      {error}
-    </p>
-  )) ?? null;
 
 const resultText = (outcome: unknown) => translate(`events.result.${String(outcome)}`);
 const visibleDecisions = (career: CareerState, decisions: EventDecision[]) => {
@@ -151,7 +133,6 @@ const qualityLabel = (quality: number) =>
         : quality >= 40
           ? 'przeciętne'
           : 'podstawowe';
-
 
 const EventCard = ({
   career,
@@ -922,174 +903,34 @@ export const App = () => {
       <CareerView
         career={career}
         onCareer={updateCareer}
-        decisionPanel={needsDecision ? <EventCard career={career} onCareer={updateCareer} /> : undefined}
+        decisionPanel={
+          needsDecision ? <EventCard career={career} onCareer={updateCareer} /> : undefined
+        }
       />
     );
   }
 
   if (view === 'creator')
     return (
-      <main className="shell narrow">
-        <header className="hero">
-          <p>Nowa kariera</p>
-          <h1>Kreator zawodnika</h1>
-        </header>
-        <ol className="steps">
-          {['Tożsamość', 'Profil', 'Atrybuty', 'Podsumowanie'].map((label, i) => (
-            <li className={i === step ? 'active' : ''} key={label}>
-              {label}
-            </li>
-          ))}
-        </ol>
-        <section className="panel">
-          {step === 0 && (
-            <div className="form">
-              <label>
-                Imię
-                <input
-                  value={identity.firstName}
-                  onChange={(e) => setIdentity({ ...identity, firstName: e.target.value })}
-                />
-                <FieldError errors={fieldErrors.firstName} />
-              </label>
-              <label>
-                Nazwisko
-                <input
-                  value={identity.lastName}
-                  onChange={(e) => setIdentity({ ...identity, lastName: e.target.value })}
-                />
-                <FieldError errors={fieldErrors.lastName} />
-              </label>
-              <label>
-                Narodowość
-                <select
-                  value={identity.nationality}
-                  onChange={(e) =>
-                    setIdentity({
-                      ...identity,
-                      nationality: e.target.value as IdentityInput['nationality'],
-                    })
-                  }
-                >
-                  <option value="PL">Polska</option>
-                </select>
-              </label>
-              <p>
-                <strong>Wiek startowy:</strong> {STARTING_AGE} lat
-              </p>
-              <label>
-                Dominująca noga
-                <select
-                  value={identity.dominantFoot}
-                  onChange={(e) =>
-                    setIdentity({
-                      ...identity,
-                      dominantFoot: e.target.value as IdentityInput['dominantFoot'],
-                    })
-                  }
-                >
-                  <option value="right">Prawa noga</option>
-                  <option value="left">Lewa noga</option>
-                </select>
-              </label>
-              <label>
-                Seed kariery
-                <input
-                  value={identity.customSeed}
-                  onChange={(e) => setIdentity({ ...identity, customSeed: e.target.value })}
-                />
-                <small>
-                  Pozostaw puste, aby gra utworzyła losowy seed. Ten sam seed pozwala odtworzyć tę
-                  samą karierę.
-                </small>
-                <FieldError errors={fieldErrors.customSeed} />
-              </label>
-              <button onClick={nextIdentity}>Dalej</button>
-            </div>
-          )}
-          {step === 1 && (
-            <div className="form">
-              <div className="positions">
-                {positionIds.map((id) => (
-                  <button
-                    className={profileInput.position === id ? 'active' : ''}
-                    key={id}
-                    onClick={() => {
-                      const [heightCm, weightKg] = defaultBodyForPosition(id);
-                      setProfile({
-                        position: id,
-                        heightCm: String(heightCm),
-                        weightKg: String(weightKg),
-                      });
-                    }}
-                  >
-                    <strong>{translate(`position.${id}`)}</strong>
-                    <span>{translate(`position.${id}.description`)}</span>
-                  </button>
-                ))}
-              </div>
-              <label>
-                Wzrost
-                <div className="unit-field">
-                  <input
-                    inputMode="numeric"
-                    value={profileInput.heightCm}
-                    onChange={(e) => setProfile({ ...profileInput, heightCm: e.target.value })}
-                  />
-                  <span>cm</span>
-                </div>
-                <FieldError errors={fieldErrors.heightCm} />
-              </label>
-              <label>
-                Masa ciała
-                <div className="unit-field">
-                  <input
-                    inputMode="numeric"
-                    value={profileInput.weightKg}
-                    onChange={(e) => setProfile({ ...profileInput, weightKg: e.target.value })}
-                  />
-                  <span>kg</span>
-                </div>
-                <small>
-                  Dozwolony zakres dla tego wzrostu: {weightRange.min}–{weightRange.max} kg.
-                </small>
-                <FieldError errors={fieldErrors.weightKg} />
-              </label>
-              <button onClick={() => setStep(0)}>Wstecz</button>
-              <button onClick={nextProfile}>Dalej</button>
-            </div>
-          )}
-          {step === 2 && generated && (
-            <>
-              <PlayerCard profile={generated} seed={seed} />
-              <div className="variant-picker">
-                {variants.map((_, index) => (
-                  <button
-                    className={selectedVariant === index ? 'active' : ''}
-                    key={index}
-                    onClick={() => setSelectedVariant(index)}
-                  >
-                    Wariant {index + 1}
-                  </button>
-                ))}
-              </div>
-              <p>Pozostałe ponowne losowania: {MAX_PROFILE_VARIANTS - variants.length}</p>
-              <button disabled={variants.length >= MAX_PROFILE_VARIANTS} onClick={reroll}>
-                Losuj ponownie
-              </button>
-              <button onClick={() => setStep(3)}>Akceptuj atrybuty</button>
-            </>
-          )}
-          {step === 3 && generated && (
-            <>
-              <PlayerCard profile={generated} seed={seed} />
-              <p>Wiek startowy: {generated.player.age} lat</p>
-              <button onClick={() => setStep(1)}>Wróć i popraw</button>
-              <button onClick={finish}>Rozpocznij karierę</button>
-            </>
-          )}
-        </section>
-      </main>
+      <PlayerCreator
+        step={step}
+        identity={identity}
+        profile={profileInput}
+        errors={fieldErrors}
+        generated={generated}
+        variants={variants}
+        selectedVariant={selectedVariant}
+        seed={seed}
+        weightRange={weightRange}
+        setStep={setStep}
+        setIdentity={setIdentity}
+        setProfile={setProfile}
+        selectVariant={setSelectedVariant}
+        nextIdentity={nextIdentity}
+        nextProfile={nextProfile}
+        reroll={reroll}
+        finish={finish}
+      />
     );
   return (
     <main className="shell start">
