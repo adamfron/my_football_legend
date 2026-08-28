@@ -31,6 +31,8 @@ import { getPlayerOverall } from './playerOverall';
 
 export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
   if ((career.careerStatus ?? 'active') === 'retired') return 'career is retired';
+  if (career.decisionPoint && career.decisionPoint.type !== 'checkpoint')
+    return `${career.decisionPoint.type} requires resolution`;
   if (career.activeMatch) return 'an active match requires resolution';
   if (career.activeEvent) return 'an active event requires a choice';
   if (career.professionalOffers) return 'the transfer window requires an offer choice';
@@ -257,8 +259,12 @@ const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
   };
 };
 
-/** Advances routine time until an actual player choice, never more than eight weeks. */
-export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): CareerState => {
+/**
+ * Advances to one visible career moment. Quiet weeks may be crossed, but no more
+ * than one controlled-player fixture is resolved and choices are never crossed.
+ */
+export const advanceSimulationStep = (initial: CareerState): CareerState => {
+  assertCareerCanProgress(initial);
   let career: CareerState = recoverOrphanedSeasonOneRound({
     ...initial,
     decisionPoint: undefined,
@@ -272,7 +278,7 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
     if (career.careerCalendar?.currentWeekIndex === before) break;
   }
   assertCareerCanProgress(career);
-  for (let step = 0; step < Math.max(1, Math.min(8, maxWeeks)); step++) {
+  for (let step = 0; step < 8; step++) {
     const week = getCurrentCareerWeek(career);
     if (!week || week.completed) break;
     const fixture = getCurrentFixture(career);
@@ -302,6 +308,29 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
         ...career,
         fastForwardLog: [...(career.fastForwardLog ?? []), logMatch(career, fixture)],
       };
+      if (week.scheduledEventIds.length)
+        return {
+          ...career,
+          decisionPoint: {
+            type: 'off_field_event',
+            date: week.startDate,
+            sourceId: week.scheduledEventIds[0]!,
+          },
+        };
+      const before = career.careerCalendar?.currentWeekIndex;
+      career = advanceCareerWeek(career);
+      if (career.leagueSeason?.completed)
+        return {
+          ...career,
+          decisionPoint: {
+            type: 'season_context',
+            date: career.leagueSeason.endDate,
+            sourceId: career.leagueSeason.id,
+          },
+        };
+      if (career.careerCalendar?.currentWeekIndex === before)
+        throw new Error(`Career progression stalled at week ${before}.`);
+      return career;
     } else {
       career = {
         ...career,
@@ -350,4 +379,16 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
       sourceId: current?.id ?? 'season_checkpoint',
     },
   };
+};
+
+/** Advances routine time until an actual player choice, never more than eight visible steps. */
+export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): CareerState => {
+  let career = initial;
+  for (let step = 0; step < Math.max(1, Math.min(8, maxWeeks)); step++) {
+    career = advanceSimulationStep(career);
+    if (career.decisionPoint && career.decisionPoint.type !== 'checkpoint') return career;
+    if (career.decisionPoint?.type === 'checkpoint')
+      career = { ...career, decisionPoint: undefined };
+  }
+  return career;
 };

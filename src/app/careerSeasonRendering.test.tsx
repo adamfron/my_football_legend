@@ -8,6 +8,7 @@ import { createCareerState, generateStartingPlayerProfile } from '../core/player
 import type { CareerState } from '../types/domain';
 import { CareerWeekGame } from './App';
 import { SeasonView } from './career/SeasonView';
+import { CareerView } from './career/CareerView';
 
 const initializedCareer = () =>
   advanceCareerFlow(
@@ -39,6 +40,26 @@ const renderWithoutThrowing = (view: React.ReactNode) => {
 };
 
 describe('canonical career season rendering', () => {
+  it('keeps the table and timeline visible while swapping expanded summary cards', () => {
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() => root.render(<CareerView career={initializedCareer()} onCareer={() => undefined} />));
+
+    expect(container.textContent).toContain('TABELA LIGOWA');
+    expect(container.textContent).toContain('OŚ SEZONU');
+    expect(container.querySelector('tr[aria-current="true"]')).not.toBeNull();
+    expect(container.textContent).not.toContain('GraZawodnikKlubSezonHistoria');
+
+    const cards = container.querySelectorAll<HTMLButtonElement>('.summary-strip > button');
+    act(() => cards[0]!.click());
+    expect(container.querySelector('.detail-panel')?.textContent).toContain('Jan Test');
+    expect(container.textContent).toContain('TABELA LIGOWA');
+    act(() => cards[1]!.click());
+    expect(container.querySelector('.detail-panel')?.textContent).toContain('Vistula Nova');
+    expect(container.querySelectorAll('.detail-panel')).toHaveLength(1);
+    act(() => root.unmount());
+  });
+
   it('renders the fixture list before and after the first completed match', () => {
     const career = initializedCareer();
     renderWithoutThrowing(<SeasonView career={career} />);

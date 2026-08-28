@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from './careerWeeks';
 import { advanceCareerFlow } from './careerFlow';
-import { advanceUntilDecision, simulateRoutinePlayerMatch } from './careerSimulation';
+import {
+  advanceSimulationStep,
+  advanceUntilDecision,
+  simulateRoutinePlayerMatch,
+} from './careerSimulation';
 import {
   acceptProfessionalOffer,
   continueWithProfessionalTrial,
@@ -119,6 +123,8 @@ describe('deterministic full-career audit', () => {
     const completedIndex = career.careerCalendar!.currentWeekIndex;
     career = {
       ...career,
+      // This fixture exercises completed-week normalization, not a player choice.
+      decisionPoint: undefined,
       careerCalendar: {
         ...career.careerCalendar!,
         weeks: career.careerCalendar!.weeks.map((week, index) =>
@@ -128,5 +134,14 @@ describe('deterministic full-career audit', () => {
     };
     const advanced = advanceUntilDecision(career, 1);
     expect(advanced.careerCalendar!.currentWeekIndex).toBeGreaterThan(completedIndex);
+  });
+
+  it('does not cross a real unresolved development decision in a simulation step', () => {
+    const career = createCareer('development-event-blocker');
+
+    expect(career.decisionPoint?.type).toBe('development_event');
+    expect(() => advanceSimulationStep(career)).toThrow(
+      'Career cannot auto-progress: development_event requires resolution.',
+    );
   });
 });

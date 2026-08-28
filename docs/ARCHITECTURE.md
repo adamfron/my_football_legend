@@ -1,5 +1,25 @@
 # Architektura
 
+## Career View
+
+Stały widok sezonu jest podstawową powierzchnią rozgrywki aktywnej kariery. Tabela ligi i
+wyprowadzona z danych kanonicznych Oś sezonu są widoczne jednocześnie i aktualizują się wraz z
+postępem kariery; nie zapisujemy osobnego modelu osi w save.
+
+Karty zawodnika, klubu, kontraktu/finansów i historii pokazują zwarte podsumowania. Ich szczegóły
+rozwijają się nad tym samym widokiem, zamiast przenosić gracza do osobnych ekranów. Na wąskim
+ekranie karty przewijają się poziomo, a tabela i oś układają się w jednej kolumnie.
+
+## Playback i autopauza
+
+Play/Pause jest wyłącznie stanem prezentacji i nigdy nie jest zapisywany. React odpowiada za
+tempo (jeden krok co 1000 ms), natomiast `advanceSimulationStep` w core pozostaje jedynym źródłem
+reguł pojedynczego, deterministycznego kroku. Szybkie przejście także korzysta z tego prymitywu.
+
+Każda decyzja gracza zatrzymuje czas: wydarzenie, ważny mecz, aktywny mecz lub event, decyzja
+transferowa/kontraktowa, koniec sezonu, emerytura oraz błąd progresji. Rozwiązanie wydarzenia nie
+wznawia automatycznie odtwarzania.
+
 ## Jedna pętla kariery
 
 Kariera ma jeden cykl życia: utworzenie zawodnika, inicjalizacja generycznego sezonu, tygodnie kalendarza, zamknięcie sezonu, okno decyzji zawodowych i inicjalizacja następnego sezonu. Pierwszy sezon jest rozgrywką młodzieżową z powodów sportowych, a nie osobnym silnikiem fabularnym. `advanceCareerFlow` wykonuje wyłącznie bezdecyzyjne, idempotentne przejścia.
