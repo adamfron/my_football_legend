@@ -13,6 +13,7 @@ import { getSeasonProgress } from './seasonProgress';
 import { settleLeagueRound, getLeagueTable } from './leagueSeason';
 import { advanceCareerWeek } from './careerWeeks';
 import { saveCareer } from './persistence';
+import { advanceCareerFlow } from './careerFlow';
 const career = () =>
   createCareerState(
     generateStartingPlayerProfile(
@@ -75,6 +76,23 @@ describe('professional transition', () => {
       },
     };
     expect(evaluateClubInterest(c, high).score).toBeGreaterThan(evaluateClubInterest(c, low).score);
+  });
+  it('allows scouting and potential to create stronger-club interest for a youngster', () => {
+    const c = career();
+    c.player.age = 18;
+    c.player.potential = 94;
+    const club = {
+      ...generateProfessionalClubPool('young-scouting').find(
+        (candidate) => candidate.strengthRating! >= 72,
+      )!,
+      infrastructure: {
+        coachingQuality: 85,
+        trainingFacilities: 88,
+        medicalQuality: 78,
+        scoutingQuality: 95,
+      },
+    };
+    expect(evaluateClubInterest(c, club).interested).toBe(true);
   });
   it('gives an elite goalkeeper top-tier interest and an appropriate role', () => {
     const c = career();
@@ -160,5 +178,22 @@ describe('professional transition', () => {
     expect(afterSecondWeek.recentVariantKeys?.every((key) => typeof key === 'string')).toBe(true);
     expect(careerStateSchema.safeParse(afterSecondWeek).success).toBe(true);
     expect(() => saveCareer(afterSecondWeek)).not.toThrow();
+  });
+});
+
+describe('completed first-season archive', () => {
+  it('freezes Vistula Nova and the U-17 competition before a transfer', () => {
+    const base = career();
+    const initialized = advanceCareerFlow(base);
+    initialized.leagueSeason!.completed = true;
+    initialized.seasonOutcome = { finalPosition: 6, champion: false, competitionType: 'academy' };
+    initialized.professionalOffers = generateProfessionalOffers(initialized);
+    const offer = initialized.professionalOffers[0];
+    expect(offer).toBeDefined();
+    const next = acceptProfessionalOffer(initialized, offer!.id);
+    const archived = next.completedSeasons?.find((season) => season.label === '2026/2027');
+    expect(archived?.clubName).toBe('Vistula Nova');
+    expect(archived?.leagueName).toMatch(/U-17/);
+    expect(next.currentClub.id).toBe(offer!.club.id);
   });
 });
