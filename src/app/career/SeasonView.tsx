@@ -3,8 +3,10 @@ import { CompactFixtureList, type CompactFixtureItem } from '../../components/Co
 import { getLeagueTable } from '../../core/leagueSeason';
 import { getSeasonProgress } from '../../core/seasonProgress';
 import type { CareerState } from '../../types/domain';
+import { buildSeasonTimeline } from '../../core/seasonTimeline';
 
 export const SeasonView = ({ career }: { career: CareerState }) => {
+  const timeline = buildSeasonTimeline(career);
   const table = getLeagueTable(career);
   const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
   const own = table.find((row) => row.clubId === controlledClubId);
@@ -85,6 +87,19 @@ export const SeasonView = ({ career }: { career: CareerState }) => {
       </div>
       <h3>Terminarz</h3>
       <CompactFixtureList items={compactFixtures} />
+      <h3>Oś sezonu</h3>
+      <ol aria-label="Oś sezonu">
+        {timeline.map((entry) => (
+          <li key={`${entry.kind}:${entry.sourceId}`}>
+            <time>{entry.date}</time>{' '}
+            {entry.kind === 'fixture'
+              ? `Mecz · ${entry.status === 'completed' ? 'rozegrany' : entry.status === 'postponed' ? 'przełożony' : 'zaplanowany'}`
+              : entry.kind === 'event'
+                ? `Wydarzenie · ${entry.status === 'completed' ? 'zakończone' : 'zaplanowane'}`
+                : 'Ważny fakt'}
+          </li>
+        ))}
+      </ol>
     </section>
   );
 };
