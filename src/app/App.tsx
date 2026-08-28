@@ -1099,19 +1099,22 @@ const SeasonView = ({ career }: { career: CareerState }) => {
       .filter((fixture) => [fixture.homeClubId, fixture.awayClubId].includes(controlledClubId)) ??
     [];
   const name = (id: string) => season?.clubs.find((club) => club.clubId === id)?.name ?? id;
-  const compactFixtures: CompactFixtureItem[] = fixtures.map((fixture) => ({
-    fixture,
-    opponentName: name(
-      fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId,
-    ),
-    venue: fixture.homeClubId === controlledClubId ? 'home' : 'away',
-    participation: career.seasonParticipation!.find((item) => item.fixtureId === fixture.id)!,
-    opponentStrength: season?.clubs.find(
+  const compactFixtures: CompactFixtureItem[] = fixtures.map((fixture) => {
+    const opponentStrength = season?.clubs.find(
       (club) =>
         club.clubId ===
         (fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId),
-    )?.strength,
-  }));
+    )?.strength;
+    return {
+      fixture,
+      opponentName: name(
+        fixture.homeClubId === controlledClubId ? fixture.awayClubId : fixture.homeClubId,
+      ),
+      venue: fixture.homeClubId === controlledClubId ? 'home' : 'away',
+      participation: career.seasonParticipation!.find((item) => item.fixtureId === fixture.id)!,
+      ...(opponentStrength === undefined ? {} : { opponentStrength }),
+    };
+  });
   return (
     <section>
       <h2>Sezon {season?.name ?? getSeasonProgress(career).seasonLabel}</h2>
