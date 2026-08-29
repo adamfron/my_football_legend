@@ -14,7 +14,6 @@ import { initializeWeekContent } from './careerWeeks';
 import { createCompletedSeasonSnapshot } from './seasonArchive';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { contractCoversNextSeason } from './contractValidity';
-import { acceptRenegotiatedContract } from './contracts';
 import { rollOverClubWorld } from './clubWorld';
 import { initializeSeasonParticipation } from './seasonParticipation';
 
@@ -498,13 +497,18 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
 };
 
 export const acceptSeasonEndRenegotiatedContract = (career: CareerState): CareerState => {
-  if (!career.renegotiation?.proposedContract) return career;
-  const accepted = acceptRenegotiatedContract(career);
-  return advanceToNextCareerSeason({
-    ...accepted,
-    professionalOffers: undefined,
-    renegotiation: undefined,
-  });
+  const proposedContract = career.renegotiation?.proposedContract;
+  const renewal = career.professionalOffers?.find((offer) => offer.offerType === 'renewal');
+  if (!proposedContract || !renewal) return career;
+  const negotiatedOffer: ProfessionalOffer = {
+    ...renewal,
+    id: `${renewal.id}_negotiated`,
+    contract: proposedContract,
+  };
+  return acceptProfessionalOffer(
+    { ...career, professionalOffers: [negotiatedOffer] },
+    negotiatedOffer.id,
+  );
 };
 export const continueWithProfessionalTrial = (career: CareerState): CareerState => {
   if (career.careerSeasonNumber !== 1) return career;

@@ -4,7 +4,8 @@ import { evaluateExpectedMonthlySalary } from './playerEconomy';
 import { RandomGenerator } from './random/RandomGenerator';
 
 export const requestContractRenegotiation = (career: CareerState): CareerState => {
-  const contract = career.currentContract;
+  const renewalOffer = career.professionalOffers?.find((offer) => offer.offerType === 'renewal');
+  const contract = renewalOffer?.contract ?? career.currentContract;
   const club = career.currentProfessionalClub;
   if (
     !contract ||

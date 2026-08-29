@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import {
   generateProfessionalOffers,
+  generateSummerWindowOffers,
   generateProfessionalClubPool,
   evaluateClubInterest,
 } from './professionalClubs';
@@ -36,6 +37,45 @@ const career = () =>
     'offers',
   );
 describe('professional transition', () => {
+  it('creates one deterministic real-club safety offer when an expiring contract has no interest', () => {
+    const c = career();
+    const [current, fallback] = generateProfessionalClubPool(c.seed);
+    const poorPlayer = {
+      ...c.player,
+      age: 34,
+      reputation: 0,
+      attributes: Object.fromEntries(
+        Object.keys(c.player.attributes).map((key) => [key, 20]),
+      ) as unknown as typeof c.player.attributes,
+    };
+    const state: typeof c = {
+      ...c,
+      player: poorPlayer,
+      currentClub: { ...c.currentClub, id: current!.id, name: current!.name },
+      currentProfessionalClub: { ...current!, strengthRating: 95, overallStrength: 95 },
+      currentContract: {
+        clubId: current!.id,
+        startDate: '2026-07-01',
+        endDate: '2027-06-30',
+        monthlySalary: 2_000,
+        signingBonus: 0,
+        squadRole: 'development_player',
+        contractType: 'professional',
+      },
+      clubWorld: [
+        { ...current!, strengthRating: 95, overallStrength: 95 },
+        { ...fallback!, strengthRating: 35, overallStrength: 35, coachYouthTrust: 0 },
+      ],
+      seasonParticipation: [],
+    };
+    const first = generateSummerWindowOffers(state);
+    const second = generateSummerWindowOffers(state);
+    expect(first).toEqual(second);
+    expect(first).toHaveLength(1);
+    expect(first[0]!.club.id).toBe(fallback!.id);
+    expect(state.clubWorld).toContainEqual(first[0]!.club);
+  });
+
   it('generates deterministic contextual offers', () => {
     const a = career();
     a.matchHistory = Array.from({ length: 20 }, (_, i) => ({

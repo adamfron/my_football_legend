@@ -372,7 +372,7 @@ const attributeLabels: Record<keyof PlayerAttributes, string> = {
   professionalism: 'Profesjonalizm',
 };
 
-const SeasonEndSummary = ({
+export const SeasonEndSummary = ({
   career,
   onCareer,
 }: {
@@ -515,11 +515,6 @@ const SeasonEndSummary = ({
               Kontynuuj na obecnej umowie
             </button>
           )}
-          {career.renegotiation?.season !== career.currentSeason && !renewalOffer && (
-            <button onClick={() => onCareer(requestContractRenegotiation(career))}>
-              Poproś o renegocjację
-            </button>
-          )}
           {career.renegotiation?.season === career.currentSeason && (
             <p>
               {career.renegotiation.result === 'rejected'
@@ -532,33 +527,31 @@ const SeasonEndSummary = ({
           {career.renegotiation?.proposedContract && (
             <>
               <p>
-                Nowa pensja:{' '}
+                <strong>Wynegocjowana propozycja:</strong>{' '}
                 {career.renegotiation.proposedContract.monthlySalary.toLocaleString('pl-PL')} PLN /
-                mies. · do {career.renegotiation.proposedContract.endDate}
+                mies. · do {career.renegotiation.proposedContract.endDate} · rola:{' '}
+                {squadRoleLabel(career.renegotiation.proposedContract.squadRole)}
               </p>
               <button onClick={() => onCareer(acceptSeasonEndRenegotiatedContract(career))}>
                 Przyjmij
               </button>
-              {contractCoversNextSeason(career) && (
-                <button onClick={() => onCareer(continueOnExistingContract(career))}>
-                  Kontynuuj na obecnej umowie
-                </button>
-              )}
             </>
           )}
-          {renewalOffer && (
+          {renewalOffer && !renegotiationProposal && (
             <div className="contract-proposal">
               <p>
                 <strong>Propozycja klubu:</strong>{' '}
                 {renewalOffer.contract.monthlySalary.toLocaleString('pl-PL')} PLN / mies. · do{' '}
                 {renewalOffer.contract.endDate}
+                {' · rola: '}
+                {squadRoleLabel(renewalOffer.contract.squadRole)}
               </p>
               <button onClick={() => onCareer(acceptProfessionalOffer(career, renewalOffer.id))}>
                 Przyjmij
               </button>
-              {contractCoversNextSeason(career) && (
-                <button onClick={() => onCareer(continueOnExistingContract(career))}>
-                  Kontynuuj na obecnej umowie
+              {career.renegotiation?.season !== career.currentSeason && (
+                <button onClick={() => onCareer(requestContractRenegotiation(career))}>
+                  Negocjuj
                 </button>
               )}
             </div>
