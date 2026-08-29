@@ -214,35 +214,40 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
   const eliteDomesticCandidate = overall(career) >= 80 && getClubLeagueTier(club) === 1;
   return { score, interested: eliteDomesticCandidate || score >= 37, need, potentialEstimate };
 };
-export const generateProfessionalOffers = (career: CareerState): ProfessionalOffer[] => {
-  const candidates = (career.clubWorld ?? generateProfessionalClubPool(career.seed))
-    .flatMap((club): ProfessionalOffer[] => {
-      const interest = evaluateClubInterest(career, club);
-      if (!interest.interested) return [];
-      const rng = RandomGenerator.fromSeed(
-        `${career.seed}:offer:${career.careerSeasonNumber}:${club.id}`,
-      );
-      const role = getExpectedSquadRole(career, club);
-      const years = rng.int(1, 3);
-      const salary = evaluateExpectedMonthlySalary(career, club, role);
-      const free =
-        !career.currentContract ||
-        career.currentContract.endDate <= `${career.currentSeason + 1}-07-01`;
-      return [
-        {
-          id: `offer_${club.id}_${career.currentSeason}`,
-          offerType: 'external',
-          club,
-          contract: {
-            clubId: club.id,
-            startDate: `${career.currentSeason + 1}-07-01`,
-            endDate: `${career.currentSeason + 1 + years}-06-30`,
-            monthlySalary: salary,
-            signingBonus: Math.round((salary * rng.int(1, 3)) / 100) * 100,
-            squadRole: role,
-            contractType: role === 'development_player' ? 'development' : 'professional',
-          },
-          interestReasons: [
+const createProfessionalOffer = (
+  career: CareerState,
+  club: ProfessionalClub,
+  safetyNet = false,
+): ProfessionalOffer => {
+  const interest = evaluateClubInterest(career, club);
+  const rng = RandomGenerator.fromSeed(
+    `${career.seed}:offer:${career.careerSeasonNumber}:${club.id}`,
+  );
+  const role = getExpectedSquadRole(career, club);
+  const years = rng.int(1, 3);
+  const salary = evaluateExpectedMonthlySalary(career, club, role);
+  const free =
+    !career.currentContract ||
+    career.currentContract.endDate <= `${career.currentSeason + 1}-07-01`;
+  return {
+    id: `offer_${club.id}_${career.currentSeason}`,
+    offerType: 'external',
+    club,
+    contract: {
+      clubId: club.id,
+      startDate: `${career.currentSeason + 1}-07-01`,
+      endDate: `${career.currentSeason + 1 + years}-06-30`,
+      monthlySalary: salary,
+      signingBonus: Math.round((salary * rng.int(1, 3)) / 100) * 100,
+      squadRole: role,
+      contractType: role === 'development_player' ? 'development' : 'professional',
+    },
+    interestReasons: [
+      ...(safetyNet
+        ? ['Klub daje ci szansę na odbudowanie kariery w profesjonalnym futbolu.']
+        : []),
+      ...(!safetyNet
+        ? [
             club.coachYouthTrust > 65
               ? 'Trener chętnie daje szanse młodym zawodnikom.'
               : 'Sztab widzi dopasowanie do sposobu gry.',
@@ -251,23 +256,31 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
               : interest.potentialEstimate > overall(career) + 8
                 ? 'Skauci wysoko oceniają twój potencjał jak na ten wiek.'
                 : 'Skauci dobrze ocenili twoją ostatnią formę.',
-          ],
-          opportunity:
-            interest.need.depth === 'thin'
-              ? 'Realna droga do minut w pierwszym zespole.'
-              : 'Możliwość rozwoju w profesjonalnym środowisku.',
-          risk:
-            club.pressureLevel > 65
-              ? 'Presja na wynik może ograniczać cierpliwość.'
-              : 'Minuty trzeba będzie wywalczyć.',
-          competitionAssessment:
-            interest.need.depth === 'deep'
-              ? 'Duża konkurencja (ocena sztabu)'
-              : 'Konkurencja do pokonania (ocena sztabu)',
-          transferKind: free ? 'free' : 'fee',
-          ...(free ? {} : { estimatedTransferFee: estimatePlayerMarketValue(career) }),
-        },
-      ];
+          ]
+        : []),
+    ],
+    opportunity:
+      interest.need.depth === 'thin'
+        ? 'Realna droga do minut w pierwszym zespole.'
+        : 'Możliwość rozwoju w profesjonalnym środowisku.',
+    risk:
+      club.pressureLevel > 65
+        ? 'Presja na wynik może ograniczać cierpliwość.'
+        : 'Minuty trzeba będzie wywalczyć.',
+    competitionAssessment:
+      interest.need.depth === 'deep'
+        ? 'Duża konkurencja (ocena sztabu)'
+        : 'Konkurencja do pokonania (ocena sztabu)',
+    transferKind: free ? 'free' : 'fee',
+    ...(free ? {} : { estimatedTransferFee: estimatePlayerMarketValue(career) }),
+  };
+};
+
+export const generateProfessionalOffers = (career: CareerState): ProfessionalOffer[] => {
+  const candidates = (career.clubWorld ?? generateProfessionalClubPool(career.seed))
+    .flatMap((club): ProfessionalOffer[] => {
+      if (!evaluateClubInterest(career, club).interested) return [];
+      return [createProfessionalOffer(career, club)];
     })
     .sort((a, b) => {
       const preferenceScore = (offer: ProfessionalOffer) =>
@@ -333,8 +346,11 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
   const appearances = currentSeasonAppearances(career);
   const minutes = appearances.reduce((sum, item) => sum + item.minutes, 0);
   const contractExpires = career.currentContract.endDate <= `${career.currentSeason + 1}-06-30`;
-  if (minutes < 180 && overall(career) < getClubStrength(career.currentProfessionalClub) - 8)
-    return external.slice(0, 4);
+  if (minutes < 180 && overall(career) < getClubStrength(career.currentProfessionalClub) - 8) {
+    if (external.length || career.currentContract.endDate > `${career.currentSeason + 1}-06-30`)
+      return external.slice(0, 4);
+    return createSafetyNetOffers(career);
+  }
   const role = getExpectedSquadRole(career, career.currentProfessionalClub);
   const renewal: ProfessionalOffer = {
     id: `renewal_${career.currentClub.id}_${career.currentSeason}`,
@@ -365,4 +381,19 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
     competitionAssessment: 'Znana konkurencja w obecnym zespole',
   };
   return [renewal, ...external].slice(0, 4);
+};
+
+const createSafetyNetOffers = (career: CareerState): ProfessionalOffer[] => {
+  const clubs = (career.clubWorld ?? generateProfessionalClubPool(career.seed)).filter(
+    (club) => club.id !== career.currentClub.id,
+  );
+  if (!clubs.length) return [];
+  const playerLevel = overall(career);
+  const club = [...clubs].sort(
+    (a, b) =>
+      Math.abs(getClubStrength(a) - playerLevel) - Math.abs(getClubStrength(b) - playerLevel) ||
+      getClubStrength(a) - getClubStrength(b) ||
+      a.id.localeCompare(b.id),
+  )[0]!;
+  return [createProfessionalOffer(career, club, true)];
 };

@@ -111,4 +111,8 @@ Planowane osobno są: ujednolicone rozgrywki i kalendarz, rosnąca oś sezonu, r
 
 ## Tabela ofert na koniec sezonu
 
-Bieżący kontrakt jest referencją, a `ProfessionalOffer` jedynym pojęciem oferty. Kontynuacja niezmienionej umowy jest możliwa tylko, gdy obejmuje 1 lipca nowego sezonu. Przyjęcie oferty atomowo instaluje dokładnie jej kontrakt, odrzuca pozostałe oferty i renegocjację oraz dokładnie raz przechodzi granicę sezonu. Profesjonalny sezon nie może rozpocząć się na wygasłym kontrakcie.
+Bieżący kontrakt jest stanem referencyjnym, a `ProfessionalOffer` jedynym pojęciem aktywnej oferty. Propozycja obecnego klubu pozwala ją przyjąć albo podjąć jedną próbę negocjacji; wynikowa kontroferta pozwala już tylko na przyjęcie. Oferty zewnętrzne również mają wyłącznie akcję przyjęcia. Oglądanie lub negocjowanie propozycji nie odrzuca pozostałych ofert.
+
+Przyjęcie dowolnej oferty atomowo instaluje dokładnie jej kontrakt, zamyka wszystkie konkurencyjne oferty i renegocjację oraz dokładnie raz przechodzi granicę sezonu. Kontynuacja niezmienionej umowy jest ścieżką awaryjną tylko wtedy, gdy umowa obejmuje 1 lipca nowego sezonu i nie ma propozycji obecnego klubu. Gdy umowa wygasa, przygotowanie rynku gwarantuje co najmniej jedną deterministyczną ofertę od prawdziwego klubu z bieżącego świata. Profesjonalny sezon nie może rozpocząć się na wygasłym kontrakcie.
+
+Nazwy encji mogą w przyszłości prezentować zwarte podglądy oparte na danych kanonicznych, bez osobnej bazy UI: dla klubu herb, ligę, siłę, reputację, pozycję i infrastrukturę, a dla osoby portret, wiek, pozycję lub rolę, znany OVR, obecny klub i istotną relację.

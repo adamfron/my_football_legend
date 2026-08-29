@@ -5,11 +5,12 @@ import { describe, expect, it } from 'vitest';
 import { resolveRegularSeasonEvent } from '../core/events/regularSeasonEvents';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { createCareerState, generateStartingPlayerProfile } from '../core/playerCreator';
-import type { CareerState } from '../types/domain';
-import { CareerWeekGame } from './App';
+import type { CareerState, ProfessionalOffer } from '../types/domain';
+import { CareerWeekGame, SeasonEndSummary } from './App';
 import { SeasonView } from './career/SeasonView';
 import { CareerView } from './career/CareerView';
 import { scheduleEvent } from '../core/careerCalendar';
+import { generateProfessionalClubPool } from '../core/professionalClubs';
 
 const initializedCareer = () =>
   advanceCareerFlow(
@@ -41,6 +42,65 @@ const renderWithoutThrowing = (view: React.ReactNode) => {
 };
 
 describe('canonical career season rendering', () => {
+  it('presents a current-club proposal as accept plus one negotiation, without continuation', () => {
+    const base = initializedCareer();
+    const club = generateProfessionalClubPool(base.seed)[0]!;
+    const contract = {
+      clubId: club.id,
+      startDate: '2026-07-01',
+      endDate: '2029-06-30',
+      monthlySalary: 4_000,
+      signingBonus: 1_000,
+      squadRole: 'rotation' as const,
+      contractType: 'professional' as const,
+    };
+    const renewal: ProfessionalOffer = {
+      id: 'renewal_test',
+      offerType: 'renewal',
+      club,
+      contract: { ...contract, monthlySalary: 5_000, endDate: '2030-06-30' },
+      interestReasons: ['Dobra współpraca.'],
+      opportunity: 'Dalszy rozwój.',
+      risk: 'Konkurencja.',
+      competitionAssessment: 'Umiarkowana',
+    };
+    const career: CareerState = {
+      ...base,
+      currentClub: { ...base.currentClub, id: club.id, name: club.name },
+      currentProfessionalClub: club,
+      currentContract: contract,
+      professionalOffers: [renewal],
+    };
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() => root.render(<SeasonEndSummary career={career} onCareer={() => undefined} />));
+    const proposal = container.querySelector('.contract-proposal')!;
+    expect(proposal.textContent).toContain('Przyjmij');
+    expect(proposal.textContent).toContain('Negocjuj');
+    expect(container.textContent).not.toContain('Kontynuuj na obecnej umowie');
+
+    act(() =>
+      root.render(
+        <SeasonEndSummary
+          career={{
+            ...career,
+            renegotiation: {
+              season: career.currentSeason,
+              result: 'accepted',
+              proposedContract: { ...renewal.contract, monthlySalary: 5_500 },
+            },
+          }}
+          onCareer={() => undefined}
+        />,
+      ),
+    );
+    expect(container.textContent).toContain('Wynegocjowana propozycja');
+    expect(container.textContent).toContain('Przyjmij');
+    expect(container.textContent).not.toContain('Negocjuj');
+    expect(container.textContent).not.toContain('Kontynuuj na obecnej umowie');
+    act(() => root.unmount());
+  });
+
   it('keeps the table and timeline visible while swapping expanded summary cards', () => {
     const container = document.createElement('div');
     const root = createRoot(container);
