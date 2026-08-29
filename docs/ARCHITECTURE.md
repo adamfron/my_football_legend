@@ -22,6 +22,8 @@ czemu rozróżnia między innymi kontuzję, zawieszenie, ławkę i brak powołan
 
 ### Prezentacja zawodnika
 
+Radar ma jawne semantyki migawek: aktywny sezon porównuje kanoniczny początek z bieżącymi atrybutami, a podsumowanie — zamrożony początek z zamrożonym końcem z `CompletedSeasonSnapshot.development`. Etykiety są semantyką prezentacji, nie stanem kariery. Stała paleta radaru nie zależy od barw klubu.
+
 Style gry oraz poziomy zaangażowania są projekcjami istniejących danych `Player` i
 `CareerState`; panel zawodnika nie utrzymuje ich kopii ani nie dodaje drugiego systemu
 cech. Opis zawodnika pozostaje tymczasowo powiązany z profilem startowym. W Player Model
@@ -54,6 +56,8 @@ Jednocześnie otwarta jest najwyżej jedna współdzielona powierzchnia szczegó
 odmontowuje stałego obszaru tabeli i Osi sezonu. Ponowne wybranie aktywnej karty lub przycisk `×`
 zamyka szczegóły.
 
+Okna pierwszego planu są dopasowane do treści pod wspólną kotwicą workspace; po osiągnięciu maksymalnej wysokości przewijają się wewnątrz. Herb jest jednym statycznym komponentem zasilanym `ClubVisualIdentity`; warianty zmieniają tylko rozmiar.
+
 ## Playback i autopauza
 
 Play/Pause jest wyłącznie stanem prezentacji i nigdy nie jest zapisywany. React odpowiada za
@@ -61,8 +65,7 @@ tempo (jeden krok co 1000 ms), natomiast `advanceSimulationStep` w core pozostaj
 reguł pojedynczego, deterministycznego kroku. Szybkie przejście także korzysta z tego prymitywu.
 
 Każda decyzja gracza zatrzymuje czas: wydarzenie, ważny mecz, aktywny mecz lub event, decyzja
-transferowa/kontraktowa, koniec sezonu, emerytura oraz błąd progresji. Rozwiązanie wydarzenia nie
-wznawia automatycznie odtwarzania.
+transferowa/kontraktowa, koniec sezonu, emerytura oraz błąd progresji. Zwykłe wydarzenie wznawia odtwarzanie tylko, gdy to odtwarzanie spowodowało pauzę i nie pozostał blocker. Ręczna pauza, ważny mecz i koniec sezonu nie uruchamiają czasu automatycznie.
 
 ## Jedna pętla kariery
 
@@ -105,3 +108,7 @@ Projekt jest wewnętrznym prototypem. Kompatybilność starych zapisów nie jest
 ## Dalszy kierunek
 
 Planowane osobno są: ujednolicone rozgrywki i kalendarz, rosnąca oś sezonu, responsywny pojedynczy widok kariery oraz przyszły interaktywny silnik migawkowych momentów meczu. Nie są one jeszcze zaimplementowane w obecnej architekturze.
+
+## Tabela ofert na koniec sezonu
+
+Bieżący kontrakt jest referencją, a `ProfessionalOffer` jedynym pojęciem oferty. Kontynuacja niezmienionej umowy jest możliwa tylko, gdy obejmuje 1 lipca nowego sezonu. Przyjęcie oferty atomowo instaluje dokładnie jej kontrakt, odrzuca pozostałe oferty i renegocjację oraz dokładnie raz przechodzi granicę sezonu. Profesjonalny sezon nie może rozpocząć się na wygasłym kontrakcie.

@@ -13,6 +13,8 @@ import { getPlayerOverall } from './playerOverall';
 import { initializeWeekContent } from './careerWeeks';
 import { createCompletedSeasonSnapshot } from './seasonArchive';
 import { generateProfessionalClubPool } from './professionalClubs';
+import { contractCoversNextSeason } from './contractValidity';
+import { acceptRenegotiatedContract } from './contracts';
 import { rollOverClubWorld } from './clubWorld';
 import { initializeSeasonParticipation } from './seasonParticipation';
 
@@ -369,8 +371,17 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   };
 };
 
-export const stayAtCurrentClub = (career: CareerState): CareerState =>
-  advanceToNextCareerSeason(career);
+export const continueOnExistingContract = (career: CareerState): CareerState =>
+  contractCoversNextSeason(career)
+    ? advanceToNextCareerSeason({
+        ...career,
+        professionalOffers: undefined,
+        renegotiation: undefined,
+      })
+    : career;
+
+/** @deprecated Use the explicit, validity-checked action. */
+export const stayAtCurrentClub = continueOnExistingContract;
 const neutralRelationship = (): RelationshipScores => ({
   liking: 45,
   trust: 42,
@@ -480,8 +491,20 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     // A transfer starts in the destination club's own tier. The previous club's
     // promotion/relegation belongs only to that club.
     seasonOutcome: changedClub ? undefined : career.seasonOutcome,
+    professionalOffers: undefined,
+    renegotiation: undefined,
   };
   return advanceToNextCareerSeason(transitioned);
+};
+
+export const acceptSeasonEndRenegotiatedContract = (career: CareerState): CareerState => {
+  if (!career.renegotiation?.proposedContract) return career;
+  const accepted = acceptRenegotiatedContract(career);
+  return advanceToNextCareerSeason({
+    ...accepted,
+    professionalOffers: undefined,
+    renegotiation: undefined,
+  });
 };
 export const continueWithProfessionalTrial = (career: CareerState): CareerState => {
   if (career.careerSeasonNumber !== 1) return career;
