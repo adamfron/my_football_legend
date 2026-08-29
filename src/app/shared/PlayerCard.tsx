@@ -17,9 +17,13 @@ const initials = (first: string, last: string) =>
 export const RadarChart = ({
   attributes,
   baseline,
+  baselineLabel = 'początek sezonu',
+  currentLabel = 'obecnie',
 }: {
   attributes: PlayerAttributes;
   baseline?: PlayerAttributes | undefined;
+  baselineLabel?: string;
+  currentLabel?: string;
 }) => {
   const axes = getRadarAxes(attributes);
   const polygon = (values: ReturnType<typeof getRadarAxes>) =>
@@ -82,8 +86,8 @@ export const RadarChart = ({
       </figcaption>
       {baseline && (
         <div className="radar-legend">
-          <span>— początek sezonu</span>
-          <strong>— koniec sezonu</strong>
+          <span>— {baselineLabel}</span>
+          <strong>— {currentLabel}</strong>
         </div>
       )}
     </figure>

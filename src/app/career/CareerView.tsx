@@ -13,6 +13,7 @@ import type { CareerState } from '../../types/domain';
 import { ClubView } from './ClubView';
 import { HistoryView } from './HistoryView';
 import { PlayerCard } from '../shared/PlayerCard';
+import { ClubCrest } from '../../components/ClubCrest';
 
 export const PLAYBACK_INTERVAL_MS = 1000;
 type Detail = 'player' | 'club' | 'contract' | 'career';
@@ -48,6 +49,7 @@ export const CareerView = ({
   const [error, setError] = useState<string>();
   const tableRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLOListElement>(null);
+  const resumeAfterDecision = useRef(false);
   const table = getLeagueTable(career);
   const timeline = buildSeasonTimeline(career);
   const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
@@ -66,11 +68,11 @@ export const CareerView = ({
       try {
         const next = advanceSimulationStep(career);
         onCareer(next);
-        if (
-          getCareerProgressBlocker(next) ||
-          (next.decisionPoint && next.decisionPoint.type !== 'checkpoint')
-        )
+        const blocker = getCareerProgressBlocker(next);
+        if (blocker || (next.decisionPoint && next.decisionPoint.type !== 'checkpoint')) {
+          resumeAfterDecision.current = next.decisionPoint?.type === 'off_field_event';
           setPlaying(false);
+        }
       } catch (reason) {
         setError(reason instanceof Error ? reason.message : String(reason));
         setPlaying(false);
@@ -78,6 +80,21 @@ export const CareerView = ({
     }, PLAYBACK_INTERVAL_MS);
     return () => window.clearTimeout(timer);
   }, [career, onCareer, playing]);
+
+  useEffect(() => {
+    if (!resumeAfterDecision.current || playing) return;
+    const blocker = getCareerProgressBlocker(career);
+    if (
+      !career.activeEvent &&
+      !career.decisionPoint &&
+      !blocker &&
+      !career.leagueSeason?.completed
+    ) {
+      resumeAfterDecision.current = false;
+      const timer = window.setTimeout(() => setPlaying(true), 0);
+      return () => window.clearTimeout(timer);
+    }
+  }, [career, playing]);
 
   useEffect(() => {
     const row = tableRef.current?.querySelector<HTMLElement>('tr[aria-current="true"]');
@@ -114,6 +131,7 @@ export const CareerView = ({
           onClick={() => {
             setError(undefined);
             setDetail(undefined);
+            resumeAfterDecision.current = false;
             setPlaying((value) => !value);
           }}
         >
@@ -142,7 +160,7 @@ export const CareerView = ({
         </button>
         <button className={detail === 'club' ? 'selected' : ''} onClick={() => toggle('club')}>
           <span className="summary-visual crest-placeholder" aria-hidden="true">
-            {initials(career.currentClub.name)}
+            <ClubCrest name={career.currentClub.name} identity={identity} size="small" />
           </span>
           <span className="summary-copy">
             <small>KLUB</small>

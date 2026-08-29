@@ -125,6 +125,7 @@
 }
 .detail-panel,
 .career-decision {
+  height: max-content;
   position: absolute;
   z-index: 3;
   top: calc(38px + 8px + 86px + 8px + 35px + 6px);
@@ -210,7 +211,21 @@
   margin-right: 18px;
 }
 .match-presentation-control input {
-  accent-color: var(--club-primary);
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  border: 2px solid #465158;
+  border-radius: 50%;
+  background: #fff;
+}
+.match-presentation-control input:checked {
+  box-shadow: inset 0 0 0 3px #fff;
+  background: #176451;
+}
+.match-presentation-control input:focus-visible {
+  outline: 2px solid #176451;
+  outline-offset: 2px;
 }
 .season-workspace {
   min-height: 0;
@@ -477,7 +492,7 @@
 .career-hud progress {
   width: min(280px, 42vw);
   height: 12px;
-  accent-color: #44d19d;
+  accent-color: #1f6f5b;
   vertical-align: middle;
 }
 .offer-grid {
@@ -627,8 +642,8 @@ select {
   stroke: #7d898f;
 }
 .radar-current {
-  fill: color-mix(in srgb, var(--club-primary, #28735b) 24%, transparent);
-  stroke: var(--club-primary, #28735b);
+  fill: rgba(31, 111, 91, 0.24);
+  stroke: #1f6f5b;
 }
 .radar figcaption {
   position: absolute;
@@ -643,20 +658,20 @@ select {
   font-size: 0.78rem;
 }
 .radar-legend strong {
-  color: #44d19d;
+  color: #1f6f5b;
 }
 .compact-fixture-list {
   display: grid;
-  gap: 0.25rem;
+  gap: 0;
 }
 .compact-fixture-row {
   display: grid;
   grid-template-columns: 4.5rem minmax(10rem, 1fr) 3rem minmax(12rem, 1.2fr);
-  gap: 0.65rem;
+  gap: 0.45rem;
   align-items: center;
-  padding: 0.5rem 0.65rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.9rem;
+  padding: 0.22rem 0.4rem;
+  border-bottom: 1px solid #e0e3e3;
+  font-size: 0.78rem;
 }
 .attrs {
   list-style: none;
@@ -1248,4 +1263,13 @@ tbody tr.active {
   .creator-empty-preview {
     min-height: 150px;
   }
+}
+
+.club-crest-small {
+  width: 48px;
+  height: 54px;
+}
+.club-crest-large {
+  width: 100px;
+  height: 120px;
 }

@@ -42,12 +42,14 @@ import { getSeasonProgress } from '../core/seasonProgress';
 import { completeScheduledEvent } from '../core/careerCalendar';
 import {
   acceptProfessionalOffer,
+  acceptSeasonEndRenegotiatedContract,
+  continueOnExistingContract,
   continueWithProfessionalTrial,
-  stayAtCurrentClub,
   retireCareer,
 } from '../core/careerSeasons';
 import { getPlayerOverall } from '../core/playerOverall';
-import { acceptRenegotiatedContract, requestContractRenegotiation } from '../core/contracts';
+import { requestContractRenegotiation } from '../core/contracts';
+import { contractCoversNextSeason } from '../core/contractValidity';
 import {
   clubArchetypeLabel,
   getCurrentHeadCoach,
@@ -453,6 +455,8 @@ const SeasonEndSummary = ({
       <RadarChart
         attributes={archived.development.seasonEndAttributes}
         baseline={archived.development.seasonStartAttributes}
+        baselineLabel="początek sezonu"
+        currentLabel="koniec sezonu"
       />
       <p>
         <strong>
@@ -506,12 +510,11 @@ const SeasonEndSummary = ({
               career.currentContract.squadRole && (
               <p>Rola przy podpisaniu umowy: {squadRoleLabel(career.currentContract.squadRole)}</p>
             )}
-          {career.currentContract.endDate > `${career.currentSeason + 1}-06-30` &&
-            !hasContractProposal && (
-              <button onClick={() => onCareer(stayAtCurrentClub(career))}>
-                Pozostań na obecnej umowie
-              </button>
-            )}
+          {contractCoversNextSeason(career) && !hasContractProposal && (
+            <button onClick={() => onCareer(continueOnExistingContract(career))}>
+              Kontynuuj na obecnej umowie
+            </button>
+          )}
           {career.renegotiation?.season !== career.currentSeason && !renewalOffer && (
             <button onClick={() => onCareer(requestContractRenegotiation(career))}>
               Poproś o renegocjację
@@ -533,12 +536,14 @@ const SeasonEndSummary = ({
                 {career.renegotiation.proposedContract.monthlySalary.toLocaleString('pl-PL')} PLN /
                 mies. · do {career.renegotiation.proposedContract.endDate}
               </p>
-              <button onClick={() => onCareer(acceptRenegotiatedContract(career))}>
-                Przyjmij nowe warunki
+              <button onClick={() => onCareer(acceptSeasonEndRenegotiatedContract(career))}>
+                Przyjmij
               </button>
-              <button onClick={() => onCareer(stayAtCurrentClub(career))}>
-                Pozostań na obecnej umowie
-              </button>
+              {contractCoversNextSeason(career) && (
+                <button onClick={() => onCareer(continueOnExistingContract(career))}>
+                  Kontynuuj na obecnej umowie
+                </button>
+              )}
             </>
           )}
           {renewalOffer && (
@@ -549,11 +554,13 @@ const SeasonEndSummary = ({
                 {renewalOffer.contract.endDate}
               </p>
               <button onClick={() => onCareer(acceptProfessionalOffer(career, renewalOffer.id))}>
-                Przyjmij nowe warunki
+                Przyjmij
               </button>
-              <button onClick={() => onCareer(stayAtCurrentClub(career))}>
-                Pozostań na obecnej umowie
-              </button>
+              {contractCoversNextSeason(career) && (
+                <button onClick={() => onCareer(continueOnExistingContract(career))}>
+                  Kontynuuj na obecnej umowie
+                </button>
+              )}
             </div>
           )}
         </article>
@@ -619,7 +626,7 @@ const SeasonEndSummary = ({
                   <strong>Ryzyko:</strong> {offer.risk}
                 </p>
                 <button onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}>
-                  {offer.offerType === 'renewal' ? 'Pozostań w klubie' : 'Podpisz kontrakt'}
+                  Przyjmij
                 </button>
               </article>
             ))}
@@ -638,11 +645,13 @@ const SeasonEndSummary = ({
           zawodnik.
         </p>
       )}
-      {career.careerSeasonNumber >= 2 && !career.professionalOffers?.length && (
-        <button onClick={() => onCareer(stayAtCurrentClub(career))}>
-          Pozostań w {career.currentClub.name}
-        </button>
-      )}
+      {career.careerSeasonNumber >= 2 &&
+        !career.professionalOffers?.length &&
+        contractCoversNextSeason(career) && (
+          <button onClick={() => onCareer(continueOnExistingContract(career))}>
+            Kontynuuj na obecnej umowie
+          </button>
+        )}
       {career.player.age >= 33 && (
         <button onClick={() => onCareer(retireCareer(career))}>Zakończ karierę</button>
       )}

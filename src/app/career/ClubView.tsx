@@ -11,6 +11,8 @@ import {
 } from '../../core/clubStrength';
 import { squadRoleLabel } from '../../core/careerPresentation';
 import type { CareerState } from '../../types/domain';
+import { ClubCrest } from '../../components/ClubCrest';
+import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
 
 const prestigeLabel = (prestige: number) =>
   prestige < 25
@@ -34,25 +36,6 @@ const qualityLabel = (quality: number) =>
         : quality >= 40
           ? 'przeciętne'
           : 'podstawowe';
-const ClubCrest = ({ name }: { name: string }) => (
-  <svg className="club-crest" viewBox="0 0 100 120" role="img" aria-label={`Herb ${name}`}>
-    <path
-      d="M12 10h76v48c0 29-18 45-38 54C30 103 12 87 12 58z"
-      fill="#123727"
-      stroke="#44d19d"
-      strokeWidth="5"
-    />
-    <path d="M25 24h50v16H25zM28 51l22 35 22-35" fill="#44d19d" />
-    <text x="50" y="103" textAnchor="middle" fontSize="14" fontWeight="900" fill="#eef7f1">
-      {name
-        .split(/\s+/)
-        .slice(0, 2)
-        .map((word) => word[0])
-        .join('')
-        .toUpperCase()}
-    </text>
-  </svg>
-);
 export const ClubView = ({ career }: { career: CareerState }) => {
   const club = career.currentClub;
   const professionalClub = career.currentProfessionalClub;
@@ -67,7 +50,10 @@ export const ClubView = ({ career }: { career: CareerState }) => {
   return (
     <div className="club-profile">
       <header className="club-header">
-        <ClubCrest name={club.name} />
+        <ClubCrest
+          name={club.name}
+          identity={resolveClubVisualIdentity(career.seed, professionalClub ?? club)}
+        />
         <div>
           <h2>{club.name}</h2>
           <p>
