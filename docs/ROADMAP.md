@@ -63,3 +63,13 @@ Każdy etap musi zachować deterministyczność, niezależność `src/core` od R
 Use actual squad members for starter/bench/rotation status, `selectionStanding`, promised roles, offer competition and coach evaluation. This must remain a player-career system: the manager owns the formation and the protagonist does not select the XI.
 
 Later work includes sparse NPC seasonal aging/development, retirements, academy graduates, deliberately imperfect/noisy NPC transfers, foreign leagues with active/background fidelity levels, former teammates becoming coaches, persistent relationships, multiple competitions, cups/Europe/national teams, behaviour-driven PlayStyles, achievements/easter eggs and an interactive isometric decision match engine. Clubs may stockpile positions, miss replacements or buy imperfect fits; AI must not become a perfect squad optimizer.
+
+# Następne kroki
+
+**NEXT: PR #48 — realna rywalizacja pozycyjna i wybór składu.**
+
+Później: rzadki sezonowy rozwój i regres NPC, emerytury, nabór młodzieży, niedoskonałe
+transfery NPC, migracje trenerów, byli gracze jako trenerzy, zagraniczne pakiety świata,
+poziomy wierności symulacji aktywnej/tła, puchary/Europa/reprezentacje, miesięczny kalendarz,
+zmiana rozgrywek, PlayStyles wynikające z zachowania, osiągnięcia/easter eggi oraz interaktywny
+izometryczny silnik meczowy oparty na decyzjach.
