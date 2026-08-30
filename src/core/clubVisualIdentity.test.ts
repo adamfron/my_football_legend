@@ -5,8 +5,20 @@ import {
   resolveClubVisualIdentity,
 } from './clubVisualIdentity';
 import { generateProfessionalClubPool } from './professionalClubs';
+import { getClubIdentityOutline } from './clubVisualIdentity';
 
 describe('club visual identity', () => {
+  it('keeps legal white and similar colours while adding only a presentation outline', () => {
+    expect(getClubIdentityOutline({ primaryColor: '#ffffff', secondaryColor: '#ffffff' })).toBe(
+      '#171b1d',
+    );
+    expect(getClubIdentityOutline({ primaryColor: '#285f8f', secondaryColor: '#ffffff' })).toBe(
+      '#ffffff',
+    );
+    expect(() =>
+      getClubIdentityOutline({ primaryColor: '#a33135', secondaryColor: '#641f27' }),
+    ).not.toThrow();
+  });
   it('generates stable two-colour identities and variation between clubs', () => {
     const first = generateProfessionalClubPool('identity-seed');
     const repeated = generateProfessionalClubPool('identity-seed');

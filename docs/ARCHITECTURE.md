@@ -143,3 +143,13 @@ Nazwy encji mogą w przyszłości prezentować zwarte podglądy oparte na danych
 Zawodnik ma jedno kanoniczne źródło danych: 25 widocznych atrybutów (w tym cztery bramkarskie u każdego zawodnika), osiem ukrytych wymiarów osobowości oraz jawne dane obu nóg. Boisko dzieli się na dokładnie dziewięć stref. OVR pozycyjny jest wyłącznie ważonym skrótem prezentacyjnym; osobno stosowana znajomość pozycji opisuje doświadczenie w strefie bez zmiany bazowych umiejętności.
 
 Archetyp piłkarski jest deterministycznie wyprowadzanym, rankingowanym opisem profilu, a nie zapisaną klasą. Przyszły PlayStyle pozostaje odrębną specjalizacją behawioralną. Rozwój nie ma globalnego, twardego potencjału: używa miękkiej pojemności, wieku szczytu i początku regresu dla rodzin technicznej, mentalnej, fizycznej i bramkarskiej. Trudność kariery wpływa tylko na generowanie i przewidywalność rozwoju protagonisty, nigdy na siłę świata.
+
+# Persistent footballer world
+
+`FootballerProfile` is the canonical Player Model 2.0 card shared by the protagonist and NPCs. The protagonist composes it with player-only preferences and career controls; `WorldFootballer` adds only persistent career status and a `DevelopmentProfile`. `CareerState.footballerWorld` is a normalized registry, while professional clubs store only `squadPlayerIds`; the protagonist is resolved directly from `career.player` and is never cloned into the registry.
+
+Managers deterministically own one preferred evaluation formation. Live club strength is the rounded mean of the globally optimized best XI's effective positional OVR, including canonical familiarity penalties. `strengthRating` remains solely a squad bootstrap target and legacy fallback when a normalized squad is absent.
+
+Full cards are intentionally retained at the current Polish-world scale. Derived OVR, radar and archetype scores are not persisted, and background players do not receive weekly match logs, narrative state or protagonist development simulation. Future larger worlds can keep canonical cards while using sparse seasonal development and coarser background competition simulation.
+
+Club colours, including white/white and similar pairs, remain canonical data. Neutral outlines are derived only in presentation when contrast would otherwise disappear.

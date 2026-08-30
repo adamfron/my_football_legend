@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Player, PlayerAttributes, PlayerPosition } from '../types/domain';
+import type { FootballerProfile, PlayerAttributes, PlayerPosition } from '../types/domain';
 import { ATTRIBUTE_PRESENTATION_BY_KEY } from './attributePresentation';
 
 type Attribute = keyof PlayerAttributes;
@@ -381,7 +381,7 @@ export const FOOTBALL_ARCHETYPES: readonly FootballArchetypeDefinition[] = [
     ),
   ),
 ];
-export const getRankedFootballArchetypes = (p: Player, pos = p.primaryPosition) =>
+export const getRankedFootballArchetypes = (p: FootballerProfile, pos = p.primaryPosition) =>
   FOOTBALL_ARCHETYPES.filter((x) => x.eligiblePositions.includes(pos))
     .map((definition) => ({
       definition,

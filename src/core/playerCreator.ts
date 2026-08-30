@@ -14,6 +14,7 @@ import type {
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
 import { generateProfessionalClubPool } from './professionalClubs';
+import { populateFootballerWorld } from './footballerWorld';
 import { deriveInitialEffort } from './playerPreferences';
 import {
   getTheoreticalPositionOverall,
@@ -117,7 +118,10 @@ const hidden = (rng: RandomGenerator): HiddenPlayerProfile => ({
   controversy: rng.int(5, 75),
   fairPlay: rng.int(25, 95),
 });
-const development = (rng: RandomGenerator, d: CareerDifficulty): DevelopmentProfile => {
+export const generateDevelopmentProfile = (
+  rng: RandomGenerator,
+  d: CareerDifficulty = 'normal',
+): DevelopmentProfile => {
   const roll = rng.int(1, 100),
     cut = d === 'easy' ? [35, 95] : d === 'normal' ? [20, 75] : [12, 60],
     developmentType =
@@ -148,6 +152,46 @@ const development = (rng: RandomGenerator, d: CareerDifficulty): DevelopmentProf
     crisisSensitivity: rng.int(10, 90),
   };
 };
+export const generateFootballerAttributes = (options: {
+  seed: string;
+  targetOverall: number;
+  primaryPosition: PlayerPosition;
+  archetypeId: string;
+}): PlayerAttributes => {
+  const archetype = getFootballArchetype(options.archetypeId);
+  if (!archetype || !archetype.eligiblePositions.includes(options.primaryPosition))
+    throw new Error(`No eligible archetype for ${options.primaryPosition}`);
+  const rng = RandomGenerator.fromSeed(
+    `${options.seed}:${options.primaryPosition}:archetype:${archetype.id}`,
+  );
+  const attrs = Object.fromEntries(
+    attributeKeys.map((key) => {
+      const goalkeeperAttribute = [
+        'reflexes',
+        'handling',
+        'oneOnOnes',
+        'goalkeeperSweeping',
+      ].includes(key);
+      const value =
+        goalkeeperAttribute && options.primaryPosition !== 'goalkeeper'
+          ? rng.int(4, 25)
+          : options.targetOverall +
+            rng.int(-10, 10) +
+            (baseBias[options.primaryPosition][key] ?? 0) +
+            (archetype.generationBias[key] ?? 0);
+      return [key, clamp(value)];
+    }),
+  ) as unknown as PlayerAttributes;
+  const card = { attributes: attrs, primaryPosition: options.primaryPosition } as Player;
+  const relevant = Object.keys(POSITION_OVR_WEIGHTS[options.primaryPosition]) as AttributeKey[];
+  for (let pass = 0; pass < 24; pass++) {
+    const delta =
+      options.targetOverall - getTheoreticalPositionOverall(card, options.primaryPosition);
+    if (Math.abs(delta) < 0.5) break;
+    for (const key of relevant) attrs[key] = clamp(attrs[key] + Math.sign(delta));
+  }
+  return attrs;
+};
 const familiarities = (p: PlayerPosition) =>
   Object.fromEntries(PLAYER_POSITIONS.map((x) => [x, x === p ? 1 : 0])) as Record<
     PlayerPosition,
@@ -157,7 +201,7 @@ const shared = (input: z.output<typeof creatorInputSchema>, seed: string) => {
   const rng = RandomGenerator.fromSeed(`${seed}:shared`);
   return {
     hiddenProfile: hidden(rng),
-    developmentProfile: development(rng, input.difficulty),
+    developmentProfile: generateDevelopmentProfile(rng, input.difficulty),
     weakFootProficiency: rng.int(22, 75),
   };
 };
@@ -184,20 +228,13 @@ const build = (
       : eligible[archetypeChoice % Math.max(1, eligible.length)];
   if (!archetype || !archetype.eligiblePositions.includes(parsed.position))
     throw new Error(`No eligible archetype for ${parsed.position}`);
-  const rng = RandomGenerator.fromSeed(`${seed}:${parsed.position}:archetype:${archetype.id}`);
   const target = difficultyBase[parsed.difficulty];
-  const attrs = Object.fromEntries(
-    attributeKeys.map((k) => {
-      const gk = ['reflexes', 'handling', 'oneOnOnes', 'goalkeeperSweeping'].includes(k);
-      let base =
-        gk && parsed.position !== 'goalkeeper'
-          ? rng.int(4, 25)
-          : target + rng.int(-10, 10) + (baseBias[parsed.position][k] ?? 0);
-      // Presentation order has no mathematical meaning: shaping is entirely explicit.
-      base += archetype.generationBias[k] ?? 0;
-      return [k, clamp(base)];
-    }),
-  ) as unknown as PlayerAttributes;
+  const attrs = generateFootballerAttributes({
+    seed,
+    targetOverall: target,
+    primaryPosition: parsed.position,
+    archetypeId: archetype.id,
+  });
   const player: Player = {
     id: `player_${
       seed
@@ -227,15 +264,6 @@ const build = (
     matchPresentation: 'important_matches',
     ...deriveInitialEffort(`${seed}:shared-effort`, attrs),
   };
-  // Move the complete position-relevant centroid toward the shared budget. A uniform
-  // translation preserves the explicit positive/negative archetype shape.
-  const relevant = Object.keys(POSITION_OVR_WEIGHTS[parsed.position]) as AttributeKey[];
-  for (let pass = 0; pass < 24; pass++) {
-    const delta = target - getTheoreticalPositionOverall(player, parsed.position);
-    if (Math.abs(delta) < 0.5) break;
-    const step = Math.sign(delta);
-    for (const key of relevant) attrs[key] = clamp(attrs[key] + step);
-  }
   const description = describePlayerProfile(player, archetype);
   return {
     player,
@@ -257,6 +285,7 @@ export const generateStartingProfileVariants = (input: CreatorInput, seed: strin
 export const makeReadableSeed = () =>
   globalThis.crypto?.randomUUID?.().slice(0, 18) ?? `career-${Date.now().toString(36)}`;
 export const createCareerState = (profile: StartingPlayerProfile, seed: string): CareerState => {
+  const professionalWorld = populateFootballerWorld(generateProfessionalClubPool(seed), seed);
   const fact: HistoryFact = {
     id: 'fact_career_started_2026',
     factType: 'career_started',
@@ -288,7 +317,8 @@ export const createCareerState = (profile: StartingPlayerProfile, seed: string):
     storyThreads: [],
     statistics: { appearances: 0, goals: 0, assists: 0, trainings: 0 },
     developmentProfile: profile.developmentProfile,
-    clubWorld: generateProfessionalClubPool(seed),
+    clubWorld: professionalWorld.clubs,
+    footballerWorld: professionalWorld.footballerWorld,
     completedSeasons: [],
     seasonParticipation: [],
     trainingApproach: 'balanced',
