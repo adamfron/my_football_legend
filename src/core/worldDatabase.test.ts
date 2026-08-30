@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import databaseJson from '../../public/data/world/pl-2026-v1.json';
 import {
+  buildWorldDatabaseUrl,
   emptyWorldDelta,
   resolveWorldFootballer,
   resolveWorldSquad,
@@ -25,6 +26,19 @@ const player = generateStartingPlayerProfile(
   'resolution',
   0,
 ).player;
+
+describe('static world URL', () => {
+  test('builds the URL for the domain root', () => {
+    expect(buildWorldDatabaseUrl('/')).toBe('/data/world/pl-2026-v1.json');
+  });
+
+  test('builds the URL for a GitHub Pages project', () => {
+    expect(buildWorldDatabaseUrl('/my_football_legend/')).toBe(
+      '/my_football_legend/data/world/pl-2026-v1.json',
+    );
+  });
+});
+
 describe('static world and delta resolution', () => {
   test('validates every immutable squad reference', () => {
     expect(database.clubs).toHaveLength(64);

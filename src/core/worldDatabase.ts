@@ -31,10 +31,15 @@ export const emptyWorldDelta = (): CareerWorldDelta => ({
 });
 
 let cached: WorldDatabase | undefined;
+export const buildWorldDatabaseUrl = (baseUrl: string) =>
+  `${baseUrl.replace(/\/$/, '')}/data/world/${WORLD_DATABASE_VERSION}.json`;
+
 export const loadWorldDatabase = async (): Promise<WorldDatabase> => {
   if (cached) return cached;
-  const response = await fetch(`/data/world/${WORLD_DATABASE_VERSION}.json`);
-  if (!response.ok) throw new Error(`Nie udało się pobrać świata (${response.status}).`);
+  const url = buildWorldDatabaseUrl(import.meta.env.BASE_URL);
+  const response = await fetch(url);
+  if (!response.ok)
+    throw new Error(`Nie udało się pobrać świata z ${url} (status ${response.status}).`);
   cached = worldDatabaseSchema.parse(await response.json()) as WorldDatabase;
   return cached;
 };
