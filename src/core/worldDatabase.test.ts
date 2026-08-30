@@ -11,8 +11,8 @@ import { generateStartingPlayerProfile } from './playerCreator';
 const database = worldDatabaseSchema.parse(databaseJson);
 const player = generateStartingPlayerProfile(
   {
-    firstName: 'A',
-    lastName: 'B',
+    firstName: 'Ada',
+    lastName: 'Test',
     age: 16,
     nationality: 'PL',
     dominantFoot: 'right',
