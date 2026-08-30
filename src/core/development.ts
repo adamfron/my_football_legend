@@ -7,30 +7,18 @@ import type {
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
 import { getPlayerOverall } from './playerOverall';
-const keys = Object.keys({
-  technique: 0,
-  vision: 0,
-  pace: 0,
-  stamina: 0,
-  finishing: 0,
-  defending: 0,
-  leadership: 0,
-  composure: 0,
-  spatialAwareness: 0,
-  determination: 0,
-  ambition: 0,
-  professionalism: 0,
-}) as (keyof PlayerAttributes)[];
-const weights = (a: MatchAppearance): Record<keyof PlayerAttributes, number> => ({
+import { OVR_ATTRIBUTE_KEYS } from './playerOverall';
+const keys = [...OVR_ATTRIBUTE_KEYS];
+const weights = (a: MatchAppearance): Partial<Record<keyof PlayerAttributes, number>> => ({
   technique: 1 + a.keyPasses * 0.25,
-  vision: 1 + a.keyPasses * 0.5,
+  passing: 1 + a.keyPasses * 0.5,
   pace: 1 + (a.minutes > 70 ? 0.5 : 0),
   stamina: 1 + a.minutes / 90,
   finishing: 1 + a.goals * 2 + a.xG,
-  defending: 1 + a.defensiveActions * 0.3,
+  tackling: 1 + a.defensiveActions * 0.3,
   leadership: 0.45 + (a.started ? 0.35 : 0),
   composure: 1 + a.goals + a.assists * 0.5,
-  spatialAwareness: 1 + a.keyPasses * 0.25 + a.goals * 0.3,
+  gameReading: 1 + a.keyPasses * 0.25 + a.goals * 0.3,
   determination: 0.12,
   ambition: 0.06,
   professionalism: 0.1,
@@ -53,7 +41,13 @@ export const applyDevelopmentCheckpoint = (
     50;
   const potentialFactor = Math.max(
     0.25,
-    Math.min(1.35, (career.player.potential - mean + 12) / 30),
+    Math.min(
+      1.35,
+      (Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) -
+        mean +
+        12) /
+        30,
+    ),
   );
   const injuryFactor = appearance.injuryId?.length ? 0.7 : 1;
   const attrs = { ...career.player.attributes };
@@ -61,11 +55,17 @@ export const applyDevelopmentCheckpoint = (
   const facts: HistoryFact[] = [];
   for (const key of keys) {
     const current = attrs[key];
-    const ceilingFactor = Math.max(0.12, (career.player.potential - current + 8) / 35);
+    const ceilingFactor = Math.max(
+      0.12,
+      (Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) -
+        current +
+        8) /
+        35,
+    );
     let progress =
       (map.get(key) ?? 0) +
       (appearance.minutes / 90) *
-        w[key] *
+        (w[key] ?? 1) *
         7 *
         ageMultiplier(career.player.age) *
         potentialFactor *
@@ -110,12 +110,27 @@ export const applyDevelopmentCheckpoint = (
 };
 
 const positionFocus: Record<string, Array<keyof PlayerAttributes>> = {
-  goalkeeper: ['composure', 'vision', 'leadership', 'technique'],
-  center_back: ['defending', 'spatialAwareness', 'composure', 'stamina', 'leadership'],
-  defensive_midfielder: ['defending', 'vision', 'composure', 'stamina'],
-  central_midfielder: ['vision', 'technique', 'stamina', 'composure'],
-  winger: ['pace', 'technique', 'vision', 'finishing'],
-  striker: ['finishing', 'spatialAwareness', 'composure', 'technique', 'pace'],
+  goalkeeper: ['reflexes', 'handling', 'oneOnOnes', 'goalkeeperSweeping'],
+  center_back: ['tackling', 'gameReading', 'composure', 'stamina', 'leadership'],
+  left_back: ['pace', 'stamina', 'tackling', 'passing'],
+  right_back: ['pace', 'stamina', 'tackling', 'passing'],
+  defensive_midfielder: ['tackling', 'passing', 'composure', 'stamina'],
+  attacking_midfielder: ['passing', 'technique', 'dribbling', 'gameReading'],
+  left_winger: ['pace', 'technique', 'dribbling', 'finishing'],
+  right_winger: ['pace', 'technique', 'dribbling', 'finishing'],
+  striker: ['finishing', 'gameReading', 'composure', 'technique', 'pace'],
+};
+const planFocus: Record<string, Array<keyof PlayerAttributes>> = {
+  technical: ['technique', 'firstTouch', 'passing'],
+  playmaking: ['passing', 'technique', 'gameReading'],
+  dribbling: ['dribbling', 'agility', 'firstTouch'],
+  finishing: ['finishing', 'composure', 'firstTouch'],
+  defending: ['tackling', 'gameReading', 'concentration'],
+  aerial: ['heading', 'jumping', 'strength'],
+  physical: ['pace', 'stamina', 'strength', 'agility'],
+  set_pieces: ['setPieces', 'technique'],
+  goalkeeper: ['reflexes', 'handling', 'oneOnOnes'],
+  sweeper_keeper: ['goalkeeperSweeping', 'passing', 'gameReading', 'firstTouch'],
 };
 
 /** Deterministic monthly training growth; appearances remain a separate experience bonus. */
@@ -130,11 +145,8 @@ export const applyTrainingDevelopmentCheckpoint = (
   )
     return career;
   const rng = RandomGenerator.fromSeed(`${career.seed}:training-development:${month}`);
-  const focus = positionFocus[career.player.primaryPosition] ?? [
-    'technique',
-    'stamina',
-    'composure',
-  ];
+  const focus = planFocus[career.trainingPlan ?? 'general'] ??
+    positionFocus[career.player.primaryPosition] ?? ['technique', 'stamina', 'composure'];
   const available = ((career.player.health / 100) * career.player.fitness) / 100;
   const seasonMinutes =
     career.seasonParticipation?.reduce((sum, match) => sum + match.minutes, 0) ??
@@ -151,7 +163,7 @@ export const applyTrainingDevelopmentCheckpoint = (
     0.45,
     Math.min(
       1.35,
-      (career.player.potential -
+      (Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) -
         getPlayerOverall(career.player, career.player.primaryPosition) +
         18) /
         30,
@@ -181,16 +193,18 @@ export const applyTrainingDevelopmentCheckpoint = (
   const trainingMultiplier = { recovery: 0.78, balanced: 1, extra_work: 1.22 }[
     career.trainingApproach ?? 'balanced'
   ];
+  const professionalismMultiplier = 0.7 + career.player.attributes.professionalism / 200;
   for (const key of keys) {
     let value =
       (progress.get(key) ?? 0) +
-      (focus.includes(key) ? 34 : 10) *
+      (career.individualFocus === key ? 45 : focus.includes(key) ? 30 : 8) *
         ageMultiplier(career.player.age) *
         potentialGap *
         available *
         environment *
         experienceFactor *
         trainingMultiplier *
+        professionalismMultiplier *
         (0.85 + rng.float() * 0.3);
     while (value >= 100 && attrs[key] < 100) {
       const before = attrs[key]++;
@@ -214,6 +228,10 @@ export const applyTrainingDevelopmentCheckpoint = (
     }
     progress.set(key, value);
   }
+  const weakFootGain =
+    career.trainingPlan === 'weak_foot' || career.individualFocus === 'weakFootProficiency'
+      ? Math.max(0, Math.floor((career.player.attributes.professionalism - 35) / 25))
+      : 0;
   // Aging is part of the season timeline, so negative changes are visible against its baseline.
   const physicalChance =
     career.player.age < 29
@@ -264,7 +282,11 @@ export const applyTrainingDevelopmentCheckpoint = (
   };
   return {
     ...career,
-    player: { ...career.player, attributes: attrs },
+    player: {
+      ...career.player,
+      attributes: attrs,
+      weakFootProficiency: Math.min(100, career.player.weakFootProficiency + weakFootGain),
+    },
     developmentProgress: keys.map((attribute) => ({
       attribute,
       progress: progress.get(attribute) ?? 0,

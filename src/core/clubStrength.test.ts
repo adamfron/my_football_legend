@@ -14,7 +14,7 @@ const careerAtOverall = (value: number) => {
     lastName: 'Test',
     nationality: 'PL',
     age: STARTING_AGE,
-    position: 'central_midfielder',
+    position: 'attacking_midfielder',
     dominantFoot: 'right',
     customSeed: '',
     heightCm: 180,

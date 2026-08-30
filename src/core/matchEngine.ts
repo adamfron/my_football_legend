@@ -51,42 +51,37 @@ const positionWeights: Record<PlayerPosition, Partial<Record<keyof PlayerAttribu
   goalkeeper: {
     composure: 0.26,
     technique: 0.19,
-    vision: 0.18,
+    passing: 0.18,
     leadership: 0.22,
     stamina: 0.05,
     pace: 0.05,
-    defending: 0.05,
+    tackling: 0.05,
   },
   center_back: {
-    defending: 0.3,
+    tackling: 0.3,
     composure: 0.22,
     leadership: 0.18,
     stamina: 0.16,
     technique: 0.14,
   },
-  full_back: { defending: 0.24, pace: 0.22, stamina: 0.22, technique: 0.17, vision: 0.15 },
+  left_back: { tackling: 0.24, pace: 0.22, stamina: 0.22, technique: 0.17, passing: 0.15 },
   defensive_midfielder: {
-    defending: 0.23,
-    vision: 0.22,
+    tackling: 0.23,
+    passing: 0.22,
     composure: 0.2,
     stamina: 0.19,
     technique: 0.16,
   },
-  central_midfielder: {
-    vision: 0.24,
-    technique: 0.23,
-    stamina: 0.2,
-    composure: 0.19,
-    leadership: 0.14,
-  },
+  right_back: { tackling: 0.24, pace: 0.22, stamina: 0.22, technique: 0.17, passing: 0.15 },
   attacking_midfielder: {
-    vision: 0.25,
+    passing: 0.25,
     technique: 0.24,
     finishing: 0.18,
     composure: 0.18,
     pace: 0.15,
   },
-  winger: { pace: 0.25, technique: 0.24, finishing: 0.19, vision: 0.17, composure: 0.15 },
+  left_winger: { pace: 0.25, technique: 0.24, finishing: 0.19, passing: 0.17, composure: 0.15 },
+  right_winger: { pace: 0.25, technique: 0.24, finishing: 0.19, passing: 0.17, composure: 0.15 },
   striker: { finishing: 0.29, composure: 0.23, pace: 0.19, technique: 0.16, stamina: 0.13 },
 };
 const normalizePosition = (position: string): PlayerPosition =>
@@ -97,21 +92,21 @@ const normalizePosition = (position: string): PlayerPosition =>
       : position.includes('back')
         ? 'center_back'
         : position.includes('mid')
-          ? 'central_midfielder'
+          ? 'attacking_midfielder'
           : position.includes('wing')
-            ? 'winger'
+            ? 'left_winger'
             : 'striker';
 export const evaluatePlayerForPosition = (player: CareerState['player'], position: string) =>
   Object.entries(positionWeights[normalizePosition(position)]).reduce(
     (sum, [key, weight]) => sum + player.attributes[key as keyof PlayerAttributes] * weight!,
     0,
-  ) * (player.positionFamiliarity[position] ?? 0.85);
+  ) * (player.positionFamiliarity[normalizePosition(position)] ?? 0.85);
 const unitFor = (position: string): keyof ClubCompetitiveProfile['positionalUnits'] =>
   normalizePosition(position) === 'goalkeeper'
     ? 'goalkeeper'
-    : ['center_back', 'full_back'].includes(normalizePosition(position))
+    : ['center_back', 'left_back'].includes(normalizePosition(position))
       ? 'defense'
-      : ['striker', 'winger'].includes(normalizePosition(position))
+      : ['striker', 'left_winger'].includes(normalizePosition(position))
         ? 'attack'
         : 'midfield';
 const makeFact = (
@@ -181,7 +176,9 @@ export const evaluateSquadOpportunity = (
     career.player.morale * 0.08 +
     career.player.fitness * 0.1 +
     relation * 0.06 +
-    career.player.potential * (coach.potentialPatience / 100) * 0.06 +
+    Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) *
+      (coach.potentialPatience / 100) *
+      0.06 +
     coach.youthTrust * 0.08 +
     coach.tacticalDiscipline * 0.03 +
     development * 0.25 +
@@ -339,7 +336,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Poszukaj ruchu partnera.',
       'Możesz stworzyć czystą okazję.',
       'Podanie może zostać przecięte.',
-      { vision: 0.4, technique: 0.35, composure: 0.25 },
+      { passing: 0.4, technique: 0.35, composure: 0.25 },
       9,
       0,
       2,
@@ -363,7 +360,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Przyspiesz atak podaniem.',
       'Możesz ominąć linię pomocy.',
       'Rywal może przejąć trudne podanie.',
-      { vision: 0.42, technique: 0.33, composure: 0.25 },
+      { passing: 0.42, technique: 0.33, composure: 0.25 },
       10,
       1,
       2,
@@ -374,7 +371,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Wykorzystaj wolną przestrzeń.',
       'Drużyna rozciągnie obronę.',
       'Wolne podanie pozwoli rywalom się przesunąć.',
-      { vision: 0.45, technique: 0.3, composure: 0.25 },
+      { passing: 0.45, technique: 0.3, composure: 0.25 },
       7,
       0,
       2,
@@ -386,7 +383,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Natychmiast zaatakuj piłkę.',
       'Możesz odzyskać ją wysoko.',
       'Minięcie otworzy środek pola.',
-      { stamina: 0.4, defending: 0.32, composure: 0.28 },
+      { stamina: 0.4, tackling: 0.32, composure: 0.28 },
       12,
       1,
       1,
@@ -400,7 +397,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Skróć mu czas na decyzję.',
       'Możesz przerwać akcję wcześnie.',
       'Rywal może zagrać za twoje plecy.',
-      { defending: 0.42, pace: 0.3, composure: 0.28 },
+      { tackling: 0.42, pace: 0.3, composure: 0.28 },
       13,
       1,
       1,
@@ -411,7 +408,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Broń strefy przed bramką.',
       'Zyskasz czas na asekurację.',
       'Rywal zachowa piłkę.',
-      { defending: 0.42, composure: 0.38, pace: 0.2 },
+      { tackling: 0.42, composure: 0.38, pace: 0.2 },
       6,
       0,
       2,
@@ -423,7 +420,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Usuń piłkę ze strefy zagrożenia.',
       'Natychmiast oddalisz niebezpieczeństwo.',
       'Drużyna straci posiadanie.',
-      { defending: 0.5, composure: 0.35, technique: 0.15 },
+      { tackling: 0.5, composure: 0.35, technique: 0.15 },
       4,
       -1,
       1,
@@ -437,7 +434,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Wyjdź naprzeciw strzelca.',
       'Zmniejszysz mu dostępną bramkę.',
       'Lob lub minięcie zostawi pustą bramkę.',
-      { composure: 0.45, pace: 0.3, defending: 0.25 },
+      { composure: 0.45, pace: 0.3, tackling: 0.25 },
       12,
       2,
     ),
@@ -459,7 +456,7 @@ const footballDecisions: Record<PositionGroup, MatchDecision[]> = {
       'Odbij piłkę poza środek bramki.',
       'Ograniczysz szansę na dobitkę.',
       'Trudna piłka może wrócić pod nogi rywala.',
-      { composure: 0.42, technique: 0.3, defending: 0.28 },
+      { composure: 0.42, technique: 0.3, tackling: 0.28 },
       9,
       1,
       1,
@@ -553,7 +550,7 @@ export const MATCH_MOMENT_LIBRARY: MatchMomentDefinition[] = positionalMomentSee
           'Zasygnalizuj, że świeży zawodnik może dać więcej.',
           'Świeże nogi poprawią szanse drużyny.',
           'Nie pokażesz się w decydujących minutach.',
-          { leadership: 0.45, composure: 0.4, vision: 0.15 },
+          { leadership: 0.45, composure: 0.4, passing: 0.15 },
           3,
           -2,
           3,
@@ -575,9 +572,9 @@ export const MATCH_MOMENT_LIBRARY: MatchMomentDefinition[] = positionalMomentSee
 const positionGroup = (p: string): PositionGroup =>
   normalizePosition(p) === 'goalkeeper'
     ? 'goalkeeper'
-    : ['center_back', 'full_back'].includes(normalizePosition(p))
+    : ['center_back', 'left_back'].includes(normalizePosition(p))
       ? 'defender'
-      : ['striker', 'winger'].includes(normalizePosition(p))
+      : ['striker', 'left_winger'].includes(normalizePosition(p))
         ? 'attacker'
         : 'midfielder';
 const background = (

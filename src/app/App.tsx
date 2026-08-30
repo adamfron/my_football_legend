@@ -5,18 +5,15 @@ import { aggregateDevelopment } from '../core/seasonDevelopment';
 import { createCompletedSeasonSnapshot } from '../core/seasonArchive';
 import { buildSeasonSummary } from '../core/matchFeedback';
 import {
-  canReroll,
   createCareerState,
-  generateStartingPlayerProfile,
+  generateStartingProfileVariants,
   getAllowedWeightRange,
   identityInputSchema,
   makeReadableSeed,
-  MAX_PROFILE_VARIANTS,
   profileInputSchema,
   STARTING_AGE,
   type CreatorInput,
   type IdentityInput,
-  type PositionId,
   type StartingPlayerProfile,
 } from '../core/playerCreator';
 import { deleteCareer, hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
@@ -357,16 +354,16 @@ export const CareerWeekGame = ({
   );
 };
 
-const attributeLabels: Record<keyof PlayerAttributes, string> = {
+const attributeLabels: Partial<Record<keyof PlayerAttributes, string>> = {
   technique: 'Technika',
-  vision: 'Przegląd gry',
+  passing: 'Przegląd gry',
   pace: 'Szybkość',
   stamina: 'Wytrzymałość',
   finishing: 'Wykończenie',
-  defending: 'Obrona',
+  tackling: 'Obrona',
   leadership: 'Przywództwo',
   composure: 'Opanowanie',
-  spatialAwareness: 'Orientacja przestrzenna',
+  gameReading: 'Orientacja przestrzenna',
   determination: 'Determinacja',
   ambition: 'Ambicja',
   professionalism: 'Profesjonalizm',
@@ -787,10 +784,11 @@ export const App = () => {
     nationality: 'PL',
     age: STARTING_AGE,
     dominantFoot: 'right',
+    difficulty: 'normal',
     customSeed: '',
   });
   const [profileInput, setProfileInput] = useState<ProfileFormState>({
-    position: 'winger',
+    position: 'left_winger',
     heightCm: '174',
     weightKg: '68',
   });
@@ -860,24 +858,9 @@ export const App = () => {
     }
     const input: CreatorInput = { ...identity, age: STARTING_AGE, ...result.data, seed };
     setFieldErrors(emptyErrors());
-    setVariants([generateStartingPlayerProfile(input, seed, 0)]);
+    setVariants(generateStartingProfileVariants(input, seed));
     setSelectedVariant(0);
     setStep(2);
-  };
-  const reroll = () => {
-    if (!generated || variants.length >= MAX_PROFILE_VARIANTS || !canReroll(variants.length - 1))
-      return;
-    const input: CreatorInput = {
-      ...identity,
-      age: STARTING_AGE,
-      position: generated.player.primaryPosition as PositionId,
-      heightCm: generated.player.heightCm,
-      weightKg: generated.player.weightKg,
-      seed,
-    };
-    const next = generateStartingPlayerProfile(input, seed, variants.length);
-    setVariants((current) => [...current, next]);
-    setSelectedVariant(variants.length);
   };
   const finish = () => {
     if (!generated) return;
@@ -939,7 +922,6 @@ export const App = () => {
         selectVariant={setSelectedVariant}
         nextIdentity={nextIdentity}
         nextProfile={nextProfile}
-        reroll={reroll}
         finish={finish}
       />
     );

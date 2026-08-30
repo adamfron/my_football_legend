@@ -117,7 +117,7 @@ export const PlayerCard = ({
       </p>
       <p>
         {profile.player.heightCm} cm · {profile.player.weightKg} kg ·{' '}
-        {translate(profile.player.traits[0] === 'foot_left' ? 'foot.left' : 'foot.right')}
+        {translate(profile.player.dominantFoot === 'left' ? 'foot.left' : 'foot.right')}
       </p>
       <p>{tParam(profile.profileDescriptionKey, profile.profileDescriptionParams)}</p>
       <p>

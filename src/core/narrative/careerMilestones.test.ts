@@ -1,7 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import { classifyMilestone } from './careerMilestones';
 import type { HistoryFact } from '../../types/domain';
-const fact = (factType: string, importance = 70): HistoryFact => ({ id: factType, factType, season: 2026, date: '2026-01-01', actors: [], targets: [], clubs: [], competitions: [], data: {}, causes: [], tags: [], visibility: 'public', narrativeImportance: importance, emotionalTone: 'neutral' });
+const fact = (factType: string, importance = 70): HistoryFact => ({
+  id: factType,
+  factType,
+  season: 2026,
+  date: '2026-01-01',
+  actors: [],
+  targets: [],
+  clubs: [],
+  competitions: [],
+  data: {},
+  causes: [],
+  tags: [],
+  visibility: 'public',
+  narrativeImportance: importance,
+  emotionalTone: 'neutral',
+});
 describe('career milestones', () => {
   it('classifies debuts, first contributions and play styles', () => {
     expect(classifyMilestone(fact('senior_debut'))).toBe('debut');

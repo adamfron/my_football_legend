@@ -135,7 +135,7 @@ export const simulateRoutinePlayerMatch = (
     playerGroup(career.player.primaryPosition) !== 'goalkeeper' &&
     rng.float() <
       clamp(
-        0.025 + minutes / 760 + career.player.attributes.vision / 1000 + performance / 24,
+        0.025 + minutes / 760 + career.player.attributes.passing / 1000 + performance / 24,
         0.01,
         0.3,
       )

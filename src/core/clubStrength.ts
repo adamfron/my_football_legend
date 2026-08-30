@@ -38,7 +38,7 @@ const positionGroup = (position: string): keyof ProfessionalClub['positionalNeed
     ? 'goalkeeper'
     : position.includes('back')
       ? 'defense'
-      : position.includes('mid') || position === 'winger'
+      : position.includes('mid') || position === 'left_winger'
         ? 'midfield'
         : 'attack';
 

@@ -63,7 +63,7 @@ export const evaluatePlayStyleUnlocks = (
   const candidates: Array<[PlayStyleId, boolean, Record<string, number>]> = [
     [
       'progressive_passer',
-      career.player.attributes.vision >= 58 &&
+      career.player.attributes.passing >= 58 &&
         career.player.attributes.technique >= 56 &&
         countTag(career, 'progressive_pass') >= 3 &&
         minutes >= 120,
@@ -71,7 +71,7 @@ export const evaluatePlayStyleUnlocks = (
     ],
     [
       'ball_winner',
-      career.player.attributes.defending >= 60 &&
+      career.player.attributes.tackling >= 60 &&
         countTag(career, 'defensive_read') + countTag(career, 'pressing_action') >= 4 &&
         minutes >= 180,
       { defensiveReads: countTag(career, 'defensive_read'), minutes },
@@ -79,7 +79,7 @@ export const evaluatePlayStyleUnlocks = (
     [
       'goalkeeper_distributor',
       career.player.primaryPosition === 'goalkeeper' &&
-        career.player.attributes.vision >= 57 &&
+        career.player.attributes.passing >= 57 &&
         countTag(career, 'goalkeeper_distribution') >= 3 &&
         minutes >= 150,
       { distributions: countTag(career, 'goalkeeper_distribution'), minutes },

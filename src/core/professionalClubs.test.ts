@@ -26,7 +26,7 @@ const career = () =>
         nationality: 'PL',
         age: 16,
         dominantFoot: 'right',
-        position: 'central_midfielder',
+        position: 'attacking_midfielder',
         heightCm: 178,
         weightKg: 70,
         seed: 'offers',
@@ -46,7 +46,7 @@ describe('professional transition', () => {
       reputation: 0,
       attributes: Object.fromEntries(
         Object.keys(c.player.attributes).map((key) => [key, 20]),
-      ) as unknown as typeof c.player.attributes,
+      ) as unknown as unknown as typeof c.player.attributes,
     };
     const state: typeof c = {
       ...c,
@@ -124,7 +124,7 @@ describe('professional transition', () => {
     for (const key of Object.keys(c.player.attributes) as Array<keyof typeof c.player.attributes>)
       c.player.attributes[key] = 67;
     c.player.age = 18;
-    c.player.potential = 94;
+    c.developmentProfile!.familyCapacity.technical = 94;
     const playerOverall = getPlayerOverall(c.player, c.player.primaryPosition);
     expect(playerOverall).toBeCloseTo(67, 0);
     const club = {
@@ -144,18 +144,13 @@ describe('professional transition', () => {
   it('gives an elite goalkeeper top-tier interest and an appropriate role', () => {
     const c = career();
     c.player.primaryPosition = 'goalkeeper';
+    c.player.positionFamiliarity.goalkeeper = 1;
     c.player.age = 25;
-    c.player.goalkeeperAttributes = {
-      reflexes: 84,
-      handling: 84,
-      oneOnOnes: 84,
-      goalkeeperPositioning: 84,
-      aerialCommand: 84,
-      distribution: 84,
-      communication: 84,
-    };
+    c.player.attributes = Object.fromEntries(
+      Object.keys(c.player.attributes).map((key) => [key, 84]),
+    ) as unknown as typeof c.player.attributes;
     c.player.attributes.composure = 84;
-    c.player.attributes.spatialAwareness = 84;
+    c.player.attributes.gameReading = 84;
     const topTier = generateProfessionalClubPool(c.seed).filter((club) => club.leagueTier === 1);
     expect(topTier.some((club) => evaluateClubInterest(c, club).interested)).toBe(true);
     expect(getPlayerOverall(c.player, c.player.primaryPosition)).toBeCloseTo(84, 0);

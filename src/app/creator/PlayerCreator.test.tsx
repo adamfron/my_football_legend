@@ -13,9 +13,9 @@ const identity = {
   dominantFoot: 'right' as const,
   customSeed: 'creator-ui',
 };
-const profile: ProfileFormState = { position: 'winger', heightCm: '174', weightKg: '68' };
+const profile: ProfileFormState = { position: 'left_winger', heightCm: '174', weightKg: '68' };
 const generated = generateStartingPlayerProfile(
-  { ...identity, position: 'winger', heightCm: 174, weightKg: 68, seed: 'creator-ui' },
+  { ...identity, position: 'left_winger', heightCm: 174, weightKg: 68, seed: 'creator-ui' },
   'creator-ui',
   0,
 );

@@ -1,7 +1,6 @@
 import { translate } from '../../core/narrative/localization';
 import {
   defaultBodyForPosition,
-  MAX_PROFILE_VARIANTS,
   positionIds,
   STARTING_AGE,
   type IdentityInput,
@@ -42,7 +41,6 @@ type Props = {
   selectVariant: (index: number) => void;
   nextIdentity: () => void;
   nextProfile: () => void;
-  reroll: () => void;
   finish: () => void;
 };
 const ErrorText = ({ errors }: { errors?: string[] | undefined }) =>
@@ -106,6 +104,22 @@ export const PlayerCreator = (p: Props) => (
               >
                 <option value="right">Prawa noga</option>
                 <option value="left">Lewa noga</option>
+              </select>
+            </label>
+            <label>
+              Trudność kariery
+              <select
+                value={p.identity.difficulty ?? 'normal'}
+                onChange={(e) =>
+                  p.setIdentity({
+                    ...p.identity,
+                    difficulty: e.target.value as IdentityInput['difficulty'],
+                  })
+                }
+              >
+                <option value="easy">Łatwa — cudowne dziecko</option>
+                <option value="normal">Normalna — absolwent akademii</option>
+                <option value="hard">Trudna — surowy talent</option>
               </select>
             </label>
             <label>
@@ -190,16 +204,12 @@ export const PlayerCreator = (p: Props) => (
                   key={index}
                   onClick={() => p.selectVariant(index)}
                 >
-                  Wariant {index + 1}
+                  Profil {index + 1}
                 </button>
               ))}
             </div>
-            <p>Pozostałe ponowne losowania: {MAX_PROFILE_VARIANTS - p.variants.length}</p>
             <nav className="creator-actions">
               <button onClick={() => p.setStep(1)}>&lt; Wstecz</button>
-              <button disabled={p.variants.length >= MAX_PROFILE_VARIANTS} onClick={p.reroll}>
-                Losuj ponownie
-              </button>
               <button onClick={() => p.setStep(3)}>Akceptuj &gt;</button>
             </nav>
           </div>

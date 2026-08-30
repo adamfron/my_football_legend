@@ -21,7 +21,7 @@ const input: CreatorInput = {
   dominantFoot: 'right',
   customSeed: '',
   seed: 'save-seed',
-  position: 'central_midfielder',
+  position: 'attacking_midfielder',
   heightCm: 179,
   weightKg: 73,
 };

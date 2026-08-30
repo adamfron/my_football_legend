@@ -4,7 +4,7 @@ import { RandomGenerator } from './random/RandomGenerator';
 
 const round = (value: number, digits = 2) => Number(value.toFixed(digits));
 
-/** Provisional chance-quality model. TODO: replace xGA with post-shot xG when shots are simulated. */
+/** Propassingal chance-quality model. TODO: replace xGA with post-shot xG when shots are simulated. */
 export const simulateGoalkeeperPerformance = (
   player: Player,
   opponentAttack: number,
