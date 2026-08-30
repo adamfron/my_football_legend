@@ -1,5 +1,18 @@
 # Roadmap
 
+Lokalny `npm run audit:archetypes` pozostaje narzędziem kalibracji nowych profili, nie ciężkim
+testem CI. Najbliższym dużym systemem po kalibracji są trwałe składy, a następnie rzeczywista
+rywalizacja pozycyjna.
+
+## Projekcje kariery i role trenera
+
+- przyszłe role/instrukcje taktyczne trenera obejmą m.in. odwróconego bocznego obrońcę;
+- ogólny `CompetitionView` zastąpi panel ligi: tabela dla lig/grup, runda lub drabinka pucharu
+  oraz przełączanie ligi, pucharu krajowego, Europy i reprezentacji z poszanowaniem wyboru gracza;
+- widok miesiąca pod rozgrywkami pokaże mecze, rywali, trening, zgrupowania, urazy i wydarzenia,
+  ale będzie wyłącznie projekcją `CareerCalendar`, terminarza, wydarzeń i treningu — nigdy kopią;
+- puchary krajowe, Europa i reprezentacje powstaną dopiero na wspólnej abstrakcji rozgrywek.
+
 ## Następny fundament: trwałe składy klubowe
 
 - **Persistent club squads:** prawdziwi zawodnicy przypisani do klubów (pozycja, znajomość pozycji,

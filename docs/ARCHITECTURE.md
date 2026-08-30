@@ -6,6 +6,12 @@
 atrybuty przed normalizacją OVR i dostarcza prezentację profilu. Kreator pokazuje zawsze wszystkie
 archetypy dopuszczone dla wybranej pozycji, w stabilnej kolejności rejestru.
 
+Generowanie korzysta z jawnych dodatnich i ujemnych `generationBias`; kolejność atutów
+prezentacyjnych nie wpływa na liczby. Archetyp redystrybuuje wspólny budżet talentu danej pozycji
+i trudności, a normalizacja zachowuje kształt profilu zamiast premiować specjalizacje wyższym OVR.
+Etykieta archetypu opisuje zawodnika, nie instrukcję taktyczną. Dlatego Regista jest jedynym
+głębokim kreatorem, a odwrócony boczny obrońca trafi w przyszłości do warstwy ról trenera.
+
 `ATTRIBUTE_PRESENTATION` jest kanonicznym źródłem polskich nazw, grup i kolejności wszystkich 25
 atrybutów. Rozwój korzysta z tego samego przypisania atrybutu do rodziny oraz z pojemności właściwej
 rodziny, zamiast wspólnego maksimum potencjału. Warstwa Play sprawdza domenowy blocker progresji
@@ -66,6 +72,10 @@ ekranie karty przewijają się poziomo, a tabela i oś układają się w jednej 
 Jednocześnie otwarta jest najwyżej jedna współdzielona powierzchnia szczegółów; jej otwarcie nie
 odmontowuje stałego obszaru tabeli i Osi sezonu. Ponowne wybranie aktywnej karty lub przycisk `×`
 zamyka szczegóły.
+
+Pensja z profesjonalnego kontraktu jest księgowana raz za każdy ukończony, objęty kontraktem
+miesiąc jako idempotentna transakcja `salary` w głównej księdze finansowej. Saldo pozostaje
+wyłącznie projekcją tej księgi.
 
 Okna pierwszego planu są dopasowane do treści pod wspólną kotwicą workspace; po osiągnięciu maksymalnej wysokości przewijają się wewnątrz. Herb jest jednym statycznym komponentem zasilanym `ClubVisualIdentity`; warianty zmieniają tylko rozmiar.
 
