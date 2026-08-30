@@ -287,6 +287,10 @@ export interface CareerState {
   clubWorld?: ProfessionalClub[] | undefined;
   /** Normalized persistent NPC registry. The protagonist is resolved from player instead. */
   footballerWorld?: Record<Id, WorldFootballer> | undefined;
+  /** Versioned immutable game content used to hydrate this runtime career. */
+  worldDatabaseVersion?: string | undefined;
+  /** Sparse, persistable mutations over the immutable starting world. */
+  worldDelta?: CareerWorldDelta | undefined;
   completedSeasons?: CompletedSeasonSnapshot[] | undefined;
   /** Canonical record for every controlled-club fixture in the current season. */
   seasonParticipation?: SeasonParticipationRecord[] | undefined;
@@ -297,6 +301,25 @@ export interface CareerState {
   selectionStanding?: number | undefined;
   agentPreferences?: AgentPreference[] | undefined;
   renegotiation?: ContractRenegotiationState | undefined;
+}
+
+export interface CareerWorldDelta {
+  clubOverrides: Record<Id, ProfessionalClub>;
+  footballerOverrides: Record<Id, WorldFootballer>;
+  squadOverrides: Record<Id, Id[]>;
+  newFootballers: Record<Id, WorldFootballer>;
+  retiredFootballerIds: Id[];
+  managerOverrides: Record<Id, Id>;
+}
+
+export interface WorldDatabase {
+  version: string;
+  startingSeason: number;
+  seed: string;
+  clubs: ProfessionalClub[];
+  footballers: Record<Id, WorldFootballer>;
+  /** Reserved for shipped or separately lazy-loaded canonical cohorts. */
+  youthCohorts: Record<string, Id[]>;
 }
 
 export type ParticipationStatus =

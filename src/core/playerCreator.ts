@@ -13,6 +13,8 @@ import type {
   PlayerPosition,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
+import { emptyWorldDelta, WORLD_DATABASE_SEED, WORLD_DATABASE_VERSION } from './worldDatabase';
+import type { WorldDatabase } from '../types/domain';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { populateFootballerWorld } from './footballerWorld';
 import { deriveInitialEffort } from './playerPreferences';
@@ -284,8 +286,28 @@ export const generateStartingProfileVariants = (input: CreatorInput, seed: strin
   );
 export const makeReadableSeed = () =>
   globalThis.crypto?.randomUUID?.().slice(0, 18) ?? `career-${Date.now().toString(36)}`;
-export const createCareerState = (profile: StartingPlayerProfile, seed: string): CareerState => {
-  const professionalWorld = populateFootballerWorld(generateProfessionalClubPool(seed), seed);
+export const createCareerState = (
+  profile: StartingPlayerProfile,
+  seed: string,
+  database?: WorldDatabase,
+): CareerState => {
+  // Legacy core tests may omit the asset; the browser path always supplies the preloaded database.
+  const base =
+    database ??
+    (() => {
+      const generated = populateFootballerWorld(
+        generateProfessionalClubPool(WORLD_DATABASE_SEED),
+        WORLD_DATABASE_SEED,
+      );
+      return {
+        version: WORLD_DATABASE_VERSION,
+        startingSeason: 2026,
+        seed: WORLD_DATABASE_SEED,
+        clubs: generated.clubs,
+        footballers: generated.footballerWorld,
+        youthCohorts: {},
+      };
+    })();
   const fact: HistoryFact = {
     id: 'fact_career_started_2026',
     factType: 'career_started',
@@ -317,8 +339,11 @@ export const createCareerState = (profile: StartingPlayerProfile, seed: string):
     storyThreads: [],
     statistics: { appearances: 0, goals: 0, assists: 0, trainings: 0 },
     developmentProfile: profile.developmentProfile,
-    clubWorld: professionalWorld.clubs,
-    footballerWorld: professionalWorld.footballerWorld,
+    worldDatabaseVersion: WORLD_DATABASE_VERSION,
+    worldDelta: emptyWorldDelta(),
+    // Runtime hydration only. Persistence explicitly removes this immutable game content.
+    clubWorld: base.clubs,
+    footballerWorld: base.footballers,
     completedSeasons: [],
     seasonParticipation: [],
     trainingApproach: 'balanced',

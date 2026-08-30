@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { translate } from '../core/narrative/localization';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
@@ -56,7 +56,8 @@ import {
   getRegularSeasonEvent,
   resolveRegularSeasonEvent,
 } from '../core/events/regularSeasonEvents';
-import type { CareerState, EventDecision } from '../types/domain';
+import type { CareerState, EventDecision, WorldDatabase } from '../types/domain';
+import { loadWorldDatabase } from '../core/worldDatabase';
 import { ATTRIBUTE_PRESENTATION_BY_KEY } from '../core/attributePresentation';
 import { isDevToolsEnabled } from './devTools';
 import { CareerView } from './career/CareerView';
@@ -791,6 +792,14 @@ export const App = () => {
   const [showInfo, setShowInfo] = useState(() => localStorage.getItem(infoKey) !== '1');
   const [variants, setVariants] = useState<StartingPlayerProfile[]>([]);
   const [selectedVariant, setSelectedVariant] = useState(0);
+  const [worldDatabase, setWorldDatabase] = useState<WorldDatabase>();
+  const [worldError, setWorldError] = useState<string>();
+  useEffect(() => {
+    if (view !== 'creator' || worldDatabase || worldError) return;
+    void loadWorldDatabase()
+      .then(setWorldDatabase)
+      .catch(() => setWorldError('Nie udało się przygotować świata. Spróbuj ponownie.'));
+  }, [view, worldDatabase, worldError]);
   const generated = variants[selectedVariant] ?? null;
   const heightForHint = Number(profileInput.heightCm);
   const weightRange =
@@ -857,8 +866,8 @@ export const App = () => {
     setStep(2);
   };
   const finish = () => {
-    if (!generated) return;
-    updateCareer(createCareerState(generated, seed));
+    if (!generated || !worldDatabase) return;
+    updateCareer(createCareerState(generated, seed, worldDatabase));
     setView('career');
   };
 
@@ -917,6 +926,8 @@ export const App = () => {
         nextIdentity={nextIdentity}
         nextProfile={nextProfile}
         finish={finish}
+        worldStatus={worldError ? 'error' : worldDatabase ? 'ready' : 'loading'}
+        retryWorld={() => setWorldError(undefined)}
       />
     );
   return (

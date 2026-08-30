@@ -55,6 +55,8 @@ type Props = {
   nextIdentity: () => void;
   nextProfile: () => void;
   finish: () => void;
+  worldStatus?: 'loading' | 'ready' | 'error';
+  retryWorld?: () => void;
 };
 const ErrorText = ({ errors }: { errors?: string[] | undefined }) =>
   errors?.map((error) => (
@@ -228,8 +230,19 @@ export const PlayerCreator = (p: Props) => (
             </div>
             <nav className="creator-actions">
               <button onClick={() => p.setStep(1)}>&lt; Wstecz</button>
-              <button onClick={p.finish}>Rozpocznij karierę</button>
+              <button
+                disabled={p.worldStatus != null && p.worldStatus !== 'ready'}
+                onClick={p.finish}
+              >
+                {p.worldStatus === 'loading' ? 'Przygotowywanie świata…' : 'Rozpocznij karierę'}
+              </button>
             </nav>
+            {p.worldStatus === 'error' && (
+              <p className="field-error">
+                Nie udało się przygotować świata.{' '}
+                <button onClick={p.retryWorld}>Spróbuj ponownie</button>
+              </p>
+            )}
           </div>
         )}
       </section>

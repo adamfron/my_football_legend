@@ -153,3 +153,18 @@ Managers deterministically own one preferred evaluation formation. Live club str
 Full cards are intentionally retained at the current Polish-world scale. Derived OVR, radar and archetype scores are not persisted, and background players do not receive weekly match logs, narrative state or protagonist development simulation. Future larger worlds can keep canonical cards while using sparse seasonal development and coarser background competition simulation.
 
 Club colours, including white/white and similar pairs, remain canonical data. Neutral outlines are derived only in presentation when contrast would otherwise disappear.
+
+# Świat statyczny i zapis kariery
+
+`STATIC WORLD DATABASE + CAREER WORLD DELTA = EFFECTIVE WORLD`.
+
+Wyjściowe kluby, menedżerowie, składy i pełne karty Player Model 2.0 są niezmiennym,
+wersjonowanym contentem gry. Seed kariery steruje zdarzeniami i przyszłą ewolucją, ale nie
+odtwarza początkowej rzeczywistości. Stabilne identyfikatory są wspólne dla wszystkich karier,
+a zapis przechowuje protagonistę i wyłącznie zmienione lub nowe encje. OVR, radar, najlepsza
+jedenastka i siła klubu są wartościami pochodnymi, nie danymi autorytatywnymi.
+
+Bazę można w przyszłości dzielić na leniwie ładowane pakiety krajów i rozgrywek oraz statyczne
+kohorty młodzieży. Pełna tożsamość NPC pozostaje zachowana; bliscy NPC mogą być aktualizowani
+szczegółowo, a tło będzie rozwijane deterministycznie sezonowo lub w rzadkich checkpointach,
+zamiast symulacji treningu 52 razy w roku dla całego świata.
