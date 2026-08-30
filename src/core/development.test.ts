@@ -12,7 +12,7 @@ const make = (seed = 'dev') =>
         nationality: 'PL',
         age: 16,
         dominantFoot: 'right',
-        position: 'winger',
+        position: 'left_winger',
         heightCm: 170,
         weightKg: 64,
         seed,
@@ -123,7 +123,11 @@ describe('development pipeline', () => {
       let c = make(seed);
       c = {
         ...c,
-        player: { ...c.player, potential },
+        player: c.player,
+        developmentProfile: {
+          ...c.developmentProfile!,
+          familyCapacity: { ...c.developmentProfile!.familyCapacity, technical: potential },
+        },
         currentProfessionalClub: {
           id: 'development-club',
           name: 'Klub Rozwoju',

@@ -14,7 +14,7 @@ const input: CreatorInput = {
   age: 16,
   dominantFoot: 'right',
   customSeed: '',
-  position: 'winger',
+  position: 'left_winger',
   heightCm: 174,
   weightKg: 68,
   seed: 'lifecycle',

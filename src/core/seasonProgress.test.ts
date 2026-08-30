@@ -12,7 +12,7 @@ const base = () =>
         nationality: 'PL',
         age: 16,
         dominantFoot: 'right',
-        position: 'central_midfielder',
+        position: 'attacking_midfielder',
         heightCm: 178,
         weightKg: 70,
         seed: 'clock',

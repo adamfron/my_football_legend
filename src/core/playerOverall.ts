@@ -1,84 +1,213 @@
-import type {
-  GoalkeeperAttributes,
-  Player,
-  PlayerAttributes,
-  PlayerPosition,
-} from '../types/domain';
+import type { Player, PlayerAttributes, PlayerPosition } from '../types/domain';
 
-const weights: Record<PlayerPosition, Partial<Record<keyof PlayerAttributes, number>>> = {
-  goalkeeper: {},
-  center_back: {
-    defending: 0.3,
-    spatialAwareness: 0.2,
-    composure: 0.18,
-    stamina: 0.14,
-    technique: 0.1,
-    pace: 0.08,
-  },
-  full_back: { pace: 0.27, stamina: 0.25, defending: 0.22, technique: 0.16, vision: 0.1 },
-  defensive_midfielder: {
-    defending: 0.22,
-    spatialAwareness: 0.18,
-    vision: 0.18,
-    composure: 0.2,
-    stamina: 0.18,
-    technique: 0.12,
-  },
-  central_midfielder: {
-    vision: 0.24,
-    technique: 0.22,
-    spatialAwareness: 0.18,
-    stamina: 0.18,
-    composure: 0.12,
-    defending: 0.06,
-  },
-  attacking_midfielder: {
-    vision: 0.28,
-    technique: 0.27,
-    composure: 0.2,
-    finishing: 0.17,
-    pace: 0.08,
-  },
-  winger: { pace: 0.3, technique: 0.27, finishing: 0.2, vision: 0.15, stamina: 0.08 },
+export const PLAYER_POSITIONS = [
+  'goalkeeper',
+  'center_back',
+  'left_back',
+  'right_back',
+  'defensive_midfielder',
+  'attacking_midfielder',
+  'left_winger',
+  'right_winger',
+  'striker',
+] as const satisfies readonly PlayerPosition[];
+export const OVR_ATTRIBUTE_KEYS = [
+  'technique',
+  'firstTouch',
+  'passing',
+  'dribbling',
+  'finishing',
+  'tackling',
+  'heading',
+  'setPieces',
+  'gameReading',
+  'composure',
+  'concentration',
+  'leadership',
+  'determination',
+  'aggression',
+  'pace',
+  'stamina',
+  'strength',
+  'agility',
+  'jumping',
+  'ambition',
+  'professionalism',
+  'reflexes',
+  'handling',
+  'oneOnOnes',
+  'goalkeeperSweeping',
+] as const satisfies readonly (keyof PlayerAttributes)[];
+type W = Partial<Record<keyof PlayerAttributes, number>>;
+const shared = (entries: W): W => entries;
+const flank = shared({
+  technique: 2,
+  firstTouch: 2,
+  passing: 2,
+  dribbling: 2,
+  tackling: 3,
+  heading: 1,
+  setPieces: 1,
+  gameReading: 2,
+  composure: 1,
+  concentration: 2,
+  pace: 3,
+  stamina: 3,
+  strength: 2,
+  agility: 2,
+  jumping: 1,
+});
+const wing = shared({
+  technique: 3,
+  firstTouch: 3,
+  passing: 2,
+  dribbling: 3,
+  finishing: 2,
+  tackling: 1,
+  heading: 1,
+  setPieces: 1,
+  gameReading: 2,
+  composure: 2,
+  concentration: 1,
+  pace: 3,
+  stamina: 2,
+  strength: 1,
+  agility: 3,
+  jumping: 1,
+});
+export const POSITION_OVR_WEIGHTS: Record<PlayerPosition, W> = {
   striker: {
-    finishing: 0.28,
-    composure: 0.2,
-    spatialAwareness: 0.18,
-    pace: 0.16,
-    technique: 0.13,
-    vision: 0.05,
+    technique: 2,
+    firstTouch: 2,
+    passing: 2,
+    dribbling: 2,
+    finishing: 3,
+    heading: 2,
+    setPieces: 1,
+    gameReading: 2,
+    composure: 3,
+    concentration: 1,
+    pace: 2,
+    stamina: 2,
+    strength: 2,
+    agility: 2,
+    jumping: 2,
+  },
+  left_winger: wing,
+  right_winger: wing,
+  attacking_midfielder: {
+    technique: 3,
+    firstTouch: 3,
+    passing: 3,
+    dribbling: 2,
+    finishing: 2,
+    tackling: 1,
+    heading: 1,
+    setPieces: 1,
+    gameReading: 3,
+    composure: 2,
+    concentration: 2,
+    leadership: 1,
+    pace: 2,
+    stamina: 2,
+    strength: 1,
+    agility: 2,
+    jumping: 1,
+  },
+  defensive_midfielder: {
+    technique: 2,
+    firstTouch: 2,
+    passing: 3,
+    dribbling: 1,
+    tackling: 3,
+    heading: 1,
+    setPieces: 1,
+    gameReading: 3,
+    composure: 2,
+    concentration: 2,
+    leadership: 1,
+    pace: 1,
+    stamina: 3,
+    strength: 2,
+    agility: 1,
+    jumping: 1,
+  },
+  left_back: flank,
+  right_back: flank,
+  center_back: {
+    technique: 1,
+    firstTouch: 1,
+    passing: 2,
+    dribbling: 1,
+    tackling: 3,
+    heading: 3,
+    gameReading: 3,
+    composure: 2,
+    concentration: 3,
+    leadership: 1,
+    pace: 2,
+    stamina: 2,
+    strength: 3,
+    agility: 1,
+    jumping: 3,
+  },
+  goalkeeper: {
+    technique: 1,
+    firstTouch: 1,
+    passing: 1,
+    gameReading: 3,
+    composure: 3,
+    concentration: 3,
+    leadership: 1,
+    pace: 1,
+    stamina: 1,
+    strength: 2,
+    agility: 2,
+    jumping: 2,
+    reflexes: 3,
+    handling: 3,
+    oneOnOnes: 3,
+    goalkeeperSweeping: 3,
   },
 };
-
-/** Player-facing positional summary only; selection continues to use detailed attributes. */
-export const getPlayerOverall = (player: Player, position: PlayerPosition | string): number => {
-  if (position === 'goalkeeper' && player.goalkeeperAttributes) {
-    const goalkeeperWeights: Record<keyof GoalkeeperAttributes, number> = {
-      reflexes: 0.22,
-      goalkeeperPositioning: 0.2,
-      handling: 0.18,
-      oneOnOnes: 0.16,
-      aerialCommand: 0.09,
-      communication: 0.07,
-      distribution: 0.08,
-    };
-    const specialist = Object.entries(goalkeeperWeights).reduce(
-      (sum, [key, weight]) =>
-        sum + player.goalkeeperAttributes![key as keyof GoalkeeperAttributes] * weight,
-      0,
-    );
-    // Finishing deliberately has no goalkeeper weight; awareness/composure are useful secondary skills.
-    const value =
-      specialist * 0.86 +
-      player.attributes.spatialAwareness * 0.07 +
-      player.attributes.composure * 0.07;
-    return Math.max(1, Math.min(100, Math.round(value)));
+const clamp = (n: number) => Math.max(1, Math.min(100, Math.round(n)));
+export const getTheoreticalPositionOverall = (player: Player, position: PlayerPosition): number => {
+  const w = POSITION_OVR_WEIGHTS[position];
+  let sum = 0,
+    total = 0;
+  for (const [key, weight] of Object.entries(w)) {
+    sum += player.attributes[key as keyof PlayerAttributes] * (weight ?? 0);
+    total += weight ?? 0;
   }
-  const profile = weights[position as PlayerPosition] ?? weights.central_midfielder;
-  const value = Object.entries(profile).reduce(
-    (sum, [attribute, weight]) =>
-      sum + player.attributes[attribute as keyof PlayerAttributes] * weight,
-    0,
-  );
-  return Math.max(1, Math.min(100, Math.round(value)));
+  return clamp(sum / total);
 };
+export const getPositionFamiliarityModifier = (
+  player: Player,
+  position: PlayerPosition,
+): number => {
+  const fromGk = player.primaryPosition === 'goalkeeper';
+  const toGk = position === 'goalkeeper';
+  if (fromGk !== toGk) return 0.6;
+  const familiarity = player.positionFamiliarity[position] ?? 0;
+  return familiarity >= 1
+    ? 1
+    : familiarity >= 0.8
+      ? 0.98
+      : familiarity >= 0.6
+        ? 0.95
+        : familiarity >= 0.3
+          ? 0.92
+          : 0.88;
+};
+export const getEffectivePositionOverall = (player: Player, position: PlayerPosition): number =>
+  clamp(
+    getTheoreticalPositionOverall(player, position) *
+      getPositionFamiliarityModifier(player, position),
+  );
+export const getPlayerOverall = (player: Player, position: PlayerPosition | string): number =>
+  getEffectivePositionOverall(
+    player,
+    (PLAYER_POSITIONS.includes(position as PlayerPosition)
+      ? position
+      : player.primaryPosition) as PlayerPosition,
+  );

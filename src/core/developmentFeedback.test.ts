@@ -16,7 +16,7 @@ const career = () => {
         nationality: 'PL',
         age: 16,
         dominantFoot: 'right',
-        position: 'winger',
+        position: 'left_winger',
         heightCm: 175,
         weightKg: 68,
         seed,
@@ -52,7 +52,7 @@ describe('current-season development feedback', () => {
 
   it('degrades gracefully for legacy saves without a season baseline', () => {
     const legacy = { ...career(), seasonStartingAttributes: undefined };
-    expect(getSeasonAttributeDelta(legacy.player.attributes, undefined, 'vision')).toBeUndefined();
+    expect(getSeasonAttributeDelta(legacy.player.attributes, undefined, 'passing')).toBeUndefined();
     expect(getSeasonOverallDelta(legacy)).toBeUndefined();
   });
 });

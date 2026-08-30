@@ -228,8 +228,8 @@ export const CareerView = ({
                   profileDescriptionKey: 'creator.profileDescription',
                   profileDescriptionParams: {
                     strong1: 'attribute.technique',
-                    strong2: 'attribute.vision',
-                    weak: 'attribute.defending',
+                    strong2: 'attribute.passing',
+                    weak: 'attribute.tackling',
                     position: `position.${career.player.primaryPosition}`,
                   },
                   rollIndex: 0,

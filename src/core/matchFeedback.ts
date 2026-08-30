@@ -34,7 +34,7 @@ export const evaluateMatchRating = (input: {
       value -= result.xG * 0.62;
     if (String(input.position).includes('midfielder'))
       value += result.defensiveActions * 0.12 + result.keyPasses * 0.08;
-    if (['center_back', 'full_back'].includes(String(input.position)))
+    if (['center_back', 'left_back'].includes(String(input.position)))
       value += result.defensiveActions * 0.2;
     if (String(input.position).includes('goalkeeper'))
       value += result.saves * 0.16 - (result.tier === 'costly' ? 0.3 : 0);

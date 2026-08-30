@@ -35,38 +35,52 @@ export interface FaceGenome {
 
 export interface PlayerAttributes {
   technique: number;
-  vision: number;
+  firstTouch: number;
+  passing: number;
+  dribbling: number;
+  finishing: number;
+  tackling: number;
+  heading: number;
+  setPieces: number;
+  gameReading: number;
+  composure: number;
+  concentration: number;
+  leadership: number;
+  determination: number;
+  aggression: number;
   pace: number;
   stamina: number;
-  finishing: number;
-  defending: number;
-  leadership: number;
-  composure: number;
-  spatialAwareness: number;
-  determination: number;
+  strength: number;
+  agility: number;
+  jumping: number;
   ambition: number;
   professionalism: number;
-}
-export interface GoalkeeperAttributes {
   reflexes: number;
   handling: number;
   oneOnOnes: number;
-  goalkeeperPositioning: number;
-  aerialCommand: number;
-  distribution: number;
-  communication: number;
+  goalkeeperSweeping: number;
+}
+export interface HiddenPlayerProfile {
+  consistency: number;
+  importantMatches: number;
+  injuryProneness: number;
+  adaptability: number;
+  loyalty: number;
+  pressureResistance: number;
+  controversy: number;
+  fairPlay: number;
 }
 export type DevelopmentType = 'early_bloomer' | 'normal' | 'late_bloomer';
+export type DevelopmentFamily = 'technical' | 'mental' | 'physical' | 'goalkeeper';
 export interface DevelopmentProfile {
   developmentType: DevelopmentType;
   growthRate: number;
-  peakAge: number;
-  declineStartAge: number;
-  softPotential: number;
   developmentVolatility: number;
-  physicalPeakAge: number;
-  technicalPeakAge: number;
-  mentalPeakAge: number;
+  familyCapacity: Record<DevelopmentFamily, number>;
+  familyPeakAge: Record<DevelopmentFamily, number>;
+  familyDeclineStartAge: Record<DevelopmentFamily, number>;
+  stagnationResistance: number;
+  crisisSensitivity: number;
 }
 
 export interface Player {
@@ -78,16 +92,14 @@ export interface Player {
   heightCm: number;
   weightKg: number;
   attributes: PlayerAttributes;
-  /** Present only for goalkeepers. */
-  goalkeeperAttributes?: GoalkeeperAttributes | undefined;
+  hiddenProfile: HiddenPlayerProfile;
+  dominantFoot: 'left' | 'right';
+  weakFootProficiency: number;
   traits: string[];
-  archetypeId: Id;
   careerPremiseId: Id;
-  potential: number;
-  primaryPosition: string;
-  secondaryPositions: string[];
-  positionFamiliarity: Record<string, number>;
-  preferredRoles: string[];
+  primaryPosition: PlayerPosition;
+  secondaryPositions: PlayerPosition[];
+  positionFamiliarity: Record<PlayerPosition, number>;
   fitness: number;
   health: number;
   morale: number;
@@ -230,6 +242,7 @@ export interface StoryThread {
 
 export interface CareerState {
   seed: string;
+  difficulty?: CareerDifficulty | undefined;
   currentSeason: number;
   careerSeasonNumber: number;
   player: Player;
@@ -272,6 +285,8 @@ export interface CareerState {
   /** Canonical record for every controlled-club fixture in the current season. */
   seasonParticipation?: SeasonParticipationRecord[] | undefined;
   trainingApproach?: TrainingApproach | undefined;
+  trainingPlan?: TrainingPlan | undefined;
+  individualFocus?: keyof PlayerAttributes | 'weakFootProficiency' | undefined;
   /** Slow-moving coach confidence, independent from short-term form. */
   selectionStanding?: number | undefined;
   agentPreferences?: AgentPreference[] | undefined;
@@ -288,6 +303,20 @@ export type ParticipationStatus =
   | 'unfit'
   | 'unavailable';
 export type TrainingApproach = 'recovery' | 'balanced' | 'extra_work';
+export type CareerDifficulty = 'easy' | 'normal' | 'hard';
+export type TrainingPlan =
+  | 'general'
+  | 'technical'
+  | 'playmaking'
+  | 'dribbling'
+  | 'finishing'
+  | 'tackling'
+  | 'aerial'
+  | 'physical'
+  | 'set_pieces'
+  | 'goalkeeper'
+  | 'sweeper_keeper'
+  | 'weak_foot';
 export interface SeasonParticipationRecord {
   fixtureId: string;
   seasonId?: string | undefined;
@@ -678,11 +707,12 @@ export interface CareerEventCandidate {
 export type PlayerPosition =
   | 'goalkeeper'
   | 'center_back'
-  | 'full_back'
+  | 'left_back'
+  | 'right_back'
   | 'defensive_midfielder'
-  | 'central_midfielder'
   | 'attacking_midfielder'
-  | 'winger'
+  | 'left_winger'
+  | 'right_winger'
   | 'striker';
 export type SquadStatus =
   | 'senior_starter'

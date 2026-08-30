@@ -201,12 +201,18 @@ const applyAnnualAging = (career: CareerState, date: string): CareerState => {
   const physical: Array<keyof PlayerAttributes> = ['pace', 'stamina'];
   const technical: Array<keyof PlayerAttributes> = [
     'technique',
-    'vision',
+    'passing',
     'finishing',
-    'defending',
+    'tackling',
   ];
   const resilience =
-    Math.min(0.25, (career.player.potential - 60) / 160) + (career.player.fitness - 70) / 300;
+    Math.min(
+      0.25,
+      (Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) -
+        60) /
+        160,
+    ) +
+    (career.player.fitness - 70) / 300;
   for (const attribute of [...physical, ...technical]) {
     if (rng.float() >= base - resilience - (physical.includes(attribute) ? 0 : 0.35)) continue;
     const before = attrs[attribute];

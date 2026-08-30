@@ -116,3 +116,9 @@ Bieżący kontrakt jest stanem referencyjnym, a `ProfessionalOffer` jedynym poj�
 Przyjęcie dowolnej oferty atomowo instaluje dokładnie jej kontrakt, zamyka wszystkie konkurencyjne oferty i renegocjację oraz dokładnie raz przechodzi granicę sezonu. Kontynuacja niezmienionej umowy jest ścieżką awaryjną tylko wtedy, gdy umowa obejmuje 1 lipca nowego sezonu i nie ma propozycji obecnego klubu. Gdy umowa wygasa, przygotowanie rynku gwarantuje co najmniej jedną deterministyczną ofertę od prawdziwego klubu z bieżącego świata. Profesjonalny sezon nie może rozpocząć się na wygasłym kontrakcie.
 
 Nazwy encji mogą w przyszłości prezentować zwarte podglądy oparte na danych kanonicznych, bez osobnej bazy UI: dla klubu herb, ligę, siłę, reputację, pozycję i infrastrukturę, a dla osoby portret, wiek, pozycję lub rolę, znany OVR, obecny klub i istotną relację.
+
+## Player Model 2.0
+
+Zawodnik ma jedno kanoniczne źródło danych: 25 widocznych atrybutów (w tym cztery bramkarskie u każdego zawodnika), osiem ukrytych wymiarów osobowości oraz jawne dane obu nóg. Boisko dzieli się na dokładnie dziewięć stref. OVR pozycyjny jest wyłącznie ważonym skrótem prezentacyjnym; osobno stosowana znajomość pozycji opisuje doświadczenie w strefie bez zmiany bazowych umiejętności.
+
+Archetyp piłkarski jest deterministycznie wyprowadzanym, rankingowanym opisem profilu, a nie zapisaną klasą. Przyszły PlayStyle pozostaje odrębną specjalizacją behawioralną. Rozwój nie ma globalnego, twardego potencjału: używa miękkiej pojemności, wieku szczytu i początku regresu dla rodzin technicznej, mentalnej, fizycznej i bramkarskiej. Trudność kariery wpływa tylko na generowanie i przewidywalność rozwoju protagonisty, nigdy na siłę świata.

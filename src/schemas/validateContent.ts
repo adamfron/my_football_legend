@@ -1,5 +1,13 @@
 import { sampleContent } from '../content/sampleContent';
-import { archetypeSchema, careerPremiseSchema, clubSchema, eventDefinitionSchema, historyFactSchema, personSchema, storyThreadSchema } from './domainSchemas';
+import {
+  archetypeSchema,
+  careerPremiseSchema,
+  clubSchema,
+  eventDefinitionSchema,
+  historyFactSchema,
+  personSchema,
+  storyThreadSchema,
+} from './domainSchemas';
 
 export const validateSampleContent = () => ({
   archetypes: sampleContent.archetypes.map((item) => archetypeSchema.parse(item)),

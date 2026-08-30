@@ -94,7 +94,7 @@ const group = (position: string): keyof ProfessionalClub['positionalNeeds'] =>
     ? 'goalkeeper'
     : position.includes('back')
       ? 'defense'
-      : position.includes('mid') || position === 'winger'
+      : position.includes('mid') || position === 'left_winger'
         ? 'midfield'
         : 'attack';
 export const generateProfessionalClubPool = (seed: string): ProfessionalClub[] =>
@@ -189,10 +189,12 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
       9,
     ) +
     (getClubInfrastructure(club).scoutingQuality - 50) * 0.08;
-  const potentialEstimate = career.player.potential + scout;
+  const potentialEstimate =
+    Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) +
+    scout;
   const style =
     club.playingStyle === 'techniczny' || club.playingStyle === 'cierpliwe posiadanie'
-      ? (career.player.attributes.technique + career.player.attributes.vision - 90) / 8
+      ? (career.player.attributes.technique + career.player.attributes.passing - 90) / 8
       : 0;
   const score =
     overall(career) * 0.65 +

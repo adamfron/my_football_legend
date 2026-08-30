@@ -40,7 +40,12 @@ export const estimatePlayerMarketValue = (
       (Math.max(0, ovr - 35) ** 2 *
         950 *
         ageFactor *
-        (1 + (career.player.potential - ovr) / 100) *
+        (1 +
+          (Math.max(
+            ...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 }),
+          ) -
+            ovr) /
+            100) *
         (1 + Math.min(3, years) * 0.15)) /
         10000,
     ) * 10000

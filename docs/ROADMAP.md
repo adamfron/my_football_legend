@@ -22,3 +22,14 @@ Osobiście rozgrywane ważne mecze otrzymają docelowo izometryczny interfejs ta
 - dodać kompaktowe podglądy encji po wskazaniu nazwy, czerpiące wyłącznie z kanonicznych danych klubów i osób.
 
 Każdy etap musi zachować deterministyczność, niezależność `src/core` od Reacta i walidację nowych danych w Zod. Roadmapa opisuje kierunek, nie funkcje już dostępne.
+
+## Po Player Model 2.0
+
+- behawioralne zdobywanie PlayStyle wraz z powiadomieniami,
+- osiągnięcia, kamienie milowe i sekretne osiągnięcia,
+- kreator z własnym budżetem atrybutów i archetypy fantasy,
+- sugestie trenera dotyczące przekwalifikowania i roli,
+- bogatsza rehabilitacja kontuzji oraz kryzysy psychologiczne,
+- interaktywny izometryczny silnik meczu oparty na decyzjach,
+- trwałe składy, koledzy i trenerzy oraz bogatsze kadry klubów,
+- ligi zagraniczne, puchary, Europa i reprezentacje.
