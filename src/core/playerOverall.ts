@@ -1,4 +1,4 @@
-import type { Player, PlayerAttributes, PlayerPosition } from '../types/domain';
+import type { FootballerProfile, PlayerAttributes, PlayerPosition } from '../types/domain';
 
 export const PLAYER_POSITIONS = [
   'goalkeeper',
@@ -171,7 +171,10 @@ export const POSITION_OVR_WEIGHTS: Record<PlayerPosition, W> = {
   },
 };
 const clamp = (n: number) => Math.max(1, Math.min(100, Math.round(n)));
-export const getTheoreticalPositionOverall = (player: Player, position: PlayerPosition): number => {
+export const getTheoreticalPositionOverall = (
+  player: FootballerProfile,
+  position: PlayerPosition,
+): number => {
   const w = POSITION_OVR_WEIGHTS[position];
   let sum = 0,
     total = 0;
@@ -182,7 +185,7 @@ export const getTheoreticalPositionOverall = (player: Player, position: PlayerPo
   return clamp(sum / total);
 };
 export const getPositionFamiliarityModifier = (
-  player: Player,
+  player: FootballerProfile,
   position: PlayerPosition,
 ): number => {
   const fromGk = player.primaryPosition === 'goalkeeper';
@@ -199,12 +202,18 @@ export const getPositionFamiliarityModifier = (
           ? 0.92
           : 0.88;
 };
-export const getEffectivePositionOverall = (player: Player, position: PlayerPosition): number =>
+export const getEffectivePositionOverall = (
+  player: FootballerProfile,
+  position: PlayerPosition,
+): number =>
   clamp(
     getTheoreticalPositionOverall(player, position) *
       getPositionFamiliarityModifier(player, position),
   );
-export const getPlayerOverall = (player: Player, position: PlayerPosition | string): number =>
+export const getPlayerOverall = (
+  player: FootballerProfile,
+  position: PlayerPosition | string,
+): number =>
   getEffectivePositionOverall(
     player,
     (PLAYER_POSITIONS.includes(position as PlayerPosition)

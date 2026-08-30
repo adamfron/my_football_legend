@@ -83,7 +83,8 @@ export interface DevelopmentProfile {
   crisisSensitivity: number;
 }
 
-export interface Player {
+/** Canonical Player Model 2.0 card shared by the protagonist and world footballers. */
+export interface FootballerProfile {
   id: Id;
   firstName: string;
   lastName: string;
@@ -96,10 +97,13 @@ export interface Player {
   dominantFoot: 'left' | 'right';
   weakFootProficiency: number;
   traits: string[];
-  careerPremiseId: Id;
   primaryPosition: PlayerPosition;
   secondaryPositions: PlayerPosition[];
   positionFamiliarity: Record<PlayerPosition, number>;
+}
+
+export interface Player extends FootballerProfile {
+  careerPremiseId: Id;
   fitness: number;
   health: number;
   morale: number;
@@ -281,6 +285,8 @@ export interface CareerState {
   highestOVRDate?: string | undefined;
   developmentProfile?: DevelopmentProfile | undefined;
   clubWorld?: ProfessionalClub[] | undefined;
+  /** Normalized persistent NPC registry. The protagonist is resolved from player instead. */
+  footballerWorld?: Record<Id, WorldFootballer> | undefined;
   completedSeasons?: CompletedSeasonSnapshot[] | undefined;
   /** Canonical record for every controlled-club fixture in the current season. */
   seasonParticipation?: SeasonParticipationRecord[] | undefined;
@@ -493,6 +499,16 @@ export interface ProfessionalClub {
   archetype: ClubArchetype;
   positionalNeeds: Record<'goalkeeper' | 'defense' | 'midfield' | 'attack', PositionalNeed>;
   visualIdentity?: ClubVisualIdentity | undefined;
+  /** Normalized first-team membership; never contains embedded footballer cards. */
+  squadPlayerIds?: Id[] | undefined;
+}
+export interface WorldFootballer {
+  profile: FootballerProfile;
+  developmentProfile: DevelopmentProfile;
+  careerStatus: 'active' | 'retired';
+  currentClubId?: Id | undefined;
+  reputation?: number | undefined;
+  fitness?: number | undefined;
 }
 export interface ClubInfrastructure {
   coachingQuality: number;

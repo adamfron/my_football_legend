@@ -24,3 +24,22 @@ export const resolveClubVisualIdentity = (
   seed: string,
   club: { id: string; visualIdentity?: ClubVisualIdentity | undefined },
 ): ClubVisualIdentity => club.visualIdentity ?? generateClubVisualIdentity(seed, club.id);
+
+const luminance = (hex: string) => {
+  const values = [1, 3, 5]
+    .map((index) => Number.parseInt(hex.slice(index, index + 2), 16) / 255)
+    .map((value) => (value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * values[0]! + 0.7152 * values[1]! + 0.0722 * values[2]!;
+};
+const contrast = (a: string, b: string) => {
+  const [bright, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (bright! + 0.05) / (dark! + 0.05);
+};
+/** Neutral presentation outline; canonical club colours are never rewritten. */
+export const getClubIdentityOutline = (identity: ClubVisualIdentity, background = '#f2f2f2') =>
+  contrast(identity.primaryColor, background) < 2 ||
+  contrast(identity.primaryColor, identity.secondaryColor) < 1.35
+    ? luminance(identity.primaryColor) > 0.45
+      ? '#171b1d'
+      : '#ffffff'
+    : identity.secondaryColor;

@@ -447,6 +447,16 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
   const club = asClub(offer);
   const coach = createProfessionalCoach(career, club, date);
   const changedClub = club.id !== career.currentClub.id;
+  const clubWorld = career.clubWorld?.map((worldClub) => {
+    const withoutPlayer = (worldClub.squadPlayerIds ?? []).filter((id) => id !== career.player.id);
+    return worldClub.id === offer.club.id
+      ? { ...worldClub, squadPlayerIds: [...withoutPlayer, career.player.id] }
+      : { ...worldClub, squadPlayerIds: withoutPlayer };
+  });
+  const destination = clubWorld?.find((worldClub) => worldClub.id === offer.club.id) ?? {
+    ...offer.club,
+    squadPlayerIds: [...new Set([...(offer.club.squadPlayerIds ?? []), career.player.id])],
+  };
   const types =
     career.careerSeasonNumber === 1
       ? ['academy_graduated', 'first_professional_contract', 'joined_professional_club']
@@ -470,7 +480,8 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     ...career,
     currentContract: offer.contract,
     currentClub: club,
-    currentProfessionalClub: offer.club,
+    currentProfessionalClub: destination,
+    clubWorld,
     currentSportingStatus: sensibleRole(career.player.age, offer.contract.squadRole),
     previousClubIds: changedClub
       ? [...career.previousClubIds, career.currentClub.id]

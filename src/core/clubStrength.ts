@@ -1,10 +1,17 @@
 import type { CareerState, ProfessionalClub, SquadRole } from '../types/domain';
 import { getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
+import { getSquadDerivedClubStrength } from './footballerWorld';
 
 export const getClubStrength = (
   club: Pick<ProfessionalClub, 'strengthRating' | 'overallStrength'>,
 ) => Math.max(0, Math.min(100, club.strengthRating ?? club.overallStrength ?? 50));
+
+/** Live squad strength when normalized cards exist; legacy rating is bootstrap/fallback only. */
+export const getCareerClubStrength = (
+  career: Pick<CareerState, 'player' | 'footballerWorld'>,
+  club: ProfessionalClub,
+) => getSquadDerivedClubStrength(career, club) ?? getClubStrength(club);
 
 export const getClubStars = (strength: number) =>
   Math.round(Math.max(0, Math.min(100, strength)) / 10) / 2;

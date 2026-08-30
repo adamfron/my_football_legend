@@ -5,7 +5,7 @@ import { getPlayerOverall } from '../../core/playerOverall';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../../core/professionalClubs';
 import {
   describePlayerClubLevel,
-  getClubStrength,
+  getCareerClubStrength,
   getExpectedSquadRole,
   getPlayerClubLevelDelta,
 } from '../../core/clubStrength';
@@ -13,6 +13,12 @@ import { squadRoleLabel } from '../../core/careerPresentation';
 import type { CareerState } from '../../types/domain';
 import { ClubCrest } from '../../components/ClubCrest';
 import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
+import {
+  getManagerPreferredFormation,
+  resolveFootballer,
+  selectBestXI,
+} from '../../core/footballerWorld';
+import { getRankedFootballArchetypes } from '../../core/footballArchetypes';
 
 const prestigeLabel = (prestige: number) =>
   prestige < 25
@@ -42,7 +48,17 @@ export const ClubView = ({ career }: { career: CareerState }) => {
   const competition = getCompetitionDefinition(
     professionalClub?.leagueTier ?? career.leagueSeason?.competition.tier ?? 4,
   );
-  const strength = professionalClub ? getClubStrength(professionalClub) : 50;
+  const strength = professionalClub ? getCareerClubStrength(career, professionalClub) : 50;
+  const formation = professionalClub
+    ? getManagerPreferredFormation(professionalClub.managerId)
+    : undefined;
+  const bestXI = professionalClub
+    ? new Set(
+        selectBestXI(career, professionalClub, formation).assignments.map(
+          (item) => item.footballerId,
+        ),
+      )
+    : new Set<string>();
   const playerOVR = getPlayerOverall(career.player, career.player.primaryPosition);
   const currentRole = professionalClub
     ? getExpectedSquadRole(career, professionalClub)
@@ -90,6 +106,58 @@ export const ClubView = ({ career }: { career: CareerState }) => {
               ? describePlayerClubLevel(getPlayerClubLevelDelta(career, professionalClub))
               : describePlayerClubLevel(playerOVR - strength)}
           </strong>
+        </section>
+      )}
+      {professionalClub?.squadPlayerIds && formation && (
+        <section className="club-squad">
+          <h3>Kadra pierwszego zespołu</h3>
+          <p>
+            Preferowana formacja trenera: <strong>{formation}</strong> · aktualna siła XI:{' '}
+            <strong>{strength}</strong>
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Zawodnik</th>
+                <th>Wiek</th>
+                <th>Pozycja</th>
+                <th>OVR</th>
+                <th>Profil</th>
+              </tr>
+            </thead>
+            <tbody>
+              {professionalClub.squadPlayerIds
+                .map((id) => resolveFootballer(career, id))
+                .filter((player) => Boolean(player))
+                .sort(
+                  (a, b) =>
+                    getPlayerOverall(b!, b!.primaryPosition) -
+                    getPlayerOverall(a!, a!.primaryPosition),
+                )
+                .map(
+                  (player) =>
+                    player && (
+                      <tr
+                        key={player.id}
+                        className={bestXI.has(player.id) ? 'selected-xi' : undefined}
+                      >
+                        <td>
+                          {bestXI.has(player.id) ? '● ' : ''}
+                          {player.id === career.player.id ? '★ ' : ''}
+                          {player.firstName} {player.lastName}
+                        </td>
+                        <td>{player.age}</td>
+                        <td>{player.primaryPosition}</td>
+                        <td>{getPlayerOverall(player, player.primaryPosition)}</td>
+                        <td>
+                          {getRankedFootballArchetypes(player as typeof career.player)[0]
+                            ?.definition.label ?? '—'}
+                        </td>
+                      </tr>
+                    ),
+                )}
+            </tbody>
+          </table>
         </section>
       )}
       <section>

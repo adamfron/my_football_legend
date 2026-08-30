@@ -127,7 +127,7 @@ export const developmentProfileSchema = z.object({
   stagnationResistance: score,
   crisisSensitivity: score,
 });
-export const playerSchema = z.object({
+export const footballerProfileSchema = z.object({
   id,
   firstName: z.string(),
   lastName: z.string(),
@@ -140,10 +140,12 @@ export const playerSchema = z.object({
   dominantFoot: z.enum(['left', 'right']),
   weakFootProficiency: score,
   traits: z.array(z.string()),
-  careerPremiseId: id,
   primaryPosition: playerPositionSchema,
   secondaryPositions: z.array(playerPositionSchema),
   positionFamiliarity: z.record(playerPositionSchema, unit),
+});
+export const playerSchema = footballerProfileSchema.extend({
+  careerPremiseId: id,
   fitness: score,
   health: score,
   morale: score,
@@ -237,6 +239,15 @@ export const professionalClubSchema = z.object({
     midfield: positionalNeedSchema,
     attack: positionalNeedSchema,
   }),
+  squadPlayerIds: z.array(id).optional(),
+});
+export const worldFootballerSchema = z.object({
+  profile: footballerProfileSchema,
+  developmentProfile: developmentProfileSchema,
+  careerStatus: z.enum(['active', 'retired']),
+  currentClubId: id.optional(),
+  reputation: score.optional(),
+  fitness: score.optional(),
 });
 export const contractSchema = z.object({
   clubId: id,
@@ -551,6 +562,7 @@ export const careerStateSchema = z.object({
   difficulty: z.enum(['easy', 'normal', 'hard']).optional(),
   developmentProfile: developmentProfileSchema.optional(),
   clubWorld: z.array(professionalClubSchema).optional(),
+  footballerWorld: z.record(id, worldFootballerSchema).optional(),
   completedSeasons: z
     .array(
       z.object({
