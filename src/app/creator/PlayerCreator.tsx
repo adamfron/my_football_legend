@@ -174,10 +174,7 @@ export const PlayerCreator = (p: Props) => (
               ))}
             </div>
             <p className="position-context">
-              <strong>
-                {pitchPosition[p.profile.position].short} —{' '}
-                {translate(`position.${p.profile.position}`)}
-              </strong>
+              <strong>{translate(`position.${p.profile.position}`)}</strong>
               <br />
               {translate(`position.${p.profile.position}.description`)}
             </p>

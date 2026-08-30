@@ -105,7 +105,8 @@ const baseBias: Record<PlayerPosition, Partial<Record<AttributeKey, number>>> = 
   striker: { finishing: 14, composure: 10, firstTouch: 9, gameReading: 7 },
 };
 const clamp = (n: number) => Math.max(1, Math.min(100, Math.round(n)));
-const difficultyBase: Record<CareerDifficulty, number> = { easy: 56, normal: 46, hard: 34 };
+/** Main-position OVR budget shared by every position and archetype. */
+const difficultyBase: Record<CareerDifficulty, number> = { easy: 60, normal: 50, hard: 40 };
 const hidden = (rng: RandomGenerator): HiddenPlayerProfile => ({
   consistency: rng.int(25, 85),
   importantMatches: rng.int(20, 90),
@@ -192,9 +193,8 @@ const build = (
         gk && parsed.position !== 'goalkeeper'
           ? rng.int(4, 25)
           : target + rng.int(-10, 10) + (baseBias[parsed.position][k] ?? 0);
-      const strengthIndex = archetype.strengths.indexOf(k);
-      if (strengthIndex >= 0) base += Math.max(8, 18 - strengthIndex * 2);
-      if (archetype.weaknesses.includes(k)) base -= 12;
+      // Presentation order has no mathematical meaning: shaping is entirely explicit.
+      base += archetype.generationBias[k] ?? 0;
       return [k, clamp(base)];
     }),
   ) as unknown as PlayerAttributes;
@@ -227,13 +227,14 @@ const build = (
     matchPresentation: 'important_matches',
     ...deriveInitialEffort(`${seed}:shared-effort`, attrs),
   };
-  // Adjust only position-relevant outfield/GK values; never inflate unrelated GK attributes.
+  // Move the complete position-relevant centroid toward the shared budget. A uniform
+  // translation preserves the explicit positive/negative archetype shape.
   const relevant = Object.keys(POSITION_OVR_WEIGHTS[parsed.position]) as AttributeKey[];
-  for (let pass = 0; pass < 8; pass++) {
+  for (let pass = 0; pass < 24; pass++) {
     const delta = target - getTheoreticalPositionOverall(player, parsed.position);
-    if (Math.abs(delta) <= 1) break;
-    for (const key of relevant)
-      if (!archetype.strengths.includes(key)) attrs[key] = clamp(attrs[key] + Math.sign(delta));
+    if (Math.abs(delta) < 0.5) break;
+    const step = Math.sign(delta);
+    for (const key of relevant) attrs[key] = clamp(attrs[key] + step);
   }
   const description = describePlayerProfile(player, archetype);
   return {

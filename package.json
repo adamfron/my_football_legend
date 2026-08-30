@@ -2,7 +2,7 @@
   "name": "my_football_legend",
   "version": "0.1.0",
   "private": true,
-  "description": "Narracyjny symulator kariery pi\u0142karza dzia\u0142aj\u0105cy w przegl\u0105darce.",
+  "description": "Narracyjny symulator kariery piłkarza działający w przeglądarce.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
+    "audit:archetypes": "vitest run scripts/archetypeAudit.test.ts --reporter=verbose",
     "verify": "npm run lint && npm run test && npm run build"
   },
   "dependencies": {

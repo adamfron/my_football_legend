@@ -12,6 +12,7 @@ import { getTrainingEffortEffects } from './playerPreferences';
 import { applyTrainingDevelopmentCheckpoint } from './development';
 import { initializeSeasonParticipation } from './seasonParticipation';
 import { scheduleEvent } from './careerCalendar';
+import { contractCoversDate } from './contractValidity';
 
 const DAY = 86_400_000;
 export const CAREER_LOOP_START = '2026-08-20';
@@ -257,6 +258,24 @@ const checkpoint = (career: CareerState, month: string): MonthlyCheckpoint => {
   };
 };
 
+/** Posts one idempotent ledger entry for a completed eligible contract month. */
+export const applyMonthlySalary = (career: CareerState, month: string): CareerState => {
+  const contract = career.currentContract;
+  if (!contract || contract.contractType !== 'professional') return career;
+  const paymentDate = `${month}-${new Date(Date.UTC(Number(month.slice(0, 4)), Number(month.slice(5, 7)), 0)).getUTCDate().toString().padStart(2, '0')}`;
+  if (!contractCoversDate(contract, paymentDate)) return career;
+  const contractIdentity = `${contract.clubId}:${contract.startDate}:${contract.endDate}`;
+  const id = `salary:${contractIdentity}:${month}`;
+  if ((career.finances ?? []).some((transaction) => transaction.id === id)) return career;
+  return {
+    ...career,
+    finances: [
+      ...(career.finances ?? []),
+      { id, date: paymentDate, amount: contract.monthlySalary, category: 'salary' },
+    ],
+  };
+};
+
 export const completeCareerWeek = (career: CareerState): CareerState => {
   const prepared = career.careerCalendar
     ? initializeWeekContent(career, career.careerCalendar.currentWeekIndex)
@@ -337,7 +356,10 @@ export const advanceCareerWeek = (career: CareerState): CareerState => {
     next.startDate.slice(0, 7) !== currentMonth &&
     !checkpoints.some((item) => item.month === currentMonth)
   ) {
-    developedCareer = applyTrainingDevelopmentCheckpoint(completedCareer, currentMonth);
+    developedCareer = applyMonthlySalary(
+      applyTrainingDevelopmentCheckpoint(completedCareer, currentMonth),
+      currentMonth,
+    );
     checkpoints = [...checkpoints, checkpoint(developedCareer, currentMonth)];
   }
   return initializeWeekContent(
