@@ -8,6 +8,7 @@ import type {
 import { RandomGenerator } from './random/RandomGenerator';
 import { getPlayerOverall } from './playerOverall';
 import { OVR_ATTRIBUTE_KEYS } from './playerOverall';
+import { getAttributeFamily } from './attributePresentation';
 const keys = [...OVR_ATTRIBUTE_KEYS];
 const weights = (a: MatchAppearance): Partial<Record<keyof PlayerAttributes, number>> => ({
   technique: 1 + a.keyPasses * 0.25,
@@ -23,6 +24,9 @@ const weights = (a: MatchAppearance): Partial<Record<keyof PlayerAttributes, num
   ambition: 0.06,
   professionalism: 0.1,
 });
+const stablePersonality = new Set<keyof PlayerAttributes>(['ambition', 'professionalism']);
+const familyCapacity = (career: CareerState, key: keyof PlayerAttributes) =>
+  career.developmentProfile?.familyCapacity[getAttributeFamily(key)] ?? 70;
 const ageMultiplier = (age: number) =>
   age <= 18 ? 1.65 : age <= 21 ? 1.4 : age <= 24 ? 1.05 : age <= 27 ? 0.68 : age <= 30 ? 0.3 : 0.08;
 export const applyDevelopmentCheckpoint = (
@@ -39,33 +43,26 @@ export const applyDevelopmentCheckpoint = (
       career.player.attributes.determination * 0.4 +
       career.player.attributes.ambition * 0.15) /
     50;
-  const potentialFactor = Math.max(
-    0.25,
-    Math.min(
-      1.35,
-      (Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) -
-        mean +
-        12) /
-        30,
-    ),
-  );
   const injuryFactor = appearance.injuryId?.length ? 0.7 : 1;
   const attrs = { ...career.player.attributes };
   const map = new Map((career.developmentProgress ?? []).map((p) => [p.attribute, p.progress]));
   const facts: HistoryFact[] = [];
   for (const key of keys) {
     const current = attrs[key];
-    const ceilingFactor = Math.max(
-      0.12,
-      (Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) -
-        current +
-        8) /
-        35,
+    const ceilingFactor = Math.max(0.12, (familyCapacity(career, key) - current + 8) / 35);
+    const appearanceWeight =
+      w[key] ??
+      (career.player.primaryPosition === 'goalkeeper' && getAttributeFamily(key) === 'goalkeeper'
+        ? 0.7
+        : 0);
+    const potentialFactor = Math.max(
+      0.25,
+      Math.min(1.35, (familyCapacity(career, key) - mean + 12) / 30),
     );
     let progress =
       (map.get(key) ?? 0) +
       (appearance.minutes / 90) *
-        (w[key] ?? 1) *
+        appearanceWeight *
         7 *
         ageMultiplier(career.player.age) *
         potentialFactor *
@@ -159,16 +156,6 @@ export const applyTrainingDevelopmentCheckpoint = (
       .reduce((sum, match) => sum + match.minutes, 0);
   // Training supplies the base budget; competitive minutes make that work more effective.
   const experienceFactor = Math.min(1.15, 0.68 + seasonMinutes / 2400);
-  const potentialGap = Math.max(
-    0.45,
-    Math.min(
-      1.35,
-      (Math.max(...Object.values(career.developmentProfile?.familyCapacity ?? { technical: 70 })) -
-        getPlayerOverall(career.player, career.player.primaryPosition) +
-        18) /
-        30,
-    ),
-  );
   const attrs = { ...career.player.attributes };
   const club = career.currentProfessionalClub;
   const environment =
@@ -195,11 +182,22 @@ export const applyTrainingDevelopmentCheckpoint = (
   ];
   const professionalismMultiplier = 0.7 + career.player.attributes.professionalism / 200;
   for (const key of keys) {
+    const family = getAttributeFamily(key);
+    const explicitlyFocused = career.individualFocus === key || focus.includes(key);
+    const unrelatedGoalkeeper =
+      family === 'goalkeeper' &&
+      career.player.primaryPosition !== 'goalkeeper' &&
+      !['goalkeeper', 'sweeper_keeper'].includes(career.trainingPlan ?? 'general');
+    const background = stablePersonality.has(key) || unrelatedGoalkeeper ? 0 : 5;
+    const keyPotentialGap = Math.max(
+      0.2,
+      Math.min(1.35, (familyCapacity(career, key) - attrs[key] + 15) / 30),
+    );
     let value =
       (progress.get(key) ?? 0) +
-      (career.individualFocus === key ? 45 : focus.includes(key) ? 30 : 8) *
+      (career.individualFocus === key ? 45 : explicitlyFocused ? 30 : background) *
         ageMultiplier(career.player.age) *
-        potentialGap *
+        keyPotentialGap *
         available *
         environment *
         experienceFactor *

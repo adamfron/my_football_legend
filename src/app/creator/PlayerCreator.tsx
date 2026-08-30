@@ -10,6 +10,19 @@ import {
 import { PlayerCard } from '../shared/PlayerCard';
 import { CreatorHeader } from './CreatorHeader';
 import { CreatorSteps } from './CreatorSteps';
+import { getFootballArchetype } from '../../core/footballArchetypes';
+
+const pitchPosition: Record<PositionId, { short: string; className: string }> = {
+  striker: { short: 'N', className: 'pitch-striker' },
+  left_winger: { short: 'LS', className: 'pitch-lw' },
+  attacking_midfielder: { short: 'OŚP', className: 'pitch-am' },
+  right_winger: { short: 'PS', className: 'pitch-rw' },
+  defensive_midfielder: { short: 'DŚP', className: 'pitch-dm' },
+  left_back: { short: 'LO', className: 'pitch-lb' },
+  right_back: { short: 'PO', className: 'pitch-rb' },
+  center_back: { short: 'ŚO', className: 'pitch-cb' },
+  goalkeeper: { short: 'BR', className: 'pitch-gk' },
+};
 
 export type ProfileFormState = { position: PositionId; heightCm: string; weightKg: string };
 export type CreatorFieldErrors = Partial<
@@ -141,10 +154,11 @@ export const PlayerCreator = (p: Props) => (
         {p.step === 1 && (
           <div className="form">
             <h1>Profil</h1>
-            <div className="positions">
+            <div className="football-pitch" aria-label="Wybierz pozycję na boisku">
               {positionIds.map((id) => (
                 <button
-                  className={p.profile.position === id ? 'active' : ''}
+                  aria-label={translate(`position.${id}`)}
+                  className={`${pitchPosition[id].className} ${id === 'goalkeeper' ? 'goalkeeper-zone' : ''} ${p.profile.position === id ? 'active' : ''}`}
                   key={id}
                   onClick={() => {
                     const [heightCm, weightKg] = defaultBodyForPosition(id);
@@ -155,11 +169,18 @@ export const PlayerCreator = (p: Props) => (
                     });
                   }}
                 >
-                  <strong>{translate(`position.${id}`)}</strong>
-                  <span>{translate(`position.${id}.description`)}</span>
+                  <strong>{pitchPosition[id].short}</strong>
                 </button>
               ))}
             </div>
+            <p className="position-context">
+              <strong>
+                {pitchPosition[p.profile.position].short} —{' '}
+                {translate(`position.${p.profile.position}`)}
+              </strong>
+              <br />
+              {translate(`position.${p.profile.position}.description`)}
+            </p>
             <label>
               Wzrost
               <div className="unit-field">
@@ -195,32 +216,21 @@ export const PlayerCreator = (p: Props) => (
         )}
         {p.step === 2 && p.generated && (
           <div>
-            <h1>Atrybuty</h1>
+            <h1>Wybór zawodnika</h1>
             <PlayerCard profile={p.generated} seed={p.seed} />
             <div className="variant-picker">
-              {p.variants.map((_, index) => (
+              {p.variants.map((variant, index) => (
                 <button
                   className={p.selectedVariant === index ? 'active' : ''}
                   key={index}
                   onClick={() => p.selectVariant(index)}
                 >
-                  Profil {index + 1}
+                  {getFootballArchetype(variant.footballArchetypeId)?.label}
                 </button>
               ))}
             </div>
             <nav className="creator-actions">
               <button onClick={() => p.setStep(1)}>&lt; Wstecz</button>
-              <button onClick={() => p.setStep(3)}>Akceptuj &gt;</button>
-            </nav>
-          </div>
-        )}
-        {p.step === 3 && p.generated && (
-          <div>
-            <h1>Podsumowanie</h1>
-            <PlayerCard profile={p.generated} seed={p.seed} />
-            <p>Wiek startowy: {p.generated.player.age} lat</p>
-            <nav className="creator-actions">
-              <button onClick={() => p.setStep(1)}>&lt; Wróć i popraw</button>
               <button onClick={p.finish}>Rozpocznij karierę</button>
             </nav>
           </div>

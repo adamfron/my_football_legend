@@ -1,5 +1,16 @@
 # Architektura
 
+## Player Model 2.0
+
+`FOOTBALL_ARCHETYPES` jest jedynym rejestrem archetypów: określa ich dostępność, kształtuje
+atrybuty przed normalizacją OVR i dostarcza prezentację profilu. Kreator pokazuje zawsze wszystkie
+archetypy dopuszczone dla wybranej pozycji, w stabilnej kolejności rejestru.
+
+`ATTRIBUTE_PRESENTATION` jest kanonicznym źródłem polskich nazw, grup i kolejności wszystkich 25
+atrybutów. Rozwój korzysta z tego samego przypisania atrybutu do rodziny oraz z pojemności właściwej
+rodziny, zamiast wspólnego maksimum potencjału. Warstwa Play sprawdza domenowy blocker progresji
+przed uruchomieniem odtwarzania; oczekiwanie na decyzję jest normalnym stanem, nie błędem runtime.
+
 ## Warstwa prezentacji kariery
 
 ### Tożsamość wizualna klubu

@@ -1,10 +1,12 @@
 import type { Player, PlayerAttributes, PlayerPosition } from '../types/domain';
+import { ATTRIBUTE_PRESENTATION_BY_KEY } from './attributePresentation';
 export interface FootballArchetypeDefinition {
   id: string;
   label: string;
   eligiblePositions: readonly PlayerPosition[];
   description: string;
   strengths: readonly (keyof PlayerAttributes)[];
+  secondaryStrengths: readonly (keyof PlayerAttributes)[];
   weaknesses: readonly (keyof PlayerAttributes)[];
 }
 const d = (
@@ -12,14 +14,19 @@ const d = (
   label: string,
   pos: PlayerPosition[],
   strengths: (keyof PlayerAttributes)[],
-  description = label,
+  description = `Profil bazujący na ${strengths
+    .slice(0, 3)
+    .map((key) => ATTRIBUTE_PRESENTATION_BY_KEY[key].label.toLocaleLowerCase('pl'))
+    .join(', ')}.`,
+  weaknesses: (keyof PlayerAttributes)[] = [],
 ): FootballArchetypeDefinition => ({
   id,
   label,
   eligiblePositions: pos,
   description,
   strengths,
-  weaknesses: [],
+  secondaryStrengths: strengths.slice(2),
+  weaknesses,
 });
 const ST: PlayerPosition[] = ['striker'],
   W: PlayerPosition[] = ['left_winger', 'right_winger'],
@@ -165,3 +172,10 @@ export const getRankedFootballArchetypes = (p: Player, pos = p.primaryPosition) 
         definition.strengths.reduce((s, k) => s + p.attributes[k], 0) / definition.strengths.length,
     }))
     .sort((a, b) => b.score - a.score || a.definition.id.localeCompare(b.definition.id));
+
+/** Registry order is the stable, canonical creator order. */
+export const getEligibleFootballArchetypes = (position: PlayerPosition) =>
+  FOOTBALL_ARCHETYPES.filter((definition) => definition.eligiblePositions.includes(position));
+
+export const getFootballArchetype = (id: string | undefined) =>
+  FOOTBALL_ARCHETYPES.find((definition) => definition.id === id);
