@@ -563,6 +563,17 @@ export const careerStateSchema = z.object({
   developmentProfile: developmentProfileSchema.optional(),
   clubWorld: z.array(professionalClubSchema).optional(),
   footballerWorld: z.record(id, worldFootballerSchema).optional(),
+  worldDatabaseVersion: z.string().min(1).optional(),
+  worldDelta: z
+    .object({
+      clubOverrides: z.record(id, professionalClubSchema),
+      footballerOverrides: z.record(id, worldFootballerSchema),
+      squadOverrides: z.record(id, z.array(id)),
+      newFootballers: z.record(id, worldFootballerSchema),
+      retiredFootballerIds: z.array(id),
+      managerOverrides: z.record(id, id),
+    })
+    .optional(),
   completedSeasons: z
     .array(
       z.object({

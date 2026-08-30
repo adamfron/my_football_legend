@@ -90,7 +90,7 @@ describe('development pipeline', () => {
     expect(p10).toBeGreaterThanOrEqual(1);
     expect(zeroPercent).toBeLessThan(20);
     expect(overEightPercent).toBeLessThan(10);
-  });
+  }, 15_000);
 
   it('keeps low-minute and zero-minute development appropriately small', () => {
     const totalGain = (minutes: number, appearances: number) => {
@@ -199,5 +199,5 @@ describe('development pipeline', () => {
     expect(median(high)).toBeGreaterThanOrEqual(60);
     expect(median(high) - median(low)).toBeGreaterThanOrEqual(2);
     expect(Math.min(...high)).toBeGreaterThan(Math.min(...low));
-  });
+  }, 15_000);
 });

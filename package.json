@@ -14,6 +14,8 @@
     "test": "vitest run",
     "audit:archetypes": "vitest run scripts/archetypeAudit.test.ts --reporter=verbose",
     "audit:world": "vitest run scripts/worldAudit.test.ts --reporter=verbose",
+    "generate:world-db": "vitest run scripts/generateWorldDatabase.test.ts --reporter=verbose",
+    "audit:startup": "vitest run scripts/startupAudit.test.ts --reporter=verbose",
     "verify": "npm run lint && npm run test && npm run build"
   },
   "dependencies": {
