@@ -20,13 +20,14 @@ import {
   OVR_ATTRIBUTE_KEYS,
   PLAYER_POSITIONS,
 } from './playerOverall';
-import { getRankedFootballArchetypes } from './footballArchetypes';
+import { getEligibleFootballArchetypes, getFootballArchetype } from './footballArchetypes';
+import { describePlayerProfile } from './playerProfilePresentation';
+import { POSITION_OVR_WEIGHTS } from './playerOverall';
 export const STARTING_AGE = 16,
   MIN_HEIGHT_CM = 155,
   MAX_HEIGHT_CM = 205,
   MIN_WEIGHT_KG = 45,
   MAX_WEIGHT_KG = 120;
-export const DEFAULT_STARTING_PROFILE_VARIANTS = 5;
 export const positionIds = PLAYER_POSITIONS;
 export type PositionId = PlayerPosition;
 export const dominantFootIds = ['right', 'left'] as const;
@@ -168,18 +169,32 @@ export interface StartingPlayerProfile {
   developmentProfile?: DevelopmentProfile;
   difficulty?: CareerDifficulty;
 }
-const build = (input: CreatorInput, seed: string, index: number): StartingPlayerProfile => {
+const build = (
+  input: CreatorInput,
+  seed: string,
+  archetypeChoice: number | string,
+): StartingPlayerProfile => {
   const parsed = creatorInputSchema.parse({ ...input, seed, age: STARTING_AGE });
   const common = shared(parsed, seed);
-  const rng = RandomGenerator.fromSeed(`${seed}:${parsed.position}:variant:${index}`);
-  const target = difficultyBase[parsed.difficulty] + rng.int(-4, 5);
+  const eligible = getEligibleFootballArchetypes(parsed.position);
+  const archetype =
+    typeof archetypeChoice === 'string'
+      ? getFootballArchetype(archetypeChoice)
+      : eligible[archetypeChoice % Math.max(1, eligible.length)];
+  if (!archetype || !archetype.eligiblePositions.includes(parsed.position))
+    throw new Error(`No eligible archetype for ${parsed.position}`);
+  const rng = RandomGenerator.fromSeed(`${seed}:${parsed.position}:archetype:${archetype.id}`);
+  const target = difficultyBase[parsed.difficulty];
   const attrs = Object.fromEntries(
     attributeKeys.map((k) => {
       const gk = ['reflexes', 'handling', 'oneOnOnes', 'goalkeeperSweeping'].includes(k);
-      const base =
+      let base =
         gk && parsed.position !== 'goalkeeper'
           ? rng.int(4, 25)
           : target + rng.int(-10, 10) + (baseBias[parsed.position][k] ?? 0);
+      const strengthIndex = archetype.strengths.indexOf(k);
+      if (strengthIndex >= 0) base += Math.max(8, 18 - strengthIndex * 2);
+      if (archetype.weaknesses.includes(k)) base -= 12;
       return [k, clamp(base)];
     }),
   ) as unknown as PlayerAttributes;
@@ -210,44 +225,33 @@ const build = (input: CreatorInput, seed: string, index: number): StartingPlayer
     morale: 55,
     reputation: 12,
     matchPresentation: 'important_matches',
-    ...deriveInitialEffort(`${seed}:${index}`, attrs),
+    ...deriveInitialEffort(`${seed}:shared-effort`, attrs),
   };
-  // Normalize all choices close to the difficulty target without flattening their shape.
-  const delta = target - getTheoreticalPositionOverall(player, parsed.position);
-  for (const k of attributeKeys)
-    if ((baseBias[parsed.position][k] ?? 0) > 0) attrs[k] = clamp(attrs[k] + delta);
-  const ranked = getRankedFootballArchetypes(player, parsed.position);
-  const archetype = ranked[index % Math.max(1, ranked.length)];
-  const sorted = [...attributeKeys].sort((a, b) => attrs[b] - attrs[a]);
+  // Adjust only position-relevant outfield/GK values; never inflate unrelated GK attributes.
+  const relevant = Object.keys(POSITION_OVR_WEIGHTS[parsed.position]) as AttributeKey[];
+  for (let pass = 0; pass < 8; pass++) {
+    const delta = target - getTheoreticalPositionOverall(player, parsed.position);
+    if (Math.abs(delta) <= 1) break;
+    for (const key of relevant)
+      if (!archetype.strengths.includes(key)) attrs[key] = clamp(attrs[key] + Math.sign(delta));
+  }
+  const description = describePlayerProfile(player, archetype);
   return {
     player,
     developmentProfile: common.developmentProfile,
     profileDescriptionKey: 'creator.profileDescription',
     profileDescriptionParams: {
-      strong1: `attribute.${sorted[0]}`,
-      strong2: `attribute.${sorted[1]}`,
-      weak: `attribute.${sorted.at(-1)}`,
-      position: `position.${parsed.position}`,
+      description,
     },
-    rollIndex: index,
-    ...(archetype ? { footballArchetypeId: archetype.definition.id } : {}),
+    rollIndex: eligible.findIndex((item) => item.id === archetype.id),
+    footballArchetypeId: archetype.id,
     difficulty: parsed.difficulty,
   };
 };
 export const generateStartingPlayerProfile = build;
-export const generateStartingProfileVariants = (
-  input: CreatorInput,
-  seed: string,
-  count = DEFAULT_STARTING_PROFILE_VARIANTS,
-) =>
-  Array.from(
-    {
-      length: Math.min(
-        count,
-        getRankedFootballArchetypes(build(input, seed, 0).player, input.position).length || 1,
-      ),
-    },
-    (_, i) => build(input, seed, i),
+export const generateStartingProfileVariants = (input: CreatorInput, seed: string) =>
+  getEligibleFootballArchetypes(input.position).map((archetype) =>
+    build(input, seed, archetype.id),
   );
 export const makeReadableSeed = () =>
   globalThis.crypto?.randomUUID?.().slice(0, 18) ?? `career-${Date.now().toString(36)}`;

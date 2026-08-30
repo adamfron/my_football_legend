@@ -43,13 +43,11 @@ describe('compact player creator', () => {
   it('uses the application header and renders every creator feature step', () => {
     const container = document.createElement('div');
     const root = createRoot(container);
-    for (let step = 0; step < 4; step++) {
+    for (let step = 0; step < 3; step++) {
       act(() => root.render(<PlayerCreator {...props(step)} />));
       expect(container.textContent).toContain('MY FOOTBALL LEGEND');
-      expect(container.textContent).toContain(
-        ['Tożsamość', 'Profil', 'Atrybuty', 'Podsumowanie'][step],
-      );
-      expect(container.querySelectorAll('.creator-steps li')).toHaveLength(4);
+      expect(container.textContent).toContain(['Tożsamość', 'Profil', 'Wybór zawodnika'][step]);
+      expect(container.querySelectorAll('.creator-steps li')).toHaveLength(3);
       expect(container.querySelector('.creator-preview')).toBeNull();
       expect(container.textContent).not.toContain('Konstrukcja kreatora');
     }
@@ -67,7 +65,7 @@ describe('compact player creator', () => {
         .click(),
     );
     expect(first.nextIdentity).toHaveBeenCalledOnce();
-    const summary = props(3);
+    const summary = props(2);
     act(() => root.render(<PlayerCreator {...summary} />));
     act(() =>
       Array.from(container.querySelectorAll('button'))

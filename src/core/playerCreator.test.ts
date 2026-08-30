@@ -1,10 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import {
-  DEFAULT_STARTING_PROFILE_VARIANTS,
-  generateStartingProfileVariants,
-  positionIds,
-} from './playerCreator';
+import { generateStartingProfileVariants, positionIds } from './playerCreator';
 import { OVR_ATTRIBUTE_KEYS } from './playerOverall';
+import { getEligibleFootballArchetypes } from './footballArchetypes';
 const input = {
   firstName: 'Jan',
   lastName: 'Testowy',
@@ -22,7 +19,7 @@ describe('Player Model 2.0 creator', () => {
     const a = generateStartingProfileVariants(input, 'model2'),
       b = generateStartingProfileVariants(input, 'model2');
     expect(a).toEqual(b);
-    expect(a).toHaveLength(DEFAULT_STARTING_PROFILE_VARIANTS);
+    expect(a).toHaveLength(getEligibleFootballArchetypes('left_winger').length);
     expect(a[0]!.player.hiddenProfile).toEqual(a[1]!.player.hiddenProfile);
     expect(a[0]!.developmentProfile).toEqual(a[1]!.developmentProfile);
     expect(a[0]!.player.attributes).not.toEqual(a[1]!.player.attributes);

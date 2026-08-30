@@ -1,5 +1,16 @@
 # Roadmap
 
+## Następny fundament: trwałe składy klubowe
+
+- **Persistent club squads:** prawdziwi zawodnicy przypisani do klubów (pozycja, znajomość pozycji,
+  archetyp i OVR), wyjściowa jedenastka, ławka, stali koledzy oraz sezonowe transfery.
+- **Selection competition:** rola i minuty wynikające z rywalizacji z konkretnymi zawodnikami na
+  pozycji, nie tylko z porównania OVR do jednej abstrakcyjnej siły klubu.
+- **Offer role:** przyszła rola w kontrakcie lub ofercie uwzględni realną konkurencję w klubie celu.
+
+Po tym fundamencie pozostają planowane: interaktywny izometryczny silnik decyzji meczowych,
+style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
+
 ## Główne etapy
 
 1. Player Model 2.0.

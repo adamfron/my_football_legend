@@ -14,6 +14,7 @@ import { ClubView } from './ClubView';
 import { HistoryView } from './HistoryView';
 import { PlayerCard } from '../shared/PlayerCard';
 import { ClubCrest } from '../../components/ClubCrest';
+import { describeCurrentPlayerProfile } from '../../core/playerProfilePresentation';
 
 export const PLAYBACK_INTERVAL_MS = 1000;
 type Detail = 'player' | 'club' | 'contract' | 'career';
@@ -61,6 +62,7 @@ export const CareerView = ({
     [career.currentClub, career.currentProfessionalClub, career.seed],
   );
   const playStyles = getUnlockedPlayStyles(career);
+  const progressBlocker = getCareerProgressBlocker(career);
 
   useEffect(() => {
     if (!playing) return;
@@ -128,7 +130,10 @@ export const CareerView = ({
         <span>Sezon {seasonName}</span>
         <button
           aria-pressed={playing}
+          disabled={!playing && Boolean(progressBlocker)}
+          title={!playing && progressBlocker ? 'Najpierw rozstrzygnij bieżącą decyzję.' : undefined}
           onClick={() => {
+            if (!playing && getCareerProgressBlocker(career)) return;
             setError(undefined);
             setDetail(undefined);
             resumeAfterDecision.current = false;
@@ -227,10 +232,7 @@ export const CareerView = ({
                   player: career.player,
                   profileDescriptionKey: 'creator.profileDescription',
                   profileDescriptionParams: {
-                    strong1: 'attribute.technique',
-                    strong2: 'attribute.passing',
-                    weak: 'attribute.tackling',
-                    position: `position.${career.player.primaryPosition}`,
+                    description: describeCurrentPlayerProfile(career.player),
                   },
                   rollIndex: 0,
                 }}

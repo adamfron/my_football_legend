@@ -56,7 +56,8 @@ import {
   getRegularSeasonEvent,
   resolveRegularSeasonEvent,
 } from '../core/events/regularSeasonEvents';
-import type { CareerState, EventDecision, PlayerAttributes } from '../types/domain';
+import type { CareerState, EventDecision } from '../types/domain';
+import { ATTRIBUTE_PRESENTATION_BY_KEY } from '../core/attributePresentation';
 import { isDevToolsEnabled } from './devTools';
 import { CareerView } from './career/CareerView';
 import { RadarChart } from './shared/PlayerCard';
@@ -354,21 +355,6 @@ export const CareerWeekGame = ({
   );
 };
 
-const attributeLabels: Partial<Record<keyof PlayerAttributes, string>> = {
-  technique: 'Technika',
-  passing: 'Przegląd gry',
-  pace: 'Szybkość',
-  stamina: 'Wytrzymałość',
-  finishing: 'Wykończenie',
-  tackling: 'Obrona',
-  leadership: 'Przywództwo',
-  composure: 'Opanowanie',
-  gameReading: 'Orientacja przestrzenna',
-  determination: 'Determinacja',
-  ambition: 'Ambicja',
-  professionalism: 'Profesjonalizm',
-};
-
 export const SeasonEndSummary = ({
   career,
   onCareer,
@@ -454,6 +440,8 @@ export const SeasonEndSummary = ({
         baseline={archived.development.seasonStartAttributes}
         baselineLabel="początek sezonu"
         currentLabel="koniec sezonu"
+        position={career.player.primaryPosition}
+        heightCm={career.player.heightCm}
       />
       <p>
         <strong>
@@ -463,13 +451,19 @@ export const SeasonEndSummary = ({
         </strong>
       </p>
       {development.length ? (
-        development.map((change) => (
-          <p key={change.attribute}>
-            {attributeLabels[change.attribute]} {change.before} → {change.after} (
-            {change.delta > 0 ? '+' : ''}
-            {change.delta})
-          </p>
-        ))
+        [...development]
+          .sort(
+            (a, b) =>
+              ATTRIBUTE_PRESENTATION_BY_KEY[a.attribute].order -
+              ATTRIBUTE_PRESENTATION_BY_KEY[b.attribute].order,
+          )
+          .map((change) => (
+            <p key={change.attribute}>
+              {ATTRIBUTE_PRESENTATION_BY_KEY[change.attribute].label} {change.before} →{' '}
+              {change.after} ({change.delta > 0 ? '+' : ''}
+              {change.delta})
+            </p>
+          ))
       ) : (
         <p>W tym sezonie nie doszło do trwałej zmiany atrybutów.</p>
       )}

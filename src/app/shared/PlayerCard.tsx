@@ -1,7 +1,8 @@
-import { getRadarAxes } from '../../core/radar';
+import { getGoalkeeperRadarAxes, getOutfieldRadarAxes, type RadarAxis } from '../../core/radar';
 import { translate } from '../../core/narrative/localization';
 import type { PlayerAttributes } from '../../types/domain';
-import { attributeKeys, type StartingPlayerProfile } from '../../core/playerCreator';
+import { type StartingPlayerProfile } from '../../core/playerCreator';
+import { ATTRIBUTE_GROUPS, ATTRIBUTE_PRESENTATION } from '../../core/attributePresentation';
 import { formatAttributeDelta, getSeasonAttributeDelta } from '../../core/developmentFeedback';
 
 const RADAR_RADIUS = 75;
@@ -19,14 +20,19 @@ export const RadarChart = ({
   baseline,
   baselineLabel = 'początek sezonu',
   currentLabel = 'obecnie',
+  position = 'left_winger',
+  heightCm = 180,
 }: {
   attributes: PlayerAttributes;
   baseline?: PlayerAttributes | undefined;
   baselineLabel?: string;
   currentLabel?: string;
+  position?: StartingPlayerProfile['player']['primaryPosition'];
+  heightCm?: number;
 }) => {
-  const axes = getRadarAxes(attributes);
-  const polygon = (values: ReturnType<typeof getRadarAxes>) =>
+  const axisFactory = position === 'goalkeeper' ? getGoalkeeperRadarAxes : getOutfieldRadarAxes;
+  const axes = axisFactory(attributes, heightCm);
+  const polygon = (values: RadarAxis[]) =>
     values
       .map(({ value }, index) => {
         const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
@@ -42,14 +48,22 @@ export const RadarChart = ({
         aria-label="Porównanie profilu atrybutów"
       >
         {[0.25, 0.5, 0.75, 1].map((scale) => (
-          <circle
-            className="radar-grid"
-            key={scale}
-            cx={RADAR_CENTER}
-            cy={RADAR_CENTER}
-            r={RADAR_RADIUS * scale}
-            fill="none"
-          />
+          <g key={scale}>
+            <circle
+              className="radar-grid"
+              cx={RADAR_CENTER}
+              cy={RADAR_CENTER}
+              r={RADAR_RADIUS * scale}
+              fill="none"
+            />
+            <text
+              className="radar-scale"
+              x={RADAR_CENTER + 3}
+              y={RADAR_CENTER - RADAR_RADIUS * scale + 9}
+            >
+              {scale * 100}
+            </text>
+          </g>
         ))}
         {axes.map(({ label }, index) => {
           const angle = -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
@@ -75,7 +89,7 @@ export const RadarChart = ({
         {baseline && (
           <polygon
             className="radar-baseline"
-            points={polygon(getRadarAxes(baseline))}
+            points={polygon(axisFactory(baseline, heightCm))}
             strokeWidth="1.5"
           />
         )}
@@ -119,7 +133,10 @@ export const PlayerCard = ({
         {profile.player.heightCm} cm · {profile.player.weightKg} kg ·{' '}
         {translate(profile.player.dominantFoot === 'left' ? 'foot.left' : 'foot.right')}
       </p>
-      <p>{tParam(profile.profileDescriptionKey, profile.profileDescriptionParams)}</p>
+      <p>
+        {profile.profileDescriptionParams.description ??
+          tParam(profile.profileDescriptionKey, profile.profileDescriptionParams)}
+      </p>
       <p>
         <strong>Seed kariery:</strong> <code>{seed}</code>
       </p>
@@ -127,19 +144,33 @@ export const PlayerCard = ({
         <strong>Pierwszy klub:</strong> Vistula Nova
       </p>
     </div>
-    <RadarChart attributes={profile.player.attributes} baseline={baseline} />
-    <ul className="attrs">
-      {attributeKeys.map((key) => (
-        <li key={key}>
-          <span>{translate(`attribute.${key}`)}</span>
-          <strong>
-            {profile.player.attributes[key]}{' '}
-            {formatAttributeDelta(
-              getSeasonAttributeDelta(profile.player.attributes, baseline, key),
+    <RadarChart
+      attributes={profile.player.attributes}
+      baseline={baseline}
+      position={profile.player.primaryPosition}
+      heightCm={profile.player.heightCm}
+    />
+    <div className="attrs">
+      {ATTRIBUTE_GROUPS.map((group) => (
+        <section className={`attribute-group attribute-group-${group}`} key={group}>
+          <h4>{ATTRIBUTE_PRESENTATION.find((entry) => entry.group === group)!.groupLabel}</h4>
+          <ul>
+            {ATTRIBUTE_PRESENTATION.filter((entry) => entry.group === group).map(
+              ({ key, label }) => (
+                <li key={key}>
+                  <span>{label}</span>
+                  <strong>
+                    {profile.player.attributes[key]}{' '}
+                    {formatAttributeDelta(
+                      getSeasonAttributeDelta(profile.player.attributes, baseline, key),
+                    )}
+                  </strong>
+                </li>
+              ),
             )}
-          </strong>
-        </li>
+          </ul>
+        </section>
       ))}
-    </ul>
+    </div>
   </section>
 );
