@@ -156,6 +156,13 @@ Club colours, including white/white and similar pairs, remain canonical data. Ne
 
 # Świat statyczny i zapis kariery
 
+Kanoniczna baza świata jest deterministycznym artefaktem budowania, a nie formatem autorskim.
+Generator łączy wersję i seed świata, proceduralne reguły oraz małe, przeglądalne definicje
+źródłowe. Przyszłe definicje klubów, akademii, specjalnych piłkarzy i humorystycznych odniesień
+powinny trafiać do `src/content/world/`; generator zwaliduje połączony wynik schematem Zod i zapisze
+go w ignorowanym `.generated-public`. Wielki serializowany JSON nigdy nie powinien być edytowany
+ręcznie ani służyć jako format authoringu.
+
 `STATIC WORLD DATABASE + CAREER WORLD DELTA = EFFECTIVE WORLD`.
 
 Wyjściowe kluby, menedżerowie, składy i pełne karty Player Model 2.0 są niezmiennym,
