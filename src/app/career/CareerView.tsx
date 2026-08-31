@@ -8,7 +8,11 @@ import { getPlayerOverall } from '../../core/playerOverall';
 import { buildSeasonTimeline } from '../../core/seasonTimeline';
 import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
 import { MatchParticipationSummary } from '../../components/MatchParticipationSummary';
-import { getTimelineInjury, presentInjury } from '../../core/injuryPresentation';
+import {
+  getTimelineInjury,
+  isOriginatingMatchInjury,
+  presentInjury,
+} from '../../core/injuryPresentation';
 import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../../core/playStyles';
 import type { CareerState } from '../../types/domain';
 import { ClubView } from './ClubView';
@@ -410,7 +414,11 @@ export const CareerView = ({
                         <span>nadchodzący mecz</span>
                       )}
                       {injury && (
-                        <small className="timeline-context">Uraz: {presentInjury(injury)}</small>
+                        <small className="timeline-context">
+                          {isOriginatingMatchInjury(career, completedParticipation!, injury)
+                            ? `Uraz: ${presentInjury(injury, 'origin')}`
+                            : `Kontuzja: ${presentInjury(injury, 'ongoing')}`}
+                        </small>
                       )}
                     </div>
                     <b>{score}</b>

@@ -2,6 +2,7 @@ import { RandomGenerator } from './random/RandomGenerator';
 import { generateInjuryMetadata } from './playerAvailability';
 import { getTimelineInjury, presentInjury } from './injuryPresentation';
 import { presentMatchParticipation } from './matchParticipationPresentation';
+import { deriveSeasonInjurySummary } from './seasonInjuries';
 
 import { describe, expect, it } from 'vitest';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
@@ -230,5 +231,62 @@ describe('match and injury presentation metadata', () => {
         date: '2027-09-02',
       }),
     ).toBeUndefined();
+  });
+
+  it('aggregates one injury across its origin and later missed fixtures without counting the origin', () => {
+    const state = career();
+    const injury = {
+      id: 'injury_origin',
+      startDate: '2027-09-01',
+      recoveryDate: '2027-09-15',
+      severity: 'moderate' as const,
+      injuryType: 'strain' as const,
+      matchesRemaining: 0,
+      source: 'match' as const,
+      status: 'recovered' as const,
+      bodyArea: 'thigh',
+    };
+    state.playerAvailability = {
+      injuries: [injury],
+      suspensionMatchesRemaining: 0,
+      leagueYellowCards: 0,
+      matchesMissedThroughSuspension: 0,
+      matchesMissedThroughInjury: 2,
+    };
+    state.matchHistory = [
+      {
+        matchId: 'appearance_origin',
+        date: injury.startDate,
+        opponentId: 'rival',
+        teamLevel: 'senior',
+        started: true,
+        minutes: 60,
+        goals: 0,
+        assists: 0,
+        xG: 0,
+        xA: 0,
+        keyPasses: 0,
+        defensiveActions: 0,
+        saves: 0,
+        personalImpact: 0,
+        injuryId: injury.id,
+      },
+    ];
+    const origin = { ...played, date: injury.startDate, appearanceMatchId: 'appearance_origin' };
+    const missed = ['2027-09-08', '2027-09-15'].map((date, index) => ({
+      ...played,
+      fixtureId: `missed_${index}`,
+      date,
+      fixtureStatus: 'completed' as const,
+      status: 'injured' as const,
+      minutes: 0,
+      started: false,
+      appearanceMatchId: undefined,
+    }));
+
+    expect(deriveSeasonInjurySummary(state, [origin, ...missed])).toEqual([
+      { injury, missedFixtures: 2 },
+    ]);
+    expect(presentInjury(injury, 'ongoing')).toBe('Naciągnięcie uda');
   });
 });

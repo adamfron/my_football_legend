@@ -35,6 +35,8 @@ import { StarRating } from '../components/StarRating';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../core/professionalClubs';
 import {} from '../core/clubStrength';
 import { availabilityState } from '../core/playerAvailability';
+import { deriveSeasonInjurySummary } from '../core/seasonInjuries';
+import { presentInjury, presentInjurySource } from '../core/injuryPresentation';
 import { getSeasonProgress } from '../core/seasonProgress';
 import { completeScheduledEvent } from '../core/careerCalendar';
 import {
@@ -280,7 +282,7 @@ export const CareerWeekGame = ({
                     career,
                     sourceId,
                     decision.id,
-                    week.startDate,
+                    career.decisionPoint!.date,
                   );
                   const factId = resolved.historyFacts.find(
                     (fact) => !career.historyFacts.some((old) => old.id === fact.id),
@@ -372,6 +374,7 @@ export const SeasonEndSummary = ({
   const archived =
     career.completedSeasons?.find((item) => item.seasonId === career.leagueSeason?.id) ??
     createCompletedSeasonSnapshot(career);
+  const injuries = deriveSeasonInjurySummary(career, archived.fixtures);
   const development = aggregateDevelopment(
     archived.development.seasonStartAttributes,
     archived.development.seasonEndAttributes,
@@ -436,6 +439,21 @@ export const SeasonEndSummary = ({
         · opuszczone: {availability.matchesMissedThroughSuspension} przez zawieszenie,{' '}
         {availability.matchesMissedThroughInjury} przez uraz
       </p>
+      <h3>Urazy</h3>
+      {injuries.length ? (
+        <ul className="season-injuries">
+          {injuries.map(({ injury, missedFixtures }) => (
+            <li key={injury.id}>
+              {presentInjury(injury, 'ongoing')} ·{' '}
+              {injury.startDate.slice(5).split('-').reverse().join('.')} ·{' '}
+              {presentInjurySource(injury)} · {missedFixtures}{' '}
+              {missedFixtures === 1 ? 'opuszczone spotkanie' : 'opuszczone spotkania'}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Urazy: brak</p>
+      )}
       <h3>Rozwój</h3>
       <RadarChart
         attributes={archived.development.seasonEndAttributes}

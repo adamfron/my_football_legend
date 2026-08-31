@@ -104,6 +104,11 @@ Kariera ma jeden cykl życia: utworzenie zawodnika, inicjalizacja generycznego s
 
 `CareerWeek` jest wyłącznie operacyjnym koszykiem dla systemów działających w rytmie tygodniowym. Nie jest właścicielem dat spotkań ani wydarzeń: jego identyfikatory są przebudowywane z kanonicznego kalendarza. Przyszłe spotkania i wydarzenia mogą być dodawane, przekładane lub odraczane wyłącznie przez jawne operacje domenowe. Wykrywają one konflikty, ale nie narzucają priorytetu rozgrywek.
 
+Wewnątrz koszyka kolejne nierozstrzygnięte momenty są wybierane według dat z
+`CareerCalendar`: wcześniejszy moment zawsze jest pierwszy, a przy tej samej dacie decyzja gracza
+poprzedza spotkanie. Zawodowy koszyk obejmuje krótki, niepokrywający się okres przygotowania
+zakończony datą meczu; nie tworzy to dziennej pętli ani dodatkowej osi stanu.
+
 ### Niezmienna przeszłość i projekcja osi
 
 Zakończone wyniki, decyzje i fakty są niezmienne i nie są ponownie losowane po zmianie przyszłego terminarza. Przełożenie zachowuje identyfikator spotkania i powiązanie z rejestrem udziału oraz zapisuje semantyczny `HistoryFact`, a nie gotową narrację.

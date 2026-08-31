@@ -23,6 +23,10 @@ import { contractCoversNextSeason } from './contractValidity';
 import { rollOverClubWorld } from './clubWorld';
 import { initializeSeasonParticipation } from './seasonParticipation';
 
+const DAY = 86_400_000;
+const plusDays = (date: string, days: number) =>
+  new Date(new Date(`${date}T00:00:00Z`).getTime() + days * DAY).toISOString().slice(0, 10);
+
 const milestone = (
   career: CareerState,
   type: string,
@@ -140,7 +144,10 @@ export const initializeCareerSeason = (
     id: `week_${season.id}_${index}`,
     seasonId: season.id,
     weekIndex: index,
-    startDate: fixture.date,
+    startDate:
+      index === 0
+        ? plusDays(fixture.date, -6)
+        : [plusDays(fixture.date, -6), plusDays(fixtures[index - 1]!.date, 1)].sort().at(-1)!,
     endDate: fixture.date,
     phase: (index < 2 ? 'preseason' : 'regular_season') as 'preseason' | 'regular_season',
     fixtureIds: [fixture.id],
@@ -359,7 +366,7 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
           aged.currentSportingStatus ?? aged.currentContract?.squadRole ?? 'rotation',
         ),
     playerAvailability: {
-      injuries: aged.playerAvailability?.injuries.filter((i) => i.status === 'active') ?? [],
+      injuries: aged.playerAvailability?.injuries ?? [],
       // A dismissal in the final fixture may legitimately be served next season.
       suspensionMatchesRemaining: aged.playerAvailability?.suspensionMatchesRemaining ?? 0,
       leagueYellowCards: 0,
