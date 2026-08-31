@@ -240,3 +240,12 @@ mechanikę pozycji awaryjnej, np. po czerwonej kartce lub urazie, gdy wykorzysta
 Zbiorcze użycie pozycji w sezonie jest tanią projekcją `deriveSeasonPositionUsage`, a nie
 duplikowanym stanem. Nie powstaje fakt historii za każdy występ poza pozycją. W przyszłości dopiero
 trwała, znacząca konwersja może stać się wydarzeniem narracyjnym lub faktem historii.
+
+## Kanoniczne kohorty młodzieżowe
+
+Początkowe kadry U-17 są trwałymi `WorldFootballer` w tej samej mapie co seniorzy, a przynależność
+przechowuje sezonowy klucz `u17:<teamId>:<season>` w `WorldDatabase.youthCohorts`. Definicja
+drużyny młodzieżowej przechowuje tylko stabilną tożsamość i powiązanie; nazwę, region, identyfikację
+wizualną oraz środowisko akademii wyprowadza się z rodzica `ProfessionalClub`. Brak kontraktu i
+`currentClubId` odróżnia członka kohorty od zawodnika pierwszej drużyny. Rozwój i graduacja NPC nie
+są jeszcze wykonywane.

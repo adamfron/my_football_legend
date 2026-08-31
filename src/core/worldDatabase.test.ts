@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import databaseJson from '../../.generated-public/data/world/pl-2026-v1.json';
+import databaseJson from '../../.generated-public/data/world/pl-2026-v2.json';
 import {
   buildWorldDatabaseUrl,
   emptyWorldDelta,
@@ -29,12 +29,12 @@ const player = generateStartingPlayerProfile(
 
 describe('static world URL', () => {
   test('builds the URL for the domain root', () => {
-    expect(buildWorldDatabaseUrl('/')).toBe('/data/world/pl-2026-v1.json');
+    expect(buildWorldDatabaseUrl('/')).toBe('/data/world/pl-2026-v2.json');
   });
 
   test('builds the URL for a GitHub Pages project', () => {
     expect(buildWorldDatabaseUrl('/my_football_legend/')).toBe(
-      '/my_football_legend/data/world/pl-2026-v1.json',
+      '/my_football_legend/data/world/pl-2026-v2.json',
     );
   });
 });
@@ -42,7 +42,7 @@ describe('static world URL', () => {
 describe('static world and delta resolution', () => {
   test('validates every immutable squad reference', () => {
     expect(database.clubs).toHaveLength(64);
-    expect(Object.keys(database.footballers)).toHaveLength(1536);
+    expect(Object.keys(database.footballers)).toHaveLength(1824);
     for (const club of database.clubs)
       for (const id of club.squadPlayerIds ?? []) {
         expect(database.footballers[id]).toBeDefined();

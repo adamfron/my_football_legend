@@ -9,8 +9,8 @@ import type {
 } from '../types/domain';
 import { professionalClubSchema, worldFootballerSchema } from '../schemas/domainSchemas';
 
-export const WORLD_DATABASE_VERSION = 'pl-2026-v1';
-export const WORLD_DATABASE_SEED = 'mfl-world-pl-2026-v1';
+export const WORLD_DATABASE_VERSION = 'pl-2026-v2';
+export const WORLD_DATABASE_SEED = 'mfl-world-pl-2026-v2';
 
 export const worldDatabaseSchema = z.object({
   version: z.literal(WORLD_DATABASE_VERSION),

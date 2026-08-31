@@ -151,6 +151,7 @@ będzie uzupełniać akademie kolejnymi kohortami.
 9. Osiągnięcia i easter eggi.
 10. Rozbudowa stylu życia i ekonomii.
 11. Interaktywny izometryczny silnik meczowy oparty na decyzjach.
+
 # Ostatnio domknięte fundamenty pozycji
 
 - faktyczna pozycja protagonisty jest zachowywana przy każdym występie i widoczna na osi sezonu;
@@ -159,3 +160,14 @@ będzie uzupełniać akademie kolejnymi kohortami.
 - trwała zmiana pozycji może kiedyś tworzyć kamień milowy narracji, bez spamu faktami meczowymi.
 
 Następnym dużym systemem pozostaje świat akademii / U-17 i pipeline przejścia do seniorów.
+
+## Następny krok po trwałych danych U-17
+
+Następny PR podłączy grywalny pierwszy sezon do trwałych kadr U-17 oraz prawdziwej selekcji
+trenera. Rozwój NPC, ukończenie akademii i pierwsze kontrakty pozostają późniejszymi etapami.
+
+- Ławka opisuje pokrycie pozycji, ale nie przydział na boisku: rezerwowy ma prezentować OVR dla
+  pozycji nominalnej i otrzymuje faktyczną `assignedPosition` dopiero po wejściu na murawę.
+- Czas leczenia urazów wymaga kalibracji opartej na typie, ciężkości, podatności, jakości opieki i
+  ewentualnie wieku/nawrotach. Długie leczenie (np. około dwóch miesięcy po ciężkim wstrząśnieniu)
+  ma pozostać możliwe, lecz nie być ogólną wartością domyślną.

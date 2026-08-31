@@ -17,7 +17,7 @@ Kanoniczny rejestr `FOOTBALL_ARCHETYPES` obejmuje profile napastników, skrzydł
 
 ## Club/world model
 
-- `pl-2026-v1` zawiera 64 polskie kluby zawodowe i około 1536 pełnych NPC Player Model 2.0.
+- `pl-2026-v2` zawiera 64 polskie kluby zawodowe i około 1536 pełnych NPC Player Model 2.0.
 - Kluby przechowują identyfikatory zawodników; model to statyczna baza plus delta kariery.
 - Menedżer ma preferowaną formację, a żywa siła jest wyprowadzana z najlepszej XI.
 - Generator buduje konkurencję z jawnych poziomów głębi dla każdej pozycji; kształt pozycyjny
@@ -125,3 +125,12 @@ faktyczna pozycja, statystyki bramkarza, ocena i kartki pochodzą wyłącznie z 
 meczowego. `PlayerInjury` przechowuje kanoniczny typ urazu, obszar, źródło oraz datę wyleczenia;
 polskie rozpoznanie jest wyprowadzane w prezentacji. Zachowanie wyleczonych urazów pozwala wiązać
 historyczny brak występu z właściwym urazem bez osobnej bazy danych osi.
+
+## Trwały świat U-17
+
+Kanoniczna baza `pl-2026-v2` zawiera 12 trwałych kohort U-17: niezależną Vistulę Nova oraz 11
+akademii powiązanych z klubami zawodowymi. Młodzież korzysta z tego samego
+`WorldFootballer` / `FootballerProfile`, skali OVR i profilu rozwoju co seniorzy, ale nie należy do
+ich kadr i nie ma kontraktów zawodowych. Pierwszy grywalny sezon nadal używa rozwiązania
+tymczasowego; następnym krokiem jest podłączenie go, `ClubView` i wyborów trenera do tych kadr.
+Rozwój NPC, ukończenie akademii i pierwsze kontrakty nie są jeszcze symulowane.
