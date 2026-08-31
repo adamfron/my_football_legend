@@ -12,6 +12,7 @@ import { getEligibleFootballArchetypes } from './footballArchetypes';
 import { generateDevelopmentProfile, generateFootballerAttributes } from './playerCreator';
 import { getEffectivePositionOverall, getPlayerOverall, PLAYER_POSITIONS } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
+import { POSITION_COMPATIBILITY } from './positionCompatibility';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -137,15 +138,16 @@ const lastNames = [
   'Baran',
   'Zając',
 ];
-const secondaryFor: Partial<Record<PlayerPosition, PlayerPosition[]>> = {
-  left_winger: ['right_winger', 'attacking_midfielder'],
-  right_winger: ['left_winger', 'attacking_midfielder'],
-  attacking_midfielder: ['defensive_midfielder', 'striker'],
-  defensive_midfielder: ['center_back', 'attacking_midfielder'],
-  left_back: ['right_back', 'left_winger'],
-  right_back: ['left_back', 'right_winger'],
-  center_back: ['defensive_midfielder'],
-  striker: ['attacking_midfielder'],
+const archetypeVersatility: Record<string, number> = {
+  center_back_libero: 24,
+  center_back_complete: 14,
+  false_nine: 25,
+  complete_forward: 18,
+  wide_playmaker: 25,
+  wing_back: 22,
+  poacher: -22,
+  center_back_aggressive: -18,
+  shot_stopper: -100,
 };
 const generateWorldFootballer = (
   club: ProfessionalClub,
@@ -164,13 +166,32 @@ const generateWorldFootballer = (
   );
   const archetypes = getEligibleFootballArchetypes(primaryPosition);
   const archetype = archetypes[rng.int(0, archetypes.length - 1)]!;
-  const secondaryOptions = secondaryFor[primaryPosition] ?? [];
-  const secondaryPositions =
-    rng.int(1, 100) <= 42 && secondaryOptions.length ? [rng.pick(secondaryOptions)] : [];
+  const secondaryOptions = [...POSITION_COMPATIBILITY[primaryPosition]];
+  const versatilityRoll = rng.int(1, 100) + (archetypeVersatility[archetype.id] ?? 0);
+  const secondaryCount =
+    primaryPosition === 'goalkeeper' || versatilityRoll < 50
+      ? 0
+      : versatilityRoll < 88
+        ? 1
+        : versatilityRoll < 98
+          ? 2
+          : 3;
+  const secondaryPositions: PlayerPosition[] = [];
+  while (secondaryOptions.length && secondaryPositions.length < secondaryCount) {
+    const selected = rng.pick(secondaryOptions);
+    secondaryPositions.push(selected);
+    secondaryOptions.splice(secondaryOptions.indexOf(selected), 1);
+  }
   const familiarity = Object.fromEntries(
     PLAYER_POSITIONS.map((position) => [
       position,
-      position === primaryPosition ? 1 : secondaryPositions.includes(position) ? 0.75 : 0,
+      position === primaryPosition
+        ? 1
+        : secondaryPositions.includes(position)
+          ? secondaryPositions.indexOf(position) === 0
+            ? 0.9
+            : 0.75
+          : 0,
     ]),
   ) as Record<PlayerPosition, number>;
   const profile: FootballerProfile = {
@@ -397,6 +418,7 @@ type SelectionScore = (player: FootballerProfile, position: PlayerPosition) => n
 const managerPreferenceCache = new Map<string, number>();
 const staticNpcOverallCache = new Map<string, number>();
 const sportingStatusCache = new WeakMap<object, Map<string, SportingStatus>>();
+const managerAssignmentCache = new WeakMap<object, Map<string, PlayerPosition | undefined>>();
 
 const getStableManagerPreference = (
   club: ProfessionalClub,
@@ -576,11 +598,10 @@ export const getFootballerSportingStatus = (
   if (cached) return cached;
   const selectionScore = createSelectionScore(career, club);
   const xi = selectManagerXI(career, club, formation, selectionScore);
+  const bench = selectMatchBench(career, club, xi.assignments, 7, selectionScore);
   const status = xi.assignments.some((item) => item.footballerId === footballerId)
     ? 'starting_xi'
-    : selectMatchBench(career, club, xi.assignments, 7, selectionScore).some(
-          (item) => item.footballerId === footballerId,
-        )
+    : bench.some((item) => item.footballerId === footballerId)
       ? 'bench'
       : 'deep_reserve';
   if (!careerStatuses) {
@@ -588,7 +609,29 @@ export const getFootballerSportingStatus = (
     sportingStatusCache.set(career, careerStatuses);
   }
   careerStatuses.set(cacheKey, status);
+  let assignments = managerAssignmentCache.get(career);
+  if (!assignments) {
+    assignments = new Map();
+    managerAssignmentCache.set(career, assignments);
+  }
+  const assignment =
+    xi.assignments.find((item) => item.footballerId === footballerId) ??
+    bench.find((item) => item.footballerId === footballerId);
+  assignments.set(cacheKey, assignment?.position);
   return status;
+};
+
+/** Exact XI/bench slot from the same canonical manager-selection pass. */
+export const getFootballerManagerAssignment = (
+  career: SelectionCareer,
+  club: ProfessionalClub,
+  footballerId: Id,
+  formation = getManagerPreferredFormation(club.managerId),
+) => {
+  const key = `${club.id}:${formation}:${footballerId}`;
+  if (!managerAssignmentCache.get(career)?.has(key))
+    getFootballerSportingStatus(career, club, footballerId, formation);
+  return managerAssignmentCache.get(career)?.get(key);
 };
 
 export const getPositionalCompetition = (

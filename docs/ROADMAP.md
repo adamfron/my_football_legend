@@ -151,3 +151,11 @@ będzie uzupełniać akademie kolejnymi kohortami.
 9. Osiągnięcia i easter eggi.
 10. Rozbudowa stylu życia i ekonomii.
 11. Interaktywny izometryczny silnik meczowy oparty na decyzjach.
+# Ostatnio domknięte fundamenty pozycji
+
+- faktyczna pozycja protagonisty jest zachowywana przy każdym występie i widoczna na osi sezonu;
+- oferta zawodowa ma jawny zamiar pozycyjny, niezależny od roli kontraktowej;
+- przyszły bogatszy HistoryView może agregować sezonowe i karierowe użycie pozycji;
+- trwała zmiana pozycji może kiedyś tworzyć kamień milowy narracji, bez spamu faktami meczowymi.
+
+Następnym dużym systemem pozostaje świat akademii / U-17 i pipeline przejścia do seniorów.

@@ -59,6 +59,7 @@ describe('canonical career season rendering', () => {
       offerType: 'renewal',
       club,
       contract: { ...contract, monthlySalary: 5_000, endDate: '2030-06-30' },
+      plannedPosition: base.player.primaryPosition,
       interestReasons: ['Dobra współpraca.'],
       opportunity: 'Dalszy rozwój.',
       risk: 'Konkurencja.',

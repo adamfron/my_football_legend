@@ -28,6 +28,7 @@ import {
   updateSelectionStanding,
 } from './seasonParticipation';
 import { getPlayerOverall } from './playerOverall';
+import { getFootballerManagerAssignment } from './footballerWorld';
 
 export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
   if ((career.careerStatus ?? 'active') === 'retired') return 'career is retired';
@@ -154,6 +155,15 @@ export const simulateRoutinePlayerMatch = (
     opponentId: fixture.opponent.id,
     teamLevel,
     started,
+    ...(minutes > 0 && career.currentProfessionalClub
+      ? {
+          assignedPosition: getFootballerManagerAssignment(
+            career,
+            career.currentProfessionalClub,
+            career.player.id,
+          ),
+        }
+      : {}),
     minutes,
     goals,
     assists,

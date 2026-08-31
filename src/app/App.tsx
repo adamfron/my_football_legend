@@ -69,6 +69,7 @@ import {
 } from './creator/PlayerCreator';
 import { MatchGame } from './match/MatchGame';
 import { StartScreen } from './StartScreen';
+import { positionCode, positionLabel } from './shared/positionPresentation';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
@@ -587,6 +588,15 @@ export const SeasonEndSummary = ({
                 <p>
                   <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
                 </p>
+                <p>
+                  <strong>Planowana pozycja:</strong> {positionLabel(offer.plannedPosition)}
+                </p>
+                {!!offer.alternativePositions?.length && (
+                  <p>
+                    <strong>Alternatywnie:</strong>{' '}
+                    {offer.alternativePositions.map(positionCode).join(', ')}
+                  </p>
+                )}
                 <p>
                   <strong>Pensja:</strong> {offer.contract.monthlySalary.toLocaleString('pl-PL')}{' '}
                   PLN / mies.

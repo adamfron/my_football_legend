@@ -5,12 +5,13 @@ import type {
   ProfessionalOffer,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
-import { getPlayerOverall } from './playerOverall';
+import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { getPlayerForm } from './careerWeeks';
 import { clampProfessionalLeagueTier } from './leagueSeason';
 import { getClubStrength, getExpectedSquadRole } from './clubStrength';
 import { estimatePlayerMarketValue, evaluateExpectedMonthlySalary } from './playerEconomy';
 import { generateClubVisualIdentity } from './clubVisualIdentity';
+import { FORMATIONS, getManagerPreferredFormation } from './footballerWorld';
 
 export const getClubLeagueTier = (club: ProfessionalClub) =>
   clampProfessionalLeagueTier(club.leagueTier);
@@ -216,6 +217,61 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
   const eliteDomesticCandidate = overall(career) >= 80 && getClubLeagueTier(club) === 1;
   return { score, interested: eliteDomesticCandidate || score >= 37, need, potentialEstimate };
 };
+
+const offerOverallCache = new WeakMap<object, Map<string, number>>();
+const offerPositionOverall = (
+  player: CareerState['player'],
+  position: CareerState['player']['primaryPosition'],
+) => {
+  let cache = offerOverallCache.get(player);
+  if (!cache) {
+    cache = new Map();
+    offerOverallCache.set(player, cache);
+  }
+  const cached = cache.get(position);
+  if (cached !== undefined) return cached;
+  const value = getEffectivePositionOverall(player, position);
+  cache.set(position, value);
+  return value;
+};
+
+export const deriveOfferPositionIntent = (
+  career: CareerState,
+  club: ProfessionalClub,
+): Pick<ProfessionalOffer, 'plannedPosition' | 'alternativePositions'> => {
+  const formation = FORMATIONS[getManagerPreferredFormation(club.managerId)];
+  const effectiveOverall = (position: CareerState['player']['primaryPosition']) =>
+    offerPositionOverall(career.player, position);
+  const plausible = [...new Set(formation)].filter((position) => {
+    const sameBoundary =
+      (position === 'goalkeeper') === (career.player.primaryPosition === 'goalkeeper');
+    return sameBoundary && career.player.positionFamiliarity[position] >= 0.3;
+  });
+  const candidates = plausible.map((position) => {
+    const need = club.positionalNeeds[group(position)];
+    // Canonical club depth/need already summarizes the destination's real positional competition.
+    const leadingRival = need.starterQuality;
+    return {
+      position,
+      score:
+        effectiveOverall(position) +
+        need.needLevel * 0.12 +
+        (need.depth === 'thin' ? 5 : need.depth === 'deep' ? -5 : 0) +
+        Math.max(-8, effectiveOverall(position) - leadingRival) * 0.35,
+    };
+  });
+  // Old creator/save data can contain no plausible formation secondary; nominal identity is safe.
+  if (!candidates.length) return { plannedPosition: career.player.primaryPosition };
+  candidates.sort((a, b) => b.score - a.score || a.position.localeCompare(b.position));
+  const [planned, ...rest] = candidates;
+  const alternatives = rest.filter((item) => item.score >= planned!.score - 6).slice(0, 2);
+  return {
+    plannedPosition: planned!.position,
+    ...(alternatives.length
+      ? { alternativePositions: alternatives.map((item) => item.position) }
+      : {}),
+  };
+};
 const createProfessionalOffer = (
   career: CareerState,
   club: ProfessionalClub,
@@ -231,6 +287,7 @@ const createProfessionalOffer = (
   const free =
     !career.currentContract ||
     career.currentContract.endDate <= `${career.currentSeason + 1}-07-01`;
+  const positionIntent = deriveOfferPositionIntent(career, club);
   return {
     id: `offer_${club.id}_${career.currentSeason}`,
     offerType: 'external',
@@ -244,6 +301,7 @@ const createProfessionalOffer = (
       squadRole: role,
       contractType: role === 'development_player' ? 'development' : 'professional',
     },
+    ...positionIntent,
     interestReasons: [
       ...(safetyNet
         ? ['Klub daje ci szansę na odbudowanie kariery w profesjonalnym futbolu.']
@@ -254,7 +312,7 @@ const createProfessionalOffer = (
               ? 'Trener chętnie daje szanse młodym zawodnikom.'
               : 'Sztab widzi dopasowanie do sposobu gry.',
             interest.need.needLevel > 60
-              ? 'Klub ma wyraźną potrzebę na twojej pozycji.'
+              ? 'Klub ma wyraźną potrzebę na planowanej dla ciebie pozycji.'
               : interest.potentialEstimate > overall(career) + 8
                 ? 'Skauci wysoko oceniają twój potencjał jak na ten wiek.'
                 : 'Skauci dobrze ocenili twoją ostatnią formę.',
@@ -373,6 +431,7 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
       contractType: role === 'development_player' ? 'development' : 'professional',
       monthlySalary: evaluateExpectedMonthlySalary(career, career.currentProfessionalClub, role),
     },
+    ...deriveOfferPositionIntent(career, career.currentProfessionalClub),
     interestReasons: [
       contractExpires
         ? 'Klub proponuje przedłużenie po ocenie twoich występów.'

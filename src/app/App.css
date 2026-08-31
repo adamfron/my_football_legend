@@ -222,8 +222,7 @@
   display: grid;
   grid-template-columns: minmax(390px, 0.85fr) minmax(580px, 1.35fr);
   gap: 8px;
-  min-height: 560px;
-  max-height: calc(100vh - 330px);
+  min-height: 520px;
 }
 .squad-pitch-panel,
 .grouped-squad-list,
@@ -330,15 +329,13 @@
 }
 .grouped-squad-list {
   min-height: 0;
-  overflow: auto;
   padding: 0 8px 8px;
-  scrollbar-gutter: stable;
 }
 .squad-group h3 {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0 0 !important;
-  padding: 4px 6px;
+  margin: 5px 0 0 !important;
+  padding: 3px 6px;
   border-top: 3px double #768084;
   border-bottom: 1px solid #c7ccce;
   letter-spacing: 0.08em;
