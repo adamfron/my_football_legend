@@ -29,7 +29,7 @@ import {
   recordParticipation,
   updateSelectionStanding,
 } from './seasonParticipation';
-import { deriveSquadHierarchy, getSportingStatus } from './footballerWorld';
+import { getFootballerSportingStatus } from './footballerWorld';
 
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
   overallStrength: 52,
@@ -146,8 +146,7 @@ export const evaluateSquadOpportunity = (
 ): { status: SquadStatus; reason: string; selectionScore: number } => {
   const professionalClub = career.currentProfessionalClub;
   if (career.leagueSeason?.competition.category === 'professional' && professionalClub) {
-    const hierarchy = deriveSquadHierarchy(career, professionalClub);
-    const sportingStatus = getSportingStatus(hierarchy, career.player.id);
+    const sportingStatus = getFootballerSportingStatus(career, professionalClub, career.player.id);
     const status: SquadStatus =
       sportingStatus === 'starting_xi'
         ? 'senior_starter'

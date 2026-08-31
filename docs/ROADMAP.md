@@ -2,7 +2,8 @@
 
 Lokalny `npm run audit:archetypes` pozostaje narzędziem kalibracji nowych profili, nie ciężkim
 testem CI. Rzeczywista selekcja i rywalizacja pozycyjna są fundamentem; najbliższym dużym systemem
-jest rzadki sezonowy rozwój i regres NPC, następnie emerytury i nabór młodzieży.
+jest świat akademii / U-17 i przepływ absolwentów. Trwali młodzi piłkarze powstaną przed wspólnym
+systemem rzadkiego rozwoju seniorów i akademii.
 
 ## Projekcje kariery i role trenera
 
@@ -13,7 +14,7 @@ jest rzadki sezonowy rozwój i regres NPC, następnie emerytury i nabór młodzi
   ale będzie wyłącznie projekcją `CareerCalendar`, terminarza, wydarzeń i treningu — nigdy kopią;
 - puchary krajowe, Europa i reprezentacje powstaną dopiero na wspólnej abstrakcji rozgrywek.
 
-## Następny fundament: realna selekcja i rywalizacja pozycyjna
+## Zrealizowany fundament: realna selekcja i rywalizacja pozycyjna
 
 - **Selection competition:** rola i minuty wynikające z rywalizacji z konkretnymi zawodnikami na
   pozycji, nie tylko z porównania OVR do jednej abstrakcyjnej siły klubu.
@@ -71,12 +72,40 @@ trofeów, kamieni milowych i ważnych momentów — bez zapisywania duplikatu hi
 tekstu. Inspiracją jest gęstość informacji FM, nie kopiowanie interfejsu. Projekt powstanie później
 po dostarczeniu referencji wizualnych; ten etap nie implementuje UI biografii.
 
+# Następny fundament: świat akademii / U-17 i absolwenci
+
+Obecny specjalny, abstrakcyjny pierwszy sezon Vistuli zostanie w przyszłości zastąpiony prawdziwym
+światem młodzieżowym. Osobna liga U-17 obejmie niezależną Vistulę Nova oraz drużyny U-17 wybranych
+polskich klubów zawodowych, w tym kilka czołowych akademii. Każdy zespół otrzyma trwałą kadrę,
+złożoną początkowo głównie z kohorty szesnastolatków, ale wykorzystującą dokładnie ten sam
+kanoniczny model `FootballerProfile` / `WorldFootballer` — bez osobnego typu `YouthPlayer`.
+
+Menedżerowie, formacje, selekcja, XI, ławka i rywalizacja pozycyjna skorzystają z tych samych
+ogólnych zasad co futbol zawodowy, dzięki czemu `ClubView` będzie znaczący już w pierwszym sezonie.
+Rozgrywki młodzieżowe wejdą do kanonicznej architektury rozgrywek i kalendarza, zamiast tworzyć
+drugi, specjalny silnik sezonu.
+
+Na koniec sezonu klub zawodowy oceni zawodników swojej akademii. Awans do kadry seniorów uwzględni
+jakość, potencjał i profil, potrzeby pozycyjne oraz politykę młodzieżową klubu — nie stałą liczbę ani
+mechanicznie najwyższy OVR. Niepozostawieni zawodnicy wejdą na wspólny rynek pierwszych kontraktów:
+mogą trafić do innego klubu lub niższej ligi, a część początkowo pozostać bez profesjonalnego klubu.
+Niezależna Vistula Nova nie ma automatycznej pierwszej drużyny, więc wszyscy jej absolwenci, także
+protagonista, szukają zatrudnienia przez te same mechanizmy ofert.
+
+Trwali koledzy z U-17 pozostaną w świecie jako przyszli ponowni koledzy, przeciwnicy, rywale, cele
+transferowe, a znacznie później potencjalni trenerzy. Po tym fundamencie coroczny nabór młodzieży
+będzie uzupełniać akademie kolejnymi kohortami.
+
 # Następne kroki
 
-**NEXT: rzadki sezonowy rozwój i regres NPC**, następnie emerytury i nabór młodzieży.
-
-Później: rzadki sezonowy rozwój i regres NPC, emerytury, nabór młodzieży, niedoskonałe
-transfery NPC, migracje trenerów, byli gracze jako trenerzy, zagraniczne pakiety świata,
-poziomy wierności symulacji aktywnej/tła, puchary/Europa/reprezentacje, miesięczny kalendarz,
-zmiana rozgrywek, PlayStyles wynikające z zachowania, osiągnięcia/easter eggi oraz interaktywny
-izometryczny silnik meczowy oparty na decyzjach.
+1. Akademia / świat U-17 i przepływ absolwentów.
+2. Rzadki sezonowy rozwój i regres NPC.
+3. Emerytury i cykliczny nabór młodzieży.
+4. Niedoskonały rynek transferowy NPC.
+5. Trwałość i zmiany menedżerów/trenerów.
+6. Zagraniczne pakiety świata.
+7. Rozbudowa rozgrywek i kalendarza.
+8. PlayStyles wynikające z zachowania.
+9. Osiągnięcia i easter eggi.
+10. Rozbudowa stylu życia i ekonomii.
+11. Interaktywny izometryczny silnik meczowy oparty na decyzjach.

@@ -33,9 +33,18 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 
 ## Immediate next gameplay development
 
-**NEXT: sparse seasonal NPC development / decline.** Realna selekcja porównuje już zawodnika z konkretnymi rywalami w formacji trenera. Następny krok ma rzadko aktualizować rozwój i regres NPC, bez cotygodniowej symulacji tła; później powstaną emerytury i nabór młodzieży.
+**NEXT: academy / U-17 world and graduation pipeline.** Realna selekcja porównuje już zawodnika
+z konkretnymi rywalami w formacji trenera. Następny fundament zastąpi abstrakcyjny pierwszy sezon
+trwałą ligą U-17 i kadrami w tym samym modelu `FootballerProfile` / `WorldFootballer`, a absolwenci
+przejdą przez awans do pierwszej drużyny albo wspólny rynek pierwszych kontraktów. Dopiero potem
+powstanie rzadki sezonowy rozwój/regres NPC, wspólny dla seniorów i akademii, a następnie emerytury
+i cykliczny nabór młodzieży.
 
-Dalsza kolejność: (1) rzadki sezonowy rozwój/regres NPC, (2) emerytury i nabór młodzieży, (3) niedoskonały rynek transferowy NPC, (4) trwałość i zmiany trenerów, (5) zagraniczne pakiety świata, (6) abstrakcja pucharów/Europy/reprezentacji, (7) miesięczny kalendarz i przełącznik rozgrywek, (8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl życia/inwestycje/ekonomia, (11) interaktywny izometryczny silnik decyzji.
+Dalsza kolejność: (1) akademia / świat U-17 i absolwenci, (2) rzadki sezonowy rozwój/regres NPC,
+(3) emerytury i cykliczny nabór młodzieży, (4) niedoskonały rynek transferowy NPC, (5) trwałość
+i zmiany trenerów, (6) zagraniczne pakiety świata, (7) rozbudowa rozgrywek i kalendarza,
+(8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl życia/inwestycje/ekonomia,
+(11) interaktywny izometryczny silnik decyzji.
 
 ## Future match-engine concept
 
