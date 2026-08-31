@@ -532,6 +532,8 @@ export interface WorldFootballer {
   currentClubId?: Id | undefined;
   reputation?: number | undefined;
   fitness?: number | undefined;
+  /** Persistent contract fact; payroll simulation deliberately remains protagonist-only. */
+  currentContract?: Contract | undefined;
 }
 export interface ClubInfrastructure {
   coachingQuality: number;

@@ -241,14 +241,6 @@ export const professionalClubSchema = z.object({
   }),
   squadPlayerIds: z.array(id).optional(),
 });
-export const worldFootballerSchema = z.object({
-  profile: footballerProfileSchema,
-  developmentProfile: developmentProfileSchema,
-  careerStatus: z.enum(['active', 'retired']),
-  currentClubId: id.optional(),
-  reputation: score.optional(),
-  fitness: score.optional(),
-});
 export const contractSchema = z.object({
   clubId: id,
   startDate: z.string(),
@@ -263,6 +255,15 @@ export const contractSchema = z.object({
     'star_player',
   ]),
   contractType: z.enum(['professional', 'development']),
+});
+export const worldFootballerSchema = z.object({
+  profile: footballerProfileSchema,
+  developmentProfile: developmentProfileSchema,
+  careerStatus: z.enum(['active', 'retired']),
+  currentClubId: id.optional(),
+  reputation: score.optional(),
+  fitness: score.optional(),
+  currentContract: contractSchema.optional(),
 });
 export const professionalOfferSchema = z.object({
   id,

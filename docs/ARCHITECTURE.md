@@ -168,3 +168,12 @@ Bazę można w przyszłości dzielić na leniwie ładowane pakiety krajów i roz
 kohorty młodzieży. Pełna tożsamość NPC pozostaje zachowana; bliscy NPC mogą być aktualizowani
 szczegółowo, a tło będzie rozwijane deterministycznie sezonowo lub w rzadkich checkpointach,
 zamiast symulacji treningu 52 razy w roku dla całego świata.
+
+Wyjściowe profesjonalne kontrakty NPC są faktami niezmiennej bazy świata. Dopiero przyszła zmiana
+umowy zapisze pełnego zawodnika w `footballerOverrides`; świeży `CareerWorldDelta` nie kopiuje tych
+kontraktów. Nie symulujemy jeszcze listy płac NPC, wypłat ani obciążania budżetów klubów — księga
+miesięcznej pensji protagonisty pozostaje jedyną symulacją finansową kontraktu.
+
+`selectBestXI()` pozostaje źródłem tymczasowej preferowanej jedenastki. Deterministyczne helpery
+ławki meczowej oraz hierarchii XI / ławka / głęboka rezerwa są współdzieloną oceną na potrzeby
+prezentacji, a nie rzeczywistą sztuczną inteligencją menedżera ani systemem rywalizacji o skład.

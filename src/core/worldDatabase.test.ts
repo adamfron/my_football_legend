@@ -44,11 +44,28 @@ describe('static world and delta resolution', () => {
     expect(database.clubs).toHaveLength(64);
     expect(Object.keys(database.footballers)).toHaveLength(1536);
     for (const club of database.clubs)
-      for (const id of club.squadPlayerIds ?? []) expect(database.footballers[id]).toBeDefined();
+      for (const id of club.squadPlayerIds ?? []) {
+        expect(database.footballers[id]).toBeDefined();
+        expect(database.footballers[id]!.currentContract?.clubId).toBe(club.id);
+      }
+    expect(emptyWorldDelta()).toEqual({
+      clubOverrides: {},
+      footballerOverrides: {},
+      squadOverrides: {},
+      newFootballers: {},
+      retiredFootballerIds: [],
+      managerOverrides: {},
+    });
   });
   test('resolves overrides without mutating the base', () => {
     const original = Object.values(database.footballers)[0]!;
-    const changed = { ...original, reputation: (original.reputation ?? 0) + 1 };
+    const changed = {
+      ...original,
+      currentContract: {
+        ...original.currentContract!,
+        monthlySalary: original.currentContract!.monthlySalary + 1,
+      },
+    };
     const delta = {
       ...emptyWorldDelta(),
       footballerOverrides: { [original.profile.id]: changed },
@@ -63,6 +80,8 @@ describe('static world and delta resolution', () => {
     expect(
       resolveWorldSquad({ baseWorld: database, player, worldDelta: delta }, database.clubs[0]!.id),
     ).toEqual([]);
-    expect(database.footballers[original.profile.id]!.reputation).toBe(original.reputation);
+    expect(database.footballers[original.profile.id]!.currentContract).toEqual(
+      original.currentContract,
+    );
   });
 });
