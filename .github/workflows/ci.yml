@@ -18,3 +18,4 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run verify
+      - run: test -f dist/data/world/pl-2026-v1.json

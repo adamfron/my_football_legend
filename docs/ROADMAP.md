@@ -7,6 +7,20 @@ systemem rzadkiego rozwoju seniorów i akademii.
 
 ## Projekcje kariery i role trenera
 
+- cztery górne kafle podsumowania `CareerView` pozostaną głównym modelem nawigacji;
+- rozwinięty ZAWODNIK stanie się jednym gęstym, pełnoekranowym `PlayerView`, bez wewnętrznych
+  zakładek i bez deweloperskiego seedu kariery; rozwój pozostanie zintegrowany z atrybutami przez
+  delty oraz radar wartości bazowych i bieżących;
+- `ClubView` i przyszła mapa pozycji zawodnika użyją jednej kanonicznej geometrii boiska;
+- `PlayerView` może zwięźle pokazywać statystyki bieżącego sezonu, natomiast pełne statystyki
+  kariery trafią do rozwiniętej KARIERA / `HistoryView`;
+- `HistoryView` połączy oś kariery, biografię generowaną z kanonicznych faktów i aktualne statystyki
+  sezon po sezonie;
+- mini-kafelek KARIERA będzie mógł priorytetyzować pilny stan widoczny dla gracza (uraz lub
+  zawieszenie), a w pozostałych sytuacjach ostatnie znaczące wydarzenie kariery;
+- KONTRAKT / FINANSE może rozwinąć inwestycje, usługi i zakupy bez nowej nawigacji najwyższego
+  poziomu.
+
 - przyszłe role/instrukcje taktyczne trenera obejmą m.in. odwróconego bocznego obrońcę;
 - ogólny `CompetitionView` zastąpi panel ligi: tabela dla lig/grup, runda lub drabinka pucharu
   oraz przełączanie ligi, pucharu krajowego, Europy i reprezentacji z poszanowaniem wyboru gracza;

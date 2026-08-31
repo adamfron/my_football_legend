@@ -7,6 +7,7 @@ import { createCareerState, generateStartingPlayerProfile } from '../src/core/pl
 import { careerStateSchema } from '../src/schemas/domainSchemas';
 import { saveCareer } from '../src/core/persistence';
 import { WORLD_DATABASE_SEED, worldDatabaseSchema } from '../src/core/worldDatabase';
+import { WORLD_DATABASE_ARTIFACT_PATH } from './worldDatabaseArtifact';
 
 const timed = <T>(work: () => T) => {
   const start = performance.now();
@@ -19,7 +20,7 @@ describe('local startup audit (informational, no timing assertions)', () => {
     const [generated, footballerMs] = timed(() =>
       populateFootballerWorld(clubs, WORLD_DATABASE_SEED),
     );
-    const raw = readFileSync('public/data/world/pl-2026-v1.json', 'utf8');
+    const raw = readFileSync(WORLD_DATABASE_ARTIFACT_PATH, 'utf8');
     const database = worldDatabaseSchema.parse(JSON.parse(raw));
     const profile = generateStartingPlayerProfile(
       {
