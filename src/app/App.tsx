@@ -69,7 +69,7 @@ import {
 } from './creator/PlayerCreator';
 import { MatchGame } from './match/MatchGame';
 import { StartScreen } from './StartScreen';
-import { positionCode, positionLabel } from './shared/positionPresentation';
+import { positionCode, positionLabel } from '../core/positionPresentation';
 import './App.css';
 
 const infoKey = 'mfl.localSaveInfoDismissed';

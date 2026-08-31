@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import type { FootballerProfile, Id } from '../../types/domain';
 import type { BestXIAssignment, FormationId } from '../../core/footballerWorld';
-import { positionCode } from '../shared/positionPresentation';
+import { positionCode } from '../../core/positionPresentation';
 import { FORMATION_COORDINATES } from './formationCoordinates';
 
 export const SquadPitch = ({

@@ -11,6 +11,7 @@ import { SeasonView } from './career/SeasonView';
 import { CareerView } from './career/CareerView';
 import { scheduleEvent } from '../core/careerCalendar';
 import { generateProfessionalClubPool } from '../core/professionalClubs';
+import { MatchParticipationSummary } from '../components/MatchParticipationSummary';
 
 const initializedCareer = () =>
   advanceCareerFlow(
@@ -192,6 +193,85 @@ describe('canonical career season rendering', () => {
     act(() => play.click());
     expect(container.querySelector('.detail-panel')).toBeNull();
     act(() => root.unmount());
+  });
+
+  it('renders direct-red and second-yellow dismissals as accessible card sequences', () => {
+    const base = {
+      fixtureId: 'cards',
+      date: '2027-09-01',
+      opponentId: 'other',
+      venue: 'home' as const,
+      competition: 'Liga',
+      status: 'starter' as const,
+      plannedMinutes: 90,
+      minutes: 82,
+      started: true,
+      goals: 0,
+      assists: 0,
+      xG: 0,
+      xA: 0,
+    };
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() =>
+      root.render(
+        <>
+          <MatchParticipationSummary participation={{ ...base, redCard: 'direct' }} />
+          <MatchParticipationSummary participation={{ ...base, redCard: 'second_yellow' }} />
+        </>,
+      ),
+    );
+    const cards = container.querySelectorAll('.card-indicators');
+    expect(cards[0]?.getAttribute('aria-label')).toBe('czerwona kartka');
+    expect(cards[0]?.querySelectorAll('.red')).toHaveLength(1);
+    expect(cards[1]?.getAttribute('aria-label')).toContain('druga żółta');
+    expect(cards[1]?.querySelectorAll('.yellow')).toHaveLength(2);
+    expect(cards[1]?.querySelectorAll('.red')).toHaveLength(1);
+    act(() => root.unmount());
+  });
+
+  it('renders assigned position and card indicators on the main timeline without inventing a position', () => {
+    const base = initializedCareer();
+    const first = base.seasonParticipation![0]!;
+    const render = (assignedPosition?: 'center_back') => {
+      const career = {
+        ...base,
+        seasonParticipation: base.seasonParticipation!.map((record) =>
+          record.fixtureId === first.fixtureId
+            ? {
+                ...record,
+                fixtureStatus: 'completed' as const,
+                status: 'starter' as const,
+                minutes: 76,
+                started: true,
+                goals: 0,
+                assists: 0,
+                rating: 7.6,
+                yellowCards: 1,
+                assignedPosition,
+              }
+            : record,
+        ),
+      };
+      const container = document.createElement('div');
+      const root = createRoot(container);
+      act(() => root.render(<CareerView career={career} onCareer={() => undefined} />));
+      return { container, root };
+    };
+    const assigned = render('center_back');
+    expect(assigned.container.querySelector('.season-timeline')?.textContent).toContain(
+      "76' · ŚO · 0 G · 0 A · 7,6",
+    );
+    expect(assigned.container.querySelector('.card-indicators')?.getAttribute('aria-label')).toBe(
+      'żółta kartka',
+    );
+    act(() => assigned.root.unmount());
+    const absent = render();
+    expect(absent.container.querySelector('.season-timeline')?.textContent).toContain(
+      "76' · 0 G · 0 A · 7,6",
+    );
+    expect(absent.container.querySelector('.season-timeline')?.textContent).not.toContain('ŚO');
+    act(() => absent.root.unmount());
   });
 
   it('renders the fixture list before and after the first completed match', () => {

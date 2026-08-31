@@ -1,3 +1,8 @@
+import { RandomGenerator } from './random/RandomGenerator';
+import { generateInjuryMetadata } from './playerAvailability';
+import { getTimelineInjury, presentInjury } from './injuryPresentation';
+import { presentMatchParticipation } from './matchParticipationPresentation';
+
 import { describe, expect, it } from 'vitest';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import {
@@ -106,6 +111,7 @@ describe('authoritative participation', () => {
           id: 'injury',
           startDate: '2027-09-01',
           severity: 'minor',
+          injuryType: 'strain',
           matchesRemaining: 2,
           source: 'match',
           status: 'active',
@@ -119,5 +125,110 @@ describe('authoritative participation', () => {
     };
     expect(getInjuryDescription(state)).toContain('około 2 meczów');
     expect(getInjuryDescription(state)).toContain('uda');
+  });
+});
+
+describe('match and injury presentation metadata', () => {
+  const played = {
+    fixtureId: 'summary',
+    date: '2027-09-02',
+    opponentId: 'other',
+    venue: 'home' as const,
+    competition: 'Liga',
+    fixtureStatus: 'completed' as const,
+    status: 'starter' as const,
+    plannedMinutes: 90,
+    minutes: 76,
+    started: true,
+    goals: 0,
+    assists: 1,
+    xG: 0,
+    xA: 0.2,
+    rating: 7.6,
+  };
+
+  it('uses only the assigned position and exposes distinguishable cards', () => {
+    expect(
+      presentMatchParticipation({ ...played, assignedPosition: 'center_back' }).text,
+    ).toContain("76' · ŚO");
+    expect(presentMatchParticipation(played).text).not.toContain('ŚO');
+    expect(presentMatchParticipation({ ...played, yellowCards: 1 }).cards).toEqual(['yellow']);
+    expect(presentMatchParticipation({ ...played, redCard: 'direct' }).cards).toEqual(['red']);
+    expect(presentMatchParticipation({ ...played, redCard: 'second_yellow' }).cards).toEqual([
+      'yellow',
+      'yellow',
+      'red',
+    ]);
+  });
+
+  it('preserves goalkeeper statistics', () => {
+    const summary = presentMatchParticipation({
+      ...played,
+      assignedPosition: 'goalkeeper',
+      goalkeeperStats: {
+        goalsConceded: 0,
+        shotsOnTargetFaced: 5,
+        saves: 5,
+        savePercentage: 100,
+        cleanSheet: true,
+        xGA: 1.1,
+        errorsLeadingToGoal: 0,
+        rating: 7.4,
+      },
+    }).text;
+    expect(summary).toContain('BR · 5 obr. · CS · 7,4');
+    expect(summary).not.toContain('0 G');
+  });
+
+  it('localizes canonical injury type, area, and every source', () => {
+    const base = {
+      id: 'i',
+      startDate: '2027-09-01',
+      severity: 'minor' as const,
+      injuryType: 'strain' as const,
+      matchesRemaining: 1,
+      status: 'active' as const,
+      bodyArea: 'thigh',
+    };
+    expect(presentInjury({ ...base, source: 'match' })).toBe('Naciągnięcie uda · podczas meczu');
+    expect(presentInjury({ ...base, source: 'training' })).toContain('· trening');
+    expect(presentInjury({ ...base, source: 'overload' })).toContain('· kumulacja obciążeń');
+  });
+
+  it('generates identical compatible injury metadata for identical seeds', () => {
+    expect(generateInjuryMetadata(RandomGenerator.fromSeed('same'), 'training')).toEqual(
+      generateInjuryMetadata(RandomGenerator.fromSeed('same'), 'training'),
+    );
+  });
+
+  it('does not attach an unrelated current injury to an older absence', () => {
+    const state = career();
+    state.playerAvailability = {
+      injuries: [
+        {
+          id: 'later',
+          startDate: '2027-10-01',
+          severity: 'minor',
+          injuryType: 'sprain',
+          matchesRemaining: 2,
+          source: 'training',
+          status: 'active',
+          bodyArea: 'ankle',
+        },
+      ],
+      suspensionMatchesRemaining: 0,
+      leagueYellowCards: 0,
+      matchesMissedThroughSuspension: 0,
+      matchesMissedThroughInjury: 1,
+    };
+    expect(
+      getTimelineInjury(state, {
+        ...played,
+        minutes: 0,
+        started: false,
+        status: 'injured',
+        date: '2027-09-02',
+      }),
+    ).toBeUndefined();
   });
 });
