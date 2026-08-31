@@ -1,7 +1,12 @@
 import { expect, test } from 'vitest';
 import { generateProfessionalClubPool } from '../src/core/professionalClubs';
-import { getSquadDerivedClubStrength, populateFootballerWorld } from '../src/core/footballerWorld';
+import {
+  deriveSquadHierarchy,
+  getSquadDerivedClubStrength,
+  populateFootballerWorld,
+} from '../src/core/footballerWorld';
 import { getPlayerOverall } from '../src/core/playerOverall';
+import { hasCoherentPrimaryPosition } from '../src/core/playerCreator';
 
 test('deterministic persistent world audit', () => {
   const seed = 'world-audit-v1';
@@ -11,6 +16,17 @@ test('deterministic persistent world audit', () => {
     footballerWorld: generated.footballerWorld,
   } as Parameters<typeof getSquadDerivedClubStrength>[0];
   const players = Object.values(generated.footballerWorld);
+  const mean = (values: number[]) => values.reduce((sum, value) => sum + value, 0) / values.length;
+  const positionMeans = Object.fromEntries(
+    [...new Set(players.map(({ profile }) => profile.primaryPosition))].map((position) => [
+      position,
+      mean(
+        players
+          .filter(({ profile }) => profile.primaryPosition === position)
+          .map(({ profile }) => getPlayerOverall(profile, position)),
+      ),
+    ]),
+  );
   const ages = { '17-20': 0, '21-25': 0, '26-30': 0, '31-36': 0 };
   for (const { profile } of players)
     ages[
@@ -76,4 +92,28 @@ test('deterministic persistent world audit', () => {
   };
   console.info(JSON.stringify(report, null, 2));
   expect(report.footballers).toBe(1536);
+  expect(
+    Math.max(...Object.values(positionMeans)) - Math.min(...Object.values(positionMeans)),
+  ).toBeLessThan(7);
+  expect(positionMeans.goalkeeper).toBeLessThan(Math.max(...Object.values(positionMeans)));
+  expect(positionMeans.striker).toBeGreaterThan(Math.min(...Object.values(positionMeans)));
+  expect(
+    players.filter(
+      ({ profile, currentContract }) =>
+        profile.age > 21 && currentContract.squadRole === 'development_player',
+    ),
+  ).toHaveLength(0);
+  expect(
+    players.filter(
+      ({ profile, currentContract }) =>
+        profile.primaryPosition === 'goalkeeper' && currentContract.squadRole === 'star_player',
+    ).length,
+  ).toBeLessThan(generated.clubs.length);
+  expect(
+    players.filter(({ profile }) => !hasCoherentPrimaryPosition(profile)).length / players.length,
+  ).toBeLessThan(0.03);
+  for (const club of generated.clubs) {
+    const hierarchy = deriveSquadHierarchy(career, club);
+    expect(hierarchy.bench.filter((item) => item.position === 'goalkeeper')).toHaveLength(1);
+  }
 }, 20_000);

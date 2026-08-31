@@ -171,6 +171,10 @@ odtwarza początkowej rzeczywistości. Stabilne identyfikatory są wspólne dla 
 a zapis przechowuje protagonistę i wyłącznie zmienione lub nowe encje. OVR, radar, najlepsza
 jedenastka i siła klubu są wartościami pochodnymi, nie danymi autorytatywnymi.
 
+Generowanie kadry używa jawnych poziomów głębi osobno dla każdej pozycji, nigdy globalnego indeksu
+listy. Najpierw szeroki kształt pozycyjny nadaje profilowi także słabości, potem archetyp wprowadza
+charakterystyczne wyjątki, a OVR pozycji głównej jest kalibrowany do poziomu klubu i roli w głębi.
+
 Bazę można w przyszłości dzielić na leniwie ładowane pakiety krajów i rozgrywek oraz statyczne
 kohorty młodzieży. Pełna tożsamość NPC pozostaje zachowana; bliscy NPC mogą być aktualizowani
 szczegółowo, a tło będzie rozwijane deterministycznie sezonowo lub w rzadkich checkpointach,
@@ -180,6 +184,9 @@ Wyjściowe profesjonalne kontrakty NPC są faktami niezmiennej bazy świata. Dop
 umowy zapisze pełnego zawodnika w `footballerOverrides`; świeży `CareerWorldDelta` nie kopiuje tych
 kontraktów. Nie symulujemy jeszcze listy płac NPC, wypłat ani obciążania budżetów klubów — księga
 miesięcznej pensji protagonisty pozostaje jedyną symulacją finansową kontraktu.
+Generator przypisuje początkową obietnicę kontraktową dopiero po zbudowaniu całej kadry i ocenie
+realnej hierarchii. `development_player` oznacza młodego zawodnika rozwijanego przez klub, a nie
+automatyczną etykietę dowolnego seniora znajdującego się głęboko w składzie.
 
 `selectBestXI()` jest czystym, globalnie optymalnym ewaluatorem jakości używanym do wyprowadzania
 siły klubu. Osobny `deriveSquadHierarchy()` modeluje niedoskonały wybór trenera: efektywny OVR i
@@ -204,5 +211,6 @@ dla całej kadry ani osobny model prezentacyjny.
 Każdy przydział XI zachowuje tożsamość indeksu kanonicznego slotu formacji; selekcja, lista i
 boisko odnoszą się dzięki temu do tego samego przydziału także przy powtarzających się pozycjach.
 Bramkarz i zawodnik z pola należą w normalnej selekcji do rozłącznych zbiorów kwalifikacji — dotyczy
-to XI, ławki i rywalizacji pozycyjnej. Crossover może w przyszłości nastąpić wyłącznie przez jawną
+to XI, ławki i rywalizacji pozycyjnej. Normalna siedmioosobowa ławka zawiera jednego bramkarza;
+drugi może wejść tylko przy niedoborze aktywnych graczy z pola. Crossover może w przyszłości nastąpić wyłącznie przez jawną
 mechanikę pozycji awaryjnej, np. po czerwonej kartce lub urazie, gdy wykorzystano wszystkie zmiany.

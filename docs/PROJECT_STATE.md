@@ -20,12 +20,14 @@ Kanoniczny rejestr `FOOTBALL_ARCHETYPES` obejmuje profile napastników, skrzydł
 - `pl-2026-v1` zawiera 64 polskie kluby zawodowe i około 1536 pełnych NPC Player Model 2.0.
 - Kluby przechowują identyfikatory zawodników; model to statyczna baza plus delta kariery.
 - Menedżer ma preferowaną formację, a żywa siła jest wyprowadzana z najlepszej XI.
+- Generator buduje konkurencję z jawnych poziomów głębi dla każdej pozycji; kształt pozycyjny
+  poprzedza wariant archetypu, więc kolejność kadry nie koduje jakości.
 - Kanoniczna identyfikacja wizualna dopuszcza również biały/biały.
 - Pełne karty NPC są trwałe; przyszła symulacja tła pozostanie rzadka.
 
 ## Contracts/economy
 
-Pensja protagonisty trafia co miesiąc do księgi. Oferty i negocjacje końca sezonu zachowują niezmienniki cyklu. Startowe kontrakty NPC są trwałymi faktami świata, ale ich pensje nie obciążają jeszcze finansów klubów.
+Pensja protagonisty trafia co miesiąc do księgi. Oferty i negocjacje końca sezonu zachowują niezmienniki cyklu. Startowe role kontraktowe NPC wynikają z kompletnej hierarchii kadry, a rola rozwojowa jest przeznaczona dla młodych piłkarzy. Kontrakty są trwałymi faktami świata, ale ich pensje nie obciążają jeszcze finansów klubów.
 
 ## Current UI
 

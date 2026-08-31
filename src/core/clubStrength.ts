@@ -3,6 +3,7 @@ import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
 import {
   deriveSquadHierarchy,
+  getContextualSquadRole,
   getManagerPreferredFormation,
   getSportingStatus,
   getSquadDerivedClubStrength,
@@ -56,7 +57,7 @@ export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub
     if (gap >= 10) return 'important_player';
     if (gap >= 3) return 'first_team_competition';
     if (gap >= -5) return 'rotation';
-    return 'development_player';
+    return career.player.age <= 21 ? 'development_player' : 'rotation';
   }
   const squadIds = [...new Set([...(club.squadPlayerIds ?? []), career.player.id])];
   const projectedClub = { ...club, squadPlayerIds: squadIds };
@@ -79,11 +80,7 @@ export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub
       .map((player) => getEffectivePositionOverall(player, career.player.primaryPosition)),
   );
   const margin = playerOverall - bestCompetitor;
-  if (status === 'starting_xi' && margin >= 8) return 'star_player';
-  if (status === 'starting_xi') return 'important_player';
-  if (status === 'bench' && margin >= -4) return 'first_team_competition';
-  if (status === 'bench') return 'rotation';
-  return 'development_player';
+  return getContextualSquadRole(status, career.player.age, margin);
 };
 
 export const describePlayerClubLevel = (delta: number) =>

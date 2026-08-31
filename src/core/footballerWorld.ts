@@ -91,31 +91,23 @@ export const resolveFootballer = (
 ): FootballerProfile | undefined =>
   id === career.player.id ? career.player : career.footballerWorld?.[id]?.profile;
 
-const positionTemplate: PlayerPosition[] = [
-  'goalkeeper',
-  'goalkeeper',
-  'goalkeeper',
-  'center_back',
-  'center_back',
-  'center_back',
-  'center_back',
-  'left_back',
-  'left_back',
-  'right_back',
-  'right_back',
-  'defensive_midfielder',
-  'defensive_midfielder',
-  'defensive_midfielder',
-  'attacking_midfielder',
-  'attacking_midfielder',
-  'attacking_midfielder',
-  'left_winger',
-  'left_winger',
-  'right_winger',
-  'right_winger',
-  'striker',
-  'striker',
-  'striker',
+interface SquadDepthSlot {
+  position: PlayerPosition;
+  qualityOffset: number;
+}
+const depth = (position: PlayerPosition, offsets: readonly number[]): SquadDepthSlot[] =>
+  offsets.map((qualityOffset) => ({ position, qualityOffset }));
+/** Explicit competition at each position: array order is identity only, never quality. */
+const squadDepthBlueprint: SquadDepthSlot[] = [
+  ...depth('goalkeeper', [2, -4, -9]),
+  ...depth('center_back', [2, 1, -2, -6]),
+  ...depth('left_back', [2, -5]),
+  ...depth('right_back', [2, -5]),
+  ...depth('defensive_midfielder', [2, 0, -5]),
+  ...depth('attacking_midfielder', [2, 0, -5]),
+  ...depth('left_winger', [2, -5]),
+  ...depth('right_winger', [2, -5]),
+  ...depth('striker', [2, 0, -6]),
 ];
 const firstNames = [
   'Adam',
@@ -158,17 +150,17 @@ const secondaryFor: Partial<Record<PlayerPosition, PlayerPosition[]>> = {
 const generateWorldFootballer = (
   club: ProfessionalClub,
   index: number,
+  slot: SquadDepthSlot,
   seed: string,
 ): WorldFootballer => {
   const id = `footballer_${club.id}_${index}`;
   const rng = RandomGenerator.fromSeed(`${seed}:${id}`);
-  const primaryPosition = positionTemplate[index % positionTemplate.length]!;
+  const primaryPosition = slot.position;
   const age = Math.max(17, Math.min(36, Math.round(26 + rng.int(-8, 8) + rng.int(-5, 5) / 2)));
-  const hierarchy = index < 3 ? 4 : index < 14 ? 1 : index < 20 ? -5 : -10;
   const ageAdjustment = age <= 20 ? -3 : age >= 33 ? -2 : 0;
   const targetOverall = Math.max(
     32,
-    Math.min(88, (club.strengthRating ?? 50) + hierarchy + ageAdjustment + rng.int(-2, 2)),
+    Math.min(88, (club.strengthRating ?? 50) + slot.qualityOffset + ageAdjustment + rng.int(-2, 2)),
   );
   const archetypes = getEligibleFootballArchetypes(primaryPosition);
   const archetype = archetypes[rng.int(0, archetypes.length - 1)]!;
@@ -216,16 +208,8 @@ const generateWorldFootballer = (
     positionFamiliarity: familiarity,
   };
   const overall = getPlayerOverall(profile, primaryPosition);
-  const role: SquadRole =
-    index < 3
-      ? 'star_player'
-      : index < 11
-        ? 'important_player'
-        : index < 17
-          ? 'first_team_competition'
-          : index < 21
-            ? 'rotation'
-            : 'development_player';
+  // Final promises are assigned in a second pass, once real squad competition is known.
+  const role: SquadRole = 'rotation';
   const contractRng = RandomGenerator.fromSeed(`${seed}:${id}:contract`);
   const startYear = 2026 - contractRng.int(0, age <= 21 ? 2 : 4);
   const startMonth = contractRng.int(1, 8);
@@ -279,12 +263,32 @@ const generateWorldFootballer = (
 export const populateFootballerWorld = (clubs: ProfessionalClub[], seed: string) => {
   const footballerWorld: Record<Id, WorldFootballer> = {};
   const populatedClubs = clubs.map((club) => {
-    const squadPlayerIds = positionTemplate.map((_, index) => {
-      const footballer = generateWorldFootballer(club, index, seed);
+    const squadPlayerIds = squadDepthBlueprint.map((slot, index) => {
+      const footballer = generateWorldFootballer(club, index, slot, seed);
       footballerWorld[footballer.profile.id] = footballer;
       return footballer.profile.id;
     });
-    return { ...club, squadPlayerIds };
+    const populatedClub = { ...club, squadPlayerIds };
+    const career = { player: { id: '__world_generation__' }, footballerWorld } as SelectionCareer;
+    const hierarchy = deriveSquadHierarchy(career, populatedClub);
+    for (const id of squadPlayerIds) {
+      const footballer = footballerWorld[id]!;
+      const position = footballer.profile.primaryPosition;
+      const bestCompetitor = Math.max(
+        0,
+        ...squadPlayerIds
+          .filter((otherId) => otherId !== id)
+          .map((otherId) => footballerWorld[otherId]!.profile)
+          .filter((other) => other.positionFamiliarity[position] >= 0.3)
+          .map((other) => getEffectivePositionOverall(other, position)),
+      );
+      footballer.currentContract!.squadRole = getContextualSquadRole(
+        getSportingStatus(hierarchy, id),
+        footballer.profile.age,
+        getPlayerOverall(footballer.profile, position) - bestCompetitor,
+      );
+    }
+    return populatedClub;
   });
   return { clubs: populatedClubs, footballerWorld };
 };
@@ -368,9 +372,16 @@ export const selectMatchBench = (
         };
     }
     if (best && selected.length < limit) selected.push(best.assignment);
+    return Boolean(best);
   };
   for (const coverage of BENCH_COVERAGE) takeBest(coverage);
-  while (selected.length < Math.min(limit, available.length)) takeBest(PLAYER_POSITIONS);
+  const outfieldPositions = PLAYER_POSITIONS.filter((position) => position !== 'goalkeeper');
+  while (selected.length < Math.min(limit, available.length)) {
+    if (!takeBest(outfieldPositions)) break;
+  }
+  while (selected.length < Math.min(limit, available.length)) {
+    if (!takeBest(PLAYER_POSITIONS)) break;
+  }
   return selected;
 };
 
@@ -530,6 +541,24 @@ export const getSportingStatus = (hierarchy: SquadHierarchy, footballerId: Id): 
     : hierarchy.bench.some((item) => item.footballerId === footballerId)
       ? 'bench'
       : 'deep_reserve';
+
+/** Contract promise derived from sporting reality; development is deliberately youth-only. */
+export const getContextualSquadRole = (
+  status: SportingStatus,
+  age: number,
+  competitorMargin = 0,
+): SquadRole =>
+  status === 'starting_xi'
+    ? competitorMargin >= 8
+      ? 'star_player'
+      : 'important_player'
+    : status === 'bench'
+      ? competitorMargin >= -4
+        ? 'first_team_competition'
+        : 'rotation'
+      : age <= 21
+        ? 'development_player'
+        : 'rotation';
 
 /**
  * Match simulation only needs one answer. It shares the exact XI/bench selectors with the full

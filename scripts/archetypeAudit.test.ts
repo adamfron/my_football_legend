@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { getEligibleFootballArchetypes } from '../src/core/footballArchetypes';
 import { attributeKeys, generateStartingPlayerProfile } from '../src/core/playerCreator';
 import { getTheoreticalPositionOverall, PLAYER_POSITIONS } from '../src/core/playerOverall';
@@ -98,4 +98,35 @@ describe('local archetype separability audit (1,000 profiles per centroid)', () 
       );
     }
   }, 120_000);
+
+  it('preserves broad positional identity and archetype exceptions', () => {
+    const average = (
+      position: PlayerPosition,
+      archetypeId: string,
+      attribute: (typeof attributeKeys)[number],
+    ) => {
+      const values = Array.from(
+        { length: 200 },
+        (_, n) =>
+          generateStartingPlayerProfile(
+            input(position, 'normal', `identity-${n}`),
+            `identity-${n}`,
+            archetypeId,
+          ).player.attributes[attribute],
+      );
+      return values.reduce((sum, value) => sum + value, 0) / values.length;
+    };
+    expect(average('striker', 'poacher', 'tackling')).toBeLessThan(
+      average('center_back', 'center_back_classic', 'tackling') - 15,
+    );
+    expect(average('center_back', 'center_back_classic', 'finishing')).toBeLessThan(
+      average('striker', 'poacher', 'finishing') - 15,
+    );
+    expect(average('striker', 'pressing_forward', 'tackling')).toBeGreaterThan(
+      average('striker', 'poacher', 'tackling') + 8,
+    );
+    expect(average('striker', 'false_nine', 'passing')).toBeGreaterThan(
+      average('striker', 'target_man', 'passing') + 5,
+    );
+  });
 });
