@@ -1,7 +1,8 @@
 # Roadmap
 
 Lokalny `npm run audit:archetypes` pozostaje narzędziem kalibracji nowych profili, nie ciężkim
-testem CI. Najbliższym dużym systemem jest rzeczywista selekcja i rywalizacja pozycyjna.
+testem CI. Rzeczywista selekcja i rywalizacja pozycyjna są fundamentem; najbliższym dużym systemem
+jest rzadki sezonowy rozwój i regres NPC, następnie emerytury i nabór młodzieży.
 
 ## Projekcje kariery i role trenera
 
@@ -55,15 +56,24 @@ Każdy etap musi zachować deterministyczność, niezależność `src/core` od R
 - trwałe składy, koledzy i trenerzy oraz bogatsze kadry klubów,
 - ligi zagraniczne, puchary, Europa i reprezentacje.
 
-## NEXT: Selection & positional competition
+## Zrealizowany fundament: Selection & positional competition
 
 Use actual squad members for starter/bench/rotation status, `selectionStanding`, promised roles, offer competition and coach evaluation. This must remain a player-career system: the manager owns the formation and the protagonist does not select the XI.
 
 Later work includes sparse NPC seasonal aging/development, retirements, academy graduates, deliberately imperfect/noisy NPC transfers, foreign leagues with active/background fidelity levels, former teammates becoming coaches, persistent relationships, multiple competitions, cups/Europe/national teams, behaviour-driven PlayStyles, achievements/easter eggs and an interactive isometric decision match engine. Clubs may stockpile positions, miss replacements or buy imperfect fits; AI must not become a perfect squad optimizer.
 
+# Prezentacja historii kariery / biografii — przyszłe TODO
+
+Przyszłe `PlayerCard` / `CareerView` pokażą historię sezon po sezonie wyprowadzoną z
+`CompletedSeasonSnapshot`: klub, występy, gole/asysty oraz dostępne ligi, trofea i nagrody.
+Tekstowa biografia będzie generowaną projekcją kanonicznych `HistoryFact`, transferów, klubów,
+trofeów, kamieni milowych i ważnych momentów — bez zapisywania duplikatu historii jako swobodnego
+tekstu. Inspiracją jest gęstość informacji FM, nie kopiowanie interfejsu. Projekt powstanie później
+po dostarczeniu referencji wizualnych; ten etap nie implementuje UI biografii.
+
 # Następne kroki
 
-**NEXT: PR #52 — realna rywalizacja pozycyjna i wybór składu.**
+**NEXT: rzadki sezonowy rozwój i regres NPC**, następnie emerytury i nabór młodzieży.
 
 Później: rzadki sezonowy rozwój i regres NPC, emerytury, nabór młodzieży, niedoskonałe
 transfery NPC, migracje trenerów, byli gracze jako trenerzy, zagraniczne pakiety świata,

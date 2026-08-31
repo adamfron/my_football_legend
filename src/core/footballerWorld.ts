@@ -309,7 +309,7 @@ const BENCH_COVERAGE: readonly (readonly PlayerPosition[])[] = [
 
 /** Temporary deterministic presentation evaluation, not manager selection AI. */
 export const selectMatchBench = (
-  career: Pick<CareerState, 'player' | 'footballerWorld'>,
+  career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
   club: ProfessionalClub,
   xi: readonly BestXIAssignment[] = selectBestXI(career, club).assignments,
   limit = 7,
@@ -337,7 +337,18 @@ export const selectMatchBench = (
       })
       .sort(
         (a, b) =>
-          b.effectiveOverall - a.effectiveOverall || a.footballerId.localeCompare(b.footballerId),
+          getManagerSelectionScore(
+            career,
+            club,
+            resolveFootballer(career, b.footballerId)!,
+            b.position,
+          ) -
+            getManagerSelectionScore(
+              career,
+              club,
+              resolveFootballer(career, a.footballerId)!,
+              a.position,
+            ) || a.footballerId.localeCompare(b.footballerId),
       );
     if (candidates[0] && selected.length < limit) selected.push(candidates[0]);
   };
@@ -352,12 +363,75 @@ export interface SquadHierarchy {
   bench: MatchBenchAssignment[];
   deepReserve: FootballerProfile[];
 }
+export type SportingStatus = 'starting_xi' | 'bench' | 'deep_reserve';
+
+/**
+ * A manager's stable, deliberately small preference. Effective positional quality remains the
+ * dominant signal; selectionStanding is slow-moving coach trust and can only settle close calls.
+ */
+export const getManagerSelectionScore = (
+  career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
+  club: ProfessionalClub,
+  player: FootballerProfile,
+  position: PlayerPosition,
+) => {
+  const effectiveOverall = getEffectivePositionOverall(player, position);
+  const isProtagonist = player.id === career.player.id;
+  const fitness = isProtagonist
+    ? career.player.fitness
+    : (career.footballerWorld?.[player.id]?.fitness ?? 90);
+  const trust = isProtagonist ? ((career.selectionStanding ?? 50) - 50) / 25 : 0;
+  const fitnessInfluence = (Math.max(50, fitness) - 85) / 25;
+  const preference =
+    RandomGenerator.fromSeed(
+      `manager-preference:${club.managerId}:${player.id}:${position}`,
+    ).float() *
+      2.5 -
+    1.25;
+  return effectiveOverall + trust + fitnessInfluence + preference;
+};
+
+const selectManagerXI = (
+  career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
+  club: ProfessionalClub,
+  formation: FormationId,
+): BestXI => {
+  const slots = FORMATIONS[formation];
+  const players = (club.squadPlayerIds ?? [])
+    .filter((id) => career.footballerWorld?.[id]?.careerStatus !== 'retired')
+    .map((id) => resolveFootballer(career, id))
+    .filter((p): p is FootballerProfile => Boolean(p))
+    .sort((a, b) => a.id.localeCompare(b.id));
+  if (players.length < slots.length) return { formation, assignments: [] };
+  const available = [...players];
+  const assignments: BestXIAssignment[] = [];
+  // Repeated best-pair selection is intentionally plausible rather than a perfect global optimizer.
+  for (const position of [...slots].sort((a, b) => {
+    const aOptions = players.filter((p) => p.positionFamiliarity[a] >= 0.3).length;
+    const bOptions = players.filter((p) => p.positionFamiliarity[b] >= 0.3).length;
+    return aOptions - bOptions || a.localeCompare(b);
+  })) {
+    const selected = [...available].sort(
+      (a, b) =>
+        getManagerSelectionScore(career, club, b, position) -
+          getManagerSelectionScore(career, club, a, position) || a.id.localeCompare(b.id),
+    )[0]!;
+    available.splice(available.indexOf(selected), 1);
+    assignments.push({
+      footballerId: selected.id,
+      position,
+      effectiveOverall: getEffectivePositionOverall(selected, position),
+    });
+  }
+  return { formation, assignments };
+};
+
 export const deriveSquadHierarchy = (
-  career: Pick<CareerState, 'player' | 'footballerWorld'>,
+  career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
   club: ProfessionalClub,
   formation = getManagerPreferredFormation(club.managerId),
 ): SquadHierarchy => {
-  const xi = selectBestXI(career, club, formation);
+  const xi = selectManagerXI(career, club, formation);
   const bench = selectMatchBench(career, club, xi.assignments);
   const selected = new Set([...xi.assignments, ...bench].map((item) => item.footballerId));
   const deepReserve = (club.squadPlayerIds ?? [])
@@ -367,6 +441,35 @@ export const deriveSquadHierarchy = (
     .sort((a, b) => a.id.localeCompare(b.id));
   return { formation: xi.formation, preferredXI: xi.assignments, bench, deepReserve };
 };
+
+export const getSportingStatus = (hierarchy: SquadHierarchy, footballerId: Id): SportingStatus =>
+  hierarchy.preferredXI.some((item) => item.footballerId === footballerId)
+    ? 'starting_xi'
+    : hierarchy.bench.some((item) => item.footballerId === footballerId)
+      ? 'bench'
+      : 'deep_reserve';
+
+export const getPositionalCompetition = (
+  career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
+  club: ProfessionalClub,
+  position: PlayerPosition,
+  hierarchy = deriveSquadHierarchy(career, club),
+) =>
+  (club.squadPlayerIds ?? [])
+    .map((id) => resolveFootballer(career, id))
+    .filter((player): player is FootballerProfile => Boolean(player))
+    .filter((player) => player.positionFamiliarity[position] >= 0.3)
+    .map((player) => ({
+      player,
+      effectiveOverall: getEffectivePositionOverall(player, position),
+      status: getSportingStatus(hierarchy, player.id),
+    }))
+    .sort(
+      (a, b) =>
+        getManagerSelectionScore(career, club, b.player, position) -
+          getManagerSelectionScore(career, club, a.player, position) ||
+        a.player.id.localeCompare(b.player.id),
+    );
 export const selectBestXI = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,
   club: ProfessionalClub,

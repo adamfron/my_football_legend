@@ -33,7 +33,7 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 
 ## Immediate next gameplay development
 
-**NEXT: PR #52 — real selection / positional competition.** Powinien uzależnić `selectionStanding`, status XI/ławki/rezerwy, oczekiwaną i obiecaną rolę oraz rolę w ofercie od konkretnych rywali i formacji menedżera. Obecny widok jedynie prezentuje tymczasową deterministyczną ocenę.
+**NEXT: sparse seasonal NPC development / decline.** Realna selekcja porównuje już zawodnika z konkretnymi rywalami w formacji trenera. Następny krok ma rzadko aktualizować rozwój i regres NPC, bez cotygodniowej symulacji tła; później powstaną emerytury i nabór młodzieży.
 
 Dalsza kolejność: (1) rzadki sezonowy rozwój/regres NPC, (2) emerytury i nabór młodzieży, (3) niedoskonały rynek transferowy NPC, (4) trwałość i zmiany trenerów, (5) zagraniczne pakiety świata, (6) abstrakcja pucharów/Europy/reprezentacji, (7) miesięczny kalendarz i przełącznik rozgrywek, (8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl życia/inwestycje/ekonomia, (11) interaktywny izometryczny silnik decyzji.
 
@@ -59,7 +59,7 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 - Archetypy: `FOOTBALL_ARCHETYPES` i `getRankedFootballArchetypes()` w `src/core/footballArchetypes.ts`.
 - OVR: `getPlayerOverall()` / `getEffectivePositionOverall()` w `src/core/playerOverall.ts`; radar: `getPlayerRadarAxes()` w `src/core/radar.ts`.
 - Baza świata: `src/core/worldDatabase.ts` i `src/content/world/pl-2026-v1.json`; delta: `CareerWorldDelta` oraz resolvery w `src/core/worldDatabase.ts`.
-- XI / siła: `selectBestXI()`, `deriveSquadHierarchy()` i `getSquadDerivedClubStrength()` w `src/core/footballerWorld.ts`.
+- XI / siła: czysty `selectBestXI()` służy jakości klubu, a `deriveSquadHierarchy()` osobno wyprowadza rzeczywisty wybór trenera i `getSquadDerivedClubStrength()` siłę w `src/core/footballerWorld.ts`.
 - Kontrakty: `Contract` w `src/types/domain.ts`, przepływ w `src/core/contracts.ts` i `src/core/professionalClubs.ts`.
 - Kalendarz/historia: `src/core/careerCalendar.ts`, fakty `HistoryFact` w `src/types/domain.ts` i projekcja `src/core/seasonTimeline.ts`.
 - Rozwój: `developPlayer()` w `src/core/development.ts` i sezonowe migawki w `src/core/seasonArchive.ts`.

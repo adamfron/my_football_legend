@@ -21,9 +21,11 @@ export const FootballerHoverCard = ({
   anchor: DOMRect;
   onClose: () => void;
 }) => {
-  const width = Math.min(680, window.innerWidth - 16);
-  const estimatedHeight = Math.min(610, window.innerHeight - 16);
-  const left = Math.max(8, Math.min(anchor.right + 8, window.innerWidth - width - 8));
+  const width = Math.min(560, window.innerWidth - 16);
+  const estimatedHeight = Math.min(720, window.innerHeight - 16);
+  const preferredLeft =
+    anchor.right + 8 + width <= window.innerWidth - 8 ? anchor.right + 8 : anchor.left - width - 8;
+  const left = Math.max(8, Math.min(preferredLeft, window.innerWidth - width - 8));
   const top = Math.max(8, Math.min(anchor.top, window.innerHeight - estimatedHeight - 8));
   const archetype = getRankedFootballArchetypes(player)[0]?.definition;
   return createPortal(

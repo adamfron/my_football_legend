@@ -412,7 +412,8 @@
   max-height: calc(100vh - 16px);
   overflow: auto;
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  overflow-x: hidden;
   gap: 6px;
   padding: 7px;
   border: 2px solid #667176;
@@ -453,7 +454,7 @@
 .compact-attributes {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 5px;
 }
 .compact-attributes section {
@@ -482,6 +483,17 @@
   gap: 12px;
   padding: 5px;
   border-top: 3px double #768084;
+}
+.academy-squad-fallback {
+  max-width: 680px;
+  padding: 14px 18px;
+  border: 1px solid #aeb4b7;
+  border-left: 5px solid var(--squad-primary);
+  background: #f7f7f4;
+}
+.academy-squad-fallback h3 {
+  margin-top: 0 !important;
+  border-bottom: 3px double #768084;
 }
 .career-decision {
   z-index: 4;

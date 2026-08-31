@@ -97,6 +97,29 @@ describe('ClubView squad presentation', () => {
     }
   });
 
+  it('presents current sporting status separately from the promised contract role', () => {
+    const state = career();
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() => root.render(<ClubView career={state} />));
+    expect(container.textContent).toContain('Status sportowy:');
+    expect(container.textContent).toContain('Rola kontraktowa: Zawodnik rotacji');
+    act(() => root.unmount());
+  });
+
+  it('shows an intentional compact academy fallback without empty professional metrics', () => {
+    const state = { ...career(), currentProfessionalClub: undefined, currentContract: undefined };
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() => root.render(<ClubView career={state} />));
+    expect(container.textContent).toContain(
+      'Kadra akademii nie jest jeszcze częścią zawodowego modelu składu.',
+    );
+    expect(container.textContent).not.toContain('FORMACJA');
+    expect(container.querySelector('.club-squad-workspace')).toBeNull();
+    act(() => root.unmount());
+  });
+
   it('opens one shared NPC preview on pointer hover and closes it', () => {
     const state = career();
     const container = document.createElement('div');
