@@ -46,7 +46,7 @@ const positionRisk = (position: string) =>
         : 0.025;
 
 export const generateInjuryMetadata = (rng: RandomGenerator, source: PlayerInjury['source']) => {
-  const pairs =
+  const pairs: ReadonlyArray<readonly [PlayerInjury['injuryType'], string]> =
     source === 'overload'
       ? ([
           ['muscle_overload', 'thigh'],

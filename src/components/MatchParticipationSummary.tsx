@@ -4,7 +4,7 @@ import { presentMatchParticipation } from '../core/matchParticipationPresentatio
 export const MatchParticipationSummary = ({
   participation,
 }: {
-  participation?: SeasonParticipationRecord;
+  participation?: SeasonParticipationRecord | undefined;
 }) => {
   const summary = presentMatchParticipation(participation);
   return (
