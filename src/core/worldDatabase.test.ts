@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import databaseJson from '../../public/data/world/pl-2026-v1.json';
+import databaseJson from '../../.generated-public/data/world/pl-2026-v1.json';
 import {
   buildWorldDatabaseUrl,
   emptyWorldDelta,

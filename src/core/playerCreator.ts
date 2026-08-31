@@ -96,18 +96,74 @@ export const creatorInputSchema = identityInputSchema.extend({
 export type CreatorInput = z.input<typeof creatorInputSchema>;
 export const attributeKeys = OVR_ATTRIBUTE_KEYS;
 export type AttributeKey = (typeof attributeKeys)[number];
-const baseBias: Record<PlayerPosition, Partial<Record<AttributeKey, number>>> = {
+/** Broad football identity is applied before the narrower archetype variation. */
+const positionShape: Record<PlayerPosition, Partial<Record<AttributeKey, number>>> = {
   goalkeeper: { reflexes: 24, handling: 24, oneOnOnes: 22, goalkeeperSweeping: 22, gameReading: 6 },
-  center_back: { tackling: 12, heading: 10, strength: 9, concentration: 10, jumping: 8 },
-  left_back: { pace: 9, stamina: 10, tackling: 8, passing: 5 },
-  right_back: { pace: 9, stamina: 10, tackling: 8, passing: 5 },
-  defensive_midfielder: { tackling: 10, passing: 8, gameReading: 11, stamina: 8 },
-  attacking_midfielder: { technique: 10, passing: 11, dribbling: 8, gameReading: 9 },
-  left_winger: { pace: 12, dribbling: 12, technique: 8, agility: 9 },
-  right_winger: { pace: 12, dribbling: 12, technique: 8, agility: 9 },
-  striker: { finishing: 14, composure: 10, firstTouch: 9, gameReading: 7 },
+  center_back: {
+    tackling: 12,
+    heading: 10,
+    strength: 9,
+    concentration: 10,
+    jumping: 8,
+    finishing: -16,
+    dribbling: -11,
+  },
+  left_back: { pace: 9, stamina: 10, tackling: 8, passing: 5, finishing: -8 },
+  right_back: { pace: 9, stamina: 10, tackling: 8, passing: 5, finishing: -8 },
+  defensive_midfielder: { tackling: 10, passing: 8, gameReading: 11, stamina: 8, finishing: -11 },
+  attacking_midfielder: { technique: 10, passing: 11, dribbling: 8, gameReading: 9, tackling: -9 },
+  left_winger: {
+    pace: 12,
+    dribbling: 12,
+    technique: 8,
+    agility: 9,
+    tackling: -15,
+    concentration: -6,
+  },
+  right_winger: {
+    pace: 12,
+    dribbling: 12,
+    technique: 8,
+    agility: 9,
+    tackling: -15,
+    concentration: -6,
+  },
+  striker: {
+    finishing: 14,
+    composure: 10,
+    firstTouch: 9,
+    gameReading: 7,
+    tackling: -20,
+    concentration: -7,
+  },
 };
 const clamp = (n: number) => Math.max(1, Math.min(100, Math.round(n)));
+const compatiblePositions: Record<PlayerPosition, readonly PlayerPosition[]> = {
+  goalkeeper: [],
+  center_back: ['defensive_midfielder', 'left_back', 'right_back'],
+  left_back: ['center_back', 'left_winger'],
+  right_back: ['center_back', 'right_winger'],
+  defensive_midfielder: ['center_back', 'attacking_midfielder'],
+  attacking_midfielder: ['defensive_midfielder', 'left_winger', 'right_winger', 'striker'],
+  left_winger: ['left_back', 'right_winger', 'attacking_midfielder'],
+  right_winger: ['right_back', 'left_winger', 'attacking_midfielder'],
+  striker: ['attacking_midfielder', 'left_winger', 'right_winger'],
+};
+
+/** Nearby hybrid roles are valid; only a clearly stronger, unrelated identity is incoherent. */
+export const hasCoherentPrimaryPosition = (
+  player: Pick<Player, 'attributes' | 'primaryPosition'>,
+  tolerance = 4,
+) => {
+  const primary = getTheoreticalPositionOverall(player as Player, player.primaryPosition);
+  return PLAYER_POSITIONS.filter(
+    (position) =>
+      position !== player.primaryPosition &&
+      !compatiblePositions[player.primaryPosition].includes(position),
+  ).every(
+    (position) => getTheoreticalPositionOverall(player as Player, position) <= primary + tolerance,
+  );
+};
 /** Main-position OVR budget shared by every position and archetype. */
 const difficultyBase: Record<CareerDifficulty, number> = { easy: 60, normal: 50, hard: 40 };
 const hidden = (rng: RandomGenerator): HiddenPlayerProfile => ({
@@ -179,7 +235,7 @@ export const generateFootballerAttributes = (options: {
           ? rng.int(4, 25)
           : options.targetOverall +
             rng.int(-10, 10) +
-            (baseBias[options.primaryPosition][key] ?? 0) +
+            (positionShape[options.primaryPosition][key] ?? 0) +
             (archetype.generationBias[key] ?? 0);
       return [key, clamp(value)];
     }),
@@ -187,6 +243,22 @@ export const generateFootballerAttributes = (options: {
   const card = { attributes: attrs, primaryPosition: options.primaryPosition } as Player;
   const relevant = Object.keys(POSITION_OVR_WEIGHTS[options.primaryPosition]) as AttributeKey[];
   for (let pass = 0; pass < 24; pass++) {
+    const delta =
+      options.targetOverall - getTheoreticalPositionOverall(card, options.primaryPosition);
+    if (Math.abs(delta) < 0.5) break;
+    for (const key of relevant) attrs[key] = clamp(attrs[key] + Math.sign(delta));
+  }
+  // Bounded correction, never rerolling: preserve hybrids while removing plainly alien profiles.
+  const incompatibleShapeKeys: Partial<Record<PlayerPosition, readonly AttributeKey[]>> = {
+    striker: ['tackling', 'concentration', 'heading', 'strength'],
+    center_back: ['finishing', 'dribbling', 'technique', 'agility'],
+    left_winger: ['tackling', 'concentration', 'strength', 'heading'],
+    right_winger: ['tackling', 'concentration', 'strength', 'heading'],
+  };
+  for (let pass = 0; pass < 8 && !hasCoherentPrimaryPosition(card); pass++)
+    for (const key of incompatibleShapeKeys[options.primaryPosition] ?? [])
+      attrs[key] = clamp(attrs[key] - 1);
+  for (let pass = 0; pass < 12; pass++) {
     const delta =
       options.targetOverall - getTheoreticalPositionOverall(card, options.primaryPosition);
     if (Math.abs(delta) < 0.5) break;

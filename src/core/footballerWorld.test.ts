@@ -83,6 +83,7 @@ describe('persistent footballer world', () => {
     expect(ids).toHaveLength(club.squadPlayerIds!.length);
     expect(new Set(ids).size).toBe(ids.length);
     expect(first.bench.map((item) => item.position)).toContain('goalkeeper');
+    expect(first.bench.filter((item) => item.position === 'goalkeeper')).toHaveLength(1);
     expect(
       first.bench.some((item) =>
         ['center_back', 'left_back', 'right_back'].includes(item.position),
