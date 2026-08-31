@@ -322,6 +322,15 @@ export interface WorldDatabase {
   youthCohorts: Record<string, Id[]>;
 }
 
+/** Small authored identity for a youth side; parent-club context remains derived. */
+export interface YouthTeamDefinition {
+  id: Id;
+  parentClubId?: Id | undefined;
+  independentName?: string | undefined;
+  independentQuality?: number | undefined;
+  coachId: Id;
+}
+
 export type ParticipationStatus =
   | 'starter'
   | 'substitute'

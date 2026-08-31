@@ -110,7 +110,7 @@ const squadDepthBlueprint: SquadDepthSlot[] = [
   ...depth('right_winger', [2, -5]),
   ...depth('striker', [2, 0, -6]),
 ];
-const firstNames = [
+export const firstNames = [
   'Adam',
   'Bartosz',
   'Kacper',
@@ -124,7 +124,7 @@ const firstNames = [
   'Filip',
   'Tomasz',
 ];
-const lastNames = [
+export const lastNames = [
   'Nowak',
   'Kowalski',
   'Mazur',
@@ -149,21 +149,15 @@ const archetypeVersatility: Record<string, number> = {
   center_back_aggressive: -18,
   shot_stopper: -100,
 };
-const generateWorldFootballer = (
-  club: ProfessionalClub,
-  index: number,
-  slot: SquadDepthSlot,
-  seed: string,
-): WorldFootballer => {
-  const id = `footballer_${club.id}_${index}`;
+export const generateCanonicalFootballerProfile = (options: {
+  id: Id;
+  seed: string;
+  age: number;
+  targetOverall: number;
+  primaryPosition: PlayerPosition;
+}): FootballerProfile => {
+  const { id, seed, age, targetOverall, primaryPosition } = options;
   const rng = RandomGenerator.fromSeed(`${seed}:${id}`);
-  const primaryPosition = slot.position;
-  const age = Math.max(17, Math.min(36, Math.round(26 + rng.int(-8, 8) + rng.int(-5, 5) / 2)));
-  const ageAdjustment = age <= 20 ? -3 : age >= 33 ? -2 : 0;
-  const targetOverall = Math.max(
-    32,
-    Math.min(88, (club.strengthRating ?? 50) + slot.qualityOffset + ageAdjustment + rng.int(-2, 2)),
-  );
   const archetypes = getEligibleFootballArchetypes(primaryPosition);
   const archetype = archetypes[rng.int(0, archetypes.length - 1)]!;
   const secondaryOptions = [...POSITION_COMPATIBILITY[primaryPosition]];
@@ -182,7 +176,7 @@ const generateWorldFootballer = (
     secondaryPositions.push(selected);
     secondaryOptions.splice(secondaryOptions.indexOf(selected), 1);
   }
-  const familiarity = Object.fromEntries(
+  const positionFamiliarity = Object.fromEntries(
     PLAYER_POSITIONS.map((position) => [
       position,
       position === primaryPosition
@@ -194,7 +188,7 @@ const generateWorldFootballer = (
           : 0,
     ]),
   ) as Record<PlayerPosition, number>;
-  const profile: FootballerProfile = {
+  return {
     id,
     firstName: rng.pick(firstNames),
     lastName: rng.pick(lastNames),
@@ -226,8 +220,31 @@ const generateWorldFootballer = (
     traits: [],
     primaryPosition,
     secondaryPositions,
-    positionFamiliarity: familiarity,
+    positionFamiliarity,
   };
+};
+const generateWorldFootballer = (
+  club: ProfessionalClub,
+  index: number,
+  slot: SquadDepthSlot,
+  seed: string,
+): WorldFootballer => {
+  const id = `footballer_${club.id}_${index}`;
+  const rng = RandomGenerator.fromSeed(`${seed}:${id}`);
+  const primaryPosition = slot.position;
+  const age = Math.max(17, Math.min(36, Math.round(26 + rng.int(-8, 8) + rng.int(-5, 5) / 2)));
+  const ageAdjustment = age <= 20 ? -3 : age >= 33 ? -2 : 0;
+  const targetOverall = Math.max(
+    32,
+    Math.min(88, (club.strengthRating ?? 50) + slot.qualityOffset + ageAdjustment + rng.int(-2, 2)),
+  );
+  const profile = generateCanonicalFootballerProfile({
+    id,
+    seed,
+    age,
+    targetOverall,
+    primaryPosition,
+  });
   const overall = getPlayerOverall(profile, primaryPosition);
   // Final promises are assigned in a second pass, once real squad competition is known.
   const role: SquadRole = 'rotation';

@@ -241,6 +241,17 @@ export const professionalClubSchema = z.object({
   }),
   squadPlayerIds: z.array(id).optional(),
 });
+export const youthTeamDefinitionSchema = z
+  .object({
+    id,
+    parentClubId: id.optional(),
+    independentName: z.string().min(1).optional(),
+    independentQuality: score.optional(),
+    coachId: id,
+  })
+  .refine((team) => Boolean(team.parentClubId) !== Boolean(team.independentName), {
+    message: 'Drużyna U-17 musi mieć klub macierzysty albo niezależną nazwę.',
+  });
 export const contractSchema = z.object({
   clubId: id,
   startDate: z.string(),

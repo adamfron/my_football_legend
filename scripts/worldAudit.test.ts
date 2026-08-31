@@ -7,6 +7,7 @@ import {
 } from '../src/core/footballerWorld';
 import { getPlayerOverall } from '../src/core/playerOverall';
 import { hasCoherentPrimaryPosition } from '../src/core/playerCreator';
+import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase';
 
 test('deterministic persistent world audit', () => {
   const seed = 'world-audit-v1';
@@ -117,3 +118,41 @@ test('deterministic persistent world audit', () => {
     expect(hierarchy.bench.filter((item) => item.position === 'goalkeeper')).toHaveLength(1);
   }
 }, 20_000);
+
+test('canonical U-17 cohort audit', () => {
+  const database = createCanonicalWorldDatabase();
+  const cohorts = Object.entries(database.youthCohorts);
+  const seniorIds = new Set(database.clubs.flatMap((club) => club.squadPlayerIds ?? []));
+  const memberships = cohorts.flatMap(([, ids]) => ids);
+  const youth = memberships.map((id) => {
+    const footballer = database.footballers[id];
+    expect(footballer, `missing footballer ${id}`).toBeDefined();
+    return footballer!;
+  });
+  expect(cohorts, 'starting U-17 team count').toHaveLength(12);
+  expect(cohorts.some(([key]) => key === 'u17:club_vistula_nova:2026')).toBe(true);
+  expect(cohorts.filter(([key]) => key.startsWith('u17:u17_pro_'))).toHaveLength(11);
+  for (const [key, ids] of cohorts) {
+    expect(ids.length, `${key} squad size`).toBeGreaterThanOrEqual(22);
+    expect(ids.length, `${key} squad size`).toBeLessThanOrEqual(25);
+    expect(
+      ids.filter((id) => database.footballers[id]!.profile.primaryPosition === 'goalkeeper').length,
+      `${key} goalkeepers`,
+    ).toBeGreaterThanOrEqual(2);
+  }
+  expect(new Set(memberships).size, 'duplicate youth membership').toBe(memberships.length);
+  expect(
+    memberships.filter((id) => seniorIds.has(id)),
+    'senior/youth overlap',
+  ).toHaveLength(0);
+  expect(youth.every(({ profile }) => profile.age >= 15 && profile.age <= 17)).toBe(true);
+  expect(youth.filter(({ profile }) => profile.age === 16).length).toBeGreaterThan(
+    youth.length / 2,
+  );
+  expect(youth.every(({ developmentProfile }) => Boolean(developmentProfile))).toBe(true);
+  expect(
+    youth.every(({ currentContract, currentClubId }) => !currentContract && !currentClubId),
+  ).toBe(true);
+  expect(youth.filter(({ profile }) => !hasCoherentPrimaryPosition(profile))).toHaveLength(0);
+  expect(JSON.stringify(createCanonicalWorldDatabase())).toBe(JSON.stringify(database));
+});
