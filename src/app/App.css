@@ -170,6 +170,319 @@
 .detail-panel .card {
   grid-template-columns: 150px 1fr 290px 240px;
 }
+.club-profile-redesign {
+  display: grid;
+  gap: 8px;
+}
+.compact-club-header {
+  display: grid;
+  grid-template-columns: 68px minmax(190px, 0.8fr) minmax(480px, 2fr);
+  gap: 10px;
+  align-items: center;
+  padding: 7px;
+  border: 1px solid #aeb4b7;
+  border-top: 3px solid var(--squad-primary);
+  box-shadow: inset 0 2px var(--squad-secondary);
+  background: #f7f7f4;
+}
+.compact-club-header .summary-visual {
+  width: 58px;
+  height: 58px;
+}
+.club-heading h2 {
+  margin: 0 0 2px;
+}
+.club-heading span,
+.club-heading strong {
+  display: block;
+}
+.club-heading span {
+  color: #59646a;
+}
+.compact-club-header dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  border-left: 1px solid #c7ccce;
+}
+.compact-club-header dl div {
+  padding: 2px 9px;
+  border-right: 1px solid #d5d9da;
+}
+.compact-club-header dt {
+  color: #687278;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.compact-club-header dd {
+  margin: 3px 0 0;
+  font-weight: 800;
+}
+.club-squad-workspace {
+  display: grid;
+  grid-template-columns: minmax(390px, 0.85fr) minmax(580px, 1.35fr);
+  gap: 8px;
+  min-height: 560px;
+  max-height: calc(100vh - 330px);
+}
+.squad-pitch-panel,
+.grouped-squad-list,
+.club-information-row > section {
+  border: 1px solid #aeb4b7;
+  background: #fff;
+}
+.squad-pitch-panel {
+  display: grid;
+  grid-template-rows: 29px minmax(500px, 1fr);
+  min-height: 0;
+}
+.squad-pitch-panel > header {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 9px;
+  border-bottom: 1px solid #aeb4b7;
+  background: #eceeed;
+}
+.squad-pitch-panel > header span {
+  color: #687278;
+}
+.squad-pitch {
+  position: relative;
+  margin: 9px;
+  overflow: hidden;
+  border: 2px solid #eef5eb;
+  outline: 1px solid #66726a;
+  background: repeating-linear-gradient(0deg, #39774c 0 52px, #347047 52px 104px);
+}
+.squad-pitch::before {
+  content: '';
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 50%;
+  border-top: 1px solid rgba(255, 255, 255, 0.75);
+}
+.pitch-circle {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+}
+.pitch-box {
+  position: absolute;
+  left: 28%;
+  width: 44%;
+  height: 15%;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
+.pitch-box-top {
+  top: -1px;
+}
+.pitch-box-bottom {
+  bottom: -1px;
+}
+.pitch-player {
+  position: absolute;
+  left: var(--pitch-x);
+  top: var(--pitch-y);
+  transform: translate(-50%, -50%);
+  width: 82px;
+  min-height: 39px;
+  display: grid;
+  grid-template-columns: 19px 1fr 20px;
+  place-items: center;
+  border: 1px solid #20272b;
+  outline: 1px solid rgba(255, 255, 255, 0.8);
+  background: var(--squad-primary);
+  color: var(--squad-secondary);
+  text-shadow: 0 1px 1px #111;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.35);
+  font-size: 10px;
+}
+.pitch-player strong {
+  max-width: 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pitch-player b {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25);
+}
+.pitch-player.goalkeeper {
+  border-style: double;
+  border-width: 3px;
+}
+.pitch-player.protagonist,
+.squad-list-row.protagonist,
+.club-information-row .protagonist {
+  box-shadow:
+    inset 4px 0 #d7a817,
+    0 0 0 2px #fff,
+    0 0 0 3px #20272b;
+}
+.grouped-squad-list {
+  min-height: 0;
+  overflow: auto;
+  padding: 0 8px 8px;
+  scrollbar-gutter: stable;
+}
+.squad-group h3 {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0 0 !important;
+  padding: 4px 6px;
+  border-top: 3px double #768084;
+  border-bottom: 1px solid #c7ccce;
+  letter-spacing: 0.08em;
+  background: #f1f2f0;
+}
+.squad-group h3 span {
+  color: #697378;
+}
+.squad-list-head,
+.squad-list-row {
+  display: grid;
+  grid-template-columns: 42px minmax(150px, 1.4fr) 38px 42px minmax(110px, 1fr);
+  align-items: center;
+  column-gap: 5px;
+  min-height: 25px;
+  padding: 0 5px;
+  border-bottom: 1px solid #e0e2e3;
+}
+.squad-list-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 22px;
+  background: #f7f7f4;
+  color: #657076;
+  font-size: 10px;
+}
+.squad-list-row > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.footballer-name {
+  padding: 2px !important;
+  border: 0 !important;
+  background: transparent !important;
+  text-align: left;
+  font-weight: 600 !important;
+  text-decoration: underline dotted;
+}
+.reserve-group .squad-list-row {
+  min-height: 21px;
+  font-size: 11px;
+}
+.club-information-row {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1.35fr;
+  gap: 8px;
+}
+.club-information-row > section {
+  padding: 5px 8px;
+}
+.club-information-row h3 {
+  padding-bottom: 3px;
+  border-bottom: 3px double #768084;
+  letter-spacing: 0.06em;
+}
+.club-information-row section:nth-child(2) > div {
+  display: grid;
+  grid-template-columns: 1fr 58px 90px;
+  gap: 6px;
+  padding: 2px 4px;
+  border-bottom: 1px solid #e1e3e3;
+}
+.club-information-row small {
+  color: #657076;
+}
+.footballer-hover-card {
+  position: fixed;
+  z-index: 1000;
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 6px;
+  padding: 7px;
+  border: 2px solid #667176;
+  background: #fff;
+  color: #20272b;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.25);
+  font-size: 11px;
+}
+.footballer-hover-card > header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 6px;
+  border-top: 3px solid var(--club-primary, #176451);
+  border-bottom: 1px solid #9ba3a6;
+  background: #e8eae9;
+}
+.footballer-hover-card > header span {
+  display: block;
+  color: #5e696e;
+}
+.footballer-hover-card > header button {
+  width: 23px;
+  height: 20px;
+  padding: 0;
+}
+.hover-card-identity {
+  padding: 2px 5px;
+}
+.footballer-hover-card .radar {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  margin: 0;
+}
+.footballer-hover-card .radar svg {
+  max-height: 205px;
+}
+.compact-attributes {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+.compact-attributes section {
+  border-top: 3px double #768084;
+}
+.compact-attributes h4 {
+  margin: 2px 0 !important;
+}
+.compact-attributes ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 2;
+  column-gap: 8px;
+}
+.compact-attributes li {
+  display: flex;
+  justify-content: space-between;
+  gap: 3px;
+  break-inside: avoid;
+  border-bottom: 1px dotted #d0d4d5;
+}
+.footballer-hover-card footer {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  padding: 5px;
+  border-top: 3px double #768084;
+}
 .career-decision {
   z-index: 4;
   left: 25%;
@@ -432,6 +745,36 @@
   }
   .detail-panel .card {
     display: block;
+  }
+  .compact-club-header {
+    grid-template-columns: 60px 1fr;
+  }
+  .compact-club-header dl {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .club-squad-workspace {
+    grid-template-columns: 1fr;
+    max-height: none;
+  }
+  .squad-pitch-panel {
+    grid-template-rows: 29px 520px;
+  }
+  .grouped-squad-list {
+    max-height: 62vh;
+  }
+  .club-information-row {
+    grid-template-columns: 1fr;
+  }
+  .footballer-hover-card {
+    grid-template-columns: 1fr;
+  }
+  .footballer-hover-card .radar {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .compact-attributes {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 .shell.narrow {

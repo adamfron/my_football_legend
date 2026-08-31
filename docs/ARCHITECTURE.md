@@ -177,3 +177,10 @@ miesięcznej pensji protagonisty pozostaje jedyną symulacją finansową kontrak
 `selectBestXI()` pozostaje źródłem tymczasowej preferowanej jedenastki. Deterministyczne helpery
 ławki meczowej oraz hierarchii XI / ławka / głęboka rezerwa są współdzieloną oceną na potrzeby
 prezentacji, a nie rzeczywistą sztuczną inteligencją menedżera ani systemem rywalizacji o skład.
+
+`ClubView` wyprowadza pogrupowaną XI, siedmioosobową ławkę i głęboką rezerwę wyłącznie przez
+kanoniczne `deriveSquadHierarchy()`. Boisko i lista są projekcjami tej samej hierarchii i nie
+udostępniają edycji taktyki. Jeden portal `FootballerHoverCard` rozwiązuje dopiero wskazanego
+zawodnika i współdzieli `ATTRIBUTE_PRESENTATION`, radar, ranking archetypów, pozycyjny OVR,
+lokalizację pozycji oraz kanoniczny kontrakt z Player Model 2.0. Nie powstają ukryte pełne karty
+dla całej kadry ani osobny model prezentacyjny.
