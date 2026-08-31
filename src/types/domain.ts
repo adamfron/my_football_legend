@@ -362,6 +362,8 @@ export interface SeasonParticipationRecord {
   plannedMinutes: number;
   minutes: number;
   started: boolean;
+  /** Formation slot actually assigned by the manager; absent means the player did not play. */
+  assignedPosition?: PlayerPosition | undefined;
   appearanceMatchId?: string | undefined;
   goals: number;
   assists: number;
@@ -566,6 +568,9 @@ export interface ProfessionalOffer {
   offerType?: 'external' | 'renewal' | undefined;
   club: ProfessionalClub;
   contract: Contract;
+  /** Destination manager's present intent, independent of the contractual squad role. */
+  plannedPosition: PlayerPosition;
+  alternativePositions?: PlayerPosition[] | undefined;
   interestReasons: string[];
   opportunity: string;
   risk: string;
@@ -904,6 +909,7 @@ export interface MatchAppearance {
   opponentId: string;
   teamLevel: 'senior' | 'academy';
   started: boolean;
+  assignedPosition?: PlayerPosition | undefined;
   minutes: number;
   goals: number;
   assists: number;

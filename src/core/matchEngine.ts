@@ -29,7 +29,7 @@ import {
   recordParticipation,
   updateSelectionStanding,
 } from './seasonParticipation';
-import { getFootballerSportingStatus } from './footballerWorld';
+import { getFootballerManagerAssignment, getFootballerSportingStatus } from './footballerWorld';
 
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
   overallStrength: 52,
@@ -956,6 +956,15 @@ export const finishMatch = (career: CareerState): CareerState => {
     opponentId: m.opponent.id,
     teamLevel: m.teamLevel,
     started: m.squadStatus.endsWith('starter'),
+    ...(m.plannedMinutes > 0 && career.currentProfessionalClub
+      ? {
+          assignedPosition: getFootballerManagerAssignment(
+            career,
+            career.currentProfessionalClub,
+            career.player.id,
+          ),
+        }
+      : {}),
     minutes: m.plannedMinutes,
     goals: m.resolvedMoments.reduce((s, r) => s + r.goals, 0),
     assists: m.resolvedMoments.reduce((s, r) => s + r.assists, 0),

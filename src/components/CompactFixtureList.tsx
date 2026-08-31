@@ -1,5 +1,6 @@
 import type { LeagueFixture, SeasonParticipationRecord } from '../types/domain';
 import { ClubStrengthTooltip } from './ClubStrengthTooltip';
+import { positionCode } from '../app/shared/positionPresentation';
 
 const months = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
 const date = (iso: string) => {
@@ -17,6 +18,9 @@ export interface CompactFixtureItem {
 }
 export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
   const { fixture, opponentName, venue, participation } = item;
+  const playedPosition = participation?.assignedPosition
+    ? ` · ${positionCode(participation.assignedPosition)}`
+    : '';
   const status = !participation
     ? 'brak danych'
     : participation.status === 'injured'
@@ -46,8 +50,8 @@ export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
         <span>
           {participation?.minutes
             ? participation.goalkeeperStats
-              ? `${participation.minutes}' · ${participation.goalkeeperStats.saves} obr. · ${participation.goalkeeperStats.cleanSheet ? 'CS · ' : ''}${rating(participation.goalkeeperStats.rating)}`
-              : `${participation.minutes}' · ${participation.goals} G · ${participation.assists} A · ${rating(participation.rating)}`
+              ? `${participation.minutes}'${playedPosition} · ${participation.goalkeeperStats.saves} obr. · ${participation.goalkeeperStats.cleanSheet ? 'CS · ' : ''}${rating(participation.goalkeeperStats.rating)}`
+              : `${participation.minutes}'${playedPosition} · ${participation.goals} G · ${participation.assists} A · ${rating(participation.rating)}`
             : status}
         </span>
       )}

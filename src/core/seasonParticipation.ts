@@ -5,6 +5,7 @@ import type {
   ParticipationStatus,
   SeasonParticipationRecord,
   SquadRole,
+  PlayerPosition,
 } from '../types/domain';
 
 export const getExpectedAvailableMinuteShare = (
@@ -43,6 +44,36 @@ export const getSeasonAppearanceStats = (records: SeasonParticipationRecord[]) =
 };
 
 export const getParticipationTotals = getSeasonAppearanceStats;
+
+export interface SeasonPositionUsage {
+  position: PlayerPosition;
+  appearances: number;
+  starts: number;
+  minutes: number;
+}
+
+/** Cheap projection over the canonical fixture ledger; legacy rows without a position are skipped. */
+export const deriveSeasonPositionUsage = (
+  records: readonly SeasonParticipationRecord[],
+): SeasonPositionUsage[] => {
+  const usage = new Map<PlayerPosition, SeasonPositionUsage>();
+  for (const record of records) {
+    if (!record.assignedPosition || record.minutes <= 0) continue;
+    const current = usage.get(record.assignedPosition) ?? {
+      position: record.assignedPosition,
+      appearances: 0,
+      starts: 0,
+      minutes: 0,
+    };
+    current.appearances += 1;
+    current.starts += Number(record.started);
+    current.minutes += record.minutes;
+    usage.set(record.assignedPosition, current);
+  }
+  return [...usage.values()].sort(
+    (a, b) => b.starts - a.starts || b.minutes - a.minutes || a.position.localeCompare(b.position),
+  );
+};
 
 export const getSeasonOutfieldStats = (records: SeasonParticipationRecord[]) => {
   const appearance = getSeasonAppearanceStats(records);
@@ -95,32 +126,37 @@ export const participationFromAppearance = (
   fixture: Fixture,
   appearance: MatchAppearance,
   plannedMinutes = appearance.minutes,
-): SeasonParticipationRecord => ({
-  fixtureId: fixture.id,
-  seasonId: fixture.seasonId,
-  competitionId: career.leagueSeason?.competition.id ?? fixture.competition,
-  date: fixture.date,
-  opponentId: fixture.opponent.id,
-  venue: fixture.venue,
-  competition: career.leagueSeason?.competition.name ?? fixture.competition,
-  homeClubId: fixture.venue === 'home' ? career.currentClub.id : fixture.opponent.id,
-  awayClubId: fixture.venue === 'away' ? career.currentClub.id : fixture.opponent.id,
-  fixtureStatus: 'completed',
-  status: appearance.minutes > 0 ? (appearance.started ? 'starter' : 'substitute') : 'unused_bench',
-  plannedMinutes,
-  minutes: appearance.minutes,
-  started: appearance.started,
-  appearanceMatchId: appearance.matchId,
-  goals: appearance.goals,
-  assists: appearance.assists,
-  xG: appearance.minutes > 0 ? appearance.xG : 0,
-  xA: appearance.minutes > 0 ? appearance.xA : 0,
-  keyPasses: appearance.minutes > 0 ? appearance.keyPasses : 0,
-  defensiveActions: appearance.minutes > 0 ? appearance.defensiveActions : 0,
-  yellowCards: appearance.minutes > 0 ? (appearance.yellowCards ?? 0) : 0,
-  ...(appearance.redCard ? { redCard: appearance.redCard } : {}),
-  ...(appearance.rating === undefined ? {} : { rating: appearance.rating }),
-});
+): SeasonParticipationRecord => {
+  const assignedPosition = appearance.minutes > 0 ? appearance.assignedPosition : undefined;
+  return {
+    fixtureId: fixture.id,
+    seasonId: fixture.seasonId,
+    competitionId: career.leagueSeason?.competition.id ?? fixture.competition,
+    date: fixture.date,
+    opponentId: fixture.opponent.id,
+    venue: fixture.venue,
+    competition: career.leagueSeason?.competition.name ?? fixture.competition,
+    homeClubId: fixture.venue === 'home' ? career.currentClub.id : fixture.opponent.id,
+    awayClubId: fixture.venue === 'away' ? career.currentClub.id : fixture.opponent.id,
+    fixtureStatus: 'completed',
+    status:
+      appearance.minutes > 0 ? (appearance.started ? 'starter' : 'substitute') : 'unused_bench',
+    plannedMinutes,
+    minutes: appearance.minutes,
+    started: appearance.started,
+    ...(assignedPosition ? { assignedPosition } : {}),
+    appearanceMatchId: appearance.matchId,
+    goals: appearance.goals,
+    assists: appearance.assists,
+    xG: appearance.minutes > 0 ? appearance.xG : 0,
+    xA: appearance.minutes > 0 ? appearance.xA : 0,
+    keyPasses: appearance.minutes > 0 ? appearance.keyPasses : 0,
+    defensiveActions: appearance.minutes > 0 ? appearance.defensiveActions : 0,
+    yellowCards: appearance.minutes > 0 ? (appearance.yellowCards ?? 0) : 0,
+    ...(appearance.redCard ? { redCard: appearance.redCard } : {}),
+    ...(appearance.rating === undefined ? {} : { rating: appearance.rating }),
+  };
+};
 
 export const nonAppearanceParticipation = (
   career: CareerState,

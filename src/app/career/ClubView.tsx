@@ -27,6 +27,7 @@ import {
 } from '../shared/positionPresentation';
 import { FootballerHoverCard } from '../shared/FootballerHoverCard';
 import { SquadPitch } from './SquadPitch';
+import { deriveSeasonPositionUsage } from '../../core/seasonParticipation';
 
 const prestigeLabel = (prestige: number) =>
   prestige < 25
@@ -184,6 +185,13 @@ export const ClubView = ({ career }: { career: CareerState }) => {
   const currentSportingStatus = hierarchy
     ? getSportingStatus(hierarchy, career.player.id)
     : undefined;
+  const currentManagerAssignment = hierarchy
+    ? [...hierarchy.preferredXI, ...hierarchy.bench].find(
+        (item) => item.footballerId === career.player.id,
+      )?.position
+    : undefined;
+  const masteredPositions = getMasteredPositions(career.player);
+  const positionUsage = deriveSeasonPositionUsage(career.seasonParticipation ?? []);
   const role = career.currentContract?.squadRole;
   const competitionPlayers = professionalClub
     ? getPositionalCompetition(
@@ -285,9 +293,33 @@ export const ClubView = ({ career }: { career: CareerState }) => {
             <section>
               <h3>TWOJA SYTUACJA</h3>
               <p>
-                <b>{positionLabel(career.player.primaryPosition)}</b> · OVR{' '}
+                Pozycja nominalna: <b>{positionCode(career.player.primaryPosition)}</b> · OVR{' '}
                 {getPlayerOverall(career.player, career.player.primaryPosition)}
               </p>
+              <p>Opanowane pozycje: {masteredPositions.map(positionCode).join(', ')}</p>
+              <p>
+                Ustawienie trenera:{' '}
+                <strong>
+                  {currentManagerAssignment ? positionCode(currentManagerAssignment) : '—'}
+                </strong>
+              </p>
+              {currentManagerAssignment &&
+                !masteredPositions.includes(currentManagerAssignment) && (
+                  <p className="position-warning">
+                    Trener wykorzystuje Cię poza opanowanymi pozycjami.
+                  </p>
+                )}
+              {!!positionUsage.length && (
+                <p>
+                  W tym sezonie:{' '}
+                  {positionUsage
+                    .map(
+                      ({ position, starts, appearances }) =>
+                        `${positionCode(position)} ${starts} startów · ${appearances} wyst.`,
+                    )
+                    .join(' · ')}
+                </p>
+              )}
               <p>
                 Status sportowy:{' '}
                 <strong>

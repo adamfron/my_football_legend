@@ -270,6 +270,8 @@ export const professionalOfferSchema = z.object({
   offerType: z.enum(['external', 'renewal']).optional(),
   club: professionalClubSchema,
   contract: contractSchema,
+  plannedPosition: playerPositionSchema,
+  alternativePositions: z.array(playerPositionSchema).max(2).optional(),
   interestReasons: z.array(z.string()).min(1),
   opportunity: z.string(),
   risk: z.string(),

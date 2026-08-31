@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import {
   getExpectedAvailableMinuteShare,
+  deriveSeasonPositionUsage,
   getInjuryDescription,
   getParticipationTotals,
   recordParticipation,
@@ -62,6 +63,39 @@ describe('authoritative participation', () => {
     );
     expect(updateSelectionStanding(64, undefined)).toBeGreaterThan(60);
     expect(updateSelectionStanding(50, 8)).toBeGreaterThan(50);
+  });
+
+  it('derives actual positional usage and ignores non-appearances without an assignment', () => {
+    const base = {
+      fixtureId: 'position-1',
+      date: '2027-09-01',
+      opponentId: 'other',
+      venue: 'home' as const,
+      competition: 'Liga',
+      status: 'starter' as const,
+      plannedMinutes: 90,
+      minutes: 80,
+      started: true,
+      assignedPosition: 'right_winger' as const,
+      goals: 0,
+      assists: 0,
+      xG: 0,
+      xA: 0,
+    };
+    expect(
+      deriveSeasonPositionUsage([
+        base,
+        { ...base, fixtureId: 'position-2', minutes: 20, started: false, status: 'substitute' },
+        {
+          ...base,
+          fixtureId: 'position-3',
+          minutes: 0,
+          started: false,
+          status: 'unused_bench',
+          assignedPosition: undefined,
+        },
+      ]),
+    ).toEqual([{ position: 'right_winger', appearances: 2, starts: 1, minutes: 100 }]);
   });
 
   it('exposes deterministic injury diagnosis and remaining matches', () => {

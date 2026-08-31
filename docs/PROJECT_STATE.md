@@ -103,3 +103,11 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 - Rozwój: `developPlayer()` w `src/core/development.ts` i sezonowe migawki w `src/core/seasonArchive.ts`.
 
 Przed proponowaniem zmian strukturalnych w nowej rozmowie projektowej/deweloperskiej przeczytaj `PROJECT_STATE.md`, `ARCHITECTURE.md` i `ROADMAP.md`.
+# Pozycje: źródła prawdy
+
+Świat generuje deterministycznie specjalistów i zawodników wielopozycyjnych, a profil piłkarski
+przechowuje wyłącznie pozycję nominalną (`primaryPosition`) oraz wyuczone pozycje
+(`secondaryPositions` i `positionFamiliarity`). Rzeczywiste ustawienie protagonisty w spotkaniu
+jest osobnym, opcjonalnym faktem `SeasonParticipationRecord.assignedPosition`. Oferta zawodowa
+zapisuje bieżący zamiar klubu jako `ProfessionalOffer.plannedPosition` (i najwyżej dwie wiarygodne
+alternatywy), niezależnie od obiecanej `Contract.squadRole`.

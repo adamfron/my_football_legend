@@ -214,3 +214,17 @@ Bramkarz i zawodnik z pola należą w normalnej selekcji do rozłącznych zbior�
 to XI, ławki i rywalizacji pozycyjnej. Normalna siedmioosobowa ławka zawiera jednego bramkarza;
 drugi może wejść tylko przy niedoborze aktywnych graczy z pola. Crossover może w przyszłości nastąpić wyłącznie przez jawną
 mechanikę pozycji awaryjnej, np. po czerwonej kartce lub urazie, gdy wykorzystano wszystkie zmiany.
+# Mapa źródeł prawdy dla pozycji i roli
+
+- `FootballerProfile.primaryPosition` opisuje nominalną tożsamość piłkarską.
+- `secondaryPositions` i `positionFamiliarity` opisują wyuczone możliwości; przydział meczowy ich
+  nie zmienia.
+- `ProfessionalOffer.plannedPosition` opisuje zamiar trenera klubu docelowego w chwili oferty.
+- `SeasonParticipationRecord.assignedPosition` jest faktem o faktycznym slocie formacji w danym
+  występie; brak występu oznacza brak pola, a stare rekordy bez pola pozostają poprawne.
+- `Contract.squadRole` jest obietnicą kontraktową, zaś status sportowy jest bieżącą hierarchią XI,
+  ławki i rezerw. Żadne z tych pojęć nie zastępuje pozostałych.
+
+Zbiorcze użycie pozycji w sezonie jest tanią projekcją `deriveSeasonPositionUsage`, a nie
+duplikowanym stanem. Nie powstaje fakt historii za każdy występ poza pozycją. W przyszłości dopiero
+trwała, znacząca konwersja może stać się wydarzeniem narracyjnym lub faktem historii.
