@@ -1,8 +1,7 @@
 # Roadmap
 
 Lokalny `npm run audit:archetypes` pozostaje narzędziem kalibracji nowych profili, nie ciężkim
-testem CI. Najbliższym dużym systemem po kalibracji są trwałe składy, a następnie rzeczywista
-rywalizacja pozycyjna.
+testem CI. Najbliższym dużym systemem jest rzeczywista selekcja i rywalizacja pozycyjna.
 
 ## Projekcje kariery i role trenera
 
@@ -13,10 +12,8 @@ rywalizacja pozycyjna.
   ale będzie wyłącznie projekcją `CareerCalendar`, terminarza, wydarzeń i treningu — nigdy kopią;
 - puchary krajowe, Europa i reprezentacje powstaną dopiero na wspólnej abstrakcji rozgrywek.
 
-## Następny fundament: trwałe składy klubowe
+## Następny fundament: realna selekcja i rywalizacja pozycyjna
 
-- **Persistent club squads:** prawdziwi zawodnicy przypisani do klubów (pozycja, znajomość pozycji,
-  archetyp i OVR), wyjściowa jedenastka, ławka, stali koledzy oraz sezonowe transfery.
 - **Selection competition:** rola i minuty wynikające z rywalizacji z konkretnymi zawodnikami na
   pozycji, nie tylko z porównania OVR do jednej abstrakcyjnej siły klubu.
 - **Offer role:** przyszła rola w kontrakcie lub ofercie uwzględni realną konkurencję w klubie celu.
@@ -58,13 +55,7 @@ Każdy etap musi zachować deterministyczność, niezależność `src/core` od R
 - trwałe składy, koledzy i trenerzy oraz bogatsze kadry klubów,
 - ligi zagraniczne, puchary, Europa i reprezentacje.
 
-# NEXT: ClubView presentation
-
-Następny PR prezentacyjny przebuduje `ClubView`, wykorzystując kanoniczną hierarchię składu i fakty
-kontraktowe NPC. Nie będzie jeszcze zmieniał zasad wyboru menedżera. Dopiero kolejny etap wdroży
-rzeczywistą selekcję i rywalizację pozycyjną.
-
-## Później: Selection & positional competition
+## NEXT: Selection & positional competition
 
 Use actual squad members for starter/bench/rotation status, `selectionStanding`, promised roles, offer competition and coach evaluation. This must remain a player-career system: the manager owns the formation and the protagonist does not select the XI.
 
@@ -72,7 +63,7 @@ Later work includes sparse NPC seasonal aging/development, retirements, academy 
 
 # Następne kroki
 
-**NEXT: PR #48 — realna rywalizacja pozycyjna i wybór składu.**
+**NEXT: PR #52 — realna rywalizacja pozycyjna i wybór składu.**
 
 Później: rzadki sezonowy rozwój i regres NPC, emerytury, nabór młodzieży, niedoskonałe
 transfery NPC, migracje trenerów, byli gracze jako trenerzy, zagraniczne pakiety świata,
