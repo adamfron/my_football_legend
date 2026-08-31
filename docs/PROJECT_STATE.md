@@ -85,6 +85,9 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 
 ## Known future TODO
 
+- Tymczasowy pierwszy sezon akademii nie ma jeszcze prawdziwej kadry i przydziału pozycji przez
+  trenera; `assignedPosition` pojawi się tam dopiero wraz ze światem U-17, bez fallbacku z pozycji
+  nominalnej zawodnika.
 - Kalibracja ekonomii elitarnych ofert/ról oraz późniejsze skalowanie opłat i płac rynku transferowego.
 - Realna konkurencja zamiast abstrakcyjnych estymat roli; obecna preferowana XI jest ewaluatorem przejściowym.
 - Rozbudowa trofeów/historii, trwałych kolegów, trenerów i opowieści o spotkaniach po latach.
@@ -100,6 +103,8 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 - XI / siła: czysty `selectBestXI()` służy jakości klubu, a `deriveSquadHierarchy()` osobno wyprowadza rzeczywisty wybór trenera i `getSquadDerivedClubStrength()` siłę w `src/core/footballerWorld.ts`.
 - Kontrakty: `Contract` w `src/types/domain.ts`, przepływ w `src/core/contracts.ts` i `src/core/professionalClubs.ts`.
 - Kalendarz/historia: `src/core/careerCalendar.ts`, fakty `HistoryFact` w `src/types/domain.ts` i projekcja `src/core/seasonTimeline.ts`.
+- Operacyjny tydzień wybiera datowane wydarzenia i mecze chronologicznie; przy tej samej dacie
+  decyzja gracza poprzedza rozstrzygnięcie spotkania.
 - Rozwój: `developPlayer()` w `src/core/development.ts` i sezonowe migawki w `src/core/seasonArchive.ts`.
 
 Przed proponowaniem zmian strukturalnych w nowej rozmowie projektowej/deweloperskiej przeczytaj `PROJECT_STATE.md`, `ARCHITECTURE.md` i `ROADMAP.md`.

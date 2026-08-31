@@ -12,6 +12,40 @@ export const sortFixtures = (fixtures: Fixture[]) =>
 export const sortCalendarEvents = (events: ScheduledCalendarEvent[]) =>
   [...events].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
 
+export type CurrentWeekMoment =
+  | { kind: 'event'; date: string; event: ScheduledCalendarEvent }
+  | { kind: 'fixture'; date: string; fixture: Fixture };
+
+/** Selects the next unresolved canonical item; a choice wins only an exact-date tie. */
+export const getNextCurrentWeekMoment = (career: CareerState): CurrentWeekMoment | undefined => {
+  const calendar = career.careerCalendar;
+  const week = calendar?.weeks[calendar.currentWeekIndex];
+  if (!calendar || !week) return undefined;
+  const completedFixtures = new Set(
+    (career.seasonParticipation ?? [])
+      .filter((row) => row.fixtureStatus === 'completed')
+      .map((row) => row.fixtureId),
+  );
+  const moments: CurrentWeekMoment[] = [
+    ...calendar.scheduledEvents
+      .filter(
+        (event) =>
+          event.status === 'scheduled' &&
+          event.date >= week.startDate &&
+          event.date <= week.endDate,
+      )
+      .map((event) => ({ kind: 'event' as const, date: event.date, event })),
+    ...calendar.fixtures
+      .filter(
+        (fixture) => week.fixtureIds.includes(fixture.id) && !completedFixtures.has(fixture.id),
+      )
+      .map((fixture) => ({ kind: 'fixture' as const, date: fixture.date, fixture })),
+  ];
+  return moments.sort(
+    (a, b) => a.date.localeCompare(b.date) || (a.kind === b.kind ? 0 : a.kind === 'event' ? -1 : 1),
+  )[0];
+};
+
 /** Rebuilds operational buckets. Dates remain owned by fixtures/calendar events. */
 export const rebuildWeekBuckets = (calendar: CareerCalendarState): CareerCalendarState => ({
   ...calendar,

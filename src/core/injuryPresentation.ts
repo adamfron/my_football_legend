@@ -29,13 +29,35 @@ const SOURCE_LABELS: Record<PlayerInjury['source'], string> = {
 };
 
 /** Concise localization of canonical injury metadata; no localized diagnosis is stored in state. */
-export const presentInjury = (injury: PlayerInjury): string => {
+export const presentInjury = (
+  injury: PlayerInjury,
+  context: 'origin' | 'ongoing' = 'origin',
+): string => {
   const area =
     injury.injuryType === 'concussion' || injury.injuryType === 'muscle_overload'
       ? ''
       : AREA_LABELS[injury.bodyArea ?? ''];
-  return `${TYPE_LABELS[injury.injuryType]}${area ? ` ${area}` : ''} · ${SOURCE_LABELS[injury.source]}`;
+  const diagnosis = `${TYPE_LABELS[injury.injuryType]}${area ? ` ${area}` : ''}`;
+  return context === 'origin' ? `${diagnosis} · ${SOURCE_LABELS[injury.source]}` : diagnosis;
 };
+
+export const presentInjurySource = (injury: PlayerInjury): string => SOURCE_LABELS[injury.source];
+
+export const isOriginatingMatchInjury = (
+  career: Pick<CareerState, 'matchHistory'>,
+  participation: SeasonParticipationRecord,
+  injury: PlayerInjury,
+): boolean =>
+  injury.source === 'match' &&
+  participation.minutes > 0 &&
+  Boolean(
+    participation.appearanceMatchId &&
+      career.matchHistory?.some(
+        (appearance) =>
+          appearance.matchId === participation.appearanceMatchId &&
+          appearance.injuryId === injury.id,
+      ),
+  );
 
 /** Resolves only a dated or exact appearance link, never an unrelated current injury. */
 export const getTimelineInjury = (

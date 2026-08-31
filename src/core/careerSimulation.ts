@@ -7,7 +7,6 @@ import type {
 } from '../types/domain';
 import {
   getCurrentCareerWeek,
-  getCurrentFixture,
   advanceCareerWeek,
   recoverOrphanedSeasonOneRound,
 } from './careerWeeks';
@@ -29,6 +28,7 @@ import {
 } from './seasonParticipation';
 import { getPlayerOverall } from './playerOverall';
 import { getFootballerManagerAssignment } from './footballerWorld';
+import { getNextCurrentWeekMoment } from './careerCalendar';
 
 export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
   if ((career.careerStatus ?? 'active') === 'retired') return 'career is retired';
@@ -296,7 +296,17 @@ export const advanceSimulationStep = (initial: CareerState): CareerState => {
   for (let step = 0; step < 8; step++) {
     const week = getCurrentCareerWeek(career);
     if (!week || week.completed) break;
-    const fixture = getCurrentFixture(career);
+    const moment = getNextCurrentWeekMoment(career);
+    if (moment?.kind === 'event')
+      return {
+        ...career,
+        decisionPoint: {
+          type: 'off_field_event',
+          date: moment.event.date,
+          sourceId: moment.event.eventDefinitionId,
+        },
+      };
+    const fixture = moment?.kind === 'fixture' ? moment.fixture : undefined;
     if (fixture) {
       const roundIndex =
         career.leagueSeason?.rounds.findIndex((r) => r.fixtures.some((f) => f.id === fixture.id)) ??
@@ -323,13 +333,14 @@ export const advanceSimulationStep = (initial: CareerState): CareerState => {
         ...career,
         fastForwardLog: [...(career.fastForwardLog ?? []), logMatch(career, fixture)],
       };
-      if (week.scheduledEventIds.length)
+      const remainingMoment = getNextCurrentWeekMoment(career);
+      if (remainingMoment?.kind === 'event')
         return {
           ...career,
           decisionPoint: {
             type: 'off_field_event',
-            date: week.startDate,
-            sourceId: week.scheduledEventIds[0]!,
+            date: remainingMoment.event.date,
+            sourceId: remainingMoment.event.eventDefinitionId,
           },
         };
       const before = career.careerCalendar?.currentWeekIndex;
@@ -360,15 +371,6 @@ export const advanceSimulationStep = (initial: CareerState): CareerState => {
         ],
       };
     }
-    if (week.scheduledEventIds.length)
-      return {
-        ...career,
-        decisionPoint: {
-          type: 'off_field_event',
-          date: week.startDate,
-          sourceId: week.scheduledEventIds[0]!,
-        },
-      };
     const before = career.careerCalendar?.currentWeekIndex;
     career = advanceCareerWeek(career);
     if (career.leagueSeason?.completed)

@@ -40,6 +40,22 @@ const iso = (date: Date) => date.toISOString().slice(0, 10);
 const plusDays = (date: string, days: number) =>
   iso(new Date(new Date(`${date}T00:00:00Z`).getTime() + days * DAY));
 
+const getRegularEventDate = (career: CareerState, week: CareerWeek): string => {
+  const fixtureDates = new Set(
+    career.careerCalendar?.fixtures
+      .filter((fixture) => week.fixtureIds.includes(fixture.id))
+      .map((fixture) => fixture.date) ?? [],
+  );
+  const candidates: string[] = [];
+  for (let date = plusDays(week.startDate, 1); date <= week.endDate; date = plusDays(date, 1))
+    if (!fixtureDates.has(date)) candidates.push(date);
+  const beforeFixture = candidates.filter((date) =>
+    [...fixtureDates].some((fixtureDate) => date < fixtureDate),
+  );
+  const available = beforeFixture.length ? beforeFixture : candidates;
+  return available.length ? available[Math.floor((available.length - 1) / 2)]! : week.startDate;
+};
+
 export const generateFixtureSchedule = (seed: string, seasonId = '2026-27'): Fixture[] => {
   const season = createLeagueSeason(seed);
   return season.rounds.map((round) => {
@@ -210,7 +226,7 @@ export const initializeWeekContent = (career: CareerState, index: number): Caree
     next = scheduleEvent(next, {
       id: `calendar_event_${week.id}_${eventDefinitionId}`,
       eventDefinitionId,
-      date: week.startDate,
+      date: getRegularEventDate(next, week),
     });
   return next;
 };

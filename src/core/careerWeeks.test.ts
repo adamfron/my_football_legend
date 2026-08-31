@@ -17,6 +17,9 @@ import {
   simulateRoutinePlayerMatch,
 } from './careerSimulation';
 import { auditCareerSeason } from './seasonAudit';
+import { completeScheduledEvent, getNextCurrentWeekMoment, scheduleEvent } from './careerCalendar';
+import { resolveRegularSeasonEvent } from './events/regularSeasonEvents';
+import { initializeCareerSeason } from './careerSeasons';
 
 const career = (seed = 'week-test') => {
   const profile = generateStartingPlayerProfile(
@@ -244,6 +247,105 @@ describe('reusable career week loop', () => {
 });
 
 describe('dynamic canonical calendar', () => {
+  it('blocks an unresolved fixture for an earlier or same-day event, then settles it once', () => {
+    const initial = initializeCurrentCareerWeek(career('chronology'));
+    const fixture = initial.careerCalendar!.fixtures[0]!;
+    const weekIndex = initial.careerCalendar!.weeks.findIndex((week) =>
+      week.fixtureIds.includes(fixture.id),
+    );
+    const prepared: CareerState = {
+      ...initial,
+      player: { ...initial.player, matchPresentation: 'simulate_all' },
+      careerCalendar: { ...initial.careerCalendar!, currentWeekIndex: weekIndex },
+    };
+    const scheduled = scheduleEvent(prepared, {
+      id: 'calendar_event_chronology',
+      eventDefinitionId: 'extra_training_offer',
+      date: fixture.date,
+    });
+
+    expect(getNextCurrentWeekMoment(scheduled)?.kind).toBe('event');
+    const blocked = advanceSimulationStep(scheduled);
+    expect(blocked.decisionPoint).toEqual({
+      type: 'off_field_event',
+      date: fixture.date,
+      sourceId: 'extra_training_offer',
+    });
+    expect(
+      blocked
+        .leagueSeason!.rounds.flatMap((round) => round.fixtures)
+        .find((item) => item.id === fixture.id)!.completed,
+    ).toBe(false);
+    expect(
+      blocked.seasonParticipation!.find((row) => row.fixtureId === fixture.id)!.fixtureStatus,
+    ).toBe('scheduled');
+    const resolved = resolveRegularSeasonEvent(
+      blocked,
+      'extra_training_offer',
+      'accept',
+      blocked.decisionPoint!.date,
+    );
+    const afterMatch = advanceSimulationStep(
+      completeScheduledEvent(resolved, 'extra_training_offer'),
+    );
+    const row = afterMatch.seasonParticipation!.find((item) => item.fixtureId === fixture.id)!;
+    expect(row.fixtureStatus).toBe('completed');
+    expect(
+      advanceSimulationStep(afterMatch).seasonParticipation!.filter(
+        (item) => item.fixtureId === fixture.id,
+      ),
+    ).toHaveLength(1);
+  });
+
+  it('does not let a later event block an earlier fixture', () => {
+    const initial = initializeCurrentCareerWeek(career('later-event'));
+    const fixture = initial.careerCalendar!.fixtures[0]!;
+    const weekIndex = initial.careerCalendar!.weeks.findIndex((week) =>
+      week.fixtureIds.includes(fixture.id),
+    );
+    const week = initial.careerCalendar!.weeks[weekIndex]!;
+    const fixtureEarlier = { ...fixture, date: week.startDate };
+    const prepared: CareerState = {
+      ...initial,
+      player: { ...initial.player, matchPresentation: 'simulate_all' },
+      careerCalendar: {
+        ...initial.careerCalendar!,
+        currentWeekIndex: weekIndex,
+        fixtures: initial.careerCalendar!.fixtures.map((item) =>
+          item.id === fixture.id ? fixtureEarlier : item,
+        ),
+      },
+    };
+    const scheduled = scheduleEvent(prepared, {
+      id: 'calendar_event_later',
+      eventDefinitionId: 'extra_training_offer',
+      date: week.endDate,
+    });
+    expect(getNextCurrentWeekMoment(scheduled)?.kind).toBe('fixture');
+    const advanced = advanceSimulationStep(scheduled);
+    expect(
+      advanced.seasonParticipation!.find((row) => row.fixtureId === fixture.id)!.fixtureStatus,
+    ).toBe('completed');
+    expect(advanced.decisionPoint?.type).toBe('off_field_event');
+  });
+
+  it('creates short non-overlapping professional preparation buckets without adding steps', () => {
+    const base = career('professional-windows');
+    const club = { ...base.currentClub, id: 'pro', name: 'Pro' };
+    const initialized = initializeCareerSeason(base, {
+      startYear: 2027,
+      careerSeasonNumber: 2,
+      club,
+      professional: false,
+    });
+    const weeks = initialized.careerCalendar!.weeks;
+    expect(weeks).toHaveLength(initialized.careerCalendar!.fixtures.length);
+    expect(weeks.every((week) => week.startDate < week.endDate)).toBe(true);
+    expect(
+      weeks.every((week, index) => index === 0 || week.startDate > weeks[index - 1]!.endDate),
+    ).toBe(true);
+  });
+
   it('inserts, detects conflicts and atomically reschedules a future fixture', async () => {
     const { scheduleFixture, detectCalendarConflict, rescheduleFixture } = await import(
       './careerCalendar'
