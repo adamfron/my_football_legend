@@ -45,6 +45,31 @@ const positionRisk = (position: string) =>
         ? 0.012
         : 0.025;
 
+export const generateInjuryMetadata = (rng: RandomGenerator, source: PlayerInjury['source']) => {
+  const pairs: ReadonlyArray<readonly [PlayerInjury['injuryType'], string]> =
+    source === 'overload'
+      ? ([
+          ['muscle_overload', 'thigh'],
+          ['strain', 'calf'],
+          ['joint_injury', 'knee'],
+        ] as const)
+      : source === 'training'
+        ? ([
+            ['strain', 'thigh'],
+            ['sprain', 'ankle'],
+            ['muscle_overload', 'calf'],
+          ] as const)
+        : ([
+            ['bruise', 'thigh'],
+            ['strain', 'hamstring'],
+            ['sprain', 'ankle'],
+            ['joint_injury', 'knee'],
+            ['concussion', 'head'],
+          ] as const);
+  const [injuryType, bodyArea] = rng.pick(pairs);
+  return { injuryType, bodyArea };
+};
+
 /** Deterministic, contextual discipline and injury roll shared by quick and full matches. */
 export const rollMatchAvailabilityEffects = (career: CareerState, appearance: MatchAppearance) => {
   if (!appearance.minutes) return { appearance };
@@ -73,14 +98,15 @@ export const rollMatchAvailabilityEffects = (career: CareerState, appearance: Ma
     const severity = rng.float() < 0.62 ? 'minor' : rng.float() < 0.88 ? 'moderate' : 'major';
     const ranges = { minor: [1, 2], moderate: [2, 5], major: [6, 12] } as const;
     const range = ranges[severity];
+    const metadata = generateInjuryMetadata(rng, 'match');
     injury = {
       id: `injury_${appearance.matchId}`,
       startDate: appearance.date,
       severity,
+      ...metadata,
       matchesRemaining: rng.int(range[0], range[1]),
       source: 'match',
       status: 'active',
-      bodyArea: rng.pick(['udo', 'kostka', 'kolano', 'plecy']),
     };
   }
   return {
@@ -172,6 +198,7 @@ export const consumeUnavailableRound = (career: CareerState, date: string): Care
               ...i,
               matchesRemaining: Math.max(0, i.matchesRemaining - 1),
               status: i.matchesRemaining <= 1 ? 'recovered' : 'active',
+              ...(i.matchesRemaining <= 1 ? { recoveryDate: date } : {}),
             },
       ),
     },

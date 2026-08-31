@@ -6,7 +6,7 @@ import { translate } from '../../core/narrative/localization';
 import { getPlayerOverall } from '../../core/playerOverall';
 import { squadRoleLabel } from '../../core/careerPresentation';
 import { RadarChart } from './PlayerCard';
-import { positionLabel } from './positionPresentation';
+import { positionLabel } from '../../core/positionPresentation';
 
 export const FootballerHoverCard = ({
   player,

@@ -1733,3 +1733,31 @@ tbody tr.active {
   width: 100px;
   height: 120px;
 }
+.match-participation-summary {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.card-indicators {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.card-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 9px;
+  border: 1px solid #596267;
+  border-radius: 1px;
+}
+.card-indicator.yellow {
+  background: #f2cc32;
+}
+.card-indicator.red {
+  background: #c73535;
+}
+.season-timeline .timeline-context {
+  color: #76552c;
+  font-size: 0.72rem;
+}

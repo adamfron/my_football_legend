@@ -103,6 +103,7 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 - Rozwój: `developPlayer()` w `src/core/development.ts` i sezonowe migawki w `src/core/seasonArchive.ts`.
 
 Przed proponowaniem zmian strukturalnych w nowej rozmowie projektowej/deweloperskiej przeczytaj `PROJECT_STATE.md`, `ARCHITECTURE.md` i `ROADMAP.md`.
+
 # Pozycje: źródła prawdy
 
 Świat generuje deterministycznie specjalistów i zawodników wielopozycyjnych, a profil piłkarski
@@ -111,3 +112,11 @@ przechowuje wyłącznie pozycję nominalną (`primaryPosition`) oraz wyuczone po
 jest osobnym, opcjonalnym faktem `SeasonParticipationRecord.assignedPosition`. Oferta zawodowa
 zapisuje bieżący zamiar klubu jako `ProfessionalOffer.plannedPosition` (i najwyżej dwie wiarygodne
 alternatywy), niezależnie od obiecanej `Contract.squadRole`.
+
+## Kontekst meczów i urazów na osi sezonu
+
+Oś sezonu oraz zwarte listy spotkań korzystają ze wspólnej projekcji prezentacyjnej udziału:
+faktyczna pozycja, statystyki bramkarza, ocena i kartki pochodzą wyłącznie z kanonicznego rejestru
+meczowego. `PlayerInjury` przechowuje kanoniczny typ urazu, obszar, źródło oraz datę wyleczenia;
+polskie rozpoznanie jest wyprowadzane w prezentacji. Zachowanie wyleczonych urazów pozwala wiązać
+historyczny brak występu z właściwym urazem bez osobnej bazy danych osi.

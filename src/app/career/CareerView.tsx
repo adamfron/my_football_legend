@@ -7,7 +7,8 @@ import { getLeagueTable } from '../../core/leagueSeason';
 import { getPlayerOverall } from '../../core/playerOverall';
 import { buildSeasonTimeline } from '../../core/seasonTimeline';
 import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
-import { getParticipationStatusLabel } from '../../core/participationPresentation';
+import { MatchParticipationSummary } from '../../components/MatchParticipationSummary';
+import { getTimelineInjury, presentInjury } from '../../core/injuryPresentation';
 import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../../core/playStyles';
 import type { CareerState } from '../../types/domain';
 import { ClubView } from './ClubView';
@@ -385,11 +386,11 @@ export const CareerView = ({
                   ? `${fixture.homeGoals}:${fixture.awayGoals}`
                   : '—';
                 const participation = entry.participation;
-                const summary = participation?.minutes
-                  ? `${participation.minutes}' · ${participation.goals} G · ${participation.assists} A${participation.rating ? ` · ${participation.rating.toFixed(1)}` : ''}`
-                  : participation?.fixtureStatus === 'completed'
-                    ? getParticipationStatusLabel(participation.status)
-                    : 'nadchodzący mecz';
+                const completedParticipation =
+                  participation?.fixtureStatus === 'completed' ? participation : undefined;
+                const injury = completedParticipation
+                  ? getTimelineInjury(career, completedParticipation)
+                  : undefined;
                 return (
                   <li
                     key={`fixture:${entry.sourceId}`}
@@ -403,7 +404,14 @@ export const CareerView = ({
                           ? `${clubName(fixture.homeClubId)} – ${clubName(fixture.awayClubId)}`
                           : 'Mecz'}
                       </strong>
-                      <span>{summary}</span>
+                      {completedParticipation ? (
+                        <MatchParticipationSummary participation={completedParticipation} />
+                      ) : (
+                        <span>nadchodzący mecz</span>
+                      )}
+                      {injury && (
+                        <small className="timeline-context">Uraz: {presentInjury(injury)}</small>
+                      )}
                     </div>
                     <b>{score}</b>
                   </li>

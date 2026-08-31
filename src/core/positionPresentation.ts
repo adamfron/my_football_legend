@@ -1,5 +1,5 @@
-import type { FootballerProfile, PlayerPosition } from '../../types/domain';
-import { translate } from '../../core/narrative/localization';
+import type { FootballerProfile, PlayerPosition } from '../types/domain';
+import { translate } from './narrative/localization';
 
 export const positionLabel = (position: PlayerPosition) => translate(`position.${position}`);
 

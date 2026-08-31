@@ -445,13 +445,22 @@ export type CareerStage =
   | 'experienced'
   | 'veteran';
 export type InjurySeverity = 'knock' | 'minor' | 'moderate' | 'major';
+export type InjuryType =
+  | 'bruise'
+  | 'strain'
+  | 'sprain'
+  | 'muscle_overload'
+  | 'joint_injury'
+  | 'concussion';
 export interface PlayerInjury {
   id: Id;
   startDate: string;
   severity: InjurySeverity;
+  injuryType: InjuryType;
   matchesRemaining: number;
   source: 'match' | 'training' | 'overload';
   status: 'active' | 'recovered';
+  recoveryDate?: string | undefined;
   bodyArea?: string | undefined;
 }
 export interface PlayerAvailabilityState {

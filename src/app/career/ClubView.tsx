@@ -24,7 +24,7 @@ import {
   getMasteredPositions,
   positionCode,
   positionLabel,
-} from '../shared/positionPresentation';
+} from '../../core/positionPresentation';
 import { FootballerHoverCard } from '../shared/FootballerHoverCard';
 import { SquadPitch } from './SquadPitch';
 import { deriveSeasonPositionUsage } from '../../core/seasonParticipation';

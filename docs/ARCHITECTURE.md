@@ -37,6 +37,12 @@ korzysta z tytułu wydarzenia, nigdy z ogólnego statusu implementacyjnego.
 Przy braku występu oś prezentuje kanoniczny `SeasonParticipationRecord.status`, dzięki
 czemu rozróżnia między innymi kontuzję, zawieszenie, ławkę i brak powołania.
 
+Wspólna czysta projekcja udziału w meczu zasila Oś sezonu i zwarte listy spotkań. Pozycja jest
+wyświetlana wyłącznie z `assignedPosition`, a kartki pozostają danymi domenowymi renderowanymi
+przez dostępne wskaźniki CSS. `PlayerAvailabilityState` zachowuje aktywne i wyleczone urazy z
+kanonicznym typem, źródłem, obszarem oraz granicami dat; oś wyszukuje uraz po dokładnym powiązaniu
+występu albo zakresie dat, zamiast kopiować stan lub używać bieżącej kontuzji w historycznym meczu.
+
 ### Prezentacja zawodnika
 
 Radar ma jawne semantyki migawek: aktywny sezon porównuje kanoniczny początek z bieżącymi atrybutami, a podsumowanie — zamrożony początek z zamrożonym końcem z `CompletedSeasonSnapshot.development`. Etykiety są semantyką prezentacji, nie stanem kariery. Stała paleta radaru nie zależy od barw klubu.
@@ -214,6 +220,7 @@ Bramkarz i zawodnik z pola należą w normalnej selekcji do rozłącznych zbior�
 to XI, ławki i rywalizacji pozycyjnej. Normalna siedmioosobowa ławka zawiera jednego bramkarza;
 drugi może wejść tylko przy niedoborze aktywnych graczy z pola. Crossover może w przyszłości nastąpić wyłącznie przez jawną
 mechanikę pozycji awaryjnej, np. po czerwonej kartce lub urazie, gdy wykorzystano wszystkie zmiany.
+
 # Mapa źródeł prawdy dla pozycji i roli
 
 - `FootballerProfile.primaryPosition` opisuje nominalną tożsamość piłkarską.

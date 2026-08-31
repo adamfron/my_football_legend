@@ -1,13 +1,12 @@
 import type { LeagueFixture, SeasonParticipationRecord } from '../types/domain';
 import { ClubStrengthTooltip } from './ClubStrengthTooltip';
-import { positionCode } from '../app/shared/positionPresentation';
+import { MatchParticipationSummary } from './MatchParticipationSummary';
 
 const months = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
 const date = (iso: string) => {
   const [, m, d] = iso.split('-').map(Number);
   return `${d} ${months[(m ?? 1) - 1]}`;
 };
-const rating = (value?: number) => (value === undefined ? '—' : value.toFixed(1).replace('.', ','));
 
 export interface CompactFixtureItem {
   fixture: LeagueFixture;
@@ -18,22 +17,6 @@ export interface CompactFixtureItem {
 }
 export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
   const { fixture, opponentName, venue, participation } = item;
-  const playedPosition = participation?.assignedPosition
-    ? ` · ${positionCode(participation.assignedPosition)}`
-    : '';
-  const status = !participation
-    ? 'brak danych'
-    : participation.status === 'injured'
-      ? 'kontuzja'
-      : participation?.status === 'suspended'
-        ? 'zawieszenie'
-        : participation?.status === 'unfit'
-          ? 'niezdolny do gry'
-          : participation?.status === 'unused_bench'
-            ? 'ławka, bez wejścia'
-            : participation?.status === 'not_selected'
-              ? 'poza kadrą'
-              : 'bez występu';
   return (
     <div className="compact-fixture-row">
       <span>{date(fixture.date)}</span>
@@ -48,11 +31,7 @@ export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
       <span>{fixture.completed ? `${fixture.homeGoals}:${fixture.awayGoals}` : '—'}</span>
       {fixture.completed && (
         <span>
-          {participation?.minutes
-            ? participation.goalkeeperStats
-              ? `${participation.minutes}'${playedPosition} · ${participation.goalkeeperStats.saves} obr. · ${participation.goalkeeperStats.cleanSheet ? 'CS · ' : ''}${rating(participation.goalkeeperStats.rating)}`
-              : `${participation.minutes}'${playedPosition} · ${participation.goals} G · ${participation.assists} A · ${rating(participation.rating)}`
-            : status}
+          <MatchParticipationSummary participation={participation} />
         </span>
       )}
     </div>
