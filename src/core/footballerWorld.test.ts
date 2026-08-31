@@ -7,11 +7,13 @@ import {
 import { getEffectivePositionOverall, OVR_ATTRIBUTE_KEYS } from './playerOverall';
 import {
   FORMATIONS,
+  deriveSquadHierarchy,
   getManagerPreferredFormation,
   getSquadDerivedClubStrength,
   populateFootballerWorld,
   resolveFootballer,
   selectBestXI,
+  selectMatchBench,
 } from './footballerWorld';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { developmentProfileSchema, footballerProfileSchema } from '../schemas/domainSchemas';
@@ -46,6 +48,76 @@ describe('persistent footballer world', () => {
     expect(Object.keys(first.footballerWorld)).toHaveLength(1536);
     expect(new Set(first.clubs.flatMap((club) => club.squadPlayerIds!)).size).toBe(1536);
     expect(first).toEqual(repeated);
+    for (const player of Object.values(first.footballerWorld)) {
+      expect(player.currentContract).toBeDefined();
+      expect(player.currentContract?.clubId).toBe(player.currentClubId);
+      expect(player.currentContract?.contractType).toBe('professional');
+      expect(player.currentContract?.monthlySalary).toBeGreaterThan(0);
+      expect(Date.parse(player.currentContract!.endDate)).toBeGreaterThan(
+        Date.parse(player.currentContract!.startDate),
+      );
+    }
+  });
+
+  it('derives a deterministic, complete XI, bench and deep reserve hierarchy', () => {
+    const state = career();
+    const club = state.clubWorld![0]!;
+    const first = deriveSquadHierarchy(state, club, '4-3-3');
+    const repeated = deriveSquadHierarchy(state, club, '4-3-3');
+    expect(first).toEqual(repeated);
+    expect(first.preferredXI).toEqual(selectBestXI(state, club, '4-3-3').assignments);
+    expect(first.bench).toEqual(selectMatchBench(state, club, first.preferredXI));
+    expect(first.preferredXI).toHaveLength(11);
+    expect(first.bench).toHaveLength(7);
+    const ids = [
+      ...first.preferredXI.map((item) => item.footballerId),
+      ...first.bench.map((item) => item.footballerId),
+      ...first.deepReserve.map((item) => item.id),
+    ];
+    expect(ids).toHaveLength(club.squadPlayerIds!.length);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(first.bench.map((item) => item.position)).toContain('goalkeeper');
+    expect(
+      first.bench.some((item) =>
+        ['center_back', 'left_back', 'right_back'].includes(item.position),
+      ),
+    ).toBe(true);
+    expect(
+      first.bench.some((item) =>
+        ['defensive_midfielder', 'attacking_midfielder'].includes(item.position),
+      ),
+    ).toBe(true);
+    expect(
+      first.bench.some((item) =>
+        ['left_winger', 'right_winger', 'striker'].includes(item.position),
+      ),
+    ).toBe(true);
+  });
+
+  it('creates varied wages that are not ordered strictly by OVR', () => {
+    const state = career();
+    const players = Object.values(state.footballerWorld!);
+    const salaries = players.map((player) => player.currentContract!.monthlySalary);
+    expect(new Set(salaries).size).toBeGreaterThan(500);
+    expect(Math.max(...salaries) / Math.min(...salaries)).toBeGreaterThan(10);
+    const byClub = new Map<string, typeof players>();
+    for (const player of players) {
+      const squad = byClub.get(player.currentClubId!) ?? [];
+      squad.push(player);
+      byClub.set(player.currentClubId!, squad);
+    }
+    expect(
+      [...byClub.values()].some((squad) =>
+        squad.some((stronger) =>
+          squad.some(
+            (weaker) =>
+              getEffectivePositionOverall(stronger.profile, stronger.profile.primaryPosition) >
+                getEffectivePositionOverall(weaker.profile, weaker.profile.primaryPosition) + 3 &&
+              stronger.currentContract!.monthlySalary < weaker.currentContract!.monthlySalary,
+          ),
+        ),
+      ),
+    ).toBe(true);
   });
 
   it('uses canonical cards and valid persistent development profiles without cloning the protagonist', () => {

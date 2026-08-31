@@ -58,7 +58,13 @@ Każdy etap musi zachować deterministyczność, niezależność `src/core` od R
 - trwałe składy, koledzy i trenerzy oraz bogatsze kadry klubów,
 - ligi zagraniczne, puchary, Europa i reprezentacje.
 
-# NEXT: PR #47 — Selection & positional competition
+# NEXT: ClubView presentation
+
+Następny PR prezentacyjny przebuduje `ClubView`, wykorzystując kanoniczną hierarchię składu i fakty
+kontraktowe NPC. Nie będzie jeszcze zmieniał zasad wyboru menedżera. Dopiero kolejny etap wdroży
+rzeczywistą selekcję i rywalizację pozycyjną.
+
+## Później: Selection & positional competition
 
 Use actual squad members for starter/bench/rotation status, `selectionStanding`, promised roles, offer competition and coach evaluation. This must remain a player-career system: the manager owns the formation and the protagonist does not select the XI.
 

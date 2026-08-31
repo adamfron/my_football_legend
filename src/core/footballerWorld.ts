@@ -1,10 +1,12 @@
 import type {
   CareerState,
+  Contract,
   FootballerProfile,
   Id,
   PlayerPosition,
   ProfessionalClub,
   WorldFootballer,
+  SquadRole,
 } from '../types/domain';
 import { getEligibleFootballArchetypes } from './footballArchetypes';
 import { generateDevelopmentProfile, generateFootballerAttributes } from './playerCreator';
@@ -213,6 +215,54 @@ const generateWorldFootballer = (
     secondaryPositions,
     positionFamiliarity: familiarity,
   };
+  const overall = getPlayerOverall(profile, primaryPosition);
+  const role: SquadRole =
+    index < 3
+      ? 'star_player'
+      : index < 11
+        ? 'important_player'
+        : index < 17
+          ? 'first_team_competition'
+          : index < 21
+            ? 'rotation'
+            : 'development_player';
+  const contractRng = RandomGenerator.fromSeed(`${seed}:${id}:contract`);
+  const startYear = 2026 - contractRng.int(0, age <= 21 ? 2 : 4);
+  const startMonth = contractRng.int(1, 8);
+  const duration = age >= 33 ? contractRng.int(1, 2) : contractRng.int(2, age <= 22 ? 5 : 4);
+  // Independent market noise and rare distortions intentionally prevent OVR from becoming payroll.
+  const noise = 0.72 + contractRng.float() * 0.62;
+  const distortion = contractRng.int(1, 100) <= 8 ? contractRng.pick([0.58, 1.65]) : 1;
+  const ageFactor = age >= 32 ? 1.12 : age <= 21 ? 0.78 : 1;
+  const roleFactor: Record<SquadRole, number> = {
+    development_player: 0.58,
+    rotation: 0.78,
+    first_team_competition: 0.95,
+    important_player: 1.18,
+    star_player: 1.45,
+  };
+  const tierFactor = 1 + (4 - club.leagueTier) * 0.42;
+  const salary = Math.max(
+    1_500,
+    Math.round(
+      ((club.financialLevel + 20) * 95 + overall * overall * 1.7) *
+        tierFactor *
+        roleFactor[role] *
+        ageFactor *
+        noise *
+        distortion *
+        (0.85 + Math.max(5, targetOverall - 25) / 300),
+    ),
+  );
+  const currentContract: Contract = {
+    clubId: club.id,
+    startDate: `${startYear}-${String(startMonth).padStart(2, '0')}-01`,
+    endDate: `${startYear + duration}-06-30`,
+    monthlySalary: salary,
+    signingBonus: contractRng.int(1, 100) <= 72 ? Math.round(salary * contractRng.int(1, 5)) : 0,
+    squadRole: role,
+    contractType: 'professional',
+  };
   return {
     profile,
     developmentProfile: generateDevelopmentProfile(
@@ -222,6 +272,7 @@ const generateWorldFootballer = (
     currentClubId: club.id,
     reputation: Math.max(5, targetOverall - 25),
     fitness: rng.int(78, 100),
+    currentContract,
   };
 };
 
@@ -247,6 +298,75 @@ export interface BestXI {
   formation: FormationId;
   assignments: BestXIAssignment[];
 }
+
+export type MatchBenchAssignment = BestXIAssignment;
+const BENCH_COVERAGE: readonly (readonly PlayerPosition[])[] = [
+  ['goalkeeper'],
+  ['center_back', 'left_back', 'right_back'],
+  ['defensive_midfielder', 'attacking_midfielder'],
+  ['left_winger', 'right_winger', 'striker'],
+];
+
+/** Temporary deterministic presentation evaluation, not manager selection AI. */
+export const selectMatchBench = (
+  career: Pick<CareerState, 'player' | 'footballerWorld'>,
+  club: ProfessionalClub,
+  xi: readonly BestXIAssignment[] = selectBestXI(career, club).assignments,
+  limit = 7,
+): MatchBenchAssignment[] => {
+  const excluded = new Set(xi.map((item) => item.footballerId));
+  const available = (club.squadPlayerIds ?? [])
+    .filter((id) => !excluded.has(id) && career.footballerWorld?.[id]?.careerStatus !== 'retired')
+    .map((id) => resolveFootballer(career, id))
+    .filter((player): player is FootballerProfile => Boolean(player));
+  const selected: MatchBenchAssignment[] = [];
+  const takeBest = (positions: readonly PlayerPosition[]) => {
+    const candidates = available
+      .filter((player) => !selected.some((item) => item.footballerId === player.id))
+      .map((player) => {
+        const position = [...positions].sort(
+          (a, b) =>
+            getEffectivePositionOverall(player, b) - getEffectivePositionOverall(player, a) ||
+            a.localeCompare(b),
+        )[0]!;
+        return {
+          footballerId: player.id,
+          position,
+          effectiveOverall: getEffectivePositionOverall(player, position),
+        };
+      })
+      .sort(
+        (a, b) =>
+          b.effectiveOverall - a.effectiveOverall || a.footballerId.localeCompare(b.footballerId),
+      );
+    if (candidates[0] && selected.length < limit) selected.push(candidates[0]);
+  };
+  for (const coverage of BENCH_COVERAGE) takeBest(coverage);
+  while (selected.length < Math.min(limit, available.length)) takeBest(PLAYER_POSITIONS);
+  return selected;
+};
+
+export interface SquadHierarchy {
+  formation: FormationId;
+  preferredXI: BestXIAssignment[];
+  bench: MatchBenchAssignment[];
+  deepReserve: FootballerProfile[];
+}
+export const deriveSquadHierarchy = (
+  career: Pick<CareerState, 'player' | 'footballerWorld'>,
+  club: ProfessionalClub,
+  formation = getManagerPreferredFormation(club.managerId),
+): SquadHierarchy => {
+  const xi = selectBestXI(career, club, formation);
+  const bench = selectMatchBench(career, club, xi.assignments);
+  const selected = new Set([...xi.assignments, ...bench].map((item) => item.footballerId));
+  const deepReserve = (club.squadPlayerIds ?? [])
+    .filter((id) => !selected.has(id) && career.footballerWorld?.[id]?.careerStatus !== 'retired')
+    .map((id) => resolveFootballer(career, id))
+    .filter((player): player is FootballerProfile => Boolean(player))
+    .sort((a, b) => a.id.localeCompare(b.id));
+  return { formation: xi.formation, preferredXI: xi.assignments, bench, deepReserve };
+};
 export const selectBestXI = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,
   club: ProfessionalClub,
@@ -254,6 +374,7 @@ export const selectBestXI = (
 ): BestXI => {
   const slots = FORMATIONS[formation];
   const players = (club.squadPlayerIds ?? [])
+    .filter((id) => career.footballerWorld?.[id]?.careerStatus !== 'retired')
     .map((id) => resolveFootballer(career, id))
     .filter((p): p is FootballerProfile => Boolean(p))
     .sort((a, b) => a.id.localeCompare(b.id));
