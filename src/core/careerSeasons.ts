@@ -1,4 +1,10 @@
-import type { CareerState, Club, HistoryFact, ProfessionalOffer } from '../types/domain';
+import type {
+  CareerState,
+  Club,
+  HistoryFact,
+  ProfessionalClub,
+  ProfessionalOffer,
+} from '../types/domain';
 import {
   clampProfessionalLeagueTier,
   createLeagueSeason,
@@ -12,7 +18,7 @@ import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
 import { getPlayerOverall } from './playerOverall';
 import { initializeWeekContent } from './careerWeeks';
 import { createCompletedSeasonSnapshot } from './seasonArchive';
-import { generateProfessionalClubPool } from './professionalClubs';
+import { deriveOfferPositionIntent, generateProfessionalClubPool } from './professionalClubs';
 import { contractCoversNextSeason } from './contractValidity';
 import { rollOverClubWorld } from './clubWorld';
 import { initializeSeasonParticipation } from './seasonParticipation';
@@ -545,37 +551,39 @@ export const continueWithProfessionalTrial = (career: CareerState): CareerState 
     legends: [],
     rivals: [],
   };
+  const professionalClub: ProfessionalClub = {
+    id: club.id,
+    name: club.name,
+    country: club.country,
+    region: club.region,
+    leagueTier: 4,
+    reputation: 30,
+    strengthRating: 42,
+    financialLevel: 25,
+    playingStyle: club.playStyle,
+    youthPolicy: 75,
+    developmentReputation: 55,
+    sellingClubTendency: 60,
+    pressureLevel: 35,
+    coachYouthTrust: 80,
+    infrastructure: {
+      coachingQuality: 55,
+      trainingFacilities: 50,
+      medicalQuality: 45,
+      scoutingQuality: 48,
+    },
+    archetype: 'UNDERDOG',
+    positionalNeeds: {
+      goalkeeper: { starterQuality: 45, depth: 'normal', needLevel: 50 },
+      defense: { starterQuality: 45, depth: 'thin', needLevel: 80 },
+      midfield: { starterQuality: 44, depth: 'thin', needLevel: 80 },
+      attack: { starterQuality: 46, depth: 'thin', needLevel: 75 },
+    },
+  };
   const offer: ProfessionalOffer = {
     id: 'fallback_trial',
-    club: {
-      id: club.id,
-      name: club.name,
-      country: club.country,
-      region: club.region,
-      leagueTier: 4,
-      reputation: 30,
-      strengthRating: 42,
-      financialLevel: 25,
-      playingStyle: club.playStyle,
-      youthPolicy: 75,
-      developmentReputation: 55,
-      sellingClubTendency: 60,
-      pressureLevel: 35,
-      coachYouthTrust: 80,
-      infrastructure: {
-        coachingQuality: 55,
-        trainingFacilities: 50,
-        medicalQuality: 45,
-        scoutingQuality: 48,
-      },
-      archetype: 'UNDERDOG',
-      positionalNeeds: {
-        goalkeeper: { starterQuality: 45, depth: 'normal', needLevel: 50 },
-        defense: { starterQuality: 45, depth: 'thin', needLevel: 80 },
-        midfield: { starterQuality: 44, depth: 'thin', needLevel: 80 },
-        attack: { starterQuality: 46, depth: 'thin', needLevel: 75 },
-      },
-    },
+    club: professionalClub,
+    ...deriveOfferPositionIntent(career, professionalClub),
     contract: {
       clubId: club.id,
       startDate: `${career.currentSeason + 1}-07-01`,
