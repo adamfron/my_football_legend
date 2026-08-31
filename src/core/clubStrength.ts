@@ -1,7 +1,12 @@
 import type { CareerState, ProfessionalClub, SquadRole } from '../types/domain';
-import { getPlayerOverall } from './playerOverall';
+import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
-import { getSquadDerivedClubStrength } from './footballerWorld';
+import {
+  deriveSquadHierarchy,
+  getManagerPreferredFormation,
+  getSportingStatus,
+  getSquadDerivedClubStrength,
+} from './footballerWorld';
 
 export const getClubStrength = (
   club: Pick<ProfessionalClub, 'strengthRating' | 'overallStrength'>,
@@ -40,29 +45,44 @@ export const deriveClubMatchRatings = (
   };
 };
 
-const positionGroup = (position: string): keyof ProfessionalClub['positionalNeeds'] =>
-  position.includes('goal')
-    ? 'goalkeeper'
-    : position.includes('back')
-      ? 'defense'
-      : position.includes('mid') || position === 'left_winger' || position === 'right_winger'
-        ? 'midfield'
-        : 'attack';
-
 export const getPlayerClubLevelDelta = (career: CareerState, club: ProfessionalClub) =>
   getPlayerOverall(career.player, career.player.primaryPosition) - getClubStrength(club);
 
 /** Shared role evaluator used by offers, contracts and club presentation. */
 export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub): SquadRole => {
-  const need = club.positionalNeeds[positionGroup(career.player.primaryPosition)];
-  const qualityGap = getPlayerClubLevelDelta(career, club);
-  // Need and form may move a borderline player, never erase a large quality gap.
-  const modifier = Math.max(-2, Math.min(2, (need.needLevel - 50) / 25));
-  const adjusted = qualityGap + modifier;
-  if (qualityGap >= 20 || adjusted >= 18) return 'star_player';
-  if (adjusted >= 12) return 'important_player';
-  if (adjusted >= 4) return 'first_team_competition';
-  if (adjusted >= -5) return 'rotation';
+  if ((club.squadPlayerIds?.length ?? 0) < 11) {
+    const gap = getPlayerClubLevelDelta(career, club);
+    if (gap >= 18) return 'star_player';
+    if (gap >= 10) return 'important_player';
+    if (gap >= 3) return 'first_team_competition';
+    if (gap >= -5) return 'rotation';
+    return 'development_player';
+  }
+  const squadIds = [...new Set([...(club.squadPlayerIds ?? []), career.player.id])];
+  const projectedClub = { ...club, squadPlayerIds: squadIds };
+  const hierarchy = deriveSquadHierarchy(
+    career,
+    projectedClub,
+    getManagerPreferredFormation(club.managerId),
+  );
+  const status = getSportingStatus(hierarchy, career.player.id);
+  const playerOverall = getPlayerOverall(career.player, career.player.primaryPosition);
+  const bestCompetitor = Math.max(
+    0,
+    ...(club.squadPlayerIds ?? [])
+      .filter((id) => id !== career.player.id)
+      .map((id) => career.footballerWorld?.[id]?.profile)
+      .filter(
+        (player): player is NonNullable<typeof player> =>
+          Boolean(player) && player!.positionFamiliarity[career.player.primaryPosition] >= 0.3,
+      )
+      .map((player) => getEffectivePositionOverall(player, career.player.primaryPosition)),
+  );
+  const margin = playerOverall - bestCompetitor;
+  if (status === 'starting_xi' && margin >= 8) return 'star_player';
+  if (status === 'starting_xi') return 'important_player';
+  if (status === 'bench' && margin >= -4) return 'first_team_competition';
+  if (status === 'bench') return 'rotation';
   return 'development_player';
 };
 

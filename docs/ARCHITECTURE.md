@@ -174,12 +174,21 @@ umowy zapisze pełnego zawodnika w `footballerOverrides`; świeży `CareerWorldD
 kontraktów. Nie symulujemy jeszcze listy płac NPC, wypłat ani obciążania budżetów klubów — księga
 miesięcznej pensji protagonisty pozostaje jedyną symulacją finansową kontraktu.
 
-`selectBestXI()` pozostaje źródłem tymczasowej preferowanej jedenastki. Deterministyczne helpery
-ławki meczowej oraz hierarchii XI / ławka / głęboka rezerwa są współdzieloną oceną na potrzeby
-prezentacji, a nie rzeczywistą sztuczną inteligencją menedżera ani systemem rywalizacji o skład.
+`selectBestXI()` jest czystym, globalnie optymalnym ewaluatorem jakości używanym do wyprowadzania
+siły klubu. Osobny `deriveSquadHierarchy()` modeluje niedoskonały wybór trenera: efektywny OVR i
+dopasowanie pozycyjne dominują, a kondycja, stabilna preferencja i `selectionStanding` rozstrzygają
+bliskie porównania. `selectionStanding` oznacza wolno zmieniające się zaufanie sztabu, a nie drugi
+OVR, dlatego ma mały, ograniczony wpływ i nie odwraca dużych różnic jakości.
+
+Status sportowy XI / ławka / głęboka rezerwa jest projekcją bieżącej hierarchii i nie pochodzi z
+kontraktu. `Contract.squadRole` pozostaje obietnicą lub oczekiwaniem z chwili zawierania umowy;
+obie wartości mogą celowo się rozjechać. Nowe oferty i odnowienia projektują rolę kontraktową przez
+realną konkurencję pozycyjną w składzie klubu celu i formację jego trenera. Ta sama hierarchia
+steruje zawodowym powołaniem oraz planowanymi minutami.
 
 `ClubView` wyprowadza pogrupowaną XI, siedmioosobową ławkę i głęboką rezerwę wyłącznie przez
-kanoniczne `deriveSquadHierarchy()`. Boisko i lista są projekcjami tej samej hierarchii i nie
+kanoniczne `deriveSquadHierarchy()`. Rywalizacja pozycyjna korzysta z tego samego ewaluatora,
+a status sportowy jest opisany osobno od roli kontraktowej. Boisko i lista są projekcjami tej samej hierarchii i nie
 udostępniają edycji taktyki. Jeden portal `FootballerHoverCard` rozwiązuje dopiero wskazanego
 zawodnika i współdzieli `ATTRIBUTE_PRESENTATION`, radar, ranking archetypów, pozycyjny OVR,
 lokalizację pozycji oraz kanoniczny kontrakt z Player Model 2.0. Nie powstają ukryte pełne karty

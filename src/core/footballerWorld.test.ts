@@ -8,7 +8,9 @@ import { getEffectivePositionOverall, OVR_ATTRIBUTE_KEYS } from './playerOverall
 import {
   FORMATIONS,
   deriveSquadHierarchy,
+  getFootballerSportingStatus,
   getManagerPreferredFormation,
+  getSportingStatus,
   getSquadDerivedClubStrength,
   populateFootballerWorld,
   resolveFootballer,
@@ -65,8 +67,12 @@ describe('persistent footballer world', () => {
     const first = deriveSquadHierarchy(state, club, '4-3-3');
     const repeated = deriveSquadHierarchy(state, club, '4-3-3');
     expect(first).toEqual(repeated);
-    expect(first.preferredXI).toEqual(selectBestXI(state, club, '4-3-3').assignments);
+    // Manager hierarchy is deliberately separate from the pure quality XI used for club strength.
     expect(first.bench).toEqual(selectMatchBench(state, club, first.preferredXI));
+    for (const id of club.squadPlayerIds!)
+      expect(getFootballerSportingStatus(state, club, id, '4-3-3')).toBe(
+        getSportingStatus(first, id),
+      );
     expect(first.preferredXI).toHaveLength(11);
     expect(first.bench).toHaveLength(7);
     const ids = [

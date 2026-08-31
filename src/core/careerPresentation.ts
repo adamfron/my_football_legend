@@ -1,5 +1,6 @@
 import type { CareerState, ClubArchetype, Person, SquadRole } from '../types/domain';
 import { seasonLabelForYear } from './seasonProgress';
+import type { SportingStatus } from './footballerWorld';
 
 export const getCurrentHeadCoach = (career: CareerState): Person | undefined =>
   career.significantPeople.find(
@@ -25,6 +26,13 @@ export const squadRoleLabel = (role: SquadRole) =>
     important_player: 'Ważny zawodnik zespołu',
     star_player: 'Gwiazda zespołu',
   })[role];
+
+export const sportingStatusLabel = (status: SportingStatus) =>
+  ({
+    starting_xi: 'Podstawowy skład',
+    bench: 'Ławka rezerwowych',
+    deep_reserve: 'Głęboka rezerwa',
+  })[status];
 
 export const clubArchetypeLabel = (archetype: ClubArchetype) =>
   ({

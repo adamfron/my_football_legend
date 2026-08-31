@@ -29,6 +29,7 @@ import {
   recordParticipation,
   updateSelectionStanding,
 } from './seasonParticipation';
+import { getFootballerSportingStatus } from './footballerWorld';
 
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
   overallStrength: 52,
@@ -143,6 +144,26 @@ export const evaluateSquadOpportunity = (
   fixture: FixtureContext,
   coach = getCurrentCoachSelectionProfile(career),
 ): { status: SquadStatus; reason: string; selectionScore: number } => {
+  const professionalClub = career.currentProfessionalClub;
+  if (career.leagueSeason?.competition.category === 'professional' && professionalClub) {
+    const sportingStatus = getFootballerSportingStatus(career, professionalClub, career.player.id);
+    const status: SquadStatus =
+      sportingStatus === 'starting_xi'
+        ? 'senior_starter'
+        : sportingStatus === 'bench'
+          ? 'senior_bench'
+          : 'senior_out';
+    return {
+      status,
+      selectionScore: sportingStatus === 'starting_xi' ? 70 : sportingStatus === 'bench' ? 52 : 35,
+      reason:
+        sportingStatus === 'starting_xi'
+          ? 'Trener wybiera cię do podstawowego składu po ocenie realnej rywalizacji w kadrze.'
+          : sportingStatus === 'bench'
+            ? 'Jesteś w kadrze meczowej, ale konkurent rozpoczyna spotkanie.'
+            : 'Tym razem konkretni rywale są wyżej w hierarchii sztabu.',
+    };
+  }
   const unit = unitFor(career.player.primaryPosition);
   const competition = getCurrentClubCompetitiveProfile(career).positionalUnits[unit];
   const absence = (fixture.availability ?? []).find((a) => a.unit === unit)?.severity ?? 'full';
@@ -241,11 +262,13 @@ export const projectFixtureParticipation = (
     venue: fixture.venue,
   });
   const available = getPlayerAvailability(career, fixture.date).available;
-  const started = available && selection.status.endsWith('starter');
-  const bench = available && selection.status.endsWith('bench');
   const rng = RandomGenerator.fromSeed(
     `${career.seed}:${career.currentSeason}:${fixture.id}:participation`,
   );
+  // A regular XI place dominates, with small deterministic match-day variation rather than a guarantee.
+  const regularStarter = selection.status.endsWith('starter');
+  const started = available && regularStarter && rng.bool(0.92);
+  const bench = available && (selection.status.endsWith('bench') || (regularStarter && !started));
   const enters = bench && rng.bool(0.7);
   return {
     status: selection.status,

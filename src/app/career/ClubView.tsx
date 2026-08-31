@@ -3,14 +3,16 @@ import { StarRating } from '../../components/StarRating';
 import { ClubCrest } from '../../components/ClubCrest';
 import { getCompetitionDefinition } from '../../core/competitionStrength';
 import { getLeagueTable } from '../../core/leagueSeason';
-import { getEffectivePositionOverall, getPlayerOverall } from '../../core/playerOverall';
+import { getPlayerOverall } from '../../core/playerOverall';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../../core/professionalClubs';
-import { getCareerClubStrength, getExpectedSquadRole } from '../../core/clubStrength';
-import { squadRoleLabel } from '../../core/careerPresentation';
+import { getCareerClubStrength } from '../../core/clubStrength';
+import { sportingStatusLabel, squadRoleLabel } from '../../core/careerPresentation';
 import type { CareerState, FootballerProfile, Id } from '../../types/domain';
 import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
 import {
   deriveSquadHierarchy,
+  getPositionalCompetition,
+  getSportingStatus,
   getManagerPreferredFormation,
   resolveFootballer,
   type BestXIAssignment,
@@ -42,7 +44,6 @@ const qualityLabel = (quality: number) =>
         : quality >= 40
           ? 'przeciętne'
           : 'podstawowe';
-type HierarchyName = 'XI' | 'ławka' | 'głęboka rezerwa';
 type Preview = { id: Id; anchor: DOMRect };
 
 const PlayerName = ({
@@ -154,31 +155,17 @@ export const ClubView = ({ career }: { career: CareerState }) => {
     hierarchy?.bench
       .map((item) => resolver(item.footballerId))
       .filter((p): p is FootballerProfile => Boolean(p)) ?? [];
-  const hierarchyById = new Map<Id, HierarchyName>([
-    ...xiPlayers.map((p) => [p.id, 'XI'] as const),
-    ...benchPlayers.map((p) => [p.id, 'ławka'] as const),
-    ...(hierarchy?.deepReserve ?? []).map((p) => [p.id, 'głęboka rezerwa'] as const),
-  ]);
-  const currentHierarchy = hierarchyById.get(career.player.id) ?? 'głęboka rezerwa';
-  const role = professionalClub
-    ? getExpectedSquadRole(career, professionalClub)
-    : career.currentContract?.squadRole;
+  const currentSportingStatus = hierarchy
+    ? getSportingStatus(hierarchy, career.player.id)
+    : undefined;
+  const role = career.currentContract?.squadRole;
   const competitionPlayers = professionalClub
-    ? (professionalClub.squadPlayerIds ?? [])
-        .map(resolver)
-        .filter((p): p is FootballerProfile => Boolean(p))
-        .filter(
-          (p) =>
-            p.positionFamiliarity[career.player.primaryPosition] >= 0.3 ||
-            p.primaryPosition === career.player.primaryPosition,
-        )
-        .sort(
-          (a, b) =>
-            getEffectivePositionOverall(b, career.player.primaryPosition) -
-              getEffectivePositionOverall(a, career.player.primaryPosition) ||
-            a.id.localeCompare(b.id),
-        )
-        .slice(0, 5)
+    ? getPositionalCompetition(
+        career,
+        professionalClub,
+        career.player.primaryPosition,
+        hierarchy,
+      ).slice(0, 5)
     : [];
   const identity = resolveClubVisualIdentity(career.seed, professionalClub ?? club);
   const previewPlayer = preview ? resolver(preview.id) : undefined;
@@ -209,32 +196,28 @@ export const ClubView = ({ career }: { career: CareerState }) => {
           </span>
           <strong>{prestigeLabel(club.prestige)}</strong>
         </div>
-        <dl>
-          <div>
-            <dt>SIŁA</dt>
-            <dd>
-              <StarRating strength={strength} /> {Math.round(strength)}
-            </dd>
-          </div>
-          <div>
-            <dt>FORMACJA</dt>
-            <dd>{formation ?? '—'}</dd>
-          </div>
-          <div>
-            <dt>TRENING</dt>
-            <dd>
-              {professionalClub
-                ? qualityLabel(getClubDevelopmentEnvironment(professionalClub))
-                : '—'}
-            </dd>
-          </div>
-          <div>
-            <dt>MEDYCYNA</dt>
-            <dd>
-              {professionalClub ? qualityLabel(getClubMedicalQuality(professionalClub)) : '—'}
-            </dd>
-          </div>
-        </dl>
+        {professionalClub && (
+          <dl>
+            <div>
+              <dt>SIŁA</dt>
+              <dd>
+                <StarRating strength={strength} /> {Math.round(strength)}
+              </dd>
+            </div>
+            <div>
+              <dt>FORMACJA</dt>
+              <dd>{formation ?? '—'}</dd>
+            </div>
+            <div>
+              <dt>TRENING</dt>
+              <dd>{qualityLabel(getClubDevelopmentEnvironment(professionalClub))}</dd>
+            </div>
+            <div>
+              <dt>MEDYCYNA</dt>
+              <dd>{qualityLabel(getClubMedicalQuality(professionalClub))}</dd>
+            </div>
+          </dl>
+        )}
       </header>
       {professionalClub && hierarchy && (
         <>
@@ -279,14 +262,17 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                 <b>{positionLabel(career.player.primaryPosition)}</b> · OVR{' '}
                 {getPlayerOverall(career.player, career.player.primaryPosition)}
               </p>
-              <p>Rola: {role ? squadRoleLabel(role) : '—'}</p>
               <p>
-                Hierarchia: <strong>{currentHierarchy.toLocaleUpperCase('pl')}</strong>
+                Status sportowy:{' '}
+                <strong>
+                  {currentSportingStatus ? sportingStatusLabel(currentSportingStatus) : '—'}
+                </strong>
               </p>
+              <p>Rola kontraktowa: {role ? squadRoleLabel(role) : '—'}</p>
             </section>
             <section>
               <h3>RYWALIZACJA NA POZYCJI</h3>
-              {competitionPlayers.map((player) => (
+              {competitionPlayers.map(({ player, effectiveOverall, status }) => (
                 <div
                   className={player.id === career.player.id ? 'protagonist' : ''}
                   key={player.id}
@@ -294,8 +280,8 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                   <span>
                     {player.firstName} {player.lastName}
                   </span>
-                  <b>{getEffectivePositionOverall(player, career.player.primaryPosition)} OVR</b>
-                  <small>{hierarchyById.get(player.id) ?? 'rezerwa'}</small>
+                  <b>{effectiveOverall} OVR</b>
+                  <small>{sportingStatusLabel(status)}</small>
                 </div>
               ))}
             </section>
@@ -318,6 +304,13 @@ export const ClubView = ({ career }: { career: CareerState }) => {
             </section>
           </div>
         </>
+      )}
+      {!professionalClub && (
+        <section className="academy-squad-fallback">
+          <h3>AKADEMIA U-17</h3>
+          <p>Kadra akademii nie jest jeszcze częścią zawodowego modelu składu.</p>
+          <p>Informacje o klubie i bieżącym sezonie pozostają dostępne powyżej.</p>
+        </section>
       )}
       {preview && previewPlayer && (
         <FootballerHoverCard
