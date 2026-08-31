@@ -43,8 +43,35 @@ i cykliczny nabór młodzieży.
 Dalsza kolejność: (1) akademia / świat U-17 i absolwenci, (2) rzadki sezonowy rozwój/regres NPC,
 (3) emerytury i cykliczny nabór młodzieży, (4) niedoskonały rynek transferowy NPC, (5) trwałość
 i zmiany trenerów, (6) zagraniczne pakiety świata, (7) rozbudowa rozgrywek i kalendarza,
-(8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl życia/inwestycje/ekonomia,
-(11) interaktywny izometryczny silnik decyzji.
+(8) Fitness/Morale 2.0 przed dojrzałą warstwą silnika meczu, (9) behawioralne PlayStyles,
+(10) osiągnięcia/easter eggi, (11) styl życia/inwestycje/ekonomia, (12) interaktywny
+izometryczny silnik decyzji.
+
+Wraz z trwałym rozwojem NPC i symulacją rozgrywek pojawią się tanie migawki typowego wyboru
+klubów tła, przeliczane na granicy sezonu oraz po transferze, awansie z akademii, emeryturze,
+zmianie trenera, ważnej zmianie dostępności lub okazjonalnym checkpointcie. Mecze tła wykorzystają
+hierarchię, dostępność i małą deterministyczną rotację, co umożliwi trwałe zagregowane statystyki
+sezonowe NPC (występy, starty, minuty, gole, asysty, kartki i średnią ocenę/MVP) bez pełnej historii
+każdego meczu. Klub protagonisty może zachować selekcję o większej szczegółowości.
+
+Przyszły trwały `CoachProfile` obejmie preferowane formacje, tożsamość taktyczną, rotację, zaufanie
+do młodzieży, preferencję doświadczenia, elastyczność pozycyjną, cierpliwość/wrażliwość na formę,
+reputację, wiek i etap kariery. Zatrudnianie i zwalnianie uwzględni wyniki względem oczekiwań,
+reputację, DNA/politykę młodzieżową klubu, finanse, kontrakt i dostępność, a zmiana trenera wymusi
+reewaluację hierarchii. Byli piłkarze będą mogli później zostać trenerami młodzieży, asystentami
+lub menedżerami.
+
+Emerytura będzie probabilistyczna i kontekstowa, zależna m.in. od wieku, pozycji (bramkarze zwykle
+później), regresu fizycznego, urazów, minut, dostępnego poziomu kontraktu, reputacji, ambicji,
+profesjonalizmu, gotowości zejścia ligę niżej i deterministycznej indywidualnej zmienności. Wiek 40
+nie jest uniwersalną regułą; część zakończy karierę wyraźnie wcześniej, a mniejszość nieco później.
+Twarde maksimum w testach jest wyłącznie bezpiecznikiem.
+
+Fitness/Morale 2.0 powiąże minuty z narastającym zmęczeniem, zagęszczeniem terminarza, regeneracją,
+wytrzymałością, wiekiem oraz środowiskiem medyczno-treningowym, naturalnie wywołując rotację.
+Morale zareaguje kontekstowo na grę poza opanowaną pozycją zależnie m.in. od ambicji,
+profesjonalizmu, adaptacji, minut, roli kontraktowej, zaufania trenera i czasu trwania sytuacji —
+może spaść, pozostać neutralne albo wzrosnąć u zawodnika zadowolonego z samej szansy gry.
 
 ## Future match-engine concept
 

@@ -16,9 +16,15 @@ import {
   getManagerPreferredFormation,
   resolveFootballer,
   type BestXIAssignment,
+  type MatchBenchAssignment,
 } from '../../core/footballerWorld';
 import { getRankedFootballArchetypes } from '../../core/footballArchetypes';
-import { positionCode, positionLabel } from '../shared/positionPresentation';
+import {
+  compareCanonicalPositions,
+  getMasteredPositions,
+  positionCode,
+  positionLabel,
+} from '../shared/positionPresentation';
 import { FootballerHoverCard } from '../shared/FootballerHoverCard';
 import { SquadPitch } from './SquadPitch';
 
@@ -85,7 +91,7 @@ const SquadGroup = ({
   compact = false,
 }: {
   title: string;
-  assignments?: readonly BestXIAssignment[];
+  assignments?: readonly (BestXIAssignment | MatchBenchAssignment)[];
   players: FootballerProfile[];
   protagonistId: Id;
   open: (id: Id, anchor: DOMRect) => void;
@@ -98,8 +104,9 @@ const SquadGroup = ({
       <span>{players.length}</span>
     </h3>
     <div className="squad-list-head">
-      <span>Poz.</span>
+      <span>Ust.</span>
       <span>Zawodnik</span>
+      <span>Pozycje</span>
       <span>Wiek</span>
       <span>OVR</span>
       <span>Profil</span>
@@ -120,6 +127,9 @@ const SquadGroup = ({
             open={open}
             close={close}
           />
+          <span className="mastered-positions">
+            {getMasteredPositions(player).map(positionCode).join(', ')}
+          </span>
           <span>{player.age}</span>
           <strong>
             {assignment?.effectiveOverall ?? getPlayerOverall(player, player.primaryPosition)}
@@ -151,10 +161,26 @@ export const ClubView = ({ career }: { career: CareerState }) => {
     hierarchy?.preferredXI
       .map((item) => resolver(item.footballerId))
       .filter((p): p is FootballerProfile => Boolean(p)) ?? [];
-  const benchPlayers =
+  const benchAssignments =
     hierarchy?.bench
+      .slice()
+      .sort(
+        (a, b) =>
+          compareCanonicalPositions(a.position, b.position) ||
+          a.footballerId.localeCompare(b.footballerId),
+      ) ?? [];
+  const benchPlayers =
+    benchAssignments
       .map((item) => resolver(item.footballerId))
       .filter((p): p is FootballerProfile => Boolean(p)) ?? [];
+  const reservePlayers =
+    hierarchy?.deepReserve
+      .slice()
+      .sort(
+        (a, b) =>
+          compareCanonicalPositions(a.primaryPosition, b.primaryPosition) ||
+          a.id.localeCompare(b.id),
+      ) ?? [];
   const currentSportingStatus = hierarchy
     ? getSportingStatus(hierarchy, career.player.id)
     : undefined;
@@ -239,7 +265,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
               />
               <SquadGroup
                 title="ŁAWKA"
-                assignments={hierarchy.bench}
+                assignments={benchAssignments}
                 players={benchPlayers}
                 protagonistId={career.player.id}
                 open={(id, anchor) => setPreview({ id, anchor })}
@@ -247,7 +273,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
               />
               <SquadGroup
                 title="GŁĘBOKA REZERWA"
-                players={hierarchy.deepReserve}
+                players={reservePlayers}
                 protagonistId={career.player.id}
                 open={(id, anchor) => setPreview({ id, anchor })}
                 close={() => setPreview(undefined)}

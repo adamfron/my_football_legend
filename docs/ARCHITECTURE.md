@@ -193,3 +193,9 @@ udostępniają edycji taktyki. Jeden portal `FootballerHoverCard` rozwiązuje do
 zawodnika i współdzieli `ATTRIBUTE_PRESENTATION`, radar, ranking archetypów, pozycyjny OVR,
 lokalizację pozycji oraz kanoniczny kontrakt z Player Model 2.0. Nie powstają ukryte pełne karty
 dla całej kadry ani osobny model prezentacyjny.
+
+Każdy przydział XI zachowuje tożsamość indeksu kanonicznego slotu formacji; selekcja, lista i
+boisko odnoszą się dzięki temu do tego samego przydziału także przy powtarzających się pozycjach.
+Bramkarz i zawodnik z pola należą w normalnej selekcji do rozłącznych zbiorów kwalifikacji — dotyczy
+to XI, ławki i rywalizacji pozycyjnej. Crossover może w przyszłości nastąpić wyłącznie przez jawną
+mechanikę pozycji awaryjnej, np. po czerwonej kartce lub urazie, gdy wykorzystano wszystkie zmiany.

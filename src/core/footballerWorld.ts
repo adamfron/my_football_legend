@@ -293,13 +293,15 @@ export interface BestXIAssignment {
   footballerId: Id;
   position: PlayerPosition;
   effectiveOverall: number;
+  /** Identity of the canonical FORMATIONS slot. */
+  slotIndex: number;
 }
 export interface BestXI {
   formation: FormationId;
   assignments: BestXIAssignment[];
 }
 
-export type MatchBenchAssignment = BestXIAssignment;
+export type MatchBenchAssignment = Omit<BestXIAssignment, 'slotIndex'>;
 const BENCH_COVERAGE: readonly (readonly PlayerPosition[])[] = [
   ['goalkeeper'],
   ['center_back', 'left_back', 'right_back'],
@@ -307,11 +309,18 @@ const BENCH_COVERAGE: readonly (readonly PlayerPosition[])[] = [
   ['left_winger', 'right_winger', 'striker'],
 ];
 
+/**
+ * Goalkeeper is a specialist boundary during normal selection. A future explicit emergency
+ * position mechanic may cross it after a red card/injury and exhausted substitutions.
+ */
+export const isEligibleForNormalPosition = (player: FootballerProfile, position: PlayerPosition) =>
+  (player.primaryPosition === 'goalkeeper') === (position === 'goalkeeper');
+
 /** Temporary deterministic presentation evaluation, not manager selection AI. */
 export const selectMatchBench = (
   career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
   club: ProfessionalClub,
-  xi: readonly BestXIAssignment[] = selectBestXI(career, club).assignments,
+  xi: readonly Pick<BestXIAssignment, 'footballerId'>[] = selectBestXI(career, club).assignments,
   limit = 7,
   selectionScore: SelectionScore = (player, position) =>
     getManagerSelectionScore(career, club, player, position),
@@ -326,10 +335,14 @@ export const selectMatchBench = (
     let best: { assignment: MatchBenchAssignment; score: number } | undefined;
     for (const player of available) {
       if (selected.some((item) => item.footballerId === player.id)) continue;
-      let position = positions[0]!;
+      const eligiblePositions = positions.filter((position) =>
+        isEligibleForNormalPosition(player, position),
+      );
+      if (!eligiblePositions.length) continue;
+      let position = eligiblePositions[0]!;
       let effectiveOverall = getSelectionOverall(player, position, player.id === career.player.id);
-      for (let index = 1; index < positions.length; index++) {
-        const candidatePosition = positions[index]!;
+      for (let index = 1; index < eligiblePositions.length; index++) {
+        const candidatePosition = eligiblePositions[index]!;
         const candidateOverall = getSelectionOverall(
           player,
           candidatePosition,
@@ -454,15 +467,26 @@ const selectManagerXI = (
   const available = [...players];
   const assignments: BestXIAssignment[] = [];
   // Repeated best-pair selection is intentionally plausible rather than a perfect global optimizer.
-  for (const position of [...slots].sort((a, b) => {
-    const aOptions = players.filter((p) => p.positionFamiliarity[a] >= 0.3).length;
-    const bOptions = players.filter((p) => p.positionFamiliarity[b] >= 0.3).length;
-    return aOptions - bOptions || a.localeCompare(b);
-  })) {
-    let selected = available[0]!;
+  for (const slotIndex of slots
+    .map((_, slotIndex) => slotIndex)
+    .sort((a, b) => {
+      const aPosition = slots[a]!;
+      const bPosition = slots[b]!;
+      const aOptions = players.filter(
+        (p) => isEligibleForNormalPosition(p, aPosition) && p.positionFamiliarity[aPosition] >= 0.3,
+      ).length;
+      const bOptions = players.filter(
+        (p) => isEligibleForNormalPosition(p, bPosition) && p.positionFamiliarity[bPosition] >= 0.3,
+      ).length;
+      return aOptions - bOptions || a - b;
+    })) {
+    const position = slots[slotIndex]!;
+    const eligible = available.filter((player) => isEligibleForNormalPosition(player, position));
+    if (!eligible.length) return { formation, assignments: [] };
+    let selected = eligible[0]!;
     let selectedScore = selectionScore(selected, position);
-    for (let index = 1; index < available.length; index++) {
-      const candidate = available[index]!;
+    for (let index = 1; index < eligible.length; index++) {
+      const candidate = eligible[index]!;
       const candidateScore = selectionScore(candidate, position);
       if (
         candidateScore > selectedScore ||
@@ -477,9 +501,10 @@ const selectManagerXI = (
       footballerId: selected.id,
       position,
       effectiveOverall: getSelectionOverall(selected, position, selected.id === career.player.id),
+      slotIndex,
     });
   }
-  return { formation, assignments };
+  return { formation, assignments: assignments.sort((a, b) => a.slotIndex! - b.slotIndex!) };
 };
 
 export const deriveSquadHierarchy = (
@@ -546,6 +571,7 @@ export const getPositionalCompetition = (
   (club.squadPlayerIds ?? [])
     .map((id) => resolveFootballer(career, id))
     .filter((player): player is FootballerProfile => Boolean(player))
+    .filter((player) => isEligibleForNormalPosition(player, position))
     .filter((player) => player.positionFamiliarity[position] >= 0.3)
     .map((player) => ({
       player,
@@ -589,7 +615,11 @@ export const selectBestXI = (
         j1 = 0;
       for (let j = 1; j <= m; j++)
         if (!used[j]) {
-          const quality = getEffectivePositionOverall(players[j - 1]!, slots[i0 - 1]!);
+          const player = players[j - 1]!;
+          const position = slots[i0 - 1]!;
+          const quality = isEligibleForNormalPosition(player, position)
+            ? getEffectivePositionOverall(player, position)
+            : -1_000_000;
           const current = -quality + j * 1e-7 - u[i0]! - v[j]!;
           if (current < minv[j]!) {
             minv[j] = current;
@@ -621,6 +651,7 @@ export const selectBestXI = (
       footballerId: players[playerIndex]!.id,
       position: slots[slot]!,
       effectiveOverall: getEffectivePositionOverall(players[playerIndex]!, slots[slot]!),
+      slotIndex: slot,
     })),
   };
 };

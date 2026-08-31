@@ -145,6 +145,9 @@ describe('persistent footballer world', () => {
     const xi = selectBestXI(state, club, formation);
     expect(xi.assignments).toHaveLength(11);
     expect(new Set(xi.assignments.map((item) => item.footballerId)).size).toBe(11);
+    expect(xi.assignments.map((item) => item.slotIndex)).toEqual(
+      FORMATIONS[formation].map((_, index) => index),
+    );
     for (const item of xi.assignments)
       expect(item.effectiveOverall).toBe(
         getEffectivePositionOverall(resolveFootballer(state, item.footballerId)!, item.position),
@@ -152,6 +155,34 @@ describe('persistent footballer world', () => {
     expect(getSquadDerivedClubStrength(state, club)).toBe(
       Math.round(xi.assignments.reduce((sum, item) => sum + item.effectiveOverall, 0) / 11),
     );
+  });
+
+  it.each(['4-4-2', '3-5-2'] as const)(
+    'preserves canonical slot identity for duplicate positions in %s',
+    (formation) => {
+      const state = career();
+      const club = state.clubWorld![0]!;
+      const hierarchy = deriveSquadHierarchy(state, club, formation);
+      expect(hierarchy.preferredXI.map((item) => item.position)).toEqual(FORMATIONS[formation]);
+      expect(hierarchy.preferredXI.map((item) => item.slotIndex)).toEqual(
+        FORMATIONS[formation].map((_, index) => index),
+      );
+    },
+  );
+
+  it('keeps goalkeepers and outfield players on their side of the normal-selection boundary', () => {
+    const state = career();
+    const club = state.clubWorld![0]!;
+    for (const selection of [
+      selectBestXI(state, club, '4-4-2').assignments,
+      deriveSquadHierarchy(state, club, '4-4-2').preferredXI,
+      deriveSquadHierarchy(state, club, '4-4-2').bench,
+    ]) {
+      for (const assignment of selection) {
+        const player = resolveFootballer(state, assignment.footballerId)!;
+        expect(player.primaryPosition === 'goalkeeper').toBe(assignment.position === 'goalkeeper');
+      }
+    }
   });
 
   it('creates age, archetype-shaped quality and tier diversity', () => {
