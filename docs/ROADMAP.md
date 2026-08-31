@@ -23,6 +23,34 @@ systemem rzadkiego rozwoju seniorów i akademii.
 Po tym fundamencie pozostają planowane: interaktywny izometryczny silnik decyzji meczowych,
 style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
+## Kolejność kolejnych dużych systemów
+
+**NEXT: akademia / świat U-17 i przepływ absolwentów.** Następnie: rzadki sezonowy rozwój/regres
+NPC; emerytury i cykliczny nabór młodzieży; niedoskonały rynek transferowy NPC; trwałe profile i
+cykl życia trenerów; zagraniczne pakiety świata; rozbudowa rozgrywek i kalendarza; Fitness/Morale
+2.0 przed dojrzałą warstwą silnika meczu; behawioralne PlayStyles; osiągnięcia/easter eggi; styl
+życia/ekonomia; interaktywny izometryczny silnik decyzji.
+
+Migawki typowej selekcji klubów tła i tanie sezonowe statystyki NPC będą częścią etapów trwałego
+rozwoju NPC i symulacji rozgrywek, nie osobnym wielkim podsystemem. Migawka będzie odświeżana przy
+granicy sezonu, transferach, awansie z akademii, emeryturze, zmianie trenera, ważnej dostępności lub
+rzadkim checkpointcie. Hierarchia + dostępność + mała deterministyczna rotacja pozwolą agregować
+występy, starty, minuty, gole, asysty, kartki oraz średnią ocenę/MVP bez szczegółowych historii.
+
+`CoachProfile` docelowo zachowa preferowane formacje, taktykę, rotację, zaufanie do młodzieży,
+preferencję doświadczenia, elastyczność pozycyjną, cierpliwość wobec formy, reputację, wiek i etap
+kariery. Zatrudnienie/zwolnienie uwzględni wyniki względem oczekiwań, reputację, dopasowanie do DNA,
+finanse/kontrakt i dostępność; zmiana trenera przeliczy hierarchię. Byli gracze będą mogli przejść
+do ról trenera młodzieży, asystenta lub menedżera.
+
+Emerytura nie będzie uniwersalnym progiem wieku 40, lecz deterministycznie zróżnicowanym modelem
+probabilistycznym zależnym od pozycji, regresu, urazów, minut, ofert, reputacji, ambicji,
+profesjonalizmu i gotowości zejścia ligę niżej. Twardy limit testowy pozostanie tylko bezpiecznikiem.
+
+Fitness/Morale 2.0 połączy minuty, kumulację zmęczenia, terminarz, regenerację, wytrzymałość, wiek
+i środowisko klubu. Reakcja morale na grę poza opanowaną pozycją będzie kontekstowa (ambicja,
+profesjonalizm, adaptacja, minuty, rola, relacja z trenerem i czas), a nie uniwersalnym modyfikatorem.
+
 ## Główne etapy
 
 1. Player Model 2.0.

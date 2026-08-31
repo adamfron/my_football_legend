@@ -350,7 +350,7 @@
 .squad-list-head,
 .squad-list-row {
   display: grid;
-  grid-template-columns: 42px minmax(150px, 1.4fr) 38px 42px minmax(110px, 1fr);
+  grid-template-columns: 42px minmax(145px, 1.35fr) 70px 38px 42px minmax(105px, 1fr);
   align-items: center;
   column-gap: 5px;
   min-height: 25px;
@@ -370,6 +370,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.mastered-positions {
+  font-size: 10px;
+  font-weight: 400;
+  color: #59656a;
 }
 .footballer-name {
   padding: 2px !important;

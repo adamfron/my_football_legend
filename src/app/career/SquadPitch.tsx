@@ -24,9 +24,9 @@ export const SquadPitch = ({
       <div className="pitch-box pitch-box-top" />
       <div className="pitch-circle" />
       <div className="pitch-box pitch-box-bottom" />
-      {assignments.map((assignment, index) => {
+      {assignments.map((assignment) => {
         const player = resolvePlayer(assignment.footballerId);
-        const point = FORMATION_COORDINATES[formation][index];
+        const point = FORMATION_COORDINATES[formation][assignment.slotIndex];
         if (!player || !point) return null;
         return (
           <div
