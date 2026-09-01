@@ -23,6 +23,8 @@ import { contractCoversNextSeason } from './contractValidity';
 import { rollOverClubWorld } from './clubWorld';
 import { initializeSeasonParticipation } from './seasonParticipation';
 import { createPolishU17LeagueProfiles } from './youthWorld';
+import { getProfileAge } from './age';
+import { processNpcSeasonDevelopment } from './seasonDevelopment';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -208,7 +210,7 @@ const sensibleRole = (age: number, role: SquadRole): SquadRole =>
   age > 23 && role === 'development_player' ? 'rotation' : role;
 
 const applyAnnualAging = (career: CareerState, date: string): CareerState => {
-  const age = career.player.age + 1;
+  const age = getProfileAge(career.player, date, `${career.currentSeason}-07-01`);
   const attrs = { ...career.player.attributes };
   const rng = RandomGenerator.fromSeed(`${career.seed}:aging:${age}`);
   const facts: HistoryFact[] = [];
@@ -328,6 +330,9 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
         }
       : career;
   let aged = applyAnnualAging(withMovement, nextDate);
+  // Only a resolved season owns this boundary. This also keeps repair/test rollovers from
+  // applying world simulation to an unfinished schedule.
+  if (career.leagueSeason?.completed) aged = processNpcSeasonDevelopment(aged, nextDate);
   if (aged.clubWorld && movement) {
     const world = rollOverClubWorld(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`);
     const current = world.find((c) => c.id === aged.currentClub.id);

@@ -39,9 +39,12 @@ export const deriveDateOfBirth = (
   const rng = RandomGenerator.fromSeed(`date-of-birth:${stableSeed}`);
   const month = rng.int(1, 12);
   const maxDay = new Date(Date.UTC(2000, month, 0)).getUTCDate();
-  const day = rng.int(1, maxDay);
+  let day = rng.int(1, maxDay);
   const occurred = month < reference.month || (month === reference.month && day <= reference.day);
   const year = reference.year - age - (occurred ? 0 : 1);
+  // The random day is selected before the derived year is known. Clamp the leap-day
+  // candidate rather than emitting an impossible canonical date.
+  if (month === 2 && day === 29 && new Date(Date.UTC(year, 1, 29)).getUTCMonth() !== 1) day = 28;
   return `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}-${day
     .toString()
     .padStart(2, '0')}`;
@@ -51,11 +54,17 @@ export const getProfileAge = (
   profile: Pick<FootballerProfile, 'id' | 'age' | 'dateOfBirth'>,
   date: string,
   legacyReferenceDate = date,
-) =>
-  getAgeOnDate(
-    profile.dateOfBirth ?? deriveDateOfBirth(profile.age, legacyReferenceDate, profile.id),
-    date,
-  );
+) => {
+  let dateOfBirth =
+    profile.dateOfBirth ?? deriveDateOfBirth(profile.age, legacyReferenceDate, profile.id);
+  // Compatibility for worlds generated before leap-day clamping was introduced.
+  if (/^\d{4}-02-29$/.test(dateOfBirth)) {
+    const year = Number(dateOfBirth.slice(0, 4));
+    if (new Date(Date.UTC(year, 1, 29)).getUTCMonth() !== 1)
+      dateOfBirth = `${dateOfBirth.slice(0, 8)}28`;
+  }
+  return getAgeOnDate(dateOfBirth, date);
+};
 
 export const withCanonicalBirthDate = <T extends Pick<Person, 'id' | 'age' | 'dateOfBirth'>>(
   person: T,

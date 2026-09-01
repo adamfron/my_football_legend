@@ -104,7 +104,11 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 - Kalendarz/historia: `src/core/careerCalendar.ts`, fakty `HistoryFact` w `src/types/domain.ts` i projekcja `src/core/seasonTimeline.ts`.
 - Operacyjny tydzień wybiera datowane wydarzenia i mecze chronologicznie; przy tej samej dacie
   decyzja gracza poprzedza rozstrzygnięcie spotkania.
-- Rozwój: `developPlayer()` w `src/core/development.ts` i sezonowe migawki w `src/core/seasonArchive.ts`.
+- Rozwój protagonisty: `developPlayer()` w `src/core/development.ts` i migawki w `src/core/seasonArchive.ts`; rzadka projekcja NPC i idempotentny przebieg świata są w `src/core/seasonDevelopment.ts`.
+
+## Rzadki sezonowy rozwój NPC
+
+Na granicy sezonu aktywny NPC efektywnego świata jest oceniany dokładnie raz. Deterministyczna projekcja używa kanonicznego `DevelopmentProfile`, wieku z `dateOfBirth`, rodzin atrybutów i środowiska klubu. Zmienia małą liczbę atrybutów, nie tożsamość, pozycję, klub ani kontrakt. Override powstaje tylko dla rzeczywistej zmiany, a marker sezonu zapewnia idempotencję. Kolejność to zakończenie sezonu i graduacja U-17, rozwój NPC, a następnie nowy sezon i hierarchia. Wiek prezentacyjny jest projekcją bieżącej daty i nie tworzy delty.
 
 Przed proponowaniem zmian strukturalnych w nowej rozmowie projektowej/deweloperskiej przeczytaj `PROJECT_STATE.md`, `ARCHITECTURE.md` i `ROADMAP.md`.
 
@@ -140,7 +144,6 @@ akademii powiązanych z klubami zawodowymi. Młodzież korzysta z tego samego
 ich kadr i nie ma kontraktów zawodowych. Pierwszy grywalny sezon używa realnej ligi 12 drużyn oraz tych kohort. `ClubView`, hierarchia,
 rywalizacja pozycyjna i `assignedPosition` korzystają z wyborów młodzieżowego trenera. Protagonista
 jest wyłącznie runtime'ową nakładką na 24-osobową kohortę Vistuli; baza pozostaje niezmienna, a zapis
-nie przechowuje statycznego indeksu kohort. Na granicy sezonu NPC są jednokrotnie postarzani; osiągnięcie wieku 17 lat kończy kohortę U-17.
+nie przechowuje statycznego indeksu kohort. Na granicy sezonu wiek NPC jest wyliczany z daty urodzenia; osiągnięcie wieku 17 lat kończy kohortę U-17.
 Zmiana członkostwa, awanse, pierwsze kontrakty i wolni zawodnicy są zapisywani wyłącznie w
-`CareerWorldDelta`; baza i nawodnione kohorty pozostają niezmienne. Rozwój atrybutów NPC nie jest
-jeszcze symulowany.
+`CareerWorldDelta`; baza i nawodnione kohorty pozostają niezmienne. Rozwój atrybutów rozwiązuje najpierw efektywnego zawodnika i zapisuje tylko rzeczywiste zmiany.
