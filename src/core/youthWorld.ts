@@ -1,10 +1,23 @@
 import {
   getPolishU17TeamDefinitions,
   getYouthCohortKey,
+  getYouthTeamDisplayName,
   POLISH_U17_STARTING_SEASON,
 } from '../content/world/polishU17';
-import type { Id, PlayerPosition, ProfessionalClub, WorldFootballer } from '../types/domain';
-import { generateCanonicalFootballerProfile } from './footballerWorld';
+import type {
+  CareerState,
+  Id,
+  LeagueClubProfile,
+  PlayerPosition,
+  ProfessionalClub,
+  WorldFootballer,
+} from '../types/domain';
+import {
+  deriveSquadHierarchy,
+  generateCanonicalFootballerProfile,
+  getManagerPreferredFormation,
+  type SquadSelectionContext,
+} from './footballerWorld';
 import { generateDevelopmentProfile } from './playerCreator';
 import { RandomGenerator } from './random/RandomGenerator';
 
@@ -82,4 +95,66 @@ export const populatePolishU17World = (clubs: readonly ProfessionalClub[], seed:
     });
   }
   return { teams, footballers, youthCohorts };
+};
+
+export const getYouthSquadSelectionContext = (
+  career: Pick<CareerState, 'careerSeasonNumber' | 'player' | 'clubWorld' | 'youthCohorts'>,
+  teamId: Id,
+  season = POLISH_U17_STARTING_SEASON,
+): SquadSelectionContext | undefined => {
+  const team = getPolishU17TeamDefinitions(career.clubWorld ?? []).find(
+    (item) => item.id === teamId,
+  );
+  const cohort = career.youthCohorts?.[getYouthCohortKey(teamId, season)];
+  if (!team || !cohort) return undefined;
+  const protagonistOverlay =
+    teamId === 'club_vistula_nova' && career.careerSeasonNumber === 1 ? [career.player.id] : [];
+  return {
+    id: team.id,
+    managerId: team.coachId,
+    squadPlayerIds: [...new Set([...cohort, ...protagonistOverlay])],
+  };
+};
+
+export const getCurrentSquadSelectionContext = (
+  career: CareerState,
+): SquadSelectionContext | undefined =>
+  career.currentProfessionalClub
+    ? career.currentProfessionalClub
+    : getYouthSquadSelectionContext(career, career.currentClub.id, career.currentSeason);
+
+/** One-time deterministic league projection; the generated cards remain the source of truth. */
+export const createPolishU17LeagueProfiles = (career: CareerState): LeagueClubProfile[] => {
+  const clubs = career.clubWorld ?? [];
+  const clubsById = new Map(clubs.map((club) => [club.id, club]));
+  return getPolishU17TeamDefinitions(clubs).map((team) => {
+    const context = getYouthSquadSelectionContext(career, team.id);
+    if (!context) throw new Error(`Brak kohorty U-17 dla ${team.id}.`);
+    const hierarchy = deriveSquadHierarchy(
+      career,
+      context,
+      getManagerPreferredFormation(context.managerId),
+    );
+    const average = (items: typeof hierarchy.preferredXI) =>
+      Math.round(items.reduce((sum, item) => sum + item.effectiveOverall, 0) / items.length);
+    const attacking = hierarchy.preferredXI.filter((item) =>
+      ['attacking_midfielder', 'left_winger', 'right_winger', 'striker'].includes(item.position),
+    );
+    const defensive = hierarchy.preferredXI.filter((item) =>
+      ['goalkeeper', 'left_back', 'right_back', 'center_back', 'defensive_midfielder'].includes(
+        item.position,
+      ),
+    );
+    return {
+      clubId: team.id,
+      name: getYouthTeamDisplayName(
+        team,
+        team.parentClubId ? clubsById.get(team.parentClubId) : undefined,
+      ),
+      strength: average(hierarchy.preferredXI),
+      attackStrength: average(attacking),
+      defenseStrength: average(defensive),
+      form: 0,
+    };
+  });
 };

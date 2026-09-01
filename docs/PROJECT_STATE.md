@@ -35,10 +35,9 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 
 ## Immediate next gameplay development
 
-**NEXT: academy / U-17 world and graduation pipeline.** Realna selekcja porównuje już zawodnika
-z konkretnymi rywalami w formacji trenera. Następny fundament zastąpi abstrakcyjny pierwszy sezon
-trwałą ligą U-17 i kadrami w tym samym modelu `FootballerProfile` / `WorldFootballer`, a absolwenci
-przejdą przez awans do pierwszej drużyny albo wspólny rynek pierwszych kontraktów. Dopiero potem
+**NEXT: academy graduation + first-contract pipeline for U-17 NPCs.** Pierwszy sezon korzysta już
+z trwałej ligi U-17, konkretnych rywali i formacji trenera. Następny fundament przeprowadzi absolwentów
+przez awans do pierwszej drużyny albo wspólny rynek pierwszych kontraktów. Dopiero potem
 powstanie rzadki sezonowy rozwój/regres NPC, wspólny dla seniorów i akademii, a następnie emerytury
 i cykliczny nabór młodzieży.
 
@@ -131,6 +130,8 @@ historyczny brak występu z właściwym urazem bez osobnej bazy danych osi.
 Kanoniczna baza `pl-2026-v2` zawiera 12 trwałych kohort U-17: niezależną Vistulę Nova oraz 11
 akademii powiązanych z klubami zawodowymi. Młodzież korzysta z tego samego
 `WorldFootballer` / `FootballerProfile`, skali OVR i profilu rozwoju co seniorzy, ale nie należy do
-ich kadr i nie ma kontraktów zawodowych. Pierwszy grywalny sezon nadal używa rozwiązania
-tymczasowego; następnym krokiem jest podłączenie go, `ClubView` i wyborów trenera do tych kadr.
-Rozwój NPC, ukończenie akademii i pierwsze kontrakty nie są jeszcze symulowane.
+ich kadr i nie ma kontraktów zawodowych. Pierwszy grywalny sezon używa realnej ligi 12 drużyn oraz tych kohort. `ClubView`, hierarchia,
+rywalizacja pozycyjna i `assignedPosition` korzystają z wyborów młodzieżowego trenera. Protagonista
+jest wyłącznie runtime'ową nakładką na 24-osobową kohortę Vistuli; baza pozostaje niezmienna, a zapis
+nie przechowuje statycznego indeksu kohort. Młodzież nadal nie ma kontraktów zawodowych. Rozwój NPC,
+ukończenie akademii i pierwsze kontrakty nie są jeszcze symulowane.

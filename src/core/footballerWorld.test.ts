@@ -103,7 +103,7 @@ describe('persistent footballer world', () => {
 
   it('creates varied wages that are not ordered strictly by OVR', () => {
     const state = career();
-    const players = Object.values(state.footballerWorld!);
+    const players = Object.values(state.footballerWorld!).filter((player) => player.currentContract);
     const salaries = players.map((player) => player.currentContract!.monthlySalary);
     expect(new Set(salaries).size).toBeGreaterThan(500);
     expect(Math.max(...salaries) / Math.min(...salaries)).toBeGreaterThan(10);

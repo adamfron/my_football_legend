@@ -22,6 +22,7 @@ import { deriveOfferPositionIntent, generateProfessionalClubPool } from './profe
 import { contractCoversNextSeason } from './contractValidity';
 import { rollOverClubWorld } from './clubWorld';
 import { initializeSeasonParticipation } from './seasonParticipation';
+import { createPolishU17LeagueProfiles } from './youthWorld';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -65,6 +66,7 @@ export const initializeCareerSeason = (
     controlledClubId: config.club.id,
     controlledClubName: config.club.name,
     professional: config.professional,
+    ...(!config.professional ? { leagueClubs: createPolishU17LeagueProfiles(career) } : {}),
     ...(leagueTier !== undefined ? { leagueTier } : {}),
   });
   if (config.professional) {

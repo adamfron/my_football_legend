@@ -5,6 +5,7 @@ import { initializeCareerSeason } from './careerSeasons';
 import { initializeSeasonParticipation } from './seasonParticipation';
 import { buildSeasonTimeline } from './seasonTimeline';
 import { getCareerProgressBlocker } from './careerSimulation';
+import { getPolishU17TeamDefinitions, getYouthTeamDisplayName } from '../content/world/polishU17';
 
 const career = () =>
   createCareerState(
@@ -33,7 +34,14 @@ describe('career flow', () => {
     expect(started.player.age).toBe(16);
     expect(started.leagueSeason?.competition.category).toBe('youth');
     expect(started.leagueSeason?.competition.name).toMatch(/U-17/);
-    expect(started.careerCalendar?.fixtures.length).toBeGreaterThan(10);
+    expect(started.leagueSeason?.clubs).toHaveLength(12);
+    const parents = new Map(started.clubWorld!.map((club) => [club.id, club]));
+    const expectedNames = getPolishU17TeamDefinitions(started.clubWorld!).map((team) =>
+      getYouthTeamDisplayName(team, team.parentClubId ? parents.get(team.parentClubId) : undefined),
+    );
+    expect(started.leagueSeason?.clubs.map((club) => club.name)).toEqual(expectedNames);
+    expect(started.leagueSeason?.clubs.map((club) => club.name)).not.toContain('Orkan Brzeziny');
+    expect(started.careerCalendar?.fixtures).toHaveLength(22);
     expect(started.activeEvent).toBeUndefined();
     expect(started.decisionPoint).toBeUndefined();
     expect(getCareerProgressBlocker(started)).toBeUndefined();

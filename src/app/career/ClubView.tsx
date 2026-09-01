@@ -14,6 +14,7 @@ import {
   getPositionalCompetition,
   getSportingStatus,
   getManagerPreferredFormation,
+  getSquadDerivedClubStrength,
   resolveFootballer,
   type BestXIAssignment,
   type MatchBenchAssignment,
@@ -28,6 +29,7 @@ import {
 import { FootballerHoverCard } from '../shared/FootballerHoverCard';
 import { SquadPitch } from './SquadPitch';
 import { deriveSeasonPositionUsage } from '../../core/seasonParticipation';
+import { getCurrentSquadSelectionContext } from '../../core/youthWorld';
 
 const prestigeLabel = (prestige: number) =>
   prestige < 25
@@ -146,16 +148,21 @@ export const ClubView = ({ career }: { career: CareerState }) => {
   const [preview, setPreview] = useState<Preview>();
   const club = career.currentClub;
   const professionalClub = career.currentProfessionalClub;
-  const competition = getCompetitionDefinition(
+  const professionalCompetition = getCompetitionDefinition(
     professionalClub?.leagueTier ?? career.leagueSeason?.competition.tier ?? 4,
   );
-  const strength = professionalClub ? getCareerClubStrength(career, professionalClub) : 50;
-  const formation = professionalClub
-    ? getManagerPreferredFormation(professionalClub.managerId)
+  const selectionContext = getCurrentSquadSelectionContext(career);
+  const strength = professionalClub
+    ? getCareerClubStrength(career, professionalClub)
+    : selectionContext
+      ? (getSquadDerivedClubStrength(career, selectionContext) ?? 50)
+      : 50;
+  const formation = selectionContext
+    ? getManagerPreferredFormation(selectionContext.managerId)
     : undefined;
   const hierarchy =
-    professionalClub && formation
-      ? deriveSquadHierarchy(career, professionalClub, formation)
+    selectionContext && formation
+      ? deriveSquadHierarchy(career, selectionContext, formation)
       : undefined;
   const resolver = (id: Id) => resolveFootballer(career, id);
   const xiPlayers =
@@ -193,10 +200,10 @@ export const ClubView = ({ career }: { career: CareerState }) => {
   const masteredPositions = getMasteredPositions(career.player);
   const positionUsage = deriveSeasonPositionUsage(career.seasonParticipation ?? []);
   const role = career.currentContract?.squadRole;
-  const competitionPlayers = professionalClub
+  const competitionPlayers = selectionContext
     ? getPositionalCompetition(
         career,
-        professionalClub,
+        selectionContext,
         career.player.primaryPosition,
         hierarchy,
       ).slice(0, 5)
@@ -226,11 +233,14 @@ export const ClubView = ({ career }: { career: CareerState }) => {
         <div className="club-heading">
           <h2>{club.name}</h2>
           <span>
-            {club.region}, {club.country} · {competition.name} / poziom {competition.tier}
+            {club.region}, {club.country} ·{' '}
+            {professionalClub
+              ? `${professionalCompetition.name} / poziom ${professionalCompetition.tier}`
+              : (career.leagueSeason?.competition.name ?? 'Polska Liga U-17')}
           </span>
           <strong>{prestigeLabel(club.prestige)}</strong>
         </div>
-        {professionalClub && (
+        {selectionContext && (
           <dl>
             <div>
               <dt>SIŁA</dt>
@@ -244,16 +254,22 @@ export const ClubView = ({ career }: { career: CareerState }) => {
             </div>
             <div>
               <dt>TRENING</dt>
-              <dd>{qualityLabel(getClubDevelopmentEnvironment(professionalClub))}</dd>
+              <dd>
+                {professionalClub
+                  ? qualityLabel(getClubDevelopmentEnvironment(professionalClub))
+                  : qualityLabel(club.prestige)}
+              </dd>
             </div>
             <div>
               <dt>MEDYCYNA</dt>
-              <dd>{qualityLabel(getClubMedicalQuality(professionalClub))}</dd>
+              <dd>
+                {professionalClub ? qualityLabel(getClubMedicalQuality(professionalClub)) : '—'}
+              </dd>
             </div>
           </dl>
         )}
       </header>
-      {professionalClub && hierarchy && (
+      {selectionContext && hierarchy && (
         <>
           <div className="club-squad-workspace">
             <SquadPitch
@@ -352,8 +368,12 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                 <b>Styl:</b> {club.playStyle} · <b>Młodzież:</b> {club.youthApproach}
               </p>
               <p>
-                <b>Rozwój:</b> {qualityLabel(getClubDevelopmentEnvironment(professionalClub))} ·{' '}
-                <b>Medycyna:</b> {qualityLabel(getClubMedicalQuality(professionalClub))}
+                <b>Rozwój:</b>{' '}
+                {professionalClub
+                  ? qualityLabel(getClubDevelopmentEnvironment(professionalClub))
+                  : qualityLabel(club.prestige)}{' '}
+                · <b>Medycyna:</b>{' '}
+                {professionalClub ? qualityLabel(getClubMedicalQuality(professionalClub)) : '—'}
               </p>
               <p>
                 <b>Liga:</b>{' '}
@@ -363,13 +383,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
           </div>
         </>
       )}
-      {!professionalClub && (
-        <section className="academy-squad-fallback">
-          <h3>AKADEMIA U-17</h3>
-          <p>Kadra akademii nie jest jeszcze częścią zawodowego modelu składu.</p>
-          <p>Informacje o klubie i bieżącym sezonie pozostają dostępne powyżej.</p>
-        </section>
-      )}
+
       {preview && previewPlayer && (
         <FootballerHoverCard
           player={previewPlayer}

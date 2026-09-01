@@ -287,6 +287,8 @@ export interface CareerState {
   clubWorld?: ProfessionalClub[] | undefined;
   /** Normalized persistent NPC registry. The protagonist is resolved from player instead. */
   footballerWorld?: Record<Id, WorldFootballer> | undefined;
+  /** Runtime-only immutable canonical youth-cohort index. */
+  youthCohorts?: Record<string, Id[]> | undefined;
   /** Versioned immutable game content used to hydrate this runtime career. */
   worldDatabaseVersion?: string | undefined;
   /** Sparse, persistable mutations over the immutable starting world. */

@@ -27,6 +27,7 @@ export const saveCareer = (career: CareerState): CareerSave => {
   const persistableCareer = { ...career };
   delete persistableCareer.clubWorld;
   delete persistableCareer.footballerWorld;
+  delete persistableCareer.youthCohorts;
   const save = careerSaveSchema.parse({
     version: CAREER_SAVE_VERSION,
     savedAt: new Date().toISOString(),
@@ -70,7 +71,12 @@ export const loadCareer = (): LoadCareerResult => {
     save: {
       ...result.data,
       career: base
-        ? { ...result.data.career, clubWorld: base.clubs, footballerWorld: base.footballers }
+        ? {
+            ...result.data.career,
+            clubWorld: base.clubs,
+            footballerWorld: base.footballers,
+            youthCohorts: base.youthCohorts,
+          }
         : result.data.career,
     },
   };

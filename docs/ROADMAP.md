@@ -159,12 +159,13 @@ będzie uzupełniać akademie kolejnymi kohortami.
 - przyszły bogatszy HistoryView może agregować sezonowe i karierowe użycie pozycji;
 - trwała zmiana pozycji może kiedyś tworzyć kamień milowy narracji, bez spamu faktami meczowymi.
 
-Następnym dużym systemem pozostaje świat akademii / U-17 i pipeline przejścia do seniorów.
+Następnym dużym systemem jest ukończenie akademii i pipeline pierwszych kontraktów dla NPC U-17.
 
 ## Następny krok po trwałych danych U-17
 
-Następny PR podłączy grywalny pierwszy sezon do trwałych kadr U-17 oraz prawdziwej selekcji
-trenera. Rozwój NPC, ukończenie akademii i pierwsze kontrakty pozostają późniejszymi etapami.
+Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji trenera i realnej ligi
+12 drużyn. Następny PR wdroży ukończenie akademii i pierwsze kontrakty NPC; ich rozwój sezonowy
+pozostaje późniejszym etapem.
 
 - Ławka opisuje pokrycie pozycji, ale nie przydział na boisku: rezerwowy ma prezentować OVR dla
   pozycji nominalnej i otrzymuje faktyczną `assignedPosition` dopiero po wejściu na murawę.

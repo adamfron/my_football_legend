@@ -28,6 +28,7 @@ import {
 } from './seasonParticipation';
 import { getPlayerOverall } from './playerOverall';
 import { getFootballerManagerAssignment } from './footballerWorld';
+import { getCurrentSquadSelectionContext } from './youthWorld';
 import { getNextCurrentWeekMoment } from './careerCalendar';
 
 export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
@@ -155,11 +156,11 @@ export const simulateRoutinePlayerMatch = (
     opponentId: fixture.opponent.id,
     teamLevel,
     started,
-    ...(minutes > 0 && career.currentProfessionalClub
+    ...(minutes > 0 && getCurrentSquadSelectionContext(career)
       ? {
           assignedPosition: getFootballerManagerAssignment(
             career,
-            career.currentProfessionalClub,
+            getCurrentSquadSelectionContext(career)!,
             career.player.id,
           ),
         }

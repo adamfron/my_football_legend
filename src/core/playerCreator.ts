@@ -17,6 +17,7 @@ import { emptyWorldDelta, WORLD_DATABASE_SEED, WORLD_DATABASE_VERSION } from './
 import type { WorldDatabase } from '../types/domain';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { populateFootballerWorld } from './footballerWorld';
+import { populatePolishU17World } from './youthWorld';
 import { deriveInitialEffort } from './playerPreferences';
 import {
   getTheoreticalPositionOverall,
@@ -371,13 +372,14 @@ export const createCareerState = (
         generateProfessionalClubPool(WORLD_DATABASE_SEED),
         WORLD_DATABASE_SEED,
       );
+      const youth = populatePolishU17World(generated.clubs, WORLD_DATABASE_SEED);
       return {
         version: WORLD_DATABASE_VERSION,
         startingSeason: 2026,
         seed: WORLD_DATABASE_SEED,
         clubs: generated.clubs,
-        footballers: generated.footballerWorld,
-        youthCohorts: {},
+        footballers: { ...generated.footballerWorld, ...youth.footballers },
+        youthCohorts: youth.youthCohorts,
       };
     })();
   const fact: HistoryFact = {
@@ -416,6 +418,7 @@ export const createCareerState = (
     // Runtime hydration only. Persistence explicitly removes this immutable game content.
     clubWorld: base.clubs,
     footballerWorld: base.footballers,
+    youthCohorts: base.youthCohorts,
     completedSeasons: [],
     seasonParticipation: [],
     trainingApproach: 'balanced',
