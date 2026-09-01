@@ -1,7 +1,8 @@
 import { z } from 'zod';
-import type { CareerState } from '../types/domain';
+import type { CareerState, WorldFootballer } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { getCachedWorldDatabase, WORLD_DATABASE_VERSION } from './worldDatabase';
+import { withCanonicalBirthDate } from './age';
 
 export const CAREER_SAVE_VERSION = 3;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v3';
@@ -23,8 +24,36 @@ export type LoadCareerResult =
         | 'invalid_data';
     };
 const storageAvailable = () => typeof localStorage !== 'undefined';
+const migrateBirthDates = (career: CareerState): CareerState => {
+  const referenceDate = `${career.currentSeason - career.careerSeasonNumber + 1}-07-01`;
+  const migrateWorld = (records: Record<string, WorldFootballer> | undefined) =>
+    records
+      ? Object.fromEntries(
+          Object.entries(records).map(([id, footballer]) => [
+            id,
+            { ...footballer, profile: withCanonicalBirthDate(footballer.profile, referenceDate) },
+          ]),
+        )
+      : records;
+  return {
+    ...career,
+    player: withCanonicalBirthDate(career.player, referenceDate),
+    significantPeople: career.significantPeople.map((person) =>
+      withCanonicalBirthDate(person, referenceDate),
+    ),
+    ...(career.worldDelta
+      ? {
+          worldDelta: {
+            ...career.worldDelta,
+            newFootballers: migrateWorld(career.worldDelta.newFootballers)!,
+            footballerOverrides: migrateWorld(career.worldDelta.footballerOverrides)!,
+          },
+        }
+      : {}),
+  };
+};
 export const saveCareer = (career: CareerState): CareerSave => {
-  const persistableCareer = { ...career };
+  const persistableCareer = { ...migrateBirthDates(career) };
   delete persistableCareer.clubWorld;
   delete persistableCareer.footballerWorld;
   delete persistableCareer.youthCohorts;
@@ -72,12 +101,12 @@ export const loadCareer = (): LoadCareerResult => {
       ...result.data,
       career: base
         ? {
-            ...result.data.career,
+            ...migrateBirthDates(result.data.career),
             clubWorld: base.clubs,
             footballerWorld: base.footballers,
             youthCohorts: base.youthCohorts,
           }
-        : result.data.career,
+        : migrateBirthDates(result.data.career),
     },
   };
 };

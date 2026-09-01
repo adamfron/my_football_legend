@@ -108,6 +108,13 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 
 Przed proponowaniem zmian strukturalnych w nowej rozmowie projektowej/deweloperskiej przeczytaj `PROJECT_STATE.md`, `ARCHITECTURE.md` i `ROADMAP.md`.
 
+## Fundament wieku i tożsamości
+
+Trwałe profile generowane mają deterministyczne `dateOfBirth`; jeden helper wylicza wiek względem
+daty symulacji. Legacy `age` nadal się wczytuje, lecz migracja utrwala stabilną datę urodzenia.
+Graduacja U-17 ocenia wiek na granicy sezonu bez masowych override'ów. Ta sama stabilna osoba ma
+w przyszłości zachować twarz, relacje i historię przy przejściu z kariery piłkarskiej do sztabowej.
+
 # Pozycje: źródła prawdy
 
 Świat generuje deterministycznie specjalistów i zawodników wielopozycyjnych, a profil piłkarski

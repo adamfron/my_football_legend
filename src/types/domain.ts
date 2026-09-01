@@ -89,6 +89,8 @@ export interface FootballerProfile {
   firstName: string;
   lastName: string;
   age: number;
+  /** Canonical lifecycle age source. `age` remains as a legacy/derived compatibility field. */
+  dateOfBirth?: string | undefined;
   nationality: string;
   heightCm: number;
   weightKg: number;
@@ -123,6 +125,8 @@ export interface Person {
   role: string;
   nationality: string;
   age: number;
+  /** Stable identity fact shared by every present and future career role. */
+  dateOfBirth?: string | undefined;
   personality: string[];
   clubId?: Id | undefined;
   persistence: PersistenceLevel;

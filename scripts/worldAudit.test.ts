@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest';
+import { getAgeOnDate } from '../src/core/age';
 import { generateProfessionalClubPool } from '../src/core/professionalClubs';
 import {
   deriveSquadHierarchy,
@@ -146,6 +147,13 @@ test('canonical U-17 cohort audit', () => {
     'senior/youth overlap',
   ).toHaveLength(0);
   expect(youth.every(({ profile }) => profile.age >= 15 && profile.age <= 17)).toBe(true);
+  expect(
+    youth.every(
+      ({ profile }) =>
+        Boolean(profile.dateOfBirth) &&
+        getAgeOnDate(profile.dateOfBirth!, '2026-07-01') === profile.age,
+    ),
+  ).toBe(true);
   expect(youth.filter(({ profile }) => profile.age === 16).length).toBeGreaterThan(
     youth.length / 2,
   );

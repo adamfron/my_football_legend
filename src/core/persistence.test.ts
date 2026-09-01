@@ -53,6 +53,31 @@ describe('career persistence', () => {
       expect(loaded.save.career.youthCohorts).toEqual(state.youthCohorts);
     }
   });
+  it('deterministically migrates and persists a legacy player birthday', () => {
+    const state = career();
+    cacheWorldDatabase({
+      version: WORLD_DATABASE_VERSION,
+      startingSeason: 2026,
+      seed: WORLD_DATABASE_SEED,
+      clubs: state.clubWorld!,
+      footballers: state.footballerWorld!,
+      youthCohorts: state.youthCohorts!,
+    });
+    const legacy = structuredClone(saveCareer(state));
+    delete legacy.career.player.dateOfBirth;
+    localStorage.setItem(CAREER_SAVE_KEY, JSON.stringify(legacy));
+    const first = loadCareer();
+    const second = loadCareer();
+    expect(first).toEqual(second);
+    expect(first.ok && first.save.career.player.dateOfBirth).toBeTruthy();
+    if (first.ok) {
+      saveCareer(first.save.career);
+      const roundTrip = loadCareer();
+      expect(roundTrip.ok && roundTrip.save.career.player.dateOfBirth).toBe(
+        first.save.career.player.dateOfBirth,
+      );
+    }
+  });
   it('persists graduation deltas while rehydrating immutable youth data', () => {
     const base = career();
     cacheWorldDatabase({

@@ -249,6 +249,19 @@ trwała, znacząca konwersja może stać się wydarzeniem narracyjnym lub faktem
 
 ## Kanoniczne kohorty młodzieżowe
 
+## Tożsamość, data i cykl życia
+
+`dateOfBirth` jest kanonicznym źródłem wieku trwałej osoby; `age` pozostaje przejściowym polem
+zgodności i projekcją. Wiek wylicza jeden kalendarzowy helper względem autorytatywnego
+`currentDate`, bez mutowania świata wraz z upływem sezonu. Model pozostaje równaniem **statyczna
+tożsamość + data + rzadka delta kariery = efektywny świat**. Migracja starych kart wyprowadza datę
+deterministycznie z wieku, daty startowej i stabilnego ID, nie tworząc masowych override'ów.
+
+Tożsamość osoby (ID, imię, narodowość, data urodzenia, twarz, relacje i pamięć narracyjna) jest
+niezależna od nakładających się karier/rol. Przyszły emerytowany piłkarz będący trenerem,
+asystentem lub menedżerem pozostaje tą samą osobą; stan kariery piłkarskiej i przyszłej kariery
+sztabowej nie będzie wzajemnie wykluczającym polem `role`.
+
 Początkowe kadry U-17 są trwałymi `WorldFootballer` w tej samej mapie co seniorzy, a przynależność
 przechowuje sezonowy klucz `u17:<teamId>:<season>` w `WorldDatabase.youthCohorts`. Definicja
 drużyny młodzieżowej przechowuje tylko stabilną tożsamość i powiązanie; nazwę, region, identyfikację

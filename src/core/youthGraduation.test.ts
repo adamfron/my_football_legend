@@ -3,6 +3,7 @@ import { getYouthCohortKey } from '../content/world/polishU17';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { processYouthGraduation, YOUTH_GRADUATION_AGE } from './youthGraduation';
 import { resolveYouthCohort } from './worldDatabase';
+import { getProfileAge } from './age';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -38,7 +39,7 @@ describe('U-17 graduation and first contracts', () => {
     expect(repeated.diagnostics.graduates).toBe(0);
   });
 
-  test('ages everyone once, removes graduates and retains younger players', () => {
+  test('derives boundary age without writing annual age overrides', () => {
     const original = createCareer('graduation-membership');
     const key = getYouthCohortKey('club_vistula_nova', 2026);
     const base = original.youthCohorts![key]!;
@@ -47,9 +48,10 @@ describe('U-17 graduation and first contracts', () => {
 
     for (const id of base) {
       const before = original.footballerWorld![id]!;
-      const after = result.worldDelta!.footballerOverrides[id]!;
-      expect(after.profile.age).toBe(before.profile.age + 1);
-      expect(effective.includes(id)).toBe(after.profile.age < YOUTH_GRADUATION_AGE);
+      const boundaryAge = getProfileAge(before.profile, '2027-06-30');
+      expect(effective.includes(id)).toBe(boundaryAge < YOUTH_GRADUATION_AGE);
+      if (boundaryAge < YOUTH_GRADUATION_AGE)
+        expect(result.worldDelta!.footballerOverrides[id]).toBeUndefined();
     }
   });
 
@@ -57,7 +59,7 @@ describe('U-17 graduation and first contracts', () => {
     const original = createCareer('graduation-market');
     const { career, diagnostics } = processYouthGraduation(original);
     const graduated = Object.values(career.worldDelta!.footballerOverrides).filter(
-      (item) => item.profile.age >= YOUTH_GRADUATION_AGE,
+      (item) => getProfileAge(item.profile, '2027-06-30') >= YOUTH_GRADUATION_AGE,
     );
     expect(diagnostics.graduates).toBeGreaterThan(0);
     expect(diagnostics.parentClubPromotions).toBeGreaterThan(0);

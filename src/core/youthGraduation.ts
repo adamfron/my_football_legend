@@ -11,8 +11,9 @@ import { evaluateExpectedMonthlySalary } from './playerEconomy';
 import { getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
 import { emptyWorldDelta, resolveYouthCohort } from './worldDatabase';
+import { getProfileAge } from './age';
 
-/** Players age first on 30 June; those who are then 17 leave the U-17 cohort. */
+/** Players aged 17 at the season boundary leave the U-17 cohort. */
 export const YOUTH_GRADUATION_AGE = 17;
 const unitFor = (position: PlayerPosition): keyof ProfessionalClub['positionalNeeds'] =>
   position === 'goalkeeper'
@@ -90,13 +91,8 @@ export const processYouthGraduation = (
       if (id === career.player.id) continue;
       const original = footballers[id];
       if (!original) continue;
-      const aged = { ...original, profile: { ...original.profile, age: original.profile.age + 1 } };
-      footballers[id] = aged;
-      delta = {
-        ...delta,
-        footballerOverrides: { ...delta.footballerOverrides, [id]: aged },
-      };
-      if (aged.profile.age >= YOUTH_GRADUATION_AGE) graduates.push(aged);
+      const age = getProfileAge(original.profile, `${season + 1}-06-30`, `${season}-07-01`);
+      if (age >= YOUTH_GRADUATION_AGE) graduates.push(original);
       else remaining.push(id);
     }
     delta = {
