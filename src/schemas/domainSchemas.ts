@@ -741,6 +741,7 @@ export const careerStateSchema = z.object({
       leagueYellowCards: z.number().int().nonnegative(),
       matchesMissedThroughSuspension: z.number().int().nonnegative(),
       matchesMissedThroughInjury: z.number().int().nonnegative(),
+      processedMatchIds: z.array(id).optional(),
     })
     .optional(),
   finances: z
@@ -819,6 +820,23 @@ export const careerStateSchema = z.object({
         redCard: z.enum(['second_yellow', 'direct']).optional(),
         dismissedMinute: z.number().int().min(1).max(120).optional(),
         injuryId: id.optional(),
+        goalkeeperStats: z
+          .object({
+            goalsConceded: z.number().int().nonnegative(),
+            shotsOnTargetFaced: z.number().int().nonnegative(),
+            saves: z.number().int().nonnegative(),
+            savePercentage: z.number().min(0).max(100),
+            cleanSheet: z.boolean(),
+            xGA: z.number().nonnegative(),
+            errorsLeadingToGoal: z.number().int().nonnegative(),
+            rating: z.number(),
+            crossesClaimed: z.number().int().nonnegative().optional(),
+            sweeperActions: z.number().int().nonnegative().optional(),
+            distributionCompleted: z.number().int().nonnegative().optional(),
+            distributionAttempted: z.number().int().nonnegative().optional(),
+            detailsAvailable: z.boolean().optional(),
+          })
+          .optional(),
       }),
     )
     .optional(),

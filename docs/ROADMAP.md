@@ -81,6 +81,10 @@ Osobiście rozgrywane ważne mecze otrzymają docelowo izometryczny interfejs ta
 
 ## Później
 
+- dodać klubowe/trenerskie przypisania wykonawców karnych, bezpośrednich wolnych i rożnych,
+  z możliwością wyjątkowego wyznaczenia bramkarza;
+- wyprowadzać wiek osób z daty lub roku urodzenia przed globalnym sezonowym starzeniem NPC,
+  zamiast tworzyć osobny `CareerWorldDelta` na każde proste zwiększenie wieku;
 - rozszerzać świat o kolejne rodzaje rozgrywek dopiero na wspólnym modelu;
 - dodawać kontekstowe wydarzenia przez generyczne fakty, relacje i wątki;
 - pogłębiać symulację kariery bez duplikowania źródeł prawdy.

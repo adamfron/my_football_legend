@@ -30,6 +30,7 @@ import { getPlayerOverall } from './playerOverall';
 import { getFootballerManagerAssignment } from './footballerWorld';
 import { getCurrentSquadSelectionContext } from './youthWorld';
 import { getNextCurrentWeekMoment } from './careerCalendar';
+import { simulateGoalkeeperPerformance } from './goalkeeperPerformance';
 
 export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
   if ((career.careerStatus ?? 'active') === 'retired') return 'career is retired';
@@ -121,6 +122,27 @@ export const simulateRoutinePlayerMatch = (
     (rng.float() - 0.5) * 2.2 +
     effort.performanceModifier;
   const attacking = ['attacker', 'midfielder'].includes(playerGroup(career.player.primaryPosition));
+  const assignedPosition = getCurrentSquadSelectionContext(career)
+    ? getFootballerManagerAssignment(
+        career,
+        getCurrentSquadSelectionContext(career)!,
+        career.player.id,
+      )
+    : undefined;
+  const isGoalkeeper = (assignedPosition ?? career.player.primaryPosition) === 'goalkeeper';
+  const goalkeeperStats =
+    minutes && isGoalkeeper
+      ? simulateGoalkeeperPerformance(
+          career.player,
+          fixture.opponent.strength,
+          performance,
+          `${career.seed}:${fixture.id}`,
+        )
+      : undefined;
+  const goalkeeperDistribution =
+    minutes &&
+    isGoalkeeper &&
+    rng.bool(clamp(career.player.attributes.passing / 1800, 0.01, 0.055));
   const goals =
     minutes &&
     attacking &&
@@ -132,45 +154,53 @@ export const simulateRoutinePlayerMatch = (
       )
       ? 1
       : 0;
-  const assists =
-    minutes &&
-    playerGroup(career.player.primaryPosition) !== 'goalkeeper' &&
-    rng.float() <
-      clamp(
-        0.025 + minutes / 760 + career.player.attributes.passing / 1000 + performance / 24,
-        0.01,
-        0.3,
-      )
+  const assists = goalkeeperDistribution
+    ? rng.bool(0.18)
+      ? 1
+      : 0
+    : minutes &&
+        !isGoalkeeper &&
+        rng.float() <
+          clamp(
+            0.025 + minutes / 760 + career.player.attributes.passing / 1000 + performance / 24,
+            0.01,
+            0.3,
+          )
       ? 1
       : 0;
-  const rating = minutes
-    ? clamp(
-        Math.round((6.15 + performance * 0.42 + goals * 0.75 + assists * 0.55) * 10) / 10,
-        3.5,
-        9.5,
-      )
-    : undefined;
+  const rating =
+    goalkeeperStats?.rating ??
+    (minutes
+      ? clamp(
+          Math.round((6.15 + performance * 0.42 + goals * 0.75 + assists * 0.55) * 10) / 10,
+          3.5,
+          9.5,
+        )
+      : undefined);
   const rawAppearance: MatchAppearance = {
     matchId: teamLevel === 'academy' ? `academy_${fixture.id}` : fixture.id,
     date: fixture.date,
     opponentId: fixture.opponent.id,
     teamLevel,
     started,
-    ...(minutes > 0 && getCurrentSquadSelectionContext(career)
-      ? {
-          assignedPosition: getFootballerManagerAssignment(
-            career,
-            getCurrentSquadSelectionContext(career)!,
-            career.player.id,
-          ),
-        }
-      : {}),
+    ...(minutes > 0 ? { assignedPosition: assignedPosition ?? career.player.primaryPosition } : {}),
     minutes,
     goals,
     assists,
-    xG: minutes ? Math.round((0.03 + (minutes / 360) * (attacking ? 0.55 : 0.12)) * 100) / 100 : 0,
-    xA: minutes ? Math.round((minutes / 420) * (attacking ? 0.42 : 0.24) * 100) / 100 : 0,
-    keyPasses: minutes ? Math.max(0, Math.floor(minutes / 35 + performance + rng.float())) : 0,
+    xG:
+      minutes && !isGoalkeeper
+        ? Math.round((0.03 + (minutes / 360) * (attacking ? 0.55 : 0.12)) * 100) / 100
+        : 0,
+    xA: goalkeeperDistribution
+      ? 0.08
+      : minutes && !isGoalkeeper
+        ? Math.round((minutes / 420) * (attacking ? 0.42 : 0.24) * 100) / 100
+        : 0,
+    keyPasses: goalkeeperDistribution
+      ? 1
+      : minutes && !isGoalkeeper
+        ? Math.max(0, Math.floor(minutes / 35 + performance + rng.float()))
+        : 0,
     defensiveActions: minutes
       ? Math.max(
           0,
@@ -181,12 +211,10 @@ export const simulateRoutinePlayerMatch = (
           ),
         )
       : 0,
-    saves:
-      minutes && playerGroup(career.player.primaryPosition) === 'goalkeeper'
-        ? Math.max(1, rng.int(1, 6))
-        : 0,
+    saves: goalkeeperStats?.saves ?? 0,
     personalImpact: minutes ? Math.round((rating! - 6) * 2) : 0,
     ...(rating !== undefined ? { rating } : {}),
+    ...(goalkeeperStats ? { goalkeeperStats } : {}),
   };
   const effects = applyMatchAvailabilityEffects(career, rawAppearance, fixture.date);
   const appearance = effects.appearance;

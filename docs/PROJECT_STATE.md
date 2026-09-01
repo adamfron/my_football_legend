@@ -83,6 +83,10 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 
 ## Known future TODO
 
+- Klub/trener będzie przypisywać wykonawców stałych fragmentów (karne, bezpośrednie wolne i rożne),
+  co wyjątkowo pozwoli wyznaczyć także odpowiedniego bramkarza.
+- Szerszy cykl życia osób powinien wyprowadzać wiek z daty lub roku urodzenia przed globalnym
+  sezonowym starzeniem NPC, bez osobnego `CareerWorldDelta` tylko po to, by zwiększyć wiek każdej osoby.
 - Kalibracja ekonomii elitarnych ofert/ról oraz późniejsze skalowanie opłat i płac rynku transferowego.
 - Realna konkurencja zamiast abstrakcyjnych estymat roli; obecna preferowana XI jest ewaluatorem przejściowym.
 - Rozbudowa trofeów/historii, trwałych kolegów, trenerów i opowieści o spotkaniach po latach.

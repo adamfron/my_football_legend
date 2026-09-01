@@ -256,6 +256,9 @@ export interface ParticipationProjection {
   plannedMinutes: number;
 }
 
+export const getRoutineSubstituteEntryChance = (position: PlayerPosition): number =>
+  position === 'goalkeeper' ? 0 : 0.7;
+
 /** Canonical pre-match projection shared by importance selection and match simulation. */
 export const projectFixtureParticipation = (
   career: CareerState,
@@ -277,7 +280,17 @@ export const projectFixtureParticipation = (
   const regularStarter = selection.status.endsWith('starter');
   const started = available && regularStarter && rng.bool(0.92);
   const bench = available && (selection.status.endsWith('bench') || (regularStarter && !started));
-  const enters = bench && rng.bool(0.7);
+  const assignedPosition = getCurrentSquadSelectionContext(career)
+    ? getFootballerManagerAssignment(
+        career,
+        getCurrentSquadSelectionContext(career)!,
+        career.player.id,
+      )
+    : undefined;
+  const isGoalkeeper = (assignedPosition ?? career.player.primaryPosition) === 'goalkeeper';
+  const enters =
+    bench &&
+    rng.bool(getRoutineSubstituteEntryChance(assignedPosition ?? career.player.primaryPosition));
   return {
     status: selection.status,
     teamLevel:
@@ -287,7 +300,7 @@ export const projectFixtureParticipation = (
         : 'academy',
     started,
     willPlay: started || enters,
-    plannedMinutes: started ? rng.int(72, 90) : enters ? rng.int(8, 35) : 0,
+    plannedMinutes: started ? (isGoalkeeper ? 90 : rng.int(72, 90)) : enters ? rng.int(8, 35) : 0,
   };
 };
 

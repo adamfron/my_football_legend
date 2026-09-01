@@ -482,6 +482,8 @@ export interface PlayerAvailabilityState {
   leagueYellowCards: number;
   matchesMissedThroughSuspension: number;
   matchesMissedThroughInjury: number;
+  /** Match effects already committed to the career; prevents duplicate bans and injuries. */
+  processedMatchIds?: string[] | undefined;
 }
 export interface SeasonOutcome {
   finalPosition: number;
@@ -946,6 +948,7 @@ export interface MatchAppearance {
   redCard?: 'second_yellow' | 'direct' | undefined;
   dismissedMinute?: number | undefined;
   injuryId?: string | undefined;
+  goalkeeperStats?: GoalkeeperMatchStats | undefined;
 }
 export interface SeasonPlayerSummary {
   appearances: number;
