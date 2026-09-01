@@ -35,17 +35,16 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 
 ## Immediate next gameplay development
 
-**NEXT: academy graduation + first-contract pipeline for U-17 NPCs.** Pierwszy sezon korzysta już
-z trwałej ligi U-17, konkretnych rywali i formacji trenera. Następny fundament przeprowadzi absolwentów
-przez awans do pierwszej drużyny albo wspólny rynek pierwszych kontraktów. Dopiero potem
-powstanie rzadki sezonowy rozwój/regres NPC, wspólny dla seniorów i akademii, a następnie emerytury
-i cykliczny nabór młodzieży.
+**NEXT: sparse seasonal NPC development/regression.** Grywalny sezon U-17 oraz deterministyczne
+ukończenie akademii są podłączone: absolwenci awansują do klubu macierzystego, podpisują pierwszy
+kontrakt gdzie indziej albo pozostają wolnymi zawodnikami. Następnie powstaną emerytury i cykliczny
+nabór młodzieży.
 
-Dalsza kolejność: (1) akademia / świat U-17 i absolwenci, (2) rzadki sezonowy rozwój/regres NPC,
-(3) emerytury i cykliczny nabór młodzieży, (4) niedoskonały rynek transferowy NPC, (5) trwałość
-i zmiany trenerów, (6) zagraniczne pakiety świata, (7) rozbudowa rozgrywek i kalendarza,
-(8) Fitness/Morale 2.0 przed dojrzałą warstwą silnika meczu, (9) behawioralne PlayStyles,
-(10) osiągnięcia/easter eggi, (11) styl życia/inwestycje/ekonomia, (12) interaktywny
+Dalsza kolejność: (1) rzadki sezonowy rozwój/regres NPC, (2) emerytury i cykliczny nabór
+młodzieży, (3) niedoskonały rynek transferowy NPC, (4) trwałość i zmiany trenerów, (5) zagraniczne
+pakiety świata, (6) rozbudowa rozgrywek i kalendarza, (7) Fitness/Morale 2.0 przed dojrzałą
+warstwą silnika meczu, (8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl
+życia/inwestycje/ekonomia, (11) interaktywny
 izometryczny silnik decyzji.
 
 Wraz z trwałym rozwojem NPC i symulacją rozgrywek pojawią się tanie migawki typowego wyboru
@@ -84,9 +83,6 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 
 ## Known future TODO
 
-- Tymczasowy pierwszy sezon akademii nie ma jeszcze prawdziwej kadry i przydziału pozycji przez
-  trenera; `assignedPosition` pojawi się tam dopiero wraz ze światem U-17, bez fallbacku z pozycji
-  nominalnej zawodnika.
 - Kalibracja ekonomii elitarnych ofert/ról oraz późniejsze skalowanie opłat i płac rynku transferowego.
 - Realna konkurencja zamiast abstrakcyjnych estymat roli; obecna preferowana XI jest ewaluatorem przejściowym.
 - Rozbudowa trofeów/historii, trwałych kolegów, trenerów i opowieści o spotkaniach po latach.
@@ -133,5 +129,7 @@ akademii powiązanych z klubami zawodowymi. Młodzież korzysta z tego samego
 ich kadr i nie ma kontraktów zawodowych. Pierwszy grywalny sezon używa realnej ligi 12 drużyn oraz tych kohort. `ClubView`, hierarchia,
 rywalizacja pozycyjna i `assignedPosition` korzystają z wyborów młodzieżowego trenera. Protagonista
 jest wyłącznie runtime'ową nakładką na 24-osobową kohortę Vistuli; baza pozostaje niezmienna, a zapis
-nie przechowuje statycznego indeksu kohort. Młodzież nadal nie ma kontraktów zawodowych. Rozwój NPC,
-ukończenie akademii i pierwsze kontrakty nie są jeszcze symulowane.
+nie przechowuje statycznego indeksu kohort. Na granicy sezonu NPC są jednokrotnie postarzani; osiągnięcie wieku 17 lat kończy kohortę U-17.
+Zmiana członkostwa, awanse, pierwsze kontrakty i wolni zawodnicy są zapisywani wyłącznie w
+`CareerWorldDelta`; baza i nawodnione kohorty pozostają niezmienne. Rozwój atrybutów NPC nie jest
+jeszcze symulowany.

@@ -52,6 +52,7 @@ describe('static world and delta resolution', () => {
       clubOverrides: {},
       footballerOverrides: {},
       squadOverrides: {},
+      youthCohortOverrides: {},
       newFootballers: {},
       retiredFootballerIds: [],
       managerOverrides: {},

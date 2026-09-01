@@ -20,6 +20,7 @@ import {
 } from './footballerWorld';
 import { generateDevelopmentProfile } from './playerCreator';
 import { RandomGenerator } from './random/RandomGenerator';
+import { resolveYouthCohort } from './worldDatabase';
 
 const clamp = (value: number) => Math.max(30, Math.min(65, Math.round(value)));
 
@@ -98,14 +99,17 @@ export const populatePolishU17World = (clubs: readonly ProfessionalClub[], seed:
 };
 
 export const getYouthSquadSelectionContext = (
-  career: Pick<CareerState, 'careerSeasonNumber' | 'player' | 'clubWorld' | 'youthCohorts'>,
+  career: Pick<
+    CareerState,
+    'careerSeasonNumber' | 'player' | 'clubWorld' | 'youthCohorts' | 'worldDelta'
+  >,
   teamId: Id,
   season = POLISH_U17_STARTING_SEASON,
 ): SquadSelectionContext | undefined => {
   const team = getPolishU17TeamDefinitions(career.clubWorld ?? []).find(
     (item) => item.id === teamId,
   );
-  const cohort = career.youthCohorts?.[getYouthCohortKey(teamId, season)];
+  const cohort = resolveYouthCohort(career, getYouthCohortKey(teamId, season));
   if (!team || !cohort) return undefined;
   const protagonistOverlay =
     teamId === 'club_vistula_nova' && career.careerSeasonNumber === 1 ? [career.player.id] : [];

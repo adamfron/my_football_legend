@@ -13,6 +13,7 @@ import {
   type CreatorInput,
 } from './playerCreator';
 import { cacheWorldDatabase, WORLD_DATABASE_SEED, WORLD_DATABASE_VERSION } from './worldDatabase';
+import { processYouthGraduation } from './youthGraduation';
 
 const input: CreatorInput = {
   firstName: 'Jan',
@@ -50,6 +51,25 @@ describe('career persistence', () => {
     if (loaded.ok) {
       expect(loaded.save.career.seed).toBe('save-seed');
       expect(loaded.save.career.youthCohorts).toEqual(state.youthCohorts);
+    }
+  });
+  it('persists graduation deltas while rehydrating immutable youth data', () => {
+    const base = career();
+    cacheWorldDatabase({
+      version: WORLD_DATABASE_VERSION,
+      startingSeason: 2026,
+      seed: WORLD_DATABASE_SEED,
+      clubs: base.clubWorld!,
+      footballers: base.footballerWorld!,
+      youthCohorts: base.youthCohorts!,
+    });
+    const graduated = processYouthGraduation(base).career;
+    saveCareer(graduated);
+    const loaded = loadCareer();
+    expect(loaded.ok).toBe(true);
+    if (loaded.ok) {
+      expect(loaded.save.career.youthCohorts).toEqual(base.youthCohorts);
+      expect(loaded.save.career.worldDelta).toEqual(graduated.worldDelta);
     }
   });
   it('deletes a career', () => {
