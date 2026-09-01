@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { ClubStrengthTooltip } from '../../components/ClubStrengthTooltip';
 import { getClubStrength } from '../../core/clubStrength';
+import { getSquadDerivedClubStrength } from '../../core/footballerWorld';
+import { getCurrentSquadSelectionContext } from '../../core/youthWorld';
 import { squadRoleLabel } from '../../core/careerPresentation';
 import { advanceSimulationStep, getCareerProgressBlocker } from '../../core/careerSimulation';
 import { getLeagueTable } from '../../core/leagueSeason';
@@ -180,7 +182,12 @@ export const CareerView = ({
               {career.leagueSeason?.competition.name ?? 'Rozgrywki klubowe'} · siła{' '}
               {career.currentProfessionalClub
                 ? Math.round(getClubStrength(career.currentProfessionalClub))
-                : '—'}
+                : getCurrentSquadSelectionContext(career)
+                  ? (getSquadDerivedClubStrength(
+                      career,
+                      getCurrentSquadSelectionContext(career)!,
+                    ) ?? '—')
+                  : '—'}
             </span>
           </span>
         </button>

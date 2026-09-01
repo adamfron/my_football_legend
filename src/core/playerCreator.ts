@@ -17,6 +17,7 @@ import { emptyWorldDelta, WORLD_DATABASE_SEED, WORLD_DATABASE_VERSION } from './
 import type { WorldDatabase } from '../types/domain';
 import { generateProfessionalClubPool } from './professionalClubs';
 import { populateFootballerWorld } from './footballerWorld';
+import { populatePolishU17World } from './youthWorld';
 import { deriveInitialEffort } from './playerPreferences';
 import {
   getTheoreticalPositionOverall,
@@ -358,28 +359,38 @@ export const generateStartingProfileVariants = (input: CreatorInput, seed: strin
   );
 export const makeReadableSeed = () =>
   globalThis.crypto?.randomUUID?.().slice(0, 18) ?? `career-${Date.now().toString(36)}`;
+
+let cachedFallbackWorldDatabase: WorldDatabase | undefined;
+
+/**
+ * The bundled fallback has the same immutable semantics as the browser-loaded world database.
+ * Building it once avoids regenerating all professional and U-17 cards for every isolated career.
+ */
+const getFallbackWorldDatabase = (): WorldDatabase => {
+  if (cachedFallbackWorldDatabase) return cachedFallbackWorldDatabase;
+  const generated = populateFootballerWorld(
+    generateProfessionalClubPool(WORLD_DATABASE_SEED),
+    WORLD_DATABASE_SEED,
+  );
+  const youth = populatePolishU17World(generated.clubs, WORLD_DATABASE_SEED);
+  cachedFallbackWorldDatabase = {
+    version: WORLD_DATABASE_VERSION,
+    startingSeason: 2026,
+    seed: WORLD_DATABASE_SEED,
+    clubs: generated.clubs,
+    footballers: { ...generated.footballerWorld, ...youth.footballers },
+    youthCohorts: youth.youthCohorts,
+  };
+  return cachedFallbackWorldDatabase;
+};
+
 export const createCareerState = (
   profile: StartingPlayerProfile,
   seed: string,
   database?: WorldDatabase,
 ): CareerState => {
   // Legacy core tests may omit the asset; the browser path always supplies the preloaded database.
-  const base =
-    database ??
-    (() => {
-      const generated = populateFootballerWorld(
-        generateProfessionalClubPool(WORLD_DATABASE_SEED),
-        WORLD_DATABASE_SEED,
-      );
-      return {
-        version: WORLD_DATABASE_VERSION,
-        startingSeason: 2026,
-        seed: WORLD_DATABASE_SEED,
-        clubs: generated.clubs,
-        footballers: generated.footballerWorld,
-        youthCohorts: {},
-      };
-    })();
+  const base = database ?? getFallbackWorldDatabase();
   const fact: HistoryFact = {
     id: 'fact_career_started_2026',
     factType: 'career_started',
@@ -416,6 +427,7 @@ export const createCareerState = (
     // Runtime hydration only. Persistence explicitly removes this immutable game content.
     clubWorld: base.clubs,
     footballerWorld: base.footballers,
+    youthCohorts: base.youthCohorts,
     completedSeasons: [],
     seasonParticipation: [],
     trainingApproach: 'balanced',

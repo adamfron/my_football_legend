@@ -172,16 +172,35 @@ describe('ClubView squad presentation', () => {
     act(() => root.unmount());
   });
 
-  it('shows an intentional compact academy fallback without empty professional metrics', () => {
-    const state = { ...career(), currentProfessionalClub: undefined, currentContract: undefined };
+  it('shows the real U-17 workspace without professional semantics', () => {
+    const base = createCareerState(
+      generateStartingPlayerProfile(
+        {
+          firstName: 'Jan',
+          lastName: 'Junior',
+          nationality: 'PL',
+          age: 16,
+          dominantFoot: 'right',
+          position: 'attacking_midfielder',
+          heightCm: 180,
+          weightKg: 74,
+          seed: 'academy-view',
+        },
+        'academy-view',
+        0,
+      ),
+      'academy-view',
+    );
+    const state = { ...base, currentProfessionalClub: undefined, currentContract: undefined };
     const container = document.createElement('div');
     const root = createRoot(container);
     act(() => root.render(<ClubView career={state} />));
-    expect(container.textContent).toContain(
-      'Kadra akademii nie jest jeszcze częścią zawodowego modelu składu.',
-    );
-    expect(container.textContent).not.toContain('FORMACJA');
-    expect(container.querySelector('.club-squad-workspace')).toBeNull();
+    expect(container.textContent).toContain('Polska Liga U-17');
+    expect(container.textContent).toContain('PIERWSZA XI');
+    expect(container.textContent).toContain('ŁAWKA');
+    expect(container.textContent).toContain('GŁĘBOKA REZERWA');
+    expect(container.textContent).not.toContain('Kadra akademii nie jest jeszcze częścią');
+    expect(container.querySelector('.club-squad-workspace')).not.toBeNull();
     act(() => root.unmount());
   });
 

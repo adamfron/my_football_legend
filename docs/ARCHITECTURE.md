@@ -249,3 +249,9 @@ drużyny młodzieżowej przechowuje tylko stabilną tożsamość i powiązanie; 
 wizualną oraz środowisko akademii wyprowadza się z rodzica `ProfessionalClub`. Brak kontraktu i
 `currentClubId` odróżnia członka kohorty od zawodnika pierwszej drużyny. Rozwój i graduacja NPC nie
 są jeszcze wykonywane.
+
+`CareerState.youthCohorts` jest runtime’owym widokiem niezmiennej bazy, usuwanym z zapisu i ponownie
+hydratowanym razem z `clubWorld` i `footballerWorld`. `SquadSelectionContext` pozwala wspólnemu
+silnikowi selekcji obsługiwać profesjonalny klub i drużynę U-17 bez tworzenia fikcyjnego kontraktu.
+Grywalna Vistula projektuje 24 kanoniczne ID plus protagonistę dokładnie raz. Siła drużyn ligi jest
+jednorazowo wyprowadzana z rzeczywistej XI w preferowanej formacji trenera.

@@ -12,6 +12,7 @@ import {
   generateStartingPlayerProfile,
   type CreatorInput,
 } from './playerCreator';
+import { cacheWorldDatabase, WORLD_DATABASE_SEED, WORLD_DATABASE_VERSION } from './worldDatabase';
 
 const input: CreatorInput = {
   firstName: 'Jan',
@@ -31,11 +32,25 @@ const career = () =>
 describe('career persistence', () => {
   beforeEach(() => localStorage.clear());
   it('saves and loads a valid localStorage career', () => {
-    saveCareer(career());
+    const state = career();
+    cacheWorldDatabase({
+      version: WORLD_DATABASE_VERSION,
+      startingSeason: 2026,
+      seed: WORLD_DATABASE_SEED,
+      clubs: state.clubWorld!,
+      footballers: state.footballerWorld!,
+      youthCohorts: state.youthCohorts!,
+    });
+    const saved = saveCareer(state);
+    expect('youthCohorts' in saved.career).toBe(false);
+    expect(JSON.parse(localStorage.getItem(CAREER_SAVE_KEY)!).career.youthCohorts).toBeUndefined();
     const loaded = loadCareer();
     expect(loaded.ok).toBe(true);
     expect(hasValidCareer()).toBe(true);
-    if (loaded.ok) expect(loaded.save.career.seed).toBe('save-seed');
+    if (loaded.ok) {
+      expect(loaded.save.career.seed).toBe('save-seed');
+      expect(loaded.save.career.youthCohorts).toEqual(state.youthCohorts);
+    }
   });
   it('deletes a career', () => {
     saveCareer(career());

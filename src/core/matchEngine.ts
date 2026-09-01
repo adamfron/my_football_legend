@@ -30,6 +30,7 @@ import {
   updateSelectionStanding,
 } from './seasonParticipation';
 import { getFootballerManagerAssignment, getFootballerSportingStatus } from './footballerWorld';
+import { getCurrentSquadSelectionContext } from './youthWorld';
 
 export const VISTULA_NOVA_PROFILE: ClubCompetitiveProfile = {
   overallStrength: 52,
@@ -144,15 +145,22 @@ export const evaluateSquadOpportunity = (
   fixture: FixtureContext,
   coach = getCurrentCoachSelectionProfile(career),
 ): { status: SquadStatus; reason: string; selectionScore: number } => {
-  const professionalClub = career.currentProfessionalClub;
-  if (career.leagueSeason?.competition.category === 'professional' && professionalClub) {
-    const sportingStatus = getFootballerSportingStatus(career, professionalClub, career.player.id);
+  const selectionContext = getCurrentSquadSelectionContext(career);
+  if (selectionContext) {
+    const professional = career.leagueSeason?.competition.category === 'professional';
+    const sportingStatus = getFootballerSportingStatus(career, selectionContext, career.player.id);
     const status: SquadStatus =
       sportingStatus === 'starting_xi'
-        ? 'senior_starter'
+        ? professional
+          ? 'senior_starter'
+          : 'academy_starter'
         : sportingStatus === 'bench'
-          ? 'senior_bench'
-          : 'senior_out';
+          ? professional
+            ? 'senior_bench'
+            : 'academy_bench'
+          : professional
+            ? 'senior_out'
+            : 'no_match';
     return {
       status,
       selectionScore: sportingStatus === 'starting_xi' ? 70 : sportingStatus === 'bench' ? 52 : 35,
@@ -956,11 +964,11 @@ export const finishMatch = (career: CareerState): CareerState => {
     opponentId: m.opponent.id,
     teamLevel: m.teamLevel,
     started: m.squadStatus.endsWith('starter'),
-    ...(m.plannedMinutes > 0 && career.currentProfessionalClub
+    ...(m.plannedMinutes > 0 && getCurrentSquadSelectionContext(career)
       ? {
           assignedPosition: getFootballerManagerAssignment(
             career,
-            career.currentProfessionalClub,
+            getCurrentSquadSelectionContext(career)!,
             career.player.id,
           ),
         }

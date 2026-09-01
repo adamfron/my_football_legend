@@ -331,6 +331,12 @@ export const populateFootballerWorld = (clubs: ProfessionalClub[], seed: string)
   return { clubs: populatedClubs, footballerWorld };
 };
 
+export interface SquadSelectionContext {
+  id: Id;
+  managerId?: Id | undefined;
+  squadPlayerIds?: Id[] | undefined;
+}
+
 export interface BestXIAssignment {
   footballerId: Id;
   position: PlayerPosition;
@@ -361,7 +367,7 @@ export const isEligibleForNormalPosition = (player: FootballerProfile, position:
 /** Temporary deterministic presentation evaluation, not manager selection AI. */
 export const selectMatchBench = (
   career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   xi: readonly Pick<BestXIAssignment, 'footballerId'>[] = selectBestXI(career, club).assignments,
   limit = 7,
   selectionScore: SelectionScore = (player, position) =>
@@ -438,7 +444,7 @@ const sportingStatusCache = new WeakMap<object, Map<string, SportingStatus>>();
 const managerAssignmentCache = new WeakMap<object, Map<string, PlayerPosition | undefined>>();
 
 const getStableManagerPreference = (
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   player: FootballerProfile,
   position: PlayerPosition,
 ) => {
@@ -473,7 +479,7 @@ const getSelectionOverall = (
  */
 export const getManagerSelectionScore = (
   career: SelectionCareer,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   player: FootballerProfile,
   position: PlayerPosition,
 ) => {
@@ -489,7 +495,10 @@ export const getManagerSelectionScore = (
 };
 
 /** A hierarchy calculation scores every player/position pair once, not once per sort comparison. */
-const createSelectionScore = (career: SelectionCareer, club: ProfessionalClub): SelectionScore => {
+const createSelectionScore = (
+  career: SelectionCareer,
+  club: SquadSelectionContext,
+): SelectionScore => {
   const scores = new Map<string, number>();
   return (player, position) => {
     const key = `${player.id}:${position}`;
@@ -503,7 +512,7 @@ const createSelectionScore = (career: SelectionCareer, club: ProfessionalClub): 
 
 const selectManagerXI = (
   career: SelectionCareer,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   formation: FormationId,
   selectionScore: SelectionScore,
 ): BestXI => {
@@ -559,7 +568,7 @@ const selectManagerXI = (
 
 export const deriveSquadHierarchy = (
   career: SelectionCareer,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   formation = getManagerPreferredFormation(club.managerId),
 ): SquadHierarchy => {
   const selectionScore = createSelectionScore(career, club);
@@ -605,7 +614,7 @@ export const getContextualSquadRole = (
  */
 export const getFootballerSportingStatus = (
   career: SelectionCareer,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   footballerId: Id,
   formation = getManagerPreferredFormation(club.managerId),
 ): SportingStatus => {
@@ -641,7 +650,7 @@ export const getFootballerSportingStatus = (
 /** Exact XI/bench slot from the same canonical manager-selection pass. */
 export const getFootballerManagerAssignment = (
   career: SelectionCareer,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   footballerId: Id,
   formation = getManagerPreferredFormation(club.managerId),
 ) => {
@@ -653,7 +662,7 @@ export const getFootballerManagerAssignment = (
 
 export const getPositionalCompetition = (
   career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   position: PlayerPosition,
   hierarchy = deriveSquadHierarchy(career, club),
 ) =>
@@ -675,7 +684,7 @@ export const getPositionalCompetition = (
     );
 export const selectBestXI = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   formation = getManagerPreferredFormation(club.managerId),
 ): BestXI => {
   const slots = FORMATIONS[formation];
@@ -746,7 +755,7 @@ export const selectBestXI = (
 };
 export const getSquadDerivedClubStrength = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
 ) => {
   const xi = selectBestXI(career, club);
   return xi.assignments.length === 11
@@ -755,7 +764,7 @@ export const getSquadDerivedClubStrength = (
 };
 export const getSquadDepthAtPosition = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   position: PlayerPosition,
 ) =>
   (club.squadPlayerIds ?? [])
@@ -767,7 +776,7 @@ export const getSquadDepthAtPosition = (
     ).length;
 export const getBestPlayerAtPosition = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,
-  club: ProfessionalClub,
+  club: SquadSelectionContext,
   position: PlayerPosition,
 ) =>
   (club.squadPlayerIds ?? [])

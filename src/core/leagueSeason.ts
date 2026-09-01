@@ -99,6 +99,7 @@ export interface LeagueSeasonOptions {
   professional?: boolean;
   leagueTier?: number;
   professionalClubs?: ProfessionalClub[];
+  leagueClubs?: LeagueClubProfile[];
 }
 export const createLeagueSeason = (
   seed: string,
@@ -124,16 +125,16 @@ export const createLeagueSeason = (
         ];
       })
     : clubSeeds;
-  const clubs: LeagueClubProfile[] = sourceSeeds.map(
-    ([clubId, name, strength, attackStrength, defenseStrength]) => ({
+  const clubs: LeagueClubProfile[] =
+    options.leagueClubs ??
+    sourceSeeds.map(([clubId, name, strength, attackStrength, defenseStrength]) => ({
       clubId,
       name,
       strength,
       attackStrength,
       defenseStrength,
       form: 0,
-    }),
-  );
+    }));
   if (options.professional) {
     clubs[0] = {
       ...clubs[0]!,

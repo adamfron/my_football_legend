@@ -547,6 +547,7 @@ export const careerStateSchema = z.object({
     .optional(),
   currentDate: z.string().optional(),
   currentProfessionalClub: professionalClubSchema.optional(),
+  youthCohorts: z.record(z.string(), z.array(id)).optional(),
   currentSportingStatus: z
     .enum([
       'development_player',
