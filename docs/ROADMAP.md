@@ -144,6 +144,9 @@ będzie uzupełniać akademie kolejnymi kohortami.
 
 # Następne kroki
 
+Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
+pozostaje: rozwój/regres NPC, emerytury i nabór, niedoskonałe transfery, trwały cykl trenerów.
+
 1. Rzadki sezonowy rozwój i regres NPC.
 2. Emerytury i cykliczny nabór młodzieży.
 3. Niedoskonały rynek transferowy NPC.
@@ -154,6 +157,17 @@ będzie uzupełniać akademie kolejnymi kohortami.
 8. Osiągnięcia i easter eggi.
 9. Rozbudowa stylu życia i ekonomii.
 10. Interaktywny izometryczny silnik meczowy oparty na decyzjach.
+
+## Zachowane przyszłe TODO (poza bieżącym zakresem)
+
+- Minuty na faktycznie przypisanej pozycji będą zwiększać `positionFamiliarity`; próg opanowania
+  pozostaje 0,75. Tempo uwzględni adaptację, profesjonalizm, wiek i zgodność pozycji, a konwersja
+  bramkarz/pole pozostanie wyjątkowa. Długotrwałe opanowanie wielu pozycji może zapewnić zdobywaną
+  cechę „Uniwersalny” i ograniczyć tarcie nieznanej pozycji.
+- Tylko XI ma slot formacji. Ławka i głęboka rezerwa pokazują `Ust. = —` oraz nominalny OVR;
+  `assignedPosition` powstaje dopiero po wejściu na boisko.
+- Przyszłe przypisania stałych fragmentów obejmą karne, bezpośrednie wolne i rożne, także
+  wyjątkowych bramkarzy-wykonawców.
 
 # Ostatnio domknięte fundamenty pozycji
 

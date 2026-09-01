@@ -27,6 +27,7 @@ import {
 import { getEligibleFootballArchetypes, getFootballArchetype } from './footballArchetypes';
 import { describePlayerProfile } from './playerProfilePresentation';
 import { POSITION_OVR_WEIGHTS } from './playerOverall';
+import { deriveDateOfBirth } from './age';
 export const STARTING_AGE = 16,
   MIN_HEIGHT_CM = 155,
   MAX_HEIGHT_CM = 205,
@@ -320,6 +321,7 @@ const build = (
     firstName: parsed.firstName,
     lastName: parsed.lastName,
     age: STARTING_AGE,
+    dateOfBirth: deriveDateOfBirth(STARTING_AGE, '2026-07-01', `player_${seed}`),
     nationality: parsed.nationality,
     heightCm: parsed.heightCm,
     weightKg: parsed.weightKg,

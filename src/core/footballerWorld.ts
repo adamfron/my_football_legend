@@ -13,6 +13,7 @@ import { generateDevelopmentProfile, generateFootballerAttributes } from './play
 import { getEffectivePositionOverall, getPlayerOverall, PLAYER_POSITIONS } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
 import { POSITION_COMPATIBILITY } from './positionCompatibility';
+import { deriveDateOfBirth } from './age';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -193,6 +194,7 @@ export const generateCanonicalFootballerProfile = (options: {
     firstName: rng.pick(firstNames),
     lastName: rng.pick(lastNames),
     age,
+    dateOfBirth: deriveDateOfBirth(age, '2026-07-01', id),
     nationality: 'PL',
     heightCm: rng.int(
       primaryPosition === 'goalkeeper' ? 184 : 168,

@@ -29,6 +29,7 @@ export const openingMonthRoleSchema = z.enum([
 const score = z.number().min(0).max(100);
 const unit = z.number().min(0).max(1);
 const id = z.string().min(1);
+export const isoDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 export const clubVisualIdentitySchema = z.object({
   primaryColor: z.string().regex(/^#[0-9a-f]{6}$/i),
   secondaryColor: z.string().regex(/^#[0-9a-f]{6}$/i),
@@ -132,6 +133,7 @@ export const footballerProfileSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   age: z.number().int().min(15),
+  dateOfBirth: isoDateSchema.optional(),
   nationality: z.string(),
   heightCm: z.number(),
   weightKg: z.number(),
@@ -161,6 +163,7 @@ export const personSchema = z.object({
   role: z.string(),
   nationality: z.string(),
   age: z.number().int(),
+  dateOfBirth: isoDateSchema.optional(),
   personality: z.array(z.string()),
   clubId: id.optional(),
   persistence: z.enum(['ephemeral', 'local', 'career']),
