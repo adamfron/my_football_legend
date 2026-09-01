@@ -25,6 +25,7 @@ export const emptyWorldDelta = (): CareerWorldDelta => ({
   clubOverrides: {},
   footballerOverrides: {},
   squadOverrides: {},
+  youthCohortOverrides: {},
   newFootballers: {},
   retiredFootballerIds: [],
   managerOverrides: {},
@@ -64,6 +65,12 @@ export const resolveWorldFootballer = (
 export const resolveWorldSquad = (world: WorldContext, clubId: Id): Id[] | undefined =>
   world.worldDelta?.squadOverrides[clubId] ??
   world.baseWorld.clubs.find((club) => club.id === clubId)?.squadPlayerIds;
+
+export const resolveYouthCohort = (
+  career: Pick<CareerState, 'youthCohorts' | 'worldDelta'>,
+  cohortKey: string,
+): Id[] | undefined =>
+  career.worldDelta?.youthCohortOverrides?.[cohortKey] ?? career.youthCohorts?.[cohortKey];
 
 export const updateWorldFootballer = (
   delta: CareerWorldDelta,

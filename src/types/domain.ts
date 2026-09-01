@@ -309,6 +309,8 @@ export interface CareerWorldDelta {
   clubOverrides: Record<Id, ProfessionalClub>;
   footballerOverrides: Record<Id, WorldFootballer>;
   squadOverrides: Record<Id, Id[]>;
+  /** Effective youth membership after lifecycle changes; the shipped cohort stays immutable. */
+  youthCohortOverrides?: Record<string, Id[]> | undefined;
   newFootballers: Record<Id, WorldFootballer>;
   retiredFootballerIds: Id[];
   managerOverrides: Record<Id, Id>;

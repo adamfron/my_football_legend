@@ -39,8 +39,8 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 ## Kolejność kolejnych dużych systemów
 
-**NEXT: akademia / świat U-17 i przepływ absolwentów.** Następnie: rzadki sezonowy rozwój/regres
-NPC; emerytury i cykliczny nabór młodzieży; niedoskonały rynek transferowy NPC; trwałe profile i
+**NEXT: rzadki sezonowy rozwój/regres NPC.** Grywalny świat U-17 i przepływ absolwentów są
+zrealizowane. Następnie: emerytury i cykliczny nabór młodzieży; niedoskonały rynek transferowy NPC; trwałe profile i
 cykl życia trenerów; zagraniczne pakiety świata; rozbudowa rozgrywek i kalendarza; Fitness/Morale
 2.0 przed dojrzałą warstwą silnika meczu; behawioralne PlayStyles; osiągnięcia/easter eggi; styl
 życia/ekonomia; interaktywny izometryczny silnik decyzji.
@@ -140,17 +140,16 @@ będzie uzupełniać akademie kolejnymi kohortami.
 
 # Następne kroki
 
-1. Akademia / świat U-17 i przepływ absolwentów.
-2. Rzadki sezonowy rozwój i regres NPC.
-3. Emerytury i cykliczny nabór młodzieży.
-4. Niedoskonały rynek transferowy NPC.
-5. Trwałość i zmiany menedżerów/trenerów.
-6. Zagraniczne pakiety świata.
-7. Rozbudowa rozgrywek i kalendarza.
-8. PlayStyles wynikające z zachowania.
-9. Osiągnięcia i easter eggi.
-10. Rozbudowa stylu życia i ekonomii.
-11. Interaktywny izometryczny silnik meczowy oparty na decyzjach.
+1. Rzadki sezonowy rozwój i regres NPC.
+2. Emerytury i cykliczny nabór młodzieży.
+3. Niedoskonały rynek transferowy NPC.
+4. Trwałość i zmiany menedżerów/trenerów.
+5. Zagraniczne pakiety świata.
+6. Rozbudowa rozgrywek i kalendarza.
+7. PlayStyles wynikające z zachowania.
+8. Osiągnięcia i easter eggi.
+9. Rozbudowa stylu życia i ekonomii.
+10. Interaktywny izometryczny silnik meczowy oparty na decyzjach.
 
 # Ostatnio domknięte fundamenty pozycji
 
@@ -159,13 +158,13 @@ będzie uzupełniać akademie kolejnymi kohortami.
 - przyszły bogatszy HistoryView może agregować sezonowe i karierowe użycie pozycji;
 - trwała zmiana pozycji może kiedyś tworzyć kamień milowy narracji, bez spamu faktami meczowymi.
 
-Następnym dużym systemem jest ukończenie akademii i pipeline pierwszych kontraktów dla NPC U-17.
+Następnym dużym systemem jest rzadki sezonowy rozwój i regres NPC.
 
 ## Następny krok po trwałych danych U-17
 
 Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji trenera i realnej ligi
-12 drużyn. Następny PR wdroży ukończenie akademii i pierwsze kontrakty NPC; ich rozwój sezonowy
-pozostaje późniejszym etapem.
+12 drużyn. Ukończenie akademii i pierwsze kontrakty NPC są wdrożone; następnym etapem pozostaje ich rzadki
+rozwój sezonowy.
 
 - Ławka opisuje pokrycie pozycji, ale nie przydział na boisku: rezerwowy ma prezentować OVR dla
   pozycji nominalnej i otrzymuje faktyczną `assignedPosition` dopiero po wejściu na murawę.

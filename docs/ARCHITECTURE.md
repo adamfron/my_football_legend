@@ -176,6 +176,12 @@ ręcznie ani służyć jako format authoringu.
 
 `STATIC WORLD DATABASE + CAREER WORLD DELTA = EFFECTIVE WORLD`.
 
+Kohorta U-17 jest rozwiązywana jako `youthCohortOverrides[key] ?? youthCohorts[key]`. Na granicy
+sezonu każdy NPC kohorty jest postarzany dokładnie raz, a zawodnik osiągający 17 lat kończy U-17.
+Obecność nakładki kohorty jest jednocześnie kanonicznym znacznikiem wykonanego przejścia. Awans,
+pierwszy kontrakt lub pozostanie bez klubu zmieniają wyłącznie deltę; protagonista nie uczestniczy
+w tym pipeline i zachowuje osobny przepływ ofert sterowany przez gracza.
+
 Wyjściowe kluby, menedżerowie, składy i pełne karty Player Model 2.0 są niezmiennym,
 wersjonowanym contentem gry. Seed kariery steruje zdarzeniami i przyszłą ewolucją, ale nie
 odtwarza początkowej rzeczywistości. Stabilne identyfikatory są wspólne dla wszystkich karier,
