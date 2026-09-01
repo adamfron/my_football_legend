@@ -2,13 +2,12 @@ import type {
   CareerState,
   DevelopmentFamily,
   PlayerAttributes,
-  ProfessionalClub,
   WorldFootballer,
 } from '../types/domain';
 import { getProfileAge } from './age';
 import { getAttributeFamily } from './attributePresentation';
 import { getClubDevelopmentEnvironment } from './professionalClubs';
-import { RandomGenerator } from './random/RandomGenerator';
+import { extendRandomSeedHash, hashRandomSeed } from './random/RandomGenerator';
 import { emptyWorldDelta } from './worldDatabase';
 
 export const aggregateDevelopment = (start: PlayerAttributes, end: PlayerAttributes) =>
@@ -19,7 +18,6 @@ export const aggregateDevelopment = (start: PlayerAttributes, end: PlayerAttribu
       : [{ attribute, before: start[attribute], after: end[attribute], delta }];
   });
 
-const stable = new Set<keyof PlayerAttributes>(['ambition', 'professionalism']);
 const attributeKeys = Object.keys({
   technique: 0,
   firstTouch: 0,
@@ -48,86 +46,205 @@ const attributeKeys = Object.keys({
   goalkeeperSweeping: 0,
 } satisfies Record<keyof PlayerAttributes, number>) as (keyof PlayerAttributes)[];
 
+const stableAttributes = new Set<keyof PlayerAttributes>(['ambition', 'professionalism']);
+const ATTRIBUTE_KEYS_BY_FAMILY = Object.freeze(
+  Object.fromEntries(
+    (['technical', 'mental', 'physical', 'goalkeeper'] as const).map((family) => [
+      family,
+      Object.freeze(
+        attributeKeys.filter(
+          (attribute) =>
+            getAttributeFamily(attribute) === family && !stableAttributes.has(attribute),
+        ),
+      ),
+    ]),
+  ) as Record<DevelopmentFamily, readonly (keyof PlayerAttributes)[]>,
+);
+
 export interface NpcDevelopmentSummary {
   age: number;
   changes: ReturnType<typeof aggregateDevelopment>;
 }
 
+const GOALKEEPER_FAMILIES: readonly DevelopmentFamily[] = [
+  'goalkeeper',
+  'mental',
+  'physical',
+  'technical',
+];
+const OUTFIELD_FAMILIES: readonly DevelopmentFamily[] = ['physical', 'technical', 'mental'];
+const getFamilyAverage = (attributes: PlayerAttributes, family: DevelopmentFamily): number => {
+  switch (family) {
+    case 'technical':
+      return (
+        (attributes.technique +
+          attributes.firstTouch +
+          attributes.passing +
+          attributes.dribbling +
+          attributes.finishing +
+          attributes.tackling +
+          attributes.heading +
+          attributes.setPieces) /
+        8
+      );
+    case 'mental':
+      return (
+        (attributes.gameReading +
+          attributes.composure +
+          attributes.concentration +
+          attributes.leadership +
+          attributes.determination +
+          attributes.aggression) /
+        6
+      );
+    case 'physical':
+      return (
+        (attributes.pace +
+          attributes.stamina +
+          attributes.strength +
+          attributes.agility +
+          attributes.jumping) /
+        5
+      );
+    case 'goalkeeper':
+      return (
+        (attributes.reflexes +
+          attributes.handling +
+          attributes.oneOnOnes +
+          attributes.goalkeeperSweeping) /
+        4
+      );
+  }
+};
+
+function projectNpcSeasonDevelopmentInternal(
+  footballer: WorldFootballer,
+  boundaryDate: string,
+  clubEnvironment: number,
+  seed: string,
+  collectSummary: true,
+  derivedAge?: number,
+  randomSeedHash?: number,
+): { footballer: WorldFootballer; summary: NpcDevelopmentSummary };
+function projectNpcSeasonDevelopmentInternal(
+  footballer: WorldFootballer,
+  boundaryDate: string,
+  clubEnvironment: number,
+  seed: string,
+  collectSummary: false,
+  derivedAge?: number,
+  randomSeedHash?: number,
+): WorldFootballer;
+function projectNpcSeasonDevelopmentInternal(
+  footballer: WorldFootballer,
+  boundaryDate: string,
+  clubEnvironment: number,
+  seed: string,
+  collectSummary: boolean,
+  derivedAge?: number,
+  randomSeedHash?: number,
+): WorldFootballer | { footballer: WorldFootballer; summary: NpcDevelopmentSummary } {
+  const age = derivedAge ?? getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
+  const development = footballer.developmentProfile;
+  let randomState =
+    randomSeedHash ??
+    hashRandomSeed(`npc-season-development:${seed}:${boundaryDate}:${footballer.profile.id}`);
+  if (!randomState) randomState = 1;
+  const before = footballer.profile.attributes;
+  let attributes = before;
+  const changes: NpcDevelopmentSummary['changes'] | undefined = collectSummary ? [] : undefined;
+  const goalkeeper = footballer.profile.primaryPosition === 'goalkeeper';
+  const families = goalkeeper ? GOALKEEPER_FAMILIES : OUTFIELD_FAMILIES;
+  const bloomShift =
+    development.developmentType === 'early_bloomer'
+      ? 2
+      : development.developmentType === 'late_bloomer'
+        ? -2
+        : 0;
+  const environment = 0.82 + clubEnvironment / 250;
+  for (const family of families) {
+    const keys = ATTRIBUTE_KEYS_BY_FAMILY[family];
+    const capacity = development.familyCapacity[family];
+    const declineAge = development.familyDeclineStartAge[family];
+    const peakAge = development.familyPeakAge[family];
+    const declining = age >= declineAge;
+    const youthWindow = peakAge - age + bloomShift;
+    let chance: number;
+    if (declining) {
+      chance = Math.min(
+        0.82,
+        0.16 + (age - declineAge) * 0.075 + development.crisisSensitivity / 500,
+      );
+    } else {
+      const average = getFamilyAverage(attributes, family);
+      const capacityBrake = Math.max(0.03, Math.min(1, (capacity - average + 3) / 22));
+      chance =
+        youthWindow > 0
+          ? Math.min(
+              0.72,
+              (0.08 + youthWindow * 0.025) * development.growthRate * environment * capacityBrake +
+                development.stagnationResistance / 700,
+            )
+          : 0.06 * capacityBrake;
+    }
+    if (family === 'mental' && declining && age < declineAge + 3) chance *= 0.35;
+    randomState = (Math.imul(1664525, randomState) + 1013904223) >>> 0;
+    if (randomState / 0x100000000 >= chance) continue;
+
+    let eligibleCount = declining ? keys.length : 0;
+    if (!declining)
+      for (const candidate of keys) if (attributes[candidate] < capacity + 2) eligibleCount++;
+    if (!eligibleCount) continue;
+    // Pick one eligible family attribute without allocating/sorting in the hot path. Family-level
+    // selection preserves the positional shape while allowing varied paths within that family.
+    randomState = (Math.imul(1664525, randomState) + 1013904223) >>> 0;
+    const start = Math.floor((randomState / 0x100000000) * eligibleCount);
+    let eligibleIndex = 0;
+    let key: keyof PlayerAttributes | undefined;
+    for (const candidate of keys) {
+      if (!declining && attributes[candidate] >= capacity + 2) continue;
+      if (eligibleIndex++ === start) {
+        key = candidate;
+        break;
+      }
+    }
+    if (!key) continue;
+    let rareTwo = false;
+    if (development.developmentVolatility >= 75) {
+      randomState = (Math.imul(1664525, randomState) + 1013904223) >>> 0;
+      rareTwo = randomState / 0x100000000 < 0.12;
+    }
+    const delta = (declining ? -1 : 1) * (rareTwo ? 2 : 1);
+    const value = Math.max(1, Math.min(100, attributes[key] + delta));
+    if (value === attributes[key]) continue;
+    if (attributes === before) attributes = { ...before };
+    const previous = attributes[key];
+    attributes[key] = value;
+    changes?.push({ attribute: key, before: previous, after: value, delta: value - previous });
+  }
+  const projected =
+    attributes === before
+      ? footballer
+      : { ...footballer, profile: { ...footballer.profile, attributes } };
+  return collectSummary
+    ? { footballer: projected, summary: { age, changes: changes! } }
+    : projected;
+}
+
 /** Pure, bounded annual projection. Age is context, never persistent football state. */
-export const projectNpcSeasonDevelopment = ({
-  footballer,
-  boundaryDate,
-  clubEnvironment = 50,
-  seed,
-}: {
+export const projectNpcSeasonDevelopment = (options: {
   footballer: WorldFootballer;
   boundaryDate: string;
   clubEnvironment?: number;
   seed: string;
-}): { footballer: WorldFootballer; summary: NpcDevelopmentSummary } => {
-  const age = getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
-  const development = footballer.developmentProfile;
-  const rng = RandomGenerator.fromSeed(
-    `npc-season-development:${seed}:${boundaryDate}:${footballer.profile.id}`,
+}): { footballer: WorldFootballer; summary: NpcDevelopmentSummary } =>
+  projectNpcSeasonDevelopmentInternal(
+    options.footballer,
+    options.boundaryDate,
+    options.clubEnvironment ?? 50,
+    options.seed,
+    true,
   );
-  const before = footballer.profile.attributes;
-  const attributes = { ...before };
-  const goalkeeper = footballer.profile.primaryPosition === 'goalkeeper';
-  const families: DevelopmentFamily[] = goalkeeper
-    ? ['goalkeeper', 'mental', 'physical', 'technical']
-    : ['physical', 'technical', 'mental'];
-  for (const family of families) {
-    const keys = attributeKeys.filter(
-      (key) => getAttributeFamily(key) === family && !stable.has(key),
-    );
-    if (!keys.length || (!goalkeeper && family === 'goalkeeper')) continue;
-    const capacity = development.familyCapacity[family];
-    const average = keys.reduce((sum, key) => sum + attributes[key], 0) / keys.length;
-    const declineAge = development.familyDeclineStartAge[family];
-    const peakAge = development.familyPeakAge[family];
-    const declining = age >= declineAge;
-    const bloomShift =
-      development.developmentType === 'early_bloomer'
-        ? 2
-        : development.developmentType === 'late_bloomer'
-          ? -2
-          : 0;
-    const youthWindow = peakAge - age + bloomShift;
-    const environment = 0.82 + clubEnvironment / 250;
-    const capacityBrake = Math.max(0.03, Math.min(1, (capacity - average + 3) / 22));
-    let chance = declining
-      ? Math.min(0.82, 0.16 + (age - declineAge) * 0.075 + development.crisisSensitivity / 500)
-      : youthWindow > 0
-        ? Math.min(
-            0.72,
-            (0.08 + youthWindow * 0.025) * development.growthRate * environment * capacityBrake +
-              development.stagnationResistance / 700,
-          )
-        : 0.06 * capacityBrake;
-    if (family === 'mental' && declining && age < declineAge + 3) chance *= 0.35;
-    if (!rng.bool(chance)) continue;
-    const eligible = keys.filter((key) => declining || attributes[key] < capacity + 2);
-    if (!eligible.length) continue;
-    // Existing strengths are more likely to move, preserving positional/archetypal identity.
-    const ranked = eligible.sort((a, b) => attributes[b] - attributes[a]);
-    const key = ranked[rng.int(0, Math.max(0, Math.ceil(ranked.length * 0.65) - 1))]!;
-    const rareTwo = development.developmentVolatility >= 75 && rng.bool(0.12);
-    const delta = (declining ? -1 : 1) * (rareTwo ? 2 : 1);
-    attributes[key] = Math.max(1, Math.min(100, attributes[key] + delta));
-  }
-  const changes = aggregateDevelopment(before, attributes);
-  return {
-    footballer: changes.length
-      ? { ...footballer, profile: { ...footballer.profile, attributes } }
-      : footballer,
-    summary: { age, changes },
-  };
-};
-
-const environmentFor = (clubs: ProfessionalClub[], footballer: WorldFootballer) => {
-  const club = clubs.find((item) => item.id === footballer.currentClubId);
-  return club ? getClubDevelopmentEnvironment(club) : 44;
-};
 
 /**
  * Applies development after graduation/season resolution and before the next hierarchy is built.
@@ -140,35 +257,67 @@ export const processNpcSeasonDevelopment = (
   const season = Number(boundaryDate.slice(0, 4)) - 1;
   const delta = career.worldDelta ?? emptyWorldDelta();
   if ((delta.npcDevelopmentProcessedThroughSeason ?? -1) >= season) return career;
-  const effective = {
-    ...(career.footballerWorld ?? {}),
-    ...delta.newFootballers,
-    ...delta.footballerOverrides,
-  };
-  const overrides = { ...delta.footballerOverrides };
-  for (const [id, footballer] of Object.entries(effective)) {
+  const baseFootballers = career.footballerWorld ?? {};
+  const changedThisPass: Record<string, WorldFootballer> = {};
+  const environmentByClubId = new Map(
+    (career.clubWorld ?? []).map((club) => [club.id, getClubDevelopmentEnvironment(club)]),
+  );
+  const boundaryYear = Number(boundaryDate.slice(0, 4));
+  const boundaryMonthDay =
+    (boundaryDate.charCodeAt(5) - 48) * 320 +
+    (boundaryDate.charCodeAt(6) - 48) * 32 +
+    (boundaryDate.charCodeAt(8) - 48) * 10 +
+    boundaryDate.charCodeAt(9) -
+    48;
+  const randomSeedPrefixHash = hashRandomSeed(
+    `npc-season-development:${career.seed}:${boundaryDate}:`,
+  );
+  const processFootballer = (id: string) => {
+    const footballer =
+      delta.footballerOverrides[id] ?? delta.newFootballers[id] ?? baseFootballers[id];
+    if (!footballer) return;
     if (
       id === career.player.id ||
       footballer.careerStatus === 'retired' ||
       delta.retiredFootballerIds.includes(id)
     )
-      continue;
-    const projected = projectNpcSeasonDevelopment({
+      return;
+    const dateOfBirth = footballer.profile.dateOfBirth;
+    const derivedAge = dateOfBirth
+      ? boundaryYear -
+        ((dateOfBirth.charCodeAt(0) - 48) * 1000 +
+          (dateOfBirth.charCodeAt(1) - 48) * 100 +
+          (dateOfBirth.charCodeAt(2) - 48) * 10 +
+          dateOfBirth.charCodeAt(3) -
+          48) -
+        (boundaryMonthDay <
+        (dateOfBirth.charCodeAt(5) - 48) * 320 +
+          (dateOfBirth.charCodeAt(6) - 48) * 32 +
+          (dateOfBirth.charCodeAt(8) - 48) * 10 +
+          dateOfBirth.charCodeAt(9) -
+          48
+          ? 1
+          : 0)
+      : getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
+    const projected = projectNpcSeasonDevelopmentInternal(
       footballer,
       boundaryDate,
-      clubEnvironment: environmentFor(career.clubWorld ?? [], footballer),
-      seed: career.seed,
-    });
-    if (projected.summary.changes.length) overrides[id] = projected.footballer;
-  }
+      footballer.currentClubId ? (environmentByClubId.get(footballer.currentClubId) ?? 44) : 44,
+      career.seed,
+      false,
+      derivedAge,
+      extendRandomSeedHash(randomSeedPrefixHash, footballer.profile.id),
+    );
+    if (projected !== footballer) changedThisPass[id] = projected;
+  };
+  for (const id in baseFootballers) processFootballer(id);
+  for (const id in delta.newFootballers) if (!(id in baseFootballers)) processFootballer(id);
+  for (const id in delta.footballerOverrides)
+    if (!(id in baseFootballers) && !(id in delta.newFootballers)) processFootballer(id);
   const worldDelta = {
     ...delta,
-    footballerOverrides: overrides,
+    footballerOverrides: { ...delta.footballerOverrides, ...changedThisPass },
     npcDevelopmentProcessedThroughSeason: season,
   };
-  return {
-    ...career,
-    worldDelta,
-    footballerWorld: { ...(career.footballerWorld ?? {}), ...overrides },
-  };
+  return { ...career, worldDelta };
 };

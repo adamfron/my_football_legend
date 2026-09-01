@@ -139,6 +139,31 @@ describe('NPC seasonal development', () => {
     );
   });
 
+  test('resolves override precedence, preserves prior deltas and exposes changes normally', () => {
+    const basePlayer = npc('precedence', 18);
+    const override = {
+      ...basePlayer,
+      profile: {
+        ...basePlayer.profile,
+        attributes: { ...basePlayer.profile.attributes, finishing: 77 },
+      },
+    };
+    const added = npc('added', 18);
+    const career = careerWith(basePlayer);
+    career.worldDelta = {
+      ...emptyWorldDelta(),
+      newFootballers: { added },
+      footballerOverrides: { precedence: override },
+    };
+    const result = processNpcSeasonDevelopment(career, '2027-07-01');
+    expect(result.worldDelta?.footballerOverrides.precedence).toBeDefined();
+    expect(result.worldDelta?.newFootballers.added).toBe(added);
+    expect(resolveFootballer(result, 'precedence')?.attributes).toEqual(
+      result.worldDelta?.footballerOverrides.precedence?.profile.attributes,
+    );
+    expect(processNpcSeasonDevelopment(result, '2027-07-01')).toBe(result);
+  });
+
   test('capacity brakes growth and goalkeepers retain later decline timing', () => {
     const young = npc('young', 18);
     const capped = npc('capped', 18);

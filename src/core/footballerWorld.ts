@@ -89,10 +89,17 @@ export const getManagerPreferredFormation = (managerId = 'manager'): FormationId
   RandomGenerator.fromSeed(`manager-formation:${managerId}`).pick(FORMATION_IDS);
 
 export const resolveFootballer = (
-  career: Pick<CareerState, 'player' | 'footballerWorld' | 'currentDate'>,
+  career: Pick<CareerState, 'player' | 'footballerWorld' | 'worldDelta' | 'currentDate'>,
   id: Id,
 ): FootballerProfile | undefined => {
-  const profile = id === career.player.id ? career.player : career.footballerWorld?.[id]?.profile;
+  const profile =
+    id === career.player.id
+      ? career.player
+      : (
+          career.worldDelta?.footballerOverrides[id] ??
+          career.worldDelta?.newFootballers[id] ??
+          career.footballerWorld?.[id]
+        )?.profile;
   if (!profile || !career.currentDate) return profile;
   const age = getProfileAge(profile, career.currentDate, '2026-07-01');
   return age === profile.age ? profile : { ...profile, age };

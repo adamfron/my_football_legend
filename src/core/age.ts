@@ -2,8 +2,11 @@ import type { FootballerProfile, Person } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
 
 const ISO_DATE = /^(\d{4})-(\d{2})-(\d{2})$/;
+const datePartsCache = new Map<string, { year: number; month: number; day: number }>();
 
 const parts = (value: string) => {
+  const cached = datePartsCache.get(value);
+  if (cached) return cached;
   const match = ISO_DATE.exec(value);
   if (!match) throw new Error(`Invalid ISO date: ${value}`);
   const year = Number(match[1]);
@@ -16,7 +19,9 @@ const parts = (value: string) => {
     check.getUTCDate() !== day
   )
     throw new Error(`Invalid ISO date: ${value}`);
-  return { year, month, day };
+  const parsed = { year, month, day };
+  datePartsCache.set(value, parsed);
+  return parsed;
 };
 
 /** Calendar-only age. A 29 February birthday turns a year older on 1 March in non-leap years. */
