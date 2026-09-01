@@ -154,6 +154,7 @@ export const participationFromAppearance = (
     defensiveActions: appearance.minutes > 0 ? appearance.defensiveActions : 0,
     yellowCards: appearance.minutes > 0 ? (appearance.yellowCards ?? 0) : 0,
     ...(appearance.redCard ? { redCard: appearance.redCard } : {}),
+    ...(appearance.goalkeeperStats ? { goalkeeperStats: appearance.goalkeeperStats } : {}),
     ...(appearance.rating === undefined ? {} : { rating: appearance.rating }),
   };
 };

@@ -70,6 +70,33 @@ export const generateInjuryMetadata = (rng: RandomGenerator, source: PlayerInjur
   return { injuryType, bodyArea };
 };
 
+export interface TerminalAppearanceCandidates {
+  injuryMinute?: number | undefined;
+  dismissalMinute?: number | undefined;
+}
+
+/** Resolves mutually exclusive events which end one on-pitch appearance. */
+export const resolveTerminalAppearanceEvents = (
+  plannedMinutes: number,
+  candidates: TerminalAppearanceCandidates,
+) => {
+  const injuryMinute =
+    candidates.injuryMinute && candidates.injuryMinute <= plannedMinutes
+      ? candidates.injuryMinute
+      : undefined;
+  const dismissalMinute =
+    candidates.dismissalMinute && candidates.dismissalMinute <= plannedMinutes
+      ? candidates.dismissalMinute
+      : undefined;
+  if (
+    injuryMinute !== undefined &&
+    (dismissalMinute === undefined || injuryMinute < dismissalMinute)
+  )
+    return { minutes: injuryMinute, injuryMinute };
+  if (dismissalMinute !== undefined) return { minutes: dismissalMinute, dismissalMinute };
+  return { minutes: plannedMinutes };
+};
+
 /** Deterministic, contextual discipline and injury roll shared by quick and full matches. */
 export const rollMatchAvailabilityEffects = (career: CareerState, appearance: MatchAppearance) => {
   if (!appearance.minutes) return { appearance };
@@ -94,6 +121,7 @@ export const rollMatchAvailabilityEffects = (career: CareerState, appearance: Ma
     fatigue * 0.12 +
     (getPlayerAvailability(career, appearance.date).status === 'knock' ? 0.08 : 0);
   let injury: PlayerInjury | undefined;
+  let injuryMinute: number | undefined;
   if (rng.bool(injuryChance)) {
     const severity = rng.float() < 0.62 ? 'minor' : rng.float() < 0.88 ? 'moderate' : 'major';
     const ranges = { minor: [1, 2], moderate: [2, 5], major: [6, 12] } as const;
@@ -108,17 +136,23 @@ export const rollMatchAvailabilityEffects = (career: CareerState, appearance: Ma
       source: 'match',
       status: 'active',
     };
+    injuryMinute = Math.max(10, appearance.minutes - rng.int(0, 18));
   }
+  const dismissalMinute = redCard ? Math.max(20, appearance.minutes - rng.int(0, 12)) : undefined;
+  const terminal = resolveTerminalAppearanceEvents(appearance.minutes, {
+    injuryMinute,
+    dismissalMinute,
+  });
+  if (terminal.injuryMinute === undefined) injury = undefined;
   return {
     appearance: {
       ...appearance,
+      minutes: terminal.minutes,
       yellowCards,
-      ...(redCard
-        ? { redCard, dismissedMinute: Math.max(20, appearance.minutes - rng.int(0, 12)) }
+      ...(terminal.dismissalMinute !== undefined
+        ? { redCard, dismissedMinute: terminal.dismissalMinute }
         : {}),
-      ...(injury
-        ? { injuryId: injury.id, minutes: Math.max(10, appearance.minutes - rng.int(0, 18)) }
-        : {}),
+      ...(injury ? { injuryId: injury.id } : {}),
     },
     injury,
   };
@@ -131,6 +165,8 @@ export const applyMatchAvailabilityEffects = (
 ): { career: CareerState; appearance: MatchAppearance; facts: HistoryFact[] } => {
   const rolled = rollMatchAvailabilityEffects(career, raw);
   const state = availabilityState(career);
+  if (state.processedMatchIds?.includes(raw.matchId))
+    return { career, appearance: rolled.appearance, facts: [] };
   let yellows =
     state.leagueYellowCards +
     (rolled.appearance.teamLevel === 'senior' ? (rolled.appearance.yellowCards ?? 0) : 0);
@@ -170,6 +206,7 @@ export const applyMatchAvailabilityEffects = (
         leagueYellowCards: yellows,
         suspensionMatchesRemaining: suspension,
         injuries: rolled.injury ? [...state.injuries, rolled.injury] : state.injuries,
+        processedMatchIds: [...(state.processedMatchIds ?? []), raw.matchId],
       },
     },
   };
