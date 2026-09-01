@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { generateStartingProfileVariants, positionIds } from './playerCreator';
+import {
+  createCareerState,
+  generateStartingPlayerProfile,
+  generateStartingProfileVariants,
+  positionIds,
+} from './playerCreator';
 import { OVR_ATTRIBUTE_KEYS } from './playerOverall';
 import { getEligibleFootballArchetypes } from './footballArchetypes';
 const input = {
@@ -28,5 +33,24 @@ describe('Player Model 2.0 creator', () => {
   it('has exactly nine positions and attributes', () => {
     expect(positionIds).toHaveLength(9);
     expect(OVR_ATTRIBUTE_KEYS).toHaveLength(25);
+  });
+  it('reuses immutable fallback world data while isolating career state', () => {
+    const profileA = generateStartingPlayerProfile(input, 'fallback-a', 0);
+    const profileB = generateStartingPlayerProfile(
+      { ...input, firstName: 'Piotr', seed: 'fallback-b' },
+      'fallback-b',
+      0,
+    );
+    const careerA = createCareerState(profileA, 'fallback-a');
+    const careerB = createCareerState(profileB, 'fallback-b');
+
+    expect(careerA.clubWorld).toBe(careerB.clubWorld);
+    expect(careerA.footballerWorld).toBe(careerB.footballerWorld);
+    expect(careerA.youthCohorts).toBe(careerB.youthCohorts);
+    expect(careerA.player).not.toBe(careerB.player);
+    expect(careerA.player.id).not.toBe(careerB.player.id);
+    expect(careerA.historyFacts).not.toBe(careerB.historyFacts);
+    expect(careerA.worldDelta).not.toBe(careerB.worldDelta);
+    expect(careerA.seasonParticipation).not.toBe(careerB.seasonParticipation);
   });
 });

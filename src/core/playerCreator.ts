@@ -359,29 +359,38 @@ export const generateStartingProfileVariants = (input: CreatorInput, seed: strin
   );
 export const makeReadableSeed = () =>
   globalThis.crypto?.randomUUID?.().slice(0, 18) ?? `career-${Date.now().toString(36)}`;
+
+let cachedFallbackWorldDatabase: WorldDatabase | undefined;
+
+/**
+ * The bundled fallback has the same immutable semantics as the browser-loaded world database.
+ * Building it once avoids regenerating all professional and U-17 cards for every isolated career.
+ */
+const getFallbackWorldDatabase = (): WorldDatabase => {
+  if (cachedFallbackWorldDatabase) return cachedFallbackWorldDatabase;
+  const generated = populateFootballerWorld(
+    generateProfessionalClubPool(WORLD_DATABASE_SEED),
+    WORLD_DATABASE_SEED,
+  );
+  const youth = populatePolishU17World(generated.clubs, WORLD_DATABASE_SEED);
+  cachedFallbackWorldDatabase = {
+    version: WORLD_DATABASE_VERSION,
+    startingSeason: 2026,
+    seed: WORLD_DATABASE_SEED,
+    clubs: generated.clubs,
+    footballers: { ...generated.footballerWorld, ...youth.footballers },
+    youthCohorts: youth.youthCohorts,
+  };
+  return cachedFallbackWorldDatabase;
+};
+
 export const createCareerState = (
   profile: StartingPlayerProfile,
   seed: string,
   database?: WorldDatabase,
 ): CareerState => {
   // Legacy core tests may omit the asset; the browser path always supplies the preloaded database.
-  const base =
-    database ??
-    (() => {
-      const generated = populateFootballerWorld(
-        generateProfessionalClubPool(WORLD_DATABASE_SEED),
-        WORLD_DATABASE_SEED,
-      );
-      const youth = populatePolishU17World(generated.clubs, WORLD_DATABASE_SEED);
-      return {
-        version: WORLD_DATABASE_VERSION,
-        startingSeason: 2026,
-        seed: WORLD_DATABASE_SEED,
-        clubs: generated.clubs,
-        footballers: { ...generated.footballerWorld, ...youth.footballers },
-        youthCohorts: youth.youthCohorts,
-      };
-    })();
+  const base = database ?? getFallbackWorldDatabase();
   const fact: HistoryFact = {
     id: 'fact_career_started_2026',
     factType: 'career_started',
