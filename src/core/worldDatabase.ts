@@ -59,7 +59,7 @@ export const resolveWorldFootballer = (
   const delta = world.worldDelta;
   if (delta?.retiredFootballerIds.includes(id)) return undefined;
   return (
-    delta?.newFootballers[id] ?? delta?.footballerOverrides[id] ?? world.baseWorld.footballers[id]
+    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? world.baseWorld.footballers[id]
   );
 };
 export const resolveWorldSquad = (world: WorldContext, clubId: Id): Id[] | undefined =>

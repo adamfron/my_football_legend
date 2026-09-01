@@ -318,6 +318,8 @@ export interface CareerWorldDelta {
   newFootballers: Record<Id, WorldFootballer>;
   retiredFootballerIds: Id[];
   managerOverrides: Record<Id, Id>;
+  /** Last completed season boundary applied to persistent NPC attributes. */
+  npcDevelopmentProcessedThroughSeason?: number | undefined;
 }
 
 export interface WorldDatabase {

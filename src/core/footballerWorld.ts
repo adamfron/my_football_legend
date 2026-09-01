@@ -14,6 +14,7 @@ import { getEffectivePositionOverall, getPlayerOverall, PLAYER_POSITIONS } from 
 import { RandomGenerator } from './random/RandomGenerator';
 import { POSITION_COMPATIBILITY } from './positionCompatibility';
 import { deriveDateOfBirth } from './age';
+import { getProfileAge } from './age';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -88,10 +89,21 @@ export const getManagerPreferredFormation = (managerId = 'manager'): FormationId
   RandomGenerator.fromSeed(`manager-formation:${managerId}`).pick(FORMATION_IDS);
 
 export const resolveFootballer = (
-  career: Pick<CareerState, 'player' | 'footballerWorld'>,
+  career: Pick<CareerState, 'player' | 'footballerWorld' | 'worldDelta' | 'currentDate'>,
   id: Id,
-): FootballerProfile | undefined =>
-  id === career.player.id ? career.player : career.footballerWorld?.[id]?.profile;
+): FootballerProfile | undefined => {
+  const profile =
+    id === career.player.id
+      ? career.player
+      : (
+          career.worldDelta?.footballerOverrides[id] ??
+          career.worldDelta?.newFootballers[id] ??
+          career.footballerWorld?.[id]
+        )?.profile;
+  if (!profile || !career.currentDate) return profile;
+  const age = getProfileAge(profile, career.currentDate, '2026-07-01');
+  return age === profile.age ? profile : { ...profile, age };
+};
 
 interface SquadDepthSlot {
   position: PlayerPosition;

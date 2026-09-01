@@ -15,6 +15,18 @@ const hashString = (value: string): number => {
   return hash >>> 0;
 };
 
+const extendHash = (initialHash: number, value: string): number => {
+  let hash = initialHash;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+};
+
+export const hashRandomSeed = hashString;
+export const extendRandomSeedHash = extendHash;
+
 export class RandomGenerator {
   private constructor(
     private readonly seedHash: number,
@@ -23,7 +35,8 @@ export class RandomGenerator {
   ) {}
 
   static fromSeed(seed: string): RandomGenerator {
-    return new RandomGenerator(hashString(seed), hashString(seed) || 1, 0);
+    const seedHash = hashString(seed);
+    return new RandomGenerator(seedHash, seedHash || 1, 0);
   }
 
   static import(serialized: string): RandomGenerator {
@@ -41,7 +54,10 @@ export class RandomGenerator {
 
   fork(key: string): RandomGenerator {
     const forkSeed = `${this.seedHash}:${this.state}:${key}`;
-    return new RandomGenerator(hashString(forkSeed), hashString(`${this.export()}:${key}`) || 1, 0);
+    // Keep the serialized seed byte-for-byte identical to export(), without allocating and
+    // JSON-stringifying a temporary state object on this simulation hot path.
+    const serialized = `{"seedHash":${this.seedHash},"state":${this.state},"calls":${this.calls}}`;
+    return new RandomGenerator(hashString(forkSeed), hashString(`${serialized}:${key}`) || 1, 0);
   }
 
   float(): number {

@@ -266,8 +266,7 @@ Początkowe kadry U-17 są trwałymi `WorldFootballer` w tej samej mapie co seni
 przechowuje sezonowy klucz `u17:<teamId>:<season>` w `WorldDatabase.youthCohorts`. Definicja
 drużyny młodzieżowej przechowuje tylko stabilną tożsamość i powiązanie; nazwę, region, identyfikację
 wizualną oraz środowisko akademii wyprowadza się z rodzica `ProfessionalClub`. Brak kontraktu i
-`currentClubId` odróżnia członka kohorty od zawodnika pierwszej drużyny. Rozwój i graduacja NPC nie
-są jeszcze wykonywane.
+`currentClubId` odróżnia członka kohorty od zawodnika pierwszej drużyny. Graduacja poprzedza sezonowy przebieg rozwoju, więc absolwent nie jest pomijany ani rozwijany dwukrotnie. Rozwój rodzin atrybutów zapisuje rzadki override; sam upływ wieku nie zmienia świata.
 
 `CareerState.youthCohorts` jest runtime’owym widokiem niezmiennej bazy, usuwanym z zapisu i ponownie
 hydratowanym razem z `clubWorld` i `footballerWorld`. `SquadSelectionContext` pozwala wspólnemu

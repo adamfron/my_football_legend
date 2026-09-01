@@ -39,8 +39,7 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 ## Kolejność kolejnych dużych systemów
 
-**NEXT: rzadki sezonowy rozwój/regres NPC.** Grywalny świat U-17 i przepływ absolwentów są
-zrealizowane. Następnie: emerytury i cykliczny nabór młodzieży; niedoskonały rynek transferowy NPC; trwałe profile i
+**NEXT: emerytury i cykliczny nabór młodzieży.** Grywalny świat U-17, przepływ absolwentów oraz rzadki rozwój/regres NPC są zrealizowane. Następnie: niedoskonały rynek transferowy NPC; trwałe profile i
 cykl życia trenerów; zagraniczne pakiety świata; rozbudowa rozgrywek i kalendarza; Fitness/Morale
 2.0 przed dojrzałą warstwą silnika meczu; behawioralne PlayStyles; osiągnięcia/easter eggi; styl
 życia/ekonomia; interaktywny izometryczny silnik decyzji.
@@ -145,18 +144,12 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
-pozostaje: rozwój/regres NPC, emerytury i nabór, niedoskonałe transfery, trwały cykl trenerów.
+pozostaje: emerytury i nabór, niedoskonałe transfery, trwały cykl trenerów oraz pakiety zagraniczne.
 
-1. Rzadki sezonowy rozwój i regres NPC.
-2. Emerytury i cykliczny nabór młodzieży.
-3. Niedoskonały rynek transferowy NPC.
-4. Trwałość i zmiany menedżerów/trenerów.
-5. Zagraniczne pakiety świata.
-6. Rozbudowa rozgrywek i kalendarza.
-7. PlayStyles wynikające z zachowania.
-8. Osiągnięcia i easter eggi.
-9. Rozbudowa stylu życia i ekonomii.
-10. Interaktywny izometryczny silnik meczowy oparty na decyzjach.
+1. Emerytury i cykliczny nabór młodzieży.
+2. Niedoskonały rynek transferowy NPC.
+3. Trwałość i zmiany menedżerów/trenerów.
+4. Zagraniczne pakiety świata / późniejsze systemy.
 
 ## Zachowane przyszłe TODO (poza bieżącym zakresem)
 
@@ -166,8 +159,10 @@ pozostaje: rozwój/regres NPC, emerytury i nabór, niedoskonałe transfery, trwa
   cechę „Uniwersalny” i ograniczyć tarcie nieznanej pozycji.
 - Tylko XI ma slot formacji. Ławka i głęboka rezerwa pokazują `Ust. = —` oraz nominalny OVR;
   `assignedPosition` powstaje dopiero po wejściu na boisko.
-- Przyszłe przypisania stałych fragmentów obejmą karne, bezpośrednie wolne i rożne, także
-  wyjątkowych bramkarzy-wykonawców.
+- Przyszłe przypisania stałych fragmentów obejmą karne, bezpośrednie wolne i rożne, także wyjątkowych bramkarzy-wykonawców.
+- Kreator piłkarza pozwoli wybrać dzień i miesiąc urodzenia, wyprowadzając rok dla dokładnie 16 lat na starcie; przyszły kreator menedżera przyjmie pełną datę i zmienny wiek.
+- Czerwona kartka materialnie obniży ocenę (bezpośrednia i druga żółta mogą różnić się karą), z zachowaniem kanonicznej chronologii.
+- Jasne herby dostaną kontrastowy obrys. Ekran końca kariery przejmie język `CareerView` / `ClubView` i wykres OVR z istniejących migawek, bez duplikowania historii.
 
 # Ostatnio domknięte fundamenty pozycji
 
@@ -176,13 +171,11 @@ pozostaje: rozwój/regres NPC, emerytury i nabór, niedoskonałe transfery, trwa
 - przyszły bogatszy HistoryView może agregować sezonowe i karierowe użycie pozycji;
 - trwała zmiana pozycji może kiedyś tworzyć kamień milowy narracji, bez spamu faktami meczowymi.
 
-Następnym dużym systemem jest rzadki sezonowy rozwój i regres NPC.
+Następnym dużym systemem są emerytury i cykliczny nabór młodzieży.
 
-## Następny krok po trwałych danych U-17
+## Domknięty krok trwałych danych U-17
 
-Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji trenera i realnej ligi
-12 drużyn. Ukończenie akademii i pierwsze kontrakty NPC są wdrożone; następnym etapem pozostaje ich rzadki
-rozwój sezonowy.
+Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji trenera i realnej ligi 12 drużyn. Ukończenie akademii, pierwsze kontrakty oraz rzadki sezonowy rozwój NPC są wdrożone.
 
 - Ławka opisuje pokrycie pozycji, ale nie przydział na boisku: rezerwowy ma prezentować OVR dla
   pozycji nominalnej i otrzymuje faktyczną `assignedPosition` dopiero po wejściu na murawę.
