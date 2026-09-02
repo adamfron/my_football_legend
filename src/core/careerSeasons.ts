@@ -334,6 +334,19 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
         }
       : career;
   let aged = applyAnnualAging(withMovement, nextDate);
+  // The summer market prices clubs in their new pyramid context, never in the tier that just ended.
+  if (aged.clubWorld && movement) {
+    const world = rollOverClubWorld(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`);
+    const current = world.find((club) => club.id === aged.currentClub.id);
+    const adjustedWorld = world.map((club) =>
+      club.id === aged.currentClub.id ? { ...club, leagueTier: nextTier } : club,
+    );
+    aged = {
+      ...aged,
+      clubWorld: adjustedWorld,
+      ...(current ? { currentProfessionalClub: { ...current, leagueTier: nextTier } } : {}),
+    };
+  }
   // Only a resolved season owns this boundary. This also keeps repair/test rollovers from
   // applying world simulation to an unfinished schedule.
   if (career.leagueSeason?.completed) {
@@ -344,11 +357,6 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     aged = processNpcRetirements(aged, nextDate, true);
     aged = processNpcTransferMarket(aged, nextDate, true);
     aged = processYouthIntake(aged, career.currentSeason, true);
-  }
-  if (aged.clubWorld && movement) {
-    const world = rollOverClubWorld(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`);
-    const current = world.find((c) => c.id === aged.currentClub.id);
-    aged = { ...aged, clubWorld: world, ...(current ? { currentProfessionalClub: current } : {}) };
   }
   if (aged.currentProfessionalClub)
     aged = {

@@ -56,6 +56,7 @@ describe('static world and delta resolution', () => {
       newFootballers: {},
       retiredFootballerIds: [],
       managerOverrides: {},
+      npcTransferRecords: [],
     });
   });
   test('resolves overrides without mutating the base', () => {

@@ -29,6 +29,7 @@ export const emptyWorldDelta = (): CareerWorldDelta => ({
   newFootballers: {},
   retiredFootballerIds: [],
   managerOverrides: {},
+  npcTransferRecords: [],
 });
 
 let cached: WorldDatabase | undefined;

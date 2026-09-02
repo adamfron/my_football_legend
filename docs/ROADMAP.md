@@ -39,8 +39,8 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 ## Kolejność kolejnych dużych systemów
 
-**NEXT: niedoskonały rynek transferowy NPC.** Grywalny świat U-17, coroczny nabór i graduacja, rzadki rozwój/regres NPC oraz emerytury są zrealizowane. Następnie: trwałe profile i
-cykl życia trenerów; zagraniczne pakiety świata; rozbudowa rozgrywek i kalendarza; Fitness/Morale
+**NEXT: trwały cykl menedżerów i trenerów.** Grywalny świat U-17, coroczny nabór i graduacja, rzadki rozwój/regres NPC, emerytury oraz ograniczony ekonomią niedoskonały rynek transferowy są zrealizowane. Następnie: trwałe profile i
+cykl życia trenerów; zagraniczne pakiety świata; późniejsza rozbudowa rozgrywek i kalendarza; Fitness/Morale
 2.0 przed dojrzałą warstwą silnika meczu; behawioralne PlayStyles; osiągnięcia/easter eggi; styl
 życia/ekonomia; interaktywny izometryczny silnik decyzji.
 
@@ -144,11 +144,11 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
-pozostaje: niedoskonałe transfery, trwały cykl trenerów oraz pakiety zagraniczne.
+pozostaje: trwały cykl trenerów, pakiety zagraniczne oraz późniejsza rozbudowa rozgrywek/kalendarza.
 
-1. Rozbudować wdrożoną fazę 1 rynku NPC o ekonomię transferów i budżety.
-2. Trwałość i zmiany menedżerów/trenerów.
-3. Zagraniczne pakiety świata / późniejsze systemy.
+1. Trwałość i zmiany menedżerów/trenerów.
+2. Zagraniczne pakiety świata.
+3. Późniejsza rozbudowa rozgrywek i kalendarza.
 
 ## Zachowane przyszłe TODO (poza bieżącym zakresem)
 

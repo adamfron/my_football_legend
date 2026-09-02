@@ -1,13 +1,17 @@
 # Architektura
 
-## Letni rynek NPC — faza 1
+## Letni rynek NPC — ekonomia ograniczonego okna
 
 Kanoniczna granica ukończonego sezonu uruchamia po graduacji, rozwoju i emeryturach pojedynczy,
 idempotentny przebieg rynku, a dopiero potem nabór U-17. Przebieg buduje indeks członkostwa raz,
 ogląda wyłącznie małe deterministyczne próbki kandydatów i zapisuje tylko zmienionych piłkarzy oraz
 dotknięte kadry w `CareerWorldDelta`. Obsługuje wolnych seniorów i ograniczone ruchy między klubami;
-nie obejmuje protagonisty, aktywnych juniorów ani emerytów. Kontrakty NPC są spójnymi faktami,
-natomiast opłaty, budżety i pełna ekonomia pozostają poza tą fazą.
+nie obejmuje protagonisty, aktywnych juniorów ani emerytów. Czyste helpery wyprowadzają co sezon
+pojemność finansową, budżet opłat, limit płac, żądanie płacowe i relatywną wartość zawodnika.
+Robocza księga okna uwzględnia wydatki, część wpływów i zwolnione płace, lecz nie jest trwałym
+kontem klubu. Sprzedający wykonuje jedną zaszumioną ocenę roli, głębi, kontraktu i ceny. W delcie
+pozostają tylko zmienione kadry/zawodnicy, marker idempotencji oraz append-only
+`npcTransferRecords`, nie budżety klubów.
 
 ## Player Model 2.0
 
@@ -185,7 +189,7 @@ ręcznie ani służyć jako format authoringu.
 
 `STATIC WORLD DATABASE + CAREER WORLD DELTA = EFFECTIVE WORLD`.
 
-Globalna granica ukończonego sezonu ma jednego właściciela i kolejność: (1) archiwum protagonisty, (2) graduacja bieżących U-17, (3) rzadki rozwój NPC, (4) emerytury NPC, (5) nabór i kohorty następnego sezonu, (6) rollover świata klubów, (7) inicjalizacja sezonu i hierarchii protagonisty. Nowy nabór istnieje wyłącznie w `newFootballers` i `youthCohortOverrides`; emerytura zachowuje kartę osoby, zapisuje status oraz usuwa ID ze składu przez rzadki `squadOverrides`. Minimum 18 aktywnych seniorów jest jawnie tymczasowym mostem do rynku transferowego NPC, nie optymalizatorem kadry.
+Globalna granica ukończonego sezonu ma jednego właściciela i kolejność: (1) archiwum protagonisty, (2) rollover poziomów klubów, aby finanse używały nowego kontekstu, (3) graduacja bieżących U-17, (4) rzadki rozwój NPC, (5) emerytury NPC, (6) ograniczony rynek NPC, (7) nabór i kohorty następnego sezonu, (8) inicjalizacja sezonu i hierarchii protagonisty. Nowy nabór istnieje wyłącznie w `newFootballers` i `youthCohortOverrides`; emerytura zachowuje kartę osoby, zapisuje status oraz usuwa ID ze składu przez rzadki `squadOverrides`.
 
 Kohorta U-17 jest rozwiązywana jako `youthCohortOverrides[key] ?? youthCohorts[key]`. Na granicy
 sezonu każdy NPC kohorty jest postarzany dokładnie raz, a zawodnik osiągający 17 lat kończy U-17.
@@ -208,10 +212,10 @@ kohorty młodzieży. Pełna tożsamość NPC pozostaje zachowana; bliscy NPC mog
 szczegółowo, a tło będzie rozwijane deterministycznie sezonowo lub w rzadkich checkpointach,
 zamiast symulacji treningu 52 razy w roku dla całego świata.
 
-Wyjściowe profesjonalne kontrakty NPC są faktami niezmiennej bazy świata. Dopiero przyszła zmiana
-umowy zapisze pełnego zawodnika w `footballerOverrides`; świeży `CareerWorldDelta` nie kopiuje tych
-kontraktów. Nie symulujemy jeszcze listy płac NPC, wypłat ani obciążania budżetów klubów — księga
-miesięcznej pensji protagonisty pozostaje jedyną symulacją finansową kontraktu.
+Wyjściowe profesjonalne kontrakty NPC są faktami niezmiennej bazy świata. Dopiero zmiana
+umowy zapisuje pełnego zawodnika w `footballerOverrides`; świeży `CareerWorldDelta` nie kopiuje tych
+kontraktów. Rynek sumuje efektywne płace raz na okno i ogranicza nowe zobowiązania, ale nie symuluje
+wypłat ani rachunkowości klubów — księga miesięcznej pensji protagonisty pozostaje osobnym systemem.
 Generator przypisuje początkową obietnicę kontraktową dopiero po zbudowaniu całej kadry i ocenie
 realnej hierarchii. `development_player` oznacza młodego zawodnika rozwijanego przez klub, a nie
 automatyczną etykietę dowolnego seniora znajdującego się głęboko w składzie.

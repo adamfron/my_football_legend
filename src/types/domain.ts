@@ -318,12 +318,25 @@ export interface CareerWorldDelta {
   newFootballers: Record<Id, WorldFootballer>;
   retiredFootballerIds: Id[];
   managerOverrides: Record<Id, Id>;
+  /** Sparse append-only history of completed NPC moves. */
+  npcTransferRecords?: WorldTransferRecord[] | undefined;
   /** Last completed season boundary applied to persistent NPC attributes. */
   npcDevelopmentProcessedThroughSeason?: number | undefined;
   /** Last completed season boundary evaluated for NPC retirement. */
   npcRetirementProcessedThroughSeason?: number | undefined;
   /** Last completed season boundary processed by the bounded NPC summer market. */
   npcTransferMarketProcessedThroughSeason?: number | undefined;
+}
+
+export interface WorldTransferRecord {
+  id: Id;
+  playerId: Id;
+  date: string;
+  fromClubId?: Id | undefined;
+  toClubId: Id;
+  transferType: 'free' | 'transfer';
+  fee: number;
+  contractEndDate: string;
 }
 
 export interface WorldDatabase {
