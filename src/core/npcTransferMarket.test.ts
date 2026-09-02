@@ -2,6 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { processNpcTransferMarket } from './npcTransferMarket';
+import {
+  deriveClubFinancialCapacity,
+  deriveCommittedMonthlyWages,
+  estimateNpcMonthlySalary,
+  estimateNpcTransferValue,
+} from './npcTransferEconomics';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -32,6 +38,65 @@ const effectiveSquads = (career: ReturnType<typeof createCareer>) =>
   );
 
 describe('bounded NPC summer transfer market', () => {
+  it('derives deterministic, tier-sensitive seasonal capacity', () => {
+    const career = createCareer('npc-finance');
+    const club = career.clubWorld![0]!;
+    expect(deriveClubFinancialCapacity(club, career.seed, 2027)).toEqual(
+      deriveClubFinancialCapacity(club, career.seed, 2027),
+    );
+    const averages = ([1, 2, 3, 4] as const).map((leagueTier) =>
+      Array.from(
+        { length: 30 },
+        (_, index) =>
+          deriveClubFinancialCapacity(
+            { ...club, id: `${club.id}-${leagueTier}-${index}`, leagueTier },
+            career.seed,
+            2027,
+          ).transferBudget,
+      ).reduce((sum, value) => sum + value, 0),
+    );
+    expect(averages[0]).toBeGreaterThan(averages[1]!);
+    expect(averages[1]).toBeGreaterThan(averages[2]!);
+    expect(averages[2]).toBeGreaterThan(averages[3]!);
+  });
+
+  it('values expired players as free while every signing carries a wage', () => {
+    const career = createCareer('npc-values');
+    const source = career.clubWorld![0]!;
+    const destination = career.clubWorld![1]!;
+    const player = career.footballerWorld![source.squadPlayerIds![0]!]!;
+    expect(
+      estimateNpcTransferValue(
+        { ...player, currentContract: { ...player.currentContract!, endDate: '2026-06-30' } },
+        { boundaryDate: '2027-07-01', sourceClub: source, destinationClub: destination },
+      ),
+    ).toBe(0);
+    expect(
+      estimateNpcTransferValue(player, {
+        boundaryDate: player.currentContract!.startDate,
+        sourceClub: source,
+        destinationClub: destination,
+      }),
+    ).toBeGreaterThan(0);
+    const salary = estimateNpcMonthlySalary(player, destination, 'rotation', '2027-07-01');
+    expect(salary).toBeGreaterThan(0);
+    expect(
+      deriveCommittedMonthlyWages(
+        [player.profile.id],
+        () => ({
+          ...player,
+          currentContract: {
+            ...player.currentContract!,
+            startDate: '2027-07-01',
+            endDate: '2028-06-30',
+            monthlySalary: salary,
+          },
+        }),
+        '2027-07-01',
+      ),
+    ).toBe(salary);
+  });
+
   it('is deterministic, idempotent, bounded and preserves moved identities', () => {
     let seedIndex = 0;
     let base = createCareer(`npc-market-stable-${seedIndex}`);
@@ -45,6 +110,10 @@ describe('bounded NPC summer transfer market', () => {
     expect(first.worldDelta).toEqual(same.worldDelta);
     expect(repeated.worldDelta).toEqual(first.worldDelta);
     expect(first.worldDelta?.npcTransferMarketProcessedThroughSeason).toBe(2026);
+    expect(first.worldDelta?.npcTransferRecords).toHaveLength(
+      Object.keys(first.worldDelta?.footballerOverrides ?? {}).length,
+    );
+    expect(repeated.worldDelta?.npcTransferRecords).toEqual(first.worldDelta?.npcTransferRecords);
     expect(first.worldDelta?.footballerOverrides[first.player.id]).toBeUndefined();
     const beforeMembership = new Map<string, string>();
     for (const club of base.clubWorld ?? [])

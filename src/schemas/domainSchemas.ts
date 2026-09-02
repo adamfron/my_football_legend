@@ -591,6 +591,20 @@ export const careerStateSchema = z.object({
       newFootballers: z.record(id, worldFootballerSchema),
       retiredFootballerIds: z.array(id),
       managerOverrides: z.record(id, id),
+      npcTransferRecords: z
+        .array(
+          z.object({
+            id,
+            playerId: id,
+            date: z.string(),
+            fromClubId: id.optional(),
+            toClubId: id,
+            transferType: z.enum(['free', 'transfer']),
+            fee: z.number().int().nonnegative(),
+            contractEndDate: z.string(),
+          }),
+        )
+        .optional(),
       npcDevelopmentProcessedThroughSeason: z.number().int().nonnegative().optional(),
       npcRetirementProcessedThroughSeason: z.number().int().nonnegative().optional(),
       npcTransferMarketProcessedThroughSeason: z.number().int().nonnegative().optional(),
