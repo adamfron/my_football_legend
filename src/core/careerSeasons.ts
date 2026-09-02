@@ -28,6 +28,7 @@ import { processNpcSeasonDevelopment } from './seasonDevelopment';
 import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements } from './npcRetirement';
+import { processNpcTransferMarket } from './npcTransferMarket';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -341,6 +342,7 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     // compose into those owned maps without repeatedly cloning a growing career delta.
     aged = processNpcSeasonDevelopment(aged, nextDate, true);
     aged = processNpcRetirements(aged, nextDate, true);
+    aged = processNpcTransferMarket(aged, nextDate, true);
     aged = processYouthIntake(aged, career.currentSeason, true);
   }
   if (aged.clubWorld && movement) {
@@ -487,6 +489,17 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     ...offer.club,
     squadPlayerIds: [...new Set([...(offer.club.squadPlayerIds ?? []), career.player.id])],
   };
+  const squadOverrides = career.worldDelta ? { ...career.worldDelta.squadOverrides } : undefined;
+  if (squadOverrides) {
+    for (const [clubId, ids] of Object.entries(squadOverrides))
+      if (clubId !== offer.club.id && ids.includes(career.player.id))
+        squadOverrides[clubId] = ids.filter((id) => id !== career.player.id);
+    const destinationIds = squadOverrides[offer.club.id] ?? offer.club.squadPlayerIds ?? [];
+    squadOverrides[offer.club.id] = [
+      ...destinationIds.filter((id) => id !== career.player.id),
+      career.player.id,
+    ];
+  }
   const types =
     career.careerSeasonNumber === 1
       ? ['academy_graduated', 'first_professional_contract', 'joined_professional_club']
@@ -539,6 +552,12 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     seasonOutcome: changedClub ? undefined : career.seasonOutcome,
     professionalOffers: undefined,
     renegotiation: undefined,
+    worldDelta: career.worldDelta
+      ? {
+          ...career.worldDelta,
+          squadOverrides: squadOverrides!,
+        }
+      : career.worldDelta,
   };
   return advanceToNextCareerSeason(transitioned);
 };

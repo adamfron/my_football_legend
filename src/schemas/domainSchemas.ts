@@ -593,6 +593,7 @@ export const careerStateSchema = z.object({
       managerOverrides: z.record(id, id),
       npcDevelopmentProcessedThroughSeason: z.number().int().nonnegative().optional(),
       npcRetirementProcessedThroughSeason: z.number().int().nonnegative().optional(),
+      npcTransferMarketProcessedThroughSeason: z.number().int().nonnegative().optional(),
     })
     .optional(),
   completedSeasons: z

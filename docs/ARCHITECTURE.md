@@ -1,5 +1,14 @@
 # Architektura
 
+## Letni rynek NPC — faza 1
+
+Kanoniczna granica ukończonego sezonu uruchamia po graduacji, rozwoju i emeryturach pojedynczy,
+idempotentny przebieg rynku, a dopiero potem nabór U-17. Przebieg buduje indeks członkostwa raz,
+ogląda wyłącznie małe deterministyczne próbki kandydatów i zapisuje tylko zmienionych piłkarzy oraz
+dotknięte kadry w `CareerWorldDelta`. Obsługuje wolnych seniorów i ograniczone ruchy między klubami;
+nie obejmuje protagonisty, aktywnych juniorów ani emerytów. Kontrakty NPC są spójnymi faktami,
+natomiast opłaty, budżety i pełna ekonomia pozostają poza tą fazą.
+
 ## Player Model 2.0
 
 `FOOTBALL_ARCHETYPES` jest jedynym rejestrem archetypów: określa ich dostępność, kształtuje

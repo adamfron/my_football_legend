@@ -322,6 +322,8 @@ export interface CareerWorldDelta {
   npcDevelopmentProcessedThroughSeason?: number | undefined;
   /** Last completed season boundary evaluated for NPC retirement. */
   npcRetirementProcessedThroughSeason?: number | undefined;
+  /** Last completed season boundary processed by the bounded NPC summer market. */
+  npcTransferMarketProcessedThroughSeason?: number | undefined;
 }
 
 export interface WorldDatabase {

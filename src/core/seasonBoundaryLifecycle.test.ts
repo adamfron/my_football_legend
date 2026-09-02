@@ -8,6 +8,8 @@ import { getProfileAge } from './age';
 import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements, projectNpcRetirement } from './npcRetirement';
+import { advanceCareerFlow } from './careerFlow';
+import { resolveYouthCohort } from './worldDatabase';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -63,6 +65,50 @@ const completedProfessionalSeason = (seed: string) => {
 };
 
 describe('completed professional season offer regression', () => {
+  it('accepts an offer after a genuinely completed first U-17 season', () => {
+    const base = advanceCareerFlow(createCareer('completed-academy-offer'));
+    const academy = {
+      ...base,
+      currentDate: `${base.currentSeason + 1}-06-30`,
+      leagueSeason: { ...base.leagueSeason!, completed: true },
+      seasonOutcome: {
+        finalPosition: 5,
+        champion: false,
+        competitionType: 'academy' as const,
+      },
+    };
+    expect(academy.careerSeasonNumber).toBe(1);
+    expect(academy.leagueSeason.completed).toBe(true);
+    expect(academy.seasonOutcome.competitionType).toBe('academy');
+    const window = advanceCareerFlow(academy);
+    expect(window.professionalOffers?.length).toBeGreaterThan(0);
+    const offer = window.professionalOffers![0]!;
+    const next = acceptProfessionalOffer(window, offer.id);
+    expect(next).toMatchObject({ currentSeason: academy.currentSeason + 1, careerSeasonNumber: 2 });
+    expect(next.currentContract).toEqual(offer.contract);
+    expect(next.currentClub.id).toBe(offer.club.id);
+    expect(next.currentProfessionalClub?.id).toBe(offer.club.id);
+    expect(next.professionalOffers).toBeUndefined();
+    expect(next.seasonOutcome).toBeUndefined();
+    expect(next.leagueSeason).toMatchObject({ completed: false });
+    expect(next.leagueSeason?.competition.category).toBe('professional');
+    expect(next.careerCalendar?.seasonId).toBe(next.leagueSeason?.id);
+    expect(next.player.age).toBe(getProfileAge(next.player, `${next.currentSeason}-07-01`));
+    const seniorOccurrences = (next.clubWorld ?? []).reduce((count, club) => {
+      const ids = next.worldDelta?.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
+      return count + ids.filter((id) => id === next.player.id).length;
+    }, 0);
+    expect(seniorOccurrences).toBe(1);
+    const oldCohort = resolveYouthCohort(next, getYouthCohortKey('club_vistula_nova', 2026));
+    expect(oldCohort).not.toContain(next.player.id);
+    expect(next.worldDelta).toMatchObject({
+      npcDevelopmentProcessedThroughSeason: 2026,
+      npcRetirementProcessedThroughSeason: 2026,
+      npcTransferMarketProcessedThroughSeason: 2026,
+    });
+    expect(careerStateSchema.safeParse(next).success).toBe(true);
+  });
+
   it.each(['renewal', 'external'] as const)('accepts a %s and advances exactly once', (kind) => {
     const completed = completedProfessionalSeason(`offer-${kind}`);
     const offers = generateSummerWindowOffers(completed);
