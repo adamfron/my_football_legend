@@ -7,6 +7,7 @@ export const StartScreen = ({
   onNewCareer,
   onContinue,
   developerAction,
+  status,
 }: {
   canContinue: boolean;
   notice?: string | undefined;
@@ -14,6 +15,7 @@ export const StartScreen = ({
   onNewCareer: () => void;
   onContinue: () => void;
   developerAction?: ReactNode | undefined;
+  status?: string | undefined;
 }) => (
   <main className="start-screen">
     <header className="start-titlebar">
@@ -27,6 +29,11 @@ export const StartScreen = ({
           <p>{notice}</p>
           <button onClick={onDismissNotice}>Rozumiem</button>
         </aside>
+      )}
+      {status && (
+        <p className="career-error" role="alert">
+          {status}
+        </p>
       )}
       <nav className="start-actions">
         <button onClick={onNewCareer}>Nowa kariera</button>

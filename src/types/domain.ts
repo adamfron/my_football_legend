@@ -136,6 +136,26 @@ export interface Person {
   narrativeTags: string[];
 }
 
+export type TacticalStyle = 'possession' | 'balanced' | 'direct' | 'counter_attacking' | 'pressing';
+
+/** A role profile references a Person identity instead of replacing it. */
+export interface CoachProfile {
+  id: Id;
+  personId: Id;
+  dateOfBirth: string;
+  nationality: string;
+  reputation: number;
+  preferredFormation: '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
+  secondaryFormation?: '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2' | undefined;
+  tacticalStyle: TacticalStyle;
+  rotationPreference: number;
+  youthTrust: number;
+  experiencePreference: number;
+  positionalFlexibility: number;
+  formPatience: number;
+  adaptability: number;
+}
+
 export interface ClubSeasonHistory {
   season: number;
   summary: string;

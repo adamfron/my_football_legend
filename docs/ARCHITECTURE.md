@@ -1,5 +1,18 @@
 # Architektura
 
+## Nawadnianie zapisu i trenerzy
+
+Zapis kariery pozostaje rzadki: nie zawiera `clubWorld`, `footballerWorld` ani `youthCohorts`.
+Kontynuacja najpierw waliduje zapis, następnie asynchronicznie ładuje właściwą wersję bazy świata
+i dopiero przez `hydrateCareerWithWorld` udostępnia kompletny stan symulacji. Poprawność nie zależy
+od pamięci podręcznej modułu, a błąd ładowania lub zapisu jest jawny w powłoce aplikacji.
+
+`CoachProfile` jest kanonicznym, deterministycznym profilem roli powiązanym przez `personId` z
+tożsamością `Person`. Preferowana formacja pochodzi wyłącznie z tego profilu. Przypisanie trenera
+rozwiązuje najpierw `CareerWorldDelta.managerOverrides`, a potem bazowy `ProfessionalClub.managerId`.
+Polityka/DNA klubu pozostają niezależne od osobistych cech trenera; ruch trenerów nie jest jeszcze
+symulowany.
+
 ## Letni rynek NPC — ekonomia ograniczonego okna
 
 Kanoniczna granica ukończonego sezonu uruchamia po graduacji, rozwoju i emeryturach pojedynczy,

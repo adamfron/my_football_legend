@@ -172,6 +172,23 @@ export const personSchema = z.object({
   faceGenome: faceGenomeSchema.optional(),
   narrativeTags: z.array(z.string()),
 });
+const formationSchema = z.enum(['4-3-3', '4-2-3-1', '4-4-2', '3-4-2-1', '3-5-2']);
+export const coachProfileSchema = z.object({
+  id,
+  personId: id,
+  dateOfBirth: isoDateSchema,
+  nationality: z.string().min(1),
+  reputation: score,
+  preferredFormation: formationSchema,
+  secondaryFormation: formationSchema.optional(),
+  tacticalStyle: z.enum(['possession', 'balanced', 'direct', 'counter_attacking', 'pressing']),
+  rotationPreference: score,
+  youthTrust: score,
+  experiencePreference: score,
+  positionalFlexibility: score,
+  formPatience: score,
+  adaptability: score,
+});
 export const clubSchema = z.object({
   id,
   name: z.string(),

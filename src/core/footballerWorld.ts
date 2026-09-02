@@ -15,6 +15,7 @@ import { RandomGenerator } from './random/RandomGenerator';
 import { POSITION_COMPATIBILITY } from './positionCompatibility';
 import { deriveDateOfBirth } from './age';
 import { getProfileAge } from './age';
+import { deriveCanonicalCoachProfile } from './coachProfiles';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -84,9 +85,14 @@ export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
     'striker',
   ],
 };
-const FORMATION_IDS = Object.keys(FORMATIONS) as FormationId[];
-export const getManagerPreferredFormation = (managerId = 'manager'): FormationId =>
-  RandomGenerator.fromSeed(`manager-formation:${managerId}`).pick(FORMATION_IDS);
+const managerFormationCache = new Map<string, FormationId>();
+export const getManagerPreferredFormation = (managerId = 'manager'): FormationId => {
+  const cached = managerFormationCache.get(managerId);
+  if (cached) return cached;
+  const formation = deriveCanonicalCoachProfile(managerId).preferredFormation;
+  managerFormationCache.set(managerId, formation);
+  return formation;
+};
 
 export const resolveFootballer = (
   career: Pick<CareerState, 'player' | 'footballerWorld' | 'worldDelta' | 'currentDate'>,
