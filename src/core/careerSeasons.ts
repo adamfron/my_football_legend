@@ -337,9 +337,11 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   // applying world simulation to an unfinished schedule.
   if (career.leagueSeason?.completed) {
     aged = processYouthGraduation(aged, career.currentSeason).career;
-    aged = processNpcSeasonDevelopment(aged, nextDate);
-    aged = processNpcRetirements(aged, nextDate);
-    aged = processYouthIntake(aged, career.currentSeason);
+    // Graduation has cloned the sparse maps once; subsequent private boundary stages can safely
+    // compose into those owned maps without repeatedly cloning a growing career delta.
+    aged = processNpcSeasonDevelopment(aged, nextDate, true);
+    aged = processNpcRetirements(aged, nextDate, true);
+    aged = processYouthIntake(aged, career.currentSeason, true);
   }
   if (aged.clubWorld && movement) {
     const world = rollOverClubWorld(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`);

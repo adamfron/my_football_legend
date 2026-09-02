@@ -10,15 +10,26 @@ export interface NpcRetirementProjection {
   reason: 'age_and_career_context' | 'continues';
 }
 
-/** Pure retirement decision; optional context is intentionally extensible for later match signals. */
-export const projectNpcRetirement = (options: {
-  footballer: WorldFootballer;
-  boundaryDate: string;
-  clubContext?: ProfessionalClub;
-  seed: string;
-}): NpcRetirementProjection => {
-  const { footballer, boundaryDate, seed } = options;
-  const age = getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
+const deriveBoundaryAge = (footballer: WorldFootballer, boundaryDate: string) => {
+  const dateOfBirth = footballer.profile.dateOfBirth;
+  if (!dateOfBirth) return getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
+  const boundaryYear = Number(boundaryDate.slice(0, 4));
+  const birthYear =
+    (dateOfBirth.charCodeAt(0) - 48) * 1000 +
+    (dateOfBirth.charCodeAt(1) - 48) * 100 +
+    (dateOfBirth.charCodeAt(2) - 48) * 10 +
+    dateOfBirth.charCodeAt(3) -
+    48;
+  const boundaryMonthDay = boundaryDate.slice(5);
+  return boundaryYear - birthYear - (boundaryMonthDay < dateOfBirth.slice(5) ? 1 : 0);
+};
+
+const projectNpcRetirementAtAge = (
+  footballer: WorldFootballer,
+  boundaryDate: string,
+  seed: string,
+  age: number,
+): NpcRetirementProjection => {
   const goalkeeper = footballer.profile.primaryPosition === 'goalkeeper';
   const start = goalkeeper ? 34 : 30;
   const years = age - start;
@@ -40,18 +51,40 @@ export const projectNpcRetirement = (options: {
   return { retires, probability, reason: retires ? 'age_and_career_context' : 'continues' };
 };
 
+/** Pure retirement decision; optional context is intentionally extensible for later match signals. */
+export const projectNpcRetirement = (options: {
+  footballer: WorldFootballer;
+  boundaryDate: string;
+  clubContext?: ProfessionalClub;
+  seed: string;
+}): NpcRetirementProjection => {
+  const { footballer, boundaryDate, seed } = options;
+  return projectNpcRetirementAtAge(
+    footballer,
+    boundaryDate,
+    seed,
+    deriveBoundaryAge(footballer, boundaryDate),
+  );
+};
+
 /**
  * Removes retirees sparsely. The 18-player floor is a temporary bridge until NPC transfers
  * provide ordinary replacements; it deliberately does not optimize or regenerate senior squads.
  */
-export const processNpcRetirements = (career: CareerState, boundaryDate: string): CareerState => {
+export const processNpcRetirements = (
+  career: CareerState,
+  boundaryDate: string,
+  reuseOwnedDeltaMaps = false,
+): CareerState => {
   const season = Number(boundaryDate.slice(0, 4)) - 1;
   let delta = career.worldDelta ?? emptyWorldDelta();
   if ((delta.npcRetirementProcessedThroughSeason ?? -1) >= season) return career;
   const clubs = career.clubWorld ?? [];
   const retired = new Set(delta.retiredFootballerIds);
-  const overrides = { ...delta.footballerOverrides };
-  const squadOverrides = { ...delta.squadOverrides };
+  const overrides = reuseOwnedDeltaMaps
+    ? delta.footballerOverrides
+    : { ...delta.footballerOverrides };
+  const squadOverrides = reuseOwnedDeltaMaps ? delta.squadOverrides : { ...delta.squadOverrides };
   for (const club of clubs) {
     const squad = squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
     const active = squad.filter((id) => id === career.player.id || !retired.has(id));
@@ -81,7 +114,9 @@ export const processNpcRetirements = (career: CareerState, boundaryDate: string)
       };
     }
   }
-  // Unattached players are not constrained by the professional squad safeguard.
+  // Canonical base-world professionals start in static squads, which were traversed above.
+  // Career-created unattached players and later detachments are necessarily represented in the
+  // sparse delta, so retirement does not need a second scan over the entire static registry.
   const seen = new Set<string>();
   const processUnattached = (id: string, fallback: WorldFootballer) => {
     if (seen.has(id)) return;
@@ -92,11 +127,9 @@ export const processNpcRetirements = (career: CareerState, boundaryDate: string)
     retired.add(id);
     overrides[id] = { ...footballer, careerStatus: 'retired', currentContract: undefined };
   };
-  for (const [id, footballer] of Object.entries(overrides)) processUnattached(id, footballer);
-  for (const [id, footballer] of Object.entries(delta.newFootballers))
-    processUnattached(id, footballer);
-  for (const [id, footballer] of Object.entries(career.footballerWorld ?? {}))
-    processUnattached(id, footballer);
+  for (const id in overrides) processUnattached(id, overrides[id]!);
+  for (const id in delta.newFootballers)
+    if (!(id in overrides)) processUnattached(id, delta.newFootballers[id]!);
   delta = {
     ...delta,
     footballerOverrides: overrides,

@@ -11,10 +11,17 @@ const clampQuality = (value: number) => Math.max(30, Math.min(65, Math.round(val
 const canonicalIntakeCache = new Map<string, WorldFootballer>();
 
 /** Replenishes the next U-17 cohort without replacing eligible players or touching static data. */
-export const processYouthIntake = (career: CareerState, completedSeason = career.currentSeason) => {
+export const processYouthIntake = (
+  career: CareerState,
+  completedSeason = career.currentSeason,
+  reuseOwnedDeltaMaps = false,
+) => {
   const nextSeason = completedSeason + 1;
   let delta = career.worldDelta ?? emptyWorldDelta();
-  const newFootballers = { ...delta.newFootballers };
+  const newFootballers = reuseOwnedDeltaMaps ? delta.newFootballers : { ...delta.newFootballers };
+  const youthCohortOverrides = reuseOwnedDeltaMaps
+    ? (delta.youthCohortOverrides ?? {})
+    : { ...delta.youthCohortOverrides };
   const clubsById = new Map((career.clubWorld ?? []).map((club) => [club.id, club]));
   for (const team of getPolishU17TeamDefinitions(career.clubWorld ?? [])) {
     const nextKey = getYouthCohortKey(team.id, nextSeason);
@@ -86,14 +93,8 @@ export const processYouthIntake = (career: CareerState, completedSeason = career
       }
       generated.push(id);
     }
-    delta = {
-      ...delta,
-      newFootballers,
-      youthCohortOverrides: {
-        ...delta.youthCohortOverrides,
-        [nextKey]: [...new Set([...retained, ...generated])],
-      },
-    };
+    youthCohortOverrides[nextKey] = [...new Set([...retained, ...generated])];
   }
+  delta = { ...delta, newFootballers, youthCohortOverrides };
   return { ...career, worldDelta: delta };
 };

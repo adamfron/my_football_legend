@@ -253,12 +253,16 @@ export const projectNpcSeasonDevelopment = (options: {
 export const processNpcSeasonDevelopment = (
   career: CareerState,
   boundaryDate: string,
+  reuseOwnedDeltaMaps = false,
 ): CareerState => {
   const season = Number(boundaryDate.slice(0, 4)) - 1;
   const delta = career.worldDelta ?? emptyWorldDelta();
   if ((delta.npcDevelopmentProcessedThroughSeason ?? -1) >= season) return career;
   const baseFootballers = career.footballerWorld ?? {};
-  const changedThisPass: Record<string, WorldFootballer> = {};
+  const retiredIds = new Set(delta.retiredFootballerIds);
+  const footballerOverrides = reuseOwnedDeltaMaps
+    ? delta.footballerOverrides
+    : { ...delta.footballerOverrides };
   const environmentByClubId = new Map(
     (career.clubWorld ?? []).map((club) => [club.id, getClubDevelopmentEnvironment(club)]),
   );
@@ -276,11 +280,7 @@ export const processNpcSeasonDevelopment = (
     const footballer =
       delta.footballerOverrides[id] ?? delta.newFootballers[id] ?? baseFootballers[id];
     if (!footballer) return;
-    if (
-      id === career.player.id ||
-      footballer.careerStatus === 'retired' ||
-      delta.retiredFootballerIds.includes(id)
-    )
+    if (id === career.player.id || footballer.careerStatus === 'retired' || retiredIds.has(id))
       return;
     const dateOfBirth = footballer.profile.dateOfBirth;
     const derivedAge = dateOfBirth
@@ -308,7 +308,7 @@ export const processNpcSeasonDevelopment = (
       derivedAge,
       extendRandomSeedHash(randomSeedPrefixHash, footballer.profile.id),
     );
-    if (projected !== footballer) changedThisPass[id] = projected;
+    if (projected !== footballer) footballerOverrides[id] = projected;
   };
   for (const id in baseFootballers) processFootballer(id);
   for (const id in delta.newFootballers) if (!(id in baseFootballers)) processFootballer(id);
@@ -316,7 +316,7 @@ export const processNpcSeasonDevelopment = (
     if (!(id in baseFootballers) && !(id in delta.newFootballers)) processFootballer(id);
   const worldDelta = {
     ...delta,
-    footballerOverrides: { ...delta.footballerOverrides, ...changedThisPass },
+    footballerOverrides,
     npcDevelopmentProcessedThroughSeason: season,
   };
   return { ...career, worldDelta };

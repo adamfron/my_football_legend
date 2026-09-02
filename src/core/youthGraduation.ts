@@ -26,9 +26,6 @@ const unitFor = (position: PlayerPosition): keyof ProfessionalClub['positionalNe
 const potential = (footballer: WorldFootballer) =>
   Math.max(...Object.values(footballer.developmentProfile.familyCapacity));
 
-const effectiveSquad = (career: CareerState, club: ProfessionalClub) =>
-  career.worldDelta?.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
-
 const firstContractRole = 'development_player' as const;
 
 export interface YouthGraduationDiagnostics {
@@ -54,11 +51,11 @@ export const processYouthGraduation = (
     footballerOverrides: { ...sourceDelta.footballerOverrides },
   };
   const clubs = career.clubWorld ?? [];
-  const footballers: Record<Id, WorldFootballer> = {
-    ...(career.footballerWorld ?? {}),
-    ...delta.newFootballers,
-    ...delta.footballerOverrides,
-  };
+  const clubsById = new Map(clubs.map((club) => [club.id, club]));
+  const resolveFootballer = (id: Id) =>
+    delta.footballerOverrides[id] ?? delta.newFootballers[id] ?? career.footballerWorld?.[id];
+  const effectiveSquad = (club: ProfessionalClub) =>
+    delta.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
   const diagnostics: YouthGraduationDiagnostics = {
     graduates: 0,
     parentClubPromotions: 0,
@@ -75,7 +72,7 @@ export const processYouthGraduation = (
     const graduates: WorldFootballer[] = [];
     for (const id of baseCohort) {
       if (id === career.player.id) continue;
-      const original = footballers[id];
+      const original = resolveFootballer(id);
       if (!original) continue;
       const age = getProfileAge(original.profile, `${season + 1}-06-30`, `${season}-07-01`);
       if (age >= YOUTH_GRADUATION_AGE) graduates.push(original);
@@ -84,9 +81,7 @@ export const processYouthGraduation = (
     delta.youthCohortOverrides[key] = remaining;
     diagnostics.graduates += graduates.length;
 
-    const parent = team.parentClubId
-      ? clubs.find((club) => club.id === team.parentClubId)
-      : undefined;
+    const parent = team.parentClubId ? clubsById.get(team.parentClubId) : undefined;
     const unsigned: WorldFootballer[] = [];
     for (const graduate of graduates) {
       const overall = getPlayerOverall(graduate.profile, graduate.profile.primaryPosition);
@@ -105,20 +100,11 @@ export const processYouthGraduation = (
           (parent.strengthRating ?? 50) * 0.42 +
           noise
         : -Infinity;
-      if (
-        !parent ||
-        score < 42 ||
-        effectiveSquad({ ...career, worldDelta: delta }, parent).length >= 26
-      ) {
+      if (!parent || score < 42 || effectiveSquad(parent).length >= 26) {
         unsigned.push(graduate);
         continue;
       }
-      const squad = [
-        ...new Set([
-          ...effectiveSquad({ ...career, worldDelta: delta }, parent),
-          graduate.profile.id,
-        ]),
-      ];
+      const squad = [...new Set([...effectiveSquad(parent), graduate.profile.id])];
       const evaluation = { ...career, player: { ...career.player, ...graduate.profile } };
       const role = firstContractRole;
       const contract = {
@@ -131,7 +117,6 @@ export const processYouthGraduation = (
         contractType: 'development' as const,
       };
       const signed = { ...graduate, currentClubId: parent.id, currentContract: contract };
-      footballers[graduate.profile.id] = signed;
       delta.squadOverrides[parent.id] = squad;
       delta.footballerOverrides[graduate.profile.id] = signed;
       diagnostics.parentClubPromotions++;
@@ -146,7 +131,7 @@ export const processYouthGraduation = (
       }));
       const overall = getPlayerOverall(graduate.profile, graduate.profile.primaryPosition);
       const offers = shortlist
-        .filter(({ club }) => effectiveSquad({ ...career, worldDelta: delta }, club).length < 26)
+        .filter(({ club }) => effectiveSquad(club).length < 26)
         .map(({ club }) => {
           const need = club.positionalNeeds[unitFor(graduate.profile.primaryPosition)];
           const noise = RandomGenerator.fromSeed(
@@ -173,12 +158,7 @@ export const processYouthGraduation = (
         diagnostics.unattachedGraduates++;
         continue;
       }
-      const squad = [
-        ...new Set([
-          ...effectiveSquad({ ...career, worldDelta: delta }, destination),
-          graduate.profile.id,
-        ]),
-      ];
+      const squad = [...new Set([...effectiveSquad(destination), graduate.profile.id])];
       const evaluation = { ...career, player: { ...career.player, ...graduate.profile } };
       const role = firstContractRole;
       const contract = {
@@ -191,7 +171,6 @@ export const processYouthGraduation = (
         contractType: 'development' as const,
       };
       const signed = { ...graduate, currentClubId: destination.id, currentContract: contract };
-      footballers[graduate.profile.id] = signed;
       delta.squadOverrides[destination.id] = squad;
       delta.footballerOverrides[graduate.profile.id] = signed;
       diagnostics.externalFirstContracts++;
