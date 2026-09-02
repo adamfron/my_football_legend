@@ -166,6 +166,7 @@ export const generateCanonicalFootballerProfile = (options: {
   id: Id;
   seed: string;
   age: number;
+  referenceDate?: string;
   targetOverall: number;
   primaryPosition: PlayerPosition;
 }): FootballerProfile => {
@@ -206,7 +207,7 @@ export const generateCanonicalFootballerProfile = (options: {
     firstName: rng.pick(firstNames),
     lastName: rng.pick(lastNames),
     age,
-    dateOfBirth: deriveDateOfBirth(age, '2026-07-01', id),
+    dateOfBirth: deriveDateOfBirth(age, options.referenceDate ?? '2026-07-01', id),
     nationality: 'PL',
     heightCm: rng.int(
       primaryPosition === 'goalkeeper' ? 184 : 168,

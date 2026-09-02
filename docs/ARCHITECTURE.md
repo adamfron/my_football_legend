@@ -176,6 +176,8 @@ ręcznie ani służyć jako format authoringu.
 
 `STATIC WORLD DATABASE + CAREER WORLD DELTA = EFFECTIVE WORLD`.
 
+Globalna granica ukończonego sezonu ma jednego właściciela i kolejność: (1) archiwum protagonisty, (2) graduacja bieżących U-17, (3) rzadki rozwój NPC, (4) emerytury NPC, (5) nabór i kohorty następnego sezonu, (6) rollover świata klubów, (7) inicjalizacja sezonu i hierarchii protagonisty. Nowy nabór istnieje wyłącznie w `newFootballers` i `youthCohortOverrides`; emerytura zachowuje kartę osoby, zapisuje status oraz usuwa ID ze składu przez rzadki `squadOverrides`. Minimum 18 aktywnych seniorów jest jawnie tymczasowym mostem do rynku transferowego NPC, nie optymalizatorem kadry.
+
 Kohorta U-17 jest rozwiązywana jako `youthCohortOverrides[key] ?? youthCohorts[key]`. Na granicy
 sezonu każdy NPC kohorty jest postarzany dokładnie raz, a zawodnik osiągający 17 lat kończy U-17.
 Obecność nakładki kohorty jest jednocześnie kanonicznym znacznikiem wykonanego przejścia. Awans,
