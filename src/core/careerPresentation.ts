@@ -1,10 +1,11 @@
 import type { CareerState, ClubArchetype, Person, SquadRole } from '../types/domain';
 import { seasonLabelForYear } from './seasonProgress';
 import type { SportingStatus } from './footballerWorld';
+import { resolveClubManagerId } from './coachProfiles';
 
 export const getCurrentHeadCoach = (career: CareerState): Person | undefined =>
   career.significantPeople.find(
-    (person) => person.role === 'coach' && person.clubId === career.currentClub.id,
+    (person) => person.id === resolveClubManagerId(career, career.currentClub.id),
   );
 
 export const getCareerHeader = (career: CareerState) =>

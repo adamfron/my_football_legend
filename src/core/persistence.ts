@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { CareerState, WorldFootballer } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
-import { getCachedWorldDatabase, WORLD_DATABASE_VERSION } from './worldDatabase';
+import { WORLD_DATABASE_VERSION } from './worldDatabase';
 import { withCanonicalBirthDate } from './age';
 
 export const CAREER_SAVE_VERSION = 3;
@@ -94,21 +94,28 @@ export const loadCareer = (): LoadCareerResult => {
   if (!result.success) return { ok: false, reason: 'invalid_data' };
   if (result.data.career.worldDatabaseVersion !== WORLD_DATABASE_VERSION)
     return { ok: false, reason: 'unsupported_world_database' };
-  const base = getCachedWorldDatabase();
   return {
     ok: true,
     save: {
       ...result.data,
-      career: base
-        ? {
-            ...migrateBirthDates(result.data.career),
-            clubWorld: base.clubs,
-            footballerWorld: base.footballers,
-            youthCohorts: base.youthCohorts,
-          }
-        : migrateBirthDates(result.data.career),
+      career: migrateBirthDates(result.data.career),
     },
   };
+};
+export const hydrateCareerWithWorld = (
+  career: CareerState,
+  world: import('../types/domain').WorldDatabase,
+): CareerState => {
+  if (career.worldDatabaseVersion !== world.version)
+    throw new Error(
+      `Zapis wymaga świata ${career.worldDatabaseVersion ?? 'nieznanego'}, a wczytano ${world.version}.`,
+    );
+  return careerStateSchema.parse({
+    ...career,
+    clubWorld: world.clubs,
+    footballerWorld: world.footballers,
+    youthCohorts: world.youthCohorts,
+  });
 };
 export const deleteCareer = () => {
   if (storageAvailable()) localStorage.removeItem(CAREER_SAVE_KEY);

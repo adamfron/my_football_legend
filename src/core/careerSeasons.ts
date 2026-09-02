@@ -13,7 +13,6 @@ import {
 } from './leagueSeason';
 import { deriveClubMatchRatings, getExpectedSquadRole } from './clubStrength';
 import { RandomGenerator } from './random/RandomGenerator';
-import type { Person, RelationshipScores } from '../types/domain';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
 import { getPlayerOverall } from './playerOverall';
 import { initializeWeekContent } from './careerWeeks';
@@ -29,6 +28,11 @@ import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements } from './npcRetirement';
 import { processNpcTransferMarket } from './npcTransferMarket';
+import {
+  coachProfileToPerson,
+  deriveCanonicalCoachProfile,
+  resolveClubManagerId,
+} from './coachProfiles';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -427,34 +431,6 @@ export const continueOnExistingContract = (career: CareerState): CareerState =>
 
 /** @deprecated Use the explicit, validity-checked action. */
 export const stayAtCurrentClub = continueOnExistingContract;
-const neutralRelationship = (): RelationshipScores => ({
-  liking: 45,
-  trust: 42,
-  respect: 52,
-  rivalry: 0,
-  resentment: 0,
-  gratitude: 0,
-  professionalDependence: 45,
-});
-const createProfessionalCoach = (career: CareerState, club: Club, date: string): Person => {
-  const rng = RandomGenerator.fromSeed(`${career.seed}:${club.id}:head-coach`);
-  const firstNames = ['Piotr', 'Robert', 'Dariusz', 'Krzysztof'];
-  const lastNames = ['Sikora', 'Maj', 'Kowalik', 'Brzoza'];
-  return {
-    id: `coach_${club.id}`,
-    firstName: firstNames[rng.int(0, firstNames.length - 1)]!,
-    lastName: lastNames[rng.int(0, lastNames.length - 1)]!,
-    role: 'coach',
-    nationality: 'Polska',
-    age: rng.int(38, 57),
-    personality: ['profesjonalny'],
-    clubId: club.id,
-    persistence: 'career',
-    relationshipParameters: neutralRelationship(),
-    faceSeed: `${club.id}:${date}:coach`,
-    narrativeTags: ['head_coach', 'professional'],
-  };
-};
 const asClub = (offer: ProfessionalOffer): Club => ({
   id: offer.club.id,
   name: offer.club.name,
@@ -485,7 +461,10 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     };
   const date = offer.contract.startDate;
   const club = asClub(offer);
-  const coach = createProfessionalCoach(career, club, date);
+  const managerId = resolveClubManagerId(career, offer.club.id) ?? offer.club.managerId;
+  if (!managerId) throw new Error(`Klub ${offer.club.id} nie ma przypisanego trenera.`);
+  const coachProfile = deriveCanonicalCoachProfile(managerId, date);
+  const coach = coachProfileToPerson(coachProfile, offer.club, date);
   const changedClub = club.id !== career.currentClub.id;
   const clubWorld = career.clubWorld?.map((worldClub) => {
     const withoutPlayer = (worldClub.squadPlayerIds ?? []).filter((id) => id !== career.player.id);
@@ -553,7 +532,9 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
       },
     ],
     historyFacts: [...career.historyFacts, ...facts],
-    significantPeople: [...career.significantPeople, coach],
+    significantPeople: career.significantPeople.some((person) => person.id === coach.id)
+      ? career.significantPeople
+      : [...career.significantPeople, coach],
     relationships: { ...career.relationships, [coach.id]: coach.relationshipParameters },
     // A transfer starts in the destination club's own tier. The previous club's
     // promotion/relegation belongs only to that club.
@@ -607,6 +588,7 @@ export const continueWithProfessionalTrial = (career: CareerState): CareerState 
     name: club.name,
     country: club.country,
     region: club.region,
+    managerId: 'manager',
     leagueTier: 4,
     reputation: 30,
     strengthRating: 42,

@@ -16,7 +16,13 @@ import {
   type IdentityInput,
   type StartingPlayerProfile,
 } from '../core/playerCreator';
-import { deleteCareer, hasValidCareer, loadCareer, saveCareer } from '../core/persistence';
+import {
+  deleteCareer,
+  hasValidCareer,
+  hydrateCareerWithWorld,
+  loadCareer,
+  saveCareer,
+} from '../core/persistence';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { getEventDefinition } from '../core/events/eventRegistry';
 import { resolveEventChoice } from '../core/events/resolveEventChoice';
@@ -795,10 +801,10 @@ export const App = () => {
   const [view, setView] = useState<'start' | 'creator' | 'career'>(() =>
     hasValidCareer() ? 'start' : 'start',
   );
-  const [career, setCareer] = useState<CareerState | null>(() => {
-    const loaded = loadCareer();
-    return loaded.ok ? advanceCareerFlow(loaded.save.career) : null;
-  });
+  const [career, setCareer] = useState<CareerState | null>(null);
+  const [canContinue, setCanContinue] = useState(() => hasValidCareer());
+  const [resumeStatus, setResumeStatus] = useState<'idle' | 'loading'>('idle');
+  const [careerError, setCareerError] = useState<string>();
   const [step, setStep] = useState(0);
   const [active, setActive] = useState<'game' | 'history'>('game');
   const [identity, setIdentity] = useState<IdentityInput>({
@@ -844,8 +850,16 @@ export const App = () => {
   };
   const updateCareer = (next: CareerState) => {
     const advanced = advanceCareerFlow(next);
-    saveCareer(advanced);
-    setCareer(advanced);
+    try {
+      saveCareer(advanced);
+      setCareer(advanced);
+      setCanContinue(true);
+      setCareerError(undefined);
+    } catch (error) {
+      setCareerError(
+        `Nie udało się zapisać kariery.${import.meta.env.DEV && error instanceof Error ? ` ${error.message}` : ''}`,
+      );
+    }
   };
   const startNew = () => {
     if (career && !confirm(translate('start.confirmOverwrite'))) return;
@@ -857,16 +871,34 @@ export const App = () => {
   const resetCareer = () => {
     deleteCareer();
     setCareer(null);
+    setCanContinue(false);
     setView('creator');
     setStep(0);
     setSeed('');
     clearVariants();
   };
-  const continueCareer = () => {
+  const continueCareer = async () => {
     const loaded = loadCareer();
-    if (loaded.ok) {
-      updateCareer(loaded.save.career);
+    if (!loaded.ok) {
+      setCareerError('Nie udało się odczytać zapisanej kariery. Możesz rozpocząć nową grę.');
+      setCanContinue(false);
+      return;
+    }
+    setResumeStatus('loading');
+    setCareerError(undefined);
+    try {
+      const world = await loadWorldDatabase();
+      const hydrated = hydrateCareerWithWorld(loaded.save.career, world);
+      const advanced = advanceCareerFlow(hydrated);
+      saveCareer(advanced);
+      setCareer(advanced);
       setView('career');
+    } catch (error) {
+      setCareerError(
+        `Nie udało się wczytać świata kariery. Spróbuj ponownie.${import.meta.env.DEV && error instanceof Error ? ` ${error.message}` : ''}`,
+      );
+    } finally {
+      setResumeStatus('idle');
     }
   };
   const nextIdentity = () => {
@@ -914,6 +946,11 @@ export const App = () => {
     if (career.activeMatch)
       return (
         <main className="shell match-shell">
+          {careerError && (
+            <p className="career-error" role="alert">
+              {careerError}
+            </p>
+          )}
           <MatchGame career={career} onCareer={updateCareer} />
         </main>
       );
@@ -925,13 +962,20 @@ export const App = () => {
         career.professionalOffers,
     );
     return (
-      <CareerView
-        career={career}
-        onCareer={updateCareer}
-        decisionPanel={
-          needsDecision ? <EventCard career={career} onCareer={updateCareer} /> : undefined
-        }
-      />
+      <>
+        {careerError && (
+          <p className="career-error" role="alert">
+            {careerError}
+          </p>
+        )}
+        <CareerView
+          career={career}
+          onCareer={updateCareer}
+          decisionPanel={
+            needsDecision ? <EventCard career={career} onCareer={updateCareer} /> : undefined
+          }
+        />
+      </>
     );
   }
 
@@ -960,7 +1004,8 @@ export const App = () => {
     );
   return (
     <StartScreen
-      canContinue={Boolean(career)}
+      canContinue={canContinue && resumeStatus !== 'loading'}
+      status={resumeStatus === 'loading' ? 'Wczytywanie świata kariery…' : careerError}
       notice={showInfo ? translate('start.localSaveNotice') : undefined}
       onDismissNotice={() => {
         localStorage.setItem(infoKey, '1');

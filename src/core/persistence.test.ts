@@ -5,6 +5,7 @@ import {
   deleteCareer,
   hasValidCareer,
   loadCareer,
+  hydrateCareerWithWorld,
   saveCareer,
 } from './persistence';
 import {
@@ -12,7 +13,15 @@ import {
   generateStartingPlayerProfile,
   type CreatorInput,
 } from './playerCreator';
-import { cacheWorldDatabase, WORLD_DATABASE_SEED, WORLD_DATABASE_VERSION } from './worldDatabase';
+import {
+  cacheWorldDatabase,
+  clearWorldDatabaseCache,
+  WORLD_DATABASE_SEED,
+  WORLD_DATABASE_VERSION,
+} from './worldDatabase';
+import { advanceCareerFlow } from './careerFlow';
+import { acceptProfessionalOffer } from './careerSeasons';
+import { careerStateSchema } from '../schemas/domainSchemas';
 import { processYouthGraduation } from './youthGraduation';
 
 const input: CreatorInput = {
@@ -50,7 +59,17 @@ describe('career persistence', () => {
     expect(hasValidCareer()).toBe(true);
     if (loaded.ok) {
       expect(loaded.save.career.seed).toBe('save-seed');
-      expect(loaded.save.career.youthCohorts).toEqual(state.youthCohorts);
+      expect(loaded.save.career.youthCohorts).toBeUndefined();
+      expect(
+        hydrateCareerWithWorld(loaded.save.career, {
+          version: WORLD_DATABASE_VERSION,
+          startingSeason: 2026,
+          seed: WORLD_DATABASE_SEED,
+          clubs: state.clubWorld!,
+          footballers: state.footballerWorld!,
+          youthCohorts: state.youthCohorts!,
+        }).youthCohorts,
+      ).toEqual(state.youthCohorts);
     }
   });
   it('deterministically migrates and persists a legacy player birthday', () => {
@@ -93,9 +112,47 @@ describe('career persistence', () => {
     const loaded = loadCareer();
     expect(loaded.ok).toBe(true);
     if (loaded.ok) {
-      expect(loaded.save.career.youthCohorts).toEqual(base.youthCohorts);
+      expect(loaded.save.career.youthCohorts).toBeUndefined();
       expect(loaded.save.career.worldDelta).toEqual(graduated.worldDelta);
     }
+  });
+  it('cold-resumes a completed academy season before accepting a professional offer', () => {
+    const base = advanceCareerFlow(career());
+    const world = {
+      version: WORLD_DATABASE_VERSION,
+      startingSeason: 2026 as const,
+      seed: WORLD_DATABASE_SEED,
+      clubs: base.clubWorld!,
+      footballers: base.footballerWorld!,
+      youthCohorts: base.youthCohorts!,
+    };
+    const completed = advanceCareerFlow({
+      ...base,
+      currentDate: '2027-06-30',
+      leagueSeason: { ...base.leagueSeason!, completed: true },
+      seasonOutcome: { finalPosition: 5, champion: false, competitionType: 'academy' as const },
+    });
+    saveCareer(completed);
+    clearWorldDatabaseCache();
+    const loaded = loadCareer();
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) return;
+    expect(loaded.save.career.clubWorld).toBeUndefined();
+    const hydrated = hydrateCareerWithWorld(loaded.save.career, world);
+    const offer = hydrated.professionalOffers![0]!;
+    const next = acceptProfessionalOffer(hydrated, offer.id);
+    expect(next.careerSeasonNumber).toBe(2);
+    expect(next.leagueSeason).toMatchObject({
+      completed: false,
+      competition: { category: 'professional' },
+    });
+    const occurrences = next.clubWorld!.reduce((count, club) => {
+      const squad = next.worldDelta!.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
+      return count + squad.filter((id) => id === next.player.id).length;
+    }, 0);
+    expect(occurrences).toBe(1);
+    expect(next.footballerWorld).toStrictEqual(world.footballers);
+    expect(careerStateSchema.safeParse(next).success).toBe(true);
   });
   it('deletes a career', () => {
     saveCareer(career());

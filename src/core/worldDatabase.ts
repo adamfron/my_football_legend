@@ -49,6 +49,9 @@ export const cacheWorldDatabase = (database: WorldDatabase) => {
   cached = worldDatabaseSchema.parse(database) as WorldDatabase;
 };
 export const getCachedWorldDatabase = () => cached;
+export const clearWorldDatabaseCache = () => {
+  cached = undefined;
+};
 /** Synchronous fallback for tests and already-bundled desktop builds. Browser UX preloads the asset. */
 
 type WorldContext = Pick<CareerState, 'player' | 'worldDelta'> & { baseWorld: WorldDatabase };

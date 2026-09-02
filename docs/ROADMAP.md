@@ -146,7 +146,8 @@ będzie uzupełniać akademie kolejnymi kohortami.
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
 pozostaje: trwały cykl trenerów, pakiety zagraniczne oraz późniejsza rozbudowa rozgrywek/kalendarza.
 
-1. Trwałość i zmiany menedżerów/trenerów.
+1. **PR #69:** cykl trwałych menedżerów — ocena, zwolnienia, nominacje, ograniczony ruch oraz
+   przebudowa hierarchii po zmianie trenera.
 2. Zagraniczne pakiety świata.
 3. Późniejsza rozbudowa rozgrywek i kalendarza.
 
@@ -183,3 +184,8 @@ Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji
 - Czas leczenia urazów wymaga kalibracji opartej na typie, ciężkości, podatności, jakości opieki i
   ewentualnie wieku/nawrotach. Długie leczenie (np. około dwóch miesięcy po ciężkim wstrząśnieniu)
   ma pozostać możliwe, lecz nie być ogólną wartością domyślną.
+- Wynik meczu stanie się jedynym źródłem goli straconych i czystego konta bramkarza; xGA, strzały,
+  obrony i przyszłe statystyki zmian będą budowane wokół kanonicznych goli oraz czasu zdarzeń.
+- Jedna kanoniczna polityka płac połączy oferty protagonisty, transfery NPC i kontrakty świata
+  startowego, używając jakości, poziomu ligi, finansów klubu, roli, wieku i reputacji, z kontrolowaną
+  wariancją indywidualnych ofert.

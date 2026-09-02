@@ -53,9 +53,12 @@ hierarchię, dostępność i małą deterministyczną rotację, co umożliwi trw
 sezonowe NPC (występy, starty, minuty, gole, asysty, kartki i średnią ocenę/MVP) bez pełnej historii
 każdego meczu. Klub protagonisty może zachować selekcję o większej szczegółowości.
 
-Przyszły trwały `CoachProfile` obejmie preferowane formacje, tożsamość taktyczną, rotację, zaufanie
+Trwały `CoachProfile` obejmuje preferowane formacje, tożsamość taktyczną, rotację, zaufanie
 do młodzieży, preferencję doświadczenia, elastyczność pozycyjną, cierpliwość/wrażliwość na formę,
-reputację, wiek i etap kariery. Zatrudnianie i zwalnianie uwzględni wyniki względem oczekiwań,
+reputację i datę urodzenia. Profil roli wskazuje na osobną, stabilną tożsamość `Person`, a bieżące
+przypisanie klubu rozwiązuje bazowy `managerId` oraz rzadki override delty. Przejściowe
+`ProfessionalClub.coachYouthTrust` nie zastępuje osobistego `CoachProfile.youthTrust`.
+Zatrudnianie i zwalnianie uwzględni wyniki względem oczekiwań,
 reputację, DNA/politykę młodzieżową klubu, finanse, kontrakt i dostępność, a zmiana trenera wymusi
 reewaluację hierarchii. Byli piłkarze będą mogli później zostać trenerami młodzieży, asystentami
 lub menedżerami.
@@ -91,6 +94,12 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 - Rozbudowa trofeów/historii, trwałych kolegów, trenerów i opowieści o spotkaniach po latach.
 - Reguły konfliktów kalendarza, bogatsza prezentacja historii/zdarzeń i realizm minut/zmian.
 - Zastąpienie tymczasowego `MatchGame`.
+- Statystyki bramkarza muszą zostać związane z kanonicznym wynikiem: przy pełnych 90 minutach
+  gole stracone mają równać się golom rywala, więc 2:2 wyklucza czyste konto. xGA, strzały i obrony
+  mogą być symulowane wokół tych goli; zmiany wymagają później czasu zdarzeń meczowych.
+- Wszystkie kontrakty piłkarzy powinny korzystać z jednej polityki wyceny płac według jakości,
+  ligi, możliwości klubu, roli, wieku i reputacji. Oferty protagonisty, rynek NPC i kontrakty
+  świata startowego mogą odchylać się od wspólnej wartości oczekiwanej.
 
 ## Source-of-truth map
 
