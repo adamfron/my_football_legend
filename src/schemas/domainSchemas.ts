@@ -592,6 +592,7 @@ export const careerStateSchema = z.object({
       retiredFootballerIds: z.array(id),
       managerOverrides: z.record(id, id),
       npcDevelopmentProcessedThroughSeason: z.number().int().nonnegative().optional(),
+      npcRetirementProcessedThroughSeason: z.number().int().nonnegative().optional(),
     })
     .optional(),
   completedSeasons: z

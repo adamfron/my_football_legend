@@ -15,13 +15,16 @@ const definitions = [
   })),
 ] satisfies YouthTeamDefinition[];
 
+const parsedDefinitions = definitions.map(
+  (definition) => youthTeamDefinitionSchema.parse(definition) as YouthTeamDefinition,
+);
+
 export const POLISH_U17_STARTING_SEASON = 2026;
 export const getYouthCohortKey = (teamId: string, season: number) => `u17:${teamId}:${season}`;
 
 export const getPolishU17TeamDefinitions = (clubs: readonly ProfessionalClub[]) => {
   const clubIds = new Set(clubs.map((club) => club.id));
-  return definitions.map((definition) => {
-    const parsed = youthTeamDefinitionSchema.parse(definition) as YouthTeamDefinition;
+  return parsedDefinitions.map((parsed) => {
     if (parsed.parentClubId && !clubIds.has(parsed.parentClubId))
       throw new Error(`Brak klubu macierzystego ${parsed.parentClubId} dla ${parsed.id}.`);
     return parsed;

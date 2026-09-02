@@ -25,6 +25,9 @@ import { initializeSeasonParticipation } from './seasonParticipation';
 import { createPolishU17LeagueProfiles } from './youthWorld';
 import { getProfileAge } from './age';
 import { processNpcSeasonDevelopment } from './seasonDevelopment';
+import { processYouthGraduation } from './youthGraduation';
+import { processYouthIntake } from './youthIntake';
+import { processNpcRetirements } from './npcRetirement';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -332,7 +335,14 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   let aged = applyAnnualAging(withMovement, nextDate);
   // Only a resolved season owns this boundary. This also keeps repair/test rollovers from
   // applying world simulation to an unfinished schedule.
-  if (career.leagueSeason?.completed) aged = processNpcSeasonDevelopment(aged, nextDate);
+  if (career.leagueSeason?.completed) {
+    aged = processYouthGraduation(aged, career.currentSeason).career;
+    // Graduation has cloned the sparse maps once; subsequent private boundary stages can safely
+    // compose into those owned maps without repeatedly cloning a growing career delta.
+    aged = processNpcSeasonDevelopment(aged, nextDate, true);
+    aged = processNpcRetirements(aged, nextDate, true);
+    aged = processYouthIntake(aged, career.currentSeason, true);
+  }
   if (aged.clubWorld && movement) {
     const world = rollOverClubWorld(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`);
     const current = world.find((c) => c.id === aged.currentClub.id);

@@ -39,7 +39,7 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 ## Kolejność kolejnych dużych systemów
 
-**NEXT: emerytury i cykliczny nabór młodzieży.** Grywalny świat U-17, przepływ absolwentów oraz rzadki rozwój/regres NPC są zrealizowane. Następnie: niedoskonały rynek transferowy NPC; trwałe profile i
+**NEXT: niedoskonały rynek transferowy NPC.** Grywalny świat U-17, coroczny nabór i graduacja, rzadki rozwój/regres NPC oraz emerytury są zrealizowane. Następnie: trwałe profile i
 cykl życia trenerów; zagraniczne pakiety świata; rozbudowa rozgrywek i kalendarza; Fitness/Morale
 2.0 przed dojrzałą warstwą silnika meczu; behawioralne PlayStyles; osiągnięcia/easter eggi; styl
 życia/ekonomia; interaktywny izometryczny silnik decyzji.
@@ -144,12 +144,11 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
-pozostaje: emerytury i nabór, niedoskonałe transfery, trwały cykl trenerów oraz pakiety zagraniczne.
+pozostaje: niedoskonałe transfery, trwały cykl trenerów oraz pakiety zagraniczne.
 
-1. Emerytury i cykliczny nabór młodzieży.
-2. Niedoskonały rynek transferowy NPC.
-3. Trwałość i zmiany menedżerów/trenerów.
-4. Zagraniczne pakiety świata / późniejsze systemy.
+1. Niedoskonały rynek transferowy NPC.
+2. Trwałość i zmiany menedżerów/trenerów.
+3. Zagraniczne pakiety świata / późniejsze systemy.
 
 ## Zachowane przyszłe TODO (poza bieżącym zakresem)
 
@@ -171,7 +170,7 @@ pozostaje: emerytury i nabór, niedoskonałe transfery, trwały cykl trenerów o
 - przyszły bogatszy HistoryView może agregować sezonowe i karierowe użycie pozycji;
 - trwała zmiana pozycji może kiedyś tworzyć kamień milowy narracji, bez spamu faktami meczowymi.
 
-Następnym dużym systemem są emerytury i cykliczny nabór młodzieży.
+Następnym dużym systemem jest niedoskonały rynek transferowy NPC.
 
 ## Domknięty krok trwałych danych U-17
 

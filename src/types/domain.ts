@@ -320,6 +320,8 @@ export interface CareerWorldDelta {
   managerOverrides: Record<Id, Id>;
   /** Last completed season boundary applied to persistent NPC attributes. */
   npcDevelopmentProcessedThroughSeason?: number | undefined;
+  /** Last completed season boundary evaluated for NPC retirement. */
+  npcRetirementProcessedThroughSeason?: number | undefined;
 }
 
 export interface WorldDatabase {

@@ -34,7 +34,7 @@ export const deriveYouthTeamQuality = (club: ProfessionalClub): number =>
       (club.strengthRating ?? 50) * 0.05,
   );
 
-const squadPositions: readonly PlayerPosition[] = [
+export const YOUTH_COHORT_TARGET_POSITIONS: readonly PlayerPosition[] = [
   'goalkeeper',
   'goalkeeper',
   'center_back',
@@ -70,7 +70,7 @@ export const populatePolishU17World = (clubs: readonly ProfessionalClub[], seed:
     const parent = team.parentClubId ? clubsById.get(team.parentClubId) : undefined;
     const baseline = parent ? deriveYouthTeamQuality(parent) : team.independentQuality!;
     const cohortKey = getYouthCohortKey(team.id, POLISH_U17_STARTING_SEASON);
-    youthCohorts[cohortKey] = squadPositions.map((primaryPosition, index) => {
+    youthCohorts[cohortKey] = YOUTH_COHORT_TARGET_POSITIONS.map((primaryPosition, index) => {
       const id = `footballer_${team.id}_2026_${index}`;
       const rng = RandomGenerator.fromSeed(`${seed}:${id}:youth`);
       const ageRoll = rng.int(1, 100);

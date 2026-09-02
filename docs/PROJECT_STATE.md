@@ -35,13 +35,9 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 
 ## Immediate next gameplay development
 
-**NEXT: sparse seasonal NPC development/regression.** Grywalny sezon U-17 oraz deterministyczne
-ukończenie akademii są podłączone: absolwenci awansują do klubu macierzystego, podpisują pierwszy
-kontrakt gdzie indziej albo pozostają wolnymi zawodnikami. Następnie powstaną emerytury i cykliczny
-nabór młodzieży.
+**NEXT: niedoskonały rynek transferowy NPC.** Globalna granica sezonu obejmuje już coroczną graduację i uzupełnianie kohort U-17, rzadki rozwój/regres NPC oraz deterministyczne, zróżnicowane emerytury.
 
-Dalsza kolejność: (1) rzadki sezonowy rozwój/regres NPC, (2) emerytury i cykliczny nabór
-młodzieży, (3) niedoskonały rynek transferowy NPC, (4) trwałość i zmiany trenerów, (5) zagraniczne
+Dalsza kolejność: (1) niedoskonały rynek transferowy NPC, (2) trwałość i zmiany trenerów, (3) zagraniczne
 pakiety świata, (6) rozbudowa rozgrywek i kalendarza, (7) Fitness/Morale 2.0 przed dojrzałą
 warstwą silnika meczu, (8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl
 życia/inwestycje/ekonomia, (11) interaktywny
@@ -147,3 +143,7 @@ jest wyłącznie runtime'ową nakładką na 24-osobową kohortę Vistuli; baza p
 nie przechowuje statycznego indeksu kohort. Na granicy sezonu wiek NPC jest wyliczany z daty urodzenia; osiągnięcie wieku 17 lat kończy kohortę U-17.
 Zmiana członkostwa, awanse, pierwsze kontrakty i wolni zawodnicy są zapisywani wyłącznie w
 `CareerWorldDelta`; baza i nawodnione kohorty pozostają niezmienne. Rozwój atrybutów rozwiązuje najpierw efektywnego zawodnika i zapisuje tylko rzeczywiste zmiany.
+
+## Kanoniczna granica sezonu świata
+
+Po ukończeniu sezonu system kolejno: archiwizuje sezon protagonisty, rozwiązuje bieżące kohorty U-17 i graduację, wykonuje rzadki rozwój NPC, rozstrzyga emerytury, tworzy kohorty następnego sezonu, stosuje rollover klubów, a na końcu inicjalizuje sezon i hierarchię protagonisty. Markery sezonowe oraz autorytatywne klucze kohort zapewniają idempotencję. Emeryci pozostają tożsamościami w delcie, lecz znikają z aktywnych resolverów i składów; tymczasowe minimum 18 seniorów chroni symulację do czasu rynku transferowego NPC.
