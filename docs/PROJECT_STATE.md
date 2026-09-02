@@ -35,9 +35,12 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 
 ## Immediate next gameplay development
 
-**NEXT: niedoskonały rynek transferowy NPC.** Globalna granica sezonu obejmuje już coroczną graduację i uzupełnianie kohort U-17, rzadki rozwój/regres NPC oraz deterministyczne, zróżnicowane emerytury.
+**Zrealizowano fazę 1 niedoskonałego rynku transferowego NPC.** Globalna granica sezonu obejmuje
+teraz coroczną graduację, rzadki rozwój/regres NPC, emerytury, ograniczony letni obieg wolnych i
+kontraktowych seniorów oraz uzupełnianie kohort U-17. Kluby oglądają małe, zaszumione listy i mogą
+nie wykonać żadnego ruchu; system nie optymalizuje globalnie składów ani finansów.
 
-Dalsza kolejność: (1) niedoskonały rynek transferowy NPC, (2) trwałość i zmiany trenerów, (3) zagraniczne
+Dalsza kolejność: (1) bogatsza ekonomia transferów i budżety, (2) trwałość i zmiany trenerów, (3) zagraniczne
 pakiety świata, (6) rozbudowa rozgrywek i kalendarza, (7) Fitness/Morale 2.0 przed dojrzałą
 warstwą silnika meczu, (8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl
 życia/inwestycje/ekonomia, (11) interaktywny

@@ -146,7 +146,7 @@ będzie uzupełniać akademie kolejnymi kohortami.
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
 pozostaje: niedoskonałe transfery, trwały cykl trenerów oraz pakiety zagraniczne.
 
-1. Niedoskonały rynek transferowy NPC.
+1. Rozbudować wdrożoną fazę 1 rynku NPC o ekonomię transferów i budżety.
 2. Trwałość i zmiany menedżerów/trenerów.
 3. Zagraniczne pakiety świata / późniejsze systemy.
 
@@ -162,6 +162,8 @@ pozostaje: niedoskonałe transfery, trwały cykl trenerów oraz pakiety zagranic
 - Kreator piłkarza pozwoli wybrać dzień i miesiąc urodzenia, wyprowadzając rok dla dokładnie 16 lat na starcie; przyszły kreator menedżera przyjmie pełną datę i zmienny wiek.
 - Czerwona kartka materialnie obniży ocenę (bezpośrednia i druga żółta mogą różnić się karą), z zachowaniem kanonicznej chronologii.
 - Jasne herby dostaną kontrastowy obrys. Ekran końca kariery przejmie język `CareerView` / `ClubView` i wykres OVR z istniejących migawek, bez duplikowania historii.
+- Późniejsza kontynuacja kariery pozwoli protagoniście przejść po zakończeniu gry do roli trenera
+  lub menedżera.
 
 # Ostatnio domknięte fundamenty pozycji
 
