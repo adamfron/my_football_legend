@@ -134,6 +134,7 @@ function projectNpcSeasonDevelopmentInternal(
   collectSummary: false,
   derivedAge?: number,
   randomSeedHash?: number,
+  changeSink?: NpcDevelopmentSummary['changes'],
 ): WorldFootballer;
 function projectNpcSeasonDevelopmentInternal(
   footballer: WorldFootballer,
@@ -143,6 +144,7 @@ function projectNpcSeasonDevelopmentInternal(
   collectSummary: boolean,
   derivedAge?: number,
   randomSeedHash?: number,
+  changeSink?: NpcDevelopmentSummary['changes'],
 ): WorldFootballer | { footballer: WorldFootballer; summary: NpcDevelopmentSummary } {
   const age = derivedAge ?? getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
   const development = footballer.developmentProfile;
@@ -220,7 +222,9 @@ function projectNpcSeasonDevelopmentInternal(
     if (attributes === before) attributes = { ...before };
     const previous = attributes[key];
     attributes[key] = value;
-    changes?.push({ attribute: key, before: previous, after: value, delta: value - previous });
+    const change = { attribute: key, before: previous, after: value, delta: value - previous };
+    changes?.push(change);
+    changeSink?.push(change);
   }
   const projected =
     attributes === before
@@ -299,18 +303,20 @@ export const processNpcSeasonDevelopment = (
           ? 1
           : 0)
       : getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
-    const { footballer: projected, summary } = projectNpcSeasonDevelopmentInternal(
+    const changes: NpcDevelopmentSummary['changes'] = [];
+    const projected = projectNpcSeasonDevelopmentInternal(
       footballer,
       boundaryDate,
       footballer.currentClubId ? (environmentByClubId.get(footballer.currentClubId) ?? 44) : 44,
       career.seed,
-      true,
+      false,
       derivedAge,
       extendRandomSeedHash(randomSeedPrefixHash, footballer.profile.id),
+      changes,
     );
     if (projected !== footballer) {
       const patch = { ...(footballerAttributeOverrides[id] ?? {}) };
-      for (const change of summary.changes) patch[change.attribute] = change.after;
+      for (const change of changes) patch[change.attribute] = change.after;
       if (Object.keys(patch).length) footballerAttributeOverrides[id] = patch;
     }
   };
