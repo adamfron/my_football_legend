@@ -8,6 +8,52 @@ export interface ClubEvolutionContext {
   finish: number;
   clubCount?: number;
 }
+export interface ClubSeasonProjection {
+  clubId: string;
+  previousTier: number;
+  finish: number;
+  clubCount: number;
+  nextTier: number;
+  promoted: boolean;
+  relegated: boolean;
+}
+
+/** One canonical deterministic background result, shared by pyramid and manager decisions. */
+export const projectClubSeason = (
+  clubs: ProfessionalClub[],
+  seed: string,
+): ClubSeasonProjection[] => {
+  const tables = new Map<number, ProfessionalClub[]>();
+  for (let tier = 1; tier <= 4; tier++)
+    tables.set(
+      tier,
+      clubs
+        .filter((c) => c.leagueTier === tier)
+        .sort((a, b) => {
+          const score = (club: ProfessionalClub) =>
+            getClubStrength(club) +
+            RandomGenerator.fromSeed(`${seed}:${tier}:${club.id}`).int(-12, 12);
+          return score(b) - score(a) || a.id.localeCompare(b.id);
+        }),
+    );
+  const movement = new Map<string, number>();
+  for (let tier = 1; tier < 4; tier++) {
+    for (const club of tables.get(tier)!.slice(-2)) movement.set(club.id, tier + 1);
+    for (const club of tables.get(tier + 1)!.slice(0, 2)) movement.set(club.id, tier);
+  }
+  return clubs.map((club) => {
+    const nextTier = movement.get(club.id) ?? club.leagueTier;
+    return {
+      clubId: club.id,
+      previousTier: club.leagueTier,
+      finish: tables.get(club.leagueTier)!.findIndex((item) => item.id === club.id) + 1,
+      clubCount: tables.get(club.leagueTier)!.length,
+      nextTier,
+      promoted: nextTier < club.leagueTier,
+      relegated: nextTier > club.leagueTier,
+    };
+  });
+};
 /** Single seeded annual evolution of the canonical ProfessionalClub strength. */
 export const evolveClubStrength = (
   club: ProfessionalClub,
@@ -35,32 +81,20 @@ export const evolveClubStrength = (
 };
 
 /** Aggregate background tables and exchange the actual persistent club records. */
-export const rollOverClubWorld = (clubs: ProfessionalClub[], seed: string): ProfessionalClub[] => {
-  const tables = new Map<number, ProfessionalClub[]>();
-  for (let tier = 1; tier <= 4; tier++) {
-    const ranked = clubs
-      .filter((c) => c.leagueTier === tier)
-      .sort((a, b) => {
-        const score = (club: ProfessionalClub) =>
-          getClubStrength(club) +
-          RandomGenerator.fromSeed(`${seed}:${tier}:${club.id}`).int(-12, 12);
-        return score(b) - score(a) || a.id.localeCompare(b.id);
-      });
-    tables.set(tier, ranked);
-  }
-  const movement = new Map<string, 1 | 2 | 3 | 4>();
-  for (let tier = 1; tier < 4; tier++) {
-    for (const club of tables.get(tier)!.slice(-2)) movement.set(club.id, (tier + 1) as 2 | 3 | 4);
-    for (const club of tables.get(tier + 1)!.slice(0, 2)) movement.set(club.id, tier as 1 | 2 | 3);
-  }
+export const rollOverClubWorld = (
+  clubs: ProfessionalClub[],
+  seed: string,
+  seasonProjections = projectClubSeason(clubs, seed),
+): ProfessionalClub[] => {
+  const projections = new Map(seasonProjections.map((item) => [item.clubId, item]));
   return clubs.map((club) =>
     evolveClubStrength(
       club,
       {
         previousTier: club.leagueTier,
-        nextTier: movement.get(club.id) ?? club.leagueTier,
-        finish: tables.get(club.leagueTier)!.findIndex((item) => item.id === club.id) + 1,
-        clubCount: 16,
+        nextTier: projections.get(club.id)!.nextTier,
+        finish: projections.get(club.id)!.finish,
+        clubCount: projections.get(club.id)!.clubCount,
       },
       seed,
     ),

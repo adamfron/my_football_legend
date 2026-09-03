@@ -19,7 +19,7 @@ import { initializeWeekContent } from './careerWeeks';
 import { createCompletedSeasonSnapshot } from './seasonArchive';
 import { deriveOfferPositionIntent, generateProfessionalClubPool } from './professionalClubs';
 import { contractCoversNextSeason } from './contractValidity';
-import { rollOverClubWorld } from './clubWorld';
+import { projectClubSeason, rollOverClubWorld } from './clubWorld';
 import { initializeSeasonParticipation } from './seasonParticipation';
 import { createPolishU17LeagueProfiles } from './youthWorld';
 import { getProfileAge } from './age';
@@ -28,6 +28,7 @@ import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements } from './npcRetirement';
 import { processNpcTransferMarket } from './npcTransferMarket';
+import { processManagerLifecycle } from './managerLifecycle';
 import {
   coachProfileToPerson,
   deriveCanonicalCoachProfile,
@@ -338,9 +339,30 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
         }
       : career;
   let aged = applyAnnualAging(withMovement, nextDate);
+  const clubSeasonProjections = aged.clubWorld
+    ? projectClubSeason(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`)
+    : [];
+  const managerSeasonProjections =
+    movement && aged.currentProfessionalClub
+      ? clubSeasonProjections.map((projection) =>
+          projection.clubId === aged.currentProfessionalClub?.id
+            ? {
+                ...projection,
+                finish: movement.finalPosition,
+                nextTier,
+                promoted: nextTier < projection.previousTier,
+                relegated: nextTier > projection.previousTier,
+              }
+            : projection,
+        )
+      : clubSeasonProjections;
   // The summer market prices clubs in their new pyramid context, never in the tier that just ended.
   if (aged.clubWorld && movement) {
-    const world = rollOverClubWorld(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`);
+    const world = rollOverClubWorld(
+      aged.clubWorld,
+      `${aged.seed}:pyramid:${aged.currentSeason}`,
+      clubSeasonProjections,
+    );
     const current = world.find((club) => club.id === aged.currentClub.id);
     const adjustedWorld = world.map((club) =>
       club.id === aged.currentClub.id ? { ...club, leagueTier: nextTier } : club,
@@ -359,6 +381,7 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     // compose into those owned maps without repeatedly cloning a growing career delta.
     aged = processNpcSeasonDevelopment(aged, nextDate, true);
     aged = processNpcRetirements(aged, nextDate, true);
+    aged = processManagerLifecycle(aged, nextDate, managerSeasonProjections);
     aged = processNpcTransferMarket(aged, nextDate, true);
     aged = processYouthIntake(aged, career.currentSeason, true);
   }

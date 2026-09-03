@@ -16,6 +16,7 @@ import { POSITION_COMPATIBILITY } from './positionCompatibility';
 import { deriveDateOfBirth } from './age';
 import { getProfileAge } from './age';
 import { deriveCanonicalCoachProfile } from './coachProfiles';
+import { resolveCareerWorldFootballer } from './worldDatabase';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -99,13 +100,7 @@ export const resolveFootballer = (
   id: Id,
 ): FootballerProfile | undefined => {
   const profile =
-    id === career.player.id
-      ? career.player
-      : (
-          career.worldDelta?.footballerOverrides[id] ??
-          career.worldDelta?.newFootballers[id] ??
-          career.footballerWorld?.[id]
-        )?.profile;
+    id === career.player.id ? career.player : resolveCareerWorldFootballer(career, id)?.profile;
   if (!profile || !career.currentDate) return profile;
   const age = getProfileAge(profile, career.currentDate, '2026-07-01');
   return age === profile.age ? profile : { ...profile, age };
@@ -400,10 +395,11 @@ export const selectMatchBench = (
     .map((id) => resolveFootballer(career, id))
     .filter((player): player is FootballerProfile => Boolean(player));
   const selected: MatchBenchAssignment[] = [];
+  const selectedIds = new Set<Id>();
   const takeBest = (positions: readonly PlayerPosition[]) => {
     let best: { assignment: MatchBenchAssignment; score: number } | undefined;
     for (const player of available) {
-      if (selected.some((item) => item.footballerId === player.id)) continue;
+      if (selectedIds.has(player.id)) continue;
       const eligiblePositions = positions.filter((position) =>
         isEligibleForNormalPosition(player, position),
       );
@@ -436,7 +432,10 @@ export const selectMatchBench = (
           score,
         };
     }
-    if (best && selected.length < limit) selected.push(best.assignment);
+    if (best && selected.length < limit) {
+      selected.push(best.assignment);
+      selectedIds.add(best.assignment.footballerId);
+    }
     return Boolean(best);
   };
   for (const coverage of BENCH_COVERAGE) takeBest(coverage);
@@ -461,6 +460,7 @@ type SelectionCareer = Pick<CareerState, 'player' | 'footballerWorld' | 'selecti
 type SelectionScore = (player: FootballerProfile, position: PlayerPosition) => number;
 const managerPreferenceCache = new Map<string, number>();
 const staticNpcOverallCache = new Map<string, number>();
+const staticNpcSelectionScoreCache = new Map<string, number>();
 const sportingStatusCache = new WeakMap<object, Map<string, SportingStatus>>();
 const managerAssignmentCache = new WeakMap<object, Map<string, PlayerPosition | undefined>>();
 
@@ -505,6 +505,11 @@ export const getManagerSelectionScore = (
   position: PlayerPosition,
 ) => {
   const isProtagonist = player.id === career.player.id;
+  const staticKey = `${club.managerId}:${player.id}:${position}`;
+  if (!isProtagonist) {
+    const cached = staticNpcSelectionScoreCache.get(staticKey);
+    if (cached !== undefined) return cached;
+  }
   const effectiveOverall = getSelectionOverall(player, position, isProtagonist);
   const fitness = isProtagonist
     ? career.player.fitness
@@ -512,7 +517,9 @@ export const getManagerSelectionScore = (
   const trust = isProtagonist ? ((career.selectionStanding ?? 50) - 50) / 25 : 0;
   const fitnessInfluence = (Math.max(50, fitness) - 85) / 25;
   const preference = getStableManagerPreference(club, player, position);
-  return effectiveOverall + trust + fitnessInfluence + preference;
+  const score = effectiveOverall + trust + fitnessInfluence + preference;
+  if (!isProtagonist) staticNpcSelectionScoreCache.set(staticKey, score);
+  return score;
 };
 
 /** A hierarchy calculation scores every player/position pair once, not once per sort comparison. */
@@ -645,12 +652,25 @@ export const getFootballerSportingStatus = (
   if (cached) return cached;
   const selectionScore = createSelectionScore(career, club);
   const xi = selectManagerXI(career, club, formation, selectionScore);
+  const xiAssignment = xi.assignments.find((item) => item.footballerId === footballerId);
+  if (xiAssignment) {
+    if (!careerStatuses) {
+      careerStatuses = new Map();
+      sportingStatusCache.set(career, careerStatuses);
+    }
+    careerStatuses.set(cacheKey, 'starting_xi');
+    let assignments = managerAssignmentCache.get(career);
+    if (!assignments) {
+      assignments = new Map();
+      managerAssignmentCache.set(career, assignments);
+    }
+    assignments.set(cacheKey, xiAssignment.position);
+    return 'starting_xi';
+  }
   const bench = selectMatchBench(career, club, xi.assignments, 7, selectionScore);
-  const status = xi.assignments.some((item) => item.footballerId === footballerId)
-    ? 'starting_xi'
-    : bench.some((item) => item.footballerId === footballerId)
-      ? 'bench'
-      : 'deep_reserve';
+  const status = bench.some((item) => item.footballerId === footballerId)
+    ? 'bench'
+    : 'deep_reserve';
   if (!careerStatuses) {
     careerStatuses = new Map();
     sportingStatusCache.set(career, careerStatuses);
@@ -661,9 +681,7 @@ export const getFootballerSportingStatus = (
     assignments = new Map();
     managerAssignmentCache.set(career, assignments);
   }
-  const assignment =
-    xi.assignments.find((item) => item.footballerId === footballerId) ??
-    bench.find((item) => item.footballerId === footballerId);
+  const assignment = bench.find((item) => item.footballerId === footballerId);
   assignments.set(cacheKey, assignment?.position);
   return status;
 };

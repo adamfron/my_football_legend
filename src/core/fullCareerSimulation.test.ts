@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from './careerWeeks';
 import { advanceCareerFlow } from './careerFlow';
@@ -54,10 +55,18 @@ const diagnostics = (career: ReturnType<typeof createCareer>) => ({
   activeMatch: career.activeMatch?.id,
   offers: career.professionalOffers?.length ?? 0,
 });
+const assertAudit = (
+  condition: boolean,
+  message: string,
+  career: ReturnType<typeof createCareer>,
+) => {
+  if (!condition) throw new Error(`${message}: ${JSON.stringify(diagnostics(career))}`);
+};
 
 describe('deterministic full-career audit', () => {
-  it('plays 25 professional careers to retirement without calendar deadlocks', () => {
-    for (let seedIndex = 0; seedIndex < 25; seedIndex++) {
+  it.each(Array.from({ length: 25 }, (_, index) => index))(
+    'plays professional career %i to retirement without calendar deadlocks',
+    (seedIndex) => {
       let career = createCareer(`full-simulation-${seedIndex}`);
       let iterations = 0;
       let priorDate = getCareerCurrentDate(career);
@@ -68,54 +77,87 @@ describe('deterministic full-career audit', () => {
         const seasonYear = career.currentSeason;
         const age = career.player.age;
         let priorProgress = getSeasonProgress(career).progress;
+        const fixtureRoundById = new Map(
+          career.leagueSeason!.rounds.flatMap((round) =>
+            round.fixtures.map((fixture) => [fixture.id, round.index] as const),
+          ),
+        );
 
         while (!career.seasonOutcome && iterations++ < 2_000) {
           const week = getCurrentCareerWeek(career);
-          expect(week, JSON.stringify(diagnostics(career))).toBeDefined();
+          assertAudit(Boolean(week), 'missing career week', career);
           const fixture = getCurrentFixture(career);
           if (fixture) {
             career = simulateRoutinePlayerMatch(career, fixture);
-            const roundIndex = career.leagueSeason!.rounds.findIndex((round) =>
-              round.fixtures.some((item) => item.id === fixture.id),
-            );
+            const roundIndex = fixtureRoundById.get(fixture.id) ?? -1;
             career = settleLeagueRound(career, roundIndex);
           }
           career = advanceCareerWeek(career);
           const progress = getSeasonProgress(career).progress;
-          expect(progress, JSON.stringify(diagnostics(career))).toBeGreaterThanOrEqual(
-            priorProgress,
-          );
-          expect(
+          assertAudit(progress >= priorProgress, 'season progress moved backwards', career);
+          assertAudit(
             getCareerCurrentDate(career) >= priorDate,
-            JSON.stringify(diagnostics(career)),
-          ).toBe(true);
+            'career date moved backwards',
+            career,
+          );
           priorDate = getCareerCurrentDate(career);
           priorProgress = progress;
         }
 
-        expect(rolledSeasons.has(seasonYear), JSON.stringify(diagnostics(career))).toBe(false);
+        assertAudit(!rolledSeasons.has(seasonYear), 'season boundary ran twice', career);
         rolledSeasons.add(seasonYear);
-        expect(getSeasonProgress(career)).toMatchObject({ progress: 1, phase: 'summer_window' });
+        const completedProgress = getSeasonProgress(career);
+        assertAudit(
+          completedProgress.progress === 1 && completedProgress.phase === 'summer_window',
+          'completed season did not reach its summer window',
+          career,
+        );
         const summary = getSeasonPlayerSummary(career, seasonYear);
-        if (summary.minutes === 0) expect(summary).toMatchObject({ yellowCards: 0, redCards: 0 });
-        expect(auditCareerSeason(career).professionalAppearanceMarkedAcademy).toBe(false);
+        if (summary.minutes === 0)
+          assertAudit(
+            summary.yellowCards === 0 && summary.redCards === 0,
+            'non-participant received cards',
+            career,
+          );
+        assertAudit(
+          !auditCareerSeason(career).professionalAppearanceMarkedAcademy,
+          'professional appearance was marked as academy',
+          career,
+        );
 
         career = advanceCareerFlow(career);
         const offer = career.professionalOffers?.[0];
         career = offer ? acceptProfessionalOffer(career, offer.id) : stayAtCurrentClub(career);
         if (career.careerStatus === 'active') {
-          expect(career.careerSeasonNumber).toBe(seasonNumber + 1);
-          expect(career.player.age).toBe(age + 1);
-          expect(career.currentSeason).toBe(seasonYear + 1);
-          expect(getSeasonProgress(career).progress).toBe(0);
-          expect(career.leagueSeason?.competition.category).toBe('professional');
+          assertAudit(
+            career.careerSeasonNumber === seasonNumber + 1,
+            'career season did not advance once',
+            career,
+          );
+          assertAudit(career.player.age === age + 1, 'player did not age once', career);
+          assertAudit(
+            career.currentSeason === seasonYear + 1,
+            'calendar season did not advance once',
+            career,
+          );
+          assertAudit(
+            getSeasonProgress(career).progress === 0,
+            'new season did not start at zero progress',
+            career,
+          );
+          assertAudit(
+            career.leagueSeason?.competition.category === 'professional',
+            'new season is not professional',
+            career,
+          );
         }
       }
       expect(iterations, JSON.stringify(diagnostics(career))).toBeLessThan(2_000);
       expect(career.careerStatus, JSON.stringify(diagnostics(career))).toBe('retired');
       expect(career.player.age).toBeLessThanOrEqual(40);
-    }
-  }, 30_000);
+    },
+    30_000,
+  );
 
   it('moves past an already-completed checkpoint week instead of returning it unchanged', () => {
     let career = createCareer('completed-week-regression');

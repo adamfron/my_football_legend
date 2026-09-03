@@ -222,7 +222,8 @@
   display: grid;
   grid-template-columns: minmax(390px, 0.85fr) minmax(580px, 1.35fr);
   gap: 8px;
-  min-height: 520px;
+  min-height: 485px;
+  position: relative;
 }
 .squad-pitch-panel,
 .grouped-squad-list,
@@ -232,8 +233,24 @@
 }
 .squad-pitch-panel {
   display: grid;
-  grid-template-rows: 29px minmax(500px, 1fr);
+  grid-template-rows: 29px minmax(465px, 1fr);
   min-height: 0;
+}
+.current-coach {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: grid;
+  gap: 1px;
+  padding: 5px 8px;
+  border: 1px solid #778078;
+  background: rgba(245, 247, 244, 0.94);
+  font-size: 11px;
+  z-index: 3;
+}
+.current-coach b {
+  font-size: 9px;
+  color: #59645d;
 }
 .squad-pitch-panel > header {
   display: flex;
@@ -773,6 +790,10 @@
   }
   .squad-pitch-panel {
     grid-template-rows: 29px 520px;
+  }
+  .current-coach {
+    bottom: auto;
+    top: 492px;
   }
   .grouped-squad-list {
     max-height: 62vh;

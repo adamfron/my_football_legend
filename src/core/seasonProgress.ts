@@ -1,6 +1,8 @@
 import type { CareerState, SeasonPhase } from '../types/domain';
 
 const DAY = 86_400_000;
+const isoDay = (date: string) =>
+  Date.UTC(Number(date.slice(0, 4)), Number(date.slice(5, 7)) - 1, Number(date.slice(8, 10)));
 export interface SeasonProgress {
   currentDate: string;
   seasonStartDate: string;
@@ -31,10 +33,9 @@ export const getSeasonProgress = (career: CareerState): SeasonProgress => {
   const start = `${career.currentSeason}-07-01`;
   const end = career.leagueSeason?.endDate ?? `${career.currentSeason + 1}-06-30`;
   const currentDate = getCareerCurrentDate(career);
-  const elapsed =
-    new Date(`${currentDate}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
-  const duration =
-    new Date(`${end}T00:00:00Z`).getTime() - new Date(`${start}T00:00:00Z`).getTime();
+  const startDay = isoDay(start);
+  const elapsed = isoDay(currentDate) - startDay;
+  const duration = isoDay(end) - startDay;
   const progress = Math.max(0, Math.min(1, elapsed / duration));
   const phase: SeasonPhase = career.seasonOutcome
     ? 'summer_window'
@@ -47,9 +48,7 @@ export const getSeasonProgress = (career: CareerState): SeasonProgress => {
             ? 'summer_window'
             : 'regular_season'));
   const weeks = Math.ceil(
-    (new Date(`${career.currentSeason + 1}-06-01T00:00:00Z`).getTime() -
-      new Date(`${currentDate}T00:00:00Z`).getTime()) /
-      (7 * DAY),
+    (Date.UTC(career.currentSeason + 1, 5, 1) - isoDay(currentDate)) / (7 * DAY),
   );
   return {
     currentDate,

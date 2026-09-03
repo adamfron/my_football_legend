@@ -332,12 +332,18 @@ export interface CareerState {
 export interface CareerWorldDelta {
   clubOverrides: Record<Id, ProfessionalClub>;
   footballerOverrides: Record<Id, WorldFootballer>;
+  /** Attribute-only mutations over the effective footballer; never duplicates identity data. */
+  footballerAttributeOverrides?: {
+    [footballerId: Id]: { [K in keyof PlayerAttributes]?: PlayerAttributes[K] | undefined };
+  } | undefined;
   squadOverrides: Record<Id, Id[]>;
   /** Effective youth membership after lifecycle changes; the shipped cohort stays immutable. */
   youthCohortOverrides?: Record<string, Id[]> | undefined;
   newFootballers: Record<Id, WorldFootballer>;
   retiredFootballerIds: Id[];
   managerOverrides: Record<Id, Id>;
+  managerMoveRecords?: WorldManagerMoveRecord[] | undefined;
+  managerLifecycleProcessedThroughSeason?: number | undefined;
   /** Sparse append-only history of completed NPC moves. */
   npcTransferRecords?: WorldTransferRecord[] | undefined;
   /** Last completed season boundary applied to persistent NPC attributes. */
@@ -346,6 +352,15 @@ export interface CareerWorldDelta {
   npcRetirementProcessedThroughSeason?: number | undefined;
   /** Last completed season boundary processed by the bounded NPC summer market. */
   npcTransferMarketProcessedThroughSeason?: number | undefined;
+}
+
+export interface WorldManagerMoveRecord {
+  id: Id;
+  managerId: Id;
+  date: string;
+  fromClubId?: Id | undefined;
+  toClubId?: Id | undefined;
+  reason: 'dismissed' | 'appointed';
 }
 
 export interface WorldTransferRecord {

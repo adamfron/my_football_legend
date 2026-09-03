@@ -8,7 +8,7 @@ import { getProfileAge } from './age';
 import { getAttributeFamily } from './attributePresentation';
 import { getClubDevelopmentEnvironment } from './professionalClubs';
 import { extendRandomSeedHash, hashRandomSeed } from './random/RandomGenerator';
-import { emptyWorldDelta } from './worldDatabase';
+import { createCareerWorldFootballerResolver, emptyWorldDelta } from './worldDatabase';
 
 export const aggregateDevelopment = (start: PlayerAttributes, end: PlayerAttributes) =>
   (Object.keys(start) as (keyof PlayerAttributes)[]).flatMap((attribute) => {
@@ -134,6 +134,7 @@ function projectNpcSeasonDevelopmentInternal(
   collectSummary: false,
   derivedAge?: number,
   randomSeedHash?: number,
+  changeSink?: NpcDevelopmentSummary['changes'],
 ): WorldFootballer;
 function projectNpcSeasonDevelopmentInternal(
   footballer: WorldFootballer,
@@ -143,6 +144,7 @@ function projectNpcSeasonDevelopmentInternal(
   collectSummary: boolean,
   derivedAge?: number,
   randomSeedHash?: number,
+  changeSink?: NpcDevelopmentSummary['changes'],
 ): WorldFootballer | { footballer: WorldFootballer; summary: NpcDevelopmentSummary } {
   const age = derivedAge ?? getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
   const development = footballer.developmentProfile;
@@ -220,7 +222,9 @@ function projectNpcSeasonDevelopmentInternal(
     if (attributes === before) attributes = { ...before };
     const previous = attributes[key];
     attributes[key] = value;
-    changes?.push({ attribute: key, before: previous, after: value, delta: value - previous });
+    const change = { attribute: key, before: previous, after: value, delta: value - previous };
+    changes?.push(change);
+    changeSink?.push(change);
   }
   const projected =
     attributes === before
@@ -260,9 +264,9 @@ export const processNpcSeasonDevelopment = (
   if ((delta.npcDevelopmentProcessedThroughSeason ?? -1) >= season) return career;
   const baseFootballers = career.footballerWorld ?? {};
   const retiredIds = new Set(delta.retiredFootballerIds);
-  const footballerOverrides = reuseOwnedDeltaMaps
-    ? delta.footballerOverrides
-    : { ...delta.footballerOverrides };
+  const footballerAttributeOverrides = reuseOwnedDeltaMaps
+    ? (delta.footballerAttributeOverrides ??= {})
+    : { ...(delta.footballerAttributeOverrides ?? {}) };
   const environmentByClubId = new Map(
     (career.clubWorld ?? []).map((club) => [club.id, getClubDevelopmentEnvironment(club)]),
   );
@@ -276,9 +280,9 @@ export const processNpcSeasonDevelopment = (
   const randomSeedPrefixHash = hashRandomSeed(
     `npc-season-development:${career.seed}:${boundaryDate}:`,
   );
+  const resolveFootballer = createCareerWorldFootballerResolver({ ...career, worldDelta: delta });
   const processFootballer = (id: string) => {
-    const footballer =
-      delta.footballerOverrides[id] ?? delta.newFootballers[id] ?? baseFootballers[id];
+    const footballer = resolveFootballer(id);
     if (!footballer) return;
     if (id === career.player.id || footballer.careerStatus === 'retired' || retiredIds.has(id))
       return;
@@ -299,6 +303,7 @@ export const processNpcSeasonDevelopment = (
           ? 1
           : 0)
       : getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
+    const changes: NpcDevelopmentSummary['changes'] = [];
     const projected = projectNpcSeasonDevelopmentInternal(
       footballer,
       boundaryDate,
@@ -307,8 +312,13 @@ export const processNpcSeasonDevelopment = (
       false,
       derivedAge,
       extendRandomSeedHash(randomSeedPrefixHash, footballer.profile.id),
+      changes,
     );
-    if (projected !== footballer) footballerOverrides[id] = projected;
+    if (projected !== footballer) {
+      const patch = { ...(footballerAttributeOverrides[id] ?? {}) };
+      for (const change of changes) patch[change.attribute] = change.after;
+      if (Object.keys(patch).length) footballerAttributeOverrides[id] = patch;
+    }
   };
   for (const id in baseFootballers) processFootballer(id);
   for (const id in delta.newFootballers) if (!(id in baseFootballers)) processFootballer(id);
@@ -316,7 +326,7 @@ export const processNpcSeasonDevelopment = (
     if (!(id in baseFootballers) && !(id in delta.newFootballers)) processFootballer(id);
   const worldDelta = {
     ...delta,
-    footballerOverrides,
+    footballerAttributeOverrides,
     npcDevelopmentProcessedThroughSeason: season,
   };
   return { ...career, worldDelta };

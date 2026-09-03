@@ -3,6 +3,7 @@ import type {
   CareerState,
   CareerWorldDelta,
   Id,
+  PlayerAttributes,
   ProfessionalClub,
   WorldDatabase,
   WorldFootballer,
@@ -62,9 +63,71 @@ export const resolveWorldFootballer = (
   if (id === world.player.id) return undefined;
   const delta = world.worldDelta;
   if (delta?.retiredFootballerIds.includes(id)) return undefined;
-  return (
-    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? world.baseWorld.footballers[id]
-  );
+  const footballer =
+    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? world.baseWorld.footballers[id];
+  if (!footballer) return undefined;
+  const attributes = delta?.footballerAttributeOverrides?.[id];
+  return attributes
+    ? {
+        ...footballer,
+        profile: {
+          ...footballer.profile,
+          attributes: { ...footballer.profile.attributes, ...attributes } as PlayerAttributes,
+        },
+      }
+    : footballer;
+};
+
+/** Composes base/new, rare full override, then the sparse development overlay. */
+export const resolveCareerWorldFootballer = (
+  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'>,
+  id: Id,
+): WorldFootballer | undefined => {
+  const delta = career.worldDelta;
+  const footballer =
+    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? career.footballerWorld?.[id];
+  if (!footballer || delta?.retiredFootballerIds.includes(id)) return undefined;
+  const patch = delta?.footballerAttributeOverrides?.[id];
+  return patch
+    ? {
+        ...footballer,
+        profile: {
+          ...footballer.profile,
+          attributes: { ...footballer.profile.attributes, ...patch } as PlayerAttributes,
+        },
+      }
+    : footballer;
+};
+
+/** Boundary-local resolver: indexes retirement once and may memoize an immutable pass. */
+export const createCareerWorldFootballerResolver = (
+  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'>,
+  options: { cache?: boolean } = {},
+) => {
+  const delta = career.worldDelta;
+  const retired = new Set(delta?.retiredFootballerIds ?? []);
+  const cache = options.cache ? new Map<Id, WorldFootballer | undefined>() : undefined;
+  return (id: Id): WorldFootballer | undefined => {
+    if (cache?.has(id)) return cache.get(id);
+    const footballer = retired.has(id)
+      ? undefined
+      : (delta?.footballerOverrides[id] ??
+        delta?.newFootballers[id] ??
+        career.footballerWorld?.[id]);
+    const patch = delta?.footballerAttributeOverrides?.[id];
+    const effective =
+      footballer && patch
+        ? {
+            ...footballer,
+            profile: {
+              ...footballer.profile,
+              attributes: { ...footballer.profile.attributes, ...patch } as PlayerAttributes,
+            },
+          }
+        : footballer;
+    cache?.set(id, effective);
+    return effective;
+  };
 };
 export const resolveWorldSquad = (world: WorldContext, clubId: Id): Id[] | undefined =>
   world.worldDelta?.squadOverrides[clubId] ??

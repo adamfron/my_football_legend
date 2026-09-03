@@ -603,11 +603,25 @@ export const careerStateSchema = z.object({
     .object({
       clubOverrides: z.record(id, professionalClubSchema),
       footballerOverrides: z.record(id, worldFootballerSchema),
+      footballerAttributeOverrides: z.record(id, playerAttributesSchema.partial()).optional(),
       squadOverrides: z.record(id, z.array(id)),
       youthCohortOverrides: z.record(z.string(), z.array(id)).optional(),
       newFootballers: z.record(id, worldFootballerSchema),
       retiredFootballerIds: z.array(id),
       managerOverrides: z.record(id, id),
+      managerMoveRecords: z
+        .array(
+          z.object({
+            id,
+            managerId: id,
+            date: z.string(),
+            fromClubId: id.optional(),
+            toClubId: id.optional(),
+            reason: z.enum(['dismissed', 'appointed']),
+          }),
+        )
+        .optional(),
+      managerLifecycleProcessedThroughSeason: z.number().int().nonnegative().optional(),
       npcTransferRecords: z
         .array(
           z.object({

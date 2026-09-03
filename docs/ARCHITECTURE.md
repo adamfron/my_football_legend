@@ -301,3 +301,20 @@ hydratowanym razem z `clubWorld` i `footballerWorld`. `SquadSelectionContext` po
 silnikowi selekcji obsługiwać profesjonalny klub i drużynę U-17 bez tworzenia fikcyjnego kontraktu.
 Grywalna Vistula projektuje 24 kanoniczne ID plus protagonistę dokładnie raz. Siła drużyn ligi jest
 jednorazowo wyprowadzana z rzeczywistej XI w preferowanej formacji trenera.
+
+## Rzadka delta rozwoju i granica sezonu
+
+Zmiana pojedynczego atrybutu NPC trafia do `footballerAttributeOverrides`; pełny
+`footballerOverride` pozostaje wyłącznie dla mutacji kontraktu, klubu albo statusu kariery.
+Kanoniczny resolver składa bazowego/nowego piłkarza, pełny override, łatę atrybutów i wiek
+wyprowadzony z daty. Granica sezonu ma jedną kolejność: archiwizacja, wspólna projekcja wyników i
+ruch piramidy, graduacja, rozwój NPC, emerytury, ocena/zwolnienia/nominacje trenerów, rynek NPC,
+nabór U-17, inicjalizacja sezonu i hierarchii. Każdy przebieg ma marker idempotencji.
+
+## Cykl trenerów — faza 1
+
+Jedna deterministyczna projekcja tabel zasila ewolucję klubów i coroczną ocenę trenerów. Ocena
+porównuje wynik z oczekiwaniem względem klubów tego samego poziomu, uwzględnia awans, spadek,
+presję klubu, reputację trenera i ograniczony szum. Wakaty korzystają z małej puli zwolnionych i
+niezatrudnionych trenerów, a dopasowanie obejmuje poziom, styl i młodzież. Delta przechowuje tylko
+bieżące przypisania i zwięzłe rekordy ruchów; `CoachProfile` oraz `Person` zachowują tożsamość.
