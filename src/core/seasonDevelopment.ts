@@ -8,7 +8,7 @@ import { getProfileAge } from './age';
 import { getAttributeFamily } from './attributePresentation';
 import { getClubDevelopmentEnvironment } from './professionalClubs';
 import { extendRandomSeedHash, hashRandomSeed } from './random/RandomGenerator';
-import { emptyWorldDelta, resolveCareerWorldFootballer } from './worldDatabase';
+import { createCareerWorldFootballerResolver, emptyWorldDelta } from './worldDatabase';
 
 export const aggregateDevelopment = (start: PlayerAttributes, end: PlayerAttributes) =>
   (Object.keys(start) as (keyof PlayerAttributes)[]).flatMap((attribute) => {
@@ -276,8 +276,9 @@ export const processNpcSeasonDevelopment = (
   const randomSeedPrefixHash = hashRandomSeed(
     `npc-season-development:${career.seed}:${boundaryDate}:`,
   );
+  const resolveFootballer = createCareerWorldFootballerResolver({ ...career, worldDelta: delta });
   const processFootballer = (id: string) => {
-    const footballer = resolveCareerWorldFootballer({ ...career, worldDelta: delta }, id);
+    const footballer = resolveFootballer(id);
     if (!footballer) return;
     if (id === career.player.id || footballer.careerStatus === 'retired' || retiredIds.has(id))
       return;
@@ -298,21 +299,18 @@ export const processNpcSeasonDevelopment = (
           ? 1
           : 0)
       : getProfileAge(footballer.profile, boundaryDate, '2026-07-01');
-    const projected = projectNpcSeasonDevelopmentInternal(
+    const { footballer: projected, summary } = projectNpcSeasonDevelopmentInternal(
       footballer,
       boundaryDate,
       footballer.currentClubId ? (environmentByClubId.get(footballer.currentClubId) ?? 44) : 44,
       career.seed,
-      false,
+      true,
       derivedAge,
       extendRandomSeedHash(randomSeedPrefixHash, footballer.profile.id),
     );
     if (projected !== footballer) {
-      const before = footballer.profile.attributes;
-      const after = projected.profile.attributes;
       const patch = { ...(footballerAttributeOverrides[id] ?? {}) };
-      for (const key of Object.keys(after) as (keyof typeof after)[])
-        if (after[key] !== before[key]) patch[key] = after[key];
+      for (const change of summary.changes) patch[change.attribute] = change.after;
       if (Object.keys(patch).length) footballerAttributeOverrides[id] = patch;
     }
   };

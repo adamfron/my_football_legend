@@ -98,6 +98,37 @@ export const resolveCareerWorldFootballer = (
       }
     : footballer;
 };
+
+/** Boundary-local resolver: indexes retirement once and may memoize an immutable pass. */
+export const createCareerWorldFootballerResolver = (
+  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'>,
+  options: { cache?: boolean } = {},
+) => {
+  const delta = career.worldDelta;
+  const retired = new Set(delta?.retiredFootballerIds ?? []);
+  const cache = options.cache ? new Map<Id, WorldFootballer | undefined>() : undefined;
+  return (id: Id): WorldFootballer | undefined => {
+    if (cache?.has(id)) return cache.get(id);
+    const footballer = retired.has(id)
+      ? undefined
+      : (delta?.footballerOverrides[id] ??
+        delta?.newFootballers[id] ??
+        career.footballerWorld?.[id]);
+    const patch = delta?.footballerAttributeOverrides?.[id];
+    const effective =
+      footballer && patch
+        ? {
+            ...footballer,
+            profile: {
+              ...footballer.profile,
+              attributes: { ...footballer.profile.attributes, ...patch } as PlayerAttributes,
+            },
+          }
+        : footballer;
+    cache?.set(id, effective);
+    return effective;
+  };
+};
 export const resolveWorldSquad = (world: WorldContext, clubId: Id): Id[] | undefined =>
   world.worldDelta?.squadOverrides[clubId] ??
   world.baseWorld.clubs.find((club) => club.id === clubId)?.squadPlayerIds;

@@ -2,7 +2,7 @@ import type { CareerState, ProfessionalClub, WorldFootballer } from '../types/do
 import { getProfileAge } from './age';
 import { getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
-import { emptyWorldDelta, resolveCareerWorldFootballer } from './worldDatabase';
+import { createCareerWorldFootballerResolver, emptyWorldDelta } from './worldDatabase';
 
 export interface NpcRetirementProjection {
   retires: boolean;
@@ -85,16 +85,17 @@ export const processNpcRetirements = (
     ? delta.footballerOverrides
     : { ...delta.footballerOverrides };
   const squadOverrides = reuseOwnedDeltaMaps ? delta.squadOverrides : { ...delta.squadOverrides };
+  const resolveFootballer = createCareerWorldFootballerResolver(
+    { ...career, worldDelta: { ...delta, footballerOverrides: overrides } },
+    { cache: true },
+  );
   for (const club of clubs) {
     const squad = squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
     const active = squad.filter((id) => id === career.player.id || !retired.has(id));
     const selected: string[] = [];
     for (const id of active) {
       if (active.length - selected.length <= 18 || id === career.player.id) continue;
-      const footballer = resolveCareerWorldFootballer(
-        { ...career, worldDelta: { ...delta, footballerOverrides: overrides } },
-        id,
-      );
+      const footballer = resolveFootballer(id);
       if (!footballer || footballer.careerStatus === 'retired') continue;
       if (
         projectNpcRetirement({ footballer, boundaryDate, clubContext: club, seed: career.seed })
@@ -106,10 +107,7 @@ export const processNpcRetirements = (
     const selectedSet = new Set(selected);
     squadOverrides[club.id] = active.filter((id) => !selectedSet.has(id));
     for (const id of selected) {
-      const footballer = resolveCareerWorldFootballer(
-        { ...career, worldDelta: { ...delta, footballerOverrides: overrides } },
-        id,
-      );
+      const footballer = resolveFootballer(id);
       if (!footballer) continue;
       retired.add(id);
       overrides[id] = {

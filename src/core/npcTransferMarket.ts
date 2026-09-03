@@ -16,7 +16,11 @@ import {
   estimateNpcTransferValue,
 } from './npcTransferEconomics';
 import { RandomGenerator } from './random/RandomGenerator';
-import { emptyWorldDelta, resolveCareerWorldFootballer, resolveYouthCohort } from './worldDatabase';
+import {
+  createCareerWorldFootballerResolver,
+  emptyWorldDelta,
+  resolveYouthCohort,
+} from './worldDatabase';
 
 const unitFor = (position: PlayerPosition): keyof ProfessionalClub['positionalNeeds'] =>
   position === 'goalkeeper'
@@ -44,8 +48,10 @@ export const processNpcTransferMarket = (
     ? delta.footballerOverrides
     : { ...delta.footballerOverrides };
   const squadOverrides = reuseOwnedDeltaMaps ? delta.squadOverrides : { ...delta.squadOverrides };
-  const resolveFootballer = (id: Id) =>
-    resolveCareerWorldFootballer({ ...career, worldDelta: { ...delta, footballerOverrides } }, id);
+  const resolveFootballer = createCareerWorldFootballerResolver({
+    ...career,
+    worldDelta: { ...delta, footballerOverrides },
+  });
   const retired = new Set(delta.retiredFootballerIds);
   const youth = new Set<Id>();
   for (const team of getPolishU17TeamDefinitions(clubs)) {

@@ -81,8 +81,12 @@ export const evolveClubStrength = (
 };
 
 /** Aggregate background tables and exchange the actual persistent club records. */
-export const rollOverClubWorld = (clubs: ProfessionalClub[], seed: string): ProfessionalClub[] => {
-  const projections = new Map(projectClubSeason(clubs, seed).map((item) => [item.clubId, item]));
+export const rollOverClubWorld = (
+  clubs: ProfessionalClub[],
+  seed: string,
+  seasonProjections = projectClubSeason(clubs, seed),
+): ProfessionalClub[] => {
+  const projections = new Map(seasonProjections.map((item) => [item.clubId, item]));
   return clubs.map((club) =>
     evolveClubStrength(
       club,
