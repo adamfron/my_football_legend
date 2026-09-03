@@ -16,6 +16,7 @@ import { POSITION_COMPATIBILITY } from './positionCompatibility';
 import { deriveDateOfBirth } from './age';
 import { getProfileAge } from './age';
 import { deriveCanonicalCoachProfile } from './coachProfiles';
+import { resolveCareerWorldFootballer } from './worldDatabase';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -101,11 +102,7 @@ export const resolveFootballer = (
   const profile =
     id === career.player.id
       ? career.player
-      : (
-          career.worldDelta?.footballerOverrides[id] ??
-          career.worldDelta?.newFootballers[id] ??
-          career.footballerWorld?.[id]
-        )?.profile;
+      : resolveCareerWorldFootballer(career, id)?.profile;
   if (!profile || !career.currentDate) return profile;
   const age = getProfileAge(profile, career.currentDate, '2026-07-01');
   return age === profile.age ? profile : { ...profile, age };

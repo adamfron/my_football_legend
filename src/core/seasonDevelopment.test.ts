@@ -158,9 +158,8 @@ describe('NPC seasonal development', () => {
     const result = processNpcSeasonDevelopment(career, '2027-07-01');
     expect(result.worldDelta?.footballerOverrides.precedence).toBeDefined();
     expect(result.worldDelta?.newFootballers.added).toBe(added);
-    expect(resolveFootballer(result, 'precedence')?.attributes).toEqual(
-      result.worldDelta?.footballerOverrides.precedence?.profile.attributes,
-    );
+    expect(resolveFootballer(result, 'precedence')?.attributes.finishing).toBe(77);
+    expect(result.worldDelta?.footballerAttributeOverrides?.precedence).toBeDefined();
     expect(processNpcSeasonDevelopment(result, '2027-07-01')).toBe(result);
   });
 

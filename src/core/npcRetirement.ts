@@ -2,7 +2,7 @@ import type { CareerState, ProfessionalClub, WorldFootballer } from '../types/do
 import { getProfileAge } from './age';
 import { getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
-import { emptyWorldDelta } from './worldDatabase';
+import { emptyWorldDelta, resolveCareerWorldFootballer } from './worldDatabase';
 
 export interface NpcRetirementProjection {
   retires: boolean;
@@ -91,7 +91,10 @@ export const processNpcRetirements = (
     const selected: string[] = [];
     for (const id of active) {
       if (active.length - selected.length <= 18 || id === career.player.id) continue;
-      const footballer = overrides[id] ?? delta.newFootballers[id] ?? career.footballerWorld?.[id];
+      const footballer = resolveCareerWorldFootballer(
+        { ...career, worldDelta: { ...delta, footballerOverrides: overrides } },
+        id,
+      );
       if (!footballer || footballer.careerStatus === 'retired') continue;
       if (
         projectNpcRetirement({ footballer, boundaryDate, clubContext: club, seed: career.seed })
@@ -103,7 +106,10 @@ export const processNpcRetirements = (
     const selectedSet = new Set(selected);
     squadOverrides[club.id] = active.filter((id) => !selectedSet.has(id));
     for (const id of selected) {
-      const footballer = overrides[id] ?? delta.newFootballers[id] ?? career.footballerWorld?.[id];
+      const footballer = resolveCareerWorldFootballer(
+        { ...career, worldDelta: { ...delta, footballerOverrides: overrides } },
+        id,
+      );
       if (!footballer) continue;
       retired.add(id);
       overrides[id] = {

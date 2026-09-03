@@ -7,6 +7,7 @@ import {
   loadCareer,
   hydrateCareerWithWorld,
   saveCareer,
+  serializeCareerSave,
 } from './persistence';
 import {
   createCareerState,
@@ -153,6 +154,23 @@ describe('career persistence', () => {
     expect(occurrences).toBe(1);
     expect(next.footballerWorld).toStrictEqual(world.footballers);
     expect(careerStateSchema.safeParse(next).success).toBe(true);
+    const serialized = serializeCareerSave(next);
+    const metrics = {
+      bytes: new TextEncoder().encode(serialized).byteLength,
+      footballerOverrides: Object.keys(next.worldDelta?.footballerOverrides ?? {}).length,
+      attributeOverrides: Object.keys(next.worldDelta?.footballerAttributeOverrides ?? {}).length,
+      newFootballers: Object.keys(next.worldDelta?.newFootballers ?? {}).length,
+      squadOverrides: Object.keys(next.worldDelta?.squadOverrides ?? {}).length,
+      npcTransfers: next.worldDelta?.npcTransferRecords?.length ?? 0,
+    };
+    console.info('academy-to-professional save metrics', metrics);
+    // Full overrides here belong to graduation/contracts; development itself is represented below.
+    expect(metrics.footballerOverrides).toBeLessThan(300);
+    expect(metrics.attributeOverrides).toBeGreaterThan(100);
+    expect(metrics.bytes).toBeLessThan(1_500_000);
+    expect(serialized).not.toContain('"clubWorld"');
+    expect(serialized).not.toContain('"footballerWorld"');
+    expect(serialized).not.toContain('"youthCohorts"');
   });
   it('deletes a career', () => {
     saveCareer(career());

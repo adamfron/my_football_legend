@@ -73,6 +73,20 @@ export const saveCareer = (career: CareerState): CareerSave => {
   }
   return save;
 };
+/** Uses the exact persistable representation without touching browser storage. */
+export const serializeCareerSave = (career: CareerState): string => {
+  const persistableCareer = { ...migrateBirthDates(career) };
+  delete persistableCareer.clubWorld;
+  delete persistableCareer.footballerWorld;
+  delete persistableCareer.youthCohorts;
+  return JSON.stringify(
+    careerSaveSchema.parse({
+      version: CAREER_SAVE_VERSION,
+      savedAt: new Date(0).toISOString(),
+      career: persistableCareer,
+    }),
+  );
+};
 export const loadCareer = (): LoadCareerResult => {
   if (!storageAvailable()) return { ok: false, reason: 'missing' };
   const raw = localStorage.getItem(CAREER_SAVE_KEY);

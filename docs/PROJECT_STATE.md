@@ -40,7 +40,9 @@ teraz coroczną graduację, rzadki rozwój/regres NPC, emerytury, ograniczony le
 kontraktowych seniorów oraz uzupełnianie kohort U-17. Kluby oglądają małe, zaszumione listy i mogą
 nie wykonać żadnego ruchu; opłaty, płace i prosta zgoda sprzedającego ograniczają wybór, ale system nie optymalizuje globalnie składów ani nie symuluje pełnej księgowości.
 
-Dalsza kolejność: (1) trwałość i zmiany trenerów, (2) zagraniczne
+Trwały cykl trenerów fazy 1 jest wdrożony: coroczna ocena, zwolnienia, nominacje i historia ruchów korzystają z jednej projekcji wyników.
+
+Dalsza kolejność: (1) zagraniczne
 pakiety świata, (6) rozbudowa rozgrywek i kalendarza, (7) Fitness/Morale 2.0 przed dojrzałą
 warstwą silnika meczu, (8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl
 życia/inwestycje/ekonomia, (11) interaktywny
@@ -58,7 +60,7 @@ do młodzieży, preferencję doświadczenia, elastyczność pozycyjną, cierpliw
 reputację i datę urodzenia. Profil roli wskazuje na osobną, stabilną tożsamość `Person`, a bieżące
 przypisanie klubu rozwiązuje bazowy `managerId` oraz rzadki override delty. Przejściowe
 `ProfessionalClub.coachYouthTrust` nie zastępuje osobistego `CoachProfile.youthTrust`.
-Zatrudnianie i zwalnianie uwzględni wyniki względem oczekiwań,
+Zatrudnianie i zwalnianie uwzględnia wyniki względem oczekiwań,
 reputację, DNA/politykę młodzieżową klubu, finanse, kontrakt i dostępność, a zmiana trenera wymusi
 reewaluację hierarchii. Byli piłkarze będą mogli później zostać trenerami młodzieży, asystentami
 lub menedżerami.

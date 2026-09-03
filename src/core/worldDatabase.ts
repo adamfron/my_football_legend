@@ -3,6 +3,7 @@ import type {
   CareerState,
   CareerWorldDelta,
   Id,
+  PlayerAttributes,
   ProfessionalClub,
   WorldDatabase,
   WorldFootballer,
@@ -62,9 +63,40 @@ export const resolveWorldFootballer = (
   if (id === world.player.id) return undefined;
   const delta = world.worldDelta;
   if (delta?.retiredFootballerIds.includes(id)) return undefined;
-  return (
-    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? world.baseWorld.footballers[id]
-  );
+  const footballer =
+    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? world.baseWorld.footballers[id];
+  if (!footballer) return undefined;
+  const attributes = delta?.footballerAttributeOverrides?.[id];
+  return attributes
+    ? {
+        ...footballer,
+        profile: {
+          ...footballer.profile,
+          attributes: { ...footballer.profile.attributes, ...attributes } as PlayerAttributes,
+        },
+      }
+    : footballer;
+};
+
+/** Composes base/new, rare full override, then the sparse development overlay. */
+export const resolveCareerWorldFootballer = (
+  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'>,
+  id: Id,
+): WorldFootballer | undefined => {
+  const delta = career.worldDelta;
+  const footballer =
+    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? career.footballerWorld?.[id];
+  if (!footballer || delta?.retiredFootballerIds.includes(id)) return undefined;
+  const patch = delta?.footballerAttributeOverrides?.[id];
+  return patch
+    ? {
+        ...footballer,
+        profile: {
+          ...footballer.profile,
+          attributes: { ...footballer.profile.attributes, ...patch } as PlayerAttributes,
+        },
+      }
+    : footballer;
 };
 export const resolveWorldSquad = (world: WorldContext, clubId: Id): Id[] | undefined =>
   world.worldDelta?.squadOverrides[clubId] ??

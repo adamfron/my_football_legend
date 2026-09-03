@@ -30,6 +30,19 @@ import { FootballerHoverCard } from '../shared/FootballerHoverCard';
 import { SquadPitch } from './SquadPitch';
 import { deriveSeasonPositionUsage } from '../../core/seasonParticipation';
 import { getCurrentSquadSelectionContext } from '../../core/youthWorld';
+import {
+  coachProfileToPerson,
+  deriveCanonicalCoachProfile,
+  resolveCoachProfile,
+} from '../../core/coachProfiles';
+
+const tacticalStyleLabel = {
+  possession: 'gra pozycyjna',
+  balanced: 'zrównoważony',
+  direct: 'gra bezpośrednia',
+  counter_attacking: 'kontratak',
+  pressing: 'pressing',
+} as const;
 
 const prestigeLabel = (prestige: number) =>
   prestige < 25
@@ -92,6 +105,7 @@ const SquadGroup = ({
   open,
   close,
   compact = false,
+  showAssignment = true,
 }: {
   title: string;
   assignments?: readonly (BestXIAssignment | MatchBenchAssignment)[];
@@ -100,6 +114,7 @@ const SquadGroup = ({
   open: (id: Id, anchor: DOMRect) => void;
   close: () => void;
   compact?: boolean;
+  showAssignment?: boolean;
 }) => (
   <section className={`squad-group ${compact ? 'reserve-group' : ''}`} data-squad-group={title}>
     <h3>
@@ -116,14 +131,18 @@ const SquadGroup = ({
     </div>
     {players.map((player, index) => {
       const assignment = assignments?.[index];
-      const position = assignment?.position ?? player.primaryPosition;
+      const position = showAssignment
+        ? (assignment?.position ?? player.primaryPosition)
+        : undefined;
       return (
         <div
           className={`squad-list-row ${player.id === protagonistId ? 'protagonist' : ''}`}
           key={player.id}
           data-footballer-id={player.id}
         >
-          <b title={positionLabel(position)}>{positionCode(position)}</b>
+          <b title={position ? positionLabel(position) : undefined}>
+            {position ? positionCode(position) : '—'}
+          </b>
           <PlayerName
             player={player}
             protagonist={player.id === protagonistId}
@@ -135,7 +154,9 @@ const SquadGroup = ({
           </span>
           <span>{player.age}</span>
           <strong>
-            {assignment?.effectiveOverall ?? getPlayerOverall(player, player.primaryPosition)}
+            {showAssignment && assignment?.effectiveOverall !== undefined
+              ? assignment.effectiveOverall
+              : getPlayerOverall(player, player.primaryPosition)}
           </strong>
           <span>{getRankedFootballArchetypes(player)[0]?.definition.label ?? '—'}</span>
         </div>
@@ -159,6 +180,18 @@ export const ClubView = ({ career }: { career: CareerState }) => {
       : 50;
   const formation = selectionContext
     ? getManagerPreferredFormation(selectionContext.managerId)
+    : undefined;
+  const coachProfile = professionalClub
+    ? resolveCoachProfile(career, professionalClub.id)
+    : selectionContext?.managerId
+      ? deriveCanonicalCoachProfile(selectionContext.managerId)
+      : undefined;
+  const coachPerson = coachProfile
+    ? coachProfileToPerson(
+        coachProfile,
+        { id: professionalClub?.id ?? club.id },
+        career.currentDate ?? `${career.currentSeason}-07-01`,
+      )
     : undefined;
   const hierarchy =
     selectionContext && formation
@@ -278,6 +311,18 @@ export const ClubView = ({ career }: { career: CareerState }) => {
               resolvePlayer={resolver}
               protagonistId={career.player.id}
             />
+            {coachProfile && coachPerson && (
+              <div className="current-coach" aria-label="Aktualny trener">
+                <b>TRENER</b>
+                <span>
+                  {coachPerson.firstName} {coachPerson.lastName} · {coachPerson.age} lat
+                </span>
+                <span>
+                  {coachProfile.preferredFormation} ·{' '}
+                  {tacticalStyleLabel[coachProfile.tacticalStyle]}
+                </span>
+              </div>
+            )}
             <div className="grouped-squad-list">
               <SquadGroup
                 title="PIERWSZA XI"
@@ -294,6 +339,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                 protagonistId={career.player.id}
                 open={(id, anchor) => setPreview({ id, anchor })}
                 close={() => setPreview(undefined)}
+                showAssignment={false}
               />
               <SquadGroup
                 title="GŁĘBOKA REZERWA"
@@ -302,6 +348,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                 open={(id, anchor) => setPreview({ id, anchor })}
                 close={() => setPreview(undefined)}
                 compact
+                showAssignment={false}
               />
             </div>
           </div>

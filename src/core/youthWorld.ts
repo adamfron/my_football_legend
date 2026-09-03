@@ -18,6 +18,7 @@ import {
   getManagerPreferredFormation,
   type SquadSelectionContext,
 } from './footballerWorld';
+import { resolveClubManagerId } from './coachProfiles';
 import { generateDevelopmentProfile } from './playerCreator';
 import { RandomGenerator } from './random/RandomGenerator';
 import { resolveYouthCohort } from './worldDatabase';
@@ -124,7 +125,12 @@ export const getCurrentSquadSelectionContext = (
   career: CareerState,
 ): SquadSelectionContext | undefined =>
   career.currentProfessionalClub
-    ? career.currentProfessionalClub
+    ? {
+        ...career.currentProfessionalClub,
+        managerId:
+          resolveClubManagerId(career, career.currentProfessionalClub.id) ??
+          career.currentProfessionalClub.managerId,
+      }
     : getYouthSquadSelectionContext(career, career.currentClub.id, career.currentSeason);
 
 /** One-time deterministic league projection; the generated cards remain the source of truth. */

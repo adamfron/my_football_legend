@@ -146,9 +146,9 @@ będzie uzupełniać akademie kolejnymi kohortami.
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
 pozostaje: trwały cykl trenerów, pakiety zagraniczne oraz późniejsza rozbudowa rozgrywek/kalendarza.
 
-1. **PR #69:** cykl trwałych menedżerów — ocena, zwolnienia, nominacje, ograniczony ruch oraz
+1. **Zrealizowano w PR #69:** cykl trwałych menedżerów — ocena, zwolnienia, nominacje, ograniczony ruch oraz
    przebudowa hierarchii po zmianie trenera.
-2. Zagraniczne pakiety świata.
+2. **Następne:** zagraniczne pakiety świata.
 3. Późniejsza rozbudowa rozgrywek i kalendarza.
 
 ## Zachowane przyszłe TODO (poza bieżącym zakresem)
