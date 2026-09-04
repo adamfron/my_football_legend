@@ -3,7 +3,7 @@
 Lokalny `npm run audit:archetypes` pozostaje narzędziem kalibracji nowych profili, nie ciężkim
 testem CI. Rzeczywista selekcja i rywalizacja pozycyjna są fundamentem; najbliższym dużym systemem
 jest świat akademii / U-17 i przepływ absolwentów. Trwali młodzi piłkarze powstaną przed wspólnym
-systemem rzadkiego rozwoju seniorów i akademii.
+systemem parametrycznej projekcji rozwoju seniorów i akademii.
 
 ## Projekcje kariery i role trenera
 
@@ -39,10 +39,19 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 ## Kolejność kolejnych dużych systemów
 
-**NEXT: trwały cykl menedżerów i trenerów.** Grywalny świat U-17, coroczny nabór i graduacja, rzadki rozwój/regres NPC, emerytury oraz ograniczony ekonomią niedoskonały rynek transferowy są zrealizowane. Następnie: trwałe profile i
-cykl życia trenerów; zagraniczne pakiety świata; późniejsza rozbudowa rozgrywek i kalendarza; Fitness/Morale
-2.0 przed dojrzałą warstwą silnika meczu; behawioralne PlayStyles; osiągnięcia/easter eggi; styl
-życia/ekonomia; interaktywny izometryczny silnik decyzji.
+Po World Lifecycle & Persistence 2.0 bezpośrednia kolejność jest następująca:
+
+1. trwałość proceduralnie generowanej młodzieży i kompaktowe zapisy długich karier;
+2. nauka pozycji gracza, rozmowa o roli z trenerem i ulepszenia daty urodzenia w kreatorze;
+3. pierwszy grywalny vertical slice decyzyjnego izometrycznego silnika meczu;
+4. Competition/Calendar 2.0;
+5. większa warstwa treści narracyjnych i wydarzeń później.
+
+Ligi zagraniczne ani puchary nie wyprzedzają vertical slice silnika meczu.
+
+Cykl trenerów, świat U-17, nabór i graduacja, projekcja rozwoju/regresu NPC, emerytury oraz
+ograniczony ekonomią niedoskonały rynek transferowy są zrealizowane. Obowiązującą kolejność
+najbliższych prac definiuje lista powyżej.
 
 Migawki typowej selekcji klubów tła i tanie sezonowe statystyki NPC będą częścią etapów trwałego
 rozwoju NPC i symulacji rozgrywek, nie osobnym wielkim podsystemem. Migawka będzie odświeżana przy
@@ -56,9 +65,8 @@ kariery. Zatrudnienie/zwolnienie uwzględni wyniki względem oczekiwań, reputac
 finanse/kontrakt i dostępność; zmiana trenera przeliczy hierarchię. Byli gracze będą mogli przejść
 do ról trenera młodzieży, asystenta lub menedżera.
 
-Emerytura nie będzie uniwersalnym progiem wieku 40, lecz deterministycznie zróżnicowanym modelem
-probabilistycznym zależnym od pozycji, regresu, urazów, minut, ofert, reputacji, ambicji,
-profesjonalizmu i gotowości zejścia ligę niżej. Twardy limit testowy pozostanie tylko bezpiecznikiem.
+Emerytura NPC jest deterministycznie zróżnicowaną projekcją daty końca zależną od pozycji,
+trajektorii i charakteru. Twardy limit 43 lat jest regułą bezpieczeństwa, nie rzutem sezonowym.
 
 Fitness/Morale 2.0 połączy minuty, kumulację zmęczenia, terminarz, regenerację, wytrzymałość, wiek
 i środowisko klubu. Reakcja morale na grę poza opanowaną pozycją będzie kontekstowa (ambicja,
@@ -106,7 +114,7 @@ Każdy etap musi zachować deterministyczność, niezależność `src/core` od R
 
 Use actual squad members for starter/bench/rotation status, `selectionStanding`, promised roles, offer competition and coach evaluation. This must remain a player-career system: the manager owns the formation and the protagonist does not select the XI.
 
-Later work includes sparse NPC seasonal aging/development, retirements, academy graduates, deliberately imperfect/noisy NPC transfers, foreign leagues with active/background fidelity levels, former teammates becoming coaches, persistent relationships, multiple competitions, cups/Europe/national teams, behaviour-driven PlayStyles, achievements/easter eggs and an interactive isometric decision match engine. Clubs may stockpile positions, miss replacements or buy imperfect fits; AI must not become a perfect squad optimizer.
+Later work includes compact generated-youth persistence, position learning, the interactive match-engine slice, and only then broader competitions. Clubs may stockpile positions, miss replacements or buy imperfect fits; AI must not become a perfect squad optimizer.
 
 # Prezentacja historii kariery / biografii — przyszłe TODO
 
@@ -143,13 +151,14 @@ będzie uzupełniać akademie kolejnymi kohortami.
 
 # Następne kroki
 
-Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Kolejność NEXT
-pozostaje: trwały cykl trenerów, pakiety zagraniczne oraz późniejsza rozbudowa rozgrywek/kalendarza.
+Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
+NEXT definiuje lista „Kolejność kolejnych dużych systemów”; starsze plany pakietów zagranicznych
+nie wyprzedzają silnika meczu.
 
 1. **Zrealizowano w PR #69:** cykl trwałych menedżerów — ocena, zwolnienia, nominacje, ograniczony ruch oraz
    przebudowa hierarchii po zmianie trenera.
-2. **Następne:** zagraniczne pakiety świata.
-3. Późniejsza rozbudowa rozgrywek i kalendarza.
+2. **Następne:** trwałość generowanej młodzieży i kompaktowe długie zapisy.
+3. Potem pozycje/rozmowy z trenerem, vertical slice meczu i Competition/Calendar 2.0.
 
 ## Zachowane przyszłe TODO (poza bieżącym zakresem)
 

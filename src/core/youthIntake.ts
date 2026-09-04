@@ -6,6 +6,7 @@ import { RandomGenerator } from './random/RandomGenerator';
 import { emptyWorldDelta, resolveYouthCohort } from './worldDatabase';
 import { deriveYouthTeamQuality, YOUTH_COHORT_TARGET_POSITIONS } from './youthWorld';
 import { WORLD_DATABASE_SEED } from './worldDatabase';
+import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
 
 const clampQuality = (value: number) => Math.max(30, Math.min(65, Math.round(value)));
 const canonicalIntakeCache = new Map<string, WorldFootballer>();
@@ -88,6 +89,7 @@ export const processYouthIntake = (
           reputation: Math.max(1, targetOverall - 30),
           fitness: rng.int(78, 100),
         };
+        footballer.developmentCurveId = deriveNpcDevelopmentCurveId(footballer);
         canonicalIntakeCache.set(id, footballer);
         newFootballers[id] = footballer;
       }

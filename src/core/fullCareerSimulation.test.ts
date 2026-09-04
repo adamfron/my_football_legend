@@ -17,6 +17,9 @@ import { getSeasonPlayerSummary } from './matchFeedback';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { auditCareerSeason } from './seasonAudit';
 import { getCareerCurrentDate, getSeasonProgress } from './seasonProgress';
+import { serializeCareerSave } from './persistence';
+import { NPC_RETIREMENT_HARD_MAX_AGE } from './npcRetirement';
+import { getProfileAge } from './age';
 
 const createCareer = (seed: string) => {
   const career = createCareerState(
@@ -126,6 +129,7 @@ describe('deterministic full-career audit', () => {
         );
 
         career = advanceCareerFlow(career);
+        expect(Object.keys(career.worldDelta?.footballerAttributeOverrides ?? {})).toHaveLength(0);
         const offer = career.professionalOffers?.[0];
         career = offer ? acceptProfessionalOffer(career, offer.id) : stayAtCurrentClub(career);
         if (career.careerStatus === 'active') {
@@ -155,6 +159,27 @@ describe('deterministic full-career audit', () => {
       expect(iterations, JSON.stringify(diagnostics(career))).toBeLessThan(2_000);
       expect(career.careerStatus, JSON.stringify(diagnostics(career))).toBe('retired');
       expect(career.player.age).toBeLessThanOrEqual(40);
+      for (const club of career.clubWorld ?? []) {
+        const squad = career.worldDelta?.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
+        for (const id of squad) {
+          const footballer =
+            career.worldDelta?.footballerOverrides[id] ??
+            career.worldDelta?.newFootballers[id] ??
+            career.footballerWorld?.[id];
+          if (footballer && id !== career.player.id)
+            expect(
+              getProfileAge(footballer.profile, getCareerCurrentDate(career)),
+            ).toBeLessThanOrEqual(NPC_RETIREMENT_HARD_MAX_AGE);
+        }
+      }
+      if (seedIndex === 0)
+        console.info('long-career lifecycle metrics', {
+          seasons: career.careerSeasonNumber,
+          saveBytes: new TextEncoder().encode(serializeCareerSave(career)).byteLength,
+          naturalDevelopmentOverrides: Object.keys(
+            career.worldDelta?.footballerAttributeOverrides ?? {},
+          ).length,
+        });
     },
     30_000,
   );

@@ -20,6 +20,7 @@ import {
 } from './footballerWorld';
 import { resolveClubManagerId } from './coachProfiles';
 import { generateDevelopmentProfile } from './playerCreator';
+import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
 import { RandomGenerator } from './random/RandomGenerator';
 import { resolveYouthCohort } from './worldDatabase';
 
@@ -84,7 +85,7 @@ export const populatePolishU17World = (clubs: readonly ProfessionalClub[], seed:
         targetOverall,
         primaryPosition,
       });
-      footballers[id] = {
+      const footballer: WorldFootballer = {
         profile,
         developmentProfile: generateDevelopmentProfile(
           RandomGenerator.fromSeed(`${seed}:${id}:development`),
@@ -93,6 +94,8 @@ export const populatePolishU17World = (clubs: readonly ProfessionalClub[], seed:
         reputation: Math.max(1, targetOverall - 30),
         fitness: rng.int(78, 100),
       };
+      footballer.developmentCurveId = deriveNpcDevelopmentCurveId(footballer);
+      footballers[id] = footballer;
       return id;
     });
   }

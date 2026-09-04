@@ -164,9 +164,9 @@ describe('career persistence', () => {
       npcTransfers: next.worldDelta?.npcTransferRecords?.length ?? 0,
     };
     console.info('academy-to-professional save metrics', metrics);
-    // Full overrides here belong to graduation/contracts; development itself is represented below.
+    // Full overrides here belong to graduation/contracts; natural development stores no patches.
     expect(metrics.footballerOverrides).toBeLessThan(300);
-    expect(metrics.attributeOverrides).toBeGreaterThan(100);
+    expect(metrics.attributeOverrides).toBe(0);
     expect(metrics.bytes).toBeLessThan(1_500_000);
     expect(serialized).not.toContain('"clubWorld"');
     expect(serialized).not.toContain('"footballerWorld"');

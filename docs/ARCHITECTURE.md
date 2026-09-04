@@ -202,7 +202,7 @@ ręcznie ani służyć jako format authoringu.
 
 `STATIC WORLD DATABASE + CAREER WORLD DELTA = EFFECTIVE WORLD`.
 
-Globalna granica ukończonego sezonu ma jednego właściciela i kolejność: (1) archiwum protagonisty, (2) rollover poziomów klubów, aby finanse używały nowego kontekstu, (3) graduacja bieżących U-17, (4) rzadki rozwój NPC, (5) emerytury NPC, (6) ograniczony rynek NPC, (7) nabór i kohorty następnego sezonu, (8) inicjalizacja sezonu i hierarchii protagonisty. Nowy nabór istnieje wyłącznie w `newFootballers` i `youthCohortOverrides`; emerytura zachowuje kartę osoby, zapisuje status oraz usuwa ID ze składu przez rzadki `squadOverrides`.
+Globalna granica ukończonego sezonu ma jednego właściciela i kolejność: (1) archiwum protagonisty, (2) rollover poziomów klubów, aby finanse używały nowego kontekstu, (3) graduacja bieżących U-17, (4) deterministyczne emerytury NPC, (5) ograniczony rynek NPC, (6) nabór i kohorty następnego sezonu, (7) inicjalizacja sezonu i hierarchii protagonisty. Rozwój naturalny nie jest etapem zapisującym stan. Nowy nabór istnieje wyłącznie w `newFootballers` i `youthCohortOverrides`; emerytura zachowuje kartę osoby, zapisuje status oraz usuwa ID ze składu przez rzadki `squadOverrides`.
 
 Kohorta U-17 jest rozwiązywana jako `youthCohortOverrides[key] ?? youthCohorts[key]`. Na granicy
 sezonu każdy NPC kohorty jest postarzany dokładnie raz, a zawodnik osiągający 17 lat kończy U-17.
@@ -294,7 +294,7 @@ Początkowe kadry U-17 są trwałymi `WorldFootballer` w tej samej mapie co seni
 przechowuje sezonowy klucz `u17:<teamId>:<season>` w `WorldDatabase.youthCohorts`. Definicja
 drużyny młodzieżowej przechowuje tylko stabilną tożsamość i powiązanie; nazwę, region, identyfikację
 wizualną oraz środowisko akademii wyprowadza się z rodzica `ProfessionalClub`. Brak kontraktu i
-`currentClubId` odróżnia członka kohorty od zawodnika pierwszej drużyny. Graduacja poprzedza sezonowy przebieg rozwoju, więc absolwent nie jest pomijany ani rozwijany dwukrotnie. Rozwój rodzin atrybutów zapisuje rzadki override; sam upływ wieku nie zmienia świata.
+`currentClubId` odróżnia członka kohorty od zawodnika pierwszej drużyny. Po graduacji ten sam resolver daty projektuje profil absolwenta bez specjalnego przebiegu i bez zapisywania override'u.
 
 `CareerState.youthCohorts` jest runtime’owym widokiem niezmiennej bazy, usuwanym z zapisu i ponownie
 hydratowanym razem z `clubWorld` i `footballerWorld`. `SquadSelectionContext` pozwala wspólnemu
@@ -302,14 +302,15 @@ silnikowi selekcji obsługiwać profesjonalny klub i drużynę U-17 bez tworzeni
 Grywalna Vistula projektuje 24 kanoniczne ID plus protagonistę dokładnie raz. Siła drużyn ligi jest
 jednorazowo wyprowadzana z rzeczywistej XI w preferowanej formacji trenera.
 
-## Rzadka delta rozwoju i granica sezonu
+## Projekcja rozwoju NPC i granica sezonu
 
-Zmiana pojedynczego atrybutu NPC trafia do `footballerAttributeOverrides`; pełny
-`footballerOverride` pozostaje wyłącznie dla mutacji kontraktu, klubu albo statusu kariery.
-Kanoniczny resolver składa bazowego/nowego piłkarza, pełny override, łatę atrybutów i wiek
-wyprowadzony z daty. Granica sezonu ma jedną kolejność: archiwizacja, wspólna projekcja wyników i
-ruch piramidy, graduacja, rozwój NPC, emerytury, ocena/zwolnienia/nominacje trenerów, rynek NPC,
-nabór U-17, inicjalizacja sezonu i hierarchii. Każdy przebieg ma marker idempotencji.
+**NATURALNY ROZWÓJ NPC JEST PROJEKCJĄ ZALEŻNĄ OD DATY, A NIE TRWAŁĄ COROCZNĄ MUTACJĄ.**
+Kanoniczny resolver składa bazowego/nowego piłkarza, parametryczną projekcję na `currentDate`, a
+następnie rzadką, jawną łatę wyjątkowego zdarzenia. Projekcja korzysta ze wspólnej krzywej,
+`DevelopmentProfile`, daty urodzenia, charakteru i stabilnego ID; nie skanuje sezonów ani nie
+tworzy historii atrybutów. `footballerAttributeOverrides` służy nadal trwałym kontuzjom,
+wydarzeniom i autorskim konsekwencjom, nigdy zwykłemu starzeniu. Emerytura analogicznie ma jeden
+deterministyczny wiek/datę końca i nie jest blokowana minimalnym rozmiarem kadry.
 
 ## Cykl trenerów — faza 1
 
