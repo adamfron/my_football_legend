@@ -101,7 +101,10 @@ describe('bounded NPC summer transfer market', () => {
     let seedIndex = 0;
     let base = createCareer(`npc-market-stable-${seedIndex}`);
     let first = processNpcTransferMarket(base, '2027-07-01');
-    while (!Object.keys(first.worldDelta?.footballerOverrides ?? {}).length && seedIndex++ < 20) {
+    while (
+      !Object.keys(first.worldDelta?.footballerStateOverrides ?? {}).length &&
+      seedIndex++ < 20
+    ) {
       base = createCareer(`npc-market-stable-${seedIndex}`);
       first = processNpcTransferMarket(base, '2027-07-01');
     }
@@ -111,7 +114,7 @@ describe('bounded NPC summer transfer market', () => {
     expect(repeated.worldDelta).toEqual(first.worldDelta);
     expect(first.worldDelta?.npcTransferMarketProcessedThroughSeason).toBe(2026);
     expect(first.worldDelta?.npcTransferRecords).toHaveLength(
-      Object.keys(first.worldDelta?.footballerOverrides ?? {}).length,
+      Object.keys(first.worldDelta?.footballerStateOverrides ?? {}).length,
     );
     expect(repeated.worldDelta?.npcTransferRecords).toEqual(first.worldDelta?.npcTransferRecords);
     expect(first.worldDelta?.footballerOverrides[first.player.id]).toBeUndefined();
@@ -131,19 +134,14 @@ describe('bounded NPC summer transfer market', () => {
           3,
       ),
     ).toBe(true);
-    const moved = Object.values(first.worldDelta?.footballerOverrides ?? {}).find(
-      (footballer) => beforeMembership.get(footballer.profile.id) !== footballer.currentClubId,
+    const moved = Object.entries(first.worldDelta?.footballerStateOverrides ?? {}).find(
+      ([id, state]) => beforeMembership.get(id) !== state.currentClubId,
     );
     expect(moved).toBeDefined();
-    const original = base.footballerWorld![moved!.profile.id]!;
-    expect(moved).toMatchObject({
-      profile: original.profile,
-      developmentProfile: original.developmentProfile,
-    });
-    expect(after.get(beforeMembership.get(moved!.profile.id)!)!).not.toContain(moved!.profile.id);
-    expect(after.get(moved!.currentClubId!)!.filter((id) => id === moved!.profile.id)).toHaveLength(
-      1,
-    );
+    const [movedId, movedState] = moved!;
+    expect(base.footballerWorld![movedId]).toBeDefined();
+    expect(after.get(beforeMembership.get(movedId)!)!).not.toContain(movedId);
+    expect(after.get(movedState.currentClubId!)!.filter((id) => id === movedId)).toHaveLength(1);
     expect(careerStateSchema.safeParse(first).success).toBe(true);
   });
 
@@ -179,7 +177,7 @@ describe('bounded NPC summer transfer market', () => {
         { ...prepared, seed: `free-agent-${index}` },
         '2027-07-01',
       );
-      signed = Boolean(candidate.worldDelta?.footballerOverrides[freeId]?.currentClubId);
+      signed = Boolean(candidate.worldDelta?.footballerStateOverrides?.[freeId]?.currentClubId);
       expect(candidate.worldDelta?.footballerOverrides[retiredId]?.careerStatus).toBe('retired');
       expect(candidate.worldDelta?.footballerOverrides[candidate.player.id]).toBeUndefined();
     }

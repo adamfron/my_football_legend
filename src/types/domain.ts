@@ -341,6 +341,8 @@ export interface CareerState {
 export interface CareerWorldDelta {
   clubOverrides: Record<Id, ProfessionalClub>;
   footballerOverrides: Record<Id, WorldFootballer>;
+  /** Ordinary club, contract and status changes over canonical static/procedural identity. */
+  footballerStateOverrides?: Record<Id, FootballerCareerStateOverride> | undefined;
   /** Attribute-only mutations over the effective footballer; never duplicates identity data. */
   footballerAttributeOverrides?:
     | {
@@ -357,10 +359,21 @@ export interface CareerWorldDelta {
   managerLifecycleProcessedThroughSeason?: number | undefined;
   /** Sparse append-only history of completed NPC moves. */
   npcTransferRecords?: WorldTransferRecord[] | undefined;
+  criticalSquadRepairRecords?: WorldTransferRecord[] | undefined;
   /** Last completed season boundary evaluated for NPC retirement. */
   npcRetirementProcessedThroughSeason?: number | undefined;
   /** Last completed season boundary processed by the bounded NPC summer market. */
   npcTransferMarketProcessedThroughSeason?: number | undefined;
+  youthGraduationProcessedThroughSeason?: number | undefined;
+  /** Current summer's procedural graduates; replaced at the next boundary. */
+  currentGraduateIds?: Id[] | undefined;
+  squadRepairProcessedThroughSeason?: number | undefined;
+}
+
+export interface FootballerCareerStateOverride {
+  currentClubId?: Id | null | undefined;
+  currentContract?: Contract | null | undefined;
+  careerStatus?: 'active' | 'retired' | undefined;
 }
 
 export interface WorldManagerMoveRecord {

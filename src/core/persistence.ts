@@ -63,9 +63,17 @@ export const saveCareer = (career: CareerState): CareerSave => {
     career: persistableCareer,
   });
   if (storageAvailable()) {
+    const serialized = JSON.stringify(save);
     try {
-      localStorage.setItem(CAREER_SAVE_KEY, JSON.stringify(save));
+      localStorage.setItem(CAREER_SAVE_KEY, serialized);
     } catch (error) {
+      const quotaExceeded =
+        error instanceof DOMException &&
+        (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED');
+      console.error('career save failed', {
+        kind: quotaExceeded ? 'quota_exceeded' : 'storage_failure',
+        serializedBytes: new TextEncoder().encode(serialized).byteLength,
+      });
       throw new Error('Nie udało się zapisać kariery. Sprawdź dostępne miejsce w przeglądarce.', {
         cause: error,
       });

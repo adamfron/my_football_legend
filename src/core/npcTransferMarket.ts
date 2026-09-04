@@ -44,14 +44,18 @@ export const processNpcTransferMarket = (
   let delta = career.worldDelta ?? emptyWorldDelta();
   if ((delta.npcTransferMarketProcessedThroughSeason ?? -1) >= season) return career;
   const clubs = career.clubWorld ?? [];
-  const footballerOverrides = reuseOwnedDeltaMaps
-    ? delta.footballerOverrides
-    : { ...delta.footballerOverrides };
+  const footballerStateOverrides = reuseOwnedDeltaMaps
+    ? (delta.footballerStateOverrides ?? {})
+    : { ...delta.footballerStateOverrides };
   const squadOverrides = reuseOwnedDeltaMaps ? delta.squadOverrides : { ...delta.squadOverrides };
-  const resolveFootballer = createCareerWorldFootballerResolver({
-    ...career,
-    worldDelta: { ...delta, footballerOverrides },
-  });
+  const resolveFootballer = createCareerWorldFootballerResolver(
+    {
+      ...career,
+      currentDate: boundaryDate,
+      worldDelta: { ...delta, footballerStateOverrides },
+    },
+    { cache: true },
+  );
   const retired = new Set(delta.retiredFootballerIds);
   const youth = new Set<Id>();
   for (const team of getPolishU17TeamDefinitions(clubs)) {
@@ -94,10 +98,15 @@ export const processNpcTransferMarket = (
   }
   // Detached players necessarily live in sparse state. A bounded window keeps old careers cheap.
   let inspectedOverrides = 0;
-  for (const id in footballerOverrides) {
+  for (const id in footballerStateOverrides) {
     if (inspectedOverrides++ >= 96) break;
-    if (!membership.has(id) && !footballerOverrides[id]!.currentClubId) include(id);
+    if (!membership.has(id) && !footballerStateOverrides[id]!.currentClubId) include(id);
   }
+  for (const id in delta.footballerOverrides) {
+    if (inspectedOverrides++ >= 96) break;
+    if (!membership.has(id) && !resolveFootballer(id)?.currentClubId) include(id);
+  }
+  for (const id of delta.currentGraduateIds ?? []) if (!membership.has(id)) include(id);
   for (const id in delta.newFootballers)
     if (!membership.has(id) && !delta.newFootballers[id]!.currentClubId) include(id);
   const candidates = candidateIds.map((id) => [id, resolveFootballer(id)!] as const);
@@ -284,8 +293,7 @@ export const processNpcTransferMarket = (
       buyerLedger.feesSpent += fee;
       buyerLedger.wagesAdded += salary;
       const contractEndDate = `${Number(boundaryDate.slice(0, 4)) + rng.int(1, 3)}-06-30`;
-      footballerOverrides[selected.id] = {
-        ...selected.player,
+      footballerStateOverrides[selected.id] = {
         currentClubId: club.id,
         currentContract: {
           clubId: club.id,
@@ -318,7 +326,7 @@ export const processNpcTransferMarket = (
   }
   delta = {
     ...delta,
-    footballerOverrides,
+    footballerStateOverrides,
     squadOverrides,
     npcTransferRecords: records,
     npcTransferMarketProcessedThroughSeason: season,

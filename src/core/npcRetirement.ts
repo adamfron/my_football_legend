@@ -68,11 +68,15 @@ export const processNpcRetirements = (
   let delta = career.worldDelta ?? emptyWorldDelta();
   if ((delta.npcRetirementProcessedThroughSeason ?? -1) >= season) return career;
   const retired = new Set(delta.retiredFootballerIds);
-  const overrides = reuseOwnedDeltaMaps
-    ? delta.footballerOverrides
-    : { ...delta.footballerOverrides };
+  const stateOverrides = reuseOwnedDeltaMaps
+    ? (delta.footballerStateOverrides ?? {})
+    : { ...delta.footballerStateOverrides };
   const squadOverrides = reuseOwnedDeltaMaps ? delta.squadOverrides : { ...delta.squadOverrides };
-  const resolver = createCareerWorldFootballerResolver({ ...career, worldDelta: delta });
+  const resolver = createCareerWorldFootballerResolver({
+    ...career,
+    currentDate: boundaryDate,
+    worldDelta: delta,
+  });
   const retire = (id: string) => {
     if (id === career.player.id || retired.has(id)) return false;
     const footballer = resolver(id);
@@ -82,12 +86,9 @@ export const processNpcRetirements = (
     )
       return false;
     retired.add(id);
-    overrides[id] = {
-      ...footballer,
-      careerStatus: 'retired',
-      currentClubId: undefined,
-      currentContract: undefined,
-    };
+    // The retired-ID set is authoritative; keeping the prior contract overlay would duplicate
+    // dead operational state and make long saves grow needlessly.
+    delete stateOverrides[id];
     return true;
   };
   for (const club of career.clubWorld ?? []) {
@@ -97,9 +98,10 @@ export const processNpcRetirements = (
   }
   for (const id of Object.keys(delta.newFootballers)) retire(id);
   for (const id of Object.keys(delta.footballerOverrides)) retire(id);
+  for (const id of Object.keys(delta.footballerStateOverrides ?? {})) retire(id);
   delta = {
     ...delta,
-    footballerOverrides: overrides,
+    footballerStateOverrides: stateOverrides,
     squadOverrides,
     retiredFootballerIds: [...retired],
     npcRetirementProcessedThroughSeason: season,

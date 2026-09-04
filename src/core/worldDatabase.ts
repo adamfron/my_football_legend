@@ -10,6 +10,7 @@ import type {
 } from '../types/domain';
 import { professionalClubSchema, worldFootballerSchema } from '../schemas/domainSchemas';
 import { projectNpcAttributesAtDate } from './seasonDevelopment';
+import { resolveProceduralFootballer } from './proceduralFootballers';
 
 export const WORLD_DATABASE_VERSION = 'pl-2026-v2';
 export const WORLD_DATABASE_SEED = 'mfl-world-pl-2026-v2';
@@ -26,6 +27,7 @@ export const worldDatabaseSchema = z.object({
 export const emptyWorldDelta = (): CareerWorldDelta => ({
   clubOverrides: {},
   footballerOverrides: {},
+  footballerStateOverrides: {},
   squadOverrides: {},
   youthCohortOverrides: {},
   newFootballers: {},
@@ -65,19 +67,35 @@ export const resolveWorldFootballer = (
   const delta = world.worldDelta;
   if (delta?.retiredFootballerIds.includes(id)) return undefined;
   const footballer =
-    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? world.baseWorld.footballers[id];
+    delta?.footballerOverrides[id] ??
+    world.baseWorld.footballers[id] ??
+    resolveProceduralFootballer(id, world.baseWorld.clubs);
   if (!footballer) return undefined;
+  const state = delta?.footballerStateOverrides?.[id];
+  const composed = state ? composeFootballerState(footballer, state) : footballer;
   const attributes = delta?.footballerAttributeOverrides?.[id];
   return attributes
     ? {
-        ...footballer,
+        ...composed,
         profile: {
-          ...footballer.profile,
-          attributes: { ...footballer.profile.attributes, ...attributes } as PlayerAttributes,
+          ...composed.profile,
+          attributes: { ...composed.profile.attributes, ...attributes } as PlayerAttributes,
         },
       }
-    : footballer;
+    : composed;
 };
+
+const composeFootballerState = (
+  footballer: WorldFootballer,
+  state: NonNullable<CareerWorldDelta['footballerStateOverrides']>[Id],
+): WorldFootballer => ({
+  ...footballer,
+  ...(state.currentClubId !== undefined ? { currentClubId: state.currentClubId ?? undefined } : {}),
+  ...(state.currentContract !== undefined
+    ? { currentContract: state.currentContract ?? undefined }
+    : {}),
+  ...(state.careerStatus !== undefined ? { careerStatus: state.careerStatus } : {}),
+});
 
 /** Composes base/new, rare full override, then the sparse development overlay. */
 export const resolveCareerWorldFootballer = (
@@ -86,8 +104,14 @@ export const resolveCareerWorldFootballer = (
   id: Id,
 ): WorldFootballer | undefined => {
   const delta = career.worldDelta;
+  const base =
+    delta?.footballerOverrides[id] ??
+    career.footballerWorld?.[id] ??
+    resolveProceduralFootballer(id, (career as Partial<CareerState>).clubWorld ?? []);
   const footballer =
-    delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? career.footballerWorld?.[id];
+    base && delta?.footballerStateOverrides?.[id]
+      ? composeFootballerState(base, delta.footballerStateOverrides[id]!)
+      : base;
   if (!footballer || delta?.retiredFootballerIds.includes(id)) return undefined;
   const projected = career.currentDate
     ? {
@@ -125,11 +149,15 @@ export const createCareerWorldFootballerResolver = (
   const cache = options.cache ? new Map<Id, WorldFootballer | undefined>() : undefined;
   return (id: Id): WorldFootballer | undefined => {
     if (cache?.has(id)) return cache.get(id);
-    const footballer = retired.has(id)
+    const base = retired.has(id)
       ? undefined
       : (delta?.footballerOverrides[id] ??
-        delta?.newFootballers[id] ??
-        career.footballerWorld?.[id]);
+        career.footballerWorld?.[id] ??
+        resolveProceduralFootballer(id, (career as Partial<CareerState>).clubWorld ?? []));
+    const footballer =
+      base && delta?.footballerStateOverrides?.[id]
+        ? composeFootballerState(base, delta.footballerStateOverrides[id]!)
+        : base;
     const projected =
       footballer && career.currentDate
         ? {

@@ -41,11 +41,10 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 Po World Lifecycle & Persistence 2.0 bezpośrednia kolejność jest następująca:
 
-1. trwałość proceduralnie generowanej młodzieży i kompaktowe zapisy długich karier;
-2. nauka pozycji gracza, rozmowa o roli z trenerem i ulepszenia daty urodzenia w kreatorze;
-3. pierwszy grywalny vertical slice decyzyjnego izometrycznego silnika meczu;
-4. Competition/Calendar 2.0;
-5. większa warstwa treści narracyjnych i wydarzeń później.
+1. nauka pozycji gracza, rozmowa o roli z trenerem i ulepszenia daty urodzenia w kreatorze;
+2. pierwszy grywalny vertical slice decyzyjnego izometrycznego silnika meczu;
+3. Competition/Calendar 2.0;
+4. większa warstwa treści narracyjnych i wydarzeń później.
 
 Ligi zagraniczne ani puchary nie wyprzedzają vertical slice silnika meczu.
 
@@ -157,8 +156,8 @@ nie wyprzedzają silnika meczu.
 
 1. **Zrealizowano w PR #69:** cykl trwałych menedżerów — ocena, zwolnienia, nominacje, ograniczony ruch oraz
    przebudowa hierarchii po zmianie trenera.
-2. **Następne:** trwałość generowanej młodzieży i kompaktowe długie zapisy.
-3. Potem pozycje/rozmowy z trenerem, vertical slice meczu i Competition/Calendar 2.0.
+2. **Zrealizowano:** trwałość proceduralnej młodzieży, rzadka nakładka stanu oraz minimalna naprawa kadr.
+3. **Następne:** pozycje/rozmowy z trenerem, vertical slice meczu i Competition/Calendar 2.0.
 
 ## Zachowane przyszłe TODO (poza bieżącym zakresem)
 

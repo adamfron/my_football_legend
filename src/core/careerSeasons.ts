@@ -29,6 +29,7 @@ import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements } from './npcRetirement';
 import { processNpcTransferMarket } from './npcTransferMarket';
 import { processManagerLifecycle } from './managerLifecycle';
+import { processCriticalSquadRepair } from './worldIntegrity';
 import {
   coachProfileToPerson,
   deriveCanonicalCoachProfile,
@@ -376,13 +377,12 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   // Only a resolved season owns this boundary. This also keeps repair/test rollovers from
   // applying world simulation to an unfinished schedule.
   if (career.leagueSeason?.completed) {
-    aged = processYouthGraduation(aged, career.currentSeason).career;
-    // Graduation has cloned the sparse maps once; subsequent private boundary stages can safely
-    // compose into those owned maps without repeatedly cloning a growing career delta.
     aged = processNpcSeasonDevelopment(aged, nextDate, true);
     aged = processNpcRetirements(aged, nextDate, true);
+    aged = processYouthGraduation(aged, career.currentSeason).career;
     aged = processManagerLifecycle(aged, nextDate, managerSeasonProjections);
     aged = processNpcTransferMarket(aged, nextDate, true);
+    aged = processCriticalSquadRepair(aged, nextDate);
     aged = processYouthIntake(aged, career.currentSeason, true);
   }
   if (aged.currentProfessionalClub)

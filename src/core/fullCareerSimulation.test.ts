@@ -20,6 +20,7 @@ import { getCareerCurrentDate, getSeasonProgress } from './seasonProgress';
 import { serializeCareerSave } from './persistence';
 import { NPC_RETIREMENT_HARD_MAX_AGE } from './npcRetirement';
 import { getProfileAge } from './age';
+import { auditSeniorWorld } from './worldIntegrity';
 
 const createCareer = (seed: string) => {
   const career = createCareerState(
@@ -130,8 +131,20 @@ describe('deterministic full-career audit', () => {
 
         career = advanceCareerFlow(career);
         expect(Object.keys(career.worldDelta?.footballerAttributeOverrides ?? {})).toHaveLength(0);
+        if (career.careerStatus === 'active') {
+          const population = auditSeniorWorld(career);
+          expect(population.clubsBelow11).toBe(0);
+          expect(population.clubsWithoutGoalkeeper).toBe(0);
+          expect(population.clubsWithoutTenOutfield).toBe(0);
+          expect(population.duplicateActiveSeniorMemberships).toBe(0);
+        }
         const offer = career.professionalOffers?.[0];
         career = offer ? acceptProfessionalOffer(career, offer.id) : stayAtCurrentClub(career);
+        if (seedIndex === 0 && career.careerSeasonNumber === 15)
+          console.info(
+            '15-season save bytes',
+            new TextEncoder().encode(serializeCareerSave(career)).byteLength,
+          );
         if (career.careerStatus === 'active') {
           assertAudit(
             career.careerSeasonNumber === seasonNumber + 1,
@@ -176,10 +189,25 @@ describe('deterministic full-career audit', () => {
         console.info('long-career lifecycle metrics', {
           seasons: career.careerSeasonNumber,
           saveBytes: new TextEncoder().encode(serializeCareerSave(career)).byteLength,
+          newFootballers: Object.keys(career.worldDelta?.newFootballers ?? {}).length,
+          fullFootballerOverrides: Object.keys(career.worldDelta?.footballerOverrides ?? {}).length,
+          compactStateOverrides: Object.keys(career.worldDelta?.footballerStateOverrides ?? {})
+            .length,
+          youthCohortIds: Object.values(career.worldDelta?.youthCohortOverrides ?? {}).flat()
+            .length,
+          retiredIds: career.worldDelta?.retiredFootballerIds.length ?? 0,
+          transferRecords: career.worldDelta?.npcTransferRecords?.length ?? 0,
+          historyFacts: career.historyFacts.length,
+          squadOverrides: Object.keys(career.worldDelta?.squadOverrides ?? {}).length,
+          population: auditSeniorWorld(career),
           naturalDevelopmentOverrides: Object.keys(
             career.worldDelta?.footballerAttributeOverrides ?? {},
           ).length,
         });
+      if (seedIndex === 0)
+        expect(new TextEncoder().encode(serializeCareerSave(career)).byteLength).toBeLessThan(
+          3_000_000,
+        );
     },
     30_000,
   );
