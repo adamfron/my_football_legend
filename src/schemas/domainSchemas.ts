@@ -658,6 +658,27 @@ export const careerStateSchema = z.object({
           }),
         )
         .optional(),
+      summerMarketDiagnostics: z
+        .object({
+          season: z.number().int(),
+          activeProfessionalsStart: z.number().int().nonnegative(),
+          activeProfessionalsEnd: z.number().int().nonnegative(),
+          retirees: z.number().int().nonnegative(),
+          contractExpiryFreeAgents: z.number().int().nonnegative(),
+          wantsMovePlayers: z.number().int().nonnegative(),
+          graduatesEnteringSeniorFootball: z.number().int().nonnegative(),
+          freeAgentSignings: z.number().int().nonnegative(),
+          interClubTransfers: z.number().int().nonnegative(),
+          supplementalGeneratedProfessionals: z.number().int().nonnegative(),
+          unresolvedFreeAgents: z.number().int().nonnegative(),
+          minSquadSize: z.number().int().nonnegative(),
+          meanSquadSize: z.number().nonnegative(),
+          maxSquadSize: z.number().int().nonnegative(),
+          clubsBelowTarget: z.number().int().nonnegative(),
+          clubsUnfieldable: z.number().int().nonnegative(),
+          duplicateMemberships: z.number().int().nonnegative(),
+        })
+        .optional(),
       criticalSquadRepairRecords: z
         .array(
           z.object({

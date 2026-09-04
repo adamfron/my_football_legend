@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
-import { processNpcTransferMarket } from './npcTransferMarket';
+import {
+  canTargetSummerCandidate,
+  compareClubMarketPriority,
+  processSummerSquadMarket,
+  STABLE_VOLUNTARY_DEPARTURE_CAP,
+  RELEGATED_VOLUNTARY_DEPARTURE_CAP,
+} from './npcTransferMarket';
 import {
   deriveClubFinancialCapacity,
   deriveCommittedMonthlyWages,
@@ -27,14 +33,6 @@ const createCareer = (seed: string) =>
       0,
     ),
     seed,
-  );
-
-const effectiveSquads = (career: ReturnType<typeof createCareer>) =>
-  new Map(
-    (career.clubWorld ?? []).map((club) => [
-      club.id,
-      career.worldDelta?.squadOverrides[club.id] ?? club.squadPlayerIds ?? [],
-    ]),
   );
 
 describe('bounded NPC summer transfer market', () => {
@@ -97,96 +95,48 @@ describe('bounded NPC summer transfer market', () => {
     ).toBe(salary);
   });
 
-  it('is deterministic, idempotent, bounded and preserves moved identities', () => {
-    let seedIndex = 0;
-    let base = createCareer(`npc-market-stable-${seedIndex}`);
-    let first = processNpcTransferMarket(base, '2027-07-01');
-    while (
-      !Object.keys(first.worldDelta?.footballerStateOverrides ?? {}).length &&
-      seedIndex++ < 20
-    ) {
-      base = createCareer(`npc-market-stable-${seedIndex}`);
-      first = processNpcTransferMarket(base, '2027-07-01');
-    }
-    const same = processNpcTransferMarket(createCareer(base.seed), '2027-07-01');
-    const repeated = processNpcTransferMarket(first, '2027-07-01');
-    expect(first.worldDelta).toEqual(same.worldDelta);
-    expect(repeated.worldDelta).toEqual(first.worldDelta);
-    expect(first.worldDelta?.npcTransferMarketProcessedThroughSeason).toBe(2026);
-    expect(first.worldDelta?.npcTransferRecords).toHaveLength(
-      Object.keys(first.worldDelta?.footballerStateOverrides ?? {}).length,
-    );
-    expect(repeated.worldDelta?.npcTransferRecords).toEqual(first.worldDelta?.npcTransferRecords);
-    expect(first.worldDelta?.footballerOverrides[first.player.id]).toBeUndefined();
-    const beforeMembership = new Map<string, string>();
-    for (const club of base.clubWorld ?? [])
-      for (const id of club.squadPlayerIds ?? []) beforeMembership.set(id, club.id);
-    const after = effectiveSquads(first);
-    const occurrences = new Map<string, number>();
-    for (const ids of after.values())
-      for (const id of ids) occurrences.set(id, (occurrences.get(id) ?? 0) + 1);
-    expect([...occurrences.values()].every((count) => count === 1)).toBe(true);
-    expect(
-      [...after.entries()].every(
-        ([clubId, ids]) =>
-          ids.length -
-            (base.clubWorld?.find((club) => club.id === clubId)?.squadPlayerIds?.length ?? 0) <=
-          3,
-      ),
-    ).toBe(true);
-    const moved = Object.entries(first.worldDelta?.footballerStateOverrides ?? {}).find(
-      ([id, state]) => beforeMembership.get(id) !== state.currentClubId,
-    );
-    expect(moved).toBeDefined();
-    const [movedId, movedState] = moved!;
-    expect(base.footballerWorld![movedId]).toBeDefined();
-    expect(after.get(beforeMembership.get(movedId)!)!).not.toContain(movedId);
-    expect(after.get(movedState.currentClubId!)!.filter((id) => id === movedId)).toHaveLength(1);
-    expect(careerStateSchema.safeParse(first).success).toBe(true);
-  });
-
-  it('can sign an unattached senior and excludes retired footballers and the protagonist', () => {
-    const base = createCareer('npc-market-free-agent');
+  it('builds every squad once, consumes free agents first and preserves unique membership', () => {
+    const base = createCareer('canonical-summer-market');
     const club = base.clubWorld![0]!;
     const freeId = club.squadPlayerIds![0]!;
-    const retiredId = club.squadPlayerIds![1]!;
-    const free = base.footballerWorld![freeId]!;
-    const retired = base.footballerWorld![retiredId]!;
     const prepared = {
       ...base,
       worldDelta: {
         ...base.worldDelta!,
-        squadOverrides: {
-          [club.id]: club.squadPlayerIds!.filter((id) => id !== freeId && id !== retiredId),
-        },
-        footballerOverrides: {
-          [freeId]: { ...free, currentClubId: undefined, currentContract: undefined },
-          [retiredId]: {
-            ...retired,
-            careerStatus: 'retired' as const,
-            currentClubId: undefined,
-            currentContract: undefined,
-          },
-        },
-        retiredFootballerIds: [retiredId],
+        squadOverrides: { [club.id]: club.squadPlayerIds!.filter((id) => id !== freeId) },
+        footballerStateOverrides: { [freeId]: { currentClubId: null, currentContract: null } },
       },
     };
-    let signed = false;
-    for (let index = 0; index < 80 && !signed; index++) {
-      const candidate = processNpcTransferMarket(
-        { ...prepared, seed: `free-agent-${index}` },
-        '2027-07-01',
-      );
-      signed = Boolean(candidate.worldDelta?.footballerStateOverrides?.[freeId]?.currentClubId);
-      expect(candidate.worldDelta?.footballerOverrides[retiredId]?.careerStatus).toBe('retired');
-      expect(candidate.worldDelta?.footballerOverrides[candidate.player.id]).toBeUndefined();
-    }
-    expect(signed).toBe(true);
+    const first = processSummerSquadMarket(prepared, '2027-07-01');
+    const repeated = processSummerSquadMarket(first, '2027-07-01');
+    expect(repeated.worldDelta).toEqual(first.worldDelta);
+    const diagnostics = first.worldDelta!.summerMarketDiagnostics!;
+    expect(diagnostics.clubsUnfieldable).toBe(0);
+    expect(diagnostics.duplicateMemberships).toBe(0);
+    expect(diagnostics.maxSquadSize).toBeLessThanOrEqual(30);
+    expect(diagnostics.freeAgentSignings).toBeGreaterThan(0);
+    expect(first.worldDelta!.footballerStateOverrides![freeId]!.currentClubId).toBeTruthy();
+    expect(careerStateSchema.safeParse(first).success).toBe(true);
   });
 
-  it('different seeds can produce different plausible outcomes', () => {
-    const a = processNpcTransferMarket(createCareer('npc-market-a'), '2027-07-01');
-    const b = processNpcTransferMarket(createCareer('npc-market-b'), '2027-07-01');
-    expect(a.worldDelta?.squadOverrides).not.toEqual(b.worldDelta?.squadOverrides);
+  it('enforces top-down directional poaching while allowing listed players in either direction', () => {
+    const clubs = [...createCareer('directional-market').clubWorld!].sort(
+      compareClubMarketPriority,
+    );
+    const stronger = clubs[0]!;
+    const weaker = clubs.at(-1)!;
+    expect(canTargetSummerCandidate(stronger, weaker, 'poachable')).toBe(true);
+    expect(canTargetSummerCandidate(weaker, stronger, 'poachable')).toBe(false);
+    expect(canTargetSummerCandidate(weaker, stronger, 'wants_move')).toBe(true);
+    const sameTier = clubs.find(
+      (club) => club.leagueTier === stronger.leagueTier && club.id !== stronger.id,
+    )!;
+    const [higher, lower] = [stronger, sameTier].sort(compareClubMarketPriority);
+    expect(canTargetSummerCandidate(higher!, lower!, 'poachable')).toBe(true);
+  });
+
+  it('uses calibrated voluntary departure caps', () => {
+    expect(STABLE_VOLUNTARY_DEPARTURE_CAP).toBe(5);
+    expect(RELEGATED_VOLUNTARY_DEPARTURE_CAP).toBe(10);
   });
 });

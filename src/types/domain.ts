@@ -359,6 +359,8 @@ export interface CareerWorldDelta {
   managerLifecycleProcessedThroughSeason?: number | undefined;
   /** Sparse append-only history of completed NPC moves. */
   npcTransferRecords?: WorldTransferRecord[] | undefined;
+  /** Compact result of the latest canonical summer squad market. */
+  summerMarketDiagnostics?: SummerMarketDiagnostics | undefined;
   criticalSquadRepairRecords?: WorldTransferRecord[] | undefined;
   /** Last completed season boundary evaluated for NPC retirement. */
   npcRetirementProcessedThroughSeason?: number | undefined;
@@ -368,6 +370,34 @@ export interface CareerWorldDelta {
   /** Current summer's procedural graduates; replaced at the next boundary. */
   currentGraduateIds?: Id[] | undefined;
   squadRepairProcessedThroughSeason?: number | undefined;
+}
+
+export type NpcDepartureReason =
+  | 'contract_expired'
+  | 'failed_renewal'
+  | 'non_renewal'
+  | 'role_frustration'
+  | 'relegation'
+  | 'club_level_mismatch';
+
+export interface SummerMarketDiagnostics {
+  season: number;
+  activeProfessionalsStart: number;
+  activeProfessionalsEnd: number;
+  retirees: number;
+  contractExpiryFreeAgents: number;
+  wantsMovePlayers: number;
+  graduatesEnteringSeniorFootball: number;
+  freeAgentSignings: number;
+  interClubTransfers: number;
+  supplementalGeneratedProfessionals: number;
+  unresolvedFreeAgents: number;
+  minSquadSize: number;
+  meanSquadSize: number;
+  maxSquadSize: number;
+  clubsBelowTarget: number;
+  clubsUnfieldable: number;
+  duplicateMemberships: number;
 }
 
 export interface FootballerCareerStateOverride {

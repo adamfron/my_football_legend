@@ -22,7 +22,7 @@ import { resolveClubManagerId } from './coachProfiles';
 import { generateDevelopmentProfile } from './playerCreator';
 import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
 import { RandomGenerator } from './random/RandomGenerator';
-import { resolveYouthCohort } from './worldDatabase';
+import { resolveEffectiveProfessionalClub, resolveYouthCohort } from './worldDatabase';
 
 const clamp = (value: number) => Math.max(30, Math.min(65, Math.round(value)));
 
@@ -129,7 +129,8 @@ export const getCurrentSquadSelectionContext = (
 ): SquadSelectionContext | undefined =>
   career.currentProfessionalClub
     ? {
-        ...career.currentProfessionalClub,
+        ...(resolveEffectiveProfessionalClub(career, career.currentProfessionalClub.id) ??
+          career.currentProfessionalClub),
         managerId:
           resolveClubManagerId(career, career.currentProfessionalClub.id) ??
           career.currentProfessionalClub.managerId,
