@@ -8,7 +8,10 @@ import {
   getSportingStatus,
   getSquadDerivedClubStrength,
 } from './footballerWorld';
-import { resolveEffectiveProfessionalClub } from './worldDatabase';
+import {
+  createCareerWorldFootballerResolver,
+  resolveEffectiveProfessionalClub,
+} from './worldDatabase';
 
 export const getClubStrength = (
   club: Pick<ProfessionalClub, 'strengthRating' | 'overallStrength'>,
@@ -70,11 +73,12 @@ export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub
   );
   const status = getSportingStatus(hierarchy, career.player.id);
   const playerOverall = getPlayerOverall(career.player, career.player.primaryPosition);
+  const resolveFootballer = createCareerWorldFootballerResolver(career, { cache: true });
   const bestCompetitor = Math.max(
     0,
     ...(effectiveClub.squadPlayerIds ?? [])
       .filter((id) => id !== career.player.id)
-      .map((id) => career.footballerWorld?.[id]?.profile)
+      .map((id) => resolveFootballer(id)?.profile)
       .filter(
         (player): player is NonNullable<typeof player> =>
           Boolean(player) && player!.positionFamiliarity[career.player.primaryPosition] >= 0.3,

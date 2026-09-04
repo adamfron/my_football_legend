@@ -43,7 +43,7 @@ export const auditSeniorWorld = (career: CareerState): WorldPopulationAudit => {
   let withoutGoalkeeper = 0;
   let withoutTenOutfield = 0;
   for (const club of career.clubWorld ?? []) {
-    const ids = resolveEffectiveSeniorSquad(career, club.id);
+    const ids = resolveEffectiveSeniorSquad(career, club.id, resolve);
     sizes.push(ids.length);
     const goalkeepers = ids.filter((id) => positionOf(career, resolve, id) === 'goalkeeper').length;
     if (!goalkeepers) withoutGoalkeeper++;

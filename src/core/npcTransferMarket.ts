@@ -81,11 +81,15 @@ export const evaluateNpcMarketIntent = (options: {
   boundaryDate: string;
   relegated?: boolean;
   resolveFootballer?: (id: Id) => WorldFootballer | undefined;
+  overallById?: ReadonlyMap<Id, number>;
+  positionById?: ReadonlyMap<Id, PlayerPosition>;
 }): { wantsMove: boolean; reason?: NpcDepartureReason; score: number } => {
   const { career, club, footballer, squad, boundaryDate, relegated = false } = options;
   if (footballer.currentContract && footballer.currentContract.endDate < boundaryDate)
     return { wantsMove: true, reason: 'contract_expired', score: 100 };
-  const overall = getPlayerOverall(footballer.profile, footballer.profile.primaryPosition);
+  const overall =
+    options.overallById?.get(footballer.profile.id) ??
+    getPlayerOverall(footballer.profile, footballer.profile.primaryPosition);
   const positionalRank = squad
     .map((id) =>
       id === footballer.profile.id
@@ -94,8 +98,12 @@ export const evaluateNpcMarketIntent = (options: {
             const teammate = (
               options.resolveFootballer ?? createCareerWorldFootballerResolver(career)
             )(id);
-            return teammate?.profile.primaryPosition === footballer.profile.primaryPosition
-              ? getPlayerOverall(teammate.profile, teammate.profile.primaryPosition)
+            return (options.positionById?.get(id) ?? teammate?.profile.primaryPosition) ===
+              footballer.profile.primaryPosition
+              ? (options.overallById?.get(id) ??
+                  (teammate
+                    ? getPlayerOverall(teammate.profile, teammate.profile.primaryPosition)
+                    : -1))
               : -1;
           })(),
     )
@@ -124,11 +132,15 @@ export const evaluateNpcMarketIntent = (options: {
   return { wantsMove: Boolean(reason) && score >= 27, ...(reason ? { reason } : {}), score };
 };
 
-const roleFor = (player: WorldFootballer, club: ProfessionalClub): SquadRole => {
+const roleFor = (
+  player: WorldFootballer,
+  club: ProfessionalClub,
+  boundaryDate: string,
+): SquadRole => {
   const overall = getPlayerOverall(player.profile, player.profile.primaryPosition);
   return overall >= (club.strengthRating ?? 50) + 5
     ? 'important_player'
-    : getProfileAge(player.profile, '2026-07-01') <= 21
+    : getProfileAge(player.profile, boundaryDate) <= 21
       ? 'development_player'
       : 'rotation';
 };
@@ -152,12 +164,20 @@ export const processSummerSquadMarket = (
   const marketCareer = { ...career, currentDate: boundaryDate, worldDelta: delta };
   const resolve = createCareerWorldFootballerResolver(marketCareer, { cache: true });
   const squads = new Map(
-    clubs.map((club) => [club.id, resolveEffectiveSeniorSquad(marketCareer, club.id)]),
+    clubs.map((club) => [club.id, resolveEffectiveSeniorSquad(marketCareer, club.id, resolve)]),
   );
   const membership = new Map<Id, Id>();
   for (const [clubId, ids] of squads)
     for (const id of ids) if (id !== career.player.id) membership.set(id, clubId);
   const activeStart = membership.size;
+  const overallById = new Map<Id, number>();
+  const positionById = new Map<Id, PlayerPosition>();
+  for (const id of membership.keys()) {
+    const player = resolve(id);
+    if (!player) continue;
+    positionById.set(id, player.profile.primaryPosition);
+    overallById.set(id, getPlayerOverall(player.profile, player.profile.primaryPosition));
+  }
   const retiredBefore = source.retiredFootballerIds.length;
   const entries = new Map<Id, SummerMarketEntry>();
   let expiryCount = 0;
@@ -196,6 +216,8 @@ export const processSummerSquadMarket = (
         boundaryDate,
         relegated: relegatedClubIds.has(club.id),
         resolveFootballer: resolve,
+        overallById,
+        positionById,
       });
       if (intent.reason === 'contract_expired') {
         const reason: NpcDepartureReason = RandomGenerator.fromSeed(
@@ -244,6 +266,7 @@ export const processSummerSquadMarket = (
       });
   }
   const records = [...(delta.npcTransferRecords ?? [])];
+  const recordIds = new Set(records.map((record) => record.id));
   let freeSignings = 0,
     transfers = 0,
     supplemental = 0,
@@ -255,6 +278,7 @@ export const processSummerSquadMarket = (
       const p = resolve(id)?.profile.primaryPosition;
       if (p) counts.set(p, (counts.get(p) ?? 0) + 1);
     }
+    if ((counts.get('goalkeeper') ?? 0) < 2) return 'goalkeeper';
     return desiredPositions.reduce(
       (best, p) => ((counts.get(p) ?? 0) < (counts.get(best) ?? 0) ? p : best),
       desiredPositions[0]!,
@@ -264,10 +288,16 @@ export const processSummerSquadMarket = (
     while ((squads.get(club.id)?.length ?? 0) < SUMMER_SQUAD_TARGET) {
       const squad = squads.get(club.id)!;
       const needed = needPosition(squad);
+      const goalkeeperRequired =
+        squad.filter((id) => resolve(id)?.profile.primaryPosition === 'goalkeeper').length < 2;
+      const fillsRequiredPosition = (entry: SummerMarketEntry) =>
+        !goalkeeperRequired || resolve(entry.playerId)?.profile.primaryPosition === 'goalkeeper';
       // Existing free agents always precede transfers and generation.
-      const freeCandidates = [...entries.values()].filter((entry) => entry.availability === 'free');
+      const freeCandidates = [...entries.values()].filter(
+        (entry) => entry.availability === 'free' && fillsRequiredPosition(entry),
+      );
       const listedCandidates = [...entries.values()].filter(
-        (entry) => entry.availability === 'wants_move',
+        (entry) => entry.availability === 'wants_move' && fillsRequiredPosition(entry),
       );
       const candidates: SummerMarketEntry[] = freeCandidates.length
         ? freeCandidates
@@ -280,7 +310,8 @@ export const processSummerSquadMarket = (
                 availability: 'poachable' as const,
                 sourceClubId,
                 priority: 0,
-              }));
+              }))
+              .filter(fillsRequiredPosition);
       const ranked = candidates
         .filter((entry) => {
           const sourceClub = entry.sourceClubId ? byId.get(entry.sourceClubId) : undefined;
@@ -357,7 +388,7 @@ export const processSummerSquadMarket = (
       membership.set(id, club.id);
       entries.delete(id);
       squads.set(club.id, [...squad, id]);
-      const role = roleFor(chosen.player, club);
+      const role = roleFor(chosen.player, club, boundaryDate);
       const contractEndDate = `${season + 3}-06-30`;
       delta.footballerStateOverrides[id] = {
         currentClubId: club.id,
@@ -381,7 +412,10 @@ export const processSummerSquadMarket = (
         fee: 0,
         contractEndDate,
       };
-      if (!records.some((r) => r.id === record.id)) records.push(record);
+      if (!recordIds.has(record.id)) {
+        records.push(record);
+        recordIds.add(record.id);
+      }
     }
   }
   for (const [clubId, ids] of squads)

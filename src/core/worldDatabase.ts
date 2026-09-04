@@ -198,15 +198,15 @@ export const resolveEffectiveSeniorSquad = (
     'player' | 'currentProfessionalClub' | 'clubWorld' | 'footballerWorld' | 'worldDelta'
   >,
   clubId: Id,
+  resolveFootballer: (id: Id) => WorldFootballer | undefined = (id) =>
+    resolveCareerWorldFootballer(career, id),
 ): Id[] => {
   const club = career.clubWorld?.find((item) => item.id === clubId);
   const bootstrap = career.worldDelta?.squadOverrides[clubId] ?? club?.squadPlayerIds ?? [];
   const retired = new Set(career.worldDelta?.retiredFootballerIds ?? []);
   const protagonistBelongs = career.currentProfessionalClub?.id === clubId;
   return [...new Set([...bootstrap, ...(protagonistBelongs ? [career.player.id] : [])])].filter(
-    (id) =>
-      !retired.has(id) &&
-      (id === career.player.id || Boolean(resolveCareerWorldFootballer(career, id))),
+    (id) => !retired.has(id) && (id === career.player.id || Boolean(resolveFootballer(id))),
   );
 };
 
