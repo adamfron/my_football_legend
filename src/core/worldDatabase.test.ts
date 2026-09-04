@@ -51,6 +51,7 @@ describe('static world and delta resolution', () => {
     expect(emptyWorldDelta()).toEqual({
       clubOverrides: {},
       footballerOverrides: {},
+      footballerStateOverrides: {},
       squadOverrides: {},
       youthCohortOverrides: {},
       newFootballers: {},

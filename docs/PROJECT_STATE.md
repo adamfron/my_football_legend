@@ -116,6 +116,12 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 
 ## Parametryczny rozwój NPC
 
+Efektywny świat składa się obecnie jako **świat statyczny + proceduralne generowanie zawodników +
+projekcja względem daty + rzadka nakładka stanu kariery**. Nabór U-17 jest odtwarzany z
+wersjonowanych identyfikatorów, a zwykłe zmiany klubu, kontraktu i statusu nie kopiują pełnej karty.
+Po niedoskonałym rynku działa osobny deterministyczny bezpiecznik integralności, który naprawia
+wyłącznie niegrywalne kadry; nie jest optymalizatorem transferowym.
+
 **NATURALNY ROZWÓJ NPC JEST PROJEKCJĄ ZALEŻNĄ OD DATY, A NIE TRWAŁĄ COROCZNĄ MUTACJĄ.**
 Osiem współdzielonych krzywych opisuje szeroką trajektorię rodzin fizycznej, technicznej,
 mentalnej i bramkarskiej. `DevelopmentProfile`, charakter oraz stabilny identyfikator nadają jej

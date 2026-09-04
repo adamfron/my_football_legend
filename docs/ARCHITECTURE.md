@@ -200,9 +200,22 @@ powinny trafiać do `src/content/world/`; generator zwaliduje połączony wynik 
 go w ignorowanym `.generated-public`. Wielki serializowany JSON nigdy nie powinien być edytowany
 ręcznie ani służyć jako format authoringu.
 
-`STATIC WORLD DATABASE + CAREER WORLD DELTA = EFFECTIVE WORLD`.
+`STATIC WORLD + PROCEDURAL PLAYER GENERATION + DATE PROJECTION + SPARSE CAREER STATE = EFFECTIVE WORLD`.
 
-Globalna granica ukończonego sezonu ma jednego właściciela i kolejność: (1) archiwum protagonisty, (2) rollover poziomów klubów, aby finanse używały nowego kontekstu, (3) graduacja bieżących U-17, (4) deterministyczne emerytury NPC, (5) ograniczony rynek NPC, (6) nabór i kohorty następnego sezonu, (7) inicjalizacja sezonu i hierarchii protagonisty. Rozwój naturalny nie jest etapem zapisującym stan. Nowy nabór istnieje wyłącznie w `newFootballers` i `youthCohortOverrides`; emerytura zachowuje kartę osoby, zapisuje status oraz usuwa ID ze składu przez rzadki `squadOverrides`.
+Coroczny nabór nie zapisuje pełnych kart. Wersjonowany identyfikator proceduralny koduje akademię,
+sezon, pozycję i slot, dzięki czemu resolver odtwarza identyczną tożsamość, biografię, profil
+rozwoju i bazowe atrybuty także po zimnym wznowieniu. Zwykłe transfery, pierwsze kontrakty oraz
+emerytury zapisują wyłącznie `footballerStateOverrides` (klub, kontrakt, status); pełne override'y
+pozostają furtką dla wyjątkowej przyszłej treści. Aktywna delta zachowuje tylko operacyjnie bieżące
+kohorty, a nie archiwum wszystkich dawnych list U-17.
+
+Globalna granica ukończonego sezonu ma jednego właściciela i kolejność: (1) archiwum protagonisty,
+(2) rollover poziomów klubów, (3) deterministyczne emerytury NPC, (4) graduacja U-17 i pierwsze
+kontrakty, (5) cykl trenerów, (6) ograniczony, niedoskonały rynek NPC, (7) krytyczna naprawa
+niegrywalnych kadr, (8) nabór następnego U-17, (9) inicjalizacja sezonu i hierarchii protagonisty.
+Rozwój naturalny jest projekcją daty i nie zapisuje stanu. Rynek może popełniać błędy lub nie kupić
+nikogo; osobna naprawa integralności uruchamia się wyłącznie dla klubu bez 11 graczy, bramkarza lub
+10 zawodników z pola i odbudowuje minimum uczestnictwa, bez optymalizacji OVR.
 
 Kohorta U-17 jest rozwiązywana jako `youthCohortOverrides[key] ?? youthCohorts[key]`. Na granicy
 sezonu każdy NPC kohorty jest postarzany dokładnie raz, a zawodnik osiągający 17 lat kończy U-17.

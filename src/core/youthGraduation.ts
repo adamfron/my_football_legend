@@ -9,7 +9,11 @@ import type {
 import { evaluateExpectedMonthlySalary } from './playerEconomy';
 import { getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
-import { emptyWorldDelta, resolveYouthCohort } from './worldDatabase';
+import {
+  createCareerWorldFootballerResolver,
+  emptyWorldDelta,
+  resolveYouthCohort,
+} from './worldDatabase';
 import { getProfileAge } from './age';
 
 /** Players aged 17 at the season boundary leave the U-17 cohort. */
@@ -49,11 +53,22 @@ export const processYouthGraduation = (
     youthCohortOverrides: { ...sourceDelta.youthCohortOverrides },
     squadOverrides: { ...sourceDelta.squadOverrides },
     footballerOverrides: { ...sourceDelta.footballerOverrides },
+    footballerStateOverrides: { ...sourceDelta.footballerStateOverrides },
   };
+  if ((delta.youthGraduationProcessedThroughSeason ?? -1) >= season)
+    return {
+      career,
+      diagnostics: {
+        graduates: 0,
+        parentClubPromotions: 0,
+        externalFirstContracts: 0,
+        unattachedGraduates: 0,
+      },
+    };
   const clubs = career.clubWorld ?? [];
   const clubsById = new Map(clubs.map((club) => [club.id, club]));
-  const resolveFootballer = (id: Id) =>
-    delta.footballerOverrides[id] ?? delta.newFootballers[id] ?? career.footballerWorld?.[id];
+  const boundaryCareer = { ...career, currentDate: `${season + 1}-06-30`, worldDelta: delta };
+  const resolveFootballer = createCareerWorldFootballerResolver(boundaryCareer, { cache: true });
   const effectiveSquad = (club: ProfessionalClub) =>
     delta.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
   const diagnostics: YouthGraduationDiagnostics = {
@@ -62,10 +77,10 @@ export const processYouthGraduation = (
     externalFirstContracts: 0,
     unattachedGraduates: 0,
   };
+  const currentGraduateIds: Id[] = [];
 
   for (const team of getPolishU17TeamDefinitions(clubs)) {
     const key = getYouthCohortKey(team.id, season);
-    if (delta.youthCohortOverrides?.[key] !== undefined) continue;
     const baseCohort = resolveYouthCohort(career, key);
     if (!baseCohort) continue;
     const remaining: Id[] = [];
@@ -118,7 +133,10 @@ export const processYouthGraduation = (
       };
       const signed = { ...graduate, currentClubId: parent.id, currentContract: contract };
       delta.squadOverrides[parent.id] = squad;
-      delta.footballerOverrides[graduate.profile.id] = signed;
+      delta.footballerStateOverrides[graduate.profile.id] = {
+        currentClubId: signed.currentClubId,
+        currentContract: signed.currentContract,
+      };
       diagnostics.parentClubPromotions++;
     }
 
@@ -155,6 +173,7 @@ export const processYouthGraduation = (
         .sort((a, b) => b.score - a.score || a.club.id.localeCompare(b.club.id));
       const destination = offers[0]?.club;
       if (!destination) {
+        currentGraduateIds.push(graduate.profile.id);
         diagnostics.unattachedGraduates++;
         continue;
       }
@@ -172,9 +191,14 @@ export const processYouthGraduation = (
       };
       const signed = { ...graduate, currentClubId: destination.id, currentContract: contract };
       delta.squadOverrides[destination.id] = squad;
-      delta.footballerOverrides[graduate.profile.id] = signed;
+      delta.footballerStateOverrides[graduate.profile.id] = {
+        currentClubId: signed.currentClubId,
+        currentContract: signed.currentContract,
+      };
       diagnostics.externalFirstContracts++;
     }
   }
+  delta.youthGraduationProcessedThroughSeason = season;
+  delta.currentGraduateIds = currentGraduateIds;
   return { career: { ...career, worldDelta: delta }, diagnostics };
 };

@@ -9,7 +9,7 @@ import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements, projectNpcRetirement } from './npcRetirement';
 import { advanceCareerFlow } from './careerFlow';
-import { resolveYouthCohort } from './worldDatabase';
+import { resolveCareerWorldFootballer, resolveYouthCohort } from './worldDatabase';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -148,15 +148,16 @@ describe('annual background lifecycle', () => {
       expect(oldIds.every((id) => ids.includes(id))).toBe(true);
       expect(new Set(ids).size).toBe(24);
       for (const id of ids) {
-        const footballer = (next.worldDelta!.newFootballers[id] ?? next.footballerWorld![id])!;
+        const footballer = resolveCareerWorldFootballer(next, id)!;
         expect(footballer).toBeDefined();
-        if (next.worldDelta!.newFootballers[id]) {
+        if (!next.footballerWorld![id]) {
           expect(getProfileAge(footballer.profile, '2027-07-01')).toBeGreaterThanOrEqual(15);
           expect(getProfileAge(footballer.profile, '2027-07-01')).toBeLessThan(17);
           expect(footballer.currentClubId).toBeUndefined();
         }
       }
     }
+    expect(Object.keys(next.worldDelta!.newFootballers)).toHaveLength(0);
     expect(careerStateSchema.safeParse(next).success).toBe(true);
   });
 

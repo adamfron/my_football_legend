@@ -462,8 +462,6 @@ export type SportingStatus = 'starting_xi' | 'bench' | 'deep_reserve';
 type SelectionCareer = Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>;
 type SelectionScore = (player: FootballerProfile, position: PlayerPosition) => number;
 const managerPreferenceCache = new Map<string, number>();
-const staticNpcOverallCache = new Map<string, number>();
-const staticNpcSelectionScoreCache = new Map<string, number>();
 const sportingStatusCache = new WeakMap<object, Map<string, SportingStatus>>();
 const managerAssignmentCache = new WeakMap<object, Map<string, PlayerPosition | undefined>>();
 
@@ -485,16 +483,8 @@ const getSelectionOverall = (
   position: PlayerPosition,
   isProtagonist: boolean,
 ) => {
-  // Static-world NPC cards are immutable until the future seasonal-development system. Their
-  // stable IDs therefore let all career snapshots and simulations reuse the same derived OVR.
-  // Protagonist cards keep taking the uncached live path.
-  if (isProtagonist) return getEffectivePositionOverall(player, position);
-  const key = `${player.id}:${position}`;
-  const cached = staticNpcOverallCache.get(key);
-  if (cached !== undefined) return cached;
-  const overall = getEffectivePositionOverall(player, position);
-  staticNpcOverallCache.set(key, overall);
-  return overall;
+  void isProtagonist;
+  return getEffectivePositionOverall(player, position);
 };
 
 /**
@@ -508,11 +498,6 @@ export const getManagerSelectionScore = (
   position: PlayerPosition,
 ) => {
   const isProtagonist = player.id === career.player.id;
-  const staticKey = `${club.managerId}:${player.id}:${position}`;
-  if (!isProtagonist) {
-    const cached = staticNpcSelectionScoreCache.get(staticKey);
-    if (cached !== undefined) return cached;
-  }
   const effectiveOverall = getSelectionOverall(player, position, isProtagonist);
   const fitness = isProtagonist
     ? career.player.fitness
@@ -521,7 +506,6 @@ export const getManagerSelectionScore = (
   const fitnessInfluence = (Math.max(50, fitness) - 85) / 25;
   const preference = getStableManagerPreference(club, player, position);
   const score = effectiveOverall + trust + fitnessInfluence + preference;
-  if (!isProtagonist) staticNpcSelectionScoreCache.set(staticKey, score);
   return score;
 };
 

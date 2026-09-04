@@ -19,11 +19,13 @@ import {
   clearWorldDatabaseCache,
   WORLD_DATABASE_SEED,
   WORLD_DATABASE_VERSION,
+  resolveCareerWorldFootballer,
 } from './worldDatabase';
 import { advanceCareerFlow } from './careerFlow';
 import { acceptProfessionalOffer } from './careerSeasons';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { processYouthGraduation } from './youthGraduation';
+import { processYouthIntake } from './youthIntake';
 
 const input: CreatorInput = {
   firstName: 'Jan',
@@ -117,6 +119,30 @@ describe('career persistence', () => {
       expect(loaded.save.career.worldDelta).toEqual(graduated.worldDelta);
     }
   });
+  it('cold-resolves procedural youth identically without persisting a full card', () => {
+    const base = career();
+    const world = {
+      version: WORLD_DATABASE_VERSION,
+      startingSeason: 2026 as const,
+      seed: WORLD_DATABASE_SEED,
+      clubs: base.clubWorld!,
+      footballers: base.footballerWorld!,
+      youthCohorts: base.youthCohorts!,
+    };
+    const generated = processYouthIntake(processYouthGraduation(base).career);
+    const id = Object.values(generated.worldDelta!.youthCohortOverrides!)
+      .flat()
+      .find((candidate) => !generated.footballerWorld![candidate])!;
+    const before = resolveCareerWorldFootballer(generated, id);
+    saveCareer(generated);
+    const loaded = loadCareer();
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) return;
+    const hydrated = hydrateCareerWithWorld(loaded.save.career, world);
+    expect(resolveCareerWorldFootballer(hydrated, id)).toEqual(before);
+    expect(hydrated.worldDelta!.newFootballers[id]).toBeUndefined();
+    expect(hydrated.worldDelta!.footballerOverrides[id]).toBeUndefined();
+  });
   it('cold-resumes a completed academy season before accepting a professional offer', () => {
     const base = advanceCareerFlow(career());
     const world = {
@@ -158,6 +184,7 @@ describe('career persistence', () => {
     const metrics = {
       bytes: new TextEncoder().encode(serialized).byteLength,
       footballerOverrides: Object.keys(next.worldDelta?.footballerOverrides ?? {}).length,
+      stateOverrides: Object.keys(next.worldDelta?.footballerStateOverrides ?? {}).length,
       attributeOverrides: Object.keys(next.worldDelta?.footballerAttributeOverrides ?? {}).length,
       newFootballers: Object.keys(next.worldDelta?.newFootballers ?? {}).length,
       squadOverrides: Object.keys(next.worldDelta?.squadOverrides ?? {}).length,

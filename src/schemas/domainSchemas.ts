@@ -615,6 +615,16 @@ export const careerStateSchema = z.object({
     .object({
       clubOverrides: z.record(id, professionalClubSchema),
       footballerOverrides: z.record(id, worldFootballerSchema),
+      footballerStateOverrides: z
+        .record(
+          id,
+          z.object({
+            currentClubId: id.nullable().optional(),
+            currentContract: contractSchema.nullable().optional(),
+            careerStatus: z.enum(['active', 'retired']).optional(),
+          }),
+        )
+        .optional(),
       footballerAttributeOverrides: z.record(id, playerAttributesSchema.partial()).optional(),
       squadOverrides: z.record(id, z.array(id)),
       youthCohortOverrides: z.record(z.string(), z.array(id)).optional(),
@@ -648,8 +658,25 @@ export const careerStateSchema = z.object({
           }),
         )
         .optional(),
+      criticalSquadRepairRecords: z
+        .array(
+          z.object({
+            id,
+            playerId: id,
+            date: z.string(),
+            fromClubId: id.optional(),
+            toClubId: id,
+            transferType: z.enum(['free', 'transfer']),
+            fee: z.number().int().nonnegative(),
+            contractEndDate: z.string(),
+          }),
+        )
+        .optional(),
       npcRetirementProcessedThroughSeason: z.number().int().nonnegative().optional(),
       npcTransferMarketProcessedThroughSeason: z.number().int().nonnegative().optional(),
+      youthGraduationProcessedThroughSeason: z.number().int().nonnegative().optional(),
+      currentGraduateIds: z.array(id).optional(),
+      squadRepairProcessedThroughSeason: z.number().int().nonnegative().optional(),
     })
     .optional(),
   completedSeasons: z
