@@ -170,3 +170,12 @@ Zmiana członkostwa, awanse, pierwsze kontrakty i wolni zawodnicy są zapisywani
 ## Kanoniczna granica sezonu świata
 
 Po ukończeniu sezonu system kolejno: archiwizuje sezon protagonisty, rozwiązuje bieżące kohorty U-17 i graduację, rozstrzyga deterministyczne daty emerytur, tworzy kohorty następnego sezonu, stosuje rollover klubów, a na końcu inicjalizuje sezon i hierarchię protagonisty. Markery trwałych operacji oraz autorytatywne klucze kohort zapewniają idempotencję. Emeryci pozostają tożsamościami w delcie, lecz znikają z aktywnych resolverów i składów; liczebność kadry nie może zatrzymać emerytury.
+
+## Macro Gameplay Stabilization — kanoniczne kadry
+
+Runtime używa jednej efektywnej kadry seniorów: statyczne ID są bootstrapem, a rzadka delta,
+emerytury i członkostwo protagonisty są składane przez wspólny resolver. Letnia graduacja nie ma
+już osobnej ekonomii pierwszych kontraktów. Absolwenci trafiają do wspólnej puli jednego rynku,
+który po emeryturach rozwiązuje wygaśnięcia, ograniczone odejścia sportowe, kierunkowe podkupienia
+i kaskadowe uzupełnianie kadr. Wolni zawodnicy są wykorzystywani przed deterministycznymi
+uzupełniającymi absolwentami/newgenami. Osobny critical repair nie mutuje świata.

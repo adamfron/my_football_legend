@@ -8,16 +8,20 @@ import {
   getSportingStatus,
   getSquadDerivedClubStrength,
 } from './footballerWorld';
+import {
+  createCareerWorldFootballerResolver,
+  resolveEffectiveProfessionalClub,
+} from './worldDatabase';
 
 export const getClubStrength = (
   club: Pick<ProfessionalClub, 'strengthRating' | 'overallStrength'>,
 ) => Math.max(0, Math.min(100, club.strengthRating ?? club.overallStrength ?? 50));
 
 /** Live squad strength when normalized cards exist; legacy rating is bootstrap/fallback only. */
-export const getCareerClubStrength = (
-  career: Pick<CareerState, 'player' | 'footballerWorld'>,
-  club: ProfessionalClub,
-) => getSquadDerivedClubStrength(career, club) ?? getClubStrength(club);
+export const getCareerClubStrength = (career: CareerState, club: ProfessionalClub) => {
+  const effective = resolveEffectiveProfessionalClub(career, club.id) ?? club;
+  return getSquadDerivedClubStrength(career, effective) ?? getClubStrength(club);
+};
 
 export const getClubStars = (strength: number) =>
   Math.round(Math.max(0, Math.min(100, strength)) / 10) / 2;
@@ -51,7 +55,8 @@ export const getPlayerClubLevelDelta = (career: CareerState, club: ProfessionalC
 
 /** Shared role evaluator used by offers, contracts and club presentation. */
 export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub): SquadRole => {
-  if ((club.squadPlayerIds?.length ?? 0) < 11) {
+  const effectiveClub = resolveEffectiveProfessionalClub(career, club.id) ?? club;
+  if ((effectiveClub.squadPlayerIds?.length ?? 0) < 11) {
     const gap = getPlayerClubLevelDelta(career, club);
     if (gap >= 18) return 'star_player';
     if (gap >= 10) return 'important_player';
@@ -59,8 +64,8 @@ export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub
     if (gap >= -5) return 'rotation';
     return career.player.age <= 21 ? 'development_player' : 'rotation';
   }
-  const squadIds = [...new Set([...(club.squadPlayerIds ?? []), career.player.id])];
-  const projectedClub = { ...club, squadPlayerIds: squadIds };
+  const squadIds = [...new Set([...(effectiveClub.squadPlayerIds ?? []), career.player.id])];
+  const projectedClub = { ...effectiveClub, squadPlayerIds: squadIds };
   const hierarchy = deriveSquadHierarchy(
     career,
     projectedClub,
@@ -68,11 +73,12 @@ export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub
   );
   const status = getSportingStatus(hierarchy, career.player.id);
   const playerOverall = getPlayerOverall(career.player, career.player.primaryPosition);
+  const resolveFootballer = createCareerWorldFootballerResolver(career, { cache: true });
   const bestCompetitor = Math.max(
     0,
-    ...(club.squadPlayerIds ?? [])
+    ...(effectiveClub.squadPlayerIds ?? [])
       .filter((id) => id !== career.player.id)
-      .map((id) => career.footballerWorld?.[id]?.profile)
+      .map((id) => resolveFootballer(id)?.profile)
       .filter(
         (player): player is NonNullable<typeof player> =>
           Boolean(player) && player!.positionFamiliarity[career.player.primaryPosition] >= 0.3,

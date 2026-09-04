@@ -10,7 +10,7 @@ export const PROCEDURAL_PLAYER_VERSION = 1;
 const PREFIX = `footballer_proc_v${PROCEDURAL_PLAYER_VERSION}_`;
 
 export interface ProceduralPlayerOrigin {
-  kind: 'intake' | 'emergency';
+  kind: 'intake' | 'supplemental' | 'emergency';
   ownerId: Id;
   season: number;
   position: PlayerPosition;
@@ -37,9 +37,11 @@ export const parseProceduralFootballerId = (id: Id): ProceduralPlayerOrigin | un
   const suffix = id.slice(PREFIX.length);
   const kind = suffix.startsWith('intake_')
     ? 'intake'
-    : suffix.startsWith('emergency_')
-      ? 'emergency'
-      : undefined;
+    : suffix.startsWith('supplemental_')
+      ? 'supplemental'
+      : suffix.startsWith('emergency_')
+        ? 'emergency'
+        : undefined;
   if (!kind) return undefined;
   const body = suffix.slice(kind.length + 1);
   const match = body.match(
@@ -83,7 +85,7 @@ export const resolveProceduralFootballer = (
           ),
         );
   const rng = RandomGenerator.fromSeed(`${PROCEDURAL_WORLD_SEED}:${id}:youth`);
-  const age = origin.kind === 'intake' ? (rng.bool(0.72) ? 16 : 15) : rng.int(18, 25);
+  const age = origin.kind === 'intake' ? (rng.bool(0.72) ? 16 : 15) : rng.int(17, 20);
   const targetOverall = Math.max(
     30,
     Math.min(70, quality + rng.int(-10, 10) + (origin.slot % 6 === 0 ? 3 : 0)),
