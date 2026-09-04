@@ -332,3 +332,19 @@ porównuje wynik z oczekiwaniem względem klubów tego samego poziomu, uwzględn
 presję klubu, reputację trenera i ograniczony szum. Wakaty korzystają z małej puli zwolnionych i
 niezatrudnionych trenerów, a dopasowanie obejmuje poziom, styl i młodzież. Delta przechowuje tylko
 bieżące przypisania i zwięzłe rekordy ruchów; `CoachProfile` oraz `Person` zachowują tożsamość.
+
+## Kanoniczna efektywna kadra i letni rynek
+
+Efektywny świat ma równanie **STATIC WORLD + PROCEDURAL PLAYERS + DATE-BASED NPC DEVELOPMENT +
+SPARSE CAREER STATE + ONE CANONICAL EFFECTIVE SQUAD RESOLVER = EFFECTIVE WORLD**.
+`resolveEffectiveSeniorSquad()` składa startową kadrę z `squadOverrides`, usuwa emerytów i nakłada
+członkostwo protagonisty. `ProfessionalClub.squadPlayerIds` jest wyłącznie bootstrapem, nie drugim
+runtime'owym źródłem prawdy.
+
+Jedynym właścicielem letniej budowy kadr jest `processSummerSquadMarket()`. Kolejność granicy to:
+projekcja rozwoju, nieodwołalne emerytury, uwolnienie absolwentów do wspólnej puli, cykl trenerów,
+a następnie faza odejść (wygaśnięcia i ograniczone intencje) oraz jeden rynek absolwentów, wolnych,
+chcących odejść i graczy dostępnych do kierunkowego podkupienia. Kluby działają od wyższego poziomu
+i reputacji w dół piramidy. Wolni gracze mają pierwszeństwo przed transferem i proceduralnym
+absolwentem uzupełniającym. Budżety są miękkim kontekstem i nie mogą zepsuć grywalności świata.
+`worldIntegrity` audytuje wynik; dawny krytyczny repair jest nieaktywnym API zgodności.

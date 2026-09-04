@@ -27,14 +27,14 @@ import { processNpcSeasonDevelopment } from './seasonDevelopment';
 import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements } from './npcRetirement';
-import { processNpcTransferMarket } from './npcTransferMarket';
+import { processSummerSquadMarket } from './npcTransferMarket';
 import { processManagerLifecycle } from './managerLifecycle';
-import { processCriticalSquadRepair } from './worldIntegrity';
 import {
   coachProfileToPerson,
   deriveCanonicalCoachProfile,
   resolveClubManagerId,
 } from './coachProfiles';
+import { resolveEffectiveProfessionalClub, resolveEffectiveSeniorSquad } from './worldDatabase';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -381,8 +381,11 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     aged = processNpcRetirements(aged, nextDate, true);
     aged = processYouthGraduation(aged, career.currentSeason).career;
     aged = processManagerLifecycle(aged, nextDate, managerSeasonProjections);
-    aged = processNpcTransferMarket(aged, nextDate, true);
-    aged = processCriticalSquadRepair(aged, nextDate);
+    aged = processSummerSquadMarket(
+      aged,
+      nextDate,
+      new Set(managerSeasonProjections.filter((item) => item.relegated).map((item) => item.clubId)),
+    );
     aged = processYouthIntake(aged, career.currentSeason, true);
   }
   if (aged.currentProfessionalClub)
@@ -489,22 +492,23 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
   const coachProfile = deriveCanonicalCoachProfile(managerId, date);
   const coach = coachProfileToPerson(coachProfile, offer.club, date);
   const changedClub = club.id !== career.currentClub.id;
-  const clubWorld = career.clubWorld?.map((worldClub) => {
-    const withoutPlayer = (worldClub.squadPlayerIds ?? []).filter((id) => id !== career.player.id);
-    return worldClub.id === offer.club.id
-      ? { ...worldClub, squadPlayerIds: [...withoutPlayer, career.player.id] }
-      : { ...worldClub, squadPlayerIds: withoutPlayer };
-  });
-  const destination = clubWorld?.find((worldClub) => worldClub.id === offer.club.id) ?? {
+  const clubWorld = career.clubWorld;
+  const destinationBase = resolveEffectiveProfessionalClub(career, offer.club.id) ?? {
     ...offer.club,
-    squadPlayerIds: [...new Set([...(offer.club.squadPlayerIds ?? []), career.player.id])],
+    squadPlayerIds: offer.club.squadPlayerIds ?? [],
+  };
+  const destination = {
+    ...destinationBase,
+    squadPlayerIds: [...new Set([...(destinationBase.squadPlayerIds ?? []), career.player.id])],
   };
   const squadOverrides = career.worldDelta ? { ...career.worldDelta.squadOverrides } : undefined;
   if (squadOverrides) {
-    for (const [clubId, ids] of Object.entries(squadOverrides))
-      if (clubId !== offer.club.id && ids.includes(career.player.id))
-        squadOverrides[clubId] = ids.filter((id) => id !== career.player.id);
-    const destinationIds = squadOverrides[offer.club.id] ?? offer.club.squadPlayerIds ?? [];
+    for (const worldClub of career.clubWorld ?? [])
+      if (worldClub.id !== offer.club.id)
+        squadOverrides[worldClub.id] = resolveEffectiveSeniorSquad(career, worldClub.id).filter(
+          (id) => id !== career.player.id,
+        );
+    const destinationIds = resolveEffectiveSeniorSquad(career, offer.club.id);
     squadOverrides[offer.club.id] = [
       ...destinationIds.filter((id) => id !== career.player.id),
       career.player.id,

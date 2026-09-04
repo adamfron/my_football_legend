@@ -191,6 +191,38 @@ export const resolveWorldSquad = (world: WorldContext, clubId: Id): Id[] | undef
   world.worldDelta?.squadOverrides[clubId] ??
   world.baseWorld.clubs.find((club) => club.id === clubId)?.squadPlayerIds;
 
+/** The only runtime source of senior membership: bootstrap IDs plus sparse career state. */
+export const resolveEffectiveSeniorSquad = (
+  career: Pick<
+    CareerState,
+    'player' | 'currentProfessionalClub' | 'clubWorld' | 'footballerWorld' | 'worldDelta'
+  >,
+  clubId: Id,
+): Id[] => {
+  const club = career.clubWorld?.find((item) => item.id === clubId);
+  const bootstrap = career.worldDelta?.squadOverrides[clubId] ?? club?.squadPlayerIds ?? [];
+  const retired = new Set(career.worldDelta?.retiredFootballerIds ?? []);
+  const protagonistBelongs = career.currentProfessionalClub?.id === clubId;
+  return [...new Set([...bootstrap, ...(protagonistBelongs ? [career.player.id] : [])])].filter(
+    (id) =>
+      !retired.has(id) &&
+      (id === career.player.id || Boolean(resolveCareerWorldFootballer(career, id))),
+  );
+};
+
+export const resolveEffectiveProfessionalClub = (
+  career: Pick<
+    CareerState,
+    'player' | 'currentProfessionalClub' | 'clubWorld' | 'footballerWorld' | 'worldDelta'
+  >,
+  clubId: Id,
+): ProfessionalClub | undefined => {
+  const club = career.clubWorld?.find((item) => item.id === clubId);
+  return club
+    ? { ...club, squadPlayerIds: resolveEffectiveSeniorSquad(career, clubId) }
+    : undefined;
+};
+
 export const resolveYouthCohort = (
   career: Pick<CareerState, 'youthCohorts' | 'worldDelta'>,
   cohortKey: string,
