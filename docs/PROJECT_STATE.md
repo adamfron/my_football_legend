@@ -36,7 +36,7 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 ## Immediate next gameplay development
 
 **Zrealizowano ograniczony ekonomią niedoskonały rynek transferowy NPC.** Globalna granica sezonu obejmuje
-teraz coroczną graduację, rzadki rozwój/regres NPC, emerytury, ograniczony letni obieg wolnych i
+teraz coroczną graduację, parametryczną projekcję rozwoju/regresu NPC, emerytury, ograniczony letni obieg wolnych i
 kontraktowych seniorów oraz uzupełnianie kohort U-17. Kluby oglądają małe, zaszumione listy i mogą
 nie wykonać żadnego ruchu; opłaty, płace i prosta zgoda sprzedającego ograniczają wybór, ale system nie optymalizuje globalnie składów ani nie symuluje pełnej księgowości.
 
@@ -65,11 +65,9 @@ reputację, DNA/politykę młodzieżową klubu, finanse, kontrakt i dostępnoś�
 reewaluację hierarchii. Byli piłkarze będą mogli później zostać trenerami młodzieży, asystentami
 lub menedżerami.
 
-Emerytura będzie probabilistyczna i kontekstowa, zależna m.in. od wieku, pozycji (bramkarze zwykle
-później), regresu fizycznego, urazów, minut, dostępnego poziomu kontraktu, reputacji, ambicji,
-profesjonalizmu, gotowości zejścia ligę niżej i deterministycznej indywidualnej zmienności. Wiek 40
-nie jest uniwersalną regułą; część zakończy karierę wyraźnie wcześniej, a mniejszość nieco później.
-Twarde maksimum w testach jest wyłącznie bezpiecznikiem.
+Emerytura NPC jest stabilną projekcją końca kariery z tożsamości, pozycji, trajektorii i charakteru,
+a nie ponawianym co rok losowaniem. Bramkarze mają przesunięty rozkład ku późniejszym latom, a
+twarde maksimum 43 lat obowiązuje niezależnie od liczebności kadry klubu.
 
 Fitness/Morale 2.0 powiąże minuty z narastającym zmęczeniem, zagęszczeniem terminarza, regeneracją,
 wytrzymałością, wiekiem oraz środowiskiem medyczno-treningowym, naturalnie wywołując rotację.
@@ -116,9 +114,14 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
   decyzja gracza poprzedza rozstrzygnięcie spotkania.
 - Rozwój protagonisty: `developPlayer()` w `src/core/development.ts` i migawki w `src/core/seasonArchive.ts`; rzadka projekcja NPC i idempotentny przebieg świata są w `src/core/seasonDevelopment.ts`.
 
-## Rzadki sezonowy rozwój NPC
+## Parametryczny rozwój NPC
 
-Na granicy sezonu aktywny NPC efektywnego świata jest oceniany dokładnie raz. Deterministyczna projekcja używa kanonicznego `DevelopmentProfile`, wieku z `dateOfBirth`, rodzin atrybutów i środowiska klubu. Zmienia małą liczbę atrybutów, nie tożsamość, pozycję, klub ani kontrakt. Override powstaje tylko dla rzeczywistej zmiany, a marker sezonu zapewnia idempotencję. Kolejność to zakończenie sezonu i graduacja U-17, rozwój NPC, a następnie nowy sezon i hierarchia. Wiek prezentacyjny jest projekcją bieżącej daty i nie tworzy delty.
+**NATURALNY ROZWÓJ NPC JEST PROJEKCJĄ ZALEŻNĄ OD DATY, A NIE TRWAŁĄ COROCZNĄ MUTACJĄ.**
+Osiem współdzielonych krzywych opisuje szeroką trajektorię rodzin fizycznej, technicznej,
+mentalnej i bramkarskiej. `DevelopmentProfile`, charakter oraz stabilny identyfikator nadają jej
+indywidualny kształt. Resolver może przejść bezpośrednio do dowolnego wieku, bez odtwarzania
+wcześniejszych sezonów. `footballerAttributeOverrides` pozostaje wyłącznie dla wyjątkowych,
+jawnych konsekwencji; naturalne starzenie nie powiększa zapisu.
 
 Przed proponowaniem zmian strukturalnych w nowej rozmowie projektowej/deweloperskiej przeczytaj `PROJECT_STATE.md`, `ARCHITECTURE.md` i `ROADMAP.md`.
 
@@ -160,4 +163,4 @@ Zmiana członkostwa, awanse, pierwsze kontrakty i wolni zawodnicy są zapisywani
 
 ## Kanoniczna granica sezonu świata
 
-Po ukończeniu sezonu system kolejno: archiwizuje sezon protagonisty, rozwiązuje bieżące kohorty U-17 i graduację, wykonuje rzadki rozwój NPC, rozstrzyga emerytury, tworzy kohorty następnego sezonu, stosuje rollover klubów, a na końcu inicjalizuje sezon i hierarchię protagonisty. Markery sezonowe oraz autorytatywne klucze kohort zapewniają idempotencję. Emeryci pozostają tożsamościami w delcie, lecz znikają z aktywnych resolverów i składów; tymczasowe minimum 18 seniorów chroni symulację do czasu rynku transferowego NPC.
+Po ukończeniu sezonu system kolejno: archiwizuje sezon protagonisty, rozwiązuje bieżące kohorty U-17 i graduację, rozstrzyga deterministyczne daty emerytur, tworzy kohorty następnego sezonu, stosuje rollover klubów, a na końcu inicjalizuje sezon i hierarchię protagonisty. Markery trwałych operacji oraz autorytatywne klucze kohort zapewniają idempotencję. Emeryci pozostają tożsamościami w delcie, lecz znikają z aktywnych resolverów i składów; liczebność kadry nie może zatrzymać emerytury.

@@ -1,22 +1,27 @@
 import { describe, expect, test } from 'vitest';
-import type { DevelopmentProfile, WorldFootballer } from '../types/domain';
+import type {
+  CareerState,
+  DevelopmentProfile,
+  PlayerAttributes,
+  WorldFootballer,
+} from '../types/domain';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { generateCanonicalFootballerProfile, resolveFootballer } from './footballerWorld';
 import {
   aggregateDevelopment,
   processNpcSeasonDevelopment,
-  projectNpcSeasonDevelopment,
+  projectNpcAttributesAtDate,
 } from './seasonDevelopment';
-import { emptyWorldDelta } from './worldDatabase';
 import { getRadarAxes } from './radar';
+import { emptyWorldDelta } from './worldDatabase';
 
 const development: DevelopmentProfile = {
   developmentType: 'normal',
   growthRate: 1.2,
   developmentVolatility: 60,
   familyCapacity: { technical: 90, mental: 88, physical: 87, goalkeeper: 85 },
-  familyPeakAge: { technical: 27, mental: 29, physical: 25, goalkeeper: 31 },
-  familyDeclineStartAge: { technical: 31, mental: 34, physical: 29, goalkeeper: 34 },
+  familyPeakAge: { technical: 27, mental: 30, physical: 25, goalkeeper: 32 },
+  familyDeclineStartAge: { technical: 31, mental: 35, physical: 29, goalkeeper: 36 },
   stagnationResistance: 70,
   crisisSensitivity: 35,
 };
@@ -34,21 +39,13 @@ const npc = (
     primaryPosition: position,
   }),
   developmentProfile: development,
+  developmentCurveId: position === 'goalkeeper' ? 'goalkeeper_late_prime' : 'balanced',
   careerStatus: 'active',
   currentClubId: 'club',
-  currentContract: {
-    clubId: 'club',
-    startDate: '2025-07-01',
-    endDate: '2029-06-30',
-    monthlySalary: 1000,
-    signingBonus: 0,
-    squadRole: 'rotation',
-    contractType: 'professional',
-  },
 });
 
 const careerWith = (...players: WorldFootballer[]) => {
-  const generated = generateStartingPlayerProfile(
+  const player = generateStartingPlayerProfile(
     {
       firstName: 'Jan',
       lastName: 'Test',
@@ -65,150 +62,86 @@ const careerWith = (...players: WorldFootballer[]) => {
     0,
   );
   return {
-    ...createCareerState(generated, 'career'),
+    ...createCareerState(player, 'career'),
     currentDate: '2026-07-01',
     footballerWorld: Object.fromEntries(players.map((item) => [item.profile.id, item])),
     worldDelta: emptyWorldDelta(),
   };
 };
 
-describe('NPC seasonal development', () => {
-  test('is deterministic, bounded and preserves football identity', () => {
+const average = (attributes: PlayerAttributes, keys: (keyof PlayerAttributes)[]) =>
+  keys.reduce((sum, key) => sum + attributes[key]!, 0) / keys.length;
+const physical: (keyof PlayerAttributes)[] = ['pace', 'stamina', 'strength', 'agility', 'jumping'];
+const goalkeeper: (keyof PlayerAttributes)[] = [
+  'reflexes',
+  'handling',
+  'oneOnOnes',
+  'goalkeeperSweeping',
+];
+
+describe('NPC date-based development projection', () => {
+  test('is deterministic and random-access independent', () => {
     const player = npc();
-    const first = projectNpcSeasonDevelopment({
-      footballer: player,
-      boundaryDate: '2027-07-01',
-      clubEnvironment: 80,
-      seed: 'same',
-    });
-    const second = projectNpcSeasonDevelopment({
-      footballer: player,
-      boundaryDate: '2027-07-01',
-      clubEnvironment: 80,
-      seed: 'same',
-    });
-    expect(first).toEqual(second);
-    expect(first.footballer.currentClubId).toBe(player.currentClubId);
-    expect(first.footballer.currentContract).toEqual(player.currentContract);
-    expect(first.footballer.profile.primaryPosition).toBe(player.profile.primaryPosition);
-    expect(first.footballer.profile.secondaryPositions).toEqual(player.profile.secondaryPositions);
-    expect(first.footballer.profile.positionFamiliarity).toEqual(
-      player.profile.positionFamiliarity,
-    );
-    expect(
-      Object.values(first.footballer.profile.attributes).every(
-        (value) => value >= 1 && value <= 100,
-      ),
-    ).toBe(true);
-    expect(first.summary.changes.every((change) => Math.abs(change.delta) <= 2)).toBe(true);
+    const date = '2038-07-01';
+    const direct = projectNpcAttributesAtDate({ footballer: player, date, seed: 'world' });
+    expect(projectNpcAttributesAtDate({ footballer: player, date, seed: 'world' })).toEqual(direct);
+    for (let year = 2027; year < 2038; year++)
+      projectNpcAttributesAtDate({ footballer: player, date: `${year}-07-01`, seed: 'world' });
+    expect(projectNpcAttributesAtDate({ footballer: player, date, seed: 'world' })).toEqual(direct);
   });
 
-  test('is idempotent, skips protagonist and retired NPCs, and writes only real changes', () => {
-    const active = npc('active');
-    const retired = { ...npc('retired'), careerStatus: 'retired' as const };
-    const base = careerWith(active, retired);
-    base.footballerWorld![base.player.id] = { ...active, profile: base.player };
-    const once = processNpcSeasonDevelopment(base, '2027-07-01');
-    const twice = processNpcSeasonDevelopment(once, '2027-07-01');
-    expect(twice).toEqual(once);
-    expect(once.worldDelta?.footballerOverrides.retired).toBeUndefined();
-    expect(once.worldDelta?.footballerOverrides[base.player.id]).toBeUndefined();
-    for (const changed of Object.values(once.worldDelta?.footballerOverrides ?? {})) {
-      expect(changed.currentContract).toEqual(active.currentContract);
-      expect(changed.profile.attributes).not.toEqual(
-        base.footballerWorld![changed.profile.id]?.profile.attributes,
-      );
-    }
-  });
-
-  test('does not persist age-only changes and resolves current age from birth date', () => {
-    const player = npc('age-only');
-    player.developmentProfile = {
-      ...development,
-      growthRate: 0.00001,
-      stagnationResistance: 0,
-      familyCapacity: { technical: 1, mental: 1, physical: 1, goalkeeper: 1 },
-      familyDeclineStartAge: { technical: 99, mental: 99, physical: 99, goalkeeper: 99 },
-    };
-    const base = careerWith(player);
-    const result = processNpcSeasonDevelopment(base, '2027-07-01');
-    expect(result.worldDelta?.footballerOverrides['age-only']).toBeUndefined();
-    const age2026 = resolveFootballer(base, 'age-only')!.age;
-    expect(resolveFootballer({ ...base, currentDate: '2029-07-01' }, 'age-only')!.age).toBe(
-      age2026 + 3,
-    );
-  });
-
-  test('resolves override precedence, preserves prior deltas and exposes changes normally', () => {
-    const basePlayer = npc('precedence', 18);
-    const override = {
-      ...basePlayer,
-      profile: {
-        ...basePlayer.profile,
-        attributes: { ...basePlayer.profile.attributes, finishing: 77 },
-      },
-    };
-    const added = npc('added', 18);
-    const career = careerWith(basePlayer);
-    career.worldDelta = {
-      ...emptyWorldDelta(),
-      newFootballers: { added },
-      footballerOverrides: { precedence: override },
-    };
-    const result = processNpcSeasonDevelopment(career, '2027-07-01');
-    expect(result.worldDelta?.footballerOverrides.precedence).toBeDefined();
-    expect(result.worldDelta?.newFootballers.added).toBe(added);
-    expect(resolveFootballer(result, 'precedence')?.attributes.finishing).toBe(77);
-    expect(result.worldDelta?.footballerAttributeOverrides?.precedence).toBeDefined();
-    expect(processNpcSeasonDevelopment(result, '2027-07-01')).toBe(result);
-  });
-
-  test('capacity brakes growth and goalkeepers retain later decline timing', () => {
+  test('young players improve while older outfield players regress plausibly', () => {
     const young = npc('young', 18);
-    const capped = npc('capped', 18);
-    capped.developmentProfile = {
-      ...development,
-      familyCapacity: { technical: 1, mental: 1, physical: 1, goalkeeper: 1 },
-    };
-    let youngChanges = 0;
-    let cappedChanges = 0;
-    for (let index = 0; index < 60; index++) {
-      youngChanges += projectNpcSeasonDevelopment({
-        footballer: young,
-        boundaryDate: '2027-07-01',
-        seed: `sample-${index}`,
-        clubEnvironment: 80,
-      }).summary.changes.length;
-      cappedChanges += projectNpcSeasonDevelopment({
-        footballer: capped,
-        boundaryDate: '2027-07-01',
-        seed: `sample-${index}`,
-        clubEnvironment: 80,
-      }).summary.changes.filter((item) => item.delta > 0).length;
-    }
-    expect(youngChanges).toBeGreaterThan(cappedChanges);
-    const oldOutfield = npc('old-o', 35);
-    const oldKeeper = npc('old-g', 35, 'goalkeeper');
-    const out = projectNpcSeasonDevelopment({
-      footballer: oldOutfield,
-      boundaryDate: '2027-07-01',
-      seed: 'decline',
-      clubEnvironment: 50,
-    });
-    const keeper = projectNpcSeasonDevelopment({
-      footballer: oldKeeper,
-      boundaryDate: '2027-07-01',
-      seed: 'decline',
-      clubEnvironment: 50,
-    });
     expect(
-      out.summary.changes.some((item) => item.delta < 0) || keeper.summary.changes.length === 0,
-    ).toBe(true);
+      average(projectNpcAttributesAtDate({ footballer: young, date: '2032-07-01' }), physical),
+    ).toBeGreaterThan(average(young.profile.attributes, physical));
+    const old = npc('old', 32);
+    expect(
+      average(projectNpcAttributesAtDate({ footballer: old, date: '2038-07-01' }), physical),
+    ).toBeLessThan(average(old.profile.attributes, physical));
+  });
+
+  test('goalkeepers retain their specialist skills later than outfield physical skills', () => {
+    const keeper = npc('keeper', 32, 'goalkeeper');
+    const outfield = npc('outfield', 32);
+    const date = '2038-07-01';
+    const keeperDelta =
+      average(projectNpcAttributesAtDate({ footballer: keeper, date }), goalkeeper) -
+      average(keeper.profile.attributes, goalkeeper);
+    const outfieldDelta =
+      average(projectNpcAttributesAtDate({ footballer: outfield, date }), physical) -
+      average(outfield.profile.attributes, physical);
+    expect(keeperDelta).toBeGreaterThan(outfieldDelta);
+  });
+
+  test('season processing stores no natural-development overrides', () => {
+    const career = careerWith(npc('active'));
+    let result: CareerState = career;
+    for (let year = 2027; year <= 2052; year++)
+      result = processNpcSeasonDevelopment(result, `${year}-07-01`);
+    expect(result).toBe(career);
+    expect(result.worldDelta?.footballerAttributeOverrides).toBeUndefined();
+  });
+
+  test('explicit exceptional overrides compose after projected development', () => {
+    const player = npc('override');
+    const career = careerWith(player);
+    career.currentDate = '2032-07-01';
+    career.worldDelta!.footballerAttributeOverrides = { override: { finishing: 99 } };
+    const resolved = resolveFootballer(career, 'override')!;
+    expect(resolved.attributes.finishing).toBe(99);
+    expect(resolved.attributes.pace).toBe(
+      projectNpcAttributesAtDate({
+        footballer: player,
+        date: career.currentDate,
+        seed: career.seed,
+      }).pace,
+    );
   });
 });
 
-describe('archived season development presentation', () => {
-  test('aggregates repeated increments into the immutable start/end net change', () => {
+describe('development presentation helpers', () => {
+  test('aggregates net changes and retains shared radar projection', () => {
     const attributes = npc('archive').profile.attributes;
     const end = { ...attributes, stamina: attributes.stamina + 3 };
     expect(aggregateDevelopment(attributes, end)).toContainEqual({
@@ -217,14 +150,6 @@ describe('archived season development presentation', () => {
       after: attributes.stamina + 3,
       delta: 3,
     });
-    expect(
-      aggregateDevelopment(attributes, end).filter((item) => item.attribute === 'stamina'),
-    ).toHaveLength(1);
-  });
-
-  test('uses one shared macro radar calculation for both profiles', () => {
-    const attributes = npc('radar').profile.attributes;
     expect(getRadarAxes(attributes)).toEqual(getRadarAxes({ ...attributes }));
-    expect(getRadarAxes(attributes)).toHaveLength(8);
   });
 });

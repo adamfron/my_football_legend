@@ -290,6 +290,18 @@ export const contractSchema = z.object({
 export const worldFootballerSchema = z.object({
   profile: footballerProfileSchema,
   developmentProfile: developmentProfileSchema,
+  developmentCurveId: z
+    .enum([
+      'early_peak',
+      'rapid_start',
+      'balanced',
+      'steady',
+      'late_bloomer',
+      'long_prime',
+      'physical_early_mental_late',
+      'goalkeeper_late_prime',
+    ])
+    .optional(),
   careerStatus: z.enum(['active', 'retired']),
   currentClubId: id.optional(),
   reputation: score.optional(),
@@ -636,7 +648,6 @@ export const careerStateSchema = z.object({
           }),
         )
         .optional(),
-      npcDevelopmentProcessedThroughSeason: z.number().int().nonnegative().optional(),
       npcRetirementProcessedThroughSeason: z.number().int().nonnegative().optional(),
       npcTransferMarketProcessedThroughSeason: z.number().int().nonnegative().optional(),
     })

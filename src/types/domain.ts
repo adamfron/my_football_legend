@@ -72,6 +72,15 @@ export interface HiddenPlayerProfile {
 }
 export type DevelopmentType = 'early_bloomer' | 'normal' | 'late_bloomer';
 export type DevelopmentFamily = 'technical' | 'mental' | 'physical' | 'goalkeeper';
+export type NpcDevelopmentCurveId =
+  | 'early_peak'
+  | 'rapid_start'
+  | 'balanced'
+  | 'steady'
+  | 'late_bloomer'
+  | 'long_prime'
+  | 'physical_early_mental_late'
+  | 'goalkeeper_late_prime';
 export interface DevelopmentProfile {
   developmentType: DevelopmentType;
   growthRate: number;
@@ -333,9 +342,11 @@ export interface CareerWorldDelta {
   clubOverrides: Record<Id, ProfessionalClub>;
   footballerOverrides: Record<Id, WorldFootballer>;
   /** Attribute-only mutations over the effective footballer; never duplicates identity data. */
-  footballerAttributeOverrides?: {
-    [footballerId: Id]: { [K in keyof PlayerAttributes]?: PlayerAttributes[K] | undefined };
-  } | undefined;
+  footballerAttributeOverrides?:
+    | {
+        [footballerId: Id]: { [K in keyof PlayerAttributes]?: PlayerAttributes[K] | undefined };
+      }
+    | undefined;
   squadOverrides: Record<Id, Id[]>;
   /** Effective youth membership after lifecycle changes; the shipped cohort stays immutable. */
   youthCohortOverrides?: Record<string, Id[]> | undefined;
@@ -346,8 +357,6 @@ export interface CareerWorldDelta {
   managerLifecycleProcessedThroughSeason?: number | undefined;
   /** Sparse append-only history of completed NPC moves. */
   npcTransferRecords?: WorldTransferRecord[] | undefined;
-  /** Last completed season boundary applied to persistent NPC attributes. */
-  npcDevelopmentProcessedThroughSeason?: number | undefined;
   /** Last completed season boundary evaluated for NPC retirement. */
   npcRetirementProcessedThroughSeason?: number | undefined;
   /** Last completed season boundary processed by the bounded NPC summer market. */
@@ -612,6 +621,8 @@ export interface ProfessionalClub {
 export interface WorldFootballer {
   profile: FootballerProfile;
   developmentProfile: DevelopmentProfile;
+  /** Shared natural-development trajectory; absent only in legacy world data. */
+  developmentCurveId?: NpcDevelopmentCurveId | undefined;
   careerStatus: 'active' | 'retired';
   currentClubId?: Id | undefined;
   reputation?: number | undefined;

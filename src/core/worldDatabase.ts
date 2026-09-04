@@ -9,6 +9,7 @@ import type {
   WorldFootballer,
 } from '../types/domain';
 import { professionalClubSchema, worldFootballerSchema } from '../schemas/domainSchemas';
+import { projectNpcAttributesAtDate } from './seasonDevelopment';
 
 export const WORLD_DATABASE_VERSION = 'pl-2026-v2';
 export const WORLD_DATABASE_SEED = 'mfl-world-pl-2026-v2';
@@ -80,28 +81,43 @@ export const resolveWorldFootballer = (
 
 /** Composes base/new, rare full override, then the sparse development overlay. */
 export const resolveCareerWorldFootballer = (
-  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'>,
+  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'> &
+    Partial<Pick<CareerState, 'currentDate' | 'seed'>>,
   id: Id,
 ): WorldFootballer | undefined => {
   const delta = career.worldDelta;
   const footballer =
     delta?.footballerOverrides[id] ?? delta?.newFootballers[id] ?? career.footballerWorld?.[id];
   if (!footballer || delta?.retiredFootballerIds.includes(id)) return undefined;
-  const patch = delta?.footballerAttributeOverrides?.[id];
-  return patch
+  const projected = career.currentDate
     ? {
         ...footballer,
         profile: {
           ...footballer.profile,
-          attributes: { ...footballer.profile.attributes, ...patch } as PlayerAttributes,
+          attributes: projectNpcAttributesAtDate({
+            footballer,
+            date: career.currentDate,
+            ...(career.seed ? { seed: career.seed } : {}),
+          }),
         },
       }
     : footballer;
+  const patch = delta?.footballerAttributeOverrides?.[id];
+  return patch
+    ? {
+        ...projected,
+        profile: {
+          ...projected.profile,
+          attributes: { ...projected.profile.attributes, ...patch } as PlayerAttributes,
+        },
+      }
+    : projected;
 };
 
 /** Boundary-local resolver: indexes retirement once and may memoize an immutable pass. */
 export const createCareerWorldFootballerResolver = (
-  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'>,
+  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'> &
+    Partial<Pick<CareerState, 'currentDate' | 'seed'>>,
   options: { cache?: boolean } = {},
 ) => {
   const delta = career.worldDelta;
@@ -114,17 +130,31 @@ export const createCareerWorldFootballerResolver = (
       : (delta?.footballerOverrides[id] ??
         delta?.newFootballers[id] ??
         career.footballerWorld?.[id]);
-    const patch = delta?.footballerAttributeOverrides?.[id];
-    const effective =
-      footballer && patch
+    const projected =
+      footballer && career.currentDate
         ? {
             ...footballer,
             profile: {
               ...footballer.profile,
-              attributes: { ...footballer.profile.attributes, ...patch } as PlayerAttributes,
+              attributes: projectNpcAttributesAtDate({
+                footballer,
+                date: career.currentDate,
+                ...(career.seed ? { seed: career.seed } : {}),
+              }),
             },
           }
         : footballer;
+    const patch = delta?.footballerAttributeOverrides?.[id];
+    const effective =
+      projected && patch
+        ? {
+            ...projected,
+            profile: {
+              ...projected.profile,
+              attributes: { ...projected.profile.attributes, ...patch } as PlayerAttributes,
+            },
+          }
+        : projected;
     cache?.set(id, effective);
     return effective;
   };

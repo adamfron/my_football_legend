@@ -102,7 +102,6 @@ describe('completed professional season offer regression', () => {
     const oldCohort = resolveYouthCohort(next, getYouthCohortKey('club_vistula_nova', 2026));
     expect(oldCohort).not.toContain(next.player.id);
     expect(next.worldDelta).toMatchObject({
-      npcDevelopmentProcessedThroughSeason: 2026,
       npcRetirementProcessedThroughSeason: 2026,
       npcTransferMarketProcessedThroughSeason: 2026,
     });
@@ -161,7 +160,7 @@ describe('annual background lifecycle', () => {
     expect(careerStateSchema.safeParse(next).success).toBe(true);
   });
 
-  it('uses a later retirement curve for goalkeepers and keeps affected squads simulatable', () => {
+  it('uses a later retirement curve and never lets squad size veto retirement', () => {
     const base = createCareer('retirement-curve');
     const sample = Object.values(base.footballerWorld!)[0]!;
     const oldProfile = { ...sample.profile, dateOfBirth: '1992-01-01', age: 34 };
@@ -181,7 +180,6 @@ describe('annual background lifecycle', () => {
     expect(repeated.worldDelta).toEqual(processed.worldDelta);
     for (const club of processed.clubWorld ?? []) {
       const squad = processed.worldDelta!.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
-      expect(squad).toHaveLength(18);
       expect(squad.some((id) => processed.worldDelta!.retiredFootballerIds.includes(id))).toBe(
         false,
       );

@@ -17,6 +17,7 @@ import { deriveDateOfBirth } from './age';
 import { getProfileAge } from './age';
 import { deriveCanonicalCoachProfile } from './coachProfiles';
 import { resolveCareerWorldFootballer } from './worldDatabase';
+import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -301,7 +302,7 @@ const generateWorldFootballer = (
     squadRole: role,
     contractType: 'professional',
   };
-  return {
+  const footballer: WorldFootballer = {
     profile,
     developmentProfile: generateDevelopmentProfile(
       RandomGenerator.fromSeed(`${seed}:${id}:development`),
@@ -312,6 +313,8 @@ const generateWorldFootballer = (
     fitness: rng.int(78, 100),
     currentContract,
   };
+  footballer.developmentCurveId = deriveNpcDevelopmentCurveId(footballer);
+  return footballer;
 };
 
 export const populateFootballerWorld = (clubs: ProfessionalClub[], seed: string) => {
