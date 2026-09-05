@@ -6,7 +6,12 @@ import {
   STARTING_AGE,
   type CreatorInput,
 } from './playerCreator';
-import { getClubStars, getExpectedSquadRole } from './clubStrength';
+import {
+  getBootstrapClubStrength,
+  getCareerClubStrength,
+  getClubStars,
+  getExpectedSquadRole,
+} from './clubStrength';
 import { createProceduralFootballerId } from './proceduralFootballers';
 
 const careerAtOverall = (value: number) => {
@@ -112,9 +117,35 @@ describe('canonical club strength model', () => {
     expect(getExpectedSquadRole(withProcedural, club)).not.toBe('star_player');
   });
 
-  it('reports an initialized professional squad without a legal XI', () => {
+  it('throws for an initialized career club whose effective squad has no legal XI', () => {
     const career = careerAtOverall(80);
-    const club = { ...career.clubWorld![0]!, id: 'legacy-incomplete', squadPlayerIds: [] };
-    expect(() => getExpectedSquadRole(career, club)).toThrow('no canonical legal XI');
+    const club = career.clubWorld![0]!;
+    const brokenCareer: CareerState = {
+      ...career,
+      worldDelta: {
+        ...career.worldDelta!,
+        squadOverrides: {
+          ...career.worldDelta!.squadOverrides,
+          [club.id]: [],
+        },
+      },
+    };
+
+    expect(() => getCareerClubStrength(brokenCareer, club)).toThrow('no canonical legal XI');
+    expect(() => getExpectedSquadRole(brokenCareer, club)).toThrow('no canonical legal XI');
+  });
+
+  it('allows bootstrap strength for a club outside the normalized career world', () => {
+    const career = careerAtOverall(80);
+    const unknownBootstrapClub = {
+      ...career.clubWorld![0]!,
+      id: 'bootstrap-club-before-normalization',
+      strengthRating: 83,
+      squadPlayerIds: [],
+    };
+
+    expect(getCareerClubStrength(career, unknownBootstrapClub)).toBe(
+      getBootstrapClubStrength(unknownBootstrapClub),
+    );
   });
 });
