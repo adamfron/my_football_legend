@@ -1,7 +1,13 @@
 import { describe, expect, test } from 'vitest';
 import { deriveDateOfBirth, getAgeOnDate } from './age';
+import { deriveCreatorDateOfBirth } from './playerCreator';
 
 describe('calendar age', () => {
+  test('creator derives birth year around July and rejects an impossible leap day', () => {
+    expect(deriveCreatorDateOfBirth(1, 10)).toBe('2010-01-10');
+    expect(deriveCreatorDateOfBirth(12, 10)).toBe('2009-12-10');
+    expect(() => deriveCreatorDateOfBirth(2, 29)).toThrow();
+  });
   test.each([
     ['2000-05-10', '2026-05-09', 25],
     ['2000-05-10', '2026-05-10', 26],

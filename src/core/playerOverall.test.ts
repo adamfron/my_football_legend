@@ -57,8 +57,8 @@ describe('positional OVR', () => {
   it('separates familiarity and strongly protects the goalkeeper boundary', () => {
     const p = make();
     expect(getPositionFamiliarityModifier(p, 'striker')).toBe(1);
-    expect(getPositionFamiliarityModifier(p, 'center_back')).toBe(0.88);
-    expect(getPositionFamiliarityModifier(p, 'goalkeeper')).toBe(0.6);
+    expect(getPositionFamiliarityModifier(p, 'center_back')).toBe(0.65);
+    expect(getPositionFamiliarityModifier(p, 'goalkeeper')).toBe(0.65);
     expect(getEffectivePositionOverall(p, 'goalkeeper')).toBeLessThan(
       getTheoreticalPositionOverall(p, 'goalkeeper'),
     );

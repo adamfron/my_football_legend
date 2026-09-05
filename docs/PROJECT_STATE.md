@@ -107,6 +107,13 @@ Style mogą wyłaniać się z powtarzanego zachowania (np. długich podań lub s
 
 ## Source-of-truth map
 
+- Pozycje: `POSITION_COMPATIBILITY` klasyfikuje relacje naturalne, opanowane, sąsiednie i
+  niedozwolone. Ten sam model zasila selekcję, konkurencję, naukę oraz efektywne pokrycie kadry.
+- Bieżący wiek protagonisty: wyłącznie `dateOfBirth + currentDate`; pole `age` jest zgodnością
+  bootstrap/legacy, a nie drugim zegarem rozgrywki.
+- Rola kontraktowa jest podpisaną obietnicą. Niezadowolenie wynika z rozbieżności tej obietnicy z
+  aktualnym statusem sportowym; dopiero nowa umowa ponownie wycenia rolę.
+
 - Atrybuty i profil: `FootballerProfile` w `src/types/domain.ts` oraz schematy generowania w `src/core/playerCreator.ts`; prezentacja: `ATTRIBUTE_PRESENTATION` w `src/core/attributePresentation.ts`.
 - Archetypy: `FOOTBALL_ARCHETYPES` i `getRankedFootballArchetypes()` w `src/core/footballArchetypes.ts`.
 - OVR: `getPlayerOverall()` / `getEffectivePositionOverall()` w `src/core/playerOverall.ts`; radar: `getPlayerRadarAxes()` w `src/core/radar.ts`.

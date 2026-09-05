@@ -31,6 +31,8 @@ export type CreatorFieldErrors = Partial<
     | 'lastName'
     | 'nationality'
     | 'dominantFoot'
+    | 'birthMonth'
+    | 'birthDay'
     | 'customSeed'
     | 'heightCm'
     | 'weightKg'
@@ -106,6 +108,36 @@ export const PlayerCreator = (p: Props) => (
             <p>
               <strong>Wiek startowy:</strong> {STARTING_AGE} lat
             </p>
+            <div className="unit-field">
+              <label>
+                Dzień urodzenia
+                <input
+                  type="number"
+                  min="1"
+                  max="31"
+                  value={p.identity.birthDay ?? 1}
+                  onChange={(e) =>
+                    p.setIdentity({ ...p.identity, birthDay: Number(e.target.value) })
+                  }
+                />
+                <ErrorText errors={p.errors.birthDay} />
+              </label>
+              <label>
+                Miesiąc urodzenia
+                <select
+                  value={p.identity.birthMonth ?? 7}
+                  onChange={(e) =>
+                    p.setIdentity({ ...p.identity, birthMonth: Number(e.target.value) })
+                  }
+                >
+                  {Array.from({ length: 12 }, (_, index) => (
+                    <option key={index + 1} value={index + 1}>
+                      {index + 1}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
             <label>
               Dominująca noga
               <select

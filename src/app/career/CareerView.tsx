@@ -7,6 +7,7 @@ import { squadRoleLabel } from '../../core/careerPresentation';
 import { advanceSimulationStep, getCareerProgressBlocker } from '../../core/careerSimulation';
 import { getLeagueTable } from '../../core/leagueSeason';
 import { getPlayerOverall } from '../../core/playerOverall';
+import { getProfileAge } from '../../core/age';
 import { buildSeasonTimeline } from '../../core/seasonTimeline';
 import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
 import { MatchParticipationSummary } from '../../components/MatchParticipationSummary';
@@ -163,7 +164,12 @@ export const CareerView = ({
             </strong>
             <b>
               {getPlayerOverall(career.player, career.player.primaryPosition)} OVR ·{' '}
-              {career.player.age} lat
+              {getProfileAge(
+                career.player,
+                career.currentDate ?? `${career.currentSeason}-07-01`,
+                '2026-07-01',
+              )}{' '}
+              lat
             </b>
             <span>
               kondycja {career.player.fitness} · morale {career.player.morale}

@@ -812,6 +812,8 @@ export const App = () => {
     lastName: '',
     nationality: 'PL',
     age: STARTING_AGE,
+    birthMonth: 7,
+    birthDay: 1,
     dominantFoot: 'right',
     difficulty: 'normal',
     customSeed: '',

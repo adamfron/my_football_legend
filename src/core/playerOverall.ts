@@ -1,4 +1,5 @@
 import type { FootballerProfile, PlayerAttributes, PlayerPosition } from '../types/domain';
+import { getPositionRelationship } from './positionCompatibility';
 
 export const PLAYER_POSITIONS = [
   'goalkeeper',
@@ -188,19 +189,18 @@ export const getPositionFamiliarityModifier = (
   player: FootballerProfile,
   position: PlayerPosition,
 ): number => {
-  const fromGk = player.primaryPosition === 'goalkeeper';
-  const toGk = position === 'goalkeeper';
-  if (fromGk !== toGk) return 0.6;
+  const relationship = getPositionRelationship(player, position);
+  if (relationship === 'specialist_forbidden' || relationship === 'unrelated') return 0.65;
   const familiarity = player.positionFamiliarity[position] ?? 0;
   return familiarity >= 1
     ? 1
     : familiarity >= 0.8
       ? 0.98
       : familiarity >= 0.6
-        ? 0.95
+        ? 0.96
         : familiarity >= 0.3
-          ? 0.92
-          : 0.88;
+          ? 0.9
+          : 0.84;
 };
 export const getEffectivePositionOverall = (
   player: FootballerProfile,
