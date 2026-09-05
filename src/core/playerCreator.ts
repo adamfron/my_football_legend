@@ -27,12 +27,24 @@ import {
 import { getEligibleFootballArchetypes, getFootballArchetype } from './footballArchetypes';
 import { describePlayerProfile } from './playerProfilePresentation';
 import { POSITION_OVR_WEIGHTS } from './playerOverall';
-import { deriveDateOfBirth } from './age';
+import { getAgeOnDate } from './age';
 export const STARTING_AGE = 16,
   MIN_HEIGHT_CM = 155,
   MAX_HEIGHT_CM = 205,
   MIN_WEIGHT_KG = 45,
   MAX_WEIGHT_KG = 120;
+export const CAREER_START_DATE = '2026-07-01';
+export const deriveCreatorDateOfBirth = (birthMonth: number, birthDay: number) => {
+  const year = birthMonth < 7 || (birthMonth === 7 && birthDay <= 1) ? 2010 : 2009;
+  const value = `${year}-${String(birthMonth).padStart(2, '0')}-${String(birthDay).padStart(2, '0')}`;
+  if (
+    Number.isNaN(new Date(`${value}T00:00:00Z`).getTime()) ||
+    new Date(`${value}T00:00:00Z`).toISOString().slice(0, 10) !== value ||
+    getAgeOnDate(value, CAREER_START_DATE) !== STARTING_AGE
+  )
+    throw new Error('Data urodzenia musi być prawidłowa i dawać dokładnie 16 lat na starcie.');
+  return value;
+};
 export const positionIds = PLAYER_POSITIONS;
 export type PositionId = PlayerPosition;
 export const dominantFootIds = ['right', 'left'] as const;
@@ -58,15 +70,29 @@ export const getAllowedWeightRange = (h: number) => {
     max: Math.floor(Math.min(MAX_WEIGHT_KG, 30 * m * m)),
   };
 };
-export const identityInputSchema = z.object({
-  firstName: z.string().trim().min(2, 'Podaj imię zawodnika.').max(32),
-  lastName: z.string().trim().min(2, 'Podaj nazwisko zawodnika.').max(40),
-  nationality: z.enum(nationalityIds),
-  age: z.literal(STARTING_AGE),
-  dominantFoot: z.enum(dominantFootIds),
-  difficulty: z.enum(difficultyIds).default('normal'),
-  customSeed: z.string().trim().max(48).optional(),
-});
+export const identityInputSchema = z
+  .object({
+    firstName: z.string().trim().min(2, 'Podaj imię zawodnika.').max(32),
+    lastName: z.string().trim().min(2, 'Podaj nazwisko zawodnika.').max(40),
+    nationality: z.enum(nationalityIds),
+    age: z.literal(STARTING_AGE),
+    birthMonth: z.number().int().min(1).max(12).default(7),
+    birthDay: z.number().int().min(1).max(31).default(1),
+    dominantFoot: z.enum(dominantFootIds),
+    difficulty: z.enum(difficultyIds).default('normal'),
+    customSeed: z.string().trim().max(48).optional(),
+  })
+  .superRefine((value, context) => {
+    try {
+      deriveCreatorDateOfBirth(value.birthMonth, value.birthDay);
+    } catch {
+      context.addIssue({
+        code: 'custom',
+        path: ['birthDay'],
+        message: 'Ten dzień nie istnieje w wybranym miesiącu.',
+      });
+    }
+  });
 export type IdentityInput = z.input<typeof identityInputSchema>;
 const heightCmSchema = integerField(
   'Podaj wzrost zawodnika.',
@@ -321,7 +347,7 @@ const build = (
     firstName: parsed.firstName,
     lastName: parsed.lastName,
     age: STARTING_AGE,
-    dateOfBirth: deriveDateOfBirth(STARTING_AGE, '2026-07-01', `player_${seed}`),
+    dateOfBirth: deriveCreatorDateOfBirth(parsed.birthMonth, parsed.birthDay),
     nationality: parsed.nationality,
     heightCm: parsed.heightCm,
     weightKg: parsed.weightKg,

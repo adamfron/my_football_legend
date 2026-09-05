@@ -11,7 +11,7 @@ import { getEligibleFootballArchetypes } from './footballArchetypes';
 import { generateDevelopmentProfile, generateFootballerAttributes } from './playerCreator';
 import { getEffectivePositionOverall, getPlayerOverall, PLAYER_POSITIONS } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
-import { POSITION_COMPATIBILITY } from './positionCompatibility';
+import { isNormallyEligibleForPosition, POSITION_COMPATIBILITY } from './positionCompatibility';
 import { deriveDateOfBirth } from './age';
 import { getProfileAge } from './age';
 import { deriveCanonicalCoachProfile } from './coachProfiles';
@@ -375,8 +375,7 @@ const BENCH_COVERAGE: readonly (readonly PlayerPosition[])[] = [
  * Goalkeeper is a specialist boundary during normal selection. A future explicit emergency
  * position mechanic may cross it after a red card/injury and exhausted substitutions.
  */
-export const isEligibleForNormalPosition = (player: FootballerProfile, position: PlayerPosition) =>
-  (player.primaryPosition === 'goalkeeper') === (position === 'goalkeeper');
+export const isEligibleForNormalPosition = isNormallyEligibleForPosition;
 
 /** Temporary deterministic presentation evaluation, not manager selection AI. */
 export const selectMatchBench = (

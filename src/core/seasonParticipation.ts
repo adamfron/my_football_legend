@@ -7,6 +7,7 @@ import type {
   SquadRole,
   PlayerPosition,
 } from '../types/domain';
+import { applyPositionLearning } from './positionLearning';
 
 export const getExpectedAvailableMinuteShare = (
   role: SquadRole,
@@ -197,7 +198,8 @@ export const recordParticipation = (
     new Set(seasonParticipation.map((item) => item.fixtureId)).size !== seasonParticipation.length
   )
     throw new Error('Duplicate season participation fixture.');
-  return { ...career, seasonParticipation };
+  const next = { ...career, seasonParticipation };
+  return index < 0 ? applyPositionLearning(next, record) : next;
 };
 
 /** Creates the season ledger up front; completed rows are never overwritten. */

@@ -1,5 +1,17 @@
 # Architektura
 
+## Kanoniczna pozycja i wiek
+
+Graf `POSITION_COMPATIBILITY` jest jedyną definicją sąsiedztwa pozycji. Relacja zawodnik–pozycja
+steruje normalną selekcją, ławką, konkurencją, pokryciem kadry i nauką z faktycznie rozegranych
+minut. Bramkarz pozostaje nieprzekraczalną granicą specjalistyczną.
+
+Aktualny wiek jest projekcją daty urodzenia na `currentDate`. Sezonowe przetwarzanie rozwoju może
+pozostać roczne, lecz konsumuje wiek na danej dacie i nie ustanawia osobnego zegara wieku.
+
+Podpisana `squadRole` jest historyczną obietnicą i nie mutuje wraz z hierarchią. Odnowienie tworzy
+nową obietnicę z obecnej konkurencji; frustracja porównuje obietnicę ze sportową rzeczywistością.
+
 ## Jedna ekonomia piłkarza i kontraktu
 
 `playerEconomy.ts` jest kanonicznym źródłem bazowej oczekiwanej pensji, informacyjnej wartości

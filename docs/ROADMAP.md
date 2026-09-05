@@ -1,5 +1,14 @@
 # Roadmap
 
+## Najbliższa kolejność po Positions, Squad Roles & Canonical Age
+
+1. Canonical club strength + Player Model / radar audit.
+2. Obserwowalność kadry: sezonowa delta OVR i znacznik nowego zawodnika.
+3. Kalibracja makro długich karier.
+4. Single Match [DEV] sandbox.
+5. Decyzyjny izometryczny vertical slice silnika meczu.
+6. Competition / Calendar 2.0 później.
+
 Lokalny `npm run audit:archetypes` pozostaje narzędziem kalibracji nowych profili, nie ciężkim
 testem CI. Rzeczywista selekcja i rywalizacja pozycyjna są fundamentem; najbliższym dużym systemem
 jest świat akademii / U-17 i przepływ absolwentów. Trwali młodzi piłkarze powstaną przed wspólnym

@@ -11,6 +11,7 @@ import type {
 import { getProfileAge } from './age';
 import { createProfessionalContract } from './playerEconomy';
 import { getPlayerOverall } from './playerOverall';
+import { getPositionRelationship } from './positionCompatibility';
 import { createProceduralFootballerId } from './proceduralFootballers';
 import { hashRandomSeed, RandomGenerator } from './random/RandomGenerator';
 import { SENIOR_SQUAD_LIMITS } from './worldIntegrity';
@@ -45,29 +46,25 @@ export const canTargetSummerCandidate = (
   availability: SummerMarketAvailability,
 ) => availability !== 'poachable' || !source || compareClubMarketPriority(buyer, source) < 0;
 
-const desiredPositions: PlayerPosition[] = [
-  'goalkeeper',
-  'goalkeeper',
-  'center_back',
-  'center_back',
-  'center_back',
-  'center_back',
-  'left_back',
-  'left_back',
-  'right_back',
-  'right_back',
-  'defensive_midfielder',
-  'defensive_midfielder',
-  'attacking_midfielder',
-  'attacking_midfielder',
-  'left_winger',
-  'left_winger',
-  'right_winger',
-  'right_winger',
-  'striker',
-  'striker',
-  'striker',
-];
+export const POSITION_SQUAD_TARGETS: Readonly<Record<PlayerPosition, number>> = {
+  goalkeeper: 2,
+  center_back: 4,
+  left_back: 2,
+  right_back: 2,
+  defensive_midfielder: 3,
+  attacking_midfielder: 3,
+  left_winger: 2,
+  right_winger: 2,
+  striker: 4,
+};
+
+const coverageFor = (profile: WorldFootballer['profile'], position: PlayerPosition) => {
+  const relationship = getPositionRelationship(profile, position);
+  if (relationship === 'natural' || relationship === 'mastered') return 1;
+  if (relationship === 'adjacent')
+    return Math.min(0.75, (profile.positionFamiliarity[position] ?? 0) * 0.8);
+  return 0;
+};
 
 const departureCap = (relegated: boolean) =>
   relegated ? RELEGATED_VOLUNTARY_DEPARTURE_CAP : STABLE_VOLUNTARY_DEPARTURE_CAP;
@@ -111,11 +108,18 @@ export const evaluateNpcMarketIntent = (options: {
   const ambition = footballer.profile.attributes.ambition;
   const professionalism = footballer.profile.attributes.professionalism;
   const age = getProfileAge(footballer.profile, boundaryDate);
-  const roleMismatch = positionalRank >= 2 && overall >= (club.strengthRating ?? 50) - 2;
+  const promised = footballer.currentContract?.squadRole;
+  const actualStatus =
+    positionalRank === 0 ? 'starting_xi' : positionalRank <= 2 ? 'bench' : 'deep';
+  const promiseMismatch =
+    (promised === 'star_player' && actualStatus !== 'starting_xi') ||
+    (promised === 'important_player' && actualStatus === 'deep');
+  const roleMismatch =
+    promiseMismatch || (positionalRank >= 2 && overall >= (club.strengthRating ?? 50) - 2);
   const levelMismatch = overall >= (club.strengthRating ?? 50) + 9;
   const seed = `${career.seed}:market-intent:${boundaryDate}:${footballer.profile.id}`;
   const score =
-    (roleMismatch ? 30 : 0) +
+    (roleMismatch ? (promised === 'star_player' && actualStatus === 'deep' ? 48 : 32) : 0) +
     (levelMismatch ? 23 : 0) +
     (relegated ? 18 : 0) +
     (ambition - 50) * 0.35 +
@@ -143,6 +147,28 @@ const roleFor = (
     : getProfileAge(player.profile, boundaryDate) <= 21
       ? 'development_player'
       : 'rotation';
+};
+
+const renewalRoleFor = (
+  player: WorldFootballer,
+  club: ProfessionalClub,
+  squad: readonly Id[],
+  boundaryDate: string,
+  resolve: (id: Id) => WorldFootballer | undefined,
+): SquadRole => {
+  const overall = getPlayerOverall(player.profile, player.profile.primaryPosition);
+  const better = squad.filter((id) => {
+    const teammate = resolve(id);
+    return (
+      teammate &&
+      coverageFor(teammate.profile, player.profile.primaryPosition) > 0 &&
+      getPlayerOverall(teammate.profile, player.profile.primaryPosition) > overall
+    );
+  }).length;
+  if (better === 0)
+    return overall >= (club.strengthRating ?? 50) + 5 ? 'star_player' : 'important_player';
+  if (better <= 2) return 'first_team_competition';
+  return getProfileAge(player.profile, boundaryDate) <= 21 ? 'development_player' : 'rotation';
 };
 
 /** One owner for expiry, intent, graduates, transfers, cascading recruitment and viability. */
@@ -197,10 +223,12 @@ export const processSummerSquadMarket = (
           `${career.seed}:npc-renewal:${season}:${club.id}:${id}`,
         ).bool(getProfileAge(player.profile, boundaryDate) >= 34 ? 0.62 : 0.86);
         if (renewal) {
+          const renewedRole = renewalRoleFor(player, club, squad, boundaryDate, resolve);
           delta.footballerStateOverrides[id] = {
             currentClubId: club.id,
             currentContract: {
               ...player.currentContract,
+              squadRole: renewedRole,
               startDate: boundaryDate,
               endDate: `${season + 3}-06-30`,
             },
@@ -273,15 +301,20 @@ export const processSummerSquadMarket = (
     graduatesUsed = 0;
 
   const needPosition = (ids: Id[]): PlayerPosition => {
-    const counts = new Map<PlayerPosition, number>();
+    const coverage = new Map<PlayerPosition, number>();
     for (const id of ids) {
-      const p = resolve(id)?.profile.primaryPosition;
-      if (p) counts.set(p, (counts.get(p) ?? 0) + 1);
+      const profile = resolve(id)?.profile;
+      if (!profile) continue;
+      for (const position of Object.keys(POSITION_SQUAD_TARGETS) as PlayerPosition[])
+        coverage.set(position, (coverage.get(position) ?? 0) + coverageFor(profile, position));
     }
-    if ((counts.get('goalkeeper') ?? 0) < 2) return 'goalkeeper';
-    return desiredPositions.reduce(
-      (best, p) => ((counts.get(p) ?? 0) < (counts.get(best) ?? 0) ? p : best),
-      desiredPositions[0]!,
+    return (Object.keys(POSITION_SQUAD_TARGETS) as PlayerPosition[]).reduce(
+      (best, position) =>
+        POSITION_SQUAD_TARGETS[position] - (coverage.get(position) ?? 0) >
+        POSITION_SQUAD_TARGETS[best] - (coverage.get(best) ?? 0)
+          ? position
+          : best,
+      'goalkeeper',
     );
   };
   for (const club of clubs) {
@@ -290,8 +323,17 @@ export const processSummerSquadMarket = (
       const needed = needPosition(squad);
       const goalkeeperRequired =
         squad.filter((id) => resolve(id)?.profile.primaryPosition === 'goalkeeper').length < 2;
-      const fillsRequiredPosition = (entry: SummerMarketEntry) =>
-        !goalkeeperRequired || resolve(entry.playerId)?.profile.primaryPosition === 'goalkeeper';
+      const fillsRequiredPosition = (entry: SummerMarketEntry) => {
+        const profile = resolve(entry.playerId)?.profile;
+        if (!profile) return false;
+        if (goalkeeperRequired) return profile.primaryPosition === 'goalkeeper';
+        // Once specialist depth is full, every outfielder remains a fallback candidate; positional
+        // fit is a strong ranking preference rather than a reason to manufacture extra players.
+        const goalkeeperCount = squad.filter(
+          (id) => resolve(id)?.profile.primaryPosition === 'goalkeeper',
+        ).length;
+        return profile.primaryPosition !== 'goalkeeper' || goalkeeperCount < 3;
+      };
       // Existing free agents always precede transfers and generation.
       const freeCandidates = [...entries.values()].filter(
         (entry) => entry.availability === 'free' && fillsRequiredPosition(entry),
@@ -331,7 +373,7 @@ export const processSummerSquadMarket = (
         })
         .map((entry) => {
           const player = resolve(entry.playerId)!;
-          const positional = player.profile.primaryPosition === needed ? 24 : 0;
+          const positional = coverageFor(player.profile, needed) * 24;
           const free = entry.availability === 'free' ? 1000 : 0;
           const ownGraduate =
             (delta.currentGraduateIds ?? []).includes(entry.playerId) &&
@@ -356,6 +398,11 @@ export const processSummerSquadMarket = (
               ).int(-5, 5),
           };
         })
+        .filter(
+          ({ player }) =>
+            getPlayerOverall(player.profile, player.profile.primaryPosition) >=
+            (club.strengthRating ?? 50) - 25,
+        )
         .sort((a, b) => b.score - a.score || a.entry.playerId.localeCompare(b.entry.playerId));
       let chosen = ranked[0];
       if (!chosen) {

@@ -14,4 +14,45 @@ export const POSITION_COMPATIBILITY: Readonly<Record<PlayerPosition, readonly Pl
 };
 
 export const arePositionsCompatible = (primary: PlayerPosition, secondary: PlayerPosition) =>
-  POSITION_COMPATIBILITY[primary].includes(secondary);
+  POSITION_COMPATIBILITY[primary].includes(secondary) ||
+  POSITION_COMPATIBILITY[secondary].includes(primary);
+
+export const POSITION_MASTERY_THRESHOLD = 0.75;
+export const ADJACENT_SELECTION_THRESHOLD = 0.2;
+export type PositionRelationship =
+  | 'natural'
+  | 'mastered'
+  | 'adjacent'
+  | 'unrelated'
+  | 'specialist_forbidden';
+
+/** Canonical relationship used by selection, competition, learning and squad planning. */
+export const getPositionRelationship = (
+  player: Pick<
+    import('../types/domain').FootballerProfile,
+    'primaryPosition' | 'positionFamiliarity'
+  >,
+  position: PlayerPosition,
+): PositionRelationship => {
+  if (player.primaryPosition === position) return 'natural';
+  if ((player.primaryPosition === 'goalkeeper') !== (position === 'goalkeeper'))
+    return 'specialist_forbidden';
+  if ((player.positionFamiliarity[position] ?? 0) >= POSITION_MASTERY_THRESHOLD) return 'mastered';
+  return arePositionsCompatible(player.primaryPosition, position) ? 'adjacent' : 'unrelated';
+};
+
+export const isNormallyEligibleForPosition = (
+  player: Pick<
+    import('../types/domain').FootballerProfile,
+    'primaryPosition' | 'positionFamiliarity'
+  >,
+  position: PlayerPosition,
+) => {
+  const relationship = getPositionRelationship(player, position);
+  return (
+    relationship === 'natural' ||
+    relationship === 'mastered' ||
+    (relationship === 'adjacent' &&
+      (player.positionFamiliarity[position] ?? 0) >= ADJACENT_SELECTION_THRESHOLD)
+  );
+};
