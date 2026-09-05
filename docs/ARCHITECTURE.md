@@ -155,6 +155,19 @@ Zakończone wyniki, decyzje i fakty są niezmienne i nie są ponownie losowane p
 
 ## Kanoniczny świat futbolu
 
+## Kanoniczny model talentu młodzieżowego
+
+Startowe U-17 i proceduralne nabory wywołują ten sam czysty, deterministyczny generator. Jakość
+akademii przesuwa prawdopodobieństwa skupionego rozkładu bieżącego OVR oraz osobno rozkładu
+pojemności rodzin rozwoju. Korelacja nie jest tożsamością: mocna akademia może mieć słaby rocznik,
+a mniejsza może wylosować rzadki talent. Wyjątkowy ogon pozostaje możliwy, lecz nie wynika z
+płaskiego losowania przy górnej granicy. Profile krzywych nadal pochodzą ze współdzielonych
+szablonów parametrycznego rozwoju.
+
+Identyfikatory nowych proceduralnych piłkarzy używają wersji `v2`; resolver nadal rozpoznaje `v1`
+i odtwarza ją dawną formułą. Uzupełnienia wakatów zawodowych mają oddzielną, ograniczoną kalibrację
+replacement/depth i powstają dopiero po wyczerpaniu istniejącej podaży.
+
 Liga rozstrzyga pełne kolejki i przechowuje tabelę oraz wyniki jako fakty świata. `ProfessionalClub.strengthRating` jest trwałym źródłem jakości pierwszego zespołu; oceny meczowe są z niego wyprowadzane. Infrastruktura klubu, historia udziału w sezonach i archiwum sezonów nie są alternatywnymi źródłami siły.
 
 Kontrakty, oferty profesjonalne, transfer do pierwszego klubu, kolejne okna transferowe, renegocjacje i preferencje agenta są już częścią generycznego cyklu. Przejście akademia–profesjonalny futbol wynika z wyniku sezonu i decyzji zawodowej, nie ze specjalnego faktu fabularnego.

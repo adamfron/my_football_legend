@@ -14,27 +14,15 @@ import type {
 } from '../types/domain';
 import {
   deriveSquadHierarchy,
-  generateCanonicalFootballerProfile,
   getManagerPreferredFormation,
   type SquadSelectionContext,
 } from './footballerWorld';
 import { resolveClubManagerId } from './coachProfiles';
-import { generateDevelopmentProfile } from './playerCreator';
-import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
 import { RandomGenerator } from './random/RandomGenerator';
 import { resolveEffectiveProfessionalClub, resolveYouthCohort } from './worldDatabase';
+import { deriveYouthTeamQuality, generateYouthFootballer } from './youthTalent';
 
-const clamp = (value: number) => Math.max(30, Math.min(65, Math.round(value)));
-
-/** Academy signals dominate deliberately; senior strength contributes only five percent. */
-export const deriveYouthTeamQuality = (club: ProfessionalClub): number =>
-  clamp(
-    club.developmentReputation * 0.38 +
-      club.youthPolicy * 0.27 +
-      (club.infrastructure?.coachingQuality ?? 50) * 0.16 +
-      (club.infrastructure?.trainingFacilities ?? 50) * 0.14 +
-      (club.strengthRating ?? 50) * 0.05,
-  );
+export { deriveYouthTeamQuality } from './youthTalent';
 
 export const YOUTH_COHORT_TARGET_POSITIONS: readonly PlayerPosition[] = [
   'goalkeeper',
@@ -77,24 +65,13 @@ export const populatePolishU17World = (clubs: readonly ProfessionalClub[], seed:
       const rng = RandomGenerator.fromSeed(`${seed}:${id}:youth`);
       const ageRoll = rng.int(1, 100);
       const age = ageRoll <= 72 ? 16 : ageRoll <= 86 ? 15 : 17;
-      const targetOverall = clamp(baseline + rng.int(-10, 10) + (index % 6 === 0 ? 3 : 0));
-      const profile = generateCanonicalFootballerProfile({
+      const footballer = generateYouthFootballer({
         id,
         seed: `${seed}:youth`,
         age,
-        targetOverall,
         primaryPosition,
+        academyQuality: baseline,
       });
-      const footballer: WorldFootballer = {
-        profile,
-        developmentProfile: generateDevelopmentProfile(
-          RandomGenerator.fromSeed(`${seed}:${id}:development`),
-        ),
-        careerStatus: 'active',
-        reputation: Math.max(1, targetOverall - 30),
-        fitness: rng.int(78, 100),
-      };
-      footballer.developmentCurveId = deriveNpcDevelopmentCurveId(footballer);
       footballers[id] = footballer;
       return id;
     });

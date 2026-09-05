@@ -161,6 +161,14 @@ historyczny brak występu z właściwym urazem bez osobnej bazy danych osi.
 
 ## Trwały świat U-17
 
+**JAKOŚĆ AKADEMII PRZESUWA ROZKŁAD PRAWDOPODOBIEŃSTWA. NIE TWORZY BEZPOŚREDNIO
+GOTOWEGO SENIORSKIEGO OVR.** Jeden wersjonowany model talentu obsługuje startową kohortę 2026 i
+każdy późniejszy nabór. Bieżąca umiejętność ma skupiony rozkład z coraz rzadszym ogonem mocnych,
+elitarnych i wyjątkowych nastolatków. Potencjał rodzin rozwoju jest losowany osobno, choć środowisko
+akademii lekko poprawia jego prawdopodobieństwo. Zawodnicy uzupełniający rynek są osobną,
+ograniczoną podażą poziomu głębi/rotacji, a nie ukrytym źródłem wonderkidów. Porównywalny audyt jest
+dostępny przez `npm run audit:youth`.
+
 Kanoniczna baza `pl-2026-v2` zawiera 12 trwałych kohort U-17: niezależną Vistulę Nova oraz 11
 akademii powiązanych z klubami zawodowymi. Młodzież korzysta z tego samego
 `WorldFootballer` / `FootballerProfile`, skali OVR i profilu rozwoju co seniorzy, ale nie należy do
