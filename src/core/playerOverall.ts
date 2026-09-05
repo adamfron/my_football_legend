@@ -1,5 +1,6 @@
 import type { FootballerProfile, PlayerAttributes, PlayerPosition } from '../types/domain';
 import { getPositionRelationship } from './positionCompatibility';
+import { GOALKEEPER_RADAR_GROUPS, OUTFIELD_RADAR_GROUPS } from './radar';
 
 export const PLAYER_POSITIONS = [
   'goalkeeper',
@@ -12,183 +13,97 @@ export const PLAYER_POSITIONS = [
   'right_winger',
   'striker',
 ] as const satisfies readonly PlayerPosition[];
-export const OVR_ATTRIBUTE_KEYS = [
-  'technique',
-  'firstTouch',
-  'passing',
-  'dribbling',
-  'finishing',
-  'tackling',
-  'heading',
-  'setPieces',
-  'gameReading',
-  'composure',
-  'concentration',
-  'leadership',
-  'determination',
-  'aggression',
-  'pace',
-  'stamina',
-  'strength',
-  'agility',
-  'jumping',
-  'ambition',
-  'professionalism',
-  'reflexes',
-  'handling',
-  'oneOnOnes',
-  'goalkeeperSweeping',
-] as const satisfies readonly (keyof PlayerAttributes)[];
-type W = Partial<Record<keyof PlayerAttributes, number>>;
-const shared = (entries: W): W => entries;
-const flank = shared({
-  technique: 2,
-  firstTouch: 2,
-  passing: 2,
-  dribbling: 2,
-  tackling: 3,
-  heading: 1,
-  setPieces: 1,
-  gameReading: 2,
-  composure: 1,
-  concentration: 2,
-  pace: 3,
-  stamina: 3,
-  strength: 2,
-  agility: 2,
-  jumping: 1,
-});
-const wing = shared({
-  technique: 3,
-  firstTouch: 3,
-  passing: 2,
-  dribbling: 3,
-  finishing: 2,
-  tackling: 1,
-  heading: 1,
-  setPieces: 1,
-  gameReading: 2,
-  composure: 2,
-  concentration: 1,
-  pace: 3,
-  stamina: 2,
-  strength: 1,
-  agility: 3,
-  jumping: 1,
-});
-export const POSITION_OVR_WEIGHTS: Record<PlayerPosition, W> = {
-  striker: {
-    technique: 2,
-    firstTouch: 2,
-    passing: 2,
-    dribbling: 2,
-    finishing: 3,
-    heading: 2,
-    setPieces: 1,
-    gameReading: 2,
-    composure: 3,
-    concentration: 1,
-    pace: 2,
-    stamina: 2,
-    strength: 2,
-    agility: 2,
-    jumping: 2,
-  },
-  left_winger: wing,
-  right_winger: wing,
-  attacking_midfielder: {
-    technique: 3,
-    firstTouch: 3,
-    passing: 3,
-    dribbling: 2,
-    finishing: 2,
-    tackling: 1,
-    heading: 1,
-    setPieces: 1,
-    gameReading: 3,
-    composure: 2,
-    concentration: 2,
-    leadership: 1,
-    pace: 2,
-    stamina: 2,
-    strength: 1,
-    agility: 2,
-    jumping: 1,
-  },
-  defensive_midfielder: {
-    technique: 2,
-    firstTouch: 2,
-    passing: 3,
-    dribbling: 1,
-    tackling: 3,
-    heading: 1,
-    setPieces: 1,
-    gameReading: 3,
-    composure: 2,
-    concentration: 2,
-    leadership: 1,
-    pace: 1,
-    stamina: 3,
-    strength: 2,
-    agility: 1,
-    jumping: 1,
-  },
-  left_back: flank,
-  right_back: flank,
-  center_back: {
-    technique: 1,
-    firstTouch: 1,
-    passing: 2,
-    dribbling: 1,
-    tackling: 3,
-    heading: 3,
-    gameReading: 3,
-    composure: 2,
-    concentration: 3,
-    leadership: 1,
-    pace: 2,
-    stamina: 2,
-    strength: 3,
-    agility: 1,
-    jumping: 3,
-  },
-  goalkeeper: {
-    technique: 1,
-    firstTouch: 1,
-    passing: 1,
-    gameReading: 3,
-    composure: 3,
-    concentration: 3,
-    leadership: 1,
-    pace: 1,
-    stamina: 1,
-    strength: 2,
-    agility: 2,
-    jumping: 2,
-    reflexes: 3,
-    handling: 3,
-    oneOnOnes: 3,
-    goalkeeperSweeping: 3,
-  },
+export const OVR_ATTRIBUTE_KEYS = Object.keys({
+  ...Object.fromEntries(
+    Object.values(OUTFIELD_RADAR_GROUPS)
+      .flat()
+      .map((key) => [key, true]),
+  ),
+  ...Object.fromEntries(
+    Object.values(GOALKEEPER_RADAR_GROUPS)
+      .flat()
+      .map((key) => [key, true]),
+  ),
+  setPieces: true,
+  ambition: true,
+  professionalism: true,
+}) as (keyof PlayerAttributes)[];
+
+export type OutfieldOvrGroup =
+  | 'defense'
+  | 'physical'
+  | 'speed'
+  | 'reading'
+  | 'offense'
+  | 'technical'
+  | 'aerial'
+  | 'mental';
+const OUTFIELD_KEYS: Record<OutfieldOvrGroup, readonly (keyof PlayerAttributes)[]> = {
+  defense: OUTFIELD_RADAR_GROUPS.Defensywa,
+  physical: OUTFIELD_RADAR_GROUPS.Fizyczne,
+  speed: OUTFIELD_RADAR_GROUPS.Szybkość,
+  reading: OUTFIELD_RADAR_GROUPS['Czytanie gry'],
+  offense: OUTFIELD_RADAR_GROUPS.Ofensywa,
+  technical: OUTFIELD_RADAR_GROUPS.Techniczne,
+  aerial: OUTFIELD_RADAR_GROUPS['Górne piłki'],
+  mental: OUTFIELD_RADAR_GROUPS.Psychiczne,
 };
+type GroupWeights = Record<OutfieldOvrGroup, number>;
+const g = (v: readonly number[]) =>
+  Object.fromEntries(Object.keys(OUTFIELD_KEYS).map((key, i) => [key, v[i]])) as GroupWeights;
+export const POSITION_OVR_GROUP_WEIGHTS: Record<
+  Exclude<PlayerPosition, 'goalkeeper'>,
+  GroupWeights
+> = {
+  center_back: g([5, 3, 2, 4, 0, 1, 5, 3]),
+  left_back: g([3, 3, 5, 3, 1, 3, 2, 2]),
+  right_back: g([3, 3, 5, 3, 1, 3, 2, 2]),
+  defensive_midfielder: g([4, 3, 2, 5, 1, 3, 2, 3]),
+  attacking_midfielder: g([1, 2, 3, 5, 4, 5, 1, 3]),
+  left_winger: g([1, 2, 5, 3, 4, 5, 1, 2]),
+  right_winger: g([1, 2, 5, 3, 4, 5, 1, 2]),
+  striker: g([0, 3, 4, 2, 5, 3, 4, 3]),
+};
+export const GOALKEEPER_OVR_GROUP_WEIGHTS = [6, 2, 1, 3, 2, 3, 2, 3] as const;
+/** Expanded weights are diagnostic compatibility only; calculation remains group-normalized. */
+export const POSITION_OVR_WEIGHTS = Object.fromEntries(
+  PLAYER_POSITIONS.map((position) => [position, {}]),
+) as Record<PlayerPosition, Partial<Record<keyof PlayerAttributes, number>>>;
+const average = (a: PlayerAttributes, keys: readonly (keyof PlayerAttributes)[]) =>
+  keys.reduce((s, k) => s + a[k], 0) / keys.length;
 const clamp = (n: number) => Math.max(1, Math.min(100, Math.round(n)));
 export const getTheoreticalPositionOverall = (
   player: FootballerProfile,
   position: PlayerPosition,
-): number => {
-  const w = POSITION_OVR_WEIGHTS[position];
+) => {
+  const a = player.attributes;
+  if (position === 'goalkeeper') {
+    const values = Object.values(GOALKEEPER_RADAR_GROUPS).map((keys) => average(a, keys));
+    return clamp(
+      values.reduce((s, v, i) => s + v * GOALKEEPER_OVR_GROUP_WEIGHTS[i]!, 0) /
+        GOALKEEPER_OVR_GROUP_WEIGHTS.reduce((s, v) => s + v, 0),
+    );
+  }
+  const weights = POSITION_OVR_GROUP_WEIGHTS[position];
   let sum = 0,
     total = 0;
-  for (const [key, weight] of Object.entries(w)) {
-    sum += player.attributes[key as keyof PlayerAttributes] * (weight ?? 0);
-    total += weight ?? 0;
+  for (const key of Object.keys(OUTFIELD_KEYS) as OutfieldOvrGroup[]) {
+    sum += average(a, OUTFIELD_KEYS[key]) * weights[key];
+    total += weights[key];
   }
-  return clamp(sum / total);
+  const specialist =
+    position === 'attacking_midfielder' ||
+    position === 'left_winger' ||
+    position === 'right_winger' ||
+    position === 'striker'
+      ? a.setPieces * 0.35
+      : 0;
+  return clamp((sum + specialist) / (total + (specialist ? 0.35 : 0)));
 };
 export const getPositionFamiliarityModifier = (
   player: FootballerProfile,
   position: PlayerPosition,
-): number => {
+) => {
   const relationship = getPositionRelationship(player, position);
   if (relationship === 'specialist_forbidden' || relationship === 'unrelated') return 0.65;
   const familiarity = player.positionFamiliarity[position] ?? 0;
@@ -202,21 +117,15 @@ export const getPositionFamiliarityModifier = (
           ? 0.9
           : 0.84;
 };
-export const getEffectivePositionOverall = (
-  player: FootballerProfile,
-  position: PlayerPosition,
-): number =>
+export const getEffectivePositionOverall = (player: FootballerProfile, position: PlayerPosition) =>
   clamp(
     getTheoreticalPositionOverall(player, position) *
       getPositionFamiliarityModifier(player, position),
   );
-export const getPlayerOverall = (
-  player: FootballerProfile,
-  position: PlayerPosition | string,
-): number =>
+export const getPlayerOverall = (player: FootballerProfile, position: PlayerPosition | string) =>
   getEffectivePositionOverall(
     player,
-    (PLAYER_POSITIONS.includes(position as PlayerPosition)
-      ? position
-      : player.primaryPosition) as PlayerPosition,
+    PLAYER_POSITIONS.includes(position as PlayerPosition)
+      ? (position as PlayerPosition)
+      : player.primaryPosition,
   );

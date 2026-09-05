@@ -10,7 +10,7 @@ import {
   advanceCareerWeek,
   recoverOrphanedSeasonOneRound,
 } from './careerWeeks';
-import { evaluateMatchImportance, settleLeagueRound } from './leagueSeason';
+import { evaluateMatchImportance, settleLeagueRound, simulateLeagueFixture } from './leagueSeason';
 import { RandomGenerator } from './random/RandomGenerator';
 import { getMatchEffortEffects } from './playerPreferences';
 import { applyAppearanceConsequences } from './appearanceConsequences';
@@ -130,6 +130,18 @@ export const simulateRoutinePlayerMatch = (
       )
     : undefined;
   const isGoalkeeper = (assignedPosition ?? career.player.primaryPosition) === 'goalkeeper';
+  const leagueFixture = career.leagueSeason?.rounds
+    .flatMap((round) => round.fixtures)
+    .find((item) => item.id === fixture.id);
+  const official =
+    leagueFixture && career.leagueSeason
+      ? simulateLeagueFixture(career.leagueSeason, leagueFixture, career.seed)
+      : undefined;
+  const officialGoalsAgainst = official?.completed
+    ? official.homeClubId === career.leagueSeason?.controlledClubId
+      ? official.awayGoals
+      : official.homeGoals
+    : undefined;
   const goalkeeperStats =
     minutes && isGoalkeeper
       ? simulateGoalkeeperPerformance(
@@ -137,6 +149,7 @@ export const simulateRoutinePlayerMatch = (
           fixture.opponent.strength,
           performance,
           `${career.seed}:${fixture.id}`,
+          officialGoalsAgainst,
         )
       : undefined;
   const goalkeeperDistribution =

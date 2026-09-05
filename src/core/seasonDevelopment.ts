@@ -79,6 +79,7 @@ const attributeKeys = Object.keys({
   dribbling: 0,
   finishing: 0,
   tackling: 0,
+  positioning: 0,
   heading: 0,
   setPieces: 0,
   gameReading: 0,
@@ -98,6 +99,8 @@ const attributeKeys = Object.keys({
   handling: 0,
   oneOnOnes: 0,
   goalkeeperSweeping: 0,
+  goalkeeperKicking: 0,
+  goalkeeperThrowing: 0,
 } satisfies Record<keyof PlayerAttributes, number>) as (keyof PlayerAttributes)[];
 const stableAttributes = new Set<keyof PlayerAttributes>([
   'ambition',

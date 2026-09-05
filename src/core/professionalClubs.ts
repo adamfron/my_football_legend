@@ -11,7 +11,15 @@ import { clampProfessionalLeagueTier } from './leagueSeason';
 import { getClubStrength, getExpectedSquadRole } from './clubStrength';
 import { createProfessionalContract, evaluateTransferFee } from './playerEconomy';
 import { generateClubVisualIdentity } from './clubVisualIdentity';
-import { FORMATIONS, getManagerPreferredFormation } from './footballerWorld';
+import {
+  deriveSquadHierarchy,
+  FORMATIONS,
+  getContextualSquadRole,
+  getManagerPreferredFormation,
+  getPositionalCompetition,
+  getSportingStatus,
+} from './footballerWorld';
+import { resolveEffectiveProfessionalClub } from './worldDatabase';
 
 export const getClubLeagueTier = (club: ProfessionalClub) =>
   clampProfessionalLeagueTier(club.leagueTier);
@@ -281,13 +289,46 @@ const createProfessionalOffer = (
   const rng = RandomGenerator.fromSeed(
     `${career.seed}:offer:${career.careerSeasonNumber}:${club.id}`,
   );
-  const role = getExpectedSquadRole(career, club);
   const years = rng.int(1, 3);
   const startDate = `${career.currentSeason + 1}-07-01`;
   const free =
     !career.currentContract ||
     career.currentContract.endDate <= `${career.currentSeason + 1}-07-01`;
   const positionIntent = deriveOfferPositionIntent(career, club);
+  const effectiveClub = resolveEffectiveProfessionalClub(career, club.id) ?? club;
+  const projectedClub = {
+    ...effectiveClub,
+    squadPlayerIds: [...new Set([...(effectiveClub.squadPlayerIds ?? []), career.player.id])],
+  };
+  const projectedHierarchy = deriveSquadHierarchy(career, projectedClub);
+  const projectedStanding = getSportingStatus(projectedHierarchy, career.player.id);
+  const destinationCompetition = getPositionalCompetition(
+    career,
+    projectedClub,
+    positionIntent.plannedPosition,
+    projectedHierarchy,
+  )
+    .filter(({ player }) => player.id !== career.player.id)
+    .slice(0, 4)
+    .map(({ player, effectiveOverall, status }) => ({
+      competitorId: player.id,
+      competitorName: `${player.firstName} ${player.lastName}`,
+      effectiveOverall,
+      expectedStatus: status,
+    }));
+  const playerOverall = getEffectivePositionOverall(career.player, positionIntent.plannedPosition);
+  const bestCompetitor = Math.max(
+    0,
+    ...destinationCompetition.map(({ effectiveOverall }) => effectiveOverall),
+  );
+  const role =
+    (effectiveClub.squadPlayerIds?.length ?? 0) < 11
+      ? getExpectedSquadRole(career, club)
+      : getContextualSquadRole(
+          projectedStanding,
+          career.player.age,
+          playerOverall - bestCompetitor,
+        );
   return {
     id: `offer_${club.id}_${career.currentSeason}`,
     offerType: 'external',
@@ -304,6 +345,8 @@ const createProfessionalOffer = (
       signingBonusMonths: rng.int(1, 3),
     }),
     ...positionIntent,
+    destinationCompetition,
+    projectedStanding,
     interestReasons: [
       ...(safetyNet
         ? ['Klub daje ci szansę na odbudowanie kariery w profesjonalnym futbolu.']
@@ -329,10 +372,9 @@ const createProfessionalOffer = (
       club.pressureLevel > 65
         ? 'Presja na wynik może ograniczać cierpliwość.'
         : 'Minuty trzeba będzie wywalczyć.',
-    competitionAssessment:
-      interest.need.depth === 'deep'
-        ? 'Duża konkurencja (ocena sztabu)'
-        : 'Konkurencja do pokonania (ocena sztabu)',
+    competitionAssessment: destinationCompetition.length
+      ? `${destinationCompetition.length} realnych rywali; prognoza: ${projectedStanding === 'starting_xi' ? 'pierwszy skład' : projectedStanding === 'bench' ? 'ławka' : 'rezerwy'}`
+      : 'Brak bezpośredniego rywala na planowanej pozycji',
     transferKind: free ? 'free' : 'fee',
     ...(free
       ? {}

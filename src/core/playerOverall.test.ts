@@ -47,11 +47,7 @@ describe('positional OVR', () => {
   it('does not count character dimensions directly', () => {
     const p = make(),
       before = getTheoreticalPositionOverall(p, 'striker');
-    p.attributes.determination =
-      p.attributes.aggression =
-      p.attributes.ambition =
-      p.attributes.professionalism =
-        100;
+    p.attributes.ambition = p.attributes.professionalism = 100;
     expect(getTheoreticalPositionOverall(p, 'striker')).toBe(before);
   });
   it('separates familiarity and strongly protects the goalkeeper boundary', () => {
@@ -62,5 +58,23 @@ describe('positional OVR', () => {
     expect(getEffectivePositionOverall(p, 'goalkeeper')).toBeLessThan(
       getTheoreticalPositionOverall(p, 'goalkeeper'),
     );
+  });
+  it('responds to positioning and goalkeeper distribution without displacing shot stopping', () => {
+    const defender = make();
+    defender.primaryPosition = 'center_back';
+    defender.positionFamiliarity.center_back = 1;
+    defender.attributes.positioning = 10;
+    const lowCb = getTheoreticalPositionOverall(defender, 'center_back');
+    defender.attributes.positioning = 90;
+    expect(getTheoreticalPositionOverall(defender, 'center_back')).toBeGreaterThan(lowCb);
+    defender.attributes.goalkeeperKicking = defender.attributes.goalkeeperThrowing = 10;
+    const lowDistribution = getTheoreticalPositionOverall(defender, 'goalkeeper');
+    defender.attributes.goalkeeperKicking = defender.attributes.goalkeeperThrowing = 90;
+    expect(getTheoreticalPositionOverall(defender, 'goalkeeper')).toBeGreaterThan(lowDistribution);
+    defender.attributes.reflexes =
+      defender.attributes.handling =
+      defender.attributes.oneOnOnes =
+        95;
+    expect(getTheoreticalPositionOverall(defender, 'goalkeeper')).toBeGreaterThan(lowDistribution);
   });
 });

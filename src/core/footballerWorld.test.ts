@@ -12,6 +12,7 @@ import {
   getManagerPreferredFormation,
   getSportingStatus,
   getSquadDerivedClubStrength,
+  getTacticalFit,
   populateFootballerWorld,
   resolveFootballer,
   selectBestXI,
@@ -185,6 +186,39 @@ describe('persistent footballer world', () => {
         const player = resolveFootballer(state, assignment.footballerId)!;
         expect(player.primaryPosition === 'goalkeeper').toBe(assignment.position === 'goalkeeper');
       }
+    }
+  });
+
+  it('falls back from an infeasible preferred shape and never exposes illegal assignments', () => {
+    const state = career();
+    const source = state.clubWorld![0]!;
+    const squadPlayerIds = source.squadPlayerIds!.filter((id) => {
+      const position = resolveFootballer(state, id)!.primaryPosition;
+      return position !== 'left_winger' && position !== 'right_winger';
+    });
+    const club = { ...source, squadPlayerIds };
+    const hierarchy = deriveSquadHierarchy(state, club, '4-3-3');
+    expect(hierarchy.formation).not.toBe('4-3-3');
+    expect(hierarchy.preferredXI).toHaveLength(11);
+    expect(new Set(hierarchy.preferredXI.map(({ footballerId }) => footballerId)).size).toBe(11);
+    for (const assignment of hierarchy.preferredXI) {
+      const player = resolveFootballer(state, assignment.footballerId)!;
+      expect(player.positionFamiliarity[assignment.position]).toBeGreaterThanOrEqual(0.3);
+    }
+  });
+
+  it('hard-excludes fitness below 55 and bounds tactical fit', () => {
+    const state = career();
+    state.player.fitness = 54;
+    const source = state.clubWorld![0]!;
+    const club = { ...source, squadPlayerIds: [...source.squadPlayerIds!, state.player.id] };
+    expect(
+      deriveSquadHierarchy(state, club).preferredXI.map(({ footballerId }) => footballerId),
+    ).not.toContain(state.player.id);
+    for (const id of source.squadPlayerIds!.slice(0, 12)) {
+      expect(
+        Math.abs(getTacticalFit(resolveFootballer(state, id)!, source.managerId)),
+      ).toBeLessThanOrEqual(2);
     }
   });
 

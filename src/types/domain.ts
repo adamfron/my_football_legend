@@ -40,6 +40,7 @@ export interface PlayerAttributes {
   dribbling: number;
   finishing: number;
   tackling: number;
+  positioning: number;
   heading: number;
   setPieces: number;
   gameReading: number;
@@ -59,6 +60,8 @@ export interface PlayerAttributes {
   handling: number;
   oneOnOnes: number;
   goalkeeperSweeping: number;
+  goalkeeperKicking: number;
+  goalkeeperThrowing: number;
 }
 export interface HiddenPlayerProfile {
   consistency: number;
@@ -716,6 +719,15 @@ export interface ProfessionalOffer {
   opportunity: string;
   risk: string;
   competitionAssessment: string;
+  destinationCompetition?:
+    | Array<{
+        competitorId: Id;
+        competitorName: string;
+        effectiveOverall: number;
+        expectedStatus: 'starting_xi' | 'bench' | 'deep_reserve';
+      }>
+    | undefined;
+  projectedStanding?: 'starting_xi' | 'bench' | 'deep_reserve' | undefined;
   transferKind?: 'free' | 'fee' | undefined;
   estimatedTransferFee?: number | undefined;
 }
