@@ -36,6 +36,7 @@ import {
   resolveCoachProfile,
 } from '../../core/coachProfiles';
 import { resolveCareerWorldFootballer } from '../../core/worldDatabase';
+import { availabilityState } from '../../core/playerAvailability';
 
 const tacticalStyleLabel = {
   possession: 'gra pozycyjna',
@@ -107,6 +108,7 @@ const SquadGroup = ({
   close,
   compact = false,
   showAssignment = true,
+  career,
 }: {
   title: string;
   assignments?: readonly (BestXIAssignment | MatchBenchAssignment)[];
@@ -116,6 +118,7 @@ const SquadGroup = ({
   close: () => void;
   compact?: boolean;
   showAssignment?: boolean;
+  career: CareerState;
 }) => (
   <section className={`squad-group ${compact ? 'reserve-group' : ''}`} data-squad-group={title}>
     <h3>
@@ -135,6 +138,26 @@ const SquadGroup = ({
       const position = showAssignment
         ? (assignment?.position ?? player.primaryPosition)
         : undefined;
+      const seasonStart = resolveFootballer(
+        { ...career, currentDate: `${career.currentSeason}-07-01` },
+        player.id,
+      );
+      const currentOverall = getPlayerOverall(player, player.primaryPosition);
+      const delta =
+        currentOverall -
+        (seasonStart ? getPlayerOverall(seasonStart, seasonStart.primaryPosition) : currentOverall);
+      const joinedThisSeason =
+        (player.id === career.player.id &&
+          Boolean(
+            career.currentContract?.startDate &&
+              career.currentContract.startDate >= `${career.currentSeason}-07-01`,
+          )) ||
+        (career.worldDelta?.npcTransferRecords ?? []).some(
+          (record) =>
+            record.playerId === player.id &&
+            record.toClubId === career.currentClub.id &&
+            record.date >= `${career.currentSeason}-07-01`,
+        );
       return (
         <div
           className={`squad-list-row ${player.id === protagonistId ? 'protagonist' : ''}`}
@@ -150,6 +173,7 @@ const SquadGroup = ({
             open={open}
             close={close}
           />
+          {joinedThisSeason && <small className="new-player-marker">NOWY</small>}
           <span className="mastered-positions">
             {getMasteredPositions(player).map(positionCode).join(', ')}
           </span>
@@ -158,6 +182,10 @@ const SquadGroup = ({
             {showAssignment && assignment?.effectiveOverall !== undefined
               ? assignment.effectiveOverall
               : getPlayerOverall(player, player.primaryPosition)}
+            <small className={`ovr-delta ${delta > 0 ? 'up' : delta < 0 ? 'down' : ''}`}>
+              {' '}
+              {delta > 0 ? `↑ +${delta}` : delta < 0 ? `↓ ${delta}` : '→ 0'}
+            </small>
           </strong>
           <span>{getRankedFootballArchetypes(player)[0]?.definition.label ?? '—'}</span>
         </div>
@@ -332,6 +360,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                 protagonistId={career.player.id}
                 open={(id, anchor) => setPreview({ id, anchor })}
                 close={() => setPreview(undefined)}
+                career={career}
               />
               <SquadGroup
                 title="ŁAWKA"
@@ -341,6 +370,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                 open={(id, anchor) => setPreview({ id, anchor })}
                 close={() => setPreview(undefined)}
                 showAssignment={false}
+                career={career}
               />
               <SquadGroup
                 title="GŁĘBOKA REZERWA"
@@ -350,6 +380,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                 close={() => setPreview(undefined)}
                 compact
                 showAssignment={false}
+                career={career}
               />
             </div>
           </div>
@@ -359,6 +390,17 @@ export const ClubView = ({ career }: { career: CareerState }) => {
               <p>
                 Pozycja nominalna: <b>{positionCode(career.player.primaryPosition)}</b> · OVR{' '}
                 {getPlayerOverall(career.player, career.player.primaryPosition)}
+              </p>
+              <p>
+                Dostępność:{' '}
+                <b>
+                  {availabilityState(career).injuries.some((injury) => injury.status === 'active')
+                    ? 'kontuzja'
+                    : availabilityState(career).suspensionMatchesRemaining > 0
+                      ? `zawieszenie (${availabilityState(career).suspensionMatchesRemaining})`
+                      : 'dostępny'}
+                </b>{' '}
+                · Fitness: {career.player.fitness}/100
               </p>
               <p>Opanowane pozycje: {masteredPositions.map(positionCode).join(', ')}</p>
               <p>

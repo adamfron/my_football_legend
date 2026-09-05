@@ -36,7 +36,7 @@ import { getSeasonHonours } from '../core/history/careerHistory';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSeason';
 import { getClubLeagueTier } from '../core/professionalClubs';
-import { getClubStrength, getExpectedSquadRole } from '../core/clubStrength';
+import { getCareerClubStrength, getExpectedSquadRole } from '../core/clubStrength';
 import { StarRating } from '../components/StarRating';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../core/professionalClubs';
 import {} from '../core/clubStrength';
@@ -52,7 +52,7 @@ import {
   continueWithProfessionalTrial,
   retireCareer,
 } from '../core/careerSeasons';
-import { getPlayerOverall } from '../core/playerOverall';
+import { getEffectivePositionOverall, getPlayerOverall } from '../core/playerOverall';
 import { requestContractRenegotiation } from '../core/contracts';
 import { contractCoversNextSeason } from '../core/contractValidity';
 import {
@@ -591,8 +591,8 @@ export const SeasonEndSummary = ({
                 <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
                 <p>
                   Poziom {getClubLeagueTier(offer.club)} ·{' '}
-                  <StarRating strength={getClubStrength(offer.club)} /> · Siła klubu:{' '}
-                  {Math.round(getClubStrength(offer.club))}/100
+                  <StarRating strength={getCareerClubStrength(career, offer.club)} /> · Siła klubu:{' '}
+                  {Math.round(getCareerClubStrength(career, offer.club))}/100
                 </p>
                 <p>
                   Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
@@ -633,7 +633,30 @@ export const SeasonEndSummary = ({
                   <p key={reason}>{reason}</p>
                 ))}
                 <p>
-                  <strong>Konkurencja:</strong> {offer.competitionAssessment}
+                  <strong>Konkurencja na {positionCode(offer.plannedPosition)}:</strong>
+                </p>
+                {!!offer.destinationCompetition?.length && (
+                  <ul className="offer-competition">
+                    {offer.destinationCompetition.slice(0, 4).map((competitor) => (
+                      <li key={competitor.competitorId}>
+                        {competitor.competitorName} — {competitor.effectiveOverall} OVR —{' '}
+                        {competitor.expectedStatus === 'starting_xi'
+                          ? 'podstawowy skład'
+                          : competitor.expectedStatus === 'bench'
+                            ? 'ławka'
+                            : 'rezerwy'}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <p>
+                  Ty: {getEffectivePositionOverall(career.player, offer.plannedPosition)} OVR ·
+                  Prognoza:{' '}
+                  {offer.projectedStanding === 'starting_xi'
+                    ? 'walka o pierwszy skład'
+                    : offer.projectedStanding === 'bench'
+                      ? 'ławka'
+                      : 'rezerwy'}
                 </p>
                 <p>
                   <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { ClubStrengthTooltip } from '../../components/ClubStrengthTooltip';
-import { getClubStrength } from '../../core/clubStrength';
+import { getCareerClubStrength } from '../../core/clubStrength';
 import { getSquadDerivedClubStrength } from '../../core/footballerWorld';
 import { getCurrentSquadSelectionContext } from '../../core/youthWorld';
 import { squadRoleLabel } from '../../core/careerPresentation';
@@ -23,9 +23,11 @@ import { HistoryView } from './HistoryView';
 import { PlayerCard } from '../shared/PlayerCard';
 import { ClubCrest } from '../../components/ClubCrest';
 import { describeCurrentPlayerProfile } from '../../core/playerProfilePresentation';
+import { isDevToolsEnabled } from '../devTools';
+import { WorldBrowser } from './WorldBrowser';
 
 export const PLAYBACK_INTERVAL_MS = 1000;
-type Detail = 'player' | 'club' | 'contract' | 'career';
+type Detail = 'player' | 'club' | 'contract' | 'career' | 'world';
 
 const money = (value: number) => `${value.toLocaleString('pl-PL')} PLN`;
 const effortLabel = (value: number) =>
@@ -187,7 +189,7 @@ export const CareerView = ({
             <span>
               {career.leagueSeason?.competition.name ?? 'Rozgrywki klubowe'} · siła{' '}
               {career.currentProfessionalClub
-                ? Math.round(getClubStrength(career.currentProfessionalClub))
+                ? Math.round(getCareerClubStrength(career, career.currentProfessionalClub))
                 : getCurrentSquadSelectionContext(career)
                   ? (getSquadDerivedClubStrength(
                       career,
@@ -313,6 +315,12 @@ export const CareerView = ({
               </fieldset>
             </div>
           )}
+          {isDevToolsEnabled() && (
+            <button type="button" onClick={() => toggle('world')}>
+              DEV: Świat
+            </button>
+          )}
+          {detail === 'world' && <WorldBrowser career={career} />}
           {detail === 'club' && <ClubView career={career} />}
           {detail === 'career' && <HistoryView career={career} />}
           {detail === 'contract' && (

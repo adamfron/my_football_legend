@@ -16,7 +16,7 @@ import { advanceCareerWeek } from './careerWeeks';
 import { saveCareer } from './persistence';
 import { advanceCareerFlow } from './careerFlow';
 import { getPlayerOverall } from './playerOverall';
-import { getClubStrength } from './clubStrength';
+import { getBootstrapClubStrength } from './clubStrength';
 const career = () =>
   createCareerState(
     generateStartingPlayerProfile(
@@ -138,7 +138,7 @@ describe('professional transition', () => {
         scoutingQuality: 95,
       },
     };
-    expect(getClubStrength(club)).toBeGreaterThan(playerOverall);
+    expect(getBootstrapClubStrength(club)).toBeGreaterThan(playerOverall);
     expect(evaluateClubInterest(c, club).interested).toBe(true);
   });
   it('gives an elite goalkeeper top-tier interest and an appropriate role', () => {
@@ -155,7 +155,7 @@ describe('professional transition', () => {
     expect(topTier.some((club) => evaluateClubInterest(c, club).interested)).toBe(true);
     expect(getPlayerOverall(c.player, c.player.primaryPosition)).toBeCloseTo(84, 0);
     const weakerClub = { ...topTier[0]!, strengthRating: 68, overallStrength: 68 };
-    expect(getClubStrength(weakerClub)).toBe(68);
+    expect(getBootstrapClubStrength(weakerClub)).toBe(68);
     expect(
       generateProfessionalOffers({ ...c, clubWorld: [weakerClub] })[0]?.contract.squadRole,
     ).toMatch(/important_player|star_player/);

@@ -8,7 +8,11 @@ import { RandomGenerator } from './random/RandomGenerator';
 import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { getPlayerForm } from './careerWeeks';
 import { clampProfessionalLeagueTier } from './leagueSeason';
-import { getClubStrength, getExpectedSquadRole } from './clubStrength';
+import {
+  getBootstrapClubStrength,
+  getCareerClubStrength,
+  getExpectedSquadRole,
+} from './clubStrength';
 import { createProfessionalContract, evaluateTransferFee } from './playerEconomy';
 import { generateClubVisualIdentity } from './clubVisualIdentity';
 import {
@@ -160,10 +164,10 @@ const overall = (career: CareerState) =>
 export { getExpectedSquadRole } from './clubStrength';
 export const getClubInfrastructure = (club: ProfessionalClub) =>
   club.infrastructure ?? {
-    coachingQuality: getClubStrength(club),
-    trainingFacilities: getClubStrength(club),
-    medicalQuality: getClubStrength(club),
-    scoutingQuality: getClubStrength(club),
+    coachingQuality: getBootstrapClubStrength(club),
+    trainingFacilities: getBootstrapClubStrength(club),
+    medicalQuality: getBootstrapClubStrength(club),
+    scoutingQuality: getBootstrapClubStrength(club),
   };
 export const getClubDevelopmentEnvironment = (club: ProfessionalClub) =>
   Math.round(
@@ -216,9 +220,9 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
     getPlayerForm(career).value * 1.5 +
     career.player.reputation * 0.08 -
     Math.max(0, career.player.age - 29) * 1.1 -
-    getClubStrength(club) * 0.55 -
+    club.reputation * 0.55 -
     Math.max(0, 3 - getClubLeagueTier(club)) *
-      Math.max(0, getClubStrength(club) - overall(career)) *
+      Math.max(0, club.reputation - overall(career)) *
       0.28 -
     (need.depth === 'deep' ? 10 : need.depth === 'thin' ? -5 : 0) +
     style;
@@ -401,7 +405,7 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
       const preferenceScore = (offer: ProfessionalOffer) =>
         (career.agentPreferences ?? []).reduce((score, preference) => {
           if (preference === 'sporting_level')
-            return score + getClubStrength(offer.club) + (5 - getClubLeagueTier(offer.club)) * 5;
+            return score + offer.club.reputation + (5 - getClubLeagueTier(offer.club)) * 5;
           if (preference === 'important_role')
             return (
               score +
@@ -426,10 +430,10 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
         }, 0);
       const ai =
         evaluateClubInterest(career, a.club).score +
-        Math.max(0, overall(career) - getClubStrength(a.club)) * 0.35;
+        Math.max(0, overall(career) - a.club.reputation) * 0.35;
       const bi =
         evaluateClubInterest(career, b.club).score +
-        Math.max(0, overall(career) - getClubStrength(b.club)) * 0.35;
+        Math.max(0, overall(career) - b.club.reputation) * 0.35;
       return preferenceScore(b) - preferenceScore(a) || bi - ai || a.id.localeCompare(b.id);
     });
   const playerOverall = overall(career);
@@ -442,7 +446,7 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
   const selected: ProfessionalOffer[] = [];
   for (const band of bands) {
     const offer = candidates.find(
-      (item) => !selected.includes(item) && band(getClubStrength(item.club) - playerOverall),
+      (item) => !selected.includes(item) && band(item.club.reputation - playerOverall),
     );
     if (offer) selected.push(offer);
   }
@@ -461,7 +465,10 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
   const appearances = currentSeasonAppearances(career);
   const minutes = appearances.reduce((sum, item) => sum + item.minutes, 0);
   const contractExpires = career.currentContract.endDate <= `${career.currentSeason + 1}-06-30`;
-  if (minutes < 180 && overall(career) < getClubStrength(career.currentProfessionalClub) - 8) {
+  if (
+    minutes < 180 &&
+    overall(career) < getCareerClubStrength(career, career.currentProfessionalClub) - 8
+  ) {
     if (external.length || career.currentContract.endDate > `${career.currentSeason + 1}-06-30`)
       return external.slice(0, 4);
     return createSafetyNetOffers(career);
@@ -517,8 +524,8 @@ const createSafetyNetOffers = (career: CareerState): ProfessionalOffer[] => {
   const playerLevel = overall(career);
   const club = [...clubs].sort(
     (a, b) =>
-      Math.abs(getClubStrength(a) - playerLevel) - Math.abs(getClubStrength(b) - playerLevel) ||
-      getClubStrength(a) - getClubStrength(b) ||
+      Math.abs(a.reputation - playerLevel) - Math.abs(b.reputation - playerLevel) ||
+      a.reputation - b.reputation ||
       a.id.localeCompare(b.id),
   )[0]!;
   return [createProfessionalOffer(career, club, true)];

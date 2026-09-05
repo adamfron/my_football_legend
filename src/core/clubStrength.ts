@@ -13,27 +13,44 @@ import {
   resolveEffectiveProfessionalClub,
 } from './worldDatabase';
 
-export const getClubStrength = (
+/** Generation-only quality target used before a normalized senior squad exists. */
+export const getBootstrapClubStrength = (
   club: Pick<ProfessionalClub, 'strengthRating' | 'overallStrength'>,
 ) => Math.max(0, Math.min(100, club.strengthRating ?? club.overallStrength ?? 50));
 
-/** Live squad strength when normalized cards exist; legacy rating is bootstrap/fallback only. */
+const liveStrengthCache = new Map<string, number>();
+
+/** The only live sporting-strength resolver. A broken professional squad is an integrity error. */
 export const getCareerClubStrength = (career: CareerState, club: ProfessionalClub) => {
+  if (!career.footballerWorld) return getBootstrapClubStrength(club);
+  const storedClub = career.clubWorld?.find((item) => item.id === club.id);
+  if (!storedClub || storedClub.squadPlayerIds === undefined) return getBootstrapClubStrength(club);
   const effective = resolveEffectiveProfessionalClub(career, club.id) ?? club;
-  return getSquadDerivedClubStrength(career, effective) ?? getClubStrength(club);
+  // An absent membership list is the explicit pre-normalization bootstrap boundary.
+  // An initialized (including empty) list must satisfy the legal-XI invariant.
+  if (effective.squadPlayerIds === undefined) return getBootstrapClubStrength(club);
+  const key = `${career.seed}:${club.id}:${career.currentDate ?? ''}:${effective.managerId ?? ''}:${effective.squadPlayerIds.join(',')}`;
+  const cached = liveStrengthCache.get(key);
+  if (cached !== undefined) return cached;
+  const strength = getSquadDerivedClubStrength(career, effective);
+  if (strength === undefined) {
+    throw new Error(`Professional club ${club.id} has no canonical legal XI`);
+  }
+  liveStrengthCache.set(key, strength);
+  return strength;
 };
 
 export const getClubStars = (strength: number) =>
   Math.round(Math.max(0, Math.min(100, strength)) / 10) / 2;
 
 /** Ephemeral match ratings: identity changes the balance, never the average quality. */
-export const deriveClubMatchRatings = (
+export const deriveBootstrapClubMatchRatings = (
   club: Pick<
     ProfessionalClub,
     'id' | 'playingStyle' | 'archetype' | 'strengthRating' | 'overallStrength'
   >,
 ) => {
-  const strength = getClubStrength(club);
+  const strength = getBootstrapClubStrength(club);
   const rng = RandomGenerator.fromSeed(
     `club-match-profile:${club.id}:${club.playingStyle}:${club.archetype}`,
   );
@@ -53,12 +70,25 @@ export const deriveClubMatchRatings = (
 /** Match profile centered on the same live canonical XI used by ClubView. */
 export const deriveCareerClubMatchRatings = (career: CareerState, club: ProfessionalClub) => {
   const strength = getCareerClubStrength(career, club);
-  const legacy = deriveClubMatchRatings({ ...club, strengthRating: strength });
-  return { ...legacy, strength };
+  const rng = RandomGenerator.fromSeed(
+    `club-match-profile:${club.id}:${club.playingStyle}:${club.archetype}`,
+  );
+  const styleBias = club.playingStyle.includes('pressing')
+    ? 2
+    : club.playingStyle.includes('posiadanie')
+      ? 1
+      : 0;
+  const bias = Math.max(-5, Math.min(5, rng.int(-4, 4) + styleBias));
+  return {
+    strength,
+    attackStrength: Math.max(1, Math.min(99, strength + bias)),
+    defenseStrength: Math.max(1, Math.min(99, strength - bias)),
+  };
 };
 
 export const getPlayerClubLevelDelta = (career: CareerState, club: ProfessionalClub) =>
-  getPlayerOverall(career.player, career.player.primaryPosition) - getClubStrength(club);
+  getPlayerOverall(career.player, career.player.primaryPosition) -
+  getCareerClubStrength(career, club);
 
 /** Shared role evaluator used by offers, contracts and club presentation. */
 export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub): SquadRole => {

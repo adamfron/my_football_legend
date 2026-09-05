@@ -208,3 +208,9 @@ transferu, nadal pozostaje pracownikiem klubu. Generowanie uzupełniające jest 
 ## Canonical XI, club strength i Player Model (PR77)
 
 Model zawiera teraz odrębne `positioning`, `goalkeeperKicking` i `goalkeeperThrowing`. Kanoniczne radary mają osiem rozłącznych osi i są prezentacją; wzrost nie wchodzi do radaru. OVR liczy jakość sportową ze średnich grup ważonych według pozycji, a znajomość pozycji pozostaje osobnym modyfikatorem. Jeden legalny selektor XI z fallbackiem formacji zasila hierarchię, siłę klubu i wybór meczowy. Selekcja trenera dodaje do efektywnego OVR jedynie ograniczone dopasowanie stylu, mały kontekst i jawne kary fitness. Bieżąca siła to średni OVR legalnej XI; statyczny rating jest wyłącznie bootstrapem/fallbackiem. Statystyki bramkarza są warunkowane oficjalnym wynikiem, a oferty pokazują konkretnych rywali w docelowej kadrze i prognozowany status.
+
+## PR78 — obserwowalność klubu i jedna bieżąca siła
+
+**ONE CURRENT CLUB STRENGTH = średnia efektywnego OVR kanonicznej legalnej XI.** `getCareerClubStrength()` jest jedynym resolverem żywej jakości sportowej i jawnie zgłasza błąd, gdy znormalizowany klub zawodowy nie potrafi wystawić legalnej XI. `strengthRating`/`overallStrength` oraz `getBootstrapClubStrength()` są wyłącznie wejściem generowania przed utworzeniem realnych kadr; reputacja, finanse i infrastruktura pozostają odrębnymi pojęciami.
+
+Oferty pokazują konkretną konkurencję na planowanej pozycji (efektywny OVR oraz prognozowany status). Kadra pokazuje deterministyczną zmianę nominalnego OVR od 1 lipca, znacznik NOWY wyprowadzony z kontraktu/rekordu transferu oraz wyłącznie kanoniczną dostępność protagonisty. Reużywalny `ClubPreview` prezentuje realnych liderów i najlepszego zawodnika U21. DEV World Browser jest deterministycznym, tylko-do-odczytu widokiem zawodowego świata; audyt klubów publikuje siłę XI, wykonalność formacji i lukę najsłabszego slotu.

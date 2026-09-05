@@ -112,9 +112,9 @@ describe('canonical club strength model', () => {
     expect(getExpectedSquadRole(withProcedural, club)).not.toBe('star_player');
   });
 
-  it('retains strength-rating fallback for an incomplete bootstrap squad', () => {
+  it('reports an initialized professional squad without a legal XI', () => {
     const career = careerAtOverall(80);
     const club = { ...career.clubWorld![0]!, id: 'legacy-incomplete', squadPlayerIds: [] };
-    expect(['star_player', 'important_player']).toContain(getExpectedSquadRole(career, club));
+    expect(() => getExpectedSquadRole(career, club)).toThrow('no canonical legal XI');
   });
 });
