@@ -41,13 +41,14 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 Po ukończeniu Economy 2.0 obowiązuje kolejność:
 
-1. kalibracja jakości młodzieży i rozkładu absolwentów;
+1. **Zrealizowano:** kalibracja jakości młodzieży i rozkładu absolwentów;
 2. Manager Selection / zgodność pozycji / Position Learning / rozmowa z trenerem o roli;
 3. kanoniczna siła klubu oraz audyt Player Model / radaru;
 4. obserwowalność kadry (sezonowa delta OVR i oznaczenie nowego zawodnika);
 5. długokarierowa kalibracja makroświata;
 6. deweloperski sandbox Single Match;
-7. vertical slice decyzyjnego izometrycznego silnika meczu.
+7. vertical slice decyzyjnego izometrycznego silnika meczu;
+8. Competition / Calendar 2.0 później.
 
 Silnik meczu nie wyprzedza stabilności populacji, kadr i rynku.
 
