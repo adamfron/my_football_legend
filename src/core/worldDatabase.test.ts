@@ -56,6 +56,7 @@ describe('static world and delta resolution', () => {
       youthCohortOverrides: {},
       newFootballers: {},
       retiredFootballerIds: [],
+      professionalMarketExitCount: 0,
       managerOverrides: {},
       npcTransferRecords: [],
     });

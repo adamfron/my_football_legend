@@ -39,37 +39,17 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 ## Kolejność kolejnych dużych systemów
 
-Po World Lifecycle & Persistence 2.0 bezpośrednia kolejność jest następująca:
+Po ustabilizowaniu makroświata obowiązuje kolejność:
 
-1. nauka pozycji gracza, rozmowa o roli z trenerem i ulepszenia daty urodzenia w kreatorze;
-2. pierwszy grywalny vertical slice decyzyjnego izometrycznego silnika meczu;
-3. Competition/Calendar 2.0;
-4. większa warstwa treści narracyjnych i wydarzeń później.
+1. Economy 2.0 — jeden model pensji i wartości protagonisty oraz NPC.
+2. Manager Selection / Position Learning / rozmowa z trenerem o roli.
+3. Audyt Player Model / radaru / prezentacji klubów.
+4. Długokarierowa kalibracja makroświata.
+5. Deweloperski sandbox Single Match.
+6. Vertical slice decyzyjnego izometrycznego silnika meczu.
+7. Competition / Calendar 2.0 później.
 
-Ligi zagraniczne ani puchary nie wyprzedzają vertical slice silnika meczu.
-
-Cykl trenerów, świat U-17, nabór i graduacja, projekcja rozwoju/regresu NPC, emerytury oraz
-ograniczony ekonomią niedoskonały rynek transferowy są zrealizowane. Obowiązującą kolejność
-najbliższych prac definiuje lista powyżej.
-
-Migawki typowej selekcji klubów tła i tanie sezonowe statystyki NPC będą częścią etapów trwałego
-rozwoju NPC i symulacji rozgrywek, nie osobnym wielkim podsystemem. Migawka będzie odświeżana przy
-granicy sezonu, transferach, awansie z akademii, emeryturze, zmianie trenera, ważnej dostępności lub
-rzadkim checkpointcie. Hierarchia + dostępność + mała deterministyczna rotacja pozwolą agregować
-występy, starty, minuty, gole, asysty, kartki oraz średnią ocenę/MVP bez szczegółowych historii.
-
-`CoachProfile` docelowo zachowa preferowane formacje, taktykę, rotację, zaufanie do młodzieży,
-preferencję doświadczenia, elastyczność pozycyjną, cierpliwość wobec formy, reputację, wiek i etap
-kariery. Zatrudnienie/zwolnienie uwzględni wyniki względem oczekiwań, reputację, dopasowanie do DNA,
-finanse/kontrakt i dostępność; zmiana trenera przeliczy hierarchię. Byli gracze będą mogli przejść
-do ról trenera młodzieży, asystenta lub menedżera.
-
-Emerytura NPC jest deterministycznie zróżnicowaną projekcją daty końca zależną od pozycji,
-trajektorii i charakteru. Twardy limit 43 lat jest regułą bezpieczeństwa, nie rzutem sezonowym.
-
-Fitness/Morale 2.0 połączy minuty, kumulację zmęczenia, terminarz, regenerację, wytrzymałość, wiek
-i środowisko klubu. Reakcja morale na grę poza opanowaną pozycją będzie kontekstowa (ambicja,
-profesjonalizm, adaptacja, minuty, rola, relacja z trenerem i czas), a nie uniwersalnym modyfikatorem.
+Silnik meczu nie wyprzedza stabilności populacji, kadr i rynku.
 
 ## Główne etapy
 

@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it } from 'vitest';
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from './careerWeeks';
 import { advanceCareerFlow } from './careerFlow';
 import {
@@ -17,7 +17,7 @@ import { getSeasonPlayerSummary } from './matchFeedback';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { auditCareerSeason } from './seasonAudit';
 import { getCareerCurrentDate, getSeasonProgress } from './seasonProgress';
-import { serializeCareerSave } from './persistence';
+import { measureCareerSaveSections, serializeCareerSave } from './persistence';
 import { NPC_RETIREMENT_HARD_MAX_AGE } from './npcRetirement';
 import { getProfileAge } from './age';
 import { auditSeniorWorld } from './worldIntegrity';
@@ -67,10 +67,35 @@ const assertAudit = (
   if (!condition) throw new Error(`${message}: ${JSON.stringify(diagnostics(career))}`);
 };
 
+const soakMode =
+  (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env
+    ?.MFL_FULL_CAREER_SOAK === '1';
+const fullCareerSeeds = Array.from({ length: soakMode ? 25 : 3 }, (_, index) => index);
+const soakTiming = {
+  fullCareerMs: 0,
+  summerRolloverMs: 0,
+  summerRollovers: 0,
+  worstSummerRolloverMs: 0,
+};
+
+afterAll(() => {
+  if (!soakMode) return;
+  console.info('full-career soak timing', {
+    seeds: fullCareerSeeds.length,
+    totalFullCareerMs: Math.round(soakTiming.fullCareerMs),
+    averageSummerMarketAndRolloverMs: Math.round(
+      soakTiming.summerRolloverMs / Math.max(1, soakTiming.summerRollovers),
+    ),
+    worstSummerMarketAndRolloverMs: Math.round(soakTiming.worstSummerRolloverMs),
+    measuredSummerRollovers: soakTiming.summerRollovers,
+  });
+});
+
 describe('deterministic full-career audit', () => {
-  it.each(Array.from({ length: 25 }, (_, index) => index))(
+  it.each(fullCareerSeeds)(
     'plays professional career %i to retirement without calendar deadlocks',
     (seedIndex) => {
+      const fullCareerStartedAt = performance.now();
       let career = createCareer(`full-simulation-${seedIndex}`);
       let iterations = 0;
       let priorDate = getCareerCurrentDate(career);
@@ -137,9 +162,18 @@ describe('deterministic full-career audit', () => {
           expect(population.clubsWithoutGoalkeeper).toBe(0);
           expect(population.clubsWithoutTenOutfield).toBe(0);
           expect(population.duplicateActiveSeniorMemberships).toBe(0);
+          expect(population.activeUnattachedSeniorFootballers).toBeLessThanOrEqual(2);
         }
         const offer = career.professionalOffers?.[0];
+        const summerRolloverStartedAt = performance.now();
         career = offer ? acceptProfessionalOffer(career, offer.id) : stayAtCurrentClub(career);
+        const summerRolloverMs = performance.now() - summerRolloverStartedAt;
+        soakTiming.summerRolloverMs += summerRolloverMs;
+        soakTiming.summerRollovers++;
+        soakTiming.worstSummerRolloverMs = Math.max(
+          soakTiming.worstSummerRolloverMs,
+          summerRolloverMs,
+        );
         if (seedIndex === 0 && career.careerSeasonNumber === 15)
           console.info(
             '15-season save bytes',
@@ -196,18 +230,22 @@ describe('deterministic full-career audit', () => {
           youthCohortIds: Object.values(career.worldDelta?.youthCohortOverrides ?? {}).flat()
             .length,
           retiredIds: career.worldDelta?.retiredFootballerIds.length ?? 0,
+          marketExitCount: career.worldDelta?.professionalMarketExitCount ?? 0,
           transferRecords: career.worldDelta?.npcTransferRecords?.length ?? 0,
           historyFacts: career.historyFacts.length,
           squadOverrides: Object.keys(career.worldDelta?.squadOverrides ?? {}).length,
+          latestSummerMarket: career.worldDelta?.summerMarketDiagnostics,
           population: auditSeniorWorld(career),
           naturalDevelopmentOverrides: Object.keys(
             career.worldDelta?.footballerAttributeOverrides ?? {},
           ).length,
+          saveSections: measureCareerSaveSections(career),
         });
       if (seedIndex === 0)
         expect(new TextEncoder().encode(serializeCareerSave(career)).byteLength).toBeLessThan(
           3_000_000,
         );
+      soakTiming.fullCareerMs += performance.now() - fullCareerStartedAt;
     },
     30_000,
   );

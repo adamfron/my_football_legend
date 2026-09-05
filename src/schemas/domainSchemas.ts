@@ -630,6 +630,7 @@ export const careerStateSchema = z.object({
       youthCohortOverrides: z.record(z.string(), z.array(id)).optional(),
       newFootballers: z.record(id, worldFootballerSchema),
       retiredFootballerIds: z.array(id),
+      professionalMarketExitCount: z.number().int().nonnegative().optional(),
       managerOverrides: z.record(id, id),
       managerMoveRecords: z
         .array(
@@ -652,11 +653,33 @@ export const careerStateSchema = z.object({
             date: z.string(),
             fromClubId: id.optional(),
             toClubId: id,
-            transferType: z.enum(['free', 'transfer']),
-            fee: z.number().int().nonnegative(),
+            transferType: z.enum(['free', 'transfer']).optional(),
+            fee: z.number().int().nonnegative().optional(),
             contractEndDate: z.string(),
           }),
         )
+        .optional(),
+      summerMarketDiagnostics: z
+        .object({
+          season: z.number().int(),
+          activeProfessionalsStart: z.number().int().nonnegative(),
+          activeProfessionalsEnd: z.number().int().nonnegative(),
+          retirees: z.number().int().nonnegative(),
+          contractExpiryFreeAgents: z.number().int().nonnegative(),
+          wantsMovePlayers: z.number().int().nonnegative(),
+          graduatesEnteringSeniorFootball: z.number().int().nonnegative(),
+          freeAgentSignings: z.number().int().nonnegative(),
+          interClubTransfers: z.number().int().nonnegative(),
+          supplementalGeneratedProfessionals: z.number().int().nonnegative(),
+          marketExits: z.number().int().nonnegative(),
+          unresolvedFreeAgents: z.number().int().nonnegative(),
+          minSquadSize: z.number().int().nonnegative(),
+          meanSquadSize: z.number().nonnegative(),
+          maxSquadSize: z.number().int().nonnegative(),
+          clubsBelowTarget: z.number().int().nonnegative(),
+          clubsUnfieldable: z.number().int().nonnegative(),
+          duplicateMemberships: z.number().int().nonnegative(),
+        })
         .optional(),
       criticalSquadRepairRecords: z
         .array(
@@ -666,8 +689,8 @@ export const careerStateSchema = z.object({
             date: z.string(),
             fromClubId: id.optional(),
             toClubId: id,
-            transferType: z.enum(['free', 'transfer']),
-            fee: z.number().int().nonnegative(),
+            transferType: z.enum(['free', 'transfer']).optional(),
+            fee: z.number().int().nonnegative().optional(),
             contractEndDate: z.string(),
           }),
         )

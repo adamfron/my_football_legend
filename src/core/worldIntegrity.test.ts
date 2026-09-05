@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
+import { auditSeniorWorld } from './worldIntegrity';
+import { resolveCareerWorldFootballer, resolveEffectiveSeniorSquad } from './worldDatabase';
 import {
-  auditSeniorWorld,
-  processCriticalSquadRepair,
-  SENIOR_SQUAD_LIMITS,
-} from './worldIntegrity';
-import { resolveCareerWorldFootballer } from './worldDatabase';
-import { getManagerSelectionScore } from './footballerWorld';
+  deriveSquadHierarchy,
+  getManagerSelectionScore,
+  getSquadDerivedClubStrength,
+} from './footballerWorld';
+import { getCurrentSquadSelectionContext } from './youthWorld';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -29,40 +30,39 @@ const createCareer = (seed: string) =>
     seed,
   );
 
-describe('critical senior-world repair', () => {
-  it('deterministically repairs 2 GK / 9 outfield while leaving healthy clubs untouched', () => {
-    const base = createCareer('critical-repair');
-    const broken = base.clubWorld![0]!;
-    const healthy = base.clubWorld![1]!;
-    const goalkeepers = broken
-      .squadPlayerIds!.filter(
-        (id) => base.footballerWorld![id]!.profile.primaryPosition === 'goalkeeper',
-      )
-      .slice(0, 2);
-    const outfield = broken
-      .squadPlayerIds!.filter(
-        (id) => base.footballerWorld![id]!.profile.primaryPosition !== 'goalkeeper',
-      )
-      .slice(0, 9);
+describe('canonical effective senior squad', () => {
+  it('exposes one override identically to audit, UI context, manager selection and strength', () => {
+    const base = createCareer('effective-squad');
+    const club = base.clubWorld![0]!;
+    const ids = club.squadPlayerIds!.slice(0, 18);
     const career = {
       ...base,
+      currentProfessionalClub: club,
       worldDelta: {
         ...base.worldDelta!,
-        squadOverrides: { [broken.id]: [...goalkeepers, ...outfield] },
+        squadOverrides: { [club.id]: ids },
       },
     };
-    const first = processCriticalSquadRepair(career, '2027-07-01');
-    const second = processCriticalSquadRepair(career, '2027-07-01');
-    expect(first.worldDelta).toEqual(second.worldDelta);
-    expect(first.worldDelta!.squadOverrides[broken.id]).toHaveLength(SENIOR_SQUAD_LIMITS.healthy);
-    expect(first.worldDelta!.squadOverrides[healthy.id]).toBeUndefined();
-    const audit = auditSeniorWorld(first);
-    expect(audit.clubsBelow11).toBe(0);
-    expect(audit.clubsWithoutGoalkeeper).toBe(0);
-    expect(audit.clubsWithoutTenOutfield).toBe(0);
-    expect(audit.duplicateActiveSeniorMemberships).toBe(0);
-    expect(audit.maxSquadSize).toBeLessThanOrEqual(SENIOR_SQUAD_LIMITS.hardMaximum);
-    expect(careerStateSchema.safeParse(first).success).toBe(true);
+    const effective = resolveEffectiveSeniorSquad(career, club.id);
+    const context = getCurrentSquadSelectionContext(career)!;
+    expect(context.squadPlayerIds).toEqual(effective);
+    const hierarchy = deriveSquadHierarchy(career, context);
+    expect(
+      [
+        ...hierarchy.preferredXI,
+        ...hierarchy.bench,
+        ...hierarchy.deepReserve.map((player) => ({ footballerId: player.id })),
+      ]
+        .map((item) => item.footballerId)
+        .sort(),
+    ).toEqual([...effective].sort());
+    expect(getSquadDerivedClubStrength(career, context)).toBeDefined();
+    expect(auditSeniorWorld(career).activeSeniorFootballers).toBe(
+      new Set(
+        (career.clubWorld ?? []).flatMap((item) => resolveEffectiveSeniorSquad(career, item.id)),
+      ).size,
+    );
+    expect(careerStateSchema.safeParse(career).success).toBe(true);
   });
 });
 
