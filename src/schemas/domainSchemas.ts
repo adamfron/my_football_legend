@@ -71,6 +71,7 @@ export const playerAttributesSchema = z
     dribbling: score,
     finishing: score,
     tackling: score,
+    positioning: score,
     heading: score,
     setPieces: score,
     gameReading: score,
@@ -90,6 +91,8 @@ export const playerAttributesSchema = z
     handling: score,
     oneOnOnes: score,
     goalkeeperSweeping: score,
+    goalkeeperKicking: score,
+    goalkeeperThrowing: score,
   })
   .strict();
 export const hiddenPlayerProfileSchema = z
@@ -319,6 +322,17 @@ export const professionalOfferSchema = z.object({
   opportunity: z.string(),
   risk: z.string(),
   competitionAssessment: z.string(),
+  destinationCompetition: z
+    .array(
+      z.object({
+        competitorId: id,
+        competitorName: z.string(),
+        effectiveOverall: score,
+        expectedStatus: z.enum(['starting_xi', 'bench', 'deep_reserve']),
+      }),
+    )
+    .optional(),
+  projectedStanding: z.enum(['starting_xi', 'bench', 'deep_reserve']).optional(),
   transferKind: z.enum(['free', 'fee']).optional(),
   estimatedTransferFee: z.number().nonnegative().optional(),
 });
@@ -905,6 +919,9 @@ export const careerStateSchema = z.object({
           'handling',
           'oneOnOnes',
           'goalkeeperSweeping',
+          'goalkeeperKicking',
+          'goalkeeperThrowing',
+          'positioning',
         ]),
         progress: z.number().min(0),
       }),

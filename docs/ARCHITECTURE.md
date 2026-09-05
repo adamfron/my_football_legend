@@ -395,3 +395,19 @@ wyjść oraz rekonstruowalną tożsamość bazową, a nie aktywny kontrakt ani k
 emerytura wieku. Zawodnik chcący odejść, lecz nadal związany ważnym kontraktem, pozostaje w klubie,
 jeżeli nie znajdzie nabywcy. Proceduralne uzupełnienie powstaje dopiero po wyczerpaniu odpowiednich
 istniejących kandydatów i tylko dla rzeczywistego wakatu pozycyjnego.
+
+## Kanoniczny model zawodnika, XI i siły (PR77)
+
+**ONE RAW ATTRIBUTE -> AT MOST ONE RADAR AXIS.** Radar jest wyłącznie prezentacją charakterystyki; pozycyjny OVR jest źródłem bieżącej jakości sportowej i liczy średnie grup przed zastosowaniem wag grupowych. `positioning` (własne ustawienie) pozostaje odrębne od `gameReading` (rozumienie rozwijającej się gry). Bramkarskie `goalkeeperKicking` i `goalkeeperThrowing` są osobnymi surowymi umiejętnościami dystrybucji. Ambicja i profesjonalizm sterują karierą/rozwojem, nie OVR. Wzrost jest sytuacyjnym parametrem ciała, nigdy umiejętnością 1–100 ani składnikiem radaru.
+
+**RADAR = PRESENTATION. POSITION OVR = SPORTING QUALITY. MANAGER SELECTION = OVR + SMALL CONTEXT / STYLE EFFECTS.** Znajomość pozycji jest nakładana dopiero na teoretyczny OVR. Dopasowanie taktyczne ma zakres -2..+2, parametry osobowości trenera są małymi rozstrzygaczami, a progi fitness wykluczają wynik poniżej 55 i silnie karzą 55–69, umiarkowanie 70–79 oraz lekko 80–89.
+
+**ONE LEGAL XI -> ONE CLUB STRENGTH.** Jeden selektor sprawdza kolejno formację preferowaną, drugą i pozostałe kanoniczne formacje, odrzuca niewykonalne przypisania i zwraca wyłącznie 11 unikalnych, normalnie uprawnionych zawodników. Średni efektywny OVR tej XI jest bieżącą siłą klubu i środkiem profilu ataku/obrony.
+
+**ONE OFFICIAL MATCH SCORE.** Dla bramkarza grającego pełny mecz gole stracone i czyste konto wynikają z oficjalnego wyniku. Strzały, obrony, xGA, błędy i ocena są szczegółami warunkowanymi tym wynikiem, nie drugim rejestrem bramek.
+
+Letnia granica zachowuje kolejność: wynik końcowy -> czysta projekcja świata letniego -> oferty/decyzja gracza -> lokalne uzgodnienie -> commit. Rynek nie startuje przed poznaniem rozstrzygnięcia sezonu; projekcja powinna pozostać niemutująca i profilowana przed przyszłym przeniesieniem poza główny wątek.
+
+Przyszłe morale nie będzie kolejnym OVR. Uwzględni obiecaną rolę wobec minut/statusu, ławkę, użycie poza opanowaną pozycją, wyniki, występy, relację z trenerem oraz wydarzenia kontraktowe/transferowe. Krótkoterminowy wpływ sportowy pozostanie mały; długotrwale bardzo niskie morale może prowadzić do frustracji rolą lub `wants_move`, bez medykalizujących etykiet.
+
+Późniejsza prezentacja przeniesie tożsamość trenera z rogu boiska obok nagłówka/listy kadry. Hover card wykorzysta istniejący `CoachProfile`: imię, wiek, obie formacje, styl, reputację, zaufanie młodzieży, elastyczność pozycyjną i cierpliwość wobec formy. PR77 nie zmienia layoutu.

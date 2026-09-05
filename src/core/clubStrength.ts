@@ -50,6 +50,13 @@ export const deriveClubMatchRatings = (
   };
 };
 
+/** Match profile centered on the same live canonical XI used by ClubView. */
+export const deriveCareerClubMatchRatings = (career: CareerState, club: ProfessionalClub) => {
+  const strength = getCareerClubStrength(career, club);
+  const legacy = deriveClubMatchRatings({ ...club, strengthRating: strength });
+  return { ...legacy, strength };
+};
+
 export const getPlayerClubLevelDelta = (career: CareerState, club: ProfessionalClub) =>
   getPlayerOverall(career.player, career.player.primaryPosition) - getClubStrength(club);
 

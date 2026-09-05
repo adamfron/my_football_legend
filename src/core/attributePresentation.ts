@@ -17,6 +17,7 @@ const rows = [
   ['dribbling', 'Drybling', 'technical'],
   ['finishing', 'Wykończenie', 'technical'],
   ['tackling', 'Odbiór', 'technical'],
+  ['positioning', 'Ustawianie się', 'mental'],
   ['heading', 'Gra głową', 'technical'],
   ['setPieces', 'Stałe fragmenty', 'technical'],
   ['gameReading', 'Czytanie gry', 'mental'],
@@ -36,6 +37,8 @@ const rows = [
   ['handling', 'Chwyt', 'goalkeeper'],
   ['oneOnOnes', 'Jeden na jednego', 'goalkeeper'],
   ['goalkeeperSweeping', 'Gra na przedpolu', 'goalkeeper'],
+  ['goalkeeperKicking', 'Wykopy', 'goalkeeper'],
+  ['goalkeeperThrowing', 'Wyrzuty', 'goalkeeper'],
 ] as const satisfies readonly (readonly [keyof PlayerAttributes, string, AttributeGroup])[];
 
 export const ATTRIBUTE_PRESENTATION = rows.map(([key, label, group], order) => ({

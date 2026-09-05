@@ -26,7 +26,6 @@ import {
 } from './playerOverall';
 import { getEligibleFootballArchetypes, getFootballArchetype } from './footballArchetypes';
 import { describePlayerProfile } from './playerProfilePresentation';
-import { POSITION_OVR_WEIGHTS } from './playerOverall';
 import { getAgeOnDate } from './age';
 export const STARTING_AGE = 16,
   MIN_HEIGHT_CM = 155,
@@ -126,12 +125,21 @@ export const attributeKeys = OVR_ATTRIBUTE_KEYS;
 export type AttributeKey = (typeof attributeKeys)[number];
 /** Broad football identity is applied before the narrower archetype variation. */
 const positionShape: Record<PlayerPosition, Partial<Record<AttributeKey, number>>> = {
-  goalkeeper: { reflexes: 24, handling: 24, oneOnOnes: 22, goalkeeperSweeping: 22, gameReading: 6 },
+  goalkeeper: {
+    reflexes: 24,
+    handling: 24,
+    oneOnOnes: 22,
+    goalkeeperSweeping: 22,
+    goalkeeperKicking: 12,
+    goalkeeperThrowing: 12,
+    gameReading: 6,
+  },
   center_back: {
     tackling: 12,
     heading: 10,
     strength: 9,
     concentration: 10,
+    positioning: 11,
     jumping: 8,
     finishing: -16,
     dribbling: -11,
@@ -257,6 +265,8 @@ export const generateFootballerAttributes = (options: {
         'handling',
         'oneOnOnes',
         'goalkeeperSweeping',
+        'goalkeeperKicking',
+        'goalkeeperThrowing',
       ].includes(key);
       const value =
         goalkeeperAttribute && options.primaryPosition !== 'goalkeeper'
@@ -269,7 +279,27 @@ export const generateFootballerAttributes = (options: {
     }),
   ) as unknown as PlayerAttributes;
   const card = { attributes: attrs, primaryPosition: options.primaryPosition } as Player;
-  const relevant = Object.keys(POSITION_OVR_WEIGHTS[options.primaryPosition]) as AttributeKey[];
+  const goalkeeperKeys = new Set<AttributeKey>([
+    'reflexes',
+    'handling',
+    'oneOnOnes',
+    'goalkeeperSweeping',
+    'goalkeeperKicking',
+    'goalkeeperThrowing',
+  ]);
+  const relevant = attributeKeys.filter(
+    (key) =>
+      key !== 'ambition' &&
+      key !== 'professionalism' &&
+      (options.primaryPosition === 'goalkeeper'
+        ? key !== 'setPieces' &&
+          key !== 'finishing' &&
+          key !== 'tackling' &&
+          key !== 'heading' &&
+          key !== 'dribbling' &&
+          key !== 'positioning'
+        : !goalkeeperKeys.has(key)),
+  );
   for (let pass = 0; pass < 24; pass++) {
     const delta =
       options.targetOverall - getTheoreticalPositionOverall(card, options.primaryPosition);

@@ -10,13 +10,14 @@ export const simulateGoalkeeperPerformance = (
   opponentAttack: number,
   form: number,
   seed: string,
+  officialGoalsAgainst?: number,
 ): GoalkeeperMatchStats => {
   const rng = RandomGenerator.fromSeed(`${seed}:goalkeeper-performance`);
   const xGA = round(Math.max(0.15, 1.15 + (opponentAttack - 60) / 24 + rng.int(-35, 35) / 100));
   const ability = getPlayerOverall(player, 'goalkeeper');
   const performance = ability + (form - 3) * 2 + (player.fitness - 70) * 0.08 + rng.int(-9, 9);
   const prevented = (performance - opponentAttack) / 18 + rng.int(-20, 20) / 100;
-  const goalsConceded = Math.max(0, Math.round(xGA - prevented));
+  const goalsConceded = officialGoalsAgainst ?? Math.max(0, Math.round(xGA - prevented));
   const shotsOnTargetFaced = Math.max(goalsConceded, Math.round(xGA * 3.1 + rng.int(0, 3)));
   const saves = Math.max(0, shotsOnTargetFaced - goalsConceded);
   const errorsLeadingToGoal =

@@ -204,3 +204,7 @@ wolni zawodnicy opuszczają aktywną symulację profesjonalną, zamiast liniowo 
 Wyjście rynkowe jest odrębne od emerytury wieku. Gracz z ważnym kontraktem, który tylko chce
 transferu, nadal pozostaje pracownikiem klubu. Generowanie uzupełniające jest absolutnym ostatnim
 źródłem obsady realnych wakatów.
+
+## Canonical XI, club strength i Player Model (PR77)
+
+Model zawiera teraz odrębne `positioning`, `goalkeeperKicking` i `goalkeeperThrowing`. Kanoniczne radary mają osiem rozłącznych osi i są prezentacją; wzrost nie wchodzi do radaru. OVR liczy jakość sportową ze średnich grup ważonych według pozycji, a znajomość pozycji pozostaje osobnym modyfikatorem. Jeden legalny selektor XI z fallbackiem formacji zasila hierarchię, siłę klubu i wybór meczowy. Selekcja trenera dodaje do efektywnego OVR jedynie ograniczone dopasowanie stylu, mały kontekst i jawne kary fitness. Bieżąca siła to średni OVR legalnej XI; statyczny rating jest wyłącznie bootstrapem/fallbackiem. Statystyki bramkarza są warunkowane oficjalnym wynikiem, a oferty pokazują konkretnych rywali w docelowej kadrze i prognozowany status.
