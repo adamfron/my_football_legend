@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it } from 'vitest';
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from './careerWeeks';
 import { advanceCareerFlow } from './careerFlow';
 import {
@@ -67,10 +67,33 @@ const assertAudit = (
   if (!condition) throw new Error(`${message}: ${JSON.stringify(diagnostics(career))}`);
 };
 
+const soakMode = process.env.MFL_FULL_CAREER_SOAK === '1';
+const fullCareerSeeds = Array.from({ length: soakMode ? 25 : 3 }, (_, index) => index);
+const soakTiming = {
+  fullCareerMs: 0,
+  summerRolloverMs: 0,
+  summerRollovers: 0,
+  worstSummerRolloverMs: 0,
+};
+
+afterAll(() => {
+  if (!soakMode) return;
+  console.info('full-career soak timing', {
+    seeds: fullCareerSeeds.length,
+    totalFullCareerMs: Math.round(soakTiming.fullCareerMs),
+    averageSummerMarketAndRolloverMs: Math.round(
+      soakTiming.summerRolloverMs / Math.max(1, soakTiming.summerRollovers),
+    ),
+    worstSummerMarketAndRolloverMs: Math.round(soakTiming.worstSummerRolloverMs),
+    measuredSummerRollovers: soakTiming.summerRollovers,
+  });
+});
+
 describe('deterministic full-career audit', () => {
-  it.each(Array.from({ length: 25 }, (_, index) => index))(
+  it.each(fullCareerSeeds)(
     'plays professional career %i to retirement without calendar deadlocks',
     (seedIndex) => {
+      const fullCareerStartedAt = performance.now();
       let career = createCareer(`full-simulation-${seedIndex}`);
       let iterations = 0;
       let priorDate = getCareerCurrentDate(career);
@@ -139,7 +162,15 @@ describe('deterministic full-career audit', () => {
           expect(population.duplicateActiveSeniorMemberships).toBe(0);
         }
         const offer = career.professionalOffers?.[0];
+        const summerRolloverStartedAt = performance.now();
         career = offer ? acceptProfessionalOffer(career, offer.id) : stayAtCurrentClub(career);
+        const summerRolloverMs = performance.now() - summerRolloverStartedAt;
+        soakTiming.summerRolloverMs += summerRolloverMs;
+        soakTiming.summerRollovers++;
+        soakTiming.worstSummerRolloverMs = Math.max(
+          soakTiming.worstSummerRolloverMs,
+          summerRolloverMs,
+        );
         if (seedIndex === 0 && career.careerSeasonNumber === 15)
           console.info(
             '15-season save bytes',
@@ -208,6 +239,7 @@ describe('deterministic full-career audit', () => {
         expect(new TextEncoder().encode(serializeCareerSave(career)).byteLength).toBeLessThan(
           3_000_000,
         );
+      soakTiming.fullCareerMs += performance.now() - fullCareerStartedAt;
     },
     30_000,
   );
