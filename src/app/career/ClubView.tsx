@@ -5,7 +5,7 @@ import { getCompetitionDefinition } from '../../core/competitionStrength';
 import { getLeagueTable } from '../../core/leagueSeason';
 import { getPlayerOverall } from '../../core/playerOverall';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../../core/professionalClubs';
-import { getCareerClubStrength } from '../../core/clubStrength';
+import { getCareerClubStrength, getClubStrengthPresentation } from '../../core/clubStrength';
 import { sportingStatusLabel, squadRoleLabel } from '../../core/careerPresentation';
 import type { CareerState, FootballerProfile, Id } from '../../types/domain';
 import { resolveClubVisualIdentity } from '../../core/clubVisualIdentity';
@@ -37,6 +37,7 @@ import {
 } from '../../core/coachProfiles';
 import { resolveCareerWorldFootballer } from '../../core/worldDatabase';
 import { availabilityState } from '../../core/playerAvailability';
+import { getSeasonOverallDelta, joinedClubThisSeason } from '../../core/seasonSquadReference';
 
 const tacticalStyleLabel = {
   possession: 'gra pozycyjna',
@@ -128,9 +129,11 @@ const SquadGroup = ({
     <div className="squad-list-head">
       <span>Ust.</span>
       <span>Zawodnik</span>
+      <span>Status</span>
       <span>Pozycje</span>
       <span>Wiek</span>
       <span>OVR</span>
+      <span>Fitness</span>
       <span>Profil</span>
     </div>
     {players.map((player, index) => {
@@ -138,26 +141,16 @@ const SquadGroup = ({
       const position = showAssignment
         ? (assignment?.position ?? player.primaryPosition)
         : undefined;
-      const seasonStart = resolveFootballer(
-        { ...career, currentDate: `${career.currentSeason}-07-01` },
-        player.id,
-      );
-      const currentOverall = getPlayerOverall(player, player.primaryPosition);
-      const delta =
-        currentOverall -
-        (seasonStart ? getPlayerOverall(seasonStart, seasonStart.primaryPosition) : currentOverall);
-      const joinedThisSeason =
-        (player.id === career.player.id &&
-          Boolean(
-            career.currentContract?.startDate &&
-              career.currentContract.startDate >= `${career.currentSeason}-07-01`,
-          )) ||
-        (career.worldDelta?.npcTransferRecords ?? []).some(
-          (record) =>
-            record.playerId === player.id &&
-            record.toClubId === career.currentClub.id &&
-            record.date >= `${career.currentSeason}-07-01`,
-        );
+      const delta = getSeasonOverallDelta(career, player);
+      const joinedThisSeason = joinedClubThisSeason(career, player.id, career.currentClub.id);
+      const fitness =
+        player.id === career.player.id
+          ? career.player.fitness
+          : resolveCareerWorldFootballer(career, player.id)?.fitness;
+      const unavailable =
+        player.id === career.player.id &&
+        (availabilityState(career).injuries.some((injury) => injury.status === 'active') ||
+          availabilityState(career).suspensionMatchesRemaining > 0);
       return (
         <div
           className={`squad-list-row ${player.id === protagonistId ? 'protagonist' : ''}`}
@@ -173,7 +166,13 @@ const SquadGroup = ({
             open={open}
             close={close}
           />
-          {joinedThisSeason && <small className="new-player-marker">NOWY</small>}
+          <span className="squad-status">
+            {joinedThisSeason && (
+              <small className="new-player-marker" aria-label="Nowy w klubie">
+                NOWY
+              </small>
+            )}
+          </span>
           <span className="mastered-positions">
             {getMasteredPositions(player).map(positionCode).join(', ')}
           </span>
@@ -182,11 +181,30 @@ const SquadGroup = ({
             {showAssignment && assignment?.effectiveOverall !== undefined
               ? assignment.effectiveOverall
               : getPlayerOverall(player, player.primaryPosition)}
-            <small className={`ovr-delta ${delta > 0 ? 'up' : delta < 0 ? 'down' : ''}`}>
+            <small
+              className={`ovr-delta ${delta > 0 ? 'up' : delta < 0 ? 'down' : ''}`}
+              aria-label={
+                delta > 0
+                  ? `wzrost OVR o ${delta}`
+                  : delta < 0
+                    ? `spadek OVR o ${Math.abs(delta)}`
+                    : 'bez zmiany OVR'
+              }
+            >
               {' '}
-              {delta > 0 ? `↑ +${delta}` : delta < 0 ? `↓ ${delta}` : '→ 0'}
+              {delta > 0 ? `(+${delta}) ↑` : delta < 0 ? `(${delta}) ↓` : '(0)'}
             </small>
           </strong>
+          <span
+            aria-label={
+              unavailable
+                ? `Niedostępny, fitness ${fitness ?? 'brak danych'}`
+                : `Fitness ${fitness ?? 'brak danych'}`
+            }
+          >
+            {fitness === undefined ? '—' : `${fitness}%`}
+            {unavailable ? ' ⚠' : ''}
+          </span>
           <span>{getRankedFootballArchetypes(player)[0]?.definition.label ?? '—'}</span>
         </div>
       );
@@ -207,6 +225,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
     : selectionContext
       ? (getSquadDerivedClubStrength(career, selectionContext) ?? 50)
       : 50;
+  const strengthPresentation = getClubStrengthPresentation(strength);
   const formation = selectionContext
     ? getManagerPreferredFormation(selectionContext.managerId)
     : undefined;
@@ -307,7 +326,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
             <div>
               <dt>SIŁA</dt>
               <dd>
-                <StarRating strength={strength} /> {Math.round(strength)}
+                <StarRating strength={strength} /> {strengthPresentation.displayedInteger}
               </dd>
             </div>
             <div>

@@ -1,4 +1,4 @@
-import { getCareerClubStrength } from '../../core/clubStrength';
+import { getCareerClubStrength, getClubStrengthPresentation } from '../../core/clubStrength';
 import { resolveCoachProfile, coachProfileToPerson } from '../../core/coachProfiles';
 import { getProfessionalCompetitionName } from '../../core/leagueSeason';
 import { getPlayerOverall } from '../../core/playerOverall';
@@ -32,6 +32,8 @@ export const ClubPreview = ({
   const person = coach
     ? coachProfileToPerson(coach, club, career.currentDate ?? `${career.currentSeason}-07-01`)
     : undefined;
+  const strength = getCareerClubStrength(career, club);
+  const strengthPresentation = getClubStrengthPresentation(strength);
   return (
     <span className="club-strength-tooltip" tabIndex={0}>
       {children ?? club.name}
@@ -39,8 +41,7 @@ export const ClubPreview = ({
         <b>{club.name}</b>
         <span>{getProfessionalCompetitionName(club.leagueTier)}</span>
         <span>
-          <StarRating strength={getCareerClubStrength(career, club)} /> ·{' '}
-          {getCareerClubStrength(career, club)}/100
+          <StarRating strength={strength} /> · {strengthPresentation.displayedInteger}/100
         </span>
         {coach && person && (
           <span>

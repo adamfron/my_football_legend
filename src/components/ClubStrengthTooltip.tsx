@@ -1,8 +1,9 @@
-import { getClubStars } from '../core/clubStrength';
+import { getClubStrengthPresentation } from '../core/clubStrength';
 import { StarRating } from './StarRating';
 
 export const ClubStrengthTooltip = ({ name, strength }: { name: string; strength: number }) => {
-  const text = `${getClubStars(strength)} z 5 gwiazdek · ${Math.round(strength)}/100`;
+  const presentation = getClubStrengthPresentation(strength);
+  const text = `${presentation.stars} z 5 gwiazdek · ${presentation.displayedInteger}/100`;
   return (
     <span
       className="club-strength-tooltip"
@@ -12,7 +13,7 @@ export const ClubStrengthTooltip = ({ name, strength }: { name: string; strength
     >
       <span>{name}</span>
       <span className="club-strength-tooltip__content" aria-hidden="true">
-        <StarRating strength={strength} /> · {Math.round(strength)}/100
+        <StarRating strength={strength} /> · {presentation.displayedInteger}/100
       </span>
     </span>
   );

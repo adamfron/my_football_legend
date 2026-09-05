@@ -46,6 +46,7 @@ describe('career persistence', () => {
   beforeEach(() => localStorage.clear());
   it('saves and loads a valid localStorage career', () => {
     const state = career();
+    state.seasonBaselineOverall = { [state.player.id]: 62 };
     cacheWorldDatabase({
       version: WORLD_DATABASE_VERSION,
       startingSeason: 2026,
@@ -62,6 +63,7 @@ describe('career persistence', () => {
     expect(hasValidCareer()).toBe(true);
     if (loaded.ok) {
       expect(loaded.save.career.seed).toBe('save-seed');
+      expect(loaded.save.career.seasonBaselineOverall).toEqual({ [state.player.id]: 62 });
       expect(loaded.save.career.youthCohorts).toBeUndefined();
       expect(
         hydrateCareerWithWorld(loaded.save.career, {

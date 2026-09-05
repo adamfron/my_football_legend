@@ -8,6 +8,8 @@ import type { CareerState } from '../../types/domain';
 import { ClubView } from './ClubView';
 import { SquadPitch } from './SquadPitch';
 import { FORMATION_COORDINATES } from './formationCoordinates';
+import { getPlayerOverall } from '../../core/playerOverall';
+import { joinedClubThisSeason } from '../../core/seasonSquadReference';
 
 const career = (): CareerState => {
   const state = createCareerState(
@@ -159,7 +161,72 @@ describe('ClubView squad presentation', () => {
     const mastered = groups[0]!.querySelector('.mastered-positions')!.textContent;
     expect(assigned).toBeTruthy();
     expect(mastered).toBeTruthy();
+    const columns = groups[0]!.querySelectorAll('.squad-list-head > span').length;
+    expect(columns).toBe(8);
+    expect(groups[0]!.querySelectorAll('.squad-list-row')[0]!.children).toHaveLength(columns);
     act(() => root.unmount());
+  });
+
+  it('shows development against the frozen nominal season baseline', () => {
+    const state = career();
+    const baseline = getPlayerOverall(state.player, state.player.primaryPosition);
+    state.seasonBaselineOverall = { [state.player.id]: baseline };
+    state.player.attributes.technique += 10;
+    const current = getPlayerOverall(state.player, state.player.primaryPosition);
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() => root.render(<ClubView career={state} />));
+    const row = container.querySelector(`[data-footballer-id="${state.player.id}"]`)!;
+    expect(row.textContent).toContain(
+      `(${current - baseline > 0 ? '+' : ''}${current - baseline})`,
+    );
+    act(() => root.unmount());
+  });
+
+  it('defines NOWY from the current club membership spell, never the contract', () => {
+    const state = career();
+    const joinedFact = {
+      id: 'joined-current',
+      factType: 'club_joined',
+      season: state.currentSeason,
+      date: `${state.currentSeason}-07-01`,
+      actors: [state.player.id],
+      targets: [],
+      clubs: [state.currentClub.id],
+      competitions: [],
+      data: {},
+      causes: [],
+      tags: [],
+      visibility: 'public' as const,
+      narrativeImportance: 90,
+      emotionalTone: 'positive' as const,
+    };
+    const joined = { ...state, historyFacts: [...state.historyFacts, joinedFact] };
+    expect(joinedClubThisSeason(joined, state.player.id, state.currentClub.id)).toBe(true);
+    expect(
+      joinedClubThisSeason(
+        { ...joined, currentSeason: state.currentSeason + 1 },
+        state.player.id,
+        state.currentClub.id,
+      ),
+    ).toBe(false);
+    // A renewal changes the contract but creates no membership fact.
+    expect(joinedClubThisSeason(state, state.player.id, state.currentClub.id)).toBe(false);
+    const returned = {
+      ...state,
+      currentSeason: state.currentSeason + 2,
+      historyFacts: [
+        ...state.historyFacts,
+        { ...joinedFact, id: 'old-spell', date: `${state.currentSeason}-07-01` },
+        {
+          ...joinedFact,
+          id: 'return-spell',
+          season: state.currentSeason + 2,
+          date: `${state.currentSeason + 2}-07-01`,
+        },
+      ],
+    };
+    expect(joinedClubThisSeason(returned, state.player.id, state.currentClub.id)).toBe(true);
   });
 
   it('presents current sporting status separately from the promised contract role', () => {

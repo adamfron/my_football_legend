@@ -24,6 +24,7 @@ import {
   getSportingStatus,
 } from './footballerWorld';
 import { resolveEffectiveProfessionalClub } from './worldDatabase';
+import { isNormallyEligibleForPosition } from './positionCompatibility';
 
 export const getClubLeagueTier = (club: ProfessionalClub) =>
   clampProfessionalLeagueTier(club.leagueTier);
@@ -250,15 +251,16 @@ const offerPositionOverall = (
 export const deriveOfferPositionIntent = (
   career: CareerState,
   club: ProfessionalClub,
-): Pick<ProfessionalOffer, 'plannedPosition' | 'alternativePositions'> => {
+): Pick<
+  ProfessionalOffer,
+  'plannedPosition' | 'alternativePositions' | 'tacticalPositionWarning'
+> => {
   const formation = FORMATIONS[getManagerPreferredFormation(club.managerId)];
   const effectiveOverall = (position: CareerState['player']['primaryPosition']) =>
     offerPositionOverall(career.player, position);
-  const plausible = [...new Set(formation)].filter((position) => {
-    const sameBoundary =
-      (position === 'goalkeeper') === (career.player.primaryPosition === 'goalkeeper');
-    return sameBoundary && career.player.positionFamiliarity[position] >= 0.3;
-  });
+  const plausible = [...new Set(formation)].filter((position) =>
+    isNormallyEligibleForPosition(career.player, position),
+  );
   const candidates = plausible.map((position) => {
     const need = club.positionalNeeds[group(position)];
     // Canonical club depth/need already summarizes the destination's real positional competition.
@@ -272,8 +274,11 @@ export const deriveOfferPositionIntent = (
         Math.max(-8, effectiveOverall(position) - leadingRival) * 0.35,
     };
   });
-  // Old creator/save data can contain no plausible formation secondary; nominal identity is safe.
-  if (!candidates.length) return { plannedPosition: career.player.primaryPosition };
+  if (!candidates.length)
+    return {
+      plannedPosition: career.player.primaryPosition,
+      tacticalPositionWarning: 'Trener nie używa twojej nominalnej pozycji w obecnym ustawieniu',
+    };
   candidates.sort((a, b) => b.score - a.score || a.position.localeCompare(b.position));
   const [planned, ...rest] = candidates;
   const alternatives = rest.filter((item) => item.score >= planned!.score - 6).slice(0, 2);
@@ -305,7 +310,9 @@ const createProfessionalOffer = (
     squadPlayerIds: [...new Set([...(effectiveClub.squadPlayerIds ?? []), career.player.id])],
   };
   const projectedHierarchy = deriveSquadHierarchy(career, projectedClub);
-  const projectedStanding = getSportingStatus(projectedHierarchy, career.player.id);
+  const projectedStanding = positionIntent.tacticalPositionWarning
+    ? ('deep_reserve' as const)
+    : getSportingStatus(projectedHierarchy, career.player.id);
   const destinationCompetition = getPositionalCompetition(
     career,
     projectedClub,
@@ -325,8 +332,9 @@ const createProfessionalOffer = (
     0,
     ...destinationCompetition.map(({ effectiveOverall }) => effectiveOverall),
   );
-  const role =
-    (effectiveClub.squadPlayerIds?.length ?? 0) < 11
+  const role = positionIntent.tacticalPositionWarning
+    ? ('development_player' as const)
+    : (effectiveClub.squadPlayerIds?.length ?? 0) < 11
       ? getExpectedSquadRole(career, club)
       : getContextualSquadRole(
           projectedStanding,

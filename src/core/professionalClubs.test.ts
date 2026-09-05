@@ -5,8 +5,9 @@ import {
   generateSummerWindowOffers,
   generateProfessionalClubPool,
   evaluateClubInterest,
+  deriveOfferPositionIntent,
 } from './professionalClubs';
-import { acceptProfessionalOffer } from './careerSeasons';
+import { acceptProfessionalOffer, initializeCareerSeason } from './careerSeasons';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { getCurrentHeadCoach } from './careerPresentation';
 import { getSeasonPlayerSummary } from './matchFeedback';
@@ -17,6 +18,7 @@ import { saveCareer } from './persistence';
 import { advanceCareerFlow } from './careerFlow';
 import { getPlayerOverall } from './playerOverall';
 import { getBootstrapClubStrength } from './clubStrength';
+import { getManagerPreferredFormation } from './footballerWorld';
 const career = () =>
   createCareerState(
     generateStartingPlayerProfile(
@@ -37,6 +39,26 @@ const career = () =>
     'offers',
   );
 describe('professional transition', () => {
+  it('projects the nominal slot when present and warns when no compatible tactical slot exists', () => {
+    const c = career();
+    const directClub = { ...c.clubWorld![0]!, managerId: 'direct-manager' };
+    c.player.primaryPosition = 'striker';
+    c.player.positionFamiliarity.striker = 1;
+    expect(deriveOfferPositionIntent(c, directClub)).toMatchObject({ plannedPosition: 'striker' });
+
+    const managerId = Array.from({ length: 100 }, (_, index) => `no-osp-${index}`).find(
+      (id) => getManagerPreferredFormation(id) === '4-4-2',
+    )!;
+    c.player.primaryPosition = 'attacking_midfielder';
+    for (const position of Object.keys(c.player.positionFamiliarity) as Array<
+      keyof typeof c.player.positionFamiliarity
+    >)
+      c.player.positionFamiliarity[position] = position === 'attacking_midfielder' ? 1 : 0;
+    expect(deriveOfferPositionIntent(c, { ...directClub, managerId })).toEqual({
+      plannedPosition: 'attacking_midfielder',
+      tacticalPositionWarning: 'Trener nie używa twojej nominalnej pozycji w obecnym ustawieniu',
+    });
+  });
   it('creates one deterministic real-club safety offer when an expiring contract has no interest', () => {
     const c = career();
     const [current, fallback] = generateProfessionalClubPool(c.seed);
@@ -186,6 +208,20 @@ describe('professional transition', () => {
     expect(next.careerSeasonNumber).toBe(2);
     expect(next.currentContract?.clubId).toBe(next.currentClub.id);
     expect(next.currentSeason).toBe(2027);
+    expect(next.seasonBaselineOverall?.[next.player.id]).toBe(
+      getPlayerOverall(next.player, next.player.primaryPosition),
+    );
+    const developed = structuredClone(next);
+    developed.player.attributes.technique += 8;
+    const rolled = initializeCareerSeason(developed, {
+      startYear: next.currentSeason + 1,
+      careerSeasonNumber: next.careerSeasonNumber + 1,
+      club: next.currentClub,
+      professional: true,
+    });
+    expect(rolled.seasonBaselineOverall?.[rolled.player.id]).toBe(
+      getPlayerOverall(rolled.player, rolled.player.primaryPosition),
+    );
     expect(next.leagueSeason?.controlledClubId).toBe(next.currentClub.id);
     expect(next.leagueSeason?.competition.category).toBe('professional');
     expect(new Set(next.leagueSeason?.clubs.map((club) => club.name)).size).toBe(16);

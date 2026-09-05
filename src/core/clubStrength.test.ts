@@ -10,6 +10,7 @@ import {
   getBootstrapClubStrength,
   getCareerClubStrength,
   getClubStars,
+  getClubStrengthPresentation,
   getExpectedSquadRole,
 } from './clubStrength';
 import { createProceduralFootballerId } from './proceduralFootballers';
@@ -61,6 +62,12 @@ describe('canonical club strength model', () => {
     expect(getClubStars(71)).toBe(3.5);
     expect(getClubStars(25)).toBe(1.5);
     expect(getClubStars(100)).toBe(5);
+  });
+
+  it('uses one presentation rounding rule without changing raw strength', () => {
+    const raw = 62.5;
+    expect(getClubStrengthPresentation(raw)).toEqual({ displayedInteger: 63, stars: 3 });
+    expect(raw).toBe(62.5);
   });
 
   it('derives promised role from real effective positional competition', () => {

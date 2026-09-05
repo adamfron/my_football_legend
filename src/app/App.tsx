@@ -36,7 +36,11 @@ import { getSeasonHonours } from '../core/history/careerHistory';
 import { advanceUntilDecision } from '../core/careerSimulation';
 import { getLeagueTable, getProfessionalCompetitionName } from '../core/leagueSeason';
 import { getClubLeagueTier } from '../core/professionalClubs';
-import { getCareerClubStrength, getExpectedSquadRole } from '../core/clubStrength';
+import {
+  getCareerClubStrength,
+  getClubStrengthPresentation,
+  getExpectedSquadRole,
+} from '../core/clubStrength';
 import { StarRating } from '../components/StarRating';
 import { getClubDevelopmentEnvironment, getClubMedicalQuality } from '../core/professionalClubs';
 import {} from '../core/clubStrength';
@@ -592,7 +596,11 @@ export const SeasonEndSummary = ({
                 <p>
                   Poziom {getClubLeagueTier(offer.club)} ·{' '}
                   <StarRating strength={getCareerClubStrength(career, offer.club)} /> · Siła klubu:{' '}
-                  {Math.round(getCareerClubStrength(career, offer.club))}/100
+                  {
+                    getClubStrengthPresentation(getCareerClubStrength(career, offer.club))
+                      .displayedInteger
+                  }
+                  /100
                 </p>
                 <p>
                   Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
@@ -615,6 +623,11 @@ export const SeasonEndSummary = ({
                 <p>
                   <strong>Planowana pozycja:</strong> {positionLabel(offer.plannedPosition)}
                 </p>
+                {offer.tacticalPositionWarning && (
+                  <p className="position-warning" role="status">
+                    {offer.tacticalPositionWarning}
+                  </p>
+                )}
                 {!!offer.alternativePositions?.length && (
                   <p>
                     <strong>Alternatywnie:</strong>{' '}

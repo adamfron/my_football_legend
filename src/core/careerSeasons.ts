@@ -35,6 +35,7 @@ import {
   resolveClubManagerId,
 } from './coachProfiles';
 import { resolveEffectiveProfessionalClub, resolveEffectiveSeniorSquad } from './worldDatabase';
+import { createSeasonSquadOverallBaseline } from './seasonSquadReference';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -199,6 +200,7 @@ export const initializeCareerSeason = (
     seasonStartingAttributes: { ...career.player.attributes },
     seasonParticipation: [],
   };
+  initialized.seasonBaselineOverall = createSeasonSquadOverallBaseline(initialized);
   return initializeWeekContent(initializeSeasonParticipation(initialized), 0);
 };
 
