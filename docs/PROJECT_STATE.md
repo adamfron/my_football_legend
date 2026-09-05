@@ -27,7 +27,11 @@ Kanoniczny rejestr `FOOTBALL_ARCHETYPES` obejmuje profile napastników, skrzydł
 
 ## Contracts/economy
 
-Pensja protagonisty trafia co miesiąc do księgi. Oferty i negocjacje końca sezonu zachowują niezmienniki cyklu. Startowe role kontraktowe NPC wynikają z kompletnej hierarchii kadry, a rola rozwojowa jest przeznaczona dla młodych piłkarzy. Letni rynek NPC wyprowadza sezonową pojemność finansową, budżet opłat i limit płac z poziomu ligi oraz profilu klubu. Nie zapisuje konta klubu: podczas okna utrzymuje tylko roboczy bilans, a w delcie pozostawia ukończone ruchy i ich zwięzłą historię.
+Obowiązuje **ONE FOOTBALL ECONOMY**: protagonista i NPC korzystają z jednej bazowej wyceny pensji,
+wartości zawodnika, wag ról oraz wspólnego buildera kontraktu. Niedoskonałość konkretnej oferty jest
+osobną, deterministyczną i ograniczoną warstwą. Podpisana pensja jest trwałym faktem kontraktowym —
+nie przelicza się po rozwoju OVR, zmianie roli ani awansie lub spadku klubu. Letni rynek nadal używa
+miękkich budżetów wyłącznie jako kontekstu i nie może pozbawić świata grywalnych kadr.
 
 ## Current UI
 

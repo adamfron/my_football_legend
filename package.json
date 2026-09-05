@@ -19,6 +19,7 @@
     "audit:full-career-soak": "test -f .generated-public/data/world/pl-2026-v2.json || npm run generate:world-db; MFL_FULL_CAREER_SOAK=1 vitest run src/core/fullCareerSimulation.test.ts --pool=threads --reporter=verbose",
     "audit:archetypes": "vitest run scripts/archetypeAudit.test.ts --reporter=verbose",
     "audit:world": "vitest run scripts/worldAudit.test.ts --reporter=verbose",
+    "audit:economy": "vitest run scripts/economyAudit.test.ts --reporter=verbose",
     "generate:world-db": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/generateWorldDatabase.ts",
     "preaudit:startup": "npm run generate:world-db",
     "audit:startup": "vitest run scripts/startupAudit.test.ts --reporter=verbose",

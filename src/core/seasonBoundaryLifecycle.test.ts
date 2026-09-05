@@ -9,7 +9,11 @@ import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
 import { processNpcRetirements, projectNpcRetirement } from './npcRetirement';
 import { advanceCareerFlow } from './careerFlow';
-import { resolveCareerWorldFootballer, resolveYouthCohort } from './worldDatabase';
+import {
+  resolveCareerWorldFootballer,
+  resolveEffectiveSeniorSquad,
+  resolveYouthCohort,
+} from './worldDatabase';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -131,6 +135,66 @@ describe('completed professional season offer regression', () => {
     expect(next.player.age).toBe(getProfileAge(next.player, `${next.currentSeason}-07-01`));
     const parsed = careerStateSchema.safeParse(next);
     expect(parsed.success, parsed.success ? '' : JSON.stringify(parsed.error.issues)).toBe(true);
+    expect(
+      next.completedSeasons?.filter((item) => item.seasonId === completed.leagueSeason!.id),
+    ).toHaveLength(1);
+    const occurrences = (next.clubWorld ?? []).reduce(
+      (count, club) =>
+        count +
+        resolveEffectiveSeniorSquad(next, club.id).filter((id) => id === next.player.id).length,
+      0,
+    );
+    expect(occurrences).toBe(1);
+    if (kind === 'renewal')
+      expect(next.historyFacts.filter((fact) => fact.factType === 'contract_renewed')).toHaveLength(
+        1,
+      );
+    expect(acceptProfessionalOffer(next, offer!.id)).toEqual(next);
+  });
+
+  it.each([
+    ['promoted', 2, 1],
+    ['relegated', 2, 3],
+  ] as const)(
+    'accepts a renewal after the club is %s',
+    (leagueOutcome, previousLeagueTier, nextLeagueTier) => {
+      const completed = completedProfessionalSeason(`renewal-${leagueOutcome}`);
+      const moved = {
+        ...completed,
+        currentProfessionalClub: {
+          ...completed.currentProfessionalClub!,
+          leagueTier: previousLeagueTier,
+        },
+        seasonOutcome: {
+          ...completed.seasonOutcome!,
+          previousLeagueTier,
+          nextLeagueTier,
+          leagueOutcome,
+        },
+      };
+      const offers = generateSummerWindowOffers(moved);
+      const renewal = offers.find((offer) => offer.offerType === 'renewal')!;
+      const next = acceptProfessionalOffer({ ...moved, professionalOffers: offers }, renewal.id);
+      expect(next.currentSeason).toBe(moved.currentSeason + 1);
+      expect(next.currentClub.id).toBe(moved.currentClub.id);
+      expect(next.currentProfessionalClub?.leagueTier).toBe(nextLeagueTier);
+      expect(next.currentContract).toEqual(renewal.contract);
+      expect(careerStateSchema.safeParse(next).success).toBe(true);
+    },
+  );
+
+  it('rejects a stale malformed renewal without mutating the completed season', () => {
+    const completed = completedProfessionalSeason('stale-renewal');
+    const renewal = generateSummerWindowOffers(completed).find(
+      (offer) => offer.offerType === 'renewal',
+    )!;
+    const state = {
+      ...completed,
+      professionalOffers: [
+        { ...renewal, contract: { ...renewal.contract, startDate: '2099-07-01' } },
+      ],
+    };
+    expect(acceptProfessionalOffer(state, renewal.id)).toEqual(state);
   });
 });
 

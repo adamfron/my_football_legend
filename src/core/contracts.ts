@@ -30,7 +30,13 @@ export const requestContractRenegotiation = (career: CareerState): CareerState =
     return { ...career, renegotiation: { season: career.currentSeason, result } };
   const salary = Math.max(
     contract.monthlySalary,
-    evaluateExpectedMonthlySalary(career, club, role),
+    evaluateExpectedMonthlySalary({
+      player: career.player,
+      club,
+      role,
+      date: career.currentDate ?? `${career.currentSeason}-07-01`,
+      reputation: career.player.reputation,
+    }),
   );
   const proposedContract = {
     ...contract,

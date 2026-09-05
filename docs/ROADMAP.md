@@ -39,15 +39,15 @@ style gry nabywane przez zachowanie oraz osiągnięcia i easter eggi.
 
 ## Kolejność kolejnych dużych systemów
 
-Po ustabilizowaniu makroświata obowiązuje kolejność:
+Po ukończeniu Economy 2.0 obowiązuje kolejność:
 
-1. Economy 2.0 — jeden model pensji i wartości protagonisty oraz NPC.
-2. Manager Selection / Position Learning / rozmowa z trenerem o roli.
-3. Audyt Player Model / radaru / prezentacji klubów.
-4. Długokarierowa kalibracja makroświata.
-5. Deweloperski sandbox Single Match.
-6. Vertical slice decyzyjnego izometrycznego silnika meczu.
-7. Competition / Calendar 2.0 później.
+1. kalibracja jakości młodzieży i rozkładu absolwentów;
+2. Manager Selection / zgodność pozycji / Position Learning / rozmowa z trenerem o roli;
+3. kanoniczna siła klubu oraz audyt Player Model / radaru;
+4. obserwowalność kadry (sezonowa delta OVR i oznaczenie nowego zawodnika);
+5. długokarierowa kalibracja makroświata;
+6. deweloperski sandbox Single Match;
+7. vertical slice decyzyjnego izometrycznego silnika meczu.
 
 Silnik meczu nie wyprzedza stabilności populacji, kadr i rynku.
 
