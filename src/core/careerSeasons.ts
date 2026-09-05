@@ -11,7 +11,7 @@ import {
   getProfessionalCompetitionName,
   VISTULA_NOVA_ID,
 } from './leagueSeason';
-import { deriveClubMatchRatings, getExpectedSquadRole } from './clubStrength';
+import { deriveCareerClubMatchRatings, getExpectedSquadRole } from './clubStrength';
 import { RandomGenerator } from './random/RandomGenerator';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
 import { getPlayerOverall } from './playerOverall';
@@ -98,7 +98,7 @@ export const initializeCareerSeason = (
         ? {
             clubId: source.id,
             name: source.name,
-            ...deriveClubMatchRatings(source),
+            ...deriveCareerClubMatchRatings(career, source),
             form: 0,
           }
         : club;

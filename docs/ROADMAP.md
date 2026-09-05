@@ -184,3 +184,15 @@ Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji
 - Jedna kanoniczna polityka płac połączy oferty protagonisty, transfery NPC i kontrakty świata
   startowego, używając jakości, poziomu ligi, finansów klubu, roli, wieku i reputacji, z kontrolowaną
   wariancją indywidualnych ofert.
+
+## Kolejność po PR78
+
+1. PR79 — rekrutacja sterowana przez trenera i jakościowe luki kadry.
+2. PR80 — makrokalibracja długich karier.
+3. Single Match [DEV] sandbox.
+4. Decyzyjny, izometryczny vertical slice silnika meczu.
+5. Zużycie fitness/regeneracja oraz pełny system morale.
+6. Competition / Calendar 2.0.
+7. Pełny przegląd krzywych rozwoju dopiero po dodaniu pucharów, Europy, reprezentacji i inwestycji.
+
+Przyszły audyt rozwoju porówna poziom trudności ze startowym i szczytowym OVR, liczbą sezonów, meczów i minut, rozmiarem lig oraz meczami pucharowymi, europejskimi i reprezentacyjnymi, a także inwestycjami. Obecna skrócona kariera krajowa nie jest podstawą do strojenia krzywych ani dodawania trybu Very Easy.

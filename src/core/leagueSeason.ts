@@ -35,7 +35,7 @@ export const resolveLeagueTierAfterSeason = (tier: number, position: number) => 
   return { previousLeagueTier, nextLeagueTier, leagueOutcome };
 };
 import { RandomGenerator } from './random/RandomGenerator';
-import { deriveClubMatchRatings } from './clubStrength';
+import { deriveBootstrapClubMatchRatings } from './clubStrength';
 
 export const VISTULA_NOVA_ID = 'club_vistula_nova';
 const clubSeeds: Array<[string, string, number, number, number]> = [
@@ -148,7 +148,12 @@ export const createLeagueSeason = (
   }
   if (options.professionalClubs?.length) {
     options.professionalClubs.slice(0, clubs.length).forEach((club, index) => {
-      clubs[index] = { clubId: club.id, name: club.name, ...deriveClubMatchRatings(club), form: 0 };
+      clubs[index] = {
+        clubId: club.id,
+        name: club.name,
+        ...deriveBootstrapClubMatchRatings(club),
+        form: 0,
+      };
     });
   }
   const ids = clubs.map((club) => club.clubId);

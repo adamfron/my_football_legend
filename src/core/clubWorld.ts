@@ -1,6 +1,6 @@
 import type { ProfessionalClub } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
-import { getClubStrength } from './clubStrength';
+import { getBootstrapClubStrength } from './clubStrength';
 
 export interface ClubEvolutionContext {
   previousTier: number;
@@ -31,7 +31,7 @@ export const projectClubSeason = (
         .filter((c) => c.leagueTier === tier)
         .sort((a, b) => {
           const score = (club: ProfessionalClub) =>
-            getClubStrength(club) +
+            getBootstrapClubStrength(club) +
             RandomGenerator.fromSeed(`${seed}:${tier}:${club.id}`).int(-12, 12);
           return score(b) - score(a) || a.id.localeCompare(b.id);
         }),
@@ -75,7 +75,7 @@ export const evolveClubStrength = (
   const delta = Math.max(-5, Math.min(4, movement + success + finance + ambition + variation));
   return {
     ...club,
-    strengthRating: Math.max(30, Math.min(92, getClubStrength(club) + delta)),
+    strengthRating: Math.max(30, Math.min(92, getBootstrapClubStrength(club) + delta)),
     leagueTier: context.nextTier as 1 | 2 | 3 | 4,
   };
 };

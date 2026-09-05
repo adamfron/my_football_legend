@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deriveClubMatchRatings } from './clubStrength';
+import { deriveBootstrapClubMatchRatings } from './clubStrength';
 import { evolveClubStrength } from './clubWorld';
 import { createLeagueSeason, simulateLeagueFixture } from './leagueSeason';
 import { generateProfessionalClubPool } from './professionalClubs';
@@ -7,8 +7,8 @@ import { generateProfessionalClubPool } from './professionalClubs';
 describe('canonical club simulation systems', () => {
   it('derives a deterministic balanced match profile from canonical strength', () => {
     const club = { ...generateProfessionalClubPool('profile')[0]!, strengthRating: 72 };
-    const profile = deriveClubMatchRatings(club);
-    expect(profile).toEqual(deriveClubMatchRatings(club));
+    const profile = deriveBootstrapClubMatchRatings(club);
+    expect(profile).toEqual(deriveBootstrapClubMatchRatings(club));
     expect((profile.attackStrength + profile.defenseStrength) / 2).toBe(72);
   });
 

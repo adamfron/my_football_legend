@@ -411,3 +411,11 @@ Letnia granica zachowuje kolejność: wynik końcowy -> czysta projekcja świata
 Przyszłe morale nie będzie kolejnym OVR. Uwzględni obiecaną rolę wobec minut/statusu, ławkę, użycie poza opanowaną pozycją, wyniki, występy, relację z trenerem oraz wydarzenia kontraktowe/transferowe. Krótkoterminowy wpływ sportowy pozostanie mały; długotrwale bardzo niskie morale może prowadzić do frustracji rolą lub `wants_move`, bez medykalizujących etykiet.
 
 Późniejsza prezentacja przeniesie tożsamość trenera z rogu boiska obok nagłówka/listy kadry. Hover card wykorzysta istniejący `CoachProfile`: imię, wiek, obie formacje, styl, reputację, zaufanie młodzieży, elastyczność pozycyjną i cierpliwość wobec formy. PR77 nie zmienia layoutu.
+
+## Jedna bieżąca siła klubu
+
+W znormalizowanym świecie zawodowym istnieje dokładnie jedna bieżąca siła sportowa: zaokrąglona średnia efektywnego pozycyjnego OVR legalnej XI wybranej przez `selectBestXI()`, rozwiązywana przez `getCareerClubStrength()`. Inicjalizacja ligi, przeciwnicy, rating bazowy meczu, oferty, kafle oraz podglądy odwołują się do tego resolvera. Atak i obrona meczu są wyłącznie deterministycznymi pochodnymi wycentrowanymi na tej bazie. Brak legalnej XI jest błędem integralności, a nie powodem użycia statycznego ratingu.
+
+`getBootstrapClubStrength()` nazywa jawnie historyczny cel generatora kadry. Nie jest runtime'ową jakością. Reputacja opisuje prestiż instytucjonalny, poziom finansowy zasoby, a infrastruktura środowisko rozwoju — żadne z nich nie nadpisuje jakości XI. Migawki ligi mogą zamrozić wartość rozwiązaną z kanonicznej kadry dla deterministycznego sezonu, ale nie wyliczają jej samodzielnie.
+
+`clubObservability.ts` dostarcza czyste modele dla diagnostyki luk XI i przeglądarki świata. PR79 dopiero połączy: cykl trenera → wykonalność formacji → braki pokrycia → braki jakości XI → priorytety → rynek; PR78 nie zmienia zachowania rekrutacji.

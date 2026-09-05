@@ -5,7 +5,7 @@ import type {
   ProfessionalClub,
   WorldManagerMoveRecord,
 } from '../types/domain';
-import { getClubStrength } from './clubStrength';
+import { getBootstrapClubStrength } from './clubStrength';
 import type { ClubSeasonProjection } from './clubWorld';
 import {
   coachProfileToPerson,
@@ -53,7 +53,10 @@ export const processManagerLifecycle = (
   for (let tier = 1; tier <= 4; tier++)
     [...clubs]
       .filter((club) => club.leagueTier === tier)
-      .sort((a, b) => getClubStrength(b) - getClubStrength(a) || a.id.localeCompare(b.id))
+      .sort(
+        (a, b) =>
+          getBootstrapClubStrength(b) - getBootstrapClubStrength(a) || a.id.localeCompare(b.id),
+      )
       .forEach((club, index) => expected.set(club.id, index + 1));
 
   const dismissed: { managerId: Id; club: ProfessionalClub }[] = [];

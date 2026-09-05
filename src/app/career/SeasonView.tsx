@@ -1,4 +1,5 @@
 import { ClubStrengthTooltip } from '../../components/ClubStrengthTooltip';
+import { ClubPreview } from '../shared/ClubPreview';
 import { CompactFixtureList, type CompactFixtureItem } from '../../components/CompactFixtureList';
 import { getLeagueTable } from '../../core/leagueSeason';
 import { getSeasonProgress } from '../../core/seasonProgress';
@@ -62,12 +63,21 @@ export const SeasonView = ({ career }: { career: CareerState }) => {
               <tr key={row.clubId} className={row.clubId === controlledClubId ? 'active' : ''}>
                 <td>{row.position}</td>
                 <td>
-                  <ClubStrengthTooltip
-                    name={row.clubName}
-                    strength={
-                      season?.clubs.find((club) => club.clubId === row.clubId)?.strength ?? 50
-                    }
-                  />
+                  {career.clubWorld?.find((club) => club.id === row.clubId) ? (
+                    <ClubPreview
+                      career={career}
+                      club={career.clubWorld.find((club) => club.id === row.clubId)!}
+                    >
+                      {row.clubName}
+                    </ClubPreview>
+                  ) : (
+                    <ClubStrengthTooltip
+                      name={row.clubName}
+                      strength={
+                        season?.clubs.find((club) => club.clubId === row.clubId)?.strength ?? 50
+                      }
+                    />
+                  )}
                 </td>
                 <td>{row.played}</td>
                 <td>{row.won}</td>
