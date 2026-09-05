@@ -17,7 +17,7 @@ import { getSeasonPlayerSummary } from './matchFeedback';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { auditCareerSeason } from './seasonAudit';
 import { getCareerCurrentDate, getSeasonProgress } from './seasonProgress';
-import { serializeCareerSave } from './persistence';
+import { measureCareerSaveSections, serializeCareerSave } from './persistence';
 import { NPC_RETIREMENT_HARD_MAX_AGE } from './npcRetirement';
 import { getProfileAge } from './age';
 import { auditSeniorWorld } from './worldIntegrity';
@@ -67,7 +67,9 @@ const assertAudit = (
   if (!condition) throw new Error(`${message}: ${JSON.stringify(diagnostics(career))}`);
 };
 
-const soakMode = process.env.MFL_FULL_CAREER_SOAK === '1';
+const soakMode =
+  (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env
+    ?.MFL_FULL_CAREER_SOAK === '1';
 const fullCareerSeeds = Array.from({ length: soakMode ? 25 : 3 }, (_, index) => index);
 const soakTiming = {
   fullCareerMs: 0,
@@ -160,6 +162,7 @@ describe('deterministic full-career audit', () => {
           expect(population.clubsWithoutGoalkeeper).toBe(0);
           expect(population.clubsWithoutTenOutfield).toBe(0);
           expect(population.duplicateActiveSeniorMemberships).toBe(0);
+          expect(population.activeUnattachedSeniorFootballers).toBeLessThanOrEqual(2);
         }
         const offer = career.professionalOffers?.[0];
         const summerRolloverStartedAt = performance.now();
@@ -227,13 +230,16 @@ describe('deterministic full-career audit', () => {
           youthCohortIds: Object.values(career.worldDelta?.youthCohortOverrides ?? {}).flat()
             .length,
           retiredIds: career.worldDelta?.retiredFootballerIds.length ?? 0,
+          marketExitCount: career.worldDelta?.professionalMarketExitCount ?? 0,
           transferRecords: career.worldDelta?.npcTransferRecords?.length ?? 0,
           historyFacts: career.historyFacts.length,
           squadOverrides: Object.keys(career.worldDelta?.squadOverrides ?? {}).length,
+          latestSummerMarket: career.worldDelta?.summerMarketDiagnostics,
           population: auditSeniorWorld(career),
           naturalDevelopmentOverrides: Object.keys(
             career.worldDelta?.footballerAttributeOverrides ?? {},
           ).length,
+          saveSections: measureCareerSaveSections(career),
         });
       if (seedIndex === 0)
         expect(new TextEncoder().encode(serializeCareerSave(career)).byteLength).toBeLessThan(

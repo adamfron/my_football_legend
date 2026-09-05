@@ -354,6 +354,8 @@ export interface CareerWorldDelta {
   youthCohortOverrides?: Record<string, Id[]> | undefined;
   newFootballers: Record<Id, WorldFootballer>;
   retiredFootballerIds: Id[];
+  /** Cumulative terminal professional exits; identities remain reconstructible from the world. */
+  professionalMarketExitCount?: number | undefined;
   managerOverrides: Record<Id, Id>;
   managerMoveRecords?: WorldManagerMoveRecord[] | undefined;
   managerLifecycleProcessedThroughSeason?: number | undefined;
@@ -391,6 +393,7 @@ export interface SummerMarketDiagnostics {
   freeAgentSignings: number;
   interClubTransfers: number;
   supplementalGeneratedProfessionals: number;
+  marketExits: number;
   unresolvedFreeAgents: number;
   minSquadSize: number;
   meanSquadSize: number;
@@ -421,8 +424,10 @@ export interface WorldTransferRecord {
   date: string;
   fromClubId?: Id | undefined;
   toClubId: Id;
-  transferType: 'free' | 'transfer';
-  fee: number;
+  /** Omitted means inferred from fromClubId. */
+  transferType?: 'free' | 'transfer' | undefined;
+  /** Zero-fee default is omitted in compact long-career records. */
+  fee?: number | undefined;
   contractEndDate: string;
 }
 

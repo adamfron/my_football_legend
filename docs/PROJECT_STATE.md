@@ -179,3 +179,9 @@ już osobnej ekonomii pierwszych kontraktów. Absolwenci trafiają do wspólnej 
 który po emeryturach rozwiązuje wygaśnięcia, ograniczone odejścia sportowe, kierunkowe podkupienia
 i kaskadowe uzupełnianie kadr. Wolni zawodnicy są wykorzystywani przed deterministycznymi
 uzupełniającymi absolwentami/newgenami. Osobny critical repair nie mutuje świata.
+
+Zawodowa piramida ma skończoną liczbę miejsc pracy. Niezatrudnieni po letnim rynku absolwenci i
+wolni zawodnicy opuszczają aktywną symulację profesjonalną, zamiast liniowo powiększać zapis.
+Wyjście rynkowe jest odrębne od emerytury wieku. Gracz z ważnym kontraktem, który tylko chce
+transferu, nadal pozostaje pracownikiem klubu. Generowanie uzupełniające jest absolutnym ostatnim
+źródłem obsady realnych wakatów.

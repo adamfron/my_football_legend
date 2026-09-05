@@ -32,6 +32,7 @@ export const emptyWorldDelta = (): CareerWorldDelta => ({
   youthCohortOverrides: {},
   newFootballers: {},
   retiredFootballerIds: [],
+  professionalMarketExitCount: 0,
   managerOverrides: {},
   npcTransferRecords: [],
 });

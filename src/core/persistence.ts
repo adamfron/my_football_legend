@@ -95,6 +95,40 @@ export const serializeCareerSave = (career: CareerState): string => {
     }),
   );
 };
+
+const serializedBytes = (value: unknown) => new TextEncoder().encode(JSON.stringify(value)).length;
+
+/** Test/dev-only attribution; values are independent JSON estimates, not additive save compression. */
+export const measureCareerSaveSections = (career: CareerState) => {
+  const delta = career.worldDelta;
+  return {
+    totalSave: new TextEncoder().encode(serializeCareerSave(career)).length,
+    footballerStateOverrides: serializedBytes(delta?.footballerStateOverrides ?? {}),
+    retiredFootballerIds: serializedBytes(delta?.retiredFootballerIds ?? []),
+    professionalMarketExitCount: serializedBytes(delta?.professionalMarketExitCount ?? 0),
+    npcTransferRecords: serializedBytes(delta?.npcTransferRecords ?? []),
+    historyFacts: serializedBytes(career.historyFacts),
+    youthCohortOverrides: serializedBytes(delta?.youthCohortOverrides ?? {}),
+    squadOverrides: serializedBytes(delta?.squadOverrides ?? {}),
+    otherWorldDelta: serializedBytes(
+      delta
+        ? Object.fromEntries(
+            Object.entries(delta).filter(
+              ([key]) =>
+                ![
+                  'footballerStateOverrides',
+                  'retiredFootballerIds',
+                  'professionalMarketExitCount',
+                  'npcTransferRecords',
+                  'youthCohortOverrides',
+                  'squadOverrides',
+                ].includes(key),
+            ),
+          )
+        : {},
+    ),
+  };
+};
 export const loadCareer = (): LoadCareerResult => {
   if (!storageAvailable()) return { ok: false, reason: 'missing' };
   const raw = localStorage.getItem(CAREER_SAVE_KEY);

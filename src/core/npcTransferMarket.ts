@@ -12,7 +12,7 @@ import { getProfileAge } from './age';
 import { estimateNpcMonthlySalary } from './npcTransferEconomics';
 import { getPlayerOverall } from './playerOverall';
 import { createProceduralFootballerId } from './proceduralFootballers';
-import { RandomGenerator } from './random/RandomGenerator';
+import { hashRandomSeed, RandomGenerator } from './random/RandomGenerator';
 import { SENIOR_SQUAD_LIMITS } from './worldIntegrity';
 import {
   createCareerWorldFootballerResolver,
@@ -321,6 +321,7 @@ export const processSummerSquadMarket = (
             Boolean(
               player &&
                 sourceClub &&
+                membership.get(entry.playerId) !== club.id &&
                 canTargetSummerCandidate(club, sourceClub, entry.availability) &&
                 (outgoing.get(sourceClub.id) ?? 0) <
                   departureCap(relegatedClubIds.has(sourceClub.id)) &&
@@ -403,13 +404,11 @@ export const processSummerSquadMarket = (
         },
       };
       const record: WorldTransferRecord = {
-        id: `summer-market:${season}:${id}:${club.id}`,
+        id: `n:${season}:${hashRandomSeed(`summer-market:${season}:${id}:${club.id}`).toString(36)}`,
         playerId: id,
         date: boundaryDate,
         ...(from ? { fromClubId: from } : {}),
         toClubId: club.id,
-        transferType: from ? 'transfer' : 'free',
-        fee: 0,
         contractEndDate,
       };
       if (!recordIds.has(record.id)) {
@@ -420,6 +419,16 @@ export const processSummerSquadMarket = (
   }
   for (const [clubId, ids] of squads)
     delta.squadOverrides[clubId] = [...new Set(ids)].slice(0, SENIOR_SQUAD_LIMITS.hardMaximum);
+  // The market pool is ephemeral. Unattached candidates have lost the competition for one of the
+  // finite professional jobs; retain reconstructible identity data and only a cumulative counter.
+  let marketExits = 0;
+  for (const entry of entries.values()) {
+    if (membership.has(entry.playerId) || entry.availability === 'wants_move') continue;
+    delete delta.footballerStateOverrides[entry.playerId];
+    marketExits++;
+  }
+  delta.professionalMarketExitCount = (delta.professionalMarketExitCount ?? 0) + marketExits;
+  delta.currentGraduateIds = [];
   delta.npcTransferRecords = records;
   delta.npcTransferMarketProcessedThroughSeason = season;
   const sizes = [...squads.values()].map((ids) => ids.length);
@@ -441,7 +450,8 @@ export const processSummerSquadMarket = (
     freeAgentSignings: freeSignings,
     interClubTransfers: transfers,
     supplementalGeneratedProfessionals: supplemental,
-    unresolvedFreeAgents: [...entries.values()].filter((e) => e.availability === 'free').length,
+    marketExits,
+    unresolvedFreeAgents: 0,
     minSquadSize: Math.min(...sizes),
     meanSquadSize: sizes.reduce((a, b) => a + b, 0) / sizes.length,
     maxSquadSize: Math.max(...sizes),

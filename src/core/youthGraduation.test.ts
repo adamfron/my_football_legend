@@ -5,6 +5,7 @@ import { processYouthGraduation, YOUTH_GRADUATION_AGE } from './youthGraduation'
 import { resolveEffectiveSeniorSquad, resolveYouthCohort } from './worldDatabase';
 import { getProfileAge } from './age';
 import { processSummerSquadMarket } from './npcTransferMarket';
+import { auditUnattachedProfessionals } from './worldIntegrity';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -72,6 +73,19 @@ describe('U-17 graduation and first contracts', () => {
     expect(career.worldDelta!.newFootballers).toEqual({});
     expect(original.youthCohorts).toEqual(canonical);
     expect(graduateIds).not.toContain(original.player.id);
+    const unattached = auditUnattachedProfessionals(career);
+    expect(unattached).toMatchObject({
+      total: diagnostics.graduates,
+      currentSeasonGraduates: diagnostics.graduates,
+      unattachedSeasonsKnown: 0,
+      unattachedSeasonsUnknown: diagnostics.graduates,
+    });
+    expect(Object.values(unattached.ageBuckets).reduce((sum, count) => sum + count, 0)).toBe(
+      diagnostics.graduates,
+    );
+    expect(Object.values(unattached.overallBuckets).reduce((sum, count) => sum + count, 0)).toBe(
+      diagnostics.graduates,
+    );
     for (const id of graduateIds) {
       expect(career.worldDelta!.footballerStateOverrides![id]).toEqual({
         currentClubId: null,
@@ -123,5 +137,18 @@ describe('U-17 graduation and first contracts', () => {
         ),
       ).toHaveLength(1);
     }
+    const rejected = [...graduateIds].filter((id) => !destinations.has(id));
+    expect(rejected.length).toBeGreaterThan(0);
+    for (const id of rejected) {
+      expect(marketed.worldDelta!.footballerStateOverrides![id]).toBeUndefined();
+      expect(
+        (marketed.clubWorld ?? []).some((club) =>
+          resolveEffectiveSeniorSquad(marketed, club.id).includes(id),
+        ),
+      ).toBe(false);
+    }
+    expect(marketed.worldDelta!.professionalMarketExitCount).toBeGreaterThanOrEqual(
+      rejected.length,
+    );
   });
 });

@@ -1,4 +1,7 @@
 import type { CareerState, Id, PlayerPosition } from '../types/domain';
+import { getProfileAge } from './age';
+import { getPlayerOverall } from './playerOverall';
+import { parseProceduralFootballerId } from './proceduralFootballers';
 import { createCareerWorldFootballerResolver, resolveEffectiveSeniorSquad } from './worldDatabase';
 
 export const SENIOR_SQUAD_LIMITS = {
@@ -14,6 +17,7 @@ export interface WorldPopulationAudit {
   activeSeniorFootballers: number;
   activeUnattachedSeniorFootballers: number;
   retiredFootballers: number;
+  marketExitedFootballers: number;
   minSquadSize: number;
   meanSquadSize: number;
   maxSquadSize: number;
@@ -58,6 +62,7 @@ export const auditSeniorWorld = (career: CareerState): WorldPopulationAudit => {
       (id) => !attached.has(id) && resolve(id)?.careerStatus === 'active',
     ).length,
     retiredFootballers: career.worldDelta?.retiredFootballerIds.length ?? 0,
+    marketExitedFootballers: career.worldDelta?.professionalMarketExitCount ?? 0,
     minSquadSize: sizes.length ? Math.min(...sizes) : 0,
     meanSquadSize: sizes.length ? sizes.reduce((a, b) => a + b, 0) / sizes.length : 0,
     maxSquadSize: sizes.length ? Math.max(...sizes) : 0,
@@ -69,6 +74,64 @@ export const auditSeniorWorld = (career: CareerState): WorldPopulationAudit => {
     ordinaryNpcTransfers: career.worldDelta?.npcTransferRecords?.length ?? 0,
     criticalRepairSignings: career.worldDelta?.criticalSquadRepairRecords?.length ?? 0,
   };
+};
+
+export interface UnattachedProfessionalAudit {
+  total: number;
+  currentSeasonGraduates: number;
+  olderUnsignedAcademyGraduates: number;
+  supplementalPlayers: number;
+  formerContractedProfessionals: number;
+  otherUnattached: number;
+  ageBuckets: Record<string, number>;
+  overallBuckets: Record<string, number>;
+  unattachedSeasonsKnown: number;
+  unattachedSeasonsUnknown: number;
+}
+
+/** Development diagnostic for the ephemeral labour pool; it never persists a market snapshot. */
+export const auditUnattachedProfessionals = (career: CareerState): UnattachedProfessionalAudit => {
+  const attached = new Set(
+    (career.clubWorld ?? []).flatMap((club) => resolveEffectiveSeniorSquad(career, club.id)),
+  );
+  const currentGraduates = new Set(career.worldDelta?.currentGraduateIds ?? []);
+  const resolve = createCareerWorldFootballerResolver(career, { cache: true });
+  const ids = Object.keys(career.worldDelta?.footballerStateOverrides ?? {}).filter(
+    (id) => !attached.has(id) && resolve(id)?.careerStatus === 'active',
+  );
+  const result: UnattachedProfessionalAudit = {
+    total: ids.length,
+    currentSeasonGraduates: 0,
+    olderUnsignedAcademyGraduates: 0,
+    supplementalPlayers: 0,
+    formerContractedProfessionals: 0,
+    otherUnattached: 0,
+    ageBuckets: {},
+    overallBuckets: {},
+    unattachedSeasonsKnown: 0,
+    unattachedSeasonsUnknown: ids.length,
+  };
+  for (const id of ids) {
+    const player = resolve(id)!;
+    const origin = parseProceduralFootballerId(id);
+    if (currentGraduates.has(id)) result.currentSeasonGraduates++;
+    else if (origin?.kind === 'intake') result.olderUnsignedAcademyGraduates++;
+    else if (origin?.kind === 'supplemental' || origin?.kind === 'emergency')
+      result.supplementalPlayers++;
+    else if (career.footballerWorld?.[id]?.currentContract) result.formerContractedProfessionals++;
+    else result.otherUnattached++;
+    const age = getProfileAge(
+      player.profile,
+      career.currentDate ?? `${career.currentSeason}-07-01`,
+    );
+    const ageBucket = age <= 20 ? '17-20' : age <= 24 ? '21-24' : age <= 29 ? '25-29' : '30+';
+    result.ageBuckets[ageBucket] = (result.ageBuckets[ageBucket] ?? 0) + 1;
+    const overall = getPlayerOverall(player.profile, player.profile.primaryPosition);
+    const overallBucket =
+      overall < 40 ? '<40' : overall < 50 ? '40-49' : overall < 60 ? '50-59' : '60+';
+    result.overallBuckets[overallBucket] = (result.overallBuckets[overallBucket] ?? 0) + 1;
+  }
+  return result;
 };
 
 /** @deprecated Squad construction belongs exclusively to processSummerSquadMarket. */

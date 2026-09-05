@@ -14,6 +14,7 @@ import {
   estimateNpcMonthlySalary,
   estimateNpcTransferValue,
 } from './npcTransferEconomics';
+import { resolveEffectiveSeniorSquad } from './worldDatabase';
 
 const createCareer = (seed: string) =>
   createCareerState(
@@ -115,6 +116,7 @@ describe('bounded NPC summer transfer market', () => {
     expect(diagnostics.duplicateMemberships).toBe(0);
     expect(diagnostics.maxSquadSize).toBeLessThanOrEqual(30);
     expect(diagnostics.freeAgentSignings).toBeGreaterThan(0);
+    expect(diagnostics.supplementalGeneratedProfessionals).toBe(0);
     expect(first.worldDelta!.footballerStateOverrides![freeId]!.currentClubId).toBeTruthy();
     expect(careerStateSchema.safeParse(first).success).toBe(true);
   });
@@ -138,5 +140,91 @@ describe('bounded NPC summer transfer market', () => {
   it('uses calibrated voluntary departure caps', () => {
     expect(STABLE_VOLUNTARY_DEPARTURE_CAP).toBe(5);
     expect(RELEGATED_VOLUNTARY_DEPARTURE_CAP).toBe(10);
+  });
+
+  it('generates supplemental supply only after existing candidates cannot fill the last job', () => {
+    const base = createCareer('supplemental-last-resort');
+    const club = [...base.clubWorld!].sort(compareClubMarketPriority)[0]!;
+    const removedId = club.squadPlayerIds!.find(
+      (id) => base.footballerWorld![id]!.profile.primaryPosition === 'goalkeeper',
+    )!;
+    const prepared = {
+      ...base,
+      clubWorld: [club],
+      currentProfessionalClub: undefined,
+      worldDelta: {
+        ...base.worldDelta!,
+        squadOverrides: {
+          [club.id]: club.squadPlayerIds!.filter((id) => id !== removedId),
+        },
+      },
+    };
+    const result = processSummerSquadMarket(prepared, '2026-07-01');
+    expect(result.worldDelta!.summerMarketDiagnostics!.supplementalGeneratedProfessionals).toBe(1);
+    expect(result.worldDelta!.summerMarketDiagnostics!.clubsUnfieldable).toBe(0);
+  });
+
+  it('ends an unsigned established free agent career but keeps contract-bound players employed', () => {
+    const base = createCareer('finite-professional-jobs');
+    const source = base.clubWorld![0]!;
+    const freeId = source.squadPlayerIds![0]!;
+    const contractedId = source.squadPlayerIds![1]!;
+    const prepared = {
+      ...base,
+      worldDelta: {
+        ...base.worldDelta!,
+        squadOverrides: {
+          [source.id]: source.squadPlayerIds!.filter((id) => id !== freeId),
+        },
+        footballerStateOverrides: {
+          [freeId]: { currentClubId: null, currentContract: null },
+        },
+      },
+    };
+    // Removing the free agent's old job creates one real vacancy, so he may win it back.
+    const signed = processSummerSquadMarket(prepared, '2027-07-01');
+    expect(signed.worldDelta!.footballerStateOverrides![freeId]?.currentClubId).toBeTruthy();
+    expect(
+      (signed.clubWorld ?? []).filter((club) =>
+        resolveEffectiveSeniorSquad(signed, club.id).includes(contractedId),
+      ),
+    ).toHaveLength(1);
+
+    const weakOutfieldId = source.squadPlayerIds!.find(
+      (id) => base.footballerWorld![id]!.profile.primaryPosition === 'striker',
+    )!;
+    const weakAttributes = Object.fromEntries(
+      Object.keys(base.footballerWorld![weakOutfieldId]!.profile.attributes).map((key) => [key, 1]),
+    ) as unknown as typeof base.player.attributes;
+    const noVacancy = {
+      ...base,
+      worldDelta: {
+        ...base.worldDelta!,
+        footballerStateOverrides: {
+          ['footballer_unattached_established']: {
+            currentClubId: null,
+            currentContract: null,
+          },
+        },
+        footballerOverrides: {
+          ...base.worldDelta!.footballerOverrides,
+          footballer_unattached_established: {
+            ...base.footballerWorld![weakOutfieldId]!,
+            profile: {
+              ...base.footballerWorld![weakOutfieldId]!.profile,
+              id: 'footballer_unattached_established',
+              attributes: weakAttributes,
+            },
+            currentClubId: undefined,
+            currentContract: undefined,
+          },
+        },
+      },
+    };
+    const exited = processSummerSquadMarket(noVacancy, '2027-07-01');
+    expect(exited.worldDelta!.professionalMarketExitCount).toBeGreaterThan(0);
+    expect(
+      exited.worldDelta!.footballerStateOverrides!.footballer_unattached_established,
+    ).toBeUndefined();
   });
 });

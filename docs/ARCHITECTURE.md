@@ -348,3 +348,13 @@ chcących odejść i graczy dostępnych do kierunkowego podkupienia. Kluby dzia�
 i reputacji w dół piramidy. Wolni gracze mają pierwszeństwo przed transferem i proceduralnym
 absolwentem uzupełniającym. Budżety są miękkim kontekstem i nie mogą zepsuć grywalności świata.
 `worldIntegrity` audytuje wynik; dawny krytyczny repair jest nieaktywnym API zgodności.
+
+### Skończona liczba zawodowych miejsc pracy
+
+**PROFESSIONAL FOOTBALL HAS FINITE JOBS.** Absolwenci, wolni zawodnicy i gracze dostępni do
+transferu konkurują w jednym efemerycznym rynku. Absolwent albo wolny zawodnik, który po zamknięciu
+okna nie ma klubu zawodowego, kończy symulowaną karierę profesjonalną; zachowujemy tylko zbiorczy licznik
+wyjść oraz rekonstruowalną tożsamość bazową, a nie aktywny kontrakt ani kartę. Jest to osobne wyjście niż deterministyczna
+emerytura wieku. Zawodnik chcący odejść, lecz nadal związany ważnym kontraktem, pozostaje w klubie,
+jeżeli nie znajdzie nabywcy. Proceduralne uzupełnienie powstaje dopiero po wyczerpaniu odpowiednich
+istniejących kandydatów i tylko dla rzeczywistego wakatu pozycyjnego.
