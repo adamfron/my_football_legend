@@ -221,4 +221,42 @@ describe('ClubView squad presentation', () => {
     act(() => root.unmount());
     container.remove();
   });
+
+  it('shows a sparse effective contract instead of the static bootstrap contract', () => {
+    const base = career();
+    const npcId = base.currentProfessionalClub!.squadPlayerIds!.find(
+      (id) => id !== base.player.id,
+    )!;
+    const effectiveContract = {
+      ...base.footballerWorld![npcId]!.currentContract!,
+      monthlySalary: 12_345,
+      squadRole: 'important_player' as const,
+    };
+    const state = {
+      ...base,
+      worldDelta: {
+        ...base.worldDelta!,
+        footballerStateOverrides: {
+          ...base.worldDelta!.footballerStateOverrides,
+          [npcId]: {
+            currentClubId: base.currentProfessionalClub!.id,
+            currentContract: effectiveContract,
+          },
+        },
+      },
+    };
+    const container = document.createElement('div');
+    document.body.append(container);
+    const root = createRoot(container);
+    act(() => root.render(<ClubView career={state} />));
+    const name = container.querySelector(
+      `[data-footballer-id="${npcId}"] .footballer-name`,
+    ) as HTMLButtonElement;
+    act(() => name.dispatchEvent(new MouseEvent('mouseover', { bubbles: true })));
+    const text = document.body.querySelector('.footballer-hover-card')?.textContent;
+    expect(text).toContain('12 345 zł/mies.');
+    expect(text).not.toContain('Brak zawodowego kontraktu');
+    act(() => root.unmount());
+    container.remove();
+  });
 });

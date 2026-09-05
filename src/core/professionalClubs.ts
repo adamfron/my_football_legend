@@ -9,7 +9,7 @@ import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { getPlayerForm } from './careerWeeks';
 import { clampProfessionalLeagueTier } from './leagueSeason';
 import { getClubStrength, getExpectedSquadRole } from './clubStrength';
-import { estimatePlayerMarketValue, evaluateExpectedMonthlySalary } from './playerEconomy';
+import { createProfessionalContract, evaluateTransferFee } from './playerEconomy';
 import { generateClubVisualIdentity } from './clubVisualIdentity';
 import { FORMATIONS, getManagerPreferredFormation } from './footballerWorld';
 
@@ -283,7 +283,7 @@ const createProfessionalOffer = (
   );
   const role = getExpectedSquadRole(career, club);
   const years = rng.int(1, 3);
-  const salary = evaluateExpectedMonthlySalary(career, club, role);
+  const startDate = `${career.currentSeason + 1}-07-01`;
   const free =
     !career.currentContract ||
     career.currentContract.endDate <= `${career.currentSeason + 1}-07-01`;
@@ -292,15 +292,17 @@ const createProfessionalOffer = (
     id: `offer_${club.id}_${career.currentSeason}`,
     offerType: 'external',
     club,
-    contract: {
-      clubId: club.id,
-      startDate: `${career.currentSeason + 1}-07-01`,
+    contract: createProfessionalContract({
+      player: career.player,
+      club,
+      role,
+      date: startDate,
+      reputation: career.player.reputation,
+      startDate,
       endDate: `${career.currentSeason + 1 + years}-06-30`,
-      monthlySalary: salary,
-      signingBonus: Math.round((salary * rng.int(1, 3)) / 100) * 100,
-      squadRole: role,
-      contractType: role === 'development_player' ? 'development' : 'professional',
-    },
+      offerFactor: 0.9 + rng.float() * 0.2,
+      signingBonusMonths: rng.int(1, 3),
+    }),
     ...positionIntent,
     interestReasons: [
       ...(safetyNet
@@ -332,7 +334,18 @@ const createProfessionalOffer = (
         ? 'Duża konkurencja (ocena sztabu)'
         : 'Konkurencja do pokonania (ocena sztabu)',
     transferKind: free ? 'free' : 'fee',
-    ...(free ? {} : { estimatedTransferFee: estimatePlayerMarketValue(career) }),
+    ...(free
+      ? {}
+      : {
+          estimatedTransferFee: evaluateTransferFee({
+            player: career.player,
+            club: career.currentProfessionalClub ?? club,
+            contract: career.currentContract,
+            date: startDate,
+            reputation: career.player.reputation,
+            developmentProfile: career.developmentProfile,
+          }),
+        }),
   };
 };
 
@@ -421,16 +434,26 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
         career.seasonOutcome?.nextLeagueTier ?? getClubLeagueTier(career.currentProfessionalClub),
       ),
     },
-    contract: {
-      ...career.currentContract,
+    contract: createProfessionalContract({
+      player: career.player,
+      club: {
+        ...career.currentProfessionalClub,
+        leagueTier: clampProfessionalLeagueTier(
+          career.seasonOutcome?.nextLeagueTier ?? getClubLeagueTier(career.currentProfessionalClub),
+        ),
+      },
+      role,
+      date: `${career.currentSeason + 1}-07-01`,
+      reputation: career.player.reputation,
       startDate: `${career.currentSeason + 1}-07-01`,
       endDate: contractExpires
         ? `${career.currentSeason + 3}-06-30`
         : career.currentContract.endDate,
-      squadRole: role,
-      contractType: role === 'development_player' ? 'development' : 'professional',
-      monthlySalary: evaluateExpectedMonthlySalary(career, career.currentProfessionalClub, role),
-    },
+      offerFactor:
+        0.96 +
+        RandomGenerator.fromSeed(`${career.seed}:renewal:${career.currentSeason}`).float() * 0.08,
+      signingBonusMonths: contractExpires ? 1 : 0,
+    }),
     ...deriveOfferPositionIntent(career, career.currentProfessionalClub),
     interestReasons: [
       contractExpires

@@ -1,6 +1,5 @@
 import type {
   CareerState,
-  Contract,
   FootballerProfile,
   Id,
   PlayerPosition,
@@ -18,6 +17,7 @@ import { getProfileAge } from './age';
 import { deriveCanonicalCoachProfile } from './coachProfiles';
 import { resolveCareerWorldFootballer } from './worldDatabase';
 import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
+import { createProfessionalContract } from './playerEconomy';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
@@ -262,46 +262,26 @@ const generateWorldFootballer = (
     targetOverall,
     primaryPosition,
   });
-  const overall = getPlayerOverall(profile, primaryPosition);
   // Final promises are assigned in a second pass, once real squad competition is known.
   const role: SquadRole = 'rotation';
   const contractRng = RandomGenerator.fromSeed(`${seed}:${id}:contract`);
   const startYear = 2026 - contractRng.int(0, age <= 21 ? 2 : 4);
   const startMonth = contractRng.int(1, 8);
   const duration = age >= 33 ? contractRng.int(1, 2) : contractRng.int(2, age <= 22 ? 5 : 4);
-  // Independent market noise and rare distortions intentionally prevent OVR from becoming payroll.
-  const noise = 0.72 + contractRng.float() * 0.62;
-  const distortion = contractRng.int(1, 100) <= 8 ? contractRng.pick([0.58, 1.65]) : 1;
-  const ageFactor = age >= 32 ? 1.12 : age <= 21 ? 0.78 : 1;
-  const roleFactor: Record<SquadRole, number> = {
-    development_player: 0.58,
-    rotation: 0.78,
-    first_team_competition: 0.95,
-    important_player: 1.18,
-    star_player: 1.45,
-  };
-  const tierFactor = 1 + (4 - club.leagueTier) * 0.42;
-  const salary = Math.max(
-    1_500,
-    Math.round(
-      ((club.financialLevel + 20) * 95 + overall * overall * 1.7) *
-        tierFactor *
-        roleFactor[role] *
-        ageFactor *
-        noise *
-        distortion *
-        (0.85 + Math.max(5, targetOverall - 25) / 300),
-    ),
-  );
-  const currentContract: Contract = {
-    clubId: club.id,
-    startDate: `${startYear}-${String(startMonth).padStart(2, '0')}-01`,
+  const startDate = `${startYear}-${String(startMonth).padStart(2, '0')}-01`;
+  const reputation = Math.max(5, targetOverall - 25);
+  const currentContract = createProfessionalContract({
+    player: profile,
+    club,
+    role,
+    date: startDate,
+    reputation,
+    startDate,
     endDate: `${startYear + duration}-06-30`,
-    monthlySalary: salary,
-    signingBonus: contractRng.int(1, 100) <= 72 ? Math.round(salary * contractRng.int(1, 5)) : 0,
-    squadRole: role,
+    offerFactor: 0.82 + contractRng.float() * 0.36,
+    signingBonusMonths: contractRng.int(1, 100) <= 72 ? contractRng.int(1, 5) : 0,
     contractType: 'professional',
-  };
+  });
   const footballer: WorldFootballer = {
     profile,
     developmentProfile: generateDevelopmentProfile(
@@ -309,7 +289,7 @@ const generateWorldFootballer = (
     ),
     careerStatus: 'active',
     currentClubId: club.id,
-    reputation: Math.max(5, targetOverall - 25),
+    reputation,
     fitness: rng.int(78, 100),
     currentContract,
   };
@@ -339,11 +319,26 @@ export const populateFootballerWorld = (clubs: ProfessionalClub[], seed: string)
           .filter((other) => other.positionFamiliarity[position] >= 0.3)
           .map((other) => getEffectivePositionOverall(other, position)),
       );
-      footballer.currentContract!.squadRole = getContextualSquadRole(
+      const role = getContextualSquadRole(
         getSportingStatus(hierarchy, id),
         footballer.profile.age,
         getPlayerOverall(footballer.profile, position) - bestCompetitor,
       );
+      const existing = footballer.currentContract!;
+      footballer.currentContract = createProfessionalContract({
+        player: footballer.profile,
+        club: populatedClub,
+        role,
+        date: existing.startDate,
+        reputation: footballer.reputation ?? 0,
+        startDate: existing.startDate,
+        endDate: existing.endDate,
+        offerFactor:
+          0.82 + RandomGenerator.fromSeed(`${seed}:${id}:contract:salary`).float() * 0.36,
+        signingBonusMonths:
+          existing.signingBonus > 0 ? existing.signingBonus / existing.monthlySalary : 0,
+        contractType: 'professional',
+      });
     }
     return populatedClub;
   });
@@ -394,7 +389,7 @@ export const selectMatchBench = (
 ): MatchBenchAssignment[] => {
   const excluded = new Set(xi.map((item) => item.footballerId));
   const available = (club.squadPlayerIds ?? [])
-    .filter((id) => !excluded.has(id) && career.footballerWorld?.[id]?.careerStatus !== 'retired')
+    .filter((id) => !excluded.has(id))
     .map((id) => resolveFootballer(career, id))
     .filter((player): player is FootballerProfile => Boolean(player));
   const selected: MatchBenchAssignment[] = [];
@@ -533,7 +528,6 @@ const selectManagerXI = (
 ): BestXI => {
   const slots = FORMATIONS[formation];
   const players = (club.squadPlayerIds ?? [])
-    .filter((id) => career.footballerWorld?.[id]?.careerStatus !== 'retired')
     .map((id) => resolveFootballer(career, id))
     .filter((p): p is FootballerProfile => Boolean(p))
     .sort((a, b) => a.id.localeCompare(b.id));
@@ -591,7 +585,7 @@ export const deriveSquadHierarchy = (
   const bench = selectMatchBench(career, club, xi.assignments, 7, selectionScore);
   const selected = new Set([...xi.assignments, ...bench].map((item) => item.footballerId));
   const deepReserve = (club.squadPlayerIds ?? [])
-    .filter((id) => !selected.has(id) && career.footballerWorld?.[id]?.careerStatus !== 'retired')
+    .filter((id) => !selected.has(id))
     .map((id) => resolveFootballer(career, id))
     .filter((player): player is FootballerProfile => Boolean(player))
     .sort((a, b) => a.id.localeCompare(b.id));
@@ -715,7 +709,6 @@ export const selectBestXI = (
 ): BestXI => {
   const slots = FORMATIONS[formation];
   const players = (club.squadPlayerIds ?? [])
-    .filter((id) => career.footballerWorld?.[id]?.careerStatus !== 'retired')
     .map((id) => resolveFootballer(career, id))
     .filter((p): p is FootballerProfile => Boolean(p))
     .sort((a, b) => a.id.localeCompare(b.id));

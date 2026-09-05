@@ -35,6 +35,7 @@ import {
   deriveCanonicalCoachProfile,
   resolveCoachProfile,
 } from '../../core/coachProfiles';
+import { resolveCareerWorldFootballer } from '../../core/worldDatabase';
 
 const tacticalStyleLabel = {
   possession: 'gra pozycyjna',
@@ -246,7 +247,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
   const previewContract =
     previewPlayer?.id === career.player.id
       ? career.currentContract
-      : career.footballerWorld?.[previewPlayer?.id ?? '']?.currentContract;
+      : resolveCareerWorldFootballer(career, previewPlayer?.id ?? '')?.currentContract;
   const leaguePosition = career.leagueSeason
     ? getLeagueTable(career).find((row) => row.clubId === career.leagueSeason?.controlledClubId)
         ?.position

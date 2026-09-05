@@ -9,7 +9,7 @@ import type {
   WorldTransferRecord,
 } from '../types/domain';
 import { getProfileAge } from './age';
-import { estimateNpcMonthlySalary } from './npcTransferEconomics';
+import { createProfessionalContract } from './playerEconomy';
 import { getPlayerOverall } from './playerOverall';
 import { createProceduralFootballerId } from './proceduralFootballers';
 import { hashRandomSeed, RandomGenerator } from './random/RandomGenerator';
@@ -393,15 +393,21 @@ export const processSummerSquadMarket = (
       const contractEndDate = `${season + 3}-06-30`;
       delta.footballerStateOverrides[id] = {
         currentClubId: club.id,
-        currentContract: {
-          clubId: club.id,
+        currentContract: createProfessionalContract({
+          player: chosen.player.profile,
+          club,
+          role,
+          date: boundaryDate,
+          reputation: chosen.player.reputation ?? 0,
           startDate: boundaryDate,
           endDate: contractEndDate,
-          monthlySalary: estimateNpcMonthlySalary(chosen.player, club, role, boundaryDate),
-          signingBonus: 0,
-          squadRole: role,
-          contractType: role === 'development_player' ? 'development' : 'professional',
-        },
+          offerFactor:
+            0.92 +
+            RandomGenerator.fromSeed(
+              `${career.seed}:npc-contract:${season}:${id}:${club.id}`,
+            ).float() *
+              0.16,
+        }),
       };
       const record: WorldTransferRecord = {
         id: `n:${season}:${hashRandomSeed(`summer-market:${season}:${id}:${club.id}`).toString(36)}`,

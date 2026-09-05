@@ -1,6 +1,5 @@
-import type { ProfessionalClub, SquadRole, WorldFootballer } from '../types/domain';
-import { getProfileAge } from './age';
-import { getPlayerOverall } from './playerOverall';
+import type { ProfessionalClub, WorldFootballer } from '../types/domain';
+import { evaluateTransferFee } from './playerEconomy';
 import { RandomGenerator } from './random/RandomGenerator';
 
 export interface ClubFinancialCapacity {
@@ -65,36 +64,6 @@ export const deriveMonthlyWageBudget = (
   );
 };
 
-const roleFactor: Record<SquadRole, number> = {
-  development_player: 0.58,
-  rotation: 0.78,
-  first_team_competition: 0.95,
-  important_player: 1.18,
-  star_player: 1.45,
-};
-
-export const estimateNpcMonthlySalary = (
-  player: WorldFootballer,
-  club: ProfessionalClub,
-  role: SquadRole,
-  boundaryDate: string,
-) => {
-  const ovr = getPlayerOverall(player.profile, player.profile.primaryPosition);
-  const age = getProfileAge(player.profile, boundaryDate, boundaryDate);
-  const ageFactor = age <= 21 ? 0.78 : age >= 32 ? 1.08 : 1;
-  const tierFactor = 1 + (4 - club.leagueTier) * 0.42;
-  return Math.max(
-    1_200,
-    Math.round(
-      (((club.financialLevel + 20) * 80 + ovr ** 2 * 1.45) *
-        tierFactor *
-        roleFactor[role] *
-        ageFactor) /
-        100,
-    ) * 100,
-  );
-};
-
 export interface NpcTransferValueContext {
   boundaryDate: string;
   sourceClub?: ProfessionalClub | undefined;
@@ -104,38 +73,17 @@ export interface NpcTransferValueContext {
 export const estimateNpcTransferValue = (
   player: WorldFootballer,
   context: NpcTransferValueContext,
-) => {
-  if (
-    !player.currentClubId ||
-    !player.currentContract ||
-    player.currentContract.endDate < context.boundaryDate
-  )
-    return 0;
-  const ovr = getPlayerOverall(player.profile, player.profile.primaryPosition);
-  const age = getProfileAge(player.profile, context.boundaryDate, context.boundaryDate);
-  const potential = Math.max(...Object.values(player.developmentProfile.familyCapacity));
-  const remainingMonths = Math.max(
-    1,
-    (Number(player.currentContract.endDate.slice(0, 4)) -
-      Number(context.boundaryDate.slice(0, 4))) *
-      12 +
-      Number(player.currentContract.endDate.slice(5, 7)) -
-      Number(context.boundaryDate.slice(5, 7)),
-  );
-  const ageFactor =
-    age <= 23 ? 1.15 + Math.max(0, potential - ovr) / 80 : age >= 33 ? 0.42 : age >= 30 ? 0.72 : 1;
-  const contractFactor = Math.min(1.45, 0.42 + remainingMonths / 30);
-  const role = roleFactor[player.currentContract.squadRole];
-  const sourceTier = context.sourceClub?.leagueTier ?? 4;
-  const tierFactor = [0, 1, 0.58, 0.3, 0.14][sourceTier]!;
-  const raw =
-    Math.max(15_000, Math.max(0, ovr - 34) ** 2 * 1_450) *
-    ageFactor *
-    contractFactor *
-    role *
-    tierFactor;
-  return Math.max(5_000, Math.round(raw / 5_000) * 5_000);
-};
+) =>
+  !player.currentClubId
+    ? 0
+    : evaluateTransferFee({
+        player: player.profile,
+        club: context.sourceClub ?? context.destinationClub!,
+        contract: player.currentContract,
+        date: context.boundaryDate,
+        reputation: player.reputation ?? 0,
+        developmentProfile: player.developmentProfile,
+      });
 
 export const deriveCommittedMonthlyWages = (
   squad: readonly string[],

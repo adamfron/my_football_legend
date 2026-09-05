@@ -1,5 +1,17 @@
 # Architektura
 
+## Jedna ekonomia piłkarza i kontraktu
+
+`playerEconomy.ts` jest kanonicznym źródłem bazowej oczekiwanej pensji, informacyjnej wartości
+rynkowej, opłaty transferowej oraz wag ról dla protagonisty i każdego rodzaju NPC. Funkcje przyjmują
+profil piłkarza, klub, datę i kontekst zamiast całego `CareerState`. `createProfessionalContract()`
+materializuje wynik negocjacji; deterministyczny szum należy wyłącznie do warstwy oferty. Gotowy
+`Contract` jest historycznym faktem i nie jest żywą projekcją. Brak kontraktu może zerować opłatę
+transferową, ale nie informacyjną wartość zawodnika.
+
+Oferta odnowienia jest ostateczną decyzją klubu o gotowości do podpisania. Akceptacja sprawdza tylko
+tożsamość i aktualność oferty, bez drugiej ukrytej oceny zainteresowania.
+
 ## Nawadnianie zapisu i trenerzy
 
 Zapis kariery pozostaje rzadki: nie zawiera `clubWorld`, `footballerWorld` ani `youthCohorts`.

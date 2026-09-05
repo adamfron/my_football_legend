@@ -118,7 +118,7 @@ export const auditUnattachedProfessionals = (career: CareerState): UnattachedPro
     else if (origin?.kind === 'intake') result.olderUnsignedAcademyGraduates++;
     else if (origin?.kind === 'supplemental' || origin?.kind === 'emergency')
       result.supplementalPlayers++;
-    else if (career.footballerWorld?.[id]?.currentContract) result.formerContractedProfessionals++;
+    else if (player.currentContract) result.formerContractedProfessionals++;
     else result.otherUnattached++;
     const age = getProfileAge(
       player.profile,

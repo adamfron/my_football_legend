@@ -84,12 +84,13 @@ export const initializeCareerSeason = (
   if (config.professional) {
     const world = career.clubWorld ?? generateProfessionalClubPool(career.seed);
     const tierClubs = world.filter((c) => c.leagueTier === (leagueTier ?? 3));
-    const selected = tierClubs.some((c) => c.id === config.club.id)
-      ? tierClubs
-      : [
-          career.currentProfessionalClub!,
-          ...tierClubs.filter((c) => c.id !== config.club.id),
-        ].slice(0, 16);
+    // A forced protagonist-club promotion/relegation can temporarily leave 17 clubs in a tier
+    // when the independent pyramid projection moved a different club. Always reserve one of the
+    // 16 competition slots for the controlled club before truncating the background field.
+    const selected = [
+      career.currentProfessionalClub!,
+      ...tierClubs.filter((c) => c.id !== config.club.id),
+    ].slice(0, 16);
     const replacements = new Map(season.clubs.map((club, index) => [club.clubId, selected[index]]));
     season.clubs = season.clubs.map((club) => {
       const source = replacements.get(club.clubId);
@@ -477,6 +478,16 @@ const asClub = (offer: ProfessionalOffer): Club => ({
 export const acceptProfessionalOffer = (career: CareerState, offerId: string): CareerState => {
   const offer = career.professionalOffers?.find((o) => o.id === offerId);
   if (!offer) return career;
+  const expectedStartDate = `${career.currentSeason + 1}-07-01`;
+  // An offer is the club's complete decision. Acceptance only validates that the displayed offer
+  // still belongs to this boundary; it never re-runs a hidden willingness check.
+  if (
+    offer.contract.clubId !== offer.club.id ||
+    offer.contract.startDate !== expectedStartDate ||
+    offer.contract.endDate < offer.contract.startDate ||
+    (offer.offerType === 'renewal' && offer.club.id !== career.currentClub.id)
+  )
+    return career;
   if (
     career.leagueSeason?.completed &&
     !(career.completedSeasons ?? []).some((item) => item.seasonId === career.leagueSeason!.id)
@@ -568,6 +579,7 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     seasonOutcome: changedClub ? undefined : career.seasonOutcome,
     professionalOffers: undefined,
     renegotiation: undefined,
+    decisionPoint: undefined,
     worldDelta: career.worldDelta
       ? {
           ...career.worldDelta,

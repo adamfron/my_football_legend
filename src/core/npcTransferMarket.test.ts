@@ -11,9 +11,9 @@ import {
 import {
   deriveClubFinancialCapacity,
   deriveCommittedMonthlyWages,
-  estimateNpcMonthlySalary,
   estimateNpcTransferValue,
 } from './npcTransferEconomics';
+import { evaluateExpectedMonthlySalary } from './playerEconomy';
 import { resolveEffectiveSeniorSquad } from './worldDatabase';
 
 const createCareer = (seed: string) =>
@@ -77,7 +77,13 @@ describe('bounded NPC summer transfer market', () => {
         destinationClub: destination,
       }),
     ).toBeGreaterThan(0);
-    const salary = estimateNpcMonthlySalary(player, destination, 'rotation', '2027-07-01');
+    const salary = evaluateExpectedMonthlySalary({
+      player: player.profile,
+      club: destination,
+      role: 'rotation',
+      date: '2027-07-01',
+      reputation: player.reputation ?? 0,
+    });
     expect(salary).toBeGreaterThan(0);
     expect(
       deriveCommittedMonthlyWages(
