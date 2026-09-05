@@ -187,8 +187,8 @@ Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji
 
 ## Kolejność po PR78
 
-1. PR79 — rekrutacja sterowana przez trenera i jakościowe luki kadry.
-2. PR80 — makrokalibracja długich karier.
+1. PR79 — spójna obserwowalność siły, sezonowego OVR, członkostwa i ofert taktycznych.
+2. Następny duży PR — makrokalibracja długich karier i audyt rozwoju na danych statystycznych.
 3. Single Match [DEV] sandbox.
 4. Decyzyjny, izometryczny vertical slice silnika meczu.
 5. Zużycie fitness/regeneracja oraz pełny system morale.

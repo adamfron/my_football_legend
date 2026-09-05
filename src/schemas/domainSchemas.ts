@@ -318,6 +318,7 @@ export const professionalOfferSchema = z.object({
   contract: contractSchema,
   plannedPosition: playerPositionSchema,
   alternativePositions: z.array(playerPositionSchema).max(2).optional(),
+  tacticalPositionWarning: z.string().optional(),
   interestReasons: z.array(z.string()).min(1),
   opportunity: z.string(),
   risk: z.string(),
@@ -586,6 +587,7 @@ export const careerStateSchema = z.object({
   decisionPoint: playerDecisionPointSchema.optional(),
   fastForwardLog: z.array(fastForwardEntrySchema).max(16).optional(),
   seasonStartingAttributes: playerAttributesSchema.optional(),
+  seasonBaselineOverall: z.record(id, z.number().int().min(0).max(100)).optional(),
   currentContract: contractSchema.optional(),
   professionalOffers: z.array(professionalOfferSchema).optional(),
   careerPhase: z

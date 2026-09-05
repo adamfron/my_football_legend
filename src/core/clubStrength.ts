@@ -43,6 +43,12 @@ export const getCareerClubStrength = (career: CareerState, club: ProfessionalClu
 export const getClubStars = (strength: number) =>
   Math.round(Math.max(0, Math.min(100, strength)) / 10) / 2;
 
+/** One display policy for canonical (possibly fractional) club strength. */
+export const getClubStrengthPresentation = (strength: number) => ({
+  displayedInteger: Math.round(Math.max(0, Math.min(100, strength))),
+  stars: getClubStars(strength),
+});
+
 /** Ephemeral match ratings: identity changes the balance, never the average quality. */
 export const deriveBootstrapClubMatchRatings = (
   club: Pick<

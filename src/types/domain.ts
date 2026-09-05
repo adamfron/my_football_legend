@@ -306,6 +306,8 @@ export interface CareerState {
   playerAvailability?: PlayerAvailabilityState | undefined;
   seasonOutcome?: SeasonOutcome | undefined;
   seasonStartingAttributes?: PlayerAttributes | undefined;
+  /** Frozen nominal OVR references for the current squad season; never a live rating source. */
+  seasonBaselineOverall?: Record<Id, number> | undefined;
   currentContract?: Contract | undefined;
   professionalOffers?: ProfessionalOffer[] | undefined;
   careerPhase?: SeasonPhase | undefined;
@@ -715,6 +717,8 @@ export interface ProfessionalOffer {
   /** Destination manager's present intent, independent of the contractual squad role. */
   plannedPosition: PlayerPosition;
   alternativePositions?: PlayerPosition[] | undefined;
+  /** Present-tense tactical caveat when the manager has no compatible formation slot. */
+  tacticalPositionWarning?: string | undefined;
   interestReasons: string[];
   opportunity: string;
   risk: string;
