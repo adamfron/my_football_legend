@@ -37,6 +37,33 @@
   font-weight: 700;
   cursor: pointer;
 }
+.lab-launcher {
+  max-width: 720px;
+  margin: 20px auto;
+  padding: 28px;
+  display: grid;
+  gap: 18px;
+  background: #192a23;
+  border: 1px solid #50665c;
+}
+.lab-launcher > label {
+  display: grid;
+  gap: 7px;
+  font: 700 12px monospace;
+  letter-spacing: 0.08em;
+}
+.lab-launcher select,
+.lab-launcher input {
+  padding: 10px;
+  color: #eaf2ed;
+  background: #101b17;
+  border: 1px solid #60766b;
+}
+.lab-launcher fieldset {
+  display: flex;
+  gap: 20px;
+  border: 1px solid #50665c;
+}
 .tactical-sandbox button.active,
 .tactical-sandbox button:hover {
   border-color: #b9dec9;
