@@ -72,6 +72,13 @@ export const processNpcRetirements = (
     ? (delta.footballerStateOverrides ?? {})
     : { ...delta.footballerStateOverrides };
   const squadOverrides = reuseOwnedDeltaMaps ? delta.squadOverrides : { ...delta.squadOverrides };
+  const newFootballers = reuseOwnedDeltaMaps ? delta.newFootballers : { ...delta.newFootballers };
+  const footballerOverrides = reuseOwnedDeltaMaps
+    ? delta.footballerOverrides
+    : { ...delta.footballerOverrides };
+  const attributeOverrides = reuseOwnedDeltaMaps
+    ? (delta.footballerAttributeOverrides ?? {})
+    : { ...delta.footballerAttributeOverrides };
   const resolver = createCareerWorldFootballerResolver({
     ...career,
     currentDate: boundaryDate,
@@ -89,6 +96,11 @@ export const processNpcRetirements = (
     // The retired-ID set is authoritative; keeping the prior contract overlay would duplicate
     // dead operational state and make long saves grow needlessly.
     delete stateOverrides[id];
+    // Retired NPCs are outside the simulated world. Procedural identities can be regenerated from
+    // their IDs, while canonical identities remain in the external database.
+    delete newFootballers[id];
+    delete footballerOverrides[id];
+    delete attributeOverrides[id];
     return true;
   };
   for (const club of career.clubWorld ?? []) {
@@ -102,6 +114,9 @@ export const processNpcRetirements = (
   delta = {
     ...delta,
     footballerStateOverrides: stateOverrides,
+    footballerAttributeOverrides: attributeOverrides,
+    newFootballers,
+    footballerOverrides,
     squadOverrides,
     retiredFootballerIds: [...retired],
     npcRetirementProcessedThroughSeason: season,

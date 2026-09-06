@@ -17,7 +17,13 @@ import { getSeasonPlayerSummary } from './matchFeedback';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import { auditCareerSeason } from './seasonAudit';
 import { getCareerCurrentDate, getSeasonProgress } from './seasonProgress';
-import { measureCareerSaveSections, serializeCareerSave } from './persistence';
+import {
+  CAREER_SAVE_SOFT_BUDGET_BYTES,
+  careerSaveSchema,
+  hydrateCareerWithWorld,
+  measureCareerSaveSections,
+  serializeCareerSave,
+} from './persistence';
 import { NPC_RETIREMENT_HARD_MAX_AGE } from './npcRetirement';
 import { getProfileAge } from './age';
 import { auditSeniorWorld } from './worldIntegrity';
@@ -97,6 +103,15 @@ describe('deterministic full-career audit', () => {
     (seedIndex) => {
       const fullCareerStartedAt = performance.now();
       let career = createCareer(`full-simulation-${seedIndex}`);
+      const canonicalWorld = {
+        version: career.worldDatabaseVersion!,
+        startingSeason: 2026,
+        seed: 'poland-2026-v2',
+        clubs: career.clubWorld!,
+        footballers: career.footballerWorld!,
+        youthCohorts: career.youthCohorts!,
+      } as const;
+      const seasonSaveAudit: ReturnType<typeof measureCareerSaveSections>[] = [];
       let iterations = 0;
       let priorDate = getCareerCurrentDate(career);
       const rolledSeasons = new Set<number>();
@@ -167,6 +182,17 @@ describe('deterministic full-career audit', () => {
         const offer = career.professionalOffers?.[0];
         const summerRolloverStartedAt = performance.now();
         career = offer ? acceptProfessionalOffer(career, offer.id) : stayAtCurrentClub(career);
+        const sections = measureCareerSaveSections(career);
+        seasonSaveAudit.push(sections);
+        expect(sections.totalSave).toBeLessThan(CAREER_SAVE_SOFT_BUDGET_BYTES);
+        // Exercise the production payload/schema/hydration boundary at every season transition.
+        const roundTrip = careerSaveSchema.parse(JSON.parse(serializeCareerSave(career))).career;
+        const identity = career.player.id;
+        const completedCount = career.completedSeasons?.length;
+        career = hydrateCareerWithWorld(roundTrip, canonicalWorld);
+        expect(career.player.id).toBe(identity);
+        expect(career.completedSeasons?.length).toBe(completedCount);
+        expect(career.player.primaryPosition).toBe('central_midfielder');
         const summerRolloverMs = performance.now() - summerRolloverStartedAt;
         soakTiming.summerRolloverMs += summerRolloverMs;
         soakTiming.summerRollovers++;
@@ -240,10 +266,11 @@ describe('deterministic full-career audit', () => {
             career.worldDelta?.footballerAttributeOverrides ?? {},
           ).length,
           saveSections: measureCareerSaveSections(career),
+          seasonBoundaries: seasonSaveAudit,
         });
       if (seedIndex === 0)
         expect(new TextEncoder().encode(serializeCareerSave(career)).byteLength).toBeLessThan(
-          3_000_000,
+          CAREER_SAVE_SOFT_BUDGET_BYTES,
         );
       soakTiming.fullCareerMs += performance.now() - fullCareerStartedAt;
     },

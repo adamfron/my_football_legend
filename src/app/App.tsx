@@ -22,6 +22,7 @@ import {
   hydrateCareerWithWorld,
   loadCareer,
   saveCareer,
+  getCareerPersistenceMessage,
 } from '../core/persistence';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { getEventDefinition } from '../core/events/eventRegistry';
@@ -906,7 +907,7 @@ export const App = () => {
       setCareerError(undefined);
     } catch (error) {
       setCareerError(
-        `Nie udało się zapisać kariery.${import.meta.env.DEV && error instanceof Error ? ` ${error.message}` : ''}`,
+        `${getCareerPersistenceMessage(error)}${import.meta.env.DEV && error instanceof Error ? ` ${error.message}` : ''}`,
       );
     }
   };

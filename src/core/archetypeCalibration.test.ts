@@ -5,7 +5,7 @@ const byId = (id: string) => FOOTBALL_ARCHETYPES.find((item) => item.id === id)!
 
 describe('canonical archetype calibration', () => {
   it('removes semantic duplicate and tactical player archetypes', () => {
-    expect(byId('regista')).toBeDefined();
+    expect(byId('playmaker')).toBeDefined();
     expect(FOOTBALL_ARCHETYPES.some((a) => a.id === 'deep_playmaker')).toBe(false);
     expect(getEligibleFootballArchetypes('striker').some((a) => a.id === 'withdrawn_forward')).toBe(
       false,
@@ -17,11 +17,10 @@ describe('canonical archetype calibration', () => {
   });
 
   it('keeps deliberately opposing and distinct generation definitions', () => {
-    expect(byId('regista').generationBias.tackling).toBeLessThan(0);
-    expect(byId('ball_winner').generationBias.tackling).toBeGreaterThan(0);
-    expect(byId('regista').generationBias.technique).toBeGreaterThan(0);
-    expect(byId('ball_winner').generationBias.technique).toBeLessThan(0);
-    expect(byId('mezzala').generationBias).not.toEqual(byId('dribbling_creator').generationBias);
+    expect(byId('playmaker').generationBias.tackling).toBeLessThan(0);
+    expect(byId('defensive_midfielder').generationBias.tackling).toBeGreaterThan(0);
+    expect(byId('playmaker').generationBias.technique).toBeGreaterThan(0);
+    expect(byId('defensive_midfielder').generationBias.finishing).toBeLessThan(0);
     expect(byId('fullback_defensive').generationBias).not.toEqual(
       byId('fullback_offensive').generationBias,
     );
@@ -29,6 +28,17 @@ describe('canonical archetype calibration', () => {
       JSON.stringify(a.generationBias),
     );
     expect(new Set(cb).size).toBe(6);
+  });
+
+  it('offers exactly six canonical central-midfielder profiles', () => {
+    expect(getEligibleFootballArchetypes('central_midfielder').map((item) => item.id)).toEqual([
+      'raumdeuter',
+      'playmaker',
+      'mezzala',
+      'box_to_box',
+      'defensive_midfielder',
+      'complete_midfielder',
+    ]);
   });
 
   it('models complete players with broad moderate shaping', () => {
