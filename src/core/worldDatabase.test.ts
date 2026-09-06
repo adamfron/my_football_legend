@@ -52,7 +52,7 @@ describe('static world and delta resolution', () => {
       clubOverrides: {},
       footballerOverrides: {},
       footballerStateOverrides: {},
-      squadOverrides: {},
+      npcClubMembership: {},
       youthCohortOverrides: {},
       newFootballers: {},
       retiredFootballerIds: [],
@@ -73,14 +73,16 @@ describe('static world and delta resolution', () => {
     const delta = {
       ...emptyWorldDelta(),
       footballerOverrides: { [original.profile.id]: changed },
-      squadOverrides: { [database.clubs[0]!.id]: [] },
+      npcClubMembership: Object.fromEntries(
+        database.clubs[0]!.squadPlayerIds!.map((id) => [id, null]),
+      ),
     };
     expect(
       resolveWorldFootballer(
         { baseWorld: database, player, worldDelta: delta },
         original.profile.id,
       ),
-    ).toBe(changed);
+    ).toEqual({ ...changed, currentClubId: undefined });
     expect(
       resolveWorldSquad({ baseWorld: database, player, worldDelta: delta }, database.clubs[0]!.id),
     ).toEqual([]);

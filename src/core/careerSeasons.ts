@@ -34,7 +34,7 @@ import {
   deriveCanonicalCoachProfile,
   resolveClubManagerId,
 } from './coachProfiles';
-import { resolveEffectiveProfessionalClub, resolveEffectiveSeniorSquad } from './worldDatabase';
+import { resolveEffectiveProfessionalClub } from './worldDatabase';
 import { createSeasonSquadOverallBaseline } from './seasonSquadReference';
 import { compactCareerHistory } from './history/historyCompaction';
 
@@ -536,19 +536,6 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     ...destinationBase,
     squadPlayerIds: [...new Set([...(destinationBase.squadPlayerIds ?? []), career.player.id])],
   };
-  const squadOverrides = career.worldDelta ? { ...career.worldDelta.squadOverrides } : undefined;
-  if (squadOverrides) {
-    for (const worldClub of career.clubWorld ?? [])
-      if (worldClub.id !== offer.club.id)
-        squadOverrides[worldClub.id] = resolveEffectiveSeniorSquad(career, worldClub.id).filter(
-          (id) => id !== career.player.id,
-        );
-    const destinationIds = resolveEffectiveSeniorSquad(career, offer.club.id);
-    squadOverrides[offer.club.id] = [
-      ...destinationIds.filter((id) => id !== career.player.id),
-      career.player.id,
-    ];
-  }
   const types =
     career.careerSeasonNumber === 1
       ? ['academy_graduated', 'first_professional_contract', 'joined_professional_club']
@@ -604,12 +591,7 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     professionalOffers: undefined,
     renegotiation: undefined,
     decisionPoint: undefined,
-    worldDelta: career.worldDelta
-      ? {
-          ...career.worldDelta,
-          squadOverrides: squadOverrides!,
-        }
-      : career.worldDelta,
+    worldDelta: career.worldDelta,
   };
   return advanceToNextCareerSeason(transitioned);
 };

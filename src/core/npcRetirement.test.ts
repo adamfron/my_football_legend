@@ -1,3 +1,4 @@
+import { resolveEffectiveSeniorSquad } from './worldDatabase';
 import { describe, expect, test } from 'vitest';
 import type { WorldFootballer } from '../types/domain';
 import { generateCanonicalFootballerProfile } from './footballerWorld';
@@ -96,6 +97,6 @@ describe('deterministic NPC retirement projection', () => {
     };
     const result = processNpcRetirements(career as never, '2027-07-01');
     expect(result.worldDelta!.retiredFootballerIds).toContain(old.profile.id);
-    expect(result.worldDelta!.squadOverrides.tiny).toEqual([]);
+    expect(resolveEffectiveSeniorSquad(result, 'tiny')).toEqual([]);
   });
 });

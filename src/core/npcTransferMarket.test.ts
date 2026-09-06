@@ -110,8 +110,8 @@ describe('bounded NPC summer transfer market', () => {
       ...base,
       worldDelta: {
         ...base.worldDelta!,
-        squadOverrides: { [club.id]: club.squadPlayerIds!.filter((id) => id !== freeId) },
-        footballerStateOverrides: { [freeId]: { currentClubId: null, currentContract: null } },
+        npcClubMembership: { [freeId]: null },
+        footballerStateOverrides: { [freeId]: { currentContract: null } },
       },
     };
     const first = processSummerSquadMarket(prepared, '2027-07-01');
@@ -123,7 +123,7 @@ describe('bounded NPC summer transfer market', () => {
     expect(diagnostics.maxSquadSize).toBeLessThanOrEqual(30);
     expect(diagnostics.freeAgentSignings).toBeGreaterThan(0);
     expect(diagnostics.supplementalGeneratedProfessionals).toBe(0);
-    expect(first.worldDelta!.footballerStateOverrides![freeId]!.currentClubId).toBeTruthy();
+    expect(first.worldDelta!.npcClubMembership[freeId]).toBeTruthy();
     expect(careerStateSchema.safeParse(first).success).toBe(true);
   });
 
@@ -160,9 +160,7 @@ describe('bounded NPC summer transfer market', () => {
       currentProfessionalClub: undefined,
       worldDelta: {
         ...base.worldDelta!,
-        squadOverrides: {
-          [club.id]: club.squadPlayerIds!.filter((id) => id !== removedId),
-        },
+        npcClubMembership: { [removedId]: null },
       },
     };
     const result = processSummerSquadMarket(prepared, '2026-07-01');
@@ -179,17 +177,13 @@ describe('bounded NPC summer transfer market', () => {
       ...base,
       worldDelta: {
         ...base.worldDelta!,
-        squadOverrides: {
-          [source.id]: source.squadPlayerIds!.filter((id) => id !== freeId),
-        },
-        footballerStateOverrides: {
-          [freeId]: { currentClubId: null, currentContract: null },
-        },
+        npcClubMembership: { [freeId]: null },
+        footballerStateOverrides: { [freeId]: { currentContract: null } },
       },
     };
     // Removing the free agent's old job creates one real vacancy, so he may win it back.
     const signed = processSummerSquadMarket(prepared, '2027-07-01');
-    expect(signed.worldDelta!.footballerStateOverrides![freeId]?.currentClubId).toBeTruthy();
+    expect(signed.worldDelta!.npcClubMembership[freeId]).toBeTruthy();
     expect(
       (signed.clubWorld ?? []).filter((club) =>
         resolveEffectiveSeniorSquad(signed, club.id).includes(contractedId),
@@ -206,12 +200,8 @@ describe('bounded NPC summer transfer market', () => {
       ...base,
       worldDelta: {
         ...base.worldDelta!,
-        footballerStateOverrides: {
-          ['footballer_unattached_established']: {
-            currentClubId: null,
-            currentContract: null,
-          },
-        },
+        npcClubMembership: { footballer_unattached_established: null },
+        footballerStateOverrides: { footballer_unattached_established: { currentContract: null } },
         footballerOverrides: {
           ...base.worldDelta!.footballerOverrides,
           footballer_unattached_established: {

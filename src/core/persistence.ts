@@ -1,11 +1,12 @@
 import { z } from 'zod';
-import type { CareerState, WorldFootballer } from '../types/domain';
+import type { CareerState, CareerWorldDelta, WorldFootballer } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { WORLD_DATABASE_VERSION } from './worldDatabase';
 import { withCanonicalBirthDate } from './age';
 import { rememberFacts } from './history/careerMemory';
+import { parseProceduralFootballerId } from './proceduralFootballers';
 
-export const CAREER_SAVE_VERSION = 6;
+export const CAREER_SAVE_VERSION = 7;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v3';
 /** Audit-derived soft ceiling: full deterministic careers stay well below typical 5 MiB quotas. */
 export const CAREER_SAVE_SOFT_BUDGET_BYTES = 3_000_000;
@@ -73,10 +74,45 @@ const PERSISTED_CAREER_KEYS = [
   'renegotiation',
 ] as const satisfies readonly (keyof PersistedCareerState)[];
 
+const PERSISTED_WORLD_DELTA_KEYS = [
+  'clubOverrides',
+  'footballerOverrides',
+  'footballerStateOverrides',
+  'footballerAttributeOverrides',
+  'npcClubMembership',
+  'youthCohortOverrides',
+  'newFootballers',
+  'retiredFootballerIds',
+  'professionalMarketExitCount',
+  'managerOverrides',
+  'managerMoveRecords',
+  'managerLifecycleProcessedThroughSeason',
+  'npcTransferRecords',
+  'summerMarketDiagnostics',
+  'criticalSquadRepairRecords',
+  'npcRetirementProcessedThroughSeason',
+  'npcTransferMarketProcessedThroughSeason',
+  'youthGraduationProcessedThroughSeason',
+  'currentGraduateIds',
+  'squadRepairProcessedThroughSeason',
+] as const satisfies readonly (keyof CareerWorldDelta)[];
+
+/** Nested allow-list: runtime indexes and diagnostics cannot leak into browser saves. */
+export const toPersistedWorldDelta = (delta: CareerWorldDelta): CareerWorldDelta =>
+  Object.fromEntries(
+    PERSISTED_WORLD_DELTA_KEYS.flatMap((key) =>
+      delta[key] === undefined ? [] : [[key, delta[key]]],
+    ),
+  ) as unknown as CareerWorldDelta;
+
 /** Explicit allow-list boundary: runtime additions never become persistent by accident. */
 export const toPersistedCareerState = (career: CareerState): PersistedCareerState =>
   Object.fromEntries(
-    PERSISTED_CAREER_KEYS.flatMap((key) => (career[key] === undefined ? [] : [[key, career[key]]])),
+    PERSISTED_CAREER_KEYS.flatMap((key) =>
+      career[key] === undefined
+        ? []
+        : [[key, key === 'worldDelta' ? toPersistedWorldDelta(career.worldDelta!) : career[key]]],
+    ),
   ) as PersistedCareerState;
 export type LoadCareerResult =
   | { ok: true; save: CareerSave }
@@ -269,7 +305,11 @@ export const measureCareerSaveSections = (career: CareerState) => {
     seasonParticipation: serializedBytes(career.seasonParticipation ?? []),
     matchHistory: serializedBytes(career.matchHistory ?? []),
     youthCohortOverrides: serializedBytes(delta?.youthCohortOverrides ?? {}),
-    squadOverrides: serializedBytes(delta?.squadOverrides ?? {}),
+    npcClubMembership: serializedBytes(delta?.npcClubMembership ?? {}),
+    managerState: serializedBytes({
+      managerOverrides: delta?.managerOverrides ?? {},
+      managerMoveRecords: delta?.managerMoveRecords ?? [],
+    }),
     otherWorldDelta: serializedBytes(
       delta
         ? Object.fromEntries(
@@ -283,7 +323,7 @@ export const measureCareerSaveSections = (career: CareerState) => {
                   'professionalMarketExitCount',
                   'npcTransferRecords',
                   'youthCohortOverrides',
-                  'squadOverrides',
+                  'npcClubMembership',
                 ].includes(key),
             ),
           )
@@ -382,8 +422,46 @@ const migrateV5Save = (save: Record<string, unknown>): unknown => {
   delete career.clubWorld;
   delete career.footballerWorld;
   delete career.youthCohorts;
-  return { ...save, version: CAREER_SAVE_VERSION, career };
+  return { ...save, version: 6, career };
 };
+/**
+ * v6 membership precedence is deliberately player-centric: squadOverrides establish membership,
+ * then footballerStateOverrides.currentClubId wins, and retirement wins over both.
+ */
+export const migrateV6WorldDelta = (source: Record<string, any>): Record<string, any> => {
+  const membership: Record<string, string | null> = {};
+  for (const [clubId, ids] of Object.entries(source.squadOverrides ?? {}))
+    for (const id of ids as string[]) membership[id] = clubId;
+  const states = Object.fromEntries(
+    Object.entries(source.footballerStateOverrides ?? {}).flatMap(([id, raw]) => {
+      const state = raw as Record<string, any>;
+      if ('currentClubId' in state) membership[id] = state.currentClubId ?? null;
+      const compact = 'currentContract' in state ? { currentContract: state.currentContract } : {};
+      return Object.keys(compact).length ? [[id, compact]] : [];
+    }),
+  );
+  for (const id of source.retiredFootballerIds ?? []) delete membership[id];
+  return {
+    ...source,
+    footballerStateOverrides: states,
+    npcClubMembership: membership,
+    newFootballers: Object.fromEntries(
+      Object.entries(source.newFootballers ?? {}).filter(
+        ([id]) => !parseProceduralFootballerId(id),
+      ),
+    ),
+    squadOverrides: undefined,
+  };
+};
+
+const migrateV6Save = (save: Record<string, any>): unknown => ({
+  ...save,
+  version: CAREER_SAVE_VERSION,
+  career: {
+    ...save.career,
+    ...(save.career?.worldDelta ? { worldDelta: migrateV6WorldDelta(save.career.worldDelta) } : {}),
+  },
+});
 /* eslint-enable @typescript-eslint/no-explicit-any */
 export const loadCareer = (): LoadCareerResult => {
   if (!storageAvailable()) return { ok: false, reason: 'missing' };
@@ -399,7 +477,7 @@ export const loadCareer = (): LoadCareerResult => {
     typeof parsed === 'object' &&
     parsed &&
     'version' in parsed &&
-    ![3, 4, 5, CAREER_SAVE_VERSION].includes(parsed.version as number)
+    ![3, 4, 5, 6, CAREER_SAVE_VERSION].includes(parsed.version as number)
   )
     return { ok: false, reason: 'incompatible_version' };
   if (
@@ -419,6 +497,13 @@ export const loadCareer = (): LoadCareerResult => {
     [3, 4, 5].includes(parsed.version as number)
   )
     parsed = migrateV5Save(parsed as Record<string, unknown>);
+  if (
+    typeof parsed === 'object' &&
+    parsed &&
+    'version' in parsed &&
+    [6].includes(parsed.version as number)
+  )
+    parsed = migrateV6Save(parsed as Record<string, never>);
   const result = careerSaveSchema.safeParse(parsed);
   if (!result.success) return { ok: false, reason: 'invalid_data' };
   if (result.data.career.worldDatabaseVersion !== WORLD_DATABASE_VERSION)

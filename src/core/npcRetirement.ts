@@ -71,7 +71,9 @@ export const processNpcRetirements = (
   const stateOverrides = reuseOwnedDeltaMaps
     ? (delta.footballerStateOverrides ?? {})
     : { ...delta.footballerStateOverrides };
-  const squadOverrides = reuseOwnedDeltaMaps ? delta.squadOverrides : { ...delta.squadOverrides };
+  const npcClubMembership = reuseOwnedDeltaMaps
+    ? delta.npcClubMembership
+    : { ...delta.npcClubMembership };
   const newFootballers = reuseOwnedDeltaMaps ? delta.newFootballers : { ...delta.newFootballers };
   const footballerOverrides = reuseOwnedDeltaMaps
     ? delta.footballerOverrides
@@ -101,12 +103,11 @@ export const processNpcRetirements = (
     delete newFootballers[id];
     delete footballerOverrides[id];
     delete attributeOverrides[id];
+    delete npcClubMembership[id];
     return true;
   };
   for (const club of career.clubWorld ?? []) {
-    const squad = squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
-    const next = squad.filter((id) => !retire(id));
-    if (next.length !== squad.length) squadOverrides[club.id] = next;
+    for (const id of club.squadPlayerIds ?? []) retire(id);
   }
   for (const id of Object.keys(delta.newFootballers)) retire(id);
   for (const id of Object.keys(delta.footballerOverrides)) retire(id);
@@ -117,7 +118,7 @@ export const processNpcRetirements = (
     footballerAttributeOverrides: attributeOverrides,
     newFootballers,
     footballerOverrides,
-    squadOverrides,
+    npcClubMembership,
     retiredFootballerIds: [...retired],
     npcRetirementProcessedThroughSeason: season,
   };

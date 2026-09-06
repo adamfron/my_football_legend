@@ -87,13 +87,12 @@ describe('U-17 graduation and first contracts', () => {
       diagnostics.graduates,
     );
     for (const id of graduateIds) {
-      expect(career.worldDelta!.footballerStateOverrides![id]).toEqual({
-        currentClubId: null,
-        currentContract: null,
-        careerStatus: 'active',
-      });
+      expect(career.worldDelta!.footballerStateOverrides![id]).toEqual({ currentContract: null });
+      expect(career.worldDelta!.npcClubMembership[id]).toBeNull();
       expect(
-        Object.values(career.worldDelta!.squadOverrides).some((squad) => squad.includes(id)),
+        (career.clubWorld ?? []).some((club) =>
+          resolveEffectiveSeniorSquad(career, club.id).includes(id),
+        ),
       ).toBe(false);
     }
   });
@@ -110,8 +109,10 @@ describe('U-17 graduation and first contracts', () => {
       ...graduated,
       worldDelta: {
         ...graduated.worldDelta!,
-        squadOverrides: Object.fromEntries(
-          graduated.clubWorld!.map((club) => [club.id, club.squadPlayerIds!.slice(0, 22)]),
+        npcClubMembership: Object.fromEntries(
+          graduated.clubWorld!.flatMap((club) =>
+            club.squadPlayerIds!.slice(22).map((id) => [id, null]),
+          ),
         ),
       },
     };
@@ -130,7 +131,7 @@ describe('U-17 graduation and first contracts', () => {
       ),
     ).toBe(true);
     for (const [id, clubId] of destinations) {
-      expect(marketed.worldDelta!.footballerStateOverrides![id]!.currentClubId).toBe(clubId);
+      expect(marketed.worldDelta!.npcClubMembership[id]).toBe(clubId);
       expect(
         (marketed.clubWorld ?? []).filter((club) =>
           resolveEffectiveSeniorSquad(marketed, club.id).includes(id),

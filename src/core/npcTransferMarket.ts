@@ -181,7 +181,7 @@ export const processSummerSquadMarket = (
   if ((source.npcTransferMarketProcessedThroughSeason ?? -1) >= season) return career;
   const delta = {
     ...source,
-    squadOverrides: { ...source.squadOverrides },
+    npcClubMembership: { ...source.npcClubMembership },
     footballerStateOverrides: { ...source.footballerStateOverrides },
   };
   const clubs = [...(career.clubWorld ?? [])].sort(compareClubMarketPriority);
@@ -224,7 +224,6 @@ export const processSummerSquadMarket = (
         if (renewal) {
           const renewedRole = renewalRoleFor(player, club, squad, boundaryDate, resolve);
           delta.footballerStateOverrides[id] = {
-            currentClubId: club.id,
             currentContract: {
               ...player.currentContract,
               squadRole: renewedRole,
@@ -263,7 +262,8 @@ export const processSummerSquadMarket = (
           squads.get(club.id)!.filter((candidate) => candidate !== id),
         );
         membership.delete(id);
-        delta.footballerStateOverrides[id] = { currentClubId: null, currentContract: null };
+        delta.npcClubMembership[id] = null;
+        delta.footballerStateOverrides[id] = { currentContract: null };
         expiryCount++;
       } else if (intent.wantsMove && intent.reason)
         voluntary.push({ id, reason: intent.reason, score: intent.score });
@@ -442,7 +442,6 @@ export const processSummerSquadMarket = (
       const role = roleFor(chosen.player, club, boundaryDate);
       const contractEndDate = `${season + 3}-06-30`;
       delta.footballerStateOverrides[id] = {
-        currentClubId: club.id,
         currentContract: createProfessionalContract({
           player: chosen.player.profile,
           club,
@@ -473,8 +472,9 @@ export const processSummerSquadMarket = (
       }
     }
   }
-  for (const [clubId, ids] of squads)
-    delta.squadOverrides[clubId] = [...new Set(ids)].slice(0, SENIOR_SQUAD_LIMITS.hardMaximum);
+  for (const [playerId, clubId] of membership) delta.npcClubMembership[playerId] = clubId;
+  for (const [playerId, clubId] of Object.entries(delta.npcClubMembership))
+    if (clubId && !membership.has(playerId)) delta.npcClubMembership[playerId] = null;
   // The market pool is ephemeral. Unattached candidates have lost the competition for one of the
   // finite professional jobs; retain reconstructible identity data and only a cumulative counter.
   let marketExits = 0;

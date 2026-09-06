@@ -99,7 +99,7 @@ describe('completed professional season offer regression', () => {
     expect(next.careerCalendar?.seasonId).toBe(next.leagueSeason?.id);
     expect(next.player.age).toBe(getProfileAge(next.player, `${next.currentSeason}-07-01`));
     const seniorOccurrences = (next.clubWorld ?? []).reduce((count, club) => {
-      const ids = next.worldDelta?.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
+      const ids = resolveEffectiveSeniorSquad(next, club.id);
       return count + ids.filter((id) => id === next.player.id).length;
     }, 0);
     expect(seniorOccurrences).toBe(1);
@@ -244,7 +244,7 @@ describe('annual background lifecycle', () => {
     const repeated = processNpcRetirements(processed, '2041-07-01');
     expect(repeated.worldDelta).toEqual(processed.worldDelta);
     for (const club of processed.clubWorld ?? []) {
-      const squad = processed.worldDelta!.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
+      const squad = resolveEffectiveSeniorSquad(processed, club.id);
       expect(squad.some((id) => processed.worldDelta!.retiredFootballerIds.includes(id))).toBe(
         false,
       );

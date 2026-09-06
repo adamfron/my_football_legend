@@ -1,3 +1,4 @@
+import { resolveEffectiveSeniorSquad } from './worldDatabase';
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from 'vitest';
 import {
@@ -10,6 +11,7 @@ import {
   serializeCareerSave,
   migrateLegacyMidfieldPositions,
   CareerPersistenceError,
+  migrateV6WorldDelta,
 } from './persistence';
 import {
   createCareerState,
@@ -28,6 +30,25 @@ import { acceptProfessionalOffer } from './careerSeasons';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { processYouthGraduation } from './youthGraduation';
 import { processYouthIntake } from './youthIntake';
+
+describe('v6 to v7 world normalization', () => {
+  it('uses player state over squads, retirement over both, and drops procedural cards', () => {
+    const proceduralId = 'footballer_proc_v2_emergency_pro_0_2027_goalkeeper_0';
+    const migrated = migrateV6WorldDelta({
+      squadOverrides: { old: ['moved', 'retired'], conflicting: ['moved'] },
+      footballerStateOverrides: {
+        moved: { currentClubId: 'winner', careerStatus: 'active' },
+        retired: { currentClubId: 'old', careerStatus: 'retired' },
+      },
+      retiredFootballerIds: ['retired'],
+      newFootballers: { [proceduralId]: {} },
+    });
+    expect(migrated.npcClubMembership).toEqual({ moved: 'winner' });
+    expect(migrated.footballerStateOverrides).toEqual({});
+    expect(migrated.newFootballers).toEqual({});
+    expect(migrated.squadOverrides).toBeUndefined();
+  });
+});
 
 const input: CreatorInput = {
   firstName: 'Jan',
@@ -206,7 +227,7 @@ describe('career persistence', () => {
       competition: { category: 'professional' },
     });
     const occurrences = next.clubWorld!.reduce((count, club) => {
-      const squad = next.worldDelta!.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
+      const squad = resolveEffectiveSeniorSquad(next, club.id);
       return count + squad.filter((id) => id === next.player.id).length;
     }, 0);
     expect(occurrences).toBe(1);
@@ -219,7 +240,7 @@ describe('career persistence', () => {
       stateOverrides: Object.keys(next.worldDelta?.footballerStateOverrides ?? {}).length,
       attributeOverrides: Object.keys(next.worldDelta?.footballerAttributeOverrides ?? {}).length,
       newFootballers: Object.keys(next.worldDelta?.newFootballers ?? {}).length,
-      squadOverrides: Object.keys(next.worldDelta?.squadOverrides ?? {}).length,
+      npcClubMembership: Object.keys(next.worldDelta?.npcClubMembership ?? {}).length,
       npcTransfers: next.worldDelta?.npcTransferRecords?.length ?? 0,
     };
     console.info('academy-to-professional save metrics', metrics);

@@ -40,7 +40,10 @@ describe('canonical effective senior squad', () => {
       currentProfessionalClub: club,
       worldDelta: {
         ...base.worldDelta!,
-        squadOverrides: { [club.id]: ids },
+        npcClubMembership: {
+          ...Object.fromEntries(club.squadPlayerIds!.map((id) => [id, null])),
+          ...Object.fromEntries(ids.map((id) => [id, club.id])),
+        },
       },
     };
     const effective = resolveEffectiveSeniorSquad(career, club.id);
