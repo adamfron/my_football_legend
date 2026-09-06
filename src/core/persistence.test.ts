@@ -1,11 +1,8 @@
 import { resolveEffectiveSeniorSquad } from './worldDatabase';
 // @vitest-environment jsdom
-import { beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  CAREER_SAVE_KEY,
-  deleteCareer,
-  hasValidCareer,
-  loadCareer,
+  parseCareerSave,
   hydrateCareerWithWorld,
   saveCareer,
   serializeCareerSave,
@@ -94,8 +91,7 @@ const career = () =>
   createCareerState(generateStartingPlayerProfile(input, 'save-seed', 0), 'save-seed');
 
 describe('career persistence', () => {
-  beforeEach(() => localStorage.clear());
-  it('saves and loads a valid localStorage career', () => {
+  it('serializes and parses a valid career', () => {
     const state = career();
     state.seasonBaselineOverall = { [state.player.id]: 62 };
     cacheWorldDatabase({
@@ -108,10 +104,8 @@ describe('career persistence', () => {
     });
     const saved = saveCareer(state);
     expect('youthCohorts' in saved.career).toBe(false);
-    expect(JSON.parse(localStorage.getItem(CAREER_SAVE_KEY)!).career.youthCohorts).toBeUndefined();
-    const loaded = loadCareer();
+    const loaded = parseCareerSave(JSON.stringify(saved));
     expect(loaded.ok).toBe(true);
-    expect(hasValidCareer()).toBe(true);
     if (loaded.ok) {
       expect(loaded.save.career.seed).toBe('save-seed');
       expect(loaded.save.career.seasonBaselineOverall).toEqual({ [state.player.id]: 62 });
@@ -140,14 +134,12 @@ describe('career persistence', () => {
     });
     const legacy = structuredClone(saveCareer(state));
     delete legacy.career.player.dateOfBirth;
-    localStorage.setItem(CAREER_SAVE_KEY, JSON.stringify(legacy));
-    const first = loadCareer();
-    const second = loadCareer();
+    const first = parseCareerSave(JSON.stringify(legacy));
+    const second = parseCareerSave(JSON.stringify(legacy));
     expect(first).toEqual(second);
     expect(first.ok && first.save.career.player.dateOfBirth).toBeTruthy();
     if (first.ok) {
-      saveCareer(first.save.career);
-      const roundTrip = loadCareer();
+      const roundTrip = parseCareerSave(JSON.stringify(saveCareer(first.save.career)));
       expect(roundTrip.ok && roundTrip.save.career.player.dateOfBirth).toBe(
         first.save.career.player.dateOfBirth,
       );
@@ -164,8 +156,7 @@ describe('career persistence', () => {
       youthCohorts: base.youthCohorts!,
     });
     const graduated = processYouthGraduation(base).career;
-    saveCareer(graduated);
-    const loaded = loadCareer();
+    const loaded = parseCareerSave(JSON.stringify(saveCareer(graduated)));
     expect(loaded.ok).toBe(true);
     if (loaded.ok) {
       expect(loaded.save.career.youthCohorts).toBeUndefined();
@@ -187,8 +178,7 @@ describe('career persistence', () => {
       .flat()
       .find((candidate) => !generated.footballerWorld![candidate])!;
     const before = resolveCareerWorldFootballer(generated, id);
-    saveCareer(generated);
-    const loaded = loadCareer();
+    const loaded = parseCareerSave(JSON.stringify(saveCareer(generated)));
     expect(loaded.ok).toBe(true);
     if (!loaded.ok) return;
     const hydrated = hydrateCareerWithWorld(loaded.save.career, world);
@@ -212,9 +202,9 @@ describe('career persistence', () => {
       leagueSeason: { ...base.leagueSeason!, completed: true },
       seasonOutcome: { finalPosition: 5, champion: false, competitionType: 'academy' as const },
     });
-    saveCareer(completed);
+    const serializedCompleted = JSON.stringify(saveCareer(completed));
     clearWorldDatabaseCache();
-    const loaded = loadCareer();
+    const loaded = parseCareerSave(serializedCompleted);
     expect(loaded.ok).toBe(true);
     if (!loaded.ok) return;
     expect(loaded.save.career.clubWorld).toBeUndefined();
@@ -252,45 +242,26 @@ describe('career persistence', () => {
     expect(serialized).not.toContain('"footballerWorld"');
     expect(serialized).not.toContain('"youthCohorts"');
   });
-  it('deletes a career', () => {
-    saveCareer(career());
-    deleteCareer();
-    expect(loadCareer()).toEqual({ ok: false, reason: 'missing' });
-  });
   it('rejects corrupted JSON', () => {
-    localStorage.setItem(CAREER_SAVE_KEY, '{bad');
-    expect(loadCareer()).toEqual({ ok: false, reason: 'invalid_json' });
+    expect(parseCareerSave('{bad')).toEqual({ ok: false, reason: 'invalid_json' });
   });
-  it('distinguishes validation and browser quota failures', () => {
+  it('distinguishes validation failures', () => {
     expect(() => saveCareer({ ...career(), historyFacts: null } as never)).toThrowError(
       expect.objectContaining<Partial<CareerPersistenceError>>({ kind: 'validation_failure' }),
     );
-    const original = Storage.prototype.setItem;
-    Storage.prototype.setItem = () => {
-      const error = new Error('full');
-      error.name = 'QuotaExceededError';
-      throw error;
-    };
-    try {
-      expect(() => saveCareer(career())).toThrowError(
-        expect.objectContaining<Partial<CareerPersistenceError>>({ kind: 'quota_exceeded' }),
-      );
-    } finally {
-      Storage.prototype.setItem = original;
-    }
   });
   it('rejects incompatible versions', () => {
-    localStorage.setItem(
-      CAREER_SAVE_KEY,
-      JSON.stringify({ version: 99, savedAt: new Date().toISOString(), career: {} }),
-    );
-    expect(loadCareer()).toEqual({ ok: false, reason: 'incompatible_version' });
+    expect(
+      parseCareerSave(
+        JSON.stringify({ version: 99, savedAt: new Date().toISOString(), career: {} }),
+      ),
+    ).toEqual({ ok: false, reason: 'incompatible_version' });
   });
   it('intentionally rejects prototype-era version 1 saves', () => {
-    localStorage.setItem(
-      CAREER_SAVE_KEY,
-      JSON.stringify({ version: 1, savedAt: new Date().toISOString(), career: career() }),
-    );
-    expect(loadCareer()).toEqual({ ok: false, reason: 'incompatible_version' });
+    expect(
+      parseCareerSave(
+        JSON.stringify({ version: 1, savedAt: new Date().toISOString(), career: career() }),
+      ),
+    ).toEqual({ ok: false, reason: 'incompatible_version' });
   });
 });

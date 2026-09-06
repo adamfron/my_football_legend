@@ -15,3 +15,10 @@ export const recordMatchTransition = (entry: MatchTransitionLog) => {
   if (transitions.length > 5) transitions.shift();
 };
 export const getMatchTransitionHistory = () => [...transitions];
+
+/** Compact diagnostics for the opt-in DEV surface; no production settings UI is exposed. */
+export const getCareerStorageDiagnostics = async () => {
+  if (!isDevToolsEnabled()) return undefined;
+  const { careerStorage } = await import('../persistence/careerStorage');
+  return careerStorage.getDiagnostics();
+};

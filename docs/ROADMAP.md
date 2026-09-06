@@ -153,7 +153,11 @@ nie wyprzedzają silnika meczu.
   bramkarz/pole pozostanie wyjątkowa. Długotrwałe opanowanie wielu pozycji może zapewnić zdobywaną
   cechę „Uniwersalny” i ograniczyć tarcie nieznanej pozycji.
 - Tylko XI ma slot formacji. Ławka i głęboka rezerwa pokazują `Ust. = —` oraz nominalny OVR;
-  `assignedPosition` powstaje dopiero po wejściu na boisko.
+  `assignedPosition` powstaje dopiero po wejściu na boisko. Rezerwowy musi wtedy otrzymać faktyczny
+  użyty slot/pozycję taktyczną, nigdy automatycznie `primaryPosition` z braku przydziału XI.
+- Trener zainteresowany zawodnikiem o pozycji nieużywanej w formacji może w przyszłości zaproponować
+  konkretną zmianę pozycji lub rolę alternatywną; nie jest to automatyczne dopasowanie.
+- Należy ponownie przeanalizować rozdział pozycji nominalnej, slotu taktycznego oraz roli/duty.
 - Przyszłe przypisania stałych fragmentów obejmą karne, bezpośrednie wolne i rożne, także wyjątkowych bramkarzy-wykonawców.
 - Kreator piłkarza pozwoli wybrać dzień i miesiąc urodzenia, wyprowadzając rok dla dokładnie 16 lat na starcie; przyszły kreator menedżera przyjmie pełną datę i zmienny wiek.
 - Czerwona kartka materialnie obniży ocenę (bezpośrednia i druga żółta mogą różnić się karą), z zachowaniem kanonicznej chronologii.
@@ -189,10 +193,26 @@ Przyszły audyt rozwoju porówna poziom trudności ze startowym i szczytowym OVR
 
 ## Plan po PR83
 
-Persistence 2.0 jest ukończonym fundamentem: zapis kariery i świata ma jawne granice, proceduralne
+Persistence 2.0 / normalizacja świata jest ukończonym fundamentem: zapis kariery i świata ma jawne granice, proceduralne
 tożsamości są rekonstruowane, a przynależność zawodowych NPC ma jeden kanoniczny, player-centric
 stan. Globalna kalibracja rozwoju i populacji jest świadomie odłożona do czasu Competition/Calendar
 2.0, rozszerzenia lig oraz pucharów krajowych i innych znaczących spotkań.
+
+**Zrealizowano w PR84:** przeglądarkowy zapis IndexedDB z bezpieczną migracją dawnego zapisu
+`localStorage`, jawnym trybem awaryjnym i asynchroniczną, szeregowaną granicą zapisu.
+
+### Animowane sekwencje decyzji taktycznych
+
+Ważne mecze rozgrywane osobiście użyją izometrycznego renderera taktycznego o stałej orientacji:
+
+`migawka / bramka decyzyjna → decyzja gracza → deterministyczne rozstrzygnięcie core → krótka
+animacja → autonomiczna kontynuacja → kolejna bramka, gdy protagonista znów jest istotny`.
+
+Mecz pozostaje decyzyjny, nigdy zręcznościowy ani refleksowy. Renderer nigdy nie rozstrzyga wyniku
+sportowego. Warstwa wizualna może docelowo użyć Three.js, `OrthographicCamera`, `WebGLRenderer`
+oraz prostych modeli low-poly lub billboard sprites; silnik fizyki nie jest potrzebny. Core zapisuje
+kanoniczne współrzędne boiska, a współrzędne renderowania są wyłącznie pochodnym stanem prezentacji.
+Orientacja kamery pozostaje stabilna, aby gracz nie musiał mentalnie obracać boiska.
 
 ### Position & Tactical Role Design Revisit
 
