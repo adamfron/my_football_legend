@@ -1,5 +1,11 @@
 # Roadmap
 
+## Stabilizacja integracji asynchronicznego zapisu (PR85)
+
+Ten krok wyłącznie stabilizuje integrację przepływu kariery z asynchronicznym zapisem v7. Nie
+zmienia kierunku roadmapy. Następne pozostają **Animated Single Match Sandbox [DEV]**, a po nim
+**animated decision vertical slice**; prace Three.js nie należą do tego kroku.
+
 ## Natychmiastowa kolejność po PR77
 
 1. Obserwowalność kadry i dostępności: sezonowa delta OVR, znacznik NEW, widoczny fitness, urazy/zawieszenia, początkowa architektura morale oraz późniejsza karta hover trenera.
