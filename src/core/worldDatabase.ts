@@ -10,7 +10,7 @@ import type {
 } from '../types/domain';
 import { professionalClubSchema, worldFootballerSchema } from '../schemas/domainSchemas';
 import { projectNpcAttributesAtDate } from './seasonDevelopment';
-import { resolveProceduralFootballer } from './proceduralFootballers';
+import { parseProceduralFootballerId, resolveProceduralFootballer } from './proceduralFootballers';
 
 export const WORLD_DATABASE_VERSION = 'pl-2026-v2';
 export const WORLD_DATABASE_SEED = 'mfl-world-pl-2026-v2';
@@ -28,7 +28,7 @@ export const emptyWorldDelta = (): CareerWorldDelta => ({
   clubOverrides: {},
   footballerOverrides: {},
   footballerStateOverrides: {},
-  squadOverrides: {},
+  npcClubMembership: {},
   youthCohortOverrides: {},
   newFootballers: {},
   retiredFootballerIds: [],
@@ -73,7 +73,11 @@ export const resolveWorldFootballer = (
     resolveProceduralFootballer(id, world.baseWorld.clubs);
   if (!footballer) return undefined;
   const state = delta?.footballerStateOverrides?.[id];
-  const composed = state ? composeFootballerState(footballer, state) : footballer;
+  const clubId = delta?.npcClubMembership[id];
+  const composed = {
+    ...(state ? composeFootballerState(footballer, state) : footballer),
+    ...(clubId !== undefined ? { currentClubId: clubId ?? undefined } : {}),
+  };
   const attributes = delta?.footballerAttributeOverrides?.[id];
   return attributes
     ? {
@@ -91,11 +95,9 @@ const composeFootballerState = (
   state: NonNullable<CareerWorldDelta['footballerStateOverrides']>[Id],
 ): WorldFootballer => ({
   ...footballer,
-  ...(state.currentClubId !== undefined ? { currentClubId: state.currentClubId ?? undefined } : {}),
   ...(state.currentContract !== undefined
     ? { currentContract: state.currentContract ?? undefined }
     : {}),
-  ...(state.careerStatus !== undefined ? { careerStatus: state.careerStatus } : {}),
 });
 
 /** Composes base/new, rare full override, then the sparse development overlay. */
@@ -109,10 +111,14 @@ export const resolveCareerWorldFootballer = (
     delta?.footballerOverrides[id] ??
     career.footballerWorld?.[id] ??
     resolveProceduralFootballer(id, (career as Partial<CareerState>).clubWorld ?? []);
-  const footballer =
+  const composed =
     base && delta?.footballerStateOverrides?.[id]
       ? composeFootballerState(base, delta.footballerStateOverrides[id]!)
       : base;
+  const clubId = delta?.npcClubMembership[id];
+  const footballer = composed
+    ? { ...composed, ...(clubId !== undefined ? { currentClubId: clubId ?? undefined } : {}) }
+    : composed;
   if (!footballer || delta?.retiredFootballerIds.includes(id)) return undefined;
   const projected = career.currentDate
     ? {
@@ -155,10 +161,14 @@ export const createCareerWorldFootballerResolver = (
       : (delta?.footballerOverrides[id] ??
         career.footballerWorld?.[id] ??
         resolveProceduralFootballer(id, (career as Partial<CareerState>).clubWorld ?? []));
-    const footballer =
+    const composed =
       base && delta?.footballerStateOverrides?.[id]
         ? composeFootballerState(base, delta.footballerStateOverrides[id]!)
         : base;
+    const clubId = delta?.npcClubMembership[id];
+    const footballer = composed
+      ? { ...composed, ...(clubId !== undefined ? { currentClubId: clubId ?? undefined } : {}) }
+      : composed;
     const projected =
       footballer && career.currentDate
         ? {
@@ -188,9 +198,46 @@ export const createCareerWorldFootballerResolver = (
     return effective;
   };
 };
+export const resolveNpcClubMembership = (
+  career: Pick<CareerState, 'clubWorld' | 'worldDelta'>,
+  playerId: Id,
+): Id | null => {
+  const explicit = career.worldDelta?.npcClubMembership[playerId];
+  if (explicit !== undefined) return explicit;
+  return career.clubWorld?.find((club) => club.squadPlayerIds?.includes(playerId))?.id ?? null;
+};
+
+const seniorSquadIndexCache = new WeakMap<object, Map<Id, Id[]>>();
+export const buildEffectiveSeniorSquadIndex = (
+  career: Pick<CareerState, 'clubWorld' | 'worldDelta'>,
+): Map<Id, Id[]> => {
+  const cachedIndex = seniorSquadIndexCache.get(career);
+  if (cachedIndex) return cachedIndex;
+  const result = new Map(
+    (career.clubWorld ?? []).map((club) => [club.id, [...(club.squadPlayerIds ?? [])]]),
+  );
+  const retired = new Set(career.worldDelta?.retiredFootballerIds ?? []);
+  for (const [id, destination] of Object.entries(career.worldDelta?.npcClubMembership ?? {})) {
+    for (const ids of result.values()) {
+      const index = ids.indexOf(id);
+      if (index >= 0) ids.splice(index, 1);
+    }
+    if (destination && result.has(destination)) result.get(destination)!.push(id);
+  }
+  for (const [clubId, ids] of result)
+    result.set(
+      clubId,
+      [...new Set(ids)].filter((id) => !retired.has(id)),
+    );
+  seniorSquadIndexCache.set(career, result);
+  return result;
+};
+
 export const resolveWorldSquad = (world: WorldContext, clubId: Id): Id[] | undefined =>
-  world.worldDelta?.squadOverrides[clubId] ??
-  world.baseWorld.clubs.find((club) => club.id === clubId)?.squadPlayerIds;
+  buildEffectiveSeniorSquadIndex({
+    clubWorld: world.baseWorld.clubs,
+    worldDelta: world.worldDelta,
+  }).get(clubId);
 
 /** The only runtime source of senior membership: bootstrap IDs plus sparse career state. */
 export const resolveEffectiveSeniorSquad = (
@@ -203,7 +250,8 @@ export const resolveEffectiveSeniorSquad = (
     resolveCareerWorldFootballer(career, id),
 ): Id[] => {
   const club = career.clubWorld?.find((item) => item.id === clubId);
-  const bootstrap = career.worldDelta?.squadOverrides[clubId] ?? club?.squadPlayerIds ?? [];
+  const bootstrap =
+    buildEffectiveSeniorSquadIndex(career).get(clubId) ?? club?.squadPlayerIds ?? [];
   const retired = new Set(career.worldDelta?.retiredFootballerIds ?? []);
   const protagonistBelongs = career.currentProfessionalClub?.id === clubId;
   return [...new Set([...bootstrap, ...(protagonistBelongs ? [career.player.id] : [])])].filter(
@@ -242,13 +290,15 @@ export const registerNewFootballer = (
   footballer: WorldFootballer,
 ): CareerWorldDelta => ({
   ...delta,
-  newFootballers: { ...delta.newFootballers, [footballer.profile.id]: footballer },
+  newFootballers: parseProceduralFootballerId(footballer.profile.id)
+    ? delta.newFootballers
+    : { ...delta.newFootballers, [footballer.profile.id]: footballer },
 });
-export const moveFootballer = (
+export const setNpcClubMembership = (
   delta: CareerWorldDelta,
-  club: ProfessionalClub,
-  squad: Id[],
+  playerId: Id,
+  clubId: Id | null,
 ): CareerWorldDelta => ({
   ...delta,
-  squadOverrides: { ...delta.squadOverrides, [club.id]: [...squad] },
+  npcClubMembership: { ...delta.npcClubMembership, [playerId]: clubId },
 });

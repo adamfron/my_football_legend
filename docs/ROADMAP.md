@@ -187,15 +187,42 @@ Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji
 
 Przyszły audyt rozwoju porówna poziom trudności ze startowym i szczytowym OVR, liczbą sezonów, meczów i minut, rozmiarem lig oraz meczami pucharowymi, europejskimi i reprezentacyjnymi, a także inwestycjami. Obecna skrócona kariera krajowa nie jest podstawą do strojenia krzywych ani dodawania trybu Very Easy.
 
-## Plan po PR80
+## Plan po PR83
 
-1. **PR81 — Condition & Manager Behaviour:** wspólne dla protagonisty i NPC obciążenie minutami,
-   regeneracja po dniach, wpływ wytrzymałości i wieku (później medycyny/treningu), identyczne kary
-   selekcji, adaptacyjny wybór formacji z inercją i presją użycia gwiazdy, elastyczność/uczenie
-   pozycji oraz trener w obszarze kadry (NOWY z `managerMoveRecords`). Makrokalibracja czeka na ten krok.
-2. **PR82 — Squad Planning & Transfer Intelligence:** ilościowe luki jakości, priorytety trenera,
-   rekrutacja pod formację, frustracja obiecaną rolą i presja odejścia bez pełnego morale.
-3. **PR83 — Long-career macro calibration:** rozwój, populacja, OVR względem wieku/trudności,
-   transfery, luki kadr, fitness, rotacja trenerów, wyjścia z karier i rozwój młodzieży.
-4. **PR84 — Single Match [DEV].**
-5. **PR85 — decyzyjny izometryczny vertical slice silnika meczu.**
+Persistence 2.0 jest ukończonym fundamentem: zapis kariery i świata ma jawne granice, proceduralne
+tożsamości są rekonstruowane, a przynależność zawodowych NPC ma jeden kanoniczny, player-centric
+stan. Globalna kalibracja rozwoju i populacji jest świadomie odłożona do czasu Competition/Calendar
+2.0, rozszerzenia lig oraz pucharów krajowych i innych znaczących spotkań.
+
+### Position & Tactical Role Design Revisit
+
+Po testach gry należy ponownie ocenić kanoniczny zestaw pozycji nominalnych — zwłaszcza czy ofensywny
+i defensywny pomocnik pozostają jednym nominalnym CM opisanym geometrią i duty — oraz zgodność
+skrzydłowych, wahadłowych i bocznych obrońców. Nie należy rozwiązywać tego przez mnożenie pozycji:
+pozycja nominalna, slot taktyczny i rola/duty powinny pozostać osobnymi pojęciami.
+
+### Rekrutacja i spójność taktyczna
+
+Klub nie powinien mocno zabiegać o pozycję nieobecną w modelu taktycznym trenera, chyba że trener
+realnie planuje inną formację, zawodnik pasuje do innego slotu albo sztab proponuje konkretny cel
+przekwalifikowania (np. „Trener widzi cię docelowo jako prawego wahadłowego.”). Gotowość do nauki
+ma zależeć od adaptacji, wieku, znajomości pozycji i `positionalFlexibility` trenera.
+
+### Gwiazda kontra system
+
+Przyszły trener może zmienić formację dla wyjątkowego zawodnika, użyć go w sąsiedniej roli,
+zaproponować przekwalifikowanie albo zachować system i zaakceptować frustrację oraz możliwe odejście.
+
+### Termin makrokalibracji
+
+Kalibracja globalna nastąpi dopiero po Competition/Calendar 2.0, większej strukturze ligowej oraz
+pucharach i dodatkowych znaczących meczach. Audyt ma śledzić według sezonu i poziomu: min/P10/
+medianę/P90/max siły XI, wiek i udział 33+, OVR nowych juniorów, zmianę OVR około 18→21→24 lat,
+jakość transferów przychodzących i wychodzących oraz liczbę realnych kandydatów na jedno miejsce w
+kadrze zawodowej.
+
+### Prezentacja emerytury
+
+`EndCareerView` docelowo przejmie język wizualny `CareerView`; trzeba sprawdzić wiek emerytury przez
+kanoniczny resolver daty/wieku, przypisanie trofeów i osiągnięć do właściwego zakończonego sezonu
+oraz użyć istniejących sezonowych migawek OVR do wykresu całej kariery.

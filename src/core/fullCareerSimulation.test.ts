@@ -1,3 +1,4 @@
+import { resolveEffectiveSeniorSquad } from './worldDatabase';
 // @vitest-environment node
 import { afterAll, describe, expect, it } from 'vitest';
 import { advanceCareerWeek, getCurrentCareerWeek, getCurrentFixture } from './careerWeeks';
@@ -233,7 +234,7 @@ describe('deterministic full-career audit', () => {
       expect(career.careerStatus, JSON.stringify(diagnostics(career))).toBe('retired');
       expect(career.player.age).toBeLessThanOrEqual(40);
       for (const club of career.clubWorld ?? []) {
-        const squad = career.worldDelta?.squadOverrides[club.id] ?? club.squadPlayerIds ?? [];
+        const squad = resolveEffectiveSeniorSquad(career, club.id);
         for (const id of squad) {
           const footballer =
             career.worldDelta?.footballerOverrides[id] ??
@@ -259,7 +260,7 @@ describe('deterministic full-career audit', () => {
           marketExitCount: career.worldDelta?.professionalMarketExitCount ?? 0,
           transferRecords: career.worldDelta?.npcTransferRecords?.length ?? 0,
           historyFacts: career.historyFacts.length,
-          squadOverrides: Object.keys(career.worldDelta?.squadOverrides ?? {}).length,
+          npcClubMembership: Object.keys(career.worldDelta?.npcClubMembership ?? {}).length,
           latestSummerMarket: career.worldDelta?.summerMarketDiagnostics,
           population: auditSeniorWorld(career),
           naturalDevelopmentOverrides: Object.keys(

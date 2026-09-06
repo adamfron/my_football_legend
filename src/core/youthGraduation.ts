@@ -39,6 +39,7 @@ export const processYouthGraduation = (
     ...source,
     youthCohortOverrides: { ...source.youthCohortOverrides },
     footballerStateOverrides: { ...source.footballerStateOverrides },
+    npcClubMembership: { ...source.npcClubMembership },
   };
   const boundaryDate = `${season + 1}-06-30`;
   const resolve = createCareerWorldFootballerResolver({
@@ -60,11 +61,8 @@ export const processYouthGraduation = (
         getProfileAge(player.profile, boundaryDate, `${season}-07-01`) >= YOUTH_GRADUATION_AGE
       ) {
         graduates.push(id);
-        delta.footballerStateOverrides[id] = {
-          currentClubId: null,
-          currentContract: null,
-          careerStatus: 'active',
-        };
+        delta.npcClubMembership[id] = null;
+        delta.footballerStateOverrides[id] = { currentContract: null };
       } else if (player) remaining.push(id);
     }
     delta.youthCohortOverrides[key] = remaining;

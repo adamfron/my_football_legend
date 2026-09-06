@@ -110,10 +110,7 @@ describe('canonical club strength model', () => {
       ...career,
       worldDelta: {
         ...career.worldDelta!,
-        squadOverrides: {
-          ...career.worldDelta!.squadOverrides,
-          [club.id]: [...club.squadPlayerIds!, proceduralId],
-        },
+        npcClubMembership: { ...career.worldDelta!.npcClubMembership, [proceduralId]: club.id },
         footballerAttributeOverrides: {
           ...career.worldDelta!.footballerAttributeOverrides,
           [proceduralId]: attributes,
@@ -131,9 +128,9 @@ describe('canonical club strength model', () => {
       ...career,
       worldDelta: {
         ...career.worldDelta!,
-        squadOverrides: {
-          ...career.worldDelta!.squadOverrides,
-          [club.id]: [],
+        npcClubMembership: {
+          ...career.worldDelta!.npcClubMembership,
+          ...Object.fromEntries(club.squadPlayerIds!.map((id) => [id, null])),
         },
       },
     };

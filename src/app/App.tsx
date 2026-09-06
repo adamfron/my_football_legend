@@ -709,8 +709,9 @@ export const SeasonEndSummary = ({
         </article>
       ) : (
         <p>
-          Brak nowych ofert. Możesz kontynuować w obecnym klubie lub szukać klubu jako wolny
-          zawodnik.
+          {career.player.age >= 40
+            ? 'Osiągnąłeś limit wieku gry, dlatego nie pojawią się już nowe oferty. Pozostaje dokończyć obecną umowę lub zakończyć karierę.'
+            : 'Brak nowych ofert. Możesz kontynuować w obecnym klubie lub szukać klubu jako wolny zawodnik.'}
         </p>
       )}
       {career.careerSeasonNumber >= 2 &&
