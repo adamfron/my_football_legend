@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { translate } from '../core/narrative/localization';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
@@ -17,13 +17,11 @@ import {
   type StartingPlayerProfile,
 } from '../core/playerCreator';
 import {
-  deleteCareer,
-  hasValidCareer,
   hydrateCareerWithWorld,
-  loadCareer,
-  saveCareer,
+  serializeCurrentCareerSave,
   getCareerPersistenceMessage,
 } from '../core/persistence';
+import { careerStorage } from '../persistence/careerStorage';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { getEventDefinition } from '../core/events/eventRegistry';
 import { resolveEventChoice } from '../core/events/resolveEventChoice';
@@ -848,12 +846,10 @@ const RetiredCareerSummary = ({
 };
 
 export const App = () => {
-  const [view, setView] = useState<'start' | 'creator' | 'career'>(() =>
-    hasValidCareer() ? 'start' : 'start',
-  );
+  const [view, setView] = useState<'start' | 'creator' | 'career'>('start');
   const [career, setCareer] = useState<CareerState | null>(null);
-  const [canContinue, setCanContinue] = useState(() => hasValidCareer());
-  const [resumeStatus, setResumeStatus] = useState<'idle' | 'loading'>('idle');
+  const [canContinue, setCanContinue] = useState(false);
+  const [resumeStatus, setResumeStatus] = useState<'startup' | 'idle' | 'loading'>('startup');
   const [careerError, setCareerError] = useState<string>();
   const [step, setStep] = useState(0);
   const [active, setActive] = useState<'game' | 'history'>('game');
@@ -880,6 +876,20 @@ export const App = () => {
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [worldDatabase, setWorldDatabase] = useState<WorldDatabase>();
   const [worldError, setWorldError] = useState<string>();
+  const persistenceInProgress = useRef(false);
+  useEffect(() => {
+    let active = true;
+    void careerStorage.load().then((result) => {
+      if (!active) return;
+      setCanContinue(result.ok);
+      if (!result.ok && !['missing', 'indexeddb_unavailable'].includes(result.reason))
+        setCareerError('Zapis kariery jest uszkodzony lub nie można go odczytać.');
+      setResumeStatus('idle');
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
   useEffect(() => {
     if (view !== 'creator' || worldDatabase || worldError) return;
     void loadWorldDatabase()
@@ -900,17 +910,23 @@ export const App = () => {
     setProfileInput(next);
     clearVariants();
   };
-  const updateCareer = (next: CareerState) => {
-    const advanced = advanceCareerFlow(next);
+  const updateCareer = async (next: CareerState) => {
+    if (persistenceInProgress.current) return false;
+    persistenceInProgress.current = true;
     try {
-      saveCareer(advanced);
+      const advanced = advanceCareerFlow(next);
+      await careerStorage.save(serializeCurrentCareerSave(advanced));
       setCareer(advanced);
       setCanContinue(true);
       setCareerError(undefined);
+      return true;
     } catch (error) {
       setCareerError(
         `${getCareerPersistenceMessage(error)}${import.meta.env.DEV && error instanceof Error ? ` ${error.message}` : ''}`,
       );
+      return false;
+    } finally {
+      persistenceInProgress.current = false;
     }
   };
   const startNew = () => {
@@ -920,8 +936,13 @@ export const App = () => {
     setSeed('');
     clearVariants();
   };
-  const resetCareer = () => {
-    deleteCareer();
+  const resetCareer = async () => {
+    try {
+      await careerStorage.delete();
+    } catch (error) {
+      setCareerError(getCareerPersistenceMessage(error));
+      return;
+    }
     setCareer(null);
     setCanContinue(false);
     setView('creator');
@@ -930,19 +951,21 @@ export const App = () => {
     clearVariants();
   };
   const continueCareer = async () => {
-    const loaded = loadCareer();
+    if (resumeStatus !== 'idle') return;
+    setResumeStatus('loading');
+    const loaded = await careerStorage.load();
     if (!loaded.ok) {
       setCareerError('Nie udało się odczytać zapisanej kariery. Możesz rozpocząć nową grę.');
       setCanContinue(false);
+      setResumeStatus('idle');
       return;
     }
-    setResumeStatus('loading');
     setCareerError(undefined);
     try {
       const world = await loadWorldDatabase();
       const hydrated = hydrateCareerWithWorld(loaded.save.career, world);
       const advanced = advanceCareerFlow(hydrated);
-      saveCareer(advanced);
+      await careerStorage.save(serializeCurrentCareerSave(advanced));
       setCareer(advanced);
       setView('career');
     } catch (error) {
@@ -977,10 +1000,9 @@ export const App = () => {
     setSelectedVariant(0);
     setStep(2);
   };
-  const finish = () => {
+  const finish = async () => {
     if (!generated || !worldDatabase) return;
-    updateCareer(createCareerState(generated, seed, worldDatabase));
-    setView('career');
+    if (await updateCareer(createCareerState(generated, seed, worldDatabase))) setView('career');
   };
 
   if (view === 'career' && career && career.careerStatus === 'retired' && active !== 'history')
@@ -1056,8 +1078,14 @@ export const App = () => {
     );
   return (
     <StartScreen
-      canContinue={canContinue && resumeStatus !== 'loading'}
-      status={resumeStatus === 'loading' ? 'Wczytywanie świata kariery…' : careerError}
+      canContinue={canContinue && resumeStatus === 'idle'}
+      status={
+        resumeStatus === 'startup'
+          ? 'Sprawdzanie zapisu kariery…'
+          : resumeStatus === 'loading'
+            ? 'Wczytywanie świata kariery…'
+            : careerError
+      }
       notice={showInfo ? translate('start.localSaveNotice') : undefined}
       onDismissNotice={() => {
         localStorage.setItem(infoKey, '1');

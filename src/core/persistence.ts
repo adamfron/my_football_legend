@@ -125,7 +125,6 @@ export type LoadCareerResult =
         | 'unsupported_world_database'
         | 'invalid_data';
     };
-const storageAvailable = () => typeof localStorage !== 'undefined';
 const LEGACY_MIDFIELD_POSITIONS = new Set(['defensive_midfielder', 'attacking_midfielder']);
 const LEGACY_ARCHETYPE_IDS: Record<string, string> = {
   classic_creator: 'playmaker',
@@ -167,6 +166,8 @@ export type CareerPersistenceErrorKind =
   | 'validation_failure'
   | 'serialization_failure'
   | 'quota_exceeded'
+  | 'indexeddb_unavailable'
+  | 'transaction_failure'
   | 'storage_failure';
 export class CareerPersistenceError extends Error {
   constructor(
@@ -187,6 +188,10 @@ export const getCareerPersistenceMessage = (error: unknown) => {
       return 'Nie można przygotować danych kariery do zapisu.';
     case 'quota_exceeded':
       return 'Brak miejsca na zapis kariery w pamięci przeglądarki.';
+    case 'indexeddb_unavailable':
+      return 'Baza IndexedDB jest niedostępna. Zapis działa w ograniczonym trybie lokalnym.';
+    case 'transaction_failure':
+      return 'Nie udało się zakończyć transakcji zapisu kariery.';
     default:
       return 'Przeglądarka nie pozwoliła zapisać kariery.';
   }
@@ -219,13 +224,16 @@ const migrateBirthDates = (career: CareerState): CareerState => {
       : {}),
   };
 };
-export const saveCareer = (career: CareerState): CareerSave => {
+export const createCareerSave = (
+  career: CareerState,
+  savedAt = new Date().toISOString(),
+): CareerSave => {
   let result: ReturnType<typeof careerSaveSchema.safeParse>;
   try {
     const persistableCareer = toPersistedCareerState(migrateBirthDates(career));
     result = careerSaveSchema.safeParse({
       version: CAREER_SAVE_VERSION,
-      savedAt: new Date().toISOString(),
+      savedAt,
       career: persistableCareer,
     });
   } catch (error) {
@@ -240,46 +248,24 @@ export const saveCareer = (career: CareerState): CareerSave => {
       cause: result.error,
     });
   }
-  const save = result.data;
-  if (storageAvailable()) {
-    let serialized: string;
-    try {
-      serialized = JSON.stringify(save);
-    } catch (error) {
-      console.error('career save serialization failed', error);
-      throw new CareerPersistenceError('serialization_failure', 'Career serialization failed', {
-        cause: error,
-      });
-    }
-    try {
-      localStorage.setItem(CAREER_SAVE_KEY, serialized);
-    } catch (error) {
-      const quotaExceeded =
-        error instanceof Error &&
-        (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED');
-      console.error('career save failed', {
-        kind: quotaExceeded ? 'quota_exceeded' : 'storage_failure',
-        serializedBytes: new TextEncoder().encode(serialized).byteLength,
-      });
-      throw new CareerPersistenceError(
-        quotaExceeded ? 'quota_exceeded' : 'storage_failure',
-        quotaExceeded ? 'Browser storage quota exceeded' : 'Browser storage write failed',
-        { cause: error },
-      );
-    }
-  }
-  return save;
+  return result.data;
 };
+/** Backwards-compatible pure save preparation. Browser writes live in src/persistence. */
+export const saveCareer = createCareerSave;
 /** Uses the exact persistable representation without touching browser storage. */
 export const serializeCareerSave = (career: CareerState): string => {
-  const persistableCareer = toPersistedCareerState(migrateBirthDates(career));
-  return JSON.stringify(
-    careerSaveSchema.parse({
-      version: CAREER_SAVE_VERSION,
-      savedAt: new Date(0).toISOString(),
-      career: persistableCareer,
-    }),
-  );
+  return JSON.stringify(createCareerSave(career, new Date(0).toISOString()));
+};
+
+export const serializeCurrentCareerSave = (career: CareerState): string => {
+  try {
+    return JSON.stringify(createCareerSave(career));
+  } catch (error) {
+    if (error instanceof CareerPersistenceError) throw error;
+    throw new CareerPersistenceError('serialization_failure', 'Career serialization failed', {
+      cause: error,
+    });
+  }
 };
 
 const serializedBytes = (value: unknown) => new TextEncoder().encode(JSON.stringify(value)).length;
@@ -463,9 +449,7 @@ const migrateV6Save = (save: Record<string, any>): unknown => ({
   },
 });
 /* eslint-enable @typescript-eslint/no-explicit-any */
-export const loadCareer = (): LoadCareerResult => {
-  if (!storageAvailable()) return { ok: false, reason: 'missing' };
-  const raw = localStorage.getItem(CAREER_SAVE_KEY);
+export const parseCareerSave = (raw: string | null): LoadCareerResult => {
   if (!raw) return { ok: false, reason: 'missing' };
   let parsed: unknown;
   try {
@@ -533,7 +517,3 @@ export const hydrateCareerWithWorld = (
     }),
   );
 };
-export const deleteCareer = () => {
-  if (storageAvailable()) localStorage.removeItem(CAREER_SAVE_KEY);
-};
-export const hasValidCareer = () => loadCareer().ok;
