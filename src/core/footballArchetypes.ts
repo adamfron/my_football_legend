@@ -163,10 +163,14 @@ export const FOOTBALL_ARCHETYPES: readonly FootballArchetypeDefinition[] = [
     b(['dribbling', 'agility', 'pace', 'technique'], ['gameReading', 'composure', 'passing']),
   ),
   d(
-    'classic_creator',
-    'Klasyczny kreator',
+    'playmaker',
+    'Rozgrywający',
     AM,
-    b(['passing', 'technique', 'gameReading', 'composure'], ['tackling', 'strength']),
+    b(
+      ['passing', 'technique', 'gameReading', 'firstTouch', 'composure'],
+      ['tackling', 'strength'],
+      7,
+    ),
   ),
   d(
     'mezzala',
@@ -189,54 +193,21 @@ export const FOOTBALL_ARCHETYPES: readonly FootballArchetypeDefinition[] = [
     ),
   ),
   d(
-    'withdrawn_forward',
-    'Cofnięty napastnik',
-    AM,
-    b(
-      ['finishing', 'gameReading', 'composure', 'firstTouch', 'technique'],
-      ['tackling', 'heading', 'strength'],
-      7,
-    ),
-  ),
-  d(
-    'dribbling_creator',
-    'Dryblujący kreator',
-    AM,
-    b(
-      ['dribbling', 'technique', 'agility', 'firstTouch', 'gameReading'],
-      ['tackling', 'strength', 'concentration'],
-      7,
-    ),
-  ),
-  d(
-    'regista',
-    'Regista',
+    'defensive_midfielder',
+    'Defensywny pomocnik',
     DM,
     b(
-      ['passing', 'technique', 'gameReading', 'composure', 'firstTouch'],
-      ['strength', 'aggression', 'tackling', 'pace'],
-      8,
-    ),
-    'Głęboko ustawiony rozgrywający, który organizuje grę dzięki podaniom, technice i czytaniu boiska.',
-  ),
-  d(
-    'carillero',
-    'Carillero',
-    DM,
-    b(
-      ['stamina', 'gameReading', 'concentration', 'tackling', 'passing'],
-      ['finishing', 'dribbling', 'strength', 'aggression'],
+      [
+        'tackling',
+        'concentration',
+        'gameReading',
+        'stamina',
+        'strength',
+        'determination',
+        'aggression',
+      ],
+      ['finishing', 'dribbling'],
       6,
-    ),
-  ),
-  d(
-    'ball_winner',
-    'Ball-winner',
-    DM,
-    b(
-      ['tackling', 'aggression', 'determination', 'stamina', 'strength'],
-      ['technique', 'composure', 'passing'],
-      8,
     ),
   ),
   d(
@@ -247,16 +218,6 @@ export const FOOTBALL_ARCHETYPES: readonly FootballArchetypeDefinition[] = [
       ['passing', 'tackling', 'stamina', 'technique', 'gameReading', 'composure', 'strength'],
       [],
       4,
-    ),
-  ),
-  d(
-    'half_back',
-    'Pół-stoper',
-    DM,
-    b(
-      ['tackling', 'strength', 'heading', 'concentration', 'gameReading'],
-      ['dribbling', 'finishing', 'pace'],
-      7,
     ),
   ),
   d(

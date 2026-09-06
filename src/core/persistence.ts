@@ -4,8 +4,10 @@ import { careerStateSchema } from '../schemas/domainSchemas';
 import { WORLD_DATABASE_VERSION } from './worldDatabase';
 import { withCanonicalBirthDate } from './age';
 
-export const CAREER_SAVE_VERSION = 4;
+export const CAREER_SAVE_VERSION = 5;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v3';
+/** Audit-derived soft ceiling: full deterministic careers stay well below typical 5 MiB quotas. */
+export const CAREER_SAVE_SOFT_BUDGET_BYTES = 3_000_000;
 export const careerSaveSchema = z.object({
   version: z.literal(CAREER_SAVE_VERSION),
   savedAt: z.string().datetime(),
@@ -25,6 +27,15 @@ export type LoadCareerResult =
     };
 const storageAvailable = () => typeof localStorage !== 'undefined';
 const LEGACY_MIDFIELD_POSITIONS = new Set(['defensive_midfielder', 'attacking_midfielder']);
+const LEGACY_ARCHETYPE_IDS: Record<string, string> = {
+  classic_creator: 'playmaker',
+  regista: 'playmaker',
+  dribbling_creator: 'mezzala',
+  carillero: 'box_to_box',
+  ball_winner: 'defensive_midfielder',
+  half_back: 'defensive_midfielder',
+  withdrawn_forward: 'raumdeuter',
+};
 /** The single versioned compatibility boundary for PR80 positional data. */
 export const migrateLegacyMidfieldPositions = (value: unknown): unknown => {
   if (typeof value === 'string')
@@ -36,8 +47,14 @@ export const migrateLegacyMidfieldPositions = (value: unknown): unknown => {
     Object.entries(source)
       .filter(([key]) => !LEGACY_MIDFIELD_POSITIONS.has(key))
       .map(([key, item]) => {
-        const next = migrateLegacyMidfieldPositions(item);
-        return [key, key === 'secondaryPositions' && Array.isArray(next) ? [...new Set(next)] : next];
+        const next =
+          key === 'footballArchetypeId' && typeof item === 'string'
+            ? (LEGACY_ARCHETYPE_IDS[item] ?? item)
+            : migrateLegacyMidfieldPositions(item);
+        return [
+          key,
+          key === 'secondaryPositions' && Array.isArray(next) ? [...new Set(next)] : next,
+        ];
       }),
   );
   const familiarities = ['central_midfielder', 'defensive_midfielder', 'attacking_midfielder']
@@ -45,6 +62,34 @@ export const migrateLegacyMidfieldPositions = (value: unknown): unknown => {
     .filter((item): item is number => typeof item === 'number');
   if (familiarities.length) migrated.central_midfielder = Math.max(...familiarities);
   return migrated;
+};
+export type CareerPersistenceErrorKind =
+  | 'validation_failure'
+  | 'serialization_failure'
+  | 'quota_exceeded'
+  | 'storage_failure';
+export class CareerPersistenceError extends Error {
+  constructor(
+    public readonly kind: CareerPersistenceErrorKind,
+    message: string,
+    options?: ErrorOptions,
+  ) {
+    super(message, options);
+    this.name = 'CareerPersistenceError';
+  }
+}
+export const getCareerPersistenceMessage = (error: unknown) => {
+  if (!(error instanceof CareerPersistenceError)) return 'Nie udało się zapisać kariery.';
+  switch (error.kind) {
+    case 'validation_failure':
+      return 'Nie można zapisać kariery, ponieważ jej dane są niespójne.';
+    case 'serialization_failure':
+      return 'Nie można przygotować danych kariery do zapisu.';
+    case 'quota_exceeded':
+      return 'Brak miejsca na zapis kariery w pamięci przeglądarki.';
+    default:
+      return 'Przeglądarka nie pozwoliła zapisać kariery.';
+  }
 };
 const migrateBirthDates = (career: CareerState): CareerState => {
   const referenceDate = `${career.currentSeason - career.careerSeasonNumber + 1}-07-01`;
@@ -75,30 +120,55 @@ const migrateBirthDates = (career: CareerState): CareerState => {
   };
 };
 export const saveCareer = (career: CareerState): CareerSave => {
-  const persistableCareer = { ...migrateBirthDates(career) };
-  delete persistableCareer.clubWorld;
-  delete persistableCareer.footballerWorld;
-  delete persistableCareer.youthCohorts;
-  const save = careerSaveSchema.parse({
-    version: CAREER_SAVE_VERSION,
-    savedAt: new Date().toISOString(),
-    career: persistableCareer,
-  });
+  let result: ReturnType<typeof careerSaveSchema.safeParse>;
+  try {
+    const persistableCareer = { ...migrateBirthDates(career) };
+    delete persistableCareer.clubWorld;
+    delete persistableCareer.footballerWorld;
+    delete persistableCareer.youthCohorts;
+    result = careerSaveSchema.safeParse({
+      version: CAREER_SAVE_VERSION,
+      savedAt: new Date().toISOString(),
+      career: persistableCareer,
+    });
+  } catch (error) {
+    console.error('career save normalization failed', error);
+    throw new CareerPersistenceError('validation_failure', 'Career save normalization failed', {
+      cause: error,
+    });
+  }
+  if (!result.success) {
+    console.error('career save validation failed', result.error.issues);
+    throw new CareerPersistenceError('validation_failure', 'Career save validation failed', {
+      cause: result.error,
+    });
+  }
+  const save = result.data;
   if (storageAvailable()) {
-    const serialized = JSON.stringify(save);
+    let serialized: string;
+    try {
+      serialized = JSON.stringify(save);
+    } catch (error) {
+      console.error('career save serialization failed', error);
+      throw new CareerPersistenceError('serialization_failure', 'Career serialization failed', {
+        cause: error,
+      });
+    }
     try {
       localStorage.setItem(CAREER_SAVE_KEY, serialized);
     } catch (error) {
       const quotaExceeded =
-        error instanceof DOMException &&
+        error instanceof Error &&
         (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED');
       console.error('career save failed', {
         kind: quotaExceeded ? 'quota_exceeded' : 'storage_failure',
         serializedBytes: new TextEncoder().encode(serialized).byteLength,
       });
-      throw new Error('Nie udało się zapisać kariery. Sprawdź dostępne miejsce w przeglądarce.', {
-        cause: error,
-      });
+      throw new CareerPersistenceError(
+        quotaExceeded ? 'quota_exceeded' : 'storage_failure',
+        quotaExceeded ? 'Browser storage quota exceeded' : 'Browser storage write failed',
+        { cause: error },
+      );
     }
   }
   return save;
@@ -125,11 +195,17 @@ export const measureCareerSaveSections = (career: CareerState) => {
   const delta = career.worldDelta;
   return {
     totalSave: new TextEncoder().encode(serializeCareerSave(career)).length,
+    newFootballers: serializedBytes(delta?.newFootballers ?? {}),
+    footballerOverrides: serializedBytes(delta?.footballerOverrides ?? {}),
     footballerStateOverrides: serializedBytes(delta?.footballerStateOverrides ?? {}),
     retiredFootballerIds: serializedBytes(delta?.retiredFootballerIds ?? []),
     professionalMarketExitCount: serializedBytes(delta?.professionalMarketExitCount ?? 0),
     npcTransferRecords: serializedBytes(delta?.npcTransferRecords ?? []),
     historyFacts: serializedBytes(career.historyFacts),
+    completedSeasons: serializedBytes(career.completedSeasons ?? []),
+    leagueSeason: serializedBytes(career.leagueSeason ?? {}),
+    seasonParticipation: serializedBytes(career.seasonParticipation ?? []),
+    matchHistory: serializedBytes(career.matchHistory ?? []),
     youthCohortOverrides: serializedBytes(delta?.youthCohortOverrides ?? {}),
     squadOverrides: serializedBytes(delta?.squadOverrides ?? {}),
     otherWorldDelta: serializedBytes(
@@ -139,6 +215,8 @@ export const measureCareerSaveSections = (career: CareerState) => {
               ([key]) =>
                 ![
                   'footballerStateOverrides',
+                  'newFootballers',
+                  'footballerOverrides',
                   'retiredFootballerIds',
                   'professionalMarketExitCount',
                   'npcTransferRecords',
@@ -165,11 +243,20 @@ export const loadCareer = (): LoadCareerResult => {
     typeof parsed === 'object' &&
     parsed &&
     'version' in parsed &&
-    ![3, CAREER_SAVE_VERSION].includes(parsed.version as number)
+    ![3, 4, CAREER_SAVE_VERSION].includes(parsed.version as number)
   )
     return { ok: false, reason: 'incompatible_version' };
-  if (typeof parsed === 'object' && parsed && 'version' in parsed && parsed.version === 3)
-    parsed = { ...parsed, version: CAREER_SAVE_VERSION, career: migrateLegacyMidfieldPositions((parsed as Record<string, unknown>).career) };
+  if (
+    typeof parsed === 'object' &&
+    parsed &&
+    'version' in parsed &&
+    [3, 4].includes(parsed.version as number)
+  )
+    parsed = {
+      ...parsed,
+      version: CAREER_SAVE_VERSION,
+      career: migrateLegacyMidfieldPositions((parsed as Record<string, unknown>).career),
+    };
   const result = careerSaveSchema.safeParse(parsed);
   if (!result.success) return { ok: false, reason: 'invalid_data' };
   if (result.data.career.worldDatabaseVersion !== WORLD_DATABASE_VERSION)
@@ -190,12 +277,14 @@ export const hydrateCareerWithWorld = (
     throw new Error(
       `Zapis wymaga świata ${career.worldDatabaseVersion ?? 'nieznanego'}, a wczytano ${world.version}.`,
     );
-  return careerStateSchema.parse(migrateLegacyMidfieldPositions({
-    ...career,
-    clubWorld: world.clubs,
-    footballerWorld: world.footballers,
-    youthCohorts: world.youthCohorts,
-  }));
+  return careerStateSchema.parse(
+    migrateLegacyMidfieldPositions({
+      ...career,
+      clubWorld: world.clubs,
+      footballerWorld: world.footballers,
+      youthCohorts: world.youthCohorts,
+    }),
+  );
 };
 export const deleteCareer = () => {
   if (storageAvailable()) localStorage.removeItem(CAREER_SAVE_KEY);

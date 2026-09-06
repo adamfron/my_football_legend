@@ -9,6 +9,7 @@ import {
   saveCareer,
   serializeCareerSave,
   migrateLegacyMidfieldPositions,
+  CareerPersistenceError,
 } from './persistence';
 import {
   createCareerState,
@@ -51,6 +52,21 @@ describe('legacy midfield migration', () => {
     expect(migrated.primaryPosition).toBe('central_midfielder');
     expect(migrated.secondaryPositions).toEqual(['central_midfielder', 'striker']);
     expect(migrated.positionFamiliarity).toEqual({ central_midfielder: 0.85, striker: 1 });
+  });
+  it('maps retired midfield archetypes to canonical profiles', () => {
+    const mappings = {
+      classic_creator: 'playmaker',
+      regista: 'playmaker',
+      dribbling_creator: 'mezzala',
+      carillero: 'box_to_box',
+      ball_winner: 'defensive_midfielder',
+      half_back: 'defensive_midfielder',
+      withdrawn_forward: 'raumdeuter',
+    };
+    for (const [legacy, canonical] of Object.entries(mappings))
+      expect(migrateLegacyMidfieldPositions({ footballArchetypeId: legacy })).toEqual({
+        footballArchetypeId: canonical,
+      });
   });
 });
 const career = () =>
@@ -223,6 +239,24 @@ describe('career persistence', () => {
   it('rejects corrupted JSON', () => {
     localStorage.setItem(CAREER_SAVE_KEY, '{bad');
     expect(loadCareer()).toEqual({ ok: false, reason: 'invalid_json' });
+  });
+  it('distinguishes validation and browser quota failures', () => {
+    expect(() => saveCareer({ ...career(), historyFacts: null } as never)).toThrowError(
+      expect.objectContaining<Partial<CareerPersistenceError>>({ kind: 'validation_failure' }),
+    );
+    const original = Storage.prototype.setItem;
+    Storage.prototype.setItem = () => {
+      const error = new Error('full');
+      error.name = 'QuotaExceededError';
+      throw error;
+    };
+    try {
+      expect(() => saveCareer(career())).toThrowError(
+        expect.objectContaining<Partial<CareerPersistenceError>>({ kind: 'quota_exceeded' }),
+      );
+    } finally {
+      Storage.prototype.setItem = original;
+    }
   });
   it('rejects incompatible versions', () => {
     localStorage.setItem(

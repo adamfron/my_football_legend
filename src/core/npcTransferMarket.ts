@@ -292,7 +292,11 @@ export const processSummerSquadMarket = (
         priority: entries.get(id)?.priority ?? 50,
       });
   }
-  const records = [...(delta.npcTransferRecords ?? [])];
+  // NPC move records only drive the short-lived "NOWY" presentation. Keep the current and prior
+  // season rather than an accidental career-long event log.
+  const records = (delta.npcTransferRecords ?? []).filter(
+    (record) => Number(record.date.slice(0, 4)) >= season - 1,
+  );
   const recordIds = new Set(records.map((record) => record.id));
   let freeSignings = 0,
     transfers = 0,
