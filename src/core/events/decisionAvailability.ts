@@ -1,4 +1,5 @@
 import type { CareerState, EventDecision, EventInstance, PositionGroup } from '../../types/domain';
+import { hasCareerFactType, hasCareerTag } from '../history/careerMemory';
 
 const positionGroups: Record<PositionGroup, readonly string[]> = {
   goalkeeper: ['goalkeeper'],
@@ -23,18 +24,19 @@ export const isDecisionAvailable = (
 ): boolean => {
   const availability = decision.availability;
   if (!availability) return true;
-  const facts = new Set(career.historyFacts.map((fact) => fact.factType));
   const eventTags = Array.isArray(event.context.tags) ? (event.context.tags as string[]) : [];
-  const tags = new Set([...eventTags, ...career.historyFacts.flatMap((fact) => fact.tags)]);
+  const hasTag = (tag: string) => eventTags.includes(tag) || hasCareerTag(career, tag);
   return (
     (!availability.positions || availability.positions.includes(career.player.primaryPosition)) &&
     (!availability.positionGroups ||
       availability.positionGroups.some((group) =>
         positionGroups[group].includes(career.player.primaryPosition),
       )) &&
-    (!availability.requiredFacts || availability.requiredFacts.every((fact) => facts.has(fact))) &&
-    (!availability.excludedFacts || availability.excludedFacts.every((fact) => !facts.has(fact))) &&
-    (!availability.requiredTags || availability.requiredTags.every((tag) => tags.has(tag)))
+    (!availability.requiredFacts ||
+      availability.requiredFacts.every((fact) => hasCareerFactType(career, fact))) &&
+    (!availability.excludedFacts ||
+      availability.excludedFacts.every((fact) => !hasCareerFactType(career, fact))) &&
+    (!availability.requiredTags || availability.requiredTags.every(hasTag))
   );
 };
 

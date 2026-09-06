@@ -8,7 +8,7 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
   const row = getLeagueTable({ leagueSeason: season }).find(
     (r) => r.clubId === season.controlledClubId,
   )!;
-  const fixtures = (career.seasonParticipation ?? []).map((m) => structuredClone(m));
+  const fixtures = career.seasonParticipation ?? [];
   const participation = getSeasonOutfieldStats(fixtures);
   const start = { ...(career.seasonStartingAttributes ?? career.player.attributes) };
   const end = { ...career.player.attributes };
@@ -33,7 +33,6 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
       missedByInjury: career.playerAvailability?.matchesMissedThroughInjury ?? 0,
     },
     development: {
-      seasonStartAttributes: start,
       seasonEndAttributes: end,
       seasonStartOVR: getPlayerOverall(
         { ...career.player, attributes: start },
@@ -41,7 +40,31 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
       ),
       seasonEndOVR: getPlayerOverall(career.player, career.player.primaryPosition),
     },
-    fixtures,
+    matches: fixtures.map((match) => ({
+      matchId: match.fixtureId,
+      date: match.date,
+      opponentId: match.opponentId,
+      venue: match.venue,
+      ...(match.score ? { score: match.score } : {}),
+      started: match.started,
+      substitute: !match.started && match.minutes > 0,
+      ...(match.assignedPosition ? { assignedPosition: match.assignedPosition } : {}),
+      minutes: match.minutes,
+      goals: match.goals,
+      assists: match.assists,
+      ...(match.rating !== undefined ? { rating: match.rating } : {}),
+      ...(match.yellowCards ? { yellowCards: match.yellowCards } : {}),
+      ...(match.redCard ? { redCard: match.redCard } : {}),
+      ...(match.goalkeeperStats
+        ? {
+            goalkeeper: {
+              saves: match.goalkeeperStats.saves,
+              goalsConceded: match.goalkeeperStats.goalsConceded,
+              cleanSheet: match.goalkeeperStats.cleanSheet,
+            },
+          }
+        : {}),
+    })),
     milestones: career.historyFacts
       .filter((f) => f.season === career.currentSeason && f.narrativeImportance >= 80)
       .map((f) => f.id),

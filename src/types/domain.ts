@@ -280,6 +280,13 @@ export interface StoryThread {
   recallTags: string[];
 }
 
+/** Compact, machine-readable memory retained when display facts are pruned. */
+export interface CareerMemory {
+  factTypeCounts: Record<string, number>;
+  tagCounts: Record<string, number>;
+  regularSeasonEventIds: string[];
+}
+
 export interface CareerState {
   seed: string;
   difficulty?: CareerDifficulty | undefined;
@@ -291,6 +298,7 @@ export interface CareerState {
   significantPeople: Person[];
   relationships: Record<Id, RelationshipScores>;
   historyFacts: HistoryFact[];
+  careerMemory?: CareerMemory | undefined;
   storyThreads: StoryThread[];
   statistics: Record<string, number>;
   activeEvent?: EventInstance | undefined;
@@ -559,15 +567,32 @@ export interface CompletedSeasonSnapshot {
     missedByInjury: number;
   };
   development: {
-    seasonStartAttributes: PlayerAttributes;
     seasonEndAttributes: PlayerAttributes;
     seasonStartOVR: number;
     seasonEndOVR: number;
   };
-  /** Frozen canonical controlled-club fixture ledger. */
-  fixtures: SeasonParticipationRecord[];
+  /** The only historical player-match archive; operational fixture fields are intentionally gone. */
+  matches: HistoricalPlayerMatch[];
   milestones: Id[];
   seasonResult?: 'promoted' | 'relegated' | 'stayed' | 'champion' | undefined;
+}
+
+export interface HistoricalPlayerMatch {
+  matchId: Id;
+  date: string;
+  opponentId: Id;
+  venue: 'home' | 'away';
+  score?: { home: number; away: number } | undefined;
+  started: boolean;
+  substitute: boolean;
+  assignedPosition?: PlayerPosition | undefined;
+  minutes: number;
+  goals: number;
+  assists: number;
+  rating?: number | undefined;
+  yellowCards?: number | undefined;
+  redCard?: 'second_yellow' | 'direct' | undefined;
+  goalkeeper?: { saves: number; goalsConceded: number; cleanSheet: boolean } | undefined;
 }
 
 export type CareerStage =

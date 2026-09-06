@@ -36,6 +36,7 @@ import {
 } from './coachProfiles';
 import { resolveEffectiveProfessionalClub, resolveEffectiveSeniorSquad } from './worldDatabase';
 import { createSeasonSquadOverallBaseline } from './seasonSquadReference';
+import { compactCareerHistory } from './history/historyCompaction';
 
 const DAY = 86_400_000;
 const plusDays = (date: string, days: number) =>
@@ -305,7 +306,7 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     snapshot && !(career.completedSeasons ?? []).some((item) => item.seasonId === snapshot.seasonId)
       ? { ...career, completedSeasons: [...(career.completedSeasons ?? []), snapshot] }
       : career;
-  career = archivedCareer;
+  career = snapshot ? compactCareerHistory(archivedCareer, career.currentSeason) : archivedCareer;
   const movement =
     career.seasonOutcome?.competitionType === 'professional' ? career.seasonOutcome : undefined;
   const nextTier = clampProfessionalLeagueTier(
@@ -426,12 +427,15 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
           aged.currentSportingStatus ?? aged.currentContract?.squadRole ?? 'rotation',
         ),
     playerAvailability: {
-      injuries: aged.playerAvailability?.injuries ?? [],
+      injuries: (aged.playerAvailability?.injuries ?? []).filter(
+        (injury) => injury.status === 'active',
+      ),
       // A dismissal in the final fixture may legitimately be served next season.
       suspensionMatchesRemaining: aged.playerAvailability?.suspensionMatchesRemaining ?? 0,
       leagueYellowCards: 0,
       matchesMissedThroughSuspension: 0,
       matchesMissedThroughInjury: 0,
+      processedMatchIds: [],
     },
   };
   const initialized = initializeCareerSeason(aged, {
@@ -443,6 +447,7 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   const ovr = getPlayerOverall(initialized.player, initialized.player.primaryPosition);
   return {
     ...initialized,
+    matchHistory: [],
     careerStatus: 'active',
     highestOVR: Math.max(career.highestOVR ?? ovr, ovr),
     highestOVRDate: ovr > (career.highestOVR ?? -1) ? nextDate : career.highestOVRDate,
@@ -467,9 +472,10 @@ export const validateProfessionalOfferAcceptance = (
   career: CareerState,
   offerOrId: ProfessionalOffer | string,
 ): ProfessionalOfferAcceptanceValidation => {
-  const offer = typeof offerOrId === 'string'
-    ? career.professionalOffers?.find((item) => item.id === offerOrId)
-    : offerOrId;
+  const offer =
+    typeof offerOrId === 'string'
+      ? career.professionalOffers?.find((item) => item.id === offerOrId)
+      : offerOrId;
   if (!offer || !career.professionalOffers?.some((item) => item.id === offer.id))
     return { valid: false, reason: 'Ta oferta nie jest już dostępna.' };
   const expectedStartDate = `${career.currentSeason + 1}-07-01`;

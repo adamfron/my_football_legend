@@ -58,11 +58,27 @@ export const getSeasonPlayerSummary = (
   career: CareerState,
   season: number,
 ): SeasonPlayerSummary => {
-  const ledger =
-    season === career.currentSeason
-      ? (career.seasonParticipation ?? [])
-      : ((career.completedSeasons ?? []).find((item) => item.label.startsWith(String(season)))
-          ?.fixtures ?? []);
+  const completed = (career.completedSeasons ?? []).find((item) =>
+    item.label.startsWith(String(season)),
+  );
+  if (season !== career.currentSeason && completed) {
+    const rated = completed.matches.filter(
+      (match) => match.rating !== undefined && match.minutes > 0,
+    );
+    const best = rated.reduce<(typeof rated)[number] | undefined>(
+      (current, match) => (!current || match.rating! > current.rating! ? match : current),
+      undefined,
+    );
+    return {
+      ...completed.player,
+      saves: completed.matches.reduce((sum, match) => sum + (match.goalkeeper?.saves ?? 0), 0),
+      ...(best ? { bestRating: best.rating, bestMatchId: best.matchId } : {}),
+      seniorAppearances: 0,
+      substituteAppearances: completed.player.appearances - completed.player.starts,
+      academyAppearances: completed.player.appearances,
+    };
+  }
+  const ledger = career.seasonParticipation ?? [];
   const totals = getSeasonOutfieldStats(ledger);
   const rated = ledger.filter((m) => m.rating !== undefined && m.minutes > 0);
   const best = rated.reduce<(typeof rated)[number] | undefined>(
