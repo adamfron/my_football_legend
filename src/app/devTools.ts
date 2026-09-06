@@ -8,6 +8,24 @@ export const isMatchSandboxEnabled = (search = globalThis.location?.search ?? ''
   );
 };
 
+export const isMatchLabEntryVisible = (
+  search = globalThis.location?.search ?? '',
+  isDevelopment = import.meta.env.DEV,
+) => isDevelopment && isDevToolsEnabled(search);
+
+export const buildMatchLabUrl = (href: string) => {
+  const url = new URL(href);
+  url.searchParams.set('devtools', '1');
+  url.searchParams.set('matchSandbox', '1');
+  return url;
+};
+
+export const buildStartMenuUrl = (href: string) => {
+  const url = new URL(href);
+  url.searchParams.delete('matchSandbox');
+  return url;
+};
+
 export interface MatchTransitionLog {
   action: string;
   before?: unknown;

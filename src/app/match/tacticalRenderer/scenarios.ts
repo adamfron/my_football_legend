@@ -59,9 +59,12 @@ const move = (
   ),
   ball,
 });
-const initial = (): TacticalFrame => ({
-  players: basePlayers(),
-  ball: { x: 43, y: 34, ownerId: 'home-6' },
+const initial = (
+  players: TacticalFrame['players'] = basePlayers(),
+  ownerId = 'home-6',
+): TacticalFrame => ({
+  players,
+  ball: { x: 43, y: 34, ownerId },
   timestampMs: 0,
 });
 
@@ -71,17 +74,32 @@ const build = (
   middle: Parameters<typeof move>[2],
   end: Parameters<typeof move>[2],
   balls: [TacticalFrame['ball'], TacticalFrame['ball']],
+  players?: TacticalFrame['players'],
+  aliases?: Record<string, string>,
 ): TacticalSequence => {
-  const start = initial();
+  const start = initial(players, aliases?.['home-6']);
+  const remap = (changes: Record<string, [number, number]>) =>
+    Object.fromEntries(Object.entries(changes).map(([id, value]) => [aliases?.[id] ?? id, value]));
+  const remapBall = (ball: TacticalFrame['ball']) => ({
+    ...ball,
+    ...(ball.ownerId ? { ownerId: aliases?.[ball.ownerId] ?? ball.ownerId } : {}),
+  });
   return tacticalSequenceSchema.parse({
     id,
     durationMs: 3200,
     result,
-    frames: [start, move(start, 1600, middle, balls[0]), move(start, 3200, end, balls[1])],
+    frames: [
+      start,
+      move(start, 1600, remap(middle), remapBall(balls[0])),
+      move(start, 3200, remap(end), remapBall(balls[1])),
+    ],
   });
 };
 
-export const createTacticalScenarios = () => [
+export const createTacticalScenarios = (context?: {
+  players: TacticalFrame['players'];
+  aliases: Record<string, string>;
+}) => [
   {
     id: 'progressive-pass',
     title: 'Podanie progresywne',
@@ -96,6 +114,8 @@ export const createTacticalScenarios = () => [
         { x: 57, y: 32, height: 0.6 },
         { x: 72, y: 30, ownerId: 'home-9' },
       ],
+      context?.players,
+      context?.aliases,
     ),
   },
   {
@@ -112,6 +132,8 @@ export const createTacticalScenarios = () => [
         { x: 55, y: 33, height: 0.3 },
         { x: 61, y: 33, ownerId: 'away-6' },
       ],
+      context?.players,
+      context?.aliases,
     ),
   },
   {
@@ -128,6 +150,8 @@ export const createTacticalScenarios = () => [
         { x: 87, y: 35, height: 3.5 },
         { x: 98, y: 38, height: 0.5, ownerId: 'away-0' },
       ],
+      context?.players,
+      context?.aliases,
     ),
   },
 ];

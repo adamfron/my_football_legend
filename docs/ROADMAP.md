@@ -1,5 +1,15 @@
 # Roadmap
 
+## DEV Single Match Lab (PR86–PR88)
+
+- **PR86 — animowany sandbox renderera taktycznego — ukończony.**
+- **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
+  kanonicznych klubów i nie dotyka zapisu kariery.
+- **Następne: PR88 — pierwszy prawdziwy interaktywny vertical slice decyzji w Single Match Lab.**
+
+Docelowy przepływ pracy: **Single Match Lab → snapshot → decyzja gracza → rozstrzygnięcie core →
+animowany wynik → nowy snapshot**. Dopiero dojrzała pętla zostanie włączona do meczów kariery.
+
 ## Stabilizacja integracji asynchronicznego zapisu (PR85)
 
 Ten krok wyłącznie stabilizuje integrację przepływu kariery z asynchronicznym zapisem v7. Nie

@@ -7,6 +7,7 @@ export const StartScreen = ({
   onNewCareer,
   onContinue,
   developerAction,
+  matchLabAction,
   status,
 }: {
   canContinue: boolean;
@@ -15,6 +16,7 @@ export const StartScreen = ({
   onNewCareer: () => void;
   onContinue: () => void;
   developerAction?: ReactNode | undefined;
+  matchLabAction?: ReactNode | undefined;
   status?: string | undefined;
 }) => (
   <main className="start-screen">
@@ -40,6 +42,7 @@ export const StartScreen = ({
         <button disabled={!canContinue} onClick={onContinue}>
           Kontynuuj
         </button>
+        {matchLabAction}
         <a href="https://github.com/adamfron/my_football_legend">O projekcie</a>
         {developerAction}
       </nav>

@@ -79,7 +79,12 @@ import {
 import type { CareerState, EventDecision, WorldDatabase } from '../types/domain';
 import { loadWorldDatabase } from '../core/worldDatabase';
 import { ATTRIBUTE_PRESENTATION_BY_KEY } from '../core/attributePresentation';
-import { isDevToolsEnabled, isMatchSandboxEnabled } from './devTools';
+import {
+  buildMatchLabUrl,
+  isDevToolsEnabled,
+  isMatchLabEntryVisible,
+  isMatchSandboxEnabled,
+} from './devTools';
 import { TacticalMatchSandbox } from './match/TacticalMatchSandbox';
 import { CareerView } from './career/CareerView';
 import { RadarChart } from './shared/PlayerCard';
@@ -1154,10 +1159,10 @@ const CareerApp = () => {
       );
     const needsDecision = Boolean(
       career.activeEvent ||
-        career.decisionPoint?.type === 'off_field_event' ||
-        career.leagueSeason?.completed ||
-        career.seasonOutcome ||
-        career.professionalOffers,
+      career.decisionPoint?.type === 'off_field_event' ||
+      career.leagueSeason?.completed ||
+      career.seasonOutcome ||
+      career.professionalOffers,
     );
     return (
       <CareerErrorBoundary career={career} backend={careerStorage.mode ?? 'uninitialized'}>
@@ -1224,6 +1229,17 @@ const CareerApp = () => {
       }}
       onNewCareer={startNew}
       onContinue={continueCareer}
+      matchLabAction={
+        isMatchLabEntryVisible() ? (
+          <button
+            onClick={() => {
+              globalThis.location.assign(buildMatchLabUrl(globalThis.location.href));
+            }}
+          >
+            Pojedynczy mecz [DEV]
+          </button>
+        ) : undefined
+      }
       developerAction={
         isDevToolsEnabled() ? (
           <button onClick={() => setView('career')}>Narzędzia developerskie</button>
