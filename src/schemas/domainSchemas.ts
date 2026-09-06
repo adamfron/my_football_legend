@@ -762,16 +762,51 @@ export const careerStateSchema = z.object({
           missedByInjury: z.number(),
         }),
         development: z.object({
-          seasonStartAttributes: playerAttributesSchema,
           seasonEndAttributes: playerAttributesSchema,
           seasonStartOVR: z.number(),
           seasonEndOVR: z.number(),
         }),
-        fixtures: z.array(z.any()),
+        matches: z.array(
+          z.object({
+            matchId: id,
+            date: z.string(),
+            opponentId: id,
+            venue: z.enum(['home', 'away']),
+            score: z
+              .object({
+                home: z.number().int().nonnegative(),
+                away: z.number().int().nonnegative(),
+              })
+              .optional(),
+            started: z.boolean(),
+            substitute: z.boolean(),
+            assignedPosition: playerPositionSchema.optional(),
+            minutes: z.number().int().nonnegative(),
+            goals: z.number().int().nonnegative(),
+            assists: z.number().int().nonnegative(),
+            rating: z.number().optional(),
+            yellowCards: z.number().int().nonnegative().optional(),
+            redCard: z.enum(['second_yellow', 'direct']).optional(),
+            goalkeeper: z
+              .object({
+                saves: z.number().int().nonnegative(),
+                goalsConceded: z.number().int().nonnegative(),
+                cleanSheet: z.boolean(),
+              })
+              .optional(),
+          }),
+        ),
         milestones: z.array(id),
         seasonResult: z.enum(['promoted', 'relegated', 'stayed', 'champion']).optional(),
       }),
     )
+    .optional(),
+  careerMemory: z
+    .object({
+      factTypeCounts: z.record(z.string(), z.number().int().nonnegative()),
+      tagCounts: z.record(z.string(), z.number().int().nonnegative()),
+      regularSeasonEventIds: z.array(id),
+    })
     .optional(),
   seasonParticipation: z
     .array(

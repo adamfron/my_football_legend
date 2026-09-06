@@ -2,10 +2,10 @@ import type {
   CareerState,
   CareerWeek,
   Fixture,
-  HistoryFact,
   MonthlyCheckpoint,
   PlayerFormBand,
 } from '../types/domain';
+import { hasSeenRegularSeasonEvent } from './history/careerMemory';
 import { RandomGenerator } from './random/RandomGenerator';
 import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './leagueSeason';
 import { getTrainingEffortEffects } from './playerPreferences';
@@ -203,9 +203,7 @@ export const initializeWeekContent = (career: CareerState, index: number): Caree
     if (id === 'development_purchase') return funds >= 100;
     if (id === 'competitor_conversation')
       return career.significantPeople.some((person) => person.role.includes('player'));
-    return !career.historyFacts.some(
-      (fact) => fact.factType === 'regular_season_decision' && fact.data.eventId === id,
-    );
+    return !hasSeenRegularSeasonEvent(career, id);
   });
   const scheduledEventIds = shouldScheduleOffFieldEvent(career, week)
     ? [
@@ -301,31 +299,6 @@ export const completeCareerWeek = (career: CareerState): CareerState => {
   if (!calendar || !week || week.completed || (career.activeMatch && !career.activeMatch.completed))
     return career;
   const completed = { ...week, completed: true, completedEventIds: week.scheduledEventIds };
-  const facts: HistoryFact[] = prepared.historyFacts.some((f) => f.id === `fact_${week.id}`)
-    ? prepared.historyFacts
-    : [
-        ...prepared.historyFacts,
-        {
-          id: `fact_${week.id}`,
-          factType: 'career_week_completed',
-          season: prepared.currentSeason,
-          date: week.endDate,
-          actors: [prepared.player.id],
-          targets: [],
-          clubs: [prepared.currentClub.id],
-          competitions: [],
-          data: {
-            fixtureIds: week.fixtureIds,
-            eventIds: week.scheduledEventIds,
-            variantKey: week.summaryVariantKey,
-          },
-          causes: [],
-          tags: ['regular_week'],
-          visibility: 'partial',
-          narrativeImportance: 12,
-          emotionalTone: 'neutral',
-        },
-      ];
   const recentVariantKeys = [
     ...(prepared.recentVariantKeys ?? []).filter(
       (key): key is string => typeof key === 'string' && key.trim().length > 0,
@@ -344,7 +317,6 @@ export const completeCareerWeek = (career: CareerState): CareerState => {
     decisionPoint: completedImportantMatch ? undefined : prepared.decisionPoint,
     currentDate:
       !career.currentDate || week.endDate > career.currentDate ? week.endDate : career.currentDate,
-    historyFacts: facts,
     recentVariantKeys,
     careerCalendar: {
       ...calendar,

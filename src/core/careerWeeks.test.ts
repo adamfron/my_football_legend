@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createCareerState, generateStartingPlayerProfile } from './playerCreator';
 import {
   advanceCareerWeek,
+  completeCareerWeek,
   generateFixtureSchedule,
   getCurrentCareerWeek,
   initializeCurrentCareerWeek,
@@ -42,6 +43,13 @@ const career = (seed = 'week-test') => {
 };
 
 describe('reusable career week loop', () => {
+  it('records completion without creating a technical history fact', () => {
+    const completed = completeCareerWeek(initializeCurrentCareerWeek(career('compact-week')));
+    expect(getCurrentCareerWeek(completed)?.completed).toBe(true);
+    expect(completed.historyFacts.some((fact) => fact.factType === 'career_week_completed')).toBe(
+      false,
+    );
+  });
   it('clears only the matching blocker when a completed important match is left', () => {
     const initial = initializeCurrentCareerWeek(career('important-complete'));
     const fixture = initial.careerCalendar!.fixtures[0]!;

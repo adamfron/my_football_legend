@@ -3,8 +3,9 @@ import type { CareerState, WorldFootballer } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { WORLD_DATABASE_VERSION } from './worldDatabase';
 import { withCanonicalBirthDate } from './age';
+import { rememberFacts } from './history/careerMemory';
 
-export const CAREER_SAVE_VERSION = 5;
+export const CAREER_SAVE_VERSION = 6;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v3';
 /** Audit-derived soft ceiling: full deterministic careers stay well below typical 5 MiB quotas. */
 export const CAREER_SAVE_SOFT_BUDGET_BYTES = 3_000_000;
@@ -14,6 +15,69 @@ export const careerSaveSchema = z.object({
   career: careerStateSchema,
 });
 export type CareerSave = z.infer<typeof careerSaveSchema>;
+export type PersistedCareerState = Omit<
+  CareerState,
+  'clubWorld' | 'footballerWorld' | 'youthCohorts'
+>;
+
+const PERSISTED_CAREER_KEYS = [
+  'seed',
+  'difficulty',
+  'currentSeason',
+  'careerSeasonNumber',
+  'player',
+  'currentClub',
+  'previousClubIds',
+  'significantPeople',
+  'relationships',
+  'historyFacts',
+  'careerMemory',
+  'storyThreads',
+  'statistics',
+  'activeEvent',
+  'finances',
+  'developmentProgress',
+  'activeMatch',
+  'matchHistory',
+  'careerCalendar',
+  'recentVariantKeys',
+  'leagueSeason',
+  'decisionPoint',
+  'fastForwardLog',
+  'playerAvailability',
+  'seasonOutcome',
+  'seasonStartingAttributes',
+  'seasonBaselineOverall',
+  'currentContract',
+  'professionalOffers',
+  'careerPhase',
+  'currentDate',
+  'currentProfessionalClub',
+  'currentSportingStatus',
+  'careerStatus',
+  'retirementDate',
+  'retirementAge',
+  'retirementReason',
+  'highestOVR',
+  'highestOVRDate',
+  'developmentProfile',
+  'worldDatabaseVersion',
+  'worldDelta',
+  'completedSeasons',
+  'seasonParticipation',
+  'trainingApproach',
+  'trainingPlan',
+  'individualFocus',
+  'selectionStanding',
+  'agentPreferences',
+  'renegotiation',
+] as const satisfies readonly (keyof PersistedCareerState)[];
+
+/** Explicit allow-list boundary: runtime additions never become persistent by accident. */
+export const toPersistedCareerState = (career: CareerState): PersistedCareerState =>
+  Object.fromEntries(
+    PERSISTED_CAREER_KEYS.flatMap((key) => (career[key] === undefined ? [] : [[key, career[key]]])),
+  ) as PersistedCareerState;
 export type LoadCareerResult =
   | { ok: true; save: CareerSave }
   | {
@@ -122,10 +186,7 @@ const migrateBirthDates = (career: CareerState): CareerState => {
 export const saveCareer = (career: CareerState): CareerSave => {
   let result: ReturnType<typeof careerSaveSchema.safeParse>;
   try {
-    const persistableCareer = { ...migrateBirthDates(career) };
-    delete persistableCareer.clubWorld;
-    delete persistableCareer.footballerWorld;
-    delete persistableCareer.youthCohorts;
+    const persistableCareer = toPersistedCareerState(migrateBirthDates(career));
     result = careerSaveSchema.safeParse({
       version: CAREER_SAVE_VERSION,
       savedAt: new Date().toISOString(),
@@ -175,10 +236,7 @@ export const saveCareer = (career: CareerState): CareerSave => {
 };
 /** Uses the exact persistable representation without touching browser storage. */
 export const serializeCareerSave = (career: CareerState): string => {
-  const persistableCareer = { ...migrateBirthDates(career) };
-  delete persistableCareer.clubWorld;
-  delete persistableCareer.footballerWorld;
-  delete persistableCareer.youthCohorts;
+  const persistableCareer = toPersistedCareerState(migrateBirthDates(career));
   return JSON.stringify(
     careerSaveSchema.parse({
       version: CAREER_SAVE_VERSION,
@@ -202,7 +260,11 @@ export const measureCareerSaveSections = (career: CareerState) => {
     professionalMarketExitCount: serializedBytes(delta?.professionalMarketExitCount ?? 0),
     npcTransferRecords: serializedBytes(delta?.npcTransferRecords ?? []),
     historyFacts: serializedBytes(career.historyFacts),
+    careerMemory: serializedBytes(career.careerMemory ?? {}),
     completedSeasons: serializedBytes(career.completedSeasons ?? []),
+    archivedHistoricalMatches: serializedBytes(
+      (career.completedSeasons ?? []).flatMap((season) => season.matches),
+    ),
     leagueSeason: serializedBytes(career.leagueSeason ?? {}),
     seasonParticipation: serializedBytes(career.seasonParticipation ?? []),
     matchHistory: serializedBytes(career.matchHistory ?? []),
@@ -229,6 +291,100 @@ export const measureCareerSaveSections = (career: CareerState) => {
     ),
   };
 };
+
+/* Legacy payloads are intentionally decoded structurally before the v6 schema can validate them. */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const migrateV5Save = (save: Record<string, unknown>): unknown => {
+  const source = save.career as Record<string, any>;
+  const technical = new Set([
+    'career_week_completed',
+    'training_development_checkpoint',
+    'attribute_changed',
+    'regular_season_decision',
+    'fixture_rescheduled',
+    'match_played',
+    'interactive_match',
+  ]);
+  const protectedIds = new Set<string>(
+    (source.storyThreads ?? [])
+      .filter((thread: any) => thread.status !== 'closed')
+      .flatMap((thread: any) => thread.relatedFactIds ?? []),
+  );
+  const removed = (source.historyFacts ?? []).filter(
+    (fact: any) => technical.has(fact.factType) && !protectedIds.has(fact.id),
+  );
+  const historyFacts = (source.historyFacts ?? []).filter((fact: any) => !removed.includes(fact));
+  const retainedIds = new Set<string>(historyFacts.map((fact: any) => fact.id));
+  const compactMatch = (match: any) => ({
+    matchId: match.fixtureId ?? match.matchId,
+    date: match.date,
+    opponentId: match.opponentId,
+    venue: match.venue,
+    ...(match.score ? { score: match.score } : {}),
+    started: Boolean(match.started),
+    substitute: !match.started && match.minutes > 0,
+    ...(match.assignedPosition ? { assignedPosition: match.assignedPosition } : {}),
+    minutes: match.minutes ?? 0,
+    goals: match.goals ?? 0,
+    assists: match.assists ?? 0,
+    ...(match.rating !== undefined ? { rating: match.rating } : {}),
+    ...(match.yellowCards ? { yellowCards: match.yellowCards } : {}),
+    ...(match.redCard ? { redCard: match.redCard } : {}),
+    ...(match.goalkeeperStats
+      ? {
+          goalkeeper: {
+            saves: match.goalkeeperStats.saves,
+            goalsConceded: match.goalkeeperStats.goalsConceded,
+            cleanSheet: match.goalkeeperStats.cleanSheet,
+          },
+        }
+      : {}),
+  });
+  const completedSeasons = (source.completedSeasons ?? []).map((season: any) => ({
+    ...season,
+    development: {
+      seasonEndAttributes: season.development.seasonEndAttributes,
+      seasonStartOVR: season.development.seasonStartOVR,
+      seasonEndOVR: season.development.seasonEndOVR,
+    },
+    matches: (season.matches ?? season.fixtures ?? []).map(compactMatch),
+    fixtures: undefined,
+    milestones: (season.milestones ?? []).filter((id: string) => retainedIds.has(id)),
+  }));
+  const currentStart = `${source.currentSeason}-07-01`;
+  const career: Record<string, any> = {
+    ...source,
+    historyFacts,
+    careerMemory: rememberFacts(source.careerMemory, removed),
+    completedSeasons,
+    matchHistory: (source.matchHistory ?? []).filter((match: any) => match.date >= currentStart),
+    storyThreads: (source.storyThreads ?? []).map((thread: any) => ({
+      ...thread,
+      relatedFactIds: (thread.relatedFactIds ?? []).filter((id: string) => retainedIds.has(id)),
+    })),
+    ...(source.playerAvailability
+      ? {
+          playerAvailability: {
+            ...source.playerAvailability,
+            injuries: (source.playerAvailability.injuries ?? []).filter(
+              (injury: any) => injury.status === 'active',
+            ),
+            processedMatchIds: (source.playerAvailability.processedMatchIds ?? []).filter(
+              (id: string) =>
+                (source.seasonParticipation ?? []).some(
+                  (record: any) => record.appearanceMatchId === id,
+                ),
+            ),
+          },
+        }
+      : {}),
+  };
+  delete career.clubWorld;
+  delete career.footballerWorld;
+  delete career.youthCohorts;
+  return { ...save, version: CAREER_SAVE_VERSION, career };
+};
+/* eslint-enable @typescript-eslint/no-explicit-any */
 export const loadCareer = (): LoadCareerResult => {
   if (!storageAvailable()) return { ok: false, reason: 'missing' };
   const raw = localStorage.getItem(CAREER_SAVE_KEY);
@@ -243,7 +399,7 @@ export const loadCareer = (): LoadCareerResult => {
     typeof parsed === 'object' &&
     parsed &&
     'version' in parsed &&
-    ![3, 4, CAREER_SAVE_VERSION].includes(parsed.version as number)
+    ![3, 4, 5, CAREER_SAVE_VERSION].includes(parsed.version as number)
   )
     return { ok: false, reason: 'incompatible_version' };
   if (
@@ -254,9 +410,15 @@ export const loadCareer = (): LoadCareerResult => {
   )
     parsed = {
       ...parsed,
-      version: CAREER_SAVE_VERSION,
       career: migrateLegacyMidfieldPositions((parsed as Record<string, unknown>).career),
     };
+  if (
+    typeof parsed === 'object' &&
+    parsed &&
+    'version' in parsed &&
+    [3, 4, 5].includes(parsed.version as number)
+  )
+    parsed = migrateV5Save(parsed as Record<string, unknown>);
   const result = careerSaveSchema.safeParse(parsed);
   if (!result.success) return { ok: false, reason: 'invalid_data' };
   if (result.data.career.worldDatabaseVersion !== WORLD_DATABASE_VERSION)

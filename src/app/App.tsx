@@ -386,9 +386,9 @@ export const SeasonEndSummary = ({
   const archived =
     career.completedSeasons?.find((item) => item.seasonId === career.leagueSeason?.id) ??
     createCompletedSeasonSnapshot(career);
-  const injuries = deriveSeasonInjurySummary(career, archived.fixtures);
+  const injuries = deriveSeasonInjurySummary(career, career.seasonParticipation ?? []);
   const development = aggregateDevelopment(
-    archived.development.seasonStartAttributes,
+    career.seasonStartingAttributes ?? archived.development.seasonEndAttributes,
     archived.development.seasonEndAttributes,
   );
   const renewalOffer = career.professionalOffers?.find((offer) => offer.offerType === 'renewal');
@@ -411,7 +411,9 @@ export const SeasonEndSummary = ({
               : fixture.homeClubId),
         )?.name ?? 'Rywal',
       venue: fixture.homeClubId === career.leagueSeason!.controlledClubId ? 'home' : 'away',
-      participation: archived.fixtures.find((item) => item.fixtureId === fixture.id)!,
+      participation: (career.seasonParticipation ?? []).find(
+        (item) => item.fixtureId === fixture.id,
+      )!,
     }));
   return (
     <section>
@@ -469,7 +471,7 @@ export const SeasonEndSummary = ({
       <h3>Rozwój</h3>
       <RadarChart
         attributes={archived.development.seasonEndAttributes}
-        baseline={archived.development.seasonStartAttributes}
+        baseline={career.seasonStartingAttributes ?? archived.development.seasonEndAttributes}
         baselineLabel="początek sezonu"
         currentLabel="koniec sezonu"
         position={career.player.primaryPosition}
@@ -588,114 +590,113 @@ export const SeasonEndSummary = ({
             .professionalOffers!.filter((offer) => offer.offerType !== 'renewal')
             .map((offer) => {
               const acceptance = validateProfessionalOfferAcceptance(career, offer);
-              return <article className="mini-card offer-card" key={offer.id}>
-                <h3>{offer.club.name}</h3>
-                {offer.offerType === 'renewal' && (
+              return (
+                <article className="mini-card offer-card" key={offer.id}>
+                  <h3>{offer.club.name}</h3>
+                  {offer.offerType === 'renewal' && (
+                    <p>
+                      <strong>Obecny klub</strong>
+                    </p>
+                  )}
+                  <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
                   <p>
-                    <strong>Obecny klub</strong>
+                    Poziom {getClubLeagueTier(offer.club)} ·{' '}
+                    <StarRating strength={getCareerClubStrength(career, offer.club)} /> · Siła
+                    klubu:{' '}
+                    {
+                      getClubStrengthPresentation(getCareerClubStrength(career, offer.club))
+                        .displayedInteger
+                    }
+                    /100
                   </p>
-                )}
-                <p>{getProfessionalCompetitionName(getClubLeagueTier(offer.club))}</p>
-                <p>
-                  Poziom {getClubLeagueTier(offer.club)} ·{' '}
-                  <StarRating strength={getCareerClubStrength(career, offer.club)} /> · Siła klubu:{' '}
-                  {
-                    getClubStrengthPresentation(getCareerClubStrength(career, offer.club))
-                      .displayedInteger
-                  }
-                  /100
-                </p>
-                <p>
-                  Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
-                  {qualityLabel(getClubMedicalQuality(offer.club))}
-                </p>
-                <p>
-                  <strong>Transfer:</strong>{' '}
-                  {offer.transferKind === 'free'
-                    ? 'Wolny transfer'
-                    : `Szacowane odstępne: ${(offer.estimatedTransferFee ?? 0).toLocaleString('pl-PL')} PLN`}
-                </p>
-                <p>
-                  {getClubLeagueTier(offer.club) <= 2
-                    ? 'Ambitny klub zawodowy'
-                    : 'Solidny klub zawodowy'}
-                </p>
-                <p>
-                  <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
-                </p>
-                <p>
-                  <strong>Planowana pozycja:</strong> {positionLabel(offer.plannedPosition)}
-                </p>
-                {offer.tacticalPositionWarning && (
-                  <p className="position-warning" role="status">
-                    {offer.tacticalPositionWarning}
-                  </p>
-                )}
-                {!!offer.alternativePositions?.length && (
                   <p>
-                    <strong>Alternatywnie:</strong>{' '}
-                    {offer.alternativePositions.map(positionCode).join(', ')}
+                    Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
+                    {qualityLabel(getClubMedicalQuality(offer.club))}
                   </p>
-                )}
-                <p>
-                  <strong>Pensja:</strong> {offer.contract.monthlySalary.toLocaleString('pl-PL')}{' '}
-                  PLN / mies.
-                </p>
-                <p>
-                  <strong>Kontrakt:</strong> do {offer.contract.endDate}
-                </p>
-                <h4>Dlaczego interesują się tobą</h4>
-                {offer.interestReasons.map((reason) => (
-                  <p key={reason}>{reason}</p>
-                ))}
-                <p>
-                  <strong>Konkurencja na {positionCode(offer.plannedPosition)}:</strong>
-                </p>
-                {!!offer.destinationCompetition?.length && (
-                  <ul className="offer-competition">
-                    {offer.destinationCompetition.slice(0, 4).map((competitor) => (
-                      <li key={competitor.competitorId}>
-                        {competitor.competitorName} — {competitor.effectiveOverall} OVR —{' '}
-                        {competitor.expectedStatus === 'starting_xi'
-                          ? 'podstawowy skład'
-                          : competitor.expectedStatus === 'bench'
-                            ? 'ławka'
-                            : 'rezerwy'}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <p>
-                  Ty: {getEffectivePositionOverall(career.player, offer.plannedPosition)} OVR ·
-                  Prognoza:{' '}
-                  {offer.projectedStanding === 'starting_xi'
-                    ? 'walka o pierwszy skład'
-                    : offer.projectedStanding === 'bench'
-                      ? 'ławka'
-                      : 'rezerwy'}
-                </p>
-                <p>
-                  <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}
-                </p>
-                <p>
-                  <strong>Szansa:</strong> {offer.opportunity}
-                </p>
-                <p>
-                  <strong>Ryzyko:</strong> {offer.risk}
-                </p>
-                {!acceptance.valid && (
-                  <p className="error-message">
-                    {acceptance.reason}
+                  <p>
+                    <strong>Transfer:</strong>{' '}
+                    {offer.transferKind === 'free'
+                      ? 'Wolny transfer'
+                      : `Szacowane odstępne: ${(offer.estimatedTransferFee ?? 0).toLocaleString('pl-PL')} PLN`}
                   </p>
-                )}
-                <button
-                  disabled={!acceptance.valid}
-                  title={acceptance.valid ? undefined : acceptance.reason}
-                  onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}
-                >
-                  Przyjmij
-                </button>
-              </article>;
+                  <p>
+                    {getClubLeagueTier(offer.club) <= 2
+                      ? 'Ambitny klub zawodowy'
+                      : 'Solidny klub zawodowy'}
+                  </p>
+                  <p>
+                    <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
+                  </p>
+                  <p>
+                    <strong>Planowana pozycja:</strong> {positionLabel(offer.plannedPosition)}
+                  </p>
+                  {offer.tacticalPositionWarning && (
+                    <p className="position-warning" role="status">
+                      {offer.tacticalPositionWarning}
+                    </p>
+                  )}
+                  {!!offer.alternativePositions?.length && (
+                    <p>
+                      <strong>Alternatywnie:</strong>{' '}
+                      {offer.alternativePositions.map(positionCode).join(', ')}
+                    </p>
+                  )}
+                  <p>
+                    <strong>Pensja:</strong> {offer.contract.monthlySalary.toLocaleString('pl-PL')}{' '}
+                    PLN / mies.
+                  </p>
+                  <p>
+                    <strong>Kontrakt:</strong> do {offer.contract.endDate}
+                  </p>
+                  <h4>Dlaczego interesują się tobą</h4>
+                  {offer.interestReasons.map((reason) => (
+                    <p key={reason}>{reason}</p>
+                  ))}
+                  <p>
+                    <strong>Konkurencja na {positionCode(offer.plannedPosition)}:</strong>
+                  </p>
+                  {!!offer.destinationCompetition?.length && (
+                    <ul className="offer-competition">
+                      {offer.destinationCompetition.slice(0, 4).map((competitor) => (
+                        <li key={competitor.competitorId}>
+                          {competitor.competitorName} — {competitor.effectiveOverall} OVR —{' '}
+                          {competitor.expectedStatus === 'starting_xi'
+                            ? 'podstawowy skład'
+                            : competitor.expectedStatus === 'bench'
+                              ? 'ławka'
+                              : 'rezerwy'}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <p>
+                    Ty: {getEffectivePositionOverall(career.player, offer.plannedPosition)} OVR ·
+                    Prognoza:{' '}
+                    {offer.projectedStanding === 'starting_xi'
+                      ? 'walka o pierwszy skład'
+                      : offer.projectedStanding === 'bench'
+                        ? 'ławka'
+                        : 'rezerwy'}
+                  </p>
+                  <p>
+                    <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}
+                  </p>
+                  <p>
+                    <strong>Szansa:</strong> {offer.opportunity}
+                  </p>
+                  <p>
+                    <strong>Ryzyko:</strong> {offer.risk}
+                  </p>
+                  {!acceptance.valid && <p className="error-message">{acceptance.reason}</p>}
+                  <button
+                    disabled={!acceptance.valid}
+                    title={acceptance.valid ? undefined : acceptance.reason}
+                    onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}
+                  >
+                    Przyjmij
+                  </button>
+                </article>
+              );
             })}
         </div>
       ) : career.careerSeasonNumber === 1 ? (
