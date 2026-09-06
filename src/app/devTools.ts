@@ -1,6 +1,13 @@
 export const isDevToolsEnabled = (search = globalThis.location?.search ?? '') =>
   new URLSearchParams(search).get('devtools') === '1';
 
+export const isMatchSandboxEnabled = (search = globalThis.location?.search ?? '') => {
+  const params = new URLSearchParams(search);
+  return (
+    import.meta.env.DEV && params.get('devtools') === '1' && params.get('matchSandbox') === '1'
+  );
+};
+
 export interface MatchTransitionLog {
   action: string;
   before?: unknown;

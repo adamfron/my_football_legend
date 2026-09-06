@@ -207,6 +207,14 @@ stan. Globalna kalibracja rozwoju i populacji jest świadomie odłożona do czas
 **Zrealizowano w PR84:** przeglądarkowy zapis IndexedDB z bezpieczną migracją dawnego zapisu
 `localStorage`, jawnym trybem awaryjnym i asynchroniczną, szeregowaną granicą zapisu.
 
+**Zrealizowano w PR85:** ustabilizowano asynchroniczny zapis i przepływ kariery.
+
+**Zrealizowano w PR86:** powstał odizolowany, developerski sandbox animowanego meczu z kanoniczną
+geometrią 105 × 68, stałą kamerą izometryczną i trzema deterministycznymi sekwencjami.
+
+**Następny krok — PR87:** Animated Tactical Decision Vertical Slice połączy prawdziwe decyzje
+`MatchMoment` z geometrią taktyczną i animacją, bez przenoszenia rozstrzygnięć do renderera.
+
 ### Animowane sekwencje decyzji taktycznych
 
 Ważne mecze rozgrywane osobiście użyją izometrycznego renderera taktycznego o stałej orientacji:
