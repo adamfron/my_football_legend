@@ -5,6 +5,7 @@ import {
   buildStartMenuUrl,
   isDevToolsEnabled,
   isMatchLabEntryVisible,
+  isMatchSandboxEnabled,
 } from './devTools';
 import { StartScreen } from './StartScreen';
 import { act } from 'react';
@@ -20,10 +21,15 @@ describe('devtools visibility flag', () => {
     expect(isDevToolsEnabled('?devtools=1')).toBe(true);
   });
 
-  it('exposes the match lab entry only for an opted-in development build', () => {
-    expect(isMatchLabEntryVisible('?devtools=1', true)).toBe(true);
-    expect(isMatchLabEntryVisible('', true)).toBe(false);
-    expect(isMatchLabEntryVisible('?devtools=1', false)).toBe(false);
+  it('exposes the match lab entry in development and production builds without opt-in', () => {
+    expect(isMatchLabEntryVisible()).toBe(true);
+  });
+
+  it('enables only the match lab without globally enabling developer tools', () => {
+    expect(isMatchSandboxEnabled('?matchSandbox=1')).toBe(true);
+    expect(isMatchSandboxEnabled('?devtools=1&matchSandbox=1')).toBe(true);
+    expect(isMatchSandboxEnabled('?devtools=1')).toBe(false);
+    expect(isDevToolsEnabled('?matchSandbox=1')).toBe(false);
   });
 
   it('enters and leaves the isolated match lab using only URL state', () => {
@@ -36,7 +42,7 @@ describe('devtools visibility flag', () => {
 });
 
 describe('start screen', () => {
-  it('uses the compact application shell and keeps the existing actions', () => {
+  it('always shows the match lab in the expected menu order', () => {
     const container = document.createElement('div');
     const root = createRoot(container);
     act(() =>
@@ -46,6 +52,7 @@ describe('start screen', () => {
           onDismissNotice={() => undefined}
           onNewCareer={() => undefined}
           onContinue={() => undefined}
+          onOpenMatchLab={() => undefined}
         />,
       ),
     );
@@ -53,13 +60,17 @@ describe('start screen', () => {
     expect(container.querySelector('.hero')).toBeNull();
     expect(container.textContent).toContain('Nowa kariera');
     expect(container.textContent).toContain('Kontynuuj');
-    expect(container.textContent).toContain('O projekcie');
+    const actions = [...container.querySelectorAll('.start-actions > *')].map(
+      (node) => node.textContent,
+    );
+    expect(actions).toEqual(['Nowa kariera', 'Kontynuuj', 'Pojedynczy mecz [DEV]', 'O projekcie']);
     act(() => root.unmount());
   });
 
-  it('places an explicitly enabled DEV match action before the project link', () => {
+  it('opens the generated Match Lab URL when its action is clicked', () => {
     const container = document.createElement('div');
     const root = createRoot(container);
+    let destination = '';
     act(() =>
       root.render(
         <StartScreen
@@ -67,14 +78,17 @@ describe('start screen', () => {
           onDismissNotice={() => undefined}
           onNewCareer={() => undefined}
           onContinue={() => undefined}
-          matchLabAction={<button>Pojedynczy mecz [DEV]</button>}
+          onOpenMatchLab={() => {
+            destination = buildMatchLabUrl('https://example.test/').href;
+          }}
         />,
       ),
     );
-    const actions = [...container.querySelectorAll('.start-actions > *')].map(
-      (node) => node.textContent,
+    const matchLabButton = [...container.querySelectorAll('button')].find(
+      (button) => button.textContent === 'Pojedynczy mecz [DEV]',
     );
-    expect(actions).toEqual(['Nowa kariera', 'Kontynuuj', 'Pojedynczy mecz [DEV]', 'O projekcie']);
+    act(() => matchLabButton?.click());
+    expect(destination).toBe('https://example.test/?devtools=1&matchSandbox=1');
     act(() => root.unmount());
   });
 });
