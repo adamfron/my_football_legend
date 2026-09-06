@@ -6,8 +6,8 @@ export const StartScreen = ({
   onDismissNotice,
   onNewCareer,
   onContinue,
+  onOpenMatchLab,
   developerAction,
-  matchLabAction,
   status,
 }: {
   canContinue: boolean;
@@ -15,8 +15,8 @@ export const StartScreen = ({
   onDismissNotice: () => void;
   onNewCareer: () => void;
   onContinue: () => void;
+  onOpenMatchLab: () => void;
   developerAction?: ReactNode | undefined;
-  matchLabAction?: ReactNode | undefined;
   status?: string | undefined;
 }) => (
   <main className="start-screen">
@@ -42,7 +42,7 @@ export const StartScreen = ({
         <button disabled={!canContinue} onClick={onContinue}>
           Kontynuuj
         </button>
-        {matchLabAction}
+        <button onClick={onOpenMatchLab}>Pojedynczy mecz [DEV]</button>
         <a href="https://github.com/adamfron/my_football_legend">O projekcie</a>
         {developerAction}
       </nav>

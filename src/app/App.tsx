@@ -82,7 +82,6 @@ import { ATTRIBUTE_PRESENTATION_BY_KEY } from '../core/attributePresentation';
 import {
   buildMatchLabUrl,
   isDevToolsEnabled,
-  isMatchLabEntryVisible,
   isMatchSandboxEnabled,
 } from './devTools';
 import { TacticalMatchSandbox } from './match/TacticalMatchSandbox';
@@ -1229,17 +1228,9 @@ const CareerApp = () => {
       }}
       onNewCareer={startNew}
       onContinue={continueCareer}
-      matchLabAction={
-        isMatchLabEntryVisible() ? (
-          <button
-            onClick={() => {
-              globalThis.location.assign(buildMatchLabUrl(globalThis.location.href));
-            }}
-          >
-            Pojedynczy mecz [DEV]
-          </button>
-        ) : undefined
-      }
+      onOpenMatchLab={() => {
+        globalThis.location.assign(buildMatchLabUrl(globalThis.location.href));
+      }}
       developerAction={
         isDevToolsEnabled() ? (
           <button onClick={() => setView('career')}>Narzędzia developerskie</button>

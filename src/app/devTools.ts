@@ -3,15 +3,11 @@ export const isDevToolsEnabled = (search = globalThis.location?.search ?? '') =>
 
 export const isMatchSandboxEnabled = (search = globalThis.location?.search ?? '') => {
   const params = new URLSearchParams(search);
-  return (
-    import.meta.env.DEV && params.get('devtools') === '1' && params.get('matchSandbox') === '1'
-  );
+  return params.get('matchSandbox') === '1';
 };
 
-export const isMatchLabEntryVisible = (
-  search = globalThis.location?.search ?? '',
-  isDevelopment = import.meta.env.DEV,
-) => isDevelopment && isDevToolsEnabled(search);
+// The deployed production build is the project's manual testing environment during pre-release.
+export const isMatchLabEntryVisible = () => true;
 
 export const buildMatchLabUrl = (href: string) => {
   const url = new URL(href);
