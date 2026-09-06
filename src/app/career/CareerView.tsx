@@ -25,6 +25,7 @@ import { ClubCrest } from '../../components/ClubCrest';
 import { describeCurrentPlayerProfile } from '../../core/playerProfilePresentation';
 import { isDevToolsEnabled } from '../devTools';
 import { WorldBrowser } from './WorldBrowser';
+import type { CareerCommit } from '../careerCommit';
 
 export const PLAYBACK_INTERVAL_MS = 1000;
 type Detail = 'player' | 'club' | 'contract' | 'career' | 'world';
@@ -50,17 +51,19 @@ export const CareerView = ({
   career,
   onCareer,
   decisionPanel,
+  persistencePending = false,
 }: {
   career: CareerState;
-  onCareer: (career: CareerState) => void;
+  onCareer: CareerCommit;
   decisionPanel?: ReactNode;
+  persistencePending?: boolean;
 }) => {
   const [playing, setPlaying] = useState(false);
   const [detail, setDetail] = useState<Detail>();
   const [error, setError] = useState<string>();
   const tableRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLOListElement>(null);
-  const resumeAfterDecision = useRef(false);
+  const transitionPending = useRef(false);
   const table = getLeagueTable(career);
   const timeline = buildSeasonTimeline(career);
   const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
@@ -75,38 +78,26 @@ export const CareerView = ({
   const progressBlocker = getCareerProgressBlocker(career);
 
   useEffect(() => {
-    if (!playing) return;
-    const timer = window.setTimeout(() => {
+    if (!playing || persistencePending || transitionPending.current || progressBlocker) return;
+    const timer = window.setTimeout(async () => {
+      if (transitionPending.current) return;
+      transitionPending.current = true;
       try {
         const next = advanceSimulationStep(career);
-        onCareer(next);
         const blocker = getCareerProgressBlocker(next);
         if (blocker || (next.decisionPoint && next.decisionPoint.type !== 'checkpoint')) {
-          resumeAfterDecision.current = next.decisionPoint?.type === 'off_field_event';
           setPlaying(false);
         }
+        await onCareer(next);
       } catch (reason) {
         setError(reason instanceof Error ? reason.message : String(reason));
         setPlaying(false);
+      } finally {
+        transitionPending.current = false;
       }
     }, PLAYBACK_INTERVAL_MS);
     return () => window.clearTimeout(timer);
-  }, [career, onCareer, playing]);
-
-  useEffect(() => {
-    if (!resumeAfterDecision.current || playing) return;
-    const blocker = getCareerProgressBlocker(career);
-    if (
-      !career.activeEvent &&
-      !career.decisionPoint &&
-      !blocker &&
-      !career.leagueSeason?.completed
-    ) {
-      resumeAfterDecision.current = false;
-      const timer = window.setTimeout(() => setPlaying(true), 0);
-      return () => window.clearTimeout(timer);
-    }
-  }, [career, playing]);
+  }, [career, onCareer, persistencePending, playing, progressBlocker]);
 
   useEffect(() => {
     const row = tableRef.current?.querySelector<HTMLElement>('tr[aria-current="true"]');
@@ -140,13 +131,12 @@ export const CareerView = ({
         <span>Sezon {seasonName}</span>
         <button
           aria-pressed={playing}
-          disabled={!playing && Boolean(progressBlocker)}
+          disabled={persistencePending || (!playing && Boolean(progressBlocker))}
           title={!playing && progressBlocker ? 'Najpierw rozstrzygnij bieżącą decyzję.' : undefined}
           onClick={() => {
             if (!playing && getCareerProgressBlocker(career)) return;
             setError(undefined);
             setDetail(undefined);
-            resumeAfterDecision.current = false;
             setPlaying((value) => !value);
           }}
         >

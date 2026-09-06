@@ -5,6 +5,7 @@ import { advanceMatch, MATCH_MOMENT_LIBRARY, resolveMatchDecision } from '../../
 import { matchStateSummary } from '../../core/progressionDiagnostics';
 import type { CareerState } from '../../types/domain';
 import { recordMatchTransition } from '../devTools';
+import type { CareerCommit } from '../careerCommit';
 
 const statusLabel: Record<string, string> = {
   senior_starter: 'Pierwszy skład seniorów',
@@ -60,9 +61,11 @@ export const MatchHud = ({ career }: { career: CareerState }) => {
 export const MatchGame = ({
   career,
   onCareer,
+  persistencePending = false,
 }: {
   career: CareerState;
-  onCareer: (career: CareerState) => void;
+  onCareer: CareerCommit;
+  persistencePending?: boolean;
 }) => {
   const match = career.activeMatch;
   const transition = (action: string, next: CareerState) => {
@@ -76,7 +79,7 @@ export const MatchGame = ({
       validTransition,
       ...(!validTransition ? { warning: 'unchanged actionable match state' } : {}),
     });
-    onCareer(next);
+    void onCareer(next);
   };
   if (!match)
     return (
@@ -154,7 +157,10 @@ export const MatchGame = ({
           {a ? describePerformance(a.rating, a.minutes, forGoals > against) : quality}. Wynik
           drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
         </p>
-        <button onClick={() => onCareer(advanceCareerWeek(career))}>
+        <button
+          disabled={persistencePending}
+          onClick={() => void onCareer(advanceCareerWeek(career))}
+        >
           Przejdź do kolejnego tygodnia
         </button>
       </section>
@@ -176,7 +182,10 @@ export const MatchGame = ({
               ? 'Ten weekend oglądasz z boku. Potraktuj decyzję jako motywację i zadbaj o gotowość.'
               : 'Dostajesz szansę od początku. Sztab oczekuje realizacji zadań.'}
         </p>
-        <button onClick={() => transition('advance', advanceMatch(career))}>
+        <button
+          disabled={persistencePending}
+          onClick={() => transition('advance', advanceMatch(career))}
+        >
           {match.plannedMinutes ? 'Rozpocznij mecz' : 'Przyjmij decyzję i przejdź dalej'}
         </button>
       </section>
@@ -213,6 +222,7 @@ export const MatchGame = ({
               <p>{d.visibleRisk}</p>
             </section>
             <button
+              disabled={persistencePending}
               onClick={() => transition(`decision:${d.id}`, resolveMatchDecision(career, d.id))}
             >
               Wybierz

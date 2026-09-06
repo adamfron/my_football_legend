@@ -1,17 +1,22 @@
 // @vitest-environment jsdom
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { resolveRegularSeasonEvent } from '../core/events/regularSeasonEvents';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { createCareerState, generateStartingPlayerProfile } from '../core/playerCreator';
 import type { CareerState, ProfessionalOffer } from '../types/domain';
-import { CareerWeekGame, SeasonEndSummary } from './App';
+import { CareerWeekGame, EventCard, SeasonEndSummary } from './App';
 import { SeasonView } from './career/SeasonView';
 import { CareerView } from './career/CareerView';
 import { scheduleEvent } from '../core/careerCalendar';
 import { generateProfessionalClubPool } from '../core/professionalClubs';
 import { MatchParticipationSummary } from '../components/MatchParticipationSummary';
+import {
+  CAREER_SAVE_VERSION,
+  parseCareerSave,
+  serializeCurrentCareerSave,
+} from '../core/persistence';
 
 const initializedCareer = () =>
   advanceCareerFlow(
@@ -43,6 +48,141 @@ const renderWithoutThrowing = (view: React.ReactNode) => {
 };
 
 describe('canonical career season rendering', () => {
+  it.each(['dietitian_contact', 'recovery_needed'])(
+    'waits for the delayed commit before presenting and resolving %s',
+    async (eventId) => {
+      vi.useFakeTimers();
+      const initial = initializedCareer();
+      const date =
+        initial.careerCalendar!.weeks[initial.careerCalendar!.currentWeekIndex]!.startDate;
+      const scheduled = scheduleEvent(initial, {
+        id: `scheduled_${eventId}`,
+        eventDefinitionId: eventId,
+        date,
+      });
+      let committed = scheduled;
+      let release!: () => void;
+      let calls = 0;
+      const commit = vi.fn(async (next: CareerState) => {
+        calls += 1;
+        await new Promise<void>((resolve) => (release = resolve));
+        committed = next;
+        return true;
+      });
+      const container = document.createElement('div');
+      const root = createRoot(container);
+      act(() => root.render(<CareerView career={scheduled} onCareer={commit} />));
+      const play = Array.from(container.querySelectorAll<HTMLButtonElement>('button')).find(
+        (button) => button.textContent?.includes('Graj'),
+      )!;
+      act(() => play.click());
+      await act(async () => vi.advanceTimersByTimeAsync(1000));
+      expect(calls).toBe(1);
+      expect(committed).toBe(scheduled);
+      await act(async () => vi.advanceTimersByTimeAsync(5000));
+      expect(calls).toBe(1);
+      await act(async () => release());
+      expect(committed.decisionPoint?.type).toBe('off_field_event');
+      act(() =>
+        root.render(
+          <CareerView
+            career={committed}
+            onCareer={commit}
+            decisionPanel={<EventCard career={committed} onCareer={commit} />}
+          />,
+        ),
+      );
+      expect(container.querySelector('.career-decision .choices')).not.toBeNull();
+      expect(container.textContent).not.toContain('Career cannot auto-progress');
+      expect(
+        committed.historyFacts.some((fact) => fact.factType === 'regular_season_decision'),
+      ).toBe(false);
+      const choice = container.querySelector<HTMLButtonElement>(
+        '.career-decision .choices button',
+      )!;
+      act(() => choice.click());
+      expect(commit).toHaveBeenCalledTimes(2);
+      await act(async () => release());
+      expect(
+        committed.historyFacts.filter((fact) => fact.factType === 'regular_season_decision'),
+      ).toHaveLength(1);
+      expect(committed.decisionPoint).toBeUndefined();
+      expect(
+        committed.careerCalendar?.scheduledEvents.some(
+          (event) => event.eventDefinitionId === eventId && event.status !== 'completed',
+        ),
+      ).toBe(false);
+      act(() => root.unmount());
+      vi.useRealTimers();
+    },
+  );
+
+  it('offers retirement, but not another season, at the age limit', () => {
+    const base = initializedCareer();
+    const career: CareerState = {
+      ...base,
+      player: { ...base.player, age: 40 },
+      leagueSeason: { ...base.leagueSeason!, completed: true },
+      currentContract: {
+        clubId: base.currentClub.id,
+        startDate: '2026-07-01',
+        endDate: '2030-06-30',
+        monthlySalary: 4_000,
+        signingBonus: 0,
+        squadRole: 'rotation',
+        contractType: 'professional',
+      },
+      professionalOffers: undefined,
+    };
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    act(() => root.render(<SeasonEndSummary career={career} onCareer={async () => true} />));
+    expect(container.textContent).toContain('Osiągnąłeś limit wieku');
+    expect(container.textContent).toContain('Zakończ karierę');
+    expect(container.textContent).not.toContain('Kontynuuj na obecnej umowie');
+    act(() => root.unmount());
+  });
+
+  it('persists and cold-renders a completed season without losing its decision UI', async () => {
+    const base = initializedCareer();
+    const completed: CareerState = {
+      ...base,
+      leagueSeason: {
+        ...base.leagueSeason!,
+        completed: true,
+        currentRound: base.leagueSeason!.rounds.length,
+      },
+      decisionPoint: { type: 'season_context', sourceId: 'season_end', date: '2027-05-31' },
+    };
+    let release!: () => void;
+    let visible = base;
+    const commit = async (next: CareerState) => {
+      await new Promise<void>((resolve) => (release = resolve));
+      visible = next;
+      return true;
+    };
+    const pending = commit(completed);
+    expect(visible.leagueSeason?.completed).toBe(false);
+    release();
+    await pending;
+    expect(visible.leagueSeason?.completed).toBe(true);
+
+    const serialized = serializeCurrentCareerSave(visible);
+    const loaded = parseCareerSave(serialized);
+    expect(CAREER_SAVE_VERSION).toBe(7);
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error(loaded.reason);
+    const restored = loaded.save.career as CareerState;
+    expect(restored.leagueSeason?.completed).toBe(true);
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    expect(() =>
+      act(() => root.render(<SeasonEndSummary career={restored} onCareer={async () => true} />)),
+    ).not.toThrow();
+    expect(container.textContent).toContain('Podsumowanie sezonu');
+    expect(container.querySelectorAll('button').length).toBeGreaterThan(0);
+    act(() => root.unmount());
+  });
   it('presents a current-club proposal as accept plus one negotiation, without continuation', () => {
     const base = initializedCareer();
     const club = generateProfessionalClubPool(base.seed)[0]!;
@@ -75,7 +215,7 @@ describe('canonical career season rendering', () => {
     };
     const container = document.createElement('div');
     const root = createRoot(container);
-    act(() => root.render(<SeasonEndSummary career={career} onCareer={() => undefined} />));
+    act(() => root.render(<SeasonEndSummary career={career} onCareer={async () => true} />));
     const proposal = container.querySelector('.contract-proposal')!;
     expect(proposal.textContent).toContain('Przyjmij');
     expect(proposal.textContent).toContain('Negocjuj');
@@ -92,7 +232,7 @@ describe('canonical career season rendering', () => {
               proposedContract: { ...renewal.contract, monthlySalary: 5_500 },
             },
           }}
-          onCareer={() => undefined}
+          onCareer={async () => true}
         />,
       ),
     );
@@ -106,7 +246,7 @@ describe('canonical career season rendering', () => {
   it('keeps the table and timeline visible while swapping expanded summary cards', () => {
     const container = document.createElement('div');
     const root = createRoot(container);
-    act(() => root.render(<CareerView career={initializedCareer()} onCareer={() => undefined} />));
+    act(() => root.render(<CareerView career={initializedCareer()} onCareer={async () => true} />));
 
     expect(container.textContent).toContain('TABELA LIGOWA');
     expect(container.textContent).toContain('OŚ SEZONU');
@@ -163,7 +303,7 @@ describe('canonical career season rendering', () => {
     };
     const container = document.createElement('div');
     const root = createRoot(container);
-    act(() => root.render(<CareerView career={career} onCareer={() => undefined} />));
+    act(() => root.render(<CareerView career={career} onCareer={async () => true} />));
     expect(container.querySelectorAll('.season-timeline li').length).toBe(
       career.careerCalendar!.fixtures.length + 1,
     );
@@ -178,7 +318,15 @@ describe('canonical career season rendering', () => {
     const container = document.createElement('div');
     const root = createRoot(container);
     act(() =>
-      root.render(<CareerView career={initial} onCareer={(career) => (updated = career)} />),
+      root.render(
+        <CareerView
+          career={initial}
+          onCareer={async (career) => {
+            updated = career;
+            return true;
+          }}
+        />,
+      ),
     );
     act(() => container.querySelectorAll<HTMLButtonElement>('.summary-strip > button')[0]!.click());
     const simulateAll = Array.from(container.querySelectorAll<HTMLInputElement>('input')).find(
@@ -255,7 +403,7 @@ describe('canonical career season rendering', () => {
       };
       const container = document.createElement('div');
       const root = createRoot(container);
-      act(() => root.render(<CareerView career={career} onCareer={() => undefined} />));
+      act(() => root.render(<CareerView career={career} onCareer={async () => true} />));
       return { container, root };
     };
     const assigned = render('center_back');
@@ -323,6 +471,6 @@ describe('canonical career season rendering', () => {
       week.startDate,
     );
 
-    renderWithoutThrowing(<CareerWeekGame career={resolved} onCareer={() => undefined} />);
+    renderWithoutThrowing(<CareerWeekGame career={resolved} onCareer={async () => true} />);
   });
 });

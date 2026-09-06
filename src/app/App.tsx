@@ -1,4 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  Component,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ErrorInfo,
+  type ReactNode,
+} from 'react';
 import { translate } from '../core/narrative/localization';
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
@@ -83,6 +91,7 @@ import { MatchGame } from './match/MatchGame';
 import { StartScreen } from './StartScreen';
 import { positionCode, positionLabel } from '../core/positionPresentation';
 import './App.css';
+import type { CareerCommit } from './careerCommit';
 
 const infoKey = 'mfl.localSaveInfoDismissed';
 type FieldErrors = CreatorFieldErrors;
@@ -149,16 +158,20 @@ const qualityLabel = (quality: number) =>
           ? 'przeciętne'
           : 'podstawowe';
 
-const EventCard = ({
+export const EventCard = ({
   career,
   onCareer,
+  persistencePending = false,
 }: {
   career: CareerState;
-  onCareer: (career: CareerState) => void;
+  onCareer: CareerCommit;
+  persistencePending?: boolean;
 }) => {
   const event = career.activeEvent;
   if (!event && career.careerCalendar)
-    return <CareerWeekGame career={career} onCareer={onCareer} />;
+    return (
+      <CareerWeekGame career={career} onCareer={onCareer} persistencePending={persistencePending} />
+    );
   if (!event)
     return (
       <section>
@@ -189,7 +202,10 @@ const EventCard = ({
         <div className="result">
           <h3>{translate('events.ui.result')}</h3>
           <p>{resultText(event.result.objectiveOutcome)}</p>
-          <button onClick={() => onCareer(advanceActiveEvent(career))}>
+          <button
+            disabled={persistencePending}
+            onClick={() => void onCareer(advanceActiveEvent(career))}
+          >
             {translate('events.ui.next')}
           </button>
         </div>
@@ -216,8 +232,11 @@ const EventCard = ({
                   </section>
                 </div>
                 <button
+                  disabled={persistencePending}
                   onClick={() =>
-                    onCareer(applyEventResolution(career, resolveEventChoice(career, decision)))
+                    void onCareer(
+                      applyEventResolution(career, resolveEventChoice(career, decision)),
+                    )
                   }
                 >
                   {translate('events.ui.choose')}
@@ -234,9 +253,11 @@ const EventCard = ({
 export const CareerWeekGame = ({
   career,
   onCareer,
+  persistencePending = false,
 }: {
   career: CareerState;
-  onCareer: (career: CareerState) => void;
+  onCareer: CareerCommit;
+  persistencePending?: boolean;
 }) => {
   const [progressionError, setProgressionError] = useState<string>();
   const week = getCurrentCareerWeek(career);
@@ -263,8 +284,17 @@ export const CareerWeekGame = ({
       participation: career.seasonParticipation?.find((record) => record.fixtureId === item.id),
     }));
   if (!week || career.leagueSeason?.completed)
-    return <SeasonEndSummary career={career} onCareer={onCareer} />;
-  if (career.activeMatch) return <MatchGame career={career} onCareer={onCareer} />;
+    return (
+      <SeasonEndSummary
+        career={career}
+        onCareer={onCareer}
+        persistencePending={persistencePending}
+      />
+    );
+  if (career.activeMatch)
+    return (
+      <MatchGame career={career} onCareer={onCareer} persistencePending={persistencePending} />
+    );
   if (career.decisionPoint?.type === 'off_field_event') {
     const event = getRegularSeasonEvent(career.decisionPoint.sourceId);
     if (!event) return null;
@@ -286,6 +316,7 @@ export const CareerWeekGame = ({
                 <p>{decision.risk}</p>
               </section>
               <button
+                disabled={persistencePending}
                 onClick={() => {
                   const sourceId = career.decisionPoint!.sourceId;
                   const resolved = resolveRegularSeasonEvent(
@@ -297,7 +328,7 @@ export const CareerWeekGame = ({
                   const factId = resolved.historyFacts.find(
                     (fact) => !career.historyFacts.some((old) => old.id === fact.id),
                   )?.id;
-                  onCareer(completeScheduledEvent(resolved, sourceId, factId));
+                  void onCareer(completeScheduledEvent(resolved, sourceId, factId));
                 }}
               >
                 Wybierz
@@ -354,10 +385,11 @@ export const CareerWeekGame = ({
         </p>
       )}
       <button
+        disabled={persistencePending}
         onClick={() => {
           try {
             setProgressionError(undefined);
-            onCareer(advanceUntilDecision({ ...career, decisionPoint: undefined }));
+            void onCareer(advanceUntilDecision({ ...career, decisionPoint: undefined }));
           } catch (error) {
             setProgressionError(error instanceof Error ? error.message : String(error));
           }
@@ -372,9 +404,11 @@ export const CareerWeekGame = ({
 export const SeasonEndSummary = ({
   career,
   onCareer,
+  persistencePending = false,
 }: {
   career: CareerState;
-  onCareer: (career: CareerState) => void;
+  onCareer: CareerCommit;
+  persistencePending?: boolean;
 }) => {
   const table = getLeagueTable(career);
   const club = table.find((row) => row.clubId === career.leagueSeason?.controlledClubId);
@@ -392,6 +426,7 @@ export const SeasonEndSummary = ({
   const renewalOffer = career.professionalOffers?.find((offer) => offer.offerType === 'renewal');
   const renegotiationProposal = career.renegotiation?.proposedContract;
   const hasContractProposal = Boolean(renewalOffer || renegotiationProposal);
+  const reachedRetirementAge = career.player.age >= 40;
   const fixtureItems: CompactFixtureItem[] = (
     career.leagueSeason?.rounds.flatMap((round) => round.fixtures) ?? []
   )
@@ -533,8 +568,11 @@ export const SeasonEndSummary = ({
               career.currentContract.squadRole && (
               <p>Rola przy podpisaniu umowy: {squadRoleLabel(career.currentContract.squadRole)}</p>
             )}
-          {contractCoversNextSeason(career) && !hasContractProposal && (
-            <button onClick={() => onCareer(continueOnExistingContract(career))}>
+          {contractCoversNextSeason(career) && !hasContractProposal && !reachedRetirementAge && (
+            <button
+              disabled={persistencePending}
+              onClick={() => void onCareer(continueOnExistingContract(career))}
+            >
               Kontynuuj na obecnej umowie
             </button>
           )}
@@ -555,7 +593,10 @@ export const SeasonEndSummary = ({
                 mies. · do {career.renegotiation.proposedContract.endDate} · rola:{' '}
                 {squadRoleLabel(career.renegotiation.proposedContract.squadRole)}
               </p>
-              <button onClick={() => onCareer(acceptSeasonEndRenegotiatedContract(career))}>
+              <button
+                disabled={persistencePending}
+                onClick={() => void onCareer(acceptSeasonEndRenegotiatedContract(career))}
+              >
                 Przyjmij
               </button>
             </>
@@ -569,11 +610,17 @@ export const SeasonEndSummary = ({
                 {' · rola: '}
                 {squadRoleLabel(renewalOffer.contract.squadRole)}
               </p>
-              <button onClick={() => onCareer(acceptProfessionalOffer(career, renewalOffer.id))}>
+              <button
+                disabled={persistencePending || reachedRetirementAge}
+                onClick={() => void onCareer(acceptProfessionalOffer(career, renewalOffer.id))}
+              >
                 Przyjmij
               </button>
               {career.renegotiation?.season !== career.currentSeason && (
-                <button onClick={() => onCareer(requestContractRenegotiation(career))}>
+                <button
+                  disabled={persistencePending || reachedRetirementAge}
+                  onClick={() => void onCareer(requestContractRenegotiation(career))}
+                >
                   Negocjuj
                 </button>
               )}
@@ -687,9 +734,9 @@ export const SeasonEndSummary = ({
                   </p>
                   {!acceptance.valid && <p className="error-message">{acceptance.reason}</p>}
                   <button
-                    disabled={!acceptance.valid}
+                    disabled={persistencePending || reachedRetirementAge || !acceptance.valid}
                     title={acceptance.valid ? undefined : acceptance.reason}
-                    onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}
+                    onClick={() => void onCareer(acceptProfessionalOffer(career, offer.id))}
                   >
                     Przyjmij
                   </button>
@@ -701,7 +748,10 @@ export const SeasonEndSummary = ({
         <article className="mini-card">
           <h4>Ścieżka próbna</h4>
           <p>Vistula Nova zapewni ci testy w małym klubie zawodowym. Kariera trwa dalej.</p>
-          <button onClick={() => onCareer(continueWithProfessionalTrial(career))}>
+          <button
+            disabled={persistencePending || reachedRetirementAge}
+            onClick={() => void onCareer(continueWithProfessionalTrial(career))}
+          >
             Przejdź testy
           </button>
         </article>
@@ -714,13 +764,25 @@ export const SeasonEndSummary = ({
       )}
       {career.careerSeasonNumber >= 2 &&
         !career.professionalOffers?.length &&
-        contractCoversNextSeason(career) && (
-          <button onClick={() => onCareer(continueOnExistingContract(career))}>
+        contractCoversNextSeason(career) &&
+        !reachedRetirementAge && (
+          <button
+            disabled={persistencePending}
+            onClick={() => void onCareer(continueOnExistingContract(career))}
+          >
             Kontynuuj na obecnej umowie
           </button>
         )}
+      {reachedRetirementAge && (
+        <p>
+          Osiągnąłeś limit wieku rozgrywania kolejnego sezonu. Ten sezon jest ostatnim w karierze
+          zawodniczej.
+        </p>
+      )}
       {career.player.age >= 33 && (
-        <button onClick={() => onCareer(retireCareer(career))}>Zakończ karierę</button>
+        <button disabled={persistencePending} onClick={() => void onCareer(retireCareer(career))}>
+          Zakończ karierę
+        </button>
       )}
     </section>
   );
@@ -845,6 +907,58 @@ const RetiredCareerSummary = ({
   );
 };
 
+interface CareerErrorBoundaryProps {
+  career: CareerState;
+  backend: string;
+  children: ReactNode;
+}
+
+class CareerErrorBoundary extends Component<CareerErrorBoundaryProps, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    if (import.meta.env.DEV) console.error('career render failed', error, info.componentStack);
+  }
+
+  render() {
+    if (!this.state.failed) return this.props.children;
+    const { career, backend } = this.props;
+    return (
+      <main className="shell">
+        <section className="panel" role="alert">
+          <h1>Nie udało się wyświetlić bieżącego stanu kariery.</h1>
+          {import.meta.env.DEV && (
+            <pre className="career-diagnostics">
+              {JSON.stringify(
+                {
+                  currentSeason: career.currentSeason,
+                  careerSeasonNumber: career.careerSeasonNumber,
+                  currentDate: career.currentDate,
+                  leagueCompleted: career.leagueSeason?.completed ?? false,
+                  decisionPoint: career.decisionPoint
+                    ? `${career.decisionPoint.type}:${career.decisionPoint.sourceId}`
+                    : null,
+                  activeEvent: career.activeEvent?.definitionId ?? null,
+                  activeMatch: career.activeMatch?.id ?? null,
+                  seasonOutcome: Boolean(career.seasonOutcome),
+                  professionalOffers: career.professionalOffers?.length ?? 0,
+                  persistenceBackend: backend,
+                },
+                null,
+                2,
+              )}
+            </pre>
+          )}
+        </section>
+      </main>
+    );
+  }
+}
+
 export const App = () => {
   const [view, setView] = useState<'start' | 'creator' | 'career'>('start');
   const [career, setCareer] = useState<CareerState | null>(null);
@@ -877,6 +991,7 @@ export const App = () => {
   const [worldDatabase, setWorldDatabase] = useState<WorldDatabase>();
   const [worldError, setWorldError] = useState<string>();
   const persistenceInProgress = useRef(false);
+  const [persistencePending, setPersistencePending] = useState(false);
   useEffect(() => {
     let active = true;
     void careerStorage.load().then((result) => {
@@ -910,9 +1025,10 @@ export const App = () => {
     setProfileInput(next);
     clearVariants();
   };
-  const updateCareer = async (next: CareerState) => {
+  const updateCareer: CareerCommit = useCallback(async (next: CareerState) => {
     if (persistenceInProgress.current) return false;
     persistenceInProgress.current = true;
+    setPersistencePending(true);
     try {
       const advanced = advanceCareerFlow(next);
       await careerStorage.save(serializeCurrentCareerSave(advanced));
@@ -927,8 +1043,9 @@ export const App = () => {
       return false;
     } finally {
       persistenceInProgress.current = false;
+      setPersistencePending(false);
     }
-  };
+  }, []);
   const startNew = () => {
     if (career && !confirm(translate('start.confirmOverwrite'))) return;
     setView('creator');
@@ -1019,14 +1136,20 @@ export const App = () => {
   if (view === 'career' && career) {
     if (career.activeMatch)
       return (
-        <main className="shell match-shell">
-          {careerError && (
-            <p className="career-error" role="alert">
-              {careerError}
-            </p>
-          )}
-          <MatchGame career={career} onCareer={updateCareer} />
-        </main>
+        <CareerErrorBoundary career={career} backend={careerStorage.mode ?? 'uninitialized'}>
+          <main className="shell match-shell">
+            {careerError && (
+              <p className="career-error" role="alert">
+                {careerError}
+              </p>
+            )}
+            <MatchGame
+              career={career}
+              onCareer={updateCareer}
+              persistencePending={persistencePending}
+            />
+          </main>
+        </CareerErrorBoundary>
       );
     const needsDecision = Boolean(
       career.activeEvent ||
@@ -1036,7 +1159,7 @@ export const App = () => {
         career.professionalOffers,
     );
     return (
-      <>
+      <CareerErrorBoundary career={career} backend={careerStorage.mode ?? 'uninitialized'}>
         {careerError && (
           <p className="career-error" role="alert">
             {careerError}
@@ -1045,11 +1168,18 @@ export const App = () => {
         <CareerView
           career={career}
           onCareer={updateCareer}
+          persistencePending={persistencePending}
           decisionPanel={
-            needsDecision ? <EventCard career={career} onCareer={updateCareer} /> : undefined
+            needsDecision ? (
+              <EventCard
+                career={career}
+                onCareer={updateCareer}
+                persistencePending={persistencePending}
+              />
+            ) : undefined
           }
         />
-      </>
+      </CareerErrorBoundary>
     );
   }
 
