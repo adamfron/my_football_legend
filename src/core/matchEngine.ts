@@ -67,15 +67,8 @@ const positionWeights: Record<PlayerPosition, Partial<Record<keyof PlayerAttribu
     technique: 0.14,
   },
   left_back: { tackling: 0.24, pace: 0.22, stamina: 0.22, technique: 0.17, passing: 0.15 },
-  defensive_midfielder: {
-    tackling: 0.23,
-    passing: 0.22,
-    composure: 0.2,
-    stamina: 0.19,
-    technique: 0.16,
-  },
   right_back: { tackling: 0.24, pace: 0.22, stamina: 0.22, technique: 0.17, passing: 0.15 },
-  attacking_midfielder: {
+  central_midfielder: {
     passing: 0.25,
     technique: 0.24,
     finishing: 0.18,
@@ -94,7 +87,7 @@ const normalizePosition = (position: string): PlayerPosition =>
       : position.includes('back')
         ? 'center_back'
         : position.includes('mid')
-          ? 'attacking_midfielder'
+          ? 'central_midfielder'
           : position.includes('wing')
             ? 'left_winger'
             : 'striker';

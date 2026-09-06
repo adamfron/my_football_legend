@@ -912,8 +912,7 @@ export type PlayerPosition =
   | 'center_back'
   | 'left_back'
   | 'right_back'
-  | 'defensive_midfielder'
-  | 'attacking_midfielder'
+  | 'central_midfielder'
   | 'left_winger'
   | 'right_winger'
   | 'striker';

@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react';
 import type { FootballerProfile, Id } from '../../types/domain';
 import type { BestXIAssignment, FormationId } from '../../core/footballerWorld';
+import { FORMATIONS } from '../../core/footballerWorld';
 import { positionCode } from '../../core/positionPresentation';
-import { FORMATION_COORDINATES } from './formationCoordinates';
 
 export const SquadPitch = ({
   formation,
@@ -26,7 +26,7 @@ export const SquadPitch = ({
       <div className="pitch-box pitch-box-bottom" />
       {assignments.map((assignment) => {
         const player = resolvePlayer(assignment.footballerId);
-        const point = FORMATION_COORDINATES[formation][assignment.slotIndex];
+        const point = FORMATIONS[formation][assignment.slotIndex];
         if (!player || !point) return null;
         return (
           <div

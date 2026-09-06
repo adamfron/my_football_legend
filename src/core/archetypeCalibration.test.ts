@@ -11,7 +11,7 @@ describe('canonical archetype calibration', () => {
       false,
     );
     expect(
-      getEligibleFootballArchetypes('attacking_midfielder').some((a) => a.id === 'false_nine'),
+      getEligibleFootballArchetypes('central_midfielder').some((a) => a.id === 'false_nine'),
     ).toBe(false);
     expect(FOOTBALL_ARCHETYPES.some((a) => a.label === 'Odwrócony boczny obrońca')).toBe(false);
   });

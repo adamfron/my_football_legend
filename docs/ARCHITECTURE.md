@@ -419,3 +419,21 @@ W znormalizowanym świecie zawodowym istnieje dokładnie jedna bieżąca siła s
 `getBootstrapClubStrength()` nazywa jawnie historyczny cel generatora kadry. Nie jest runtime'ową jakością. Reputacja opisuje prestiż instytucjonalny, poziom finansowy zasoby, a infrastruktura środowisko rozwoju — żadne z nich nie nadpisuje jakości XI. Migawki ligi mogą zamrozić wartość rozwiązaną z kanonicznej kadry dla deterministycznego sezonu, ale nie wyliczają jej samodzielnie.
 
 `clubObservability.ts` dostarcza czyste modele dla diagnostyki luk XI i przeglądarki świata. PR79 dopiero połączy: cykl trenera → wykonalność formacji → braki pokrycia → braki jakości XI → priorytety → rynek; PR78 nie zmienia zachowania rekrutacji.
+
+## Position & Selection 3.0 (PR80)
+
+Pozycja zawodnika, profil i zadanie taktyczne są trzema różnymi pojęciami. Kanoniczny zbiór pozycji
+to: BR, LO, ŚO, PO, ŚP, LS, PS i N. ŚP ma jeden grupowo normalizowany OVR z wagami
+DEF/PHY/SPD/READ/OFF/TECH/AIR/MENT = 3/3/3/5/3/4/2/3. Archetypy (np. regista, mezzala,
+box-to-box) opisują profil zawodnika, a `defend | support | attack` wyłącznie zadanie konkretnego
+slotu formacji. Geometria należy do slotu, nie etykiety pozycji.
+
+`evaluateCandidateForSlot()` jest jedyną regułą użyteczności kandydata dla trenera. Łączy efektywny
+pozycyjny OVR, znajomość pozycji, ograniczone do ±2 dopasowanie zadania, fitness, styl, wiek i jawnie
+przekazane zaufanie. Protagonista i NPC nie mają odrębnych wzorów; mogą mieć inne dane kontekstowe.
+Projekcja oferty używa tych samych slotów i neutralnego zaufania nowego trenera. Siła klubu nadal
+pozostaje średnią efektywnych OVR kanonicznej legalnej XI, bez premii za zadanie.
+
+Zapis v4 ma jedną granicę migracji: dawne dwa identyfikatory środkowej pomocy są mapowane na ŚP,
+pozycje dodatkowe są deduplikowane, a znajomość ŚP przyjmuje maksimum dawnych wartości. Nowy stan
+nigdy nie zapisuje identyfikatorów historycznych.

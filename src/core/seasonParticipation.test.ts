@@ -24,7 +24,7 @@ const career = () =>
         nationality: 'PL',
         age: 16,
         dominantFoot: 'right',
-        position: 'attacking_midfielder',
+        position: 'central_midfielder',
         heightCm: 178,
         weightKg: 72,
         seed: 'ledger',

@@ -3,14 +3,13 @@ import type { PlayerPosition } from '../types/domain';
 /** The one normal-generation adjacency graph. Goalkeeper is deliberately isolated. */
 export const POSITION_COMPATIBILITY: Readonly<Record<PlayerPosition, readonly PlayerPosition[]>> = {
   goalkeeper: [],
-  center_back: ['defensive_midfielder'],
+  center_back: ['central_midfielder'],
   left_back: ['left_winger', 'right_back'],
   right_back: ['right_winger', 'left_back'],
-  defensive_midfielder: ['center_back', 'attacking_midfielder'],
-  attacking_midfielder: ['defensive_midfielder', 'striker', 'left_winger', 'right_winger'],
-  left_winger: ['right_winger', 'attacking_midfielder', 'left_back'],
-  right_winger: ['left_winger', 'attacking_midfielder', 'right_back'],
-  striker: ['attacking_midfielder'],
+  central_midfielder: ['center_back', 'striker', 'left_winger', 'right_winger'],
+  left_winger: ['right_winger', 'central_midfielder', 'left_back'],
+  right_winger: ['left_winger', 'central_midfielder', 'right_back'],
+  striker: ['central_midfielder'],
 };
 
 export const arePositionsCompatible = (primary: PlayerPosition, secondary: PlayerPosition) =>

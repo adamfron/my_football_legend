@@ -56,8 +56,8 @@ const d = (
 };
 const ST: PlayerPosition[] = ['striker'],
   W: PlayerPosition[] = ['left_winger', 'right_winger'],
-  AM: PlayerPosition[] = ['attacking_midfielder'],
-  DM: PlayerPosition[] = ['defensive_midfielder'],
+  AM: PlayerPosition[] = ['central_midfielder'],
+  DM: PlayerPosition[] = ['central_midfielder'],
   FB: PlayerPosition[] = ['left_back', 'right_back'],
   CB: PlayerPosition[] = ['center_back'];
 const b = (positive: Attribute[], negative: Attribute[] = [], amount = 8) =>

@@ -15,9 +15,8 @@ import { getFootballArchetype } from '../../core/footballArchetypes';
 const pitchPosition: Record<PositionId, { short: string; className: string }> = {
   striker: { short: 'N', className: 'pitch-striker' },
   left_winger: { short: 'LS', className: 'pitch-lw' },
-  attacking_midfielder: { short: 'OŚP', className: 'pitch-am' },
   right_winger: { short: 'PS', className: 'pitch-rw' },
-  defensive_midfielder: { short: 'DŚP', className: 'pitch-dm' },
+  central_midfielder: { short: 'ŚP', className: 'pitch-cm' },
   left_back: { short: 'LO', className: 'pitch-lb' },
   right_back: { short: 'PO', className: 'pitch-rb' },
   center_back: { short: 'ŚO', className: 'pitch-cb' },

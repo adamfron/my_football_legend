@@ -10,7 +10,7 @@ import {
   rollMatchAvailabilityEffects,
 } from './playerAvailability';
 
-const careerAt = (position: 'goalkeeper' | 'attacking_midfielder', seed: string) => {
+const careerAt = (position: 'goalkeeper' | 'central_midfielder', seed: string) => {
   const player = generateStartingPlayerProfile(
     {
       firstName: 'Jan',
@@ -41,11 +41,11 @@ describe('goalkeeper match realism', () => {
     }
     expect(projections.some((projection) => projection.started)).toBe(true);
     expect(getRoutineSubstituteEntryChance('goalkeeper')).toBe(0);
-    expect(getRoutineSubstituteEntryChance('attacking_midfielder')).toBe(0.7);
+    expect(getRoutineSubstituteEntryChance('central_midfielder')).toBe(0.7);
   });
 
   it('preserves the established outfield starter minute range', () => {
-    const career = careerAt('attacking_midfielder', 'outfield-participation');
+    const career = careerAt('central_midfielder', 'outfield-participation');
     const starter = career
       .careerCalendar!.fixtures.map((fixture) => projectFixtureParticipation(career, fixture))
       .find((projection) => projection.started)!;
@@ -88,7 +88,7 @@ describe('terminal appearance chronology', () => {
   });
 
   it('never records a terminal event beyond final appearance minutes and applies effects once', () => {
-    const base = careerAt('attacking_midfielder', 'availability-idempotence');
+    const base = careerAt('central_midfielder', 'availability-idempotence');
     const raw: MatchAppearance = {
       matchId: 'terminal-match',
       date: '2026-09-01',

@@ -146,8 +146,7 @@ const positionShape: Record<PlayerPosition, Partial<Record<AttributeKey, number>
   },
   left_back: { pace: 9, stamina: 10, tackling: 8, passing: 5, finishing: -8 },
   right_back: { pace: 9, stamina: 10, tackling: 8, passing: 5, finishing: -8 },
-  defensive_midfielder: { tackling: 10, passing: 8, gameReading: 11, stamina: 8, finishing: -11 },
-  attacking_midfielder: { technique: 10, passing: 11, dribbling: 8, gameReading: 9, tackling: -9 },
+  central_midfielder: { tackling: 5, technique: 6, passing: 10, gameReading: 10, stamina: 6, dribbling: 4 },
   left_winger: {
     pace: 12,
     dribbling: 12,
@@ -176,14 +175,13 @@ const positionShape: Record<PlayerPosition, Partial<Record<AttributeKey, number>
 const clamp = (n: number) => Math.max(1, Math.min(100, Math.round(n)));
 const compatiblePositions: Record<PlayerPosition, readonly PlayerPosition[]> = {
   goalkeeper: [],
-  center_back: ['defensive_midfielder', 'left_back', 'right_back'],
+  center_back: ['central_midfielder', 'left_back', 'right_back'],
   left_back: ['center_back', 'left_winger'],
   right_back: ['center_back', 'right_winger'],
-  defensive_midfielder: ['center_back', 'attacking_midfielder'],
-  attacking_midfielder: ['defensive_midfielder', 'left_winger', 'right_winger', 'striker'],
-  left_winger: ['left_back', 'right_winger', 'attacking_midfielder'],
-  right_winger: ['right_back', 'left_winger', 'attacking_midfielder'],
-  striker: ['attacking_midfielder', 'left_winger', 'right_winger'],
+  central_midfielder: ['center_back', 'left_winger', 'right_winger', 'striker'],
+  left_winger: ['left_back', 'right_winger', 'central_midfielder'],
+  right_winger: ['right_back', 'left_winger', 'central_midfielder'],
+  striker: ['central_midfielder', 'left_winger', 'right_winger'],
 };
 
 /** Nearby hybrid roles are valid; only a clearly stronger, unrelated identity is incoherent. */
@@ -499,8 +497,7 @@ export const defaultBodyForPosition = (p: PositionId) =>
     center_back: [187, 80],
     left_back: [178, 72],
     right_back: [178, 72],
-    defensive_midfielder: [181, 76],
-    attacking_midfielder: [177, 71],
+    central_midfielder: [179, 74],
     left_winger: [175, 69],
     right_winger: [175, 69],
     striker: [183, 78],

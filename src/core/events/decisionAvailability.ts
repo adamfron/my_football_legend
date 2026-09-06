@@ -3,14 +3,14 @@ import type { CareerState, EventDecision, EventInstance, PositionGroup } from '.
 const positionGroups: Record<PositionGroup, readonly string[]> = {
   goalkeeper: ['goalkeeper'],
   defender: ['center_back', 'left_back'],
-  midfielder: ['defensive_midfielder', 'attacking_midfielder', 'attacking_midfielder'],
+  midfielder: ['central_midfielder', 'central_midfielder', 'central_midfielder'],
   attacker: ['left_winger', 'striker'],
   outfield: [
     'center_back',
     'left_back',
-    'defensive_midfielder',
-    'attacking_midfielder',
-    'attacking_midfielder',
+    'central_midfielder',
+    'central_midfielder',
+    'central_midfielder',
     'left_winger',
     'striker',
   ],

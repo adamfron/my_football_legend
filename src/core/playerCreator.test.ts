@@ -30,8 +30,8 @@ describe('Player Model 2.0 creator', () => {
     expect(a[0]!.player.attributes).not.toEqual(a[1]!.player.attributes);
     expect(Object.keys(a[0]!.player.attributes)).toHaveLength(28);
   });
-  it('has exactly nine positions and attributes', () => {
-    expect(positionIds).toHaveLength(9);
+  it('has exactly eight positions and attributes', () => {
+    expect(positionIds).toHaveLength(8);
     expect(OVR_ATTRIBUTE_KEYS).toHaveLength(28);
   });
   it('reuses immutable fallback world data while isolating career state', () => {

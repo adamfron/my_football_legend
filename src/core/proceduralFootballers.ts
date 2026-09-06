@@ -27,8 +27,8 @@ const positions: PlayerPosition[] = [
   'center_back',
   'left_back',
   'right_back',
-  'defensive_midfielder',
-  'attacking_midfielder',
+  'central_midfielder',
+  'central_midfielder',
   'left_winger',
   'right_winger',
   'striker',
@@ -48,7 +48,7 @@ export const parseProceduralFootballerId = (id: Id): ProceduralPlayerOrigin | un
   if (!kind) return undefined;
   const body = suffix.slice(kind.length + 1);
   const match = body.match(
-    /^(.*)_(\d{4})_(goalkeeper|center_back|left_back|right_back|defensive_midfielder|attacking_midfielder|left_winger|right_winger|striker)_(\d+)$/,
+    /^(.*)_(\d{4})_(goalkeeper|center_back|left_back|right_back|central_midfielder|central_midfielder|left_winger|right_winger|striker)_(\d+)$/,
   );
   if (!match || !positions.includes(match[3] as PlayerPosition)) return undefined;
   return {

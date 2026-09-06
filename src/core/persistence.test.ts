@@ -8,6 +8,7 @@ import {
   hydrateCareerWithWorld,
   saveCareer,
   serializeCareerSave,
+  migrateLegacyMidfieldPositions,
 } from './persistence';
 import {
   createCareerState,
@@ -35,10 +36,23 @@ const input: CreatorInput = {
   dominantFoot: 'right',
   customSeed: '',
   seed: 'save-seed',
-  position: 'attacking_midfielder',
+  position: 'central_midfielder',
   heightCm: 179,
   weightKg: 73,
 };
+
+describe('legacy midfield migration', () => {
+  it('merges primary, secondary and familiarity values at the versioned boundary', () => {
+    const migrated = migrateLegacyMidfieldPositions({
+      primaryPosition: 'defensive_midfielder',
+      secondaryPositions: ['attacking_midfielder', 'defensive_midfielder', 'striker'],
+      positionFamiliarity: { defensive_midfielder: 0.6, attacking_midfielder: 0.85, striker: 1 },
+    }) as Record<string, unknown>;
+    expect(migrated.primaryPosition).toBe('central_midfielder');
+    expect(migrated.secondaryPositions).toEqual(['central_midfielder', 'striker']);
+    expect(migrated.positionFamiliarity).toEqual({ central_midfielder: 0.85, striker: 1 });
+  });
+});
 const career = () =>
   createCareerState(generateStartingPlayerProfile(input, 'save-seed', 0), 'save-seed');
 

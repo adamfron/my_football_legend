@@ -20,72 +20,16 @@ import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
 import { createProfessionalContract } from './playerEconomy';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
-export const FORMATIONS: Record<FormationId, readonly PlayerPosition[]> = {
-  '4-3-3': [
-    'goalkeeper',
-    'left_back',
-    'center_back',
-    'center_back',
-    'right_back',
-    'defensive_midfielder',
-    'attacking_midfielder',
-    'attacking_midfielder',
-    'left_winger',
-    'right_winger',
-    'striker',
-  ],
-  '4-2-3-1': [
-    'goalkeeper',
-    'left_back',
-    'center_back',
-    'center_back',
-    'right_back',
-    'defensive_midfielder',
-    'defensive_midfielder',
-    'left_winger',
-    'attacking_midfielder',
-    'right_winger',
-    'striker',
-  ],
-  '4-4-2': [
-    'goalkeeper',
-    'left_back',
-    'center_back',
-    'center_back',
-    'right_back',
-    'defensive_midfielder',
-    'defensive_midfielder',
-    'left_winger',
-    'right_winger',
-    'striker',
-    'striker',
-  ],
-  '3-4-2-1': [
-    'goalkeeper',
-    'center_back',
-    'center_back',
-    'center_back',
-    'left_back',
-    'right_back',
-    'defensive_midfielder',
-    'defensive_midfielder',
-    'attacking_midfielder',
-    'attacking_midfielder',
-    'striker',
-  ],
-  '3-5-2': [
-    'goalkeeper',
-    'center_back',
-    'center_back',
-    'center_back',
-    'left_back',
-    'right_back',
-    'defensive_midfielder',
-    'attacking_midfielder',
-    'attacking_midfielder',
-    'striker',
-    'striker',
-  ],
+export type TacticalDuty = 'defend' | 'support' | 'attack';
+export interface FormationSlot { position: PlayerPosition; duty?: TacticalDuty; x: number; y: number }
+const slot = (position: PlayerPosition, x: number, y: number, duty?: TacticalDuty): FormationSlot =>
+  ({ position, x, y, ...(duty ? { duty } : {}) });
+export const FORMATIONS: Record<FormationId, readonly FormationSlot[]> = {
+  '4-3-3': [slot('goalkeeper',50,91),slot('left_back',14,72),slot('center_back',38,72),slot('center_back',62,72),slot('right_back',86,72),slot('central_midfielder',50,49,'defend'),slot('central_midfielder',32,34,'support'),slot('central_midfielder',68,30,'attack'),slot('left_winger',18,13),slot('right_winger',82,13),slot('striker',50,8)],
+  '4-2-3-1': [slot('goalkeeper',50,91),slot('left_back',14,72),slot('center_back',38,72),slot('center_back',62,72),slot('right_back',86,72),slot('central_midfielder',37,52,'defend'),slot('central_midfielder',63,48,'support'),slot('left_winger',16,30),slot('central_midfielder',50,27,'attack'),slot('right_winger',84,30),slot('striker',50,9)],
+  '4-4-2': [slot('goalkeeper',50,91),slot('left_back',14,72),slot('center_back',38,72),slot('center_back',62,72),slot('right_back',86,72),slot('central_midfielder',38,43,'support'),slot('central_midfielder',62,43,'support'),slot('left_winger',14,34),slot('right_winger',86,34),slot('striker',36,10),slot('striker',64,10)],
+  '3-4-2-1': [slot('goalkeeper',50,91),slot('center_back',25,70),slot('center_back',50,70),slot('center_back',75,70),slot('left_back',13,47),slot('right_back',87,47),slot('central_midfielder',38,48,'defend'),slot('central_midfielder',62,45,'support'),slot('central_midfielder',35,27,'attack'),slot('central_midfielder',65,27,'attack'),slot('striker',50,8)],
+  '3-5-2': [slot('goalkeeper',50,91),slot('center_back',25,70),slot('center_back',50,70),slot('center_back',75,70),slot('left_back',13,47),slot('right_back',87,47),slot('central_midfielder',50,51,'defend'),slot('central_midfielder',34,34,'support'),slot('central_midfielder',66,31,'attack'),slot('striker',36,9),slot('striker',64,9)],
 };
 const managerFormationCache = new Map<string, FormationId>();
 export const getManagerPreferredFormation = (managerId = 'manager'): FormationId => {
@@ -119,8 +63,7 @@ const squadDepthBlueprint: SquadDepthSlot[] = [
   ...depth('center_back', [2, 1, -2, -6]),
   ...depth('left_back', [2, -5]),
   ...depth('right_back', [2, -5]),
-  ...depth('defensive_midfielder', [2, 0, -5]),
-  ...depth('attacking_midfielder', [2, 0, -5]),
+  ...depth('central_midfielder', [2, 1, 0, -2, -4, -7]),
   ...depth('left_winger', [2, -5]),
   ...depth('right_winger', [2, -5]),
   ...depth('striker', [2, 0, -6]),
@@ -367,7 +310,7 @@ export type MatchBenchAssignment = Omit<BestXIAssignment, 'slotIndex'>;
 const BENCH_COVERAGE: readonly (readonly PlayerPosition[])[] = [
   ['goalkeeper'],
   ['center_back', 'left_back', 'right_back'],
-  ['defensive_midfielder', 'attacking_midfielder'],
+  ['central_midfielder'],
   ['left_winger', 'right_winger', 'striker'],
 ];
 
@@ -383,8 +326,8 @@ export const selectMatchBench = (
   club: SquadSelectionContext,
   xi: readonly Pick<BestXIAssignment, 'footballerId'>[] = selectBestXI(career, club).assignments,
   limit = 7,
-  selectionScore: SelectionScore = (player, position) =>
-    getManagerSelectionScore(career, club, player, position),
+  selectionScore: SelectionScore = (player, slot) =>
+    evaluateCandidateForSlot(career, club, player, slot),
 ): MatchBenchAssignment[] => {
   const excluded = new Set(xi.map((item) => item.footballerId));
   const available = (club.squadPlayerIds ?? [])
@@ -402,14 +345,10 @@ export const selectMatchBench = (
       );
       if (!eligiblePositions.length) continue;
       let position = eligiblePositions[0]!;
-      let effectiveOverall = getSelectionOverall(player, position, player.id === career.player.id);
+      let effectiveOverall = getEffectivePositionOverall(player, position);
       for (let index = 1; index < eligiblePositions.length; index++) {
         const candidatePosition = eligiblePositions[index]!;
-        const candidateOverall = getSelectionOverall(
-          player,
-          candidatePosition,
-          player.id === career.player.id,
-        );
+        const candidateOverall = getEffectivePositionOverall(player, candidatePosition);
         if (
           candidateOverall > effectiveOverall ||
           (candidateOverall === effectiveOverall && candidatePosition.localeCompare(position) < 0)
@@ -418,7 +357,7 @@ export const selectMatchBench = (
           effectiveOverall = candidateOverall;
         }
       }
-      const score = selectionScore(player, position);
+      const score = selectionScore(player, { position, x: 0, y: 0 });
       if (
         !best ||
         score > best.score ||
@@ -454,7 +393,7 @@ export interface SquadHierarchy {
 }
 export type SportingStatus = 'starting_xi' | 'bench' | 'deep_reserve';
 type SelectionCareer = Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>;
-type SelectionScore = (player: FootballerProfile, position: PlayerPosition) => number;
+type SelectionScore = (player: FootballerProfile, slot: FormationSlot) => number;
 const sportingStatusCache = new WeakMap<object, Map<string, SportingStatus>>();
 const managerAssignmentCache = new WeakMap<object, Map<string, PlayerPosition | undefined>>();
 
@@ -465,6 +404,20 @@ const TACTICAL_ATTRIBUTES = {
   counter_attacking: ['gameReading', 'pace', 'finishing', 'composure'],
   balanced: [],
 } as const satisfies Record<string, readonly (keyof FootballerProfile['attributes'])[]>;
+
+const DUTY_ATTRIBUTES: Record<TacticalDuty, readonly (keyof FootballerProfile['attributes'])[]> = {
+  defend: ['tackling', 'positioning', 'gameReading', 'concentration', 'strength', 'stamina'],
+  support: ['gameReading', 'passing', 'technique', 'firstTouch', 'stamina'],
+  attack: ['finishing', 'technique', 'dribbling', 'gameReading', 'pace', 'composure'],
+};
+
+/** Duty is manager context, never another position or OVR. Its effect is capped at +/-2. */
+export const getTacticalDutyFit = (player: FootballerProfile, duty?: TacticalDuty) => {
+  if (!duty) return 0;
+  const keys = DUTY_ATTRIBUTES[duty];
+  const mean = keys.reduce((sum, key) => sum + player.attributes[key], 0) / keys.length;
+  return Math.max(-2, Math.min(2, (mean - 50) / 25));
+};
 
 /** Relative profile fit is intentionally bounded and only settles close quality decisions. */
 export const getTacticalFit = (player: FootballerProfile, managerId = 'manager') => {
@@ -486,31 +439,23 @@ export const getFitnessSelectionPenalty = (fitness: number) =>
           ? -2
           : 0;
 
-const getSelectionOverall = (
-  player: FootballerProfile,
-  position: PlayerPosition,
-  isProtagonist: boolean,
-) => {
-  void isProtagonist;
-  return getEffectivePositionOverall(player, position);
-};
-
 /**
  * A manager's stable, deliberately small preference. Effective positional quality remains the
  * dominant signal; selectionStanding is slow-moving coach trust and can only settle close calls.
  */
-export const getManagerSelectionScore = (
+export const evaluateCandidateForSlot = (
   career: SelectionCareer,
   club: SquadSelectionContext,
   player: FootballerProfile,
-  position: PlayerPosition,
+  slot: Pick<FormationSlot, 'position' | 'duty'>,
+  context?: { fitness?: number; coachTrust?: number },
 ) => {
   const isProtagonist = player.id === career.player.id;
-  const effectiveOverall = getSelectionOverall(player, position, isProtagonist);
-  const fitness = isProtagonist
+  const effectiveOverall = getEffectivePositionOverall(player, slot.position);
+  const fitness = context?.fitness ?? (isProtagonist
     ? career.player.fitness
-    : (career.footballerWorld?.[player.id]?.fitness ?? 90);
-  const trust = isProtagonist ? ((career.selectionStanding ?? 50) - 50) / 25 : 0;
+    : (career.footballerWorld?.[player.id]?.fitness ?? 90));
+  const trust = ((context?.coachTrust ?? (isProtagonist ? career.selectionStanding : 50) ?? 50) - 50) / 25;
   const coach = deriveCanonicalCoachProfile(club.managerId ?? 'manager');
   const agePreference =
     ((coach.youthTrust - coach.experiencePreference) / 100) *
@@ -519,10 +464,14 @@ export const getManagerSelectionScore = (
     effectiveOverall +
     trust +
     getFitnessSelectionPenalty(fitness) +
+    getTacticalDutyFit(player, slot.duty) +
     getTacticalFit(player, club.managerId) +
     agePreference;
   return score;
 };
+export const getManagerSelectionScore = (
+  career: SelectionCareer, club: SquadSelectionContext, player: FootballerProfile, position: PlayerPosition,
+) => evaluateCandidateForSlot(career, club, player, { position });
 
 /** A hierarchy calculation scores every player/position pair once, not once per sort comparison. */
 const createSelectionScore = (
@@ -530,11 +479,11 @@ const createSelectionScore = (
   club: SquadSelectionContext,
 ): SelectionScore => {
   const scores = new Map<string, number>();
-  return (player, position) => {
-    const key = `${player.id}:${position}`;
+  return (player, slot) => {
+    const key = `${player.id}:${slot.position}:${slot.duty ?? 'none'}`;
     const cached = scores.get(key);
     if (cached !== undefined) return cached;
-    const score = getManagerSelectionScore(career, club, player, position);
+    const score = evaluateCandidateForSlot(career, club, player, slot);
     scores.set(key, score);
     return score;
   };
@@ -562,7 +511,7 @@ const selectManagerXI = (
   if (
     players.length < 11 ||
     slots.some(
-      (position) => !players.some((player) => isEligibleForNormalPosition(player, position)),
+      (slot) => !players.some((player) => isEligibleForNormalPosition(player, slot.position)),
     )
   )
     return { formation, assignments: [] };
@@ -585,9 +534,9 @@ const selectManagerXI = (
       for (let j = 1; j <= m; j++)
         if (!used[j]) {
           const player = players[j - 1]!,
-            position = slots[i0 - 1]!;
-          const quality = isEligibleForNormalPosition(player, position)
-            ? selectionScore(player, position)
+            slot = slots[i0 - 1]!;
+          const quality = isEligibleForNormalPosition(player, slot.position)
+            ? selectionScore(player, slot)
             : -1_000_000;
           const current = -quality + j * 1e-7 - u[i0]! - v[j]!;
           if (current < minv[j]!) {
@@ -617,7 +566,7 @@ const selectManagerXI = (
   if (
     assigned.some(
       (index, slot) =>
-        index === undefined || !isEligibleForNormalPosition(players[index]!, slots[slot]!),
+        index === undefined || !isEligibleForNormalPosition(players[index]!, slots[slot]!.position),
     )
   )
     return { formation, assignments: [] };
@@ -625,12 +574,8 @@ const selectManagerXI = (
     formation,
     assignments: assigned.map((index, slot) => ({
       footballerId: players[index]!.id,
-      position: slots[slot]!,
-      effectiveOverall: getSelectionOverall(
-        players[index]!,
-        slots[slot]!,
-        players[index]!.id === career.player.id,
-      ),
+      position: slots[slot]!.position,
+      effectiveOverall: getEffectivePositionOverall(players[index]!, slots[slot]!.position),
       slotIndex: slot,
     })),
   };

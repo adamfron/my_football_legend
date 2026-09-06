@@ -185,14 +185,17 @@ Grywalny pierwszy sezon jest podłączony do trwałych kadr, prawdziwej selekcji
   startowego, używając jakości, poziomu ligi, finansów klubu, roli, wieku i reputacji, z kontrolowaną
   wariancją indywidualnych ofert.
 
-## Kolejność po PR78
-
-1. PR79 — spójna obserwowalność siły, sezonowego OVR, członkostwa i ofert taktycznych.
-2. Następny duży PR — makrokalibracja długich karier i audyt rozwoju na danych statystycznych.
-3. Single Match [DEV] sandbox.
-4. Decyzyjny, izometryczny vertical slice silnika meczu.
-5. Zużycie fitness/regeneracja oraz pełny system morale.
-6. Competition / Calendar 2.0.
-7. Pełny przegląd krzywych rozwoju dopiero po dodaniu pucharów, Europy, reprezentacji i inwestycji.
-
 Przyszły audyt rozwoju porówna poziom trudności ze startowym i szczytowym OVR, liczbą sezonów, meczów i minut, rozmiarem lig oraz meczami pucharowymi, europejskimi i reprezentacyjnymi, a także inwestycjami. Obecna skrócona kariera krajowa nie jest podstawą do strojenia krzywych ani dodawania trybu Very Easy.
+
+## Plan po PR80
+
+1. **PR81 — Condition & Manager Behaviour:** wspólne dla protagonisty i NPC obciążenie minutami,
+   regeneracja po dniach, wpływ wytrzymałości i wieku (później medycyny/treningu), identyczne kary
+   selekcji, adaptacyjny wybór formacji z inercją i presją użycia gwiazdy, elastyczność/uczenie
+   pozycji oraz trener w obszarze kadry (NOWY z `managerMoveRecords`). Makrokalibracja czeka na ten krok.
+2. **PR82 — Squad Planning & Transfer Intelligence:** ilościowe luki jakości, priorytety trenera,
+   rekrutacja pod formację, frustracja obiecaną rolą i presja odejścia bez pełnego morale.
+3. **PR83 — Long-career macro calibration:** rozwój, populacja, OVR względem wieku/trudności,
+   transfery, luki kadr, fitness, rotacja trenerów, wyjścia z karier i rozwój młodzieży.
+4. **PR84 — Single Match [DEV].**
+5. **PR85 — decyzyjny izometryczny vertical slice silnika meczu.**

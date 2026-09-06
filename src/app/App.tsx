@@ -55,6 +55,7 @@ import {
   continueOnExistingContract,
   continueWithProfessionalTrial,
   retireCareer,
+  validateProfessionalOfferAcceptance,
 } from '../core/careerSeasons';
 import { getEffectivePositionOverall, getPlayerOverall } from '../core/playerOverall';
 import { requestContractRenegotiation } from '../core/contracts';
@@ -584,8 +585,9 @@ export const SeasonEndSummary = ({
         <div className="offer-grid">
           {career
             .professionalOffers!.filter((offer) => offer.offerType !== 'renewal')
-            .map((offer) => (
-              <article className="mini-card offer-card" key={offer.id}>
+            .map((offer) => {
+              const acceptance = validateProfessionalOfferAcceptance(career, offer);
+              return <article className="mini-card offer-card" key={offer.id}>
                 <h3>{offer.club.name}</h3>
                 {offer.offerType === 'renewal' && (
                   <p>
@@ -680,11 +682,20 @@ export const SeasonEndSummary = ({
                 <p>
                   <strong>Ryzyko:</strong> {offer.risk}
                 </p>
-                <button onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}>
+                {!acceptance.valid && (
+                  <p className="error-message">
+                    {acceptance.reason}
+                  </p>
+                )}
+                <button
+                  disabled={!acceptance.valid}
+                  title={acceptance.valid ? undefined : acceptance.reason}
+                  onClick={() => onCareer(acceptProfessionalOffer(career, offer.id))}
+                >
                   Przyjmij
                 </button>
-              </article>
-            ))}
+              </article>;
+            })}
         </div>
       ) : career.careerSeasonNumber === 1 ? (
         <article className="mini-card">

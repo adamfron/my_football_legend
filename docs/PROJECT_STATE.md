@@ -214,3 +214,11 @@ Model zawiera teraz odrębne `positioning`, `goalkeeperKicking` i `goalkeeperThr
 **ONE CURRENT CLUB STRENGTH = średnia efektywnego OVR kanonicznej legalnej XI.** `getCareerClubStrength()` jest jedynym resolverem żywej jakości sportowej i jawnie zgłasza błąd, gdy znormalizowany klub zawodowy nie potrafi wystawić legalnej XI. `strengthRating`/`overallStrength` oraz `getBootstrapClubStrength()` są wyłącznie wejściem generowania przed utworzeniem realnych kadr; reputacja, finanse i infrastruktura pozostają odrębnymi pojęciami.
 
 Oferty pokazują konkretną konkurencję na planowanej pozycji (efektywny OVR oraz prognozowany status). Kadra pokazuje deterministyczną zmianę nominalnego OVR od 1 lipca, znacznik NOWY wyprowadzony z kontraktu/rekordu transferu oraz wyłącznie kanoniczną dostępność protagonisty. Reużywalny `ClubPreview` prezentuje realnych liderów i najlepszego zawodnika U21. DEV World Browser jest deterministycznym, tylko-do-odczytu widokiem zawodowego świata; audyt klubów publikuje siłę XI, wykonalność formacji i lukę najsłabszego slotu.
+
+## PR80 — Position & Selection 3.0
+
+Środkowa pomoc jest jedną pozycją ŚP; pionowe role są zadaniami slotów formacji. Selekcja i projekcja
+ofert korzystają z `evaluateCandidateForSlot`, a akceptacja oferty ma jawną walidację widoczną w UI.
+Statyczny fitness NPC pozostaje świadomie znanym długiem do wspólnego modelu PR81; przed jego
+wdrożeniem nie wykonujemy makrokalibracji długich karier. Adaptacyjna zmiana formacji również należy
+do PR81, a inteligencja rekrutacji oparta na lukach jakości do PR82.
