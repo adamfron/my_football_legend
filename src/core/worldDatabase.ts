@@ -102,8 +102,8 @@ const composeFootballerState = (
 
 /** Composes base/new, rare full override, then the sparse development overlay. */
 export const resolveCareerWorldFootballer = (
-  career: Pick<CareerState, 'footballerWorld' | 'worldDelta'> &
-    Partial<Pick<CareerState, 'currentDate' | 'seed'>>,
+  career: Pick<CareerState, 'footballerWorld'> &
+    Partial<Pick<CareerState, 'worldDelta' | 'currentDate' | 'seed'>>,
   id: Id,
 ): WorldFootballer | undefined => {
   const delta = career.worldDelta;

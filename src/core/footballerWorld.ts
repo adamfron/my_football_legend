@@ -21,6 +21,8 @@ import { createProfessionalContract } from './playerEconomy';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export type TacticalDuty = 'defend' | 'support' | 'attack';
+export type FootballerSelectionWorld = Pick<CareerState, 'footballerWorld'> &
+  Partial<Pick<CareerState, 'player' | 'worldDelta' | 'currentDate'>>;
 export interface FormationSlot { position: PlayerPosition; duty?: TacticalDuty; x: number; y: number }
 const slot = (position: PlayerPosition, x: number, y: number, duty?: TacticalDuty): FormationSlot =>
   ({ position, x, y, ...(duty ? { duty } : {}) });
@@ -41,11 +43,11 @@ export const getManagerPreferredFormation = (managerId = 'manager'): FormationId
 };
 
 export const resolveFootballer = (
-  career: Pick<CareerState, 'player' | 'footballerWorld' | 'worldDelta' | 'currentDate'>,
+  career: FootballerSelectionWorld,
   id: Id,
 ): FootballerProfile | undefined => {
   const profile =
-    id === career.player.id ? career.player : resolveCareerWorldFootballer(career, id)?.profile;
+    id === career.player?.id ? career.player : resolveCareerWorldFootballer(career, id)?.profile;
   if (!profile || !career.currentDate) return profile;
   const age = getProfileAge(profile, career.currentDate, '2026-07-01');
   return age === profile.age ? profile : { ...profile, age };
@@ -322,7 +324,7 @@ export const isEligibleForNormalPosition = isNormallyEligibleForPosition;
 
 /** Temporary deterministic presentation evaluation, not manager selection AI. */
 export const selectMatchBench = (
-  career: Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>,
+  career: SquadSelectionWorld,
   club: SquadSelectionContext,
   xi: readonly Pick<BestXIAssignment, 'footballerId'>[] = selectBestXI(career, club).assignments,
   limit = 7,
@@ -392,7 +394,10 @@ export interface SquadHierarchy {
   deepReserve: FootballerProfile[];
 }
 export type SportingStatus = 'starting_xi' | 'bench' | 'deep_reserve';
-type SelectionCareer = Pick<CareerState, 'player' | 'footballerWorld' | 'selectionStanding'>;
+/** Canonical selection input. Career-only protagonist modifiers are optional by design. */
+export type SquadSelectionWorld = FootballerSelectionWorld &
+  Partial<Pick<CareerState, 'selectionStanding'>>;
+type SelectionCareer = SquadSelectionWorld;
 type SelectionScore = (player: FootballerProfile, slot: FormationSlot) => number;
 const sportingStatusCache = new WeakMap<object, Map<string, SportingStatus>>();
 const managerAssignmentCache = new WeakMap<object, Map<string, PlayerPosition | undefined>>();
@@ -450,10 +455,11 @@ export const evaluateCandidateForSlot = (
   slot: Pick<FormationSlot, 'position' | 'duty'>,
   context?: { fitness?: number; coachTrust?: number },
 ) => {
-  const isProtagonist = player.id === career.player.id;
+  const protagonist = career.player;
+  const isProtagonist = player.id === protagonist?.id;
   const effectiveOverall = getEffectivePositionOverall(player, slot.position);
   const fitness = context?.fitness ?? (isProtagonist
-    ? career.player.fitness
+    ? protagonist?.fitness ?? 90
     : (career.footballerWorld?.[player.id]?.fitness ?? 90));
   const trust = ((context?.coachTrust ?? (isProtagonist ? career.selectionStanding : 50) ?? 50) - 50) / 25;
   const coach = deriveCanonicalCoachProfile(club.managerId ?? 'manager');
@@ -496,14 +502,15 @@ const selectManagerXI = (
   selectionScore: SelectionScore,
 ): BestXI => {
   const slots = FORMATIONS[formation];
+  const protagonist = career.player;
   const players = (club.squadPlayerIds ?? [])
     .map((id) => resolveFootballer(career, id))
     .filter((player): player is FootballerProfile => Boolean(player))
     .filter(
       (player) =>
         getFitnessSelectionPenalty(
-          player.id === career.player.id
-            ? career.player.fitness
+          player.id === protagonist?.id
+            ? protagonist?.fitness ?? 90
             : (career.footballerWorld?.[player.id]?.fitness ?? 90),
         ) !== Number.NEGATIVE_INFINITY,
     )
@@ -727,12 +734,11 @@ export const getPositionalCompetition = (
         a.player.id.localeCompare(b.player.id),
     );
 export const selectBestXI = (
-  career: Pick<CareerState, 'player' | 'footballerWorld'>,
+  career: SquadSelectionWorld,
   club: SquadSelectionContext,
   formation = getManagerPreferredFormation(club.managerId),
 ): BestXI => {
-  const selectionCareer = career as SelectionCareer;
-  return selectCanonicalXI(selectionCareer, club, formation);
+  return selectCanonicalXI(career, club, formation);
 };
 
 export const getSquadDerivedClubStrength = (

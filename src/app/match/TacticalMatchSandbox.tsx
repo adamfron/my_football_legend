@@ -8,30 +8,16 @@ import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
 import { createTacticalScenarios } from './tacticalRenderer/scenarios';
-import { interpolateFrame, type TacticalPlayer } from './tacticalRenderer/model';
+import { interpolateFrame } from './tacticalRenderer/model';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
+import {
+  createSingleMatchScenarioAliases,
+  createSingleMatchTacticalPlayers,
+} from './singleMatchScenarioAliases';
+import { buildStartMenuUrl } from '../devTools';
 import './TacticalMatchSandbox.css';
 
 const freshSeed = () => `lab-${Date.now().toString(36)}`;
-const toTacticalPlayers = (session: SingleMatchSession): TacticalPlayer[] => [
-  ...session.home.players.map((player) => ({
-    id: player.footballerId,
-    team: 'home' as const,
-    x: player.x,
-    y: player.y,
-    goalkeeper: player.profile.primaryPosition === 'goalkeeper',
-    protagonist: player.footballerId === session.setup.controlledFootballerId,
-  })),
-  ...session.away.players.map((player) => ({
-    id: player.footballerId,
-    team: 'away' as const,
-    x: 105 - player.x,
-    y: 68 - player.y,
-    goalkeeper: player.profile.primaryPosition === 'goalkeeper',
-    protagonist: player.footballerId === session.setup.controlledFootballerId,
-  })),
-];
-
 export const TacticalMatchSandbox = () => {
   const [world, setWorld] = useState<WorldDatabase>();
   const [homeId, setHomeId] = useState('');
@@ -207,24 +193,14 @@ const RunningLab = ({
   onRestart(): void;
   onRandomize(): void;
 }) => {
-  const tacticalPlayers = useMemo(() => toTacticalPlayers(session), [session]);
+  const tacticalPlayers = useMemo(() => createSingleMatchTacticalPlayers(session), [session]);
   const controlledTeam =
     session.setup.controlledClubId === session.home.club.id ? session.home : session.away;
   const actor = controlledTeam.players.find(
     (p) => p.footballerId === session.setup.controlledFootballerId,
   );
   const scenarios = useMemo(() => {
-    const homeIds = session.home.players.map((p) => p.footballerId),
-      awayIds = session.away.players.map((p) => p.footballerId);
-    const aliases = {
-      'home-0': homeIds[0]!,
-      'home-6': session.setup.controlledFootballerId,
-      'home-8': homeIds[8]!,
-      'home-9': homeIds[9]!,
-      'away-0': awayIds[0]!,
-      'away-6': awayIds[6]!,
-      'away-9': awayIds[9]!,
-    };
+    const aliases = createSingleMatchScenarioAliases(session);
     return createTacticalScenarios({ players: tacticalPlayers, aliases });
   }, [session, tacticalPlayers]);
   const [scenarioIndex, setScenarioIndex] = useState(0),
@@ -232,7 +208,7 @@ const RunningLab = ({
   const [elapsedMs, setElapsedMs] = useState(0);
   const [playing, setPlaying] = useState(false);
   const hostRef = useRef<HTMLDivElement>(null);
-  const rendererRef = useRef<TacticalPitchRenderer>();
+  const rendererRef = useRef<TacticalPitchRenderer | undefined>(undefined);
   useEffect(() => {
     if (!hostRef.current) return;
     const renderer = new TacticalPitchRenderer(hostRef.current, scenarios[0]!.sequence.frames[0]!);
@@ -288,6 +264,13 @@ const RunningLab = ({
         <button onClick={onRestart}>Restart — ten sam seed</button>
         <button onClick={onRandomize}>Losuj seed</button>
         <button onClick={onSetup}>Zmień ustawienia</button>
+        <button
+          onClick={() => {
+            globalThis.location.assign(buildStartMenuUrl(globalThis.location.href));
+          }}
+        >
+          Powrót do menu
+        </button>
       </nav>
       <section className="sandbox-grid">
         <div className="pitch-stage" ref={hostRef} />

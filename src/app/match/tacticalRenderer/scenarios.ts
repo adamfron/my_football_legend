@@ -59,7 +59,10 @@ const move = (
   ),
   ball,
 });
-const initial = (players = basePlayers(), ownerId = 'home-6'): TacticalFrame => ({
+const initial = (
+  players: TacticalFrame['players'] = basePlayers(),
+  ownerId = 'home-6',
+): TacticalFrame => ({
   players,
   ball: { x: 43, y: 34, ownerId },
   timestampMs: 0,

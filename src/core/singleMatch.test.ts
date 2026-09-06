@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession, singleMatchSetupSchema } from './singleMatch';
+import {
+  createSingleMatchScenarioAliases,
+  createSingleMatchTacticalPlayers,
+} from '../app/match/singleMatchScenarioAliases';
 
 const world = createCanonicalWorldDatabase();
 const home = world.clubs[0]!;
@@ -53,4 +57,36 @@ describe('Single Match Lab domain session', () => {
     ).toBeDefined();
     expect(home.squadPlayerIds).toEqual(before);
   });
+
+  it.each([['home', home, away] as const, ['away', away, home] as const])(
+    'keeps a %s-controlled protagonist on the correct tactical side',
+    (_, controlled, opponent) => {
+      const controlledId = controlled.squadPlayerIds!.at(-1)!;
+      const session = createSingleMatchSession(world, {
+        ...setup,
+        controlledClubId: controlled.id,
+        controlledFootballerId: controlledId,
+        homeClubId: controlled === home ? controlled.id : opponent.id,
+        awayClubId: controlled === away ? controlled.id : opponent.id,
+      });
+      const tactical = createSingleMatchTacticalPlayers(session);
+      const protagonist = tactical.filter((player) => player.protagonist);
+      expect(protagonist).toHaveLength(1);
+      expect(protagonist[0]).toMatchObject({
+        id: controlledId,
+        team: controlled.id === session.home.club.id ? 'home' : 'away',
+      });
+      const aliases = createSingleMatchScenarioAliases(session);
+      expect(aliases[controlled.id === session.home.club.id ? 'home-6' : 'away-6']).toBe(
+        controlledId,
+      );
+      expect(
+        Object.entries(aliases).some(
+          ([role, id]) =>
+            role.startsWith(controlled.id === session.home.club.id ? 'away' : 'home') &&
+            id === controlledId,
+        ),
+      ).toBe(false);
+    },
+  );
 });

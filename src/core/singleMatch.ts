@@ -47,7 +47,7 @@ export interface SingleMatchSession {
 const buildTeam = (world: WorldDatabase, club: ProfessionalClub, seed: string) => {
   const squad = (club.squadPlayerIds ?? []).map((id) => world.footballers[id]).filter(Boolean);
   if (!squad[0]) throw new Error(`Klub ${club.name} nie ma kadry.`);
-  const context = { player: squad[0].profile, footballerWorld: world.footballers };
+  const context = { footballerWorld: world.footballers };
   const preferred = getManagerPreferredFormation(club.managerId);
   const selected = selectBestXI(context, club, preferred);
   if (selected.assignments.length !== 11) throw new Error(`Nie udało się wybrać XI: ${club.name}.`);
