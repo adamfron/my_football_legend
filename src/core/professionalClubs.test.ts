@@ -28,7 +28,7 @@ const career = () =>
         nationality: 'PL',
         age: 16,
         dominantFoot: 'right',
-        position: 'attacking_midfielder',
+        position: 'central_midfielder',
         heightCm: 178,
         weightKg: 70,
         seed: 'offers',
@@ -49,14 +49,13 @@ describe('professional transition', () => {
     const managerId = Array.from({ length: 100 }, (_, index) => `no-osp-${index}`).find(
       (id) => getManagerPreferredFormation(id) === '4-4-2',
     )!;
-    c.player.primaryPosition = 'attacking_midfielder';
+    c.player.primaryPosition = 'central_midfielder';
     for (const position of Object.keys(c.player.positionFamiliarity) as Array<
       keyof typeof c.player.positionFamiliarity
     >)
-      c.player.positionFamiliarity[position] = position === 'attacking_midfielder' ? 1 : 0;
+      c.player.positionFamiliarity[position] = position === 'central_midfielder' ? 1 : 0;
     expect(deriveOfferPositionIntent(c, { ...directClub, managerId })).toEqual({
-      plannedPosition: 'attacking_midfielder',
-      tacticalPositionWarning: 'Trener nie używa twojej nominalnej pozycji w obecnym ustawieniu',
+      plannedPosition: 'central_midfielder',
     });
   });
   it('creates one deterministic real-club safety offer when an expiring contract has no interest', () => {
@@ -258,6 +257,22 @@ describe('professional transition', () => {
     expect(afterSecondWeek.recentVariantKeys?.every((key) => typeof key === 'string')).toBe(true);
     expect(careerStateSchema.safeParse(afterSecondWeek).success).toBe(true);
     expect(() => saveCareer(afterSecondWeek)).not.toThrow();
+  });
+  it('honours every displayed external offer independently from one decision state', () => {
+    const original = career();
+    original.professionalOffers = generateProfessionalOffers(original).filter(
+      ({ offerType }) => offerType === 'external',
+    );
+    expect(original.professionalOffers.length).toBeGreaterThan(1);
+    for (const offer of original.professionalOffers) {
+      const next = acceptProfessionalOffer(structuredClone(original), offer.id);
+      expect(next.currentClub.id).toBe(offer.club.id);
+      expect(next.currentContract?.clubId).toBe(offer.club.id);
+      expect(next.careerSeasonNumber).toBe(original.careerSeasonNumber + 1);
+      expect(next.currentSeason).toBe(original.currentSeason + 1);
+      expect(next.currentProfessionalClub?.squadPlayerIds).toContain(next.player.id);
+      expect(next.professionalOffers).toBeUndefined();
+    }
   });
 });
 

@@ -460,6 +460,29 @@ export const continueOnExistingContract = (career: CareerState): CareerState =>
 
 /** @deprecated Use the explicit, validity-checked action. */
 export const stayAtCurrentClub = continueOnExistingContract;
+export type ProfessionalOfferAcceptanceValidation =
+  | { valid: true; offer: ProfessionalOffer }
+  | { valid: false; reason: string };
+export const validateProfessionalOfferAcceptance = (
+  career: CareerState,
+  offerOrId: ProfessionalOffer | string,
+): ProfessionalOfferAcceptanceValidation => {
+  const offer = typeof offerOrId === 'string'
+    ? career.professionalOffers?.find((item) => item.id === offerOrId)
+    : offerOrId;
+  if (!offer || !career.professionalOffers?.some((item) => item.id === offer.id))
+    return { valid: false, reason: 'Ta oferta nie jest już dostępna.' };
+  const expectedStartDate = `${career.currentSeason + 1}-07-01`;
+  if (offer.contract.clubId !== offer.club.id)
+    return { valid: false, reason: 'Oferta zawiera niespójne dane klubu i kontraktu.' };
+  if (offer.contract.startDate !== expectedStartDate)
+    return { valid: false, reason: 'Oferta dotyczy innego okna kontraktowego.' };
+  if (offer.contract.endDate < offer.contract.startDate)
+    return { valid: false, reason: 'Oferta ma nieprawidłowy okres obowiązywania.' };
+  if (offer.offerType === 'renewal' && offer.club.id !== career.currentClub.id)
+    return { valid: false, reason: 'Przedłużenie może zaoferować tylko obecny klub.' };
+  return { valid: true, offer };
+};
 const asClub = (offer: ProfessionalOffer): Club => ({
   id: offer.club.id,
   name: offer.club.name,
@@ -478,18 +501,11 @@ const asClub = (offer: ProfessionalOffer): Club => ({
   rivals: [],
 });
 export const acceptProfessionalOffer = (career: CareerState, offerId: string): CareerState => {
-  const offer = career.professionalOffers?.find((o) => o.id === offerId);
-  if (!offer) return career;
-  const expectedStartDate = `${career.currentSeason + 1}-07-01`;
+  const validation = validateProfessionalOfferAcceptance(career, offerId);
+  if (!validation.valid) return career;
+  const { offer } = validation;
   // An offer is the club's complete decision. Acceptance only validates that the displayed offer
   // still belongs to this boundary; it never re-runs a hidden willingness check.
-  if (
-    offer.contract.clubId !== offer.club.id ||
-    offer.contract.startDate !== expectedStartDate ||
-    offer.contract.endDate < offer.contract.startDate ||
-    (offer.offerType === 'renewal' && offer.club.id !== career.currentClub.id)
-  )
-    return career;
   if (
     career.leagueSeason?.completed &&
     !(career.completedSeasons ?? []).some((item) => item.seasonId === career.leagueSeason!.id)

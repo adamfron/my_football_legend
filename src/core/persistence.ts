@@ -4,7 +4,7 @@ import { careerStateSchema } from '../schemas/domainSchemas';
 import { WORLD_DATABASE_VERSION } from './worldDatabase';
 import { withCanonicalBirthDate } from './age';
 
-export const CAREER_SAVE_VERSION = 3;
+export const CAREER_SAVE_VERSION = 4;
 export const CAREER_SAVE_KEY = 'mfl.careerSave.v3';
 export const careerSaveSchema = z.object({
   version: z.literal(CAREER_SAVE_VERSION),
@@ -24,6 +24,28 @@ export type LoadCareerResult =
         | 'invalid_data';
     };
 const storageAvailable = () => typeof localStorage !== 'undefined';
+const LEGACY_MIDFIELD_POSITIONS = new Set(['defensive_midfielder', 'attacking_midfielder']);
+/** The single versioned compatibility boundary for PR80 positional data. */
+export const migrateLegacyMidfieldPositions = (value: unknown): unknown => {
+  if (typeof value === 'string')
+    return LEGACY_MIDFIELD_POSITIONS.has(value) ? 'central_midfielder' : value;
+  if (Array.isArray(value)) return value.map(migrateLegacyMidfieldPositions);
+  if (!value || typeof value !== 'object') return value;
+  const source = value as Record<string, unknown>;
+  const migrated = Object.fromEntries(
+    Object.entries(source)
+      .filter(([key]) => !LEGACY_MIDFIELD_POSITIONS.has(key))
+      .map(([key, item]) => {
+        const next = migrateLegacyMidfieldPositions(item);
+        return [key, key === 'secondaryPositions' && Array.isArray(next) ? [...new Set(next)] : next];
+      }),
+  );
+  const familiarities = ['central_midfielder', 'defensive_midfielder', 'attacking_midfielder']
+    .map((key) => source[key])
+    .filter((item): item is number => typeof item === 'number');
+  if (familiarities.length) migrated.central_midfielder = Math.max(...familiarities);
+  return migrated;
+};
 const migrateBirthDates = (career: CareerState): CareerState => {
   const referenceDate = `${career.currentSeason - career.careerSeasonNumber + 1}-07-01`;
   const migrateWorld = (records: Record<string, WorldFootballer> | undefined) =>
@@ -143,9 +165,11 @@ export const loadCareer = (): LoadCareerResult => {
     typeof parsed === 'object' &&
     parsed &&
     'version' in parsed &&
-    parsed.version !== CAREER_SAVE_VERSION
+    ![3, CAREER_SAVE_VERSION].includes(parsed.version as number)
   )
     return { ok: false, reason: 'incompatible_version' };
+  if (typeof parsed === 'object' && parsed && 'version' in parsed && parsed.version === 3)
+    parsed = { ...parsed, version: CAREER_SAVE_VERSION, career: migrateLegacyMidfieldPositions((parsed as Record<string, unknown>).career) };
   const result = careerSaveSchema.safeParse(parsed);
   if (!result.success) return { ok: false, reason: 'invalid_data' };
   if (result.data.career.worldDatabaseVersion !== WORLD_DATABASE_VERSION)
@@ -166,12 +190,12 @@ export const hydrateCareerWithWorld = (
     throw new Error(
       `Zapis wymaga świata ${career.worldDatabaseVersion ?? 'nieznanego'}, a wczytano ${world.version}.`,
     );
-  return careerStateSchema.parse({
+  return careerStateSchema.parse(migrateLegacyMidfieldPositions({
     ...career,
     clubWorld: world.clubs,
     footballerWorld: world.footballers,
     youthCohorts: world.youthCohorts,
-  });
+  }));
 };
 export const deleteCareer = () => {
   if (storageAvailable()) localStorage.removeItem(CAREER_SAVE_KEY);

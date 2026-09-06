@@ -13,6 +13,8 @@ import {
   getSportingStatus,
   getSquadDerivedClubStrength,
   getTacticalFit,
+  getTacticalDutyFit,
+  evaluateCandidateForSlot,
   populateFootballerWorld,
   resolveFootballer,
   selectBestXI,
@@ -21,8 +23,21 @@ import {
 import { generateProfessionalClubPool } from './professionalClubs';
 import { developmentProfileSchema, footballerProfileSchema } from '../schemas/domainSchemas';
 
+describe('formation slot model', () => {
+  it('defines eleven legal slots and separates CM duty from canonical position', () => {
+    for (const slots of Object.values(FORMATIONS)) {
+      expect(slots).toHaveLength(11);
+      expect(slots.every(({ position }) => position !== ('defensive_midfielder' as never) && position !== ('attacking_midfielder' as never))).toBe(true);
+      for (const slot of slots.filter(({ position }) => position === 'central_midfielder'))
+        expect(['defend', 'support', 'attack']).toContain(slot.duty);
+    }
+    const cms = FORMATIONS['4-2-3-1'].filter(({ position }) => position === 'central_midfielder');
+    expect(new Set(cms.map(({ y }) => y)).size).toBeGreaterThan(1);
+  });
+});
+
 const career = () => {
-  const [heightCm, weightKg] = defaultBodyForPosition('attacking_midfielder');
+  const [heightCm, weightKg] = defaultBodyForPosition('central_midfielder');
   const profile = generateStartingPlayerProfile(
     {
       firstName: 'Jan',
@@ -31,7 +46,7 @@ const career = () => {
       age: 16,
       dominantFoot: 'right',
       difficulty: 'normal',
-      position: 'attacking_midfielder',
+      position: 'central_midfielder',
       heightCm,
       weightKg,
       seed: 'world-test',
@@ -92,7 +107,7 @@ describe('persistent footballer world', () => {
     ).toBe(true);
     expect(
       first.bench.some((item) =>
-        ['defensive_midfielder', 'attacking_midfielder'].includes(item.position),
+        ['central_midfielder', 'central_midfielder'].includes(item.position),
       ),
     ).toBe(true);
     expect(
@@ -167,7 +182,9 @@ describe('persistent footballer world', () => {
       const state = career();
       const club = state.clubWorld![0]!;
       const hierarchy = deriveSquadHierarchy(state, club, formation);
-      expect(hierarchy.preferredXI.map((item) => item.position)).toEqual(FORMATIONS[formation]);
+      expect(hierarchy.preferredXI.map((item) => item.position)).toEqual(
+        FORMATIONS[formation].map((slot) => slot.position),
+      );
       expect(hierarchy.preferredXI.map((item) => item.slotIndex)).toEqual(
         FORMATIONS[formation].map((_, index) => index),
       );
@@ -189,18 +206,16 @@ describe('persistent footballer world', () => {
     }
   });
 
-  it('falls back from an infeasible preferred shape and never exposes illegal assignments', () => {
+  it('never fabricates an XI when no formation is feasible', () => {
     const state = career();
     const source = state.clubWorld![0]!;
     const squadPlayerIds = source.squadPlayerIds!.filter((id) => {
       const position = resolveFootballer(state, id)!.primaryPosition;
-      return position !== 'left_winger' && position !== 'right_winger';
+      return position !== 'left_winger' && position !== 'right_winger' && position !== 'central_midfielder';
     });
     const club = { ...source, squadPlayerIds };
     const hierarchy = deriveSquadHierarchy(state, club, '4-3-3');
-    expect(hierarchy.formation).not.toBe('4-3-3');
-    expect(hierarchy.preferredXI).toHaveLength(11);
-    expect(new Set(hierarchy.preferredXI.map(({ footballerId }) => footballerId)).size).toBe(11);
+    expect(hierarchy.preferredXI).toHaveLength(0);
     for (const assignment of hierarchy.preferredXI) {
       const player = resolveFootballer(state, assignment.footballerId)!;
       expect(player.positionFamiliarity[assignment.position]).toBeGreaterThanOrEqual(0.3);
@@ -235,4 +250,27 @@ describe('persistent footballer world', () => {
     );
     expect(strengths[0]).toBeGreaterThan(strengths[1]! + 15);
   }, 15_000);
+});
+
+describe('candidate evaluator parity', () => {
+  it('scores identical protagonist and NPC facts identically in the same slot', () => {
+    const state = career();
+    const npc = { ...state.player, id: 'identical-npc' };
+    const template = Object.values(state.footballerWorld!)[0]!;
+    const context = {
+      ...state,
+      selectionStanding: 50,
+      footballerWorld: {
+        ...state.footballerWorld,
+        [npc.id]: { ...template, profile: npc, currentClubId: state.currentClub.id, fitness: state.player.fitness },
+      },
+    };
+    const club = { id: 'parity-club', managerId: 'parity-manager', squadPlayerIds: [state.player.id, npc.id] };
+    const slot = { position: 'central_midfielder' as const, duty: 'attack' as const };
+    expect(evaluateCandidateForSlot(context, club, context.player, slot, { coachTrust: 50 })).toBe(
+      evaluateCandidateForSlot(context, club, npc, slot, { coachTrust: 50 }),
+    );
+    expect(getTacticalDutyFit(npc, 'attack')).toBeGreaterThanOrEqual(-2);
+    expect(getTacticalDutyFit(npc, 'attack')).toBeLessThanOrEqual(2);
+  });
 });

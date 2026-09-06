@@ -7,8 +7,7 @@ export const PLAYER_POSITIONS = [
   'center_back',
   'left_back',
   'right_back',
-  'defensive_midfielder',
-  'attacking_midfielder',
+  'central_midfielder',
   'left_winger',
   'right_winger',
   'striker',
@@ -58,8 +57,7 @@ export const POSITION_OVR_GROUP_WEIGHTS: Record<
   center_back: g([5, 3, 2, 4, 0, 1, 5, 3]),
   left_back: g([3, 3, 5, 3, 1, 3, 2, 2]),
   right_back: g([3, 3, 5, 3, 1, 3, 2, 2]),
-  defensive_midfielder: g([4, 3, 2, 5, 1, 3, 2, 3]),
-  attacking_midfielder: g([1, 2, 3, 5, 4, 5, 1, 3]),
+  central_midfielder: g([3, 3, 3, 5, 3, 4, 2, 3]),
   left_winger: g([1, 2, 5, 3, 4, 5, 1, 2]),
   right_winger: g([1, 2, 5, 3, 4, 5, 1, 2]),
   striker: g([0, 3, 4, 2, 5, 3, 4, 3]),
@@ -92,7 +90,7 @@ export const getTheoreticalPositionOverall = (
     total += weights[key];
   }
   const specialist =
-    position === 'attacking_midfielder' ||
+    position === 'central_midfielder' ||
     position === 'left_winger' ||
     position === 'right_winger' ||
     position === 'striker'

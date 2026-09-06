@@ -17,6 +17,7 @@ import { createProfessionalContract, evaluateTransferFee } from './playerEconomy
 import { generateClubVisualIdentity } from './clubVisualIdentity';
 import {
   deriveSquadHierarchy,
+  evaluateCandidateForSlot,
   FORMATIONS,
   getContextualSquadRole,
   getManagerPreferredFormation,
@@ -258,22 +259,27 @@ export const deriveOfferPositionIntent = (
   const formation = FORMATIONS[getManagerPreferredFormation(club.managerId)];
   const effectiveOverall = (position: CareerState['player']['primaryPosition']) =>
     offerPositionOverall(career.player, position);
-  const plausible = [...new Set(formation)].filter((position) =>
-    isNormallyEligibleForPosition(career.player, position),
+  const plausible = formation.filter((slot) =>
+    isNormallyEligibleForPosition(career.player, slot.position),
   );
-  const candidates = plausible.map((position) => {
+  const candidatesByPosition = new Map<CareerState['player']['primaryPosition'], { position: CareerState['player']['primaryPosition']; score: number }>();
+  for (const slot of plausible) {
+    const position = slot.position;
     const need = club.positionalNeeds[group(position)];
     // Canonical club depth/need already summarizes the destination's real positional competition.
     const leadingRival = need.starterQuality;
-    return {
+    const candidate = {
       position,
       score:
-        effectiveOverall(position) +
+        evaluateCandidateForSlot(career, club, career.player, slot, { coachTrust: 50 }) +
         need.needLevel * 0.12 +
         (need.depth === 'thin' ? 5 : need.depth === 'deep' ? -5 : 0) +
         Math.max(-8, effectiveOverall(position) - leadingRival) * 0.35,
     };
-  });
+    if (!candidatesByPosition.has(position) || candidate.score > candidatesByPosition.get(position)!.score)
+      candidatesByPosition.set(position, candidate);
+  }
+  const candidates = [...candidatesByPosition.values()];
   if (!candidates.length)
     return {
       plannedPosition: career.player.primaryPosition,

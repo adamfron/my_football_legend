@@ -35,12 +35,12 @@ export const YOUTH_COHORT_TARGET_POSITIONS: readonly PlayerPosition[] = [
   'left_back',
   'right_back',
   'right_back',
-  'defensive_midfielder',
-  'defensive_midfielder',
-  'defensive_midfielder',
-  'attacking_midfielder',
-  'attacking_midfielder',
-  'attacking_midfielder',
+  'central_midfielder',
+  'central_midfielder',
+  'central_midfielder',
+  'central_midfielder',
+  'central_midfielder',
+  'central_midfielder',
   'left_winger',
   'left_winger',
   'right_winger',
@@ -129,10 +129,10 @@ export const createPolishU17LeagueProfiles = (career: CareerState): LeagueClubPr
     const average = (items: typeof hierarchy.preferredXI) =>
       Math.round(items.reduce((sum, item) => sum + item.effectiveOverall, 0) / items.length);
     const attacking = hierarchy.preferredXI.filter((item) =>
-      ['attacking_midfielder', 'left_winger', 'right_winger', 'striker'].includes(item.position),
+      ['central_midfielder', 'left_winger', 'right_winger', 'striker'].includes(item.position),
     );
     const defensive = hierarchy.preferredXI.filter((item) =>
-      ['goalkeeper', 'left_back', 'right_back', 'center_back', 'defensive_midfielder'].includes(
+      ['goalkeeper', 'left_back', 'right_back', 'center_back', 'central_midfielder'].includes(
         item.position,
       ),
     );

@@ -112,12 +112,18 @@ export const playerPositionSchema = z.enum([
   'center_back',
   'left_back',
   'right_back',
-  'defensive_midfielder',
-  'attacking_midfielder',
+  'central_midfielder',
   'left_winger',
   'right_winger',
   'striker',
 ]);
+export const tacticalDutySchema = z.enum(['defend', 'support', 'attack']);
+export const formationSlotSchema = z.object({
+  position: playerPositionSchema,
+  duty: tacticalDutySchema.optional(),
+  x: z.number().min(0).max(100),
+  y: z.number().min(0).max(100),
+});
 export const developmentProfileSchema = z.object({
   developmentType: z.enum(['early_bloomer', 'normal', 'late_bloomer']),
   growthRate: z.number().positive(),
