@@ -79,7 +79,8 @@ import {
 import type { CareerState, EventDecision, WorldDatabase } from '../types/domain';
 import { loadWorldDatabase } from '../core/worldDatabase';
 import { ATTRIBUTE_PRESENTATION_BY_KEY } from '../core/attributePresentation';
-import { isDevToolsEnabled } from './devTools';
+import { isDevToolsEnabled, isMatchSandboxEnabled } from './devTools';
+import { TacticalMatchSandbox } from './match/TacticalMatchSandbox';
 import { CareerView } from './career/CareerView';
 import { RadarChart } from './shared/PlayerCard';
 import {
@@ -959,7 +960,7 @@ class CareerErrorBoundary extends Component<CareerErrorBoundaryProps, { failed: 
   }
 }
 
-export const App = () => {
+const CareerApp = () => {
   const [view, setView] = useState<'start' | 'creator' | 'career'>('start');
   const [career, setCareer] = useState<CareerState | null>(null);
   const [canContinue, setCanContinue] = useState(false);
@@ -1231,3 +1232,5 @@ export const App = () => {
     />
   );
 };
+
+export const App = () => (isMatchSandboxEnabled() ? <TacticalMatchSandbox /> : <CareerApp />);
