@@ -37,6 +37,20 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     target: pitchPointSchema,
     intent: z.enum(['placed', 'driven']),
   }),
+  z.object({
+    type: z.literal('cross'),
+    actorId: z.string(),
+    target: pitchPointSchema,
+    intendedTargetId: z.string().optional(),
+    intent: z.enum(['floated', 'driven', 'cutback']),
+  }),
+  z.object({
+    type: z.literal('header'),
+    actorId: z.string(),
+    target: pitchPointSchema,
+    intendedTargetId: z.string().optional(),
+    intent: z.enum(['header_shot', 'header_pass', 'flick', 'header_clearance']),
+  }),
 ]);
 export type MatchAction = z.infer<typeof matchActionSchema>;
 export const restartScenarioSchema = z.enum([
@@ -100,15 +114,30 @@ export interface MatchTeamState {
   phaseElapsed: number;
 }
 export interface MatchBallState extends PitchPoint {
+  height?: number;
+  peakHeight?: number;
+  flightProgress?: number;
+  airborne?: boolean;
   ownerId?: string;
   from?: PitchPoint;
   target?: PitchPoint;
   intendedReceiverId?: string;
   travelElapsed?: number;
   travelDuration?: number;
-  travelKind?: 'pass' | 'shot' | 'restart';
+  travelKind?:
+    | 'pass'
+    | 'through_ball'
+    | 'cross'
+    | 'long_distribution'
+    | 'free_kick_delivery'
+    | 'corner_delivery'
+    | 'shot'
+    | 'header';
+  sourceAction?: MatchAction['type'];
   velocity?: PitchPoint;
   looseSince?: number;
+  lastTouchPlayerId?: string;
+  secondBallPriorityIds?: string[];
 }
 export const shotResultSchema = z.enum(['goal', 'save', 'block', 'miss']);
 export type ShotResult = z.infer<typeof shotResultSchema>;
@@ -142,6 +171,17 @@ export interface TacticalMatchState {
     cause: 'tackle' | 'interception' | 'claim';
   };
   lastShotResult?: ShotResult;
+  aerialContestantIds?: string[];
+  lastAerialResult?:
+    | 'controlled_header'
+    | 'clearance_header'
+    | 'attacking_header'
+    | 'flick_on'
+    | 'loose_ball'
+    | 'keeper_claim'
+    | 'keeper_punch'
+    | 'keeper_miss';
+  lastBoundaryRestart?: 'goal_kick' | 'corner' | 'throw_in';
   restartAction?: MatchAction;
 }
 
@@ -176,7 +216,23 @@ export const tacticalMatchStateSchema = z
     ),
     ball: pitchPointSchema.extend({
       ownerId: z.string().optional(),
-      travelKind: z.enum(['pass', 'shot', 'restart']).optional(),
+      height: z.number().nonnegative().finite().optional(),
+      peakHeight: z.number().nonnegative().finite().optional(),
+      flightProgress: z.number().min(0).max(1).optional(),
+      airborne: z.boolean().optional(),
+      travelKind: z
+        .enum([
+          'pass',
+          'through_ball',
+          'cross',
+          'long_distribution',
+          'free_kick_delivery',
+          'corner_delivery',
+          'shot',
+          'header',
+        ])
+        .optional(),
+      sourceAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']).optional(),
       looseSince: z.number().optional(),
     }),
     score: matchScoreSchema,

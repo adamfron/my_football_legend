@@ -526,3 +526,22 @@ schematy Zod; wybory i wariancja korzystają wyłącznie z seeda meczu.
 Metryki centroidu, długości, szerokości, rozciągnięcia, otoczki wypukłej, graczy przed piłką i
 rest-defence są efemeryczną diagnostyką Single Match Lab. Nie trafiają do zapisu ani nie wymuszają
 docelowych wymiarów drużyny.
+
+### Piłka w powietrzu i pojedynki główkowe
+
+Lot piłki jest lekką częścią stanu kanonicznego: interpolacja pozioma oraz deterministyczny łuk
+parametryczny wyznaczają postęp, wysokość i szczyt lotu. Nie jest to silnik fizyki. Podania po ziemi
+pozostają na zerowej wysokości, a renderer jedynie odczytuje wysokość policzoną przez core.
+
+Dośrodkowanie z gry, bezpośredni rożny, dośrodkowany wolny i długie wybicie bramkarza używają tego
+samego stosu akcji i lotu. Role Tactical Situation Playbook wyznaczają strefę, zawodników pierwszej
+piłki, wsparcie drugiej piłki oraz rest-defence; nie rozstrzygają kontaktu. Przy wejściu wysokiej
+piłki w strefę core wybiera mały lokalny zbiór kandydatów według dojścia, ruchu, wzrostu, skoczności,
+gry głową, siły, ustawienia, czytania gry i koncentracji. Bramkarz może w realistycznym zasięgu
+pozostać, wyjść, złapać albo wypiąstkować piłkę.
+
+Pojedynek prowadzi do główki na bramkę, zgrania, wybicia, czystego przejęcia albo piłki bezpańskiej.
+Główka na bramkę wraca do wspólnej architektury wyniku strzału, a pozostałe kontakty do istniejącego
+obiegu posiadania i loose ball. Przy drugiej piłce lokalni uczestnicy oraz role `attack_second_ball`
+otrzymują czasowy priorytet reakcji, bez teleportowania posiadania. Kanoniczny resolver granic
+zamyka terminalne piłki bezpańskie wznowieniem od bramki, rożnym albo wrzutem z autu.
