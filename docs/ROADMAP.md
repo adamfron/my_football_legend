@@ -300,17 +300,16 @@ nakładane na kanoniczną równowagę pozycyjną. Warstwa obejmuje rozpoczęcie,
 bramkarza, deterministycznie zróżnicowane rożne, trzy wolne oraz legalny karny; udostępnia też
 efemeryczne metryki kształtu drużyny w Single Match Lab.
 
-**Następny krok:** pojedynki powietrzne / główki / dośrodkowania, potem dopracowane umiejscowienie
-strzałów i interwencje bramkarza, odbitki/słupki/poprzeczka, prezentacyjny bufor powtórki 0,5×, a
-dopiero następnie kontekstowe menu akcji gracza.
+**Zrealizowano w PR95 — Aerial Play v1:** wspólne dośrodkowania i dostawy ze stałych fragmentów,
+parametryczny lot, lokalny wybór uczestników pojedynku, główki, wyjścia bramkarza, reakcje na drugą
+piłkę oraz minimalny resolver piłki poza grą korzystają z ról playbooka i wracają do jednego obiegu
+posiadania/piłki bezpańskiej.
 
-**PR95:** kontekstowe menu interakcji zawodnika oparte dokładnie na tej samej kanonicznej
-enumeracji i ocenie akcji co decyzje NPC. Później: faule i kartki, cechy zawodników, specjalizacje
-taktyczne oraz szczegółowa animacja i prezentacja.
-
-Bezpośrednio następne pozostają pełne strzały i gole. Dalsze TODO: dośrodkowania, główki,
-szczegółowe pojedynki/odbióry, egzekwowanie spalonego, kompletne stałe fragmenty, kompensacja
-dziury po czerwonej kartce, underlapy/libero zależne od roli oraz menu kontekstowe gracza.
+**Następna kolejność:** (1) dopracowane umiejscowienie strzału i bramkarskie interwencje strzałowe,
+(2) odbitki, słupki i poprzeczka, (3) prezentacyjny bufor powtórki 0,5×, (4) evaluator momentów
+meczu i niewidzialne przewijanie, (5) kontekstowe menu akcji gracza oparte na tej samej kanonicznej
+enumeracji co NPC. Później pozostają faule i kartki, cechy zawodników, specjalizacje taktyczne,
+kompensacja dziury po czerwonej kartce oraz szczegółowa animacja i prezentacja.
 
 Pierwszy autonomiczny rdzeń taktyczny współdzieli reguły protagonisty i NPC oraz obsługuje
 spektatora. Kolejne kroki to: (1) rozbudowa akcji i rozstrzygnięć o podania prostopadłe, odbiory,
