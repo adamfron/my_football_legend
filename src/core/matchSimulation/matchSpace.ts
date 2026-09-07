@@ -40,3 +40,24 @@ export const clampPitchPoint = ({ x, y }: PitchPoint): PitchPoint => ({
 });
 
 export const distance = (a: PitchPoint, b: PitchPoint) => Math.hypot(a.x - b.x, a.y - b.y);
+
+/** A deliberately small, team-relative territorial model (not xG). */
+export const fieldValue = (point: PitchPoint, side: TeamSide) => {
+  const depth = side === 'home' ? point.x / PITCH_LENGTH : 1 - point.x / PITCH_LENGTH;
+  const centrality = 1 - Math.min(1, Math.abs(point.y - PITCH_WIDTH / 2) / (PITCH_WIDTH / 2));
+  const finalThird = Math.max(0, (depth - 2 / 3) * 3);
+  return depth * 70 + centrality * (5 + finalThird * 15) + finalThird * 10;
+};
+
+export const distanceToSegment = (point: PitchPoint, start: PitchPoint, end: PitchPoint) => {
+  const dx = end.x - start.x,
+    dy = end.y - start.y,
+    lengthSquared = dx * dx + dy * dy;
+  const t = lengthSquared
+    ? Math.max(
+        0,
+        Math.min(1, ((point.x - start.x) * dx + (point.y - start.y) * dy) / lengthSquared),
+      )
+    : 0;
+  return distance(point, { x: start.x + dx * t, y: start.y + dy * t });
+};

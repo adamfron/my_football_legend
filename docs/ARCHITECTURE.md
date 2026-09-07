@@ -14,6 +14,20 @@ prędkości, tempa i zwinności przesuwa fizycznego zawodnika. Linia spalonego o
 rzeczywistą pozycję. Bramkarz ma konserwatywny wariant projekcji, odłączony od pressingu i szukania
 przestrzeni. Ten stan jest efemeryczny i nie trafia do zapisu kariery; renderer jedynie go prezentuje.
 
+### Intencja ataku i scenariusze DEV
+
+Czysta, symetryczna funkcja wartości pola premiuje zdobyty teren oraz centralne strefy trzeciej
+tercji, ale pozostaje tylko jednym składnikiem oceny ryzyka i korzyści. Kanoniczny zbiór akcji,
+wspólny dla NPC i przyszłego menu gracza, rozróżnia podanie do aktualnej pozycji zawodnika od
+podania w przestrzeń przed biegnącym odbiorcą. Ocenia długość, technikę, presję i prostą odległość
+obrońców od linii podania; style zmieniają apetyt na bezpośredniość, a nie dostępność reguł.
+
+Równowaga pozycyjna pozostaje kotwicą. Maksymalnie kilku deterministycznie wybranych zawodników
+otrzymuje czasowy cel biegu w przód, a szeroki obrońca może tym samym mechanizmem wykonać pierwszy
+ogólny overlap. Długie posiadanie przesuwa blok stopniowo: obrońców mniej, graczy ofensywnych
+więcej, z zachowaniem ograniczenia celu linią spalonego. Single Match Lab posiada efemeryczne
+presety wznowień służące kontroli geometrii, a nie implementacji pełnych przepisów.
+
 ## Kanoniczna pozycja i wiek
 
 Graf `POSITION_COMPATIBILITY` jest jedyną definicją sąsiedztwa pozycji. Relacja zawodnik–pozycja

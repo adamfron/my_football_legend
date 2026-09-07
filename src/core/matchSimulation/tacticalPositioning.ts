@@ -116,8 +116,9 @@ export const deriveTeamBlockTransform = (
   const transition = state.teams[side].phase.includes('transition')
     ? Math.min(1, state.teams[side].phaseElapsed / 3)
     : 1;
+  const sustained = owns ? Math.min(1, state.timeSincePossessionChanged / 8) : 0;
   const stableAdvance = owns
-    ? 7 + parameters.lineHeight * 5 + ballDepth * 0.12
+    ? 7 + parameters.lineHeight * 5 + ballDepth * 0.16 + sustained * 7
     : -2 + parameters.lineHeight * 3 + ballDepth * 0.08;
   const advance = stableAdvance * (0.7 + 0.3 * transition);
   const lateral = (state.ball.y - 34) * parameters.ballShift * 0.34;
@@ -132,6 +133,40 @@ export const deriveTeamBlockTransform = (
     centre: { x: 52.5 + dir * advance, y: 34 + lateral },
   };
 };
+
+/** Selects only the best few temporary departures from the formation structure. */
+export const deriveAttackingRunIds = (state: TacticalMatchState, side: TeamSide) => {
+  if (state.possessionTeam !== side || !state.ball.ownerId) return [];
+  const carrier = state.players.find((p) => p.id === state.ball.ownerId)!;
+  const urgency = state.teams[side].phase === 'attacking_transition' ? 1.25 : 1;
+  return state.players
+    .filter(
+      (p) =>
+        p.team === side &&
+        p.id !== carrier.id &&
+        p.profile.primaryPosition !== 'goalkeeper' &&
+        p.duty !== 'defend',
+    )
+    .map((p) => ({
+      p,
+      score:
+        (urgency *
+          (p.profile.attributes.gameReading +
+            p.profile.attributes.positioning +
+            p.profile.attributes.pace +
+            p.profile.attributes.concentration)) /
+          4 -
+        distance(p.position, carrier.position) * 0.45 +
+        (p.duty === 'attack' ? 12 : 0),
+    }))
+    .filter(({ score }) => score > 43)
+    .sort((a, b) => b.score - a.score || a.p.id.localeCompare(b.p.id))
+    .slice(0, state.teams[side].phase === 'attacking_transition' ? 3 : 2)
+    .map(({ p }) => p.id);
+};
+
+const isWideDefender = (p: MatchPlayerState) =>
+  ['left_back', 'right_back', 'left_wing_back', 'right_wing_back'].includes(p.slot.position);
 
 export interface PressingAssignment {
   primary?: string;
@@ -221,6 +256,10 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     home: calculateOffsideLine(state, 'home'),
     away: calculateOffsideLine(state, 'away'),
   };
+  const runs = {
+    home: deriveAttackingRunIds(state, 'home'),
+    away: deriveAttackingRunIds(state, 'away'),
+  };
   return state.players.map((player) => {
     const neutralAnchor = deriveNeutralFormationAnchor(player),
       block = deriveTeamBlockTransform(state, player.team);
@@ -238,7 +277,12 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       };
     else
       structural = {
-        x: 52.5 + (neutralAnchor.x - 52.5) * block.depthScale + dir * block.advance,
+        x:
+          52.5 +
+          (neutralAnchor.x - 52.5) * block.depthScale +
+          dir *
+            block.advance *
+            (player.duty === 'defend' ? 0.68 : player.duty === 'attack' ? 1.18 : 1),
         y: 34 + (neutralAnchor.y - 34) * block.widthScale + block.lateral,
       };
     let ideal = structural;
@@ -271,6 +315,21 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     }
     if (!isKeeper && state.possessionTeam === player.team)
       ideal = seekSpace(state, player, ideal, offside[player.team]);
+    if (!isKeeper && runs[player.team].includes(player.id)) {
+      const overlap = isWideDefender(player) && Math.abs(state.ball.y - player.position.y) < 18;
+      ideal = {
+        x: ideal.x + dir * (overlap ? 13 : 9 + parameters.forwardRuns * 7),
+        y: overlap
+          ? player.slot.position.startsWith('left')
+            ? player.team === 'home'
+              ? 5
+              : 63
+            : player.team === 'home'
+              ? 63
+              : 5
+          : ideal.y,
+      };
+    }
     ideal = clampPitchPoint(
       isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player.team),
     );

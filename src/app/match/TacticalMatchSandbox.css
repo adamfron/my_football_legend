@@ -28,6 +28,20 @@
   gap: 8px;
   flex-wrap: wrap;
 }
+.scenario-picker {
+  align-items: center;
+  padding: 7px;
+  border: 1px solid #50665c;
+  background: #192a23;
+}
+.scenario-picker strong {
+  margin: 0 5px;
+  font: 700 12px monospace;
+  color: #a9d9bf;
+}
+.scenario-picker button {
+  padding: 7px 10px;
+}
 .tactical-sandbox button {
   border: 1px solid #60766b;
   border-radius: 4px;

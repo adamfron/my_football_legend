@@ -6,9 +6,11 @@ import {
 } from '../../core/singleMatch';
 import {
   createTacticalMatch,
+  applyRestartScenario,
   matchStateToFrame,
   stepTacticalMatch,
   type TacticalMatchState,
+  type RestartScenario,
 } from '../../core/matchSimulation';
 import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
@@ -231,6 +233,15 @@ const RunningLab = ({
   useEffect(() => rendererRef.current?.render(matchStateToFrame(state), debug), [state, debug]);
   const owner = state.players.find((p) => p.id === state.ball.ownerId),
     actor = state.players.find((p) => p.id === state.currentActorId);
+  const scenarios: [RestartScenario, string][] = [
+    ['open_play', 'Gra otwarta'],
+    ['kick_off', 'Środek'],
+    ['goal_kick', 'Wykop'],
+    ['gk_short', 'Krótkie od BR'],
+    ['corner', 'Rożny'],
+    ['free_kick', 'Wolny'],
+    ['penalty', 'Karny'],
+  ];
   return (
     <main className="tactical-sandbox">
       <header>
@@ -259,6 +270,21 @@ const RunningLab = ({
         >
           Powrót do menu
         </button>
+      </nav>
+      <nav className="scenario-picker" aria-label="Scenariusz developerski">
+        <strong>Sytuacja:</strong>
+        {scenarios.map(([scenario, label]) => (
+          <button
+            key={scenario}
+            className={state.scenario === scenario ? 'active' : ''}
+            onClick={() => {
+              setPlaying(false);
+              setState(applyRestartScenario(createTacticalMatch(session), scenario));
+            }}
+          >
+            {label}
+          </button>
+        ))}
       </nav>
       <section className="sandbox-grid">
         <div className="pitch-stage" ref={hostRef} />
