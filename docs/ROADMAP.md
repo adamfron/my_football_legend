@@ -270,3 +270,11 @@ kadrze zawodowej.
 `EndCareerView` docelowo przejmie język wizualny `CareerView`; trzeba sprawdzić wiek emerytury przez
 kanoniczny resolver daty/wieku, przypisanie trofeów i osiągnięć do właściwego zakończonego sezonu
 oraz użyć istniejących sezonowych migawek OVR do wykresu całej kariery.
+
+## Po PR89 — rozwój kanonicznego meczu
+
+Pierwszy autonomiczny rdzeń taktyczny współdzieli reguły protagonisty i NPC oraz obsługuje
+spektatora. Kolejne kroki to: (1) rozbudowa akcji i rozstrzygnięć o podania prostopadłe, odbiory,
+strzały, reakcje bramkarza i czasowy spalony; (2) indywidualne tendencje taktyczne; (3) dopiero po
+dojrzeniu kanonicznego zestawu akcji — kontekstowe menu gracza jako UI nad tym samym zbiorem.
+Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozszerzenia rozgrywek.

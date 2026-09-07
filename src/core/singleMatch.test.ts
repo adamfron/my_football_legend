@@ -13,10 +13,13 @@ const controlledId = home.squadPlayerIds!.at(-1)!;
 const setup = {
   homeClubId: home.id,
   awayClubId: away.id,
-  controlledClubId: home.id,
-  controlledFootballerId: controlledId,
-  seed: 'repro-87',
-  forceControlledIntoXI: true,
+  control: {
+    mode: 'player' as const,
+    clubId: home.id,
+    footballerId: controlledId,
+    forceIntoXI: true,
+  },
+  seed: 'repro-89',
 };
 
 describe('Single Match Lab domain session', () => {
@@ -44,7 +47,12 @@ describe('Single Match Lab domain session', () => {
     expect(() =>
       createSingleMatchSession(world, {
         ...setup,
-        controlledFootballerId: away.squadPlayerIds![0]!,
+        control: {
+          mode: 'player',
+          clubId: home.id,
+          footballerId: away.squadPlayerIds![0]!,
+          forceIntoXI: true,
+        },
       }),
     ).toThrow(/nie należy/);
   });
@@ -64,8 +72,12 @@ describe('Single Match Lab domain session', () => {
       const controlledId = controlled.squadPlayerIds!.at(-1)!;
       const session = createSingleMatchSession(world, {
         ...setup,
-        controlledClubId: controlled.id,
-        controlledFootballerId: controlledId,
+        control: {
+          mode: 'player',
+          clubId: controlled.id,
+          footballerId: controlledId,
+          forceIntoXI: true,
+        },
         homeClubId: controlled === home ? controlled.id : opponent.id,
         awayClubId: controlled === away ? controlled.id : opponent.id,
       });

@@ -437,3 +437,15 @@ pozostaje średnią efektywnych OVR kanonicznej legalnej XI, bez premii za zadan
 Zapis v4 ma jedną granicę migracji: dawne dwa identyfikatory środkowej pomocy są mapowane na ŚP,
 pozycje dodatkowe są deduplikowane, a znajomość ŚP przyjmuje maksimum dawnych wartości. Nowy stan
 nigdy nie zapisuje identyfikatorów historycznych.
+
+## Kanoniczna symulacja taktyczna
+
+Stan meczu Single Match jest efemeryczny i niezależny od `CareerState`. Przestrzeń drużyny opisuje
+głębokość od własnej bramki i semantyczną lewą/prawą stronę, a jeden adapter odwzorowuje ją na
+boisko 105 × 68 dla przeciwnych kierunków ataku. Kamera nie wpływa na te reguły.
+
+Najważniejszy niezmiennik brzmi: **protagonista == NPC w regułach sportowych**. Stos symulacji to:
+`formacja → faza i styl trenera → dynamiczne cele → reakcje lokalne → dostępne akcje → polityka AI
+lub wybór człowieka → kanoniczne rozstrzygnięcie → nowy stan → renderer`. Przyszłe UI zastąpi tylko
+wybór polityki AI; nie dostanie własnych akcji, ruchu ani resolvera. Core jest właścicielem pozycji,
+piłki, posiadania i faz, zaś React steruje zegarem, a Three.js jedynie wyświetla stan.

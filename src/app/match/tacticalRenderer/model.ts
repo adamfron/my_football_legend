@@ -13,6 +13,8 @@ export const tacticalPlayerSchema = tacticalPointSchema.extend({
   facing: z.number().optional(),
   protagonist: z.boolean().optional(),
   goalkeeper: z.boolean().optional(),
+  target: tacticalPointSchema.optional(),
+  anchor: tacticalPointSchema.optional(),
 });
 export const tacticalBallSchema = tacticalPointSchema.extend({
   height: z.number().nonnegative().optional(),
