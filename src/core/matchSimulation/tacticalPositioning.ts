@@ -8,6 +8,7 @@ import {
   type TeamSide,
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState, TacticalStyle } from './matchState';
+import { restartInfluence } from './restartGeometry';
 
 export interface TacticalStyleParameters {
   width: number;
@@ -333,6 +334,13 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     ideal = clampPitchPoint(
       isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player.team),
     );
+    const restartWeight = restartInfluence(state),
+      restartTarget = state.restart?.targets[player.id];
+    if (restartTarget && restartWeight > 0)
+      ideal = clampPitchPoint({
+        x: lerp(ideal.x, restartTarget.x, restartWeight),
+        y: lerp(ideal.y, restartTarget.y, restartWeight),
+      });
     const period = Math.floor(state.time / 4),
       blend = (state.time % 4) / 4;
     const errorAt = (n: number) => {
@@ -343,7 +351,9 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       e1 = errorAt(period + 1),
       smooth = blend * blend * (3 - 2 * blend);
     const errorSize =
-      (1 - player.profile.attributes.positioning / 100) * (2.5 + parameters.freedom * 2);
+      (1 - restartWeight) *
+      (1 - player.profile.attributes.positioning / 100) *
+      (2.5 + parameters.freedom * 2);
     const noisy = clampPitchPoint({
       x: ideal.x + lerp(e0.x, e1.x, smooth) * errorSize,
       y: ideal.y + lerp(e0.y, e1.y, smooth) * errorSize,

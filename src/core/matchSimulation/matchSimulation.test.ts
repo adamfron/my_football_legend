@@ -11,6 +11,7 @@ import {
   createTacticalMatch,
   deriveNeutralFormationAnchor,
   derivePressingAssignment,
+  deriveDefensiveWall,
   deriveTacticalTargets,
   distance,
   fieldValue,
@@ -20,6 +21,7 @@ import {
   PITCH_WIDTH,
   resolveMatchAction,
   stepTacticalMatch,
+  type TacticalMatchState,
   tacticalMatchStateSchema,
 } from '.';
 
@@ -111,6 +113,118 @@ describe('canonical match space', () => {
     };
     expect(calculateOffsideLine(mirrored, 'away')).toBe(23);
     expect(constrainTargetOnside({ x: 90, y: 30 }, 80, 'home').x).toBeLessThan(80);
+  });
+});
+
+describe('restart geometry and lifecycle', () => {
+  const preset = (name: Parameters<typeof applyRestartScenario>[1], seed = `geometry-${name}`) =>
+    applyRestartScenario(createTacticalMatch(session(seed)), name);
+
+  it('builds long and short goalkeeper distribution shapes', () => {
+    const long = preset('goal_kick');
+    const centreBacks = long.players.filter(
+      (p) => p.team === 'home' && p.slot.position === 'center_back',
+    );
+    expect(centreBacks.every((p) => p.position.x >= 35 && p.position.x <= 45)).toBe(true);
+    expect(
+      long.players
+        .filter((p) => p.team === 'home' && p.duty === 'attack')
+        .some((p) => p.position.x > 52.5),
+    ).toBe(true);
+    expect(long.restart?.landingZone?.x).toBeGreaterThan(52.5);
+
+    const base = createTacticalMatch(session('short-press'));
+    base.teams.away.style = 'pressing';
+    const pressing = applyRestartScenario(base, 'gk_short');
+    const lowBase = createTacticalMatch(session('short-press'));
+    lowBase.teams.away.style = 'counter_attacking';
+    const low = applyRestartScenario(lowBase, 'gk_short');
+    const meanX = (state: TacticalMatchState) =>
+      state.players
+        .filter((p) => p.team === 'away' && p.profile.primaryPosition !== 'goalkeeper')
+        .reduce((sum, p) => sum + p.position.x, 0) / 10;
+    expect(meanX(pressing)).toBeLessThan(meanX(low));
+    expect(
+      pressing.players
+        .filter((p) => p.team === 'home' && p.slot.position === 'center_back')
+        .every((p) => p.position.x < 25),
+    ).toBe(true);
+  });
+
+  it('clusters corners without overlap and keeps both goalkeepers at their ends', () => {
+    const corner = preset('corner');
+    const homeGk = corner.players.find(
+      (p) => p.team === 'home' && p.profile.primaryPosition === 'goalkeeper',
+    )!;
+    const awayGk = corner.players.find(
+      (p) => p.team === 'away' && p.profile.primaryPosition === 'goalkeeper',
+    )!;
+    expect(homeGk.position.x).toBeLessThan(12);
+    expect(awayGk.position.x).toBeGreaterThan(102);
+    const box = corner.players.filter(
+      (p) => p.profile.primaryPosition !== 'goalkeeper' && p.position.x > 88,
+    );
+    expect(box.length).toBeGreaterThan(8);
+    for (let i = 0; i < corner.players.length; i++)
+      for (let j = i + 1; j < corner.players.length; j++)
+        expect(distance(corner.players[i]!.position, corner.players[j]!.position)).toBeGreaterThan(
+          0.35,
+        );
+    const gaps = box
+      .map((p) => p.position.y)
+      .sort((a, b) => a - b)
+      .slice(1)
+      .map((y, i) => y - box.map((p) => p.position.y).sort((a, b) => a - b)[i]!);
+    expect(new Set(gaps.map((gap) => gap.toFixed(2))).size).toBeGreaterThan(2);
+  });
+
+  it('varies free-kick walls and aligns them across the goal ray', () => {
+    const near = deriveDefensiveWall({ x: 83, y: 30 }, { x: 105, y: 34 }, 5);
+    const far = deriveDefensiveWall({ x: 69, y: 31 }, { x: 105, y: 34 }, 2);
+    expect(near.length).toBeGreaterThan(far.length);
+    const wallVector = { x: near.at(-1)!.x - near[0]!.x, y: near.at(-1)!.y - near[0]!.y };
+    const goalVector = { x: 22, y: 4 };
+    expect(Math.abs(wallVector.x * goalVector.x + wallVector.y * goalVector.y)).toBeLessThan(0.01);
+    expect(
+      preset('free_kick_wide').players.filter((p) => p.team === 'home' && p.position.x > 88).length,
+    ).toBeGreaterThan(3);
+  });
+
+  it('keeps all penalty participants plausible and setup stable until execution', () => {
+    let penalty = preset('penalty');
+    expect(penalty.players).toHaveLength(22);
+    const takerId = penalty.restart!.takerId;
+    expect(
+      penalty.players.filter((p) => distance(p.position, penalty.ball) < 5).map((p) => p.id),
+    ).toEqual([takerId]);
+    expect(
+      penalty.players
+        .filter((p) => p.id !== takerId && p.profile.primaryPosition !== 'goalkeeper')
+        .every((p) => p.position.x < 84.5),
+    ).toBe(true);
+    const setup = penalty.players.map((p) => p.position);
+    for (let i = 0; i < 20; i++) penalty = stepTacticalMatch(penalty, 0.1);
+    expect(penalty.players.map((p) => p.position)).toEqual(setup);
+    const receiver = penalty.players.find(
+      (p) => p.team === 'home' && p.id !== takerId && p.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    penalty = resolveMatchAction(penalty, {
+      type: 'pass',
+      actorId: takerId,
+      receiverId: receiver.id,
+      target: receiver.position,
+      intent: 'support',
+    });
+    expect(penalty.restart?.phase).toBe('release');
+    const immediate = deriveTacticalTargets(penalty).find((p) => p.id === receiver.id)!;
+    expect(distance(immediate.idealTarget, penalty.restart!.targets[receiver.id]!)).toBe(0);
+    penalty = stepTacticalMatch(penalty, 1);
+    expect(
+      distance(
+        penalty.players.find((p) => p.id === receiver.id)!.idealTarget,
+        penalty.restart!.targets[receiver.id]!,
+      ),
+    ).toBeGreaterThan(0);
   });
 });
 describe('autonomous tactical simulation', () => {

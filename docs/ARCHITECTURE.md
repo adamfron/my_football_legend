@@ -28,6 +28,20 @@ ogólny overlap. Długie posiadanie przesuwa blok stopniowo: obrońców mniej, g
 więcej, z zachowaniem ograniczenia celu linią spalonego. Single Match Lab posiada efemeryczne
 presety wznowień służące kontroli geometrii, a nie implementacji pełnych przepisów.
 
+### Geometria i cykl życia wznowień
+
+Kanoniczna hierarchia meczu to **normalna równowaga pozycyjna → tymczasowa geometria wznowienia
+→ wykonanie wznowienia → wygasający wpływ wznowienia → normalna równowaga gry otwartej**.
+Wznowienie nie jest drugim silnikiem: deklaratywny zestaw celów taktycznych jest komponowany z
+celami otwartej gry. W fazie przygotowania ma pełną wagę i pozostaje stabilny niezależnie od
+upływu zegara. Pierwsza kanoniczna akcja zmieniająca stan piłki rozpoczyna czterosekundowe,
+płynne wygaszanie, po którym struktura formacji ponownie staje się jedyną kotwicą.
+
+Role wykonawcy, celów powietrznych i zabezpieczenia są efemerycznie wybierane z profilu zawodnika.
+Strefy rożnych i dośrodkowań celowo mogą być bliskie lub wspólne; osobny, lekki etap separacji
+chroni jedynie przed fizycznym nakładaniem modeli. Wszystkie warianty i lokalna nieregularność są
+deterministyczne względem seedu. Renderer i React nie wyznaczają geometrii ani rozstrzygnięć.
+
 ## Kanoniczna pozycja i wiek
 
 Graf `POSITION_COMPATIBILITY` jest jedyną definicją sąsiedztwa pozycji. Relacja zawodnik–pozycja

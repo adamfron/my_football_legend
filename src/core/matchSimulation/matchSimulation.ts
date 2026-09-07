@@ -100,6 +100,14 @@ export const stepTacticalMatch = (
     actionCooldown: Math.max(0, input.actionCooldown - dt),
     teams: { ...input.teams },
   };
+  if (
+    state.restart?.phase === 'release' &&
+    state.time - (state.restart.executedAt ?? state.time) >= 4
+  ) {
+    const { restart: _restart, ...openPlay } = state;
+    void _restart;
+    state = { ...openPlay, scenario: 'open_play' };
+  }
   for (const side of ['home', 'away'] as const) {
     const team = state.teams[side],
       elapsed = team.phaseElapsed + dt;
@@ -114,6 +122,7 @@ export const stepTacticalMatch = (
     };
   }
   state.players = deriveTacticalTargets(state).map((player) => {
+    if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
     const dx = player.target.x - player.position.x,
       dy = player.target.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
@@ -198,7 +207,7 @@ export const stepTacticalMatch = (
         owner.id,
       );
     }
-  } else if (state.ball.ownerId) {
+  } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {
     const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
     const speed = Math.hypot(owner.velocity.x, owner.velocity.y),
       dirX = speed > 0.2 ? owner.velocity.x / speed : owner.team === 'home' ? 1 : -1,
@@ -209,7 +218,7 @@ export const stepTacticalMatch = (
       ownerId: owner.id,
     };
   }
-  if (state.actionCooldown <= 0 && state.ball.ownerId) {
+  if (state.actionCooldown <= 0 && state.ball.ownerId && state.restart?.phase !== 'setup') {
     const action = chooseNpcAction(state, state.ball.ownerId);
     if (action) state = resolveMatchAction(state, action);
   }

@@ -97,6 +97,34 @@ export class TacticalPitchRenderer {
       .getPoints(48)
       .map((p) => [p.x, p.y] as [number, number]);
     line(circle, true);
+    // Canonical 9.15 m penalty arcs; only the portion outside each penalty area is painted.
+    for (const side of [0, 105]) {
+      const spotX = side === 0 ? 11 : 94;
+      const arc = new THREE.EllipseCurve(
+        spotX,
+        34,
+        9.15,
+        9.15,
+        side === 0 ? -Math.acos(5.5 / 9.15) : Math.PI - Math.acos(5.5 / 9.15),
+        side === 0 ? Math.acos(5.5 / 9.15) : Math.PI + Math.acos(5.5 / 9.15),
+      )
+        .getPoints(24)
+        .map((p) => [p.x, p.y] as [number, number]);
+      line(arc);
+    }
+    // Quarter-circle corner arcs share the same projection as every other pitch marking.
+    const cornerArcs: [number, number, number, number][] = [
+      [0, 0, 0, Math.PI / 2],
+      [0, 68, -Math.PI / 2, 0],
+      [105, 0, Math.PI / 2, Math.PI],
+      [105, 68, Math.PI, Math.PI * 1.5],
+    ];
+    for (const [x, y, start, end] of cornerArcs)
+      line(
+        new THREE.EllipseCurve(x, y, 1, 1, start, end)
+          .getPoints(10)
+          .map((p) => [p.x, p.y] as [number, number]),
+      );
     for (const side of [0, 105]) {
       const direction = side === 0 ? 1 : -1;
       line([

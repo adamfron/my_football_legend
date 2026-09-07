@@ -141,6 +141,10 @@ export const resolveMatchAction = (
 ): TacticalMatchState => {
   if (state.ball.ownerId !== action.actorId) return state;
   const actor = state.players.find((p) => p.id === action.actorId)!;
+  const restart =
+    state.restart?.phase === 'setup' && action.type !== 'hold'
+      ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
+      : state.restart;
   if (action.type === 'hold')
     return {
       ...state,
@@ -149,6 +153,7 @@ export const resolveMatchAction = (
       currentActorId: actor.id,
       actionCooldown: 1.1,
       decisionIndex: state.decisionIndex + 1,
+      ...(restart ? { restart } : {}),
     };
   if (action.type === 'carry')
     return {
@@ -159,6 +164,7 @@ export const resolveMatchAction = (
       currentActorId: actor.id,
       actionCooldown: 1.3,
       decisionIndex: state.decisionIndex + 1,
+      ...(restart ? { restart } : {}),
     };
   const receiver = state.players.find((p) => p.id === action.receiverId)!;
   const duration = Math.max(0.45, distance(actor.position, action.target) / 24);
@@ -178,5 +184,6 @@ export const resolveMatchAction = (
     currentActorId: actor.id,
     actionCooldown: duration + 0.35,
     decisionIndex: state.decisionIndex + 1,
+    ...(restart ? { restart } : {}),
   };
 };
