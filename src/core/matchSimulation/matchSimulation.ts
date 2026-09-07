@@ -65,6 +65,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
     actionCooldown: 0.4,
+    scenario: 'open_play',
     ...(session.setup.control.mode === 'player'
       ? { controlledFootballerId: session.setup.control.footballerId }
       : {}),

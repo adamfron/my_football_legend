@@ -5,6 +5,7 @@ import { createSingleMatchSession } from '../singleMatch';
 import {
   chooseNpcAction,
   ballReactionWeight,
+  applyRestartScenario,
   calculateOffsideLine,
   constrainTargetOnside,
   createTacticalMatch,
@@ -12,6 +13,7 @@ import {
   derivePressingAssignment,
   deriveTacticalTargets,
   distance,
+  fieldValue,
   enumerateAvailableActions,
   formationSlotToPitch,
   PITCH_LENGTH,
@@ -45,6 +47,15 @@ const run = (seed: string, seconds = 60) => {
 };
 
 describe('canonical match space', () => {
+  it('values forward territory monotonically and symmetrically', () => {
+    expect(fieldValue({ x: 75, y: 34 }, 'home')).toBeGreaterThan(
+      fieldValue({ x: 45, y: 34 }, 'home'),
+    );
+    expect(fieldValue({ x: 82, y: 34 }, 'home')).toBeGreaterThan(
+      fieldValue({ x: 75, y: 34 }, 'home'),
+    );
+    expect(fieldValue({ x: 75, y: 25 }, 'home')).toBeCloseTo(fieldValue({ x: 30, y: 43 }, 'away'));
+  });
   it('keeps 105 x 68 and mirrors semantic left/right', () => {
     expect([PITCH_LENGTH, PITCH_WIDTH]).toEqual([105, 68]);
     const slots = FORMATIONS['4-3-3'],
@@ -103,6 +114,40 @@ describe('canonical match space', () => {
   });
 });
 describe('autonomous tactical simulation', () => {
+  it('offers progressive, long and genuinely leading passes plus varied carries', () => {
+    const state = createTacticalMatch(session('intent'));
+    const actor = state.players.find((p) => p.id === state.ball.ownerId)!;
+    const teammate = state.players.find(
+      (p) => p.team === actor.team && p.id !== actor.id && p.duty === 'attack',
+    )!;
+    teammate.position = { x: Math.min(95, actor.position.x + 48), y: actor.position.y };
+    const actions = enumerateAvailableActions(state, actor.id);
+    expect(actions.filter((a) => a.type === 'carry').length).toBeGreaterThan(2);
+    expect(actions).toContainEqual(
+      expect.objectContaining({ type: 'pass', receiverId: teammate.id, intent: 'direct' }),
+    );
+    const through = actions.find(
+      (a) => a.type === 'pass' && a.receiverId === teammate.id && a.intent === 'through',
+    );
+    expect(through?.type === 'pass' && through.target.x).toBeGreaterThan(teammate.position.x);
+  });
+
+  it('creates every restart preset deterministically, plausibly and in bounds', () => {
+    const names = ['kick_off', 'goal_kick', 'gk_short', 'corner', 'free_kick', 'penalty'] as const;
+    for (const name of names) {
+      const initial = createTacticalMatch(session(`restart-${name}`));
+      const first = applyRestartScenario(initial, name);
+      expect(first).toEqual(applyRestartScenario(initial, name));
+      expect(first.ball.ownerId).toBeTruthy();
+      expect(
+        first.players.every(
+          (p) =>
+            p.position.x >= 0 && p.position.x <= 105 && p.position.y >= 0 && p.position.y <= 68,
+        ),
+      ).toBe(true);
+      expect(() => tacticalMatchStateSchema.parse(first)).not.toThrow();
+    }
+  });
   it('creates unique canonical XIs in bounds and sane goalkeepers', () => {
     const state = run('shape', 10);
     expect(new Set(state.players.map((p) => p.id)).size).toBe(22);

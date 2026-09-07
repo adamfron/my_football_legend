@@ -23,9 +23,25 @@ export type TacticalStyle = z.infer<typeof tacticalStyleSchema>;
 export const matchActionSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('hold'), actorId: z.string() }),
   z.object({ type: z.literal('carry'), actorId: z.string(), target: pitchPointSchema }),
-  z.object({ type: z.literal('pass'), actorId: z.string(), receiverId: z.string() }),
+  z.object({
+    type: z.literal('pass'),
+    actorId: z.string(),
+    receiverId: z.string(),
+    target: pitchPointSchema,
+    intent: z.enum(['support', 'progressive', 'direct', 'through']),
+  }),
 ]);
 export type MatchAction = z.infer<typeof matchActionSchema>;
+export const restartScenarioSchema = z.enum([
+  'open_play',
+  'kick_off',
+  'goal_kick',
+  'gk_short',
+  'corner',
+  'free_kick',
+  'penalty',
+]);
+export type RestartScenario = z.infer<typeof restartScenarioSchema>;
 
 export interface MatchPlayerState {
   id: string;
@@ -73,6 +89,7 @@ export interface TacticalMatchState {
   latestAction?: MatchAction;
   actionCooldown: number;
   controlledFootballerId?: string;
+  scenario: RestartScenario;
 }
 
 // Runtime boundary schema deliberately validates the ephemeral geometry/control graph; profiles
@@ -108,5 +125,6 @@ export const tacticalMatchStateSchema = z
     possessionTeam: teamSideSchema,
     timeSincePossessionChanged: z.number().nonnegative(),
     actionCooldown: z.number().nonnegative(),
+    scenario: restartScenarioSchema,
   })
   .passthrough();

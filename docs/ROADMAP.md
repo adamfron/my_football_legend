@@ -283,6 +283,14 @@ oraz użyć istniejących sezonowych migawek OVR do wykresu całej kariery.
 
 ## Po PR89 — rozwój kanonicznego meczu
 
+**Zrealizowano w PR91:** intencja ataku v1 dodaje wartość terytorium, progresywne i bezpośrednie
+podania (w tym podanie w przestrzeń), wielokierunkowe prowadzenie, ograniczone biegi ofensywne,
+overlap bocznego obrońcy, głębsze przesunięcie bloku oraz DEV harness wznowień.
+
+Bezpośrednio następne pozostają pełne strzały i gole. Dalsze TODO: dośrodkowania, główki,
+szczegółowe pojedynki/odbióry, egzekwowanie spalonego, kompletne stałe fragmenty, kompensacja
+dziury po czerwonej kartce, underlapy/libero zależne od roli oraz menu kontekstowe gracza.
+
 Pierwszy autonomiczny rdzeń taktyczny współdzieli reguły protagonisty i NPC oraz obsługuje
 spektatora. Kolejne kroki to: (1) rozbudowa akcji i rozstrzygnięć o podania prostopadłe, odbiory,
 strzały, reakcje bramkarza i czasowy spalony; (2) indywidualne tendencje taktyczne; (3) dopiero po
