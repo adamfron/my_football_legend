@@ -39,9 +39,23 @@ export const restartScenarioSchema = z.enum([
   'gk_short',
   'corner',
   'free_kick',
+  'free_kick_far',
+  'free_kick_close',
+  'free_kick_wide',
   'penalty',
 ]);
 export type RestartScenario = z.infer<typeof restartScenarioSchema>;
+export const restartPhaseSchema = z.enum(['setup', 'release']);
+export type RestartPhase = z.infer<typeof restartPhaseSchema>;
+export const restartLifecycleSchema = z.object({
+  phase: restartPhaseSchema,
+  startedAt: z.number().nonnegative(),
+  executedAt: z.number().nonnegative().optional(),
+  takerId: z.string(),
+  targets: z.record(z.string(), pitchPointSchema),
+  landingZone: pitchPointSchema.optional(),
+});
+export type RestartLifecycle = z.infer<typeof restartLifecycleSchema>;
 
 export interface MatchPlayerState {
   id: string;
@@ -90,6 +104,7 @@ export interface TacticalMatchState {
   actionCooldown: number;
   controlledFootballerId?: string;
   scenario: RestartScenario;
+  restart?: RestartLifecycle;
 }
 
 // Runtime boundary schema deliberately validates the ephemeral geometry/control graph; profiles
@@ -126,5 +141,6 @@ export const tacticalMatchStateSchema = z
     timeSincePossessionChanged: z.number().nonnegative(),
     actionCooldown: z.number().nonnegative(),
     scenario: restartScenarioSchema,
+    restart: restartLifecycleSchema.optional(),
   })
   .passthrough();

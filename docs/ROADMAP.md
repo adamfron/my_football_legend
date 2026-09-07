@@ -287,6 +287,15 @@ oraz użyć istniejących sezonowych migawek OVR do wykresu całej kariery.
 podania (w tym podanie w przestrzeń), wielokierunkowe prowadzenie, ograniczone biegi ofensywne,
 overlap bocznego obrońcy, głębsze przesunięcie bloku oraz DEV harness wznowień.
 
+**Zrealizowano w PR92:** tymczasowa, deterministyczna geometria wznowień obejmuje długi i krótki
+wariant od bramkarza, strefowe rożne, trzy warianty wolnego z fundamentem muru oraz prawidłowe
+ustawienie karnego. Kanoniczny cykl przygotowanie–wykonanie–wygaszanie płynnie oddaje sterowanie
+równowadze gry otwartej, bez teleportacji i bez osobnego silnika stałych fragmentów.
+
+**Bezpośrednio następny — PR93:** pętla strzał / reakcja bramkarza / gol / pudło / blok / właściwe
+wznowienie. Później: pojedynki powietrzne i główki, dośrodkowania, faule dostarczające położenie
+wolnego, krycie, specjalizacja stałych fragmentów i kontekstowe sterowanie zawodnikiem.
+
 Bezpośrednio następne pozostają pełne strzały i gole. Dalsze TODO: dośrodkowania, główki,
 szczegółowe pojedynki/odbióry, egzekwowanie spalonego, kompletne stałe fragmenty, kompensacja
 dziury po czerwonej kartce, underlapy/libero zależne od roli oraz menu kontekstowe gracza.

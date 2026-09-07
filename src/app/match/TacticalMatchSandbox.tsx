@@ -239,7 +239,9 @@ const RunningLab = ({
     ['goal_kick', 'Wykop'],
     ['gk_short', 'Krótkie od BR'],
     ['corner', 'Rożny'],
-    ['free_kick', 'Wolny'],
+    ['free_kick_far', 'Wolny · daleki środek'],
+    ['free_kick_close', 'Wolny · bliski środek'],
+    ['free_kick_wide', 'Wolny · skrzydło'],
     ['penalty', 'Karny'],
   ];
   return (
@@ -301,6 +303,8 @@ const RunningLab = ({
             Formacje: {state.teams.home.formation} / {state.teams.away.formation}
             <br />
             Style: {state.teams.home.style} / {state.teams.away.style}
+            <br />
+            Wznowienie: {state.restart?.phase ?? 'gra otwarta'}
             <br />
             Właściciel: {owner?.profile.firstName} {owner?.profile.lastName}
             <br />
