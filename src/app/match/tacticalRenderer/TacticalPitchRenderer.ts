@@ -6,6 +6,8 @@ export class TacticalPitchRenderer {
   private readonly scene = new THREE.Scene();
   private readonly camera = new THREE.OrthographicCamera();
   private readonly playerMeshes = new Map<string, THREE.Group>();
+  private readonly targetMarkers = new Map<string, THREE.Mesh>();
+  private readonly anchorMarkers = new Map<string, THREE.Mesh>();
   private readonly ball: THREE.Mesh;
   private readonly observer: ResizeObserver;
 
@@ -22,13 +24,15 @@ export class TacticalPitchRenderer {
     this.camera.lookAt(0, 0, 0);
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0x496055, 2.2));
     this.createPitch();
-    for (const player of frame.players)
+    for (const player of frame.players) {
       this.createPlayer(
         player.id,
         player.team,
         Boolean(player.protagonist),
         Boolean(player.goalkeeper),
       );
+      this.createDebugMarkers(player.id);
+    }
     this.ball = new THREE.Mesh(
       new THREE.SphereGeometry(0.85, 12, 8),
       new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65 }),
@@ -38,6 +42,22 @@ export class TacticalPitchRenderer {
     this.observer.observe(host);
     this.resize();
     this.render(frame);
+  }
+
+  private createDebugMarkers(id: string) {
+    const marker = (color: number) => {
+      const mesh = new THREE.Mesh(
+        new THREE.CircleGeometry(0.45, 10),
+        new THREE.MeshBasicMaterial({ color }),
+      );
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.y = 0.08;
+      mesh.visible = false;
+      this.scene.add(mesh);
+      return mesh;
+    };
+    this.anchorMarkers.set(id, marker(0xf4d35e));
+    this.targetMarkers.set(id, marker(0xffffff));
   }
 
   private createPitch() {
@@ -138,10 +158,22 @@ export class TacticalPitchRenderer {
     this.playerMeshes.set(id, group);
   }
 
-  render(frame: TacticalFrame) {
+  render(frame: TacticalFrame, debug = false) {
     for (const player of frame.players) {
       const world = tacticalToWorld(player);
       this.playerMeshes.get(player.id)?.position.set(world.x, 0, world.z);
+      const target = player.target && tacticalToWorld(player.target),
+        anchor = player.anchor && tacticalToWorld(player.anchor);
+      const targetMarker = this.targetMarkers.get(player.id),
+        anchorMarker = this.anchorMarkers.get(player.id);
+      if (targetMarker) {
+        targetMarker.visible = debug && Boolean(target);
+        if (target) targetMarker.position.set(target.x, 0.08, target.z);
+      }
+      if (anchorMarker) {
+        anchorMarker.visible = debug && Boolean(anchor);
+        if (anchor) anchorMarker.position.set(anchor.x, 0.08, anchor.z);
+      }
     }
     const ball = tacticalToWorld(frame.ball, (frame.ball.height ?? 0) + 0.85);
     this.ball.position.set(ball.x, ball.y, ball.z);

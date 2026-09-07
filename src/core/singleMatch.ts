@@ -8,15 +8,24 @@ export const singleMatchSetupSchema = z
   .object({
     homeClubId: z.string().min(1),
     awayClubId: z.string().min(1),
-    controlledClubId: z.string().min(1),
-    controlledFootballerId: z.string().min(1),
+    control: z.discriminatedUnion('mode', [
+      z.object({ mode: z.literal('spectator') }),
+      z.object({
+        mode: z.literal('player'),
+        clubId: z.string().min(1),
+        footballerId: z.string().min(1),
+        forceIntoXI: z.boolean(),
+      }),
+    ]),
     seed: z.string().min(1),
-    forceControlledIntoXI: z.boolean(),
   })
   .superRefine((setup, context) => {
     if (setup.homeClubId === setup.awayClubId)
       context.addIssue({ code: 'custom', path: ['awayClubId'], message: 'Kluby muszą być różne.' });
-    if (![setup.homeClubId, setup.awayClubId].includes(setup.controlledClubId))
+    if (
+      setup.control.mode === 'player' &&
+      ![setup.homeClubId, setup.awayClubId].includes(setup.control.clubId)
+    )
       context.addIssue({
         code: 'custom',
         path: ['controlledClubId'],
@@ -29,6 +38,7 @@ export interface SingleMatchPlayer {
   footballerId: string;
   profile: FootballerProfile;
   slotIndex: number;
+  slot: (typeof FORMATIONS)[keyof typeof FORMATIONS][number];
   x: number;
   y: number;
 }
@@ -59,8 +69,9 @@ const buildTeam = (world: WorldDatabase, club: ProfessionalClub, seed: string) =
       footballerId: profile.id,
       profile,
       slotIndex: assignment.slotIndex,
-      x: slot.y * 1.05 + rng.int(-2, 2) / 2,
-      y: slot.x * 0.68 + rng.int(-2, 2) / 2,
+      slot,
+      x: (1 - slot.y / 100) * 105 + rng.int(-2, 2) / 2,
+      y: (slot.x / 100) * 68 + rng.int(-2, 2) / 2,
     };
   });
   return {
@@ -99,20 +110,23 @@ export const createSingleMatchSession = (
   const setup = singleMatchSetupSchema.parse(input);
   const homeClub = world.clubs.find((club) => club.id === setup.homeClubId);
   const awayClub = world.clubs.find((club) => club.id === setup.awayClubId);
-  const controlled = world.footballers[setup.controlledFootballerId];
   if (!homeClub || !awayClub) throw new Error('Nie znaleziono wybranego klubu.');
+  const controlled =
+    setup.control.mode === 'player' ? world.footballers[setup.control.footballerId] : undefined;
+  const controlledClubId = setup.control.mode === 'player' ? setup.control.clubId : undefined;
   if (
-    !controlled ||
-    controlled.currentClubId !== setup.controlledClubId ||
-    !(world.clubs.find((c) => c.id === setup.controlledClubId)?.squadPlayerIds ?? []).includes(
-      controlled.profile.id,
-    )
+    setup.control.mode === 'player' &&
+    (!controlled ||
+      controlled.currentClubId !== controlledClubId ||
+      !(world.clubs.find((c) => c.id === controlledClubId)?.squadPlayerIds ?? []).includes(
+        controlled.profile.id,
+      ))
   )
     throw new Error('Wybrany piłkarz nie należy do kontrolowanego klubu.');
   let home = buildTeam(world, homeClub, setup.seed);
   let away = buildTeam(world, awayClub, setup.seed);
-  if (setup.forceControlledIntoXI) {
-    if (setup.controlledClubId === home.club.id) home = forcePlayer(home, controlled.profile);
+  if (setup.control.mode === 'player' && setup.control.forceIntoXI && controlled) {
+    if (setup.control.clubId === home.club.id) home = forcePlayer(home, controlled.profile);
     else away = forcePlayer(away, controlled.profile);
   }
   return { setup, home, away };
