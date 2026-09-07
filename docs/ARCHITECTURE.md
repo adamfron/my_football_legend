@@ -506,3 +506,23 @@ Najważniejszy niezmiennik brzmi: **protagonista == NPC w regułach sportowych**
 lub wybór człowieka → kanoniczne rozstrzygnięcie → nowy stan → renderer`. Przyszłe UI zastąpi tylko
 wybór polityki AI; nie dostanie własnych akcji, ruchu ani resolvera. Core jest właścicielem pozycji,
 piłki, posiadania i faz, zaś React steruje zegarem, a Three.js jedynie wyświetla stan.
+
+### Tactical situation playbook
+
+Research-driven **Tactical Situation Playbook v1** jest deklaratywną warstwą na tej samej
+równowadze pozycyjnej, a nie osobnym silnikiem stałych fragmentów. Kanoniczna kolejność pozostaje
+następująca: neutralna kotwica formacji → transformacja bloku → intencja fazy → tymczasowa rola
+sytuacyjna → lokalna interakcja → indywidualna swoboda/błąd → przepisy i ograniczenia → idealny cel.
+
+Formacja opisuje neutralną strukturę. Sytuacje (wykop i krótkie rozegranie bramkarza, trzy plany
+rożnego, trzy geometrie wolnego, karny i rozpoczęcie) przydzielają zawodników według atrybutów do
+krótkotrwałych intencji oraz przybliżonych stref — nigdy do kanonicznej tabeli 22 współrzędnych.
+Lokalne ważone odległością relacje napastnik–obrońca, pary krycia i press/asekuracja/krycie linii
+modyfikują cel bez ściągania całego bloku do piłki. Ograniczenia boiska, wznowienia, muru, karnego
+i spalonego są nakładane na końcu. Po wykonaniu wpływ roli wygasa przez cztery sekundy, więc gracze
+bez teleportacji wracają do zwykłej równowagi pozycyjnej. Dane playbooka i runtime'owe role mają
+schematy Zod; wybory i wariancja korzystają wyłącznie z seeda meczu.
+
+Metryki centroidu, długości, szerokości, rozciągnięcia, otoczki wypukłej, graczy przed piłką i
+rest-defence są efemeryczną diagnostyką Single Match Lab. Nie trafiają do zapisu ani nie wymuszają
+docelowych wymiarów drużyny.
