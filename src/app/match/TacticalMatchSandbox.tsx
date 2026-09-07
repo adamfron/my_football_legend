@@ -9,6 +9,7 @@ import {
   applyRestartScenario,
   matchStateToFrame,
   stepTacticalMatch,
+  deriveTeamShapeMetrics,
   type TacticalMatchState,
   type RestartScenario,
 } from '../../core/matchSimulation';
@@ -232,7 +233,10 @@ const RunningLab = ({
   }, [playing, speed]);
   useEffect(() => rendererRef.current?.render(matchStateToFrame(state), debug), [state, debug]);
   const owner = state.players.find((p) => p.id === state.ball.ownerId),
-    actor = state.players.find((p) => p.id === state.currentActorId);
+    actor = state.players.find((p) => p.id === state.currentActorId),
+    shapeMetrics = (['home', 'away'] as const).map(
+      (side) => [side, deriveTeamShapeMetrics(state, side)] as const,
+    );
   const scenarios: [RestartScenario, string][] = [
     ['open_play', 'Gra otwarta'],
     ['kick_off', 'Środek'],
@@ -333,6 +337,18 @@ const RunningLab = ({
             <input type="checkbox" checked={debug} onChange={(e) => setDebug(e.target.checked)} />{' '}
             Kotwice i cele
           </label>
+          <details>
+            <summary>Metryki kształtu drużyn (DEV)</summary>
+            {shapeMetrics.map(([side, metric]) => (
+              <div key={side}>
+                <strong>{side === 'home' ? 'Gospodarze' : 'Goście'}</strong>: środek{' '}
+                {metric.centroid.x.toFixed(1)}, {metric.centroid.y.toFixed(1)} · długość{' '}
+                {metric.length.toFixed(1)} m · szerokość {metric.width.toFixed(1)} m · rozciągnięcie{' '}
+                {metric.stretchIndex.toFixed(1)} m · pole {metric.area.toFixed(0)} m² · przed piłką{' '}
+                {metric.playersAheadOfBall} · zabezpieczenie {metric.restDefenceCount}
+              </div>
+            ))}
+          </details>
           <details>
             <summary>Średnie pozycje (DEV)</summary>
             {state.players.map((p) => (

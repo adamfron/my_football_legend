@@ -2,6 +2,7 @@ import { z } from 'zod';
 import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
 import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from './matchSpace';
+import { cornerPlanSchema, tacticalIntentSchema, tacticalZoneSchema } from './tacticalSituations';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -60,6 +61,17 @@ export const restartLifecycleSchema = z.object({
   takerId: z.string(),
   targets: z.record(z.string(), pitchPointSchema),
   landingZone: pitchPointSchema.optional(),
+  cornerPlan: cornerPlanSchema.optional(),
+  executionChoices: z.array(z.enum(['short_pass', 'long_delivery', 'direct_shot', 'combination'])),
+  roles: z.record(
+    z.string(),
+    z.object({
+      key: z.string(),
+      intent: tacticalIntentSchema,
+      zone: tacticalZoneSchema,
+      markerId: z.string().optional(),
+    }),
+  ),
 });
 export type RestartLifecycle = z.infer<typeof restartLifecycleSchema>;
 

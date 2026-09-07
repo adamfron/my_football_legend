@@ -295,8 +295,14 @@ równowadze gry otwartej, bez teleportacji i bez osobnego silnika stałych fragm
 **Zrealizowano w PR93:** pierwsza pełna pętla interakcji łączy presję, odbiory, przechwyty w locie,
 piłki bezpańskie, strzały, reakcję bramkarza, wynik oraz wykonywalne wznowienia.
 
-**Następny krok — PR94:** pełne egzekwowanie spalonego, rozwinięte pojedynki powietrzne i główki,
-dośrodkowania oraz bogatsze rodzaje strzałów i zachowanie bramkarza.
+**Zrealizowano — research-driven Tactical Situation Playbook v1:** sytuacyjne role i strefy są
+nakładane na kanoniczną równowagę pozycyjną. Warstwa obejmuje rozpoczęcie, długi i krótki wariant
+bramkarza, deterministycznie zróżnicowane rożne, trzy wolne oraz legalny karny; udostępnia też
+efemeryczne metryki kształtu drużyny w Single Match Lab.
+
+**Następny krok:** pojedynki powietrzne / główki / dośrodkowania, potem dopracowane umiejscowienie
+strzałów i interwencje bramkarza, odbitki/słupki/poprzeczka, prezentacyjny bufor powtórki 0,5×, a
+dopiero następnie kontekstowe menu akcji gracza.
 
 **PR95:** kontekstowe menu interakcji zawodnika oparte dokładnie na tej samej kanonicznej
 enumeracji i ocenie akcji co decyzje NPC. Później: faule i kartki, cechy zawodników, specjalizacje

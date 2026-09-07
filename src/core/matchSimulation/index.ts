@@ -5,3 +5,5 @@ export * from './matchActions';
 export * from './matchSimulation';
 export * from './restartScenarios';
 export * from './restartGeometry';
+export * from './tacticalSituations';
+export * from './teamShapeMetrics';

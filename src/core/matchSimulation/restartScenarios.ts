@@ -51,6 +51,9 @@ export const applyRestartScenario = (
       startedAt: 0,
       takerId: geometry.taker.id,
       targets: geometry.targets,
+      roles: geometry.roles,
+      executionChoices: geometry.executionChoices,
+      ...(geometry.cornerPlan ? { cornerPlan: geometry.cornerPlan } : {}),
       ...(geometry.landingZone ? { landingZone: geometry.landingZone } : {}),
     },
   };
