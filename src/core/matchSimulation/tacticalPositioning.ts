@@ -1,5 +1,12 @@
 import { RandomGenerator } from '../random/RandomGenerator';
-import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
+import {
+  clampPitchPoint,
+  distance,
+  formationSlotToTeamSpace,
+  PITCH_LENGTH,
+  type PitchPoint,
+  type TeamSide,
+} from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState, TacticalStyle } from './matchState';
 
 export interface TacticalStyleParameters {
@@ -71,68 +78,224 @@ export const TACTICAL_STYLE_PARAMETERS: Record<TacticalStyle, TacticalStyleParam
   },
 };
 const direction = (side: TeamSide) => (side === 'home' ? 1 : -1);
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+/** Match-only resting transform: formation data describes shape, never literal pitch occupation. */
+export const deriveNeutralFormationAnchor = (
+  player: Pick<MatchPlayerState, 'slot' | 'team' | 'profile'>,
+): PitchPoint => {
+  const relative = formationSlotToTeamSpace(player.slot);
+  if (player.profile.primaryPosition === 'goalkeeper')
+    return { x: player.team === 'home' ? 5.5 : 99.5, y: 34 };
+  const ownHalfX = 16 + relative.depth * 39;
+  return {
+    x: player.team === 'home' ? ownHalfX : PITCH_LENGTH - ownHalfX,
+    y: 34 + relative.lateral * 26 * direction(player.team),
+  };
+};
+
+/** Smooth radial influence: approximately 0.9 at 10m, 0.5 at 25m and negligible at 50m. */
+export const ballReactionWeight = (metres: number) =>
+  Math.exp(-Math.pow(Math.max(0, metres) / 30, 2));
+
+export interface TeamBlockTransform {
+  advance: number;
+  lateral: number;
+  widthScale: number;
+  depthScale: number;
+  centre: PitchPoint;
+}
+export const deriveTeamBlockTransform = (
+  state: TacticalMatchState,
+  side: TeamSide,
+): TeamBlockTransform => {
+  const owns = state.possessionTeam === side,
+    parameters = TACTICAL_STYLE_PARAMETERS[state.teams[side].style];
+  const dir = direction(side),
+    ballDepth = dir * (state.ball.x - PITCH_LENGTH / 2);
+  const transition = state.teams[side].phase.includes('transition')
+    ? Math.min(1, state.teams[side].phaseElapsed / 3)
+    : 1;
+  const stableAdvance = owns
+    ? 7 + parameters.lineHeight * 5 + ballDepth * 0.12
+    : -2 + parameters.lineHeight * 3 + ballDepth * 0.08;
+  const advance = stableAdvance * (0.7 + 0.3 * transition);
+  const lateral = (state.ball.y - 34) * parameters.ballShift * 0.34;
+  const widthScale = parameters.width * (owns ? 1 : 0.82);
+  const depthScale =
+    (owns ? 0.98 : 0.82) * (state.teams[side].phase.includes('transition') ? 1.08 : 1);
+  return {
+    advance,
+    lateral,
+    widthScale,
+    depthScale,
+    centre: { x: 52.5 + dir * advance, y: 34 + lateral },
+  };
+};
+
+export interface PressingAssignment {
+  primary?: string;
+  cover?: string;
+  screen: string[];
+}
+export const derivePressingAssignment = (
+  state: TacticalMatchState,
+  side: TeamSide,
+): PressingAssignment => {
+  const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
+  if (!carrier || carrier.team === side) return { screen: [] };
+  const candidates = state.players
+    .filter((p) => p.team === side && p.profile.primaryPosition !== 'goalkeeper')
+    .sort(
+      (a, b) => distance(a.position, carrier.position) - distance(b.position, carrier.position),
+    );
+  return {
+    ...(candidates[0] ? { primary: candidates[0].id } : {}),
+    ...(candidates[1] ? { cover: candidates[1].id } : {}),
+    screen: candidates
+      .slice(2, 5)
+      .filter((p) => distance(p.position, carrier.position) < 32)
+      .map((p) => p.id),
+  };
+};
+
+/** Furthest legal attacking depth, expressed in canonical pitch coordinates. */
+export const calculateOffsideLine = (
+  state: Pick<TacticalMatchState, 'players' | 'ball'>,
+  attackingSide: TeamSide,
+) => {
+  const xs = state.players
+    .filter((p) => p.team !== attackingSide)
+    .map((p) => p.position.x)
+    .sort((a, b) => (attackingSide === 'home' ? b - a : a - b));
+  const secondLast = xs[1] ?? (attackingSide === 'home' ? PITCH_LENGTH : 0);
+  return attackingSide === 'home'
+    ? Math.max(state.ball.x, secondLast)
+    : Math.min(state.ball.x, secondLast);
+};
+
+export const constrainTargetOnside = (
+  point: PitchPoint,
+  line: number,
+  side: TeamSide,
+  margin = 0.7,
+): PitchPoint => ({
+  ...point,
+  x: side === 'home' ? Math.min(point.x, line - margin) : Math.max(point.x, line + margin),
+});
+
+const seekSpace = (
+  state: TacticalMatchState,
+  player: MatchPlayerState,
+  structural: PitchPoint,
+  offside: number,
+) => {
+  const parameters = TACTICAL_STYLE_PARAMETERS[state.teams[player.team].style];
+  const freedom =
+    parameters.freedom * (player.duty === 'attack' ? 1 : player.duty === 'support' ? 0.65 : 0.25);
+  if (freedom < 0.15) return structural;
+  const dir = direction(player.team),
+    opponents = state.players.filter((p) => p.team !== player.team);
+  const candidates = [
+    structural,
+    { x: structural.x + dir * 3, y: structural.y - 3 },
+    { x: structural.x + dir * 3, y: structural.y + 3 },
+    { x: structural.x - dir * 2, y: structural.y },
+  ].map((p) => constrainTargetOnside(clampPitchPoint(p), offside, player.team));
+  return candidates
+    .map((point) => {
+      const nearest = Math.min(...opponents.map((p) => distance(point, p.position)));
+      const deviation = distance(point, structural),
+        progression = dir * (point.x - structural.x);
+      return { point, score: nearest * 0.5 + progression * 0.25 - deviation * (1.1 - freedom) };
+    })
+    .sort((a, b) => b.score - a.score)[0]!.point;
+};
 
 export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerState[] => {
-  const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
+  const assignments = {
+    home: derivePressingAssignment(state, 'home'),
+    away: derivePressingAssignment(state, 'away'),
+  };
+  const offside = {
+    home: calculateOffsideLine(state, 'home'),
+    away: calculateOffsideLine(state, 'away'),
+  };
   return state.players.map((player) => {
-    const team = state.teams[player.team],
-      parameters = TACTICAL_STYLE_PARAMETERS[team.style];
-    const owns = state.possessionTeam === player.team,
+    const neutralAnchor = deriveNeutralFormationAnchor(player),
+      block = deriveTeamBlockTransform(state, player.team);
+    const parameters = TACTICAL_STYLE_PARAMETERS[state.teams[player.team].style],
       dir = direction(player.team);
-    const anchorDepth = dir * (player.anchor.x - 52.5);
-    let x =
-      52.5 +
-      dir *
-        (anchorDepth * (owns ? parameters.compactness : 0.78) +
-          (owns ? 8 : -5 + parameters.lineHeight * 5));
-    let y = 34 + (player.anchor.y - 34) * parameters.width * (owns ? 1 : 0.75);
-    y += (state.ball.y - 34) * parameters.ballShift;
-    x += dir * (state.ball.x - 52.5) * 0.13;
-    if (owns && player.duty === 'attack') x += dir * 5 * parameters.forwardRuns;
-    if (
-      carrier &&
-      owns &&
-      player.id !== carrier.id &&
-      distance(player.position, carrier.position) < 20
-    ) {
-      x += dir * 2;
-      y += ((player.anchor.y < carrier.position.y ? -1 : 1) * 2.5) / parameters.supportDistance;
-    }
-    if (!owns && carrier && player.profile.primaryPosition !== 'goalkeeper') {
-      const defenders = state.players
-        .filter((p) => p.team === player.team && p.profile.primaryPosition !== 'goalkeeper')
-        .sort(
-          (a, b) => distance(a.position, carrier.position) - distance(b.position, carrier.position),
-        );
-      if (defenders[0]?.id === player.id) {
-        x += (carrier.position.x - x) * 0.62 * parameters.pressing;
-        y += (carrier.position.y - y) * 0.62 * parameters.pressing;
-      } else if (defenders[1]?.id === player.id) {
-        x += (carrier.position.x - x) * 0.2;
-        y += (carrier.position.y - y) * 0.2;
+    const isKeeper = player.profile.primaryPosition === 'goalkeeper';
+    let structural: PitchPoint;
+    if (isKeeper)
+      structural = {
+        x:
+          player.team === 'home'
+            ? Math.min(16, 5.5 + Math.max(0, state.ball.x - 35) * 0.07)
+            : Math.max(89, 99.5 - Math.max(0, 70 - state.ball.x) * 0.07),
+        y: 34 + (state.ball.y - 34) * 0.12,
+      };
+    else
+      structural = {
+        x: 52.5 + (neutralAnchor.x - 52.5) * block.depthScale + dir * block.advance,
+        y: 34 + (neutralAnchor.y - 34) * block.widthScale + block.lateral,
+      };
+    let ideal = structural;
+    const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
+    if (!isKeeper && carrier) {
+      const local = ballReactionWeight(distance(player.position, carrier.position));
+      if (carrier.team === player.team && carrier.id !== player.id) {
+        ideal = {
+          x: ideal.x + dir * 2 * local,
+          y: ideal.y + ((carrier.position.y - ideal.y) * 0.22 * local) / parameters.supportDistance,
+        };
+      } else {
+        const assignment = assignments[player.team];
+        if (assignment.primary === player.id)
+          ideal = {
+            x: lerp(ideal.x, carrier.position.x, 0.68 * parameters.pressing * local),
+            y: lerp(ideal.y, carrier.position.y, 0.68 * parameters.pressing * local),
+          };
+        else if (assignment.cover === player.id)
+          ideal = {
+            x: lerp(ideal.x, carrier.position.x - dir * 5, 0.28 * local),
+            y: lerp(ideal.y, carrier.position.y, 0.28 * local),
+          };
+        else if (assignment.screen.includes(player.id))
+          ideal = {
+            x: lerp(ideal.x, (carrier.position.x + 52.5) / 2, 0.16 * local),
+            y: lerp(ideal.y, carrier.position.y, 0.16 * local),
+          };
       }
     }
-    if (player.profile.primaryPosition === 'goalkeeper') {
-      x =
-        player.team === 'home'
-          ? Math.min(18, 5 + Math.max(0, state.ball.x - 45) * 0.08)
-          : Math.max(87, 100 - Math.max(0, 60 - state.ball.x) * 0.08);
-      y = 34 + (state.ball.y - 34) * 0.12;
-    }
-    const period = Math.floor(state.time / 3);
-    const noise = RandomGenerator.fromSeed(`${state.seed}:position:${player.id}:${period}`);
-    const quality =
-      (player.profile.attributes.positioning +
-        player.profile.attributes.gameReading +
-        player.profile.attributes.concentration) /
-      300;
-    const error = (1 - quality) * (1 + parameters.freedom);
-    return {
-      ...player,
-      target: clampPitchPoint({
-        x: x + (noise.float() - 0.5) * error * 4,
-        y: y + (noise.float() - 0.5) * error * 4,
-      }),
+    if (!isKeeper && state.possessionTeam === player.team)
+      ideal = seekSpace(state, player, ideal, offside[player.team]);
+    ideal = clampPitchPoint(
+      isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player.team),
+    );
+    const period = Math.floor(state.time / 4),
+      blend = (state.time % 4) / 4;
+    const errorAt = (n: number) => {
+      const rng = RandomGenerator.fromSeed(`${state.seed}:position:${player.id}:${n}`);
+      return { x: rng.float() - 0.5, y: rng.float() - 0.5 };
     };
+    const e0 = errorAt(period),
+      e1 = errorAt(period + 1),
+      smooth = blend * blend * (3 - 2 * blend);
+    const errorSize =
+      (1 - player.profile.attributes.positioning / 100) * (2.5 + parameters.freedom * 2);
+    const noisy = clampPitchPoint({
+      x: ideal.x + lerp(e0.x, e1.x, smooth) * errorSize,
+      y: ideal.y + lerp(e0.y, e1.y, smooth) * errorSize,
+    });
+    const reading =
+      (player.profile.attributes.gameReading + player.profile.attributes.concentration) / 200;
+    const reaction = 1 - Math.exp(-(state.time === 0 ? 1 : 0.05 + reading * 0.18));
+    const perceived = {
+      x: lerp(player.target.x, noisy.x, reaction),
+      y: lerp(player.target.y, noisy.y, reaction),
+    };
+    return { ...player, neutralAnchor, idealTarget: ideal, target: clampPitchPoint(perceived) };
   });
 };

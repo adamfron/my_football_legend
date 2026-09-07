@@ -15,6 +15,7 @@ export const tacticalPlayerSchema = tacticalPointSchema.extend({
   goalkeeper: z.boolean().optional(),
   target: tacticalPointSchema.optional(),
   anchor: tacticalPointSchema.optional(),
+  idealTarget: tacticalPointSchema.optional(),
 });
 export const tacticalBallSchema = tacticalPointSchema.extend({
   height: z.number().nonnegative().optional(),

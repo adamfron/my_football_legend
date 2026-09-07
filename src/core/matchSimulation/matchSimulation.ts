@@ -2,9 +2,9 @@ import { deriveCanonicalCoachProfile } from '../coachProfiles';
 import type { SingleMatchSession } from '../singleMatch';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { chooseNpcAction, resolveMatchAction } from './matchActions';
-import { clampPitchPoint, distance, formationSlotToPitch, type TeamSide } from './matchSpace';
+import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
-import { deriveTacticalTargets } from './tacticalPositioning';
+import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -14,7 +14,8 @@ const settledPhase = (owns: boolean): MatchPhase =>
 export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchState => {
   const build = (side: TeamSide, team: SingleMatchSession['home']): MatchPlayerState[] =>
     team.players.map((player) => {
-      const anchor = formationSlotToPitch(player.slot, side);
+      const prototype = { slot: player.slot, team: side, profile: player.profile };
+      const anchor = deriveNeutralFormationAnchor(prototype);
       return {
         id: player.footballerId,
         team: side,
@@ -26,6 +27,8 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         target: anchor,
         velocity: { x: 0, y: 0 },
         anchor,
+        neutralAnchor: anchor,
+        idealTarget: anchor,
         meanPosition: anchor,
         samples: 1,
       };
@@ -115,10 +118,27 @@ export const stepTacticalMatch = (
       d = Math.max(0.001, Math.hypot(dx, dy));
     const quality =
       (player.profile.attributes.pace * 0.65 + player.profile.attributes.agility * 0.35) / 100;
-    const desired = Math.min(d, dt * (3.7 + quality * 3));
+    const maxSpeed = 3.7 + quality * 3;
+    const desiredVelocity = {
+      x: (dx / d) * Math.min(maxSpeed, d / dt),
+      y: (dy / d) * Math.min(maxSpeed, d / dt),
+    };
+    const agility = player.profile.attributes.agility / 100;
+    const acceleration = (3.2 + agility * 5.5) * dt;
+    const velocityDelta = {
+      x: desiredVelocity.x - player.velocity.x,
+      y: desiredVelocity.y - player.velocity.y,
+    };
+    const velocityDeltaLength = Math.hypot(velocityDelta.x, velocityDelta.y);
+    const velocityScale =
+      velocityDeltaLength > acceleration ? acceleration / velocityDeltaLength : 1;
+    const velocity = {
+      x: player.velocity.x + velocityDelta.x * velocityScale,
+      y: player.velocity.y + velocityDelta.y * velocityScale,
+    };
     let next = clampPitchPoint({
-      x: player.position.x + (dx / d) * desired,
-      y: player.position.y + (dy / d) * desired,
+      x: player.position.x + velocity.x * dt,
+      y: player.position.y + velocity.y * dt,
     });
     const close = state.players.filter(
       (p) => p.id !== player.id && distance(p.position, next) < 1.15,
@@ -205,7 +225,8 @@ export const matchStateToFrame = (state: TacticalMatchState) => ({
     goalkeeper: p.profile.primaryPosition === 'goalkeeper',
     protagonist: p.id === state.controlledFootballerId,
     target: p.target,
-    anchor: p.anchor,
+    anchor: p.neutralAnchor,
+    idealTarget: p.idealTarget,
   })),
   ball: { x: state.ball.x, y: state.ball.y, ownerId: state.ball.ownerId },
 });

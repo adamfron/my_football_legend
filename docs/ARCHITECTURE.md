@@ -1,5 +1,19 @@
 # Architektura
 
+## Równowaga pozycyjna w symulacji meczu
+
+Każdy zawodnik, niezależnie od tego, czy jest sterowany przez gracza, korzysta z tego samego
+kompozycyjnego modelu celu: **neutralna struktura formacji + deformacja bloku drużyny + lokalna,
+ważona odległością reakcja na piłkę + zachowanie taktyczne + indywidualna swoboda/błąd +
+ograniczenia = idealny cel taktyczny**. Dane formacji opisują względny kształt; osobna transformacja
+meczowa umieszcza spoczynkowy blok na własnej połowie bez zmiany semantyki ogólnych współrzędnych.
+
+Idealny cel przechodzi przez deterministyczny, płynnie zmienny błąd pozycjonowania i opóźnienie
+percepcji zależne od czytania gry oraz koncentracji, tworząc aktywny cel. Dopiero integracja
+prędkości, tempa i zwinności przesuwa fizycznego zawodnika. Linia spalonego ogranicza cel, nigdy
+rzeczywistą pozycję. Bramkarz ma konserwatywny wariant projekcji, odłączony od pressingu i szukania
+przestrzeni. Ten stan jest efemeryczny i nie trafia do zapisu kariery; renderer jedynie go prezentuje.
+
 ## Kanoniczna pozycja i wiek
 
 Graf `POSITION_COMPATIBILITY` jest jedyną definicją sąsiedztwa pozycji. Relacja zawodnik–pozycja
