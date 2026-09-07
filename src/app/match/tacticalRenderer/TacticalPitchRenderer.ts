@@ -8,6 +8,7 @@ export class TacticalPitchRenderer {
   private readonly playerMeshes = new Map<string, THREE.Group>();
   private readonly targetMarkers = new Map<string, THREE.Mesh>();
   private readonly anchorMarkers = new Map<string, THREE.Mesh>();
+  private readonly idealMarkers = new Map<string, THREE.Mesh>();
   private readonly ball: THREE.Mesh;
   private readonly observer: ResizeObserver;
 
@@ -20,7 +21,7 @@ export class TacticalPitchRenderer {
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.append(this.renderer.domElement);
     this.scene.background = new THREE.Color(0x16251f);
-    this.camera.position.set(82, 92, 82);
+    this.camera.position.set(-82, 92, 82);
     this.camera.lookAt(0, 0, 0);
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0x496055, 2.2));
     this.createPitch();
@@ -58,6 +59,7 @@ export class TacticalPitchRenderer {
     };
     this.anchorMarkers.set(id, marker(0xf4d35e));
     this.targetMarkers.set(id, marker(0xffffff));
+    this.idealMarkers.set(id, marker(0x52e0c4));
   }
 
   private createPitch() {
@@ -163,9 +165,11 @@ export class TacticalPitchRenderer {
       const world = tacticalToWorld(player);
       this.playerMeshes.get(player.id)?.position.set(world.x, 0, world.z);
       const target = player.target && tacticalToWorld(player.target),
-        anchor = player.anchor && tacticalToWorld(player.anchor);
+        anchor = player.anchor && tacticalToWorld(player.anchor),
+        ideal = player.idealTarget && tacticalToWorld(player.idealTarget);
       const targetMarker = this.targetMarkers.get(player.id),
         anchorMarker = this.anchorMarkers.get(player.id);
+      const idealMarker = this.idealMarkers.get(player.id);
       if (targetMarker) {
         targetMarker.visible = debug && Boolean(target);
         if (target) targetMarker.position.set(target.x, 0.08, target.z);
@@ -173,6 +177,10 @@ export class TacticalPitchRenderer {
       if (anchorMarker) {
         anchorMarker.visible = debug && Boolean(anchor);
         if (anchor) anchorMarker.position.set(anchor.x, 0.08, anchor.z);
+      }
+      if (idealMarker) {
+        idealMarker.visible = debug && Boolean(ideal);
+        if (ideal) idealMarker.position.set(ideal.x, 0.08, ideal.z);
       }
     }
     const ball = tacticalToWorld(frame.ball, (frame.ball.height ?? 0) + 0.85);

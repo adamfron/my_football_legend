@@ -38,6 +38,8 @@ export interface MatchPlayerState {
   target: PitchPoint;
   velocity: PitchPoint;
   anchor: PitchPoint;
+  neutralAnchor: PitchPoint;
+  idealTarget: PitchPoint;
   meanPosition: PitchPoint;
   samples: number;
 }
@@ -98,6 +100,8 @@ export const tacticalMatchStateSchema = z
         position: pitchPointSchema,
         target: pitchPointSchema,
         anchor: pitchPointSchema,
+        neutralAnchor: pitchPointSchema,
+        idealTarget: pitchPointSchema,
       }),
     ),
     ball: pitchPointSchema.extend({ ownerId: z.string().optional() }),

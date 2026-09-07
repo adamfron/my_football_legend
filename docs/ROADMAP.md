@@ -1,5 +1,15 @@
 # Roadmap
 
+## Dalszy rozwój równowagi pozycyjnej
+
+- Rozszerzyć wspólny model o człon kompensacji pustych stref po czerwonych kartkach albo
+  opuszczeniu strefy przez zawodnika, bez przebudowywania formacji od zera.
+- Dodać modyfikatory ról dla libero i wahadłowych oraz bogatsze ograniczenia pozycyjne stałych
+  fragmentów gry na wspólnym modelu celu.
+- Dodać późniejszy widok debug taktyki z góry do kalibracji bloków, średnich pozycji i przestrzeni.
+
+Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane.
+
 ## DEV Single Match Lab (PR86–PR88)
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
