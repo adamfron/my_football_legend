@@ -29,7 +29,7 @@ export const applyRestartScenario = (
     ...cleanInput,
     scenario,
     time: 0,
-    decisionIndex: 0,
+    decisionIndex: input.decisionIndex,
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
     actionCooldown: 0,

@@ -292,9 +292,15 @@ wariant od bramkarza, strefowe rożne, trzy warianty wolnego z fundamentem muru 
 ustawienie karnego. Kanoniczny cykl przygotowanie–wykonanie–wygaszanie płynnie oddaje sterowanie
 równowadze gry otwartej, bez teleportacji i bez osobnego silnika stałych fragmentów.
 
-**Bezpośrednio następny — PR93:** pętla strzał / reakcja bramkarza / gol / pudło / blok / właściwe
-wznowienie. Później: pojedynki powietrzne i główki, dośrodkowania, faule dostarczające położenie
-wolnego, krycie, specjalizacja stałych fragmentów i kontekstowe sterowanie zawodnikiem.
+**Zrealizowano w PR93:** pierwsza pełna pętla interakcji łączy presję, odbiory, przechwyty w locie,
+piłki bezpańskie, strzały, reakcję bramkarza, wynik oraz wykonywalne wznowienia.
+
+**Następny krok — PR94:** pełne egzekwowanie spalonego, rozwinięte pojedynki powietrzne i główki,
+dośrodkowania oraz bogatsze rodzaje strzałów i zachowanie bramkarza.
+
+**PR95:** kontekstowe menu interakcji zawodnika oparte dokładnie na tej samej kanonicznej
+enumeracji i ocenie akcji co decyzje NPC. Później: faule i kartki, cechy zawodników, specjalizacje
+taktyczne oraz szczegółowa animacja i prezentacja.
 
 Bezpośrednio następne pozostają pełne strzały i gole. Dalsze TODO: dośrodkowania, główki,
 szczegółowe pojedynki/odbióry, egzekwowanie spalonego, kompletne stałe fragmenty, kompensacja

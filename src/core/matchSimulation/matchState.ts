@@ -30,6 +30,12 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     target: pitchPointSchema,
     intent: z.enum(['support', 'progressive', 'direct', 'through']),
   }),
+  z.object({
+    type: z.literal('shot'),
+    actorId: z.string(),
+    target: pitchPointSchema,
+    intent: z.enum(['placed', 'driven']),
+  }),
 ]);
 export type MatchAction = z.infer<typeof matchActionSchema>;
 export const restartScenarioSchema = z.enum([
@@ -88,7 +94,16 @@ export interface MatchBallState extends PitchPoint {
   intendedReceiverId?: string;
   travelElapsed?: number;
   travelDuration?: number;
+  travelKind?: 'pass' | 'shot' | 'restart';
+  velocity?: PitchPoint;
+  looseSince?: number;
 }
+export const shotResultSchema = z.enum(['goal', 'save', 'block', 'miss']);
+export type ShotResult = z.infer<typeof shotResultSchema>;
+export const matchScoreSchema = z.object({
+  home: z.number().int().nonnegative(),
+  away: z.number().int().nonnegative(),
+});
 export interface TacticalMatchState {
   seed: string;
   time: number;
@@ -105,6 +120,17 @@ export interface TacticalMatchState {
   controlledFootballerId?: string;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
+  score: z.infer<typeof matchScoreSchema>;
+  currentPressure: number;
+  nearestChallengerId?: string;
+  lastPossessionChange?: {
+    at: number;
+    from: TeamSide;
+    to: TeamSide;
+    cause: 'tackle' | 'interception' | 'claim';
+  };
+  lastShotResult?: ShotResult;
+  restartAction?: MatchAction;
 }
 
 // Runtime boundary schema deliberately validates the ephemeral geometry/control graph; profiles
@@ -136,7 +162,13 @@ export const tacticalMatchStateSchema = z
         idealTarget: pitchPointSchema,
       }),
     ),
-    ball: pitchPointSchema.extend({ ownerId: z.string().optional() }),
+    ball: pitchPointSchema.extend({
+      ownerId: z.string().optional(),
+      travelKind: z.enum(['pass', 'shot', 'restart']).optional(),
+      looseSince: z.number().optional(),
+    }),
+    score: matchScoreSchema,
+    currentPressure: z.number().min(0).max(1),
     possessionTeam: teamSideSchema,
     timeSincePossessionChanged: z.number().nonnegative(),
     actionCooldown: z.number().nonnegative(),
