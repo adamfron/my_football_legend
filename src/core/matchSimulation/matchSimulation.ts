@@ -1,10 +1,16 @@
 import { deriveCanonicalCoachProfile } from '../coachProfiles';
 import type { SingleMatchSession } from '../singleMatch';
 import { RandomGenerator } from '../random/RandomGenerator';
-import { chooseNpcAction, resolveMatchAction } from './matchActions';
-import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
+import {
+  chooseNpcAction,
+  chooseRestartAction,
+  evaluatePressure,
+  resolveMatchAction,
+} from './matchActions';
+import { clampPitchPoint, distance, distanceToSegment, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
 import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
+import { applyRestartScenario } from './restartScenarios';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -65,6 +71,8 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
     actionCooldown: 0.4,
+    score: { home: 0, away: 0 },
+    currentPressure: 0,
     scenario: 'open_play',
     ...(session.setup.control.mode === 'player'
       ? { controlledFootballerId: session.setup.control.footballerId }
@@ -73,7 +81,11 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
   return { ...state, players: deriveTacticalTargets(state) };
 };
 
-const changePossession = (state: TacticalMatchState, ownerId: string) => {
+const changePossession = (
+  state: TacticalMatchState,
+  ownerId: string,
+  cause: 'tackle' | 'interception' | 'claim' = 'claim',
+) => {
   const owner = state.players.find((p) => p.id === ownerId)!;
   if (owner.team === state.possessionTeam) return { ...state, ball: { ...state.ball, ownerId } };
   const teams = { ...state.teams };
@@ -85,7 +97,66 @@ const changePossession = (state: TacticalMatchState, ownerId: string) => {
     possessionTeam: owner.team,
     timeSincePossessionChanged: 0,
     ball: { x: owner.position.x, y: owner.position.y, ownerId },
+    lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
   };
+};
+
+const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): TacticalMatchState => ({
+  ...state,
+  ball: { x: state.ball.x, y: state.ball.y, velocity, looseSince: state.time },
+});
+
+const resolveShot = (state: TacticalMatchState): TacticalMatchState => {
+  const action = state.currentAction;
+  if (action?.type !== 'shot') return state;
+  const shooter = state.players.find((p) => p.id === action.actorId)!;
+  const keeper = state.players.find(
+    (p) => p.team !== shooter.team && p.profile.primaryPosition === 'goalkeeper',
+  )!;
+  const defenders = state.players.filter(
+    (p) =>
+      p.team !== shooter.team &&
+      p.id !== keeper.id &&
+      distanceToSegment(p.position, shooter.position, action.target) < 2.1,
+  );
+  const pressure = evaluatePressure(state, shooter).value;
+  const rng = RandomGenerator.fromSeed(`${state.seed}:shot:${state.decisionIndex}`);
+  const range = distance(shooter.position, action.target);
+  const quality =
+    (shooter.profile.attributes.finishing +
+      shooter.profile.attributes.technique +
+      shooter.profile.attributes.composure) /
+      300 -
+    range / 85 -
+    pressure * 0.3;
+  const save =
+    (keeper.profile.attributes.reflexes +
+      keeper.profile.attributes.handling +
+      keeper.profile.attributes.oneOnOnes) /
+      300 +
+    Math.max(0, 1 - distance(keeper.position, action.target) / 12) * 0.2;
+  let result: 'goal' | 'save' | 'block' | 'miss';
+  if (defenders.length && rng.bool(Math.min(0.62, 0.16 + defenders.length * 0.11 + pressure * 0.2)))
+    result = 'block';
+  else if (rng.float() > Math.max(0.18, Math.min(0.9, 0.64 + quality * 0.32))) result = 'miss';
+  else if (rng.bool(Math.max(0.12, Math.min(0.78, save * 0.58 - quality * 0.18)))) result = 'save';
+  else result = 'goal';
+  if (result === 'goal') {
+    const score = { ...state.score, [shooter.team]: state.score[shooter.team] + 1 };
+    return applyRestartScenario({ ...state, score, lastShotResult: result }, 'kick_off');
+  }
+  if (result === 'miss')
+    return applyRestartScenario({ ...state, lastShotResult: result }, 'goal_kick');
+  if (result === 'save' && rng.bool(Math.min(0.85, keeper.profile.attributes.handling / 110)))
+    return changePossession(
+      { ...state, lastShotResult: result, ball: { ...keeper.position } },
+      keeper.id,
+      'claim',
+    );
+  return makeLoose(
+    { ...state, lastShotResult: result },
+    { x: shooter.team === 'home' ? -5 : 5, y: (rng.float() - 0.5) * 8 },
+  );
 };
 
 export const stepTacticalMatch = (
@@ -100,6 +171,10 @@ export const stepTacticalMatch = (
     actionCooldown: Math.max(0, input.actionCooldown - dt),
     teams: { ...input.teams },
   };
+  if (state.restart?.phase === 'setup' && state.time - state.restart.startedAt >= 2.1) {
+    const action = chooseRestartAction(state);
+    if (action) state = resolveMatchAction(state, action);
+  }
   if (
     state.restart?.phase === 'release' &&
     state.time - (state.restart.executedAt ?? state.time) >= 4
@@ -180,7 +255,37 @@ export const stepTacticalMatch = (
       y: state.ball.from.y + (state.ball.target.y - state.ball.from.y) * t,
       travelElapsed: elapsed,
     };
+    if (state.ball.travelKind !== 'shot') {
+      const passer = state.players.find((p) => p.id === state.currentActorId);
+      const candidate =
+        passer &&
+        state.players
+          .filter(
+            (p) =>
+              p.team !== passer.team &&
+              p.profile.primaryPosition !== 'goalkeeper' &&
+              distance(p.position, state.ball) < 2.2,
+          )
+          .sort((a, b) => distance(a.position, state.ball) - distance(b.position, state.ball))[0];
+      if (candidate && (state.ball.travelElapsed ?? 0) < (state.ball.travelDuration ?? 0)) {
+        const rng = RandomGenerator.fromSeed(
+          `${state.seed}:flight:${state.decisionIndex}:${Math.floor(elapsed * 10)}:${candidate.id}`,
+        );
+        const reading =
+          (candidate.profile.attributes.gameReading +
+            candidate.profile.attributes.positioning +
+            candidate.profile.attributes.pace) /
+          300;
+        if (rng.bool(0.12 + reading * 0.42))
+          return changePossession(
+            { ...state, ball: { ...candidate.position } },
+            candidate.id,
+            'interception',
+          );
+      }
+    }
     if (t >= 1) {
+      if (state.ball.travelKind === 'shot') return resolveShot(state);
       const receiver = state.players.find((p) => p.id === state.ball.intendedReceiverId)!;
       const passer = state.players.find((p) => p.id === state.currentActorId)!;
       const laneDefenders = state.players
@@ -201,11 +306,43 @@ export const stepTacticalMatch = (
             (laneDefenders[0]?.profile.attributes.gameReading ?? 0) / 650,
         ),
       );
+      if (
+        state.ball.travelKind === 'restart' &&
+        (state.scenario === 'goal_kick' ||
+          state.scenario === 'corner' ||
+          state.scenario.startsWith('free_kick'))
+      )
+        return makeLoose(state);
       const owner = rng.bool(chance) || !laneDefenders[0] ? receiver : laneDefenders[0];
       state = changePossession(
         { ...state, ball: { x: owner.position.x, y: owner.position.y } },
         owner.id,
+        owner === receiver ? 'claim' : 'interception',
       );
+    }
+  } else if (!state.ball.ownerId && state.ball.looseSince !== undefined) {
+    const velocity = state.ball.velocity ?? { x: 0, y: 0 },
+      looseSince = state.ball.looseSince;
+    state.ball = {
+      ...state.ball,
+      x: Math.max(0, Math.min(105, state.ball.x + velocity.x * dt)),
+      y: Math.max(0, Math.min(68, state.ball.y + velocity.y * dt)),
+      velocity: { x: velocity.x * 0.9, y: velocity.y * 0.9 },
+    };
+    if (state.time - looseSince > 0.35) {
+      const claimant = state.players
+        .map((p) => ({
+          p,
+          score:
+            distance(p.position, state.ball) -
+            (p.profile.attributes.pace +
+              p.profile.attributes.agility +
+              p.profile.attributes.gameReading) /
+              90,
+        }))
+        .sort((a, b) => a.score - b.score || a.p.id.localeCompare(b.p.id))[0];
+      if (claimant && distance(claimant.p.position, state.ball) < 3.2)
+        state = changePossession(state, claimant.p.id, 'claim');
     }
   } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {
     const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
@@ -217,6 +354,40 @@ export const stepTacticalMatch = (
       y: owner.position.y + dirY * 1.15,
       ownerId: owner.id,
     };
+  }
+  if (state.ball.ownerId && !state.ball.travelDuration && state.restart?.phase !== 'setup') {
+    const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
+    const evaluated = evaluatePressure(state, owner);
+    state.currentPressure = evaluated.value;
+    if (evaluated.nearestChallengerId) state.nearestChallengerId = evaluated.nearestChallengerId;
+    else delete state.nearestChallengerId;
+    const challenger = state.players.find((p) => p.id === evaluated.nearestChallengerId);
+    if (challenger && distance(challenger.position, owner.position) < 1.65) {
+      const rng = RandomGenerator.fromSeed(
+        `${state.seed}:challenge:${state.decisionIndex}:${challenger.id}`,
+      );
+      const defence =
+        (challenger.profile.attributes.tackling +
+          challenger.profile.attributes.strength +
+          challenger.profile.attributes.positioning +
+          challenger.profile.attributes.aggression +
+          challenger.profile.attributes.gameReading) /
+        500;
+      const attack =
+        (owner.profile.attributes.dribbling +
+          owner.profile.attributes.technique +
+          owner.profile.attributes.agility +
+          owner.profile.attributes.strength +
+          owner.profile.attributes.composure) /
+        500;
+      const roll = rng.float() + (defence - attack) * 0.35;
+      if (roll > 0.58) state = changePossession(state, challenger.id, 'tackle');
+      else if (roll > 0.42)
+        state = makeLoose(state, { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 });
+    }
+  } else {
+    state.currentPressure = 0;
+    delete state.nearestChallengerId;
   }
   if (state.actionCooldown <= 0 && state.ball.ownerId && state.restart?.phase !== 'setup') {
     const action = chooseNpcAction(state, state.ball.ownerId);

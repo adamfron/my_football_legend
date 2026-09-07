@@ -249,6 +249,13 @@ const seekSpace = (
 };
 
 export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerState[] => {
+  const looseResponders = !state.ball.ownerId
+    ? state.players
+        .map((p) => ({ id: p.id, distance: distance(p.position, state.ball) }))
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 4)
+        .map(({ id }) => id)
+    : [];
   const assignments = {
     home: derivePressingAssignment(state, 'home'),
     away: derivePressingAssignment(state, 'away'),
@@ -331,6 +338,11 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
           : ideal.y,
       };
     }
+    if (!isKeeper && looseResponders.includes(player.id))
+      ideal = {
+        x: lerp(ideal.x, state.ball.x, 0.72),
+        y: lerp(ideal.y, state.ball.y, 0.72),
+      };
     ideal = clampPitchPoint(
       isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player.team),
     );

@@ -2,6 +2,21 @@
 
 ## Równowaga pozycyjna w symulacji meczu
 
+### Pętla interakcji meczowej
+
+Równowagę pozycyjną uzupełnia efemeryczne pole interakcji: zawodnicy atakujący szukają
+przestrzeni, a broniący otrzymują przeliczane na bieżąco role nacisku, asekuracji i ekranowania.
+Kanoniczna ocena presji uwzględnia odległość, domykanie, liczbę rywali oraz istniejące atrybuty obu
+stron. Zasila ona decyzje o podaniu, prowadzeniu i strzale, a także deterministyczne rozstrzygnięcie
+odbioru.
+
+Podanie, prowadzenie i strzał są wspólnymi akcjami protagonisty i NPC. Rozstrzygnięcia obejmują
+przechwyt w locie, czysty odbiór, piłkę bez właściciela, jej opóźnione przejęcie oraz wynik strzału:
+gol, obrona, blok albo pudło. Zmiana posiadania atomowo zmienia fazy zespołów, gol aktualizuje
+efemeryczny wynik, a kontynuacja korzysta z kanonicznego wznowienia. Wyznaczony wykonawca może w
+fazie przygotowania wybrać specjalizowaną akcję wznowienia, lecz wykonuje ją tymi samymi
+prymitywami lotu piłki i strzału co gra otwarta.
+
 Każdy zawodnik, niezależnie od tego, czy jest sterowany przez gracza, korzysta z tego samego
 kompozycyjnego modelu celu: **neutralna struktura formacji + deformacja bloku drużyny + lokalna,
 ważona odległością reakcja na piłkę + zachowanie taktyczne + indywidualna swoboda/błąd +

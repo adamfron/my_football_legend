@@ -193,6 +193,7 @@ export const deriveRestartGeometry = (state: TacticalMatchState, scenario: Resta
     away.forEach((p, i) =>
       place(p, i < 8 ? defenceZones[i % defenceZones.length]! : { x: 84, y: 20 + i * 4 }, 2.8),
     );
+    landingZone = { x: 97, y: 34 };
   } else if (scenario.startsWith('free_kick')) {
     taker = chooseFreeKickTaker(state, 'home');
     points.set(taker.id, { x: ball.x - 2.2, y: ball.y });
@@ -222,6 +223,7 @@ export const deriveRestartGeometry = (state: TacticalMatchState, scenario: Resta
     away
       .filter((p) => !points.has(p.id))
       .forEach((p, i) => place(p, { x: wide ? 96 : close ? 91 : 94, y: 20 + (i % 6) * 6 }, 3));
+    if (!close) landingZone = wide ? { x: 97, y: 34 } : { x: 94, y: 34 };
   } else if (scenario === 'penalty') {
     taker = choosePenaltyTaker(state, 'home');
     points.set(taker.id, { x: 92, y: 34 });

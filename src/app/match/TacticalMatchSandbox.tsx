@@ -250,7 +250,11 @@ const RunningLab = ({
         <div>
           <span className="dev-badge">DEV · AUTONOMICZNA SYMULACJA</span>
           <h1>
-            {session.home.club.name} <b>–</b> {session.away.club.name}
+            {session.home.club.name}{' '}
+            <b>
+              {state.score.home}–{state.score.away}
+            </b>{' '}
+            {session.away.club.name}
           </h1>
         </div>
         <p>
@@ -311,6 +315,17 @@ const RunningLab = ({
             Aktor: {actor?.profile.firstName} {actor?.profile.lastName}
             <br />
             Akcja: {state.latestAction?.type ?? '—'}
+            <br />
+            Piłka:{' '}
+            {state.ball.ownerId
+              ? 'w posiadaniu'
+              : state.ball.travelDuration
+                ? 'w ruchu'
+                : 'bezpańska'}
+            <br />
+            Presja: {Math.round(state.currentPressure * 100)}%
+            <br />
+            Ostatni strzał: {state.lastShotResult ?? '—'}
             <br />
             Seed: <code>{state.seed}</code>
           </p>
