@@ -106,7 +106,7 @@ const spreadCluster = (points: Map<string, PitchPoint>, players: MatchPlayerStat
       }
 };
 
-export const deriveRestartGeometry = (state: TacticalMatchState, scenario: RestartScenario) => {
+const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartScenario) => {
   const ball = variantBall(scenario),
     home = outfield(state, 'home'),
     away = outfield(state, 'away'),
@@ -388,6 +388,57 @@ export const deriveRestartGeometry = (state: TacticalMatchState, scenario: Resta
     executionChoices:
       definition?.executionChoices ??
       (scenario === 'penalty' ? ['direct_shot' as const] : ['short_pass' as const]),
+  };
+};
+
+const mirrorPoint = (point: PitchPoint): PitchPoint => ({
+  x: 105 - point.x,
+  y: 68 - point.y,
+});
+
+/** Derives laws-facing geometry from explicit ownership, independently of renderer orientation. */
+export const deriveRestartGeometry = (
+  state: TacticalMatchState,
+  scenario: RestartScenario,
+  restartTeam: TeamSide = 'home',
+) => {
+  if (restartTeam === 'home') return deriveHomeRestartGeometry(state, scenario);
+  const swap = (side: TeamSide): TeamSide => (side === 'home' ? 'away' : 'home');
+  const mirrored: TacticalMatchState = {
+    ...state,
+    possessionTeam: swap(state.possessionTeam),
+    teams: {
+      home: { ...state.teams.away, side: 'home' },
+      away: { ...state.teams.home, side: 'away' },
+    },
+    players: state.players.map((player) => ({
+      ...player,
+      team: swap(player.team),
+      position: mirrorPoint(player.position),
+      target: mirrorPoint(player.target),
+      anchor: mirrorPoint(player.anchor),
+      neutralAnchor: mirrorPoint(player.neutralAnchor),
+      idealTarget: mirrorPoint(player.idealTarget),
+      meanPosition: mirrorPoint(player.meanPosition),
+      velocity: { x: -player.velocity.x, y: -player.velocity.y },
+    })),
+    ball: { ...state.ball, ...mirrorPoint(state.ball) },
+  };
+  const geometry = deriveHomeRestartGeometry(mirrored, scenario);
+  return {
+    ...geometry,
+    ball: mirrorPoint(geometry.ball),
+    taker: state.players.find((player) => player.id === geometry.taker.id)!,
+    targets: Object.fromEntries(
+      Object.entries(geometry.targets).map(([id, point]) => [id, mirrorPoint(point)]),
+    ),
+    roles: Object.fromEntries(
+      Object.entries(geometry.roles).map(([id, role]) => [
+        id,
+        { ...role, zone: { ...role.zone, centre: mirrorPoint(role.zone.centre) } },
+      ]),
+    ),
+    ...(geometry.landingZone ? { landingZone: mirrorPoint(geometry.landingZone) } : {}),
   };
 };
 

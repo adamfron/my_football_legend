@@ -19,6 +19,18 @@ const transitionPhase = (owns: boolean): MatchPhase =>
 const settledPhase = (owns: boolean): MatchPhase =>
   owns ? 'positional_attack' : 'defensive_block';
 
+export const FIXED_MATCH_DT = 0.05;
+
+export const advanceTacticalMatch = (
+  input: TacticalMatchState,
+  simulatedSeconds: number,
+): TacticalMatchState => {
+  let state = input;
+  const ticks = Math.floor((simulatedSeconds + 1e-9) / FIXED_MATCH_DT);
+  for (let tick = 0; tick < ticks; tick += 1) state = stepTacticalMatch(state, FIXED_MATCH_DT);
+  return state;
+};
+
 export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchState => {
   const build = (side: TeamSide, team: SingleMatchSession['home']): MatchPlayerState[] =>
     team.players.map((player) => {
@@ -119,10 +131,13 @@ const resolveShot = (state: TacticalMatchState): TacticalMatchState => {
     return applyRestartScenario(
       { ...state, score, lastShotResult: 'goal', lastShot: shot },
       'kick_off',
+      { restartTeam: shooter.team === 'home' ? 'away' : 'home' },
     );
   }
   if (shot.outcome === 'miss')
-    return applyRestartScenario({ ...state, lastShotResult: 'miss', lastShot: shot }, 'goal_kick');
+    return applyRestartScenario({ ...state, lastShotResult: 'miss', lastShot: shot }, 'goal_kick', {
+      restartTeam: shooter.team === 'home' ? 'away' : 'home',
+    });
   const keeper = shot.keeperId && state.players.find((p) => p.id === shot.keeperId);
   if (shot.goalkeeperAction === 'catch' && keeper)
     return changePossession(
@@ -200,7 +215,14 @@ export const stepTacticalMatch = (
       d = Math.max(0.001, Math.hypot(dx, dy));
     const quality =
       (player.profile.attributes.pace * 0.65 + player.profile.attributes.agility * 0.35) / 100;
-    const maxSpeed = 3.7 + quality * 3;
+    const owns = player.team === state.possessionTeam;
+    const urgent =
+      state.teams[player.team].phase === 'defensive_transition' ||
+      state.teams[player.team].phase === 'attacking_transition' ||
+      state.nearestChallengerId === player.id ||
+      (!state.ball.ownerId && distance(player.position, state.ball) < 15);
+    const active = urgent || (owns && player.duty === 'attack' && d > 8);
+    const maxSpeed = active ? 6.2 + quality * 3.3 : d < 5 ? 1.5 + quality * 2 : 3 + quality * 2.2;
     const desiredVelocity = {
       x: (dx / d) * Math.min(maxSpeed, d / dt),
       y: (dy / d) * Math.min(maxSpeed, d / dt),
@@ -389,7 +411,19 @@ export const stepTacticalMatch = (
     const projected = { x: state.ball.x + velocity.x * dt, y: state.ball.y + velocity.y * dt };
     const boundary = resolveDeadBallRestart(state, projected);
     if (boundary === 'goal_kick' || boundary === 'corner')
-      return { ...applyRestartScenario(state, boundary), lastBoundaryRestart: boundary };
+      return {
+        ...applyRestartScenario(state, boundary, {
+          restartTeam:
+            boundary === 'goal_kick'
+              ? projected.x < 0
+                ? 'home'
+                : 'away'
+              : projected.x < 0
+                ? 'away'
+                : 'home',
+        }),
+        lastBoundaryRestart: boundary,
+      };
     if (boundary === 'throw_in') {
       const lastTeam =
         state.players.find((p) => p.id === state.ball.lastTouchPlayerId)?.team ??

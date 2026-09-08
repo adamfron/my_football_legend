@@ -10,12 +10,15 @@
 
 Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane.
 
-## DEV Single Match Lab (PR86–PR88)
+## DEV Single Match Lab — bezpośrednia kolejność po PR97
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
 - **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
   kanonicznych klubów i nie dotyka zapisu kariery.
-- **Następne: PR88 — pierwszy prawdziwy interaktywny vertical slice decyzji w Single Match Lab.**
+- **PR97 — Match Time & Kinematics v1 — ukończony.**
+- **PR98 — Match Moment / Situation Evaluator.**
+- **PR99 — Tactical Situations & Set Pieces calibration v2.**
+- **PR100 — contextual player decision vertical slice.**
 
 Docelowy przepływ pracy: **Single Match Lab → snapshot → decyzja gracza → rozstrzygnięcie core →
 animowany wynik → nowy snapshot**. Dopiero dojrzała pętla zostanie włączona do meczów kariery.

@@ -561,3 +561,25 @@ Główka na bramkę wraca do wspólnej architektury wyniku strzału, a pozostał
 obiegu posiadania i loose ball. Przy drugiej piłce lokalni uczestnicy oraz role `attack_second_ball`
 otrzymują czasowy priorytet reakcji, bez teleportowania posiadania. Kanoniczny resolver granic
 zamyka terminalne piłki bezpańskie wznowieniem od bramki, rożnym albo wrzutem z autu.
+
+### Czas meczu, wznowienia i powtórki (PR97)
+
+`TacticalMatchState.time` jest jednym, monotonicznym czasem kanonicznym w sekundach. Zegar ścienny
+przeglądarki przechodzi przez mnożnik tempa do akumulatora, który uruchamia wyłącznie stałe ticki
+symulacji po 0,05 s: **wall clock → playback multiplier → fixed simulation accumulator → canonical
+tactical state → renderer**. Tempo i częstotliwość renderowania zmieniają więc tylko liczbę ticków
+wykonanych w czasie rzeczywistym, nigdy rozmiar kroku, losowania ani wynik sportowy. Prędkości
+zawodników i piłki są wyrażone w metrach na sekundę względem boiska 105 × 68; cel taktyczny nadal
+określa kierunek, a pilność ruchu określa tempo z zachowaniem przyspieszenia i bez natychmiastowej
+zmiany wektora prędkości.
+
+Każde kanoniczne wznowienie ma jawne `restartTeam`. Po golu rozpoczyna drużyna, która straciła
+bramkę; wykop należy do broniącej, rożny do atakującej, a wolny i karny do drużyny, której je
+przyznano. `startedAt` i `executedAt` leżą na tej samej absolutnej osi co `time`, a przygotowanie
+wznowienia nie zeruje zegara. Domyślni gospodarze w przyciskach scenariuszy DEV są wyłącznie
+wyborem harnessu.
+
+Bufor ostatnich klatek i zachowana powtórka gola należą wyłącznie do prezentacji Single Match Lab.
+Zawierają minimalną migawkę renderera, nie `TacticalMatchState` ani stan kariery. Podczas odtwarzania
+core jest wstrzymany, nagrane klatki są wyświetlane wolniej bez ponownego uruchamiania resolverów lub
+RNG, a wyjście wraca do dokładnie tego samego kanonicznego stanu po golu.

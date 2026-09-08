@@ -6,6 +6,8 @@ import {
   chooseNpcAction,
   ballReactionWeight,
   applyRestartScenario,
+  advanceTacticalMatch,
+  FIXED_MATCH_DT,
   calculateOffsideLine,
   constrainTargetOnside,
   createTacticalMatch,
@@ -151,6 +153,29 @@ describe('restart geometry and lifecycle', () => {
     ).toBe(true);
   });
 
+  it('keeps canonical time and mirrors away-owned restarts', () => {
+    const initial = createTacticalMatch(session('away-restarts'));
+    initial.time = 17.2;
+    const kickOff = applyRestartScenario(initial, 'kick_off', { restartTeam: 'away' });
+    expect(kickOff.time).toBe(17.2);
+    expect(kickOff.restart).toMatchObject({ restartTeam: 'away', startedAt: 17.2 });
+    expect(kickOff.players.find((player) => player.id === kickOff.restart!.takerId)?.team).toBe(
+      'away',
+    );
+    expect(kickOff.teams.away.phase).toBe('attacking_transition');
+    expect(kickOff.teams.home.phase).toBe('defensive_block');
+
+    const goalKick = applyRestartScenario(initial, 'goal_kick', { restartTeam: 'away' });
+    const taker = goalKick.players.find((player) => player.id === goalKick.restart!.takerId)!;
+    expect(taker.team).toBe('away');
+    expect(taker.profile.primaryPosition).toBe('goalkeeper');
+    expect(goalKick.ball.x).toBeGreaterThan(95);
+    let released = goalKick;
+    for (let tick = 0; tick < 50; tick += 1) released = stepTacticalMatch(released, FIXED_MATCH_DT);
+    expect(released.time).toBeGreaterThan(initial.time);
+    expect(released.restart?.executedAt).toBeGreaterThanOrEqual(released.restart!.startedAt);
+  });
+
   it('clusters corners without overlap and keeps both goalkeepers at their ends', () => {
     const corner = preset('corner');
     const homeGk = corner.players.find(
@@ -228,6 +253,41 @@ describe('restart geometry and lifecycle', () => {
   });
 });
 describe('autonomous tactical simulation', () => {
+  it('is invariant to presentation cadence after equal fixed simulated time', () => {
+    const initial = createTacticalMatch(session('fixed-time'));
+    const direct = advanceTacticalMatch(initial, 20);
+    let cadenced = initial;
+    for (const seconds of [2, 1, 4, 0.5, 7.5, 5])
+      cadenced = advanceTacticalMatch(cadenced, seconds);
+    expect(cadenced).toEqual(direct);
+    expect(direct.time).toBeCloseTo(20, 10);
+  });
+
+  it('uses plausible acceleration-limited metre-per-second movement', () => {
+    const initial = createTacticalMatch(session('kinematics'));
+    const player = initial.players.find(
+      (candidate) => candidate.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    player.target = { x: Math.min(105, player.position.x + 50), y: player.position.y };
+    const start = { ...player.position };
+    let state = initial;
+    for (let tick = 0; tick < 20; tick += 1) state = stepTacticalMatch(state, FIXED_MATCH_DT);
+    const moved = distance(
+      start,
+      state.players.find((candidate) => candidate.id === player.id)!.position,
+    );
+    expect(moved).toBeGreaterThan(0);
+    expect(moved).toBeLessThan(10);
+
+    const moving = state.players.find((candidate) => candidate.id === player.id)!;
+    const oldVelocity = { ...moving.velocity };
+    moving.target = { x: Math.max(0, moving.position.x - 40), y: moving.position.y };
+    const reversed = stepTacticalMatch(state, FIXED_MATCH_DT).players.find(
+      (candidate) => candidate.id === player.id,
+    )!;
+    expect(oldVelocity.x * reversed.velocity.x).toBeGreaterThanOrEqual(0);
+    expect(state.players.every((candidate) => Number.isFinite(candidate.position.x))).toBe(true);
+  });
   it('offers progressive, long and genuinely leading passes plus varied carries', () => {
     const state = createTacticalMatch(session('intent'));
     const actor = state.players.find((p) => p.id === state.ball.ownerId)!;
