@@ -215,6 +215,10 @@ export class TacticalPitchRenderer {
     this.ball.position.set(ball.x, ball.y, ball.z);
     this.renderer.render(this.scene, this.camera);
   }
+
+  getCanvas() {
+    return this.renderer.domElement;
+  }
   private resize() {
     const width = Math.max(this.host.clientWidth, 320),
       height = Math.max(this.host.clientHeight, 240),

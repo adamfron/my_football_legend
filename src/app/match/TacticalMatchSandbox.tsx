@@ -21,9 +21,11 @@ import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer'
 import { buildStartMenuUrl } from '../devTools';
 import {
   debugBasename,
-  downloadBlob,
+  isCaptureTriggerDisabled,
   MatchDebugRecorder,
+  saveDebugPackage,
   ViewportVideoRecorder,
+  type DebugCaptureStatus,
   type MatchDebugExport,
 } from './matchDebugCapture';
 import './TacticalMatchSandbox.css';
@@ -224,8 +226,8 @@ const RunningLab = ({
     [debug, setDebug] = useState(false),
     [goalReplay, setGoalReplay] = useState<RenderFrame[]>([]),
     [replaying, setReplaying] = useState(false),
-    [captureStatus, setCaptureStatus] = useState<'idle' | 'capturing' | 'ready'>('idle'),
-    [videoActive, setVideoActive] = useState(false),
+    [captureStatus, setCaptureStatus] = useState<DebugCaptureStatus>('idle'),
+    [saveMessage, setSaveMessage] = useState<string>(),
     [debugExport, setDebugExport] = useState<{
       trace: MatchDebugExport;
       video: Blob | undefined;
@@ -253,6 +255,7 @@ const RunningLab = ({
     const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
     const videoRecorder = videoRecorderRef.current;
     rendererRef.current = renderer;
+    videoRecorder.start(renderer.getCanvas(), () => stateRef.current.time);
     return () => {
       renderer.dispose();
       videoRecorder.dispose();
@@ -277,20 +280,27 @@ const RunningLab = ({
               if (complete && !finishingRef.current) {
                 finishingRef.current = true;
                 const recorder = debugRecorderRef.current;
-                const trace = recorder.export(
-                  session,
-                  FIXED_MATCH_DT,
-                  { width: window.innerWidth, height: window.innerHeight },
-                  videoRecorderRef.current.active,
-                  videoRecorderRef.current.captureFps,
-                );
                 const basename = debugBasename(state.seed, recorder.triggerTime!);
-                void videoRecorderRef.current.finish().then((video) => {
-                  setDebugExport({ trace, video, basename });
-                  setCaptureStatus('ready');
-                  recorder.resetCapture();
-                  finishingRef.current = false;
-                });
+                setCaptureStatus('processing');
+                void videoRecorderRef.current
+                  .finish()
+                  .catch(() => undefined)
+                  .then((video) => {
+                    const trace = recorder.export(
+                      session,
+                      FIXED_MATCH_DT,
+                      { width: window.innerWidth, height: window.innerHeight },
+                      Boolean(video),
+                      videoRecorderRef.current.captureFps,
+                    );
+                    setDebugExport({ trace, video, basename });
+                    setCaptureStatus('ready');
+                  })
+                  .catch(() => setCaptureStatus('error'))
+                  .finally(() => {
+                    recorder.resetCapture();
+                    finishingRef.current = false;
+                  });
               }
             }
             return next;
@@ -341,8 +351,28 @@ const RunningLab = ({
   const triggerCapture = () => {
     if (!debugRecorderRef.current.trigger(state.time)) return;
     videoRecorderRef.current.trigger(state.time);
-    setDebugExport(undefined);
+    setSaveMessage(undefined);
     setCaptureStatus('capturing');
+  };
+  const savePackage = async () => {
+    if (!debugExport) return;
+    setSaveMessage(undefined);
+    try {
+      const result = await saveDebugPackage({
+        basename: debugExport.basename,
+        json: new Blob([JSON.stringify(debugExport.trace, null, 2)], {
+          type: 'application/json',
+        }),
+        ...(debugExport.video ? { video: debugExport.video } : {}),
+      });
+      if (result.status !== 'cancelled') {
+        setSaveMessage(result.message);
+        setCaptureStatus('saved');
+      }
+    } catch {
+      setSaveMessage('Nie udało się zapisać plików. Spróbuj ponownie.');
+      setCaptureStatus('error');
+    }
   };
   const remaining =
     debugRecorderRef.current.triggerTime === undefined
@@ -419,62 +449,32 @@ const RunningLab = ({
         </button>
       </nav>
       <nav className="debug-capture" aria-label="Eksport diagnostyczny">
-        <button
-          disabled={videoActive}
-          onClick={() => {
-            void videoRecorderRef.current
-              .enable(() => stateRef.current.time)
-              .then((enabled) => {
-                setVideoActive(enabled);
-                uiEvent(enabled ? 'video_recorder_enabled' : 'video_recorder_unavailable');
-              });
-          }}
-        >
-          Włącz rejestrator obrazu
-        </button>
-        <span>
-          {videoActive
-            ? '● Rejestrator DEV aktywny'
-            : 'Obraz nieaktywny — eksport będzie tylko JSON'}
-        </span>
-        <button
-          className="primary-choice"
-          disabled={captureStatus === 'capturing'}
-          onClick={triggerCapture}
-        >
+        <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
           Zapisz debug ±10 s
         </button>
+        {captureStatus === 'idle' && (
+          <span>
+            {videoRecorderRef.current.active
+              ? `Gotowy — bufor: ${videoRecorderRef.current.bufferedSeconds.toFixed(1)} s`
+              : 'Wideo niedostępne — zapis będzie zawierał JSON'}
+          </span>
+        )}
         {captureStatus === 'capturing' && (
-          <strong>Debug: zapisano 10 s historii · nagrywanie +{remaining.toFixed(1)} s…</strong>
+          <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
         )}
-        {captureStatus === 'ready' && debugExport && (
-          <>
-            <strong>
-              {debugExport.video
-                ? 'Debug gotowy'
-                : 'Debug gotowy — tylko JSON (rejestrator obrazu nie był włączony)'}
-            </strong>
-            <button
-              onClick={() =>
-                downloadBlob(
-                  new Blob([JSON.stringify(debugExport.trace, null, 2)], {
-                    type: 'application/json',
-                  }),
-                  `${debugExport.basename}.json`,
-                )
-              }
-            >
-              Pobierz JSON
-            </button>
-            {debugExport.video && (
-              <button
-                onClick={() => downloadBlob(debugExport.video!, `${debugExport.basename}.webm`)}
-              >
-                Pobierz WebM
-              </button>
-            )}
-          </>
-        )}
+        {captureStatus === 'processing' && <strong>Debug: kodowanie WebM…</strong>}
+        {(captureStatus === 'ready' || captureStatus === 'saved' || captureStatus === 'error') &&
+          debugExport && (
+            <>
+              <strong>
+                {debugExport.video
+                  ? 'Debug gotowy: JSON + WebM'
+                  : 'Wideo niedostępne — zapisano JSON'}
+              </strong>
+              <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
+              {saveMessage && <span>{saveMessage}</span>}
+            </>
+          )}
       </nav>
       <nav className="scenario-picker" aria-label="Scenariusz developerski">
         <strong>Sytuacja:</strong>

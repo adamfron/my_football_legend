@@ -14,12 +14,13 @@ Przepływ danych ma jeden kierunek:
 
 Równoległy, niezależny przepływ obrazu wygląda tak:
 
-**browser presentation ↓ screen capture ↓ WebM**
+**TacticalPitchRenderer canvas ↓ ograniczony pre-buffer klatek ↓ WebM**
 
-Rejestrator ekranu wymaga jawnej zgody przeglądarki, przechwytuje cały wskazany viewport i może
-zostać wyłączony lub odrzucony bez wpływu na JSON i działanie meczu. Warstwa debug nie zapisuje się
-w karierze, nie dostarcza danych rendererowi i nie ma żadnej strzałki zwrotnej do core: nie zmienia
-RNG, kroku, kolejności ticków, tempa ani wyniku sportowego.
+Rejestrator uruchamia się automatycznie i przechwytuje wyłącznie jawnie udostępniony canvas boiska,
+bez uprawnień do nagrywania karty lub ekranu. Brak przeglądarkowych API wideo nie wpływa na JSON ani
+działanie meczu. Kodowanie ukończonego okna nie zatrzymuje ciągłego pre-buffera następnego zapisu.
+Warstwa debug nie zapisuje się w karierze, nie dostarcza danych rendererowi i nie ma żadnej strzałki
+zwrotnej do core: nie zmienia RNG, kroku, kolejności ticków, tempa ani wyniku sportowego.
 
 ## Równowaga pozycyjna w symulacji meczu
 
