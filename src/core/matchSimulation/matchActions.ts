@@ -1,6 +1,7 @@
 import { RandomGenerator } from '../random/RandomGenerator';
 import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matchSpace';
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
+import { resolveCanonicalShot } from './shotResolver';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -103,14 +104,32 @@ export const enumerateAvailableActions = (
             : 'floated',
       });
   }
-  if (distance(actor.position, { x: actor.team === 'home' ? 105 : 0, y: 34 }) < 38)
-    for (const y of [30.5, 34, 37.5])
+  const goalDistance = distance(actor.position, {
+    x: actor.team === 'home' ? 105 : 0,
+    y: 34,
+  });
+  if (goalDistance < 38) {
+    const immediateDefenders = opponents(state, actor).filter(
+      (player) =>
+        player.profile.primaryPosition !== 'goalkeeper' &&
+        distance(player.position, actor.position) < 6,
+    );
+    const oneOnOne = goalDistance < 20 && immediateDefenders.length === 0;
+    for (const [index, horizontal] of [-0.82, 0, 0.82].entries())
       actions.push({
         type: 'shot',
         actorId,
-        target: { x: actor.team === 'home' ? 105 : 0, y },
-        intent: 'placed',
+        target: {
+          x: actor.team === 'home' ? 105 : 0,
+          y: 34 + horizontal * 3.66 * (actor.team === 'home' ? 1 : -1),
+        },
+        goalTarget: {
+          horizontal,
+          vertical: oneOnOne && index === 1 ? 0.72 : index === 1 ? 0.24 : 0.34,
+        },
+        intent: oneOnOne && index === 1 ? 'chip' : index === 1 ? 'driven' : 'placed',
       });
+  }
   state.players
     .filter(
       (p) =>
@@ -275,19 +294,27 @@ export const resolveMatchAction = (
       ...(restart ? { restart } : {}),
     };
   if (action.type === 'shot') {
-    const duration = Math.max(0.28, distance(actor.position, action.target) / 34);
+    const shot = resolveCanonicalShot(
+      {
+        ...state,
+        decisionIndex: state.decisionIndex + 1,
+        currentPressure: evaluatePressure(state, actor).value,
+      },
+      action,
+    );
+    const duration = Math.max(0.28, distance(actor.position, shot.goalPoint) / shot.speed);
     return {
       ...state,
       ball: {
         x: state.ball.x,
         y: state.ball.y,
         from: { ...actor.position },
-        target: action.target,
+        target: shot.goalPoint,
         travelElapsed: 0,
         travelDuration: duration,
         travelKind: 'shot',
         sourceAction: action.type,
-        peakHeight: 0.8,
+        peakHeight: Math.max(0.08, shot.heightMetres),
         height: 0,
         flightProgress: 0,
         airborne: true,
@@ -303,9 +330,21 @@ export const resolveMatchAction = (
   if (action.type === 'cross' || action.type === 'header') {
     const length = distance(actor.position, action.target);
     const isHeaderShot = action.type === 'header' && action.intent === 'header_shot';
+    const headerShot = isHeaderShot
+      ? resolveCanonicalShot(
+          {
+            ...state,
+            decisionIndex: state.decisionIndex + 1,
+            currentPressure: evaluatePressure(state, actor).value,
+          },
+          action,
+        )
+      : undefined;
     const duration = Math.max(
       0.35,
-      length / (action.type === 'cross' && action.intent === 'floated' ? 18 : 25),
+      headerShot
+        ? length / headerShot.speed
+        : length / (action.type === 'cross' && action.intent === 'floated' ? 18 : 25),
     );
     return {
       ...state,
@@ -313,7 +352,7 @@ export const resolveMatchAction = (
         x: state.ball.x,
         y: state.ball.y,
         from: { ...actor.position },
-        target: { ...action.target },
+        target: { ...(headerShot?.goalPoint ?? action.target) },
         ...(action.intendedTargetId ? { intendedReceiverId: action.intendedTargetId } : {}),
         travelElapsed: 0,
         travelDuration: duration,
@@ -334,7 +373,7 @@ export const resolveMatchAction = (
                 ? 2.8
                 : 1.2
             : isHeaderShot
-              ? 1.4
+              ? Math.max(0.08, headerShot?.heightMetres ?? 1.4)
               : 2.2,
         height: 0,
         flightProgress: 0,

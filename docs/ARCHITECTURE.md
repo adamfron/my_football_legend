@@ -17,6 +17,22 @@ efemeryczny wynik, a kontynuacja korzysta z kanonicznego wznowienia. Wyznaczony 
 fazie przygotowania wybrać specjalizowaną akcję wznowienia, lecz wykonuje ją tymi samymi
 prymitywami lotu piłki i strzału co gra otwarta.
 
+### Kanoniczny strzał i obrona bramkarza
+
+Pętla próby bramkowej ma jeden przebieg: **intencja umiejscowienia → błąd wykonania → lot piłki
+→ lokalna próba bloku → interwencja bramkarza → bramka, obramowanie albo pudło → odbitka lub
+wznowienie**. Znormalizowany cel w świetle bramki zostaje przeliczony na rzeczywisty punkt i
+wysokość przecięcia płaszczyzny bramkowej. Rozrzut zależy płynnie od techniki, wykończenia (albo
+gry głową), opanowania, presji, odległości i kąta; nie istnieje próg gwarantujący celność.
+
+Lot strzału korzysta z tego samego kanonicznego czasu, celu, wysokości i prędkości piłki co inne
+podróże. Blok wymaga przecięcia wąskiego korytarza i osiągalnego czasu, a model bramkarza zestawia
+czas reakcji i ruch do punktu przecięcia ze szybkością oraz umiejscowieniem, bez porównywania OVR.
+Złapanie daje posiadanie; parowanie, blok, słupek i poprzeczka nadają piłce skończoną prędkość i
+wracają do wspólnego systemu loose ball oraz priorytetów drugiej piłki. Główka na bramkę zachowuje
+własne modyfikatory kontaktu powietrznego, ale od intencji celu przechodzi dokładnie przez ten sam
+resolver strzału. Renderer i diagnostyka DEV wyłącznie odczytują wynik core.
+
 Każdy zawodnik, niezależnie od tego, czy jest sterowany przez gracza, korzysta z tego samego
 kompozycyjnego modelu celu: **neutralna struktura formacji + deformacja bloku drużyny + lokalna,
 ważona odległością reakcja na piłkę + zachowanie taktyczne + indywidualna swoboda/błąd +
