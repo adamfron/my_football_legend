@@ -3,7 +3,9 @@ import { FIXED_MATCH_DT, type TacticalMatchState } from '../../core/matchSimulat
 import type { SingleMatchSession } from '../../core/singleMatch';
 import {
   MatchDebugRecorder,
+  isCaptureTriggerDisabled,
   projectDebugEvents,
+  saveDebugPackage,
   snapshotMatchState,
   ViewportVideoRecorder,
 } from './matchDebugCapture';
@@ -62,6 +64,19 @@ describe('MatchDebugRecorder', () => {
       recorder.record(minimalState(index * FIXED_MATCH_DT));
     expect(recorder.historyFrames.at(-1)!.time).toBeCloseTo(22);
     expect(recorder.isComplete(22)).toBe(true);
+  });
+
+  it('can complete and reset captures repeatedly without losing its rolling history', () => {
+    const recorder = new MatchDebugRecorder();
+    for (let index = 0; index <= 200; index += 1)
+      recorder.record(minimalState(index * FIXED_MATCH_DT));
+    expect(recorder.trigger(10)).toBe(true);
+    recorder.record(minimalState(20));
+    expect(recorder.isComplete(20)).toBe(true);
+    recorder.resetCapture();
+    expect(recorder.triggerTime).toBeUndefined();
+    recorder.record(minimalState(21));
+    expect(recorder.trigger(21)).toBe(true);
   });
 
   it('reports a shorter real pre-roll for an early trigger', () => {
@@ -138,32 +153,119 @@ describe('MatchDebugRecorder', () => {
   });
 });
 
-describe('ViewportVideoRecorder fallbacks', () => {
+describe('ViewportVideoRecorder', () => {
   const originalMediaDevices = navigator.mediaDevices;
-  afterEach(() =>
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
     Object.defineProperty(navigator, 'mediaDevices', {
       configurable: true,
       value: originalMediaDevices,
-    }),
-  );
-  it('allows JSON-only mode when screen capture API is absent', async () => {
-    Object.defineProperty(navigator, 'mediaDevices', { configurable: true, value: undefined });
-    await expect(new ViewportVideoRecorder().enable(() => 0)).resolves.toBe(false);
+    });
   });
-  it('handles denied permission without throwing', async () => {
+
+  it('starts directly from the pitch canvas without requesting screen permission', () => {
+    vi.useFakeTimers();
+    const getDisplayMedia = vi.fn();
     Object.defineProperty(navigator, 'mediaDevices', {
       configurable: true,
-      value: { getDisplayMedia: vi.fn().mockRejectedValue(new Error('denied')) },
+      value: { getDisplayMedia },
     });
-    await expect(new ViewportVideoRecorder().enable(() => 0)).resolves.toBe(false);
-  });
-  it('stops all capture tracks during cleanup', () => {
-    const stop = vi.fn(),
-      recorder = new ViewportVideoRecorder();
-    (recorder as unknown as { stream: MediaStream }).stream = {
-      getTracks: () => [{ stop }],
-    } as unknown as MediaStream;
+    const source = document.createElement('canvas');
+    source.width = 320;
+    source.height = 180;
+    const recorder = new ViewportVideoRecorder();
+    expect(recorder.start(source, () => 0)).toBe(true);
+    expect(getDisplayMedia).not.toHaveBeenCalled();
     recorder.dispose();
-    expect(stop).toHaveBeenCalledOnce();
+  });
+
+  it('keeps sampling enabled while finish encodes a snapshot for reuse', async () => {
+    const recorder = new ViewportVideoRecorder();
+    (recorder as unknown as { timer: number; frames: unknown[] }).timer = 1;
+    (recorder as unknown as { frames: unknown[] }).frames = [];
+    await expect(recorder.finish()).resolves.toBeUndefined();
+    expect(recorder.active).toBe(true);
+    recorder.dispose();
+  });
+
+  it('bounds the visual pre-buffer to approximately ten wall-clock seconds', async () => {
+    const recorder = new ViewportVideoRecorder();
+    let now = 0;
+    vi.spyOn(performance, 'now').mockImplementation(() => now);
+    Object.assign(recorder as unknown as Record<string, unknown>, {
+      timer: 1,
+      source: { width: 320, height: 180 },
+      canvas: {
+        width: 0,
+        height: 0,
+        getContext: () => ({ drawImage: vi.fn() }),
+        toBlob: (callback: (blob: Blob) => void) => callback(new Blob(['frame'])),
+      },
+    });
+    const sample = (
+      recorder as unknown as { sample(canonicalTime: number): Promise<void> }
+    ).sample.bind(recorder);
+    for (let index = 0; index < 200; index += 1) {
+      now = index * 100;
+      await sample(index / 10);
+    }
+    expect(recorder.bufferedSeconds).toBeCloseTo(10);
+    expect(recorder.bufferedFrameCount).toBeLessThanOrEqual(101);
+    recorder.dispose();
+  });
+});
+
+describe('debug capture UX and package saving', () => {
+  it('disables the trigger only while capturing or processing', () => {
+    expect(isCaptureTriggerDisabled('capturing')).toBe(true);
+    expect(isCaptureTriggerDisabled('processing')).toBe(true);
+    expect(isCaptureTriggerDisabled('idle')).toBe(false);
+    expect(isCaptureTriggerDisabled('ready')).toBe(false);
+    expect(isCaptureTriggerDisabled('saved')).toBe(false);
+  });
+
+  it('writes JSON and WebM through a directory picker', async () => {
+    const writes: [string, Blob][] = [];
+    const picker = vi.fn(async () => ({
+      name: 'debugi',
+      getFileHandle: async (name: string) => ({
+        createWritable: async () => ({
+          write: async (blob: Blob) => void writes.push([name, blob]),
+          close: async () => undefined,
+        }),
+      }),
+    }));
+    const result = await saveDebugPackage(
+      { basename: 'capture', json: new Blob(['{}']), video: new Blob(['video']) },
+      picker,
+    );
+    expect(writes.map(([name]) => name)).toEqual(['capture.json', 'capture.webm']);
+    expect(result).toEqual({ status: 'saved', message: 'Zapisano JSON + WebM w: debugi' });
+  });
+
+  it('keeps a prepared package intact when folder selection is cancelled', async () => {
+    const pkg = { basename: 'capture', json: new Blob(['{}']) };
+    const picker = vi.fn(async () => {
+      throw new DOMException('cancelled', 'AbortError');
+    });
+    await expect(saveDebugPackage(pkg, picker)).resolves.toEqual({ status: 'cancelled' });
+    await expect(saveDebugPackage(pkg, picker)).resolves.toEqual({ status: 'cancelled' });
+  });
+
+  it('falls back to browser downloads and supports JSON-only packages', async () => {
+    const click = vi
+      .spyOn(HTMLAnchorElement.prototype, 'click')
+      .mockImplementation(() => undefined);
+    const createUrl = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:test');
+    const result = await saveDebugPackage(
+      { basename: 'capture', json: new Blob(['{}']) },
+      undefined,
+    );
+    expect(click).toHaveBeenCalledOnce();
+    expect(createUrl).toHaveBeenCalledOnce();
+    expect(result.status).toBe('downloaded');
+    click.mockRestore();
+    createUrl.mockRestore();
   });
 });

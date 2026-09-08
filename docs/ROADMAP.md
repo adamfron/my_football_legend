@@ -17,11 +17,13 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
   kanonicznych klubów i nie dotyka zapisu kariery.
 - **PR97 — Match Time & Kinematics v1 — ukończony.**
 - **PR98 — Ball Flight & Contact v1 — ukończony.**
-- **PR99 — Match Moment / Situation Evaluator.**
-- **PR100 — Match Debug Export v1 — ukończony.** Kanoniczny trace i opcjonalny zapis pełnego
-  viewportu usprawniają zgłaszanie problemów przed dalszą kalibracją silnika.
-- **PR101 — Tactical Situations & Set Pieces calibration v2.**
-- **PR102 — contextual player decision vertical slice.**
+- **PR99 — Match Debug Export v1 — ukończony.** Kanoniczny trace i opcjonalny zapis obrazu
+  usprawniają zgłaszanie problemów przed dalszą kalibracją silnika.
+- **PR100 — Match Debug Export UX & reusable pitch capture — ukończony.** Automatyczny bufor
+  obrazu boiska, wielokrotny capture i jawny zapis pakietu upraszczają diagnostykę.
+- **PR101 — Match Moment / Situation Evaluator.**
+- **PR102 — Tactical Situations & Set Pieces calibration v2.**
+- **PR103 — contextual player decision vertical slice.**
 
 Docelowy przepływ pracy: **Single Match Lab → snapshot → decyzja gracza → rozstrzygnięcie core →
 animowany wynik → nowy snapshot**. Dopiero dojrzała pętla zostanie włączona do meczów kariery.

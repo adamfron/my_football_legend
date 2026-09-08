@@ -97,7 +97,11 @@ export const matchDebugExportSchema = z.object({
     }),
     control: z.unknown(),
     viewport: z.object({ width: z.number(), height: z.number() }),
-    video: z.object({ available: z.boolean(), captureFps: z.number() }),
+    video: z.object({
+      available: z.boolean(),
+      captureFps: z.number(),
+      source: z.literal('tactical_pitch_canvas').optional(),
+    }),
   }),
   entities: z.object({
     players: z.array(
@@ -341,7 +345,7 @@ export class MatchDebugRecorder {
         away: team('away'),
         control: session.setup.control,
         viewport,
-        video: { available: videoAvailable, captureFps },
+        video: { available: videoAvailable, captureFps, source: 'tactical_pitch_canvas' },
       },
       entities: { players },
       frames,
@@ -361,69 +365,66 @@ export class MatchDebugRecorder {
 type VisualFrame = { wallTimestamp: number; canonicalTime: number; blob: Blob };
 export class ViewportVideoRecorder {
   readonly captureFps = 15;
-  private stream: MediaStream | undefined;
-  private video: HTMLVideoElement | undefined;
+  private source: HTMLCanvasElement | undefined;
   private canvas: HTMLCanvasElement | undefined;
   private timer: number | undefined;
   private frames: VisualFrame[] = [];
   private triggerTime: number | undefined;
   get active() {
-    return Boolean(this.stream?.getVideoTracks().some((track) => track.readyState === 'live'));
+    return this.timer !== undefined;
   }
-  async enable(canonicalTime: () => number) {
-    if (!navigator.mediaDevices?.getDisplayMedia) return false;
-    try {
-      this.stream = await navigator.mediaDevices.getDisplayMedia({
-        video: { displaySurface: 'browser', frameRate: this.captureFps },
-        audio: false,
-      });
-      this.video = document.createElement('video');
-      this.video.srcObject = this.stream;
-      this.video.muted = true;
-      await this.video.play();
-      this.canvas = document.createElement('canvas');
-      this.stream.getVideoTracks()[0]?.addEventListener('ended', () => this.stopSampling());
-      this.timer = window.setInterval(() => {
-        void this.sample(canonicalTime());
-      }, 1000 / this.captureFps);
-      return true;
-    } catch {
-      this.dispose();
-      return false;
-    }
+  start(source: HTMLCanvasElement, canonicalTime: () => number) {
+    if (typeof source.toBlob !== 'function' || typeof document === 'undefined') return false;
+    this.source = source;
+    this.canvas = document.createElement('canvas');
+    this.timer = window.setInterval(
+      () => void this.sample(canonicalTime()),
+      1000 / this.captureFps,
+    );
+    return true;
   }
   private async sample(canonicalTime: number) {
-    if (!this.video || !this.canvas || !this.active || !this.video.videoWidth) return;
-    const scale = Math.min(1, 1600 / this.video.videoWidth);
-    this.canvas.width = Math.round(this.video.videoWidth * scale);
-    this.canvas.height = Math.round(this.video.videoHeight * scale);
+    if (!this.source || !this.canvas || !this.active || !this.source.width) return;
+    const scale = Math.min(1, 1600 / this.source.width);
+    this.canvas.width = Math.round(this.source.width * scale);
+    this.canvas.height = Math.round(this.source.height * scale);
     this.canvas
       .getContext('2d')
-      ?.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+      ?.drawImage(this.source, 0, 0, this.canvas.width, this.canvas.height);
     const blob = await new Promise<Blob | null>((resolve) =>
       this.canvas!.toBlob(resolve, 'image/webp', 0.72),
     );
     if (!blob) return;
     this.frames.push({ wallTimestamp: performance.now(), canonicalTime, blob });
     if (this.triggerTime === undefined)
-      while (
-        this.frames.length &&
-        canonicalTime - this.frames[0]!.canonicalTime > DEBUG_WINDOW_SECONDS
-      )
+      while (this.frames.length && performance.now() - this.frames[0]!.wallTimestamp > 10_000)
         this.frames.shift();
   }
   trigger(time: number) {
     this.triggerTime = time;
+  }
+  get bufferedSeconds() {
+    if (this.frames.length < 2) return 0;
+    return Math.min(
+      DEBUG_WINDOW_SECONDS,
+      (this.frames.at(-1)!.wallTimestamp - this.frames[0]!.wallTimestamp) / 1000,
+    );
+  }
+  get bufferedFrameCount() {
+    return this.frames.length;
   }
   private stopSampling() {
     if (this.timer !== undefined) window.clearInterval(this.timer);
     this.timer = undefined;
   }
   async finish(): Promise<Blob | undefined> {
-    this.stopSampling();
-    const frames = this.frames;
-    this.frames = [];
+    const frames = [...this.frames];
     this.triggerTime = undefined;
+    const end = frames.at(-1)?.wallTimestamp;
+    this.frames =
+      end === undefined
+        ? []
+        : frames.filter((frame) => end - frame.wallTimestamp <= DEBUG_WINDOW_SECONDS * 1000);
     if (!frames.length || typeof MediaRecorder === 'undefined') return;
     const mimeType = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find((type) =>
       MediaRecorder.isTypeSupported(type),
@@ -461,8 +462,7 @@ export class ViewportVideoRecorder {
   }
   dispose() {
     this.stopSampling();
-    this.stream?.getTracks().forEach((track) => track.stop());
-    this.stream = undefined;
+    this.source = undefined;
     this.frames = [];
   }
 }
@@ -480,3 +480,57 @@ export const downloadBlob = (blob: Blob, filename: string) => {
   anchor.click();
   setTimeout(() => URL.revokeObjectURL(url), 0);
 };
+
+export type DebugPackage = { basename: string; json: Blob; video?: Blob };
+export type DebugSaveResult =
+  | { status: 'saved'; message: string }
+  | { status: 'downloaded'; message: string }
+  | { status: 'cancelled' };
+
+type DirectoryHandle = {
+  name: string;
+  getFileHandle(
+    name: string,
+    options: { create: true },
+  ): Promise<{
+    createWritable(): Promise<{ write(blob: Blob): Promise<void>; close(): Promise<void> }>;
+  }>;
+};
+
+export const saveDebugPackage = async (
+  pkg: DebugPackage,
+  picker = (window as Window & { showDirectoryPicker?: () => Promise<DirectoryHandle> })
+    .showDirectoryPicker,
+): Promise<DebugSaveResult> => {
+  if (!picker) {
+    downloadBlob(pkg.json, `${pkg.basename}.json`);
+    if (pkg.video) downloadBlob(pkg.video, `${pkg.basename}.webm`);
+    return {
+      status: 'downloaded',
+      message: 'Rozpoczęto pobieranie — sprawdź folder Pobrane przeglądarki.',
+    };
+  }
+  try {
+    const directory = await picker();
+    const write = async (name: string, blob: Blob) => {
+      const file = await directory.getFileHandle(name, { create: true });
+      const writable = await file.createWritable();
+      await writable.write(blob);
+      await writable.close();
+    };
+    await write(`${pkg.basename}.json`, pkg.json);
+    if (pkg.video) await write(`${pkg.basename}.webm`, pkg.video);
+    return {
+      status: 'saved',
+      message: `Zapisano ${pkg.video ? 'JSON + WebM' : 'JSON'} w: ${directory.name}`,
+    };
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError')
+      return { status: 'cancelled' };
+    throw error;
+  }
+};
+
+export type DebugCaptureStatus = 'idle' | 'capturing' | 'processing' | 'ready' | 'saved' | 'error';
+export const isCaptureTriggerDisabled = (status: DebugCaptureStatus) =>
+  status === 'capturing' || status === 'processing';
