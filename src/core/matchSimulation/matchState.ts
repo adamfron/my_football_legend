@@ -3,6 +3,7 @@ import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
 import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from './matchSpace';
 import { cornerPlanSchema, tacticalIntentSchema, tacticalZoneSchema } from './tacticalSituations';
+import { ballContactSchema, type BallContact } from './ballFlight';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -142,6 +143,8 @@ export interface MatchBallState extends PitchPoint {
   looseSince?: number;
   lastTouchPlayerId?: string;
   secondBallPriorityIds?: string[];
+  targetHeight?: number;
+  shot?: ShotDiagnostic;
 }
 export const shotResultSchema = z.enum(['goal', 'save', 'block', 'miss', 'post', 'crossbar']);
 export type ShotResult = z.infer<typeof shotResultSchema>;
@@ -153,6 +156,7 @@ export const shotDiagnosticSchema = z.object({
   speed: z.number().positive().finite(),
   classification: z.enum(['on_target', 'wide', 'over', 'post', 'crossbar']),
   blockerId: z.string().optional(),
+  keeperId: z.string().optional(),
   goalkeeperAction: z.enum(['catch', 'parry', 'parry_away', 'failed_save', 'no_chance']).optional(),
   saveDifficulty: z.number().min(0).max(1).optional(),
   outcome: shotResultSchema,
@@ -190,6 +194,9 @@ export interface TacticalMatchState {
   };
   lastShotResult?: ShotResult;
   lastShot?: ShotDiagnostic;
+  lastBallContact?: BallContact;
+  goalCompletionUntil?: number;
+  pendingKickoffTeam?: TeamSide;
   aerialContestantIds?: string[];
   lastAerialResult?:
     | 'controlled_header'
@@ -253,6 +260,8 @@ export const tacticalMatchStateSchema = z
         .optional(),
       sourceAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']).optional(),
       looseSince: z.number().optional(),
+      targetHeight: z.number().nonnegative().finite().optional(),
+      shot: shotDiagnosticSchema.optional(),
     }),
     score: matchScoreSchema,
     currentPressure: z.number().min(0).max(1),
@@ -262,5 +271,8 @@ export const tacticalMatchStateSchema = z
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),
+    lastBallContact: ballContactSchema.optional(),
+    goalCompletionUntil: z.number().nonnegative().optional(),
+    pendingKickoffTeam: teamSideSchema.optional(),
   })
   .passthrough();

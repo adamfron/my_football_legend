@@ -6,16 +6,13 @@ import {
   PITCH_WIDTH,
   type PitchPoint,
 } from './matchSpace';
+import { GOAL_HEIGHT, GOAL_POST_RADIUS, GOAL_WIDTH } from './ballFlight';
 import type {
   MatchAction,
   MatchPlayerState,
   ShotDiagnostic,
   TacticalMatchState,
 } from './matchState';
-
-export const GOAL_WIDTH = 7.32;
-export const GOAL_HEIGHT = 2.44;
-export const GOAL_POST_RADIUS = 0.06;
 
 type ShotAction = Extract<MatchAction, { type: 'shot' | 'header' }>;
 export interface CanonicalShot extends ShotDiagnostic {

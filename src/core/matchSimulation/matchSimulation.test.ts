@@ -171,7 +171,8 @@ describe('restart geometry and lifecycle', () => {
     expect(taker.profile.primaryPosition).toBe('goalkeeper');
     expect(goalKick.ball.x).toBeGreaterThan(95);
     let released = goalKick;
-    for (let tick = 0; tick < 50; tick += 1) released = stepTacticalMatch(released, FIXED_MATCH_DT);
+    for (let tick = 0; tick < 100; tick += 1)
+      released = stepTacticalMatch(released, FIXED_MATCH_DT);
     expect(released.time).toBeGreaterThan(initial.time);
     expect(released.restart?.executedAt).toBeGreaterThanOrEqual(released.restart!.startedAt);
   });
@@ -253,6 +254,10 @@ describe('restart geometry and lifecycle', () => {
   });
 });
 describe('autonomous tactical simulation', () => {
+  it('uses the canonical 40 Hz timestep', () => {
+    expect(FIXED_MATCH_DT).toBe(0.025);
+  });
+
   it('is invariant to presentation cadence after equal fixed simulated time', () => {
     const initial = createTacticalMatch(session('fixed-time'));
     const direct = advanceTacticalMatch(initial, 20);

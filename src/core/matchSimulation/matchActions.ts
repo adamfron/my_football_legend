@@ -302,19 +302,23 @@ export const resolveMatchAction = (
       },
       action,
     );
-    const duration = Math.max(0.28, distance(actor.position, shot.goalPoint) / shot.speed);
+    const direction = actor.team === 'home' ? 1 : -1;
+    const target = { ...shot.goalPoint, x: shot.goalPoint.x + direction * 2 };
+    const duration = Math.max(0.28, distance(actor.position, target) / shot.speed);
     return {
       ...state,
       ball: {
         x: state.ball.x,
         y: state.ball.y,
         from: { ...actor.position },
-        target: shot.goalPoint,
+        target,
         travelElapsed: 0,
         travelDuration: duration,
         travelKind: 'shot',
         sourceAction: action.type,
-        peakHeight: Math.max(0.08, shot.heightMetres),
+        targetHeight: Math.max(0, shot.heightMetres),
+        peakHeight: 0,
+        shot,
         height: 0,
         flightProgress: 0,
         airborne: true,
@@ -346,13 +350,19 @@ export const resolveMatchAction = (
         ? length / headerShot.speed
         : length / (action.type === 'cross' && action.intent === 'floated' ? 18 : 25),
     );
+    const headerTarget = headerShot
+      ? {
+          ...headerShot.goalPoint,
+          x: headerShot.goalPoint.x + (actor.team === 'home' ? 2 : -2),
+        }
+      : action.target;
     return {
       ...state,
       ball: {
         x: state.ball.x,
         y: state.ball.y,
         from: { ...actor.position },
-        target: { ...(headerShot?.goalPoint ?? action.target) },
+        target: { ...headerTarget },
         ...(action.intendedTargetId ? { intendedReceiverId: action.intendedTargetId } : {}),
         travelElapsed: 0,
         travelDuration: duration,
@@ -373,8 +383,11 @@ export const resolveMatchAction = (
                 ? 2.8
                 : 1.2
             : isHeaderShot
-              ? Math.max(0.08, headerShot?.heightMetres ?? 1.4)
+              ? 0
               : 2.2,
+        ...(headerShot
+          ? { targetHeight: Math.max(0, headerShot.heightMetres), shot: headerShot }
+          : {}),
         height: 0,
         flightProgress: 0,
         airborne: true,

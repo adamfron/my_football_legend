@@ -16,9 +16,10 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
   kanonicznych klubów i nie dotyka zapisu kariery.
 - **PR97 — Match Time & Kinematics v1 — ukończony.**
-- **PR98 — Match Moment / Situation Evaluator.**
-- **PR99 — Tactical Situations & Set Pieces calibration v2.**
-- **PR100 — contextual player decision vertical slice.**
+- **PR98 — Ball Flight & Contact v1 — ukończony.**
+- **PR99 — Match Moment / Situation Evaluator.**
+- **PR100 — Tactical Situations & Set Pieces calibration v2.**
+- **PR101 — contextual player decision vertical slice.**
 
 Docelowy przepływ pracy: **Single Match Lab → snapshot → decyzja gracza → rozstrzygnięcie core →
 animowany wynik → nowy snapshot**. Dopiero dojrzała pętla zostanie włączona do meczów kariery.

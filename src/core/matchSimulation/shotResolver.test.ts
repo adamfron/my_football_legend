@@ -109,7 +109,10 @@ describe('canonical shot resolver v2', () => {
     expect(current.lastShot).toEqual(expect.objectContaining({ shooterId: shooter.id }));
     expect(Number.isFinite(current.ball.x) && Number.isFinite(current.ball.y)).toBe(true);
     expect(
-      current.ball.ownerId || current.ball.looseSince !== undefined || current.restart,
+      current.ball.ownerId ||
+        current.ball.looseSince !== undefined ||
+        current.ball.travelDuration ||
+        current.restart,
     ).toBeTruthy();
   });
 });

@@ -9,3 +9,4 @@ export * from './tacticalSituations';
 export * from './teamShapeMetrics';
 export * from './aerialPlay';
 export * from './shotResolver';
+export * from './ballFlight';

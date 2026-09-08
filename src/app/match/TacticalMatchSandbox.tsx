@@ -365,7 +365,7 @@ const RunningLab = ({
           <p>
             Czas kanoniczny: {formatMatchTime(state.time)}
             <br />
-            Stały tick: {FIXED_MATCH_DT.toFixed(2)} s · tempo: {speed}×
+            Stały tick: {FIXED_MATCH_DT.toFixed(3)} s · tempo: {speed}×
             <br />
             Prędkość piłki:{' '}
             {Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0).toFixed(1)} m/s ·
@@ -406,6 +406,10 @@ const RunningLab = ({
             Presja: {Math.round(state.currentPressure * 100)}%
             <br />
             Ostatni strzał: {state.lastShotResult ?? '—'}
+            <br />
+            Ostatni kontakt: {state.lastBallContact?.kind ?? '—'}
+            {state.lastBallContact &&
+              ` · (${state.lastBallContact.point.x.toFixed(2)}, ${state.lastBallContact.point.y.toFixed(2)}, ${state.lastBallContact.point.z.toFixed(2)}) · ${state.lastBallContact.preContactSpeed.toFixed(1)}→${state.lastBallContact.postContactSpeed.toFixed(1)} m/s`}
             <br />
             {state.lastShot && (
               <>
