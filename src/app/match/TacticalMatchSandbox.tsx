@@ -331,6 +331,18 @@ const RunningLab = ({
             <br />
             Ostatni strzał: {state.lastShotResult ?? '—'}
             <br />
+            {state.lastShot && (
+              <>
+                Strzał DEV: cel {state.lastShot.intendedTarget.horizontal.toFixed(2)}/
+                {state.lastShot.intendedTarget.vertical.toFixed(2)} →{' '}
+                {state.lastShot.actualTarget.horizontal.toFixed(2)}/
+                {state.lastShot.actualTarget.vertical.toFixed(2)} ·{' '}
+                {state.lastShot.speed.toFixed(1)} m/s · {state.lastShot.classification} ·{' '}
+                {state.lastShot.goalkeeperAction ?? 'bez interwencji'}
+                {state.lastShot.reboundSource ? ` · odbicie: ${state.lastShot.reboundSource}` : ''}
+                <br />
+              </>
+            )}
             Seed: <code>{state.seed}</code>
           </p>
           <label>

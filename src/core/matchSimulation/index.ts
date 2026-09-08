@@ -8,3 +8,4 @@ export * from './restartGeometry';
 export * from './tacticalSituations';
 export * from './teamShapeMetrics';
 export * from './aerialPlay';
+export * from './shotResolver';

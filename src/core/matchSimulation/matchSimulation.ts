@@ -7,11 +7,12 @@ import {
   evaluatePressure,
   resolveMatchAction,
 } from './matchActions';
-import { clampPitchPoint, distance, distanceToSegment, type TeamSide } from './matchSpace';
+import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
 import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
 import { applyRestartScenario } from './restartScenarios';
 import { resolveAerialDuel, resolveDeadBallRestart, secondBallPriority } from './aerialPlay';
+import { resolveCanonicalShot } from './shotResolver';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -112,54 +113,46 @@ const resolveShot = (state: TacticalMatchState): TacticalMatchState => {
   if (action?.type !== 'shot' && !(action?.type === 'header' && action.intent === 'header_shot'))
     return state;
   const shooter = state.players.find((p) => p.id === action.actorId)!;
-  const keeper = state.players.find(
-    (p) => p.team !== shooter.team && p.profile.primaryPosition === 'goalkeeper',
-  )!;
-  const defenders = state.players.filter(
-    (p) =>
-      p.team !== shooter.team &&
-      p.id !== keeper.id &&
-      distanceToSegment(p.position, shooter.position, action.target) < 2.1,
-  );
-  const pressure = evaluatePressure(state, shooter).value;
-  const rng = RandomGenerator.fromSeed(`${state.seed}:shot:${state.decisionIndex}`);
-  const range = distance(shooter.position, action.target);
-  const quality =
-    ((action.type === 'header'
-      ? shooter.profile.attributes.heading
-      : shooter.profile.attributes.finishing) +
-      shooter.profile.attributes.technique +
-      shooter.profile.attributes.composure) /
-      300 -
-    range / 85 -
-    pressure * 0.3;
-  const save =
-    (keeper.profile.attributes.reflexes +
-      keeper.profile.attributes.handling +
-      keeper.profile.attributes.oneOnOnes) /
-      300 +
-    Math.max(0, 1 - distance(keeper.position, action.target) / 12) * 0.2;
-  let result: 'goal' | 'save' | 'block' | 'miss';
-  if (defenders.length && rng.bool(Math.min(0.62, 0.16 + defenders.length * 0.11 + pressure * 0.2)))
-    result = 'block';
-  else if (rng.float() > Math.max(0.18, Math.min(0.9, 0.64 + quality * 0.32))) result = 'miss';
-  else if (rng.bool(Math.max(0.12, Math.min(0.78, save * 0.58 - quality * 0.18)))) result = 'save';
-  else result = 'goal';
-  if (result === 'goal') {
+  const shot = resolveCanonicalShot(state, action);
+  if (shot.outcome === 'goal') {
     const score = { ...state.score, [shooter.team]: state.score[shooter.team] + 1 };
-    return applyRestartScenario({ ...state, score, lastShotResult: result }, 'kick_off');
+    return applyRestartScenario(
+      { ...state, score, lastShotResult: 'goal', lastShot: shot },
+      'kick_off',
+    );
   }
-  if (result === 'miss')
-    return applyRestartScenario({ ...state, lastShotResult: result }, 'goal_kick');
-  if (result === 'save' && rng.bool(Math.min(0.85, keeper.profile.attributes.handling / 110)))
+  if (shot.outcome === 'miss')
+    return applyRestartScenario({ ...state, lastShotResult: 'miss', lastShot: shot }, 'goal_kick');
+  const keeper = shot.keeperId && state.players.find((p) => p.id === shot.keeperId);
+  if (shot.goalkeeperAction === 'catch' && keeper)
     return changePossession(
-      { ...state, lastShotResult: result, ball: { ...keeper.position } },
+      { ...state, lastShotResult: 'save', lastShot: shot, ball: { ...keeper.position } },
       keeper.id,
       'claim',
     );
+  const local = state.players
+    .filter((p) => p.id !== shooter.id && distance(p.position, shot.goalPoint) < 18)
+    .sort((a, b) => distance(a.position, shot.goalPoint) - distance(b.position, shot.goalPoint))
+    .slice(0, 6);
   return makeLoose(
-    { ...state, lastShotResult: result },
-    { x: shooter.team === 'home' ? -5 : 5, y: (rng.float() - 0.5) * 8 },
+    {
+      ...state,
+      lastShotResult: shot.outcome,
+      lastShot: shot,
+      ball: {
+        ...state.ball,
+        x: Math.max(
+          0.2,
+          Math.min(104.8, shot.goalPoint.x + (shooter.team === 'home' ? -0.2 : 0.2)),
+        ),
+        y: Math.max(0.2, Math.min(67.8, shot.goalPoint.y)),
+        secondBallPriorityIds: secondBallPriority(state, local),
+        ...((shot.blockerId ?? shot.keeperId)
+          ? { lastTouchPlayerId: (shot.blockerId ?? shot.keeperId)! }
+          : {}),
+      },
+    },
+    shot.reboundVelocity ?? { x: shooter.team === 'home' ? -5 : 5, y: 0 },
   );
 };
 

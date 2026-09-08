@@ -35,7 +35,10 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     type: z.literal('shot'),
     actorId: z.string(),
     target: pitchPointSchema,
-    intent: z.enum(['placed', 'driven']),
+    intent: z.enum(['placed', 'driven', 'chip']),
+    goalTarget: z
+      .object({ horizontal: z.number().min(-1).max(1), vertical: z.number().min(0).max(1) })
+      .optional(),
   }),
   z.object({
     type: z.literal('cross'),
@@ -139,8 +142,22 @@ export interface MatchBallState extends PitchPoint {
   lastTouchPlayerId?: string;
   secondBallPriorityIds?: string[];
 }
-export const shotResultSchema = z.enum(['goal', 'save', 'block', 'miss']);
+export const shotResultSchema = z.enum(['goal', 'save', 'block', 'miss', 'post', 'crossbar']);
 export type ShotResult = z.infer<typeof shotResultSchema>;
+export const shotDiagnosticSchema = z.object({
+  shooterId: z.string(),
+  intendedTarget: z.object({ horizontal: z.number(), vertical: z.number() }),
+  actualTarget: z.object({ horizontal: z.number(), vertical: z.number() }),
+  error: z.object({ horizontal: z.number(), vertical: z.number() }),
+  speed: z.number().positive().finite(),
+  classification: z.enum(['on_target', 'wide', 'over', 'post', 'crossbar']),
+  blockerId: z.string().optional(),
+  goalkeeperAction: z.enum(['catch', 'parry', 'parry_away', 'failed_save', 'no_chance']).optional(),
+  saveDifficulty: z.number().min(0).max(1).optional(),
+  outcome: shotResultSchema,
+  reboundSource: z.enum(['goalkeeper', 'block', 'post', 'crossbar']).optional(),
+});
+export type ShotDiagnostic = z.infer<typeof shotDiagnosticSchema>;
 export const matchScoreSchema = z.object({
   home: z.number().int().nonnegative(),
   away: z.number().int().nonnegative(),
@@ -171,6 +188,7 @@ export interface TacticalMatchState {
     cause: 'tackle' | 'interception' | 'claim';
   };
   lastShotResult?: ShotResult;
+  lastShot?: ShotDiagnostic;
   aerialContestantIds?: string[];
   lastAerialResult?:
     | 'controlled_header'
@@ -242,5 +260,6 @@ export const tacticalMatchStateSchema = z
     actionCooldown: z.number().nonnegative(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
+    lastShot: shotDiagnosticSchema.optional(),
   })
   .passthrough();

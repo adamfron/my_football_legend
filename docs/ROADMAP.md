@@ -305,11 +305,14 @@ parametryczny lot, lokalny wybór uczestników pojedynku, główki, wyjścia bra
 piłkę oraz minimalny resolver piłki poza grą korzystają z ról playbooka i wracają do jednego obiegu
 posiadania/piłki bezpańskiej.
 
-**Następna kolejność:** (1) dopracowane umiejscowienie strzału i bramkarskie interwencje strzałowe,
-(2) odbitki, słupki i poprzeczka, (3) prezentacyjny bufor powtórki 0,5×, (4) evaluator momentów
-meczu i niewidzialne przewijanie, (5) kontekstowe menu akcji gracza oparte na tej samej kanonicznej
-enumeracji co NPC. Później pozostają faule i kartki, cechy zawodników, specjalizacje taktyczne,
-kompensacja dziury po czerwonej kartce oraz szczegółowa animacja i prezentacja.
+**Zrealizowano — Shot & Goalkeeping v2:** intencja i błąd umiejscowienia, geometryczne pudła i
+obramowanie, lokalne bloki, model zasięgu bramkarza oraz kanoniczne odbitki domykają wspólną pętlę
+strzału także dla główek. Diagnostyka Single Match Lab pokazuje wynik resolvera, nie tworzy go.
+
+**Bezpośrednia dalsza kolejność:** (1) rozdzielenie Match Time & Kinematics od czasu prezentacji,
+(2) bufor powtórki 0,5×, (3) Match Moment / Situation Evaluator, (4) kalibracja Tactical Situations
+& Set Pieces v2, (5) vertical slice kontekstowych decyzji zawodnika. Nadal odłożone są pełna
+fizyka piłki, menu kontekstowe, integracja meczu kariery oraz ogólna kalibracja zegara meczu.
 
 Pierwszy autonomiczny rdzeń taktyczny współdzieli reguły protagonisty i NPC oraz obsługuje
 spektatora. Kolejne kroki to: (1) rozbudowa akcji i rozstrzygnięć o podania prostopadłe, odbiory,
