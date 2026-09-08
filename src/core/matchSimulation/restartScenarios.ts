@@ -5,13 +5,15 @@ import type { RestartScenario, TacticalMatchState } from './matchState';
 export const applyRestartScenario = (
   input: TacticalMatchState,
   scenario: RestartScenario,
+  options: { restartTeam: 'home' | 'away' } = { restartTeam: 'home' },
 ): TacticalMatchState => {
   if (scenario === 'open_play') {
     const { restart: _restart, ...openPlay } = input;
     void _restart;
     return { ...openPlay, scenario };
   }
-  const geometry = deriveRestartGeometry(input, scenario);
+  const restartTeam = options.restartTeam;
+  const geometry = deriveRestartGeometry(input, scenario, restartTeam);
   const setPiece =
     scenario === 'corner' || scenario.startsWith('free_kick') || scenario === 'penalty';
   const {
@@ -28,27 +30,41 @@ export const applyRestartScenario = (
   const state: TacticalMatchState = {
     ...cleanInput,
     scenario,
-    time: 0,
     decisionIndex: input.decisionIndex,
-    possessionTeam: 'home',
+    possessionTeam: restartTeam,
     timeSincePossessionChanged: 0,
     actionCooldown: 0,
     teams: {
       home: {
         ...input.teams.home,
-        phase: setPiece ? 'set_piece_attack' : 'attacking_transition',
+        phase:
+          restartTeam === 'home'
+            ? setPiece
+              ? 'set_piece_attack'
+              : 'attacking_transition'
+            : setPiece
+              ? 'set_piece_defence'
+              : 'defensive_block',
         phaseElapsed: 0,
       },
       away: {
         ...input.teams.away,
-        phase: setPiece ? 'set_piece_defence' : 'defensive_block',
+        phase:
+          restartTeam === 'away'
+            ? setPiece
+              ? 'set_piece_attack'
+              : 'attacking_transition'
+            : setPiece
+              ? 'set_piece_defence'
+              : 'defensive_block',
         phaseElapsed: 0,
       },
     },
     ball: { ...geometry.ball, ownerId: geometry.taker.id },
     restart: {
       phase: 'setup',
-      startedAt: 0,
+      restartTeam,
+      startedAt: input.time,
       takerId: geometry.taker.id,
       targets: geometry.targets,
       roles: geometry.roles,

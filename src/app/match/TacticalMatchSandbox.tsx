@@ -7,6 +7,7 @@ import {
 import {
   createTacticalMatch,
   applyRestartScenario,
+  FIXED_MATCH_DT,
   matchStateToFrame,
   stepTacticalMatch,
   deriveTeamShapeMetrics,
@@ -21,6 +22,11 @@ import { buildStartMenuUrl } from '../devTools';
 import './TacticalMatchSandbox.css';
 
 const freshSeed = () => `lab-${Date.now().toString(36)}`;
+const formatMatchTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  return `${minutes.toString().padStart(2, '0')}:${(seconds % 60).toFixed(1).padStart(4, '0')}`;
+};
+type RenderFrame = ReturnType<typeof matchStateToFrame>;
 export const TacticalMatchSandbox = () => {
   const [world, setWorld] = useState<WorldDatabase>(),
     [homeId, setHomeId] = useState(''),
@@ -208,13 +214,21 @@ const RunningLab = ({
   const [state, setState] = useState<TacticalMatchState>(() => createTacticalMatch(session)),
     [playing, setPlaying] = useState(true),
     [speed, setSpeed] = useState(1),
-    [debug, setDebug] = useState(false);
+    [debug, setDebug] = useState(false),
+    [goalReplay, setGoalReplay] = useState<RenderFrame[]>([]),
+    [replaying, setReplaying] = useState(false);
   const hostRef = useRef<HTMLDivElement>(null),
-    rendererRef = useRef<TacticalPitchRenderer | undefined>(undefined);
+    rendererRef = useRef<TacticalPitchRenderer | undefined>(undefined),
+    accumulatorRef = useRef(0),
+    replayBufferRef = useRef<RenderFrame[]>([]),
+    scoreRef = useRef(0);
   useEffect(() => {
     if (!hostRef.current) return;
     const initial = createTacticalMatch(session);
     setState(initial);
+    replayBufferRef.current = [matchStateToFrame(initial)];
+    scoreRef.current = 0;
+    accumulatorRef.current = 0;
     const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
     rendererRef.current = renderer;
     return () => renderer.dispose();
@@ -222,16 +236,56 @@ const RunningLab = ({
   useEffect(() => {
     let frame = 0,
       previous: number | undefined;
-    if (playing)
+    if (playing && !replaying)
       frame = requestAnimationFrame(function animate(now) {
         const delta = previous === undefined ? 0 : Math.min(100, now - previous);
         previous = now;
-        setState((value) => stepTacticalMatch(value, (delta / 1000) * speed));
+        accumulatorRef.current += (delta / 1000) * speed;
+        const ticks = Math.floor((accumulatorRef.current + 1e-9) / FIXED_MATCH_DT);
+        if (ticks > 0) {
+          accumulatorRef.current -= ticks * FIXED_MATCH_DT;
+          setState((value) => {
+            let next = value;
+            for (let tick = 0; tick < ticks; tick += 1)
+              next = stepTacticalMatch(next, FIXED_MATCH_DT);
+            return next;
+          });
+        }
         frame = requestAnimationFrame(animate);
       });
     return () => cancelAnimationFrame(frame);
-  }, [playing, speed]);
-  useEffect(() => rendererRef.current?.render(matchStateToFrame(state), debug), [state, debug]);
+  }, [playing, replaying, speed]);
+  useEffect(() => {
+    if (replaying) return;
+    const frame = matchStateToFrame(state);
+    rendererRef.current?.render(frame, debug);
+    const frames = replayBufferRef.current;
+    frames.push(frame);
+    while (frames.length > 1 && frame.timestampMs - frames[0]!.timestampMs > 10_000) frames.shift();
+    const score = state.score.home + state.score.away;
+    if (score > scoreRef.current) setGoalReplay([...frames]);
+    scoreRef.current = score;
+  }, [state, debug, replaying]);
+  useEffect(() => {
+    if (!replaying || goalReplay.length === 0) return;
+    const started = performance.now(),
+      firstTimestamp = goalReplay[0]!.timestampMs;
+    let animation = 0;
+    const play = (now: number) => {
+      const replayTimestamp = firstTimestamp + (now - started) * 0.5;
+      let frame: RenderFrame | undefined;
+      for (let index = goalReplay.length - 1; index >= 0; index -= 1)
+        if (goalReplay[index]!.timestampMs <= replayTimestamp) {
+          frame = goalReplay[index];
+          break;
+        }
+      if (frame) rendererRef.current?.render(frame, debug);
+      if (replayTimestamp < goalReplay.at(-1)!.timestampMs) animation = requestAnimationFrame(play);
+      else setReplaying(false);
+    };
+    animation = requestAnimationFrame(play);
+    return () => cancelAnimationFrame(animation);
+  }, [replaying, goalReplay, debug]);
   const owner = state.players.find((p) => p.id === state.ball.ownerId),
     actor = state.players.find((p) => p.id === state.currentActorId),
     shapeMetrics = (['home', 'away'] as const).map(
@@ -262,7 +316,7 @@ const RunningLab = ({
           </h1>
         </div>
         <p>
-          {state.time.toFixed(1)} s · seed: <code>{state.seed}</code>
+          {formatMatchTime(state.time)} · seed: <code>{state.seed}</code>
         </p>
       </header>
       <nav>
@@ -272,6 +326,10 @@ const RunningLab = ({
             {v}×
           </button>
         ))}
+        <button disabled={!goalReplay.length || replaying} onClick={() => setReplaying(true)}>
+          Powtórka 0.5×
+        </button>
+        {replaying && <button onClick={() => setReplaying(false)}>Zakończ powtórkę</button>}
         <button onClick={onRestart}>Restart — ten sam seed</button>
         <button onClick={onRandomize}>Losuj seed</button>
         <button onClick={onSetup}>Zmień ustawienia</button>
@@ -305,8 +363,26 @@ const RunningLab = ({
             piłce
           </h2>
           <p>
-            Czas: {state.time.toFixed(1)} s<br />
-            Fazy: {state.teams.home.phase} / {state.teams.away.phase}
+            Czas kanoniczny: {formatMatchTime(state.time)}
+            <br />
+            Stały tick: {FIXED_MATCH_DT.toFixed(2)} s · tempo: {speed}×
+            <br />
+            Prędkość piłki:{' '}
+            {Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0).toFixed(1)} m/s ·
+            wysokość {(state.ball.height ?? 0).toFixed(1)} m
+            <br />
+            Bufor powtórki: {replayBufferRef.current.length} kl. /{' '}
+            {(
+              ((replayBufferRef.current.at(-1)?.timestampMs ?? 0) -
+                (replayBufferRef.current[0]?.timestampMs ?? 0)) /
+              1000
+            ).toFixed(1)}{' '}
+            s
+            <br />
+            Prędkość aktora: {Math.hypot(actor?.velocity.x ?? 0, actor?.velocity.y ?? 0).toFixed(
+              1,
+            )}{' '}
+            m/s Fazy: {state.teams.home.phase} / {state.teams.away.phase}
             <br />
             Formacje: {state.teams.home.formation} / {state.teams.away.formation}
             <br />

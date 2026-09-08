@@ -72,6 +72,7 @@ export type RestartScenario = z.infer<typeof restartScenarioSchema>;
 export const restartPhaseSchema = z.enum(['setup', 'release']);
 export type RestartPhase = z.infer<typeof restartPhaseSchema>;
 export const restartLifecycleSchema = z.object({
+  restartTeam: teamSideSchema,
   phase: restartPhaseSchema,
   startedAt: z.number().nonnegative(),
   executedAt: z.number().nonnegative().optional(),
