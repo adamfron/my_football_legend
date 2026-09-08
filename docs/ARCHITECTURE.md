@@ -19,6 +19,10 @@ prymitywami lotu piłki i strzału co gra otwarta.
 
 ### Kanoniczny strzał i obrona bramkarza
 
+Symulacja meczu wykonuje stały krok **0,025 s (40 Hz)**. Czas kanoniczny i akumulator prezentacji
+są rozdzielone, dlatego FPS przeglądarki oraz tempo 1×/2×/4× zmieniają wyłącznie liczbę wykonanych
+kroków, a nie ich kolejność ani deterministyczny wynik.
+
 Pętla próby bramkowej ma jeden przebieg: **intencja umiejscowienia → błąd wykonania → lot piłki
 → lokalna próba bloku → interwencja bramkarza → bramka, obramowanie albo pudło → odbitka lub
 wznowienie**. Znormalizowany cel w świetle bramki zostaje przeliczony na rzeczywisty punkt i
@@ -32,6 +36,15 @@ Złapanie daje posiadanie; parowanie, blok, słupek i poprzeczka nadają piłce 
 wracają do wspólnego systemu loose ball oraz priorytetów drugiej piłki. Główka na bramkę zachowuje
 własne modyfikatory kontaktu powietrznego, ale od intencji celu przechodzi dokładnie przez ten sam
 resolver strzału. Renderer i diagnostyka DEV wyłącznie odczytują wynik core.
+
+Po wygenerowaniu intencji, błędu, prędkości i lekkiej parametrycznej wysokości każdy odcinek lotu
+przechodzi ciągłe wykrywanie pierwszego kontaktu w metrach boiska. Wspólna geometria core definiuje
+płaszczyznę linii końcowej, wewnętrzne krawędzie słupków, poprzeczkę i promień piłki. Najwcześniejsze
+przecięcie wygrywa: obrońca przed bramkarzem, bramkarz przed linią albo obramowanie przed bramką.
+Dopiero ten kontakt ustanawia wynik sportowy; tekstowa prognoza strzału nie może go ustanowić.
+Po golu krótki stan ukończenia pozwala piłce wpaść do bramki przed ustawieniem środka, bez cofania
+czasu meczu. Renderer i powtórka są projekcjami zapisanych pozycji kanonicznych i nigdy nie wykonują
+własnej korekty kolizji.
 
 Każdy zawodnik, niezależnie od tego, czy jest sterowany przez gracza, korzysta z tego samego
 kompozycyjnego modelu celu: **neutralna struktura formacji + deformacja bloku drużyny + lokalna,

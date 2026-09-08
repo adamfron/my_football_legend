@@ -13,13 +13,20 @@ import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalP
 import { applyRestartScenario } from './restartScenarios';
 import { resolveAerialDuel, resolveDeadBallRestart, secondBallPriority } from './aerialPlay';
 import { resolveCanonicalShot } from './shotResolver';
+import {
+  deterministicRebound,
+  findFirstBallContact,
+  GOAL_HEIGHT,
+  type BallContact,
+  type FlightPoint,
+} from './ballFlight';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
 const settledPhase = (owns: boolean): MatchPhase =>
   owns ? 'positional_attack' : 'defensive_block';
 
-export const FIXED_MATCH_DT = 0.05;
+export const FIXED_MATCH_DT = 0.025;
 
 export const advanceTacticalMatch = (
   input: TacticalMatchState,
@@ -120,6 +127,93 @@ const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): Tactic
   ball: { x: state.ball.x, y: state.ball.y, velocity, looseSince: state.time },
 });
 
+const finishShotContact = (
+  state: TacticalMatchState,
+  contact: BallContact,
+  incoming: { x: number; y: number },
+): TacticalMatchState => {
+  const shot = state.ball.shot!;
+  const shooter = state.players.find((player) => player.id === shot.shooterId)!;
+  const base = {
+    ...state,
+    lastBallContact: contact,
+    lastShot: shot,
+    ball: { x: contact.point.x, y: contact.point.y, height: contact.point.z },
+  };
+  if (contact.kind === 'goal_plane') {
+    const score = { ...state.score, [shooter.team]: state.score[shooter.team] + 1 };
+    return {
+      ...base,
+      lastShot: { ...shot, outcome: 'goal', classification: 'on_target' },
+      score,
+      lastShotResult: 'goal',
+      goalCompletionUntil: state.time + 0.55,
+      pendingKickoffTeam: shooter.team === 'home' ? 'away' : 'home',
+      ball: {
+        ...base.ball,
+        velocity: { x: incoming.x * 0.28, y: incoming.y * 0.28 },
+        looseSince: state.time,
+      },
+    };
+  }
+  if (contact.kind === 'out')
+    return applyRestartScenario(
+      {
+        ...base,
+        lastShotResult: 'miss',
+        lastShot: {
+          ...shot,
+          outcome: 'miss',
+          classification: contact.point.z > GOAL_HEIGHT ? 'over' : 'wide',
+        },
+      },
+      'goal_kick',
+      { restartTeam: shooter.team === 'home' ? 'away' : 'home' },
+    );
+  if (contact.kind === 'goalkeeper' && shot.goalkeeperAction === 'catch') {
+    const keeper = state.players.find((player) => player.id === contact.playerId)!;
+    return changePossession(
+      {
+        ...base,
+        lastShotResult: 'save',
+        lastShot: { ...shot, outcome: 'save', classification: 'on_target' },
+        ball: { ...keeper.position, height: 0 },
+      },
+      keeper.id,
+      'claim',
+    );
+  }
+  const frameResult =
+    contact.kind === 'crossbar'
+      ? 'crossbar'
+      : contact.kind === 'left_post' || contact.kind === 'right_post'
+        ? 'post'
+        : contact.kind === 'defender'
+          ? 'block'
+          : 'save';
+  const local = state.players
+    .filter((player) => distance(player.position, contact.point) < 18)
+    .slice(0, 6);
+  return makeLoose(
+    {
+      ...base,
+      lastShotResult: frameResult,
+      lastShot: {
+        ...shot,
+        outcome: frameResult,
+        classification:
+          frameResult === 'post' || frameResult === 'crossbar' ? frameResult : shot.classification,
+      },
+      ball: {
+        ...base.ball,
+        ...(contact.playerId ? { lastTouchPlayerId: contact.playerId } : {}),
+        secondBallPriorityIds: secondBallPriority(state, local),
+      },
+    },
+    deterministicRebound(contact.kind, incoming, shooter.team),
+  );
+};
+
 const resolveShot = (state: TacticalMatchState): TacticalMatchState => {
   const action = state.currentAction;
   if (action?.type !== 'shot' && !(action?.type === 'header' && action.intent === 'header_shot'))
@@ -183,6 +277,13 @@ export const stepTacticalMatch = (
     actionCooldown: Math.max(0, input.actionCooldown - dt),
     teams: { ...input.teams },
   };
+  if (state.goalCompletionUntil !== undefined && state.time >= state.goalCompletionUntil) {
+    const kickoffTeam = state.pendingKickoffTeam!;
+    const { goalCompletionUntil: _freeze, pendingKickoffTeam: _team, ...completed } = state;
+    void _freeze;
+    void _team;
+    return applyRestartScenario(completed, 'kick_off', { restartTeam: kickoffTeam });
+  }
   if (state.restart?.phase === 'setup' && state.time - state.restart.startedAt >= 2.1) {
     const action = chooseRestartAction(state);
     if (action) state = resolveMatchAction(state, action);
@@ -265,18 +366,101 @@ export const stepTacticalMatch = (
       },
     };
   });
-  if (state.ball.travelDuration && state.ball.from && state.ball.target) {
-    const elapsed = (state.ball.travelElapsed ?? 0) + dt,
-      t = Math.min(1, elapsed / state.ball.travelDuration);
+  if (state.goalCompletionUntil !== undefined) {
+    const velocity = state.ball.velocity ?? { x: 0, y: 0 };
     state.ball = {
       ...state.ball,
+      x: state.ball.x + velocity.x * dt,
+      y: state.ball.y + velocity.y * dt,
+      velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
+    };
+  } else if (state.ball.travelDuration && state.ball.from && state.ball.target) {
+    const previous: FlightPoint = {
+      x: state.ball.x,
+      y: state.ball.y,
+      z: state.ball.height ?? 0,
+    };
+    const elapsed = (state.ball.travelElapsed ?? 0) + dt,
+      t = Math.min(1, elapsed / state.ball.travelDuration);
+    const nextHeight =
+      (state.ball.targetHeight ?? 0) * t + (state.ball.peakHeight ?? 0) * 4 * t * (1 - t);
+    const next: FlightPoint = {
       x: state.ball.from.x + (state.ball.target.x - state.ball.from.x) * t,
       y: state.ball.from.y + (state.ball.target.y - state.ball.from.y) * t,
+      z: nextHeight,
+    };
+    state.ball = {
+      ...state.ball,
+      x: next.x,
+      y: next.y,
       travelElapsed: elapsed,
       flightProgress: t,
-      height: (state.ball.peakHeight ?? 0) * 4 * t * (1 - t),
+      height: nextHeight,
       airborne: (state.ball.peakHeight ?? 0) > 0 && t < 1,
     };
+    if (state.ball.shot) {
+      const shot = state.ball.shot;
+      const shooter = state.players.find((player) => player.id === shot.shooterId)!;
+      const candidates = [];
+      if (shot.blockerId) {
+        const defender = state.players.find((player) => player.id === shot.blockerId);
+        if (defender)
+          candidates.push({
+            kind: 'defender' as const,
+            playerId: defender.id,
+            centre: { ...defender.position, z: 0.9 },
+            radius: 0.72,
+          });
+      }
+      if (
+        shot.keeperId &&
+        (shot.goalkeeperAction === 'catch' ||
+          shot.goalkeeperAction === 'parry' ||
+          shot.goalkeeperAction === 'parry_away')
+      ) {
+        const keeper = state.players.find((player) => player.id === shot.keeperId);
+        if (keeper && state.ball.from && state.ball.target) {
+          const denominator = state.ball.target.x - state.ball.from.x;
+          const keeperT =
+            denominator === 0 ? 1 : (keeper.position.x - state.ball.from.x) / denominator;
+          const interventionT = Math.max(0, Math.min(1, keeperT));
+          candidates.push({
+            kind: 'goalkeeper' as const,
+            playerId: keeper.id,
+            centre: {
+              x: state.ball.from.x + denominator * interventionT,
+              y: state.ball.from.y + (state.ball.target.y - state.ball.from.y) * interventionT,
+              z:
+                (state.ball.targetHeight ?? 0) * interventionT +
+                (state.ball.peakHeight ?? 0) * 4 * interventionT * (1 - interventionT),
+            },
+            radius: 0.62,
+          });
+        }
+      }
+      const found = findFirstBallContact({
+        previous,
+        next,
+        attackingTeam: shooter.team,
+        candidates,
+      });
+      if (found) {
+        const incoming = { x: (next.x - previous.x) / dt, y: (next.y - previous.y) / dt };
+        const rebound = deterministicRebound(found.kind, incoming, shooter.team);
+        const contact: BallContact = {
+          ...found,
+          at: state.time - dt + found.segmentFraction * dt,
+          preContactSpeed: Math.hypot(incoming.x, incoming.y),
+          postContactSpeed:
+            found.kind === 'goal_plane' || found.kind === 'out'
+              ? Math.hypot(incoming.x, incoming.y)
+              : shot.goalkeeperAction === 'catch'
+                ? 0
+                : Math.hypot(rebound.x, rebound.y),
+        };
+        return finishShotContact(state, contact, incoming);
+      }
+    }
     if (!state.ball.peakHeight && state.ball.travelKind !== 'shot') {
       const passer = state.players.find((p) => p.id === state.currentActorId);
       const candidate =
