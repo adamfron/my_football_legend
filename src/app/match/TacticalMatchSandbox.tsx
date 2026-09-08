@@ -19,6 +19,13 @@ import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
 import { buildStartMenuUrl } from '../devTools';
+import {
+  debugBasename,
+  downloadBlob,
+  MatchDebugRecorder,
+  ViewportVideoRecorder,
+  type MatchDebugExport,
+} from './matchDebugCapture';
 import './TacticalMatchSandbox.css';
 
 const freshSeed = () => `lab-${Date.now().toString(36)}`;
@@ -216,22 +223,40 @@ const RunningLab = ({
     [speed, setSpeed] = useState(1),
     [debug, setDebug] = useState(false),
     [goalReplay, setGoalReplay] = useState<RenderFrame[]>([]),
-    [replaying, setReplaying] = useState(false);
+    [replaying, setReplaying] = useState(false),
+    [captureStatus, setCaptureStatus] = useState<'idle' | 'capturing' | 'ready'>('idle'),
+    [videoActive, setVideoActive] = useState(false),
+    [debugExport, setDebugExport] = useState<{
+      trace: MatchDebugExport;
+      video: Blob | undefined;
+      basename: string;
+    }>();
   const hostRef = useRef<HTMLDivElement>(null),
     rendererRef = useRef<TacticalPitchRenderer | undefined>(undefined),
     accumulatorRef = useRef(0),
     replayBufferRef = useRef<RenderFrame[]>([]),
-    scoreRef = useRef(0);
+    scoreRef = useRef(0),
+    stateRef = useRef(state),
+    debugRecorderRef = useRef(new MatchDebugRecorder()),
+    videoRecorderRef = useRef(new ViewportVideoRecorder()),
+    finishingRef = useRef(false);
+  stateRef.current = state;
   useEffect(() => {
     if (!hostRef.current) return;
     const initial = createTacticalMatch(session);
     setState(initial);
     replayBufferRef.current = [matchStateToFrame(initial)];
+    debugRecorderRef.current = new MatchDebugRecorder();
+    debugRecorderRef.current.record(initial);
     scoreRef.current = 0;
     accumulatorRef.current = 0;
     const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
+    const videoRecorder = videoRecorderRef.current;
     rendererRef.current = renderer;
-    return () => renderer.dispose();
+    return () => {
+      renderer.dispose();
+      videoRecorder.dispose();
+    };
   }, [session]);
   useEffect(() => {
     let frame = 0,
@@ -246,15 +271,35 @@ const RunningLab = ({
           accumulatorRef.current -= ticks * FIXED_MATCH_DT;
           setState((value) => {
             let next = value;
-            for (let tick = 0; tick < ticks; tick += 1)
+            for (let tick = 0; tick < ticks; tick += 1) {
               next = stepTacticalMatch(next, FIXED_MATCH_DT);
+              const complete = debugRecorderRef.current.record(next);
+              if (complete && !finishingRef.current) {
+                finishingRef.current = true;
+                const recorder = debugRecorderRef.current;
+                const trace = recorder.export(
+                  session,
+                  FIXED_MATCH_DT,
+                  { width: window.innerWidth, height: window.innerHeight },
+                  videoRecorderRef.current.active,
+                  videoRecorderRef.current.captureFps,
+                );
+                const basename = debugBasename(state.seed, recorder.triggerTime!);
+                void videoRecorderRef.current.finish().then((video) => {
+                  setDebugExport({ trace, video, basename });
+                  setCaptureStatus('ready');
+                  recorder.resetCapture();
+                  finishingRef.current = false;
+                });
+              }
+            }
             return next;
           });
         }
         frame = requestAnimationFrame(animate);
       });
     return () => cancelAnimationFrame(frame);
-  }, [playing, replaying, speed]);
+  }, [playing, replaying, session, speed, state.seed]);
   useEffect(() => {
     if (replaying) return;
     const frame = matchStateToFrame(state);
@@ -291,6 +336,18 @@ const RunningLab = ({
     shapeMetrics = (['home', 'away'] as const).map(
       (side) => [side, deriveTeamShapeMetrics(state, side)] as const,
     );
+  const uiEvent = (type: string, data?: Record<string, unknown>) =>
+    debugRecorderRef.current.ui(stateRef.current.time, type, data);
+  const triggerCapture = () => {
+    if (!debugRecorderRef.current.trigger(state.time)) return;
+    videoRecorderRef.current.trigger(state.time);
+    setDebugExport(undefined);
+    setCaptureStatus('capturing');
+  };
+  const remaining =
+    debugRecorderRef.current.triggerTime === undefined
+      ? 0
+      : Math.max(0, debugRecorderRef.current.triggerTime + 10 - state.time);
   const scenarios: [RestartScenario, string][] = [
     ['open_play', 'Gra otwarta'],
     ['kick_off', 'Środek'],
@@ -320,13 +377,35 @@ const RunningLab = ({
         </p>
       </header>
       <nav>
-        <button onClick={() => setPlaying((v) => !v)}>{playing ? 'Pauza' : 'Odtwórz'}</button>
+        <button
+          onClick={() =>
+            setPlaying((v) => {
+              uiEvent(v ? 'paused' : 'playing');
+              return !v;
+            })
+          }
+        >
+          {playing ? 'Pauza' : 'Odtwórz'}
+        </button>
         {[1, 2, 4].map((v) => (
-          <button className={speed === v ? 'active' : ''} key={v} onClick={() => setSpeed(v)}>
+          <button
+            className={speed === v ? 'active' : ''}
+            key={v}
+            onClick={() => {
+              uiEvent('playback_speed_changed', { speed: v });
+              setSpeed(v);
+            }}
+          >
             {v}×
           </button>
         ))}
-        <button disabled={!goalReplay.length || replaying} onClick={() => setReplaying(true)}>
+        <button
+          disabled={!goalReplay.length || replaying}
+          onClick={() => {
+            uiEvent('replay_started');
+            setReplaying(true);
+          }}
+        >
           Powtórka 0.5×
         </button>
         {replaying && <button onClick={() => setReplaying(false)}>Zakończ powtórkę</button>}
@@ -339,6 +418,64 @@ const RunningLab = ({
           Powrót do menu
         </button>
       </nav>
+      <nav className="debug-capture" aria-label="Eksport diagnostyczny">
+        <button
+          disabled={videoActive}
+          onClick={() => {
+            void videoRecorderRef.current
+              .enable(() => stateRef.current.time)
+              .then((enabled) => {
+                setVideoActive(enabled);
+                uiEvent(enabled ? 'video_recorder_enabled' : 'video_recorder_unavailable');
+              });
+          }}
+        >
+          Włącz rejestrator obrazu
+        </button>
+        <span>
+          {videoActive
+            ? '● Rejestrator DEV aktywny'
+            : 'Obraz nieaktywny — eksport będzie tylko JSON'}
+        </span>
+        <button
+          className="primary-choice"
+          disabled={captureStatus === 'capturing'}
+          onClick={triggerCapture}
+        >
+          Zapisz debug ±10 s
+        </button>
+        {captureStatus === 'capturing' && (
+          <strong>Debug: zapisano 10 s historii · nagrywanie +{remaining.toFixed(1)} s…</strong>
+        )}
+        {captureStatus === 'ready' && debugExport && (
+          <>
+            <strong>
+              {debugExport.video
+                ? 'Debug gotowy'
+                : 'Debug gotowy — tylko JSON (rejestrator obrazu nie był włączony)'}
+            </strong>
+            <button
+              onClick={() =>
+                downloadBlob(
+                  new Blob([JSON.stringify(debugExport.trace, null, 2)], {
+                    type: 'application/json',
+                  }),
+                  `${debugExport.basename}.json`,
+                )
+              }
+            >
+              Pobierz JSON
+            </button>
+            {debugExport.video && (
+              <button
+                onClick={() => downloadBlob(debugExport.video!, `${debugExport.basename}.webm`)}
+              >
+                Pobierz WebM
+              </button>
+            )}
+          </>
+        )}
+      </nav>
       <nav className="scenario-picker" aria-label="Scenariusz developerski">
         <strong>Sytuacja:</strong>
         {scenarios.map(([scenario, label]) => (
@@ -347,7 +484,12 @@ const RunningLab = ({
             className={state.scenario === scenario ? 'active' : ''}
             onClick={() => {
               setPlaying(false);
-              setState(applyRestartScenario(createTacticalMatch(session), scenario));
+              setState(() => {
+                const next = applyRestartScenario(createTacticalMatch(session), scenario);
+                debugRecorderRef.current.record(next);
+                debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', { scenario });
+                return next;
+              });
             }}
           >
             {label}
@@ -426,7 +568,14 @@ const RunningLab = ({
             Seed: <code>{state.seed}</code>
           </p>
           <label>
-            <input type="checkbox" checked={debug} onChange={(e) => setDebug(e.target.checked)} />{' '}
+            <input
+              type="checkbox"
+              checked={debug}
+              onChange={(e) => {
+                uiEvent('debug_markers_changed', { enabled: e.target.checked });
+                setDebug(e.target.checked);
+              }}
+            />{' '}
             Kotwice i cele
           </label>
           <details>

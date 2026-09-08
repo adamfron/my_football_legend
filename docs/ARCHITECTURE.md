@@ -1,5 +1,26 @@
 # Architektura
 
+## DEV Match Debug Capture
+
+Eksport diagnostyczny Single Match Lab jest wyłącznie warstwą prezentacji i obserwowalności.
+Utrzymuje ograniczony bufor pełnych migawek diagnostycznych z ostatnich dziesięciu sekund czasu
+kanonicznego, a po ręcznym triggerze zbiera kolejne dziesięć sekund. Statyczny słownik zawodników
+jest zapisany raz, natomiast klatki zawierają dynamiczne pozycje, piłkę, akcje, fazy i restarty.
+Lista zdarzeń jest tylko projekcją zmian kolejnych migawek, a nie drugim silnikiem zdarzeń.
+
+Przepływ danych ma jeden kierunek:
+
+**canonical match core ↓ diagnostic snapshots ↓ DEV JSON trace**
+
+Równoległy, niezależny przepływ obrazu wygląda tak:
+
+**browser presentation ↓ screen capture ↓ WebM**
+
+Rejestrator ekranu wymaga jawnej zgody przeglądarki, przechwytuje cały wskazany viewport i może
+zostać wyłączony lub odrzucony bez wpływu na JSON i działanie meczu. Warstwa debug nie zapisuje się
+w karierze, nie dostarcza danych rendererowi i nie ma żadnej strzałki zwrotnej do core: nie zmienia
+RNG, kroku, kolejności ticków, tempa ani wyniku sportowego.
+
 ## Równowaga pozycyjna w symulacji meczu
 
 ### Pętla interakcji meczowej

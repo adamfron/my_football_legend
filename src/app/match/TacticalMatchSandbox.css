@@ -34,6 +34,22 @@
   border: 1px solid #50665c;
   background: #192a23;
 }
+
+.debug-capture {
+  align-items: center;
+  background: #151d28;
+  border: 1px solid #405069;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.75rem 0;
+  padding: 0.65rem;
+}
+
+.debug-capture span,
+.debug-capture strong {
+  font-size: 0.82rem;
+}
 .scenario-picker strong {
   margin: 0 5px;
   font: 700 12px monospace;
