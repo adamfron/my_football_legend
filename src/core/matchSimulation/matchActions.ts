@@ -313,6 +313,7 @@ export const resolveMatchAction = (
         height: 0,
         flightProgress: 0,
         airborne: true,
+        lastTouchPlayerId: actor.id,
       },
       currentAction: action,
       latestAction: action,
@@ -352,7 +353,8 @@ export const resolveMatchAction = (
       ball: {
         x: state.ball.x,
         y: state.ball.y,
-        from: { ...actor.position },
+        from:
+          action.type === 'header' ? { x: state.ball.x, y: state.ball.y } : { ...actor.position },
         target: { ...headerTarget },
         ...(action.intendedTargetId ? { intendedReceiverId: action.intendedTargetId } : {}),
         travelElapsed: 0,
@@ -382,6 +384,7 @@ export const resolveMatchAction = (
         height: 0,
         flightProgress: 0,
         airborne: true,
+        lastTouchPlayerId: actor.id,
       },
       currentAction: action,
       latestAction: action,
@@ -399,17 +402,22 @@ export const resolveMatchAction = (
     ball: {
       x: state.ball.x,
       y: state.ball.y,
-      from: { ...actor.position },
+      from:
+        state.scenario === 'throw_in'
+          ? { x: state.ball.x, y: state.ball.y }
+          : { ...actor.position },
       target: { ...action.target },
       intendedReceiverId: receiver.id,
       travelElapsed: 0,
       travelDuration: duration,
       travelKind:
-        restart?.phase === 'release' && state.scenario === 'goal_kick'
-          ? 'long_distribution'
-          : action.intent === 'through'
-            ? 'through_ball'
-            : 'pass',
+        restart?.phase === 'release' && state.scenario === 'throw_in'
+          ? 'throw_in'
+          : restart?.phase === 'release' && state.scenario === 'goal_kick'
+            ? 'long_distribution'
+            : action.intent === 'through'
+              ? 'through_ball'
+              : 'pass',
       sourceAction: action.type,
       peakHeight:
         restart?.phase === 'release' && state.scenario === 'goal_kick'
@@ -422,6 +430,7 @@ export const resolveMatchAction = (
       airborne:
         (restart?.phase === 'release' && state.scenario === 'goal_kick') ||
         (action.intent === 'direct' && duration > 1.5),
+      lastTouchPlayerId: actor.id,
     },
     currentAction: action,
     latestAction: action,
@@ -445,6 +454,23 @@ export const chooseRestartAction = (state: TacticalMatchState): MatchAction | un
       target: { x: 105, y: 30.5 + (state.decisionIndex % 3) * 3.5 },
       intent: 'placed',
     };
+  if (state.scenario === 'throw_in' && restart.landingZone) {
+    const receiver = state.players
+      .filter((p) => p.team === actor.team && p.id !== actor.id)
+      .sort(
+        (a, b) =>
+          distance(a.position, restart.landingZone!) - distance(b.position, restart.landingZone!),
+      )[0];
+    return receiver
+      ? {
+          type: 'pass',
+          actorId: actor.id,
+          receiverId: receiver.id,
+          target: restart.landingZone,
+          intent: 'support',
+        }
+      : undefined;
+  }
   if (
     (state.scenario === 'goal_kick' ||
       state.scenario === 'corner' ||

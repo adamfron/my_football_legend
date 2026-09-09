@@ -40,7 +40,8 @@ export const captureOffsideSnapshot = (
   const offsideLineX =
     passer.team === 'home' ? Math.max(state.ball.x, line) : Math.min(state.ball.x, line);
   const exemptRestart =
-    state.restart?.phase === 'setup' && ['goal_kick', 'corner'].includes(state.scenario);
+    state.restart?.phase === 'setup' &&
+    ['goal_kick', 'corner', 'throw_in'].includes(state.scenario);
   const attackerX = Object.fromEntries(
     state.players
       .filter((p) => p.team === passer.team && p.id !== passer.id)

@@ -5,6 +5,7 @@ import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from
 import { cornerPlanSchema, tacticalIntentSchema, tacticalZoneSchema } from './tacticalSituations';
 import { ballContactSchema, type BallContact } from './ballFlight';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
+import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -69,6 +70,7 @@ export const restartScenarioSchema = z.enum([
   'free_kick_close',
   'free_kick_wide',
   'penalty',
+  'throw_in',
 ]);
 export type RestartScenario = z.infer<typeof restartScenarioSchema>;
 export const restartPhaseSchema = z.enum(['setup', 'release']);
@@ -138,7 +140,8 @@ export interface MatchBallState extends PitchPoint {
     | 'free_kick_delivery'
     | 'corner_delivery'
     | 'shot'
-    | 'header';
+    | 'header'
+    | 'throw_in';
   sourceAction?: MatchAction['type'];
   velocity?: PitchPoint;
   looseSince?: number;
@@ -221,6 +224,24 @@ export interface TacticalMatchState {
     | 'keeper_punch'
     | 'keeper_miss';
   lastBoundaryRestart?: 'goal_kick' | 'corner' | 'throw_in';
+  lastBoundaryCrossing?: PitchBoundaryCrossing & {
+    previous: PitchPoint;
+    lastTouchPlayerId?: string;
+    lastTouchTeam?: TeamSide;
+    restartTeam: TeamSide;
+  };
+  lastAerialContact?: {
+    point: PitchPoint;
+    ballHeight: number;
+    candidates: Array<{
+      playerId: string;
+      horizontalDistance: number;
+      reachableHeight: number;
+      contactQuality: number;
+    }>;
+    contestantIds: string[];
+    winnerId?: string;
+  };
   restartAction?: MatchAction;
   offsideSnapshot?: OffsideSnapshot;
   lastOffsideOffence?: z.infer<typeof offsideOffenceSchema>;
@@ -272,6 +293,7 @@ export const tacticalMatchStateSchema = z
           'corner_delivery',
           'shot',
           'header',
+          'throw_in',
         ])
         .optional(),
       sourceAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']).optional(),
@@ -291,6 +313,14 @@ export const tacticalMatchStateSchema = z
     offsideSnapshot: offsideSnapshotSchema.optional(),
     lastOffsideOffence: offsideOffenceSchema.optional(),
     keeperIntervention: keeperInterventionSchema.optional(),
+    lastBoundaryCrossing: pitchBoundaryCrossingSchema
+      .extend({
+        previous: pitchPointSchema,
+        lastTouchPlayerId: z.string().optional(),
+        lastTouchTeam: teamSideSchema.optional(),
+        restartTeam: teamSideSchema,
+      })
+      .optional(),
     goalCompletionUntil: z.number().nonnegative().optional(),
     pendingKickoffTeam: teamSideSchema.optional(),
   })

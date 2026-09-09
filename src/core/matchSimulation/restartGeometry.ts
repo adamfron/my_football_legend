@@ -106,8 +106,12 @@ const spreadCluster = (points: Map<string, PitchPoint>, players: MatchPlayerStat
       }
 };
 
-const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartScenario) => {
-  const ball = variantBall(scenario),
+const deriveHomeRestartGeometry = (
+  state: TacticalMatchState,
+  scenario: RestartScenario,
+  restartPoint?: PitchPoint,
+) => {
+  const ball = restartPoint ?? variantBall(scenario),
     home = outfield(state, 'home'),
     away = outfield(state, 'away'),
     homeGk = goalkeeper(state, 'home'),
@@ -226,6 +230,59 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
         .slice(pressCount, pressCount + 2)
         .forEach((p) => assign(p, 'press_cover', 'cover_press', points.get(p.id)!));
     }
+  } else if (scenario === 'throw_in') {
+    taker = stableRank(home, (p) => -distance(p.position, ball))[0]!;
+    points.set(taker.id, {
+      x: Math.max(0.4, Math.min(104.6, ball.x)),
+      y: ball.y === 0 ? 0.4 : 67.6,
+    });
+    points.set(homeGk.id, homeGk.neutralAnchor);
+    points.set(awayGk.id, awayGk.neutralAnchor);
+    const direction = 1;
+    const options = stableRank(
+      home.filter((p) => p.id !== taker.id),
+      (p) => -distance(p.position, ball),
+    );
+    const optionZones = [
+      { x: ball.x + direction * 5, y: ball.y === 0 ? 3.5 : 64.5 },
+      { x: ball.x + direction * 11, y: ball.y === 0 ? 2.8 : 65.2 },
+      { x: ball.x + direction * 7, y: ball.y === 0 ? 9 : 59 },
+    ].map(clampPitchPoint);
+    options.forEach((p, i) => {
+      const zone =
+        i < 3
+          ? optionZones[i]!
+          : i < 6
+            ? { x: Math.max(12, ball.x - 10), y: 15 + i * 7 }
+            : p.neutralAnchor;
+      place(p, zone, i < 3 ? 0.8 : 2);
+      assign(
+        p,
+        i === 0 ? 'short' : i === 1 ? 'down_line' : i === 2 ? 'inside' : 'rest',
+        i < 3 ? 'support_ball' : 'rest_defence',
+        zone,
+      );
+    });
+    away.forEach((p, i) => {
+      const marked = options[i % 3];
+      const base =
+        marked && i < 5
+          ? { x: marked.position.x + 1.8, y: marked.position.y + (ball.y === 0 ? 1.5 : -1.5) }
+          : p.neutralAnchor;
+      const dx = base.x - ball.x,
+        dy = base.y - ball.y,
+        d = Math.max(0.01, Math.hypot(dx, dy));
+      const legal = d < 2 ? { x: ball.x + (dx / d) * 2, y: ball.y + (dy / d) * 2 } : base;
+      place(p, legal, 0.35);
+      assign(
+        p,
+        i < 5 ? 'marker' : 'defensive_shape',
+        i < 5 ? 'mark_opponent' : 'protect_zone',
+        legal,
+        marked?.id,
+      );
+    });
+    landingZone = optionZones[Math.abs(state.decisionIndex) % optionZones.length];
   } else if (scenario === 'corner') {
     cornerPlan = chooseCornerPlan(state.seed);
     taker = chooseCornerTaker(state, 'home');
@@ -332,7 +389,7 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
     aerial.forEach((p, i) => {
       const zone = wide
         ? { x: 96 + (i % 2) * 2, y: 26 + (i % 3) * 6 }
-        : { x: close ? 80 : 94, y: 25 + (i % 4) * 6 };
+        : { x: close ? 78 + i * 2.4 : 91 + (i % 2) * 3, y: 25 + (i % 4) * 6 };
       place(p, zone, 2.5);
       assign(p, 'runner', 'attack_landing_zone', zone);
     });
@@ -354,7 +411,10 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
     away
       .filter((p) => !points.has(p.id))
       .forEach((p, i) => {
-        const zone = { x: wide ? 94 - (i % 2) * 5 : close ? 91 : 94, y: 20 + (i % 6) * 6 };
+        const zone = {
+          x: wide ? 94 - (i % 2) * 5 : close ? 88 + (i % 3) * 2.2 : 90 + (i % 3) * 2,
+          y: 20 + (i % 6) * 6,
+        };
         place(p, zone, 2);
         assign(
           p,
@@ -370,14 +430,44 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
     points.set(taker.id, ball);
     points.set(homeGk.id, { x: 5.5, y: 34 });
     points.set(awayGk.id, { x: 104.4, y: 34 });
-    [...home.filter((p) => p.id !== taker.id), ...away].forEach((p, i) => {
-      const teamOffset = p.team === 'home' ? 0 : 1.15;
-      const base = {
-        x: 83.8 - (i % 5) * 1.15 - teamOffset,
-        y: 14 + ((i * 11 + (p.team === 'away' ? 5 : 0)) % 40),
-      };
-      place(p, base, 0.5);
-      assign(p, 'rebound_stagger', p.team === 'home' ? 'attack_second_ball' : 'protect_zone', base);
+    const attackers = home.filter((p) => p.id !== taker.id);
+    attackers.forEach((p, i) => {
+      const base =
+        i < 4
+          ? { x: 83.2 - (i % 2) * 1.3, y: [27, 40, 21, 48][i]! }
+          : i === 4
+            ? { x: 78, y: 55 }
+            : { x: 66 - (i - 5) * 3, y: 18 + (i % 3) * 16 };
+      place(p, base, 0.45);
+      assign(
+        p,
+        i < 4 ? 'rebound_attack' : i === 4 ? 'wide_rebound' : 'rest_defence',
+        i < 5 ? 'attack_second_ball' : 'rest_defence',
+        base,
+      );
+    });
+    away.forEach((p, i) => {
+      const base =
+        i < 5
+          ? { x: 82 - (i % 3) * 1.1, y: [24, 31, 38, 45, 52][i]! }
+          : i === 5
+            ? { x: 77, y: 14 }
+            : i === 9
+              ? { x: 69, y: 34 }
+              : { x: 80 + (i % 2), y: 18 + (i % 3) * 16 };
+      place(p, base, 0.45);
+      assign(
+        p,
+        i < 5
+          ? 'rebound_defence'
+          : i === 5
+            ? 'wide_rebound'
+            : i === 9
+              ? 'counter_outlet'
+              : 'box_protection',
+        i === 9 ? 'counter_outlet' : 'protect_zone',
+        base,
+      );
     });
   } else {
     taker = stableRank(home, (p) => -distance(p.position, ball))[0]!;
@@ -443,8 +533,9 @@ export const deriveRestartGeometry = (
   state: TacticalMatchState,
   scenario: RestartScenario,
   restartTeam: TeamSide = 'home',
+  restartPoint?: PitchPoint,
 ) => {
-  if (restartTeam === 'home') return deriveHomeRestartGeometry(state, scenario);
+  if (restartTeam === 'home') return deriveHomeRestartGeometry(state, scenario, restartPoint);
   const swap = (side: TeamSide): TeamSide => (side === 'home' ? 'away' : 'home');
   const mirrored: TacticalMatchState = {
     ...state,
@@ -466,7 +557,11 @@ export const deriveRestartGeometry = (
     })),
     ball: { ...state.ball, ...mirrorPoint(state.ball) },
   };
-  const geometry = deriveHomeRestartGeometry(mirrored, scenario);
+  const geometry = deriveHomeRestartGeometry(
+    mirrored,
+    scenario,
+    restartPoint ? mirrorPoint(restartPoint) : undefined,
+  );
   return {
     ...geometry,
     ball: mirrorPoint(geometry.ball),

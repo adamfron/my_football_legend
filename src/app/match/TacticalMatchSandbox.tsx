@@ -417,6 +417,7 @@ const RunningLab = ({
     ['goal_kick', 'Wykop'],
     ['gk_short', 'Krótkie od BR'],
     ['corner', 'Rożny'],
+    ['throw_in', 'Aut'],
     ['free_kick_far', 'Wolny · daleki środek'],
     ['free_kick_close', 'Wolny · bliski środek'],
     ['free_kick_wide', 'Wolny · skrzydło'],
@@ -526,7 +527,13 @@ const RunningLab = ({
               setPlaying(false);
               clearDebugBuffer();
               setState(() => {
-                const next = applyRestartScenario(createTacticalMatch(session), scenario);
+                const next = applyRestartScenario(
+                  createTacticalMatch(session),
+                  scenario,
+                  scenario === 'throw_in'
+                    ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
+                    : undefined,
+                );
                 debugRecorderRef.current.record(next);
                 debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', { scenario });
                 return next;
