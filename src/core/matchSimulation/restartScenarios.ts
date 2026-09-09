@@ -5,7 +5,9 @@ import type { RestartScenario, TacticalMatchState } from './matchState';
 export const applyRestartScenario = (
   input: TacticalMatchState,
   scenario: RestartScenario,
-  options: { restartTeam: 'home' | 'away' } = { restartTeam: 'home' },
+  options: { restartTeam: 'home' | 'away'; restartPoint?: { x: number; y: number } } = {
+    restartTeam: 'home',
+  },
 ): TacticalMatchState => {
   if (scenario === 'open_play') {
     const { restart: _restart, ...openPlay } = input;
@@ -13,7 +15,7 @@ export const applyRestartScenario = (
     return { ...openPlay, scenario };
   }
   const restartTeam = options.restartTeam;
-  const geometry = deriveRestartGeometry(input, scenario, restartTeam);
+  const geometry = deriveRestartGeometry(input, scenario, restartTeam, options.restartPoint);
   const setPiece =
     scenario === 'corner' || scenario.startsWith('free_kick') || scenario === 'penalty';
   const {

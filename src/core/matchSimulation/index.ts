@@ -8,6 +8,7 @@ export * from './restartGeometry';
 export * from './tacticalSituations';
 export * from './teamShapeMetrics';
 export * from './aerialPlay';
+export * from './pitchBoundary';
 export * from './reachableSpace';
 export * from './offside';
 export * from './shotResolver';

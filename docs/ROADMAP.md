@@ -25,9 +25,10 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR102 — Match Moment / Situation Evaluator v1 — ukończony.** Czysta, deterministyczna
   obserwacja stanu kanonicznego klasyfikuje znaczenie sytuacji bez uruchamiania decyzji gracza.
 - **PR103 — Tactical Situations & Set Pieces calibration v2 + Loose Ball Dynamics v1 — ukończony.**
-- **PR104 — Restart Geometry, Offside & Spatial Play Hardening — bieżący PR.**
-- **PR105 — contextual player decision vertical slice.**
-- **PR106 — empirical positioning benchmark & open-play role relationships.**
+- **PR104 — Restart Geometry, Offside & Spatial Play Hardening — ukończony.**
+- **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
+- **PR106 — contextual player decision vertical slice.**
+- **PR107 — empirical positioning benchmark & open-play role relationships.**
 - **Później — fatigue / score-state / substitutions / late-game structural behaviour.**
 
 Warstwy kanonicznego podejmowania akcji pozostają rozdzielone: **formacja → kontekst zespołu →

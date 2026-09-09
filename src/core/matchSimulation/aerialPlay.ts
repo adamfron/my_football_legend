@@ -4,6 +4,54 @@ import type { MatchPlayerState, TacticalMatchState } from './matchState';
 
 export type AerialOutcome = NonNullable<TacticalMatchState['lastAerialResult']>;
 
+export interface AerialContactCandidate {
+  playerId: string;
+  horizontalDistance: number;
+  ballHeight: number;
+  reachableHeight: number;
+  contactQuality: number;
+}
+
+/** Geometry-only eligibility. Ability can rank a duel, but cannot manufacture contact. */
+export const evaluateAerialContact = (
+  player: MatchPlayerState,
+  ball: PitchPoint & { height?: number },
+  lookaheadSeconds = 0.025,
+): AerialContactCandidate | undefined => {
+  if (player.profile.primaryPosition === 'goalkeeper') return undefined;
+  const predicted = {
+    x: player.position.x + player.velocity.x * lookaheadSeconds,
+    y: player.position.y + player.velocity.y * lookaheadSeconds,
+  };
+  const horizontalDistance = distance(predicted, ball);
+  const reachableHeight =
+    player.profile.heightCm / 100 + 0.18 + player.profile.attributes.jumping * 0.004;
+  const ballHeight = ball.height ?? 0;
+  const contactRadius =
+    0.72 + Math.min(0.28, Math.hypot(player.velocity.x, player.velocity.y) * 0.025);
+  if (horizontalDistance > contactRadius || ballHeight < 0.65 || ballHeight > reachableHeight)
+    return undefined;
+  return {
+    playerId: player.id,
+    horizontalDistance,
+    ballHeight,
+    reachableHeight,
+    contactQuality:
+      Math.max(0, 1 - horizontalDistance / contactRadius) *
+      Math.max(0, 1 - Math.abs(reachableHeight - ballHeight) / reachableHeight),
+  };
+};
+
+export const findAerialContactCandidates = (state: TacticalMatchState, lookaheadSeconds = 0.025) =>
+  state.players
+    .filter(
+      (p) => p.profile.primaryPosition !== 'goalkeeper' && distance(p.position, state.ball) < 2.2,
+    )
+    .map((p) => ({ player: p, contact: evaluateAerialContact(p, state.ball, lookaheadSeconds) }))
+    .filter((entry): entry is { player: MatchPlayerState; contact: AerialContactCandidate } =>
+      Boolean(entry.contact),
+    );
+
 export const aerialAbility = (player: MatchPlayerState, ball: PitchPoint) => {
   const a = player.profile.attributes;
   const arrival = Math.max(0, 1 - distance(player.position, ball) / 12);
@@ -31,8 +79,8 @@ export const aerialAbility = (player: MatchPlayerState, ball: PitchPoint) => {
 
 /** A small local contest, ranked by arrival and aerial suitability; never every nearby player. */
 export const selectAerialContestants = (state: TacticalMatchState, point = state.ball) => {
-  const eligible = state.players.filter(
-    (p) => distance(p.position, point) <= (p.profile.primaryPosition === 'goalkeeper' ? 11 : 10),
+  const eligible = findAerialContactCandidates({ ...state, ball: { ...state.ball, ...point } }).map(
+    (entry) => entry.player,
   );
   const ranked = (team: TeamSide) =>
     eligible

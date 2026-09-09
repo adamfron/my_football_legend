@@ -13,10 +13,12 @@ import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalP
 import { applyRestartScenario } from './restartScenarios';
 import {
   goalkeeperIntervention,
+  findAerialContactCandidates,
   resolveAerialDuel,
   resolveDeadBallRestart,
   secondBallPriority,
 } from './aerialPlay';
+import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
 import { resolveCanonicalShot } from './shotResolver';
 import { resolveGroundPassClaim } from './passClaimResolver';
 import {
@@ -39,6 +41,43 @@ const withoutOffsideSnapshot = (state: TacticalMatchState): TacticalMatchState =
   const { offsideSnapshot: _offsideSnapshot, ...remaining } = state;
   void _offsideSnapshot;
   return remaining;
+};
+
+const applyBoundaryRestart = (
+  state: TacticalMatchState,
+  crossing: PitchBoundaryCrossing,
+  previous: { x: number; y: number },
+) => {
+  const last = state.players.find((p) => p.id === state.ball.lastTouchPlayerId);
+  const restartTeam: TeamSide = crossing.boundary.startsWith('touchline')
+    ? (last?.team ?? state.possessionTeam) === 'home'
+      ? 'away'
+      : 'home'
+    : crossing.boundary === 'goal_line_home'
+      ? last?.team === 'home'
+        ? 'away'
+        : 'home'
+      : last?.team === 'away'
+        ? 'home'
+        : 'away';
+  const scenario = crossing.boundary.startsWith('touchline')
+    ? ('throw_in' as const)
+    : last?.team === (crossing.boundary === 'goal_line_home' ? 'home' : 'away')
+      ? ('corner' as const)
+      : ('goal_kick' as const);
+  return {
+    ...applyRestartScenario(state, scenario, {
+      restartTeam,
+      ...(scenario === 'throw_in' ? { restartPoint: crossing.point } : {}),
+    }),
+    lastBoundaryRestart: scenario,
+    lastBoundaryCrossing: {
+      ...crossing,
+      previous,
+      ...(last ? { lastTouchPlayerId: last.id, lastTouchTeam: last.team } : {}),
+      restartTeam,
+    },
+  };
 };
 
 export const FIXED_MATCH_DT = 0.025;
@@ -442,6 +481,10 @@ export const stepTacticalMatch = (
       y: state.ball.from.y + (state.ball.target.y - state.ball.from.y) * t,
       z: nextHeight,
     };
+    if (!state.ball.shot) {
+      const crossing = findPitchBoundaryCrossing(previous, next);
+      if (crossing) return applyBoundaryRestart(state, crossing, previous);
+    }
     state.ball = {
       ...state.ball,
       x: next.x,
@@ -518,6 +561,67 @@ export const stepTacticalMatch = (
         return finishShotContact(state, contact, incoming);
       }
     }
+    if ((state.ball.peakHeight ?? 0) > 0 && state.ball.travelKind !== 'shot') {
+      const physical = findAerialContactCandidates(state, dt);
+      if (physical.length) {
+        const duel = resolveAerialDuel(
+          state,
+          physical.map(({ player }) => player),
+        );
+        const winner = duel.winner;
+        const contactPoint = { x: state.ball.x, y: state.ball.y };
+        const base = {
+          ...state,
+          aerialContestantIds: duel.contestants.map((p) => p.id),
+          lastAerialResult: duel.outcome,
+          lastAerialContact: {
+            point: contactPoint,
+            ballHeight: state.ball.height ?? 0,
+            candidates: physical.map(({ contact }) => contact),
+            contestantIds: duel.contestants.map((p) => p.id),
+            ...(winner ? { winnerId: winner.id } : {}),
+          },
+        };
+        if (duel.outcome === 'keeper_claim' && winner)
+          return changePossession({ ...base, ball: { ...contactPoint } }, winner.id, 'claim');
+        if (!winner || duel.outcome === 'keeper_punch')
+          return makeLoose(
+            {
+              ...base,
+              ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
+            },
+            { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
+          );
+        const target =
+          duel.outcome === 'attacking_header'
+            ? { x: winner.team === 'home' ? 105 : 0, y: 34 }
+            : duel.outcome === 'clearance_header'
+              ? clampPitchPoint({
+                  x: contactPoint.x + (winner.team === 'home' ? 20 : -20),
+                  y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
+                })
+              : clampPitchPoint({
+                  x: contactPoint.x + (winner.team === 'home' ? 9 : -9),
+                  y: contactPoint.y,
+                });
+        return resolveMatchAction(
+          { ...base, ball: { ...contactPoint, ownerId: winner.id, lastTouchPlayerId: winner.id } },
+          {
+            type: 'header',
+            actorId: winner.id,
+            target,
+            intent:
+              duel.outcome === 'attacking_header'
+                ? 'header_shot'
+                : duel.outcome === 'clearance_header'
+                  ? 'header_clearance'
+                  : duel.outcome === 'flick_on'
+                    ? 'flick'
+                    : 'header_pass',
+          },
+        );
+      }
+    }
     if (!state.ball.peakHeight && state.ball.travelKind !== 'shot') {
       const passer = state.players.find((p) => p.id === state.currentActorId);
       const candidate =
@@ -556,6 +660,19 @@ export const stepTacticalMatch = (
       )
         return resolveShot(state);
       if ((state.ball.peakHeight ?? 0) > 0) {
+        const physical = findAerialContactCandidates(state, dt);
+        if (!physical.length) {
+          const velocity = state.ball.velocity ?? { x: 0, y: 0 };
+          return makeLoose(
+            {
+              ...state,
+              lastAerialResult: 'loose_ball',
+              aerialContestantIds: [],
+              ball: { x: state.ball.x, y: state.ball.y },
+            },
+            { x: velocity.x * 0.42, y: velocity.y * 0.42 },
+          );
+        }
         const duel = resolveAerialDuel(state);
         const base = {
           ...state,
@@ -681,6 +798,8 @@ export const stepTacticalMatch = (
     const velocity = state.ball.velocity ?? { x: 0, y: 0 },
       looseSince = state.ball.looseSince;
     const projected = { x: state.ball.x + velocity.x * dt, y: state.ball.y + velocity.y * dt };
+    const crossing = findPitchBoundaryCrossing(state.ball, projected);
+    if (crossing) return applyBoundaryRestart(state, crossing, state.ball);
     const boundary = resolveDeadBallRestart(state, projected);
     if (boundary === 'goal_kick' || boundary === 'corner')
       return {
