@@ -1,3 +1,7 @@
+/**
+ * Transitional engine for the career MatchGame only.
+ * New detailed football mechanics and player decisions belong in matchSimulation/*.
+ */
 import type {
   CareerState,
   ClubCompetitiveProfile,
@@ -17,6 +21,7 @@ import type {
   SquadAvailability,
   SquadStatus,
 } from '../types/domain';
+
 import { RandomGenerator } from './random/RandomGenerator';
 import { evaluateMatchRating, normalizeTeamStats } from './matchFeedback';
 import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyles';

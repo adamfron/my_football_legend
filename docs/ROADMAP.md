@@ -1,6 +1,6 @@
 # Roadmap
 
-## Dalszy rozwój równowagi pozycyjnej
+## Historyczne / późniejsze pomysły równowagi pozycyjnej
 
 - Rozszerzyć wspólny model o człon kompensacji pustych stref po czerwonych kartkach albo
   opuszczeniu strefy przez zawodnika, bez przebudowywania formacji od zera.
@@ -10,7 +10,7 @@
 
 Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane.
 
-## DEV Single Match Lab — bezpośrednia kolejność po PR97
+## NEXT — autorytatywna kolejność DEV Single Match Lab
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
 - **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
@@ -21,20 +21,21 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
   usprawniają zgłaszanie problemów przed dalszą kalibracją silnika.
 - **PR100 — Match Debug Export UX & reusable pitch capture — ukończony.** Automatyczny bufor
   obrazu boiska, wielokrotny capture i jawny zapis pakietu upraszczają diagnostykę.
-- **PR101 — Match Moment / Situation Evaluator.**
-- **PR102 — Tactical Situations & Set Pieces calibration v2.**
-- **PR103 — contextual player decision vertical slice.**
+- **PR101 — Match Debug Capture Reliability & Architecture Cleanup — ten PR.**
+- **PR102 — Match Moment / Situation Evaluator.**
+- **PR103 — Tactical Situations & Set Pieces calibration v2.**
+- **PR104 — contextual player decision vertical slice.**
 
 Docelowy przepływ pracy: **Single Match Lab → snapshot → decyzja gracza → rozstrzygnięcie core →
 animowany wynik → nowy snapshot**. Dopiero dojrzała pętla zostanie włączona do meczów kariery.
 
-## Stabilizacja integracji asynchronicznego zapisu (PR85)
+## Historia — stabilizacja integracji asynchronicznego zapisu (PR85)
 
-Ten krok wyłącznie stabilizuje integrację przepływu kariery z asynchronicznym zapisem v7. Nie
-zmienia kierunku roadmapy. Następne pozostają **Animated Single Match Sandbox [DEV]**, a po nim
-**animated decision vertical slice**; prace Three.js nie należą do tego kroku.
+Ten zapis dokumentuje ówczesną stabilizację integracji przepływu kariery z asynchronicznym zapisem
+v7. Wskazana w nim dawna kolejność została zrealizowana lub zastąpiona i nie konkuruje z bieżącą
+sekcją `NEXT`.
 
-## Natychmiastowa kolejność po PR77
+## Historia — kolejność planowana po PR77
 
 1. Obserwowalność kadry i dostępności: sezonowa delta OVR, znacznik NEW, widoczny fitness, urazy/zawieszenia, początkowa architektura morale oraz późniejsza karta hover trenera.
 2. Makrokalibracja długich karier.

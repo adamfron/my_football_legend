@@ -1,11 +1,18 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { FIXED_MATCH_DT, type TacticalMatchState } from '../../core/matchSimulation';
-import type { SingleMatchSession } from '../../core/singleMatch';
+import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
+import {
+  createTacticalMatch,
+  FIXED_MATCH_DT,
+  stepTacticalMatch,
+  type TacticalMatchState,
+} from '../../core/matchSimulation';
+import { createSingleMatchSession, type SingleMatchSession } from '../../core/singleMatch';
 import {
   MatchDebugRecorder,
   isCaptureTriggerDisabled,
   projectDebugEvents,
   saveDebugPackage,
+  selectCanonicalVisualFrames,
   snapshotMatchState,
   ViewportVideoRecorder,
 } from './matchDebugCapture';
@@ -141,6 +148,27 @@ describe('MatchDebugRecorder', () => {
     expect(after).toEqual(frozen);
   });
 
+  it('projects one enriched diagnostic event for one canonical possession transition', () => {
+    const before = minimalState(1),
+      after = minimalState(1.025, {
+        possessionTeam: 'away',
+        lastPossessionChange: { at: 1.025, from: 'home', to: 'away', cause: 'interception' },
+      });
+    const possessionEvents = projectDebugEvents(
+      snapshotMatchState(before),
+      snapshotMatchState(after),
+    ).filter((event) => event.type === 'possession_changed');
+    expect(possessionEvents).toEqual([
+      {
+        time: 1.025,
+        type: 'possession_changed',
+        actorId: undefined,
+        team: 'away',
+        data: { from: 'home', to: 'away', cause: 'interception' },
+      },
+    ]);
+  });
+
   it('observing every tick does not alter deterministic match state', () => {
     const canonicalStates = Array.from({ length: 100 }, (_, index) =>
       minimalState(index * FIXED_MATCH_DT),
@@ -149,6 +177,27 @@ describe('MatchDebugRecorder', () => {
       observed = structuredClone(canonicalStates);
     const recorder = new MatchDebugRecorder();
     observed.forEach((state) => recorder.record(state));
+    expect(observed).toEqual(plain);
+  });
+
+  it('keeps the deterministic simulation identical with capture enabled or disabled', () => {
+    const world = createCanonicalWorldDatabase();
+    const session = createSingleMatchSession(world, {
+      homeClubId: world.clubs[0]!.id,
+      awayClubId: world.clubs[1]!.id,
+      control: { mode: 'spectator' },
+      seed: 'debug-observation-determinism',
+    });
+    let plain = createTacticalMatch(session),
+      observed = createTacticalMatch(session);
+    const recorder = new MatchDebugRecorder();
+    recorder.record(observed);
+    recorder.trigger(observed.time);
+    for (let index = 0; index < 500; index += 1) {
+      plain = stepTacticalMatch(plain, FIXED_MATCH_DT);
+      observed = stepTacticalMatch(observed, FIXED_MATCH_DT);
+      recorder.record(observed);
+    }
     expect(observed).toEqual(plain);
   });
 });
@@ -189,7 +238,7 @@ describe('ViewportVideoRecorder', () => {
     recorder.dispose();
   });
 
-  it('bounds the visual pre-buffer to approximately ten wall-clock seconds', async () => {
+  it('bounds the visual pre-buffer to approximately ten canonical seconds', async () => {
     const recorder = new ViewportVideoRecorder();
     let now = 0;
     vi.spyOn(performance, 'now').mockImplementation(() => now);
@@ -213,6 +262,18 @@ describe('ViewportVideoRecorder', () => {
     expect(recorder.bufferedSeconds).toBeCloseTo(10);
     expect(recorder.bufferedFrameCount).toBeLessThanOrEqual(101);
     recorder.dispose();
+  });
+
+  it.each([1, 2, 4])('selects the canonical capture interval at %s× progression', (progression) => {
+    const frames = Array.from({ length: 401 }, (_, index) => ({
+      wallTimestamp: index * 100,
+      canonicalTime: (index * 100 * progression) / 1000,
+      blob: new Blob([String(index)]),
+    }));
+    const selected = selectCanonicalVisualFrames(frames, 20);
+    expect(selected[0]!.canonicalTime).toBeGreaterThanOrEqual(10);
+    expect(selected.at(-1)!.canonicalTime).toBeLessThanOrEqual(30);
+    expect(selected.at(-1)!.canonicalTime - selected[0]!.canonicalTime).toBeCloseTo(20);
   });
 });
 
@@ -240,8 +301,28 @@ describe('debug capture UX and package saving', () => {
       { basename: 'capture', json: new Blob(['{}']), video: new Blob(['video']) },
       picker,
     );
+    expect(picker).toHaveBeenCalledWith({ mode: 'readwrite' });
     expect(writes.map(([name]) => name)).toEqual(['capture.json', 'capture.webm']);
-    expect(result).toEqual({ status: 'saved', message: 'Zapisano JSON + WebM w: debugi' });
+    expect(result).toEqual({
+      status: 'saved',
+      message: 'Zapisano JSON + WebM w folderze: debugi',
+    });
+  });
+
+  it('writes a JSON-only package through a writable directory picker', async () => {
+    const writes: string[] = [];
+    const picker = vi.fn(async () => ({
+      name: 'debugi',
+      getFileHandle: async (name: string) => ({
+        createWritable: async () => ({
+          write: async () => void writes.push(name),
+          close: async () => undefined,
+        }),
+      }),
+    }));
+    const result = await saveDebugPackage({ basename: 'capture', json: new Blob(['{}']) }, picker);
+    expect(writes).toEqual(['capture.json']);
+    expect(result).toEqual({ status: 'saved', message: 'Zapisano JSON w folderze: debugi' });
   });
 
   it('keeps a prepared package intact when folder selection is cancelled', async () => {

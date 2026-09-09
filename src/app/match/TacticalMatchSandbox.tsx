@@ -450,7 +450,7 @@ const RunningLab = ({
       </nav>
       <nav className="debug-capture" aria-label="Eksport diagnostyczny">
         <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
-          Zapisz debug ±10 s
+          Przechwyć debug ±10 s
         </button>
         {captureStatus === 'idle' && (
           <span>
@@ -467,9 +467,13 @@ const RunningLab = ({
           debugExport && (
             <>
               <strong>
-                {debugExport.video
-                  ? 'Debug gotowy: JSON + WebM'
-                  : 'Wideo niedostępne — zapisano JSON'}
+                {captureStatus === 'saved'
+                  ? debugExport.video
+                    ? 'Pakiet debug: JSON + WebM'
+                    : 'Pakiet debug: tylko JSON · wideo niedostępne'
+                  : debugExport.video
+                    ? 'Pakiet gotowy: JSON + WebM · jeszcze niezapisany'
+                    : 'Pakiet gotowy: tylko JSON · wideo niedostępne · jeszcze niezapisany'}
               </strong>
               <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
               {saveMessage && <span>{saveMessage}</span>}

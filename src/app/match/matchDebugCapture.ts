@@ -210,14 +210,22 @@ export const projectDebugEvents = (previous: DebugFrame | undefined, frame: Debu
         : 'action_started',
       (frame.currentAction as { actorId?: string }).actorId,
     );
-  if (previous && previous.possessionTeam !== frame.possessionTeam)
-    add('possession_changed', undefined, frame.possessionTeam, { from: previous.possessionTeam });
   const change = frame.lastPossessionChange as
-    | { at?: number; cause?: string; to?: 'home' | 'away' }
+    | { at?: number; cause?: string; from?: 'home' | 'away'; to?: 'home' | 'away' }
     | undefined;
   const oldChange = previous?.lastPossessionChange as { at?: number } | undefined;
-  if (change?.at !== undefined && change.at !== oldChange?.at)
-    add(change.cause ?? 'possession_changed', undefined, change.to);
+  if (previous && previous.possessionTeam !== frame.possessionTeam)
+    add('possession_changed', undefined, frame.possessionTeam, {
+      from: change?.from ?? previous.possessionTeam,
+      to: change?.to ?? frame.possessionTeam,
+      ...(change?.cause ? { cause: change.cause } : {}),
+    });
+  else if (change?.at !== undefined && change.at !== oldChange?.at)
+    add('possession_changed', undefined, change.to, {
+      ...(change.from ? { from: change.from } : {}),
+      ...(change.to ? { to: change.to } : {}),
+      ...(change.cause ? { cause: change.cause } : {}),
+    });
   if (frame.lastBallContact && !same(previous?.lastBallContact, frame.lastBallContact))
     add('ball_contact', undefined, undefined, frame.lastBallContact as Record<string, unknown>);
   if (frame.lastShotResult && frame.lastShotResult !== previous?.lastShotResult)
@@ -362,7 +370,17 @@ export class MatchDebugRecorder {
   }
 }
 
-type VisualFrame = { wallTimestamp: number; canonicalTime: number; blob: Blob };
+export type VisualFrame = { wallTimestamp: number; canonicalTime: number; blob: Blob };
+export const selectCanonicalVisualFrames = (
+  frames: readonly VisualFrame[],
+  triggerTime: number,
+  seconds = DEBUG_WINDOW_SECONDS,
+) =>
+  frames.filter(
+    (frame) =>
+      frame.canonicalTime >= triggerTime - seconds - 1e-9 &&
+      frame.canonicalTime <= triggerTime + seconds + 1e-9,
+  );
 export class ViewportVideoRecorder {
   readonly captureFps = 15;
   private source: HTMLCanvasElement | undefined;
@@ -395,9 +413,15 @@ export class ViewportVideoRecorder {
       this.canvas!.toBlob(resolve, 'image/webp', 0.72),
     );
     if (!blob) return;
-    this.frames.push({ wallTimestamp: performance.now(), canonicalTime, blob });
+    const visualFrame = { wallTimestamp: performance.now(), canonicalTime, blob };
+    if (this.frames.at(-1)?.canonicalTime === canonicalTime)
+      this.frames[this.frames.length - 1] = visualFrame;
+    else this.frames.push(visualFrame);
     if (this.triggerTime === undefined)
-      while (this.frames.length && performance.now() - this.frames[0]!.wallTimestamp > 10_000)
+      while (
+        this.frames.length > 1 &&
+        canonicalTime - this.frames[0]!.canonicalTime > DEBUG_WINDOW_SECONDS
+      )
         this.frames.shift();
   }
   trigger(time: number) {
@@ -407,7 +431,7 @@ export class ViewportVideoRecorder {
     if (this.frames.length < 2) return 0;
     return Math.min(
       DEBUG_WINDOW_SECONDS,
-      (this.frames.at(-1)!.wallTimestamp - this.frames[0]!.wallTimestamp) / 1000,
+      this.frames.at(-1)!.canonicalTime - this.frames[0]!.canonicalTime,
     );
   }
   get bufferedFrameCount() {
@@ -418,13 +442,17 @@ export class ViewportVideoRecorder {
     this.timer = undefined;
   }
   async finish(): Promise<Blob | undefined> {
-    const frames = [...this.frames];
+    const triggerTime = this.triggerTime;
+    const frames =
+      triggerTime === undefined
+        ? [...this.frames]
+        : selectCanonicalVisualFrames(this.frames, triggerTime);
     this.triggerTime = undefined;
-    const end = frames.at(-1)?.wallTimestamp;
+    const end = this.frames.at(-1)?.canonicalTime;
     this.frames =
       end === undefined
         ? []
-        : frames.filter((frame) => end - frame.wallTimestamp <= DEBUG_WINDOW_SECONDS * 1000);
+        : this.frames.filter((frame) => end - frame.canonicalTime <= DEBUG_WINDOW_SECONDS);
     if (!frames.length || typeof MediaRecorder === 'undefined') return;
     const mimeType = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find((type) =>
       MediaRecorder.isTypeSupported(type),
@@ -443,12 +471,12 @@ export class ViewportVideoRecorder {
       recorder.onstop = () => resolve(new Blob(chunks, { type: mimeType }));
     });
     recorder.start();
-    const origin = frames[0]!.wallTimestamp;
+    const origin = frames[0]!.canonicalTime;
     const playbackStarted = performance.now();
     for (const frame of frames) {
       const wait = Math.max(
         0,
-        frame.wallTimestamp - origin - (performance.now() - playbackStarted),
+        (frame.canonicalTime - origin) * 1000 - (performance.now() - playbackStarted),
       );
       if (wait) await new Promise((resolve) => setTimeout(resolve, wait));
       const bitmap = await createImageBitmap(frame.blob);
@@ -496,11 +524,11 @@ type DirectoryHandle = {
     createWritable(): Promise<{ write(blob: Blob): Promise<void>; close(): Promise<void> }>;
   }>;
 };
+type DirectoryPicker = (options: { mode: 'readwrite' }) => Promise<DirectoryHandle>;
 
 export const saveDebugPackage = async (
   pkg: DebugPackage,
-  picker = (window as Window & { showDirectoryPicker?: () => Promise<DirectoryHandle> })
-    .showDirectoryPicker,
+  picker = (window as Window & { showDirectoryPicker?: DirectoryPicker }).showDirectoryPicker,
 ): Promise<DebugSaveResult> => {
   if (!picker) {
     downloadBlob(pkg.json, `${pkg.basename}.json`);
@@ -511,7 +539,7 @@ export const saveDebugPackage = async (
     };
   }
   try {
-    const directory = await picker();
+    const directory = await picker({ mode: 'readwrite' });
     const write = async (name: string, blob: Blob) => {
       const file = await directory.getFileHandle(name, { create: true });
       const writable = await file.createWritable();
@@ -522,7 +550,7 @@ export const saveDebugPackage = async (
     if (pkg.video) await write(`${pkg.basename}.webm`, pkg.video);
     return {
       status: 'saved',
-      message: `Zapisano ${pkg.video ? 'JSON + WebM' : 'JSON'} w: ${directory.name}`,
+      message: `Zapisano ${pkg.video ? 'JSON + WebM' : 'JSON'} w folderze: ${directory.name}`,
     };
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError')
