@@ -23,15 +23,87 @@ export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export type TacticalDuty = 'defend' | 'support' | 'attack';
 export type FootballerSelectionWorld = Pick<CareerState, 'footballerWorld'> &
   Partial<Pick<CareerState, 'player' | 'worldDelta' | 'currentDate'>>;
-export interface FormationSlot { position: PlayerPosition; duty?: TacticalDuty; x: number; y: number }
-const slot = (position: PlayerPosition, x: number, y: number, duty?: TacticalDuty): FormationSlot =>
-  ({ position, x, y, ...(duty ? { duty } : {}) });
+export interface FormationSlot {
+  position: PlayerPosition;
+  duty?: TacticalDuty;
+  x: number;
+  y: number;
+}
+/** One source of truth for the duty that downstream tactical systems actually use. */
+export const resolveFormationDuty = (slot: Pick<FormationSlot, 'duty'>): TacticalDuty =>
+  slot.duty ?? 'support';
+const slot = (
+  position: PlayerPosition,
+  x: number,
+  y: number,
+  duty?: TacticalDuty,
+): FormationSlot => ({ position, x, y, ...(duty ? { duty } : {}) });
 export const FORMATIONS: Record<FormationId, readonly FormationSlot[]> = {
-  '4-3-3': [slot('goalkeeper',50,91),slot('left_back',14,72),slot('center_back',38,72),slot('center_back',62,72),slot('right_back',86,72),slot('central_midfielder',50,49,'defend'),slot('central_midfielder',32,34,'support'),slot('central_midfielder',68,30,'attack'),slot('left_winger',18,13),slot('right_winger',82,13),slot('striker',50,8)],
-  '4-2-3-1': [slot('goalkeeper',50,91),slot('left_back',14,72),slot('center_back',38,72),slot('center_back',62,72),slot('right_back',86,72),slot('central_midfielder',37,52,'defend'),slot('central_midfielder',63,48,'support'),slot('left_winger',16,30),slot('central_midfielder',50,27,'attack'),slot('right_winger',84,30),slot('striker',50,9)],
-  '4-4-2': [slot('goalkeeper',50,91),slot('left_back',14,72),slot('center_back',38,72),slot('center_back',62,72),slot('right_back',86,72),slot('central_midfielder',38,43,'support'),slot('central_midfielder',62,43,'support'),slot('left_winger',14,34),slot('right_winger',86,34),slot('striker',36,10),slot('striker',64,10)],
-  '3-4-2-1': [slot('goalkeeper',50,91),slot('center_back',25,70),slot('center_back',50,70),slot('center_back',75,70),slot('left_back',13,47),slot('right_back',87,47),slot('central_midfielder',38,48,'defend'),slot('central_midfielder',62,45,'support'),slot('central_midfielder',35,27,'attack'),slot('central_midfielder',65,27,'attack'),slot('striker',50,8)],
-  '3-5-2': [slot('goalkeeper',50,91),slot('center_back',25,70),slot('center_back',50,70),slot('center_back',75,70),slot('left_back',13,47),slot('right_back',87,47),slot('central_midfielder',50,51,'defend'),slot('central_midfielder',34,34,'support'),slot('central_midfielder',66,31,'attack'),slot('striker',36,9),slot('striker',64,9)],
+  '4-3-3': [
+    slot('goalkeeper', 50, 91),
+    slot('left_back', 14, 72),
+    slot('center_back', 38, 72),
+    slot('center_back', 62, 72),
+    slot('right_back', 86, 72),
+    slot('central_midfielder', 50, 49, 'defend'),
+    slot('central_midfielder', 32, 34, 'support'),
+    slot('central_midfielder', 68, 30, 'attack'),
+    slot('left_winger', 18, 13),
+    slot('right_winger', 82, 13),
+    slot('striker', 50, 8),
+  ],
+  '4-2-3-1': [
+    slot('goalkeeper', 50, 91),
+    slot('left_back', 14, 72),
+    slot('center_back', 38, 72),
+    slot('center_back', 62, 72),
+    slot('right_back', 86, 72),
+    slot('central_midfielder', 37, 52, 'defend'),
+    slot('central_midfielder', 63, 48, 'support'),
+    slot('left_winger', 16, 30),
+    slot('central_midfielder', 50, 27, 'attack'),
+    slot('right_winger', 84, 30),
+    slot('striker', 50, 9),
+  ],
+  '4-4-2': [
+    slot('goalkeeper', 50, 91),
+    slot('left_back', 14, 72),
+    slot('center_back', 38, 72),
+    slot('center_back', 62, 72),
+    slot('right_back', 86, 72),
+    slot('central_midfielder', 38, 43, 'support'),
+    slot('central_midfielder', 62, 43, 'support'),
+    slot('left_winger', 14, 34),
+    slot('right_winger', 86, 34),
+    slot('striker', 36, 10),
+    slot('striker', 64, 10),
+  ],
+  '3-4-2-1': [
+    slot('goalkeeper', 50, 91),
+    slot('center_back', 25, 70),
+    slot('center_back', 50, 70),
+    slot('center_back', 75, 70),
+    slot('left_back', 13, 47),
+    slot('right_back', 87, 47),
+    slot('central_midfielder', 38, 48, 'defend'),
+    slot('central_midfielder', 62, 45, 'support'),
+    slot('central_midfielder', 35, 27, 'attack'),
+    slot('central_midfielder', 65, 27, 'attack'),
+    slot('striker', 50, 8),
+  ],
+  '3-5-2': [
+    slot('goalkeeper', 50, 91),
+    slot('center_back', 25, 70),
+    slot('center_back', 50, 70),
+    slot('center_back', 75, 70),
+    slot('left_back', 13, 47),
+    slot('right_back', 87, 47),
+    slot('central_midfielder', 50, 51, 'defend'),
+    slot('central_midfielder', 34, 34, 'support'),
+    slot('central_midfielder', 66, 31, 'attack'),
+    slot('striker', 36, 9),
+    slot('striker', 64, 9),
+  ],
 };
 const managerFormationCache = new Map<string, FormationId>();
 export const getManagerPreferredFormation = (managerId = 'manager'): FormationId => {
@@ -458,10 +530,13 @@ export const evaluateCandidateForSlot = (
   const protagonist = career.player;
   const isProtagonist = player.id === protagonist?.id;
   const effectiveOverall = getEffectivePositionOverall(player, slot.position);
-  const fitness = context?.fitness ?? (isProtagonist
-    ? protagonist?.fitness ?? 90
-    : (career.footballerWorld?.[player.id]?.fitness ?? 90));
-  const trust = ((context?.coachTrust ?? (isProtagonist ? career.selectionStanding : 50) ?? 50) - 50) / 25;
+  const fitness =
+    context?.fitness ??
+    (isProtagonist
+      ? (protagonist?.fitness ?? 90)
+      : (career.footballerWorld?.[player.id]?.fitness ?? 90));
+  const trust =
+    ((context?.coachTrust ?? (isProtagonist ? career.selectionStanding : 50) ?? 50) - 50) / 25;
   const coach = deriveCanonicalCoachProfile(club.managerId ?? 'manager');
   const agePreference =
     ((coach.youthTrust - coach.experiencePreference) / 100) *
@@ -476,7 +551,10 @@ export const evaluateCandidateForSlot = (
   return score;
 };
 export const getManagerSelectionScore = (
-  career: SelectionCareer, club: SquadSelectionContext, player: FootballerProfile, position: PlayerPosition,
+  career: SelectionCareer,
+  club: SquadSelectionContext,
+  player: FootballerProfile,
+  position: PlayerPosition,
 ) => evaluateCandidateForSlot(career, club, player, { position });
 
 /** A hierarchy calculation scores every player/position pair once, not once per sort comparison. */
@@ -510,7 +588,7 @@ const selectManagerXI = (
       (player) =>
         getFitnessSelectionPenalty(
           player.id === protagonist?.id
-            ? protagonist?.fitness ?? 90
+            ? (protagonist?.fitness ?? 90)
             : (career.footballerWorld?.[player.id]?.fitness ?? 90),
         ) !== Number.NEGATIVE_INFINITY,
     )

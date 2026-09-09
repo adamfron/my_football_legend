@@ -13,3 +13,4 @@ export * from './ballFlight';
 export * from './passClaimResolver';
 export * from './shootingOpportunity';
 export * from './matchSituationEvaluator';
+export * from './looseBallPhysics';

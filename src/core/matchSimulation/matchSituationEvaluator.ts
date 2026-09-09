@@ -3,6 +3,7 @@ import { evaluatePressure } from './matchActions';
 import { fieldValue, teamSideSchema } from './matchSpace';
 import { matchPhaseSchema, restartScenarioSchema, type TacticalMatchState } from './matchState';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
+import { deriveLooseBallAssignments } from './looseBallPhysics';
 
 export const matchSituationKindSchema = z.enum([
   'routine',
@@ -75,9 +76,18 @@ export const evaluateMatchSituation = (
 
   if (state.scenario !== 'open_play')
     [kind, importance, worthiness, reasons] = ['set_piece', 0.72, 0.7, ['restart_active']];
-  else if (!state.ball.ownerId)
-    [kind, importance, worthiness, reasons] = ['loose_ball', 0.68, 0.66, ['ball_uncontrolled']];
-  else if (possession === 'opponent' && (fieldProgress ?? 0) < 0.35)
+  else if (!state.ball.ownerId) {
+    const contenders = deriveLooseBallAssignments(state);
+    const contested = new Set(contenders.map((candidate) => candidate.team)).size > 1;
+    const danger = Math.abs(state.ball.x - 52.5) / 52.5;
+    const looseImportance = Math.min(0.9, 0.48 + (contested ? 0.14 : 0) + danger * 0.2);
+    [kind, importance, worthiness, reasons] = [
+      'loose_ball',
+      looseImportance,
+      Math.max(0.46, looseImportance - 0.02),
+      ['ball_uncontrolled'],
+    ];
+  } else if (possession === 'opponent' && (fieldProgress ?? 0) < 0.35)
     [kind, importance, worthiness, reasons] = ['defensive_duel', 0.7, 0.65, ['defensive_threat']];
   else if (possession === 'own' && (pressure ?? 0) >= 0.58)
     [kind, importance, worthiness, reasons] = ['under_pressure', 0.67, 0.64, ['heavy_pressure']];

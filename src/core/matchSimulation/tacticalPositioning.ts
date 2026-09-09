@@ -1,4 +1,5 @@
 import { RandomGenerator } from '../random/RandomGenerator';
+import { deriveLooseBallAssignments } from './looseBallPhysics';
 import {
   clampPitchPoint,
   distance,
@@ -249,13 +250,7 @@ const seekSpace = (
 };
 
 export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerState[] => {
-  const looseResponders = !state.ball.ownerId
-    ? state.players
-        .map((p) => ({ id: p.id, distance: distance(p.position, state.ball) }))
-        .sort((a, b) => a.distance - b.distance)
-        .slice(0, 4)
-        .map(({ id }) => id)
-    : [];
+  const looseAssignments = deriveLooseBallAssignments(state);
   const assignments = {
     home: derivePressingAssignment(state, 'home'),
     away: derivePressingAssignment(state, 'away'),
@@ -338,11 +333,14 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
           : ideal.y,
       };
     }
-    if (!isKeeper && looseResponders.includes(player.id))
-      ideal = {
-        x: lerp(ideal.x, state.ball.x, 0.72),
-        y: lerp(ideal.y, state.ball.y, 0.72),
-      };
+    const looseAssignment = looseAssignments.find(({ playerId }) => playerId === player.id);
+    if (looseAssignment)
+      ideal = looseAssignment.goalkeeper
+        ? looseAssignment.target
+        : {
+            x: lerp(ideal.x, looseAssignment.target.x, 0.94),
+            y: lerp(ideal.y, looseAssignment.target.y, 0.94),
+          };
     ideal = clampPitchPoint(
       isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player.team),
     );
