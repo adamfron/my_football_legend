@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { SingleMatchSession } from '../../core/singleMatch';
 import type { TacticalMatchState } from '../../core/matchSimulation';
+import { evaluateMatchSituation } from '../../core/matchSimulation';
 
 export const MATCH_DEBUG_SCHEMA = 'mfl-match-debug-v1' as const;
 export const DEBUG_WINDOW_SECONDS = 10;
@@ -44,6 +45,7 @@ export const debugFrameSchema = z.object({
   lastPossessionChange: z.unknown().optional(),
   lastAerialResult: z.string().optional(),
   lastBoundaryRestart: z.string().optional(),
+  situation: z.unknown().optional(),
   players: z.array(
     z.object({
       id: z.string(),
@@ -168,6 +170,7 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
     lastPossessionChange: state.lastPossessionChange,
     lastAerialResult: state.lastAerialResult,
     lastBoundaryRestart: state.lastBoundaryRestart,
+    situation: evaluateMatchSituation(state, state.ball.ownerId ?? state.controlledFootballerId),
     players: state.players.map((p) => ({
       id: p.id,
       x: p.position.x,
@@ -562,3 +565,23 @@ export const saveDebugPackage = async (
 export type DebugCaptureStatus = 'idle' | 'capturing' | 'processing' | 'ready' | 'saved' | 'error';
 export const isCaptureTriggerDisabled = (status: DebugCaptureStatus) =>
   status === 'capturing' || status === 'processing';
+
+export const describeDebugCapture = (
+  status: DebugCaptureStatus,
+  hasTrace: boolean,
+  hasVideo: boolean,
+  error?: string,
+) => {
+  if (status === 'processing' && hasTrace) return 'JSON gotowy · kodowanie WebM…';
+  if (status === 'error' && !hasTrace)
+    return `Błąd tworzenia śladu JSON${error ? `: ${error}` : ''}`;
+  if (status === 'error' && hasTrace)
+    return `Pakiet gotowy: tylko JSON · WebM nie powstał${error ? ` (${error})` : ''}`;
+  if ((status === 'ready' || status === 'saved') && hasTrace)
+    return hasVideo
+      ? status === 'saved'
+        ? 'Pakiet debug: JSON + WebM'
+        : 'Pakiet gotowy: JSON + WebM · jeszcze niezapisany'
+      : 'Pakiet gotowy: tylko JSON · WebM nie powstał';
+  return undefined;
+};

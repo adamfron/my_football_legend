@@ -2,6 +2,7 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matchSpace';
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
+import { evaluateShootingOpportunity } from './shootingOpportunity';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -50,23 +51,7 @@ const pressure = (state: TacticalMatchState, actor: MatchPlayerState) =>
   evaluatePressure(state, actor).value;
 
 export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) => {
-  const goal = { x: actor.team === 'home' ? 105 : 0, y: 34 };
-  const metres = distance(actor.position, goal);
-  const angle = Math.max(0, 1 - Math.abs(actor.position.y - 34) / 35);
-  const blockers = opponents(state, actor).filter(
-    (p) =>
-      p.profile.primaryPosition !== 'goalkeeper' &&
-      distanceToSegment(p.position, actor.position, goal) < 2.2 &&
-      distance(p.position, actor.position) < metres,
-  ).length;
-  const skill =
-    (actor.profile.attributes.finishing +
-      actor.profile.attributes.technique +
-      actor.profile.attributes.composure) /
-    3;
-  return (
-    112 - metres * 2.25 + angle * 25 + skill * 0.3 - pressure(state, actor) * 42 - blockers * 13
-  );
+  return 8 + evaluateShootingOpportunity(state, actor).value * 92;
 };
 export const enumerateAvailableActions = (
   state: TacticalMatchState,

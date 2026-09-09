@@ -13,6 +13,7 @@ import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalP
 import { applyRestartScenario } from './restartScenarios';
 import { resolveAerialDuel, resolveDeadBallRestart, secondBallPriority } from './aerialPlay';
 import { resolveCanonicalShot } from './shotResolver';
+import { resolveGroundPassClaim } from './passClaimResolver';
 import {
   deterministicRebound,
   findFirstBallContact,
@@ -562,32 +563,12 @@ export const stepTacticalMatch = (
           },
         );
       }
-      const receiver = state.players.find((p) => p.id === state.ball.intendedReceiverId)!;
-      const passer = state.players.find((p) => p.id === state.currentActorId)!;
-      const laneDefenders = state.players
-        .filter((p) => p.team !== passer.team && distance(p.position, state.ball) < 4)
-        .sort((a, b) => distance(a.position, state.ball) - distance(b.position, state.ball));
-      const rng = RandomGenerator.fromSeed(`${state.seed}:pass:${state.decisionIndex}`);
-      const length = distance(passer.position, receiver.position);
-      const chance = Math.max(
-        0.35,
-        Math.min(
-          0.96,
-          0.58 +
-            (passer.profile.attributes.passing +
-              passer.profile.attributes.technique +
-              passer.profile.attributes.composure) /
-              500 -
-            length / 120 -
-            (laneDefenders[0]?.profile.attributes.gameReading ?? 0) / 650,
-        ),
-      );
-      const owner = rng.bool(chance) || !laneDefenders[0] ? receiver : laneDefenders[0];
-      state = changePossession(
-        { ...state, ball: { x: owner.position.x, y: owner.position.y } },
-        owner.id,
-        owner === receiver ? 'claim' : 'interception',
-      );
+      const landing = { x: state.ball.x, y: state.ball.y };
+      const claim = resolveGroundPassClaim(state, landing);
+      if (claim.playerId) {
+        state = changePossession({ ...state, ball: landing }, claim.playerId, claim.cause);
+        state.ball = { ...landing, ownerId: claim.playerId };
+      } else state = makeLoose({ ...state, ball: landing });
     }
   } else if (!state.ball.ownerId && state.ball.looseSince !== undefined) {
     const velocity = state.ball.velocity ?? { x: 0, y: 0 },

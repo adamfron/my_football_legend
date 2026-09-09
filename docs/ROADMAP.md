@@ -21,8 +21,9 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
   usprawniają zgłaszanie problemów przed dalszą kalibracją silnika.
 - **PR100 — Match Debug Export UX & reusable pitch capture — ukończony.** Automatyczny bufor
   obrazu boiska, wielokrotny capture i jawny zapis pakietu upraszczają diagnostykę.
-- **PR101 — Match Debug Capture Reliability & Architecture Cleanup — ten PR.**
-- **PR102 — Match Moment / Situation Evaluator.**
+- **PR101 — Match Debug Capture Reliability & Architecture Cleanup — ukończony.**
+- **PR102 — Match Moment / Situation Evaluator v1 — ukończony.** Czysta, deterministyczna
+  obserwacja stanu kanonicznego klasyfikuje znaczenie sytuacji bez uruchamiania decyzji gracza.
 - **PR103 — Tactical Situations & Set Pieces calibration v2.**
 - **PR104 — contextual player decision vertical slice.**
 

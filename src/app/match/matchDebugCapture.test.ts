@@ -9,6 +9,7 @@ import {
 import { createSingleMatchSession, type SingleMatchSession } from '../../core/singleMatch';
 import {
   MatchDebugRecorder,
+  describeDebugCapture,
   isCaptureTriggerDisabled,
   projectDebugEvents,
   saveDebugPackage,
@@ -278,6 +279,15 @@ describe('ViewportVideoRecorder', () => {
 });
 
 describe('debug capture UX and package saving', () => {
+  it('represents JSON-first upgrades and visible encoding/export failures', () => {
+    expect(describeDebugCapture('processing', true, false)).toBe('JSON gotowy · kodowanie WebM…');
+    expect(describeDebugCapture('ready', true, true)).toContain('JSON + WebM');
+    expect(describeDebugCapture('error', true, false, 'codec')).toContain('tylko JSON');
+    expect(describeDebugCapture('error', false, false, 'trace')).toContain(
+      'Błąd tworzenia śladu JSON',
+    );
+  });
+
   it('disables the trigger only while capturing or processing', () => {
     expect(isCaptureTriggerDisabled('capturing')).toBe(true);
     expect(isCaptureTriggerDisabled('processing')).toBe(true);

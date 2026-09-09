@@ -10,3 +10,6 @@ export * from './teamShapeMetrics';
 export * from './aerialPlay';
 export * from './shotResolver';
 export * from './ballFlight';
+export * from './passClaimResolver';
+export * from './shootingOpportunity';
+export * from './matchSituationEvaluator';
