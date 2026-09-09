@@ -39,18 +39,10 @@ Dostępne są kreator, `PlayerCard` z pogrupowanymi atrybutami i radarem, `Caree
 
 ## Immediate next gameplay development
 
-**Zrealizowano ograniczony ekonomią niedoskonały rynek transferowy NPC.** Globalna granica sezonu obejmuje
-teraz coroczną graduację, parametryczną projekcję rozwoju/regresu NPC, emerytury, ograniczony letni obieg wolnych i
-kontraktowych seniorów oraz uzupełnianie kohort U-17. Kluby oglądają małe, zaszumione listy i mogą
-nie wykonać żadnego ruchu; opłaty, płace i prosta zgoda sprzedającego ograniczają wybór, ale system nie optymalizuje globalnie składów ani nie symuluje pełnej księgowości.
-
-Trwały cykl trenerów fazy 1 jest wdrożony: coroczna ocena, zwolnienia, nominacje i historia ruchów korzystają z jednej projekcji wyników.
-
-Dalsza kolejność: (1) zagraniczne
-pakiety świata, (6) rozbudowa rozgrywek i kalendarza, (7) Fitness/Morale 2.0 przed dojrzałą
-warstwą silnika meczu, (8) behawioralne PlayStyles, (9) osiągnięcia/easter eggi, (10) styl
-życia/inwestycje/ekonomia, (11) interaktywny
-izometryczny silnik decyzji.
+Bieżącym fundamentem jest DEV Single Match Lab z kanonicznym `matchSimulation`, rendererem oraz
+jawnym eksportem diagnostycznym JSON + opcjonalny WebM. Ten dokument opisuje stan wdrożony;
+jedyną autorytatywną, uporządkowaną kolejność następnych PR-ów utrzymuje sekcja `NEXT` w
+`ROADMAP.md`.
 
 Wraz z trwałym rozwojem NPC i symulacją rozgrywek pojawią się tanie migawki typowego wyboru
 klubów tła, przeliczane na granicy sezonu oraz po transferze, awansie z akademii, emeryturze,

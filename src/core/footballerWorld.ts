@@ -741,14 +741,23 @@ export const selectBestXI = (
   return selectCanonicalXI(career, club, formation);
 };
 
+/** Canonical current-XI quality projection, shared by world and ephemeral match setup. */
+export const getCurrentXIStrength = (
+  assignments: readonly Pick<BestXI['assignments'][number], 'effectiveOverall'>[],
+) =>
+  assignments.length === 11
+    ? Math.round(
+        assignments.reduce((sum, assignment) => sum + assignment.effectiveOverall, 0) /
+          assignments.length,
+      )
+    : undefined;
+
 export const getSquadDerivedClubStrength = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,
   club: SquadSelectionContext,
 ) => {
   const xi = selectBestXI(career, club);
-  return xi.assignments.length === 11
-    ? Math.round(xi.assignments.reduce((sum, item) => sum + item.effectiveOverall, 0) / 11)
-    : undefined;
+  return getCurrentXIStrength(xi.assignments);
 };
 export const getSquadDepthAtPosition = (
   career: Pick<CareerState, 'player' | 'footballerWorld'>,

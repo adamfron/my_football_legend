@@ -5,6 +5,8 @@ import {
   createSingleMatchScenarioAliases,
   createSingleMatchTacticalPlayers,
 } from '../app/match/singleMatchScenarioAliases';
+import { getCurrentXIStrength } from './footballerWorld';
+import { getEffectivePositionOverall } from './playerOverall';
 
 const world = createCanonicalWorldDatabase();
 const home = world.clubs[0]!;
@@ -64,6 +66,13 @@ describe('Single Match Lab domain session', () => {
       session.home.players.find((player) => player.footballerId === controlledId),
     ).toBeDefined();
     expect(home.squadPlayerIds).toEqual(before);
+    expect(session.home.strength).toBe(
+      getCurrentXIStrength(
+        session.home.players.map((player) => ({
+          effectiveOverall: getEffectivePositionOverall(player.profile, player.slot.position),
+        })),
+      ),
+    );
   });
 
   it.each([['home', home, away] as const, ['away', away, home] as const])(

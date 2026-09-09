@@ -19,8 +19,25 @@ Równoległy, niezależny przepływ obrazu wygląda tak:
 Rejestrator uruchamia się automatycznie i przechwytuje wyłącznie jawnie udostępniony canvas boiska,
 bez uprawnień do nagrywania karty lub ekranu. Brak przeglądarkowych API wideo nie wpływa na JSON ani
 działanie meczu. Kodowanie ukończonego okna nie zatrzymuje ciągłego pre-buffera następnego zapisu.
+Klatki obrazu otrzymują czas kanoniczny w chwili obserwacji. Do eksportu wybierane jest okno
+`trigger − 10 s … trigger + 10 s`, a odtworzenie WebM używa różnic czasu kanonicznego, nie zegara
+ściennego. Dzięki temu tempo 1×/2×/4× nie rozszerza pre-rollu na niepowiązaną historię meczu.
+Synchronizacja pozostaje próbkowana częstotliwością renderera/rejestratora, więc nie jest
+gwarantowana klatka dokładnie na granicy okna; JSON pozostaje autorytatywnym śladem ticków.
+
+Gotowy pakiet pozostaje w pamięci do jawnej akcji „Zapisz pakiet…”. File System Access API jest
+wywoływane w trybie `readwrite`; anulowanie wyboru nie usuwa pakietu. Gdy API nie istnieje,
+uruchamiane są pobrania przeglądarki, a brak WebM nadal pozwala zapisać kompletny trace JSON.
 Warstwa debug nie zapisuje się w karierze, nie dostarcza danych rendererowi i nie ma żadnej strzałki
 zwrotnej do core: nie zmienia RNG, kroku, kolejności ticków, tempa ani wyniku sportowego.
+
+## Granica silników meczu
+
+`src/core/matchSimulation/*` jest kanonicznym, rozwijanym silnikiem szczegółowej symulacji meczu.
+Renderer, replay i diagnostyka wyłącznie obserwują jego stan. `src/core/matchEngine.ts` obsługuje
+przejściowy karierowy `MatchGame`; nie jest alternatywnym miejscem dla nowych mechanik futbolowych.
+Przyszły Situation Evaluator i decyzje gracza muszą rozwijać pipeline `matchSimulation`, bez
+rozbudowywania legacy ani przedwczesnej migracji przepływu kariery.
 
 ## Równowaga pozycyjna w symulacji meczu
 

@@ -1,6 +1,11 @@
 import { z } from 'zod';
 import type { FootballerProfile, ProfessionalClub, WorldDatabase } from '../types/domain';
-import { FORMATIONS, getManagerPreferredFormation, selectBestXI } from './footballerWorld';
+import {
+  FORMATIONS,
+  getCurrentXIStrength,
+  getManagerPreferredFormation,
+  selectBestXI,
+} from './footballerWorld';
 import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
 
@@ -77,9 +82,7 @@ const buildTeam = (world: WorldDatabase, club: ProfessionalClub, seed: string) =
   return {
     club,
     formation: selected.formation,
-    strength: Math.round(
-      selected.assignments.reduce((sum, item) => sum + item.effectiveOverall, 0) / 11,
-    ),
+    strength: getCurrentXIStrength(selected.assignments)!,
     players,
   };
 };
@@ -95,11 +98,17 @@ const forcePlayer = (team: SingleMatchTeam, profile: FootballerProfile) => {
       ? player
       : best,
   );
+  const players = team.players.map((player) =>
+    player === replacement ? { ...player, footballerId: profile.id, profile } : player,
+  );
   return {
     ...team,
-    players: team.players.map((player) =>
-      player === replacement ? { ...player, footballerId: profile.id, profile } : player,
-    ),
+    players,
+    strength: getCurrentXIStrength(
+      players.map((player) => ({
+        effectiveOverall: getEffectivePositionOverall(player.profile, player.slot.position),
+      })),
+    )!,
   };
 };
 
