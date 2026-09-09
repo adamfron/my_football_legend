@@ -2,6 +2,12 @@
 
 ## DEV Match Debug Capture
 
+## Kanoniczny Match Situation Evaluator
+
+`matchSituationEvaluator` jest czystą, deterministyczną obserwacją bieżącego stanu
+`matchSimulation`. Współdzieli ocenę okazji strzeleckiej z użytecznością akcji NPC, nie mutuje
+stanu, nie zużywa RNG i nie jest drugim silnikiem zdarzeń ani mechanizmem decyzji gracza.
+
 Eksport diagnostyczny Single Match Lab jest wyłącznie warstwą prezentacji i obserwowalności.
 Utrzymuje ograniczony bufor pełnych migawek diagnostycznych z ostatnich dziesięciu sekund czasu
 kanonicznego, a po ręcznym triggerze zbiera kolejne dziesięć sekund. Statyczny słownik zawodników

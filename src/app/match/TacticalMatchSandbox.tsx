@@ -11,6 +11,7 @@ import {
   matchStateToFrame,
   stepTacticalMatch,
   deriveTeamShapeMetrics,
+  evaluateMatchSituation,
   type TacticalMatchState,
   type RestartScenario,
 } from '../../core/matchSimulation';
@@ -21,6 +22,7 @@ import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer'
 import { buildStartMenuUrl } from '../devTools';
 import {
   debugBasename,
+  describeDebugCapture,
   isCaptureTriggerDisabled,
   MatchDebugRecorder,
   saveDebugPackage,
@@ -228,6 +230,7 @@ const RunningLab = ({
     [replaying, setReplaying] = useState(false),
     [captureStatus, setCaptureStatus] = useState<DebugCaptureStatus>('idle'),
     [saveMessage, setSaveMessage] = useState<string>(),
+    [captureError, setCaptureError] = useState<string>(),
     [debugExport, setDebugExport] = useState<{
       trace: MatchDebugExport;
       video: Blob | undefined;
@@ -281,26 +284,41 @@ const RunningLab = ({
                 finishingRef.current = true;
                 const recorder = debugRecorderRef.current;
                 const basename = debugBasename(state.seed, recorder.triggerTime!);
-                setCaptureStatus('processing');
-                void videoRecorderRef.current
-                  .finish()
-                  .catch(() => undefined)
-                  .then((video) => {
-                    const trace = recorder.export(
-                      session,
-                      FIXED_MATCH_DT,
-                      { width: window.innerWidth, height: window.innerHeight },
-                      Boolean(video),
-                      videoRecorderRef.current.captureFps,
-                    );
-                    setDebugExport({ trace, video, basename });
-                    setCaptureStatus('ready');
-                  })
-                  .catch(() => setCaptureStatus('error'))
-                  .finally(() => {
-                    recorder.resetCapture();
-                    finishingRef.current = false;
-                  });
+                try {
+                  const trace = recorder.export(
+                    session,
+                    FIXED_MATCH_DT,
+                    { width: window.innerWidth, height: window.innerHeight },
+                    videoRecorderRef.current.active,
+                    videoRecorderRef.current.captureFps,
+                  );
+                  setDebugExport({ trace, video: undefined, basename });
+                  setCaptureStatus('processing');
+                  void videoRecorderRef.current
+                    .finish()
+                    .then((video) => {
+                      setDebugExport((current) => (current ? { ...current, video } : current));
+                      setCaptureStatus(video ? 'ready' : 'error');
+                      if (!video) setCaptureError('enkoder nie zwrócił pliku');
+                    })
+                    .catch((error: unknown) => {
+                      const message = error instanceof Error ? error.message : String(error);
+                      console.error('Nie udało się zakodować WebM debug.', error);
+                      setCaptureError(message);
+                      setCaptureStatus('error');
+                    })
+                    .finally(() => {
+                      recorder.resetCapture();
+                      finishingRef.current = false;
+                    });
+                } catch (error) {
+                  const message = error instanceof Error ? error.message : String(error);
+                  console.error('Nie udało się utworzyć śladu JSON debug.', error);
+                  setCaptureError(message);
+                  setCaptureStatus('error');
+                  recorder.resetCapture();
+                  finishingRef.current = false;
+                }
               }
             }
             return next;
@@ -343,6 +361,7 @@ const RunningLab = ({
   }, [replaying, goalReplay, debug]);
   const owner = state.players.find((p) => p.id === state.ball.ownerId),
     actor = state.players.find((p) => p.id === state.currentActorId),
+    situation = evaluateMatchSituation(state, owner?.id ?? state.controlledFootballerId),
     shapeMetrics = (['home', 'away'] as const).map(
       (side) => [side, deriveTeamShapeMetrics(state, side)] as const,
     );
@@ -352,6 +371,7 @@ const RunningLab = ({
     if (!debugRecorderRef.current.trigger(state.time)) return;
     videoRecorderRef.current.trigger(state.time);
     setSaveMessage(undefined);
+    setCaptureError(undefined);
     setCaptureStatus('capturing');
   };
   const savePackage = async () => {
@@ -462,23 +482,25 @@ const RunningLab = ({
         {captureStatus === 'capturing' && (
           <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
         )}
-        {captureStatus === 'processing' && <strong>Debug: kodowanie WebM…</strong>}
-        {(captureStatus === 'ready' || captureStatus === 'saved' || captureStatus === 'error') &&
-          debugExport && (
-            <>
-              <strong>
-                {captureStatus === 'saved'
-                  ? debugExport.video
-                    ? 'Pakiet debug: JSON + WebM'
-                    : 'Pakiet debug: tylko JSON · wideo niedostępne'
-                  : debugExport.video
-                    ? 'Pakiet gotowy: JSON + WebM · jeszcze niezapisany'
-                    : 'Pakiet gotowy: tylko JSON · wideo niedostępne · jeszcze niezapisany'}
-              </strong>
+        {(captureStatus === 'processing' ||
+          captureStatus === 'ready' ||
+          captureStatus === 'saved' ||
+          captureStatus === 'error') && (
+          <>
+            <strong>
+              {describeDebugCapture(
+                captureStatus,
+                Boolean(debugExport),
+                Boolean(debugExport?.video),
+                captureError,
+              )}
+            </strong>
+            {debugExport && captureStatus !== 'processing' && (
               <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
-              {saveMessage && <span>{saveMessage}</span>}
-            </>
-          )}
+            )}
+            {saveMessage && <span>{saveMessage}</span>}
+          </>
+        )}
       </nav>
       <nav className="scenario-picker" aria-label="Scenariusz developerski">
         <strong>Sytuacja:</strong>
@@ -550,6 +572,16 @@ const RunningLab = ({
                 : 'bezpańska'}
             <br />
             Presja: {Math.round(state.currentPressure * 100)}%
+            <br />
+            Sytuacja: {situation.kind} · ważność {situation.importance.toFixed(2)} · decyzja{' '}
+            {situation.decisionWorthiness.toFixed(2)}
+            <br />
+            Powody: {situation.reasons.join(', ')} · aktor: {situation.actorId ?? '—'}
+            <br />
+            Kontekst: bramka {situation.context.goalDistance?.toFixed(1) ?? '—'} m · presja{' '}
+            {situation.context.pressure !== undefined
+              ? `${Math.round(situation.context.pressure * 100)}%`
+              : '—'}
             <br />
             Ostatni strzał: {state.lastShotResult ?? '—'}
             <br />
