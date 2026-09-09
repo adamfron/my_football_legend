@@ -35,6 +35,12 @@ const transitionPhase = (owns: boolean): MatchPhase =>
 const settledPhase = (owns: boolean): MatchPhase =>
   owns ? 'positional_attack' : 'defensive_block';
 
+const withoutOffsideSnapshot = (state: TacticalMatchState): TacticalMatchState => {
+  const { offsideSnapshot: _offsideSnapshot, ...remaining } = state;
+  void _offsideSnapshot;
+  return remaining;
+};
+
 export const FIXED_MATCH_DT = 0.025;
 
 export const advanceTacticalMatch = (
@@ -637,25 +643,21 @@ export const stepTacticalMatch = (
             .filter((player) => player.team !== offender.team)
             .sort((a, b) => distance(a.position, landing) - distance(b.position, landing))[0];
           if (opponent) {
-            state = changePossession(
-              {
-                ...state,
-                ball: landing,
-                lastOffsideOffence: {
-                  playerId: offender.id,
-                  at: state.time,
-                  reason: 'attempted_receive',
-                },
-                offsideSnapshot: undefined,
+            const legalRestartState = withoutOffsideSnapshot({
+              ...state,
+              ball: landing,
+              lastOffsideOffence: {
+                playerId: offender.id,
+                at: state.time,
+                reason: 'attempted_receive',
               },
-              opponent.id,
-              'claim',
-            );
+            });
+            state = changePossession(legalRestartState, opponent.id, 'claim');
             state.ball = { ...landing, ownerId: opponent.id };
           }
         } else {
           state = changePossession(
-            { ...state, ball: landing, offsideSnapshot: undefined },
+            withoutOffsideSnapshot({ ...state, ball: landing }),
             claim.playerId,
             claim.cause,
           );

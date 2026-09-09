@@ -320,7 +320,7 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
         away,
         (p) =>
           p.profile.attributes.positioning * 0.45 +
-          p.profile.attributes.bravery * 0.25 +
+          p.profile.attributes.determination * 0.25 +
           p.profile.attributes.agility * 0.2 -
           aerialScore(p) * 0.08,
       );

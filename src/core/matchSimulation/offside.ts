@@ -29,15 +29,13 @@ export const captureOffsideSnapshot = (
   state: TacticalMatchState,
   action: MatchAction,
 ): OffsideSnapshot | undefined => {
-  if (!['pass', 'cross', 'header'].includes(action.type)) return;
+  let relevantAttackerIds: string[];
+  if (action.type === 'pass') relevantAttackerIds = [action.receiverId];
+  else if (action.type === 'cross' || action.type === 'header')
+    relevantAttackerIds = action.intendedTargetId ? [action.intendedTargetId] : [];
+  else return;
   const passer = state.players.find((p) => p.id === action.actorId);
   if (!passer) return;
-  const ids =
-    action.type === 'pass'
-      ? [action.receiverId]
-      : action.intendedTargetId
-        ? [action.intendedTargetId]
-        : [];
   const line = secondLastOpponentLine(state, passer.team);
   const offsideLineX =
     passer.team === 'home' ? Math.max(state.ball.x, line) : Math.min(state.ball.x, line);
@@ -60,7 +58,7 @@ export const captureOffsideSnapshot = (
   return {
     attackingTeam: passer.team,
     passerId: passer.id,
-    relevantAttackerIds: ids,
+    relevantAttackerIds,
     ballX: state.ball.x,
     secondLastOpponentX: line,
     offsideLineX,
