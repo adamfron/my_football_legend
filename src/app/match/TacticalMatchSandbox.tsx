@@ -254,6 +254,10 @@ const RunningLab = ({
     debugRecorderRef.current = new MatchDebugRecorder();
     debugRecorderRef.current.record(initial);
     scoreRef.current = 0;
+    setDebugExport(undefined);
+    setCaptureStatus('idle');
+    setCaptureError(undefined);
+    setSaveMessage(undefined);
     accumulatorRef.current = 0;
     const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
     const videoRecorder = videoRecorderRef.current;
@@ -374,6 +378,15 @@ const RunningLab = ({
     setCaptureError(undefined);
     setCaptureStatus('capturing');
   };
+  const clearDebugBuffer = () => {
+    debugRecorderRef.current.clear();
+    videoRecorderRef.current.clear();
+    setDebugExport(undefined);
+    setCaptureStatus('idle');
+    setCaptureError(undefined);
+    setSaveMessage(undefined);
+    finishingRef.current = false;
+  };
   const savePackage = async () => {
     if (!debugExport) return;
     setSaveMessage(undefined);
@@ -472,6 +485,7 @@ const RunningLab = ({
         <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
           Przechwyć debug ±10 s
         </button>
+        <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
         {captureStatus === 'idle' && (
           <span>
             {videoRecorderRef.current.active
@@ -510,6 +524,7 @@ const RunningLab = ({
             className={state.scenario === scenario ? 'active' : ''}
             onClick={() => {
               setPlaying(false);
+              clearDebugBuffer();
               setState(() => {
                 const next = applyRestartScenario(createTacticalMatch(session), scenario);
                 debugRecorderRef.current.record(next);

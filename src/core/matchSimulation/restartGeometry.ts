@@ -174,19 +174,21 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
     );
     const press = TACTICAL_STYLE_PARAMETERS[state.teams.away.style].pressing,
       pressingLine = scenario === 'gk_short' ? Math.max(17.5, 30 - press * 12) : 55;
-    away.forEach((p) =>
-      place(
+    // The press line is the first unit, never a clamp for the entire defending shape.
+    stableRank(away, (p) => -p.neutralAnchor.x).forEach((p, index) => {
+      const unit = index < 2 ? 0 : index < 5 ? 1 : index < 8 ? 2 : 3;
+      const depths =
+        scenario === 'gk_short'
+          ? [pressingLine, pressingLine + 10, pressingLine + 20, pressingLine + 30]
+          : [55, 65, 75, 86];
+      place(p, { x: depths[unit]!, y: p.neutralAnchor.y }, 2.2);
+      assign(
         p,
-        {
-          x: Math.max(
-            pressingLine,
-            Math.min(75, p.neutralAnchor.x - (scenario === 'gk_short' ? 42 * press : 22)),
-          ),
-          y: p.neutralAnchor.y,
-        },
-        3,
-      ),
-    );
+        ['first_press', 'press_cover', 'midfield_line', 'defensive_line'][unit]!,
+        unit === 0 ? 'press_ball' : unit === 1 ? 'cover_press' : 'protect_zone',
+        points.get(p.id) ?? p.position,
+      );
+    });
     landingZone =
       scenario === 'goal_kick'
         ? {
@@ -196,15 +198,19 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
         : undefined;
     if (scenario === 'goal_kick') {
       const ranked = stableRank(rest, aerialScore);
-      ranked
-        .slice(0, 3)
-        .forEach((p) => assign(p, 'contestants', 'attack_landing_zone', landingZone!));
-      ranked.slice(3, 6).forEach((p) =>
-        assign(p, 'second_ball', 'attack_second_ball', {
+      ranked.slice(0, 3).forEach((p, i) => {
+        const zone = { x: landingZone!.x + (i - 1) * 1.7, y: landingZone!.y + (i - 1) * 3.2 };
+        place(p, zone, 0.7);
+        assign(p, 'contestants', 'attack_landing_zone', zone);
+      });
+      ranked.slice(3, 6).forEach((p, i) => {
+        const zone = {
           x: landingZone!.x - 8,
-          y: landingZone!.y,
-        }),
-      );
+          y: landingZone!.y + (i - 1) * 5,
+        };
+        place(p, zone, 0.8);
+        assign(p, 'second_ball', 'attack_second_ball', zone);
+      });
       backs.slice(0, 3).forEach((p) => assign(p, 'rest', 'rest_defence', points.get(p.id)!));
       stableRank(away, aerialScore)
         .slice(0, 3)
@@ -285,7 +291,10 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
       { x: 91, y: 28 },
     ];
     away.forEach((p, i) => {
-      const zone = i < 8 ? defenceZones[i % defenceZones.length]! : { x: 84, y: 20 + i * 4 };
+      const outlet = i >= 7;
+      const zone = outlet
+        ? { x: 76 - (i - 7) * 3, y: i % 2 ? 18 : 50 }
+        : defenceZones[i % defenceZones.length]!;
       place(p, zone, 2.8);
       const marked = i >= 2 && i < 7 ? aerial[i - 2] : undefined;
       assign(
@@ -306,27 +315,55 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
       wide = scenario === 'free_kick_wide',
       wallSize = close ? 5 : wide ? 0 : 2;
     const wall = deriveDefensiveWall(ball, { x: 105, y: 34 }, wallSize),
-      wallPlayers = stableRank(away, (p) => p.profile.heightCm);
+      // Prefer mobile midfield responsibility and retain dominant aerial markers.
+      wallPlayers = stableRank(
+        away,
+        (p) =>
+          p.profile.attributes.positioning * 0.45 +
+          p.profile.attributes.determination * 0.25 +
+          p.profile.attributes.agility * 0.2 -
+          aerialScore(p) * 0.08,
+      );
     wall.forEach((point, i) => points.set(wallPlayers[i]!.id, point));
     wall.forEach((point, i) => assign(wallPlayers[i]!, 'wall', 'protect_zone', point));
     const aerial = chooseAerialTargets(state, 'home', wide ? 5 : close ? 2 : 4).filter(
       (p) => p.id !== taker.id,
     );
-    aerial.forEach((p, i) =>
-      place(
-        p,
-        wide
-          ? { x: 96 + (i % 2) * 2, y: 26 + (i % 3) * 6 }
-          : { x: close ? 80 : 94, y: 25 + (i % 4) * 6 },
-        2.5,
-      ),
-    );
+    aerial.forEach((p, i) => {
+      const zone = wide
+        ? { x: 96 + (i % 2) * 2, y: 26 + (i % 3) * 6 }
+        : { x: close ? 80 : 94, y: 25 + (i % 4) * 6 };
+      place(p, zone, 2.5);
+      assign(p, 'runner', 'attack_landing_zone', zone);
+    });
     home
       .filter((p) => p.id !== taker.id && !aerial.includes(p))
-      .forEach((p, i) => place(p, { x: wide ? 72 : close ? 72 : 78, y: 16 + (i % 6) * 7 }, 3));
+      .forEach((p, i) => {
+        const zone = {
+          x: wide ? (i < 3 ? 84 : 68) : close ? 72 : i < 3 ? 82 : 70,
+          y: 16 + (i % 6) * 7,
+        };
+        place(p, zone, 3);
+        assign(
+          p,
+          i < 3 ? 'second_ball' : 'rest',
+          i < 3 ? 'attack_second_ball' : 'rest_defence',
+          zone,
+        );
+      });
     away
       .filter((p) => !points.has(p.id))
-      .forEach((p, i) => place(p, { x: wide ? 96 : close ? 91 : 94, y: 20 + (i % 6) * 6 }, 3));
+      .forEach((p, i) => {
+        const zone = { x: wide ? 94 - (i % 2) * 5 : close ? 91 : 94, y: 20 + (i % 6) * 6 };
+        place(p, zone, 2);
+        assign(
+          p,
+          i < 6 ? 'marking_line' : 'zonal_protection',
+          i < 6 ? 'mark_opponent' : 'protect_zone',
+          zone,
+          aerial[i]?.id,
+        );
+      });
     if (!close) landingZone = wide ? { x: 97, y: 34 } : { x: 94, y: 34 };
   } else if (scenario === 'penalty') {
     taker = choosePenaltyTaker(state, 'home');
@@ -334,8 +371,13 @@ const deriveHomeRestartGeometry = (state: TacticalMatchState, scenario: RestartS
     points.set(homeGk.id, { x: 5.5, y: 34 });
     points.set(awayGk.id, { x: 104.4, y: 34 });
     [...home.filter((p) => p.id !== taker.id), ...away].forEach((p, i) => {
-      const base = { x: 83.8 - (i % 4) * 1.3, y: 18 + (i % 8) * 4.5 };
+      const teamOffset = p.team === 'home' ? 0 : 1.15;
+      const base = {
+        x: 83.8 - (i % 5) * 1.15 - teamOffset,
+        y: 14 + ((i * 11 + (p.team === 'away' ? 5 : 0)) % 40),
+      };
       place(p, base, 0.5);
+      assign(p, 'rebound_stagger', p.team === 'home' ? 'attack_second_ball' : 'protect_zone', base);
     });
   } else {
     taker = stableRank(home, (p) => -distance(p.position, ball))[0]!;

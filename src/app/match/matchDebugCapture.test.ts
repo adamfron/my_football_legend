@@ -86,6 +86,27 @@ describe('MatchDebugRecorder', () => {
     expect(recorder.historyFrames[0]!.time).toBeGreaterThanOrEqual(10);
   });
 
+  it('clears stale history and an armed capture when time rewinds or seed changes', () => {
+    const recorder = new MatchDebugRecorder();
+    recorder.record(minimalState(8));
+    recorder.trigger(8);
+    recorder.record(minimalState(0));
+    expect(recorder.triggerTime).toBeUndefined();
+    expect(recorder.historyFrames.map((frame) => frame.time)).toEqual([0]);
+    recorder.record(minimalState(1, { seed: 'replacement-seed' }));
+    expect(recorder.historyFrames).toHaveLength(1);
+    expect(recorder.historyFrames[0]!.time).toBe(1);
+  });
+
+  it('supports an explicit complete debug-buffer clear', () => {
+    const recorder = new MatchDebugRecorder();
+    recorder.record(minimalState(3));
+    recorder.trigger(3);
+    recorder.clear();
+    expect(recorder.historyFrames).toEqual([]);
+    expect(recorder.triggerTime).toBeUndefined();
+  });
+
   it('preserves pre-roll and ends at trigger plus ten canonical seconds', () => {
     const recorder = new MatchDebugRecorder();
     for (let index = 0; index <= 480; index += 1)

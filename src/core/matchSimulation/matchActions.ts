@@ -3,6 +3,8 @@ import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matc
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
+import { evaluateRunSpace } from './reachableSpace';
+import { captureOffsideSnapshot } from './offside';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -134,12 +136,13 @@ export const enumerateAvailableActions = (
         intent: length > 42 ? 'direct' : progress > 8 ? 'progressive' : 'support',
       });
       if (progress > 3 && p.duty !== 'defend') {
-        const lead = Math.min(12, 4 + p.profile.attributes.pace / 15);
+        const space = evaluateRunSpace(state, actor, p);
+        if (!space || space.utility < -8) return;
         actions.push({
           type: 'pass',
           actorId,
           receiverId: p.id,
-          target: clampPitchPoint({ x: p.position.x + dir * lead, y: p.position.y }),
+          target: space.target,
           intent: 'through',
         });
       }
@@ -224,6 +227,7 @@ export const scoreActionForAI = (
       : style === 'possession'
         ? 5
         : 0;
+  const space = action.intent === 'through' ? evaluateRunSpace(state, actor, receiver) : undefined;
   return (
     28 +
     progression * (state.teams[actor.team].phase === 'attacking_transition' ? 1.5 : 1.05) -
@@ -231,7 +235,8 @@ export const scoreActionForAI = (
     receiverPressure * 17 -
     laneRisk * 10 +
     technical +
-    styleIntent
+    styleIntent +
+    (space ? Math.max(-35, Math.min(25, space.utility)) : 0)
   );
 };
 export const chooseNpcAction = (
@@ -257,6 +262,7 @@ export const resolveMatchAction = (
     state.restart?.phase === 'setup' && action.type !== 'hold'
       ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
       : state.restart;
+  const offsideSnapshot = captureOffsideSnapshot(state, action);
   if (action.type === 'hold')
     return {
       ...state,
@@ -382,6 +388,7 @@ export const resolveMatchAction = (
       currentActorId: actor.id,
       actionCooldown: duration + 0.35,
       decisionIndex: state.decisionIndex + 1,
+      ...(offsideSnapshot ? { offsideSnapshot } : {}),
       ...(restart ? { restart, restartAction: action } : {}),
     };
   }
@@ -421,6 +428,7 @@ export const resolveMatchAction = (
     currentActorId: actor.id,
     actionCooldown: duration + 0.35,
     decisionIndex: state.decisionIndex + 1,
+    ...(offsideSnapshot ? { offsideSnapshot } : {}),
     ...(restart ? { restart, restartAction: action } : {}),
   };
 };
