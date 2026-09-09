@@ -82,17 +82,22 @@ export const goalkeeperIntervention = (
     a.gameReading * 0.18 -
     distance(keeper.position, point) * 2.5 -
     traffic * 3;
+  const contactDistance = distance(keeper.position, point);
   return {
     keeper,
     score,
     decision:
-      score > 55 && traffic < 4
-        ? 'claim'
-        : score > 39
-          ? 'punch'
-          : score > 27
-            ? 'attempt_interception'
-            : 'stay',
+      contactDistance > 1.65
+        ? score > 27
+          ? 'attempt_interception'
+          : 'stay'
+        : score > 55 && traffic < 4
+          ? 'claim'
+          : score > 39
+            ? 'punch'
+            : score > 27
+              ? 'attempt_interception'
+              : 'stay',
   };
 };
 

@@ -1,5 +1,20 @@
 # Architektura
 
+## Osiągalna przestrzeń, obserwacja i legalność akcji
+
+Szczegółowy silnik składa decyzję w jednym kierunku: **formacja → kontekst zespołu → relacje ról
+i intencje ruchu → krótkoterminowa predykcja osiągalnej przestrzeni → obserwacja podającego oraz
+obrońcy → wybór akcji → kanoniczny ruch i fizyka piłki**. Wspólna czysta predykcja opisuje tylko
+kilka najbliższych próbek ruchu ograniczonego tempem i przyspieszeniem. Nie zużywa RNG, nie mutuje
+stanu i nie jest trasą, teletransportem ani drugim przebiegiem symulacji.
+
+Podanie w przestrzeń zachowuje osobno zamierzonego biegacza i fizyczny cel piłki. Ten identyfikator
+jest diagnostyką intencji, nie prawem do posiadania: kontakt nadal rozstrzyga wspólny wyścig w core.
+Migawka spalonego powstaje przy zagraniu, łączy piłkę z przedostatnim rywalem i pozostaje niezmienna
+w czasie lotu. Samo przebywanie na pozycji spalonej nie przerywa gry; przewinienie wymaga udziału,
+a wyłączenia dla wznowień oraz różnica między świadomym zagraniem i odbiciem pozostają jawne w
+kanonicznym modelu.
+
 ## DEV Match Debug Capture
 
 ## Kanoniczny Match Situation Evaluator

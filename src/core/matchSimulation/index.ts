@@ -8,6 +8,8 @@ export * from './restartGeometry';
 export * from './tacticalSituations';
 export * from './teamShapeMetrics';
 export * from './aerialPlay';
+export * from './reachableSpace';
+export * from './offside';
 export * from './shotResolver';
 export * from './ballFlight';
 export * from './passClaimResolver';

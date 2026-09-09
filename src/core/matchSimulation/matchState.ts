@@ -4,6 +4,7 @@ import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorl
 import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from './matchSpace';
 import { cornerPlanSchema, tacticalIntentSchema, tacticalZoneSchema } from './tacticalSituations';
 import { ballContactSchema, type BallContact } from './ballFlight';
+import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -163,6 +164,18 @@ export const shotDiagnosticSchema = z.object({
   reboundSource: z.enum(['goalkeeper', 'block', 'post', 'crossbar']).optional(),
 });
 export type ShotDiagnostic = z.infer<typeof shotDiagnosticSchema>;
+export const offsideOffenceSchema = z.object({
+  playerId: z.string(),
+  at: z.number().nonnegative(),
+  reason: z.enum(['attempted_receive', 'challenged_opponent', 'interfered']),
+});
+export const keeperInterventionSchema = z.object({
+  keeperId: z.string(),
+  intention: z.enum(['stay', 'claim', 'punch', 'attempt_interception']),
+  target: pitchPointSchema,
+  distanceToContact: z.number().nonnegative(),
+  finalOutcome: z.enum(['keeper_claim', 'keeper_punch', 'keeper_miss']).optional(),
+});
 export const matchScoreSchema = z.object({
   home: z.number().int().nonnegative(),
   away: z.number().int().nonnegative(),
@@ -209,6 +222,9 @@ export interface TacticalMatchState {
     | 'keeper_miss';
   lastBoundaryRestart?: 'goal_kick' | 'corner' | 'throw_in';
   restartAction?: MatchAction;
+  offsideSnapshot?: OffsideSnapshot;
+  lastOffsideOffence?: z.infer<typeof offsideOffenceSchema>;
+  keeperIntervention?: z.infer<typeof keeperInterventionSchema>;
 }
 
 // Runtime boundary schema deliberately validates the ephemeral geometry/control graph; profiles
@@ -272,6 +288,9 @@ export const tacticalMatchStateSchema = z
     restart: restartLifecycleSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),
     lastBallContact: ballContactSchema.optional(),
+    offsideSnapshot: offsideSnapshotSchema.optional(),
+    lastOffsideOffence: offsideOffenceSchema.optional(),
+    keeperIntervention: keeperInterventionSchema.optional(),
     goalCompletionUntil: z.number().nonnegative().optional(),
     pendingKickoffTeam: teamSideSchema.optional(),
   })

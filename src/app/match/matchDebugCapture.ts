@@ -54,6 +54,8 @@ export const debugFrameSchema = z.object({
   lastAerialResult: z.string().optional(),
   lastBoundaryRestart: z.string().optional(),
   situation: z.unknown().optional(),
+  offside: z.unknown().optional(),
+  keeperIntervention: z.unknown().optional(),
   players: z.array(
     z.object({
       id: z.string(),
@@ -195,6 +197,13 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
           state,
           state.ball.ownerId ?? state.controlledFootballerId,
         ),
+        offside: state.offsideSnapshot
+          ? {
+              ...state.offsideSnapshot,
+              offence: state.lastOffsideOffence,
+            }
+          : state.lastOffsideOffence,
+        keeperIntervention: state.keeperIntervention,
         players: state.players.map((p) => ({
           id: p.id,
           x: p.position.x,
@@ -278,16 +287,19 @@ export class MatchDebugRecorder {
   private capturedEvents: z.infer<typeof debugEventSchema>[] = [];
   private uiHistory: z.infer<typeof debugUiEventSchema>[] = [];
   private capturedUi: z.infer<typeof debugUiEventSchema>[] = [];
+  private timelineSeed: string | undefined;
   triggerTime: number | undefined;
   constructor(private readonly seconds = DEBUG_WINDOW_SECONDS) {}
   record(state: TacticalMatchState) {
     const frame = snapshotMatchState(state),
       previous = this.history.at(-1);
-    if (previous && frame.time < previous.time) {
-      this.history = [];
-      this.events = [];
-      this.uiHistory = [];
+    if (
+      (this.timelineSeed !== undefined && this.timelineSeed !== state.seed) ||
+      (previous && frame.time < previous.time)
+    ) {
+      this.clear();
     }
+    this.timelineSeed = state.seed;
     const nextEvents = projectDebugEvents(previous, frame);
     this.history.push(frame);
     this.events.push(...nextEvents);
@@ -331,8 +343,18 @@ export class MatchDebugRecorder {
   resetCapture() {
     this.captured = undefined;
     this.triggerTime = undefined;
+    this.timelineSeed = undefined;
     this.capturedEvents = [];
     this.capturedUi = [];
+  }
+  clear() {
+    this.history = [];
+    this.captured = undefined;
+    this.events = [];
+    this.capturedEvents = [];
+    this.uiHistory = [];
+    this.capturedUi = [];
+    this.triggerTime = undefined;
   }
   export(
     session: SingleMatchSession,
@@ -417,6 +439,7 @@ export class ViewportVideoRecorder {
   private timer: number | undefined;
   private frames: VisualFrame[] = [];
   private triggerTime: number | undefined;
+  private lastCanonicalTime: number | undefined;
   get active() {
     return this.timer !== undefined;
   }
@@ -432,6 +455,9 @@ export class ViewportVideoRecorder {
   }
   private async sample(canonicalTime: number) {
     if (!this.source || !this.canvas || !this.active || !this.source.width) return;
+    if (this.lastCanonicalTime !== undefined && canonicalTime < this.lastCanonicalTime)
+      this.clear();
+    this.lastCanonicalTime = canonicalTime;
     const scale = Math.min(1, 1600 / this.source.width);
     this.canvas.width = Math.round(this.source.width * scale);
     this.canvas.height = Math.round(this.source.height * scale);
@@ -455,6 +481,12 @@ export class ViewportVideoRecorder {
   }
   trigger(time: number) {
     this.triggerTime = time;
+  }
+  /** Drops both rolling and armed frames while leaving canvas sampling active. */
+  clear() {
+    this.frames = [];
+    this.triggerTime = undefined;
+    this.lastCanonicalTime = undefined;
   }
   get bufferedSeconds() {
     if (this.frames.length < 2) return 0;

@@ -11,7 +11,12 @@ import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
 import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
 import { applyRestartScenario } from './restartScenarios';
-import { resolveAerialDuel, resolveDeadBallRestart, secondBallPriority } from './aerialPlay';
+import {
+  goalkeeperIntervention,
+  resolveAerialDuel,
+  resolveDeadBallRestart,
+  secondBallPriority,
+} from './aerialPlay';
 import { resolveCanonicalShot } from './shotResolver';
 import { resolveGroundPassClaim } from './passClaimResolver';
 import {
@@ -23,6 +28,7 @@ import {
 } from './ballFlight';
 import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
+import { isOffsideOffence } from './offside';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -326,8 +332,31 @@ export const stepTacticalMatch = (
   const looseContenderIds = new Set(
     deriveLooseBallAssignments(state).map(({ playerId }) => playerId),
   );
+  if (state.ball.travelDuration && (state.ball.peakHeight ?? 0) > 0) {
+    const interceptionPoint = state.ball.target ?? state.ball;
+    const choice = goalkeeperIntervention(state, interceptionPoint);
+    if (choice.keeper) {
+      state.keeperIntervention = {
+        keeperId: choice.keeper.id,
+        intention: choice.decision,
+        target: { ...interceptionPoint },
+        distanceToContact: distance(choice.keeper.position, interceptionPoint),
+      };
+      if (choice.decision !== 'stay')
+        state.players = state.players.map((player) =>
+          player.id === choice.keeper!.id
+            ? { ...player, target: { ...interceptionPoint } }
+            : player,
+        );
+    }
+  }
   state.players = deriveTacticalTargets(state).map((player) => {
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
+    if (
+      state.keeperIntervention?.keeperId === player.id &&
+      state.keeperIntervention.intention !== 'stay'
+    )
+      player = { ...player, target: { ...state.keeperIntervention.target } };
     const dx = player.target.x - player.position.x,
       dy = player.target.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
@@ -526,6 +555,21 @@ export const stepTacticalMatch = (
           ...state,
           aerialContestantIds: duel.contestants.map((p) => p.id),
           lastAerialResult: duel.outcome,
+          ...(state.keeperIntervention
+            ? {
+                keeperIntervention: {
+                  ...state.keeperIntervention,
+                  ...(duel.outcome.startsWith('keeper_')
+                    ? {
+                        finalOutcome: duel.outcome as
+                          | 'keeper_claim'
+                          | 'keeper_punch'
+                          | 'keeper_miss',
+                      }
+                    : {}),
+                },
+              }
+            : {}),
         };
         if (duel.outcome === 'keeper_claim' && duel.winner)
           return changePossession(
@@ -587,8 +631,36 @@ export const stepTacticalMatch = (
       const landing = { x: state.ball.x, y: state.ball.y };
       const claim = resolveGroundPassClaim(state, landing);
       if (claim.playerId) {
-        state = changePossession({ ...state, ball: landing }, claim.playerId, claim.cause);
-        state.ball = { ...landing, ownerId: claim.playerId };
+        if (isOffsideOffence(state.offsideSnapshot, claim.playerId)) {
+          const offender = state.players.find((player) => player.id === claim.playerId)!;
+          const opponent = state.players
+            .filter((player) => player.team !== offender.team)
+            .sort((a, b) => distance(a.position, landing) - distance(b.position, landing))[0];
+          if (opponent) {
+            state = changePossession(
+              {
+                ...state,
+                ball: landing,
+                lastOffsideOffence: {
+                  playerId: offender.id,
+                  at: state.time,
+                  reason: 'attempted_receive',
+                },
+                offsideSnapshot: undefined,
+              },
+              opponent.id,
+              'claim',
+            );
+            state.ball = { ...landing, ownerId: opponent.id };
+          }
+        } else {
+          state = changePossession(
+            { ...state, ball: landing, offsideSnapshot: undefined },
+            claim.playerId,
+            claim.cause,
+          );
+          state.ball = { ...landing, ownerId: claim.playerId };
+        }
       } else {
         const target = state.ball.target!;
         const from = state.ball.from!;
