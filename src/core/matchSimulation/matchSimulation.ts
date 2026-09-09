@@ -21,6 +21,8 @@ import {
   type BallContact,
   type FlightPoint,
 } from './ballFlight';
+import { resolveFormationDuty } from '../footballerWorld';
+import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -50,7 +52,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         profile: player.profile,
         slotIndex: player.slotIndex,
         slot: player.slot,
-        duty: player.slot.duty ?? 'support',
+        duty: resolveFormationDuty(player.slot),
         position: anchor,
         target: anchor,
         velocity: { x: 0, y: 0 },
@@ -109,7 +111,8 @@ const changePossession = (
   cause: 'tackle' | 'interception' | 'claim' = 'claim',
 ) => {
   const owner = state.players.find((p) => p.id === ownerId)!;
-  if (owner.team === state.possessionTeam) return { ...state, ball: { ...state.ball, ownerId } };
+  const controlledBall = { x: state.ball.x, y: state.ball.y, ownerId, lastTouchPlayerId: ownerId };
+  if (owner.team === state.possessionTeam) return { ...state, ball: controlledBall };
   const teams = { ...state.teams };
   for (const side of ['home', 'away'] as const)
     teams[side] = { ...teams[side], phase: transitionPhase(side === owner.team), phaseElapsed: 0 };
@@ -118,14 +121,24 @@ const changePossession = (
     teams,
     possessionTeam: owner.team,
     timeSincePossessionChanged: 0,
-    ball: { x: owner.position.x, y: owner.position.y, ownerId },
+    ball: controlledBall,
     lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
   };
 };
 
 const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): TacticalMatchState => ({
   ...state,
-  ball: { x: state.ball.x, y: state.ball.y, velocity, looseSince: state.time },
+  ball: {
+    x: state.ball.x,
+    y: state.ball.y,
+    velocity,
+    looseSince: state.time,
+    ...(state.ball.lastTouchPlayerId ? { lastTouchPlayerId: state.ball.lastTouchPlayerId } : {}),
+    ...(state.ball.secondBallPriorityIds
+      ? { secondBallPriorityIds: state.ball.secondBallPriorityIds }
+      : {}),
+    ...(state.ball.shot ? { shot: state.ball.shot } : {}),
+  },
 });
 
 const finishShotContact = (
@@ -310,6 +323,9 @@ export const stepTacticalMatch = (
           : team.phase,
     };
   }
+  const looseContenderIds = new Set(
+    deriveLooseBallAssignments(state).map(({ playerId }) => playerId),
+  );
   state.players = deriveTacticalTargets(state).map((player) => {
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
     const dx = player.target.x - player.position.x,
@@ -322,6 +338,7 @@ export const stepTacticalMatch = (
       state.teams[player.team].phase === 'defensive_transition' ||
       state.teams[player.team].phase === 'attacking_transition' ||
       state.nearestChallengerId === player.id ||
+      looseContenderIds.has(player.id) ||
       (!state.ball.ownerId && distance(player.position, state.ball) < 15);
     const active = urgent || (owns && player.duty === 'attack' && d > 8);
     const maxSpeed = active ? 6.2 + quality * 3.3 : d < 5 ? 1.5 + quality * 2 : 3 + quality * 2.2;
@@ -398,6 +415,10 @@ export const stepTacticalMatch = (
       flightProgress: t,
       height: nextHeight,
       airborne: (state.ball.peakHeight ?? 0) > 0 && t < 1,
+      velocity: {
+        x: (state.ball.target.x - state.ball.from.x) / state.ball.travelDuration,
+        y: (state.ball.target.y - state.ball.from.y) / state.ball.travelDuration,
+      },
     };
     if (state.ball.shot) {
       const shot = state.ball.shot;
@@ -568,7 +589,19 @@ export const stepTacticalMatch = (
       if (claim.playerId) {
         state = changePossession({ ...state, ball: landing }, claim.playerId, claim.cause);
         state.ball = { ...landing, ownerId: claim.playerId };
-      } else state = makeLoose({ ...state, ball: landing });
+      } else {
+        const target = state.ball.target!;
+        const from = state.ball.from!;
+        const duration = state.ball.travelDuration!;
+        const canonicalVelocity = state.ball.velocity ?? {
+          x: (target.x - from.x) / duration,
+          y: (target.y - from.y) / duration,
+        };
+        state = makeLoose(
+          { ...state, ball: landing },
+          { x: canonicalVelocity.x * 0.42, y: canonicalVelocity.y * 0.42 },
+        );
+      }
     }
   } else if (!state.ball.ownerId && state.ball.looseSince !== undefined) {
     const velocity = state.ball.velocity ?? { x: 0, y: 0 },
@@ -603,14 +636,17 @@ export const stepTacticalMatch = (
           lastBoundaryRestart: 'throw_in',
         };
     }
+    const rolled = rollLooseBall(state.ball, velocity, dt);
     state.ball = {
       ...state.ball,
-      x: Math.max(0, Math.min(105, state.ball.x + velocity.x * dt)),
-      y: Math.max(0, Math.min(68, state.ball.y + velocity.y * dt)),
-      velocity: { x: velocity.x * 0.9, y: velocity.y * 0.9 },
+      ...rolled.position,
+      velocity: rolled.velocity,
     };
     if (state.time - looseSince > 0.35) {
+      const assignments = deriveLooseBallAssignments(state);
+      const assignedIds = new Set(assignments.map((assignment) => assignment.playerId));
       const claimant = state.players
+        .filter((p) => assignedIds.has(p.id))
         .map((p) => ({
           p,
           score:
@@ -622,7 +658,11 @@ export const stepTacticalMatch = (
             (state.ball.secondBallPriorityIds?.includes(p.id) ? 2.4 : 0),
         }))
         .sort((a, b) => a.score - b.score || a.p.id.localeCompare(b.p.id))[0];
-      if (claimant && distance(claimant.p.position, state.ball) < 3.2)
+      const controlRadius = Math.max(
+        1.15,
+        2.1 - Math.hypot(rolled.velocity.x, rolled.velocity.y) * 0.04,
+      );
+      if (claimant && distance(claimant.p.position, state.ball) <= controlRadius)
         state = changePossession(state, claimant.p.id, 'claim');
     }
   } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {

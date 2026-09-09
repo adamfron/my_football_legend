@@ -7,6 +7,7 @@ import {
   type TacticalMatchState,
 } from '../../core/matchSimulation';
 import { createSingleMatchSession, type SingleMatchSession } from '../../core/singleMatch';
+import { resolveFormationDuty } from '../../core/footballerWorld';
 import {
   MatchDebugRecorder,
   describeDebugCapture,
@@ -55,6 +56,28 @@ const minimalState = (
 });
 
 describe('MatchDebugRecorder', () => {
+  it('exports effective duties for canonical slots that omit their raw duty', () => {
+    const world = createCanonicalWorldDatabase();
+    const session = createSingleMatchSession(world, {
+      homeClubId: world.clubs[0]!.id,
+      awayClubId: world.clubs[1]!.id,
+      control: { mode: 'spectator' },
+      seed: 'debug-duty-regression',
+    });
+    expect(session.home.players.some(({ slot }) => slot.duty === undefined)).toBe(true);
+    const state = createTacticalMatch(session);
+    const recorder = new MatchDebugRecorder();
+    recorder.record(state);
+    recorder.trigger(state.time);
+    recorder.record({ ...state, time: 10 });
+    const trace = recorder.export(session, FIXED_MATCH_DT, { width: 100, height: 100 }, false, 15);
+    for (const entity of trace.entities.players) {
+      const simulated = state.players.find(({ id }) => id === entity.id)!;
+      expect(entity.duty).toBe(simulated.duty);
+      expect(entity.duty).toBe(resolveFormationDuty(simulated.slot));
+    }
+  });
+
   it('keeps a bounded canonical circular buffer and removes oldest frames', () => {
     const recorder = new MatchDebugRecorder();
     for (let index = 0; index <= 800; index += 1)

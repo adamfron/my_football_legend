@@ -2,6 +2,8 @@ import { z } from 'zod';
 import type { SingleMatchSession } from '../../core/singleMatch';
 import type { TacticalMatchState } from '../../core/matchSimulation';
 import { evaluateMatchSituation } from '../../core/matchSimulation';
+import { DEFAULT_PITCH_SURFACE, deriveLooseBallAssignments } from '../../core/matchSimulation';
+import { resolveFormationDuty } from '../../core/footballerWorld';
 
 export const MATCH_DEBUG_SCHEMA = 'mfl-match-debug-v1' as const;
 export const DEBUG_WINDOW_SECONDS = 10;
@@ -38,6 +40,12 @@ export const debugFrameSchema = z.object({
     travelKind: z.string().optional(),
     flightProgress: z.number().optional(),
     airborne: z.boolean().optional(),
+    speed: z.number(),
+    looseAge: z.number().optional(),
+    contenderIds: z.array(z.string()),
+    interceptTargets: z.record(z.string(), pointSchema),
+    rollingResistance: z.number(),
+    drag: z.number(),
   }),
   lastShot: z.unknown().optional(),
   lastShotResult: z.string().optional(),
@@ -127,60 +135,78 @@ export type MatchDebugExport = z.infer<typeof matchDebugExportSchema>;
 
 const compact = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
-  compact({
-    time: state.time,
-    decisionIndex: state.decisionIndex,
-    score: state.score,
-    scenario: state.scenario,
-    restart: state.restart,
-    possessionTeam: state.possessionTeam,
-    teams: {
-      home: {
-        phase: state.teams.home.phase,
-        phaseElapsed: state.teams.home.phaseElapsed,
-        formation: state.teams.home.formation,
-        style: state.teams.home.style,
-      },
-      away: {
-        phase: state.teams.away.phase,
-        phaseElapsed: state.teams.away.phaseElapsed,
-        formation: state.teams.away.formation,
-        style: state.teams.away.style,
-      },
-    },
-    currentActorId: state.currentActorId,
-    currentAction: state.currentAction,
-    latestAction: state.latestAction,
-    pressure: state.currentPressure,
-    nearestChallengerId: state.nearestChallengerId,
-    ball: {
-      x: state.ball.x,
-      y: state.ball.y,
-      z: state.ball.height ?? 0,
-      vx: state.ball.velocity?.x ?? 0,
-      vy: state.ball.velocity?.y ?? 0,
-      ownerId: state.ball.ownerId,
-      travelKind: state.ball.travelKind,
-      flightProgress: state.ball.flightProgress,
-      airborne: state.ball.airborne,
-    },
-    lastShot: state.lastShot,
-    lastShotResult: state.lastShotResult,
-    lastBallContact: state.lastBallContact,
-    lastPossessionChange: state.lastPossessionChange,
-    lastAerialResult: state.lastAerialResult,
-    lastBoundaryRestart: state.lastBoundaryRestart,
-    situation: evaluateMatchSituation(state, state.ball.ownerId ?? state.controlledFootballerId),
-    players: state.players.map((p) => ({
-      id: p.id,
-      x: p.position.x,
-      y: p.position.y,
-      vx: p.velocity.x,
-      vy: p.velocity.y,
-      target: p.target,
-      idealTarget: p.idealTarget,
-    })),
-  });
+  compact(
+    (() => {
+      const assignments = deriveLooseBallAssignments(state);
+      const velocity = state.ball.velocity ?? { x: 0, y: 0 };
+      return {
+        time: state.time,
+        decisionIndex: state.decisionIndex,
+        score: state.score,
+        scenario: state.scenario,
+        restart: state.restart,
+        possessionTeam: state.possessionTeam,
+        teams: {
+          home: {
+            phase: state.teams.home.phase,
+            phaseElapsed: state.teams.home.phaseElapsed,
+            formation: state.teams.home.formation,
+            style: state.teams.home.style,
+          },
+          away: {
+            phase: state.teams.away.phase,
+            phaseElapsed: state.teams.away.phaseElapsed,
+            formation: state.teams.away.formation,
+            style: state.teams.away.style,
+          },
+        },
+        currentActorId: state.currentActorId,
+        currentAction: state.currentAction,
+        latestAction: state.latestAction,
+        pressure: state.currentPressure,
+        nearestChallengerId: state.nearestChallengerId,
+        ball: {
+          x: state.ball.x,
+          y: state.ball.y,
+          z: state.ball.height ?? 0,
+          vx: state.ball.velocity?.x ?? 0,
+          vy: state.ball.velocity?.y ?? 0,
+          ownerId: state.ball.ownerId,
+          travelKind: state.ball.travelKind,
+          flightProgress: state.ball.flightProgress,
+          airborne: state.ball.airborne,
+          speed: Math.hypot(velocity.x, velocity.y),
+          looseAge:
+            state.ball.looseSince === undefined ? undefined : state.time - state.ball.looseSince,
+          contenderIds: assignments.map(({ playerId }) => playerId),
+          interceptTargets: Object.fromEntries(
+            assignments.map(({ playerId, target }) => [playerId, target]),
+          ),
+          rollingResistance: DEFAULT_PITCH_SURFACE.rollingResistance,
+          drag: DEFAULT_PITCH_SURFACE.drag ?? 0,
+        },
+        lastShot: state.lastShot,
+        lastShotResult: state.lastShotResult,
+        lastBallContact: state.lastBallContact,
+        lastPossessionChange: state.lastPossessionChange,
+        lastAerialResult: state.lastAerialResult,
+        lastBoundaryRestart: state.lastBoundaryRestart,
+        situation: evaluateMatchSituation(
+          state,
+          state.ball.ownerId ?? state.controlledFootballerId,
+        ),
+        players: state.players.map((p) => ({
+          id: p.id,
+          x: p.position.x,
+          y: p.position.y,
+          vx: p.velocity.x,
+          vy: p.velocity.y,
+          target: p.target,
+          idealTarget: p.idealTarget,
+        })),
+      };
+    })(),
+  );
 
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
 export const projectDebugEvents = (previous: DebugFrame | undefined, frame: DebugFrame) => {
@@ -335,7 +361,7 @@ export class MatchDebugRecorder {
       name: `${p.profile.firstName} ${p.profile.lastName}`,
       primaryPosition: p.profile.primaryPosition,
       slot: p.slot.position,
-      duty: p.slot.duty,
+      duty: resolveFormationDuty(p.slot),
       heightCm: p.profile.heightCm,
       attributes: compact(p.profile.attributes),
     }));
