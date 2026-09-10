@@ -12,6 +12,11 @@ import {
   stepTacticalMatch,
   deriveTeamShapeMetrics,
   evaluateMatchSituation,
+  projectPlayerDecisionOpportunity,
+  applyPlayerDecision,
+  letAiDecide,
+  type PlayerDecisionGate,
+  type PlayerDecisionOpportunity,
   type TacticalMatchState,
   type RestartScenario,
 } from '../../core/matchSimulation';
@@ -231,6 +236,7 @@ const RunningLab = ({
     [captureStatus, setCaptureStatus] = useState<DebugCaptureStatus>('idle'),
     [saveMessage, setSaveMessage] = useState<string>(),
     [captureError, setCaptureError] = useState<string>(),
+    [opportunity, setOpportunity] = useState<PlayerDecisionOpportunity>(),
     [debugExport, setDebugExport] = useState<{
       trace: MatchDebugExport;
       video: Blob | undefined;
@@ -245,6 +251,7 @@ const RunningLab = ({
     debugRecorderRef = useRef(new MatchDebugRecorder()),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
+  const decisionGateRef = useRef<PlayerDecisionGate>({});
   stateRef.current = state;
   useEffect(() => {
     if (!hostRef.current) return;
@@ -258,6 +265,8 @@ const RunningLab = ({
     setCaptureStatus('idle');
     setCaptureError(undefined);
     setSaveMessage(undefined);
+    setOpportunity(undefined);
+    decisionGateRef.current = {};
     accumulatorRef.current = 0;
     const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
     const videoRecorder = videoRecorderRef.current;
@@ -271,7 +280,7 @@ const RunningLab = ({
   useEffect(() => {
     let frame = 0,
       previous: number | undefined;
-    if (playing && !replaying)
+    if (playing && !replaying && !opportunity)
       frame = requestAnimationFrame(function animate(now) {
         const delta = previous === undefined ? 0 : Math.min(100, now - previous);
         previous = now;
@@ -282,6 +291,12 @@ const RunningLab = ({
           setState((value) => {
             let next = value;
             for (let tick = 0; tick < ticks; tick += 1) {
+              const projected = projectPlayerDecisionOpportunity(next, decisionGateRef.current);
+              if (projected) {
+                setOpportunity(projected);
+                debugRecorderRef.current.ui(next.time, 'player_decision_opened', projected);
+                break;
+              }
               next = stepTacticalMatch(next, FIXED_MATCH_DT);
               const complete = debugRecorderRef.current.record(next);
               if (complete && !finishingRef.current) {
@@ -331,7 +346,7 @@ const RunningLab = ({
         frame = requestAnimationFrame(animate);
       });
     return () => cancelAnimationFrame(frame);
-  }, [playing, replaying, session, speed, state.seed]);
+  }, [playing, replaying, session, speed, state.seed, opportunity]);
   useEffect(() => {
     if (replaying) return;
     const frame = matchStateToFrame(state);
@@ -371,6 +386,25 @@ const RunningLab = ({
     );
   const uiEvent = (type: string, data?: Record<string, unknown>) =>
     debugRecorderRef.current.ui(stateRef.current.time, type, data);
+  const closeOpportunity = (
+    next: TacticalMatchState,
+    source: 'player' | 'ai',
+    selected: unknown,
+  ) => {
+    if (!opportunity) return;
+    decisionGateRef.current = {
+      lastSituationSignature: opportunity.signature,
+      lastResolvedAt: state.time,
+    };
+    uiEvent(source === 'ai' ? 'player_decision_skipped_to_ai' : 'player_decision_selected', {
+      opportunityId: opportunity.id,
+      actorId: opportunity.actorId,
+      selected,
+      source,
+    });
+    setState(next);
+    setOpportunity(undefined);
+  };
   const triggerCapture = () => {
     if (!debugRecorderRef.current.trigger(state.time)) return;
     videoRecorderRef.current.trigger(state.time);
@@ -425,6 +459,56 @@ const RunningLab = ({
   ];
   return (
     <main className="tactical-sandbox">
+      {opportunity && (
+        <section className="player-decision" aria-label="Decyzja piłkarza">
+          <strong>
+            {opportunity.situation.kind === 'under_pressure'
+              ? 'Jesteś pod presją'
+              : opportunity.kind === 'loose_ball'
+                ? 'Walcz o piłkę'
+                : opportunity.kind === 'off_ball_run'
+                  ? 'Wybierz ruch bez piłki'
+                  : 'Podejmij decyzję'}
+          </strong>
+          <div className="player-decision__options">
+            {opportunity.options.slice(0, 12).map((option) => (
+              <button
+                key={option.id}
+                onClick={() =>
+                  closeOpportunity(
+                    applyPlayerDecision(state, opportunity, option.id),
+                    'player',
+                    option,
+                  )
+                }
+              >
+                {option.labelKey === 'hold'
+                  ? 'Utrzymaj piłkę'
+                  : option.labelKey === 'carry'
+                    ? 'Prowadź piłkę'
+                    : option.labelKey.startsWith('pass_through')
+                      ? 'Zagraj w przestrzeń'
+                      : option.labelKey.startsWith('pass_')
+                        ? 'Podaj'
+                        : option.labelKey.startsWith('shot_')
+                          ? 'Strzel'
+                          : option.labelKey === 'run_in_behind'
+                            ? 'Rusza za linię'
+                            : option.labelKey === 'come_short'
+                              ? 'Podejdź krótko'
+                              : option.labelKey === 'support'
+                                ? 'Wspieraj'
+                                : 'Atakuj piłkę'}
+              </button>
+            ))}
+            <button
+              onClick={() => closeOpportunity(letAiDecide(state, opportunity), 'ai', 'npc_choice')}
+            >
+              Pozwól zdecydować AI
+            </button>
+          </div>
+        </section>
+      )}
       <header>
         <div>
           <span className="dev-badge">DEV · AUTONOMICZNA SYMULACJA</span>

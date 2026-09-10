@@ -59,6 +59,14 @@ export const matchActionSchema = z.discriminatedUnion('type', [
   }),
 ]);
 export type MatchAction = z.infer<typeof matchActionSchema>;
+export const playerMovementIntentSchema = z.object({
+  actorId: z.string(),
+  type: z.enum(['hold_shape', 'support', 'come_short', 'attack_space', 'run_in_behind']),
+  target: pitchPointSchema,
+  startedAt: z.number().nonnegative(),
+  expiresAt: z.number().nonnegative(),
+});
+export type PlayerMovementIntent = z.infer<typeof playerMovementIntentSchema>;
 export const restartScenarioSchema = z.enum([
   'open_play',
   'kick_off',
@@ -197,6 +205,7 @@ export interface TacticalMatchState {
   latestAction?: MatchAction;
   actionCooldown: number;
   controlledFootballerId?: string;
+  playerMovementIntent?: PlayerMovementIntent;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
   score: z.infer<typeof matchScoreSchema>;
@@ -306,6 +315,8 @@ export const tacticalMatchStateSchema = z
     possessionTeam: teamSideSchema,
     timeSincePossessionChanged: z.number().nonnegative(),
     actionCooldown: z.number().nonnegative(),
+    controlledFootballerId: z.string().optional(),
+    playerMovementIntent: playerMovementIntentSchema.optional(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),

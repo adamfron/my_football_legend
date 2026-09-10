@@ -205,3 +205,22 @@
     display: none;
   }
 }
+.player-decision {
+  position: fixed;
+  z-index: 20;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  width: min(46rem, calc(100vw - 2rem));
+  padding: 1rem;
+  border: 1px solid #68d391;
+  border-radius: 0.75rem;
+  background: rgba(8, 22, 18, 0.96);
+  box-shadow: 0 1rem 3rem #000a;
+}
+.player-decision__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}

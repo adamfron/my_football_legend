@@ -31,6 +31,7 @@ import {
 import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 import { isOffsideOffence } from './offside';
+import { evaluateMatchSituation } from './matchSituationEvaluator';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -342,6 +343,11 @@ export const stepTacticalMatch = (
     actionCooldown: Math.max(0, input.actionCooldown - dt),
     teams: { ...input.teams },
   };
+  if (state.playerMovementIntent && state.time >= state.playerMovementIntent.expiresAt) {
+    const { playerMovementIntent: _expired, ...withoutIntent } = state;
+    void _expired;
+    state = withoutIntent;
+  }
   if (state.goalCompletionUntil !== undefined && state.time >= state.goalCompletionUntil) {
     const kickoffTeam = state.pendingKickoffTeam!;
     const { goalCompletionUntil: _freeze, pendingKickoffTeam: _team, ...completed } = state;
@@ -396,6 +402,8 @@ export const stepTacticalMatch = (
     }
   }
   state.players = deriveTacticalTargets(state).map((player) => {
+    if (state.playerMovementIntent?.actorId === player.id)
+      player = { ...player, target: state.playerMovementIntent.target };
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
     if (
       state.keeperIntervention?.keeperId === player.id &&
@@ -904,7 +912,11 @@ export const stepTacticalMatch = (
     delete state.nearestChallengerId;
   }
   if (state.actionCooldown <= 0 && state.ball.ownerId && state.restart?.phase !== 'setup') {
-    const action = chooseNpcAction(state, state.ball.ownerId);
+    const awaitsPlayer =
+      state.scenario === 'open_play' &&
+      state.ball.ownerId === state.controlledFootballerId &&
+      evaluateMatchSituation(state, state.ball.ownerId).decisionEligible;
+    const action = awaitsPlayer ? undefined : chooseNpcAction(state, state.ball.ownerId);
     if (action) state = resolveMatchAction(state, action);
   }
   return state;
