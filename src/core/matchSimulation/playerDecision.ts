@@ -62,8 +62,82 @@ export const playerDecisionProbeSchema = z.object({
   decisionWorthiness: z.number().optional(),
   pressure: z.number().optional(),
   signature: z.string().optional(),
+  roleProfile: z.enum(['goalkeeper', 'defender', 'midfielder', 'forward']).optional(),
+  ballRelevance: z.unknown().optional(),
 });
 export type PlayerDecisionProbe = z.infer<typeof playerDecisionProbeSchema>;
+
+export const decisionRoleSchema = z.enum(['goalkeeper', 'defender', 'midfielder', 'forward']);
+export type DecisionRole = z.infer<typeof decisionRoleSchema>;
+export const ballRelevanceSchema = z.object({
+  relevant: z.boolean(),
+  estimatedArrivalTime: z.number().optional(),
+  ballArrivalTime: z.number().optional(),
+  contenderRank: z.number().int().positive().optional(),
+  trajectoryRelevant: z.boolean(),
+  reason: z.enum([
+    'reachable_soon',
+    'trajectory_intersection',
+    'direct_contest',
+    'critical_cover',
+    'too_far',
+    'other_player_dominant',
+  ]),
+});
+export type BallRelevance = z.infer<typeof ballRelevanceSchema>;
+export const deriveDecisionRole = (actor: TacticalMatchState['players'][number]): DecisionRole => {
+  const position = actor.profile.primaryPosition;
+  if (position === 'goalkeeper') return 'goalkeeper';
+  if (position.includes('back') || position.includes('defender')) return 'defender';
+  if (position.includes('midfielder')) return 'midfielder';
+  return 'forward';
+};
+export const evaluateControlledPlayerBallRelevance = (
+  state: TacticalMatchState,
+  actorId: string,
+): BallRelevance => {
+  const actor = state.players.find((player) => player.id === actorId);
+  if (!actor) return { relevant: false, trajectoryRelevant: false, reason: 'too_far' };
+  const contenders = deriveLooseBallAssignments(state);
+  const rank = contenders.findIndex((candidate) => candidate.playerId === actorId) + 1;
+  const pace =
+    5.4 + actor.profile.attributes.pace * 0.035 + actor.profile.attributes.agility * 0.012;
+  const arrival = distance(actor.position, state.ball) / pace;
+  const velocity = state.ball.velocity ?? { x: 0, y: 0 };
+  const speed = Math.hypot(velocity.x, velocity.y);
+  let closestTrajectory = distance(actor.position, state.ball),
+    ballArrivalTime: number | undefined;
+  for (let t = 0.25; t <= 3; t += 0.25) {
+    const point = { x: state.ball.x + velocity.x * t, y: state.ball.y + velocity.y * t };
+    const gap = distance(actor.position, point) - pace * t;
+    if (gap < closestTrajectory) {
+      closestTrajectory = gap;
+      ballArrivalTime = t;
+    }
+  }
+  const trajectoryRelevant = speed > 1 && closestTrajectory <= 2.5;
+  const dominant = Boolean(rank > 2 && contenders[0] && contenders[0].score + 0.7 < arrival);
+  const rawDistance = distance(actor.position, state.ball);
+  const relevant =
+    !dominant &&
+    ((rank > 0 && rank <= 2 && arrival <= 2.6 && rawDistance <= 12) || trajectoryRelevant);
+  return ballRelevanceSchema.parse({
+    relevant,
+    estimatedArrivalTime: arrival,
+    ballArrivalTime,
+    ...(rank ? { contenderRank: rank } : {}),
+    trajectoryRelevant,
+    reason: relevant
+      ? trajectoryRelevant && arrival > 2.6
+        ? 'trajectory_intersection'
+        : arrival < 1
+          ? 'direct_contest'
+          : 'reachable_soon'
+      : dominant
+        ? 'other_player_dominant'
+        : 'too_far',
+  });
+};
 
 const actionLabel = (action: MatchAction) =>
   action.type === 'hold'
@@ -82,7 +156,7 @@ const signatureFor = (state: TacticalMatchState, kind: string) => {
   const pressureBand = Math.floor((situation.context.pressure ?? 0) * 4);
   const territoryBand = Math.floor((situation.context.fieldProgress ?? 0) * 5);
   const possessionEvent = state.ballOwnershipStartedAt ?? 0;
-  return `${kind}:${state.ball.ownerId ?? 'loose'}:${possessionEvent}:${state.teams[state.possessionTeam].phase}:${pressureBand}:${territoryBand}`;
+  return `${kind}:${state.decisionIndex}:${state.ball.ownerId ?? 'loose'}:${possessionEvent}:${state.teams[state.possessionTeam].phase}:${pressureBand}:${territoryBand}`;
 };
 
 const projectDecision = (
@@ -99,10 +173,12 @@ const projectDecision = (
   if (state.scenario !== 'open_play') return blocked('not_open_play');
   if (isActionResolutionInProgress(state)) return blocked('resolution_in_progress');
   const situation = evaluateMatchSituation(state, actorId);
-  const context = {
+  const roleProfile = deriveDecisionRole(actor);
+  const context: Partial<PlayerDecisionProbe> = {
     situationKind: situation.kind,
     decisionWorthiness: situation.decisionWorthiness,
     pressure: situation.context.pressure,
+    roleProfile,
   };
   let kind: PlayerDecisionOpportunity['kind'] | undefined;
   let options: PlayerDecisionOption[] = [];
@@ -115,8 +191,9 @@ const projectDecision = (
       action,
     }));
   } else if (!state.ball.ownerId) {
-    const contenders = deriveLooseBallAssignments(state).slice(0, 4);
-    if (contenders.some((candidate) => candidate.playerId === actorId)) {
+    const relevance = evaluateControlledPlayerBallRelevance(state, actorId);
+    context.ballRelevance = relevance;
+    if (roleProfile !== 'goalkeeper' && relevance.relevant) {
       kind = 'loose_ball';
       const duration = Math.min(2.5, distance(actor.position, state.ball) / 5.5);
       const intent: PlayerMovementIntent = {
@@ -127,6 +204,39 @@ const projectDecision = (
         expiresAt: state.time + duration,
       };
       options = [{ id: 'attack-ball', kind: 'movement', labelKey: 'attack_ball', intent }];
+    }
+  } else if (state.ball.ownerId !== actorId && actor.team !== state.possessionTeam) {
+    const carrier = state.players.find((player) => player.id === state.ball.ownerId);
+    const metres = carrier ? distance(actor.position, carrier.position) : Infinity;
+    const role = roleProfile;
+    const ownGoal = { x: actor.team === 'home' ? 0 : 105, y: 34 };
+    const keeperThreat =
+      role === 'goalkeeper' && Boolean(carrier && distance(carrier.position, ownGoal) < 27);
+    const threshold = keeperThreat
+      ? 32
+      : role === 'defender'
+        ? 13
+        : role === 'midfielder'
+          ? 9
+          : role === 'forward'
+            ? 5.5
+            : 0;
+    if (carrier && metres <= threshold) {
+      kind = 'defensive_response';
+      options = [
+        {
+          id: 'defensive-target',
+          kind: 'movement',
+          labelKey: 'defend_carrier',
+          intent: {
+            actorId,
+            type: 'hold_shape',
+            target: actor.position,
+            startedAt: state.time,
+            expiresAt: state.time + 2,
+          },
+        },
+      ];
     }
   } else if (
     state.ball.ownerId !== actorId &&

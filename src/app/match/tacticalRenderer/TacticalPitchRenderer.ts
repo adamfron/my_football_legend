@@ -1,5 +1,12 @@
 import * as THREE from 'three';
-import { PITCH_LENGTH, PITCH_WIDTH, tacticalToWorld, type TacticalFrame } from './model';
+import {
+  PITCH_LENGTH,
+  PITCH_WIDTH,
+  tacticalToWorld,
+  worldToTactical,
+  type PresentationTarget,
+  type TacticalFrame,
+} from './model';
 
 export class TacticalPitchRenderer {
   private readonly renderer: THREE.WebGLRenderer;
@@ -11,6 +18,8 @@ export class TacticalPitchRenderer {
   private readonly idealMarkers = new Map<string, THREE.Mesh>();
   private readonly ball: THREE.Mesh;
   private readonly observer: ResizeObserver;
+  private readonly raycaster = new THREE.Raycaster();
+  private readonly pitch: THREE.Mesh;
 
   constructor(
     private readonly host: HTMLElement,
@@ -24,7 +33,7 @@ export class TacticalPitchRenderer {
     this.camera.position.set(-82, 92, 82);
     this.camera.lookAt(0, 0, 0);
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0x496055, 2.2));
-    this.createPitch();
+    this.pitch = this.createPitch();
     for (const player of frame.players) {
       this.createPlayer(
         player.id,
@@ -38,6 +47,7 @@ export class TacticalPitchRenderer {
       new THREE.SphereGeometry(0.85, 12, 8),
       new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65 }),
     );
+    this.ball.userData.ball = true;
     this.scene.add(this.ball);
     this.observer = new ResizeObserver(() => this.resize());
     this.observer.observe(host);
@@ -153,6 +163,7 @@ export class TacticalPitchRenderer {
       goal.position.set(side - PITCH_LENGTH / 2 - direction * 1.25, 1.25, 0);
       this.scene.add(goal);
     }
+    return pitch;
   }
 
   private createPlayer(
@@ -162,6 +173,7 @@ export class TacticalPitchRenderer {
     goalkeeper: boolean,
   ) {
     const group = new THREE.Group();
+    group.userData.playerId = id;
     const color = goalkeeper ? 0xf0c84b : team === 'home' ? 0x4da3ff : 0xe7626c;
     const body = new THREE.Mesh(
       new THREE.CylinderGeometry(0.8, 1.05, 2.5, 8),
@@ -218,6 +230,33 @@ export class TacticalPitchRenderer {
 
   getCanvas() {
     return this.renderer.domElement;
+  }
+  /** Presentation-only hit test: no canonical state or football legality is consulted. */
+  pick(clientX: number, clientY: number): PresentationTarget | undefined {
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    const pointer = new THREE.Vector2(
+      ((clientX - rect.left) / rect.width) * 2 - 1,
+      -((clientY - rect.top) / rect.height) * 2 + 1,
+    );
+    this.raycaster.setFromCamera(pointer, this.camera);
+    const ballHit = this.raycaster.intersectObject(this.ball)[0];
+    if (ballHit) {
+      const point = worldToTactical(this.ball.position);
+      return { kind: 'pitch', point };
+    }
+    const playerHit = this.raycaster.intersectObjects([...this.playerMeshes.values()], true)[0];
+    if (playerHit) {
+      let object: THREE.Object3D | null = playerHit.object;
+      while (object && !object.userData.playerId) object = object.parent;
+      if (object?.userData.playerId)
+        return { kind: 'player', playerId: String(object.userData.playerId) };
+    }
+    const pitchHit = this.raycaster.intersectObject(this.pitch)[0];
+    if (!pitchHit) return undefined;
+    const point = worldToTactical(pitchHit.point);
+    if (point.x <= 2 && point.y >= 23 && point.y <= 45) return { kind: 'goal', side: 'home' };
+    if (point.x >= 103 && point.y >= 23 && point.y <= 45) return { kind: 'goal', side: 'away' };
+    return { kind: 'pitch', point };
   }
   private resize() {
     const width = Math.max(this.host.clientWidth, 320),

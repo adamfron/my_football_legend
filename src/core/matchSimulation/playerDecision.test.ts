@@ -9,6 +9,8 @@ import {
   letAiDecide,
   projectPlayerDecisionProbe,
   projectPlayerDecisionOpportunity,
+  projectContextualInteractions,
+  evaluateControlledPlayerBallRelevance,
   resolveMatchAction,
   stepTacticalMatch,
 } from '.';
@@ -133,6 +135,64 @@ describe('player decision lifecycle', () => {
     if (feet.type !== 'pass') throw new Error('expected pass to feet');
     expect(through.target).not.toEqual(feet.target);
     expect(resolveMatchAction(state, through).ball.ownerId).toBeUndefined();
+  });
+
+  it('projects target-first menus without mutating the snapshot', () => {
+    const state = makeState(),
+      snapshot = structuredClone(state),
+      opportunity = projectPlayerDecisionOpportunity(state)!;
+    const teammate = state.players.find(
+      (player) =>
+        player.team === 'home' &&
+        player.id !== opportunity.actorId &&
+        player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    const menu = projectContextualInteractions(state, opportunity, {
+      kind: 'player',
+      playerId: teammate.id,
+    });
+    expect(menu.length).toBeGreaterThan(0);
+    expect(
+      menu.every(
+        (item) =>
+          item.resolution.kind === 'action' &&
+          (item.resolution.action.type !== 'pass' ||
+            item.resolution.action.receiverId === teammate.id),
+      ),
+    ).toBe(true);
+    expect(
+      projectContextualInteractions(state, opportunity, {
+        kind: 'space',
+        point: { x: 91, y: 36 },
+      }).some((item) => item.labelKey === 'carry_here'),
+    ).toBe(true);
+    expect(
+      projectContextualInteractions(state, opportunity, { kind: 'goal', side: 'away' }).every(
+        (item) => item.resolution.kind === 'action' && item.resolution.action.type === 'shot',
+      ),
+    ).toBe(true);
+    expect(
+      projectContextualInteractions(state, opportunity, {
+        kind: 'player',
+        playerId: state.players.find((player) => player.team === 'away')!.id,
+      }),
+    ).toEqual([]);
+    expect(state).toEqual(snapshot);
+  });
+
+  it('rejects a distant dominated loose ball and accepts an immediate contest', () => {
+    const state = makeState(),
+      actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    state.ball = { x: actor.position.x - 20, y: actor.position.y, looseSince: state.time };
+    state.players.find((player) => player.id !== actor.id)!.position = {
+      x: state.ball.x + 1,
+      y: state.ball.y,
+    };
+    expect(evaluateControlledPlayerBallRelevance(state, actor.id).relevant).toBe(false);
+    state.ball = { x: actor.position.x + 3, y: actor.position.y, looseSince: state.time };
+    for (const player of state.players.filter((player) => player.id !== actor.id))
+      player.position = { x: actor.position.x + 4, y: actor.position.y + 4 };
+    expect(evaluateControlledPlayerBallRelevance(state, actor.id).relevant).toBe(true);
   });
 
   it('skips through the canonical NPC path and spectator mode never projects', () => {
