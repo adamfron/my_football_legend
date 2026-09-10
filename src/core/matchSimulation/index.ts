@@ -22,3 +22,5 @@ export * from './playerDecision';
 export * from './decisionOutcome';
 export * from './actionLifecycle';
 export * from './contextualInteractions';
+export * from './actionImpact';
+export * from './matchFlowTelemetry';

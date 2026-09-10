@@ -43,9 +43,15 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR106 — contextual player decision vertical slice — ukończony.**
 - **PR107 — player decision & action lifecycle stabilization — ukończony.**
 - **PR108 — target-first contextual interaction & role-aware decision relevance — ukończony.**
-- **PR109 — decision context hardening & outcome attribution v1 — bieżący.**
-- **PR110 — empirical positioning benchmark & open-play role relationships.**
-- **Później — fatigue / score-state / substitutions / late-game structural behaviour.**
+- **PR109 — decision context hardening & outcome attribution v1 — ukończony.**
+- **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — ukończony.**
+- **PR111 — Open-Play Role Relationships Calibration — bieżący.**
+- **PR112 — fatigue / score-state / substitutions / late-game structural behaviour** (zakres może
+  zostać podzielony po analizie benchmarków PR111).
+
+Materiał kalibracyjny udostępniamy zależnie od skali: szczegółowy incydent jako istniejący JSON
+±10 s (oraz WebM, gdy istotny jest ruch), a wielominutowy trend zachowania jako kompaktowe
+podsumowanie benchmarku sesji JSON.
 
 Warstwy kanonicznego podejmowania akcji pozostają rozdzielone: **formacja → kontekst zespołu →
 relacje ról / intencje ruchu → krótkoterminowa predykcja osiągalnej przestrzeni → obserwacja
