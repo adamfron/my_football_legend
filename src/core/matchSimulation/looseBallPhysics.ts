@@ -1,5 +1,12 @@
 import { z } from 'zod';
-import { clampPitchPoint, distance, type PitchPoint, type TeamSide } from './matchSpace';
+import {
+  clampPitchPoint,
+  distance,
+  pitchPointSchema,
+  teamSideSchema,
+  type PitchPoint,
+  type TeamSide,
+} from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 
 export const pitchSurfacePhysicsSchema = z.object({
@@ -66,6 +73,58 @@ export interface LooseBallAssignment {
   score: number;
   goalkeeper: boolean;
 }
+
+export const ballRaceCandidateSchema = z.object({
+  playerId: z.string(),
+  team: teamSideSchema,
+  interceptPoint: pitchPointSchema,
+  estimatedArrivalTime: z.number().nonnegative().finite(),
+  ballArrivalTime: z.number().nonnegative().finite(),
+  timingDelta: z.number().finite(),
+  goalkeeper: z.boolean(),
+});
+export type BallRaceCandidate = z.infer<typeof ballRaceCandidateSchema>;
+
+/**
+ * A global, deterministic race. Every sample compares all players at the same ball point/time;
+ * the chosen point is the earliest one with a plausible contestant (or the final sample).
+ */
+export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandidate[] => {
+  if (state.ball.ownerId) return [];
+  const velocity = state.ball.velocity ?? { x: 0, y: 0 };
+  const samples = Array.from({ length: 12 }, (_, index) => (index + 1) * 0.25);
+  const evaluated = samples.map((ballArrivalTime) => {
+    const interceptPoint = rollLooseBall(state.ball, velocity, ballArrivalTime).position;
+    const candidates = state.players.flatMap((player) => {
+      const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
+      if (goalkeeper && !isInsideOwnPenaltyArea(interceptPoint, player.team)) return [];
+      const attributes = player.profile.attributes;
+      const speed = 5.4 + attributes.pace * 0.035 + attributes.agility * 0.012;
+      const estimatedArrivalTime = distance(player.position, interceptPoint) / speed;
+      return [
+        {
+          playerId: player.id,
+          team: player.team,
+          interceptPoint,
+          estimatedArrivalTime,
+          ballArrivalTime,
+          timingDelta: estimatedArrivalTime - ballArrivalTime,
+          goalkeeper,
+        },
+      ];
+    });
+    return { ballArrivalTime, candidates };
+  });
+  const sample =
+    evaluated.find(({ candidates }) => candidates.some(({ timingDelta }) => timingDelta <= 0.35)) ??
+    evaluated.at(-1)!;
+  return sample.candidates
+    .sort(
+      (a, b) =>
+        a.estimatedArrivalTime - b.estimatedArrivalTime || a.playerId.localeCompare(b.playerId),
+    )
+    .map((candidate) => ballRaceCandidateSchema.parse(candidate));
+};
 
 /** Selective, deterministic race: at most two outfield players per side plus a locally eligible keeper. */
 export const deriveLooseBallAssignments = (state: TacticalMatchState): LooseBallAssignment[] => {

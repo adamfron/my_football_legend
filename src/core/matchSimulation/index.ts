@@ -18,5 +18,6 @@ export * from './shootingOpportunity';
 export * from './matchSituationEvaluator';
 export * from './looseBallPhysics';
 export * from './playerDecision';
+export * from './decisionOutcome';
 export * from './actionLifecycle';
 export * from './contextualInteractions';

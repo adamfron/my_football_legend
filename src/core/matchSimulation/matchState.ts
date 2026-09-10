@@ -88,6 +88,35 @@ export const playerDecisionGateStateSchema = z.object({
   lastResolvedAt: z.number().nonnegative().optional(),
 });
 export type PlayerDecisionGateState = z.infer<typeof playerDecisionGateStateSchema>;
+export const playerDecisionOutcomeSchema = z.object({
+  decisionId: z.string(),
+  actorId: z.string(),
+  selectedAt: z.number().nonnegative(),
+  resolvedAt: z.number().nonnegative().optional(),
+  decisionKind: z.enum(['on_ball', 'off_ball_run', 'defensive_response', 'loose_ball']),
+  selectedIntent: z.string(),
+  selectedTarget: z.unknown().optional(),
+  startContext: z.object({
+    phase: matchPhaseSchema,
+    pressure: z.number().min(0).max(1),
+    fieldProgress: z.number(),
+    possession: teamSideSchema,
+  }),
+  result: z
+    .object({
+      kind: z.string(),
+      retainedPossession: z.boolean().optional(),
+      teamRetainedPossession: z.boolean().optional(),
+      progressDelta: z.number().optional(),
+      passCompleted: z.boolean().optional(),
+      turnover: z.boolean().optional(),
+      duelWon: z.boolean().optional(),
+      duelLost: z.boolean().optional(),
+      shotOutcome: z.enum(['goal', 'save', 'block', 'miss', 'post', 'crossbar']).optional(),
+    })
+    .optional(),
+});
+export type PlayerDecisionOutcome = z.infer<typeof playerDecisionOutcomeSchema>;
 export const restartScenarioSchema = z.enum([
   'open_play',
   'kick_off',
@@ -232,6 +261,8 @@ export interface TacticalMatchState {
   /** Short-lived canonical execution override shared by human and NPC carries. */
   ballCarrierIntent?: BallCarrierIntent;
   playerDecisionGate?: PlayerDecisionGateState;
+  pendingPlayerDecision?: PlayerDecisionOutcome;
+  lastPlayerDecisionOutcome?: PlayerDecisionOutcome;
   ballOwnershipStartedAt?: number;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
@@ -346,6 +377,8 @@ export const tacticalMatchStateSchema = z
     playerMovementIntent: playerMovementIntentSchema.optional(),
     ballCarrierIntent: ballCarrierIntentSchema.optional(),
     playerDecisionGate: playerDecisionGateStateSchema.optional(),
+    pendingPlayerDecision: playerDecisionOutcomeSchema.optional(),
+    lastPlayerDecisionOutcome: playerDecisionOutcomeSchema.optional(),
     ballOwnershipStartedAt: z.number().nonnegative().optional(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),

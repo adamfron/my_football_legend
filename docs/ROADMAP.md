@@ -18,8 +18,9 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
   a nie sposobem rozstrzygnięcia futbolu.
 - **PR107 — Player Decision & Action Lifecycle Stabilization — ukończony.** Stabilizacja wspólnej
   bramki decyzji, wykonania prowadzenia piłki i fizycznego dojścia pressingu do pojedynku.
-- **PR108 — Target-First Contextual Interaction & Role-Aware Decision Relevance — bieżący.**
-- **PR109 — Empirical Positioning Benchmark & Open-Play Role Relationships.**
+- **PR108 — Target-First Contextual Interaction & Role-Aware Decision Relevance — ukończony.**
+- **PR109 — Decision Context Hardening & Outcome Attribution v1 — bieżący.**
+- **PR110 — Empirical Positioning Benchmark & Open-Play Role Relationships.**
 - **Później:** zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
@@ -39,8 +40,9 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
 - **PR106 — contextual player decision vertical slice — ukończony.**
 - **PR107 — player decision & action lifecycle stabilization — ukończony.**
-- **PR108 — target-first contextual interaction & role-aware decision relevance — bieżący.**
-- **PR109 — empirical positioning benchmark & open-play role relationships.**
+- **PR108 — target-first contextual interaction & role-aware decision relevance — ukończony.**
+- **PR109 — decision context hardening & outcome attribution v1 — bieżący.**
+- **PR110 — empirical positioning benchmark & open-play role relationships.**
 - **Później — fatigue / score-state / substitutions / late-game structural behaviour.**
 
 Warstwy kanonicznego podejmowania akcji pozostają rozdzielone: **formacja → kontekst zespołu →

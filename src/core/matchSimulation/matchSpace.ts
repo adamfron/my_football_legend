@@ -6,6 +6,15 @@ export const PITCH_WIDTH = 68;
 
 export const teamSideSchema = z.enum(['home', 'away']);
 export type TeamSide = z.infer<typeof teamSideSchema>;
+
+/** Canonical team-space direction: home attacks increasing x, away decreasing x. */
+export const attackDirection = (side: TeamSide): 1 | -1 => (side === 'home' ? 1 : -1);
+
+export const signedForwardDistance = (from: PitchPoint, to: PitchPoint, side: TeamSide) =>
+  (to.x - from.x) * attackDirection(side);
+
+export const isAheadOf = (from: PitchPoint, to: PitchPoint, side: TeamSide) =>
+  signedForwardDistance(from, to, side) > 0;
 export const pitchPointSchema = z.object({
   x: z.number().min(0).max(PITCH_LENGTH),
   y: z.number().min(0).max(PITCH_WIDTH),
