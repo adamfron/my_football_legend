@@ -15,7 +15,6 @@ import {
   goalkeeperIntervention,
   findAerialContactCandidates,
   resolveAerialDuel,
-  resolveDeadBallRestart,
   secondBallPriority,
 } from './aerialPlay';
 import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
@@ -834,35 +833,6 @@ export const stepTacticalMatch = (
     const projected = { x: state.ball.x + velocity.x * dt, y: state.ball.y + velocity.y * dt };
     const crossing = findPitchBoundaryCrossing(state.ball, projected);
     if (crossing) return applyBoundaryRestart(state, crossing, state.ball);
-    const boundary = resolveDeadBallRestart(state, projected);
-    if (boundary === 'goal_kick' || boundary === 'corner')
-      return {
-        ...applyRestartScenario(state, boundary, {
-          restartTeam:
-            boundary === 'goal_kick'
-              ? projected.x < 0
-                ? 'home'
-                : 'away'
-              : projected.x < 0
-                ? 'away'
-                : 'home',
-        }),
-        lastBoundaryRestart: boundary,
-      };
-    if (boundary === 'throw_in') {
-      const lastTeam =
-        state.players.find((p) => p.id === state.ball.lastTouchPlayerId)?.team ??
-        state.possessionTeam;
-      const receiving = lastTeam === 'home' ? 'away' : 'home';
-      const claimant = state.players
-        .filter((p) => p.team === receiving)
-        .sort((a, b) => distance(a.position, state.ball) - distance(b.position, state.ball))[0];
-      if (claimant)
-        return {
-          ...changePossession({ ...state, ball: { ...claimant.position } }, claimant.id, 'claim'),
-          lastBoundaryRestart: 'throw_in',
-        };
-    }
     const rolled = rollLooseBall(state.ball, velocity, dt);
     state.ball = {
       ...state.ball,

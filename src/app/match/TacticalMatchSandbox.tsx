@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import {
   createSingleMatchSession,
   getSingleMatchPlayerOverall,
@@ -23,6 +23,10 @@ import {
   type RestartScenario,
   createMatchFlowTelemetry,
   observeMatchFlow,
+  recordDecisionOpportunity,
+  recordDecisionSelection,
+  sampleCanonicalPositioning,
+  type PositioningSample,
 } from '../../core/matchSimulation';
 import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
@@ -48,6 +52,9 @@ const formatMatchTime = (seconds: number) => {
   return `${minutes.toString().padStart(2, '0')}:${(seconds % 60).toFixed(1).padStart(4, '0')}`;
 };
 type RenderFrame = ReturnType<typeof matchStateToFrame>;
+export const PitchCanvasHost = forwardRef<HTMLDivElement>(function PitchCanvasHost(_, ref) {
+  return <div className="pitch-canvas-host" ref={ref} aria-hidden="true" />;
+});
 export const TacticalMatchSandbox = () => {
   const [world, setWorld] = useState<WorldDatabase>(),
     [homeId, setHomeId] = useState(''),
@@ -261,6 +268,7 @@ const RunningLab = ({
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
   const telemetryRef = useRef(createMatchFlowTelemetry());
+  const positioningSamplesRef = useRef<PositioningSample[]>([]);
   stateRef.current = state;
   useEffect(() => {
     if (!hostRef.current) return;
@@ -270,6 +278,7 @@ const RunningLab = ({
     debugRecorderRef.current = new MatchDebugRecorder();
     debugRecorderRef.current.record(initial);
     telemetryRef.current = createMatchFlowTelemetry();
+    positioningSamplesRef.current = [sampleCanonicalPositioning(initial)];
     scoreRef.current = 0;
     setDebugExport(undefined);
     setCaptureStatus('idle');
@@ -293,6 +302,10 @@ const RunningLab = ({
               ? 'renderer_context_restored'
               : undefined;
         if (type) debugRecorderRef.current.ui(stateRef.current.time, type, { message: error });
+        if (error && !wasFaulted) {
+          debugRecorderRef.current.freezePast(stateRef.current.time);
+          videoRecorderRef.current.trigger(stateRef.current.time);
+        }
       },
     );
     const videoRecorder = videoRecorderRef.current;
@@ -320,12 +333,27 @@ const RunningLab = ({
               const projected = projectPlayerDecisionOpportunity(next);
               if (projected) {
                 setOpportunity(projected);
+                recordDecisionOpportunity(
+                  telemetryRef.current,
+                  projected.kind,
+                  projected.triggerReason.includes('autopilot_escalation'),
+                );
                 debugRecorderRef.current.ui(next.time, 'player_decision_opened', projected);
                 break;
               }
               const previousState = next;
               next = stepTacticalMatch(next, FIXED_MATCH_DT);
               telemetryRef.current = observeMatchFlow(telemetryRef.current, previousState, next);
+              if (
+                next.latestAction &&
+                next.latestAction.actorId === next.controlledFootballerId &&
+                (next.latestAction !== previousState.latestAction ||
+                  next.decisionIndex !== previousState.decisionIndex)
+              )
+                recordDecisionSelection(telemetryRef.current, 'autonomous');
+              const lastPositioning = positioningSamplesRef.current.at(-1);
+              if (!lastPositioning || next.time - lastPositioning.time >= 1 - FIXED_MATCH_DT / 2)
+                positioningSamplesRef.current.push(sampleCanonicalPositioning(next));
               const complete = debugRecorderRef.current.record(next);
               if (complete && !finishingRef.current) {
                 finishingRef.current = true;
@@ -448,6 +476,7 @@ const RunningLab = ({
       selected,
       source,
     });
+    recordDecisionSelection(telemetryRef.current, source === 'ai' ? 'dev_ai' : 'human');
     setState(next);
     setOpportunity(undefined);
     setSelectedTarget(undefined);
@@ -458,6 +487,32 @@ const RunningLab = ({
     setSaveMessage(undefined);
     setCaptureError(undefined);
     setCaptureStatus('capturing');
+  };
+  const savePastOnly = () => {
+    const recorder = debugRecorderRef.current;
+    if (!recorder.freezePast(state.time) && recorder.triggerTime === undefined) return;
+    videoRecorderRef.current.trigger(state.time);
+    const basename = debugBasename(state.seed, state.time);
+    try {
+      const trace = recorder.export(
+        session,
+        FIXED_MATCH_DT,
+        { width: window.innerWidth, height: window.innerHeight },
+        videoRecorderRef.current.active,
+        videoRecorderRef.current.captureFps,
+      );
+      setDebugExport({ trace, video: undefined, basename });
+      setCaptureStatus('processing');
+      void videoRecorderRef.current.finish().then((video) => {
+        setDebugExport((current) => (current ? { ...current, video } : current));
+        setCaptureStatus('ready');
+        recorder.resetCapture();
+      });
+    } catch (error) {
+      setCaptureError(error instanceof Error ? error.message : String(error));
+      setCaptureStatus('error');
+      recorder.resetCapture();
+    }
   };
   const clearDebugBuffer = () => {
     debugRecorderRef.current.clear();
@@ -573,7 +628,7 @@ const RunningLab = ({
               matchFlowTelemetry: telemetryRef.current,
               decisionTelemetry: telemetryRef.current.controlled,
               passingNetwork: telemetryRef.current.passingNetwork,
-              sampledPositioning: [],
+              sampledPositioning: positioningSamplesRef.current,
             };
             downloadBlob(
               new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
@@ -585,6 +640,9 @@ const RunningLab = ({
         </button>
         <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
           Przechwyć debug ±10 s
+        </button>
+        <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={savePastOnly}>
+          Zapisz ostatnie 10 s
         </button>
         <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
         {captureStatus === 'idle' && (
@@ -647,7 +705,6 @@ const RunningLab = ({
       <section className="sandbox-grid">
         <div
           className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}
-          ref={hostRef}
           onClick={(event) => {
             if (!opportunity) return;
             const picked = rendererRef.current?.pick(event.clientX, event.clientY);
@@ -674,6 +731,7 @@ const RunningLab = ({
               });
           }}
         >
+          <PitchCanvasHost ref={hostRef} />
           {opportunity && (
             <div className="interaction-hint">Wybierz piłkę, piłkarza, przestrzeń lub bramkę</div>
           )}

@@ -103,6 +103,7 @@ export const matchDebugExportSchema = z.object({
     seed: z.string(),
     fixedDt: z.number(),
     window: z.object({
+      mode: z.enum(['past_only', 'around_trigger']),
       requestedPreSeconds: z.number(),
       requestedPostSeconds: z.number(),
       actualStart: z.number(),
@@ -186,7 +187,9 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
         positioningBenchmark: {
           home: deriveTeamShapeMetrics(state, 'home'),
           away: deriveTeamShapeMetrics(state, 'away'),
-          ...(state.ball.ownerId ? { carrierSupport: derivePlayerSupportMetrics(state, state.ball.ownerId) } : {}),
+          ...(state.ball.ownerId
+            ? { carrierSupport: derivePlayerSupportMetrics(state, state.ball.ownerId) }
+            : {}),
         },
         aiActionRanking: state.ball.ownerId
           ? rankAvailableActionsForAI(state, state.ball.ownerId)
@@ -316,6 +319,7 @@ export class MatchDebugRecorder {
   private uiHistory: z.infer<typeof debugUiEventSchema>[] = [];
   private capturedUi: z.infer<typeof debugUiEventSchema>[] = [];
   private timelineSeed: string | undefined;
+  private mode: 'past_only' | 'around_trigger' | undefined;
   triggerTime: number | undefined;
   constructor(private readonly seconds = DEBUG_WINDOW_SECONDS) {}
   record(state: TacticalMatchState) {
@@ -337,6 +341,7 @@ export class MatchDebugRecorder {
     this.events = this.events.filter((event) => event.time >= earliest);
     if (
       this.captured &&
+      this.mode === 'around_trigger' &&
       this.triggerTime !== undefined &&
       frame.time <= this.triggerTime + this.seconds + 1e-9
     ) {
@@ -351,6 +356,7 @@ export class MatchDebugRecorder {
     this.uiHistory = this.uiHistory.filter((item) => time - item.time <= this.seconds);
     if (
       this.captured &&
+      this.mode === 'around_trigger' &&
       this.triggerTime !== undefined &&
       time <= this.triggerTime + this.seconds + 1e-9
     )
@@ -359,18 +365,35 @@ export class MatchDebugRecorder {
   trigger(time: number) {
     if (this.captured) return false;
     this.triggerTime = time;
+    this.mode = 'around_trigger';
     this.captured = [...this.history];
     this.capturedEvents = [...this.events];
     this.capturedUi = [...this.uiHistory];
     this.ui(time, 'debug_trigger');
     return true;
   }
+  /** Freezes the rolling evidence immediately; future canonical ticks cannot overwrite it. */
+  freezePast(time: number) {
+    if (this.captured) return false;
+    this.triggerTime = time;
+    this.mode = 'past_only';
+    this.captured = [...this.history];
+    this.capturedEvents = [...this.events];
+    this.capturedUi = [...this.uiHistory];
+    this.ui(time, 'debug_past_frozen');
+    return true;
+  }
   isComplete(time: number) {
-    return this.triggerTime !== undefined && time + 1e-9 >= this.triggerTime + this.seconds;
+    return (
+      this.mode === 'around_trigger' &&
+      this.triggerTime !== undefined &&
+      time + 1e-9 >= this.triggerTime + this.seconds
+    );
   }
   resetCapture() {
     this.captured = undefined;
     this.triggerTime = undefined;
+    this.mode = undefined;
     this.timelineSeed = undefined;
     this.capturedEvents = [];
     this.capturedUi = [];
@@ -383,6 +406,7 @@ export class MatchDebugRecorder {
     this.uiHistory = [];
     this.capturedUi = [];
     this.triggerTime = undefined;
+    this.mode = undefined;
   }
   export(
     session: SingleMatchSession,
@@ -391,7 +415,7 @@ export class MatchDebugRecorder {
     videoAvailable: boolean,
     captureFps: number,
   ): MatchDebugExport {
-    if (!this.captured?.length || this.triggerTime === undefined)
+    if (!this.captured?.length || this.triggerTime === undefined || !this.mode)
       throw new Error('Debug capture is not ready.');
     const frames = this.captured.filter(
       (f) => f.time <= this.triggerTime! + this.seconds + fixedDt / 2,
@@ -422,8 +446,9 @@ export class MatchDebugRecorder {
         seed: session.setup.seed,
         fixedDt,
         window: {
+          mode: this.mode,
           requestedPreSeconds: this.seconds,
-          requestedPostSeconds: this.seconds,
+          requestedPostSeconds: this.mode === 'past_only' ? 0 : this.seconds,
           actualStart: frames[0]!.time,
           trigger: this.triggerTime,
           actualEnd: frames.at(-1)!.time,
