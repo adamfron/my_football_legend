@@ -21,6 +21,8 @@ import {
   type PlayerDecisionOpportunity,
   type TacticalMatchState,
   type RestartScenario,
+  createMatchFlowTelemetry,
+  observeMatchFlow,
 } from '../../core/matchSimulation';
 import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
@@ -29,6 +31,7 @@ import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer'
 import { buildStartMenuUrl } from '../devTools';
 import {
   debugBasename,
+  downloadBlob,
   describeDebugCapture,
   isCaptureTriggerDisabled,
   MatchDebugRecorder,
@@ -257,6 +260,7 @@ const RunningLab = ({
     debugRecorderRef = useRef(new MatchDebugRecorder()),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
+  const telemetryRef = useRef(createMatchFlowTelemetry());
   stateRef.current = state;
   useEffect(() => {
     if (!hostRef.current) return;
@@ -265,6 +269,7 @@ const RunningLab = ({
     replayBufferRef.current = [matchStateToFrame(initial)];
     debugRecorderRef.current = new MatchDebugRecorder();
     debugRecorderRef.current.record(initial);
+    telemetryRef.current = createMatchFlowTelemetry();
     scoreRef.current = 0;
     setDebugExport(undefined);
     setCaptureStatus('idle');
@@ -318,7 +323,9 @@ const RunningLab = ({
                 debugRecorderRef.current.ui(next.time, 'player_decision_opened', projected);
                 break;
               }
+              const previousState = next;
               next = stepTacticalMatch(next, FIXED_MATCH_DT);
+              telemetryRef.current = observeMatchFlow(telemetryRef.current, previousState, next);
               const complete = debugRecorderRef.current.record(next);
               if (complete && !finishingRef.current) {
                 finishingRef.current = true;
@@ -557,6 +564,25 @@ const RunningLab = ({
         </button>
       </nav>
       <nav className="debug-capture" aria-label="Eksport diagnostyczny">
+        <button
+          onClick={() => {
+            const summary = {
+              metadata: { schema: 'mfl-session-benchmark-v1', seed: state.seed },
+              duration: state.time,
+              controlledPlayer: state.controlledFootballerId,
+              matchFlowTelemetry: telemetryRef.current,
+              decisionTelemetry: telemetryRef.current.controlled,
+              passingNetwork: telemetryRef.current.passingNetwork,
+              sampledPositioning: [],
+            };
+            downloadBlob(
+              new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
+              `${state.seed}-benchmark-sesji.json`,
+            );
+          }}
+        >
+          Eksportuj benchmark sesji
+        </button>
         <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
           Przechwyć debug ±10 s
         </button>
@@ -798,9 +824,15 @@ const RunningLab = ({
                 <strong>{side === 'home' ? 'Gospodarze' : 'Goście'}</strong>: środek{' '}
                 {metric.centroid.x.toFixed(1)}, {metric.centroid.y.toFixed(1)} · długość{' '}
                 {metric.length.toFixed(1)} m · szerokość {metric.width.toFixed(1)} m · rozciągnięcie{' '}
-                {metric.stretchIndex.toFixed(1)} m · pole {metric.convexHullArea.toFixed(0)} m² · przed/za piłką{' '}
-                {metric.playersAheadOfBall}/{metric.playersBehindBall} · linie DEF–MID {metric.lines.defenceToMidfield.toFixed(1)} m,
-                MID–ATT {metric.lines.midfieldToAttack.toFixed(1)} m · zabezpieczenie {metric.restDefenceCount} · pasy {Object.values(metric.lanes).slice(0, 5).map(value => value ? '✓' : '—').join(' ')}
+                {metric.stretchIndex.toFixed(1)} m · pole {metric.convexHullArea.toFixed(0)} m² ·
+                przed/za piłką {metric.playersAheadOfBall}/{metric.playersBehindBall} · linie
+                DEF–MID {metric.lines.defenceToMidfield.toFixed(1)} m, MID–ATT{' '}
+                {metric.lines.midfieldToAttack.toFixed(1)} m · zabezpieczenie{' '}
+                {metric.restDefenceCount} · pasy{' '}
+                {Object.values(metric.lanes)
+                  .slice(0, 5)
+                  .map((value) => (value ? '✓' : '—'))
+                  .join(' ')}
               </div>
             ))}
           </details>

@@ -206,6 +206,17 @@ export const scoreActionForAI = (
   const progression =
     fieldValue(action.target, actor.team) - fieldValue(actor.position, actor.team);
   const receiverPressure = pressure(state, receiver);
+  const markerSeparation = Math.min(
+    15,
+    ...opponents(state, actor).map((opponent) => distance(opponent.position, receiver.position)),
+  );
+  const widthGained = Math.abs(action.target.y - 34) - Math.abs(actor.position.y - 34);
+  const switchValue =
+    Math.sign(actor.position.y - 34) !== Math.sign(action.target.y - 34)
+      ? Math.min(12, Math.abs(action.target.y - actor.position.y) * 0.22)
+      : 0;
+  const recycleValue =
+    action.intent === 'support' && progression > -9 && markerSeparation >= 5 ? 7 : 0;
   const laneRisk = opponents(state, actor).filter(
     (p) => distanceToSegment(p.position, actor.position, action.target) < 3.5,
   ).length;
@@ -234,6 +245,10 @@ export const scoreActionForAI = (
     length * 0.3 -
     receiverPressure * 17 -
     laneRisk * 10 +
+    markerSeparation * 0.7 +
+    Math.max(0, widthGained) * 0.35 +
+    switchValue +
+    recycleValue +
     technical +
     styleIntent +
     (space ? Math.max(-35, Math.min(25, space.utility)) : 0)

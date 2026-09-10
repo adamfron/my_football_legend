@@ -3,6 +3,7 @@ import { deriveLooseBallAssignments } from './looseBallPhysics';
 import {
   clampPitchPoint,
   distance,
+  fieldValue,
   formationSlotToTeamSpace,
   PITCH_LENGTH,
   type PitchPoint,
@@ -170,6 +171,53 @@ export const deriveAttackingRunIds = (state: TacticalMatchState, side: TeamSide)
 const isWideDefender = (p: MatchPlayerState) =>
   ['left_back', 'right_back', 'left_wing_back', 'right_wing_back'].includes(p.slot.position);
 
+const isWideAttacker = (p: MatchPlayerState) =>
+  ['left_winger', 'right_winger', 'left_midfielder', 'right_midfielder'].includes(p.slot.position);
+
+/** Small relational layer between the team block and individual space seeking. */
+export const applyRoleRelationships = (
+  state: TacticalMatchState,
+  player: MatchPlayerState,
+  structural: PitchPoint,
+): PitchPoint => {
+  const mates = state.players.filter((mate) => mate.team === player.team && mate.id !== player.id);
+  const owns = state.possessionTeam === player.team;
+  const dir = direction(player.team);
+  const widePartner = mates.find((mate) => {
+    const sameFlank =
+      Math.sign(mate.neutralAnchor.y - 34) === Math.sign(player.neutralAnchor.y - 34);
+    return (
+      sameFlank &&
+      (isWideDefender(player)
+        ? isWideAttacker(mate)
+        : isWideAttacker(player) && isWideDefender(mate))
+    );
+  });
+  let target = structural;
+  if (owns && widePartner && (isWideDefender(player) || isWideAttacker(player))) {
+    const partnerWide = Math.abs(widePartner.position.y - 34) >= 20;
+    // One provides the touchline, the other a staggered inside/behind connection.
+    if (partnerWide)
+      target = {
+        x: target.x - dir * (isWideDefender(player) ? 3 : 0),
+        y: 34 + (target.y - 34) * 0.68,
+      };
+    else
+      target = {
+        ...target,
+        y: 34 + Math.sign(player.neutralAnchor.y - 34) * Math.max(23, Math.abs(target.y - 34)),
+      };
+  }
+  if (owns && isWideDefender(player) && fieldValue(state.ball, player.team) < 66) {
+    // A fullback remains a distinct lateral build-up outlet rather than following the ball inward.
+    target = {
+      x: target.x - dir * 2,
+      y: 34 + Math.sign(player.neutralAnchor.y - 34) * Math.max(19, Math.abs(target.y - 34)),
+    };
+  }
+  return clampPitchPoint(target);
+};
+
 export interface PressingAssignment {
   primary?: string;
   cover?: string;
@@ -288,6 +336,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
             (player.duty === 'defend' ? 0.68 : player.duty === 'attack' ? 1.18 : 1),
         y: 34 + (neutralAnchor.y - 34) * block.widthScale + block.lateral,
       };
+    structural = applyRoleRelationships(state, player, structural);
     let ideal = structural;
     const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
     if (!isKeeper && carrier) {
