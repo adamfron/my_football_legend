@@ -350,6 +350,12 @@ describe('player decision lifecycle', () => {
   it('offers a relevant loose-ball race and expires real movement intent', () => {
     const state = makeState(),
       actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    for (const player of state.players.filter((candidate) => candidate.id !== actor.id))
+      player.position = { x: 20, y: 60 };
+    state.players.find((player) => player.team !== actor.team)!.position = {
+      x: actor.position.x + 2.4,
+      y: actor.position.y,
+    };
     state.ball = { x: actor.position.x + 2, y: actor.position.y, looseSince: state.time };
     const opportunity = projectPlayerDecisionOpportunity(state)!;
     const next = applyPlayerDecision(state, opportunity, opportunity.options[0]!.id);

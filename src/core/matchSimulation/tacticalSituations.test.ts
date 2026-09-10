@@ -90,10 +90,8 @@ describe('tactical situation playbook', () => {
     const state = makeState();
     for (const side of ['home', 'away'] as const)
       expect(
-        Object.values(deriveTeamShapeMetrics(state, side)).every((value) =>
-          typeof value === 'number' ? Number.isFinite(value) : Number.isFinite(value.x + value.y),
-        ),
-      ).toBe(true);
+        JSON.stringify(deriveTeamShapeMetrics(state, side)).includes('null'),
+      ).toBe(false);
     const files = import.meta.glob('./*.ts', { query: '?raw', import: 'default', eager: true });
     expect(
       Object.entries(files).filter(

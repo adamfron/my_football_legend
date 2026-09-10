@@ -253,6 +253,7 @@ const RunningLab = ({
     replayBufferRef = useRef<RenderFrame[]>([]),
     scoreRef = useRef(0),
     stateRef = useRef(state),
+    rendererFaultRef = useRef(false),
     debugRecorderRef = useRef(new MatchDebugRecorder()),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
@@ -275,7 +276,19 @@ const RunningLab = ({
     const renderer = new TacticalPitchRenderer(
       hostRef.current,
       matchStateToFrame(initial),
-      (error) => setRendererError(error),
+      (error) => {
+        setRendererError(error);
+        const wasFaulted = rendererFaultRef.current;
+        rendererFaultRef.current = Boolean(error);
+        const type = error?.includes('context lost')
+          ? 'renderer_context_lost'
+          : error?.includes('recovery failed')
+            ? 'renderer_recovery_failed'
+            : !error && wasFaulted
+              ? 'renderer_context_restored'
+              : undefined;
+        if (type) debugRecorderRef.current.ui(stateRef.current.time, type, { message: error });
+      },
     );
     const videoRecorder = videoRecorderRef.current;
     rendererRef.current = renderer;
@@ -668,7 +681,12 @@ const RunningLab = ({
         </div>
         <aside className="decision-board">
           <small>STAN KANONICZNY</small>
-          {rendererError && <strong>{rendererError}</strong>}
+          {rendererError && (
+            <strong>
+              {rendererError}{' '}
+              <button onClick={() => rendererRef.current?.recover()}>Odtwórz renderer</button>
+            </strong>
+          )}
           {opportunity && opportunity.kind === 'on_ball' && (
             <button
               className="dev-ai-choice"
@@ -774,14 +792,15 @@ const RunningLab = ({
             Kotwice i cele
           </label>
           <details>
-            <summary>Metryki kształtu drużyn (DEV)</summary>
+            <summary>Benchmark pozycyjny (DEV)</summary>
             {shapeMetrics.map(([side, metric]) => (
               <div key={side}>
                 <strong>{side === 'home' ? 'Gospodarze' : 'Goście'}</strong>: środek{' '}
                 {metric.centroid.x.toFixed(1)}, {metric.centroid.y.toFixed(1)} · długość{' '}
                 {metric.length.toFixed(1)} m · szerokość {metric.width.toFixed(1)} m · rozciągnięcie{' '}
-                {metric.stretchIndex.toFixed(1)} m · pole {metric.area.toFixed(0)} m² · przed piłką{' '}
-                {metric.playersAheadOfBall} · zabezpieczenie {metric.restDefenceCount}
+                {metric.stretchIndex.toFixed(1)} m · pole {metric.convexHullArea.toFixed(0)} m² · przed/za piłką{' '}
+                {metric.playersAheadOfBall}/{metric.playersBehindBall} · linie DEF–MID {metric.lines.defenceToMidfield.toFixed(1)} m,
+                MID–ATT {metric.lines.midfieldToAttack.toFixed(1)} m · zabezpieczenie {metric.restDefenceCount} · pasy {Object.values(metric.lanes).slice(0, 5).map(value => value ? '✓' : '—').join(' ')}
               </div>
             ))}
           </details>

@@ -22,6 +22,8 @@ export class TacticalPitchRenderer {
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
   private contextLost = false;
+  private lastValidFrame?: TacticalFrame;
+  private lastDebugMode = false;
   private readonly report: (message?: string) => void;
 
   constructor(
@@ -245,10 +247,16 @@ export class TacticalPitchRenderer {
     const ball = tacticalToWorld(frame.ball, (frame.ball.height ?? 0) + 0.85);
     this.ball.position.set(ball.x, ball.y, ball.z);
     this.renderer.render(this.scene, this.camera);
+    this.lastValidFrame = frame;
+    this.lastDebugMode = debug;
   }
 
   getCanvas() {
     return this.renderer.domElement;
+  }
+  /** Retries presentation reconstruction from the frozen frame; canonical state is untouched. */
+  recover() {
+    this.onContextRestored();
   }
   /** Presentation-only hit test: no canonical state or football legality is consulted. */
   pick(clientX: number, clientY: number): PresentationTarget | undefined {
@@ -324,6 +332,14 @@ export class TacticalPitchRenderer {
 
   private readonly onContextRestored = () => {
     this.contextLost = false;
-    this.report(undefined);
+    try {
+      this.resize();
+      if (!this.lastValidFrame) throw new Error('brak ostatniej poprawnej klatki');
+      this.render(this.lastValidFrame, this.lastDebugMode);
+      this.report(undefined);
+    } catch (error) {
+      this.contextLost = true;
+      this.report(`Renderer recovery failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
   };
 }
