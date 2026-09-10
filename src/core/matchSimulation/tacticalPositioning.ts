@@ -299,12 +299,20 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
         };
       } else {
         const assignment = assignments[player.team];
-        if (assignment.primary === player.id)
-          ideal = {
-            x: lerp(ideal.x, carrier.position.x, 0.68 * parameters.pressing * local),
-            y: lerp(ideal.y, carrier.position.y, 0.68 * parameters.pressing * local),
+        if (assignment.primary === player.id) {
+          const commits =
+            distance(player.position, carrier.position) <= 10 + parameters.pressing * 8;
+          const approach = {
+            x: carrier.position.x - dir * (0.8 + (1 - parameters.pressing) * 0.6),
+            y: carrier.position.y,
           };
-        else if (assignment.cover === player.id)
+          ideal = commits
+            ? approach
+            : {
+                x: lerp(ideal.x, carrier.position.x, 0.68 * parameters.pressing * local),
+                y: lerp(ideal.y, carrier.position.y, 0.68 * parameters.pressing * local),
+              };
+        } else if (assignment.cover === player.id)
           ideal = {
             x: lerp(ideal.x, carrier.position.x - dir * 5, 0.28 * local),
             y: lerp(ideal.y, carrier.position.y, 0.28 * local),

@@ -10,6 +10,7 @@ import {
   type TacticalMatchState,
 } from './matchState';
 import { deriveLooseBallAssignments } from './looseBallPhysics';
+import { isActionResolutionInProgress } from './actionLifecycle';
 
 export const playerDecisionOptionSchema = z.discriminatedUnion('kind', [
   z.object({
@@ -41,6 +42,28 @@ export interface PlayerDecisionGate {
   lastSituationSignature?: string;
   lastResolvedAt?: number;
 }
+export const playerDecisionProbeSchema = z.object({
+  actorId: z.string().optional(),
+  candidate: z.boolean(),
+  opportunityKind: playerDecisionOpportunitySchema.shape.kind.optional(),
+  blockedReason: z
+    .enum([
+      'no_controlled_player',
+      'not_open_play',
+      'resolution_in_progress',
+      'routine',
+      'not_relevant',
+      'same_situation',
+      'cooldown',
+      'no_options',
+    ])
+    .optional(),
+  situationKind: z.string().optional(),
+  decisionWorthiness: z.number().optional(),
+  pressure: z.number().optional(),
+  signature: z.string().optional(),
+});
+export type PlayerDecisionProbe = z.infer<typeof playerDecisionProbeSchema>;
 
 const actionLabel = (action: MatchAction) =>
   action.type === 'hold'
@@ -55,19 +78,32 @@ const actionLabel = (action: MatchAction) =>
             ? `pass_${action.intent}`
             : `header_${action.intent}`;
 const signatureFor = (state: TacticalMatchState, kind: string) => {
-  const bucket = Math.floor(state.timeSincePossessionChanged / 2);
-  return `${kind}:${state.ball.ownerId ?? 'loose'}:${state.teams[state.possessionTeam].phase}:${bucket}`;
+  const situation = evaluateMatchSituation(state, state.controlledFootballerId);
+  const pressureBand = Math.floor((situation.context.pressure ?? 0) * 4);
+  const territoryBand = Math.floor((situation.context.fieldProgress ?? 0) * 5);
+  const possessionEvent = state.ballOwnershipStartedAt ?? 0;
+  return `${kind}:${state.ball.ownerId ?? 'loose'}:${possessionEvent}:${state.teams[state.possessionTeam].phase}:${pressureBand}:${territoryBand}`;
 };
 
-/** Pure, RNG-free projection. The gate is supplied explicitly; evaluator history stays outside it. */
-export const projectPlayerDecisionOpportunity = (
+const projectDecision = (
   state: TacticalMatchState,
-  gate: PlayerDecisionGate = {},
-): PlayerDecisionOpportunity | undefined => {
+  suppliedGate?: PlayerDecisionGate,
+): { probe: PlayerDecisionProbe; opportunity?: PlayerDecisionOpportunity } => {
+  const gate = suppliedGate ?? state.playerDecisionGate ?? {};
   const actorId = state.controlledFootballerId;
   const actor = state.players.find((p) => p.id === actorId);
-  if (!actorId || !actor || state.scenario !== 'open_play' || state.currentAction) return undefined;
+  const blocked = (blockedReason: PlayerDecisionProbe['blockedReason'], extra = {}) => ({
+    probe: playerDecisionProbeSchema.parse({ actorId, candidate: false, blockedReason, ...extra }),
+  });
+  if (!actorId || !actor) return blocked('no_controlled_player');
+  if (state.scenario !== 'open_play') return blocked('not_open_play');
+  if (isActionResolutionInProgress(state)) return blocked('resolution_in_progress');
   const situation = evaluateMatchSituation(state, actorId);
+  const context = {
+    situationKind: situation.kind,
+    decisionWorthiness: situation.decisionWorthiness,
+    pressure: situation.context.pressure,
+  };
   let kind: PlayerDecisionOpportunity['kind'] | undefined;
   let options: PlayerDecisionOption[] = [];
   if (state.ball.ownerId === actorId && situation.decisionEligible) {
@@ -125,14 +161,14 @@ export const projectPlayerDecisionOpportunity = (
       },
     }));
   }
-  if (!kind || !options.length) return undefined;
+  if (!kind) return blocked(state.ball.ownerId === actorId ? 'routine' : 'not_relevant', context);
+  if (!options.length) return blocked('no_options', context);
   const signature = signatureFor(state, kind);
-  if (
-    gate.lastSituationSignature === signature ||
-    (gate.lastResolvedAt !== undefined && state.time - gate.lastResolvedAt < 1.5)
-  )
-    return undefined;
-  return playerDecisionOpportunitySchema.parse({
+  if (gate.lastSituationSignature === signature)
+    return blocked('same_situation', { ...context, signature });
+  if (gate.lastResolvedAt !== undefined && state.time - gate.lastResolvedAt < 1.5)
+    return blocked('cooldown', { ...context, signature });
+  const opportunity = playerDecisionOpportunitySchema.parse({
     id: `${actorId}:${state.decisionIndex}:${signature}`,
     actorId,
     openedAt: state.time,
@@ -142,6 +178,27 @@ export const projectPlayerDecisionOpportunity = (
     situation,
     options,
   });
+  return {
+    opportunity,
+    probe: playerDecisionProbeSchema.parse({
+      actorId,
+      candidate: true,
+      opportunityKind: kind,
+      signature,
+      ...context,
+    }),
+  };
+};
+
+export const projectPlayerDecisionProbe = (state: TacticalMatchState, gate?: PlayerDecisionGate) =>
+  projectDecision(state, gate).probe;
+
+/** Pure, RNG-free projection. The gate is supplied explicitly; evaluator history stays outside it. */
+export const projectPlayerDecisionOpportunity = (
+  state: TacticalMatchState,
+  gate?: PlayerDecisionGate,
+): PlayerDecisionOpportunity | undefined => {
+  return projectDecision(state, gate).opportunity;
 };
 
 export const applyPlayerDecision = (
@@ -151,14 +208,29 @@ export const applyPlayerDecision = (
 ) => {
   if (opportunity.actorId !== state.controlledFootballerId || opportunity.openedAt !== state.time)
     return state;
+  if (state.playerDecisionGate?.lastSituationSignature === opportunity.signature) return state;
   const option = opportunity.options.find((candidate) => candidate.id === optionId);
   if (!option) return state;
+  const gated = {
+    ...state,
+    playerDecisionGate: {
+      lastSituationSignature: opportunity.signature,
+      lastResolvedAt: state.time,
+    },
+  };
   return option.kind === 'action'
-    ? resolveMatchAction(state, option.action)
-    : { ...state, playerMovementIntent: option.intent };
+    ? resolveMatchAction(gated, option.action)
+    : { ...gated, playerMovementIntent: option.intent };
 };
 export const letAiDecide = (state: TacticalMatchState, opportunity: PlayerDecisionOpportunity) => {
   if (opportunity.kind !== 'on_ball') return state;
   const action = chooseNpcAction(state, opportunity.actorId);
-  return action ? resolveMatchAction(state, action) : state;
+  const gated = {
+    ...state,
+    playerDecisionGate: {
+      lastSituationSignature: opportunity.signature,
+      lastResolvedAt: state.time,
+    },
+  };
+  return action ? resolveMatchAction(gated, action) : gated;
 };

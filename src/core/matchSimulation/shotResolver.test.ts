@@ -105,8 +105,12 @@ describe('canonical shot resolver v2', () => {
     });
     expect(launched.ball.travelKind).toBe('header');
     let current = launched;
-    for (let index = 0; index < 100; index += 1) current = stepTacticalMatch(current, 0.1);
-    expect(current.lastShot).toEqual(expect.objectContaining({ shooterId: shooter.id }));
+    let resolvedHeader = false;
+    for (let index = 0; index < 100; index += 1) {
+      current = stepTacticalMatch(current, 0.1);
+      resolvedHeader ||= current.lastShot?.shooterId === shooter.id;
+    }
+    expect(resolvedHeader).toBe(true);
     expect(Number.isFinite(current.ball.x) && Number.isFinite(current.ball.y)).toBe(true);
     expect(
       current.ball.ownerId ||

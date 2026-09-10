@@ -24,6 +24,16 @@ const owner = (state: TacticalMatchState) =>
   state.players.find((p) => p.id === state.ball.ownerId)!;
 
 describe('canonical match situation evaluator', () => {
+  it('distinguishes teammate possession from opponent possession', () => {
+    const state = makeState();
+    const actor = owner(state);
+    const teammate = state.players.find(
+      (player) => player.team === actor.team && player.id !== actor.id,
+    )!;
+    state.ball = { ...teammate.position, ownerId: teammate.id };
+    expect(evaluateMatchSituation(state, actor.id).context.possession).toBe('team');
+  });
+
   it('separates routine, pressure, central chances, poor angles and transitions', () => {
     const state = makeState();
     const actor = owner(state);

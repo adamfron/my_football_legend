@@ -7,6 +7,7 @@ import {
   createTacticalMatch,
   enumerateAvailableActions,
   letAiDecide,
+  projectPlayerDecisionProbe,
   projectPlayerDecisionOpportunity,
   resolveMatchAction,
   stepTacticalMatch,
@@ -57,6 +58,48 @@ describe('player decision lifecycle', () => {
     expect(state).toEqual(snapshot);
   });
 
+  it('does not let historical action fields deadlock a meaningful receiver decision', () => {
+    const state = makeState();
+    state.currentAction = { type: 'hold', actorId: state.players[1]!.id };
+    state.latestAction = state.currentAction;
+    const opportunity = projectPlayerDecisionOpportunity(state);
+    expect(opportunity?.kind).toBe('on_ball');
+    expect(projectPlayerDecisionProbe(state).candidate).toBe(true);
+    expect(stepTacticalMatch(state, 0.025)).toBe(state);
+  });
+
+  it('keeps routine possession automatic and diagnoses its blocker', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    actor.position = { x: 51, y: 8 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    for (const opponent of state.players.filter((player) => player.team !== actor.team))
+      opponent.position = { x: Math.max(0, actor.position.x - 15), y: 50 };
+    state.actionCooldown = 0;
+    expect(projectPlayerDecisionProbe(state).blockedReason).toBe('routine');
+    expect(stepTacticalMatch(state, 0.025).decisionIndex).toBeGreaterThan(state.decisionIndex);
+  });
+
+  it('executes carry through tactical recomputation and restores tactical control', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    for (const opponent of state.players.filter((player) => player.team !== actor.team))
+      opponent.position = { x: 20, y: 60 };
+    const target = { x: actor.position.x + 8, y: actor.position.y + 3 };
+    let carried = resolveMatchAction(state, { type: 'carry', actorId: actor.id, target });
+    const startDistance = Math.hypot(target.x - actor.position.x, target.y - actor.position.y);
+    delete carried.controlledFootballerId;
+    for (let index = 0; index < 40; index += 1) carried = stepTacticalMatch(carried, 0.025);
+    const moving = carried.players.find((player) => player.id === actor.id)!;
+    expect(moving.target).toEqual(target);
+    expect(Math.hypot(target.x - moving.position.x, target.y - moving.position.y)).toBeLessThan(
+      startDistance,
+    );
+    for (let index = 0; index < 100; index += 1) carried = stepTacticalMatch(carried, 0.025);
+    expect(carried.ballCarrierIntent).toBeUndefined();
+    expect(carried.players.find((player) => player.id === actor.id)!.target).not.toEqual(target);
+  });
+
   it('resolves a selected action through the identical canonical resolver exactly once', () => {
     const state = makeState(),
       opportunity = projectPlayerDecisionOpportunity(state)!;
@@ -64,11 +107,16 @@ describe('player decision lifecycle', () => {
       (candidate) => candidate.kind === 'action' && candidate.action.type === 'pass',
     )!;
     if (option.kind !== 'action') throw new Error('expected canonical action');
-    expect(applyPlayerDecision(state, opportunity, option.id)).toEqual(
-      resolveMatchAction(state, option.action),
-    );
-    const advanced = stepTacticalMatch(state, 0.025);
-    expect(applyPlayerDecision(advanced, opportunity, option.id)).toBe(advanced);
+    const gated = {
+      ...state,
+      playerDecisionGate: {
+        lastSituationSignature: opportunity.signature,
+        lastResolvedAt: state.time,
+      },
+    };
+    const resolved = applyPlayerDecision(state, opportunity, option.id);
+    expect(resolved).toEqual(resolveMatchAction(gated, option.action));
+    expect(applyPlayerDecision(resolved, opportunity, option.id)).toBe(resolved);
   });
 
   it('distinguishes feet and reachable-space pass targets without receiver privilege', () => {
@@ -91,7 +139,18 @@ describe('player decision lifecycle', () => {
     const state = makeState(),
       opportunity = projectPlayerDecisionOpportunity(state)!;
     const action = chooseNpcAction(state, opportunity.actorId)!;
-    expect(letAiDecide(state, opportunity)).toEqual(resolveMatchAction(state, action));
+    expect(letAiDecide(state, opportunity)).toEqual(
+      resolveMatchAction(
+        {
+          ...state,
+          playerDecisionGate: {
+            lastSituationSignature: opportunity.signature,
+            lastResolvedAt: state.time,
+          },
+        },
+        action,
+      ),
+    );
     delete state.controlledFootballerId;
     expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
   });

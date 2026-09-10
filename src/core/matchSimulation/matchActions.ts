@@ -239,18 +239,35 @@ export const scoreActionForAI = (
     (space ? Math.max(-35, Math.min(25, space.utility)) : 0)
   );
 };
+export interface RankedAiAction {
+  action: MatchAction;
+  canonicalScore: number;
+  deterministicNoise: number;
+  score: number;
+}
+/** Canonical AI ranking; safe for diagnostics because its noise is seed-derived, not stateful RNG. */
+export const rankAvailableActionsForAI = (
+  state: TacticalMatchState,
+  actorId: string,
+): RankedAiAction[] => {
+  const rng = RandomGenerator.fromSeed(`${state.seed}:decision:${state.decisionIndex}:${actorId}`);
+  return enumerateAvailableActions(state, actorId)
+    .map((action) => {
+      const canonicalScore = scoreActionForAI(state, actorId, action);
+      const deterministicNoise = (rng.float() - 0.5) * 8;
+      return {
+        action,
+        canonicalScore,
+        deterministicNoise,
+        score: canonicalScore + deterministicNoise,
+      };
+    })
+    .sort((a, b) => b.score - a.score);
+};
 export const chooseNpcAction = (
   state: TacticalMatchState,
   actorId: string,
-): MatchAction | undefined => {
-  const rng = RandomGenerator.fromSeed(`${state.seed}:decision:${state.decisionIndex}:${actorId}`);
-  return enumerateAvailableActions(state, actorId)
-    .map((action) => ({
-      action,
-      score: scoreActionForAI(state, actorId, action) + (rng.float() - 0.5) * 8,
-    }))
-    .sort((a, b) => b.score - a.score)[0]?.action;
-};
+): MatchAction | undefined => rankAvailableActionsForAI(state, actorId)[0]?.action;
 
 export const resolveMatchAction = (
   state: TacticalMatchState,
@@ -263,9 +280,11 @@ export const resolveMatchAction = (
       ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
       : state.restart;
   const offsideSnapshot = captureOffsideSnapshot(state, action);
+  const { ballCarrierIntent: _interruptedCarry, ...baseState } = state;
+  void _interruptedCarry;
   if (action.type === 'hold')
     return {
-      ...state,
+      ...baseState,
       currentAction: action,
       latestAction: action,
       currentActorId: actor.id,
@@ -275,8 +294,14 @@ export const resolveMatchAction = (
     };
   if (action.type === 'carry')
     return {
-      ...state,
-      players: state.players.map((p) => (p.id === actor.id ? { ...p, target: action.target } : p)),
+      ...baseState,
+      ballCarrierIntent: {
+        actorId: actor.id,
+        type: 'carry' as const,
+        target: action.target,
+        startedAt: state.time,
+        expiresAt: state.time + 2.4,
+      },
       currentAction: action,
       latestAction: action,
       currentActorId: actor.id,
@@ -297,7 +322,7 @@ export const resolveMatchAction = (
     const target = { ...shot.goalPoint, x: shot.goalPoint.x + direction * 2 };
     const duration = Math.max(0.28, distance(actor.position, target) / shot.speed);
     return {
-      ...state,
+      ...baseState,
       ball: {
         x: state.ball.x,
         y: state.ball.y,
@@ -349,7 +374,7 @@ export const resolveMatchAction = (
         }
       : action.target;
     return {
-      ...state,
+      ...baseState,
       ball: {
         x: state.ball.x,
         y: state.ball.y,
@@ -398,7 +423,7 @@ export const resolveMatchAction = (
   const receiver = state.players.find((p) => p.id === action.receiverId)!;
   const duration = Math.max(0.45, distance(actor.position, action.target) / 24);
   return {
-    ...state,
+    ...baseState,
     ball: {
       x: state.ball.x,
       y: state.ball.y,

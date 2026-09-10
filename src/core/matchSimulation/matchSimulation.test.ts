@@ -386,6 +386,22 @@ describe('autonomous tactical simulation', () => {
       distance(primary.idealTarget, primary.neutralAnchor),
     );
   });
+  it('gives a committed primary presser a challenge-distance approach point', () => {
+    const state = createTacticalMatch(session('committed-press'));
+    state.teams.away.style = 'balanced';
+    const carrier = state.players.find((player) => player.id === state.ball.ownerId)!;
+    const assignment = derivePressingAssignment(state, 'away');
+    const primary = state.players.find((player) => player.id === assignment.primary)!;
+    const cover = state.players.find((player) => player.id === assignment.cover)!;
+    primary.position = { x: carrier.position.x + 6, y: carrier.position.y };
+    cover.position = { x: carrier.position.x + 8, y: carrier.position.y + 4 };
+    const targets = deriveTacticalTargets(state);
+    const primaryTarget = targets.find((player) => player.id === primary.id)!;
+    const coverTarget = targets.find((player) => player.id === cover.id)!;
+    expect(distance(primaryTarget.idealTarget, carrier.position)).toBeGreaterThanOrEqual(0.8);
+    expect(distance(primaryTarget.idealTarget, carrier.position)).toBeLessThanOrEqual(1.4);
+    expect(distance(coverTarget.idealTarget, carrier.position)).toBeGreaterThan(3);
+  });
   it('constrains only the ideal offside target, never physical position', () => {
     const state = createTacticalMatch(session('physical-offside'));
     const attacker = state.players.find(

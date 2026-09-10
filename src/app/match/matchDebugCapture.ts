@@ -1,7 +1,11 @@
 import { z } from 'zod';
 import type { SingleMatchSession } from '../../core/singleMatch';
 import type { TacticalMatchState } from '../../core/matchSimulation';
-import { evaluateMatchSituation } from '../../core/matchSimulation';
+import {
+  evaluateMatchSituation,
+  projectPlayerDecisionProbe,
+  rankAvailableActionsForAI,
+} from '../../core/matchSimulation';
 import { DEFAULT_PITCH_SURFACE, deriveLooseBallAssignments } from '../../core/matchSimulation';
 import { resolveFormationDuty } from '../../core/footballerWorld';
 
@@ -28,6 +32,11 @@ export const debugFrameSchema = z.object({
   currentActorId: z.string().optional(),
   currentAction: z.unknown().optional(),
   latestAction: z.unknown().optional(),
+  ballCarrierIntent: z.unknown().optional(),
+  playerMovementIntent: z.unknown().optional(),
+  decisionGate: z.unknown().optional(),
+  playerDecisionProbe: z.unknown(),
+  aiActionRanking: z.array(z.unknown()),
   pressure: z.number(),
   nearestChallengerId: z.string().optional(),
   ball: z.object({
@@ -167,6 +176,13 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
         currentActorId: state.currentActorId,
         currentAction: state.currentAction,
         latestAction: state.latestAction,
+        ballCarrierIntent: state.ballCarrierIntent,
+        playerMovementIntent: state.playerMovementIntent,
+        decisionGate: state.playerDecisionGate,
+        playerDecisionProbe: projectPlayerDecisionProbe(state),
+        aiActionRanking: state.ball.ownerId
+          ? rankAvailableActionsForAI(state, state.ball.ownerId)
+          : [],
         pressure: state.currentPressure,
         nearestChallengerId: state.nearestChallengerId,
         ball: {
