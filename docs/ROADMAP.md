@@ -12,6 +12,15 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ## NEXT — autorytatywna kolejność DEV Single Match Lab
 
+- **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
+- **PR106 — Contextual Player Decision Vertical Slice v1 — bieżący.** Sterowanie graczem
+  przechwytuje wyłącznie wybór intencji: człowiek i NPC różnią się tym, kto wybiera intencję,
+  a nie sposobem rozstrzygnięcia futbolu.
+- **PR107 — Empirical Positioning Benchmark & Open-Play Role Relationships.** Kalibracja obejmie
+  szybki aut zachowujący lokalną strukturę, osobny długi aut w ataku, naturalną geometrię bliskiego
+  rzutu wolnego oraz zróżnicowane pozycje do dobitki, zabezpieczenia i kontry przy karnym.
+- **Później:** zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.
+
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
 - **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
   kanonicznych klubów i nie dotyka zapisu kariery.
