@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { enumerateAvailableActions, chooseNpcAction, resolveMatchAction } from './matchActions';
+import { enumerateAvailableActions, chooseNpcAction, resolveMatchAction, rankAvailableActionsForAI } from './matchActions';
 import { evaluateMatchSituation, matchSituationEvaluationSchema } from './matchSituationEvaluator';
 import {
   attackDirection,
@@ -96,6 +96,21 @@ export const ballRelevanceSchema = z.object({
   ]),
 });
 export type BallRelevance = z.infer<typeof ballRelevanceSchema>;
+export const onBallDecisionRelevanceSchema = z.object({ relevant:z.boolean(), score:z.number(), reasons:z.array(z.string()), viableFamilies:z.array(z.string()) });
+export type OnBallDecisionRelevance = z.infer<typeof onBallDecisionRelevanceSchema>;
+const actionFamily = (action:MatchAction) => action.type === 'pass' ? (action.intent === 'support' ? 'safe_pass' : action.intent === 'progressive' ? 'progressive_pass' : 'direct_pass') : action.type;
+/** RNG-free projection over the canonical action ranking; it changes only whether play pauses. */
+export const evaluateOnBallDecisionRelevance = (state:TacticalMatchState, actorId:string):OnBallDecisionRelevance => {
+  const actor=state.players.find(p=>p.id===actorId); if(!actor) return {relevant:false,score:0,reasons:[],viableFamilies:[]};
+  const situation=evaluateMatchSituation(state,actorId); const ranked=rankAvailableActionsForAI(state,actorId);
+  const best=ranked[0]?.canonicalScore??0;
+  const competitive=ranked.filter(a=>best-a.canonicalScore<=14);
+  const families=[...new Set(competitive.map(a=>actionFamily(a.action)))];
+  const progressive=families.some(f=>['progressive_pass','direct_pass','carry','cross','shot'].includes(f));
+  const reasons:string[]=[]; if(families.length>=2) reasons.push('meaningful_action_diversity'); if(progressive) reasons.push('progressive_option'); if((situation.context.pressure??0)>=0.35) reasons.push('pressure'); if(state.teams[actor.team].phase==='attacking_transition') reasons.push('transition');
+  const role=deriveDecisionRole(actor); const score=situation.decisionWorthiness+(families.length>=2?0.2:0)+(progressive?0.12:0)+(role==='midfielder'&&progressive?0.12:0);
+  return onBallDecisionRelevanceSchema.parse({relevant:situation.decisionEligible || (score>=0.58&&families.length>=2&&progressive),score,reasons,viableFamilies:families});
+};
 export const deriveDecisionRole = (actor: TacticalMatchState['players'][number]): DecisionRole => {
   const position = actor.profile.primaryPosition;
   if (position === 'goalkeeper') return 'goalkeeper';
@@ -177,7 +192,10 @@ const signatureFor = (state: TacticalMatchState, kind: string) => {
   const pressureBand = Math.floor((situation.context.pressure ?? 0) * 4);
   const territoryBand = Math.floor((situation.context.fieldProgress ?? 0) * 5);
   const possessionEvent = state.ballOwnershipStartedAt ?? 0;
-  return `${kind}:${state.decisionIndex}:${state.ball.ownerId ?? 'loose'}:${possessionEvent}:${state.teams[state.possessionTeam].phase}:${pressureBand}:${territoryBand}`;
+  const episode = `${state.ball.ownerId ?? 'loose'}:${possessionEvent}:${state.teams[state.possessionTeam].phase}:${territoryBand}`;
+  // Off-ball prompts are possession episodes, not timers. On-ball chains deliberately retain
+  // decisionIndex so a completed carry can expose a genuinely new choice immediately.
+  return kind === 'off_ball_run' ? `${kind}:${episode}` : `${kind}:${state.decisionIndex}:${episode}:${pressureBand}`;
 };
 
 const isOffBallAttackRelevant = (
@@ -198,6 +216,17 @@ const isOffBallAttackRelevant = (
     return actorDepth > 0.43 || ballDepth > 0.46;
   }
   return relationship < 32 && (phase === 'attacking_transition' || ballDepth > 0.4);
+};
+
+export const movementOpportunityValueSchema=z.object({useful:z.boolean(),score:z.number(),passingAngleGain:z.number(),forwardGain:z.number(),spaceGain:z.number(),laneGain:z.number()});
+export type MovementOpportunityValue=z.infer<typeof movementOpportunityValueSchema>;
+export const evaluateMovementOpportunityValue=(state:TacticalMatchState,actorId:string,target:{x:number;y:number}):MovementOpportunityValue=>{
+ const actor=state.players.find(p=>p.id===actorId),carrier=state.players.find(p=>p.id===state.ball.ownerId); if(!actor||!carrier)return {useful:false,score:0,passingAngleGain:0,forwardGain:0,spaceGain:0,laneGain:0};
+ const foes=state.players.filter(p=>p.team!==actor.team); const clearance=(point:{x:number;y:number})=>Math.min(...foes.map(p=>distance(point,p.position)),30);
+ const currentVector=Math.atan2(actor.position.y-carrier.position.y,actor.position.x-carrier.position.x), nextVector=Math.atan2(target.y-carrier.position.y,target.x-carrier.position.x);
+ const passingAngleGain=Math.min(Math.PI,Math.abs(nextVector-currentVector)); const forwardGain=Math.max(0,signedForwardDistance(target,actor.position,actor.team)); const spaceGain=clearance(target)-clearance(actor.position); const laneGain=Math.abs(target.y-carrier.position.y)-Math.abs(actor.position.y-carrier.position.y);
+ const displacement=distance(actor.position,target); const score=passingAngleGain*8+forwardGain*.8+Math.max(0,spaceGain)*1.2+Math.max(0,laneGain)*.35;
+ return movementOpportunityValueSchema.parse({useful:displacement>=4&&score>=6,score,passingAngleGain,forwardGain,spaceGain,laneGain});
 };
 
 const projectDecision = (
@@ -228,7 +257,7 @@ const projectDecision = (
   };
   let kind: PlayerDecisionOpportunity['kind'] | undefined;
   let options: PlayerDecisionOption[] = [];
-  if (state.ball.ownerId === actorId && situation.decisionEligible) {
+  if (state.ball.ownerId === actorId && evaluateOnBallDecisionRelevance(state,actorId).relevant) {
     kind = 'on_ball';
     options = enumerateAvailableActions(state, actorId).map((action, index) => ({
       id: `action-${index}`,
@@ -239,7 +268,10 @@ const projectDecision = (
   } else if (!state.ball.ownerId) {
     const relevance = evaluateControlledPlayerBallRelevance(state, actorId);
     context.ballRelevance = relevance;
-    if (roleProfile !== 'goalkeeper' && relevance.relevant) {
+    const competitiveOpponent=Boolean(relevance.actor&&relevance.bestOpponent&&Math.abs(relevance.actor.estimatedArrivalTime-relevance.bestOpponent.estimatedArrivalTime)<=1);
+    const immediateCorridor=Boolean(relevance.trajectoryRelevant&&distance(actor.position,state.ball)<=7);
+    const directContest=distance(actor.position,state.ball)<=3 && state.players.some(player=>player.team!==actor.team&&distance(player.position,state.ball)<=3);
+    if (roleProfile !== 'goalkeeper' && ((relevance.relevant && (competitiveOpponent||immediateCorridor) && ((relevance.contenderRank??99)<=2||immediateCorridor)) || directContest)) {
       kind = 'loose_ball';
       const duration = Math.min(2.5, distance(actor.position, state.ball) / 5.5);
       const intent: PlayerMovementIntent = {
@@ -300,7 +332,7 @@ const projectDecision = (
         ],
         ['run_in_behind', { x: actor.position.x + direction * 14, y: actor.position.y }],
       ] as const;
-      options = targets.map(([type, target]) => ({
+      options = targets.filter(([,target])=>evaluateMovementOpportunityValue(state,actor.id,clampPitchPoint(target)).useful).map(([type, target]) => ({
         id: type,
         kind: 'movement' as const,
         labelKey: type,
@@ -326,7 +358,11 @@ const projectDecision = (
     actorId,
     openedAt: state.time,
     kind,
-    triggerReason: situation.reasons[0],
+    triggerReason: kind === 'on_ball'
+      ? evaluateOnBallDecisionRelevance(state, actorId).reasons.join(',') || situation.reasons[0]
+      : kind === 'off_ball_run'
+        ? 'movement_value'
+        : situation.reasons[0],
     signature,
     situation,
     options,

@@ -5,6 +5,8 @@ import {
   evaluateMatchSituation,
   projectPlayerDecisionProbe,
   rankAvailableActionsForAI,
+  deriveTeamShapeMetrics,
+  derivePlayerSupportMetrics,
 } from '../../core/matchSimulation';
 import { DEFAULT_PITCH_SURFACE, deriveLooseBallAssignments } from '../../core/matchSimulation';
 import { resolveFormationDuty } from '../../core/footballerWorld';
@@ -36,6 +38,7 @@ export const debugFrameSchema = z.object({
   playerMovementIntent: z.unknown().optional(),
   decisionGate: z.unknown().optional(),
   playerDecisionProbe: z.unknown(),
+  positioningBenchmark: z.unknown(),
   aiActionRanking: z.array(z.unknown()),
   pressure: z.number(),
   nearestChallengerId: z.string().optional(),
@@ -180,6 +183,11 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
         playerMovementIntent: state.playerMovementIntent,
         decisionGate: state.playerDecisionGate,
         playerDecisionProbe: projectPlayerDecisionProbe(state),
+        positioningBenchmark: {
+          home: deriveTeamShapeMetrics(state, 'home'),
+          away: deriveTeamShapeMetrics(state, 'away'),
+          ...(state.ball.ownerId ? { carrierSupport: derivePlayerSupportMetrics(state, state.ball.ownerId) } : {}),
+        },
         aiActionRanking: state.ball.ownerId
           ? rankAvailableActionsForAI(state, state.ball.ownerId)
           : [],

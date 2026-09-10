@@ -19,8 +19,10 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR107 — Player Decision & Action Lifecycle Stabilization — ukończony.** Stabilizacja wspólnej
   bramki decyzji, wykonania prowadzenia piłki i fizycznego dojścia pressingu do pojedynku.
 - **PR108 — Target-First Contextual Interaction & Role-Aware Decision Relevance — ukończony.**
-- **PR109 — Decision Context Hardening & Outcome Attribution v1 — bieżący.**
-- **PR110 — Empirical Positioning Benchmark & Open-Play Role Relationships.**
+- **PR109 — Decision Context Hardening & Outcome Attribution v1 — ukończony.**
+- **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — bieżący.**
+- **PR111 — Open-Play Role Relationships Calibration.**
+- **PR112+ — zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.**
 - **Później:** zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
