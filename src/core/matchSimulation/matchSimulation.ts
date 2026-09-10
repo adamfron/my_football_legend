@@ -32,6 +32,7 @@ import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 import { isOffsideOffence } from './offside';
 import { projectPlayerDecisionOpportunity } from './playerDecision';
+import { resolvePendingPlayerDecision } from './decisionOutcome';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -342,6 +343,7 @@ export const stepTacticalMatch = (
   input: TacticalMatchState,
   rawDelta = 0.1,
 ): TacticalMatchState => {
+  input = resolvePendingPlayerDecision(input);
   // A surfaced human decision owns the snapshot: no clock, movement or RNG may advance.
   if (projectPlayerDecisionOpportunity(input)) return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));

@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { createTacticalScenarios } from './scenarios';
-import { finalFrame, interpolateFrame, tacticalToWorld, worldToTactical } from './model';
+import {
+  finalFrame,
+  interpolateFrame,
+  tacticalToWorld,
+  validateRenderFrame,
+  worldToTactical,
+} from './model';
 
 describe('tactical presentation model', () => {
   it('round-trips canonical and presentation coordinates', () => {
@@ -33,5 +39,14 @@ describe('tactical presentation model', () => {
       'interception',
       'shot',
     ]);
+  });
+  it('identifies invalid canonical coordinates instead of projecting a blank frame', () => {
+    const frame = structuredClone(createTacticalScenarios()[0]!.sequence.frames[0]!);
+    frame.players[0]!.x = Number.NaN;
+    expect(validateRenderFrame(frame)).toContain(
+      `invalid player coordinate for ${frame.players[0]!.id}`,
+    );
+    const valid = createTacticalScenarios()[0]!.sequence.frames[0]!;
+    expect(validateRenderFrame(valid)).toBeUndefined();
   });
 });

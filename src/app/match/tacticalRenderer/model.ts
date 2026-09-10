@@ -41,9 +41,31 @@ export type TacticalSequence = z.infer<typeof tacticalSequenceSchema>;
 export const presentationTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('player'), playerId: z.string() }),
   z.object({ kind: z.literal('pitch'), point: tacticalPointSchema }),
+  z.object({ kind: z.literal('ball'), point: tacticalPointSchema }),
   z.object({ kind: z.literal('goal'), side: z.enum(['home', 'away']) }),
 ]);
 export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
+
+export const validateRenderFrame = (frame: TacticalFrame): string | undefined => {
+  for (const player of frame.players) {
+    if (!Number.isFinite(player.x) || !Number.isFinite(player.y))
+      return `invalid player coordinate for ${player.id}`;
+    for (const [name, point] of [
+      ['target', player.target],
+      ['anchor', player.anchor],
+      ['ideal target', player.idealTarget],
+    ] as const)
+      if (point && (!Number.isFinite(point.x) || !Number.isFinite(point.y)))
+        return `invalid player ${name} coordinate for ${player.id}`;
+  }
+  if (
+    !Number.isFinite(frame.ball.x) ||
+    !Number.isFinite(frame.ball.y) ||
+    !Number.isFinite(frame.ball.height ?? 0)
+  )
+    return 'invalid ball coordinate';
+  return undefined;
+};
 
 /** Canonical x (0..105) becomes world X; canonical y (0..68) becomes world Z. */
 export const tacticalToWorld = (point: TacticalPoint, height = 0) => ({

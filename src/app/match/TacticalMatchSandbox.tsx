@@ -238,6 +238,7 @@ const RunningLab = ({
     [captureStatus, setCaptureStatus] = useState<DebugCaptureStatus>('idle'),
     [saveMessage, setSaveMessage] = useState<string>(),
     [captureError, setCaptureError] = useState<string>(),
+    [rendererError, setRendererError] = useState<string>(),
     [opportunity, setOpportunity] = useState<PlayerDecisionOpportunity>(),
     [selectedTarget, setSelectedTarget] = useState<PlayerInteractionTarget>(),
     [menuPosition, setMenuPosition] = useState<{ x: number; y: number }>(),
@@ -271,7 +272,11 @@ const RunningLab = ({
     setOpportunity(undefined);
     setSelectedTarget(undefined);
     accumulatorRef.current = 0;
-    const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
+    const renderer = new TacticalPitchRenderer(
+      hostRef.current,
+      matchStateToFrame(initial),
+      (error) => setRendererError(error),
+    );
     const videoRecorder = videoRecorderRef.current;
     rendererRef.current = renderer;
     videoRecorder.start(renderer.getCanvas(), () => stateRef.current.time);
@@ -613,8 +618,8 @@ const RunningLab = ({
                 ? picked
                 : picked.kind === 'goal'
                   ? picked
-                  : Math.hypot(picked.point.x - state.ball.x, picked.point.y - state.ball.y) < 2
-                    ? { kind: 'ball', point: picked.point }
+                  : picked.kind === 'ball'
+                    ? picked
                     : { kind: 'space', point: picked.point };
             const projected = projectContextualInteractions(state, opportunity, target);
             setSelectedTarget(target);
@@ -631,7 +636,7 @@ const RunningLab = ({
           }}
         >
           {opportunity && (
-            <div className="interaction-hint">Wybierz piłkarza, przestrzeń lub bramkę</div>
+            <div className="interaction-hint">Wybierz piłkę, piłkarza, przestrzeń lub bramkę</div>
           )}
           {opportunity && menuPosition && interactions.length > 0 && (
             <section
@@ -663,6 +668,7 @@ const RunningLab = ({
         </div>
         <aside className="decision-board">
           <small>STAN KANONICZNY</small>
+          {rendererError && <strong>{rendererError}</strong>}
           {opportunity && opportunity.kind === 'on_ball' && (
             <button
               className="dev-ai-choice"
@@ -708,6 +714,14 @@ const RunningLab = ({
             Aktor: {actor?.profile.firstName} {actor?.profile.lastName}
             <br />
             Akcja: {state.latestAction?.type ?? '—'}
+            <br />
+            Ostatnia decyzja:{' '}
+            {state.lastPlayerDecisionOutcome?.selectedIntent ??
+              state.pendingPlayerDecision?.selectedIntent ??
+              '—'}
+            {' · '}
+            {state.lastPlayerDecisionOutcome?.result?.kind ??
+              (state.pendingPlayerDecision ? 'w toku' : '—')}
             <br />
             Piłka:{' '}
             {state.ball.ownerId

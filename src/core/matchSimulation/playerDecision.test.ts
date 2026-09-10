@@ -12,6 +12,8 @@ import {
   projectContextualInteractions,
   evaluateControlledPlayerBallRelevance,
   resolveMatchAction,
+  resolvePendingPlayerDecision,
+  signedForwardDistance,
   stepTacticalMatch,
 } from '.';
 
@@ -117,7 +119,19 @@ describe('player decision lifecycle', () => {
       },
     };
     const resolved = applyPlayerDecision(state, opportunity, option.id);
-    expect(resolved).toEqual(resolveMatchAction(gated, option.action));
+    if (option.action.type !== 'pass') throw new Error('expected pass');
+    expect(resolved).toEqual(
+      resolveMatchAction(
+        {
+          ...gated,
+          ...(resolved.pendingPlayerDecision
+            ? { pendingPlayerDecision: resolved.pendingPlayerDecision }
+            : {}),
+        },
+        option.action,
+      ),
+    );
+    expect(resolved.pendingPlayerDecision?.selectedIntent).toBe(`pass:${option.action.intent}`);
     expect(applyPlayerDecision(resolved, opportunity, option.id)).toBe(resolved);
   });
 
@@ -193,6 +207,124 @@ describe('player decision lifecycle', () => {
     for (const player of state.players.filter((player) => player.id !== actor.id))
       player.position = { x: actor.position.x + 4, y: actor.position.y + 4 };
     expect(evaluateControlledPlayerBallRelevance(state, actor.id).relevant).toBe(true);
+  });
+
+  it.each(['home', 'away'] as const)(
+    'globally suppresses a remote %s contender dominated by players from both teams',
+    (side) => {
+      const state = makeState();
+      const actor = state.players.find(
+        (player) => player.team === side && player.profile.primaryPosition !== 'goalkeeper',
+      )!;
+      state.controlledFootballerId = actor.id;
+      actor.position = { x: side === 'home' ? 30 : 75, y: 34 };
+      state.ball = { x: 52.5, y: 34, looseSince: state.time };
+      state.players
+        .filter((player) => player.id !== actor.id)
+        .slice(0, 4)
+        .forEach((player, index) => {
+          player.position = { x: 51 + index * 0.5, y: 33 + index * 0.4 };
+        });
+      const relevance = evaluateControlledPlayerBallRelevance(state, actor.id);
+      expect(relevance.relevant).toBe(false);
+      expect(relevance.bestOverall?.playerId).not.toBe(actor.id);
+      expect(relevance.contenderRank).toBeGreaterThan(3);
+    },
+  );
+
+  it.each(['home', 'away'] as const)(
+    'only labels a %s run behind when it advances and threatens the shared defensive line',
+    (side) => {
+      const state = makeState();
+      const actor = state.players.find(
+        (player) => player.team === side && player.profile.primaryPosition !== 'goalkeeper',
+      )!;
+      const carrier = state.players.find(
+        (player) =>
+          player.team === side &&
+          player.id !== actor.id &&
+          player.profile.primaryPosition !== 'goalkeeper',
+      )!;
+      state.controlledFootballerId = actor.id;
+      actor.position = { x: side === 'home' ? 65 : 40, y: 30 };
+      carrier.position = { x: side === 'home' ? 60 : 45, y: 34 };
+      state.ball = { ...carrier.position, ownerId: carrier.id };
+      state.possessionTeam = side;
+      const defenders = state.players.filter((player) => player.team !== side);
+      defenders.forEach((player, index) => {
+        player.position = {
+          x: side === 'home' ? 76 + index * 0.2 : 29 - index * 0.2,
+          y: player.position.y,
+        };
+      });
+      const opportunity = {
+        ...projectPlayerDecisionOpportunity(makeState())!,
+        actorId: actor.id,
+        openedAt: state.time,
+        kind: 'off_ball_run' as const,
+      };
+      const forward = { x: side === 'home' ? 79 : 26, y: 31 };
+      const interactions = projectContextualInteractions(state, opportunity, {
+        kind: 'space',
+        point: forward,
+      });
+      const run = interactions.find((item) => item.labelKey === 'run_in_behind');
+      expect(run?.resolution.kind).toBe('movement');
+      if (run?.resolution.kind === 'movement') {
+        expect(run.resolution.intent.target).toEqual(forward);
+        expect(
+          signedForwardDistance(actor.position, run.resolution.intent.target, side),
+        ).toBeGreaterThan(0);
+      }
+      const backward = { x: side === 'home' ? 48 : 57, y: 30 };
+      expect(
+        projectContextualInteractions(state, opportunity, { kind: 'space', point: backward }),
+      ).toEqual([]);
+    },
+  );
+
+  it('attributes a completed selected pass but never an autonomous action', () => {
+    const state = makeState();
+    expect(resolvePendingPlayerDecision(state).lastPlayerDecisionOutcome).toBeUndefined();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const teammate = state.players.find(
+      (player) => player.team === actor.team && player.id !== actor.id,
+    )!;
+    state.pendingPlayerDecision = {
+      decisionId: 'decision',
+      actorId: actor.id,
+      selectedAt: 0,
+      decisionKind: 'on_ball',
+      selectedIntent: 'pass:progressive',
+      startContext: {
+        phase: state.teams.home.phase,
+        pressure: 0,
+        fieldProgress: 0.5,
+        possession: 'home',
+      },
+    };
+    state.time = 1;
+    state.ball = { ...teammate.position, ownerId: teammate.id };
+    const resolved = resolvePendingPlayerDecision(state);
+    expect(resolved.lastPlayerDecisionOutcome?.result).toMatchObject({
+      kind: 'pass_completed',
+      passCompleted: true,
+      teamRetainedPossession: true,
+    });
+    expect(resolved.pendingPlayerDecision).toBeUndefined();
+  });
+
+  it('diagnoses stale semantic possession and does not project attacking options from it', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const opponent = state.players.find((player) => player.team !== actor.team)!;
+    actor.position = { x: 70, y: 34 };
+    opponent.position = { x: 68, y: 34 };
+    state.ball = { ...opponent.position, ownerId: opponent.id };
+    state.possessionTeam = actor.team;
+    const probe = projectPlayerDecisionProbe(state);
+    expect(probe.possessionMismatch).toBe(true);
+    expect(probe.opportunityKind).not.toBe('off_ball_run');
   });
 
   it('skips through the canonical NPC path and spectator mode never projects', () => {

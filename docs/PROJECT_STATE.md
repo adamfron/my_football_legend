@@ -1,10 +1,11 @@
 # My Football Legend — Current Project State
 
-## PR108 — current Single Match Lab work
+## PR109 — current Single Match Lab work
 
-Player interaction now selects a football-world target and then a contextual intention projected by
-core. Loose-ball relevance considers arrival, trajectory and dominant contenders; broad position
-profiles bias when the simulation asks without restricting canonical actions.
+The ball is an explicit world target. Loose-ball relevance uses one global, same-point arrival race,
+team-relative movement semantics use the shared defensive line, and canonical immediate outcomes
+retain evidence of human decisions separately from execution. Renderer diagnostics reject invalid
+frames while preserving the last valid view.
 
 ## Product philosophy
 

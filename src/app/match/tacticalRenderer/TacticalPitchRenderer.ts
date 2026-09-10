@@ -6,6 +6,7 @@ import {
   worldToTactical,
   type PresentationTarget,
   type TacticalFrame,
+  validateRenderFrame,
 } from './model';
 
 export class TacticalPitchRenderer {
@@ -20,15 +21,21 @@ export class TacticalPitchRenderer {
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
+  private contextLost = false;
+  private readonly report: (message?: string) => void;
 
   constructor(
     private readonly host: HTMLElement,
     frame: TacticalFrame,
+    onDiagnostic: (message?: string) => void = () => undefined,
   ) {
+    this.report = onDiagnostic;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.append(this.renderer.domElement);
+    this.renderer.domElement.addEventListener('webglcontextlost', this.onContextLost);
+    this.renderer.domElement.addEventListener('webglcontextrestored', this.onContextRestored);
     this.scene.background = new THREE.Color(0x16251f);
     this.camera.position.set(-82, 92, 82);
     this.camera.lookAt(0, 0, 0);
@@ -201,6 +208,18 @@ export class TacticalPitchRenderer {
   }
 
   render(frame: TacticalFrame, debug = false) {
+    const invalid = validateRenderFrame(frame);
+    if (invalid) {
+      this.report(`Renderer error: ${invalid}`);
+      return;
+    }
+    if (!this.renderer.domElement.isConnected || this.contextLost) {
+      this.report(
+        `Renderer error: ${this.contextLost ? 'WebGL context lost' : 'canvas disconnected'}`,
+      );
+      return;
+    }
+    this.report(undefined);
     for (const player of frame.players) {
       const world = tacticalToWorld(player);
       this.playerMeshes.get(player.id)?.position.set(world.x, 0, world.z);
@@ -242,7 +261,7 @@ export class TacticalPitchRenderer {
     const ballHit = this.raycaster.intersectObject(this.ball)[0];
     if (ballHit) {
       const point = worldToTactical(this.ball.position);
-      return { kind: 'pitch', point };
+      return { kind: 'ball', point };
     }
     const playerHit = this.raycaster.intersectObjects([...this.playerMeshes.values()], true)[0];
     if (playerHit) {
@@ -259,6 +278,10 @@ export class TacticalPitchRenderer {
     return { kind: 'pitch', point };
   }
   private resize() {
+    if (this.host.clientWidth <= 0 || this.host.clientHeight <= 0) {
+      this.report('Renderer error: viewport has zero width or height');
+      return;
+    }
     const width = Math.max(this.host.clientWidth, 320),
       height = Math.max(this.host.clientHeight, 240),
       aspect = width / height,
@@ -288,6 +311,19 @@ export class TacticalPitchRenderer {
       }
     });
     this.renderer.dispose();
+    this.renderer.domElement.removeEventListener('webglcontextlost', this.onContextLost);
+    this.renderer.domElement.removeEventListener('webglcontextrestored', this.onContextRestored);
     this.renderer.domElement.remove();
   }
+
+  private readonly onContextLost = (event: Event) => {
+    event.preventDefault();
+    this.contextLost = true;
+    this.report('Renderer error: WebGL context lost');
+  };
+
+  private readonly onContextRestored = () => {
+    this.contextLost = false;
+    this.report(undefined);
+  };
 }

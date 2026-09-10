@@ -1,6 +1,14 @@
 import { z } from 'zod';
 import { enumerateAvailableActions } from './matchActions';
-import { distance, pitchPointSchema, teamSideSchema, type PitchPoint } from './matchSpace';
+import {
+  attackDirection,
+  distance,
+  fieldValue,
+  pitchPointSchema,
+  signedForwardDistance,
+  teamSideSchema,
+  type PitchPoint,
+} from './matchSpace';
 import {
   matchActionSchema,
   playerDefensiveIntentSchema,
@@ -10,6 +18,8 @@ import {
 } from './matchState';
 import { resolveMatchAction } from './matchActions';
 import type { PlayerDecisionOpportunity } from './playerDecision';
+import { createPendingOutcome, deriveDecisionRole } from './playerDecision';
+import { secondLastOpponentLine } from './offside';
 
 export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('player'), playerId: z.string() }),
@@ -146,12 +156,13 @@ export const projectContextualInteractions = (
   }
   if (
     state.ball.ownerId &&
-    actor.team === state.possessionTeam &&
-    distance(actor.position, point) <= 22
+    state.players.find((player) => player.id === state.ball.ownerId)?.team === actor.team &&
+    isMeaningfulOffBallSpace(state, actor, point)
   ) {
+    const line = secondLastOpponentLine(state, actor.team);
+    const threatensLine = signedForwardDistance({ x: line, y: point.y }, point, actor.team) >= -2;
     const type =
-      point.x * (actor.team === 'home' ? 1 : -1) >
-      actor.position.x * (actor.team === 'home' ? 1 : -1) + 8
+      signedForwardDistance(actor.position, point, actor.team) > 4 && threatensLine
         ? 'run_in_behind'
         : 'attack_space';
     return [
@@ -173,6 +184,27 @@ export const projectContextualInteractions = (
     ];
   }
   return [];
+};
+
+const isMeaningfulOffBallSpace = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  point: PitchPoint,
+) => {
+  if (distance(actor.position, point) > 22) return false;
+  const carrier = state.players.find((player) => player.id === state.ball.ownerId);
+  if (!carrier || carrier.team !== actor.team) return false;
+  const forward = signedForwardDistance(actor.position, point, actor.team);
+  const role = deriveDecisionRole(actor);
+  const ballDepth = fieldValue(carrier.position, actor.team) / 100;
+  const pointDepth = fieldValue(point, actor.team) / 100;
+  if (role === 'forward' && (ballDepth < 0.35 || pointDepth < 0.3 || forward < -5)) return false;
+  const supportLane = distance(point, carrier.position) <= 18 && forward >= -5;
+  const line = secondLastOpponentLine(state, actor.team);
+  const lineThreat =
+    forward > 0 && signedForwardDistance({ x: line, y: point.y }, point, actor.team) >= -6;
+  const width = Math.abs(point.y - 34) > 16 && forward >= -2;
+  return supportLane || lineThreat || width;
 };
 
 const bestRunnerForSpace = (
@@ -207,6 +239,7 @@ export const applyContextualInteraction = (
     return state;
   const gated = {
     ...state,
+    pendingPlayerDecision: createPendingOutcome(state, opportunity, interaction),
     playerDecisionGate: {
       lastSituationSignature: opportunity.signature,
       lastResolvedAt: state.time,
@@ -214,6 +247,16 @@ export const applyContextualInteraction = (
   };
   const resolution = interaction.resolution;
   if (resolution.kind === 'action') return resolveMatchAction(gated, resolution.action);
+  if (resolution.kind === 'movement')
+    if (
+      resolution.intent.type === 'run_in_behind' &&
+      signedForwardDistance(
+        state.players.find((player) => player.id === resolution.intent.actorId)!.position,
+        resolution.intent.target,
+        state.players.find((player) => player.id === resolution.intent.actorId)!.team,
+      ) <= 0
+    )
+      return state;
   if (resolution.kind === 'movement')
     return {
       ...gated,
@@ -225,7 +268,7 @@ export const applyContextualInteraction = (
   if (!opponent || !actor) return state;
   const target =
     resolution.intent.type === 'contain'
-      ? { x: actor.position.x + (actor.team === 'home' ? -1 : 1) * 1.5, y: actor.position.y }
+      ? { x: actor.position.x - attackDirection(actor.team) * 1.5, y: actor.position.y }
       : opponent.position;
   return {
     ...gated,
