@@ -36,7 +36,7 @@ export const matchSituationEvaluationSchema = z.object({
   decisionEligible: z.boolean(),
   reasons: z.array(matchSituationReasonSchema),
   context: z.object({
-    possession: z.enum(['own', 'opponent', 'loose']),
+    possession: z.enum(['own', 'team', 'opponent', 'loose']),
     phase: matchPhaseSchema,
     goalDistance: z.number().nonnegative().optional(),
     pressure: z.number().min(0).max(1).optional(),
@@ -58,7 +58,9 @@ export const evaluateMatchSituation = (
     ? 'loose'
     : state.ball.ownerId === actorId
       ? 'own'
-      : 'opponent';
+      : state.players.find((player) => player.id === state.ball.ownerId)?.team === actor?.team
+        ? 'team'
+        : 'opponent';
   const pressure = actor ? evaluatePressure(state, actor).value : undefined;
   const nearestOpponentDistance = actor
     ? Math.min(

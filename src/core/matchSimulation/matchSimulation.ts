@@ -31,7 +31,7 @@ import {
 import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 import { isOffsideOffence } from './offside';
-import { evaluateMatchSituation } from './matchSituationEvaluator';
+import { projectPlayerDecisionOpportunity } from './playerDecision';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -147,6 +147,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
     actionCooldown: 0.4,
+    ballOwnershipStartedAt: 0,
     score: { home: 0, away: 0 },
     currentPressure: 0,
     scenario: 'open_play',
@@ -164,7 +165,12 @@ const changePossession = (
 ) => {
   const owner = state.players.find((p) => p.id === ownerId)!;
   const controlledBall = { x: state.ball.x, y: state.ball.y, ownerId, lastTouchPlayerId: ownerId };
-  if (owner.team === state.possessionTeam) return { ...state, ball: controlledBall };
+  if (owner.team === state.possessionTeam)
+    return {
+      ...state,
+      ball: controlledBall,
+      ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
+    };
   const teams = { ...state.teams };
   for (const side of ['home', 'away'] as const)
     teams[side] = { ...teams[side], phase: transitionPhase(side === owner.team), phaseElapsed: 0 };
@@ -174,6 +180,7 @@ const changePossession = (
     possessionTeam: owner.team,
     timeSincePossessionChanged: 0,
     ball: controlledBall,
+    ballOwnershipStartedAt: state.time,
     lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
   };
 };
@@ -335,6 +342,8 @@ export const stepTacticalMatch = (
   input: TacticalMatchState,
   rawDelta = 0.1,
 ): TacticalMatchState => {
+  // A surfaced human decision owns the snapshot: no clock, movement or RNG may advance.
+  if (projectPlayerDecisionOpportunity(input)) return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
   let state = {
     ...input,
@@ -347,6 +356,19 @@ export const stepTacticalMatch = (
     const { playerMovementIntent: _expired, ...withoutIntent } = state;
     void _expired;
     state = withoutIntent;
+  }
+  if (state.ballCarrierIntent) {
+    const carrier = state.players.find((player) => player.id === state.ballCarrierIntent!.actorId);
+    if (
+      !carrier ||
+      state.ball.ownerId !== carrier.id ||
+      state.time >= state.ballCarrierIntent.expiresAt ||
+      distance(carrier.position, state.ballCarrierIntent.target) <= 0.75
+    ) {
+      const { ballCarrierIntent: _ended, ...withoutIntent } = state;
+      void _ended;
+      state = withoutIntent;
+    }
   }
   if (state.goalCompletionUntil !== undefined && state.time >= state.goalCompletionUntil) {
     const kickoffTeam = state.pendingKickoffTeam!;
@@ -402,6 +424,8 @@ export const stepTacticalMatch = (
     }
   }
   state.players = deriveTacticalTargets(state).map((player) => {
+    if (state.ballCarrierIntent?.actorId === player.id)
+      player = { ...player, target: state.ballCarrierIntent.target };
     if (state.playerMovementIntent?.actorId === player.id)
       player = { ...player, target: state.playerMovementIntent.target };
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
@@ -912,10 +936,7 @@ export const stepTacticalMatch = (
     delete state.nearestChallengerId;
   }
   if (state.actionCooldown <= 0 && state.ball.ownerId && state.restart?.phase !== 'setup') {
-    const awaitsPlayer =
-      state.scenario === 'open_play' &&
-      state.ball.ownerId === state.controlledFootballerId &&
-      evaluateMatchSituation(state, state.ball.ownerId).decisionEligible;
+    const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
     const action = awaitsPlayer ? undefined : chooseNpcAction(state, state.ball.ownerId);
     if (action) state = resolveMatchAction(state, action);
   }

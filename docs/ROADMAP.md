@@ -13,10 +13,12 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 ## NEXT — autorytatywna kolejność DEV Single Match Lab
 
 - **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
-- **PR106 — Contextual Player Decision Vertical Slice v1 — bieżący.** Sterowanie graczem
+- **PR106 — Contextual Player Decision Vertical Slice v1 — ukończony.** Sterowanie graczem
   przechwytuje wyłącznie wybór intencji: człowiek i NPC różnią się tym, kto wybiera intencję,
   a nie sposobem rozstrzygnięcia futbolu.
-- **PR107 — Empirical Positioning Benchmark & Open-Play Role Relationships.** Kalibracja obejmie
+- **PR107 — Player Decision & Action Lifecycle Stabilization — bieżący.** Stabilizacja wspólnej
+  bramki decyzji, wykonania prowadzenia piłki i fizycznego dojścia pressingu do pojedynku.
+- **PR108 — Empirical Positioning Benchmark & Open-Play Role Relationships.** Kalibracja obejmie
   szybki aut zachowujący lokalną strukturę, osobny długi aut w ataku, naturalną geometrię bliskiego
   rzutu wolnego oraz zróżnicowane pozycje do dobitki, zabezpieczenia i kontry przy karnym.
 - **Później:** zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.
@@ -36,8 +38,9 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR103 — Tactical Situations & Set Pieces calibration v2 + Loose Ball Dynamics v1 — ukończony.**
 - **PR104 — Restart Geometry, Offside & Spatial Play Hardening — ukończony.**
 - **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
-- **PR106 — contextual player decision vertical slice.**
-- **PR107 — empirical positioning benchmark & open-play role relationships.**
+- **PR106 — contextual player decision vertical slice — ukończony.**
+- **PR107 — player decision & action lifecycle stabilization — bieżący.**
+- **PR108 — empirical positioning benchmark & open-play role relationships.**
 - **Później — fatigue / score-state / substitutions / late-game structural behaviour.**
 
 Warstwy kanonicznego podejmowania akcji pozostają rozdzielone: **formacja → kontekst zespołu →

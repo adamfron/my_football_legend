@@ -67,6 +67,19 @@ export const playerMovementIntentSchema = z.object({
   expiresAt: z.number().nonnegative(),
 });
 export type PlayerMovementIntent = z.infer<typeof playerMovementIntentSchema>;
+export const ballCarrierIntentSchema = z.object({
+  actorId: z.string(),
+  type: z.literal('carry'),
+  target: pitchPointSchema,
+  startedAt: z.number().nonnegative(),
+  expiresAt: z.number().nonnegative(),
+});
+export type BallCarrierIntent = z.infer<typeof ballCarrierIntentSchema>;
+export const playerDecisionGateStateSchema = z.object({
+  lastSituationSignature: z.string().optional(),
+  lastResolvedAt: z.number().nonnegative().optional(),
+});
+export type PlayerDecisionGateState = z.infer<typeof playerDecisionGateStateSchema>;
 export const restartScenarioSchema = z.enum([
   'open_play',
   'kick_off',
@@ -200,12 +213,18 @@ export interface TacticalMatchState {
   ball: MatchBallState;
   possessionTeam: TeamSide;
   timeSincePossessionChanged: number;
+  /** Selected action retained for legacy physical resolvers; its presence is not a busy flag. */
   currentAction?: MatchAction;
   currentActorId?: string;
+  /** Historical last selected action, used by diagnostics and presentation. */
   latestAction?: MatchAction;
   actionCooldown: number;
   controlledFootballerId?: string;
   playerMovementIntent?: PlayerMovementIntent;
+  /** Short-lived canonical execution override shared by human and NPC carries. */
+  ballCarrierIntent?: BallCarrierIntent;
+  playerDecisionGate?: PlayerDecisionGateState;
+  ballOwnershipStartedAt?: number;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
   score: z.infer<typeof matchScoreSchema>;
@@ -317,6 +336,9 @@ export const tacticalMatchStateSchema = z
     actionCooldown: z.number().nonnegative(),
     controlledFootballerId: z.string().optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
+    ballCarrierIntent: ballCarrierIntentSchema.optional(),
+    playerDecisionGate: playerDecisionGateStateSchema.optional(),
+    ballOwnershipStartedAt: z.number().nonnegative().optional(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),

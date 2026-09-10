@@ -15,7 +15,6 @@ import {
   projectPlayerDecisionOpportunity,
   applyPlayerDecision,
   letAiDecide,
-  type PlayerDecisionGate,
   type PlayerDecisionOpportunity,
   type TacticalMatchState,
   type RestartScenario,
@@ -251,7 +250,6 @@ const RunningLab = ({
     debugRecorderRef = useRef(new MatchDebugRecorder()),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
-  const decisionGateRef = useRef<PlayerDecisionGate>({});
   stateRef.current = state;
   useEffect(() => {
     if (!hostRef.current) return;
@@ -266,7 +264,6 @@ const RunningLab = ({
     setCaptureError(undefined);
     setSaveMessage(undefined);
     setOpportunity(undefined);
-    decisionGateRef.current = {};
     accumulatorRef.current = 0;
     const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
     const videoRecorder = videoRecorderRef.current;
@@ -291,7 +288,7 @@ const RunningLab = ({
           setState((value) => {
             let next = value;
             for (let tick = 0; tick < ticks; tick += 1) {
-              const projected = projectPlayerDecisionOpportunity(next, decisionGateRef.current);
+              const projected = projectPlayerDecisionOpportunity(next);
               if (projected) {
                 setOpportunity(projected);
                 debugRecorderRef.current.ui(next.time, 'player_decision_opened', projected);
@@ -392,10 +389,6 @@ const RunningLab = ({
     selected: unknown,
   ) => {
     if (!opportunity) return;
-    decisionGateRef.current = {
-      lastSituationSignature: opportunity.signature,
-      lastResolvedAt: state.time,
-    };
     uiEvent(source === 'ai' ? 'player_decision_skipped_to_ai' : 'player_decision_selected', {
       opportunityId: opportunity.id,
       actorId: opportunity.actorId,

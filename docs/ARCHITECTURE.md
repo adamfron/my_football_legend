@@ -1,5 +1,14 @@
 # Architektura
 
+## Cykl życia akcji meczu
+
+`latestAction` jest historią ostatnio wybranej intencji. `currentAction` pozostaje polem zgodności
+używanym przez istniejące resolvery lotu, ale sama jego obecność nigdy nie oznacza trwającego
+rozstrzygnięcia. Jedyną odpowiedź o zajętości daje czysta projekcja rzeczywistych stanów
+przejściowych (`isActionResolutionInProgress`). Prowadzenie piłki ma osobną, krótkotrwałą intencję
+ruchu nosiciela, która nadpisuje wyłącznie efektywny cel i wygasa po dojściu, utracie piłki,
+przerwaniu inną akcją albo timeoutcie. Człowiek i NPC uruchamiają dokładnie ten sam resolver.
+
 ## Osiągalna przestrzeń, obserwacja i legalność akcji
 
 Szczegółowy silnik składa decyzję w jednym kierunku: **formacja → kontekst zespołu → relacje ról
