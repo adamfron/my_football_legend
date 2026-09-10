@@ -16,11 +16,10 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR106 — Contextual Player Decision Vertical Slice v1 — ukończony.** Sterowanie graczem
   przechwytuje wyłącznie wybór intencji: człowiek i NPC różnią się tym, kto wybiera intencję,
   a nie sposobem rozstrzygnięcia futbolu.
-- **PR107 — Player Decision & Action Lifecycle Stabilization — bieżący.** Stabilizacja wspólnej
+- **PR107 — Player Decision & Action Lifecycle Stabilization — ukończony.** Stabilizacja wspólnej
   bramki decyzji, wykonania prowadzenia piłki i fizycznego dojścia pressingu do pojedynku.
-- **PR108 — Empirical Positioning Benchmark & Open-Play Role Relationships.** Kalibracja obejmie
-  szybki aut zachowujący lokalną strukturę, osobny długi aut w ataku, naturalną geometrię bliskiego
-  rzutu wolnego oraz zróżnicowane pozycje do dobitki, zabezpieczenia i kontry przy karnym.
+- **PR108 — Target-First Contextual Interaction & Role-Aware Decision Relevance — bieżący.**
+- **PR109 — Empirical Positioning Benchmark & Open-Play Role Relationships.**
 - **Później:** zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
@@ -39,8 +38,9 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR104 — Restart Geometry, Offside & Spatial Play Hardening — ukończony.**
 - **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
 - **PR106 — contextual player decision vertical slice — ukończony.**
-- **PR107 — player decision & action lifecycle stabilization — bieżący.**
-- **PR108 — empirical positioning benchmark & open-play role relationships.**
+- **PR107 — player decision & action lifecycle stabilization — ukończony.**
+- **PR108 — target-first contextual interaction & role-aware decision relevance — bieżący.**
+- **PR109 — empirical positioning benchmark & open-play role relationships.**
 - **Później — fatigue / score-state / substitutions / late-game structural behaviour.**
 
 Warstwy kanonicznego podejmowania akcji pozostają rozdzielone: **formacja → kontekst zespołu →
@@ -50,6 +50,11 @@ obserwacyjną projekcją, a nie drugim przebiegiem symulacji ani skryptem ruchu.
 
 Docelowy przepływ pracy: **Single Match Lab → snapshot → decyzja gracza → rozstrzygnięcie core →
 animowany wynik → nowy snapshot**. Dopiero dojrzała pętla zostanie włączona do meczów kariery.
+
+Architektura interakcji: **stan kanoniczny → ewaluator sytuacji → istotność dla kontrolowanego
+piłkarza → okazja decyzyjna → wybór celu → kanoniczne interakcje dla celu → wybór intencji →
+wspólny resolver → fizyczny wynik → ewentualny nowy węzeł decyzji**. UI target-first jest projekcją
+kanonicznego futbolu, nie drugim silnikiem reguł.
 
 ## Historia — stabilizacja integracji asynchronicznego zapisu (PR85)
 

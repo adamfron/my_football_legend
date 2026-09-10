@@ -1,0 +1,241 @@
+import { z } from 'zod';
+import { enumerateAvailableActions } from './matchActions';
+import { distance, pitchPointSchema, teamSideSchema, type PitchPoint } from './matchSpace';
+import {
+  matchActionSchema,
+  playerDefensiveIntentSchema,
+  playerMovementIntentSchema,
+  type MatchPlayerState,
+  type TacticalMatchState,
+} from './matchState';
+import { resolveMatchAction } from './matchActions';
+import type { PlayerDecisionOpportunity } from './playerDecision';
+
+export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('player'), playerId: z.string() }),
+  z.object({ kind: z.literal('space'), point: pitchPointSchema }),
+  z.object({ kind: z.literal('ball'), point: pitchPointSchema }),
+  z.object({ kind: z.literal('goal'), side: teamSideSchema }),
+]);
+export type PlayerInteractionTarget = z.infer<typeof playerInteractionTargetSchema>;
+export const contextualInteractionSchema = z.object({
+  id: z.string(),
+  target: playerInteractionTargetSchema,
+  labelKey: z.string(),
+  resolution: z.discriminatedUnion('kind', [
+    z.object({ kind: z.literal('action'), action: matchActionSchema }),
+    z.object({ kind: z.literal('movement'), intent: playerMovementIntentSchema }),
+    z.object({ kind: z.literal('defensive'), intent: playerDefensiveIntentSchema }),
+  ]),
+});
+export type ContextualInteraction = z.infer<typeof contextualInteractionSchema>;
+
+const passLabel = (intent: string) =>
+  intent === 'through'
+    ? 'pass_into_space'
+    : intent === 'progressive'
+      ? 'progressive_pass'
+      : 'pass_to_feet';
+const shotLabel = (intent: string) =>
+  intent === 'placed' ? 'placed_shot' : intent === 'chip' ? 'chip_shot' : 'driven_shot';
+const asActions = (
+  target: PlayerInteractionTarget,
+  actions: ReturnType<typeof enumerateAvailableActions>,
+) =>
+  actions.map((action, index) =>
+    contextualInteractionSchema.parse({
+      id: `action:${action.type}:${index}`,
+      target,
+      labelKey:
+        action.type === 'pass'
+          ? passLabel(action.intent)
+          : action.type === 'shot'
+            ? shotLabel(action.intent)
+            : action.type === 'cross'
+              ? 'cross'
+              : action.type === 'hold'
+                ? 'hold_ball'
+                : 'carry_here',
+      resolution: { kind: 'action', action },
+    }),
+  );
+
+/** Pure, RNG-free menu projection. UI and renderer only identify a world target. */
+export const projectContextualInteractions = (
+  state: TacticalMatchState,
+  opportunity: PlayerDecisionOpportunity,
+  target: PlayerInteractionTarget,
+): ContextualInteraction[] => {
+  if (opportunity.actorId !== state.controlledFootballerId) return [];
+  const actor = state.players.find((player) => player.id === opportunity.actorId);
+  if (!actor) return [];
+  const actions = enumerateAvailableActions(state, actor.id);
+  if (target.kind === 'goal') {
+    if (target.side === actor.team) return [];
+    return asActions(
+      target,
+      actions.filter((action) => action.type === 'shot'),
+    );
+  }
+  if (target.kind === 'player') {
+    if (target.playerId === actor.id)
+      return asActions(
+        target,
+        actions.filter((action) => action.type === 'hold'),
+      );
+    const selected = state.players.find((player) => player.id === target.playerId);
+    if (!selected) return [];
+    if (selected.team === actor.team)
+      return asActions(
+        target,
+        actions.filter(
+          (action) =>
+            (action.type === 'pass' && action.receiverId === selected.id) ||
+            (action.type === 'cross' && action.intendedTargetId === selected.id),
+        ),
+      );
+    if (state.ball.ownerId !== selected.id || actor.team === state.possessionTeam) return [];
+    const metres = distance(actor.position, selected.position);
+    return (['contain', 'press', ...(metres <= 2.4 ? ['challenge'] : [])] as const).map((type) =>
+      contextualInteractionSchema.parse({
+        id: `defensive:${type}:${selected.id}`,
+        target,
+        labelKey: type,
+        resolution: {
+          kind: 'defensive',
+          intent: {
+            actorId: actor.id,
+            opponentId: selected.id,
+            type,
+            startedAt: state.time,
+            expiresAt: state.time + 2.2,
+          },
+        },
+      }),
+    );
+  }
+  const point = target.point;
+  if (opportunity.kind === 'loose_ball' && target.kind === 'ball') {
+    return opportunity.options.flatMap((option) =>
+      option.kind === 'movement'
+        ? [
+            contextualInteractionSchema.parse({
+              id: option.id,
+              target,
+              labelKey: 'attack_ball',
+              resolution: { kind: 'movement', intent: option.intent },
+            }),
+          ]
+        : [],
+    );
+  }
+  if (target.kind !== 'space') return [];
+  if (state.ball.ownerId === actor.id && distance(actor.position, point) <= 15) {
+    const carry = { type: 'carry' as const, actorId: actor.id, target: point };
+    const projected = asActions(target, [carry]);
+    const runner = bestRunnerForSpace(state, actor, point);
+    if (runner) {
+      const through = actions.find(
+        (action) =>
+          action.type === 'pass' && action.intent === 'through' && action.receiverId === runner.id,
+      );
+      if (through?.type === 'pass')
+        projected.push(...asActions(target, [{ ...through, target: point }]));
+    }
+    return projected;
+  }
+  if (
+    state.ball.ownerId &&
+    actor.team === state.possessionTeam &&
+    distance(actor.position, point) <= 22
+  ) {
+    const type =
+      point.x * (actor.team === 'home' ? 1 : -1) >
+      actor.position.x * (actor.team === 'home' ? 1 : -1) + 8
+        ? 'run_in_behind'
+        : 'attack_space';
+    return [
+      contextualInteractionSchema.parse({
+        id: `movement:${type}`,
+        target,
+        labelKey: type === 'run_in_behind' ? 'run_in_behind' : 'move_here',
+        resolution: {
+          kind: 'movement',
+          intent: {
+            actorId: actor.id,
+            type,
+            target: point,
+            startedAt: state.time,
+            expiresAt: state.time + 2.2,
+          },
+        },
+      }),
+    ];
+  }
+  return [];
+};
+
+const bestRunnerForSpace = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  point: PitchPoint,
+) =>
+  state.players
+    .filter(
+      (player) =>
+        player.team === actor.team &&
+        player.id !== actor.id &&
+        player.profile.primaryPosition !== 'goalkeeper',
+    )
+    .map((player) => ({
+      player,
+      score: distance(player.target, point) + distance(player.position, point) * 0.45,
+    }))
+    .filter(
+      ({ player, score }) =>
+        score < 24 && (actor.team === 'home' ? player.position.x < 105 : player.position.x > 0),
+    )
+    .sort((a, b) => a.score - b.score)[0]?.player;
+
+/** Applies the already-projected intention through canonical action/movement mechanics. */
+export const applyContextualInteraction = (
+  state: TacticalMatchState,
+  opportunity: PlayerDecisionOpportunity,
+  interaction: ContextualInteraction,
+): TacticalMatchState => {
+  if (opportunity.actorId !== state.controlledFootballerId || opportunity.openedAt !== state.time)
+    return state;
+  const gated = {
+    ...state,
+    playerDecisionGate: {
+      lastSituationSignature: opportunity.signature,
+      lastResolvedAt: state.time,
+    },
+  };
+  const resolution = interaction.resolution;
+  if (resolution.kind === 'action') return resolveMatchAction(gated, resolution.action);
+  if (resolution.kind === 'movement')
+    return {
+      ...gated,
+      playerMovementIntent: resolution.intent,
+      decisionIndex: state.decisionIndex + 1,
+    };
+  const opponent = state.players.find((player) => player.id === resolution.intent.opponentId);
+  const actor = state.players.find((player) => player.id === resolution.intent.actorId);
+  if (!opponent || !actor) return state;
+  const target =
+    resolution.intent.type === 'contain'
+      ? { x: actor.position.x + (actor.team === 'home' ? -1 : 1) * 1.5, y: actor.position.y }
+      : opponent.position;
+  return {
+    ...gated,
+    decisionIndex: state.decisionIndex + 1,
+    playerMovementIntent: {
+      actorId: actor.id,
+      type: resolution.intent.type === 'contain' ? 'hold_shape' : 'attack_space',
+      target,
+      startedAt: state.time,
+      expiresAt: resolution.intent.expiresAt,
+    },
+  };
+};

@@ -1,8 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { createTacticalScenarios } from './scenarios';
-import { finalFrame, interpolateFrame, tacticalToWorld } from './model';
+import { finalFrame, interpolateFrame, tacticalToWorld, worldToTactical } from './model';
 
 describe('tactical presentation model', () => {
+  it('round-trips canonical and presentation coordinates', () => {
+    const point = { x: 78.25, y: 12.5 };
+    const world = tacticalToWorld(point);
+    expect(worldToTactical({ x: world.x, z: world.z })).toEqual(point);
+  });
   it('converts canonical corners and centre to renderer coordinates', () => {
     expect(tacticalToWorld({ x: 0, y: 0 })).toEqual({ x: -52.5, y: 0, z: -34 });
     expect(tacticalToWorld({ x: 52.5, y: 34 }, 2)).toEqual({ x: 0, y: 2, z: 0 });

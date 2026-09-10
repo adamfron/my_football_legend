@@ -1,5 +1,11 @@
 # Architektura
 
+## Target-first player interaction
+
+Single Match Lab zatrzymuje stan wyłącznie na kanonicznej okazji decyzyjnej. Renderer identyfikuje
+prezentacyjny cel, natomiast czysta, bezlosowa projekcja core wyprowadza dostępne intencje. React nie
+filtruje legalności futbolowej. Wybrana intencja wraca do wspólnego resolvera używanego przez NPC.
+
 ## Cykl życia akcji meczu
 
 `latestAction` jest historią ostatnio wybranej intencji. `currentAction` pozostaje polem zgodności

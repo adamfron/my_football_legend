@@ -13,8 +13,11 @@ import {
   deriveTeamShapeMetrics,
   evaluateMatchSituation,
   projectPlayerDecisionOpportunity,
-  applyPlayerDecision,
   letAiDecide,
+  projectContextualInteractions,
+  applyContextualInteraction,
+  type PlayerInteractionTarget,
+  type ContextualInteraction,
   type PlayerDecisionOpportunity,
   type TacticalMatchState,
   type RestartScenario,
@@ -236,6 +239,8 @@ const RunningLab = ({
     [saveMessage, setSaveMessage] = useState<string>(),
     [captureError, setCaptureError] = useState<string>(),
     [opportunity, setOpportunity] = useState<PlayerDecisionOpportunity>(),
+    [selectedTarget, setSelectedTarget] = useState<PlayerInteractionTarget>(),
+    [menuPosition, setMenuPosition] = useState<{ x: number; y: number }>(),
     [debugExport, setDebugExport] = useState<{
       trace: MatchDebugExport;
       video: Blob | undefined;
@@ -264,6 +269,7 @@ const RunningLab = ({
     setCaptureError(undefined);
     setSaveMessage(undefined);
     setOpportunity(undefined);
+    setSelectedTarget(undefined);
     accumulatorRef.current = 0;
     const renderer = new TacticalPitchRenderer(hostRef.current, matchStateToFrame(initial));
     const videoRecorder = videoRecorderRef.current;
@@ -381,6 +387,28 @@ const RunningLab = ({
     shapeMetrics = (['home', 'away'] as const).map(
       (side) => [side, deriveTeamShapeMetrics(state, side)] as const,
     );
+  const interactions =
+    opportunity && selectedTarget
+      ? projectContextualInteractions(state, opportunity, selectedTarget)
+      : [];
+  const interactionLabel = (interaction: ContextualInteraction) =>
+    ({
+      pass_to_feet: 'Podaj do nogi',
+      progressive_pass: 'Podanie progresywne',
+      pass_into_space: 'Zagraj przed niego',
+      cross: 'Dośrodkuj',
+      hold_ball: 'Osłoń / utrzymaj piłkę',
+      carry_here: 'Prowadź tutaj',
+      placed_shot: 'Strzał techniczny',
+      driven_shot: 'Strzał mocny',
+      chip_shot: 'Lob',
+      contain: 'Pilnuj / opóźniaj',
+      press: 'Pressuj',
+      challenge: 'Odbierz',
+      attack_ball: 'Walcz o piłkę',
+      move_here: 'Pokaż się tutaj',
+      run_in_behind: 'Rusz za linię',
+    })[interaction.labelKey] ?? interaction.labelKey;
   const uiEvent = (type: string, data?: Record<string, unknown>) =>
     debugRecorderRef.current.ui(stateRef.current.time, type, data);
   const closeOpportunity = (
@@ -397,6 +425,7 @@ const RunningLab = ({
     });
     setState(next);
     setOpportunity(undefined);
+    setSelectedTarget(undefined);
   };
   const triggerCapture = () => {
     if (!debugRecorderRef.current.trigger(state.time)) return;
@@ -452,56 +481,6 @@ const RunningLab = ({
   ];
   return (
     <main className="tactical-sandbox">
-      {opportunity && (
-        <section className="player-decision" aria-label="Decyzja piłkarza">
-          <strong>
-            {opportunity.situation.kind === 'under_pressure'
-              ? 'Jesteś pod presją'
-              : opportunity.kind === 'loose_ball'
-                ? 'Walcz o piłkę'
-                : opportunity.kind === 'off_ball_run'
-                  ? 'Wybierz ruch bez piłki'
-                  : 'Podejmij decyzję'}
-          </strong>
-          <div className="player-decision__options">
-            {opportunity.options.slice(0, 12).map((option) => (
-              <button
-                key={option.id}
-                onClick={() =>
-                  closeOpportunity(
-                    applyPlayerDecision(state, opportunity, option.id),
-                    'player',
-                    option,
-                  )
-                }
-              >
-                {option.labelKey === 'hold'
-                  ? 'Utrzymaj piłkę'
-                  : option.labelKey === 'carry'
-                    ? 'Prowadź piłkę'
-                    : option.labelKey.startsWith('pass_through')
-                      ? 'Zagraj w przestrzeń'
-                      : option.labelKey.startsWith('pass_')
-                        ? 'Podaj'
-                        : option.labelKey.startsWith('shot_')
-                          ? 'Strzel'
-                          : option.labelKey === 'run_in_behind'
-                            ? 'Rusza za linię'
-                            : option.labelKey === 'come_short'
-                              ? 'Podejdź krótko'
-                              : option.labelKey === 'support'
-                                ? 'Wspieraj'
-                                : 'Atakuj piłkę'}
-              </button>
-            ))}
-            <button
-              onClick={() => closeOpportunity(letAiDecide(state, opportunity), 'ai', 'npc_choice')}
-            >
-              Pozwól zdecydować AI
-            </button>
-          </div>
-        </section>
-      )}
       <header>
         <div>
           <span className="dev-badge">DEV · AUTONOMICZNA SYMULACJA</span>
@@ -622,9 +601,76 @@ const RunningLab = ({
         ))}
       </nav>
       <section className="sandbox-grid">
-        <div className="pitch-stage" ref={hostRef} />
+        <div
+          className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}
+          ref={hostRef}
+          onClick={(event) => {
+            if (!opportunity) return;
+            const picked = rendererRef.current?.pick(event.clientX, event.clientY);
+            if (!picked) return;
+            const target: PlayerInteractionTarget =
+              picked.kind === 'player'
+                ? picked
+                : picked.kind === 'goal'
+                  ? picked
+                  : Math.hypot(picked.point.x - state.ball.x, picked.point.y - state.ball.y) < 2
+                    ? { kind: 'ball', point: picked.point }
+                    : { kind: 'space', point: picked.point };
+            const projected = projectContextualInteractions(state, opportunity, target);
+            setSelectedTarget(target);
+            setMenuPosition({
+              x: event.clientX - event.currentTarget.getBoundingClientRect().left,
+              y: event.clientY - event.currentTarget.getBoundingClientRect().top,
+            });
+            uiEvent('interaction_target_selected', { target });
+            if (projected.length)
+              uiEvent('context_menu_opened', {
+                target,
+                interactionIds: projected.map((item) => item.id),
+              });
+          }}
+        >
+          {opportunity && (
+            <div className="interaction-hint">Wybierz piłkarza, przestrzeń lub bramkę</div>
+          )}
+          {opportunity && menuPosition && interactions.length > 0 && (
+            <section
+              className="context-menu"
+              style={{ left: menuPosition.x, top: menuPosition.y }}
+              aria-label="Dostępne zagrania"
+              onClick={(event) => event.stopPropagation()}
+            >
+              {interactions.slice(0, 5).map((interaction) => (
+                <button
+                  key={interaction.id}
+                  onClick={() => {
+                    uiEvent('player_interaction_selected', {
+                      target: selectedTarget,
+                      interactionId: interaction.id,
+                    });
+                    closeOpportunity(
+                      applyContextualInteraction(state, opportunity, interaction),
+                      'player',
+                      interaction,
+                    );
+                  }}
+                >
+                  {interactionLabel(interaction)}
+                </button>
+              ))}
+            </section>
+          )}
+        </div>
         <aside className="decision-board">
           <small>STAN KANONICZNY</small>
+          {opportunity && opportunity.kind === 'on_ball' && (
+            <button
+              className="dev-ai-choice"
+              onClick={() => closeOpportunity(letAiDecide(state, opportunity), 'ai', 'npc_choice')}
+            >
+              DEV: wykonaj wybór AI
+            </button>
+          )}
           <h2>
             {state.possessionTeam === 'home' ? session.home.club.name : session.away.club.name} przy
             piłce

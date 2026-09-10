@@ -205,22 +205,43 @@
     display: none;
   }
 }
-.player-decision {
-  position: fixed;
-  z-index: 20;
-  left: 50%;
-  bottom: 2rem;
-  transform: translateX(-50%);
-  width: min(46rem, calc(100vw - 2rem));
-  padding: 1rem;
-  border: 1px solid #68d391;
-  border-radius: 0.75rem;
-  background: rgba(8, 22, 18, 0.96);
-  box-shadow: 0 1rem 3rem #000a;
+.pitch-stage--interactive canvas {
+  cursor: crosshair;
 }
-.player-decision__options {
+.interaction-hint {
+  position: absolute;
+  z-index: 3;
+  top: 0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #68d391;
+  border-radius: 999px;
+  background: rgba(8, 22, 18, 0.9);
+  pointer-events: none;
+  font-size: 0.82rem;
+}
+.context-menu {
+  position: absolute;
+  z-index: 5;
+  transform: translate(0.7rem, 0.7rem);
+  width: min(13rem, 40%);
+  padding: 0.5rem;
+  border: 1px solid #68d391;
+  border-radius: 0.55rem;
+  background: rgba(8, 22, 18, 0.96);
+  box-shadow: 0 0.8rem 2rem #0009;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+}
+.context-menu button {
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+}
+.dev-ai-choice {
+  float: right;
+  border-style: dashed !important;
+  color: #a9d9bf !important;
+  font: 700 11px monospace;
 }

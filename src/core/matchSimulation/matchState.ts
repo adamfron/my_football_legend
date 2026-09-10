@@ -67,6 +67,14 @@ export const playerMovementIntentSchema = z.object({
   expiresAt: z.number().nonnegative(),
 });
 export type PlayerMovementIntent = z.infer<typeof playerMovementIntentSchema>;
+export const playerDefensiveIntentSchema = z.object({
+  actorId: z.string(),
+  opponentId: z.string(),
+  type: z.enum(['contain', 'press', 'challenge']),
+  startedAt: z.number().nonnegative(),
+  expiresAt: z.number().nonnegative(),
+});
+export type PlayerDefensiveIntent = z.infer<typeof playerDefensiveIntentSchema>;
 export const ballCarrierIntentSchema = z.object({
   actorId: z.string(),
   type: z.literal('carry'),

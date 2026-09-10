@@ -38,6 +38,12 @@ export type TacticalPlayer = z.infer<typeof tacticalPlayerSchema>;
 export type TacticalBall = z.infer<typeof tacticalBallSchema>;
 export type TacticalFrame = z.infer<typeof tacticalFrameSchema>;
 export type TacticalSequence = z.infer<typeof tacticalSequenceSchema>;
+export const presentationTargetSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('player'), playerId: z.string() }),
+  z.object({ kind: z.literal('pitch'), point: tacticalPointSchema }),
+  z.object({ kind: z.literal('goal'), side: z.enum(['home', 'away']) }),
+]);
+export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
 
 /** Canonical x (0..105) becomes world X; canonical y (0..68) becomes world Z. */
 export const tacticalToWorld = (point: TacticalPoint, height = 0) => ({
@@ -45,6 +51,8 @@ export const tacticalToWorld = (point: TacticalPoint, height = 0) => ({
   y: height,
   z: point.y - PITCH_WIDTH / 2,
 });
+export const worldToTactical = (point: { x: number; z: number }): TacticalPoint =>
+  tacticalPointSchema.parse({ x: point.x + PITCH_LENGTH / 2, y: point.z + PITCH_WIDTH / 2 });
 
 const lerp = (from: number, to: number, t: number) => from + (to - from) * t;
 

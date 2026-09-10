@@ -1,5 +1,11 @@
 # My Football Legend — Current Project State
 
+## PR108 — current Single Match Lab work
+
+Player interaction now selects a football-world target and then a contextual intention projected by
+core. Loose-ball relevance considers arrival, trajectory and dominant contenders; broad position
+profiles bias when the simulation asks without restricting canonical actions.
+
 ## Product philosophy
 
 - Symulator kariery piłkarza, nie gra menedżerska: rutynowy futbol jest symulowany, a znaczący ma być interaktywny.
