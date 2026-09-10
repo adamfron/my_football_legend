@@ -135,9 +135,11 @@ export const enumerateAvailableActions = (
         target: { ...p.position },
         intent: length > 42 ? 'direct' : progress > 8 ? 'progressive' : 'support',
       });
-      if (progress > 3 && p.duty !== 'defend') {
+      if (progress > 8 && p.duty !== 'defend') {
         const space = evaluateRunSpace(state, actor, p);
-        if (!space || space.utility < -8) return;
+        // A leading ball is an exception for a real run/space advantage, not a
+        // second default variant of every forward pass.
+        if (!space || space.utility < 6) return;
         actions.push({
           type: 'pass',
           actorId,
@@ -239,6 +241,12 @@ export const scoreActionForAI = (
         ? 5
         : 0;
   const space = action.intent === 'through' ? evaluateRunSpace(state, actor, receiver) : undefined;
+  const throughContext =
+    action.intent === 'through'
+      ? space && space.defenderArrival - space.attackerArrival >= 0.2
+        ? -10
+        : -38
+      : 0;
   return (
     28 +
     progression * (state.teams[actor.team].phase === 'attacking_transition' ? 1.5 : 1.05) -
@@ -251,6 +259,7 @@ export const scoreActionForAI = (
     recycleValue +
     technical +
     styleIntent +
+    throughContext +
     (space ? Math.max(-35, Math.min(25, space.utility)) : 0)
   );
 };

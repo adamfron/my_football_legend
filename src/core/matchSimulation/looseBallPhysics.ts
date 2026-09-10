@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import {
-  clampPitchPoint,
   distance,
   pitchPointSchema,
   teamSideSchema,
@@ -45,10 +44,13 @@ export const rollLooseBall = (
       : speed * dt - 0.5 * resistance * dt * dt;
   const direction = { x: velocity.x / speed, y: velocity.y / speed };
   return {
-    position: clampPitchPoint({
+    // This is a physical prediction, not a tactical/presentation point.  Keeping it
+    // unbounded lets the caller observe the first line crossing instead of turning
+    // the touchline into a wall.
+    position: {
       x: position.x + direction.x * travelled,
       y: position.y + direction.y * travelled,
-    }),
+    },
     velocity: { x: direction.x * endSpeed, y: direction.y * endSpeed },
   };
 };

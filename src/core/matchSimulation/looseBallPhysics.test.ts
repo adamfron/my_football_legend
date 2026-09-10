@@ -3,6 +3,7 @@ import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWo
 import { createSingleMatchSession } from '../singleMatch';
 import {
   createTacticalMatch,
+  FIXED_MATCH_DT,
   deriveLooseBallAssignments,
   distance,
   rollLooseBall,
@@ -10,6 +11,9 @@ import {
 } from '.';
 
 describe('loose ball physics', () => {
+  it('keeps raw outward travel unbounded so a touchline can be crossed', () => {
+    expect(rollLooseBall({ x: 50, y: 67.9 }, { x: 0, y: 8 }, 0.1).position.y).toBeGreaterThan(68);
+  });
   it('slows over elapsed time, eventually stops, and is invariant to subdivision', () => {
     const start = { x: 20, y: 34 };
     const velocity = { x: 9, y: 1 };
@@ -51,5 +55,32 @@ describe('loose ball physics', () => {
           before.get(playerId)!,
       ),
     ).toBe(true);
+  });
+
+  it('turns a natural loose-ball touchline crossing into the canonical throw-in', () => {
+    const world = createCanonicalWorldDatabase();
+    const session = createSingleMatchSession(world, {
+      homeClubId: world.clubs[0]!.id,
+      awayClubId: world.clubs[1]!.id,
+      seed: 'natural-throw-in',
+      control: { mode: 'spectator' },
+    });
+    const state = createTacticalMatch(session);
+    const lastTouch = state.players.find((player) => player.team === 'home')!;
+    state.ball = {
+      x: 50,
+      y: 67.9,
+      velocity: { x: 0, y: 8 },
+      looseSince: state.time,
+      lastTouchPlayerId: lastTouch.id,
+    };
+    const next = stepTacticalMatch(state, FIXED_MATCH_DT);
+    expect(next.scenario).toBe('throw_in');
+    expect(next.lastBoundaryRestart).toBe('throw_in');
+    expect(next.lastBoundaryCrossing).toMatchObject({
+      boundary: 'touchline_bottom',
+      restartTeam: 'away',
+    });
+    expect(next.ball.ownerId).toBeTruthy();
   });
 });

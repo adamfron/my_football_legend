@@ -56,6 +56,32 @@ const minimalState = (
 });
 
 describe('MatchDebugRecorder', () => {
+  it('exports the rolling past immediately and never appends later frames', () => {
+    const recorder = new MatchDebugRecorder();
+    for (let second = 0; second <= 15; second += 1) recorder.record(minimalState(second));
+    expect(recorder.freezePast(15)).toBe(true);
+    recorder.record(minimalState(16));
+    const trace = recorder.export(
+      {
+        setup: { seed: 'debug-test', control: { mode: 'spectator' } },
+        home: { club: { id: 'h', name: 'Home' }, formation: '4-4-2', players: [] },
+        away: { club: { id: 'a', name: 'Away' }, formation: '4-4-2', players: [] },
+      } as unknown as SingleMatchSession,
+      FIXED_MATCH_DT,
+      { width: 100, height: 100 },
+      false,
+      15,
+    );
+    expect(trace.metadata.window).toMatchObject({
+      mode: 'past_only',
+      requestedPreSeconds: 10,
+      requestedPostSeconds: 0,
+      actualStart: 5,
+      actualEnd: 15,
+    });
+    expect(trace.frames.at(-1)!.time).toBe(15);
+  });
+
   it('exports effective duties for canonical slots that omit their raw duty', () => {
     const world = createCanonicalWorldDatabase();
     const session = createSingleMatchSession(world, {

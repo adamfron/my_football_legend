@@ -2,6 +2,34 @@ import { z } from 'zod';
 import { distance } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import type { TacticalMatchState } from './matchState';
+import {
+  derivePlayerSupportMetrics,
+  deriveTeamShapeMetrics,
+  playerSupportMetricsSchema,
+  teamShapeMetricsSchema,
+} from './teamShapeMetrics';
+
+export const positioningSampleSchema = z.object({
+  time: z.number().nonnegative(),
+  phases: z.object({ home: z.string(), away: z.string() }),
+  ball: z.object({ x: z.number(), y: z.number(), ownerId: z.string().optional() }),
+  home: teamShapeMetricsSchema,
+  away: teamShapeMetricsSchema,
+  carrierSupport: playerSupportMetricsSchema.optional(),
+});
+export type PositioningSample = z.infer<typeof positioningSampleSchema>;
+
+export const sampleCanonicalPositioning = (state: TacticalMatchState): PositioningSample =>
+  positioningSampleSchema.parse({
+    time: state.time,
+    phases: { home: state.teams.home.phase, away: state.teams.away.phase },
+    ball: { x: state.ball.x, y: state.ball.y, ownerId: state.ball.ownerId },
+    home: deriveTeamShapeMetrics(state, 'home'),
+    away: deriveTeamShapeMetrics(state, 'away'),
+    ...(state.ball.ownerId
+      ? { carrierSupport: derivePlayerSupportMetrics(state, state.ball.ownerId) }
+      : {}),
+  });
 
 const passEdgeSchema = z.object({
   passerId: z.string(),
@@ -34,6 +62,7 @@ export const matchFlowTelemetrySchema = z.object({
     carries: z.number().int().nonnegative(),
     decisionOpportunities: z.record(z.string(), z.number().int().nonnegative()),
     humanSelectedActions: z.number().int().nonnegative(),
+    devAiSelections: z.number().int().nonnegative(),
     autonomousRoutineActions: z.number().int().nonnegative(),
     preventedByEscalation: z.number().int().nonnegative(),
   }),
@@ -67,11 +96,31 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
       carries: 0,
       decisionOpportunities: {},
       humanSelectedActions: 0,
+      devAiSelections: 0,
       autonomousRoutineActions: 0,
       preventedByEscalation: 0,
     },
     passingNetwork: [],
   });
+
+export const recordDecisionOpportunity = (
+  telemetry: MatchFlowTelemetry,
+  kind: 'on_ball' | 'off_ball_run' | 'loose_ball' | 'defensive_response',
+  preventedByEscalation = false,
+) => {
+  telemetry.controlled.decisionOpportunities[kind] =
+    (telemetry.controlled.decisionOpportunities[kind] ?? 0) + 1;
+  if (preventedByEscalation) telemetry.controlled.preventedByEscalation++;
+};
+
+export const recordDecisionSelection = (
+  telemetry: MatchFlowTelemetry,
+  source: 'human' | 'dev_ai' | 'autonomous',
+) => {
+  if (source === 'human') telemetry.controlled.humanSelectedActions++;
+  else if (source === 'dev_ai') telemetry.controlled.devAiSelections++;
+  else telemetry.controlled.autonomousRoutineActions++;
+};
 
 /** Observes two snapshots without consuming RNG or feeding statistics back into play. */
 export const observeMatchFlow = (
