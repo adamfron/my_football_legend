@@ -204,8 +204,7 @@ export const evaluateControlledPlayerBallRelevance = (
     (rank <= 3 || trajectoryRelevant);
   return ballRelevanceSchema.parse({
     relevant,
-    estimatedArrivalTime: arrival,
-    ballArrivalTime,
+    ...(candidate ? { estimatedArrivalTime: arrival, ballArrivalTime } : {}),
     ...(rank ? { contenderRank: rank } : {}),
     ...(candidate ? { actor: candidate } : {}),
     ...(bestOverall ? { bestOverall } : {}),
@@ -218,7 +217,7 @@ export const evaluateControlledPlayerBallRelevance = (
         : arrival < 1
           ? 'direct_contest'
           : 'reachable_soon'
-      : dominant
+      : candidate && dominant
         ? 'other_player_dominant'
         : 'too_far',
   });

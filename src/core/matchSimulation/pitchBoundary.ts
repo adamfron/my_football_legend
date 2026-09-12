@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { pitchPointSchema, type PitchPoint } from './matchSpace';
+import { pitchPointSchema, type PhysicalPoint, type PitchPoint } from './matchSpace';
 
 export const pitchBoundarySchema = z.enum([
   'touchline_top',
@@ -19,7 +19,7 @@ export type PitchBoundaryCrossing = z.infer<typeof pitchBoundaryCrossingSchema>;
 /** Returns the first intersection of a directed ball segment with the pitch rectangle. */
 export const findPitchBoundaryCrossing = (
   previous: PitchPoint,
-  next: PitchPoint,
+  next: PhysicalPoint,
 ): PitchBoundaryCrossing | undefined => {
   const dx = next.x - previous.x;
   const dy = next.y - previous.y;

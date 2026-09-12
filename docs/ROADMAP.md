@@ -23,10 +23,10 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — ukończony.**
 - **PR111 — Open-Play Role Relationships Calibration — ukończony.**
 - **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
-- **PR113 — Match Lab Crash Safety & Renderer Initialization — bieżący.**
-- **PR114 — zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu**
+- **PR113 — Match Lab Crash Safety & Renderer Initialization — ukończony.**
+- **PR114 — Boundary-Aware Loose-Ball Prediction & Spatial Type Safety — bieżący.**
+- **PR115 — zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu**
   (ostateczny zakres po stabilnych testach wielominutowych).
-- **Później:** zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
 - **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
@@ -50,8 +50,9 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — ukończony.**
 - **PR111 — Open-Play Role Relationships Calibration — ukończony.**
 - **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
-- **PR113 — Match Lab Crash Safety & Renderer Initialization — bieżący.**
-- **PR114 — fatigue / score-state / substitutions / late-game structural behaviour** (zakres po
+- **PR113 — Match Lab Crash Safety & Renderer Initialization — ukończony.**
+- **PR114 — Boundary-Aware Loose-Ball Prediction & Spatial Type Safety — bieżący.**
+- **PR115 — fatigue / score-state / substitutions / late-game structural behaviour** (zakres po
   stabilnych testach wielominutowych).
 
 Materiał kalibracyjny udostępniamy zależnie od skali: szczegółowy incydent jako istniejący JSON

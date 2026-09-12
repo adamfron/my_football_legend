@@ -20,6 +20,12 @@ export const pitchPointSchema = z.object({
   y: z.number().min(0).max(PITCH_WIDTH),
 });
 export type PitchPoint = z.infer<typeof pitchPointSchema>;
+/** A finite physical coordinate which is not necessarily inside the pitch. */
+export const physicalPointSchema = z.object({
+  x: z.number().finite(),
+  y: z.number().finite(),
+});
+export type PhysicalPoint = z.infer<typeof physicalPointSchema>;
 export const teamPointSchema = z.object({
   depth: z.number().min(0).max(1),
   lateral: z.number().min(-1).max(1),
@@ -48,7 +54,7 @@ export const clampPitchPoint = ({ x, y }: PitchPoint): PitchPoint => ({
   y: Math.max(0.4, Math.min(PITCH_WIDTH - 0.4, y)),
 });
 
-export const distance = (a: PitchPoint, b: PitchPoint) => Math.hypot(a.x - b.x, a.y - b.y);
+export const distance = (a: PhysicalPoint, b: PhysicalPoint) => Math.hypot(a.x - b.x, a.y - b.y);
 
 /** A deliberately small, team-relative territorial model (not xG). */
 export const fieldValue = (point: PitchPoint, side: TeamSide) => {

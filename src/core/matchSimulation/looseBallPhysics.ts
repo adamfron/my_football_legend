@@ -3,10 +3,12 @@ import {
   distance,
   pitchPointSchema,
   teamSideSchema,
+  type PhysicalPoint,
   type PitchPoint,
   type TeamSide,
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
 
 export const pitchSurfacePhysicsSchema = z.object({
   rollingResistance: z.number().positive().finite(),
@@ -22,10 +24,10 @@ export const DEFAULT_PITCH_SURFACE: PitchSurfacePhysics = Object.freeze({
 /** Exact integration of dv/dt = -rollingResistance - drag*v along the travel direction. */
 export const rollLooseBall = (
   position: PitchPoint,
-  velocity: PitchPoint,
+  velocity: PhysicalPoint,
   elapsed: number,
   surface: PitchSurfacePhysics = DEFAULT_PITCH_SURFACE,
-) => {
+): { position: PhysicalPoint; velocity: PhysicalPoint } => {
   const speed = Math.hypot(velocity.x, velocity.y);
   if (speed <= 0.01 || elapsed <= 0) return { position: { ...position }, velocity: { x: 0, y: 0 } };
   const resistance = surface.rollingResistance;
@@ -60,12 +62,18 @@ const isInsideOwnPenaltyArea = (point: PitchPoint, side: TeamSide) =>
 
 export const predictLooseBallIntercept = (
   ball: PitchPoint,
-  velocity: PitchPoint,
+  velocity: PhysicalPoint,
   player: MatchPlayerState,
-): PitchPoint => {
+):
+  | { kind: 'in_play'; point: PitchPoint }
+  | { kind: 'boundary'; crossing?: PitchBoundaryCrossing } => {
   const playerSpeed = 5.5 + player.profile.attributes.pace * 0.035;
   const horizon = Math.min(1.6, distance(player.position, ball) / playerSpeed);
-  return rollLooseBall(ball, velocity, horizon).position;
+  const predicted = rollLooseBall(ball, velocity, horizon).position;
+  const crossing = findPitchBoundaryCrossing(ball, predicted);
+  if (crossing) return { kind: 'boundary', crossing };
+  const playable = pitchPointSchema.safeParse(predicted);
+  return playable.success ? { kind: 'in_play', point: playable.data } : { kind: 'boundary' };
 };
 
 export interface LooseBallAssignment {
@@ -95,19 +103,35 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
   if (state.ball.ownerId) return [];
   const velocity = state.ball.velocity ?? { x: 0, y: 0 };
   const samples = Array.from({ length: 12 }, (_, index) => (index + 1) * 0.25);
-  const evaluated = samples.map((ballArrivalTime) => {
+  const evaluated: { ballArrivalTime: number; candidates: BallRaceCandidate[] }[] = [];
+  let previousPoint: PitchPoint = state.ball;
+  let crossedBoundary = false;
+  let boundaryTime: number | undefined;
+  for (const ballArrivalTime of samples) {
     const interceptPoint = rollLooseBall(state.ball, velocity, ballArrivalTime).position;
+    const crossing = findPitchBoundaryCrossing(previousPoint, interceptPoint);
+    if (crossing) {
+      crossedBoundary = true;
+      boundaryTime = (evaluated.at(-1)?.ballArrivalTime ?? 0) + crossing.segmentFraction * 0.25;
+      break;
+    }
+    const playable = pitchPointSchema.safeParse(interceptPoint);
+    if (!playable.success) {
+      crossedBoundary = true;
+      break;
+    }
+    const playablePoint = playable.data;
     const candidates = state.players.flatMap((player) => {
       const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
-      if (goalkeeper && !isInsideOwnPenaltyArea(interceptPoint, player.team)) return [];
+      if (goalkeeper && !isInsideOwnPenaltyArea(playablePoint, player.team)) return [];
       const attributes = player.profile.attributes;
       const speed = 5.4 + attributes.pace * 0.035 + attributes.agility * 0.012;
-      const estimatedArrivalTime = distance(player.position, interceptPoint) / speed;
+      const estimatedArrivalTime = distance(player.position, playablePoint) / speed;
       return [
         {
           playerId: player.id,
           team: player.team,
-          interceptPoint,
+          interceptPoint: playablePoint,
           estimatedArrivalTime,
           ballArrivalTime,
           timingDelta: estimatedArrivalTime - ballArrivalTime,
@@ -115,11 +139,17 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
         },
       ];
     });
-    return { ballArrivalTime, candidates };
-  });
-  const sample =
-    evaluated.find(({ candidates }) => candidates.some(({ timingDelta }) => timingDelta <= 0.35)) ??
-    evaluated.at(-1)!;
+    evaluated.push({ ballArrivalTime, candidates });
+    previousPoint = playablePoint;
+  }
+  const reachable = evaluated.find(({ candidates }) =>
+    candidates.some(
+      ({ timingDelta, estimatedArrivalTime }) =>
+        timingDelta <= 0.35 && (boundaryTime === undefined || estimatedArrivalTime < boundaryTime),
+    ),
+  );
+  const sample = reachable ?? (crossedBoundary ? undefined : evaluated.at(-1));
+  if (!sample) return [];
   return sample.candidates
     .sort(
       (a, b) =>
@@ -134,7 +164,9 @@ export const deriveLooseBallAssignments = (state: TacticalMatchState): LooseBall
   const velocity = state.ball.velocity ?? { x: 0, y: 0 };
   const candidates = state.players.flatMap((player) => {
     const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
-    const target = predictLooseBallIntercept(state.ball, velocity, player);
+    const prediction = predictLooseBallIntercept(state.ball, velocity, player);
+    if (prediction.kind === 'boundary') return [];
+    const target = prediction.point;
     if (goalkeeper && !isInsideOwnPenaltyArea(target, player.team)) return [];
     const metres = distance(player.position, target);
     const reading =
