@@ -104,7 +104,7 @@ export const enumerateAvailableActions = (
     x: actor.team === 'home' ? 105 : 0,
     y: 34,
   });
-  if (goalDistance < 38) {
+  {
     const immediateDefenders = opponents(state, actor).filter(
       (player) =>
         player.profile.primaryPosition !== 'goalkeeper' &&

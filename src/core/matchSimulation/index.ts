@@ -28,3 +28,4 @@ export * from './actionImpact';
 export * from './matchFlowTelemetry';
 export * from './locomotion';
 export * from './playerArrival';
+export * from './playerMatchStats';

@@ -109,6 +109,7 @@ export const matchFlowTelemetrySchema = z.object({
   observedPassAttemptIds: z.array(z.string()),
   observedPassResultIds: z.array(z.string()),
   observedShotIds: z.array(z.string()),
+  observedMajorActionIds: z.array(z.string()),
   shotDiagnostics: z.array(z.custom<NonNullable<TacticalMatchState['lastShot']>>()),
 });
 export type MatchFlowTelemetry = z.infer<typeof matchFlowTelemetrySchema>;
@@ -168,6 +169,7 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
     observedPassAttemptIds: [],
     observedPassResultIds: [],
     observedShotIds: [],
+    observedMajorActionIds: [],
     shotDiagnostics: [],
   });
 
@@ -202,7 +204,16 @@ export const observeMatchFlow = (
   const action = next.latestAction;
   const newAction =
     action && (previous.latestAction !== action || previous.decisionIndex !== next.decisionIndex);
-  if (newAction && action.actorId === next.controlledFootballerId) {
+  const actionEpisodeId = action
+    ? `${next.seed}:${next.decisionIndex}:${action.actorId}:${action.type}`
+    : undefined;
+  if (
+    action &&
+    actionEpisodeId &&
+    !result.observedMajorActionIds.includes(actionEpisodeId) &&
+    action.actorId === next.controlledFootballerId
+  ) {
+    result.observedMajorActionIds.push(actionEpisodeId);
     const human = next.latestActionSource === 'human_selected';
     const source = human ? 'human' : 'autonomous';
     if (action.type === 'shot') result.controlled.majorActionSources.shots[source]++;

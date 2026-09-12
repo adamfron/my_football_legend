@@ -7,6 +7,7 @@ import { ballContactSchema, type BallContact } from './ballFlight';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
 import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
 import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
+import type { MatchStatistics } from './playerMatchStats';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -309,10 +310,16 @@ export const matchScoreSchema = z.object({
   home: z.number().int().nonnegative(),
   away: z.number().int().nonnegative(),
 });
+export const matchPeriodSchema = z.enum(['first_half', 'half_time', 'second_half', 'full_time']);
+export type MatchPeriod = z.infer<typeof matchPeriodSchema>;
 export interface TacticalMatchState {
   seed: string;
   time: number;
   decisionIndex: number;
+  /** Canonical regulation lifecycle. Stoppage time is deliberately future work. */
+  status?: MatchPeriod;
+  periodEndPending?: boolean;
+  statistics?: MatchStatistics;
   teams: Record<TeamSide, MatchTeamState>;
   players: MatchPlayerState[];
   ball: MatchBallState;
@@ -418,6 +425,8 @@ export const tacticalMatchStateSchema = z
     seed: z.string().min(1),
     time: z.number().nonnegative().finite(),
     decisionIndex: z.number().int().nonnegative(),
+    status: matchPeriodSchema,
+    periodEndPending: z.boolean().optional(),
     teams: z.record(
       teamSideSchema,
       z.object({
