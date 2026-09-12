@@ -377,18 +377,28 @@ strzały, reakcje bramkarza i czasowy spalony; (2) indywidualne tendencje taktyc
 dojrzeniu kanonicznego zestawu akcji — kontekstowe menu gracza jako UI nad tym samym zbiorem.
 Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozszerzenia rozgrywek.
 
-### Bieżący rozwój meczu — PR117–PR122
+### Bieżący rozwój meczu — PR117–PR123
 
 - **PR117 — ukończony:** podania uwzględniające ruch odbiorcy i Tactical Match Presentation v1.
 - **PR118 — ukończony:** fizyczna osiągalność przechwytu, przekazanie sprawczości po akcji gracza
   oraz czytelność proceduralnych postaci v2.
 - **PR119 — ukończony:** płynność meczu, wybór strzałów, kalibracja xG i integralność telemetrii.
-- **PR120 — bieżący:** cykl części meczu, kanoniczne statystyki występu, wynik końcowy i fundament
+- **PR120 — ukończony:** cykl części meczu, kanoniczne statystyki występu, wynik końcowy i fundament
   powtórek bramek.
-- **PR121 — następny:** kalibracja progresji posiadania i współpracy bocznego obrońcy ze skrzydłowym.
-- **PR122 — następny:** system wizualny meczu inspirowany Windows 95 i dopracowanie powtórek.
+- **PR121 — bieżący:** sprawczość bramkarza, celowanie strzału i bezpieczne trajektorie za linią
+  bramkową.
+- **PR122 — następny:** kalibracja progresji posiadania i współpracy bocznego obrońcy ze skrzydłowym.
+- **PR123 — następny:** system wizualny meczu inspirowany Windows 95 i dopracowanie powtórek.
 - **Później:** zmęczenie, kontekst wyniku, zmiany, integracja meczu kariery, spójny system
   wizualny i prezentacja meczu, pełne stroje/logotypy oraz agregacja oceny meczowej zawodnika.
+
+Dogrywany czas powinien w przyszłości wynikać z kanonicznych zdarzeń utraconego czasu (kontuzji,
+zmian, bramek i wznowień, VAR-u, kartek, fauli i długich przygotowań stałych fragmentów), nigdy z
+losowego „+3”. Implementacja czeka na istnienie tych źródeł zdarzeń.
+
+Daleki wrzut z autu pozostaje przyszłą, kontekstową opcją wznowienia zależną m.in. od siły,
+techniki/setPieces, odległości od pola karnego, odbiorcy, pojedynku w powietrzu i ryzyka. Nie będzie
+uniwersalnie mocniejszym wariantem każdego autu.
 
 Przyszły rynek transferowy powinien opierać hierarchię siły i prestiżu klubów na globalnym
 ratingu siły (Elo lub modelu równoważnym), a nie wyłącznie na miejscu w tabeli ligi. Kluby otrzymają

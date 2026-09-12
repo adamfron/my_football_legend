@@ -135,6 +135,19 @@ export const projectContextualInteractions = (
         ),
       );
     if (state.ball.ownerId !== selected.id || actor.team === state.possessionTeam) return [];
+    if (opportunity.kind === 'goalkeeper_response')
+      return opportunity.options.flatMap((option) =>
+        option.kind === 'movement'
+          ? [
+              contextualInteractionSchema.parse({
+                id: option.id,
+                target,
+                labelKey: option.labelKey,
+                resolution: { kind: 'movement', intent: option.intent },
+              }),
+            ]
+          : [],
+      );
     const metres = distance(actor.position, selected.position);
     return (['contain', ...(metres <= 2.4 ? ['challenge'] : [])] as const).map((type) =>
       contextualInteractionSchema.parse({
@@ -155,7 +168,11 @@ export const projectContextualInteractions = (
     );
   }
   const point = target.point;
-  if (opportunity.kind === 'defensive_response' && !state.ball.ownerId && target.kind === 'ball') {
+  if (
+    (opportunity.kind === 'defensive_response' || opportunity.kind === 'goalkeeper_response') &&
+    !state.ball.ownerId &&
+    target.kind === 'ball'
+  ) {
     return opportunity.options.flatMap((option) =>
       option.kind === 'movement'
         ? [

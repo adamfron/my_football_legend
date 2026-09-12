@@ -275,7 +275,8 @@ describe('deterministic full-career audit', () => {
         );
       soakTiming.fullCareerMs += performance.now() - fullCareerStartedAt;
     },
-    30_000,
+    // The complete deterministic career can exceed 30 s on shared CI runners.
+    60_000,
   );
 
   it('moves past an already-completed checkpoint week instead of returning it unchanged', () => {

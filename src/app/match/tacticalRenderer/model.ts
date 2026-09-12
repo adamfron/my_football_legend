@@ -80,6 +80,26 @@ export const presentationTargetSchema = z.discriminatedUnion('kind', [
 ]);
 export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
 
+export const matchCameraModeSchema = z.enum(['tactical', 'shot_aim', 'goal_replay']);
+export type MatchCameraMode = z.infer<typeof matchCameraModeSchema>;
+
+export const shotAimIntentSchema = z.object({
+  horizontal: z.number().min(-1).max(1),
+  vertical: z.number().min(0).max(1),
+});
+export type ShotAimIntent = z.infer<typeof shotAimIntentSchema>;
+
+/** Maps a large presentation plane to canonical intent without consulting simulation or RNG. */
+export const mapGoalPlanePointerToIntent = (
+  clientX: number,
+  clientY: number,
+  rect: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>,
+): ShotAimIntent =>
+  shotAimIntentSchema.parse({
+    horizontal: ((clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1,
+    vertical: 1 - (clientY - rect.top) / Math.max(1, rect.height),
+  });
+
 export const PLAYER_LOCAL_FORWARD_AXIS = '+Z' as const;
 export const playerAppearanceSchema = z.object({
   hairStyle: z.enum(['short', 'crop', 'side_part', 'buzz', 'curly_cap', 'bald']),

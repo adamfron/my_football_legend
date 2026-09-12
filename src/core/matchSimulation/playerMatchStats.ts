@@ -21,6 +21,10 @@ export const playerMatchStatsSchema = z.object({
   sprintDistance: z.number().nonnegative(),
   sprintBursts: z.number().int().nonnegative(),
   maxSpeed: z.number().nonnegative(),
+  saves: z.number().int().nonnegative(),
+  goalsConceded: z.number().int().nonnegative(),
+  catches: z.number().int().nonnegative(),
+  parries: z.number().int().nonnegative(),
 });
 export type PlayerMatchStats = z.infer<typeof playerMatchStatsSchema>;
 
@@ -54,6 +58,10 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
     sprintDistance: 0,
     sprintBursts: 0,
     maxSpeed: 0,
+    saves: 0,
+    goalsConceded: 0,
+    catches: 0,
+    parries: 0,
   })),
   observedPassAttemptIds: [],
   observedPassResultIds: [],
@@ -111,6 +119,18 @@ export const observePlayerMatchStats = (
     shooter.shots++;
     if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome)) shooter.shotsOnTarget++;
     if (shot.outcome === 'goal') shooter.goals++;
+    const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
+    const keeper = next.players.find(
+      (player) => player.team !== defendingTeam && player.profile.primaryPosition === 'goalkeeper',
+    );
+    const keeperStats = keeper ? stats(keeper.id) : undefined;
+    if (keeperStats && shot.outcome === 'goal') keeperStats.goalsConceded++;
+    if (keeperStats && shot.outcome === 'save') {
+      keeperStats.saves++;
+      if (shot.goalkeeperAction === 'catch') keeperStats.catches++;
+      if (shot.goalkeeperAction === 'parry' || shot.goalkeeperAction === 'parry_away')
+        keeperStats.parries++;
+    }
   }
   const change = next.lastPossessionChange;
   const eventId = change ? `${change.at}:${change.from}:${change.to}:${change.cause}` : undefined;
@@ -149,6 +169,10 @@ export const playerMatchSummarySchema = playerMatchStatsSchema.pick({
   sprintDistance: true,
   sprintBursts: true,
   maxSpeed: true,
+  saves: true,
+  goalsConceded: true,
+  catches: true,
+  parries: true,
 });
 export const projectPlayerMatchSummary = (statistics: MatchStatistics, playerId: string) =>
   playerMatchSummarySchema.parse(statistics.players.find((entry) => entry.playerId === playerId));

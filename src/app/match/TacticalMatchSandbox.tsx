@@ -43,6 +43,7 @@ import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
+import { mapGoalPlanePointerToIntent, type ShotAimIntent } from './tacticalRenderer/model';
 import { buildStartMenuUrl } from '../devTools';
 import {
   debugBasename,
@@ -362,6 +363,7 @@ const RunningLab = ({
     [opportunity, setOpportunity] = useState<PlayerDecisionOpportunity>(),
     [selectedTarget, setSelectedTarget] = useState<PlayerInteractionTarget>(),
     [menuPosition, setMenuPosition] = useState<{ x: number; y: number }>(),
+    [shotAim, setShotAim] = useState<ShotAimIntent>(),
     [debugExport, setDebugExport] = useState<{
       trace: MatchDebugExport;
       video: Blob | undefined;
@@ -410,6 +412,7 @@ const RunningLab = ({
     setSaveMessage(undefined);
     setOpportunity(undefined);
     setSelectedTarget(undefined);
+    setShotAim(undefined);
     accumulatorRef.current = 0;
     const renderer = new TacticalPitchRenderer(
       hostRef.current,
@@ -608,6 +611,12 @@ const RunningLab = ({
     scoreRef.current = score;
   }, [state, debug, replaying, opportunity, selectedTarget]);
   useEffect(() => {
+    rendererRef.current?.setCameraMode(
+      replaying ? 'goal_replay' : shotAim ? 'shot_aim' : 'tactical',
+      opportunity?.actorId,
+    );
+  }, [replaying, shotAim, opportunity?.actorId]);
+  useEffect(() => {
     if (!replaying || goalReplay.length === 0) return;
     const started = performance.now(),
       firstTimestamp = goalReplay[0]!.timestampMs;
@@ -662,6 +671,12 @@ const RunningLab = ({
       attack_ball: 'Walcz o piłkę',
       move_here: 'Pokaż się tutaj',
       run_in_behind: 'Rusz za linię',
+      keeper_stay: 'Zostań',
+      keeper_stay_line: 'Zostań na linii',
+      keeper_sweep: 'Wyjdź do piłki',
+      keeper_claim_cross: 'Wyjdź do dośrodkowania',
+      keeper_hold_position: 'Trzymaj pozycję',
+      keeper_close_angle: 'Skróć kąt',
     })[interaction.labelKey] ?? interaction.labelKey;
   const uiEvent = (type: string, data?: Record<string, unknown>) =>
     debugRecorderRef.current.ui(stateRef.current.time, type, data);
@@ -681,6 +696,7 @@ const RunningLab = ({
     setState(next);
     setOpportunity(undefined);
     setSelectedTarget(undefined);
+    setShotAim(undefined);
   };
   const triggerCapture = () => {
     if (!debugRecorderRef.current.trigger(state.time)) return;
@@ -918,8 +934,23 @@ const RunningLab = ({
         <div
           className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}
           onClick={(event) => {
-            if (!opportunity) return;
-            const picked = rendererRef.current?.pick(event.clientX, event.clientY);
+            if (!opportunity || shotAim) return;
+            const opportunityActor = state.players.find(
+              (player) => player.id === opportunity.actorId,
+            );
+            const hasShot = opportunity.options.some(
+              (option) => option.kind === 'action' && option.action.type === 'shot',
+            );
+            const opponentGoal = opportunityActor
+              ? opportunityActor.team === 'home'
+                ? 'away'
+                : 'home'
+              : undefined;
+            const picked = rendererRef.current?.pick(
+              event.clientX,
+              event.clientY,
+              hasShot ? opponentGoal : undefined,
+            );
             if (!picked) return;
             const target: PlayerInteractionTarget =
               picked.kind === 'player'
@@ -930,6 +961,16 @@ const RunningLab = ({
                     ? picked
                     : { kind: 'space', point: picked.point };
             const projected = projectContextualInteractions(state, opportunity, target);
+            if (
+              target.kind === 'goal' &&
+              projected.some((item) => item.resolution.kind === 'action')
+            ) {
+              setSelectedTarget(target);
+              setShotAim({ horizontal: 0, vertical: 0.45 });
+              setMenuPosition(undefined);
+              uiEvent('shot_aim_opened', { target });
+              return;
+            }
             setSelectedTarget(target);
             setMenuPosition({
               x: event.clientX - event.currentTarget.getBoundingClientRect().left,
@@ -944,6 +985,72 @@ const RunningLab = ({
           }}
         >
           <PitchCanvasHost ref={hostRef} />
+          {shotAim && opportunity && selectedTarget?.kind === 'goal' && (
+            <section
+              className="shot-aim"
+              aria-label="Celowanie strzału"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                className="shot-aim__goal"
+                aria-label="Wybierz miejsce w bramce"
+                onPointerDown={(event) =>
+                  setShotAim(
+                    mapGoalPlanePointerToIntent(
+                      event.clientX,
+                      event.clientY,
+                      event.currentTarget.getBoundingClientRect(),
+                    ),
+                  )
+                }
+              >
+                <span
+                  style={{
+                    left: `${((shotAim.horizontal + 1) / 2) * 100}%`,
+                    top: `${(1 - shotAim.vertical) * 100}%`,
+                  }}
+                />
+              </button>
+              <div className="shot-aim__actions">
+                {projectContextualInteractions(state, opportunity, selectedTarget)
+                  .filter(
+                    (item) =>
+                      item.resolution.kind === 'action' && item.resolution.action.type === 'shot',
+                  )
+                  .map((item) => {
+                    if (item.resolution.kind !== 'action' || item.resolution.action.type !== 'shot')
+                      return null;
+                    const action = { ...item.resolution.action, goalTarget: shotAim };
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() =>
+                          closeOpportunity(
+                            applyContextualInteraction(state, opportunity, {
+                              ...item,
+                              resolution: { kind: 'action', action },
+                            }),
+                            'player',
+                            action,
+                          )
+                        }
+                      >
+                        {interactionLabel(item)}
+                      </button>
+                    );
+                  })}
+                <button
+                  onClick={() => {
+                    setShotAim(undefined);
+                    setSelectedTarget(undefined);
+                    uiEvent('shot_aim_cancelled');
+                  }}
+                >
+                  Anuluj
+                </button>
+              </div>
+            </section>
+          )}
           {opportunity && (
             <div className="interaction-hint">Wybierz piłkę, piłkarza, przestrzeń lub bramkę</div>
           )}

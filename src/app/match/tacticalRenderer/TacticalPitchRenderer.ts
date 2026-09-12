@@ -7,6 +7,7 @@ import {
   type PresentationTarget,
   type TacticalFrame,
   type KitPresentation,
+  type MatchCameraMode,
   DEFAULT_KITS,
   derivePlayerAppearance,
   validateRenderFrame,
@@ -34,6 +35,7 @@ export class TacticalPitchRenderer {
   private viewportReady = false;
   private lastValidFrame?: TacticalFrame;
   private lastDebugMode = false;
+  private cameraMode: MatchCameraMode = 'tactical';
   private readonly report: (message?: string) => void;
 
   constructor(
@@ -418,13 +420,29 @@ export class TacticalPitchRenderer {
     this.onContextRestored();
   }
   /** Presentation-only hit test: no canonical state or football legality is consulted. */
-  pick(clientX: number, clientY: number): PresentationTarget | undefined {
+  pick(
+    clientX: number,
+    clientY: number,
+    goalIntentSide?: 'home' | 'away',
+  ): PresentationTarget | undefined {
     const rect = this.renderer.domElement.getBoundingClientRect();
     const pointer = new THREE.Vector2(
       ((clientX - rect.left) / rect.width) * 2 - 1,
       -((clientY - rect.top) / rect.height) * 2 + 1,
     );
     this.raycaster.setFromCamera(pointer, this.camera);
+    // A legal goal intention owns the visible mouth before an overlapping keeper hitbox.
+    if (goalIntentSide) {
+      const pitchHit = this.raycaster.intersectObject(this.pitch)[0];
+      if (pitchHit) {
+        const point = worldToTactical(pitchHit.point);
+        const inMouth =
+          point.y >= 25 &&
+          point.y <= 43 &&
+          (goalIntentSide === 'home' ? point.x <= 8 : point.x >= 97);
+        if (inMouth) return { kind: 'goal', side: goalIntentSide };
+      }
+    }
     const ballHit = this.raycaster.intersectObject(this.ballPicker)[0];
     if (ballHit) {
       const point = worldToTactical(this.ball.position);
@@ -444,6 +462,21 @@ export class TacticalPitchRenderer {
     if (point.x >= 103 && point.y >= 23 && point.y <= 45) return { kind: 'goal', side: 'away' };
     return { kind: 'pitch', point };
   }
+  /** Shared presentation-only framing for tactical play, aiming and stored replay frames. */
+  setCameraMode(mode: MatchCameraMode, focusedPlayerId?: string) {
+    this.cameraMode = mode;
+    if (mode === 'tactical') {
+      this.camera.position.set(-82, 92, 82);
+      this.camera.lookAt(0, 0, 0);
+    } else {
+      const focused = focusedPlayerId ? this.playerMeshes.get(focusedPlayerId) : undefined;
+      const centre = focused?.position ?? new THREE.Vector3();
+      const direction = centre.x <= 0 ? 1 : -1;
+      this.camera.position.set(centre.x - direction * 18, 13, centre.z + 7);
+      this.camera.lookAt(centre.x + direction * 30, 1.2, 0);
+    }
+    this.resize();
+  }
   private resize() {
     if (this.host.clientWidth <= 0 || this.host.clientHeight <= 0) {
       this.viewportReady = false;
@@ -453,7 +486,8 @@ export class TacticalPitchRenderer {
     const width = Math.max(this.host.clientWidth, 320),
       height = Math.max(this.host.clientHeight, 240),
       aspect = width / height,
-      horizontal = Math.max(125, 84 * aspect),
+      horizontal =
+        this.cameraMode === 'tactical' ? Math.max(125, 84 * aspect) : Math.max(42, 28 * aspect),
       vertical = horizontal / aspect;
     this.camera.left = -horizontal / 2;
     this.camera.right = horizontal / 2;
