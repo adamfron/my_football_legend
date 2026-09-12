@@ -9,6 +9,7 @@ import {
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
+import { estimatePlayerArrivalTime } from './playerArrival';
 
 export const pitchSurfacePhysicsSchema = z.object({
   rollingResistance: z.number().positive().finite(),
@@ -124,9 +125,12 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
     const candidates = state.players.flatMap((player) => {
       const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
       if (goalkeeper && !isInsideOwnPenaltyArea(playablePoint, player.team)) return [];
-      const attributes = player.profile.attributes;
-      const speed = 5.4 + attributes.pace * 0.035 + attributes.agility * 0.012;
-      const estimatedArrivalTime = distance(player.position, playablePoint) / speed;
+      const estimatedArrivalTime = estimatePlayerArrivalTime(
+        state,
+        player,
+        playablePoint,
+        'loose_ball',
+      ).estimatedTime;
       return [
         {
           playerId: player.id,

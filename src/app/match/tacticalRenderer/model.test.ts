@@ -6,6 +6,8 @@ import {
   tacticalToWorld,
   validateRenderFrame,
   worldToTactical,
+  derivePlayerAppearance,
+  PLAYER_LOCAL_FORWARD_AXIS,
 } from './model';
 
 describe('tactical presentation model', () => {
@@ -39,6 +41,18 @@ describe('tactical presentation model', () => {
       'interception',
       'shot',
     ]);
+  });
+  it('derives stable presentation identity independently of canonical state', () => {
+    expect(PLAYER_LOCAL_FORWARD_AXIS).toBe('+Z');
+    expect(derivePlayerAppearance('footballer_pro_9_17')).toEqual(
+      derivePlayerAppearance('footballer_pro_9_17'),
+    );
+    const identities = new Set(
+      ['player-a', 'player-b', 'player-c', 'player-d'].map(
+        (id) => derivePlayerAppearance(id).hairStyle,
+      ),
+    );
+    expect(identities.size).toBeGreaterThan(1);
   });
   it('identifies invalid canonical coordinates instead of projecting a blank frame', () => {
     const frame = structuredClone(createTacticalScenarios()[0]!.sequence.frames[0]!);

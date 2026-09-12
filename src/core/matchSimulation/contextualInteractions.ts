@@ -302,7 +302,8 @@ export const applyContextualInteraction = (
         ...(state.ball.sourceAction ? { sourceAction: state.ball.sourceAction } : {}),
       },
     };
-  if (resolution.kind === 'action') return resolveMatchAction(gated, resolution.action);
+  if (resolution.kind === 'action')
+    return resolveMatchAction(gated, resolution.action, 'human_selected');
   if (resolution.kind === 'movement')
     if (
       resolution.intent.type === 'run_in_behind' &&

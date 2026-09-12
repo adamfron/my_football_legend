@@ -13,6 +13,7 @@ export const tacticalPlayerSchema = tacticalPointSchema.extend({
   facing: z.number().optional(),
   protagonist: z.boolean().optional(),
   goalkeeper: z.boolean().optional(),
+  displayNumber: z.number().int().min(1).max(99).optional(),
   target: tacticalPointSchema.optional(),
   anchor: tacticalPointSchema.optional(),
   idealTarget: tacticalPointSchema.optional(),
@@ -57,6 +58,7 @@ export const tacticalFrameSchema = z.object({
   timestampMs: z.number().nonnegative(),
   actionableTargets: z.array(z.string()).optional(),
   selectedTarget: z.string().optional(),
+  interceptionTarget: tacticalPointSchema.optional(),
 });
 export const tacticalSequenceSchema = z.object({
   id: z.string().min(1),
@@ -77,6 +79,32 @@ export const presentationTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('goal'), side: z.enum(['home', 'away']) }),
 ]);
 export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
+
+export const PLAYER_LOCAL_FORWARD_AXIS = '+Z' as const;
+export const playerAppearanceSchema = z.object({
+  hairStyle: z.enum(['short', 'crop', 'side_part', 'buzz', 'curly_cap', 'bald']),
+  hairColor: z.number().int().nonnegative(),
+  skinColor: z.number().int().nonnegative(),
+});
+export type PlayerAppearance = z.infer<typeof playerAppearanceSchema>;
+
+/** Stable presentation-only identity; it never consumes or changes simulation RNG. */
+export const derivePlayerAppearance = (id: string): PlayerAppearance => {
+  let hash = 2166136261;
+  for (const character of id) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  const styles = ['short', 'crop', 'side_part', 'buzz', 'curly_cap', 'bald'] as const;
+  const hairColors = [0x231a16, 0x4a3022, 0x8a633d, 0x181818];
+  const skinColors = [0xf0c49a, 0xdca77f, 0xbd805d, 0x8b583e];
+  const unsigned = hash >>> 0;
+  return playerAppearanceSchema.parse({
+    hairStyle: styles[unsigned % styles.length],
+    hairColor: hairColors[(unsigned >>> 4) % hairColors.length],
+    skinColor: skinColors[(unsigned >>> 8) % skinColors.length],
+  });
+};
 
 export const validateRenderFrame = (frame: TacticalFrame): string | undefined => {
   for (const player of frame.players) {

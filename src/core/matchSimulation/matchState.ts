@@ -60,6 +60,13 @@ export const matchActionSchema = z.discriminatedUnion('type', [
   }),
 ]);
 export type MatchAction = z.infer<typeof matchActionSchema>;
+export const actionSourceSchema = z.enum([
+  'human_selected',
+  'dev_ai_selected',
+  'autonomous_routine',
+  'autonomous_npc',
+]);
+export type ActionSource = z.infer<typeof actionSourceSchema>;
 export const playerMovementIntentSchema = z.object({
   actorId: z.string(),
   type: z.enum(['hold_shape', 'support', 'come_short', 'attack_space', 'run_in_behind']),
@@ -305,12 +312,20 @@ export interface TacticalMatchState {
   currentActorId?: string;
   /** Historical last selected action, used by diagnostics and presentation. */
   latestAction?: MatchAction;
+  /** Source recorded at commit time for this exact action, never inferred from nearby decisions. */
+  currentActionSource?: ActionSource;
+  latestActionSource?: ActionSource;
   actionCooldown: number;
   controlledFootballerId?: string;
   playerMovementIntent?: PlayerMovementIntent;
   pendingReceptionIntent?: PendingReceptionIntent;
   /** Short-lived canonical execution override shared by human and NPC carries. */
   ballCarrierIntent?: BallCarrierIntent;
+  postActionAgencyCheckpoint?: {
+    actorId: string;
+    completedAction: MatchAction['type'];
+    at: number;
+  };
   playerDecisionGate?: PlayerDecisionGateState;
   pendingPlayerDecision?: PlayerDecisionOutcome;
   lastPlayerDecisionOutcome?: PlayerDecisionOutcome;
@@ -443,6 +458,15 @@ export const tacticalMatchStateSchema = z
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
     ballCarrierIntent: ballCarrierIntentSchema.optional(),
+    postActionAgencyCheckpoint: z
+      .object({
+        actorId: z.string(),
+        completedAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']),
+        at: z.number().nonnegative(),
+      })
+      .optional(),
+    currentActionSource: actionSourceSchema.optional(),
+    latestActionSource: actionSourceSchema.optional(),
     playerDecisionGate: playerDecisionGateStateSchema.optional(),
     pendingPlayerDecision: playerDecisionOutcomeSchema.optional(),
     lastPlayerDecisionOutcome: playerDecisionOutcomeSchema.optional(),

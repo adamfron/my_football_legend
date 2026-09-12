@@ -107,6 +107,34 @@ describe('player decision lifecycle', () => {
     expect(carried.players.find((player) => player.id === actor.id)!.target).not.toEqual(target);
   });
 
+  it('surfaces a fresh human node when a selected carry finishes inside shooting range', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    actor.position = { x: 68, y: 34 };
+    actor.velocity = { x: 0, y: 0 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    state.actionCooldown = 0;
+    for (const opponent of state.players.filter((player) => player.team !== actor.team))
+      opponent.position = { x: 30, y: 60 };
+    let carried = resolveMatchAction(
+      state,
+      { type: 'carry', actorId: actor.id, target: { x: 74, y: 34 } },
+      'human_selected',
+    );
+    for (let index = 0; index < 150 && carried.ballCarrierIntent; index += 1)
+      carried = stepTacticalMatch(carried, 0.025);
+    const opportunity = projectPlayerDecisionOpportunity(carried);
+    expect(carried.postActionAgencyCheckpoint?.completedAction).toBe('carry');
+    expect(opportunity?.kind).toBe('on_ball');
+    expect(
+      opportunity?.options.some(
+        (option) => option.kind === 'action' && option.action.type === 'shot',
+      ),
+    ).toBe(true);
+    expect(carried.currentAction?.type).toBe('carry');
+    expect(carried.latestActionSource).toBe('human_selected');
+  });
+
   it('resolves a selected action through the identical canonical resolver exactly once', () => {
     const state = makeState(),
       opportunity = projectPlayerDecisionOpportunity(state)!;
@@ -132,6 +160,7 @@ describe('player decision lifecycle', () => {
             : {}),
         },
         option.action,
+        'human_selected',
       ),
     );
     expect(resolved.pendingPlayerDecision?.selectedIntent).toBe(`pass:${option.action.intent}`);
@@ -344,6 +373,7 @@ describe('player decision lifecycle', () => {
           },
         },
         action,
+        'dev_ai_selected',
       ),
     );
     delete state.controlledFootballerId;
@@ -419,7 +449,7 @@ describe('player decision lifecycle', () => {
     const state = makeState();
     const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
     const opponent = state.players.find((player) => player.team !== actor.team)!;
-    actor.position = { x: 55, y: 34 };
+    actor.position = { x: 55, y: 36 };
     actor.anchor = { ...actor.position };
     state.ball = {
       x: 48,
@@ -439,5 +469,34 @@ describe('player decision lifecycle', () => {
     expect(
       projectContextualInteractions(state, opportunity, { kind: 'ball', point: state.ball }),
     ).not.toHaveLength(0);
+  });
+
+  it('rejects the captured winger prompt when 9.6 metres cannot be covered in 1.3 seconds', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const opponent = state.players.find((player) => player.team !== actor.team)!;
+    actor.position = { x: 51.38, y: 21.72 };
+    actor.velocity = { x: 0, y: -2 };
+    actor.anchor = { ...actor.position };
+    const contact = { x: 57.01, y: 29.53 };
+    const perpendicular = { x: -7.81, y: 5.63 };
+    state.ball = {
+      x: contact.x - perpendicular.x,
+      y: contact.y - perpendicular.y,
+      from: { x: contact.x - perpendicular.x, y: contact.y - perpendicular.y },
+      target: { x: contact.x + perpendicular.x, y: contact.y + perpendicular.y },
+      velocity: { x: -5.58, y: 4.02 },
+      travelDuration: 2.8,
+      travelElapsed: 0.1,
+      travelKind: 'pass',
+      sourceAction: 'pass',
+      lastTouchPlayerId: opponent.id,
+    };
+    const result = evaluatePassInterceptionOpportunity(state, actor.id);
+    expect(result.playerArrival?.distance).toBeCloseTo(9.63, 1);
+    expect(result.arrivalTime).toBeCloseTo(1.3, 1);
+    expect(result.playerArrival!.estimatedTime).toBeGreaterThan(result.arrivalTime! + 0.12);
+    expect(result.viable).toBe(false);
+    expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
   });
 });
