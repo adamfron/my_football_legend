@@ -1,4 +1,13 @@
-import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Component,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ErrorInfo,
+  type ReactNode,
+} from 'react';
 import {
   createSingleMatchSession,
   getSingleMatchPlayerOverall,
@@ -38,13 +47,18 @@ import {
   downloadBlob,
   describeDebugCapture,
   isCaptureTriggerDisabled,
-  MatchDebugRecorder,
   saveDebugPackage,
   ViewportVideoRecorder,
   type DebugCaptureStatus,
   type MatchDebugExport,
 } from './matchDebugCapture';
 import './TacticalMatchSandbox.css';
+import {
+  MatchLabDiagnosticsController,
+  runtimeErrorFromEvent,
+  runtimeErrorFromRejection,
+  findNonFiniteDiagnosticValue,
+} from './matchLabDiagnostics';
 
 const freshSeed = () => `lab-${Date.now().toString(36)}`;
 const formatMatchTime = (seconds: number) => {
@@ -215,7 +229,7 @@ export const TacticalMatchSandbox = () => {
       </main>
     );
   return (
-    <RunningLab
+    <RunningLabGuard
       session={session}
       onSetup={() => setSession(undefined)}
       onRestart={() => setSession(createSingleMatchSession(world, session.setup))}
@@ -228,18 +242,112 @@ export const TacticalMatchSandbox = () => {
   );
 };
 
+const crashBasename = (controller: MatchLabDiagnosticsController) =>
+  `mfl-crash_${controller.session.setup.seed}_t${controller.latestState.time.toFixed(3)}`;
+
+export class MatchLabErrorBoundary extends Component<
+  {
+    controller: MatchLabDiagnosticsController;
+    onSetup(): void;
+    children: ReactNode;
+  },
+  { error?: Error }
+> {
+  state: { error?: Error } = {};
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    this.props.controller.freezeFatal('react_error', error, {
+      componentStack: info.componentStack ?? undefined,
+    });
+    this.forceUpdate();
+  }
+  render() {
+    if (!this.state.error) return this.props.children;
+    const { controller } = this.props;
+    const crash = controller.crashPackage;
+    return (
+      <main className="tactical-sandbox crash-fallback" role="alert">
+        <h1>Single Match Lab uległ awarii</h1>
+        <strong>{crash?.error.message ?? this.state.error.message}</strong>
+        <p>
+          Seed: <code>{controller.session.setup.seed}</code>
+        </p>
+        <p>Czas kanoniczny: {formatMatchTime(controller.latestState.time)}</p>
+        <p>Sterowany piłkarz: {controller.latestState.controlledFootballerId ?? '—'}</p>
+        {import.meta.env.DEV && <pre>{crash?.error.stack ?? this.state.error.stack}</pre>}
+        <button onClick={this.props.onSetup}>Wróć do ustawień</button>{' '}
+        <button
+          disabled={!crash}
+          onClick={() =>
+            crash &&
+            downloadBlob(
+              new Blob([JSON.stringify(crash, null, 2)], { type: 'application/json' }),
+              `${crashBasename(controller)}.json`,
+            )
+          }
+        >
+          Pobierz diagnostykę awarii
+        </button>
+      </main>
+    );
+  }
+}
+
+type RunningLabProps = {
+  session: SingleMatchSession;
+  onSetup(): void;
+  onRestart(): void;
+  onRandomize(): void;
+};
+const FatalCrash = ({ message }: { message: string }) => {
+  throw new Error(message);
+};
+const RunningLabGuard = (props: RunningLabProps) => {
+  const [controller] = useState(() => {
+    const initial = createTacticalMatch(props.session);
+    return new MatchLabDiagnosticsController(props.session, initial, createMatchFlowTelemetry());
+  });
+  const [, refresh] = useState(0);
+  useEffect(() => controller.subscribe(() => refresh((value) => value + 1)), [controller]);
+  useEffect(() => {
+    const onError = (event: ErrorEvent) =>
+      controller.freezeFatal('window_error', runtimeErrorFromEvent(event));
+    const onRejection = (event: PromiseRejectionEvent) =>
+      controller.freezeFatal('unhandled_rejection', runtimeErrorFromRejection(event));
+    window.addEventListener('error', onError);
+    window.addEventListener('unhandledrejection', onRejection);
+    return () => {
+      window.removeEventListener('error', onError);
+      window.removeEventListener('unhandledrejection', onRejection);
+    };
+  }, [controller]);
+  return (
+    <MatchLabErrorBoundary controller={controller} onSetup={props.onSetup}>
+      {controller.crashPackage ? (
+        <FatalCrash message={controller.crashPackage.error.message} />
+      ) : (
+        <RunningLab {...props} diagnostics={controller} />
+      )}
+    </MatchLabErrorBoundary>
+  );
+};
+
 const RunningLab = ({
   session,
   onSetup,
   onRestart,
   onRandomize,
+  diagnostics,
 }: {
   session: SingleMatchSession;
   onSetup(): void;
   onRestart(): void;
   onRandomize(): void;
+  diagnostics: MatchLabDiagnosticsController;
 }) => {
-  const [state, setState] = useState<TacticalMatchState>(() => createTacticalMatch(session)),
+  const [state, setState] = useState<TacticalMatchState>(() => diagnostics.latestState),
     [playing, setPlaying] = useState(true),
     [speed, setSpeed] = useState(1),
     [debug, setDebug] = useState(false),
@@ -264,21 +372,35 @@ const RunningLab = ({
     scoreRef = useRef(0),
     stateRef = useRef(state),
     rendererFaultRef = useRef(false),
-    debugRecorderRef = useRef(new MatchDebugRecorder()),
+    debugRecorderRef = useRef(diagnostics.recorder),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
-  const telemetryRef = useRef(createMatchFlowTelemetry());
-  const positioningSamplesRef = useRef<PositioningSample[]>([]);
+  const telemetryRef = useRef(diagnostics.telemetry);
+  const positioningSamplesRef = useRef<PositioningSample[]>(diagnostics.positioningSamples);
   stateRef.current = state;
+  diagnostics.latestState = state;
+  diagnostics.telemetry = telemetryRef.current;
+  diagnostics.positioningSamples = positioningSamplesRef.current;
   useEffect(() => {
     if (!hostRef.current) return;
     const initial = createTacticalMatch(session);
     setState(initial);
     replayBufferRef.current = [matchStateToFrame(initial)];
-    debugRecorderRef.current = new MatchDebugRecorder();
-    debugRecorderRef.current.record(initial);
+    debugRecorderRef.current.clear();
+    try {
+      debugRecorderRef.current.record(initial);
+    } catch (error) {
+      diagnostics.report('observer_error', error, { module: 'MatchDebugRecorder.record' });
+    }
     telemetryRef.current = createMatchFlowTelemetry();
-    positioningSamplesRef.current = [sampleCanonicalPositioning(initial)];
+    diagnostics.telemetry = telemetryRef.current;
+    try {
+      positioningSamplesRef.current = [sampleCanonicalPositioning(initial)];
+    } catch (error) {
+      positioningSamplesRef.current = [];
+      diagnostics.report('observer_error', error, { module: 'sampleCanonicalPositioning' });
+    }
+    diagnostics.positioningSamples = positioningSamplesRef.current;
     scoreRef.current = 0;
     setDebugExport(undefined);
     setCaptureStatus('idle');
@@ -292,8 +414,16 @@ const RunningLab = ({
       matchStateToFrame(initial),
       (error) => {
         setRendererError(error);
+        const lifecycle =
+          rendererRef.current?.lifecycle ??
+          (error?.includes('waiting_for_layout')
+            ? 'waiting_for_layout'
+            : error
+              ? 'failed'
+              : 'ready');
+        diagnostics.setRendererLifecycle(lifecycle);
         const wasFaulted = rendererFaultRef.current;
-        rendererFaultRef.current = Boolean(error);
+        rendererFaultRef.current = Boolean(error && !error.includes('waiting_for_layout'));
         const type = error?.includes('context lost')
           ? 'renderer_context_lost'
           : error?.includes('recovery failed')
@@ -302,7 +432,8 @@ const RunningLab = ({
               ? 'renderer_context_restored'
               : undefined;
         if (type) debugRecorderRef.current.ui(stateRef.current.time, type, { message: error });
-        if (error && !wasFaulted) {
+        if (error && !wasFaulted && !error.includes('waiting_for_layout')) {
+          diagnostics.report('renderer_error', error);
           debugRecorderRef.current.freezePast(stateRef.current.time);
           videoRecorderRef.current.trigger(stateRef.current.time);
         }
@@ -310,12 +441,13 @@ const RunningLab = ({
     );
     const videoRecorder = videoRecorderRef.current;
     rendererRef.current = renderer;
+    diagnostics.setRendererLifecycle(renderer.lifecycle);
     videoRecorder.start(renderer.getCanvas(), () => stateRef.current.time);
     return () => {
       renderer.dispose();
       videoRecorder.dispose();
     };
-  }, [session]);
+  }, [session, diagnostics]);
   useEffect(() => {
     let frame = 0,
       previous: number | undefined;
@@ -342,8 +474,18 @@ const RunningLab = ({
                 break;
               }
               const previousState = next;
-              next = stepTacticalMatch(next, FIXED_MATCH_DT);
-              telemetryRef.current = observeMatchFlow(telemetryRef.current, previousState, next);
+              try {
+                next = stepTacticalMatch(next, FIXED_MATCH_DT);
+              } catch (error) {
+                diagnostics.freezeFatal('canonical_error', error, { module: 'stepTacticalMatch' });
+                break;
+              }
+              try {
+                telemetryRef.current = observeMatchFlow(telemetryRef.current, previousState, next);
+                diagnostics.telemetry = telemetryRef.current;
+              } catch (error) {
+                diagnostics.report('observer_error', error, { module: 'observeMatchFlow' });
+              }
               if (
                 next.latestAction &&
                 next.latestAction.actorId === next.controlledFootballerId &&
@@ -352,9 +494,30 @@ const RunningLab = ({
               )
                 recordDecisionSelection(telemetryRef.current, 'autonomous');
               const lastPositioning = positioningSamplesRef.current.at(-1);
-              if (!lastPositioning || next.time - lastPositioning.time >= 1 - FIXED_MATCH_DT / 2)
-                positioningSamplesRef.current.push(sampleCanonicalPositioning(next));
-              const complete = debugRecorderRef.current.record(next);
+              if (!lastPositioning || next.time - lastPositioning.time >= 1 - FIXED_MATCH_DT / 2) {
+                try {
+                  const sample = sampleCanonicalPositioning(next);
+                  const invalid = findNonFiniteDiagnosticValue(sample);
+                  if (invalid)
+                    throw new Error(
+                      `Próbka zawiera wartość niefinitywną: ${invalid.path}=${invalid.value}.`,
+                    );
+                  positioningSamplesRef.current.push(sample);
+                } catch (error) {
+                  diagnostics.report('observer_error', error, {
+                    module: 'sampleCanonicalPositioning',
+                    values: { time: next.time },
+                  });
+                }
+              }
+              let complete = false;
+              try {
+                complete = debugRecorderRef.current.record(next);
+              } catch (error) {
+                diagnostics.report('observer_error', error, {
+                  module: 'MatchDebugRecorder.record',
+                });
+              }
               if (complete && !finishingRef.current) {
                 finishingRef.current = true;
                 const recorder = debugRecorderRef.current;
@@ -402,7 +565,7 @@ const RunningLab = ({
         frame = requestAnimationFrame(animate);
       });
     return () => cancelAnimationFrame(frame);
-  }, [playing, replaying, session, speed, state.seed, opportunity]);
+  }, [playing, replaying, session, speed, state.seed, opportunity, diagnostics]);
   useEffect(() => {
     if (replaying) return;
     const frame = matchStateToFrame(state);
@@ -629,6 +792,8 @@ const RunningLab = ({
               decisionTelemetry: telemetryRef.current.controlled,
               passingNetwork: telemetryRef.current.passingNetwork,
               sampledPositioning: positioningSamplesRef.current,
+              runtimeDiagnostics: diagnostics.runtimeDiagnostics,
+              rendererLifecycle: diagnostics.rendererLifecycle,
             };
             downloadBlob(
               new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
@@ -702,6 +867,10 @@ const RunningLab = ({
           </button>
         ))}
       </nav>
+      <p className="runtime-status">
+        Renderer: <strong>{diagnostics.rendererLifecycle}</strong> · Runtime:{' '}
+        <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
+      </p>
       <section className="sandbox-grid">
         <div
           className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}

@@ -50,6 +50,23 @@
 .debug-capture strong {
   font-size: 0.82rem;
 }
+.runtime-status {
+  max-width: 1450px;
+  margin: 0 auto 12px;
+  color: #b9c9c1;
+  font: 12px monospace;
+}
+.crash-fallback {
+  display: block;
+}
+.crash-fallback pre {
+  max-height: 45vh;
+  padding: 1rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  background: #321f20;
+  border: 1px solid #e7626c;
+}
 .scenario-picker strong {
   margin: 0 5px;
   font: 700 12px monospace;
