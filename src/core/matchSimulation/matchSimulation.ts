@@ -34,6 +34,7 @@ import { projectPlayerDecisionOpportunity } from './playerDecision';
 import { projectLocomotion } from './locomotion';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
+import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -123,6 +124,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     seed: session.setup.seed,
     time: 0,
     decisionIndex: 0,
+    status: 'first_half',
     teams: {
       home: {
         side: 'home',
@@ -157,7 +159,8 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       ? { controlledFootballerId: session.setup.control.footballerId }
       : {}),
   };
-  return { ...state, players: deriveTacticalTargets(state) };
+  const positioned = { ...state, players: deriveTacticalTargets(state) };
+  return { ...positioned, statistics: createMatchStatistics(positioned) };
 };
 
 const changePossession = (
@@ -395,13 +398,10 @@ const resolveShot = (state: TacticalMatchState): TacticalMatchState => {
   );
 };
 
-export const stepTacticalMatch = (
-  input: TacticalMatchState,
-  rawDelta = 0.1,
-): TacticalMatchState => {
+const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): TacticalMatchState => {
   input = resolvePendingPlayerDecision(input);
   // A surfaced human decision owns the snapshot: no clock, movement or RNG may advance.
-  if (projectPlayerDecisionOpportunity(input)) return input;
+  if (!input.periodEndPending && projectPlayerDecisionOpportunity(input)) return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
   let state = {
     ...input,
@@ -469,7 +469,11 @@ export const stepTacticalMatch = (
     void _team;
     return applyRestartScenario(completed, 'kick_off', { restartTeam: kickoffTeam });
   }
-  if (state.restart?.phase === 'setup' && state.time - state.restart.startedAt >= 2.1) {
+  if (
+    !state.periodEndPending &&
+    state.restart?.phase === 'setup' &&
+    state.time - state.restart.startedAt >= 2.1
+  ) {
     const action = chooseRestartAction(state);
     if (action) state = resolveMatchAction(state, action);
   }
@@ -1043,7 +1047,12 @@ export const stepTacticalMatch = (
     state.currentPressure = 0;
     delete state.nearestChallengerId;
   }
-  if (state.actionCooldown <= 0 && state.ball.ownerId && state.restart?.phase !== 'setup') {
+  if (
+    !state.periodEndPending &&
+    state.actionCooldown <= 0 &&
+    state.ball.ownerId &&
+    state.restart?.phase !== 'setup'
+  ) {
     const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
     const action = awaitsPlayer ? undefined : chooseNpcAction(state, state.ball.ownerId);
     const controlled = state.ball.ownerId === state.controlledFootballerId;
@@ -1057,6 +1066,90 @@ export const stepTacticalMatch = (
       );
   }
   return state;
+};
+
+const hasImmediateResolution = (state: TacticalMatchState) =>
+  Boolean(state.ball.travelDuration || state.goalCompletionUntil || state.ballCarrierIntent);
+
+const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchState => {
+  const {
+    currentAction: _action,
+    currentActorId: _actor,
+    currentActionSource: _source,
+    pendingReceptionIntent: _reception,
+    receptionPreparation: _preparation,
+    ballCarrierIntent: _carry,
+    playerMovementIntent: _movement,
+    pendingPlayerDecision: _decision,
+    postActionAgencyCheckpoint: _checkpoint,
+    restart: _restart,
+    periodEndPending: _pending,
+    ...stable
+  } = state;
+  void [
+    _action,
+    _actor,
+    _source,
+    _reception,
+    _preparation,
+    _carry,
+    _movement,
+    _decision,
+    _checkpoint,
+    _restart,
+    _pending,
+  ];
+  return stable;
+};
+
+/** Starts the prepared second-half kickoff; canonical directions remain team-relative and stable. */
+export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState => {
+  if (state.status !== 'half_time') return state;
+  const ready = { ...state, status: 'second_half' as const, actionCooldown: 0.4 };
+  return applyRestartScenario(ready, 'kick_off', { restartTeam: 'away' });
+};
+
+/** Regulation wrapper. Thresholds stop new choices, while committed ball physics finish safely. */
+export const stepTacticalMatch = (
+  input: TacticalMatchState,
+  rawDelta = 0.1,
+): TacticalMatchState => {
+  const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
+  if (status === 'full_time' || status === 'half_time') return input;
+  const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
+  let prepared = input;
+  if (
+    input.periodEndPending ||
+    input.time + Math.min(0.25, Math.max(0.01, rawDelta)) >= threshold
+  ) {
+    prepared = { ...input, periodEndPending: true };
+    delete prepared.pendingPlayerDecision;
+  }
+  let next = stepTacticalMatchCore(prepared, rawDelta);
+  if (next === input) return input;
+  if (!next.status) next = { ...next, status };
+  if (next.periodEndPending && !hasImmediateResolution(next)) {
+    next = {
+      ...clearTransientPeriodState(next),
+      time: threshold,
+      status: status === 'first_half' ? 'half_time' : 'full_time',
+      actionCooldown: 0,
+      ball: {
+        x: next.ball.x,
+        y: next.ball.y,
+        ...(next.ball.lastTouchPlayerId ? { lastTouchPlayerId: next.ball.lastTouchPlayerId } : {}),
+      },
+    };
+  }
+  next = {
+    ...next,
+    statistics: observePlayerMatchStats(
+      input.statistics ?? createMatchStatistics(input),
+      input,
+      next,
+    ),
+  };
+  return next;
 };
 
 export const matchStateToFrame = (state: TacticalMatchState) => ({

@@ -377,13 +377,16 @@ strzały, reakcje bramkarza i czasowy spalony; (2) indywidualne tendencje taktyc
 dojrzeniu kanonicznego zestawu akcji — kontekstowe menu gracza jako UI nad tym samym zbiorem.
 Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozszerzenia rozgrywek.
 
-### Bieżący rozwój meczu — PR117–PR119
+### Bieżący rozwój meczu — PR117–PR122
 
 - **PR117 — ukończony:** podania uwzględniające ruch odbiorcy i Tactical Match Presentation v1.
 - **PR118 — ukończony:** fizyczna osiągalność przechwytu, przekazanie sprawczości po akcji gracza
   oraz czytelność proceduralnych postaci v2.
-- **PR119 — bieżący:** płynność meczu, wybór strzałów, kalibracja xG i integralność telemetrii.
-- **PR120 — następny:** cykl części meczu, wynik końcowy i fundament podsumowania pomeczowego.
+- **PR119 — ukończony:** płynność meczu, wybór strzałów, kalibracja xG i integralność telemetrii.
+- **PR120 — bieżący:** cykl części meczu, kanoniczne statystyki występu, wynik końcowy i fundament
+  powtórek bramek.
+- **PR121 — następny:** kalibracja progresji posiadania i współpracy bocznego obrońcy ze skrzydłowym.
+- **PR122 — następny:** system wizualny meczu inspirowany Windows 95 i dopracowanie powtórek.
 - **Później:** zmęczenie, kontekst wyniku, zmiany, integracja meczu kariery, spójny system
   wizualny i prezentacja meczu, pełne stroje/logotypy oraz agregacja oceny meczowej zawodnika.
 

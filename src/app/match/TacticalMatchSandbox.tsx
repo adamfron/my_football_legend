@@ -36,6 +36,8 @@ import {
   recordDecisionSelection,
   sampleCanonicalPositioning,
   type PositioningSample,
+  projectPlayerMatchSummary,
+  startSecondHalf,
 } from '../../core/matchSimulation';
 import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
@@ -631,6 +633,10 @@ const RunningLab = ({
     shapeMetrics = (['home', 'away'] as const).map(
       (side) => [side, deriveTeamShapeMetrics(state, side)] as const,
     );
+  const controlledSummary =
+    state.controlledFootballerId && state.statistics
+      ? projectPlayerMatchSummary(state.statistics, state.controlledFootballerId)
+      : undefined;
   const interactions =
     opportunity && selectedTarget
       ? projectContextualInteractions(state, opportunity, selectedTarget)
@@ -804,6 +810,11 @@ const RunningLab = ({
           Powtórka 0.5×
         </button>
         {replaying && <button onClick={() => setReplaying(false)}>Zakończ powtórkę</button>}
+        {state.status === 'half_time' && (
+          <button onClick={() => setState((current) => startSecondHalf(current))}>
+            Rozpocznij drugą połowę
+          </button>
+        )}
         <button onClick={onRestart}>Restart — ten sam seed</button>
         <button onClick={onRandomize}>Losuj seed</button>
         <button onClick={onSetup}>Zmień ustawienia</button>
@@ -966,6 +977,23 @@ const RunningLab = ({
         </div>
         <aside className="decision-board">
           <small>STAN KANONICZNY</small>
+          {controlledSummary && (
+            <p>
+              <strong>Twój występ</strong>
+              <br />
+              Minuty {controlledSummary.minutesPlayed.toFixed(0)} · Kontakty{' '}
+              {controlledSummary.touches}
+              <br />
+              Podania {controlledSummary.passesCompleted}/{controlledSummary.passesAttempted} ·
+              Strzały {controlledSummary.shots} · Gole {controlledSummary.goals}
+              <br />
+              Odbiory {controlledSummary.tacklesWon}/{controlledSummary.tacklesAttempted} ·
+              Przechwyty {controlledSummary.interceptions}
+              <br />
+              Dystans {(controlledSummary.distanceCovered / 1000).toFixed(1)} km · Sprinty{' '}
+              {controlledSummary.sprintBursts}
+            </p>
+          )}
           {rendererError && (
             <strong>
               {rendererError}{' '}

@@ -10,6 +10,14 @@ export const shootingOpportunitySchema = z.object({
   angle: z.number().min(0).max(1),
   pressure: z.number().min(0).max(1),
   blockingDefenders: z.number().int().nonnegative(),
+  goalkeeper: z.object({
+    goalkeeperId: z.string().optional(),
+    distanceFromGoalCentre: z.number().nonnegative(),
+    distanceFromGoalLine: z.number().nonnegative(),
+    estimatedRecoveryTime: z.number().nonnegative(),
+    estimatedShotTravelTime: z.number().nonnegative(),
+    goalCoverage: z.number().min(0).max(1),
+  }),
   baseXg: z.number().min(0).max(1),
   shooterExecutionQuality: z.number().min(0).max(1),
   effectiveScoringExpectation: z.number().min(0).max(1),
@@ -38,14 +46,27 @@ export const evaluateShootingOpportunity = (
       distance(player.position, shooter.position) < metres &&
       distanceToSegment(player.position, shooter.position, goal) < 1.65,
   ).length;
+  const goalkeeper = state.players.find(
+    (player) => player.team !== shooter.team && player.profile.primaryPosition === 'goalkeeper',
+  );
+  const goalkeeperDistance = goalkeeper ? distance(goalkeeper.position, goal) : 0;
+  const estimatedRecoveryTime = goalkeeperDistance / 6.5;
+  const estimatedShotTravelTime = metres / 24;
+  // Coverage falls continuously as recovery becomes longer than the ball's flight. This makes a
+  // stranded keeper relevant without turning a distant open goal into a close-range chance.
+  const goalCoverage = goalkeeper
+    ? clamp01(1 / (1 + Math.exp((estimatedRecoveryTime - estimatedShotTravelTime - 0.35) * 1.4)))
+    : 0;
 
   // A smooth distance decay keeps 10–16 m chances useful while making 30 m attempts exceptional.
   const distanceQuality = 0.62 / (1 + Math.exp((metres - 15.5) / 4.5));
+  const keeperExposureMultiplier = 1 + (1 - goalCoverage) * Math.min(5, 1 + metres / 18);
   const baseXg = clamp01(
     distanceQuality *
       (0.46 + angle * 0.7) *
       (1 - pressure * 0.5) *
-      Math.pow(0.72, blockingDefenders),
+      Math.pow(0.72, blockingDefenders) *
+      keeperExposureMultiplier,
   );
   const a = shooter.profile.attributes;
   const shooterExecutionQuality =
@@ -66,6 +87,14 @@ export const evaluateShootingOpportunity = (
     angle,
     pressure,
     blockingDefenders,
+    goalkeeper: {
+      ...(goalkeeper ? { goalkeeperId: goalkeeper.id } : {}),
+      distanceFromGoalCentre: goalkeeperDistance,
+      distanceFromGoalLine: goalkeeper ? Math.abs(goalkeeper.position.x - goal.x) : 0,
+      estimatedRecoveryTime,
+      estimatedShotTravelTime,
+      goalCoverage,
+    },
     baseXg,
     shooterExecutionQuality,
     effectiveScoringExpectation,
