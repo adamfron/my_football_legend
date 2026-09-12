@@ -7,6 +7,7 @@ import {
   type PitchPoint,
 } from './matchSpace';
 import { GOAL_HEIGHT, GOAL_POST_RADIUS, GOAL_WIDTH } from './ballFlight';
+import { evaluateShootingOpportunity } from './shootingOpportunity';
 import type {
   MatchAction,
   MatchPlayerState,
@@ -57,15 +58,24 @@ export const resolveCanonicalShot = (
       : defaultTarget(action, shooter);
   const range = distance(shooter.position, goalCentre);
   const pressure = state.currentPressure;
+  const opportunity = evaluateShootingOpportunity(state, shooter);
   const attributes = shooter.profile.attributes;
   const execution =
     ((action.type === 'header' ? attributes.heading : attributes.finishing) * 0.45 +
       attributes.technique * 0.3 +
       attributes.composure * 0.25) /
     100;
-  const positionalDifficulty = range / 58 + Math.abs(shooter.position.y - PITCH_WIDTH / 2) / 52;
+  const longRangePenalty = Math.pow(Math.max(0, range - 14) / 22, 1.65);
+  const positionalDifficulty =
+    range / 72 + longRangePenalty + Math.abs(shooter.position.y - PITCH_WIDTH / 2) / 48;
+  const powerAccuracyPenalty =
+    action.type === 'shot' && action.intent === 'driven' ? range / 135 : 0;
   const errorScale = clamp(
-    0.1 + (1 - execution) * 0.72 + pressure * 0.3 + positionalDifficulty * 0.22,
+    0.08 +
+      (1 - execution) * 0.66 +
+      pressure * 0.34 +
+      positionalDifficulty * 0.3 +
+      powerAccuracyPenalty,
     0.1,
     1.15,
   );
@@ -140,7 +150,23 @@ export const resolveCanonicalShot = (
         y: normal(rng) * 6,
       };
       return {
+        shotId: `${state.seed}:shot:${state.decisionIndex}:${shooter.id}`,
         shooterId: shooter.id,
+        context:
+          action.type === 'header'
+            ? 'header'
+            : state.scenario === 'penalty'
+              ? 'penalty'
+              : state.scenario.startsWith('free_kick')
+                ? 'free_kick'
+                : 'open_play',
+        distance: opportunity.distance,
+        angle: opportunity.angle,
+        pressure: opportunity.pressure,
+        blockingDefenders: opportunity.blockingDefenders,
+        baseXg: opportunity.baseXg,
+        effectiveScoringExpectation: opportunity.effectiveScoringExpectation,
+        shooterExecutionQuality: opportunity.shooterExecutionQuality,
         intendedTarget: intended,
         actualTarget: actual,
         error: { horizontal: horizontalError, vertical: verticalError },
@@ -157,7 +183,23 @@ export const resolveCanonicalShot = (
   }
 
   const base = {
+    shotId: `${state.seed}:shot:${state.decisionIndex}:${shooter.id}`,
     shooterId: shooter.id,
+    context:
+      action.type === 'header'
+        ? ('header' as const)
+        : state.scenario === 'penalty'
+          ? ('penalty' as const)
+          : state.scenario.startsWith('free_kick')
+            ? ('free_kick' as const)
+            : ('open_play' as const),
+    distance: opportunity.distance,
+    angle: opportunity.angle,
+    pressure: opportunity.pressure,
+    blockingDefenders: opportunity.blockingDefenders,
+    baseXg: opportunity.baseXg,
+    effectiveScoringExpectation: opportunity.effectiveScoringExpectation,
+    shooterExecutionQuality: opportunity.shooterExecutionQuality,
     intendedTarget: intended,
     actualTarget: actual,
     error: { horizontal: horizontalError, vertical: verticalError },
@@ -188,9 +230,9 @@ export const resolveCanonicalShot = (
   if (!keeper) return { ...base, outcome: 'goal', goalkeeperAction: 'no_chance' };
   const lateralMove = Math.abs(keeper.position.y - goalY);
   const time = range / speed;
-  const reaction = 0.38 - keeper.profile.attributes.reflexes * 0.0022 + rng.float() * 0.12;
+  const reaction = 0.34 - keeper.profile.attributes.reflexes * 0.0018 + rng.float() * 0.1;
   const reach =
-    Math.max(0, time - reaction) * (3.2 + keeper.profile.attributes.agility * 0.035) + 0.9;
+    Math.max(0, time - reaction) * (3.4 + keeper.profile.attributes.agility * 0.04) + 1.05;
   const difficulty = clamp(
     lateralMove / Math.max(0.5, reach) + speed / 75 + (heightMetres / GOAL_HEIGHT) * 0.12,
     0,
@@ -202,6 +244,8 @@ export const resolveCanonicalShot = (
       keeperId: keeper.id,
       goalkeeperAction: 'no_chance',
       saveDifficulty: difficulty,
+      goalkeeperReaction: reaction,
+      goalkeeperReach: reach,
       outcome: 'goal',
     };
   const keeperQuality =
@@ -210,13 +254,15 @@ export const resolveCanonicalShot = (
       keeper.profile.attributes.positioning * 0.2 +
       keeper.profile.attributes.oneOnOnes * 0.2) /
     100;
-  const saveChance = clamp(0.2 + keeperQuality * 0.72 - difficulty * 0.57, 0.03, 0.94);
+  const saveChance = clamp(0.3 + keeperQuality * 0.72 - difficulty * 0.5, 0.06, 0.96);
   if (!rng.bool(saveChance))
     return {
       ...base,
       keeperId: keeper.id,
       goalkeeperAction: 'failed_save',
       saveDifficulty: difficulty,
+      goalkeeperReaction: reaction,
+      goalkeeperReach: reach,
       outcome: 'goal',
     };
   const catchChance = clamp(
@@ -230,6 +276,8 @@ export const resolveCanonicalShot = (
       keeperId: keeper.id,
       goalkeeperAction: 'catch',
       saveDifficulty: difficulty,
+      goalkeeperReaction: reaction,
+      goalkeeperReach: reach,
       outcome: 'save',
     };
   const away = rng.bool(clamp(keeperQuality - difficulty * 0.35, 0.2, 0.8));
@@ -238,6 +286,8 @@ export const resolveCanonicalShot = (
     keeperId: keeper.id,
     goalkeeperAction: away ? 'parry_away' : 'parry',
     saveDifficulty: difficulty,
+    goalkeeperReaction: reaction,
+    goalkeeperReach: reach,
     outcome: 'save',
     reboundSource: 'goalkeeper',
     reboundVelocity: {

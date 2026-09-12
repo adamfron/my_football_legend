@@ -100,11 +100,15 @@ export const evaluateMatchSituation = (
       0.6,
       ['transition_phase'],
     ];
-  else if (possession === 'own' && shot && shot.value >= 0.62)
+  else if (
+    possession === 'own' &&
+    shot &&
+    (shot.category === 'credible' || shot.category === 'high_value')
+  )
     [kind, importance, worthiness, reasons] = [
       'shooting_opportunity',
-      shot.value,
-      shot.value,
+      Math.max(0.58, shot.effectiveScoringExpectation),
+      Math.max(0.58, shot.effectiveScoringExpectation),
       ['good_shooting_position'],
     ];
   else if ((fieldProgress ?? 0) >= 0.7)

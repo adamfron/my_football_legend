@@ -49,6 +49,7 @@ export const matchFlowTelemetrySchema = z.object({
   shootingOpportunityValues: z.array(z.number().min(0).max(1)),
   saves: z.number().int().nonnegative(),
   failedSaves: z.number().int().nonnegative(),
+  noChanceGoals: z.number().int().nonnegative(),
   possessionChanges: z.number().int().nonnegative(),
   passesAttempted: z.number().int().nonnegative(),
   passesCompleted: z.number().int().nonnegative(),
@@ -59,6 +60,8 @@ export const matchFlowTelemetrySchema = z.object({
   movingReceiverFailures: z.number().int().nonnegative(),
   averageLeadDistance: z.number().nonnegative(),
   averageReceiverDisplacementDuringFlight: z.number().nonnegative(),
+  leadDistanceSamples: z.number().int().nonnegative(),
+  receiverDisplacementSamples: z.number().int().nonnegative(),
   receptions: z.object({
     clean: z.number().int().nonnegative(),
     directional: z.number().int().nonnegative(),
@@ -103,6 +106,10 @@ export const matchFlowTelemetrySchema = z.object({
     }),
   }),
   passingNetwork: z.array(passEdgeSchema),
+  observedPassAttemptIds: z.array(z.string()),
+  observedPassResultIds: z.array(z.string()),
+  observedShotIds: z.array(z.string()),
+  shotDiagnostics: z.array(z.custom<NonNullable<TacticalMatchState['lastShot']>>()),
 });
 export type MatchFlowTelemetry = z.infer<typeof matchFlowTelemetrySchema>;
 
@@ -119,6 +126,7 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
     shootingOpportunityValues: [],
     saves: 0,
     failedSaves: 0,
+    noChanceGoals: 0,
     possessionChanges: 0,
     passesAttempted: 0,
     passesCompleted: 0,
@@ -129,6 +137,8 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
     movingReceiverFailures: 0,
     averageLeadDistance: 0,
     averageReceiverDisplacementDuringFlight: 0,
+    leadDistanceSamples: 0,
+    receiverDisplacementSamples: 0,
     receptions: { clean: 0, directional: 0, heavy: 0, failed: 0 },
     interceptionCauses: { lane_read: 0, receiver_late: 0, technical_error: 0 },
     carries: 0,
@@ -155,6 +165,10 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
       },
     },
     passingNetwork: [],
+    observedPassAttemptIds: [],
+    observedPassResultIds: [],
+    observedShotIds: [],
+    shotDiagnostics: [],
   });
 
 export const recordDecisionOpportunity = (
@@ -200,28 +214,33 @@ export const observeMatchFlow = (
     result.carries++;
     if (action.actorId === next.controlledFootballerId) result.controlled.carries++;
   }
-  if (newAction && action.type === 'pass') {
+  const releasedPass = next.lastPassDiagnostic;
+  if (releasedPass && !result.observedPassAttemptIds.includes(releasedPass.passId)) {
+    result.observedPassAttemptIds.push(releasedPass.passId);
     result.passesAttempted++;
-    if (action.intent === 'through') result.throughBalls++;
-    if (action.actorId === next.controlledFootballerId) result.controlled.passesAttempted++;
-    const diagnostic = next.lastPassDiagnostic;
-    if (diagnostic?.intendedReceiverId === action.receiverId) {
+    if (newAction && action.type === 'pass' && action.intent === 'through') result.throughBalls++;
+    if (releasedPass.passerId === next.controlledFootballerId) result.controlled.passesAttempted++;
+    const diagnostic = releasedPass;
+    {
       const moving =
         Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
         0.5;
       if (moving) result.passesToMovingReceiver++;
       else result.passesToStationaryReceiver++;
+      result.leadDistanceSamples++;
       result.averageLeadDistance +=
-        (diagnostic.leadDistance - result.averageLeadDistance) / result.passesAttempted;
+        (diagnostic.leadDistance - result.averageLeadDistance) / result.leadDistanceSamples;
     }
     const edge = result.passingNetwork.find(
-      (item) => item.passerId === action.actorId && item.receiverId === action.receiverId,
+      (item) =>
+        item.passerId === releasedPass.passerId &&
+        item.receiverId === releasedPass.intendedReceiverId,
     );
     if (edge) edge.attempted++;
     else
       result.passingNetwork.push({
-        passerId: action.actorId,
-        receiverId: action.receiverId,
+        passerId: releasedPass.passerId,
+        receiverId: releasedPass.intendedReceiverId,
         attempted: 1,
         completed: 0,
       });
@@ -231,42 +250,34 @@ export const observeMatchFlow = (
   if (ownershipReceived && ownershipReceived === next.controlledFootballerId)
     result.controlled.touches++;
   if (
-    ownershipReceived &&
-    previous.latestAction?.type === 'pass' &&
-    previous.latestAction.receiverId === ownershipReceived
-  ) {
-    result.passesCompleted++;
-    const edge = result.passingNetwork.find(
-      (item) =>
-        item.passerId === previous.latestAction!.actorId && item.receiverId === ownershipReceived,
-    );
-    if (edge) edge.completed++;
-    if (ownershipReceived === next.controlledFootballerId) result.controlled.passesReceived++;
-    if (
-      previous.lastPassDiagnostic &&
-      Math.hypot(
-        previous.lastPassDiagnostic.receiverVelocityAtRelease.x,
-        previous.lastPassDiagnostic.receiverVelocityAtRelease.y,
-      ) > 0.5
-    )
-      result.movingReceiverCompletions++;
-  }
-  if (
-    next.lastPassDiagnostic !== previous.lastPassDiagnostic &&
-    next.lastPassDiagnostic?.finalResult
+    next.lastPassDiagnostic?.finalResult &&
+    !result.observedPassResultIds.includes(next.lastPassDiagnostic.passId)
   ) {
     const diagnostic = next.lastPassDiagnostic;
-    if (
+    result.observedPassResultIds.push(diagnostic.passId);
+    if (diagnostic.finalResult === 'completed') {
+      result.passesCompleted++;
+      const edge = result.passingNetwork.find(
+        (item) =>
+          item.passerId === diagnostic.passerId &&
+          item.receiverId === diagnostic.intendedReceiverId,
+      );
+      if (edge) edge.completed++;
+      if (diagnostic.intendedReceiverId === next.controlledFootballerId)
+        result.controlled.passesReceived++;
+    }
+    const moving =
       Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
-        0.5 &&
-      diagnostic.finalResult !== 'completed'
-    )
-      result.movingReceiverFailures++;
-    if (diagnostic.actualContactPoint)
+      0.5;
+    if (moving && diagnostic.finalResult === 'completed') result.movingReceiverCompletions++;
+    else if (moving) result.movingReceiverFailures++;
+    if (diagnostic.actualContactPoint) {
+      result.receiverDisplacementSamples++;
       result.averageReceiverDisplacementDuringFlight +=
         (distance(diagnostic.receiverPositionAtRelease, diagnostic.actualContactPoint) -
           result.averageReceiverDisplacementDuringFlight) /
-        Math.max(1, result.passesCompleted + result.movingReceiverFailures);
+        result.receiverDisplacementSamples;
+    }
     if (diagnostic.receptionOutcome === 'clean_control') result.receptions.clean++;
     else if (diagnostic.receptionOutcome === 'directional_control') result.receptions.directional++;
     else if (diagnostic.receptionOutcome === 'heavy_touch') result.receptions.heavy++;
@@ -279,9 +290,11 @@ export const observeMatchFlow = (
           : 'lane_read'
       ]++;
   }
-  if (next.lastShot !== previous.lastShot && next.lastShot) {
+  if (next.lastShot && !result.observedShotIds.includes(next.lastShot.shotId)) {
     const shot = next.lastShot,
       shooter = next.players.find((player) => player.id === shot.shooterId);
+    result.observedShotIds.push(shot.shotId);
+    result.shotDiagnostics.push(shot);
     result.shots++;
     const metres = shooter
       ? distance(shooter.position, { x: shooter.team === 'home' ? 105 : 0, y: 34 })
@@ -296,11 +309,74 @@ export const observeMatchFlow = (
     if (shot.outcome === 'block') result.shotsBlocked++;
     if (shot.outcome === 'save') result.saves++;
     if (shot.goalkeeperAction === 'failed_save') result.failedSaves++;
+    if (shot.goalkeeperAction === 'no_chance' && shot.outcome === 'goal') result.noChanceGoals++;
     if (shooter)
-      result.shootingOpportunityValues.push(evaluateShootingOpportunity(previous, shooter).value);
+      result.shootingOpportunityValues.push(
+        evaluateShootingOpportunity(previous, shooter).effectiveScoringExpectation,
+      );
     if (shot.shooterId === next.controlledFootballerId) result.controlled.shots++;
   }
+  assertTelemetryInvariants(result);
   return matchFlowTelemetrySchema.parse(result);
+};
+
+export const assertTelemetryInvariants = (telemetry: MatchFlowTelemetry) => {
+  if (telemetry.passesCompleted > telemetry.passesAttempted)
+    throw new Error('Telemetry invariant failed: completed passes exceed attempts.');
+  if (
+    telemetry.movingReceiverCompletions + telemetry.movingReceiverFailures >
+    telemetry.passesToMovingReceiver
+  )
+    throw new Error('Telemetry invariant failed: moving pass results exceed attempts.');
+  for (const edge of telemetry.passingNetwork)
+    if (edge.completed > edge.attempted)
+      throw new Error(`Telemetry invariant failed for passing edge ${edge.passerId}.`);
+};
+
+export const summarizeMatchFlowRates = (telemetry: MatchFlowTelemetry) => {
+  const minutes = Math.max(telemetry.canonicalMinutes, 1 / 60);
+  return {
+    passesPerCanonicalMinute: telemetry.passesAttempted / minutes,
+    shotsPer90Equivalent: (telemetry.shots / minutes) * 90,
+    goalsPer90Equivalent: (telemetry.goals / minutes) * 90,
+    possessionChangesPerMinute: telemetry.possessionChanges / minutes,
+    averagePossessionEpisodeDuration:
+      telemetry.possessionChanges > 0 ? (minutes * 60) / telemetry.possessionChanges : minutes * 60,
+    averageTimeBetweenActions:
+      telemetry.passesAttempted + telemetry.shots + telemetry.carries > 0
+        ? (minutes * 60) / (telemetry.passesAttempted + telemetry.shots + telemetry.carries)
+        : 0,
+  };
+};
+
+export const summarizeShootingBuckets = (telemetry: MatchFlowTelemetry) => {
+  const ranges = [
+    ['0–10 m', 0, 10],
+    ['10–16 m', 10, 16],
+    ['16–22 m', 16, 22],
+    ['22–30 m', 22, 30],
+    ['30–35 m', 30, 35],
+    ['35+ m', 35, Infinity],
+  ] as const;
+  return ranges.map(([label, low, high]) => {
+    const shots = telemetry.shotDiagnostics.filter(
+      (shot) => shot.distance >= low && shot.distance < high,
+    );
+    return {
+      label,
+      attempts: shots.length,
+      onTarget: shots.filter((shot) => ['goal', 'save', 'post', 'crossbar'].includes(shot.outcome))
+        .length,
+      goals: shots.filter((shot) => shot.outcome === 'goal').length,
+      blocks: shots.filter((shot) => shot.outcome === 'block').length,
+      averageBaseXg: shots.length
+        ? shots.reduce((sum, shot) => sum + shot.baseXg, 0) / shots.length
+        : 0,
+      averageEffectiveExpectation: shots.length
+        ? shots.reduce((sum, shot) => sum + shot.effectiveScoringExpectation, 0) / shots.length
+        : 0,
+    };
+  });
 };
 
 export const summarizeShotDistances = (telemetry: MatchFlowTelemetry) => {

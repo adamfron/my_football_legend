@@ -17,6 +17,7 @@ export * from './shotResolver';
 export * from './ballFlight';
 export * from './passClaimResolver';
 export * from './shootingOpportunity';
+export * from './matchFlowCalibration';
 export * from './matchSituationEvaluator';
 export * from './looseBallPhysics';
 export * from './playerDecision';

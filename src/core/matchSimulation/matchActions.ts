@@ -54,7 +54,15 @@ const pressure = (state: TacticalMatchState, actor: MatchPlayerState) =>
   evaluatePressure(state, actor).value;
 
 export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) => {
-  return 8 + evaluateShootingOpportunity(state, actor).value * 92;
+  const opportunity = evaluateShootingOpportunity(state, actor);
+  const styleModifier = state.teams[actor.team].style === 'direct' ? 3 : 0;
+  return (
+    4 +
+    Math.pow(opportunity.effectiveScoringExpectation, 1.18) * 150 -
+    opportunity.pressure * 12 -
+    opportunity.blockingDefenders * 4 +
+    styleModifier
+  );
 };
 export const enumerateAvailableActions = (
   state: TacticalMatchState,
@@ -536,7 +544,10 @@ export const resolveMatchAction = (
             ballEpisode: episode,
           }),
           lastPassDiagnostic: {
+            passId: episode,
+            passerId: actor.id,
             intendedReceiverId: receiver.id,
+            releasedAt: state.time,
             receiverPositionAtRelease: { ...receiver.position },
             receiverVelocityAtRelease: { ...receiver.velocity },
             predictedReceptionPoint: projection.expectedReceptionPoint,
@@ -548,7 +559,23 @@ export const resolveMatchAction = (
             leadDistance: projection.leadDistance,
           },
         }
-      : {}),
+      : {
+          lastPassDiagnostic: {
+            passId: episode,
+            passerId: actor.id,
+            intendedReceiverId: receiver.id,
+            releasedAt: state.time,
+            receiverPositionAtRelease: { ...receiver.position },
+            receiverVelocityAtRelease: { ...receiver.velocity },
+            predictedReceptionPoint: target,
+            awarenessDelay: 0,
+            receiverArrivalEstimate: duration,
+            bestDefenderArrivalEstimate: Number.isFinite(bestDefenderArrival)
+              ? bestDefenderArrival
+              : 99,
+            leadDistance: distance(receiver.position, target),
+          },
+        }),
     ...(offsideSnapshot ? { offsideSnapshot } : {}),
     ...(restart ? { restart, restartAction: action } : {}),
   };

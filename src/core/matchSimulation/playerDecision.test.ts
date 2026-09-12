@@ -110,7 +110,7 @@ describe('player decision lifecycle', () => {
   it('surfaces a fresh human node when a selected carry finishes inside shooting range', () => {
     const state = makeState();
     const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
-    actor.position = { x: 68, y: 34 };
+    actor.position = { x: 98, y: 34 };
     actor.velocity = { x: 0, y: 0 };
     state.ball = { ...actor.position, ownerId: actor.id };
     state.actionCooldown = 0;
@@ -118,7 +118,7 @@ describe('player decision lifecycle', () => {
       opponent.position = { x: 30, y: 60 };
     let carried = resolveMatchAction(
       state,
-      { type: 'carry', actorId: actor.id, target: { x: 74, y: 34 } },
+      { type: 'carry', actorId: actor.id, target: { x: 103, y: 34 } },
       'human_selected',
     );
     for (let index = 0; index < 150 && carried.ballCarrierIntent; index += 1)
