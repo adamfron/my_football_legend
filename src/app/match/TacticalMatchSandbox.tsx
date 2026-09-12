@@ -568,7 +568,24 @@ const RunningLab = ({
   }, [playing, replaying, session, speed, state.seed, opportunity, diagnostics]);
   useEffect(() => {
     if (replaying) return;
-    const frame = matchStateToFrame(state);
+    const baseFrame = matchStateToFrame(state);
+    // Interaction legality remains a pure canonical projection; presentation only observes it.
+    const actionableTargets = opportunity
+      ? state.players
+          .filter(
+            (player) =>
+              projectContextualInteractions(state, opportunity, {
+                kind: 'player',
+                playerId: player.id,
+              }).length > 0,
+          )
+          .map((player) => player.id)
+      : [];
+    const frame = {
+      ...baseFrame,
+      actionableTargets,
+      ...(selectedTarget?.kind === 'player' ? { selectedTarget: selectedTarget.playerId } : {}),
+    };
     rendererRef.current?.render(frame, debug);
     const frames = replayBufferRef.current;
     frames.push(frame);
@@ -576,7 +593,7 @@ const RunningLab = ({
     const score = state.score.home + state.score.away;
     if (score > scoreRef.current) setGoalReplay([...frames]);
     scoreRef.current = score;
-  }, [state, debug, replaying]);
+  }, [state, debug, replaying, opportunity, selectedTarget]);
   useEffect(() => {
     if (!replaying || goalReplay.length === 0) return;
     const started = performance.now(),

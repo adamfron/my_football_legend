@@ -265,10 +265,15 @@ const deriveHomeRestartGeometry = (
     });
     away.forEach((p, i) => {
       const marked = options[i % 3];
+      const markedTarget = marked ? points.get(marked.id) : undefined;
+      const advancedRestart = ball.x >= 70;
       const base =
-        marked && i < 5
-          ? { x: marked.position.x + 1.8, y: marked.position.y + (ball.y === 0 ? 1.5 : -1.5) }
-          : p.neutralAnchor;
+        markedTarget && i < 5
+          ? // Away defend the x=105 goal in this home-oriented construction: positive x is goal-side.
+            { x: markedTarget.x + 1.8, y: markedTarget.y + (ball.y === 0 ? 1.2 : -1.2) }
+          : advancedRestart
+            ? { x: Math.max(78, p.neutralAnchor.x), y: 34 + (p.neutralAnchor.y - 34) * 0.72 }
+            : p.neutralAnchor;
       const dx = base.x - ball.x,
         dy = base.y - ball.y,
         d = Math.max(0.01, Math.hypot(dx, dy));

@@ -22,10 +22,107 @@ import {
   PITCH_LENGTH,
   PITCH_WIDTH,
   resolveMatchAction,
+  projectPassReception,
   stepTacticalMatch,
   type TacticalMatchState,
   tacticalMatchStateSchema,
 } from '.';
+
+describe('receiver-aware passing', () => {
+  it('leads a moving receiver but keeps a stationary support target close to their feet', () => {
+    const state = createTacticalMatch(session('receiver-projection'));
+    const passer = state.players.find((player) => player.id === state.ball.ownerId)!;
+    const receiver = state.players.find(
+      (player) =>
+        player.team === passer.team &&
+        player.id !== passer.id &&
+        player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    receiver.position = { x: passer.position.x + 18, y: passer.position.y + 4 };
+    receiver.target = { x: receiver.position.x, y: receiver.position.y + 12 };
+    receiver.velocity = { x: 0, y: 4.5 };
+    const moving = projectPassReception(state, passer, receiver, 'support');
+    expect(moving.releaseTarget.y).toBeGreaterThan(receiver.position.y);
+    expect(moving.leadDistance).toBeGreaterThan(0.5);
+    receiver.velocity = { x: 0, y: 0 };
+    receiver.target = { ...receiver.position };
+    expect(projectPassReception(state, passer, receiver, 'support').leadDistance).toBeLessThan(0.6);
+  });
+
+  it('lets an elite passer anticipate more and an aware receiver react sooner', () => {
+    const state = createTacticalMatch(session('receiver-attributes'));
+    const passer = state.players.find((player) => player.id === state.ball.ownerId)!;
+    const receiver = state.players.find(
+      (player) =>
+        player.team === passer.team &&
+        player.id !== passer.id &&
+        player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    receiver.velocity = { x: 0, y: 4 };
+    const poor = projectPassReception(
+      state,
+      {
+        ...passer,
+        profile: {
+          ...passer.profile,
+          attributes: {
+            ...passer.profile.attributes,
+            passing: 25,
+            technique: 25,
+            gameReading: 25,
+            composure: 25,
+          },
+        },
+      },
+      receiver,
+      'progressive',
+    );
+    const elite = projectPassReception(
+      state,
+      {
+        ...passer,
+        profile: {
+          ...passer.profile,
+          attributes: {
+            ...passer.profile.attributes,
+            passing: 95,
+            technique: 95,
+            gameReading: 95,
+            composure: 95,
+          },
+        },
+      },
+      receiver,
+      'progressive',
+    );
+    expect(elite.leadDistance).toBeGreaterThan(poor.leadDistance);
+    const unaware = projectPassReception(
+      state,
+      passer,
+      {
+        ...receiver,
+        profile: {
+          ...receiver.profile,
+          attributes: { ...receiver.profile.attributes, gameReading: 25, concentration: 25 },
+        },
+      },
+      'support',
+    );
+    const aware = projectPassReception(
+      state,
+      passer,
+      {
+        ...receiver,
+        profile: {
+          ...receiver.profile,
+          attributes: { ...receiver.profile.attributes, gameReading: 95, concentration: 95 },
+        },
+      },
+      'support',
+    );
+    expect(aware.receiverAwarenessDelay).toBeLessThan(unaware.receiverAwarenessDelay);
+  });
+});
 
 const world = createCanonicalWorldDatabase(),
   home = world.clubs[0]!,

@@ -5,6 +5,7 @@ import { resolveCanonicalShot } from './shotResolver';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
 import { captureOffsideSnapshot } from './offside';
+import { projectPassReception, receptionPreparationSchema } from './passReception';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -128,12 +129,14 @@ export const enumerateAvailableActions = (
     .forEach((p) => {
       const progress = dir * (p.position.x - actor.position.x),
         length = distance(p.position, actor.position);
+      const intent = length > 42 ? 'direct' : progress > 8 ? 'progressive' : 'support';
+      const projection = projectPassReception(state, actor, p, intent);
       actions.push({
         type: 'pass',
         actorId,
         receiverId: p.id,
-        target: { ...p.position },
-        intent: length > 42 ? 'direct' : progress > 8 ? 'progressive' : 'support',
+        target: projection.releaseTarget,
+        intent,
       });
       if (progress > 8 && p.duty !== 'defend') {
         const space = evaluateRunSpace(state, actor, p);
@@ -445,7 +448,20 @@ export const resolveMatchAction = (
     };
   }
   const receiver = state.players.find((p) => p.id === action.receiverId)!;
-  const duration = Math.max(0.45, distance(actor.position, action.target) / 24);
+  const projection =
+    action.intent === 'through' || state.scenario === 'throw_in'
+      ? undefined
+      : projectPassReception(state, actor, receiver, action.intent);
+  const target = projection?.releaseTarget ?? action.target;
+  const duration =
+    projection?.estimatedBallArrival ?? Math.max(0.45, distance(actor.position, target) / 24);
+  const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;
+  const defenders = state.players.filter((p) => p.team !== actor.team);
+  const bestDefenderArrival = Math.min(
+    ...defenders.map(
+      (p) => distance(p.position, target) / Math.max(2.5, 2.6 + p.profile.attributes.pace * 0.042),
+    ),
+  );
   return {
     ...baseState,
     ball: {
@@ -455,7 +471,7 @@ export const resolveMatchAction = (
         state.scenario === 'throw_in'
           ? { x: state.ball.x, y: state.ball.y }
           : { ...actor.position },
-      target: { ...action.target },
+      target: { ...target },
       intendedReceiverId: receiver.id,
       travelElapsed: 0,
       travelDuration: duration,
@@ -486,6 +502,37 @@ export const resolveMatchAction = (
     currentActorId: actor.id,
     actionCooldown: duration + 0.35,
     decisionIndex: state.decisionIndex + 1,
+    ...(projection
+      ? {
+          receptionPreparation: receptionPreparationSchema.parse({
+            actorId: receiver.id,
+            sourceActorId: actor.id,
+            releasedAt: state.time,
+            awarenessAt: state.time + projection.receiverAwarenessDelay,
+            expectedContactPoint: projection.expectedReceptionPoint,
+            expectedArrivalTime: state.time + duration,
+            movement:
+              projection.receiverMovement === 'hold'
+                ? 'wait'
+                : projection.receiverMovement === 'meet_ball'
+                  ? 'meet_ball'
+                  : 'run_onto_ball',
+            ballEpisode: episode,
+          }),
+          lastPassDiagnostic: {
+            intendedReceiverId: receiver.id,
+            receiverPositionAtRelease: { ...receiver.position },
+            receiverVelocityAtRelease: { ...receiver.velocity },
+            predictedReceptionPoint: projection.expectedReceptionPoint,
+            awarenessDelay: projection.receiverAwarenessDelay,
+            receiverArrivalEstimate: projection.estimatedReceiverArrival,
+            bestDefenderArrivalEstimate: Number.isFinite(bestDefenderArrival)
+              ? bestDefenderArrival
+              : 99,
+            leadDistance: projection.leadDistance,
+          },
+        }
+      : {}),
     ...(offsideSnapshot ? { offsideSnapshot } : {}),
     ...(restart ? { restart, restartAction: action } : {}),
   };

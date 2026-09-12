@@ -53,6 +53,23 @@ export const matchFlowTelemetrySchema = z.object({
   passesAttempted: z.number().int().nonnegative(),
   passesCompleted: z.number().int().nonnegative(),
   throughBalls: z.number().int().nonnegative(),
+  passesToStationaryReceiver: z.number().int().nonnegative(),
+  passesToMovingReceiver: z.number().int().nonnegative(),
+  movingReceiverCompletions: z.number().int().nonnegative(),
+  movingReceiverFailures: z.number().int().nonnegative(),
+  averageLeadDistance: z.number().nonnegative(),
+  averageReceiverDisplacementDuringFlight: z.number().nonnegative(),
+  receptions: z.object({
+    clean: z.number().int().nonnegative(),
+    directional: z.number().int().nonnegative(),
+    heavy: z.number().int().nonnegative(),
+    failed: z.number().int().nonnegative(),
+  }),
+  interceptionCauses: z.object({
+    lane_read: z.number().int().nonnegative(),
+    receiver_late: z.number().int().nonnegative(),
+    technical_error: z.number().int().nonnegative(),
+  }),
   carries: z.number().int().nonnegative(),
   controlled: z.object({
     touches: z.number().int().nonnegative(),
@@ -106,6 +123,14 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
     passesAttempted: 0,
     passesCompleted: 0,
     throughBalls: 0,
+    passesToStationaryReceiver: 0,
+    passesToMovingReceiver: 0,
+    movingReceiverCompletions: 0,
+    movingReceiverFailures: 0,
+    averageLeadDistance: 0,
+    averageReceiverDisplacementDuringFlight: 0,
+    receptions: { clean: 0, directional: 0, heavy: 0, failed: 0 },
+    interceptionCauses: { lane_read: 0, receiver_late: 0, technical_error: 0 },
     carries: 0,
     controlled: {
       touches: 0,
@@ -182,6 +207,16 @@ export const observeMatchFlow = (
     result.passesAttempted++;
     if (action.intent === 'through') result.throughBalls++;
     if (action.actorId === next.controlledFootballerId) result.controlled.passesAttempted++;
+    const diagnostic = next.lastPassDiagnostic;
+    if (diagnostic?.intendedReceiverId === action.receiverId) {
+      const moving =
+        Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
+        0.5;
+      if (moving) result.passesToMovingReceiver++;
+      else result.passesToStationaryReceiver++;
+      result.averageLeadDistance +=
+        (diagnostic.leadDistance - result.averageLeadDistance) / result.passesAttempted;
+    }
     const edge = result.passingNetwork.find(
       (item) => item.passerId === action.actorId && item.receiverId === action.receiverId,
     );
@@ -210,6 +245,42 @@ export const observeMatchFlow = (
     );
     if (edge) edge.completed++;
     if (ownershipReceived === next.controlledFootballerId) result.controlled.passesReceived++;
+    if (
+      previous.lastPassDiagnostic &&
+      Math.hypot(
+        previous.lastPassDiagnostic.receiverVelocityAtRelease.x,
+        previous.lastPassDiagnostic.receiverVelocityAtRelease.y,
+      ) > 0.5
+    )
+      result.movingReceiverCompletions++;
+  }
+  if (
+    next.lastPassDiagnostic !== previous.lastPassDiagnostic &&
+    next.lastPassDiagnostic?.finalResult
+  ) {
+    const diagnostic = next.lastPassDiagnostic;
+    if (
+      Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
+        0.5 &&
+      diagnostic.finalResult !== 'completed'
+    )
+      result.movingReceiverFailures++;
+    if (diagnostic.actualContactPoint)
+      result.averageReceiverDisplacementDuringFlight +=
+        (distance(diagnostic.receiverPositionAtRelease, diagnostic.actualContactPoint) -
+          result.averageReceiverDisplacementDuringFlight) /
+        Math.max(1, result.passesCompleted + result.movingReceiverFailures);
+    if (diagnostic.receptionOutcome === 'clean_control') result.receptions.clean++;
+    else if (diagnostic.receptionOutcome === 'directional_control') result.receptions.directional++;
+    else if (diagnostic.receptionOutcome === 'heavy_touch') result.receptions.heavy++;
+    else if (diagnostic.receptionOutcome === 'failed_control') result.receptions.failed++;
+    if (diagnostic.finalResult === 'technical_error') result.interceptionCauses.technical_error++;
+    else if (diagnostic.finalResult === 'intercepted')
+      result.interceptionCauses[
+        diagnostic.receiverArrivalEstimate > diagnostic.bestDefenderArrivalEstimate
+          ? 'receiver_late'
+          : 'lane_read'
+      ]++;
   }
   if (next.lastShot !== previous.lastShot && next.lastShot) {
     const shot = next.lastShot,

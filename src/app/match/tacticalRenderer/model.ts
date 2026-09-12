@@ -21,10 +21,42 @@ export const tacticalBallSchema = tacticalPointSchema.extend({
   height: z.number().nonnegative().optional(),
   ownerId: z.string().optional(),
 });
+export const kitPresentationSchema = z.object({
+  primary: z.string(),
+  secondary: z.string(),
+  accent: z.string(),
+  shorts: z.string(),
+  socks: z.string(),
+  pattern: z.enum(['solid', 'vertical_stripes', 'halves', 'hoops', 'sash']),
+  goalkeeper: z.object({ primary: z.string(), accent: z.string() }),
+});
+export type KitPresentation = z.infer<typeof kitPresentationSchema>;
+export const DEFAULT_KITS: Record<'home' | 'away', KitPresentation> = {
+  home: {
+    primary: '#4da3ff',
+    secondary: '#ffffff',
+    accent: '#143b66',
+    shorts: '#ffffff',
+    socks: '#4da3ff',
+    pattern: 'solid',
+    goalkeeper: { primary: '#f0c84b', accent: '#181818' },
+  },
+  away: {
+    primary: '#e7626c',
+    secondary: '#ffffff',
+    accent: '#5b1820',
+    shorts: '#6d1720',
+    socks: '#e7626c',
+    pattern: 'solid',
+    goalkeeper: { primary: '#7edb83', accent: '#181818' },
+  },
+};
 export const tacticalFrameSchema = z.object({
   players: z.array(tacticalPlayerSchema),
   ball: tacticalBallSchema,
   timestampMs: z.number().nonnegative(),
+  actionableTargets: z.array(z.string()).optional(),
+  selectedTarget: z.string().optional(),
 });
 export const tacticalSequenceSchema = z.object({
   id: z.string().min(1),

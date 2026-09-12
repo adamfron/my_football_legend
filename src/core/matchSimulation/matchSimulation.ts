@@ -33,6 +33,7 @@ import { isOffsideOffence } from './offside';
 import { projectPlayerDecisionOpportunity } from './playerDecision';
 import { projectLocomotion } from './locomotion';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
+import { resolveReceptionOutcome } from './passReception';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -166,18 +167,36 @@ const changePossession = (
 ) => {
   const owner = state.players.find((p) => p.id === ownerId)!;
   const controlledBall = { x: state.ball.x, y: state.ball.y, ownerId, lastTouchPlayerId: ownerId };
+  const reception =
+    state.receptionPreparation?.actorId === ownerId
+      ? resolveReceptionOutcome(state, owner, { x: state.ball.x, y: state.ball.y })
+      : undefined;
+  const receptionPoint = reception?.resultingPoint ?? { x: state.ball.x, y: state.ball.y };
   if (owner.team === state.possessionTeam) {
     const next: TacticalMatchState = {
       ...state,
-      ball: controlledBall,
+      ball: { ...controlledBall, ...receptionPoint },
+      ...(reception ? { lastReceptionOutcome: reception } : {}),
+      ...(state.lastPassDiagnostic
+        ? {
+            lastPassDiagnostic: {
+              ...state.lastPassDiagnostic,
+              actualContactPoint: { x: state.ball.x, y: state.ball.y },
+              ...(reception ? { receptionOutcome: reception.kind } : {}),
+              finalResult: reception?.kind === 'failed_control' ? 'technical_error' : 'completed',
+            },
+          }
+        : {}),
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
     if (state.pendingReceptionIntent?.actorId === ownerId) {
       const { pendingReceptionIntent, ...ready } = next;
       void pendingReceptionIntent;
+      delete ready.receptionPreparation;
       return resolveMatchAction(ready, state.pendingReceptionIntent.action);
     }
     if (state.pendingReceptionIntent) delete next.pendingReceptionIntent;
+    delete next.receptionPreparation;
     return next;
   }
   const teams = { ...state.teams };
@@ -191,12 +210,22 @@ const changePossession = (
     ball: controlledBall,
     ballOwnershipStartedAt: state.time,
     lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
+    ...(state.lastPassDiagnostic
+      ? {
+          lastPassDiagnostic: {
+            ...state.lastPassDiagnostic,
+            actualContactPoint: { x: state.ball.x, y: state.ball.y },
+            finalResult: 'intercepted' as const,
+          },
+        }
+      : {}),
   };
   if (state.pendingReceptionIntent?.actorId === ownerId) {
     delete next.pendingReceptionIntent;
     return resolveMatchAction(next, state.pendingReceptionIntent.action);
   }
   delete next.pendingReceptionIntent;
+  delete next.receptionPreparation;
   return next;
 };
 
@@ -383,6 +412,17 @@ export const stepTacticalMatch = (
     void _cancelled;
     state = withoutIntent;
   }
+  if (
+    state.receptionPreparation &&
+    (!state.ball.intendedReceiverId ||
+      state.ball.intendedReceiverId !== state.receptionPreparation.actorId ||
+      state.ball.ownerId !== undefined ||
+      state.scenario !== input.scenario)
+  ) {
+    const { receptionPreparation: _stale, ...withoutPreparation } = state;
+    void _stale;
+    state = withoutPreparation;
+  }
   if (state.ballCarrierIntent) {
     const carrier = state.players.find((player) => player.id === state.ballCarrierIntent!.actorId);
     if (
@@ -451,6 +491,11 @@ export const stepTacticalMatch = (
       player = { ...player, target: state.ballCarrierIntent.target };
     if (state.playerMovementIntent?.actorId === player.id)
       player = { ...player, target: state.playerMovementIntent.target };
+    if (
+      state.receptionPreparation?.actorId === player.id &&
+      state.time >= state.receptionPreparation.awarenessAt
+    )
+      player = { ...player, target: state.receptionPreparation.expectedContactPoint };
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
     if (
       state.keeperIntervention?.keeperId === player.id &&
@@ -874,7 +919,19 @@ export const stepTacticalMatch = (
           y: (target.y - from.y) / duration,
         };
         state = makeLoose(
-          { ...state, ball: landing },
+          {
+            ...state,
+            ball: landing,
+            ...(state.lastPassDiagnostic
+              ? {
+                  lastPassDiagnostic: {
+                    ...state.lastPassDiagnostic,
+                    actualContactPoint: landing,
+                    finalResult: 'unclaimed' as const,
+                  },
+                }
+              : {}),
+          },
           { x: canonicalVelocity.x * 0.42, y: canonicalVelocity.y * 0.42 },
         );
       }
@@ -969,17 +1026,24 @@ export const stepTacticalMatch = (
 
 export const matchStateToFrame = (state: TacticalMatchState) => ({
   timestampMs: state.time * 1000,
-  players: state.players.map((p) => ({
-    id: p.id,
-    team: p.team,
-    x: p.position.x,
-    y: p.position.y,
-    goalkeeper: p.profile.primaryPosition === 'goalkeeper',
-    protagonist: p.id === state.controlledFootballerId,
-    target: p.target,
-    anchor: p.neutralAnchor,
-    idealTarget: p.idealTarget,
-  })),
+  players: state.players.map((p) => {
+    const facingVector =
+      Math.hypot(p.velocity.x, p.velocity.y) > 0.2
+        ? p.velocity
+        : { x: p.target.x - p.position.x, y: p.target.y - p.position.y };
+    return {
+      id: p.id,
+      team: p.team,
+      x: p.position.x,
+      y: p.position.y,
+      goalkeeper: p.profile.primaryPosition === 'goalkeeper',
+      protagonist: p.id === state.controlledFootballerId,
+      target: p.target,
+      anchor: p.neutralAnchor,
+      idealTarget: p.idealTarget,
+      facing: Math.atan2(facingVector.x, facingVector.y),
+    };
+  }),
   ball: {
     x: state.ball.x,
     y: state.ball.y,
