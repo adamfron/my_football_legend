@@ -26,3 +26,4 @@ export * from './contextualInteractions';
 export * from './actionImpact';
 export * from './matchFlowTelemetry';
 export * from './locomotion';
+export * from './playerArrival';

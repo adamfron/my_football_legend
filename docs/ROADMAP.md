@@ -371,3 +371,11 @@ spektatora. Kolejne kroki to: (1) rozbudowa akcji i rozstrzygnięć o podania pr
 strzały, reakcje bramkarza i czasowy spalony; (2) indywidualne tendencje taktyczne; (3) dopiero po
 dojrzeniu kanonicznego zestawu akcji — kontekstowe menu gracza jako UI nad tym samym zbiorem.
 Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozszerzenia rozgrywek.
+
+### Bieżący rozwój meczu — PR117–PR119
+
+- **PR117 — ukończony:** podania uwzględniające ruch odbiorcy i Tactical Match Presentation v1.
+- **PR118 — bieżący:** fizyczna osiągalność przechwytu, przekazanie sprawczości po akcji gracza
+  oraz czytelność proceduralnych postaci v2.
+- **PR119 — następny:** płynność meczu, wybór strzałów i kalibracja xG.
+- **Później:** zmęczenie, stan wyniku, zmiany oraz pełna identyfikacja klubowa i strojów.

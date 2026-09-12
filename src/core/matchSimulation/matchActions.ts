@@ -1,6 +1,6 @@
 import { RandomGenerator } from '../random/RandomGenerator';
 import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matchSpace';
-import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
+import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
@@ -299,6 +299,7 @@ export const chooseNpcAction = (
 export const resolveMatchAction = (
   state: TacticalMatchState,
   action: MatchAction,
+  source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
   if (state.ball.ownerId !== action.actorId) return state;
   const actor = state.players.find((p) => p.id === action.actorId)!;
@@ -307,13 +308,20 @@ export const resolveMatchAction = (
       ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
       : state.restart;
   const offsideSnapshot = captureOffsideSnapshot(state, action);
-  const { ballCarrierIntent: _interruptedCarry, ...baseState } = state;
+  const {
+    ballCarrierIntent: _interruptedCarry,
+    postActionAgencyCheckpoint: _checkpoint,
+    ...baseState
+  } = state;
   void _interruptedCarry;
+  void _checkpoint;
   if (action.type === 'hold')
     return {
       ...baseState,
       currentAction: action,
       latestAction: action,
+      currentActionSource: source,
+      latestActionSource: source,
       currentActorId: actor.id,
       actionCooldown: 1.1,
       decisionIndex: state.decisionIndex + 1,
@@ -331,6 +339,8 @@ export const resolveMatchAction = (
       },
       currentAction: action,
       latestAction: action,
+      currentActionSource: source,
+      latestActionSource: source,
       currentActorId: actor.id,
       actionCooldown: 1.3,
       decisionIndex: state.decisionIndex + 1,
@@ -369,6 +379,8 @@ export const resolveMatchAction = (
       },
       currentAction: action,
       latestAction: action,
+      currentActionSource: source,
+      latestActionSource: source,
       currentActorId: actor.id,
       actionCooldown: duration + 0.45,
       decisionIndex: state.decisionIndex + 1,
@@ -440,6 +452,8 @@ export const resolveMatchAction = (
       },
       currentAction: action,
       latestAction: action,
+      currentActionSource: source,
+      latestActionSource: source,
       currentActorId: actor.id,
       actionCooldown: duration + 0.35,
       decisionIndex: state.decisionIndex + 1,
@@ -499,6 +513,8 @@ export const resolveMatchAction = (
     },
     currentAction: action,
     latestAction: action,
+    currentActionSource: source,
+    latestActionSource: source,
     currentActorId: actor.id,
     actionCooldown: duration + 0.35,
     decisionIndex: state.decisionIndex + 1,

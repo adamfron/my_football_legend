@@ -581,9 +581,20 @@ const RunningLab = ({
           )
           .map((player) => player.id)
       : [];
+    const interceptionOption = opportunity?.options.find(
+      (option) => option.kind === 'movement' && option.id === 'intercept',
+    );
     const frame = {
       ...baseFrame,
       actionableTargets,
+      ...(opportunity?.kind === 'defensive_response'
+        ? {
+            interceptionTarget:
+              interceptionOption?.kind === 'movement'
+                ? interceptionOption.intent.target
+                : undefined,
+          }
+        : {}),
       ...(selectedTarget?.kind === 'player' ? { selectedTarget: selectedTarget.playerId } : {}),
     };
     rendererRef.current?.render(frame, debug);

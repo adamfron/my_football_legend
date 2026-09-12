@@ -33,7 +33,9 @@ export const debugFrameSchema = z.object({
   ),
   currentActorId: z.string().optional(),
   currentAction: z.unknown().optional(),
+  currentActionSource: z.string().optional(),
   latestAction: z.unknown().optional(),
+  latestActionSource: z.string().optional(),
   ballCarrierIntent: z.unknown().optional(),
   playerMovementIntent: z.unknown().optional(),
   decisionGate: z.unknown().optional(),
@@ -184,7 +186,9 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
         },
         currentActorId: state.currentActorId,
         currentAction: state.currentAction,
+        currentActionSource: state.currentActionSource,
         latestAction: state.latestAction,
+        latestActionSource: state.latestActionSource,
         ballCarrierIntent: state.ballCarrierIntent,
         playerMovementIntent: state.playerMovementIntent,
         decisionGate: state.playerDecisionGate,
@@ -288,6 +292,8 @@ export const projectDebugEvents = (previous: DebugFrame | undefined, frame: Debu
         ? 'shot_started'
         : 'action_started',
       (frame.currentAction as { actorId?: string }).actorId,
+      undefined,
+      { source: frame.currentActionSource ?? 'unknown' },
     );
   const change = frame.lastPossessionChange as
     | { at?: number; cause?: string; from?: 'home' | 'away'; to?: 'home' | 'away' }

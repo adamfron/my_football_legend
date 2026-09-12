@@ -24,6 +24,7 @@ import type { TeamSide } from './matchSpace';
 import { evaluateGlobalBallRace, ballRaceCandidateSchema } from './looseBallPhysics';
 import { isActionResolutionInProgress } from './actionLifecycle';
 import { evaluateActionImpact } from './actionImpact';
+import { estimatePlayerArrivalTime, playerArrivalEstimateSchema } from './playerArrival';
 
 export const playerDecisionOptionSchema = z.discriminatedUnion('kind', [
   z.object({
@@ -80,6 +81,18 @@ export const playerDecisionProbeSchema = z.object({
   roleProfile: z.enum(['goalkeeper', 'defender', 'midfielder', 'forward']).optional(),
   ballRelevance: z.unknown().optional(),
   possessionMismatch: z.boolean().optional(),
+  interception: z
+    .object({
+      interceptPoint: pitchPointSchema,
+      ballArrivalTime: z.number().nonnegative(),
+      playerArrivalTime: z.number().nonnegative(),
+      distanceToIntercept: z.number().nonnegative(),
+      initialPlayerSpeed: z.number().nonnegative(),
+      targetSpeed: z.number().positive(),
+      turnAngle: z.number().nonnegative(),
+      arrivalMargin: z.number(),
+    })
+    .optional(),
 });
 export type PlayerDecisionProbe = z.infer<typeof playerDecisionProbeSchema>;
 
@@ -307,6 +320,8 @@ export const passInterceptionOpportunitySchema = z.object({
   distanceToPath: z.number().nonnegative().optional(),
   arrivalTime: z.number().nonnegative().optional(),
   structureRisk: z.number().min(0).max(1).optional(),
+  playerArrival: playerArrivalEstimateSchema.optional(),
+  arrivalMargin: z.number().optional(),
 });
 export const evaluatePassInterceptionOpportunity = (
   state: TacticalMatchState,
@@ -339,13 +354,18 @@ export const evaluatePassInterceptionOpportunity = (
   const distanceToPath = distance(defender.position, contactPoint);
   const arrivalTime = Math.max(0, t * state.ball.travelDuration - (state.ball.travelElapsed ?? 0));
   const structureRisk = Math.min(1, distance(defender.anchor, contactPoint) / 18);
-  const reachable = distanceToPath <= 2 + arrivalTime * 6;
+  const playerArrival = estimatePlayerArrivalTime(state, defender, contactPoint, 'intercept');
+  const controlMargin = 0.12;
+  const arrivalMargin = arrivalTime + controlMargin - playerArrival.estimatedTime;
+  const competitive = arrivalMargin >= 0 && arrivalMargin <= 0.9;
   return passInterceptionOpportunitySchema.parse({
-    viable: reachable && arrivalTime >= 0.2 && arrivalTime <= 1.3 && structureRisk < 0.85,
+    viable: competitive && arrivalTime >= 0.2 && arrivalTime <= 1.3 && structureRisk < 0.85,
     contactPoint,
     distanceToPath,
     arrivalTime,
     structureRisk,
+    playerArrival,
+    arrivalMargin,
   });
 };
 export const deriveDecisionRole = (actor: TacticalMatchState['players'][number]): DecisionRole => {
@@ -518,6 +538,21 @@ const projectDecision = (
           state.possessionTeam,
     ),
   };
+  const interceptionDiagnostic = !state.ball.ownerId
+    ? evaluatePassInterceptionOpportunity(state, actorId)
+    : undefined;
+  if (interceptionDiagnostic?.contactPoint && interceptionDiagnostic.playerArrival) {
+    context.interception = {
+      interceptPoint: interceptionDiagnostic.contactPoint,
+      ballArrivalTime: interceptionDiagnostic.arrivalTime ?? 0,
+      playerArrivalTime: interceptionDiagnostic.playerArrival.estimatedTime,
+      distanceToIntercept: interceptionDiagnostic.playerArrival.distance,
+      initialPlayerSpeed: interceptionDiagnostic.playerArrival.initialSpeed,
+      targetSpeed: interceptionDiagnostic.playerArrival.targetSpeed,
+      turnAngle: interceptionDiagnostic.playerArrival.turnAngle,
+      arrivalMargin: interceptionDiagnostic.arrivalMargin ?? 0,
+    };
+  }
   let kind: PlayerDecisionOpportunity['kind'] | undefined;
   let options: PlayerDecisionOption[] = [];
   if (state.ball.ownerId === actorId && evaluateOnBallDecisionRelevance(state, actorId).relevant) {
@@ -660,8 +695,19 @@ const projectDecision = (
     return blocked('same_situation', { ...context, signature });
   const newPossessionEpisode =
     kind === 'on_ball' && (state.ballOwnershipStartedAt ?? -1) >= (gate.lastResolvedAt ?? Infinity);
+  const postActionCheckpoint =
+    kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;
+  const absoluteOwnershipRequired =
+    kind === 'on_ball' &&
+    options.some(
+      (option) =>
+        option.kind === 'action' &&
+        (option.action.type === 'shot' || option.action.type === 'cross'),
+    );
   if (
     !newPossessionEpisode &&
+    !postActionCheckpoint &&
+    !absoluteOwnershipRequired &&
     gate.lastResolvedAt !== undefined &&
     state.time - gate.lastResolvedAt < 1.5
   )
@@ -738,7 +784,7 @@ export const applyPlayerDecision = (
     };
   }
   return option.kind === 'action'
-    ? resolveMatchAction(gated, option.action)
+    ? resolveMatchAction(gated, option.action, 'human_selected')
     : { ...gated, playerMovementIntent: option.intent };
 };
 
@@ -790,5 +836,5 @@ export const letAiDecide = (state: TacticalMatchState, opportunity: PlayerDecisi
       lastResolvedAt: state.time,
     },
   };
-  return action ? resolveMatchAction(gated, action) : gated;
+  return action ? resolveMatchAction(gated, action, 'dev_ai_selected') : gated;
 };

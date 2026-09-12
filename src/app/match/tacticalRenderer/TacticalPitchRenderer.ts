@@ -8,6 +8,7 @@ import {
   type TacticalFrame,
   type KitPresentation,
   DEFAULT_KITS,
+  derivePlayerAppearance,
   validateRenderFrame,
 } from './model';
 
@@ -25,6 +26,7 @@ export class TacticalPitchRenderer {
   private readonly idealMarkers = new Map<string, THREE.Mesh>();
   private readonly ball: THREE.Mesh;
   private readonly ballPicker: THREE.Mesh;
+  private readonly interceptionMarker: THREE.Mesh;
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
@@ -58,6 +60,7 @@ export class TacticalPitchRenderer {
         player.team,
         Boolean(player.protagonist),
         Boolean(player.goalkeeper),
+        player.displayNumber ?? 1,
       );
       this.createDebugMarkers(player.id);
     }
@@ -73,6 +76,20 @@ export class TacticalPitchRenderer {
     );
     this.ballPicker.userData.ball = true;
     this.scene.add(this.ballPicker);
+    this.interceptionMarker = new THREE.Mesh(
+      new THREE.RingGeometry(0.42, 0.62, 20),
+      new THREE.MeshBasicMaterial({
+        color: 0xd9fff1,
+        transparent: true,
+        opacity: 0.28,
+        side: THREE.DoubleSide,
+        depthTest: false,
+      }),
+    );
+    this.interceptionMarker.rotation.x = -Math.PI / 2;
+    this.interceptionMarker.position.y = 0.075;
+    this.interceptionMarker.visible = false;
+    this.scene.add(this.interceptionMarker);
     const shadow = new THREE.Mesh(
       new THREE.CircleGeometry(0.48, 16),
       new THREE.MeshBasicMaterial({ color: 0x101814, transparent: true, opacity: 0.28 }),
@@ -202,11 +219,13 @@ export class TacticalPitchRenderer {
     team: 'home' | 'away',
     protagonist: boolean,
     goalkeeper: boolean,
+    displayNumber: number,
   ) {
     const group = new THREE.Group();
     group.userData.playerId = id;
     const kit = this.kits[team];
     const shirt = goalkeeper ? kit.goalkeeper.primary : kit.primary;
+    const appearance = derivePlayerAppearance(id);
     const body = new THREE.Mesh(
       new THREE.BoxGeometry(1.15, 1.35, 0.68),
       new THREE.MeshStandardMaterial({ color: shirt }),
@@ -226,13 +245,31 @@ export class TacticalPitchRenderer {
       );
       leg.position.set(x, 0.52, 0);
       group.add(leg);
+      const boot = new THREE.Mesh(
+        new THREE.BoxGeometry(0.3, 0.2, 0.58),
+        new THREE.MeshStandardMaterial({ color: 0x171717 }),
+      );
+      // All orientation cues agree that local +Z is the player's front.
+      boot.position.set(x, 0.11, 0.15);
+      boot.userData.orientationFeature = 'local_forward_boot';
+      group.add(boot);
     }
     const head = new THREE.Mesh(
       new THREE.SphereGeometry(0.55, 8, 6),
-      new THREE.MeshStandardMaterial({ color: 0xe8bd91 }),
+      new THREE.MeshStandardMaterial({ color: appearance.skinColor }),
     );
     head.position.y = 3;
     group.add(head);
+    const nose = new THREE.Mesh(
+      new THREE.ConeGeometry(0.12, 0.3, 5),
+      new THREE.MeshStandardMaterial({ color: appearance.skinColor }),
+    );
+    nose.rotation.x = Math.PI / 2;
+    nose.position.set(0, 3.02, 0.56);
+    nose.userData.orientationFeature = 'local_forward_face';
+    group.add(nose);
+    this.addHair(group, appearance.hairStyle, appearance.hairColor);
+    this.addShirtNumber(group, id, displayNumber);
     const picker = new THREE.Mesh(
       new THREE.CylinderGeometry(0.85, 0.95, 3.3, 8),
       new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }),
@@ -267,6 +304,50 @@ export class TacticalPitchRenderer {
     }
     this.scene.add(group);
     this.playerMeshes.set(id, group);
+  }
+
+  private addHair(
+    group: THREE.Group,
+    style: ReturnType<typeof derivePlayerAppearance>['hairStyle'],
+    color: number,
+  ) {
+    if (style === 'bald') return;
+    const material = new THREE.MeshStandardMaterial({ color, roughness: 0.9 });
+    const geometry =
+      style === 'buzz'
+        ? new THREE.SphereGeometry(0.565, 8, 4, 0, Math.PI * 2, 0, Math.PI / 2.15)
+        : style === 'curly_cap'
+          ? new THREE.DodecahedronGeometry(0.59, 0)
+          : new THREE.BoxGeometry(style === 'side_part' ? 0.9 : 0.78, 0.22, 0.72);
+    const hair = new THREE.Mesh(geometry, material);
+    hair.position.set(style === 'side_part' ? 0.08 : 0, 3.43, style === 'crop' ? 0.08 : 0);
+    hair.scale.set(1, style === 'curly_cap' ? 0.48 : 1, 1);
+    hair.userData.hairStyle = style;
+    group.add(hair);
+  }
+
+  private addShirtNumber(group: THREE.Group, id: string, number: number) {
+    if (typeof document === 'undefined') return;
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+    context.clearRect(0, 0, 64, 64);
+    context.fillStyle = '#ffffff';
+    context.font = 'bold 42px sans-serif';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.fillText(String(number), 32, 34);
+    const texture = new THREE.CanvasTexture(canvas);
+    const numberPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.72, 0.72),
+      new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false }),
+    );
+    numberPlane.position.set(0, 2.13, -0.351);
+    numberPlane.rotation.y = Math.PI;
+    numberPlane.userData = { shirtNumber: number, playerId: id, side: 'back' };
+    group.add(numberPlane);
   }
 
   render(frame: TacticalFrame, debug = false) {
@@ -317,6 +398,11 @@ export class TacticalPitchRenderer {
     const ball = tacticalToWorld(frame.ball, (frame.ball.height ?? 0) + 0.85);
     this.ball.position.set(ball.x, ball.y, ball.z);
     this.ballPicker.position.set(ball.x, ball.y, ball.z);
+    this.interceptionMarker.visible = Boolean(frame.interceptionTarget);
+    if (frame.interceptionTarget) {
+      const target = tacticalToWorld(frame.interceptionTarget);
+      this.interceptionMarker.position.set(target.x, 0.075, target.z);
+    }
     this.renderer.render(this.scene, this.camera);
   }
 

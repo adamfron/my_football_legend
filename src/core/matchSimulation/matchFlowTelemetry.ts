@@ -189,10 +189,7 @@ export const observeMatchFlow = (
   const newAction =
     action && (previous.latestAction !== action || previous.decisionIndex !== next.decisionIndex);
   if (newAction && action.actorId === next.controlledFootballerId) {
-    const human = Boolean(
-      next.pendingPlayerDecision?.actorId === action.actorId ||
-        previous.pendingReceptionIntent?.actorId === action.actorId,
-    );
+    const human = next.latestActionSource === 'human_selected';
     const source = human ? 'human' : 'autonomous';
     if (action.type === 'shot') result.controlled.majorActionSources.shots[source]++;
     if (action.type === 'cross') result.controlled.majorActionSources.crosses[source]++;

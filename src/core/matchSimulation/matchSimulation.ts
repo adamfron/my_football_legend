@@ -193,7 +193,7 @@ const changePossession = (
       const { pendingReceptionIntent, ...ready } = next;
       void pendingReceptionIntent;
       delete ready.receptionPreparation;
-      return resolveMatchAction(ready, state.pendingReceptionIntent.action);
+      return resolveMatchAction(ready, state.pendingReceptionIntent.action, 'human_selected');
     }
     if (state.pendingReceptionIntent) delete next.pendingReceptionIntent;
     delete next.receptionPreparation;
@@ -222,7 +222,7 @@ const changePossession = (
   };
   if (state.pendingReceptionIntent?.actorId === ownerId) {
     delete next.pendingReceptionIntent;
-    return resolveMatchAction(next, state.pendingReceptionIntent.action);
+    return resolveMatchAction(next, state.pendingReceptionIntent.action, 'human_selected');
   }
   delete next.pendingReceptionIntent;
   delete next.receptionPreparation;
@@ -433,7 +433,20 @@ export const stepTacticalMatch = (
     ) {
       const { ballCarrierIntent: _ended, ...withoutIntent } = state;
       void _ended;
-      state = withoutIntent;
+      state = {
+        ...withoutIntent,
+        ...(carrier &&
+        carrier.id === state.controlledFootballerId &&
+        state.ball.ownerId === carrier.id
+          ? {
+              postActionAgencyCheckpoint: {
+                actorId: carrier.id,
+                completedAction: 'carry' as const,
+                at: state.time,
+              },
+            }
+          : {}),
+      };
     }
   }
   if (state.goalCompletionUntil !== undefined && state.time >= state.goalCompletionUntil) {
@@ -1019,7 +1032,15 @@ export const stepTacticalMatch = (
   if (state.actionCooldown <= 0 && state.ball.ownerId && state.restart?.phase !== 'setup') {
     const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
     const action = awaitsPlayer ? undefined : chooseNpcAction(state, state.ball.ownerId);
-    if (action) state = resolveMatchAction(state, action);
+    const controlled = state.ball.ownerId === state.controlledFootballerId;
+    // A controlled open-play shot/cross is absolutely human-owned, including immediately after a
+    // carry. Routine autoplay may continue only with a low-impact action.
+    if (action && !(controlled && (action.type === 'shot' || action.type === 'cross')))
+      state = resolveMatchAction(
+        state,
+        action,
+        controlled ? 'autonomous_routine' : 'autonomous_npc',
+      );
   }
   return state;
 };
@@ -1038,6 +1059,8 @@ export const matchStateToFrame = (state: TacticalMatchState) => ({
       y: p.position.y,
       goalkeeper: p.profile.primaryPosition === 'goalkeeper',
       protagonist: p.id === state.controlledFootballerId,
+      // Match Lab fallback. A registered career/club squad number should override this here later.
+      displayNumber: p.slotIndex + 1,
       target: p.target,
       anchor: p.neutralAnchor,
       idealTarget: p.idealTarget,
