@@ -20,9 +20,12 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
   bramki decyzji, wykonania prowadzenia piłki i fizycznego dojścia pressingu do pojedynku.
 - **PR108 — Target-First Contextual Interaction & Role-Aware Decision Relevance — ukończony.**
 - **PR109 — Decision Context Hardening & Outcome Attribution v1 — ukończony.**
-- **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — bieżący.**
-- **PR111 — Open-Play Role Relationships Calibration.**
-- **PR112+ — zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.**
+- **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — ukończony.**
+- **PR111 — Open-Play Role Relationships Calibration — ukończony.**
+- **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
+- **PR113 — Match Lab Crash Safety & Renderer Initialization — bieżący.**
+- **PR114 — zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu**
+  (ostateczny zakres po stabilnych testach wielominutowych).
 - **Później:** zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu.
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
@@ -45,9 +48,11 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR108 — target-first contextual interaction & role-aware decision relevance — ukończony.**
 - **PR109 — decision context hardening & outcome attribution v1 — ukończony.**
 - **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — ukończony.**
-- **PR111 — Open-Play Role Relationships Calibration — bieżący.**
-- **PR112 — fatigue / score-state / substitutions / late-game structural behaviour** (zakres może
-  zostać podzielony po analizie benchmarków PR111).
+- **PR111 — Open-Play Role Relationships Calibration — ukończony.**
+- **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
+- **PR113 — Match Lab Crash Safety & Renderer Initialization — bieżący.**
+- **PR114 — fatigue / score-state / substitutions / late-game structural behaviour** (zakres po
+  stabilnych testach wielominutowych).
 
 Materiał kalibracyjny udostępniamy zależnie od skali: szczegółowy incydent jako istniejący JSON
 ±10 s (oraz WebM, gdy istotny jest ruch), a wielominutowy trend zachowania jako kompaktowe

@@ -9,6 +9,8 @@ import {
   validateRenderFrame,
 } from './model';
 
+export type RendererLifecycle = 'waiting_for_layout' | 'ready' | 'context_lost' | 'failed';
+
 export class TacticalPitchRenderer {
   private readonly renderer: THREE.WebGLRenderer;
   private readonly scene = new THREE.Scene();
@@ -22,6 +24,7 @@ export class TacticalPitchRenderer {
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
   private contextLost = false;
+  private viewportReady = false;
   private lastValidFrame?: TacticalFrame;
   private lastDebugMode = false;
   private readonly report: (message?: string) => void;
@@ -58,10 +61,10 @@ export class TacticalPitchRenderer {
     );
     this.ball.userData.ball = true;
     this.scene.add(this.ball);
+    this.lastValidFrame = frame;
     this.observer = new ResizeObserver(() => this.resize());
     this.observer.observe(host);
     this.resize();
-    this.render(frame);
   }
 
   private createDebugMarkers(id: string) {
@@ -215,6 +218,9 @@ export class TacticalPitchRenderer {
       this.report(`Renderer error: ${invalid}`);
       return;
     }
+    this.lastValidFrame = frame;
+    this.lastDebugMode = debug;
+    if (!this.viewportReady) return;
     if (!this.renderer.domElement.isConnected || this.contextLost) {
       this.report(
         `Renderer error: ${this.contextLost ? 'WebGL context lost' : 'canvas disconnected'}`,
@@ -247,12 +253,14 @@ export class TacticalPitchRenderer {
     const ball = tacticalToWorld(frame.ball, (frame.ball.height ?? 0) + 0.85);
     this.ball.position.set(ball.x, ball.y, ball.z);
     this.renderer.render(this.scene, this.camera);
-    this.lastValidFrame = frame;
-    this.lastDebugMode = debug;
   }
 
   getCanvas() {
     return this.renderer.domElement;
+  }
+  get lifecycle(): RendererLifecycle {
+    if (this.contextLost) return 'context_lost';
+    return this.viewportReady ? 'ready' : 'waiting_for_layout';
   }
   /** Retries presentation reconstruction from the frozen frame; canonical state is untouched. */
   recover() {
@@ -287,7 +295,8 @@ export class TacticalPitchRenderer {
   }
   private resize() {
     if (this.host.clientWidth <= 0 || this.host.clientHeight <= 0) {
-      this.report('Renderer error: viewport has zero width or height');
+      this.viewportReady = false;
+      this.report('Renderer waiting_for_layout');
       return;
     }
     const width = Math.max(this.host.clientWidth, 320),
@@ -303,6 +312,10 @@ export class TacticalPitchRenderer {
     this.camera.far = 400;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(width, height, false);
+    this.viewportReady = true;
+    this.report(undefined);
+    if (this.lastValidFrame && !this.contextLost)
+      this.render(this.lastValidFrame, this.lastDebugMode);
   }
   dispose() {
     this.observer.disconnect();
@@ -339,7 +352,9 @@ export class TacticalPitchRenderer {
       this.report(undefined);
     } catch (error) {
       this.contextLost = true;
-      this.report(`Renderer recovery failed: ${error instanceof Error ? error.message : String(error)}`);
+      this.report(
+        `Renderer recovery failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
   };
 }

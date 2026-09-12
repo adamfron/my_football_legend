@@ -32,6 +32,14 @@ kanonicznym modelu.
 
 ## DEV Match Debug Capture
 
+Renderer Single Match Lab przechowuje najnowszą poprawną klatkę jeszcze przed uzyskaniem wymiarów
+hosta. Stan `waiting_for_layout` jest normalnym etapem prezentacji, a pierwsza i każda kolejna
+poprawna zmiana viewportu konfiguruje kamerę oraz od razu odmalowuje tę klatkę bez zmiany stanu
+kanonicznego. Kontroler diagnostyczny ponad kruchym poddrzewem Reacta zachowuje ostatni stan,
+telemetrię i ograniczone bufory. Pierwszy błąd fatalny zamraża przeszłość i udostępnia JSON w
+fallbacku Error Boundary; awaria opcjonalnego obserwatora jest rejestrowana, ale nie zatrzymuje
+poprawnej symulacji.
+
 ## Kanoniczny Match Situation Evaluator
 
 `matchSituationEvaluator` jest czystą, deterministyczną obserwacją bieżącego stanu
