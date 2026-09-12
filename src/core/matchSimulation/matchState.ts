@@ -70,11 +70,20 @@ export type PlayerMovementIntent = z.infer<typeof playerMovementIntentSchema>;
 export const playerDefensiveIntentSchema = z.object({
   actorId: z.string(),
   opponentId: z.string(),
-  type: z.enum(['contain', 'press', 'challenge']),
+  type: z.enum(['contain', 'press', 'challenge', 'hold_line', 'intercept']),
   startedAt: z.number().nonnegative(),
   expiresAt: z.number().nonnegative(),
 });
 export type PlayerDefensiveIntent = z.infer<typeof playerDefensiveIntentSchema>;
+export const pendingReceptionIntentSchema = z.object({
+  actorId: z.string(),
+  action: matchActionSchema,
+  createdAt: z.number().nonnegative(),
+  expiresAt: z.number().nonnegative(),
+  ballEpisode: z.string(),
+  sourceAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']).optional(),
+});
+export type PendingReceptionIntent = z.infer<typeof pendingReceptionIntentSchema>;
 export const ballCarrierIntentSchema = z.object({
   actorId: z.string(),
   type: z.literal('carry'),
@@ -93,7 +102,13 @@ export const playerDecisionOutcomeSchema = z.object({
   actorId: z.string(),
   selectedAt: z.number().nonnegative(),
   resolvedAt: z.number().nonnegative().optional(),
-  decisionKind: z.enum(['on_ball', 'off_ball_run', 'defensive_response', 'loose_ball']),
+  decisionKind: z.enum([
+    'on_ball',
+    'incoming_ball',
+    'off_ball_run',
+    'defensive_response',
+    'loose_ball',
+  ]),
   selectedIntent: z.string(),
   selectedTarget: z.unknown().optional(),
   startContext: z.object({
@@ -258,6 +273,7 @@ export interface TacticalMatchState {
   actionCooldown: number;
   controlledFootballerId?: string;
   playerMovementIntent?: PlayerMovementIntent;
+  pendingReceptionIntent?: PendingReceptionIntent;
   /** Short-lived canonical execution override shared by human and NPC carries. */
   ballCarrierIntent?: BallCarrierIntent;
   playerDecisionGate?: PlayerDecisionGateState;
@@ -375,6 +391,7 @@ export const tacticalMatchStateSchema = z
     actionCooldown: z.number().nonnegative(),
     controlledFootballerId: z.string().optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
+    pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
     ballCarrierIntent: ballCarrierIntentSchema.optional(),
     playerDecisionGate: playerDecisionGateStateSchema.optional(),
     pendingPlayerDecision: playerDecisionOutcomeSchema.optional(),

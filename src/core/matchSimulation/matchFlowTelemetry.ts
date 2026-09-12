@@ -65,6 +65,25 @@ export const matchFlowTelemetrySchema = z.object({
     devAiSelections: z.number().int().nonnegative(),
     autonomousRoutineActions: z.number().int().nonnegative(),
     preventedByEscalation: z.number().int().nonnegative(),
+    autonomousDiagnostics: z.object({
+      loose_ball_autonomous: z.number().int().nonnegative(),
+      off_ball_movement_autonomous: z.number().int().nonnegative(),
+      routine_reception_autonomous: z.number().int().nonnegative(),
+    }),
+    majorActionSources: z.object({
+      shots: z.object({
+        human: z.number().int().nonnegative(),
+        autonomous: z.number().int().nonnegative(),
+      }),
+      crosses: z.object({
+        human: z.number().int().nonnegative(),
+        autonomous: z.number().int().nonnegative(),
+      }),
+      highImpactActions: z.object({
+        human: z.number().int().nonnegative(),
+        autonomous: z.number().int().nonnegative(),
+      }),
+    }),
   }),
   passingNetwork: z.array(passEdgeSchema),
 });
@@ -99,13 +118,23 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
       devAiSelections: 0,
       autonomousRoutineActions: 0,
       preventedByEscalation: 0,
+      autonomousDiagnostics: {
+        loose_ball_autonomous: 0,
+        off_ball_movement_autonomous: 0,
+        routine_reception_autonomous: 0,
+      },
+      majorActionSources: {
+        shots: { human: 0, autonomous: 0 },
+        crosses: { human: 0, autonomous: 0 },
+        highImpactActions: { human: 0, autonomous: 0 },
+      },
     },
     passingNetwork: [],
   });
 
 export const recordDecisionOpportunity = (
   telemetry: MatchFlowTelemetry,
-  kind: 'on_ball' | 'off_ball_run' | 'loose_ball' | 'defensive_response',
+  kind: 'on_ball' | 'incoming_ball' | 'off_ball_run' | 'loose_ball' | 'defensive_response',
   preventedByEscalation = false,
 ) => {
   telemetry.controlled.decisionOpportunities[kind] =
@@ -134,6 +163,17 @@ export const observeMatchFlow = (
   const action = next.latestAction;
   const newAction =
     action && (previous.latestAction !== action || previous.decisionIndex !== next.decisionIndex);
+  if (newAction && action.actorId === next.controlledFootballerId) {
+    const human = Boolean(
+      next.pendingPlayerDecision?.actorId === action.actorId ||
+        previous.pendingReceptionIntent?.actorId === action.actorId,
+    );
+    const source = human ? 'human' : 'autonomous';
+    if (action.type === 'shot') result.controlled.majorActionSources.shots[source]++;
+    if (action.type === 'cross') result.controlled.majorActionSources.crosses[source]++;
+    if (['shot', 'cross'].includes(action.type))
+      result.controlled.majorActionSources.highImpactActions[source]++;
+  }
   if (newAction && action.type === 'carry') {
     result.carries++;
     if (action.actorId === next.controlledFootballerId) result.controlled.carries++;

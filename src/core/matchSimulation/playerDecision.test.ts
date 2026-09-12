@@ -347,7 +347,7 @@ describe('player decision lifecycle', () => {
     expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
   });
 
-  it('offers a relevant loose-ball race and expires real movement intent', () => {
+  it('keeps a relevant loose-ball race autonomous instead of opening a generic prompt', () => {
     const state = makeState(),
       actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
     for (const player of state.players.filter((candidate) => candidate.id !== actor.id))
@@ -357,11 +357,33 @@ describe('player decision lifecycle', () => {
       y: actor.position.y,
     };
     state.ball = { x: actor.position.x + 2, y: actor.position.y, looseSince: state.time };
+    expect(evaluateControlledPlayerBallRelevance(state, actor.id).relevant).toBe(true);
+    expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
+    expect(stepTacticalMatch(state, 0.025)).not.toBe(state);
+  });
+
+  it('queues an imminent meaningful reception without resolving before contact', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    state.ball = {
+      x: actor.position.x - 8,
+      y: actor.position.y,
+      from: { x: actor.position.x - 12, y: actor.position.y },
+      target: actor.position,
+      velocity: { x: 10, y: 0 },
+      travelDuration: 1.2,
+      travelElapsed: 0.3,
+      travelKind: 'through_ball',
+      sourceAction: 'pass',
+      intendedReceiverId: actor.id,
+      lastTouchPlayerId: state.players.find(
+        (player) => player.team === actor.team && player.id !== actor.id,
+      )!.id,
+    };
     const opportunity = projectPlayerDecisionOpportunity(state)!;
-    const next = applyPlayerDecision(state, opportunity, opportunity.options[0]!.id);
-    expect(next.playerMovementIntent?.target).toEqual({ x: state.ball.x, y: state.ball.y });
-    let expired = next;
-    for (let index = 0; index < 120; index += 1) expired = stepTacticalMatch(expired, 0.025);
-    expect(expired.playerMovementIntent).toBeUndefined();
+    expect(opportunity.kind).toBe('incoming_ball');
+    const queued = applyPlayerDecision(state, opportunity, 'control');
+    expect(queued.ball.ownerId).toBeUndefined();
+    expect(queued.pendingReceptionIntent?.action.type).toBe('hold');
   });
 });

@@ -165,16 +165,24 @@ const changePossession = (
 ) => {
   const owner = state.players.find((p) => p.id === ownerId)!;
   const controlledBall = { x: state.ball.x, y: state.ball.y, ownerId, lastTouchPlayerId: ownerId };
-  if (owner.team === state.possessionTeam)
-    return {
+  if (owner.team === state.possessionTeam) {
+    const next: TacticalMatchState = {
       ...state,
       ball: controlledBall,
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
+    if (state.pendingReceptionIntent?.actorId === ownerId) {
+      const { pendingReceptionIntent, ...ready } = next;
+      void pendingReceptionIntent;
+      return resolveMatchAction(ready, state.pendingReceptionIntent.action);
+    }
+    if (state.pendingReceptionIntent) delete next.pendingReceptionIntent;
+    return next;
+  }
   const teams = { ...state.teams };
   for (const side of ['home', 'away'] as const)
     teams[side] = { ...teams[side], phase: transitionPhase(side === owner.team), phaseElapsed: 0 };
-  return {
+  const next: TacticalMatchState = {
     ...state,
     teams,
     possessionTeam: owner.team,
@@ -183,6 +191,12 @@ const changePossession = (
     ballOwnershipStartedAt: state.time,
     lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
   };
+  if (state.pendingReceptionIntent?.actorId === ownerId) {
+    delete next.pendingReceptionIntent;
+    return resolveMatchAction(next, state.pendingReceptionIntent.action);
+  }
+  delete next.pendingReceptionIntent;
+  return next;
 };
 
 const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): TacticalMatchState => ({
@@ -356,6 +370,16 @@ export const stepTacticalMatch = (
   if (state.playerMovementIntent && state.time >= state.playerMovementIntent.expiresAt) {
     const { playerMovementIntent: _expired, ...withoutIntent } = state;
     void _expired;
+    state = withoutIntent;
+  }
+  if (
+    state.pendingReceptionIntent &&
+    (state.time >= state.pendingReceptionIntent.expiresAt ||
+      state.scenario !== 'open_play' ||
+      (state.ball.ownerId && state.ball.ownerId !== state.pendingReceptionIntent.actorId))
+  ) {
+    const { pendingReceptionIntent: _cancelled, ...withoutIntent } = state;
+    void _cancelled;
     state = withoutIntent;
   }
   if (state.ballCarrierIntent) {
