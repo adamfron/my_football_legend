@@ -175,7 +175,13 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
 
 export const recordDecisionOpportunity = (
   telemetry: MatchFlowTelemetry,
-  kind: 'on_ball' | 'incoming_ball' | 'off_ball_run' | 'loose_ball' | 'defensive_response',
+  kind:
+    | 'on_ball'
+    | 'incoming_ball'
+    | 'off_ball_run'
+    | 'loose_ball'
+    | 'defensive_response'
+    | 'goalkeeper_response',
   preventedByEscalation = false,
 ) => {
   telemetry.controlled.decisionOpportunities[kind] =

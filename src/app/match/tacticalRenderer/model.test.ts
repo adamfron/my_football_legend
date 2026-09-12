@@ -8,6 +8,7 @@ import {
   worldToTactical,
   derivePlayerAppearance,
   PLAYER_LOCAL_FORWARD_AXIS,
+  mapGoalPlanePointerToIntent,
 } from './model';
 
 describe('tactical presentation model', () => {
@@ -62,5 +63,10 @@ describe('tactical presentation model', () => {
     );
     const valid = createTacticalScenarios()[0]!.sequence.frames[0]!;
     expect(validateRenderFrame(valid)).toBeUndefined();
+  });
+  it('maps a touch-sized goal plane to normalized shot intention', () => {
+    expect(
+      mapGoalPlanePointerToIntent(300, 20, { left: 100, top: 20, width: 200, height: 120 }),
+    ).toEqual({ horizontal: 1, vertical: 1 });
   });
 });

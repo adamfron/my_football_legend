@@ -46,7 +46,14 @@ export const playerDecisionOpportunitySchema = z.object({
   id: z.string(),
   actorId: z.string(),
   openedAt: z.number().nonnegative(),
-  kind: z.enum(['on_ball', 'incoming_ball', 'off_ball_run', 'defensive_response', 'loose_ball']),
+  kind: z.enum([
+    'on_ball',
+    'incoming_ball',
+    'off_ball_run',
+    'defensive_response',
+    'goalkeeper_response',
+    'loose_ball',
+  ]),
   triggerReason: z.string(),
   signature: z.string(),
   situation: matchSituationEvaluationSchema,
@@ -168,6 +175,10 @@ export const projectSelectableInteractionTargets = (
   if (opportunity.kind === 'defensive_response') {
     if (!state.ball.ownerId) return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
     return [{ kind: 'player', playerId: state.ball.ownerId }];
+  }
+  if (opportunity.kind === 'goalkeeper_response') {
+    if (state.ball.ownerId) return [{ kind: 'player', playerId: state.ball.ownerId }];
+    return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
   }
   if (opportunity.kind === 'loose_ball')
     return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
@@ -561,7 +572,12 @@ const projectDecision = (
   let options: PlayerDecisionOption[] = [];
   if (state.ball.ownerId === actorId && evaluateOnBallDecisionRelevance(state, actorId).relevant) {
     kind = 'on_ball';
-    options = enumerateAvailableActions(state, actorId).map((action, index) => ({
+    const available = enumerateAvailableActions(state, actorId);
+    const roleActions =
+      roleProfile === 'goalkeeper'
+        ? available.filter((action) => action.type === 'hold' || action.type === 'pass')
+        : available;
+    options = roleActions.map((action, index) => ({
       id: `action-${index}`,
       kind: 'action' as const,
       labelKey: actionLabel(action),
@@ -570,7 +586,49 @@ const projectDecision = (
   } else if (!state.ball.ownerId) {
     const incoming = projectIncomingPlayerInvolvement(state, actorId);
     const interception = evaluatePassInterceptionOpportunity(state, actorId);
-    if (!state.pendingReceptionIntent && incoming.relevant) {
+    const keeperFlight =
+      roleProfile === 'goalkeeper' &&
+      [
+        'through_ball',
+        'cross',
+        'long_distribution',
+        'free_kick_delivery',
+        'corner_delivery',
+      ].includes(state.ball.travelKind ?? '') &&
+      interception.viable &&
+      (interception.arrivalMargin ?? -Infinity) >= -0.35;
+    if (keeperFlight) {
+      kind = 'goalkeeper_response';
+      const cross = ['cross', 'free_kick_delivery', 'corner_delivery'].includes(
+        state.ball.travelKind ?? '',
+      );
+      options = [
+        {
+          id: 'keeper-stay',
+          kind: 'movement',
+          labelKey: cross ? 'keeper_stay_line' : 'keeper_stay',
+          intent: {
+            actorId,
+            type: 'hold_shape',
+            target: actor.position,
+            startedAt: state.time,
+            expiresAt: state.time + Math.max(0.5, interception.arrivalTime ?? 1),
+          },
+        },
+        {
+          id: 'keeper-come',
+          kind: 'movement',
+          labelKey: cross ? 'keeper_claim_cross' : 'keeper_sweep',
+          intent: {
+            actorId,
+            type: 'attack_space',
+            target: interception.contactPoint!,
+            startedAt: state.time,
+            expiresAt: state.time + Math.max(0.5, interception.arrivalTime ?? 1),
+          },
+        },
+      ];
+    } else if (!state.pendingReceptionIntent && incoming.relevant && roleProfile !== 'goalkeeper') {
       kind = 'incoming_ball';
       const target = state.ball.target ?? actor.position;
       options = [
@@ -649,13 +707,13 @@ const projectDecision = (
             : role === 'forward'
               ? 5.5
               : 0;
-      if (carrier && metres <= Math.min(threshold, 4.5)) {
-        kind = 'defensive_response';
+      if (carrier && metres <= (keeperThreat ? threshold : Math.min(threshold, 4.5))) {
+        kind = keeperThreat ? 'goalkeeper_response' : 'defensive_response';
         options = [
           {
             id: 'contain',
             kind: 'movement',
-            labelKey: 'contain',
+            labelKey: keeperThreat ? 'keeper_hold_position' : 'contain',
             intent: {
               actorId,
               type: 'hold_shape',
@@ -667,7 +725,7 @@ const projectDecision = (
           {
             id: 'challenge',
             kind: 'movement',
-            labelKey: 'challenge',
+            labelKey: keeperThreat ? 'keeper_close_angle' : 'challenge',
             intent: {
               actorId,
               type: 'attack_space',

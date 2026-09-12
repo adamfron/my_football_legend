@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { PitchPoint, TeamSide } from './matchSpace';
+import type { PhysicalPoint, PitchPoint, TeamSide } from './matchSpace';
 
 /** Law-sized goal geometry in pitch metres. Renderers project this geometry; they do not own it. */
 export const BALL_RADIUS = 0.11;
@@ -29,7 +29,7 @@ export const ballContactSchema = z.object({
 });
 export type BallContact = z.infer<typeof ballContactSchema>;
 
-export interface FlightPoint extends PitchPoint {
+export interface FlightPoint extends PhysicalPoint {
   z: number;
 }
 

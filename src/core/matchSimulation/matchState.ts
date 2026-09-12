@@ -1,7 +1,14 @@
 import { z } from 'zod';
 import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
-import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from './matchSpace';
+import {
+  physicalPointSchema,
+  pitchPointSchema,
+  teamSideSchema,
+  type PhysicalPoint,
+  type PitchPoint,
+  type TeamSide,
+} from './matchSpace';
 import { cornerPlanSchema, tacticalIntentSchema, tacticalZoneSchema } from './tacticalSituations';
 import { ballContactSchema, type BallContact } from './ballFlight';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
@@ -116,6 +123,7 @@ export const playerDecisionOutcomeSchema = z.object({
     'incoming_ball',
     'off_ball_run',
     'defensive_response',
+    'goalkeeper_response',
     'loose_ball',
   ]),
   selectedIntent: z.string(),
@@ -243,8 +251,10 @@ export interface MatchBallState extends PitchPoint {
   flightProgress?: number;
   airborne?: boolean;
   ownerId?: string;
-  from?: PitchPoint;
-  target?: PitchPoint;
+  /** Last playable location. Flights may start/end outside the touch/goal lines. */
+  from?: PhysicalPoint;
+  /** Physical endpoint used for continuous contact ordering; deliberately unbounded. */
+  target?: PhysicalPoint;
   intendedReceiverId?: string;
   travelElapsed?: number;
   travelDuration?: number;
@@ -472,6 +482,8 @@ export const tacticalMatchStateSchema = z
       looseSince: z.number().optional(),
       targetHeight: z.number().nonnegative().finite().optional(),
       shot: shotDiagnosticSchema.optional(),
+      from: physicalPointSchema.optional(),
+      target: physicalPointSchema.optional(),
     }),
     score: matchScoreSchema,
     currentPressure: z.number().min(0).max(1),
