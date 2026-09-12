@@ -1,5 +1,24 @@
 # Architektura
 
+## Wejścia do sterowania zawodnikiem
+
+Sterowanie karierą realizuje zasadę: **gracz kontroluje decyzje, nie lokomocję**.
+Rutynowy ruch bez piłki, asekuracja i pościg za luźną piłką pozostają częścią
+deterministycznej symulacji. Nie istnieje mechanika proszenia o podanie, a status
+protagonisty nie zmienia oceny podań ani fizyki meczu.
+
+W ataku sterowanie rozpoczyna się, gdy piłka jest już skierowana do zawodnika:
+`nadchodząca piłka → przyjęcie/decyzja z piłką → wykonanie → możliwa kolejna decyzja`.
+Wybrany zamiar przyjęcia czeka na fizyczny kontakt; przechwyt, aut albo zmiana toru
+piłki go anulują. Rutynowe, bezpieczne przyjęcia mogą pozostać autonomiczne.
+
+W obronie sekwencja brzmi:
+`bezpośrednie zagrożenie/interwencja → wybór obronny → fizyczne rozstrzygnięcie →
+możliwe posiadanie → kolejna decyzja`. Okno pojawia się tylko dla lokalnej
+konfrontacji lub osiągalnego toru podania i pokazuje co najmniej dwie rzeczywiste
+alternatywy. Udany odbiór lub przechwyt tworzy nowy epizod posiadania, więc
+poprzedni czas ochronny nie blokuje ważnej decyzji z piłką.
+
 ## Target-first player interaction
 
 Single Match Lab zatrzymuje stan wyłącznie na kanonicznej okazji decyzyjnej. Renderer identyfikuje

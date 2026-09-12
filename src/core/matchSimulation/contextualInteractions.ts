@@ -79,6 +79,36 @@ export const projectContextualInteractions = (
   if (opportunity.actorId !== state.controlledFootballerId) return [];
   const actor = state.players.find((player) => player.id === opportunity.actorId);
   if (!actor) return [];
+  if (opportunity.kind === 'incoming_ball') {
+    const incomingActions = opportunity.options.flatMap((option) =>
+      option.kind === 'action' ? [option.action] : [],
+    );
+    if (target.kind === 'goal')
+      return target.side === actor.team
+        ? []
+        : asActions(
+            target,
+            incomingActions.filter((action) => action.type === 'shot'),
+          );
+    if (target.kind === 'space')
+      return asActions(
+        target,
+        incomingActions
+          .filter((action) => action.type === 'carry')
+          .map((action) =>
+            action.type === 'carry' ? { ...action, target: target.point } : action,
+          ),
+      );
+    if (
+      target.kind === 'ball' ||
+      (target.kind === 'player' && target.playerId === opportunity.actorId)
+    )
+      return asActions(
+        target,
+        incomingActions.filter((action) => action.type === 'hold'),
+      );
+    return [];
+  }
   const actions = enumerateAvailableActions(state, actor.id);
   if (target.kind === 'goal') {
     if (target.side === actor.team) return [];
@@ -106,7 +136,7 @@ export const projectContextualInteractions = (
       );
     if (state.ball.ownerId !== selected.id || actor.team === state.possessionTeam) return [];
     const metres = distance(actor.position, selected.position);
-    return (['contain', 'press', ...(metres <= 2.4 ? ['challenge'] : [])] as const).map((type) =>
+    return (['contain', ...(metres <= 2.4 ? ['challenge'] : [])] as const).map((type) =>
       contextualInteractionSchema.parse({
         id: `defensive:${type}:${selected.id}`,
         target,
@@ -246,6 +276,18 @@ export const applyContextualInteraction = (
     },
   };
   const resolution = interaction.resolution;
+  if (opportunity.kind === 'incoming_ball' && resolution.kind === 'action')
+    return {
+      ...gated,
+      pendingReceptionIntent: {
+        actorId: opportunity.actorId,
+        action: resolution.action,
+        createdAt: state.time,
+        expiresAt: state.time + 2,
+        ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelDuration ?? 0}`,
+        ...(state.ball.sourceAction ? { sourceAction: state.ball.sourceAction } : {}),
+      },
+    };
   if (resolution.kind === 'action') return resolveMatchAction(gated, resolution.action);
   if (resolution.kind === 'movement')
     if (
