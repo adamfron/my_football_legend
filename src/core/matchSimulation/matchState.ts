@@ -6,6 +6,7 @@ import { cornerPlanSchema, tacticalIntentSchema, tacticalZoneSchema } from './ta
 import { ballContactSchema, type BallContact } from './ballFlight';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
 import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
+import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -206,6 +207,7 @@ export const locomotionReasonSchema = z.enum([
   'contain',
   'loose_ball_race',
   'ball_carry',
+  'receive_pass',
 ]);
 export type LocomotionReason = z.infer<typeof locomotionReasonSchema>;
 export const locomotionTelemetrySchema = z.object({
@@ -362,6 +364,21 @@ export interface TacticalMatchState {
   offsideSnapshot?: OffsideSnapshot;
   lastOffsideOffence?: z.infer<typeof offsideOffenceSchema>;
   keeperIntervention?: z.infer<typeof keeperInterventionSchema>;
+  receptionPreparation?: ReceptionPreparation;
+  lastReceptionOutcome?: ReceptionOutcome;
+  lastPassDiagnostic?: {
+    intendedReceiverId: string;
+    receiverPositionAtRelease: PitchPoint;
+    receiverVelocityAtRelease: PitchPoint;
+    predictedReceptionPoint: PitchPoint;
+    actualContactPoint?: PitchPoint;
+    awarenessDelay: number;
+    receiverArrivalEstimate: number;
+    bestDefenderArrivalEstimate: number;
+    leadDistance: number;
+    receptionOutcome?: ReceptionOutcome['kind'];
+    finalResult?: 'completed' | 'intercepted' | 'unclaimed' | 'technical_error';
+  };
 }
 
 // Runtime boundary schema deliberately validates the ephemeral geometry/control graph; profiles

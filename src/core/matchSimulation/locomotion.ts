@@ -36,6 +36,13 @@ export const projectLocomotion = (
     targetSpeed: speedFor(intensity),
   });
   if (state.restart?.phase === 'setup') return result('walk', 'restart_setup');
+  if (
+    state.receptionPreparation?.actorId === player.id &&
+    state.time >= state.receptionPreparation.awarenessAt
+  ) {
+    const urgent = state.receptionPreparation.expectedArrivalTime - state.time;
+    return result(metres < 2.5 ? 'jog' : urgent < 0.65 ? 'sprint' : 'run', 'receive_pass');
+  }
   const movement =
     state.playerMovementIntent?.actorId === player.id ? state.playerMovementIntent : undefined;
   if (movement?.type === 'run_in_behind') return result('sprint', 'depth_run');

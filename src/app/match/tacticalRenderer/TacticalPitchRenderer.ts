@@ -6,6 +6,8 @@ import {
   worldToTactical,
   type PresentationTarget,
   type TacticalFrame,
+  type KitPresentation,
+  DEFAULT_KITS,
   validateRenderFrame,
 } from './model';
 
@@ -16,10 +18,13 @@ export class TacticalPitchRenderer {
   private readonly scene = new THREE.Scene();
   private readonly camera = new THREE.OrthographicCamera();
   private readonly playerMeshes = new Map<string, THREE.Group>();
+  private readonly playerPickers = new Map<string, THREE.Mesh>();
+  private readonly actionMarkers = new Map<string, THREE.Mesh>();
   private readonly targetMarkers = new Map<string, THREE.Mesh>();
   private readonly anchorMarkers = new Map<string, THREE.Mesh>();
   private readonly idealMarkers = new Map<string, THREE.Mesh>();
   private readonly ball: THREE.Mesh;
+  private readonly ballPicker: THREE.Mesh;
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
@@ -33,6 +38,7 @@ export class TacticalPitchRenderer {
     private readonly host: HTMLElement,
     frame: TacticalFrame,
     onDiagnostic: (message?: string) => void = () => undefined,
+    private readonly kits: Record<'home' | 'away', KitPresentation> = DEFAULT_KITS,
   ) {
     this.report = onDiagnostic;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -56,11 +62,24 @@ export class TacticalPitchRenderer {
       this.createDebugMarkers(player.id);
     }
     this.ball = new THREE.Mesh(
-      new THREE.SphereGeometry(0.85, 12, 8),
+      new THREE.SphereGeometry(0.32, 12, 8),
       new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65 }),
     );
     this.ball.userData.ball = true;
     this.scene.add(this.ball);
+    this.ballPicker = new THREE.Mesh(
+      new THREE.SphereGeometry(0.9, 8, 6),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }),
+    );
+    this.ballPicker.userData.ball = true;
+    this.scene.add(this.ballPicker);
+    const shadow = new THREE.Mesh(
+      new THREE.CircleGeometry(0.48, 16),
+      new THREE.MeshBasicMaterial({ color: 0x101814, transparent: true, opacity: 0.28 }),
+    );
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.y = 0.045;
+    this.ball.add(shadow);
     this.lastValidFrame = frame;
     this.observer = new ResizeObserver(() => this.resize());
     this.observer.observe(host);
@@ -186,19 +205,57 @@ export class TacticalPitchRenderer {
   ) {
     const group = new THREE.Group();
     group.userData.playerId = id;
-    const color = goalkeeper ? 0xf0c84b : team === 'home' ? 0x4da3ff : 0xe7626c;
+    const kit = this.kits[team];
+    const shirt = goalkeeper ? kit.goalkeeper.primary : kit.primary;
     const body = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.8, 1.05, 2.5, 8),
-      new THREE.MeshStandardMaterial({ color }),
+      new THREE.BoxGeometry(1.15, 1.35, 0.68),
+      new THREE.MeshStandardMaterial({ color: shirt }),
     );
-    body.position.y = 1.25;
+    body.position.y = 2.05;
     group.add(body);
+    const shorts = new THREE.Mesh(
+      new THREE.BoxGeometry(1.05, 0.55, 0.72),
+      new THREE.MeshStandardMaterial({ color: kit.shorts }),
+    );
+    shorts.position.y = 1.12;
+    group.add(shorts);
+    for (const x of [-0.32, 0.32]) {
+      const leg = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.16, 0.19, 1.05, 6),
+        new THREE.MeshStandardMaterial({ color: kit.socks }),
+      );
+      leg.position.set(x, 0.52, 0);
+      group.add(leg);
+    }
     const head = new THREE.Mesh(
       new THREE.SphereGeometry(0.55, 8, 6),
       new THREE.MeshStandardMaterial({ color: 0xe8bd91 }),
     );
     head.position.y = 3;
     group.add(head);
+    const picker = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.85, 0.95, 3.3, 8),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }),
+    );
+    picker.position.y = 1.65;
+    picker.userData.playerId = id;
+    group.add(picker);
+    this.playerPickers.set(id, picker);
+    const action = new THREE.Mesh(
+      new THREE.RingGeometry(1.15, 1.36, 24),
+      new THREE.MeshBasicMaterial({
+        color: 0xd9fff1,
+        transparent: true,
+        opacity: 0.42,
+        side: THREE.DoubleSide,
+        depthTest: false,
+      }),
+    );
+    action.rotation.x = -Math.PI / 2;
+    action.position.y = 0.07;
+    action.visible = false;
+    group.add(action);
+    this.actionMarkers.set(id, action);
     if (protagonist) {
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(1.35, 1.65, 20),
@@ -230,7 +287,14 @@ export class TacticalPitchRenderer {
     this.report(undefined);
     for (const player of frame.players) {
       const world = tacticalToWorld(player);
-      this.playerMeshes.get(player.id)?.position.set(world.x, 0, world.z);
+      const mesh = this.playerMeshes.get(player.id);
+      mesh?.position.set(world.x, 0, world.z);
+      if (mesh && player.facing !== undefined) mesh.rotation.y = player.facing;
+      const actionMarker = this.actionMarkers.get(player.id);
+      if (actionMarker) {
+        actionMarker.visible = Boolean(frame.actionableTargets?.includes(player.id));
+        actionMarker.scale.setScalar(frame.selectedTarget === player.id ? 1.18 : 1);
+      }
       const target = player.target && tacticalToWorld(player.target),
         anchor = player.anchor && tacticalToWorld(player.anchor),
         ideal = player.idealTarget && tacticalToWorld(player.idealTarget);
@@ -252,6 +316,7 @@ export class TacticalPitchRenderer {
     }
     const ball = tacticalToWorld(frame.ball, (frame.ball.height ?? 0) + 0.85);
     this.ball.position.set(ball.x, ball.y, ball.z);
+    this.ballPicker.position.set(ball.x, ball.y, ball.z);
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -274,12 +339,12 @@ export class TacticalPitchRenderer {
       -((clientY - rect.top) / rect.height) * 2 + 1,
     );
     this.raycaster.setFromCamera(pointer, this.camera);
-    const ballHit = this.raycaster.intersectObject(this.ball)[0];
+    const ballHit = this.raycaster.intersectObject(this.ballPicker)[0];
     if (ballHit) {
       const point = worldToTactical(this.ball.position);
       return { kind: 'ball', point };
     }
-    const playerHit = this.raycaster.intersectObjects([...this.playerMeshes.values()], true)[0];
+    const playerHit = this.raycaster.intersectObjects([...this.playerPickers.values()])[0];
     if (playerHit) {
       let object: THREE.Object3D | null = playerHit.object;
       while (object && !object.userData.playerId) object = object.parent;

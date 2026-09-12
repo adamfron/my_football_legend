@@ -11,6 +11,7 @@ export * from './positioningReference';
 export * from './aerialPlay';
 export * from './pitchBoundary';
 export * from './reachableSpace';
+export * from './passReception';
 export * from './offside';
 export * from './shotResolver';
 export * from './ballFlight';
