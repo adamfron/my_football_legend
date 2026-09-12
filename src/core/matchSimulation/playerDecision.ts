@@ -25,6 +25,7 @@ import { evaluateGlobalBallRace, ballRaceCandidateSchema } from './looseBallPhys
 import { isActionResolutionInProgress } from './actionLifecycle';
 import { evaluateActionImpact } from './actionImpact';
 import { estimatePlayerArrivalTime, playerArrivalEstimateSchema } from './playerArrival';
+import { evaluateShootingOpportunity } from './shootingOpportunity';
 
 export const playerDecisionOptionSchema = z.discriminatedUnion('kind', [
   z.object({
@@ -246,8 +247,11 @@ export const evaluateOnBallDecisionRelevance = (
     (families.length >= 2 ? 0.2 : 0) +
     (progressive ? 0.12 : 0) +
     (role === 'midfielder' && progressive ? 0.12 : 0);
+  const shootingOpportunity = evaluateShootingOpportunity(state, actor);
+  const credibleShot =
+    shootingOpportunity.category === 'credible' || shootingOpportunity.category === 'high_value';
   const absolutePlayerOwned = ranked.some(
-    ({ action }) => action.type === 'shot' || action.type === 'cross',
+    ({ action }) => action.type === 'cross' || (action.type === 'shot' && credibleShot),
   );
   if (preferredImpact === 'high_impact' || absolutePlayerOwned)
     reasons.push('autopilot_escalation');

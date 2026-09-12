@@ -176,13 +176,24 @@ const changePossession = (
     const next: TacticalMatchState = {
       ...state,
       ball: { ...controlledBall, ...receptionPoint },
+      actionCooldown: Math.max(
+        state.actionCooldown,
+        reception?.kind === 'directional_control'
+          ? 0.55
+          : reception?.kind === 'heavy_touch'
+            ? 1.65
+            : reception?.kind === 'failed_control'
+              ? 1.9
+              : 0.95,
+      ),
       ...(reception ? { lastReceptionOutcome: reception } : {}),
-      ...(state.lastPassDiagnostic
+      ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
         ? {
             lastPassDiagnostic: {
               ...state.lastPassDiagnostic,
               actualContactPoint: { x: state.ball.x, y: state.ball.y },
               ...(reception ? { receptionOutcome: reception.kind } : {}),
+              resolvedAt: state.time,
               finalResult: reception?.kind === 'failed_control' ? 'technical_error' : 'completed',
             },
           }
@@ -207,14 +218,16 @@ const changePossession = (
     teams,
     possessionTeam: owner.team,
     timeSincePossessionChanged: 0,
+    actionCooldown: Math.max(state.actionCooldown, 0.85),
     ball: controlledBall,
     ballOwnershipStartedAt: state.time,
     lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
-    ...(state.lastPassDiagnostic
+    ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
       ? {
           lastPassDiagnostic: {
             ...state.lastPassDiagnostic,
             actualContactPoint: { x: state.ball.x, y: state.ball.y },
+            resolvedAt: state.time,
             finalResult: 'intercepted' as const,
           },
         }
@@ -935,11 +948,12 @@ export const stepTacticalMatch = (
           {
             ...state,
             ball: landing,
-            ...(state.lastPassDiagnostic
+            ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
               ? {
                   lastPassDiagnostic: {
                     ...state.lastPassDiagnostic,
                     actualContactPoint: landing,
+                    resolvedAt: state.time,
                     finalResult: 'unclaimed' as const,
                   },
                 }

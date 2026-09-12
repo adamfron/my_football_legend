@@ -268,7 +268,16 @@ export interface MatchBallState extends PitchPoint {
 export const shotResultSchema = z.enum(['goal', 'save', 'block', 'miss', 'post', 'crossbar']);
 export type ShotResult = z.infer<typeof shotResultSchema>;
 export const shotDiagnosticSchema = z.object({
+  shotId: z.string(),
   shooterId: z.string(),
+  context: z.enum(['open_play', 'free_kick', 'penalty', 'header']),
+  distance: z.number().nonnegative(),
+  angle: z.number().min(0).max(1),
+  pressure: z.number().min(0).max(1),
+  blockingDefenders: z.number().int().nonnegative(),
+  baseXg: z.number().min(0).max(1),
+  effectiveScoringExpectation: z.number().min(0).max(1),
+  shooterExecutionQuality: z.number().min(0).max(1),
   intendedTarget: z.object({ horizontal: z.number(), vertical: z.number() }),
   actualTarget: z.object({ horizontal: z.number(), vertical: z.number() }),
   error: z.object({ horizontal: z.number(), vertical: z.number() }),
@@ -278,6 +287,8 @@ export const shotDiagnosticSchema = z.object({
   keeperId: z.string().optional(),
   goalkeeperAction: z.enum(['catch', 'parry', 'parry_away', 'failed_save', 'no_chance']).optional(),
   saveDifficulty: z.number().min(0).max(1).optional(),
+  goalkeeperReaction: z.number().nonnegative().optional(),
+  goalkeeperReach: z.number().nonnegative().optional(),
   outcome: shotResultSchema,
   reboundSource: z.enum(['goalkeeper', 'block', 'post', 'crossbar']).optional(),
 });
@@ -382,7 +393,11 @@ export interface TacticalMatchState {
   receptionPreparation?: ReceptionPreparation;
   lastReceptionOutcome?: ReceptionOutcome;
   lastPassDiagnostic?: {
+    passId: string;
+    passerId: string;
     intendedReceiverId: string;
+    releasedAt: number;
+    resolvedAt?: number;
     receiverPositionAtRelease: PitchPoint;
     receiverVelocityAtRelease: PitchPoint;
     predictedReceptionPoint: PitchPoint;

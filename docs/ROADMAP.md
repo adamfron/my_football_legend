@@ -24,9 +24,13 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR111 — Open-Play Role Relationships Calibration — ukończony.**
 - **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
 - **PR113 — Match Lab Crash Safety & Renderer Initialization — ukończony.**
-- **PR114 — Boundary-Aware Loose-Ball Prediction & Spatial Type Safety — bieżący.**
-- **PR115 — zmęczenie, stan wyniku, zmiany i strukturalne zachowania końcówki meczu**
-  (ostateczny zakres po stabilnych testach wielominutowych).
+- **PR114–PR117 — ukończone:** utwardzenie granic i przestrzeni, a następnie podania
+  uwzględniające ruch odbiorcy i pierwsza wersja prezentacji meczu.
+- **PR118 — ukończony:** fizyczna osiągalność przechwytu i przekazanie sprawczości
+  kontrolowanemu zawodnikowi po akcji.
+- **PR119 — bieżący:** kalibracja płynności meczu, selekcji strzałów, xG i integralności
+  telemetrii.
+- **PR120 — następny:** cykl części meczu, wynik końcowy i fundament podsumowania pomeczowego.
 
 - **PR86 — animowany sandbox renderera taktycznego — ukończony.**
 - **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
@@ -51,9 +55,10 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 - **PR111 — Open-Play Role Relationships Calibration — ukończony.**
 - **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
 - **PR113 — Match Lab Crash Safety & Renderer Initialization — ukończony.**
-- **PR114 — Boundary-Aware Loose-Ball Prediction & Spatial Type Safety — bieżący.**
-- **PR115 — fatigue / score-state / substitutions / late-game structural behaviour** (zakres po
-  stabilnych testach wielominutowych).
+- **PR114–PR118 — ukończone.**
+- **PR119 — bieżący:** kalibracja płynności meczu, selekcji strzałów, xG i integralności
+  telemetrii.
+- **PR120 — następny:** cykl części meczu, wynik końcowy i fundament podsumowania pomeczowego.
 
 Materiał kalibracyjny udostępniamy zależnie od skali: szczegółowy incydent jako istniejący JSON
 ±10 s (oraz WebM, gdy istotny jest ruch), a wielominutowy trend zachowania jako kompaktowe
@@ -375,7 +380,15 @@ Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozsze
 ### Bieżący rozwój meczu — PR117–PR119
 
 - **PR117 — ukończony:** podania uwzględniające ruch odbiorcy i Tactical Match Presentation v1.
-- **PR118 — bieżący:** fizyczna osiągalność przechwytu, przekazanie sprawczości po akcji gracza
+- **PR118 — ukończony:** fizyczna osiągalność przechwytu, przekazanie sprawczości po akcji gracza
   oraz czytelność proceduralnych postaci v2.
-- **PR119 — następny:** płynność meczu, wybór strzałów i kalibracja xG.
-- **Później:** zmęczenie, stan wyniku, zmiany oraz pełna identyfikacja klubowa i strojów.
+- **PR119 — bieżący:** płynność meczu, wybór strzałów, kalibracja xG i integralność telemetrii.
+- **PR120 — następny:** cykl części meczu, wynik końcowy i fundament podsumowania pomeczowego.
+- **Później:** zmęczenie, kontekst wyniku, zmiany, integracja meczu kariery, spójny system
+  wizualny i prezentacja meczu, pełne stroje/logotypy oraz agregacja oceny meczowej zawodnika.
+
+Przyszły rynek transferowy powinien opierać hierarchię siły i prestiżu klubów na globalnym
+ratingu siły (Elo lub modelu równoważnym), a nie wyłącznie na miejscu w tabeli ligi. Kluby otrzymają
+kanoniczne profile polityki transferowej obejmujące preferowany wiek, rekrutację krajową i
+zagraniczną, skłonność do rozwoju talentów lub wydatków na gwiazdy, dyscyplinę płacową, próg
+sprzedaży i planowanie pozycji. To nota architektoniczna, nie implementacja logiki transferów.
