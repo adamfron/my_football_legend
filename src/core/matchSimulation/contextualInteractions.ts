@@ -155,6 +155,20 @@ export const projectContextualInteractions = (
     );
   }
   const point = target.point;
+  if (opportunity.kind === 'defensive_response' && !state.ball.ownerId && target.kind === 'ball') {
+    return opportunity.options.flatMap((option) =>
+      option.kind === 'movement'
+        ? [
+            contextualInteractionSchema.parse({
+              id: option.id,
+              target,
+              labelKey: option.labelKey,
+              resolution: { kind: 'movement', intent: option.intent },
+            }),
+          ]
+        : [],
+    );
+  }
   if (opportunity.kind === 'loose_ball' && target.kind === 'ball') {
     return opportunity.options.flatMap((option) =>
       option.kind === 'movement'

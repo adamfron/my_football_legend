@@ -31,6 +31,7 @@ import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 import { isOffsideOffence } from './offside';
 import { projectPlayerDecisionOpportunity } from './playerDecision';
+import { projectLocomotion } from './locomotion';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
@@ -427,9 +428,6 @@ export const stepTacticalMatch = (
           : team.phase,
     };
   }
-  const looseContenderIds = new Set(
-    deriveLooseBallAssignments(state).map(({ playerId }) => playerId),
-  );
   if (state.ball.travelDuration && (state.ball.peakHeight ?? 0) > 0) {
     const interceptionPoint = state.ball.target ?? state.ball;
     const choice = goalkeeperIntervention(state, interceptionPoint);
@@ -462,17 +460,8 @@ export const stepTacticalMatch = (
     const dx = player.target.x - player.position.x,
       dy = player.target.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
-    const quality =
-      (player.profile.attributes.pace * 0.65 + player.profile.attributes.agility * 0.35) / 100;
-    const owns = player.team === state.possessionTeam;
-    const urgent =
-      state.teams[player.team].phase === 'defensive_transition' ||
-      state.teams[player.team].phase === 'attacking_transition' ||
-      state.nearestChallengerId === player.id ||
-      looseContenderIds.has(player.id) ||
-      (!state.ball.ownerId && distance(player.position, state.ball) < 15);
-    const active = urgent || (owns && player.duty === 'attack' && d > 8);
-    const maxSpeed = active ? 6.2 + quality * 3.3 : d < 5 ? 1.5 + quality * 2 : 3 + quality * 2.2;
+    const locomotion = projectLocomotion(state, player, player.target);
+    const maxSpeed = locomotion.targetSpeed;
     const desiredVelocity = {
       x: (dx / d) * Math.min(maxSpeed, d / dt),
       y: (dy / d) * Math.min(maxSpeed, d / dt),
@@ -504,10 +493,49 @@ export const stepTacticalMatch = (
       next = clampPitchPoint({ x: next.x + (ox / od) * 0.12, y: next.y + (oy / od) * 0.12 });
     }
     const samples = player.samples + 1;
+    const travelled = distance(player.position, next);
+    const speed = Math.hypot(velocity.x, velocity.y);
+    const previousTelemetry = player.locomotionTelemetry ?? {
+      distanceTotal: 0,
+      distanceWalk: 0,
+      distanceJog: 0,
+      distanceRun: 0,
+      distanceSprint: 0,
+      sprintSeconds: 0,
+      sprintBursts: 0,
+      maxSpeed: 0,
+    };
+    const sprintStartedAt =
+      locomotion.intensity === 'sprint' ? (player.sprintStartedAt ?? state.time) : undefined;
+    const burstMatured = sprintStartedAt !== undefined && state.time + dt - sprintStartedAt >= 0.5;
+    const countBurst = burstMatured && !player.sprintBurstCounted;
+    const distanceKey = (
+      {
+        walk: 'distanceWalk',
+        jog: 'distanceJog',
+        run: 'distanceRun',
+        sprint: 'distanceSprint',
+      } as const
+    )[locomotion.intensity];
     return {
       ...player,
       position: next,
       velocity: { x: (next.x - player.position.x) / dt, y: (next.y - player.position.y) / dt },
+      locomotionIntensity: locomotion.intensity,
+      locomotionReason: locomotion.reason,
+      targetSpeed: locomotion.targetSpeed,
+      locomotionTelemetry: {
+        ...previousTelemetry,
+        distanceTotal: previousTelemetry.distanceTotal + travelled,
+        [distanceKey]: (previousTelemetry[distanceKey] ?? 0) + travelled,
+        sprintSeconds:
+          previousTelemetry.sprintSeconds + (locomotion.intensity === 'sprint' ? dt : 0),
+        sprintBursts: previousTelemetry.sprintBursts + (countBurst ? 1 : 0),
+        maxSpeed: Math.max(previousTelemetry.maxSpeed, speed),
+      },
+      ...(sprintStartedAt !== undefined
+        ? { sprintStartedAt, sprintBurstCounted: player.sprintBurstCounted || countBurst }
+        : { sprintBurstCounted: false }),
       samples,
       meanPosition: {
         x: (player.meanPosition.x * player.samples + next.x) / samples,

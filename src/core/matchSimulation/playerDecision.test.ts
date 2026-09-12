@@ -15,6 +15,9 @@ import {
   resolvePendingPlayerDecision,
   signedForwardDistance,
   stepTacticalMatch,
+  deriveBallSourceTeam,
+  evaluatePassInterceptionOpportunity,
+  projectSelectableInteractionTargets,
 } from '.';
 
 const world = createCanonicalWorldDatabase();
@@ -385,5 +388,56 @@ describe('player decision lifecycle', () => {
     const queued = applyPlayerDecision(state, opportunity, 'control');
     expect(queued.ball.ownerId).toBeUndefined();
     expect(queued.pendingReceptionIntent?.action.type).toBe('hold');
+  });
+
+  it('never interprets a friendly support pass as a defensive interception', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const teammate = state.players.find(
+      (player) => player.team === actor.team && player.id !== actor.id,
+    )!;
+    state.ball = {
+      x: actor.position.x - 10,
+      y: actor.position.y,
+      from: teammate.position,
+      target: actor.position,
+      velocity: { x: 9, y: 0 },
+      travelDuration: 2,
+      travelElapsed: 0.1,
+      travelKind: 'pass',
+      sourceAction: 'pass',
+      intendedReceiverId: actor.id,
+      lastTouchPlayerId: teammate.id,
+    };
+    expect(deriveBallSourceTeam(state)).toBe(actor.team);
+    expect(evaluatePassInterceptionOpportunity(state, actor.id).viable).toBe(false);
+    expect(projectPlayerDecisionOpportunity(state)?.kind).not.toBe('defensive_response');
+    expect(stepTacticalMatch(state, 0.025).time).toBeGreaterThan(state.time);
+  });
+
+  it('keeps opponent passes interceptable and every surfaced pause actionable', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const opponent = state.players.find((player) => player.team !== actor.team)!;
+    actor.position = { x: 55, y: 34 };
+    actor.anchor = { ...actor.position };
+    state.ball = {
+      x: 48,
+      y: 34,
+      from: { x: 45, y: 34 },
+      target: { x: 65, y: 34 },
+      velocity: { x: 10, y: 0 },
+      travelDuration: 2,
+      travelElapsed: 0.1,
+      travelKind: 'pass',
+      sourceAction: 'pass',
+      lastTouchPlayerId: opponent.id,
+    };
+    const opportunity = projectPlayerDecisionOpportunity(state)!;
+    expect(opportunity.kind).toBe('defensive_response');
+    expect(projectSelectableInteractionTargets(state, opportunity)).not.toHaveLength(0);
+    expect(
+      projectContextualInteractions(state, opportunity, { kind: 'ball', point: state.ball }),
+    ).not.toHaveLength(0);
   });
 });
