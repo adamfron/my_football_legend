@@ -185,7 +185,40 @@ export interface MatchPlayerState {
   idealTarget: PitchPoint;
   meanPosition: PitchPoint;
   samples: number;
+  locomotionIntensity?: LocomotionIntensity;
+  locomotionReason?: LocomotionReason;
+  targetSpeed?: number;
+  locomotionTelemetry?: LocomotionTelemetry;
+  sprintStartedAt?: number;
+  sprintBurstCounted?: boolean;
 }
+
+export const locomotionIntensitySchema = z.enum(['walk', 'jog', 'run', 'sprint']);
+export type LocomotionIntensity = z.infer<typeof locomotionIntensitySchema>;
+export const locomotionReasonSchema = z.enum([
+  'restart_setup',
+  'structural_adjustment',
+  'maintain_shape',
+  'support_run',
+  'depth_run',
+  'recovery_run',
+  'press_commit',
+  'contain',
+  'loose_ball_race',
+  'ball_carry',
+]);
+export type LocomotionReason = z.infer<typeof locomotionReasonSchema>;
+export const locomotionTelemetrySchema = z.object({
+  distanceTotal: z.number().nonnegative(),
+  distanceWalk: z.number().nonnegative(),
+  distanceJog: z.number().nonnegative(),
+  distanceRun: z.number().nonnegative(),
+  distanceSprint: z.number().nonnegative(),
+  sprintSeconds: z.number().nonnegative(),
+  sprintBursts: z.number().int().nonnegative(),
+  maxSpeed: z.number().nonnegative(),
+});
+export type LocomotionTelemetry = z.infer<typeof locomotionTelemetrySchema>;
 export interface MatchTeamState {
   side: TeamSide;
   clubId: string;

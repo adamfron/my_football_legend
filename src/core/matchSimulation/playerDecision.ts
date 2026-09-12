@@ -20,6 +20,7 @@ import {
   type MatchAction,
   type TacticalMatchState,
 } from './matchState';
+import type { TeamSide } from './matchSpace';
 import { evaluateGlobalBallRace, ballRaceCandidateSchema } from './looseBallPhysics';
 import { isActionResolutionInProgress } from './actionLifecycle';
 import { evaluateActionImpact } from './actionImpact';
@@ -68,6 +69,8 @@ export const playerDecisionProbeSchema = z.object({
       'same_situation',
       'cooldown',
       'no_options',
+      'no_contextual_interactions',
+      'friendly_ball',
     ])
     .optional(),
   situationKind: z.string().optional(),
@@ -79,6 +82,87 @@ export const playerDecisionProbeSchema = z.object({
   possessionMismatch: z.boolean().optional(),
 });
 export type PlayerDecisionProbe = z.infer<typeof playerDecisionProbeSchema>;
+
+export const controlledBallRelationshipSchema = z.enum([
+  'intended_receiver',
+  'friendly_possible_receiver',
+  'opponent_interceptor',
+  'uninvolved',
+]);
+export type ControlledBallRelationship = z.infer<typeof controlledBallRelationshipSchema>;
+
+/** Canonical ownership of an in-flight ball, never inferred from its geometry. */
+export const deriveBallSourceTeam = (state: TacticalMatchState): TeamSide | undefined => {
+  const actionActor =
+    state.currentAction && ['pass', 'cross', 'header'].includes(state.currentAction.type)
+      ? state.currentAction.actorId
+      : undefined;
+  const sourceId = state.ball.lastTouchPlayerId ?? actionActor;
+  return state.players.find((player) => player.id === sourceId)?.team;
+};
+
+export const deriveControlledBallRelationship = (
+  state: TacticalMatchState,
+  actorId: string,
+): ControlledBallRelationship => {
+  const actor = state.players.find((player) => player.id === actorId);
+  const sourceTeam = deriveBallSourceTeam(state);
+  if (!actor || !state.ball.travelDuration || state.ball.ownerId) return 'uninvolved';
+  if (sourceTeam === actor.team) {
+    if (state.ball.intendedReceiverId === actorId) return 'intended_receiver';
+    return state.ball.target && distance(actor.position, state.ball.target) <= 3
+      ? 'friendly_possible_receiver'
+      : 'uninvolved';
+  }
+  return sourceTeam ? 'opponent_interceptor' : 'uninvolved';
+};
+
+export const playerInteractionTargetDescriptorSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('player'), playerId: z.string() }),
+  z.object({ kind: z.literal('ball'), point: pitchPointSchema }),
+  z.object({ kind: z.literal('space'), point: pitchPointSchema }),
+  z.object({ kind: z.literal('goal'), side: z.enum(['home', 'away']) }),
+]);
+export type PlayerInteractionTargetDescriptor = z.infer<
+  typeof playerInteractionTargetDescriptorSchema
+>;
+
+/** Finite, RNG-free bridge proving that a pause has a usable world target. */
+export const projectSelectableInteractionTargets = (
+  state: TacticalMatchState,
+  opportunity: PlayerDecisionOpportunity,
+): PlayerInteractionTargetDescriptor[] => {
+  const actor = state.players.find((player) => player.id === opportunity.actorId);
+  if (!actor) return [];
+  if (opportunity.kind === 'incoming_ball') {
+    const result: PlayerInteractionTargetDescriptor[] = [
+      { kind: 'ball', point: { x: state.ball.x, y: state.ball.y } },
+    ];
+    const carry = opportunity.options.find(
+      (option) => option.kind === 'action' && option.action.type === 'carry',
+    );
+    if (carry?.kind === 'action' && carry.action.type === 'carry')
+      result.push({ kind: 'space', point: carry.action.target });
+    if (
+      opportunity.options.some(
+        (option) => option.kind === 'action' && option.action.type === 'shot',
+      )
+    )
+      result.push({ kind: 'goal', side: actor.team === 'home' ? 'away' : 'home' });
+    return result;
+  }
+  if (opportunity.kind === 'defensive_response') {
+    if (!state.ball.ownerId) return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
+    return [{ kind: 'player', playerId: state.ball.ownerId }];
+  }
+  if (opportunity.kind === 'loose_ball')
+    return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
+  if (opportunity.kind === 'off_ball_run')
+    return opportunity.options.flatMap((option) =>
+      option.kind === 'movement' ? [{ kind: 'space' as const, point: option.intent.target }] : [],
+    );
+  return [{ kind: 'player', playerId: actor.id }];
+};
 
 export const decisionRoleSchema = z.enum(['goalkeeper', 'defender', 'midfielder', 'forward']);
 export type DecisionRole = z.infer<typeof decisionRoleSchema>;
@@ -229,9 +313,17 @@ export const evaluatePassInterceptionOpportunity = (
   defenderId: string,
 ) => {
   const defender = state.players.find((player) => player.id === defenderId);
+  const relationship = deriveControlledBallRelationship(state, defenderId);
   const from = state.ball.from;
   const target = state.ball.target;
-  if (!defender || !from || !target || state.ball.ownerId || !state.ball.travelDuration)
+  if (
+    relationship !== 'opponent_interceptor' ||
+    !defender ||
+    !from ||
+    !target ||
+    state.ball.ownerId ||
+    !state.ball.travelDuration
+  )
     return passInterceptionOpportunitySchema.parse({ viable: false });
   const dx = target.x - from.x;
   const dy = target.y - from.y;
@@ -549,7 +641,17 @@ const projectDecision = (
       }
     }
   }
-  if (!kind) return blocked(state.ball.ownerId === actorId ? 'routine' : 'not_relevant', context);
+  if (!kind) {
+    const relationship = deriveControlledBallRelationship(state, actorId);
+    return blocked(
+      state.ball.ownerId === actorId
+        ? 'routine'
+        : relationship === 'intended_receiver' || relationship === 'friendly_possible_receiver'
+          ? 'friendly_ball'
+          : 'not_relevant',
+      context,
+    );
+  }
   if (!options.length) return blocked('no_options', context);
   // A pause must expose a genuine choice. Single low-value prompts remain autonomous.
   if (options.length < 2) return blocked('no_options', context);
@@ -579,6 +681,8 @@ const projectDecision = (
     situation,
     options,
   });
+  if (!projectSelectableInteractionTargets(state, opportunity).length)
+    return blocked('no_contextual_interactions', { ...context, opportunityKind: kind, signature });
   return {
     opportunity,
     probe: playerDecisionProbeSchema.parse({
