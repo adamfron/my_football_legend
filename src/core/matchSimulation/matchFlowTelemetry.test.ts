@@ -106,5 +106,12 @@ describe('session benchmark observations', () => {
         passingNetwork: [{ ...telemetry.passingNetwork[0]!, attempted: 1, completed: 3 }],
       }),
     ).toThrow(/passing edge/);
+    expect(() =>
+      assertTelemetryInvariants({
+        ...telemetry,
+        canonicalMinutes: 1 / 60,
+        possessionSpellDurations: [1.1],
+      }),
+    ).toThrow(/spell exceeds segment duration/);
   });
 });

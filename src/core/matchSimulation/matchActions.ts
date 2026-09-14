@@ -322,6 +322,16 @@ export const resolveMatchAction = (
   source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
   if (state.ball.ownerId !== action.actorId) return state;
+  // High-impact actions for the controlled footballer are committed only by an explicit player
+  // choice (or the deliberately invoked DEV AI button). Actor identity must never be used later
+  // to reconstruct ownership of the action.
+  if (
+    action.actorId === state.controlledFootballerId &&
+    (action.type === 'shot' || action.type === 'cross') &&
+    source !== 'human_selected' &&
+    source !== 'dev_ai_selected'
+  )
+    return state;
   const actor = state.players.find((p) => p.id === action.actorId)!;
   const restart =
     state.restart?.phase === 'setup' && action.type !== 'hold'

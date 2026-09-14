@@ -6,6 +6,8 @@ import type {
 } from '../../core/matchSimulation';
 import type { SingleMatchSession } from '../../core/singleMatch';
 import { FIXED_MATCH_DT } from '../../core/matchSimulation';
+import { matchFlowTelemetrySchema, positioningSampleSchema } from '../../core/matchSimulation';
+import { restartScenarioSchema } from '../../core/matchSimulation/matchState';
 import { MatchDebugRecorder, type MatchDebugExport } from './matchDebugCapture';
 import type { RendererLifecycle } from './tacticalRenderer/TacticalPitchRenderer';
 
@@ -37,6 +39,15 @@ export const matchLabCrashPackageSchema = z.object({
   positioningSamples: z.array(z.unknown()),
 });
 export type MatchLabCrashPackage = z.infer<typeof matchLabCrashPackageSchema>;
+
+export const benchmarkSegmentSchema = z.object({
+  segmentId: z.string().min(1),
+  scenario: restartScenarioSchema,
+  canonicalDuration: z.number().nonnegative(),
+  matchFlowTelemetry: matchFlowTelemetrySchema,
+  sampledPositioning: z.array(positioningSampleSchema),
+});
+export type BenchmarkSegment = z.infer<typeof benchmarkSegmentSchema>;
 
 const errorDetails = (reason: unknown) => {
   const error = reason instanceof Error ? reason : new Error(String(reason));
@@ -71,6 +82,8 @@ export class MatchLabDiagnosticsController {
   telemetry: MatchFlowTelemetry;
   rendererLifecycle: RendererLifecycle = 'waiting_for_layout';
   crashPackage?: MatchLabCrashPackage;
+  completedSegments: BenchmarkSegment[] = [];
+  private segmentSerial = 0;
   private listeners = new Set<() => void>();
 
   constructor(
@@ -80,6 +93,44 @@ export class MatchLabDiagnosticsController {
   ) {
     this.latestState = initial;
     this.telemetry = telemetry;
+  }
+
+  beginSegment(
+    state: TacticalMatchState,
+    telemetry: MatchFlowTelemetry,
+    samples: PositioningSample[],
+  ) {
+    if (this.latestState.time > 0 || samples.length > 1)
+      this.completedSegments.push(
+        benchmarkSegmentSchema.parse({
+          segmentId: telemetry.benchmarkRunId,
+          scenario: this.latestState.scenario,
+          canonicalDuration: this.latestState.time,
+          matchFlowTelemetry: telemetry,
+          sampledPositioning: samples,
+        }),
+      );
+    this.segmentSerial++;
+    const segmentId = `${state.seed}:segment:${this.segmentSerial}`;
+    this.latestState = state;
+    return segmentId;
+  }
+
+  exportSegments(
+    current: TacticalMatchState,
+    telemetry: MatchFlowTelemetry,
+    samples: PositioningSample[],
+  ) {
+    return [
+      ...this.completedSegments,
+      benchmarkSegmentSchema.parse({
+        segmentId: telemetry.benchmarkRunId,
+        scenario: current.scenario,
+        canonicalDuration: current.time,
+        matchFlowTelemetry: telemetry,
+        sampledPositioning: samples,
+      }),
+    ];
   }
 
   subscribe(listener: () => void) {

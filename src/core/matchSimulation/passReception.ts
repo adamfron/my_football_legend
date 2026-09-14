@@ -82,9 +82,17 @@ export const projectPassReception = (
       maxLead / Math.max(0.01, Math.hypot(motion.x, motion.y) * activeTime),
       leadStrength,
     );
+    const projectedY = receiver.position.y + motion.y * activeTime * scale;
+    // Close to touch, preserve the forward lead but fade only the outward component. This is not a
+    // global inset: passes along the channel can still meet a runner close to the painted line.
+    const outward =
+      (receiver.position.y < 6 && projectedY < receiver.position.y) ||
+      (receiver.position.y > 62 && projectedY > receiver.position.y);
+    const edgeDistance = Math.min(receiver.position.y, 68 - receiver.position.y);
+    const lateralScale = outward ? Math.max(0.08, Math.min(1, edgeDistance / 6)) : 1;
     target = clampPitchPoint({
       x: receiver.position.x + motion.x * activeTime * scale,
-      y: receiver.position.y + motion.y * activeTime * scale,
+      y: receiver.position.y + motion.y * activeTime * scale * lateralScale,
     });
     arrival = Math.max(0.45, distance(passer.position, target) / speed);
   }

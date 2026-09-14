@@ -253,6 +253,9 @@ export class TacticalPitchRenderer {
   ) {
     const group = new THREE.Group();
     group.userData.playerId = id;
+    // The procedural mesh used legacy oversized units. Normalize visuals against the canonical
+    // 2.44 m goal while leaving the generous child picker unchanged below.
+    group.scale.setScalar(0.58);
     const kit = this.kits[team];
     const shirt = goalkeeper ? kit.goalkeeper.primary : kit.primary;
     const appearance = derivePlayerAppearance(id);
@@ -305,6 +308,7 @@ export class TacticalPitchRenderer {
       new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }),
     );
     picker.position.y = 1.65;
+    picker.scale.setScalar(1 / 0.58);
     picker.userData.playerId = id;
     group.add(picker);
     this.playerPickers.set(id, picker);
@@ -459,17 +463,12 @@ export class TacticalPitchRenderer {
       -((clientY - rect.top) / rect.height) * 2 + 1,
     );
     this.raycaster.setFromCamera(pointer, this.camera);
-    // A legal goal intention owns the visible mouth before an overlapping keeper hitbox.
+    // Only the visible presentation goal plane owns a goal intention. Pitch grass is never a
+    // hidden shot button.
     if (goalIntentSide) {
-      const pitchHit = this.raycaster.intersectObject(this.pitch)[0];
-      if (pitchHit) {
-        const point = worldToTactical(pitchHit.point);
-        const inMouth =
-          point.y >= 25 &&
-          point.y <= 43 &&
-          (goalIntentSide === 'home' ? point.x <= 8 : point.x >= 97);
-        if (inMouth) return { kind: 'goal', side: goalIntentSide };
-      }
+      const goalPlane = this.goalPlanes.get(goalIntentSide);
+      const goalHit = goalPlane && this.raycaster.intersectObject(goalPlane)[0];
+      if (goalHit) return { kind: 'goal', side: goalIntentSide };
     }
     const ballHit = this.raycaster.intersectObject(this.ballPicker)[0];
     if (ballHit) {
@@ -486,8 +485,6 @@ export class TacticalPitchRenderer {
     const pitchHit = this.raycaster.intersectObject(this.pitch)[0];
     if (!pitchHit) return undefined;
     const point = worldToTactical(pitchHit.point);
-    if (point.x <= 2 && point.y >= 23 && point.y <= 45) return { kind: 'goal', side: 'home' };
-    if (point.x >= 103 && point.y >= 23 && point.y <= 45) return { kind: 'goal', side: 'away' };
     return { kind: 'pitch', point };
   }
   /** Raycasts the rendered, canonical goal mouth and returns normalized player intention. */
@@ -550,7 +547,10 @@ export class TacticalPitchRenderer {
       this.shotCamera.lookAt(pose.lookAt.x, pose.lookAt.y, pose.lookAt.z);
       const opponentGoal = pose.opponentGoal;
       const plane = this.goalPlanes.get(opponentGoal);
-      if (plane) plane.visible = true;
+      if (plane) {
+        plane.visible = true;
+        this.setGoalAimMarker({ horizontal: 0, vertical: 0.45 });
+      }
     } else {
       this.camera = this.tacticalCamera;
       const focused = focusedPlayerId ? this.playerMeshes.get(focusedPlayerId) : undefined;

@@ -105,7 +105,7 @@ export const deriveShotAimCameraPose = (team: 'home' | 'away', shooter: Tactical
   const world = tacticalToWorld(shooter);
   return {
     attackDirection,
-    position: { x: world.x - attackDirection * 8, y: 4.8, z: world.z },
+    position: { x: world.x - attackDirection * 12.5, y: 6.5, z: world.z },
     lookAt: { x: world.x + attackDirection * 26, y: 1.4, z: world.z * 0.35 },
     opponentGoal: team === 'home' ? ('away' as const) : ('home' as const),
   };

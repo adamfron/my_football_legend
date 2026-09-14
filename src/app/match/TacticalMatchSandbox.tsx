@@ -310,7 +310,11 @@ const FatalCrash = ({ message }: { message: string }) => {
 const RunningLabGuard = (props: RunningLabProps) => {
   const [controller] = useState(() => {
     const initial = createTacticalMatch(props.session);
-    return new MatchLabDiagnosticsController(props.session, initial, createMatchFlowTelemetry());
+    return new MatchLabDiagnosticsController(
+      props.session,
+      initial,
+      createMatchFlowTelemetry(`${initial.seed}:segment:0`),
+    );
   });
   const [, refresh] = useState(0);
   useEffect(() => controller.subscribe(() => refresh((value) => value + 1)), [controller]);
@@ -396,7 +400,7 @@ const RunningLab = ({
     } catch (error) {
       diagnostics.report('observer_error', error, { module: 'MatchDebugRecorder.record' });
     }
-    telemetryRef.current = createMatchFlowTelemetry();
+    telemetryRef.current = createMatchFlowTelemetry(`${initial.seed}:segment:0`);
     diagnostics.telemetry = telemetryRef.current;
     try {
       positioningSamplesRef.current = [sampleCanonicalPositioning(initial)];
@@ -845,8 +849,13 @@ const RunningLab = ({
         <button
           onClick={() => {
             const summary = {
-              metadata: { schema: 'mfl-session-benchmark-v1', seed: state.seed },
+              metadata: { schema: 'mfl-session-benchmark-v2', seed: state.seed },
               duration: state.time,
+              segments: diagnostics.exportSegments(
+                state,
+                telemetryRef.current,
+                positioningSamplesRef.current,
+              ),
               controlledPlayer: state.controlledFootballerId,
               matchFlowTelemetry: telemetryRef.current,
               decisionTelemetry: telemetryRef.current.controlled,
@@ -917,6 +926,15 @@ const RunningLab = ({
                     ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
                     : undefined,
                 );
+                const segmentId = diagnostics.beginSegment(
+                  next,
+                  telemetryRef.current,
+                  positioningSamplesRef.current,
+                );
+                telemetryRef.current = createMatchFlowTelemetry(segmentId);
+                positioningSamplesRef.current = [sampleCanonicalPositioning(next)];
+                diagnostics.telemetry = telemetryRef.current;
+                diagnostics.positioningSamples = positioningSamplesRef.current;
                 debugRecorderRef.current.record(next);
                 debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', { scenario });
                 return next;
