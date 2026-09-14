@@ -11,6 +11,8 @@ import {
   DEFAULT_KITS,
   derivePlayerAppearance,
   deriveShotAimCameraPose,
+  deriveOwnedBallPose,
+  type MatchCameraPreferences,
   validateRenderFrame,
 } from './model';
 
@@ -41,6 +43,7 @@ export class TacticalPitchRenderer {
   private lastValidFrame?: TacticalFrame;
   private lastDebugMode = false;
   private cameraMode: MatchCameraMode = 'tactical';
+  private cameraPreferences: MatchCameraPreferences = { preset: 'overview', zoom: 0.35 };
   private readonly report: (message?: string) => void;
 
   constructor(
@@ -429,7 +432,8 @@ export class TacticalPitchRenderer {
         if (ideal) idealMarker.position.set(ideal.x, 0.08, ideal.z);
       }
     }
-    const ball = tacticalToWorld(frame.ball, (frame.ball.height ?? 0) + 0.85);
+    const presentedBall = deriveOwnedBallPose(frame);
+    const ball = tacticalToWorld(presentedBall, (presentedBall.height ?? 0) + 0.32);
     this.ball.position.set(ball.x, ball.y, ball.z);
     this.ballPicker.position.set(ball.x, ball.y, ball.z);
     this.interceptionMarker.visible = Boolean(frame.interceptionTarget);
@@ -533,8 +537,21 @@ export class TacticalPitchRenderer {
     this.aimMarker.visible = false;
     if (mode === 'tactical') {
       this.camera = this.tacticalCamera;
-      this.tacticalCamera.position.set(-82, 92, 82);
-      this.tacticalCamera.lookAt(0, 0, 0);
+      const focus =
+        this.cameraPreferences.preset === 'action'
+          ? this.ball.position
+          : this.cameraPreferences.preset === 'player_focus' && focusedPlayerId
+            ? this.playerMeshes.get(focusedPlayerId)?.position
+            : undefined;
+      const centre = focus ?? new THREE.Vector3();
+      const height =
+        this.cameraPreferences.preset === 'overview'
+          ? 92
+          : this.cameraPreferences.preset === 'action'
+            ? 52
+            : 34;
+      this.tacticalCamera.position.set(centre.x - height * 0.88, height, centre.z + height * 0.88);
+      this.tacticalCamera.lookAt(centre.x, 0, centre.z);
     } else if (mode === 'shot_aim') {
       this.camera = this.shotCamera;
       const focused = focusedPlayerId ? this.playerMeshes.get(focusedPlayerId) : undefined;
@@ -559,6 +576,12 @@ export class TacticalPitchRenderer {
       this.tacticalCamera.lookAt(centre.x + 30, 1.2, 0);
     }
     this.resize();
+  }
+  setCameraPreferences(preferences: MatchCameraPreferences, focusedPlayerId?: string) {
+    this.cameraPreferences = preferences;
+    this.tacticalCamera.zoom = 0.8 + preferences.zoom * 0.8;
+    this.tacticalCamera.updateProjectionMatrix();
+    if (this.cameraMode === 'tactical') this.setCameraMode('tactical', focusedPlayerId);
   }
   private resize() {
     if (this.host.clientWidth <= 0 || this.host.clientHeight <= 0) {

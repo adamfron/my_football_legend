@@ -289,6 +289,11 @@ export interface CareerMemory {
 
 export interface CareerState {
   seed: string;
+  presentationPreferences?:
+    | {
+        matchCamera: { preset: 'overview' | 'action' | 'player_focus'; zoom: number };
+      }
+    | undefined;
   difficulty?: CareerDifficulty | undefined;
   currentSeason: number;
   careerSeasonNumber: number;

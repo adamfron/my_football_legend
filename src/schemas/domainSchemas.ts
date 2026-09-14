@@ -576,6 +576,16 @@ export const careerEventCandidateSchema = z.object({
 });
 export const careerStateSchema = z.object({
   seed: z.string(),
+  presentationPreferences: z
+    .object({
+      matchCamera: z
+        .object({
+          preset: z.enum(['overview', 'action', 'player_focus']),
+          zoom: z.number().min(0).max(1),
+        })
+        .default({ preset: 'overview', zoom: 0.35 }),
+    })
+    .optional(),
   currentSeason: z.number().int(),
   careerSeasonNumber: z.number().int().positive(),
   player: playerSchema,

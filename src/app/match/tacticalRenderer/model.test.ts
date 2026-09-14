@@ -10,6 +10,8 @@ import {
   PLAYER_LOCAL_FORWARD_AXIS,
   mapGoalPlanePointerToIntent,
   deriveShotAimCameraPose,
+  deriveOwnedBallPose,
+  matchCameraPreferencesSchema,
 } from './model';
 
 describe('tactical presentation model', () => {
@@ -79,5 +81,18 @@ describe('tactical presentation model', () => {
     expect(
       mapGoalPlanePointerToIntent(300, 20, { left: 100, top: 20, width: 200, height: 120 }),
     ).toEqual({ horizontal: 1, vertical: 1 });
+  });
+  it('projects an owned ball to the feet without changing a ball in flight', () => {
+    const frame = structuredClone(createTacticalScenarios()[0]!.sequence.frames[0]!);
+    frame.ball = { x: frame.players[0]!.x, y: frame.players[0]!.y, ownerId: frame.players[0]!.id };
+    expect(deriveOwnedBallPose(frame)).not.toEqual(frame.ball);
+    frame.ball.height = 1;
+    expect(deriveOwnedBallPose(frame)).toBe(frame.ball);
+  });
+  it('validates bounded camera preferences', () => {
+    expect(matchCameraPreferencesSchema.safeParse({ preset: 'action', zoom: 0.7 }).success).toBe(
+      true,
+    );
+    expect(matchCameraPreferencesSchema.safeParse({ preset: 'free', zoom: 2 }).success).toBe(false);
   });
 });

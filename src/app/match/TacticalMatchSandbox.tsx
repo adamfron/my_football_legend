@@ -43,7 +43,12 @@ import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
-import { type ShotAimIntent } from './tacticalRenderer/model';
+import {
+  DEFAULT_MATCH_CAMERA_PREFERENCES,
+  matchCameraPreferencesSchema,
+  type MatchCameraPreferences,
+  type ShotAimIntent,
+} from './tacticalRenderer/model';
 import { buildStartMenuUrl } from '../devTools';
 import {
   debugBasename,
@@ -64,6 +69,16 @@ import {
 } from './matchLabDiagnostics';
 
 const freshSeed = () => `lab-${Date.now().toString(36)}`;
+const MATCH_LAB_CAMERA_KEY = 'mfl.matchLab.camera.v1';
+const loadCameraPreferences = (): MatchCameraPreferences => {
+  try {
+    return matchCameraPreferencesSchema.parse(
+      JSON.parse(localStorage.getItem(MATCH_LAB_CAMERA_KEY) ?? 'null'),
+    );
+  } catch {
+    return DEFAULT_MATCH_CAMERA_PREFERENCES;
+  }
+};
 const formatMatchTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
   return `${minutes.toString().padStart(2, '0')}:${(seconds % 60).toFixed(1).padStart(4, '0')}`;
@@ -368,6 +383,7 @@ const RunningLab = ({
     [selectedTarget, setSelectedTarget] = useState<PlayerInteractionTarget>(),
     [menuPosition, setMenuPosition] = useState<{ x: number; y: number }>(),
     [shotAim, setShotAim] = useState<ShotAimIntent>(),
+    [cameraPreferences, setCameraPreferences] = useState(loadCameraPreferences),
     [debugExport, setDebugExport] = useState<{
       trace: MatchDebugExport;
       video: Blob | undefined;
@@ -622,6 +638,10 @@ const RunningLab = ({
     );
   }, [replaying, shotAim, opportunity?.actorId, state.players]);
   useEffect(() => {
+    localStorage.setItem(MATCH_LAB_CAMERA_KEY, JSON.stringify(cameraPreferences));
+    rendererRef.current?.setCameraPreferences(cameraPreferences, state.controlledFootballerId);
+  }, [cameraPreferences, state.controlledFootballerId]);
+  useEffect(() => {
     if (!replaying || goalReplay.length === 0) return;
     const started = performance.now(),
       firstTimestamp = goalReplay[0]!.timestampMs;
@@ -845,6 +865,38 @@ const RunningLab = ({
           Powrót do menu
         </button>
       </nav>
+      <nav className="camera-controls" aria-label="Ustawienia kamery">
+        <span>Kamera:</span>
+        {(
+          [
+            ['overview', 'Przegląd'],
+            ['action', 'Akcja'],
+            ['player_focus', 'Zawodnik'],
+          ] as const
+        ).map(([preset, label]) => (
+          <button
+            className={cameraPreferences.preset === preset ? 'active' : ''}
+            key={preset}
+            onClick={() => setCameraPreferences((current) => ({ ...current, preset }))}
+          >
+            {label}
+          </button>
+        ))}
+        <label>
+          Zoom{' '}
+          <input
+            aria-label="Zoom kamery"
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value={cameraPreferences.zoom}
+            onChange={(event) =>
+              setCameraPreferences((current) => ({ ...current, zoom: Number(event.target.value) }))
+            }
+          />
+        </label>
+      </nav>
       <nav className="debug-capture" aria-label="Eksport diagnostyczny">
         <button
           onClick={() => {
@@ -1014,9 +1066,16 @@ const RunningLab = ({
                 className="shot-aim__surface"
                 aria-label="Kliknij podświetloną bramkę, aby wskazać intencję strzału"
                 onPointerDown={(event) => {
+                  event.currentTarget.setPointerCapture(event.pointerId);
                   const intent = rendererRef.current?.pickGoalAim(event.clientX, event.clientY);
                   if (intent) setShotAim(intent);
                 }}
+                onPointerMove={(event) => {
+                  if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+                  const intent = rendererRef.current?.pickGoalAim(event.clientX, event.clientY);
+                  if (intent) setShotAim(intent);
+                }}
+                onPointerUp={(event) => event.currentTarget.releasePointerCapture(event.pointerId)}
               />
               <div className="shot-aim__actions">
                 {projectContextualInteractions(state, opportunity, selectedTarget)

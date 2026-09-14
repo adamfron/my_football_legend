@@ -106,8 +106,30 @@ export const ballCarrierIntentSchema = z.object({
   target: pitchPointSchema,
   startedAt: z.number().nonnegative(),
   expiresAt: z.number().nonnegative(),
+  estimatedArrival: z.number().nonnegative(),
+  startPosition: pitchPointSchema,
+  closestPointReached: pitchPointSchema,
+  humanSelected: z.boolean(),
 });
 export type BallCarrierIntent = z.infer<typeof ballCarrierIntentSchema>;
+export const carryDiagnosticSchema = z.object({
+  actorId: z.string(),
+  requestedTarget: pitchPointSchema,
+  startPosition: pitchPointSchema,
+  estimatedArrival: z.number().nonnegative(),
+  closestPointReached: pitchPointSchema,
+  distanceRemaining: z.number().nonnegative(),
+  terminationReason: z.enum([
+    'target_reached',
+    'ball_lost',
+    'contact',
+    'replaced',
+    'invalid_target',
+    'safety_timeout',
+  ]),
+  actualDuration: z.number().nonnegative(),
+});
+export type CarryDiagnostic = z.infer<typeof carryDiagnosticSchema>;
 export const playerDecisionGateStateSchema = z.object({
   lastSituationSignature: z.string().optional(),
   lastResolvedAt: z.number().nonnegative().optional(),
@@ -438,6 +460,7 @@ export interface TacticalMatchState {
     receptionOutcome?: ReceptionOutcome['kind'];
     finalResult?: 'completed' | 'intercepted' | 'unclaimed' | 'technical_error';
   };
+  lastCarryDiagnostic?: CarryDiagnostic;
 }
 
 // Runtime boundary schema deliberately validates the ephemeral geometry/control graph; profiles
@@ -508,6 +531,7 @@ export const tacticalMatchStateSchema = z
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
     ballCarrierIntent: ballCarrierIntentSchema.optional(),
+    lastCarryDiagnostic: carryDiagnosticSchema.optional(),
     postActionAgencyCheckpoint: z
       .object({
         actorId: z.string(),

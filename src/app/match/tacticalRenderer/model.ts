@@ -82,6 +82,29 @@ export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
 
 export const matchCameraModeSchema = z.enum(['tactical', 'shot_aim', 'goal_replay']);
 export type MatchCameraMode = z.infer<typeof matchCameraModeSchema>;
+export const matchCameraPreferencesSchema = z.object({
+  preset: z.enum(['overview', 'action', 'player_focus']),
+  zoom: z.number().min(0).max(1),
+});
+export type MatchCameraPreferences = z.infer<typeof matchCameraPreferencesSchema>;
+export const DEFAULT_MATCH_CAMERA_PREFERENCES: MatchCameraPreferences = {
+  preset: 'overview',
+  zoom: 0.35,
+};
+
+/** Presentation-only owned-ball pose. Canonical ownership coordinates remain untouched. */
+export const deriveOwnedBallPose = (frame: TacticalFrame): TacticalBall => {
+  if (!frame.ball.ownerId || (frame.ball.height ?? 0) > 0.05) return frame.ball;
+  const owner = frame.players.find((player) => player.id === frame.ball.ownerId);
+  if (!owner) return frame.ball;
+  const facing = owner.facing ?? (owner.team === 'home' ? Math.PI / 2 : -Math.PI / 2);
+  return {
+    ...frame.ball,
+    x: owner.x + Math.sin(facing) * 0.72,
+    y: owner.y + Math.cos(facing) * 0.72,
+    height: 0,
+  };
+};
 
 export const shotAimIntentSchema = z.object({
   horizontal: z.number().min(-1).max(1),
