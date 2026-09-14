@@ -53,6 +53,7 @@ vi.mock('three', () => {
     WebGLRenderer: Renderer,
     Scene,
     OrthographicCamera: Camera,
+    PerspectiveCamera: Camera,
     Mesh,
     Group: Object3D,
     HemisphereLight: Object3D,

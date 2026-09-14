@@ -385,9 +385,10 @@ Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozsze
 - **PR119 — ukończony:** płynność meczu, wybór strzałów, kalibracja xG i integralność telemetrii.
 - **PR120 — ukończony:** cykl części meczu, kanoniczne statystyki występu, wynik końcowy i fundament
   powtórek bramek.
-- **PR121 — bieżący:** sprawczość bramkarza, celowanie strzału i bezpieczne trajektorie za linią
+- **PR121 — ukończony:** sprawczość bramkarza, celowanie strzału i bezpieczne trajektorie za linią
   bramkową.
-- **PR122 — następny:** kalibracja progresji posiadania i współpracy bocznego obrońcy ze skrzydłowym.
+- **PR122 — bieżący:** stabilność i progresja posiadania oraz relacje bocznego obrońcy ze
+  skrzydłowym.
 - **PR123 — następny:** system wizualny meczu inspirowany Windows 95 i dopracowanie powtórek.
 - **Później:** zmęczenie, kontekst wyniku, zmiany, integracja meczu kariery, spójny system
   wizualny i prezentacja meczu, pełne stroje/logotypy oraz agregacja oceny meczowej zawodnika.

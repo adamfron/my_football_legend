@@ -9,6 +9,7 @@ import {
   derivePlayerAppearance,
   PLAYER_LOCAL_FORWARD_AXIS,
   mapGoalPlanePointerToIntent,
+  deriveShotAimCameraPose,
 } from './model';
 
 describe('tactical presentation model', () => {
@@ -63,6 +64,16 @@ describe('tactical presentation model', () => {
     );
     const valid = createTacticalScenarios()[0]!.sequence.frames[0]!;
     expect(validateRenderFrame(valid)).toBeUndefined();
+  });
+  it('places the shot camera behind either team relative to the opponent goal', () => {
+    const home = deriveShotAimCameraPose('home', { x: 80, y: 34 });
+    const away = deriveShotAimCameraPose('away', { x: 25, y: 34 });
+    expect(home.position.x).toBeLessThan(80 - 52.5);
+    expect(home.lookAt.x).toBeGreaterThan(home.position.x);
+    expect(home.opponentGoal).toBe('away');
+    expect(away.position.x).toBeGreaterThan(25 - 52.5);
+    expect(away.lookAt.x).toBeLessThan(away.position.x);
+    expect(away.opponentGoal).toBe('home');
   });
   it('maps a touch-sized goal plane to normalized shot intention', () => {
     expect(

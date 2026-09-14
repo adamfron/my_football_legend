@@ -150,6 +150,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
     },
     possessionTeam: 'home',
     timeSincePossessionChanged: 0,
+    ballEpisode: 0,
     actionCooldown: 0.4,
     ballOwnershipStartedAt: 0,
     score: { home: 0, away: 0 },
@@ -221,6 +222,7 @@ const changePossession = (
     teams,
     possessionTeam: owner.team,
     timeSincePossessionChanged: 0,
+    ballEpisode: 0,
     actionCooldown: Math.max(state.actionCooldown, 0.85),
     ball: controlledBall,
     ballOwnershipStartedAt: state.time,
@@ -247,6 +249,7 @@ const changePossession = (
 
 const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): TacticalMatchState => ({
   ...state,
+  ballEpisode: (state.ballEpisode ?? 0) + 1,
   ball: {
     x: state.ball.x,
     y: state.ball.y,
@@ -1020,7 +1023,16 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     if (evaluated.nearestChallengerId) state.nearestChallengerId = evaluated.nearestChallengerId;
     else delete state.nearestChallengerId;
     const challenger = state.players.find((p) => p.id === evaluated.nearestChallengerId);
-    if (challenger && distance(challenger.position, owner.position) < 1.65) {
+    const duelDistance = challenger ? distance(challenger.position, owner.position) : Infinity;
+    const sameDuel = Boolean(
+      challenger &&
+        state.recentDuel &&
+        state.recentDuel.ballEpisode === (state.ballEpisode ?? 0) &&
+        state.recentDuel.expiresAt > state.time &&
+        state.recentDuel.participants.includes(owner.id) &&
+        state.recentDuel.participants.includes(challenger.id),
+    );
+    if (challenger && duelDistance < 1.65 && !sameDuel) {
       const rng = RandomGenerator.fromSeed(
         `${state.seed}:challenge:${state.decisionIndex}:${challenger.id}`,
       );
@@ -1039,8 +1051,16 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           owner.profile.attributes.composure) /
         500;
       const roll = rng.float() + (defence - attack) * 0.35;
-      if (roll > 0.58) state = changePossession(state, challenger.id, 'tackle');
-      else if (roll > 0.42)
+      if (roll > 0.58) {
+        state = changePossession(state, challenger.id, 'tackle');
+        state.recentDuel = {
+          participants: [owner.id, challenger.id].sort() as [string, string],
+          winnerId: challenger.id,
+          resolvedAt: state.time,
+          expiresAt: state.time + 0.8,
+          ballEpisode: state.ballEpisode ?? 0,
+        };
+      } else if (roll > 0.42)
         state = makeLoose(state, { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 });
     }
   } else {

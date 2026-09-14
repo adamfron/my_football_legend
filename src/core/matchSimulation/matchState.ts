@@ -322,6 +322,15 @@ export const matchScoreSchema = z.object({
 });
 export const matchPeriodSchema = z.enum(['first_half', 'half_time', 'second_half', 'full_time']);
 export type MatchPeriod = z.infer<typeof matchPeriodSchema>;
+export const recentDuelSchema = z.object({
+  participants: z.tuple([z.string(), z.string()]),
+  winnerId: z.string().optional(),
+  resolvedAt: z.number().nonnegative(),
+  expiresAt: z.number().nonnegative(),
+  ballEpisode: z.number().int().nonnegative(),
+});
+export type RecentDuel = z.infer<typeof recentDuelSchema>;
+
 export interface TacticalMatchState {
   seed: string;
   time: number;
@@ -335,6 +344,9 @@ export interface TacticalMatchState {
   ball: MatchBallState;
   possessionTeam: TeamSide;
   timeSincePossessionChanged: number;
+  /** One contact episode may resolve only once; expires after recovery or separation. */
+  recentDuel?: RecentDuel;
+  ballEpisode?: number;
   /** Selected action retained for legacy physical resolvers; its presence is not a busy flag. */
   currentAction?: MatchAction;
   currentActorId?: string;
@@ -489,6 +501,8 @@ export const tacticalMatchStateSchema = z
     currentPressure: z.number().min(0).max(1),
     possessionTeam: teamSideSchema,
     timeSincePossessionChanged: z.number().nonnegative(),
+    recentDuel: recentDuelSchema.optional(),
+    ballEpisode: z.number().int().nonnegative().optional(),
     actionCooldown: z.number().nonnegative(),
     controlledFootballerId: z.string().optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
