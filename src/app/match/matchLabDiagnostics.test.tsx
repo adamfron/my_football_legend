@@ -13,6 +13,30 @@ const BrokenPresentation = () => {
 };
 
 describe('Match Lab crash safety', () => {
+  it('closes the old canonical clock before starting a scenario segment', () => {
+    const world = createCanonicalWorldDatabase();
+    const session = createSingleMatchSession(world, {
+      homeClubId: world.clubs[0]!.id,
+      awayClubId: world.clubs[1]!.id,
+      seed: 'segmented-benchmark',
+      control: { mode: 'spectator' },
+    });
+    const initial = createTacticalMatch(session);
+    const old = { ...initial, time: 12 };
+    const telemetry = createMatchFlowTelemetry('segmented-benchmark:segment:0');
+    telemetry.canonicalMinutes = 0.2;
+    const controller = new MatchLabDiagnosticsController(session, old, telemetry);
+    const next = createTacticalMatch(session);
+    const id = controller.beginSegment(next, telemetry, []);
+    const current = createMatchFlowTelemetry(id);
+    const segments = controller.exportSegments(next, current, []);
+    expect(segments.map(({ canonicalDuration }) => canonicalDuration)).toEqual([12, 0]);
+    expect(segments[0]!.matchFlowTelemetry.canonicalMinutes).toBe(
+      segments[0]!.canonicalDuration / 60,
+    );
+    expect(new Set(segments.map(({ segmentId }) => segmentId)).size).toBe(2);
+  });
+
   it('keeps a React failure visible and freezes downloadable past-only evidence', () => {
     (
       globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }

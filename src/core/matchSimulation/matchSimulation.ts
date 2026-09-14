@@ -477,7 +477,8 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     state.restart?.phase === 'setup' &&
     state.time - state.restart.startedAt >= 2.1
   ) {
-    const action = chooseRestartAction(state);
+    const controlledTaker = state.restart.takerId === state.controlledFootballerId;
+    const action = controlledTaker ? undefined : chooseRestartAction(state);
     if (action) state = resolveMatchAction(state, action);
   }
   if (

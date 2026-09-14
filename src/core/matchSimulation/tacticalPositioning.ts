@@ -122,7 +122,7 @@ export const deriveTeamBlockTransform = (
   const sustained = owns ? Math.min(1, state.timeSincePossessionChanged / 8) : 0;
   const stableAdvance = owns
     ? 7 + parameters.lineHeight * 5 + ballDepth * 0.16 + sustained * 7
-    : -2 + parameters.lineHeight * 3 + ballDepth * 0.08;
+    : -2 + parameters.lineHeight * 3 + ballDepth * 0.08 - Math.max(0, -ballDepth - 10) * 0.35;
   const advance = stableAdvance * (0.7 + 0.3 * transition);
   const lateral = (state.ball.y - 34) * parameters.ballShift * 0.34;
   const widthScale = parameters.width * (owns ? 1 : 0.82);
@@ -164,8 +164,87 @@ export const deriveAttackingRunIds = (state: TacticalMatchState, side: TeamSide)
     }))
     .filter(({ score }) => score > 43)
     .sort((a, b) => b.score - a.score || a.p.id.localeCompare(b.p.id))
-    .slice(0, state.teams[side].phase === 'attacking_transition' ? 3 : 2)
+    .slice(
+      0,
+      state.teams[side].phase === 'attacking_transition' ||
+        direction(side) * (state.ball.x - 52.5) > 18
+        ? 3
+        : 2,
+    )
     .map(({ p }) => p.id);
+};
+
+export const finalThirdOccupationSchema = z.enum([
+  'near_post',
+  'penalty_spot',
+  'far_post',
+  'edge_support',
+  'wide_support',
+  'rest_defence',
+]);
+export type FinalThirdOccupation = z.infer<typeof finalThirdOccupationSchema>;
+
+export interface FinalThirdOccupationAssignment {
+  playerId: string;
+  occupation: FinalThirdOccupation;
+  target: PitchPoint;
+}
+
+/**
+ * Allocates the existing attacking-run budget to temporary final-third relationships. The
+ * projection is deterministic, team-relative and constrained by the canonical offside line.
+ */
+export const deriveFinalThirdOccupations = (
+  state: TacticalMatchState,
+  side: TeamSide,
+): FinalThirdOccupationAssignment[] => {
+  if (state.possessionTeam !== side || !state.ball.ownerId) return [];
+  const dir = direction(side);
+  const depth = dir * (state.ball.x - 52.5);
+  if (depth < 18 || state.timeSincePossessionChanged < 1.2) return [];
+  const carrier = state.players.find((player) => player.id === state.ball.ownerId);
+  if (!carrier?.team || carrier.team !== side) return [];
+  const runIds = deriveAttackingRunIds(state, side);
+  const runners = runIds
+    .map((id) => state.players.find((player) => player.id === id))
+    .filter((player): player is MatchPlayerState => Boolean(player));
+  const offside = calculateOffsideLine(state, side);
+  const goalX = side === 'home' ? 105 : 0;
+  const boxX = side === 'home' ? 92 : 13;
+  const edgeX = side === 'home' ? 85.5 : 19.5;
+  const ballSide = state.ball.y < 34 ? -1 : 1;
+  const wide = Math.abs(state.ball.y - 34) >= 15;
+  const assignments: FinalThirdOccupationAssignment[] = [];
+  const assign = (
+    player: MatchPlayerState | undefined,
+    occupation: FinalThirdOccupation,
+    point: PitchPoint,
+  ) => {
+    if (!player) return;
+    assignments.push({
+      playerId: player.id,
+      occupation,
+      target: constrainTargetOnside(clampPitchPoint(point), offside, side, 1.1),
+    });
+  };
+  const central = runners.find((player) => !isWideDefender(player));
+  assign(central, 'near_post', { x: goalX - dir * 7, y: 34 + ballSide * 4.5 });
+  const second = runners.find((player) => player.id !== central?.id && !isWideDefender(player));
+  if (wide)
+    assign(
+      second,
+      Math.abs((second?.neutralAnchor.y ?? 34) - 34) > 12 ? 'far_post' : 'penalty_spot',
+      {
+        x: boxX,
+        y: second && Math.sign(second.neutralAnchor.y - 34) === -ballSide ? 34 - ballSide * 11 : 34,
+      },
+    );
+  else assign(second, 'edge_support', { x: edgeX, y: 34 - ballSide * 7 });
+  const third = runners.find(
+    (player) => player.id !== central?.id && player.id !== second?.id && !isWideDefender(player),
+  );
+  if (wide) assign(third, 'edge_support', { x: edgeX, y: 34 - ballSide * 6 });
+  return assignments;
 };
 
 const isWideDefender = (p: MatchPlayerState) =>
@@ -198,7 +277,11 @@ export const deriveFlankRelationship = (
   );
   if (!winger) return 'support_behind';
   const dir = direction(fullback.team);
-  const ballOnFlank = Math.sign(state.ball.y - 34) === flankSign && Math.abs(state.ball.y - 34) > 8;
+  const lateralDistance = Math.abs(state.ball.y - fullback.neutralAnchor.y);
+  const sameSideInfluence =
+    Math.sign(state.ball.y - 34) === flankSign
+      ? Math.max(0, 1 - lateralDistance / 30)
+      : Math.max(0, 0.35 - Math.abs(state.ball.y - 34) / 60);
   const wingerWide = Math.abs(winger.position.y - 34) >= 20;
   const cover = state.players.filter(
     (player) =>
@@ -207,7 +290,7 @@ export const deriveFlankRelationship = (
       player.profile.primaryPosition !== 'goalkeeper' &&
       dir * (player.position.x - state.ball.x) < -5,
   ).length;
-  if (!ballOnFlank || cover < 2 || fullback.duty === 'defend') return 'rest_defence';
+  if (sameSideInfluence < 0.22 || cover < 2 || fullback.duty === 'defend') return 'rest_defence';
   if (!wingerWide) return 'provide_width';
   if (!deriveAttackingRunIds(state, fullback.team).includes(fullback.id)) return 'support_behind';
   const touchlineY = 34 + flankSign * 30;
@@ -362,6 +445,10 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     home: deriveAttackingRunIds(state, 'home'),
     away: deriveAttackingRunIds(state, 'away'),
   };
+  const occupations = {
+    home: deriveFinalThirdOccupations(state, 'home'),
+    away: deriveFinalThirdOccupations(state, 'away'),
+  };
   return state.players.map((player) => {
     const neutralAnchor = deriveNeutralFormationAnchor(player),
       block = deriveTeamBlockTransform(state, player.team);
@@ -426,7 +513,9 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     }
     if (!isKeeper && state.possessionTeam === player.team)
       ideal = seekSpace(state, player, ideal, offside[player.team]);
-    if (!isKeeper && runs[player.team].includes(player.id)) {
+    const occupation = occupations[player.team].find(({ playerId }) => playerId === player.id);
+    if (occupation) ideal = occupation.target;
+    else if (!isKeeper && runs[player.team].includes(player.id)) {
       const overlap = isWideDefender(player) && Math.abs(state.ball.y - player.position.y) < 18;
       ideal = {
         x: ideal.x + dir * (overlap ? 13 : 9 + parameters.forwardRuns * 7),

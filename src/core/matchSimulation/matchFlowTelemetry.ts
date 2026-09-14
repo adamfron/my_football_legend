@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { distance } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import type { TacticalMatchState } from './matchState';
+import { deriveFlankRelationship } from './tacticalPositioning';
 import {
   derivePlayerSupportMetrics,
   deriveTeamShapeMetrics,
@@ -38,6 +39,7 @@ const passEdgeSchema = z.object({
   completed: z.number().int().nonnegative(),
 });
 export const matchFlowTelemetrySchema = z.object({
+  benchmarkRunId: z.string().min(1),
   canonicalMinutes: z.number().nonnegative(),
   goals: z.number().int().nonnegative(),
   shots: z.number().int().nonnegative(),
@@ -51,6 +53,20 @@ export const matchFlowTelemetrySchema = z.object({
   failedSaves: z.number().int().nonnegative(),
   noChanceGoals: z.number().int().nonnegative(),
   possessionChanges: z.number().int().nonnegative(),
+  turnoverCauses: z.record(
+    z.enum([
+      'tackle',
+      'interception',
+      'bad_pass',
+      'pass_out',
+      'heavy_touch',
+      'failed_control',
+      'loose_ball_claim',
+      'restart',
+      'other',
+    ]),
+    z.number().int().nonnegative(),
+  ),
   possessionSpellDurations: z.array(z.number().nonnegative()),
   microSpellsUnder0_5s: z.number().int().nonnegative(),
   adjacentTickPossessionFlips: z.number().int().nonnegative(),
@@ -60,6 +76,30 @@ export const matchFlowTelemetrySchema = z.object({
   passesAttempted: z.number().int().nonnegative(),
   passesCompleted: z.number().int().nonnegative(),
   throughBalls: z.number().int().nonnegative(),
+  passesOutOfPlay: z.number().int().nonnegative(),
+  widePassesOutOfPlay: z.number().int().nonnegative(),
+  overlapPassAttempts: z.number().int().nonnegative(),
+  overlapPassCompleted: z.number().int().nonnegative(),
+  overlapPassOutOfPlay: z.number().int().nonnegative(),
+  shortWideCombinations: z.number().int().nonnegative(),
+  channelReleases: z.number().int().nonnegative(),
+  finalThirdEntries: z.number().int().nonnegative(),
+  finalThirdPossessionSeconds: z.number().nonnegative(),
+  boxEntries: z.number().int().nonnegative(),
+  boxTouches: z.number().int().nonnegative(),
+  boxOccupationEpisodes: z.number().int().nonnegative(),
+  nearPostOccupationEpisodes: z.number().int().nonnegative(),
+  penaltySpotOccupationEpisodes: z.number().int().nonnegative(),
+  farPostOccupationEpisodes: z.number().int().nonnegative(),
+  edgeSupportEpisodes: z.number().int().nonnegative(),
+  crossesFromAdvancedWideArea: z.number().int().nonnegative(),
+  cutbacks: z.number().int().nonnegative(),
+  threatFlow: z.object({
+    progressiveReceptions: z.number().int().nonnegative(),
+    resultingFinalThirdEntries: z.number().int().nonnegative(),
+    resultingBoxEntries: z.number().int().nonnegative(),
+    resultingShots: z.number().int().nonnegative(),
+  }),
   passesToStationaryReceiver: z.number().int().nonnegative(),
   passesToMovingReceiver: z.number().int().nonnegative(),
   movingReceiverCompletions: z.number().int().nonnegative(),
@@ -120,8 +160,9 @@ export const matchFlowTelemetrySchema = z.object({
 });
 export type MatchFlowTelemetry = z.infer<typeof matchFlowTelemetrySchema>;
 
-export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
+export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): MatchFlowTelemetry =>
   matchFlowTelemetrySchema.parse({
+    benchmarkRunId,
     canonicalMinutes: 0,
     goals: 0,
     shots: 0,
@@ -135,6 +176,17 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
     failedSaves: 0,
     noChanceGoals: 0,
     possessionChanges: 0,
+    turnoverCauses: {
+      tackle: 0,
+      interception: 0,
+      bad_pass: 0,
+      pass_out: 0,
+      heavy_touch: 0,
+      failed_control: 0,
+      loose_ball_claim: 0,
+      restart: 0,
+      other: 0,
+    },
     possessionSpellDurations: [],
     microSpellsUnder0_5s: 0,
     adjacentTickPossessionFlips: 0,
@@ -144,6 +196,30 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
     passesAttempted: 0,
     passesCompleted: 0,
     throughBalls: 0,
+    passesOutOfPlay: 0,
+    widePassesOutOfPlay: 0,
+    overlapPassAttempts: 0,
+    overlapPassCompleted: 0,
+    overlapPassOutOfPlay: 0,
+    shortWideCombinations: 0,
+    channelReleases: 0,
+    finalThirdEntries: 0,
+    finalThirdPossessionSeconds: 0,
+    boxEntries: 0,
+    boxTouches: 0,
+    boxOccupationEpisodes: 0,
+    nearPostOccupationEpisodes: 0,
+    penaltySpotOccupationEpisodes: 0,
+    farPostOccupationEpisodes: 0,
+    edgeSupportEpisodes: 0,
+    crossesFromAdvancedWideArea: 0,
+    cutbacks: 0,
+    threatFlow: {
+      progressiveReceptions: 0,
+      resultingFinalThirdEntries: 0,
+      resultingBoxEntries: 0,
+      resultingShots: 0,
+    },
     passesToStationaryReceiver: 0,
     passesToMovingReceiver: 0,
     movingReceiverCompletions: 0,
@@ -218,18 +294,80 @@ export const observeMatchFlow = (
 ): MatchFlowTelemetry => {
   const result = structuredClone(telemetry);
   result.canonicalMinutes = next.time / 60;
+  const dt = Math.max(0, next.time - previous.time);
+  const inFinalThird = (side: 'home' | 'away', x: number) => (side === 'home' ? x >= 70 : x <= 35);
+  const inBox = (side: 'home' | 'away', point: { x: number; y: number }) =>
+    (side === 'home' ? point.x >= 88.5 : point.x <= 16.5) && point.y >= 13.8 && point.y <= 54.2;
+  if (next.possessionTeam && inFinalThird(next.possessionTeam, next.ball.x))
+    result.finalThirdPossessionSeconds += dt;
+  if (
+    next.possessionTeam &&
+    !inFinalThird(next.possessionTeam, previous.ball.x) &&
+    inFinalThird(next.possessionTeam, next.ball.x)
+  )
+    result.finalThirdEntries++;
+  if (
+    next.possessionTeam &&
+    !inBox(next.possessionTeam, previous.ball) &&
+    inBox(next.possessionTeam, next.ball)
+  )
+    result.boxEntries++;
+  if (
+    next.ball.ownerId !== previous.ball.ownerId &&
+    next.possessionTeam &&
+    inBox(next.possessionTeam, next.ball)
+  )
+    result.boxTouches++;
+  for (const side of ['home', 'away'] as const) {
+    const beforeShape = deriveTeamShapeMetrics(previous, side),
+      nextShape = deriveTeamShapeMetrics(next, side);
+    if (!beforeShape.boxAttackers && nextShape.boxAttackers) result.boxOccupationEpisodes++;
+    if (!beforeShape.penaltySpotAttackers && nextShape.penaltySpotAttackers)
+      result.penaltySpotOccupationEpisodes++;
+    if (!beforeShape.farPostAttackers && nextShape.farPostAttackers)
+      result.farPostOccupationEpisodes++;
+    if (!beforeShape.edgeOfBoxSupport && nextShape.edgeOfBoxSupport) result.edgeSupportEpisodes++;
+    const nearPost = (state: TacticalMatchState) =>
+      state.players.some(
+        (p) =>
+          p.team === side &&
+          inBox(side, p.position) &&
+          Math.abs(p.position.y - (state.ball.y < 34 ? 27 : 41)) <= 6,
+      );
+    if (!nearPost(previous) && nearPost(next)) result.nearPostOccupationEpisodes++;
+  }
   if (previous.possessionTeam !== next.possessionTeam) {
     result.possessionChanges++;
     const spell = previous.timeSincePossessionChanged;
     result.possessionSpellDurations.push(spell);
     if (spell < 0.5) result.microSpellsUnder0_5s++;
     if (spell <= next.time - previous.time + 0.001) result.adjacentTickPossessionFlips++;
+    const cause =
+      next.scenario !== 'open_play'
+        ? 'restart'
+        : next.lastBoundaryCrossing && next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
+          ? 'pass_out'
+          : next.lastReceptionOutcome?.kind === 'heavy_touch'
+            ? 'heavy_touch'
+            : next.lastReceptionOutcome?.kind === 'failed_control'
+              ? 'failed_control'
+              : next.lastPassDiagnostic?.finalResult === 'intercepted'
+                ? 'interception'
+                : next.lastPassDiagnostic?.finalResult === 'technical_error'
+                  ? 'bad_pass'
+                  : next.recentDuel?.winnerId === next.ball.ownerId &&
+                      next.recentDuel?.resolvedAt === next.time
+                    ? 'tackle'
+                    : !previous.ball.ownerId
+                      ? 'loose_ball_claim'
+                      : 'other';
+    result.turnoverCauses[cause]++;
   }
   const action = next.latestAction;
   const newAction =
     action && (previous.latestAction !== action || previous.decisionIndex !== next.decisionIndex);
   const actionEpisodeId = action
-    ? `${next.seed}:${next.decisionIndex}:${action.actorId}:${action.type}`
+    ? `${result.benchmarkRunId}:${next.seed}:${next.decisionIndex}:${action.actorId}:${action.type}`
     : undefined;
   if (
     action &&
@@ -249,9 +387,24 @@ export const observeMatchFlow = (
     result.carries++;
     if (action.actorId === next.controlledFootballerId) result.controlled.carries++;
   }
+  if (newAction && action.type === 'cross') {
+    const actor = next.players.find((player) => player.id === action.actorId);
+    if (
+      actor &&
+      inFinalThird(actor.team, actor.position.x) &&
+      Math.abs(actor.position.y - 34) > 18
+    ) {
+      result.crossesFromAdvancedWideArea++;
+      if ((actor.team === 'home' ? 1 : -1) * (action.target.x - actor.position.x) < 5)
+        result.cutbacks++;
+    }
+  }
   const releasedPass = next.lastPassDiagnostic;
-  if (releasedPass && !result.observedPassAttemptIds.includes(releasedPass.passId)) {
-    result.observedPassAttemptIds.push(releasedPass.passId);
+  const releasedPassId = releasedPass
+    ? `${result.benchmarkRunId}:${releasedPass.passId}`
+    : undefined;
+  if (releasedPass && releasedPassId && !result.observedPassAttemptIds.includes(releasedPassId)) {
+    result.observedPassAttemptIds.push(releasedPassId);
     result.passesAttempted++;
     if (newAction && action.type === 'pass') {
       if (action.intent === 'through') result.throughBalls++;
@@ -261,6 +414,25 @@ export const observeMatchFlow = (
         if (progress > 5) result.progressivePasses++;
         else if (progress < -2) result.backwardPasses++;
         else result.lateralPasses++;
+      }
+      const receiver = next.players.find((player) => player.id === releasedPass.intendedReceiverId);
+      if (
+        receiver &&
+        ['left_back', 'right_back', 'left_wing_back', 'right_wing_back'].includes(
+          receiver.slot.position,
+        )
+      ) {
+        const relation = deriveFlankRelationship(previous, receiver);
+        const length = distance(
+          passer?.position ?? previous.ball,
+          releasedPass.predictedReceptionPoint,
+        );
+        if (relation === 'overlap') result.overlapPassAttempts++;
+        if (Math.abs(releasedPass.predictedReceptionPoint.y - 34) > 22) {
+          if (length <= 15) result.shortWideCombinations++;
+          else if (Math.abs(releasedPass.predictedReceptionPoint.y - receiver.position.y) < 5)
+            result.channelReleases++;
+        }
       }
     }
     if (releasedPass.passerId === next.controlledFootballerId) result.controlled.passesAttempted++;
@@ -295,10 +467,12 @@ export const observeMatchFlow = (
     result.controlled.touches++;
   if (
     next.lastPassDiagnostic?.finalResult &&
-    !result.observedPassResultIds.includes(next.lastPassDiagnostic.passId)
+    !result.observedPassResultIds.includes(
+      `${result.benchmarkRunId}:${next.lastPassDiagnostic.passId}`,
+    )
   ) {
     const diagnostic = next.lastPassDiagnostic;
-    result.observedPassResultIds.push(diagnostic.passId);
+    result.observedPassResultIds.push(`${result.benchmarkRunId}:${diagnostic.passId}`);
     if (diagnostic.finalResult === 'completed') {
       result.passesCompleted++;
       const edge = result.passingNetwork.find(
@@ -309,6 +483,21 @@ export const observeMatchFlow = (
       if (edge) edge.completed++;
       if (diagnostic.intendedReceiverId === next.controlledFootballerId)
         result.controlled.passesReceived++;
+      const receiver = next.players.find((player) => player.id === diagnostic.intendedReceiverId);
+      if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
+        result.overlapPassCompleted++;
+      if (receiver) {
+        const passer = next.players.find((player) => player.id === diagnostic.passerId);
+        if (
+          passer &&
+          (passer.team === 'home' ? 1 : -1) * (receiver.position.x - passer.position.x) > 5
+        ) {
+          result.threatFlow.progressiveReceptions++;
+          if (inFinalThird(receiver.team, receiver.position.x))
+            result.threatFlow.resultingFinalThirdEntries++;
+          if (inBox(receiver.team, receiver.position)) result.threatFlow.resultingBoxEntries++;
+        }
+      }
     }
     const moving =
       Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
@@ -334,12 +523,30 @@ export const observeMatchFlow = (
           : 'lane_read'
       ]++;
   }
-  if (next.lastShot && !result.observedShotIds.includes(next.lastShot.shotId)) {
+  const boundary = next.lastBoundaryCrossing;
+  if (
+    boundary &&
+    boundary !== previous.lastBoundaryCrossing &&
+    previous.ball.sourceAction === 'pass'
+  ) {
+    result.passesOutOfPlay++;
+    if (boundary.boundary.startsWith('touchline')) result.widePassesOutOfPlay++;
+    const receiver = previous.players.find(
+      (player) => player.id === previous.ball.intendedReceiverId,
+    );
+    if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
+      result.overlapPassOutOfPlay++;
+  }
+  if (
+    next.lastShot &&
+    !result.observedShotIds.includes(`${result.benchmarkRunId}:${next.lastShot.shotId}`)
+  ) {
     const shot = next.lastShot,
       shooter = next.players.find((player) => player.id === shot.shooterId);
-    result.observedShotIds.push(shot.shotId);
+    result.observedShotIds.push(`${result.benchmarkRunId}:${shot.shotId}`);
     result.shotDiagnostics.push(shot);
     result.shots++;
+    if (inFinalThird(shooter?.team ?? 'home', previous.ball.x)) result.threatFlow.resultingShots++;
     const metres = shooter
       ? distance(shooter.position, { x: shooter.team === 'home' ? 105 : 0, y: 34 })
       : 0;
@@ -375,6 +582,11 @@ export const assertTelemetryInvariants = (telemetry: MatchFlowTelemetry) => {
   for (const edge of telemetry.passingNetwork)
     if (edge.completed > edge.attempted)
       throw new Error(`Telemetry invariant failed for passing edge ${edge.passerId}.`);
+  for (const spell of telemetry.possessionSpellDurations)
+    if (spell > telemetry.canonicalMinutes * 60 + 0.001)
+      throw new Error(
+        'Telemetry invariant failed: closed possession spell exceeds segment duration.',
+      );
 };
 
 export const summarizeMatchFlowRates = (telemetry: MatchFlowTelemetry) => {

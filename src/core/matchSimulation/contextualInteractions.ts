@@ -13,6 +13,7 @@ import {
   matchActionSchema,
   playerDefensiveIntentSchema,
   playerMovementIntentSchema,
+  type MatchAction,
   type MatchPlayerState,
   type TacticalMatchState,
 } from './matchState';
@@ -112,10 +113,11 @@ export const projectContextualInteractions = (
   const actions = enumerateAvailableActions(state, actor.id);
   if (target.kind === 'goal') {
     if (target.side === actor.team) return [];
-    return asActions(
-      target,
-      actions.filter((action) => action.type === 'shot'),
-    );
+    const humanShotTypes = new Map<string, Extract<MatchAction, { type: 'shot' }>>();
+    for (const action of actions)
+      if (action.type === 'shot' && !humanShotTypes.has(action.intent))
+        humanShotTypes.set(action.intent, action);
+    return asActions(target, [...humanShotTypes.values()]);
   }
   if (target.kind === 'player') {
     if (target.playerId === actor.id)
