@@ -41,7 +41,7 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     actorId: z.string(),
     receiverId: z.string(),
     target: pitchPointSchema,
-    intent: z.enum(['support', 'progressive', 'direct', 'through']),
+    intent: z.enum(['support', 'progressive', 'direct', 'lead', 'through']),
   }),
   z.object({
     type: z.literal('shot'),

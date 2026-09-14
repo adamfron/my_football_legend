@@ -80,6 +80,34 @@ export const presentationTargetSchema = z.discriminatedUnion('kind', [
 ]);
 export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
 
+export interface ScreenSpacePlayerCandidate {
+  playerId: string;
+  x: number;
+  y: number;
+  depth: number;
+  actionable: boolean;
+}
+
+/** Deterministic minimum-size picker used when world geometry misses a small rendered player. */
+export const selectScreenSpacePlayerCandidate = (
+  candidates: ScreenSpacePlayerCandidate[],
+  pointer: { x: number; y: number },
+  radius: number,
+) =>
+  candidates
+    .map((candidate) => ({
+      ...candidate,
+      screenDistance: Math.hypot(candidate.x - pointer.x, candidate.y - pointer.y),
+    }))
+    .filter((candidate) => candidate.screenDistance <= radius)
+    .sort(
+      (a, b) =>
+        Number(b.actionable) - Number(a.actionable) ||
+        a.screenDistance - b.screenDistance ||
+        a.depth - b.depth ||
+        a.playerId.localeCompare(b.playerId),
+    )[0];
+
 export const matchCameraModeSchema = z.enum(['tactical', 'shot_aim', 'goal_replay']);
 export type MatchCameraMode = z.infer<typeof matchCameraModeSchema>;
 export const matchCameraPreferencesSchema = z.object({

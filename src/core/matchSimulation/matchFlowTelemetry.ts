@@ -57,7 +57,7 @@ const ballHoldDiagnosticSchema = z.object({
 });
 const passOutcomeDiagnosticSchema = z.object({
   passId: z.string(),
-  intent: z.enum(['support', 'progressive', 'direct', 'through']),
+  intent: z.enum(['support', 'progressive', 'direct', 'lead', 'through']),
   originThird: thirdSchema,
   length: z.number().nonnegative(),
   pressure: z.number().min(0).max(1),

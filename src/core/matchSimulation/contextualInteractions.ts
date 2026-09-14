@@ -44,9 +44,11 @@ export type ContextualInteraction = z.infer<typeof contextualInteractionSchema>;
 const passLabel = (intent: string) =>
   intent === 'through'
     ? 'pass_into_space'
-    : intent === 'progressive'
-      ? 'progressive_pass'
-      : 'pass_to_feet';
+    : intent === 'lead'
+      ? 'lead_pass'
+      : intent === 'progressive'
+        ? 'progressive_pass'
+        : 'pass_to_feet';
 const shotLabel = (intent: string) =>
   intent === 'placed' ? 'placed_shot' : intent === 'chip' ? 'chip_shot' : 'driven_shot';
 const asActions = (

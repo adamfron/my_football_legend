@@ -65,6 +65,55 @@ export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) 
     styleModifier
   );
 };
+
+/** A near-future reception point for a genuine run, distinct from a line-breaking through ball. */
+export const deriveLeadPass = (
+  state: TacticalMatchState,
+  passer: MatchPlayerState,
+  receiver: MatchPlayerState,
+) => {
+  const projection = projectPassReception(state, passer, receiver, 'lead');
+  const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
+  const desired = {
+    x: receiver.target.x - receiver.position.x,
+    y: receiver.target.y - receiver.position.y,
+  };
+  const desiredLength = Math.hypot(desired.x, desired.y);
+  const motion = speed > 0.7 ? receiver.velocity : desired;
+  const motionLength = Math.hypot(motion.x, motion.y);
+  if (motionLength < 1.2 || projection.leadDistance < 1.6) return undefined;
+  const toPasser = {
+    x: passer.position.x - receiver.position.x,
+    y: passer.position.y - receiver.position.y,
+  };
+  // A receiver running substantially back at the ball gets the ordinary feet option instead.
+  if (
+    (motion.x * toPasser.x + motion.y * toPasser.y) / motionLength >
+    0.45 * Math.hypot(toPasser.x, toPasser.y)
+  )
+    return undefined;
+  if (
+    desiredLength > 0.2 &&
+    speed > 0.7 &&
+    receiver.velocity.x * desired.x + receiver.velocity.y * desired.y < 0
+  )
+    return undefined;
+  const receiverEta = estimatePlayerArrivalTime(state, receiver, projection.releaseTarget);
+  const defenderEta = Math.min(
+    ...opponents(state, passer).map(
+      (defender) =>
+        estimatePlayerArrivalTime(state, defender, projection.releaseTarget, 'intercept')
+          .estimatedTime,
+    ),
+  );
+  if (!receiverEta.reachable || defenderEta < receiverEta.estimatedTime + 0.12) return undefined;
+  const laneRisk = opponents(state, passer).filter(
+    (defender) =>
+      distanceToSegment(defender.position, passer.position, projection.releaseTarget) < 2.5,
+  ).length;
+  if (laneRisk >= 2) return undefined;
+  return { projection, receiverEta: receiverEta.estimatedTime, defenderEta, laneRisk };
+};
 export const enumerateAvailableActions = (
   state: TacticalMatchState,
   actorId: string,
@@ -147,6 +196,15 @@ export const enumerateAvailableActions = (
         target: projection.releaseTarget,
         intent,
       });
+      const lead = deriveLeadPass(state, actor, p);
+      if (lead)
+        actions.push({
+          type: 'pass',
+          actorId,
+          receiverId: p.id,
+          target: lead.projection.releaseTarget,
+          intent: 'lead',
+        });
       if (progress > 8 && p.duty !== 'defend') {
         const space = evaluateRunSpace(state, actor, p);
         // A leading ball is an exception for a real run/space advantage, not a
@@ -278,6 +336,7 @@ export const scoreActionForAI = (
         ? 5
         : 0;
   const space = action.intent === 'through' ? evaluateRunSpace(state, actor, receiver) : undefined;
+  const lead = action.intent === 'lead' ? deriveLeadPass(state, actor, receiver) : undefined;
   const throughContext =
     action.intent === 'through'
       ? space && space.defenderArrival - space.attackerArrival >= 0.2
@@ -298,6 +357,13 @@ export const scoreActionForAI = (
     technical +
     styleIntent +
     throughContext +
+    (lead
+      ? Math.min(20, (lead.defenderEta - lead.receiverEta) * 12) -
+        lead.laneRisk * 6 +
+        Math.min(12, distance(receiver.position, action.target) * 1.2)
+      : action.intent === 'lead'
+        ? -45
+        : 0) +
     (space ? Math.max(-35, Math.min(25, space.utility)) : 0)
   );
 };
