@@ -630,13 +630,18 @@ const RunningLab = ({
     if (score > scoreRef.current) setGoalReplay([...frames]);
     scoreRef.current = score;
   }, [state, debug, replaying, opportunity, selectedTarget]);
+  const shotAimActive = Boolean(shotAim);
+  const shotAimTeam = state.players.find((player) => player.id === opportunity?.actorId)?.team;
   useEffect(() => {
     rendererRef.current?.setCameraMode(
-      replaying ? 'goal_replay' : shotAim ? 'shot_aim' : 'tactical',
+      replaying ? 'goal_replay' : shotAimActive ? 'shot_aim' : 'tactical',
       opportunity?.actorId,
-      state.players.find((player) => player.id === opportunity?.actorId)?.team,
+      shotAimTeam,
     );
-  }, [replaying, shotAim, opportunity?.actorId, state.players]);
+  }, [replaying, shotAimActive, opportunity?.actorId, shotAimTeam]);
+  useEffect(() => {
+    if (shotAim) rendererRef.current?.setGoalAimMarker(shotAim);
+  }, [shotAim]);
   useEffect(() => {
     localStorage.setItem(MATCH_LAB_CAMERA_KEY, JSON.stringify(cameraPreferences));
     rendererRef.current?.setCameraPreferences(cameraPreferences, state.controlledFootballerId);
@@ -678,6 +683,7 @@ const RunningLab = ({
   const interactionLabel = (interaction: ContextualInteraction) =>
     ({
       pass_to_feet: 'Podaj do nogi',
+      lead_pass: 'Podaj na dobieg',
       progressive_pass: 'Podanie progresywne',
       pass_into_space: 'Zagraj przed niego',
       cross: 'Dośrodkuj',
@@ -1021,6 +1027,15 @@ const RunningLab = ({
               event.clientX,
               event.clientY,
               hasShot ? opponentGoal : undefined,
+              state.players
+                .filter(
+                  (player) =>
+                    projectContextualInteractions(state, opportunity, {
+                      kind: 'player',
+                      playerId: player.id,
+                    }).length > 0,
+                )
+                .map((player) => player.id),
             );
             if (!picked) return;
             const target: PlayerInteractionTarget =
@@ -1075,7 +1090,14 @@ const RunningLab = ({
                   const intent = rendererRef.current?.pickGoalAim(event.clientX, event.clientY);
                   if (intent) setShotAim(intent);
                 }}
-                onPointerUp={(event) => event.currentTarget.releasePointerCapture(event.pointerId)}
+                onPointerUp={(event) => {
+                  if (event.currentTarget.hasPointerCapture(event.pointerId))
+                    event.currentTarget.releasePointerCapture(event.pointerId);
+                }}
+                onPointerCancel={(event) => {
+                  if (event.currentTarget.hasPointerCapture(event.pointerId))
+                    event.currentTarget.releasePointerCapture(event.pointerId);
+                }}
               />
               <div className="shot-aim__actions">
                 {projectContextualInteractions(state, opportunity, selectedTarget)

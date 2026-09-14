@@ -12,6 +12,7 @@ import {
   deriveShotAimCameraPose,
   deriveOwnedBallPose,
   matchCameraPreferencesSchema,
+  selectScreenSpacePlayerCandidate,
 } from './model';
 
 describe('tactical presentation model', () => {
@@ -94,5 +95,16 @@ describe('tactical presentation model', () => {
       true,
     );
     expect(matchCameraPreferencesSchema.safeParse({ preset: 'free', zoom: 2 }).success).toBe(false);
+  });
+  it('uses a minimum screen radius and resolves overlapping players deterministically', () => {
+    const candidates = [
+      { playerId: 'near-irrelevant', x: 101, y: 100, depth: 0.1, actionable: false },
+      { playerId: 'target-b', x: 104, y: 100, depth: 0.2, actionable: true },
+      { playerId: 'target-a', x: 104, y: 100, depth: 0.2, actionable: true },
+    ];
+    expect(selectScreenSpacePlayerCandidate(candidates, { x: 100, y: 100 }, 18)?.playerId).toBe(
+      'target-a',
+    );
+    expect(selectScreenSpacePlayerCandidate(candidates, { x: 140, y: 100 }, 18)).toBeUndefined();
   });
 });

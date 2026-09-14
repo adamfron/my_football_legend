@@ -12,6 +12,7 @@ import {
   derivePlayerAppearance,
   deriveShotAimCameraPose,
   deriveOwnedBallPose,
+  selectScreenSpacePlayerCandidate,
   type MatchCameraPreferences,
   validateRenderFrame,
 } from './model';
@@ -460,6 +461,7 @@ export class TacticalPitchRenderer {
     clientX: number,
     clientY: number,
     goalIntentSide?: 'home' | 'away',
+    actionablePlayerIds: readonly string[] = [],
   ): PresentationTarget | undefined {
     const rect = this.renderer.domElement.getBoundingClientRect();
     const pointer = new THREE.Vector2(
@@ -479,13 +481,35 @@ export class TacticalPitchRenderer {
       const point = worldToTactical(this.ball.position);
       return { kind: 'ball', point };
     }
-    const playerHit = this.raycaster.intersectObjects([...this.playerPickers.values()])[0];
+    const actionable = new Set(actionablePlayerIds);
+    const playerHits = this.raycaster.intersectObjects([...this.playerPickers.values()]);
+    const playerHit =
+      playerHits.find((hit) => {
+        let object: THREE.Object3D | null = hit.object;
+        while (object && !object.userData.playerId) object = object.parent;
+        return object?.userData.playerId && actionable.has(String(object.userData.playerId));
+      }) ?? playerHits[0];
     if (playerHit) {
       let object: THREE.Object3D | null = playerHit.object;
       while (object && !object.userData.playerId) object = object.parent;
       if (object?.userData.playerId)
         return { kind: 'player', playerId: String(object.userData.playerId) };
     }
+    const fallback = selectScreenSpacePlayerCandidate(
+      [...this.playerMeshes.entries()].map(([playerId, mesh]) => {
+        const projected = mesh.position.clone().project(this.camera);
+        return {
+          playerId,
+          x: rect.left + ((projected.x + 1) / 2) * rect.width,
+          y: rect.top + ((1 - projected.y) / 2) * rect.height,
+          depth: projected.z,
+          actionable: actionable.has(playerId),
+        };
+      }),
+      { x: clientX, y: clientY },
+      18,
+    );
+    if (fallback) return { kind: 'player', playerId: fallback.playerId };
     const pitchHit = this.raycaster.intersectObject(this.pitch)[0];
     if (!pitchHit) return undefined;
     const point = worldToTactical(pitchHit.point);
@@ -579,7 +603,7 @@ export class TacticalPitchRenderer {
   }
   setCameraPreferences(preferences: MatchCameraPreferences, focusedPlayerId?: string) {
     this.cameraPreferences = preferences;
-    this.tacticalCamera.zoom = 0.8 + preferences.zoom * 0.8;
+    this.tacticalCamera.zoom = 0.75 + preferences.zoom * 1.5;
     this.tacticalCamera.updateProjectionMatrix();
     if (this.cameraMode === 'tactical') this.setCameraMode('tactical', focusedPlayerId);
   }

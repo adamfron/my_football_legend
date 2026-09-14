@@ -34,15 +34,17 @@ export const receptionOutcomeSchema = z.object({
 });
 export type ReceptionOutcome = z.infer<typeof receptionOutcomeSchema>;
 
-const expectedPassSpeed = (intent: 'support' | 'progressive' | 'direct') =>
-  intent === 'support' ? 21 : intent === 'progressive' ? 24 : 27;
+export type ProjectedPassIntent = 'support' | 'progressive' | 'direct' | 'lead';
+
+const expectedPassSpeed = (intent: ProjectedPassIntent) =>
+  intent === 'support' ? 21 : intent === 'lead' ? 23 : intent === 'progressive' ? 24 : 27;
 
 /** Pure meeting-point estimate for ordinary passes. Through balls retain reachable-space semantics. */
 export const projectPassReception = (
   state: TacticalMatchState,
   passer: MatchPlayerState,
   receiver: MatchPlayerState,
-  intent: 'support' | 'progressive' | 'direct',
+  intent: ProjectedPassIntent,
 ): PassReceptionProjection => {
   const a = passer.profile.attributes;
   const pressure = Math.max(0, Math.min(1, state.currentPressure));
@@ -73,11 +75,18 @@ export const projectPassReception = (
       : { x: 0, y: 0 };
   const motion = velocitySpeed > 0.35 ? receiver.velocity : tacticalVelocity;
   const leadStrength =
-    (intent === 'support' ? 0.48 : intent === 'progressive' ? 0.78 : 0.68) * read;
+    (intent === 'support'
+      ? 0.48
+      : intent === 'lead'
+        ? 0.92
+        : intent === 'progressive'
+          ? 0.78
+          : 0.68) * read;
   let arrival = distance(passer.position, target) / speed;
   for (let iteration = 0; iteration < 2; iteration += 1) {
     const activeTime = Math.max(0, arrival - awarenessDelay * 0.45);
-    const maxLead = intent === 'support' ? 3.2 : intent === 'progressive' ? 8 : 10;
+    const maxLead =
+      intent === 'support' ? 3.2 : intent === 'lead' ? 9 : intent === 'progressive' ? 8 : 10;
     const scale = Math.min(
       maxLead / Math.max(0.01, Math.hypot(motion.x, motion.y) * activeTime),
       leadStrength,

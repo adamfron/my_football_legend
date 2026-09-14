@@ -10,58 +10,57 @@
 
 Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane.
 
-## NEXT — autorytatywna kolejność DEV Single Match Lab
+## Autorytatywna kolejność rozwoju Single Match
 
-- **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
-- **PR106 — Contextual Player Decision Vertical Slice v1 — ukończony.** Sterowanie graczem
-  przechwytuje wyłącznie wybór intencji: człowiek i NPC różnią się tym, kto wybiera intencję,
-  a nie sposobem rozstrzygnięcia futbolu.
-- **PR107 — Player Decision & Action Lifecycle Stabilization — ukończony.** Stabilizacja wspólnej
-  bramki decyzji, wykonania prowadzenia piłki i fizycznego dojścia pressingu do pojedynku.
-- **PR108 — Target-First Contextual Interaction & Role-Aware Decision Relevance — ukończony.**
-- **PR109 — Decision Context Hardening & Outcome Attribution v1 — ukończony.**
-- **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — ukończony.**
-- **PR111 — Open-Play Role Relationships Calibration — ukończony.**
-- **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
-- **PR113 — Match Lab Crash Safety & Renderer Initialization — ukończony.**
-- **PR114–PR117 — ukończone:** utwardzenie granic i przestrzeni, a następnie podania
-  uwzględniające ruch odbiorcy i pierwsza wersja prezentacji meczu.
-- **PR118 — ukończony:** fizyczna osiągalność przechwytu i przekazanie sprawczości
-  kontrolowanemu zawodnikowi po akcji.
-- **PR119–PR122 — ukończone:** kalibracja przepływu meczu, cykl części, sprawczość bramkarza,
-  stabilność posiadania i relacje na skrzydle.
-- **PR123 — bieżący:** zajmowanie ostatniej tercji, kombinacje skrzydłowe i integralność
-  interakcji.
-- **PR124 — następny:** prezentacja meczu inspirowana Windows 95, powtórki i dopracowanie animacji.
+### COMPLETED
 
-- **PR86 — animowany sandbox renderera taktycznego — ukończony.**
-- **PR87 — DEV Single Match Lab — ukończony.** Laboratorium uruchamia efemeryczny mecz dwóch
-  kanonicznych klubów i nie dotyka zapisu kariery.
-- **PR97 — Match Time & Kinematics v1 — ukończony.**
-- **PR98 — Ball Flight & Contact v1 — ukończony.**
-- **PR99 — Match Debug Export v1 — ukończony.** Kanoniczny trace i opcjonalny zapis obrazu
-  usprawniają zgłaszanie problemów przed dalszą kalibracją silnika.
-- **PR100 — Match Debug Export UX & reusable pitch capture — ukończony.** Automatyczny bufor
-  obrazu boiska, wielokrotny capture i jawny zapis pakietu upraszczają diagnostykę.
-- **PR101 — Match Debug Capture Reliability & Architecture Cleanup — ukończony.**
-- **PR102 — Match Moment / Situation Evaluator v1 — ukończony.** Czysta, deterministyczna
-  obserwacja stanu kanonicznego klasyfikuje znaczenie sytuacji bez uruchamiania decyzji gracza.
-- **PR103 — Tactical Situations & Set Pieces calibration v2 + Loose Ball Dynamics v1 — ukończony.**
-- **PR104 — Restart Geometry, Offside & Spatial Play Hardening — ukończony.**
-- **PR105 — Boundary Restarts & Aerial Contact Hardening — ukończony.**
-- **PR106 — contextual player decision vertical slice — ukończony.**
-- **PR107 — player decision & action lifecycle stabilization — ukończony.**
-- **PR108 — target-first contextual interaction & role-aware decision relevance — ukończony.**
-- **PR109 — decision context hardening & outcome attribution v1 — ukończony.**
-- **PR110 — Empirical Positioning Benchmark v1 + Decision Cadence Calibration — ukończony.**
-- **PR111 — Open-Play Role Relationships Calibration — ukończony.**
-- **PR112 — Match Lab Reliability & Match-Flow Hardening — ukończony.**
-- **PR113 — Match Lab Crash Safety & Renderer Initialization — ukończony.**
-- **PR114–PR118 — ukończone.**
-- **PR119–PR122 — ukończone.**
-- **PR123 — bieżący:** zajmowanie ostatniej tercji, kombinacje skrzydłowe i integralność
-  interakcji.
-- **PR124 — następny:** prezentacja meczu inspirowana Windows 95, powtórki i dopracowanie animacji.
+PR105–PR124 są ukończone. W szczególności:
+
+- **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
+- **PR119:** kalibracja przepływu meczu, strzałów i xG.
+- **PR120:** części meczu, statystyki zawodnika i fundament powtórek.
+- **PR121:** sprawczość bramkarza i celowanie na płaszczyźnie bramki.
+- **PR122:** stabilność posiadania i relacje na skrzydle.
+- **PR123:** zajmowanie ostatniej tercji, kombinacje skrzydłowe i integralność interakcji.
+- **PR124:** telemetria posiadania, fizyczne prowadzenie, presety/zoom kamery i prezentacja piłki prowadzonej.
+
+### CURRENT
+
+**PR125 — Contextual Passing, Interaction UX & Possession Survival Polish**
+
+Obejmuje funkcjonalne przeciąganie celu strzału, większe cele wyboru w przestrzeni ekranu,
+mocniejszy zoom taktyczny, kanoniczne `lead` / „Podaj na dobieg”, audyt przeżywalności
+posiadania po ciężkim przyjęciu i końcową kalibrację grywalności bocznych obrońców.
+
+### NEXT
+
+**PR126 — Windows-95 Match Presentation, Radial Context Menus, Replay & Animation v1**
+
+Plan: prezentacja meczu inspirowana Windows 95; lokalne/radialne menu wokół klikniętego celu;
+akcje strzału wokół wybranego celu bramkowego; filmowe powtórki; sygnały biegu, kopnięcia,
+pierwszego kontaktu i przyjęcia; interwencje bramkarza (rzut, chwyt, parowanie); prezentacja
+stałych fragmentów; prawdziwy oburęczny wyrzut z autu; podstawowe sygnały dośrodkowań i główek;
+bogatsze modele graczy; proporcje z kanonicznego wzrostu; późniejsza sylwetka z BMI i siły
+(większa siła przy tym samym BMI oznacza bardziej umięśnioną prezentację, mniejsza —
+miększą/cięższą); stroje i identyfikacja klubów.
+
+### AFTER PR126 — systemy symulacji meczu
+
+- **Kontekst stanu meczu:** zmęczenie, zmiany, wpływ wyniku na taktykę i ryzyko w końcówce.
+- **Przepisy:** faule, żółte/czerwone kartki, korzyść, karne z fauli, VAR i czas doliczony.
+- **Występ zawodnika:** końcowa ocena liczbowa z kanonicznych dowodów akcji/wyników; osobno
+  decyzja i wykonanie; kreacja strzałów, progresja i wkład defensywny; bez nagrody za sam wybór
+  dobrze wyglądającego przycisku.
+- **Integracja kariery:** dopiero po dojrzeniu pętli Single Match: Single Match Lab → kanoniczny
+  mecz kariery → grywalne ważne spotkania → ten sam resolver → kanoniczne statystyki →
+  konsekwencje fitnessu, morale i historii.
+- **Późniejsze systemy:** instrukcje trenera; odwróceni boczni obrońcy i bogatsze role; wykonawcy
+  stałych fragmentów; rozwój terminarza/rozgrywek, puchary krajowe, Europa i reprezentacje.
+
+**Rutynowy futbol jest symulowany. Znaczący futbol jest rozgrywany.**
+
+**Single Match Lab → kanoniczna migawka → znacząca decyzja gracza → wspólny resolver →
+fizyczny wynik → nowa migawka.**
 
 Materiał kalibracyjny udostępniamy zależnie od skali: szczegółowy incydent jako istniejący JSON
 ±10 s (oraz WebM, gdy istotny jest ruch), a wielominutowy trend zachowania jako kompaktowe
@@ -369,7 +368,7 @@ posiadania/piłki bezpańskiej.
 obramowanie, lokalne bloki, model zasięgu bramkarza oraz kanoniczne odbitki domykają wspólną pętlę
 strzału także dla główek. Diagnostyka Single Match Lab pokazuje wynik resolvera, nie tworzy go.
 
-**Bezpośrednia dalsza kolejność:** (1) rozdzielenie Match Time & Kinematics od czasu prezentacji,
+**Historyczna kolejność (zrealizowana lub zastąpiona):** (1) rozdzielenie Match Time & Kinematics od czasu prezentacji,
 (2) bufor powtórki 0,5×, (3) Match Moment / Situation Evaluator, (4) kalibracja Tactical Situations
 & Set Pieces v2, (5) vertical slice kontekstowych decyzji zawodnika. Nadal odłożone są pełna
 fizyka piłki, menu kontekstowe, integracja meczu kariery oraz ogólna kalibracja zegara meczu.
@@ -380,7 +379,7 @@ strzały, reakcje bramkarza i czasowy spalony; (2) indywidualne tendencje taktyc
 dojrzeniu kanonicznego zestawu akcji — kontekstowe menu gracza jako UI nad tym samym zbiorem.
 Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozszerzenia rozgrywek.
 
-### Bieżący rozwój meczu — PR117–PR125
+### Historia rozwoju meczu — PR117–PR124 (zrealizowana)
 
 - **PR117 — ukończony:** podania uwzględniające ruch odbiorcy i Tactical Match Presentation v1.
 - **PR118 — ukończony:** fizyczna osiągalność przechwytu, przekazanie sprawczości po akcji gracza
@@ -394,11 +393,11 @@ Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozsze
   skrzydłowym.
 - **PR123 — ukończony:** zajmowanie ostatniej tercji, kombinacje skrzydłowe i integralność
   interakcji.
-- **PR124 — bieżący:** rytm i przeżywalność posiadania, fizyczna semantyka prowadzenia oraz
+- **PR124 — ukończony:** rytm i przeżywalność posiadania, fizyczna semantyka prowadzenia oraz
   pierwsze preferencje kamery meczu.
-- **PR125 — następny:** prezentacja inspirowana Windows 95, lokalne/radialne menu kontekstowe,
-  filmowe powtórki, podstawowe sygnały biegu, kopnięcia, przyjęcia i stałych fragmentów, prawdziwy
-  oburęczny wyrzut z autu, bogatsze modele zawodników, projekcja sylwetki oraz identyfikacja strojów.
+
+Dalszą, jedyną autorytatywną kolejność opisuje sekcja na początku dokumentu.
+
 - **Później:** zmęczenie, zmiany i kontekst wyniku; faule, kartki, VAR i czas doliczony;
   integracja meczu kariery; agregacja oceny meczowej; stroje, herby i logotypy; profile siły Elo
   oraz polityki transferowej klubów.

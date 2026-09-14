@@ -3,6 +3,7 @@ import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWo
 import { createSingleMatchSession } from '../singleMatch';
 import {
   createTacticalMatch,
+  deriveLeadPass,
   deriveFinalThirdOccupations,
   enumerateAvailableActions,
   projectPassReception,
@@ -77,5 +78,48 @@ describe('PR123 final-third and interaction integrity', () => {
     const projection = projectPassReception(state, passer, receiver, 'progressive');
     expect(projection.releaseTarget.x).toBeGreaterThan(receiver.position.x);
     expect(projection.releaseTarget.y).toBeGreaterThan(0.5);
+  });
+
+  it.each(['home', 'away'] as const)(
+    'offers a bounded lead point for a moving %s runner',
+    (side) => {
+      const state = makeState();
+      const passer = state.players.find(
+        (player) => player.team === side && player.profile.primaryPosition !== 'goalkeeper',
+      )!;
+      const receiver = state.players.find(
+        (player) =>
+          player.team === side &&
+          player.id !== passer.id &&
+          player.profile.primaryPosition !== 'goalkeeper',
+      )!;
+      const direction = side === 'home' ? 1 : -1;
+      passer.position = { x: side === 'home' ? 45 : 60, y: 30 };
+      receiver.position = { x: passer.position.x + direction * 10, y: 18 };
+      receiver.target = { x: receiver.position.x + direction * 18, y: 12 };
+      receiver.velocity = { x: direction * 5, y: -1.5 };
+      for (const opponent of state.players.filter((player) => player.team !== side))
+        opponent.position = { x: side === 'home' ? 20 : 85, y: 50 };
+      const lead = deriveLeadPass(state, passer, receiver);
+      expect(lead).toBeDefined();
+      expect(direction * (lead!.projection.releaseTarget.x - receiver.position.x)).toBeGreaterThan(
+        0,
+      );
+      expect(lead!.projection.releaseTarget.x).toBeGreaterThanOrEqual(0);
+      expect(lead!.projection.releaseTarget.x).toBeLessThanOrEqual(105);
+      expect(lead!.projection.releaseTarget.y).toBeGreaterThanOrEqual(0);
+      expect(lead!.projection.releaseTarget.y).toBeLessThanOrEqual(68);
+    },
+  );
+
+  it('does not duplicate a feet pass for a stationary receiver', () => {
+    const state = makeState();
+    const passer = state.players.find((player) => player.id === state.ball.ownerId)!;
+    const receiver = state.players.find(
+      (player) => player.team === passer.team && player.id !== passer.id,
+    )!;
+    receiver.velocity = { x: 0, y: 0 };
+    receiver.target = { ...receiver.position };
+    expect(deriveLeadPass(state, passer, receiver)).toBeUndefined();
   });
 });

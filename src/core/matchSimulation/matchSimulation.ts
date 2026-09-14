@@ -204,6 +204,23 @@ const changePossession = (
         : {}),
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
+    if (reception?.kind === 'heavy_touch') {
+      const dx =
+        (reception.resultingPoint?.x ?? reception.contactPoint.x) - reception.contactPoint.x;
+      const dy =
+        (reception.resultingPoint?.y ?? reception.contactPoint.y) - reception.contactPoint.y;
+      // Heavy means unstable control, not an immediate award to either team. The ordinary loose-
+      // ball arrival race now decides whether the receiver, a teammate, or an opponent claims it.
+      const { receptionPreparation: _resolvedReception, ...heavyTouchState } = next;
+      void _resolvedReception;
+      return makeLoose(
+        {
+          ...heavyTouchState,
+          ball: { ...next.ball, secondBallPriorityIds: [ownerId] },
+        },
+        { x: dx * 1.35, y: dy * 1.35 },
+      );
+    }
     if (state.pendingReceptionIntent?.actorId === ownerId) {
       const { pendingReceptionIntent, ...ready } = next;
       void pendingReceptionIntent;
