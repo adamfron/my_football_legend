@@ -38,6 +38,54 @@ const passEdgeSchema = z.object({
   attempted: z.number().int().nonnegative(),
   completed: z.number().int().nonnegative(),
 });
+const thirdSchema = z.enum(['defensive', 'middle', 'final']);
+const actionTempoSampleSchema = z.object({
+  team: z.enum(['home', 'away']),
+  third: thirdSchema,
+  phase: z.string(),
+  kind: z.enum(['team_action', 'pass']),
+  interval: z.number().nonnegative(),
+});
+const ballHoldDiagnosticSchema = z.object({
+  playerId: z.string(),
+  duration: z.number().nonnegative(),
+  third: thirdSchema,
+  pressureBand: z.enum(['low', 'medium', 'high']),
+  role: z.string(),
+  phase: z.string(),
+  terminalAction: z.string(),
+});
+const passOutcomeDiagnosticSchema = z.object({
+  passId: z.string(),
+  intent: z.enum(['support', 'progressive', 'direct', 'through']),
+  originThird: thirdSchema,
+  length: z.number().nonnegative(),
+  pressure: z.number().min(0).max(1),
+  defenderEtaAdvantage: z.number(),
+  outcome: z.enum([
+    'completed',
+    'intercepted',
+    'failed_reception',
+    'out_of_play',
+    'unclaimed',
+    'technical_error',
+  ]),
+});
+const possessionSpellDiagnosticSchema = z.object({
+  team: z.enum(['home', 'away']),
+  startedAt: z.number().nonnegative(),
+  endedAt: z.number().nonnegative(),
+  duration: z.number().nonnegative(),
+  startThird: thirdSchema,
+  endThird: thirdSchema,
+  startPhase: z.string(),
+  endPhase: z.string(),
+  passesAttempted: z.number().int().nonnegative(),
+  passesCompleted: z.number().int().nonnegative(),
+  carries: z.number().int().nonnegative(),
+  maxFieldProgress: z.number(),
+  turnoverCause: z.string().optional(),
+});
 export const matchFlowTelemetrySchema = z.object({
   benchmarkRunId: z.string().min(1),
   canonicalMinutes: z.number().nonnegative(),
@@ -68,6 +116,21 @@ export const matchFlowTelemetrySchema = z.object({
     z.number().int().nonnegative(),
   ),
   possessionSpellDurations: z.array(z.number().nonnegative()),
+  possessionSpells: z.array(possessionSpellDiagnosticSchema),
+  actionTempoSamples: z.array(actionTempoSampleSchema),
+  ballHolds: z.array(ballHoldDiagnosticSchema),
+  passOutcomes: z.array(passOutcomeDiagnosticSchema),
+  observerState: z.object({
+    spellStartedAt: z.number(),
+    spellStartThird: thirdSchema,
+    spellStartPhase: z.string(),
+    spellPassAttempts: z.number().int(),
+    spellPassCompletions: z.number().int(),
+    spellCarries: z.number().int(),
+    maxProgress: z.number(),
+    lastActionAt: z.number().optional(),
+    lastPassAt: z.number().optional(),
+  }),
   microSpellsUnder0_5s: z.number().int().nonnegative(),
   adjacentTickPossessionFlips: z.number().int().nonnegative(),
   backwardPasses: z.number().int().nonnegative(),
@@ -188,6 +251,19 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
       other: 0,
     },
     possessionSpellDurations: [],
+    possessionSpells: [],
+    actionTempoSamples: [],
+    ballHolds: [],
+    passOutcomes: [],
+    observerState: {
+      spellStartedAt: 0,
+      spellStartThird: 'middle',
+      spellStartPhase: 'positional_attack',
+      spellPassAttempts: 0,
+      spellPassCompletions: 0,
+      spellCarries: 0,
+      maxProgress: 0,
+    },
     microSpellsUnder0_5s: 0,
     adjacentTickPossessionFlips: 0,
     backwardPasses: 0,
@@ -295,6 +371,16 @@ export const observeMatchFlow = (
   const result = structuredClone(telemetry);
   result.canonicalMinutes = next.time / 60;
   const dt = Math.max(0, next.time - previous.time);
+  const third = (side: 'home' | 'away', x: number) => {
+    const progress = side === 'home' ? x : 105 - x;
+    return progress < 35
+      ? ('defensive' as const)
+      : progress < 70
+        ? ('middle' as const)
+        : ('final' as const);
+  };
+  const progress = next.possessionTeam === 'home' ? next.ball.x : 105 - next.ball.x;
+  result.observerState.maxProgress = Math.max(result.observerState.maxProgress, progress);
   const inFinalThird = (side: 'home' | 'away', x: number) => (side === 'home' ? x >= 70 : x <= 35);
   const inBox = (side: 'home' | 'away', point: { x: number; y: number }) =>
     (side === 'home' ? point.x >= 88.5 : point.x <= 16.5) && point.y >= 13.8 && point.y <= 54.2;
@@ -362,6 +448,30 @@ export const observeMatchFlow = (
                       ? 'loose_ball_claim'
                       : 'other';
     result.turnoverCauses[cause]++;
+    result.possessionSpells.push({
+      team: previous.possessionTeam,
+      startedAt: result.observerState.spellStartedAt,
+      endedAt: next.time,
+      duration: spell,
+      startThird: result.observerState.spellStartThird,
+      endThird: third(previous.possessionTeam, previous.ball.x),
+      startPhase: result.observerState.spellStartPhase,
+      endPhase: previous.teams[previous.possessionTeam].phase,
+      passesAttempted: result.observerState.spellPassAttempts,
+      passesCompleted: result.observerState.spellPassCompletions,
+      carries: result.observerState.spellCarries,
+      maxFieldProgress: result.observerState.maxProgress,
+      turnoverCause: cause,
+    });
+    result.observerState = {
+      spellStartedAt: next.time,
+      spellStartThird: third(next.possessionTeam, next.ball.x),
+      spellStartPhase: next.teams[next.possessionTeam].phase,
+      spellPassAttempts: 0,
+      spellPassCompletions: 0,
+      spellCarries: 0,
+      maxProgress: progress,
+    };
   }
   const action = next.latestAction;
   const newAction =
@@ -386,6 +496,21 @@ export const observeMatchFlow = (
   if (newAction && action.type === 'carry') {
     result.carries++;
     if (action.actorId === next.controlledFootballerId) result.controlled.carries++;
+    result.observerState.spellCarries++;
+  }
+  if (newAction && action) {
+    const actor = next.players.find((player) => player.id === action.actorId);
+    if (actor) {
+      if (result.observerState.lastActionAt !== undefined)
+        result.actionTempoSamples.push({
+          team: actor.team,
+          third: third(actor.team, actor.position.x),
+          phase: next.teams[actor.team].phase,
+          kind: 'team_action',
+          interval: next.time - result.observerState.lastActionAt,
+        });
+      result.observerState.lastActionAt = next.time;
+    }
   }
   if (newAction && action.type === 'cross') {
     const actor = next.players.find((player) => player.id === action.actorId);
@@ -406,14 +531,34 @@ export const observeMatchFlow = (
   if (releasedPass && releasedPassId && !result.observedPassAttemptIds.includes(releasedPassId)) {
     result.observedPassAttemptIds.push(releasedPassId);
     result.passesAttempted++;
+    result.observerState.spellPassAttempts++;
     if (newAction && action.type === 'pass') {
       if (action.intent === 'through') result.throughBalls++;
       const passer = next.players.find((player) => player.id === action.actorId);
       if (passer) {
+        if (result.observerState.lastPassAt !== undefined)
+          result.actionTempoSamples.push({
+            team: passer.team,
+            third: third(passer.team, passer.position.x),
+            phase: next.teams[passer.team].phase,
+            kind: 'pass',
+            interval: next.time - result.observerState.lastPassAt,
+          });
+        result.observerState.lastPassAt = next.time;
         const progress = (passer.team === 'home' ? 1 : -1) * (action.target.x - passer.position.x);
         if (progress > 5) result.progressivePasses++;
         else if (progress < -2) result.backwardPasses++;
         else result.lateralPasses++;
+        result.passOutcomes.push({
+          passId: releasedPass.passId,
+          intent: action.intent,
+          originThird: third(passer.team, passer.position.x),
+          length: distance(passer.position, releasedPass.predictedReceptionPoint),
+          pressure: previous.currentPressure,
+          defenderEtaAdvantage:
+            releasedPass.receiverArrivalEstimate - releasedPass.bestDefenderArrivalEstimate,
+          outcome: 'unclaimed',
+        });
       }
       const receiver = next.players.find((player) => player.id === releasedPass.intendedReceiverId);
       if (
@@ -475,6 +620,7 @@ export const observeMatchFlow = (
     result.observedPassResultIds.push(`${result.benchmarkRunId}:${diagnostic.passId}`);
     if (diagnostic.finalResult === 'completed') {
       result.passesCompleted++;
+      result.observerState.spellPassCompletions++;
       const edge = result.passingNetwork.find(
         (item) =>
           item.passerId === diagnostic.passerId &&
@@ -502,6 +648,20 @@ export const observeMatchFlow = (
     const moving =
       Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
       0.5;
+    const passOutcome = result.passOutcomes.find((item) => item.passId === diagnostic.passId);
+    if (passOutcome)
+      passOutcome.outcome =
+        diagnostic.finalResult === 'completed'
+          ? 'completed'
+          : diagnostic.finalResult === 'intercepted'
+            ? 'intercepted'
+            : diagnostic.finalResult === 'technical_error'
+              ? 'technical_error'
+              : diagnostic.receptionOutcome === 'failed_control'
+                ? 'failed_reception'
+                : next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
+                  ? 'out_of_play'
+                  : 'unclaimed';
     if (moving && diagnostic.finalResult === 'completed') result.movingReceiverCompletions++;
     else if (moving) result.movingReceiverFailures++;
     if (diagnostic.actualContactPoint) {
@@ -522,6 +682,25 @@ export const observeMatchFlow = (
           ? 'receiver_late'
           : 'lane_read'
       ]++;
+  }
+  if (previous.ball.ownerId && previous.ball.ownerId !== next.ball.ownerId) {
+    const player = previous.players.find((item) => item.id === previous.ball.ownerId);
+    if (player)
+      result.ballHolds.push({
+        playerId: player.id,
+        duration: Math.max(0, next.time - (previous.ballOwnershipStartedAt ?? previous.time)),
+        third: third(player.team, player.position.x),
+        pressureBand:
+          previous.currentPressure < 0.33
+            ? 'low'
+            : previous.currentPressure < 0.67
+              ? 'medium'
+              : 'high',
+        role: player.slot.position,
+        phase: previous.teams[player.team].phase,
+        terminalAction:
+          next.latestAction?.actorId === player.id ? next.latestAction.type : 'dispossession',
+      });
   }
   const boundary = next.lastBoundaryCrossing;
   if (

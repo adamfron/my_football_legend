@@ -441,16 +441,50 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
   }
   if (state.ballCarrierIntent) {
     const carrier = state.players.find((player) => player.id === state.ballCarrierIntent!.actorId);
+    const intent = state.ballCarrierIntent;
+    if (
+      carrier &&
+      distance(carrier.position, intent.target) <
+        distance(intent.closestPointReached, intent.target)
+    )
+      state = {
+        ...state,
+        ballCarrierIntent: { ...intent, closestPointReached: { ...carrier.position } },
+      };
     if (
       !carrier ||
       state.ball.ownerId !== carrier.id ||
-      state.time >= state.ballCarrierIntent.expiresAt ||
-      distance(carrier.position, state.ballCarrierIntent.target) <= 0.75
+      state.time >= intent.expiresAt ||
+      distance(carrier.position, intent.target) <= 0.75
     ) {
+      const reason =
+        !carrier || state.ball.ownerId !== carrier.id
+          ? state.recentDuel?.resolvedAt === state.time
+            ? ('contact' as const)
+            : ('ball_lost' as const)
+          : distance(carrier.position, intent.target) <= 0.75
+            ? ('target_reached' as const)
+            : ('safety_timeout' as const);
       const { ballCarrierIntent: _ended, ...withoutIntent } = state;
       void _ended;
       state = {
         ...withoutIntent,
+        ...(intent.humanSelected
+          ? {
+              lastCarryDiagnostic: {
+                actorId: intent.actorId,
+                requestedTarget: intent.target,
+                startPosition: intent.startPosition,
+                estimatedArrival: intent.estimatedArrival,
+                closestPointReached: intent.closestPointReached,
+                distanceRemaining: carrier
+                  ? distance(carrier.position, intent.target)
+                  : distance(intent.closestPointReached, intent.target),
+                terminationReason: reason,
+                actualDuration: state.time - intent.startedAt,
+              },
+            }
+          : {}),
         ...(carrier &&
         carrier.id === state.controlledFootballerId &&
         state.ball.ownerId === carrier.id

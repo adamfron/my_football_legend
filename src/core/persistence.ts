@@ -23,6 +23,7 @@ export type PersistedCareerState = Omit<
 
 const PERSISTED_CAREER_KEYS = [
   'seed',
+  'presentationPreferences',
   'difficulty',
   'currentSeason',
   'careerSeasonNumber',

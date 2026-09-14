@@ -6,6 +6,7 @@ import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
 import { captureOffsideSnapshot } from './offside';
 import { projectPassReception, receptionPreparationSchema } from './passReception';
+import { estimatePlayerArrivalTime } from './playerArrival';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -170,7 +171,21 @@ export const scoreActionForAI = (
   const actor = state.players.find((p) => p.id === actorId)!;
   const style = state.teams[actor.team].style;
   const underPressure = pressure(state, actor);
-  if (action.type === 'hold') return 25 + (style === 'possession' ? 15 : 0) - underPressure * 18;
+  if (action.type === 'hold') {
+    const fieldProgress = fieldValue(actor.position, actor.team);
+    const scanningContext =
+      state.teams[actor.team].phase === 'positional_attack' &&
+      fieldProgress < 70 &&
+      underPressure < 0.38;
+    const scanningQuality =
+      (actor.profile.attributes.gameReading + actor.profile.attributes.composure) / 20;
+    return (
+      25 +
+      (style === 'possession' ? 15 : 0) +
+      (scanningContext ? 8 + scanningQuality : 0) -
+      underPressure * (scanningContext ? 30 : 18)
+    );
+  }
   if (action.type === 'carry')
     return (
       18 +
@@ -357,7 +372,8 @@ export const resolveMatchAction = (
       decisionIndex: state.decisionIndex + 1,
       ...(restart ? { restart } : {}),
     };
-  if (action.type === 'carry')
+  if (action.type === 'carry') {
+    const estimatedArrival = estimatePlayerArrivalTime(state, actor, action.target).estimatedTime;
     return {
       ...baseState,
       ballCarrierIntent: {
@@ -365,7 +381,12 @@ export const resolveMatchAction = (
         type: 'carry' as const,
         target: action.target,
         startedAt: state.time,
-        expiresAt: state.time + 2.4,
+        estimatedArrival,
+        startPosition: { ...actor.position },
+        closestPointReached: { ...actor.position },
+        humanSelected: source === 'human_selected',
+        // Arrival is the primary lifetime; this bounded margin is only a safety net.
+        expiresAt: state.time + Math.min(12, Math.max(1.8, estimatedArrival + 1.25)),
       },
       currentAction: action,
       latestAction: action,
@@ -376,6 +397,7 @@ export const resolveMatchAction = (
       decisionIndex: state.decisionIndex + 1,
       ...(restart ? { restart } : {}),
     };
+  }
   if (action.type === 'shot') {
     const shot = resolveCanonicalShot(
       {

@@ -94,6 +94,10 @@ describe('player decision lifecycle', () => {
       opponent.position = { x: 20, y: 60 };
     const target = { x: actor.position.x + 8, y: actor.position.y + 3 };
     let carried = resolveMatchAction(state, { type: 'carry', actorId: actor.id, target });
+    expect(carried.ballCarrierIntent!.expiresAt - carried.time).toBeGreaterThan(
+      carried.ballCarrierIntent!.estimatedArrival,
+    );
+    expect(carried.ballCarrierIntent!.target).toEqual(target);
     const startDistance = Math.hypot(target.x - actor.position.x, target.y - actor.position.y);
     delete carried.controlledFootballerId;
     for (let index = 0; index < 40; index += 1) carried = stepTacticalMatch(carried, 0.025);
