@@ -51,6 +51,12 @@ export const matchFlowTelemetrySchema = z.object({
   failedSaves: z.number().int().nonnegative(),
   noChanceGoals: z.number().int().nonnegative(),
   possessionChanges: z.number().int().nonnegative(),
+  possessionSpellDurations: z.array(z.number().nonnegative()),
+  microSpellsUnder0_5s: z.number().int().nonnegative(),
+  adjacentTickPossessionFlips: z.number().int().nonnegative(),
+  backwardPasses: z.number().int().nonnegative(),
+  lateralPasses: z.number().int().nonnegative(),
+  progressivePasses: z.number().int().nonnegative(),
   passesAttempted: z.number().int().nonnegative(),
   passesCompleted: z.number().int().nonnegative(),
   throughBalls: z.number().int().nonnegative(),
@@ -129,6 +135,12 @@ export const createMatchFlowTelemetry = (): MatchFlowTelemetry =>
     failedSaves: 0,
     noChanceGoals: 0,
     possessionChanges: 0,
+    possessionSpellDurations: [],
+    microSpellsUnder0_5s: 0,
+    adjacentTickPossessionFlips: 0,
+    backwardPasses: 0,
+    lateralPasses: 0,
+    progressivePasses: 0,
     passesAttempted: 0,
     passesCompleted: 0,
     throughBalls: 0,
@@ -206,7 +218,13 @@ export const observeMatchFlow = (
 ): MatchFlowTelemetry => {
   const result = structuredClone(telemetry);
   result.canonicalMinutes = next.time / 60;
-  if (previous.possessionTeam !== next.possessionTeam) result.possessionChanges++;
+  if (previous.possessionTeam !== next.possessionTeam) {
+    result.possessionChanges++;
+    const spell = previous.timeSincePossessionChanged;
+    result.possessionSpellDurations.push(spell);
+    if (spell < 0.5) result.microSpellsUnder0_5s++;
+    if (spell <= next.time - previous.time + 0.001) result.adjacentTickPossessionFlips++;
+  }
   const action = next.latestAction;
   const newAction =
     action && (previous.latestAction !== action || previous.decisionIndex !== next.decisionIndex);
@@ -235,7 +253,16 @@ export const observeMatchFlow = (
   if (releasedPass && !result.observedPassAttemptIds.includes(releasedPass.passId)) {
     result.observedPassAttemptIds.push(releasedPass.passId);
     result.passesAttempted++;
-    if (newAction && action.type === 'pass' && action.intent === 'through') result.throughBalls++;
+    if (newAction && action.type === 'pass') {
+      if (action.intent === 'through') result.throughBalls++;
+      const passer = next.players.find((player) => player.id === action.actorId);
+      if (passer) {
+        const progress = (passer.team === 'home' ? 1 : -1) * (action.target.x - passer.position.x);
+        if (progress > 5) result.progressivePasses++;
+        else if (progress < -2) result.backwardPasses++;
+        else result.lateralPasses++;
+      }
+    }
     if (releasedPass.passerId === next.controlledFootballerId) result.controlled.passesAttempted++;
     const diagnostic = releasedPass;
     {
@@ -354,6 +381,25 @@ export const summarizeMatchFlowRates = (telemetry: MatchFlowTelemetry) => {
   const minutes = Math.max(telemetry.canonicalMinutes, 1 / 60);
   return {
     passesPerCanonicalMinute: telemetry.passesAttempted / minutes,
+    carriesPerCanonicalMinute: telemetry.carries / minutes,
+    backwardPassShare: telemetry.passesAttempted
+      ? telemetry.backwardPasses / telemetry.passesAttempted
+      : 0,
+    lateralPassShare: telemetry.passesAttempted
+      ? telemetry.lateralPasses / telemetry.passesAttempted
+      : 0,
+    progressivePassShare: telemetry.passesAttempted
+      ? telemetry.progressivePasses / telemetry.passesAttempted
+      : 0,
+    microSpellsUnder0_5s: telemetry.microSpellsUnder0_5s,
+    adjacentTickPossessionFlips: telemetry.adjacentTickPossessionFlips,
+    medianPossessionSpell: (() => {
+      const values = [...telemetry.possessionSpellDurations].sort((a, b) => a - b);
+      return values.length
+        ? (values[Math.floor((values.length - 1) / 2)]! + values[Math.floor(values.length / 2)]!) /
+            2
+        : 0;
+    })(),
     shotsPer90Equivalent: (telemetry.shots / minutes) * 90,
     goalsPer90Equivalent: (telemetry.goals / minutes) * 90,
     possessionChangesPerMinute: telemetry.possessionChanges / minutes,

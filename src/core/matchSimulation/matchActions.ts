@@ -228,8 +228,19 @@ export const scoreActionForAI = (
     Math.sign(actor.position.y - 34) !== Math.sign(action.target.y - 34)
       ? Math.min(12, Math.abs(action.target.y - actor.position.y) * 0.22)
       : 0;
+  const escapesPressure = Math.max(0, underPressure - receiverPressure) * 14;
   const recycleValue =
-    action.intent === 'support' && progression > -9 && markerSeparation >= 5 ? 7 : 0;
+    action.intent === 'support' && progression > -9 && markerSeparation >= 5
+      ? 3 + escapesPressure + switchValue * 0.5
+      : 0;
+  // An immediate return along the same edge loses utility unless pressure or space improved.
+  const staleReturnPenalty =
+    action.intent === 'support' &&
+    state.lastPassDiagnostic?.passerId === action.receiverId &&
+    receiverPressure >= underPressure - 0.08 &&
+    switchValue === 0
+      ? 14
+      : 0;
   const laneRisk = opponents(state, actor).filter(
     (p) => distanceToSegment(p.position, actor.position, action.target) < 3.5,
   ).length;
@@ -267,7 +278,8 @@ export const scoreActionForAI = (
     markerSeparation * 0.7 +
     Math.max(0, widthGained) * 0.35 +
     switchValue +
-    recycleValue +
+    recycleValue -
+    staleReturnPenalty +
     technical +
     styleIntent +
     throughContext +

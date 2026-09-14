@@ -10,6 +10,7 @@ import {
   type MatchCameraMode,
   DEFAULT_KITS,
   derivePlayerAppearance,
+  deriveShotAimCameraPose,
   validateRenderFrame,
 } from './model';
 
@@ -18,7 +19,9 @@ export type RendererLifecycle = 'waiting_for_layout' | 'ready' | 'context_lost' 
 export class TacticalPitchRenderer {
   private readonly renderer: THREE.WebGLRenderer;
   private readonly scene = new THREE.Scene();
-  private readonly camera = new THREE.OrthographicCamera();
+  private readonly tacticalCamera = new THREE.OrthographicCamera();
+  private readonly shotCamera = new THREE.PerspectiveCamera(52, 1, 0.1, 180);
+  private camera: THREE.Camera = this.tacticalCamera;
   private readonly playerMeshes = new Map<string, THREE.Group>();
   private readonly playerPickers = new Map<string, THREE.Mesh>();
   private readonly actionMarkers = new Map<string, THREE.Mesh>();
@@ -31,6 +34,8 @@ export class TacticalPitchRenderer {
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
+  private readonly goalPlanes = new Map<'home' | 'away', THREE.Mesh>();
+  private readonly aimMarker: THREE.Mesh;
   private contextLost = false;
   private viewportReady = false;
   private lastValidFrame?: TacticalFrame;
@@ -52,10 +57,16 @@ export class TacticalPitchRenderer {
     this.renderer.domElement.addEventListener('webglcontextlost', this.onContextLost);
     this.renderer.domElement.addEventListener('webglcontextrestored', this.onContextRestored);
     this.scene.background = new THREE.Color(0x16251f);
-    this.camera.position.set(-82, 92, 82);
-    this.camera.lookAt(0, 0, 0);
+    this.tacticalCamera.position.set(-82, 92, 82);
+    this.tacticalCamera.lookAt(0, 0, 0);
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0x496055, 2.2));
     this.pitch = this.createPitch();
+    this.aimMarker = new THREE.Mesh(
+      new THREE.RingGeometry(0.16, 0.25, 20),
+      new THREE.MeshBasicMaterial({ color: 0xffe36e, side: THREE.DoubleSide, depthTest: false }),
+    );
+    this.aimMarker.visible = false;
+    this.scene.add(this.aimMarker);
     for (const player of frame.players) {
       this.createPlayer(
         player.id,
@@ -212,6 +223,23 @@ export class TacticalPitchRenderer {
       );
       goal.position.set(side - PITCH_LENGTH / 2 - direction * 1.25, 1.25, 0);
       this.scene.add(goal);
+      const goalSide = side === 0 ? 'home' : 'away';
+      const plane = new THREE.Mesh(
+        new THREE.PlaneGeometry(7.32, 2.44),
+        new THREE.MeshBasicMaterial({
+          color: 0x8fffd2,
+          transparent: true,
+          opacity: 0.13,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        }),
+      );
+      plane.rotation.y = Math.PI / 2;
+      plane.position.set(side - PITCH_LENGTH / 2 + direction * 0.015, 1.22, 0);
+      plane.visible = false;
+      plane.userData.goalSide = goalSide;
+      this.scene.add(plane);
+      this.goalPlanes.set(goalSide, plane);
     }
     return pitch;
   }
@@ -462,18 +490,73 @@ export class TacticalPitchRenderer {
     if (point.x >= 103 && point.y >= 23 && point.y <= 45) return { kind: 'goal', side: 'away' };
     return { kind: 'pitch', point };
   }
+  /** Raycasts the rendered, canonical goal mouth and returns normalized player intention. */
+  pickGoalAim(
+    clientX: number,
+    clientY: number,
+  ): { horizontal: number; vertical: number } | undefined {
+    if (this.cameraMode !== 'shot_aim') return undefined;
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    const pointer = new THREE.Vector2(
+      ((clientX - rect.left) / rect.width) * 2 - 1,
+      -((clientY - rect.top) / rect.height) * 2 + 1,
+    );
+    this.raycaster.setFromCamera(pointer, this.camera);
+    const hit = this.raycaster.intersectObjects([...this.goalPlanes.values()], false)[0];
+    if (!hit?.uv) return undefined;
+    const goalSide = hit.object.userData.goalSide as 'home' | 'away';
+    const screenHorizontal = hit.uv.x * 2 - 1;
+    const intent = {
+      horizontal: Math.max(
+        -1,
+        Math.min(1, goalSide === 'away' ? -screenHorizontal : screenHorizontal),
+      ),
+      vertical: Math.max(0, Math.min(1, hit.uv.y)),
+    };
+    this.setGoalAimMarker(intent);
+    return intent;
+  }
+
+  setGoalAimMarker(intent: { horizontal: number; vertical: number }) {
+    const plane = [...this.goalPlanes.values()].find((item) => item.visible);
+    if (!plane) return;
+    this.aimMarker.visible = true;
+    this.aimMarker.rotation.y = Math.PI / 2;
+    this.aimMarker.position.set(
+      plane.position.x + (plane.position.x < 0 ? 0.025 : -0.025),
+      intent.vertical * 2.44,
+      intent.horizontal * 3.66 * (plane.userData.goalSide === 'away' ? -1 : 1),
+    );
+  }
+
   /** Shared presentation-only framing for tactical play, aiming and stored replay frames. */
-  setCameraMode(mode: MatchCameraMode, focusedPlayerId?: string) {
+  setCameraMode(mode: MatchCameraMode, focusedPlayerId?: string, focusedTeam?: 'home' | 'away') {
     this.cameraMode = mode;
+    for (const plane of this.goalPlanes.values()) plane.visible = false;
+    this.aimMarker.visible = false;
     if (mode === 'tactical') {
-      this.camera.position.set(-82, 92, 82);
-      this.camera.lookAt(0, 0, 0);
-    } else {
+      this.camera = this.tacticalCamera;
+      this.tacticalCamera.position.set(-82, 92, 82);
+      this.tacticalCamera.lookAt(0, 0, 0);
+    } else if (mode === 'shot_aim') {
+      this.camera = this.shotCamera;
       const focused = focusedPlayerId ? this.playerMeshes.get(focusedPlayerId) : undefined;
       const centre = focused?.position ?? new THREE.Vector3();
-      const direction = centre.x <= 0 ? 1 : -1;
-      this.camera.position.set(centre.x - direction * 18, 13, centre.z + 7);
-      this.camera.lookAt(centre.x + direction * 30, 1.2, 0);
+      const pose = deriveShotAimCameraPose(focusedTeam ?? 'home', {
+        x: centre.x + PITCH_LENGTH / 2,
+        y: centre.z + PITCH_WIDTH / 2,
+      });
+      this.shotCamera.position.set(pose.position.x, pose.position.y, pose.position.z);
+      this.shotCamera.lookAt(pose.lookAt.x, pose.lookAt.y, pose.lookAt.z);
+      const opponentGoal = pose.opponentGoal;
+      const plane = this.goalPlanes.get(opponentGoal);
+      if (plane) plane.visible = true;
+    } else {
+      this.camera = this.tacticalCamera;
+      const focused = focusedPlayerId ? this.playerMeshes.get(focusedPlayerId) : undefined;
+      const centre = focused?.position ?? new THREE.Vector3();
+      this.tacticalCamera.position.set(centre.x - 18, 13, centre.z + 7);
+      this.tacticalCamera.lookAt(centre.x + 30, 1.2, 0);
     }
     this.resize();
   }
@@ -489,13 +572,18 @@ export class TacticalPitchRenderer {
       horizontal =
         this.cameraMode === 'tactical' ? Math.max(125, 84 * aspect) : Math.max(42, 28 * aspect),
       vertical = horizontal / aspect;
-    this.camera.left = -horizontal / 2;
-    this.camera.right = horizontal / 2;
-    this.camera.top = vertical / 2;
-    this.camera.bottom = -vertical / 2;
-    this.camera.near = 0.1;
-    this.camera.far = 400;
-    this.camera.updateProjectionMatrix();
+    if (this.camera instanceof THREE.OrthographicCamera) {
+      this.camera.left = -horizontal / 2;
+      this.camera.right = horizontal / 2;
+      this.camera.top = vertical / 2;
+      this.camera.bottom = -vertical / 2;
+      this.camera.near = 0.1;
+      this.camera.far = 400;
+      this.camera.updateProjectionMatrix();
+    } else if (this.camera instanceof THREE.PerspectiveCamera) {
+      this.camera.aspect = aspect;
+      this.camera.updateProjectionMatrix();
+    }
     this.renderer.setSize(width, height, false);
     this.viewportReady = true;
     this.report(undefined);

@@ -1,9 +1,9 @@
+import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { deriveLooseBallAssignments } from './looseBallPhysics';
 import {
   clampPitchPoint,
   distance,
-  fieldValue,
   formationSlotToTeamSpace,
   PITCH_LENGTH,
   type PitchPoint,
@@ -174,6 +174,53 @@ const isWideDefender = (p: MatchPlayerState) =>
 const isWideAttacker = (p: MatchPlayerState) =>
   ['left_winger', 'right_winger', 'left_midfielder', 'right_midfielder'].includes(p.slot.position);
 
+export const flankRelationshipSchema = z.enum([
+  'support_behind',
+  'provide_width',
+  'overlap',
+  'underlap',
+  'rest_defence',
+]);
+export type FlankRelationship = z.infer<typeof flankRelationshipSchema>;
+
+/** RNG-free observation of a fullback's relationship to his same-flank winger. */
+export const deriveFlankRelationship = (
+  state: TacticalMatchState,
+  fullback: MatchPlayerState,
+): FlankRelationship => {
+  if (!isWideDefender(fullback) || state.possessionTeam !== fullback.team) return 'rest_defence';
+  const flankSign = Math.sign(fullback.neutralAnchor.y - 34);
+  const winger = state.players.find(
+    (player) =>
+      player.team === fullback.team &&
+      isWideAttacker(player) &&
+      Math.sign(player.neutralAnchor.y - 34) === flankSign,
+  );
+  if (!winger) return 'support_behind';
+  const dir = direction(fullback.team);
+  const ballOnFlank = Math.sign(state.ball.y - 34) === flankSign && Math.abs(state.ball.y - 34) > 8;
+  const wingerWide = Math.abs(winger.position.y - 34) >= 20;
+  const cover = state.players.filter(
+    (player) =>
+      player.team === fullback.team &&
+      player.id !== fullback.id &&
+      player.profile.primaryPosition !== 'goalkeeper' &&
+      dir * (player.position.x - state.ball.x) < -5,
+  ).length;
+  if (!ballOnFlank || cover < 2 || fullback.duty === 'defend') return 'rest_defence';
+  if (!wingerWide) return 'provide_width';
+  if (!deriveAttackingRunIds(state, fullback.team).includes(fullback.id)) return 'support_behind';
+  const touchlineY = 34 + flankSign * 30;
+  const outsideSpace = Math.min(
+    ...state.players
+      .filter((player) => player.team !== fullback.team)
+      .map((player) =>
+        distance(player.position, { x: winger.position.x + dir * 8, y: touchlineY }),
+      ),
+  );
+  return outsideSpace > 5 ? 'overlap' : 'underlap';
+};
+
 /** Small relational layer between the team block and individual space seeking. */
 export const applyRoleRelationships = (
   state: TacticalMatchState,
@@ -194,7 +241,18 @@ export const applyRoleRelationships = (
     );
   });
   let target = structural;
-  if (owns && widePartner && (isWideDefender(player) || isWideAttacker(player))) {
+  if (owns && isWideDefender(player)) {
+    const relationship = deriveFlankRelationship(state, player);
+    const flankSign = Math.sign(player.neutralAnchor.y - 34);
+    if (relationship === 'provide_width')
+      target = { x: target.x + dir * 9, y: 34 + flankSign * 30 };
+    else if (relationship === 'overlap' && widePartner)
+      target = { x: widePartner.position.x + dir * 10, y: 34 + flankSign * 30 };
+    else if (relationship === 'underlap' && widePartner)
+      target = { x: widePartner.position.x + dir * 7, y: 34 + flankSign * 14 };
+    else if (relationship === 'rest_defence') target = { ...target, x: target.x - dir * 3 };
+  }
+  if (owns && widePartner && isWideAttacker(player)) {
     const partnerWide = Math.abs(widePartner.position.y - 34) >= 20;
     // One provides the touchline, the other a staggered inside/behind connection.
     if (partnerWide)
@@ -207,13 +265,6 @@ export const applyRoleRelationships = (
         ...target,
         y: 34 + Math.sign(player.neutralAnchor.y - 34) * Math.max(23, Math.abs(target.y - 34)),
       };
-  }
-  if (owns && isWideDefender(player) && fieldValue(state.ball, player.team) < 66) {
-    // A fullback remains a distinct lateral build-up outlet rather than following the ball inward.
-    target = {
-      x: target.x - dir * 2,
-      y: 34 + Math.sign(player.neutralAnchor.y - 34) * Math.max(19, Math.abs(target.y - 34)),
-    };
   }
   return clampPitchPoint(target);
 };

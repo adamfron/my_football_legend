@@ -100,6 +100,17 @@ export const mapGoalPlanePointerToIntent = (
     vertical: 1 - (clientY - rect.top) / Math.max(1, rect.height),
   });
 
+export const deriveShotAimCameraPose = (team: 'home' | 'away', shooter: TacticalPoint) => {
+  const attackDirection = team === 'home' ? 1 : -1;
+  const world = tacticalToWorld(shooter);
+  return {
+    attackDirection,
+    position: { x: world.x - attackDirection * 8, y: 4.8, z: world.z },
+    lookAt: { x: world.x + attackDirection * 26, y: 1.4, z: world.z * 0.35 },
+    opponentGoal: team === 'home' ? ('away' as const) : ('home' as const),
+  };
+};
+
 export const PLAYER_LOCAL_FORWARD_AXIS = '+Z' as const;
 export const playerAppearanceSchema = z.object({
   hairStyle: z.enum(['short', 'crop', 'side_part', 'buzz', 'curly_cap', 'bald']),

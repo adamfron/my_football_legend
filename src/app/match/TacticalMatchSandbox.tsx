@@ -43,7 +43,7 @@ import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
-import { mapGoalPlanePointerToIntent, type ShotAimIntent } from './tacticalRenderer/model';
+import { type ShotAimIntent } from './tacticalRenderer/model';
 import { buildStartMenuUrl } from '../devTools';
 import {
   debugBasename,
@@ -614,8 +614,9 @@ const RunningLab = ({
     rendererRef.current?.setCameraMode(
       replaying ? 'goal_replay' : shotAim ? 'shot_aim' : 'tactical',
       opportunity?.actorId,
+      state.players.find((player) => player.id === opportunity?.actorId)?.team,
     );
-  }, [replaying, shotAim, opportunity?.actorId]);
+  }, [replaying, shotAim, opportunity?.actorId, state.players]);
   useEffect(() => {
     if (!replaying || goalReplay.length === 0) return;
     const started = performance.now(),
@@ -991,26 +992,14 @@ const RunningLab = ({
               aria-label="Celowanie strzału"
               onClick={(event) => event.stopPropagation()}
             >
-              <button
-                className="shot-aim__goal"
-                aria-label="Wybierz miejsce w bramce"
-                onPointerDown={(event) =>
-                  setShotAim(
-                    mapGoalPlanePointerToIntent(
-                      event.clientX,
-                      event.clientY,
-                      event.currentTarget.getBoundingClientRect(),
-                    ),
-                  )
-                }
-              >
-                <span
-                  style={{
-                    left: `${((shotAim.horizontal + 1) / 2) * 100}%`,
-                    top: `${(1 - shotAim.vertical) * 100}%`,
-                  }}
-                />
-              </button>
+              <div
+                className="shot-aim__surface"
+                aria-label="Kliknij podświetloną bramkę, aby wskazać intencję strzału"
+                onPointerDown={(event) => {
+                  const intent = rendererRef.current?.pickGoalAim(event.clientX, event.clientY);
+                  if (intent) setShotAim(intent);
+                }}
+              />
               <div className="shot-aim__actions">
                 {projectContextualInteractions(state, opportunity, selectedTarget)
                   .filter(
