@@ -698,3 +698,16 @@ Bufor ostatnich klatek i zachowana powtórka gola należą wyłącznie do prezen
 Zawierają minimalną migawkę renderera, nie `TacticalMatchState` ani stan kariery. Podczas odtwarzania
 core jest wstrzymany, nagrane klatki są wyświetlane wolniej bez ponownego uruchamiania resolverów lub
 RNG, a wyjście wraca do dokładnie tego samego kanonicznego stanu po golu.
+
+# Kanoniczna fizyka meczu
+
+Orientacja ciała zawodnika jest stanem symulacji i nie jest rekonstruowana z prędkości przez
+React ani Three.js. Projekcja intencji patrzenia, ograniczona zwinnością integracja kąta oraz
+klasyfikacja ruchu (bieg przodem, diagonalny, shuffle, backpedal, turn-and-run) należą do core.
+
+Każde zwolnienie piłki nadaje jej pozycję i trójwymiarową prędkość początkową. Jeden integrator
+stałego kroku sumuje przyspieszenie grawitacji i oporu aerodynamicznego, a kontakt z murawą
+obsługuje deterministyczną restytucją oraz tarciem toczenia. Typ akcji jest metadanymi i źródłem
+warunków początkowych, a nie wyborem osobnego silnika trajektorii. Przyszła siła Magnusa może
+zostać dodana jako kolejny składnik całkowitego przyspieszenia bez zmiany stanu piłki lub
+integratora; spin nie jest częścią PR127.

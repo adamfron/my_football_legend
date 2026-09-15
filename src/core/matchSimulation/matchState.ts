@@ -219,6 +219,11 @@ export interface MatchPlayerState {
   position: PitchPoint;
   target: PitchPoint;
   velocity: PitchPoint;
+  /** Canonical body orientation in radians; independent from locomotion velocity. */
+  facingAngle: number;
+  desiredFacingAngle?: number;
+  movementMode?: 'forward' | 'diagonal' | 'shuffle' | 'backpedal' | 'turn_and_run';
+  turnRate?: number;
   anchor: PitchPoint;
   neutralAnchor: PitchPoint;
   idealTarget: PitchPoint;
@@ -292,7 +297,12 @@ export interface MatchBallState extends PitchPoint {
     | 'header'
     | 'throw_in';
   sourceAction?: MatchAction['type'];
-  velocity?: PitchPoint;
+  /** Canonical SI-like three-dimensional velocity. */
+  velocity?: { x: number; y: number; z?: number };
+  bounceCount?: number;
+  launchVelocity?: { x: number; y: number; z: number };
+  launchSpeed?: number;
+  launchElevation?: number;
   looseSince?: number;
   lastTouchPlayerId?: string;
   secondBallPriorityIds?: string[];
@@ -489,6 +499,12 @@ export const tacticalMatchStateSchema = z
         id: z.string(),
         team: teamSideSchema,
         position: pitchPointSchema,
+        facingAngle: z.number().finite(),
+        desiredFacingAngle: z.number().finite().optional(),
+        movementMode: z
+          .enum(['forward', 'diagonal', 'shuffle', 'backpedal', 'turn_and_run'])
+          .optional(),
+        turnRate: z.number().nonnegative().finite().optional(),
         target: pitchPointSchema,
         anchor: pitchPointSchema,
         neutralAnchor: pitchPointSchema,

@@ -32,6 +32,14 @@ import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 import { isOffsideOffence } from './offside';
 import { projectPlayerDecisionOpportunity } from './playerDecision';
 import { projectLocomotion } from './locomotion';
+import {
+  classifyRelativeMovement,
+  deriveOrientationTarget,
+  integrateFacing,
+  movementModeSpeedFactor,
+  normalizeAngle,
+} from './playerOrientation';
+import { integrateBallFlight } from './ballPhysics';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
 import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
@@ -111,6 +119,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         position: anchor,
         target: anchor,
         velocity: { x: 0, y: 0 },
+        facingAngle: side === 'home' ? Math.PI / 2 : -Math.PI / 2,
         anchor,
         neutralAnchor: anchor,
         idealTarget: anchor,
@@ -600,7 +609,16 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       dy = player.target.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
     const locomotion = projectLocomotion(state, player, player.target);
-    const maxSpeed = locomotion.targetSpeed;
+    const desiredFacingAngle = deriveOrientationTarget(state, player);
+    const facingAngle = integrateFacing(
+      player.facingAngle,
+      desiredFacingAngle,
+      player.profile.attributes.agility,
+      Math.hypot(player.velocity.x, player.velocity.y),
+      dt,
+    );
+    const movementMode = classifyRelativeMovement(facingAngle, { x: dx, y: dy }, d);
+    const maxSpeed = locomotion.targetSpeed * movementModeSpeedFactor(movementMode);
     const desiredVelocity = {
       x: (dx / d) * Math.min(maxSpeed, d / dt),
       y: (dy / d) * Math.min(maxSpeed, d / dt),
@@ -660,6 +678,10 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       ...player,
       position: next,
       velocity: { x: (next.x - player.position.x) / dt, y: (next.y - player.position.y) / dt },
+      facingAngle,
+      desiredFacingAngle,
+      movementMode,
+      turnRate: Math.abs(normalizeAngle(facingAngle - player.facingAngle)) / dt,
       locomotionIntensity: locomotion.intensity,
       locomotionReason: locomotion.reason,
       targetSpeed: locomotion.targetSpeed,
@@ -698,15 +720,21 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     };
     const elapsed = (state.ball.travelElapsed ?? 0) + dt,
       t = Math.min(1, elapsed / state.ball.travelDuration);
-    const nextHeight =
-      (state.ball.releaseHeight ?? 0) * (1 - t) +
-      (state.ball.targetHeight ?? 0) * t +
-      (state.ball.peakHeight ?? 0) * 4 * t * (1 - t);
-    const next: FlightPoint = {
-      x: state.ball.from.x + (state.ball.target.x - state.ball.from.x) * t,
-      y: state.ball.from.y + (state.ball.target.y - state.ball.from.y) * t,
-      z: nextHeight,
-    };
+    const integrated = integrateBallFlight(
+      {
+        position: previous,
+        velocity: {
+          x: state.ball.velocity?.x ?? 0,
+          y: state.ball.velocity?.y ?? 0,
+          z: state.ball.velocity?.z ?? 0,
+        },
+        airborne: state.ball.airborne ?? false,
+        bounceCount: state.ball.bounceCount ?? 0,
+      },
+      dt,
+    );
+    const next: FlightPoint = integrated.position;
+    const nextHeight = next.z;
     if (!state.ball.shot) {
       const crossing = findPitchBoundaryCrossing(previous, next);
       if (crossing) return applyBoundaryRestart(state, crossing, previous);
@@ -718,11 +746,9 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       travelElapsed: elapsed,
       flightProgress: t,
       height: nextHeight,
-      airborne: ((state.ball.releaseHeight ?? 0) > 0 || (state.ball.peakHeight ?? 0) > 0) && t < 1,
-      velocity: {
-        x: (state.ball.target.x - state.ball.from.x) / state.ball.travelDuration,
-        y: (state.ball.target.y - state.ball.from.y) / state.ball.travelDuration,
-      },
+      velocity: integrated.velocity,
+      airborne: integrated.airborne,
+      bounceCount: integrated.bounceCount,
     };
     if (state.ball.shot) {
       const shot = state.ball.shot;
@@ -1243,10 +1269,6 @@ export const stepTacticalMatch = (
 export const matchStateToFrame = (state: TacticalMatchState) => ({
   timestampMs: state.time * 1000,
   players: state.players.map((p) => {
-    const facingVector =
-      Math.hypot(p.velocity.x, p.velocity.y) > 0.2
-        ? p.velocity
-        : { x: p.target.x - p.position.x, y: p.target.y - p.position.y };
     return {
       id: p.id,
       team: p.team,
@@ -1259,7 +1281,7 @@ export const matchStateToFrame = (state: TacticalMatchState) => ({
       target: p.target,
       anchor: p.neutralAnchor,
       idealTarget: p.idealTarget,
-      facing: Math.atan2(facingVector.x, facingVector.y),
+      facing: p.facingAngle,
     };
   }),
   ball: {

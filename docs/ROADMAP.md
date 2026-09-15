@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR126 są ukończone. W szczególności:
+PR105–PR127 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -26,10 +26,12 @@ PR105–PR126 są ukończone. W szczególności:
 - **PR125:** podania kontekstowe i na dobieg, stabilność posiadania oraz dopracowanie interakcji.
 - **PR126:** stabilne śledzenie kamery, twarde przekazanie sprawczości po akcji, niezawodne
   celowanie i kanoniczny powietrzny profil autu.
+- **PR127:** kanoniczna orientacja ciała niezależna od kierunku ruchu, wspólna fizyka lotu piłki
+  (grawitacja, opór, odbicia i toczenie) oraz geometryczne fundamenty ustawienia bramkarza.
 
 ### NEXT
 
-**PR127 — Wide Play & Crossing Calibration**
+**PR128 — Wide Play & Crossing Calibration**
 
 Relacje skrzydłowych i bocznych obrońców; overlap/underlap poza małym globalnym budżetem biegów;
 naturalne wejścia w ostatnią tercję; dośrodkowania wynikające z szerokiego kontekstu i obsady
@@ -39,13 +41,16 @@ cutbacki i obsadę pola karnego.
 
 ### LATER
 
-**PR128 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
+**PR129 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
 prymitywy i tokeny, lokalne/radialne menu, HUD/paski statusu/okna narzędziowe, barwy klubów oraz
 tożsamość i wzory strojów.
 
-**PR129 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+**PR130 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
+
+Spin piłki, siła Magnusa, wiatr i zależności pogodowe pozostają celowo odłożonym, osobnym
+rozszerzeniem fizyki po kalibracji bazowego lotu.
 
 ### AFTER PR126 — systemy symulacji meczu
 

@@ -150,4 +150,17 @@ describe('TacticalPitchRenderer viewport lifecycle', () => {
     expect(setSize).toHaveBeenLastCalledWith(900, 500, false);
     expect(render).toHaveBeenCalledTimes(2);
   });
+
+  it('can explicitly repaint a paused presentation without advancing a frame', () => {
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 800 },
+      clientHeight: { get: () => 500 },
+    });
+    const renderer = new TacticalPitchRenderer(host, frame);
+    expect(render).toHaveBeenCalledTimes(1);
+    renderer.redraw();
+    expect(render).toHaveBeenCalledTimes(2);
+  });
 });
