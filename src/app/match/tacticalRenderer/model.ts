@@ -147,9 +147,30 @@ export const mapGoalPlanePointerToIntent = (
   rect: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>,
 ): ShotAimIntent =>
   shotAimIntentSchema.parse({
-    horizontal: ((clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1,
-    vertical: 1 - (clientY - rect.top) / Math.max(1, rect.height),
+    horizontal: Math.max(
+      -1,
+      Math.min(1, ((clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1),
+    ),
+    vertical: Math.max(0, Math.min(1, 1 - (clientY - rect.top) / Math.max(1, rect.height))),
   });
+
+export const updateTacticalCameraPose = (
+  preferences: MatchCameraPreferences,
+  ball: TacticalPoint,
+  focusedPlayer?: TacticalPoint,
+) => {
+  const focus =
+    preferences.preset === 'action'
+      ? tacticalToWorld(ball)
+      : preferences.preset === 'player_focus' && focusedPlayer
+        ? tacticalToWorld(focusedPlayer)
+        : { x: 0, y: 0, z: 0 };
+  const height = preferences.preset === 'overview' ? 92 : preferences.preset === 'action' ? 52 : 34;
+  return {
+    position: { x: focus.x - height * 0.88, y: height, z: focus.z + height * 0.88 },
+    lookAt: { x: focus.x, y: 0, z: focus.z },
+  };
+};
 
 export const deriveShotAimCameraPose = (team: 'home' | 'away', shooter: TacticalPoint) => {
   const attackDirection = team === 'home' ? 1 : -1;

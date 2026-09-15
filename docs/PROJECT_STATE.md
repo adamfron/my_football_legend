@@ -1,11 +1,13 @@
 # My Football Legend — Current Project State
 
-## PR109 — current Single Match Lab work
+## PR126 — current Single Match Lab state
 
-The ball is an explicit world target. Loose-ball relevance uses one global, same-point arrival race,
-team-relative movement semantics use the shared defensive line, and canonical immediate outcomes
-retain evidence of human decisions separately from execution. Renderer diagnostics reject invalid
-frames while preserving the last valid view.
+Single Match Lab uses the deterministic `matchSimulation` as its sole football authority. Tactical
+action and player-focus cameras track current presentation positions, shot aiming maps the projected
+goal mouth to bounded canonical intent, and throw-ins use the common aerial-flight resolver. A
+canonical agency checkpoint guarantees that retained possession after a human-selected action opens
+the next on-ball choice for the human rather than routine AI. The legacy career `MatchGame` remains
+a temporary separate placeholder and will eventually be replaced, not synchronized with this flow.
 
 ## Product philosophy
 

@@ -123,6 +123,18 @@ describe('canonical airborne play', () => {
     }
   });
 
+  it('releases throw-ins from hand height on a shallow canonical aerial trajectory', () => {
+    const state = applyRestartScenario(makeState('throw-profile'), 'throw_in');
+    const released = resolveMatchAction(state, chooseRestartAction(state)!);
+    expect(released.ball.travelKind).toBe('throw_in');
+    expect(released.ball.releaseHeight).toBeGreaterThan(1.5);
+    expect(released.ball.peakHeight).toBeGreaterThan(0);
+    expect(released.ball.airborne).toBe(true);
+    const progressed = stepTacticalMatch(released, 0.1);
+    expect(progressed.ball.height).toBeGreaterThan(0);
+    expect(finishFlight(released).ball.travelDuration).toBeUndefined();
+  });
+
   it('models every header intent in the canonical validated action type', () => {
     for (const intent of ['header_shot', 'header_pass', 'flick', 'header_clearance'] as const)
       expect(

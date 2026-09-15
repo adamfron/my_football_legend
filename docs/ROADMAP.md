@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR124 są ukończone. W szczególności:
+PR105–PR126 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -23,26 +23,29 @@ PR105–PR124 są ukończone. W szczególności:
 - **PR122:** stabilność posiadania i relacje na skrzydle.
 - **PR123:** zajmowanie ostatniej tercji, kombinacje skrzydłowe i integralność interakcji.
 - **PR124:** telemetria posiadania, fizyczne prowadzenie, presety/zoom kamery i prezentacja piłki prowadzonej.
-
-### CURRENT
-
-**PR125 — Contextual Passing, Interaction UX & Possession Survival Polish**
-
-Obejmuje funkcjonalne przeciąganie celu strzału, większe cele wyboru w przestrzeni ekranu,
-mocniejszy zoom taktyczny, kanoniczne `lead` / „Podaj na dobieg”, audyt przeżywalności
-posiadania po ciężkim przyjęciu i końcową kalibrację grywalności bocznych obrońców.
+- **PR125:** podania kontekstowe i na dobieg, stabilność posiadania oraz dopracowanie interakcji.
+- **PR126:** stabilne śledzenie kamery, twarde przekazanie sprawczości po akcji, niezawodne
+  celowanie i kanoniczny powietrzny profil autu.
 
 ### NEXT
 
-**PR126 — Windows-95 Match Presentation, Radial Context Menus, Replay & Animation v1**
+**PR127 — Wide Play & Crossing Calibration**
 
-Plan: prezentacja meczu inspirowana Windows 95; lokalne/radialne menu wokół klikniętego celu;
-akcje strzału wokół wybranego celu bramkowego; filmowe powtórki; sygnały biegu, kopnięcia,
-pierwszego kontaktu i przyjęcia; interwencje bramkarza (rzut, chwyt, parowanie); prezentacja
-stałych fragmentów; prawdziwy oburęczny wyrzut z autu; podstawowe sygnały dośrodkowań i główek;
-bogatsze modele graczy; proporcje z kanonicznego wzrostu; późniejsza sylwetka z BMI i siły
-(większa siła przy tym samym BMI oznacza bardziej umięśnioną prezentację, mniejsza —
-miększą/cięższą); stroje i identyfikacja klubów.
+Relacje skrzydłowych i bocznych obrońców; overlap/underlap poza małym globalnym budżetem biegów;
+naturalne wejścia w ostatnią tercję; dośrodkowania wynikające z szerokiego kontekstu i obsady
+bliższego słupka, punktu karnego, dalszego słupka oraz skraju pola karnego; kalibracja wariantów
+floated/driven/cutback. Telemetria obejmie overlap, underlap, szerokie wejścia, dośrodkowania,
+cutbacki i obsadę pola karnego.
+
+### LATER
+
+**PR128 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
+prymitywy i tokeny, lokalne/radialne menu, HUD/paski statusu/okna narzędziowe, barwy klubów oraz
+tożsamość i wzory strojów.
+
+**PR129 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
+oraz lepsza prezentacja powtórek.
 
 ### AFTER PR126 — systemy symulacji meczu
 

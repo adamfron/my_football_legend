@@ -570,7 +570,11 @@ const projectDecision = (
   }
   let kind: PlayerDecisionOpportunity['kind'] | undefined;
   let options: PlayerDecisionOption[] = [];
-  if (state.ball.ownerId === actorId && evaluateOnBallDecisionRelevance(state, actorId).relevant) {
+  const agencyHandoff = state.postActionAgencyCheckpoint?.actorId === actorId;
+  if (
+    state.ball.ownerId === actorId &&
+    (agencyHandoff || evaluateOnBallDecisionRelevance(state, actorId).relevant)
+  ) {
     kind = 'on_ball';
     const available = enumerateAvailableActions(state, actorId);
     const roleActions =
@@ -753,12 +757,12 @@ const projectDecision = (
   // A pause must expose a genuine choice. Single low-value prompts remain autonomous.
   if (options.length < 2) return blocked('no_options', context);
   const signature = signatureFor(state, kind);
-  if (gate.lastSituationSignature === signature)
+  const postActionCheckpoint =
+    kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;
+  if (!postActionCheckpoint && gate.lastSituationSignature === signature)
     return blocked('same_situation', { ...context, signature });
   const newPossessionEpisode =
     kind === 'on_ball' && (state.ballOwnershipStartedAt ?? -1) >= (gate.lastResolvedAt ?? Infinity);
-  const postActionCheckpoint =
-    kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;
   const absoluteOwnershipRequired =
     kind === 'on_ball' &&
     options.some(

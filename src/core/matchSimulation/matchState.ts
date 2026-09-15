@@ -270,6 +270,7 @@ export interface MatchTeamState {
 export interface MatchBallState extends PitchPoint {
   height?: number;
   peakHeight?: number;
+  releaseHeight?: number;
   flightProgress?: number;
   airborne?: boolean;
   ownerId?: string;
@@ -498,6 +499,7 @@ export const tacticalMatchStateSchema = z
       ownerId: z.string().optional(),
       height: z.number().nonnegative().finite().optional(),
       peakHeight: z.number().nonnegative().finite().optional(),
+      releaseHeight: z.number().nonnegative().finite().optional(),
       flightProgress: z.number().min(0).max(1).optional(),
       airborne: z.boolean().optional(),
       travelKind: z

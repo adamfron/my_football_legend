@@ -139,6 +139,27 @@ describe('player decision lifecycle', () => {
     expect(carried.latestActionSource).toBe('human_selected');
   });
 
+  it('never lets autonomous routine play steal a retained-possession carry handoff', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    actor.position = { x: 52, y: 34 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    state.actionCooldown = 0;
+    for (const opponent of state.players.filter((player) => player.team !== actor.team))
+      opponent.position = { x: 10, y: 5 };
+    let carried = resolveMatchAction(
+      state,
+      { type: 'carry', actorId: actor.id, target: { x: 54, y: 34 } },
+      'human_selected',
+    );
+    for (let index = 0; index < 240; index += 1) carried = stepTacticalMatch(carried, 0.025);
+    expect(carried.ball.ownerId).toBe(actor.id);
+    expect(carried.postActionAgencyCheckpoint?.actorId).toBe(actor.id);
+    expect(projectPlayerDecisionOpportunity(carried)?.kind).toBe('on_ball');
+    expect(carried.latestActionSource).toBe('human_selected');
+    expect(carried.currentAction?.type).toBe('carry');
+  });
+
   it('resolves a selected action through the identical canonical resolver exactly once', () => {
     const state = makeState(),
       opportunity = projectPlayerDecisionOpportunity(state)!;
