@@ -420,6 +420,14 @@ const resolveShot = (state: TacticalMatchState): TacticalMatchState => {
 
 const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): TacticalMatchState => {
   input = resolvePendingPlayerDecision(input);
+  if (
+    input.postActionAgencyCheckpoint &&
+    input.ball.ownerId !== input.postActionAgencyCheckpoint.actorId
+  ) {
+    const { postActionAgencyCheckpoint: _lostHandoff, ...withoutHandoff } = input;
+    void _lostHandoff;
+    input = withoutHandoff;
+  }
   // A surfaced human decision owns the snapshot: no clock, movement or RNG may advance.
   if (!input.periodEndPending && projectPlayerDecisionOpportunity(input)) return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
@@ -502,7 +510,8 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
               },
             }
           : {}),
-        ...(carrier &&
+        ...(intent.humanSelected &&
+        carrier &&
         carrier.id === state.controlledFootballerId &&
         state.ball.ownerId === carrier.id
           ? {
@@ -690,7 +699,9 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     const elapsed = (state.ball.travelElapsed ?? 0) + dt,
       t = Math.min(1, elapsed / state.ball.travelDuration);
     const nextHeight =
-      (state.ball.targetHeight ?? 0) * t + (state.ball.peakHeight ?? 0) * 4 * t * (1 - t);
+      (state.ball.releaseHeight ?? 0) * (1 - t) +
+      (state.ball.targetHeight ?? 0) * t +
+      (state.ball.peakHeight ?? 0) * 4 * t * (1 - t);
     const next: FlightPoint = {
       x: state.ball.from.x + (state.ball.target.x - state.ball.from.x) * t,
       y: state.ball.from.y + (state.ball.target.y - state.ball.from.y) * t,
@@ -707,7 +718,7 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       travelElapsed: elapsed,
       flightProgress: t,
       height: nextHeight,
-      airborne: (state.ball.peakHeight ?? 0) > 0 && t < 1,
+      airborne: ((state.ball.releaseHeight ?? 0) > 0 || (state.ball.peakHeight ?? 0) > 0) && t < 1,
       velocity: {
         x: (state.ball.target.x - state.ball.from.x) / state.ball.travelDuration,
         y: (state.ball.target.y - state.ball.from.y) / state.ball.travelDuration,
@@ -1125,11 +1136,16 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     state.ball.ownerId &&
     state.restart?.phase !== 'setup'
   ) {
+    const ownerId = state.ball.ownerId;
+    if (!ownerId) return state;
     const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
-    const action = awaitsPlayer ? undefined : chooseNpcAction(state, state.ball.ownerId);
+    const agencyHandoff =
+      state.postActionAgencyCheckpoint?.actorId === state.controlledFootballerId &&
+      state.ball.ownerId === state.controlledFootballerId;
+    const action = awaitsPlayer || agencyHandoff ? undefined : chooseNpcAction(state, ownerId);
     const controlled = state.ball.ownerId === state.controlledFootballerId;
-    // A controlled open-play shot/cross is absolutely human-owned, including immediately after a
-    // carry. Routine autoplay may continue only with a low-impact action.
+    // A pending handoff makes every next controlled-player action human-owned. Outside a handoff,
+    // controlled open-play shots and crosses remain absolutely human-owned.
     if (action && !(controlled && (action.type === 'shot' || action.type === 'cross')))
       state = resolveMatchAction(
         state,

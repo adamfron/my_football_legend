@@ -1,6 +1,7 @@
 /**
- * Transitional engine for the career MatchGame only.
- * New detailed football mechanics and player decisions belong in matchSimulation/*.
+ * Legacy career-match placeholder used only by MatchGame.
+ * Do not add football mechanics here: current Single Match work belongs exclusively in
+ * matchSimulation/*. Career integration will replace this flow, not synchronize two engines.
  */
 import type {
   CareerState,

@@ -13,6 +13,7 @@ import {
   deriveOwnedBallPose,
   matchCameraPreferencesSchema,
   selectScreenSpacePlayerCandidate,
+  updateTacticalCameraPose,
 } from './model';
 
 describe('tactical presentation model', () => {
@@ -82,6 +83,30 @@ describe('tactical presentation model', () => {
     expect(
       mapGoalPlanePointerToIntent(300, 20, { left: 100, top: 20, width: 200, height: 120 }),
     ).toEqual({ horizontal: 1, vertical: 1 });
+    expect(
+      mapGoalPlanePointerToIntent(0, 200, { left: 100, top: 20, width: 200, height: 120 }),
+    ).toEqual({ horizontal: -1, vertical: 0 });
+    expect(
+      mapGoalPlanePointerToIntent(200, 80, { left: 100, top: 20, width: 200, height: 120 }),
+    ).toEqual({ horizontal: 0, vertical: 0.5 });
+  });
+  it('keeps overview stable while action and player focus follow their current target', () => {
+    const overview = { preset: 'overview' as const, zoom: 0.5 };
+    expect(updateTacticalCameraPose(overview, { x: 10, y: 10 })).toEqual(
+      updateTacticalCameraPose(overview, { x: 90, y: 60 }),
+    );
+    expect(
+      updateTacticalCameraPose({ preset: 'action', zoom: 0.5 }, { x: 10, y: 10 }).lookAt,
+    ).not.toEqual(
+      updateTacticalCameraPose({ preset: 'action', zoom: 0.5 }, { x: 90, y: 60 }).lookAt,
+    );
+    expect(
+      updateTacticalCameraPose(
+        { preset: 'player_focus', zoom: 0.5 },
+        { x: 10, y: 10 },
+        { x: 40, y: 20 },
+      ).lookAt,
+    ).toEqual(tacticalToWorld({ x: 40, y: 20 }));
   });
   it('projects an owned ball to the feet without changing a ball in flight', () => {
     const frame = structuredClone(createTacticalScenarios()[0]!.sequence.frames[0]!);

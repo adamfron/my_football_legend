@@ -617,15 +617,21 @@ export const resolveMatchAction = (
               : 'pass',
       sourceAction: action.type,
       peakHeight:
-        restart?.phase === 'release' && state.scenario === 'goal_kick'
-          ? 9
-          : action.intent === 'direct' && duration > 1.5
-            ? 4
-            : 0,
-      height: 0,
+        restart?.phase === 'release' && state.scenario === 'throw_in'
+          ? 2.2
+          : restart?.phase === 'release' && state.scenario === 'goal_kick'
+            ? 9
+            : action.intent === 'direct' && duration > 1.5
+              ? 4
+              : 0,
+      ...(restart?.phase === 'release' && state.scenario === 'throw_in'
+        ? { releaseHeight: 1.9 }
+        : {}),
+      height: restart?.phase === 'release' && state.scenario === 'throw_in' ? 1.9 : 0,
       flightProgress: 0,
       airborne:
-        (restart?.phase === 'release' && state.scenario === 'goal_kick') ||
+        (restart?.phase === 'release' &&
+          (state.scenario === 'goal_kick' || state.scenario === 'throw_in')) ||
         (action.intent === 'direct' && duration > 1.5),
       lastTouchPlayerId: actor.id,
     },

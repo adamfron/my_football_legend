@@ -7,6 +7,9 @@ import type { CareerState } from '../../types/domain';
 import { recordMatchTransition } from '../devTools';
 import type { CareerCommit } from '../careerCommit';
 
+// Legacy career presentation only. It will be replaced by matchSimulation integration rather than
+// developed in parallel with the canonical Single Match engine.
+
 const statusLabel: Record<string, string> = {
   senior_starter: 'Pierwszy skład seniorów',
   senior_bench: 'Ławka seniorów',
