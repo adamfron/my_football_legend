@@ -491,15 +491,13 @@ export const resolveMatchAction = (
         y: state.ball.y,
         from: { ...actor.position },
         target,
-        travelElapsed: 0,
-        travelDuration: duration,
         travelKind: 'shot',
         sourceAction: action.type,
+        flightTime: 0,
+        distanceTravelled: 0,
         targetHeight: Math.max(0, shot.heightMetres),
-        peakHeight: 0,
         shot,
         height: 0,
-        flightProgress: 0,
         airborne: true,
         velocity: shotVelocity,
         launchVelocity: shotVelocity,
@@ -566,8 +564,6 @@ export const resolveMatchAction = (
           action.type === 'header' ? { x: state.ball.x, y: state.ball.y } : { ...actor.position },
         target: { ...headerTarget },
         ...(action.intendedTargetId ? { intendedReceiverId: action.intendedTargetId } : {}),
-        travelElapsed: 0,
-        travelDuration: duration,
         travelKind:
           action.type === 'cross'
             ? state.scenario === 'corner'
@@ -577,21 +573,12 @@ export const resolveMatchAction = (
                 : 'cross'
             : 'header',
         sourceAction: action.type,
-        peakHeight:
-          action.type === 'cross'
-            ? action.intent === 'floated'
-              ? 5.8
-              : action.intent === 'driven'
-                ? 2.8
-                : 1.2
-            : isHeaderShot
-              ? 0
-              : 2.2,
+        flightTime: 0,
+        distanceTravelled: 0,
         ...(headerShot
           ? { targetHeight: Math.max(0, headerShot.heightMetres), shot: headerShot }
           : {}),
         height: 0,
-        flightProgress: 0,
         airborne: true,
         velocity: launchVelocity,
         launchVelocity,
@@ -660,8 +647,6 @@ export const resolveMatchAction = (
           : { ...actor.position },
       target: { ...target },
       intendedReceiverId: receiver.id,
-      travelElapsed: 0,
-      travelDuration: duration,
       travelKind:
         restart?.phase === 'release' && state.scenario === 'throw_in'
           ? 'throw_in'
@@ -671,19 +656,12 @@ export const resolveMatchAction = (
               ? 'through_ball'
               : 'pass',
       sourceAction: action.type,
-      peakHeight:
-        restart?.phase === 'release' && state.scenario === 'throw_in'
-          ? 2.2
-          : restart?.phase === 'release' && state.scenario === 'goal_kick'
-            ? 9
-            : action.intent === 'direct' && duration > 1.5
-              ? 4
-              : 0,
+      flightTime: 0,
+      distanceTravelled: 0,
       ...(restart?.phase === 'release' && state.scenario === 'throw_in'
         ? { releaseHeight: 1.9 }
         : {}),
       height: restart?.phase === 'release' && state.scenario === 'throw_in' ? 1.9 : 0,
-      flightProgress: 0,
       airborne:
         (restart?.phase === 'release' &&
           (state.scenario === 'goal_kick' || state.scenario === 'throw_in')) ||

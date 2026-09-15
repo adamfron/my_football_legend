@@ -117,7 +117,7 @@ export const observePlayerMatchStats = (
     result.observedShotIds.push(shot.shotId);
     const shooter = stats(shot.shooterId)!;
     shooter.shots++;
-    if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome)) shooter.shotsOnTarget++;
+    if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
     if (shot.outcome === 'goal') shooter.goals++;
     const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
     const keeper = next.players.find(

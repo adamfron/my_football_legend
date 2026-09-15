@@ -33,40 +33,53 @@ export const dragAcceleration = (v: BallVelocity3d): BallVelocity3d => {
 
 /** Shared fixed-step integrator. Future spin adds another acceleration term beside gravity/drag. */
 export const integrateBallFlight = (ball: PhysicalBall, dt: number): PhysicalBall => {
-  let velocity = { ...ball.velocity };
-  let airborne = ball.airborne || ball.position.z > BALL_RADIUS || velocity.z > 0;
-  let bounceCount = ball.bounceCount;
-  if (airborne) {
-    const gravity = gravityAcceleration();
-    const drag = dragAcceleration(velocity);
-    velocity = {
-      x: velocity.x + (gravity.x + drag.x) * dt,
-      y: velocity.y + (gravity.y + drag.y) * dt,
-      z: velocity.z + (gravity.z + drag.z) * dt,
-    };
-  } else {
-    const horizontal = Math.hypot(velocity.x, velocity.y);
-    const nextSpeed = Math.max(0, horizontal - BALL_PHYSICS.rollingDeceleration * dt);
-    const factor = horizontal > 0 ? nextSpeed / horizontal : 0;
-    velocity = { x: velocity.x * factor, y: velocity.y * factor, z: 0 };
-  }
-  const position = {
-    x: ball.position.x + velocity.x * dt,
-    y: ball.position.y + velocity.y * dt,
-    z: ball.position.z + velocity.z * dt,
+  // Match stepping may batch time for tests/replay; ball substeps stay fixed and deterministic.
+  const maximumStep = 0.025;
+  const steps = Math.max(1, Math.ceil(dt / maximumStep));
+  const step = dt / steps;
+  let current: PhysicalBall = {
+    position: { ...ball.position },
+    velocity: { ...ball.velocity },
+    airborne: ball.airborne,
+    bounceCount: ball.bounceCount,
   };
-  if (position.z < BALL_RADIUS && velocity.z < 0) {
-    position.z = BALL_RADIUS;
-    bounceCount += 1;
-    velocity.x *= BALL_PHYSICS.horizontalRestitution;
-    velocity.y *= BALL_PHYSICS.horizontalRestitution;
-    velocity.z = -velocity.z * BALL_PHYSICS.verticalRestitution;
-    if (velocity.z < BALL_PHYSICS.settleVerticalSpeed) {
-      velocity.z = 0;
-      airborne = false;
+  for (let index = 0; index < steps; index += 1) {
+    let velocity = { ...current.velocity };
+    let airborne = current.airborne || current.position.z > BALL_RADIUS || velocity.z > 0;
+    let bounceCount = current.bounceCount;
+    if (airborne) {
+      const gravity = gravityAcceleration();
+      const drag = dragAcceleration(velocity);
+      velocity = {
+        x: velocity.x + (gravity.x + drag.x) * step,
+        y: velocity.y + (gravity.y + drag.y) * step,
+        z: velocity.z + (gravity.z + drag.z) * step,
+      };
+    } else {
+      const horizontal = Math.hypot(velocity.x, velocity.y);
+      const nextSpeed = Math.max(0, horizontal - BALL_PHYSICS.rollingDeceleration * step);
+      const factor = horizontal > 0 ? nextSpeed / horizontal : 0;
+      velocity = { x: velocity.x * factor, y: velocity.y * factor, z: 0 };
     }
+    const position = {
+      x: current.position.x + velocity.x * step,
+      y: current.position.y + velocity.y * step,
+      z: current.position.z + velocity.z * step,
+    };
+    if (position.z < BALL_RADIUS && velocity.z < 0) {
+      position.z = BALL_RADIUS;
+      bounceCount += 1;
+      velocity.x *= BALL_PHYSICS.horizontalRestitution;
+      velocity.y *= BALL_PHYSICS.horizontalRestitution;
+      velocity.z = -velocity.z * BALL_PHYSICS.verticalRestitution;
+      if (velocity.z < BALL_PHYSICS.settleVerticalSpeed) {
+        velocity.z = 0;
+        airborne = false;
+      }
+    }
+    current = { position, velocity, airborne, bounceCount };
   }
-  return { position, velocity, airborne, bounceCount };
+  return current;
 };
 
 export const deriveLaunchVelocity = (

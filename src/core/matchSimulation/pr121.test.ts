@@ -33,8 +33,7 @@ describe('PR121 spatial and goalkeeper agency', () => {
       y: 23.323,
       target,
       travelKind: 'shot',
-      travelDuration: 0.4,
-      travelElapsed: 0.1,
+      flightTime: 0.1,
     };
     expect(tacticalMatchStateSchema.parse(state).ball.target).toEqual(target);
   });

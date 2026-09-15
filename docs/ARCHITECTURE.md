@@ -660,9 +660,10 @@ docelowych wymiarów drużyny.
 
 ### Piłka w powietrzu i pojedynki główkowe
 
-Lot piłki jest lekką częścią stanu kanonicznego: interpolacja pozioma oraz deterministyczny łuk
-parametryczny wyznaczają postęp, wysokość i szczyt lotu. Nie jest to silnik fizyki. Podania po ziemi
-pozostają na zerowej wysokości, a renderer jedynie odczytuje wysokość policzoną przez core.
+Piłka ma jeden kanoniczny stan fizyczny: pozycję 3D, prędkość 3D, stan powietrzny/toczenia
+oraz diagnostyczny czas i przebytą drogę. Nie istnieje równoległa interpolacja start–cel ani
+skryptowany szczyt lotu. Podania, strzały, dośrodkowania, wykopy i auty różnią się wyłącznie
+warunkami początkowymi; renderer jedynie odczytuje pozycję policzoną przez core.
 
 Dośrodkowanie z gry, bezpośredni rożny, dośrodkowany wolny i długie wybicie bramkarza używają tego
 samego stosu akcji i lotu. Role Tactical Situation Playbook wyznaczają strefę, zawodników pierwszej
@@ -710,4 +711,4 @@ stałego kroku sumuje przyspieszenie grawitacji i oporu aerodynamicznego, a kont
 obsługuje deterministyczną restytucją oraz tarciem toczenia. Typ akcji jest metadanymi i źródłem
 warunków początkowych, a nie wyborem osobnego silnika trajektorii. Przyszła siła Magnusa może
 zostać dodana jako kolejny składnik całkowitego przyspieszenia bez zmiany stanu piłki lub
-integratora; spin nie jest częścią PR127.
+integratora; spin nie jest częścią PR128.

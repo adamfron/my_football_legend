@@ -319,7 +319,7 @@ export const applyContextualInteraction = (
         action: resolution.action,
         createdAt: state.time,
         expiresAt: state.time + 2,
-        ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelDuration ?? 0}`,
+        ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelKind ?? 0}`,
         ...(state.ball.sourceAction ? { sourceAction: state.ball.sourceAction } : {}),
       },
     };

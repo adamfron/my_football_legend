@@ -19,3 +19,14 @@ describe('canonical body orientation', () => {
     expect(movementModeSpeedFactor('backpedal')).toBeLessThan(movementModeSpeedFactor('forward'));
   });
 });
+
+it('makes sprint turning slower than stationary turning and turn-and-run brake first', () => {
+  const stationary = Math.abs(integrateFacing(0, Math.PI, 70, 0, 0.1));
+  const sprinting = Math.abs(integrateFacing(0, Math.PI, 70, 9, 0.1));
+  expect(stationary).toBeGreaterThan(sprinting);
+  expect(movementModeSpeedFactor('turn_and_run')).toBeLessThan(movementModeSpeedFactor('forward'));
+});
+
+it('classifies lateral tracking independently from body facing', () => {
+  expect(classifyRelativeMovement(0, { x: 6, y: 0 }, 6)).toBe('shuffle');
+});

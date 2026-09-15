@@ -128,7 +128,7 @@ export const deriveControlledBallRelationship = (
 ): ControlledBallRelationship => {
   const actor = state.players.find((player) => player.id === actorId);
   const sourceTeam = deriveBallSourceTeam(state);
-  if (!actor || !state.ball.travelDuration || state.ball.ownerId) return 'uninvolved';
+  if (!actor || !state.ball.travelKind || state.ball.ownerId) return 'uninvolved';
   if (sourceTeam === actor.team) {
     if (state.ball.intendedReceiverId === actorId) return 'intended_receiver';
     return state.ball.target && distance(actor.position, state.ball.target) <= 3
@@ -292,12 +292,16 @@ export const projectIncomingPlayerInvolvement = (
   actorId: string,
 ): IncomingPlayerInvolvement => {
   const actor = state.players.find((player) => player.id === actorId);
-  const remaining = (state.ball.travelDuration ?? 0) - (state.ball.travelElapsed ?? 0);
+  const ballSpeed = Math.max(
+    0.1,
+    Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0),
+  );
+  const remaining = state.ball.target ? distance(state.ball, state.ball.target) / ballSpeed : 0;
   const committed = Boolean(
     actor &&
       !state.ball.ownerId &&
       state.ball.target &&
-      state.ball.travelDuration &&
+      state.ball.travelKind &&
       (state.ball.intendedReceiverId === actorId ||
         distance(actor.position, state.ball.target) <= 3),
   );
@@ -352,7 +356,7 @@ export const evaluatePassInterceptionOpportunity = (
     !from ||
     !target ||
     state.ball.ownerId ||
-    !state.ball.travelDuration
+    !state.ball.travelKind
   )
     return passInterceptionOpportunitySchema.parse({ viable: false });
   const dx = target.x - from.x;
@@ -367,7 +371,11 @@ export const evaluatePassInterceptionOpportunity = (
   );
   const contactPoint = { x: from.x + dx * t, y: from.y + dy * t };
   const distanceToPath = distance(defender.position, contactPoint);
-  const arrivalTime = Math.max(0, t * state.ball.travelDuration - (state.ball.travelElapsed ?? 0));
+  const ballSpeed = Math.max(
+    0.1,
+    Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0),
+  );
+  const arrivalTime = Math.max(0, distance(state.ball, contactPoint) / ballSpeed);
   const structureRisk = Math.min(1, distance(defender.anchor, contactPoint) / 18);
   const playerArrival = estimatePlayerArrivalTime(state, defender, contactPoint, 'intercept');
   const controlMargin = 0.12;
@@ -538,7 +546,7 @@ const projectDecision = (
   if (!actorId || !actor) return blocked('no_controlled_player');
   if (state.scenario !== 'open_play') return blocked('not_open_play');
   // A committed ball flight is precisely when reception/interception control may begin.
-  if (isActionResolutionInProgress(state) && !state.ball.travelDuration)
+  if (isActionResolutionInProgress(state) && !state.ball.travelKind)
     return blocked('resolution_in_progress');
   const situation = evaluateMatchSituation(state, actorId);
   const roleProfile = deriveDecisionRole(actor);
@@ -844,7 +852,7 @@ export const applyPlayerDecision = (
         action: option.action,
         createdAt: state.time,
         expiresAt: state.time + 2,
-        ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelDuration ?? 0}`,
+        ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelKind ?? 0}`,
         ...(state.ball.sourceAction ? { sourceAction: state.ball.sourceAction } : {}),
       },
     };

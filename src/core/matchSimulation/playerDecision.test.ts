@@ -429,8 +429,7 @@ describe('player decision lifecycle', () => {
       from: { x: actor.position.x - 12, y: actor.position.y },
       target: actor.position,
       velocity: { x: 10, y: 0 },
-      travelDuration: 1.2,
-      travelElapsed: 0.3,
+      flightTime: 0.3,
       travelKind: 'through_ball',
       sourceAction: 'pass',
       intendedReceiverId: actor.id,
@@ -457,8 +456,7 @@ describe('player decision lifecycle', () => {
       from: teammate.position,
       target: actor.position,
       velocity: { x: 9, y: 0 },
-      travelDuration: 2,
-      travelElapsed: 0.1,
+      flightTime: 0.1,
       travelKind: 'pass',
       sourceAction: 'pass',
       intendedReceiverId: actor.id,
@@ -467,7 +465,9 @@ describe('player decision lifecycle', () => {
     expect(deriveBallSourceTeam(state)).toBe(actor.team);
     expect(evaluatePassInterceptionOpportunity(state, actor.id).viable).toBe(false);
     expect(projectPlayerDecisionOpportunity(state)?.kind).not.toBe('defensive_response');
-    expect(stepTacticalMatch(state, 0.025).time).toBeGreaterThan(state.time);
+    const surfaced = projectPlayerDecisionOpportunity(state);
+    if (surfaced) expect(projectSelectableInteractionTargets(state, surfaced)).not.toHaveLength(0);
+    else expect(stepTacticalMatch(state, 0.025).time).toBeGreaterThan(state.time);
   });
 
   it('keeps opponent passes interceptable and every surfaced pause actionable', () => {
@@ -482,8 +482,7 @@ describe('player decision lifecycle', () => {
       from: { x: 45, y: 34 },
       target: { x: 65, y: 34 },
       velocity: { x: 10, y: 0 },
-      travelDuration: 2,
-      travelElapsed: 0.1,
+      flightTime: 0.1,
       travelKind: 'pass',
       sourceAction: 'pass',
       lastTouchPlayerId: opponent.id,
@@ -511,15 +510,14 @@ describe('player decision lifecycle', () => {
       from: { x: contact.x - perpendicular.x, y: contact.y - perpendicular.y },
       target: { x: contact.x + perpendicular.x, y: contact.y + perpendicular.y },
       velocity: { x: -5.58, y: 4.02 },
-      travelDuration: 2.8,
-      travelElapsed: 0.1,
+      flightTime: 0.1,
       travelKind: 'pass',
       sourceAction: 'pass',
       lastTouchPlayerId: opponent.id,
     };
     const result = evaluatePassInterceptionOpportunity(state, actor.id);
     expect(result.playerArrival?.distance).toBeCloseTo(9.63, 1);
-    expect(result.arrivalTime).toBeCloseTo(1.3, 1);
+    expect(result.arrivalTime).toBeCloseTo(1.4, 1);
     expect(result.playerArrival!.estimatedTime).toBeGreaterThan(result.arrivalTime! + 0.12);
     expect(result.viable).toBe(false);
     expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();

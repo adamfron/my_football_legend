@@ -274,9 +274,7 @@ export interface MatchTeamState {
 }
 export interface MatchBallState extends PitchPoint {
   height?: number;
-  peakHeight?: number;
   releaseHeight?: number;
-  flightProgress?: number;
   airborne?: boolean;
   ownerId?: string;
   /** Last playable location. Flights may start/end outside the touch/goal lines. */
@@ -284,8 +282,10 @@ export interface MatchBallState extends PitchPoint {
   /** Physical endpoint used for continuous contact ordering; deliberately unbounded. */
   target?: PhysicalPoint;
   intendedReceiverId?: string;
-  travelElapsed?: number;
-  travelDuration?: number;
+  /** Elapsed physical integration time since release. */
+  flightTime?: number;
+  /** Integrated path length, used only for diagnostics. */
+  distanceTravelled?: number;
   travelKind?:
     | 'pass'
     | 'through_ball'
@@ -333,7 +333,7 @@ export const shotDiagnosticSchema = z.object({
   saveDifficulty: z.number().min(0).max(1).optional(),
   goalkeeperReaction: z.number().nonnegative().optional(),
   goalkeeperReach: z.number().nonnegative().optional(),
-  outcome: shotResultSchema,
+  outcome: shotResultSchema.optional(),
   reboundSource: z.enum(['goalkeeper', 'block', 'post', 'crossbar']).optional(),
 });
 export type ShotDiagnostic = z.infer<typeof shotDiagnosticSchema>;
@@ -514,10 +514,18 @@ export const tacticalMatchStateSchema = z
     ball: pitchPointSchema.extend({
       ownerId: z.string().optional(),
       height: z.number().nonnegative().finite().optional(),
-      peakHeight: z.number().nonnegative().finite().optional(),
       releaseHeight: z.number().nonnegative().finite().optional(),
-      flightProgress: z.number().min(0).max(1).optional(),
       airborne: z.boolean().optional(),
+      flightTime: z.number().nonnegative().finite().optional(),
+      distanceTravelled: z.number().nonnegative().finite().optional(),
+      velocity: z
+        .object({
+          x: z.number().finite(),
+          y: z.number().finite(),
+          z: z.number().finite().optional(),
+        })
+        .optional(),
+      bounceCount: z.number().int().nonnegative().optional(),
       travelKind: z
         .enum([
           'pass',

@@ -27,13 +27,15 @@ export const classifyRelativeMovement = (
 };
 
 export const movementModeSpeedFactor = (mode: RelativeMovementMode) =>
-  mode === 'forward' || mode === 'turn_and_run'
+  mode === 'forward'
     ? 1
-    : mode === 'diagonal'
-      ? 0.88
-      : mode === 'shuffle'
-        ? 0.68
-        : 0.52;
+    : mode === 'turn_and_run'
+      ? 0.35
+      : mode === 'diagonal'
+        ? 0.88
+        : mode === 'shuffle'
+          ? 0.68
+          : 0.52;
 
 /** Football-aware projection: movement is only the fallback, never the universal rule. */
 export const deriveOrientationTarget = (
