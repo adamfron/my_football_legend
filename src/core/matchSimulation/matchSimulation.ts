@@ -18,13 +18,13 @@ import {
   secondBallPriority,
 } from './aerialPlay';
 import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
-import { resolveCanonicalShot } from './shotResolver';
 import { resolveGroundPassClaim } from './passClaimResolver';
 import {
   deterministicRebound,
   findFirstBallContact,
   GOAL_HEIGHT,
   type BallContact,
+  type ContactCandidate,
   type FlightPoint,
 } from './ballFlight';
 import { resolveFormationDuty } from '../footballerWorld';
@@ -40,6 +40,7 @@ import {
   normalizeAngle,
 } from './playerOrientation';
 import { integrateBallFlight } from './ballPhysics';
+import { projectGoalkeeperIntervention, resolveGoalkeeperContact } from './goalkeeperIntervention';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
 import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
@@ -294,7 +295,7 @@ const finishShotContact = (
   contact: BallContact,
   incoming: { x: number; y: number },
 ): TacticalMatchState => {
-  const shot = state.ball.shot!;
+  let shot = state.ball.shot!;
   const shooter = state.players.find((player) => player.id === shot.shooterId)!;
   const base = {
     ...state,
@@ -332,18 +333,30 @@ const finishShotContact = (
       'goal_kick',
       { restartTeam: shooter.team === 'home' ? 'away' : 'home' },
     );
-  if (contact.kind === 'goalkeeper' && shot.goalkeeperAction === 'catch') {
+  if (contact.kind === 'goalkeeper') {
+    const projection = projectGoalkeeperIntervention(state);
     const keeper = state.players.find((player) => player.id === contact.playerId)!;
-    return changePossession(
-      {
-        ...base,
-        lastShotResult: 'save',
-        lastShot: { ...shot, outcome: 'save', classification: 'on_target' },
-        ball: { ...keeper.position, height: 0 },
-      },
-      keeper.id,
-      'claim',
-    );
+    const goalkeeperAction = projection
+      ? resolveGoalkeeperContact(state, projection, contact.preContactSpeed)
+      : 'failed_save';
+    if (goalkeeperAction === 'catch')
+      return changePossession(
+        {
+          ...base,
+          lastShotResult: 'save',
+          lastShot: {
+            ...shot,
+            keeperId: keeper.id,
+            goalkeeperAction,
+            outcome: 'save',
+            classification: 'on_target',
+          },
+          ball: { ...keeper.position, height: 0 },
+        },
+        keeper.id,
+        'claim',
+      );
+    shot = { ...shot, keeperId: keeper.id, goalkeeperAction };
   }
   const frameResult =
     contact.kind === 'crossbar'
@@ -373,57 +386,6 @@ const finishShotContact = (
       },
     },
     deterministicRebound(contact.kind, incoming, shooter.team),
-  );
-};
-
-const resolveShot = (state: TacticalMatchState): TacticalMatchState => {
-  const action = state.currentAction;
-  if (action?.type !== 'shot' && !(action?.type === 'header' && action.intent === 'header_shot'))
-    return state;
-  const shooter = state.players.find((p) => p.id === action.actorId)!;
-  const shot = resolveCanonicalShot(state, action);
-  if (shot.outcome === 'goal') {
-    const score = { ...state.score, [shooter.team]: state.score[shooter.team] + 1 };
-    return applyRestartScenario(
-      { ...state, score, lastShotResult: 'goal', lastShot: shot },
-      'kick_off',
-      { restartTeam: shooter.team === 'home' ? 'away' : 'home' },
-    );
-  }
-  if (shot.outcome === 'miss')
-    return applyRestartScenario({ ...state, lastShotResult: 'miss', lastShot: shot }, 'goal_kick', {
-      restartTeam: shooter.team === 'home' ? 'away' : 'home',
-    });
-  const keeper = shot.keeperId && state.players.find((p) => p.id === shot.keeperId);
-  if (shot.goalkeeperAction === 'catch' && keeper)
-    return changePossession(
-      { ...state, lastShotResult: 'save', lastShot: shot, ball: { ...keeper.position } },
-      keeper.id,
-      'claim',
-    );
-  const local = state.players
-    .filter((p) => p.id !== shooter.id && distance(p.position, shot.goalPoint) < 18)
-    .sort((a, b) => distance(a.position, shot.goalPoint) - distance(b.position, shot.goalPoint))
-    .slice(0, 6);
-  return makeLoose(
-    {
-      ...state,
-      lastShotResult: shot.outcome,
-      lastShot: shot,
-      ball: {
-        ...state.ball,
-        x: Math.max(
-          0.2,
-          Math.min(104.8, shot.goalPoint.x + (shooter.team === 'home' ? -0.2 : 0.2)),
-        ),
-        y: Math.max(0.2, Math.min(67.8, shot.goalPoint.y)),
-        secondBallPriorityIds: secondBallPriority(state, local),
-        ...((shot.blockerId ?? shot.keeperId)
-          ? { lastTouchPlayerId: (shot.blockerId ?? shot.keeperId)! }
-          : {}),
-      },
-    },
-    shot.reboundVelocity ?? { x: shooter.team === 'home' ? -5 : 5, y: 0 },
   );
 };
 
@@ -571,7 +533,24 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           : team.phase,
     };
   }
-  if (state.ball.travelDuration && (state.ball.peakHeight ?? 0) > 0) {
+  if (state.ball.travelKind === 'shot' && state.ball.shot) {
+    const projection = projectGoalkeeperIntervention(state);
+    if (projection) {
+      state.keeperIntervention = {
+        keeperId: projection.keeper.id,
+        intention: projection.reachable ? 'attempt_interception' : 'stay',
+        target: { x: projection.contactPoint.x, y: projection.contactPoint.y },
+        distanceToContact: projection.requiredDisplacement,
+      };
+      if (projection.reachable && (state.ball.flightTime ?? 0) >= projection.reactionDelay) {
+        state.players = state.players.map((player) =>
+          player.id === projection.keeper.id
+            ? { ...player, target: { x: projection.contactPoint.x, y: projection.contactPoint.y } }
+            : player,
+        );
+      }
+    }
+  } else if (state.ball.travelKind && state.ball.airborne && !state.ball.shot) {
     const interceptionPoint = state.ball.target ?? state.ball;
     const choice = goalkeeperIntervention(state, interceptionPoint);
     if (choice.keeper) {
@@ -712,14 +691,14 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       y: state.ball.y + velocity.y * dt,
       velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
     };
-  } else if (state.ball.travelDuration && state.ball.from && state.ball.target) {
+  } else if (state.ball.travelKind && state.ball.from && state.ball.target && state.ball.velocity) {
     const previous: FlightPoint = {
       x: state.ball.x,
       y: state.ball.y,
       z: state.ball.height ?? 0,
     };
-    const elapsed = (state.ball.travelElapsed ?? 0) + dt,
-      t = Math.min(1, elapsed / state.ball.travelDuration);
+    const elapsed = (state.ball.flightTime ?? 0) + dt,
+      previousDistance = state.ball.distanceTravelled ?? 0;
     const integrated = integrateBallFlight(
       {
         position: previous,
@@ -743,8 +722,10 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       ...state.ball,
       x: next.x,
       y: next.y,
-      travelElapsed: elapsed,
-      flightProgress: t,
+      flightTime: elapsed,
+      distanceTravelled:
+        previousDistance +
+        Math.hypot(next.x - previous.x, next.y - previous.y, next.z - previous.z),
       height: nextHeight,
       velocity: integrated.velocity,
       airborne: integrated.airborne,
@@ -753,42 +734,28 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     if (state.ball.shot) {
       const shot = state.ball.shot;
       const shooter = state.players.find((player) => player.id === shot.shooterId)!;
-      const candidates = [];
-      if (shot.blockerId) {
-        const defender = state.players.find((player) => player.id === shot.blockerId);
-        if (defender)
-          candidates.push({
-            kind: 'defender' as const,
-            playerId: defender.id,
-            centre: { ...defender.position, z: 0.9 },
-            radius: 0.72,
-          });
-      }
+      const candidates: ContactCandidate[] = state.players
+        .filter(
+          (player) =>
+            player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
+        )
+        .map((defender) => ({
+          kind: 'defender' as const,
+          playerId: defender.id,
+          centre: { ...defender.position, z: 0.9 },
+          radius: 0.72,
+        }));
+      const keeperProjection = projectGoalkeeperIntervention(state);
       if (
-        shot.keeperId &&
-        (shot.goalkeeperAction === 'catch' ||
-          shot.goalkeeperAction === 'parry' ||
-          shot.goalkeeperAction === 'parry_away')
+        keeperProjection?.reachable &&
+        (state.ball.flightTime ?? 0) >= keeperProjection.reactionDelay
       ) {
-        const keeper = state.players.find((player) => player.id === shot.keeperId);
-        if (keeper && state.ball.from && state.ball.target) {
-          const denominator = state.ball.target.x - state.ball.from.x;
-          const keeperT =
-            denominator === 0 ? 1 : (keeper.position.x - state.ball.from.x) / denominator;
-          const interventionT = Math.max(0, Math.min(1, keeperT));
-          candidates.push({
-            kind: 'goalkeeper' as const,
-            playerId: keeper.id,
-            centre: {
-              x: state.ball.from.x + denominator * interventionT,
-              y: state.ball.from.y + (state.ball.target.y - state.ball.from.y) * interventionT,
-              z:
-                (state.ball.targetHeight ?? 0) * interventionT +
-                (state.ball.peakHeight ?? 0) * 4 * interventionT * (1 - interventionT),
-            },
-            radius: 0.62,
-          });
-        }
+        candidates.push({
+          kind: 'goalkeeper' as const,
+          playerId: keeperProjection.keeper.id,
+          centre: { ...keeperProjection.keeper.position, z: 1.05 },
+          radius: 0.9,
+        });
       }
       const found = findFirstBallContact({
         previous,
@@ -806,14 +773,12 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           postContactSpeed:
             found.kind === 'goal_plane' || found.kind === 'out'
               ? Math.hypot(incoming.x, incoming.y)
-              : shot.goalkeeperAction === 'catch'
-                ? 0
-                : Math.hypot(rebound.x, rebound.y),
+              : Math.hypot(rebound.x, rebound.y),
         };
         return finishShotContact(state, contact, incoming);
       }
     }
-    if ((state.ball.peakHeight ?? 0) > 0 && state.ball.travelKind !== 'shot') {
+    if (state.ball.airborne && state.ball.travelKind !== 'shot') {
       const physical = findAerialContactCandidates(state, dt);
       if (physical.length) {
         const duel = resolveAerialDuel(
@@ -874,7 +839,7 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
         );
       }
     }
-    if (!state.ball.peakHeight && state.ball.travelKind !== 'shot') {
+    if (!state.ball.airborne && state.ball.travelKind !== 'shot') {
       const passer = state.players.find((p) => p.id === state.currentActorId);
       const candidate =
         passer &&
@@ -886,7 +851,7 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
               distance(p.position, state.ball) < 2.2,
           )
           .sort((a, b) => distance(a.position, state.ball) - distance(b.position, state.ball))[0];
-      if (candidate && (state.ball.travelElapsed ?? 0) < (state.ball.travelDuration ?? 0)) {
+      if (candidate && Boolean(state.ball.travelKind)) {
         const rng = RandomGenerator.fromSeed(
           `${state.seed}:flight:${state.decisionIndex}:${Math.floor(elapsed * 10)}:${candidate.id}`,
         );
@@ -903,15 +868,12 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           );
       }
     }
-    if (t >= 1) {
-      if (
-        state.ball.travelKind === 'shot' ||
-        (state.ball.travelKind === 'header' &&
-          state.currentAction?.type === 'header' &&
-          state.currentAction.intent === 'header_shot')
-      )
-        return resolveShot(state);
-      if ((state.ball.peakHeight ?? 0) > 0) {
+    if (
+      state.ball.travelKind !== 'shot' &&
+      (distance(state.ball, state.ball.target!) < 0.8 ||
+        Math.hypot(integrated.velocity.x, integrated.velocity.y) < 0.25)
+    ) {
+      if (state.ball.airborne || (state.ball.bounceCount ?? 0) > 0) {
         const physical = findAerialContactCandidates(state, dt);
         if (!physical.length) {
           const velocity = state.ball.velocity ?? { x: 0, y: 0 };
@@ -1035,10 +997,9 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       } else {
         const target = state.ball.target!;
         const from = state.ball.from!;
-        const duration = state.ball.travelDuration!;
         const canonicalVelocity = state.ball.velocity ?? {
-          x: (target.x - from.x) / duration,
-          y: (target.y - from.y) / duration,
+          x: target.x - from.x,
+          y: target.y - from.y,
         };
         state = makeLoose(
           {
@@ -1105,7 +1066,7 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       ownerId: owner.id,
     };
   }
-  if (state.ball.ownerId && !state.ball.travelDuration && state.restart?.phase !== 'setup') {
+  if (state.ball.ownerId && !state.ball.travelKind && state.restart?.phase !== 'setup') {
     const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
     const evaluated = evaluatePressure(state, owner);
     state.currentPressure = evaluated.value;
@@ -1183,7 +1144,7 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
 };
 
 const hasImmediateResolution = (state: TacticalMatchState) =>
-  Boolean(state.ball.travelDuration || state.goalCompletionUntil || state.ballCarrierIntent);
+  Boolean(state.ball.travelKind || state.goalCompletionUntil || state.ballCarrierIntent);
 
 const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchState => {
   const {

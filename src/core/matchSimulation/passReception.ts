@@ -128,10 +128,11 @@ export const resolveReceptionOutcome = (
 ): ReceptionOutcome => {
   const a = receiver.profile.attributes;
   const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
-  const ballSpeed =
-    state.ball.travelDuration && state.ball.from && state.ball.target
-      ? distance(state.ball.from, state.ball.target) / state.ball.travelDuration
-      : 0;
+  const ballSpeed = Math.hypot(
+    state.ball.velocity?.x ?? 0,
+    state.ball.velocity?.y ?? 0,
+    state.ball.velocity?.z ?? 0,
+  );
   const quality =
     (a.firstTouch + a.technique + a.agility + a.composure + a.gameReading) / 500 -
     state.currentPressure * 0.22 -

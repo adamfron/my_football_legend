@@ -735,7 +735,7 @@ export const observeMatchFlow = (
       result.goals++;
       if (metres >= 30) result.longShotGoals++;
     }
-    if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome)) result.shotsOnTarget++;
+    if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? '')) result.shotsOnTarget++;
     if (shot.outcome === 'block') result.shotsBlocked++;
     if (shot.outcome === 'save') result.saves++;
     if (shot.goalkeeperAction === 'failed_save') result.failedSaves++;
@@ -819,8 +819,9 @@ export const summarizeShootingBuckets = (telemetry: MatchFlowTelemetry) => {
     return {
       label,
       attempts: shots.length,
-      onTarget: shots.filter((shot) => ['goal', 'save', 'post', 'crossbar'].includes(shot.outcome))
-        .length,
+      onTarget: shots.filter((shot) =>
+        ['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? ''),
+      ).length,
       goals: shots.filter((shot) => shot.outcome === 'goal').length,
       blocks: shots.filter((shot) => shot.outcome === 'block').length,
       averageBaseXg: shots.length

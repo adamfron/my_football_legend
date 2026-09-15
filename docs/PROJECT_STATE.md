@@ -1,10 +1,11 @@
 # My Football Legend — Current Project State
 
-## PR126 — current Single Match Lab state
+## PR128 — current Single Match Lab state
 
 Single Match Lab uses the deterministic `matchSimulation` as its sole football authority. Tactical
-action and player-focus cameras track current presentation positions, shot aiming maps the projected
-goal mouth to bounded canonical intent, and throw-ins use the common aerial-flight resolver. A
+action and player-focus cameras track current presentation positions, while canonical body orientation
+is independent from velocity. Shot aiming maps the goal mouth to bounded intent; every released ball,
+including throw-ins, crosses and goalkeeper kicks, then uses one velocity-based physical integrator. A
 canonical agency checkpoint guarantees that retained possession after a human-selected action opens
 the next on-ball choice for the human rather than routine AI. The legacy career `MatchGame` remains
 a temporary separate placeholder and will eventually be replaced, not synchronized with this flow.

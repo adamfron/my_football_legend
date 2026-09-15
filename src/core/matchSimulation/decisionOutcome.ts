@@ -17,7 +17,7 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
   let result: NonNullable<PlayerDecisionOutcome['result']> | undefined;
   if (intent.startsWith('shot:') && state.lastShot && state.lastShot.shooterId === actor.id)
     result = { kind: 'shot_resolved', shotOutcome: state.lastShot.outcome };
-  else if (intent.startsWith('pass:') && !state.ball.travelDuration && elapsed > 0.2) {
+  else if (intent.startsWith('pass:') && !state.ball.travelKind && elapsed > 0.2) {
     const completed = owner?.team === actor.team && owner.id !== actor.id;
     result = {
       kind: completed ? 'pass_completed' : 'pass_failed',

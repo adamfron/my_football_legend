@@ -1250,11 +1250,7 @@ const RunningLab = ({
               (state.pendingPlayerDecision ? 'w toku' : '—')}
             <br />
             Piłka:{' '}
-            {state.ball.ownerId
-              ? 'w posiadaniu'
-              : state.ball.travelDuration
-                ? 'w ruchu'
-                : 'bezpańska'}
+            {state.ball.ownerId ? 'w posiadaniu' : state.ball.travelKind ? 'w ruchu' : 'bezpańska'}
             <br />
             Presja: {Math.round(state.currentPressure * 100)}%
             <br />

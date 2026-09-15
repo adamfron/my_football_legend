@@ -64,7 +64,7 @@ describe('canonical shot resolver v2', () => {
     expect(['post', 'wide', 'on_target']).toContain(shot(1, 0.3).classification);
   });
 
-  it('only considers defenders intersecting the reachable shot corridor', () => {
+  it('does not pre-resolve defenders before the physical flight', () => {
     const blocked = makeState('block-search');
     const defender = blocked.state.players.find(
       (player) => player.team === 'away' && player.profile.primaryPosition !== 'goalkeeper',
@@ -92,7 +92,10 @@ describe('canonical shot resolver v2', () => {
       sample.seed = `block-${index}`;
       return resolveCanonicalShot(sample, action);
     });
-    expect(seeds.some((result) => result.blockerId === defender.id)).toBe(true);
+    // Execution only creates launch intent. Defender contacts belong to segment CCD.
+    expect(
+      seeds.every((result) => result.blockerId === undefined && result.outcome === undefined),
+    ).toBe(true);
   });
 
   it('routes a header shot through the same flight and keeps continuations finite', () => {
@@ -115,7 +118,7 @@ describe('canonical shot resolver v2', () => {
     expect(
       current.ball.ownerId ||
         current.ball.looseSince !== undefined ||
-        current.ball.travelDuration ||
+        current.ball.travelKind ||
         current.restart,
     ).toBeTruthy();
   });

@@ -32,3 +32,4 @@ export * from './matchFlowTelemetry';
 export * from './locomotion';
 export * from './playerArrival';
 export * from './playerMatchStats';
+export * from './goalkeeperIntervention';

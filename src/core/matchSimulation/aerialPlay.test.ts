@@ -29,7 +29,7 @@ const makeState = (seed = 'aerial') =>
 
 const finishFlight = (input: ReturnType<typeof makeState>) => {
   let state = input;
-  for (let i = 0; i < 100 && state.ball.travelDuration; i++) state = stepTacticalMatch(state, 0.1);
+  for (let i = 0; i < 100 && state.ball.travelKind; i++) state = stepTacticalMatch(state, 0.1);
   return state;
 };
 
@@ -57,7 +57,7 @@ describe('canonical airborne play', () => {
       travelKind: 'cross',
       sourceAction: 'cross',
     });
-    expect(stepTacticalMatch(state, state.ball.travelDuration! / 2).ball.height).toBeGreaterThan(0);
+    expect(stepTacticalMatch(state, 0.5).ball.height).toBeGreaterThan(0);
   });
 
   it('uses the same deterministic resolver for protagonist and NPC', () => {
@@ -128,11 +128,11 @@ describe('canonical airborne play', () => {
     const released = resolveMatchAction(state, chooseRestartAction(state)!);
     expect(released.ball.travelKind).toBe('throw_in');
     expect(released.ball.releaseHeight).toBeGreaterThan(1.5);
-    expect(released.ball.peakHeight).toBeGreaterThan(0);
+    expect(released.ball.launchElevation).toBeGreaterThan(0);
     expect(released.ball.airborne).toBe(true);
     const progressed = stepTacticalMatch(released, 0.1);
     expect(progressed.ball.height).toBeGreaterThan(0);
-    expect(finishFlight(released).ball.travelDuration).toBeUndefined();
+    expect(finishFlight(released).ball.travelKind).toBeUndefined();
   });
 
   it('models every header intent in the canonical validated action type', () => {

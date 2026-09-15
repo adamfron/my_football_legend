@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR127 są ukończone. W szczególności:
+PR105–PR128 (fundament fizyki) są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -26,8 +26,9 @@ PR105–PR127 są ukończone. W szczególności:
 - **PR125:** podania kontekstowe i na dobieg, stabilność posiadania oraz dopracowanie interakcji.
 - **PR126:** stabilne śledzenie kamery, twarde przekazanie sprawczości po akcji, niezawodne
   celowanie i kanoniczny powietrzny profil autu.
-- **PR127:** kanoniczna orientacja ciała niezależna od kierunku ruchu, wspólna fizyka lotu piłki
-  (grawitacja, opór, odbicia i toczenie) oraz geometryczne fundamenty ustawienia bramkarza.
+- **PR128 — Body Orientation, Unified Ball Physics & Goalkeeping Fundamentals:** kanoniczna orientacja
+  ciała, jeden lot oparty na prędkości 3D oraz czasowa, geometryczna interwencja bramkarza. Usunięto
+  skryptowane łuki i rozstrzyganie obrony przed fizycznym kontaktem.
 
 ### NEXT
 

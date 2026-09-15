@@ -1,11 +1,5 @@
 import { RandomGenerator } from '../random/RandomGenerator';
-import {
-  distance,
-  distanceToSegment,
-  PITCH_LENGTH,
-  PITCH_WIDTH,
-  type PitchPoint,
-} from './matchSpace';
+import { distance, PITCH_LENGTH, PITCH_WIDTH, type PitchPoint } from './matchSpace';
 import { GOAL_HEIGHT, GOAL_POST_RADIUS, GOAL_WIDTH } from './ballFlight';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import type {
@@ -19,8 +13,6 @@ type ShotAction = Extract<MatchAction, { type: 'shot' | 'header' }>;
 export interface CanonicalShot extends ShotDiagnostic {
   goalPoint: PitchPoint;
   heightMetres: number;
-  keeperId?: string;
-  reboundVelocity?: PitchPoint;
 }
 
 const clamp = (value: number, low: number, high: number) => Math.max(low, Math.min(high, value));
@@ -123,76 +115,17 @@ export const resolveCanonicalShot = (
     classification = 'crossbar';
 
   const lineEnd = { x: goalX, y: goalY };
-  const defender = state.players
-    .filter(
-      (player) => player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
-    )
-    .map((player) => ({
-      player,
-      lane: distanceToSegment(player.position, shooter.position, lineEnd),
-      fromShooter: distance(player.position, shooter.position),
-    }))
-    .filter(({ lane, fromShooter }) => lane < 1.15 && fromShooter > 1 && fromShooter < range)
-    .sort((a, b) => a.lane - b.lane)[0];
-  if (defender) {
-    const a = defender.player.profile.attributes;
-    const reach = clamp(
-      0.18 +
-        (a.positioning + a.gameReading + a.agility + a.aggression) / 520 -
-        defender.lane * 0.2 -
-        speed / 150,
-      0.04,
-      0.78,
-    );
-    if (rng.bool(reach)) {
-      const velocity = {
-        x: attackingRight ? -4 - rng.float() * 5 : 4 + rng.float() * 5,
-        y: normal(rng) * 6,
-      };
-      return {
-        shotId: `${state.seed}:shot:${state.decisionIndex}:${shooter.id}`,
-        shooterId: shooter.id,
-        context:
-          action.type === 'header'
-            ? 'header'
-            : state.scenario === 'penalty'
-              ? 'penalty'
-              : state.scenario.startsWith('free_kick')
-                ? 'free_kick'
-                : 'open_play',
-        distance: opportunity.distance,
-        angle: opportunity.angle,
-        pressure: opportunity.pressure,
-        blockingDefenders: opportunity.blockingDefenders,
-        baseXg: opportunity.baseXg,
-        effectiveScoringExpectation: opportunity.effectiveScoringExpectation,
-        shooterExecutionQuality: opportunity.shooterExecutionQuality,
-        intendedTarget: intended,
-        actualTarget: actual,
-        error: { horizontal: horizontalError, vertical: verticalError },
-        speed,
-        classification,
-        blockerId: defender.player.id,
-        outcome: 'block',
-        reboundSource: 'block',
-        reboundVelocity: velocity,
-        goalPoint: lineEnd,
-        heightMetres,
-      };
-    }
-  }
-
-  const base = {
+  return {
     shotId: `${state.seed}:shot:${state.decisionIndex}:${shooter.id}`,
     shooterId: shooter.id,
     context:
       action.type === 'header'
-        ? ('header' as const)
+        ? 'header'
         : state.scenario === 'penalty'
-          ? ('penalty' as const)
+          ? 'penalty'
           : state.scenario.startsWith('free_kick')
-            ? ('free_kick' as const)
-            : ('open_play' as const),
+            ? 'free_kick'
+            : 'open_play',
     distance: opportunity.distance,
     angle: opportunity.angle,
     pressure: opportunity.pressure,
@@ -207,92 +140,5 @@ export const resolveCanonicalShot = (
     classification,
     goalPoint: lineEnd,
     heightMetres,
-  };
-  if (classification === 'wide' || classification === 'over') return { ...base, outcome: 'miss' };
-  if (classification === 'post' || classification === 'crossbar') {
-    const source = classification;
-    return {
-      ...base,
-      outcome: source,
-      reboundSource: source,
-      reboundVelocity: {
-        x: attackingRight ? -5 - rng.float() * 8 : 5 + rng.float() * 8,
-        y:
-          classification === 'post'
-            ? -Math.sign(goalY - PITCH_WIDTH / 2) * (2 + rng.float() * 6)
-            : normal(rng) * 4,
-      },
-    };
-  }
-  const keeper = state.players.find(
-    (player) => player.team !== shooter.team && player.profile.primaryPosition === 'goalkeeper',
-  );
-  if (!keeper) return { ...base, outcome: 'goal', goalkeeperAction: 'no_chance' };
-  const lateralMove = Math.abs(keeper.position.y - goalY);
-  const time = range / speed;
-  const reaction = 0.34 - keeper.profile.attributes.reflexes * 0.0018 + rng.float() * 0.1;
-  const reach =
-    Math.max(0, time - reaction) * (3.4 + keeper.profile.attributes.agility * 0.04) + 1.05;
-  const difficulty = clamp(
-    lateralMove / Math.max(0.5, reach) + speed / 75 + (heightMetres / GOAL_HEIGHT) * 0.12,
-    0,
-    1,
-  );
-  if (lateralMove > reach)
-    return {
-      ...base,
-      keeperId: keeper.id,
-      goalkeeperAction: 'no_chance',
-      saveDifficulty: difficulty,
-      goalkeeperReaction: reaction,
-      goalkeeperReach: reach,
-      outcome: 'goal',
-    };
-  const keeperQuality =
-    (keeper.profile.attributes.reflexes * 0.35 +
-      keeper.profile.attributes.handling * 0.25 +
-      keeper.profile.attributes.positioning * 0.2 +
-      keeper.profile.attributes.oneOnOnes * 0.2) /
-    100;
-  const saveChance = clamp(0.3 + keeperQuality * 0.72 - difficulty * 0.5, 0.06, 0.96);
-  if (!rng.bool(saveChance))
-    return {
-      ...base,
-      keeperId: keeper.id,
-      goalkeeperAction: 'failed_save',
-      saveDifficulty: difficulty,
-      goalkeeperReaction: reaction,
-      goalkeeperReach: reach,
-      outcome: 'goal',
-    };
-  const catchChance = clamp(
-    keeper.profile.attributes.handling / 115 + (25 - speed) / 24 - difficulty * 0.45,
-    0.04,
-    0.86,
-  );
-  if (rng.bool(catchChance))
-    return {
-      ...base,
-      keeperId: keeper.id,
-      goalkeeperAction: 'catch',
-      saveDifficulty: difficulty,
-      goalkeeperReaction: reaction,
-      goalkeeperReach: reach,
-      outcome: 'save',
-    };
-  const away = rng.bool(clamp(keeperQuality - difficulty * 0.35, 0.2, 0.8));
-  return {
-    ...base,
-    keeperId: keeper.id,
-    goalkeeperAction: away ? 'parry_away' : 'parry',
-    saveDifficulty: difficulty,
-    goalkeeperReaction: reaction,
-    goalkeeperReach: reach,
-    outcome: 'save',
-    reboundSource: 'goalkeeper',
-    reboundVelocity: {
-      x: attackingRight ? -5 - rng.float() * 5 : 5 + rng.float() * 5,
-      y: away ? Math.sign(goalY - PITCH_WIDTH / 2 || 1) * (5 + rng.float() * 5) : normal(rng) * 4,
-    },
   };
 };
