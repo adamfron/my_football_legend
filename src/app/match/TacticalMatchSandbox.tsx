@@ -635,10 +635,10 @@ const RunningLab = ({
   useEffect(() => {
     rendererRef.current?.setCameraMode(
       replaying ? 'goal_replay' : shotAimActive ? 'shot_aim' : 'tactical',
-      opportunity?.actorId,
+      shotAimActive ? opportunity?.actorId : state.controlledFootballerId,
       shotAimTeam,
     );
-  }, [replaying, shotAimActive, opportunity?.actorId, shotAimTeam]);
+  }, [replaying, shotAimActive, opportunity?.actorId, shotAimTeam, state.controlledFootballerId]);
   useEffect(() => {
     if (shotAim) rendererRef.current?.setGoalAimMarker(shotAim);
   }, [shotAim]);

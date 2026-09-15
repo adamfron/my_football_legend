@@ -7,6 +7,7 @@ import { evaluateRunSpace } from './reachableSpace';
 import { captureOffsideSnapshot } from './offside';
 import { projectPassReception, receptionPreparationSchema } from './passReception';
 import { estimatePlayerArrivalTime } from './playerArrival';
+import { deriveLaunchVelocity } from './ballPhysics';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -57,12 +58,14 @@ const pressure = (state: TacticalMatchState, actor: MatchPlayerState) =>
 export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const opportunity = evaluateShootingOpportunity(state, actor);
   const styleModifier = state.teams[actor.team].style === 'direct' ? 3 : 0;
+  const extremeRangePenalty = Math.pow(Math.max(0, opportunity.distance - 22) / 8, 1.55) * 12;
   return (
     4 +
     Math.pow(opportunity.effectiveScoringExpectation, 1.18) * 150 -
     opportunity.pressure * 12 -
     opportunity.blockingDefenders * 4 +
-    styleModifier
+    styleModifier -
+    extremeRangePenalty
   );
 };
 
@@ -476,6 +479,11 @@ export const resolveMatchAction = (
     const direction = actor.team === 'home' ? 1 : -1;
     const target = { ...shot.goalPoint, x: shot.goalPoint.x + direction * 2 };
     const duration = Math.max(0.28, distance(actor.position, target) / shot.speed);
+    const shotElevation = Math.atan2(
+      Math.max(0, shot.heightMetres) + 0.5 * 9.81 * duration * duration,
+      distance(actor.position, target),
+    );
+    const shotVelocity = deriveLaunchVelocity(actor.position, target, shot.speed, shotElevation);
     return {
       ...baseState,
       ball: {
@@ -493,6 +501,11 @@ export const resolveMatchAction = (
         height: 0,
         flightProgress: 0,
         airborne: true,
+        velocity: shotVelocity,
+        launchVelocity: shotVelocity,
+        launchSpeed: shot.speed,
+        launchElevation: shotElevation,
+        bounceCount: 0,
         lastTouchPlayerId: actor.id,
       },
       currentAction: action,
@@ -530,6 +543,20 @@ export const resolveMatchAction = (
           x: headerShot.goalPoint.x + (actor.team === 'home' ? 2 : -2),
         }
       : action.target;
+    const launchSpeed = headerShot?.speed ?? (action.intent === 'floated' ? 22 : 27);
+    const elevation = headerShot
+      ? Math.atan2(Math.max(0, headerShot.heightMetres) + 0.5 * 9.81 * duration * duration, length)
+      : action.intent === 'floated'
+        ? 0.42
+        : action.intent === 'driven'
+          ? 0.2
+          : 0.1;
+    const launchVelocity = deriveLaunchVelocity(
+      actor.position,
+      headerTarget,
+      launchSpeed,
+      elevation,
+    );
     return {
       ...baseState,
       ball: {
@@ -566,6 +593,11 @@ export const resolveMatchAction = (
         height: 0,
         flightProgress: 0,
         airborne: true,
+        velocity: launchVelocity,
+        launchVelocity,
+        launchSpeed,
+        launchElevation: elevation,
+        bounceCount: 0,
         lastTouchPlayerId: actor.id,
       },
       currentAction: action,
@@ -588,6 +620,29 @@ export const resolveMatchAction = (
   const duration =
     projection?.estimatedBallArrival ?? Math.max(0.45, distance(actor.position, target) / 24);
   const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;
+  const isThrowIn = restart?.phase === 'release' && state.scenario === 'throw_in';
+  const isLongDistribution = restart?.phase === 'release' && state.scenario === 'goal_kick';
+  const releasePosition = isThrowIn ? { x: state.ball.x, y: state.ball.y } : { ...actor.position };
+  const launchSpeed = isThrowIn
+    ? 14
+    : isLongDistribution
+      ? 29
+      : action.intent === 'direct' && duration > 1.5
+        ? 24
+        : 18;
+  const launchElevation = isThrowIn
+    ? 0.38
+    : isLongDistribution
+      ? 0.5
+      : action.intent === 'direct' && duration > 1.5
+        ? 0.3
+        : 0;
+  const launchVelocity = deriveLaunchVelocity(
+    releasePosition,
+    target,
+    launchSpeed,
+    launchElevation,
+  );
   const defenders = state.players.filter((p) => p.team !== actor.team);
   const bestDefenderArrival = Math.min(
     ...defenders.map(
@@ -633,6 +688,11 @@ export const resolveMatchAction = (
         (restart?.phase === 'release' &&
           (state.scenario === 'goal_kick' || state.scenario === 'throw_in')) ||
         (action.intent === 'direct' && duration > 1.5),
+      velocity: launchVelocity,
+      launchVelocity,
+      launchSpeed,
+      launchElevation,
+      bounceCount: 0,
       lastTouchPlayerId: actor.id,
     },
     currentAction: action,

@@ -561,6 +561,12 @@ export class TacticalPitchRenderer {
       intent.vertical * 2.44,
       intent.horizontal * 3.66 * (plane.userData.goalSide === 'away' ? -1 : 1),
     );
+    this.redraw();
+  }
+
+  /** Repaints stored presentation state without advancing simulation or changing the camera. */
+  redraw() {
+    if (this.viewportReady) this.renderer.render(this.scene, this.camera);
   }
 
   /** Shared presentation-only framing for tactical play, aiming and stored replay frames. */

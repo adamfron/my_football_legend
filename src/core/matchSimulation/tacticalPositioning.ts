@@ -11,6 +11,7 @@ import {
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState, TacticalStyle } from './matchState';
 import { restartInfluence } from './restartGeometry';
+import { deriveGoalkeeperBasePosition } from './goalkeeperPositioning';
 
 export interface TacticalStyleParameters {
   width: number;
@@ -456,14 +457,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       dir = direction(player.team);
     const isKeeper = player.profile.primaryPosition === 'goalkeeper';
     let structural: PitchPoint;
-    if (isKeeper)
-      structural = {
-        x:
-          player.team === 'home'
-            ? Math.min(16, 5.5 + Math.max(0, state.ball.x - 35) * 0.07)
-            : Math.max(89, 99.5 - Math.max(0, 70 - state.ball.x) * 0.07),
-        y: 34 + (state.ball.y - 34) * 0.12,
-      };
+    if (isKeeper) structural = deriveGoalkeeperBasePosition(state.ball, player.team);
     else
       structural = {
         x:
