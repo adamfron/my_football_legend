@@ -147,6 +147,7 @@ export const playerDecisionOutcomeSchema = z.object({
     'defensive_response',
     'goalkeeper_response',
     'loose_ball',
+    'restart',
   ]),
   selectedIntent: z.string(),
   selectedTarget: z.unknown().optional(),

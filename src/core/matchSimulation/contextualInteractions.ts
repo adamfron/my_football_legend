@@ -112,7 +112,10 @@ export const projectContextualInteractions = (
       );
     return [];
   }
-  const actions = enumerateAvailableActions(state, actor.id);
+  const actions =
+    opportunity.kind === 'restart'
+      ? opportunity.options.flatMap((option) => (option.kind === 'action' ? [option.action] : []))
+      : enumerateAvailableActions(state, actor.id);
   if (target.kind === 'goal') {
     if (target.side === actor.team) return [];
     const humanShotTypes = new Map<string, Extract<MatchAction, { type: 'shot' }>>();

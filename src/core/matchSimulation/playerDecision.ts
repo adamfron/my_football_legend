@@ -26,6 +26,9 @@ import { isActionResolutionInProgress } from './actionLifecycle';
 import { evaluateActionImpact } from './actionImpact';
 import { estimatePlayerArrivalTime, playerArrivalEstimateSchema } from './playerArrival';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
+import { projectFutureBallTrajectory } from './ballPhysics';
+import { BALL_RADIUS } from './ballFlight';
+import { enumerateRestartActions } from './matchActions';
 
 export const playerDecisionOptionSchema = z.discriminatedUnion('kind', [
   z.object({
@@ -53,6 +56,7 @@ export const playerDecisionOpportunitySchema = z.object({
     'defensive_response',
     'goalkeeper_response',
     'loose_ball',
+    'restart',
   ]),
   triggerReason: z.string(),
   signature: z.string(),
@@ -155,6 +159,19 @@ export const projectSelectableInteractionTargets = (
 ): PlayerInteractionTargetDescriptor[] => {
   const actor = state.players.find((player) => player.id === opportunity.actorId);
   if (!actor) return [];
+  if (opportunity.kind === 'restart') {
+    const targets: PlayerInteractionTargetDescriptor[] = [];
+    for (const option of opportunity.options) {
+      if (option.kind !== 'action') continue;
+      if (option.action.type === 'pass')
+        targets.push({ kind: 'player', playerId: option.action.receiverId });
+      else if (option.action.type === 'shot')
+        targets.push({ kind: 'goal', side: actor.team === 'home' ? 'away' : 'home' });
+      else if (option.action.type === 'cross')
+        targets.push({ kind: 'space', point: option.action.target });
+    }
+    return targets;
+  }
   if (opportunity.kind === 'incoming_ball') {
     const result: PlayerInteractionTargetDescriptor[] = [
       { kind: 'ball', point: { x: state.ball.x, y: state.ball.y } },
@@ -348,41 +365,50 @@ export const evaluatePassInterceptionOpportunity = (
 ) => {
   const defender = state.players.find((player) => player.id === defenderId);
   const relationship = deriveControlledBallRelationship(state, defenderId);
-  const from = state.ball.from;
-  const target = state.ball.target;
+  const velocity = state.ball.velocity;
   if (
     relationship !== 'opponent_interceptor' ||
     !defender ||
-    !from ||
-    !target ||
+    !velocity ||
     state.ball.ownerId ||
     !state.ball.travelKind
   )
     return passInterceptionOpportunitySchema.parse({ viable: false });
-  const dx = target.x - from.x;
-  const dy = target.y - from.y;
-  const lengthSquared = dx * dx + dy * dy || 1;
-  const t = Math.max(
-    0,
-    Math.min(
-      1,
-      ((defender.position.x - from.x) * dx + (defender.position.y - from.y) * dy) / lengthSquared,
-    ),
+  const samples = projectFutureBallTrajectory(
+    {
+      position: { x: state.ball.x, y: state.ball.y, z: state.ball.height ?? BALL_RADIUS },
+      velocity: { x: velocity.x, y: velocity.y, z: velocity.z ?? 0 },
+      airborne: state.ball.airborne ?? false,
+      bounceCount: state.ball.bounceCount ?? 0,
+    },
+    2.5,
+    0.05,
   );
-  const contactPoint = { x: from.x + dx * t, y: from.y + dy * t };
+  const candidates = samples
+    .map(({ at, ball }) => {
+      const point = { x: ball.position.x, y: ball.position.y };
+      const playerArrival = estimatePlayerArrivalTime(state, defender, point, 'intercept');
+      const contactHeight = ball.position.z;
+      const arrivalMargin = at + 0.12 - playerArrival.estimatedTime;
+      return { at, point, playerArrival, contactHeight, arrivalMargin };
+    })
+    .filter((candidate) => candidate.at > 0)
+    .sort((a, b) => a.playerArrival.distance - b.playerArrival.distance || a.at - b.at);
+  const candidate = candidates[0];
+  if (!candidate) return passInterceptionOpportunitySchema.parse({ viable: false });
+  const contactPoint = candidate.point;
   const distanceToPath = distance(defender.position, contactPoint);
-  const ballSpeed = Math.max(
-    0.1,
-    Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0),
-  );
-  const arrivalTime = Math.max(0, distance(state.ball, contactPoint) / ballSpeed);
+  const arrivalTime = candidate.at;
   const structureRisk = Math.min(1, distance(defender.anchor, contactPoint) / 18);
-  const playerArrival = estimatePlayerArrivalTime(state, defender, contactPoint, 'intercept');
-  const controlMargin = 0.12;
-  const arrivalMargin = arrivalTime + controlMargin - playerArrival.estimatedTime;
-  const competitive = arrivalMargin >= 0 && arrivalMargin <= 0.9;
+  const playerArrival = candidate.playerArrival;
+  const arrivalMargin = candidate.arrivalMargin;
+  const reachableContact =
+    candidate.contactHeight <= (defender.profile.primaryPosition === 'goalkeeper' ? 2.65 : 2.15) &&
+    playerArrival.reachable &&
+    arrivalMargin >= 0 &&
+    arrivalMargin <= 0.9;
   return passInterceptionOpportunitySchema.parse({
-    viable: competitive && arrivalTime >= 0.2 && arrivalTime <= 1.3 && structureRisk < 0.85,
+    viable: reachableContact && arrivalTime >= 0.1 && arrivalTime <= 2.5 && structureRisk < 0.85,
     contactPoint,
     distanceToPath,
     arrivalTime,
@@ -544,9 +570,13 @@ const projectDecision = (
     probe: playerDecisionProbeSchema.parse({ actorId, candidate: false, blockedReason, ...extra }),
   });
   if (!actorId || !actor) return blocked('no_controlled_player');
-  if (state.scenario !== 'open_play') return blocked('not_open_play');
+  const controlledRestart =
+    state.scenario !== 'open_play' &&
+    state.restart?.phase === 'setup' &&
+    state.restart.takerId === actorId;
+  if (state.scenario !== 'open_play' && !controlledRestart) return blocked('not_open_play');
   // A committed ball flight is precisely when reception/interception control may begin.
-  if (isActionResolutionInProgress(state) && !state.ball.travelKind)
+  if (!controlledRestart && isActionResolutionInProgress(state) && !state.ball.travelKind)
     return blocked('resolution_in_progress');
   const situation = evaluateMatchSituation(state, actorId);
   const roleProfile = deriveDecisionRole(actor);
@@ -579,7 +609,15 @@ const projectDecision = (
   let kind: PlayerDecisionOpportunity['kind'] | undefined;
   let options: PlayerDecisionOption[] = [];
   const agencyHandoff = state.postActionAgencyCheckpoint?.actorId === actorId;
-  if (
+  if (controlledRestart) {
+    kind = 'restart';
+    options = enumerateRestartActions(state).map((action, index) => ({
+      id: `restart-${index}`,
+      kind: 'action' as const,
+      labelKey: actionLabel(action),
+      action,
+    }));
+  } else if (
     state.ball.ownerId === actorId &&
     (agencyHandoff || evaluateOnBallDecisionRelevance(state, actorId).relevant)
   ) {
@@ -792,11 +830,14 @@ const projectDecision = (
     openedAt: state.time,
     kind,
     triggerReason:
-      kind === 'on_ball'
-        ? evaluateOnBallDecisionRelevance(state, actorId).reasons.join(',') || situation.reasons[0]
-        : kind === 'incoming_ball'
-          ? projectIncomingPlayerInvolvement(state, actorId).reasons.join(',')
-          : situation.reasons[0],
+      kind === 'restart'
+        ? `restart_${state.scenario}`
+        : kind === 'on_ball'
+          ? evaluateOnBallDecisionRelevance(state, actorId).reasons.join(',') ||
+            situation.reasons[0]
+          : kind === 'incoming_ball'
+            ? projectIncomingPlayerInvolvement(state, actorId).reasons.join(',')
+            : situation.reasons[0],
     signature,
     situation,
     options,

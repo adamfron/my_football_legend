@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
-import { BALL_PHYSICS, integrateBallFlight, type PhysicalBall } from './ballPhysics';
+import { BALL_PHYSICS, projectFutureBallTrajectory, type PhysicalBall } from './ballPhysics';
 import { BALL_RADIUS, GOAL_HEIGHT } from './ballFlight';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
@@ -55,12 +55,11 @@ export const projectGoalkeeperIntervention = (
     airborne: state.ball.airborne ?? false,
     bounceCount: state.ball.bounceCount ?? 0,
   };
-  const step = 0.025;
   let elapsed = 0;
   const attackingRight = shooter?.team === 'home';
-  while (elapsed < maxSeconds) {
-    const next = integrateBallFlight(physical, step);
-    elapsed += step;
+  for (const sample of projectFutureBallTrajectory(physical, maxSeconds, 0.025)) {
+    const next = sample.ball;
+    elapsed = sample.at;
     const crossed = attackingRight
       ? physical.position.x <= keeper.position.x && next.position.x >= keeper.position.x
       : physical.position.x >= keeper.position.x && next.position.x <= keeper.position.x;

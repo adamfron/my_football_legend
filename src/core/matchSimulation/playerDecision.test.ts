@@ -18,6 +18,7 @@ import {
   deriveBallSourceTeam,
   evaluatePassInterceptionOpportunity,
   projectSelectableInteractionTargets,
+  applyRestartScenario,
 } from '.';
 
 const world = createCanonicalWorldDatabase();
@@ -158,6 +159,73 @@ describe('player decision lifecycle', () => {
     expect(projectPlayerDecisionOpportunity(carried)?.kind).toBe('on_ball');
     expect(carried.latestActionSource).toBe('human_selected');
     expect(carried.currentAction?.type).toBe('carry');
+  });
+
+  it('restores human agency after a transient loose-ball carry contact and same-player recovery', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    let episode = resolveMatchAction(
+      state,
+      {
+        type: 'carry',
+        actorId: actor.id,
+        target: { x: actor.position.x + 5, y: actor.position.y },
+      },
+      'human_selected',
+    );
+    const { ballCarrierIntent: _carry, ...withoutCarry } = episode;
+    const { ownerId: _owner, ...looseBall } = episode.ball;
+    void [_carry, _owner];
+    episode = {
+      ...withoutCarry,
+      ball: { ...looseBall, looseSince: episode.time },
+    };
+    episode = { ...episode, ball: { ...episode.ball, ownerId: actor.id }, actionCooldown: 0 };
+    expect(episode.postActionAgencyCheckpoint?.actorId).toBe(actor.id);
+    expect(projectPlayerDecisionOpportunity(episode)?.kind).toBe('on_ball');
+    expect(stepTacticalMatch(episode, 0.025).latestActionSource).not.toBe('autonomous_routine');
+  });
+
+  it('ends the carry agency episode when an opponent establishes possession with an action', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const opponent = state.players.find((player) => player.team !== actor.team)!;
+    const carried = resolveMatchAction(
+      state,
+      {
+        type: 'carry',
+        actorId: actor.id,
+        target: { x: actor.position.x + 5, y: actor.position.y },
+      },
+      'human_selected',
+    );
+    const lost = { ...carried, ball: { ...opponent.position, ownerId: opponent.id } };
+    const movedOn = resolveMatchAction(lost, { type: 'hold', actorId: opponent.id });
+    expect(movedOn.postActionAgencyCheckpoint).toBeUndefined();
+  });
+
+  it('projects legal controlled kickoff passes while an NPC kickoff stays automatic', () => {
+    const state = makeState();
+    const kickoff = applyRestartScenario(state, 'kick_off', { restartTeam: 'home' });
+    kickoff.controlledFootballerId = kickoff.restart!.takerId;
+    const opportunity = projectPlayerDecisionOpportunity(kickoff);
+    expect(opportunity?.kind).toBe('restart');
+    expect(opportunity?.options.length).toBeGreaterThanOrEqual(2);
+    expect(
+      opportunity?.options.every(
+        (option) => option.kind === 'action' && option.action.type === 'pass',
+      ),
+    ).toBe(true);
+    const option = opportunity!.options[0]!;
+    const released = applyPlayerDecision(kickoff, opportunity!, option.id);
+    expect(released.restart?.phase).toBe('release');
+
+    const npcKickoff = applyRestartScenario(state, 'kick_off', { restartTeam: 'away' });
+    npcKickoff.controlledFootballerId = state.controlledFootballerId!;
+    let advanced = npcKickoff;
+    for (let index = 0; index < 90; index += 1) advanced = stepTacticalMatch(advanced, 0.025);
+    expect(advanced.restart?.phase).toBe('release');
+    expect(advanced.latestActionSource).toBe('autonomous_npc');
   });
 
   it('resolves a selected action through the identical canonical resolver exactly once', () => {
@@ -384,6 +452,34 @@ describe('player decision lifecycle', () => {
     expect(probe.opportunityKind).not.toBe('off_ball_run');
   });
 
+  it('uses physical future travel and rejects a stale historical pass target behind the ball', () => {
+    const state = makeState();
+    const defender = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const opponent = state.players.find((player) => player.team !== defender.team)!;
+    defender.position = { x: 54, y: 34 };
+    defender.anchor = defender.position;
+    state.ball = {
+      x: 50,
+      y: 34,
+      height: 0.11,
+      airborne: false,
+      velocity: { x: 9, y: 0, z: 0 },
+      bounceCount: 0,
+      travelKind: 'pass',
+      from: { x: 45, y: 34 },
+      target: { x: 54, y: 34 },
+      lastTouchPlayerId: opponent.id,
+    };
+    expect(evaluatePassInterceptionOpportunity(state, defender.id).viable).toBe(true);
+    state.ball = {
+      ...state.ball,
+      x: 58,
+      velocity: { x: 9, y: 0, z: 0 },
+      target: { x: 54, y: 34 },
+    };
+    expect(evaluatePassInterceptionOpportunity(state, defender.id).viable).toBe(false);
+  });
+
   it('skips through the canonical NPC path and spectator mode never projects', () => {
     const state = makeState(),
       opportunity = projectPlayerDecisionOpportunity(state)!;
@@ -495,7 +591,7 @@ describe('player decision lifecycle', () => {
     ).not.toHaveLength(0);
   });
 
-  it('rejects the captured winger prompt when 9.6 metres cannot be covered in 1.3 seconds', () => {
+  it('uses the dragged physical ETA rather than the obsolete constant-speed winger ETA', () => {
     const state = makeState();
     const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
     const opponent = state.players.find((player) => player.team !== actor.team)!;
@@ -517,9 +613,9 @@ describe('player decision lifecycle', () => {
     };
     const result = evaluatePassInterceptionOpportunity(state, actor.id);
     expect(result.playerArrival?.distance).toBeCloseTo(9.63, 1);
-    expect(result.arrivalTime).toBeCloseTo(1.4, 1);
-    expect(result.playerArrival!.estimatedTime).toBeGreaterThan(result.arrivalTime! + 0.12);
-    expect(result.viable).toBe(false);
-    expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
+    expect(result.arrivalTime).toBeGreaterThan(0);
+    expect(result.contactPoint!.x).toBeLessThan(state.ball.x);
+    expect(result.viable).toBe(true);
+    expect(projectPlayerDecisionOpportunity(state)?.kind).toBe('defensive_response');
   });
 });
