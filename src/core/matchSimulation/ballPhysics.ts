@@ -12,6 +12,10 @@ export interface PhysicalBall {
   airborne: boolean;
   bounceCount: number;
 }
+export interface PhysicalBallForecastSample {
+  at: number;
+  ball: PhysicalBall;
+}
 export const BALL_PHYSICS = {
   gravity: 9.81,
   airDrag: 0.006,
@@ -80,6 +84,26 @@ export const integrateBallFlight = (ball: PhysicalBall, dt: number): PhysicalBal
     current = { position, velocity, airborne, bounceCount };
   }
   return current;
+};
+
+/**
+ * Canonical, RNG-free future forecast. Consumers sample the very same fixed-step solver used by
+ * match resolution rather than recreating a trajectory from an intended target.
+ */
+export const projectFutureBallTrajectory = (
+  ball: PhysicalBall,
+  horizon = 3,
+  sampleInterval = 0.05,
+): PhysicalBallForecastSample[] => {
+  const interval = Math.max(0.025, sampleInterval);
+  const samples: PhysicalBallForecastSample[] = [];
+  let current = ball;
+  for (let at = interval; at <= horizon + 1e-9; at += interval) {
+    current = integrateBallFlight(current, interval);
+    samples.push({ at, ball: current });
+    if (!current.airborne && Math.hypot(current.velocity.x, current.velocity.y) < 0.05) break;
+  }
+  return samples;
 };
 
 export const deriveLaunchVelocity = (

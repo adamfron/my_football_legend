@@ -130,6 +130,7 @@ export const matchFlowTelemetrySchema = z.object({
     maxProgress: z.number(),
     lastActionAt: z.number().optional(),
     lastPassAt: z.number().optional(),
+    activeFlankEpisodes: z.array(z.string()),
   }),
   microSpellsUnder0_5s: z.number().int().nonnegative(),
   adjacentTickPossessionFlips: z.number().int().nonnegative(),
@@ -144,6 +145,9 @@ export const matchFlowTelemetrySchema = z.object({
   overlapPassAttempts: z.number().int().nonnegative(),
   overlapPassCompleted: z.number().int().nonnegative(),
   overlapPassOutOfPlay: z.number().int().nonnegative(),
+  overlapRunsStarted: z.number().int().nonnegative(),
+  underlapRunsStarted: z.number().int().nonnegative(),
+  provideWidthEpisodes: z.number().int().nonnegative(),
   shortWideCombinations: z.number().int().nonnegative(),
   channelReleases: z.number().int().nonnegative(),
   finalThirdEntries: z.number().int().nonnegative(),
@@ -157,6 +161,10 @@ export const matchFlowTelemetrySchema = z.object({
   edgeSupportEpisodes: z.number().int().nonnegative(),
   crossesFromAdvancedWideArea: z.number().int().nonnegative(),
   cutbacks: z.number().int().nonnegative(),
+  crossAttempts: z.number().int().nonnegative(),
+  floatedCrosses: z.number().int().nonnegative(),
+  drivenCrosses: z.number().int().nonnegative(),
+  occupiedCrossTargets: z.number().int().nonnegative(),
   threatFlow: z.object({
     progressiveReceptions: z.number().int().nonnegative(),
     resultingFinalThirdEntries: z.number().int().nonnegative(),
@@ -263,6 +271,7 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
       spellPassCompletions: 0,
       spellCarries: 0,
       maxProgress: 0,
+      activeFlankEpisodes: [],
     },
     microSpellsUnder0_5s: 0,
     adjacentTickPossessionFlips: 0,
@@ -277,6 +286,9 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
     overlapPassAttempts: 0,
     overlapPassCompleted: 0,
     overlapPassOutOfPlay: 0,
+    overlapRunsStarted: 0,
+    underlapRunsStarted: 0,
+    provideWidthEpisodes: 0,
     shortWideCombinations: 0,
     channelReleases: 0,
     finalThirdEntries: 0,
@@ -290,6 +302,10 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
     edgeSupportEpisodes: 0,
     crossesFromAdvancedWideArea: 0,
     cutbacks: 0,
+    crossAttempts: 0,
+    floatedCrosses: 0,
+    drivenCrosses: 0,
+    occupiedCrossTargets: 0,
     threatFlow: {
       progressiveReceptions: 0,
       resultingFinalThirdEntries: 0,
@@ -345,7 +361,8 @@ export const recordDecisionOpportunity = (
     | 'off_ball_run'
     | 'loose_ball'
     | 'defensive_response'
-    | 'goalkeeper_response',
+    | 'goalkeeper_response'
+    | 'restart',
   preventedByEscalation = false,
 ) => {
   telemetry.controlled.decisionOpportunities[kind] =
@@ -471,6 +488,7 @@ export const observeMatchFlow = (
       spellPassCompletions: 0,
       spellCarries: 0,
       maxProgress: progress,
+      activeFlankEpisodes: result.observerState.activeFlankEpisodes,
     };
   }
   const action = next.latestAction;
@@ -513,6 +531,10 @@ export const observeMatchFlow = (
     }
   }
   if (newAction && action.type === 'cross') {
+    result.crossAttempts++;
+    if (action.intent === 'floated') result.floatedCrosses++;
+    if (action.intent === 'driven') result.drivenCrosses++;
+    if (action.intendedTargetId) result.occupiedCrossTargets++;
     const actor = next.players.find((player) => player.id === action.actorId);
     if (
       actor &&
@@ -524,6 +546,19 @@ export const observeMatchFlow = (
         result.cutbacks++;
     }
   }
+  const activeFlankEpisodes: string[] = [];
+  for (const player of next.players) {
+    const relationship = deriveFlankRelationship(next, player);
+    if (!['overlap', 'underlap', 'provide_width'].includes(relationship)) continue;
+    const id = `${player.id}:${relationship}`;
+    activeFlankEpisodes.push(id);
+    if (!result.observerState.activeFlankEpisodes.includes(id)) {
+      if (relationship === 'overlap') result.overlapRunsStarted++;
+      else if (relationship === 'underlap') result.underlapRunsStarted++;
+      else result.provideWidthEpisodes++;
+    }
+  }
+  result.observerState.activeFlankEpisodes = activeFlankEpisodes;
   const releasedPass = next.lastPassDiagnostic;
   const releasedPassId = releasedPass
     ? `${result.benchmarkRunId}:${releasedPass.passId}`

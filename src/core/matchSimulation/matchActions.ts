@@ -1,5 +1,11 @@
 import { RandomGenerator } from '../random/RandomGenerator';
-import { clampPitchPoint, distance, distanceToSegment, fieldValue } from './matchSpace';
+import {
+  clampPitchPoint,
+  distance,
+  distanceToSegment,
+  fieldValue,
+  signedForwardDistance,
+} from './matchSpace';
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { resolveCanonicalShot } from './shotResolver';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
@@ -8,6 +14,7 @@ import { captureOffsideSnapshot } from './offside';
 import { projectPassReception, receptionPreparationSchema } from './passReception';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { deriveLaunchVelocity } from './ballPhysics';
+import { deriveFinalThirdOccupations } from './tacticalPositioning';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -134,24 +141,37 @@ export const enumerateAvailableActions = (
     { type: 'hold', actorId },
     ...carryTargets.map((target) => ({ type: 'carry' as const, actorId, target })),
   ];
-  const advanced = fieldValue(actor.position, actor.team) > 66;
-  const wide = actor.position.y < 18 || actor.position.y > 50;
-  if (advanced && wide) {
-    const boxX = actor.team === 'home' ? 94 : 11;
-    const targets = state.players.filter(
-      (p) => p.team === actor.team && p.id !== actor.id && Math.abs(p.position.x - boxX) < 18,
+  const advanced = fieldValue(actor.position, actor.team) > 54;
+  const channelWidth = Math.abs(actor.position.y - 34);
+  const deliveryAngle = Math.abs(actor.position.x - (actor.team === 'home' ? 105 : 0));
+  if (advanced && channelWidth >= 12 && deliveryAngle <= 44) {
+    const occupations = deriveFinalThirdOccupations(state, actor.team).filter(
+      ({ occupation }) => occupation !== 'rest_defence' && occupation !== 'wide_support',
     );
-    for (const y of [27, 34, 41])
+    for (const assignment of occupations) {
+      const receiver = state.players.find((player) => player.id === assignment.playerId);
+      if (!receiver) continue;
+      const receiverProjection = projectPassReception(state, actor, receiver, 'lead');
+      const target = {
+        x: assignment.target.x * 0.7 + receiverProjection.releaseTarget.x * 0.3,
+        y: assignment.target.y * 0.7 + receiverProjection.releaseTarget.y * 0.3,
+      };
+      const byline =
+        deliveryAngle < 13 && signedForwardDistance(target, actor.position, actor.team) < -1;
+      const intent =
+        byline && ['penalty_spot', 'edge_support'].includes(assignment.occupation)
+          ? 'cutback'
+          : assignment.occupation === 'far_post' || deliveryAngle > 25
+            ? 'floated'
+            : 'driven';
       actions.push({
         type: 'cross',
         actorId,
-        target: { x: boxX, y },
-        ...(targets[0] ? { intendedTargetId: targets[0].id } : {}),
-        intent:
-          Math.abs(actor.position.x - (actor.team === 'home' ? 105 : 0)) < 10
-            ? 'cutback'
-            : 'floated',
+        target,
+        intendedTargetId: receiver.id,
+        intent,
       });
+    }
   }
   const goalDistance = distance(actor.position, {
     x: actor.team === 'home' ? 105 : 0,
@@ -278,7 +298,7 @@ export const scoreActionForAI = (
       (p) => distance(p.position, action.target) < 12,
     ).length;
     const a = actor.profile.attributes;
-    const delivery = (a.passing + a.setPieces + a.technique + a.gameReading) / 20;
+    const delivery = (a.passing + a.technique + a.gameReading + a.composure) / 20;
     return (
       24 +
       delivery +
@@ -464,6 +484,15 @@ export const resolveMatchAction = (
       currentActorId: actor.id,
       actionCooldown: 1.3,
       decisionIndex: state.decisionIndex + 1,
+      ...(source === 'human_selected' && action.actorId === state.controlledFootballerId
+        ? {
+            postActionAgencyCheckpoint: {
+              actorId: actor.id,
+              completedAction: 'carry' as const,
+              at: state.time,
+            },
+          }
+        : {}),
       ...(restart ? { restart } : {}),
     };
   }
@@ -735,18 +764,41 @@ export const resolveMatchAction = (
   };
 };
 
-export const chooseRestartAction = (state: TacticalMatchState): MatchAction | undefined => {
+export const enumerateRestartActions = (state: TacticalMatchState): MatchAction[] => {
   const restart = state.restart;
-  if (!restart || restart.phase !== 'setup') return undefined;
+  if (!restart || restart.phase !== 'setup') return [];
   const actor = state.players.find((p) => p.id === restart.takerId);
-  if (!actor) return undefined;
+  if (!actor) return [];
+  if (state.scenario === 'kick_off')
+    return state.players
+      .filter(
+        (player) =>
+          player.team === actor.team &&
+          player.id !== actor.id &&
+          player.profile.primaryPosition !== 'goalkeeper',
+      )
+      .sort(
+        (a, b) =>
+          distance(a.position, actor.position) - distance(b.position, actor.position) ||
+          a.id.localeCompare(b.id),
+      )
+      .slice(0, 3)
+      .map((receiver) => ({
+        type: 'pass' as const,
+        actorId: actor.id,
+        receiverId: receiver.id,
+        target: projectPassReception(state, actor, receiver, 'support').releaseTarget,
+        intent: 'support' as const,
+      }));
   if (state.scenario === 'penalty' || state.scenario === 'free_kick_close')
-    return {
-      type: 'shot',
-      actorId: actor.id,
-      target: { x: 105, y: 30.5 + (state.decisionIndex % 3) * 3.5 },
-      intent: 'placed',
-    };
+    return [
+      {
+        type: 'shot',
+        actorId: actor.id,
+        target: { x: 105, y: 30.5 + (state.decisionIndex % 3) * 3.5 },
+        intent: 'placed',
+      },
+    ];
   if (state.scenario === 'throw_in' && restart.landingZone) {
     const receiver = state.players
       .filter((p) => p.team === actor.team && p.id !== actor.id)
@@ -755,14 +807,16 @@ export const chooseRestartAction = (state: TacticalMatchState): MatchAction | un
           distance(a.position, restart.landingZone!) - distance(b.position, restart.landingZone!),
       )[0];
     return receiver
-      ? {
-          type: 'pass',
-          actorId: actor.id,
-          receiverId: receiver.id,
-          target: restart.landingZone,
-          intent: 'support',
-        }
-      : undefined;
+      ? [
+          {
+            type: 'pass',
+            actorId: actor.id,
+            receiverId: receiver.id,
+            target: restart.landingZone,
+            intent: 'support',
+          },
+        ]
+      : [];
   }
   if (
     (state.scenario === 'goal_kick' ||
@@ -783,22 +837,26 @@ export const chooseRestartAction = (state: TacticalMatchState): MatchAction | un
         .sort(
           (a, b) => distance(a.position, actor.position) - distance(b.position, actor.position),
         )[0]!;
-      return {
-        type: 'pass',
-        actorId: actor.id,
-        receiverId: short.id,
-        target: short.position,
-        intent: 'support',
-      };
+      return [
+        {
+          type: 'pass',
+          actorId: actor.id,
+          receiverId: short.id,
+          target: short.position,
+          intent: 'support',
+        },
+      ];
     }
-    return {
-      type: state.scenario === 'goal_kick' ? 'pass' : 'cross',
-      actorId: actor.id,
-      ...(state.scenario === 'goal_kick'
-        ? { receiverId: receiver.id, intent: 'direct' as const }
-        : { intendedTargetId: receiver.id, intent: 'floated' as const }),
-      target: restart.landingZone,
-    } as MatchAction;
+    return [
+      {
+        type: state.scenario === 'goal_kick' ? 'pass' : 'cross',
+        actorId: actor.id,
+        ...(state.scenario === 'goal_kick'
+          ? { receiverId: receiver.id, intent: 'direct' as const }
+          : { intendedTargetId: receiver.id, intent: 'floated' as const }),
+        target: restart.landingZone,
+      } as MatchAction,
+    ];
   }
   const receiver = state.players
     .filter(
@@ -807,12 +865,17 @@ export const chooseRestartAction = (state: TacticalMatchState): MatchAction | un
     )
     .sort((a, b) => distance(a.position, actor.position) - distance(b.position, actor.position))[0];
   return receiver
-    ? {
-        type: 'pass',
-        actorId: actor.id,
-        receiverId: receiver.id,
-        target: receiver.position,
-        intent: 'support',
-      }
-    : undefined;
+    ? [
+        {
+          type: 'pass',
+          actorId: actor.id,
+          receiverId: receiver.id,
+          target: receiver.position,
+          intent: 'support',
+        },
+      ]
+    : [];
 };
+
+export const chooseRestartAction = (state: TacticalMatchState): MatchAction | undefined =>
+  enumerateRestartActions(state)[0];

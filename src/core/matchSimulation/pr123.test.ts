@@ -5,6 +5,8 @@ import {
   createTacticalMatch,
   deriveLeadPass,
   deriveFinalThirdOccupations,
+  deriveFlankRunAssignments,
+  deriveAttackingRunIds,
   enumerateAvailableActions,
   projectPassReception,
   resolveMatchAction,
@@ -31,6 +33,81 @@ const makeState = (controlled = false) => {
 };
 
 describe('PR123 final-third and interaction integrity', () => {
+  it.each(['home', 'away'] as const)(
+    'assigns one covered ball-side flank run independently of the generic %s run budget',
+    (side) => {
+      const state = makeState();
+      const dir = side === 'home' ? 1 : -1;
+      const fullback = state.players.find(
+        (player) =>
+          player.team === side && ['left_back', 'right_back'].includes(player.slot.position),
+      )!;
+      const flank = Math.sign(fullback.neutralAnchor.y - 34);
+      const winger = state.players.find(
+        (player) =>
+          player.team === side &&
+          player.slot.position === 'central_midfielder' &&
+          Math.sign(player.neutralAnchor.y - 34) === flank,
+      )!;
+      winger.slot = {
+        ...winger.slot,
+        position: flank < 0 ? 'left_winger' : 'right_winger',
+      };
+      fullback.profile = {
+        ...fullback.profile,
+        attributes: {
+          ...fullback.profile.attributes,
+          gameReading: 1,
+          positioning: 1,
+          pace: 1,
+          concentration: 1,
+        },
+      };
+      winger.position = { x: side === 'home' ? 70 : 35, y: 34 + flank * 23 };
+      state.ball = { ...winger.position, ownerId: winger.id };
+      state.possessionTeam = side;
+      state.teams[side].phase = 'positional_attack';
+      state.players
+        .filter((player) => player.team === side && player.id !== fullback.id)
+        .slice(0, 3)
+        .forEach((player) => (player.position.x = state.ball.x - dir * 12));
+      const flankRuns = deriveFlankRunAssignments(state, side);
+      expect(flankRuns).toHaveLength(1);
+      expect(flankRuns[0]?.playerId).toBe(fullback.id);
+      expect(deriveAttackingRunIds(state, side).includes(fullback.id)).toBe(false);
+    },
+  );
+
+  it('suppresses an empty-box cross and targets a real final-third occupation', () => {
+    const state = makeState();
+    const actor = state.players.find(
+      (player) => player.team === 'home' && player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    actor.position = { x: 80, y: 8 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    state.possessionTeam = 'home';
+    state.timeSincePossessionChanged = 4;
+    for (const teammate of state.players.filter(
+      (player) => player.team === actor.team && player.id !== actor.id,
+    ))
+      teammate.duty = 'defend';
+    expect(
+      enumerateAvailableActions(state, actor.id).some((action) => action.type === 'cross'),
+    ).toBe(false);
+    const receiver = state.players.find(
+      (player) =>
+        player.team === actor.team &&
+        player.id !== actor.id &&
+        player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    receiver.duty = 'attack';
+    receiver.position = { x: 89, y: 30 };
+    const cross = enumerateAvailableActions(state, actor.id).find(
+      (action) => action.type === 'cross',
+    );
+    expect(cross?.type).toBe('cross');
+    if (cross?.type === 'cross') expect(cross.intendedTargetId).toBe(receiver.id);
+  });
   it.each([['home', 78] as const, ['away', 27] as const])(
     'derives onside, team-symmetric final-third occupations for %s',
     (side, ballX) => {

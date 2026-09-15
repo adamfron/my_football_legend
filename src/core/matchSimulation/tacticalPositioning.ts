@@ -192,8 +192,7 @@ export interface FinalThirdOccupationAssignment {
 }
 
 /**
- * Allocates the existing attacking-run budget to temporary final-third relationships. The
- * projection is deterministic, team-relative and constrained by the canonical offside line.
+ * Allocates a bounded box structure independently from central and flank run budgets.
  */
 export const deriveFinalThirdOccupations = (
   state: TacticalMatchState,
@@ -205,10 +204,25 @@ export const deriveFinalThirdOccupations = (
   if (depth < 18 || state.timeSincePossessionChanged < 1.2) return [];
   const carrier = state.players.find((player) => player.id === state.ball.ownerId);
   if (!carrier?.team || carrier.team !== side) return [];
-  const runIds = deriveAttackingRunIds(state, side);
-  const runners = runIds
-    .map((id) => state.players.find((player) => player.id === id))
-    .filter((player): player is MatchPlayerState => Boolean(player));
+  const flankRunnerIds = new Set(
+    deriveFlankRunAssignments(state, side).map(({ playerId }) => playerId),
+  );
+  const runners = state.players
+    .filter(
+      (player) =>
+        player.team === side &&
+        player.id !== carrier.id &&
+        player.profile.primaryPosition !== 'goalkeeper' &&
+        !isWideDefender(player) &&
+        !flankRunnerIds.has(player.id) &&
+        player.duty !== 'defend',
+    )
+    .sort((a, b) => {
+      const aScore = dir * (a.position.x - 52.5) + a.profile.attributes.positioning / 10;
+      const bScore = dir * (b.position.x - 52.5) + b.profile.attributes.positioning / 10;
+      return bScore - aScore || a.id.localeCompare(b.id);
+    })
+    .slice(0, 3);
   const offside = calculateOffsideLine(state, side);
   const goalX = side === 'home' ? 105 : 0;
   const boxX = side === 'home' ? 92 : 13;
@@ -263,12 +277,69 @@ export const flankRelationshipSchema = z.enum([
 ]);
 export type FlankRelationship = z.infer<typeof flankRelationshipSchema>;
 
+export const flankRunAssignmentSchema = z.object({
+  playerId: z.string(),
+  relationship: z.enum(['overlap', 'underlap', 'provide_width']),
+});
+export type FlankRunAssignment = z.infer<typeof flankRunAssignmentSchema>;
+
+/** Dedicated relational flank budget: one committed side, with explicit cover behind the ball. */
+export const deriveFlankRunAssignments = (state: TacticalMatchState, side: TeamSide) => {
+  if (state.possessionTeam !== side || !state.ball.ownerId) return [];
+  const dir = direction(side);
+  const candidates = state.players
+    .filter((player) => player.team === side && isWideDefender(player) && player.duty !== 'defend')
+    .map((fullback) => {
+      const flankSign = Math.sign(fullback.neutralAnchor.y - 34);
+      const winger = state.players.find(
+        (player) =>
+          player.team === side &&
+          isWideAttacker(player) &&
+          Math.sign(player.neutralAnchor.y - 34) === flankSign,
+      );
+      const cover = state.players.filter(
+        (player) =>
+          player.team === side &&
+          player.id !== fullback.id &&
+          player.profile.primaryPosition !== 'goalkeeper' &&
+          dir * (player.position.x - state.ball.x) < -5,
+      ).length;
+      const ballSide = Math.sign(state.ball.y - 34) === flankSign;
+      if (!winger || cover < 2 || !ballSide || state.teams[side].phase === 'defensive_transition')
+        return undefined;
+      const wingerWide = Math.abs(winger.position.y - 34) >= 20;
+      const outside = { x: winger.position.x + dir * 8, y: 34 + flankSign * 30 };
+      const outsideSpace = Math.min(
+        ...state.players
+          .filter((player) => player.team !== side)
+          .map((player) => distance(player.position, outside)),
+      );
+      const relationship: FlankRunAssignment['relationship'] = !wingerWide
+        ? 'provide_width'
+        : outsideSpace > 5
+          ? 'overlap'
+          : 'underlap';
+      return {
+        playerId: fullback.id,
+        relationship,
+        score: (ballSide ? 20 : 0) + cover * 3 + outsideSpace,
+      };
+    })
+    .filter((candidate): candidate is NonNullable<typeof candidate> => Boolean(candidate))
+    .sort((a, b) => b.score - a.score || a.playerId.localeCompare(b.playerId));
+  return candidates.slice(0, 1).map(({ playerId, relationship }) => ({ playerId, relationship }));
+};
+
 /** RNG-free observation of a fullback's relationship to his same-flank winger. */
 export const deriveFlankRelationship = (
   state: TacticalMatchState,
   fullback: MatchPlayerState,
 ): FlankRelationship => {
   if (!isWideDefender(fullback) || state.possessionTeam !== fullback.team) return 'rest_defence';
+  const assignment = deriveFlankRunAssignments(state, fullback.team).find(
+    (candidate) => candidate.playerId === fullback.id,
+  );
+  if (assignment) return assignment.relationship;
   const flankSign = Math.sign(fullback.neutralAnchor.y - 34);
   const winger = state.players.find(
     (player) =>
@@ -292,17 +363,8 @@ export const deriveFlankRelationship = (
       dir * (player.position.x - state.ball.x) < -5,
   ).length;
   if (sameSideInfluence < 0.22 || cover < 2 || fullback.duty === 'defend') return 'rest_defence';
-  if (!wingerWide) return 'provide_width';
-  if (!deriveAttackingRunIds(state, fullback.team).includes(fullback.id)) return 'support_behind';
-  const touchlineY = 34 + flankSign * 30;
-  const outsideSpace = Math.min(
-    ...state.players
-      .filter((player) => player.team !== fullback.team)
-      .map((player) =>
-        distance(player.position, { x: winger.position.x + dir * 8, y: touchlineY }),
-      ),
-  );
-  return outsideSpace > 5 ? 'overlap' : 'underlap';
+  if (!wingerWide) return 'support_behind';
+  return 'support_behind';
 };
 
 /** Small relational layer between the team block and individual space seeking. */

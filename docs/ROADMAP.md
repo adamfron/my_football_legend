@@ -30,9 +30,9 @@ PR105–PR128 (fundament fizyki) są ukończone. W szczególności:
   ciała, jeden lot oparty na prędkości 3D oraz czasowa, geometryczna interwencja bramkarza. Usunięto
   skryptowane łuki i rozstrzyganie obrony przed fizycznym kontaktem.
 
-### NEXT
+### CURRENT
 
-**PR128 — Wide Play & Crossing Calibration**
+**PR129 — Interaction Integrity, Wide Play & Crossing Calibration**
 
 Relacje skrzydłowych i bocznych obrońców; overlap/underlap poza małym globalnym budżetem biegów;
 naturalne wejścia w ostatnią tercję; dośrodkowania wynikające z szerokiego kontekstu i obsady
@@ -40,13 +40,15 @@ bliższego słupka, punktu karnego, dalszego słupka oraz skraju pola karnego; k
 floated/driven/cutback. Telemetria obejmie overlap, underlap, szerokie wejścia, dośrodkowania,
 cutbacki i obsadę pola karnego.
 
-### LATER
+### NEXT
 
-**PR129 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
+**PR130 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
 prymitywy i tokeny, lokalne/radialne menu, HUD/paski statusu/okna narzędziowe, barwy klubów oraz
 tożsamość i wzory strojów.
 
-**PR130 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+### LATER
+
+**PR131 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
 

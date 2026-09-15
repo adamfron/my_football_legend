@@ -391,14 +391,9 @@ const finishShotContact = (
 
 const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): TacticalMatchState => {
   input = resolvePendingPlayerDecision(input);
-  if (
-    input.postActionAgencyCheckpoint &&
-    input.ball.ownerId !== input.postActionAgencyCheckpoint.actorId
-  ) {
-    const { postActionAgencyCheckpoint: _lostHandoff, ...withoutHandoff } = input;
-    void _lostHandoff;
-    input = withoutHandoff;
-  }
+  // A human agency episode survives a transient loose/contact phase. It is consumed by the next
+  // canonical action (including an opponent action), a restart, or the human's next choice; mere
+  // ownerId discontinuity is not evidence that play genuinely moved on.
   // A surfaced human decision owns the snapshot: no clock, movement or RNG may advance.
   if (!input.periodEndPending && projectPlayerDecisionOpportunity(input)) return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
