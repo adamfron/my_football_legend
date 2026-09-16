@@ -723,6 +723,7 @@ export const resolveMatchAction = (
                   ? 'meet_ball'
                   : 'run_onto_ball',
             ballEpisode: episode,
+            readiness: projection.receiverReadiness,
           }),
           lastPassDiagnostic: {
             passId: episode,
@@ -875,5 +876,27 @@ export const enumerateRestartActions = (state: TacticalMatchState): MatchAction[
     : [];
 };
 
-export const chooseRestartAction = (state: TacticalMatchState): MatchAction | undefined =>
-  enumerateRestartActions(state)[0];
+export const chooseRestartAction = (state: TacticalMatchState): MatchAction | undefined => {
+  const available = enumerateRestartActions(state)[0];
+  if (available) return available;
+  const restart = state.restart;
+  const taker = restart && state.players.find((player) => player.id === restart.takerId);
+  const receiver =
+    taker &&
+    state.players
+      .filter((player) => player.team === taker.team && player.id !== taker.id)
+      .sort(
+        (a, b) =>
+          distance(a.position, taker.position) - distance(b.position, taker.position) ||
+          a.id.localeCompare(b.id),
+      )[0];
+  return taker && receiver
+    ? {
+        type: 'pass',
+        actorId: taker.id,
+        receiverId: receiver.id,
+        target: clampPitchPoint(receiver.position),
+        intent: 'support',
+      }
+    : undefined;
+};

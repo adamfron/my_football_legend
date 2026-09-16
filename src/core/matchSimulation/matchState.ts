@@ -410,6 +410,9 @@ export interface TacticalMatchState {
   ballOwnershipStartedAt?: number;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
+  /** DEV-observable liveness duration; canonical decisions never depend on it. */
+  restartStalledSeconds?: number;
+  lastInvariantRecovery?: { at: number; kind: 'outside_pitch'; point: PhysicalPoint };
   score: z.infer<typeof matchScoreSchema>;
   currentPressure: number;
   nearestChallengerId?: string;

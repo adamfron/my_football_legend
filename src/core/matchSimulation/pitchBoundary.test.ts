@@ -26,4 +26,20 @@ describe('canonical pitch boundary crossing', () => {
     );
     expect(previous).toEqual({ x: 4, y: 30 });
   });
+
+  it.each([
+    [{ x: 20, y: 0 }, { x: 20, y: -1 }, 'touchline_top'],
+    [{ x: 20, y: 68 }, { x: 20, y: 69 }, 'touchline_bottom'],
+    [{ x: 0, y: 20 }, { x: -1, y: 20 }, 'goal_line_home'],
+    [{ x: 105, y: 20 }, { x: 106, y: 20 }, 'goal_line_away'],
+  ] as const)('detects an outward departure from the painted line', (previous, next, boundary) => {
+    expect(findPitchBoundaryCrossing(previous, next)).toMatchObject({
+      boundary,
+      segmentFraction: 0,
+    });
+  });
+
+  it('does not report an inward movement from the line', () => {
+    expect(findPitchBoundaryCrossing({ x: 20, y: 0 }, { x: 20, y: 1 })).toBeUndefined();
+  });
 });

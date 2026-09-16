@@ -621,7 +621,10 @@ const RunningLab = ({
           }
         : {}),
       ...(selectedTarget?.kind === 'player' ? { selectedTarget: selectedTarget.playerId } : {}),
-      ...(selectedTarget?.kind === 'space' ? { carryTarget: selectedTarget.point } : {}),
+      ...(state.ballCarrierIntent?.humanSelected &&
+      state.ballCarrierIntent.actorId === state.controlledFootballerId
+        ? { carryTarget: state.ballCarrierIntent.target }
+        : {}),
     };
     rendererRef.current?.render(frame, debug);
     const frames = replayBufferRef.current;

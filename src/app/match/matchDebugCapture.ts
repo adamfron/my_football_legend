@@ -347,10 +347,18 @@ export class MatchDebugRecorder {
   private timelineSeed: string | undefined;
   private mode: 'past_only' | 'around_trigger' | undefined;
   triggerTime: number | undefined;
+  lastObservationError: string | undefined;
   constructor(private readonly seconds = DEBUG_WINDOW_SECONDS) {}
   record(state: TacticalMatchState) {
-    const frame = snapshotMatchState(state),
-      previous = this.history.at(-1);
+    let frame: DebugFrame;
+    try {
+      frame = snapshotMatchState(state);
+      this.lastObservationError = undefined;
+    } catch (error) {
+      this.lastObservationError = error instanceof Error ? error.message : String(error);
+      return false;
+    }
+    const previous = this.history.at(-1);
     if (
       (this.timelineSeed !== undefined && this.timelineSeed !== state.seed) ||
       (previous && frame.time < previous.time)

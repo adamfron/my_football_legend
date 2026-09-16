@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR129 są ukończone. W szczególności:
+PR105–PR130 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -32,24 +32,27 @@ PR105–PR129 są ukończone. W szczególności:
 
 - **PR129 — Interaction Integrity, Wide Play & Crossing Calibration:** integralność interakcji,
   relacje na skrzydle i kontekstowe dośrodkowania.
+- **PR130 — Match Flow, Reception & Contextual Carry Calibration:** wspólny plan podania,
+  fizyczne przyjęcia oraz kontekstowe prowadzenie.
 
 ### CURRENT
 
-**PR130 — Match Flow, Reception & Contextual Carry Calibration**
+**PR131 — Match Flow & Runtime Hardening**
 
-Stabilizacja pełnego przepływu meczu, wspólny plan fizycznego podania, przygotowanie przyjmującego
-oraz kontekstowe wykonanie kanonicznego zamiaru prowadzenia piłki. Zmęczenie pozostaje celowo poza
-tym etapem.
+Utwardzenie przepływu meczu: planowanie podania względem gotowości przyjmującego, bezpieczna
+geometria celów, jednoznaczne interakcje prowadzenia oraz żywotność wznowień i granic boiska.
+Zmęczenie pozostaje celowo poza tym etapem, dopóki bazowy mecz świeżych zawodników nie będzie
+stabilny.
 
 ### NEXT
 
-**PR131 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
+**PR132 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
 prymitywy i tokeny, lokalne/radialne menu, HUD/paski statusu/okna narzędziowe, barwy klubów oraz
 tożsamość i wzory strojów.
 
 ### LATER
 
-**PR132 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+**PR133 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
 

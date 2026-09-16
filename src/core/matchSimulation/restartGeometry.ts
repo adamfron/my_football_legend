@@ -140,10 +140,11 @@ const deriveHomeRestartGeometry = (
     centre: PitchPoint,
     markerId?: string,
   ) => {
+    const legalCentre = clampPitchPoint(centre);
     roles[player.id] = {
       key,
       intent,
-      zone: { centre, radius: 8, timing: 0 },
+      zone: { centre: legalCentre, radius: 8, timing: 0 },
       ...(markerId ? { markerId } : {}),
     };
   };
@@ -195,10 +196,10 @@ const deriveHomeRestartGeometry = (
     });
     landingZone =
       scenario === 'goal_kick'
-        ? {
+        ? clampPitchPoint({
             x: 61 + jitter(state.seed, 'landing', 8).x,
             y: 34 + jitter(state.seed, 'landing', 0, 18).y,
-          }
+          })
         : undefined;
     if (scenario === 'goal_kick') {
       const ranked = stableRank(rest, aerialScore);

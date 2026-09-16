@@ -405,6 +405,32 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     actionCooldown: Math.max(0, input.actionCooldown - dt),
     teams: { ...input.teams },
   };
+  if (state.restart) state.restartStalledSeconds = state.time - state.restart.startedAt;
+  else delete state.restartStalledSeconds;
+  if (
+    state.scenario === 'open_play' &&
+    !state.ball.ownerId &&
+    (state.ball.x < 0 || state.ball.x > 105 || state.ball.y < 0 || state.ball.y > 68)
+  ) {
+    const outside = { x: state.ball.x, y: state.ball.y };
+    const boundary =
+      state.ball.y < 0
+        ? ('touchline_top' as const)
+        : state.ball.y > 68
+          ? ('touchline_bottom' as const)
+          : state.ball.x < 0
+            ? ('goal_line_home' as const)
+            : ('goal_line_away' as const);
+    const point = clampPitchPoint({ x: state.ball.x, y: state.ball.y });
+    return applyBoundaryRestart(
+      {
+        ...state,
+        lastInvariantRecovery: { at: state.time, kind: 'outside_pitch', point: outside },
+      },
+      { boundary, point, segmentFraction: 0 },
+      point,
+    );
+  }
   if (state.playerMovementIntent && state.time >= state.playerMovementIntent.expiresAt) {
     const { playerMovementIntent: _expired, ...withoutIntent } = state;
     void _expired;
