@@ -208,7 +208,7 @@ export const projectContextualInteractions = (
     );
   }
   if (target.kind !== 'space') return [];
-  if (state.ball.ownerId === actor.id && distance(actor.position, point) <= 15) {
+  if (state.ball.ownerId === actor.id) {
     const carry = { type: 'carry' as const, actorId: actor.id, target: point };
     const projected = asActions(target, [carry]);
     const runner = bestRunnerForSpace(state, actor, point);

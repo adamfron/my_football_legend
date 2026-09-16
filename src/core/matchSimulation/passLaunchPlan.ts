@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { projectFutureBallTrajectory, deriveLaunchVelocity } from './ballPhysics';
 import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { projectReceiverReadiness, receiverReadinessProjectionSchema } from './receiverReadiness';
 
 export const passLaunchPlanSchema = z.object({
   target: pitchPointSchema,
@@ -13,6 +14,7 @@ export const passLaunchPlanSchema = z.object({
     .max(Math.PI / 2),
   predictedArrivalTime: z.number().positive(),
   predictedArrivalSpeed: z.number().nonnegative(),
+  receiverReadiness: receiverReadinessProjectionSchema,
 });
 export type PassLaunchPlan = z.infer<typeof passLaunchPlanSchema>;
 export type PassLaunchIntent = 'support' | 'progressive' | 'direct' | 'lead' | 'through';
@@ -29,50 +31,46 @@ export const derivePassLaunchPlan = (
   intent: PassLaunchIntent,
 ): PassLaunchPlan => {
   const metres = distance(passer.position, target);
-  const attributes = passer.profile.attributes;
-  const receiverSpeed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
-  const technique = (attributes.passing + attributes.technique + attributes.composure) / 300;
-  const pressure = Math.max(0, Math.min(1, state.currentPressure));
-  const intentPace =
-    intent === 'direct' || intent === 'through'
-      ? 4.2
-      : intent === 'lead'
-        ? 1.8
-        : intent === 'progressive'
-          ? 1.2
-          : 0;
-  // Rolling resistance makes very soft balls stop early; 7–9 m/s is enough for short support play,
-  // while distance and intent continuously add pace.
-  const speed = Math.max(
-    7.2,
-    Math.min(
-      30,
-      7.4 +
-        metres * 0.39 +
-        intentPace +
-        receiverSpeed * 0.16 +
-        pressure * 1.1 +
-        (0.65 - technique) * 1.4,
+  const initialEta = Math.max(0.55, metres / (intent === 'support' ? 7.2 : 10.5));
+  let readiness = projectReceiverReadiness(state, receiver, target, initialEta, intent);
+  const desiredArrivalTime = Math.min(
+    intent === 'support' ? 2.2 : intent === 'progressive' ? 1.8 : 1.45,
+    Math.max(
+      intent === 'support' ? 0.72 : 0.48,
+      readiness.earliestUsefulContactTime + (intent === 'support' ? 0.28 : 0.08),
+      metres / (intent === 'support' ? 9 : intent === 'progressive' ? 13 : 17),
     ),
   );
   const elevation =
     intent === 'direct' && metres > 25 ? 0.28 : intent === 'through' && metres > 30 ? 0.16 : 0;
-  const velocity = deriveLaunchVelocity(passer.position, target, speed, elevation);
-  const samples = projectFutureBallTrajectory(
-    {
-      position: { ...passer.position, z: 0.11 },
-      velocity,
-      airborne: elevation > 0,
-      bounceCount: 0,
-    },
-    6,
-    0.025,
-  );
-  const arrival =
-    samples.find((sample) => distance(sample.ball.position, target) <= 0.55) ??
-    samples.reduce((best, sample) =>
-      distance(sample.ball.position, target) < distance(best.ball.position, target) ? sample : best,
+  const forecast = (candidateSpeed: number) => {
+    const velocity = deriveLaunchVelocity(passer.position, target, candidateSpeed, elevation);
+    const samples = projectFutureBallTrajectory(
+      {
+        position: { ...passer.position, z: 0.11 },
+        velocity,
+        airborne: elevation > 0,
+        bounceCount: 0,
+      },
+      8,
+      0.025,
     );
+    const arrival =
+      samples.find((sample) => distance(sample.ball.position, target) <= 0.55) ??
+      samples.reduce((best, sample) =>
+        distance(sample.ball.position, target) < distance(best.ball.position, target)
+          ? sample
+          : best,
+      );
+    return { velocity, arrival };
+  };
+  // For rolling passes the canonical deceleration has a closed-form launch estimate. The forecast
+  // below remains authoritative and reports the result through the shared integrator.
+  let speed = Math.min(30, Math.max(3.2, metres / desiredArrivalTime + 1.075 * desiredArrivalTime));
+  if (elevation > 0) speed = Math.min(30, Math.max(speed, (metres / desiredArrivalTime) * 1.12));
+  const result = forecast(speed);
+  const { velocity, arrival } = result;
+  readiness = projectReceiverReadiness(state, receiver, target, arrival.at, intent);
   return passLaunchPlanSchema.parse({
     target,
     velocity,
@@ -84,5 +82,6 @@ export const derivePassLaunchPlan = (
       arrival.ball.velocity.y,
       arrival.ball.velocity.z,
     ),
+    receiverReadiness: readiness,
   });
 };

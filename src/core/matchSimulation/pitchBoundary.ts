@@ -26,14 +26,14 @@ export const findPitchBoundaryCrossing = (
   const candidates: PitchBoundaryCrossing[] = [];
   const add = (fraction: number, boundary: PitchBoundary, point: PitchPoint) => {
     if (
-      fraction > 0 &&
+      fraction >= 0 &&
       fraction <= 1 &&
       point.x >= 0 &&
       point.x <= 105 &&
       point.y >= 0 &&
       point.y <= 68
     )
-      candidates.push({ point, boundary, segmentFraction: fraction });
+      candidates.push({ point, boundary, segmentFraction: Math.max(0, fraction) });
   };
   if (dy < 0) {
     const t = (0 - previous.y) / dy;

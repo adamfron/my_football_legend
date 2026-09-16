@@ -3,6 +3,7 @@ import { clampPitchPoint, distance, pitchPointSchema, type PitchPoint } from './
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { derivePassLaunchPlan, passLaunchPlanSchema } from './passLaunchPlan';
 import { angleForVector, normalizeAngle } from './playerOrientation';
+import { projectReceiverReadiness, receiverReadinessProjectionSchema } from './receiverReadiness';
 
 export const passReceptionProjectionSchema = z.object({
   releaseTarget: pitchPointSchema,
@@ -14,6 +15,7 @@ export const passReceptionProjectionSchema = z.object({
   passerReadQuality: z.number().min(0).max(1),
   receiverAwarenessDelay: z.number().nonnegative(),
   launchPlan: passLaunchPlanSchema,
+  receiverReadiness: receiverReadinessProjectionSchema,
 });
 export type PassReceptionProjection = z.infer<typeof passReceptionProjectionSchema>;
 
@@ -26,6 +28,7 @@ export const receptionPreparationSchema = z.object({
   expectedArrivalTime: z.number().nonnegative(),
   movement: z.enum(['wait', 'meet_ball', 'run_onto_ball']),
   ballEpisode: z.string(),
+  readiness: receiverReadinessProjectionSchema,
 });
 export type ReceptionPreparation = z.infer<typeof receptionPreparationSchema>;
 
@@ -120,6 +123,7 @@ export const projectPassReception = (
     passerReadQuality: read,
     receiverAwarenessDelay: awarenessDelay,
     launchPlan,
+    receiverReadiness: launchPlan.receiverReadiness,
   });
 };
 
@@ -144,6 +148,13 @@ export const resolveReceptionOutcome = (
     state.receptionPreparation?.actorId === receiver.id
       ? Math.max(0, state.time - state.receptionPreparation.awarenessAt)
       : 0;
+  const readiness = projectReceiverReadiness(
+    state,
+    receiver,
+    contactPoint,
+    preparation,
+    state.currentAction?.type === 'pass' ? state.currentAction.intent : 'support',
+  );
   const turnAllowance = Math.min(
     1,
     preparation * (2.2 + receiver.profile.attributes.agility * 0.038),
@@ -152,9 +163,10 @@ export const resolveReceptionOutcome = (
   const quality =
     (a.firstTouch + a.technique + a.agility + a.composure + a.gameReading) / 500 -
     state.currentPressure * 0.22 -
-    Math.max(0, ballSpeed - 20) / 80 -
+    Math.max(0, ballSpeed - readiness.maximumComfortableArrivalSpeed) / 24 -
     Math.max(0, speed - 5) / 25 -
-    readinessPenalty;
+    readinessPenalty +
+    Math.min(0.14, Math.max(0, readiness.preparationMargin) * 0.09);
   const kind =
     quality >= 0.72 && speed > 1.2
       ? 'directional_control'
