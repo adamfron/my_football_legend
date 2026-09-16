@@ -59,6 +59,8 @@ export const tacticalFrameSchema = z.object({
   actionableTargets: z.array(z.string()).optional(),
   selectedTarget: z.string().optional(),
   interceptionTarget: tacticalPointSchema.optional(),
+  carryTarget: tacticalPointSchema.optional(),
+  carryMode: z.enum(['burst', 'controlled', 'tight_dribble', 'evade', 'shield']).optional(),
 });
 export const tacticalSequenceSchema = z.object({
   id: z.string().min(1),
@@ -126,10 +128,11 @@ export const deriveOwnedBallPose = (frame: TacticalFrame): TacticalBall => {
   const owner = frame.players.find((player) => player.id === frame.ball.ownerId);
   if (!owner) return frame.ball;
   const facing = owner.facing ?? (owner.team === 'home' ? Math.PI / 2 : -Math.PI / 2);
+  const distance = frame.carryMode === 'burst' ? 1.35 : frame.carryMode === 'tight_dribble' || frame.carryMode === 'shield' ? 0.38 : 0.72;
   return {
     ...frame.ball,
-    x: owner.x + Math.sin(facing) * 0.72,
-    y: owner.y + Math.cos(facing) * 0.72,
+    x: owner.x + Math.sin(facing) * distance,
+    y: owner.y + Math.cos(facing) * distance,
     height: 0,
   };
 };

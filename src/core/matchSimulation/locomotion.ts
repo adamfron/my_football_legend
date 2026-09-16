@@ -59,7 +59,10 @@ export const projectLocomotion = (
     Math.abs(player.position.x - ownGoalX) > Math.abs(state.ball.x - ownGoalX) + 10;
   if (defensiveTransition && behindPlay && metres > 8) return result('sprint', 'recovery_run');
   const carry = state.ballCarrierIntent?.actorId === player.id;
-  if (carry) return result(metres > 10 ? 'run' : 'jog', 'ball_carry');
+  if (carry) {
+    const mode = state.ballCarrierIntent?.executionMode;
+    return result(mode === 'burst' ? 'sprint' : mode === 'controlled' || mode === 'evade' ? 'run' : 'jog', 'ball_carry');
+  }
   const forward = signedForwardDistance(player.position, target, player.team);
   if (player.duty === 'attack' && forward > 10 && metres > 12) return result('sprint', 'depth_run');
   if (metres < 2.5) return result('walk', 'structural_adjustment');

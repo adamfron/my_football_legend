@@ -14,6 +14,7 @@ import { captureOffsideSnapshot } from './offside';
 import { projectPassReception, receptionPreparationSchema } from './passReception';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { deriveLaunchVelocity } from './ballPhysics';
+import { derivePassLaunchPlan } from './passLaunchPlan';
 import { deriveFinalThirdOccupations } from './tacticalPositioning';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
@@ -570,7 +571,17 @@ export const resolveMatchAction = (
           x: headerShot.goalPoint.x + (actor.team === 'home' ? 2 : -2),
         }
       : action.target;
-    const launchSpeed = headerShot?.speed ?? (action.intent === 'floated' ? 22 : 27);
+    const launchSpeed =
+      headerShot?.speed ??
+      (action.type === 'header'
+        ? action.intent === 'header_clearance'
+          ? 24
+          : action.intent === 'flick'
+            ? 10
+            : 14
+        : action.intent === 'floated'
+          ? 22
+          : 27);
     const elevation = headerShot
       ? Math.atan2(Math.max(0, headerShot.heightMetres) + 0.5 * 9.81 * duration * duration, length)
       : action.intent === 'floated'
@@ -633,32 +644,19 @@ export const resolveMatchAction = (
       ? undefined
       : projectPassReception(state, actor, receiver, action.intent);
   const target = projection?.releaseTarget ?? action.target;
-  const duration =
-    projection?.estimatedBallArrival ?? Math.max(0.45, distance(actor.position, target) / 24);
   const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;
   const isThrowIn = restart?.phase === 'release' && state.scenario === 'throw_in';
   const isLongDistribution = restart?.phase === 'release' && state.scenario === 'goal_kick';
   const releasePosition = isThrowIn ? { x: state.ball.x, y: state.ball.y } : { ...actor.position };
-  const launchSpeed = isThrowIn
-    ? 14
-    : isLongDistribution
-      ? 29
-      : action.intent === 'direct' && duration > 1.5
-        ? 24
-        : 18;
-  const launchElevation = isThrowIn
-    ? 0.38
-    : isLongDistribution
-      ? 0.5
-      : action.intent === 'direct' && duration > 1.5
-        ? 0.3
-        : 0;
-  const launchVelocity = deriveLaunchVelocity(
-    releasePosition,
-    target,
-    launchSpeed,
-    launchElevation,
-  );
+  const canonicalPlan =
+    projection?.launchPlan ?? derivePassLaunchPlan(state, actor, receiver, target, action.intent);
+  const duration = canonicalPlan.predictedArrivalTime;
+  const launchSpeed = isThrowIn ? 14 : isLongDistribution ? 29 : canonicalPlan.speed;
+  const launchElevation = isThrowIn ? 0.38 : isLongDistribution ? 0.5 : canonicalPlan.elevation;
+  const launchVelocity =
+    isThrowIn || isLongDistribution
+      ? deriveLaunchVelocity(releasePosition, target, launchSpeed, launchElevation)
+      : canonicalPlan.velocity;
   const defenders = state.players.filter((p) => p.team !== actor.team);
   const bestDefenderArrival = Math.min(
     ...defenders.map(

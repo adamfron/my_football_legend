@@ -25,7 +25,8 @@
     "preaudit:startup": "npm run generate:world-db",
     "audit:startup": "vitest run scripts/startupAudit.test.ts --reporter=verbose",
     "verify": "npm run lint && npm run test && npm run build",
-    "audit:clubs": "npm run generate:world-db && vitest run scripts/clubAudit.test.ts --reporter=verbose"
+    "audit:clubs": "npm run generate:world-db && vitest run scripts/clubAudit.test.ts --reporter=verbose",
+    "benchmark:match-flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkMatchFlow.ts"
   },
   "dependencies": {
     "react": "19.2.8",

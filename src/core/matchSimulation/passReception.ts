@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { clampPitchPoint, distance, pitchPointSchema, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { derivePassLaunchPlan, passLaunchPlanSchema } from './passLaunchPlan';
+import { angleForVector, normalizeAngle } from './playerOrientation';
 
 export const passReceptionProjectionSchema = z.object({
   releaseTarget: pitchPointSchema,
@@ -11,6 +13,7 @@ export const passReceptionProjectionSchema = z.object({
   leadDistance: z.number().nonnegative(),
   passerReadQuality: z.number().min(0).max(1),
   receiverAwarenessDelay: z.number().nonnegative(),
+  launchPlan: passLaunchPlanSchema,
 });
 export type PassReceptionProjection = z.infer<typeof passReceptionProjectionSchema>;
 
@@ -36,9 +39,6 @@ export type ReceptionOutcome = z.infer<typeof receptionOutcomeSchema>;
 
 export type ProjectedPassIntent = 'support' | 'progressive' | 'direct' | 'lead';
 
-const expectedPassSpeed = (intent: ProjectedPassIntent) =>
-  intent === 'support' ? 21 : intent === 'lead' ? 23 : intent === 'progressive' ? 24 : 27;
-
 /** Pure meeting-point estimate for ordinary passes. Through balls retain reachable-space semantics. */
 export const projectPassReception = (
   state: TacticalMatchState,
@@ -59,7 +59,6 @@ export const projectPassReception = (
       (ra.gameReading + ra.concentration) / 250 +
       distance(passer.position, receiver.position) / 220,
   );
-  const speed = expectedPassSpeed(intent);
   let target = { ...receiver.position };
   const velocitySpeed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
   const tacticalDx = receiver.target.x - receiver.position.x;
@@ -82,7 +81,7 @@ export const projectPassReception = (
         : intent === 'progressive'
           ? 0.78
           : 0.68) * read;
-  let arrival = distance(passer.position, target) / speed;
+  let arrival = distance(passer.position, target) / 12;
   for (let iteration = 0; iteration < 2; iteration += 1) {
     const activeTime = Math.max(0, arrival - awarenessDelay * 0.45);
     const maxLead =
@@ -103,8 +102,10 @@ export const projectPassReception = (
       x: receiver.position.x + motion.x * activeTime * scale,
       y: receiver.position.y + motion.y * activeTime * scale * lateralScale,
     });
-    arrival = Math.max(0.45, distance(passer.position, target) / speed);
+    arrival = Math.max(0.45, distance(passer.position, target) / 12);
   }
+  const launchPlan = derivePassLaunchPlan(state, passer, receiver, target, intent);
+  arrival = launchPlan.predictedArrivalTime;
   const leadDistance = distance(receiver.position, target);
   const movement =
     leadDistance < 0.6 ? 'hold' : intent === 'support' ? 'meet_ball' : 'continue_run';
@@ -118,6 +119,7 @@ export const projectPassReception = (
     leadDistance,
     passerReadQuality: read,
     receiverAwarenessDelay: awarenessDelay,
+    launchPlan,
   });
 };
 
@@ -133,11 +135,26 @@ export const resolveReceptionOutcome = (
     state.ball.velocity?.y ?? 0,
     state.ball.velocity?.z ?? 0,
   );
+  const incomingFacing = angleForVector({
+    x: state.ball.x - receiver.position.x,
+    y: state.ball.y - receiver.position.y,
+  });
+  const facingError = Math.abs(normalizeAngle(incomingFacing - receiver.facingAngle));
+  const preparation =
+    state.receptionPreparation?.actorId === receiver.id
+      ? Math.max(0, state.time - state.receptionPreparation.awarenessAt)
+      : 0;
+  const turnAllowance = Math.min(
+    1,
+    preparation * (2.2 + receiver.profile.attributes.agility * 0.038),
+  );
+  const readinessPenalty = Math.max(0, facingError / Math.PI - turnAllowance) * 0.3;
   const quality =
     (a.firstTouch + a.technique + a.agility + a.composure + a.gameReading) / 500 -
     state.currentPressure * 0.22 -
     Math.max(0, ballSpeed - 20) / 80 -
-    Math.max(0, speed - 5) / 25;
+    Math.max(0, speed - 5) / 25 -
+    readinessPenalty;
   const kind =
     quality >= 0.72 && speed > 1.2
       ? 'directional_control'

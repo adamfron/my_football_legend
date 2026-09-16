@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR128 (fundament fizyki) są ukończone. W szczególności:
+PR105–PR129 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -30,25 +30,26 @@ PR105–PR128 (fundament fizyki) są ukończone. W szczególności:
   ciała, jeden lot oparty na prędkości 3D oraz czasowa, geometryczna interwencja bramkarza. Usunięto
   skryptowane łuki i rozstrzyganie obrony przed fizycznym kontaktem.
 
+- **PR129 — Interaction Integrity, Wide Play & Crossing Calibration:** integralność interakcji,
+  relacje na skrzydle i kontekstowe dośrodkowania.
+
 ### CURRENT
 
-**PR129 — Interaction Integrity, Wide Play & Crossing Calibration**
+**PR130 — Match Flow, Reception & Contextual Carry Calibration**
 
-Relacje skrzydłowych i bocznych obrońców; overlap/underlap poza małym globalnym budżetem biegów;
-naturalne wejścia w ostatnią tercję; dośrodkowania wynikające z szerokiego kontekstu i obsady
-bliższego słupka, punktu karnego, dalszego słupka oraz skraju pola karnego; kalibracja wariantów
-floated/driven/cutback. Telemetria obejmie overlap, underlap, szerokie wejścia, dośrodkowania,
-cutbacki i obsadę pola karnego.
+Stabilizacja pełnego przepływu meczu, wspólny plan fizycznego podania, przygotowanie przyjmującego
+oraz kontekstowe wykonanie kanonicznego zamiaru prowadzenia piłki. Zmęczenie pozostaje celowo poza
+tym etapem.
 
 ### NEXT
 
-**PR130 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
+**PR131 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
 prymitywy i tokeny, lokalne/radialne menu, HUD/paski statusu/okna narzędziowe, barwy klubów oraz
 tożsamość i wzory strojów.
 
 ### LATER
 
-**PR131 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+**PR132 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
 
