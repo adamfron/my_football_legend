@@ -18,7 +18,7 @@ import {
   secondBallPriority,
 } from './aerialPlay';
 import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
-import { resolveGroundPassClaim } from './passClaimResolver';
+import { resolveContinuousGroundPassClaim, resolveGroundPassClaim } from './passClaimResolver';
 import {
   deterministicRebound,
   findFirstBallContact,
@@ -43,6 +43,7 @@ import { integrateBallFlight } from './ballPhysics';
 import { projectGoalkeeperIntervention, resolveGoalkeeperContact } from './goalkeeperIntervention';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
+import { deriveCarryExecution } from './carryExecution';
 import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
@@ -564,25 +565,43 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     }
   }
   state.players = deriveTacticalTargets(state).map((player) => {
-    if (state.ballCarrierIntent?.actorId === player.id)
+    let movementTarget = player.target;
+    if (state.ballCarrierIntent?.actorId === player.id) {
+      const execution = deriveCarryExecution(state, player, state.ballCarrierIntent);
+      const changed = execution.mode !== state.ballCarrierIntent.executionMode;
+      state.ballCarrierIntent = {
+        ...state.ballCarrierIntent,
+        executionMode: execution.mode,
+        modeSince: changed ? state.time : state.ballCarrierIntent.modeSince,
+        localTarget: execution.localTarget,
+        touchDistance: execution.touchDistance,
+      };
+      movementTarget = execution.localTarget;
+      // The exposed target remains the committed human destination. Only locomotion consumes the
+      // short-lived bypass waypoint.
       player = { ...player, target: state.ballCarrierIntent.target };
-    if (state.playerMovementIntent?.actorId === player.id)
+    }
+    if (state.playerMovementIntent?.actorId === player.id) {
       player = { ...player, target: state.playerMovementIntent.target };
+      movementTarget = player.target;
+    }
     if (
       state.receptionPreparation?.actorId === player.id &&
       state.time >= state.receptionPreparation.awarenessAt
     )
       player = { ...player, target: state.receptionPreparation.expectedContactPoint };
+    if (state.receptionPreparation?.actorId === player.id) movementTarget = player.target;
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
     if (
       state.keeperIntervention?.keeperId === player.id &&
       state.keeperIntervention.intention !== 'stay'
     )
       player = { ...player, target: { ...state.keeperIntervention.target } };
-    const dx = player.target.x - player.position.x,
-      dy = player.target.y - player.position.y,
+    if (state.keeperIntervention?.keeperId === player.id) movementTarget = player.target;
+    const dx = movementTarget.x - player.position.x,
+      dy = movementTarget.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
-    const locomotion = projectLocomotion(state, player, player.target);
+    const locomotion = projectLocomotion(state, player, movementTarget);
     const desiredFacingAngle = deriveOrientationTarget(state, player);
     const facingAngle = integrateFacing(
       player.facingAngle,
@@ -711,6 +730,16 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     const nextHeight = next.z;
     if (!state.ball.shot) {
       const crossing = findPitchBoundaryCrossing(previous, next);
+      const contact =
+        !integrated.airborne && nextHeight <= 0.2
+          ? resolveContinuousGroundPassClaim(state, previous, next)
+          : undefined;
+      if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction))
+        return changePossession(
+          { ...state, ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! } },
+          contact.playerId!,
+          contact.cause,
+        );
       if (crossing) return applyBoundaryRestart(state, crossing, previous);
     }
     state.ball = {
@@ -834,35 +863,9 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
         );
       }
     }
-    if (!state.ball.airborne && state.ball.travelKind !== 'shot') {
-      const passer = state.players.find((p) => p.id === state.currentActorId);
-      const candidate =
-        passer &&
-        state.players
-          .filter(
-            (p) =>
-              p.team !== passer.team &&
-              p.profile.primaryPosition !== 'goalkeeper' &&
-              distance(p.position, state.ball) < 2.2,
-          )
-          .sort((a, b) => distance(a.position, state.ball) - distance(b.position, state.ball))[0];
-      if (candidate && Boolean(state.ball.travelKind)) {
-        const rng = RandomGenerator.fromSeed(
-          `${state.seed}:flight:${state.decisionIndex}:${Math.floor(elapsed * 10)}:${candidate.id}`,
-        );
-        const reading =
-          (candidate.profile.attributes.gameReading +
-            candidate.profile.attributes.positioning +
-            candidate.profile.attributes.pace) /
-          300;
-        if (rng.bool(0.12 + reading * 0.42))
-          return changePossession(
-            { ...state, ball: { ...candidate.position } },
-            candidate.id,
-            'interception',
-          );
-      }
-    }
+    // Ground interceptions are resolved once, by the continuous physical segment above. The old
+    // proximity lottery sampled the same defender every 100 ms and caused repeated, non-physical
+    // turnover opportunities during a single pass episode.
     if (
       state.ball.travelKind !== 'shot' &&
       (distance(state.ball, state.ball.target!) < 0.8 ||
@@ -1246,4 +1249,10 @@ export const matchStateToFrame = (state: TacticalMatchState) => ({
     height: state.ball.height ?? 0,
     ownerId: state.ball.ownerId,
   },
+  ...(state.ballCarrierIntent
+    ? {
+        carryTarget: state.ballCarrierIntent.target,
+        carryMode: state.ballCarrierIntent.executionMode,
+      }
+    : {}),
 });

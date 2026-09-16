@@ -110,6 +110,10 @@ export const ballCarrierIntentSchema = z.object({
   startPosition: pitchPointSchema,
   closestPointReached: pitchPointSchema,
   humanSelected: z.boolean(),
+  executionMode: z.enum(['burst', 'controlled', 'tight_dribble', 'evade', 'shield']).optional(),
+  modeSince: z.number().nonnegative().optional(),
+  localTarget: pitchPointSchema.optional(),
+  touchDistance: z.number().positive().optional(),
 });
 export type BallCarrierIntent = z.infer<typeof ballCarrierIntentSchema>;
 export const carryDiagnosticSchema = z.object({

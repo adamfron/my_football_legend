@@ -13,7 +13,7 @@ export const matchFlowBatchConfigSchema = z.object({
   canonicalSeconds: z
     .number()
     .positive()
-    .max(15 * 60),
+    .max(90 * 60),
   sessions: z.array(z.custom<SingleMatchSession>()).min(1).max(20),
 });
 export type MatchFlowBatchConfig = z.infer<typeof matchFlowBatchConfigSchema>;

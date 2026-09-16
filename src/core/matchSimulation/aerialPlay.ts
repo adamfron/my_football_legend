@@ -185,7 +185,9 @@ export const resolveAerialDuel = (
     : winner.player.team === 'home'
       ? 0
       : 105;
-  const nearGoal = Math.abs(winner.player.position.x - goalX) < 20;
+  const goalDistance = Math.hypot(winner.player.position.x - goalX, winner.player.position.y - 34);
+  const lateralAngle = Math.atan2(Math.abs(winner.player.position.y - 34), Math.max(1, Math.abs(winner.player.position.x - goalX)));
+  const nearGoal = goalDistance < 19 && lateralAngle < 0.7 && (state.ball.height ?? 0) > 0.7;
   const outcome: AerialOutcome = attacking
     ? nearGoal
       ? 'attacking_header'

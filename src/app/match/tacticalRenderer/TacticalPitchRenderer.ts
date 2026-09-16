@@ -36,6 +36,7 @@ export class TacticalPitchRenderer {
   private readonly ball: THREE.Mesh;
   private readonly ballPicker: THREE.Mesh;
   private readonly interceptionMarker: THREE.Mesh;
+  private readonly carryTargetMarker: THREE.Mesh;
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
@@ -110,6 +111,14 @@ export class TacticalPitchRenderer {
     this.interceptionMarker.position.y = 0.075;
     this.interceptionMarker.visible = false;
     this.scene.add(this.interceptionMarker);
+    this.carryTargetMarker = new THREE.Mesh(
+      new THREE.RingGeometry(0.65, 0.92, 24),
+      new THREE.MeshBasicMaterial({ color: 0xffd447, side: THREE.DoubleSide, depthTest: false }),
+    );
+    this.carryTargetMarker.rotation.x = -Math.PI / 2;
+    this.carryTargetMarker.position.y = 0.08;
+    this.carryTargetMarker.visible = false;
+    this.scene.add(this.carryTargetMarker);
     const shadow = new THREE.Mesh(
       new THREE.CircleGeometry(0.48, 16),
       new THREE.MeshBasicMaterial({ color: 0x101814, transparent: true, opacity: 0.28 }),
@@ -445,6 +454,11 @@ export class TacticalPitchRenderer {
     if (frame.interceptionTarget) {
       const target = tacticalToWorld(frame.interceptionTarget);
       this.interceptionMarker.position.set(target.x, 0.075, target.z);
+    }
+    this.carryTargetMarker.visible = Boolean(frame.carryTarget);
+    if (frame.carryTarget) {
+      const target = tacticalToWorld(frame.carryTarget);
+      this.carryTargetMarker.position.set(target.x, 0.08, target.z);
     }
     this.renderer.render(this.scene, this.camera);
   }

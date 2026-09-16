@@ -49,12 +49,13 @@ export const deriveOrientationTarget = (
   const movementDistance = Math.hypot(movement.x, movement.y);
   const ballVector = { x: state.ball.x - player.position.x, y: state.ball.y - player.position.y };
   const defending = player.team !== state.possessionTeam;
-  const aerialPreparation = Boolean(
-    state.ball.airborne && state.receptionPreparation?.actorId === player.id,
+  const receptionAware = Boolean(
+    state.receptionPreparation?.actorId === player.id &&
+      state.time >= state.receptionPreparation.awarenessAt,
   );
   const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
   const carrier = state.ball.ownerId === player.id;
-  if (goalkeeper || aerialPreparation || (defending && movementDistance < 10))
+  if (goalkeeper || receptionAware || (defending && movementDistance < 10))
     return angleForVector(ballVector);
   if (carrier && movementDistance < 7) return player.team === 'home' ? Math.PI / 2 : -Math.PI / 2;
   return movementDistance > 0.05 ? angleForVector(movement) : player.facingAngle;
