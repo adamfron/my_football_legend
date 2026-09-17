@@ -75,4 +75,10 @@ describe('physical goalkeeper intervention projection', () => {
       projectGoalkeeperIntervention(squareState)!.reactionDelay,
     );
   });
+
+  it('does not turn the last forecast sample into a fake off-pitch contact', () => {
+    const state = shotState(75);
+    state.ball.velocity = { x: -20, y: 30, z: 2 };
+    expect(projectGoalkeeperIntervention(state)).toBeUndefined();
+  });
 });

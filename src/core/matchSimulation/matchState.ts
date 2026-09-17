@@ -15,6 +15,7 @@ import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
 import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
 import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
 import type { MatchStatistics } from './playerMatchStats';
+import { onBallPreparationSchema, type OnBallPreparation } from './onBallPreparation';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -461,6 +462,7 @@ export interface TacticalMatchState {
   lastOffsideOffence?: z.infer<typeof offsideOffenceSchema>;
   keeperIntervention?: z.infer<typeof keeperInterventionSchema>;
   receptionPreparation?: ReceptionPreparation;
+  onBallPreparation?: OnBallPreparation;
   lastReceptionOutcome?: ReceptionOutcome;
   lastPassDiagnostic?: {
     passId: string;
@@ -586,6 +588,7 @@ export const tacticalMatchStateSchema = z
     offsideSnapshot: offsideSnapshotSchema.optional(),
     lastOffsideOffence: offsideOffenceSchema.optional(),
     keeperIntervention: keeperInterventionSchema.optional(),
+    onBallPreparation: onBallPreparationSchema.optional(),
     lastBoundaryCrossing: pitchBoundaryCrossingSchema
       .extend({
         previous: pitchPointSchema,

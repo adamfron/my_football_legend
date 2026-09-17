@@ -413,6 +413,10 @@ Globalna kalibracja kariery i rozwoju pozostaje odłożona do ukończenia rozsze
 
 Dalszą, jedyną autorytatywną kolejność opisuje sekcja na początku dokumentu.
 
+- **PR132 — ukończony:** rytm posiadania, kanoniczne przygotowanie piłki, wartość zachowania
+  terminalnego zagrożenia oraz integralność geometrii `PitchPoint` i projekcji bramkarza.
+- **PR133 — następny:** Windows-95 Match Presentation, bez tworzenia równoległej logiki futbolu.
+
 - **Później:** zmęczenie, zmiany i kontekst wyniku; faule, kartki, VAR i czas doliczony;
   integracja meczu kariery; agregacja oceny meczowej; stroje, herby i logotypy; profile siły Elo
   oraz polityki transferowej klubów.

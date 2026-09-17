@@ -16,6 +16,7 @@ import { estimatePlayerArrivalTime } from './playerArrival';
 import { deriveLaunchVelocity } from './ballPhysics';
 import { derivePassLaunchPlan } from './passLaunchPlan';
 import { deriveFinalThirdOccupations } from './tacticalPositioning';
+import { preparationMarginForAction } from './onBallPreparation';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -75,6 +76,13 @@ export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) 
     styleModifier -
     extremeRangePenalty
   );
+};
+
+/** Reusable value of preserving the current terminal attacking state. */
+export const terminalOpportunityValue = (state: TacticalMatchState, actor: MatchPlayerState) => {
+  const opportunity = evaluateShootingOpportunity(state, actor);
+  const goalDistance = distance(actor.position, { x: actor.team === 'home' ? 105 : 0, y: 34 });
+  return Math.max(0, opportunity.effectiveScoringExpectation * 62 + Math.max(0, 22 - goalDistance) * 0.7);
 };
 
 /** A near-future reception point for a genuine run, distinct from a line-breaking through ball. */
@@ -253,6 +261,8 @@ export const scoreActionForAI = (
   const actor = state.players.find((p) => p.id === actorId)!;
   const style = state.teams[actor.team].style;
   const underPressure = pressure(state, actor);
+  const preparationMargin = preparationMarginForAction(state, actor, action);
+  const preparationPenalty = preparationMargin < 0 ? Math.min(65, -preparationMargin * 55) : 0;
   if (action.type === 'hold') {
     const fieldProgress = fieldValue(actor.position, actor.team);
     const scanningContext =
@@ -288,7 +298,8 @@ export const scoreActionForAI = (
       ) *
         30
     );
-  if (action.type === 'shot') return shotUtility(state, actor) + (action.target.y === 34 ? 2 : 0);
+  if (action.type === 'shot')
+    return shotUtility(state, actor) + (action.target.y === 34 ? 2 : 0) - preparationPenalty;
   if (action.type === 'header')
     return action.intent === 'header_shot' ? shotUtility(state, actor) - 8 : 35;
   if (action.type === 'cross') {
@@ -367,6 +378,10 @@ export const scoreActionForAI = (
         ? -10
         : -38
       : 0;
+  const threatLoss = Math.max(
+    0,
+    terminalOpportunityValue(state, actor) - fieldValue(action.target, actor.team) * 0.32,
+  );
   return (
     28 +
     progression * (state.teams[actor.team].phase === 'attacking_transition' ? 1.5 : 1.05) -
@@ -381,6 +396,8 @@ export const scoreActionForAI = (
     technical +
     styleIntent +
     throughContext +
+    -threatLoss -
+    preparationPenalty +
     (lead
       ? Math.min(20, (lead.defenderEta - lead.receiverEta) * 12) -
         lead.laneRisk * 6 +

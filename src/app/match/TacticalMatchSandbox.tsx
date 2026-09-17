@@ -593,7 +593,7 @@ const RunningLab = ({
   }, [playing, replaying, session, speed, state.seed, opportunity, diagnostics]);
   useEffect(() => {
     if (replaying) return;
-    const baseFrame = matchStateToFrame(state);
+    const baseFrame = matchStateToFrame(state, { includeAiCarryTarget: debug });
     // Interaction legality remains a pure canonical projection; presentation only observes it.
     const actionableTargets = opportunity
       ? state.players
