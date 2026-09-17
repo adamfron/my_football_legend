@@ -56,6 +56,7 @@ export const projectGoalkeeperIntervention = (
     bounceCount: state.ball.bounceCount ?? 0,
   };
   let elapsed = 0;
+  let crossedInterventionPlane = false;
   const attackingRight = shooter?.team === 'home';
   for (const sample of projectFutureBallTrajectory(physical, maxSeconds, 0.025)) {
     const next = sample.ball;
@@ -64,9 +65,15 @@ export const projectGoalkeeperIntervention = (
       ? physical.position.x <= keeper.position.x && next.position.x >= keeper.position.x
       : physical.position.x >= keeper.position.x && next.position.x <= keeper.position.x;
     physical = next;
-    if (crossed) break;
+    if (crossed) {
+      crossedInterventionPlane = true;
+      break;
+    }
     if (Math.hypot(next.velocity.x, next.velocity.y) < 0.15) return undefined;
   }
+  // The final forecast sample is not a contact point. A projection exists only when the ball
+  // genuinely traverses the keeper's intervention plane.
+  if (!crossedInterventionPlane) return undefined;
   const facingError = Math.abs(
     normalizeAngle(
       angleForVector({ x: state.ball.x - keeper.position.x, y: state.ball.y - keeper.position.y }) -

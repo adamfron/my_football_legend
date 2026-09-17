@@ -49,10 +49,15 @@ export const teamSpaceToPitch = (point: TeamPoint, side: TeamSide): PitchPoint =
 export const formationSlotToPitch = (slot: FormationSlot, side: TeamSide) =>
   teamSpaceToPitch(formationSlotToTeamSpace(slot), side);
 
-export const clampPitchPoint = ({ x, y }: PitchPoint): PitchPoint => ({
-  x: Math.max(0.4, Math.min(PITCH_LENGTH - 0.4, x)),
-  y: Math.max(0.4, Math.min(PITCH_WIDTH - 0.4, y)),
-});
+/** The only boundary from unconstrained physical geometry into player movement geometry. */
+export const toPitchPoint = ({ x, y }: PhysicalPoint): PitchPoint =>
+  pitchPointSchema.parse({
+    x: Math.max(0.4, Math.min(PITCH_LENGTH - 0.4, Number.isFinite(x) ? x : PITCH_LENGTH / 2)),
+    y: Math.max(0.4, Math.min(PITCH_WIDTH - 0.4, Number.isFinite(y) ? y : PITCH_WIDTH / 2)),
+  });
+
+/** @deprecated Prefer the semantically explicit physical-to-pitch conversion. */
+export const clampPitchPoint = toPitchPoint;
 
 export const distance = (a: PhysicalPoint, b: PhysicalPoint) => Math.hypot(a.x - b.x, a.y - b.y);
 

@@ -41,6 +41,8 @@ import {
 } from './playerOrientation';
 import { integrateBallFlight } from './ballPhysics';
 import { projectGoalkeeperIntervention, resolveGoalkeeperContact } from './goalkeeperIntervention';
+import { deriveOnBallPreparation } from './onBallPreparation';
+import { toPitchPoint } from './matchSpace';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
 import { deriveCarryExecution } from './carryExecution';
@@ -202,6 +204,11 @@ const changePossession = (
               : 0.95,
       ),
       ...(reception ? { lastReceptionOutcome: reception } : {}),
+      onBallPreparation: deriveOnBallPreparation(
+        state,
+        owner,
+        reception?.kind === 'failed_control' ? undefined : reception?.kind,
+      ),
       ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
         ? {
             lastPassDiagnostic: {
@@ -254,6 +261,7 @@ const changePossession = (
     actionCooldown: Math.max(state.actionCooldown, 0.85),
     ball: controlledBall,
     ballOwnershipStartedAt: state.time,
+    onBallPreparation: deriveOnBallPreparation(state, owner),
     lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
     ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
       ? {
@@ -561,13 +569,13 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       state.keeperIntervention = {
         keeperId: projection.keeper.id,
         intention: projection.reachable ? 'attempt_interception' : 'stay',
-        target: { x: projection.contactPoint.x, y: projection.contactPoint.y },
+        target: toPitchPoint(projection.contactPoint),
         distanceToContact: projection.requiredDisplacement,
       };
       if (projection.reachable && (state.ball.flightTime ?? 0) >= projection.reactionDelay) {
         state.players = state.players.map((player) =>
           player.id === projection.keeper.id
-            ? { ...player, target: { x: projection.contactPoint.x, y: projection.contactPoint.y } }
+            ? { ...player, target: toPitchPoint(projection.contactPoint) }
             : player,
         );
       }
@@ -579,13 +587,13 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       state.keeperIntervention = {
         keeperId: choice.keeper.id,
         intention: choice.decision,
-        target: { ...interceptionPoint },
+        target: toPitchPoint(interceptionPoint),
         distanceToContact: distance(choice.keeper.position, interceptionPoint),
       };
       if (choice.decision !== 'stay')
         state.players = state.players.map((player) =>
           player.id === choice.keeper!.id
-            ? { ...player, target: { ...interceptionPoint } }
+            ? { ...player, target: toPitchPoint(interceptionPoint) }
             : player,
         );
     }
@@ -1251,7 +1259,10 @@ export const stepTacticalMatch = (
   return next;
 };
 
-export const matchStateToFrame = (state: TacticalMatchState) => ({
+export const matchStateToFrame = (
+  state: TacticalMatchState,
+  options: { includeAiCarryTarget?: boolean } = {},
+) => ({
   timestampMs: state.time * 1000,
   players: state.players.map((p) => {
     return {
@@ -1275,7 +1286,8 @@ export const matchStateToFrame = (state: TacticalMatchState) => ({
     height: state.ball.height ?? 0,
     ownerId: state.ball.ownerId,
   },
-  ...(state.ballCarrierIntent
+  ...(state.ballCarrierIntent &&
+  (state.ballCarrierIntent.humanSelected || options.includeAiCarryTarget)
     ? {
         carryTarget: state.ballCarrierIntent.target,
         carryMode: state.ballCarrierIntent.executionMode,
