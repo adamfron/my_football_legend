@@ -450,9 +450,11 @@ export const observeMatchFlow = (
         ? 'restart'
         : next.lastBoundaryCrossing && next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
           ? 'pass_out'
-          : next.lastReceptionOutcome?.kind === 'heavy_touch'
+          : next.lastReceptionOutcome !== previous.lastReceptionOutcome &&
+              next.lastReceptionOutcome?.kind === 'heavy_touch'
             ? 'heavy_touch'
-            : next.lastReceptionOutcome?.kind === 'failed_control'
+            : next.lastReceptionOutcome !== previous.lastReceptionOutcome &&
+                next.lastReceptionOutcome?.kind === 'failed_control'
               ? 'failed_control'
               : next.lastPassDiagnostic?.finalResult === 'intercepted'
                 ? 'interception'

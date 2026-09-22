@@ -82,7 +82,10 @@ export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) 
 export const terminalOpportunityValue = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const opportunity = evaluateShootingOpportunity(state, actor);
   const goalDistance = distance(actor.position, { x: actor.team === 'home' ? 105 : 0, y: 34 });
-  return Math.max(0, opportunity.effectiveScoringExpectation * 62 + Math.max(0, 22 - goalDistance) * 0.7);
+  return Math.max(
+    0,
+    opportunity.effectiveScoringExpectation * 62 + Math.max(0, 22 - goalDistance) * 0.7,
+  );
 };
 
 /** A near-future reception point for a genuine run, distinct from a line-breaking through ball. */
@@ -132,6 +135,23 @@ export const deriveLeadPass = (
   ).length;
   if (laneRisk >= 2) return undefined;
   return { projection, receiverEta: receiverEta.estimatedTime, defenderEta, laneRisk };
+};
+
+/** Human availability is physical/tactical feasibility, deliberately not NPC utility. */
+export const deriveHumanLeadPass = (
+  state: TacticalMatchState,
+  passer: MatchPlayerState,
+  receiver: MatchPlayerState,
+) => {
+  const projection = projectPassReception(state, passer, receiver, 'lead');
+  const motion = Math.hypot(receiver.velocity.x, receiver.velocity.y);
+  const tacticalRun = distance(receiver.position, receiver.target);
+  if (Math.max(motion, tacticalRun) < 1.2 || projection.leadDistance < 1.6) return undefined;
+  // The canonical launch/readiness plan decides whether the attempt physically exists. Risk and
+  // defender advantage remain reasons for AI not to choose it, rather than hiding it from a human.
+  const receiverEta = estimatePlayerArrivalTime(state, receiver, projection.releaseTarget);
+  if (!receiverEta.reachable || projection.estimatedBallArrival < 0.1) return undefined;
+  return { projection, receiverEta: receiverEta.estimatedTime };
 };
 export const enumerateAvailableActions = (
   state: TacticalMatchState,

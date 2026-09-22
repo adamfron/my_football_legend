@@ -19,6 +19,7 @@ import {
   evaluatePassInterceptionOpportunity,
   projectSelectableInteractionTargets,
   applyRestartScenario,
+  toPitchPointIfInPlay,
 } from '.';
 
 const world = createCanonicalWorldDatabase();
@@ -49,6 +50,33 @@ const makeState = () => {
   };
   return state;
 };
+
+describe('PR133 projection boundaries', () => {
+  it.each([
+    { x: 50, y: 67.99, velocity: { x: 0, y: 20, z: 0 } },
+    { x: 50, y: 0.01, velocity: { x: 0, y: -20, z: 0 } },
+    { x: 104.99, y: 34, velocity: { x: 20, y: 0, z: 0 } },
+  ])('ends interception projection at the first boundary crossing', (flight) => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const source = state.players.find((player) => player.team !== actor.team)!;
+    actor.position = { x: flight.x, y: Math.min(68, Math.max(0, flight.y)) };
+    state.ball = {
+      x: flight.x,
+      y: flight.y,
+      velocity: flight.velocity,
+      travelKind: 'pass',
+      lastTouchPlayerId: source.id,
+    };
+    expect(evaluatePassInterceptionOpportunity(state, actor.id)).toEqual({ viable: false });
+  });
+
+  it('never promotes an outside physical sample into PitchPoint interaction geometry', () => {
+    expect(toPitchPointIfInPlay({ x: 40, y: 68.001 })).toBeUndefined();
+    expect(toPitchPointIfInPlay({ x: -0.001, y: 20 })).toBeUndefined();
+    expect(toPitchPointIfInPlay({ x: 40, y: 68 })).toEqual({ x: 40, y: 68 });
+  });
+});
 
 describe('player decision lifecycle', () => {
   it('projects canonical on-ball actions once without consuming or mutating state', () => {
@@ -317,6 +345,60 @@ describe('player decision lifecycle', () => {
       }),
     ).toEqual([]);
     expect(state).toEqual(snapshot);
+  });
+
+  it('offers a human both feet and lead intentions for a useful run without using AI utility', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const receiver = state.players.find(
+      (player) =>
+        player.team === actor.team &&
+        player.id !== actor.id &&
+        player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    actor.position = { x: 38, y: 34 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    receiver.position = { x: 52, y: 34 };
+    receiver.velocity = { x: 5, y: 0 };
+    receiver.target = { x: 70, y: 34 };
+    for (const defender of state.players.filter((player) => player.team !== actor.team))
+      defender.position = { x: 58, y: 34 };
+    const opportunity = {
+      actorId: actor.id,
+      kind: 'on_ball',
+    } as unknown as NonNullable<ReturnType<typeof projectPlayerDecisionOpportunity>>;
+    const menu = projectContextualInteractions(state, opportunity, {
+      kind: 'player',
+      playerId: receiver.id,
+    });
+    expect(menu.map((item) => item.labelKey)).toContain('pass_to_feet');
+    expect(menu.map((item) => item.labelKey)).toContain('lead_pass');
+    // Congested defenders make this unattractive to AI, but do not remove human feasibility.
+    expect(menu.find((item) => item.labelKey === 'lead_pass')).toBeDefined();
+  });
+
+  it('does not duplicate a lead option for a stationary teammate', () => {
+    const state = makeState();
+    const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+    const receiver = state.players.find(
+      (player) =>
+        player.team === actor.team &&
+        player.id !== actor.id &&
+        player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    receiver.position = { x: actor.position.x + 8, y: actor.position.y };
+    receiver.velocity = { x: 0, y: 0 };
+    receiver.target = { ...receiver.position };
+    const opportunity = {
+      actorId: actor.id,
+      kind: 'on_ball',
+    } as unknown as NonNullable<ReturnType<typeof projectPlayerDecisionOpportunity>>;
+    const menu = projectContextualInteractions(state, opportunity, {
+      kind: 'player',
+      playerId: receiver.id,
+    });
+    expect(menu.some((item) => item.labelKey === 'pass_to_feet')).toBe(true);
+    expect(menu.some((item) => item.labelKey === 'lead_pass')).toBe(false);
   });
 
   it('rejects a distant dominated loose ball and accepts an immediate contest', () => {

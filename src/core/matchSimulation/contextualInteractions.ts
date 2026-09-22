@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { enumerateAvailableActions } from './matchActions';
+import { deriveHumanLeadPass, enumerateAvailableActions } from './matchActions';
 import {
   attackDirection,
   distance,
@@ -42,13 +42,7 @@ export const contextualInteractionSchema = z.object({
 export type ContextualInteraction = z.infer<typeof contextualInteractionSchema>;
 
 const passLabel = (intent: string) =>
-  intent === 'through'
-    ? 'pass_into_space'
-    : intent === 'lead'
-      ? 'lead_pass'
-      : intent === 'progressive'
-        ? 'progressive_pass'
-        : 'pass_to_feet';
+  intent === 'through' ? 'pass_into_space' : intent === 'lead' ? 'lead_pass' : 'pass_to_feet';
 const shotLabel = (intent: string) =>
   intent === 'placed' ? 'placed_shot' : intent === 'chip' ? 'chip_shot' : 'driven_shot';
 const asActions = (
@@ -132,15 +126,28 @@ export const projectContextualInteractions = (
       );
     const selected = state.players.find((player) => player.id === target.playerId);
     if (!selected) return [];
-    if (selected.team === actor.team)
-      return asActions(
-        target,
-        actions.filter(
-          (action) =>
-            (action.type === 'pass' && action.receiverId === selected.id) ||
-            (action.type === 'cross' && action.intendedTargetId === selected.id),
-        ),
+    if (selected.team === actor.team) {
+      const selectedActions = actions.filter(
+        (action) =>
+          (action.type === 'pass' && action.receiverId === selected.id) ||
+          (action.type === 'cross' && action.intendedTargetId === selected.id),
       );
+      if (
+        state.ball.ownerId === actor.id &&
+        !selectedActions.some((action) => action.type === 'pass' && action.intent === 'lead')
+      ) {
+        const lead = deriveHumanLeadPass(state, actor, selected);
+        if (lead)
+          selectedActions.push({
+            type: 'pass',
+            actorId: actor.id,
+            receiverId: selected.id,
+            target: lead.projection.releaseTarget,
+            intent: 'lead',
+          });
+      }
+      return asActions(target, selectedActions);
+    }
     if (state.ball.ownerId !== selected.id || actor.team === state.possessionTeam) return [];
     if (opportunity.kind === 'goalkeeper_response')
       return opportunity.options.flatMap((option) =>

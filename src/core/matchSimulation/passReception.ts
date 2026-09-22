@@ -160,19 +160,26 @@ export const resolveReceptionOutcome = (
     preparation * (2.2 + receiver.profile.attributes.agility * 0.038),
   );
   const readinessPenalty = Math.max(0, facingError / Math.PI - turnAllowance) * 0.3;
-  const quality =
+  const technicalQuality =
     (a.firstTouch + a.technique + a.agility + a.composure + a.gameReading) / 500 -
-    state.currentPressure * 0.22 -
-    Math.max(0, ballSpeed - readiness.maximumComfortableArrivalSpeed) / 24 -
-    Math.max(0, speed - 5) / 25 -
-    readinessPenalty +
-    Math.min(0.14, Math.max(0, readiness.preparationMargin) * 0.09);
+    state.currentPressure * 0.18 -
+    Math.max(0, ballSpeed - readiness.maximumComfortableArrivalSpeed) / 30 -
+    Math.max(0, speed - 6.5) / 30 -
+    readinessPenalty;
+  // Preparation is a material advantage, not merely a tiny bonus. This keeps ordinary support
+  // football stable while fast, blind or pressured arrivals still expose technical weakness.
+  const quality =
+    technicalQuality + 0.14 + Math.min(0.2, Math.max(0, readiness.preparationMargin) * 0.13);
+  const movingWithIntent =
+    speed > 0.7 &&
+    state.receptionPreparation?.actorId === receiver.id &&
+    state.receptionPreparation.movement !== 'wait';
   const kind =
-    quality >= 0.72 && speed > 1.2
+    quality >= 0.64 && movingWithIntent
       ? 'directional_control'
-      : quality >= 0.58
+      : quality >= 0.55
         ? 'clean_control'
-        : quality >= 0.42
+        : quality >= 0.34
           ? 'heavy_touch'
           : 'failed_control';
   const displacement =

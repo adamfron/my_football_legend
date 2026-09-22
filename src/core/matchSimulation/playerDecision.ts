@@ -13,6 +13,7 @@ import {
   fieldValue,
   pitchPointSchema,
   signedForwardDistance,
+  toPitchPointIfInPlay,
 } from './matchSpace';
 import {
   matchActionSchema,
@@ -173,9 +174,10 @@ export const projectSelectableInteractionTargets = (
     return targets;
   }
   if (opportunity.kind === 'incoming_ball') {
-    const result: PlayerInteractionTargetDescriptor[] = [
-      { kind: 'ball', point: { x: state.ball.x, y: state.ball.y } },
-    ];
+    const ballPoint = toPitchPointIfInPlay(state.ball);
+    const result: PlayerInteractionTargetDescriptor[] = ballPoint
+      ? [{ kind: 'ball', point: ballPoint }]
+      : [];
     const carry = opportunity.options.find(
       (option) => option.kind === 'action' && option.action.type === 'carry',
     );
@@ -190,15 +192,21 @@ export const projectSelectableInteractionTargets = (
     return result;
   }
   if (opportunity.kind === 'defensive_response') {
-    if (!state.ball.ownerId) return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
+    if (!state.ball.ownerId) {
+      const point = toPitchPointIfInPlay(state.ball);
+      return point ? [{ kind: 'ball', point }] : [];
+    }
     return [{ kind: 'player', playerId: state.ball.ownerId }];
   }
   if (opportunity.kind === 'goalkeeper_response') {
     if (state.ball.ownerId) return [{ kind: 'player', playerId: state.ball.ownerId }];
-    return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
+    const point = toPitchPointIfInPlay(state.ball);
+    return point ? [{ kind: 'ball', point }] : [];
   }
-  if (opportunity.kind === 'loose_ball')
-    return [{ kind: 'ball', point: { x: state.ball.x, y: state.ball.y } }];
+  if (opportunity.kind === 'loose_ball') {
+    const point = toPitchPointIfInPlay(state.ball);
+    return point ? [{ kind: 'ball', point }] : [];
+  }
   if (opportunity.kind === 'off_ball_run')
     return opportunity.options.flatMap((option) =>
       option.kind === 'movement' ? [{ kind: 'space' as const, point: option.intent.target }] : [],
@@ -384,9 +392,16 @@ export const evaluatePassInterceptionOpportunity = (
     2.5,
     0.05,
   );
-  const candidates = samples
-    .map(({ at, ball }) => {
-      const point = { x: ball.position.x, y: ball.position.y };
+  // A physical flight continues after a line crossing, but the playable football action does not.
+  // Stop at the first outside sample: clamping it would manufacture an interception on the line.
+  const playableSamples = [];
+  for (const sample of samples) {
+    const point = toPitchPointIfInPlay(sample.ball.position);
+    if (!point) break;
+    playableSamples.push({ ...sample, point });
+  }
+  const candidates = playableSamples
+    .map(({ at, ball, point }) => {
       const playerArrival = estimatePlayerArrivalTime(state, defender, point, 'intercept');
       const contactHeight = ball.position.z;
       const arrivalMargin = at + 0.12 - playerArrival.estimatedTime;

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/refs, react-hooks/immutability -- Match Lab's imperative renderer and
+   diagnostic recorders are observer-only refs intentionally kept outside React state. */
 import {
   Component,
   forwardRef,
@@ -43,6 +45,13 @@ import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
+import {
+  accrueSimulationDebt,
+  availableFixedTicks,
+  consumeFixedTicks,
+  createMatchRuntimeClock,
+  pauseSimulationClock,
+} from './matchRuntimeClock';
 import {
   DEFAULT_MATCH_CAMERA_PREFERENCES,
   matchCameraPreferencesSchema,
@@ -391,7 +400,7 @@ const RunningLab = ({
     }>();
   const hostRef = useRef<HTMLDivElement>(null),
     rendererRef = useRef<TacticalPitchRenderer | undefined>(undefined),
-    accumulatorRef = useRef(0),
+    runtimeClockRef = useRef(createMatchRuntimeClock(0)),
     replayBufferRef = useRef<RenderFrame[]>([]),
     scoreRef = useRef(0),
     stateRef = useRef(state),
@@ -433,7 +442,7 @@ const RunningLab = ({
     setOpportunity(undefined);
     setSelectedTarget(undefined);
     setShotAim(undefined);
-    accumulatorRef.current = 0;
+    runtimeClockRef.current = createMatchRuntimeClock(performance.now());
     const renderer = new TacticalPitchRenderer(
       hostRef.current,
       matchStateToFrame(initial),
@@ -474,16 +483,21 @@ const RunningLab = ({
     };
   }, [session, diagnostics]);
   useEffect(() => {
-    let frame = 0,
-      previous: number | undefined;
-    if (playing && !replaying && !opportunity)
-      frame = requestAnimationFrame(function animate(now) {
-        const delta = previous === undefined ? 0 : Math.min(100, now - previous);
-        previous = now;
-        accumulatorRef.current += (delta / 1000) * speed;
-        const ticks = Math.floor((accumulatorRef.current + 1e-9) / FIXED_MATCH_DT);
+    let timer = 0;
+    runtimeClockRef.current = opportunity
+      ? pauseSimulationClock(runtimeClockRef.current, performance.now())
+      : createMatchRuntimeClock(performance.now());
+    if (playing && !replaying && !opportunity) {
+      const advance = () => {
+        runtimeClockRef.current = accrueSimulationDebt(
+          runtimeClockRef.current,
+          performance.now(),
+          speed,
+        );
+        // Bound each task so a background catch-up yields to input and rendering. Debt is retained.
+        const ticks = Math.min(160, availableFixedTicks(runtimeClockRef.current));
         if (ticks > 0) {
-          accumulatorRef.current -= ticks * FIXED_MATCH_DT;
+          runtimeClockRef.current = consumeFixedTicks(runtimeClockRef.current, ticks);
           setState((value) => {
             let next = value;
             for (let tick = 0; tick < ticks; tick += 1) {
@@ -587,9 +601,11 @@ const RunningLab = ({
             return next;
           });
         }
-        frame = requestAnimationFrame(animate);
-      });
-    return () => cancelAnimationFrame(frame);
+        timer = window.setTimeout(advance, availableFixedTicks(runtimeClockRef.current) ? 0 : 16);
+      };
+      timer = window.setTimeout(advance, 0);
+    }
+    return () => window.clearTimeout(timer);
   }, [playing, replaying, session, speed, state.seed, opportunity, diagnostics]);
   useEffect(() => {
     if (replaying) return;
@@ -839,7 +855,7 @@ const RunningLab = ({
         >
           {playing ? 'Pauza' : 'Odtwórz'}
         </button>
-        {[1, 2, 4].map((v) => (
+        {[1, 2, 4, 8, 16].map((v) => (
           <button
             className={speed === v ? 'active' : ''}
             key={v}
