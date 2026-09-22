@@ -26,6 +26,12 @@ export const physicalPointSchema = z.object({
   y: z.number().finite(),
 });
 export type PhysicalPoint = z.infer<typeof physicalPointSchema>;
+
+/** Narrows physical trajectory geometry without inventing an in-play contact at the boundary. */
+export const toPitchPointIfInPlay = (point: PhysicalPoint): PitchPoint | undefined => {
+  const parsed = pitchPointSchema.safeParse(point);
+  return parsed.success ? parsed.data : undefined;
+};
 export const teamPointSchema = z.object({
   depth: z.number().min(0).max(1),
   lateral: z.number().min(-1).max(1),
