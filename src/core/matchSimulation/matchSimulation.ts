@@ -4,6 +4,7 @@ import { RandomGenerator } from '../random/RandomGenerator';
 import {
   chooseNpcAction,
   chooseRestartAction,
+  enumerateRestartActions,
   evaluatePressure,
   resolveMatchAction,
 } from './matchActions';
@@ -30,7 +31,7 @@ import {
 import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 import { isOffsideOffence } from './offside';
-import { projectPlayerDecisionOpportunity } from './playerDecision';
+import { countSemanticPlayerChoices, projectPlayerDecisionOpportunity } from './playerDecision';
 import { projectLocomotion } from './locomotion';
 import {
   classifyRelativeMovement,
@@ -539,7 +540,20 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     state.time - state.restart.startedAt >= 2.1
   ) {
     const controlledTaker = state.restart.takerId === state.controlledFootballerId;
-    const action = controlledTaker ? undefined : chooseRestartAction(state);
+    const restartActions = enumerateRestartActions(state);
+    const restartOptions = restartActions.map((action, index) => ({
+      id: `restart-${index}`,
+      kind: 'action' as const,
+      labelKey: action.type,
+      action,
+    }));
+    const meaningfulChoices = countSemanticPlayerChoices(restartOptions, 'restart');
+    // A controlled taker only waits for a genuine choice. One mandatory action, and the
+    // deterministic zero-option fallback, preserve restart liveness without confirmation UI.
+    const action =
+      controlledTaker && meaningfulChoices > 1
+        ? undefined
+        : (restartActions[0] ?? chooseRestartAction(state));
     if (action) state = resolveMatchAction(state, action);
   }
   if (
@@ -597,6 +611,10 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
             : player,
         );
     }
+  } else if (state.keeperIntervention) {
+    // Intervention targets belong to one live flight only. Tactical positioning can now recover
+    // a sweeper or diving keeper toward the canonical base position.
+    delete state.keeperIntervention;
   }
   state.players = deriveTacticalTargets(state).map((player) => {
     let movementTarget = player.target;
@@ -768,12 +786,47 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
         !integrated.airborne && nextHeight <= 0.2
           ? resolveContinuousGroundPassClaim(state, previous, next)
           : undefined;
-      if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction))
-        return changePossession(
-          { ...state, ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! } },
-          contact.playerId!,
-          contact.cause,
+      if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction)) {
+        const contactingPlayer = state.players.find((player) => player.id === contact.playerId)!;
+        if (contact.cause !== 'interception')
+          return changePossession(
+            {
+              ...state,
+              ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
+            },
+            contact.playerId!,
+            contact.cause,
+          );
+        // Geometry grants a contact, not ownership. Technique and composure decide whether that
+        // contact is controlled; an unsuccessful control creates one new loose-ball episode.
+        const attributes = contactingPlayer.profile.attributes;
+        const controlQuality =
+          (attributes.positioning +
+            attributes.gameReading +
+            attributes.technique +
+            attributes.composure) /
+          400;
+        const rng = RandomGenerator.fromSeed(
+          `${state.seed}:interception-contact:${state.ballEpisode ?? 0}:${contactingPlayer.id}`,
         );
+        if (rng.float() < 0.28 + controlQuality * 0.52)
+          return changePossession(
+            {
+              ...state,
+              ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
+            },
+            contact.playerId!,
+            'interception',
+          );
+        const incoming = state.ball.velocity ?? { x: 0, y: 0 };
+        return makeLoose(
+          {
+            ...state,
+            ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
+          },
+          { x: -incoming.x * 0.22, y: incoming.y * 0.35 + (rng.float() - 0.5) * 3 },
+        );
+      }
       if (crossing) return applyBoundaryRestart(state, crossing, previous);
     }
     state.ball = {
@@ -812,7 +865,9 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           kind: 'goalkeeper' as const,
           playerId: keeperProjection.keeper.id,
           centre: { ...keeperProjection.keeper.position, z: 1.05 },
-          radius: 0.9,
+          // Time-dependent body/arm/dive envelope. It is deliberately bounded and only exists
+          // after reaction delay; unlike a giant static sphere, long flight creates the reach.
+          radius: Math.min(2.6, Math.max(0.9, keeperProjection.availableReach)),
         });
       }
       const found = findFirstBallContact({
@@ -1106,6 +1161,28 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     else delete state.nearestChallengerId;
     const challenger = state.players.find((p) => p.id === evaluated.nearestChallengerId);
     const duelDistance = challenger ? distance(challenger.position, owner.position) : Infinity;
+    const ballDistance = challenger ? distance(challenger.position, state.ball) : Infinity;
+    const challengerFacingError = challenger
+      ? Math.abs(
+          normalizeAngle(
+            Math.atan2(state.ball.y - challenger.position.y, state.ball.x - challenger.position.x) -
+              challenger.facingAngle,
+          ),
+        )
+      : Math.PI;
+    const relativeSpeed = challenger
+      ? Math.hypot(
+          challenger.velocity.x - owner.velocity.x,
+          challenger.velocity.y - owner.velocity.y,
+        )
+      : Infinity;
+    const shielding =
+      state.ballCarrierIntent?.actorId === owner.id &&
+      state.ballCarrierIntent.executionMode === 'shield';
+    const hasChallengeAccess =
+      ballDistance <= (shielding ? 0.72 : 0.95) &&
+      challengerFacingError <= (shielding ? Math.PI * 0.3 : Math.PI * 0.42) &&
+      relativeSpeed <= 8.5;
     const sameDuel = Boolean(
       challenger &&
         state.recentDuel &&
@@ -1114,7 +1191,7 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
         state.recentDuel.participants.includes(owner.id) &&
         state.recentDuel.participants.includes(challenger.id),
     );
-    if (challenger && duelDistance < 1.65 && !sameDuel) {
+    if (challenger && duelDistance < 1.65 && hasChallengeAccess && !sameDuel) {
       const rng = RandomGenerator.fromSeed(
         `${state.seed}:challenge:${state.decisionIndex}:${challenger.id}`,
       );
@@ -1132,7 +1209,10 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           owner.profile.attributes.strength +
           owner.profile.attributes.composure) /
         500;
-      const roll = rng.float() + (defence - attack) * 0.35;
+      const orientationAdvantage = (1 - challengerFacingError / Math.PI) * 0.08;
+      const shieldProtection = shielding ? 0.16 : 0;
+      const roll =
+        rng.float() + (defence - attack) * 0.35 + orientationAdvantage - shieldProtection;
       if (roll > 0.58) {
         state = changePossession(state, challenger.id, 'tackle');
         state.recentDuel = {

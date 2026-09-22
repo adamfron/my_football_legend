@@ -46,6 +46,66 @@ export const playerDecisionOptionSchema = z.discriminatedUnion('kind', [
   }),
 ]);
 export type PlayerDecisionOption = z.infer<typeof playerDecisionOptionSchema>;
+export const playerChoiceFamilySchema = z.enum([
+  'pass_to_feet',
+  'lead_pass',
+  'through_ball',
+  'carry',
+  'shoot',
+  'cross',
+  'intercept',
+  'challenge',
+  'contain',
+  'hold_shape',
+  'goalkeeper_claim',
+  'restart_receiver',
+]);
+export type PlayerChoiceFamily = z.infer<typeof playerChoiceFamilySchema>;
+
+/** Reduces implementation variants to intentions that are actually distinct to the player. */
+export const derivePlayerChoiceFamily = (
+  option: PlayerDecisionOption,
+  kind?: PlayerDecisionOpportunity['kind'],
+): PlayerChoiceFamily => {
+  if (kind === 'restart' && option.kind === 'action' && option.action.type === 'pass')
+    return 'restart_receiver';
+  if (option.kind === 'movement') {
+    if (option.intent.type === 'hold_shape') return 'hold_shape';
+    if (option.labelKey.includes('claim') || option.labelKey.includes('sweep'))
+      return 'goalkeeper_claim';
+    if (option.labelKey.includes('intercept')) return 'intercept';
+    if (option.labelKey.includes('contain')) return 'contain';
+    return 'challenge';
+  }
+  const action = option.action;
+  if (action.type === 'carry') return 'carry';
+  if (action.type === 'shot') return 'shoot';
+  if (action.type === 'cross') return 'cross';
+  if (action.type === 'pass') {
+    if (kind === 'restart') return 'restart_receiver';
+    if (action.intent === 'lead') return 'lead_pass';
+    if (action.intent === 'through') return 'through_ball';
+    return 'pass_to_feet';
+  }
+  return 'hold_shape';
+};
+
+export const countSemanticPlayerChoices = (
+  options: PlayerDecisionOption[],
+  kind?: PlayerDecisionOpportunity['kind'],
+): number => {
+  if (kind === 'restart') {
+    // Different receivers are distinct restart intentions even though they share an action family.
+    return new Set(
+      options.map((option) =>
+        option.kind === 'action' && option.action.type === 'pass'
+          ? `restart_receiver:${option.action.receiverId}`
+          : derivePlayerChoiceFamily(option, kind),
+      ),
+    ).size;
+  }
+  return new Set(options.map((option) => derivePlayerChoiceFamily(option, kind))).size;
+};
 export const playerDecisionOpportunitySchema = z.object({
   id: z.string(),
   actorId: z.string(),
@@ -816,7 +876,7 @@ const projectDecision = (
   }
   if (!options.length) return blocked('no_options', context);
   // A pause must expose a genuine choice. Single low-value prompts remain autonomous.
-  if (options.length < 2) return blocked('no_options', context);
+  if (countSemanticPlayerChoices(options, kind) < 2) return blocked('no_options', context);
   const signature = signatureFor(state, kind);
   const postActionCheckpoint =
     kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;

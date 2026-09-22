@@ -836,23 +836,22 @@ export const enumerateRestartActions = (state: TacticalMatchState): MatchAction[
       },
     ];
   if (state.scenario === 'throw_in' && restart.landingZone) {
-    const receiver = state.players
+    const receivers = state.players
       .filter((p) => p.team === actor.team && p.id !== actor.id)
+      .filter((p) => distance(p.position, actor.position) <= 25)
       .sort(
         (a, b) =>
-          distance(a.position, restart.landingZone!) - distance(b.position, restart.landingZone!),
-      )[0];
-    return receiver
-      ? [
-          {
-            type: 'pass',
-            actorId: actor.id,
-            receiverId: receiver.id,
-            target: restart.landingZone,
-            intent: 'support',
-          },
-        ]
-      : [];
+          distance(a.position, restart.landingZone!) - distance(b.position, restart.landingZone!) ||
+          a.id.localeCompare(b.id),
+      )
+      .slice(0, 4);
+    return receivers.map((receiver) => ({
+      type: 'pass' as const,
+      actorId: actor.id,
+      receiverId: receiver.id,
+      target: clampPitchPoint(receiver.position),
+      intent: 'support' as const,
+    }));
   }
   if (
     (state.scenario === 'goal_kick' ||
