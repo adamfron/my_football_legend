@@ -20,6 +20,7 @@ export const goalkeeperProjectionDiagnosticSchema = z.object({
   timeAvailable: z.number().nonnegative(),
   contactPoint: z.object({ x: z.number(), y: z.number(), z: z.number().nonnegative() }),
   requiredDisplacement: z.number().nonnegative(),
+  availableReach: z.number().nonnegative(),
   reachable: z.boolean(),
 });
 export type GoalkeeperProjectionDiagnostic = z.infer<typeof goalkeeperProjectionDiagnosticSchema>;
@@ -30,6 +31,7 @@ export interface GoalkeeperProjection {
   timeAvailable: number;
   contactPoint: { x: number; y: number; z: number };
   requiredDisplacement: number;
+  availableReach: number;
   reachable: boolean;
 }
 
@@ -100,6 +102,7 @@ export const projectGoalkeeperIntervention = (
     timeAvailable: elapsed,
     contactPoint: physical.position,
     requiredDisplacement,
+    availableReach: reachableDistance,
     reachable: elapsed >= reactionDelay && requiredDisplacement <= reachableDistance,
   };
 };
