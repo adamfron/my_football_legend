@@ -81,4 +81,29 @@ describe('physical goalkeeper intervention projection', () => {
     state.ball.velocity = { x: -20, y: 30, z: 2 };
     expect(projectGoalkeeperIntervention(state)).toBeUndefined();
   });
+
+  it('consumes reaction delay from release instead of restarting it on every tick', () => {
+    const state = shotState(65);
+    const initial = projectGoalkeeperIntervention(state)!;
+    state.ball.flightTime = initial.reactionDelay + 0.05;
+    state.ball.x += 27 * state.ball.flightTime;
+    const later = projectGoalkeeperIntervention(state)!;
+    expect(initial.reactionRemaining).toBeCloseTo(initial.reactionDelay);
+    expect(later.reactionRemaining).toBe(0);
+    expect(later.ballTotalFlightTime).toBeGreaterThan(initial.ballTotalFlightTime);
+  });
+
+  it('does not lose already-earned reaction time as a reachable shot approaches', () => {
+    const state = shotState(65);
+    state.ball.flightTime = 0.5;
+    state.ball.x += 13.5;
+    const first = projectGoalkeeperIntervention(state)!;
+    state.ball.flightTime = 0.75;
+    state.ball.x += 6.75;
+    const second = projectGoalkeeperIntervention(state)!;
+    expect(first.reactionRemaining).toBe(0);
+    expect(second.reactionRemaining).toBe(0);
+    expect(first.reachable).toBe(true);
+    expect(second.reachable).toBe(true);
+  });
 });

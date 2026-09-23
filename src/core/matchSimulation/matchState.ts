@@ -241,6 +241,8 @@ export interface MatchPlayerState {
   locomotionTelemetry?: LocomotionTelemetry;
   sprintStartedAt?: number;
   sprintBurstCounted?: boolean;
+  /** Start of a sustained below-sprint period; provides exit hysteresis for sprint episodes. */
+  sprintRecoveryStartedAt?: number;
 }
 
 export const locomotionIntensitySchema = z.enum(['walk', 'jog', 'run', 'sprint']);

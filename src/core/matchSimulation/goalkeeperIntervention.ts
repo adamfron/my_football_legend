@@ -17,6 +17,9 @@ export type GoalkeeperSaveOutcome = z.infer<typeof goalkeeperSaveOutcomeSchema>;
 export const goalkeeperProjectionDiagnosticSchema = z.object({
   keeperId: z.string(),
   reactionDelay: z.number().nonnegative(),
+  reactionRemaining: z.number().nonnegative(),
+  ballTotalFlightTime: z.number().nonnegative(),
+  ballRemainingFlightTime: z.number().nonnegative(),
   timeAvailable: z.number().nonnegative(),
   contactPoint: z.object({ x: z.number(), y: z.number(), z: z.number().nonnegative() }),
   requiredDisplacement: z.number().nonnegative(),
@@ -28,6 +31,9 @@ export type GoalkeeperProjectionDiagnostic = z.infer<typeof goalkeeperProjection
 export interface GoalkeeperProjection {
   keeper: MatchPlayerState;
   reactionDelay: number;
+  reactionRemaining: number;
+  ballTotalFlightTime: number;
+  ballRemainingFlightTime: number;
   timeAvailable: number;
   contactPoint: { x: number; y: number; z: number };
   requiredDisplacement: number;
@@ -84,12 +90,18 @@ export const projectGoalkeeperIntervention = (
   );
   const attributes = keeper.profile.attributes;
   const reactionDelay = 0.42 - attributes.reflexes * 0.0022 + (facingError / Math.PI) * 0.24;
-  const movementTime = Math.max(0, elapsed - reactionDelay);
+  // Reaction belongs to the shot episode, not to this particular projection tick. The current
+  // keeper position already incorporates any movement made on previous ticks, so only the
+  // unconsumed part of the original delay may be deducted from the remaining flight.
+  const ballTotalFlightTime = state.ball.flightTime ?? 0;
+  const reactionRemaining = Math.max(0, reactionDelay - ballTotalFlightTime);
+  const movementTime = Math.max(0, elapsed - reactionRemaining);
   const acceleration = 3.2 + (attributes.agility / 100) * 5.5;
   const maximumSpeed = 3.6 + attributes.agility * 0.035;
   const accelerationTime = Math.min(movementTime, maximumSpeed / acceleration);
+  const contactReach = 1.15;
   const reachableDistance =
-    0.8 +
+    contactReach +
     0.5 * acceleration * accelerationTime * accelerationTime +
     Math.max(0, movementTime - accelerationTime) * maximumSpeed;
   const requiredDisplacement = Math.hypot(
@@ -99,6 +111,9 @@ export const projectGoalkeeperIntervention = (
   return {
     keeper,
     reactionDelay,
+    reactionRemaining,
+    ballTotalFlightTime,
+    ballRemainingFlightTime: elapsed,
     timeAvailable: elapsed,
     contactPoint: physical.position,
     requiredDisplacement,

@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR133 są ukończone. W szczególności:
+PR105–PR134 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -40,23 +40,28 @@ PR105–PR133 są ukończone. W szczególności:
   piłce, rytm posiadania oraz integralność geometrii i decyzji terminalnych.
 - **PR133 — Player Interaction, Reception & Runtime Hardening:** interakcje gracza, kierunkowe
   przyjęcia oraz stałokrokowy runtime z bezpiecznym nadrabianiem czasu.
+- **PR134 — Possession Contests, Goalkeeping & Decision/Restart Hardening:** fizyczna dostępność
+  przechwytów i pojedynków, aktywna interwencja bramkarza oraz semantyczne decyzje i żywotność wznowień.
 
 ### CURRENT
 
-**PR134 — Possession Contests, Goalkeeping & Decision/Restart Hardening**
+**PR135 — Goalkeeping, Interception Calibration & Match Moment Foundations**
 
-Fizyczna dostępność przechwytów i pojedynków, aktywna interwencja bramkarza oraz semantyczne
-decyzje i gwarantowana żywotność wznowień. Po PR134 nastąpi osobny przegląd kalibracji wielu meczów.
+Kalibracja reakcji i fizycznego kontaktu bramkarza, lejka przechwytów, wykorzystania istniejących
+biegów skrzydłowych i epizodów sprintu oraz czysta, obserwacyjna projekcja ważnych momentów.
 
 ### NEXT
 
-**PR135 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
-prymitywy i tokeny, lokalne/radialne menu, HUD/paski statusu/okna narzędziowe, barwy klubów oraz
-tożsamość i wzory strojów.
+**PR136 — Background Match Presentation & Moment Sensitivity** — szybkie wykonywanie tego samego
+kanonicznego meczu między momentami, deterministyczne rozstrzyganie pominiętych okazji gracza,
+presety czułości oraz przejście do interaktywnej prezentacji.
 
 ### LATER
 
-**PR136 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+**PR137 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
+prymitywy, lokalne/radialne menu, HUD, barwy klubów oraz tożsamość strojów.
+
+**PR138 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
 

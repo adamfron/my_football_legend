@@ -12,6 +12,8 @@ export type GroundPassClaim = z.infer<typeof groundPassClaimSchema>;
 
 export interface ContinuousGroundPassClaim extends GroundPassClaim {
   segmentFraction: number;
+  /** 0 at the edge of the contact envelope, 1 through the player's centre. */
+  contactMargin: number;
 }
 
 /** Earliest player contact on this fixed-step segment, ordered alongside boundary crossings. */
@@ -46,11 +48,12 @@ export const resolveContinuousGroundPassClaim = (
         a.metres - b.metres ||
         a.player.id.localeCompare(b.player.id),
     )
-    .map(({ player, point, segmentFraction }) => ({
+    .map(({ player, point, segmentFraction, metres }) => ({
       landingPosition: point,
       playerId: player.id,
       cause: player.team === passer?.team ? ('claim' as const) : ('interception' as const),
       segmentFraction,
+      contactMargin: Math.max(0, 1 - metres / controlRadius),
     }))[0];
 };
 
