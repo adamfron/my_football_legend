@@ -1,5 +1,14 @@
 # Architektura
 
+## Obserwacyjna projekcja momentów meczu
+
+`matchSimulation` pozostaje jedynym autorytetem szczegółowego meczu i zawsze wykonuje każdy
+`FIXED_MATCH_DT`. `projectMatchMoment` jest czystą projekcją aktualnej migawki: nie wybiera akcji,
+nie rozstrzyga futbolu, nie mutuje stanu i nie korzysta z RNG. Polityka prezentacji może zdecydować,
+czy kandydat powinien być pokazany, ale nie jest właścicielem wyniku. `full_match` omija przyszłe
+pomijanie prezentacji; nie zamienia każdego ticka w zdarzenie. Tani, agregatowy symulator pozostałych
+meczów ligowych jest osobnym przyszłym problemem i nie może zastąpić kanonicznego meczu protagonisty.
+
 ## Wejścia do sterowania zawodnikiem
 
 Sterowanie karierą realizuje zasadę: **gracz kontroluje decyzje, nie lokomocję**.

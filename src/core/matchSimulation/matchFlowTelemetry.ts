@@ -4,6 +4,11 @@ import { evaluateShootingOpportunity } from './shootingOpportunity';
 import type { TacticalMatchState } from './matchState';
 import { deriveFlankRelationship } from './tacticalPositioning';
 import {
+  MATCH_PRESENTATION_POLICIES,
+  projectMatchMoment,
+  shouldSurfaceMatchMoment,
+} from './matchMoment';
+import {
   derivePlayerSupportMetrics,
   deriveTeamShapeMetrics,
   playerSupportMetricsSchema,
@@ -190,6 +195,19 @@ export const matchFlowTelemetrySchema = z.object({
     receiver_late: z.number().int().nonnegative(),
     technical_error: z.number().int().nonnegative(),
   }),
+  momentProjection: z.object({
+    momentCandidates: z.number().int().nonnegative(),
+    momentsByKind: z.record(z.string(), z.number().int().nonnegative()),
+    momentsAboveThreshold: z.number().int().nonnegative(),
+    controlledPlayerMoments: z.number().int().nonnegative(),
+    matchWideMoments: z.number().int().nonnegative(),
+    averageImportance: z.number().min(0).max(1),
+    simulatedSecondsBetweenSurfacedMoments: z.array(z.number().nonnegative()),
+    byPolicy: z.record(z.string(), z.number().int().nonnegative()),
+    activeSignature: z.string().optional(),
+    lastSurfacedAt: z.number().nonnegative().optional(),
+    lastEvaluatedAt: z.number().nonnegative().optional(),
+  }),
   carries: z.number().int().nonnegative(),
   controlled: z.object({
     touches: z.number().int().nonnegative(),
@@ -322,6 +340,16 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
     receiverDisplacementSamples: 0,
     receptions: { clean: 0, directional: 0, heavy: 0, failed: 0 },
     interceptionCauses: { lane_read: 0, receiver_late: 0, technical_error: 0 },
+    momentProjection: {
+      momentCandidates: 0,
+      momentsByKind: {},
+      momentsAboveThreshold: 0,
+      controlledPlayerMoments: 0,
+      matchWideMoments: 0,
+      averageImportance: 0,
+      simulatedSecondsBetweenSurfacedMoments: [],
+      byPolicy: {},
+    },
     carries: 0,
     controlled: {
       touches: 0,
@@ -782,6 +810,40 @@ export const observeMatchFlow = (
         evaluateShootingOpportunity(previous, shooter).effectiveScoringExpectation,
       );
     if (shot.shooterId === next.controlledFootballerId) result.controlled.shots++;
+  }
+  // Four observational samples per canonical second are sufficient to catch football episodes
+  // without making benchmark instrumentation dominate the fixed-step simulation cost.
+  if (
+    result.momentProjection.lastEvaluatedAt === undefined ||
+    next.time - result.momentProjection.lastEvaluatedAt >= 0.249
+  ) {
+    const moment = projectMatchMoment(next);
+    const momentSignature =
+      moment.kind === 'routine' ? undefined : `${moment.kind}:${moment.actorIds.join(',')}`;
+    if (momentSignature && momentSignature !== result.momentProjection.activeSignature) {
+      const projection = result.momentProjection;
+      const previousCount = projection.momentCandidates;
+      projection.momentCandidates++;
+      projection.momentsByKind[moment.kind] = (projection.momentsByKind[moment.kind] ?? 0) + 1;
+      projection.averageImportance =
+        (projection.averageImportance * previousCount + moment.importance) /
+        projection.momentCandidates;
+      if (moment.controlledPlayerInvolved) projection.controlledPlayerMoments++;
+      else projection.matchWideMoments++;
+      if (moment.importance >= 0.68) {
+        projection.momentsAboveThreshold++;
+        if (projection.lastSurfacedAt !== undefined)
+          projection.simulatedSecondsBetweenSurfacedMoments.push(
+            next.time - projection.lastSurfacedAt,
+          );
+        projection.lastSurfacedAt = next.time;
+      }
+      for (const policy of Object.values(MATCH_PRESENTATION_POLICIES))
+        if (shouldSurfaceMatchMoment(moment, policy))
+          projection.byPolicy[policy.id] = (projection.byPolicy[policy.id] ?? 0) + 1;
+    }
+    result.momentProjection.activeSignature = momentSignature;
+    result.momentProjection.lastEvaluatedAt = next.time;
   }
   assertTelemetryInvariants(result);
   return matchFlowTelemetrySchema.parse(result);

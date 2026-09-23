@@ -1,13 +1,14 @@
 # My Football Legend — Current Project State
 
-## PR132 — current Single Match Lab state
+## PR135 — current Single Match Lab state
 
-PR132 introduces canonical on-ball preparation seeded by the existing reception result. It makes
-control, orientation, shielding and striking preparation part of football state rather than a visual
-delay, while retaining geometry-dependent first-time actions. Action evaluation now accounts for
-the threat abandoned by recycling, goalkeeper projection requires a real intervention-plane crossing,
-and physical coordinates enter player locomotion only through the bounded `PitchPoint` conversion.
-Spectator presentation no longer leaks canonical AI carry destinations. Calibration remains ongoing.
+Single Match Lab nadal używa jednego deterministycznego `matchSimulation`. Reakcja bramkarza jest
+liczona od początku lotu strzału, a jego fizyczny ruch i ograniczona obwiednia kontaktu nie dublują
+tego samego zasięgu. Epizody sprintu mają histerezę wyjścia. Czysty `projectMatchMoment` obserwuje
+stan, istniejące okazje decyzyjne, zagrożenie, strzały, interwencje i wznowienia oraz może ocenić je
+według przyszłych polityk prezentacji bez mutacji stanu i bez losowania. Telemetria benchmarkowa
+liczy kandydatów i wyniki tych polityk. Nie dodano drugiego symulatora ani integracji z karierą;
+kalibracja przechwytów, bramkarzy i gry skrzydłami pozostaje iteracyjna.
 
 ## PR128 — earlier Single Match Lab foundation
 

@@ -707,8 +707,18 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       sprintBursts: 0,
       maxSpeed: 0,
     };
+    const sprintRecoveryStartedAt =
+      locomotion.intensity === 'sprint'
+        ? undefined
+        : (player.sprintRecoveryStartedAt ?? state.time);
+    const sprintEpisodeEnded =
+      sprintRecoveryStartedAt !== undefined && state.time + dt - sprintRecoveryStartedAt >= 0.75;
     const sprintStartedAt =
-      locomotion.intensity === 'sprint' ? (player.sprintStartedAt ?? state.time) : undefined;
+      locomotion.intensity === 'sprint'
+        ? (player.sprintStartedAt ?? state.time)
+        : sprintEpisodeEnded
+          ? undefined
+          : player.sprintStartedAt;
     const burstMatured = sprintStartedAt !== undefined && state.time + dt - sprintStartedAt >= 0.5;
     const countBurst = burstMatured && !player.sprintBurstCounted;
     const distanceKey = (
@@ -740,7 +750,11 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
         maxSpeed: Math.max(previousTelemetry.maxSpeed, speed),
       },
       ...(sprintStartedAt !== undefined
-        ? { sprintStartedAt, sprintBurstCounted: player.sprintBurstCounted || countBurst }
+        ? {
+            sprintStartedAt,
+            sprintBurstCounted: player.sprintBurstCounted || countBurst,
+            ...(sprintRecoveryStartedAt !== undefined ? { sprintRecoveryStartedAt } : {}),
+          }
         : { sprintBurstCounted: false }),
       samples,
       meanPosition: {
@@ -809,7 +823,10 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
         const rng = RandomGenerator.fromSeed(
           `${state.seed}:interception-contact:${state.ballEpisode ?? 0}:${contactingPlayer.id}`,
         );
-        if (rng.float() < 0.28 + controlQuality * 0.52)
+        // A stretching edge contact should usually alter the pass, not magically secure it.
+        // Early, square access through the centre of the envelope still rewards anticipation.
+        const cleanControlChance = 0.12 + controlQuality * 0.4 + contact.contactMargin * 0.25;
+        if (rng.float() < cleanControlChance)
           return changePossession(
             {
               ...state,
@@ -865,9 +882,9 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           kind: 'goalkeeper' as const,
           playerId: keeperProjection.keeper.id,
           centre: { ...keeperProjection.keeper.position, z: 1.05 },
-          // Time-dependent body/arm/dive envelope. It is deliberately bounded and only exists
-          // after reaction delay; unlike a giant static sphere, long flight creates the reach.
-          radius: Math.min(2.6, Math.max(0.9, keeperProjection.availableReach)),
+          // Locomotion moves the body; this bounded envelope represents body, arms and dive only.
+          // Using the movement budget here as well would count the same reach twice.
+          radius: 1.15,
         });
       }
       const found = findFirstBallContact({
