@@ -40,6 +40,11 @@ import {
   type PositioningSample,
   projectPlayerMatchSummary,
   startSecondHalf,
+  MATCH_PRESENTATION_POLICIES,
+  projectMatchMoment,
+  shouldSurfaceMatchMoment,
+  resolvePresentationPolicyProxy,
+  type MatchPresentationPolicy,
 } from '../../core/matchSimulation';
 import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
@@ -381,6 +386,11 @@ const RunningLab = ({
   const [state, setState] = useState<TacticalMatchState>(() => diagnostics.latestState),
     [playing, setPlaying] = useState(true),
     [speed, setSpeed] = useState(1),
+    [presentationPolicyId, setPresentationPolicyId] =
+      useState<MatchPresentationPolicy['id']>('full_match'),
+    [presentationPhase, setPresentationPhase] = useState<
+      'background_simulation' | 'presenting_live_moment' | 'full_match'
+    >('full_match'),
     [debug, setDebug] = useState(false),
     [goalReplay, setGoalReplay] = useState<RenderFrame[]>([]),
     [replaying, setReplaying] = useState(false),
@@ -408,6 +418,8 @@ const RunningLab = ({
     debugRecorderRef = useRef(diagnostics.recorder),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
+  const presentedUntilRef = useRef(0);
+  const presentationPolicy = MATCH_PRESENTATION_POLICIES[presentationPolicyId];
   const telemetryRef = useRef(diagnostics.telemetry);
   const positioningSamplesRef = useRef<PositioningSample[]>(diagnostics.positioningSamples);
   stateRef.current = state;
@@ -489,27 +501,64 @@ const RunningLab = ({
       : createMatchRuntimeClock(performance.now());
     if (playing && !replaying && !opportunity) {
       const advance = () => {
+        const background =
+          !presentationPolicy.fullMatch && presentationPhase === 'background_simulation';
         runtimeClockRef.current = accrueSimulationDebt(
           runtimeClockRef.current,
           performance.now(),
           speed,
         );
         // Bound each task so a background catch-up yields to input and rendering. Debt is retained.
-        const ticks = Math.min(160, availableFixedTicks(runtimeClockRef.current));
+        const ticks = background
+          ? 800
+          : Math.min(160, availableFixedTicks(runtimeClockRef.current));
         if (ticks > 0) {
-          runtimeClockRef.current = consumeFixedTicks(runtimeClockRef.current, ticks);
+          if (!background)
+            runtimeClockRef.current = consumeFixedTicks(runtimeClockRef.current, ticks);
           setState((value) => {
             let next = value;
             for (let tick = 0; tick < ticks; tick += 1) {
               const projected = projectPlayerDecisionOpportunity(next);
               if (projected) {
+                const candidate = projectMatchMoment(next);
+                if (!shouldSurfaceMatchMoment(candidate, presentationPolicy)) {
+                  next = resolvePresentationPolicyProxy(next, projected);
+                  recordDecisionSelection(telemetryRef.current, 'autonomous');
+                  debugRecorderRef.current.ui(next.time, 'presentation_policy_proxy', {
+                    policy: presentationPolicy.id,
+                    decisionId: projected.id,
+                  });
+                  continue;
+                }
                 setOpportunity(projected);
+                setPresentationPhase('presenting_live_moment');
                 recordDecisionOpportunity(
                   telemetryRef.current,
                   projected.kind,
                   projected.triggerReason.includes('autopilot_escalation'),
                 );
                 debugRecorderRef.current.ui(next.time, 'player_decision_opened', projected);
+                break;
+              }
+              if (background) {
+                const candidate = projectMatchMoment(next);
+                if (
+                  candidate.kind !== 'routine' &&
+                  shouldSurfaceMatchMoment(candidate, presentationPolicy)
+                ) {
+                  presentedUntilRef.current =
+                    next.time + Math.max(4, candidate.suggestedLeadInSeconds);
+                  setPresentationPhase('presenting_live_moment');
+                  debugRecorderRef.current.ui(next.time, 'match_moment_surfaced', candidate);
+                  break;
+                }
+              } else if (
+                !presentationPolicy.fullMatch &&
+                presentationPhase === 'presenting_live_moment' &&
+                next.time >= presentedUntilRef.current &&
+                projectMatchMoment(next).kind === 'routine'
+              ) {
+                setPresentationPhase('background_simulation');
                 break;
               }
               const previousState = next;
@@ -601,12 +650,25 @@ const RunningLab = ({
             return next;
           });
         }
-        timer = window.setTimeout(advance, availableFixedTicks(runtimeClockRef.current) ? 0 : 16);
+        timer = window.setTimeout(
+          advance,
+          background || availableFixedTicks(runtimeClockRef.current) ? 0 : 16,
+        );
       };
       timer = window.setTimeout(advance, 0);
     }
     return () => window.clearTimeout(timer);
-  }, [playing, replaying, session, speed, state.seed, opportunity, diagnostics]);
+  }, [
+    playing,
+    replaying,
+    session,
+    speed,
+    state.seed,
+    opportunity,
+    diagnostics,
+    presentationPolicy,
+    presentationPhase,
+  ]);
   useEffect(() => {
     if (replaying) return;
     const baseFrame = matchStateToFrame(state, { includeAiCarryTarget: debug });
@@ -849,6 +911,23 @@ const RunningLab = ({
         </p>
       </header>
       <nav>
+        <label>
+          Czułość momentów{' '}
+          <select
+            value={presentationPolicyId}
+            onChange={(event) => {
+              const id = event.target.value as MatchPresentationPolicy['id'];
+              setPresentationPolicyId(id);
+              setPresentationPhase(id === 'full_match' ? 'full_match' : 'background_simulation');
+            }}
+          >
+            <option value="key_player">Najważniejsze moje akcje</option>
+            <option value="player_extended">Rozszerzone moje akcje</option>
+            <option value="key_match">Moje akcje + ważne momenty</option>
+            <option value="extended_match">Rozszerzone wydarzenia</option>
+            <option value="full_match">Oglądaj cały mecz</option>
+          </select>
+        </label>
         <button
           onClick={() =>
             setPlaying((v) => {
@@ -1028,7 +1107,9 @@ const RunningLab = ({
         ))}
       </nav>
       <p className="runtime-status">
-        Renderer: <strong>{diagnostics.rendererLifecycle}</strong> · Runtime:{' '}
+        Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
+        <strong>{presentationPolicyId}</strong> · Renderer:{' '}
+        <strong>{diagnostics.rendererLifecycle}</strong> · Runtime:{' '}
         <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
       </p>
       <section className="sandbox-grid">

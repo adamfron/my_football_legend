@@ -38,3 +38,4 @@ export * from './receiverReadiness';
 export * from './carryExecution';
 export * from './onBallPreparation';
 export * from './matchMoment';
+export * from './matchPresentation';

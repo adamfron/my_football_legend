@@ -1028,3 +1028,22 @@ export const letAiDecide = (state: TacticalMatchState, opportunity: PlayerDecisi
   };
   return action ? resolveMatchAction(gated, action, 'dev_ai_selected') : gated;
 };
+
+/** Uses the normal deterministic NPC ranking when presentation deliberately hides a human node. */
+export const resolvePresentationPolicyProxy = (
+  state: TacticalMatchState,
+  opportunity: PlayerDecisionOpportunity,
+) => {
+  const gated = {
+    ...state,
+    playerDecisionGate: {
+      lastSituationSignature: opportunity.signature,
+      lastResolvedAt: state.time,
+    },
+  };
+  // Non-on-ball opportunities already have canonical autonomous movement/contest behaviour. The
+  // gate suppresses only this optional human pause; the following fixed tick performs that logic.
+  if (opportunity.kind !== 'on_ball') return gated;
+  const action = chooseNpcAction(state, opportunity.actorId);
+  return action ? resolveMatchAction(gated, action, 'presentation_policy_proxy') : gated;
+};

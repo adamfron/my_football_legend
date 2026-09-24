@@ -73,6 +73,7 @@ export type MatchAction = z.infer<typeof matchActionSchema>;
 export const actionSourceSchema = z.enum([
   'human_selected',
   'dev_ai_selected',
+  'presentation_policy_proxy',
   'autonomous_routine',
   'autonomous_npc',
 ]);
