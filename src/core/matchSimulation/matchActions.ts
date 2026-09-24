@@ -478,7 +478,8 @@ export const resolveMatchAction = (
     action.actorId === state.controlledFootballerId &&
     (action.type === 'shot' || action.type === 'cross') &&
     source !== 'human_selected' &&
-    source !== 'dev_ai_selected'
+    source !== 'dev_ai_selected' &&
+    source !== 'presentation_policy_proxy'
   )
     return state;
   const actor = state.players.find((p) => p.id === action.actorId)!;

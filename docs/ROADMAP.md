@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR135 są ukończone. W szczególności:
+PR105–PR136 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -45,24 +45,22 @@ PR105–PR135 są ukończone. W szczególności:
 - **PR135 — Goalkeeping, Interception Calibration & Match Moment Foundations:** kalibracja reakcji
   i fizycznego kontaktu bramkarza, lejka przechwytów, biegów skrzydłowych i epizodów sprintu oraz
   czysta, obserwacyjna projekcja ważnych momentów.
+- **PR136 — Match Interaction Completeness & Tempo Calibration:** kompletność interakcji,
+  podania górą, asysty, fizyczne obrony bramkarza i spokojniejszy rytm posiadania.
 
 ### CURRENT
 
-**PR136 — Match Interaction Completeness & Tempo Calibration**
+**PR137 — Background Match Presentation & Moment Sensitivity**
 
-Domknięcie fizycznych interwencji bramkarza, celowania dla obu stron, podań do bramkarza,
-kanonicznych podań górą, asyst, rzeczywistej telemetrii sprintu oraz kalibracja rytmu posiadania.
+Batchowe wykonywanie tego samego meczu, epizody momentów, polityki czułości i deterministyczne
+decyzje proxy.
 
 ### NEXT
 
-**PR137 — Background Match Presentation & Moment Sensitivity** — szybkie/batchowe wykonywanie tego
-samego kanonicznego meczu między momentami, polityki czułości, przejście do widocznej akcji,
-decyzje kontrolowanego zawodnika i ważne momenty całego meczu oraz opcjonalny pełny mecz.
-
-### LATER
-
 **PR138 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
 prymitywy, lokalne/radialne menu, HUD, barwy klubów oraz tożsamość strojów.
+
+### LATER
 
 **PR139 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy

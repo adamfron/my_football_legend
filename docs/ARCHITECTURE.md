@@ -687,11 +687,29 @@ obiegu posiadania i loose ball. Przy drugiej piłce lokalni uczestnicy oraz role
 otrzymują czasowy priorytet reakcji, bez teleportowania posiadania. Kanoniczny resolver granic
 zamyka terminalne piłki bezpańskie wznowieniem od bramki, rożnym albo wrzutem z autu.
 
+### Kanoniczny mecz i selektywna prezentacja (PR137)
+
+`MatchMomentCandidate` jest pojedynczą, czystą obserwacją stanu. `MatchMomentEpisode` grupuje
+bliskie kandydaty (wejście w pole karne, strzał, obronę i dobitkę), przechowuje szczyt znaczenia
+i kończy się dopiero po utrzymanym spadku zagrożenia. Prezentacyjny kontroler może być w tle,
+w lead-inie, na żywo, przy decyzji albo w oknie po momencie; nie jest częścią stanu futbolu.
+
+W tle bounded batch nadal wywołuje kanoniczne przejście dla **każdego** ticka 0,025 s i oddaje
+sterowanie przeglądarce pomiędzy batchami. Nie istnieje skrót wynikowy ani drugi symulator
+highlightów. Bufor klatek może pokazać lead-in jako `REPLAY`, lecz decyzje są legalne wyłącznie
+na autorytatywnym stanie `LIVE`. Zmiana polityki nie odtwarza meczu. Przyszły tani symulator
+meczów ligowych NPC jest innym, odłożonym problemem i nie może obsługiwać meczu protagonisty.
+
+Jeśli polityka ukrywa mało ważną okazję gracza, `presentation_policy_proxy` korzysta z kanonicznego
+rankingu, atrybutów, roli i geometrii. Jest diagnostycznie odróżnialne od przycisku DEV „niech AI
+zdecyduje”. Pressing pozostaje obserwowalną pracą zespołu (główny nacisk, asekuracja i ochrona
+linii); przyszłe zmęczenie będzie mogło konsumować tę telemetrię, ale PR137 go nie implementuje.
+
 ### Czas meczu, wznowienia i powtórki (PR97)
 
 `TacticalMatchState.time` jest jednym, monotonicznym czasem kanonicznym w sekundach. Zegar ścienny
 przeglądarki przechodzi przez mnożnik tempa do akumulatora, który uruchamia wyłącznie stałe ticki
-symulacji po 0,05 s: **wall clock → playback multiplier → fixed simulation accumulator → canonical
+symulacji po 0,025 s: **wall clock → playback multiplier → fixed simulation accumulator → canonical
 tactical state → renderer**. Tempo i częstotliwość renderowania zmieniają więc tylko liczbę ticków
 wykonanych w czasie rzeczywistym, nigdy rozmiar kroku, losowania ani wynik sportowy. Prędkości
 zawodników i piłki są wyrażone w metrach na sekundę względem boiska 105 × 68; cel taktyczny nadal
