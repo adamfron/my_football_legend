@@ -11,6 +11,7 @@ import {
   mapGoalPlanePointerToIntent,
   deriveShotAimCameraPose,
   deriveOwnedBallPose,
+  shotAimIntentToGoalPoint,
   matchCameraPreferencesSchema,
   selectScreenSpacePlayerCandidate,
   updateTacticalCameraPose,
@@ -89,6 +90,21 @@ describe('tactical presentation model', () => {
     expect(
       mapGoalPlanePointerToIntent(200, 80, { left: 100, top: 20, width: 200, height: 120 }),
     ).toEqual({ horizontal: 0, vertical: 0.5 });
+  });
+  it('keeps visual left and right shooter-relative when teams change ends', () => {
+    const left = { horizontal: -1, vertical: 0.5 };
+    const right = { horizontal: 1, vertical: 0.5 };
+    expect(shotAimIntentToGoalPoint('home', left).y).toBeGreaterThan(
+      shotAimIntentToGoalPoint('home', right).y,
+    );
+    expect(shotAimIntentToGoalPoint('away', left).y).toBeLessThan(
+      shotAimIntentToGoalPoint('away', right).y,
+    );
+    expect(shotAimIntentToGoalPoint('home', { horizontal: 0, vertical: 0.5 })).toMatchObject({
+      x: 105,
+      y: 34,
+      height: 1.22,
+    });
   });
   it('keeps overview stable while action and player focus follow their current target', () => {
     const overview = { preset: 'overview' as const, zoom: 0.5 };

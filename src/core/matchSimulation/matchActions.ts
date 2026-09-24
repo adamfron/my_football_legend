@@ -96,6 +96,7 @@ export const deriveLeadPass = (
 ) => {
   const projection = projectPassReception(state, passer, receiver, 'lead');
   const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
+  if (receiver.profile.primaryPosition === 'goalkeeper' && speed < 1.2) return undefined;
   const desired = {
     x: receiver.target.x - receiver.position.x,
     y: receiver.target.y - receiver.position.y,
@@ -145,6 +146,7 @@ export const deriveHumanLeadPass = (
 ) => {
   const projection = projectPassReception(state, passer, receiver, 'lead');
   const motion = Math.hypot(receiver.velocity.x, receiver.velocity.y);
+  if (receiver.profile.primaryPosition === 'goalkeeper' && motion < 1.2) return undefined;
   const tacticalRun = distance(receiver.position, receiver.target);
   if (Math.max(motion, tacticalRun) < 1.2 || projection.leadDistance < 1.6) return undefined;
   // The canonical launch/readiness plan decides whether the attempt physically exists. Risk and
@@ -219,7 +221,7 @@ export const enumerateAvailableActions = (
         actorId,
         target: {
           x: actor.team === 'home' ? 105 : 0,
-          y: 34 + horizontal * 3.66 * (actor.team === 'home' ? 1 : -1),
+          y: 34 - horizontal * 3.66 * (actor.team === 'home' ? 1 : -1),
         },
         goalTarget: {
           horizontal,
@@ -230,11 +232,7 @@ export const enumerateAvailableActions = (
   }
   state.players
     .filter(
-      (p) =>
-        p.team === actor.team &&
-        p.id !== actorId &&
-        p.profile.primaryPosition !== 'goalkeeper' &&
-        distance(p.position, actor.position) < 68,
+      (p) => p.team === actor.team && p.id !== actorId && distance(p.position, actor.position) < 68,
     )
     .forEach((p) => {
       const progress = dir * (p.position.x - actor.position.x),
@@ -248,6 +246,15 @@ export const enumerateAvailableActions = (
         target: projection.releaseTarget,
         intent,
       });
+      if (length >= 22 && (progress > 5 || Math.abs(p.position.y - actor.position.y) > 20))
+        actions.push({
+          type: 'pass',
+          actorId,
+          receiverId: p.id,
+          target: projection.releaseTarget,
+          intent,
+          delivery: 'lofted',
+        });
       const lead = deriveLeadPass(state, actor, p);
       if (lead)
         actions.push({
@@ -292,8 +299,8 @@ export const scoreActionForAI = (
     const scanningQuality =
       (actor.profile.attributes.gameReading + actor.profile.attributes.composure) / 20;
     return (
-      25 +
-      (style === 'possession' ? 15 : 0) +
+      35 +
+      (style === 'possession' ? 18 : style === 'direct' ? -6 : 0) +
       (scanningContext ? 8 + scanningQuality : 0) -
       underPressure * (scanningContext ? 30 : 18)
     );
@@ -495,7 +502,8 @@ export const resolveMatchAction = (
       currentActionSource: source,
       latestActionSource: source,
       currentActorId: actor.id,
-      actionCooldown: 1.1,
+      // Scanning/orienting is canonical possession time, not a blanket delay after every touch.
+      actionCooldown: 1.6,
       decisionIndex: state.decisionIndex + 1,
       ...(restart ? { restart } : {}),
     };
@@ -686,7 +694,10 @@ export const resolveMatchAction = (
   const isLongDistribution = restart?.phase === 'release' && state.scenario === 'goal_kick';
   const releasePosition = isThrowIn ? { x: state.ball.x, y: state.ball.y } : { ...actor.position };
   const canonicalPlan =
-    projection?.launchPlan ?? derivePassLaunchPlan(state, actor, receiver, target, action.intent);
+    action.delivery === 'lofted'
+      ? derivePassLaunchPlan(state, actor, receiver, target, action.intent, 'lofted')
+      : (projection?.launchPlan ??
+        derivePassLaunchPlan(state, actor, receiver, target, action.intent));
   const duration = canonicalPlan.predictedArrivalTime;
   const launchSpeed = isThrowIn ? 14 : isLongDistribution ? 29 : canonicalPlan.speed;
   const launchElevation = isThrowIn ? 0.38 : isLongDistribution ? 0.5 : canonicalPlan.elevation;
@@ -729,6 +740,7 @@ export const resolveMatchAction = (
       airborne:
         (restart?.phase === 'release' &&
           (state.scenario === 'goal_kick' || state.scenario === 'throw_in')) ||
+        action.delivery === 'lofted' ||
         (action.intent === 'direct' && duration > 1.5),
       velocity: launchVelocity,
       launchVelocity,

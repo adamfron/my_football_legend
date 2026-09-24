@@ -41,8 +41,14 @@ export const contextualInteractionSchema = z.object({
 });
 export type ContextualInteraction = z.infer<typeof contextualInteractionSchema>;
 
-const passLabel = (intent: string) =>
-  intent === 'through' ? 'pass_into_space' : intent === 'lead' ? 'lead_pass' : 'pass_to_feet';
+const passLabel = (intent: string, delivery?: 'ground' | 'lofted') =>
+  delivery === 'lofted'
+    ? 'lofted_pass'
+    : intent === 'through'
+      ? 'pass_into_space'
+      : intent === 'lead'
+        ? 'lead_pass'
+        : 'pass_to_feet';
 const shotLabel = (intent: string) =>
   intent === 'placed' ? 'placed_shot' : intent === 'chip' ? 'chip_shot' : 'driven_shot';
 const asActions = (
@@ -55,7 +61,7 @@ const asActions = (
       target,
       labelKey:
         action.type === 'pass'
-          ? passLabel(action.intent)
+          ? passLabel(action.intent, action.delivery)
           : action.type === 'shot'
             ? shotLabel(action.intent)
             : action.type === 'cross'
@@ -163,19 +169,37 @@ export const projectContextualInteractions = (
           : [],
       );
     const metres = distance(actor.position, selected.position);
-    return (['contain', ...(metres <= 2.4 ? ['challenge'] : [])] as const).map((type) =>
+    const choices = [
+      { type: 'contain' as const, labelKey: 'close_down', commitment: 'balanced' as const },
+      ...(metres <= 2.4
+        ? [
+            {
+              type: 'challenge' as const,
+              labelKey: 'normal_challenge',
+              commitment: 'normal' as const,
+            },
+            {
+              type: 'challenge' as const,
+              labelKey: 'aggressive_challenge',
+              commitment: 'aggressive' as const,
+            },
+          ]
+        : []),
+    ];
+    return choices.map(({ type, labelKey, commitment }) =>
       contextualInteractionSchema.parse({
-        id: `defensive:${type}:${selected.id}`,
+        id: `defensive:${labelKey}:${selected.id}`,
         target,
-        labelKey: type,
+        labelKey,
         resolution: {
           kind: 'defensive',
           intent: {
             actorId: actor.id,
             opponentId: selected.id,
             type,
+            commitment,
             startedAt: state.time,
-            expiresAt: state.time + 2.2,
+            expiresAt: state.time + (commitment === 'aggressive' ? 1.25 : 2.2),
           },
         },
       }),
@@ -357,7 +381,12 @@ export const applyContextualInteraction = (
   const target =
     resolution.intent.type === 'contain'
       ? { x: actor.position.x - attackDirection(actor.team) * 1.5, y: actor.position.y }
-      : opponent.position;
+      : resolution.intent.commitment === 'aggressive'
+        ? {
+            x: opponent.position.x + opponent.velocity.x * 0.35,
+            y: opponent.position.y + opponent.velocity.y * 0.35,
+          }
+        : opponent.position;
   return {
     ...gated,
     decisionIndex: state.decisionIndex + 1,

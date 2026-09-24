@@ -704,6 +704,7 @@ const RunningLab = ({
     ({
       pass_to_feet: 'Podaj do nogi',
       lead_pass: 'Podaj na dobieg',
+      lofted_pass: 'Zagraj górą',
       progressive_pass: 'Podanie progresywne',
       pass_into_space: 'Zagraj przed niego',
       cross: 'Dośrodkuj',
@@ -713,6 +714,9 @@ const RunningLab = ({
       driven_shot: 'Strzał mocny',
       chip_shot: 'Lob',
       contain: 'Pilnuj / opóźniaj',
+      close_down: 'Doskok',
+      normal_challenge: 'Odbiór',
+      aggressive_challenge: 'Ostry odbiór',
       press: 'Pressuj',
       challenge: 'Odbierz',
       hold_line: 'Trzymaj linię',
