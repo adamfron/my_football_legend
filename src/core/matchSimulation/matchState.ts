@@ -43,6 +43,7 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     receiverId: z.string(),
     target: pitchPointSchema,
     intent: z.enum(['support', 'progressive', 'direct', 'lead', 'through']),
+    delivery: z.enum(['ground', 'lofted']).optional(),
   }),
   z.object({
     type: z.literal('shot'),
@@ -88,6 +89,7 @@ export const playerDefensiveIntentSchema = z.object({
   actorId: z.string(),
   opponentId: z.string(),
   type: z.enum(['contain', 'press', 'challenge', 'hold_line', 'intercept']),
+  commitment: z.enum(['balanced', 'normal', 'aggressive']).optional(),
   startedAt: z.number().nonnegative(),
   expiresAt: z.number().nonnegative(),
 });

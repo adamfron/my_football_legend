@@ -304,6 +304,7 @@ const finishShotContact = (
   state: TacticalMatchState,
   contact: BallContact,
   incoming: { x: number; y: number },
+  goalkeeperProjection = projectGoalkeeperIntervention(state),
 ): TacticalMatchState => {
   let shot = state.ball.shot!;
   const shooter = state.players.find((player) => player.id === shot.shooterId)!;
@@ -344,7 +345,7 @@ const finishShotContact = (
       { restartTeam: shooter.team === 'home' ? 'away' : 'home' },
     );
   if (contact.kind === 'goalkeeper') {
-    const projection = projectGoalkeeperIntervention(state);
+    const projection = goalkeeperProjection;
     const keeper = state.players.find((player) => player.id === contact.playerId)!;
     const goalkeeperAction = projection
       ? resolveGoalkeeperContact(state, projection, contact.preContactSpeed)
@@ -707,20 +708,25 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       sprintBursts: 0,
       maxSpeed: 0,
     };
-    const sprintRecoveryStartedAt =
-      locomotion.intensity === 'sprint'
-        ? undefined
-        : (player.sprintRecoveryStartedAt ?? state.time);
+    const athleteMaximumSpeed = 6.2 + (player.profile.attributes.pace / 100) * 3.3;
+    const speedRatio = speed / athleteMaximumSpeed;
+    const wasActualSprint = player.sprintStartedAt !== undefined;
+    const aboveSprintEntry = speedRatio >= 0.82;
+    const belowSprintExit = speedRatio <= 0.7;
+    const sprintRecoveryStartedAt = !belowSprintExit
+      ? undefined
+      : (player.sprintRecoveryStartedAt ?? state.time);
     const sprintEpisodeEnded =
       sprintRecoveryStartedAt !== undefined && state.time + dt - sprintRecoveryStartedAt >= 0.75;
     const sprintStartedAt =
-      locomotion.intensity === 'sprint'
+      aboveSprintEntry || (wasActualSprint && !sprintEpisodeEnded)
         ? (player.sprintStartedAt ?? state.time)
         : sprintEpisodeEnded
           ? undefined
           : player.sprintStartedAt;
-    const burstMatured = sprintStartedAt !== undefined && state.time + dt - sprintStartedAt >= 0.5;
+    const burstMatured = sprintStartedAt !== undefined && state.time + dt - sprintStartedAt >= 0.35;
     const countBurst = burstMatured && !player.sprintBurstCounted;
+    const actualSprinting = burstMatured;
     const distanceKey = (
       {
         walk: 'distanceWalk',
@@ -743,9 +749,9 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       locomotionTelemetry: {
         ...previousTelemetry,
         distanceTotal: previousTelemetry.distanceTotal + travelled,
-        [distanceKey]: (previousTelemetry[distanceKey] ?? 0) + travelled,
-        sprintSeconds:
-          previousTelemetry.sprintSeconds + (locomotion.intensity === 'sprint' ? dt : 0),
+        [distanceKey]: (previousTelemetry[distanceKey] ?? 0) + (actualSprinting ? 0 : travelled),
+        distanceSprint: previousTelemetry.distanceSprint + (actualSprinting ? travelled : 0),
+        sprintSeconds: previousTelemetry.sprintSeconds + (actualSprinting ? dt : 0),
         sprintBursts: previousTelemetry.sprintBursts + (countBurst ? 1 : 0),
         maxSpeed: Math.max(previousTelemetry.maxSpeed, speed),
       },
@@ -772,6 +778,12 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
       velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
     };
   } else if (state.ball.travelKind && state.ball.from && state.ball.target && state.ball.velocity) {
+    // Project from the start of this integration segment. After integration the ball may already
+    // be beyond the keeper plane, which used to remove the keeper from the CCD candidate set and
+    // let the later goal-plane event win.
+    const goalkeeperProjectionAtSegmentStart = state.ball.shot
+      ? projectGoalkeeperIntervention(state)
+      : undefined;
     const previous: FlightPoint = {
       x: state.ball.x,
       y: state.ball.y,
@@ -873,11 +885,8 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
           centre: { ...defender.position, z: 0.9 },
           radius: 0.72,
         }));
-      const keeperProjection = projectGoalkeeperIntervention(state);
-      if (
-        keeperProjection?.reachable &&
-        (state.ball.flightTime ?? 0) >= keeperProjection.reactionDelay
-      ) {
+      const keeperProjection = goalkeeperProjectionAtSegmentStart;
+      if (keeperProjection?.reachable && keeperProjection.reactionRemaining <= dt) {
         candidates.push({
           kind: 'goalkeeper' as const,
           playerId: keeperProjection.keeper.id,
@@ -905,7 +914,7 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
               ? Math.hypot(incoming.x, incoming.y)
               : Math.hypot(rebound.x, rebound.y),
         };
-        return finishShotContact(state, contact, incoming);
+        return finishShotContact(state, contact, incoming, keeperProjection);
       }
     }
     if (state.ball.airborne && state.ball.travelKind !== 'shot') {

@@ -118,7 +118,9 @@ export const projectGoalkeeperIntervention = (
     contactPoint: physical.position,
     requiredDisplacement,
     availableReach: reachableDistance,
-    reachable: elapsed >= reactionDelay && requiredDisplacement <= reachableDistance,
+    // `elapsed` is the remaining flight from the current tick. Comparing it with the full
+    // reaction delay made an already-reacted keeper become unreachable again near the goal.
+    reachable: reactionRemaining <= elapsed && requiredDisplacement <= reachableDistance,
   };
 };
 

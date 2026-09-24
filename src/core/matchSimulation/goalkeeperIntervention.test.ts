@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { createTacticalMatch, projectGoalkeeperIntervention } from '.';
+import { createTacticalMatch, projectGoalkeeperIntervention, stepTacticalMatch } from '.';
 
 const world = createCanonicalWorldDatabase();
 const shotState = (startX: number) => {
@@ -25,6 +25,8 @@ const shotState = (startX: number) => {
   state.ball = {
     x: startX,
     y: 34,
+    from: { x: startX, y: 34 },
+    target: { x: 107, y: 34 },
     height: 0.11,
     airborne: true,
     velocity: { x: 27, y: 0.8, z: 3 },
@@ -105,5 +107,18 @@ describe('physical goalkeeper intervention projection', () => {
     expect(second.reactionRemaining).toBe(0);
     expect(first.reachable).toBe(true);
     expect(second.reachable).toBe(true);
+  });
+
+  it('turns an ordinary central reachable shot into a live physical save contact', () => {
+    let state = shotState(75);
+    for (let tick = 0; tick < 400 && !state.lastShotResult; tick++)
+      state = stepTacticalMatch(state, 0.025);
+    expect(state.lastBallContact?.kind).toBe('goalkeeper');
+    expect(state.lastShotResult).toBe('save');
+    expect(['catch', 'parry', 'parry_away']).toContain(state.lastShot?.goalkeeperAction);
+    const keeper = state.players.find(
+      (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
+    )!;
+    expect(state.statistics?.players.find((entry) => entry.playerId === keeper.id)?.saves).toBe(1);
   });
 });

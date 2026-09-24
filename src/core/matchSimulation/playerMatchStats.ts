@@ -11,6 +11,7 @@ export const playerMatchStatsSchema = z.object({
   shots: z.number().int().nonnegative(),
   shotsOnTarget: z.number().int().nonnegative(),
   goals: z.number().int().nonnegative(),
+  assists: z.number().int().nonnegative(),
   carries: z.number().int().nonnegative(),
   tacklesAttempted: z.number().int().nonnegative(),
   tacklesWon: z.number().int().nonnegative(),
@@ -33,7 +34,11 @@ export const matchStatisticsSchema = z.object({
   observedPassAttemptIds: z.array(z.string()),
   observedPassResultIds: z.array(z.string()),
   observedShotIds: z.array(z.string()),
+  observedAssistGoalIds: z.array(z.string()),
   observedPossessionEvents: z.array(z.string()),
+  assistCandidate: z
+    .object({ passerId: z.string(), scorerId: z.string(), passId: z.string() })
+    .optional(),
 });
 export type MatchStatistics = z.infer<typeof matchStatisticsSchema>;
 
@@ -48,6 +53,7 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
     shots: 0,
     shotsOnTarget: 0,
     goals: 0,
+    assists: 0,
     carries: 0,
     tacklesAttempted: 0,
     tacklesWon: 0,
@@ -66,6 +72,7 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
   observedPassAttemptIds: [],
   observedPassResultIds: [],
   observedShotIds: [],
+  observedAssistGoalIds: [],
   observedPossessionEvents: [],
 });
 
@@ -80,7 +87,9 @@ export const observePlayerMatchStats = (
     observedPassAttemptIds: [...statistics.observedPassAttemptIds],
     observedPassResultIds: [...statistics.observedPassResultIds],
     observedShotIds: [...statistics.observedShotIds],
+    observedAssistGoalIds: [...statistics.observedAssistGoalIds],
     observedPossessionEvents: [...statistics.observedPossessionEvents],
+    ...(statistics.assistCandidate ? { assistCandidate: { ...statistics.assistCandidate } } : {}),
   };
   const stats = (id: string) => result.players.find((entry) => entry.playerId === id);
   for (const player of next.players) {
@@ -110,6 +119,11 @@ export const observePlayerMatchStats = (
     if (pass.finalResult === 'completed') {
       stats(pass.passerId)!.passesCompleted++;
       stats(pass.intendedReceiverId)!.passesReceived++;
+      result.assistCandidate = {
+        passerId: pass.passerId,
+        scorerId: pass.intendedReceiverId,
+        passId: pass.passId,
+      };
     }
   }
   const shot = next.lastShot;
@@ -119,6 +133,15 @@ export const observePlayerMatchStats = (
     shooter.shots++;
     if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
     if (shot.outcome === 'goal') shooter.goals++;
+    if (
+      shot.outcome === 'goal' &&
+      result.assistCandidate?.scorerId === shot.shooterId &&
+      result.assistCandidate.passerId !== shot.shooterId &&
+      !result.observedAssistGoalIds.includes(shot.shotId)
+    ) {
+      stats(result.assistCandidate.passerId)!.assists++;
+      result.observedAssistGoalIds.push(shot.shotId);
+    }
     const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
     const keeper = next.players.find(
       (player) => player.team !== defendingTeam && player.profile.primaryPosition === 'goalkeeper',
@@ -147,6 +170,12 @@ export const observePlayerMatchStats = (
     }
     const loser = previous.ball.ownerId ? stats(previous.ball.ownerId) : undefined;
     if (loser) loser.possessionLost++;
+    // A controlled opponent possession invalidates the direct-provider chain. A later reclaim is
+    // a new attacking sequence and cannot revive the old pass.
+    const candidateTeam = result.assistCandidate
+      ? next.players.find((player) => player.id === result.assistCandidate!.scorerId)?.team
+      : undefined;
+    if (candidateTeam && change.to !== candidateTeam) delete result.assistCandidate;
   }
   return result;
 };
@@ -161,6 +190,7 @@ export const playerMatchSummarySchema = playerMatchStatsSchema.pick({
   shots: true,
   shotsOnTarget: true,
   goals: true,
+  assists: true,
   carries: true,
   tacklesAttempted: true,
   tacklesWon: true,

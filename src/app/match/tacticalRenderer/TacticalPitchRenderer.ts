@@ -556,11 +556,7 @@ export class TacticalPitchRenderer {
       width: Math.max(1, Math.max(...xs) - Math.min(...xs)),
       height: Math.max(1, Math.max(...ys) - Math.min(...ys)),
     };
-    const mapped = mapGoalPlanePointerToIntent(clientX, clientY, targetRect);
-    const intent = {
-      ...mapped,
-      horizontal: plane.userData.goalSide === 'away' ? -mapped.horizontal : mapped.horizontal,
-    };
+    const intent = mapGoalPlanePointerToIntent(clientX, clientY, targetRect);
     this.setGoalAimMarker(intent);
     return intent;
   }
@@ -573,7 +569,7 @@ export class TacticalPitchRenderer {
     this.aimMarker.position.set(
       plane.position.x + (plane.position.x < 0 ? 0.025 : -0.025),
       intent.vertical * 2.44,
-      intent.horizontal * 3.66 * (plane.userData.goalSide === 'away' ? -1 : 1),
+      -intent.horizontal * 3.66 * (plane.userData.goalSide === 'away' ? 1 : -1),
     );
     this.redraw();
   }

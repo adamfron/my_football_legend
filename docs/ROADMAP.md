@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR134 są ukończone. W szczególności:
+PR105–PR135 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -42,26 +42,29 @@ PR105–PR134 są ukończone. W szczególności:
   przyjęcia oraz stałokrokowy runtime z bezpiecznym nadrabianiem czasu.
 - **PR134 — Possession Contests, Goalkeeping & Decision/Restart Hardening:** fizyczna dostępność
   przechwytów i pojedynków, aktywna interwencja bramkarza oraz semantyczne decyzje i żywotność wznowień.
+- **PR135 — Goalkeeping, Interception Calibration & Match Moment Foundations:** kalibracja reakcji
+  i fizycznego kontaktu bramkarza, lejka przechwytów, biegów skrzydłowych i epizodów sprintu oraz
+  czysta, obserwacyjna projekcja ważnych momentów.
 
 ### CURRENT
 
-**PR135 — Goalkeeping, Interception Calibration & Match Moment Foundations**
+**PR136 — Match Interaction Completeness & Tempo Calibration**
 
-Kalibracja reakcji i fizycznego kontaktu bramkarza, lejka przechwytów, wykorzystania istniejących
-biegów skrzydłowych i epizodów sprintu oraz czysta, obserwacyjna projekcja ważnych momentów.
+Domknięcie fizycznych interwencji bramkarza, celowania dla obu stron, podań do bramkarza,
+kanonicznych podań górą, asyst, rzeczywistej telemetrii sprintu oraz kalibracja rytmu posiadania.
 
 ### NEXT
 
-**PR136 — Background Match Presentation & Moment Sensitivity** — szybkie wykonywanie tego samego
-kanonicznego meczu między momentami, deterministyczne rozstrzyganie pominiętych okazji gracza,
-presety czułości oraz przejście do interaktywnej prezentacji.
+**PR137 — Background Match Presentation & Moment Sensitivity** — szybkie/batchowe wykonywanie tego
+samego kanonicznego meczu między momentami, polityki czułości, przejście do widocznej akcji,
+decyzje kontrolowanego zawodnika i ważne momenty całego meczu oraz opcjonalny pełny mecz.
 
 ### LATER
 
-**PR137 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
+**PR138 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
 prymitywy, lokalne/radialne menu, HUD, barwy klubów oraz tożsamość strojów.
 
-**PR138 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+**PR139 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
 

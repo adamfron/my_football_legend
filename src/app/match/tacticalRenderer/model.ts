@@ -128,7 +128,12 @@ export const deriveOwnedBallPose = (frame: TacticalFrame): TacticalBall => {
   const owner = frame.players.find((player) => player.id === frame.ball.ownerId);
   if (!owner) return frame.ball;
   const facing = owner.facing ?? (owner.team === 'home' ? Math.PI / 2 : -Math.PI / 2);
-  const distance = frame.carryMode === 'burst' ? 1.35 : frame.carryMode === 'tight_dribble' || frame.carryMode === 'shield' ? 0.38 : 0.72;
+  const distance =
+    frame.carryMode === 'burst'
+      ? 1.35
+      : frame.carryMode === 'tight_dribble' || frame.carryMode === 'shield'
+        ? 0.38
+        : 0.72;
   return {
     ...frame.ball,
     x: owner.x + Math.sin(facing) * distance,
@@ -142,6 +147,13 @@ export const shotAimIntentSchema = z.object({
   vertical: z.number().min(0).max(1),
 });
 export type ShotAimIntent = z.infer<typeof shotAimIntentSchema>;
+
+/** Converts shooter-relative visual aim to world goal coordinates for both attacking ends. */
+export const shotAimIntentToGoalPoint = (team: 'home' | 'away', intent: ShotAimIntent) => ({
+  x: team === 'home' ? 105 : 0,
+  y: 34 - intent.horizontal * 3.66 * (team === 'home' ? 1 : -1),
+  height: intent.vertical * 2.44,
+});
 
 /** Maps a large presentation plane to canonical intent without consulting simulation or RNG. */
 export const mapGoalPlanePointerToIntent = (

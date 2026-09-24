@@ -18,6 +18,7 @@ export const passLaunchPlanSchema = z.object({
 });
 export type PassLaunchPlan = z.infer<typeof passLaunchPlanSchema>;
 export type PassLaunchIntent = 'support' | 'progressive' | 'direct' | 'lead' | 'through';
+export type PassDelivery = 'ground' | 'lofted';
 
 /**
  * The one physical launch forecast used by option evaluation and release. A pass is never assigned
@@ -29,6 +30,7 @@ export const derivePassLaunchPlan = (
   receiver: MatchPlayerState,
   target: PitchPoint,
   intent: PassLaunchIntent,
+  delivery: PassDelivery = 'ground',
 ): PassLaunchPlan => {
   const metres = distance(passer.position, target);
   const initialEta = Math.max(0.55, metres / (intent === 'support' ? 7.2 : 10.5));
@@ -42,7 +44,15 @@ export const derivePassLaunchPlan = (
     ),
   );
   const elevation =
-    intent === 'direct' && metres > 25 ? 0.28 : intent === 'through' && metres > 30 ? 0.16 : 0;
+    delivery === 'lofted'
+      ? metres > 35
+        ? 0.42
+        : 0.34
+      : intent === 'direct' && metres > 25
+        ? 0.28
+        : intent === 'through' && metres > 30
+          ? 0.16
+          : 0;
   const forecast = (candidateSpeed: number) => {
     const velocity = deriveLaunchVelocity(passer.position, target, candidateSpeed, elevation);
     const samples = projectFutureBallTrajectory(
