@@ -44,6 +44,11 @@ import {
   projectMatchMoment,
   shouldSurfaceMatchMoment,
   resolvePresentationPolicyProxy,
+  countSemanticPlayerChoices,
+  createPresentationClock,
+  advancePresentationClock,
+  createPresentationRuntimeTelemetry,
+  type PresentationDecisionDiagnostic,
   type MatchPresentationPolicy,
 } from '../../core/matchSimulation';
 import { loadWorldDatabase } from '../../core/worldDatabase';
@@ -391,6 +396,7 @@ const RunningLab = ({
     [presentationPhase, setPresentationPhase] = useState<
       'background_simulation' | 'presenting_live_moment' | 'full_match'
     >('full_match'),
+    [displayTime, setDisplayTime] = useState(() => diagnostics.latestState.time),
     [debug, setDebug] = useState(false),
     [goalReplay, setGoalReplay] = useState<RenderFrame[]>([]),
     [replaying, setReplaying] = useState(false),
@@ -418,6 +424,9 @@ const RunningLab = ({
     debugRecorderRef = useRef(diagnostics.recorder),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
+  const presentationClockRef = useRef(createPresentationClock(state.time));
+  const presentationTelemetryRef = useRef(createPresentationRuntimeTelemetry());
+  const presentationDecisionsRef = useRef<PresentationDecisionDiagnostic[]>([]);
   const presentedUntilRef = useRef(0);
   const presentationPolicy = MATCH_PRESENTATION_POLICIES[presentationPolicyId];
   const telemetryRef = useRef(diagnostics.telemetry);
@@ -455,6 +464,8 @@ const RunningLab = ({
     setSelectedTarget(undefined);
     setShotAim(undefined);
     runtimeClockRef.current = createMatchRuntimeClock(performance.now());
+    presentationClockRef.current = createPresentationClock(initial.time);
+    setDisplayTime(initial.time);
     const renderer = new TacticalPitchRenderer(
       hostRef.current,
       matchStateToFrame(initial),
@@ -522,7 +533,36 @@ const RunningLab = ({
               if (projected) {
                 const candidate = projectMatchMoment(next);
                 if (!shouldSurfaceMatchMoment(candidate, presentationPolicy)) {
-                  next = resolvePresentationPolicyProxy(next, projected);
+                  const resolution = resolvePresentationPolicyProxy(next, projected);
+                  next = resolution.state;
+                  presentationTelemetryRef.current.playerOpportunitiesProxyResolved += 1;
+                  if (projected.kind === 'restart')
+                    presentationTelemetryRef.current.restartProxies += 1;
+                  const threshold = presentationPolicy.minimumPlayerDecisionImportance;
+                  const diagnostic: PresentationDecisionDiagnostic = {
+                    at: next.time,
+                    opportunityKind: projected.kind,
+                    controlledPlayerId: projected.actorId,
+                    situation: projected.situation.kind,
+                    importance: candidate.importance,
+                    semanticChoiceCount: countSemanticPlayerChoices(
+                      projected.options,
+                      projected.kind,
+                    ),
+                    policyId: presentationPolicy.id,
+                    threshold,
+                    result:
+                      resolution.status === 'resolved_action'
+                        ? 'proxy_resolved'
+                        : resolution.status === 'delegated_to_canonical_autonomy'
+                          ? 'delegated_autonomy'
+                          : 'rejected',
+                    reason: resolution.reason,
+                  };
+                  presentationDecisionsRef.current = [
+                    ...presentationDecisionsRef.current,
+                    diagnostic,
+                  ].slice(-20);
                   recordDecisionSelection(telemetryRef.current, 'autonomous');
                   debugRecorderRef.current.ui(next.time, 'presentation_policy_proxy', {
                     policy: presentationPolicy.id,
@@ -531,6 +571,26 @@ const RunningLab = ({
                   continue;
                 }
                 setOpportunity(projected);
+                presentationTelemetryRef.current.humanDecisionPromptsShown += 1;
+                const diagnostic: PresentationDecisionDiagnostic = {
+                  at: next.time,
+                  opportunityKind: projected.kind,
+                  controlledPlayerId: projected.actorId,
+                  situation: projected.situation.kind,
+                  importance: candidate.importance,
+                  semanticChoiceCount: countSemanticPlayerChoices(
+                    projected.options,
+                    projected.kind,
+                  ),
+                  policyId: presentationPolicy.id,
+                  threshold: presentationPolicy.minimumPlayerDecisionImportance,
+                  result: 'surfaced',
+                  reason: 'importance_met_policy_threshold',
+                };
+                presentationDecisionsRef.current = [
+                  ...presentationDecisionsRef.current,
+                  diagnostic,
+                ].slice(-20);
                 setPresentationPhase('presenting_live_moment');
                 recordDecisionOpportunity(
                   telemetryRef.current,
@@ -542,10 +602,14 @@ const RunningLab = ({
               }
               if (background) {
                 const candidate = projectMatchMoment(next);
+                presentationTelemetryRef.current.projectedCandidates += 1;
                 if (
                   candidate.kind !== 'routine' &&
                   shouldSurfaceMatchMoment(candidate, presentationPolicy)
                 ) {
+                  presentationTelemetryRef.current.qualifyingCandidates += 1;
+                  presentationTelemetryRef.current.episodesStarted += 1;
+                  presentationTelemetryRef.current.episodesPresented += 1;
                   presentedUntilRef.current =
                     next.time + Math.max(4, candidate.suggestedLeadInSeconds);
                   setPresentationPhase('presenting_live_moment');
@@ -564,6 +628,9 @@ const RunningLab = ({
               const previousState = next;
               try {
                 next = stepTacticalMatch(next, FIXED_MATCH_DT);
+                if (background)
+                  presentationTelemetryRef.current.hiddenCanonicalSeconds += FIXED_MATCH_DT;
+                else presentationTelemetryRef.current.visibleCanonicalSeconds += FIXED_MATCH_DT;
               } catch (error) {
                 diagnostics.freezeFatal('canonical_error', error, { module: 'stepTacticalMatch' });
                 break;
@@ -647,6 +714,10 @@ const RunningLab = ({
                 }
               }
             }
+            if (background) {
+              presentationTelemetryRef.current.backgroundBatches += 1;
+              presentationTelemetryRef.current.backgroundTicks += ticks;
+            }
             return next;
           });
         }
@@ -670,7 +741,26 @@ const RunningLab = ({
     presentationPhase,
   ]);
   useEffect(() => {
-    if (replaying) return;
+    let frame = 0;
+    let previous = performance.now();
+    const animate = (now: number) => {
+      const elapsed = Math.max(0, (now - previous) / 1000);
+      previous = now;
+      presentationClockRef.current = advancePresentationClock(
+        presentationClockRef.current,
+        stateRef.current.time,
+        elapsed,
+        !playing,
+      );
+      setDisplayTime(presentationClockRef.current.displayTime);
+      frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [playing]);
+  useEffect(() => {
+    const hidden = !presentationPolicy.fullMatch && presentationPhase === 'background_simulation';
+    if (replaying || hidden) return;
     const baseFrame = matchStateToFrame(state, { includeAiCarryTarget: debug });
     // Interaction legality remains a pure canonical projection; presentation only observes it.
     const actionableTargets = opportunity
@@ -705,13 +795,14 @@ const RunningLab = ({
         : {}),
     };
     rendererRef.current?.render(frame, debug);
+    presentationTelemetryRef.current.rendererCallsVisible += 1;
     const frames = replayBufferRef.current;
     frames.push(frame);
     while (frames.length > 1 && frame.timestampMs - frames[0]!.timestampMs > 10_000) frames.shift();
     const score = state.score.home + state.score.away;
     if (score > scoreRef.current) setGoalReplay([...frames]);
     scoreRef.current = score;
-  }, [state, debug, replaying, opportunity, selectedTarget]);
+  }, [state, debug, replaying, opportunity, selectedTarget, presentationPhase, presentationPolicy]);
   const shotAimActive = Boolean(shotAim);
   const shotAimTeam = state.players.find((player) => player.id === opportunity?.actorId)?.team;
   useEffect(() => {
@@ -1024,6 +1115,8 @@ const RunningLab = ({
               sampledPositioning: positioningSamplesRef.current,
               runtimeDiagnostics: diagnostics.runtimeDiagnostics,
               rendererLifecycle: diagnostics.rendererLifecycle,
+              presentationRuntime: presentationTelemetryRef.current,
+              presentationDecisions: presentationDecisionsRef.current,
             };
             downloadBlob(
               new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
@@ -1109,13 +1202,38 @@ const RunningLab = ({
       <p className="runtime-status">
         Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
         <strong>{presentationPolicyId}</strong> · Renderer:{' '}
-        <strong>{diagnostics.rendererLifecycle}</strong> · Runtime:{' '}
+        <strong>
+          {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'
+            ? 'suppressed'
+            : diagnostics.rendererLifecycle}
+        </strong>{' '}
+        · Kanoniczny: <strong>{formatMatchTime(state.time)}</strong> · Wyświetlany:{' '}
+        <strong>{formatMatchTime(displayTime)}</strong> · Runtime:{' '}
         <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
       </p>
+      <details className="presentation-diagnostics">
+        <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
+        {presentationDecisionsRef.current.length ? (
+          presentationDecisionsRef.current
+            .slice(-8)
+            .reverse()
+            .map((item, index) => (
+              <p key={`${item.at}:${item.opportunityKind}:${index}`}>
+                {formatMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
+                {item.importance.toFixed(2)} · {item.policyId} / próg {item.threshold.toFixed(2)} →{' '}
+                <strong>{item.result}</strong> ({item.reason})
+              </p>
+            ))
+        ) : (
+          <p>Brak decyzji prezentacyjnych w tej sesji.</p>
+        )}
+      </details>
       <section className="sandbox-grid">
         <div
           className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}
           onClick={(event) => {
+            if (!presentationPolicy.fullMatch && presentationPhase === 'background_simulation')
+              return;
             if (!opportunity || shotAim) return;
             const opportunityActor = state.players.find(
               (player) => player.id === opportunity.actorId,
@@ -1175,7 +1293,23 @@ const RunningLab = ({
               });
           }}
         >
-          <PitchCanvasHost ref={hostRef} />
+          <div
+            hidden={!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'}
+          >
+            <PitchCanvasHost ref={hostRef} />
+          </div>
+          {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation' && (
+            <section className="background-presentation" aria-live="polite">
+              <small>{presentationPolicyId}</small>
+              <h2>Symulacja meczu…</h2>
+              <strong>{formatMatchTime(displayTime)}</strong>
+              <p>
+                {session.home.club.name} {state.score.home}–{state.score.away}{' '}
+                {session.away.club.name}
+              </p>
+              {!playing && <p>Wstrzymano</p>}
+            </section>
+          )}
           {shotAim && opportunity && selectedTarget?.kind === 'goal' && (
             <section
               className="shot-aim"

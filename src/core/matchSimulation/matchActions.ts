@@ -479,7 +479,8 @@ export const resolveMatchAction = (
     (action.type === 'shot' || action.type === 'cross') &&
     source !== 'human_selected' &&
     source !== 'dev_ai_selected' &&
-    source !== 'presentation_policy_proxy'
+    source !== 'presentation_policy_proxy' &&
+    source !== 'restart_liveness_watchdog'
   )
     return state;
   const actor = state.players.find((p) => p.id === action.actorId)!;

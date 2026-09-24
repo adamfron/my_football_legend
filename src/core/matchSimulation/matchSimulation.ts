@@ -12,6 +12,9 @@ import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
 import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
 import { applyRestartScenario } from './restartScenarios';
+
+/** Canonical safety net. Presentation normally resolves controlled choices long before this. */
+export const RESTART_SETUP_WATCHDOG_SECONDS = 8;
 import {
   goalkeeperIntervention,
   findAerialContactCandidates,
@@ -402,6 +405,31 @@ const finishShotContact = (
 
 const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): TacticalMatchState => {
   input = resolvePendingPlayerDecision(input);
+  // Recover snapshots whose setup clock was already allowed to overrun (for example by a future
+  // presentation/UI regression) before the normal human-opportunity freeze can hold them forever.
+  if (
+    input.restart?.phase === 'setup' &&
+    input.restart.takerId === input.controlledFootballerId &&
+    input.time - input.restart.startedAt >= RESTART_SETUP_WATCHDOG_SECONDS
+  ) {
+    const legalActions = enumerateRestartActions(input);
+    const action = legalActions[0] ?? chooseRestartAction(input);
+    if (action) {
+      const recovered = resolveMatchAction(input, action, 'restart_liveness_watchdog');
+      input = {
+        ...recovered,
+        lastRestartLivenessRecovery: {
+          at: input.time,
+          scenario: input.scenario,
+          takerId: input.restart.takerId,
+          controlled: true,
+          legalActionCount: legalActions.length,
+          setupSeconds: input.time - input.restart.startedAt,
+          recovery: 'canonical_restart_fallback',
+        },
+      };
+    }
+  }
   // A human agency episode survives a transient loose/contact phase. It is consumed by the next
   // canonical action (including an opponent action), a restart, or the human's next choice; mere
   // ownerId discontinuity is not evidence that play genuinely moved on.
@@ -551,11 +579,34 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     const meaningfulChoices = countSemanticPlayerChoices(restartOptions, 'restart');
     // A controlled taker only waits for a genuine choice. One mandatory action, and the
     // deterministic zero-option fallback, preserve restart liveness without confirmation UI.
+    const watchdogTriggered =
+      controlledTaker &&
+      meaningfulChoices > 1 &&
+      state.time - state.restart.startedAt >= RESTART_SETUP_WATCHDOG_SECONDS;
     const action =
-      controlledTaker && meaningfulChoices > 1
+      controlledTaker && meaningfulChoices > 1 && !watchdogTriggered
         ? undefined
         : (restartActions[0] ?? chooseRestartAction(state));
-    if (action) state = resolveMatchAction(state, action);
+    if (action) {
+      state = resolveMatchAction(
+        state,
+        action,
+        watchdogTriggered ? 'restart_liveness_watchdog' : 'autonomous_npc',
+      );
+      if (watchdogTriggered)
+        state = {
+          ...state,
+          lastRestartLivenessRecovery: {
+            at: state.time,
+            scenario: state.scenario,
+            takerId: action.actorId,
+            controlled: true,
+            legalActionCount: restartActions.length,
+            setupSeconds: state.time - (state.restart?.startedAt ?? state.time),
+            recovery: 'canonical_restart_fallback',
+          },
+        };
+    }
   }
   if (
     state.restart?.phase === 'release' &&

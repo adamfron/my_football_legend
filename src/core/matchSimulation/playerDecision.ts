@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   enumerateAvailableActions,
+  chooseRestartAction,
   chooseNpcAction,
   resolveMatchAction,
   rankAvailableActionsForAI,
@@ -30,6 +31,30 @@ import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { BALL_RADIUS } from './ballFlight';
 import { enumerateRestartActions } from './matchActions';
+
+export const proxyResolutionStatusSchema = z.enum([
+  'resolved_action',
+  'delegated_to_canonical_autonomy',
+  'no_legal_action',
+  'terminal_or_no_longer_relevant',
+]);
+export type ProxyResolutionStatus = z.infer<typeof proxyResolutionStatusSchema>;
+export const proxyResolutionResultSchema = z.object({
+  state: z.custom<TacticalMatchState>(),
+  status: proxyResolutionStatusSchema,
+  opportunityKind: z.enum([
+    'on_ball',
+    'incoming_ball',
+    'off_ball_run',
+    'defensive_response',
+    'goalkeeper_response',
+    'loose_ball',
+    'restart',
+  ]),
+  selectedOptionId: z.string().optional(),
+  reason: z.string(),
+});
+export type ProxyResolutionResult = z.infer<typeof proxyResolutionResultSchema>;
 
 export const playerDecisionOptionSchema = z.discriminatedUnion('kind', [
   z.object({
@@ -1033,7 +1058,14 @@ export const letAiDecide = (state: TacticalMatchState, opportunity: PlayerDecisi
 export const resolvePresentationPolicyProxy = (
   state: TacticalMatchState,
   opportunity: PlayerDecisionOpportunity,
-) => {
+): ProxyResolutionResult => {
+  if (opportunity.actorId !== state.controlledFootballerId || opportunity.openedAt !== state.time)
+    return {
+      state,
+      status: 'terminal_or_no_longer_relevant',
+      opportunityKind: opportunity.kind,
+      reason: 'opportunity_no_longer_matches_authoritative_state',
+    };
   const gated = {
     ...state,
     playerDecisionGate: {
@@ -1041,9 +1073,54 @@ export const resolvePresentationPolicyProxy = (
       lastResolvedAt: state.time,
     },
   };
-  // Non-on-ball opportunities already have canonical autonomous movement/contest behaviour. The
-  // gate suppresses only this optional human pause; the following fixed tick performs that logic.
-  if (opportunity.kind !== 'on_ball') return gated;
-  const action = chooseNpcAction(state, opportunity.actorId);
-  return action ? resolveMatchAction(gated, action, 'presentation_policy_proxy') : gated;
+  if (opportunity.kind === 'on_ball') {
+    const action = chooseNpcAction(state, opportunity.actorId);
+    return action
+      ? {
+          state: resolveMatchAction(gated, action, 'presentation_policy_proxy'),
+          status: 'resolved_action',
+          opportunityKind: opportunity.kind,
+          reason: 'normal_npc_action_ranking',
+        }
+      : {
+          state: gated,
+          status: 'no_legal_action',
+          opportunityKind: opportunity.kind,
+          reason: 'normal_npc_ranking_returned_no_action',
+        };
+  }
+
+  // Restarts commit the same deterministic fallback selected for an autonomous restart. That
+  // resolver draws from the exact canonical restart enumeration, avoiding a background-only AI.
+  if (opportunity.kind === 'restart') {
+    const action = chooseRestartAction(state);
+    const selected = opportunity.options.find(
+      (option) =>
+        option.kind === 'action' && JSON.stringify(option.action) === JSON.stringify(action),
+    );
+    return action
+      ? {
+          state: resolveMatchAction(gated, action, 'presentation_policy_proxy'),
+          status: 'resolved_action',
+          opportunityKind: opportunity.kind,
+          ...(selected ? { selectedOptionId: selected.id } : {}),
+          reason: 'canonical_restart_action_ranking',
+        }
+      : {
+          state: gated,
+          status: 'no_legal_action',
+          opportunityKind: opportunity.kind,
+          reason: 'restart_enumerator_returned_no_legal_action',
+        };
+  }
+
+  // These nodes are optional interventions over systems which already run every fixed tick:
+  // reception, locomotion, defensive/GK positioning and the physical loose-ball race. Clearing
+  // the pause gate deliberately delegates to those systems; it never awards possession.
+  return {
+    state: gated,
+    status: 'delegated_to_canonical_autonomy',
+    opportunityKind: opportunity.kind,
+    reason: `canonical_${opportunity.kind}_resolver_owns_next_tick`,
+  };
 };
