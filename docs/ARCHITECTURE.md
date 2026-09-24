@@ -705,6 +705,32 @@ rankingu, atrybutów, roli i geometrii. Jest diagnostycznie odróżnialne od prz
 zdecyduje”. Pressing pozostaje obserwowalną pracą zespołu (główny nacisk, asekuracja i ochrona
 linii); przyszłe zmęczenie będzie mogło konsumować tę telemetrię, ale PR137 go nie implementuje.
 
+### Utwardzenie prezentacji tła i żywotność decyzji (PR138)
+
+W selektywnym `background_simulation` React może publikować wynik batcha dla panelu wyniku, ale
+nie wywołuje `renderer.render`, nie aktualizuje kamery i nie dopisuje klatki do bufora powtórki.
+Migawka stanu kanonicznego (diagnostyka lub przyszły, ograniczony bufor kontekstu) nie jest klatką
+renderu: rzadkich stanów oddalonych o 20 sekund nie wolno udawać jako materiału 40 fps. `full_match`
+omija to tłumienie.
+
+`TacticalMatchState.time` pozostaje jedynym czasem futbolu. Zegar prezentacji interpoluje wyłącznie
+od poprzednio wyświetlonej wartości do najnowszego czasu kanonicznego, monotonicznie i z ograniczonym
+czasem nadrabiania; pauza go zamraża. Nie wykonuje ticków, nie losuje i nie może opóźnić znalezionego
+momentu ani zmienić zachowanej okazji gracza.
+
+Każda ukryta okazja ma jawny wynik proxy. `on_ball` używa rankingu NPC, `restart` wybiera z tego
+samego kanonicznego enumeratora wznowień, a reception, ruch bez piłki, obrona, bramkarz i loose ball
+jawnie delegują następny tick do istniejących autonomicznych resolverów. Wynik rozróżnia wykonaną
+akcję, delegację, brak legalnej akcji i nieaktualną okazję. Kontrolowane wznowienie z wieloma opcjami
+nie może więc czekać na ukryte UI; dodatkowo po ośmiu kanonicznych sekundach `setup` watchdog wybiera
+istniejący fallback i zapisuje anormalną diagnozę zamiast teleportować mecz do open play.
+
+Telemetria projekcji („kandydat kwalifikowałby się”) pozostaje oddzielona od telemetrii runtime
+(uruchomione/pokazane epizody, prompty, proxy, lead-iny, aborty, sekundy ukryte/widoczne, batche i
+wywołania renderera). Ograniczona lista decyzji DEV zapisuje rodzaj, gracza, sytuację, znaczenie,
+liczbę semantycznych opcji, politykę, próg, wynik i przyczynę. Progi `key_player` nie zostały w tym
+etapie dostrojone bez danych runtime.
+
 ### Czas meczu, wznowienia i powtórki (PR97)
 
 `TacticalMatchState.time` jest jednym, monotonicznym czasem kanonicznym w sekundach. Zegar ścienny

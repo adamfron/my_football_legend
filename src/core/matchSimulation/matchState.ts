@@ -74,6 +74,7 @@ export const actionSourceSchema = z.enum([
   'human_selected',
   'dev_ai_selected',
   'presentation_policy_proxy',
+  'restart_liveness_watchdog',
   'autonomous_routine',
   'autonomous_npc',
 ]);
@@ -217,6 +218,16 @@ export const restartLifecycleSchema = z.object({
   ),
 });
 export type RestartLifecycle = z.infer<typeof restartLifecycleSchema>;
+export const restartLivenessDiagnosticSchema = z.object({
+  at: z.number().nonnegative(),
+  scenario: restartScenarioSchema,
+  takerId: z.string(),
+  controlled: z.boolean(),
+  legalActionCount: z.number().int().nonnegative(),
+  setupSeconds: z.number().nonnegative(),
+  recovery: z.literal('canonical_restart_fallback'),
+});
+export type RestartLivenessDiagnostic = z.infer<typeof restartLivenessDiagnosticSchema>;
 
 export interface MatchPlayerState {
   id: string;
@@ -418,6 +429,8 @@ export interface TacticalMatchState {
   restart?: RestartLifecycle;
   /** DEV-observable liveness duration; canonical decisions never depend on it. */
   restartStalledSeconds?: number;
+  /** Abnormal safety-net activation; normal restart resolution never writes this diagnostic. */
+  lastRestartLivenessRecovery?: RestartLivenessDiagnostic;
   lastInvariantRecovery?: { at: number; kind: 'outside_pitch'; point: PhysicalPoint };
   score: z.infer<typeof matchScoreSchema>;
   currentPressure: number;
@@ -588,6 +601,7 @@ export const tacticalMatchStateSchema = z
     ballOwnershipStartedAt: z.number().nonnegative().optional(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
+    lastRestartLivenessRecovery: restartLivenessDiagnosticSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),
     lastBallContact: ballContactSchema.optional(),
     offsideSnapshot: offsideSnapshotSchema.optional(),

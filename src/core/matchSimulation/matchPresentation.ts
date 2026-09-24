@@ -17,6 +17,87 @@ export const matchPresentationPhaseSchema = z.enum([
 ]);
 export type MatchPresentationPhase = z.infer<typeof matchPresentationPhaseSchema>;
 
+export const presentationClockSchema = z.object({
+  displayTime: z.number().nonnegative(),
+  targetTime: z.number().nonnegative(),
+});
+export type PresentationClock = z.infer<typeof presentationClockSchema>;
+
+export const createPresentationClock = (canonicalTime: number): PresentationClock => ({
+  displayTime: canonicalTime,
+  targetTime: canonicalTime,
+});
+
+/** Cosmetic, RNG-free bounded catch-up. It cannot mutate or drive canonical football state. */
+export const advancePresentationClock = (
+  clock: PresentationClock,
+  canonicalTime: number,
+  wallSeconds: number,
+  paused = false,
+): PresentationClock => {
+  const targetTime = Math.max(clock.targetTime, canonicalTime);
+  if (paused || wallSeconds <= 0) return { ...clock, targetTime };
+  const gap = Math.max(0, targetTime - clock.displayTime);
+  // Close even a multi-minute batch gap responsively while retaining visible motion.
+  const rate = Math.max(4, gap / 0.45);
+  return {
+    targetTime,
+    displayTime: Math.min(targetTime, clock.displayTime + rate * wallSeconds),
+  };
+};
+
+export const presentationDecisionDiagnosticSchema = z.object({
+  at: z.number().nonnegative(),
+  opportunityKind: z.string(),
+  controlledPlayerId: z.string(),
+  situation: z.string(),
+  importance: z.number().min(0).max(1),
+  semanticChoiceCount: z.number().int().nonnegative(),
+  policyId: z.string(),
+  threshold: z.number().min(0).max(1),
+  result: z.enum(['surfaced', 'proxy_resolved', 'delegated_autonomy', 'rejected']),
+  reason: z.string(),
+});
+export type PresentationDecisionDiagnostic = z.infer<typeof presentationDecisionDiagnosticSchema>;
+
+export const presentationRuntimeTelemetrySchema = z.object({
+  projectedCandidates: z.number().int().nonnegative(),
+  qualifyingCandidates: z.number().int().nonnegative(),
+  episodesStarted: z.number().int().nonnegative(),
+  episodesPresented: z.number().int().nonnegative(),
+  humanDecisionPromptsShown: z.number().int().nonnegative(),
+  playerOpportunitiesProxyResolved: z.number().int().nonnegative(),
+  restartProxies: z.number().int().nonnegative(),
+  episodeLeadIns: z.number().int().nonnegative(),
+  episodeAborts: z.number().int().nonnegative(),
+  hiddenCanonicalSeconds: z.number().nonnegative(),
+  visibleCanonicalSeconds: z.number().nonnegative(),
+  rendererCallsBackground: z.number().int().nonnegative(),
+  rendererCallsVisible: z.number().int().nonnegative(),
+  backgroundBatches: z.number().int().nonnegative(),
+  backgroundTicks: z.number().int().nonnegative(),
+  restartWatchdogFallbacks: z.number().int().nonnegative(),
+});
+export type PresentationRuntimeTelemetry = z.infer<typeof presentationRuntimeTelemetrySchema>;
+export const createPresentationRuntimeTelemetry = (): PresentationRuntimeTelemetry => ({
+  projectedCandidates: 0,
+  qualifyingCandidates: 0,
+  episodesStarted: 0,
+  episodesPresented: 0,
+  humanDecisionPromptsShown: 0,
+  playerOpportunitiesProxyResolved: 0,
+  restartProxies: 0,
+  episodeLeadIns: 0,
+  episodeAborts: 0,
+  hiddenCanonicalSeconds: 0,
+  visibleCanonicalSeconds: 0,
+  rendererCallsBackground: 0,
+  rendererCallsVisible: 0,
+  backgroundBatches: 0,
+  backgroundTicks: 0,
+  restartWatchdogFallbacks: 0,
+});
+
 export const matchMomentEpisodeSchema = z.object({
   id: z.string(),
   startedAt: z.number().nonnegative(),

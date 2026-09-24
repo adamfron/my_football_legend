@@ -1,13 +1,16 @@
 # My Football Legend — Current Project State
 
-## PR137 — current Single Match Lab state
+## PR138 — current Single Match Lab state
 
 Single Match Lab nadal używa jednego deterministycznego `matchSimulation`. Warstwa prezentacji
-może wykonywać jego ticki 0,025 s w ograniczonych batchach, pomijać ich renderowanie i wracać do
+może wykonywać jego ticki 0,025 s w ograniczonych batchach, całkowicie pomijać ich renderowanie i wracać do
 widoku przy ważnym `MatchMomentEpisode`. Pięć deklaratywnych polityk ustala progi, a `full_match`
 pozostaje niefiltrowanym punktem odniesienia. Ukryta okazja kontrolowanego zawodnika używa tego
-samego rankingu AI i jawnego źródła `presentation_policy_proxy`; okazja pokazana zatrzymuje czas
-przed wyborem. Filtrowanie nigdy nie zmienia fizyki, ruchu ani RNG.
+samego rankingu AI lub jawnie przekazuje sterowanie kanonicznej autonomii; kontrolowane wznowienie
+wykonuje legalną akcję z tego samego enumeratora. Okazja pokazana zatrzymuje czas przed wyborem.
+Kosmetyczny zegar wyświetlany nadrabia czas kanoniczny bez wpływu na fizykę lub RNG. Bufor klatek
+zawiera tylko faktycznie renderowane, spójne czasowo klatki; migawki kanoniczne są odrębnym pojęciem.
+Watchdog wznowienia jest deterministyczną, diagnozowaną siatką bezpieczeństwa.
 
 Reakcja bramkarza jest
 liczona od początku lotu strzału, a jego fizyczny ruch i ograniczona obwiednia kontaktu nie dublują

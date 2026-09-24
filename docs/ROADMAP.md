@@ -47,22 +47,27 @@ PR105–PR136 są ukończone. W szczególności:
   czysta, obserwacyjna projekcja ważnych momentów.
 - **PR136 — Match Interaction Completeness & Tempo Calibration:** kompletność interakcji,
   podania górą, asysty, fizyczne obrony bramkarza i spokojniejszy rytm posiadania.
+- **PR137 — Background Match Presentation & Moment Sensitivity:** batchowe wykonywanie jednego
+  kanonicznego meczu, epizody momentów i polityki czułości.
 
 ### CURRENT
 
-**PR137 — Background Match Presentation & Moment Sensitivity**
+**PR138 — Background Presentation Hardening & Decision Liveness**
 
-Batchowe wykonywanie tego samego meczu, epizody momentów, polityki czułości i deterministyczne
-decyzje proxy.
+Rzeczywiście ukryty renderer tła, osobny zegar prezentacji, kompletna umowa decyzji proxy,
+watchdog wznowień oraz telemetria runtime odrębna od projekcji momentów.
 
 ### NEXT
 
-**PR138 — Windows-95 Match Presentation** — spójność Match Lab z `CareerView`, wspólne retro
-prymitywy, lokalne/radialne menu, HUD, barwy klubów oraz tożsamość strojów.
+**PR139 — Windows-95 Match Presentation & Camera Interaction** — spójność Match Lab z
+`CareerView`, wspólne retro prymitywy, okna statusu, poprawione hitboxy, barwy klubów i fundament
+strojów. Desktop: kółko = zoom, środkowy przycisk = orbit, Shift + środkowy = pan, Reset View;
+orbit zachowuje pivot śledzenia. Touch: pinch = zoom, dwa palce = pan/obrót, jeden palec pozostaje
+dla interakcji piłkarskiej.
 
 ### LATER
 
-**PR139 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+**PR140 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
 
