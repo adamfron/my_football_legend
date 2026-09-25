@@ -1,6 +1,19 @@
 # My Football Legend — Current Project State
 
-## PR138 — current Single Match Lab state
+## PR139 — current Single Match Lab state
+
+Ukryta symulacja raportuje monotoniczny czas rzeczywisty, przepustowość kanoniczną, ticki/s oraz
+ograniczone próbki p50/p90/p95/p99 i stabilność rolling. Eksport sesji zawiera to samo podsumowanie,
+a `npm run benchmark:background` uruchamia bez renderera te same deterministyczne ticki dla 5, 15
+lub 45 minut w oddzielnych trybach core, telemetry, MatchMoment, complete i sampled profile.
+Profilowanie jest obserwacyjne i nie steruje RNG ani wynikiem. Rekomendacja po PR139 to **B**:
+mierzyć i przenosić wyłącznie udowodnione obserwacje/planowanie na cadence zdarzeniową, zachowując
+jeden mecz kanoniczny. Nie wdrożono drugiego symulatora.
+
+`key_player` pozostaje rzadki, lecz wiarygodna okazja strzelecka z co najmniej dwiema semantycznymi
+możliwościami jest wyjątkiem od ogólnego progu. Rutynowe wybory nadal mogą być rozwiązywane proxy.
+
+## PR138 — previous Single Match Lab state
 
 Single Match Lab nadal używa jednego deterministycznego `matchSimulation`. Warstwa prezentacji
 może wykonywać jego ticki 0,025 s w ograniczonych batchach, całkowicie pomijać ich renderowanie i wracać do

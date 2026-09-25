@@ -39,3 +39,5 @@ export * from './carryExecution';
 export * from './onBallPreparation';
 export * from './matchMoment';
 export * from './matchPresentation';
+export * from './backgroundPerformance';
+export * from './backgroundBenchmark';

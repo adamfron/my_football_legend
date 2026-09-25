@@ -49,17 +49,23 @@ PR105–PR136 są ukończone. W szczególności:
   podania górą, asysty, fizyczne obrony bramkarza i spokojniejszy rytm posiadania.
 - **PR137 — Background Match Presentation & Moment Sensitivity:** batchowe wykonywanie jednego
   kanonicznego meczu, epizody momentów i polityki czułości.
+- **PR138 — Background Presentation Hardening & Decision Liveness:** ukryty renderer, żywotność
+  decyzji i wznowień oraz rozdzielony zegar prezentacji.
 
 ### CURRENT
 
-**PR138 — Background Presentation Hardening & Decision Liveness**
+**PR139 — Background Simulation Performance Benchmark & Fast-Path Investigation**
 
-Rzeczywiście ukryty renderer tła, osobny zegar prezentacji, kompletna umowa decyzji proxy,
-watchdog wznowień oraz telemetria runtime odrębna od projekcji momentów.
+Monotoniczny pomiar batchy, powtarzalny benchmark bez renderera, rozdzielone tryby throughput/profile
+oraz semantyczna ochrona najważniejszych okazji kontrolowanego piłkarza.
 
 ### NEXT
 
-**PR139 — Windows-95 Match Presentation & Camera Interaction** — spójność Match Lab z
+**Wynik bramki architektonicznej PR139: B.** Zachować jeden szczegółowy silnik i w kolejnym kroku
+rozszerzyć bezpieczny, zdarzeniowy/multi-rate fast path; profil rozdziela koszt core od obserwatorów,
+ale nie uzasadnia jeszcze drugiego symulatora ani zmiennego kroku fizyki.
+
+**PR140 — Canonical Fast Simulation Path**, następnie **PR141 — Windows-95 Match Presentation & Camera Interaction** — spójność Match Lab z
 `CareerView`, wspólne retro prymitywy, okna statusu, poprawione hitboxy, barwy klubów i fundament
 strojów. Desktop: kółko = zoom, środkowy przycisk = orbit, Shift + środkowy = pan, Reset View;
 orbit zachowuje pivot śledzenia. Touch: pinch = zoom, dwa palce = pan/obrót, jeden palec pozostaje
@@ -67,7 +73,7 @@ dla interakcji piłkarskiej.
 
 ### LATER
 
-**PR140 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
+**Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
 ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
 oraz lepsza prezentacja powtórek.
 

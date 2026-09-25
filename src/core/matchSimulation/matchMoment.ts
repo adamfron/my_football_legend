@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
-import { projectPlayerDecisionOpportunity } from './playerDecision';
+import { countSemanticPlayerChoices, projectPlayerDecisionOpportunity } from './playerDecision';
 import type { TacticalMatchState } from './matchState';
 import type { TeamSide } from './matchSpace';
 
@@ -139,7 +139,12 @@ export const projectMatchMoment = (state: TacticalMatchState): MatchMomentCandid
     importance = Math.max(0.35, worthiness);
     actorIds = [decision.actorId];
     team = state.players.find((player) => player.id === decision.actorId)?.team;
-    reasons = [`decision:${decision.kind}`, `worthiness:${worthiness.toFixed(2)}`];
+    reasons = [
+      `decision:${decision.kind}`,
+      `situation:${decision.situation.kind}`,
+      `choices:${countSemanticPlayerChoices(decision.options, decision.kind)}`,
+      `worthiness:${worthiness.toFixed(2)}`,
+    ];
     lead = 1.5;
   } else if (state.scenario === 'corner') {
     kind = 'corner';
@@ -178,12 +183,35 @@ export const projectMatchMoment = (state: TacticalMatchState): MatchMomentCandid
   });
 };
 
+/** Sparse semantic exceptions for agency-critical opportunities under the key-player preset. */
+export const isAlwaysSurfacePlayerMoment = (
+  candidate: MatchMomentCandidate,
+  policy: MatchPresentationPolicy,
+) => {
+  if (
+    policy.id !== 'key_player' ||
+    !candidate.controlledPlayerInvolved ||
+    !candidate.requiresHumanDecision
+  )
+    return false;
+  const choices = Number(
+    candidate.reasons.find((reason) => reason.startsWith('choices:'))?.slice(8) ?? 0,
+  );
+  const situation = candidate.reasons.find((reason) => reason.startsWith('situation:'))?.slice(10);
+  return (
+    (situation === 'shooting_opportunity' && choices >= 2 && candidate.importance >= 0.5) ||
+    (candidate.kind === 'goalkeeper_intervention' && candidate.importance >= 0.78) ||
+    (candidate.kind === 'defensive_duel' && candidate.importance >= 0.82)
+  );
+};
+
 export const shouldSurfaceMatchMoment = (
   candidate: MatchMomentCandidate,
   policy: MatchPresentationPolicy,
 ) =>
   policy.fullMatch ||
   policy.alwaysShow.includes(candidate.kind) ||
+  isAlwaysSurfacePlayerMoment(candidate, policy) ||
   candidate.importance >=
     (candidate.controlledPlayerInvolved
       ? policy.minimumPlayerDecisionImportance
