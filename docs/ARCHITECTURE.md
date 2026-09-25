@@ -765,3 +765,23 @@ obsługuje deterministyczną restytucją oraz tarciem toczenia. Typ akcji jest m
 warunków początkowych, a nie wyborem osobnego silnika trajektorii. Przyszła siła Magnusa może
 zostać dodana jako kolejny składnik całkowitego przyspieszenia bez zmiany stanu piłki lub
 integratora; spin nie jest częścią PR128.
+
+### Pomiar wydajności tła (PR139)
+
+Fizyka, kontakt, ruch zawodników, lot piłki i przekroczenia granic nadal wykonują każdy krok 0,025 s.
+Granice batchy są wyłącznie runtime'em prezentacji i nie mogą zmieniać kolejności ticków, RNG ani
+wyniku meczu. `BackgroundPerformanceTracker` mierzy batch przez monotoniczne `performance.now()` i
+przechowuje tylko ograniczone okno próbek; czas ścienny nigdy nie trafia do stanu kanonicznego.
+
+Headless benchmark ma osobne tryby: czysty throughput core, core z telemetrią, core z projekcją
+MatchMoment, kompletnych obserwatorów oraz sampled profile (co 40. tick). Wynik profilu opisuje
+względny koszt grup `canonicalCore`, `telemetry` i `matchMoment`; jego prędkości nie porównujemy
+bezpośrednio z czystym throughput, ponieważ dodatkowe wywołania zegara mają koszt. Środowisko,
+build i stan profilera są zapisane bez fingerprintingu sprzętu.
+
+Klasyfikacja cadence: integracja fizyczna i kontakt to A/B (40 Hz); ranking AI, opcje podań i cele
+taktyczne to C (kandydaci do semantycznie unieważnianego multi-rate); MatchMoment i przestrzenne
+debug sample to D (obserwatorzy). Decyzja gracza pozostaje natychmiastową granicą sprawczości, więc
+nie może czekać na wolniejszą próbkę MatchMoment. Pierwszą rekomendacją jest **B: jeden kanoniczny
+silnik z rozwijanym event-driven/multi-rate fast path**. Worker może poprawić responsywność UI, lecz
+nie throughput CPU; drugi, makro-symulator nie jest obecnie uzasadniony pomiarem.

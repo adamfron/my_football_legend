@@ -43,6 +43,7 @@ import {
   MATCH_PRESENTATION_POLICIES,
   projectMatchMoment,
   shouldSurfaceMatchMoment,
+  isAlwaysSurfacePlayerMoment,
   resolvePresentationPolicyProxy,
   countSemanticPlayerChoices,
   createPresentationClock,
@@ -50,6 +51,8 @@ import {
   createPresentationRuntimeTelemetry,
   type PresentationDecisionDiagnostic,
   type MatchPresentationPolicy,
+  BackgroundPerformanceTracker,
+  nextAdaptiveBatchSize,
 } from '../../core/matchSimulation';
 import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
@@ -426,9 +429,14 @@ const RunningLab = ({
     finishingRef = useRef(false);
   const presentationClockRef = useRef(createPresentationClock(state.time));
   const presentationTelemetryRef = useRef(createPresentationRuntimeTelemetry());
+  const backgroundPerformanceRef = useRef(new BackgroundPerformanceTracker());
+  const backgroundBatchTicksRef = useRef(80);
   const presentationDecisionsRef = useRef<PresentationDecisionDiagnostic[]>([]);
   const presentedUntilRef = useRef(0);
   const presentationPolicy = MATCH_PRESENTATION_POLICIES[presentationPolicyId];
+  const backgroundPerformance = backgroundPerformanceRef.current.snapshot(
+    presentationTelemetryRef.current.rendererCallsBackground,
+  );
   const telemetryRef = useRef(diagnostics.telemetry);
   const positioningSamplesRef = useRef<PositioningSample[]>(diagnostics.positioningSamples);
   stateRef.current = state;
@@ -438,6 +446,8 @@ const RunningLab = ({
   useEffect(() => {
     if (!hostRef.current) return;
     const initial = createTacticalMatch(session);
+    backgroundPerformanceRef.current = new BackgroundPerformanceTracker();
+    presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
     setState(initial);
     replayBufferRef.current = [matchStateToFrame(initial)];
     debugRecorderRef.current.clear();
@@ -521,12 +531,14 @@ const RunningLab = ({
         );
         // Bound each task so a background catch-up yields to input and rendering. Debt is retained.
         const ticks = background
-          ? 800
+          ? backgroundBatchTicksRef.current
           : Math.min(160, availableFixedTicks(runtimeClockRef.current));
         if (ticks > 0) {
           if (!background)
             runtimeClockRef.current = consumeFixedTicks(runtimeClockRef.current, ticks);
           setState((value) => {
+            const batchStartedAt = background ? performance.now() : 0;
+            let executedTicks = 0;
             let next = value;
             for (let tick = 0; tick < ticks; tick += 1) {
               const projected = projectPlayerDecisionOpportunity(next);
@@ -572,6 +584,8 @@ const RunningLab = ({
                 }
                 setOpportunity(projected);
                 presentationTelemetryRef.current.humanDecisionPromptsShown += 1;
+                if (isAlwaysSurfacePlayerMoment(candidate, presentationPolicy))
+                  presentationTelemetryRef.current.alwaysSurfaceOverrides += 1;
                 const diagnostic: PresentationDecisionDiagnostic = {
                   at: next.time,
                   opportunityKind: projected.kind,
@@ -628,6 +642,7 @@ const RunningLab = ({
               const previousState = next;
               try {
                 next = stepTacticalMatch(next, FIXED_MATCH_DT);
+                executedTicks += 1;
                 if (background)
                   presentationTelemetryRef.current.hiddenCanonicalSeconds += FIXED_MATCH_DT;
                 else presentationTelemetryRef.current.visibleCanonicalSeconds += FIXED_MATCH_DT;
@@ -716,7 +731,14 @@ const RunningLab = ({
             }
             if (background) {
               presentationTelemetryRef.current.backgroundBatches += 1;
-              presentationTelemetryRef.current.backgroundTicks += ticks;
+              presentationTelemetryRef.current.backgroundTicks += executedTicks;
+              const elapsedMs = performance.now() - batchStartedAt;
+              backgroundPerformanceRef.current.record(
+                elapsedMs,
+                executedTicks * FIXED_MATCH_DT,
+                executedTicks,
+              );
+              backgroundBatchTicksRef.current = nextAdaptiveBatchSize(ticks, elapsedMs);
             }
             return next;
           });
@@ -1116,6 +1138,9 @@ const RunningLab = ({
               runtimeDiagnostics: diagnostics.runtimeDiagnostics,
               rendererLifecycle: diagnostics.rendererLifecycle,
               presentationRuntime: presentationTelemetryRef.current,
+              backgroundPerformance: backgroundPerformanceRef.current.snapshot(
+                presentationTelemetryRef.current.rendererCallsBackground,
+              ),
               presentationDecisions: presentationDecisionsRef.current,
             };
             downloadBlob(
@@ -1211,6 +1236,20 @@ const RunningLab = ({
         <strong>{formatMatchTime(displayTime)}</strong> · Runtime:{' '}
         <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
       </p>
+      <details className="presentation-diagnostics" open>
+        <summary>DEV · Wydajność symulacji w tle</summary>
+        <p>
+          Kanoniczny: {formatMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} · Realnie:{' '}
+          {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s · Przepustowość:{' '}
+          {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}× · Rolling:{' '}
+          {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch p50/p95/p99:{' '}
+          {backgroundPerformance.p50BatchMs.toFixed(1)}/
+          {backgroundPerformance.p95BatchMs.toFixed(1)}/
+          {backgroundPerformance.p99BatchMs.toFixed(1)} ms · Ticki/s:{' '}
+          {backgroundPerformance.ticksPerRealSecond.toFixed(0)} · Renderer tła:{' '}
+          {backgroundPerformance.rendererCallsBackground}
+        </p>
+      </details>
       <details className="presentation-diagnostics">
         <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
         {presentationDecisionsRef.current.length ? (
