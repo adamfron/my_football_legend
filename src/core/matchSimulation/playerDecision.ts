@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { projectContextualInteractions } from './contextualInteractions';
 import {
   enumerateAvailableActions,
   chooseRestartAction,
@@ -119,17 +120,20 @@ export const countSemanticPlayerChoices = (
   options: PlayerDecisionOption[],
   kind?: PlayerDecisionOpportunity['kind'],
 ): number => {
-  if (kind === 'restart') {
-    // Different receivers are distinct restart intentions even though they share an action family.
-    return new Set(
-      options.map((option) =>
-        option.kind === 'action' && option.action.type === 'pass'
-          ? `restart_receiver:${option.action.receiverId}`
-          : derivePlayerChoiceFamily(option, kind),
-      ),
-    ).size;
-  }
-  return new Set(options.map((option) => derivePlayerChoiceFamily(option, kind))).size;
+  return new Set(
+    options.map((option) => {
+      const family = derivePlayerChoiceFamily(option, kind);
+      // A different legal teammate or space is a genuine alternative, even within one family.
+      if (option.kind === 'action' && option.action.type === 'pass')
+        return `${family}:${option.action.receiverId}`;
+      if (
+        option.kind === 'action' &&
+        (option.action.type === 'carry' || option.action.type === 'cross')
+      )
+        return `${family}:${option.action.target.x.toFixed(1)}:${option.action.target.y.toFixed(1)}`;
+      return family;
+    }),
+  ).size;
 };
 export const playerDecisionOpportunitySchema = z.object({
   id: z.string(),
@@ -168,10 +172,12 @@ export const playerDecisionProbeSchema = z.object({
       'same_situation',
       'cooldown',
       'no_options',
+      'single_option_autonomy',
       'no_contextual_interactions',
       'friendly_ball',
     ])
     .optional(),
+  semanticChoiceCount: z.number().int().nonnegative().optional(),
   situationKind: z.string().optional(),
   decisionWorthiness: z.number().optional(),
   pressure: z.number().optional(),
@@ -659,7 +665,7 @@ export const evaluateMovementOpportunityValue = (
   });
 };
 
-const projectDecision = (
+export const projectPlayerAgency = (
   state: TacticalMatchState,
   suppliedGate?: PlayerDecisionGate,
 ): { probe: PlayerDecisionProbe; opportunity?: PlayerDecisionOpportunity } => {
@@ -901,7 +907,12 @@ const projectDecision = (
   }
   if (!options.length) return blocked('no_options', context);
   // A pause must expose a genuine choice. Single low-value prompts remain autonomous.
-  if (countSemanticPlayerChoices(options, kind) < 2) return blocked('no_options', context);
+  if (countSemanticPlayerChoices(options, kind) < 2)
+    return blocked('single_option_autonomy', {
+      ...context,
+      opportunityKind: kind,
+      semanticChoiceCount: countSemanticPlayerChoices(options, kind),
+    });
   const signature = signatureFor(state, kind);
   const postActionCheckpoint =
     kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;
@@ -942,6 +953,32 @@ const projectDecision = (
     situation,
     options,
   });
+  // Ownership is decided after actual legal UI target enumeration, independent of viewing policy.
+  const targets = projectSelectableInteractionTargets(state, opportunity);
+  // Action options already came from the canonical legality enumerator. Avoid repeating its
+  // expensive pass/trajectory work for every possible UI target at every canonical tick.
+  const contextual = ['defensive_response', 'goalkeeper_response', 'loose_ball'].includes(kind);
+  const choices = contextual
+    ? new Set(
+        targets
+          .flatMap((target) => projectContextualInteractions(state, opportunity, target))
+          .map((interaction) => {
+            const r = interaction.resolution;
+            return r.kind === 'defensive'
+              ? `${r.intent.type}:${r.intent.commitment}:${r.intent.opponentId}`
+              : r.kind === 'movement'
+                ? `${r.intent.type}:${r.intent.target.x.toFixed(1)}:${r.intent.target.y.toFixed(1)}`
+                : r.action.type;
+          }),
+      ).size
+    : countSemanticPlayerChoices(options, kind);
+  if (choices < 2)
+    return blocked(choices === 1 ? 'single_option_autonomy' : 'no_contextual_interactions', {
+      ...context,
+      opportunityKind: kind,
+      signature,
+      semanticChoiceCount: choices,
+    });
   if (!projectSelectableInteractionTargets(state, opportunity).length)
     return blocked('no_contextual_interactions', { ...context, opportunityKind: kind, signature });
   return {
@@ -949,6 +986,7 @@ const projectDecision = (
     probe: playerDecisionProbeSchema.parse({
       actorId,
       candidate: true,
+      semanticChoiceCount: choices,
       opportunityKind: kind,
       signature,
       ...context,
@@ -957,14 +995,14 @@ const projectDecision = (
 };
 
 export const projectPlayerDecisionProbe = (state: TacticalMatchState, gate?: PlayerDecisionGate) =>
-  projectDecision(state, gate).probe;
+  projectPlayerAgency(state, gate).probe;
 
 /** Pure, RNG-free projection. The gate is supplied explicitly; evaluator history stays outside it. */
 export const projectPlayerDecisionOpportunity = (
   state: TacticalMatchState,
   gate?: PlayerDecisionGate,
 ): PlayerDecisionOpportunity | undefined => {
-  return projectDecision(state, gate).opportunity;
+  return projectPlayerAgency(state, gate).opportunity;
 };
 
 export const applyPlayerDecision = (
@@ -1041,21 +1079,11 @@ export const createPendingOutcome = (
     },
   };
 };
-export const letAiDecide = (state: TacticalMatchState, opportunity: PlayerDecisionOpportunity) => {
-  if (opportunity.kind !== 'on_ball') return state;
-  const action = chooseNpcAction(state, opportunity.actorId);
-  const gated = {
-    ...state,
-    playerDecisionGate: {
-      lastSituationSignature: opportunity.signature,
-      lastResolvedAt: state.time,
-    },
-  };
-  return action ? resolveMatchAction(gated, action, 'dev_ai_selected') : gated;
-};
+export const letAiDecide = (state: TacticalMatchState, opportunity: PlayerDecisionOpportunity) =>
+  resolveDevPlayerDecision(state, opportunity).state;
 
-/** Uses the normal deterministic NPC ranking when presentation deliberately hides a human node. */
-export const resolvePresentationPolicyProxy = (
+/** Explicit DEV delegation only. Presentation sensitivity never calls this resolver. */
+export const resolveDevPlayerDecision = (
   state: TacticalMatchState,
   opportunity: PlayerDecisionOpportunity,
 ): ProxyResolutionResult => {
@@ -1077,7 +1105,7 @@ export const resolvePresentationPolicyProxy = (
     const action = chooseNpcAction(state, opportunity.actorId);
     return action
       ? {
-          state: resolveMatchAction(gated, action, 'presentation_policy_proxy'),
+          state: resolveMatchAction(gated, action, 'dev_ai_selected'),
           status: 'resolved_action',
           opportunityKind: opportunity.kind,
           reason: 'normal_npc_action_ranking',
@@ -1100,7 +1128,7 @@ export const resolvePresentationPolicyProxy = (
     );
     return action
       ? {
-          state: resolveMatchAction(gated, action, 'presentation_policy_proxy'),
+          state: resolveMatchAction(gated, action, 'dev_ai_selected'),
           status: 'resolved_action',
           opportunityKind: opportunity.kind,
           ...(selected ? { selectedOptionId: selected.id } : {}),

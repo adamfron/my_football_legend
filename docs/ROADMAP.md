@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR142 są ukończone. W szczególności:
+PR105–PR143 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -66,12 +66,14 @@ PR105–PR142 są ukończone. W szczególności:
   Powtórka interpoluje zapisane klatki; picker pozostaje niezależny od kończyn. Zwijane narzędzia
   DEV są nad boiskiem. Zweryfikowano przez `npm run verify`.
 
+- **PR143 — Interactive Moment Context & Presentation Windows:** sprawczość jest niezależna od
+  czułości oglądania. Każda znacząca decyzja zatrzymuje jeden silnik; ukryte ticki zapisują lekki
+  bufor 10 Hz / 6 s (maks. 62 próbki). Historyczny lead-in dochodzi do nieruchomej granicy decyzji,
+  a kontrolki aktywują się dopiero wtedy. Wynik ma zdarzeniowe okno, krótki ogon i ograniczone
+  łączenie groźnych sytuacji. Jedna rzeczywista opcja pozostaje autonomiczna. Dodano telemetrię
+  sprawczości, okien i kosztu bufora oraz regresje. Zweryfikowano przez `npm run verify`.
+
 ### NEXT
-
-**PR143 — Interactive Moment Context & Presentation Windows**
-
-- kontekst przed ważną decyzją piłkarza, kanoniczna akcja i widoczna konsekwencja;
-- dłuższe okna dla groźnych sytuacji w ostatniej tercji i polu karnym.
 
 **PR144 — Shooting & Final-Third Action Variety**
 
@@ -80,8 +82,19 @@ PR105–PR142 są ukończone. W szczególności:
 
 **PR145 — Match Behaviour & Calibration Pass**
 
-- kalibracja trajektorii podań górą, spójności touches/podań i defensywnej sprawczości przechwytów;
-- kalibracja czułości momentów oraz strzałów, bramek i bramkarzy.
+- geometria through-ball / lead-pass zgodna z ruchem odbiorcy;
+- spójność autonomicznych celów autu;
+- kalibracja trajektorii podań górą;
+- spójność touches / podań otrzymanych i prób podań;
+- własność decyzji defensywnych i przechwytów;
+- kalibracja liczby momentów / znaczących decyzji (bez kwoty decyzji w PR143);
+- kalibracja strzelania, scoringu i skuteczności bramkarzy.
+
+**PR146 — Background Simulation Performance** (plan, nie wdrożono w PR143)
+
+- cel: ukryte pełne 90 minut w około <= 5 minut czasu rzeczywistego na zwykłym komputerze
+  deweloperskim, tam gdzie jest to praktyczne;
+- profilowanie jednego kanonicznego silnika; bez drugiego uproszczonego symulatora futbolu.
 
 Prezentacja nadal obserwuje `matchSimulation`; nie tworzy drugiego stanu futbolu.
 Celowanie używa promienia kamery i kanonicznej bazy `goalCoordinates`. Overview, Action,
@@ -90,7 +103,8 @@ Full-HD/mobile pozostają przyszłą pracą; narzędzia DEV nie należą do rele
 
 ### LATER
 
-Spin piłki, siła Magnusa, wiatr i zależności pogodowe pozostają celowo odłożonym, osobnym
+Przepisy/faule/kartki, pogoda/warianty piłki i ceremonialna prezentacja pozostają późniejszymi
+systemami. Spin piłki, siła Magnusa, wiatr i zależności pogodowe pozostają celowo odłożonym, osobnym
 rozszerzeniem fizyki po kalibracji bazowego lotu.
 
 ### AFTER PR126 — systemy symulacji meczu

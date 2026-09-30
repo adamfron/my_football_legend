@@ -212,6 +212,7 @@ export const shouldSurfaceMatchMoment = (
   candidate: MatchMomentCandidate,
   policy: MatchPresentationPolicy,
 ) =>
+  candidate.requiresHumanDecision ||
   policy.fullMatch ||
   policy.alwaysShow.includes(candidate.kind) ||
   isAlwaysSurfacePlayerMoment(candidate, policy) ||

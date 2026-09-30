@@ -11,7 +11,7 @@ import {
   enumerateRestartActions,
   projectMatchMoment,
   projectPlayerDecisionOpportunity,
-  resolvePresentationPolicyProxy,
+  resolveDevPlayerDecision,
   shouldSurfaceMatchMoment,
   stepTacticalMatch,
   type PlayerDecisionOpportunity,
@@ -38,19 +38,19 @@ const controlledThrowIn = () => {
   return state;
 };
 
-describe('PR138 suppressed-decision liveness', () => {
-  it('proxies a low-importance controlled throw-in under key_player into open play', () => {
+describe('PR138 explicit DEV delegation liveness', () => {
+  it('surfaces a controlled throw-in in key_player and permits explicit DEV delegation', () => {
     let state = controlledThrowIn();
     const opportunity = projectPlayerDecisionOpportunity(state)!;
     const candidate = projectMatchMoment(state);
     expect(opportunity.kind).toBe('restart');
-    expect(shouldSurfaceMatchMoment(candidate, MATCH_PRESENTATION_POLICIES.key_player)).toBe(false);
+    expect(shouldSurfaceMatchMoment(candidate, MATCH_PRESENTATION_POLICIES.key_player)).toBe(true);
 
-    const first = resolvePresentationPolicyProxy(state, opportunity);
-    const second = resolvePresentationPolicyProxy(controlledThrowIn(), opportunity);
+    const first = resolveDevPlayerDecision(state, opportunity);
+    const second = resolveDevPlayerDecision(controlledThrowIn(), opportunity);
     expect(first.status).toBe('resolved_action');
     expect(first.state.restart?.phase).toBe('release');
-    expect(first.state.latestActionSource).toBe('presentation_policy_proxy');
+    expect(first.state.latestActionSource).toBe('dev_ai_selected');
     expect(first.state.latestAction).toEqual(second.state.latestAction);
 
     state = first.state;
@@ -66,11 +66,11 @@ describe('PR138 suppressed-decision liveness', () => {
     'defensive_response',
     'goalkeeper_response',
     'loose_ball',
-  ] as const)('explicitly delegates suppressed %s to canonical autonomy', (kind) => {
+  ] as const)('explicitly delegates DEV %s to canonical autonomy', (kind) => {
     const state = controlledThrowIn();
     const source = projectPlayerDecisionOpportunity(state)!;
     const opportunity: PlayerDecisionOpportunity = { ...source, kind };
-    const result = resolvePresentationPolicyProxy(state, opportunity);
+    const result = resolveDevPlayerDecision(state, opportunity);
     expect(result.status).toBe('delegated_to_canonical_autonomy');
     expect(result.state.playerDecisionGate?.lastSituationSignature).toBe(opportunity.signature);
     expect(stepTacticalMatch(result.state, 0.025).time).toBeGreaterThan(state.time);

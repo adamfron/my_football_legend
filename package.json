@@ -27,7 +27,8 @@
     "verify": "npm run lint && npm run test && npm run build",
     "audit:clubs": "npm run generate:world-db && vitest run scripts/clubAudit.test.ts --reporter=verbose",
     "benchmark:match-flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkMatchFlow.ts",
-    "benchmark:background": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkBackgroundSimulation.ts"
+    "benchmark:background": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkBackgroundSimulation.ts",
+    "benchmark:context": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPresentationContext.ts"
   },
   "dependencies": {
     "react": "19.2.8",

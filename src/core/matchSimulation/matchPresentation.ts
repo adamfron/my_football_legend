@@ -15,6 +15,7 @@ export const matchPresentationPhaseSchema = z.enum([
   'awaiting_player_decision',
   'post_moment',
   'full_match',
+  'replay',
 ]);
 export type MatchPresentationPhase = z.infer<typeof matchPresentationPhaseSchema>;
 
@@ -141,7 +142,11 @@ export const appendMomentCandidate = (
   quietWindowSeconds = 3,
 ): MatchMomentEpisode => {
   const meaningful = candidate.kind !== 'routine';
-  if (!episode || candidate.detectedAt - episode.lastMeaningfulAt > quietWindowSeconds) {
+  if (
+    !episode ||
+    candidate.detectedAt - episode.lastMeaningfulAt > quietWindowSeconds ||
+    candidate.detectedAt - episode.startedAt > 35
+  ) {
     return matchMomentEpisodeSchema.parse({
       id: `episode:${candidate.detectedAt.toFixed(3)}:${candidate.kind}`,
       startedAt: Math.max(0, candidate.detectedAt - candidate.suggestedLeadInSeconds),
@@ -157,7 +162,7 @@ export const appendMomentCandidate = (
     ...episode,
     lastMeaningfulAt: meaningful ? candidate.detectedAt : episode.lastMeaningfulAt,
     peakImportance: Math.max(episode.peakImportance, candidate.importance),
-    candidates: meaningful ? [...episode.candidates, candidate] : episode.candidates,
+    candidates: meaningful ? [...episode.candidates, candidate].slice(-64) : episode.candidates,
     controlledPlayerInvolved:
       episode.controlledPlayerInvolved || candidate.controlledPlayerInvolved,
     requiresHumanDecision: episode.requiresHumanDecision || candidate.requiresHumanDecision,
@@ -195,7 +200,6 @@ export const advanceBackgroundBatch = <State>(options: {
   advance(state: State, dt: number): State;
   project(state: State): MatchMomentCandidate;
   isRunning(state: State): boolean;
-  resolveSuppressedDecision?(state: State, candidate: MatchMomentCandidate): State;
 }): BackgroundBatchResult<State> => {
   let state = options.state;
   for (let tick = 0; tick < options.maxTicks; tick += 1) {
@@ -203,10 +207,7 @@ export const advanceBackgroundBatch = <State>(options: {
       return { state, ticksProcessed: tick, stopReason: 'match_stopped' };
     const candidate = options.project(state);
     if (candidate.requiresHumanDecision) {
-      if (shouldSurfaceMatchMoment(candidate, options.policy))
-        return { state, ticksProcessed: tick, stopReason: 'human_decision', candidate };
-      if (options.resolveSuppressedDecision)
-        state = options.resolveSuppressedDecision(state, candidate);
+      return { state, ticksProcessed: tick, stopReason: 'human_decision', candidate };
     } else if (
       shouldSurfaceMatchMoment(candidate, options.policy) &&
       candidate.kind !== 'routine'

@@ -710,14 +710,16 @@ w lead-inie, na żywo, przy decyzji albo w oknie po momencie; nie jest części�
 
 W tle bounded batch nadal wywołuje kanoniczne przejście dla **każdego** ticka 0,025 s i oddaje
 sterowanie przeglądarce pomiędzy batchami. Nie istnieje skrót wynikowy ani drugi symulator
-highlightów. Bufor klatek może pokazać lead-in jako `REPLAY`, lecz decyzje są legalne wyłącznie
-na autorytatywnym stanie `LIVE`. Zmiana polityki nie odtwarza meczu. Przyszły tani symulator
+highlightów. Historyczny lead-in jest normalną fazą prezentacji, odrębną od jawnego `replay`; decyzje
+są legalne wyłącznie na aktualnym stanie kanonicznym po dojściu prezentacji do granicy. Zmiana polityki nie odtwarza meczu. Przyszły tani symulator
 meczów ligowych NPC jest innym, odłożonym problemem i nie może obsługiwać meczu protagonisty.
 
-Jeśli polityka ukrywa mało ważną okazję gracza, `presentation_policy_proxy` korzysta z kanonicznego
-rankingu, atrybutów, roli i geometrii. Jest diagnostycznie odróżnialne od przycisku DEV „niech AI
-zdecyduje”. Pressing pozostaje obserwowalną pracą zespołu (główny nacisk, asekuracja i ochrona
-linii); przyszłe zmęczenie będzie mogło konsumować tę telemetrię, ale PR137 go nie implementuje.
+PR143 zastępuje historyczną delegację przez politykę: `projectPlayerAgency` ustala własność
+każdego znaczącego wyboru, niezależnie od ilości oglądanego futbolu. `presentation_policy_proxy`
+usunięto. Bufor kontekstu zapisuje 10 Hz / 6 s / <=62 lekkie próbki także w tle; lead-in jest
+historią prezentacji przed nieruchomą granicą kanoniczną, a nie jawnym Replay ani rollbackiem.
+Kontrolki aktywują się dopiero po dojściu prezentacji do T. Wynik używa kanonicznych dowodów
+i ograniczonego ogona. Jedna rzeczywista opcja pozostaje autonomiczna.
 
 ### Utwardzenie prezentacji tła i żywotność decyzji (PR138)
 
