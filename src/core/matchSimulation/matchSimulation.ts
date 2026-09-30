@@ -403,7 +403,23 @@ const finishShotContact = (
   );
 };
 
-const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): TacticalMatchState => {
+const tacticalSemanticKey = (state: TacticalMatchState) =>
+  [
+    state.possessionTeam,
+    state.ball.ownerId ?? 'loose',
+    state.ballEpisode ?? 0,
+    state.ball.travelKind ?? 'settled',
+    state.scenario,
+    state.teams.home.phase,
+    state.teams.away.phase,
+    state.restart?.phase ?? 'none',
+  ].join('|');
+
+const stepTacticalMatchCore = (
+  input: TacticalMatchState,
+  rawDelta = 0.1,
+  decisionAlreadyProjected = false,
+): TacticalMatchState => {
   input = resolvePendingPlayerDecision(input);
   // Recover snapshots whose setup clock was already allowed to overrun (for example by a future
   // presentation/UI regression) before the normal human-opportunity freeze can hold them forever.
@@ -434,7 +450,12 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
   // canonical action (including an opponent action), a restart, or the human's next choice; mere
   // ownerId discontinuity is not evidence that play genuinely moved on.
   // A surfaced human decision owns the snapshot: no clock, movement or RNG may advance.
-  if (!input.periodEndPending && projectPlayerDecisionOpportunity(input)) return input;
+  if (
+    !decisionAlreadyProjected &&
+    !input.periodEndPending &&
+    projectPlayerDecisionOpportunity(input)
+  )
+    return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
   let state = {
     ...input,
@@ -668,7 +689,16 @@ const stepTacticalMatchCore = (input: TacticalMatchState, rawDelta = 0.1): Tacti
     // a sweeper or diving keeper toward the canonical base position.
     delete state.keeperIntervention;
   }
-  state.players = deriveTacticalTargets(state).map((player) => {
+  const semanticKey = tacticalSemanticKey(state);
+  const tacticalPlanDue =
+    !state.planningSchedule ||
+    state.planningSchedule.semanticKey !== semanticKey ||
+    state.time - state.planningSchedule.lastTacticalPlanAt >= 0.1 - FIXED_MATCH_DT / 2;
+  if (tacticalPlanDue)
+    state.planningSchedule = { lastTacticalPlanAt: state.time, semanticKey };
+  // Formation/pressure plans are stable intentions. Integrate bodies at 40 Hz, but only answer
+  // the expensive tactical question at 10 Hz or immediately after a semantic football event.
+  state.players = (tacticalPlanDue ? deriveTacticalTargets(state) : state.players).map((player) => {
     let movementTarget = player.target;
     if (state.ballCarrierIntent?.actorId === player.id) {
       const execution = deriveCarryExecution(state, player, state.ballCarrierIntent);
@@ -1414,6 +1444,46 @@ export const stepTacticalMatch = (
     ),
   };
   return next;
+};
+
+/**
+ * Canonical fast entry after an exact human-decision probe has returned no opportunity.
+ * It skips only that duplicate pure projection; all physics and action resolution are identical.
+ */
+export const stepTacticalMatchAfterDecisionProbe = (
+  input: TacticalMatchState,
+  rawDelta = FIXED_MATCH_DT,
+): TacticalMatchState => {
+  const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
+  if (status === 'full_time' || status === 'half_time') return input;
+  const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
+  const prepared =
+    input.periodEndPending || input.time + rawDelta >= threshold
+      ? { ...input, periodEndPending: true }
+      : input;
+  let next = stepTacticalMatchCore(prepared, rawDelta, true);
+  if (next.periodEndPending && !hasImmediateResolution(next)) {
+    next = {
+      ...clearTransientPeriodState(next),
+      time: threshold,
+      status: status === 'first_half' ? 'half_time' : 'full_time',
+      actionCooldown: 0,
+      ball: {
+        x: next.ball.x,
+        y: next.ball.y,
+        ...(next.ball.lastTouchPlayerId ? { lastTouchPlayerId: next.ball.lastTouchPlayerId } : {}),
+      },
+    };
+  }
+  return {
+    ...next,
+    status: next.status ?? status,
+    statistics: observePlayerMatchStats(
+      input.statistics ?? createMatchStatistics(input),
+      input,
+      next,
+    ),
+  };
 };
 
 export const matchStateToFrame = (

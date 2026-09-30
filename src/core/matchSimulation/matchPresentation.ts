@@ -6,6 +6,7 @@ import {
   type MatchMomentCandidate,
   type MatchPresentationPolicy,
 } from './matchMoment';
+import type { TacticalMatchState } from './matchState';
 
 export const matchPresentationPhaseSchema = z.enum([
   'background_simulation',
@@ -111,6 +112,20 @@ export const matchMomentEpisodeSchema = z.object({
   outcome: matchMomentCandidateSchema.shape.kind.optional(),
 });
 export type MatchMomentEpisode = z.infer<typeof matchMomentEpisodeSchema>;
+
+export const interactivePlayerEpisodeSchema = z.object({
+  id: z.string(),
+  actorId: z.string(),
+  openedAt: z.number().nonnegative(),
+  phase: z.enum(['lead_in', 'awaiting_decision', 'resolving_outcome', 'resolved']),
+  decisionIds: z.array(z.string()),
+  possessionEpisode: z.number().int().nonnegative(),
+});
+export type InteractivePlayerEpisode = z.infer<typeof interactivePlayerEpisodeSchema>;
+
+/** Event-based visibility boundary for a selected human action; never a wall-clock timeout. */
+export const isInteractiveOutcomeWindowOpen = (state: TacticalMatchState): boolean =>
+  Boolean(state.pendingPlayerDecision && !state.pendingPlayerDecision.result);
 
 const OUTCOMES = new Set<MatchMomentCandidate['kind']>([
   'goal',

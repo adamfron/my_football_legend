@@ -1,5 +1,19 @@
 # Architektura
 
+## Kanoniczny fast path i częstotliwości
+
+`stepTacticalMatch` pozostaje jedynym przejściem futbolowym. Integracja piłki, ruchu, granic i
+kontaktów działa przy `FIXED_MATCH_DT = 0.025`. Cele taktyczne są stabilnym planem przeliczanym co
+0,1 s albo natychmiast po zmianie semantycznego klucza (właściciel/posiadanie, epizod i lot piłki,
+faza, scenariusz lub wznowienie). Metadane schedulera należą do stanu kanonicznego, dlatego podział
+na batche nie wpływa na wynik. `stepTacticalMatchAfterDecisionProbe` wolno wywołać wyłącznie po
+dokładnej, negatywnej projekcji okazji człowieka; usuwa ono duplikat obserwacji, a nie fizykę.
+
+Interaktywny epizod oddziela próg wejścia prezentacji od dalszej własności decyzji. Po wyborze
+`pendingPlayerDecision` utrzymuje zdarzeniowe okno wyniku przez lot, kontakt lub pojedynek. Jeśli
+kontrolowany zawodnik zachowuje albo zdobywa piłkę, wspólny checkpoint sprawczości przekazuje mu
+następny znaczący wybór.
+
 ## Obserwacyjna projekcja momentów meczu
 
 `matchSimulation` pozostaje jedynym autorytetem szczegółowego meczu i zawsze wykonuje każdy
