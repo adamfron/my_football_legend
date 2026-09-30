@@ -1,3 +1,5 @@
+import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
+import { appendReplayFrame, sampleReplayFrame } from './tacticalRenderer/replay';
 /* eslint-disable react-hooks/refs, react-hooks/immutability -- Match Lab's imperative renderer and
    diagnostic recorders are observer-only refs intentionally kept outside React state. */
 import {
@@ -19,7 +21,6 @@ import {
   createTacticalMatch,
   applyRestartScenario,
   FIXED_MATCH_DT,
-  matchStateToFrame,
   stepTacticalMatch,
   stepTacticalMatchAfterDecisionProbe,
   deriveTeamShapeMetrics,
@@ -109,7 +110,7 @@ const formatMatchTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
   return `${minutes.toString().padStart(2, '0')}:${(seconds % 60).toFixed(1).padStart(4, '0')}`;
 };
-type RenderFrame = ReturnType<typeof matchStateToFrame>;
+type RenderFrame = import('./tacticalRenderer/model').TacticalFrame;
 export const PitchCanvasHost = forwardRef<HTMLDivElement>(function PitchCanvasHost(_, ref) {
   return <div className="pitch-canvas-host" ref={ref} aria-hidden="true" />;
 });
@@ -432,6 +433,9 @@ const RunningLab = ({
     debugRecorderRef = useRef(diagnostics.recorder),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
+  const animationProjectorRef = useRef(new PresentationFrameProjector());
+  // React may evaluate an updater twice. Only consume samples belonging to its committed result.
+  const presentationSamplesRef = useRef(new WeakMap<TacticalMatchState, TacticalMatchState[]>());
   const presentationClockRef = useRef(createPresentationClock(state.time));
   const presentationTelemetryRef = useRef(createPresentationRuntimeTelemetry());
   const backgroundPerformanceRef = useRef(new BackgroundPerformanceTracker());
@@ -454,7 +458,8 @@ const RunningLab = ({
     backgroundPerformanceRef.current = new BackgroundPerformanceTracker();
     presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
     setState(initial);
-    replayBufferRef.current = [matchStateToFrame(initial)];
+    animationProjectorRef.current.reset();
+    replayBufferRef.current = [animationProjectorRef.current.frame(initial)];
     debugRecorderRef.current.clear();
     try {
       debugRecorderRef.current.record(initial);
@@ -483,7 +488,7 @@ const RunningLab = ({
     setDisplayTime(initial.time);
     const renderer = new TacticalPitchRenderer(
       hostRef.current,
-      matchStateToFrame(initial),
+      animationProjectorRef.current.frame(initial),
       (error) => {
         setRendererError(error);
         const lifecycle =
@@ -547,6 +552,7 @@ const RunningLab = ({
             const batchStartedAt = background ? performance.now() : 0;
             let executedTicks = 0;
             let next = value;
+            const presentationSamples: TacticalMatchState[] = [];
             for (let tick = 0; tick < ticks; tick += 1) {
               const projected = projectPlayerDecisionOpportunity(next);
               if (projected) {
@@ -661,6 +667,7 @@ const RunningLab = ({
                 break;
               }
               try {
+                if (!background) presentationSamples.push(next);
                 telemetryRef.current = observeMatchFlow(telemetryRef.current, previousState, next);
                 diagnostics.telemetry = telemetryRef.current;
               } catch (error) {
@@ -750,6 +757,8 @@ const RunningLab = ({
               );
               backgroundBatchTicksRef.current = nextAdaptiveBatchSize(ticks, elapsedMs);
             }
+            if (presentationSamples.length)
+              presentationSamplesRef.current.set(next, presentationSamples);
             return next;
           });
         }
@@ -793,7 +802,13 @@ const RunningLab = ({
   useEffect(() => {
     const hidden = !presentationPolicy.fullMatch && presentationPhase === 'background_simulation';
     if (replaying || hidden) return;
-    const baseFrame = matchStateToFrame(state, { includeAiCarryTarget: debug });
+    const samples = presentationSamplesRef.current.get(state);
+    if (samples) {
+      for (const sample of samples)
+        appendReplayFrame(replayBufferRef.current, animationProjectorRef.current.frame(sample));
+      presentationSamplesRef.current.delete(state);
+    }
+    const baseFrame = animationProjectorRef.current.frame(state, { includeAiCarryTarget: debug });
     // Interaction legality remains a pure canonical projection; presentation only observes it.
     const actionableTargets = opportunity
       ? state.players
@@ -832,8 +847,7 @@ const RunningLab = ({
     rendererRef.current?.render(frame, debug);
     presentationTelemetryRef.current.rendererCallsVisible += 1;
     const frames = replayBufferRef.current;
-    frames.push(frame);
-    while (frames.length > 1 && frame.timestampMs - frames[0]!.timestampMs > 10_000) frames.shift();
+    appendReplayFrame(frames, frame);
     const score = state.score.home + state.score.away;
     if (score > scoreRef.current) setGoalReplay([...frames]);
     scoreRef.current = score;
@@ -861,12 +875,7 @@ const RunningLab = ({
     let animation = 0;
     const play = (now: number) => {
       const replayTimestamp = firstTimestamp + (now - started) * 0.5;
-      let frame: RenderFrame | undefined;
-      for (let index = goalReplay.length - 1; index >= 0; index -= 1)
-        if (goalReplay[index]!.timestampMs <= replayTimestamp) {
-          frame = goalReplay[index];
-          break;
-        }
+      const frame = sampleReplayFrame(goalReplay, replayTimestamp);
       if (frame) rendererRef.current?.render(frame, debug);
       if (replayTimestamp < goalReplay.at(-1)!.timestampMs) animation = requestAnimationFrame(play);
       else setReplaying(false);
@@ -1154,6 +1163,157 @@ const RunningLab = ({
               : 'Kółko: zoom · Środkowy: obrót · Shift + środkowy: przesunięcie'}
         </small>
       </nav>
+      <details className="lab-diagnostics">
+        <summary>DEV · Diagnostyka, scenariusze i zapis meczu</summary>
+        <nav className="debug-capture" aria-label="Eksport diagnostyczny">
+          <button
+            onClick={() => {
+              const summary = {
+                metadata: { schema: 'mfl-session-benchmark-v2', seed: state.seed },
+                duration: state.time,
+                segments: diagnostics.exportSegments(
+                  state,
+                  telemetryRef.current,
+                  positioningSamplesRef.current,
+                ),
+                controlledPlayer: state.controlledFootballerId,
+                matchFlowTelemetry: telemetryRef.current,
+                decisionTelemetry: telemetryRef.current.controlled,
+                passingNetwork: telemetryRef.current.passingNetwork,
+                sampledPositioning: positioningSamplesRef.current,
+                runtimeDiagnostics: diagnostics.runtimeDiagnostics,
+                rendererLifecycle: diagnostics.rendererLifecycle,
+                presentationRuntime: presentationTelemetryRef.current,
+                backgroundPerformance: backgroundPerformanceRef.current.snapshot(
+                  presentationTelemetryRef.current.rendererCallsBackground,
+                ),
+                presentationDecisions: presentationDecisionsRef.current,
+              };
+              downloadBlob(
+                new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
+                `${state.seed}-benchmark-sesji.json`,
+              );
+            }}
+          >
+            Eksportuj benchmark sesji
+          </button>
+          <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
+            Przechwyć debug ±10 s
+          </button>
+          <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={savePastOnly}>
+            Zapisz ostatnie 10 s
+          </button>
+          <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
+          {captureStatus === 'idle' && (
+            <span>
+              {videoRecorderRef.current.active
+                ? `Gotowy — bufor: ${videoRecorderRef.current.bufferedSeconds.toFixed(1)} s`
+                : 'Wideo niedostępne — zapis będzie zawierał JSON'}
+            </span>
+          )}
+          {captureStatus === 'capturing' && (
+            <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
+          )}
+          {(captureStatus === 'processing' ||
+            captureStatus === 'ready' ||
+            captureStatus === 'saved' ||
+            captureStatus === 'error') && (
+            <>
+              <strong>
+                {describeDebugCapture(
+                  captureStatus,
+                  Boolean(debugExport),
+                  Boolean(debugExport?.video),
+                  captureError,
+                )}
+              </strong>
+              {debugExport && captureStatus !== 'processing' && (
+                <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
+              )}
+              {saveMessage && <span>{saveMessage}</span>}
+            </>
+          )}
+        </nav>
+        <nav className="scenario-picker" aria-label="Scenariusz developerski">
+          <strong>Sytuacja:</strong>
+          {scenarios.map(([scenario, label]) => (
+            <button
+              key={scenario}
+              className={state.scenario === scenario ? 'active' : ''}
+              onClick={() => {
+                setPlaying(false);
+                clearDebugBuffer();
+                setState(() => {
+                  const next = applyRestartScenario(
+                    createTacticalMatch(session),
+                    scenario,
+                    scenario === 'throw_in'
+                      ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
+                      : undefined,
+                  );
+                  const segmentId = diagnostics.beginSegment(
+                    next,
+                    telemetryRef.current,
+                    positioningSamplesRef.current,
+                  );
+                  telemetryRef.current = createMatchFlowTelemetry(segmentId);
+                  positioningSamplesRef.current = [sampleCanonicalPositioning(next)];
+                  diagnostics.telemetry = telemetryRef.current;
+                  diagnostics.positioningSamples = positioningSamplesRef.current;
+                  debugRecorderRef.current.record(next);
+                  debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', { scenario });
+                  return next;
+                });
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+        <p className="runtime-status">
+          Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
+          <strong>{presentationPolicyId}</strong> · Renderer:{' '}
+          <strong>
+            {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'
+              ? 'suppressed'
+              : diagnostics.rendererLifecycle}
+          </strong>{' '}
+          · Kanoniczny: <strong>{formatMatchTime(state.time)}</strong> · Wyświetlany:{' '}
+          <strong>{formatMatchTime(displayTime)}</strong> · Runtime:{' '}
+          <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
+        </p>
+        <details className="presentation-diagnostics">
+          <summary>DEV · Wydajność symulacji w tle</summary>
+          <p>
+            Kanoniczny: {formatMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} · Realnie:{' '}
+            {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s · Przepustowość:{' '}
+            {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}× · Rolling:{' '}
+            {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch p50/p95/p99:{' '}
+            {backgroundPerformance.p50BatchMs.toFixed(1)}/
+            {backgroundPerformance.p95BatchMs.toFixed(1)}/
+            {backgroundPerformance.p99BatchMs.toFixed(1)} ms · Ticki/s:{' '}
+            {backgroundPerformance.ticksPerRealSecond.toFixed(0)} · Renderer tła:{' '}
+            {backgroundPerformance.rendererCallsBackground}
+          </p>
+        </details>
+        <details className="presentation-diagnostics">
+          <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
+          {presentationDecisionsRef.current.length ? (
+            presentationDecisionsRef.current
+              .slice(-8)
+              .reverse()
+              .map((item, index) => (
+                <p key={`${item.at}:${item.opportunityKind}:${index}`}>
+                  {formatMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
+                  {item.importance.toFixed(2)} · {item.policyId} / próg {item.threshold.toFixed(2)}{' '}
+                  → <strong>{item.result}</strong> ({item.reason})
+                </p>
+              ))
+          ) : (
+            <p>Brak decyzji prezentacyjnych w tej sesji.</p>
+          )}
+        </details>
+      </details>
       <section className="sandbox-grid">
         <div
           className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}
@@ -1549,157 +1709,6 @@ const RunningLab = ({
           </details>
         </aside>
       </section>
-      <details className="lab-diagnostics">
-        <summary>DEV · Diagnostyka, scenariusze i zapis meczu</summary>
-        <nav className="debug-capture" aria-label="Eksport diagnostyczny">
-          <button
-            onClick={() => {
-              const summary = {
-                metadata: { schema: 'mfl-session-benchmark-v2', seed: state.seed },
-                duration: state.time,
-                segments: diagnostics.exportSegments(
-                  state,
-                  telemetryRef.current,
-                  positioningSamplesRef.current,
-                ),
-                controlledPlayer: state.controlledFootballerId,
-                matchFlowTelemetry: telemetryRef.current,
-                decisionTelemetry: telemetryRef.current.controlled,
-                passingNetwork: telemetryRef.current.passingNetwork,
-                sampledPositioning: positioningSamplesRef.current,
-                runtimeDiagnostics: diagnostics.runtimeDiagnostics,
-                rendererLifecycle: diagnostics.rendererLifecycle,
-                presentationRuntime: presentationTelemetryRef.current,
-                backgroundPerformance: backgroundPerformanceRef.current.snapshot(
-                  presentationTelemetryRef.current.rendererCallsBackground,
-                ),
-                presentationDecisions: presentationDecisionsRef.current,
-              };
-              downloadBlob(
-                new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
-                `${state.seed}-benchmark-sesji.json`,
-              );
-            }}
-          >
-            Eksportuj benchmark sesji
-          </button>
-          <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
-            Przechwyć debug ±10 s
-          </button>
-          <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={savePastOnly}>
-            Zapisz ostatnie 10 s
-          </button>
-          <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
-          {captureStatus === 'idle' && (
-            <span>
-              {videoRecorderRef.current.active
-                ? `Gotowy — bufor: ${videoRecorderRef.current.bufferedSeconds.toFixed(1)} s`
-                : 'Wideo niedostępne — zapis będzie zawierał JSON'}
-            </span>
-          )}
-          {captureStatus === 'capturing' && (
-            <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
-          )}
-          {(captureStatus === 'processing' ||
-            captureStatus === 'ready' ||
-            captureStatus === 'saved' ||
-            captureStatus === 'error') && (
-            <>
-              <strong>
-                {describeDebugCapture(
-                  captureStatus,
-                  Boolean(debugExport),
-                  Boolean(debugExport?.video),
-                  captureError,
-                )}
-              </strong>
-              {debugExport && captureStatus !== 'processing' && (
-                <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
-              )}
-              {saveMessage && <span>{saveMessage}</span>}
-            </>
-          )}
-        </nav>
-        <nav className="scenario-picker" aria-label="Scenariusz developerski">
-          <strong>Sytuacja:</strong>
-          {scenarios.map(([scenario, label]) => (
-            <button
-              key={scenario}
-              className={state.scenario === scenario ? 'active' : ''}
-              onClick={() => {
-                setPlaying(false);
-                clearDebugBuffer();
-                setState(() => {
-                  const next = applyRestartScenario(
-                    createTacticalMatch(session),
-                    scenario,
-                    scenario === 'throw_in'
-                      ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
-                      : undefined,
-                  );
-                  const segmentId = diagnostics.beginSegment(
-                    next,
-                    telemetryRef.current,
-                    positioningSamplesRef.current,
-                  );
-                  telemetryRef.current = createMatchFlowTelemetry(segmentId);
-                  positioningSamplesRef.current = [sampleCanonicalPositioning(next)];
-                  diagnostics.telemetry = telemetryRef.current;
-                  diagnostics.positioningSamples = positioningSamplesRef.current;
-                  debugRecorderRef.current.record(next);
-                  debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', { scenario });
-                  return next;
-                });
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-        <p className="runtime-status">
-          Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
-          <strong>{presentationPolicyId}</strong> · Renderer:{' '}
-          <strong>
-            {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'
-              ? 'suppressed'
-              : diagnostics.rendererLifecycle}
-          </strong>{' '}
-          · Kanoniczny: <strong>{formatMatchTime(state.time)}</strong> · Wyświetlany:{' '}
-          <strong>{formatMatchTime(displayTime)}</strong> · Runtime:{' '}
-          <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
-        </p>
-        <details className="presentation-diagnostics">
-          <summary>DEV · Wydajność symulacji w tle</summary>
-          <p>
-            Kanoniczny: {formatMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} · Realnie:{' '}
-            {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s · Przepustowość:{' '}
-            {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}× · Rolling:{' '}
-            {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch p50/p95/p99:{' '}
-            {backgroundPerformance.p50BatchMs.toFixed(1)}/
-            {backgroundPerformance.p95BatchMs.toFixed(1)}/
-            {backgroundPerformance.p99BatchMs.toFixed(1)} ms · Ticki/s:{' '}
-            {backgroundPerformance.ticksPerRealSecond.toFixed(0)} · Renderer tła:{' '}
-            {backgroundPerformance.rendererCallsBackground}
-          </p>
-        </details>
-        <details className="presentation-diagnostics">
-          <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
-          {presentationDecisionsRef.current.length ? (
-            presentationDecisionsRef.current
-              .slice(-8)
-              .reverse()
-              .map((item, index) => (
-                <p key={`${item.at}:${item.opportunityKind}:${index}`}>
-                  {formatMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
-                  {item.importance.toFixed(2)} · {item.policyId} / próg {item.threshold.toFixed(2)}{' '}
-                  → <strong>{item.result}</strong> ({item.reason})
-                </p>
-              ))
-          ) : (
-            <p>Brak decyzji prezentacyjnych w tej sesji.</p>
-          )}
-        </details>
-      </details>
     </main>
   );
 };
