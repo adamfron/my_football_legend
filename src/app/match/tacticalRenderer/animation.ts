@@ -62,7 +62,11 @@ export const derivePlayerPose = (
 ): PlayerPose => {
   const speed = player.gaitSpeed ?? Math.hypot(player.velocity?.x ?? 0, player.velocity?.y ?? 0);
   const amplitude = clamp(speed / 7, 0, 1) * 0.85;
-  const phase = player.gaitPhase ?? 0;
+  // Compact context samples carry velocity, not a hidden animation accumulator. Reconstruct
+  // cosmetic stride only when this historical frame is actually rendered.
+  const phase =
+    player.gaitPhase ??
+    (((atMs / 1000) * speed) / (1.25 + Math.min(speed, 8) * 0.18)) * Math.PI * 2;
   const stride = Math.sin(phase) * amplitude;
   // Facing remains canonical even while shuffling/backpedalling.
   const facing = player.facing ?? 0;

@@ -1345,14 +1345,11 @@ const stepTacticalMatchCore = (
     const ownerId = state.ball.ownerId;
     if (!ownerId) return state;
     const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
-    const agencyHandoff =
-      state.postActionAgencyCheckpoint?.actorId === state.controlledFootballerId &&
-      state.ball.ownerId === state.controlledFootballerId;
-    const action = awaitsPlayer || agencyHandoff ? undefined : chooseNpcAction(state, ownerId);
+    // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
+    // including high-impact actions when no genuinely playable alternative exists.
+    const action = awaitsPlayer ? undefined : chooseNpcAction(state, ownerId);
     const controlled = state.ball.ownerId === state.controlledFootballerId;
-    // A pending handoff makes every next controlled-player action human-owned. Outside a handoff,
-    // controlled open-play shots and crosses remain absolutely human-owned.
-    if (action && !(controlled && (action.type === 'shot' || action.type === 'cross')))
+    if (action)
       state = resolveMatchAction(
         state,
         action,

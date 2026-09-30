@@ -27,16 +27,16 @@ describe('PR139 key-player semantic overrides', () => {
     ).toBe(true);
   });
 
-  it('keeps routine and non-credible choices sparse', () => {
+  it('keeps non-interactive routine and non-credible footage sparse', () => {
     expect(
       shouldSurfaceMatchMoment(
-        candidate({ importance: 0.4, reasons: ['situation:routine_possession', 'choices:5'] }),
+        candidate({ requiresHumanDecision: false, importance: 0.4, reasons: ['situation:routine_possession', 'choices:5'] }),
         MATCH_PRESENTATION_POLICIES.key_player,
       ),
     ).toBe(false);
     expect(
       shouldSurfaceMatchMoment(
-        candidate({ importance: 0.58, reasons: ['situation:shooting_opportunity', 'choices:1'] }),
+        candidate({ requiresHumanDecision: false, importance: 0.58, reasons: ['situation:shooting_opportunity', 'choices:1'] }),
         MATCH_PRESENTATION_POLICIES.key_player,
       ),
     ).toBe(false);

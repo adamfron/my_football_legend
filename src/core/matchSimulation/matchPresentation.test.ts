@@ -56,7 +56,7 @@ describe('match presentation runtime', () => {
     expect(new Set(advance.mock.calls.map((call) => call[1]))).toEqual(new Set([0.025]));
   });
 
-  it('stops before a surfaced decision and deterministically proxies a suppressed one', () => {
+  it('stops before every human decision regardless of importance', () => {
     const surface = advanceBackgroundBatch({
       state: 5,
       maxTicks: 10,
@@ -74,11 +74,10 @@ describe('match presentation runtime', () => {
         policy: MATCH_PRESENTATION_POLICIES.key_player,
         advance: (state: number) => state + 1,
         project: (time) => candidate(time, 'player_decision', 0.4, true),
-        resolveSuppressedDecision: (state: number) => state * 2,
         isRunning: () => true,
       }).state;
-    expect(run()).toBe(11);
-    expect(run()).toBe(11);
+    expect(run()).toBe(5);
+    expect(run()).toBe(5);
   });
 
   it('full match is the zero-filter policy', () => {

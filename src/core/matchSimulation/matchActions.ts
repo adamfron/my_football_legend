@@ -1,3 +1,4 @@
+import { projectPlayerDecisionProbe } from './playerDecision';
 import { goalIntentToPitch } from './goalCoordinates';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
@@ -472,16 +473,15 @@ export const resolveMatchAction = (
   source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
   if (state.ball.ownerId !== action.actorId) return state;
-  // High-impact actions for the controlled footballer are committed only by an explicit player
-  // choice (or the deliberately invoked DEV AI button). Actor identity must never be used later
-  // to reconstruct ownership of the action.
+  // Meaningful high-impact choices stay human-owned. Forced legal actions may use canonical
+  // autonomy; the agency evaluator alone determines whether playable alternatives exist.
   if (
     action.actorId === state.controlledFootballerId &&
     (action.type === 'shot' || action.type === 'cross') &&
     source !== 'human_selected' &&
     source !== 'dev_ai_selected' &&
-    source !== 'presentation_policy_proxy' &&
-    source !== 'restart_liveness_watchdog'
+    source !== 'restart_liveness_watchdog' &&
+    projectPlayerDecisionProbe(state).blockedReason !== 'single_option_autonomy'
   )
     return state;
   const actor = state.players.find((p) => p.id === action.actorId)!;

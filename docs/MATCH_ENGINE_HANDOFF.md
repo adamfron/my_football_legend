@@ -27,7 +27,8 @@ Każde zjawisko futbolowe ma jeden system kanoniczny.
 3. Flaga kontroli nie zmienia preferencji kolegów wobec adresata podania.
 4. AI nie wykonuje wysokowartościowej akcji kontrolowanego gracza, gdy człowiek posiada epizod.
 5. Udana akcja z zachowaniem/zdobyciem posiadania może prowadzić do kolejnej decyzji człowieka.
-6. Polityka prezentacji decyduje o wejściu do epizodu, nie o właścicielu każdego następnego kontaktu.
+6. Sprawczość każdej znaczącej decyzji jest niezależna od polityki oglądania; polityka wybiera
+   wyłącznie materiał do oglądania. Kontekst jest historią prezentacji, nigdy rollbackiem futbolu.
 7. Podział tych samych ticków na batche nie zmienia wyniku.
 
 ## Ewolucja od PR126
@@ -56,10 +57,22 @@ i seed. Preferowane dowody: stan przed/po, decision id, ball episode i action so
 - brak zmęczenia, zmian, fauli/kartek i oceny meczowej;
 - modele i animacje 3D pozostają lekkim prototypem; kamera, hitboxy i baza strojów mają fundament PR141.
 
+## PR143 — prezentacja i sprawczość
+
+`projectPlayerAgency` jest jedyną projekcją własności decyzji: znaczący wybór człowieka albo
+kanoniczna autonomia. Polityka nie wykonuje proxy; `resolveDevPlayerDecision` jest jawną delegacją
+DEV. Jedna rzeczywista opcja menu nie zatrzymuje meczu. `PlayerAgencyTracker` liczy semantyczne
+wejścia, osobno od liczby renderów i kandydatów materiału.
+
+`PresentationContextHistory` zapisuje 10 Hz / 6 s / <=62 lekkie próbki również w tle. Gdy decyzja
+istnieje w T, core stoi; lead-in od T−N pokazuje wyłącznie zapis, a zegar odpowiada tej klatce.
+Interakcje są aktywne dopiero po dojściu do T. Wynik obserwuje dowody kanoniczne i krótki ogon;
+nie wpływa na RNG ani wynik akcji. Replay jest osobnym stanem z własnym widocznym buforem.
+
 ## Roadmap
 
-Ukończono PR141 (interfejs, barwy, kosmetyczna kamera, hitboxy, transformacja celowania).
-Następny jest **PR142 — Match Animation & 3D Presentation v1**. Kamera gry przechowuje offset
-wokół bieżącego pivotu, a celowanie korzysta z promienia i wspólnego `goalCoordinates`;
-PR142 musi zachować tę granicę projekcji. Następnie: stamina/fatigue, zmiany, faule/kartki,
-ocena meczu, dalsza kalibracja futbolu i integracja kariery. Nie uznawać kalibracji za zakończoną.
+PR141–PR143 ukończone. NEXT: **PR144 — Shooting & Final-Third Action Variety**. PR145 obejmuje
+geometrię podań na dobieg, cele autów, trajektorie górą, statystyki, własność przechwytów oraz
+kalibrację sprawczości/scoringu/keeper. PR146 jest późniejszą optymalizacją jednego silnika
+(docelowo ukryte 90 min w około <=5 min na zwykłym komputerze). Przepisy, pogoda i ceremonia
+pozostają późniejszymi systemami; nie uznawać kalibracji za zakończoną.

@@ -1,6 +1,62 @@
 # My Football Legend — Current Project State
 
-## PR142 — current Single Match Lab state
+## PR143 — current Single Match Lab state
+
+Ukończono **Interactive Moment Context & Presentation Windows**. `matchSimulation` pozostaje
+jedynym autorytetem futbolu. `projectPlayerAgency` decyduje o znaczącej, legalnej okazji człowieka;
+`MatchMoment` / polityka wybierają otaczający materiał do oglądania. Żaden próg prezentacji nie
+deleguje okazji gracza. Usunięto `presentation_policy_proxy`; jawne DEV AI używa wspólnego rankingu
+i kategorii `dev_ai_selected`. Przy jednej rzeczywistej opcji nie ma blokującego promptu.
+Enumeracja uwzględnia różne legalne adresaty/miejsca w tej samej rodzinie intencji oraz faktyczne
+opcje menu defensywnego; samotny doskok jest autonomiczny, normalny/ostry odbiór pozostają wyborem.
+
+Faza prezentacji jest jednym enumem: `background_simulation` → `lead_in` →
+`awaiting_player_decision` → `post_moment` → tło lub `full_match`. Nieinteraktywne momenty
+używają `presenting_live_moment`; jawny `replay` zachowuje fazę powrotu. Podczas lead-inu
+kanoniczny stan stoi w T, a zapisane klatki i wyświetlany zegar przechodzą od T−N do T.
+Nie odtwarzamy ticków/akcji ani RNG, a cele i kontrolki pochodzą wyłącznie z aktualnego stanu w T.
+Kamera Action/Player/Overview i kosmetyczne offsety pozostają architekturą PR141/142.
+
+`PresentationContextHistory` próbuje ticki przy 10 Hz, trzyma 6 s / maks. 62 lekkie klatki oraz
+jedną poprzednią obserwację. Kopiuje pozycje, prędkości, facing, piłkę i lekkie wskazówki kontaktu;
+nie uruchamia Three.js, pozowania, WebGL ani integracji animacji w tle. Interpolacja PR142 działa
+na sąsiednich próbkach <=150 ms, z granicami kontaktu/posiadania/wznowienia. Lead-in 2,5/3/4 s
+zależy od kontekstu; rzeczywista dostępność jest osobno raportowana. Jawny replay nadal pochodzi
+z widocznego bufora 40 Hz i nie zawiera kontekstu tła. Ball owner ma mały turkusowy pierścień,
+piłka dyskretny obrys; żółta kontrola, jasne cele i zaznaczenie pozostają odrębne.
+
+Okno konsekwencji obserwuje wynik decyzji, kontakt, przyjęcie/przechwyt, zmianę posiadania lub aut.
+Po wyniku zachowuje ogon 2,5 s, groźna akcja 4 s, gol 5 s. Bliskie groźne akcje mogą się łączyć;
+nowa znacząca decyzja ma pierwszeństwo. Limit bezpieczeństwa wynosi 25 s na wynik i 35 s dla
+nieinteraktywnego epizodu. Te stałe są centralne w `presentationWindows.ts`, nie sterują futbolem.
+
+Eksport benchmark-session zawiera niezależne od polityki liczniki kandydatów sprawczości,
+decyzji człowieka, rutyny/jednej opcji, rodzajów i decyzji na kanoniczne 45/90 minut; także
+diagnozy własności, ukrytego materiału, lead-inów, zakończeń/łączenia okien i metryki bufora.
+Nie narzucono docelowej liczby decyzji. Regresje obejmują wszystkie pięć polityk z identycznymi
+wyborami, pełną zgodność stanu, kontekst ukryty, czas aktywacji, wynik, groźną kontynuację,
+jedną opcję, niemutowanie klatek i ograniczoną pamięć.
+
+Pomiar `npm run benchmark:context`: Node 24.19.0, seed `pr143-buffer-cost`, pięć kanonicznych
+minut, rozgrzewka obu ścieżek i sześć naprzemiennych prób. Bez bufora średnio 1784,23 ms,
+z buforem 1776,19 ms (−0,45%, szum pomiarowy, nie przyspieszenie). Praca próbkująca 22–25 ms;
+61 próbek / 3000 zapisów, ~394 kB serializacji JSON historii (nie pomiar heap). Hash całego stanu
+kanonicznego identyczny we wszystkich próbach. Nie jest to benchmark pełnej sesji React/DEV ani
+obietnica czasu 90-minutowego meczu; większa optymalizacja pozostaje PR146.
+
+Weryfikacja: `npm run verify` — lint, 105 plików / 588 testów main, 1 plik / 5 testów full-career,
+build. Ostrzeżenia Vite dotyczą istniejącego dynamic/static import i rozmiaru chunku.
+Wizualny smoke test pozostaje nieweryfikowany: narzędzie przeglądarki nie związało lokalnej karty.
+
+NEXT: **PR144 — Shooting & Final-Third Action Variety**, potem **PR145 — Match Behaviour &
+Calibration Pass** (geometria podań na dobieg/through-ball, cele autów, lot podań górą, statystyki
+touches/podań, własność przechwytów, liczba momentów/sprawczości, strzelanie/scoring/keeper).
+**PR146 — Background Simulation Performance**: późniejszy cel <=5 minut czasu rzeczywistego dla
+ukrytych 90 minut na zwykłym komputerze, z jednym kanonicznym silnikiem. Przepisy/faule/kartki,
+pogoda/warianty piłki, ceremonia, szersze asysty, AI first-time, shooting/chip/loft calibration oraz
+pełne release/mobile UI nie są wdrożone w PR143.
+
+## PR142 — previous Single Match Lab state
 
 Ukończono **Match Animation & 3D Presentation v1**. Kanoniczne mechaniki i testy futbolu nie
 zostały zmienione. `PresentationFrameProjector` obserwuje widoczne ticki oraz akcje człowieka:

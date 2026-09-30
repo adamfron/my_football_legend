@@ -45,6 +45,7 @@ export class TacticalPitchRenderer {
   private readonly otherHandPosition = new THREE.Vector3();
   private readonly playerMeshes = new Map<string, THREE.Group>();
   private readonly playerPickers = new Map<string, THREE.Mesh>();
+  private readonly possessionMarkers = new Map<string, THREE.Mesh>();
   private readonly actionMarkers = new Map<string, THREE.Mesh>();
   private readonly targetMarkers = new Map<string, THREE.Mesh>();
   private readonly anchorMarkers = new Map<string, THREE.Mesh>();
@@ -118,6 +119,11 @@ export class TacticalPitchRenderer {
       new THREE.SphereGeometry(BALL_RADIUS, 12, 8),
       new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65 }),
     );
+    const outline = new THREE.Mesh(
+      new THREE.SphereGeometry(BALL_RADIUS * 1.18, 12, 8),
+      new THREE.MeshBasicMaterial({ color: 0x17212a, side: THREE.BackSide }),
+    );
+    this.ball.add(outline);
     this.ball.userData.ball = true;
     this.scene.add(this.ball);
     this.ballPicker = new THREE.Mesh(
@@ -362,6 +368,21 @@ export class TacticalPitchRenderer {
     action.visible = false;
     group.add(action);
     this.actionMarkers.set(id, action);
+    const possession = new THREE.Mesh(
+      new THREE.RingGeometry(0.72, 0.86, 24),
+      new THREE.MeshBasicMaterial({
+        color: 0x42b5c5,
+        transparent: true,
+        opacity: 0.75,
+        side: THREE.DoubleSide,
+        depthTest: false,
+      }),
+    );
+    possession.rotation.x = -Math.PI / 2;
+    possession.position.y = 0.06;
+    possession.visible = false;
+    group.add(possession);
+    this.possessionMarkers.set(id, possession);
     if (protagonist) {
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(1.35, 1.65, 20),
@@ -437,6 +458,8 @@ export class TacticalPitchRenderer {
       mesh?.position.set(world.x, 0, world.z);
       if (mesh && player.facing !== undefined) mesh.rotation.y = player.facing;
       this.playerModels.get(player.id)?.update(player, frame.timestampMs);
+      const possessionMarker = this.possessionMarkers.get(player.id);
+      if (possessionMarker) possessionMarker.visible = frame.ball.ownerId === player.id;
       const actionMarker = this.actionMarkers.get(player.id);
       if (actionMarker) {
         actionMarker.visible = Boolean(frame.actionableTargets?.includes(player.id));
