@@ -1,4 +1,8 @@
 import { z } from 'zod';
+import {
+  goalIntentToPitch,
+  pitchToGoalIntent,
+} from '../../../core/matchSimulation/goalCoordinates';
 
 export const PITCH_LENGTH = 105;
 export const PITCH_WIDTH = 68;
@@ -58,6 +62,7 @@ export const tacticalFrameSchema = z.object({
   timestampMs: z.number().nonnegative(),
   actionableTargets: z.array(z.string()).optional(),
   selectedTarget: z.string().optional(),
+  selectedPoint: tacticalPointSchema.optional(),
   interceptionTarget: tacticalPointSchema.optional(),
   carryTarget: tacticalPointSchema.optional(),
   carryMode: z.enum(['burst', 'controlled', 'tight_dribble', 'evade', 'shield']).optional(),
@@ -101,7 +106,10 @@ export const selectScreenSpacePlayerCandidate = (
       ...candidate,
       screenDistance: Math.hypot(candidate.x - pointer.x, candidate.y - pointer.y),
     }))
-    .filter((candidate) => candidate.screenDistance <= radius)
+    .filter(
+      (candidate) =>
+        candidate.depth >= -1 && candidate.depth <= 1 && candidate.screenDistance <= radius,
+    )
     .sort(
       (a, b) =>
         Number(b.actionable) - Number(a.actionable) ||
@@ -148,26 +156,18 @@ export const shotAimIntentSchema = z.object({
 });
 export type ShotAimIntent = z.infer<typeof shotAimIntentSchema>;
 
-/** Converts shooter-relative visual aim to world goal coordinates for both attacking ends. */
-export const shotAimIntentToGoalPoint = (team: 'home' | 'away', intent: ShotAimIntent) => ({
-  x: team === 'home' ? 105 : 0,
-  y: 34 - intent.horizontal * 3.66 * (team === 'home' ? 1 : -1),
-  height: intent.vertical * 2.44,
-});
-
-/** Maps a large presentation plane to canonical intent without consulting simulation or RNG. */
-export const mapGoalPlanePointerToIntent = (
-  clientX: number,
-  clientY: number,
-  rect: Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>,
-): ShotAimIntent =>
-  shotAimIntentSchema.parse({
-    horizontal: Math.max(
-      -1,
-      Math.min(1, ((clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1),
-    ),
-    vertical: Math.max(0, Math.min(1, 1 - (clientY - rect.top) / Math.max(1, rect.height))),
+/** Shared canonical goal basis; screen direction is determined by ray projection. */
+export const shotAimIntentToGoalPoint = goalIntentToPitch;
+export const goalWorldPointToIntent = (
+  team: 'home' | 'away',
+  point: { z: number; y: number },
+): ShotAimIntent => {
+  const intent = pitchToGoalIntent(team, { y: point.z + PITCH_WIDTH / 2, height: point.y });
+  return shotAimIntentSchema.parse({
+    horizontal: Math.max(-1, Math.min(1, intent.horizontal)),
+    vertical: Math.max(0, Math.min(1, intent.vertical)),
   });
+};
 
 export const updateTacticalCameraPose = (
   preferences: MatchCameraPreferences,

@@ -1,6 +1,29 @@
 # My Football Legend — Current Project State
 
-## PR140 — current Single Match Lab state
+## PR141 — current Single Match Lab state
+
+Single Match Lab ma zwarty interfejs w stylu Windows 95–98: wynik, zegar, odtwarzanie i czułość
+nad boiskiem, status/decyzja obok, pełna diagnostyka i eksport JSON/WebM w zwijanych panelach.
+Kontrolki współdzielą styl CareerView. Barwy strojów pochodzą z kanonicznego visualIdentity
+przez resolveClubVisualIdentity; strój alternatywny i bramkarze mają deterministyczny fallback
+kontrastu bez modyfikacji danych klubu. Wzory strojów i animacje pozostają zakresem PR142.
+
+Kółko płynnie zmienia ograniczony zoom, środkowy przycisk obraca wokół aktualnego pivotu,
+Shift + środkowy przesuwa pivot, a Resetuj widok przywraca orientację i zoom aktywnego presetu.
+Overview, Action i Player mają odrębne kadrowanie ortograficzne. Offsety i zegar animacji zoomu
+należą wyłącznie do renderera. Capture/cancel gestu odcina wybór futbolowy. W celowaniu i powtórce
+kamera ma dedykowane kadrowanie. Touch ma przygotowane wspólne operacje, bez adaptera gestów.
+
+Cel strzału przechodzi screen → promień kamery → płaszczyzna fizycznej bramki → kanoniczna
+baza kierunku ataku. Marker, cel akcji i resolver współdzielą goalCoordinates; usunięto rozbieżne
+znaki osi bez zmiany błędu wykonania, RNG ani kalibracji strzału. Testy obejmują oba kierunki
+ataku i kamery przed/za bramką oraz pod kątem. Jedynym autorytetem pozostaje matchSimulation.
+
+Weryfikacja: npm run verify przechodzi (lint, pełne testy oraz build). Następny etap:
+**PR142 — Match Animation & 3D Presentation v1**. Znane problemy przepływu, przechwytów,
+statystyk posiadania oraz czułości momentów pozostają otwarte, zgodnie z audytem PR140.
+
+## PR140 — previous Single Match Lab state
 
 Fizyka i kontakty nadal działają ze stałym krokiem 0,025 s. Kanoniczny scheduler przelicza drogie
 cele taktyczne co 0,1 s, lecz natychmiast unieważnia plan po zmianie posiadania, epizodu/lotu piłki,

@@ -59,6 +59,7 @@ import {
 import { loadWorldDatabase } from '../../core/worldDatabase';
 import { positionCode } from '../../core/positionPresentation';
 import type { WorldDatabase } from '../../types/domain';
+import { projectMatchKits } from './tacticalRenderer/kits';
 import { TacticalPitchRenderer } from './tacticalRenderer/TacticalPitchRenderer';
 import {
   accrueSimulationDebt,
@@ -72,6 +73,7 @@ import {
   matchCameraPreferencesSchema,
   type MatchCameraPreferences,
   type ShotAimIntent,
+  shotAimIntentToGoalPoint,
 } from './tacticalRenderer/model';
 import { buildStartMenuUrl } from '../devTools';
 import {
@@ -152,7 +154,7 @@ export const TacticalMatchSandbox = () => {
       <main className="tactical-sandbox">
         <header>
           <div>
-            <span className="dev-badge">DEV · PR89</span>
+            <span className="dev-badge">SINGLE MATCH LAB · USTAWIENIA</span>
             <h1>Single Match Lab</h1>
           </div>
         </header>
@@ -393,6 +395,7 @@ const RunningLab = ({
   onRandomize(): void;
   diagnostics: MatchLabDiagnosticsController;
 }) => {
+  const kits = useMemo(() => projectMatchKits(session.home.club, session.away.club), [session]);
   const [state, setState] = useState<TacticalMatchState>(() => diagnostics.latestState),
     [playing, setPlaying] = useState(true),
     [speed, setSpeed] = useState(1),
@@ -507,6 +510,8 @@ const RunningLab = ({
           videoRecorderRef.current.trigger(stateRef.current.time);
         }
       },
+      kits,
+      setCameraPreferences,
     );
     const videoRecorder = videoRecorderRef.current;
     rendererRef.current = renderer;
@@ -516,7 +521,7 @@ const RunningLab = ({
       renderer.dispose();
       videoRecorder.dispose();
     };
-  }, [session, diagnostics]);
+  }, [session, diagnostics, kits]);
   useEffect(() => {
     let timer = 0;
     runtimeClockRef.current = opportunity
@@ -816,6 +821,9 @@ const RunningLab = ({
           }
         : {}),
       ...(selectedTarget?.kind === 'player' ? { selectedTarget: selectedTarget.playerId } : {}),
+      ...(selectedTarget?.kind === 'space' || selectedTarget?.kind === 'ball'
+        ? { selectedPoint: selectedTarget.point }
+        : {}),
       ...(state.ballCarrierIntent?.humanSelected &&
       state.ballCarrierIntent.actorId === state.controlledFootballerId
         ? { carryTarget: state.ballCarrierIntent.target }
@@ -1015,17 +1023,20 @@ const RunningLab = ({
     <main className="tactical-sandbox">
       <header>
         <div>
-          <span className="dev-badge">DEV · AUTONOMICZNA SYMULACJA</span>
+          <span className="dev-badge">SINGLE MATCH LAB · MECZ</span>
           <h1>
+            <i className="team-swatch" style={{ background: kits.home.primary }} />
             {session.home.club.name}{' '}
             <b>
               {state.score.home}–{state.score.away}
             </b>{' '}
             {session.away.club.name}
+            <i className="team-swatch" style={{ background: kits.away.primary }} />
           </h1>
         </div>
         <p>
-          {formatMatchTime(state.time)} · seed: <code>{state.seed}</code>
+          {formatMatchTime(displayTime)} ·{' '}
+          {replaying ? 'Powtórka' : opportunity ? 'Twój wybór' : playing ? 'Mecz trwa' : 'Pauza'}
         </p>
       </header>
       <nav>
@@ -1092,7 +1103,11 @@ const RunningLab = ({
           Powrót do menu
         </button>
       </nav>
-      <nav className="camera-controls" aria-label="Ustawienia kamery">
+      <nav
+        className="camera-controls"
+        aria-label="Ustawienia kamery"
+        aria-disabled={shotAimActive || replaying}
+      >
         <span>Kamera:</span>
         {(
           [
@@ -1102,6 +1117,7 @@ const RunningLab = ({
           ] as const
         ).map(([preset, label]) => (
           <button
+            disabled={shotAimActive || replaying}
             className={cameraPreferences.preset === preset ? 'active' : ''}
             key={preset}
             onClick={() => setCameraPreferences((current) => ({ ...current, preset }))}
@@ -1112,6 +1128,7 @@ const RunningLab = ({
         <label>
           Zoom{' '}
           <input
+            disabled={shotAimActive || replaying}
             aria-label="Zoom kamery"
             type="range"
             min="0"
@@ -1123,162 +1140,28 @@ const RunningLab = ({
             }
           />
         </label>
-      </nav>
-      <nav className="debug-capture" aria-label="Eksport diagnostyczny">
         <button
-          onClick={() => {
-            const summary = {
-              metadata: { schema: 'mfl-session-benchmark-v2', seed: state.seed },
-              duration: state.time,
-              segments: diagnostics.exportSegments(
-                state,
-                telemetryRef.current,
-                positioningSamplesRef.current,
-              ),
-              controlledPlayer: state.controlledFootballerId,
-              matchFlowTelemetry: telemetryRef.current,
-              decisionTelemetry: telemetryRef.current.controlled,
-              passingNetwork: telemetryRef.current.passingNetwork,
-              sampledPositioning: positioningSamplesRef.current,
-              runtimeDiagnostics: diagnostics.runtimeDiagnostics,
-              rendererLifecycle: diagnostics.rendererLifecycle,
-              presentationRuntime: presentationTelemetryRef.current,
-              backgroundPerformance: backgroundPerformanceRef.current.snapshot(
-                presentationTelemetryRef.current.rendererCallsBackground,
-              ),
-              presentationDecisions: presentationDecisionsRef.current,
-            };
-            downloadBlob(
-              new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
-              `${state.seed}-benchmark-sesji.json`,
-            );
-          }}
+          disabled={shotAimActive || replaying}
+          onClick={() => rendererRef.current?.resetView()}
         >
-          Eksportuj benchmark sesji
+          Resetuj widok
         </button>
-        <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
-          Przechwyć debug ±10 s
-        </button>
-        <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={savePastOnly}>
-          Zapisz ostatnie 10 s
-        </button>
-        <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
-        {captureStatus === 'idle' && (
-          <span>
-            {videoRecorderRef.current.active
-              ? `Gotowy — bufor: ${videoRecorderRef.current.bufferedSeconds.toFixed(1)} s`
-              : 'Wideo niedostępne — zapis będzie zawierał JSON'}
-          </span>
-        )}
-        {captureStatus === 'capturing' && (
-          <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
-        )}
-        {(captureStatus === 'processing' ||
-          captureStatus === 'ready' ||
-          captureStatus === 'saved' ||
-          captureStatus === 'error') && (
-          <>
-            <strong>
-              {describeDebugCapture(
-                captureStatus,
-                Boolean(debugExport),
-                Boolean(debugExport?.video),
-                captureError,
-              )}
-            </strong>
-            {debugExport && captureStatus !== 'processing' && (
-              <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
-            )}
-            {saveMessage && <span>{saveMessage}</span>}
-          </>
-        )}
+        <small>
+          {shotAimActive
+            ? 'Celowanie: lewy przycisk wskazuje punkt w bramce'
+            : replaying
+              ? 'Kamera powtórki'
+              : 'Kółko: zoom · Środkowy: obrót · Shift + środkowy: przesunięcie'}
+        </small>
       </nav>
-      <nav className="scenario-picker" aria-label="Scenariusz developerski">
-        <strong>Sytuacja:</strong>
-        {scenarios.map(([scenario, label]) => (
-          <button
-            key={scenario}
-            className={state.scenario === scenario ? 'active' : ''}
-            onClick={() => {
-              setPlaying(false);
-              clearDebugBuffer();
-              setState(() => {
-                const next = applyRestartScenario(
-                  createTacticalMatch(session),
-                  scenario,
-                  scenario === 'throw_in'
-                    ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
-                    : undefined,
-                );
-                const segmentId = diagnostics.beginSegment(
-                  next,
-                  telemetryRef.current,
-                  positioningSamplesRef.current,
-                );
-                telemetryRef.current = createMatchFlowTelemetry(segmentId);
-                positioningSamplesRef.current = [sampleCanonicalPositioning(next)];
-                diagnostics.telemetry = telemetryRef.current;
-                diagnostics.positioningSamples = positioningSamplesRef.current;
-                debugRecorderRef.current.record(next);
-                debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', { scenario });
-                return next;
-              });
-            }}
-          >
-            {label}
-          </button>
-        ))}
-      </nav>
-      <p className="runtime-status">
-        Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
-        <strong>{presentationPolicyId}</strong> · Renderer:{' '}
-        <strong>
-          {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'
-            ? 'suppressed'
-            : diagnostics.rendererLifecycle}
-        </strong>{' '}
-        · Kanoniczny: <strong>{formatMatchTime(state.time)}</strong> · Wyświetlany:{' '}
-        <strong>{formatMatchTime(displayTime)}</strong> · Runtime:{' '}
-        <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
-      </p>
-      <details className="presentation-diagnostics" open>
-        <summary>DEV · Wydajność symulacji w tle</summary>
-        <p>
-          Kanoniczny: {formatMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} · Realnie:{' '}
-          {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s · Przepustowość:{' '}
-          {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}× · Rolling:{' '}
-          {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch p50/p95/p99:{' '}
-          {backgroundPerformance.p50BatchMs.toFixed(1)}/
-          {backgroundPerformance.p95BatchMs.toFixed(1)}/
-          {backgroundPerformance.p99BatchMs.toFixed(1)} ms · Ticki/s:{' '}
-          {backgroundPerformance.ticksPerRealSecond.toFixed(0)} · Renderer tła:{' '}
-          {backgroundPerformance.rendererCallsBackground}
-        </p>
-      </details>
-      <details className="presentation-diagnostics">
-        <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
-        {presentationDecisionsRef.current.length ? (
-          presentationDecisionsRef.current
-            .slice(-8)
-            .reverse()
-            .map((item, index) => (
-              <p key={`${item.at}:${item.opportunityKind}:${index}`}>
-                {formatMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
-                {item.importance.toFixed(2)} · {item.policyId} / próg {item.threshold.toFixed(2)} →{' '}
-                <strong>{item.result}</strong> ({item.reason})
-              </p>
-            ))
-        ) : (
-          <p>Brak decyzji prezentacyjnych w tej sesji.</p>
-        )}
-      </details>
       <section className="sandbox-grid">
         <div
           className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}
           onClick={(event) => {
             if (!presentationPolicy.fullMatch && presentationPhase === 'background_simulation')
               return;
-            if (!opportunity || shotAim) return;
+            if (event.button !== 0 || rendererRef.current?.consumeCameraClick()) return;
+            if (!opportunity || shotAim || replaying) return;
             const opportunityActor = state.players.find(
               (player) => player.id === opportunity.actorId,
             );
@@ -1326,8 +1209,20 @@ const RunningLab = ({
             }
             setSelectedTarget(target);
             setMenuPosition({
-              x: event.clientX - event.currentTarget.getBoundingClientRect().left,
-              y: event.clientY - event.currentTarget.getBoundingClientRect().top,
+              x: Math.max(
+                0,
+                Math.min(
+                  event.currentTarget.clientWidth - 220,
+                  event.clientX - event.currentTarget.getBoundingClientRect().left,
+                ),
+              ),
+              y: Math.max(
+                0,
+                Math.min(
+                  event.currentTarget.clientHeight - 260,
+                  event.clientY - event.currentTarget.getBoundingClientRect().top,
+                ),
+              ),
             });
             uiEvent('interaction_target_selected', { target });
             if (projected.length)
@@ -1354,7 +1249,7 @@ const RunningLab = ({
               {!playing && <p>Wstrzymano</p>}
             </section>
           )}
-          {shotAim && opportunity && selectedTarget?.kind === 'goal' && (
+          {shotAim && opportunity && !replaying && selectedTarget?.kind === 'goal' && (
             <section
               className="shot-aim"
               aria-label="Celowanie strzału"
@@ -1364,6 +1259,7 @@ const RunningLab = ({
                 className="shot-aim__surface"
                 aria-label="Kliknij podświetloną bramkę, aby wskazać intencję strzału"
                 onPointerDown={(event) => {
+                  if (event.button !== 0) return;
                   event.currentTarget.setPointerCapture(event.pointerId);
                   const intent = rendererRef.current?.pickGoalAim(event.clientX, event.clientY);
                   if (intent) setShotAim(intent);
@@ -1391,7 +1287,13 @@ const RunningLab = ({
                   .map((item) => {
                     if (item.resolution.kind !== 'action' || item.resolution.action.type !== 'shot')
                       return null;
-                    const action = { ...item.resolution.action, goalTarget: shotAim };
+                    if (!shotAimTeam) return null;
+                    const point = shotAimIntentToGoalPoint(shotAimTeam, shotAim);
+                    const action = {
+                      ...item.resolution.action,
+                      target: { x: point.x, y: point.y },
+                      goalTarget: shotAim,
+                    };
                     return (
                       <button
                         key={item.id}
@@ -1422,10 +1324,10 @@ const RunningLab = ({
               </div>
             </section>
           )}
-          {opportunity && (
+          {opportunity && !replaying && (
             <div className="interaction-hint">Wybierz piłkę, piłkarza, przestrzeń lub bramkę</div>
           )}
-          {opportunity && menuPosition && interactions.length > 0 && (
+          {opportunity && !replaying && menuPosition && interactions.length > 0 && (
             <section
               className="context-menu"
               style={{ left: menuPosition.x, top: menuPosition.y }}
@@ -1454,10 +1356,39 @@ const RunningLab = ({
           )}
         </div>
         <aside className="decision-board">
-          <small>STAN KANONICZNY</small>
+          <div className="match-status-title">
+            {replaying ? 'POWTÓRKA' : opportunity ? 'TWOJA DECYZJA' : 'GRA AUTONOMICZNA'}
+          </div>
+          <p
+            className={opportunity ? 'decision-status decision-status--active' : 'decision-status'}
+          >
+            {replaying
+              ? 'Oglądasz zapisany fragment meczu.'
+              : session.setup.control.mode === 'spectator'
+                ? 'Obserwujesz mecz. Wszystkie decyzje wykonuje symulacja.'
+                : opportunity
+                  ? 'Mecz czeka na Twój wybór. Wskaż cel na boisku, następnie wybierz dostępne zagranie.'
+                  : 'Piłkarze wykonują decyzje symulacji. Kolejny wybór pojawi się w odpowiednim kontekście.'}
+          </p>
+          <p>
+            <strong>
+              {owner?.profile.firstName} {owner?.profile.lastName}
+            </strong>
+            <br />
+            Presja: {Math.round(state.currentPressure * 100)}% ·{' '}
+            {state.restart ? 'Wznowienie gry' : 'Gra otwarta'}
+          </p>
           {controlledSummary && (
             <p>
-              <strong>Twój występ</strong>
+              <strong>
+                Twój występ ·{' '}
+                {
+                  state.players.find((player) => player.id === state.controlledFootballerId)
+                    ?.profile.lastName
+                }
+              </strong>
+              <br />
+              Żółty pierścień: Twój piłkarz · jasny: dostępny cel
               <br />
               Minuty {controlledSummary.minutesPlayed.toFixed(0)} · Posiadania{' '}
               {controlledSummary.touches}
@@ -1478,135 +1409,297 @@ const RunningLab = ({
               <button onClick={() => rendererRef.current?.recover()}>Odtwórz renderer</button>
             </strong>
           )}
-          {opportunity && opportunity.kind === 'on_ball' && (
-            <button
-              className="dev-ai-choice"
-              onClick={() => closeOpportunity(letAiDecide(state, opportunity), 'ai', 'npc_choice')}
-            >
-              DEV: wykonaj wybór AI
-            </button>
-          )}
           <h2>
             {state.possessionTeam === 'home' ? session.home.club.name : session.away.club.name} przy
             piłce
           </h2>
-          <p>
-            Czas kanoniczny: {formatMatchTime(state.time)}
-            <br />
-            Stały tick: {FIXED_MATCH_DT.toFixed(3)} s · tempo: {speed}×
-            <br />
-            Prędkość piłki:{' '}
-            {Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0).toFixed(1)} m/s ·
-            wysokość {(state.ball.height ?? 0).toFixed(1)} m
-            <br />
-            Bufor powtórki: {replayBufferRef.current.length} kl. /{' '}
-            {(
-              ((replayBufferRef.current.at(-1)?.timestampMs ?? 0) -
-                (replayBufferRef.current[0]?.timestampMs ?? 0)) /
-              1000
-            ).toFixed(1)}{' '}
-            s
-            <br />
-            Prędkość aktora: {Math.hypot(actor?.velocity.x ?? 0, actor?.velocity.y ?? 0).toFixed(
-              1,
-            )}{' '}
-            m/s Fazy: {state.teams.home.phase} / {state.teams.away.phase}
-            <br />
-            Formacje: {state.teams.home.formation} / {state.teams.away.formation}
-            <br />
-            Style: {state.teams.home.style} / {state.teams.away.style}
-            <br />
-            Wznowienie: {state.restart?.phase ?? 'gra otwarta'}
-            <br />
-            Właściciel: {owner?.profile.firstName} {owner?.profile.lastName}
-            <br />
-            Aktor: {actor?.profile.firstName} {actor?.profile.lastName}
-            <br />
-            Akcja: {state.latestAction?.type ?? '—'}
-            <br />
-            Ostatnia decyzja:{' '}
-            {state.lastPlayerDecisionOutcome?.selectedIntent ??
-              state.pendingPlayerDecision?.selectedIntent ??
-              '—'}
-            {' · '}
-            {state.lastPlayerDecisionOutcome?.result?.kind ??
-              (state.pendingPlayerDecision ? 'w toku' : '—')}
-            <br />
-            Piłka:{' '}
-            {state.ball.ownerId ? 'w posiadaniu' : state.ball.travelKind ? 'w ruchu' : 'bezpańska'}
-            <br />
-            Presja: {Math.round(state.currentPressure * 100)}%
-            <br />
-            Sytuacja: {situation.kind} · ważność {situation.importance.toFixed(2)} · decyzja{' '}
-            {situation.decisionWorthiness.toFixed(2)}
-            <br />
-            Powody: {situation.reasons.join(', ')} · aktor: {situation.actorId ?? '—'}
-            <br />
-            Kontekst: bramka {situation.context.goalDistance?.toFixed(1) ?? '—'} m · presja{' '}
-            {situation.context.pressure !== undefined
-              ? `${Math.round(situation.context.pressure * 100)}%`
-              : '—'}
-            <br />
-            Ostatni strzał: {state.lastShotResult ?? '—'}
-            <br />
-            Ostatni kontakt: {state.lastBallContact?.kind ?? '—'}
-            {state.lastBallContact &&
-              ` · (${state.lastBallContact.point.x.toFixed(2)}, ${state.lastBallContact.point.y.toFixed(2)}, ${state.lastBallContact.point.z.toFixed(2)}) · ${state.lastBallContact.preContactSpeed.toFixed(1)}→${state.lastBallContact.postContactSpeed.toFixed(1)} m/s`}
-            <br />
-            {state.lastShot && (
-              <>
-                Strzał DEV: cel {state.lastShot.intendedTarget.horizontal.toFixed(2)}/
-                {state.lastShot.intendedTarget.vertical.toFixed(2)} →{' '}
-                {state.lastShot.actualTarget.horizontal.toFixed(2)}/
-                {state.lastShot.actualTarget.vertical.toFixed(2)} ·{' '}
-                {state.lastShot.speed.toFixed(1)} m/s · {state.lastShot.classification} ·{' '}
-                {state.lastShot.goalkeeperAction ?? 'bez interwencji'}
-                {state.lastShot.reboundSource ? ` · odbicie: ${state.lastShot.reboundSource}` : ''}
-                <br />
-              </>
+          <details className="player-diagnostics">
+            <summary>DEV · Stan i geometria</summary>
+            {opportunity && opportunity.kind === 'on_ball' && (
+              <button
+                className="dev-ai-choice"
+                onClick={() =>
+                  closeOpportunity(letAiDecide(state, opportunity), 'ai', 'npc_choice')
+                }
+              >
+                DEV: wykonaj wybór AI
+              </button>
             )}
-            Seed: <code>{state.seed}</code>
-          </p>
-          <label>
-            <input
-              type="checkbox"
-              checked={debug}
-              onChange={(e) => {
-                uiEvent('debug_markers_changed', { enabled: e.target.checked });
-                setDebug(e.target.checked);
-              }}
-            />{' '}
-            Kotwice i cele
-          </label>
-          <details>
-            <summary>Benchmark pozycyjny (DEV)</summary>
-            {shapeMetrics.map(([side, metric]) => (
-              <div key={side}>
-                <strong>{side === 'home' ? 'Gospodarze' : 'Goście'}</strong>: środek{' '}
-                {metric.centroid.x.toFixed(1)}, {metric.centroid.y.toFixed(1)} · długość{' '}
-                {metric.length.toFixed(1)} m · szerokość {metric.width.toFixed(1)} m · rozciągnięcie{' '}
-                {metric.stretchIndex.toFixed(1)} m · pole {metric.convexHullArea.toFixed(0)} m² ·
-                przed/za piłką {metric.playersAheadOfBall}/{metric.playersBehindBall} · linie
-                DEF–MID {metric.lines.defenceToMidfield.toFixed(1)} m, MID–ATT{' '}
-                {metric.lines.midfieldToAttack.toFixed(1)} m · zabezpieczenie{' '}
-                {metric.restDefenceCount} · pasy{' '}
-                {Object.values(metric.lanes)
-                  .slice(0, 5)
-                  .map((value) => (value ? '✓' : '—'))
-                  .join(' ')}
-              </div>
-            ))}
-          </details>
-          <details>
-            <summary>Średnie pozycje (DEV)</summary>
-            {state.players.map((p) => (
-              <div key={p.id}>
-                {p.profile.lastName}: {p.meanPosition.x.toFixed(1)}, {p.meanPosition.y.toFixed(1)}
-              </div>
-            ))}
+            <p>
+              Czas kanoniczny: {formatMatchTime(state.time)}
+              <br />
+              Stały tick: {FIXED_MATCH_DT.toFixed(3)} s · tempo: {speed}×
+              <br />
+              Prędkość piłki:{' '}
+              {Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0).toFixed(1)} m/s
+              · wysokość {(state.ball.height ?? 0).toFixed(1)} m
+              <br />
+              Bufor powtórki: {replayBufferRef.current.length} kl. /{' '}
+              {(
+                ((replayBufferRef.current.at(-1)?.timestampMs ?? 0) -
+                  (replayBufferRef.current[0]?.timestampMs ?? 0)) /
+                1000
+              ).toFixed(1)}{' '}
+              s
+              <br />
+              Prędkość aktora:{' '}
+              {Math.hypot(actor?.velocity.x ?? 0, actor?.velocity.y ?? 0).toFixed(1)} m/s Fazy:{' '}
+              {state.teams.home.phase} / {state.teams.away.phase}
+              <br />
+              Formacje: {state.teams.home.formation} / {state.teams.away.formation}
+              <br />
+              Style: {state.teams.home.style} / {state.teams.away.style}
+              <br />
+              Wznowienie: {state.restart?.phase ?? 'gra otwarta'}
+              <br />
+              Właściciel: {owner?.profile.firstName} {owner?.profile.lastName}
+              <br />
+              Aktor: {actor?.profile.firstName} {actor?.profile.lastName}
+              <br />
+              Akcja: {state.latestAction?.type ?? '—'}
+              <br />
+              Ostatnia decyzja:{' '}
+              {state.lastPlayerDecisionOutcome?.selectedIntent ??
+                state.pendingPlayerDecision?.selectedIntent ??
+                '—'}
+              {' · '}
+              {state.lastPlayerDecisionOutcome?.result?.kind ??
+                (state.pendingPlayerDecision ? 'w toku' : '—')}
+              <br />
+              Piłka:{' '}
+              {state.ball.ownerId
+                ? 'w posiadaniu'
+                : state.ball.travelKind
+                  ? 'w ruchu'
+                  : 'bezpańska'}
+              <br />
+              Presja: {Math.round(state.currentPressure * 100)}%
+              <br />
+              Sytuacja: {situation.kind} · ważność {situation.importance.toFixed(2)} · decyzja{' '}
+              {situation.decisionWorthiness.toFixed(2)}
+              <br />
+              Powody: {situation.reasons.join(', ')} · aktor: {situation.actorId ?? '—'}
+              <br />
+              Kontekst: bramka {situation.context.goalDistance?.toFixed(1) ?? '—'} m · presja{' '}
+              {situation.context.pressure !== undefined
+                ? `${Math.round(situation.context.pressure * 100)}%`
+                : '—'}
+              <br />
+              Ostatni strzał: {state.lastShotResult ?? '—'}
+              <br />
+              Ostatni kontakt: {state.lastBallContact?.kind ?? '—'}
+              {state.lastBallContact &&
+                ` · (${state.lastBallContact.point.x.toFixed(2)}, ${state.lastBallContact.point.y.toFixed(2)}, ${state.lastBallContact.point.z.toFixed(2)}) · ${state.lastBallContact.preContactSpeed.toFixed(1)}→${state.lastBallContact.postContactSpeed.toFixed(1)} m/s`}
+              <br />
+              {state.lastShot && (
+                <>
+                  Strzał DEV: cel {state.lastShot.intendedTarget.horizontal.toFixed(2)}/
+                  {state.lastShot.intendedTarget.vertical.toFixed(2)} →{' '}
+                  {state.lastShot.actualTarget.horizontal.toFixed(2)}/
+                  {state.lastShot.actualTarget.vertical.toFixed(2)} ·{' '}
+                  {state.lastShot.speed.toFixed(1)} m/s · {state.lastShot.classification} ·{' '}
+                  {state.lastShot.goalkeeperAction ?? 'bez interwencji'}
+                  {state.lastShot.reboundSource
+                    ? ` · odbicie: ${state.lastShot.reboundSource}`
+                    : ''}
+                  <br />
+                </>
+              )}
+              Seed: <code>{state.seed}</code>
+            </p>
+            <label>
+              <input
+                type="checkbox"
+                checked={debug}
+                onChange={(e) => {
+                  uiEvent('debug_markers_changed', { enabled: e.target.checked });
+                  setDebug(e.target.checked);
+                }}
+              />{' '}
+              Kotwice i cele
+            </label>
+            <details>
+              <summary>Benchmark pozycyjny (DEV)</summary>
+              {shapeMetrics.map(([side, metric]) => (
+                <div key={side}>
+                  <strong>{side === 'home' ? 'Gospodarze' : 'Goście'}</strong>: środek{' '}
+                  {metric.centroid.x.toFixed(1)}, {metric.centroid.y.toFixed(1)} · długość{' '}
+                  {metric.length.toFixed(1)} m · szerokość {metric.width.toFixed(1)} m ·
+                  rozciągnięcie {metric.stretchIndex.toFixed(1)} m · pole{' '}
+                  {metric.convexHullArea.toFixed(0)} m² · przed/za piłką {metric.playersAheadOfBall}
+                  /{metric.playersBehindBall} · linie DEF–MID{' '}
+                  {metric.lines.defenceToMidfield.toFixed(1)} m, MID–ATT{' '}
+                  {metric.lines.midfieldToAttack.toFixed(1)} m · zabezpieczenie{' '}
+                  {metric.restDefenceCount} · pasy{' '}
+                  {Object.values(metric.lanes)
+                    .slice(0, 5)
+                    .map((value) => (value ? '✓' : '—'))
+                    .join(' ')}
+                </div>
+              ))}
+            </details>
+            <details>
+              <summary>Średnie pozycje (DEV)</summary>
+              {state.players.map((p) => (
+                <div key={p.id}>
+                  {p.profile.lastName}: {p.meanPosition.x.toFixed(1)}, {p.meanPosition.y.toFixed(1)}
+                </div>
+              ))}
+            </details>
           </details>
         </aside>
       </section>
+      <details className="lab-diagnostics">
+        <summary>DEV · Diagnostyka, scenariusze i zapis meczu</summary>
+        <nav className="debug-capture" aria-label="Eksport diagnostyczny">
+          <button
+            onClick={() => {
+              const summary = {
+                metadata: { schema: 'mfl-session-benchmark-v2', seed: state.seed },
+                duration: state.time,
+                segments: diagnostics.exportSegments(
+                  state,
+                  telemetryRef.current,
+                  positioningSamplesRef.current,
+                ),
+                controlledPlayer: state.controlledFootballerId,
+                matchFlowTelemetry: telemetryRef.current,
+                decisionTelemetry: telemetryRef.current.controlled,
+                passingNetwork: telemetryRef.current.passingNetwork,
+                sampledPositioning: positioningSamplesRef.current,
+                runtimeDiagnostics: diagnostics.runtimeDiagnostics,
+                rendererLifecycle: diagnostics.rendererLifecycle,
+                presentationRuntime: presentationTelemetryRef.current,
+                backgroundPerformance: backgroundPerformanceRef.current.snapshot(
+                  presentationTelemetryRef.current.rendererCallsBackground,
+                ),
+                presentationDecisions: presentationDecisionsRef.current,
+              };
+              downloadBlob(
+                new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
+                `${state.seed}-benchmark-sesji.json`,
+              );
+            }}
+          >
+            Eksportuj benchmark sesji
+          </button>
+          <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={triggerCapture}>
+            Przechwyć debug ±10 s
+          </button>
+          <button disabled={isCaptureTriggerDisabled(captureStatus)} onClick={savePastOnly}>
+            Zapisz ostatnie 10 s
+          </button>
+          <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
+          {captureStatus === 'idle' && (
+            <span>
+              {videoRecorderRef.current.active
+                ? `Gotowy — bufor: ${videoRecorderRef.current.bufferedSeconds.toFixed(1)} s`
+                : 'Wideo niedostępne — zapis będzie zawierał JSON'}
+            </span>
+          )}
+          {captureStatus === 'capturing' && (
+            <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
+          )}
+          {(captureStatus === 'processing' ||
+            captureStatus === 'ready' ||
+            captureStatus === 'saved' ||
+            captureStatus === 'error') && (
+            <>
+              <strong>
+                {describeDebugCapture(
+                  captureStatus,
+                  Boolean(debugExport),
+                  Boolean(debugExport?.video),
+                  captureError,
+                )}
+              </strong>
+              {debugExport && captureStatus !== 'processing' && (
+                <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
+              )}
+              {saveMessage && <span>{saveMessage}</span>}
+            </>
+          )}
+        </nav>
+        <nav className="scenario-picker" aria-label="Scenariusz developerski">
+          <strong>Sytuacja:</strong>
+          {scenarios.map(([scenario, label]) => (
+            <button
+              key={scenario}
+              className={state.scenario === scenario ? 'active' : ''}
+              onClick={() => {
+                setPlaying(false);
+                clearDebugBuffer();
+                setState(() => {
+                  const next = applyRestartScenario(
+                    createTacticalMatch(session),
+                    scenario,
+                    scenario === 'throw_in'
+                      ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
+                      : undefined,
+                  );
+                  const segmentId = diagnostics.beginSegment(
+                    next,
+                    telemetryRef.current,
+                    positioningSamplesRef.current,
+                  );
+                  telemetryRef.current = createMatchFlowTelemetry(segmentId);
+                  positioningSamplesRef.current = [sampleCanonicalPositioning(next)];
+                  diagnostics.telemetry = telemetryRef.current;
+                  diagnostics.positioningSamples = positioningSamplesRef.current;
+                  debugRecorderRef.current.record(next);
+                  debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', { scenario });
+                  return next;
+                });
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+        <p className="runtime-status">
+          Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
+          <strong>{presentationPolicyId}</strong> · Renderer:{' '}
+          <strong>
+            {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'
+              ? 'suppressed'
+              : diagnostics.rendererLifecycle}
+          </strong>{' '}
+          · Kanoniczny: <strong>{formatMatchTime(state.time)}</strong> · Wyświetlany:{' '}
+          <strong>{formatMatchTime(displayTime)}</strong> · Runtime:{' '}
+          <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
+        </p>
+        <details className="presentation-diagnostics">
+          <summary>DEV · Wydajność symulacji w tle</summary>
+          <p>
+            Kanoniczny: {formatMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} · Realnie:{' '}
+            {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s · Przepustowość:{' '}
+            {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}× · Rolling:{' '}
+            {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch p50/p95/p99:{' '}
+            {backgroundPerformance.p50BatchMs.toFixed(1)}/
+            {backgroundPerformance.p95BatchMs.toFixed(1)}/
+            {backgroundPerformance.p99BatchMs.toFixed(1)} ms · Ticki/s:{' '}
+            {backgroundPerformance.ticksPerRealSecond.toFixed(0)} · Renderer tła:{' '}
+            {backgroundPerformance.rendererCallsBackground}
+          </p>
+        </details>
+        <details className="presentation-diagnostics">
+          <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
+          {presentationDecisionsRef.current.length ? (
+            presentationDecisionsRef.current
+              .slice(-8)
+              .reverse()
+              .map((item, index) => (
+                <p key={`${item.at}:${item.opportunityKind}:${index}`}>
+                  {formatMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
+                  {item.importance.toFixed(2)} · {item.policyId} / próg {item.threshold.toFixed(2)}{' '}
+                  → <strong>{item.result}</strong> ({item.reason})
+                </p>
+              ))
+          ) : (
+            <p>Brak decyzji prezentacyjnych w tej sesji.</p>
+          )}
+        </details>
+      </details>
     </main>
   );
 };

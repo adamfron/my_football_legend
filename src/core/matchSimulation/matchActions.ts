@@ -1,3 +1,4 @@
+import { goalIntentToPitch } from './goalCoordinates';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   clampPitchPoint,
@@ -221,7 +222,7 @@ export const enumerateAvailableActions = (
         actorId,
         target: {
           x: actor.team === 'home' ? 105 : 0,
-          y: 34 - horizontal * 3.66 * (actor.team === 'home' ? 1 : -1),
+          y: goalIntentToPitch(actor.team, { horizontal, vertical: 0 }).y,
         },
         goalTarget: {
           horizontal,

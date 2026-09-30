@@ -3,33 +3,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const render = vi.fn();
 const setSize = vi.fn();
-vi.mock('three', () => {
-  class Object3D {
-    position = { set: vi.fn() };
-    rotation = { x: 0 };
-    userData: Record<string, unknown> = {};
-    visible = true;
-    parent: Object3D | null = null;
-    add = vi.fn();
-  }
-  class Mesh extends Object3D {
-    geometry = { dispose: vi.fn() };
-    material = { dispose: vi.fn() };
-  }
-  class Scene extends Object3D {
-    background: unknown;
-    traverse = vi.fn();
-  }
-  class Camera extends Object3D {
-    left = 0;
-    right = 0;
-    top = 0;
-    bottom = 0;
-    near = 0;
-    far = 0;
-    lookAt = vi.fn();
-    updateProjectionMatrix = vi.fn();
-  }
+vi.mock('three', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('three')>();
   class Renderer {
     domElement = document.createElement('canvas');
     outputColorSpace = '';
@@ -38,59 +13,7 @@ vi.mock('three', () => {
     render = render;
     dispose = vi.fn();
   }
-  const geometry = class {
-    dispose = vi.fn();
-    constructor() {}
-    setFromPoints() {
-      return this;
-    }
-  };
-  const material = class {
-    dispose = vi.fn();
-    constructor() {}
-  };
-  return {
-    WebGLRenderer: Renderer,
-    Scene,
-    OrthographicCamera: Camera,
-    PerspectiveCamera: Camera,
-    Mesh,
-    Group: Object3D,
-    HemisphereLight: Object3D,
-    Line: Mesh,
-    LineLoop: Mesh,
-    LineSegments: Mesh,
-    PlaneGeometry: geometry,
-    SphereGeometry: geometry,
-    CylinderGeometry: geometry,
-    RingGeometry: geometry,
-    CircleGeometry: geometry,
-    BoxGeometry: geometry,
-    EdgesGeometry: geometry,
-    BufferGeometry: geometry,
-    MeshStandardMaterial: material,
-    MeshBasicMaterial: material,
-    LineBasicMaterial: material,
-    Color: class {},
-    Vector3: class {
-      constructor() {}
-    },
-    Vector2: class {
-      constructor() {}
-    },
-    Raycaster: class {
-      setFromCamera = vi.fn();
-      intersectObject = vi.fn(() => []);
-      intersectObjects = vi.fn(() => []);
-    },
-    EllipseCurve: class {
-      getPoints() {
-        return [{ x: 0, y: 0 }];
-      }
-    },
-    DoubleSide: 1,
-    SRGBColorSpace: 'srgb',
-  };
+  return { ...actual, WebGLRenderer: Renderer };
 });
 
 import { TacticalPitchRenderer } from './TacticalPitchRenderer';
@@ -162,5 +85,60 @@ describe('TacticalPitchRenderer viewport lifecycle', () => {
     expect(render).toHaveBeenCalledTimes(1);
     renderer.redraw();
     expect(render).toHaveBeenCalledTimes(2);
+  });
+  it('isolates middle-button gestures, cancellation and reset from football frames', () => {
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 800 },
+      clientHeight: { get: () => 500 },
+    });
+    const snapshot = structuredClone(frame);
+    const renderer = new TacticalPitchRenderer(host, frame);
+    const canvas = renderer.getCanvas();
+    canvas.setPointerCapture = vi.fn();
+    canvas.hasPointerCapture = vi.fn(() => true);
+    canvas.releasePointerCapture = vi.fn();
+    const pointer = (type: string, button: number, x: number, shiftKey = false) => {
+      const event = new MouseEvent(type, {
+        button,
+        clientX: x,
+        clientY: 150,
+        shiftKey,
+        cancelable: true,
+      });
+      Object.defineProperty(event, 'pointerId', { value: 1 });
+      canvas.dispatchEvent(event);
+      return event;
+    };
+    expect(pointer('pointerdown', 1, 100).defaultPrevented).toBe(true);
+    pointer('pointermove', 1, 140);
+    pointer('pointermove', 1, 180, true);
+    pointer('pointercancel', 1, 180);
+    expect(renderer.consumeCameraClick()).toBe(true);
+    pointer('pointerdown', 0, 180);
+    expect(renderer.consumeCameraClick()).toBe(false);
+    renderer.resetView();
+    expect(frame).toEqual(snapshot);
+    expect(canvas.releasePointerCapture).toHaveBeenCalledWith(1);
+    renderer.dispose();
+    const calls = render.mock.calls.length;
+    pointer('pointerdown', 1, 100);
+    pointer('pointermove', 1, 140);
+    expect(render.mock.calls.length).toBe(calls);
+  });
+  it('maps the expanded interception marker to the existing canonical ball target', () => {
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 800 },
+      clientHeight: { get: () => 500 },
+    });
+    const input = { ...frame, ball: { x: 30, y: 30 }, interceptionTarget: { x: 52.5, y: 34 } };
+    const renderer = new TacticalPitchRenderer(host, input);
+    renderer.getCanvas().getBoundingClientRect = () =>
+      ({ left: 0, top: 0, width: 800, height: 500 }) as DOMRect;
+    expect(renderer.pick(413, 250)).toEqual({ kind: 'ball', point: { x: 30, y: 30 } });
+    renderer.dispose();
   });
 });

@@ -1,3 +1,4 @@
+import { goalIntentToPitch, pitchToGoalIntent } from './goalCoordinates';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { distance, PITCH_LENGTH, PITCH_WIDTH, type PitchPoint } from './matchSpace';
 import { GOAL_HEIGHT, GOAL_POST_RADIUS, GOAL_WIDTH } from './ballFlight';
@@ -21,7 +22,7 @@ const normal = (rng: RandomGenerator) =>
 
 const defaultTarget = (action: ShotAction, shooter: MatchPlayerState) => ({
   horizontal: clamp(
-    ((action.target.y - PITCH_WIDTH / 2) / (GOAL_WIDTH / 2)) * (shooter.team === 'home' ? 1 : -1),
+    pitchToGoalIntent(shooter.team, { y: action.target.y, height: 0 }).horizontal,
     -1,
     1,
   ),
@@ -80,7 +81,7 @@ export const resolveCanonicalShot = (
     horizontal: intended.horizontal + horizontalError,
     vertical: intended.vertical + verticalError,
   };
-  const goalY = PITCH_WIDTH / 2 + actual.horizontal * (GOAL_WIDTH / 2) * (attackingRight ? 1 : -1);
+  const goalY = goalIntentToPitch(shooter.team, actual).y;
   const heightMetres = actual.vertical * GOAL_HEIGHT;
   const speed = clamp(
     (action.type === 'header'

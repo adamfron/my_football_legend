@@ -1,4 +1,13 @@
+import { screenToGoalIntent } from './goalAiming';
 import * as THREE from 'three';
+import {
+  cameraViewSpan,
+  applyCameraGesture,
+  offsetCameraPose,
+  resetCameraOffset,
+  resetViewPreferences,
+  zoomFromWheel,
+} from './cameraInteraction';
 import {
   PITCH_LENGTH,
   PITCH_WIDTH,
@@ -12,7 +21,7 @@ import {
   derivePlayerAppearance,
   deriveShotAimCameraPose,
   deriveOwnedBallPose,
-  mapGoalPlanePointerToIntent,
+  shotAimIntentToGoalPoint,
   updateTacticalCameraPose,
   selectScreenSpacePlayerCandidate,
   type MatchCameraPreferences,
@@ -34,8 +43,10 @@ export class TacticalPitchRenderer {
   private readonly anchorMarkers = new Map<string, THREE.Mesh>();
   private readonly idealMarkers = new Map<string, THREE.Mesh>();
   private readonly ball: THREE.Mesh;
+  private readonly ballShadow: THREE.Mesh;
   private readonly ballPicker: THREE.Mesh;
   private readonly interceptionMarker: THREE.Mesh;
+  private readonly selectionMarker: THREE.Mesh;
   private readonly carryTargetMarker: THREE.Mesh;
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
@@ -48,6 +59,11 @@ export class TacticalPitchRenderer {
   private lastDebugMode = false;
   private cameraMode: MatchCameraMode = 'tactical';
   private cameraPreferences: MatchCameraPreferences = { preset: 'overview', zoom: 0.35 };
+  private cameraOffset = resetCameraOffset();
+  private cameraDrag: { pointerId: number; x: number; y: number } | undefined;
+  private zoomAnimation = 0;
+  private displayedZoom = 0.35;
+  private suppressClick = false;
   private focusedPlayerId: string | undefined;
   private readonly report: (message?: string) => void;
 
@@ -56,6 +72,8 @@ export class TacticalPitchRenderer {
     frame: TacticalFrame,
     onDiagnostic: (message?: string) => void = () => undefined,
     private readonly kits: Record<'home' | 'away', KitPresentation> = DEFAULT_KITS,
+    private readonly onCameraPreferences: (preferences: MatchCameraPreferences) => void = () =>
+      undefined,
   ) {
     this.report = onDiagnostic;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -64,10 +82,20 @@ export class TacticalPitchRenderer {
     host.append(this.renderer.domElement);
     this.renderer.domElement.addEventListener('webglcontextlost', this.onContextLost);
     this.renderer.domElement.addEventListener('webglcontextrestored', this.onContextRestored);
-    this.scene.background = new THREE.Color(0x16251f);
+    this.renderer.domElement.addEventListener('wheel', this.onWheel, { passive: false });
+    this.renderer.domElement.addEventListener('pointerdown', this.onCameraDown);
+    this.renderer.domElement.addEventListener('pointermove', this.onCameraMove);
+    this.renderer.domElement.addEventListener('pointerup', this.onCameraUp);
+    this.renderer.domElement.addEventListener('pointercancel', this.onCameraUp);
+    this.renderer.domElement.addEventListener('lostpointercapture', this.onCameraUp);
+    this.renderer.domElement.addEventListener('auxclick', this.onAuxClick);
+    this.scene.background = new THREE.Color(0x34463e);
     this.tacticalCamera.position.set(-82, 92, 82);
     this.tacticalCamera.lookAt(0, 0, 0);
-    this.scene.add(new THREE.HemisphereLight(0xffffff, 0x496055, 2.2));
+    this.scene.add(new THREE.HemisphereLight(0xffffff, 0x496055, 1.8));
+    const sunlight = new THREE.DirectionalLight(0xfff4dc, 2.2);
+    sunlight.position.set(-25, 60, 30);
+    this.scene.add(sunlight);
     this.pitch = this.createPitch();
     this.aimMarker = new THREE.Mesh(
       new THREE.RingGeometry(0.16, 0.25, 20),
@@ -86,7 +114,7 @@ export class TacticalPitchRenderer {
       this.createDebugMarkers(player.id);
     }
     this.ball = new THREE.Mesh(
-      new THREE.SphereGeometry(0.32, 12, 8),
+      new THREE.SphereGeometry(0.38, 12, 8),
       new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65 }),
     );
     this.ball.userData.ball = true;
@@ -119,13 +147,21 @@ export class TacticalPitchRenderer {
     this.carryTargetMarker.position.y = 0.08;
     this.carryTargetMarker.visible = false;
     this.scene.add(this.carryTargetMarker);
+    this.selectionMarker = new THREE.Mesh(
+      new THREE.RingGeometry(0.8, 1.05, 24),
+      new THREE.MeshBasicMaterial({ color: 0xfff2a8, side: THREE.DoubleSide, depthTest: false }),
+    );
+    this.selectionMarker.rotation.x = -Math.PI / 2;
+    this.selectionMarker.visible = false;
+    this.scene.add(this.selectionMarker);
     const shadow = new THREE.Mesh(
       new THREE.CircleGeometry(0.48, 16),
       new THREE.MeshBasicMaterial({ color: 0x101814, transparent: true, opacity: 0.28 }),
     );
     shadow.rotation.x = -Math.PI / 2;
     shadow.position.y = 0.045;
-    this.ball.add(shadow);
+    this.ballShadow = shadow;
+    this.scene.add(shadow);
     this.lastValidFrame = frame;
     this.observer = new ResizeObserver(() => this.resize());
     this.observer.observe(host);
@@ -156,7 +192,16 @@ export class TacticalPitchRenderer {
     );
     pitch.rotation.x = -Math.PI / 2;
     this.scene.add(pitch);
-    const material = new THREE.LineBasicMaterial({ color: 0xd5dfd7 });
+    for (let stripe = 0; stripe < 10; stripe += 2) {
+      const band = new THREE.Mesh(
+        new THREE.PlaneGeometry(PITCH_LENGTH / 10, PITCH_WIDTH),
+        new THREE.MeshStandardMaterial({ color: 0x39694d, roughness: 1 }),
+      );
+      band.rotation.x = -Math.PI / 2;
+      band.position.set(-PITCH_LENGTH / 2 + ((stripe + 0.5) * PITCH_LENGTH) / 10, 0.005, 0);
+      this.scene.add(band);
+    }
+    const material = new THREE.LineBasicMaterial({ color: 0xf4f1de });
     const line = (points: [number, number][], loop = false) => {
       const coords = points.map(
         ([x, z]) => new THREE.Vector3(x - PITCH_LENGTH / 2, 0.04, z - PITCH_WIDTH / 2),
@@ -233,12 +278,41 @@ export class TacticalPitchRenderer {
       spot.rotation.x = -Math.PI / 2;
       spot.position.set(side - PITCH_LENGTH / 2 + direction * 11, 0.06, 0);
       this.scene.add(spot);
-      const goal = new THREE.LineSegments(
-        new THREE.EdgesGeometry(new THREE.BoxGeometry(2.5, 2.5, 7.32)),
-        material,
+      const goalX = side - PITCH_LENGTH / 2;
+      const frameMaterial = new THREE.MeshStandardMaterial({ color: 0xf8f8ef, roughness: 0.6 });
+      for (const z of [-3.66, 3.66]) {
+        const post = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.075, 0.075, 2.44, 8),
+          frameMaterial,
+        );
+        post.position.set(goalX, 1.22, z);
+        this.scene.add(post);
+      }
+      const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 7.32, 8), frameMaterial);
+      bar.rotation.x = Math.PI / 2;
+      bar.position.set(goalX, 2.44, 0);
+      this.scene.add(bar);
+      const netPoints: THREE.Vector3[] = [];
+      const backX = goalX - direction * 2;
+      for (let z = -3.66; z <= 3.67; z += 0.61) {
+        netPoints.push(
+          new THREE.Vector3(backX, 0, z),
+          new THREE.Vector3(backX, 2.44, z),
+          new THREE.Vector3(backX, 2.44, z),
+          new THREE.Vector3(goalX, 2.44, z),
+        );
+      }
+      for (let y = 0; y <= 2.45; y += 0.305) {
+        netPoints.push(new THREE.Vector3(backX, y, -3.66), new THREE.Vector3(backX, y, 3.66));
+        for (const z of [-3.66, 3.66])
+          netPoints.push(new THREE.Vector3(goalX, y, z), new THREE.Vector3(backX, y, z));
+      }
+      this.scene.add(
+        new THREE.LineSegments(
+          new THREE.BufferGeometry().setFromPoints(netPoints),
+          new THREE.LineBasicMaterial({ color: 0xd6dfd4, transparent: true, opacity: 0.42 }),
+        ),
       );
-      goal.position.set(side - PITCH_LENGTH / 2 - direction * 1.25, 1.25, 0);
-      this.scene.add(goal);
       const goalSide = side === 0 ? 'home' : 'away';
       const plane = new THREE.Mesh(
         new THREE.PlaneGeometry(7.32, 2.44),
@@ -318,7 +392,7 @@ export class TacticalPitchRenderer {
     nose.userData.orientationFeature = 'local_forward_face';
     group.add(nose);
     this.addHair(group, appearance.hairStyle, appearance.hairColor);
-    this.addShirtNumber(group, id, displayNumber);
+    this.addShirtNumber(group, id, displayNumber, goalkeeper ? kit.goalkeeper.accent : kit.accent);
     const picker = new THREE.Mesh(
       new THREE.CylinderGeometry(0.85, 0.95, 3.3, 8),
       new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }),
@@ -346,12 +420,24 @@ export class TacticalPitchRenderer {
     if (protagonist) {
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(1.35, 1.65, 20),
-        new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide }),
+        new THREE.MeshBasicMaterial({ color: 0xffd447, side: THREE.DoubleSide, depthTest: false }),
       );
       ring.rotation.x = -Math.PI / 2;
       ring.position.y = 0.08;
       group.add(ring);
     }
+    const shadow = new THREE.Mesh(
+      new THREE.CircleGeometry(0.95, 16),
+      new THREE.MeshBasicMaterial({
+        color: 0x101814,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
+      }),
+    );
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.y = 0.025;
+    group.add(shadow);
     this.scene.add(group);
     this.playerMeshes.set(id, group);
   }
@@ -376,7 +462,7 @@ export class TacticalPitchRenderer {
     group.add(hair);
   }
 
-  private addShirtNumber(group: THREE.Group, id: string, number: number) {
+  private addShirtNumber(group: THREE.Group, id: string, number: number, color: string) {
     if (typeof document === 'undefined') return;
     const canvas = document.createElement('canvas');
     canvas.width = 64;
@@ -384,7 +470,7 @@ export class TacticalPitchRenderer {
     const context = canvas.getContext('2d');
     if (!context) return;
     context.clearRect(0, 0, 64, 64);
-    context.fillStyle = '#ffffff';
+    context.fillStyle = color;
     context.font = 'bold 42px sans-serif';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
@@ -448,6 +534,7 @@ export class TacticalPitchRenderer {
     const presentedBall = deriveOwnedBallPose(frame);
     const ball = tacticalToWorld(presentedBall, (presentedBall.height ?? 0) + 0.32);
     this.ball.position.set(ball.x, ball.y, ball.z);
+    this.ballShadow.position.set(ball.x, 0.045, ball.z);
     this.ballPicker.position.set(ball.x, ball.y, ball.z);
     if (this.cameraMode === 'tactical') this.updateTacticalCamera(frame, presentedBall);
     this.interceptionMarker.visible = Boolean(frame.interceptionTarget);
@@ -459,6 +546,11 @@ export class TacticalPitchRenderer {
     if (frame.carryTarget) {
       const target = tacticalToWorld(frame.carryTarget);
       this.carryTargetMarker.position.set(target.x, 0.08, target.z);
+    }
+    this.selectionMarker.visible = Boolean(frame.selectedPoint);
+    if (frame.selectedPoint) {
+      const point = tacticalToWorld(frame.selectedPoint);
+      this.selectionMarker.position.set(point.x, 0.09, point.z);
     }
     this.renderer.render(this.scene, this.camera);
   }
@@ -486,6 +578,8 @@ export class TacticalPitchRenderer {
       ((clientX - rect.left) / rect.width) * 2 - 1,
       -((clientY - rect.top) / rect.height) * 2 + 1,
     );
+    this.camera.updateMatrixWorld();
+    this.scene.updateMatrixWorld(true);
     this.raycaster.setFromCamera(pointer, this.camera);
     // Only the visible presentation goal plane owns a goal intention. Pitch grass is never a
     // hidden shot button.
@@ -493,11 +587,33 @@ export class TacticalPitchRenderer {
       const goalPlane = this.goalPlanes.get(goalIntentSide);
       const goalHit = goalPlane && this.raycaster.intersectObject(goalPlane)[0];
       if (goalHit) return { kind: 'goal', side: goalIntentSide };
+      // Expanded physical goal area, independent of the exact post/net geometry.
+      if (goalPlane) {
+        const point = this.raycaster.ray.intersectPlane(
+          new THREE.Plane(new THREE.Vector3(1, 0, 0), -goalPlane.position.x),
+          new THREE.Vector3(),
+        );
+        if (point && Math.abs(point.z) <= 4.66 && point.y >= -0.5 && point.y <= 3.24)
+          return { kind: 'goal', side: goalIntentSide };
+      }
     }
     const ballHit = this.raycaster.intersectObject(this.ballPicker)[0];
     if (ballHit) {
       const point = worldToTactical(this.ball.position);
       return { kind: 'ball', point };
+    }
+    if (this.interceptionMarker.visible) {
+      const screen = this.interceptionMarker.position.clone().project(this.camera);
+      if (
+        screen.z >= -1 &&
+        screen.z <= 1 &&
+        Math.hypot(
+          clientX - (rect.left + ((screen.x + 1) * rect.width) / 2),
+          clientY - (rect.top + ((1 - screen.y) * rect.height) / 2),
+        ) <= 22
+      )
+        // The marker is a handle for the canonical incoming ball, not a new space action.
+        return { kind: 'ball', point: worldToTactical(this.ball.position) };
     }
     const actionable = new Set(actionablePlayerIds);
     const playerHits = this.raycaster.intersectObjects([...this.playerPickers.values()]);
@@ -525,7 +641,7 @@ export class TacticalPitchRenderer {
         };
       }),
       { x: clientX, y: clientY },
-      18,
+      22,
     );
     if (fallback) return { kind: 'player', playerId: fallback.playerId };
     const pitchHit = this.raycaster.intersectObject(this.pitch)[0];
@@ -541,22 +657,14 @@ export class TacticalPitchRenderer {
     if (this.cameraMode !== 'shot_aim') return undefined;
     const plane = [...this.goalPlanes.values()].find((item) => item.visible);
     if (!plane) return undefined;
-    const canvasRect = this.renderer.domElement.getBoundingClientRect();
-    const corners = [
-      new THREE.Vector3(-3.66, -1.22, 0),
-      new THREE.Vector3(3.66, -1.22, 0),
-      new THREE.Vector3(-3.66, 1.22, 0),
-      new THREE.Vector3(3.66, 1.22, 0),
-    ].map((corner) => plane.localToWorld(corner).project(this.camera));
-    const xs = corners.map((corner) => canvasRect.left + ((corner.x + 1) / 2) * canvasRect.width);
-    const ys = corners.map((corner) => canvasRect.top + ((1 - corner.y) / 2) * canvasRect.height);
-    const targetRect = {
-      left: Math.min(...xs),
-      top: Math.min(...ys),
-      width: Math.max(1, Math.max(...xs) - Math.min(...xs)),
-      height: Math.max(1, Math.max(...ys) - Math.min(...ys)),
-    };
-    const intent = mapGoalPlanePointerToIntent(clientX, clientY, targetRect);
+    const team = plane.userData.goalSide === 'away' ? 'home' : 'away';
+    const intent = screenToGoalIntent(
+      this.camera,
+      team,
+      { x: clientX, y: clientY },
+      this.renderer.domElement.getBoundingClientRect(),
+    );
+    if (!intent) return undefined;
     this.setGoalAimMarker(intent);
     return intent;
   }
@@ -566,11 +674,11 @@ export class TacticalPitchRenderer {
     if (!plane) return;
     this.aimMarker.visible = true;
     this.aimMarker.rotation.y = Math.PI / 2;
-    this.aimMarker.position.set(
-      plane.position.x + (plane.position.x < 0 ? 0.025 : -0.025),
-      intent.vertical * 2.44,
-      -intent.horizontal * 3.66 * (plane.userData.goalSide === 'away' ? 1 : -1),
+    const point = shotAimIntentToGoalPoint(
+      plane.userData.goalSide === 'away' ? 'home' : 'away',
+      intent,
     );
+    this.aimMarker.position.set(plane.position.x, point.height, point.y - PITCH_WIDTH / 2);
     this.redraw();
   }
 
@@ -616,16 +724,100 @@ export class TacticalPitchRenderer {
   }
   private updateTacticalCamera(frame: TacticalFrame, presentedBall: TacticalFrame['ball']) {
     const focused = frame.players.find((player) => player.id === this.focusedPlayerId);
-    const pose = updateTacticalCameraPose(this.cameraPreferences, presentedBall, focused);
+    const pose = offsetCameraPose(
+      updateTacticalCameraPose(this.cameraPreferences, presentedBall, focused),
+      this.cameraOffset,
+    );
     this.tacticalCamera.position.set(pose.position.x, pose.position.y, pose.position.z);
     this.tacticalCamera.lookAt(pose.lookAt.x, pose.lookAt.y, pose.lookAt.z);
   }
   setCameraPreferences(preferences: MatchCameraPreferences, focusedPlayerId?: string) {
-    this.cameraPreferences = preferences;
-    this.tacticalCamera.zoom = 0.75 + preferences.zoom * 1.5;
-    this.tacticalCamera.updateProjectionMatrix();
-    if (this.cameraMode === 'tactical') this.setCameraMode('tactical', focusedPlayerId);
+    if (this.cameraPreferences.preset !== preferences.preset)
+      this.cameraOffset = resetCameraOffset();
+    const changedPreset = this.cameraPreferences.preset !== preferences.preset;
+    this.cameraPreferences = { ...preferences };
+    this.focusedPlayerId = focusedPlayerId;
+    if (changedPreset) this.resize();
+    this.refreshCamera();
+    if (!this.zoomAnimation && this.displayedZoom !== preferences.zoom)
+      this.zoomAnimation = requestAnimationFrame(this.animateZoom);
   }
+  resetView() {
+    this.cameraOffset = resetCameraOffset();
+    const preferences = resetViewPreferences(this.cameraPreferences);
+    this.setCameraPreferences(preferences, this.focusedPlayerId);
+    this.onCameraPreferences(preferences);
+  }
+  /** Consumed by the football-input boundary, including multi-button/cancelled drags. */
+  consumeCameraClick() {
+    const blocked = this.suppressClick || Boolean(this.cameraDrag);
+    this.suppressClick = false;
+    return blocked;
+  }
+  private refreshCamera() {
+    this.tacticalCamera.zoom = 0.75 + this.displayedZoom * 1.5;
+    this.tacticalCamera.updateProjectionMatrix();
+    if (this.cameraMode === 'tactical' && this.lastValidFrame)
+      this.updateTacticalCamera(this.lastValidFrame, deriveOwnedBallPose(this.lastValidFrame));
+    this.redraw();
+  }
+  private readonly animateZoom = () => {
+    const remaining = this.cameraPreferences.zoom - this.displayedZoom;
+    this.displayedZoom =
+      Math.abs(remaining) < 0.001
+        ? this.cameraPreferences.zoom
+        : this.displayedZoom + remaining * 0.24;
+    this.refreshCamera();
+    this.zoomAnimation =
+      this.displayedZoom === this.cameraPreferences.zoom
+        ? 0
+        : requestAnimationFrame(this.animateZoom);
+  };
+  private readonly onWheel = (event: WheelEvent) => {
+    if (this.cameraMode !== 'tactical') return;
+    event.preventDefault();
+    const preferences = {
+      ...this.cameraPreferences,
+      zoom: zoomFromWheel(this.cameraPreferences.zoom, event.deltaY, event.deltaMode),
+    };
+    this.setCameraPreferences(preferences, this.focusedPlayerId);
+    this.onCameraPreferences(preferences);
+  };
+  private readonly onCameraDown = (event: PointerEvent) => {
+    if (event.button === 0 && !this.cameraDrag) this.suppressClick = false;
+    if (event.button !== 1 || this.cameraMode !== 'tactical') return;
+    event.preventDefault();
+    this.suppressClick = true;
+    this.cameraDrag = { pointerId: event.pointerId, x: event.clientX, y: event.clientY };
+    this.renderer.domElement.setPointerCapture(event.pointerId);
+    this.renderer.domElement.style.cursor = 'grabbing';
+  };
+  private readonly onCameraMove = (event: PointerEvent) => {
+    const drag = this.cameraDrag;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    event.preventDefault();
+    const scale =
+      (this.tacticalCamera.right - this.tacticalCamera.left) /
+      this.tacticalCamera.zoom /
+      Math.max(1, this.host.clientWidth);
+    this.cameraOffset = applyCameraGesture(this.cameraOffset, {
+      kind: event.shiftKey ? 'pan' : 'orbit',
+      dx: (event.clientX - drag.x) * (event.shiftKey ? scale : 1),
+      dy: (event.clientY - drag.y) * (event.shiftKey ? scale : 1),
+    });
+    this.cameraDrag = { ...drag, x: event.clientX, y: event.clientY };
+    this.refreshCamera();
+  };
+  private readonly onCameraUp = (event: PointerEvent) => {
+    if (this.cameraDrag?.pointerId !== event.pointerId) return;
+    this.cameraDrag = undefined;
+    this.renderer.domElement.style.cursor = '';
+    if (this.renderer.domElement.hasPointerCapture(event.pointerId))
+      this.renderer.domElement.releasePointerCapture(event.pointerId);
+  };
+  private readonly onAuxClick = (event: MouseEvent) => {
+    if (event.button === 1) event.preventDefault();
+  };
   private resize() {
     if (this.host.clientWidth <= 0 || this.host.clientHeight <= 0) {
       this.viewportReady = false;
@@ -636,7 +828,9 @@ export class TacticalPitchRenderer {
       height = Math.max(this.host.clientHeight, 240),
       aspect = width / height,
       horizontal =
-        this.cameraMode === 'tactical' ? Math.max(125, 84 * aspect) : Math.max(42, 28 * aspect),
+        this.cameraMode === 'tactical'
+          ? cameraViewSpan(this.cameraPreferences.preset, aspect).horizontal
+          : Math.max(42, 28 * aspect),
       vertical = horizontal / aspect;
     if (this.camera instanceof THREE.OrthographicCamera) {
       this.camera.left = -horizontal / 2;
@@ -657,6 +851,14 @@ export class TacticalPitchRenderer {
       this.render(this.lastValidFrame, this.lastDebugMode);
   }
   dispose() {
+    cancelAnimationFrame(this.zoomAnimation);
+    this.renderer.domElement.removeEventListener('wheel', this.onWheel);
+    this.renderer.domElement.removeEventListener('pointerdown', this.onCameraDown);
+    this.renderer.domElement.removeEventListener('pointermove', this.onCameraMove);
+    this.renderer.domElement.removeEventListener('pointerup', this.onCameraUp);
+    this.renderer.domElement.removeEventListener('pointercancel', this.onCameraUp);
+    this.renderer.domElement.removeEventListener('lostpointercapture', this.onCameraUp);
+    this.renderer.domElement.removeEventListener('auxclick', this.onAuxClick);
     this.observer.disconnect();
     this.scene.traverse((object) => {
       if (

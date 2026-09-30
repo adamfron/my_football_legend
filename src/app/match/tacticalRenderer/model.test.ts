@@ -8,7 +8,6 @@ import {
   worldToTactical,
   derivePlayerAppearance,
   PLAYER_LOCAL_FORWARD_AXIS,
-  mapGoalPlanePointerToIntent,
   deriveShotAimCameraPose,
   deriveOwnedBallPose,
   shotAimIntentToGoalPoint,
@@ -80,24 +79,13 @@ describe('tactical presentation model', () => {
     expect(away.lookAt.x).toBeLessThan(away.position.x);
     expect(away.opponentGoal).toBe('home');
   });
-  it('maps a touch-sized goal plane to normalized shot intention', () => {
-    expect(
-      mapGoalPlanePointerToIntent(300, 20, { left: 100, top: 20, width: 200, height: 120 }),
-    ).toEqual({ horizontal: 1, vertical: 1 });
-    expect(
-      mapGoalPlanePointerToIntent(0, 200, { left: 100, top: 20, width: 200, height: 120 }),
-    ).toEqual({ horizontal: -1, vertical: 0 });
-    expect(
-      mapGoalPlanePointerToIntent(200, 80, { left: 100, top: 20, width: 200, height: 120 }),
-    ).toEqual({ horizontal: 0, vertical: 0.5 });
-  });
-  it('keeps visual left and right shooter-relative when teams change ends', () => {
+  it('uses the resolver team-space goal basis for both ends', () => {
     const left = { horizontal: -1, vertical: 0.5 };
     const right = { horizontal: 1, vertical: 0.5 };
-    expect(shotAimIntentToGoalPoint('home', left).y).toBeGreaterThan(
+    expect(shotAimIntentToGoalPoint('home', left).y).toBeLessThan(
       shotAimIntentToGoalPoint('home', right).y,
     );
-    expect(shotAimIntentToGoalPoint('away', left).y).toBeLessThan(
+    expect(shotAimIntentToGoalPoint('away', left).y).toBeGreaterThan(
       shotAimIntentToGoalPoint('away', right).y,
     );
     expect(shotAimIntentToGoalPoint('home', { horizontal: 0, vertical: 0.5 })).toMatchObject({
