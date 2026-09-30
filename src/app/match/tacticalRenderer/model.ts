@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { shotContactSchema, shotIntentSchema } from '../../../core/matchSimulation/shotIntent';
 import {
   goalIntentToPitch,
   pitchToGoalIntent,
@@ -23,6 +24,9 @@ export const animationCueSchema = z.object({
   ]),
   atMs: z.number().nonnegative(),
   contactHeight: z.number().nonnegative().optional(),
+  shotIntent: shotIntentSchema.or(z.literal('header')).optional(),
+  shotContact: shotContactSchema.optional(),
+  firstTime: z.boolean().optional(),
   side: z.number().min(-1).max(1).optional(),
 });
 export type AnimationCue = z.infer<typeof animationCueSchema>;

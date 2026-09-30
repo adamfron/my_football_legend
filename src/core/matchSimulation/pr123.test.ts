@@ -133,9 +133,13 @@ describe('PR123 final-third and interaction integrity', () => {
     const state = makeState(true);
     const actor = state.players.find((player) => player.id === state.ball.ownerId)!;
     state.controlledFootballerId = actor.id;
+    // Exercise the ownership guard with a contextually legal terminal action.
+    actor.position = { x: 88, y: 34 };
+    state.ball = { ...actor.position, ownerId: actor.id };
     const shot = enumerateAvailableActions(state, actor.id).find(
       (action) => action.type === 'shot',
     )!;
+    expect(shot).toBeDefined();
     expect(resolveMatchAction(state, shot, 'autonomous_npc')).toBe(state);
     expect(resolveMatchAction(state, shot, 'human_selected').latestActionSource).toBe(
       'human_selected',

@@ -115,16 +115,36 @@ export const derivePlayerPose = (
   const blend = (base: number, target: number) => base + (target - base) * weight;
   const kind = player.cue.kind;
   if (['pass', 'shot', 'cross', 'distribution', 'receive'].includes(kind)) {
-    const kick = kind === 'receive' ? -0.3 : kind === 'shot' ? -1.15 : -0.8;
+    const volley = kind === 'shot' && player.cue.shotContact === 'volley';
+    const halfVolley = kind === 'shot' && player.cue.shotContact === 'half_volley';
+    const firstTime = kind === 'shot' && player.cue.shotContact === 'first_time';
+    const chip = kind === 'shot' && player.cue.shotIntent === 'chip';
+    const kick =
+      kind === 'receive'
+        ? -0.3
+        : volley
+          ? -1.75
+          : halfVolley
+            ? -1.35
+            : chip
+              ? -0.7
+              : firstTime
+                ? -1.0
+                : kind === 'shot'
+                  ? player.cue.shotIntent === 'placed'
+                    ? -0.95
+                    : -1.15
+                  : -0.8;
+    const knee = volley || chip ? 0.55 : halfVolley ? 0.35 : 0.2;
     if (player.dominantFoot === 'left') {
       out.hipLeft = blend(out.hipLeft, kick);
-      out.kneeLeft = blend(out.kneeLeft, 0.2);
+      out.kneeLeft = blend(out.kneeLeft, knee);
     } else {
       out.hipRight = blend(out.hipRight, kick);
-      out.kneeRight = blend(out.kneeRight, 0.2);
+      out.kneeRight = blend(out.kneeRight, knee);
     }
-    out.lean = blend(out.lean, kind === 'receive' ? 0.16 : -0.13);
-    out.armSpread = blend(out.armSpread, kind === 'cross' ? 0.8 : 0.45);
+    out.lean = blend(out.lean, kind === 'receive' ? 0.16 : volley ? -0.22 : -0.13);
+    out.armSpread = blend(out.armSpread, kind === 'cross' || volley ? 0.8 : 0.45);
   } else if (kind === 'throw') {
     out.armLeft = out.armRight = blend(out.armLeft, -1.65);
     out.elbowLeft = out.elbowRight = blend(out.elbowLeft, -0.15);

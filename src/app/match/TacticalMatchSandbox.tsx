@@ -1,5 +1,6 @@
 import { PresentationContextHistory } from './tacticalRenderer/contextHistory';
 import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
+import { formatDiagnosticMatchTime, formatMatchTime } from './matchTime';
 import { appendReplayFrame, sampleReplayFrame } from './tacticalRenderer/replay';
 /* eslint-disable react-hooks/refs, react-hooks/immutability -- Match Lab's imperative renderer and
    diagnostic recorders are observer-only refs intentionally kept outside React state. */
@@ -119,10 +120,6 @@ const loadCameraPreferences = (): MatchCameraPreferences => {
   } catch {
     return DEFAULT_MATCH_CAMERA_PREFERENCES;
   }
-};
-const formatMatchTime = (seconds: number) => {
-  const minutes = Math.floor(seconds / 60);
-  return `${minutes.toString().padStart(2, '0')}:${(seconds % 60).toFixed(1).padStart(4, '0')}`;
 };
 type RenderFrame = import('./tacticalRenderer/model').TacticalFrame;
 export const PitchCanvasHost = forwardRef<HTMLDivElement>(function PitchCanvasHost(_, ref) {
@@ -333,7 +330,12 @@ export class MatchLabErrorBoundary extends Component<
         <p>
           Seed: <code>{controller.session.setup.seed}</code>
         </p>
-        <p>Czas kanoniczny: {formatMatchTime(controller.latestState.time)}</p>
+        <p>
+          Czas kanoniczny:{' '}
+          {import.meta.env.DEV
+            ? formatDiagnosticMatchTime(controller.latestState.time)
+            : formatMatchTime(controller.latestState.time)}
+        </p>
         <p>Sterowany piłkarz: {controller.latestState.controlledFootballerId ?? '—'}</p>
         {import.meta.env.DEV && <pre>{crash?.error.stack ?? this.state.error.stack}</pre>}
         <button onClick={this.props.onSetup}>Wróć do ustawień</button>{' '}
@@ -1015,6 +1017,13 @@ const RunningLab = ({
       placed_shot: 'Strzał techniczny',
       driven_shot: 'Strzał mocny',
       chip_shot: 'Lob',
+      first_time_driven: 'Z pierwszej · mocno',
+      first_time_placed: 'Z pierwszej · technicznie',
+      half_volley_driven: 'Półwolej · mocno',
+      half_volley_placed: 'Półwolej · technicznie',
+      volley_driven: 'Wolej · mocno',
+      volley_placed: 'Wolej · technicznie',
+      header_shot: 'Strzał głową',
       contain: 'Pilnuj / opóźniaj',
       close_down: 'Doskok',
       normal_challenge: 'Odbiór',
@@ -1397,15 +1406,15 @@ const RunningLab = ({
               ? 'suppressed'
               : diagnostics.rendererLifecycle}
           </strong>{' '}
-          · Kanoniczny: <strong>{formatMatchTime(state.time)}</strong> · Wyświetlany:{' '}
-          <strong>{formatMatchTime(displayTime)}</strong> · Runtime:{' '}
+          · Kanoniczny: <strong>{formatDiagnosticMatchTime(state.time)}</strong> · Wyświetlany:{' '}
+          <strong>{formatDiagnosticMatchTime(displayTime)}</strong> · Runtime:{' '}
           <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
         </p>
         <details className="presentation-diagnostics">
           <summary>DEV · Wydajność symulacji w tle</summary>
           <p>
-            Kanoniczny: {formatMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} · Realnie:{' '}
-            {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s · Przepustowość:{' '}
+            Kanoniczny: {formatDiagnosticMatchTime(backgroundPerformance.canonicalSecondsAdvanced)}{' '}
+            · Realnie: {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s · Przepustowość:{' '}
             {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}× · Rolling:{' '}
             {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch p50/p95/p99:{' '}
             {backgroundPerformance.p50BatchMs.toFixed(1)}/
@@ -1423,7 +1432,7 @@ const RunningLab = ({
               .reverse()
               .map((item, index) => (
                 <p key={`${item.at}:${item.opportunityKind}:${index}`}>
-                  {formatMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
+                  {formatDiagnosticMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
                   {item.importance.toFixed(2)} · {item.policyId} / próg {item.threshold.toFixed(2)}{' '}
                   → <strong>{item.result}</strong> ({item.reason})
                 </p>
@@ -1445,7 +1454,10 @@ const RunningLab = ({
               (player) => player.id === opportunity.actorId,
             );
             const hasShot = opportunity.options.some(
-              (option) => option.kind === 'action' && option.action.type === 'shot',
+              (option) =>
+                option.kind === 'action' &&
+                (option.action.type === 'shot' ||
+                  (option.action.type === 'header' && option.action.intent === 'header_shot')),
             );
             const opponentGoal = opportunityActor
               ? opportunityActor.team === 'home'
@@ -1561,10 +1573,18 @@ const RunningLab = ({
                 {projectContextualInteractions(state, opportunity, selectedTarget)
                   .filter(
                     (item) =>
-                      item.resolution.kind === 'action' && item.resolution.action.type === 'shot',
+                      item.resolution.kind === 'action' &&
+                      (item.resolution.action.type === 'shot' ||
+                        (item.resolution.action.type === 'header' &&
+                          item.resolution.action.intent === 'header_shot')),
                   )
                   .map((item) => {
-                    if (item.resolution.kind !== 'action' || item.resolution.action.type !== 'shot')
+                    if (
+                      item.resolution.kind !== 'action' ||
+                      (item.resolution.action.type !== 'shot' &&
+                        (item.resolution.action.type !== 'header' ||
+                          item.resolution.action.intent !== 'header_shot'))
+                    )
                       return null;
                     if (!shotAimTeam) return null;
                     const point = shotAimIntentToGoalPoint(shotAimTeam, shotAim);
@@ -1720,7 +1740,7 @@ const RunningLab = ({
               </button>
             )}
             <p>
-              Czas kanoniczny: {formatMatchTime(state.time)}
+              Czas kanoniczny: {formatDiagnosticMatchTime(state.time)}
               <br />
               Stały tick: {FIXED_MATCH_DT.toFixed(3)} s · tempo: {speed}×
               <br />

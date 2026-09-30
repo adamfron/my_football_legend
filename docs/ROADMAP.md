@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR143 są ukończone. W szczególności:
+PR105–PR144 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -73,28 +73,76 @@ PR105–PR143 są ukończone. W szczególności:
   łączenie groźnych sytuacji. Jedna rzeczywista opcja pozostaje autonomiczna. Dodano telemetrię
   sprawczości, okien i kosztu bufora oraz regresje. Zweryfikowano przez `npm run verify`.
 
+- **PR144 — Shooting & Final-Third Action Variety:** wspólny generator kontekstowych strzałów
+  człowieka i AI, mechaniczne profile mocnego/technicznego/lobu, rzeczywiste pierwsze kontakty,
+  półwoleje/woleje/główki oraz loft podcinki w jednej fizyce 3D. Epizod posiadania człowieka
+  zachowuje własność decyzji terminalnych; carry ma semantyczny waypoint i wcześniejsze decyzje
+  przy istotnej zmianie sytuacji. Dodano telemetrię stylów, gesty kontaktu, mniejsze ringi z depth
+  test i zegar MM:SS. Zweryfikowano przez `npm run verify`; szeroka kalibracja pozostaje PR145.
+
 ### NEXT
-
-**PR144 — Shooting & Final-Third Action Variety**
-
-- strzały z pierwszej piłki i rozszerzone kontekstowe intencje strzału;
-- te same kanoniczne możliwości człowieka i AI; woleje, główki i podcinki, gdy pozwala kontekst.
 
 **PR145 — Match Behaviour & Calibration Pass**
 
-- geometria through-ball / lead-pass zgodna z ruchem odbiorcy;
-- spójność autonomicznych celów autu;
-- kalibracja trajektorii podań górą;
-- spójność touches / podań otrzymanych i prób podań;
-- własność decyzji defensywnych i przechwytów;
-- kalibracja liczby momentów / znaczących decyzji (bez kwoty decyzji w PR143);
-- kalibracja strzelania, scoringu i skuteczności bramkarzy.
+- **Through-ball / lead-pass:** cel przede wszystkim z przewidywanego wektora ruchu odbiorcy i
+  jego osiągalnej przyszłej ścieżki. Obejmuje diagonalne podanie za linię, piłkę wzdłuż linii do
+  skrzydłowego i podanie w poprzek/cut-back w bieg napastnika. Piłka świadomie zagrana za kolegę,
+  w stronę podającego, zwykle należy do support/to-feet, nie do lead-pass.
+- **Auty:** wspólna semantyka odbiorcy/celu człowieka i autonomii. Wypuszczenie musi prowadzić do
+  wybranego kolegi/punktu, bez cichej zamiany na ogólny rzut do przodu. Zakaz rzutu do siebie,
+  `carry here` dla wykonawcy oraz jego ponownego legalnego kontaktu przed dotknięciem innego
+  zawodnika. Integralność celu i wykonawcy ma być sprawdzana dla obu źródeł wyboru.
+- **Podania górą:** kalibracja rzeczywistych kanonicznych parametrów startowych 3D; płaski lot
+  naprawiamy w fizyce, bez kosmetycznych łuków renderera.
+- **Toczenie po trawie:** audyt oporu toczenia/deceleracji poziomej. Lekka piłka wyraźnie traci
+  prędkość i zatrzymuje się wcześniej, mocne podanie toczy się dalej, silne wybicie może pokonać
+  dużą odległość. Bez sztucznej maksymalnej długości; lot pozostaje oddzielnym stanem wspólnej
+  fizyki piłki.
+- **Liczba decyzji:** osłona piłki, rutynowy doskok, trzymanie linii, krok do przechwytu i zwykła
+  reakcja pozycyjna zwykle pozostają autonomią opartą o cechy, chyba że istnieje znacząca
+  alternatywa taktyczna/ryzyka. Sama liczba przycisków nie określa znaczenia. Cel produktu to
+  z grubsza kilkadziesiąt znaczących decyzji w typowym pełnym 90-minutowym meczu kontrolowanego
+  zawodnika, nie setki; końcowy zakres ustalą playtesty i telemetria, bez ślepej kwoty.
+- **Spójność i własność:** touches / podania otrzymane / próby podań oraz własność decyzji
+  defensywnych i przechwytów; kalibracja shielding, hold-line i step-out.
+- **Strzały i bramkarz:** kalibracja lejka accuracy → on-target → keeper success → goals i
+  skuteczności bramkarzy według typów strzałów. PR144 rozróżnia wykonanie, nie kończy kalibracji
+  globalnego scoringu.
 
-**PR146 — Background Simulation Performance** (plan, nie wdrożono w PR143)
+**PR146 — Background Simulation Performance** (plan, osobny etap)
 
-- cel: ukryte pełne 90 minut w około <= 5 minut czasu rzeczywistego na zwykłym komputerze
-  deweloperskim, tam gdzie jest to praktyczne;
+- cel produktu: normalny grywalny mecz `key_player`, z materiałem kontekstowym i rozsądną
+  liczbą wyborów, zwykle powinien zamknąć się w około **4–6 minutach rzeczywistych**, bez
+  wyjątkowo długiego namysłu człowieka;
+- techniczny milestone: ukryte pełne 90 minut komfortowo poniżej 5 minut na zwykłym komputerze
+  deweloperskim, gdzie praktyczne; dalsza optymalizacja, jeśli potrzeba budżetu na widoczny
+  kontekst i decyzje;
 - profilowanie jednego kanonicznego silnika; bez drugiego uproszczonego symulatora futbolu.
+
+Wymagana macierz A/B dla identycznego deterministycznego meczu:
+
+1. minimalna telemetria w stylu release;
+2. zwykła telemetria prezentacji tła;
+3. pełne diagnostyki DEV;
+4. buforowany/rolling JSON debug-event capture, jeśli da się go wydzielić;
+5. nagrywanie/capture WebM, gdzie dostępne.
+
+Pomiar oddziela core, obserwatory/telemetrię, bufor kontekstu, React/UI scheduling, debug capture
+i video capture. Koszt zbierania/buforowania diagnostyki należy zmierzyć oddzielnie od
+jednorazowej serializacji/zapisu — sam brak eksportu JSON nie dowodzi przyspieszenia.
+Release nie powinien stale płacić za kosztowne diagnostyki DEV niedostępne dla gracza.
+Wszystkie warianty benchmarku muszą zachować identyczne hashe stanu kanonicznego.
+
+**PR147 — Rules, Discipline & Match Feedback** (plan)
+
+- faule, żółte/czerwone kartki, korzyść, karne z fauli i konsekwencje dyscyplinarne;
+- rutynowa autonomiczna obrona kontrolowanego zawodnika używa zwykłych akcji o niskim ryzyku;
+  jawnie agresywny/lekkomyślny odbiór o wysokim ryzyku kartki zwykle wymaga decyzji człowieka.
+  Zwykła fizyczna gra może przypadkowo skończyć się faulem, ale autonomia nie wybiera po cichu
+  niebezpiecznej akcji, by następnie jedynie poinformować gracza o wyrzuceniu;
+- czytelny feedback akcji/kontaktu z kanonicznych zdarzeń: subtelne, krótkie etykiety przy akcji,
+  np. „odbiór”, „wślizg”, „podanie”, „strzał”, „faul”. To prezentacja dowodów, nie drugi silnik
+  przepisów ani wnioskowanie z animacji.
 
 Prezentacja nadal obserwuje `matchSimulation`; nie tworzy drugiego stanu futbolu.
 Celowanie używa promienia kamery i kanonicznej bazy `goalCoordinates`. Overview, Action,
@@ -103,9 +151,17 @@ Full-HD/mobile pozostają przyszłą pracą; narzędzia DEV nie należą do rele
 
 ### LATER
 
-Przepisy/faule/kartki, pogoda/warianty piłki i ceremonialna prezentacja pozostają późniejszymi
-systemami. Spin piłki, siła Magnusa, wiatr i zależności pogodowe pozostają celowo odłożonym, osobnym
-rozszerzeniem fizyki po kalibracji bazowego lotu.
+Pogoda/warianty piłki i ceremonialna prezentacja pozostają po obecnej pracy kalibracyjnej.
+Planowane warianty wyglądu piłki: standardowa jasna, alternatywne wzory oraz dobrze widoczna
+żółta/pomarańczowa, m.in. dla śniegu/jasnego tła. Pogoda/rozgrywki mogą później wybrać wygląd;
+tekstura/kolor są prezentacją, wpływ pogody na tarcie/lot należy do przyszłej kanonicznej fizyki.
+
+Późniejsza ceremonia obejmuje wyjście z szatni/tunelu, hymn i ustawienie składów, zdjęcie przed
+meczem, szpaler, przywitanie sędziego, wręczenie trofeum i celebracje. Spin piłki, siła Magnusa,
+wiatr i zależności pogodowe pozostają osobnym rozszerzeniem po kalibracji bazowego lotu.
+Curled shot, outside-foot/trivela, toe-poke i improvised finish mogą rozszerzyć model intencji
+strzału później; curl pojawi się w normalnym menu dopiero wtedy, gdy prawdziwa fizyka spin/Magnus
+potrafi zakrzywić tor. Nie rysujemy pozornej krzywizny w rendererze.
 
 ### AFTER PR126 — systemy symulacji meczu
 

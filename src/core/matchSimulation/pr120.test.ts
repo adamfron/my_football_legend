@@ -74,9 +74,13 @@ describe('PR120 match foundations', () => {
     const state = makeState(true);
     const actor = state.players.find((player) => player.id === state.ball.ownerId)!;
     state.controlledFootballerId = actor.id;
+    // The statistic observes a legal shooting episode, rather than a speculative kickoff shot.
+    actor.position = { x: 88, y: 34 };
+    state.ball = { ...actor.position, ownerId: actor.id };
     const shot = enumerateAvailableActions(state, actor.id).find(
       (action) => action.type === 'shot',
     )!;
+    expect(shot).toBeDefined();
     const committed = resolveMatchAction(state, shot, 'human_selected');
     const once = observeMatchFlow(createMatchFlowTelemetry(), committed, committed);
     const twice = observeMatchFlow(once, committed, committed);

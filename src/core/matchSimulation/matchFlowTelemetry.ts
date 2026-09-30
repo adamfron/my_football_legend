@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import { distance } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
-import type { TacticalMatchState } from './matchState';
+import { shotDiagnosticSchema, type TacticalMatchState } from './matchState';
+import { shotContactSchema } from './shotIntent';
 import { deriveFlankRelationship } from './tacticalPositioning';
 import {
   MATCH_PRESENTATION_POLICIES,
@@ -245,7 +246,7 @@ export const matchFlowTelemetrySchema = z.object({
   observedPassResultIds: z.array(z.string()),
   observedShotIds: z.array(z.string()),
   observedMajorActionIds: z.array(z.string()),
-  shotDiagnostics: z.array(z.custom<NonNullable<TacticalMatchState['lastShot']>>()),
+  shotDiagnostics: z.array(shotDiagnosticSchema),
 });
 export type MatchFlowTelemetry = z.infer<typeof matchFlowTelemetrySchema>;
 
@@ -930,6 +931,61 @@ export const summarizeShootingBuckets = (telemetry: MatchFlowTelemetry) => {
         ? shots.reduce((sum, shot) => sum + shot.effectiveScoringExpectation, 0) / shots.length
         : 0,
     };
+  });
+};
+
+export const shootingStyleSummarySchema = z.object({
+  intent: z.enum(['driven', 'placed', 'chip', 'header', 'legacy']),
+  contact: shotContactSchema,
+  attempts: z.number().int().nonnegative(),
+  firstTimeAttempts: z.number().int().nonnegative(),
+  onTarget: z.number().int().nonnegative(),
+  goals: z.number().int().nonnegative(),
+  saves: z.number().int().nonnegative(),
+  blocks: z.number().int().nonnegative(),
+  averageDecisionHeight: z.number().nonnegative(),
+  averageContactHeight: z.number().nonnegative(),
+  averageLaunchSpeed: z.number().nonnegative(),
+  averageVerticalLaunch: z.number(),
+  averageExecutionError: z.number().nonnegative(),
+});
+
+/** PR145 can split technique and contact without conflating a placed volley with a settled shot. */
+export const summarizeShootingStyles = (telemetry: MatchFlowTelemetry) => {
+  const keys = new Set(
+    telemetry.shotDiagnostics.map(
+      (shot) =>
+        `${shot.intent ?? (shot.context === 'header' ? 'header' : 'legacy')}:${shot.contact ?? (shot.context === 'header' ? 'header' : 'settled')}`,
+    ),
+  );
+  return [...keys].sort().map((key) => {
+    const [intent, contact] = key.split(':');
+    const shots = telemetry.shotDiagnostics.filter(
+      (shot) =>
+        `${shot.intent ?? (shot.context === 'header' ? 'header' : 'legacy')}:${shot.contact ?? (shot.context === 'header' ? 'header' : 'settled')}` ===
+        key,
+    );
+    const average = (value: (shot: NonNullable<TacticalMatchState['lastShot']>) => number) =>
+      shots.reduce((sum, shot) => sum + value(shot), 0) / shots.length;
+    return shootingStyleSummarySchema.parse({
+      intent,
+      contact,
+      attempts: shots.length,
+      firstTimeAttempts: shots.filter((shot) => shot.firstTime).length,
+      onTarget: shots.filter((shot) =>
+        ['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? ''),
+      ).length,
+      goals: shots.filter((shot) => shot.outcome === 'goal').length,
+      saves: shots.filter((shot) => shot.outcome === 'save').length,
+      blocks: shots.filter((shot) => shot.outcome === 'block').length,
+      averageDecisionHeight: average((shot) => shot.ballHeightAtDecision ?? 0),
+      averageContactHeight: average((shot) => shot.ballHeightAtContact ?? 0),
+      averageLaunchSpeed: average((shot) => shot.launchSpeed ?? shot.speed),
+      averageVerticalLaunch: average((shot) => shot.launchVerticalComponent ?? 0),
+      averageExecutionError: average((shot) =>
+        Math.hypot(shot.error.horizontal, shot.error.vertical),
+      ),
+    });
   });
 };
 

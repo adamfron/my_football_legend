@@ -100,6 +100,7 @@ describe('canonical shot resolver v2', () => {
 
   it('routes a header shot through the same flight and keeps continuations finite', () => {
     const { state, shooter } = makeState('header-pipeline');
+    state.ball.height = 1.8;
     const launched = resolveMatchAction(state, {
       type: 'header',
       actorId: shooter.id,
@@ -107,6 +108,8 @@ describe('canonical shot resolver v2', () => {
       intent: 'header_shot',
     });
     expect(launched.ball.travelKind).toBe('header');
+    expect(launched.ball.releaseHeight).toBe(1.8);
+    expect(launched.ball.shot?.ballHeightAtContact).toBe(1.8);
     let current = launched;
     let resolvedHeader = false;
     for (let index = 0; index < 100; index += 1) {

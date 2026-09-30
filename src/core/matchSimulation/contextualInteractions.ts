@@ -49,8 +49,18 @@ const passLabel = (intent: string, delivery?: 'ground' | 'lofted') =>
       : intent === 'lead'
         ? 'lead_pass'
         : 'pass_to_feet';
-const shotLabel = (intent: string) =>
-  intent === 'placed' ? 'placed_shot' : intent === 'chip' ? 'chip_shot' : 'driven_shot';
+const shotLabel = (action: Extract<MatchAction, { type: 'shot' }>) =>
+  action.contact === 'volley'
+    ? `volley_${action.intent}`
+    : action.contact === 'half_volley'
+      ? `half_volley_${action.intent}`
+      : action.contact === 'first_time'
+        ? `first_time_${action.intent}`
+        : action.intent === 'placed'
+          ? 'placed_shot'
+          : action.intent === 'chip'
+            ? 'chip_shot'
+            : 'driven_shot';
 const asActions = (
   target: PlayerInteractionTarget,
   actions: ReturnType<typeof enumerateAvailableActions>,
@@ -63,12 +73,14 @@ const asActions = (
         action.type === 'pass'
           ? passLabel(action.intent, action.delivery)
           : action.type === 'shot'
-            ? shotLabel(action.intent)
-            : action.type === 'cross'
-              ? 'cross'
-              : action.type === 'hold'
-                ? 'hold_ball'
-                : 'carry_here',
+            ? shotLabel(action)
+            : action.type === 'header'
+              ? 'header_shot'
+              : action.type === 'cross'
+                ? 'cross'
+                : action.type === 'hold'
+                  ? 'hold_ball'
+                  : 'carry_here',
       resolution: { kind: 'action', action },
     }),
   );
@@ -91,7 +103,11 @@ export const projectContextualInteractions = (
         ? []
         : asActions(
             target,
-            incomingActions.filter((action) => action.type === 'shot'),
+            incomingActions.filter(
+              (action) =>
+                action.type === 'shot' ||
+                (action.type === 'header' && action.intent === 'header_shot'),
+            ),
           );
     if (target.kind === 'space')
       return asActions(
@@ -118,9 +134,12 @@ export const projectContextualInteractions = (
       : enumerateAvailableActions(state, actor.id);
   if (target.kind === 'goal') {
     if (target.side === actor.team) return [];
-    const humanShotTypes = new Map<string, Extract<MatchAction, { type: 'shot' }>>();
+    const humanShotTypes = new Map<string, Extract<MatchAction, { type: 'shot' | 'header' }>>();
     for (const action of actions)
-      if (action.type === 'shot' && !humanShotTypes.has(action.intent))
+      if (
+        (action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot')) &&
+        !humanShotTypes.has(action.intent)
+      )
         humanShotTypes.set(action.intent, action);
     return asActions(target, [...humanShotTypes.values()]);
   }
@@ -351,6 +370,7 @@ export const applyContextualInteraction = (
       pendingReceptionIntent: {
         actorId: opportunity.actorId,
         action: resolution.action,
+        actionSource: 'human_selected',
         createdAt: state.time,
         expiresAt: state.time + 2,
         ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelKind ?? 0}`,

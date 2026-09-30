@@ -13,8 +13,13 @@ Każde zjawisko futbolowe ma jeden system kanoniczny.
   natychmiastową invalidacją zdarzeniową.
 - `matchActions.ts` enumeruje i uruchamia wspólne akcje człowieka/NPC; wyspecjalizowane pliki
   rozwiązują lot, kontakt, przyjęcie, prowadzenie i bramkarza.
+- `shootingOptions.ts` wyprowadza wspólne możliwości strzału i fizycznie osiągalny kontakt;
+  `shotIntent.ts` oddziela technikę od kontaktu. `shotResolver.ts` nadaje jawny profil wykonania,
+  a lot nadal obsługuje ten sam integrator 3D. Cel PR141 nie może spłaszczyć podcinki.
 - `playerDecision.ts` jest czystą projekcją okazji. `decisionOutcome.ts` zamyka zdarzeniowe okno
   wyniku; checkpoint sprawczości może łańcuchować kolejną decyzję.
+- `possessionAgency.ts` utrzymuje własność ludzkiego posiadania. Prowadzenie kończy się granicą
+  decyzji przy waypoint albo istotnej zmianie sytuacji; upływ cooldown nie oddaje akcji AI.
 - `matchMoment.ts` obserwuje; polityka prezentacji wybiera epizody, nie wyniki futbolu.
 - `TacticalMatchSandbox.tsx` zarządza batchami i fazą widoku. Three.js tylko renderuje klatki.
 - `matchFlowTelemetry`, statystyki i debug capture są obserwatorami i nie zużywają RNG.
@@ -71,8 +76,10 @@ nie wpływa na RNG ani wynik akcji. Replay jest osobnym stanem z własnym widocz
 
 ## Roadmap
 
-PR141–PR143 ukończone. NEXT: **PR144 — Shooting & Final-Third Action Variety**. PR145 obejmuje
-geometrię podań na dobieg, cele autów, trajektorie górą, statystyki, własność przechwytów oraz
-kalibrację sprawczości/scoringu/keeper. PR146 jest późniejszą optymalizacją jednego silnika
-(docelowo ukryte 90 min w około <=5 min na zwykłym komputerze). Przepisy, pogoda i ceremonia
-pozostają późniejszymi systemami; nie uznawać kalibracji za zakończoną.
+PR141–PR144 ukończone. NEXT: **PR145 — Match Behaviour & Calibration Pass**: geometria podań
+na dobieg, integralność autów, rzeczywisty loft podań, opór toczenia, statystyki, własność
+przechwytów i kalibracja sprawczości/scoringu/keeper. PR146 optymalizuje jeden silnik: produktowo
+mecz key_player około 4–6 min, technicznie ukryte 90 min komfortowo <5 min; wymaga macierzy A/B
+kosztu obserwatorów/debug capture/WebM i identycznych hashy. PR147 planuje przepisy, dyscyplinę
+i kanoniczny feedback. Pogoda, warianty piłki i ceremonia pozostają później; kalibracja nie jest
+zakończona w PR144.

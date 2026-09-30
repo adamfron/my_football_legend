@@ -16,14 +16,14 @@ wolno dopisywać do niego nowych mechanik. Puste katalogi `src/core/decisions` i
 | Podania / cele | `passLaunchPlan.ts`, `matchActions.ts` | interakcje wybierają istniejącą akcję | `matchEngine.ts` | kanoniczny + legacy | legacy usunąć przy integracji kariery |
 | Przyjęcie | `passReception.ts` | menu `incoming_ball` | brak | kanoniczny | kalibrować ETA i wysokość |
 | Prowadzenie | `carryExecution.ts` | cel kliknięcia | legacy momenty | kanoniczny | wspólny checkpoint sprawczości |
-| Strzał | `shootingOpportunity.ts`, `shotResolver.ts` | płaszczyzna celu | legacy resolver | kanoniczny | nie proxy-resolvować ważnego strzału |
+| Strzał | `shootingOptions.ts`, `shotIntent.ts`, `shootingOpportunity.ts`, `shotResolver.ts` | płaszczyzna celu i kanoniczne opcje | legacy resolver | kanoniczny | wspólne możliwości człowieka/NPC, jeden lot 3D |
 | Bramkarz | `goalkeeperPositioning.ts`, `goalkeeperIntervention.ts` | animacja kontaktu | legacy wynik momentu | kanoniczny | obserwować podania zwrotne |
 | Przechwyty / luźna piłka | `passClaimResolver.ts`, `looseBallPhysics.ts`, `playerArrival.ts` | znacznik celu | brak | kanoniczny | dalej kalibrować wolumen |
 | Pojedynki | `matchSimulation.ts` | menu zobowiązania | legacy momenty | kanoniczny | wydzielić dopiero przy realnej potrzebie |
 | Orientacja / lokomocja | `playerOrientation.ts`, `locomotion.ts` | renderer odczytuje facing | brak | kanoniczny | bez fizyki w rendererze |
 | Pozycjonowanie | `tacticalPositioning.ts` | debug overlay | brak | kanoniczny, 10 Hz | semantyczna invalidacja |
 | Wznowienia | `restartScenarios.ts`, `restartGeometry.ts`, `matchActions.ts` | wybór legalnej akcji | legacy moment | kanoniczny | watchdog pozostaje safety netem |
-| Decyzje gracza | `playerDecision.ts`, `decisionOutcome.ts` | `TacticalMatchSandbox.tsx` | legacy przyciski | kanoniczny | stabilna sygnatura, nie timestamp |
+| Decyzje gracza | `playerDecision.ts`, `possessionAgency.ts`, `decisionOutcome.ts` | `TacticalMatchSandbox.tsx` | legacy przyciski | kanoniczny | epizod posiadania i semantyczne granice ponownej decyzji |
 | Projekcja momentów | `matchMoment.ts`, `matchPresentation.ts` | polityka i faza widoku | brak | obserwacyjny | wolno próbkować rutynę |
 | Statystyki | `playerMatchStats.ts` | polskie etykiety | statystyki kariery | obserwator kanonicznych zdarzeń | `touches` = wejścia w kontrolowane posiadanie |
 | Telemetria | `matchFlowTelemetry.ts` | panele DEV / JSON | brak | obserwacyjny | nie może sterować wynikiem |

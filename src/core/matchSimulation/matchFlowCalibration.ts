@@ -6,6 +6,7 @@ import {
   observeMatchFlow,
   summarizeMatchFlowRates,
   summarizeShootingBuckets,
+  summarizeShootingStyles,
 } from './matchFlowTelemetry';
 import { createTacticalMatch, FIXED_MATCH_DT, stepTacticalMatch } from './matchSimulation';
 
@@ -36,6 +37,7 @@ export const runMatchFlowBatch = (input: MatchFlowBatchConfig) => {
       telemetry,
       rates: summarizeMatchFlowRates(telemetry),
       shootingBuckets: summarizeShootingBuckets(telemetry),
+      shootingStyles: summarizeShootingStyles(telemetry),
     };
   });
   const totals = sessions.reduce(

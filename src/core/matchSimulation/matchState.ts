@@ -16,6 +16,12 @@ import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitch
 import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
 import type { MatchStatistics } from './playerMatchStats';
 import { onBallPreparationSchema, type OnBallPreparation } from './onBallPreparation';
+import {
+  footShotContactSchema,
+  shotContactSchema,
+  shotExecutionProfileSchema,
+  shotIntentSchema,
+} from './shotIntent';
 
 export const matchPhaseSchema = z.enum([
   'positional_attack',
@@ -49,7 +55,9 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     type: z.literal('shot'),
     actorId: z.string(),
     target: pitchPointSchema,
-    intent: z.enum(['placed', 'driven', 'chip']),
+    intent: shotIntentSchema,
+    contact: footShotContactSchema.optional(),
+    decisionBallHeight: z.number().nonnegative().optional(),
     goalTarget: z
       .object({ horizontal: z.number().min(-1).max(1), vertical: z.number().min(0).max(1) })
       .optional(),
@@ -67,6 +75,11 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     target: pitchPointSchema,
     intendedTargetId: z.string().optional(),
     intent: z.enum(['header_shot', 'header_pass', 'flick', 'header_clearance']),
+    firstTime: z.boolean().optional(),
+    decisionBallHeight: z.number().nonnegative().optional(),
+    goalTarget: z
+      .object({ horizontal: z.number().min(-1).max(1), vertical: z.number().min(0).max(1) })
+      .optional(),
   }),
 ]);
 export type MatchAction = z.infer<typeof matchActionSchema>;
@@ -102,6 +115,7 @@ export const pendingReceptionIntentSchema = z.object({
   expiresAt: z.number().nonnegative(),
   ballEpisode: z.string(),
   sourceAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']).optional(),
+  actionSource: actionSourceSchema.optional(),
 });
 export type PendingReceptionIntent = z.infer<typeof pendingReceptionIntentSchema>;
 export const ballCarrierIntentSchema = z.object({
@@ -120,6 +134,30 @@ export const ballCarrierIntentSchema = z.object({
   touchDistance: z.number().positive().optional(),
 });
 export type BallCarrierIntent = z.infer<typeof ballCarrierIntentSchema>;
+export const possessionDecisionContextSchema = z.object({
+  zone: z.number().int().min(0).max(3),
+  nearestDefenderId: z.string().optional(),
+  defenderDistance: z.number().nonnegative(),
+  defenderBearing: z.number(),
+  contested: z.boolean(),
+  keeperRushing: z.boolean(),
+  keeperChallenge: z.boolean(),
+  shotCategory: z.number().int().min(0).max(3),
+  shotValue: z.number().min(0).max(1),
+  goalDistance: z.number().nonnegative(),
+  blockingDefenders: z.number().int().nonnegative(),
+  decisiveReceiverIds: z.array(z.string()),
+  touchDistance: z.number().nonnegative(),
+});
+export const humanPossessionEpisodeSchema = z.object({
+  actorId: z.string(),
+  startedAt: z.number().nonnegative(),
+  ownershipStartedAt: z.number().nonnegative(),
+  ballEpisode: z.number().int().nonnegative(),
+  decisionAt: z.number().nonnegative(),
+  context: possessionDecisionContextSchema,
+});
+export type HumanPossessionEpisode = z.infer<typeof humanPossessionEpisodeSchema>;
 export const carryDiagnosticSchema = z.object({
   actorId: z.string(),
   requestedTarget: pitchPointSchema,
@@ -134,8 +172,11 @@ export const carryDiagnosticSchema = z.object({
     'replaced',
     'invalid_target',
     'safety_timeout',
+    'decision_waypoint',
+    'material_change',
   ]),
   actualDuration: z.number().nonnegative(),
+  redecisionReason: z.string().optional(),
 });
 export type CarryDiagnostic = z.infer<typeof carryDiagnosticSchema>;
 export const playerDecisionGateStateSchema = z.object({
@@ -340,6 +381,16 @@ export type ShotResult = z.infer<typeof shotResultSchema>;
 export const shotDiagnosticSchema = z.object({
   shotId: z.string(),
   shooterId: z.string(),
+  releasedAt: z.number().nonnegative().optional(),
+  // Optional only for old snapshots; every newly resolved shot records this evidence.
+  intent: z.enum(['driven', 'placed', 'chip', 'header']).optional(),
+  contact: shotContactSchema.optional(),
+  firstTime: z.boolean().optional(),
+  ballHeightAtDecision: z.number().nonnegative().optional(),
+  ballHeightAtContact: z.number().nonnegative().optional(),
+  launchSpeed: z.number().positive().finite().optional(),
+  launchVerticalComponent: z.number().finite().optional(),
+  executionProfile: shotExecutionProfileSchema.optional(),
   context: z.enum(['open_play', 'free_kick', 'penalty', 'header']),
   distance: z.number().nonnegative(),
   angle: z.number().min(0).max(1),
@@ -420,6 +471,8 @@ export interface TacticalMatchState {
   pendingReceptionIntent?: PendingReceptionIntent;
   /** Short-lived canonical execution override shared by human and NPC carries. */
   ballCarrierIntent?: BallCarrierIntent;
+  /** Human ownership lasts for the physical possession, never an arbitrary cooldown. */
+  humanPossessionEpisode?: HumanPossessionEpisode;
   postActionAgencyCheckpoint?: {
     actorId: string;
     completedAction: MatchAction['type'];
@@ -591,6 +644,7 @@ export const tacticalMatchStateSchema = z
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
     ballCarrierIntent: ballCarrierIntentSchema.optional(),
+    humanPossessionEpisode: humanPossessionEpisodeSchema.optional(),
     lastCarryDiagnostic: carryDiagnosticSchema.optional(),
     postActionAgencyCheckpoint: z
       .object({
