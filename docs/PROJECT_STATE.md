@@ -1,6 +1,55 @@
 # My Football Legend — Current Project State
 
-## PR141 — current Single Match Lab state
+## PR142 — current Single Match Lab state
+
+Ukończono **Match Animation & 3D Presentation v1**. Kanoniczne mechaniki i testy futbolu nie
+zostały zmienione. `PresentationFrameProjector` obserwuje widoczne ticki oraz akcje człowieka:
+prędkość, facing, wzrost/masa/dominująca noga, release/flightTime, przyjęcie, kontakt bramkarza
+oraz wynik pojedynku powietrznego trafiają do walidowalnego `TacticalFrame`.
+Nie wywołuje resolverów, prognoz fizyki ani RNG. Jedna krótka wskazówka na zawodnika wygasa
+według czasu kanonicznego; kontakty bez timestampu są oznaczane czasem obserwowanego ticka.
+
+`PlayerModel` ma lekki torso/head/hip/knee/arm/elbow rig z prostych geometrii Three.js.
+Wzrost i masa skalują wyłącznie ciało; root, facing i osobny niewidzialny picker pozostają
+niezależne od póz. Współdzielone geometrie/materiały powstają raz, a scratch pose jest używany
+ponownie. `animation.ts` rozróżnia idle/walk/run/sprint, płynnie wygasza follow-through,
+pokazuje przyjęcie, dośrodkowanie, główkę/pojedynek oraz oburęczny aut. Przed wypuszczeniem
+piłka może być kosmetycznie między dłońmi właściciela; po release zawsze rysujemy kanoniczny lot.
+Gotowość, przemieszczanie, claim/catch, niska/wysoka obrona i dystrybucja bramkarza wynikają
+z istniejącej interwencji i kontaktów. Żadna animacja nie przyznaje zasięgu ani sukcesu obrony.
+
+Stroje używają wyłącznie `projectMatchKits`: panele koszulki/kołnierz, spodenki, skarpety,
+rękawice bramkarza oraz gotowe warianty pattern z istniejącego schematu prezentacji.
+Aktualne ClubVisualIdentity ma tylko primary/secondary, więc projekcja nadal wybiera solid;
+nie dopisano bazy klubowych wzorów. Fallback kontrastu PR141 pozostaje bez zmian.
+Piłka ma kanoniczny promień 0,11 m, kontrastowy materiał i zachowany cień PR141.
+
+Bufor 10 s zapisuje widoczne kanoniczne ticki (40 Hz). Powtórka 0,5× interpoluje wyłącznie
+sąsiednie zapisane próbki oraz najkrótszy kąt facing, śledzi faktyczną piłkę i nie interpoluje
+kontaktów, zmian posiadania, teleportów ani luk tła. Ukryty mecz nie wykonuje pracy animacji.
+Zwijany panel diagnostyki/scenariuszy/eksportów przeniesiono nad viewport bez przebudowy UI.
+
+Weryfikacja: `npm run verify` (lint, test:main, test:full-career, build). Nowe testy obejmują
+stan animacji, kontakt/release, bramkarza, geometrię/stroje, niezależność pickera, granice
+interpolacji i brak mutacji/wpływu na wynik kanoniczny. Launcher testów full-career jest teraz
+przenośnym skryptem Node zamiast poleceń POSIX; zestaw testów i flagi pozostają te same.
+
+Ograniczenia: nie ma IK/stawiania stóp ani fizycznego szkieletu. Header w core może po kontakcie
+uruchomić lot od height=0; animacja tego nie koryguje. Taker autu ma pozycję kanoniczną ~0,4 m
+wewnątrz boiska, a release=1,9 m może nie pokryć się idealnie z dłońmi dla każdego wzrostu.
+Nie przesuwamy root ani toru piłki, aby to ukryć. Kontakty odtwarzane są z dokładnością ticka,
+a kamera/pauza nie dopisują czasu futbolowego. Nie wykonano benchmarku GPU/mobile.
+Podczas smoke testu DEV/React zaobserwowano observer_error w niezmienionym observeMatchFlow:
+ujemny actionTempoSamples.interval. Nie zmieniano tej telemetrii ani kalibracji w PR142.
+Próbki animacji są konsumowane dopiero dla zatwierdzonego wyniku React, dzięki czemu ponowna
+ewaluacja updatera nie cofa bufora powtórki.
+
+Następne: **PR143 — Interactive Moment Context & Presentation Windows**, potem **PR144 —
+Shooting & Final-Third Action Variety**, **PR145 — Match Behaviour & Calibration Pass**.
+Kalibracja lofted-pass, statystyk, defensywnej sprawczości, czułości momentów oraz scoring/keeper
+pozostaje odłożona. Spin/Magnus/wiatr, first-time AI i pełny release/mobile UI nie są wdrożone.
+
+## PR141 — previous Single Match Lab state
 
 Single Match Lab ma zwarty interfejs w stylu Windows 95–98: wynik, zegar, odtwarzanie i czułość
 nad boiskiem, status/decyzja obok, pełna diagnostyka i eksport JSON/WebM w zwijanych panelach.

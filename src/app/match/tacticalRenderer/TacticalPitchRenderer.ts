@@ -1,3 +1,6 @@
+import { BALL_RADIUS } from '../../../core/matchSimulation/ballFlight';
+import { PlayerModel, PlayerModelResources } from './playerModel';
+import { deriveReplayCameraPose } from './replay';
 import { screenToGoalIntent } from './goalAiming';
 import * as THREE from 'three';
 import {
@@ -18,7 +21,7 @@ import {
   type KitPresentation,
   type MatchCameraMode,
   DEFAULT_KITS,
-  derivePlayerAppearance,
+  type TacticalPlayer,
   deriveShotAimCameraPose,
   deriveOwnedBallPose,
   shotAimIntentToGoalPoint,
@@ -36,6 +39,10 @@ export class TacticalPitchRenderer {
   private readonly tacticalCamera = new THREE.OrthographicCamera();
   private readonly shotCamera = new THREE.PerspectiveCamera(52, 1, 0.1, 180);
   private camera: THREE.Camera = this.tacticalCamera;
+  private readonly modelResources = new PlayerModelResources();
+  private readonly playerModels = new Map<string, PlayerModel>();
+  private readonly handPosition = new THREE.Vector3();
+  private readonly otherHandPosition = new THREE.Vector3();
   private readonly playerMeshes = new Map<string, THREE.Group>();
   private readonly playerPickers = new Map<string, THREE.Mesh>();
   private readonly actionMarkers = new Map<string, THREE.Mesh>();
@@ -104,17 +111,11 @@ export class TacticalPitchRenderer {
     this.aimMarker.visible = false;
     this.scene.add(this.aimMarker);
     for (const player of frame.players) {
-      this.createPlayer(
-        player.id,
-        player.team,
-        Boolean(player.protagonist),
-        Boolean(player.goalkeeper),
-        player.displayNumber ?? 1,
-      );
+      this.createPlayer(player);
       this.createDebugMarkers(player.id);
     }
     this.ball = new THREE.Mesh(
-      new THREE.SphereGeometry(0.38, 12, 8),
+      new THREE.SphereGeometry(BALL_RADIUS, 12, 8),
       new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65 }),
     );
     this.ball.userData.ball = true;
@@ -334,74 +335,18 @@ export class TacticalPitchRenderer {
     return pitch;
   }
 
-  private createPlayer(
-    id: string,
-    team: 'home' | 'away',
-    protagonist: boolean,
-    goalkeeper: boolean,
-    displayNumber: number,
-  ) {
-    const group = new THREE.Group();
-    group.userData.playerId = id;
-    // The procedural mesh used legacy oversized units. Normalize visuals against the canonical
-    // 2.44 m goal while leaving the generous child picker unchanged below.
-    group.scale.setScalar(0.58);
-    const kit = this.kits[team];
-    const shirt = goalkeeper ? kit.goalkeeper.primary : kit.primary;
-    const appearance = derivePlayerAppearance(id);
-    const body = new THREE.Mesh(
-      new THREE.BoxGeometry(1.15, 1.35, 0.68),
-      new THREE.MeshStandardMaterial({ color: shirt }),
+  private createPlayer(player: TacticalPlayer) {
+    const { id, team, protagonist, goalkeeper } = player;
+    const model = new PlayerModel(player, this.kits[team], this.modelResources);
+    const group = model.root;
+    this.playerModels.set(id, model);
+    this.playerPickers.set(id, model.picker);
+    this.addShirtNumber(
+      model.torso,
+      id,
+      player.displayNumber ?? 1,
+      goalkeeper ? this.kits[team].goalkeeper.accent : this.kits[team].accent,
     );
-    body.position.y = 2.05;
-    group.add(body);
-    const shorts = new THREE.Mesh(
-      new THREE.BoxGeometry(1.05, 0.55, 0.72),
-      new THREE.MeshStandardMaterial({ color: kit.shorts }),
-    );
-    shorts.position.y = 1.12;
-    group.add(shorts);
-    for (const x of [-0.32, 0.32]) {
-      const leg = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.16, 0.19, 1.05, 6),
-        new THREE.MeshStandardMaterial({ color: kit.socks }),
-      );
-      leg.position.set(x, 0.52, 0);
-      group.add(leg);
-      const boot = new THREE.Mesh(
-        new THREE.BoxGeometry(0.3, 0.2, 0.58),
-        new THREE.MeshStandardMaterial({ color: 0x171717 }),
-      );
-      // All orientation cues agree that local +Z is the player's front.
-      boot.position.set(x, 0.11, 0.15);
-      boot.userData.orientationFeature = 'local_forward_boot';
-      group.add(boot);
-    }
-    const head = new THREE.Mesh(
-      new THREE.SphereGeometry(0.55, 8, 6),
-      new THREE.MeshStandardMaterial({ color: appearance.skinColor }),
-    );
-    head.position.y = 3;
-    group.add(head);
-    const nose = new THREE.Mesh(
-      new THREE.ConeGeometry(0.12, 0.3, 5),
-      new THREE.MeshStandardMaterial({ color: appearance.skinColor }),
-    );
-    nose.rotation.x = Math.PI / 2;
-    nose.position.set(0, 3.02, 0.56);
-    nose.userData.orientationFeature = 'local_forward_face';
-    group.add(nose);
-    this.addHair(group, appearance.hairStyle, appearance.hairColor);
-    this.addShirtNumber(group, id, displayNumber, goalkeeper ? kit.goalkeeper.accent : kit.accent);
-    const picker = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.85, 0.95, 3.3, 8),
-      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }),
-    );
-    picker.position.y = 1.65;
-    picker.scale.setScalar(1 / 0.58);
-    picker.userData.playerId = id;
-    group.add(picker);
-    this.playerPickers.set(id, picker);
     const action = new THREE.Mesh(
       new THREE.RingGeometry(1.15, 1.36, 24),
       new THREE.MeshBasicMaterial({
@@ -442,26 +387,6 @@ export class TacticalPitchRenderer {
     this.playerMeshes.set(id, group);
   }
 
-  private addHair(
-    group: THREE.Group,
-    style: ReturnType<typeof derivePlayerAppearance>['hairStyle'],
-    color: number,
-  ) {
-    if (style === 'bald') return;
-    const material = new THREE.MeshStandardMaterial({ color, roughness: 0.9 });
-    const geometry =
-      style === 'buzz'
-        ? new THREE.SphereGeometry(0.565, 8, 4, 0, Math.PI * 2, 0, Math.PI / 2.15)
-        : style === 'curly_cap'
-          ? new THREE.DodecahedronGeometry(0.59, 0)
-          : new THREE.BoxGeometry(style === 'side_part' ? 0.9 : 0.78, 0.22, 0.72);
-    const hair = new THREE.Mesh(geometry, material);
-    hair.position.set(style === 'side_part' ? 0.08 : 0, 3.43, style === 'crop' ? 0.08 : 0);
-    hair.scale.set(1, style === 'curly_cap' ? 0.48 : 1, 1);
-    hair.userData.hairStyle = style;
-    group.add(hair);
-  }
-
   private addShirtNumber(group: THREE.Group, id: string, number: number, color: string) {
     if (typeof document === 'undefined') return;
     const canvas = document.createElement('canvas');
@@ -477,10 +402,10 @@ export class TacticalPitchRenderer {
     context.fillText(String(number), 32, 34);
     const texture = new THREE.CanvasTexture(canvas);
     const numberPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.72, 0.72),
+      new THREE.PlaneGeometry(0.28, 0.28),
       new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false }),
     );
-    numberPlane.position.set(0, 2.13, -0.351);
+    numberPlane.position.set(0, 0.32, -0.173);
     numberPlane.rotation.y = Math.PI;
     numberPlane.userData = { shirtNumber: number, playerId: id, side: 'back' };
     group.add(numberPlane);
@@ -503,10 +428,15 @@ export class TacticalPitchRenderer {
     }
     this.report(undefined);
     for (const player of frame.players) {
+      if (!this.playerModels.has(player.id)) {
+        this.createPlayer(player);
+        this.createDebugMarkers(player.id);
+      }
       const world = tacticalToWorld(player);
       const mesh = this.playerMeshes.get(player.id);
       mesh?.position.set(world.x, 0, world.z);
       if (mesh && player.facing !== undefined) mesh.rotation.y = player.facing;
+      this.playerModels.get(player.id)?.update(player, frame.timestampMs);
       const actionMarker = this.actionMarkers.get(player.id);
       if (actionMarker) {
         actionMarker.visible = Boolean(frame.actionableTargets?.includes(player.id));
@@ -532,11 +462,26 @@ export class TacticalPitchRenderer {
       }
     }
     const presentedBall = deriveOwnedBallPose(frame);
-    const ball = tacticalToWorld(presentedBall, (presentedBall.height ?? 0) + 0.32);
+    const ball = tacticalToWorld(presentedBall, Math.max(BALL_RADIUS, presentedBall.height ?? 0));
     this.ball.position.set(ball.x, ball.y, ball.z);
-    this.ballShadow.position.set(ball.x, 0.045, ball.z);
-    this.ballPicker.position.set(ball.x, ball.y, ball.z);
+    const thrower = frame.players.find(
+      (p) => p.preparation === 'throw' && p.id === frame.ball.ownerId,
+    );
+    const heldModel = thrower && this.playerModels.get(thrower.id);
+    if (heldModel) {
+      heldModel.root.updateMatrixWorld(true);
+      heldModel.leftHand.getWorldPosition(this.handPosition);
+      heldModel.rightHand.getWorldPosition(this.otherHandPosition);
+      this.ball.position.copy(this.handPosition).add(this.otherHandPosition).multiplyScalar(0.5);
+    }
+    this.ballShadow.position.set(this.ball.position.x, 0.045, this.ball.position.z);
+    this.ballPicker.position.copy(this.ball.position);
     if (this.cameraMode === 'tactical') this.updateTacticalCamera(frame, presentedBall);
+    if (this.cameraMode === 'goal_replay') {
+      const pose = deriveReplayCameraPose(frame);
+      this.tacticalCamera.position.set(pose.position.x, pose.position.y, pose.position.z);
+      this.tacticalCamera.lookAt(pose.lookAt.x, pose.lookAt.y, pose.lookAt.z);
+    }
     this.interceptionMarker.visible = Boolean(frame.interceptionTarget);
     if (frame.interceptionTarget) {
       const target = tacticalToWorld(frame.interceptionTarget);
@@ -690,6 +635,7 @@ export class TacticalPitchRenderer {
   /** Shared presentation-only framing for tactical play, aiming and stored replay frames. */
   setCameraMode(mode: MatchCameraMode, focusedPlayerId?: string, focusedTeam?: 'home' | 'away') {
     this.cameraMode = mode;
+    this.tacticalCamera.zoom = mode === 'goal_replay' ? 1 : 0.75 + this.displayedZoom * 1.5;
     this.focusedPlayerId = focusedPlayerId;
     for (const plane of this.goalPlanes.values()) plane.visible = false;
     this.aimMarker.visible = false;
@@ -755,7 +701,8 @@ export class TacticalPitchRenderer {
     return blocked;
   }
   private refreshCamera() {
-    this.tacticalCamera.zoom = 0.75 + this.displayedZoom * 1.5;
+    this.tacticalCamera.zoom =
+      this.cameraMode === 'goal_replay' ? 1 : 0.75 + this.displayedZoom * 1.5;
     this.tacticalCamera.updateProjectionMatrix();
     if (this.cameraMode === 'tactical' && this.lastValidFrame)
       this.updateTacticalCamera(this.lastValidFrame, deriveOwnedBallPose(this.lastValidFrame));
@@ -860,6 +807,8 @@ export class TacticalPitchRenderer {
     this.renderer.domElement.removeEventListener('lostpointercapture', this.onCameraUp);
     this.renderer.domElement.removeEventListener('auxclick', this.onAuxClick);
     this.observer.disconnect();
+    const geometries = new Set<THREE.BufferGeometry>();
+    const materialsToDispose = new Set<THREE.Material>();
     this.scene.traverse((object) => {
       if (
         object instanceof THREE.Mesh ||
@@ -867,10 +816,15 @@ export class TacticalPitchRenderer {
         object instanceof THREE.LineLoop ||
         object instanceof THREE.LineSegments
       ) {
-        object.geometry.dispose();
+        geometries.add(object.geometry);
         const materials = Array.isArray(object.material) ? object.material : [object.material];
-        materials.forEach((material) => material.dispose());
+        materials.forEach((material) => materialsToDispose.add(material));
       }
+    });
+    geometries.forEach((geometry) => geometry.dispose());
+    materialsToDispose.forEach((material) => {
+      if ('map' in material && material.map instanceof THREE.Texture) material.map.dispose();
+      material.dispose();
     });
     this.renderer.dispose();
     this.renderer.domElement.removeEventListener('webglcontextlost', this.onContextLost);

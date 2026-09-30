@@ -7,6 +7,26 @@ import {
 export const PITCH_LENGTH = 105;
 export const PITCH_WIDTH = 68;
 
+export const animationCueSchema = z.object({
+  kind: z.enum([
+    'pass',
+    'shot',
+    'cross',
+    'receive',
+    'throw',
+    'header',
+    'contest',
+    'catch',
+    'low_save',
+    'high_save',
+    'distribution',
+  ]),
+  atMs: z.number().nonnegative(),
+  contactHeight: z.number().nonnegative().optional(),
+  side: z.number().min(-1).max(1).optional(),
+});
+export type AnimationCue = z.infer<typeof animationCueSchema>;
+
 export const tacticalPointSchema = z.object({
   x: z.number().min(0).max(PITCH_LENGTH),
   y: z.number().min(0).max(PITCH_WIDTH),
@@ -15,6 +35,16 @@ export const tacticalPlayerSchema = tacticalPointSchema.extend({
   id: z.string().min(1),
   team: z.enum(['home', 'away']),
   facing: z.number().optional(),
+  velocity: z.object({ x: z.number().finite(), y: z.number().finite() }).optional(),
+  heightCm: z.number().positive().optional(),
+  weightKg: z.number().positive().optional(),
+  dominantFoot: z.enum(['left', 'right']).optional(),
+  gaitPhase: z.number().optional(),
+  gaitSpeed: z.number().nonnegative().optional(),
+  cue: animationCueSchema.optional(),
+  preparation: z.enum(['receive', 'claim', 'throw', 'save_low', 'save_high']).optional(),
+  preparationSide: z.number().min(-1).max(1).optional(),
+  preparationSinceMs: z.number().nonnegative().optional(),
   protagonist: z.boolean().optional(),
   goalkeeper: z.boolean().optional(),
   displayNumber: z.number().int().min(1).max(99).optional(),
@@ -60,6 +90,7 @@ export const tacticalFrameSchema = z.object({
   players: z.array(tacticalPlayerSchema),
   ball: tacticalBallSchema,
   timestampMs: z.number().nonnegative(),
+  continuity: z.string().optional(),
   actionableTargets: z.array(z.string()).optional(),
   selectedTarget: z.string().optional(),
   selectedPoint: tacticalPointSchema.optional(),

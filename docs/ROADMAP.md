@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR141 są ukończone. W szczególności:
+PR105–PR142 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -61,18 +61,32 @@ PR105–PR141 są ukończone. W szczególności:
   desktop z pivotem śledzenia oraz wspólna transformacja celu bramki. Diagnostyka pozostaje
   dostępna w zwijanych panelach. Zweryfikowano przez `npm run verify`.
 
+- **PR142 — Match Animation & 3D Presentation v1:** lekki model przegubowy, detale strojów,
+  lokomocja z prędkości kanonicznej, gesty kontaktu/przyjęcia, oburęczny aut, główki i bramkarz.
+  Powtórka interpoluje zapisane klatki; picker pozostaje niezależny od kończyn. Zwijane narzędzia
+  DEV są nad boiskiem. Zweryfikowano przez `npm run verify`.
+
 ### NEXT
 
-**PR142 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory i detale strojów,
-animacje ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek
-oraz bramkarzy i lepsza prezentacja powtórek.
+**PR143 — Interactive Moment Context & Presentation Windows**
 
-PR142 korzysta z projekcji `projectMatchKits`, obserwacyjnych klatek i kosmetycznych offsetów
-kamery. Nie tworzy drugiego stanu futbolu. Celowanie używa promienia kamery i kanonicznej bazy
-`goalCoordinates`; nie wolno ponownie wprowadzać znaku osi zależnego od widoku. Gesty touch
-(pinch, dwa palce) mogą wywoływać te same operacje kamery, ale adapter nie jest jeszcze wdrożony.
-Dedykowana kamera celowania i powtórki zachowuje własne kadrowanie; ręczne gesty dotyczą trzech
-presetów gry. Pan jest ograniczonym offsetem śledzonego pivotu i podąża wraz z akcją/piłkarzem.
+- kontekst przed ważną decyzją piłkarza, kanoniczna akcja i widoczna konsekwencja;
+- dłuższe okna dla groźnych sytuacji w ostatniej tercji i polu karnym.
+
+**PR144 — Shooting & Final-Third Action Variety**
+
+- strzały z pierwszej piłki i rozszerzone kontekstowe intencje strzału;
+- te same kanoniczne możliwości człowieka i AI; woleje, główki i podcinki, gdy pozwala kontekst.
+
+**PR145 — Match Behaviour & Calibration Pass**
+
+- kalibracja trajektorii podań górą, spójności touches/podań i defensywnej sprawczości przechwytów;
+- kalibracja czułości momentów oraz strzałów, bramek i bramkarzy.
+
+Prezentacja nadal obserwuje `matchSimulation`; nie tworzy drugiego stanu futbolu.
+Celowanie używa promienia kamery i kanonicznej bazy `goalCoordinates`. Overview, Action,
+Player, zoom, orbit, pan i Reset zachowują pivot PR141. Touch i pełny kompaktowy układ
+Full-HD/mobile pozostają przyszłą pracą; narzędzia DEV nie należą do release UI.
 
 ### LATER
 
