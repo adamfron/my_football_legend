@@ -39,7 +39,7 @@
   justify-self: end;
   min-width: 92px;
 }
-.career-view button {
+:is(.career-view, .tactical-sandbox) button {
   border: 1px solid #8c969a;
   border-radius: 2px;
   padding: 7px 10px;
@@ -48,8 +48,8 @@
   font: inherit;
   font-weight: 700;
 }
-.career-view button:hover,
-.career-view button.selected {
+:is(.career-view, .tactical-sandbox) button:hover,
+:is(.career-view, .tactical-sandbox) button.selected {
   border-color: var(--club-primary);
   background: #fff;
 }

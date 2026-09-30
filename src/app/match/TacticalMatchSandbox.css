@@ -1,23 +1,30 @@
 .tactical-sandbox {
   min-height: 100vh;
-  padding: 28px clamp(18px, 4vw, 60px);
-  color: #eaf2ed;
-  background: radial-gradient(circle at 30% 10%, #29453a, #101b17 65%);
+  padding: 10px;
+  font-size: 12px;
+  line-height: 1.25;
+  --club-primary: #244b70;
+  color: #20272b;
+  background: #f5f5f2;
   box-sizing: border-box;
 }
 .tactical-sandbox header {
   display: flex;
-  align-items: end;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid #aeb4b7;
+  border-top: 3px solid #244b70;
+  background: #fff;
   justify-content: space-between;
   max-width: 1450px;
   margin: auto;
 }
 .tactical-sandbox h1 {
-  margin: 8px 0 20px;
-  font-size: clamp(25px, 3vw, 42px);
+  margin: 4px 0;
+  font-size: clamp(14px, 1.5vw, 20px);
 }
 .dev-badge {
-  color: #a9d9bf;
+  color: #244b70;
   font: 700 11px monospace;
   letter-spacing: 0.13em;
 }
@@ -31,14 +38,14 @@
 .scenario-picker {
   align-items: center;
   padding: 7px;
-  border: 1px solid #50665c;
-  background: #192a23;
+  border: 1px solid #aeb4b7;
+  background: #e6e9e8;
 }
 
 .debug-capture {
   align-items: center;
-  background: #151d28;
-  border: 1px solid #405069;
+  background: #eceeed;
+  border: 1px solid #aeb4b7;
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
@@ -53,7 +60,7 @@
 .runtime-status {
   max-width: 1450px;
   margin: 0 auto 12px;
-  color: #b9c9c1;
+  color: #566167;
   font: 12px monospace;
 }
 .crash-fallback {
@@ -70,28 +77,19 @@
 .scenario-picker strong {
   margin: 0 5px;
   font: 700 12px monospace;
-  color: #a9d9bf;
+  color: #244b70;
 }
 .scenario-picker button {
   padding: 7px 10px;
 }
-.tactical-sandbox button {
-  border: 1px solid #60766b;
-  border-radius: 4px;
-  padding: 10px 14px;
-  color: #eaf2ed;
-  background: #21342c;
-  font-weight: 700;
-  cursor: pointer;
-}
 .lab-launcher {
   max-width: 720px;
   margin: 20px auto;
-  padding: 28px;
+  padding: 12px;
   display: grid;
   gap: 18px;
-  background: #192a23;
-  border: 1px solid #50665c;
+  background: #e6e9e8;
+  border: 1px solid #aeb4b7;
 }
 .lab-launcher > label {
   display: grid;
@@ -102,31 +100,40 @@
 .lab-launcher select,
 .lab-launcher input {
   padding: 10px;
-  color: #eaf2ed;
-  background: #101b17;
-  border: 1px solid #60766b;
+  color: #20272b;
+  background: #dfe4e1;
+  border: 1px solid #8c969a;
 }
 .lab-launcher fieldset {
   display: flex;
   gap: 20px;
-  border: 1px solid #50665c;
+  border: 1px solid #aeb4b7;
 }
-.tactical-sandbox button.active,
-.tactical-sandbox button:hover {
-  border-color: #b9dec9;
-  background: #345747;
+.tactical-sandbox button.active {
+  background: #dce4ea;
+  box-shadow: inset 1px 1px #7d858a;
+}
+.tactical-sandbox button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.tactical-sandbox :is(button, select, input):focus-visible {
+  outline: 2px dotted #244b70;
+  outline-offset: 2px;
 }
 .sandbox-grid {
   max-width: 1450px;
   margin: auto;
   display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(280px, 0.8fr);
-  border: 1px solid #50665c;
-  background: #14231d;
-  box-shadow: 0 24px 70px #08100dbb;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  border: 1px solid #aeb4b7;
+  background: #ffffff;
+  box-shadow:
+    inset 1px 1px #fff,
+    inset -1px -1px #b7bec0;
 }
 .pitch-stage {
-  min-height: min(70vh, 760px);
+  min-height: max(440px, calc(100vh - 210px));
   position: relative;
   overflow: hidden;
 }
@@ -146,22 +153,22 @@
   place-content: center;
   gap: 0.75rem;
   text-align: center;
-  background: #101b17;
+  background: #dfe4e1;
 }
 .background-presentation > strong {
   font: 700 clamp(2.5rem, 8vw, 6rem) monospace;
-  color: #d9eee2;
+  color: #20272b;
 }
 .background-presentation small,
 .background-presentation p {
-  color: #9ab4a7;
+  color: #566167;
 }
 .presentation-diagnostics {
   max-width: 1450px;
   margin: 0 auto 12px;
   padding: 0.65rem;
-  border: 1px solid #405069;
-  background: #151d28;
+  border: 1px solid #aeb4b7;
+  background: #eceeed;
   font: 12px monospace;
 }
 .presentation-diagnostics p {
@@ -176,25 +183,26 @@
 }
 .decision-board {
   padding: 28px;
-  border-left: 1px solid #50665c;
-  background: #192a23;
+  border-left: 1px solid #aeb4b7;
+  background: #e6e9e8;
 }
 .decision-board small {
-  color: #9ab4a7;
+  color: #566167;
   letter-spacing: 0.12em;
 }
 .decision-board h2 {
-  margin: 8px 0 24px;
+  margin: 8px 0;
+  font-size: 15px;
 }
 .decision-board p {
-  line-height: 1.6;
+  line-height: 1.4;
 }
 .primary-choice {
   width: 100%;
   margin: 22px 0;
   padding: 16px !important;
-  background: #d9eee2 !important;
-  color: #14231d !important;
+  background: #20272b !important;
+  color: #ffffff !important;
 }
 .playback-controls {
   display: flex;
@@ -218,7 +226,7 @@
 .decision-board label {
   display: grid;
   gap: 5px;
-  color: #b9c9c1;
+  color: #566167;
 }
 .decision-board progress {
   width: 100%;
@@ -230,7 +238,7 @@
   margin: 22px 0;
   padding: 16px;
   border-left: 3px solid #78c69f;
-  background: #233a30;
+  background: #f3f2de;
 }
 .legend {
   font-size: 12px;
@@ -249,7 +257,7 @@
   background: #e7626c;
 }
 .sandbox-note {
-  color: #91a79c;
+  color: #566167;
   font-size: 12px;
 }
 @media (max-width: 850px) {
@@ -261,7 +269,7 @@
   }
   .decision-board {
     border-left: 0;
-    border-top: 1px solid #50665c;
+    border-top: 1px solid #aeb4b7;
   }
   .tactical-sandbox header p {
     display: none;
@@ -277,9 +285,9 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 0.5rem 0.8rem;
-  border: 1px solid #68d391;
-  border-radius: 999px;
-  background: rgba(8, 22, 18, 0.9);
+  border: 1px solid #8c969a;
+  border-radius: 0;
+  background: #fffbe5;
   pointer-events: none;
   font-size: 0.82rem;
 }
@@ -287,12 +295,14 @@
   position: absolute;
   z-index: 5;
   transform: translate(0.7rem, 0.7rem);
-  width: min(13rem, 40%);
+  width: min(208px, 80%);
+  max-height: 250px;
+  overflow: auto;
   padding: 0.5rem;
   border: 1px solid #68d391;
-  border-radius: 0.55rem;
-  background: rgba(8, 22, 18, 0.96);
-  box-shadow: 0 0.8rem 2rem #0009;
+  border-radius: 0;
+  background: #f6f6f3;
+  box-shadow: 3px 3px 0 #0003;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -304,7 +314,7 @@
 .dev-ai-choice {
   float: right;
   border-style: dashed !important;
-  color: #a9d9bf !important;
+  color: #244b70 !important;
   font: 700 11px monospace;
 }
 .shot-aim {
@@ -336,4 +346,66 @@
 .shot-aim__actions button {
   min-height: 3rem;
   padding: 0.7rem 1rem;
+}
+
+.tactical-sandbox nav {
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.tactical-sandbox select,
+.tactical-sandbox input:not([type='range']):not([type='checkbox']) {
+  color: #20272b;
+  background: #fff;
+  border: 1px solid #8c969a;
+  padding: 4px;
+  font: inherit;
+}
+.team-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 16px;
+  border: 1px solid #566167;
+  vertical-align: middle;
+  margin: 0 6px;
+}
+.lab-diagnostics {
+  max-width: 1450px;
+  margin: 8px auto;
+  border: 1px solid #aeb4b7;
+  padding: 6px;
+  background: #e6e9e8;
+}
+.lab-diagnostics summary,
+.player-diagnostics summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 4px;
+}
+.match-status-title {
+  background: #244b70;
+  color: #fff;
+  padding: 5px 7px;
+  font-weight: 700;
+}
+.decision-status {
+  padding: 7px;
+  border: 1px solid #aeb4b7;
+  background: #f6f6f3;
+}
+.decision-status--active {
+  background: #fffbe5;
+  border-color: #a48b33;
+}
+.player-diagnostics {
+  border-top: 1px solid #aeb4b7;
+  margin-top: 10px;
+}
+.camera-controls small {
+  color: #566167;
+}
+
+.tactical-sandbox select,
+.tactical-sandbox input {
+  border-radius: 1px;
 }

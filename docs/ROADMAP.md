@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR140 są ukończone. W szczególności:
+PR105–PR141 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -56,19 +56,25 @@ PR105–PR140 są ukończone. W szczególności:
   planowanie 10 Hz z semantyczną invalidacją, dokładna granica sprawczości, zdarzeniowe okno wyniku
   i mapa właścicieli mechanik.
 
+- **PR141 — Windows-95 Match Presentation & Camera Interaction:** zwarty interfejs wspólny z
+  CareerView, klubowe stroje z fallbackiem kolizji, czytelniejsze boisko/bramki i cele, kamera
+  desktop z pivotem śledzenia oraz wspólna transformacja celu bramki. Diagnostyka pozostaje
+  dostępna w zwijanych panelach. Zweryfikowano przez `npm run verify`.
+
 ### NEXT
 
-**PR141 — Windows-95 Match Presentation & Camera Interaction** — spójność Match Lab z
-`CareerView`, wspólne retro prymitywy, okna statusu, poprawione hitboxy, barwy klubów i fundament
-strojów. Desktop: kółko = zoom, środkowy przycisk = orbit, Shift + środkowy = pan, Reset View;
-orbit zachowuje pivot śledzenia. Touch: pinch = zoom, dwa palce = pan/obrót, jeden palec pozostaje
-dla interakcji piłkarskiej.
+**PR142 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory i detale strojów,
+animacje ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek
+oraz bramkarzy i lepsza prezentacja powtórek.
+
+PR142 korzysta z projekcji `projectMatchKits`, obserwacyjnych klatek i kosmetycznych offsetów
+kamery. Nie tworzy drugiego stanu futbolu. Celowanie używa promienia kamery i kanonicznej bazy
+`goalCoordinates`; nie wolno ponownie wprowadzać znaku osi zależnego od widoku. Gesty touch
+(pinch, dwa palce) mogą wywoływać te same operacje kamery, ale adapter nie jest jeszcze wdrożony.
+Dedykowana kamera celowania i powtórki zachowuje własne kadrowanie; ręczne gesty dotyczą trzech
+presetów gry. Pan jest ograniczonym offsetem śledzonego pivotu i podąża wraz z akcją/piłkarzem.
 
 ### LATER
-
-**PR142 — Match Animation & 3D Presentation v1** — proporcje modeli, wzory strojów, sygnały
-ruchu/kopnięcia/przyjęcia, prawidłowy oburęczny aut, animacje dośrodkowań, główek i bramkarzy
-oraz lepsza prezentacja powtórek.
 
 Spin piłki, siła Magnusa, wiatr i zależności pogodowe pozostają celowo odłożonym, osobnym
 rozszerzeniem fizyki po kalibracji bazowego lotu.

@@ -54,10 +54,12 @@ i seed. Preferowane dowody: stan przed/po, decision id, ball episode i action so
 - nowe łańcuchowanie epizodów wymaga długich testów manualnych;
 - udział bramkarza i podania zwrotne wymagają obserwacji;
 - brak zmęczenia, zmian, fauli/kartek i oceny meczowej;
-- prezentacja 3D oraz hitboxy są nadal prototypowe.
+- modele i animacje 3D pozostają lekkim prototypem; kamera, hitboxy i baza strojów mają fundament PR141.
 
 ## Roadmap
 
-Ukończono PR140. Następny jest **PR141 — Windows-95 Match Presentation & Camera Interaction**, potem
-**PR142 — Match Animation & 3D Presentation v1**. Następnie: stamina/fatigue, zmiany, faule/kartki,
+Ukończono PR141 (interfejs, barwy, kosmetyczna kamera, hitboxy, transformacja celowania).
+Następny jest **PR142 — Match Animation & 3D Presentation v1**. Kamera gry przechowuje offset
+wokół bieżącego pivotu, a celowanie korzysta z promienia i wspólnego `goalCoordinates`;
+PR142 musi zachować tę granicę projekcji. Następnie: stamina/fatigue, zmiany, faule/kartki,
 ocena meczu, dalsza kalibracja futbolu i integracja kariery. Nie uznawać kalibracji za zakończoną.
