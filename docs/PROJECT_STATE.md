@@ -1,6 +1,16 @@
 # My Football Legend — Current Project State
 
-## PR139 — current Single Match Lab state
+## PR140 — current Single Match Lab state
+
+Fizyka i kontakty nadal działają ze stałym krokiem 0,025 s. Kanoniczny scheduler przelicza drogie
+cele taktyczne co 0,1 s, lecz natychmiast unieważnia plan po zmianie posiadania, epizodu/lotu piłki,
+fazy lub wznowienia. Runtime najpierw wykonuje dokładną projekcję decyzji człowieka, a następnie
+korzysta z wejścia fast path, które pomija wyłącznie powtórzenie tej samej czystej projekcji.
+Wybrana akcja człowieka utrzymuje prezentację do kanonicznego wyniku, nie przez arbitralny timeout.
+Pełna mapa systemu i stan dalszych prac są w `MATCH_ENGINE_AUDIT.md` oraz
+`MATCH_ENGINE_HANDOFF.md`.
+
+## PR139 — previous Single Match Lab state
 
 Ukryta symulacja raportuje monotoniczny czas rzeczywisty, przepustowość kanoniczną, ticki/s oraz
 ograniczone próbki p50/p90/p95/p99 i stabilność rolling. Eksport sesji zawiera to samo podsumowanie,

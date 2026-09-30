@@ -144,6 +144,11 @@ export const playerDecisionGateStateSchema = z.object({
   lastResolvedAt: z.number().nonnegative().optional(),
 });
 export type PlayerDecisionGateState = z.infer<typeof playerDecisionGateStateSchema>;
+export const matchPlanningScheduleSchema = z.object({
+  lastTacticalPlanAt: z.number().nonnegative(),
+  semanticKey: z.string(),
+});
+export type MatchPlanningSchedule = z.infer<typeof matchPlanningScheduleSchema>;
 export const playerDecisionOutcomeSchema = z.object({
   decisionId: z.string(),
   actorId: z.string(),
@@ -421,6 +426,8 @@ export interface TacticalMatchState {
     completedAction: MatchAction['type'];
     at: number;
   };
+  /** Canonical multi-rate scheduler metadata. Physics never depends on wall time or batch size. */
+  planningSchedule?: MatchPlanningSchedule;
   playerDecisionGate?: PlayerDecisionGateState;
   pendingPlayerDecision?: PlayerDecisionOutcome;
   lastPlayerDecisionOutcome?: PlayerDecisionOutcome;
@@ -593,6 +600,7 @@ export const tacticalMatchStateSchema = z
         at: z.number().nonnegative(),
       })
       .optional(),
+    planningSchedule: matchPlanningScheduleSchema.optional(),
     currentActionSource: actionSourceSchema.optional(),
     latestActionSource: actionSourceSchema.optional(),
     playerDecisionGate: playerDecisionGateStateSchema.optional(),

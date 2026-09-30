@@ -89,9 +89,12 @@ const inPenaltyArea = (team: TeamSide, x: number, y: number) =>
   (team === 'home' ? x >= 88.5 : x <= 16.5) && y >= 13.8 && y <= 54.2;
 
 /** Pure observational projection. It never owns an action, mutates state, or consumes RNG. */
-export const projectMatchMoment = (state: TacticalMatchState): MatchMomentCandidate => {
+export const projectMatchMoment = (
+  state: TacticalMatchState,
+  projectedDecision = projectPlayerDecisionOpportunity(state),
+): MatchMomentCandidate => {
   const controlledId = state.controlledFootballerId;
-  const decision = projectPlayerDecisionOpportunity(state);
+  const decision = projectedDecision;
   const owner = state.players.find((player) => player.id === state.ball.ownerId);
   let kind: MatchMomentKind = 'routine';
   let importance = 0.08;

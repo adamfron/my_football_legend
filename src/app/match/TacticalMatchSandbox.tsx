@@ -21,6 +21,7 @@ import {
   FIXED_MATCH_DT,
   matchStateToFrame,
   stepTacticalMatch,
+  stepTacticalMatchAfterDecisionProbe,
   deriveTeamShapeMetrics,
   evaluateMatchSituation,
   projectPlayerDecisionOpportunity,
@@ -42,6 +43,7 @@ import {
   startSecondHalf,
   MATCH_PRESENTATION_POLICIES,
   projectMatchMoment,
+  isInteractiveOutcomeWindowOpen,
   shouldSurfaceMatchMoment,
   isAlwaysSurfacePlayerMoment,
   resolvePresentationPolicyProxy,
@@ -543,7 +545,7 @@ const RunningLab = ({
             for (let tick = 0; tick < ticks; tick += 1) {
               const projected = projectPlayerDecisionOpportunity(next);
               if (projected) {
-                const candidate = projectMatchMoment(next);
+                const candidate = projectMatchMoment(next, projected);
                 if (!shouldSurfaceMatchMoment(candidate, presentationPolicy)) {
                   const resolution = resolvePresentationPolicyProxy(next, projected);
                   next = resolution.state;
@@ -634,6 +636,7 @@ const RunningLab = ({
                 !presentationPolicy.fullMatch &&
                 presentationPhase === 'presenting_live_moment' &&
                 next.time >= presentedUntilRef.current &&
+                !isInteractiveOutcomeWindowOpen(next) &&
                 projectMatchMoment(next).kind === 'routine'
               ) {
                 setPresentationPhase('background_simulation');
@@ -641,7 +644,9 @@ const RunningLab = ({
               }
               const previousState = next;
               try {
-                next = stepTacticalMatch(next, FIXED_MATCH_DT);
+                next = background
+                  ? stepTacticalMatchAfterDecisionProbe(next, FIXED_MATCH_DT)
+                  : stepTacticalMatch(next, FIXED_MATCH_DT);
                 executedTicks += 1;
                 if (background)
                   presentationTelemetryRef.current.hiddenCanonicalSeconds += FIXED_MATCH_DT;
@@ -1454,7 +1459,7 @@ const RunningLab = ({
             <p>
               <strong>Twój występ</strong>
               <br />
-              Minuty {controlledSummary.minutesPlayed.toFixed(0)} · Kontakty{' '}
+              Minuty {controlledSummary.minutesPlayed.toFixed(0)} · Posiadania{' '}
               {controlledSummary.touches}
               <br />
               Podania {controlledSummary.passesCompleted}/{controlledSummary.passesAttempted} ·
