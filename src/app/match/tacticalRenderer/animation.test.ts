@@ -17,6 +17,7 @@ import {
   playerPoseSchema,
 } from './animation';
 import { PresentationFrameProjector, observeAnimationCues } from './frameProjection';
+import { PresentationContextHistory } from './contextHistory';
 import {
   DEFAULT_KITS,
   tacticalFrameSchema,
@@ -57,6 +58,20 @@ const makeState = () =>
       control: { mode: 'spectator' },
     }),
   );
+const makeShootingState = () => {
+  const state = applyRestartScenario(makeState(), 'open_play');
+  const shooter = state.players.find(
+    (p) => p.team === 'home' && p.profile.primaryPosition !== 'goalkeeper',
+  )!;
+  const position = { x: 88, y: 34 };
+  return {
+    ...state,
+    players: state.players.map((p) =>
+      p.id === shooter.id ? { ...p, position, facingAngle: Math.PI / 2 } : p,
+    ),
+    ball: { ...state.ball, ...position, ownerId: shooter.id, height: 0 },
+  };
+};
 const freeze = <T>(value: T): T => {
   if (value && typeof value === 'object') {
     Object.freeze(value);
@@ -107,6 +122,35 @@ describe('seekable presentation poses', () => {
     expect(release.armLeft).toBe(release.armRight);
     expect(release.armLeft).toBeCloseTo(-1.65);
   });
+  it('uses canonical finishing contact/style for bounded poses without moving the player', () => {
+    const posed = (
+      shotContact: 'settled' | 'first_time' | 'half_volley' | 'volley',
+      shotIntent: 'driven' | 'placed' | 'chip' = 'driven',
+    ) =>
+      derivePlayerPose(
+        freeze({
+          ...player,
+          cue: { kind: 'shot', atMs: 1000, shotContact, shotIntent, contactHeight: 1.1 },
+        }),
+        1000,
+      );
+    const driven = posed('settled');
+    const placed = posed('settled', 'placed');
+    const chip = posed('settled', 'chip');
+    const firstTime = posed('first_time');
+    const halfVolley = posed('half_volley');
+    const volley = posed('volley');
+    expect(
+      new Set([driven, placed, chip, firstTime, halfVolley, volley].map((p) => p.hipRight)).size,
+    ).toBe(6);
+    expect(Math.abs(volley.hipRight)).toBeGreaterThan(Math.abs(halfVolley.hipRight));
+    for (const pose of [driven, placed, chip, firstTime, halfVolley, volley]) {
+      expect(playerPoseSchema.safeParse(pose).success).toBe(true);
+      expect(pose.lift).toBe(0);
+    }
+    expect(player.x).toBe(40);
+    expect(player.y).toBe(30);
+  });
   it.each([
     'pass',
     'shot',
@@ -130,10 +174,56 @@ describe('seekable presentation poses', () => {
 });
 
 describe('canonical evidence projection', () => {
+  it.each(['settled', 'first_time', 'half_volley', 'volley', 'header'] as const)(
+    'preserves canonical %s shot evidence in visible and historical frames',
+    (contact) => {
+      const before = makeShootingState();
+      const actor = before.players.find((p) => p.id === before.ball.ownerId)!;
+      const resolved = resolveMatchAction(before, {
+        type: 'shot',
+        actorId: actor.id,
+        target: { x: 105, y: 34 },
+        intent: 'placed',
+      });
+      const after = freeze({
+        ...resolved,
+        time: 0.025,
+        ball: {
+          ...resolved.ball,
+          shot: {
+            ...resolved.ball.shot!,
+            intent: contact === 'header' ? ('header' as const) : ('placed' as const),
+            contact,
+            firstTime: contact !== 'settled',
+            ballHeightAtContact: contact === 'header' ? 1.9 : contact === 'volley' ? 1.1 : 0.11,
+          },
+        },
+      });
+      const snapshot = structuredClone(after);
+      const projector = new PresentationFrameProjector();
+      projector.observe(before);
+      const visible = projector.frame(after);
+      const cue = visible.players.find((p) => p.id === actor.id)!.cue!;
+      expect(cue).toMatchObject({
+        kind: contact === 'header' ? 'header' : 'shot',
+        shotIntent: after.ball.shot!.intent,
+        shotContact: contact,
+        firstTime: contact !== 'settled',
+        contactHeight: after.ball.shot!.ballHeightAtContact,
+      });
+      const history = new PresentationContextHistory();
+      history.observe(before);
+      history.observe(after, true);
+      expect(history.sample(25)!.players.find((p) => p.id === actor.id)!.cue).toEqual(cue);
+      expect(tacticalFrameSchema.safeParse(visible).success).toBe(true);
+      expect(visible.ball.height).toBe(after.ball.height);
+      expect(after).toEqual(snapshot);
+    },
+  );
   it.each(['pass', 'cross', 'shot', 'header'] as const)(
     'observes %s release once without changing the ball',
     (kind) => {
-      const before = makeState();
+      const before = kind === 'shot' ? makeShootingState() : makeState();
       const actor = before.players.find((p) => p.id === before.ball.ownerId)!;
       const receiver = before.players.find((p) => p.team === actor.team && p.id !== actor.id)!;
       const target = { x: 80, y: 34 };

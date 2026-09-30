@@ -15,7 +15,13 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
   const elapsed = state.time - pending.selectedAt;
   const intent = pending.selectedIntent;
   let result: NonNullable<PlayerDecisionOutcome['result']> | undefined;
-  if (intent.startsWith('shot:') && state.lastShot && state.lastShot.shooterId === actor.id)
+  if (
+    (intent.startsWith('shot:') || intent === 'header:header_shot') &&
+    state.lastShot &&
+    state.lastShot.shooterId === actor.id &&
+    (state.lastShot.releasedAt ?? -1) >= pending.selectedAt &&
+    !state.ball.shot
+  )
     result = { kind: 'shot_resolved', shotOutcome: state.lastShot.outcome };
   else if (intent.startsWith('pass:') && !state.ball.travelKind && elapsed > 0.2) {
     const completed = owner?.team === actor.team && owner.id !== actor.id;

@@ -14,6 +14,8 @@ export * from './reachableSpace';
 export * from './passReception';
 export * from './offside';
 export * from './shotResolver';
+export * from './shotIntent';
+export * from './shootingOptions';
 export * from './ballFlight';
 export * from './ballPhysics';
 export * from './playerOrientation';

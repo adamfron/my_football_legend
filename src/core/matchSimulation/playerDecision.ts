@@ -32,6 +32,8 @@ import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { BALL_RADIUS } from './ballFlight';
 import { enumerateRestartActions } from './matchActions';
+import { enumerateCanonicalShootingOptions } from './shootingOptions';
+import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
 
 export const proxyResolutionStatusSchema = z.enum([
   'resolved_action',
@@ -106,6 +108,7 @@ export const derivePlayerChoiceFamily = (
   const action = option.action;
   if (action.type === 'carry') return 'carry';
   if (action.type === 'shot') return 'shoot';
+  if (action.type === 'header' && action.intent === 'header_shot') return 'shoot';
   if (action.type === 'cross') return 'cross';
   if (action.type === 'pass') {
     if (kind === 'restart') return 'restart_receiver';
@@ -126,6 +129,10 @@ export const countSemanticPlayerChoices = (
       // A different legal teammate or space is a genuine alternative, even within one family.
       if (option.kind === 'action' && option.action.type === 'pass')
         return `${family}:${option.action.receiverId}`;
+      if (option.kind === 'action' && option.action.type === 'shot')
+        return `${family}:${option.action.intent}:${option.action.contact ?? 'settled'}`;
+      if (option.kind === 'action' && option.action.type === 'header')
+        return `${family}:${option.action.intent}`;
       if (
         option.kind === 'action' &&
         (option.action.type === 'carry' || option.action.type === 'cross')
@@ -175,6 +182,7 @@ export const playerDecisionProbeSchema = z.object({
       'single_option_autonomy',
       'no_contextual_interactions',
       'friendly_ball',
+      'possession_continuity',
     ])
     .optional(),
   semanticChoiceCount: z.number().int().nonnegative().optional(),
@@ -681,9 +689,23 @@ export const projectPlayerAgency = (
     state.restart?.phase === 'setup' &&
     state.restart.takerId === actorId;
   if (state.scenario !== 'open_play' && !controlledRestart) return blocked('not_open_play');
+  const humanPossession = hasActiveHumanPossession(state);
+  const redecisionReason = humanPossessionRedecisionReason(state);
+  const continuingCarry = humanPossession && state.ballCarrierIntent?.actorId === actorId;
   // A committed ball flight is precisely when reception/interception control may begin.
-  if (!controlledRestart && isActionResolutionInProgress(state) && !state.ball.travelKind)
+  if (
+    !controlledRestart &&
+    isActionResolutionInProgress(state) &&
+    !state.ball.travelKind &&
+    !redecisionReason
+  )
     return blocked('resolution_in_progress');
+  if (
+    humanPossession &&
+    !redecisionReason &&
+    (continuingCarry || state.postActionAgencyCheckpoint?.actorId !== actorId)
+  )
+    return blocked('possession_continuity');
   const situation = evaluateMatchSituation(state, actorId);
   const roleProfile = deriveDecisionRole(actor);
   const context: Partial<PlayerDecisionProbe> = {
@@ -725,7 +747,7 @@ export const projectPlayerAgency = (
     }));
   } else if (
     state.ball.ownerId === actorId &&
-    (agencyHandoff || evaluateOnBallDecisionRelevance(state, actorId).relevant)
+    (agencyHandoff || redecisionReason || evaluateOnBallDecisionRelevance(state, actorId).relevant)
   ) {
     kind = 'on_ball';
     const available = enumerateAvailableActions(state, actorId);
@@ -808,14 +830,14 @@ export const projectPlayerAgency = (
           },
         },
       ];
-      const goal = { x: actor.team === 'home' ? 105 : 0, y: 34 };
-      if (distance(target, goal) <= 24 && (state.ball.height ?? 0) <= 2.4)
-        options.push({
-          id: 'first-time-shot',
-          kind: 'action',
-          labelKey: 'shot_driven',
-          action: { type: 'shot', actorId, target: goal, intent: 'driven' },
-        });
+      options.push(
+        ...enumerateCanonicalShootingOptions(state, actorId).map((action, index) => ({
+          id: `first-time-shot-${index}`,
+          kind: 'action' as const,
+          labelKey: actionLabel(action),
+          action,
+        })),
+      );
     } else if (interception.viable && roleProfile !== 'goalkeeper') {
       kind = 'defensive_response';
       options = [
@@ -913,10 +935,10 @@ export const projectPlayerAgency = (
       opportunityKind: kind,
       semanticChoiceCount: countSemanticPlayerChoices(options, kind),
     });
-  const signature = signatureFor(state, kind);
+  const signature = `${signatureFor(state, kind)}${redecisionReason ? `:${redecisionReason}` : ''}`;
   const postActionCheckpoint =
     kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;
-  if (!postActionCheckpoint && gate.lastSituationSignature === signature)
+  if (!postActionCheckpoint && !redecisionReason && gate.lastSituationSignature === signature)
     return blocked('same_situation', { ...context, signature });
   const newPossessionEpisode =
     kind === 'on_ball' && (state.ballOwnershipStartedAt ?? -1) >= (gate.lastResolvedAt ?? Infinity);
@@ -930,6 +952,7 @@ export const projectPlayerAgency = (
   if (
     !newPossessionEpisode &&
     !postActionCheckpoint &&
+    !redecisionReason &&
     !absoluteOwnershipRequired &&
     gate.lastResolvedAt !== undefined &&
     state.time - gate.lastResolvedAt < 1.5
@@ -944,7 +967,8 @@ export const projectPlayerAgency = (
       kind === 'restart'
         ? `restart_${state.scenario}`
         : kind === 'on_ball'
-          ? evaluateOnBallDecisionRelevance(state, actorId).reasons.join(',') ||
+          ? redecisionReason ||
+            evaluateOnBallDecisionRelevance(state, actorId).reasons.join(',') ||
             situation.reasons[0]
           : kind === 'incoming_ball'
             ? projectIncomingPlayerInvolvement(state, actorId).reasons.join(',')
@@ -1029,6 +1053,7 @@ export const applyPlayerDecision = (
       pendingReceptionIntent: {
         actorId: opportunity.actorId,
         action: option.action,
+        actionSource: 'human_selected' as const,
         createdAt: state.time,
         expiresAt: state.time + 2,
         ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelKind ?? 0}`,

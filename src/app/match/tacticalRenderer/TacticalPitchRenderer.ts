@@ -1,5 +1,6 @@
 import { BALL_RADIUS } from '../../../core/matchSimulation/ballFlight';
 import { PlayerModel, PlayerModelResources } from './playerModel';
+import { createPlayerRing } from './playerMarkers';
 import { deriveReplayCameraPose } from './replay';
 import { screenToGoalIntent } from './goalAiming';
 import * as THREE from 'three';
@@ -368,28 +369,12 @@ export class TacticalPitchRenderer {
     action.visible = false;
     group.add(action);
     this.actionMarkers.set(id, action);
-    const possession = new THREE.Mesh(
-      new THREE.RingGeometry(0.72, 0.86, 24),
-      new THREE.MeshBasicMaterial({
-        color: 0x42b5c5,
-        transparent: true,
-        opacity: 0.75,
-        side: THREE.DoubleSide,
-        depthTest: false,
-      }),
-    );
-    possession.rotation.x = -Math.PI / 2;
-    possession.position.y = 0.06;
+    const possession = createPlayerRing('ball_owner');
     possession.visible = false;
     group.add(possession);
     this.possessionMarkers.set(id, possession);
     if (protagonist) {
-      const ring = new THREE.Mesh(
-        new THREE.RingGeometry(1.35, 1.65, 20),
-        new THREE.MeshBasicMaterial({ color: 0xffd447, side: THREE.DoubleSide, depthTest: false }),
-      );
-      ring.rotation.x = -Math.PI / 2;
-      ring.position.y = 0.08;
+      const ring = createPlayerRing('controlled_player');
       group.add(ring);
     }
     const shadow = new THREE.Mesh(

@@ -21,6 +21,30 @@ export const carryExecutionSchema = z.object({
 });
 export type CarryExecution = z.infer<typeof carryExecutionSchema>;
 
+/** A destination is a decision waypoint, including a physically overshot approach. */
+export const hasReachedCarryDecisionWaypoint = (
+  actor: MatchPlayerState,
+  intent: BallCarrierIntent,
+): boolean => {
+  const radius = 1.6;
+  if (distance(actor.position, intent.target) <= radius) return true;
+  const dx = intent.target.x - intent.startPosition.x;
+  const dy = intent.target.y - intent.startPosition.y;
+  const length = Math.hypot(dx, dy);
+  if (length < 0.1) return true;
+  const beyond =
+    ((actor.position.x - intent.target.x) * dx + (actor.position.y - intent.target.y) * dy) /
+    length;
+  const lateral =
+    Math.abs(
+      (actor.position.x - intent.target.x) * dy - (actor.position.y - intent.target.y) * dx,
+    ) / length;
+  return (
+    beyond >= 0 &&
+    (lateral <= radius * 2 || distance(intent.closestPointReached, intent.target) <= radius * 2)
+  );
+};
+
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter(
     (player) => player.team !== actor.team && player.profile.primaryPosition !== 'goalkeeper',

@@ -3,6 +3,7 @@ import type { SingleMatchSession } from '../singleMatch';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   chooseNpcAction,
+  chooseIncomingShotAction,
   chooseRestartAction,
   enumerateRestartActions,
   evaluatePressure,
@@ -49,7 +50,9 @@ import { deriveOnBallPreparation } from './onBallPreparation';
 import { toPitchPoint } from './matchSpace';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
-import { deriveCarryExecution } from './carryExecution';
+import { deriveCarryExecution, hasReachedCarryDecisionWaypoint } from './carryExecution';
+import { hasActiveHumanPossession, reconcileHumanPossession } from './possessionAgency';
+import { canExecuteCanonicalShot } from './shootingOptions';
 import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
@@ -181,6 +184,46 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
   return { ...positioned, statistics: createMatchStatistics(positioned) };
 };
 
+/** Executes only an actual incoming contact, before the reception resolver can settle it. */
+const tryIncomingFinish = (
+  state: TacticalMatchState,
+  actorId: string,
+): TacticalMatchState | undefined => {
+  if (isOffsideOffence(state.offsideSnapshot, actorId)) return;
+  const pending =
+    state.pendingReceptionIntent?.actorId === actorId ? state.pendingReceptionIntent : undefined;
+  const selected = pending?.action;
+  const action = selected
+    ? selected.type === 'shot' || selected.type === 'header'
+      ? selected
+      : undefined
+    : actorId !== state.controlledFootballerId
+      ? chooseIncomingShotAction(state, actorId)
+      : undefined;
+  if (
+    !action ||
+    (action.type !== 'shot' && action.type !== 'header') ||
+    !canExecuteCanonicalShot(state, action)
+  )
+    return;
+  const ready = { ...state };
+  delete ready.pendingReceptionIntent;
+  delete ready.receptionPreparation;
+  if (ready.lastPassDiagnostic && !ready.lastPassDiagnostic.finalResult)
+    ready.lastPassDiagnostic = {
+      ...ready.lastPassDiagnostic,
+      actualContactPoint: { x: state.ball.x, y: state.ball.y },
+      resolvedAt: state.time,
+      finalResult: 'completed',
+    };
+  const resolved = resolveMatchAction(
+    ready,
+    action,
+    pending?.actionSource ?? (pending ? 'human_selected' : 'autonomous_npc'),
+  );
+  return resolved !== ready ? resolved : undefined;
+};
+
 const changePossession = (
   state: TacticalMatchState,
   ownerId: string,
@@ -247,7 +290,22 @@ const changePossession = (
       const { pendingReceptionIntent, ...ready } = next;
       void pendingReceptionIntent;
       delete ready.receptionPreparation;
-      return resolveMatchAction(ready, state.pendingReceptionIntent.action, 'human_selected');
+      const receptionAction = state.pendingReceptionIntent.action;
+      const selected = resolveMatchAction(
+        ready,
+        receptionAction,
+        state.pendingReceptionIntent.actionSource ?? 'human_selected',
+      );
+      return receptionAction.type === 'hold' && selected.humanPossessionEpisode
+        ? {
+            ...selected,
+            postActionAgencyCheckpoint: {
+              actorId: ownerId,
+              completedAction: 'hold' as const,
+              at: state.time,
+            },
+          }
+        : selected;
     }
     if (state.pendingReceptionIntent) delete next.pendingReceptionIntent;
     delete next.receptionPreparation;
@@ -280,7 +338,11 @@ const changePossession = (
   };
   if (state.pendingReceptionIntent?.actorId === ownerId) {
     delete next.pendingReceptionIntent;
-    return resolveMatchAction(next, state.pendingReceptionIntent.action, 'human_selected');
+    return resolveMatchAction(
+      next,
+      state.pendingReceptionIntent.action,
+      state.pendingReceptionIntent.actionSource ?? 'human_selected',
+    );
   }
   delete next.pendingReceptionIntent;
   delete next.receptionPreparation;
@@ -420,7 +482,7 @@ const stepTacticalMatchCore = (
   rawDelta = 0.1,
   decisionAlreadyProjected = false,
 ): TacticalMatchState => {
-  input = resolvePendingPlayerDecision(input);
+  input = reconcileHumanPossession(resolvePendingPlayerDecision(input));
   // Recover snapshots whose setup clock was already allowed to overrun (for example by a future
   // presentation/UI regression) before the normal human-opportunity freeze can hold them forever.
   if (
@@ -532,16 +594,20 @@ const stepTacticalMatchCore = (
       !carrier ||
       state.ball.ownerId !== carrier.id ||
       state.time >= intent.expiresAt ||
-      distance(carrier.position, intent.target) <= 0.75
+      (intent.humanSelected
+        ? hasReachedCarryDecisionWaypoint(carrier, intent)
+        : distance(carrier.position, intent.target) <= 0.75)
     ) {
       const reason =
         !carrier || state.ball.ownerId !== carrier.id
           ? state.recentDuel?.resolvedAt === state.time
             ? ('contact' as const)
             : ('ball_lost' as const)
-          : distance(carrier.position, intent.target) <= 0.75
-            ? ('target_reached' as const)
-            : ('safety_timeout' as const);
+          : intent.humanSelected && hasReachedCarryDecisionWaypoint(carrier, intent)
+            ? ('decision_waypoint' as const)
+            : distance(carrier.position, intent.target) <= 0.75
+              ? ('target_reached' as const)
+              : ('safety_timeout' as const);
       const { ballCarrierIntent: _ended, ...withoutIntent } = state;
       void _ended;
       state = {
@@ -650,7 +716,7 @@ const stepTacticalMatchCore = (
           : team.phase,
     };
   }
-  if (state.ball.travelKind === 'shot' && state.ball.shot) {
+  if (state.ball.shot) {
     const projection = projectGoalkeeperIntervention(state);
     if (projection) {
       state.keeperIntervention = {
@@ -694,8 +760,7 @@ const stepTacticalMatchCore = (
     !state.planningSchedule ||
     state.planningSchedule.semanticKey !== semanticKey ||
     state.time - state.planningSchedule.lastTacticalPlanAt >= 0.1 - FIXED_MATCH_DT / 2;
-  if (tacticalPlanDue)
-    state.planningSchedule = { lastTacticalPlanAt: state.time, semanticKey };
+  if (tacticalPlanDue) state.planningSchedule = { lastTacticalPlanAt: state.time, semanticKey };
   // Formation/pressure plans are stable intentions. Integrate bodies at 40 Hz, but only answer
   // the expensive tactical question at 10 Hz or immediately after a semantic football event.
   state.players = (tacticalPlanDue ? deriveTacticalTargets(state) : state.players).map((player) => {
@@ -895,6 +960,20 @@ const stepTacticalMatchCore = (
           : undefined;
       if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction)) {
         const contactingPlayer = state.players.find((player) => player.id === contact.playerId)!;
+        if (contact.cause !== 'interception') {
+          const finish = tryIncomingFinish(
+            {
+              ...state,
+              ball: {
+                ...state.ball,
+                ...contact.landingPosition,
+                height: previous.z + (next.z - previous.z) * contact.segmentFraction,
+              },
+            },
+            contact.playerId!,
+          );
+          if (finish) return finish;
+        }
         if (contact.cause !== 'interception')
           return changePossession(
             {
@@ -936,6 +1015,51 @@ const stepTacticalMatchCore = (
           },
           { x: -incoming.x * 0.22, y: incoming.y * 0.35 + (rng.float() - 0.5) * 3 },
         );
+      }
+      // Low airborne cut-backs/half-volleys sit above the ground-claim envelope but below the
+      // aerial duel. Use the same real ball segment, rather than moving the ball to its target.
+      if (state.ball.airborne) {
+        const dx = next.x - previous.x,
+          dy = next.y - previous.y;
+        const segmentLengthSquared = dx * dx + dy * dy;
+        const contacts = state.players
+          .map((player) => {
+            const fraction =
+              segmentLengthSquared > 0
+                ? Math.max(
+                    0,
+                    Math.min(
+                      1,
+                      ((player.position.x - previous.x) * dx +
+                        (player.position.y - previous.y) * dy) /
+                        segmentLengthSquared,
+                    ),
+                  )
+                : 0;
+            const point = { x: previous.x + dx * fraction, y: previous.y + dy * fraction };
+            const height = previous.z + (next.z - previous.z) * fraction;
+            return { player, fraction, point, height, metres: distance(player.position, point) };
+          })
+          .filter(
+            (candidate) =>
+              candidate.height > 0.2 &&
+              candidate.height < 0.65 &&
+              candidate.metres <= 1.05 &&
+              (!crossing || candidate.fraction < crossing.segmentFraction),
+          )
+          .sort(
+            (a, b) =>
+              a.fraction - b.fraction ||
+              a.metres - b.metres ||
+              a.player.id.localeCompare(b.player.id),
+          );
+        for (const candidate of contacts) {
+          const finish = tryIncomingFinish(
+            { ...state, ball: { ...state.ball, ...candidate.point, height: candidate.height } },
+            candidate.player.id,
+          );
+          if (finish) return finish;
+        }
       }
       if (crossing) return applyBoundaryRestart(state, crossing, previous);
     }
@@ -998,7 +1122,7 @@ const stepTacticalMatchCore = (
         return finishShotContact(state, contact, incoming, keeperProjection);
       }
     }
-    if (state.ball.airborne && state.ball.travelKind !== 'shot') {
+    if (state.ball.airborne && !state.ball.shot) {
       const physical = findAerialContactCandidates(state, dt);
       if (physical.length) {
         const duel = resolveAerialDuel(
@@ -1029,32 +1153,52 @@ const stepTacticalMatchCore = (
             },
             { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
           );
-        const target =
+        const finish = tryIncomingFinish(base, winner.id);
+        if (finish) return finish;
+        const selectedReception =
+          state.pendingReceptionIntent?.actorId === winner.id &&
+          (state.pendingReceptionIntent.action.type === 'hold' ||
+            state.pendingReceptionIntent.action.type === 'carry');
+        if (
+          selectedReception ||
+          (state.ball.height ?? 0) < 1.45 ||
           duel.outcome === 'attacking_header'
-            ? { x: winner.team === 'home' ? 105 : 0, y: 34 }
-            : duel.outcome === 'clearance_header'
-              ? clampPitchPoint({
-                  x: contactPoint.x + (winner.team === 'home' ? 20 : -20),
-                  y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
-                })
-              : clampPitchPoint({
-                  x: contactPoint.x + (winner.team === 'home' ? 9 : -9),
-                  y: contactPoint.y,
-                });
+        ) {
+          // A selected receive waits for reachable foot control. A duel recommendation never
+          // overrides human intent or manufactures a shooting action outside shared AI ranking.
+          if ((state.ball.height ?? 0) > 1.45) return base;
+          return changePossession(base, winner.id, 'claim');
+        }
+        const target =
+          duel.outcome === 'clearance_header'
+            ? clampPitchPoint({
+                x: contactPoint.x + (winner.team === 'home' ? 20 : -20),
+                y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
+              })
+            : clampPitchPoint({
+                x: contactPoint.x + (winner.team === 'home' ? 9 : -9),
+                y: contactPoint.y,
+              });
         return resolveMatchAction(
-          { ...base, ball: { ...contactPoint, ownerId: winner.id, lastTouchPlayerId: winner.id } },
+          {
+            ...base,
+            ball: {
+              ...state.ball,
+              ...contactPoint,
+              ownerId: winner.id,
+              lastTouchPlayerId: winner.id,
+            },
+          },
           {
             type: 'header',
             actorId: winner.id,
             target,
             intent:
-              duel.outcome === 'attacking_header'
-                ? 'header_shot'
-                : duel.outcome === 'clearance_header'
-                  ? 'header_clearance'
-                  : duel.outcome === 'flick_on'
-                    ? 'flick'
-                    : 'header_pass',
+              duel.outcome === 'clearance_header'
+                ? 'header_clearance'
+                : duel.outcome === 'flick_on'
+                  ? 'flick'
+                  : 'header_pass',
           },
         );
       }
@@ -1063,7 +1207,7 @@ const stepTacticalMatchCore = (
     // proximity lottery sampled the same defender every 100 ms and caused repeated, non-physical
     // turnover opportunities during a single pass episode.
     if (
-      state.ball.travelKind !== 'shot' &&
+      !state.ball.shot &&
       (distance(state.ball, state.ball.target!) < 0.8 ||
         Math.hypot(integrated.velocity.x, integrated.velocity.y) < 0.25)
     ) {
@@ -1127,35 +1271,45 @@ const stepTacticalMatchCore = (
             { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
           );
         const winner = duel.winner;
-        const target =
+        const finish = tryIncomingFinish(base, winner.id);
+        if (finish) return finish;
+        const selectedReception =
+          state.pendingReceptionIntent?.actorId === winner.id &&
+          (state.pendingReceptionIntent.action.type === 'hold' ||
+            state.pendingReceptionIntent.action.type === 'carry');
+        if (
+          selectedReception ||
+          (state.ball.height ?? 0) < 1.45 ||
           duel.outcome === 'attacking_header'
-            ? { x: winner.team === 'home' ? 105 : 0, y: 34 }
-            : duel.outcome === 'clearance_header'
-              ? clampPitchPoint({
-                  x: winner.position.x + (winner.team === 'home' ? 20 : -20),
-                  y: winner.position.y + (winner.position.y < 34 ? 8 : -8),
-                })
-              : clampPitchPoint({
-                  x: winner.position.x + (winner.team === 'home' ? 9 : -9),
-                  y: winner.position.y,
-                });
+        ) {
+          if ((state.ball.height ?? 0) > 1.45) return base;
+          return changePossession(base, winner.id, 'claim');
+        }
+        const target =
+          duel.outcome === 'clearance_header'
+            ? clampPitchPoint({
+                x: winner.position.x + (winner.team === 'home' ? 20 : -20),
+                y: winner.position.y + (winner.position.y < 34 ? 8 : -8),
+              })
+            : clampPitchPoint({
+                x: winner.position.x + (winner.team === 'home' ? 9 : -9),
+                y: winner.position.y,
+              });
         return resolveMatchAction(
           {
             ...base,
-            ball: { ...winner.position, ownerId: winner.id, lastTouchPlayerId: winner.id },
+            ball: { ...state.ball, ownerId: winner.id, lastTouchPlayerId: winner.id },
           },
           {
             type: 'header',
             actorId: winner.id,
             target,
             intent:
-              duel.outcome === 'attacking_header'
-                ? 'header_shot'
-                : duel.outcome === 'clearance_header'
-                  ? 'header_clearance'
-                  : duel.outcome === 'flick_on'
-                    ? 'flick'
-                    : 'header_pass',
+              duel.outcome === 'clearance_header'
+                ? 'header_clearance'
+                : duel.outcome === 'flick_on'
+                  ? 'flick'
+                  : 'header_pass',
           },
         );
       }
@@ -1347,7 +1501,8 @@ const stepTacticalMatchCore = (
     const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
     // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
     // including high-impact actions when no genuinely playable alternative exists.
-    const action = awaitsPlayer ? undefined : chooseNpcAction(state, ownerId);
+    const action =
+      awaitsPlayer || hasActiveHumanPossession(state) ? undefined : chooseNpcAction(state, ownerId);
     const controlled = state.ball.ownerId === state.controlledFootballerId;
     if (action)
       state = resolveMatchAction(
@@ -1373,6 +1528,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
     playerMovementIntent: _movement,
     pendingPlayerDecision: _decision,
     postActionAgencyCheckpoint: _checkpoint,
+    humanPossessionEpisode: _humanPossession,
     restart: _restart,
     periodEndPending: _pending,
     ...stable
@@ -1387,6 +1543,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
     _movement,
     _decision,
     _checkpoint,
+    _humanPossession,
     _restart,
     _pending,
   ];
@@ -1416,7 +1573,7 @@ export const stepTacticalMatch = (
     prepared = { ...input, periodEndPending: true };
     delete prepared.pendingPlayerDecision;
   }
-  let next = stepTacticalMatchCore(prepared, rawDelta);
+  let next = reconcileHumanPossession(stepTacticalMatchCore(prepared, rawDelta));
   if (next === input) return input;
   if (!next.status) next = { ...next, status };
   if (next.periodEndPending && !hasImmediateResolution(next)) {
@@ -1458,7 +1615,7 @@ export const stepTacticalMatchAfterDecisionProbe = (
     input.periodEndPending || input.time + rawDelta >= threshold
       ? { ...input, periodEndPending: true }
       : input;
-  let next = stepTacticalMatchCore(prepared, rawDelta, true);
+  let next = reconcileHumanPossession(stepTacticalMatchCore(prepared, rawDelta, true));
   if (next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
       ...clearTransientPeriodState(next),

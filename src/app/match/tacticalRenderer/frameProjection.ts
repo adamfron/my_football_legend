@@ -20,10 +20,11 @@ export const observeAnimationCues = (
       previous.ball.travelKind !== ball.travelKind)
   ) {
     const actor = state.players.find((p) => p.id === ball.lastTouchPlayerId);
+    const shot = ball.shot?.shooterId === ball.lastTouchPlayerId ? ball.shot : undefined;
     const kind: AnimationCue['kind'] =
       ball.travelKind === 'throw_in'
         ? 'throw'
-        : ball.sourceAction === 'header'
+        : shot?.contact === 'header' || ball.sourceAction === 'header'
           ? 'header'
           : ball.sourceAction === 'shot'
             ? 'shot'
@@ -32,7 +33,20 @@ export const observeAnimationCues = (
               : actor?.profile.primaryPosition === 'goalkeeper'
                 ? 'distribution'
                 : 'pass';
-    cues.set(ball.lastTouchPlayerId, { kind, atMs: Math.max(0, atMs - ball.flightTime * 1000) });
+    cues.set(ball.lastTouchPlayerId, {
+      kind,
+      atMs: Math.max(0, atMs - ball.flightTime * 1000),
+      // Canonical evidence also survives historical context/replay sampling. Later action
+      // feedback may use kind; style/contact merely select a cosmetic follow-through.
+      ...(shot
+        ? {
+            shotIntent: shot.intent,
+            shotContact: shot.contact,
+            firstTime: shot.firstTime,
+            contactHeight: shot.ballHeightAtContact,
+          }
+        : {}),
+    });
   }
   if (
     previous &&
@@ -58,7 +72,7 @@ export const observeAnimationCues = (
               ? 'catch'
               : 'high_save'
             : 'header';
-      cues.set(id, { kind, atMs, contactHeight: aerial.ballHeight });
+      cues.set(id, { ...cues.get(id), kind, atMs, contactHeight: aerial.ballHeight });
     }
   }
   const contact = state.lastBallContact;

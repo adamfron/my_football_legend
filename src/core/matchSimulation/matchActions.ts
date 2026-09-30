@@ -1,5 +1,4 @@
 import { projectPlayerDecisionProbe } from './playerDecision';
-import { goalIntentToPitch } from './goalCoordinates';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   clampPitchPoint,
@@ -19,6 +18,16 @@ import { deriveLaunchVelocity } from './ballPhysics';
 import { derivePassLaunchPlan } from './passLaunchPlan';
 import { deriveFinalThirdOccupations } from './tacticalPositioning';
 import { preparationMarginForAction } from './onBallPreparation';
+import {
+  canExecuteCanonicalShot,
+  canonicalShotStyleUtility,
+  enumerateCanonicalShootingOptions,
+} from './shootingOptions';
+import {
+  commitHumanPossessionDecision,
+  hasActiveHumanPossession,
+  reconcileHumanPossession,
+} from './possessionAgency';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -162,7 +171,8 @@ export const enumerateAvailableActions = (
   actorId: string,
 ): MatchAction[] => {
   const actor = state.players.find((p) => p.id === actorId);
-  if (!actor || state.ball.ownerId !== actorId) return [];
+  if (!actor) return [];
+  if (state.ball.ownerId !== actorId) return enumerateCanonicalShootingOptions(state, actorId);
   const dir = actor.team === 'home' ? 1 : -1;
   const carryTargets = [
     { x: actor.position.x + dir * 6, y: actor.position.y },
@@ -206,32 +216,7 @@ export const enumerateAvailableActions = (
       });
     }
   }
-  const goalDistance = distance(actor.position, {
-    x: actor.team === 'home' ? 105 : 0,
-    y: 34,
-  });
-  {
-    const immediateDefenders = opponents(state, actor).filter(
-      (player) =>
-        player.profile.primaryPosition !== 'goalkeeper' &&
-        distance(player.position, actor.position) < 6,
-    );
-    const oneOnOne = goalDistance < 20 && immediateDefenders.length === 0;
-    for (const [index, horizontal] of [-0.82, 0, 0.82].entries())
-      actions.push({
-        type: 'shot',
-        actorId,
-        target: {
-          x: actor.team === 'home' ? 105 : 0,
-          y: goalIntentToPitch(actor.team, { horizontal, vertical: 0 }).y,
-        },
-        goalTarget: {
-          horizontal,
-          vertical: oneOnOne && index === 1 ? 0.72 : index === 1 ? 0.24 : 0.34,
-        },
-        intent: oneOnOne && index === 1 ? 'chip' : index === 1 ? 'driven' : 'placed',
-      });
-  }
+  actions.push(...enumerateCanonicalShootingOptions(state, actorId));
   state.players
     .filter(
       (p) => p.team === actor.team && p.id !== actorId && distance(p.position, actor.position) < 68,
@@ -328,9 +313,13 @@ export const scoreActionForAI = (
         30
     );
   if (action.type === 'shot')
-    return shotUtility(state, actor) + (action.target.y === 34 ? 2 : 0) - preparationPenalty;
+    return (
+      shotUtility(state, actor) + canonicalShotStyleUtility(state, action) - preparationPenalty
+    );
   if (action.type === 'header')
-    return action.intent === 'header_shot' ? shotUtility(state, actor) - 8 : 35;
+    return action.intent === 'header_shot'
+      ? shotUtility(state, actor) + canonicalShotStyleUtility(state, action)
+      : 35;
   if (action.type === 'cross') {
     const targets = state.players.filter(
       (p) => p.team === actor.team && distance(p.position, action.target) < 15,
@@ -467,12 +456,38 @@ export const chooseNpcAction = (
   actorId: string,
 ): MatchAction | undefined => rankAvailableActionsForAI(state, actorId)[0]?.action;
 
+/** Reception is an alternative, not a mandatory preliminary action for NPC finishing. */
+export const chooseIncomingShotAction = (
+  state: TacticalMatchState,
+  actorId: string,
+): MatchAction | undefined => {
+  const control: MatchAction = { type: 'hold', actorId };
+  const controlValue = scoreActionForAI(state, actorId, control);
+  return rankAvailableActionsForAI(state, actorId).find(
+    ({ action, score }) =>
+      (action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot')) &&
+      canExecuteCanonicalShot(state, action) &&
+      score > controlValue,
+  )?.action;
+};
+
 export const resolveMatchAction = (
   state: TacticalMatchState,
   action: MatchAction,
   source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
-  if (state.ball.ownerId !== action.actorId) return state;
+  const isShot =
+    action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot');
+  if (state.ball.ownerId !== action.actorId && (!isShot || !canExecuteCanonicalShot(state, action)))
+    return state;
+  if (isShot && !canExecuteCanonicalShot(state, action)) return state;
+  if (
+    hasActiveHumanPossession(state) &&
+    ['pass', 'shot', 'cross', 'header'].includes(action.type) &&
+    source !== 'human_selected' &&
+    source !== 'dev_ai_selected'
+  )
+    return state;
   // Meaningful high-impact choices stay human-owned. Forced legal actions may use canonical
   // autonomy; the agency evaluator alone determines whether playable alternatives exist.
   if (
@@ -490,11 +505,15 @@ export const resolveMatchAction = (
       ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
       : state.restart;
   const offsideSnapshot = captureOffsideSnapshot(state, action);
+  const prepared =
+    source === 'human_selected'
+      ? commitHumanPossessionDecision(state, action)
+      : reconcileHumanPossession(state);
   const {
     ballCarrierIntent: _interruptedCarry,
     postActionAgencyCheckpoint: _checkpoint,
     ...baseState
-  } = state;
+  } = prepared;
   void _interruptedCarry;
   void _checkpoint;
   if (action.type === 'hold')
@@ -557,17 +576,14 @@ export const resolveMatchAction = (
     const direction = actor.team === 'home' ? 1 : -1;
     const target = { ...shot.goalPoint, x: shot.goalPoint.x + direction * 2 };
     const duration = Math.max(0.28, distance(actor.position, target) / shot.speed);
-    const shotElevation = Math.atan2(
-      Math.max(0, shot.heightMetres) + 0.5 * 9.81 * duration * duration,
-      distance(actor.position, target),
-    );
-    const shotVelocity = deriveLaunchVelocity(actor.position, target, shot.speed, shotElevation);
+    const shotElevation = shot.launchElevation;
+    const shotVelocity = shot.launchVelocity;
     return {
       ...baseState,
       ball: {
         x: state.ball.x,
         y: state.ball.y,
-        from: { ...actor.position },
+        from: { x: state.ball.x, y: state.ball.y },
         target,
         travelKind: 'shot',
         sourceAction: action.type,
@@ -575,7 +591,8 @@ export const resolveMatchAction = (
         distanceTravelled: 0,
         targetHeight: Math.max(0, shot.heightMetres),
         shot,
-        height: 0,
+        height: state.ball.height ?? 0,
+        releaseHeight: state.ball.height ?? 0,
         airborne: true,
         velocity: shotVelocity,
         launchVelocity: shotVelocity,
@@ -631,18 +648,20 @@ export const resolveMatchAction = (
           ? 22
           : 27);
     const elevation = headerShot
-      ? Math.atan2(Math.max(0, headerShot.heightMetres) + 0.5 * 9.81 * duration * duration, length)
+      ? headerShot.launchElevation
       : action.intent === 'floated'
         ? 0.42
         : action.intent === 'driven'
           ? 0.2
           : 0.1;
-    const launchVelocity = deriveLaunchVelocity(
-      actor.position,
-      headerTarget,
-      launchSpeed,
-      elevation,
-    );
+    const launchVelocity =
+      headerShot?.launchVelocity ??
+      deriveLaunchVelocity(
+        action.type === 'header' ? state.ball : actor.position,
+        headerTarget,
+        launchSpeed,
+        elevation,
+      );
     return {
       ...baseState,
       ball: {
@@ -666,7 +685,8 @@ export const resolveMatchAction = (
         ...(headerShot
           ? { targetHeight: Math.max(0, headerShot.heightMetres), shot: headerShot }
           : {}),
-        height: 0,
+        height: action.type === 'header' ? (state.ball.height ?? 0) : 0,
+        ...(action.type === 'header' ? { releaseHeight: state.ball.height ?? 0 } : {}),
         airborne: true,
         velocity: launchVelocity,
         launchVelocity,

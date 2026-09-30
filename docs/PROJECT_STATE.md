@@ -1,6 +1,70 @@
 # My Football Legend — Current Project State
 
-## PR143 — current Single Match Lab state
+## PR144 — verified Single Match Lab state
+
+**Shooting & Final-Third Action Variety** zachowuje `matchSimulation` jako jedyny autorytet
+futbolu. `enumerateCanonicalShootingOptions` w `shootingOptions.ts` generuje wspólną rodzinę
+legalnych wykończeń dla menu target-first i rankingu NPC. `shotIntent.ts` rozdziela technikę
+(`driven`, `placed`, `chip`) od kontaktu (`settled`, `first_time`, `half_volley`, `volley`,
+`header`); nowe dane są walidowane Zod. Wysokość, szybkość/timing przychodzącej piłki, fizyczne
+ETA, orientacja ciała, dominująca noga, atrybuty i kontekst bramki ograniczają dostępność.
+AI może wybrać strzał bez przyjęcia, lecz kontakt nadal wymaga kanonicznego dojścia do piłki;
+nie ma teleportu, osobnej trajektorii ani kontaktu rozstrzyganego przez animację.
+
+`deriveShotExecutionProfile` jawnie różnicuje prędkość, błąd wykonania, presję, przygotowanie,
+trudność pierwszego kontaktu/orientacji/nogi oraz loft. `shotResolver` i wspólna fizyka piłki
+wykonują jeden lot 3D. Chip ma minimalną rzeczywistą pionową składową startową, również przy
+niskim celu wybranym na płaszczyźnie bramki PR141. Utrwalony `ShotDiagnostic`/telemetria zawierają
+intencję, kontakt/first-time, wysokości decyzji i kontaktu, zamierzony/rzeczywisty cel, błąd,
+launch speed/vertical, profil, klasyfikację, interwencję bramkarza i wynik. To dowody do PR145,
+bez szerokiej kalibracji skuteczności w PR144.
+
+`possessionAgency.ts` utrzymuje epizod posiadania człowieka po carry/hold; cooldown nie oddaje
+terminalnej akcji AI. Rutynowe dotknięcia i ruch pozostają kanoniczne. Epizod kończy wybrana
+terminalna akcja albo fizyczna zmiana/utrata posiadania lub jawna granica. Wybrany cel carry jest
+punktem następnej decyzji: osiągnięcie/bliskość/przekroczenie promienia oraz istotne zmiany
+bramkarza, nowy kierunek presji, wejście w strefę, otwarcie/zamknięcie strzału, decydujące podanie,
+ciężki kontakt lub contested mogą wywołać wcześniejszą okazję. Porównanie do semantycznego
+kontekstu ostatniej decyzji i pamięć już oferowanych rodzin ograniczają powtarzanie podobnych
+promptów; kalibracja częstości pozostaje PR145.
+
+`TacticalFrame`/`PresentationFrameProjector` zachowują kanoniczny typ kontaktu/intencję, także
+w historii tła PR143 i replayu. Lekkie gesty rozróżniają zwykły strzał, podcinkę, pierwszą piłkę,
+półwolej/wolej i główkę. Ogólna wskazówka `kind` może później zasilić feedback PR147; pełnego
+systemu etykiet przy akcji nie wdrożono. Goal picker i celowanie obsługują również `header_shot`;
+Polskie etykiety menu wynikają z opcji core.
+
+Kontrolowany żółty ring ma promienie 0,87–1,02 m, turkusowy owner 0,72–0,86 m, z odstępem 1 cm.
+Oba leżą na y=0,007 m (2 mm nad najwyższą trawą), używają depth test i zwykłego porządku rysowania;
+ciało/stopy zasłaniają część z tyłu. Są stałe w metrach, niezależne od zoomu; cel i actionable
+zachowują osobną semantykę. Zegar gracza ma `MM:SS`, a ułamki do 0,001 s tylko formatter DEV.
+
+Weryfikacja pełna: `npm run verify` passed, exit 0: lint, 109 plików / 640 testów głównych,
+1 plik / 5 testów full-career oraz TypeScript/Vite build (270 modułów). Build zgłasza nieblokujące
+ostrzeżenia o mieszanym imporcie `careerStorage` i chunk >500 kB; Node o experimental transform
+types. Krótki smoke w przeglądarce potwierdził Runtime OK, decyzję człowieka, zegar MM:SS i
+zmniejszony ring na murawie. Regresje obejmują legalność i parytet strzałów, pierwsze kontakty NPC/człowieka,
+loft podcinki, ciągłość posiadania, waypoint/wczesne decyzje i brak prompt spam; także geometrię/depth
+markerów, format czasu, deterministyczne gesty i metadata strzału w widocznej/historii klatce.
+Niezależny przegląd potwierdził brak automatycznej główki po wybranym przyjęciu i brak powtórnego
+kontaktu już wypuszczonej główki. Bezpośredni resolver również odrzuca ponowne uderzenie aktywnego
+strzału. Długie manualne playtesty i kalibracja częstości decyzji pozostają PR145.
+
+NEXT: **PR145 — Match Behaviour & Calibration Pass**, następnie
+**PR146 — Background Simulation Performance**, planowany **PR147 — Rules, Discipline & Match
+Feedback**. PR145 obejmuje lead-pass według ścieżki odbiorcy, integralność autów (cel/odbiorca,
+zakaz self-receive i carry), prawdziwy loft podań, opór toczenia po trawie, spójność statystyk,
+własność przechwytów, częstość znaczących decyzji i lejek strzał/on-target/keeper/goals.
+Typowy pełny mecz powinien później zawierać kilkadziesiąt znaczących decyzji, ustalone playtestami,
+bez sztywnej kwoty. PR146 ma cel produktu 4–6 minut dla meczu `key_player` z kontekstem/wyborami,
+bez długiego namysłu; technicznie ukryte 90 minut komfortowo <5 minut, dalej jeśli potrzeba.
+Macierz A/B rozdzieli minimum/release, normalne obserwatory, DEV, rolling debug JSON i WebM;
+koszt zbierania/buforowania oddziela od serializacji/zapisu i wymaga identycznych hashy stanu.
+PR147 doda przepisy/dyscyplinę i kanoniczny feedback; ryzykowne agresywne decyzje kontrolowanego
+obrońcy zwykle wymagają człowieka. Pogoda, warianty wyglądu piłki (w tym żółta/pomarańczowa dla
+śniegu), spin/Magnus i techniki curl oraz ceremonie przed/po meczu pozostają później.
+
+## PR143 — previous verified Single Match Lab state
 
 Ukończono **Interactive Moment Context & Presentation Windows**. `matchSimulation` pozostaje
 jedynym autorytetem futbolu. `projectPlayerAgency` decyduje o znaczącej, legalnej okazji człowieka;
