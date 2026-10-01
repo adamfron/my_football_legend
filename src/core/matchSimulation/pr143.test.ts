@@ -132,7 +132,11 @@ describe('PR143 agency belongs to football, viewing belongs to presentation', ()
     tracker.observe(state, forced);
     tracker.observe(state, forced);
     expect(tracker.snapshot(90).singleOptionDelegated).toBe(1);
-    opponent.position = { x: 51.5, y: 34 };
+    // A committed challenge matters against a receiver in dangerous territory; harmless
+    // close pressure in midfield is canonical routine under PR145.
+    actor.position = { x: 22, y: 34 };
+    actor.anchor = { ...actor.position };
+    opponent.position = { x: 23.5, y: 34 };
     state.ball = { ...opponent.position, ownerId: opponent.id };
     expect(projectPlayerAgency(state).opportunity?.kind).toBe('defensive_response');
   });

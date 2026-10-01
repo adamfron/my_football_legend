@@ -24,6 +24,20 @@ export const shotExecutionProfileSchema = z.object({
 });
 export type ShotExecutionProfile = z.infer<typeof shotExecutionProfileSchema>;
 
+/** Target-plane standard deviations use goal half-width / goal-height normalised coordinates. */
+export const shotExecutionErrorProfileSchema = z.object({
+  executionQuality: z.number().min(0).max(1),
+  horizontalSigma: z.number().positive(),
+  verticalSigma: z.number().positive(),
+  distanceDifficulty: z.number().nonnegative(),
+  angleDifficulty: z.number().min(0).max(1),
+  pressureDifficulty: z.number().min(0).max(1),
+  contactDifficulty: z.number().nonnegative(),
+  orientationDifficulty: z.number().min(0).max(1),
+  weakFootDifficulty: z.number().min(0).max(1),
+});
+export type ShotExecutionErrorProfile = z.infer<typeof shotExecutionErrorProfileSchema>;
+
 export const shotPreparationSeconds = (
   intent: 'driven' | 'placed' | 'chip' | 'header',
   contact: z.infer<typeof shotContactSchema>,

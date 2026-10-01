@@ -79,7 +79,11 @@ describe('PR134 restart liveness', () => {
     let current = restart;
     for (let tick = 0; tick < 90; tick += 1) current = stepTacticalMatch(current, 0.025);
     expect(current.restart?.phase).toBe('release');
-    expect(current.latestAction?.type).toBe('header');
+    expect(current.latestAction?.type).toBe('pass');
+    expect(current.ball.travelKind).toBe('throw_in');
+    expect(current.ball.intendedReceiverId).toBe(teammates[0]!.id);
+    expect(current.throwInRestriction?.throwerId).toBe(taker.id);
+    expect(current.lastThrowInDiagnostic?.nextContactPlayerId).not.toBe(taker.id);
   });
 
   it('surfaces a controlled throw-in when several receivers are legal', () => {

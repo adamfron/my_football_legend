@@ -14,7 +14,7 @@ export const hasActiveHumanPossession = (state: TacticalMatchState): boolean =>
     state.humanPossessionEpisode &&
       state.humanPossessionEpisode.actorId === state.controlledFootballerId &&
       state.ball.ownerId === state.humanPossessionEpisode.actorId &&
-      state.scenario === 'open_play' &&
+      (state.scenario === 'open_play' || state.restart?.phase === 'release') &&
       (state.ballEpisode ?? 0) === state.humanPossessionEpisode.ballEpisode,
   );
 

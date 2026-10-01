@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR144 są ukończone. W szczególności:
+PR105–PR145 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -80,36 +80,23 @@ PR105–PR144 są ukończone. W szczególności:
   przy istotnej zmianie sytuacji. Dodano telemetrię stylów, gesty kontaktu, mniejsze ringi z depth
   test i zegar MM:SS. Zweryfikowano przez `npm run verify`; szeroka kalibracja pozostaje PR145.
 
+- **PR145 — Match Behaviour & Calibration Pass:** osiągalne podania na dobieg z wektora ruchu
+  odbiorcy i wspólnego ETA; check-back/support ma osobną semantykę. Legalne, celowane auty
+  zachowują wybranego odbiorcę i zakaz ponownego kontaktu wykonawcy. Wspólna fizyka 3D tworzy
+  loft zależny od dystansu, a toczenie ma opór 3,2 m/s² bez zatrzymywania przy zadanym celu.
+  Kontakty i ukończone podania mają wspólne dowody/identyfikatory i spójną sieć. Rutynowa
+  obrona pozostaje autonomiczna, przechwyt uwzględnia ETA kolegów; epizod człowieka PR144
+  zachowuje terminalną sprawczość również po aucie. Jawny błąd wykonania strzału, fizyczna
+  reakcja/zasięg bramkarza i pasywna kolizja tułowia zastępują patologiczne przypadki.
+  `npm run verify`: exit 0, 697 testów głównych + 5 kariery, lint i build. Benchmark 3 × 600 s:
+  136 → 14 decyzji względem PR144 (projekcja 408 → 42 / 90 min), zero niespójnych przyjęć;
+  kontrolowane 224 strzały: 148 celnych, 73 gole, 75 obron, 76 kontaktów bramkarza.
+  To ograniczone dowody, nie końcowy realizm. Definicje i stałe:
+  [MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
+
 ### NEXT
 
-**PR145 — Match Behaviour & Calibration Pass**
-
-- **Through-ball / lead-pass:** cel przede wszystkim z przewidywanego wektora ruchu odbiorcy i
-  jego osiągalnej przyszłej ścieżki. Obejmuje diagonalne podanie za linię, piłkę wzdłuż linii do
-  skrzydłowego i podanie w poprzek/cut-back w bieg napastnika. Piłka świadomie zagrana za kolegę,
-  w stronę podającego, zwykle należy do support/to-feet, nie do lead-pass.
-- **Auty:** wspólna semantyka odbiorcy/celu człowieka i autonomii. Wypuszczenie musi prowadzić do
-  wybranego kolegi/punktu, bez cichej zamiany na ogólny rzut do przodu. Zakaz rzutu do siebie,
-  `carry here` dla wykonawcy oraz jego ponownego legalnego kontaktu przed dotknięciem innego
-  zawodnika. Integralność celu i wykonawcy ma być sprawdzana dla obu źródeł wyboru.
-- **Podania górą:** kalibracja rzeczywistych kanonicznych parametrów startowych 3D; płaski lot
-  naprawiamy w fizyce, bez kosmetycznych łuków renderera.
-- **Toczenie po trawie:** audyt oporu toczenia/deceleracji poziomej. Lekka piłka wyraźnie traci
-  prędkość i zatrzymuje się wcześniej, mocne podanie toczy się dalej, silne wybicie może pokonać
-  dużą odległość. Bez sztucznej maksymalnej długości; lot pozostaje oddzielnym stanem wspólnej
-  fizyki piłki.
-- **Liczba decyzji:** osłona piłki, rutynowy doskok, trzymanie linii, krok do przechwytu i zwykła
-  reakcja pozycyjna zwykle pozostają autonomią opartą o cechy, chyba że istnieje znacząca
-  alternatywa taktyczna/ryzyka. Sama liczba przycisków nie określa znaczenia. Cel produktu to
-  z grubsza kilkadziesiąt znaczących decyzji w typowym pełnym 90-minutowym meczu kontrolowanego
-  zawodnika, nie setki; końcowy zakres ustalą playtesty i telemetria, bez ślepej kwoty.
-- **Spójność i własność:** touches / podania otrzymane / próby podań oraz własność decyzji
-  defensywnych i przechwytów; kalibracja shielding, hold-line i step-out.
-- **Strzały i bramkarz:** kalibracja lejka accuracy → on-target → keeper success → goals i
-  skuteczności bramkarzy według typów strzałów. PR144 rozróżnia wykonanie, nie kończy kalibracji
-  globalnego scoringu.
-
-**PR146 — Background Simulation Performance** (plan, osobny etap)
+**PR146 — Background Simulation Performance**
 
 - cel produktu: normalny grywalny mecz `key_player`, z materiałem kontekstowym i rozsądną
   liczbą wyborów, zwykle powinien zamknąć się w około **4–6 minutach rzeczywistych**, bez

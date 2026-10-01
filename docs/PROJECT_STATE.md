@@ -1,6 +1,58 @@
 # My Football Legend — Current Project State
 
-## PR144 — verified Single Match Lab state
+## PR145 — verified Single Match Lab state
+
+Ukończono **Match Behaviour & Calibration Pass** na zweryfikowanym main po PR144
+(`dd70e788f0c0f00559d958c43c4f632595e7c14f`). `matchSimulation` pozostaje jedynym autorytetem;
+krok 0,025 s, seeded RNG i obserwacyjna prezentacja są zachowane. `projectPassReception`
+iteruje osiągalny punkt spotkania po ścieżce odbiorcy (horyzont do 2,5 s); facing nie zastępuje
+ruchu, check-back/stanie bez zamiaru ruchu staje się support. Lot i ETA zaczynają się w
+rzeczywistej pozycji piłki. Wspólny loft 3D zależy od dystansu/rodzaju/wykonania, a oba dawne
+modele toczenia zastępuje dokładna deceleracja 3,2 m/s² z neutralnym mnożnikiem 1.
+Piłka nie wyhamowuje ani nie traci wysokości przy samym zadanym celu podania.
+
+Celowane auty wybierają legalnego kolegę, zachowują przesunięcie wybranego celu i mają wspólny
+fallback człowieka/NPC. Wykonawca nie może otrzymać, prowadzić ani ponownie uderzyć własnego
+autu do fizycznego kontaktu innego zawodnika. Diagnostyka zapisuje wybór, wektor i następny
+kontakt. Po wypuszczeniu wznowienia przygotowanie odbiorcy i wybór przyjęcia są zachowane;
+człowiek otrzymuje dalszą terminalną decyzję, a carry zachowuje epizod PR144.
+
+`contactEvidence.ts` deduplikuje fizyczne kontakty, w tym pierwsze przyjęcie/strzał i
+substep catch/owner. Jedno ukończenie podania jednocześnie zwiększa passer/receiver/network,
+wyłącznie dla zamierzonego odbiorcy z dowodem kontaktu. Carries liczą epizody, nie ticki ani
+stare akcje przy kolejnych indeksach AI. UI używa „Kontakty”. Telemetria kopiuje wspólne sumy.
+Rutynowe shielding, recycling, close-down i mały krok w linię nie wymagają promptu; wyraźnie
+wcześniejszy kolega posiada przechwyt. Istotne ryzyko/wykończenie zachowuje sprawczość.
+
+Strzał ma jawne sigma błędu według jakości, odległości, kąta, presji, kontaktu, orientacji
+i nogi. Bounded normal-like seeded RNG ma poprawną wariancję. Bramkarz porusza rzeczywiste
+ciało, zużywa czas reakcji i wymaga kolizji przed catch/parry. Zasięg aktywny 1,25 m jest
+osobny od pasywnego tułowia 0,5 m na wysokości 1,05 m. Kontakt przed reakcją powoduje
+fizyczny block/failed_save, bez statystyki obrony; nie ma przenikania przez ciało.
+
+Finalne `npm run verify`: **exit 0** — lint, **112 plików / 697 testów głównych**,
+**1 plik / 5 testów full-career**, TypeScript/Vite build (**273 moduły**).
+Lokalnie użyto `VITEST_MAX_WORKERS=2`: domyślna równoległość powodowała timeout istniejącego
+testu deterministyczności debug capture; osobno 25/25 i cały zestaw przeszły bez zmiany
+asercji lub limitu czasu. Pozostały nieblokujące ostrzeżenia Node experimental transform types,
+mieszany import `careerStorage` i chunk >500 kB.
+
+`npm run benchmark:calibration`: **exit 0**, trzy stałe seedy po 600 s, te same składy/pozycje
+i jawny DEV wybór co w próbce czystego PR144. Decyzje człowieka **136 → 14**; projekcja
+na 90 min **408 → 42** (pozycje po zmianie: CM 9, LB 72, ST 45). W meczu: 4 strzały,
+2 celne, 2 gole, 0 obron; ta mała próbka nie wyznacza skuteczności bramkarzy. Podania
+380/629, a completed = received = network = 380; zero `passesReceived > touches` i zero
+lead za aktywnym ruchem. Osobny równoważony zestaw 224 rzeczywistych wykonań siedmiu rodzin:
+148 celnych (66,07%), 73 gole, 75 obron, 76 kontaktów bramkarza, 3 bloki, 0 nierozstrzygniętych.
+Szczegóły, BEFORE/AFTER, definicje i ograniczenia:
+[MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
+Krótka kalibracja nie dowodzi końcowego realizmu ani pełnego rozkładu 90-minutowych meczów.
+
+NEXT: **PR146 — Background Simulation Performance**. **PR147 — Rules, Discipline & Match
+Feedback** pozostaje planowany po nim. Nie wdrożono optymalizacji runtime PR146, fauli/kartek,
+pogody, spin/Magnus, nowych improwizowanych technik, ceremonii, zmian ani nowego silnika futbolu.
+
+## PR144 — previous verified Single Match Lab state
 
 **Shooting & Final-Third Action Variety** zachowuje `matchSimulation` jako jedyny autorytet
 futbolu. `enumerateCanonicalShootingOptions` w `shootingOptions.ts` generuje wspólną rodzinę
@@ -50,7 +102,7 @@ Niezależny przegląd potwierdził brak automatycznej główki po wybranym przyj
 kontaktu już wypuszczonej główki. Bezpośredni resolver również odrzuca ponowne uderzenie aktywnego
 strzału. Długie manualne playtesty i kalibracja częstości decyzji pozostają PR145.
 
-NEXT: **PR145 — Match Behaviour & Calibration Pass**, następnie
+Plan po PR144 (historyczny): **PR145 — Match Behaviour & Calibration Pass**, następnie
 **PR146 — Background Simulation Performance**, planowany **PR147 — Rules, Discipline & Match
 Feedback**. PR145 obejmuje lead-pass według ścieżki odbiorcy, integralność autów (cel/odbiorca,
 zakaz self-receive i carry), prawdziwy loft podań, opór toczenia po trawie, spójność statystyk,

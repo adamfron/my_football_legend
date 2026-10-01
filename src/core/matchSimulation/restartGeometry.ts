@@ -76,6 +76,7 @@ const variantBall = (scenario: RestartScenario): PitchPoint => {
   if (scenario === 'corner') return { x: 104.5, y: 0.5 };
   if (scenario === 'penalty') return { x: 94, y: 34 };
   if (scenario === 'kick_off') return { x: 52.5, y: 34 };
+  if (scenario === 'throw_in') return { x: 58, y: 0 };
   return scenario === 'gk_short' ? { x: 7, y: 28 } : { x: 5.5, y: 34 };
 };
 

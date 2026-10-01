@@ -7,6 +7,7 @@ import {
   resolveMatchAction,
   stepTacticalMatch,
 } from '.';
+import { deriveShotExecutionErrorProfile } from './shotResolver';
 
 const world = createCanonicalWorldDatabase();
 const makeState = (seed: string) => {
@@ -124,5 +125,96 @@ describe('canonical shot resolver v2', () => {
         current.ball.travelKind ||
         current.restart,
     ).toBeTruthy();
+  });
+});
+
+describe('PR145 contextual execution calibration', () => {
+  const prepare = () => {
+    const setup = makeState('shot-calibration');
+    for (const player of setup.state.players)
+      if (player.id !== setup.shooter.id) player.position = { x: 45, y: 8 };
+    setup.shooter.facingAngle = Math.PI / 2;
+    Object.assign(setup.shooter.profile.attributes, {
+      finishing: 65,
+      technique: 65,
+      composure: 65,
+      agility: 65,
+      firstTouch: 65,
+    });
+    return {
+      ...setup,
+      action: {
+        type: 'shot' as const,
+        actorId: setup.shooter.id,
+        target: { x: 105, y: 34 },
+        goalTarget: { horizontal: 0.4, vertical: 0.3 },
+        intent: 'placed' as const,
+      },
+    };
+  };
+  it('widens the distribution with pressure, awkward orientation and difficult contacts', () => {
+    const { state, shooter, action } = prepare();
+    const ordinary = deriveShotExecutionErrorProfile(state, action);
+    state.currentPressure = 0.9;
+    const pressured = deriveShotExecutionErrorProfile(state, action);
+    expect(pressured.horizontalSigma).toBeGreaterThan(ordinary.horizontalSigma);
+    expect(pressured.verticalSigma).toBeGreaterThan(ordinary.verticalSigma);
+    state.currentPressure = 0;
+    shooter.facingAngle = -Math.PI / 4;
+    expect(deriveShotExecutionErrorProfile(state, action).horizontalSigma).toBeGreaterThan(
+      ordinary.horizontalSigma,
+    );
+    shooter.facingAngle = Math.PI / 2;
+    const firstTime = deriveShotExecutionErrorProfile(state, { ...action, contact: 'first_time' });
+    const volley = deriveShotExecutionErrorProfile(state, { ...action, contact: 'volley' });
+    expect(firstTime.horizontalSigma).toBeGreaterThan(ordinary.horizontalSigma);
+    expect(volley.horizontalSigma).toBeGreaterThanOrEqual(firstTime.horizontalSigma);
+  });
+  it('improves with finishing/composure and worsens with distance, angle and weak-foot contact', () => {
+    const { state, shooter, action } = prepare();
+    const ordinary = deriveShotExecutionErrorProfile(state, action);
+    shooter.profile.attributes.finishing = 95;
+    shooter.profile.attributes.composure = 95;
+    const skilled = deriveShotExecutionErrorProfile(state, action);
+    expect(skilled.horizontalSigma).toBeLessThan(ordinary.horizontalSigma);
+    expect(skilled.verticalSigma).toBeLessThan(ordinary.verticalSigma);
+    shooter.position = { x: 76, y: 48 };
+    state.ball = { ...shooter.position, ownerId: shooter.id };
+    expect(deriveShotExecutionErrorProfile(state, action).horizontalSigma).toBeGreaterThan(
+      skilled.horizontalSigma,
+    );
+    shooter.position = { x: 91, y: 34 };
+    state.ball = { x: 91, y: 34.4, ownerId: shooter.id };
+    shooter.profile.dominantFoot = 'right';
+    shooter.profile.weakFootProficiency = 10;
+    const weak = deriveShotExecutionErrorProfile(state, action);
+    shooter.profile.weakFootProficiency = 95;
+    expect(deriveShotExecutionErrorProfile(state, action).horizontalSigma).toBeLessThan(
+      weak.horizontalSigma,
+    );
+  });
+  it('lets ordinary seeded attempts miss while close elite finishes remain concentrated', () => {
+    const { state, shooter, action } = prepare();
+    state.currentPressure = 0.55;
+    const ordinary = Array.from({ length: 96 }, (_, index) =>
+      resolveCanonicalShot({ ...state, seed: `shot-distribution-${index}` }, action),
+    );
+    expect(ordinary.filter((shot) => shot.classification !== 'on_target').length).toBeGreaterThan(
+      15,
+    );
+    Object.assign(shooter.profile.attributes, { finishing: 100, technique: 100, composure: 100 });
+    shooter.position = { x: 99, y: 34 };
+    state.ball = { ...shooter.position, ownerId: shooter.id };
+    state.currentPressure = 0;
+    const elite = Array.from({ length: 96 }, (_, index) =>
+      resolveCanonicalShot(
+        { ...state, seed: `shot-distribution-${index}` },
+        { ...action, goalTarget: { horizontal: 0, vertical: 0.3 } },
+      ),
+    );
+    expect(elite.filter((shot) => Math.abs(shot.error.horizontal) < 0.35).length).toBeGreaterThan(
+      90,
+    );
+    expect(elite.filter((shot) => shot.classification === 'on_target').length).toBeGreaterThan(85);
   });
 });

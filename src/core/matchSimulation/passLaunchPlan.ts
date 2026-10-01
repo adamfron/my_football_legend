@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { projectFutureBallTrajectory, deriveLaunchVelocity } from './ballPhysics';
+import {
+  BALL_PHYSICS,
+  projectFutureBallTrajectory,
+  deriveLaunchVelocity,
+  deriveAerialLaunchPlan,
+} from './ballPhysics';
 import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { projectReceiverReadiness, receiverReadinessProjectionSchema } from './receiverReadiness';
@@ -32,7 +37,9 @@ export const derivePassLaunchPlan = (
   intent: PassLaunchIntent,
   delivery: PassDelivery = 'ground',
 ): PassLaunchPlan => {
-  const metres = distance(passer.position, target);
+  const releasePosition =
+    state.ball.ownerId === passer.id ? { x: state.ball.x, y: state.ball.y } : passer.position;
+  const metres = distance(releasePosition, target);
   const initialEta = Math.max(0.55, metres / (intent === 'support' ? 7.2 : 10.5));
   let readiness = projectReceiverReadiness(state, receiver, target, initialEta, intent);
   const desiredArrivalTime = Math.min(
@@ -53,11 +60,57 @@ export const derivePassLaunchPlan = (
         : intent === 'through' && metres > 30
           ? 0.16
           : 0;
-  const forecast = (candidateSpeed: number) => {
-    const velocity = deriveLaunchVelocity(passer.position, target, candidateSpeed, elevation);
+  if (elevation > 0) {
+    const aerial = deriveAerialLaunchPlan(
+      releasePosition,
+      target,
+      intent === 'direct' ? 'long_pass' : 'pass',
+      {
+        releaseHeight: 0.11,
+        ability: (passer.profile.attributes.passing + passer.profile.attributes.technique) / 2,
+      },
+    );
     const samples = projectFutureBallTrajectory(
       {
-        position: { ...passer.position, z: 0.11 },
+        position: { ...releasePosition, z: 0.11 },
+        velocity: aerial.velocity,
+        airborne: true,
+        bounceCount: 0,
+      },
+      aerial.predictedFlightTime + 0.15,
+      0.025,
+    );
+    const arrival = samples.reduce((best, sample) =>
+      Math.abs(sample.at - aerial.predictedFlightTime) <
+      Math.abs(best.at - aerial.predictedFlightTime)
+        ? sample
+        : best,
+    );
+    return passLaunchPlanSchema.parse({
+      target,
+      velocity: aerial.velocity,
+      speed: aerial.speed,
+      elevation: aerial.elevation,
+      predictedArrivalTime: aerial.predictedFlightTime,
+      predictedArrivalSpeed: Math.hypot(
+        arrival.ball.velocity.x,
+        arrival.ball.velocity.y,
+        arrival.ball.velocity.z,
+      ),
+      receiverReadiness: projectReceiverReadiness(
+        state,
+        receiver,
+        target,
+        aerial.predictedFlightTime,
+        intent,
+      ),
+    });
+  }
+  const forecast = (candidateSpeed: number) => {
+    const velocity = deriveLaunchVelocity(releasePosition, target, candidateSpeed, elevation);
+    const samples = projectFutureBallTrajectory(
+      {
+        position: { ...releasePosition, z: 0.11 },
         velocity,
         airborne: elevation > 0,
         bounceCount: 0,
@@ -76,7 +129,13 @@ export const derivePassLaunchPlan = (
   };
   // For rolling passes the canonical deceleration has a closed-form launch estimate. The forecast
   // below remains authoritative and reports the result through the shared integrator.
-  let speed = Math.min(30, Math.max(3.2, metres / desiredArrivalTime + 1.075 * desiredArrivalTime));
+  let speed = Math.min(
+    30,
+    Math.max(
+      3.2,
+      metres / desiredArrivalTime + BALL_PHYSICS.rollingDeceleration * 0.5 * desiredArrivalTime,
+    ),
+  );
   if (elevation > 0) speed = Math.min(30, Math.max(speed, (metres / desiredArrivalTime) * 1.12));
   const result = forecast(speed);
   const { velocity, arrival } = result;

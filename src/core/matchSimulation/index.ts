@@ -34,6 +34,7 @@ export * from './matchFlowTelemetry';
 export * from './locomotion';
 export * from './playerArrival';
 export * from './playerMatchStats';
+export * from './contactEvidence';
 export * from './goalkeeperIntervention';
 export * from './passLaunchPlan';
 export * from './receiverReadiness';
@@ -45,4 +46,6 @@ export * from './backgroundPerformance';
 export * from './backgroundBenchmark';
 
 export * from './playerAgency';
+export * from './agencyCalibration';
 export * from './presentationWindows';
+export * from './throwIn';

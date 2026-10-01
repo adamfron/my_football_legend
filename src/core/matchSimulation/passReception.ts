@@ -1,9 +1,21 @@
 import { z } from 'zod';
 import { clampPitchPoint, distance, pitchPointSchema, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
-import { derivePassLaunchPlan, passLaunchPlanSchema } from './passLaunchPlan';
+import { derivePassLaunchPlan, passLaunchPlanSchema, type PassDelivery } from './passLaunchPlan';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { projectReceiverReadiness, receiverReadinessProjectionSchema } from './receiverReadiness';
+import { estimatePlayerArrivalTime } from './playerArrival';
+import { projectLocomotion } from './locomotion';
+
+/** Seconds/metres: bounded receiver continuation, shared by lead and through options. */
+export const PASS_MEETING_CALIBRATION = Object.freeze({
+  maximumHorizonSeconds: 2.5,
+  supportHorizonSeconds: 0.32,
+  activeMovementSpeed: 0.35,
+  minimumPathSeparationMetres: 1.6,
+  arrivalToleranceSeconds: 0.2,
+  meetingIterations: 3,
+});
 
 export const passReceptionProjectionSchema = z.object({
   releaseTarget: pitchPointSchema,
@@ -16,6 +28,9 @@ export const passReceptionProjectionSchema = z.object({
   receiverAwarenessDelay: z.number().nonnegative(),
   launchPlan: passLaunchPlanSchema,
   receiverReadiness: receiverReadinessProjectionSchema,
+  semanticIntent: z.enum(['support', 'progressive', 'direct', 'lead', 'through']),
+  predictionHorizon: z.number().nonnegative().max(2.5),
+  movementProjection: z.number().finite(),
 });
 export type PassReceptionProjection = z.infer<typeof passReceptionProjectionSchema>;
 
@@ -40,14 +55,15 @@ export const receptionOutcomeSchema = z.object({
 });
 export type ReceptionOutcome = z.infer<typeof receptionOutcomeSchema>;
 
-export type ProjectedPassIntent = 'support' | 'progressive' | 'direct' | 'lead';
+export type ProjectedPassIntent = 'support' | 'progressive' | 'direct' | 'lead' | 'through';
 
-/** Pure meeting-point estimate for ordinary passes. Through balls retain reachable-space semantics. */
+/** Velocity-led meeting forecast; observes canonical motion without simulating a second match. */
 export const projectPassReception = (
   state: TacticalMatchState,
   passer: MatchPlayerState,
   receiver: MatchPlayerState,
   intent: ProjectedPassIntent,
+  delivery: PassDelivery = 'ground',
 ): PassReceptionProjection => {
   const a = passer.profile.attributes;
   const pressure = Math.max(0, Math.min(1, state.currentPressure));
@@ -62,68 +78,129 @@ export const projectPassReception = (
       (ra.gameReading + ra.concentration) / 250 +
       distance(passer.position, receiver.position) / 220,
   );
-  let target = { ...receiver.position };
   const velocitySpeed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
   const tacticalDx = receiver.target.x - receiver.position.x;
   const tacticalDy = receiver.target.y - receiver.position.y;
   const tacticalDistance = Math.hypot(tacticalDx, tacticalDy);
-  const paceSpeed = 2.6 + (ra.pace / 100) * 4.2;
-  const tacticalVelocity =
-    tacticalDistance > 0.2
-      ? {
-          x: (tacticalDx / tacticalDistance) * Math.min(paceSpeed, tacticalDistance),
-          y: (tacticalDy / tacticalDistance) * Math.min(paceSpeed, tacticalDistance),
-        }
+  const activeMovement = velocitySpeed >= PASS_MEETING_CALIBRATION.activeMovementSpeed;
+  const motion = activeMovement
+    ? receiver.velocity
+    : tacticalDistance >= PASS_MEETING_CALIBRATION.minimumPathSeparationMetres
+      ? { x: tacticalDx, y: tacticalDy }
       : { x: 0, y: 0 };
-  const motion = velocitySpeed > 0.35 ? receiver.velocity : tacticalVelocity;
-  const leadStrength =
-    (intent === 'support'
-      ? 0.48
-      : intent === 'lead'
-        ? 0.92
-        : intent === 'progressive'
-          ? 0.78
-          : 0.68) * read;
-  let arrival = distance(passer.position, target) / 12;
-  for (let iteration = 0; iteration < 2; iteration += 1) {
-    const activeTime = Math.max(0, arrival - awarenessDelay * 0.45);
-    const maxLead =
-      intent === 'support' ? 3.2 : intent === 'lead' ? 9 : intent === 'progressive' ? 8 : 10;
-    const scale = Math.min(
-      maxLead / Math.max(0.01, Math.hypot(motion.x, motion.y) * activeTime),
-      leadStrength,
+  const motionSpeed = Math.hypot(motion.x, motion.y);
+  const direction = {
+    x: motion.x / Math.max(0.001, motionSpeed),
+    y: motion.y / Math.max(0.001, motionSpeed),
+  };
+  const toPasser = {
+    x: passer.position.x - receiver.position.x,
+    y: passer.position.y - receiver.position.y,
+  };
+  const checkingBack =
+    motionSpeed > 0 &&
+    direction.x * toPasser.x + direction.y * toPasser.y >
+      distance(passer.position, receiver.position) * 0.45;
+  const pathIntent = intent === 'lead' || intent === 'through';
+  let semanticIntent: ProjectedPassIntent =
+    pathIntent && (checkingBack || motionSpeed === 0) ? 'support' : intent;
+  const predictsPath = semanticIntent === 'lead' || semanticIntent === 'through';
+  const acceleration = 3.2 + ra.agility * 0.055;
+  const targetSpeed = projectLocomotion(state, receiver).targetSpeed;
+  const capability = 6.2 + ra.pace * 0.033;
+  const initialSpeed = activeMovement ? Math.min(capability, velocitySpeed) : 0;
+  const continuationSpeed = Math.max(initialSpeed, Math.min(capability, targetSpeed));
+  const projectedAt = (seconds: number) => {
+    const activeTime = activeMovement ? seconds : Math.max(0, seconds - awarenessDelay);
+    const accelerationTime = Math.min(
+      activeTime,
+      Math.max(0, continuationSpeed - initialSpeed) / acceleration,
     );
-    const projectedY = receiver.position.y + motion.y * activeTime * scale;
-    // Close to touch, preserve the forward lead but fade only the outward component. This is not a
-    // global inset: passes along the channel can still meet a runner close to the painted line.
+    let travel =
+      initialSpeed * activeTime +
+      acceleration * accelerationTime * (activeTime - accelerationTime / 2);
+    if (!activeMovement) travel = Math.min(tacticalDistance, travel);
     const outward =
-      (receiver.position.y < 6 && projectedY < receiver.position.y) ||
-      (receiver.position.y > 62 && projectedY > receiver.position.y);
-    const edgeDistance = Math.min(receiver.position.y, 68 - receiver.position.y);
-    const lateralScale = outward ? Math.max(0.08, Math.min(1, edgeDistance / 6)) : 1;
-    target = clampPitchPoint({
-      x: receiver.position.x + motion.x * activeTime * scale,
-      y: receiver.position.y + motion.y * activeTime * scale * lateralScale,
+      (receiver.position.y < 6 && direction.y < 0) || (receiver.position.y > 62 && direction.y > 0);
+    const lateralScale = outward
+      ? Math.max(0.08, Math.min(1, Math.min(receiver.position.y, 68 - receiver.position.y) / 6))
+      : 1;
+    return clampPitchPoint({
+      x: receiver.position.x + direction.x * travel,
+      y: receiver.position.y + direction.y * travel * lateralScale,
     });
-    arrival = Math.max(0.45, distance(passer.position, target) / 12);
+  };
+  let horizon = predictsPath
+    ? Math.min(
+        PASS_MEETING_CALIBRATION.maximumHorizonSeconds,
+        Math.max(0.45, distance(passer.position, receiver.position) / 14),
+      )
+    : semanticIntent === 'support'
+      ? PASS_MEETING_CALIBRATION.supportHorizonSeconds * (0.65 + read * 0.35)
+      : 0.65 * read;
+  let target = projectedAt(horizon);
+  let launchPlan = derivePassLaunchPlan(state, passer, receiver, target, semanticIntent, delivery);
+  if (predictsPath) {
+    for (
+      let iteration = 0;
+      iteration < PASS_MEETING_CALIBRATION.meetingIterations;
+      iteration += 1
+    ) {
+      horizon = Math.min(
+        PASS_MEETING_CALIBRATION.maximumHorizonSeconds,
+        launchPlan.predictedArrivalTime,
+      );
+      target = projectedAt(horizon);
+      launchPlan = derivePassLaunchPlan(state, passer, receiver, target, semanticIntent, delivery);
+    }
+    // A very flat/long launch or a clipped boundary must never demand physically impossible motion.
+    for (let correction = 0; correction < 3; correction += 1) {
+      const eta = estimatePlayerArrivalTime(state, receiver, target, 'intercept');
+      if (
+        eta.estimatedTime <=
+        launchPlan.predictedArrivalTime + PASS_MEETING_CALIBRATION.arrivalToleranceSeconds
+      )
+        break;
+      horizon *= 0.75;
+      target = projectedAt(horizon);
+      launchPlan = derivePassLaunchPlan(state, passer, receiver, target, semanticIntent, delivery);
+    }
   }
-  const launchPlan = derivePassLaunchPlan(state, passer, receiver, target, intent);
-  arrival = launchPlan.predictedArrivalTime;
+  const movementProjection =
+    (target.x - receiver.position.x) * direction.x + (target.y - receiver.position.y) * direction.y;
+  const reachableArrival = estimatePlayerArrivalTime(state, receiver, target, 'intercept');
+  if (
+    predictsPath &&
+    (movementProjection < PASS_MEETING_CALIBRATION.minimumPathSeparationMetres ||
+      reachableArrival.estimatedTime >
+        launchPlan.predictedArrivalTime + PASS_MEETING_CALIBRATION.arrivalToleranceSeconds)
+  ) {
+    semanticIntent = 'support';
+    horizon = PASS_MEETING_CALIBRATION.supportHorizonSeconds;
+    target = projectedAt(horizon);
+    launchPlan = derivePassLaunchPlan(state, passer, receiver, target, semanticIntent, delivery);
+  }
+  const arrival = launchPlan.predictedArrivalTime;
   const leadDistance = distance(receiver.position, target);
   const movement =
-    leadDistance < 0.6 ? 'hold' : intent === 'support' ? 'meet_ball' : 'continue_run';
-  const receiverSpeed = Math.max(1.2, paceSpeed * (movement === 'continue_run' ? 0.9 : 0.65));
+    leadDistance < 0.6 ? 'hold' : semanticIntent === 'support' ? 'meet_ball' : 'continue_run';
   return passReceptionProjectionSchema.parse({
     releaseTarget: target,
     expectedReceptionPoint: target,
     estimatedBallArrival: arrival,
-    estimatedReceiverArrival: awarenessDelay + leadDistance / receiverSpeed,
+    estimatedReceiverArrival: estimatePlayerArrivalTime(state, receiver, target, 'intercept')
+      .estimatedTime,
     receiverMovement: movement,
     leadDistance,
     passerReadQuality: read,
     receiverAwarenessDelay: awarenessDelay,
     launchPlan,
     receiverReadiness: launchPlan.receiverReadiness,
+    semanticIntent,
+    predictionHorizon: horizon,
+    movementProjection:
+      (target.x - receiver.position.x) * direction.x +
+      (target.y - receiver.position.y) * direction.y,
   });
 };
 
