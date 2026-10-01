@@ -233,7 +233,8 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
             assignments.map(({ playerId, target }) => [playerId, target]),
           ),
           rollingResistance: DEFAULT_PITCH_SURFACE.rollingResistance,
-          drag: DEFAULT_PITCH_SURFACE.drag ?? 0,
+          // Ground rolling uses central constant deceleration; air drag belongs to 3D flight.
+          drag: 0,
         },
         lastShot: state.lastShot,
         lastShotResult: state.lastShotResult,

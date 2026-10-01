@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import { createTacticalMatch, projectGoalkeeperIntervention, stepTacticalMatch } from '.';
+import { resolveGoalkeeperContact } from './goalkeeperIntervention';
 
 const world = createCanonicalWorldDatabase();
 const shotState = (startX: number) => {
@@ -120,5 +121,63 @@ describe('physical goalkeeper intervention projection', () => {
       (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
     )!;
     expect(state.statistics?.players.find((entry) => entry.playerId === keeper.id)?.saves).toBe(1);
+  });
+  it('gives a slower ordinary shot more intervention time than a powerful close attempt', () => {
+    const powerful = shotState(94);
+    const slower = structuredClone(powerful);
+    slower.ball.velocity = { x: 19, y: 0.8, z: 3 };
+    expect(projectGoalkeeperIntervention(slower)!.timeAvailable).toBeGreaterThan(
+      projectGoalkeeperIntervention(powerful)!.timeAvailable,
+    );
+  });
+  it('cannot save a physically unreachable shot and records goals without fake keeper contact', () => {
+    let state = shotState(94);
+    const keeper = state.players.find(
+      (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
+    )!;
+    keeper.position.y = 45;
+    const projection = projectGoalkeeperIntervention(state)!;
+    expect(projection.reachable).toBe(false);
+    expect(resolveGoalkeeperContact(state, projection, 27)).toBe('failed_save');
+    for (let tick = 0; tick < 80 && !state.lastShotResult; tick++)
+      state = stepTacticalMatch(state, 0.025);
+    expect(state.lastBallContact?.kind).toBe('goal_plane');
+    expect(state.lastShotResult).toBe('goal');
+    expect(state.lastShot?.goalkeeperAction).toBeUndefined();
+  });
+
+  it('physically deflects a close shot through the unreacted keeper body without inventing a save', () => {
+    let state = shotState(101);
+    for (const player of state.players) {
+      player.position = { x: 30, y: 8 };
+      player.target = { ...player.position };
+      player.velocity = { x: 0, y: 0 };
+    }
+    const shooter = state.players.find((player) => player.id === state.ball.shot!.shooterId)!;
+    const keeper = state.players.find(
+      (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
+    )!;
+    shooter.position = { x: 101, y: 34 };
+    shooter.target = { ...shooter.position };
+    keeper.position = { x: 103, y: 34 };
+    keeper.target = { ...keeper.position };
+    keeper.facingAngle = -Math.PI / 2;
+    Object.assign(keeper.profile.attributes, { reflexes: 72, agility: 72, handling: 72 });
+    state.ball.height = 1;
+    state.ball.velocity = { x: 30, y: 0, z: 0 };
+    const projection = projectGoalkeeperIntervention(state)!;
+    expect(projection.reactionRemaining).toBeGreaterThan(projection.ballRemainingFlightTime);
+    for (let tick = 0; tick < 20 && !state.lastShotResult; tick += 1)
+      state = stepTacticalMatch(state, 0.025);
+    expect(state.lastBallContact?.kind).toBe('goalkeeper');
+    expect(state.lastBallContact?.playerId).toBe(keeper.id);
+    expect(state.lastShotResult).toBe('block');
+    expect(state.lastShot?.goalkeeperAction).toBe('failed_save');
+    expect(state.ball.velocity!.x).toBeLessThan(0);
+    expect(state.score.home).toBe(0);
+    expect(state.statistics?.players.find((entry) => entry.playerId === keeper.id)).toMatchObject({
+      touches: 1,
+      saves: 0,
+    });
   });
 });

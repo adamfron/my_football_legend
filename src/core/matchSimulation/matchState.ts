@@ -11,6 +11,12 @@ import {
 } from './matchSpace';
 import { cornerPlanSchema, tacticalIntentSchema, tacticalZoneSchema } from './tacticalSituations';
 import { ballContactSchema, type BallContact } from './ballFlight';
+import {
+  throwInDiagnosticSchema,
+  throwInRestrictionSchema,
+  type ThrowInDiagnostic,
+  type ThrowInRestriction,
+} from './throwIn';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
 import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
 import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
@@ -20,6 +26,7 @@ import {
   footShotContactSchema,
   shotContactSchema,
   shotExecutionProfileSchema,
+  shotExecutionErrorProfileSchema,
   shotIntentSchema,
 } from './shotIntent';
 
@@ -45,6 +52,7 @@ export const matchActionSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('carry'), actorId: z.string(), target: pitchPointSchema }),
   z.object({
     type: z.literal('pass'),
+    receiverPositionAtSelection: pitchPointSchema.optional(),
     actorId: z.string(),
     receiverId: z.string(),
     target: pitchPointSchema,
@@ -391,6 +399,7 @@ export const shotDiagnosticSchema = z.object({
   launchSpeed: z.number().positive().finite().optional(),
   launchVerticalComponent: z.number().finite().optional(),
   executionProfile: shotExecutionProfileSchema.optional(),
+  executionErrorProfile: shotExecutionErrorProfileSchema.optional(),
   context: z.enum(['open_play', 'free_kick', 'penalty', 'header']),
   distance: z.number().nonnegative(),
   angle: z.number().min(0).max(1),
@@ -535,6 +544,8 @@ export interface TacticalMatchState {
     winnerId?: string;
   };
   restartAction?: MatchAction;
+  throwInRestriction?: ThrowInRestriction;
+  lastThrowInDiagnostic?: ThrowInDiagnostic;
   offsideSnapshot?: OffsideSnapshot;
   lastOffsideOffence?: z.infer<typeof offsideOffenceSchema>;
   keeperIntervention?: z.infer<typeof keeperInterventionSchema>;
@@ -555,6 +566,10 @@ export interface TacticalMatchState {
     receiverArrivalEstimate: number;
     bestDefenderArrivalEstimate: number;
     leadDistance: number;
+    intent?: 'support' | 'progressive' | 'direct' | 'lead' | 'through';
+    ballArrivalEstimate?: number;
+    meetingErrorSeconds?: number;
+    predictionHorizon?: number;
     receptionOutcome?: ReceptionOutcome['kind'];
     finalResult?: 'completed' | 'intercepted' | 'unclaimed' | 'technical_error';
   };
@@ -662,6 +677,8 @@ export const tacticalMatchStateSchema = z
     ballOwnershipStartedAt: z.number().nonnegative().optional(),
     scenario: restartScenarioSchema,
     restart: restartLifecycleSchema.optional(),
+    throwInRestriction: throwInRestrictionSchema.optional(),
+    lastThrowInDiagnostic: throwInDiagnosticSchema.optional(),
     lastRestartLivenessRecovery: restartLivenessDiagnosticSchema.optional(),
     lastShot: shotDiagnosticSchema.optional(),
     lastBallContact: ballContactSchema.optional(),

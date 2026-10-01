@@ -118,7 +118,9 @@ describe('loose ball physics', () => {
       }),
     );
     for (const player of state.players) player.position = { x: 50, y: 40 };
-    state.ball = { x: 50, y: 3, velocity: { x: 0, y: -3 }, looseSince: state.time };
+    // This fixture must really cross the line under neutral grass resistance; a 3 m/s ball
+    // now stops inside the pitch and legitimately remains available to a later chaser.
+    state.ball = { x: 50, y: 3, velocity: { x: 0, y: -6 }, looseSince: state.time };
     state.players[1]!.position = { x: 50, y: 2.4 };
     const race = evaluateGlobalBallRace(state);
     expect(race.some(({ playerId }) => playerId === state.players[1]!.id)).toBe(true);

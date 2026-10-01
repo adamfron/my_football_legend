@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
+import { collectContactEvidence } from './contactEvidence';
 
 export const playerMatchStatsSchema = z.object({
   playerId: z.string(),
@@ -34,6 +35,17 @@ export const matchStatisticsSchema = z.object({
   observedPassAttemptIds: z.array(z.string()),
   observedPassResultIds: z.array(z.string()),
   observedShotIds: z.array(z.string()),
+  observedShotResultIds: z.array(z.string()),
+  observedContactIds: z.array(z.string()),
+  observedCarryIds: z.array(z.string()),
+  passingNetwork: z.array(
+    z.object({
+      passerId: z.string(),
+      receiverId: z.string(),
+      attempted: z.number().int().nonnegative(),
+      completed: z.number().int().nonnegative(),
+    }),
+  ),
   observedAssistGoalIds: z.array(z.string()),
   observedPossessionEvents: z.array(z.string()),
   assistCandidate: z
@@ -72,6 +84,10 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
   observedPassAttemptIds: [],
   observedPassResultIds: [],
   observedShotIds: [],
+  observedShotResultIds: [],
+  observedContactIds: [],
+  observedCarryIds: [],
+  passingNetwork: [],
   observedAssistGoalIds: [],
   observedPossessionEvents: [],
 });
@@ -87,6 +103,10 @@ export const observePlayerMatchStats = (
     observedPassAttemptIds: [...statistics.observedPassAttemptIds],
     observedPassResultIds: [...statistics.observedPassResultIds],
     observedShotIds: [...statistics.observedShotIds],
+    observedShotResultIds: [...statistics.observedShotResultIds],
+    observedContactIds: [...statistics.observedContactIds],
+    observedCarryIds: [...statistics.observedCarryIds],
+    passingNetwork: statistics.passingNetwork.map((edge) => ({ ...edge })),
     observedAssistGoalIds: [...statistics.observedAssistGoalIds],
     observedPossessionEvents: [...statistics.observedPossessionEvents],
     ...(statistics.assistCandidate ? { assistCandidate: { ...statistics.assistCandidate } } : {}),
@@ -103,22 +123,48 @@ export const observePlayerMatchStats = (
       entry.maxSpeed = running.maxSpeed;
     }
   }
-  if (next.ball.ownerId && next.ball.ownerId !== previous.ball.ownerId)
-    stats(next.ball.ownerId)!.touches++;
+  for (const contact of collectContactEvidence(previous, next)) {
+    if (result.observedContactIds.includes(contact.id)) continue;
+    result.observedContactIds.push(contact.id);
+    const player = stats(contact.playerId);
+    if (player) player.touches++;
+  }
   const action = next.latestAction;
-  const newAction =
-    action && (action !== previous.latestAction || next.decisionIndex !== previous.decisionIndex);
-  if (newAction && action.type === 'carry') stats(action.actorId)!.carries++;
+  if (action?.type === 'carry' && next.ballCarrierIntent?.actorId === action.actorId) {
+    const carryId = `${next.seed}:carry:${next.ballCarrierIntent.startedAt}:${action.actorId}`;
+    if (!result.observedCarryIds.includes(carryId)) {
+      result.observedCarryIds.push(carryId);
+      stats(action.actorId)!.carries++;
+    }
+  }
   const pass = next.lastPassDiagnostic;
   if (pass && !result.observedPassAttemptIds.includes(pass.passId)) {
     result.observedPassAttemptIds.push(pass.passId);
     stats(pass.passerId)!.passesAttempted++;
+    const edge = result.passingNetwork.find(
+      (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
+    );
+    if (edge) edge.attempted++;
+    else
+      result.passingNetwork.push({
+        passerId: pass.passerId,
+        receiverId: pass.intendedReceiverId,
+        attempted: 1,
+        completed: 0,
+      });
   }
   if (pass?.finalResult && !result.observedPassResultIds.includes(pass.passId)) {
     result.observedPassResultIds.push(pass.passId);
-    if (pass.finalResult === 'completed') {
+    if (
+      pass.finalResult === 'completed' &&
+      pass.actualContactPoint &&
+      pass.resolvedAt !== undefined
+    ) {
       stats(pass.passerId)!.passesCompleted++;
       stats(pass.intendedReceiverId)!.passesReceived++;
+      result.passingNetwork.find(
+        (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
+      )!.completed++;
       result.assistCandidate = {
         passerId: pass.passerId,
         scorerId: pass.intendedReceiverId,
@@ -126,12 +172,19 @@ export const observePlayerMatchStats = (
       };
     }
   }
-  const shot = next.lastShot;
+  const shot = next.ball.shot ?? next.lastShot;
   if (shot && !result.observedShotIds.includes(shot.shotId)) {
     result.observedShotIds.push(shot.shotId);
     const shooter = stats(shot.shooterId)!;
     shooter.shots++;
-    if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
+  }
+  const shotResult = next.lastShot;
+  if (shotResult?.outcome && !result.observedShotResultIds.includes(shotResult.shotId)) {
+    const shot = shotResult;
+    result.observedShotResultIds.push(shot.shotId);
+    const shooter = stats(shot.shooterId)!;
+    // Posts and crossbars which stay out are off-target. Blocks are a separate outcome.
+    if (['goal', 'save'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
     if (shot.outcome === 'goal') shooter.goals++;
     if (
       shot.outcome === 'goal' &&

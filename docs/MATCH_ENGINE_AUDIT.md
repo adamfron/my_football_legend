@@ -1,4 +1,4 @@
-# Audyt silnika meczu — PR140
+# Audyt silnika meczu — PR140 / aktualizacja PR145
 
 ## Wniosek
 
@@ -25,7 +25,7 @@ wolno dopisywać do niego nowych mechanik. Puste katalogi `src/core/decisions` i
 | Wznowienia | `restartScenarios.ts`, `restartGeometry.ts`, `matchActions.ts` | wybór legalnej akcji | legacy moment | kanoniczny | watchdog pozostaje safety netem |
 | Decyzje gracza | `playerDecision.ts`, `possessionAgency.ts`, `decisionOutcome.ts` | `TacticalMatchSandbox.tsx` | legacy przyciski | kanoniczny | epizod posiadania i semantyczne granice ponownej decyzji |
 | Projekcja momentów | `matchMoment.ts`, `matchPresentation.ts` | polityka i faza widoku | brak | obserwacyjny | wolno próbkować rutynę |
-| Statystyki | `playerMatchStats.ts` | polskie etykiety | statystyki kariery | obserwator kanonicznych zdarzeń | `touches` = wejścia w kontrolowane posiadanie |
+| Statystyki | `contactEvidence.ts`, `playerMatchStats.ts` | polskie etykiety | statystyki kariery | obserwator kanonicznych zdarzeń | jeden fizyczny kontakt i jedna wspólna realizacja passer/receiver/network |
 | Telemetria | `matchFlowTelemetry.ts` | panele DEV / JSON | brak | obserwacyjny | nie może sterować wynikiem |
 | Kamera/rendering | brak | `tacticalRenderer/*` | `MatchGame` DOM | prezentacyjny | PR141/142 |
 
@@ -43,14 +43,18 @@ wolno dopisywać do niego nowych mechanik. Puste katalogi `src/core/decisions` i
 
 ## Statystyka kontaktów i magnetyzm
 
-`touches` obecnie oznacza **wejścia w kontrolowane posiadanie piłki**, nie każdy fizyczny kontakt
-według dostawców danych. `passesReceived` oznacza ukończone podania do zamierzonego odbiorcy. UI
-powinno traktować pierwsze jako „posiadania”, dopóki obserwator nie otrzyma pełnego strumienia
-kontaktów. Flaga kontrolowania nie jest wejściem rankingu adresatów, ale wpływ pośredni wymaga
-dalszego wieloseedowego A/B; nie wprowadzono kwot pozycyjnych.
+PR145 zastępuje dawną definicję wejść w posiadanie dowodami rzeczywistych kanonicznych kontaktów.
+`contactEvidence.ts` scala wypuszczenie, przyjęcie, kontakt lotu i zmianę kontroli według
+zawodnika/czasu. Przyjęcie i strzał z pierwszej piłki albo catch/owner bramkarza liczą się raz.
+Tick prowadzenia z przyczepioną piłką nie tworzy fikcyjnego kontaktu. UI używa „Kontakty”.
+Ukończone podanie wymaga kontaktu zamierzonego odbiorcy i razem zwiększa licznik podającego,
+otrzymane podania odbiorcy oraz krawędź sieci. Telemetria korzysta z tych samych sum.
+Dokładne definicje, świadome ograniczenia kategorii i stałe opisuje
+[MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
+Flaga kontrolowania nie jest wejściem rankingu adresatów; nie wprowadzono kwot pozycyjnych.
 
 ## Znane ryzyka
 
-Kalibracja zaangażowania bocznego obrońcy, liczby podań/przechwytów i czułości `key_player` nie jest
-uznana za zakończoną. Legacy kariery pozostaje świadomym długiem. Scheduler należy profilować na
-realnych 45-minutowych sesjach, a nie zamieniać w większy krok fizyki.
+Krótka kalibracja PR145 nie ustala końcowego realizmu, rozkładu pełnych meczów ani ostatecznej
+częstości decyzji dla wszystkich pozycji. Legacy kariery pozostaje świadomym długiem.
+PR146 ma profilować scheduler i obserwatory, zachowując krok oraz identyczny wynik futbolu.

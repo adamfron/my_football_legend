@@ -55,8 +55,8 @@ i seed. Preferowane dowody: stan przed/po, decision id, ball episode i action so
 
 ## Znane problemy
 
-- zaangażowanie/touches i wolumen podań protagonisty mogą być wysokie;
-- przechwyty i czułość prezentacji nadal wymagają kalibracji;
+- pełny rozkład zaangażowania, wolumenu podań i decyzji dla wszystkich pozycji wymaga dalszych playtestów;
+- krótka próbka PR145 nie ustala końcowej skuteczności strzałów/bramkarzy w normalnych meczach;
 - nowe łańcuchowanie epizodów wymaga długich testów manualnych;
 - udział bramkarza i podania zwrotne wymagają obserwacji;
 - brak zmęczenia, zmian, fauli/kartek i oceny meczowej;
@@ -76,10 +76,17 @@ nie wpływa na RNG ani wynik akcji. Replay jest osobnym stanem z własnym widocz
 
 ## Roadmap
 
-PR141–PR144 ukończone. NEXT: **PR145 — Match Behaviour & Calibration Pass**: geometria podań
-na dobieg, integralność autów, rzeczywisty loft podań, opór toczenia, statystyki, własność
-przechwytów i kalibracja sprawczości/scoringu/keeper. PR146 optymalizuje jeden silnik: produktowo
+PR141–PR145 ukończone. PR145 używa osiągalnego punktu spotkania odbiorcy, legalnego autu z
+zakazem ponownego kontaktu wykonawcy, loftu 3D oraz wspólnego oporu toczenia 3,2 m/s².
+Cel podania nie wyhamowuje lotu. Kontakty i completed/received/network mają wspólne dowody;
+rutyna i przechwyt należący do wcześniejszego kolegi nie tworzą bezsensownego promptu.
+Reakcja i aktywny zasięg bramkarza są osobne od pasywnej kolizji ciała. Zachowano epizod
+człowieka PR144 także po przyjęciu autu. Finalne verify: exit 0, 697 + 5 testów.
+Próbka 3 × 600 s: projekcja 408 → 42 decyzje / 90 min; 224 kontrolowane strzały dowodzą
+miss/save/goal, nie końcowego rozkładu zwykłych meczów. Definicje, stałe i pełne metryki:
+[MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
+
+NEXT: **PR146 — Background Simulation Performance**. Optymalizuje jeden silnik: produktowo
 mecz key_player około 4–6 min, technicznie ukryte 90 min komfortowo <5 min; wymaga macierzy A/B
 kosztu obserwatorów/debug capture/WebM i identycznych hashy. PR147 planuje przepisy, dyscyplinę
-i kanoniczny feedback. Pogoda, warianty piłki i ceremonia pozostają później; kalibracja nie jest
-zakończona w PR144.
+i kanoniczny feedback. Pogoda, warianty piłki, spin/Magnus i ceremonia pozostają później.

@@ -1,6 +1,7 @@
 import { RandomGenerator } from '../random/RandomGenerator';
 import { distance, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { canContactAfterThrowIn } from './throwIn';
 
 export type AerialOutcome = NonNullable<TacticalMatchState['lastAerialResult']>;
 
@@ -45,7 +46,10 @@ export const evaluateAerialContact = (
 export const findAerialContactCandidates = (state: TacticalMatchState, lookaheadSeconds = 0.025) =>
   state.players
     .filter(
-      (p) => p.profile.primaryPosition !== 'goalkeeper' && distance(p.position, state.ball) < 2.2,
+      (p) =>
+        p.profile.primaryPosition !== 'goalkeeper' &&
+        distance(p.position, state.ball) < 2.2 &&
+        canContactAfterThrowIn(state, p.id),
     )
     .map((p) => ({ player: p, contact: evaluateAerialContact(p, state.ball, lookaheadSeconds) }))
     .filter((entry): entry is { player: MatchPlayerState; contact: AerialContactCandidate } =>
@@ -110,7 +114,7 @@ export const goalkeeperIntervention = (
   const keeper = state.players.find(
     (p) => p.team === defending && p.profile.primaryPosition === 'goalkeeper',
   );
-  if (!keeper) return { decision: 'stay', score: 0 };
+  if (!keeper || !canContactAfterThrowIn(state, keeper.id)) return { decision: 'stay', score: 0 };
   const goalX = defending === 'home' ? 0 : 105;
   if (
     Math.abs(point.x - goalX) > 18 ||
@@ -186,7 +190,10 @@ export const resolveAerialDuel = (
       ? 0
       : 105;
   const goalDistance = Math.hypot(winner.player.position.x - goalX, winner.player.position.y - 34);
-  const lateralAngle = Math.atan2(Math.abs(winner.player.position.y - 34), Math.max(1, Math.abs(winner.player.position.x - goalX)));
+  const lateralAngle = Math.atan2(
+    Math.abs(winner.player.position.y - 34),
+    Math.max(1, Math.abs(winner.player.position.x - goalX)),
+  );
   const nearGoal = goalDistance < 19 && lateralAngle < 0.7 && (state.ball.height ?? 0) > 0.7;
   const outcome: AerialOutcome = attacking
     ? nearGoal

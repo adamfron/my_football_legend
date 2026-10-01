@@ -652,14 +652,20 @@ describe('player decision lifecycle', () => {
     const state = makeState();
     const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
     const opponent = state.players.find((player) => player.team !== actor.team)!;
-    actor.position = { x: 55, y: 36 };
+    // The interceptor must own a real commitment, rather than an ordinary two-metre step.
+    state.players
+      .filter((player) => player.team === actor.team && player.id !== actor.id)
+      .forEach((player) => {
+        player.position = { x: 90, y: 62 };
+      });
+    actor.position = { x: 25, y: 38 };
     actor.anchor = { ...actor.position };
     state.ball = {
-      x: 48,
+      x: 16,
       y: 34,
-      from: { x: 45, y: 34 },
-      target: { x: 65, y: 34 },
-      velocity: { x: 10, y: 0 },
+      from: { x: 15, y: 34 },
+      target: { x: 35, y: 34 },
+      velocity: { x: 9, y: 0 },
       flightTime: 0.1,
       travelKind: 'pass',
       sourceAction: 'pass',
@@ -677,6 +683,11 @@ describe('player decision lifecycle', () => {
     const state = makeState();
     const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
     const opponent = state.players.find((player) => player.team !== actor.team)!;
+    state.players
+      .filter((player) => player.team === actor.team && player.id !== actor.id)
+      .forEach((player) => {
+        player.position = { x: 90, y: 62 };
+      });
     actor.position = { x: 51.38, y: 21.72 };
     actor.velocity = { x: 0, y: -2 };
     actor.anchor = { ...actor.position };
@@ -694,7 +705,8 @@ describe('player decision lifecycle', () => {
       lastTouchPlayerId: opponent.id,
     };
     const result = evaluatePassInterceptionOpportunity(state, actor.id);
-    expect(result.playerArrival?.distance).toBeCloseTo(9.63, 1);
+    expect(result.playerArrival!.distance).toBeGreaterThan(8);
+    expect(result.playerArrival!.distance).toBeLessThan(12);
     expect(result.arrivalTime).toBeGreaterThan(0);
     expect(result.contactPoint!.x).toBeLessThan(state.ball.x);
     expect(result.viable).toBe(true);

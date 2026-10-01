@@ -19,7 +19,12 @@ import {
 } from './matchState';
 import { resolveMatchAction } from './matchActions';
 import type { PlayerDecisionOpportunity } from './playerDecision';
-import { createPendingOutcome, deriveDecisionRole } from './playerDecision';
+import {
+  createPendingOutcome,
+  deriveDecisionRole,
+  evaluateDefensiveCommitment,
+} from './playerDecision';
+import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { secondLastOpponentLine } from './offside';
 
 export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
@@ -159,10 +164,21 @@ export const projectContextualInteractions = (
       );
       if (
         state.ball.ownerId === actor.id &&
-        !selectedActions.some((action) => action.type === 'pass' && action.intent === 'lead')
+        opportunity.kind !== 'restart' &&
+        !selectedActions.some(
+          (action) =>
+            action.type === 'pass' && (action.intent === 'lead' || action.intent === 'through'),
+        )
       ) {
         const lead = deriveHumanLeadPass(state, actor, selected);
-        if (lead)
+        if (
+          lead &&
+          !selectedActions.some(
+            (action) =>
+              action.type === 'pass' &&
+              distance(action.target, lead.projection.releaseTarget) < 1.6,
+          )
+        )
           selectedActions.push({
             type: 'pass',
             actorId: actor.id,
@@ -190,7 +206,8 @@ export const projectContextualInteractions = (
     const metres = distance(actor.position, selected.position);
     const choices = [
       { type: 'contain' as const, labelKey: 'close_down', commitment: 'balanced' as const },
-      ...(metres <= 2.4
+      ...(metres <= PLAYER_AGENCY_CALIBRATION.challengeContactDistance &&
+      evaluateDefensiveCommitment(state, actor.id, selected.position, 'challenge').meaningful
         ? [
             {
               type: 'challenge' as const,
@@ -258,6 +275,7 @@ export const projectContextualInteractions = (
     );
   }
   if (target.kind !== 'space') return [];
+  if (opportunity.kind === 'restart') return [];
   if (state.ball.ownerId === actor.id) {
     const carry = { type: 'carry' as const, actorId: actor.id, target: point };
     const projected = asActions(target, [carry]);

@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { BALL_RADIUS } from './ballFlight';
-import { deriveLaunchVelocity, integrateBallFlight, type PhysicalBall } from './ballPhysics';
+import {
+  BALL_PHYSICS,
+  deriveAerialLaunchPlan,
+  deriveLaunchVelocity,
+  integrateBallFlight,
+  projectFutureBallTrajectory,
+  type PhysicalBall,
+} from './ballPhysics';
 
 const run = (initial: PhysicalBall, seconds: number) => {
   let ball = initial;
@@ -99,4 +106,86 @@ it('is invariant to equivalent deterministic substep batching', () => {
   let fixed = initial;
   for (let index = 0; index < 4; index += 1) fixed = integrateBallFlight(fixed, 0.025);
   expect(batched).toEqual(fixed);
+});
+
+describe('PR145 grass resistance and canonical loft', () => {
+  const rolling = (speed: number): PhysicalBall => ({
+    position: { x: 0, y: 0, z: 0 },
+    velocity: { x: speed, y: 0, z: 0 },
+    airborne: false,
+    bounceCount: 0,
+  });
+  it('stops weak, firm and clearance contacts at increasing physical distances without a clamp', () => {
+    const distances = [8, 15, 27].map((speed) => {
+      const result = run(rolling(speed), 12).ball;
+      expect(result.velocity).toEqual({ x: 0, y: 0, z: 0 });
+      expect(result.position.z).toBe(BALL_RADIUS);
+      expect(result.position.x).toBeCloseTo(
+        (speed * speed) / (2 * BALL_PHYSICS.rollingDeceleration),
+        0,
+      );
+      return result.position.x;
+    });
+    expect(distances[0]).toBeLessThan(12);
+    expect(distances[1]).toBeGreaterThan(30);
+    expect(distances[2]).toBeGreaterThan(100);
+  });
+  it('monotonically loses speed without reversing and supports a neutral resistance multiplier', () => {
+    let ball = rolling(8);
+    let previousSpeed = 8;
+    for (let index = 0; index < 180; index += 1) {
+      ball = integrateBallFlight(ball, 0.025);
+      expect(ball.velocity.x).toBeGreaterThanOrEqual(0);
+      expect(ball.velocity.x).toBeLessThanOrEqual(previousSpeed);
+      previousSpeed = ball.velocity.x;
+    }
+    expect(previousSpeed).toBe(0);
+    const neutral = integrateBallFlight(rolling(8), 1, { rollingResistanceMultiplier: 1 });
+    const strongerResistance = integrateBallFlight(rolling(8), 1, {
+      rollingResistanceMultiplier: 1.5,
+    });
+    expect(strongerResistance.position.x).toBeLessThan(neutral.position.x);
+    const airborne = {
+      ...rolling(8),
+      position: { x: 0, y: 0, z: 4 },
+      airborne: true,
+      velocity: { x: 8, y: 0, z: 5 },
+    };
+    expect(integrateBallFlight(airborne, 0.2, { rollingResistanceMultiplier: 1.5 })).toEqual(
+      integrateBallFlight(airborne, 0.2),
+    );
+  });
+  it('uses distance and delivery intent to launch meaningful, deterministic physical loft', () => {
+    const short = deriveAerialLaunchPlan({ x: 0, y: 0 }, { x: 8, y: 0 }, 'pass');
+    const long = deriveAerialLaunchPlan({ x: 0, y: 0 }, { x: 50, y: 0 }, 'long_pass');
+    const cross = deriveAerialLaunchPlan({ x: 0, y: 0 }, { x: 25, y: 0 }, 'cross');
+    const driven = deriveAerialLaunchPlan({ x: 0, y: 0 }, { x: 25, y: 0 }, 'driven_cross');
+    expect(short.velocity.z).toBeGreaterThan(3);
+    expect(short.predictedApex).toBeGreaterThan(0.9);
+    expect(short.predictedApex).toBeLessThan(2);
+    expect(long.predictedApex).toBeGreaterThan(short.predictedApex + 3);
+    expect(long.predictedFlightTime).toBeGreaterThan(short.predictedFlightTime);
+    expect(cross.predictedApex).toBeGreaterThan(driven.predictedApex);
+    expect(long).toEqual(deriveAerialLaunchPlan({ x: 0, y: 0 }, { x: 50, y: 0 }, 'long_pass'));
+    for (const [metres, plan] of [
+      [8, short],
+      [50, long],
+      [25, cross],
+    ] as const) {
+      const samples = projectFutureBallTrajectory(
+        {
+          position: { x: 0, y: 0, z: plan.releaseHeight },
+          velocity: plan.velocity,
+          airborne: true,
+          bounceCount: 0,
+        },
+        plan.predictedFlightTime + 0.025,
+        0.025,
+      );
+      const arrival = samples.find(
+        (sample) => sample.ball.velocity.z < 0 && sample.ball.position.z <= plan.arrivalHeight,
+      )!;
+      expect(Math.abs(arrival.ball.position.x - metres)).toBeLessThan(1);
+    }
+  });
 });

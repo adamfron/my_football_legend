@@ -28,7 +28,8 @@
     "audit:clubs": "npm run generate:world-db && vitest run scripts/clubAudit.test.ts --reporter=verbose",
     "benchmark:match-flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkMatchFlow.ts",
     "benchmark:background": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkBackgroundSimulation.ts",
-    "benchmark:context": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPresentationContext.ts"
+    "benchmark:context": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPresentationContext.ts",
+    "benchmark:calibration": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkCalibration.ts"
   },
   "dependencies": {
     "react": "19.2.8",

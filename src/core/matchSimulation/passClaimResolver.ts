@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
+import { canContactAfterThrowIn } from './throwIn';
 
 export const GROUND_PASS_CONTROL_RADIUS = 2.2;
 export const groundPassClaimSchema = z.object({
@@ -29,7 +30,7 @@ export const resolveContinuousGroundPassClaim = (
   if (lengthSquared < 1e-8) return undefined;
   const passer = state.players.find((player) => player.id === state.currentActorId);
   return state.players
-    .filter((player) => player.id !== passer?.id)
+    .filter((player) => player.id !== passer?.id && canContactAfterThrowIn(state, player.id))
     .map((player) => {
       const segmentFraction = Math.max(
         0,
@@ -65,7 +66,7 @@ export const resolveGroundPassClaim = (
 ): GroundPassClaim => {
   const passer = state.players.find((player) => player.id === state.currentActorId);
   const candidate = state.players
-    .filter((player) => player.id !== passer?.id)
+    .filter((player) => player.id !== passer?.id && canContactAfterThrowIn(state, player.id))
     .map((player) => ({ player, metres: distance(player.position, landingPosition) }))
     .filter(({ metres }) => metres <= controlRadius)
     .sort((a, b) => a.metres - b.metres || a.player.id.localeCompare(b.player.id))[0];

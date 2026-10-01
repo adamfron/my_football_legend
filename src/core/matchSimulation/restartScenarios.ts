@@ -75,6 +75,7 @@ export const applyRestartScenario = (
       ...(geometry.landingZone ? { landingZone: geometry.landingZone } : {}),
     },
   };
+  delete state.throwInRestriction;
   state.players = state.players.map((player) => {
     const position = geometry.targets[player.id] ?? player.position;
     return {

@@ -5,6 +5,22 @@ import { BALL_RADIUS, GOAL_HEIGHT } from './ballFlight';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 
+/** Reaction seconds, metre contact envelope, and canonical locomotion acceleration limits. */
+export const GOALKEEPER_PHYSICS = {
+  fixedProjectionStep: 0.025,
+  gravity: BALL_PHYSICS.gravity,
+  baseReactionSeconds: 0.36,
+  reflexReactionReduction: 0.002,
+  facingReactionSeconds: 0.18,
+  contactReachMetres: 1.25,
+  passiveBodyRadiusMetres: 0.5,
+  contactCentreHeight: 1.05,
+  baseAcceleration: 3.2,
+  agilityAcceleration: 5.5,
+  baseMaximumSpeed: 3.6,
+  agilityMaximumSpeed: 0.035,
+} as const;
+
 export const goalkeeperSaveOutcomeSchema = z.enum([
   'catch',
   'parry',
@@ -89,24 +105,32 @@ export const projectGoalkeeperIntervention = (
     ),
   );
   const attributes = keeper.profile.attributes;
-  const reactionDelay = 0.42 - attributes.reflexes * 0.0022 + (facingError / Math.PI) * 0.24;
+  const c = GOALKEEPER_PHYSICS;
+  const reactionDelay =
+    c.baseReactionSeconds -
+    attributes.reflexes * c.reflexReactionReduction +
+    (facingError / Math.PI) * c.facingReactionSeconds;
   // Reaction belongs to the shot episode, not to this particular projection tick. The current
   // keeper position already incorporates any movement made on previous ticks, so only the
   // unconsumed part of the original delay may be deducted from the remaining flight.
   const ballTotalFlightTime = state.ball.flightTime ?? 0;
   const reactionRemaining = Math.max(0, reactionDelay - ballTotalFlightTime);
   const movementTime = Math.max(0, elapsed - reactionRemaining);
-  const acceleration = 3.2 + (attributes.agility / 100) * 5.5;
-  const maximumSpeed = 3.6 + attributes.agility * 0.035;
-  const accelerationTime = Math.min(movementTime, maximumSpeed / acceleration);
-  const contactReach = 1.15;
+  const acceleration = c.baseAcceleration + (attributes.agility / 100) * c.agilityAcceleration;
+  const maximumSpeed = c.baseMaximumSpeed + attributes.agility * c.agilityMaximumSpeed;
+  const initialSpeed = Math.min(
+    maximumSpeed,
+    Math.max(0, Math.sign(physical.position.y - keeper.position.y) * keeper.velocity.y),
+  );
+  const accelerationTime = Math.min(movementTime, (maximumSpeed - initialSpeed) / acceleration);
   const reachableDistance =
-    contactReach +
+    c.contactReachMetres +
+    initialSpeed * accelerationTime +
     0.5 * acceleration * accelerationTime * accelerationTime +
     Math.max(0, movementTime - accelerationTime) * maximumSpeed;
   const requiredDisplacement = Math.hypot(
     physical.position.y - keeper.position.y,
-    Math.max(0, physical.position.z - GOAL_HEIGHT * 0.42),
+    Math.max(0, physical.position.z - c.contactCentreHeight),
   );
   return {
     keeper,
@@ -130,7 +154,7 @@ export const resolveGoalkeeperContact = (
   projection: GoalkeeperProjection,
   impactSpeed: number,
 ): GoalkeeperSaveOutcome => {
-  if (!projection.reachable) return 'failed_save';
+  if (!projection.reachable || projection.reactionRemaining > 0) return 'failed_save';
   const a = projection.keeper.profile.attributes;
   const difficulty = Math.min(
     1,
@@ -142,14 +166,8 @@ export const resolveGoalkeeperContact = (
     `${state.seed}:keeper-contact:${state.ball.shot?.shotId}:${state.ball.bounceCount ?? 0}`,
   );
   const handling = (a.handling * 0.5 + a.concentration * 0.25 + a.positioning * 0.25) / 100;
-  if (rng.bool(Math.max(0.05, Math.min(0.9, handling - difficulty * 0.58)))) return 'catch';
+  if (rng.bool(Math.max(0.12, Math.min(0.88, handling + 0.14 - difficulty * 0.48)))) return 'catch';
   return rng.bool(Math.max(0.2, Math.min(0.8, handling - difficulty * 0.25)))
     ? 'parry_away'
     : 'parry';
 };
-
-// Re-exported for diagnostics/calibration without duplicating physical constants.
-export const GOALKEEPER_PHYSICS = {
-  fixedProjectionStep: 0.025,
-  gravity: BALL_PHYSICS.gravity,
-} as const;

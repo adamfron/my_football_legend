@@ -801,7 +801,7 @@ export const observeMatchFlow = (
       result.goals++;
       if (metres >= 30) result.longShotGoals++;
     }
-    if (['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? '')) result.shotsOnTarget++;
+    if (['goal', 'save'].includes(shot.outcome ?? '')) result.shotsOnTarget++;
     if (shot.outcome === 'block') result.shotsBlocked++;
     if (shot.outcome === 'save') result.saves++;
     if (shot.goalkeeperAction === 'failed_save') result.failedSaves++;
@@ -845,6 +845,21 @@ export const observeMatchFlow = (
     }
     result.momentProjection.activeSignature = momentSignature;
     result.momentProjection.lastEvaluatedAt = next.time;
+  }
+  // Canonical statistics own contact/pass totals. Snapshot-only legacy fixtures can still be
+  // inspected above; live simulation provides the exactly-once event projection here.
+  if (next.statistics && next.statistics !== previous.statistics) {
+    result.passesAttempted = next.statistics.players.reduce((sum, p) => sum + p.passesAttempted, 0);
+    result.passesCompleted = next.statistics.players.reduce((sum, p) => sum + p.passesCompleted, 0);
+    result.passingNetwork = next.statistics.passingNetwork.map((edge) => ({ ...edge }));
+    const controlled = next.statistics.players.find(
+      (p) => p.playerId === next.controlledFootballerId,
+    );
+    if (controlled) {
+      result.controlled.touches = controlled.touches;
+      result.controlled.passesAttempted = controlled.passesAttempted;
+      result.controlled.passesReceived = controlled.passesReceived;
+    }
   }
   assertTelemetryInvariants(result);
   return matchFlowTelemetrySchema.parse(result);
@@ -919,9 +934,7 @@ export const summarizeShootingBuckets = (telemetry: MatchFlowTelemetry) => {
     return {
       label,
       attempts: shots.length,
-      onTarget: shots.filter((shot) =>
-        ['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? ''),
-      ).length,
+      onTarget: shots.filter((shot) => ['goal', 'save'].includes(shot.outcome ?? '')).length,
       goals: shots.filter((shot) => shot.outcome === 'goal').length,
       blocks: shots.filter((shot) => shot.outcome === 'block').length,
       averageBaseXg: shots.length
@@ -942,6 +955,7 @@ export const shootingStyleSummarySchema = z.object({
   onTarget: z.number().int().nonnegative(),
   goals: z.number().int().nonnegative(),
   saves: z.number().int().nonnegative(),
+  keeperContacts: z.number().int().nonnegative(),
   blocks: z.number().int().nonnegative(),
   averageDecisionHeight: z.number().nonnegative(),
   averageContactHeight: z.number().nonnegative(),
@@ -972,11 +986,14 @@ export const summarizeShootingStyles = (telemetry: MatchFlowTelemetry) => {
       contact,
       attempts: shots.length,
       firstTimeAttempts: shots.filter((shot) => shot.firstTime).length,
-      onTarget: shots.filter((shot) =>
-        ['goal', 'save', 'post', 'crossbar'].includes(shot.outcome ?? ''),
-      ).length,
+      onTarget: shots.filter((shot) => ['goal', 'save'].includes(shot.outcome ?? '')).length,
       goals: shots.filter((shot) => shot.outcome === 'goal').length,
       saves: shots.filter((shot) => shot.outcome === 'save').length,
+      keeperContacts: shots.filter(
+        (shot) =>
+          shot.keeperId &&
+          ['catch', 'parry', 'parry_away', 'failed_save'].includes(shot.goalkeeperAction ?? ''),
+      ).length,
       blocks: shots.filter((shot) => shot.outcome === 'block').length,
       averageDecisionHeight: average((shot) => shot.ballHeightAtDecision ?? 0),
       averageContactHeight: average((shot) => shot.ballHeightAtContact ?? 0),

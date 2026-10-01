@@ -229,7 +229,7 @@ export const canExecuteCanonicalShot = (state: TacticalMatchState, action: ShotA
   );
 };
 
-/** Explicit mechanical differences; xG/keeper conversion calibration stays unchanged for PR145. */
+/** Mechanical styles stay separate; contextual execution and keeper contacts are calibrated independently. */
 export const deriveShotExecutionProfile = (
   state: TacticalMatchState,
   action: ShotAction,
@@ -265,7 +265,7 @@ export const deriveShotExecutionProfile = (
     firstTimeDifficulty: difficulty,
     orientationDifficulty: body.facingDifficulty,
     dominantFootDifficulty: header ? 0 : body.footDifficulty,
-    minimumVerticalSpeed: intent === 'chip' ? 6.4 + actor.profile.attributes.technique * 0.012 : 0,
+    minimumVerticalSpeed: intent === 'chip' ? 8.1 + actor.profile.attributes.technique * 0.012 : 0,
   });
 };
 

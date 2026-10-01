@@ -16,4 +16,10 @@ describe('goalkeeper positioning geometry', () => {
     expect(away.x).toBeCloseTo(105 - home.x);
     expect(away.y).toBeCloseTo(68 - home.y);
   });
+
+  it('keeps an ordinary close shooting situation covered without an automatic deep rush', () => {
+    const keeper = deriveGoalkeeperBasePosition({ x: 91, y: 34 }, 'away');
+    expect(105 - keeper.x).toBeGreaterThan(1);
+    expect(105 - keeper.x).toBeLessThanOrEqual(3.5);
+  });
 });

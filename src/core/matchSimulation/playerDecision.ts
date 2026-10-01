@@ -12,10 +12,12 @@ import {
   attackDirection,
   clampPitchPoint,
   distance,
+  distanceToSegment,
   fieldValue,
   pitchPointSchema,
   signedForwardDistance,
   toPitchPointIfInPlay,
+  type PitchPoint,
 } from './matchSpace';
 import {
   matchActionSchema,
@@ -34,6 +36,8 @@ import { BALL_RADIUS } from './ballFlight';
 import { enumerateRestartActions } from './matchActions';
 import { enumerateCanonicalShootingOptions } from './shootingOptions';
 import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
+import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
+import { canContactAfterThrowIn } from './throwIn';
 
 export const proxyResolutionStatusSchema = z.enum([
   'resolved_action',
@@ -83,6 +87,7 @@ export const playerChoiceFamilySchema = z.enum([
   'cross',
   'intercept',
   'challenge',
+  'aggressive_challenge',
   'contain',
   'hold_shape',
   'goalkeeper_claim',
@@ -186,6 +191,8 @@ export const playerDecisionProbeSchema = z.object({
     ])
     .optional(),
   semanticChoiceCount: z.number().int().nonnegative().optional(),
+  semanticFamilies: z.array(playerChoiceFamilySchema).optional(),
+  ownershipReason: z.string().optional(),
   situationKind: z.string().optional(),
   decisionWorthiness: z.number().optional(),
   pressure: z.number().optional(),
@@ -203,6 +210,9 @@ export const playerDecisionProbeSchema = z.object({
       targetSpeed: z.number().positive(),
       turnAngle: z.number().nonnegative(),
       arrivalMargin: z.number(),
+      ownerId: z.string().optional(),
+      teammateArrivalTime: z.number().nonnegative().optional(),
+      ownershipReason: z.string().optional(),
     })
     .optional(),
 });
@@ -368,8 +378,36 @@ export const evaluateOnBallDecisionRelevance = (
   const preferredImpact = ranked[0]
     ? evaluateActionImpact(state, ranked[0].action).family
     : 'routine';
+  const preferredAction = ranked[0]?.action;
+  // Hold and three nearby carry directions do not form a meaningful release/take-on choice.
+  const hasTerminalAlternative = competitive.some(({ action }) =>
+    ['pass', 'shot', 'cross', 'header'].includes(action.type),
+  );
+  const riskyCarry =
+    preferredAction?.type === 'carry' &&
+    state.players.some((player) => {
+      if (player.team === actor.team) return false;
+      const dx = preferredAction.target.x - actor.position.x;
+      const dy = preferredAction.target.y - actor.position.y;
+      const length = Math.max(0.01, Math.hypot(dx, dy));
+      const projection =
+        ((player.position.x - actor.position.x) * dx +
+          (player.position.y - actor.position.y) * dy) /
+        length;
+      return (
+        projection >= 1 &&
+        projection <= length &&
+        distance(actor.position, player.position) <=
+          PLAYER_AGENCY_CALIBRATION.carryChallengeDistance &&
+        distanceToSegment(player.position, actor.position, preferredAction.target) <=
+          PLAYER_AGENCY_CALIBRATION.carryChallengeLaneRadius
+      );
+    });
   const hasAlternative = competitive.some(
-    (item) => ranked[0] && actionFamily(item.action) !== actionFamily(ranked[0].action),
+    (item) =>
+      ranked[0] &&
+      item.action.type !== 'hold' &&
+      actionFamily(item.action) !== actionFamily(ranked[0].action),
   );
   const reasons: string[] = [];
   if (families.length >= 2) reasons.push('meaningful_action_diversity');
@@ -388,14 +426,12 @@ export const evaluateOnBallDecisionRelevance = (
   const absolutePlayerOwned = ranked.some(
     ({ action }) => action.type === 'cross' || (action.type === 'shot' && credibleShot),
   );
-  if (preferredImpact === 'high_impact' || absolutePlayerOwned)
-    reasons.push('autopilot_escalation');
+  const significantPreferred =
+    preferredImpact === 'high_impact' &&
+    (preferredAction?.type !== 'carry' || (riskyCarry && hasTerminalAlternative));
+  if (significantPreferred || absolutePlayerOwned) reasons.push('autopilot_escalation');
   return onBallDecisionRelevanceSchema.parse({
-    relevant:
-      absolutePlayerOwned ||
-      (preferredImpact === 'high_impact' && hasAlternative) ||
-      situation.decisionEligible ||
-      (score >= 0.58 && families.length >= 2 && progressive),
+    relevant: absolutePlayerOwned || (significantPreferred && hasAlternative),
     score,
     reasons,
     viableFamilies: families,
@@ -424,10 +460,11 @@ export const projectIncomingPlayerInvolvement = (
   const committed = Boolean(
     actor &&
       !state.ball.ownerId &&
+      deriveBallSourceTeam(state) === actor.team &&
       state.ball.target &&
       state.ball.travelKind &&
       (state.ball.intendedReceiverId === actorId ||
-        distance(actor.position, state.ball.target) <= 3),
+        (!state.ball.intendedReceiverId && distance(actor.position, state.ball.target) <= 3)),
   );
   const nearbyDefender = Boolean(
     actor &&
@@ -443,7 +480,21 @@ export const projectIncomingPlayerInvolvement = (
   const attacking = Boolean(
     actor && fieldValue(state.ball.target ?? actor.position, actor.team) > 65,
   );
-  const important = importantKind || nearbyDefender || attacking || (state.ball.height ?? 0) > 0.7;
+  const tightAttackingPressure = Boolean(
+    actor &&
+      attacking &&
+      state.ball.target &&
+      state.players.some(
+        (player) =>
+          player.team !== actor.team &&
+          distance(player.position, state.ball.target!) <=
+            PLAYER_AGENCY_CALIBRATION.meaningfulReceptionPressureDistance,
+      ),
+  );
+  const firstTimeFinish = Boolean(
+    actor && committed && enumerateCanonicalShootingOptions(state, actor.id).length,
+  );
+  const important = importantKind || tightAttackingPressure || firstTimeFinish;
   const relevant = committed && remaining >= 0.25 && remaining <= 1.25 && important;
   return incomingPlayerInvolvementSchema.parse({
     relevant,
@@ -453,6 +504,7 @@ export const projectIncomingPlayerInvolvement = (
       ...(importantKind ? [state.ball.travelKind!] : []),
       ...(nearbyDefender ? ['defender_competition'] : []),
       ...(attacking ? ['attacking_territory'] : []),
+      ...(firstTimeFinish ? ['first_time_finishing_choice'] : []),
     ],
   });
 };
@@ -465,6 +517,11 @@ export const passInterceptionOpportunitySchema = z.object({
   structureRisk: z.number().min(0).max(1).optional(),
   playerArrival: playerArrivalEstimateSchema.optional(),
   arrivalMargin: z.number().optional(),
+  ownerId: z.string().optional(),
+  teammateArrivalTime: z.number().nonnegative().optional(),
+  ownershipReason: z
+    .enum(['controlled_best_eta', 'teammate_earlier_eta', 'teammate_in_lane'])
+    .optional(),
 });
 export const evaluatePassInterceptionOpportunity = (
   state: TacticalMatchState,
@@ -493,7 +550,7 @@ export const evaluatePassInterceptionOpportunity = (
   );
   // A physical flight continues after a line crossing, but the playable football action does not.
   // Stop at the first outside sample: clamping it would manufacture an interception on the line.
-  const playableSamples = [];
+  const playableSamples: Array<(typeof samples)[number] & { point: PitchPoint }> = [];
   for (const sample of samples) {
     const point = toPitchPointIfInPlay(sample.ball.position);
     if (!point) break;
@@ -521,6 +578,39 @@ export const evaluatePassInterceptionOpportunity = (
     playerArrival.reachable &&
     arrivalMargin >= 0 &&
     arrivalMargin <= 0.9;
+  // Compare the same physical meeting point. A player standing in an earlier part of the
+  // lane will contact the ball before this meeting, even if they are far from its endpoint.
+  const teammates = state.players.filter(
+    (player) =>
+      player.team === defender.team &&
+      player.id !== defender.id &&
+      canContactAfterThrowIn(state, player.id),
+  );
+  const earlierLaneOwner = teammates.find((player) =>
+    playableSamples.some(
+      ({ at, ball, point }) =>
+        at > 0 &&
+        at + PLAYER_AGENCY_CALIBRATION.interceptionEarlierContactLead < arrivalTime &&
+        ball.position.z <= (player.profile.primaryPosition === 'goalkeeper' ? 2.65 : 2.15) &&
+        distance(player.position, point) <= PLAYER_AGENCY_CALIBRATION.interceptionLaneContactRadius,
+    ),
+  );
+  const bestTeammate = teammates
+    .map((player) => ({
+      playerId: player.id,
+      arrival: estimatePlayerArrivalTime(state, player, contactPoint, 'intercept'),
+    }))
+    .filter(({ arrival }) => arrival.reachable && arrival.estimatedTime <= arrivalTime + 0.12)
+    .sort(
+      (a, b) =>
+        a.arrival.estimatedTime - b.arrival.estimatedTime || a.playerId.localeCompare(b.playerId),
+    )[0];
+  const teammateEarlier = Boolean(
+    bestTeammate &&
+      bestTeammate.arrival.estimatedTime + PLAYER_AGENCY_CALIBRATION.interceptionTeammateEtaLead <
+        playerArrival.estimatedTime,
+  );
+  const ownerId = earlierLaneOwner?.id ?? (teammateEarlier ? bestTeammate!.playerId : defenderId);
   return passInterceptionOpportunitySchema.parse({
     viable: reachableContact && arrivalTime >= 0.1 && arrivalTime <= 2.5 && structureRisk < 0.85,
     contactPoint,
@@ -529,6 +619,82 @@ export const evaluatePassInterceptionOpportunity = (
     structureRisk,
     playerArrival,
     arrivalMargin,
+    ownerId,
+    ...(bestTeammate ? { teammateArrivalTime: bestTeammate.arrival.estimatedTime } : {}),
+    ownershipReason: earlierLaneOwner
+      ? 'teammate_in_lane'
+      : teammateEarlier
+        ? 'teammate_earlier_eta'
+        : 'controlled_best_eta',
+  });
+};
+
+export const defensiveCommitmentSchema = z.object({
+  meaningful: z.boolean(),
+  reason: z.enum([
+    'routine_line_adjustment',
+    'routine_close_down',
+    'protect_dangerous_space',
+    'dangerous_receiver',
+    'significant_step_out',
+  ]),
+  displacement: z.number().nonnegative(),
+  shapeDeparture: z.number().nonnegative(),
+});
+
+/** A different movement button is meaningful only when it changes defensive responsibility. */
+export const evaluateDefensiveCommitment = (
+  state: TacticalMatchState,
+  actorId: string,
+  point: { x: number; y: number },
+  kind: 'intercept' | 'challenge',
+) => {
+  const actor = state.players.find((player) => player.id === actorId);
+  if (!actor)
+    return defensiveCommitmentSchema.parse({
+      meaningful: false,
+      reason: 'routine_close_down',
+      displacement: 0,
+      shapeDeparture: 0,
+    });
+  const displacement = distance(actor.position, point);
+  const shapeDeparture = distance(actor.anchor, point);
+  const shapeDepartureIncrease = shapeDeparture - distance(actor.anchor, actor.position);
+  const ownGoal = { x: actor.team === 'home' ? 0 : 105, y: 34 };
+  const dangerousReceiver =
+    distance(point, ownGoal) <= PLAYER_AGENCY_CALIBRATION.dangerousGoalDistance;
+  const protectedRunner = state.players.some(
+    (player) =>
+      player.team !== actor.team &&
+      player.id !== state.ball.ownerId &&
+      deriveDecisionRole(actor) !== 'forward' &&
+      distance(player.position, ownGoal) <= PLAYER_AGENCY_CALIBRATION.dangerousGoalDistance &&
+      signedForwardDistance(player.position, actor.position, actor.team) > 2 &&
+      distance(player.position, actor.position) <=
+        PLAYER_AGENCY_CALIBRATION.protectedRunnerDistance &&
+      distance(player.position, point) > displacement + 1.5,
+  );
+  const substantialStep =
+    kind === 'challenge' || displacement >= PLAYER_AGENCY_CALIBRATION.minimumInterceptionCommitment;
+  const meaningful =
+    substantialStep &&
+    (dangerousReceiver ||
+      protectedRunner ||
+      (deriveDecisionRole(actor) !== 'forward' &&
+        shapeDepartureIncrease >= PLAYER_AGENCY_CALIBRATION.significantShapeDeparture));
+  return defensiveCommitmentSchema.parse({
+    meaningful,
+    reason: meaningful
+      ? protectedRunner
+        ? 'protect_dangerous_space'
+        : dangerousReceiver
+          ? 'dangerous_receiver'
+          : 'significant_step_out'
+      : kind === 'intercept'
+        ? 'routine_line_adjustment'
+        : 'routine_close_down',
+    displacement,
+    shapeDeparture,
   });
 };
 export const deriveDecisionRole = (actor: TacticalMatchState['players'][number]): DecisionRole => {
@@ -612,6 +778,17 @@ const signatureFor = (state: TacticalMatchState, kind: string) => {
   const territoryBand = Math.floor((situation.context.fieldProgress ?? 0) * 5);
   const possessionEvent = state.ballOwnershipStartedAt ?? 0;
   const episode = `${state.ball.ownerId ?? 'loose'}:${possessionEvent}:${state.teams[state.possessionTeam].phase}:${territoryBand}`;
+  // One defensive commitment belongs to one physical delivery or opponent possession.
+  // Geometry bands would reopen it when a centimetre change straddles an arbitrary grid edge.
+  if (kind === 'defensive_response' || kind === 'goalkeeper_response') {
+    const pass = state.lastPassDiagnostic;
+    const flight = state.ball.travelKind
+      ? state.ball.sourceAction === 'pass' && pass && pass.passerId === state.ball.lastTouchPlayerId
+        ? pass.passId
+        : `${state.ball.travelKind}:${state.ball.from?.x ?? ''}:${state.ball.from?.y ?? ''}`
+      : possessionEvent;
+    return `${kind}:${state.ballEpisode ?? 0}:${state.ball.ownerId ?? state.ball.lastTouchPlayerId ?? 'loose'}:${flight}`;
+  }
   // Off-ball prompts are possession episodes, not timers. On-ball chains deliberately retain
   // decisionIndex so a completed carry can expose a genuinely new choice immediately.
   return kind === 'off_ball_run'
@@ -688,7 +865,8 @@ export const projectPlayerAgency = (
     state.scenario !== 'open_play' &&
     state.restart?.phase === 'setup' &&
     state.restart.takerId === actorId;
-  if (state.scenario !== 'open_play' && !controlledRestart) return blocked('not_open_play');
+  if (state.scenario !== 'open_play' && state.restart?.phase !== 'release' && !controlledRestart)
+    return blocked('not_open_play');
   const humanPossession = hasActiveHumanPossession(state);
   const redecisionReason = humanPossessionRedecisionReason(state);
   const continuingCarry = humanPossession && state.ballCarrierIntent?.actorId === actorId;
@@ -732,11 +910,28 @@ export const projectPlayerAgency = (
       targetSpeed: interceptionDiagnostic.playerArrival.targetSpeed,
       turnAngle: interceptionDiagnostic.playerArrival.turnAngle,
       arrivalMargin: interceptionDiagnostic.arrivalMargin ?? 0,
+      ownerId: interceptionDiagnostic.ownerId,
+      teammateArrivalTime: interceptionDiagnostic.teammateArrivalTime,
+      ownershipReason: interceptionDiagnostic.ownershipReason,
     };
   }
   let kind: PlayerDecisionOpportunity['kind'] | undefined;
   let options: PlayerDecisionOption[] = [];
   const agencyHandoff = state.postActionAgencyCheckpoint?.actorId === actorId;
+  if (
+    state.ball.ownerId === actorId &&
+    state.onBallPreparation?.actorId === actorId &&
+    state.onBallPreparation.kind === 'shielding' &&
+    state.time < state.onBallPreparation.readyAt &&
+    !humanPossession
+  )
+    return blocked('routine', {
+      ...context,
+      opportunityKind: 'on_ball',
+      ownershipReason: 'routine_shielding_preparation',
+      semanticChoiceCount: 1,
+      semanticFamilies: ['hold_shape'],
+    });
   if (controlledRestart) {
     kind = 'restart';
     options = enumerateRestartActions(state).map((action, index) => ({
@@ -763,7 +958,7 @@ export const projectPlayerAgency = (
     }));
   } else if (!state.ball.ownerId) {
     const incoming = projectIncomingPlayerInvolvement(state, actorId);
-    const interception = evaluatePassInterceptionOpportunity(state, actorId);
+    const interception = interceptionDiagnostic!;
     const keeperFlight =
       roleProfile === 'goalkeeper' &&
       [
@@ -839,6 +1034,23 @@ export const projectPlayerAgency = (
         })),
       );
     } else if (interception.viable && roleProfile !== 'goalkeeper') {
+      const commitment = evaluateDefensiveCommitment(
+        state,
+        actorId,
+        interception.contactPoint!,
+        'intercept',
+      );
+      if (interception.ownerId !== actorId || !commitment.meaningful)
+        return blocked('routine', {
+          ...context,
+          opportunityKind: 'defensive_response',
+          ownershipReason:
+            interception.ownerId !== actorId ? interception.ownershipReason : commitment.reason,
+          semanticFamilies: ['hold_shape'],
+          semanticChoiceCount: 1,
+          signature: signatureFor(state, 'defensive_response'),
+        });
+      context.ownershipReason = commitment.reason;
       kind = 'defensive_response';
       options = [
         {
@@ -886,6 +1098,28 @@ export const projectPlayerAgency = (
               ? 5.5
               : 0;
       if (carrier && metres <= (keeperThreat ? threshold : Math.min(threshold, 4.5))) {
+        const commitment = evaluateDefensiveCommitment(
+          state,
+          actorId,
+          carrier.position,
+          'challenge',
+        );
+        if (
+          !keeperThreat &&
+          metres <= PLAYER_AGENCY_CALIBRATION.challengeContactDistance &&
+          !commitment.meaningful
+        )
+          return blocked('routine', {
+            ...context,
+            opportunityKind: 'defensive_response',
+            ownershipReason: commitment.reason,
+            semanticFamilies: ['contain'],
+            semanticChoiceCount: 1,
+            signature: signatureFor(state, 'defensive_response'),
+          });
+        context.ownershipReason = keeperThreat
+          ? 'goalkeeper_breakaway_commitment'
+          : commitment.reason;
         kind = keeperThreat ? 'goalkeeper_response' : 'defensive_response';
         options = [
           {
@@ -918,6 +1152,10 @@ export const projectPlayerAgency = (
   }
   if (!kind) {
     const relationship = deriveControlledBallRelationship(state, actorId);
+    if (state.ball.ownerId === actorId) {
+      context.opportunityKind = 'on_ball';
+      context.ownershipReason = 'routine_possession_recycling';
+    }
     return blocked(
       state.ball.ownerId === actorId
         ? 'routine'
@@ -928,6 +1166,9 @@ export const projectPlayerAgency = (
     );
   }
   if (!options.length) return blocked('no_options', context);
+  context.semanticFamilies = [
+    ...new Set(options.map((option) => derivePlayerChoiceFamily(option, kind))),
+  ];
   // A pause must expose a genuine choice. Single low-value prompts remain autonomous.
   if (countSemanticPlayerChoices(options, kind) < 2)
     return blocked('single_option_autonomy', {
@@ -972,7 +1213,7 @@ export const projectPlayerAgency = (
             situation.reasons[0]
           : kind === 'incoming_ball'
             ? projectIncomingPlayerInvolvement(state, actorId).reasons.join(',')
-            : situation.reasons[0],
+            : (context.ownershipReason ?? situation.reasons[0]),
     signature,
     situation,
     options,
@@ -989,7 +1230,7 @@ export const projectPlayerAgency = (
           .map((interaction) => {
             const r = interaction.resolution;
             return r.kind === 'defensive'
-              ? `${r.intent.type}:${r.intent.commitment}:${r.intent.opponentId}`
+              ? `${r.intent.type}:${r.intent.commitment}`
               : r.kind === 'movement'
                 ? `${r.intent.type}:${r.intent.target.x.toFixed(1)}:${r.intent.target.y.toFixed(1)}`
                 : r.action.type;
@@ -1005,6 +1246,27 @@ export const projectPlayerAgency = (
     });
   if (!projectSelectableInteractionTargets(state, opportunity).length)
     return blocked('no_contextual_interactions', { ...context, opportunityKind: kind, signature });
+  if (contextual)
+    context.semanticFamilies = [
+      ...new Set(
+        targets
+          .flatMap((target) => projectContextualInteractions(state, opportunity, target))
+          .map((interaction): PlayerChoiceFamily => {
+            const r = interaction.resolution;
+            return r.kind === 'defensive'
+              ? r.intent.type === 'contain'
+                ? 'contain'
+                : r.intent.commitment === 'aggressive'
+                  ? 'aggressive_challenge'
+                  : 'challenge'
+              : interaction.labelKey.includes('intercept')
+                ? 'intercept'
+                : interaction.labelKey.includes('claim') || interaction.labelKey.includes('sweep')
+                  ? 'goalkeeper_claim'
+                  : 'hold_shape';
+          }),
+      ),
+    ];
   return {
     opportunity,
     probe: playerDecisionProbeSchema.parse({

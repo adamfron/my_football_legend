@@ -10,19 +10,19 @@ import {
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
 import { estimatePlayerArrivalTime } from './playerArrival';
+import { canContactAfterThrowIn } from './throwIn';
+import { BALL_PHYSICS, integrateGroundRolling } from './ballPhysics';
 
 export const pitchSurfacePhysicsSchema = z.object({
   rollingResistance: z.number().positive().finite(),
-  drag: z.number().nonnegative().finite().optional(),
 });
 export type PitchSurfacePhysics = z.infer<typeof pitchSurfacePhysicsSchema>;
 
 export const DEFAULT_PITCH_SURFACE: PitchSurfacePhysics = Object.freeze({
-  rollingResistance: 1.15,
-  drag: 0.035,
+  rollingResistance: BALL_PHYSICS.rollingDeceleration,
 });
 
-/** Exact integration of dv/dt = -rollingResistance - drag*v along the travel direction. */
+/** Loose-ball callers use the same neutral grass integrator as a rolling pass. */
 export const rollLooseBall = (
   position: PitchPoint,
   velocity: PhysicalPoint,
@@ -31,30 +31,18 @@ export const rollLooseBall = (
 ): { position: PhysicalPoint; velocity: PhysicalPoint } => {
   const speed = Math.hypot(velocity.x, velocity.y);
   if (speed <= 0.01 || elapsed <= 0) return { position: { ...position }, velocity: { x: 0, y: 0 } };
-  const resistance = surface.rollingResistance;
-  const drag = surface.drag ?? 0;
-  const stopTime = drag > 0 ? Math.log1p((drag * speed) / resistance) / drag : speed / resistance;
-  const dt = Math.min(elapsed, stopTime);
-  const endSpeed =
-    dt >= stopTime
-      ? 0
-      : drag > 0
-        ? (speed + resistance / drag) * Math.exp(-drag * dt) - resistance / drag
-        : speed - resistance * dt;
-  const travelled =
-    drag > 0
-      ? ((speed + resistance / drag) * (1 - Math.exp(-drag * dt))) / drag - (resistance * dt) / drag
-      : speed * dt - 0.5 * resistance * dt * dt;
-  const direction = { x: velocity.x / speed, y: velocity.y / speed };
+  const rolled = integrateGroundRolling(position, velocity, elapsed, {
+    rollingResistanceMultiplier: surface.rollingResistance / BALL_PHYSICS.rollingDeceleration,
+  });
   return {
     // This is a physical prediction, not a tactical/presentation point.  Keeping it
     // unbounded lets the caller observe the first line crossing instead of turning
     // the touchline into a wall.
     position: {
-      x: position.x + direction.x * travelled,
-      y: position.y + direction.y * travelled,
+      x: rolled.position.x,
+      y: rolled.position.y,
     },
-    velocity: { x: direction.x * endSpeed, y: direction.y * endSpeed },
+    velocity: { x: rolled.velocity.x, y: rolled.velocity.y },
   };
 };
 
@@ -123,6 +111,7 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
     }
     const playablePoint = playable.data;
     const candidates = state.players.flatMap((player) => {
+      if (!canContactAfterThrowIn(state, player.id)) return [];
       const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
       if (goalkeeper && !isInsideOwnPenaltyArea(playablePoint, player.team)) return [];
       const estimatedArrivalTime = estimatePlayerArrivalTime(
@@ -167,6 +156,7 @@ export const deriveLooseBallAssignments = (state: TacticalMatchState): LooseBall
   if (state.ball.ownerId) return [];
   const velocity = state.ball.velocity ?? { x: 0, y: 0 };
   const candidates = state.players.flatMap((player) => {
+    if (!canContactAfterThrowIn(state, player.id)) return [];
     const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
     const prediction = predictLooseBallIntercept(state.ball, velocity, player);
     if (prediction.kind === 'boundary') return [];

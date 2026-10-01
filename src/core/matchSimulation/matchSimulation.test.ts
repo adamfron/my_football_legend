@@ -397,6 +397,13 @@ describe('autonomous tactical simulation', () => {
       (p) => p.team === actor.team && p.id !== actor.id && p.duty === 'attack',
     )!;
     teammate.position = { x: Math.min(95, actor.position.x + 48), y: actor.position.y };
+    teammate.velocity = { x: 5, y: 0 };
+    teammate.target = { x: 104, y: teammate.position.y };
+    state.players
+      .filter((player) => player.team !== actor.team)
+      .forEach((player) => {
+        player.position = { x: 25, y: 60 };
+      });
     const actions = enumerateAvailableActions(state, actor.id);
     expect(actions.filter((a) => a.type === 'carry').length).toBeGreaterThan(2);
     expect(actions).toContainEqual(

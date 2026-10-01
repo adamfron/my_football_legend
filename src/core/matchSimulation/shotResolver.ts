@@ -1,10 +1,16 @@
 import { goalIntentToPitch, pitchToGoalIntent } from './goalCoordinates';
 import { RandomGenerator } from '../random/RandomGenerator';
-import { distance, PITCH_LENGTH, PITCH_WIDTH, type PitchPoint } from './matchSpace';
-import { GOAL_HEIGHT, GOAL_POST_RADIUS, GOAL_WIDTH } from './ballFlight';
+import { distance, PITCH_LENGTH, type PitchPoint } from './matchSpace';
+import { BALL_RADIUS, GOAL_HEIGHT, findFirstBallContact } from './ballFlight';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { deriveShotExecutionProfile } from './shootingOptions';
-import { BALL_PHYSICS, deriveLaunchVelocity, type BallVelocity3d } from './ballPhysics';
+import {
+  BALL_PHYSICS,
+  deriveLaunchVelocity,
+  projectFutureBallTrajectory,
+  type BallVelocity3d,
+} from './ballPhysics';
+import { shotExecutionErrorProfileSchema, type ShotExecutionErrorProfile } from './shotIntent';
 import type {
   MatchAction,
   MatchPlayerState,
@@ -21,8 +27,90 @@ export interface CanonicalShot extends ShotDiagnostic {
 }
 
 const clamp = (value: number, low: number, high: number) => Math.max(low, Math.min(high, value));
-const normal = (rng: RandomGenerator) =>
-  (rng.float() + rng.float() + rng.float() + rng.float() + rng.float() + rng.float() - 3) / 1.22;
+/** Sum of twelve uniforms has unit variance and bounded tails, without wild uniform misses. */
+const normal = (rng: RandomGenerator) => {
+  let sample = -6;
+  for (let index = 0; index < 12; index += 1) sample += rng.float();
+  return sample;
+};
+
+/** Calibrated target-plane deviations; every term describes execution context, not goal chance. */
+export const SHOT_EXECUTION_ERROR = {
+  minimumHorizontalSigma: 0.12,
+  minimumVerticalSigma: 0.1,
+  abilityHorizontalWeight: 1.3,
+  abilityVerticalWeight: 1.15,
+  distanceHorizontalWeight: 0.4,
+  distanceVerticalWeight: 0.4,
+  angleHorizontalWeight: 0.28,
+  angleVerticalWeight: 0.2,
+  contactHorizontalWeight: 0.24,
+  contactVerticalWeight: 0.32,
+  orientationHorizontalWeight: 0.18,
+  orientationVerticalWeight: 0.13,
+  weakFootHorizontalWeight: 0.2,
+  weakFootVerticalWeight: 0.22,
+  maximumSigma: 1.65,
+} as const;
+
+export const deriveShotExecutionErrorProfile = (
+  state: TacticalMatchState,
+  action: ShotAction,
+): ShotExecutionErrorProfile => {
+  const shooter = state.players.find((player) => player.id === action.actorId)!;
+  const opportunity = evaluateShootingOpportunity(state, shooter);
+  const profile = deriveShotExecutionProfile(state, action);
+  const a = shooter.profile.attributes;
+  const executionQuality =
+    ((action.type === 'header' ? a.heading : a.finishing) * 0.45 +
+      a.technique * 0.25 +
+      a.composure * 0.3) /
+    100;
+  const distanceDifficulty = Math.pow(Math.max(0, opportunity.distance - 9) / 26, 1.25);
+  const angleDifficulty = 1 - opportunity.angle;
+  const pressureDifficulty = Math.max(opportunity.pressure, state.currentPressure);
+  const contactDifficulty = profile.firstTimeDifficulty;
+  const orientationDifficulty = profile.orientationDifficulty;
+  const weakFootDifficulty = profile.dominantFootDifficulty;
+  const c = SHOT_EXECUTION_ERROR;
+  const horizontalSigma = clamp(
+    (c.minimumHorizontalSigma +
+      Math.pow(1 - executionQuality, 1.2) * c.abilityHorizontalWeight +
+      distanceDifficulty * c.distanceHorizontalWeight +
+      angleDifficulty * c.angleHorizontalWeight +
+      pressureDifficulty * profile.pressureSensitivity * 1.25 +
+      contactDifficulty * c.contactHorizontalWeight +
+      orientationDifficulty * c.orientationHorizontalWeight +
+      weakFootDifficulty * c.weakFootHorizontalWeight) *
+      profile.errorMultiplier,
+    c.minimumHorizontalSigma,
+    c.maximumSigma,
+  );
+  const verticalSigma = clamp(
+    (c.minimumVerticalSigma +
+      Math.pow(1 - executionQuality, 1.15) * c.abilityVerticalWeight +
+      distanceDifficulty * c.distanceVerticalWeight +
+      angleDifficulty * c.angleVerticalWeight +
+      pressureDifficulty * profile.pressureSensitivity +
+      contactDifficulty * c.contactVerticalWeight +
+      orientationDifficulty * c.orientationVerticalWeight +
+      weakFootDifficulty * c.weakFootVerticalWeight) *
+      profile.errorMultiplier,
+    c.minimumVerticalSigma,
+    c.maximumSigma,
+  );
+  return shotExecutionErrorProfileSchema.parse({
+    executionQuality,
+    horizontalSigma,
+    verticalSigma,
+    distanceDifficulty,
+    angleDifficulty,
+    pressureDifficulty,
+    contactDifficulty,
+    orientationDifficulty,
+    weakFootDifficulty,
+  });
+};
 
 const defaultTarget = (action: ShotAction, shooter: MatchPlayerState) => ({
   horizontal: clamp(
@@ -48,46 +136,21 @@ export const resolveCanonicalShot = (
   const shooter = state.players.find((player) => player.id === action.actorId)!;
   const attackingRight = shooter.team === 'home';
   const goalX = attackingRight ? PITCH_LENGTH : 0;
-  const goalCentre = { x: goalX, y: PITCH_WIDTH / 2 };
   const intended = action.goalTarget ? action.goalTarget : defaultTarget(action, shooter);
-  const range = distance(shooter.position, goalCentre);
-  const pressure = state.currentPressure;
   const opportunity = evaluateShootingOpportunity(state, shooter);
-  const attributes = shooter.profile.attributes;
   const profile = deriveShotExecutionProfile(state, action);
-  const execution =
-    ((action.type === 'header' ? attributes.heading : attributes.finishing) * 0.45 +
-      attributes.technique * 0.3 +
-      attributes.composure * 0.25) /
-    100;
-  const longRangePenalty = Math.pow(Math.max(0, range - 14) / 22, 1.65);
-  const positionalDifficulty =
-    range / 72 + longRangePenalty + Math.abs(shooter.position.y - PITCH_WIDTH / 2) / 48;
-  const powerAccuracyPenalty =
-    action.type === 'shot' && action.intent === 'driven' ? range / 135 : 0;
-  const errorScale = clamp(
-    0.08 +
-      (1 - execution) * 0.66 +
-      pressure * profile.pressureSensitivity +
-      positionalDifficulty * 0.3 +
-      powerAccuracyPenalty +
-      profile.firstTimeDifficulty * 0.12 +
-      profile.orientationDifficulty * 0.08 +
-      profile.dominantFootDifficulty * 0.09,
-    0.1,
-    1.15,
-  );
+  const executionErrorProfile = deriveShotExecutionErrorProfile(state, action);
   const rng = RandomGenerator.fromSeed(
-    `${state.seed}:shot-v2:${state.decisionIndex}:${shooter.id}`,
+    `${state.seed}:shot-v3:${state.decisionIndex}:${shooter.id}`,
   );
-  const horizontalError = normal(rng) * errorScale * profile.errorMultiplier;
-  const verticalError = normal(rng) * errorScale * profile.errorMultiplier * 0.62;
+  const horizontalError = normal(rng) * executionErrorProfile.horizontalSigma;
+  const verticalError = normal(rng) * executionErrorProfile.verticalSigma;
   const actual = {
     horizontal: intended.horizontal + horizontalError,
     vertical: intended.vertical + verticalError,
   };
   const goalY = goalIntentToPitch(shooter.team, actual).y;
-  const heightMetres = actual.vertical * GOAL_HEIGHT;
+  const intendedHeightMetres = actual.vertical * GOAL_HEIGHT;
   const nominalSpeed = clamp(profile.nominalSpeed + normal(rng) * 1.8, 13, 38);
   const contactHeight = Math.max(0, state.ball.height ?? 0);
   const contactPoint = { x: state.ball.x, y: state.ball.y };
@@ -96,7 +159,9 @@ export const resolveCanonicalShot = (
   const length = distance(contactPoint, flightTarget);
   const duration = Math.max(0.28, length / nominalSpeed);
   let launchElevation = Math.atan2(
-    Math.max(0, heightMetres) - contactHeight + 0.5 * BALL_PHYSICS.gravity * duration * duration,
+    Math.max(0, intendedHeightMetres) -
+      contactHeight +
+      0.5 * BALL_PHYSICS.gravity * duration * duration,
     length,
   );
   let speed = nominalSpeed;
@@ -105,12 +170,12 @@ export const resolveCanonicalShot = (
     // chooses arrival height, never erases the defining loft. Speed adjusts to range instead.
     const verticalSpeed = Math.max(
       profile.minimumVerticalSpeed,
-      Math.sqrt(2 * BALL_PHYSICS.gravity * Math.max(0, heightMetres - contactHeight)) + 0.3,
+      Math.sqrt(2 * BALL_PHYSICS.gravity * Math.max(0, intendedHeightMetres - contactHeight)) + 0.3,
     );
     const discriminant = Math.max(
       0,
       verticalSpeed * verticalSpeed -
-        2 * BALL_PHYSICS.gravity * (Math.max(0, heightMetres) - contactHeight),
+        2 * BALL_PHYSICS.gravity * (Math.max(0, intendedHeightMetres) - contactHeight),
     );
     const flightTime = Math.max(
       0.35,
@@ -121,24 +186,33 @@ export const resolveCanonicalShot = (
     launchElevation = Math.atan2(verticalSpeed, horizontalSpeed);
   }
   const launchVelocity = deriveLaunchVelocity(contactPoint, flightTarget, speed, launchElevation);
-  const postDelta = Math.abs(Math.abs(goalY - PITCH_WIDTH / 2) - GOAL_WIDTH / 2);
-  const barDelta = Math.abs(heightMetres - GOAL_HEIGHT);
-  let classification: CanonicalShot['classification'] =
-    Math.abs(goalY - PITCH_WIDTH / 2) <= GOAL_WIDTH / 2 &&
-    heightMetres >= 0 &&
-    heightMetres <= GOAL_HEIGHT
-      ? 'on_target'
-      : heightMetres > GOAL_HEIGHT
-        ? 'over'
-        : 'wide';
-  if (
-    heightMetres >= 0 &&
-    heightMetres <= GOAL_HEIGHT + GOAL_POST_RADIUS &&
-    postDelta <= GOAL_POST_RADIUS
-  )
-    classification = 'post';
-  else if (Math.abs(goalY - PITCH_WIDTH / 2) <= GOAL_WIDTH / 2 && barDelta <= GOAL_POST_RADIUS)
-    classification = 'crossbar';
+  // A miss below the grass can bounce/roll into the goal. Diagnose the physical goal-plane
+  // crossing, rather than classifying the unclamped aiming height as an impossible low miss.
+  let previous = { ...contactPoint, z: Math.max(BALL_RADIUS, contactHeight) };
+  let classification: CanonicalShot['classification'] = 'wide';
+  let heightMetres = intendedHeightMetres;
+  for (const sample of projectFutureBallTrajectory(
+    { position: previous, velocity: launchVelocity, airborne: true, bounceCount: 0 },
+    6,
+    0.025,
+  )) {
+    const next = sample.ball.position;
+    const contact = findFirstBallContact({ previous, next, attackingTeam: shooter.team });
+    previous = next;
+    if (!contact) continue;
+    heightMetres = contact.point.z;
+    classification =
+      contact.kind === 'goal_plane'
+        ? 'on_target'
+        : contact.kind === 'crossbar'
+          ? 'crossbar'
+          : contact.kind === 'left_post' || contact.kind === 'right_post'
+            ? 'post'
+            : contact.point.z > GOAL_HEIGHT
+              ? 'over'
+              : 'wide';
+    break;
+  }
 
   return {
     shotId: `${state.seed}:shot:${state.decisionIndex}:${shooter.id}`,
@@ -150,6 +224,7 @@ export const resolveCanonicalShot = (
     ballHeightAtDecision: action.decisionBallHeight ?? contactHeight,
     ballHeightAtContact: contactHeight,
     executionProfile: profile,
+    executionErrorProfile,
     launchSpeed: speed,
     launchVerticalComponent: launchVelocity.z,
     context:

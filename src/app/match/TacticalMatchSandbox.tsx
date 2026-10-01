@@ -1697,7 +1697,7 @@ const RunningLab = ({
               <br />
               Żółty: Twój piłkarz · turkusowy: posiadacz · jasny: dostępny cel
               <br />
-              Minuty {controlledSummary.minutesPlayed.toFixed(0)} · Posiadania{' '}
+              Minuty {controlledSummary.minutesPlayed.toFixed(0)} · Kontakty{' '}
               {controlledSummary.touches}
               <br />
               Podania {controlledSummary.passesCompleted}/{controlledSummary.passesAttempted} ·

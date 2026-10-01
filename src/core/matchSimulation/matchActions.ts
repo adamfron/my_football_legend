@@ -14,8 +14,15 @@ import { evaluateRunSpace } from './reachableSpace';
 import { captureOffsideSnapshot } from './offside';
 import { projectPassReception, receptionPreparationSchema } from './passReception';
 import { estimatePlayerArrivalTime } from './playerArrival';
-import { deriveLaunchVelocity } from './ballPhysics';
+import { deriveAerialLaunchPlan, deriveLaunchVelocity } from './ballPhysics';
+import {
+  canContactAfterThrowIn,
+  isLegalThrowInReceiver,
+  throwInDiagnosticSchema,
+  type ThrowInDiagnostic,
+} from './throwIn';
 import { derivePassLaunchPlan } from './passLaunchPlan';
+import { projectReceiverReadiness } from './receiverReadiness';
 import { deriveFinalThirdOccupations } from './tacticalPositioning';
 import { preparationMarginForAction } from './onBallPreparation';
 import {
@@ -106,13 +113,13 @@ export const deriveLeadPass = (
   receiver: MatchPlayerState,
 ) => {
   const projection = projectPassReception(state, passer, receiver, 'lead');
+  if (projection.semanticIntent !== 'lead') return undefined;
   const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
   if (receiver.profile.primaryPosition === 'goalkeeper' && speed < 1.2) return undefined;
   const desired = {
     x: receiver.target.x - receiver.position.x,
     y: receiver.target.y - receiver.position.y,
   };
-  const desiredLength = Math.hypot(desired.x, desired.y);
   const motion = speed > 0.7 ? receiver.velocity : desired;
   const motionLength = Math.hypot(motion.x, motion.y);
   if (motionLength < 1.2 || projection.leadDistance < 1.6) return undefined;
@@ -124,12 +131,6 @@ export const deriveLeadPass = (
   if (
     (motion.x * toPasser.x + motion.y * toPasser.y) / motionLength >
     0.45 * Math.hypot(toPasser.x, toPasser.y)
-  )
-    return undefined;
-  if (
-    desiredLength > 0.2 &&
-    speed > 0.7 &&
-    receiver.velocity.x * desired.x + receiver.velocity.y * desired.y < 0
   )
     return undefined;
   const receiverEta = estimatePlayerArrivalTime(state, receiver, projection.releaseTarget);
@@ -156,6 +157,7 @@ export const deriveHumanLeadPass = (
   receiver: MatchPlayerState,
 ) => {
   const projection = projectPassReception(state, passer, receiver, 'lead');
+  if (projection.semanticIntent !== 'lead') return undefined;
   const motion = Math.hypot(receiver.velocity.x, receiver.velocity.y);
   if (receiver.profile.primaryPosition === 'goalkeeper' && motion < 1.2) return undefined;
   const tacticalRun = distance(receiver.position, receiver.target);
@@ -172,6 +174,8 @@ export const enumerateAvailableActions = (
 ): MatchAction[] => {
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return [];
+  if (state.restart?.phase === 'setup')
+    return state.restart.takerId === actorId ? enumerateRestartActions(state) : [];
   if (state.ball.ownerId !== actorId) return enumerateCanonicalShootingOptions(state, actorId);
   const dir = actor.team === 'home' ? 1 : -1;
   const carryTargets = [
@@ -238,32 +242,28 @@ export const enumerateAvailableActions = (
           type: 'pass',
           actorId,
           receiverId: p.id,
-          target: projection.releaseTarget,
+          target: projectPassReception(state, actor, p, intent, 'lofted').releaseTarget,
           intent,
           delivery: 'lofted',
         });
       const lead = deriveLeadPass(state, actor, p);
-      if (lead)
+      const space =
+        progress > 8 && p.duty !== 'defend' ? evaluateRunSpace(state, actor, p) : undefined;
+      const through =
+        lead && space && space.utility >= 6
+          ? projectPassReception(state, actor, p, 'through')
+          : undefined;
+      if (lead && distance(lead.projection.releaseTarget, projection.releaseTarget) >= 1.6)
         actions.push({
           type: 'pass',
           actorId,
           receiverId: p.id,
-          target: lead.projection.releaseTarget,
-          intent: 'lead',
+          target:
+            through?.semanticIntent === 'through'
+              ? through.releaseTarget
+              : lead.projection.releaseTarget,
+          intent: through?.semanticIntent === 'through' ? 'through' : 'lead',
         });
-      if (progress > 8 && p.duty !== 'defend') {
-        const space = evaluateRunSpace(state, actor, p);
-        // A leading ball is an exception for a real run/space advantage, not a
-        // second default variant of every forward pass.
-        if (!space || space.utility < 6) return;
-        actions.push({
-          type: 'pass',
-          actorId,
-          receiverId: p.id,
-          target: space.target,
-          intent: 'through',
-        });
-      }
     });
   return actions;
 };
@@ -476,11 +476,60 @@ export const resolveMatchAction = (
   action: MatchAction,
   source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
-  const isShot =
-    action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot');
-  if (state.ball.ownerId !== action.actorId && (!isShot || !canExecuteCanonicalShot(state, action)))
+  if (!canContactAfterThrowIn(state, action.actorId)) return state;
+  const requestedThrow =
+    state.restart?.phase === 'setup' && state.scenario === 'throw_in' && action.type === 'pass'
+      ? action
+      : undefined;
+  let throwFallbackReason: ThrowInDiagnostic['fallbackReason'];
+  if (state.restart?.phase === 'setup' && state.scenario === 'throw_in') {
+    if (
+      action.actorId !== state.restart.takerId ||
+      action.type !== 'pass' ||
+      action.receiverId === action.actorId
+    )
+      return state;
+    const thrower = state.players.find((player) => player.id === action.actorId);
+    if (!thrower) return state;
+    const requestedReceiverId = action.receiverId;
+    const selected = state.players.find((player) => player.id === requestedReceiverId);
+    if (!selected || !isLegalThrowInReceiver(thrower, selected)) {
+      throwFallbackReason = !selected
+        ? 'receiver_missing'
+        : selected.team !== thrower.team
+          ? 'receiver_wrong_team'
+          : 'receiver_out_of_range';
+      const fallback = chooseRestartAction(state);
+      if (!fallback || fallback.type !== 'pass') return state;
+      action = fallback;
+    }
+    if (action.type !== 'pass') return state;
+    const receiverId = action.receiverId;
+    const receiver = state.players.find((player) => player.id === receiverId)!;
+    const selectedAt = action.receiverPositionAtSelection;
+    // Preserve selected space relative to its teammate when the receiver moved before release.
+    const offset = selectedAt
+      ? { x: action.target.x - selectedAt.x, y: action.target.y - selectedAt.y }
+      : { x: 0, y: 0 };
+    action = {
+      ...action,
+      target: clampPitchPoint({
+        x: receiver.position.x + offset.x,
+        y: receiver.position.y + offset.y,
+      }),
+    };
+  }
+  if (
+    state.ball.ownerId !== action.actorId &&
+    ((action.type !== 'shot' && (action.type !== 'header' || action.intent !== 'header_shot')) ||
+      !canExecuteCanonicalShot(state, action))
+  )
     return state;
-  if (isShot && !canExecuteCanonicalShot(state, action)) return state;
+  if (
+    (action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot')) &&
+    !canExecuteCanonicalShot(state, action)
+  )
+    return state;
   if (
     hasActiveHumanPossession(state) &&
     ['pass', 'shot', 'cross', 'header'].includes(action.type) &&
@@ -614,22 +663,40 @@ export const resolveMatchAction = (
   if (action.type === 'cross' || action.type === 'header') {
     const length = distance(actor.position, action.target);
     const isHeaderShot = action.type === 'header' && action.intent === 'header_shot';
-    const headerShot = isHeaderShot
-      ? resolveCanonicalShot(
-          {
-            ...state,
-            decisionIndex: state.decisionIndex + 1,
-            currentPressure: evaluatePressure(state, actor).value,
-          },
-          action,
-        )
-      : undefined;
-    const duration = Math.max(
-      0.35,
-      headerShot
-        ? length / headerShot.speed
-        : length / (action.type === 'cross' && action.intent === 'floated' ? 18 : 25),
-    );
+    const headerShot =
+      action.type === 'header' && isHeaderShot
+        ? resolveCanonicalShot(
+            {
+              ...state,
+              decisionIndex: state.decisionIndex + 1,
+              currentPressure: evaluatePressure(state, actor).value,
+            },
+            action,
+          )
+        : undefined;
+    const crossPlan =
+      action.type === 'cross' && action.intent !== 'cutback'
+        ? deriveAerialLaunchPlan(
+            state.ball,
+            action.target,
+            action.intent === 'floated' ? 'cross' : 'driven_cross',
+            {
+              ability: (actor.profile.attributes.passing + actor.profile.attributes.technique) / 2,
+              arrivalHeight:
+                action.intent === 'floated' ? 1.9 : action.intent === 'driven' ? 0.65 : 0.2,
+              executionError:
+                action.intent === 'floated' ? 0.2 : action.intent === 'driven' ? -0.7 : -1,
+            },
+          )
+        : undefined;
+    const duration =
+      crossPlan?.predictedFlightTime ??
+      Math.max(
+        0.35,
+        headerShot
+          ? length / headerShot.speed
+          : length / (action.type === 'cross' && action.intent === 'floated' ? 18 : 25),
+      );
     const headerTarget = headerShot
       ? {
           ...headerShot.goalPoint,
@@ -638,6 +705,7 @@ export const resolveMatchAction = (
       : action.target;
     const launchSpeed =
       headerShot?.speed ??
+      crossPlan?.speed ??
       (action.type === 'header'
         ? action.intent === 'header_clearance'
           ? 24
@@ -649,13 +717,11 @@ export const resolveMatchAction = (
           : 27);
     const elevation = headerShot
       ? headerShot.launchElevation
-      : action.intent === 'floated'
-        ? 0.42
-        : action.intent === 'driven'
-          ? 0.2
-          : 0.1;
+      : (crossPlan?.elevation ??
+        (action.intent === 'floated' ? 0.42 : action.intent === 'driven' ? 0.2 : 0.1));
     const launchVelocity =
       headerShot?.launchVelocity ??
+      crossPlan?.velocity ??
       deriveLaunchVelocity(
         action.type === 'header' ? state.ball : actor.position,
         headerTarget,
@@ -667,8 +733,7 @@ export const resolveMatchAction = (
       ball: {
         x: state.ball.x,
         y: state.ball.y,
-        from:
-          action.type === 'header' ? { x: state.ball.x, y: state.ball.y } : { ...actor.position },
+        from: { x: state.ball.x, y: state.ball.y },
         target: { ...headerTarget },
         ...(action.intendedTargetId ? { intendedReceiverId: action.intendedTargetId } : {}),
         travelKind:
@@ -706,28 +771,46 @@ export const resolveMatchAction = (
       ...(restart ? { restart, restartAction: action } : {}),
     };
   }
-  const receiver = state.players.find((p) => p.id === action.receiverId)!;
+  const receiverId = action.receiverId;
+  const receiver = state.players.find((p) => p.id === receiverId)!;
   const projection =
-    action.intent === 'through' || state.scenario === 'throw_in'
+    state.scenario === 'throw_in'
       ? undefined
-      : projectPassReception(state, actor, receiver, action.intent);
+      : projectPassReception(state, actor, receiver, action.intent, action.delivery);
+  if (projection && projection.semanticIntent !== action.intent)
+    action = { ...action, intent: projection.semanticIntent };
   const target = projection?.releaseTarget ?? action.target;
   const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;
   const isThrowIn = restart?.phase === 'release' && state.scenario === 'throw_in';
   const isLongDistribution = restart?.phase === 'release' && state.scenario === 'goal_kick';
-  const releasePosition = isThrowIn ? { x: state.ball.x, y: state.ball.y } : { ...actor.position };
+  const releasePosition = { x: state.ball.x, y: state.ball.y };
   const canonicalPlan =
     action.delivery === 'lofted'
       ? derivePassLaunchPlan(state, actor, receiver, target, action.intent, 'lofted')
       : (projection?.launchPlan ??
         derivePassLaunchPlan(state, actor, receiver, target, action.intent));
-  const duration = canonicalPlan.predictedArrivalTime;
-  const launchSpeed = isThrowIn ? 14 : isLongDistribution ? 29 : canonicalPlan.speed;
-  const launchElevation = isThrowIn ? 0.38 : isLongDistribution ? 0.5 : canonicalPlan.elevation;
+  const throwPlan = isThrowIn
+    ? deriveAerialLaunchPlan(releasePosition, target, 'throw_in', {
+        ability: (actor.profile.attributes.passing + actor.profile.attributes.technique) / 2,
+      })
+    : undefined;
+  const distributionPlan = isLongDistribution
+    ? deriveAerialLaunchPlan(releasePosition, target, 'long_pass', {
+        ability: actor.profile.attributes.goalkeeperKicking,
+      })
+    : undefined;
+  const duration =
+    throwPlan?.predictedFlightTime ??
+    distributionPlan?.predictedFlightTime ??
+    canonicalPlan.predictedArrivalTime;
+  const throwReadiness = isThrowIn
+    ? projectReceiverReadiness(state, receiver, target, duration, 'support')
+    : undefined;
+  const launchSpeed = throwPlan?.speed ?? distributionPlan?.speed ?? canonicalPlan.speed;
+  const launchElevation =
+    throwPlan?.elevation ?? distributionPlan?.elevation ?? canonicalPlan.elevation;
   const launchVelocity =
-    isThrowIn || isLongDistribution
-      ? deriveLaunchVelocity(releasePosition, target, launchSpeed, launchElevation)
-      : canonicalPlan.velocity;
+    throwPlan?.velocity ?? distributionPlan?.velocity ?? canonicalPlan.velocity;
   const defenders = state.players.filter((p) => p.team !== actor.team);
   const bestDefenderArrival = Math.min(
     ...defenders.map(
@@ -739,10 +822,7 @@ export const resolveMatchAction = (
     ball: {
       x: state.ball.x,
       y: state.ball.y,
-      from:
-        state.scenario === 'throw_in'
-          ? { x: state.ball.x, y: state.ball.y }
-          : { ...actor.position },
+      from: releasePosition,
       target: { ...target },
       intendedReceiverId: receiver.id,
       travelKind:
@@ -811,9 +891,28 @@ export const resolveMatchAction = (
               ? bestDefenderArrival
               : 99,
             leadDistance: projection.leadDistance,
+            intent: projection.semanticIntent,
+            ballArrivalEstimate: duration,
+            meetingErrorSeconds: projection.estimatedReceiverArrival - duration,
+            predictionHorizon: projection.predictionHorizon,
           },
         }
       : {
+          ...(throwReadiness
+            ? {
+                receptionPreparation: receptionPreparationSchema.parse({
+                  actorId: receiver.id,
+                  sourceActorId: actor.id,
+                  releasedAt: state.time,
+                  awarenessAt: state.time + throwReadiness.awareAt,
+                  expectedContactPoint: target,
+                  expectedArrivalTime: state.time + duration,
+                  movement: distance(receiver.position, target) < 0.6 ? 'wait' : 'meet_ball',
+                  ballEpisode: episode,
+                  readiness: throwReadiness,
+                }),
+              }
+            : {}),
           lastPassDiagnostic: {
             passId: episode,
             passerId: actor.id,
@@ -822,16 +921,33 @@ export const resolveMatchAction = (
             receiverPositionAtRelease: { ...receiver.position },
             receiverVelocityAtRelease: { ...receiver.velocity },
             predictedReceptionPoint: target,
-            awarenessDelay: 0,
+            awarenessDelay: throwReadiness?.awareAt ?? 0,
             receiverArrivalEstimate: duration,
             bestDefenderArrivalEstimate: Number.isFinite(bestDefenderArrival)
               ? bestDefenderArrival
               : 99,
             leadDistance: distance(receiver.position, target),
+            intent: action.intent,
+            ballArrivalEstimate: throwPlan?.predictedFlightTime ?? duration,
           },
         }),
     ...(offsideSnapshot ? { offsideSnapshot } : {}),
     ...(restart ? { restart, restartAction: action } : {}),
+    ...(isThrowIn
+      ? {
+          throwInRestriction: { throwerId: actor.id, releasedAt: state.time },
+          lastThrowInDiagnostic: throwInDiagnosticSchema.parse({
+            throwerId: actor.id,
+            requestedReceiverId: requestedThrow?.receiverId ?? receiver.id,
+            chosenReceiverId: receiver.id,
+            requestedTarget: requestedThrow?.target ?? target,
+            releaseTarget: target,
+            actualReleaseVector: launchVelocity,
+            releasedAt: state.time,
+            ...(throwFallbackReason ? { fallbackReason: throwFallbackReason } : {}),
+          }),
+        }
+      : {}),
   };
 };
 
@@ -870,14 +986,13 @@ export const enumerateRestartActions = (state: TacticalMatchState): MatchAction[
         intent: 'placed',
       },
     ];
-  if (state.scenario === 'throw_in' && restart.landingZone) {
+  if (state.scenario === 'throw_in') {
     const receivers = state.players
-      .filter((p) => p.team === actor.team && p.id !== actor.id)
-      .filter((p) => distance(p.position, actor.position) <= 25)
+      .filter((p) => isLegalThrowInReceiver(actor, p))
       .sort(
         (a, b) =>
-          distance(a.position, restart.landingZone!) - distance(b.position, restart.landingZone!) ||
-          a.id.localeCompare(b.id),
+          distance(a.position, restart.landingZone ?? actor.position) -
+            distance(b.position, restart.landingZone ?? actor.position) || a.id.localeCompare(b.id),
       )
       .slice(0, 4);
     return receivers.map((receiver) => ({
@@ -885,6 +1000,7 @@ export const enumerateRestartActions = (state: TacticalMatchState): MatchAction[
       actorId: actor.id,
       receiverId: receiver.id,
       target: clampPitchPoint(receiver.position),
+      receiverPositionAtSelection: { ...receiver.position },
       intent: 'support' as const,
     }));
   }
@@ -955,7 +1071,11 @@ export const chooseRestartAction = (state: TacticalMatchState): MatchAction | un
   const receiver =
     taker &&
     state.players
-      .filter((player) => player.team === taker.team && player.id !== taker.id)
+      .filter((player) =>
+        state.scenario === 'throw_in'
+          ? isLegalThrowInReceiver(taker, player)
+          : player.team === taker.team && player.id !== taker.id,
+      )
       .sort(
         (a, b) =>
           distance(a.position, taker.position) - distance(b.position, taker.position) ||
@@ -967,6 +1087,7 @@ export const chooseRestartAction = (state: TacticalMatchState): MatchAction | un
         actorId: taker.id,
         receiverId: receiver.id,
         target: clampPitchPoint(receiver.position),
+        receiverPositionAtSelection: { ...receiver.position },
         intent: 'support',
       }
     : undefined;
