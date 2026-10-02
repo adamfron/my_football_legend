@@ -44,6 +44,60 @@ const completedPass = (base: TacticalMatchState, passerId: string, scorerId: str
 });
 
 describe('canonical contact and pass event semantics', () => {
+  it('reuses inert whole-match histories and preserves earlier snapshots on a new event', () => {
+    const initial = state('stats-history-sharing');
+    const [passer, receiver] = initial.players.filter((player) => player.team === 'home');
+    const received = completedPass(initial, passer!.id, receiver!.id);
+    const first = observePlayerMatchStats(createMatchStatistics(initial), initial, received);
+    const frozen = structuredClone(first);
+    Object.freeze(first.observedContactIds);
+    Object.freeze(first.observedPassAttemptIds);
+    Object.freeze(first.observedPassResultIds);
+    Object.freeze(first.passingNetwork[0]);
+    Object.freeze(first.passingNetwork);
+    const unchanged = observePlayerMatchStats(first, received, received);
+    expect(unchanged.observedContactIds).toBe(first.observedContactIds);
+    expect(unchanged.observedPassAttemptIds).toBe(first.observedPassAttemptIds);
+    expect(unchanged.observedPassResultIds).toBe(first.observedPassResultIds);
+    expect(unchanged.passingNetwork).toBe(first.passingNetwork);
+    const another = {
+      ...received,
+      lastPassDiagnostic: {
+        ...received.lastPassDiagnostic,
+        passId: 'another-pass',
+        releasedAt: 2,
+        resolvedAt: 3,
+      },
+    };
+    const observed = observePlayerMatchStats(first, received, another);
+    expect(first).toEqual(frozen);
+    expect(observed.passingNetwork[0]).toMatchObject({ attempted: 2, completed: 2 });
+    // A replay/branch from the earlier snapshot still counts its own new event exactly once.
+    expect(observePlayerMatchStats(first, received, another)).toEqual(observed);
+  });
+
+  it('indexes a large unchanged contact ledger once instead of scanning it every tick', () => {
+    const initial = state('stats-ledger-index');
+    const [passer, receiver] = initial.players.filter((player) => player.team === 'home');
+    const received = completedPass(initial, passer!.id, receiver!.id);
+    let statistics = observePlayerMatchStats(createMatchStatistics(initial), initial, received);
+    statistics.observedContactIds = [
+      ...Array.from({ length: 20_000 }, (_, index) => `historical-contact-${index}`),
+      ...statistics.observedContactIds,
+    ];
+    const ledger = statistics.observedContactIds;
+    const iterator = ledger[Symbol.iterator].bind(ledger);
+    let scans = 0;
+    ledger[Symbol.iterator] = () => {
+      scans++;
+      return iterator();
+    };
+    for (let tick = 0; tick < 100; tick++)
+      statistics = observePlayerMatchStats(statistics, received, received);
+    expect(scans).toBe(1);
+    expect(statistics.observedContactIds).toBe(ledger);
+  });
+
   it('counts one release and one intended reception even without an ownership transition', () => {
     const initial = state('contact-pass');
     const [passer, receiver] = initial.players.filter((p) => p.team === 'home');

@@ -59,6 +59,7 @@ import { deriveCarryExecution, hasReachedCarryDecisionWaypoint } from './carryEx
 import { hasActiveHumanPossession, reconcileHumanPossession } from './possessionAgency';
 import { canExecuteCanonicalShot } from './shootingOptions';
 import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
+import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -787,6 +788,7 @@ const stepTacticalMatchCore = (
     // a sweeper or diving keeper toward the canonical base position.
     delete state.keeperIntervention;
   }
+  const planningSpan = startPerformanceSpan('tactical_planning');
   const semanticKey = tacticalSemanticKey(state);
   const tacticalPlanDue =
     !state.planningSchedule ||
@@ -795,7 +797,10 @@ const stepTacticalMatchCore = (
   if (tacticalPlanDue) state.planningSchedule = { lastTacticalPlanAt: state.time, semanticKey };
   // Formation/pressure plans are stable intentions. Integrate bodies at 40 Hz, but only answer
   // the expensive tactical question at 10 Hz or immediately after a semantic football event.
-  state.players = (tacticalPlanDue ? deriveTacticalTargets(state) : state.players).map((player) => {
+  const plannedPlayers = tacticalPlanDue ? deriveTacticalTargets(state) : state.players;
+  endPerformanceSpan('tactical_planning', planningSpan);
+  const movementSpan = startPerformanceSpan('movement_physics');
+  state.players = plannedPlayers.map((player) => {
     let movementTarget = player.target;
     if (state.ballCarrierIntent?.actorId === player.id) {
       const execution = deriveCarryExecution(state, player, state.ballCarrierIntent);
@@ -947,599 +952,617 @@ const stepTacticalMatchCore = (
       },
     };
   });
-  if (state.goalCompletionUntil !== undefined) {
-    const velocity = state.ball.velocity ?? { x: 0, y: 0 };
-    state.ball = {
-      ...state.ball,
-      x: state.ball.x + velocity.x * dt,
-      y: state.ball.y + velocity.y * dt,
-      velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
-    };
-  } else if (state.ball.travelKind && state.ball.from && state.ball.target && state.ball.velocity) {
-    // Project from the start of this integration segment. After integration the ball may already
-    // be beyond the keeper plane, which used to remove the keeper from the CCD candidate set and
-    // let the later goal-plane event win.
-    const goalkeeperProjectionAtSegmentStart = state.ball.shot
-      ? projectGoalkeeperIntervention(state)
-      : undefined;
-    const previous: FlightPoint = {
-      x: state.ball.x,
-      y: state.ball.y,
-      z: state.ball.height ?? 0,
-    };
-    const elapsed = (state.ball.flightTime ?? 0) + dt,
-      previousDistance = state.ball.distanceTravelled ?? 0;
-    const integrated = integrateBallFlight(
-      {
-        position: previous,
-        velocity: {
-          x: state.ball.velocity?.x ?? 0,
-          y: state.ball.velocity?.y ?? 0,
-          z: state.ball.velocity?.z ?? 0,
+  endPerformanceSpan('movement_physics', movementSpan);
+  const ballSpan = startPerformanceSpan('ball_physics');
+  try {
+    if (state.goalCompletionUntil !== undefined) {
+      const velocity = state.ball.velocity ?? { x: 0, y: 0 };
+      state.ball = {
+        ...state.ball,
+        x: state.ball.x + velocity.x * dt,
+        y: state.ball.y + velocity.y * dt,
+        velocity: { x: velocity.x * 0.94, y: velocity.y * 0.94 },
+      };
+    } else if (
+      state.ball.travelKind &&
+      state.ball.from &&
+      state.ball.target &&
+      state.ball.velocity
+    ) {
+      // Project from the start of this integration segment. After integration the ball may already
+      // be beyond the keeper plane, which used to remove the keeper from the CCD candidate set and
+      // let the later goal-plane event win.
+      const goalkeeperProjectionAtSegmentStart = state.ball.shot
+        ? projectGoalkeeperIntervention(state)
+        : undefined;
+      const previous: FlightPoint = {
+        x: state.ball.x,
+        y: state.ball.y,
+        z: state.ball.height ?? 0,
+      };
+      const elapsed = (state.ball.flightTime ?? 0) + dt,
+        previousDistance = state.ball.distanceTravelled ?? 0;
+      const integrated = integrateBallFlight(
+        {
+          position: previous,
+          velocity: {
+            x: state.ball.velocity?.x ?? 0,
+            y: state.ball.velocity?.y ?? 0,
+            z: state.ball.velocity?.z ?? 0,
+          },
+          airborne: state.ball.airborne ?? false,
+          bounceCount: state.ball.bounceCount ?? 0,
         },
-        airborne: state.ball.airborne ?? false,
-        bounceCount: state.ball.bounceCount ?? 0,
-      },
-      dt,
-    );
-    const next: FlightPoint = integrated.position;
-    const nextHeight = next.z;
-    if (!state.ball.shot && integrated.bounceCount > (state.ball.bounceCount ?? 0))
-      // A delivery which reaches grass unclaimed has an aerial outcome, but no player touch.
-      state = { ...state, lastAerialResult: 'loose_ball', aerialContestantIds: [] };
-    if (!state.ball.shot) {
-      const crossing = findPitchBoundaryCrossing(previous, next);
-      const contact =
-        !integrated.airborne && nextHeight <= 0.2
-          ? resolveContinuousGroundPassClaim(state, previous, next)
-          : undefined;
-      if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction)) {
-        state = applyThrowInContact(state, contact.playerId!);
-        const contactingPlayer = state.players.find((player) => player.id === contact.playerId)!;
-        if (contact.cause !== 'interception') {
-          const finish = tryIncomingFinish(
-            {
-              ...state,
-              ball: {
-                ...state.ball,
-                ...contact.landingPosition,
-                height: previous.z + (next.z - previous.z) * contact.segmentFraction,
-              },
-            },
-            contact.playerId!,
-          );
-          if (finish) return finish;
-        }
-        if (contact.cause !== 'interception')
-          return changePossession(
-            {
-              ...state,
-              ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
-            },
-            contact.playerId!,
-            contact.cause,
-          );
-        // Geometry grants a contact, not ownership. Technique and composure decide whether that
-        // contact is controlled; an unsuccessful control creates one new loose-ball episode.
-        const attributes = contactingPlayer.profile.attributes;
-        const controlQuality =
-          (attributes.positioning +
-            attributes.gameReading +
-            attributes.technique +
-            attributes.composure) /
-          400;
-        const rng = RandomGenerator.fromSeed(
-          `${state.seed}:interception-contact:${state.ballEpisode ?? 0}:${contactingPlayer.id}`,
-        );
-        // A stretching edge contact should usually alter the pass, not magically secure it.
-        // Early, square access through the centre of the envelope still rewards anticipation.
-        const cleanControlChance = 0.12 + controlQuality * 0.4 + contact.contactMargin * 0.25;
-        if (rng.float() < cleanControlChance)
-          return changePossession(
-            {
-              ...state,
-              ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
-            },
-            contact.playerId!,
-            'interception',
-          );
-        const incoming = state.ball.velocity ?? { x: 0, y: 0 };
-        return makeLoose(
-          {
-            ...state,
-            ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
-          },
-          { x: -incoming.x * 0.22, y: incoming.y * 0.35 + (rng.float() - 0.5) * 3 },
-        );
-      }
-      // Low airborne cut-backs/half-volleys sit above the ground-claim envelope but below the
-      // aerial duel. Use the same real ball segment, rather than moving the ball to its target.
-      if (state.ball.airborne) {
-        const dx = next.x - previous.x,
-          dy = next.y - previous.y;
-        const segmentLengthSquared = dx * dx + dy * dy;
-        const contacts = state.players
-          .filter((player) => canContactAfterThrowIn(state, player.id))
-          .map((player) => {
-            const fraction =
-              segmentLengthSquared > 0
-                ? Math.max(
-                    0,
-                    Math.min(
-                      1,
-                      ((player.position.x - previous.x) * dx +
-                        (player.position.y - previous.y) * dy) /
-                        segmentLengthSquared,
-                    ),
-                  )
-                : 0;
-            const point = { x: previous.x + dx * fraction, y: previous.y + dy * fraction };
-            const height = previous.z + (next.z - previous.z) * fraction;
-            return { player, fraction, point, height, metres: distance(player.position, point) };
-          })
-          .filter(
-            (candidate) =>
-              candidate.height > 0.2 &&
-              candidate.height < 0.65 &&
-              candidate.metres <= 1.05 &&
-              (!crossing || candidate.fraction < crossing.segmentFraction),
-          )
-          .sort(
-            (a, b) =>
-              a.fraction - b.fraction ||
-              a.metres - b.metres ||
-              a.player.id.localeCompare(b.player.id),
-          );
-        for (const candidate of contacts) {
-          const finish = tryIncomingFinish(
-            { ...state, ball: { ...state.ball, ...candidate.point, height: candidate.height } },
-            candidate.player.id,
-          );
-          if (finish) return finish;
-        }
-      }
-      if (crossing) return applyBoundaryRestart(state, crossing, previous);
-    }
-    state.ball = {
-      ...state.ball,
-      x: next.x,
-      y: next.y,
-      flightTime: elapsed,
-      distanceTravelled:
-        previousDistance +
-        Math.hypot(next.x - previous.x, next.y - previous.y, next.z - previous.z),
-      height: nextHeight,
-      velocity: integrated.velocity,
-      airborne: integrated.airborne,
-      bounceCount: integrated.bounceCount,
-    };
-    if (state.ball.shot) {
-      const shot = state.ball.shot;
-      const shooter = state.players.find((player) => player.id === shot.shooterId)!;
-      const candidates: ContactCandidate[] = state.players
-        .filter(
-          (player) =>
-            player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
-        )
-        .map((defender) => ({
-          kind: 'defender' as const,
-          playerId: defender.id,
-          centre: { ...defender.position, z: 0.9 },
-          radius: 0.72,
-        }));
-      const keeperProjection = goalkeeperProjectionAtSegmentStart;
-      const defendingKeeper = state.players.find(
-        (player) => player.team !== shooter.team && player.profile.primaryPosition === 'goalkeeper',
+        dt,
       );
-      // Reaction controls an active save, never whether a standing body physically exists.
-      if (defendingKeeper)
-        candidates.push({
-          kind: 'goalkeeper',
-          playerId: defendingKeeper.id,
-          centre: { ...defendingKeeper.position, z: GOALKEEPER_PHYSICS.contactCentreHeight },
-          radius: GOALKEEPER_PHYSICS.passiveBodyRadiusMetres,
-        });
-      if (keeperProjection?.reachable && keeperProjection.reactionRemaining === 0) {
-        candidates.push({
-          kind: 'goalkeeper' as const,
-          playerId: keeperProjection.keeper.id,
-          centre: {
-            ...keeperProjection.keeper.position,
-            z: GOALKEEPER_PHYSICS.contactCentreHeight,
-          },
-          // Locomotion moves the body; this bounded envelope represents body, arms and dive only.
-          // Using the movement budget here as well would count the same reach twice.
-          radius: GOALKEEPER_PHYSICS.contactReachMetres,
-        });
-      }
-      const found = findFirstBallContact({
-        previous,
-        next,
-        attackingTeam: shooter.team,
-        candidates,
-      });
-      if (found) {
-        const incoming = { x: (next.x - previous.x) / dt, y: (next.y - previous.y) / dt };
-        const rebound = deterministicRebound(found.kind, incoming, shooter.team);
-        const contact: BallContact = {
-          ...found,
-          at: state.time - dt + found.segmentFraction * dt,
-          preContactSpeed: Math.hypot(incoming.x, incoming.y),
-          postContactSpeed:
-            found.kind === 'goal_plane' || found.kind === 'out'
-              ? Math.hypot(incoming.x, incoming.y)
-              : Math.hypot(rebound.x, rebound.y),
-        };
-        return finishShotContact(state, contact, incoming, keeperProjection);
-      }
-    }
-    if (state.ball.airborne && !state.ball.shot) {
-      const physical = findAerialContactCandidates(state, dt);
-      if (physical.length) {
-        const duel = resolveAerialDuel(
-          state,
-          physical.map(({ player }) => player),
-        );
-        const winner = duel.winner;
-        const contactPoint = { x: state.ball.x, y: state.ball.y };
-        const base = {
-          ...state,
-          aerialContestantIds: duel.contestants.map((p) => p.id),
-          lastAerialResult: duel.outcome,
-          lastAerialContact: {
-            point: contactPoint,
-            ballHeight: state.ball.height ?? 0,
-            candidates: physical.map(({ contact }) => contact),
-            contestantIds: duel.contestants.map((p) => p.id),
-            ...(winner ? { winnerId: winner.id } : {}),
-          },
-        };
-        if (duel.outcome === 'keeper_claim' && winner)
-          return changePossession({ ...base, ball: { ...contactPoint } }, winner.id, 'claim');
-        // A missed contest does not itself touch or flatten the ball.
-        if (!winner) return base;
-        if (duel.outcome === 'keeper_punch')
+      const next: FlightPoint = integrated.position;
+      const nextHeight = next.z;
+      if (!state.ball.shot && integrated.bounceCount > (state.ball.bounceCount ?? 0))
+        // A delivery which reaches grass unclaimed has an aerial outcome, but no player touch.
+        state = { ...state, lastAerialResult: 'loose_ball', aerialContestantIds: [] };
+      if (!state.ball.shot) {
+        const crossing = findPitchBoundaryCrossing(previous, next);
+        const contact =
+          !integrated.airborne && nextHeight <= 0.2
+            ? resolveContinuousGroundPassClaim(state, previous, next)
+            : undefined;
+        if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction)) {
+          state = applyThrowInContact(state, contact.playerId!);
+          const contactingPlayer = state.players.find((player) => player.id === contact.playerId)!;
+          if (contact.cause !== 'interception') {
+            const finish = tryIncomingFinish(
+              {
+                ...state,
+                ball: {
+                  ...state.ball,
+                  ...contact.landingPosition,
+                  height: previous.z + (next.z - previous.z) * contact.segmentFraction,
+                },
+              },
+              contact.playerId!,
+            );
+            if (finish) return finish;
+          }
+          if (contact.cause !== 'interception')
+            return changePossession(
+              {
+                ...state,
+                ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
+              },
+              contact.playerId!,
+              contact.cause,
+            );
+          // Geometry grants a contact, not ownership. Technique and composure decide whether that
+          // contact is controlled; an unsuccessful control creates one new loose-ball episode.
+          const attributes = contactingPlayer.profile.attributes;
+          const controlQuality =
+            (attributes.positioning +
+              attributes.gameReading +
+              attributes.technique +
+              attributes.composure) /
+            400;
+          const rng = RandomGenerator.fromSeed(
+            `${state.seed}:interception-contact:${state.ballEpisode ?? 0}:${contactingPlayer.id}`,
+          );
+          // A stretching edge contact should usually alter the pass, not magically secure it.
+          // Early, square access through the centre of the envelope still rewards anticipation.
+          const cleanControlChance = 0.12 + controlQuality * 0.4 + contact.contactMargin * 0.25;
+          if (rng.float() < cleanControlChance)
+            return changePossession(
+              {
+                ...state,
+                ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
+              },
+              contact.playerId!,
+              'interception',
+            );
+          const incoming = state.ball.velocity ?? { x: 0, y: 0 };
           return makeLoose(
             {
-              ...(winner ? applyThrowInContact(base, winner.id) : base),
-              ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
+              ...state,
+              ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
             },
-            { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
+            { x: -incoming.x * 0.22, y: incoming.y * 0.35 + (rng.float() - 0.5) * 3 },
           );
-        const finish = tryIncomingFinish(base, winner.id);
-        if (finish) return finish;
-        const selectedReception =
-          state.pendingReceptionIntent?.actorId === winner.id &&
-          (state.pendingReceptionIntent.action.type === 'hold' ||
-            state.pendingReceptionIntent.action.type === 'carry');
-        if (
-          selectedReception ||
-          (state.ball.height ?? 0) < 1.45 ||
-          duel.outcome === 'attacking_header'
-        ) {
-          // A selected receive waits for reachable foot control. A duel recommendation never
-          // overrides human intent or manufactures a shooting action outside shared AI ranking.
-          if ((state.ball.height ?? 0) > 1.45) return base;
-          return changePossession(base, winner.id, 'claim');
         }
-        const target =
-          duel.outcome === 'clearance_header'
-            ? clampPitchPoint({
-                x: contactPoint.x + (winner.team === 'home' ? 20 : -20),
-                y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
-              })
-            : clampPitchPoint({
-                x: contactPoint.x + (winner.team === 'home' ? 9 : -9),
-                y: contactPoint.y,
-              });
-        return resolveMatchAction(
-          {
-            ...applyThrowInContact(base, winner.id),
-            ball: {
-              ...state.ball,
-              ...contactPoint,
-              ownerId: winner.id,
-              lastTouchPlayerId: winner.id,
-            },
-          },
-          {
-            type: 'header',
-            actorId: winner.id,
-            target,
-            intent:
-              duel.outcome === 'clearance_header'
-                ? 'header_clearance'
-                : duel.outcome === 'flick_on'
-                  ? 'flick'
-                  : 'header_pass',
-          },
-        );
+        // Low airborne cut-backs/half-volleys sit above the ground-claim envelope but below the
+        // aerial duel. Use the same real ball segment, rather than moving the ball to its target.
+        if (state.ball.airborne) {
+          const dx = next.x - previous.x,
+            dy = next.y - previous.y;
+          const segmentLengthSquared = dx * dx + dy * dy;
+          const contacts = state.players
+            .filter((player) => canContactAfterThrowIn(state, player.id))
+            .map((player) => {
+              const fraction =
+                segmentLengthSquared > 0
+                  ? Math.max(
+                      0,
+                      Math.min(
+                        1,
+                        ((player.position.x - previous.x) * dx +
+                          (player.position.y - previous.y) * dy) /
+                          segmentLengthSquared,
+                      ),
+                    )
+                  : 0;
+              const point = { x: previous.x + dx * fraction, y: previous.y + dy * fraction };
+              const height = previous.z + (next.z - previous.z) * fraction;
+              return { player, fraction, point, height, metres: distance(player.position, point) };
+            })
+            .filter(
+              (candidate) =>
+                candidate.height > 0.2 &&
+                candidate.height < 0.65 &&
+                candidate.metres <= 1.05 &&
+                (!crossing || candidate.fraction < crossing.segmentFraction),
+            )
+            .sort(
+              (a, b) =>
+                a.fraction - b.fraction ||
+                a.metres - b.metres ||
+                a.player.id.localeCompare(b.player.id),
+            );
+          for (const candidate of contacts) {
+            const finish = tryIncomingFinish(
+              { ...state, ball: { ...state.ball, ...candidate.point, height: candidate.height } },
+              candidate.player.id,
+            );
+            if (finish) return finish;
+          }
+        }
+        if (crossing) return applyBoundaryRestart(state, crossing, previous);
       }
-    }
-    // Ground interceptions are resolved once, by the continuous physical segment above. The old
-    // proximity lottery sampled the same defender every 100 ms and caused repeated, non-physical
-    // turnover opportunities during a single pass episode.
-    if (
-      !state.ball.shot &&
-      Math.hypot(integrated.velocity.x, integrated.velocity.y) < 0.25
-    ) {
-      if (state.ball.airborne || (state.ball.bounceCount ?? 0) > 0) {
-        const physical = findAerialContactCandidates(state, dt);
-        if (!physical.length) {
-          if (state.ball.airborne) return state;
-          return finishUnclaimedDelivery({
-            ...state,
-            lastAerialResult: 'loose_ball',
-            aerialContestantIds: [],
+      state.ball = {
+        ...state.ball,
+        x: next.x,
+        y: next.y,
+        flightTime: elapsed,
+        distanceTravelled:
+          previousDistance +
+          Math.hypot(next.x - previous.x, next.y - previous.y, next.z - previous.z),
+        height: nextHeight,
+        velocity: integrated.velocity,
+        airborne: integrated.airborne,
+        bounceCount: integrated.bounceCount,
+      };
+      if (state.ball.shot) {
+        const shot = state.ball.shot;
+        const shooter = state.players.find((player) => player.id === shot.shooterId)!;
+        const candidates: ContactCandidate[] = state.players
+          .filter(
+            (player) =>
+              player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
+          )
+          .map((defender) => ({
+            kind: 'defender' as const,
+            playerId: defender.id,
+            centre: { ...defender.position, z: 0.9 },
+            radius: 0.72,
+          }));
+        const keeperProjection = goalkeeperProjectionAtSegmentStart;
+        const defendingKeeper = state.players.find(
+          (player) =>
+            player.team !== shooter.team && player.profile.primaryPosition === 'goalkeeper',
+        );
+        // Reaction controls an active save, never whether a standing body physically exists.
+        if (defendingKeeper)
+          candidates.push({
+            kind: 'goalkeeper',
+            playerId: defendingKeeper.id,
+            centre: { ...defendingKeeper.position, z: GOALKEEPER_PHYSICS.contactCentreHeight },
+            radius: GOALKEEPER_PHYSICS.passiveBodyRadiusMetres,
+          });
+        if (keeperProjection?.reachable && keeperProjection.reactionRemaining === 0) {
+          candidates.push({
+            kind: 'goalkeeper' as const,
+            playerId: keeperProjection.keeper.id,
+            centre: {
+              ...keeperProjection.keeper.position,
+              z: GOALKEEPER_PHYSICS.contactCentreHeight,
+            },
+            // Locomotion moves the body; this bounded envelope represents body, arms and dive only.
+            // Using the movement budget here as well would count the same reach twice.
+            radius: GOALKEEPER_PHYSICS.contactReachMetres,
           });
         }
-        const duel = resolveAerialDuel(state);
-        const base = {
-          ...state,
-          aerialContestantIds: duel.contestants.map((p) => p.id),
-          lastAerialResult: duel.outcome,
-          ...(state.keeperIntervention
-            ? {
-                keeperIntervention: {
-                  ...state.keeperIntervention,
-                  ...(duel.outcome.startsWith('keeper_')
-                    ? {
-                        finalOutcome: duel.outcome as
-                          | 'keeper_claim'
-                          | 'keeper_punch'
-                          | 'keeper_miss',
-                      }
-                    : {}),
-                },
-              }
-            : {}),
-        };
-        if (duel.outcome === 'keeper_claim' && duel.winner)
-          return changePossession(
-            { ...base, ball: { ...duel.winner.position } },
-            duel.winner.id,
-            'claim',
+        const found = findFirstBallContact({
+          previous,
+          next,
+          attackingTeam: shooter.team,
+          candidates,
+        });
+        if (found) {
+          const incoming = { x: (next.x - previous.x) / dt, y: (next.y - previous.y) / dt };
+          const rebound = deterministicRebound(found.kind, incoming, shooter.team);
+          const contact: BallContact = {
+            ...found,
+            at: state.time - dt + found.segmentFraction * dt,
+            preContactSpeed: Math.hypot(incoming.x, incoming.y),
+            postContactSpeed:
+              found.kind === 'goal_plane' || found.kind === 'out'
+                ? Math.hypot(incoming.x, incoming.y)
+                : Math.hypot(rebound.x, rebound.y),
+          };
+          return finishShotContact(state, contact, incoming, keeperProjection);
+        }
+      }
+      if (state.ball.airborne && !state.ball.shot) {
+        const physical = findAerialContactCandidates(state, dt);
+        if (physical.length) {
+          const duel = resolveAerialDuel(
+            state,
+            physical.map(({ player }) => player),
           );
-        const priority = secondBallPriority(state, duel.contestants);
-        if (duel.outcome === 'keeper_punch')
-          return makeLoose(
+          const winner = duel.winner;
+          const contactPoint = { x: state.ball.x, y: state.ball.y };
+          const base = {
+            ...state,
+            aerialContestantIds: duel.contestants.map((p) => p.id),
+            lastAerialResult: duel.outcome,
+            lastAerialContact: {
+              point: contactPoint,
+              ballHeight: state.ball.height ?? 0,
+              candidates: physical.map(({ contact }) => contact),
+              contestantIds: duel.contestants.map((p) => p.id),
+              ...(winner ? { winnerId: winner.id } : {}),
+            },
+          };
+          if (duel.outcome === 'keeper_claim' && winner)
+            return changePossession({ ...base, ball: { ...contactPoint } }, winner.id, 'claim');
+          // A missed contest does not itself touch or flatten the ball.
+          if (!winner) return base;
+          if (duel.outcome === 'keeper_punch')
+            return makeLoose(
+              {
+                ...(winner ? applyThrowInContact(base, winner.id) : base),
+                ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
+              },
+              { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
+            );
+          const finish = tryIncomingFinish(base, winner.id);
+          if (finish) return finish;
+          const selectedReception =
+            state.pendingReceptionIntent?.actorId === winner.id &&
+            (state.pendingReceptionIntent.action.type === 'hold' ||
+              state.pendingReceptionIntent.action.type === 'carry');
+          if (
+            selectedReception ||
+            (state.ball.height ?? 0) < 1.45 ||
+            duel.outcome === 'attacking_header'
+          ) {
+            // A selected receive waits for reachable foot control. A duel recommendation never
+            // overrides human intent or manufactures a shooting action outside shared AI ranking.
+            if ((state.ball.height ?? 0) > 1.45) return base;
+            return changePossession(base, winner.id, 'claim');
+          }
+          const target =
+            duel.outcome === 'clearance_header'
+              ? clampPitchPoint({
+                  x: contactPoint.x + (winner.team === 'home' ? 20 : -20),
+                  y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
+                })
+              : clampPitchPoint({
+                  x: contactPoint.x + (winner.team === 'home' ? 9 : -9),
+                  y: contactPoint.y,
+                });
+          return resolveMatchAction(
             {
-              ...(duel.winner ? applyThrowInContact(base, duel.winner.id) : base),
+              ...applyThrowInContact(base, winner.id),
               ball: {
                 ...state.ball,
-                secondBallPriorityIds: priority,
-                ...(duel.winner ? { lastTouchPlayerId: duel.winner.id } : {}),
+                ...contactPoint,
+                ownerId: winner.id,
+                lastTouchPlayerId: winner.id,
               },
             },
-            { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
+            {
+              type: 'header',
+              actorId: winner.id,
+              target,
+              intent:
+                duel.outcome === 'clearance_header'
+                  ? 'header_clearance'
+                  : duel.outcome === 'flick_on'
+                    ? 'flick'
+                    : 'header_pass',
+            },
           );
-        if (!duel.winner)
-          return state.ball.airborne
-            ? base
-            : finishUnclaimedDelivery({
-                ...base,
-                ball: { ...state.ball, secondBallPriorityIds: priority },
-              });
-        const winner = duel.winner;
-        const finish = tryIncomingFinish(base, winner.id);
-        if (finish) return finish;
-        const selectedReception =
-          state.pendingReceptionIntent?.actorId === winner.id &&
-          (state.pendingReceptionIntent.action.type === 'hold' ||
-            state.pendingReceptionIntent.action.type === 'carry');
-        if (
-          selectedReception ||
-          (state.ball.height ?? 0) < 1.45 ||
-          duel.outcome === 'attacking_header'
-        ) {
-          if ((state.ball.height ?? 0) > 1.45) return base;
-          return changePossession(base, winner.id, 'claim');
         }
-        const target =
-          duel.outcome === 'clearance_header'
-            ? clampPitchPoint({
-                x: winner.position.x + (winner.team === 'home' ? 20 : -20),
-                y: winner.position.y + (winner.position.y < 34 ? 8 : -8),
-              })
-            : clampPitchPoint({
-                x: winner.position.x + (winner.team === 'home' ? 9 : -9),
-                y: winner.position.y,
-              });
-        return resolveMatchAction(
-          {
-            ...applyThrowInContact(base, winner.id),
-            ball: { ...state.ball, ownerId: winner.id, lastTouchPlayerId: winner.id },
-          },
-          {
-            type: 'header',
-            actorId: winner.id,
-            target,
-            intent:
-              duel.outcome === 'clearance_header'
-                ? 'header_clearance'
-                : duel.outcome === 'flick_on'
-                  ? 'flick'
-                  : 'header_pass',
-          },
-        );
       }
-      const landing = { x: state.ball.x, y: state.ball.y };
-      const claim = resolveGroundPassClaim(state, landing);
-      if (claim.playerId) {
-        if (isOffsideOffence(state.offsideSnapshot, claim.playerId)) {
-          const offender = state.players.find((player) => player.id === claim.playerId)!;
-          const opponent = state.players
-            .filter((player) => player.team !== offender.team)
-            .sort((a, b) => distance(a.position, landing) - distance(b.position, landing))[0];
-          if (opponent) {
-            const legalRestartState = withoutOffsideSnapshot({
+      // Ground interceptions are resolved once, by the continuous physical segment above. The old
+      // proximity lottery sampled the same defender every 100 ms and caused repeated, non-physical
+      // turnover opportunities during a single pass episode.
+      if (!state.ball.shot && Math.hypot(integrated.velocity.x, integrated.velocity.y) < 0.25) {
+        if (state.ball.airborne || (state.ball.bounceCount ?? 0) > 0) {
+          const physical = findAerialContactCandidates(state, dt);
+          if (!physical.length) {
+            if (state.ball.airborne) return state;
+            return finishUnclaimedDelivery({
               ...state,
-              ball: landing,
-              lastOffsideOffence: {
-                playerId: offender.id,
-                at: state.time,
-                reason: 'attempted_receive',
-              },
+              lastAerialResult: 'loose_ball',
+              aerialContestantIds: [],
             });
-            state = changePossession(legalRestartState, opponent.id, 'claim');
-            state.ball = { ...landing, ownerId: opponent.id };
+          }
+          const duel = resolveAerialDuel(state);
+          const base = {
+            ...state,
+            aerialContestantIds: duel.contestants.map((p) => p.id),
+            lastAerialResult: duel.outcome,
+            ...(state.keeperIntervention
+              ? {
+                  keeperIntervention: {
+                    ...state.keeperIntervention,
+                    ...(duel.outcome.startsWith('keeper_')
+                      ? {
+                          finalOutcome: duel.outcome as
+                            | 'keeper_claim'
+                            | 'keeper_punch'
+                            | 'keeper_miss',
+                        }
+                      : {}),
+                  },
+                }
+              : {}),
+          };
+          if (duel.outcome === 'keeper_claim' && duel.winner)
+            return changePossession(
+              { ...base, ball: { ...duel.winner.position } },
+              duel.winner.id,
+              'claim',
+            );
+          const priority = secondBallPriority(state, duel.contestants);
+          if (duel.outcome === 'keeper_punch')
+            return makeLoose(
+              {
+                ...(duel.winner ? applyThrowInContact(base, duel.winner.id) : base),
+                ball: {
+                  ...state.ball,
+                  secondBallPriorityIds: priority,
+                  ...(duel.winner ? { lastTouchPlayerId: duel.winner.id } : {}),
+                },
+              },
+              { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
+            );
+          if (!duel.winner)
+            return state.ball.airborne
+              ? base
+              : finishUnclaimedDelivery({
+                  ...base,
+                  ball: { ...state.ball, secondBallPriorityIds: priority },
+                });
+          const winner = duel.winner;
+          const finish = tryIncomingFinish(base, winner.id);
+          if (finish) return finish;
+          const selectedReception =
+            state.pendingReceptionIntent?.actorId === winner.id &&
+            (state.pendingReceptionIntent.action.type === 'hold' ||
+              state.pendingReceptionIntent.action.type === 'carry');
+          if (
+            selectedReception ||
+            (state.ball.height ?? 0) < 1.45 ||
+            duel.outcome === 'attacking_header'
+          ) {
+            if ((state.ball.height ?? 0) > 1.45) return base;
+            return changePossession(base, winner.id, 'claim');
+          }
+          const target =
+            duel.outcome === 'clearance_header'
+              ? clampPitchPoint({
+                  x: winner.position.x + (winner.team === 'home' ? 20 : -20),
+                  y: winner.position.y + (winner.position.y < 34 ? 8 : -8),
+                })
+              : clampPitchPoint({
+                  x: winner.position.x + (winner.team === 'home' ? 9 : -9),
+                  y: winner.position.y,
+                });
+          return resolveMatchAction(
+            {
+              ...applyThrowInContact(base, winner.id),
+              ball: { ...state.ball, ownerId: winner.id, lastTouchPlayerId: winner.id },
+            },
+            {
+              type: 'header',
+              actorId: winner.id,
+              target,
+              intent:
+                duel.outcome === 'clearance_header'
+                  ? 'header_clearance'
+                  : duel.outcome === 'flick_on'
+                    ? 'flick'
+                    : 'header_pass',
+            },
+          );
+        }
+        const landing = { x: state.ball.x, y: state.ball.y };
+        const claim = resolveGroundPassClaim(state, landing);
+        if (claim.playerId) {
+          if (isOffsideOffence(state.offsideSnapshot, claim.playerId)) {
+            const offender = state.players.find((player) => player.id === claim.playerId)!;
+            const opponent = state.players
+              .filter((player) => player.team !== offender.team)
+              .sort((a, b) => distance(a.position, landing) - distance(b.position, landing))[0];
+            if (opponent) {
+              const legalRestartState = withoutOffsideSnapshot({
+                ...state,
+                ball: landing,
+                lastOffsideOffence: {
+                  playerId: offender.id,
+                  at: state.time,
+                  reason: 'attempted_receive',
+                },
+              });
+              state = changePossession(legalRestartState, opponent.id, 'claim');
+              state.ball = { ...landing, ownerId: opponent.id };
+            }
+          } else {
+            state = changePossession(
+              withoutOffsideSnapshot({ ...state, ball: landing }),
+              claim.playerId,
+              claim.cause,
+            );
+            state.ball = { ...landing, ownerId: claim.playerId };
           }
         } else {
-          state = changePossession(
-            withoutOffsideSnapshot({ ...state, ball: landing }),
-            claim.playerId,
-            claim.cause,
-          );
-          state.ball = { ...landing, ownerId: claim.playerId };
+          state = finishUnclaimedDelivery(state);
         }
-      } else {
-        state = finishUnclaimedDelivery(state);
       }
+    } else if (!state.ball.ownerId && state.ball.looseSince !== undefined) {
+      const velocity = state.ball.velocity ?? { x: 0, y: 0 },
+        looseSince = state.ball.looseSince;
+      const projected = { x: state.ball.x + velocity.x * dt, y: state.ball.y + velocity.y * dt };
+      const crossing = findPitchBoundaryCrossing(state.ball, projected);
+      if (crossing) return applyBoundaryRestart(state, crossing, state.ball);
+      const rolled = rollLooseBall(state.ball, velocity, dt);
+      state.ball = {
+        ...state.ball,
+        ...rolled.position,
+        velocity: rolled.velocity,
+      };
+      if (state.time - looseSince > 0.35) {
+        const assignments = deriveLooseBallAssignments(state);
+        const assignedIds = new Set(assignments.map((assignment) => assignment.playerId));
+        const claimant = state.players
+          .filter((p) => assignedIds.has(p.id))
+          .map((p) => ({
+            p,
+            score:
+              distance(p.position, state.ball) -
+              (p.profile.attributes.pace +
+                p.profile.attributes.agility +
+                p.profile.attributes.gameReading) /
+                90 -
+              (state.ball.secondBallPriorityIds?.includes(p.id) ? 2.4 : 0),
+          }))
+          .sort((a, b) => a.score - b.score || a.p.id.localeCompare(b.p.id))[0];
+        const controlRadius = Math.max(
+          1.15,
+          2.1 - Math.hypot(rolled.velocity.x, rolled.velocity.y) * 0.04,
+        );
+        if (claimant && distance(claimant.p.position, state.ball) <= controlRadius)
+          state = changePossession(state, claimant.p.id, 'claim');
+      }
+    } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {
+      const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
+      const speed = Math.hypot(owner.velocity.x, owner.velocity.y),
+        dirX = speed > 0.2 ? owner.velocity.x / speed : owner.team === 'home' ? 1 : -1,
+        dirY = speed > 0.2 ? owner.velocity.y / speed : 0;
+      state.ball = {
+        x: owner.position.x + dirX * 1.15,
+        y: owner.position.y + dirY * 1.15,
+        ownerId: owner.id,
+      };
     }
-  } else if (!state.ball.ownerId && state.ball.looseSince !== undefined) {
-    const velocity = state.ball.velocity ?? { x: 0, y: 0 },
-      looseSince = state.ball.looseSince;
-    const projected = { x: state.ball.x + velocity.x * dt, y: state.ball.y + velocity.y * dt };
-    const crossing = findPitchBoundaryCrossing(state.ball, projected);
-    if (crossing) return applyBoundaryRestart(state, crossing, state.ball);
-    const rolled = rollLooseBall(state.ball, velocity, dt);
-    state.ball = {
-      ...state.ball,
-      ...rolled.position,
-      velocity: rolled.velocity,
-    };
-    if (state.time - looseSince > 0.35) {
-      const assignments = deriveLooseBallAssignments(state);
-      const assignedIds = new Set(assignments.map((assignment) => assignment.playerId));
-      const claimant = state.players
-        .filter((p) => assignedIds.has(p.id))
-        .map((p) => ({
-          p,
-          score:
-            distance(p.position, state.ball) -
-            (p.profile.attributes.pace +
-              p.profile.attributes.agility +
-              p.profile.attributes.gameReading) /
-              90 -
-            (state.ball.secondBallPriorityIds?.includes(p.id) ? 2.4 : 0),
-        }))
-        .sort((a, b) => a.score - b.score || a.p.id.localeCompare(b.p.id))[0];
-      const controlRadius = Math.max(
-        1.15,
-        2.1 - Math.hypot(rolled.velocity.x, rolled.velocity.y) * 0.04,
+  } finally {
+    endPerformanceSpan('ball_physics', ballSpan);
+  }
+  const actionSpan = startPerformanceSpan('action_resolution');
+  try {
+    if (state.ball.ownerId && !state.ball.travelKind && state.restart?.phase !== 'setup') {
+      const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
+      const evaluated = evaluatePressure(state, owner);
+      state.currentPressure = evaluated.value;
+      if (evaluated.nearestChallengerId) state.nearestChallengerId = evaluated.nearestChallengerId;
+      else delete state.nearestChallengerId;
+      const challenger = state.players.find((p) => p.id === evaluated.nearestChallengerId);
+      const duelDistance = challenger ? distance(challenger.position, owner.position) : Infinity;
+      const ballDistance = challenger ? distance(challenger.position, state.ball) : Infinity;
+      const challengerFacingError = challenger
+        ? Math.abs(
+            normalizeAngle(
+              Math.atan2(
+                state.ball.y - challenger.position.y,
+                state.ball.x - challenger.position.x,
+              ) - challenger.facingAngle,
+            ),
+          )
+        : Math.PI;
+      const relativeSpeed = challenger
+        ? Math.hypot(
+            challenger.velocity.x - owner.velocity.x,
+            challenger.velocity.y - owner.velocity.y,
+          )
+        : Infinity;
+      const shielding =
+        state.ballCarrierIntent?.actorId === owner.id &&
+        state.ballCarrierIntent.executionMode === 'shield';
+      const hasChallengeAccess =
+        ballDistance <= (shielding ? 0.72 : 0.95) &&
+        challengerFacingError <= (shielding ? Math.PI * 0.3 : Math.PI * 0.42) &&
+        relativeSpeed <= 8.5;
+      const sameDuel = Boolean(
+        challenger &&
+          state.recentDuel &&
+          state.recentDuel.ballEpisode === (state.ballEpisode ?? 0) &&
+          state.recentDuel.expiresAt > state.time &&
+          state.recentDuel.participants.includes(owner.id) &&
+          state.recentDuel.participants.includes(challenger.id),
       );
-      if (claimant && distance(claimant.p.position, state.ball) <= controlRadius)
-        state = changePossession(state, claimant.p.id, 'claim');
+      if (challenger && duelDistance < 1.65 && hasChallengeAccess && !sameDuel) {
+        const rng = RandomGenerator.fromSeed(
+          `${state.seed}:challenge:${state.decisionIndex}:${challenger.id}`,
+        );
+        const defence =
+          (challenger.profile.attributes.tackling +
+            challenger.profile.attributes.strength +
+            challenger.profile.attributes.positioning +
+            challenger.profile.attributes.aggression +
+            challenger.profile.attributes.gameReading) /
+          500;
+        const attack =
+          (owner.profile.attributes.dribbling +
+            owner.profile.attributes.technique +
+            owner.profile.attributes.agility +
+            owner.profile.attributes.strength +
+            owner.profile.attributes.composure) /
+          500;
+        const orientationAdvantage = (1 - challengerFacingError / Math.PI) * 0.08;
+        const shieldProtection = shielding ? 0.16 : 0;
+        const roll =
+          rng.float() + (defence - attack) * 0.35 + orientationAdvantage - shieldProtection;
+        if (roll > 0.58) {
+          state = changePossession(state, challenger.id, 'tackle');
+          state.recentDuel = {
+            participants: [owner.id, challenger.id].sort() as [string, string],
+            winnerId: challenger.id,
+            resolvedAt: state.time,
+            expiresAt: state.time + 0.8,
+            ballEpisode: state.ballEpisode ?? 0,
+          };
+        } else if (roll > 0.42)
+          state = makeLoose(state, { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 });
+      }
+    } else {
+      state.currentPressure = 0;
+      delete state.nearestChallengerId;
     }
-  } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {
-    const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
-    const speed = Math.hypot(owner.velocity.x, owner.velocity.y),
-      dirX = speed > 0.2 ? owner.velocity.x / speed : owner.team === 'home' ? 1 : -1,
-      dirY = speed > 0.2 ? owner.velocity.y / speed : 0;
-    state.ball = {
-      x: owner.position.x + dirX * 1.15,
-      y: owner.position.y + dirY * 1.15,
-      ownerId: owner.id,
-    };
-  }
-  if (state.ball.ownerId && !state.ball.travelKind && state.restart?.phase !== 'setup') {
-    const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
-    const evaluated = evaluatePressure(state, owner);
-    state.currentPressure = evaluated.value;
-    if (evaluated.nearestChallengerId) state.nearestChallengerId = evaluated.nearestChallengerId;
-    else delete state.nearestChallengerId;
-    const challenger = state.players.find((p) => p.id === evaluated.nearestChallengerId);
-    const duelDistance = challenger ? distance(challenger.position, owner.position) : Infinity;
-    const ballDistance = challenger ? distance(challenger.position, state.ball) : Infinity;
-    const challengerFacingError = challenger
-      ? Math.abs(
-          normalizeAngle(
-            Math.atan2(state.ball.y - challenger.position.y, state.ball.x - challenger.position.x) -
-              challenger.facingAngle,
-          ),
-        )
-      : Math.PI;
-    const relativeSpeed = challenger
-      ? Math.hypot(
-          challenger.velocity.x - owner.velocity.x,
-          challenger.velocity.y - owner.velocity.y,
-        )
-      : Infinity;
-    const shielding =
-      state.ballCarrierIntent?.actorId === owner.id &&
-      state.ballCarrierIntent.executionMode === 'shield';
-    const hasChallengeAccess =
-      ballDistance <= (shielding ? 0.72 : 0.95) &&
-      challengerFacingError <= (shielding ? Math.PI * 0.3 : Math.PI * 0.42) &&
-      relativeSpeed <= 8.5;
-    const sameDuel = Boolean(
-      challenger &&
-        state.recentDuel &&
-        state.recentDuel.ballEpisode === (state.ballEpisode ?? 0) &&
-        state.recentDuel.expiresAt > state.time &&
-        state.recentDuel.participants.includes(owner.id) &&
-        state.recentDuel.participants.includes(challenger.id),
-    );
-    if (challenger && duelDistance < 1.65 && hasChallengeAccess && !sameDuel) {
-      const rng = RandomGenerator.fromSeed(
-        `${state.seed}:challenge:${state.decisionIndex}:${challenger.id}`,
-      );
-      const defence =
-        (challenger.profile.attributes.tackling +
-          challenger.profile.attributes.strength +
-          challenger.profile.attributes.positioning +
-          challenger.profile.attributes.aggression +
-          challenger.profile.attributes.gameReading) /
-        500;
-      const attack =
-        (owner.profile.attributes.dribbling +
-          owner.profile.attributes.technique +
-          owner.profile.attributes.agility +
-          owner.profile.attributes.strength +
-          owner.profile.attributes.composure) /
-        500;
-      const orientationAdvantage = (1 - challengerFacingError / Math.PI) * 0.08;
-      const shieldProtection = shielding ? 0.16 : 0;
-      const roll =
-        rng.float() + (defence - attack) * 0.35 + orientationAdvantage - shieldProtection;
-      if (roll > 0.58) {
-        state = changePossession(state, challenger.id, 'tackle');
-        state.recentDuel = {
-          participants: [owner.id, challenger.id].sort() as [string, string],
-          winnerId: challenger.id,
-          resolvedAt: state.time,
-          expiresAt: state.time + 0.8,
-          ballEpisode: state.ballEpisode ?? 0,
-        };
-      } else if (roll > 0.42)
-        state = makeLoose(state, { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 });
+    if (
+      !state.periodEndPending &&
+      state.actionCooldown <= 0 &&
+      state.ball.ownerId &&
+      state.restart?.phase !== 'setup'
+    ) {
+      const ownerId = state.ball.ownerId;
+      if (!ownerId) return state;
+      const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
+      // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
+      // including high-impact actions when no genuinely playable alternative exists.
+      const action =
+        awaitsPlayer || hasActiveHumanPossession(state)
+          ? undefined
+          : chooseNpcAction(state, ownerId);
+      const controlled = state.ball.ownerId === state.controlledFootballerId;
+      if (action)
+        state = resolveMatchAction(
+          state,
+          action,
+          controlled ? 'autonomous_routine' : 'autonomous_npc',
+        );
     }
-  } else {
-    state.currentPressure = 0;
-    delete state.nearestChallengerId;
+    return state;
+  } finally {
+    endPerformanceSpan('action_resolution', actionSpan);
   }
-  if (
-    !state.periodEndPending &&
-    state.actionCooldown <= 0 &&
-    state.ball.ownerId &&
-    state.restart?.phase !== 'setup'
-  ) {
-    const ownerId = state.ball.ownerId;
-    if (!ownerId) return state;
-    const awaitsPlayer = Boolean(projectPlayerDecisionOpportunity(state));
-    // The agency evaluator owns the pause. A forced action uses the same autonomous resolver,
-    // including high-impact actions when no genuinely playable alternative exists.
-    const action =
-      awaitsPlayer || hasActiveHumanPossession(state) ? undefined : chooseNpcAction(state, ownerId);
-    const controlled = state.ball.ownerId === state.controlledFootballerId;
-    if (action)
-      state = resolveMatchAction(
-        state,
-        action,
-        controlled ? 'autonomous_routine' : 'autonomous_npc',
-      );
-  }
-  return state;
 };
 
 const hasImmediateResolution = (state: TacticalMatchState) =>

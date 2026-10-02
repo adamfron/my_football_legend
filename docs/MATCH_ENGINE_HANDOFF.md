@@ -24,6 +24,9 @@ Każde zjawisko futbolowe ma jeden system kanoniczny.
 - `TacticalMatchSandbox.tsx` zarządza batchami i fazą widoku. Three.js tylko renderuje klatki.
 - `matchFlowTelemetry`, statystyki i debug capture są obserwatorami i nie zużywają RNG.
 - Benchmark `npm run benchmark:background` rozdziela core, telemetrię, moment, complete i profile.
+- PR146 `npm run benchmark:performance` mierzy 10/45/90 min i tryby minimum/normal/DEV/capture,
+  pełne hashe, pięciominutowe przedziały, podsystemy i kolekcje. Ref kanoniczny w UI jest
+  niezależny od coalescingu React; wszędzie zachowano exact agency i 0,025 s.
 
 ## Inwarianty
 
@@ -76,7 +79,7 @@ nie wpływa na RNG ani wynik akcji. Replay jest osobnym stanem z własnym widocz
 
 ## Roadmap
 
-PR141–PR145 ukończone. PR145 używa osiągalnego punktu spotkania odbiorcy, legalnego autu z
+PR141–PR146 ukończone. PR145 używa osiągalnego punktu spotkania odbiorcy, legalnego autu z
 zakazem ponownego kontaktu wykonawcy, loftu 3D oraz wspólnego oporu toczenia 3,2 m/s².
 Cel podania nie wyhamowuje lotu. Kontakty i completed/received/network mają wspólne dowody;
 rutyna i przechwyt należący do wcześniejszego kolegi nie tworzą bezsensownego promptu.
@@ -86,7 +89,11 @@ Próbka 3 × 600 s: projekcja 408 → 42 decyzje / 90 min; 224 kontrolowane strz
 miss/save/goal, nie końcowego rozkładu zwykłych meczów. Definicje, stałe i pełne metryki:
 [MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
 
-NEXT: **PR146 — Background Simulation Performance**. Optymalizuje jeden silnik: produktowo
-mecz key_player około 4–6 min, technicznie ukryte 90 min komfortowo <5 min; wymaga macierzy A/B
-kosztu obserwatorów/debug capture/WebM i identycznych hashy. PR147 planuje przepisy, dyscyplinę
-i kanoniczny feedback. Pogoda, warianty piłki, spin/Magnus i ceremonia pozostają później.
+PR146: DEV45 466,19 → 62,15 s, normal90 108,36 s; kanoniczne hashe A–D10/A–C90 i PR14545
+pozostały równe. Verify exit 0, 720 + 5 testów. Normal nie płaci stale za flow/debug capture;
+capture 40 Hz jest jawny, a WebM dodatkowo opt-in i widoczny. Milestone headless <5 min spełniony;
+pełnego grywalnego czasu 4–6 min i video kosztu jeszcze nie zmierzono. Dokładne dowody:
+[BACKGROUND_SIMULATION_PERFORMANCE.md](BACKGROUND_SIMULATION_PERFORMANCE.md).
+
+NEXT: **PR147 — Rules, Discipline & Match Feedback**. Dalej PR148 rytm/role/wide-pattern funnel,
+PR149 animacja/replay/stadiony; fatigue nie maskuje złej częstości ruchu. Bez wdrożenia w PR146.

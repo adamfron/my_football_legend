@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR145 są ukończone. W szczególności:
+PR105–PR146 są ukończone. W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -94,33 +94,21 @@ PR105–PR145 są ukończone. W szczególności:
   To ograniczone dowody, nie końcowy realizm. Definicje i stałe:
   [MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
 
+- **PR146 — Background Simulation Performance:** deterministyczny benchmark 10/45/90 min,
+  pięciominutowe buckety, profil podsystemów i jawne tryby normal/DEV/capture. Usunięto
+  rutynowe kopie/skany rosnących historii i powtarzany probe MatchMoment; UI publikuje tło
+  co 250 ms, z natychmiastową granicą decyzji. DEV45: **466,19 → 62,15 s (7,50×)**,
+  degradacja końca/początku **8,36× → 1,48×**. Normal90: **108,36 s (49,83×)**,
+  minimum 117,90 s, DEV 121,80 s; identyczne hashe A–D10/A–C90 oraz checkpoint PR14545.
+  Krok 0,025 s, statystyki, sprawczość, kontekst 10 Hz / 6 s / <=62 i 0 renderów tła zachowane.
+  `npm run verify`: exit 0, **720 + 5 testów**, lint/build. Milestone headless <5 min spełniony;
+  pełny interaktywny mecz 4–6 min i video koszt pozostają do pomiaru. Drogi capture jest opcjonalny
+  (77,81 s / 10 min); pełnego D90 nie wykonano. Dowody i ograniczenia:
+  [BACKGROUND_SIMULATION_PERFORMANCE.md](BACKGROUND_SIMULATION_PERFORMANCE.md).
+
 ### NEXT
 
-**PR146 — Background Simulation Performance**
-
-- cel produktu: normalny grywalny mecz `key_player`, z materiałem kontekstowym i rozsądną
-  liczbą wyborów, zwykle powinien zamknąć się w około **4–6 minutach rzeczywistych**, bez
-  wyjątkowo długiego namysłu człowieka;
-- techniczny milestone: ukryte pełne 90 minut komfortowo poniżej 5 minut na zwykłym komputerze
-  deweloperskim, gdzie praktyczne; dalsza optymalizacja, jeśli potrzeba budżetu na widoczny
-  kontekst i decyzje;
-- profilowanie jednego kanonicznego silnika; bez drugiego uproszczonego symulatora futbolu.
-
-Wymagana macierz A/B dla identycznego deterministycznego meczu:
-
-1. minimalna telemetria w stylu release;
-2. zwykła telemetria prezentacji tła;
-3. pełne diagnostyki DEV;
-4. buforowany/rolling JSON debug-event capture, jeśli da się go wydzielić;
-5. nagrywanie/capture WebM, gdzie dostępne.
-
-Pomiar oddziela core, obserwatory/telemetrię, bufor kontekstu, React/UI scheduling, debug capture
-i video capture. Koszt zbierania/buforowania diagnostyki należy zmierzyć oddzielnie od
-jednorazowej serializacji/zapisu — sam brak eksportu JSON nie dowodzi przyspieszenia.
-Release nie powinien stale płacić za kosztowne diagnostyki DEV niedostępne dla gracza.
-Wszystkie warianty benchmarku muszą zachować identyczne hashe stanu kanonicznego.
-
-**PR147 — Rules, Discipline & Match Feedback** (plan)
+**PR147 — Rules, Discipline & Match Feedback**
 
 - faule, żółte/czerwone kartki, korzyść, karne z fauli i konsekwencje dyscyplinarne;
 - rutynowa autonomiczna obrona kontrolowanego zawodnika używa zwykłych akcji o niskim ryzyku;
@@ -130,6 +118,40 @@ Wszystkie warianty benchmarku muszą zachować identyczne hashe stanu kanoniczne
 - czytelny feedback akcji/kontaktu z kanonicznych zdarzeń: subtelne, krótkie etykiety przy akcji,
   np. „odbiór”, „wślizg”, „podanie”, „strzał”, „faul”. To prezentacja dowodów, nie drugi silnik
   przepisów ani wnioskowanie z animacji.
+
+**PR148 — Possession Rhythm, Roles & Attacking Patterns** (plan po PR147)
+
+- audyt i kalibracja nadmiernego wolumenu kontaktów, podań i przechwytów; dalsza gęstość decyzji
+  na podstawie pełnych interaktywnych playtestów, bez tłumienia sprawczości dla wydajności;
+- różnorodność ważnych akcji: nie powtarzać dziesięć razy tej samej progresji lewy obrońca → skrzydłowy;
+- podanie na dobieg definiuje spotkanie przed odbiorcą wzdłuż **jego wektora ruchu**. Cel boczny
+  albo nieco cofnięty w osiach boiska może być prawdziwym lead pass, także przy cutback;
+- domknięcie overlap/underlap, wsparcie bocznych obrońców w ataku pozycyjnym, cutback i kombinacje szerokie;
+- role, mentalność, instrukcje, atrybuty i kontekst różnicują ruch: selektywnie ofensywny,
+  technicznie/pozycyjnie mocny boczny obrońca oraz agresywny, pracowity ofensywny obrońca
+  nie mają identycznego profilu. Bez nazw realnych graczy i reguły „LB zawsze obiega”.
+
+Motywacja z playtestów: wiele rozpoczętych overlapów przy bardzo małej/zerowej liczbie użytecznych
+ukończonych kombinacji. Analizować wspólny lejek **start biegu → dostępność → wybór podania →
+udane przyjęcie → dośrodkowanie/cutback/kontynuacja**. Celem są spójne, zróżnicowane kombinacje.
+Wysokie dystanse/sprinty w połowie meczu wymagają późniejszego audytu rytmu, nie maskowania zmęczeniem.
+
+**PR149 — Match Presentation & Animation v2** (plan po PR148)
+
+- niezawodna lokomocja: widoczny ruch kończyn każdego przemieszczającego się zawodnika;
+- bogatsze obroty ciała, shielding/kontakt, odbiory, animacje wykonania zależne od techniki
+  i czytelniejsze wskazówki przyjęcia/kontaktu;
+- prezentacja powtórek, powtórki goli i migawki ważnych momentów;
+- archetypy stadionów/trybun i parametryzacja względem klubu gospodarza, gdzie praktyczne;
+- fundament przyszłego kanonicznego wyboru techniki: cel z tyłu może pozwolić zawodnikowi
+  o wysokiej technice/świadomości na sensowną geometrycznie piętkę. Słabszy zawodnik może
+  osłonić piłkę, obrócić ciało i potrzebować więcej czasu, tracąc okno podania. Wybór futbolowy
+  należy do core; animacja przedstawia wybraną technikę.
+
+Późniejsza stamina/fatigue ograniczy powtarzane sprinty, regenerację, szybkość lokomocji,
+jakość wykonania i gotowość do długich biegów. Najpierw należy ustalić rozsądny rytm ruchu
+bez piłki; zmęczenie nie jest łatką na nadmierną obecną częstość biegów. PR146 nie implementuje
+PR147–PR149, zmęczenia, zmian, nowych stylów strzału/curl/Magnus, pogody, tekstur ani ceremonii.
 
 Prezentacja nadal obserwuje `matchSimulation`; nie tworzy drugiego stanu futbolu.
 Celowanie używa promienia kamery i kanonicznej bazy `goalCoordinates`. Overview, Action,
