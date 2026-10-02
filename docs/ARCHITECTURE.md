@@ -102,8 +102,10 @@ Równoległy, niezależny przepływ obrazu wygląda tak:
 
 **TacticalPitchRenderer canvas ↓ ograniczony pre-buffer klatek ↓ WebM**
 
-Rejestrator uruchamia się automatycznie i przechwytuje wyłącznie jawnie udostępniony canvas boiska,
-bez uprawnień do nagrywania karty lub ekranu. Brak przeglądarkowych API wideo nie wpływa na JSON ani
+Od PR146 JSON wymaga trybu `capture`, a wideo dodatkowo jawnego opt-in „Nagrywaj WebM (DEV)”.
+Rejestrator przechwytuje wyłącznie widoczny, jawnie udostępniony canvas boiska; ukryte tło nie
+dopisuje stale powtarzanej klatki. Nie wymaga uprawnień do nagrywania karty lub ekranu.
+Brak przeglądarkowych API wideo nie wpływa na JSON ani
 działanie meczu. Kodowanie ukończonego okna nie zatrzymuje ciągłego pre-buffera następnego zapisu.
 Klatki obrazu otrzymują czas kanoniczny w chwili obserwacji. Do eksportu wybierane jest okno
 `trigger − 10 s … trigger + 10 s`, a odtworzenie WebM używa różnic czasu kanonicznego, nie zegara
@@ -723,7 +725,9 @@ i ograniczonego ogona. Jedna rzeczywista opcja pozostaje autonomiczna.
 
 ### Utwardzenie prezentacji tła i żywotność decyzji (PR138)
 
-W selektywnym `background_simulation` React może publikować wynik batcha dla panelu wyniku, ale
+W selektywnym `background_simulation` React publikuje status co 250 ms oraz natychmiast na granicy
+decyzji, wyniku, części meczu lub błędu (PR146). Ref kanoniczny otrzymuje każdy ukończony batch;
+starsza migawka renderu React nigdy go nie nadpisuje. Ukryta prezentacja
 nie wywołuje `renderer.render`, nie aktualizuje kamery i nie dopisuje klatki do bufora powtórki.
 Migawka stanu kanonicznego (diagnostyka lub przyszły, ograniczony bufor kontekstu) nie jest klatką
 renderu: rzadkich stanów oddalonych o 20 sekund nie wolno udawać jako materiału 40 fps. `full_match`
@@ -789,7 +793,7 @@ Granice batchy są wyłącznie runtime'em prezentacji i nie mogą zmieniać kole
 wyniku meczu. `BackgroundPerformanceTracker` mierzy batch przez monotoniczne `performance.now()` i
 przechowuje tylko ograniczone okno próbek; czas ścienny nigdy nie trafia do stanu kanonicznego.
 
-Headless benchmark ma osobne tryby: czysty throughput core, core z telemetrią, core z projekcją
+Historyczny benchmark PR139 ma osobne tryby: czysty throughput core, core z telemetrią, core z projekcją
 MatchMoment, kompletnych obserwatorów oraz sampled profile (co 40. tick). Wynik profilu opisuje
 względny koszt grup `canonicalCore`, `telemetry` i `matchMoment`; jego prędkości nie porównujemy
 bezpośrednio z czystym throughput, ponieważ dodatkowe wywołania zegara mają koszt. Środowisko,
@@ -801,3 +805,25 @@ debug sample to D (obserwatorzy). Decyzja gracza pozostaje natychmiastową grani
 nie może czekać na wolniejszą próbkę MatchMoment. Pierwszą rekomendacją jest **B: jeden kanoniczny
 silnik z rozwijanym event-driven/multi-rate fast path**. Worker może poprawić responsywność UI, lecz
 nie throughput CPU; drugi, makro-symulator nie jest obecnie uzasadniony pomiarem.
+
+### Wydajność i obserwatory PR146
+
+`benchmark:performance` uruchamia deterministyczne 10/45/90 minut z tymi samymi jawnymi wyborami
+DEV w trybach `release_minimal`, `normal`, `dev`, `capture`. Raport zawiera pięciominutowe przedziały,
+hashe całego stanu/statystyk/graczy/zdarzeń/RNG, koszty podsystemów, pamięć i rozmiary kolekcji.
+Profiler jest zewnętrzny wobec futbolu, próbkuje co 37 ticków; wyłączony nie odczytuje zegara.
+Jego zagnieżdżone czasy są inkluzywne, a zapis/serializacja końcowego eksportu mierzone osobno.
+
+W grywalnym Lab każdy tryb zachowuje sprawczość, MatchMoment, statystyki i PR143 kontekst.
+Tylko headless `release_minimal` pomija moment/kontekst do izolacji kosztu. Pełna telemetria DEV
+jest opcjonalna; indeksy zdarzeń i copy-on-write chronią przed skanowaniem/kopiowaniem historii
+na każdym ticku. Publiczne migawki pozostają niemutowalne, a pełne historie statystyk zachowane.
+Jawny negatywny probe sprawczości przekazany do MatchMoment jako `null` nie powtarza obliczenia.
+
+Rolling JSON działa tylko w `capture`; jego rzeczywiste klatki 40 Hz i koszt są zachowane.
+WebM ma osobny opt-in i zbiera wyłącznie widoczne próbki boiska. Eksport opisuje przedziały
+trybów obserwacji, więc częściowy zapis DEV po przełączeniu nie udaje pełnej historii.
+Zwinięte inspektory nie budują ciężkich projekcji. Błąd kanoniczny zamraża dokładną ostatnią
+poprawną migawkę, a oczekiwane `waiting_for_layout` ukrytego boiska nie udaje awarii renderera.
+Po przerwie/końcu/awarii zatrzymują się cykliczne zadania. Wyniki i ograniczenia:
+[BACKGROUND_SIMULATION_PERFORMANCE.md](BACKGROUND_SIMULATION_PERFORMANCE.md).

@@ -77,6 +77,7 @@ export const findNonFiniteDiagnosticValue = (
 export class MatchLabDiagnosticsController {
   readonly recorder = new MatchDebugRecorder();
   runtimeDiagnostics: MatchLabRuntimeError[] = [];
+  omittedRuntimeDiagnostics = 0;
   positioningSamples: PositioningSample[] = [];
   latestState: TacticalMatchState;
   telemetry: MatchFlowTelemetry;
@@ -157,6 +158,10 @@ export class MatchLabDiagnosticsController {
       ...extra,
     });
     this.runtimeDiagnostics.push(diagnostic);
+    if (this.runtimeDiagnostics.length > 128) {
+      this.runtimeDiagnostics.shift();
+      this.omittedRuntimeDiagnostics++;
+    }
     try {
       this.recorder.ui(this.latestState.time, 'runtime_diagnostic', diagnostic);
     } catch {
@@ -173,6 +178,15 @@ export class MatchLabDiagnosticsController {
   ) {
     if (this.crashPackage) return this.crashPackage;
     const error = this.report(kind, reason, extra);
+    // Modes without rolling capture still preserve the precise failing canonical snapshot.
+    const latestFrame = this.recorder.historyFrames.at(-1);
+    if (
+      !latestFrame ||
+      latestFrame.time !== this.latestState.time ||
+      latestFrame.decisionIndex !== this.latestState.decisionIndex
+    )
+      this.recorder.record(this.latestState);
+    this.recorder.resetCapture();
     this.recorder.freezePast(this.latestState.time);
     let trace: MatchDebugExport | undefined;
     try {

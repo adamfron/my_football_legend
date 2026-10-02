@@ -6,6 +6,9 @@ import {
   createTacticalMatch,
   projectMatchMoment,
   shouldSurfaceMatchMoment,
+  projectPlayerAgency,
+  stepTacticalMatchAfterDecisionProbe,
+  FIXED_MATCH_DT,
 } from '.';
 
 const world = createCanonicalWorldDatabase();
@@ -20,6 +23,51 @@ const createState = () =>
   );
 
 describe('pure match moment projection', () => {
+  it('reuses exact negative agency probes without changing the projected moment', () => {
+    let state = createState();
+    for (let tick = 0; tick < 120; tick++) {
+      const evaluation = projectPlayerAgency(state);
+      expect(projectMatchMoment(state, evaluation.opportunity ?? null)).toEqual(
+        projectMatchMoment(state),
+      );
+      state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
+    }
+  });
+
+  it('reuses positive and negative agency probes for the same controlled-player state', () => {
+    const state = createState();
+    const actor = state.players.find(
+      (player) => player.team === 'home' && player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    state.controlledFootballerId = actor.id;
+    actor.position = { x: 85, y: 34 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    state.possessionTeam = actor.team;
+    state.players.find((player) => player.team !== actor.team)!.position = { x: 85.5, y: 34 };
+
+    const decisionSnapshot = structuredClone(state);
+    const positive = projectPlayerAgency(state);
+    expect(positive.opportunity?.kind).toBe('on_ball');
+    const decisionMoment = projectMatchMoment(state, positive.opportunity ?? null);
+    expect(decisionMoment).toEqual(projectMatchMoment(state));
+    expect(decisionMoment.requiresHumanDecision).toBe(true);
+    expect(state).toEqual(decisionSnapshot);
+
+    actor.position = { x: 51, y: 8 };
+    state.ball = { ...actor.position, ownerId: actor.id };
+    state.actionCooldown = 0;
+    for (const opponent of state.players.filter((player) => player.team !== actor.team))
+      opponent.position = { x: 36, y: 50 };
+    const routineSnapshot = structuredClone(state);
+    const negative = projectPlayerAgency(state);
+    expect(negative.opportunity).toBeUndefined();
+    expect(negative.probe.blockedReason).toBe('routine');
+    const routineMoment = projectMatchMoment(state, negative.opportunity ?? null);
+    expect(routineMoment).toEqual(projectMatchMoment(state));
+    expect(routineMoment.requiresHumanDecision).toBe(false);
+    expect(state).toEqual(routineSnapshot);
+  });
+
   it('keeps routine midfield circulation low and is side-effect free', () => {
     const state = createState();
     const before = structuredClone(state);

@@ -5,8 +5,13 @@ export const resolve = async (specifier, context, nextResolve) => {
     if (
       (specifier.startsWith('.') || specifier.startsWith('/')) &&
       !specifier.match(/\.[cm]?[jt]s$/)
-    )
-      return nextResolve(`${specifier}.ts`, context);
+    ) {
+      try {
+        return await nextResolve(`${specifier}.ts`, context);
+      } catch {
+        return nextResolve(`${specifier}/index.ts`, context);
+      }
+    }
     throw error;
   }
 };

@@ -10,6 +10,10 @@ import {
 } from '../../core/matchSimulation';
 import { DEFAULT_PITCH_SURFACE, deriveLooseBallAssignments } from '../../core/matchSimulation';
 import { resolveFormationDuty } from '../../core/footballerWorld';
+import {
+  endPerformanceSpan,
+  startPerformanceSpan,
+} from '../../core/matchSimulation/performanceProfiling';
 
 export const MATCH_DEBUG_SCHEMA = 'mfl-match-debug-v1' as const;
 export const DEBUG_WINDOW_SECONDS = 10;
@@ -162,7 +166,12 @@ export const matchDebugExportSchema = z.object({
 });
 export type MatchDebugExport = z.infer<typeof matchDebugExportSchema>;
 
-const compact = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
+const compact = <T>(value: T): T => {
+  const started = startPerformanceSpan('debug_serialization');
+  const compactValue = JSON.parse(JSON.stringify(value)) as T;
+  endPerformanceSpan('debug_serialization', started);
+  return compactValue;
+};
 export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
   compact(
     (() => {
@@ -273,7 +282,12 @@ export const snapshotMatchState = (state: TacticalMatchState): DebugFrame =>
     })(),
   );
 
-const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+const same = (a: unknown, b: unknown) => {
+  const started = startPerformanceSpan('debug_serialization');
+  const equal = JSON.stringify(a) === JSON.stringify(b);
+  endPerformanceSpan('debug_serialization', started);
+  return equal;
+};
 export const projectDebugEvents = (previous: DebugFrame | undefined, frame: DebugFrame) => {
   const events: z.infer<typeof debugEventSchema>[] = [];
   const add = (
@@ -352,13 +366,17 @@ export class MatchDebugRecorder {
   constructor(private readonly seconds = DEBUG_WINDOW_SECONDS) {}
   record(state: TacticalMatchState) {
     let frame: DebugFrame;
+    const constructionStarted = startPerformanceSpan('debug_construction');
     try {
       frame = snapshotMatchState(state);
       this.lastObservationError = undefined;
     } catch (error) {
       this.lastObservationError = error instanceof Error ? error.message : String(error);
       return false;
+    } finally {
+      endPerformanceSpan('debug_construction', constructionStarted);
     }
+    const retentionStarted = startPerformanceSpan('debug_retention');
     const previous = this.history.at(-1);
     if (
       (this.timelineSeed !== undefined && this.timelineSeed !== state.seed) ||
@@ -383,7 +401,9 @@ export class MatchDebugRecorder {
       this.captured.push(frame);
       this.capturedEvents.push(...nextEvents);
     }
-    return this.isComplete(frame.time);
+    const complete = this.isComplete(frame.time);
+    endPerformanceSpan('debug_retention', retentionStarted);
+    return complete;
   }
   ui(time: number, type: string, data?: Record<string, unknown>) {
     const event = { time, type, data };
@@ -531,14 +551,13 @@ export class ViewportVideoRecorder {
   get active() {
     return this.timer !== undefined;
   }
-  start(source: HTMLCanvasElement, canonicalTime: () => number) {
+  start(source: HTMLCanvasElement, canonicalTime: () => number, shouldSample = () => true) {
     if (typeof source.toBlob !== 'function' || typeof document === 'undefined') return false;
     this.source = source;
     this.canvas = document.createElement('canvas');
-    this.timer = window.setInterval(
-      () => void this.sample(canonicalTime()),
-      1000 / this.captureFps,
-    );
+    this.timer = window.setInterval(() => {
+      if (shouldSample()) void this.sample(canonicalTime());
+    }, 1000 / this.captureFps);
     return true;
   }
   private async sample(canonicalTime: number) {

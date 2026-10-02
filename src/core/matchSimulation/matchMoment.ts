@@ -88,10 +88,13 @@ export const MATCH_PRESENTATION_POLICIES: Record<
 const inPenaltyArea = (team: TeamSide, x: number, y: number) =>
   (team === 'home' ? x >= 88.5 : x <= 16.5) && y >= 13.8 && y <= 54.2;
 
-/** Pure observational projection. It never owns an action, mutates state, or consumes RNG. */
+/** Pure observational projection. It never owns an action, mutates state, or consumes RNG.
+ * Pass null after an exact negative agency probe to reuse its answer without projecting twice.
+ * Omitted/undefined retains the standalone projection API. */
 export const projectMatchMoment = (
   state: TacticalMatchState,
-  projectedDecision = projectPlayerDecisionOpportunity(state),
+  projectedDecision: ReturnType<typeof projectPlayerDecisionOpportunity> | null =
+    projectPlayerDecisionOpportunity(state),
 ): MatchMomentCandidate => {
   const controlledId = state.controlledFootballerId;
   const decision = projectedDecision;

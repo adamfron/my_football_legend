@@ -1,6 +1,47 @@
 # My Football Legend — Current Project State
 
-## PR145 — verified Single Match Lab state
+## PR146 — verified Single Match Lab state
+
+Ukończono **Background Simulation Performance** na zweryfikowanym main po PR145
+(`fb48abbf03a97af7e69a2fe4d787f6933c2318b9`). Futbol pozostał identyczny: jeden silnik,
+0,025 s, seeded RNG, pełne statystyki i dokładne ludzkie decyzje. Nowa komenda
+`npm run benchmark:performance` mierzy 10/45/90 minut, pięciominutowe przedziały,
+podsystemy, pamięć/kolekcje, reuse planowania i pełne hashe. Tryby `release_minimal`,
+`normal`, `dev`, `capture` oddzielają required gameplay od drogich diagnostyk.
+
+Pomiar potwierdził historyczne spowolnienie: DEV45 **466,186 → 62,153 s (7,50× szybciej)**,
+koszt ostatniego/pierwszego przedziału **8,36× → 1,48×**. Copy-on-write, indeksy dowodów
+i inkrementalna telemetria usuwają pracę pełnej historii co tick; MatchMoment ponownie używa
+dokładnego negatywnego probe. Cały wynik PR14545, statystyki, zdarzenia/RNG oraz 4 wybory są
+identyczne. Final90: minimum **117,901 s**, normal **108,360 s / 49,83×**, DEV **121,804 s**.
+A–C mają ten sam wynik 0–5, 216107 ticków, 9 wyborów, pełne hashe i checkpoint PR14545.
+A–D10 również zgadzają się z zamrożoną bazą. Ratio gate 3 przechodzi; normal90 ratio 0,98.
+
+Normalny Lab zachowuje momenty, sprawczość, statystyki i kontekst PR143 we wszystkich trybach.
+Kontekst kosztuje <0,5%, zachowuje 10 Hz / 6 s / <=62 próbek, renderer tła 0. React publikuje
+co 250 ms oraz natychmiast przy decyzji/wyniku/części/błędzie; ref kanoniczny nie zależy od
+renderu. Zwijane inspektory są lazy. Capture JSON jest jawny, WebM ma osobny opt-in i nie
+nagrywa ukrytego starego boiska. Runtime errors są bounded; pierwsza awaria zachowuje
+dokładny ostatni poprawny tick. Pełne historie zdarzeń pozostają, brak dowodu niższego peak RAM.
+
+Finalne `VITEST_MAX_WORKERS=2 npm run verify`: **exit 0** — lint, **116 plików / 720 testów**,
+**1 plik / 5 full-career**, TypeScript/Vite build (**275 modułów**). Bez osłabienia testów.
+Rzeczywisty browser smoke dotarł do decyzji **24:36.150** z równym czasem prezentacji,
+gotowym rendererem, Runtime OK i 0 renderów tła; max decision→commit 11,4 ms.
+
+Headless normal90 spełnia milestone <5 min i pozostawia szacunkowo **132–252 s** w budżecie
+240–360 s na widoczny kontekst/akcje, replay, yield i deliberację. To nie jest jeszcze pomiar
+pełnego interaktywnego meczu. Capture10 nadal kosztuje **77,813 s**, głównie budowanie ramki,
+nie końcowy JSON (53 ms); D90 estymuje ~700 s i nie był wykonywany. Video pozostaje niezmierzone.
+Agency/ETA, capture i event-frequency copy są precyzyjnie opisanymi dalszymi hot paths.
+Środowisko, pełna macierz, buckety i ograniczenia:
+[BACKGROUND_SIMULATION_PERFORMANCE.md](BACKGROUND_SIMULATION_PERFORMANCE.md).
+
+NEXT: **PR147 — Rules, Discipline & Match Feedback**. Zaplanowano **PR148 — Possession Rhythm,
+Roles & Attacking Patterns** oraz **PR149 — Match Presentation & Animation v2**. Bez implementacji
+fauli/kartek, rytmu, redesignu ról, nowych technik, stamina/fatigue, zmian, pogody czy stadionów.
+
+## PR145 — previous verified Single Match Lab state
 
 Ukończono **Match Behaviour & Calibration Pass** na zweryfikowanym main po PR144
 (`dd70e788f0c0f00559d958c43c4f632595e7c14f`). `matchSimulation` pozostaje jedynym autorytetem;
@@ -48,7 +89,7 @@ Szczegóły, BEFORE/AFTER, definicje i ograniczenia:
 [MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
 Krótka kalibracja nie dowodzi końcowego realizmu ani pełnego rozkładu 90-minutowych meczów.
 
-NEXT: **PR146 — Background Simulation Performance**. **PR147 — Rules, Discipline & Match
+Plan po PR145 (historyczny): **PR146 — Background Simulation Performance**. **PR147 — Rules, Discipline & Match
 Feedback** pozostaje planowany po nim. Nie wdrożono optymalizacji runtime PR146, fauli/kartek,
 pogody, spin/Magnus, nowych improwizowanych technik, ceremonii, zmian ani nowego silnika futbolu.
 

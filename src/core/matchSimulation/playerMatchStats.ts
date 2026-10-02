@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import { collectContactEvidence } from './contactEvidence';
+import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 
 export const playerMatchStatsSchema = z.object({
   playerId: z.string(),
@@ -54,6 +55,22 @@ export const matchStatisticsSchema = z.object({
 });
 export type MatchStatistics = z.infer<typeof matchStatisticsSchema>;
 
+// Snapshot arrays are immutable. Each historical identity list is indexed once, outside the
+// canonical/serialized state; branches use their own array identity and cannot poison a sibling.
+const membershipIndexes = new WeakMap<readonly string[], ReadonlySet<string>>();
+const containsIdentity = (ids: readonly string[], id: string) => {
+  let index = membershipIndexes.get(ids);
+  if (!index) {
+    index = new Set(ids);
+    membershipIndexes.set(ids, index);
+  }
+  return index.has(id);
+};
+type IdentityHistory = {
+  [Key in keyof MatchStatistics]: MatchStatistics[Key] extends string[] ? Key : never;
+}[keyof MatchStatistics] &
+  keyof MatchStatistics;
+
 export const createMatchStatistics = (state: TacticalMatchState): MatchStatistics => ({
   players: state.players.map((player) => ({
     playerId: player.id,
@@ -98,139 +115,145 @@ export const observePlayerMatchStats = (
   previous: TacticalMatchState,
   next: TacticalMatchState,
 ): MatchStatistics => {
-  const result: MatchStatistics = {
-    players: statistics.players.map((entry) => ({ ...entry })),
-    observedPassAttemptIds: [...statistics.observedPassAttemptIds],
-    observedPassResultIds: [...statistics.observedPassResultIds],
-    observedShotIds: [...statistics.observedShotIds],
-    observedShotResultIds: [...statistics.observedShotResultIds],
-    observedContactIds: [...statistics.observedContactIds],
-    observedCarryIds: [...statistics.observedCarryIds],
-    passingNetwork: statistics.passingNetwork.map((edge) => ({ ...edge })),
-    observedAssistGoalIds: [...statistics.observedAssistGoalIds],
-    observedPossessionEvents: [...statistics.observedPossessionEvents],
-    ...(statistics.assistCandidate ? { assistCandidate: { ...statistics.assistCandidate } } : {}),
-  };
-  const stats = (id: string) => result.players.find((entry) => entry.playerId === id);
-  for (const player of next.players) {
-    const entry = stats(player.id)!;
-    entry.minutesPlayed = next.time / 60;
-    const running = player.locomotionTelemetry;
-    if (running) {
-      entry.distanceCovered = running.distanceTotal;
-      entry.sprintDistance = running.distanceSprint;
-      entry.sprintBursts = running.sprintBursts;
-      entry.maxSpeed = running.maxSpeed;
-    }
-  }
-  for (const contact of collectContactEvidence(previous, next)) {
-    if (result.observedContactIds.includes(contact.id)) continue;
-    result.observedContactIds.push(contact.id);
-    const player = stats(contact.playerId);
-    if (player) player.touches++;
-  }
-  const action = next.latestAction;
-  if (action?.type === 'carry' && next.ballCarrierIntent?.actorId === action.actorId) {
-    const carryId = `${next.seed}:carry:${next.ballCarrierIntent.startedAt}:${action.actorId}`;
-    if (!result.observedCarryIds.includes(carryId)) {
-      result.observedCarryIds.push(carryId);
-      stats(action.actorId)!.carries++;
-    }
-  }
-  const pass = next.lastPassDiagnostic;
-  if (pass && !result.observedPassAttemptIds.includes(pass.passId)) {
-    result.observedPassAttemptIds.push(pass.passId);
-    stats(pass.passerId)!.passesAttempted++;
-    const edge = result.passingNetwork.find(
-      (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
-    );
-    if (edge) edge.attempted++;
-    else
-      result.passingNetwork.push({
-        passerId: pass.passerId,
-        receiverId: pass.intendedReceiverId,
-        attempted: 1,
-        completed: 0,
-      });
-  }
-  if (pass?.finalResult && !result.observedPassResultIds.includes(pass.passId)) {
-    result.observedPassResultIds.push(pass.passId);
-    if (
-      pass.finalResult === 'completed' &&
-      pass.actualContactPoint &&
-      pass.resolvedAt !== undefined
-    ) {
-      stats(pass.passerId)!.passesCompleted++;
-      stats(pass.intendedReceiverId)!.passesReceived++;
-      result.passingNetwork.find(
-        (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
-      )!.completed++;
-      result.assistCandidate = {
-        passerId: pass.passerId,
-        scorerId: pass.intendedReceiverId,
-        passId: pass.passId,
-      };
-    }
-  }
-  const shot = next.ball.shot ?? next.lastShot;
-  if (shot && !result.observedShotIds.includes(shot.shotId)) {
-    result.observedShotIds.push(shot.shotId);
-    const shooter = stats(shot.shooterId)!;
-    shooter.shots++;
-  }
-  const shotResult = next.lastShot;
-  if (shotResult?.outcome && !result.observedShotResultIds.includes(shotResult.shotId)) {
-    const shot = shotResult;
-    result.observedShotResultIds.push(shot.shotId);
-    const shooter = stats(shot.shooterId)!;
-    // Posts and crossbars which stay out are off-target. Blocks are a separate outcome.
-    if (['goal', 'save'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
-    if (shot.outcome === 'goal') shooter.goals++;
-    if (
-      shot.outcome === 'goal' &&
-      result.assistCandidate?.scorerId === shot.shooterId &&
-      result.assistCandidate.passerId !== shot.shooterId &&
-      !result.observedAssistGoalIds.includes(shot.shotId)
-    ) {
-      stats(result.assistCandidate.passerId)!.assists++;
-      result.observedAssistGoalIds.push(shot.shotId);
-    }
-    const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
-    const keeper = next.players.find(
-      (player) => player.team !== defendingTeam && player.profile.primaryPosition === 'goalkeeper',
-    );
-    const keeperStats = keeper ? stats(keeper.id) : undefined;
-    if (keeperStats && shot.outcome === 'goal') keeperStats.goalsConceded++;
-    if (keeperStats && shot.outcome === 'save') {
-      keeperStats.saves++;
-      if (shot.goalkeeperAction === 'catch') keeperStats.catches++;
-      if (shot.goalkeeperAction === 'parry' || shot.goalkeeperAction === 'parry_away')
-        keeperStats.parries++;
-    }
-  }
-  const change = next.lastPossessionChange;
-  const eventId = change ? `${change.at}:${change.from}:${change.to}:${change.cause}` : undefined;
-  if (change && eventId && !result.observedPossessionEvents.includes(eventId)) {
-    result.observedPossessionEvents.push(eventId);
-    const winner = next.ball.ownerId ? stats(next.ball.ownerId) : undefined;
-    if (winner) {
-      winner.possessionWon++;
-      if (change.cause === 'interception') winner.interceptions++;
-      if (change.cause === 'tackle') {
-        winner.tacklesAttempted++;
-        winner.tacklesWon++;
+  const statisticsSpan = startPerformanceSpan('statistics');
+  try {
+    const result: MatchStatistics = {
+      ...statistics,
+      players: statistics.players.map((entry) => ({ ...entry })),
+    };
+    const appendIdentity = (key: IdentityHistory, id: string) => {
+      result[key] = [...result[key], id];
+    };
+    const mutableNetwork = () => {
+      if (result.passingNetwork === statistics.passingNetwork)
+        result.passingNetwork = statistics.passingNetwork.map((edge) => ({ ...edge }));
+      return result.passingNetwork;
+    };
+    const playersById = new Map(result.players.map((entry) => [entry.playerId, entry]));
+    const stats = (id: string) => playersById.get(id);
+    for (const player of next.players) {
+      const entry = stats(player.id)!;
+      entry.minutesPlayed = next.time / 60;
+      const running = player.locomotionTelemetry;
+      if (running) {
+        entry.distanceCovered = running.distanceTotal;
+        entry.sprintDistance = running.distanceSprint;
+        entry.sprintBursts = running.sprintBursts;
+        entry.maxSpeed = running.maxSpeed;
       }
     }
-    const loser = previous.ball.ownerId ? stats(previous.ball.ownerId) : undefined;
-    if (loser) loser.possessionLost++;
-    // A controlled opponent possession invalidates the direct-provider chain. A later reclaim is
-    // a new attacking sequence and cannot revive the old pass.
-    const candidateTeam = result.assistCandidate
-      ? next.players.find((player) => player.id === result.assistCandidate!.scorerId)?.team
-      : undefined;
-    if (candidateTeam && change.to !== candidateTeam) delete result.assistCandidate;
+    for (const contact of collectContactEvidence(previous, next)) {
+      if (containsIdentity(result.observedContactIds, contact.id)) continue;
+      appendIdentity('observedContactIds', contact.id);
+      const player = stats(contact.playerId);
+      if (player) player.touches++;
+    }
+    const action = next.latestAction;
+    if (action?.type === 'carry' && next.ballCarrierIntent?.actorId === action.actorId) {
+      const carryId = `${next.seed}:carry:${next.ballCarrierIntent.startedAt}:${action.actorId}`;
+      if (!containsIdentity(result.observedCarryIds, carryId)) {
+        appendIdentity('observedCarryIds', carryId);
+        stats(action.actorId)!.carries++;
+      }
+    }
+    const pass = next.lastPassDiagnostic;
+    if (pass && !containsIdentity(result.observedPassAttemptIds, pass.passId)) {
+      appendIdentity('observedPassAttemptIds', pass.passId);
+      stats(pass.passerId)!.passesAttempted++;
+      const edge = mutableNetwork().find(
+        (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
+      );
+      if (edge) edge.attempted++;
+      else
+        result.passingNetwork.push({
+          passerId: pass.passerId,
+          receiverId: pass.intendedReceiverId,
+          attempted: 1,
+          completed: 0,
+        });
+    }
+    if (pass?.finalResult && !containsIdentity(result.observedPassResultIds, pass.passId)) {
+      appendIdentity('observedPassResultIds', pass.passId);
+      if (
+        pass.finalResult === 'completed' &&
+        pass.actualContactPoint &&
+        pass.resolvedAt !== undefined
+      ) {
+        stats(pass.passerId)!.passesCompleted++;
+        stats(pass.intendedReceiverId)!.passesReceived++;
+        mutableNetwork().find(
+          (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
+        )!.completed++;
+        result.assistCandidate = {
+          passerId: pass.passerId,
+          scorerId: pass.intendedReceiverId,
+          passId: pass.passId,
+        };
+      }
+    }
+    const shot = next.ball.shot ?? next.lastShot;
+    if (shot && !containsIdentity(result.observedShotIds, shot.shotId)) {
+      appendIdentity('observedShotIds', shot.shotId);
+      const shooter = stats(shot.shooterId)!;
+      shooter.shots++;
+    }
+    const shotResult = next.lastShot;
+    if (shotResult?.outcome && !containsIdentity(result.observedShotResultIds, shotResult.shotId)) {
+      const shot = shotResult;
+      appendIdentity('observedShotResultIds', shot.shotId);
+      const shooter = stats(shot.shooterId)!;
+      // Posts and crossbars which stay out are off-target. Blocks are a separate outcome.
+      if (['goal', 'save'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
+      if (shot.outcome === 'goal') shooter.goals++;
+      if (
+        shot.outcome === 'goal' &&
+        result.assistCandidate?.scorerId === shot.shooterId &&
+        result.assistCandidate.passerId !== shot.shooterId &&
+        !containsIdentity(result.observedAssistGoalIds, shot.shotId)
+      ) {
+        stats(result.assistCandidate.passerId)!.assists++;
+        appendIdentity('observedAssistGoalIds', shot.shotId);
+      }
+      const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
+      const keeper = next.players.find(
+        (player) =>
+          player.team !== defendingTeam && player.profile.primaryPosition === 'goalkeeper',
+      );
+      const keeperStats = keeper ? stats(keeper.id) : undefined;
+      if (keeperStats && shot.outcome === 'goal') keeperStats.goalsConceded++;
+      if (keeperStats && shot.outcome === 'save') {
+        keeperStats.saves++;
+        if (shot.goalkeeperAction === 'catch') keeperStats.catches++;
+        if (shot.goalkeeperAction === 'parry' || shot.goalkeeperAction === 'parry_away')
+          keeperStats.parries++;
+      }
+    }
+    const change = next.lastPossessionChange;
+    const eventId = change ? `${change.at}:${change.from}:${change.to}:${change.cause}` : undefined;
+    if (change && eventId && !containsIdentity(result.observedPossessionEvents, eventId)) {
+      appendIdentity('observedPossessionEvents', eventId);
+      const winner = next.ball.ownerId ? stats(next.ball.ownerId) : undefined;
+      if (winner) {
+        winner.possessionWon++;
+        if (change.cause === 'interception') winner.interceptions++;
+        if (change.cause === 'tackle') {
+          winner.tacklesAttempted++;
+          winner.tacklesWon++;
+        }
+      }
+      const loser = previous.ball.ownerId ? stats(previous.ball.ownerId) : undefined;
+      if (loser) loser.possessionLost++;
+      // A controlled opponent possession invalidates the direct-provider chain. A later reclaim is
+      // a new attacking sequence and cannot revive the old pass.
+      const candidateTeam = result.assistCandidate
+        ? next.players.find((player) => player.id === result.assistCandidate!.scorerId)?.team
+        : undefined;
+      if (candidateTeam && change.to !== candidateTeam) delete result.assistCandidate;
+    }
+    return result;
+  } finally {
+    endPerformanceSpan('statistics', statisticsSpan);
   }
-  return result;
 };
 
 export const playerMatchSummarySchema = playerMatchStatsSchema.pick({

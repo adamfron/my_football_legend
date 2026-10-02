@@ -3,7 +3,7 @@ import { distance } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { shotDiagnosticSchema, type TacticalMatchState } from './matchState';
 import { shotContactSchema } from './shotIntent';
-import { deriveFlankRelationship } from './tacticalPositioning';
+import { deriveFlankRelationship, deriveFlankRunAssignments } from './tacticalPositioning';
 import {
   MATCH_PRESENTATION_POLICIES,
   projectMatchMoment,
@@ -250,6 +250,71 @@ export const matchFlowTelemetrySchema = z.object({
 });
 export type MatchFlowTelemetry = z.infer<typeof matchFlowTelemetrySchema>;
 
+type TelemetryHistoryKey = {
+  [Key in keyof MatchFlowTelemetry]: MatchFlowTelemetry[Key] extends unknown[] ? Key : never;
+}[keyof MatchFlowTelemetry];
+
+type TelemetryIndexes = {
+  owner: MatchFlowTelemetry;
+  passAttempts: Set<string>;
+  passResults: Set<string>;
+  shots: Set<string>;
+  majorActions: Set<string>;
+  passOutcomes: Map<string, number>;
+  longestPossessionSpell: number;
+  statisticsNetwork?: NonNullable<TacticalMatchState['statistics']>['passingNetwork'];
+};
+const telemetryIndexes = new WeakMap<MatchFlowTelemetry, TelemetryIndexes>();
+
+/** A linear observer owns its private indexes. Reobserving an older snapshot rebuilds them,
+ * so React retries, explicit branches and imported telemetry cannot inherit future events. */
+const claimTelemetryIndexes = (previous: MatchFlowTelemetry, next: MatchFlowTelemetry) => {
+  let indexes = telemetryIndexes.get(previous);
+  if (!indexes || indexes.owner !== previous) {
+    indexes = {
+      owner: next,
+      passAttempts: new Set(previous.observedPassAttemptIds),
+      passResults: new Set(previous.observedPassResultIds),
+      shots: new Set(previous.observedShotIds),
+      majorActions: new Set(previous.observedMajorActionIds),
+      passOutcomes: new Map(),
+      longestPossessionSpell: 0,
+    };
+    const outcomeIndexes = indexes.passOutcomes;
+    previous.passOutcomes.forEach((outcome, index) => {
+      // Preserve Array.find semantics even for a supplied history with duplicate IDs.
+      if (!outcomeIndexes.has(outcome.passId)) outcomeIndexes.set(outcome.passId, index);
+    });
+    for (const duration of previous.possessionSpellDurations)
+      indexes.longestPossessionSpell = Math.max(indexes.longestPossessionSpell, duration);
+  } else indexes.owner = next;
+  telemetryIndexes.set(next, indexes);
+  return indexes;
+};
+
+/** Only these four counts are consumed on every tick. Their predicates match
+ * deriveTeamShapeMetrics exactly, including its x-only attacking-box definition. */
+const observeAttackingOccupancy = (state: TacticalMatchState, side: 'home' | 'away') => {
+  let boxAttackers = 0,
+    penaltySpotAttackers = 0,
+    farPostAttackers = 0,
+    edgeOfBoxSupport = 0;
+  const spotX = side === 'home' ? 94 : 11;
+  const edgeX = side === 'home' ? 86 : 19;
+  const farPostY = state.ball.y < 34 ? 48 : 20;
+  for (const player of state.players) {
+    if (player.team !== side || player.profile.primaryPosition === 'goalkeeper') continue;
+    const { x, y } = player.position;
+    const attackingBox = side === 'home' ? x >= 88.5 : x <= 16.5;
+    if (attackingBox) {
+      boxAttackers++;
+      if (Math.abs(x - spotX) <= 5 && Math.abs(y - 34) <= 7) penaltySpotAttackers++;
+      if (Math.abs(y - farPostY) <= 8) farPostAttackers++;
+    } else if (Math.abs(x - edgeX) <= 5 && Math.abs(y - 34) <= 20) edgeOfBoxSupport++;
+  }
+  return { boxAttackers, penaltySpotAttackers, farPostAttackers, edgeOfBoxSupport };
+};
+
 export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): MatchFlowTelemetry =>
   matchFlowTelemetrySchema.parse({
     benchmarkRunId,
@@ -414,7 +479,46 @@ export const observeMatchFlow = (
   previous: TacticalMatchState,
   next: TacticalMatchState,
 ): MatchFlowTelemetry => {
-  const result = structuredClone(telemetry);
+  const result: MatchFlowTelemetry = {
+    ...telemetry,
+    turnoverCauses: { ...telemetry.turnoverCauses },
+    observerState: { ...telemetry.observerState },
+    threatFlow: { ...telemetry.threatFlow },
+    receptions: { ...telemetry.receptions },
+    interceptionCauses: { ...telemetry.interceptionCauses },
+    momentProjection: {
+      ...telemetry.momentProjection,
+      momentsByKind: { ...telemetry.momentProjection.momentsByKind },
+      byPolicy: { ...telemetry.momentProjection.byPolicy },
+    },
+    controlled: {
+      ...telemetry.controlled,
+      decisionOpportunities: { ...telemetry.controlled.decisionOpportunities },
+      autonomousDiagnostics: { ...telemetry.controlled.autonomousDiagnostics },
+      majorActionSources: {
+        shots: { ...telemetry.controlled.majorActionSources.shots },
+        crosses: { ...telemetry.controlled.majorActionSources.crosses },
+        highImpactActions: { ...telemetry.controlled.majorActionSources.highImpactActions },
+      },
+    },
+  };
+  const indexes = claimTelemetryIndexes(telemetry, result);
+  // Historical arrays are copied only when this tick appends or changes an entry.
+  const append = <Key extends TelemetryHistoryKey>(
+    key: Key,
+    value: MatchFlowTelemetry[Key][number],
+  ) => {
+    const entry = matchFlowTelemetrySchema.shape[key].element.parse(value) as typeof value;
+    if (result[key] === telemetry[key])
+      result[key] = result[key].slice() as MatchFlowTelemetry[Key];
+    (result[key] as Array<typeof value>).push(entry);
+  };
+  const updatePassingEdge = (index: number, kind: 'attempted' | 'completed') => {
+    if (result.passingNetwork === telemetry.passingNetwork)
+      result.passingNetwork = result.passingNetwork.slice();
+    const edge = result.passingNetwork[index]!;
+    result.passingNetwork[index] = { ...edge, [kind]: edge[kind] + 1 };
+  };
   result.canonicalMinutes = next.time / 60;
   const dt = Math.max(0, next.time - previous.time);
   const third = (side: 'home' | 'away', x: number) => {
@@ -451,8 +555,8 @@ export const observeMatchFlow = (
   )
     result.boxTouches++;
   for (const side of ['home', 'away'] as const) {
-    const beforeShape = deriveTeamShapeMetrics(previous, side),
-      nextShape = deriveTeamShapeMetrics(next, side);
+    const beforeShape = observeAttackingOccupancy(previous, side),
+      nextShape = observeAttackingOccupancy(next, side);
     if (!beforeShape.boxAttackers && nextShape.boxAttackers) result.boxOccupationEpisodes++;
     if (!beforeShape.penaltySpotAttackers && nextShape.penaltySpotAttackers)
       result.penaltySpotOccupationEpisodes++;
@@ -471,7 +575,8 @@ export const observeMatchFlow = (
   if (previous.possessionTeam !== next.possessionTeam) {
     result.possessionChanges++;
     const spell = previous.timeSincePossessionChanged;
-    result.possessionSpellDurations.push(spell);
+    append('possessionSpellDurations', spell);
+    indexes.longestPossessionSpell = Math.max(indexes.longestPossessionSpell, spell);
     if (spell < 0.5) result.microSpellsUnder0_5s++;
     if (spell <= next.time - previous.time + 0.001) result.adjacentTickPossessionFlips++;
     const cause =
@@ -496,7 +601,7 @@ export const observeMatchFlow = (
                       ? 'loose_ball_claim'
                       : 'other';
     result.turnoverCauses[cause]++;
-    result.possessionSpells.push({
+    append('possessionSpells', {
       team: previous.possessionTeam,
       startedAt: result.observerState.spellStartedAt,
       endedAt: next.time,
@@ -531,10 +636,11 @@ export const observeMatchFlow = (
   if (
     action &&
     actionEpisodeId &&
-    !result.observedMajorActionIds.includes(actionEpisodeId) &&
+    !indexes.majorActions.has(actionEpisodeId) &&
     action.actorId === next.controlledFootballerId
   ) {
-    result.observedMajorActionIds.push(actionEpisodeId);
+    append('observedMajorActionIds', actionEpisodeId);
+    indexes.majorActions.add(actionEpisodeId);
     const human = next.latestActionSource === 'human_selected';
     const source = human ? 'human' : 'autonomous';
     if (action.type === 'shot') result.controlled.majorActionSources.shots[source]++;
@@ -551,7 +657,7 @@ export const observeMatchFlow = (
     const actor = next.players.find((player) => player.id === action.actorId);
     if (actor) {
       if (result.observerState.lastActionAt !== undefined)
-        result.actionTempoSamples.push({
+        append('actionTempoSamples', {
           team: actor.team,
           third: third(actor.team, actor.position.x),
           phase: next.teams[actor.team].phase,
@@ -578,9 +684,12 @@ export const observeMatchFlow = (
     }
   }
   const activeFlankEpisodes: string[] = [];
+  const flankAssignments = deriveFlankRunAssignments(next, next.possessionTeam);
   for (const player of next.players) {
-    const relationship = deriveFlankRelationship(next, player);
-    if (!['overlap', 'underlap', 'provide_width'].includes(relationship)) continue;
+    const relationship = flankAssignments.find(
+      (assignment) => assignment.playerId === player.id,
+    )?.relationship;
+    if (!relationship) continue;
     const id = `${player.id}:${relationship}`;
     activeFlankEpisodes.push(id);
     if (!result.observerState.activeFlankEpisodes.includes(id)) {
@@ -594,8 +703,9 @@ export const observeMatchFlow = (
   const releasedPassId = releasedPass
     ? `${result.benchmarkRunId}:${releasedPass.passId}`
     : undefined;
-  if (releasedPass && releasedPassId && !result.observedPassAttemptIds.includes(releasedPassId)) {
-    result.observedPassAttemptIds.push(releasedPassId);
+  if (releasedPass && releasedPassId && !indexes.passAttempts.has(releasedPassId)) {
+    append('observedPassAttemptIds', releasedPassId);
+    indexes.passAttempts.add(releasedPassId);
     result.passesAttempted++;
     result.observerState.spellPassAttempts++;
     if (newAction && action.type === 'pass') {
@@ -603,7 +713,7 @@ export const observeMatchFlow = (
       const passer = next.players.find((player) => player.id === action.actorId);
       if (passer) {
         if (result.observerState.lastPassAt !== undefined)
-          result.actionTempoSamples.push({
+          append('actionTempoSamples', {
             team: passer.team,
             third: third(passer.team, passer.position.x),
             phase: next.teams[passer.team].phase,
@@ -615,7 +725,9 @@ export const observeMatchFlow = (
         if (progress > 5) result.progressivePasses++;
         else if (progress < -2) result.backwardPasses++;
         else result.lateralPasses++;
-        result.passOutcomes.push({
+        if (!indexes.passOutcomes.has(releasedPass.passId))
+          indexes.passOutcomes.set(releasedPass.passId, result.passOutcomes.length);
+        append('passOutcomes', {
           passId: releasedPass.passId,
           intent: action.intent,
           originThird: third(passer.team, passer.position.x),
@@ -658,14 +770,14 @@ export const observeMatchFlow = (
       result.averageLeadDistance +=
         (diagnostic.leadDistance - result.averageLeadDistance) / result.leadDistanceSamples;
     }
-    const edge = result.passingNetwork.find(
+    const edgeIndex = result.passingNetwork.findIndex(
       (item) =>
         item.passerId === releasedPass.passerId &&
         item.receiverId === releasedPass.intendedReceiverId,
     );
-    if (edge) edge.attempted++;
+    if (edgeIndex >= 0) updatePassingEdge(edgeIndex, 'attempted');
     else
-      result.passingNetwork.push({
+      append('passingNetwork', {
         passerId: releasedPass.passerId,
         receiverId: releasedPass.intendedReceiverId,
         attempted: 1,
@@ -678,21 +790,21 @@ export const observeMatchFlow = (
     result.controlled.touches++;
   if (
     next.lastPassDiagnostic?.finalResult &&
-    !result.observedPassResultIds.includes(
-      `${result.benchmarkRunId}:${next.lastPassDiagnostic.passId}`,
-    )
+    !indexes.passResults.has(`${result.benchmarkRunId}:${next.lastPassDiagnostic.passId}`)
   ) {
     const diagnostic = next.lastPassDiagnostic;
-    result.observedPassResultIds.push(`${result.benchmarkRunId}:${diagnostic.passId}`);
+    const resultId = `${result.benchmarkRunId}:${diagnostic.passId}`;
+    append('observedPassResultIds', resultId);
+    indexes.passResults.add(resultId);
     if (diagnostic.finalResult === 'completed') {
       result.passesCompleted++;
       result.observerState.spellPassCompletions++;
-      const edge = result.passingNetwork.find(
+      const edgeIndex = result.passingNetwork.findIndex(
         (item) =>
           item.passerId === diagnostic.passerId &&
           item.receiverId === diagnostic.intendedReceiverId,
       );
-      if (edge) edge.completed++;
+      if (edgeIndex >= 0) updatePassingEdge(edgeIndex, 'completed');
       if (diagnostic.intendedReceiverId === next.controlledFootballerId)
         result.controlled.passesReceived++;
       const receiver = next.players.find((player) => player.id === diagnostic.intendedReceiverId);
@@ -714,20 +826,26 @@ export const observeMatchFlow = (
     const moving =
       Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
       0.5;
-    const passOutcome = result.passOutcomes.find((item) => item.passId === diagnostic.passId);
-    if (passOutcome)
-      passOutcome.outcome =
-        diagnostic.finalResult === 'completed'
-          ? 'completed'
-          : diagnostic.finalResult === 'intercepted'
-            ? 'intercepted'
-            : diagnostic.finalResult === 'technical_error'
-              ? 'technical_error'
-              : diagnostic.receptionOutcome === 'failed_control'
-                ? 'failed_reception'
-                : next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
-                  ? 'out_of_play'
-                  : 'unclaimed';
+    const passOutcomeIndex = indexes.passOutcomes.get(diagnostic.passId);
+    if (passOutcomeIndex !== undefined) {
+      if (result.passOutcomes === telemetry.passOutcomes)
+        result.passOutcomes = result.passOutcomes.slice();
+      result.passOutcomes[passOutcomeIndex] = {
+        ...result.passOutcomes[passOutcomeIndex]!,
+        outcome:
+          diagnostic.finalResult === 'completed'
+            ? 'completed'
+            : diagnostic.finalResult === 'intercepted'
+              ? 'intercepted'
+              : diagnostic.finalResult === 'technical_error'
+                ? 'technical_error'
+                : diagnostic.receptionOutcome === 'failed_control'
+                  ? 'failed_reception'
+                  : next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
+                    ? 'out_of_play'
+                    : 'unclaimed',
+      };
+    }
     if (moving && diagnostic.finalResult === 'completed') result.movingReceiverCompletions++;
     else if (moving) result.movingReceiverFailures++;
     if (diagnostic.actualContactPoint) {
@@ -752,7 +870,7 @@ export const observeMatchFlow = (
   if (previous.ball.ownerId && previous.ball.ownerId !== next.ball.ownerId) {
     const player = previous.players.find((item) => item.id === previous.ball.ownerId);
     if (player)
-      result.ballHolds.push({
+      append('ballHolds', {
         playerId: player.id,
         duration: Math.max(0, next.time - (previous.ballOwnershipStartedAt ?? previous.time)),
         third: third(player.team, player.position.x),
@@ -782,20 +900,19 @@ export const observeMatchFlow = (
     if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
       result.overlapPassOutOfPlay++;
   }
-  if (
-    next.lastShot &&
-    !result.observedShotIds.includes(`${result.benchmarkRunId}:${next.lastShot.shotId}`)
-  ) {
+  if (next.lastShot && !indexes.shots.has(`${result.benchmarkRunId}:${next.lastShot.shotId}`)) {
     const shot = next.lastShot,
       shooter = next.players.find((player) => player.id === shot.shooterId);
-    result.observedShotIds.push(`${result.benchmarkRunId}:${shot.shotId}`);
-    result.shotDiagnostics.push(shot);
+    const shotId = `${result.benchmarkRunId}:${shot.shotId}`;
+    append('observedShotIds', shotId);
+    indexes.shots.add(shotId);
+    append('shotDiagnostics', shot);
     result.shots++;
     if (inFinalThird(shooter?.team ?? 'home', previous.ball.x)) result.threatFlow.resultingShots++;
     const metres = shooter
       ? distance(shooter.position, { x: shooter.team === 'home' ? 105 : 0, y: 34 })
       : 0;
-    result.shotDistances.push(metres);
+    append('shotDistances', metres);
     if (metres >= 30) result.longShots++;
     if (shot.outcome === 'goal') {
       result.goals++;
@@ -807,7 +924,8 @@ export const observeMatchFlow = (
     if (shot.goalkeeperAction === 'failed_save') result.failedSaves++;
     if (shot.goalkeeperAction === 'no_chance' && shot.outcome === 'goal') result.noChanceGoals++;
     if (shooter)
-      result.shootingOpportunityValues.push(
+      append(
+        'shootingOpportunityValues',
         evaluateShootingOpportunity(previous, shooter).effectiveScoringExpectation,
       );
     if (shot.shooterId === next.controlledFootballerId) result.controlled.shots++;
@@ -833,10 +951,17 @@ export const observeMatchFlow = (
       else projection.matchWideMoments++;
       if (moment.importance >= 0.68) {
         projection.momentsAboveThreshold++;
-        if (projection.lastSurfacedAt !== undefined)
+        if (projection.lastSurfacedAt !== undefined) {
+          if (
+            projection.simulatedSecondsBetweenSurfacedMoments ===
+            telemetry.momentProjection.simulatedSecondsBetweenSurfacedMoments
+          )
+            projection.simulatedSecondsBetweenSurfacedMoments =
+              projection.simulatedSecondsBetweenSurfacedMoments.slice();
           projection.simulatedSecondsBetweenSurfacedMoments.push(
             next.time - projection.lastSurfacedAt,
           );
+        }
         projection.lastSurfacedAt = next.time;
       }
       for (const policy of Object.values(MATCH_PRESENTATION_POLICIES))
@@ -851,7 +976,12 @@ export const observeMatchFlow = (
   if (next.statistics && next.statistics !== previous.statistics) {
     result.passesAttempted = next.statistics.players.reduce((sum, p) => sum + p.passesAttempted, 0);
     result.passesCompleted = next.statistics.players.reduce((sum, p) => sum + p.passesCompleted, 0);
-    result.passingNetwork = next.statistics.passingNetwork.map((edge) => ({ ...edge }));
+    if (
+      next.statistics.passingNetwork !== indexes.statisticsNetwork ||
+      result.passingNetwork !== telemetry.passingNetwork
+    )
+      result.passingNetwork = next.statistics.passingNetwork.map((edge) => ({ ...edge }));
+    indexes.statisticsNetwork = next.statistics.passingNetwork;
     const controlled = next.statistics.players.find(
       (p) => p.playerId === next.controlledFootballerId,
     );
@@ -861,11 +991,17 @@ export const observeMatchFlow = (
       result.controlled.passesReceived = controlled.passesReceived;
     }
   }
-  assertTelemetryInvariants(result);
-  return matchFlowTelemetrySchema.parse(result);
+  // Complete Zod/history validation remains at import/export and explicit benchmark checks.
+  // Tick validation checks scalar totals, the bounded network and the cached maximum spell.
+  assertTelemetryTotals(result);
+  if (indexes.longestPossessionSpell > result.canonicalMinutes * 60 + 0.001)
+    throw new Error(
+      'Telemetry invariant failed: closed possession spell exceeds segment duration.',
+    );
+  return result;
 };
 
-export const assertTelemetryInvariants = (telemetry: MatchFlowTelemetry) => {
+const assertTelemetryTotals = (telemetry: MatchFlowTelemetry) => {
   if (telemetry.passesCompleted > telemetry.passesAttempted)
     throw new Error('Telemetry invariant failed: completed passes exceed attempts.');
   if (
@@ -876,6 +1012,10 @@ export const assertTelemetryInvariants = (telemetry: MatchFlowTelemetry) => {
   for (const edge of telemetry.passingNetwork)
     if (edge.completed > edge.attempted)
       throw new Error(`Telemetry invariant failed for passing edge ${edge.passerId}.`);
+};
+
+export const assertTelemetryInvariants = (telemetry: MatchFlowTelemetry) => {
+  assertTelemetryTotals(telemetry);
   for (const spell of telemetry.possessionSpellDurations)
     if (spell > telemetry.canonicalMinutes * 60 + 0.001)
       throw new Error(

@@ -309,6 +309,26 @@ describe('ViewportVideoRecorder', () => {
     recorder.dispose();
   });
 
+  it('does not capture a frozen canvas while presentation is hidden', () => {
+    vi.useFakeTimers();
+    const recorder = new ViewportVideoRecorder();
+    let visible = false;
+    const sample = vi
+      .spyOn(recorder as unknown as { sample(time: number): Promise<void> }, 'sample')
+      .mockResolvedValue(undefined);
+    recorder.start(
+      document.createElement('canvas'),
+      () => 20,
+      () => visible,
+    );
+    vi.advanceTimersByTime(1000);
+    expect(sample).not.toHaveBeenCalled();
+    visible = true;
+    vi.advanceTimersByTime(1000);
+    expect(sample).toHaveBeenCalled();
+    recorder.dispose();
+  });
+
   it('bounds the visual pre-buffer to approximately ten canonical seconds', async () => {
     const recorder = new ViewportVideoRecorder();
     let now = 0;
