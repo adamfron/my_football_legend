@@ -28,6 +28,8 @@ Wzrost głównego zestawu względem PR146: 57 testów. Nie osłabiono asercji; k
 oczekiwań/hashów oparto na śladach zamierzonej zmiany reguł i liveness pierwotnego wznowienia.
 Test rzeczywistego UI sprawdza brak render/capture w tle. Browser smoke: pauza 04:39, brak
 błędów konsoli; nie jest to pełny mecz ani wizualny dowód wykluczenia.
+Pierwszy CI przekroczył domyślne 5 s w teście czterech trybów A–D z capture/export;
+ten test ma teraz jawny limit 30 s, przy zachowanych 480 tickach na tryb i wszystkich asercjach.
 
 Trzy naprzemienne normal10 BEFORE/AFTER: mediana **16,300 → 13,302 s**, średnia
 **16,111 → 13,924 s**; 24 000 ticków, jawne wejścia **3 → 8**, wynik **0–2 → 0–1**.

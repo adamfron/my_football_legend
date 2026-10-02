@@ -194,7 +194,10 @@ Final `VITEST_MAX_WORKERS=2 npm run verify` exited **0**: lint, **120 files / 77
 suite contains **782 tests**, 57 more main tests than PR146. Existing experimental-transform,
 mixed `careerStorage` import and large-chunk warnings remain nonblocking. Assertions were not
 weakened; historical expected hashes and liveness fixtures changed only after intentional
-behaviour was confirmed by deterministic traces. Targeted coverage includes:
+behaviour was confirmed by deterministic traces. The first Linux CI run exceeded the default
+5-second timeout only in the four-mode A–D capture/export integration test; that test now has an
+explicit 30-second timeout with all four 480-tick runs and every assertion retained.
+Targeted coverage includes:
 
 - `pr147Rules.test.ts`: clean standing/missed/clean-slide/mistimed-slide execution, accidental
   ordinary foul, unreachable tactical intent, shared NPC execution, controlled-player risk
