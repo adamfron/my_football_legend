@@ -39,7 +39,10 @@ export const evaluateActionImpact = (
   );
   let family: ActionImpact['family'] = 'routine';
   let reason = 'safe_recycle';
-  if (action.type === 'shot' || action.type === 'cross') {
+  if (action.type === 'challenge') {
+    family = action.technique === 'standing' ? 'meaningful' : 'high_impact';
+    reason = `defensive_${action.technique}`;
+  } else if (action.type === 'shot' || action.type === 'cross') {
     family = 'high_impact';
     reason = action.type;
   } else if (

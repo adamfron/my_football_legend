@@ -46,6 +46,12 @@ export const applyThrowInContact = (
   if (!state.throwInRestriction || !canContactAfterThrowIn(state, playerId)) return state;
   const next = { ...state };
   delete next.throwInRestriction;
+  // The delivery ends on a real contact, before that player can make a subsequent action.
+  // Keeping the released restart alive would incorrectly launch their next pass as a throw.
+  if (next.scenario === 'throw_in' && next.restart?.phase === 'release') {
+    delete next.restart;
+    next.scenario = 'open_play';
+  }
   if (state.lastThrowInDiagnostic)
     next.lastThrowInDiagnostic = {
       ...state.lastThrowInDiagnostic,

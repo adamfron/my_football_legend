@@ -13,6 +13,11 @@ Każde zjawisko futbolowe ma jeden system kanoniczny.
   natychmiastową invalidacją zdarzeniową.
 - `matchActions.ts` enumeruje i uruchamia wspólne akcje człowieka/NPC; wyspecjalizowane pliki
   rozwiązują lot, kontakt, przyjęcie, prowadzenie i bramkarza.
+- PR147 `defensiveChallenges.ts` wykonuje wspólne fizyczne próby standing/committed/slide/tactical;
+  kontrolowany zawodnik nie wybiera sam techniki o wysokim ryzyku. `matchRules.ts` rozstrzyga
+  faul/kartkę i korzyść na kanonicznych faktach, korzystając z istniejących wznowień.
+- `actionEvents.ts` zachowuje kanoniczne dowody przez 12 s / maks. 96 zdarzeń. Mikrofeedback
+  odczytuje czas wyświetlanej klatki live/lead-in/replay, nie animację ani zegar aktualnego core.
 - `shootingOptions.ts` wyprowadza wspólne możliwości strzału i fizycznie osiągalny kontakt;
   `shotIntent.ts` oddziela technikę od kontaktu. `shotResolver.ts` nadaje jawny profil wykonania,
   a lot nadal obsługuje ten sam integrator 3D. Cel PR141 nie może spłaszczyć podcinki.
@@ -38,6 +43,8 @@ Każde zjawisko futbolowe ma jeden system kanoniczny.
 6. Sprawczość każdej znaczącej decyzji jest niezależna od polityki oglądania; polityka wybiera
    wyłącznie materiał do oglądania. Kontekst jest historią prezentacji, nigdy rollbackiem futbolu.
 7. Podział tych samych ticków na batche nie zmienia wyniku.
+8. Wybór wysokiego ryzyka nie gwarantuje kontaktu/odbioru/faulu; bez kontaktu nie ma przewinienia.
+9. Faule/kartki i korzyść są faktami core. Etykieta albo gest nie może ich przyznać ani cofnąć.
 
 ## Ewolucja od PR126
 
@@ -62,7 +69,9 @@ i seed. Preferowane dowody: stan przed/po, decision id, ball episode i action so
 - krótka próbka PR145 nie ustala końcowej skuteczności strzałów/bramkarzy w normalnych meczach;
 - nowe łańcuchowanie epizodów wymaga długich testów manualnych;
 - udział bramkarza i podania zwrotne wymagają obserwacji;
-- brak zmęczenia, zmian, fauli/kartek i oceny meczowej;
+- brak zmęczenia, zmian, pełnej integracji kariery i kanonicznej oceny meczowej;
+- PR147 wdraża spójny podzbiór przepisów, nie wszystkie edge cases IFAB; progi kontaktu,
+  korzyści/DOGSO, reakcja ról na wykluczenie i pełny lejek podejścia wymagają dalszej kalibracji;
 - modele i animacje 3D pozostają lekkim prototypem; kamera, hitboxy i baza strojów mają fundament PR141.
 
 ## PR143 — prezentacja i sprawczość
@@ -79,7 +88,8 @@ nie wpływa na RNG ani wynik akcji. Replay jest osobnym stanem z własnym widocz
 
 ## Roadmap
 
-PR141–PR146 ukończone. PR145 używa osiągalnego punktu spotkania odbiorcy, legalnego autu z
+PR141–PR147 ukończone w opisanym zakresie; kalibracja realizmu dyscypliny pozostaje PR148.
+PR145 używa osiągalnego punktu spotkania odbiorcy, legalnego autu z
 zakazem ponownego kontaktu wykonawcy, loftu 3D oraz wspólnego oporu toczenia 3,2 m/s².
 Cel podania nie wyhamowuje lotu. Kontakty i completed/received/network mają wspólne dowody;
 rutyna i przechwyt należący do wcześniejszego kolegi nie tworzą bezsensownego promptu.
@@ -95,5 +105,12 @@ capture 40 Hz jest jawny, a WebM dodatkowo opt-in i widoczny. Milestone headless
 pełnego grywalnego czasu 4–6 min i video kosztu jeszcze nie zmierzono. Dokładne dowody:
 [BACKGROUND_SIMULATION_PERFORMANCE.md](BACKGROUND_SIMULATION_PERFORMANCE.md).
 
-NEXT: **PR147 — Rules, Discipline & Match Feedback**. Dalej PR148 rytm/role/wide-pattern funnel,
-PR149 animacja/replay/stadiony; fatigue nie maskuje złej częstości ruchu. Bez wdrożenia w PR146.
+Zweryfikowano **PR147 — Rules, Discipline & Match Feedback**: 777 + 5 testów, lint/build,
+normal10 BEFORE/AFTER i pełna zgodność hashy minimum/normal/DEV10. Próbka ma 17 fauli,
+13 żółtych i 5 wykluczeń po drugiej żółtej; nie jest realistycznie skalibrowana, a niższy czas
+nie dowodzi optymalizacji przy zmienionym futbolu/składzie. Architektura, ograniczenia,
+weryfikacja i benchmark: [RULES_DISCIPLINE_MATCH_FEEDBACK.md](RULES_DISCIPLINE_MATCH_FEEDBACK.md).
+Dalej **PR148 — Possession Rhythm, Roles & Duel Calibration**, potem
+**PR149 — Animation, Replay & Match Presentation v2**. Fatigue nie maskuje złej częstości ruchu.
+Klubowy stadion docelowo ma stabilny seed/profil i niezależną zmienność środowiska; MFL nie
+ma minigry budowy stadionu. Żaden późniejszy etap nie został włączony do PR147.

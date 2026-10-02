@@ -3,6 +3,12 @@ import { PlayerModel, PlayerModelResources } from './playerModel';
 import { createPlayerRing } from './playerMarkers';
 import { deriveReplayCameraPose } from './replay';
 import { screenToGoalIntent } from './goalAiming';
+import {
+  actionFeedbackAnchor,
+  actionFeedbackOpacity,
+  actionFeedbackText,
+  selectActionFeedback,
+} from './actionFeedback';
 import * as THREE from 'three';
 import {
   cameraViewSpan,
@@ -75,6 +81,9 @@ export class TacticalPitchRenderer {
   private suppressClick = false;
   private focusedPlayerId: string | undefined;
   private readonly report: (message?: string) => void;
+  private readonly feedbackLayer = document.createElement('div');
+  private readonly feedbackLabels = new Map<string, HTMLElement>();
+  private readonly feedbackProjection = new THREE.Vector3();
 
   constructor(
     private readonly host: HTMLElement,
@@ -89,6 +98,15 @@ export class TacticalPitchRenderer {
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.append(this.renderer.domElement);
+    this.feedbackLayer.className = 'canonical-action-feedback';
+    this.feedbackLayer.setAttribute('aria-hidden', 'true');
+    Object.assign(this.feedbackLayer.style, {
+      position: 'absolute',
+      inset: '0',
+      pointerEvents: 'none',
+      overflow: 'hidden',
+    });
+    host.append(this.feedbackLayer);
     this.renderer.domElement.addEventListener('webglcontextlost', this.onContextLost);
     this.renderer.domElement.addEventListener('webglcontextrestored', this.onContextRestored);
     this.renderer.domElement.addEventListener('wheel', this.onWheel, { passive: false });
@@ -433,6 +451,21 @@ export class TacticalPitchRenderer {
       return;
     }
     this.report(undefined);
+    const activeIds = new Set(frame.players.map((player) => player.id));
+    // A canonical dismissal removes all visible/pickable objects at this frame. The bounded
+    // identity cache can still restore the same rig when viewing a pre-dismissal replay.
+    for (const [id, mesh] of this.playerMeshes) {
+      if (activeIds.has(id)) {
+        if (mesh.parent !== this.scene) this.scene.add(mesh);
+      } else this.scene.remove(mesh);
+      for (const markers of [this.targetMarkers, this.anchorMarkers, this.idealMarkers]) {
+        const marker = markers.get(id);
+        if (!marker) continue;
+        if (activeIds.has(id)) {
+          if (marker.parent !== this.scene) this.scene.add(marker);
+        } else this.scene.remove(marker);
+      }
+    }
     for (const player of frame.players) {
       if (!this.playerModels.has(player.id)) {
         this.createPlayer(player);
@@ -506,6 +539,80 @@ export class TacticalPitchRenderer {
       this.selectionMarker.position.set(point.x, 0.09, point.z);
     }
     this.renderer.render(this.scene, this.camera);
+    this.renderActionFeedback(frame);
+  }
+
+  /** Canvas and labels share the current camera; timing belongs to the recorded frame. */
+  private renderActionFeedback(frame: TacticalFrame) {
+    this.camera.updateMatrixWorld();
+    const visible = new Set<string>();
+    const occupied: { x: number; y: number; halfWidth: number }[] = [];
+    for (const event of selectActionFeedback(frame.actionEvents ?? [], frame.timestampMs)) {
+      const anchor = tacticalToWorld(actionFeedbackAnchor(event, frame), 2.35);
+      const projected = this.feedbackProjection
+        .set(anchor.x, anchor.y, anchor.z)
+        .project(this.camera);
+      if (
+        projected.z < -1 ||
+        projected.z > 1 ||
+        Math.abs(projected.x) > 1 ||
+        Math.abs(projected.y) > 1
+      )
+        continue;
+      const text = actionFeedbackText(event);
+      const halfWidth = text.length * 4 + 12;
+      const x = Math.max(
+        halfWidth + 4,
+        Math.min(
+          this.host.clientWidth - halfWidth - 4,
+          ((projected.x + 1) * this.host.clientWidth) / 2,
+        ),
+      );
+      const y = Math.max(
+        26,
+        Math.min(this.host.clientHeight - 4, ((1 - projected.y) * this.host.clientHeight) / 2),
+      );
+      if (
+        occupied.some(
+          (label) =>
+            Math.abs(label.x - x) < label.halfWidth + halfWidth + 4 && Math.abs(label.y - y) < 23,
+        )
+      )
+        continue;
+      occupied.push({ x, y, halfWidth });
+      visible.add(event.id);
+      let label = this.feedbackLabels.get(event.id);
+      if (!label) {
+        label = document.createElement('span');
+        label.dataset.actionEventId = event.id;
+        label.dataset.actionKind = event.kind;
+        label.textContent = text;
+        Object.assign(label.style, {
+          position: 'absolute',
+          color: '#ffffff',
+          background: 'rgba(24, 30, 29, 0.88)',
+          border: '1px solid rgba(255, 255, 255, 0.64)',
+          borderLeft: `3px solid ${this.kits[event.team].primary}`,
+          borderRadius: '2px',
+          padding: '3px 6px',
+          whiteSpace: 'nowrap',
+          font: '700 10px/1.15 Arial, sans-serif',
+          letterSpacing: '0.02em',
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.55)',
+        });
+        this.feedbackLabels.set(event.id, label);
+        this.feedbackLayer.append(label);
+      }
+      label.style.left = `${Math.round(x)}px`;
+      label.style.top = `${Math.round(y)}px`;
+      label.style.transform = 'translate(-50%, -100%)';
+      label.style.opacity = String(actionFeedbackOpacity(event, frame.timestampMs));
+    }
+    for (const [id, label] of this.feedbackLabels)
+      if (!visible.has(id)) {
+        label.remove();
+        this.feedbackLabels.delete(id);
+      }
   }
 
   getCanvas() {
@@ -569,7 +676,12 @@ export class TacticalPitchRenderer {
         return { kind: 'ball', point: worldToTactical(this.ball.position) };
     }
     const actionable = new Set(actionablePlayerIds);
-    const playerHits = this.raycaster.intersectObjects([...this.playerPickers.values()]);
+    const activeIds = new Set(this.lastValidFrame?.players.map((player) => player.id));
+    const playerHits = this.raycaster.intersectObjects(
+      [...this.playerPickers.entries()]
+        .filter(([id]) => activeIds.has(id))
+        .map(([, picker]) => picker),
+    );
     const playerHit =
       playerHits.find((hit) => {
         let object: THREE.Object3D | null = hit.object;
@@ -583,16 +695,18 @@ export class TacticalPitchRenderer {
         return { kind: 'player', playerId: String(object.userData.playerId) };
     }
     const fallback = selectScreenSpacePlayerCandidate(
-      [...this.playerMeshes.entries()].map(([playerId, mesh]) => {
-        const projected = mesh.position.clone().project(this.camera);
-        return {
-          playerId,
-          x: rect.left + ((projected.x + 1) / 2) * rect.width,
-          y: rect.top + ((1 - projected.y) / 2) * rect.height,
-          depth: projected.z,
-          actionable: actionable.has(playerId),
-        };
-      }),
+      [...this.playerMeshes.entries()]
+        .filter(([id]) => activeIds.has(id))
+        .map(([playerId, mesh]) => {
+          const projected = mesh.position.clone().project(this.camera);
+          return {
+            playerId,
+            x: rect.left + ((projected.x + 1) / 2) * rect.width,
+            y: rect.top + ((1 - projected.y) / 2) * rect.height,
+            depth: projected.z,
+            actionable: actionable.has(playerId),
+          };
+        }),
       { x: clientX, y: clientY },
       22,
     );
@@ -637,7 +751,10 @@ export class TacticalPitchRenderer {
 
   /** Repaints stored presentation state without advancing simulation or changing the camera. */
   redraw() {
-    if (this.viewportReady) this.renderer.render(this.scene, this.camera);
+    if (this.viewportReady) {
+      this.renderer.render(this.scene, this.camera);
+      if (this.lastValidFrame) this.renderActionFeedback(this.lastValidFrame);
+    }
   }
 
   /** Shared presentation-only framing for tactical play, aiming and stored replay frames. */
@@ -806,6 +923,8 @@ export class TacticalPitchRenderer {
       this.render(this.lastValidFrame, this.lastDebugMode);
   }
   dispose() {
+    this.feedbackLayer.remove();
+    this.feedbackLabels.clear();
     cancelAnimationFrame(this.zoomAnimation);
     this.renderer.domElement.removeEventListener('wheel', this.onWheel);
     this.renderer.domElement.removeEventListener('pointerdown', this.onCameraDown);
@@ -817,7 +936,7 @@ export class TacticalPitchRenderer {
     this.observer.disconnect();
     const geometries = new Set<THREE.BufferGeometry>();
     const materialsToDispose = new Set<THREE.Material>();
-    this.scene.traverse((object) => {
+    const collectResources = (object: THREE.Object3D) => {
       if (
         object instanceof THREE.Mesh ||
         object instanceof THREE.Line ||
@@ -828,7 +947,12 @@ export class TacticalPitchRenderer {
         const materials = Array.isArray(object.material) ? object.material : [object.material];
         materials.forEach((material) => materialsToDispose.add(material));
       }
-    });
+    };
+    this.scene.traverse(collectResources);
+    // Detached dismissed rigs remain available to replay and need the same final disposal.
+    for (const mesh of this.playerMeshes.values()) mesh.traverse(collectResources);
+    for (const markers of [this.targetMarkers, this.anchorMarkers, this.idealMarkers])
+      for (const marker of markers.values()) marker.traverse(collectResources);
     geometries.forEach((geometry) => geometry.dispose());
     materialsToDispose.forEach((material) => {
       if ('map' in material && material.map instanceof THREE.Texture) material.map.dispose();

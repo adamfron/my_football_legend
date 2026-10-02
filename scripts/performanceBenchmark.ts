@@ -2,6 +2,8 @@ import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import type { SingleMatchSession } from '../src/core/singleMatch';
 import type { TacticalMatchState } from '../src/core/matchSimulation/matchState';
+import { defensiveTelemetrySchema } from '../src/core/matchSimulation/defensiveChallenges';
+import { disciplineSchema } from '../src/core/matchSimulation/matchRules';
 import {
   createTacticalMatch,
   FIXED_MATCH_DT,
@@ -100,6 +102,8 @@ export const performanceBenchmarkResultSchema = z.object({
   score: z.object({ home: z.number().int(), away: z.number().int() }),
   status: z.string(),
   humanDecisionInputs: z.number().int().nonnegative(),
+  defensiveTelemetry: defensiveTelemetrySchema.optional(),
+  discipline: disciplineSchema.optional(),
   planning: z.object({
     evaluatedTicks: z.number().int().nonnegative(),
     plansRecomputed: z.number().int().nonnegative(),
@@ -161,6 +165,9 @@ const collectionSnapshot = (
     debugFrames: recorder?.historyFrames.length ?? 0,
     restartTargets: Object.keys(state.restart?.targets ?? {}).length,
     planningSchedules: state.planningSchedule ? 1 : 0,
+    canonicalActionEvents: state.actionEvents?.length ?? 0,
+    pendingCards: state.pendingCards?.length ?? 0,
+    defensivePlayerCounters: Object.keys(state.defensiveTelemetry?.byPlayer ?? {}).length,
   };
   for (const [key, value] of Object.entries(state.statistics ?? {}))
     if (Array.isArray(value)) sizes[`statistics.${key}`] = value.length;
@@ -378,6 +385,8 @@ export const runPerformanceBenchmark = (
     score: state.score,
     status: state.status ?? 'first_half',
     humanDecisionInputs,
+    defensiveTelemetry: state.defensiveTelemetry,
+    discipline: state.discipline,
     planning: {
       evaluatedTicks: ticks,
       plansRecomputed,

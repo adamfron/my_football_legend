@@ -1,4 +1,23 @@
 import { z } from 'zod';
+import {
+  defensiveTechniqueSchema,
+  defensiveChallengeSchema,
+  challengeDiagnosticSchema,
+  defensiveTelemetrySchema,
+  type DefensiveChallenge,
+  type ChallengeDiagnostic,
+} from './defensiveChallenges';
+import {
+  foulFactSchema,
+  cardFactSchema,
+  disciplineSchema,
+  pendingAdvantageSchema,
+  advantageFactSchema,
+  type FoulFact,
+  type CardFact,
+  type AdvantageFact,
+} from './matchRules';
+import { canonicalActionEventSchema, type CanonicalActionEvent } from './actionEvents';
 import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
 import {
@@ -48,6 +67,12 @@ export const tacticalStyleSchema = z.enum([
 ]);
 export type TacticalStyle = z.infer<typeof tacticalStyleSchema>;
 export const matchActionSchema = z.discriminatedUnion('type', [
+  z.object({
+    type: z.literal('challenge'),
+    actorId: z.string(),
+    opponentId: z.string(),
+    technique: defensiveTechniqueSchema,
+  }),
   z.object({ type: z.literal('hold'), actorId: z.string() }),
   z.object({ type: z.literal('carry'), actorId: z.string(), target: pitchPointSchema }),
   z.object({
@@ -371,7 +396,7 @@ export interface MatchBallState extends PitchPoint {
     | 'shot'
     | 'header'
     | 'throw_in';
-  sourceAction?: MatchAction['type'];
+  sourceAction?: Exclude<MatchAction['type'], 'challenge'>;
   /** Canonical SI-like three-dimensional velocity. */
   velocity?: { x: number; y: number; z?: number };
   bounceCount?: number;
@@ -475,6 +500,19 @@ export interface TacticalMatchState {
   currentActionSource?: ActionSource;
   latestActionSource?: ActionSource;
   actionCooldown: number;
+  defensiveChallenge?: DefensiveChallenge;
+  lastChallenge?: ChallengeDiagnostic;
+  defensiveTelemetry?: z.infer<typeof defensiveTelemetrySchema>;
+  lastFoul?: FoulFact;
+  lastPenaltyAwardId?: string;
+  lastCard?: CardFact;
+  recentCards?: CardFact[];
+  discipline?: z.infer<typeof disciplineSchema>;
+  pendingAdvantage?: z.infer<typeof pendingAdvantageSchema>;
+  pendingCards?: FoulFact[];
+  lastAdvantage?: AdvantageFact;
+  actionEvents?: CanonicalActionEvent[];
+  actionEventSequence?: number;
   controlledFootballerId?: string;
   playerMovementIntent?: PlayerMovementIntent;
   pendingReceptionIntent?: PendingReceptionIntent;
@@ -655,6 +693,19 @@ export const tacticalMatchStateSchema = z
     recentDuel: recentDuelSchema.optional(),
     ballEpisode: z.number().int().nonnegative().optional(),
     actionCooldown: z.number().nonnegative(),
+    defensiveChallenge: defensiveChallengeSchema.optional(),
+    lastChallenge: challengeDiagnosticSchema.optional(),
+    defensiveTelemetry: defensiveTelemetrySchema.optional(),
+    lastFoul: foulFactSchema.optional(),
+    lastPenaltyAwardId: z.string().optional(),
+    lastCard: cardFactSchema.optional(),
+    recentCards: z.array(cardFactSchema).max(22).optional(),
+    discipline: disciplineSchema.optional(),
+    pendingAdvantage: pendingAdvantageSchema.optional(),
+    pendingCards: z.array(foulFactSchema).max(22).optional(),
+    lastAdvantage: advantageFactSchema.optional(),
+    actionEvents: z.array(canonicalActionEventSchema).max(96).optional(),
+    actionEventSequence: z.number().int().nonnegative().optional(),
     controlledFootballerId: z.string().optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
@@ -664,7 +715,7 @@ export const tacticalMatchStateSchema = z
     postActionAgencyCheckpoint: z
       .object({
         actorId: z.string(),
-        completedAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']),
+        completedAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header', 'challenge']),
         at: z.number().nonnegative(),
       })
       .optional(),

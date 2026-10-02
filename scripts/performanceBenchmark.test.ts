@@ -34,6 +34,7 @@ const session = createSingleMatchSession(world, {
 });
 
 describe('PR146 deterministic performance harness', () => {
+  // Four complete simulations, including capture/export, can exceed 5 s on shared CI.
   it('compares complete canonical, statistics, player and event hashes across A-D', () => {
     const modes: PerformanceObserverMode[] = ['release_minimal', 'normal', 'dev', 'capture'];
     const results = modes.map(
@@ -54,6 +55,13 @@ describe('PR146 deterministic performance harness', () => {
       expect(result.planning.plansRecomputed + result.planning.plansReused).toBe(result.ticks);
       expect(result.planning.plansReused).toBeGreaterThan(result.planning.plansRecomputed);
       expect(result.context.samplesRetained).toBeLessThanOrEqual(62);
+      expect(result.defensiveTelemetry).toEqual(results[0]!.defensiveTelemetry);
+      expect(result.discipline).toEqual(results[0]!.discipline);
+      for (const bucket of result.buckets) {
+        expect(bucket.collections.canonicalActionEvents).toBeLessThanOrEqual(96);
+        expect(bucket.collections.pendingCards).toBeLessThanOrEqual(22);
+        expect(bucket.collections.defensivePlayerCounters).toBeLessThanOrEqual(22);
+      }
     }
     expect(results[0]!.context.samplesWritten).toBe(0);
     expect(results[1]!.context.samplesWritten).toBeGreaterThan(0);
@@ -66,7 +74,7 @@ describe('PR146 deterministic performance harness', () => {
         { ...results[1]!, hashes: { ...results[1]!.hashes, statistics: 'changed' } },
       ]),
     ).toThrow('changed canonical football');
-  });
+  }, 30_000);
 
   it('preserves outcomes across different batch boundaries and profiler sampling', () => {
     const first = runPerformanceBenchmark(session, {

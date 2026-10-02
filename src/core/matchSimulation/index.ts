@@ -49,3 +49,6 @@ export * from './playerAgency';
 export * from './agencyCalibration';
 export * from './presentationWindows';
 export * from './throwIn';
+export * from './actionEvents';
+export * from './defensiveChallenges';
+export * from './matchRules';

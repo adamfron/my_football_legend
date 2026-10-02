@@ -1,4 +1,6 @@
 import { projectPlayerDecisionProbe } from './playerDecision';
+import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
+import { emitCanonicalActionEvents } from './actionEvents';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   clampPitchPoint,
@@ -176,7 +178,11 @@ export const enumerateAvailableActions = (
   if (!actor) return [];
   if (state.restart?.phase === 'setup')
     return state.restart.takerId === actorId ? enumerateRestartActions(state) : [];
-  if (state.ball.ownerId !== actorId) return enumerateCanonicalShootingOptions(state, actorId);
+  if (state.ball.ownerId !== actorId)
+    return [
+      ...enumerateCanonicalShootingOptions(state, actorId),
+      ...enumerateDefensiveChallengeActions(state, actorId),
+    ];
   const dir = actor.team === 'home' ? 1 : -1;
   const carryTargets = [
     { x: actor.position.x + dir * 6, y: actor.position.y },
@@ -272,7 +278,21 @@ export const scoreActionForAI = (
   actorId: string,
   action: MatchAction,
 ) => {
-  const actor = state.players.find((p) => p.id === actorId)!;
+  const actor = state.players.find((p) => p.id === actorId);
+  if (!actor) return -Infinity;
+  if (action.type === 'challenge') {
+    const attributes = actor.profile.attributes;
+    const opponent = state.players.find((player) => player.id === action.opponentId);
+    if (!opponent) return -Infinity;
+    const danger = 100 - fieldValue(opponent.position, actor.team);
+    const disciplineRisk = (state.discipline?.[actorId]?.yellowCards ?? 0) * 25;
+    if (action.technique === 'standing') return 35 + attributes.tackling * 0.15;
+    if (action.technique === 'committed')
+      return 22 + danger * 0.16 + attributes.aggression * 0.13 - disciplineRisk;
+    if (action.technique === 'slide')
+      return 14 + danger * 0.2 + attributes.tackling * 0.1 - disciplineRisk;
+    return 8 + danger * 0.3 + attributes.aggression * 0.12 - disciplineRisk * 1.4;
+  }
   const style = state.teams[actor.team].style;
   const underPressure = pressure(state, actor);
   const preparationMargin = preparationMarginForAction(state, actor, action);
@@ -471,11 +491,50 @@ export const chooseIncomingShotAction = (
   )?.action;
 };
 
+/** Stale choices cannot install a decision for an actor/target outside the active roster.
+ * A setup throw retains its existing deterministic legal-receiver fallback. */
+export const hasActiveMatchActionParticipants = (
+  state: TacticalMatchState,
+  action: MatchAction,
+) => {
+  const actor = state.players.find((player) => player.id === action.actorId);
+  if (!actor) return false;
+  if (action.type === 'pass')
+    return (
+      (state.scenario === 'throw_in' &&
+        state.restart?.phase === 'setup' &&
+        state.restart.takerId === actor.id) ||
+      state.players.some((player) => player.id === action.receiverId && player.team === actor.team)
+    );
+  if (action.type === 'challenge')
+    return state.players.some(
+      (player) => player.id === action.opponentId && player.team !== actor.team,
+    );
+  if (action.type === 'cross' || action.type === 'header')
+    return (
+      !action.intendedTargetId ||
+      state.players.some((player) => player.id === action.intendedTargetId)
+    );
+  return true;
+};
+
 export const resolveMatchAction = (
   state: TacticalMatchState,
   action: MatchAction,
   source: ActionSource = 'autonomous_npc',
+): TacticalMatchState =>
+  emitCanonicalActionEvents(state, resolveMatchActionCanonical(state, action, source));
+
+const resolveMatchActionCanonical = (
+  state: TacticalMatchState,
+  action: MatchAction,
+  source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
+  // A cached UI/NPC choice must not resurrect a dismissed or otherwise unavailable actor.
+  if (!hasActiveMatchActionParticipants(state, action)) return state;
+  const actor = state.players.find((player) => player.id === action.actorId);
+  if (!actor) return state;
+  if (action.type === 'challenge') return beginDefensiveChallenge(state, action, source);
   if (!canContactAfterThrowIn(state, action.actorId)) return state;
   const requestedThrow =
     state.restart?.phase === 'setup' && state.scenario === 'throw_in' && action.type === 'pass'
@@ -548,7 +607,6 @@ export const resolveMatchAction = (
     projectPlayerDecisionProbe(state).blockedReason !== 'single_option_autonomy'
   )
     return state;
-  const actor = state.players.find((p) => p.id === action.actorId)!;
   const restart =
     state.restart?.phase === 'setup' && action.type !== 'hold'
       ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
