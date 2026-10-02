@@ -523,7 +523,9 @@ describe('PR145 throw target and contact integrity', () => {
       received = stepTacticalMatch(received, FIXED_MATCH_DT);
     expect(received.ball.ownerId).toBe(receiver.id);
     expect(received.latestAction).toEqual({ type: 'hold', actorId: receiver.id });
-    expect(received.restart?.phase).toBe('release');
+    expect(received.lastThrowInDiagnostic?.nextContactPlayerId).toBe(receiver.id);
+    expect(received.scenario).toBe('open_play');
+    expect(received.restart).toBeUndefined();
     expect(hasActiveHumanPossession(received)).toBe(true);
     expect(projectPlayerDecisionOpportunity(received)?.kind).toBe('on_ball');
     const carry = resolveMatchAction(

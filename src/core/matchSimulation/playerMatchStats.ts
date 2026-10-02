@@ -228,6 +228,11 @@ export const observePlayerMatchStats = (
           keeperStats.parries++;
       }
     }
+    const challenge = next.lastChallenge;
+    if (challenge && challenge.id !== previous.lastChallenge?.id) {
+      const challenger = stats(challenge.actorId);
+      if (challenger) challenger.tacklesAttempted++;
+    }
     const change = next.lastPossessionChange;
     const eventId = change ? `${change.at}:${change.from}:${change.to}:${change.cause}` : undefined;
     if (change && eventId && !containsIdentity(result.observedPossessionEvents, eventId)) {
@@ -237,7 +242,8 @@ export const observePlayerMatchStats = (
         winner.possessionWon++;
         if (change.cause === 'interception') winner.interceptions++;
         if (change.cause === 'tackle') {
-          winner.tacklesAttempted++;
+          // Old snapshots without attempt evidence remain readable; new matches count misses too.
+          if (!challenge) winner.tacklesAttempted++;
           winner.tacklesWon++;
         }
       }

@@ -1,5 +1,63 @@
 # My Football Legend — Current Project State
 
+## PR147 — verified rules, discipline and canonical feedback
+
+Wdrożono wspólne fizyczne intencje standing/committed/slide/tactical, faule, żółtą/drugą żółtą/
+czerwoną, korzyść z powrotem i opóźnioną kartką oraz istniejące wolne/karne z dowodu kontaktu.
+`src/core/matchSimulation` pozostaje jedynym autorytetem; krok 0,025 s, istniejące atrybuty,
+seeded RNG i rozdział prezentacji/sprawczości zachowano. Rutynowa obrona jest autonomiczna,
+wysokie ryzyko człowieka wymaga jawnego wyboru lub jawnej delegacji DEV.
+
+Wykluczenie usuwa aktywnego piłkarza przy wydaniu kanonicznej kartki, zachowując statystyki/
+dyscyplinę. Zespół kontynuuje w dziesięciu bez automatycznego zmiennika. Guard odrzuca stare
+akcje/cele/prompty dotyczące wykluczonego; renderer/picker odzwierciedla kadrę klatki.
+`discipline.sentOffAt`/`TacticalFrame.dismissals` zachowują granicę niezależnie od etykiety:
+historia sprzed kartki może pokazać aktora, późniejsza nie może go przywrócić. Minimalny fallback
+bramkarza wybiera istniejącego kolegę według `reflexes`, zmieniając wyłącznie profil meczu.
+Poprawiono konwencję orientacji, rzeczywisty czas końca zaakceptowanego kontaktu i zakończenie
+lifecycle autu po pierwszym fizycznym kontakcie innego piłkarza, bez strojenia częstości.
+
+Strumień dowodów ma 16 rodzajów, 12 s / maks. 96 zdarzeń. Maks. trzy deduplikowane,
+priorytetowe mikroetykiety używają czasu klatki live/lead-in/replay, bez RNG. Podanie → ciężkie
+przyjęcie → przechwyt może zostać pokazane bez promptu. Kontekst zachowuje 10 Hz / 6 s / <=62.
+Telemetria zapisuje próby/wyniki, dyscyplinarne podtypy, karne i zastosowanie/cofnięcie korzyści.
+
+Finalne `VITEST_MAX_WORKERS=2 npm run verify`: **exit 0**, lint, **120 plików / 777 testów**,
+**1 plik / 5 pełnej kariery**, TypeScript/Vite build **279 modułów** — **782 testy łącznie**.
+Wzrost głównego zestawu względem PR146: 57 testów. Nie osłabiono asercji; korekty historycznych
+oczekiwań/hashów oparto na śladach zamierzonej zmiany reguł i liveness pierwotnego wznowienia.
+Test rzeczywistego UI sprawdza brak render/capture w tle. Browser smoke: pauza 04:39, brak
+błędów konsoli; nie jest to pełny mecz ani wizualny dowód wykluczenia.
+
+Trzy naprzemienne normal10 BEFORE/AFTER: mediana **16,300 → 13,302 s**, średnia
+**16,111 → 13,924 s**; 24 000 ticków, jawne wejścia **3 → 8**, wynik **0–2 → 0–1**.
+W każdej wersji wszystkie hashe trzech powtórzeń są identyczne; finalne minimum/normal/DEV10
+mają te same hashe stanu/zawodników/statystyk/zdarzeń/RNG i osiem wejść. Nie stwierdzono
+spowolnienia tej próbki. Zmienił się jednak futbol i liczba aktywnych piłkarzy, więc niższy czas
+nie dowodzi optymalizacji ani pełnego 90-minutowego budżetu przeglądarki.
+
+**Dyscyplina nie jest jeszcze realistycznie skalibrowana:** próbka 10 min ma **47 prób,
+17 fauli, 13 żółtych i 5 wykluczeń po drugiej żółtej**; kończy z 9 aktywnymi gospodarzami
+i 8 gośćmi, zachowując 22 rekordy statystyk. Nie zamaskowano tych wyników tuningiem PR147.
+PR148 musi zbadać rozkłady pełnych meczów po ustabilizowaniu lejka kontaktu/pojedynku.
+Szczegóły i surowe dane:
+[RULES_DISCIPLINE_MATCH_FEEDBACK.md](RULES_DISCIPLINE_MATCH_FEEDBACK.md).
+
+Roadmapa zachowuje kolejność **PR147 → PR148 — Possession Rhythm, Roles & Duel Calibration →
+PR149 — Animation, Replay & Match Presentation v2**. Późniejsze fitness/obciążenie/regeneracja,
+pogoda/murawa/piłka, kariera/oceny meczowe, trwały rynek i świat NPC, młodzież, modularna narracja,
+wyróżnienia, lekka ekonomia stylu życia/inwestycji, bogatszy kreator i parametryczne twarze są
+wyraźnie poza PR147. Klubowy stadion docelowo ma stabilny seed/profil; pogoda, tłum, banery,
+światło i zużycie murawy mogą zmieniać się osobno, a arenę zmienią jawne wydarzenia świata.
+MFL nie ma planu minigry budowy stadionu.
+PR148 zachowuje dotychczasowy zakres rytmu, kontaktów/podań/przechwytów, geometrii podań
+na dobieg, overlap/underlap/cutback, ról, pojedynków i różnic jakości. Dodano jawne
+**Discipline realism calibration** po ustabilizowaniu zmierzonego lejka pojedynku/kontaktu,
+oparte na wiarygodnych rozkładach rzeczywistego futbolu i dużych deterministycznych próbach,
+bez wymuszania średniej w każdym meczu. PR147 mierzy konteksty/próby i wyniki, nie tuninguje
+globalnej częstości fauli/kartek/karnych. Obecne „opportunities” oznacza przyjęte fizyczne próby,
+nie wszystkie podejścia; pełny lejek podejście → dostępność → próba → kontakt → wynik to PR148.
+
 ## PR146 — verified Single Match Lab state
 
 Ukończono **Background Simulation Performance** na zweryfikowanym main po PR145
@@ -37,9 +95,10 @@ Agency/ETA, capture i event-frequency copy są precyzyjnie opisanymi dalszymi ho
 Środowisko, pełna macierz, buckety i ograniczenia:
 [BACKGROUND_SIMULATION_PERFORMANCE.md](BACKGROUND_SIMULATION_PERFORMANCE.md).
 
-NEXT: **PR147 — Rules, Discipline & Match Feedback**. Zaplanowano **PR148 — Possession Rhythm,
-Roles & Attacking Patterns** oraz **PR149 — Match Presentation & Animation v2**. Bez implementacji
-fauli/kartek, rytmu, redesignu ról, nowych technik, stamina/fatigue, zmian, pogody czy stadionów.
+Plan po PR146 (historyczny): **PR147 — Rules, Discipline & Match Feedback**, następnie
+**PR148 — Possession Rhythm, Roles & Duel Calibration** oraz
+**PR149 — Animation, Replay & Match Presentation v2**. PR146 nie implementowało fauli/kartek,
+rytmu, redesignu ról, nowych technik, stamina/fatigue, zmian, pogody czy stadionów.
 
 ## PR145 — previous verified Single Match Lab state
 

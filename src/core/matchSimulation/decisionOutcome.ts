@@ -10,42 +10,58 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
   const pending = state.pendingPlayerDecision;
   if (!pending || pending.result) return state;
   const actor = state.players.find((player) => player.id === pending.actorId);
-  if (!actor) return state;
+  const challenge = state.lastChallenge;
+  if (!actor && !challenge) return state;
+  const actorTeam = actor?.team ?? state.discipline?.[pending.actorId]?.team;
   const owner = state.players.find((player) => player.id === state.ball.ownerId);
   const elapsed = state.time - pending.selectedAt;
   const intent = pending.selectedIntent;
   let result: NonNullable<PlayerDecisionOutcome['result']> | undefined;
   if (
+    intent.startsWith('challenge:') &&
+    challenge?.actorId === pending.actorId &&
+    challenge.at >= pending.selectedAt
+  ) {
+    const won = challenge.outcome === 'clean_win';
+    result = {
+      kind: 'defensive_action_resolved',
+      duelWon: won,
+      duelLost: !won,
+      teamRetainedPossession: owner?.team === actorTeam,
+    };
+  } else if (intent.startsWith('challenge:')) return state;
+  else if (
     (intent.startsWith('shot:') || intent === 'header:header_shot') &&
     state.lastShot &&
-    state.lastShot.shooterId === actor.id &&
+    state.lastShot.shooterId === pending.actorId &&
     (state.lastShot.releasedAt ?? -1) >= pending.selectedAt &&
     !state.ball.shot
   )
     result = { kind: 'shot_resolved', shotOutcome: state.lastShot.outcome };
   else if (intent.startsWith('pass:') && !state.ball.travelKind && elapsed > 0.2) {
-    const completed = owner?.team === actor.team && owner.id !== actor.id;
+    const completed = Boolean(owner && owner.team === actorTeam && owner.id !== pending.actorId);
     result = {
       kind: completed ? 'pass_completed' : 'pass_failed',
       passCompleted: completed,
-      teamRetainedPossession: owner?.team === actor.team,
-      turnover: Boolean(owner && owner.team !== actor.team),
+      teamRetainedPossession: owner?.team === actorTeam,
+      turnover: Boolean(owner && owner.team !== actorTeam),
     };
   } else if (intent === 'carry' && elapsed > 0.35 && !state.ballCarrierIntent) {
-    const retained = state.ball.ownerId === actor.id;
+    const retained = state.ball.ownerId === pending.actorId;
     result = {
       kind: retained ? 'carry_completed' : 'carry_lost',
       retainedPossession: retained,
-      teamRetainedPossession: owner?.team === actor.team,
-      turnover: Boolean(owner && owner.team !== actor.team),
-      progressDelta:
-        fieldValue(actor.position, actor.team) / 100 - pending.startContext.fieldProgress,
+      teamRetainedPossession: owner?.team === actorTeam,
+      turnover: Boolean(owner && owner.team !== actorTeam),
+      progressDelta: actor
+        ? fieldValue(actor.position, actor.team) / 100 - pending.startContext.fieldProgress
+        : 0,
     };
   } else if (
     (pending.decisionKind === 'defensive_response' || pending.decisionKind === 'loose_ball') &&
     (owner || elapsed >= 2.3)
   ) {
-    const won = owner?.team === actor.team;
+    const won = owner?.team === actorTeam;
     result = {
       kind:
         pending.decisionKind === 'loose_ball' ? 'loose_ball_resolved' : 'defensive_action_resolved',
@@ -56,9 +72,10 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
   } else if (pending.decisionKind === 'off_ball_run' && elapsed >= 2.2) {
     result = {
       kind: 'movement_completed',
-      teamRetainedPossession: owner?.team === actor.team,
-      progressDelta:
-        fieldValue(actor.position, actor.team) / 100 - pending.startContext.fieldProgress,
+      teamRetainedPossession: owner?.team === actorTeam,
+      progressDelta: actor
+        ? fieldValue(actor.position, actor.team) / 100 - pending.startContext.fieldProgress
+        : 0,
     };
   }
   if (!result) return state;

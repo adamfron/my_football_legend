@@ -17,7 +17,9 @@ vi.mock('three', async (importOriginal) => {
 });
 
 import { TacticalPitchRenderer } from './TacticalPitchRenderer';
+import * as THREE from 'three';
 import type { TacticalFrame } from './model';
+import type { CanonicalActionEvent } from '../../../core/matchSimulation/actionEvents';
 
 let resizeCallback: () => void;
 class TestResizeObserver {
@@ -140,5 +142,88 @@ describe('TacticalPitchRenderer viewport lifecycle', () => {
       ({ left: 0, top: 0, width: 800, height: 500 }) as DOMRect;
     expect(renderer.pick(413, 250)).toEqual({ kind: 'ball', point: { x: 30, y: 30 } });
     renderer.dispose();
+  });
+
+  it('renders canonical feedback through the real pitch path and expires it at frame time', () => {
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 800 },
+      clientHeight: { get: () => 500 },
+    });
+    const event: CanonicalActionEvent = {
+      id: 'canonical-heavy',
+      sequence: 1,
+      at: 1,
+      actorId: 'absent-player',
+      team: 'home',
+      kind: 'heavy_touch',
+      position: { x: 52.5, y: 34 },
+      outcome: 'heavy_touch',
+      cause: 'physical_first_touch',
+    };
+    const input = { ...frame, timestampMs: 1000, actionEvents: [event] };
+    const renderer = new TacticalPitchRenderer(host, input);
+    const label = host.querySelector<HTMLElement>('[data-action-event-id="canonical-heavy"]')!;
+    expect(label.textContent).toBe('CIĘŻKIE PRZYJĘCIE');
+    expect(label.style.left).toMatch(/px$/);
+    expect(label.style.top).toMatch(/px$/);
+    const initialX = label.style.left;
+    renderer.setCameraPreferences({ preset: 'action', zoom: 0.35 });
+    expect(label.style.left).not.toBe(initialX);
+    expect(input.actionEvents[0]).toBe(event);
+    renderer.render({ ...input, timestampMs: 2100 });
+    expect(host.querySelector('[data-action-event-id]')).toBeNull();
+    renderer.dispose();
+    expect(host.querySelector('.canonical-action-feedback')).toBeNull();
+  });
+
+  it('removes a dismissed actor and picker, restores historical replay, and disposes the cache', () => {
+    const context = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 800 },
+      clientHeight: { get: () => 500 },
+    });
+    const before: TacticalFrame = {
+      ...frame,
+      timestampMs: 1000,
+      ball: { x: 20, y: 20 },
+      players: [{ id: 'dismissed', team: 'home', x: 52.5, y: 34, facing: Math.PI / 2 }],
+    };
+    const renderer = new TacticalPitchRenderer(host, before);
+    renderer.getCanvas().getBoundingClientRect = () =>
+      ({ left: 0, top: 0, width: 800, height: 500 }) as DOMRect;
+    const scene = render.mock.lastCall![0] as THREE.Scene;
+    const actor = scene.children.find((object) => object.userData.playerId === 'dismissed')!;
+    expect(actor).toBeDefined();
+    const camera = render.mock.lastCall![1] as THREE.Camera;
+    const projected = actor.position.clone().project(camera);
+    const x = (projected.x + 1) * 400,
+      y = (1 - projected.y) * 250;
+    expect(renderer.pick(x, y, undefined, ['dismissed'])).toEqual({
+      kind: 'player',
+      playerId: 'dismissed',
+    });
+    renderer.render({ ...before, timestampMs: 1025, players: [] });
+    expect(actor.parent).toBeNull();
+    expect(scene.children.some((object) => object.userData.playerId === 'dismissed')).toBe(false);
+    expect(renderer.pick(x, y, undefined, ['dismissed'])).not.toEqual({
+      kind: 'player',
+      playerId: 'dismissed',
+    });
+    renderer.render(before);
+    expect(actor.parent).toBe(scene);
+    expect(renderer.pick(x, y, undefined, ['dismissed'])).toEqual({
+      kind: 'player',
+      playerId: 'dismissed',
+    });
+    renderer.render({ ...before, timestampMs: 1025, players: [] });
+    const geometry = actor.children.find((object) => object instanceof THREE.Mesh) as THREE.Mesh;
+    const dispose = vi.spyOn(geometry.geometry, 'dispose');
+    renderer.dispose();
+    expect(dispose).toHaveBeenCalledTimes(1);
+    context.mockRestore();
   });
 });

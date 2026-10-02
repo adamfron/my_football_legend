@@ -17,7 +17,7 @@ import {
   type MatchPlayerState,
   type TacticalMatchState,
 } from './matchState';
-import { resolveMatchAction } from './matchActions';
+import { resolveMatchAction, hasActiveMatchActionParticipants } from './matchActions';
 import type { PlayerDecisionOpportunity } from './playerDecision';
 import {
   createPendingOutcome,
@@ -25,6 +25,7 @@ import {
   evaluateDefensiveCommitment,
 } from './playerDecision';
 import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
+import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { secondLastOpponentLine } from './offside';
 
 export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
@@ -204,42 +205,49 @@ export const projectContextualInteractions = (
           : [],
       );
     const metres = distance(actor.position, selected.position);
-    const choices = [
-      { type: 'contain' as const, labelKey: 'close_down', commitment: 'balanced' as const },
-      ...(metres <= PLAYER_AGENCY_CALIBRATION.challengeContactDistance &&
-      evaluateDefensiveCommitment(state, actor.id, selected.position, 'challenge').meaningful
-        ? [
-            {
-              type: 'challenge' as const,
-              labelKey: 'normal_challenge',
-              commitment: 'normal' as const,
-            },
-            {
-              type: 'challenge' as const,
-              labelKey: 'aggressive_challenge',
-              commitment: 'aggressive' as const,
-            },
-          ]
-        : []),
-    ];
-    return choices.map(({ type, labelKey, commitment }) =>
-      contextualInteractionSchema.parse({
-        id: `defensive:${labelKey}:${selected.id}`,
-        target,
-        labelKey,
-        resolution: {
-          kind: 'defensive',
-          intent: {
-            actorId: actor.id,
-            opponentId: selected.id,
-            type,
-            commitment,
-            startedAt: state.time,
-            expiresAt: state.time + (commitment === 'aggressive' ? 1.25 : 2.2),
-          },
+    const contain = contextualInteractionSchema.parse({
+      id: `defensive:close_down:${selected.id}`,
+      target,
+      labelKey: 'close_down',
+      resolution: {
+        kind: 'defensive',
+        intent: {
+          actorId: actor.id,
+          opponentId: selected.id,
+          type: 'contain',
+          commitment: 'balanced',
+          startedAt: state.time,
+          expiresAt: state.time + 2.2,
         },
-      }),
-    );
+      },
+    });
+    // Selecting an opponent reveals only techniques legal in this physical/tactical context.
+    // Harmless close-down remains the sole option when no meaningful commitment exists.
+    if (
+      metres > PLAYER_AGENCY_CALIBRATION.challengeContactDistance ||
+      !evaluateDefensiveCommitment(state, actor.id, selected.position, 'challenge').meaningful
+    )
+      return [contain];
+    return [
+      contain,
+      ...enumerateDefensiveChallengeActions(state, actor.id)
+        .filter((action) => action.opponentId === selected.id)
+        .map((action) =>
+          contextualInteractionSchema.parse({
+            id: `defensive:${action.technique}:${selected.id}`,
+            target,
+            labelKey:
+              action.technique === 'slide'
+                ? 'slide_tackle'
+                : action.technique === 'tactical'
+                  ? 'tactical_foul'
+                  : action.technique === 'committed'
+                    ? 'aggressive_challenge'
+                    : 'normal_challenge',
+            resolution: { kind: 'action', action },
+          }),
+        ),
+    ];
   }
   const point = target.point;
   if (
@@ -371,7 +379,14 @@ export const applyContextualInteraction = (
   opportunity: PlayerDecisionOpportunity,
   interaction: ContextualInteraction,
 ): TacticalMatchState => {
-  if (opportunity.actorId !== state.controlledFootballerId || opportunity.openedAt !== state.time)
+  if (
+    opportunity.actorId !== state.controlledFootballerId ||
+    opportunity.openedAt !== state.time ||
+    !state.players.some((player) => player.id === opportunity.actorId)
+  )
+    return state;
+  const resolution = interaction.resolution;
+  if (resolution.kind === 'action' && !hasActiveMatchActionParticipants(state, resolution.action))
     return state;
   const gated = {
     ...state,
@@ -381,7 +396,6 @@ export const applyContextualInteraction = (
       lastResolvedAt: state.time,
     },
   };
-  const resolution = interaction.resolution;
   if (opportunity.kind === 'incoming_ball' && resolution.kind === 'action')
     return {
       ...gated,

@@ -44,6 +44,7 @@ import {
   integrateFacing,
   movementModeSpeedFactor,
   normalizeAngle,
+  angleForVector,
 } from './playerOrientation';
 import { integrateBallFlight } from './ballPhysics';
 import {
@@ -60,6 +61,13 @@ import { hasActiveHumanPossession, reconcileHumanPossession } from './possession
 import { canExecuteCanonicalShot } from './shootingOptions';
 import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
+import {
+  beginDefensiveChallenge,
+  chooseNpcDefensiveChallengeAction,
+  resolveDefensiveChallenge,
+} from './defensiveChallenges';
+import { advanceMatchRules, applyChallengeInfringement } from './matchRules';
+import { emitCanonicalActionEvents } from './actionEvents';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -821,6 +829,10 @@ const stepTacticalMatchCore = (
       player = { ...player, target: state.playerMovementIntent.target };
       movementTarget = player.target;
     }
+    if (state.defensiveChallenge?.actorId === player.id) {
+      player = { ...player, target: state.defensiveChallenge.target };
+      movementTarget = player.target;
+    }
     if (
       state.receptionPreparation?.actorId === player.id &&
       state.time >= state.receptionPreparation.awarenessAt
@@ -1470,10 +1482,10 @@ const stepTacticalMatchCore = (
       const challengerFacingError = challenger
         ? Math.abs(
             normalizeAngle(
-              Math.atan2(
-                state.ball.y - challenger.position.y,
-                state.ball.x - challenger.position.x,
-              ) - challenger.facingAngle,
+              angleForVector({
+                x: state.ball.x - challenger.position.x,
+                y: state.ball.y - challenger.position.y,
+              }) - challenger.facingAngle,
             ),
           )
         : Math.PI;
@@ -1498,43 +1510,41 @@ const stepTacticalMatchCore = (
           state.recentDuel.participants.includes(owner.id) &&
           state.recentDuel.participants.includes(challenger.id),
       );
-      if (challenger && duelDistance < 1.65 && hasChallengeAccess && !sameDuel) {
-        const rng = RandomGenerator.fromSeed(
-          `${state.seed}:challenge:${state.decisionIndex}:${challenger.id}`,
-        );
-        const defence =
-          (challenger.profile.attributes.tackling +
-            challenger.profile.attributes.strength +
-            challenger.profile.attributes.positioning +
-            challenger.profile.attributes.aggression +
-            challenger.profile.attributes.gameReading) /
-          500;
-        const attack =
-          (owner.profile.attributes.dribbling +
-            owner.profile.attributes.technique +
-            owner.profile.attributes.agility +
-            owner.profile.attributes.strength +
-            owner.profile.attributes.composure) /
-          500;
-        const orientationAdvantage = (1 - challengerFacingError / Math.PI) * 0.08;
-        const shieldProtection = shielding ? 0.16 : 0;
-        const roll =
-          rng.float() + (defence - attack) * 0.35 + orientationAdvantage - shieldProtection;
-        if (roll > 0.58) {
-          state = changePossession(state, challenger.id, 'tackle');
-          state.recentDuel = {
-            participants: [owner.id, challenger.id].sort() as [string, string],
-            winnerId: challenger.id,
-            resolvedAt: state.time,
-            expiresAt: state.time + 0.8,
-            ballEpisode: state.ballEpisode ?? 0,
-          };
-        } else if (roll > 0.42)
-          state = makeLoose(state, { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 });
+      if (
+        !state.periodEndPending &&
+        !state.defensiveChallenge &&
+        challenger &&
+        !sameDuel &&
+        duelDistance < 3.2
+      ) {
+        const selected = chooseNpcDefensiveChallengeAction(state, challenger.id);
+        // Ordinary autonomous contacts retain the old narrow access envelope. Only NPCs can
+        // initiate a contextual high-risk approach; a controlled player needs explicit intent.
+        if (
+          selected &&
+          (selected.technique !== 'standing' || (duelDistance < 1.65 && hasChallengeAccess))
+        )
+          state = beginDefensiveChallenge(
+            state,
+            selected,
+            challenger.id === state.controlledFootballerId
+              ? 'autonomous_routine'
+              : 'autonomous_npc',
+          );
       }
     } else {
       state.currentPressure = 0;
       delete state.nearestChallengerId;
+    }
+    if (state.defensiveChallenge) {
+      const resolution = resolveDefensiveChallenge(state);
+      state = resolution.state;
+      if (resolution.diagnostic?.outcome === 'clean_win')
+        state = changePossession(state, resolution.diagnostic.actorId, 'tackle');
+      else if (resolution.diagnostic?.outcome === 'loose_ball')
+        state = makeLoose(state, resolution.looseVelocity);
+      else if (resolution.diagnostic?.outcome === 'foul')
+        state = applyChallengeInfringement(state, resolution.diagnostic);
     }
     if (
       !state.periodEndPending &&
@@ -1566,7 +1576,12 @@ const stepTacticalMatchCore = (
 };
 
 const hasImmediateResolution = (state: TacticalMatchState) =>
-  Boolean(state.ball.travelKind || state.goalCompletionUntil || state.ballCarrierIntent);
+  Boolean(
+    state.ball.travelKind ||
+      state.goalCompletionUntil ||
+      state.ballCarrierIntent ||
+      state.defensiveChallenge,
+  );
 
 const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchState => {
   const {
@@ -1577,6 +1592,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
     receptionPreparation: _preparation,
     ballCarrierIntent: _carry,
     playerMovementIntent: _movement,
+    defensiveChallenge: _challenge,
     pendingPlayerDecision: _decision,
     postActionAgencyCheckpoint: _checkpoint,
     humanPossessionEpisode: _humanPossession,
@@ -1592,6 +1608,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
     _preparation,
     _carry,
     _movement,
+    _challenge,
     _decision,
     _checkpoint,
     _humanPossession,
@@ -1630,7 +1647,12 @@ export const stepTacticalMatch = (
   if (next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
       ...clearTransientPeriodState(next),
-      time: threshold,
+      // Ordinary threshold-only play stops exactly on regulation time. An accepted physical
+      // commitment may finish just after it; never rewind its canonical contact/card evidence.
+      time:
+        input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
+          ? Math.max(threshold, next.time)
+          : threshold,
       status: status === 'first_half' ? 'half_time' : 'full_time',
       actionCooldown: 0,
       ball: {
@@ -1640,6 +1662,8 @@ export const stepTacticalMatch = (
       },
     };
   }
+  next = advanceMatchRules(input, next);
+  next = emitCanonicalActionEvents(input, next);
   next = {
     ...next,
     statistics: observePlayerMatchStats(
@@ -1670,7 +1694,10 @@ export const stepTacticalMatchAfterDecisionProbe = (
   if (next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
       ...clearTransientPeriodState(next),
-      time: threshold,
+      time:
+        input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
+          ? Math.max(threshold, next.time)
+          : threshold,
       status: status === 'first_half' ? 'half_time' : 'full_time',
       actionCooldown: 0,
       ball: {
@@ -1680,6 +1707,8 @@ export const stepTacticalMatchAfterDecisionProbe = (
       },
     };
   }
+  next = advanceMatchRules(input, next);
+  next = emitCanonicalActionEvents(input, next);
   return {
     ...next,
     status: next.status ?? status,

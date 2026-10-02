@@ -1,4 +1,4 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR146
+# Audyt silnika meczu — PR140 / aktualizacja PR147
 
 ## Wniosek
 
@@ -20,6 +20,9 @@ wolno dopisywać do niego nowych mechanik. Puste katalogi `src/core/decisions` i
 | Bramkarz                 | `goalkeeperPositioning.ts`, `goalkeeperIntervention.ts`                            | animacja kontaktu                     | legacy wynik momentu | kanoniczny                      | obserwować podania zwrotne                                                |
 | Przechwyty / luźna piłka | `passClaimResolver.ts`, `looseBallPhysics.ts`, `playerArrival.ts`                  | znacznik celu                         | brak                 | kanoniczny                      | dalej kalibrować wolumen                                                  |
 | Pojedynki                | `matchSimulation.ts`                                                               | menu zobowiązania                     | legacy momenty       | kanoniczny                      | wydzielić dopiero przy realnej potrzebie                                  |
+| Intencje/wykonanie odbioru | `defensiveChallenges.ts`, `matchActions.ts`                                      | kontekstowe menu celu                 | brak                 | kanoniczny, PR147               | jeden resolver człowieka/NPC; PR148 kalibruje lejek i pojedynki             |
+| Faule/kartki/korzyść     | `matchRules.ts`                                                                    | pokazuje kanoniczne fakty             | brak                 | kanoniczny, PR147               | restart z miejsca kontaktu; bez rollbacku albo decyzji z animacji          |
+| Strumień akcji          | `actionEvents.ts`                                                                  | `actionFeedback.ts`/ramki/renderer    | brak                 | dowody kanoniczne, ograniczone | 12 s / <=96 zdarzeń; nie duplikować statystyk                              |
 | Orientacja / lokomocja   | `playerOrientation.ts`, `locomotion.ts`                                            | renderer odczytuje facing             | brak                 | kanoniczny                      | bez fizyki w rendererze                                                   |
 | Pozycjonowanie           | `tacticalPositioning.ts`                                                           | debug overlay                         | brak                 | kanoniczny, 10 Hz               | semantyczna invalidacja                                                   |
 | Wznowienia               | `restartScenarios.ts`, `restartGeometry.ts`, `matchActions.ts`                     | wybór legalnej akcji                  | legacy moment        | kanoniczny                      | watchdog pozostaje safety netem                                           |
@@ -52,6 +55,23 @@ otrzymane podania odbiorcy oraz krawędź sieci. Telemetria korzysta z tych samy
 Dokładne definicje, świadome ograniczenia kategorii i stałe opisuje
 [MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
 Flaga kontrolowania nie jest wejściem rankingu adresatów; nie wprowadzono kwot pozycyjnych.
+
+## PR147 — przepisy i czytelność akcji
+
+`defensiveChallenges.ts` zapisuje fizyczny zamiar odbioru i wynik jednej próby: brak kontaktu,
+minięcie, czysty odbiór, luźną piłkę albo faul. Geometria i kanoniczne atrybuty ograniczają
+dostępność zwykłej/zaangażowanej próby, wślizgu i taktycznego zatrzymania; menu pozostaje
+target-first. Wysokie ryzyko kontrolowanego zawodnika wymaga jawnej intencji człowieka
+(albo jawnej delegacji DEV), rutyna pozostaje autonomiczna. NPC korzysta z tego samego resolvera.
+
+`matchRules.ts` klasyfikuje dowód kontaktu, przechowuje dyscyplinę i kolejkę opóźnionych kartek,
+prowadzi trzysekundowe okno korzyści oraz używa istniejących wznowień z kanonicznej lokalizacji.
+Wykluczony piłkarz znika z aktywnej kadry, zachowując tożsamość w dyscyplinie/statystykach.
+`actionEvents.ts` daje prezentacji ograniczone czasowo/ilościowo fakty, nie drugi stan futbolu.
+`actionFeedback.ts` wybiera maksymalnie trzy priorytetowe, deduplikowane etykiety według czasu
+wyświetlanej klatki; widok może wyjaśnić ciężkie przyjęcie → przechwyt bez wymyślania promptu.
+Dokładny zakres, ograniczenia i status weryfikacji:
+[RULES_DISCIPLINE_MATCH_FEEDBACK.md](RULES_DISCIPLINE_MATCH_FEEDBACK.md).
 
 ## Znane ryzyka
 

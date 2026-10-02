@@ -1,0 +1,5102 @@
+{
+  "schemaVersion": 1,
+  "task": "PR147 — Rules, Discipline & Canonical Match Feedback",
+  "measuredDate": "2026-10-02",
+  "verification": {
+    "command": "VITEST_MAX_WORKERS=2 npm run verify",
+    "exitCode": 0,
+    "mainFiles": 120,
+    "mainTests": 777,
+    "fullCareerFiles": 1,
+    "fullCareerTests": 5,
+    "buildModules": 279
+  },
+  "methodology": {
+    "baseline": "Untouched upstream PR146 archive 023fd3c9a217c4cde27479b356b4edf5fab2789d; node_modules junction only.",
+    "comparisonOrder": [
+      "before2",
+      "after1",
+      "before3",
+      "after2",
+      "before4",
+      "after3"
+    ],
+    "fixture": "Existing performance harness, ten canonical minutes, seed pr146-performance:balanced:a, controlled central midfielder, fixed lineups, normal observers, batch20, profile1/37, explicit DEV choices.",
+    "load": "Sequential after full verification; browser paused; no parallel tests or other heavy agent work.",
+    "rendering": "Headless harness has no renderer. Its zero-renderer field is a contract, not a browser measurement. backgroundOrchestration.test.tsx spies actual UI render/capture and verifies hidden simulation makes no calls.",
+    "initialBaselineExcluded": "Initial earlier baseline1 is exploratory, preserved below, excluded from the alternating comparison."
+  },
+  "summary": {
+    "before": {
+      "workSeconds": [
+        16.299732299999995,
+        15.642974800000012,
+        16.39014320000002
+      ],
+      "meanWorkSeconds": 16.110950100000007,
+      "medianWorkSeconds": 16.299732299999995,
+      "minimumWorkSeconds": 15.642974800000012,
+      "maximumWorkSeconds": 16.39014320000002,
+      "canonicalHashesIdenticalAcrossRepetitions": true,
+      "hashes": {
+        "canonicalState": "3df3965604affa102fc3e6a69f72a0b2c6edb96b28f92a88dc1ad5e2d0669c01",
+        "playerState": "ce3535d7d443063a8433fe2283c45a1ea5a86742616576ebaf2a02e44633e863",
+        "statistics": "12e2f6bb1dd15f1afbf22c4d960cd31c6148e9f4e66f55207574f6bf4cb02a51",
+        "majorEventSequence": "9312bf7e32799e557b8827ad505158cc0ca2ae4843d42cff95c7eeec74bc2a56",
+        "majorEventCount": 508,
+        "randomnessEvidence": "85fab4ca7455d0c298be7ac02de7a69e072fff28f68a8de5768e68b4b7e591af"
+      }
+    },
+    "after": {
+      "workSeconds": [
+        13.217249499999994,
+        13.3022192,
+        15.253150900000017
+      ],
+      "meanWorkSeconds": 13.924206533333338,
+      "medianWorkSeconds": 13.3022192,
+      "minimumWorkSeconds": 13.217249499999994,
+      "maximumWorkSeconds": 15.253150900000017,
+      "canonicalHashesIdenticalAcrossRepetitions": true,
+      "hashes": {
+        "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+        "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+        "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+        "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+        "majorEventCount": 474,
+        "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+      }
+    },
+    "medianWorkChangePercent": -18.389952944196487,
+    "meanWorkChangePercent": -13.573026749469408,
+    "observerParity": {
+      "modes": [
+        "release_minimal",
+        "normal",
+        "dev"
+      ],
+      "allCanonicalHashesAndInputsEqual": true,
+      "hashes": {
+        "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+        "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+        "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+        "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+        "majorEventCount": 474,
+        "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+      }
+    }
+  },
+  "limitations": [
+    "Rules, corrected orientation and throw-in lifecycle intentionally change the football trajectory and hashes between PR146 and PR147. Within-source repetitions and A/B/C observer modes must remain equal.",
+    "PR147 sample has 17 fouls, 13 yellows and five second-yellow dismissals in ten minutes, ending with nine home/eight away actors. Frequencies are uncalibrated and must be addressed in PR148 Discipline realism calibration; no arbitrary tuning was applied here.",
+    "Lower sample work is not evidence of an optimization: changed trajectory, fewer active actors, different human inputs and machine/JIT/GC variance affect timing. This bounded sample shows no material slowdown, not a full-match performance guarantee.",
+    "Single seed and three repetitions; no formal statistical trial, full 90-minute browser/playable duration, capture/video throughput or realistic disciplinary distribution claim.",
+    "Frozen PR146 reports lack the new defensive/discipline fields; missing is unavailable, not zero."
+  ],
+  "initialExploratoryBaseline": {
+    "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+    "environment": {
+      "node": "v24.19.0",
+      "platform": "win32",
+      "osRelease": "10.0.26200",
+      "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+      "logicalCpus": 16,
+      "totalMemoryBytes": 33601875968,
+      "revision": "pr146-main-023fd3c9a217c4cde27479b356b4edf5fab2789d"
+    },
+    "videoCapture": {
+      "measured": false,
+      "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+    },
+    "canonicalInvariant": true,
+    "results": [
+      {
+        "seed": "pr146-performance:balanced:a",
+        "config": {
+          "canonicalMinutes": 10,
+          "mode": "normal",
+          "batchTicks": 20,
+          "bucketMinutes": 5,
+          "profilingEnabled": true,
+          "sampleEveryTicks": 37
+        },
+        "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+        "fixedDt": 0.025,
+        "rendererCallsBackground": 0,
+        "canonicalSeconds": 599.9999999997282,
+        "elapsedMs": 13345.75890000001,
+        "canonicalSpeed": 44.9581027572533,
+        "ticks": 24000,
+        "ticksPerSecond": 1798.3241102909467,
+        "batches": 1200,
+        "batchP50Ms": 5.162700000000768,
+        "batchP95Ms": 31.676799999999275,
+        "batchP99Ms": 78.3091000000004,
+        "estimatedHidden45Seconds": 60.055915050027245,
+        "estimatedHidden90Seconds": 120.11183010005449,
+        "lateToEarlyCostRatio": 1.2071711303162378,
+        "buckets": [
+          {
+            "startMinute": 0,
+            "endMinute": 5.000000000000017,
+            "canonicalSeconds": 300.000000000001,
+            "elapsedMs": 6046.544700000009,
+            "canonicalSpeed": 49.615113239798035,
+            "ticks": 12000,
+            "ticksPerSecond": 1984.6045295919143,
+            "batches": 600,
+            "batchP50Ms": 5.081700000000637,
+            "batchP95Ms": 28.969600000000355,
+            "batchP99Ms": 75.0009,
+            "memory": {
+              "heapUsedBytes": 143658216,
+              "heapTotalBytes": 219328512,
+              "rssBytes": 310591488,
+              "externalBytes": 10990494
+            },
+            "collections": {
+              "contextSamples": 61,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 95,
+              "statistics.observedPassResultIds": 94,
+              "statistics.observedShotIds": 0,
+              "statistics.observedShotResultIds": 0,
+              "statistics.observedContactIds": 213,
+              "statistics.observedCarryIds": 4,
+              "statistics.passingNetwork": 51,
+              "statistics.observedAssistGoalIds": 0,
+              "statistics.observedPossessionEvents": 20,
+              "telemetry.shotDistances": 0,
+              "telemetry.shootingOpportunityValues": 0,
+              "telemetry.possessionSpellDurations": 0,
+              "telemetry.possessionSpells": 0,
+              "telemetry.actionTempoSamples": 0,
+              "telemetry.ballHolds": 0,
+              "telemetry.passOutcomes": 0,
+              "telemetry.passingNetwork": 0,
+              "telemetry.observedPassAttemptIds": 0,
+              "telemetry.observedPassResultIds": 0,
+              "telemetry.observedShotIds": 0,
+              "telemetry.observedMajorActionIds": 0,
+              "telemetry.shotDiagnostics": 0,
+              "telemetry.activeFlankEpisodes": 0
+            }
+          },
+          {
+            "startMinute": 5.000000000000017,
+            "endMinute": 9.99999999999547,
+            "canonicalSeconds": 299.99999999972715,
+            "elapsedMs": 7299.214200000001,
+            "canonicalSpeed": 41.10031460643079,
+            "ticks": 12000,
+            "ticksPerSecond": 1644.0125842587272,
+            "batches": 600,
+            "batchP50Ms": 5.214200000000346,
+            "batchP95Ms": 46.634799999999814,
+            "batchP99Ms": 83.13589999999931,
+            "memory": {
+              "heapUsedBytes": 139697632,
+              "heapTotalBytes": 248426496,
+              "rssBytes": 325918720,
+              "externalBytes": 10990534
+            },
+            "collections": {
+              "contextSamples": 61,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 199,
+              "statistics.observedPassResultIds": 197,
+              "statistics.observedShotIds": 2,
+              "statistics.observedShotResultIds": 2,
+              "statistics.observedContactIds": 446,
+              "statistics.observedCarryIds": 16,
+              "statistics.passingNetwork": 74,
+              "statistics.observedAssistGoalIds": 2,
+              "statistics.observedPossessionEvents": 42,
+              "telemetry.shotDistances": 0,
+              "telemetry.shootingOpportunityValues": 0,
+              "telemetry.possessionSpellDurations": 0,
+              "telemetry.possessionSpells": 0,
+              "telemetry.actionTempoSamples": 0,
+              "telemetry.ballHolds": 0,
+              "telemetry.passOutcomes": 0,
+              "telemetry.passingNetwork": 0,
+              "telemetry.observedPassAttemptIds": 0,
+              "telemetry.observedPassResultIds": 0,
+              "telemetry.observedShotIds": 0,
+              "telemetry.observedMajorActionIds": 0,
+              "telemetry.shotDiagnostics": 0,
+              "telemetry.activeFlankEpisodes": 0
+            }
+          }
+        ],
+        "checkpoints": [],
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 24000,
+          "sampledTicks": 649,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "agency_projection",
+              "sampledMs": 228.27050000001032,
+              "estimatedMs": 8441.436055470336,
+              "sampledCalls": 649
+            },
+            {
+              "category": "match_moment",
+              "sampledMs": 3.3703000000064094,
+              "estimatedMs": 124.63359013891191,
+              "sampledCalls": 649
+            },
+            {
+              "category": "tactical_planning",
+              "sampledMs": 32.60829999999305,
+              "estimatedMs": 1205.8539291214688,
+              "sampledCalls": 649
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 49.90009999999256,
+              "estimatedMs": 1845.3041602462583,
+              "sampledCalls": 649
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 3.0626999999960844,
+              "estimatedMs": 113.25855161772887,
+              "sampledCalls": 649
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 23.803900000018984,
+              "estimatedMs": 880.2674884444617,
+              "sampledCalls": 644
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 1.939899999999625,
+              "estimatedMs": 71.73744221878428,
+              "sampledCalls": 649
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 8.438700000023346,
+              "estimatedMs": 312.06286594847506,
+              "sampledCalls": 649
+            },
+            {
+              "category": "canonical_step",
+              "sampledMs": 124.2243999999971,
+              "estimatedMs": 4593.8144838211565,
+              "sampledCalls": 649
+            },
+            {
+              "category": "benchmark_evidence",
+              "sampledMs": 1.174199999990833,
+              "estimatedMs": 43.42187981476116,
+              "sampledCalls": 649
+            },
+            {
+              "category": "context_history",
+              "sampledMs": 2.3508000000015272,
+              "estimatedMs": 86.93251155629686,
+              "sampledCalls": 649
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 130.03489999989733,
+              "estimatedMs": 4808.686594757375,
+              "sampledCalls": 10068
+            }
+          ]
+        },
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "status": "first_half",
+        "humanDecisionInputs": 3,
+        "planning": {
+          "evaluatedTicks": 24000,
+          "plansRecomputed": 6186,
+          "plansReused": 17814,
+          "semanticInvalidations": 486,
+          "reuseRate": 0.74225
+        },
+        "hashes": {
+          "canonicalState": "3df3965604affa102fc3e6a69f72a0b2c6edb96b28f92a88dc1ad5e2d0669c01",
+          "playerState": "ce3535d7d443063a8433fe2283c45a1ea5a86742616576ebaf2a02e44633e863",
+          "statistics": "12e2f6bb1dd15f1afbf22c4d960cd31c6148e9f4e66f55207574f6bf4cb02a51",
+          "majorEventSequence": "9312bf7e32799e557b8827ad505158cc0ca2ae4843d42cff95c7eeec74bc2a56",
+          "majorEventCount": 508,
+          "randomnessEvidence": "85fab4ca7455d0c298be7ac02de7a69e072fff28f68a8de5768e68b4b7e591af"
+        },
+        "context": {
+          "samplesRetained": 61,
+          "samplesWritten": 6000,
+          "sampleWorkMs": 61.419699999990826,
+          "sampleHz": 10,
+          "capacity": 62
+        },
+        "export": {
+          "packagingMs": 0.014100000000325963,
+          "serializationMs": 0.0033000000003085006,
+          "jsonBytes": 2
+        },
+        "save": {
+          "performed": false,
+          "elapsedMs": 0
+        }
+      }
+    ]
+  },
+  "beforeRuns": [
+    {
+      "repetition": 2,
+      "report": {
+        "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+        "environment": {
+          "node": "v24.19.0",
+          "platform": "win32",
+          "osRelease": "10.0.26200",
+          "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+          "logicalCpus": 16,
+          "totalMemoryBytes": 33601875968,
+          "revision": "pr146-main-023fd3c9a217c4cde27479b356b4edf5fab2789d"
+        },
+        "videoCapture": {
+          "measured": false,
+          "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+        },
+        "canonicalInvariant": true,
+        "results": [
+          {
+            "seed": "pr146-performance:balanced:a",
+            "config": {
+              "canonicalMinutes": 10,
+              "mode": "normal",
+              "batchTicks": 20,
+              "bucketMinutes": 5,
+              "profilingEnabled": true,
+              "sampleEveryTicks": 37
+            },
+            "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+            "fixedDt": 0.025,
+            "rendererCallsBackground": 0,
+            "canonicalSeconds": 599.9999999997282,
+            "elapsedMs": 16299.732299999996,
+            "canonicalSpeed": 36.81042049995682,
+            "ticks": 24000,
+            "ticksPerSecond": 1472.41681999894,
+            "batches": 1200,
+            "batchP50Ms": 5.692099999998391,
+            "batchP95Ms": 41.54150000000118,
+            "batchP99Ms": 98.3145999999997,
+            "estimatedHidden45Seconds": 73.34879535003321,
+            "estimatedHidden90Seconds": 146.69759070006643,
+            "lateToEarlyCostRatio": 1.1974754663686555,
+            "buckets": [
+              {
+                "startMinute": 0,
+                "endMinute": 5.000000000000017,
+                "canonicalSeconds": 300.000000000001,
+                "elapsedMs": 7417.480900000005,
+                "canonicalSpeed": 40.44499797768281,
+                "ticks": 12000,
+                "ticksPerSecond": 1617.7999191073066,
+                "batches": 600,
+                "batchP50Ms": 5.612299999999777,
+                "batchP95Ms": 36.587900000000445,
+                "batchP99Ms": 98.3145999999997,
+                "memory": {
+                  "heapUsedBytes": 147928864,
+                  "heapTotalBytes": 220377088,
+                  "rssBytes": 308002816,
+                  "externalBytes": 10990494
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 95,
+                  "statistics.observedPassResultIds": 94,
+                  "statistics.observedShotIds": 0,
+                  "statistics.observedShotResultIds": 0,
+                  "statistics.observedContactIds": 213,
+                  "statistics.observedCarryIds": 4,
+                  "statistics.passingNetwork": 51,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 20,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              },
+              {
+                "startMinute": 5.000000000000017,
+                "endMinute": 9.99999999999547,
+                "canonicalSeconds": 299.99999999972715,
+                "elapsedMs": 8882.25139999999,
+                "canonicalSpeed": 33.77522054821905,
+                "ticks": 12000,
+                "ticksPerSecond": 1351.008821929991,
+                "batches": 600,
+                "batchP50Ms": 5.852999999999156,
+                "batchP95Ms": 62.85900000000038,
+                "batchP99Ms": 96.95819999999912,
+                "memory": {
+                  "heapUsedBytes": 147225192,
+                  "heapTotalBytes": 249475072,
+                  "rssBytes": 341925888,
+                  "externalBytes": 10990534
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 199,
+                  "statistics.observedPassResultIds": 197,
+                  "statistics.observedShotIds": 2,
+                  "statistics.observedShotResultIds": 2,
+                  "statistics.observedContactIds": 446,
+                  "statistics.observedCarryIds": 16,
+                  "statistics.passingNetwork": 74,
+                  "statistics.observedAssistGoalIds": 2,
+                  "statistics.observedPossessionEvents": 42,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              }
+            ],
+            "checkpoints": [],
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 287.7608999999826,
+                  "estimatedMs": 10641.389214175013,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 5.381399999989981,
+                  "estimatedMs": 199.0040061629577,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 36.01279999999622,
+                  "estimatedMs": 1331.7522342063319,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 54.18919999999923,
+                  "estimatedMs": 2003.91494607085,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 4.244600000029095,
+                  "estimatedMs": 156.96517719676163,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 31.916000000003464,
+                  "estimatedMs": 1180.2526964562146,
+                  "sampledCalls": 644
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.9119000000142705,
+                  "estimatedMs": 107.68197226555084,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 11.034099999985528,
+                  "estimatedMs": 408.0406779655666,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 146.0112999999842,
+                  "estimatedMs": 5399.493374421604,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.5666999999824611,
+                  "estimatedMs": 57.93651771891999,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 3.6449000000052365,
+                  "estimatedMs": 134.78828967661892,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 152.8358000000868,
+                  "estimatedMs": 5651.863174117232,
+                  "sampledCalls": 10068
+                }
+              ]
+            },
+            "score": {
+              "home": 0,
+              "away": 2
+            },
+            "status": "first_half",
+            "humanDecisionInputs": 3,
+            "planning": {
+              "evaluatedTicks": 24000,
+              "plansRecomputed": 6186,
+              "plansReused": 17814,
+              "semanticInvalidations": 486,
+              "reuseRate": 0.74225
+            },
+            "hashes": {
+              "canonicalState": "3df3965604affa102fc3e6a69f72a0b2c6edb96b28f92a88dc1ad5e2d0669c01",
+              "playerState": "ce3535d7d443063a8433fe2283c45a1ea5a86742616576ebaf2a02e44633e863",
+              "statistics": "12e2f6bb1dd15f1afbf22c4d960cd31c6148e9f4e66f55207574f6bf4cb02a51",
+              "majorEventSequence": "9312bf7e32799e557b8827ad505158cc0ca2ae4843d42cff95c7eeec74bc2a56",
+              "majorEventCount": 508,
+              "randomnessEvidence": "85fab4ca7455d0c298be7ac02de7a69e072fff28f68a8de5768e68b4b7e591af"
+            },
+            "context": {
+              "samplesRetained": 61,
+              "samplesWritten": 6000,
+              "sampleWorkMs": 81.6921999999214,
+              "sampleHz": 10,
+              "capacity": 62
+            },
+            "export": {
+              "packagingMs": 0.015900000002147863,
+              "serializationMs": 0.005500000002939487,
+              "jsonBytes": 2
+            },
+            "save": {
+              "performed": false,
+              "elapsedMs": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repetition": 3,
+      "report": {
+        "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+        "environment": {
+          "node": "v24.19.0",
+          "platform": "win32",
+          "osRelease": "10.0.26200",
+          "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+          "logicalCpus": 16,
+          "totalMemoryBytes": 33601875968,
+          "revision": "pr146-main-023fd3c9a217c4cde27479b356b4edf5fab2789d"
+        },
+        "videoCapture": {
+          "measured": false,
+          "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+        },
+        "canonicalInvariant": true,
+        "results": [
+          {
+            "seed": "pr146-performance:balanced:a",
+            "config": {
+              "canonicalMinutes": 10,
+              "mode": "normal",
+              "batchTicks": 20,
+              "bucketMinutes": 5,
+              "profilingEnabled": true,
+              "sampleEveryTicks": 37
+            },
+            "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+            "fixedDt": 0.025,
+            "rendererCallsBackground": 0,
+            "canonicalSeconds": 599.9999999997282,
+            "elapsedMs": 15642.97480000001,
+            "canonicalSpeed": 38.35587589131242,
+            "ticks": 24000,
+            "ticksPerSecond": 1534.235035653192,
+            "batches": 1200,
+            "batchP50Ms": 5.431800000000294,
+            "batchP95Ms": 39.50980000000027,
+            "batchP99Ms": 97.91339999999991,
+            "estimatedHidden45Seconds": 70.39338660003195,
+            "estimatedHidden90Seconds": 140.7867732000639,
+            "lateToEarlyCostRatio": 1.2128042085541153,
+            "buckets": [
+              {
+                "startMinute": 0,
+                "endMinute": 5.000000000000017,
+                "canonicalSeconds": 300.000000000001,
+                "elapsedMs": 7069.299100000009,
+                "canonicalSpeed": 42.43702179753586,
+                "ticks": 12000,
+                "ticksPerSecond": 1697.4808719014286,
+                "batches": 600,
+                "batchP50Ms": 5.303699999999935,
+                "batchP95Ms": 32.83320000000003,
+                "batchP99Ms": 99.39639999999963,
+                "memory": {
+                  "heapUsedBytes": 113372264,
+                  "heapTotalBytes": 219066368,
+                  "rssBytes": 312868864,
+                  "externalBytes": 10990494
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 95,
+                  "statistics.observedPassResultIds": 94,
+                  "statistics.observedShotIds": 0,
+                  "statistics.observedShotResultIds": 0,
+                  "statistics.observedContactIds": 213,
+                  "statistics.observedCarryIds": 4,
+                  "statistics.passingNetwork": 51,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 20,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              },
+              {
+                "startMinute": 5.000000000000017,
+                "endMinute": 9.99999999999547,
+                "canonicalSeconds": 299.99999999972715,
+                "elapsedMs": 8573.675700000003,
+                "canonicalSpeed": 34.990826629904724,
+                "ticks": 12000,
+                "ticksPerSecond": 1399.633065197462,
+                "batches": 600,
+                "batchP50Ms": 5.483299999999872,
+                "batchP95Ms": 54.34860000000117,
+                "batchP99Ms": 93.39869999999974,
+                "memory": {
+                  "heapUsedBytes": 177437896,
+                  "heapTotalBytes": 248164352,
+                  "rssBytes": 333656064,
+                  "externalBytes": 10990534
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 199,
+                  "statistics.observedPassResultIds": 197,
+                  "statistics.observedShotIds": 2,
+                  "statistics.observedShotResultIds": 2,
+                  "statistics.observedContactIds": 446,
+                  "statistics.observedCarryIds": 16,
+                  "statistics.passingNetwork": 74,
+                  "statistics.observedAssistGoalIds": 2,
+                  "statistics.observedPossessionEvents": 42,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              }
+            ],
+            "checkpoints": [],
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 274.98620000000244,
+                  "estimatedMs": 10168.98120184909,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 5.13569999999811,
+                  "estimatedMs": 189.918027734907,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 35.153500000027066,
+                  "estimatedMs": 1299.975346688212,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 52.58840000001487,
+                  "estimatedMs": 1944.7174114027073,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 3.7291999999927157,
+                  "estimatedMs": 137.9057010783131,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 31.23180000002651,
+                  "estimatedMs": 1154.9510015418125,
+                  "sampledCalls": 644
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.993499999986284,
+                  "estimatedMs": 110.699537749878,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 11.085900000021297,
+                  "estimatedMs": 409.9562403705873,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 143.06479999999817,
+                  "estimatedMs": 5290.531895223354,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.4453000000040674,
+                  "estimatedMs": 53.4471494608592,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 3.404299999992759,
+                  "estimatedMs": 125.89090909064133,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 146.06720000000905,
+                  "estimatedMs": 5401.560554699873,
+                  "sampledCalls": 10068
+                }
+              ]
+            },
+            "score": {
+              "home": 0,
+              "away": 2
+            },
+            "status": "first_half",
+            "humanDecisionInputs": 3,
+            "planning": {
+              "evaluatedTicks": 24000,
+              "plansRecomputed": 6186,
+              "plansReused": 17814,
+              "semanticInvalidations": 486,
+              "reuseRate": 0.74225
+            },
+            "hashes": {
+              "canonicalState": "3df3965604affa102fc3e6a69f72a0b2c6edb96b28f92a88dc1ad5e2d0669c01",
+              "playerState": "ce3535d7d443063a8433fe2283c45a1ea5a86742616576ebaf2a02e44633e863",
+              "statistics": "12e2f6bb1dd15f1afbf22c4d960cd31c6148e9f4e66f55207574f6bf4cb02a51",
+              "majorEventSequence": "9312bf7e32799e557b8827ad505158cc0ca2ae4843d42cff95c7eeec74bc2a56",
+              "majorEventCount": 508,
+              "randomnessEvidence": "85fab4ca7455d0c298be7ac02de7a69e072fff28f68a8de5768e68b4b7e591af"
+            },
+            "context": {
+              "samplesRetained": 61,
+              "samplesWritten": 6000,
+              "sampleWorkMs": 76.0603000000176,
+              "sampleHz": 10,
+              "capacity": 62
+            },
+            "export": {
+              "packagingMs": 0.013000000002648449,
+              "serializationMs": 0.004300000000512227,
+              "jsonBytes": 2
+            },
+            "save": {
+              "performed": false,
+              "elapsedMs": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repetition": 4,
+      "report": {
+        "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+        "environment": {
+          "node": "v24.19.0",
+          "platform": "win32",
+          "osRelease": "10.0.26200",
+          "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+          "logicalCpus": 16,
+          "totalMemoryBytes": 33601875968,
+          "revision": "pr146-main-023fd3c9a217c4cde27479b356b4edf5fab2789d"
+        },
+        "videoCapture": {
+          "measured": false,
+          "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+        },
+        "canonicalInvariant": true,
+        "results": [
+          {
+            "seed": "pr146-performance:balanced:a",
+            "config": {
+              "canonicalMinutes": 10,
+              "mode": "normal",
+              "batchTicks": 20,
+              "bucketMinutes": 5,
+              "profilingEnabled": true,
+              "sampleEveryTicks": 37
+            },
+            "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+            "fixedDt": 0.025,
+            "rendererCallsBackground": 0,
+            "canonicalSeconds": 599.9999999997282,
+            "elapsedMs": 16390.143200000017,
+            "canonicalSpeed": 36.607367774537046,
+            "ticks": 24000,
+            "ticksPerSecond": 1464.2947109821455,
+            "batches": 1200,
+            "batchP50Ms": 5.813799999999901,
+            "batchP95Ms": 42.770800000002055,
+            "batchP99Ms": 98.64150000000018,
+            "estimatedHidden45Seconds": 73.7556444000335,
+            "estimatedHidden90Seconds": 147.511288800067,
+            "lateToEarlyCostRatio": 1.3812909517820113,
+            "buckets": [
+              {
+                "startMinute": 0,
+                "endMinute": 5.000000000000017,
+                "canonicalSeconds": 300.000000000001,
+                "elapsedMs": 6882.881399999999,
+                "canonicalSpeed": 43.586396825027535,
+                "ticks": 12000,
+                "ticksPerSecond": 1743.4558730010954,
+                "batches": 600,
+                "batchP50Ms": 5.4111000000002605,
+                "batchP95Ms": 32.61800000000039,
+                "batchP99Ms": 91.96219999999994,
+                "memory": {
+                  "heapUsedBytes": 90794520,
+                  "heapTotalBytes": 218804224,
+                  "rssBytes": 317853696,
+                  "externalBytes": 10990494
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 95,
+                  "statistics.observedPassResultIds": 94,
+                  "statistics.observedShotIds": 0,
+                  "statistics.observedShotResultIds": 0,
+                  "statistics.observedContactIds": 213,
+                  "statistics.observedCarryIds": 4,
+                  "statistics.passingNetwork": 51,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 20,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              },
+              {
+                "startMinute": 5.000000000000017,
+                "endMinute": 9.99999999999547,
+                "canonicalSeconds": 299.99999999972715,
+                "elapsedMs": 9507.26180000002,
+                "canonicalSpeed": 31.55482685874144,
+                "ticks": 12000,
+                "ticksPerSecond": 1262.1930743508058,
+                "batches": 600,
+                "batchP50Ms": 6.275700000000143,
+                "batchP95Ms": 61.328300000001036,
+                "batchP99Ms": 108.48149999999987,
+                "memory": {
+                  "heapUsedBytes": 157071928,
+                  "heapTotalBytes": 247902208,
+                  "rssBytes": 340598784,
+                  "externalBytes": 10990534
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 199,
+                  "statistics.observedPassResultIds": 197,
+                  "statistics.observedShotIds": 2,
+                  "statistics.observedShotResultIds": 2,
+                  "statistics.observedContactIds": 446,
+                  "statistics.observedCarryIds": 16,
+                  "statistics.passingNetwork": 74,
+                  "statistics.observedAssistGoalIds": 2,
+                  "statistics.observedPossessionEvents": 42,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              }
+            ],
+            "checkpoints": [],
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 296.5833000000098,
+                  "estimatedMs": 10967.641294299285,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 5.575500000033003,
+                  "estimatedMs": 206.18181818303864,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 38.43110000001013,
+                  "estimatedMs": 1421.1808936829634,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 57.343900000007466,
+                  "estimatedMs": 2120.575654853897,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 4.415099999985955,
+                  "estimatedMs": 163.270261940929,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 28.435500000000275,
+                  "estimatedMs": 1051.5439137134156,
+                  "sampledCalls": 644
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.9305000000128985,
+                  "estimatedMs": 108.36979969231058,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 11.566099999999892,
+                  "estimatedMs": 427.71402157164476,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 149.1265000000019,
+                  "estimatedMs": 5514.693374422259,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.3575999999858368,
+                  "estimatedMs": 50.20400616280445,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 3.3714999999889415,
+                  "estimatedMs": 124.67796610128599,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 154.66380000009121,
+                  "estimatedMs": 5719.462557784575,
+                  "sampledCalls": 10068
+                }
+              ]
+            },
+            "score": {
+              "home": 0,
+              "away": 2
+            },
+            "status": "first_half",
+            "humanDecisionInputs": 3,
+            "planning": {
+              "evaluatedTicks": 24000,
+              "plansRecomputed": 6186,
+              "plansReused": 17814,
+              "semanticInvalidations": 486,
+              "reuseRate": 0.74225
+            },
+            "hashes": {
+              "canonicalState": "3df3965604affa102fc3e6a69f72a0b2c6edb96b28f92a88dc1ad5e2d0669c01",
+              "playerState": "ce3535d7d443063a8433fe2283c45a1ea5a86742616576ebaf2a02e44633e863",
+              "statistics": "12e2f6bb1dd15f1afbf22c4d960cd31c6148e9f4e66f55207574f6bf4cb02a51",
+              "majorEventSequence": "9312bf7e32799e557b8827ad505158cc0ca2ae4843d42cff95c7eeec74bc2a56",
+              "majorEventCount": 508,
+              "randomnessEvidence": "85fab4ca7455d0c298be7ac02de7a69e072fff28f68a8de5768e68b4b7e591af"
+            },
+            "context": {
+              "samplesRetained": 61,
+              "samplesWritten": 6000,
+              "sampleWorkMs": 78.69500000002768,
+              "sampleHz": 10,
+              "capacity": 62
+            },
+            "export": {
+              "packagingMs": 0.012599999998201383,
+              "serializationMs": 0.004400000001623994,
+              "jsonBytes": 2
+            },
+            "save": {
+              "performed": false,
+              "elapsedMs": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "afterRuns": [
+    {
+      "repetition": 1,
+      "report": {
+        "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+        "environment": {
+          "node": "v24.19.0",
+          "platform": "win32",
+          "osRelease": "10.0.26200",
+          "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+          "logicalCpus": 16,
+          "totalMemoryBytes": 33601875968,
+          "revision": "pr147-verified-working-tree"
+        },
+        "videoCapture": {
+          "measured": false,
+          "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+        },
+        "canonicalInvariant": true,
+        "results": [
+          {
+            "seed": "pr146-performance:balanced:a",
+            "config": {
+              "canonicalMinutes": 10,
+              "mode": "normal",
+              "batchTicks": 20,
+              "bucketMinutes": 5,
+              "profilingEnabled": true,
+              "sampleEveryTicks": 37
+            },
+            "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+            "fixedDt": 0.025,
+            "rendererCallsBackground": 0,
+            "canonicalSeconds": 599.9999999997282,
+            "elapsedMs": 13217.249499999994,
+            "canonicalSpeed": 45.39522387011976,
+            "ticks": 24000,
+            "ticksPerSecond": 1815.808954805613,
+            "batches": 1200,
+            "batchP50Ms": 5.134400000000824,
+            "batchP95Ms": 32.1264000000001,
+            "batchP99Ms": 65.02610000000095,
+            "estimatedHidden45Seconds": 59.477622750026924,
+            "estimatedHidden90Seconds": 118.95524550005385,
+            "lateToEarlyCostRatio": 0.991869867240772,
+            "buckets": [
+              {
+                "startMinute": 0,
+                "endMinute": 5.000000000000017,
+                "canonicalSeconds": 300.000000000001,
+                "elapsedMs": 6635.598899999996,
+                "canonicalSpeed": 45.21068927177036,
+                "ticks": 12000,
+                "ticksPerSecond": 1808.4275708708083,
+                "batches": 600,
+                "batchP50Ms": 5.626900000000205,
+                "batchP95Ms": 32.102499999999964,
+                "batchP99Ms": 37.71049999999991,
+                "memory": {
+                  "heapUsedBytes": 127507872,
+                  "heapTotalBytes": 221425664,
+                  "rssBytes": 315641856,
+                  "externalBytes": 10990494
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "canonicalActionEvents": 9,
+                  "pendingCards": 0,
+                  "defensivePlayerCounters": 14,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 93,
+                  "statistics.observedPassResultIds": 93,
+                  "statistics.observedShotIds": 1,
+                  "statistics.observedShotResultIds": 1,
+                  "statistics.observedContactIds": 228,
+                  "statistics.observedCarryIds": 4,
+                  "statistics.passingNetwork": 50,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 22,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              },
+              {
+                "startMinute": 5.000000000000017,
+                "endMinute": 9.99999999999547,
+                "canonicalSeconds": 299.99999999972715,
+                "elapsedMs": 6581.650599999999,
+                "canonicalSpeed": 45.581271056796474,
+                "ticks": 12000,
+                "ticksPerSecond": 1823.2508422735175,
+                "batches": 600,
+                "batchP50Ms": 4.661699999998746,
+                "batchP95Ms": 32.338299999999435,
+                "batchP99Ms": 78.58450000000084,
+                "memory": {
+                  "heapUsedBytes": 166359424,
+                  "heapTotalBytes": 245805056,
+                  "rssBytes": 333303808,
+                  "externalBytes": 10990534
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "canonicalActionEvents": 9,
+                  "pendingCards": 1,
+                  "defensivePlayerCounters": 17,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 187,
+                  "statistics.observedPassResultIds": 184,
+                  "statistics.observedShotIds": 3,
+                  "statistics.observedShotResultIds": 3,
+                  "statistics.observedContactIds": 446,
+                  "statistics.observedCarryIds": 14,
+                  "statistics.passingNetwork": 75,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 42,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              }
+            ],
+            "checkpoints": [],
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 230.27869999997756,
+                  "estimatedMs": 8515.699229583146,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 4.495500000019092,
+                  "estimatedMs": 166.2434514644965,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 27.410000000005198,
+                  "estimatedMs": 1013.6209553160629,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 43.85769999998172,
+                  "estimatedMs": 1621.8563944523287,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 4.903999999988059,
+                  "estimatedMs": 181.34976887475105,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 43.08410000000231,
+                  "estimatedMs": 1593.2486902928435,
+                  "sampledCalls": 642
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.7266999999978907,
+                  "estimatedMs": 100.83328197218704,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 10.792300000010641,
+                  "estimatedMs": 399.09892141795905,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 141.668000000024,
+                  "estimatedMs": 5238.878274268993,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.4486999999993486,
+                  "estimatedMs": 53.57288135590812,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 4.461599999994974,
+                  "estimatedMs": 164.98983050828872,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 163.08960000008904,
+                  "estimatedMs": 6031.048382129641,
+                  "sampledCalls": 10292
+                }
+              ]
+            },
+            "score": {
+              "home": 0,
+              "away": 1
+            },
+            "status": "first_half",
+            "humanDecisionInputs": 8,
+            "defensiveTelemetry": {
+              "opportunities": 47,
+              "attempted": 47,
+              "missed": 7,
+              "beaten": 8,
+              "cleanWins": 12,
+              "looseBalls": 3,
+              "fouls": 17,
+              "yellowCards": 13,
+              "redCards": 5,
+              "secondYellowDismissals": 5,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 2,
+              "highRiskIntents": 31,
+              "slides": 3,
+              "tacticalIntents": 0,
+              "advantagePlayed": 5,
+              "byPlayer": {
+                "footballer_pro_1_7": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 1,
+                  "highRiskIntents": 2,
+                  "slides": 2,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 2
+                },
+                "footballer_pro_1_12": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 0,
+                  "beaten": 3,
+                  "cleanWins": 0,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_21": {
+                  "opportunities": 5,
+                  "attempted": 5,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 3,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 5,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_21": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 4,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_9": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 2,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 1,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_9": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 1,
+                  "beaten": 1,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_12": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 1,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_19": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 1,
+                  "cleanWins": 1,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_3": {
+                  "opportunities": 1,
+                  "attempted": 1,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_13": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_0_7": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 2,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 4,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_14": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 1,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_0_11": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 2,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_5": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 2,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_4": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_1_14": {
+                  "opportunities": 1,
+                  "attempted": 1,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 1,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_22": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                }
+              }
+            },
+            "discipline": {
+              "footballer_pro_1_21": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 357.02499999994916,
+                "team": "away"
+              },
+              "footballer_pro_1_7": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 107.0000000000072,
+                "team": "away"
+              },
+              "footballer_pro_0_21": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 148.67500000001667,
+                "team": "home"
+              },
+              "footballer_pro_0_13": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 396.6999999999131,
+                "team": "home"
+              },
+              "footballer_pro_1_4": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "away"
+              },
+              "footballer_pro_1_14": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "away"
+              },
+              "footballer_pro_1_22": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 482.92499999983465,
+                "team": "away"
+              },
+              "footballer_pro_0_7": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "home"
+              }
+            },
+            "planning": {
+              "evaluatedTicks": 24000,
+              "plansRecomputed": 6185,
+              "plansReused": 17815,
+              "semanticInvalidations": 518,
+              "reuseRate": 0.7422916666666667
+            },
+            "hashes": {
+              "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+              "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+              "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+              "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+              "majorEventCount": 474,
+              "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+            },
+            "context": {
+              "samplesRetained": 61,
+              "samplesWritten": 6000,
+              "sampleWorkMs": 127.27939999997977,
+              "sampleHz": 10,
+              "capacity": 62
+            },
+            "export": {
+              "packagingMs": 0.06550000000061118,
+              "serializationMs": 0.006300000000919681,
+              "jsonBytes": 2
+            },
+            "save": {
+              "performed": false,
+              "elapsedMs": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repetition": 2,
+      "report": {
+        "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+        "environment": {
+          "node": "v24.19.0",
+          "platform": "win32",
+          "osRelease": "10.0.26200",
+          "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+          "logicalCpus": 16,
+          "totalMemoryBytes": 33601875968,
+          "revision": "pr147-verified-working-tree"
+        },
+        "videoCapture": {
+          "measured": false,
+          "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+        },
+        "canonicalInvariant": true,
+        "results": [
+          {
+            "seed": "pr146-performance:balanced:a",
+            "config": {
+              "canonicalMinutes": 10,
+              "mode": "normal",
+              "batchTicks": 20,
+              "bucketMinutes": 5,
+              "profilingEnabled": true,
+              "sampleEveryTicks": 37
+            },
+            "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+            "fixedDt": 0.025,
+            "rendererCallsBackground": 0,
+            "canonicalSeconds": 599.9999999997282,
+            "elapsedMs": 13302.2192,
+            "canonicalSpeed": 45.10525582075269,
+            "ticks": 24000,
+            "ticksPerSecond": 1804.210232830925,
+            "batches": 1200,
+            "batchP50Ms": 5.4420999999993,
+            "batchP95Ms": 31.81839999999829,
+            "batchP99Ms": 56.0650999999998,
+            "estimatedHidden45Seconds": 59.85998640002712,
+            "estimatedHidden90Seconds": 119.71997280005424,
+            "lateToEarlyCostRatio": 0.9992902952041406,
+            "buckets": [
+              {
+                "startMinute": 0,
+                "endMinute": 5.000000000000017,
+                "canonicalSeconds": 300.000000000001,
+                "elapsedMs": 6653.470600000001,
+                "canonicalSpeed": 45.089250112565466,
+                "ticks": 12000,
+                "ticksPerSecond": 1803.5700045026124,
+                "batches": 600,
+                "batchP50Ms": 5.827600000000075,
+                "batchP95Ms": 31.64550000000054,
+                "batchP99Ms": 36.21219999999994,
+                "memory": {
+                  "heapUsedBytes": 88029088,
+                  "heapTotalBytes": 223260672,
+                  "rssBytes": 317714432,
+                  "externalBytes": 10990494
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "canonicalActionEvents": 9,
+                  "pendingCards": 0,
+                  "defensivePlayerCounters": 14,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 93,
+                  "statistics.observedPassResultIds": 93,
+                  "statistics.observedShotIds": 1,
+                  "statistics.observedShotResultIds": 1,
+                  "statistics.observedContactIds": 228,
+                  "statistics.observedCarryIds": 4,
+                  "statistics.passingNetwork": 50,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 22,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              },
+              {
+                "startMinute": 5.000000000000017,
+                "endMinute": 9.99999999999547,
+                "canonicalSeconds": 299.99999999972715,
+                "elapsedMs": 6648.7486,
+                "canonicalSpeed": 45.12127289633528,
+                "ticks": 12000,
+                "ticksPerSecond": 1804.8509158550528,
+                "batches": 600,
+                "batchP50Ms": 5.031599999998434,
+                "batchP95Ms": 31.900900000000547,
+                "batchP99Ms": 74.814699999999,
+                "memory": {
+                  "heapUsedBytes": 128212584,
+                  "heapTotalBytes": 247115776,
+                  "rssBytes": 337993728,
+                  "externalBytes": 10990534
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "canonicalActionEvents": 9,
+                  "pendingCards": 1,
+                  "defensivePlayerCounters": 17,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 187,
+                  "statistics.observedPassResultIds": 184,
+                  "statistics.observedShotIds": 3,
+                  "statistics.observedShotResultIds": 3,
+                  "statistics.observedContactIds": 446,
+                  "statistics.observedCarryIds": 14,
+                  "statistics.passingNetwork": 75,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 42,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              }
+            ],
+            "checkpoints": [],
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 231.45799999997598,
+                  "estimatedMs": 8559.309707241024,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 4.992500000003588,
+                  "estimatedMs": 184.6224961480526,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 29.86060000001362,
+                  "estimatedMs": 1104.244067797114,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 46.5083999999772,
+                  "estimatedMs": 1719.8791987664913,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 4.504400000004921,
+                  "estimatedMs": 166.57257318970434,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 38.09529999998165,
+                  "estimatedMs": 1408.763020030138,
+                  "sampledCalls": 642
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.9848000000179127,
+                  "estimatedMs": 110.3778120191524,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 11.574899999971763,
+                  "estimatedMs": 428.03944529941805,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 142.76340000000403,
+                  "estimatedMs": 5279.386132511706,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.7784000000103788,
+                  "estimatedMs": 65.76517719606949,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 5.068799999996827,
+                  "estimatedMs": 187.44406779649285,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 160.08390000004601,
+                  "estimatedMs": 5919.897688753628,
+                  "sampledCalls": 10292
+                }
+              ]
+            },
+            "score": {
+              "home": 0,
+              "away": 1
+            },
+            "status": "first_half",
+            "humanDecisionInputs": 8,
+            "defensiveTelemetry": {
+              "opportunities": 47,
+              "attempted": 47,
+              "missed": 7,
+              "beaten": 8,
+              "cleanWins": 12,
+              "looseBalls": 3,
+              "fouls": 17,
+              "yellowCards": 13,
+              "redCards": 5,
+              "secondYellowDismissals": 5,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 2,
+              "highRiskIntents": 31,
+              "slides": 3,
+              "tacticalIntents": 0,
+              "advantagePlayed": 5,
+              "byPlayer": {
+                "footballer_pro_1_7": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 1,
+                  "highRiskIntents": 2,
+                  "slides": 2,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 2
+                },
+                "footballer_pro_1_12": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 0,
+                  "beaten": 3,
+                  "cleanWins": 0,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_21": {
+                  "opportunities": 5,
+                  "attempted": 5,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 3,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 5,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_21": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 4,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_9": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 2,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 1,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_9": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 1,
+                  "beaten": 1,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_12": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 1,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_19": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 1,
+                  "cleanWins": 1,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_3": {
+                  "opportunities": 1,
+                  "attempted": 1,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_13": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_0_7": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 2,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 4,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_14": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 1,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_0_11": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 2,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_5": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 2,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_4": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_1_14": {
+                  "opportunities": 1,
+                  "attempted": 1,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 1,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_22": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                }
+              }
+            },
+            "discipline": {
+              "footballer_pro_1_21": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 357.02499999994916,
+                "team": "away"
+              },
+              "footballer_pro_1_7": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 107.0000000000072,
+                "team": "away"
+              },
+              "footballer_pro_0_21": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 148.67500000001667,
+                "team": "home"
+              },
+              "footballer_pro_0_13": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 396.6999999999131,
+                "team": "home"
+              },
+              "footballer_pro_1_4": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "away"
+              },
+              "footballer_pro_1_14": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "away"
+              },
+              "footballer_pro_1_22": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 482.92499999983465,
+                "team": "away"
+              },
+              "footballer_pro_0_7": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "home"
+              }
+            },
+            "planning": {
+              "evaluatedTicks": 24000,
+              "plansRecomputed": 6185,
+              "plansReused": 17815,
+              "semanticInvalidations": 518,
+              "reuseRate": 0.7422916666666667
+            },
+            "hashes": {
+              "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+              "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+              "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+              "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+              "majorEventCount": 474,
+              "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+            },
+            "context": {
+              "samplesRetained": 61,
+              "samplesWritten": 6000,
+              "sampleWorkMs": 138.48400000008212,
+              "sampleHz": 10,
+              "capacity": 62
+            },
+            "export": {
+              "packagingMs": 0.014900000000125146,
+              "serializationMs": 0.004899999999906868,
+              "jsonBytes": 2
+            },
+            "save": {
+              "performed": false,
+              "elapsedMs": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repetition": 3,
+      "report": {
+        "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+        "environment": {
+          "node": "v24.19.0",
+          "platform": "win32",
+          "osRelease": "10.0.26200",
+          "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+          "logicalCpus": 16,
+          "totalMemoryBytes": 33601875968,
+          "revision": "pr147-verified-working-tree"
+        },
+        "videoCapture": {
+          "measured": false,
+          "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+        },
+        "canonicalInvariant": true,
+        "results": [
+          {
+            "seed": "pr146-performance:balanced:a",
+            "config": {
+              "canonicalMinutes": 10,
+              "mode": "normal",
+              "batchTicks": 20,
+              "bucketMinutes": 5,
+              "profilingEnabled": true,
+              "sampleEveryTicks": 37
+            },
+            "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+            "fixedDt": 0.025,
+            "rendererCallsBackground": 0,
+            "canonicalSeconds": 599.9999999997282,
+            "elapsedMs": 15253.150900000017,
+            "canonicalSpeed": 39.336134804758764,
+            "ticks": 24000,
+            "ticksPerSecond": 1573.4453921910635,
+            "batches": 1200,
+            "batchP50Ms": 6.093399999999747,
+            "batchP95Ms": 37.04449999999997,
+            "batchP99Ms": 67.72220000000016,
+            "estimatedHidden45Seconds": 68.63917905003117,
+            "estimatedHidden90Seconds": 137.27835810006235,
+            "lateToEarlyCostRatio": 0.9394615890217628,
+            "buckets": [
+              {
+                "startMinute": 0,
+                "endMinute": 5.000000000000017,
+                "canonicalSeconds": 300.000000000001,
+                "elapsedMs": 7864.631599999996,
+                "canonicalSpeed": 38.1454612572064,
+                "ticks": 12000,
+                "ticksPerSecond": 1525.8184502882507,
+                "batches": 600,
+                "batchP50Ms": 6.683399999999892,
+                "batchP95Ms": 37.693600000000515,
+                "batchP99Ms": 46.51359999999988,
+                "memory": {
+                  "heapUsedBytes": 144700856,
+                  "heapTotalBytes": 221163520,
+                  "rssBytes": 305086464,
+                  "externalBytes": 10990494
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "canonicalActionEvents": 9,
+                  "pendingCards": 0,
+                  "defensivePlayerCounters": 14,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 93,
+                  "statistics.observedPassResultIds": 93,
+                  "statistics.observedShotIds": 1,
+                  "statistics.observedShotResultIds": 1,
+                  "statistics.observedContactIds": 228,
+                  "statistics.observedCarryIds": 4,
+                  "statistics.passingNetwork": 50,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 22,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              },
+              {
+                "startMinute": 5.000000000000017,
+                "endMinute": 9.99999999999547,
+                "canonicalSeconds": 299.99999999972715,
+                "elapsedMs": 7388.51930000002,
+                "canonicalSpeed": 40.60353472985126,
+                "ticks": 12000,
+                "ticksPerSecond": 1624.1413891955276,
+                "batches": 600,
+                "batchP50Ms": 5.592100000001665,
+                "batchP95Ms": 35.964899999999034,
+                "batchP99Ms": 81.76630000000114,
+                "memory": {
+                  "heapUsedBytes": 116483184,
+                  "heapTotalBytes": 245280768,
+                  "rssBytes": 336289792,
+                  "externalBytes": 10990534
+                },
+                "collections": {
+                  "contextSamples": 61,
+                  "debugFrames": 0,
+                  "restartTargets": 0,
+                  "planningSchedules": 1,
+                  "canonicalActionEvents": 9,
+                  "pendingCards": 1,
+                  "defensivePlayerCounters": 17,
+                  "statistics.players": 22,
+                  "statistics.observedPassAttemptIds": 187,
+                  "statistics.observedPassResultIds": 184,
+                  "statistics.observedShotIds": 3,
+                  "statistics.observedShotResultIds": 3,
+                  "statistics.observedContactIds": 446,
+                  "statistics.observedCarryIds": 14,
+                  "statistics.passingNetwork": 75,
+                  "statistics.observedAssistGoalIds": 0,
+                  "statistics.observedPossessionEvents": 42,
+                  "telemetry.shotDistances": 0,
+                  "telemetry.shootingOpportunityValues": 0,
+                  "telemetry.possessionSpellDurations": 0,
+                  "telemetry.possessionSpells": 0,
+                  "telemetry.actionTempoSamples": 0,
+                  "telemetry.ballHolds": 0,
+                  "telemetry.passOutcomes": 0,
+                  "telemetry.passingNetwork": 0,
+                  "telemetry.observedPassAttemptIds": 0,
+                  "telemetry.observedPassResultIds": 0,
+                  "telemetry.observedShotIds": 0,
+                  "telemetry.observedMajorActionIds": 0,
+                  "telemetry.shotDiagnostics": 0,
+                  "telemetry.activeFlankEpisodes": 0
+                }
+              }
+            ],
+            "checkpoints": [],
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 270.13649999998813,
+                  "estimatedMs": 9989.639445300025,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 6.381399999999189,
+                  "estimatedMs": 235.98397534665725,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 34.0875999999912,
+                  "estimatedMs": 1260.5583975343434,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 50.357900000018276,
+                  "estimatedMs": 1862.233590139351,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 5.779899999991926,
+                  "estimatedMs": 213.7405238825982,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 40.975299999976414,
+                  "estimatedMs": 1515.2653312780185,
+                  "sampledCalls": 642
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.281699999982038,
+                  "estimatedMs": 121.35716486836506,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 12.512799999986214,
+                  "estimatedMs": 462.7229583970249,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 157.4030999999993,
+                  "estimatedMs": 5820.7617873651525,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.5306000000117592,
+                  "estimatedMs": 56.60154083248417,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 6.086600000009184,
+                  "estimatedMs": 225.08228043177263,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 183.4898999999548,
+                  "estimatedMs": 6785.450847455956,
+                  "sampledCalls": 10292
+                }
+              ]
+            },
+            "score": {
+              "home": 0,
+              "away": 1
+            },
+            "status": "first_half",
+            "humanDecisionInputs": 8,
+            "defensiveTelemetry": {
+              "opportunities": 47,
+              "attempted": 47,
+              "missed": 7,
+              "beaten": 8,
+              "cleanWins": 12,
+              "looseBalls": 3,
+              "fouls": 17,
+              "yellowCards": 13,
+              "redCards": 5,
+              "secondYellowDismissals": 5,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 2,
+              "highRiskIntents": 31,
+              "slides": 3,
+              "tacticalIntents": 0,
+              "advantagePlayed": 5,
+              "byPlayer": {
+                "footballer_pro_1_7": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 1,
+                  "highRiskIntents": 2,
+                  "slides": 2,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 2
+                },
+                "footballer_pro_1_12": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 0,
+                  "beaten": 3,
+                  "cleanWins": 0,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_21": {
+                  "opportunities": 5,
+                  "attempted": 5,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 3,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 5,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_21": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 4,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_9": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 2,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 1,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_9": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 1,
+                  "beaten": 1,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_12": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 1,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_19": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 1,
+                  "cleanWins": 1,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_3": {
+                  "opportunities": 1,
+                  "attempted": 1,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 1,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_13": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_0_7": {
+                  "opportunities": 4,
+                  "attempted": 4,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 2,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 4,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_14": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 1,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_0_11": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 2,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_0_5": {
+                  "opportunities": 2,
+                  "attempted": 2,
+                  "missed": 0,
+                  "beaten": 2,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 0,
+                  "yellowCards": 0,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 0,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_4": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 1,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 1
+                },
+                "footballer_pro_1_14": {
+                  "opportunities": 1,
+                  "attempted": 1,
+                  "missed": 0,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 1,
+                  "yellowCards": 1,
+                  "redCards": 0,
+                  "secondYellowDismissals": 0,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 1,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                },
+                "footballer_pro_1_22": {
+                  "opportunities": 3,
+                  "attempted": 3,
+                  "missed": 1,
+                  "beaten": 0,
+                  "cleanWins": 0,
+                  "looseBalls": 0,
+                  "fouls": 2,
+                  "yellowCards": 2,
+                  "redCards": 1,
+                  "secondYellowDismissals": 1,
+                  "straightReds": 0,
+                  "penalties": 0,
+                  "advantageRecalled": 0,
+                  "highRiskIntents": 3,
+                  "slides": 0,
+                  "tacticalIntents": 0,
+                  "advantagePlayed": 0
+                }
+              }
+            },
+            "discipline": {
+              "footballer_pro_1_21": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 357.02499999994916,
+                "team": "away"
+              },
+              "footballer_pro_1_7": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 107.0000000000072,
+                "team": "away"
+              },
+              "footballer_pro_0_21": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 148.67500000001667,
+                "team": "home"
+              },
+              "footballer_pro_0_13": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 396.6999999999131,
+                "team": "home"
+              },
+              "footballer_pro_1_4": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "away"
+              },
+              "footballer_pro_1_14": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "away"
+              },
+              "footballer_pro_1_22": {
+                "yellowCards": 2,
+                "sentOff": true,
+                "sentOffAt": 482.92499999983465,
+                "team": "away"
+              },
+              "footballer_pro_0_7": {
+                "yellowCards": 1,
+                "sentOff": false,
+                "team": "home"
+              }
+            },
+            "planning": {
+              "evaluatedTicks": 24000,
+              "plansRecomputed": 6185,
+              "plansReused": 17815,
+              "semanticInvalidations": 518,
+              "reuseRate": 0.7422916666666667
+            },
+            "hashes": {
+              "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+              "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+              "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+              "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+              "majorEventCount": 474,
+              "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+            },
+            "context": {
+              "samplesRetained": 61,
+              "samplesWritten": 6000,
+              "sampleWorkMs": 163.61950000003424,
+              "sampleHz": 10,
+              "capacity": 62
+            },
+            "export": {
+              "packagingMs": 0.023100000000340515,
+              "serializationMs": 0.0072000000000116415,
+              "jsonBytes": 2
+            },
+            "save": {
+              "performed": false,
+              "elapsedMs": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "observerParityRun": {
+    "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+    "environment": {
+      "node": "v24.19.0",
+      "platform": "win32",
+      "osRelease": "10.0.26200",
+      "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+      "logicalCpus": 16,
+      "totalMemoryBytes": 33601875968,
+      "revision": "pr147-verified-working-tree"
+    },
+    "videoCapture": {
+      "measured": false,
+      "reason": "Headless harness has no pitch canvas or MediaRecorder; browser-only cost must be measured separately."
+    },
+    "canonicalInvariant": true,
+    "results": [
+      {
+        "seed": "pr146-performance:balanced:a",
+        "config": {
+          "canonicalMinutes": 10,
+          "mode": "release_minimal",
+          "batchTicks": 20,
+          "bucketMinutes": 5,
+          "profilingEnabled": true,
+          "sampleEveryTicks": 37
+        },
+        "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+        "fixedDt": 0.025,
+        "rendererCallsBackground": 0,
+        "canonicalSeconds": 599.9999999997282,
+        "elapsedMs": 14313.964099999974,
+        "canonicalSpeed": 41.91710946094445,
+        "ticks": 24000,
+        "ticksPerSecond": 1676.6843784385378,
+        "batches": 1200,
+        "batchP50Ms": 5.564099999999598,
+        "batchP95Ms": 34.944500000001426,
+        "batchP99Ms": 69.58669999999984,
+        "estimatedHidden45Seconds": 64.41283845002907,
+        "estimatedHidden90Seconds": 128.82567690005814,
+        "lateToEarlyCostRatio": 0.9678956825157342,
+        "buckets": [
+          {
+            "startMinute": 0,
+            "endMinute": 5.000000000000017,
+            "canonicalSeconds": 300.000000000001,
+            "elapsedMs": 7273.741300000009,
+            "canonicalSpeed": 41.244249365866324,
+            "ticks": 12000,
+            "ticksPerSecond": 1649.7699746346473,
+            "batches": 600,
+            "batchP50Ms": 6.100199999999859,
+            "batchP95Ms": 35.32720000000063,
+            "batchP99Ms": 42.34970000000021,
+            "memory": {
+              "heapUsedBytes": 85284832,
+              "heapTotalBytes": 202289152,
+              "rssBytes": 288399360,
+              "externalBytes": 10990494
+            },
+            "collections": {
+              "contextSamples": 0,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "canonicalActionEvents": 9,
+              "pendingCards": 0,
+              "defensivePlayerCounters": 14,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 93,
+              "statistics.observedPassResultIds": 93,
+              "statistics.observedShotIds": 1,
+              "statistics.observedShotResultIds": 1,
+              "statistics.observedContactIds": 228,
+              "statistics.observedCarryIds": 4,
+              "statistics.passingNetwork": 50,
+              "statistics.observedAssistGoalIds": 0,
+              "statistics.observedPossessionEvents": 22,
+              "telemetry.shotDistances": 0,
+              "telemetry.shootingOpportunityValues": 0,
+              "telemetry.possessionSpellDurations": 0,
+              "telemetry.possessionSpells": 0,
+              "telemetry.actionTempoSamples": 0,
+              "telemetry.ballHolds": 0,
+              "telemetry.passOutcomes": 0,
+              "telemetry.passingNetwork": 0,
+              "telemetry.observedPassAttemptIds": 0,
+              "telemetry.observedPassResultIds": 0,
+              "telemetry.observedShotIds": 0,
+              "telemetry.observedMajorActionIds": 0,
+              "telemetry.shotDiagnostics": 0,
+              "telemetry.activeFlankEpisodes": 0
+            }
+          },
+          {
+            "startMinute": 5.000000000000017,
+            "endMinute": 9.99999999999547,
+            "canonicalSeconds": 299.99999999972715,
+            "elapsedMs": 7040.222799999964,
+            "canonicalSpeed": 42.61228778153564,
+            "ticks": 12000,
+            "ticksPerSecond": 1704.491511262976,
+            "batches": 600,
+            "batchP50Ms": 5.096299999999246,
+            "batchP95Ms": 33.970400000000154,
+            "batchP99Ms": 80.992400000001,
+            "memory": {
+              "heapUsedBytes": 120059888,
+              "heapTotalBytes": 209891328,
+              "rssBytes": 293834752,
+              "externalBytes": 10990534
+            },
+            "collections": {
+              "contextSamples": 0,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "canonicalActionEvents": 9,
+              "pendingCards": 1,
+              "defensivePlayerCounters": 17,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 187,
+              "statistics.observedPassResultIds": 184,
+              "statistics.observedShotIds": 3,
+              "statistics.observedShotResultIds": 3,
+              "statistics.observedContactIds": 446,
+              "statistics.observedCarryIds": 14,
+              "statistics.passingNetwork": 75,
+              "statistics.observedAssistGoalIds": 0,
+              "statistics.observedPossessionEvents": 42,
+              "telemetry.shotDistances": 0,
+              "telemetry.shootingOpportunityValues": 0,
+              "telemetry.possessionSpellDurations": 0,
+              "telemetry.possessionSpells": 0,
+              "telemetry.actionTempoSamples": 0,
+              "telemetry.ballHolds": 0,
+              "telemetry.passOutcomes": 0,
+              "telemetry.passingNetwork": 0,
+              "telemetry.observedPassAttemptIds": 0,
+              "telemetry.observedPassResultIds": 0,
+              "telemetry.observedShotIds": 0,
+              "telemetry.observedMajorActionIds": 0,
+              "telemetry.shotDiagnostics": 0,
+              "telemetry.activeFlankEpisodes": 0
+            }
+          }
+        ],
+        "checkpoints": [],
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 24000,
+          "sampledTicks": 649,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "agency_projection",
+              "sampledMs": 269.78310000002557,
+              "estimatedMs": 9976.57072419201,
+              "sampledCalls": 649
+            },
+            {
+              "category": "tactical_planning",
+              "sampledMs": 32.93710000000658,
+              "estimatedMs": 1218.0129429894575,
+              "sampledCalls": 649
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 48.82830000001502,
+              "estimatedMs": 1805.6690292763644,
+              "sampledCalls": 649
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 6.069200000023102,
+              "estimatedMs": 224.43882896849686,
+              "sampledCalls": 649
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 43.13769999999727,
+              "estimatedMs": 1595.2308166408852,
+              "sampledCalls": 642
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 3.758399999981293,
+              "estimatedMs": 138.98551617804475,
+              "sampledCalls": 649
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 13.136699999998541,
+              "estimatedMs": 485.79476117097846,
+              "sampledCalls": 649
+            },
+            {
+              "category": "canonical_step",
+              "sampledMs": 158.04870000000255,
+              "estimatedMs": 5844.636055470049,
+              "sampledCalls": 649
+            },
+            {
+              "category": "benchmark_evidence",
+              "sampledMs": 1.6618999999916468,
+              "estimatedMs": 61.45701078551545,
+              "sampledCalls": 649
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 177.8606000000458,
+              "estimatedMs": 6577.279506935438,
+              "sampledCalls": 10292
+            }
+          ]
+        },
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "status": "first_half",
+        "humanDecisionInputs": 8,
+        "defensiveTelemetry": {
+          "opportunities": 47,
+          "attempted": 47,
+          "missed": 7,
+          "beaten": 8,
+          "cleanWins": 12,
+          "looseBalls": 3,
+          "fouls": 17,
+          "yellowCards": 13,
+          "redCards": 5,
+          "secondYellowDismissals": 5,
+          "straightReds": 0,
+          "penalties": 0,
+          "advantageRecalled": 2,
+          "highRiskIntents": 31,
+          "slides": 3,
+          "tacticalIntents": 0,
+          "advantagePlayed": 5,
+          "byPlayer": {
+            "footballer_pro_1_7": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 1,
+              "highRiskIntents": 2,
+              "slides": 2,
+              "tacticalIntents": 0,
+              "advantagePlayed": 2
+            },
+            "footballer_pro_1_12": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 0,
+              "beaten": 3,
+              "cleanWins": 0,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_21": {
+              "opportunities": 5,
+              "attempted": 5,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 3,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 5,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_21": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 4,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_9": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 2,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 1,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_9": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 1,
+              "beaten": 1,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_12": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 1,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_19": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 1,
+              "cleanWins": 1,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_3": {
+              "opportunities": 1,
+              "attempted": 1,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_13": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_0_7": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 2,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 4,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_14": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 1,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_0_11": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 2,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_5": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 2,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_4": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_1_14": {
+              "opportunities": 1,
+              "attempted": 1,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 1,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_22": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            }
+          }
+        },
+        "discipline": {
+          "footballer_pro_1_21": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 357.02499999994916,
+            "team": "away"
+          },
+          "footballer_pro_1_7": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 107.0000000000072,
+            "team": "away"
+          },
+          "footballer_pro_0_21": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 148.67500000001667,
+            "team": "home"
+          },
+          "footballer_pro_0_13": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 396.6999999999131,
+            "team": "home"
+          },
+          "footballer_pro_1_4": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "away"
+          },
+          "footballer_pro_1_14": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "away"
+          },
+          "footballer_pro_1_22": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 482.92499999983465,
+            "team": "away"
+          },
+          "footballer_pro_0_7": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "home"
+          }
+        },
+        "planning": {
+          "evaluatedTicks": 24000,
+          "plansRecomputed": 6185,
+          "plansReused": 17815,
+          "semanticInvalidations": 518,
+          "reuseRate": 0.7422916666666667
+        },
+        "hashes": {
+          "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+          "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+          "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+          "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+          "majorEventCount": 474,
+          "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+        },
+        "context": {
+          "samplesRetained": 0,
+          "samplesWritten": 0,
+          "sampleWorkMs": 0,
+          "sampleHz": 10,
+          "capacity": 62
+        },
+        "export": {
+          "packagingMs": 0.033400000000256114,
+          "serializationMs": 0.011999999998806743,
+          "jsonBytes": 2
+        },
+        "save": {
+          "performed": false,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "seed": "pr146-performance:balanced:a",
+        "config": {
+          "canonicalMinutes": 10,
+          "mode": "normal",
+          "batchTicks": 20,
+          "bucketMinutes": 5,
+          "profilingEnabled": true,
+          "sampleEveryTicks": 37
+        },
+        "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+        "fixedDt": 0.025,
+        "rendererCallsBackground": 0,
+        "canonicalSeconds": 599.9999999997282,
+        "elapsedMs": 14618.873499999956,
+        "canonicalSpeed": 41.0428341143885,
+        "ticks": 24000,
+        "ticksPerSecond": 1641.7133645762838,
+        "batches": 1200,
+        "batchP50Ms": 5.542800000002899,
+        "batchP95Ms": 36.30439999999726,
+        "batchP99Ms": 63.888599999998405,
+        "estimatedHidden45Seconds": 65.7849307500296,
+        "estimatedHidden90Seconds": 131.5698615000592,
+        "lateToEarlyCostRatio": 0.8972093365214118,
+        "buckets": [
+          {
+            "startMinute": 0,
+            "endMinute": 5.000000000000017,
+            "canonicalSeconds": 300.000000000001,
+            "elapsedMs": 7705.461499999992,
+            "canonicalSpeed": 38.93342403955965,
+            "ticks": 12000,
+            "ticksPerSecond": 1557.3369615823806,
+            "batches": 600,
+            "batchP50Ms": 6.116199999996752,
+            "batchP95Ms": 37.00640000000203,
+            "batchP99Ms": 44.6291999999994,
+            "memory": {
+              "heapUsedBytes": 111266912,
+              "heapTotalBytes": 234418176,
+              "rssBytes": 325001216,
+              "externalBytes": 10990534
+            },
+            "collections": {
+              "contextSamples": 61,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "canonicalActionEvents": 9,
+              "pendingCards": 0,
+              "defensivePlayerCounters": 14,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 93,
+              "statistics.observedPassResultIds": 93,
+              "statistics.observedShotIds": 1,
+              "statistics.observedShotResultIds": 1,
+              "statistics.observedContactIds": 228,
+              "statistics.observedCarryIds": 4,
+              "statistics.passingNetwork": 50,
+              "statistics.observedAssistGoalIds": 0,
+              "statistics.observedPossessionEvents": 22,
+              "telemetry.shotDistances": 0,
+              "telemetry.shootingOpportunityValues": 0,
+              "telemetry.possessionSpellDurations": 0,
+              "telemetry.possessionSpells": 0,
+              "telemetry.actionTempoSamples": 0,
+              "telemetry.ballHolds": 0,
+              "telemetry.passOutcomes": 0,
+              "telemetry.passingNetwork": 0,
+              "telemetry.observedPassAttemptIds": 0,
+              "telemetry.observedPassResultIds": 0,
+              "telemetry.observedShotIds": 0,
+              "telemetry.observedMajorActionIds": 0,
+              "telemetry.shotDiagnostics": 0,
+              "telemetry.activeFlankEpisodes": 0
+            }
+          },
+          {
+            "startMinute": 5.000000000000017,
+            "endMinute": 9.99999999999547,
+            "canonicalSeconds": 299.99999999972715,
+            "elapsedMs": 6913.411999999964,
+            "canonicalSpeed": 43.39391316469042,
+            "ticks": 12000,
+            "ticksPerSecond": 1735.7565265891953,
+            "batches": 600,
+            "batchP50Ms": 4.867500000000291,
+            "batchP95Ms": 34.68709999999919,
+            "batchP99Ms": 78.29630000000179,
+            "memory": {
+              "heapUsedBytes": 176360480,
+              "heapTotalBytes": 256847872,
+              "rssBytes": 343011328,
+              "externalBytes": 10990534
+            },
+            "collections": {
+              "contextSamples": 61,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "canonicalActionEvents": 9,
+              "pendingCards": 1,
+              "defensivePlayerCounters": 17,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 187,
+              "statistics.observedPassResultIds": 184,
+              "statistics.observedShotIds": 3,
+              "statistics.observedShotResultIds": 3,
+              "statistics.observedContactIds": 446,
+              "statistics.observedCarryIds": 14,
+              "statistics.passingNetwork": 75,
+              "statistics.observedAssistGoalIds": 0,
+              "statistics.observedPossessionEvents": 42,
+              "telemetry.shotDistances": 0,
+              "telemetry.shootingOpportunityValues": 0,
+              "telemetry.possessionSpellDurations": 0,
+              "telemetry.possessionSpells": 0,
+              "telemetry.actionTempoSamples": 0,
+              "telemetry.ballHolds": 0,
+              "telemetry.passOutcomes": 0,
+              "telemetry.passingNetwork": 0,
+              "telemetry.observedPassAttemptIds": 0,
+              "telemetry.observedPassResultIds": 0,
+              "telemetry.observedShotIds": 0,
+              "telemetry.observedMajorActionIds": 0,
+              "telemetry.shotDiagnostics": 0,
+              "telemetry.activeFlankEpisodes": 0
+            }
+          }
+        ],
+        "checkpoints": [],
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 24000,
+          "sampledTicks": 649,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "agency_projection",
+              "sampledMs": 249.49470000004112,
+              "estimatedMs": 9226.306317412924,
+              "sampledCalls": 649
+            },
+            {
+              "category": "match_moment",
+              "sampledMs": 6.166700000057972,
+              "estimatedMs": 228.04437596516385,
+              "sampledCalls": 649
+            },
+            {
+              "category": "tactical_planning",
+              "sampledMs": 32.347000000014305,
+              "estimatedMs": 1196.1910631746432,
+              "sampledCalls": 649
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 47.28090000008888,
+              "estimatedMs": 1748.446224964766,
+              "sampledCalls": 649
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 4.595199999985198,
+              "estimatedMs": 169.93035439082396,
+              "sampledCalls": 649
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 39.11530000004677,
+              "estimatedMs": 1446.4825885995726,
+              "sampledCalls": 642
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 3.1445999999759806,
+              "estimatedMs": 116.28721109310253,
+              "sampledCalls": 649
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 13.229100000016842,
+              "estimatedMs": 489.2117103241976,
+              "sampledCalls": 649
+            },
+            {
+              "category": "canonical_step",
+              "sampledMs": 146.88019999995413,
+              "estimatedMs": 5431.625269643913,
+              "sampledCalls": 649
+            },
+            {
+              "category": "benchmark_evidence",
+              "sampledMs": 1.6072000000403932,
+              "estimatedMs": 59.43420647298835,
+              "sampledCalls": 649
+            },
+            {
+              "category": "context_history",
+              "sampledMs": 6.196499999998196,
+              "estimatedMs": 229.14637904461742,
+              "sampledCalls": 649
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 172.5939999998427,
+              "estimatedMs": 6382.5208012268495,
+              "sampledCalls": 10292
+            }
+          ]
+        },
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "status": "first_half",
+        "humanDecisionInputs": 8,
+        "defensiveTelemetry": {
+          "opportunities": 47,
+          "attempted": 47,
+          "missed": 7,
+          "beaten": 8,
+          "cleanWins": 12,
+          "looseBalls": 3,
+          "fouls": 17,
+          "yellowCards": 13,
+          "redCards": 5,
+          "secondYellowDismissals": 5,
+          "straightReds": 0,
+          "penalties": 0,
+          "advantageRecalled": 2,
+          "highRiskIntents": 31,
+          "slides": 3,
+          "tacticalIntents": 0,
+          "advantagePlayed": 5,
+          "byPlayer": {
+            "footballer_pro_1_7": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 1,
+              "highRiskIntents": 2,
+              "slides": 2,
+              "tacticalIntents": 0,
+              "advantagePlayed": 2
+            },
+            "footballer_pro_1_12": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 0,
+              "beaten": 3,
+              "cleanWins": 0,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_21": {
+              "opportunities": 5,
+              "attempted": 5,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 3,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 5,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_21": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 4,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_9": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 2,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 1,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_9": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 1,
+              "beaten": 1,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_12": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 1,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_19": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 1,
+              "cleanWins": 1,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_3": {
+              "opportunities": 1,
+              "attempted": 1,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_13": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_0_7": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 2,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 4,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_14": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 1,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_0_11": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 2,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_5": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 2,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_4": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_1_14": {
+              "opportunities": 1,
+              "attempted": 1,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 1,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_22": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            }
+          }
+        },
+        "discipline": {
+          "footballer_pro_1_21": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 357.02499999994916,
+            "team": "away"
+          },
+          "footballer_pro_1_7": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 107.0000000000072,
+            "team": "away"
+          },
+          "footballer_pro_0_21": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 148.67500000001667,
+            "team": "home"
+          },
+          "footballer_pro_0_13": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 396.6999999999131,
+            "team": "home"
+          },
+          "footballer_pro_1_4": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "away"
+          },
+          "footballer_pro_1_14": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "away"
+          },
+          "footballer_pro_1_22": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 482.92499999983465,
+            "team": "away"
+          },
+          "footballer_pro_0_7": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "home"
+          }
+        },
+        "planning": {
+          "evaluatedTicks": 24000,
+          "plansRecomputed": 6185,
+          "plansReused": 17815,
+          "semanticInvalidations": 518,
+          "reuseRate": 0.7422916666666667
+        },
+        "hashes": {
+          "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+          "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+          "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+          "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+          "majorEventCount": 474,
+          "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+        },
+        "context": {
+          "samplesRetained": 61,
+          "samplesWritten": 6000,
+          "sampleWorkMs": 164.95000000000618,
+          "sampleHz": 10,
+          "capacity": 62
+        },
+        "export": {
+          "packagingMs": 0.006500000003143214,
+          "serializationMs": 0.00450000000273576,
+          "jsonBytes": 2
+        },
+        "save": {
+          "performed": false,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "seed": "pr146-performance:balanced:a",
+        "config": {
+          "canonicalMinutes": 10,
+          "mode": "dev",
+          "batchTicks": 20,
+          "bucketMinutes": 5,
+          "profilingEnabled": true,
+          "sampleEveryTicks": 37
+        },
+        "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+        "fixedDt": 0.025,
+        "rendererCallsBackground": 0,
+        "canonicalSeconds": 599.9999999997282,
+        "elapsedMs": 16266.051700000164,
+        "canonicalSpeed": 36.88664041315706,
+        "ticks": 24000,
+        "ticksPerSecond": 1475.465616526951,
+        "batches": 1200,
+        "batchP50Ms": 6.114000000001397,
+        "batchP95Ms": 40.244800000000396,
+        "batchP99Ms": 68.50240000000485,
+        "estimatedHidden45Seconds": 73.1972326500339,
+        "estimatedHidden90Seconds": 146.3944653000678,
+        "lateToEarlyCostRatio": 0.8842458492141981,
+        "buckets": [
+          {
+            "startMinute": 0,
+            "endMinute": 5.000000000000017,
+            "canonicalSeconds": 300.000000000001,
+            "elapsedMs": 8632.658900000068,
+            "canonicalSpeed": 34.75174954497492,
+            "ticks": 12000,
+            "ticksPerSecond": 1390.0699817989919,
+            "batches": 600,
+            "batchP50Ms": 6.734400000001187,
+            "batchP95Ms": 41.22160000000076,
+            "batchP99Ms": 50.726300000002084,
+            "memory": {
+              "heapUsedBytes": 199824744,
+              "heapTotalBytes": 282423296,
+              "rssBytes": 377118720,
+              "externalBytes": 10990534
+            },
+            "collections": {
+              "contextSamples": 61,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "canonicalActionEvents": 9,
+              "pendingCards": 0,
+              "defensivePlayerCounters": 14,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 93,
+              "statistics.observedPassResultIds": 93,
+              "statistics.observedShotIds": 1,
+              "statistics.observedShotResultIds": 1,
+              "statistics.observedContactIds": 228,
+              "statistics.observedCarryIds": 4,
+              "statistics.passingNetwork": 50,
+              "statistics.observedAssistGoalIds": 0,
+              "statistics.observedPossessionEvents": 22,
+              "telemetry.shotDistances": 1,
+              "telemetry.shootingOpportunityValues": 1,
+              "telemetry.possessionSpellDurations": 25,
+              "telemetry.possessionSpells": 25,
+              "telemetry.actionTempoSamples": 203,
+              "telemetry.ballHolds": 116,
+              "telemetry.passOutcomes": 93,
+              "telemetry.passingNetwork": 50,
+              "telemetry.observedPassAttemptIds": 93,
+              "telemetry.observedPassResultIds": 93,
+              "telemetry.observedShotIds": 1,
+              "telemetry.observedMajorActionIds": 2,
+              "telemetry.shotDiagnostics": 1,
+              "telemetry.activeFlankEpisodes": 1
+            }
+          },
+          {
+            "startMinute": 5.000000000000017,
+            "endMinute": 9.99999999999547,
+            "canonicalSeconds": 299.99999999972715,
+            "elapsedMs": 7633.392800000096,
+            "canonicalSpeed": 39.3010038733659,
+            "ticks": 12000,
+            "ticksPerSecond": 1572.0401549360658,
+            "batches": 600,
+            "batchP50Ms": 5.424800000000687,
+            "batchP95Ms": 38.176800000001094,
+            "batchP99Ms": 86.63620000000083,
+            "memory": {
+              "heapUsedBytes": 225963976,
+              "heapTotalBytes": 306688000,
+              "rssBytes": 405381120,
+              "externalBytes": 10990534
+            },
+            "collections": {
+              "contextSamples": 61,
+              "debugFrames": 0,
+              "restartTargets": 0,
+              "planningSchedules": 1,
+              "canonicalActionEvents": 9,
+              "pendingCards": 1,
+              "defensivePlayerCounters": 17,
+              "statistics.players": 22,
+              "statistics.observedPassAttemptIds": 187,
+              "statistics.observedPassResultIds": 184,
+              "statistics.observedShotIds": 3,
+              "statistics.observedShotResultIds": 3,
+              "statistics.observedContactIds": 446,
+              "statistics.observedCarryIds": 14,
+              "statistics.passingNetwork": 75,
+              "statistics.observedAssistGoalIds": 0,
+              "statistics.observedPossessionEvents": 42,
+              "telemetry.shotDistances": 3,
+              "telemetry.shootingOpportunityValues": 3,
+              "telemetry.possessionSpellDurations": 51,
+              "telemetry.possessionSpells": 51,
+              "telemetry.actionTempoSamples": 407,
+              "telemetry.ballHolds": 230,
+              "telemetry.passOutcomes": 187,
+              "telemetry.passingNetwork": 75,
+              "telemetry.observedPassAttemptIds": 187,
+              "telemetry.observedPassResultIds": 184,
+              "telemetry.observedShotIds": 3,
+              "telemetry.observedMajorActionIds": 17,
+              "telemetry.shotDiagnostics": 3,
+              "telemetry.activeFlankEpisodes": 0
+            }
+          }
+        ],
+        "checkpoints": [],
+        "profile": {
+          "enabled": true,
+          "sampleEveryTicks": 37,
+          "ticks": 24000,
+          "sampledTicks": 649,
+          "timingSemantics": "inclusive_sampled_spans",
+          "categories": [
+            {
+              "category": "agency_projection",
+              "sampledMs": 253.247499999914,
+              "estimatedMs": 9365.084745759532,
+              "sampledCalls": 649
+            },
+            {
+              "category": "match_moment",
+              "sampledMs": 4.654000000049564,
+              "estimatedMs": 172.10477658118575,
+              "sampledCalls": 649
+            },
+            {
+              "category": "diagnostics",
+              "sampledMs": 2.0472000000008848,
+              "estimatedMs": 75.7053929122053,
+              "sampledCalls": 649
+            },
+            {
+              "category": "tactical_planning",
+              "sampledMs": 32.21659999988697,
+              "estimatedMs": 1191.3688751884242,
+              "sampledCalls": 649
+            },
+            {
+              "category": "movement_physics",
+              "sampledMs": 48.11190000001079,
+              "estimatedMs": 1779.1765793532497,
+              "sampledCalls": 649
+            },
+            {
+              "category": "ball_physics",
+              "sampledMs": 4.698799999903713,
+              "estimatedMs": 173.76147919520665,
+              "sampledCalls": 649
+            },
+            {
+              "category": "action_resolution",
+              "sampledMs": 40.84610000003158,
+              "estimatedMs": 1510.4875192615687,
+              "sampledCalls": 642
+            },
+            {
+              "category": "pass_contact_evidence",
+              "sampledMs": 3.5092999998996675,
+              "estimatedMs": 129.7738058514515,
+              "sampledCalls": 649
+            },
+            {
+              "category": "statistics",
+              "sampledMs": 12.676799999928335,
+              "estimatedMs": 468.7876733409554,
+              "sampledCalls": 649
+            },
+            {
+              "category": "canonical_step",
+              "sampledMs": 149.8525000000409,
+              "estimatedMs": 5541.5408320508195,
+              "sampledCalls": 649
+            },
+            {
+              "category": "match_flow",
+              "sampledMs": 51.08859999996275,
+              "estimatedMs": 1889.2548536195782,
+              "sampledCalls": 649
+            },
+            {
+              "category": "benchmark_evidence",
+              "sampledMs": 1.5158000000592438,
+              "estimatedMs": 56.054237290326434,
+              "sampledCalls": 649
+            },
+            {
+              "category": "context_history",
+              "sampledMs": 5.5845000000445,
+              "estimatedMs": 206.51463790611405,
+              "sampledCalls": 649
+            },
+            {
+              "category": "interception_eta",
+              "sampledMs": 198.92840000034266,
+              "estimatedMs": 7356.366101707587,
+              "sampledCalls": 11490
+            }
+          ]
+        },
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "status": "first_half",
+        "humanDecisionInputs": 8,
+        "defensiveTelemetry": {
+          "opportunities": 47,
+          "attempted": 47,
+          "missed": 7,
+          "beaten": 8,
+          "cleanWins": 12,
+          "looseBalls": 3,
+          "fouls": 17,
+          "yellowCards": 13,
+          "redCards": 5,
+          "secondYellowDismissals": 5,
+          "straightReds": 0,
+          "penalties": 0,
+          "advantageRecalled": 2,
+          "highRiskIntents": 31,
+          "slides": 3,
+          "tacticalIntents": 0,
+          "advantagePlayed": 5,
+          "byPlayer": {
+            "footballer_pro_1_7": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 1,
+              "highRiskIntents": 2,
+              "slides": 2,
+              "tacticalIntents": 0,
+              "advantagePlayed": 2
+            },
+            "footballer_pro_1_12": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 0,
+              "beaten": 3,
+              "cleanWins": 0,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_21": {
+              "opportunities": 5,
+              "attempted": 5,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 3,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 5,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_21": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 4,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_9": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 2,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 1,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_9": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 1,
+              "beaten": 1,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_12": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 1,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_19": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 1,
+              "cleanWins": 1,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_3": {
+              "opportunities": 1,
+              "attempted": 1,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 1,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_13": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_0_7": {
+              "opportunities": 4,
+              "attempted": 4,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 2,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 4,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_14": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 1,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_0_11": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 2,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_0_5": {
+              "opportunities": 2,
+              "attempted": 2,
+              "missed": 0,
+              "beaten": 2,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 0,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_4": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 1,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 1
+            },
+            "footballer_pro_1_14": {
+              "opportunities": 1,
+              "attempted": 1,
+              "missed": 0,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "secondYellowDismissals": 0,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 1,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            },
+            "footballer_pro_1_22": {
+              "opportunities": 3,
+              "attempted": 3,
+              "missed": 1,
+              "beaten": 0,
+              "cleanWins": 0,
+              "looseBalls": 0,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 1,
+              "secondYellowDismissals": 1,
+              "straightReds": 0,
+              "penalties": 0,
+              "advantageRecalled": 0,
+              "highRiskIntents": 3,
+              "slides": 0,
+              "tacticalIntents": 0,
+              "advantagePlayed": 0
+            }
+          }
+        },
+        "discipline": {
+          "footballer_pro_1_21": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 357.02499999994916,
+            "team": "away"
+          },
+          "footballer_pro_1_7": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 107.0000000000072,
+            "team": "away"
+          },
+          "footballer_pro_0_21": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 148.67500000001667,
+            "team": "home"
+          },
+          "footballer_pro_0_13": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 396.6999999999131,
+            "team": "home"
+          },
+          "footballer_pro_1_4": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "away"
+          },
+          "footballer_pro_1_14": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "away"
+          },
+          "footballer_pro_1_22": {
+            "yellowCards": 2,
+            "sentOff": true,
+            "sentOffAt": 482.92499999983465,
+            "team": "away"
+          },
+          "footballer_pro_0_7": {
+            "yellowCards": 1,
+            "sentOff": false,
+            "team": "home"
+          }
+        },
+        "planning": {
+          "evaluatedTicks": 24000,
+          "plansRecomputed": 6185,
+          "plansReused": 17815,
+          "semanticInvalidations": 518,
+          "reuseRate": 0.7422916666666667
+        },
+        "hashes": {
+          "canonicalState": "88a9927e4c799bcce580b32f865674a23dbe227afc1fc2dd331e4459fae6773c",
+          "playerState": "b20d96779b1b64dc28015509bf3eb85a7a7b6d6349fcd5ab83c9bed974d2854a",
+          "statistics": "a4651c9624a88ac3e6b044ab80dae6e2d9a9604a7bf64451c177e2e7e2f03e93",
+          "majorEventSequence": "8496025ce0573b858a6fc4d7dfef4940cb378707b5d22e7332b3bd7c67b96af6",
+          "majorEventCount": 474,
+          "randomnessEvidence": "5aa18cf86074c00a3dde988b1e6666e8df64fc128acbf1de29817b88aec95b4f"
+        },
+        "context": {
+          "samplesRetained": 61,
+          "samplesWritten": 6000,
+          "sampleWorkMs": 158.2805000000044,
+          "sampleHz": 10,
+          "capacity": 62
+        },
+        "export": {
+          "packagingMs": 0.14660000000003492,
+          "serializationMs": 1.2823999999964144,
+          "jsonBytes": 193284
+        },
+        "save": {
+          "performed": false,
+          "elapsedMs": 0
+        }
+      }
+    ]
+  }
+}

@@ -82,12 +82,39 @@ An attached-ball tick or rendered foot movement is not an additional contact.
 - **Carry:** one canonical carrier intent episode (`actorId`, `startedAt`), not every movement
   tick or a later unrelated AI decision index carrying an old action.
 - **Interception / ball win:** one canonical possession-change event of the corresponding
-  cause. Existing tackle counters describe won tackle possession changes; failed attempts
-  are not yet exhaustively represented and are not invented here.
+  cause. PR145 tackle counters describe won tackle possession changes; failed attempts
+  were not yet exhaustively represented in that historical calibration and are not invented
+  in its recorded numbers. PR147 adds separate canonical challenge attempts/outcomes below.
 
 The invariants are `passesReceived <= touches` per player and equal totals of completed
 passes, received passes and completed network edges. Telemetry copies these canonical totals
 when available. Observers do not consume RNG or change the physical result.
+
+### PR147 defensive evidence
+
+`defensiveTelemetry` adds fixed scalar totals and a roster-sized per-player map for accepted
+challenge opportunities/attempts, missed/no-contact, beaten, clean wins, loose balls, fouls,
+cards, slide attempts, tactical intents and advantage. `highRiskIntents`, `secondYellowDismissals`,
+`straightReds`, `penalties` and `advantageRecalled` expose disciplinary subtypes without
+statistical tuning. Opportunity means an accepted physical
+attempt in this PR, not every tactical approach. A clean ball win remains the existing canonical
+possession-change/statistical fact; challenge attempts are a separate denominator. Do not
+calculate defensive success by dividing won tackles by the same won-tackle counter.
+
+Foul/contact evidence and card/advantage are authoritative, while bounded action events and
+micro labels observe the outcome. The heavy-touch → interception chain may be shown without
+a prompt when no meaningful human window existed. Full defender-versus-dribbler and approach
+funnel calibration remains PR148, together with possession rhythm and role differences.
+That stage includes **Discipline realism calibration**, after the measured duel/contact rhythm
+is stable. Large deterministic full-match batches should compare fouls/team/90, yellow cards,
+reds/100 matches, penalties, cards/foul, fouls/challenge and advantage across styles, positions
+and qualities against reliable real-football datasets where available. The target is plausible
+distributions, not a forced mean for every match; individual attributes/tactics affect propensity.
+League/referee interpretation is a later parameter. PR147 instruments outcomes without arbitrary
+global frequency tuning. Ten-player tactical adaptation is also deferred; dismissal removes the
+active physical actor while retaining match statistics and discipline, with no automatic replacement.
+Scope, exact validation status and representative performance evidence:
+[RULES_DISCIPLINE_MATCH_FEEDBACK.md](RULES_DISCIPLINE_MATCH_FEEDBACK.md).
 
 ## Agency
 

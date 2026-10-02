@@ -2,6 +2,7 @@ import type { TacticalMatchState } from '../../../core/matchSimulation/matchStat
 import { observeAnimationCues } from './frameProjection';
 import type { AnimationCue, TacticalFrame } from './model';
 import { sampleReplayFrame } from './replay';
+import { frameActionEvents, frameDismissals } from './actionFeedback';
 
 export const CONTEXT_SAMPLE_SECONDS = 0.1;
 export const CONTEXT_HISTORY_SECONDS = 6;
@@ -43,6 +44,8 @@ export class PresentationContextHistory {
     for (const [id, cue] of this.cues) if (state.time * 1000 - cue.atMs > 900) this.cues.delete(id);
     const frame: TacticalFrame = {
       timestampMs: state.time * 1000,
+      actionEvents: frameActionEvents(state.actionEvents ?? [], state.time * 1000),
+      dismissals: frameDismissals(state),
       continuity: `context:${state.seed}:${this.continuity}`,
       ball: {
         x: state.ball.x,

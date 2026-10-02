@@ -55,8 +55,14 @@ describe('PR138 explicit DEV delegation liveness', () => {
 
     state = first.state;
     const releasedAt = state.time;
-    for (let tick = 0; tick < 180; tick += 1) state = stepTacticalMatch(state, 0.025);
+    // Verify this throw's first physical contact. Later PR147 fouls can lawfully stop play again.
+    for (let tick = 0; tick < 180 && state.scenario !== 'open_play'; tick += 1)
+      state = stepTacticalMatch(state, 0.025);
     expect(state.scenario).toBe('open_play');
+    expect(state.restart).toBeUndefined();
+    expect(state.lastThrowInDiagnostic?.releasedAt).toBe(releasedAt);
+    expect(state.lastThrowInDiagnostic?.nextContactAt).toBeGreaterThan(releasedAt);
+    expect(state.throwInRestriction).toBeUndefined();
     expect(state.time).toBeGreaterThan(releasedAt);
   });
 

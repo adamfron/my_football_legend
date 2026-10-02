@@ -1,4 +1,5 @@
 import { tacticalToWorld, type TacticalFrame } from './model';
+import { frameActionEvents } from './actionFeedback';
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 export const interpolateFacing = (a: number, b: number, t: number) =>
@@ -12,14 +13,47 @@ export const interpolatePresentationFrames = (
 ): TacticalFrame => {
   if (atMs >= next.timestampMs) return next;
   if (atMs <= previous.timestampMs) return previous;
+  const events = frameActionEvents(
+    [
+      ...new Map(
+        [...(previous.actionEvents ?? []), ...(next.actionEvents ?? [])].map((event) => [
+          event.id,
+          event,
+        ]),
+      ).values(),
+    ],
+    atMs,
+  );
+  const dismissals = { ...previous.dismissals, ...next.dismissals };
+  const dismissedIds = new Set([
+    ...Object.entries(dismissals)
+      .filter(([, at]) => at <= atMs)
+      .map(([id]) => id),
+    ...events
+      .filter(
+        (event) =>
+          event.kind === 'card' &&
+          (event.outcome === 'red' || event.outcome === 'second_yellow_red'),
+      )
+      .map((event) => event.actorId),
+  ]);
+  const players = previous.players.filter((player) => !dismissedIds.has(player.id));
   const gap = next.timestampMs - previous.timestampMs;
   // Skipped/background football and restart teleports must never become invented paths.
-  if (gap > 150 || next.continuity !== previous.continuity) return previous;
+  if (gap > 150 || next.continuity !== previous.continuity)
+    return previous.actionEvents?.length ||
+      next.actionEvents?.length ||
+      Object.keys(dismissals).length
+      ? { ...previous, timestampMs: atMs, players, actionEvents: events, dismissals }
+      : previous;
   const t = (atMs - previous.timestampMs) / gap;
   return {
     ...previous,
     timestampMs: atMs,
-    players: previous.players.map((player) => {
+    // Adjacent samples contain actual contacts, not future animation guesses. Reveal at T.
+    actionEvents: events,
+    dismissals,
+    players: players.map((player) => {
       const target = next.players.find((p) => p.id === player.id);
       if (!target || Math.hypot(target.x - player.x, target.y - player.y) > 2) return player;
       return {

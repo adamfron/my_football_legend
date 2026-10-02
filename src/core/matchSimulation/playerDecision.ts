@@ -6,6 +6,7 @@ import {
   chooseNpcAction,
   resolveMatchAction,
   rankAvailableActionsForAI,
+  hasActiveMatchActionParticipants,
 } from './matchActions';
 import { evaluateMatchSituation, matchSituationEvaluationSchema } from './matchSituationEvaluator';
 import {
@@ -38,6 +39,7 @@ import { enumerateCanonicalShootingOptions } from './shootingOptions';
 import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
 import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { canContactAfterThrowIn } from './throwIn';
+import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
 
 export const proxyResolutionStatusSchema = z.enum([
   'resolved_action',
@@ -88,6 +90,8 @@ export const playerChoiceFamilySchema = z.enum([
   'intercept',
   'challenge',
   'aggressive_challenge',
+  'slide_tackle',
+  'tactical_foul',
   'contain',
   'hold_shape',
   'goalkeeper_claim',
@@ -111,6 +115,14 @@ export const derivePlayerChoiceFamily = (
     return 'challenge';
   }
   const action = option.action;
+  if (action.type === 'challenge')
+    return action.technique === 'slide'
+      ? 'slide_tackle'
+      : action.technique === 'tactical'
+        ? 'tactical_foul'
+        : action.technique === 'committed'
+          ? 'aggressive_challenge'
+          : 'challenge';
   if (action.type === 'carry') return 'carry';
   if (action.type === 'shot') return 'shoot';
   if (action.type === 'header' && action.intent === 'header_shot') return 'shoot';
@@ -761,17 +773,19 @@ export const evaluateControlledPlayerBallRelevance = (
 };
 
 const actionLabel = (action: MatchAction) =>
-  action.type === 'hold'
-    ? 'hold'
-    : action.type === 'carry'
-      ? 'carry'
-      : action.type === 'shot'
-        ? `shot_${action.intent}`
-        : action.type === 'cross'
-          ? `cross_${action.intent}`
-          : action.type === 'pass'
-            ? `pass_${action.intent}`
-            : `header_${action.intent}`;
+  action.type === 'challenge'
+    ? `challenge_${action.technique}`
+    : action.type === 'hold'
+      ? 'hold'
+      : action.type === 'carry'
+        ? 'carry'
+        : action.type === 'shot'
+          ? `shot_${action.intent}`
+          : action.type === 'cross'
+            ? `cross_${action.intent}`
+            : action.type === 'pass'
+              ? `pass_${action.intent}`
+              : `header_${action.intent}`;
 const signatureFor = (state: TacticalMatchState, kind: string) => {
   const situation = evaluateMatchSituation(state, state.controlledFootballerId);
   const pressureBand = Math.floor((situation.context.pressure ?? 0) * 4);
@@ -861,6 +875,7 @@ export const projectPlayerAgency = (
     probe: playerDecisionProbeSchema.parse({ actorId, candidate: false, blockedReason, ...extra }),
   });
   if (!actorId || !actor) return blocked('no_controlled_player');
+  if (state.defensiveChallenge?.actorId === actorId) return blocked('resolution_in_progress');
   const controlledRestart =
     state.scenario !== 'open_play' &&
     state.restart?.phase === 'setup' &&
@@ -1147,6 +1162,23 @@ export const projectPlayerAgency = (
             },
           },
         ];
+        if (!keeperThreat)
+          options = [
+            options[0]!,
+            ...enumerateDefensiveChallengeActions(state, actorId).map((action) => ({
+              id: `challenge:${action.technique}`,
+              kind: 'action' as const,
+              labelKey:
+                action.technique === 'slide'
+                  ? 'slide_tackle'
+                  : action.technique === 'tactical'
+                    ? 'tactical_foul'
+                    : action.technique === 'committed'
+                      ? 'aggressive_challenge'
+                      : 'normal_challenge',
+              action,
+            })),
+          ];
       }
     }
   }
@@ -1233,7 +1265,9 @@ export const projectPlayerAgency = (
               ? `${r.intent.type}:${r.intent.commitment}`
               : r.kind === 'movement'
                 ? `${r.intent.type}:${r.intent.target.x.toFixed(1)}:${r.intent.target.y.toFixed(1)}`
-                : r.action.type;
+                : r.action.type === 'challenge'
+                  ? `challenge:${r.action.technique}`
+                  : r.action.type;
           }),
       ).size
     : countSemanticPlayerChoices(options, kind);
@@ -1259,11 +1293,21 @@ export const projectPlayerAgency = (
                 : r.intent.commitment === 'aggressive'
                   ? 'aggressive_challenge'
                   : 'challenge'
-              : interaction.labelKey.includes('intercept')
-                ? 'intercept'
-                : interaction.labelKey.includes('claim') || interaction.labelKey.includes('sweep')
-                  ? 'goalkeeper_claim'
-                  : 'hold_shape';
+              : r.kind === 'action'
+                ? derivePlayerChoiceFamily(
+                    {
+                      id: interaction.id,
+                      kind: 'action',
+                      labelKey: interaction.labelKey,
+                      action: r.action,
+                    },
+                    kind,
+                  )
+                : interaction.labelKey.includes('intercept')
+                  ? 'intercept'
+                  : interaction.labelKey.includes('claim') || interaction.labelKey.includes('sweep')
+                    ? 'goalkeeper_claim'
+                    : 'hold_shape';
           }),
       ),
     ];
@@ -1296,11 +1340,17 @@ export const applyPlayerDecision = (
   opportunity: PlayerDecisionOpportunity,
   optionId: string,
 ) => {
-  if (opportunity.actorId !== state.controlledFootballerId || opportunity.openedAt !== state.time)
+  if (
+    opportunity.actorId !== state.controlledFootballerId ||
+    opportunity.openedAt !== state.time ||
+    !state.players.some((player) => player.id === opportunity.actorId)
+  )
     return state;
   if (state.playerDecisionGate?.lastSituationSignature === opportunity.signature) return state;
   const option = opportunity.options.find((candidate) => candidate.id === optionId);
   if (!option) return state;
+  if (option.kind === 'action' && !hasActiveMatchActionParticipants(state, option.action))
+    return state;
   const gated = {
     ...state,
     pendingPlayerDecision: createPendingOutcome(state, opportunity, option),
@@ -1347,7 +1397,9 @@ export const createPendingOutcome = (
       action.type === 'cross' ||
       action.type === 'header'
       ? `${action.type}:${action.intent}`
-      : action.type
+      : action.type === 'challenge'
+        ? `challenge:${action.technique}`
+        : action.type
     : selection.intent
       ? selection.intent.type
       : (selection.resolution?.intent?.type ?? selection.id);
@@ -1374,7 +1426,11 @@ export const resolveDevPlayerDecision = (
   state: TacticalMatchState,
   opportunity: PlayerDecisionOpportunity,
 ): ProxyResolutionResult => {
-  if (opportunity.actorId !== state.controlledFootballerId || opportunity.openedAt !== state.time)
+  if (
+    opportunity.actorId !== state.controlledFootballerId ||
+    opportunity.openedAt !== state.time ||
+    !state.players.some((player) => player.id === opportunity.actorId)
+  )
     return {
       state,
       status: 'terminal_or_no_longer_relevant',

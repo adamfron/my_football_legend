@@ -14,7 +14,8 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR146 są ukończone. W szczególności:
+PR105–PR147 są ukończone w opisanym zakresie. Kalibracja realizmu PR147 pozostaje PR148.
+W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
 - **PR119:** kalibracja przepływu meczu, strzałów i xG.
@@ -106,20 +107,33 @@ PR105–PR146 są ukończone. W szczególności:
   (77,81 s / 10 min); pełnego D90 nie wykonano. Dowody i ograniczenia:
   [BACKGROUND_SIMULATION_PERFORMANCE.md](BACKGROUND_SIMULATION_PERFORMANCE.md).
 
-### NEXT
-
 **PR147 — Rules, Discipline & Match Feedback**
 
-- faule, żółte/czerwone kartki, korzyść, karne z fauli i konsekwencje dyscyplinarne;
+- faule wynikające z kanonicznego kontaktu, żółte/czerwone kartki, korzyść z ewentualnym
+  powrotem do przewinienia, opóźniona kartka, wolne/karne z rzeczywistego miejsca kontaktu;
 - rutynowa autonomiczna obrona kontrolowanego zawodnika używa zwykłych akcji o niskim ryzyku;
   jawnie agresywny/lekkomyślny odbiór o wysokim ryzyku kartki zwykle wymaga decyzji człowieka.
   Zwykła fizyczna gra może przypadkowo skończyć się faulem, ale autonomia nie wybiera po cichu
   niebezpiecznej akcji, by następnie jedynie poinformować gracza o wyrzuceniu;
 - czytelny feedback akcji/kontaktu z kanonicznych zdarzeń: subtelne, krótkie etykiety przy akcji,
   np. „odbiór”, „wślizg”, „podanie”, „strzał”, „faul”. To prezentacja dowodów, nie drugi silnik
-  przepisów ani wnioskowanie z animacji.
+  przepisów ani wnioskowanie z animacji. Łańcuch podanie → ciężkie przyjęcie → przechwyt może
+  wyjaśnić epizod bez promptu, jeśli piłka została utracona przed znaczącym oknem sprawczości;
+- dostępność technik defensywnych wynika z celu, geometrii, czasu i ryzyka. Nie tworzymy
+  stałego pięcioprzyciskowego menu obrony ani promptu dla każdego rutynowego kontaktu;
+- ograniczony strumień zdarzeń i uczciwa telemetria rozróżniają próbę, brak kontaktu, czysty
+  odbiór, luźną piłkę, faul/kartkę i korzyść; benchmark BEFORE/AFTER zachowuje kontrakt PR146.
+- zweryfikowano kanoniczne wykluczenie/ten-man, celowanie, historyczną granicę kartki i
+  minimalny fallback bramkarza; `npm run verify`: exit 0, 777 + 5 testów, lint/build;
+- normal10, trzy naprzemienne próby: mediana 16,300 → 13,302 s; równe hashe powtórzeń
+  i minimum/normal/DEV. To nie dowód optymalizacji: zmienił się futbol/aktywny skład.
+  Próbka ma 17 fauli, 13 żółtych i 5 drugich żółtych/czerwonych; bez strojenia rozkładów w PR147.
+  Architektura, dowody i ograniczenia:
+  [RULES_DISCIPLINE_MATCH_FEEDBACK.md](RULES_DISCIPLINE_MATCH_FEEDBACK.md).
 
-**PR148 — Possession Rhythm, Roles & Attacking Patterns** (plan po PR147)
+### NEXT
+
+**PR148 — Possession Rhythm, Roles & Duel Calibration** (plan po PR147)
 
 - audyt i kalibracja nadmiernego wolumenu kontaktów, podań i przechwytów; dalsza gęstość decyzji
   na podstawie pełnych interaktywnych playtestów, bez tłumienia sprawczości dla wydajności;
@@ -129,14 +143,26 @@ PR105–PR146 są ukończone. W szczególności:
 - domknięcie overlap/underlap, wsparcie bocznych obrońców w ataku pozycyjnym, cutback i kombinacje szerokie;
 - role, mentalność, instrukcje, atrybuty i kontekst różnicują ruch: selektywnie ofensywny,
   technicznie/pozycyjnie mocny boczny obrońca oraz agresywny, pracowity ofensywny obrońca
-  nie mają identycznego profilu. Bez nazw realnych graczy i reguły „LB zawsze obiega”.
+  nie mają identycznego profilu. Bez nazw realnych graczy i reguły „LB zawsze obiega”;
+- pełna kalibracja pojedynków obrońca–drybler oraz lejka okazja → próba → kontakt → wynik,
+  z wykorzystaniem kanonicznych dowodów PR147. Próba odbioru nie jest dowodem wygranego odbioru;
+- kalibracja różnic jakości wykonania/pojedynków między atrybutami, rolami i poziomami zawodników;
+- **Discipline realism calibration**, po pomiarze i ustabilizowaniu lejka pojedynku/kontaktu.
+  Reprezentatywne pełne mecze i duże deterministyczne batchy należy porównywać z rozkładami
+  rzeczywistego futbolu, korzystając z wiarygodnych referencyjnych zbiorów danych, gdy są dostępne:
+  faule na zespół/90 min, żółte kartki na mecz, czerwone na 100 meczów, karne na mecz,
+  kartki na faul, faule na próbę defensywną, częstość korzyści oraz rozkłady względem stylu,
+  pozycji i jakości zawodnika. Celem są wiarygodne rozkłady, nie sprowadzanie każdego meczu
+  do średniej. Atrybuty i kontekst różnicują skłonność; interpretacja ligi/sędziego może później
+  stać się osobnym parametrem. PR147 dostarcza telemetrię, bez globalnego tuningu częstości
+  do arbitralnych liczb. Kalibracja dyscypliny pozostaje częścią PR148, bez nowego dużego PR.
 
 Motywacja z playtestów: wiele rozpoczętych overlapów przy bardzo małej/zerowej liczbie użytecznych
 ukończonych kombinacji. Analizować wspólny lejek **start biegu → dostępność → wybór podania →
 udane przyjęcie → dośrodkowanie/cutback/kontynuacja**. Celem są spójne, zróżnicowane kombinacje.
 Wysokie dystanse/sprinty w połowie meczu wymagają późniejszego audytu rytmu, nie maskowania zmęczeniem.
 
-**PR149 — Match Presentation & Animation v2** (plan po PR148)
+**PR149 — Animation, Replay & Match Presentation v2** (plan po PR148)
 
 - niezawodna lokomocja: widoczny ruch kończyn każdego przemieszczającego się zawodnika;
 - bogatsze obroty ciała, shielding/kontakt, odbiory, animacje wykonania zależne od techniki
@@ -159,6 +185,28 @@ Player, zoom, orbit, pan i Reset zachowują pivot PR141. Touch i pełny kompakto
 Full-HD/mobile pozostają przyszłą pracą; narzędzia DEV nie należą do release UI.
 
 ### LATER
+
+Poniższe tematy należą do późniejszych etapów i nie są implementowane w PR147:
+
+- fitness, obciążenie wysiłkiem i regeneracja;
+- pogoda oraz środowisko murawy i piłki, z kanonicznym wpływem na fizykę;
+- integracja kanonicznego silnika meczu z karierą;
+- kanoniczne oceny meczowe według własnej, wyjaśnialnej metodologii MFL;
+- trwały rynek transferowy i piłkarski świat NPC;
+- lekka generacja i rozwój młodzieży;
+- oszczędna, modułowa narracja kariery;
+- trwałe wyróżnienia, nagrody i najważniejsze momenty kariery;
+- lekka ekonomia stylu życia/inwestycji w duchu New Star Soccer, bez gry typu tycoon,
+  garażu, wyścigów czy metagry kolekcjonerskiej;
+- bogatszy początkowy kreator zawodnika;
+- deterministyczne, parametryczne twarze zawodników wspólne dla kariery i renderera meczu.
+
+**MFL nie będzie miało minigry budowy stadionu.** Stadiony będą kontekstowe/parametryczne.
+Docelowo każdy trwały klub otrzyma stabilny seed/profil stadionu, aby ten sam gospodarz nie
+dostawał zupełnie innej areny w każdym meczu. Pogoda, tłum, banery, oświetlenie i zużycie
+murawy mogą zmieniać się niezależnie od tożsamości stadionu. Sam stadion mogą zmienić
+dopiero jawne późniejsze wydarzenia świata. PR149 może rozwinąć prezentacyjne archetypy;
+pełny generator/profil trwałego stadionu oraz wydarzenia świata pozostają późniejszym etapem.
 
 Pogoda/warianty piłki i ceremonialna prezentacja pozostają po obecnej pracy kalibracyjnej.
 Planowane warianty wyglądu piłki: standardowa jasna, alternatywne wzory oraz dobrze widoczna
@@ -351,8 +399,9 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
-NEXT definiuje lista „Kolejność kolejnych dużych systemów”; starsze plany pakietów zagranicznych
-nie wyprzedzają silnika meczu.
+NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: PR147 → PR148 → PR149.
+Poniższa lista jest historycznym kontekstem systemów kariery; starsze plany pakietów
+zagranicznych nie wyprzedzają obecnej kolejności silnika meczu.
 
 1. **Zrealizowano w PR #69:** cykl trwałych menedżerów — ocena, zwolnienia, nominacje, ograniczony ruch oraz
    przebudowa hierarchii po zmianie trenera.
@@ -385,7 +434,8 @@ nie wyprzedzają silnika meczu.
 - przyszły bogatszy HistoryView może agregować sezonowe i karierowe użycie pozycji;
 - trwała zmiana pozycji może kiedyś tworzyć kamień milowy narracji, bez spamu faktami meczowymi.
 
-Następnym dużym systemem jest niedoskonały rynek transferowy NPC.
+Późniejszym dużym systemem kariery pozostaje niedoskonały rynek transferowy NPC, po obecnej
+kolejności rozwoju Single Match.
 
 ## Domknięty krok trwałych danych U-17
 

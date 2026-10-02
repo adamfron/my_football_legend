@@ -54,6 +54,13 @@ describe('PR146 deterministic performance harness', () => {
       expect(result.planning.plansRecomputed + result.planning.plansReused).toBe(result.ticks);
       expect(result.planning.plansReused).toBeGreaterThan(result.planning.plansRecomputed);
       expect(result.context.samplesRetained).toBeLessThanOrEqual(62);
+      expect(result.defensiveTelemetry).toEqual(results[0]!.defensiveTelemetry);
+      expect(result.discipline).toEqual(results[0]!.discipline);
+      for (const bucket of result.buckets) {
+        expect(bucket.collections.canonicalActionEvents).toBeLessThanOrEqual(96);
+        expect(bucket.collections.pendingCards).toBeLessThanOrEqual(22);
+        expect(bucket.collections.defensivePlayerCounters).toBeLessThanOrEqual(22);
+      }
     }
     expect(results[0]!.context.samplesWritten).toBe(0);
     expect(results[1]!.context.samplesWritten).toBeGreaterThan(0);

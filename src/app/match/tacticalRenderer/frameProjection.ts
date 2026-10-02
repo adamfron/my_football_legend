@@ -2,6 +2,7 @@ import { matchStateToFrame } from '../../../core/matchSimulation/matchSimulation
 import type { TacticalMatchState } from '../../../core/matchSimulation/matchState';
 import { CUE_DURATION_MS } from './animation';
 import type { AnimationCue, TacticalFrame, TacticalPlayer } from './model';
+import { frameActionEvents, frameDismissals } from './actionFeedback';
 
 /** Observe completed transitions, including contacts without their own timestamp. No resolvers. */
 export const observeAnimationCues = (
@@ -36,8 +37,8 @@ export const observeAnimationCues = (
     cues.set(ball.lastTouchPlayerId, {
       kind,
       atMs: Math.max(0, atMs - ball.flightTime * 1000),
-      // Canonical evidence also survives historical context/replay sampling. Later action
-      // feedback may use kind; style/contact merely select a cosmetic follow-through.
+      // These cues only select cosmetic follow-through. Football feedback reads the separate
+      // canonical event ledger, including historical context/replay timestamps.
       ...(shot
         ? {
             shotIntent: shot.intent,
@@ -151,6 +152,8 @@ export class PresentationFrameProjector {
     const frame = matchStateToFrame(state, options);
     return {
       ...frame,
+      actionEvents: frameActionEvents(state.actionEvents ?? [], frame.timestampMs),
+      dismissals: frameDismissals(state),
       continuity: `${state.seed}:${this.continuity}`,
       players: frame.players.map((player, index): TacticalPlayer => {
         const canonical = state.players[index]!;

@@ -60,7 +60,7 @@ export const deriveOnBallPreparation = (
 };
 
 const actionTarget = (action: MatchAction, actor: MatchPlayerState): PitchPoint =>
-  action.type === 'hold' ? actor.position : action.target;
+  action.type === 'hold' || action.type === 'challenge' ? actor.position : action.target;
 
 /** Action-specific readiness: simple aligned football can be first-time; power/redirection waits. */
 export const preparationMarginForAction = (

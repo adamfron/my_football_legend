@@ -134,6 +134,7 @@ describe('PR145 football commitments rather than harmless movement variants', ()
   it('offers contain versus committed challenge against a dangerous receiver', () => {
     const { state, actor, source } = fixture();
     actor.position = { x: 22, y: 34 };
+    actor.facingAngle = Math.PI / 2;
     actor.anchor = { ...actor.position };
     source.position = { x: 23.5, y: 34 };
     state.ball = { ...source.position, ownerId: source.id };
