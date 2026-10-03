@@ -227,7 +227,10 @@ const normalize = (runs, stage) => {
     controlledPassContacts: controlled?.passContacts || null,
     decisions: roundMetrics(decisions),
     agency: match.agency || null,
+    holdSeconds: roundMetrics(match.holdSeconds || null),
+    possessionChanges: match.possessionChanges ?? null,
     receptions: match.receptions || null,
+    receptionContexts: match.receptionContexts || null,
     receptionQuality: roundMetrics(match.qualityScores || null),
     receptionMotion: roundMetrics(match.receptionMotion || null),
     receptionMotionAvailability: match.receptionMotion

@@ -92,7 +92,7 @@ players. Canonical execution evidence supplies concise special-pass/offside labe
 
 ## Validation and evidence
 
-Final verification and measured evidence are recorded below after the source is frozen.
+Frozen-core verification passed ESLint, 937 main tests, 5 career tests, TypeScript and the production build. Final calibration, limitations and timing evidence are in [PR150_CALIBRATION.md](PR150_CALIBRATION.md), [PR150-results.json](performance/PR150-results.json) and [PR150-performance.json](performance/PR150-performance.json). All twelve matched final fixtures pass accounting; 10/90-minute replay comparisons and 10-minute A-D / 90-minute A-B observer comparisons preserve canonical hashes.
 The compact matrix uses existing deterministic fixtures and explicit DEV choices at exact
 canonical decision boundaries. This is reproducible simulation evidence, not a human
 playtest, league distribution or an arbitrary decision-count quota.

@@ -13,6 +13,8 @@ zamierzony cel w diagnostyce. Nie tworzy dodatkowych prób ani podań do siebie.
 wektory rzeczywistego ruchu w decyzjach, drużynę przy faulach i ustawienie ofensywnych wolnych.
 Kontrakty, ograniczenia i walidacja: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUOUS_INTENT.md),
 [PR150_ACCOUNTING.md](PR150_ACCOUNTING.md).
+Pełne porównanie 45/90 minut, deterministyczne hashe, wydajność i jawne ograniczenia:
+[PR150_CALIBRATION.md](PR150_CALIBRATION.md).
 NEXT: **PR151 — Fatigue, Injury Risk, Added Time & Substitution Intelligence**.
 
 ## PR149 — Match Readability, Animation & Match Centre v2
