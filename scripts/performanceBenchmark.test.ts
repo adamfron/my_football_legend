@@ -105,6 +105,7 @@ describe('PR146 deterministic performance harness', () => {
     ).toThrow('changed canonical football');
   }, 30_000);
 
+  // Complete simulations with per-tick profiling can exceed 5 s on shared CI.
   it('preserves outcomes across different batch boundaries and profiler sampling', () => {
     const first = runPerformanceBenchmark(session, {
       canonicalMinutes: 0.05,
@@ -124,7 +125,7 @@ describe('PR146 deterministic performance harness', () => {
       true,
     );
     expect(first.batches).toBeGreaterThan(second.batches);
-  });
+  }, 30_000);
 
   it('rejects unsupported durations, modes and unbounded batches', () => {
     expect(performanceBenchmarkConfigSchema.safeParse({ canonicalMinutes: 91 }).success).toBe(
