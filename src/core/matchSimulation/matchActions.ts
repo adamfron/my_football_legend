@@ -174,6 +174,8 @@ export const enumerateAvailableActions = (
   state: TacticalMatchState,
   actorId: string,
 ): MatchAction[] => {
+  if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
+    return [];
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return [];
   if (state.restart?.phase === 'setup')
@@ -305,12 +307,38 @@ export const scoreActionForAI = (
       underPressure < 0.38;
     const scanningQuality =
       (actor.profile.attributes.gameReading + actor.profile.attributes.composure) / 20;
-    return (
+    const controlAge =
+      state.ballOwnershipStartedAt !== undefined
+        ? Math.max(0, state.time - state.ballOwnershipStartedAt)
+        : 0;
+    const physicalPreparation =
+      state.onBallPreparation?.actorId === actor.id
+        ? Math.max(0, state.onBallPreparation.readyAt - state.onBallPreparation.gainedAt)
+        : 0;
+    const readyAfter = Math.max(npcPossessionDecisionDelay(state, actor), physicalPreparation);
+    // Scanning has a purpose and an end. Repeated hold selections do not restart control age;
+    // after preparation, release/carry gains value while a briefly useful shield can still win
+    // against unsafe alternatives. This removes permanent idle ownership without a hold quota.
+    const completedScanningPenalty =
+      state.restart?.phase !== 'setup' && controlAge >= readyAfter
+        ? Math.min(46, 18 + (controlAge - readyAfter) * 7)
+        : 0;
+    const utility =
       35 +
       (style === 'possession' ? 18 : style === 'direct' ? -6 : 0) +
       (scanningContext ? 8 + scanningQuality : 0) -
-      underPressure * (scanningContext ? 30 : 18)
-    );
+      underPressure * (scanningContext ? 30 : 18) -
+      completedScanningPenalty;
+    const shieldingQuality =
+      (actor.profile.attributes.strength +
+        actor.profile.attributes.firstTouch +
+        actor.profile.attributes.composure) /
+      300;
+    // A modest retention floor keeps a last-resort shield preferable to several losing actions.
+    // It is far below a useful release and depends on ball protection, not elapsed-match totals.
+    return underPressure >= 0.65
+      ? Math.max(utility, 14 + shieldingQuality * 8 - underPressure * 4)
+      : utility;
   }
   if (action.type === 'carry')
     return (
@@ -379,13 +407,23 @@ export const scoreActionForAI = (
     action.intent === 'support' && progression > -9 && markerSeparation >= 5
       ? 3 + escapesPressure + switchValue * 0.5
       : 0;
-  // An immediate return along the same edge loses utility unless pressure or space improved.
+  // Returning to the previous passer is valuable as a wall pass when it escapes pressure or
+  // creates a forward opening. An unchanged two-player exchange otherwise needs movement first.
+  const lastPass = state.lastPassDiagnostic;
+  const returning =
+    lastPass?.intendedReceiverId === actorId &&
+    lastPass.passerId === action.receiverId &&
+    lastPass.resolvedAt !== undefined &&
+    state.time - lastPass.resolvedAt < 12;
+  const receiverMoved = lastPass ? distance(actor.position, lastPass.receiverPositionAtRelease) : 0;
+  const usefulWallPass =
+    (underPressure > 0.62 && receiverPressure < underPressure - 0.2) ||
+    progression > 9 ||
+    switchValue > 6 ||
+    receiverMoved > 4;
   const staleReturnPenalty =
-    action.intent === 'support' &&
-    state.lastPassDiagnostic?.passerId === action.receiverId &&
-    receiverPressure >= underPressure - 0.08 &&
-    switchValue === 0
-      ? 14
+    returning && !usefulWallPass
+      ? 30 * Math.max(0.35, 1 - (state.time - lastPass!.resolvedAt!) / 12)
       : 0;
   const laneRisk = opponents(state, actor).filter(
     (p) => distanceToSegment(p.position, actor.position, action.target) < 3.5,
@@ -471,10 +509,54 @@ export const rankAvailableActionsForAI = (
     })
     .sort((a, b) => b.score - a.score);
 };
+/** Reception is followed by scanning/control time in ordinary possession. Pressure, transitions
+ * and a live scoring chance shorten that time, so rapid combinations remain contextual. This
+ * delays the actual decision rather than reducing exported pass statistics. */
+export const npcPossessionDecisionDelay = (state: TacticalMatchState, actor: MatchPlayerState) => {
+  const progress = fieldValue(actor.position, actor.team);
+  const danger = Math.max(0, Math.min(1, state.currentPressure));
+  const transition =
+    state.teams[actor.team].phase === 'attacking_transition' &&
+    progress > 55 &&
+    state.timeSincePossessionChanged < 2;
+  const scoringRange = progress > 82 && Math.abs(actor.position.y - 34) < 18;
+  // Most pressure represents a nearby marker, not an imminent tackle. Only genuinely intense
+  // pressure removes most scanning time; ordinary midfield possession gives support runs time.
+  const scanning = 6 - danger * danger * danger * 4.8;
+  const skill =
+    (actor.profile.attributes.firstTouch +
+      actor.profile.attributes.gameReading +
+      actor.profile.attributes.composure) /
+    300;
+  return Math.max(
+    0.35,
+    Math.min(scanning, transition ? 1.05 : Infinity, scoringRange ? 0.65 : Infinity) +
+      (0.55 - skill) * 0.4,
+  );
+};
+
 export const chooseNpcAction = (
   state: TacticalMatchState,
   actorId: string,
 ): MatchAction | undefined => rankAvailableActionsForAI(state, actorId)[0]?.action;
+
+/** Live routine play waits for contextual possession readiness. Explicit human/DEV choices and
+ * pure AI policy inspection continue using the same unrestricted canonical action ranking. */
+export const chooseNpcRoutineAction = (
+  state: TacticalMatchState,
+  actorId: string,
+): MatchAction | undefined => {
+  const actor = state.players.find((player) => player.id === actorId);
+  if (!actor) return undefined;
+  if (
+    state.restart?.phase !== 'setup' &&
+    state.ball.ownerId === actorId &&
+    state.ballOwnershipStartedAt !== undefined &&
+    state.time - state.ballOwnershipStartedAt < npcPossessionDecisionDelay(state, actor)
+  )
+    return undefined;
+  return chooseNpcAction(state, actorId);
+};
 
 /** Reception is an alternative, not a mandatory preliminary action for NPC finishing. */
 export const chooseIncomingShotAction = (
@@ -497,6 +579,8 @@ export const hasActiveMatchActionParticipants = (
   state: TacticalMatchState,
   action: MatchAction,
 ) => {
+  if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
+    return false;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return false;
   if (action.type === 'pass')
@@ -612,10 +696,10 @@ const resolveMatchActionCanonical = (
       ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
       : state.restart;
   const offsideSnapshot = captureOffsideSnapshot(state, action);
-  const prepared =
-    source === 'human_selected'
-      ? commitHumanPossessionDecision(state, action)
-      : reconcileHumanPossession(state);
+  const consciouslySelected = source === 'human_selected' || source === 'dev_ai_selected';
+  const prepared = consciouslySelected
+    ? commitHumanPossessionDecision(state, action)
+    : reconcileHumanPossession(state);
   const {
     ballCarrierIntent: _interruptedCarry,
     postActionAgencyCheckpoint: _checkpoint,
@@ -648,7 +732,7 @@ const resolveMatchActionCanonical = (
         estimatedArrival,
         startPosition: { ...actor.position },
         closestPointReached: { ...actor.position },
-        humanSelected: source === 'human_selected',
+        humanSelected: consciouslySelected,
         // Arrival is the primary lifetime; this bounded margin is only a safety net.
         expiresAt: state.time + Math.min(12, Math.max(1.8, estimatedArrival + 1.25)),
       },
@@ -659,7 +743,7 @@ const resolveMatchActionCanonical = (
       currentActorId: actor.id,
       actionCooldown: 1.3,
       decisionIndex: state.decisionIndex + 1,
-      ...(source === 'human_selected' && action.actorId === state.controlledFootballerId
+      ...(consciouslySelected && action.actorId === state.controlledFootballerId
         ? {
             postActionAgencyCheckpoint: {
               actorId: actor.id,
@@ -1010,6 +1094,8 @@ const resolveMatchActionCanonical = (
 };
 
 export const enumerateRestartActions = (state: TacticalMatchState): MatchAction[] => {
+  if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
+    return [];
   const restart = state.restart;
   if (!restart || restart.phase !== 'setup') return [];
   const actor = state.players.find((p) => p.id === restart.takerId);

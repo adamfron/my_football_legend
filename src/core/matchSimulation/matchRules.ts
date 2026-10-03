@@ -66,6 +66,48 @@ export const advantageFactSchema = z.object({
 export type AdvantageFact = z.infer<typeof advantageFactSchema>;
 const progress = (point: PitchPoint, side: TeamSide) => (side === 'home' ? point.x : 105 - point.x);
 
+/** No competition result is inferred: preserve the score and the actual canonical whistle time. */
+export const enforceMinimumPlayers = (
+  state: TacticalMatchState,
+  afterDismissal = false,
+): TacticalMatchState => {
+  if (state.status === 'abandoned' || (state.status === 'full_time' && !afterDismissal))
+    return state;
+  let home = 0;
+  let away = 0;
+  for (const player of state.players) {
+    if (player.team === 'home') home++;
+    else away++;
+  }
+  const team = home < 7 ? 'home' : away < 7 ? 'away' : undefined;
+  if (!team) return state;
+  const next: TacticalMatchState = {
+    ...state,
+    status: 'abandoned',
+    termination: {
+      reason: 'insufficient_players',
+      at: state.time,
+      team,
+      activePlayers: team === 'home' ? home : away,
+    },
+    ball: { x: state.ball.x, y: state.ball.y },
+    actionCooldown: 0,
+    currentPressure: 0,
+  };
+  delete next.currentAction;
+  delete next.currentActorId;
+  delete next.currentActionSource;
+  delete next.restart;
+  delete next.restartAction;
+  delete next.throwInRestriction;
+  delete next.pendingPlayerDecision;
+  delete next.nearestChallengerId;
+  delete next.aerialContestantIds;
+  delete next.pendingCards;
+  delete next.periodEndPending;
+  return clearFoulExecution(next);
+};
+
 /** A defending team's own rectangle, independent of camera or restart orientation. */
 export const isOwnPenaltyArea = (point: PitchPoint, defendingTeam: TeamSide): boolean =>
   point.y >= 13.84 &&
@@ -126,6 +168,7 @@ const cardReason = (foul: FoulFact) =>
 /** Dismissed identities stay in discipline/statistics; only the active canonical roster shrinks. */
 const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState => {
   if (
+    state.status === 'abandoned' ||
     foul.card === 'none' ||
     state.discipline?.[foul.actorId]?.sentOff ||
     state.lastCard?.foulId === foul.id
@@ -140,6 +183,9 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
   const kind: CardFact['kind'] =
     foul.card === 'red' ? 'red' : yellowCards === 2 ? 'second_yellow_red' : 'yellow';
   const sentOff = kind !== 'yellow';
+  const finalRunning = sentOff
+    ? state.players.find((player) => player.id === foul.actorId)?.locomotionTelemetry
+    : undefined;
   const card: CardFact = {
     id: `${foul.id}:card`,
     foulId: foul.id,
@@ -170,6 +216,29 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
       card,
     ].slice(-22),
     ...(sentOff ? { players: state.players.filter((p) => p.id !== foul.actorId) } : {}),
+    ...(sentOff && state.statistics
+      ? {
+          statistics: {
+            ...state.statistics,
+            players: state.statistics.players.map((entry) =>
+              entry.playerId === foul.actorId
+                ? {
+                    ...entry,
+                    minutesPlayed: state.time / 60,
+                    ...(finalRunning
+                      ? {
+                          distanceCovered: finalRunning.distanceTotal,
+                          sprintDistance: finalRunning.distanceSprint,
+                          sprintBursts: finalRunning.sprintBursts,
+                          maxSpeed: finalRunning.maxSpeed,
+                        }
+                      : {}),
+                  }
+                : entry,
+            ),
+          },
+        }
+      : {}),
   };
   if (foul.card === 'yellow') next = countDefensiveEvent(next, foul.actorId, 'yellowCards');
   if (sentOff) {
@@ -179,8 +248,7 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
       foul.actorId,
       kind === 'second_yellow_red' ? 'secondYellowDismissals' : 'straightReds',
     );
-    if (next.defensiveChallenge?.actorId === foul.actorId) delete next.defensiveChallenge;
-    if (next.playerMovementIntent?.actorId === foul.actorId) delete next.playerMovementIntent;
+    next = removeDismissedExecution(next, foul.actorId);
     // No substitutions in this PR. A deterministic surviving teammate becomes emergency keeper.
     if (
       !next.players.some((p) => p.team === foul.team && p.profile.primaryPosition === 'goalkeeper')
@@ -203,6 +271,63 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
         };
     }
   }
+  return sentOff ? enforceMinimumPlayers(next, true) : next;
+};
+
+/** Remove live references while retaining historical actions, contacts and statistics. */
+const removeDismissedExecution = (
+  state: TacticalMatchState,
+  playerId: string,
+): TacticalMatchState => {
+  const next = { ...state, ball: { ...state.ball } };
+  const involves = (action: TacticalMatchState['currentAction']) =>
+    action &&
+    (action.actorId === playerId ||
+      (action.type === 'pass' && action.receiverId === playerId) ||
+      (action.type === 'challenge' && action.opponentId === playerId) ||
+      ((action.type === 'cross' || action.type === 'header') &&
+        action.intendedTargetId === playerId));
+  if (involves(next.currentAction) || next.currentActorId === playerId) {
+    delete next.currentAction;
+    delete next.currentActorId;
+    delete next.currentActionSource;
+  }
+  if (involves(next.restartAction)) delete next.restartAction;
+  if (next.ball.ownerId === playerId) delete next.ball.ownerId;
+  if (next.ball.intendedReceiverId === playerId) delete next.ball.intendedReceiverId;
+  if (next.ball.secondBallPriorityIds)
+    next.ball.secondBallPriorityIds = next.ball.secondBallPriorityIds.filter(
+      (id) => id !== playerId,
+    );
+  if (
+    next.defensiveChallenge?.actorId === playerId ||
+    next.defensiveChallenge?.opponentId === playerId
+  )
+    delete next.defensiveChallenge;
+  if (next.playerMovementIntent?.actorId === playerId) delete next.playerMovementIntent;
+  if (next.ballCarrierIntent?.actorId === playerId) delete next.ballCarrierIntent;
+  if (next.humanPossessionEpisode?.actorId === playerId) delete next.humanPossessionEpisode;
+  if (next.postActionAgencyCheckpoint?.actorId === playerId) delete next.postActionAgencyCheckpoint;
+  if (
+    next.pendingReceptionIntent?.actorId === playerId ||
+    involves(next.pendingReceptionIntent?.action)
+  )
+    delete next.pendingReceptionIntent;
+  if (
+    next.receptionPreparation?.actorId === playerId ||
+    next.receptionPreparation?.sourceActorId === playerId
+  )
+    delete next.receptionPreparation;
+  if (next.onBallPreparation?.actorId === playerId) delete next.onBallPreparation;
+  if (next.keeperIntervention?.keeperId === playerId) delete next.keeperIntervention;
+  if (next.nearestChallengerId === playerId) delete next.nearestChallengerId;
+  if (next.pendingPlayerDecision?.actorId === playerId) delete next.pendingPlayerDecision;
+  if (next.aerialContestantIds)
+    next.aerialContestantIds = next.aerialContestantIds.filter((id) => id !== playerId);
+  if (next.defensiveEpisodes)
+    next.defensiveEpisodes = next.defensiveEpisodes.filter(
+      (episode) => !episode.participants.includes(playerId),
+    );
   return next;
 };
 
@@ -225,6 +350,7 @@ const clearFoulExecution = (state: TacticalMatchState): TacticalMatchState => {
 };
 
 export const awardFoulRestart = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState => {
+  if (state.status === 'abandoned' || state.status === 'full_time') return state;
   let prepared = clearFoulExecution(state);
   if (foul.penalty && prepared.lastPenaltyAwardId !== foul.id) {
     prepared = countDefensiveEvent(prepared, foul.actorId, 'penalties');
@@ -263,6 +389,7 @@ export const applyChallengeInfringement = (
   state: TacticalMatchState,
   challenge: ChallengeDiagnostic,
 ): TacticalMatchState => {
+  if (state.status === 'abandoned' || state.status === 'full_time') return state;
   const foul = classifyChallengeFoul(state, challenge);
   if (!foul) return state;
   if (state.lastFoul?.id === foul.id) return state;
@@ -304,6 +431,7 @@ export const advanceMatchRules = (
   previous: TacticalMatchState,
   input: TacticalMatchState,
 ): TacticalMatchState => {
+  if (input.status === 'abandoned') return input;
   if (input === previous) return input;
   let next = input;
   const advantage = next.pendingAdvantage;
@@ -361,7 +489,11 @@ export const advanceMatchRules = (
     delete next.pendingCards;
     for (const foul of pending) next = showCard(next, foul);
     // A card can remove a restart taker (e.g. another infringement at the same stoppage).
-    if (next.restart && !next.players.some((p) => p.id === next.restart!.takerId))
+    if (
+      next.status !== 'abandoned' &&
+      next.restart &&
+      !next.players.some((p) => p.id === next.restart!.takerId)
+    )
       next = applyRestartScenario(clearFoulExecution(next), next.scenario, {
         restartTeam: next.restart.restartTeam,
         restartPoint: next.ball,

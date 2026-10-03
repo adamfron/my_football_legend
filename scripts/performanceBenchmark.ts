@@ -101,6 +101,7 @@ export const performanceBenchmarkResultSchema = z.object({
   profile: performanceProfileSchema,
   score: z.object({ home: z.number().int(), away: z.number().int() }),
   status: z.string(),
+  terminationReason: z.string().optional(),
   humanDecisionInputs: z.number().int().nonnegative(),
   defensiveTelemetry: defensiveTelemetrySchema.optional(),
   discipline: disciplineSchema.optional(),
@@ -209,13 +210,15 @@ export const runPerformanceBenchmark = (
   let bucketTicks = 0;
   let bucketBatches: number[] = [];
   const complete = () =>
-    state.time + 1e-7 >= targetSeconds &&
-    (targetSeconds !== 2700 || state.status === 'half_time') &&
-    (targetSeconds !== 5400 || state.status === 'full_time');
+    state.status === 'abandoned' ||
+    (state.time + 1e-7 >= targetSeconds &&
+      (targetSeconds !== 2700 || state.status === 'half_time') &&
+      (targetSeconds !== 5400 || state.status === 'full_time'));
   const bucketComplete = () =>
-    state.time + 1e-7 >= bucketEndSeconds &&
-    (bucketEndSeconds !== 2700 || state.status === 'half_time') &&
-    (bucketEndSeconds !== targetSeconds || complete());
+    state.status === 'abandoned' ||
+    (state.time + 1e-7 >= bucketEndSeconds &&
+      (bucketEndSeconds !== 2700 || state.status === 'half_time') &&
+      (bucketEndSeconds !== targetSeconds || complete()));
   const observe = (next: TacticalMatchState) => {
     if (isDevObservationMode(config.mode)) {
       const started = startPerformanceSpan('match_flow');
@@ -268,6 +271,10 @@ export const runPerformanceBenchmark = (
         if (evaluation.opportunity) {
           observe(resolveDevPlayerDecision(state, evaluation.opportunity).state);
           humanDecisionInputs++;
+        }
+        if (complete()) {
+          executed++;
+          break;
         }
         const coreStarted = startPerformanceSpan('canonical_step');
         const next = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
@@ -384,6 +391,7 @@ export const runPerformanceBenchmark = (
     profile: profiler.snapshot(),
     score: state.score,
     status: state.status ?? 'first_half',
+    terminationReason: state.termination?.reason,
     humanDecisionInputs,
     defensiveTelemetry: state.defensiveTelemetry,
     discipline: state.discipline,

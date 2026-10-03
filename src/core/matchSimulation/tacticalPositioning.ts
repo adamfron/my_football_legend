@@ -494,6 +494,30 @@ const seekSpace = (
     .sort((a, b) => b.score - a.score)[0]!.point;
 };
 
+/** Current team structure before temporary pressing, runs or loose-ball assignments. */
+export const deriveStructuralPosition = (
+  state: TacticalMatchState,
+  player: MatchPlayerState,
+  neutralAnchor = deriveNeutralFormationAnchor(player),
+): PitchPoint => {
+  if (player.profile.primaryPosition === 'goalkeeper')
+    return applyRoleRelationships(
+      state,
+      player,
+      deriveGoalkeeperBasePosition(state.ball, player.team),
+    );
+  const block = deriveTeamBlockTransform(state, player.team);
+  const dir = direction(player.team);
+  const structural = {
+    x:
+      52.5 +
+      (neutralAnchor.x - 52.5) * block.depthScale +
+      dir * block.advance * (player.duty === 'defend' ? 0.68 : player.duty === 'attack' ? 1.18 : 1),
+    y: 34 + (neutralAnchor.y - 34) * block.widthScale + block.lateral,
+  };
+  return applyRoleRelationships(state, player, structural);
+};
+
 export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerState[] => {
   const looseAssignments = deriveLooseBallAssignments(state);
   const assignments = {
@@ -513,24 +537,11 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     away: deriveFinalThirdOccupations(state, 'away'),
   };
   return state.players.map((player) => {
-    const neutralAnchor = deriveNeutralFormationAnchor(player),
-      block = deriveTeamBlockTransform(state, player.team);
+    const neutralAnchor = deriveNeutralFormationAnchor(player);
     const parameters = TACTICAL_STYLE_PARAMETERS[state.teams[player.team].style],
       dir = direction(player.team);
     const isKeeper = player.profile.primaryPosition === 'goalkeeper';
-    let structural: PitchPoint;
-    if (isKeeper) structural = deriveGoalkeeperBasePosition(state.ball, player.team);
-    else
-      structural = {
-        x:
-          52.5 +
-          (neutralAnchor.x - 52.5) * block.depthScale +
-          dir *
-            block.advance *
-            (player.duty === 'defend' ? 0.68 : player.duty === 'attack' ? 1.18 : 1),
-        y: 34 + (neutralAnchor.y - 34) * block.widthScale + block.lateral,
-      };
-    structural = applyRoleRelationships(state, player, structural);
+    const structural = deriveStructuralPosition(state, player, neutralAnchor);
     let ideal = structural;
     const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
     if (!isKeeper && carrier) {

@@ -11,6 +11,7 @@ const feedback = {
   through_pass: { text: 'PODANIE PROSTOPADŁE', priority: 2, lifetimeMs: 850 },
   cross: { text: 'DOŚRODKOWANIE', priority: 3, lifetimeMs: 850 },
   reception: { text: 'PRZYJĘCIE', priority: 0, lifetimeMs: 400 },
+  dribble: { text: 'PROWADZENIE', priority: 0, lifetimeMs: 400 },
   heavy_touch: { text: 'CIĘŻKIE PRZYJĘCIE', priority: 7, lifetimeMs: 1100 },
   interception: { text: 'PRZECHWYT', priority: 7, lifetimeMs: 1050 },
   challenge: { text: 'ODBIÓR', priority: 2, lifetimeMs: 650 },
@@ -49,6 +50,7 @@ export const selectActionFeedback = (
         age >= -0.001 &&
         age < feedback[event.kind].lifetimeMs &&
         event.kind !== 'reception' &&
+        event.kind !== 'dribble' &&
         !(
           event.kind === 'challenge' && ['missed', 'beaten', 'loose_ball'].includes(event.outcome)
         ) &&

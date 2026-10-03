@@ -371,6 +371,15 @@ describe('autonomous tactical simulation', () => {
       (candidate) => candidate.profile.primaryPosition !== 'goalkeeper',
     )!;
     player.target = { x: Math.min(105, player.position.x + 50), y: player.position.y };
+    // A formation target no longer moves a scanning owner implicitly. Test an actual
+    // chosen run so the acceleration assertion exercises the movement integrator.
+    initial.playerMovementIntent = {
+      actorId: player.id,
+      type: 'attack_space',
+      target: { ...player.target },
+      startedAt: initial.time,
+      expiresAt: initial.time + 5,
+    };
     const start = { ...player.position };
     let state = initial;
     for (let tick = 0; tick < 20; tick += 1) state = stepTacticalMatch(state, FIXED_MATCH_DT);
@@ -384,6 +393,7 @@ describe('autonomous tactical simulation', () => {
     const moving = state.players.find((candidate) => candidate.id === player.id)!;
     const oldVelocity = { ...moving.velocity };
     moving.target = { x: Math.max(0, moving.position.x - 40), y: moving.position.y };
+    state.playerMovementIntent = { ...state.playerMovementIntent!, target: { ...moving.target } };
     const reversed = stepTacticalMatch(state, FIXED_MATCH_DT).players.find(
       (candidate) => candidate.id === player.id,
     )!;

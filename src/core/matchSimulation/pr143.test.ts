@@ -115,8 +115,10 @@ describe('PR143 agency belongs to football, viewing belongs to presentation', ()
     const state = makeState();
     const actor = state.players.find((p) => p.id === state.controlledFootballerId)!;
     const opponent = state.players.find((p) => p.team !== actor.team)!;
-    actor.position = { x: 50, y: 34 };
-    opponent.position = { x: 53.5, y: 34 };
+    // Use genuinely dangerous territory: harmless midfield closure is routine
+    // before menu enumeration, while this fixture tests a forced one-choice menu.
+    actor.position = { x: 22, y: 34 };
+    opponent.position = { x: 25.5, y: 34 };
     state.ball = { ...opponent.position, ownerId: opponent.id };
     state.possessionTeam = opponent.team;
     const snapshot = structuredClone(state);

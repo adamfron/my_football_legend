@@ -4,6 +4,7 @@ import { BackgroundPerformanceTracker, backgroundPerformanceSchema } from './bac
 import { createMatchFlowTelemetry, observeMatchFlow } from './matchFlowTelemetry';
 import { projectMatchMoment } from './matchMoment';
 import { createTacticalMatch, FIXED_MATCH_DT, stepTacticalMatch } from './matchSimulation';
+import { matchPeriodSchema, matchTerminationSchema } from './matchState';
 
 export const backgroundBenchmarkModeSchema = z.enum([
   'core',
@@ -36,6 +37,8 @@ export const backgroundBenchmarkResultSchema = z.object({
     homeScore: z.number().int(),
     awayScore: z.number().int(),
     decisionIndex: z.number().int(),
+    status: matchPeriodSchema,
+    termination: matchTerminationSchema.optional(),
   }),
 });
 
@@ -58,15 +61,20 @@ export const runBackgroundBenchmark = (
     sampledTicks: 0,
     sampleEveryTicks: 40,
   };
-  for (let offset = 0; offset < targetTicks; offset += config.batchTicks) {
+  const terminal = () =>
+    state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time';
+  for (let offset = 0; offset < targetTicks && !terminal(); offset += config.batchTicks) {
     const count = Math.min(config.batchTicks, targetTicks - offset);
     const batchStart = now();
-    for (let local = 0; local < count; local += 1) {
+    const batchStartTime = state.time;
+    let executed = 0;
+    for (let local = 0; local < count && !terminal(); local += 1) {
       const tick = offset + local;
       const sampled = config.mode === 'profile' && tick % profile.sampleEveryTicks === 0;
       const coreStart = sampled ? now() : 0;
       const previous = state;
       state = stepTacticalMatch(state, FIXED_MATCH_DT);
+      executed++;
       if (sampled) profile.canonicalCoreMs += now() - coreStart;
       if (config.mode === 'telemetry' || config.mode === 'complete' || config.mode === 'profile') {
         const observerStart = sampled ? now() : 0;
@@ -80,7 +88,7 @@ export const runBackgroundBenchmark = (
       }
       if (sampled) profile.sampledTicks += 1;
     }
-    tracker.record(now() - batchStart, count * FIXED_MATCH_DT, count);
+    tracker.record(now() - batchStart, state.time - batchStartTime, executed);
   }
   return backgroundBenchmarkResultSchema.parse({
     seed: session.setup.seed,
@@ -97,6 +105,8 @@ export const runBackgroundBenchmark = (
       homeScore: state.score.home,
       awayScore: state.score.away,
       decisionIndex: state.decisionIndex,
+      status: state.status,
+      termination: state.termination,
     },
   });
 };

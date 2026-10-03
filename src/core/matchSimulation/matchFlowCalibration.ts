@@ -8,7 +8,13 @@ import {
   summarizeShootingBuckets,
   summarizeShootingStyles,
 } from './matchFlowTelemetry';
-import { createTacticalMatch, FIXED_MATCH_DT, stepTacticalMatch } from './matchSimulation';
+import {
+  createTacticalMatch,
+  FIXED_MATCH_DT,
+  startSecondHalf,
+  stepTacticalMatch,
+} from './matchSimulation';
+import { matchPeriodSchema, matchTerminationSchema } from './matchState';
 
 export const matchFlowBatchConfigSchema = z.object({
   canonicalSeconds: z
@@ -18,6 +24,11 @@ export const matchFlowBatchConfigSchema = z.object({
   sessions: z.array(z.custom<SingleMatchSession>()).min(1).max(20),
 });
 export type MatchFlowBatchConfig = z.infer<typeof matchFlowBatchConfigSchema>;
+export const matchFlowCompletionSchema = z.object({
+  canonicalSeconds: z.number().nonnegative(),
+  status: matchPeriodSchema,
+  termination: matchTerminationSchema.optional(),
+});
 
 /** Explicit headless calibration harness. It is deterministic and never feeds metrics into play. */
 export const runMatchFlowBatch = (input: MatchFlowBatchConfig) => {
@@ -25,15 +36,30 @@ export const runMatchFlowBatch = (input: MatchFlowBatchConfig) => {
   const sessions = config.sessions.map((session) => {
     let state = createTacticalMatch(session);
     let telemetry = createMatchFlowTelemetry();
-    const ticks = Math.floor(config.canonicalSeconds / FIXED_MATCH_DT);
-    for (let tick = 0; tick < ticks; tick += 1) {
+    let ticks = 0;
+    const complete = () =>
+      state.status === 'abandoned' ||
+      (state.time + 1e-7 >= config.canonicalSeconds &&
+        (config.canonicalSeconds !== 2700 || state.status === 'half_time') &&
+        (config.canonicalSeconds !== 5400 || state.status === 'full_time'));
+    while (!complete()) {
+      if (state.status === 'half_time') state = startSecondHalf(state);
+      if (state.status === 'full_time') throw new Error('Match ended before benchmark target');
       const next = stepTacticalMatch(state, FIXED_MATCH_DT);
       telemetry = observeMatchFlow(telemetry, state, next);
       state = next;
+      ticks++;
+      if (ticks > Math.ceil(config.canonicalSeconds / FIXED_MATCH_DT) + 10_000)
+        throw new Error('Canonical clock stopped advancing');
     }
     assertTelemetryInvariants(telemetry);
     return {
       seed: session.setup.seed,
+      completion: matchFlowCompletionSchema.parse({
+        canonicalSeconds: state.time,
+        status: state.status,
+        termination: state.termination,
+      }),
       telemetry,
       rates: summarizeMatchFlowRates(telemetry),
       shootingBuckets: summarizeShootingBuckets(telemetry),

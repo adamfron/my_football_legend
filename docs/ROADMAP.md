@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR147 są ukończone w opisanym zakresie. Kalibracja realizmu PR147 pozostaje PR148.
+PR105–PR148 są ukończone w opisanym zakresie. Dalszy rozwój prezentacji należy do PR149.
 W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
@@ -131,9 +131,18 @@ W szczególności:
   Architektura, dowody i ograniczenia:
   [RULES_DISCIPLINE_MATCH_FEEDBACK.md](RULES_DISCIPLINE_MATCH_FEEDBACK.md).
 
-### NEXT
+**PR148 — Defensive Realism, Discipline & Match-Cadence Calibration**
 
-**PR148 — Possession Rhythm, Roles & Duel Calibration** (plan po PR147)
+- wspólny milestone PR147.1/PR148: przerwanie meczu poniżej siedmiu aktywnych zawodników,
+  ze stanem `abandoned`, powodem `insufficient_players`, rzeczywistym wynikiem i czasem;
+- kompletne usunięcie wykluczonego z aktywnego składu i celów, zachowanie historii i zamrożenie minut;
+- ryzyko odbioru zależne od kartki, atrybutów i kontekstu; konserwatywna autonomia człowieka;
+- epizody pojedynków, kalibracja fauli/kartek i znaczenie składowych jakości obrońcy;
+- dyskretne kontakty z piłką, epizody sprintu oraz rzeczywisty rytm podań i ruchu;
+- deterministyczny benchmark wielu seedów z surowymi liczbami, per-90, rozkładami i dowodami
+  kanonicznymi. Definicje, pomiary i ograniczenia: [PR148_CALIBRATION.md](PR148_CALIBRATION.md).
+
+### Dalsza kalibracja ról i kombinacji
 
 - audyt i kalibracja nadmiernego wolumenu kontaktów, podań i przechwytów; dalsza gęstość decyzji
   na podstawie pełnych interaktywnych playtestów, bez tłumienia sprawczości dla wydajności;
@@ -155,12 +164,15 @@ W szczególności:
   pozycji i jakości zawodnika. Celem są wiarygodne rozkłady, nie sprowadzanie każdego meczu
   do średniej. Atrybuty i kontekst różnicują skłonność; interpretacja ligi/sędziego może później
   stać się osobnym parametrem. PR147 dostarcza telemetrię, bez globalnego tuningu częstości
-  do arbitralnych liczb. Kalibracja dyscypliny pozostaje częścią PR148, bez nowego dużego PR.
+  do arbitralnych liczb. PR148 dostarcza mały zestaw kalibracyjny; długookresowe rozkłady
+  lig, sędziów i stylów wymagają większych batchy oraz referencyjnych danych.
 
 Motywacja z playtestów: wiele rozpoczętych overlapów przy bardzo małej/zerowej liczbie użytecznych
 ukończonych kombinacji. Analizować wspólny lejek **start biegu → dostępność → wybór podania →
 udane przyjęcie → dośrodkowanie/cutback/kontynuacja**. Celem są spójne, zróżnicowane kombinacje.
-Wysokie dystanse/sprinty w połowie meczu wymagają późniejszego audytu rytmu, nie maskowania zmęczeniem.
+PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeniem.
+
+### NEXT
 
 **PR149 — Animation, Replay & Match Presentation v2** (plan po PR148)
 
@@ -186,7 +198,13 @@ Full-HD/mobile pozostają przyszłą pracą; narzędzia DEV nie należą do rele
 
 ### LATER
 
-Poniższe tematy należą do późniejszych etapów i nie są implementowane w PR147:
+Poniższe tematy należą do późniejszych etapów i nie są implementowane w PR148:
+
+- pełny model stamina/conditioning, osobowości i surowość sędziów;
+- ławka/tunel po wykluczeniu, bogatsze animacje, finalne małe etykiety akcji;
+- system migawek/powtórek, archetypy tłumu/stadionu oraz bogatsze techniki strzału;
+- rozbudowane decyzje człowieka o agresywnym faulowaniu;
+- długookresowa kalibracja lig/sędziów/stylów oparta na rzeczywistych statystykach;
 
 - fitness, obciążenie wysiłkiem i regeneracja;
 - pogoda oraz środowisko murawy i piłki, z kanonicznym wpływem na fizykę;

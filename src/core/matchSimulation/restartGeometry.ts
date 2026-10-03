@@ -377,7 +377,7 @@ const deriveHomeRestartGeometry = (
     points.set(awayGk.id, { x: 103.5, y: scenario === 'free_kick_wide' ? 31 : 35 });
     const close = scenario === 'free_kick_close',
       wide = scenario === 'free_kick_wide',
-      wallSize = close ? 5 : wide ? 0 : 2;
+      wallSize = Math.min(away.length, close ? 5 : wide ? 0 : 2);
     const wall = deriveDefensiveWall(ball, { x: 105, y: 34 }, wallSize),
       // Prefer mobile midfield responsibility and retain dominant aerial markers.
       wallPlayers = stableRank(

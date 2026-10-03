@@ -22,9 +22,10 @@ const sessions = pairings.flatMap(([name, homeIndex, awayIndex]) =>
 );
 const result = runMatchFlowBatch({ canonicalSeconds: seconds, sessions });
 const report = result.sessions.map(
-  ({ seed, telemetry, rates, shootingBuckets, shootingStyles }) => ({
+  ({ seed, telemetry, rates, shootingBuckets, shootingStyles, completion }) => ({
     seed,
     minutes: telemetry.canonicalMinutes,
+    completion,
     passes: {
       attempted: telemetry.passesAttempted,
       completed: telemetry.passesCompleted,

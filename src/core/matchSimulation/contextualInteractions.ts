@@ -97,6 +97,8 @@ export const projectContextualInteractions = (
   opportunity: PlayerDecisionOpportunity,
   target: PlayerInteractionTarget,
 ): ContextualInteraction[] => {
+  if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
+    return [];
   if (opportunity.actorId !== state.controlledFootballerId) return [];
   const actor = state.players.find((player) => player.id === opportunity.actorId);
   if (!actor) return [];
@@ -380,6 +382,9 @@ export const applyContextualInteraction = (
   interaction: ContextualInteraction,
 ): TacticalMatchState => {
   if (
+    state.status === 'abandoned' ||
+    state.status === 'full_time' ||
+    state.status === 'half_time' ||
     opportunity.actorId !== state.controlledFootballerId ||
     opportunity.openedAt !== state.time ||
     !state.players.some((player) => player.id === opportunity.actorId)

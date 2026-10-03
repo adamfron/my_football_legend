@@ -1,5 +1,32 @@
 # Match Engine Handoff
 
+## PR148 contracts
+
+- `players` is the active roster. Below seven on either side, `matchRules.enforceMinimumPlayers`
+  produces `status: abandoned` with `termination: { reason, at, team, activePlayers }`; never
+  fabricate a competition result. Both tick entries, stale actions/decisions, restarts and hidden
+  UI scheduling respect the terminal state. Statistics keep the dismissal-time minutes.
+- Defensive episodes join lingering close-pair contacts across a win/reclaim. Separation,
+  progression, another player or a new deliberate delivery creates new football context;
+  another defender can challenge immediately. Booking suppresses risk; routine human support
+  withdraws unsafe challenges. Relative component ability remains stochastic.
+- `touches` counts canonical discrete contacts, not possession maintenance/provenance. One
+  meaningful executed carry supplies one contact and `dribble` event. Stale reception evidence
+  cannot be renewed by another player's preparation.
+- `chooseNpcAction` remains the shared pure policy. `chooseNpcRoutineAction` adds live
+  contextual possession readiness, allowing support movement and scanning. Explicit human/DEV
+  choices keep immediate agency. Stale return passes lose utility unless context supports a wall pass.
+- Routine press commitment uses cover, threat, control exposure and player attributes. Calm,
+  covered marking jockeys at a standoff; deliberate carries and genuine threats still invite a
+  challenge. Scanning keeps the ball at the feet rather than permanently exposing a running stride.
+  A completed chosen hold invites closure; physical pressure then restores the owner's agency.
+  A timer alone neither opens a prompt nor delegates a major action.
+- Explicit DEV hold/carry selections preserve the same ownership/waypoint handoff as human
+  selections. A speculative shot cannot bypass the unchanged-situation pause gate.
+- Locomotion brakes at target, excludes collision correction from distance, and treats a live
+  delivery separately from a loose-ball race. Sprint maturation/hysteresis controls burst counts;
+  sprint distance remains continuous. See [PR148_CALIBRATION.md](PR148_CALIBRATION.md).
+
 ## Filozofia
 
 My Football Legend to deterministyczna symulacja kariery piłkarza: nie manager i nie zręcznościowa

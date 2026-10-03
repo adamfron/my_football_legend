@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../src/core/singleMatch';
+import * as matchSimulation from '../src/core/matchSimulation/matchSimulation';
 import {
   assertCanonicalBenchmarkEquality,
   canonicalHash,
@@ -34,6 +35,34 @@ const session = createSingleMatchSession(world, {
 });
 
 describe('PR146 deterministic performance harness', () => {
+  it('stops on canonical abandonment and exports the actual reached score and time', () => {
+    const step = vi
+      .spyOn(matchSimulation, 'stepTacticalMatchAfterDecisionProbe')
+      .mockImplementationOnce((state) => ({
+        ...state,
+        time: 0.025,
+        status: 'abandoned',
+        score: { home: 1, away: 2 },
+        termination: { reason: 'insufficient_players', at: 0.025, team: 'away', activePlayers: 6 },
+      }));
+    try {
+      const result = runPerformanceBenchmark(session, {
+        canonicalMinutes: 45,
+        mode: 'normal',
+        profilingEnabled: false,
+      }).result;
+      expect(step).toHaveBeenCalledTimes(1);
+      expect(result.status).toBe('abandoned');
+      expect(result.terminationReason).toBe('insufficient_players');
+      expect(result.canonicalSeconds).toBe(0.025);
+      expect(result.score).toEqual({ home: 1, away: 2 });
+      expect(result.ticks).toBe(1);
+      expect(result.buckets).toHaveLength(1);
+    } finally {
+      step.mockRestore();
+    }
+  });
+
   // Four complete simulations, including capture/export, can exceed 5 s on shared CI.
   it('compares complete canonical, statistics, player and event hashes across A-D', () => {
     const modes: PerformanceObserverMode[] = ['release_minimal', 'normal', 'dev', 'capture'];

@@ -78,6 +78,7 @@ const sessions = Array.from({ length: config.seeds }, (_, index) => {
   };
   const ticks = Math.round(config.seconds / FIXED_MATCH_DT);
   for (let tick = 0; tick < ticks; tick++) {
+    if (state.status === 'abandoned' || state.status === 'full_time') break;
     const evaluation = projectPlayerAgency(state);
     const diagnostic = agency.observe(state, evaluation);
     if (diagnostic && diagnostic.ownership !== 'ineligible') {
@@ -86,6 +87,7 @@ const sessions = Array.from({ length: config.seeds }, (_, index) => {
     }
     if (evaluation.opportunity)
       observe(resolveDevPlayerDecision(state, evaluation.opportunity).state);
+    if (state.status === 'abandoned') break;
     observe(stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT));
   }
   const stats = state.statistics?.players ?? [];
@@ -93,6 +95,8 @@ const sessions = Array.from({ length: config.seeds }, (_, index) => {
     seed: session.setup.seed,
     controlledPosition: player.profile.primaryPosition,
     canonicalSeconds: state.time,
+    status: state.status,
+    termination: state.termination,
     canonicalHash: createHash('sha256').update(JSON.stringify(state)).digest('hex'),
     score: state.score,
     shots: telemetry.shots,
