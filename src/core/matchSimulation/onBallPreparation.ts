@@ -45,6 +45,13 @@ export const onBallPreparationSchema = z.object({
   receptionKind: z.enum(['clean_control', 'directional_control', 'heavy_touch']).optional(),
   incomingSpeed: z.number().nonnegative(),
   micro: possessionMicroBehaviourSchema.optional(),
+  continuation: z
+    .object({
+      until: z.number().nonnegative(),
+      target: pitchPointSchema,
+      velocity: z.object({ x: z.number().finite(), y: z.number().finite() }),
+    })
+    .optional(),
 });
 export type OnBallPreparation = z.infer<typeof onBallPreparationSchema>;
 
@@ -91,6 +98,20 @@ export const deriveOnBallPreparation = (
             : 'settling',
     ...(receptionKind ? { receptionKind } : {}),
     incomingSpeed,
+    ...(receptionKind !== 'heavy_touch' &&
+    receptionKind &&
+    Math.hypot(actor.velocity.x, actor.velocity.y) > 0.7
+      ? {
+          continuation: {
+            until: state.time + (receptionKind === 'directional_control' ? 1.15 : 0.8),
+            target: clampPitchPoint({
+              x: actor.position.x + actor.velocity.x * 1.15,
+              y: actor.position.y + actor.velocity.y * 1.15,
+            }),
+            velocity: { ...actor.velocity },
+          },
+        }
+      : {}),
   };
   return onBallPreparationSchema.parse({
     ...preparation,
@@ -203,6 +224,7 @@ export const projectPossessionMicroBehaviour = (
         x: origin.x + movementDirection.x * adjustment,
         y: origin.y + movementDirection.y * adjustment,
       });
+  const continuing = preparation.continuation && state.time < preparation.continuation.until;
   const ballDistance = shield ? 0.38 : phase === 'directional_touch' ? 0.72 : 0.45;
   // A receiver can face the incoming pass while guiding it into their run. Keep that first
   // touch in its canonical movement direction while the body turns toward the next action.
@@ -215,7 +237,7 @@ export const projectPossessionMicroBehaviour = (
     phase,
     startedAt: previous?.phase === phase ? previous.startedAt : state.time,
     origin,
-    localTarget,
+    localTarget: continuing ? preparation.continuation!.target : localTarget,
     orientationTarget: normalizeAngle(orientationTarget),
     passingAngle: openAngle,
     touchDirection: movementDirection,
@@ -248,6 +270,17 @@ export const advanceOnBallPreparation = (state: TacticalMatchState): TacticalMat
     state.ball.travelKind
   )
     return state;
+  if (preparation.continuation && state.time >= preparation.continuation.until) {
+    const { continuation: _finished, micro: _oldOrigin, ...settled } = preparation;
+    void [_finished, _oldOrigin];
+    return {
+      ...state,
+      onBallPreparation: {
+        ...settled,
+        micro: projectPossessionMicroBehaviour(state, actor, settled),
+      },
+    };
+  }
   if (
     state.ballCarrierIntent?.actorId === actor.id ||
     state.playerMovementIntent?.actorId === actor.id
@@ -256,8 +289,9 @@ export const advanceOnBallPreparation = (state: TacticalMatchState): TacticalMat
     // A committed movement replaces the old local footwork destination. Keeping its origin
     // would pull the player back to the reception spot when the carry/run ends. Clear only this
     // local intention; physical readiness and the PR148 possession clock stay uninterrupted.
-    const { micro: _replaced, ...withoutMicro } = preparation;
+    const { micro: _replaced, continuation: _continuation, ...withoutMicro } = preparation;
     void _replaced;
+    void _continuation;
     return { ...state, onBallPreparation: withoutMicro };
   }
   return {

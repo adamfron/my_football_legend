@@ -40,6 +40,7 @@ import {
   type ThrowInRestriction,
 } from './throwIn';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
+import { passExecutionTypeSchema, type PassExecutionType } from './passExecution';
 import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
 import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
 import type { MatchStatistics } from './playerMatchStats';
@@ -69,6 +70,8 @@ export const tacticalStyleSchema = z.enum([
   'pressing',
 ]);
 export type TacticalStyle = z.infer<typeof tacticalStyleSchema>;
+export const ballMovementModeSchema = z.enum(['carry', 'sprint', 'dribble', 'retain']);
+export type BallMovementMode = z.infer<typeof ballMovementModeSchema>;
 export const matchActionSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('challenge'),
@@ -77,7 +80,13 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     technique: defensiveTechniqueSchema,
   }),
   z.object({ type: z.literal('hold'), actorId: z.string() }),
-  z.object({ type: z.literal('carry'), actorId: z.string(), target: pitchPointSchema }),
+  z.object({
+    type: z.literal('carry'),
+    actorId: z.string(),
+    target: pitchPointSchema,
+    movementMode: ballMovementModeSchema.optional(),
+  }),
+  z.object({ type: z.literal('space_pass'), actorId: z.string(), target: pitchPointSchema }),
   z.object({
     type: z.literal('pass'),
     receiverPositionAtSelection: pitchPointSchema.optional(),
@@ -86,6 +95,8 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     target: pitchPointSchema,
     intent: z.enum(['support', 'progressive', 'direct', 'lead', 'through']),
     delivery: z.enum(['ground', 'lofted']).optional(),
+    requestedSpace: pitchPointSchema.optional(),
+    firstTime: z.boolean().optional(),
   }),
   z.object({
     type: z.literal('shot'),
@@ -150,7 +161,9 @@ export const pendingReceptionIntentSchema = z.object({
   createdAt: z.number().nonnegative(),
   expiresAt: z.number().nonnegative(),
   ballEpisode: z.string(),
-  sourceAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']).optional(),
+  sourceAction: z
+    .enum(['hold', 'carry', 'pass', 'space_pass', 'shot', 'cross', 'header'])
+    .optional(),
   actionSource: actionSourceSchema.optional(),
 });
 export type PendingReceptionIntent = z.infer<typeof pendingReceptionIntentSchema>;
@@ -164,6 +177,8 @@ export const ballCarrierIntentSchema = z.object({
   startPosition: pitchPointSchema,
   closestPointReached: pitchPointSchema,
   humanSelected: z.boolean(),
+  movementMode: ballMovementModeSchema.optional(),
+  lastProgressAt: z.number().nonnegative().optional(),
   executionMode: z.enum(['burst', 'controlled', 'tight_dribble', 'evade', 'shield']).optional(),
   modeSince: z.number().nonnegative().optional(),
   localTarget: pitchPointSchema.optional(),
@@ -183,6 +198,7 @@ export const possessionDecisionContextSchema = z.object({
   goalDistance: z.number().nonnegative(),
   blockingDefenders: z.number().int().nonnegative(),
   decisiveReceiverIds: z.array(z.string()),
+  supportReceiverIds: z.array(z.string()).optional(),
   touchDistance: z.number().nonnegative(),
 });
 export const humanPossessionEpisodeSchema = z.object({
@@ -191,6 +207,10 @@ export const humanPossessionEpisodeSchema = z.object({
   ownershipStartedAt: z.number().nonnegative(),
   ballEpisode: z.number().int().nonnegative(),
   decisionAt: z.number().nonnegative(),
+  intent: z.enum(['control', 'carry', 'sprint', 'dribble', 'retain']).optional(),
+  target: pitchPointSchema.optional(),
+  lastProgressAt: z.number().nonnegative().optional(),
+  progressPoint: pitchPointSchema.optional(),
   context: possessionDecisionContextSchema,
 });
 export type HumanPossessionEpisode = z.infer<typeof humanPossessionEpisodeSchema>;
@@ -210,6 +230,7 @@ export const carryDiagnosticSchema = z.object({
     'safety_timeout',
     'decision_waypoint',
     'material_change',
+    'route_blocked',
   ]),
   actualDuration: z.number().nonnegative(),
   redecisionReason: z.string().optional(),
@@ -279,6 +300,7 @@ export type RestartScenario = z.infer<typeof restartScenarioSchema>;
 export const restartPhaseSchema = z.enum(['setup', 'release']);
 export type RestartPhase = z.infer<typeof restartPhaseSchema>;
 export const restartLifecycleSchema = z.object({
+  indirect: z.boolean().optional(),
   restartTeam: teamSideSchema,
   phase: restartPhaseSchema,
   startedAt: z.number().nonnegative(),
@@ -376,6 +398,7 @@ export interface MatchTeamState {
   phaseElapsed: number;
 }
 export interface MatchBallState extends PitchPoint {
+  executionType?: PassExecutionType;
   height?: number;
   releaseHeight?: number;
   airborne?: boolean;
@@ -455,6 +478,9 @@ export const offsideOffenceSchema = z.object({
   playerId: z.string(),
   at: z.number().nonnegative(),
   reason: z.enum(['attempted_receive', 'challenged_opponent', 'interfered']),
+  passerId: z.string().optional(),
+  releasedAt: z.number().nonnegative().optional(),
+  offsideLineX: z.number().finite().optional(),
 });
 export const keeperInterventionSchema = z.object({
   keeperId: z.string(),
@@ -491,6 +517,9 @@ export const recentDuelSchema = z.object({
 export type RecentDuel = z.infer<typeof recentDuelSchema>;
 
 export const passDiagnosticSchema = z.object({
+  executionType: passExecutionTypeSchema.optional(),
+  requestedSpace: pitchPointSchema.optional(),
+  delivery: z.enum(['ground', 'lofted']).optional(),
   passId: z.string(),
   passerId: z.string(),
   intendedReceiverId: z.string(),
@@ -637,6 +666,9 @@ export interface TacticalMatchState {
   /** Retains a physical incoming result when a prepared one-touch pass starts a new diagnostic. */
   lastResolvedPass?: TacticalMatchState['lastPassDiagnostic'];
   lastPassDiagnostic?: {
+    executionType?: PassExecutionType;
+    requestedSpace?: PitchPoint;
+    delivery?: 'ground' | 'lofted';
     passId: string;
     passerId: string;
     intendedReceiverId: string;
@@ -728,7 +760,10 @@ export const tacticalMatchStateSchema = z
           'throw_in',
         ])
         .optional(),
-      sourceAction: z.enum(['hold', 'carry', 'pass', 'shot', 'cross', 'header']).optional(),
+      sourceAction: z
+        .enum(['hold', 'carry', 'pass', 'space_pass', 'shot', 'cross', 'header'])
+        .optional(),
+      executionType: passExecutionTypeSchema.optional(),
       looseSince: z.number().optional(),
       targetHeight: z.number().nonnegative().finite().optional(),
       shot: shotDiagnosticSchema.optional(),

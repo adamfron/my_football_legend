@@ -2,11 +2,13 @@ import { z } from 'zod';
 import {
   distance,
   physicalPointSchema,
+  pitchPointSchema,
   teamSideSchema,
   type PitchPoint,
   type TeamSide,
 } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
+import { passExecutionTypeSchema } from './passExecution';
 
 /** Enough canonical evidence for the six-second context and ten-second replay contracts.
  * The ledger is presentation evidence, not another statistics store or a source of RNG. */
@@ -33,6 +35,7 @@ export const canonicalActionEventSchema = z.object({
     'foul',
     'card',
     'advantage',
+    'offside',
     'dribble',
   ]),
   actorId: z.string().min(1),
@@ -42,6 +45,8 @@ export const canonicalActionEventSchema = z.object({
   outcome: z.string().min(1),
   cause: z.string().min(1),
   parentId: z.string().optional(),
+  executionType: passExecutionTypeSchema.optional(),
+  requestedSpace: pitchPointSchema.optional(),
 });
 export type CanonicalActionEvent = z.infer<typeof canonicalActionEventSchema>;
 
@@ -131,6 +136,8 @@ export const emitCanonicalActionEvents = (
         targetId: releasedPass.intendedReceiverId,
         outcome: 'released',
         cause: releasedPass.intent ?? 'support',
+        executionType: releasedPass.executionType,
+        requestedSpace: releasedPass.requestedSpace,
       });
   }
   const reception = next.lastReceptionOutcome;
@@ -294,6 +301,23 @@ export const emitCanonicalActionEvents = (
       outcome: challenge.outcome,
       cause: challenge.technique,
     });
+  const offside = next.lastOffsideOffence;
+  if (offside && offside !== previous.lastOffsideOffence) {
+    const actor = actorFact(offside.playerId, previous.ball);
+    if (actor)
+      add({
+        ...actor,
+        key: `offside:${offside.playerId}:${offside.at.toFixed(6)}`,
+        at: offside.at,
+        kind: 'offside',
+        outcome: 'indirect_free_kick',
+        cause: offside.reason,
+        targetId: offside.passerId,
+        ...(pass && pass.passerId === offside.passerId
+          ? { parentId: eventId(`pass:${pass.passId}`) }
+          : {}),
+      });
+  }
   const foul = next.lastFoul;
   if (foul && foul.id !== previous.lastFoul?.id)
     add({

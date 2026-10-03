@@ -19,6 +19,52 @@ export const contactEvidenceSchema = z.object({
 });
 export type ContactEvidence = z.infer<typeof contactEvidenceSchema>;
 
+/** Public football touches describe continuous control, rather than each physical contact. */
+export const controlEpisodeSchema = z.object({
+  playerId: z.string(),
+  startedAt: z.number().nonnegative(),
+  lastContactAt: z.number().nonnegative(),
+});
+export type ControlEpisode = z.infer<typeof controlEpisodeSchema>;
+
+/** Bounded episode projection: a carry, shield or release continues the receiver's touch.
+ * A first-time action is one episode even when reception/release have separate evidence.
+ * The caller supplies only new, exactly-once contacts; granular contacts remain available. */
+export const projectControlEpisodes = (
+  previous: TacticalMatchState,
+  next: TacticalMatchState,
+  contacts: readonly ContactEvidence[],
+  active?: ControlEpisode,
+) => {
+  let episode = active && { ...active };
+  const started: ControlEpisode[] = [];
+  for (const contact of [...contacts].sort((a, b) => a.at - b.at)) {
+    if (!episode || episode.playerId !== contact.playerId) {
+      episode = {
+        playerId: contact.playerId,
+        startedAt: contact.at,
+        lastContactAt: contact.at,
+      };
+      started.push({ ...episode });
+    } else episode.lastContactAt = Math.max(episode.lastContactAt, contact.at);
+  }
+  // Placement at a restart is not control. Released/loose/contested balls close continuous
+  // ownership; a subsequent recovery is a new public episode, even for the same footballer.
+  if (
+    episode &&
+    (next.ball.ownerId !== episode.playerId ||
+      next.restart?.phase === 'setup' ||
+      next.status === 'half_time' ||
+      next.status === 'full_time' ||
+      next.status === 'abandoned')
+  )
+    episode = undefined;
+  // An ownership loss with no contact evidence must also close a previously active episode.
+  if (episode && previous.ball.ownerId === episode.playerId && !next.ball.ownerId)
+    episode = undefined;
+  return { active: episode, started };
+};
+
 /** Discrete football contacts: release, reception, physical contact, acquisition and one control
  * contact per executed carry. Ownership maintenance and last-touch provenance are not contacts.
  * First-time reception/shot evidence describes one physical contact at the same player/time. */
@@ -60,10 +106,33 @@ export const collectContactEvidence = (
       );
     const contact = next.lastBallContact;
     if (contact?.playerId) add(contact.playerId, contact.at, 'flight_contact');
+    const reception = next.lastReceptionOutcome;
+    const newlyResolvedPasses = passes.filter(
+      (pass) =>
+        pass.actualContactPoint &&
+        pass.resolvedAt !== undefined &&
+        pass.resolvedAt >= previous.time - 0.001 &&
+        ![previous.lastResolvedPass, previous.lastPassDiagnostic].some(
+          (observed) =>
+            observed?.passId === pass.passId &&
+            observed.resolvedAt === pass.resolvedAt &&
+            observed.finalResult === pass.finalResult,
+        ),
+    );
+    const resolvedReception = newlyResolvedPasses.find(
+      (pass) =>
+        reception &&
+        pass.actualContactPoint &&
+        pass.receptionOutcome === reception.kind &&
+        (!pass.actualReceiverId || pass.actualReceiverId === reception.receiverId) &&
+        distance(pass.actualContactPoint, reception.contactPoint) <= 0.000001,
+    );
     const contactAt = (playerId: string) => {
       if (contact?.playerId === playerId && contact.at !== previous.lastBallContact?.at)
         return contact.at;
-      const pass = passes.find(
+      if (resolvedReception && reception?.receiverId === playerId)
+        return resolvedReception.resolvedAt!;
+      const pass = newlyResolvedPasses.find(
         (candidate) =>
           (candidate.actualReceiverId ?? candidate.intendedReceiverId) === playerId &&
           candidate.actualContactPoint &&
@@ -72,8 +141,6 @@ export const collectContactEvidence = (
       if (
         pass &&
         (pass?.actualReceiverId ?? pass?.intendedReceiverId) === playerId &&
-        pass !== previous.lastPassDiagnostic &&
-        pass !== previous.lastResolvedPass &&
         pass.actualContactPoint &&
         pass.resolvedAt !== undefined &&
         pass.resolvedAt >= previous.time - 0.001
@@ -86,11 +153,11 @@ export const collectContactEvidence = (
         return next.ball.shot.releasedAt ?? next.time;
       return next.time;
     };
-    const reception = next.lastReceptionOutcome;
     const previousReception = previous.lastReceptionOutcome;
     const newReception =
       reception &&
-      (!previousReception ||
+      (resolvedReception ||
+        !previousReception ||
         reception.receiverId !== previousReception.receiverId ||
         reception.kind !== previousReception.kind ||
         distance(reception.contactPoint, previousReception.contactPoint) > 0.000001 ||

@@ -38,12 +38,19 @@ export const sampleCanonicalPositioning = (state: TacticalMatchState): Positioni
       : {}),
   });
 
-const passEdgeSchema = z.object({
-  passerId: z.string(),
-  receiverId: z.string(),
-  attempted: z.number().int().nonnegative(),
-  completed: z.number().int().nonnegative(),
-});
+const passEdgeSchema = z
+  .object({
+    passerId: z.string(),
+    receiverId: z.string(),
+    attempted: z.number().int().nonnegative(),
+    completed: z.number().int().nonnegative(),
+  })
+  .superRefine((edge, context) => {
+    if (edge.completed > edge.attempted)
+      context.addIssue({ code: 'custom', message: 'Passing network completions exceed attempts.' });
+    if (edge.passerId === edge.receiverId)
+      context.addIssue({ code: 'custom', message: 'Passing network contains a self edge.' });
+  });
 const thirdSchema = z.enum(['defensive', 'middle', 'final']);
 const actionTempoSampleSchema = z.object({
   team: z.enum(['home', 'away']),
@@ -504,6 +511,11 @@ export const observeMatchFlow = (
   };
   const indexes = claimTelemetryIndexes(telemetry, result);
   const resolvedPass = next.lastResolvedPass ?? next.lastPassDiagnostic;
+  const observedPasses = new Map(
+    [next.lastResolvedPass, next.lastPassDiagnostic]
+      .filter((pass): pass is NonNullable<typeof pass> => Boolean(pass))
+      .map((pass) => [pass.passId, pass]),
+  );
   // Historical arrays are copied only when this tick appends or changes an entry.
   const append = <Key extends TelemetryHistoryKey>(
     key: Key,
@@ -514,11 +526,11 @@ export const observeMatchFlow = (
       result[key] = result[key].slice() as MatchFlowTelemetry[Key];
     (result[key] as Array<typeof value>).push(entry);
   };
-  const updatePassingEdge = (index: number, kind: 'attempted' | 'completed') => {
+  const updatePassingEdge = (index: number, kind: 'attempted' | 'completed', delta = 1) => {
     if (result.passingNetwork === telemetry.passingNetwork)
       result.passingNetwork = result.passingNetwork.slice();
     const edge = result.passingNetwork[index]!;
-    result.passingNetwork[index] = { ...edge, [kind]: edge[kind] + 1 };
+    result.passingNetwork[index] = { ...edge, [kind]: edge[kind] + delta };
   };
   result.canonicalMinutes = next.time / 60;
   const dt = Math.max(0, next.time - previous.time);
@@ -700,178 +712,225 @@ export const observeMatchFlow = (
     }
   }
   result.observerState.activeFlankEpisodes = activeFlankEpisodes;
-  const releasedPass = next.lastPassDiagnostic;
-  const releasedPassId = releasedPass
-    ? `${result.benchmarkRunId}:${releasedPass.passId}`
-    : undefined;
-  if (releasedPass && releasedPassId && !indexes.passAttempts.has(releasedPassId)) {
-    append('observedPassAttemptIds', releasedPassId);
-    indexes.passAttempts.add(releasedPassId);
-    result.passesAttempted++;
-    result.observerState.spellPassAttempts++;
-    if (newAction && action.type === 'pass') {
-      if (action.intent === 'through') result.throughBalls++;
-      const passer = next.players.find((player) => player.id === action.actorId);
-      if (passer) {
-        if (result.observerState.lastPassAt !== undefined)
-          append('actionTempoSamples', {
-            team: passer.team,
-            third: third(passer.team, passer.position.x),
-            phase: next.teams[passer.team].phase,
-            kind: 'pass',
-            interval: next.time - result.observerState.lastPassAt,
-          });
-        result.observerState.lastPassAt = next.time;
-        const progress = (passer.team === 'home' ? 1 : -1) * (action.target.x - passer.position.x);
-        if (progress > 5) result.progressivePasses++;
-        else if (progress < -2) result.backwardPasses++;
-        else result.lateralPasses++;
-        if (!indexes.passOutcomes.has(releasedPass.passId))
-          indexes.passOutcomes.set(releasedPass.passId, result.passOutcomes.length);
-        append('passOutcomes', {
-          passId: releasedPass.passId,
-          intent: action.intent,
-          originThird: third(passer.team, passer.position.x),
-          length: distance(passer.position, releasedPass.predictedReceptionPoint),
-          pressure: previous.currentPressure,
-          defenderEtaAdvantage:
-            releasedPass.receiverArrivalEstimate - releasedPass.bestDefenderArrivalEstimate,
-          outcome: 'unclaimed',
-        });
-      }
-      const receiver = next.players.find((player) => player.id === releasedPass.intendedReceiverId);
+  for (const releasedPass of observedPasses.values()) {
+    const releasedPassId = releasedPass
+      ? `${result.benchmarkRunId}:${releasedPass.passId}`
+      : undefined;
+    if (
+      releasedPass &&
+      releasedPassId &&
+      releasedPass.passerId !== releasedPass.intendedReceiverId &&
+      !indexes.passAttempts.has(releasedPassId)
+    ) {
+      append('observedPassAttemptIds', releasedPassId);
+      indexes.passAttempts.add(releasedPassId);
+      result.passesAttempted++;
+      result.observerState.spellPassAttempts++;
       if (
-        receiver &&
-        ['left_back', 'right_back', 'left_wing_back', 'right_wing_back'].includes(
-          receiver.slot.position,
-        )
+        newAction &&
+        action.type === 'pass' &&
+        action.actorId === releasedPass.passerId &&
+        next.lastPassDiagnostic?.passId === releasedPass.passId
       ) {
-        const relation = deriveFlankRelationship(previous, receiver);
-        const length = distance(
-          passer?.position ?? previous.ball,
-          releasedPass.predictedReceptionPoint,
+        if (action.intent === 'through') result.throughBalls++;
+        const passer = next.players.find((player) => player.id === action.actorId);
+        if (passer) {
+          if (result.observerState.lastPassAt !== undefined)
+            append('actionTempoSamples', {
+              team: passer.team,
+              third: third(passer.team, passer.position.x),
+              phase: next.teams[passer.team].phase,
+              kind: 'pass',
+              interval: next.time - result.observerState.lastPassAt,
+            });
+          result.observerState.lastPassAt = next.time;
+          const progress =
+            (passer.team === 'home' ? 1 : -1) * (action.target.x - passer.position.x);
+          if (progress > 5) result.progressivePasses++;
+          else if (progress < -2) result.backwardPasses++;
+          else result.lateralPasses++;
+          if (!indexes.passOutcomes.has(releasedPass.passId))
+            indexes.passOutcomes.set(releasedPass.passId, result.passOutcomes.length);
+          append('passOutcomes', {
+            passId: releasedPass.passId,
+            intent: action.intent,
+            originThird: third(passer.team, passer.position.x),
+            length: distance(passer.position, releasedPass.predictedReceptionPoint),
+            pressure: previous.currentPressure,
+            defenderEtaAdvantage:
+              releasedPass.receiverArrivalEstimate - releasedPass.bestDefenderArrivalEstimate,
+            outcome: 'unclaimed',
+          });
+        }
+        const receiver = next.players.find(
+          (player) => player.id === releasedPass.intendedReceiverId,
         );
-        if (relation === 'overlap') result.overlapPassAttempts++;
-        if (Math.abs(releasedPass.predictedReceptionPoint.y - 34) > 22) {
-          if (length <= 15) result.shortWideCombinations++;
-          else if (Math.abs(releasedPass.predictedReceptionPoint.y - receiver.position.y) < 5)
-            result.channelReleases++;
+        if (
+          receiver &&
+          ['left_back', 'right_back', 'left_wing_back', 'right_wing_back'].includes(
+            receiver.slot.position,
+          )
+        ) {
+          const relation = deriveFlankRelationship(previous, receiver);
+          const length = distance(
+            passer?.position ?? previous.ball,
+            releasedPass.predictedReceptionPoint,
+          );
+          if (relation === 'overlap') result.overlapPassAttempts++;
+          if (Math.abs(releasedPass.predictedReceptionPoint.y - 34) > 22) {
+            if (length <= 15) result.shortWideCombinations++;
+            else if (Math.abs(releasedPass.predictedReceptionPoint.y - receiver.position.y) < 5)
+              result.channelReleases++;
+          }
         }
       }
+      if (releasedPass.passerId === next.controlledFootballerId)
+        result.controlled.passesAttempted++;
+      const diagnostic = releasedPass;
+      {
+        const moving =
+          Math.hypot(
+            diagnostic.receiverVelocityAtRelease.x,
+            diagnostic.receiverVelocityAtRelease.y,
+          ) > 0.5;
+        if (moving) result.passesToMovingReceiver++;
+        else result.passesToStationaryReceiver++;
+        result.leadDistanceSamples++;
+        result.averageLeadDistance +=
+          (diagnostic.leadDistance - result.averageLeadDistance) / result.leadDistanceSamples;
+      }
+      const edgeIndex = result.passingNetwork.findIndex(
+        (item) =>
+          item.passerId === releasedPass.passerId &&
+          item.receiverId === releasedPass.intendedReceiverId,
+      );
+      if (edgeIndex >= 0) updatePassingEdge(edgeIndex, 'attempted');
+      else if (releasedPass.passerId !== releasedPass.intendedReceiverId)
+        append('passingNetwork', {
+          passerId: releasedPass.passerId,
+          receiverId: releasedPass.intendedReceiverId,
+          attempted: 1,
+          completed: 0,
+        });
     }
-    if (releasedPass.passerId === next.controlledFootballerId) result.controlled.passesAttempted++;
-    const diagnostic = releasedPass;
-    {
-      const moving =
-        Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
-        0.5;
-      if (moving) result.passesToMovingReceiver++;
-      else result.passesToStationaryReceiver++;
-      result.leadDistanceSamples++;
-      result.averageLeadDistance +=
-        (diagnostic.leadDistance - result.averageLeadDistance) / result.leadDistanceSamples;
-    }
-    const edgeIndex = result.passingNetwork.findIndex(
-      (item) =>
-        item.passerId === releasedPass.passerId &&
-        item.receiverId === releasedPass.intendedReceiverId,
-    );
-    if (edgeIndex >= 0) updatePassingEdge(edgeIndex, 'attempted');
-    else
-      append('passingNetwork', {
-        passerId: releasedPass.passerId,
-        receiverId: releasedPass.intendedReceiverId,
-        attempted: 1,
-        completed: 0,
-      });
   }
   const ownershipReceived =
     next.ball.ownerId !== previous.ball.ownerId ? next.ball.ownerId : undefined;
   if (ownershipReceived && ownershipReceived === next.controlledFootballerId)
     result.controlled.touches++;
-  if (
-    resolvedPass?.finalResult &&
-    !indexes.passResults.has(`${result.benchmarkRunId}:${resolvedPass.passId}`)
-  ) {
-    const diagnostic = resolvedPass;
-    const resultId = `${result.benchmarkRunId}:${diagnostic.passId}`;
-    append('observedPassResultIds', resultId);
-    indexes.passResults.add(resultId);
-    if (diagnostic.finalResult === 'completed') {
-      result.passesCompleted++;
-      result.observerState.spellPassCompletions++;
-      const receiverId = diagnostic.actualReceiverId ?? diagnostic.intendedReceiverId;
-      const edgeIndex = result.passingNetwork.findIndex(
-        (item) => item.passerId === diagnostic.passerId && item.receiverId === receiverId,
-      );
-      if (edgeIndex >= 0) updatePassingEdge(edgeIndex, 'completed');
-      else
-        append('passingNetwork', {
-          passerId: diagnostic.passerId,
-          receiverId,
-          attempted: 0,
-          completed: 1,
-        });
-      if (receiverId === next.controlledFootballerId) result.controlled.passesReceived++;
-      const receiver = next.players.find((player) => player.id === receiverId);
-      if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
-        result.overlapPassCompleted++;
-      if (receiver) {
-        const passer = next.players.find((player) => player.id === diagnostic.passerId);
-        if (
-          passer &&
-          (passer.team === 'home' ? 1 : -1) * (receiver.position.x - passer.position.x) > 5
-        ) {
-          result.threatFlow.progressiveReceptions++;
-          if (inFinalThird(receiver.team, receiver.position.x))
-            result.threatFlow.resultingFinalThirdEntries++;
-          if (inBox(receiver.team, receiver.position)) result.threatFlow.resultingBoxEntries++;
+  for (const diagnostic of observedPasses.values()) {
+    if (
+      diagnostic.finalResult &&
+      diagnostic.passerId !== diagnostic.intendedReceiverId &&
+      !indexes.passResults.has(`${result.benchmarkRunId}:${diagnostic.passId}`)
+    ) {
+      const resultId = `${result.benchmarkRunId}:${diagnostic.passId}`;
+      append('observedPassResultIds', resultId);
+      indexes.passResults.add(resultId);
+      if (
+        diagnostic.finalResult === 'completed' &&
+        diagnostic.actualContactPoint &&
+        diagnostic.resolvedAt !== undefined &&
+        (diagnostic.actualReceiverId ?? diagnostic.intendedReceiverId) !== diagnostic.passerId
+      ) {
+        result.passesCompleted++;
+        result.observerState.spellPassCompletions++;
+        const receiverId = diagnostic.actualReceiverId ?? diagnostic.intendedReceiverId;
+        if (receiverId !== diagnostic.intendedReceiverId) {
+          const intendedIndex = result.passingNetwork.findIndex(
+            (edge) =>
+              edge.passerId === diagnostic.passerId &&
+              edge.receiverId === diagnostic.intendedReceiverId,
+          );
+          if (intendedIndex >= 0) updatePassingEdge(intendedIndex, 'attempted', -1);
+          const actualIndex = result.passingNetwork.findIndex(
+            (edge) => edge.passerId === diagnostic.passerId && edge.receiverId === receiverId,
+          );
+          if (actualIndex >= 0) updatePassingEdge(actualIndex, 'attempted');
+          else
+            append('passingNetwork', {
+              passerId: diagnostic.passerId,
+              receiverId,
+              attempted: 1,
+              completed: 0,
+            });
+          result.passingNetwork = result.passingNetwork.filter(
+            (edge) => edge.attempted !== 0 || edge.completed !== 0,
+          );
+        }
+        const edgeIndex = result.passingNetwork.findIndex(
+          (item) => item.passerId === diagnostic.passerId && item.receiverId === receiverId,
+        );
+        if (edgeIndex >= 0) updatePassingEdge(edgeIndex, 'completed');
+        else
+          append('passingNetwork', {
+            passerId: diagnostic.passerId,
+            receiverId,
+            attempted: 1,
+            completed: 1,
+          });
+        if (receiverId === next.controlledFootballerId) result.controlled.passesReceived++;
+        const receiver = next.players.find((player) => player.id === receiverId);
+        if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
+          result.overlapPassCompleted++;
+        if (receiver) {
+          const passer = next.players.find((player) => player.id === diagnostic.passerId);
+          if (
+            passer &&
+            (passer.team === 'home' ? 1 : -1) * (receiver.position.x - passer.position.x) > 5
+          ) {
+            result.threatFlow.progressiveReceptions++;
+            if (inFinalThird(receiver.team, receiver.position.x))
+              result.threatFlow.resultingFinalThirdEntries++;
+            if (inBox(receiver.team, receiver.position)) result.threatFlow.resultingBoxEntries++;
+          }
         }
       }
+      const moving =
+        Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
+        0.5;
+      const passOutcomeIndex = indexes.passOutcomes.get(diagnostic.passId);
+      if (passOutcomeIndex !== undefined) {
+        if (result.passOutcomes === telemetry.passOutcomes)
+          result.passOutcomes = result.passOutcomes.slice();
+        result.passOutcomes[passOutcomeIndex] = {
+          ...result.passOutcomes[passOutcomeIndex]!,
+          outcome:
+            diagnostic.finalResult === 'completed'
+              ? 'completed'
+              : diagnostic.finalResult === 'intercepted'
+                ? 'intercepted'
+                : diagnostic.finalResult === 'technical_error'
+                  ? 'technical_error'
+                  : diagnostic.receptionOutcome === 'failed_control'
+                    ? 'failed_reception'
+                    : next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
+                      ? 'out_of_play'
+                      : 'unclaimed',
+        };
+      }
+      if (moving && diagnostic.finalResult === 'completed') result.movingReceiverCompletions++;
+      else if (moving) result.movingReceiverFailures++;
+      if (diagnostic.actualContactPoint) {
+        result.receiverDisplacementSamples++;
+        result.averageReceiverDisplacementDuringFlight +=
+          (distance(diagnostic.receiverPositionAtRelease, diagnostic.actualContactPoint) -
+            result.averageReceiverDisplacementDuringFlight) /
+          result.receiverDisplacementSamples;
+      }
+      if (diagnostic.receptionOutcome === 'clean_control') result.receptions.clean++;
+      else if (diagnostic.receptionOutcome === 'directional_control')
+        result.receptions.directional++;
+      else if (diagnostic.receptionOutcome === 'heavy_touch') result.receptions.heavy++;
+      else if (diagnostic.receptionOutcome === 'failed_control') result.receptions.failed++;
+      if (diagnostic.finalResult === 'technical_error') result.interceptionCauses.technical_error++;
+      else if (diagnostic.finalResult === 'intercepted')
+        result.interceptionCauses[
+          diagnostic.receiverArrivalEstimate > diagnostic.bestDefenderArrivalEstimate
+            ? 'receiver_late'
+            : 'lane_read'
+        ]++;
     }
-    const moving =
-      Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
-      0.5;
-    const passOutcomeIndex = indexes.passOutcomes.get(diagnostic.passId);
-    if (passOutcomeIndex !== undefined) {
-      if (result.passOutcomes === telemetry.passOutcomes)
-        result.passOutcomes = result.passOutcomes.slice();
-      result.passOutcomes[passOutcomeIndex] = {
-        ...result.passOutcomes[passOutcomeIndex]!,
-        outcome:
-          diagnostic.finalResult === 'completed'
-            ? 'completed'
-            : diagnostic.finalResult === 'intercepted'
-              ? 'intercepted'
-              : diagnostic.finalResult === 'technical_error'
-                ? 'technical_error'
-                : diagnostic.receptionOutcome === 'failed_control'
-                  ? 'failed_reception'
-                  : next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
-                    ? 'out_of_play'
-                    : 'unclaimed',
-      };
-    }
-    if (moving && diagnostic.finalResult === 'completed') result.movingReceiverCompletions++;
-    else if (moving) result.movingReceiverFailures++;
-    if (diagnostic.actualContactPoint) {
-      result.receiverDisplacementSamples++;
-      result.averageReceiverDisplacementDuringFlight +=
-        (distance(diagnostic.receiverPositionAtRelease, diagnostic.actualContactPoint) -
-          result.averageReceiverDisplacementDuringFlight) /
-        result.receiverDisplacementSamples;
-    }
-    if (diagnostic.receptionOutcome === 'clean_control') result.receptions.clean++;
-    else if (diagnostic.receptionOutcome === 'directional_control') result.receptions.directional++;
-    else if (diagnostic.receptionOutcome === 'heavy_touch') result.receptions.heavy++;
-    else if (diagnostic.receptionOutcome === 'failed_control') result.receptions.failed++;
-    if (diagnostic.finalResult === 'technical_error') result.interceptionCauses.technical_error++;
-    else if (diagnostic.finalResult === 'intercepted')
-      result.interceptionCauses[
-        diagnostic.receiverArrivalEstimate > diagnostic.bestDefenderArrivalEstimate
-          ? 'receiver_late'
-          : 'lane_read'
-      ]++;
   }
   if (previous.ball.ownerId && previous.ball.ownerId !== next.ball.ownerId) {
     const player = previous.players.find((item) => item.id === previous.ball.ownerId);
@@ -1021,8 +1080,14 @@ const assertTelemetryTotals = (telemetry: MatchFlowTelemetry) => {
     telemetry.passesToMovingReceiver
   )
     throw new Error('Telemetry invariant failed: moving pass results exceed attempts.');
-  // Attempts use intended endpoints; completions use physical endpoints. A teammate who meets
-  // another player's pass can have a completion-only edge. Reconcile the whole network instead.
+  for (const edge of telemetry.passingNetwork) {
+    if (edge.completed > edge.attempted || edge.attempted < 0 || edge.completed < 0)
+      throw new Error(
+        'Telemetry invariant failed: passing network edge completions exceed attempts.',
+      );
+    if (edge.passerId === edge.receiverId)
+      throw new Error('Telemetry invariant failed: passing network contains a self edge.');
+  }
   const attempts = telemetry.passingNetwork.reduce((sum, edge) => sum + edge.attempted, 0);
   const completed = telemetry.passingNetwork.reduce((sum, edge) => sum + edge.completed, 0);
   if (completed > attempts)

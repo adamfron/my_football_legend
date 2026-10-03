@@ -23,10 +23,13 @@ import {
   createPendingOutcome,
   deriveDecisionRole,
   evaluateDefensiveCommitment,
+  incomingBallIntentKey,
+  projectIncomingPlayerInvolvement,
 } from './playerDecision';
 import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { secondLastOpponentLine } from './offside';
+import { deriveSpacePassPlan } from './spacePassing';
 
 export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('player'), playerId: z.string() }),
@@ -76,17 +79,27 @@ const asActions = (
       id: `action:${action.type}:${index}`,
       target,
       labelKey:
-        action.type === 'pass'
-          ? passLabel(action.intent, action.delivery)
-          : action.type === 'shot'
-            ? shotLabel(action)
-            : action.type === 'header'
-              ? 'header_shot'
-              : action.type === 'cross'
-                ? 'cross'
-                : action.type === 'hold'
-                  ? 'hold_ball'
-                  : 'carry_here',
+        action.type === 'space_pass'
+          ? 'play_here'
+          : action.type === 'pass'
+            ? action.firstTime
+              ? 'first_time_pass'
+              : passLabel(action.intent, action.delivery)
+            : action.type === 'shot'
+              ? shotLabel(action)
+              : action.type === 'header'
+                ? 'header_shot'
+                : action.type === 'cross'
+                  ? 'cross'
+                  : action.type === 'hold'
+                    ? 'hold_ball'
+                    : action.type === 'carry' && action.movementMode === 'sprint'
+                      ? 'sprint_here'
+                      : action.type === 'carry' && action.movementMode === 'dribble'
+                        ? 'dribble_here'
+                        : action.type === 'carry' && action.movementMode === 'retain'
+                          ? 'retain_here'
+                          : 'carry_here',
       resolution: { kind: 'action', action },
     }),
   );
@@ -125,6 +138,13 @@ export const projectContextualInteractions = (
           .map((action) =>
             action.type === 'carry' ? { ...action, target: target.point } : action,
           ),
+      );
+    if (target.kind === 'player' && target.playerId !== actor.id)
+      return asActions(
+        target,
+        incomingActions.filter(
+          (action) => action.type === 'pass' && action.receiverId === target.playerId,
+        ),
       );
     if (
       target.kind === 'ball' ||
@@ -287,18 +307,23 @@ export const projectContextualInteractions = (
   if (target.kind !== 'space') return [];
   if (opportunity.kind === 'restart') return [];
   if (state.ball.ownerId === actor.id) {
-    const carry = { type: 'carry' as const, actorId: actor.id, target: point };
-    const projected = asActions(target, [carry]);
-    const runner = bestRunnerForSpace(state, actor, point);
-    if (runner) {
-      const through = actions.find(
-        (action) =>
-          action.type === 'pass' && action.intent === 'through' && action.receiverId === runner.id,
-      );
-      if (through?.type === 'pass')
-        projected.push(...asActions(target, [{ ...through, target: point }]));
-    }
-    return projected;
+    const metres = distance(actor.position, point);
+    const pressure = state.currentPressure;
+    const modes: Array<'carry' | 'sprint' | 'dribble' | 'retain'> = ['carry'];
+    if (metres >= 5 && pressure < 0.78) modes.push('sprint');
+    if (metres >= 2 && pressure >= 0.2) modes.push('dribble');
+    if (pressure >= 0.3) modes.push('retain');
+    return asActions(target, [
+      ...modes.map((movementMode) => ({
+        type: 'carry' as const,
+        actorId: actor.id,
+        target: point,
+        movementMode,
+      })),
+      ...(metres >= 3 && deriveSpacePassPlan(state, actor, point)
+        ? [{ type: 'space_pass' as const, actorId: actor.id, target: point }]
+        : []),
+    ]);
   }
   if (
     state.ball.ownerId &&
@@ -353,28 +378,6 @@ const isMeaningfulOffBallSpace = (
   return supportLane || lineThreat || width;
 };
 
-const bestRunnerForSpace = (
-  state: TacticalMatchState,
-  actor: MatchPlayerState,
-  point: PitchPoint,
-) =>
-  state.players
-    .filter(
-      (player) =>
-        player.team === actor.team &&
-        player.id !== actor.id &&
-        player.profile.primaryPosition !== 'goalkeeper',
-    )
-    .map((player) => ({
-      player,
-      score: distance(player.target, point) + distance(player.position, point) * 0.45,
-    }))
-    .filter(
-      ({ player, score }) =>
-        score < 24 && (actor.team === 'home' ? player.position.x < 105 : player.position.x > 0),
-    )
-    .sort((a, b) => a.score - b.score)[0]?.player;
-
 /** Applies the already-projected intention through canonical action/movement mechanics. */
 export const applyContextualInteraction = (
   state: TacticalMatchState,
@@ -393,6 +396,16 @@ export const applyContextualInteraction = (
   const resolution = interaction.resolution;
   if (resolution.kind === 'action' && !hasActiveMatchActionParticipants(state, resolution.action))
     return state;
+  if (
+    resolution.kind === 'action' &&
+    resolution.action.type === 'space_pass' &&
+    !deriveSpacePassPlan(
+      state,
+      state.players.find((player) => player.id === resolution.action.actorId)!,
+      resolution.action.target,
+    )
+  )
+    return state;
   const gated = {
     ...state,
     pendingPlayerDecision: createPendingOutcome(state, opportunity, interaction),
@@ -409,8 +422,13 @@ export const applyContextualInteraction = (
         action: resolution.action,
         actionSource: 'human_selected',
         createdAt: state.time,
-        expiresAt: state.time + 2,
-        ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelKind ?? 0}`,
+        expiresAt:
+          state.time +
+          Math.max(
+            2,
+            (projectIncomingPlayerInvolvement(state, opportunity.actorId).arrivalTime ?? 0) + 0.8,
+          ),
+        ballEpisode: incomingBallIntentKey(state),
         ...(state.ball.sourceAction ? { sourceAction: state.ball.sourceAction } : {}),
       },
     };

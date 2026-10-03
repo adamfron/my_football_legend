@@ -527,7 +527,8 @@ describe('PR145 throw target and contact integrity', () => {
     expect(received.scenario).toBe('open_play');
     expect(received.restart).toBeUndefined();
     expect(hasActiveHumanPossession(received)).toBe(true);
-    expect(projectPlayerDecisionOpportunity(received)?.kind).toBe('on_ball');
+    // PR150: the chosen incoming control owns this touch; clean reception alone is not another menu.
+    expect(projectPlayerDecisionOpportunity(received)).toBeUndefined();
     const carry = resolveMatchAction(
       received,
       { type: 'carry', actorId: receiver.id, target: { x: 93, y: 25 } },

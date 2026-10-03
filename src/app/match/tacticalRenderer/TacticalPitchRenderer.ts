@@ -4,6 +4,7 @@ import { createPlayerRing } from './playerMarkers';
 import { deriveReplayCameraPose } from './replay';
 import { screenToGoalIntent } from './goalAiming';
 import { selectFrameFeedback } from './actionFeedback';
+import { projectMotionVectors } from './motionVectors';
 import * as THREE from 'three';
 import {
   cameraViewSpan,
@@ -79,6 +80,17 @@ export class TacticalPitchRenderer {
   private readonly feedbackLayer = document.createElement('div');
   private readonly feedbackLabels = new Map<string, HTMLElement>();
   private readonly feedbackProjection = new THREE.Vector3();
+  private readonly motionPositions = new Float32Array(22 * 18);
+  private readonly motionGeometry = new THREE.BufferGeometry();
+  private readonly motionLines = new THREE.LineSegments(
+    this.motionGeometry,
+    new THREE.LineBasicMaterial({
+      color: 0xd9fff1,
+      transparent: true,
+      opacity: 0.6,
+      depthTest: false,
+    }),
+  );
 
   constructor(
     private readonly host: HTMLElement,
@@ -89,6 +101,13 @@ export class TacticalPitchRenderer {
       undefined,
   ) {
     this.report = onDiagnostic;
+    this.motionGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(this.motionPositions, 3),
+    );
+    this.motionGeometry.setDrawRange(0, 0);
+    this.motionLines.frustumCulled = false;
+    this.scene.add(this.motionLines);
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -533,8 +552,41 @@ export class TacticalPitchRenderer {
       const point = tacticalToWorld(frame.selectedPoint);
       this.selectionMarker.position.set(point.x, 0.09, point.z);
     }
+    this.renderMotionVectors(frame);
     this.renderer.render(this.scene, this.camera);
     this.renderActionFeedback(frame);
+  }
+
+  private renderMotionVectors(frame: TacticalFrame) {
+    const vectors = projectMotionVectors(frame);
+    let offset = 0;
+    const writePoint = (x: number, z: number) => {
+      this.motionPositions[offset++] = x;
+      this.motionPositions[offset++] = 0.16;
+      this.motionPositions[offset++] = z;
+    };
+    for (const vector of vectors) {
+      const start = tacticalToWorld(vector.start),
+        end = tacticalToWorld(vector.end);
+      const dx = end.x - start.x,
+        dz = end.z - start.z;
+      const length = Math.hypot(dx, dz);
+      const size = Math.min(length * 0.4, vector.controlled ? 0.65 : 0.45);
+      const ux = dx / Math.max(0.001, length),
+        uz = dz / Math.max(0.001, length);
+      writePoint(start.x, start.z);
+      writePoint(end.x, end.z);
+      for (const side of [-1, 1]) {
+        writePoint(end.x, end.z);
+        writePoint(
+          end.x - ux * size - uz * size * 0.5 * side,
+          end.z - uz * size + ux * size * 0.5 * side,
+        );
+      }
+    }
+    this.motionGeometry.setDrawRange(0, offset / 3);
+    this.motionGeometry.getAttribute('position').needsUpdate = true;
+    this.motionLines.visible = vectors.length > 0;
   }
 
   /** Canvas and labels share the current camera; timing belongs to the recorded frame. */

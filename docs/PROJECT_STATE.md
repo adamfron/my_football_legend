@@ -1,5 +1,20 @@
 # My Football Legend — Current Project State
 
+## PR150 — Continuous Ball Control, Intent-Based Play & Space Passing
+
+Domknięcie PR149 i PR150 zachowuje rytm PR148. Publiczny kontakt to jeden ciągły epizod
+kontroli, a wewnętrzne kontakty pozostają szczegółowe. Intencje prowadzenia, sprintu,
+dryblingu i osłony trwają przez mikroakcje; przyjęcie zachowuje pęd zależnie od jakości.
+Cel w wolnym polu wybiera miejsce i bieg partnera, a geometria i atrybuty określają
+wykonanie płaskie lub górne. Spalony odczytuje pozycje z chwili zagrania.
+
+Sieć podań przenosi pierwotną próbę na rzeczywistego odbiorcę udanego podania, zachowując
+zamierzony cel w diagnostyce. Nie tworzy dodatkowych prób ani podań do siebie. Dodano
+wektory rzeczywistego ruchu w decyzjach, drużynę przy faulach i ustawienie ofensywnych wolnych.
+Kontrakty, ograniczenia i walidacja: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUOUS_INTENT.md),
+[PR150_ACCOUNTING.md](PR150_ACCOUNTING.md).
+NEXT: **PR151 — Fatigue, Injury Risk, Added Time & Substitution Intelligence**.
+
 ## PR149 — Match Readability, Animation & Match Centre v2
 
 Spokojniejsze tempo PR148 pozostaje punktem odniesienia. Przygotowanie właściciela piłki ma
@@ -17,7 +32,7 @@ Semantyczne pozy i krótkie etykiety używają dowodów core. Bufor powtórek pr
 5 Hz / 12 s i osiem okien ważnych zdarzeń, także z symulacji w tle; odtwarzanie nie zmienia
 żywego meczu. Szczegóły, pomiary, testy i ograniczenia:
 [PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
-NEXT: **PR150 — Stamina & Physical Persistence**. Bogatsze powtórki, finalna sztuka,
+Pierwotny plan kondycji przesunięto za PR150. Bogatsze powtórki, finalna sztuka,
 parametryczne stadiony i duża kalibracja lig pozostają osobnymi późniejszymi zadaniami.
 
 ## PR148 — defensive realism, discipline and match cadence

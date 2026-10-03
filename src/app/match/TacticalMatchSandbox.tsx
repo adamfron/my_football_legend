@@ -1155,6 +1155,7 @@ export const RunningLab = ({
     const frame = {
       ...baseFrame,
       actionableTargets,
+      showMotionVectors: Boolean(opportunity),
       ...(opportunity?.kind === 'defensive_response'
         ? {
             interceptionTarget:
@@ -1223,6 +1224,7 @@ export const RunningLab = ({
   }, [replaying, goalReplay, debug]);
   const owner = state.players.find((p) => p.id === state.ball.ownerId),
     actor = state.players.find((p) => p.id === state.currentActorId),
+    controlledActor = state.players.find((p) => p.id === state.controlledFootballerId),
     situation = geometryExpanded
       ? evaluateMatchSituation(state, owner?.id ?? state.controlledFootballerId)
       : undefined,
@@ -1249,6 +1251,11 @@ export const RunningLab = ({
       cross: 'Dośrodkuj',
       hold_ball: 'Osłoń / utrzymaj piłkę',
       carry_here: 'Prowadź tutaj',
+      sprint_here: 'Sprintem tutaj',
+      dribble_here: 'Drybluj w tym kierunku',
+      retain_here: 'Utrzymaj piłkę',
+      play_here: 'Zagraj tutaj',
+      first_time_pass: 'Podaj z pierwszej piłki',
       placed_shot: 'Strzał techniczny',
       driven_shot: 'Strzał mocny',
       chip_shot: 'Lob',
@@ -1984,7 +1991,14 @@ export const RunningLab = ({
             </section>
           )}
           {opportunity && !replaying && (
-            <div className="interaction-hint">Wybierz piłkę, piłkarza, przestrzeń lub bramkę</div>
+            <div className="interaction-hint">
+              {controlledActor &&
+                (() => {
+                  const speed = Math.hypot(controlledActor.velocity.x, controlledActor.velocity.y);
+                  return `${speed < 0.35 ? 'Stoisz' : speed < 2 ? 'Idziesz' : speed < 6 ? 'Biegniesz' : 'Sprintujesz'} (${speed.toFixed(1)} m/s) · `;
+                })()}
+              Wybierz piłkę, piłkarza, przestrzeń lub bramkę
+            </div>
           )}
           {opportunity && !replaying && menuPosition && interactions.length > 0 && (
             <section

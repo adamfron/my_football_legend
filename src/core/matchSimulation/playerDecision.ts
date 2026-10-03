@@ -86,6 +86,13 @@ export const playerChoiceFamilySchema = z.enum([
   'lead_pass',
   'through_ball',
   'carry',
+  'sprint',
+  'dribble',
+  'retain',
+  'control',
+  'directional_touch',
+  'first_time_pass',
+  'play_into_space',
   'shoot',
   'cross',
   'intercept',
@@ -116,6 +123,11 @@ export const derivePlayerChoiceFamily = (
     return 'challenge';
   }
   const action = option.action;
+  if (kind === 'incoming_ball') {
+    if (action.type === 'hold') return 'control';
+    if (action.type === 'carry') return 'directional_touch';
+    if (action.type === 'pass' && action.firstTime) return 'first_time_pass';
+  }
   if (action.type === 'challenge')
     return action.technique === 'slide'
       ? 'slide_tackle'
@@ -124,7 +136,8 @@ export const derivePlayerChoiceFamily = (
         : action.technique === 'committed'
           ? 'aggressive_challenge'
           : 'challenge';
-  if (action.type === 'carry') return 'carry';
+  if (action.type === 'carry') return action.movementMode ?? 'carry';
+  if (action.type === 'space_pass') return 'play_into_space';
   if (action.type === 'shot') return 'shoot';
   if (action.type === 'header' && action.intent === 'header_shot') return 'shoot';
   if (action.type === 'cross') return 'cross';
@@ -153,7 +166,9 @@ export const countSemanticPlayerChoices = (
         return `${family}:${option.action.intent}`;
       if (
         option.kind === 'action' &&
-        (option.action.type === 'carry' || option.action.type === 'cross')
+        (option.action.type === 'carry' ||
+          option.action.type === 'cross' ||
+          option.action.type === 'space_pass')
       )
         return `${family}:${option.action.target.x.toFixed(1)}:${option.action.target.y.toFixed(1)}`;
       return family;
@@ -307,6 +322,9 @@ const projectSelectableInteractionTargetsCanonical = (
     );
     if (carry?.kind === 'action' && carry.action.type === 'carry')
       result.push({ kind: 'space', point: carry.action.target });
+    for (const option of opportunity.options)
+      if (option.kind === 'action' && option.action.type === 'pass')
+        result.push({ kind: 'player', playerId: option.action.receiverId });
     if (
       opportunity.options.some(
         (option) => option.kind === 'action' && option.action.type === 'shot',
@@ -497,6 +515,15 @@ export const incomingPlayerInvolvementSchema = z.object({
 });
 export type IncomingPlayerInvolvement = z.infer<typeof incomingPlayerInvolvementSchema>;
 
+/** Stable identity of an authoritative incoming delivery, shared by direct and target menus. */
+export const incomingBallIntentKey = (state: TacticalMatchState): string =>
+  `flight:${state.ballEpisode ?? 0}:${
+    (state.ball.sourceAction === 'pass' || state.ball.sourceAction === 'space_pass') &&
+    state.lastPassDiagnostic
+      ? state.lastPassDiagnostic.passId
+      : `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.from?.x ?? state.ball.target?.x ?? ''}:${state.ball.from?.y ?? state.ball.target?.y ?? ''}`
+  }`;
+
 /** RNG-free: observes an already committed trajectory, never hypothetical reach in open space. */
 export const projectIncomingPlayerInvolvement = (
   state: TacticalMatchState,
@@ -546,7 +573,9 @@ export const projectIncomingPlayerInvolvement = (
     actor && committed && enumerateCanonicalShootingOptions(state, actor.id).length,
   );
   const important = importantKind || tightAttackingPressure || firstTimeFinish;
-  const relevant = committed && remaining >= 0.25 && remaining <= 1.25 && important;
+  // Time to contact is observed from the live trajectory. Routine arrivals and a ball already
+  // on the feet cannot open the incoming menu merely because control and a token carry exist.
+  const relevant = committed && remaining >= 0.35 && remaining <= 1.8 && important;
   return incomingPlayerInvolvementSchema.parse({
     relevant,
     ...(committed ? { arrivalTime: Math.max(0, remaining) } : {}),
@@ -837,7 +866,9 @@ const actionLabel = (action: MatchAction) =>
             ? `cross_${action.intent}`
             : action.type === 'pass'
               ? `pass_${action.intent}`
-              : `header_${action.intent}`;
+              : action.type === 'space_pass'
+                ? 'play_into_space'
+                : `header_${action.intent}`;
 const signatureFor = (state: TacticalMatchState, kind: string) => {
   const situation = evaluateMatchSituation(state, state.controlledFootballerId);
   const pressureBand = Math.floor((situation.context.pressure ?? 0) * 4);
@@ -937,7 +968,18 @@ export const projectPlayerAgency = (
   if (state.scenario !== 'open_play' && state.restart?.phase !== 'release' && !controlledRestart)
     return blocked('not_open_play');
   const humanPossession = hasActiveHumanPossession(state);
-  const redecisionReason = humanPossessionRedecisionReason(state);
+  let redecisionReason = humanPossessionRedecisionReason(state);
+  const preparation = state.onBallPreparation;
+  if (
+    !redecisionReason &&
+    humanPossession &&
+    state.humanPossessionEpisode?.intent === 'control' &&
+    preparation?.actorId === actorId &&
+    state.time >= preparation.readyAt &&
+    (!preparation.continuation || state.time >= preparation.continuation.until) &&
+    evaluateOnBallDecisionRelevance(state, actorId).relevant
+  )
+    redecisionReason = 'controlled_reception_complete';
   const continuingCarry = humanPossession && state.ballCarrierIntent?.actorId === actorId;
   // A committed ball flight is precisely when reception/interception control may begin.
   if (
@@ -1087,6 +1129,7 @@ export const projectPlayerAgency = (
           action: {
             type: 'carry',
             actorId,
+            movementMode: 'carry',
             target: clampPitchPoint({
               x: target.x + attackDirection(actor.team) * 6,
               y: target.y,
@@ -1100,6 +1143,49 @@ export const projectPlayerAgency = (
           kind: 'action' as const,
           labelKey: actionLabel(action),
           action,
+        })),
+      );
+      const receptionPoint = clampPitchPoint(target);
+      const firstTimeSkill =
+        (actor.profile.attributes.firstTouch +
+          actor.profile.attributes.technique +
+          actor.profile.attributes.passing +
+          actor.profile.attributes.gameReading) /
+        400;
+      const outgoing = state.players
+        .filter(
+          (player) =>
+            player.team === actor.team &&
+            player.id !== actorId &&
+            distance(player.position, receptionPoint) >= 4 &&
+            distance(player.position, receptionPoint) <= 24,
+        )
+        .filter((player) =>
+          state.players.every(
+            (foe) =>
+              foe.team === actor.team ||
+              distanceToSegment(foe.position, receptionPoint, player.position) > 1.5,
+          ),
+        )
+        .sort(
+          (a, b) =>
+            distance(a.position, receptionPoint) - distance(b.position, receptionPoint) ||
+            a.id.localeCompare(b.id),
+        )
+        .slice(0, firstTimeSkill >= 0.5 && (state.ball.height ?? 0) < 0.8 ? 2 : 0);
+      options.push(
+        ...outgoing.map((receiver, index) => ({
+          id: `first-time-pass-${index}`,
+          kind: 'action' as const,
+          labelKey: 'first_time_pass',
+          action: {
+            type: 'pass' as const,
+            actorId,
+            receiverId: receiver.id,
+            target: receiver.position,
+            intent: 'support' as const,
+            firstTime: true,
+          },
         })),
       );
     } else if (interception.viable && roleProfile !== 'goalkeeper') {
@@ -1425,8 +1511,13 @@ export const applyPlayerDecision = (
         action: option.action,
         actionSource: 'human_selected' as const,
         createdAt: state.time,
-        expiresAt: state.time + 2,
-        ballEpisode: `${state.ball.lastTouchPlayerId ?? 'unknown'}:${state.ball.travelKind ?? 'ball'}:${state.ball.travelKind ?? 0}`,
+        expiresAt:
+          state.time +
+          Math.max(
+            2,
+            (projectIncomingPlayerInvolvement(state, opportunity.actorId).arrivalTime ?? 0) + 0.8,
+          ),
+        ballEpisode: incomingBallIntentKey(state),
         ...(state.ball.sourceAction ? { sourceAction: state.ball.sourceAction } : {}),
       },
     };

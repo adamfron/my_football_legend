@@ -24,21 +24,29 @@ const feedback = {
   foul: { text: 'FAUL', priority: 10, lifetimeMs: 1450 },
   card: { text: 'ŻÓŁTA KARTKA', priority: 11, lifetimeMs: 1600 },
   advantage: { text: 'KORZYŚĆ', priority: 8, lifetimeMs: 1000 },
+  offside: { text: 'SPALONY', priority: 9, lifetimeMs: 1450 },
 } satisfies Record<
   CanonicalActionEvent['kind'],
   { text: string; priority: number; lifetimeMs: number }
 >;
 
 export const actionFeedbackText = (event: CanonicalActionEvent) =>
-  event.kind === 'heavy_touch' && event.outcome === 'failed_control'
-    ? 'NIEUDANE PRZYJĘCIE'
-    : event.kind === 'dribble' && event.cause === 'evade'
-      ? 'ZWÓD'
-      : event.kind === 'card' && event.outcome !== 'yellow'
-        ? 'CZERWONA KARTKA'
-        : event.kind === 'advantage' && event.outcome === 'recalled'
-          ? 'WRACAMY DO FAULU'
-          : feedback[event.kind].text;
+  (event.kind === 'pass' || event.kind === 'through_pass') && event.executionType === 'backheel'
+    ? 'PODANIE PIĘTĄ'
+    : (event.kind === 'pass' || event.kind === 'through_pass') &&
+        event.executionType === 'lofted_through'
+      ? 'PROSTOPADŁE GÓRĄ'
+      : event.kind === 'pass' && event.executionType === 'first_time'
+        ? 'Z PIERWSZEJ PIŁKI'
+        : event.kind === 'heavy_touch' && event.outcome === 'failed_control'
+          ? 'NIEUDANE PRZYJĘCIE'
+          : event.kind === 'dribble' && event.cause === 'evade'
+            ? 'ZWÓD'
+            : event.kind === 'card' && event.outcome !== 'yellow'
+              ? 'CZERWONA KARTKA'
+              : event.kind === 'advantage' && event.outcome === 'recalled'
+                ? 'WRACAMY DO FAULU'
+                : feedback[event.kind].text;
 
 /** Pure projection at canonical time, shared by live, lead-in and replay.
  * One per actor and one repeated kind/team within 450ms; important outcomes win the three slots.

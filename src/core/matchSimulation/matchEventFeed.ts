@@ -9,6 +9,7 @@ export const matchEventKindSchema = z.enum([
   'red_card',
   'penalty',
   'foul',
+  'offside',
   'kick_off',
 ]);
 /** Permanent football facts. Short-lived action labels and replay retention are independent. */
@@ -59,6 +60,22 @@ export const emitMatchEvents = (
     });
   }
   const foul = next.lastFoul;
+  const offside = next.lastOffsideOffence;
+  if (offside && offside !== previous.lastOffsideOffence) {
+    const actor =
+      next.players.find((player) => player.id === offside.playerId) ??
+      previous.players.find((player) => player.id === offside.playerId);
+    if (actor)
+      add({
+        id: `${next.seed}:offside:${offside.playerId}:${offside.at.toFixed(6)}`,
+        at: offside.at,
+        kind: 'offside',
+        team: actor.team,
+        actorId: actor.id,
+        relatedPlayerId: offside.passerId,
+        actionEventId: actionRef(`offside:${offside.playerId}:${offside.at.toFixed(6)}`),
+      });
+  }
   if (foul && foul.id !== previous.lastFoul?.id) {
     add({
       id: foul.id,

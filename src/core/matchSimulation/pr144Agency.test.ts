@@ -84,8 +84,9 @@ describe('PR144 human possession ownership', () => {
     const received = stepTacticalMatch(state, 0.025);
     expect(received.ball.ownerId).toBe(state.controlledFootballerId);
     expect(received.humanPossessionEpisode?.actorId).toBe(state.controlledFootballerId);
-    expect(received.postActionAgencyCheckpoint?.completedAction).toBe('hold');
-    expect(projectPlayerDecisionOpportunity(received)?.kind).toBe('on_ball');
+    expect(received.humanPossessionEpisode?.intent).toBe('control');
+    expect(received.postActionAgencyCheckpoint).toBeUndefined();
+    expect(projectPlayerDecisionOpportunity(received)).toBeUndefined();
   });
   it('keeps every terminal action human-owned after a carry cooldown expires', () => {
     let state = carry(fixture());

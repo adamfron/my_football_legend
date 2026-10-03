@@ -1,5 +1,11 @@
 import { z } from 'zod';
-import { clampPitchPoint, distance, pitchPointSchema, type PitchPoint } from './matchSpace';
+import {
+  clampPitchPoint,
+  distance,
+  physicalPointSchema,
+  pitchPointSchema,
+  type PitchPoint,
+} from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { derivePassLaunchPlan, passLaunchPlanSchema, type PassDelivery } from './passLaunchPlan';
 import { angleForVector, normalizeAngle } from './playerOrientation';
@@ -60,8 +66,10 @@ export const receptionOutcomeSchema = z.object({
   receiverId: z.string(),
   kind: z.enum(['clean_control', 'directional_control', 'heavy_touch', 'failed_control']),
   contactPoint: pitchPointSchema,
-  resultingPoint: pitchPointSchema.optional(),
+  resultingPoint: physicalPointSchema.optional(),
   quality: receptionQualityEvidenceSchema.optional(),
+  retainedVelocity: z.object({ x: z.number().finite(), y: z.number().finite() }).optional(),
+  momentumRetention: z.number().min(0).max(1).optional(),
 });
 export type ReceptionOutcome = z.infer<typeof receptionOutcomeSchema>;
 
@@ -290,8 +298,10 @@ export const resolveReceptionOutcome = (
   );
   const movingWithIntent =
     speed > 0.7 &&
-    state.receptionPreparation?.actorId === receiver.id &&
-    state.receptionPreparation.movement !== 'wait';
+    ((state.receptionPreparation?.actorId === receiver.id &&
+      state.receptionPreparation.movement !== 'wait') ||
+      (state.pendingReceptionIntent?.actorId === receiver.id &&
+        state.pendingReceptionIntent.action.type === 'carry'));
   const kind =
     quality >= 0.64 && movingWithIntent
       ? 'directional_control'
@@ -317,13 +327,41 @@ export const resolveReceptionOutcome = (
             y: (state.ball.velocity?.y ?? 0) / horizontalSpeed,
           }
         : { x: Math.sin(receiver.facingAngle), y: Math.cos(receiver.facingAngle) };
+  const displacedPoint = {
+    x: contactPoint.x + displacementDirection.x * displacement,
+    y: contactPoint.y + displacementDirection.y * displacement,
+  };
   const resultingPoint =
     displacement > 0
-      ? clampPitchPoint({
-          x: contactPoint.x + displacementDirection.x * displacement,
-          y: contactPoint.y + displacementDirection.y * displacement,
-        })
+      ? kind === 'directional_control'
+        ? clampPitchPoint(displacedPoint)
+        : displacedPoint
       : undefined;
+  const selected =
+    state.pendingReceptionIntent?.actorId === receiver.id &&
+    state.pendingReceptionIntent.action.type === 'carry'
+      ? state.pendingReceptionIntent.action.target
+      : undefined;
+  const selectedVector = selected
+    ? { x: selected.x - contactPoint.x, y: selected.y - contactPoint.y }
+    : receiver.velocity;
+  const selectedLength = Math.hypot(selectedVector.x, selectedVector.y);
+  const turnAlignment =
+    speed > 0.1 && selectedLength > 0.1
+      ? Math.max(
+          0,
+          (selectedVector.x * receiver.velocity.x + selectedVector.y * receiver.velocity.y) /
+            (selectedLength * speed),
+        )
+      : 1;
+  const momentumRetention =
+    kind === 'directional_control'
+      ? (0.88 + quality * 0.08) * (0.7 + turnAlignment * 0.3)
+      : kind === 'clean_control'
+        ? 0.72 + quality * 0.14
+        : kind === 'heavy_touch'
+          ? 0.42
+          : 0.18;
   return receptionOutcomeSchema.parse({
     receiverId: receiver.id,
     kind,
@@ -338,5 +376,10 @@ export const resolveReceptionOutcome = (
       weakFootDifficulty,
     },
     ...(resultingPoint ? { resultingPoint } : {}),
+    momentumRetention,
+    retainedVelocity: {
+      x: receiver.velocity.x * momentumRetention,
+      y: receiver.velocity.y * momentumRetention,
+    },
   });
 };

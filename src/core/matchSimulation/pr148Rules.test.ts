@@ -751,11 +751,32 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
         };
         let next = resolveMatchAction(
           state,
-          { type: 'carry', actorId: attacker.id, target: { x: 43, y: 34 } },
+          {
+            type: 'carry',
+            actorId: attacker.id,
+            target: { x: 43, y: 34 },
+            movementMode: 'dribble',
+          },
           'human_selected',
         );
-        for (let tick = 0; tick < 40 && next.ball.ownerId === attacker.id; tick++)
+        for (let tick = 0; tick < 40 && next.ball.ownerId === attacker.id; tick++) {
+          // Commit to this take-on again if a real pressure/contest boundary offers a choice.
+          // A paused decision is not a physics sample or evidence that the dribbler survived.
+          if (projectPlayerDecisionOpportunity(next))
+            next = resolveMatchAction(
+              next,
+              {
+                type: 'carry',
+                actorId: attacker.id,
+                target: { x: 43, y: 34 },
+                movementMode: 'dribble',
+              },
+              'human_selected',
+            );
+          const beforeTick = next.time;
           next = stepTacticalMatch(next, 0.025);
+          expect(next.time).toBeGreaterThan(beforeTick);
+        }
         if (next.ball.ownerId !== attacker.id) lost++;
       }
       return lost;

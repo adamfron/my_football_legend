@@ -37,6 +37,32 @@ export const projectLocomotion = (
     targetSpeed: speedFor(intensity),
   });
   if (state.restart?.phase === 'setup') return result('walk', 'restart_setup');
+  const ballIntent =
+    state.ballCarrierIntent?.actorId === player.id ? state.ballCarrierIntent : undefined;
+  if (ballIntent?.movementMode === 'sprint') return result('sprint', 'ball_carry');
+  if (ballIntent?.movementMode === 'retain')
+    return { ...result('walk', 'ball_carry'), targetSpeed: 1.1 };
+  const continuation =
+    state.onBallPreparation?.actorId === player.id
+      ? state.onBallPreparation.continuation
+      : undefined;
+  if (
+    !ballIntent &&
+    continuation &&
+    state.time < continuation.until &&
+    state.ball.ownerId === player.id
+  ) {
+    const speed = Math.hypot(continuation.velocity.x, continuation.velocity.y);
+    const intensity: LocomotionIntensity =
+      speed >= speedFor('sprint') * 0.82
+        ? 'sprint'
+        : speed >= speedFor('run') * 0.7
+          ? 'run'
+          : speed >= 1.8
+            ? 'jog'
+            : 'walk';
+    return { ...result(intensity, 'receive_pass'), targetSpeed: speed };
+  }
   if (
     state.ball.ownerId === player.id &&
     state.onBallPreparation?.actorId === player.id &&

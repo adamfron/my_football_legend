@@ -14,7 +14,13 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR149 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR150 complete telemetry reference (PR146 observer contract)', () => {
+  // PR150 intentionally changes momentum-preserving reception, attribute/context pass execution,
+  // launch-time offside and realized-edge accounting. Full-output hashes were reproduced twice
+  // and independently compared with pristine PR149 using identical seeds and 2,400 ticks.
+  // Previous PR149: 206edf94d099b58f896a2237a68922174f02d087102549f31870d44bbefb0b9c (a),
+  // a0f1910e310ffc75edae7ef888e77dac2accb7ba8c4e66547e3222111a4ba54a (b).
+  // Keep the complete sorted all-field assertion and schema/invariant checks; see PR150 report.
   // PR149 intentionally changes physical preparation/reception trajectories and records
   // completed passes against the actual receiver, including retained queued-action resolutions.
   // Freeze the entire output with the same seeds/2,400 ticks and unchanged all-field hash assertion.
@@ -29,8 +35,8 @@ describe('PR149 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '206edf94d099b58f896a2237a68922174f02d087102549f31870d44bbefb0b9c'],
-    ['pr146-flow-reference:b', 'a0f1910e310ffc75edae7ef888e77dac2accb7ba8c4e66547e3222111a4ba54a'],
+    ['pr146-flow-reference:a', '339c083df8ea4184e9dbbf334f9e3ef85e2f654eecb42e5f6f62e3b4c4c16d44'],
+    ['pr146-flow-reference:b', 'e240bd21444086f56ef8b2b41d301c35edf669b2fd97faa5d0adc8a75df1bd30'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(
