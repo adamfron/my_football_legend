@@ -20,6 +20,7 @@ import {
   type AdvantageFact,
 } from './matchRules';
 import { canonicalActionEventSchema, type CanonicalActionEvent } from './actionEvents';
+import { matchEventSchema, type MatchEvent } from './matchEventFeed';
 import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
 import {
@@ -489,6 +490,31 @@ export const recentDuelSchema = z.object({
 });
 export type RecentDuel = z.infer<typeof recentDuelSchema>;
 
+export const passDiagnosticSchema = z.object({
+  passId: z.string(),
+  passerId: z.string(),
+  intendedReceiverId: z.string(),
+  actualReceiverId: z.string().optional(),
+  releasedAt: z.number().nonnegative(),
+  resolvedAt: z.number().nonnegative().optional(),
+  receiverPositionAtRelease: pitchPointSchema,
+  receiverVelocityAtRelease: physicalPointSchema,
+  predictedReceptionPoint: pitchPointSchema,
+  actualContactPoint: pitchPointSchema.optional(),
+  awarenessDelay: z.number().nonnegative(),
+  receiverArrivalEstimate: z.number().nonnegative(),
+  bestDefenderArrivalEstimate: z.number().nonnegative(),
+  leadDistance: z.number().nonnegative(),
+  intent: z.enum(['support', 'progressive', 'direct', 'lead', 'through']).optional(),
+  ballArrivalEstimate: z.number().nonnegative().optional(),
+  meetingErrorSeconds: z.number().finite().optional(),
+  predictionHorizon: z.number().nonnegative().optional(),
+  receptionOutcome: z
+    .enum(['clean_control', 'directional_control', 'heavy_touch', 'failed_control'])
+    .optional(),
+  finalResult: z.enum(['completed', 'intercepted', 'unclaimed', 'technical_error']).optional(),
+});
+
 export interface TacticalMatchState {
   seed: string;
   time: number;
@@ -529,6 +555,8 @@ export interface TacticalMatchState {
   lastAdvantage?: AdvantageFact;
   actionEvents?: CanonicalActionEvent[];
   actionEventSequence?: number;
+  /** Permanent renderer-independent facts; replay footage has separate bounded retention. */
+  matchEvents?: MatchEvent[];
   controlledFootballerId?: string;
   playerMovementIntent?: PlayerMovementIntent;
   pendingReceptionIntent?: PendingReceptionIntent;
@@ -606,10 +634,14 @@ export interface TacticalMatchState {
   receptionPreparation?: ReceptionPreparation;
   onBallPreparation?: OnBallPreparation;
   lastReceptionOutcome?: ReceptionOutcome;
+  /** Retains a physical incoming result when a prepared one-touch pass starts a new diagnostic. */
+  lastResolvedPass?: TacticalMatchState['lastPassDiagnostic'];
   lastPassDiagnostic?: {
     passId: string;
     passerId: string;
     intendedReceiverId: string;
+    /** Actual controlled teammate contact may differ from the selected passing target. */
+    actualReceiverId?: string;
     releasedAt: number;
     resolvedAt?: number;
     receiverPositionAtRelease: PitchPoint;
@@ -724,6 +756,7 @@ export const tacticalMatchStateSchema = z
     lastAdvantage: advantageFactSchema.optional(),
     actionEvents: z.array(canonicalActionEventSchema).max(96).optional(),
     actionEventSequence: z.number().int().nonnegative().optional(),
+    matchEvents: z.array(matchEventSchema).optional(),
     controlledFootballerId: z.string().optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
@@ -755,6 +788,8 @@ export const tacticalMatchStateSchema = z
     lastOffsideOffence: offsideOffenceSchema.optional(),
     keeperIntervention: keeperInterventionSchema.optional(),
     onBallPreparation: onBallPreparationSchema.optional(),
+    lastPassDiagnostic: passDiagnosticSchema.optional(),
+    lastResolvedPass: passDiagnosticSchema.optional(),
     lastBoundaryCrossing: pitchBoundaryCrossingSchema
       .extend({
         previous: pitchPointSchema,

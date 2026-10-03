@@ -1,5 +1,25 @@
 # My Football Legend — Current Project State
 
+## PR149 — Match Readability, Animation & Match Centre v2
+
+Spokojniejsze tempo PR148 pozostaje punktem odniesienia. Przygotowanie właściciela piłki ma
+kanoniczne kontrolowanie, zwrot, korektę pozycji, skanowanie, osłonę i odzyskiwanie równowagi.
+Ruch, pozycja piłki i orientacja wyrażają tę pracę bez dodatkowych większych decyzji człowieka.
+Przyjęcie zachowuje rzeczywistą prędkość/wysokość/kierunek kontaktu; ciężkie i nieudane
+kontrole tworzą luźną piłkę oraz odzyskiwanie kontroli. Zapisano kontekst jakości przyjęcia.
+
+Stałe **Centrum meczu** odczytuje pełny kanoniczny dziennik bramek, kartek, karnych i fauli,
+niezależnie od polityki oglądania. Wiarygodne statystyki obejmują czas posiadania, strzały,
+podania, dyscyplinę, wznowienia i obronę. Naprawiono utratę dowodu przyjęcia przy natychmiastowym
+kolejnym podaniu oraz zliczanie skutecznego kontaktu kolegi innego niż pierwotny adresat.
+
+Semantyczne pozy i krótkie etykiety używają dowodów core. Bufor powtórek przechowuje próbki
+5 Hz / 12 s i osiem okien ważnych zdarzeń, także z symulacji w tle; odtwarzanie nie zmienia
+żywego meczu. Szczegóły, pomiary, testy i ograniczenia:
+[PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
+NEXT: **PR150 — Stamina & Physical Persistence**. Bogatsze powtórki, finalna sztuka,
+parametryczne stadiony i duża kalibracja lig pozostają osobnymi późniejszymi zadaniami.
+
 ## PR148 — defensive realism, discipline and match cadence
 
 Połączono poprawki PR147.1 z kalibracją PR148 w jednym kanonicznym silniku. `abandoned`
@@ -15,8 +35,8 @@ Kontakty są dyskretne, sprint jest epizodem z trwałym wejściem i ponownym uzb
 korekcja kolizji nie jest przebiegniętym dystansem. Kanoniczne `dribble` uzupełnia dowody akcji.
 
 Definicje, pełne pomiary BEFORE/AFTER, weryfikacja oraz ograniczenia:
-[PR148_CALIBRATION.md](PR148_CALIBRATION.md). NEXT: **PR149 — Animation, Replay & Match
-Presentation v2**. Pełne stamina, pogoda/nawierzchnia, sędziowie, tunel, finalne etykiety i
+[PR148_CALIBRATION.md](PR148_CALIBRATION.md). Następny etap prezentacji wdrożono w PR149.
+Pełne stamina, pogoda/nawierzchnia, sędziowie, tunel, finalna sztuka i
 długookresowa kalibracja lig pozostają później.
 
 ## PR147 — verified rules, discipline and canonical feedback

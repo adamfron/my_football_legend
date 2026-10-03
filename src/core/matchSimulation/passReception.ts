@@ -47,11 +47,21 @@ export const receptionPreparationSchema = z.object({
 });
 export type ReceptionPreparation = z.infer<typeof receptionPreparationSchema>;
 
+export const receptionQualityEvidenceSchema = z.object({
+  score: z.number().min(0).max(1),
+  pressure: z.number().min(0).max(1),
+  incomingSpeed: z.number().nonnegative(),
+  incomingHeight: z.number().nonnegative(),
+  facingError: z.number().nonnegative().max(Math.PI),
+  preparationSeconds: z.number().nonnegative(),
+  weakFootDifficulty: z.number().min(0).max(1),
+});
 export const receptionOutcomeSchema = z.object({
   receiverId: z.string(),
   kind: z.enum(['clean_control', 'directional_control', 'heavy_touch', 'failed_control']),
   contactPoint: pitchPointSchema,
   resultingPoint: pitchPointSchema.optional(),
+  quality: receptionQualityEvidenceSchema.optional(),
 });
 export type ReceptionOutcome = z.infer<typeof receptionOutcomeSchema>;
 
@@ -216,10 +226,14 @@ export const resolveReceptionOutcome = (
     state.ball.velocity?.y ?? 0,
     state.ball.velocity?.z ?? 0,
   );
-  const incomingFacing = angleForVector({
-    x: state.ball.x - receiver.position.x,
-    y: state.ball.y - receiver.position.y,
-  });
+  // At physical contact the ball/receiver displacement can be zero or an envelope edge. The
+  // incoming velocity is the authoritative direction from which a live delivery approaches.
+  const horizontalSpeed = Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0);
+  const incomingVector =
+    horizontalSpeed > 0.2
+      ? { x: -(state.ball.velocity?.x ?? 0), y: -(state.ball.velocity?.y ?? 0) }
+      : { x: state.ball.x - receiver.position.x, y: state.ball.y - receiver.position.y };
+  const incomingFacing = angleForVector(incomingVector);
   const facingError = Math.abs(normalizeAngle(incomingFacing - receiver.facingAngle));
   const preparation =
     state.receptionPreparation?.actorId === receiver.id
@@ -232,21 +246,48 @@ export const resolveReceptionOutcome = (
     preparation,
     state.currentAction?.type === 'pass' ? state.currentAction.intent : 'support',
   );
-  const turnAllowance = Math.min(
-    1,
-    preparation * (2.2 + receiver.profile.attributes.agility * 0.038),
-  );
-  const readinessPenalty = Math.max(0, facingError / Math.PI - turnAllowance) * 0.3;
+  // Facing has already been integrated canonically throughout the approach. Subtracting the
+  // whole preparation time again forgave even a receiver who remained facing away at contact.
+  // Side-on control is ordinary professional technique. Only contact behind the body is an
+  // awkward turn; actual facing still matters even after a long preparation interval.
+  const readinessPenalty = Math.max(0, facingError / Math.PI - 0.55) * 0.2;
+  const incomingHeight = state.ball.height ?? 0;
+  const contactVector = {
+    x: contactPoint.x - receiver.position.x,
+    y: contactPoint.y - receiver.position.y,
+  };
+  const lateral =
+    contactVector.x * Math.cos(receiver.facingAngle) -
+    contactVector.y * Math.sin(receiver.facingAngle);
+  const weakerSide = receiver.profile.dominantFoot === 'right' ? lateral < -0.15 : lateral > 0.15;
+  const weakFootDifficulty = weakerSide ? 1 - receiver.profile.weakFootProficiency / 100 : 0;
+  const pressure = Math.max(0, Math.min(1, state.currentPressure));
+  const handlingSkill = (a.firstTouch + a.technique + a.concentration) / 300;
+  // The launch forecast's preferred arrival speed is deliberately gentle for pass selection.
+  // It is not a hard physiological limit: a prepared professional can cushion a firm delivery.
+  const preparedSpeedCapacity =
+    Math.min(1.2, preparation) *
+    (2 + handlingSkill * 4) *
+    Math.max(0.25, 1 - facingError / Math.PI) *
+    (1 - pressure * 0.25);
+  const comfortableSpeed = readiness.maximumComfortableArrivalSpeed + preparedSpeedCapacity;
   const technicalQuality =
-    (a.firstTouch + a.technique + a.agility + a.composure + a.gameReading) / 500 -
-    state.currentPressure * 0.18 -
-    Math.max(0, ballSpeed - readiness.maximumComfortableArrivalSpeed) / 30 -
+    (a.firstTouch * 2 + a.technique + a.agility + a.composure + a.concentration) / 600 -
+    pressure * 0.2 -
+    Math.max(0, ballSpeed - comfortableSpeed) / 35 -
     Math.max(0, speed - 6.5) / 30 -
-    readinessPenalty;
+    readinessPenalty -
+    Math.max(0, incomingHeight - 0.18) * 0.12 -
+    weakFootDifficulty * 0.1;
   // Preparation is a material advantage, not merely a tiny bonus. This keeps ordinary support
   // football stable while fast, blind or pressured arrivals still expose technical weakness.
-  const quality =
-    technicalQuality + 0.14 + Math.min(0.2, Math.max(0, readiness.preparationMargin) * 0.13);
+  const quality = Math.max(
+    0,
+    Math.min(
+      1,
+      technicalQuality + 0.14 + Math.min(0.14, Math.max(0, readiness.preparationMargin) * 0.1),
+    ),
+  );
   const movingWithIntent =
     speed > 0.7 &&
     state.receptionPreparation?.actorId === receiver.id &&
@@ -263,19 +304,39 @@ export const resolveReceptionOutcome = (
     kind === 'directional_control'
       ? Math.min(1.8, speed * 0.25)
       : kind === 'heavy_touch'
-        ? 1.25
-        : 0;
+        ? 1.3 + (0.55 - quality) * 2
+        : kind === 'failed_control'
+          ? 2.2 + (0.34 - quality) * 3
+          : 0;
+  const displacementDirection =
+    kind === 'directional_control' && speed > 0.1
+      ? { x: receiver.velocity.x / speed, y: receiver.velocity.y / speed }
+      : horizontalSpeed > 0.1
+        ? {
+            x: (state.ball.velocity?.x ?? 0) / horizontalSpeed,
+            y: (state.ball.velocity?.y ?? 0) / horizontalSpeed,
+          }
+        : { x: Math.sin(receiver.facingAngle), y: Math.cos(receiver.facingAngle) };
   const resultingPoint =
     displacement > 0
       ? clampPitchPoint({
-          x: contactPoint.x + (receiver.velocity.x / Math.max(0.1, speed)) * displacement,
-          y: contactPoint.y + (receiver.velocity.y / Math.max(0.1, speed)) * displacement,
+          x: contactPoint.x + displacementDirection.x * displacement,
+          y: contactPoint.y + displacementDirection.y * displacement,
         })
       : undefined;
   return receptionOutcomeSchema.parse({
     receiverId: receiver.id,
     kind,
     contactPoint,
+    quality: {
+      score: quality,
+      pressure,
+      incomingSpeed: ballSpeed,
+      incomingHeight,
+      facingError,
+      preparationSeconds: preparation,
+      weakFootDifficulty,
+    },
     ...(resultingPoint ? { resultingPoint } : {}),
   });
 };

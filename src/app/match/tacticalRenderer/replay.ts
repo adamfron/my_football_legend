@@ -1,4 +1,7 @@
 import { tacticalToWorld, type TacticalFrame } from './model';
+import type { AnimationCue } from './model';
+import type { ReplaySnapshot } from '../../../core/matchSimulation/matchReplay';
+import { CUE_DURATION_MS } from './animation';
 import { frameActionEvents } from './actionFeedback';
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -40,7 +43,7 @@ export const interpolatePresentationFrames = (
   const players = previous.players.filter((player) => !dismissedIds.has(player.id));
   const gap = next.timestampMs - previous.timestampMs;
   // Skipped/background football and restart teleports must never become invented paths.
-  if (gap > 150 || next.continuity !== previous.continuity)
+  if (gap > 250 || next.continuity !== previous.continuity)
     return previous.actionEvents?.length ||
       next.actionEvents?.length ||
       Object.keys(dismissals).length
@@ -65,6 +68,13 @@ export const interpolatePresentationFrames = (
         gaitSpeed: lerp(player.gaitSpeed ?? 0, target.gaitSpeed ?? player.gaitSpeed ?? 0, t),
         // Never reveal a future contact/action before its canonical time.
         cue: target.cue && target.cue.atMs <= atMs ? target.cue : player.cue,
+        ...(target.preparationSinceMs !== undefined && target.preparationSinceMs <= atMs
+          ? {
+              preparation: target.preparation,
+              preparationSinceMs: target.preparationSinceMs,
+              canonicalBallPlacement: Boolean(target.canonicalBallPlacement),
+            }
+          : {}),
       };
     }),
     ball:
@@ -79,6 +89,76 @@ export const interpolatePresentationFrames = (
             y: lerp(previous.ball.y, next.ball.y, t),
             height: lerp(previous.ball.height ?? 0, next.ball.height ?? 0, t),
           },
+  };
+};
+
+/** Converts the renderer-free event recording without rerunning football or mutating history. */
+export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame => {
+  const carryMode = snapshot.players.find((player) => player.id === snapshot.ball.ownerId)?.carrying
+    ?.mode;
+  return {
+    timestampMs: snapshot.timestampMs,
+    continuity: snapshot.continuity,
+    ball: { ...snapshot.ball },
+    actionEvents: snapshot.actionEvents,
+    dismissals: snapshot.dismissals,
+    ...(carryMode ? { carryMode } : {}),
+    players: snapshot.players.map(({ possessionPreparation, carrying, ...player }) => {
+      const event = [...snapshot.actionEvents]
+        .reverse()
+        .find(
+          (candidate) =>
+            candidate.actorId === player.id &&
+            snapshot.timestampMs - candidate.at * 1000 >= 0 &&
+            snapshot.timestampMs - candidate.at * 1000 < CUE_DURATION_MS &&
+            [
+              'pass',
+              'through_pass',
+              'cross',
+              'shot',
+              'reception',
+              'heavy_touch',
+              'tackle',
+              'slide_tackle',
+            ].includes(candidate.kind),
+        );
+      const kind: AnimationCue['kind'] | undefined = event
+        ? event.kind === 'shot'
+          ? 'shot'
+          : event.kind === 'cross'
+            ? 'cross'
+            : event.kind === 'slide_tackle'
+              ? 'slide'
+              : event.kind === 'tackle'
+                ? 'tackle'
+                : ['reception', 'heavy_touch'].includes(event.kind)
+                  ? 'receive'
+                  : 'pass'
+        : undefined;
+      const micro = possessionPreparation?.micro;
+      const preparation =
+        carrying && snapshot.ball.ownerId === player.id
+          ? {
+              preparation:
+                carrying.mode === 'shield' ? ('shielding' as const) : ('carrying' as const),
+              preparationSinceMs: carrying.startedAt * 1000,
+            }
+          : micro &&
+              (snapshot.ball.ownerId === player.id ||
+                (micro.phase === 'recovering' &&
+                  snapshot.timestampMs < possessionPreparation.readyAt * 1000))
+            ? {
+                preparation: micro.phase,
+                preparationSinceMs: micro.startedAt * 1000,
+                canonicalBallPlacement: true,
+              }
+            : {};
+      return {
+        ...player,
+        ...(kind && event ? { cue: { kind, atMs: event.at * 1000 } } : {}),
+        ...preparation,
+      };
+    }),
   };
 };
 

@@ -22,6 +22,9 @@ export const animationCueSchema = z.object({
     'low_save',
     'high_save',
     'distribution',
+    'tackle',
+    'slide',
+    'recover',
   ]),
   atMs: z.number().nonnegative(),
   contactHeight: z.number().nonnegative().optional(),
@@ -47,9 +50,26 @@ export const tacticalPlayerSchema = tacticalPointSchema.extend({
   gaitPhase: z.number().optional(),
   gaitSpeed: z.number().nonnegative().optional(),
   cue: animationCueSchema.optional(),
-  preparation: z.enum(['receive', 'claim', 'throw', 'save_low', 'save_high']).optional(),
+  preparation: z
+    .enum([
+      'receive',
+      'claim',
+      'throw',
+      'save_low',
+      'save_high',
+      'controlling',
+      'directional_touch',
+      'turning',
+      'shielding',
+      'adjusting',
+      'scanning',
+      'recovering',
+      'carrying',
+    ])
+    .optional(),
   preparationSide: z.number().min(-1).max(1).optional(),
   preparationSinceMs: z.number().nonnegative().optional(),
+  canonicalBallPlacement: z.boolean().optional(),
   protagonist: z.boolean().optional(),
   goalkeeper: z.boolean().optional(),
   displayNumber: z.number().int().min(1).max(99).optional(),
@@ -174,6 +194,8 @@ export const deriveOwnedBallPose = (frame: TacticalFrame): TacticalBall => {
   if (!frame.ball.ownerId || (frame.ball.height ?? 0) > 0.05) return frame.ball;
   const owner = frame.players.find((player) => player.id === frame.ball.ownerId);
   if (!owner) return frame.ball;
+  // Preparation places each touch and shield canonically. Preserve the recorded ball offset.
+  if (owner.canonicalBallPlacement) return frame.ball;
   const facing = owner.facing ?? (owner.team === 'home' ? Math.PI / 2 : -Math.PI / 2);
   const distance =
     frame.carryMode === 'burst'

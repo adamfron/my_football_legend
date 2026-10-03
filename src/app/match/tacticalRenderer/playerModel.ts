@@ -156,6 +156,7 @@ export class PlayerModel {
     this.body.rotation.z = pose.roll;
     this.torso.rotation.x = pose.lean;
     this.head.rotation.x = pose.head;
+    this.head.rotation.y = pose.headYaw;
     this.leftHip.rotation.x = pose.hipLeft;
     this.rightHip.rotation.x = pose.hipRight;
     this.leftKnee.rotation.x = pose.kneeLeft;

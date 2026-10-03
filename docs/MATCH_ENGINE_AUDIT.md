@@ -1,4 +1,18 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR148
+# Audyt silnika meczu — PR140 / aktualizacja PR149
+
+PR149: ustalono, że pauza NPC wynika z zachowanego timera skanowania PR148 oraz przypięcia
+właściciela do pozycji. Istniejący `onBallPreparation` ma teraz jawny mikrostan i lokalny ruch,
+bez nowego źródła decyzji. Przy kontakcie gubiono prędkość/wysokość piłki; odbiorca zachowuje
+te dowody, a ciężkie/nieudane przyjęcie rzeczywiście pozostawia luźną piłkę. Dwa błędy podań
+otrzymanych to nadpisanie wyniku kontaktem kolejnej akcji oraz pominięcie udanego kontaktu
+niezamierzonego kolegi. `lastResolvedPass` i `actualReceiverId` są wspólnymi dowodami statystyk,
+kontaktu i feedbacku. Definicja celów sieci podań rozróżnia zamiar od rzeczywistego odbiorcy.
+
+`matchEventFeed` jest trwałym obserwatorem core. `MatchReplayHistory` zapisuje ograniczone
+próbki także w tle, a UI odczytuje je bez wywołania rozstrzygnięć futbolu. Centrum meczu
+projektuje pełne dane niezależnie od kamery. Czas posiadania i wznowienia są zliczane w core.
+Architektura, testy, kalibracja oraz dokładne ograniczenia:
+[PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
 
 PR148: zidentyfikowano utratę pochodzenia kontaktu w ball-follow, odnawianie starego przyjęcia
 przez innego aktora, ponawianie bliskiego pojedynku po timerze, wybór ryzyka bez kartki,

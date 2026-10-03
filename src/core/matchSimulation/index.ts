@@ -52,3 +52,6 @@ export * from './throwIn';
 export * from './actionEvents';
 export * from './defensiveChallenges';
 export * from './matchRules';
+export * from './matchEventFeed';
+export * from './matchReplay';
+export * from './matchCentreStatistics';

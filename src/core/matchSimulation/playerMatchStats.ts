@@ -3,6 +3,23 @@ import type { TacticalMatchState } from './matchState';
 import { collectContactEvidence } from './contactEvidence';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 
+export const teamAccountingSchema = z.object({
+  possessionSeconds: z.number().nonnegative(),
+  blockedShots: z.number().int().nonnegative(),
+  offsides: z.number().int().nonnegative(),
+  corners: z.number().int().nonnegative(),
+  freeKicks: z.number().int().nonnegative(),
+  throwIns: z.number().int().nonnegative(),
+});
+const emptyTeamAccounting = () => ({
+  possessionSeconds: 0,
+  blockedShots: 0,
+  offsides: 0,
+  corners: 0,
+  freeKicks: 0,
+  throwIns: 0,
+});
+
 export const playerMatchStatsSchema = z.object({
   playerId: z.string(),
   minutesPlayed: z.number().nonnegative(),
@@ -33,6 +50,12 @@ export type PlayerMatchStats = z.infer<typeof playerMatchStatsSchema>;
 
 export const matchStatisticsSchema = z.object({
   players: z.array(playerMatchStatsSchema),
+  /** Stable membership survives dismissal from the active physics roster. */
+  playerTeams: z.record(z.string(), z.enum(['home', 'away'])).optional(),
+  teamAccounting: z.object({ home: teamAccountingSchema, away: teamAccountingSchema }).optional(),
+  observedThrough: z.number().nonnegative().optional(),
+  observedRestartIds: z.array(z.string()).optional(),
+  observedOffsideIds: z.array(z.string()).optional(),
   observedPassAttemptIds: z.array(z.string()),
   observedPassResultIds: z.array(z.string()),
   observedShotIds: z.array(z.string()),
@@ -72,6 +95,11 @@ type IdentityHistory = {
   keyof MatchStatistics;
 
 export const createMatchStatistics = (state: TacticalMatchState): MatchStatistics => ({
+  playerTeams: Object.fromEntries(state.players.map((player) => [player.id, player.team])),
+  teamAccounting: { home: emptyTeamAccounting(), away: emptyTeamAccounting() },
+  observedThrough: state.time,
+  observedRestartIds: [],
+  observedOffsideIds: [],
   players: state.players.map((player) => ({
     playerId: player.id,
     minutesPlayed: 0,
@@ -121,7 +149,48 @@ export const observePlayerMatchStats = (
     const result: MatchStatistics = {
       ...statistics,
       players: statistics.players.map((entry) => ({ ...entry })),
+      playerTeams:
+        statistics.playerTeams ??
+        Object.fromEntries([
+          ...Object.entries(next.discipline ?? {}).map(([id, discipline]) => [id, discipline.team]),
+          ...previous.players.map((player) => [player.id, player.team]),
+          ...next.players.map((player) => [player.id, player.team]),
+        ]),
+      teamAccounting: {
+        home: { ...(statistics.teamAccounting?.home ?? emptyTeamAccounting()) },
+        away: { ...(statistics.teamAccounting?.away ?? emptyTeamAccounting()) },
+      },
     };
+    const accounting = result.teamAccounting!;
+    const elapsed = Math.max(
+      0,
+      next.time - Math.max(previous.time, statistics.observedThrough ?? previous.time),
+    );
+    result.observedThrough = Math.max(statistics.observedThrough ?? previous.time, next.time);
+    // Possession is the canonical team spell, including its passes/loose-ball flight. Dead-ball
+    // setup and interval time are excluded; percentages use the two credited live-time totals.
+    if (previous.scenario === 'open_play' && previous.status !== 'half_time')
+      accounting[previous.possessionTeam].possessionSeconds += elapsed;
+    const restart = next.restart;
+    if (restart) {
+      const id = `${next.seed}:restart:${restart.startedAt}:${restart.restartTeam}:${next.scenario}`;
+      if (!containsIdentity(result.observedRestartIds ?? [], id)) {
+        result.observedRestartIds = [...(result.observedRestartIds ?? []), id];
+        const team = accounting[restart.restartTeam];
+        if (next.scenario === 'corner') team.corners++;
+        if (next.scenario.startsWith('free_kick')) team.freeKicks++;
+        if (next.scenario === 'throw_in') team.throwIns++;
+      }
+    }
+    const offside = next.lastOffsideOffence;
+    if (offside) {
+      const id = `${next.seed}:offside:${offside.at}:${offside.playerId}`;
+      if (!containsIdentity(result.observedOffsideIds ?? [], id)) {
+        result.observedOffsideIds = [...(result.observedOffsideIds ?? []), id];
+        const team = result.playerTeams?.[offside.playerId];
+        if (team) accounting[team].offsides++;
+      }
+    }
     const appendIdentity = (key: IdentityHistory, id: string) => {
       result[key] = [...result[key], id];
     };
@@ -178,39 +247,58 @@ export const observePlayerMatchStats = (
         stats(action.actorId)!.carries++;
       }
     }
-    const pass = next.lastPassDiagnostic;
-    if (pass && !containsIdentity(result.observedPassAttemptIds, pass.passId)) {
-      appendIdentity('observedPassAttemptIds', pass.passId);
-      stats(pass.passerId)!.passesAttempted++;
-      const edge = mutableNetwork().find(
-        (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
-      );
-      if (edge) edge.attempted++;
-      else
-        result.passingNetwork.push({
-          passerId: pass.passerId,
-          receiverId: pass.intendedReceiverId,
-          attempted: 1,
-          completed: 0,
-        });
-    }
-    if (pass?.finalResult && !containsIdentity(result.observedPassResultIds, pass.passId)) {
-      appendIdentity('observedPassResultIds', pass.passId);
-      if (
-        pass.finalResult === 'completed' &&
-        pass.actualContactPoint &&
-        pass.resolvedAt !== undefined
-      ) {
-        stats(pass.passerId)!.passesCompleted++;
-        stats(pass.intendedReceiverId)!.passesReceived++;
-        mutableNetwork().find(
+    // A preselected human reception action can release the next pass in the same physics tick.
+    // Its incoming completion remains a canonical fact even though the launch diagnostic changed.
+    const passes = new Map(
+      [next.lastResolvedPass, next.lastPassDiagnostic]
+        .filter((pass): pass is NonNullable<typeof pass> => Boolean(pass))
+        .map((pass) => [pass.passId, pass]),
+    );
+    for (const pass of passes.values()) {
+      if (pass && !containsIdentity(result.observedPassAttemptIds, pass.passId)) {
+        appendIdentity('observedPassAttemptIds', pass.passId);
+        stats(pass.passerId)!.passesAttempted++;
+        const edge = mutableNetwork().find(
           (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
-        )!.completed++;
-        result.assistCandidate = {
-          passerId: pass.passerId,
-          scorerId: pass.intendedReceiverId,
-          passId: pass.passId,
-        };
+        );
+        if (edge) edge.attempted++;
+        else
+          result.passingNetwork.push({
+            passerId: pass.passerId,
+            receiverId: pass.intendedReceiverId,
+            attempted: 1,
+            completed: 0,
+          });
+      }
+      if (pass.finalResult && !containsIdentity(result.observedPassResultIds, pass.passId)) {
+        appendIdentity('observedPassResultIds', pass.passId);
+        if (
+          pass.finalResult === 'completed' &&
+          pass.actualContactPoint &&
+          pass.resolvedAt !== undefined
+        ) {
+          stats(pass.passerId)!.passesCompleted++;
+          const receiverId = pass.actualReceiverId ?? pass.intendedReceiverId;
+          stats(receiverId)!.passesReceived++;
+          // Attempts describe the intended endpoint; completions describe the physical endpoint.
+          // A teammate can meet a misdirected pass without inventing another pass attempt.
+          const completedEdge = mutableNetwork().find(
+            (edge) => edge.passerId === pass.passerId && edge.receiverId === receiverId,
+          );
+          if (completedEdge) completedEdge.completed++;
+          else
+            result.passingNetwork.push({
+              passerId: pass.passerId,
+              receiverId,
+              attempted: 0,
+              completed: 1,
+            });
+          result.assistCandidate = {
+            passerId: pass.passerId,
+            scorerId: receiverId,
+            passId: pass.passId,
+          };
+        }
       }
     }
     const shot = next.ball.shot ?? next.lastShot;
@@ -227,6 +315,10 @@ export const observePlayerMatchStats = (
       // Posts and crossbars which stay out are off-target. Blocks are a separate outcome.
       if (['goal', 'save'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
       if (shot.outcome === 'goal') shooter.goals++;
+      if (shot.outcome === 'block') {
+        const team = result.playerTeams?.[shot.shooterId];
+        if (team) accounting[team].blockedShots++;
+      }
       if (
         shot.outcome === 'goal' &&
         result.assistCandidate?.scorerId === shot.shooterId &&

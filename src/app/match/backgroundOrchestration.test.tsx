@@ -10,6 +10,7 @@ import type { PlayerDecisionOpportunity } from '../../core/matchSimulation/playe
 import { MatchLabDiagnosticsController } from './matchLabDiagnostics';
 import { ViewportVideoRecorder } from './matchDebugCapture';
 import { RunningLab } from './TacticalMatchSandbox';
+import { MatchReplayHistory } from '../../core/matchSimulation/matchReplay';
 
 const observed = vi.hoisted(() => ({
   render: vi.fn(),
@@ -133,6 +134,243 @@ describe('background Match Lab orchestration', () => {
     expect(observed.render).not.toHaveBeenCalled();
     expect(capture).not.toHaveBeenCalled();
     expect(ViewportVideoRecorder.prototype.start).not.toHaveBeenCalled();
+  });
+
+  it('publishes hidden goals to Match Centre without rendering the missed football', () => {
+    const actor = controller.latestState.players.find((player) => player.team === 'home')!;
+    observed.step.mockImplementation((state, delta) => ({
+      ...state,
+      time: state.time + delta,
+      score: { home: 1, away: 0 },
+      matchEvents: [
+        {
+          id: 'hidden-goal',
+          replayKey: 'hidden-goal',
+          at: 0.025,
+          kind: 'goal',
+          team: 'home',
+          actorId: actor.id,
+          score: { home: 1, away: 0 },
+        },
+      ],
+    }));
+    act(() => vi.advanceTimersByTime(10));
+    const centre = container.querySelector('[aria-label="Centrum meczu"]')!;
+    expect(centre.querySelector('[data-event-kind="goal"]')!.textContent).toContain(
+      actor.profile.lastName,
+    );
+    expect(centre.querySelector('.match-centre__score')!.textContent).toContain('1–0');
+    expect(observed.render).not.toHaveBeenCalled();
+  });
+
+  it('keeps canonical background football running when the optional replay observer fails', () => {
+    vi.spyOn(MatchReplayHistory.prototype, 'observe').mockImplementation(() => {
+      throw new Error('replay observation failure');
+    });
+    act(() => vi.advanceTimersByTime(10));
+    expect(controller.latestState.time).toBeGreaterThan(0);
+    expect(controller.crashPackage).toBeUndefined();
+    expect(
+      controller.runtimeDiagnostics.some((entry) => entry.module === 'MatchReplayHistory.observe'),
+    ).toBe(true);
+    expect(observed.render).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ['key_player', 'session'],
+    ['full_match', 'session'],
+    ['key_player', 'scenario'],
+    ['full_match', 'scenario'],
+  ] as const)(
+    'resets %s presentation during an event replay when replacing the %s',
+    (policyId, resetKind) => {
+      const initial = controller.latestState;
+      const goal = {
+        id: 'reset-replay-goal',
+        replayKey: 'reset-replay-goal',
+        at: 0,
+        kind: 'goal' as const,
+        team: 'home' as const,
+        score: { home: 1, away: 0 },
+      };
+      const recording = new MatchReplayHistory();
+      recording.observe({ ...initial, matchEvents: [goal] });
+      recording.observe({ ...initial, time: 0.2, matchEvents: [goal] });
+      const recorded = recording.getWindow(goal.replayKey)!;
+      vi.spyOn(MatchReplayHistory.prototype, 'hasWindow').mockReturnValue(true);
+      vi.spyOn(MatchReplayHistory.prototype, 'getWindow').mockReturnValue({
+        ...recorded,
+        complete: true,
+      });
+      observed.step.mockImplementation((state, delta) => ({
+        ...state,
+        time: state.time + delta,
+        score: { home: 1, away: 0 },
+        matchEvents: [goal],
+      }));
+      const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+      act(() => {
+        policy.value = policyId;
+        policy.dispatchEvent(new Event('change', { bubbles: true }));
+        vi.advanceTimersByTime(80);
+      });
+      const replay = container.querySelector<HTMLButtonElement>(
+        '.match-centre button[aria-label^="Powtórka:"]',
+      )!;
+      expect(replay).not.toBeNull();
+      act(() => replay.click());
+      expect(container.querySelector('.match-status-title')!.textContent).toBe('POWTÓRKA');
+      observed.step.mockImplementation((state, delta) => ({ ...state, time: state.time + delta }));
+      if (resetKind === 'session') {
+        act(() =>
+          root.render(
+            <RunningLab
+              session={{ ...controller.session, setup: { ...controller.session.setup } }}
+              diagnostics={controller}
+              onSetup={() => undefined}
+              onRestart={() => undefined}
+              onRandomize={() => undefined}
+            />,
+          ),
+        );
+      } else {
+        const diagnostics = container.querySelector<HTMLDetailsElement>('.lab-diagnostics')!;
+        act(() => {
+          diagnostics.open = true;
+          diagnostics.dispatchEvent(new Event('toggle'));
+        });
+        const scenario = [
+          ...container.querySelectorAll<HTMLButtonElement>('.scenario-picker button'),
+        ].find((button) => button.textContent === 'Gra otwarta')!;
+        act(() => scenario.click());
+      }
+      expect(container.querySelector('.match-status-title')!.textContent).toBe('GRA AUTONOMICZNA');
+      expect(container.querySelector('.match-centre__events')).toBeNull();
+      expect(policy.value).toBe(policyId);
+      if (resetKind === 'scenario') {
+        const play = [...container.querySelectorAll<HTMLButtonElement>('nav button')].find(
+          (button) => button.textContent === 'Odtwórz',
+        )!;
+        act(() => play.click());
+      }
+      act(() => vi.advanceTimersByTime(80));
+      expect(controller.latestState.time).toBeGreaterThan(0);
+      expect(container.querySelector('.match-status-title')!.textContent).toBe('GRA AUTONOMICZNA');
+    },
+  );
+
+  it('keeps a paused reset clock at zero when an old replay callback arrives before effect cleanup', () => {
+    const callbacks: FrameRequestCallback[] = [];
+    vi.spyOn(globalThis, 'requestAnimationFrame').mockImplementation((callback) => {
+      callbacks.push(callback);
+      return callbacks.length;
+    });
+    vi.spyOn(globalThis, 'cancelAnimationFrame').mockImplementation(() => undefined);
+    const initial = controller.latestState;
+    const goal = {
+      id: 'paused-reset-goal',
+      replayKey: 'paused-reset-goal',
+      at: 2211,
+      kind: 'goal' as const,
+      team: 'home' as const,
+      score: { home: 1, away: 0 },
+    };
+    const recording = new MatchReplayHistory();
+    recording.observe({ ...initial, time: 2206 });
+    recording.observe({ ...initial, time: 2211, matchEvents: [goal] });
+    recording.observe({ ...initial, time: 2214, matchEvents: [goal] });
+    vi.spyOn(MatchReplayHistory.prototype, 'hasWindow').mockReturnValue(true);
+    vi.spyOn(MatchReplayHistory.prototype, 'getWindow').mockReturnValue(
+      recording.getWindow(goal.replayKey),
+    );
+    observed.step.mockReturnValue({
+      ...initial,
+      time: 2700,
+      status: 'half_time',
+      score: goal.score,
+      matchEvents: [goal],
+    });
+    act(() => vi.advanceTimersByTime(10));
+    const pause = [...container.querySelectorAll<HTMLButtonElement>('nav button')].find(
+      (button) => button.textContent === 'Pauza',
+    )!;
+    act(() => pause.click());
+    const replay = container.querySelector<HTMLButtonElement>(
+      '.match-centre button[aria-label^="Powtórka:"]',
+    )!;
+    act(() => replay.click());
+    const playback = callbacks.at(-1)!;
+    act(() => playback(performance.now()));
+    expect(container.querySelector('header p')!.textContent).toContain('36:46');
+    const queuedPlayback = callbacks.at(-1)!;
+    const observe = MatchReplayHistory.prototype.observe;
+    vi.spyOn(MatchReplayHistory.prototype, 'observe').mockImplementation(function (
+      this: MatchReplayHistory,
+      state,
+    ) {
+      observe.call(this, state);
+      // Simulate an already dequeued frame delivered during reset, before effect cleanup.
+      if (state.time === 0) queuedPlayback(performance.now() + 500);
+    });
+    act(() =>
+      root.render(
+        <RunningLab
+          session={{ ...controller.session, setup: { ...controller.session.setup } }}
+          diagnostics={controller}
+          onSetup={() => undefined}
+          onRestart={() => undefined}
+          onRandomize={() => undefined}
+        />,
+      ),
+    );
+    expect(controller.latestState.time).toBe(0);
+    expect(container.querySelector('header p')!.textContent).toContain('00:00');
+    expect(container.querySelector('.background-presentation > strong')!.textContent).toBe('00:00');
+    const renderCalls = observed.render.mock.calls.length;
+    act(() => queuedPlayback(performance.now() + 1000));
+    act(() => vi.advanceTimersByTime(50));
+    expect(container.querySelector('header p')!.textContent).toContain('00:00');
+    expect(controller.latestState.time).toBe(0);
+    expect(observed.render).toHaveBeenCalledTimes(renderCalls);
+    expect(
+      [...container.querySelectorAll<HTMLButtonElement>('nav button')].some(
+        (button) => button.textContent === 'Odtwórz',
+      ),
+    ).toBe(true);
+  });
+
+  it('clears an old human decision when replacing the session', () => {
+    const opportunity = {
+      id: 'stale-reset-decision',
+      actorId: controller.latestState.players[1]!.id,
+      kind: 'on_ball',
+      options: [],
+      situation: { kind: 'on_ball', importance: 1 },
+      triggerReason: 'meaningful_test',
+    } as unknown as PlayerDecisionOpportunity;
+    observed.agency.mockImplementation((state) => ({
+      probe: { candidate: false, blockedReason: 'no_controlled_player' },
+      ...(state.time >= 0.1 ? { opportunity } : {}),
+    }));
+    act(() => vi.advanceTimersByTime(10));
+    expect(controller.latestState.time).toBe(0.1);
+    observed.agency.mockReturnValue({
+      probe: { candidate: false, blockedReason: 'no_controlled_player' },
+    });
+    act(() =>
+      root.render(
+        <RunningLab
+          session={{ ...controller.session, setup: { ...controller.session.setup } }}
+          diagnostics={controller}
+          onSetup={() => undefined}
+          onRestart={() => undefined}
+          onRandomize={() => undefined}
+        />,
+      ),
+    );
+    expect(container.querySelector('.match-status-title')!.textContent).toBe('GRA AUTONOMICZNA');
+    act(() => vi.advanceTimersByTime(10));
+    expect(controller.latestState.time).toBeGreaterThan(0.1);
   });
 
   it('stops at an exact decision before publishing its context and never runs another canonical tick', () => {

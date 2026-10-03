@@ -14,6 +14,7 @@ import {
 } from './matchFlowTelemetry';
 import { deriveTeamShapeMetrics } from './teamShapeMetrics';
 import type { TacticalMatchState } from './matchState';
+import { observePlayerMatchStats } from './playerMatchStats';
 
 const createFlowFixture = (seed = 'flow-performance-regression') => {
   const world = createCanonicalWorldDatabase();
@@ -28,6 +29,91 @@ const createFlowFixture = (seed = 'flow-performance-regression') => {
 };
 
 describe('session benchmark observations', () => {
+  it('observes the actual queued reception and reconciles a completion-only physical network edge', () => {
+    const before = createFlowFixture('pr149-flow-actual-reception');
+    const passer = before.players.find((player) => player.id === before.ball.ownerId)!;
+    const [intended, actual] = before.players.filter(
+      (player) => player.team === passer.team && player.id !== passer.id,
+    );
+    passer.position = { x: 40, y: 34 };
+    intended!.position = { x: 60, y: 34 };
+    actual!.position = { x: 70, y: 34 };
+    before.controlledFootballerId = actual!.id;
+    const pass = {
+      passId: 'incoming-intended-pass',
+      passerId: passer.id,
+      intendedReceiverId: intended!.id,
+      releasedAt: 1,
+      receiverPositionAtRelease: intended!.position,
+      receiverVelocityAtRelease: { x: 1, y: 0 },
+      predictedReceptionPoint: intended!.position,
+      awarenessDelay: 0.1,
+      receiverArrivalEstimate: 0.5,
+      bestDefenderArrivalEstimate: 0.8,
+      leadDistance: 0,
+    };
+    const release: TacticalMatchState = {
+      ...before,
+      time: 1,
+      lastPassDiagnostic: pass,
+      latestAction: {
+        type: 'pass',
+        actorId: passer.id,
+        receiverId: intended!.id,
+        target: intended!.position,
+        intent: 'support',
+      },
+    };
+    release.statistics = observePlayerMatchStats(before.statistics!, before, release);
+    let telemetry = observeMatchFlow(createMatchFlowTelemetry(), before, release);
+    const received: TacticalMatchState = {
+      ...release,
+      time: 2,
+      decisionIndex: 2,
+      lastResolvedPass: {
+        ...pass,
+        actualReceiverId: actual!.id,
+        actualContactPoint: actual!.position,
+        resolvedAt: 2,
+        finalResult: 'completed',
+        receptionOutcome: 'clean_control',
+      },
+      lastPassDiagnostic: {
+        ...pass,
+        passId: 'queued-outgoing-pass',
+        passerId: actual!.id,
+        releasedAt: 2,
+      },
+      latestAction: {
+        type: 'pass',
+        actorId: actual!.id,
+        receiverId: intended!.id,
+        target: intended!.position,
+        intent: 'support',
+      },
+    };
+    received.statistics = observePlayerMatchStats(release.statistics!, release, received);
+    telemetry = observeMatchFlow(telemetry, release, received);
+    expect(telemetry).toMatchObject({
+      passesAttempted: 2,
+      passesCompleted: 1,
+      receptions: { clean: 1 },
+      controlled: { passesReceived: 1 },
+      threatFlow: { progressiveReceptions: 1, resultingFinalThirdEntries: 1 },
+    });
+    expect(telemetry.passOutcomes.find((outcome) => outcome.passId === pass.passId)?.outcome).toBe(
+      'completed',
+    );
+    expect(telemetry.passingNetwork.find((edge) => edge.receiverId === actual!.id)).toMatchObject({
+      attempted: 0,
+      completed: 1,
+    });
+    expect(() => assertTelemetryInvariants(telemetry)).not.toThrow();
+    const repeated = observeMatchFlow(telemetry, received, structuredClone(received));
+    expect(repeated.receptions.clean).toBe(1);
+    expect(repeated.controlled.passesReceived).toBe(1);
+    expect(repeated.threatFlow.progressiveReceptions).toBe(1);
+  });
   it('exports canonical shape/support data and records interaction events at their source', () => {
     const world = createCanonicalWorldDatabase();
     const controlledId = world.clubs[0]!.squadPlayerIds?.[0];
@@ -120,7 +206,7 @@ describe('session benchmark observations', () => {
         ...telemetry,
         passingNetwork: [{ ...telemetry.passingNetwork[0]!, attempted: 1, completed: 3 }],
       }),
-    ).toThrow(/passing edge/);
+    ).toThrow(/passing network/);
     expect(() =>
       assertTelemetryInvariants({
         ...telemetry,

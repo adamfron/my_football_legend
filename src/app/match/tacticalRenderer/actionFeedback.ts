@@ -30,11 +30,15 @@ const feedback = {
 >;
 
 export const actionFeedbackText = (event: CanonicalActionEvent) =>
-  event.kind === 'card' && event.outcome !== 'yellow'
-    ? 'CZERWONA KARTKA'
-    : event.kind === 'advantage' && event.outcome === 'recalled'
-      ? 'WRACAMY DO FAULU'
-      : feedback[event.kind].text;
+  event.kind === 'heavy_touch' && event.outcome === 'failed_control'
+    ? 'NIEUDANE PRZYJĘCIE'
+    : event.kind === 'dribble' && event.cause === 'evade'
+      ? 'ZWÓD'
+      : event.kind === 'card' && event.outcome !== 'yellow'
+        ? 'CZERWONA KARTKA'
+        : event.kind === 'advantage' && event.outcome === 'recalled'
+          ? 'WRACAMY DO FAULU'
+          : feedback[event.kind].text;
 
 /** Pure projection at canonical time, shared by live, lead-in and replay.
  * One per actor and one repeated kind/team within 450ms; important outcomes win the three slots.
@@ -50,7 +54,7 @@ export const selectActionFeedback = (
         age >= -0.001 &&
         age < feedback[event.kind].lifetimeMs &&
         event.kind !== 'reception' &&
-        event.kind !== 'dribble' &&
+        !(event.kind === 'dribble' && !['evade', 'burst', 'tight_dribble'].includes(event.cause)) &&
         !(
           event.kind === 'challenge' && ['missed', 'beaten', 'loose_ball'].includes(event.outcome)
         ) &&
@@ -110,3 +114,65 @@ export const actionFeedbackOpacity = (event: CanonicalActionEvent, atMs: number)
   const remaining = feedback[event.kind].lifetimeMs - (atMs - event.at * 1000);
   return Math.max(0, Math.min(1, remaining / 180));
 };
+
+export const onPitchFeedbackSchema = z.object({
+  id: z.string(),
+  kind: z.string(),
+  actorId: z.string(),
+  team: z.enum(['home', 'away']),
+  position: z.object({ x: z.number(), y: z.number() }),
+  text: z.string(),
+  opacity: z.number().min(0).max(1),
+});
+export type OnPitchFeedback = z.infer<typeof onPitchFeedbackSchema>;
+
+const preparationFeedback = {
+  controlling: { text: 'PRZYJĘCIE', lifetimeMs: 650 },
+  directional_touch: { text: 'PRZYJĘCIE W RUCHU', lifetimeMs: 750 },
+  shielding: { text: 'OSŁONA', lifetimeMs: 1000 },
+  turning: { text: 'ZWROT', lifetimeMs: 700 },
+  recovering: { text: 'POWRÓT DO PIŁKI', lifetimeMs: 950 },
+} as const;
+
+/** Major recorded outcomes win; one stable label per canonical preparation phase fills
+ * remaining slots. Scanning and ordinary adjustments remain readable through body poses.
+ * No synthetic action event, resolver, RNG or per-render-frame timer is created. */
+export const selectFrameFeedback = (frame: TacticalFrame): OnPitchFeedback[] => {
+  const labels: OnPitchFeedback[] = selectActionFeedback(
+    frame.actionEvents ?? [],
+    frame.timestampMs,
+  ).map((event) => ({
+    id: event.id,
+    kind: event.kind,
+    actorId: event.actorId,
+    team: event.team,
+    position: actionFeedbackAnchor(event, frame),
+    text: actionFeedbackText(event),
+    opacity: actionFeedbackOpacity(event, frame.timestampMs),
+  }));
+  for (const player of frame.players) {
+    if (labels.length === FEEDBACK_MAX_LABELS) break;
+    const kind = player.preparation;
+    if (
+      !kind ||
+      !(kind in preparationFeedback) ||
+      player.preparationSinceMs === undefined ||
+      labels.some((label) => label.actorId === player.id)
+    )
+      continue;
+    const spec = preparationFeedback[kind as keyof typeof preparationFeedback];
+    const age = frame.timestampMs - player.preparationSinceMs;
+    if (age < 0 || age >= spec.lifetimeMs) continue;
+    labels.push({
+      id: `preparation:${player.id}:${kind}:${player.preparationSinceMs}`,
+      actorId: player.id,
+      team: player.team,
+      kind,
+      position: { x: player.x, y: player.y },
+      text: spec.text,
+      opacity: Math.min(1, (spec.lifetimeMs - age) / 180),
+    });
+  }
+  return labels;
+};
+import { z } from 'zod';

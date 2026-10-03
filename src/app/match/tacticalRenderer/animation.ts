@@ -27,6 +27,7 @@ export const playerPoseSchema = z.object({
   crouch: z.number(),
   lift: z.number(),
   head: z.number(),
+  headYaw: z.number(),
 });
 export type PlayerPose = z.infer<typeof playerPoseSchema>;
 export const createPlayerPose = (): PlayerPose => ({
@@ -44,6 +45,7 @@ export const createPlayerPose = (): PlayerPose => ({
   crouch: 0,
   lift: 0,
   head: 0,
+  headYaw: 0,
 });
 
 export const CUE_DURATION_MS = 620;
@@ -86,6 +88,54 @@ export const derivePlayerPose = (
   out.crouch = player.goalkeeper && speed < 0.4 ? 0.08 : 0;
   out.lift = 0;
   out.head = 0;
+  out.headYaw = 0;
+  const preparationElapsed = Math.max(0, atMs - (player.preparationSinceMs ?? atMs)) / 1000;
+  if (player.preparation === 'controlling' || player.preparation === 'directional_touch') {
+    out.lean += 0.13;
+    out.armSpread = 0.38;
+    out.head = 0.12;
+    if (player.dominantFoot === 'left') {
+      out.hipLeft -= 0.24;
+      out.kneeLeft += 0.18;
+    } else {
+      out.hipRight -= 0.24;
+      out.kneeRight += 0.18;
+    }
+  }
+  if (player.preparation === 'scanning') {
+    // A seekable look over either shoulder communicates the canonical scanning phase.
+    out.headYaw = Math.sin(preparationElapsed * 2.1) * 0.58;
+    out.armSpread = 0.16;
+    out.lean += 0.025;
+  }
+  if (player.preparation === 'carrying') {
+    out.armSpread = 0.3;
+    out.lean += 0.08;
+    out.head = 0.06;
+  }
+  if (player.preparation === 'shielding') {
+    out.armSpread = 0.78;
+    out.armLeft = -0.28;
+    out.armRight = -0.12;
+    out.crouch = 0.07;
+    out.lean = 0.16;
+    out.kneeLeft += 0.22;
+    out.kneeRight += 0.35;
+    out.headYaw = 0.38;
+  }
+  if (player.preparation === 'turning' || player.preparation === 'adjusting') {
+    out.roll = player.preparation === 'turning' ? 0.08 : 0.035;
+    out.armSpread = 0.42;
+    out.headYaw = Math.sin(preparationElapsed * 2) * 0.28;
+    out.lean += 0.07;
+  }
+  if (player.preparation === 'recovering') {
+    out.lean = 0.22;
+    out.armSpread = 0.65;
+    out.kneeLeft += 0.55;
+    out.kneeRight += 0.25;
+    out.crouch = 0.09;
+  }
   if (player.preparation === 'receive' || player.preparation === 'claim') {
     out.lean += 0.1;
     out.armSpread = 0.35;
@@ -145,6 +195,15 @@ export const derivePlayerPose = (
     }
     out.lean = blend(out.lean, kind === 'receive' ? 0.16 : volley ? -0.22 : -0.13);
     out.armSpread = blend(out.armSpread, kind === 'cross' || volley ? 0.8 : 0.45);
+  } else if (kind === 'tackle' || kind === 'slide' || kind === 'recover') {
+    const slide = kind === 'slide';
+    out.lean = blend(out.lean, slide ? -0.8 : 0.35);
+    out.crouch = blend(out.crouch, slide ? 0.5 : 0.12);
+    out.roll = blend(out.roll, slide ? 0.48 : 0.1);
+    out.hipRight = blend(out.hipRight, slide ? -1.35 : -0.65);
+    out.hipLeft = blend(out.hipLeft, slide ? -0.75 : 0.12);
+    out.kneeLeft = blend(out.kneeLeft, slide ? 1.3 : 0.55);
+    out.armSpread = blend(out.armSpread, slide ? 0.85 : 0.65);
   } else if (kind === 'throw') {
     out.armLeft = out.armRight = blend(out.armLeft, -1.65);
     out.elbowLeft = out.elbowRight = blend(out.elbowLeft, -0.15);

@@ -14,7 +14,7 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR148 są ukończone w opisanym zakresie. Dalszy rozwój prezentacji należy do PR149.
+PR105–PR149 są ukończone w opisanym zakresie. Następny etap to PR150 — stamina i trwałość fizyczna.
 W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
@@ -172,19 +172,30 @@ ukończonych kombinacji. Analizować wspólny lejek **start biegu → dostępno�
 udane przyjęcie → dośrodkowanie/cutback/kontynuacja**. Celem są spójne, zróżnicowane kombinacje.
 PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeniem.
 
+**PR149 — Match Readability, Animation & Match Centre v2**
+
+- zachowany timer większych decyzji PR148; kanoniczne kontrolowanie, zwrot, skanowanie,
+  korekta, osłona i odzyskiwanie kontroli z lokalnym ruchem/orientacją/pozycją piłki;
+- przyjęcie z rzeczywistego kontaktu, jawnym kontekstem jakości i mechanicznym luźnym ciężkim
+  lub nieudanym przyjęciem; naprawione otrzymane podania i rzeczywisty adresat kontaktu;
+- trwały feed core dla bramek, kartek, karnych i fauli oraz niezależne od polityki oglądania
+  Centrum meczu ze statystykami kanonicznymi;
+- semantyczne pozy i ograniczone etykiety akcji; sampled replay także z tła: 5 Hz, 12 s,
+  osiem okien ważnych zdarzeń, bez mutacji żywego meczu;
+- raport, deterministyczne porównania i ograniczenia:
+  [PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
+
 ### NEXT
 
-**PR149 — Animation, Replay & Match Presentation v2** (plan po PR148)
+**PR150 — Stamina & Physical Persistence**
 
-- niezawodna lokomocja: widoczny ruch kończyn każdego przemieszczającego się zawodnika;
-- bogatsze obroty ciała, shielding/kontakt, odbiory, animacje wykonania zależne od techniki
-  i czytelniejsze wskazówki przyjęcia/kontaktu;
-- prezentacja powtórek, powtórki goli i migawki ważnych momentów;
-- archetypy stadionów/trybun i parametryzacja względem klubu gospodarza, gdzie praktyczne;
-- fundament przyszłego kanonicznego wyboru techniki: cel z tyłu może pozwolić zawodnikowi
-  o wysokiej technice/świadomości na sensowną geometrycznie piętkę. Słabszy zawodnik może
-  osłonić piłkę, obrócić ciało i potrzebować więcej czasu, tracąc okno podania. Wybór futbolowy
-  należy do core; animacja przedstawia wybraną technikę.
+- kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
+- kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
+- integracja kariery i kalibracja deterministycznych pełnych meczów, bez maskowania rytmu kwotami.
+
+Później: filmowe powtórki, finalne animacje, duża kalibracja lig, świadomy wybór piętki i
+parametryczne stadiony z trwałą tożsamością klubu. Stadion pozostaje kosmetyczny; PR149 nie
+wdraża jego geometrii ani sztuki.
 
 Późniejsza stamina/fatigue ograniczy powtarzane sprinty, regenerację, szybkość lokomocji,
 jakość wykonania i gotowość do długich biegów. Najpierw należy ustalić rozsądny rytm ruchu
@@ -417,7 +428,7 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
-NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: PR147 → PR148 → PR149.
+NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: PR149 → PR150.
 Poniższa lista jest historycznym kontekstem systemów kariery; starsze plany pakietów
 zagranicznych nie wyprzedzają obecnej kolejności silnika meczu.
 

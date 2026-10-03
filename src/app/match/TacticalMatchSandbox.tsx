@@ -16,7 +16,12 @@ import {
   type ObserverCoverageInterval,
 } from './backgroundPublication';
 import { formatDiagnosticMatchTime, formatMatchTime } from './matchTime';
-import { appendReplayFrame, sampleReplayFrame } from './tacticalRenderer/replay';
+import {
+  appendReplayFrame,
+  sampleReplayFrame,
+  replaySnapshotToFrame,
+} from './tacticalRenderer/replay';
+import { MatchReplayHistory } from '../../core/matchSimulation/matchReplay';
 /* eslint-disable react-hooks/refs, react-hooks/immutability -- Match Lab's imperative renderer and
    diagnostic recorders are observer-only refs intentionally kept outside React state. */
 import {
@@ -119,6 +124,7 @@ import {
   type MatchDebugExport,
 } from './matchDebugCapture';
 import './TacticalMatchSandbox.css';
+import { MatchCentre } from './MatchCentre';
 import {
   MatchLabDiagnosticsController,
   runtimeErrorFromEvent,
@@ -462,6 +468,8 @@ export const RunningLab = ({
     rendererRef = useRef<TacticalPitchRenderer | undefined>(undefined),
     runtimeClockRef = useRef(createMatchRuntimeClock(0)),
     replayBufferRef = useRef<RenderFrame[]>([]),
+    matchReplayRef = useRef(new MatchReplayHistory()),
+    replayEpochRef = useRef(0),
     scoreRef = useRef(0),
     stateRef = useRef(state),
     rendererFaultRef = useRef(false),
@@ -502,6 +510,8 @@ export const RunningLab = ({
   const presentationDecisionsRef = useRef<PresentationDecisionDiagnostic[]>([]);
   const visibleEpisodeRef = useRef<MatchMomentEpisode | undefined>(undefined);
   const presentationPolicy = MATCH_PRESENTATION_POLICIES[presentationPolicyId];
+  const presentationPolicyRef = useRef(presentationPolicy);
+  presentationPolicyRef.current = presentationPolicy;
   const backgroundPerformance =
     diagnosticsExpanded && performanceExpanded
       ? backgroundPerformanceRef.current.snapshot(
@@ -518,8 +528,40 @@ export const RunningLab = ({
   observerModeRef.current = observerMode;
   presentationPhaseRef.current = presentationPhase;
   const devObservation = isDevObservationMode(observerMode);
+  const resetPresentation = useCallback((next: TacticalMatchState) => {
+    replayEpochRef.current++;
+    const phase = presentationPolicyRef.current.fullMatch ? 'full_match' : 'background_simulation';
+    setPresentationPhase(phase);
+    presentationPhaseRef.current = phase;
+    phaseBeforeReplayRef.current = phase;
+    setDecisionBoundary(undefined);
+    decisionDetectedAtRef.current = undefined;
+    setShotAim(undefined);
+    setSelectedTarget(undefined);
+    setMenuPosition(undefined);
+    setGoalReplay([]);
+    matchReplayRef.current = new MatchReplayHistory();
+    replayBufferRef.current = [];
+    scoreRef.current = next.score.home + next.score.away;
+    leadInRef.current = undefined;
+    leadInFramesRef.current = [];
+    consequenceRef.current = undefined;
+    visibleEpisodeRef.current = undefined;
+    presentationSamplesRef.current = new WeakMap();
+    presentationClockRef.current = createPresentationClock(next.time);
+    setDisplayTime(next.time);
+    animationProjectorRef.current.reset();
+    contextHistoryRef.current = new PresentationContextHistory();
+    contextHistoryRef.current.observe(next, true);
+    agencyTrackerRef.current = new PlayerAgencyTracker();
+  }, []);
   const publishState = useCallback(
     (next: TacticalMatchState) => {
+      try {
+        matchReplayRef.current.observe(next);
+      } catch (error) {
+        diagnostics.report('observer_error', error, { module: 'MatchReplayHistory.observe' });
+      }
       stateRef.current = next;
       diagnostics.latestState = next;
       publishedStateRef.current = next;
@@ -531,6 +573,7 @@ export const RunningLab = ({
   useEffect(() => {
     if (!hostRef.current) return;
     const initial = createTacticalMatch(session);
+    resetPresentation(initial);
     backgroundPerformanceRef.current = new BackgroundPerformanceTracker();
     presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
     publishState(initial);
@@ -538,14 +581,7 @@ export const RunningLab = ({
     profiledTicksRef.current = 0;
     uiPerformanceRef.current = createBackgroundUiPerformance();
     observerCoverageRef.current = [{ mode: observerModeRef.current, startedAt: initial.time }];
-    contextHistoryRef.current = new PresentationContextHistory();
-    contextHistoryRef.current.observe(initial, true);
-    agencyTrackerRef.current = new PlayerAgencyTracker();
-    visibleEpisodeRef.current = undefined;
-    leadInRef.current = undefined;
-    consequenceRef.current = undefined;
     windowDiagnosticsRef.current = [];
-    animationProjectorRef.current.reset();
     replayBufferRef.current = [animationProjectorRef.current.frame(initial)];
     debugRecorderRef.current.clear();
     try {
@@ -614,7 +650,7 @@ export const RunningLab = ({
       renderer.dispose();
       videoRecorder.dispose();
     };
-  }, [session, diagnostics, kits, publishState]);
+  }, [session, diagnostics, kits, publishState, resetPresentation]);
   useEffect(() => {
     const last = observerCoverageRef.current.at(-1);
     if (!last || last.mode !== observerMode) {
@@ -882,6 +918,13 @@ export const RunningLab = ({
                     module: 'stepTacticalMatch',
                   });
                   break;
+                }
+                try {
+                  matchReplayRef.current.observe(next);
+                } catch (error) {
+                  diagnostics.report('observer_error', error, {
+                    module: 'MatchReplayHistory.observe',
+                  });
                 }
                 try {
                   const contextStarted = startPerformanceSpan('context_history');
@@ -1158,7 +1201,11 @@ export const RunningLab = ({
     const started = performance.now(),
       firstTimestamp = goalReplay[0]!.timestampMs;
     let animation = 0;
+    let active = true;
+    const replayEpoch = replayEpochRef.current;
     const play = (now: number) => {
+      // A reset invalidates callbacks immediately, before React cleans up the old RAF effect.
+      if (!active || replayEpoch !== replayEpochRef.current) return;
       const replayTimestamp = firstTimestamp + (now - started) * 0.5;
       const frame = sampleReplayFrame(goalReplay, replayTimestamp);
       if (frame) {
@@ -1169,7 +1216,10 @@ export const RunningLab = ({
       else finishReplay();
     };
     animation = requestAnimationFrame(play);
-    return () => cancelAnimationFrame(animation);
+    return () => {
+      active = false;
+      cancelAnimationFrame(animation);
+    };
   }, [replaying, goalReplay, debug]);
   const owner = state.players.find((p) => p.id === state.ball.ownerId),
     actor = state.players.find((p) => p.id === state.currentActorId),
@@ -1654,6 +1704,7 @@ export const RunningLab = ({
                           ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
                           : undefined,
                       );
+                      resetPresentation(next);
                       const segmentId = diagnostics.beginSegment(
                         next,
                         telemetryRef.current,
@@ -1964,6 +2015,24 @@ export const RunningLab = ({
           )}
         </div>
         <aside className="decision-board">
+          <MatchCentre
+            state={state}
+            session={session}
+            kits={kits}
+            canReplay={(replayKey) =>
+              !replaying &&
+              presentationPhase !== 'lead_in' &&
+              matchReplayRef.current.hasWindow(replayKey)
+            }
+            onReplay={(replayKey) => {
+              const recorded = matchReplayRef.current.getWindow(replayKey);
+              if (!recorded || recorded.frames.length < 2) return;
+              setGoalReplay(recorded.frames.map(replaySnapshotToFrame));
+              phaseBeforeReplayRef.current = presentationPhase;
+              setPresentationPhase('replay');
+              uiEvent('match_event_replay_started', { replayKey });
+            }}
+          />
           <div className="match-status-title">
             {state.status === 'abandoned'
               ? 'MECZ PRZERWANY'
@@ -2015,6 +2084,8 @@ export const RunningLab = ({
               <br />
               Podania {controlledSummary.passesCompleted}/{controlledSummary.passesAttempted} ·
               Strzały {controlledSummary.shots} · Gole {controlledSummary.goals}
+              <br />
+              Otrzymane podania {controlledSummary.passesReceived}
               <br />
               Odbiory {controlledSummary.tacklesWon}/{controlledSummary.tacklesAttempted} ·
               Przechwyty {controlledSummary.interceptions}
