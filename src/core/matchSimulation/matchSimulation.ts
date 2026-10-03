@@ -2,7 +2,7 @@ import { deriveCanonicalCoachProfile } from '../coachProfiles';
 import type { SingleMatchSession } from '../singleMatch';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
-  chooseNpcAction,
+  chooseNpcRoutineAction,
   chooseIncomingShotAction,
   chooseRestartAction,
   enumerateRestartActions,
@@ -37,7 +37,8 @@ import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
 import { isOffsideOffence } from './offside';
 import { countSemanticPlayerChoices, projectPlayerDecisionOpportunity } from './playerDecision';
-import { projectLocomotion } from './locomotion';
+import { projectLocomotion, projectSprintEpisode } from './locomotion';
+import { isDefensiveEpisodeLocked, shouldCommitRoutinePress } from './defensiveChallenges';
 import {
   classifyRelativeMovement,
   deriveOrientationTarget,
@@ -66,7 +67,7 @@ import {
   chooseNpcDefensiveChallengeAction,
   resolveDefensiveChallenge,
 } from './defensiveChallenges';
-import { advanceMatchRules, applyChallengeInfringement } from './matchRules';
+import { advanceMatchRules, applyChallengeInfringement, enforceMinimumPlayers } from './matchRules';
 import { emitCanonicalActionEvents } from './actionEvents';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
@@ -123,9 +124,17 @@ export const advanceTacticalMatch = (
   input: TacticalMatchState,
   simulatedSeconds: number,
 ): TacticalMatchState => {
-  let state = input;
+  let state = enforceMinimumPlayers(input);
   const ticks = Math.floor((simulatedSeconds + 1e-9) / FIXED_MATCH_DT);
-  for (let tick = 0; tick < ticks; tick += 1) state = stepTacticalMatch(state, FIXED_MATCH_DT);
+  for (let tick = 0; tick < ticks; tick += 1) {
+    if (
+      state.status === 'half_time' ||
+      state.status === 'full_time' ||
+      state.status === 'abandoned'
+    )
+      break;
+    state = stepTacticalMatch(state, FIXED_MATCH_DT);
+  }
   return state;
 };
 
@@ -342,7 +351,7 @@ const changePossession = (
     teams,
     possessionTeam: owner.team,
     timeSincePossessionChanged: 0,
-    ballEpisode: 0,
+    ballEpisode: (state.ballEpisode ?? 0) + 1,
     actionCooldown: Math.max(state.actionCooldown, 0.85),
     ball: controlledBall,
     ballOwnershipStartedAt: state.time,
@@ -846,6 +855,38 @@ const stepTacticalMatchCore = (
     )
       player = { ...player, target: { ...state.keeperIntervention.target } };
     if (state.keeperIntervention?.keeperId === player.id) movementTarget = player.target;
+    if (
+      state.scenario === 'open_play' &&
+      state.ball.ownerId === player.id &&
+      state.ballCarrierIntent?.actorId !== player.id &&
+      state.playerMovementIntent?.actorId !== player.id
+    ) {
+      // Owning/scanning/shielding is not a carry. A moving team block cannot walk the ball
+      // across the pitch or re-arm a resolved duel without a deliberate movement intention.
+      movementTarget = player.position;
+    } else if (
+      state.nearestChallengerId === player.id &&
+      state.ball.ownerId &&
+      state.defensiveChallenge?.actorId !== player.id &&
+      state.playerMovementIntent?.actorId !== player.id &&
+      (isDefensiveEpisodeLocked(state, player.id, state.ball.ownerId) ||
+        !shouldCommitRoutinePress(state, player.id))
+    ) {
+      const owner = state.players.find((candidate) => candidate.id === state.ball.ownerId)!;
+      const away = {
+        x: player.position.x - owner.position.x,
+        y: player.position.y - owner.position.y,
+      };
+      const separation = Math.hypot(away.x, away.y);
+      const direction =
+        separation > 0.001
+          ? { x: away.x / separation, y: away.y / separation }
+          : { x: player.team === 'home' ? -1 : 1, y: 0 };
+      movementTarget = clampPitchPoint({
+        x: owner.position.x + direction.x * 2.3,
+        y: owner.position.y + direction.y * 2.3,
+      });
+    }
     const dx = movementTarget.x - player.position.x,
       dy = movementTarget.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
@@ -860,12 +901,20 @@ const stepTacticalMatchCore = (
     );
     const movementMode = classifyRelativeMovement(facingAngle, { x: dx, y: dy }, d);
     const maxSpeed = locomotion.targetSpeed * movementModeSpeedFactor(movementMode);
-    const desiredVelocity = {
-      x: (dx / d) * Math.min(maxSpeed, d / dt),
-      y: (dy / d) * Math.min(maxSpeed, d / dt),
-    };
     const agility = player.profile.attributes.agility / 100;
-    const acceleration = (3.2 + agility * 5.5) * dt;
+    const accelerationRate = 3.2 + agility * 5.5;
+    const structural = ['structural_adjustment', 'maintain_shape', 'support_run'].includes(
+      locomotion.reason,
+    );
+    const remaining = Math.max(0, d - (structural ? 0.65 : 0.08));
+    // Brake toward a resting target rather than overshooting and repeatedly accelerating back.
+    const arrivalSpeed = Math.sqrt(2 * accelerationRate * remaining);
+    const desiredSpeed = Math.min(maxSpeed, arrivalSpeed, remaining / dt);
+    const desiredVelocity = {
+      x: (dx / d) * desiredSpeed,
+      y: (dy / d) * desiredSpeed,
+    };
+    const acceleration = accelerationRate * dt;
     const velocityDelta = {
       x: desiredVelocity.x - player.velocity.x,
       y: desiredVelocity.y - player.velocity.y,
@@ -877,10 +926,11 @@ const stepTacticalMatchCore = (
       x: player.velocity.x + velocityDelta.x * velocityScale,
       y: player.velocity.y + velocityDelta.y * velocityScale,
     };
-    let next = clampPitchPoint({
+    const integratedPosition = clampPitchPoint({
       x: player.position.x + velocity.x * dt,
       y: player.position.y + velocity.y * dt,
     });
+    let next = integratedPosition;
     const close = state.players.filter(
       (p) => p.id !== player.id && distance(p.position, next) < 1.15,
     );
@@ -888,10 +938,16 @@ const stepTacticalMatchCore = (
       const ox = next.x - other.position.x,
         oy = next.y - other.position.y,
         od = Math.max(0.1, Math.hypot(ox, oy));
-      next = clampPitchPoint({ x: next.x + (ox / od) * 0.12, y: next.y + (oy / od) * 0.12 });
+      // Body separation is a small constraint correction, not an extra 4.8 m/s motor whose
+      // artificial velocity feeds the following tick or whose jitter earns running distance.
+      const separation = Math.min(Math.max(0, 1.15 - od), 0.65 * dt);
+      next = clampPitchPoint({
+        x: next.x + (ox / od) * separation,
+        y: next.y + (oy / od) * separation,
+      });
     }
     const samples = player.samples + 1;
-    const travelled = distance(player.position, next);
+    const travelled = distance(player.position, integratedPosition);
     const speed = Math.hypot(velocity.x, velocity.y);
     const previousTelemetry = player.locomotionTelemetry ?? {
       distanceTotal: 0,
@@ -905,23 +961,8 @@ const stepTacticalMatchCore = (
     };
     const athleteMaximumSpeed = 6.2 + (player.profile.attributes.pace / 100) * 3.3;
     const speedRatio = speed / athleteMaximumSpeed;
-    const wasActualSprint = player.sprintStartedAt !== undefined;
-    const aboveSprintEntry = speedRatio >= 0.82;
-    const belowSprintExit = speedRatio <= 0.7;
-    const sprintRecoveryStartedAt = !belowSprintExit
-      ? undefined
-      : (player.sprintRecoveryStartedAt ?? state.time);
-    const sprintEpisodeEnded =
-      sprintRecoveryStartedAt !== undefined && state.time + dt - sprintRecoveryStartedAt >= 0.75;
-    const sprintStartedAt =
-      aboveSprintEntry || (wasActualSprint && !sprintEpisodeEnded)
-        ? (player.sprintStartedAt ?? state.time)
-        : sprintEpisodeEnded
-          ? undefined
-          : player.sprintStartedAt;
-    const burstMatured = sprintStartedAt !== undefined && state.time + dt - sprintStartedAt >= 0.35;
-    const countBurst = burstMatured && !player.sprintBurstCounted;
-    const actualSprinting = burstMatured;
+    const sprint = projectSprintEpisode(player, speedRatio, state.time, dt);
+    const actualSprinting = sprint.actualSprinting;
     const distanceKey = (
       {
         walk: 'distanceWalk',
@@ -929,11 +970,21 @@ const stepTacticalMatchCore = (
         run: 'distanceRun',
         sprint: 'distanceSprint',
       } as const
-    )[locomotion.intensity];
+    )[actualSprinting ? 'sprint' : speed < 2.2 ? 'walk' : speed < 4.2 ? 'jog' : 'run'];
+    const {
+      sprintStartedAt: _oldSprint,
+      sprintRecoveryStartedAt: _oldRecovery,
+      sprintBurstCounted: _oldBurst,
+      ...movingPlayer
+    } = player;
+    void [_oldSprint, _oldRecovery, _oldBurst];
     return {
-      ...player,
+      ...movingPlayer,
       position: next,
-      velocity: { x: (next.x - player.position.x) / dt, y: (next.y - player.position.y) / dt },
+      velocity: {
+        x: (integratedPosition.x - player.position.x) / dt,
+        y: (integratedPosition.y - player.position.y) / dt,
+      },
       facingAngle,
       desiredFacingAngle,
       movementMode,
@@ -947,16 +998,14 @@ const stepTacticalMatchCore = (
         [distanceKey]: (previousTelemetry[distanceKey] ?? 0) + (actualSprinting ? 0 : travelled),
         distanceSprint: previousTelemetry.distanceSprint + (actualSprinting ? travelled : 0),
         sprintSeconds: previousTelemetry.sprintSeconds + (actualSprinting ? dt : 0),
-        sprintBursts: previousTelemetry.sprintBursts + (countBurst ? 1 : 0),
+        sprintBursts: previousTelemetry.sprintBursts + (sprint.countBurst ? 1 : 0),
         maxSpeed: Math.max(previousTelemetry.maxSpeed, speed),
       },
-      ...(sprintStartedAt !== undefined
-        ? {
-            sprintStartedAt,
-            sprintBurstCounted: player.sprintBurstCounted || countBurst,
-            ...(sprintRecoveryStartedAt !== undefined ? { sprintRecoveryStartedAt } : {}),
-          }
-        : { sprintBurstCounted: false }),
+      ...(sprint.sprintStartedAt !== undefined ? { sprintStartedAt: sprint.sprintStartedAt } : {}),
+      ...(sprint.sprintRecoveryStartedAt !== undefined
+        ? { sprintRecoveryStartedAt: sprint.sprintRecoveryStartedAt }
+        : {}),
+      sprintBurstCounted: sprint.sprintBurstCounted,
       samples,
       meanPosition: {
         x: (player.meanPosition.x * player.samples + next.x) / samples,
@@ -1459,9 +1508,16 @@ const stepTacticalMatchCore = (
       const speed = Math.hypot(owner.velocity.x, owner.velocity.y),
         dirX = speed > 0.2 ? owner.velocity.x / speed : owner.team === 'home' ? 1 : -1,
         dirY = speed > 0.2 ? owner.velocity.y / speed : 0;
+      // Scanning keeps the ball at the feet. Only deliberate movement pushes it into a stride;
+      // a stationary receiver must not offer every nearby marker a permanently exposed ball.
+      const deliberateMovement =
+        state.ballCarrierIntent?.actorId === owner.id ||
+        state.playerMovementIntent?.actorId === owner.id;
+      const controlOffset = deliberateMovement ? 1.15 : 0.45;
       state.ball = {
-        x: owner.position.x + dirX * 1.15,
-        y: owner.position.y + dirY * 1.15,
+        ...state.ball,
+        x: owner.position.x + dirX * controlOffset,
+        y: owner.position.y + dirY * controlOffset,
         ownerId: owner.id,
       };
     }
@@ -1546,6 +1602,7 @@ const stepTacticalMatchCore = (
       else if (resolution.diagnostic?.outcome === 'foul')
         state = applyChallengeInfringement(state, resolution.diagnostic);
     }
+    if (state.status === 'abandoned') return state;
     if (
       !state.periodEndPending &&
       state.actionCooldown <= 0 &&
@@ -1560,7 +1617,7 @@ const stepTacticalMatchCore = (
       const action =
         awaitsPlayer || hasActiveHumanPossession(state)
           ? undefined
-          : chooseNpcAction(state, ownerId);
+          : chooseNpcRoutineAction(state, ownerId);
       const controlled = state.ball.ownerId === state.controlledFootballerId;
       if (action)
         state = resolveMatchAction(
@@ -1620,6 +1677,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
 
 /** Starts the prepared second-half kickoff; canonical directions remain team-relative and stable. */
 export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState => {
+  state = enforceMinimumPlayers(state);
   if (state.status !== 'half_time') return state;
   const ready = { ...state, status: 'second_half' as const, actionCooldown: 0.4 };
   return applyRestartScenario(ready, 'kick_off', { restartTeam: 'away' });
@@ -1630,8 +1688,9 @@ export const stepTacticalMatch = (
   input: TacticalMatchState,
   rawDelta = 0.1,
 ): TacticalMatchState => {
+  input = enforceMinimumPlayers(input);
   const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
-  if (status === 'full_time' || status === 'half_time') return input;
+  if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
   const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
   let prepared = input;
   if (
@@ -1644,7 +1703,7 @@ export const stepTacticalMatch = (
   let next = reconcileHumanPossession(stepTacticalMatchCore(prepared, rawDelta));
   if (next === input) return input;
   if (!next.status) next = { ...next, status };
-  if (next.periodEndPending && !hasImmediateResolution(next)) {
+  if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
       ...clearTransientPeriodState(next),
       // Ordinary threshold-only play stops exactly on regulation time. An accepted physical
@@ -1683,15 +1742,16 @@ export const stepTacticalMatchAfterDecisionProbe = (
   input: TacticalMatchState,
   rawDelta = FIXED_MATCH_DT,
 ): TacticalMatchState => {
+  input = enforceMinimumPlayers(input);
   const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
-  if (status === 'full_time' || status === 'half_time') return input;
+  if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
   const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
   const prepared =
     input.periodEndPending || input.time + rawDelta >= threshold
       ? { ...input, periodEndPending: true }
       : input;
   let next = reconcileHumanPossession(stepTacticalMatchCore(prepared, rawDelta, true));
-  if (next.periodEndPending && !hasImmediateResolution(next)) {
+  if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
       ...clearTransientPeriodState(next),
       time:

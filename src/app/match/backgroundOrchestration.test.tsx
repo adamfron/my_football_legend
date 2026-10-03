@@ -169,6 +169,35 @@ describe('background Match Lab orchestration', () => {
     expect(observed.step).toHaveBeenCalledTimes(ticks);
   });
 
+  it('publishes abandonment with the actual score/time and stops all hidden work', () => {
+    observed.step.mockImplementation((state, delta) => ({
+      ...state,
+      time: state.time + delta,
+      score: { home: 2, away: 1 },
+      status: 'abandoned',
+      termination: {
+        reason: 'insufficient_players',
+        at: state.time + delta,
+        team: 'away',
+        activePlayers: 6,
+      },
+    }));
+    act(() => vi.advanceTimersByTime(10));
+    expect(controller.latestState).toMatchObject({
+      status: 'abandoned',
+      score: { home: 2, away: 1 },
+      termination: { reason: 'insufficient_players', team: 'away', activePlayers: 6 },
+    });
+    expect(container.textContent).toContain('MECZ PRZERWANY');
+    expect(container.textContent).toContain('goście');
+    const frozen = controller.latestState;
+    const ticks = observed.step.mock.calls.length;
+    act(() => vi.advanceTimersByTime(300));
+    expect(controller.latestState).toBe(frozen);
+    expect(observed.step).toHaveBeenCalledTimes(ticks);
+    expect(observed.render).not.toHaveBeenCalled();
+  });
+
   it('freezes the last valid canonical tick when a failure occurs inside a hidden batch', () => {
     observed.step.mockImplementation((state, delta) => {
       if (state.time >= 0.1) throw new Error('canonical batch failure');

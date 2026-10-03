@@ -329,7 +329,7 @@ describe('PR147 one canonical physical defence resolver', () => {
       outcome: 'foul',
     });
   });
-  it('an ordinary autonomous approach can foul and award a restart in the complete tick', () => {
+  it('an ordinary NPC approach can foul and award a restart in the complete tick', () => {
     const { state, defender, attacker } = fixture('pr147-routine-full-tick-68');
     defender.position = { x: 51.3, y: 34 };
     defender.target = { ...defender.position };
@@ -342,10 +342,13 @@ describe('PR147 one canonical physical defence resolver', () => {
       attributes: { ...defender.profile.attributes, aggression: 40 },
     };
     state.ball = { x: 51.35, y: 34, ownerId: attacker.id, lastTouchPlayerId: attacker.id };
-    state.controlledFootballerId = defender.id;
+    // PR148 routine human support withdraws a mistimed poke. NPCs retain accidental fouls.
+    state.controlledFootballerId = state.players.find(
+      (p) => p.id !== defender.id && p.team === defender.team,
+    )!.id;
     const next = stepTacticalMatch(state, 0.025);
     expect(next.lastChallenge).toMatchObject({
-      source: 'autonomous_routine',
+      source: 'autonomous_npc',
       technique: 'standing',
       outcome: 'foul',
       opponentContact: true,
@@ -363,17 +366,30 @@ describe('PR147 one canonical physical defence resolver', () => {
     defender.position = { x: 51, y: 34 };
     defender.target = { ...defender.position };
     defender.anchor = { x: 40, y: 34 };
-    attacker.position = { x: 52.2, y: 34 };
+    defender.velocity = { x: -5, y: 0 };
+    attacker.position = { x: 52, y: 34 };
     attacker.target = { ...attacker.position };
+    attacker.velocity = { x: 4, y: 0 };
+    attacker.facingAngle = Math.PI / 2;
     state.ball = { x: 51.7, y: 34, ownerId: attacker.id, lastTouchPlayerId: attacker.id };
     let next = selected(state, defender.id, attacker.id, 'committed');
     expect(next.defensiveChallenge).toBeDefined();
-    for (let i = 0; i < 8 && !next.lastFoul; i++) next = stepTacticalMatch(next, 0.025);
+    // Resolve a wound-up tackle while the opponents are still in contact, with real rear
+    // approach and opposing momentum. The card must follow physical force, not a seed alone.
+    next = {
+      ...next,
+      defensiveChallenge: { ...next.defensiveChallenge!, startedAt: state.time - 0.1 },
+    };
+    next = stepTacticalMatch(next, 0.025);
     expect(next.lastChallenge).toMatchObject({
       technique: 'committed',
       source: 'human_selected',
       outcome: 'foul',
+      fromBehind: true,
+      opponentContact: true,
     });
+    expect(next.lastChallenge!.force).toBeGreaterThan(4.2);
+    expect(next.lastFoul?.severity).toBe('reckless');
     expect(next.lastCard?.kind).toBe('yellow');
     expect(next.restart?.phase).toBe('setup');
     expect(next.players.some((p) => p.id === defender.id)).toBe(true);

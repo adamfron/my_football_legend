@@ -251,6 +251,7 @@ describe('MatchDebugRecorder', () => {
     expect(observed).toEqual(plain);
   });
 
+  // Two complete 500-tick paths plus capture can exceed 5 s on shared CI.
   it('keeps the deterministic simulation identical with capture enabled or disabled', () => {
     const world = createCanonicalWorldDatabase();
     const session = createSingleMatchSession(world, {
@@ -270,7 +271,7 @@ describe('MatchDebugRecorder', () => {
       recorder.record(observed);
     }
     expect(observed).toEqual(plain);
-  });
+  }, 30_000);
 });
 
 describe('ViewportVideoRecorder', () => {

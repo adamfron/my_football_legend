@@ -9,6 +9,7 @@ export const applyRestartScenario = (
     restartTeam: 'home',
   },
 ): TacticalMatchState => {
+  if (input.status === 'abandoned' || input.status === 'full_time') return input;
   if (scenario === 'open_play') {
     const { restart: _restart, ...openPlay } = input;
     void _restart;

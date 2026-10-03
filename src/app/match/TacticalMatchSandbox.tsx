@@ -684,7 +684,12 @@ export const RunningLab = ({
             const presentationSamples: TacticalMatchState[] = [];
             withPerformanceProfiler(profilerRef.current, () => {
               for (let tick = 0; tick < ticks; tick += 1) {
-                if (next.status === 'half_time' || next.status === 'full_time') break;
+                if (
+                  next.status === 'half_time' ||
+                  next.status === 'full_time' ||
+                  next.status === 'abandoned'
+                )
+                  break;
                 diagnostics.latestState = next;
                 profilerRef.current.beginTick(profiledTicksRef.current++);
                 const agencyStarted = startPerformanceSpan('agency_projection');
@@ -1010,6 +1015,7 @@ export const RunningLab = ({
         if (
           stateRef.current.status === 'half_time' ||
           stateRef.current.status === 'full_time' ||
+          stateRef.current.status === 'abandoned' ||
           diagnostics.crashPackage
         )
           return;
@@ -1348,7 +1354,15 @@ export const RunningLab = ({
         </div>
         <p>
           {formatMatchTime(displayTime)} ·{' '}
-          {replaying ? 'Powtórka' : opportunity ? 'Twój wybór' : playing ? 'Mecz trwa' : 'Pauza'}
+          {state.status === 'abandoned'
+            ? 'Mecz przerwany'
+            : replaying
+              ? 'Powtórka'
+              : opportunity
+                ? 'Twój wybór'
+                : playing
+                  ? 'Mecz trwa'
+                  : 'Pauza'}
         </p>
       </header>
       <nav>
@@ -1377,6 +1391,7 @@ export const RunningLab = ({
           </select>
         </label>
         <button
+          disabled={state.status === 'abandoned' || state.status === 'full_time'}
           onClick={() => {
             publishState(stateRef.current);
             uiEvent(playing ? 'paused' : 'playing');
@@ -1412,6 +1427,12 @@ export const RunningLab = ({
           <button onClick={() => publishState(startSecondHalf(stateRef.current))}>
             Rozpocznij drugą połowę
           </button>
+        )}
+        {state.status === 'abandoned' && (
+          <p role="status">
+            Mecz przerwany: {state.termination?.team === 'home' ? 'gospodarze' : 'goście'} mają
+            mniej niż siedmiu zawodników. Zachowano wynik i czas przerwania.
+          </p>
         )}
         <button onClick={onRestart}>Restart — ten sam seed</button>
         <button onClick={onRandomize}>Losuj seed</button>
@@ -1944,26 +1965,30 @@ export const RunningLab = ({
         </div>
         <aside className="decision-board">
           <div className="match-status-title">
-            {replaying
-              ? 'POWTÓRKA'
-              : presentationPhase === 'lead_in'
-                ? 'KONTEKST DECYZJI'
-                : opportunity
-                  ? 'TWOJA DECYZJA'
-                  : 'GRA AUTONOMICZNA'}
+            {state.status === 'abandoned'
+              ? 'MECZ PRZERWANY'
+              : replaying
+                ? 'POWTÓRKA'
+                : presentationPhase === 'lead_in'
+                  ? 'KONTEKST DECYZJI'
+                  : opportunity
+                    ? 'TWOJA DECYZJA'
+                    : 'GRA AUTONOMICZNA'}
           </div>
           <p
             className={opportunity ? 'decision-status decision-status--active' : 'decision-status'}
           >
-            {replaying
-              ? 'Oglądasz zapisany fragment meczu.'
-              : presentationPhase === 'lead_in'
-                ? 'Zobacz, jak rozwinęła się sytuacja. Wybór będzie dostępny po dojściu do piłki.'
-                : session.setup.control.mode === 'spectator'
-                  ? 'Obserwujesz mecz. Wszystkie decyzje wykonuje symulacja.'
-                  : opportunity
-                    ? 'Mecz czeka na Twój wybór. Wskaż cel na boisku, następnie wybierz dostępne zagranie.'
-                    : 'Piłkarze wykonują decyzje symulacji. Kolejny wybór pojawi się w odpowiednim kontekście.'}
+            {state.status === 'abandoned'
+              ? 'Spotkanie zakończyło się z powodu zbyt małej liczby zawodników.'
+              : replaying
+                ? 'Oglądasz zapisany fragment meczu.'
+                : presentationPhase === 'lead_in'
+                  ? 'Zobacz, jak rozwinęła się sytuacja. Wybór będzie dostępny po dojściu do piłki.'
+                  : session.setup.control.mode === 'spectator'
+                    ? 'Obserwujesz mecz. Wszystkie decyzje wykonuje symulacja.'
+                    : opportunity
+                      ? 'Mecz czeka na Twój wybór. Wskaż cel na boisku, następnie wybierz dostępne zagranie.'
+                      : 'Piłkarze wykonują decyzje symulacji. Kolejny wybór pojawi się w odpowiednim kontekście.'}
           </p>
           <p>
             <strong>

@@ -1,5 +1,24 @@
 # My Football Legend — Current Project State
 
+## PR148 — defensive realism, discipline and match cadence
+
+Połączono poprawki PR147.1 z kalibracją PR148 w jednym kanonicznym silniku. `abandoned`
+oraz `termination.reason = insufficient_players` kończą mecz natychmiast poniżej siedmiu
+aktywnych piłkarzy, zachowując wynik i czas. Wykluczeni tracą ruch, akcje, cele i udział w
+formacji; historia pozostaje, a minuty są zamrożone dokładnie przy wydaniu kartki.
+
+Ryzyko NPC uwzględnia kartkę (także oczekującą), atrybuty, osłonę, pozycję, zagrożenie i wynik.
+Rutynowa autonomia człowieka wycofuje niebezpieczny kontakt. Pojedynek ma ograniczony epizod;
+stale bliska para nie inicjuje kolejnych prób wyłącznie po wygaśnięciu timera.
+Podania/odbiór/ruch są faktycznymi zachowaniami core, bez dzielenia statystyk przed wyświetleniem.
+Kontakty są dyskretne, sprint jest epizodem z trwałym wejściem i ponownym uzbrojeniem;
+korekcja kolizji nie jest przebiegniętym dystansem. Kanoniczne `dribble` uzupełnia dowody akcji.
+
+Definicje, pełne pomiary BEFORE/AFTER, weryfikacja oraz ograniczenia:
+[PR148_CALIBRATION.md](PR148_CALIBRATION.md). NEXT: **PR149 — Animation, Replay & Match
+Presentation v2**. Pełne stamina, pogoda/nawierzchnia, sędziowie, tunel, finalne etykiety i
+długookresowa kalibracja lig pozostają później.
+
 ## PR147 — verified rules, discipline and canonical feedback
 
 Wdrożono wspólne fizyczne intencje standing/committed/slide/tactical, faule, żółtą/drugą żółtą/

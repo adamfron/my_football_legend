@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
+import { deriveRestartGeometry } from './restartGeometry';
 import {
   applyRestartScenario,
   chooseRestartAction,
@@ -86,12 +87,43 @@ describe('tactical situation playbook', () => {
       expect(Object.values(long.restart!.roles).some((role) => role.key === key)).toBe(true);
   });
 
+  it('builds a finite free-kick wall from the available sparse defensive roster on either side', () => {
+    for (const restartTeam of ['home', 'away'] as const) {
+      const defendingTeam = restartTeam === 'home' ? 'away' : 'home';
+      for (const defenders of [0, 1, 3]) {
+        const initial = makeState(`sparse-wall-${restartTeam}-${defenders}`);
+        const available = initial.players
+          .filter((p) => p.team === defendingTeam && p.profile.primaryPosition !== 'goalkeeper')
+          .slice(0, defenders);
+        initial.players = initial.players.filter(
+          (p) =>
+            p.team !== defendingTeam ||
+            p.profile.primaryPosition === 'goalkeeper' ||
+            available.includes(p),
+        );
+        // The geometry helper remains safe for diagnostic sparse input; canonical play would
+        // already have abandoned this below-seven roster before requesting a restart.
+        const geometry = deriveRestartGeometry(initial, 'free_kick_close', restartTeam);
+        expect(Object.values(geometry.roles).filter((role) => role.key === 'wall')).toHaveLength(
+          defenders,
+        );
+        expect(Object.keys(geometry.targets).sort()).toEqual(
+          initial.players.map((p) => p.id).sort(),
+        );
+        expect(
+          Object.values(geometry.targets).every(
+            (point) => Number.isFinite(point.x) && Number.isFinite(point.y),
+          ),
+        ).toBe(true);
+        expect(geometry).toEqual(deriveRestartGeometry(initial, 'free_kick_close', restartTeam));
+      }
+    }
+  });
+
   it('derives finite ephemeral shape diagnostics and keeps random out of match core', () => {
     const state = makeState();
     for (const side of ['home', 'away'] as const)
-      expect(
-        JSON.stringify(deriveTeamShapeMetrics(state, side)).includes('null'),
-      ).toBe(false);
+      expect(JSON.stringify(deriveTeamShapeMetrics(state, side)).includes('null')).toBe(false);
     const files = import.meta.glob('./*.ts', { query: '?raw', import: 'default', eager: true });
     expect(
       Object.entries(files).filter(

@@ -4,8 +4,10 @@ import {
   defensiveChallengeSchema,
   challengeDiagnosticSchema,
   defensiveTelemetrySchema,
+  defensiveEpisodeSchema,
   type DefensiveChallenge,
   type ChallengeDiagnostic,
+  type DefensiveEpisode,
 } from './defensiveChallenges';
 import {
   foulFactSchema,
@@ -464,8 +466,20 @@ export const matchScoreSchema = z.object({
   home: z.number().int().nonnegative(),
   away: z.number().int().nonnegative(),
 });
-export const matchPeriodSchema = z.enum(['first_half', 'half_time', 'second_half', 'full_time']);
+export const matchPeriodSchema = z.enum([
+  'first_half',
+  'half_time',
+  'second_half',
+  'full_time',
+  'abandoned',
+]);
 export type MatchPeriod = z.infer<typeof matchPeriodSchema>;
+export const matchTerminationSchema = z.object({
+  reason: z.literal('insufficient_players'),
+  at: z.number().nonnegative(),
+  team: teamSideSchema,
+  activePlayers: z.number().int().min(0).max(6),
+});
 export const recentDuelSchema = z.object({
   participants: z.tuple([z.string(), z.string()]),
   winnerId: z.string().optional(),
@@ -481,6 +495,7 @@ export interface TacticalMatchState {
   decisionIndex: number;
   /** Canonical regulation lifecycle. Stoppage time is deliberately future work. */
   status?: MatchPeriod;
+  termination?: z.infer<typeof matchTerminationSchema>;
   periodEndPending?: boolean;
   statistics?: MatchStatistics;
   teams: Record<TeamSide, MatchTeamState>;
@@ -490,6 +505,7 @@ export interface TacticalMatchState {
   timeSincePossessionChanged: number;
   /** One contact episode may resolve only once; expires after recovery or separation. */
   recentDuel?: RecentDuel;
+  defensiveEpisodes?: DefensiveEpisode[];
   ballEpisode?: number;
   /** Selected action retained for legacy physical resolvers; its presence is not a busy flag. */
   currentAction?: MatchAction;
@@ -622,6 +638,7 @@ export const tacticalMatchStateSchema = z
     time: z.number().nonnegative().finite(),
     decisionIndex: z.number().int().nonnegative(),
     status: matchPeriodSchema,
+    termination: matchTerminationSchema.optional(),
     periodEndPending: z.boolean().optional(),
     teams: z.record(
       teamSideSchema,
@@ -691,6 +708,7 @@ export const tacticalMatchStateSchema = z
     possessionTeam: teamSideSchema,
     timeSincePossessionChanged: z.number().nonnegative(),
     recentDuel: recentDuelSchema.optional(),
+    defensiveEpisodes: z.array(defensiveEpisodeSchema).max(22).optional(),
     ballEpisode: z.number().int().nonnegative().optional(),
     actionCooldown: z.number().nonnegative(),
     defensiveChallenge: defensiveChallengeSchema.optional(),

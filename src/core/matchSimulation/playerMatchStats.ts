@@ -115,6 +115,7 @@ export const observePlayerMatchStats = (
   previous: TacticalMatchState,
   next: TacticalMatchState,
 ): MatchStatistics => {
+  if (previous.status === 'full_time' || previous.status === 'abandoned') return statistics;
   const statisticsSpan = startPerformanceSpan('statistics');
   try {
     const result: MatchStatistics = {
@@ -140,6 +141,27 @@ export const observePlayerMatchStats = (
         entry.sprintDistance = running.distanceSprint;
         entry.sprintBursts = running.sprintBursts;
         entry.maxSpeed = running.maxSpeed;
+      }
+    }
+    // Removal from the active array preserves history, including the exact canonical dismissal
+    // time rather than the preceding physics tick. Terminal observers cannot extend minutes.
+    for (const entry of result.players) {
+      const sentOffAt = next.discipline?.[entry.playerId]?.sentOffAt;
+      if (sentOffAt !== undefined) {
+        entry.minutesPlayed = sentOffAt / 60;
+        if (sentOffAt !== previous.discipline?.[entry.playerId]?.sentOffAt) {
+          // The player moved earlier in this tick before the referee removed the active body.
+          // showCard retains that final telemetry; subsequent observations keep it frozen.
+          const finalEntry = next.statistics?.players.find(
+            (player) => player.playerId === entry.playerId,
+          );
+          if (finalEntry) {
+            entry.distanceCovered = finalEntry.distanceCovered;
+            entry.sprintDistance = finalEntry.sprintDistance;
+            entry.sprintBursts = finalEntry.sprintBursts;
+            entry.maxSpeed = finalEntry.maxSpeed;
+          }
+        }
       }
     }
     for (const contact of collectContactEvidence(previous, next)) {

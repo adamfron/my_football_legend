@@ -112,6 +112,9 @@ describe('player decision lifecycle', () => {
     for (const opponent of state.players.filter((player) => player.team !== actor.team))
       opponent.position = { x: Math.max(0, actor.position.x - 15), y: 50 };
     state.actionCooldown = 0;
+    // Routine autonomy remains eligible after the newly acquired ball has had time to settle.
+    state.time = 6;
+    state.ballOwnershipStartedAt = 0;
     expect(projectPlayerDecisionProbe(state).blockedReason).toBe('routine');
     expect(stepTacticalMatch(state, 0.025).decisionIndex).toBeGreaterThan(state.decisionIndex);
   });

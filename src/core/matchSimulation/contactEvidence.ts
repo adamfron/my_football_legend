@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
+import { distance } from './matchSpace';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 
 export const contactEvidenceSchema = z.object({
@@ -13,12 +14,14 @@ export const contactEvidenceSchema = z.object({
     'flight_contact',
     'controlled_contact',
     'delivery_release',
+    'carry_control',
   ]),
 });
 export type ContactEvidence = z.infer<typeof contactEvidenceSchema>;
 
-/** Canonical contact evidence, never inferred from presentation or animation. A first-time
- * reception/shot and an ownership observer describe one contact at the same player/time. */
+/** Discrete football contacts: release, reception, physical contact, acquisition and one control
+ * contact per executed carry. Ownership maintenance and last-touch provenance are not contacts.
+ * First-time reception/shot evidence describes one physical contact at the same player/time. */
 export const collectContactEvidence = (
   previous: TacticalMatchState,
   next: TacticalMatchState,
@@ -56,7 +59,8 @@ export const collectContactEvidence = (
     const contact = next.lastBallContact;
     if (contact?.playerId) add(contact.playerId, contact.at, 'flight_contact');
     const contactAt = (playerId: string) => {
-      if (contact?.playerId === playerId && contact !== previous.lastBallContact) return contact.at;
+      if (contact?.playerId === playerId && contact.at !== previous.lastBallContact?.at)
+        return contact.at;
       if (
         pass?.intendedReceiverId === playerId &&
         pass !== previous.lastPassDiagnostic &&
@@ -71,28 +75,33 @@ export const collectContactEvidence = (
         return next.ball.shot.releasedAt ?? next.time;
       return next.time;
     };
-    if (next.lastReceptionOutcome && next.lastReceptionOutcome !== previous.lastReceptionOutcome)
-      add(
-        next.lastReceptionOutcome.receiverId,
-        contactAt(next.lastReceptionOutcome.receiverId),
-        'controlled_contact',
-      );
-    if (
-      next.ball.lastTouchPlayerId &&
-      next.ball.lastTouchPlayerId !== previous.ball.lastTouchPlayerId &&
-      next.restart?.phase !== 'setup'
-    )
-      add(
-        next.ball.lastTouchPlayerId,
-        contactAt(next.ball.lastTouchPlayerId),
-        'controlled_contact',
-      );
+    const reception = next.lastReceptionOutcome;
+    const previousReception = previous.lastReceptionOutcome;
+    const newReception =
+      reception &&
+      (!previousReception ||
+        reception.receiverId !== previousReception.receiverId ||
+        reception.kind !== previousReception.kind ||
+        distance(reception.contactPoint, previousReception.contactPoint) > 0.000001 ||
+        (next.onBallPreparation?.actorId === reception.receiverId &&
+          next.onBallPreparation.gainedAt !== previous.onBallPreparation?.gainedAt));
+    if (newReception)
+      add(reception.receiverId, contactAt(reception.receiverId), 'controlled_contact');
     if (
       next.ball.ownerId &&
       next.ball.ownerId !== previous.ball.ownerId &&
       next.restart?.phase !== 'setup'
     )
       add(next.ball.ownerId, contactAt(next.ball.ownerId), 'controlled_contact');
+    const carry = next.ballCarrierIntent ?? previous.ballCarrierIntent;
+    const carrier = carry && next.players.find((player) => player.id === carry.actorId);
+    if (
+      carry &&
+      carrier &&
+      next.ball.ownerId === carrier.id &&
+      distance(carry.startPosition, carrier.position) >= 0.8
+    )
+      add(carrier.id, carry.startedAt, 'carry_control', `carry:${carry.startedAt.toFixed(6)}`);
     // Crosses and non-shot headers are releases too, although separately classified from passes.
     if (
       next.ball.launchVelocity &&
