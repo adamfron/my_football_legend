@@ -1,5 +1,6 @@
 import { PresentationContextHistory } from './tacticalRenderer/contextHistory';
 import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
+import { projectSprintEpisode } from '../../core/matchSimulation/locomotion';
 import {
   isDevObservationMode,
   PerformanceProfiler,
@@ -1995,7 +1996,13 @@ export const RunningLab = ({
               {controlledActor &&
                 (() => {
                   const speed = Math.hypot(controlledActor.velocity.x, controlledActor.velocity.y);
-                  return `${speed < 0.35 ? 'Stoisz' : speed < 2 ? 'Idziesz' : speed < 6 ? 'Biegniesz' : 'Sprintujesz'} (${speed.toFixed(1)} m/s) · `;
+                  const sprinting = projectSprintEpisode(
+                    controlledActor,
+                    speed / (6.2 + controlledActor.profile.attributes.pace * 0.033),
+                    state.time,
+                    0,
+                  ).actualSprinting;
+                  return `${speed < 0.35 ? 'Stoisz' : speed < 2.2 ? 'Idziesz' : sprinting ? 'Sprintujesz' : 'Biegniesz'} (${speed.toFixed(1)} m/s) · `;
                 })()}
               Wybierz piłkę, piłkarza, przestrzeń lub bramkę
             </div>

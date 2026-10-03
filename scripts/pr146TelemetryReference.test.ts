@@ -16,7 +16,8 @@ import {
 
 describe('PR150 complete telemetry reference (PR146 observer contract)', () => {
   // PR150 intentionally changes momentum-preserving reception, attribute/context pass execution,
-  // launch-time offside and realized-edge accounting. Full-output hashes were reproduced twice
+  // launch-time offside, resolved out-of-play failures and realized-edge accounting.
+  // Full-output hashes were reproduced twice
   // and independently compared with pristine PR149 using identical seeds and 2,400 ticks.
   // Previous PR149: 206edf94d099b58f896a2237a68922174f02d087102549f31870d44bbefb0b9c (a),
   // a0f1910e310ffc75edae7ef888e77dac2accb7ba8c4e66547e3222111a4ba54a (b).
@@ -35,8 +36,8 @@ describe('PR150 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '339c083df8ea4184e9dbbf334f9e3ef85e2f654eecb42e5f6f62e3b4c4c16d44'],
-    ['pr146-flow-reference:b', 'e240bd21444086f56ef8b2b41d301c35edf669b2fd97faa5d0adc8a75df1bd30'],
+    ['pr146-flow-reference:a', '3ced1597287169d8941900f27ad4ac6ef274ea40398fca84a8d1535668ec5dba'],
+    ['pr146-flow-reference:b', '1a5102f3ebc44473c3378dd71a9f512a00e0dda24744138a198690a5df08cfb8'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

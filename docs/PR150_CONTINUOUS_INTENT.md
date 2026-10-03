@@ -27,6 +27,8 @@ the actual receiver's edge together with the completion. Diagnostics retain inte
 and actual identities. Thus every edge satisfies `0 <= completed <= attempted`, no self
 edge exists, and outgoing attempts/completions plus incoming completions reconcile with
 public player/team totals. A reception never creates a second attempt.
+Out-of-play deliveries close as failed/unclaimed at the canonical boundary time before
+the restart; no boundary crossing is fabricated as a player's contact.
 
 ## Persistent football intent and receptions
 
@@ -35,6 +37,9 @@ target and canonical progress. It persists through ordinary preparation and micr
 Meaningful completion, blocked progress, possession instability, pressure/support or
 shooting changes can reopen agency; a micro contact alone cannot. Progress observation
 occurs after canonical advancement, so a paused UI cannot advance or rewrite the contract.
+Retain can reopen for genuinely new short support under nearby pressure; minor free-space
+lane oscillation does not. Selected incoming control completes only after preparation and
+then offers an already credible settled chance without repeating routine control choices.
 
 The optional `carry.movementMode` distinguishes balanced progression, fast larger touches,
 technical opponent evasion and retention where destination is secondary. The target menu
@@ -71,6 +76,9 @@ steps or the attacker returns onside. A passive offside position alone is insuff
 Goal kicks, corners and throws retain their law exemptions. Offside awards an indirect
 free kick, canonical offence/statistics, a permanent Match Centre entry and replayable
 action evidence. Detailed passive obstruction/deliberate-play law edges remain simplified.
+An actual first-time release after a goal kick/throw closes the original restart and captures
+a fresh non-exempt offside phase. Direct shot/header attempts at an indirect restart are
+rejected at canonical commit, even when supplied through DEV rather than the legal UI menu.
 
 Advanced free kicks use near/central/far targets ahead of the ball, short and edge options,
 recycle support and at least two rest defenders in a full side. Deterministic mirrored

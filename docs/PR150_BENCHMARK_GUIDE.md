@@ -81,7 +81,7 @@ non-replay fixture. Same-seed before/after football outcomes can change legitima
 
 ## Compact integration evidence
 
-During PR150 integration, the one-time `../summarizePr150.mjs` utility collects all before/after
+The maintained `scripts/summarizePr150.mjs` utility collects all before/after
 JSON reports and writes `docs/performance/PR150-results.json` with full fixture coverage,
 provenance/hash fingerprints, explicit missing metrics, anomalies and comparisons. It retains
 all measurements, uses the richer intent report when a readability report has the same canonical
@@ -90,11 +90,15 @@ incomplete even when another source supplies that fixture's basic metrics. No fa
 fixture is silently selected. The maintained `benchmark:intent` command regenerates raw evidence.
 
 ```powershell
-node ../summarizePr150.mjs --before-revision=PR149-main-feed7f1 --after-revision=PR150-final --write=true
+node scripts/summarizePr150.mjs --directory=../benchmarks --before-revision=PR149-main-feed7f1 --after-revision=PR150-final --write=true
 ```
 
-The integration utility defaults to suppressing timing ratios. `--timing-comparable=true` is
+The utility defaults to `../benchmarks` relative to the repository and suppresses timing ratios.
+Omit `--write=true` for a coverage and sizing dry-run. `--output` overrides the output path.
+`--timing-comparable=true` is
 appropriate only after confirming serial isolated execution with matching instrumentation.
 Raw reports remain outside the repository; the committed compact evidence omits tick histories
 and complete player ledgers. Its per-team player distributions use sorted order statistics
 (median and the lower empirical 95th-percentile rank), rather than implying league percentiles.
+The JSON uses compact serialization; reported rates, quality and velocity summaries have four
+decimal places, while source and canonical SHA-256 fingerprints retain full precision.

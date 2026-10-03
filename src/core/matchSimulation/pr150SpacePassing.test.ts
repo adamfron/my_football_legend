@@ -7,7 +7,7 @@ import {
   FIXED_MATCH_DT,
   stepTacticalMatchAfterDecisionProbe,
 } from './matchSimulation';
-import { rankAvailableActionsForAI, resolveMatchAction } from './matchActions';
+import { chooseRestartAction, rankAvailableActionsForAI, resolveMatchAction } from './matchActions';
 import { deriveSpacePassPlan, spacePassPlanSchema } from './spacePassing';
 import { interpretPassExecution } from './passExecution';
 import {
@@ -24,6 +24,7 @@ import { derivePassLaunchPlan } from './passLaunchPlan';
 import { incomingBallIntentKey } from './playerDecision';
 import { MatchReplayHistory } from './matchReplay';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
+import { observePlayerMatchStats } from './playerMatchStats';
 
 const world = createCanonicalWorldDatabase();
 const fixture = (seed = 'pr150-space-pass') => {
@@ -315,37 +316,78 @@ describe('PR150 first-class spatial intent and canonical execution', () => {
 
   it('runs a lofted through ball to an actual moving-receiver contact through canonical physics', () => {
     const { state, passer, runner } = fixture('pr150-lofted-run-contact');
-    const marker = state.players.find((player) => player.team === 'away' && player.profile.primaryPosition !== 'goalkeeper')!;
+    state.players
+      .filter((player) => player.team === 'away' && player.profile.primaryPosition !== 'goalkeeper')
+      .forEach((player) => {
+        player.position.x = 81;
+      });
+    const marker = state.players.find(
+      (player) => player.team === 'away' && player.profile.primaryPosition !== 'goalkeeper',
+    )!;
     marker.position = { x: 70, y: 34 };
-    runner.facingAngle = -Math.PI / 2;
-    runner.profile = { ...runner.profile, attributes: { ...runner.profile.attributes,
-      firstTouch: 95, technique: 95, concentration: 95, composure: 95, agility: 95, gameReading: 95, pace: 95 } };
+    runner.position.x = 80;
+    runner.facingAngle = Math.PI / 2;
+    runner.profile = {
+      ...runner.profile,
+      attributes: {
+        ...runner.profile.attributes,
+        firstTouch: 95,
+        technique: 95,
+        concentration: 95,
+        composure: 95,
+        agility: 95,
+        gameReading: 95,
+        pace: 95,
+      },
+    };
     const origin = { ...runner.position };
     const target = { x: 86, y: 34 };
-    const release = resolveMatchAction(state, { type: 'space_pass', actorId: passer.id, target }, 'human_selected');
+    const release = resolveMatchAction(
+      state,
+      { type: 'space_pass', actorId: passer.id, target },
+      'human_selected',
+    );
     const passId = release.lastPassDiagnostic!.passId;
-    expect(release.ball).toMatchObject({ executionType: 'lofted_through', travelKind: 'through_ball', airborne: true, intendedReceiverId: runner.id });
-    expect(release.receptionPreparation).toMatchObject({ actorId: runner.id, movement: 'run_onto_ball', expectedContactPoint: target });
+    expect(release.ball).toMatchObject({
+      executionType: 'lofted_through',
+      travelKind: 'through_ball',
+      airborne: true,
+      intendedReceiverId: runner.id,
+    });
+    expect(release.receptionPreparation).toMatchObject({
+      actorId: runner.id,
+      movement: 'run_onto_ball',
+      expectedContactPoint: target,
+    });
     expect(isOffsideOffence(release.offsideSnapshot, runner.id)).toBe(false);
     let next = release;
     let maximumHeight = 0;
     let maximumRunProgress = 0;
-    const trace: unknown[] = [];
     for (let tick = 0; tick < 240; tick++) {
       next = stepTacticalMatchAfterDecisionProbe(next, FIXED_MATCH_DT);
       maximumHeight = Math.max(maximumHeight, next.ball.height ?? 0);
       const movingRunner = next.players.find((player) => player.id === runner.id)!;
       maximumRunProgress = Math.max(maximumRunProgress, movingRunner.position.x - origin.x);
-      if (tick % 10 === 0) trace.push({time:next.time, ball:{x:next.ball.x,z:next.ball.height}, runner:{x:movingRunner.position.x, target:movingRunner.target.x, vx:movingRunner.velocity.x}, prep:next.receptionPreparation?.expectedContactPoint });
       if (next.lastResolvedPass?.passId === passId && next.lastResolvedPass.finalResult) break;
       if (next.lastBoundaryCrossing) break;
     }
     expect(maximumHeight).toBeGreaterThan(2);
     expect(maximumRunProgress).toBeGreaterThan(4);
     expect(next.lastOffsideOffence).toBeUndefined();
-    expect(next.lastResolvedPass, JSON.stringify({trace, current: next.lastPassDiagnostic, ball: next.ball, aerial: next.lastAerialResult, actions: next.actionEvents?.slice(-4), runner: next.players.find((player) => player.id === runner.id)?.position })).toMatchObject({ passId, actualReceiverId: runner.id, finalResult: 'completed' });
+    expect(next.lastResolvedPass).toMatchObject({
+      passId,
+      actualReceiverId: runner.id,
+      finalResult: 'completed',
+    });
     expect(next.lastResolvedPass?.actualContactPoint?.x).toBeGreaterThan(origin.x + 4);
-    expect(next.actionEvents?.some((event) => event.kind === 'reception' && event.actorId === runner.id && event.parentId === `${state.seed}:action:pass:${passId}`)).toBe(true);
+    expect(
+      next.actionEvents?.some(
+        (event) =>
+          event.kind === 'reception' &&
+          event.actorId === runner.id &&
+          event.parentId === `${state.seed}:action:pass:${passId}`,
+      ),
+    ).toBe(true);
   });
 
   it('selects a backheel or a turn from body geometry, pressure and technique', () => {
@@ -437,6 +479,35 @@ describe('PR150 first-class spatial intent and canonical execution', () => {
     });
     expect(next.scenario).toBe('throw_in');
     expect(next.statistics?.teamAccounting?.away.throwIns).toBe(1);
+    const failedPassId = release!.lastPassDiagnostic!.passId;
+    expect(next.lastPassDiagnostic).toMatchObject({
+      passId: failedPassId,
+      resolvedAt: next.time,
+      finalResult: 'unclaimed',
+    });
+    expect(next.lastResolvedPass).toEqual(next.lastPassDiagnostic);
+    expect(next.lastResolvedPass?.actualContactPoint).toBeUndefined();
+    expect(next.statistics?.players.find((entry) => entry.playerId === passer.id)).toMatchObject({
+      passesAttempted: 1,
+      passesCompleted: 0,
+    });
+    expect(next.statistics?.observedPassResultIds.filter((id) => id === failedPassId)).toHaveLength(
+      1,
+    );
+    expect(observePlayerMatchStats(next.statistics!, next, { ...next })).toEqual(next.statistics);
+    const restartAction = chooseRestartAction(next)!;
+    const thrown = resolveMatchAction(next, restartAction);
+    expect(thrown.lastPassDiagnostic?.passId).not.toBe(failedPassId);
+    expect(thrown.lastResolvedPass).toEqual(next.lastResolvedPass);
+    const observed = stepTacticalMatchAfterDecisionProbe(thrown, FIXED_MATCH_DT);
+    expect(observed.lastResolvedPass?.passId).toBe(failedPassId);
+    expect(
+      observed.statistics?.players.find((entry) => entry.playerId === passer.id),
+    ).toMatchObject({ passesAttempted: 1, passesCompleted: 0 });
+    expect(
+      observed.statistics?.observedPassResultIds.filter((id) => id === failedPassId),
+    ).toHaveLength(1);
+    expect(observed.statistics?.teamAccounting?.away.throwIns).toBe(1);
   });
 });
 

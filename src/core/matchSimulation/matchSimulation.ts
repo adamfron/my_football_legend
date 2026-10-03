@@ -95,6 +95,15 @@ const applyBoundaryRestart = (
   crossing: PitchBoundaryCrossing,
   previous: { x: number; y: number },
 ) => {
+  // Crossing a line ends the active delivery even when no player has contacted it. Preserve
+  // that failed result before the restart's next release replaces lastPassDiagnostic.
+  const unresolvedPass =
+    state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
+      ? { ...state.lastPassDiagnostic, resolvedAt: state.time, finalResult: 'unclaimed' as const }
+      : undefined;
+  const resolvedState = unresolvedPass
+    ? { ...state, lastPassDiagnostic: unresolvedPass, lastResolvedPass: unresolvedPass }
+    : state;
   const last = state.players.find((p) => p.id === state.ball.lastTouchPlayerId);
   const restartTeam: TeamSide = crossing.boundary.startsWith('touchline')
     ? (last?.team ?? state.possessionTeam) === 'home'
@@ -113,7 +122,7 @@ const applyBoundaryRestart = (
       ? ('corner' as const)
       : ('goal_kick' as const);
   return {
-    ...applyRestartScenario(state, scenario, {
+    ...applyRestartScenario(resolvedState, scenario, {
       restartTeam,
       ...(scenario === 'throw_in' ? { restartPoint: crossing.point } : {}),
     }),
