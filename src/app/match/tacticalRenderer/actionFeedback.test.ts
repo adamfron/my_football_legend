@@ -15,6 +15,7 @@ import {
   actionFeedbackText,
   frameActionEvents,
   selectActionFeedback,
+  selectFrameFeedback,
 } from './actionFeedback';
 
 const event = (
@@ -34,6 +35,34 @@ const event = (
 });
 
 describe('canonical micro-feedback projection', () => {
+  it('labels a canonical preparation phase once, keeps scanning quiet and prioritizes match outcomes', () => {
+    const frame: TacticalFrame = {
+      timestampMs: 1200,
+      ball: { x: 50, y: 30, ownerId: 'a' },
+      players: [
+        { id: 'a', team: 'home', x: 50, y: 30, preparation: 'shielding', preparationSinceMs: 1000 },
+      ],
+    };
+    const label = selectFrameFeedback(frame)[0]!;
+    expect(label.text).toBe('OSŁONA');
+    expect(selectFrameFeedback({ ...frame, timestampMs: 1300 })[0]!.id).toBe(label.id);
+    expect(selectFrameFeedback({ ...frame, timestampMs: 2000 })).toEqual([]);
+    expect(
+      selectFrameFeedback({
+        ...frame,
+        players: [{ ...frame.players[0]!, preparation: 'scanning' }],
+      }),
+    ).toEqual([]);
+    expect(
+      selectFrameFeedback({ ...frame, actionEvents: [event('foul', { actorId: 'a' })] }).map(
+        (entry) => entry.text,
+      ),
+    ).toEqual(['FAUL']);
+    expect(actionFeedbackText(event('heavy_touch', { outcome: 'failed_control' }))).toBe(
+      'NIEUDANE PRZYJĘCIE',
+    );
+    expect(actionFeedbackText(event('dribble', { cause: 'evade' }))).toBe('ZWÓD');
+  });
   it('uses only recorded events, Polish labels and canonical lifetimes', () => {
     expect(selectActionFeedback([], 1000)).toEqual([]);
     const heavy = event('heavy_touch');

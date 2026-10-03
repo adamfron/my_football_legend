@@ -182,9 +182,115 @@
   border: 1px solid #e7626c;
 }
 .decision-board {
-  padding: 28px;
+  padding: 14px;
   border-left: 1px solid #aeb4b7;
   background: #e6e9e8;
+}
+.match-centre {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #aeb4b7;
+}
+.match-centre h2 {
+  margin: 0 0 9px;
+}
+.match-centre h3 {
+  margin: 12px 0 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.match-centre .match-centre__score {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+}
+.match-centre__score span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+}
+.match-centre__score span:first-child {
+  border-bottom: 3px solid var(--home-colour);
+}
+.match-centre__score span:last-child {
+  text-align: right;
+  border-bottom: 3px solid var(--away-colour);
+}
+.match-centre__score strong {
+  font-size: 20px;
+  white-space: nowrap;
+}
+.match-centre .match-centre__clock {
+  margin: 5px 0;
+  color: #566167;
+  font-size: 10px;
+}
+.match-centre__events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 185px;
+  overflow: auto;
+}
+.match-centre__event {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 5px;
+  border-left: 3px solid var(--home-colour);
+  border-bottom: 1px solid #c4cacc;
+  background: #f7f8f6;
+}
+.match-centre__event--away {
+  border-left-color: var(--away-colour);
+}
+.match-centre__event time {
+  font: 10px monospace;
+}
+.match-centre__event > div {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  font-size: 10px;
+}
+.match-centre__event > div > span {
+  overflow-wrap: anywhere;
+}
+.match-centre__event button {
+  padding: 4px 7px;
+}
+.match-centre__event-score {
+  font-weight: 700;
+}
+.match-centre__statistics {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.match-centre__statistics :is(th, td) {
+  padding: 5px 2px;
+  border-bottom: 1px solid #c4cacc;
+}
+.match-centre__statistics th[scope='row'] {
+  font-weight: 400;
+}
+.match-centre__statistics thead {
+  font-size: 9px;
+  color: #566167;
+}
+.match-centre__statistics td {
+  font-weight: 700;
+  width: 25%;
+}
+.match-centre__more summary {
+  margin: 9px 0;
+  cursor: pointer;
 }
 .decision-board small {
   color: #566167;

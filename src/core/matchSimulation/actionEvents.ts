@@ -75,7 +75,16 @@ export const emitCanonicalActionEvents = (
     const point = position ?? player.position;
     return { actorId, team: player.team, position: { x: point.x, y: point.y } };
   };
-  const pass = next.lastPassDiagnostic;
+  const releasedPass = next.lastPassDiagnostic;
+  const pass =
+    next.lastResolvedPass &&
+    (next.lastResolvedPass.resolvedAt ?? -1) > (releasedPass?.resolvedAt ?? -1)
+      ? next.lastResolvedPass
+      : releasedPass;
+  const previousPass =
+    previous.lastResolvedPass?.passId === pass?.passId
+      ? previous.lastResolvedPass
+      : previous.lastPassDiagnostic;
   const carry = next.ballCarrierIntent ?? previous.ballCarrierIntent;
   const carrier = carry && next.players.find((player) => player.id === carry.actorId);
   const previousCarrier = carry && previous.players.find((player) => player.id === carry.actorId);
@@ -111,17 +120,17 @@ export const emitCanonicalActionEvents = (
       ...(parent ? { parentId: parent.id } : {}),
     });
   }
-  if (pass && pass.passId !== previous.lastPassDiagnostic?.passId) {
-    const actor = actorFact(pass.passerId, next.ball.from);
+  if (releasedPass && releasedPass.passId !== previous.lastPassDiagnostic?.passId) {
+    const actor = actorFact(releasedPass.passerId, next.ball.from);
     if (actor)
       add({
         ...actor,
-        key: `pass:${pass.passId}`,
-        at: pass.releasedAt,
-        kind: pass.intent === 'through' ? 'through_pass' : 'pass',
-        targetId: pass.intendedReceiverId,
+        key: `pass:${releasedPass.passId}`,
+        at: releasedPass.releasedAt,
+        kind: releasedPass.intent === 'through' ? 'through_pass' : 'pass',
+        targetId: releasedPass.intendedReceiverId,
         outcome: 'released',
-        cause: pass.intent ?? 'support',
+        cause: releasedPass.intent ?? 'support',
       });
   }
   const reception = next.lastReceptionOutcome;
@@ -129,10 +138,11 @@ export const emitCanonicalActionEvents = (
     const actor = actorFact(reception.receiverId, reception.contactPoint);
     if (actor) {
       const matchingPass =
-        pass?.intendedReceiverId === reception.receiverId &&
+        pass &&
+        (pass?.actualReceiverId ?? pass?.intendedReceiverId) === reception.receiverId &&
         pass.resolvedAt !== undefined &&
         pass.resolvedAt >= previous.time - 0.001 &&
-        pass.resolvedAt !== previous.lastPassDiagnostic?.resolvedAt;
+        pass.resolvedAt !== previousPass?.resolvedAt;
       const at = matchingPass ? pass.resolvedAt! : next.time;
       add({
         ...actor,
@@ -155,14 +165,16 @@ export const emitCanonicalActionEvents = (
     pass?.finalResult === 'completed' &&
     pass.actualContactPoint &&
     pass.resolvedAt !== undefined &&
-    (pass.passId !== previous.lastPassDiagnostic?.passId ||
-      pass.resolvedAt !== previous.lastPassDiagnostic?.resolvedAt) &&
+    (pass.passId !== previousPass?.passId || pass.resolvedAt !== previousPass?.resolvedAt) &&
     !(
       reception !== previous.lastReceptionOutcome &&
-      reception?.receiverId === pass.intendedReceiverId
+      reception?.receiverId === (pass.actualReceiverId ?? pass.intendedReceiverId)
     )
   ) {
-    const actor = actorFact(pass.intendedReceiverId, pass.actualContactPoint);
+    const actor = actorFact(
+      pass.actualReceiverId ?? pass.intendedReceiverId,
+      pass.actualContactPoint,
+    );
     if (actor)
       add({
         ...actor,

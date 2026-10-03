@@ -1,5 +1,28 @@
 # Match Engine Handoff
 
+## PR149 contracts
+
+- Preserve `npcPossessionDecisionDelay` and the sparse human agency model. `onBallPreparation.micro`
+  is canonical bounded footwork/orientation/protection, not another action or touch per tick.
+- Never clear incoming velocity/height before physical reception. Poor control leaves a real
+  loose ball and recovery requirement; quality evidence supports future calibration.
+- `lastResolvedPass` survives a queued next pass/first-time finish. Successful teammate contact
+  uses `actualReceiverId`, which can differ from `intendedReceiverId`. Attempted network edges
+  describe intent; completed edges describe actual reception, so only aggregate totals reconcile.
+- `state.matchEvents` persists beyond short action label retention and uses canonical IDs/time.
+  Extend the schema/feed/UI together for future substitutions, injuries and other event kinds.
+- `projectMatchCentreStatistics` includes dismissed player records and credits canonical live
+  possession time. Restart counters count awards. Second yellow adds a yellow and a dismissal.
+- `MatchReplayHistory` is renderer-free, optional to headless consumers, 5 Hz / 12 s / <=64 samples,
+  eight event windows / <=50 samples each. Observe hidden ticks; never reconstruct missed outcomes.
+  Windows are immutable to consumers, old events survive footage eviction, and errors cannot stop
+  canonical progression. UI animation and replay use recorded frame time and roster boundaries.
+- `npm run benchmark:readability` compares a clean engine via `--engine-root`, retains reception/
+  hold/agency/accounting evidence and hashes, and can measure `--replay=true` observer cost.
+- Recommended next work: **PR150 — Stamina & Physical Persistence**. Cinematic replay, final art,
+  stadium archetypes and large league calibration remain separate. Details and final evidence:
+  [PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
+
 ## PR148 contracts
 
 - `players` is the active roster. Below seven on either side, `matchRules.enforceMinimumPlayers`

@@ -503,6 +503,7 @@ export const observeMatchFlow = (
     },
   };
   const indexes = claimTelemetryIndexes(telemetry, result);
+  const resolvedPass = next.lastResolvedPass ?? next.lastPassDiagnostic;
   // Historical arrays are copied only when this tick appends or changes an entry.
   const append = <Key extends TelemetryHistoryKey>(
     key: Key,
@@ -590,9 +591,9 @@ export const observeMatchFlow = (
             : next.lastReceptionOutcome !== previous.lastReceptionOutcome &&
                 next.lastReceptionOutcome?.kind === 'failed_control'
               ? 'failed_control'
-              : next.lastPassDiagnostic?.finalResult === 'intercepted'
+              : resolvedPass?.finalResult === 'intercepted'
                 ? 'interception'
-                : next.lastPassDiagnostic?.finalResult === 'technical_error'
+                : resolvedPass?.finalResult === 'technical_error'
                   ? 'bad_pass'
                   : next.recentDuel?.winnerId === next.ball.ownerId &&
                       next.recentDuel?.resolvedAt === next.time
@@ -789,25 +790,30 @@ export const observeMatchFlow = (
   if (ownershipReceived && ownershipReceived === next.controlledFootballerId)
     result.controlled.touches++;
   if (
-    next.lastPassDiagnostic?.finalResult &&
-    !indexes.passResults.has(`${result.benchmarkRunId}:${next.lastPassDiagnostic.passId}`)
+    resolvedPass?.finalResult &&
+    !indexes.passResults.has(`${result.benchmarkRunId}:${resolvedPass.passId}`)
   ) {
-    const diagnostic = next.lastPassDiagnostic;
+    const diagnostic = resolvedPass;
     const resultId = `${result.benchmarkRunId}:${diagnostic.passId}`;
     append('observedPassResultIds', resultId);
     indexes.passResults.add(resultId);
     if (diagnostic.finalResult === 'completed') {
       result.passesCompleted++;
       result.observerState.spellPassCompletions++;
+      const receiverId = diagnostic.actualReceiverId ?? diagnostic.intendedReceiverId;
       const edgeIndex = result.passingNetwork.findIndex(
-        (item) =>
-          item.passerId === diagnostic.passerId &&
-          item.receiverId === diagnostic.intendedReceiverId,
+        (item) => item.passerId === diagnostic.passerId && item.receiverId === receiverId,
       );
       if (edgeIndex >= 0) updatePassingEdge(edgeIndex, 'completed');
-      if (diagnostic.intendedReceiverId === next.controlledFootballerId)
-        result.controlled.passesReceived++;
-      const receiver = next.players.find((player) => player.id === diagnostic.intendedReceiverId);
+      else
+        append('passingNetwork', {
+          passerId: diagnostic.passerId,
+          receiverId,
+          attempted: 0,
+          completed: 1,
+        });
+      if (receiverId === next.controlledFootballerId) result.controlled.passesReceived++;
+      const receiver = next.players.find((player) => player.id === receiverId);
       if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
         result.overlapPassCompleted++;
       if (receiver) {
@@ -982,6 +988,12 @@ export const observeMatchFlow = (
     )
       result.passingNetwork = next.statistics.passingNetwork.map((edge) => ({ ...edge }));
     indexes.statisticsNetwork = next.statistics.passingNetwork;
+    const networkAttempts = result.passingNetwork.reduce((sum, edge) => sum + edge.attempted, 0);
+    const networkCompleted = result.passingNetwork.reduce((sum, edge) => sum + edge.completed, 0);
+    if (networkAttempts !== result.passesAttempted || networkCompleted !== result.passesCompleted)
+      throw new Error(
+        'Telemetry invariant failed: canonical passing network totals do not reconcile.',
+      );
     const controlled = next.statistics.players.find(
       (p) => p.playerId === next.controlledFootballerId,
     );
@@ -1009,9 +1021,12 @@ const assertTelemetryTotals = (telemetry: MatchFlowTelemetry) => {
     telemetry.passesToMovingReceiver
   )
     throw new Error('Telemetry invariant failed: moving pass results exceed attempts.');
-  for (const edge of telemetry.passingNetwork)
-    if (edge.completed > edge.attempted)
-      throw new Error(`Telemetry invariant failed for passing edge ${edge.passerId}.`);
+  // Attempts use intended endpoints; completions use physical endpoints. A teammate who meets
+  // another player's pass can have a completion-only edge. Reconcile the whole network instead.
+  const attempts = telemetry.passingNetwork.reduce((sum, edge) => sum + edge.attempted, 0);
+  const completed = telemetry.passingNetwork.reduce((sum, edge) => sum + edge.completed, 0);
+  if (completed > attempts)
+    throw new Error('Telemetry invariant failed: passing network completions exceed attempts.');
 };
 
 export const assertTelemetryInvariants = (telemetry: MatchFlowTelemetry) => {

@@ -38,15 +38,17 @@ export const collectContactEvidence = (
       const id = `${next.seed}:contact:${playerId}:${legacyId ?? at.toFixed(6)}`;
       if (!events.has(id)) events.set(id, { id, playerId, at, source });
     };
-    const pass = next.lastPassDiagnostic;
-    if (pass) {
+    const passes = [next.lastResolvedPass, next.lastPassDiagnostic].filter(
+      (pass): pass is NonNullable<typeof pass> => Boolean(pass),
+    );
+    for (const pass of passes) {
       add(pass.passerId, pass.releasedAt, 'pass_release');
       if (
         pass.actualContactPoint &&
         pass.resolvedAt !== undefined &&
         pass.finalResult === 'completed'
       )
-        add(pass.intendedReceiverId, pass.resolvedAt, 'pass_reception');
+        add(pass.actualReceiverId ?? pass.intendedReceiverId, pass.resolvedAt, 'pass_reception');
     }
     const shot = next.ball.shot ?? next.lastShot;
     if (shot)
@@ -61,11 +63,20 @@ export const collectContactEvidence = (
     const contactAt = (playerId: string) => {
       if (contact?.playerId === playerId && contact.at !== previous.lastBallContact?.at)
         return contact.at;
+      const pass = passes.find(
+        (candidate) =>
+          (candidate.actualReceiverId ?? candidate.intendedReceiverId) === playerId &&
+          candidate.actualContactPoint &&
+          candidate.resolvedAt !== undefined,
+      );
       if (
-        pass?.intendedReceiverId === playerId &&
+        pass &&
+        (pass?.actualReceiverId ?? pass?.intendedReceiverId) === playerId &&
         pass !== previous.lastPassDiagnostic &&
+        pass !== previous.lastResolvedPass &&
         pass.actualContactPoint &&
-        pass.resolvedAt !== undefined
+        pass.resolvedAt !== undefined &&
+        pass.resolvedAt >= previous.time - 0.001
       )
         return pass.resolvedAt;
       if (

@@ -1,0 +1,2433 @@
+{
+  "schemaVersion": 1,
+  "measuredDate": "2026-10-03",
+  "baseline": {
+    "main": "a16e16c6ad7744d0a0dd663a590b9e385ca0cf46",
+    "tree": "69e628554d22c7cbed8f294eae5a30b9f38e9ee3"
+  },
+  "sourceFingerprint": "d457933a54e3966e9cdf58131ad601fb5d3879718d19ad4593a96655cd2efb4e",
+  "footballSourceFingerprint": "8393d6f79281f8f05cb8cc80dfb87b4b42a411945c7887dd7dd4a2f94cacbdfa",
+  "runtime": "v24.19.0",
+  "methodology": "Aggregated fixed-step evidence only; old-engine micro movement omitted as non-comparable. Heap/RSS deltas are not peak or retained replay memory.",
+  "runs": {
+    "pr148-readability-normal10-clean.json": {
+      "config": {
+        "minutes": 10,
+        "scenarios": ["balanced-balanced"],
+        "seeds": ["a"],
+        "repeats": 2,
+        "revision": "PR148-clean-browser-blank",
+        "replay": false
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 9.99999999999547,
+          "status": "first_half",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 78,
+            "completed": 57,
+            "received": 57
+          },
+          "touches": 218,
+          "shots": 3,
+          "shotsOnTarget": 2,
+          "possessionChanges": 27,
+          "fouls": 4,
+          "yellowCards": 3,
+          "redCards": 0,
+          "distanceMetres": 18442.621970054006,
+          "holdSeconds": {
+            "samples": 106,
+            "minimum": 0.475000000000108,
+            "p25": 4.099999999996271,
+            "median": 4.774999999995657,
+            "p75": 5.049999999995407,
+            "maximum": 23.399999999978718,
+            "mean": 4.489858490563954,
+            "p95": 6.000000000001364
+          },
+          "receptions": {
+            "clean_control": 53,
+            "directional_control": 4,
+            "heavy_touch": 0,
+            "failed_control": 0
+          },
+          "receptionContexts": {},
+          "preparationPhaseSeconds": {},
+          "possessionSeconds": {
+            "home": 228.2499999999447,
+            "away": 338.42499999980237
+          },
+          "agency": {
+            "candidates": 23,
+            "meaningfulHumanDecisions": 3,
+            "routineDelegated": 12,
+            "singleOptionDelegated": 8,
+            "byKind": {
+              "on_ball": 1,
+              "incoming_ball": 0,
+              "defensive_response": 2,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "routine_possession_recycling": 3,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 1,
+              "teammate_in_lane": 6,
+              "dangerous_receiver": 6,
+              "routine_close_down": 3,
+              "protect_dangerous_space": 4
+            },
+            "canonicalSeconds": 599.9999999997282,
+            "decisionsPer45Minutes": 13.500000000006116,
+            "decisionsPer90Minutes": 27.000000000012232
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 10,
+            "passesCompleted": 2,
+            "passesReceived": 0,
+            "receptions": {
+              "clean_control": 0,
+              "directional_control": 0,
+              "heavy_touch": 0,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 0,
+              "unintendedCompleted": 0,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 3
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": null,
+            "yellowFeedMatchesDiscipline": null,
+            "redFeedMatchesDismissals": null,
+            "teamPassesReconcile": null,
+            "teamShotsReconcile": null,
+            "canonicalPossessionSums": null,
+            "teamRestartCountersNonnegative": null,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 11322.9069,
+            "ticks": 24000,
+            "canonicalSpeed": 52.98992611161787,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 69128400,
+            "rssDeltaBytes": 23998464
+          },
+          "hashes": {
+            "state": "e2d2bdfc01ad08f4ed6919595aed053cabbe16ae3be154b864c6cf9301c0c7c6",
+            "statistics": "1cc59217ac90fb9d059ada8db8ac16685851207cc6929b9279f5b674a57bd44f"
+          }
+        },
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 2,
+          "canonicalMinutes": 9.99999999999547,
+          "status": "first_half",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 78,
+            "completed": 57,
+            "received": 57
+          },
+          "touches": 218,
+          "shots": 3,
+          "shotsOnTarget": 2,
+          "possessionChanges": 27,
+          "fouls": 4,
+          "yellowCards": 3,
+          "redCards": 0,
+          "distanceMetres": 18442.621970054006,
+          "holdSeconds": {
+            "samples": 106,
+            "minimum": 0.475000000000108,
+            "p25": 4.099999999996271,
+            "median": 4.774999999995657,
+            "p75": 5.049999999995407,
+            "maximum": 23.399999999978718,
+            "mean": 4.489858490563954,
+            "p95": 6.000000000001364
+          },
+          "receptions": {
+            "clean_control": 53,
+            "directional_control": 4,
+            "heavy_touch": 0,
+            "failed_control": 0
+          },
+          "receptionContexts": {},
+          "preparationPhaseSeconds": {},
+          "possessionSeconds": {
+            "home": 228.2499999999447,
+            "away": 338.42499999980237
+          },
+          "agency": {
+            "candidates": 23,
+            "meaningfulHumanDecisions": 3,
+            "routineDelegated": 12,
+            "singleOptionDelegated": 8,
+            "byKind": {
+              "on_ball": 1,
+              "incoming_ball": 0,
+              "defensive_response": 2,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "routine_possession_recycling": 3,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 1,
+              "teammate_in_lane": 6,
+              "dangerous_receiver": 6,
+              "routine_close_down": 3,
+              "protect_dangerous_space": 4
+            },
+            "canonicalSeconds": 599.9999999997282,
+            "decisionsPer45Minutes": 13.500000000006116,
+            "decisionsPer90Minutes": 27.000000000012232
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 10,
+            "passesCompleted": 2,
+            "passesReceived": 0,
+            "receptions": {
+              "clean_control": 0,
+              "directional_control": 0,
+              "heavy_touch": 0,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 0,
+              "unintendedCompleted": 0,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 3
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": null,
+            "yellowFeedMatchesDiscipline": null,
+            "redFeedMatchesDismissals": null,
+            "teamPassesReconcile": null,
+            "teamShotsReconcile": null,
+            "canonicalPossessionSums": null,
+            "teamRestartCountersNonnegative": null,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 12562.001400000001,
+            "ticks": 24000,
+            "canonicalSpeed": 47.76308972547385,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 20699544,
+            "rssDeltaBytes": 3706880
+          },
+          "hashes": {
+            "state": "e2d2bdfc01ad08f4ed6919595aed053cabbe16ae3be154b864c6cf9301c0c7c6",
+            "statistics": "1cc59217ac90fb9d059ada8db8ac16685851207cc6929b9279f5b674a57bd44f"
+          }
+        }
+      ]
+    },
+    "pr148-readability-45.json": {
+      "config": {
+        "minutes": 45,
+        "scenarios": ["balanced-balanced", "weak-strong"],
+        "seeds": ["a"],
+        "repeats": 1,
+        "revision": "PR148-fa2909ab"
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 45.14500000009119,
+          "status": "half_time",
+          "score": {
+            "home": 2,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 386,
+            "completed": 262,
+            "received": 262
+          },
+          "touches": 944,
+          "shots": 4,
+          "shotsOnTarget": 3,
+          "possessionChanges": 151,
+          "fouls": 10,
+          "yellowCards": 3,
+          "redCards": 0,
+          "distanceMetres": 83386.26127488592,
+          "holdSeconds": {
+            "samples": 498,
+            "minimum": 0.475000000000108,
+            "p25": 4.149999999996226,
+            "median": 4.74999999999568,
+            "p75": 5.049999999995407,
+            "maximum": 23.399999999978718,
+            "mean": 4.310040160651256
+          },
+          "receptions": {
+            "clean_control": 245,
+            "directional_control": 15,
+            "heavy_touch": 2,
+            "failed_control": 0
+          },
+          "preparationPhaseSeconds": {},
+          "possessionSeconds": {
+            "home": 1126.7250000026206,
+            "away": 1479.6750000026661
+          },
+          "agency": {
+            "candidates": 72,
+            "meaningfulHumanDecisions": 10,
+            "routineDelegated": 54,
+            "singleOptionDelegated": 8,
+            "byKind": {
+              "on_ball": 6,
+              "incoming_ball": 0,
+              "defensive_response": 4,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "routine_possession_recycling": 18,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 5,
+              "teammate_in_lane": 20,
+              "dangerous_receiver": 8,
+              "routine_close_down": 14,
+              "protect_dangerous_space": 4,
+              "routine_shielding_preparation": 1,
+              "major_pressure": 1,
+              "routine_line_adjustment": 1
+            },
+            "canonicalSeconds": 2708.7000000054713,
+            "decisionsPer45Minutes": 9.967881271438499,
+            "decisionsPer90Minutes": 19.935762542876997
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 42,
+            "passesCompleted": 15,
+            "passesReceived": 0
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true
+          },
+          "performance": {
+            "elapsedMs": 55445.2496,
+            "ticks": 108348,
+            "canonicalSpeed": 48.853599173002394,
+            "rendererCallsBackground": 0
+          },
+          "hashes": {
+            "state": "11ce02c4d2ab3de8ed03b40afc8dbf529c4000ade9ebf84c02e34f41c59f50de",
+            "statistics": "a95460fcc4428b56b4d1a4af4c52512314d8434d14ba45fd1713183317fa746b"
+          }
+        },
+        {
+          "scenario": "weak-strong",
+          "seed": "pr148:weak-strong:a",
+          "repeat": 1,
+          "canonicalMinutes": 45,
+          "status": "half_time",
+          "score": {
+            "home": 0,
+            "away": 1
+          },
+          "passes": {
+            "attempted": 434,
+            "completed": 215,
+            "received": 215
+          },
+          "touches": 1024,
+          "shots": 2,
+          "shotsOnTarget": 1,
+          "possessionChanges": 166,
+          "fouls": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "distanceMetres": 71972.88304568791,
+          "holdSeconds": {
+            "samples": 476,
+            "minimum": 0,
+            "p25": 4.4750000000010175,
+            "median": 4.824999999995612,
+            "p75": 4.925000000017917,
+            "maximum": 32.550000000118416,
+            "mean": 4.696533613443518
+          },
+          "receptions": {
+            "clean_control": 180,
+            "directional_control": 10,
+            "heavy_touch": 25,
+            "failed_control": 9
+          },
+          "preparationPhaseSeconds": {},
+          "possessionSeconds": {
+            "home": 1050.1750000020816,
+            "away": 1625.7999999978592
+          },
+          "agency": {
+            "candidates": 113,
+            "meaningfulHumanDecisions": 1,
+            "routineDelegated": 112,
+            "singleOptionDelegated": 0,
+            "byKind": {
+              "on_ball": 0,
+              "incoming_ball": 0,
+              "defensive_response": 0,
+              "restart": 1,
+              "other": 0
+            },
+            "byReason": {
+              "routine_close_down": 48,
+              "routine_line_adjustment": 38,
+              "routine_possession_recycling": 17,
+              "teammate_in_lane": 7,
+              "teammate_earlier_eta": 2,
+              "restart_kick_off": 1
+            },
+            "canonicalSeconds": 2700,
+            "decisionsPer45Minutes": 1,
+            "decisionsPer90Minutes": 2
+          },
+          "controlled": {
+            "position": "striker",
+            "touches": 30,
+            "passesCompleted": 8,
+            "passesReceived": 1
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true
+          },
+          "performance": {
+            "elapsedMs": 41833.043300000005,
+            "ticks": 108000,
+            "canonicalSpeed": 64.54228014532234,
+            "rendererCallsBackground": 0
+          },
+          "hashes": {
+            "state": "09b8a6e3b8d07ca3ce322ff5142195be38657f98ba46bd03c7ab151a7bc36ec4",
+            "statistics": "29ff54bf9b902d34c32c38bf91624062f5901ed24613cd5d33f4e7b15cc3f077"
+          }
+        }
+      ]
+    },
+    "pr148-readability-90.json": {
+      "config": {
+        "minutes": 90,
+        "scenarios": ["balanced-balanced"],
+        "seeds": ["a"],
+        "repeats": 1,
+        "revision": "PR148-fa2909ab"
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 90,
+          "status": "full_time",
+          "score": {
+            "home": 2,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 779,
+            "completed": 531,
+            "received": 531
+          },
+          "touches": 1894,
+          "shots": 9,
+          "shotsOnTarget": 4,
+          "possessionChanges": 312,
+          "fouls": 12,
+          "yellowCards": 4,
+          "redCards": 0,
+          "distanceMetres": 168973.15278659808,
+          "holdSeconds": {
+            "samples": 995,
+            "minimum": 0.07500000000027285,
+            "p25": 4.2250000000153705,
+            "median": 4.775000000017371,
+            "p75": 5.050000000018372,
+            "maximum": 23.399999999978718,
+            "mean": 4.294949748745549
+          },
+          "receptions": {
+            "clean_control": 494,
+            "directional_control": 32,
+            "heavy_touch": 5,
+            "failed_control": 0
+          },
+          "preparationPhaseSeconds": {},
+          "possessionSeconds": {
+            "home": 2251.050000005869,
+            "away": 3011.724999994233
+          },
+          "agency": {
+            "candidates": 122,
+            "meaningfulHumanDecisions": 18,
+            "routineDelegated": 96,
+            "singleOptionDelegated": 8,
+            "byKind": {
+              "on_ball": 12,
+              "incoming_ball": 0,
+              "defensive_response": 6,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "routine_possession_recycling": 38,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 9,
+              "teammate_in_lane": 33,
+              "dangerous_receiver": 10,
+              "routine_close_down": 21,
+              "protect_dangerous_space": 4,
+              "routine_shielding_preparation": 3,
+              "major_pressure": 3,
+              "routine_line_adjustment": 1
+            },
+            "canonicalSeconds": 5400,
+            "decisionsPer45Minutes": 9,
+            "decisionsPer90Minutes": 18
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 86,
+            "passesCompleted": 32,
+            "passesReceived": 0
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true
+          },
+          "performance": {
+            "elapsedMs": 104540.5742,
+            "ticks": 216001,
+            "canonicalSpeed": 51.654585229932664,
+            "rendererCallsBackground": 0
+          },
+          "hashes": {
+            "state": "b37b6f835b24ddcbca4513f3c7d566dc71d2277f862467331effa9346a1cc7c0",
+            "statistics": "15dcdd48dfd1ca42f0c23d7d5595e8f51327eb79ad5bf16a521fed42a76adc5c"
+          }
+        }
+      ]
+    },
+    "pr149-readability-normal10-clean.json": {
+      "config": {
+        "minutes": 10,
+        "scenarios": ["balanced-balanced"],
+        "seeds": ["a"],
+        "repeats": 2,
+        "revision": "PR149-final-continuity-verified",
+        "replay": false
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 9.99999999999547,
+          "status": "first_half",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 95,
+            "completed": 69,
+            "received": 69
+          },
+          "touches": 210,
+          "shots": 1,
+          "shotsOnTarget": 0,
+          "possessionChanges": 24,
+          "fouls": 5,
+          "yellowCards": 2,
+          "redCards": 0,
+          "distanceMetres": 17394.919629033422,
+          "holdSeconds": {
+            "samples": 103,
+            "minimum": 1.0000000000002274,
+            "p25": 4.474999999999653,
+            "median": 4.774999999995657,
+            "p75": 5.02499999999543,
+            "maximum": 8.399999999999523,
+            "mean": 4.573786407764927,
+            "p95": 5.724999999994793
+          },
+          "receptions": {
+            "clean_control": 64,
+            "directional_control": 5,
+            "heavy_touch": 5,
+            "failed_control": 0
+          },
+          "receptionContexts": {
+            "low_pressure:medium_pass": {
+              "clean_control": 5,
+              "heavy_touch": 1
+            },
+            "medium_pressure:medium_pass": {
+              "clean_control": 11,
+              "heavy_touch": 3
+            },
+            "high_pressure:slow_pass": {
+              "clean_control": 5
+            },
+            "high_pressure:fast_pass": {
+              "clean_control": 3
+            },
+            "medium_pressure:slow_pass": {
+              "clean_control": 24,
+              "directional_control": 3
+            },
+            "low_pressure:fast_pass": {
+              "clean_control": 4
+            },
+            "low_pressure:slow_pass": {
+              "directional_control": 2,
+              "clean_control": 11
+            },
+            "high_pressure:medium_pass": {
+              "heavy_touch": 1
+            },
+            "medium_pressure:fast_pass": {
+              "clean_control": 1
+            }
+          },
+          "qualityScores": {
+            "samples": 74,
+            "minimum": 0.3692619254168808,
+            "p25": 0.6600095155828489,
+            "median": 0.7728928743581787,
+            "p75": 0.8521084641912167,
+            "maximum": 0.942208254392485,
+            "mean": 0.7454754469723767
+          },
+          "preparationPhaseSeconds": {
+            "controlling": 52.57499999997337,
+            "turning": 25.174999999987556,
+            "adjusting": 88.3749999999576,
+            "scanning": 157.87499999992409,
+            "shielding": 106.2999999999503,
+            "directional_touch": 1.6749999999997272,
+            "recovering": 9.699999999993281
+          },
+          "preparationMovementMetres": {
+            "samples": 102,
+            "minimum": 0.14968517075829332,
+            "p25": 0.5294953539052819,
+            "median": 0.6354015319722075,
+            "p75": 0.6374999999999578,
+            "maximum": 1.7473037030698495,
+            "mean": 0.6463286042197537
+          },
+          "possessionSeconds": {
+            "home": 273.74999999989933,
+            "away": 299.1749999998244
+          },
+          "agency": {
+            "candidates": 18,
+            "meaningfulHumanDecisions": 3,
+            "routineDelegated": 14,
+            "singleOptionDelegated": 1,
+            "byKind": {
+              "on_ball": 2,
+              "incoming_ball": 0,
+              "defensive_response": 1,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "teammate_in_lane": 4,
+              "dangerous_receiver": 1,
+              "protect_dangerous_space": 1,
+              "routine_shielding_preparation": 2,
+              "routine_possession_recycling": 6,
+              "routine_close_down": 2,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 2
+            },
+            "canonicalSeconds": 599.9999999997282,
+            "decisionsPer45Minutes": 13.500000000006116,
+            "decisionsPer90Minutes": 27.000000000012232
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 13,
+            "passesCompleted": 4,
+            "passesReceived": 5,
+            "receptions": {
+              "clean_control": 5,
+              "directional_control": 0,
+              "heavy_touch": 1,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 5,
+              "unintendedCompleted": 5,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 0
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": true,
+            "yellowFeedMatchesDiscipline": true,
+            "redFeedMatchesDismissals": true,
+            "teamPassesReconcile": true,
+            "teamShotsReconcile": true,
+            "canonicalPossessionSums": true,
+            "teamRestartCountersNonnegative": true,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "centre": {
+            "home": {
+              "goals": 0,
+              "shots": 1,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 47.78112318366826,
+              "passesAttempted": 47,
+              "passesCompleted": 33,
+              "completionPercentage": 70.2127659574468,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 0,
+              "throwIns": 0,
+              "tacklesAttempted": 3,
+              "tacklesWon": 1,
+              "interceptions": 5
+            },
+            "away": {
+              "goals": 0,
+              "shots": 0,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 52.21887681633176,
+              "passesAttempted": 48,
+              "passesCompleted": 36,
+              "completionPercentage": 75,
+              "fouls": 3,
+              "yellowCards": 0,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 2,
+              "throwIns": 0,
+              "tacklesAttempted": 5,
+              "tacklesWon": 2,
+              "interceptions": 6
+            }
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 13364.817200000001,
+            "ticks": 24000,
+            "canonicalSpeed": 44.89399226498422,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 6793688,
+            "rssDeltaBytes": 95371264
+          },
+          "hashes": {
+            "state": "b39378bb1f42c164f8b062648be0ddd59fefe25d2101eff384ddc96f3409b19d",
+            "statistics": "eaf08da77f64dc0bea510ff109e5864ecafcf3e4dce0effbf2ed66060d9691c4"
+          }
+        },
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 2,
+          "canonicalMinutes": 9.99999999999547,
+          "status": "first_half",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 95,
+            "completed": 69,
+            "received": 69
+          },
+          "touches": 210,
+          "shots": 1,
+          "shotsOnTarget": 0,
+          "possessionChanges": 24,
+          "fouls": 5,
+          "yellowCards": 2,
+          "redCards": 0,
+          "distanceMetres": 17394.919629033422,
+          "holdSeconds": {
+            "samples": 103,
+            "minimum": 1.0000000000002274,
+            "p25": 4.474999999999653,
+            "median": 4.774999999995657,
+            "p75": 5.02499999999543,
+            "maximum": 8.399999999999523,
+            "mean": 4.573786407764927,
+            "p95": 5.724999999994793
+          },
+          "receptions": {
+            "clean_control": 64,
+            "directional_control": 5,
+            "heavy_touch": 5,
+            "failed_control": 0
+          },
+          "receptionContexts": {
+            "low_pressure:medium_pass": {
+              "clean_control": 5,
+              "heavy_touch": 1
+            },
+            "medium_pressure:medium_pass": {
+              "clean_control": 11,
+              "heavy_touch": 3
+            },
+            "high_pressure:slow_pass": {
+              "clean_control": 5
+            },
+            "high_pressure:fast_pass": {
+              "clean_control": 3
+            },
+            "medium_pressure:slow_pass": {
+              "clean_control": 24,
+              "directional_control": 3
+            },
+            "low_pressure:fast_pass": {
+              "clean_control": 4
+            },
+            "low_pressure:slow_pass": {
+              "directional_control": 2,
+              "clean_control": 11
+            },
+            "high_pressure:medium_pass": {
+              "heavy_touch": 1
+            },
+            "medium_pressure:fast_pass": {
+              "clean_control": 1
+            }
+          },
+          "qualityScores": {
+            "samples": 74,
+            "minimum": 0.3692619254168808,
+            "p25": 0.6600095155828489,
+            "median": 0.7728928743581787,
+            "p75": 0.8521084641912167,
+            "maximum": 0.942208254392485,
+            "mean": 0.7454754469723767
+          },
+          "preparationPhaseSeconds": {
+            "controlling": 52.57499999997337,
+            "turning": 25.174999999987556,
+            "adjusting": 88.3749999999576,
+            "scanning": 157.87499999992409,
+            "shielding": 106.2999999999503,
+            "directional_touch": 1.6749999999997272,
+            "recovering": 9.699999999993281
+          },
+          "preparationMovementMetres": {
+            "samples": 102,
+            "minimum": 0.14968517075829332,
+            "p25": 0.5294953539052819,
+            "median": 0.6354015319722075,
+            "p75": 0.6374999999999578,
+            "maximum": 1.7473037030698495,
+            "mean": 0.6463286042197537
+          },
+          "possessionSeconds": {
+            "home": 273.74999999989933,
+            "away": 299.1749999998244
+          },
+          "agency": {
+            "candidates": 18,
+            "meaningfulHumanDecisions": 3,
+            "routineDelegated": 14,
+            "singleOptionDelegated": 1,
+            "byKind": {
+              "on_ball": 2,
+              "incoming_ball": 0,
+              "defensive_response": 1,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "teammate_in_lane": 4,
+              "dangerous_receiver": 1,
+              "protect_dangerous_space": 1,
+              "routine_shielding_preparation": 2,
+              "routine_possession_recycling": 6,
+              "routine_close_down": 2,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 2
+            },
+            "canonicalSeconds": 599.9999999997282,
+            "decisionsPer45Minutes": 13.500000000006116,
+            "decisionsPer90Minutes": 27.000000000012232
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 13,
+            "passesCompleted": 4,
+            "passesReceived": 5,
+            "receptions": {
+              "clean_control": 5,
+              "directional_control": 0,
+              "heavy_touch": 1,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 5,
+              "unintendedCompleted": 5,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 0
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": true,
+            "yellowFeedMatchesDiscipline": true,
+            "redFeedMatchesDismissals": true,
+            "teamPassesReconcile": true,
+            "teamShotsReconcile": true,
+            "canonicalPossessionSums": true,
+            "teamRestartCountersNonnegative": true,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "centre": {
+            "home": {
+              "goals": 0,
+              "shots": 1,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 47.78112318366826,
+              "passesAttempted": 47,
+              "passesCompleted": 33,
+              "completionPercentage": 70.2127659574468,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 0,
+              "throwIns": 0,
+              "tacklesAttempted": 3,
+              "tacklesWon": 1,
+              "interceptions": 5
+            },
+            "away": {
+              "goals": 0,
+              "shots": 0,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 52.21887681633176,
+              "passesAttempted": 48,
+              "passesCompleted": 36,
+              "completionPercentage": 75,
+              "fouls": 3,
+              "yellowCards": 0,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 2,
+              "throwIns": 0,
+              "tacklesAttempted": 5,
+              "tacklesWon": 2,
+              "interceptions": 6
+            }
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 12641.236499999999,
+            "ticks": 24000,
+            "canonicalSpeed": 47.463711322838414,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 53939568,
+            "rssDeltaBytes": 3866624
+          },
+          "hashes": {
+            "state": "b39378bb1f42c164f8b062648be0ddd59fefe25d2101eff384ddc96f3409b19d",
+            "statistics": "eaf08da77f64dc0bea510ff109e5864ecafcf3e4dce0effbf2ed66060d9691c4"
+          }
+        }
+      ]
+    },
+    "pr149-readability-45.json": {
+      "config": {
+        "minutes": 45,
+        "scenarios": ["balanced-balanced", "weak-strong"],
+        "seeds": ["a"],
+        "repeats": 1,
+        "revision": "PR149-final-continuity-verified",
+        "replay": false
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 45,
+          "status": "half_time",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 410,
+            "completed": 299,
+            "received": 299
+          },
+          "touches": 963,
+          "shots": 3,
+          "shotsOnTarget": 2,
+          "possessionChanges": 103,
+          "fouls": 7,
+          "yellowCards": 4,
+          "redCards": 0,
+          "distanceMetres": 77494.45158878196,
+          "holdSeconds": {
+            "samples": 446,
+            "minimum": 0.02500000000009095,
+            "p25": 4.5249999999958845,
+            "median": 4.800000000017462,
+            "p75": 5.049999999995407,
+            "maximum": 17.65000000006421,
+            "mean": 4.7457399103113405,
+            "p95": 5.750000000020918
+          },
+          "receptions": {
+            "clean_control": 260,
+            "directional_control": 31,
+            "heavy_touch": 27,
+            "failed_control": 2
+          },
+          "receptionContexts": {
+            "low_pressure:medium_pass": {
+              "clean_control": 35,
+              "heavy_touch": 1,
+              "directional_control": 9,
+              "failed_control": 1
+            },
+            "medium_pressure:medium_pass": {
+              "clean_control": 46,
+              "heavy_touch": 19,
+              "directional_control": 1
+            },
+            "high_pressure:slow_pass": {
+              "clean_control": 11,
+              "directional_control": 4,
+              "heavy_touch": 2
+            },
+            "high_pressure:fast_pass": {
+              "clean_control": 5,
+              "failed_control": 1
+            },
+            "medium_pressure:slow_pass": {
+              "clean_control": 82,
+              "directional_control": 8,
+              "heavy_touch": 3
+            },
+            "low_pressure:fast_pass": {
+              "clean_control": 13
+            },
+            "low_pressure:slow_pass": {
+              "directional_control": 9,
+              "clean_control": 59
+            },
+            "high_pressure:medium_pass": {
+              "heavy_touch": 2,
+              "clean_control": 1
+            },
+            "medium_pressure:fast_pass": {
+              "clean_control": 8
+            }
+          },
+          "qualityScores": {
+            "samples": 320,
+            "minimum": 0.2357404819305043,
+            "p25": 0.6679654168944527,
+            "median": 0.7799433813360132,
+            "p75": 0.85686308606672,
+            "maximum": 0.9438217516506983,
+            "mean": 0.7537432854748919
+          },
+          "preparationPhaseSeconds": {
+            "controlling": 216.95000000041028,
+            "turning": 106.85000000021137,
+            "adjusting": 400.82499999535537,
+            "scanning": 711.9250000013752,
+            "shielding": 479.8250000009989,
+            "directional_touch": 12.150000000025784,
+            "recovering": 60.300000000147236
+          },
+          "preparationMovementMetres": {
+            "samples": 463,
+            "minimum": 0,
+            "p25": 0.5496849605980195,
+            "median": 0.6354015319722125,
+            "p75": 0.6377723970179636,
+            "maximum": 4.012310442889535,
+            "mean": 0.6572514324337275
+          },
+          "possessionSeconds": {
+            "home": 1093.1500000020405,
+            "away": 1552.8499999978571
+          },
+          "agency": {
+            "candidates": 65,
+            "meaningfulHumanDecisions": 8,
+            "routineDelegated": 49,
+            "singleOptionDelegated": 8,
+            "byKind": {
+              "on_ball": 4,
+              "incoming_ball": 0,
+              "defensive_response": 4,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "teammate_in_lane": 22,
+              "dangerous_receiver": 4,
+              "protect_dangerous_space": 8,
+              "routine_shielding_preparation": 3,
+              "routine_possession_recycling": 18,
+              "routine_close_down": 6,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 4
+            },
+            "canonicalSeconds": 2700,
+            "decisionsPer45Minutes": 8,
+            "decisionsPer90Minutes": 16
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 56,
+            "passesCompleted": 15,
+            "passesReceived": 10,
+            "receptions": {
+              "clean_control": 10,
+              "directional_control": 0,
+              "heavy_touch": 8,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 10,
+              "unintendedCompleted": 10,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 0
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": true,
+            "yellowFeedMatchesDiscipline": true,
+            "redFeedMatchesDismissals": true,
+            "teamPassesReconcile": true,
+            "teamShotsReconcile": true,
+            "canonicalPossessionSums": true,
+            "teamRestartCountersNonnegative": true,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "centre": {
+            "home": {
+              "goals": 1,
+              "shots": 3,
+              "shotsOnTarget": 2,
+              "blockedShots": 0,
+              "possessionPercentage": 41.313303099096096,
+              "passesAttempted": 171,
+              "passesCompleted": 114,
+              "completionPercentage": 66.66666666666667,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 2,
+              "throwIns": 0,
+              "tacklesAttempted": 23,
+              "tacklesWon": 11,
+              "interceptions": 19
+            },
+            "away": {
+              "goals": 0,
+              "shots": 0,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 58.6866969009039,
+              "passesAttempted": 239,
+              "passesCompleted": 185,
+              "completionPercentage": 77.40585774058577,
+              "fouls": 5,
+              "yellowCards": 2,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 2,
+              "throwIns": 0,
+              "tacklesAttempted": 19,
+              "tacklesWon": 8,
+              "interceptions": 22
+            }
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 50023.3273,
+            "ticks": 108000,
+            "canonicalSpeed": 53.974818264438,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 28308104,
+            "rssDeltaBytes": 138309632
+          },
+          "hashes": {
+            "state": "a0eac3cca955d913dcaef38fa9f37a90bd6b9a2e65999db42910b80bb25e2de9",
+            "statistics": "f457e2a4268a4b0ffcfe459443e5f54326109667206046786a1a4166acecec73"
+          }
+        },
+        {
+          "scenario": "weak-strong",
+          "seed": "pr148:weak-strong:a",
+          "repeat": 1,
+          "canonicalMinutes": 45,
+          "status": "half_time",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 426,
+            "completed": 193,
+            "received": 193
+          },
+          "touches": 1135,
+          "shots": 1,
+          "shotsOnTarget": 1,
+          "possessionChanges": 84,
+          "fouls": 1,
+          "yellowCards": 1,
+          "redCards": 0,
+          "distanceMetres": 61975.29652910732,
+          "holdSeconds": {
+            "samples": 429,
+            "minimum": 0.6999999945628588,
+            "p25": 4.500000000016371,
+            "median": 4.775000000017371,
+            "p75": 4.900000000017826,
+            "maximum": 21.750000000079126,
+            "mean": 4.924475524472714,
+            "p95": 5.225000000019008
+          },
+          "receptions": {
+            "clean_control": 170,
+            "directional_control": 6,
+            "heavy_touch": 95,
+            "failed_control": 56
+          },
+          "receptionContexts": {
+            "low_pressure:medium_pass": {
+              "failed_control": 2,
+              "clean_control": 3,
+              "heavy_touch": 3
+            },
+            "medium_pressure:slow_pass": {
+              "clean_control": 145,
+              "directional_control": 4,
+              "heavy_touch": 63,
+              "failed_control": 12
+            },
+            "low_pressure:slow_pass": {
+              "clean_control": 9,
+              "directional_control": 1
+            },
+            "medium_pressure:medium_pass": {
+              "heavy_touch": 24,
+              "failed_control": 31,
+              "clean_control": 7
+            },
+            "high_pressure:slow_pass": {
+              "failed_control": 8,
+              "heavy_touch": 5,
+              "clean_control": 6
+            },
+            "low_pressure:fast_pass": {
+              "failed_control": 1,
+              "directional_control": 1
+            },
+            "high_pressure:medium_pass": {
+              "failed_control": 2
+            }
+          },
+          "qualityScores": {
+            "samples": 327,
+            "minimum": 0.13634922346489392,
+            "p25": 0.43980046267970924,
+            "median": 0.5683571020296109,
+            "p75": 0.6765553274444047,
+            "maximum": 0.9039741328892623,
+            "mean": 0.5536665990617042
+          },
+          "preparationPhaseSeconds": {
+            "recovering": 254.42500000050882,
+            "turning": 98.87500000018221,
+            "adjusting": 269.02500000044665,
+            "scanning": 507.5750000008915,
+            "controlling": 160.24999999484888,
+            "directional_touch": 2.975000000005302,
+            "shielding": 771.3750000016512
+          },
+          "preparationMovementMetres": {
+            "samples": 579,
+            "minimum": 0.029120748981843178,
+            "p25": 0.48686949665738033,
+            "median": 0.5663756019469212,
+            "p75": 0.635800000000093,
+            "maximum": 3.3397702956936692,
+            "mean": 0.5957670270163491
+          },
+          "possessionSeconds": {
+            "home": 1587.4499999981197,
+            "away": 1112.5500000018803
+          },
+          "agency": {
+            "candidates": 85,
+            "meaningfulHumanDecisions": 0,
+            "routineDelegated": 85,
+            "singleOptionDelegated": 0,
+            "byKind": {
+              "on_ball": 0,
+              "incoming_ball": 0,
+              "defensive_response": 0,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "routine_close_down": 45,
+              "routine_line_adjustment": 20,
+              "routine_shielding_preparation": 9,
+              "routine_possession_recycling": 9,
+              "teammate_in_lane": 1,
+              "teammate_earlier_eta": 1
+            },
+            "canonicalSeconds": 2700,
+            "decisionsPer45Minutes": 0,
+            "decisionsPer90Minutes": 0
+          },
+          "controlled": {
+            "position": "striker",
+            "touches": 18,
+            "passesCompleted": 2,
+            "passesReceived": 0,
+            "receptions": {
+              "clean_control": 0,
+              "directional_control": 0,
+              "heavy_touch": 0,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 0,
+              "unintendedCompleted": 0,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 0
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": true,
+            "yellowFeedMatchesDiscipline": true,
+            "redFeedMatchesDismissals": true,
+            "teamPassesReconcile": true,
+            "teamShotsReconcile": true,
+            "canonicalPossessionSums": true,
+            "teamRestartCountersNonnegative": true,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "centre": {
+            "home": {
+              "goals": 0,
+              "shots": 1,
+              "shotsOnTarget": 1,
+              "blockedShots": 0,
+              "possessionPercentage": 58.7944444443748,
+              "passesAttempted": 255,
+              "passesCompleted": 72,
+              "completionPercentage": 28.235294117647058,
+              "fouls": 0,
+              "yellowCards": 0,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 0,
+              "throwIns": 0,
+              "tacklesAttempted": 2,
+              "tacklesWon": 1,
+              "interceptions": 18
+            },
+            "away": {
+              "goals": 0,
+              "shots": 0,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 41.2055555556252,
+              "passesAttempted": 171,
+              "passesCompleted": 121,
+              "completionPercentage": 70.76023391812865,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 0,
+              "throwIns": 0,
+              "tacklesAttempted": 1,
+              "tacklesWon": 0,
+              "interceptions": 20
+            }
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 33592.86380000001,
+            "ticks": 108000,
+            "canonicalSpeed": 80.37421328752565,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 38326352,
+            "rssDeltaBytes": 1236992
+          },
+          "hashes": {
+            "state": "7360327d06f024de19ec6e15c67b1017da8c0f00174630c4e55cb6296d378e08",
+            "statistics": "7a8f279c61bc079a433d116cc025d6ccc08031ca2d6c6081a45ffae48d85b52d"
+          }
+        }
+      ]
+    },
+    "pr149-readability-90.json": {
+      "config": {
+        "minutes": 90,
+        "scenarios": ["balanced-balanced"],
+        "seeds": ["a"],
+        "repeats": 1,
+        "revision": "PR149-final-continuity-verified",
+        "replay": false
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 90.00749999976827,
+          "status": "full_time",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 840,
+            "completed": 604,
+            "received": 604
+          },
+          "touches": 1944,
+          "shots": 3,
+          "shotsOnTarget": 2,
+          "possessionChanges": 206,
+          "fouls": 9,
+          "yellowCards": 6,
+          "redCards": 0,
+          "distanceMetres": 153351.7166360909,
+          "holdSeconds": {
+            "samples": 900,
+            "minimum": 0.02500000000009095,
+            "p25": 4.500000000016371,
+            "median": 4.775000000017371,
+            "p75": 5.00000000001819,
+            "maximum": 17.65000000006421,
+            "mean": 4.69986111109795,
+            "p95": 5.7000000000207365
+          },
+          "receptions": {
+            "clean_control": 528,
+            "directional_control": 56,
+            "heavy_touch": 65,
+            "failed_control": 4
+          },
+          "receptionContexts": {
+            "low_pressure:medium_pass": {
+              "clean_control": 69,
+              "heavy_touch": 1,
+              "directional_control": 20,
+              "failed_control": 1
+            },
+            "medium_pressure:medium_pass": {
+              "clean_control": 87,
+              "heavy_touch": 47,
+              "directional_control": 2,
+              "failed_control": 1
+            },
+            "high_pressure:slow_pass": {
+              "clean_control": 26,
+              "directional_control": 5,
+              "heavy_touch": 3
+            },
+            "high_pressure:fast_pass": {
+              "clean_control": 6,
+              "failed_control": 2
+            },
+            "medium_pressure:slow_pass": {
+              "clean_control": 193,
+              "directional_control": 14,
+              "heavy_touch": 7
+            },
+            "low_pressure:fast_pass": {
+              "clean_control": 27
+            },
+            "low_pressure:slow_pass": {
+              "directional_control": 15,
+              "clean_control": 107
+            },
+            "high_pressure:medium_pass": {
+              "heavy_touch": 7,
+              "clean_control": 2
+            },
+            "medium_pressure:fast_pass": {
+              "clean_control": 11
+            }
+          },
+          "qualityScores": {
+            "samples": 653,
+            "minimum": 0.2357404819305043,
+            "p25": 0.666571388886511,
+            "median": 0.7781891407934667,
+            "p75": 0.8551991525048532,
+            "maximum": 0.9438217516506983,
+            "mean": 0.7468522407269628
+          },
+          "preparationPhaseSeconds": {
+            "controlling": 449.6499999992505,
+            "turning": 212.79999999967094,
+            "adjusting": 789.1499999932533,
+            "scanning": 1383.9249999977887,
+            "shielding": 1058.04999999841,
+            "directional_touch": 22.79999999996221,
+            "recovering": 141.72499999971723
+          },
+          "preparationMovementMetres": {
+            "samples": 954,
+            "minimum": 0,
+            "p25": 0.547830354692546,
+            "median": 0.6354015319722146,
+            "p75": 0.6491145452505369,
+            "maximum": 4.012310442889535,
+            "mean": 0.6646084866165899
+          },
+          "possessionSeconds": {
+            "home": 2425.599999994375,
+            "away": 2904.499999991746
+          },
+          "agency": {
+            "candidates": 123,
+            "meaningfulHumanDecisions": 21,
+            "routineDelegated": 93,
+            "singleOptionDelegated": 9,
+            "byKind": {
+              "on_ball": 16,
+              "incoming_ball": 0,
+              "defensive_response": 5,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "teammate_in_lane": 24,
+              "dangerous_receiver": 5,
+              "protect_dangerous_space": 9,
+              "routine_shielding_preparation": 9,
+              "routine_possession_recycling": 49,
+              "routine_close_down": 11,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 15,
+              "new_defender_angle": 1
+            },
+            "canonicalSeconds": 5400.449999986096,
+            "decisionsPer45Minutes": 10.499125072937622,
+            "decisionsPer90Minutes": 20.998250145875243
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 141,
+            "passesCompleted": 44,
+            "passesReceived": 32,
+            "receptions": {
+              "clean_control": 32,
+              "directional_control": 0,
+              "heavy_touch": 17,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 32,
+              "unintendedCompleted": 32,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 0
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": true,
+            "yellowFeedMatchesDiscipline": true,
+            "redFeedMatchesDismissals": true,
+            "teamPassesReconcile": true,
+            "teamShotsReconcile": true,
+            "canonicalPossessionSums": true,
+            "teamRestartCountersNonnegative": true,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "centre": {
+            "home": {
+              "goals": 1,
+              "shots": 3,
+              "shotsOnTarget": 2,
+              "blockedShots": 0,
+              "possessionPercentage": 45.50758897582955,
+              "passesAttempted": 391,
+              "passesCompleted": 270,
+              "completionPercentage": 69.0537084398977,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 3,
+              "throwIns": 0,
+              "tacklesAttempted": 34,
+              "tacklesWon": 19,
+              "interceptions": 38
+            },
+            "away": {
+              "goals": 0,
+              "shots": 0,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 54.492411024170444,
+              "passesAttempted": 449,
+              "passesCompleted": 334,
+              "completionPercentage": 74.38752783964365,
+              "fouls": 7,
+              "yellowCards": 4,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 2,
+              "throwIns": 0,
+              "tacklesAttempted": 38,
+              "tacklesWon": 19,
+              "interceptions": 44
+            }
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 109350.3417,
+            "ticks": 216018,
+            "canonicalSpeed": 49.386676950695765,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 137087640,
+            "rssDeltaBytes": 231649280
+          },
+          "hashes": {
+            "state": "497967f27aa18fe146eb3a214d346ef1750769586254fe512da60b6d391b39fc",
+            "statistics": "4bfa155540b24cf7d072c347896950f06301e26767b8cec7934daf9c156eefee"
+          }
+        }
+      ]
+    },
+    "pr149-readability-replay10.json": {
+      "config": {
+        "minutes": 10,
+        "scenarios": ["balanced-balanced"],
+        "seeds": ["a"],
+        "repeats": 1,
+        "revision": "PR149-final-continuity-verified",
+        "replay": true
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 9.99999999999547,
+          "status": "first_half",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 95,
+            "completed": 69,
+            "received": 69
+          },
+          "touches": 210,
+          "shots": 1,
+          "shotsOnTarget": 0,
+          "possessionChanges": 24,
+          "fouls": 5,
+          "yellowCards": 2,
+          "redCards": 0,
+          "distanceMetres": 17394.919629033422,
+          "holdSeconds": {
+            "samples": 103,
+            "minimum": 1.0000000000002274,
+            "p25": 4.474999999999653,
+            "median": 4.774999999995657,
+            "p75": 5.02499999999543,
+            "maximum": 8.399999999999523,
+            "mean": 4.573786407764927,
+            "p95": 5.724999999994793
+          },
+          "receptions": {
+            "clean_control": 64,
+            "directional_control": 5,
+            "heavy_touch": 5,
+            "failed_control": 0
+          },
+          "receptionContexts": {
+            "low_pressure:medium_pass": {
+              "clean_control": 5,
+              "heavy_touch": 1
+            },
+            "medium_pressure:medium_pass": {
+              "clean_control": 11,
+              "heavy_touch": 3
+            },
+            "high_pressure:slow_pass": {
+              "clean_control": 5
+            },
+            "high_pressure:fast_pass": {
+              "clean_control": 3
+            },
+            "medium_pressure:slow_pass": {
+              "clean_control": 24,
+              "directional_control": 3
+            },
+            "low_pressure:fast_pass": {
+              "clean_control": 4
+            },
+            "low_pressure:slow_pass": {
+              "directional_control": 2,
+              "clean_control": 11
+            },
+            "high_pressure:medium_pass": {
+              "heavy_touch": 1
+            },
+            "medium_pressure:fast_pass": {
+              "clean_control": 1
+            }
+          },
+          "qualityScores": {
+            "samples": 74,
+            "minimum": 0.3692619254168808,
+            "p25": 0.6600095155828489,
+            "median": 0.7728928743581787,
+            "p75": 0.8521084641912167,
+            "maximum": 0.942208254392485,
+            "mean": 0.7454754469723767
+          },
+          "preparationPhaseSeconds": {
+            "controlling": 52.57499999997337,
+            "turning": 25.174999999987556,
+            "adjusting": 88.3749999999576,
+            "scanning": 157.87499999992409,
+            "shielding": 106.2999999999503,
+            "directional_touch": 1.6749999999997272,
+            "recovering": 9.699999999993281
+          },
+          "preparationMovementMetres": {
+            "samples": 102,
+            "minimum": 0.14968517075829332,
+            "p25": 0.5294953539052819,
+            "median": 0.6354015319722075,
+            "p75": 0.6374999999999578,
+            "maximum": 1.7473037030698495,
+            "mean": 0.6463286042197537
+          },
+          "possessionSeconds": {
+            "home": 273.74999999989933,
+            "away": 299.1749999998244
+          },
+          "agency": {
+            "candidates": 18,
+            "meaningfulHumanDecisions": 3,
+            "routineDelegated": 14,
+            "singleOptionDelegated": 1,
+            "byKind": {
+              "on_ball": 2,
+              "incoming_ball": 0,
+              "defensive_response": 1,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "teammate_in_lane": 4,
+              "dangerous_receiver": 1,
+              "protect_dangerous_space": 1,
+              "routine_shielding_preparation": 2,
+              "routine_possession_recycling": 6,
+              "routine_close_down": 2,
+              "meaningful_action_diversity,progressive_option,pressure,line_breaking_outlet_choice": 2
+            },
+            "canonicalSeconds": 599.9999999997282,
+            "decisionsPer45Minutes": 13.500000000006116,
+            "decisionsPer90Minutes": 27.000000000012232
+          },
+          "controlled": {
+            "position": "central_midfielder",
+            "touches": 13,
+            "passesCompleted": 4,
+            "passesReceived": 5,
+            "receptions": {
+              "clean_control": 5,
+              "directional_control": 0,
+              "heavy_touch": 1,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 5,
+              "unintendedCompleted": 5,
+              "intendedCompleted": 0,
+              "intendedFailed": 0,
+              "nonIntendedTeammateClaim": 0
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": true,
+            "yellowFeedMatchesDiscipline": true,
+            "redFeedMatchesDismissals": true,
+            "teamPassesReconcile": true,
+            "teamShotsReconcile": true,
+            "canonicalPossessionSums": true,
+            "teamRestartCountersNonnegative": true,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "centre": {
+            "home": {
+              "goals": 0,
+              "shots": 1,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 47.78112318366826,
+              "passesAttempted": 47,
+              "passesCompleted": 33,
+              "completionPercentage": 70.2127659574468,
+              "fouls": 2,
+              "yellowCards": 2,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 0,
+              "throwIns": 0,
+              "tacklesAttempted": 3,
+              "tacklesWon": 1,
+              "interceptions": 5
+            },
+            "away": {
+              "goals": 0,
+              "shots": 0,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 52.21887681633176,
+              "passesAttempted": 48,
+              "passesCompleted": 36,
+              "completionPercentage": 75,
+              "fouls": 3,
+              "yellowCards": 0,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 2,
+              "throwIns": 0,
+              "tacklesAttempted": 5,
+              "tacklesWon": 2,
+              "interceptions": 6
+            }
+          },
+          "replay": {
+            "enabled": true,
+            "storage": {
+              "rollingSamples": 61,
+              "windows": 2,
+              "retainedSamples": 151,
+              "estimatedBytes": 2124472,
+              "sampleHz": 5,
+              "maxWindows": 8
+            }
+          },
+          "performance": {
+            "elapsedMs": 12892.8145,
+            "ticks": 24000,
+            "canonicalSpeed": 46.537550043842494,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 29753768,
+            "rssDeltaBytes": 116342784
+          },
+          "hashes": {
+            "state": "b39378bb1f42c164f8b062648be0ddd59fefe25d2101eff384ddc96f3409b19d",
+            "statistics": "eaf08da77f64dc0bea510ff109e5864ecafcf3e4dce0effbf2ed66060d9691c4"
+          }
+        }
+      ]
+    },
+    "pr149-readability-left-back10.json": {
+      "config": {
+        "minutes": 10,
+        "scenarios": ["balanced-balanced"],
+        "seeds": ["a"],
+        "repeats": 1,
+        "revision": "PR149-final-continuity-verified",
+        "position": "left_back",
+        "replay": false
+      },
+      "fixedDt": 0.025,
+      "matches": [
+        {
+          "scenario": "balanced-balanced",
+          "seed": "pr148:balanced-balanced:a",
+          "repeat": 1,
+          "canonicalMinutes": 9.99999999999547,
+          "status": "first_half",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "passes": {
+            "attempted": 93,
+            "completed": 64,
+            "received": 64
+          },
+          "touches": 219,
+          "shots": 1,
+          "shotsOnTarget": 0,
+          "possessionChanges": 24,
+          "fouls": 3,
+          "yellowCards": 2,
+          "redCards": 0,
+          "distanceMetres": 17183.283818616612,
+          "holdSeconds": {
+            "samples": 102,
+            "minimum": 0.7000000000001592,
+            "p25": 4.450000000001012,
+            "median": 4.674999999995748,
+            "p75": 5.024999999999714,
+            "maximum": 9.924999999990973,
+            "mean": 4.651225490193942,
+            "p95": 5.999999999994543
+          },
+          "receptions": {
+            "clean_control": 54,
+            "directional_control": 8,
+            "heavy_touch": 6,
+            "failed_control": 2
+          },
+          "receptionContexts": {
+            "low_pressure:medium_pass": {
+              "clean_control": 6,
+              "directional_control": 2
+            },
+            "medium_pressure:medium_pass": {
+              "clean_control": 11,
+              "heavy_touch": 4,
+              "directional_control": 1
+            },
+            "high_pressure:slow_pass": {
+              "clean_control": 5
+            },
+            "high_pressure:fast_pass": {
+              "clean_control": 3
+            },
+            "medium_pressure:slow_pass": {
+              "clean_control": 19,
+              "directional_control": 4,
+              "heavy_touch": 2
+            },
+            "low_pressure:fast_pass": {
+              "clean_control": 4
+            },
+            "low_pressure:slow_pass": {
+              "directional_control": 1,
+              "clean_control": 5
+            },
+            "high_pressure:medium_pass": {
+              "failed_control": 2
+            },
+            "medium_pressure:fast_pass": {
+              "clean_control": 1
+            }
+          },
+          "qualityScores": {
+            "samples": 70,
+            "minimum": 0.3046933406930601,
+            "p25": 0.6310128328905387,
+            "median": 0.7297428114296604,
+            "p75": 0.8217911779634479,
+            "maximum": 0.942558328989164,
+            "mean": 0.7177371614142115
+          },
+          "preparationPhaseSeconds": {
+            "controlling": 48.04999999997777,
+            "turning": 20.624999999990642,
+            "adjusting": 80.72499999996398,
+            "scanning": 144.2249999999372,
+            "shielding": 125.17499999993231,
+            "directional_touch": 3.0999999999984595,
+            "recovering": 16.19999999998737
+          },
+          "preparationMovementMetres": {
+            "samples": 104,
+            "minimum": 0.17218840870877025,
+            "p25": 0.5620497943851309,
+            "median": 0.6355175945050182,
+            "p75": 0.7085771482654293,
+            "maximum": 2.2394272824066035,
+            "mean": 0.716701826491733
+          },
+          "possessionSeconds": {
+            "home": 308.0499999998545,
+            "away": 265.14999999986935
+          },
+          "agency": {
+            "candidates": 30,
+            "meaningfulHumanDecisions": 1,
+            "routineDelegated": 28,
+            "singleOptionDelegated": 1,
+            "byKind": {
+              "on_ball": 0,
+              "incoming_ball": 1,
+              "defensive_response": 0,
+              "restart": 0,
+              "other": 0
+            },
+            "byReason": {
+              "teammate_earlier_eta": 2,
+              "routine_close_down": 13,
+              "teammate_in_lane": 3,
+              "long_distribution,defender_competition": 1,
+              "routine_possession_recycling": 8,
+              "single_option_autonomy": 1,
+              "routine_line_adjustment": 2
+            },
+            "canonicalSeconds": 599.9999999997282,
+            "decisionsPer45Minutes": 4.500000000002038,
+            "decisionsPer90Minutes": 9.000000000004077
+          },
+          "controlled": {
+            "position": "left_back",
+            "touches": 16,
+            "passesCompleted": 5,
+            "passesReceived": 7,
+            "receptions": {
+              "clean_control": 7,
+              "directional_control": 0,
+              "heavy_touch": 0,
+              "failed_control": 0
+            },
+            "passContacts": {
+              "actualCompleted": 7,
+              "unintendedCompleted": 0,
+              "intendedCompleted": 7,
+              "intendedFailed": 1,
+              "nonIntendedTeammateClaim": 0
+            }
+          },
+          "invariants": {
+            "completedWithinAttempts": true,
+            "onTargetWithinShots": true,
+            "receivedMatchesCompleted": true,
+            "networkAttemptsReconcile": true,
+            "networkCompletionsReconcile": true,
+            "goalFeedMatchesScore": true,
+            "yellowFeedMatchesDiscipline": true,
+            "redFeedMatchesDismissals": true,
+            "teamPassesReconcile": true,
+            "teamShotsReconcile": true,
+            "canonicalPossessionSums": true,
+            "teamRestartCountersNonnegative": true,
+            "allHistoricPlayersHaveTeam": true
+          },
+          "centre": {
+            "home": {
+              "goals": 0,
+              "shots": 1,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 53.742149337055636,
+              "passesAttempted": 49,
+              "passesCompleted": 34,
+              "completionPercentage": 69.38775510204081,
+              "fouls": 1,
+              "yellowCards": 1,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 1,
+              "throwIns": 0,
+              "tacklesAttempted": 5,
+              "tacklesWon": 2,
+              "interceptions": 5
+            },
+            "away": {
+              "goals": 0,
+              "shots": 0,
+              "shotsOnTarget": 0,
+              "blockedShots": 0,
+              "possessionPercentage": 46.25785066294437,
+              "passesAttempted": 44,
+              "passesCompleted": 30,
+              "completionPercentage": 68.18181818181819,
+              "fouls": 2,
+              "yellowCards": 1,
+              "redCards": 0,
+              "offsides": 0,
+              "corners": 0,
+              "freeKicks": 1,
+              "throwIns": 0,
+              "tacklesAttempted": 4,
+              "tacklesWon": 2,
+              "interceptions": 6
+            }
+          },
+          "replay": {
+            "enabled": false
+          },
+          "performance": {
+            "elapsedMs": 16966.9101,
+            "ticks": 24000,
+            "canonicalSpeed": 35.36295038185698,
+            "rendererCallsBackground": 0,
+            "heapUsedDeltaBytes": 4547008,
+            "rssDeltaBytes": 98574336
+          },
+          "hashes": {
+            "state": "34949959f2fb758e044cfb20ba2f388be8326cb715864abd4fbb639998955e73",
+            "statistics": "0e16510a477057d6fc4617f07ca62991d4808b3f69496cfa6041cc500daf465c"
+          }
+        }
+      ]
+    },
+    "pr149-performance10.json": {
+      "methodology": "single canonical fixed-step engine; identical controlled player and deterministic explicit DEV choices; inclusive sampled spans; no rendering or RAF; export excluded from simulation timing",
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR149-final-continuity-verified"
+      },
+      "canonicalInvariant": true,
+      "results": [
+        {
+          "config": {
+            "canonicalMinutes": 10,
+            "mode": "release_minimal",
+            "batchTicks": 20,
+            "bucketMinutes": 5,
+            "profilingEnabled": true,
+            "sampleEveryTicks": 37
+          },
+          "seed": "pr146-performance:balanced:a",
+          "elapsedMs": 12508.970900000004,
+          "canonicalSpeed": 47.96557644879708,
+          "ticks": 24000,
+          "ticksPerSecond": 1918.6230579527523,
+          "rendererCallsBackground": 0,
+          "batchP50Ms": 5.097099999999045,
+          "batchP95Ms": 30.907900000000154,
+          "lateToEarlyCostRatio": 1.0141980764654666,
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "status": "first_half",
+          "humanDecisionInputs": 2,
+          "hashes": {
+            "canonicalState": "c16d06214a817908c6e4eab80e1274a47ed0dc35fa5ef88ee7a37155b05ff86d",
+            "playerState": "9425d62c1189518a7b1063d813e010d62f3d96130138e8e4b964a2a563ce029c",
+            "statistics": "1abf59ec45e9b0b6c8c16f2f91fa88426fd9d46a670491f17f709b9fd2e21f5f",
+            "majorEventSequence": "432d2dc631753574150135ed4b649791e29dcf9257743bccd53df38dbd13e353",
+            "majorEventCount": 218,
+            "randomnessEvidence": "e073bceeeba8c31cf8c3b741f6097c000e0813c613339bdb108f0836eb39dc04"
+          },
+          "memory": {
+            "heapUsedBytes": 100082056,
+            "heapTotalBytes": 214753280,
+            "rssBytes": 306229248,
+            "externalBytes": 11449286
+          },
+          "collections": {
+            "contextSamples": 0,
+            "debugFrames": 0,
+            "restartTargets": 0,
+            "planningSchedules": 1,
+            "canonicalActionEvents": 4,
+            "pendingCards": 0,
+            "defensivePlayerCounters": 5,
+            "statistics.observedRestartIds": 7,
+            "statistics.observedOffsideIds": 0,
+            "statistics.players": 22,
+            "statistics.observedPassAttemptIds": 92,
+            "statistics.observedPassResultIds": 92,
+            "statistics.observedShotIds": 2,
+            "statistics.observedShotResultIds": 2,
+            "statistics.observedContactIds": 221,
+            "statistics.observedCarryIds": 15,
+            "statistics.passingNetwork": 46,
+            "statistics.observedAssistGoalIds": 1,
+            "statistics.observedPossessionEvents": 12,
+            "telemetry.shotDistances": 0,
+            "telemetry.shootingOpportunityValues": 0,
+            "telemetry.possessionSpellDurations": 0,
+            "telemetry.possessionSpells": 0,
+            "telemetry.actionTempoSamples": 0,
+            "telemetry.ballHolds": 0,
+            "telemetry.passOutcomes": 0,
+            "telemetry.passingNetwork": 0,
+            "telemetry.observedPassAttemptIds": 0,
+            "telemetry.observedPassResultIds": 0,
+            "telemetry.observedShotIds": 0,
+            "telemetry.observedMajorActionIds": 0,
+            "telemetry.shotDiagnostics": 0,
+            "telemetry.activeFlankEpisodes": 0
+          }
+        },
+        {
+          "config": {
+            "canonicalMinutes": 10,
+            "mode": "normal",
+            "batchTicks": 20,
+            "bucketMinutes": 5,
+            "profilingEnabled": true,
+            "sampleEveryTicks": 37
+          },
+          "seed": "pr146-performance:balanced:a",
+          "elapsedMs": 12480.586599999988,
+          "canonicalSpeed": 48.07466341363544,
+          "ticks": 24000,
+          "ticksPerSecond": 1922.9865365462888,
+          "rendererCallsBackground": 0,
+          "batchP50Ms": 5.126599999999598,
+          "batchP95Ms": 31.29110000000219,
+          "lateToEarlyCostRatio": 1.040151865167883,
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "status": "first_half",
+          "humanDecisionInputs": 2,
+          "hashes": {
+            "canonicalState": "c16d06214a817908c6e4eab80e1274a47ed0dc35fa5ef88ee7a37155b05ff86d",
+            "playerState": "9425d62c1189518a7b1063d813e010d62f3d96130138e8e4b964a2a563ce029c",
+            "statistics": "1abf59ec45e9b0b6c8c16f2f91fa88426fd9d46a670491f17f709b9fd2e21f5f",
+            "majorEventSequence": "432d2dc631753574150135ed4b649791e29dcf9257743bccd53df38dbd13e353",
+            "majorEventCount": 218,
+            "randomnessEvidence": "e073bceeeba8c31cf8c3b741f6097c000e0813c613339bdb108f0836eb39dc04"
+          },
+          "memory": {
+            "heapUsedBytes": 140079928,
+            "heapTotalBytes": 262602752,
+            "rssBytes": 355553280,
+            "externalBytes": 11449286
+          },
+          "collections": {
+            "contextSamples": 61,
+            "debugFrames": 0,
+            "restartTargets": 0,
+            "planningSchedules": 1,
+            "canonicalActionEvents": 4,
+            "pendingCards": 0,
+            "defensivePlayerCounters": 5,
+            "statistics.observedRestartIds": 7,
+            "statistics.observedOffsideIds": 0,
+            "statistics.players": 22,
+            "statistics.observedPassAttemptIds": 92,
+            "statistics.observedPassResultIds": 92,
+            "statistics.observedShotIds": 2,
+            "statistics.observedShotResultIds": 2,
+            "statistics.observedContactIds": 221,
+            "statistics.observedCarryIds": 15,
+            "statistics.passingNetwork": 46,
+            "statistics.observedAssistGoalIds": 1,
+            "statistics.observedPossessionEvents": 12,
+            "telemetry.shotDistances": 0,
+            "telemetry.shootingOpportunityValues": 0,
+            "telemetry.possessionSpellDurations": 0,
+            "telemetry.possessionSpells": 0,
+            "telemetry.actionTempoSamples": 0,
+            "telemetry.ballHolds": 0,
+            "telemetry.passOutcomes": 0,
+            "telemetry.passingNetwork": 0,
+            "telemetry.observedPassAttemptIds": 0,
+            "telemetry.observedPassResultIds": 0,
+            "telemetry.observedShotIds": 0,
+            "telemetry.observedMajorActionIds": 0,
+            "telemetry.shotDiagnostics": 0,
+            "telemetry.activeFlankEpisodes": 0
+          }
+        },
+        {
+          "config": {
+            "canonicalMinutes": 10,
+            "mode": "dev",
+            "batchTicks": 20,
+            "bucketMinutes": 5,
+            "profilingEnabled": true,
+            "sampleEveryTicks": 37
+          },
+          "seed": "pr146-performance:balanced:a",
+          "elapsedMs": 13439.608300000007,
+          "canonicalSpeed": 44.64415826759831,
+          "ticks": 24000,
+          "ticksPerSecond": 1785.7663307047414,
+          "rendererCallsBackground": 0,
+          "batchP50Ms": 5.406300000002375,
+          "batchP95Ms": 34.74750000000495,
+          "lateToEarlyCostRatio": 0.9453673821927734,
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "status": "first_half",
+          "humanDecisionInputs": 2,
+          "hashes": {
+            "canonicalState": "c16d06214a817908c6e4eab80e1274a47ed0dc35fa5ef88ee7a37155b05ff86d",
+            "playerState": "9425d62c1189518a7b1063d813e010d62f3d96130138e8e4b964a2a563ce029c",
+            "statistics": "1abf59ec45e9b0b6c8c16f2f91fa88426fd9d46a670491f17f709b9fd2e21f5f",
+            "majorEventSequence": "432d2dc631753574150135ed4b649791e29dcf9257743bccd53df38dbd13e353",
+            "majorEventCount": 218,
+            "randomnessEvidence": "e073bceeeba8c31cf8c3b741f6097c000e0813c613339bdb108f0836eb39dc04"
+          },
+          "memory": {
+            "heapUsedBytes": 197294432,
+            "heapTotalBytes": 312950784,
+            "rssBytes": 407912448,
+            "externalBytes": 11449286
+          },
+          "collections": {
+            "contextSamples": 61,
+            "debugFrames": 0,
+            "restartTargets": 0,
+            "planningSchedules": 1,
+            "canonicalActionEvents": 4,
+            "pendingCards": 0,
+            "defensivePlayerCounters": 5,
+            "statistics.observedRestartIds": 7,
+            "statistics.observedOffsideIds": 0,
+            "statistics.players": 22,
+            "statistics.observedPassAttemptIds": 92,
+            "statistics.observedPassResultIds": 92,
+            "statistics.observedShotIds": 2,
+            "statistics.observedShotResultIds": 2,
+            "statistics.observedContactIds": 221,
+            "statistics.observedCarryIds": 15,
+            "statistics.passingNetwork": 46,
+            "statistics.observedAssistGoalIds": 1,
+            "statistics.observedPossessionEvents": 12,
+            "telemetry.shotDistances": 2,
+            "telemetry.shootingOpportunityValues": 2,
+            "telemetry.possessionSpellDurations": 15,
+            "telemetry.possessionSpells": 15,
+            "telemetry.actionTempoSamples": 190,
+            "telemetry.ballHolds": 101,
+            "telemetry.passOutcomes": 92,
+            "telemetry.passingNetwork": 46,
+            "telemetry.observedPassAttemptIds": 92,
+            "telemetry.observedPassResultIds": 91,
+            "telemetry.observedShotIds": 2,
+            "telemetry.observedMajorActionIds": 4,
+            "telemetry.shotDiagnostics": 2,
+            "telemetry.activeFlankEpisodes": 0
+          }
+        }
+      ]
+    }
+  }
+}

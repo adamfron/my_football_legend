@@ -3,12 +3,7 @@ import { PlayerModel, PlayerModelResources } from './playerModel';
 import { createPlayerRing } from './playerMarkers';
 import { deriveReplayCameraPose } from './replay';
 import { screenToGoalIntent } from './goalAiming';
-import {
-  actionFeedbackAnchor,
-  actionFeedbackOpacity,
-  actionFeedbackText,
-  selectActionFeedback,
-} from './actionFeedback';
+import { selectFrameFeedback } from './actionFeedback';
 import * as THREE from 'three';
 import {
   cameraViewSpan,
@@ -547,8 +542,8 @@ export class TacticalPitchRenderer {
     this.camera.updateMatrixWorld();
     const visible = new Set<string>();
     const occupied: { x: number; y: number; halfWidth: number }[] = [];
-    for (const event of selectActionFeedback(frame.actionEvents ?? [], frame.timestampMs)) {
-      const anchor = tacticalToWorld(actionFeedbackAnchor(event, frame), 2.35);
+    for (const event of selectFrameFeedback(frame)) {
+      const anchor = tacticalToWorld(event.position, 2.35);
       const projected = this.feedbackProjection
         .set(anchor.x, anchor.y, anchor.z)
         .project(this.camera);
@@ -559,7 +554,7 @@ export class TacticalPitchRenderer {
         Math.abs(projected.y) > 1
       )
         continue;
-      const text = actionFeedbackText(event);
+      const text = event.text;
       const halfWidth = text.length * 4 + 12;
       const x = Math.max(
         halfWidth + 4,
@@ -606,7 +601,7 @@ export class TacticalPitchRenderer {
       label.style.left = `${Math.round(x)}px`;
       label.style.top = `${Math.round(y)}px`;
       label.style.transform = 'translate(-50%, -100%)';
-      label.style.opacity = String(actionFeedbackOpacity(event, frame.timestampMs));
+      label.style.opacity = String(event.opacity);
     }
     for (const [id, label] of this.feedbackLabels)
       if (!visible.has(id)) {

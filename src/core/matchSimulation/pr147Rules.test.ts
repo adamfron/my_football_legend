@@ -430,7 +430,7 @@ describe('PR147 one canonical physical defence resolver', () => {
 });
 
 describe('PR147 canonical cards, restarts and advantage', () => {
-  const releasedThrow = () => {
+  const releasedThrow = (receiverControl?: number) => {
     const state = applyRestartScenario(
       createTacticalMatch(
         createSingleMatchSession(world, {
@@ -445,10 +445,31 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     );
     const action = enumerateRestartActions(state)[0]!;
     expect(action.type).toBe('pass');
+    if (action.type === 'pass' && receiverControl !== undefined) {
+      const receiver = state.players.find((player) => player.id === action.receiverId)!;
+      const thrower = state.players.find((player) => player.id === action.actorId)!;
+      receiver.profile = {
+        ...receiver.profile,
+        weakFootProficiency: 95,
+        attributes: {
+          ...receiver.profile.attributes,
+          firstTouch: receiverControl,
+          technique: receiverControl,
+          agility: receiverControl,
+          composure: receiverControl,
+          concentration: receiverControl,
+          gameReading: receiverControl,
+        },
+      };
+      receiver.facingAngle = angleForVector({
+        x: thrower.position.x - receiver.position.x,
+        y: thrower.position.y - receiver.position.y,
+      });
+    }
     return resolveMatchAction(state, action, 'autonomous_npc');
   };
-  it('ends the original throw release on the first other physical touch before an ordinary pass', () => {
-    let state = releasedThrow();
+  it('ends the original throw release on a clean first physical touch before an ordinary pass', () => {
+    let state = releasedThrow(95);
     const released = state.lastThrowInDiagnostic!;
     for (let tick = 0; tick < 80 && !state.lastThrowInDiagnostic?.nextContactPlayerId; tick += 1)
       state = stepTacticalMatch(state, 0.025);
@@ -463,9 +484,53 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     expect(state.scenario).toBe('open_play');
     expect(state.restart).toBeUndefined();
     expect(state.throwInRestriction).toBeUndefined();
+    expect(['clean_control', 'directional_control']).toContain(state.lastReceptionOutcome?.kind);
     expect(state.ball.ownerId).toBe(released.chosenReceiverId);
     const contact = state.lastThrowInDiagnostic;
     const thrower = state.players.find((p) => p.id === released.throwerId)!;
+    const pass = resolveMatchAction(
+      state,
+      {
+        type: 'pass',
+        actorId: released.chosenReceiverId,
+        receiverId: thrower.id,
+        target: thrower.position,
+        intent: 'support',
+      },
+      'autonomous_npc',
+    );
+    expect(pass.ball.travelKind).toBe('pass');
+    expect(pass.throwInRestriction).toBeUndefined();
+    expect(pass.lastThrowInDiagnostic).toBe(contact);
+    expect(tacticalMatchStateSchema.safeParse(pass).success).toBe(true);
+  });
+  it('ends the throw restriction on a heavy physical first touch before actual recovery', () => {
+    let state = releasedThrow(60);
+    const released = state.lastThrowInDiagnostic!;
+    for (let tick = 0; tick < 80 && !state.lastThrowInDiagnostic?.nextContactPlayerId; tick += 1)
+      state = stepTacticalMatch(state, 0.025);
+    expect(state.lastThrowInDiagnostic).toMatchObject({
+      throwerId: released.throwerId,
+      chosenReceiverId: released.chosenReceiverId,
+      releasedAt: released.releasedAt,
+      nextContactPlayerId: released.chosenReceiverId,
+      nextContactAt: state.time,
+    });
+    expect(state.lastReceptionOutcome?.kind).toBe('heavy_touch');
+    expect(state.time).toBeLessThan(released.releasedAt + 4);
+    expect(state.ball.ownerId).toBeUndefined();
+    expect(state.ball.looseSince).toBe(state.time);
+    expect(Math.hypot(state.ball.velocity!.x, state.ball.velocity!.y)).toBeGreaterThan(0.1);
+    expect(state.ball.secondBallPriorityIds).toContain(released.chosenReceiverId);
+    expect(state.scenario).toBe('open_play');
+    expect(state.restart).toBeUndefined();
+    expect(state.throwInRestriction).toBeUndefined();
+    const contact = state.lastThrowInDiagnostic;
+    for (let tick = 0; tick < 160 && !state.ball.ownerId; tick += 1)
+      state = stepTacticalMatch(state, 0.025);
+    expect(state.ball.ownerId).toBe(released.chosenReceiverId);
+    expect(state.lastThrowInDiagnostic).toBe(contact);
+    const thrower = state.players.find((player) => player.id === released.throwerId)!;
     const pass = resolveMatchAction(
       state,
       {

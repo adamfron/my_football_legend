@@ -20,6 +20,7 @@ import { PresentationFrameProjector, observeAnimationCues } from './frameProject
 import { PresentationContextHistory } from './contextHistory';
 import {
   DEFAULT_KITS,
+  deriveOwnedBallPose,
   tacticalFrameSchema,
   type TacticalFrame,
   type TacticalPlayer,
@@ -30,7 +31,10 @@ import {
   interpolatePresentationFrames,
   sampleReplayFrame,
   deriveReplayCameraPose,
+  replaySnapshotToFrame,
 } from './replay';
+import { MatchReplayHistory } from '../../../core/matchSimulation/matchReplay';
+import { deriveOnBallPreparation } from '../../../core/matchSimulation/onBallPreparation';
 
 const player: TacticalPlayer = {
   id: 'p',
@@ -81,6 +85,144 @@ const freeze = <T>(value: T): T => {
 };
 
 describe('seekable presentation poses', () => {
+  it('distinguishes control, scanning, shielding and recovery from idle at zero speed', () => {
+    const idle = { ...player, velocity: { x: 0, y: 0 }, gaitSpeed: 0, preparationSinceMs: 0 };
+    const base = derivePlayerPose(idle, 500);
+    const control = derivePlayerPose({ ...idle, preparation: 'controlling' }, 500);
+    const scan = derivePlayerPose({ ...idle, preparation: 'scanning' }, 500);
+    const shield = derivePlayerPose({ ...idle, preparation: 'shielding' }, 500);
+    const recovery = derivePlayerPose({ ...idle, preparation: 'recovering' }, 500);
+    expect(control.hipRight).toBeLessThan(base.hipRight);
+    expect(scan.headYaw).not.toBe(base.headYaw);
+    expect(shield.armSpread).toBeGreaterThan(control.armSpread);
+    expect(recovery.crouch).toBeGreaterThan(base.crouch);
+    for (const pose of [control, scan, shield, recovery])
+      expect(playerPoseSchema.safeParse(pose).success).toBe(true);
+    expect(derivePlayerPose({ ...idle, preparation: 'scanning' }, 500)).toEqual(scan);
+    expect(
+      derivePlayerPose({ ...idle, cue: { kind: 'slide', atMs: 500 } }, 500).crouch,
+    ).toBeGreaterThan(shield.crouch);
+  });
+
+  it('preserves canonical preparation and ball placement in live, hidden context and event replay', () => {
+    const state = makeState();
+    const owner = state.players.find((candidate) => candidate.id === state.ball.ownerId)!;
+    const preparation = deriveOnBallPreparation(state, owner, 'clean_control');
+    const canonical = freeze({
+      ...state,
+      onBallPreparation: preparation,
+      matchEvents: [
+        {
+          id: 'recorded-goal',
+          replayKey: 'recorded-goal',
+          at: state.time,
+          kind: 'goal' as const,
+          team: 'home' as const,
+          actorId: owner.id,
+          score: { home: 1, away: 0 },
+        },
+      ],
+    });
+    const projector = new PresentationFrameProjector();
+    const live = projector.frame(canonical);
+    const context = new PresentationContextHistory();
+    context.observe(canonical, true);
+    const history = new MatchReplayHistory();
+    history.observe(canonical);
+    const replay = replaySnapshotToFrame(history.getWindow('recorded-goal')!.frames[0]!);
+    const expected = {
+      preparation: preparation.micro!.phase,
+      preparationSinceMs: preparation.micro!.startedAt * 1000,
+    };
+    expect(live.players.find((entry) => entry.id === owner.id)).toMatchObject(expected);
+    expect(context.sample(0)!.players.find((entry) => entry.id === owner.id)).toMatchObject(
+      expected,
+    );
+    expect(replay.players.find((entry) => entry.id === owner.id)).toMatchObject(expected);
+    expect(replay.ball).toEqual(live.ball);
+    expect(deriveOwnedBallPose(live)).toEqual(live.ball);
+    expect(deriveOwnedBallPose(replay)).toEqual(replay.ball);
+    expect(tacticalFrameSchema.safeParse(replay).success).toBe(true);
+    expect(projector.frame(canonical)).toEqual(live);
+  });
+
+  it.each(['burst', 'shield'] as const)(
+    'gives recorded %s carry precedence over historical preparation',
+    (mode) => {
+      const state = makeState();
+      const owner = state.players.find((candidate) => candidate.id === state.ball.ownerId)!;
+      const history = new MatchReplayHistory();
+      history.observe({
+        ...state,
+        matchEvents: [
+          { id: 'carry-replay', replayKey: 'carry-replay', at: 0, kind: 'goal', team: 'home' },
+        ],
+      });
+      const snapshot = history.getWindow('carry-replay')!.frames[0]!;
+      snapshot.players = snapshot.players.map((entry) =>
+        entry.id === owner.id
+          ? {
+              ...entry,
+              possessionPreparation: deriveOnBallPreparation(state, owner, 'clean_control'),
+              carrying: { mode, startedAt: 0 },
+            }
+          : entry,
+      );
+      const before = structuredClone(snapshot);
+      const projected = replaySnapshotToFrame(freeze(snapshot));
+      expect(projected.players.find((entry) => entry.id === owner.id)?.preparation).toBe(
+        mode === 'shield' ? 'shielding' : 'carrying',
+      );
+      expect(
+        projected.players.find((entry) => entry.id === owner.id)?.canonicalBallPlacement,
+      ).toBeUndefined();
+      expect(projected.carryMode).toBe(mode);
+      expect(deriveOwnedBallPose(projected)).not.toEqual(projected.ball);
+      expect(snapshot).toEqual(before);
+      expect(tacticalFrameSchema.safeParse(projected).success).toBe(true);
+    },
+  );
+
+  it('uses the actual incoming receiver and contact time when a new pass diagnostic is already active', () => {
+    const state = makeState();
+    const passer = state.players.find((entry) => entry.id === state.ball.ownerId)!;
+    const intended = state.players.find(
+      (entry) => entry.team === passer.team && entry.id !== passer.id,
+    )!;
+    const actual = state.players.find(
+      (entry) => entry.team === passer.team && ![passer.id, intended.id].includes(entry.id),
+    )!;
+    const released = resolveMatchAction(state, {
+      type: 'pass',
+      actorId: passer.id,
+      receiverId: intended.id,
+      target: intended.position,
+      intent: 'support',
+    });
+    const pass = released.lastPassDiagnostic!;
+    const before = { ...state, time: 1 };
+    const after = {
+      ...before,
+      time: 1.05,
+      lastResolvedPass: { ...pass, actualReceiverId: actual.id, resolvedAt: 1.025 },
+      lastPassDiagnostic: {
+        ...pass,
+        passId: 'outgoing-pass',
+        passerId: actual.id,
+        releasedAt: 1.05,
+      },
+      lastReceptionOutcome: {
+        receiverId: actual.id,
+        kind: 'clean_control' as const,
+        contactPoint: actual.position,
+      },
+    };
+    expect(observeAnimationCues(before, freeze(after)).get(actual.id)).toMatchObject({
+      kind: 'receive',
+      atMs: 1025,
+    });
+    expect(observeAnimationCues(before, after).has(intended.id)).toBe(false);
+  });
   it.each([
     [0, 'idle'],
     [1, 'walk'],

@@ -38,6 +38,14 @@ export const projectLocomotion = (
   });
   if (state.restart?.phase === 'setup') return result('walk', 'restart_setup');
   if (
+    state.ball.ownerId === player.id &&
+    state.onBallPreparation?.actorId === player.id &&
+    state.onBallPreparation.micro &&
+    state.ballCarrierIntent?.actorId !== player.id &&
+    state.playerMovementIntent?.actorId !== player.id
+  )
+    return { ...result('walk', 'structural_adjustment'), targetSpeed: 0.85 };
+  if (
     state.receptionPreparation?.actorId === player.id &&
     state.time >= state.receptionPreparation.awarenessAt
   ) {

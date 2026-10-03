@@ -1,5 +1,5 @@
 import type { TacticalMatchState } from '../../../core/matchSimulation/matchState';
-import { observeAnimationCues } from './frameProjection';
+import { observeAnimationCues, projectPlayerPreparation } from './frameProjection';
 import type { AnimationCue, TacticalFrame } from './model';
 import { sampleReplayFrame } from './replay';
 import { frameActionEvents, frameDismissals } from './actionFeedback';
@@ -68,17 +68,7 @@ export class PresentationContextHistory {
           weightKg: player.profile.weightKg,
           dominantFoot: player.profile.dominantFoot,
           cue: this.cues.get(player.id),
-          preparation:
-            state.receptionPreparation?.actorId === player.id &&
-            state.time >= state.receptionPreparation.awarenessAt
-              ? 'receive'
-              : state.scenario === 'throw_in' &&
-                  state.restart?.phase === 'setup' &&
-                  state.restart.takerId === player.id
-                ? 'throw'
-                : undefined,
-          preparationSinceMs:
-            state.restart?.startedAt !== undefined ? state.restart.startedAt * 1000 : undefined,
+          ...projectPlayerPreparation(state, player.id),
         };
       }),
     };

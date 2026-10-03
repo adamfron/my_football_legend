@@ -49,15 +49,35 @@ export const observeAnimationCues = (
         : {}),
     });
   }
+  if (state.actionEvents !== previous?.actionEvents) {
+    for (const event of state.actionEvents ?? []) {
+      if (
+        !['reception', 'heavy_touch'].includes(event.kind) ||
+        event.at * 1000 > atMs ||
+        atMs - event.at * 1000 >= CUE_DURATION_MS ||
+        previous?.actionEvents?.some((old) => old.id === event.id) ||
+        cues.has(event.actorId)
+      )
+        continue;
+      cues.set(event.actorId, { kind: 'receive', atMs: event.at * 1000 });
+    }
+  }
   if (
     previous &&
     state.lastReceptionOutcome &&
     state.lastReceptionOutcome !== previous.lastReceptionOutcome &&
     !cues.has(state.lastReceptionOutcome.receiverId)
   ) {
+    const resolved = [state.lastResolvedPass, state.lastPassDiagnostic].find(
+      (pass) =>
+        pass?.resolvedAt !== undefined &&
+        (pass.actualReceiverId ?? pass.intendedReceiverId) ===
+          state.lastReceptionOutcome!.receiverId &&
+        pass.resolvedAt >= previous.time - 0.001,
+    );
     cues.set(state.lastReceptionOutcome.receiverId, {
       kind: 'receive',
-      atMs: (state.lastPassDiagnostic?.resolvedAt ?? state.time) * 1000,
+      atMs: (resolved?.resolvedAt ?? state.time) * 1000,
     });
   }
   const aerial = state.lastAerialContact;
@@ -97,7 +117,65 @@ export const observeAnimationCues = (
       side,
     });
   }
+  const challenge = state.lastChallenge;
+  if (challenge && challenge.id !== previous?.lastChallenge?.id)
+    cues.set(challenge.actorId, {
+      kind: challenge.technique === 'slide' ? 'slide' : 'tackle',
+      atMs: challenge.at * 1000,
+    });
   return cues;
+};
+
+/** Shared canonical preparation evidence for visible frames and hidden decision context. */
+export const projectPlayerPreparation = (
+  state: TacticalMatchState,
+  playerId: string,
+): Pick<TacticalPlayer, 'preparation' | 'preparationSinceMs' | 'canonicalBallPlacement'> => {
+  if (
+    state.scenario === 'throw_in' &&
+    state.restart?.phase === 'setup' &&
+    state.restart.takerId === playerId
+  )
+    return { preparation: 'throw', preparationSinceMs: state.restart.startedAt * 1000 };
+  if (
+    state.keeperIntervention?.keeperId === playerId &&
+    state.keeperIntervention.intention !== 'stay'
+  ) {
+    const canonical = state.players.find((player) => player.id === playerId);
+    return {
+      preparation:
+        state.ball.shot && canonical && Math.hypot(canonical.velocity.x, canonical.velocity.y) > 0.5
+          ? (state.ball.height ?? 0) < 0.8
+            ? 'save_low'
+            : 'save_high'
+          : 'claim',
+    };
+  }
+  if (
+    state.receptionPreparation?.actorId === playerId &&
+    state.time >= state.receptionPreparation.awarenessAt
+  )
+    return { preparation: 'receive' };
+  const carry = state.ballCarrierIntent;
+  if (carry?.actorId === playerId && state.ball.ownerId === playerId)
+    return {
+      preparation: carry.executionMode === 'shield' ? 'shielding' : 'carrying',
+      preparationSinceMs: carry.startedAt * 1000,
+    };
+  const preparation =
+    state.onBallPreparation?.actorId === playerId ? state.onBallPreparation : undefined;
+  const micro = preparation?.micro;
+  if (
+    micro &&
+    (state.ball.ownerId === playerId ||
+      (micro.phase === 'recovering' && state.time < preparation.readyAt))
+  )
+    return {
+      preparation: micro.phase,
+      preparationSinceMs: micro.startedAt * 1000,
+      canonicalBallPlacement: true,
+    };
+  return {};
 };
 
 /** Bounded observation memory: one cue and gait accumulator per player. Saved into replay frames. */
@@ -157,22 +235,7 @@ export class PresentationFrameProjector {
       continuity: `${state.seed}:${this.continuity}`,
       players: frame.players.map((player, index): TacticalPlayer => {
         const canonical = state.players[index]!;
-        const preparation =
-          state.scenario === 'throw_in' &&
-          state.restart?.phase === 'setup' &&
-          state.restart.takerId === player.id
-            ? 'throw'
-            : state.keeperIntervention?.keeperId === player.id &&
-                state.keeperIntervention.intention !== 'stay'
-              ? state.ball.shot && Math.hypot(canonical.velocity.x, canonical.velocity.y) > 0.5
-                ? (state.ball.height ?? 0) < 0.8
-                  ? 'save_low'
-                  : 'save_high'
-                : 'claim'
-              : state.receptionPreparation?.actorId === player.id &&
-                  state.time >= state.receptionPreparation.awarenessAt
-                ? 'receive'
-                : undefined;
+        const preparation = projectPlayerPreparation(state, player.id);
         return {
           ...player,
           velocity: { ...canonical.velocity },
@@ -182,12 +245,11 @@ export class PresentationFrameProjector {
           gaitPhase: this.gait.get(player.id)?.phase ?? 0,
           gaitSpeed: this.gait.get(player.id)?.speed ?? 0,
           cue: this.cues.get(player.id),
-          preparation,
+          ...preparation,
           preparationSide: Math.sign(
             canonical.velocity.x * Math.cos(canonical.facingAngle) -
               canonical.velocity.y * Math.sin(canonical.facingAngle),
           ),
-          preparationSinceMs: preparation === 'throw' ? state.restart!.startedAt * 1000 : undefined,
         };
       }),
     };
