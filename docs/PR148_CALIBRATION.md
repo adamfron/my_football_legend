@@ -143,10 +143,12 @@ Pełne `npm run verify` na końcowym kodzie przeszło: ESLint, 836 testów głó
 niezależność A–D/batch/profiler, seeded RNG i całościowe hashe telemetrii z niezmienionymi
 seedami oraz 2400 tickami. `git diff --check` i końcowy przegląd zakresu są czyste.
 
-Test zgodności batch/profiler ma limit 30 sekund, ponieważ pełne symulacje z
-próbkowaniem każdego ticka przekroczyły domyślne 5 sekund na współdzielonym runnerze
-CI. Zachowuje wszystkie asercje zgodności. Ocena regresji wydajności opiera się na
-izolowanych pomiarach powyżej.
+CI używa dwóch workerów, tak jak zakończona weryfikacja lokalna. Testy zgodności
+batch/profiler i capture on/off mają limit 30 sekund, a cztery kompletne symulacje
+A–D z capture/export — 60 sekund. Współdzielony runner przekroczył wcześniej
+odpowiednio domyślne 5 sekund i limit 30 sekund. Liczba ticków, seedy, konfiguracje
+i wszystkie asercje zgodności pozostają zachowane. Ocena regresji wydajności opiera
+się na izolowanych pomiarach powyżej.
 
 ## Weryfikacja i ograniczenia
 

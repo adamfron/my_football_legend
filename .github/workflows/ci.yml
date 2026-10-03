@@ -10,6 +10,9 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      # Bound concurrent simulation/export work on shared runners.
+      VITEST_MAX_WORKERS: '2'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

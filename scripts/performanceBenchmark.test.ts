@@ -63,7 +63,7 @@ describe('PR146 deterministic performance harness', () => {
     }
   });
 
-  // Four complete simulations, including capture/export, can exceed 5 s on shared CI.
+  // Four complete simulations with capture/export need bounded time on shared CI.
   it('compares complete canonical, statistics, player and event hashes across A-D', () => {
     const modes: PerformanceObserverMode[] = ['release_minimal', 'normal', 'dev', 'capture'];
     const results = modes.map(
@@ -103,7 +103,7 @@ describe('PR146 deterministic performance harness', () => {
         { ...results[1]!, hashes: { ...results[1]!.hashes, statistics: 'changed' } },
       ]),
     ).toThrow('changed canonical football');
-  }, 30_000);
+  }, 60_000);
 
   // Complete simulations with per-tick profiling can exceed 5 s on shared CI.
   it('preserves outcomes across different batch boundaries and profiler sampling', () => {
