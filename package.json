@@ -33,7 +33,10 @@
     "benchmark:performance": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPerformance.ts",
     "benchmark:discipline-calibration": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkDisciplineCalibration.ts",
     "benchmark:readability": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkReadability.ts",
-    "benchmark:intent": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr150.ts"
+    "benchmark:intent": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr150.ts",
+    "benchmark:reactive": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkReactiveTactics.ts",
+    "benchmark:cadence": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr151.ts",
+    "benchmark:shot-parity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkShotParity.ts"
   },
   "dependencies": {
     "react": "19.2.8",

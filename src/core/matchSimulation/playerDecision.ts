@@ -35,7 +35,7 @@ import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { BALL_RADIUS } from './ballFlight';
 import { enumerateRestartActions } from './matchActions';
-import { enumerateCanonicalShootingOptions } from './shootingOptions';
+import { enumerateCanonicalShootingOptions, incomingShotContact } from './shootingOptions';
 import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
 import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { canContactAfterThrowIn } from './throwIn';
@@ -552,15 +552,13 @@ export const projectIncomingPlayerInvolvement = (
           player.team !== actor.team && distance(player.position, state.ball.target!) <= 4,
       ),
   );
-  const importantKind = ['through_ball', 'cross', 'long_distribution'].includes(
-    state.ball.travelKind ?? '',
-  );
   const attacking = Boolean(
-    actor && fieldValue(state.ball.target ?? actor.position, actor.team) > 65,
-  );
-  const tightAttackingPressure = Boolean(
     actor &&
-      attacking &&
+      fieldValue(state.ball.target ?? actor.position, actor.team) >
+        PLAYER_AGENCY_CALIBRATION.meaningfulLongReceptionProgress,
+  );
+  const tightReceptionPressure = Boolean(
+    actor &&
       state.ball.target &&
       state.players.some(
         (player) =>
@@ -569,10 +567,23 @@ export const projectIncomingPlayerInvolvement = (
             PLAYER_AGENCY_CALIBRATION.meaningfulReceptionPressureDistance,
       ),
   );
+  const contact = actor && committed ? incomingShotContact(state, actor.id) : undefined;
+  const finish =
+    actor && contact
+      ? evaluateShootingOpportunity(state, { ...actor, position: contact.point })
+      : undefined;
+  // Physical availability of a speculative first-time shot does not make safe circulation
+  // worth opening a new episode. The legal shot remains available inside a surfaced episode.
   const firstTimeFinish = Boolean(
-    actor && committed && enumerateCanonicalShootingOptions(state, actor.id).length,
+    actor &&
+      finish &&
+      (finish.category === 'credible' || finish.category === 'high_value') &&
+      enumerateCanonicalShootingOptions(state, actor.id).length,
   );
-  const important = importantKind || tightAttackingPressure || firstTimeFinish;
+  const importantKind =
+    ['through_ball', 'cross'].includes(state.ball.travelKind ?? '') ||
+    (state.ball.travelKind === 'long_distribution' && (attacking || tightReceptionPressure));
+  const important = importantKind || (attacking && tightReceptionPressure) || firstTimeFinish;
   // Time to contact is observed from the live trajectory. Routine arrivals and a ball already
   // on the feet cannot open the incoming menu merely because control and a token carry exist.
   const relevant = committed && remaining >= 0.35 && remaining <= 1.8 && important;

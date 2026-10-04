@@ -320,34 +320,36 @@ describe('restart geometry and lifecycle', () => {
     expect(
       penalty.players.filter((p) => distance(p.position, penalty.ball) < 5).map((p) => p.id),
     ).toEqual([takerId]);
-    expect(
-      penalty.players
-        .filter((p) => p.id !== takerId && p.profile.primaryPosition !== 'goalkeeper')
-        .every((p) => p.position.x < 84.5),
-    ).toBe(true);
+    const defendingKeeper = penalty.players.find(
+      (p) => p.team === 'away' && p.profile.primaryPosition === 'goalkeeper',
+    )!;
+    expect(defendingKeeper.position).toEqual({ x: PITCH_LENGTH, y: PITCH_WIDTH / 2 });
+    for (const participant of penalty.players.filter(
+      (p) => p.id !== takerId && p.id !== defendingKeeper.id,
+    )) {
+      const { x, y } = participant.position;
+      // Legal rebound spots include the sides of the arc near the box edge.
+      const outsideBox = x < PITCH_LENGTH - 16.5 || Math.abs(y - PITCH_WIDTH / 2) > 20.16;
+      expect(outsideBox).toBe(true);
+      expect(distance(participant.position, penalty.ball)).toBeGreaterThanOrEqual(9.15);
+      expect(x).toBeLessThan(penalty.ball.x);
+    }
     const setup = penalty.players.map((p) => p.position);
     for (let i = 0; i < 20; i++) penalty = stepTacticalMatch(penalty, 0.1);
     expect(penalty.players.map((p) => p.position)).toEqual(setup);
-    const receiver = penalty.players.find(
-      (p) => p.team === 'home' && p.id !== takerId && p.profile.primaryPosition !== 'goalkeeper',
-    )!;
     penalty = resolveMatchAction(penalty, {
-      type: 'pass',
+      type: 'shot',
       actorId: takerId,
-      receiverId: receiver.id,
-      target: receiver.position,
-      intent: 'support',
+      target: { x: PITCH_LENGTH, y: PITCH_WIDTH / 2 },
+      goalTarget: { horizontal: 0.2, vertical: 0.3 },
+      intent: 'driven',
     });
-    expect(penalty.restart?.phase).toBe('release');
-    const immediate = deriveTacticalTargets(penalty).find((p) => p.id === receiver.id)!;
-    expect(distance(immediate.idealTarget, penalty.restart!.targets[receiver.id]!)).toBe(0);
-    penalty = stepTacticalMatch(penalty, 1);
-    expect(
-      distance(
-        penalty.players.find((p) => p.id === receiver.id)!.idealTarget,
-        penalty.restart!.targets[receiver.id]!,
-      ),
-    ).toBeGreaterThan(0);
+    expect(penalty.restart).toBeUndefined();
+    expect(penalty.scenario).toBe('open_play');
+    expect(penalty.ball.shot?.context).toBe('penalty');
+    expect(penalty.players.map((p) => p.position)).toEqual(setup);
+    penalty = stepTacticalMatch(penalty, 0.1);
+    expect(penalty.players.some((p, index) => distance(p.position, setup[index]!) > 0)).toBe(true);
   });
 });
 describe('autonomous tactical simulation', () => {

@@ -1,5 +1,32 @@
 # Match Engine Handoff
 
+## PR151 contracts
+
+- `teams[side].threatMemory` is validated canonical evidence, not presentation telemetry.
+  Observe football events through both step wrappers; never scan full history or count every
+  carry substep. Decay and response timing use canonical seconds only.
+- Apply bounded reaction through existing tactical targets and actual action scoring. The
+  normal locomotion integrator moves the shape. Neutral coaching defaults preserve universal
+  adaptation; missing attributes must not disable it. Keep persistence and gradual relaxation.
+  Short build-up support and safer recycling require current nearby pressure and real pressure
+  relief; remembered threats alone must not penalize free carries or reward backward loops.
+- A cooperative press reserves at most one additional defender, preserving central cover and
+  dangerous receiver marking. Availability is a neutral hook for future physical state.
+  Keep the stable primary screen and pair locks; skip locked partners for a fresh safe defender.
+  Project cover toward the goal centre and use ordinary movement/contact access and the shared
+  challenge resolver. No forced human release or guaranteed tackle result.
+- Presentation density and agency continuity are separate. Routine new receptions can stay
+  autonomous; an existing human possession still owns meaningful passes, crosses and finishes.
+- Match Lab export v3 uses null/reason/explicit intervals for unavailable or partial DEV data.
+  Always retain real presentation runtime. Human hidden-to-visible lead-ins count as episodes.
+- Movement capability is shared by locomotion, arrival and keeper acceleration. Stamina is a
+  fixed capability here, without a fatigue ledger. Penalty setup dissolves when kicked; retain
+  penalty shot context and legal goal-line keeper coordinates.
+- Human/NPC parity compares the same canonical intent, target, physical state and seed family.
+  Do not retune finishing from a single match or add source-specific accuracy.
+- Evidence, reproduction and limits: [PR151_REACTIVE_TACTICS.md](PR151_REACTIVE_TACTICS.md).
+  Fatigue, injuries, added time, substitutions and coaching personalities remain later.
+
 ## PR150 contracts (supersede historical public-touch/network definitions below)
 
 - Preserve PR148 cadence. Routine contacts never reopen human agency by themselves.
@@ -17,7 +44,7 @@
   resolved delivery and create a fresh outgoing identity/offside snapshot.
 - Motion arrows observe current velocity only; headless canonical state cannot depend on them.
 - Evidence and limits: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUOUS_INTENT.md),
-  [PR150_ACCOUNTING.md](PR150_ACCOUNTING.md). Next: PR151 fatigue/injuries/added time/substitutions.
+  [PR150_ACCOUNTING.md](PR150_ACCOUNTING.md). PR151 extends these contracts above.
 
 ## PR149 contracts
 
@@ -38,7 +65,7 @@
   canonical progression. UI animation and replay use recorded frame time and roster boundaries.
 - `npm run benchmark:readability` compares a clean engine via `--engine-root`, retains reception/
   hold/agency/accounting evidence and hashes, and can measure `--replay=true` observer cost.
-- The former stamina plan follows PR150 as **PR151**. Cinematic replay, final art,
+- The former stamina plan remains later than **PR151 reactive tactics**. Cinematic replay, final art,
   stadium archetypes and large league calibration remain separate. Details and final evidence:
   [PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
 

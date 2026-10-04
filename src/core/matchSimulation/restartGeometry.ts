@@ -475,42 +475,36 @@ const deriveHomeRestartGeometry = (
     taker = choosePenaltyTaker(state, 'home');
     points.set(taker.id, ball);
     points.set(homeGk.id, { x: 5.5, y: 34 });
-    points.set(awayGk.id, { x: 104.4, y: 34 });
+    points.set(awayGk.id, { x: 105, y: 34 });
+    // Rebound candidates stand just outside the box and 9.15 m arc, behind the mark.
+    // Use a small legal margin so seeded jitter/separation cannot create encroachment.
+    const reboundPoint = (y: number, row = 0): PitchPoint => ({
+      x: Math.min(87.8, ball.x - Math.sqrt(Math.max(0, 9.6 ** 2 - (y - ball.y) ** 2))) - row * 1.25,
+      y,
+    });
     const attackers = home.filter((p) => p.id !== taker.id);
     attackers.forEach((p, i) => {
       const base =
-        i < 4
-          ? { x: 83.2 - (i % 2) * 1.3, y: [27, 40, 21, 48][i]! }
-          : i === 4
-            ? { x: 78, y: 55 }
-            : { x: 66 - (i - 5) * 3, y: 18 + (i % 3) * 16 };
+        i < 7
+          ? reboundPoint([22, 28, 40, 46, 18, 34, 50][i]!, i % 2)
+          : { x: 65 - (i - 7) * 4, y: 25 + (i - 7) * 16 };
       place(p, base, 0.45);
       assign(
         p,
-        i < 4 ? 'rebound_attack' : i === 4 ? 'wide_rebound' : 'rest_defence',
-        i < 5 ? 'attack_second_ball' : 'rest_defence',
+        i < 7 ? 'rebound_attack' : 'rest_defence',
+        i < 7 ? 'attack_second_ball' : 'rest_defence',
         base,
       );
     });
     away.forEach((p, i) => {
       const base =
-        i < 5
-          ? { x: 82 - (i % 3) * 1.1, y: [24, 31, 38, 45, 52][i]! }
-          : i === 5
-            ? { x: 77, y: 14 }
-            : i === 9
-              ? { x: 69, y: 34 }
-              : { x: 80 + (i % 2), y: 18 + (i % 3) * 16 };
+        i < 9
+          ? reboundPoint([20, 26, 32, 38, 44, 48, 16, 36, 52][i]!, 1 + (i % 2))
+          : { x: 69, y: 34 };
       place(p, base, 0.45);
       assign(
         p,
-        i < 5
-          ? 'rebound_defence'
-          : i === 5
-            ? 'wide_rebound'
-            : i === 9
-              ? 'counter_outlet'
-              : 'box_protection',
+        i < 9 ? 'rebound_defence' : 'counter_outlet',
         i === 9 ? 'counter_outlet' : 'protect_zone',
         base,
       );
@@ -549,7 +543,7 @@ const deriveHomeRestartGeometry = (
   // Preserve law-critical exact locations after separation.
   if (scenario === 'penalty') {
     points.set(homeGk.id, { x: 5.5, y: 34 });
-    points.set(awayGk.id, { x: 104.4, y: 34 });
+    points.set(awayGk.id, { x: 105, y: 34 });
     points.set(taker.id, ball);
   }
   if (scenario === 'goal_kick' || scenario === 'gk_short') points.set(homeGk.id, ball);
@@ -628,5 +622,6 @@ export const deriveRestartGeometry = (
 export const restartInfluence = (state: TacticalMatchState) => {
   if (!state.restart) return 0;
   if (state.restart.phase === 'setup') return 1;
+  if (state.scenario === 'penalty') return 0;
   return Math.max(0, 1 - (state.time - (state.restart.executedAt ?? state.time)) / 4);
 };

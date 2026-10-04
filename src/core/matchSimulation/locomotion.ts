@@ -1,5 +1,10 @@
+import { z } from 'zod';
 import { distance, signedForwardDistance } from './matchSpace';
-import { isDefensiveEpisodeLocked, shouldCommitRoutinePress } from './defensiveChallenges';
+import {
+  isDefensiveEpisodeLocked,
+  shouldCommitRoutinePress,
+  type CooperativePress,
+} from './defensiveChallenges';
 import type {
   LocomotionIntensity,
   LocomotionReason,
@@ -13,22 +18,77 @@ export interface LocomotionProjection {
   targetSpeed: number;
 }
 
+/** Future fatigue/injury systems can scale capability without changing football intentions. */
+export const movementCapacityModifiersSchema = z.object({
+  speed: z.number().positive().max(1).default(1),
+  acceleration: z.number().positive().max(1).default(1),
+});
+export type MovementCapacityModifiers = z.infer<typeof movementCapacityModifiersSchema>;
+export const NEUTRAL_MOVEMENT_CAPACITY: MovementCapacityModifiers = {
+  speed: 1,
+  acceleration: 1,
+};
+export const movementCapabilitySchema = z.object({
+  walkSpeed: z.number().positive(),
+  jogSpeed: z.number().positive(),
+  runSpeed: z.number().positive(),
+  maximumSprintSpeed: z.number().positive(),
+  sustainedSprintSpeed: z.number().positive(),
+  acceleration: z.number().positive(),
+});
+export type MovementCapability = z.infer<typeof movementCapabilitySchema>;
+
+/** Metres/second and metres/second². Stamina describes a fixed athlete capability here;
+ * there is no fatigue ledger, exhaustion threshold, or automatic end of a chosen sprint. */
+export const deriveMovementCapability = (
+  player: MatchPlayerState,
+  modifiers: MovementCapacityModifiers = NEUTRAL_MOVEMENT_CAPACITY,
+): MovementCapability => {
+  const a = player.profile.attributes;
+  const pace = a.pace / 100;
+  const maximumSprintSpeed = (6.2 + pace * 3.3) * modifiers.speed;
+  return {
+    walkSpeed: (1.25 + pace * 0.75) * modifiers.speed,
+    jogSpeed: (2.6 + pace * 1.5) * modifiers.speed,
+    runSpeed: (4.4 + pace * 1.8) * modifiers.speed,
+    maximumSprintSpeed,
+    sustainedSprintSpeed: maximumSprintSpeed * (0.94 + (a.stamina / 100) * 0.06),
+    acceleration:
+      (3.2 + (a.agility / 100) * 3.5 + pace * 1.4 + (a.strength / 100) * 0.6) *
+      modifiers.acceleration,
+  };
+};
+
+/** Smoothly transitions an opening burst into the athlete's sustainable sprint envelope. */
+export const sprintSpeedAt = (capability: MovementCapability, sprintSeconds: number) => {
+  const progress = Math.max(0, Math.min(1, (sprintSeconds - 2) / 6));
+  const smooth = progress * progress * (3 - 2 * progress);
+  return (
+    capability.maximumSprintSpeed +
+    (capability.sustainedSprintSpeed - capability.maximumSprintSpeed) * smooth
+  );
+};
+
 /** Deterministic football-intention projection. Pace changes capability, never intention. */
 export const projectLocomotion = (
   state: TacticalMatchState,
   player: MatchPlayerState,
   target = player.target,
+  cooperativePress?: CooperativePress | null,
 ): LocomotionProjection => {
   const metres = distance(player.position, target);
-  const pace = player.profile.attributes.pace / 100;
+  const capability = deriveMovementCapability(player);
   const speedFor = (intensity: LocomotionIntensity) => {
-    const sprint = 6.2 + pace * 3.3;
+    const sprint = sprintSpeedAt(
+      capability,
+      player.sprintStartedAt === undefined ? 0 : state.time - player.sprintStartedAt,
+    );
     return intensity === 'walk'
-      ? 1.25 + pace * 0.75
+      ? capability.walkSpeed
       : intensity === 'jog'
-        ? 2.6 + pace * 1.5
+        ? capability.jogSpeed
         : intensity === 'run'
-          ? 4.4 + pace * 1.8
+          ? capability.runSpeed
           : sprint;
   };
   const result = (intensity: LocomotionIntensity, reason: LocomotionReason) => ({
@@ -93,15 +153,21 @@ export const projectLocomotion = (
     distance(player.position, state.ball) < 15 &&
     distance(target, state.ball) < 5;
   if (looseRace) return result('sprint', 'loose_ball_race');
+  // The screen also needs contact-level arrival precision; a formation margin would
+  // leave the carrier facing only its partner and keep both bodies outside ball access.
+  if (cooperativePress?.primaryId === player.id && state.defensiveChallenge?.actorId !== player.id)
+    return result(metres < 3 ? 'walk' : 'jog', 'contain');
   if (
     state.nearestChallengerId === player.id &&
     state.ball.ownerId &&
     state.defensiveChallenge?.actorId !== player.id &&
     (isDefensiveEpisodeLocked(state, player.id, state.ball.ownerId) ||
-      !shouldCommitRoutinePress(state, player.id))
+      !shouldCommitRoutinePress(state, player.id, cooperativePress))
   )
     return result(metres < 3 ? 'walk' : 'jog', 'contain');
   if (state.nearestChallengerId === player.id)
+    return result(metres > 8 ? 'sprint' : 'run', 'press_commit');
+  if (cooperativePress?.secondaryId === player.id)
     return result(metres > 8 ? 'sprint' : 'run', 'press_commit');
   const defensiveTransition = state.teams[player.team].phase === 'defensive_transition';
   const ownGoalX = player.team === 'home' ? 0 : 105;

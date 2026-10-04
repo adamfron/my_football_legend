@@ -1,0 +1,3593 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "95bc7d1a1a724105099bbf80d9e371a7a35c4535",
+  "source": {
+    "sourceFingerprint": "0e8af90510272be1e3114eda3de0d54544c249363f0ffab0c5586ed19388b964",
+    "serialJobs": [
+      "final-cm45",
+      "final-rw45",
+      "final-rw90",
+      "reactive-tactics",
+      "shot-parity",
+      "observer-parity",
+      "profile-final-cm10"
+    ],
+    "node": "v24.19.0"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "
+  },
+  "verification": {
+    "command": "VITEST_MAX_WORKERS=2 npm run verify",
+    "exitCode": 0,
+    "mainTests": 973,
+    "careerTests": 5,
+    "mainTestFiles": 141,
+    "lint": "passed",
+    "typescript": "passed",
+    "build": "passed"
+  },
+  "methodology": {
+    "canonical": "complete",
+    "presentation": "headless_shipped_window_laws",
+    "decisions": "actual_opportunities_with_explicit_dev_selection",
+    "detailedPlayerAgency": "not_collected",
+    "renderer": "absent",
+    "leadInPlayback": "not_timed_or_added_to_canonical_seconds"
+  },
+  "timingScope": "one_exact_agency_probe_per_step; headless_work_includes_window_projection_and_2s_structure_samples; no_React_renderer_or_context_capture",
+  "sequenceDefinition": "hidden_to_visible_transition_including_human_lead_in; prompts_during_connected_outcome_share_sequence",
+  "inputPolicy": "explicit_dev_ai_selection_at_exact_tick_boundary",
+  "matches": [
+    {
+      "role": "CM",
+      "scenario": "balanced-balanced",
+      "seed": "pr148:balanced-balanced:a",
+      "requestedMinutes": 45,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 2,
+          "away": 2
+        },
+        "presentation": {
+          "surfacedSequences": 15,
+          "nonInteractiveEpisodes": 9,
+          "humanLeadIns": 6,
+          "prompts": 6,
+          "promptsPerSequence": 0.4,
+          "hiddenCanonicalSeconds": 2617.3249999999407,
+          "visibleCanonicalSeconds": 82.67500000005926
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_14",
+          "position": "central_midfielder",
+          "touches": 43,
+          "carries": 0,
+          "passes": 22,
+          "shots": 0,
+          "distanceMetres": 2851.010730928163,
+          "sprintDistanceMetres": 13.401853883602811
+        },
+        "football": {
+          "passes": 419,
+          "shots": 12,
+          "touches": 567
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1280,
+              "mean": 44.10494111230446
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 708,
+              "mean": 48.393582025011874
+            },
+            "outfieldWidthMetres": {
+              "samples": 1280,
+              "mean": 34.57352380723194
+            },
+            "outfieldLengthMetres": {
+              "samples": 1280,
+              "mean": 25.443536626282572
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1280,
+              "mean": 39.55798460603727
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 572,
+              "mean": 45.600114896438654
+            },
+            "outfieldWidthMetres": {
+              "samples": 1280,
+              "mean": 35.06823909259866
+            },
+            "outfieldLengthMetres": {
+              "samples": 1280,
+              "mean": 25.358240473359064
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 45854.454099999995,
+          "hiddenWorkMs": 44916.2704,
+          "hiddenSpeed": 58.27120054028219,
+          "canonicalSpeed": 58.88195711831624,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "5e5264a3f5b4ceaf2f76dd89a7ef63044de611dc6116a9bc01224cda10740d1d",
+          "statistics": "169a39f4a0c8d14e28611a44777e87e373b4ea2fd3fc5b3014cab08c84927d99",
+          "tacticalTimeline": "a1a52dbeeaae51572bad14b645f4fbd375d322f75dc3ee366ee7ea12e88cd2e7"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 2700.400000005441,
+        "status": "half_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 7,
+          "nonInteractiveEpisodes": 0,
+          "humanLeadIns": 7,
+          "prompts": 11,
+          "promptsPerSequence": 1.5714285714285714,
+          "hiddenCanonicalSeconds": 2655.9000000054057,
+          "visibleCanonicalSeconds": 44.5000000000357
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_14",
+          "position": "central_midfielder",
+          "slotPosition": "central_midfielder",
+          "touches": 67,
+          "carries": 0,
+          "passes": 40,
+          "shots": 0,
+          "distanceMetres": 2991.255740802512,
+          "sprintDistanceMetres": 0
+        },
+        "football": {
+          "passes": 405,
+          "shots": 1,
+          "touches": 539
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1303,
+              "mean": 45.260418471940014
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 878,
+              "mean": 48.62259067902655
+            },
+            "outfieldWidthMetres": {
+              "samples": 1303,
+              "mean": 32.800847357969005
+            },
+            "outfieldLengthMetres": {
+              "samples": 1303,
+              "mean": 27.264367442260742
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1303,
+              "mean": 34.175905503491755
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 425,
+              "mean": 41.556411357791696
+            },
+            "outfieldWidthMetres": {
+              "samples": 1303,
+              "mean": 31.287043718364956
+            },
+            "outfieldLengthMetres": {
+              "samples": 1303,
+              "mean": 24.695412301210492
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 2700.0000000054397,
+            "decayedAt": 2700.0000000054397,
+            "retainUntil": 2672.0000000052505,
+            "matchupCaution": 0.035041322314049494,
+            "territorialPressure": 0.47511998414806883,
+            "buildUpLosses": [0.0004617877453821679, 8.416210935300084, 0.00017458265834445288],
+            "channelEntries": [0, 0, 0],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0, 0, 0],
+            "shots": [0, 0, 0],
+            "overloads": [0, 0.00016276041666276318, 0.000006868234996237022],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_4",
+                "score": 3.888252394731272
+              },
+              {
+                "playerId": "footballer_pro_0_14",
+                "score": 1.9061421120951167
+              }
+            ],
+            "observedEpisode": 170,
+            "controlOrigin": {
+              "x": 42.71385380047199,
+              "y": 39.379955659726924
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.67228629904545,
+              "lineDepthMetres": 6.05057669140905,
+              "compactness": 0.67228629904545,
+              "buildUpSafety": 0.9869860943795425,
+              "support": 0.9869860943795425,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:60:footballer_pro_0_7"
+          },
+          "away": {
+            "evaluatedAt": 2700.0000000054397,
+            "decayedAt": 2700.0000000054397,
+            "retainUntil": 2242.000000003686,
+            "matchupCaution": 0,
+            "territorialPressure": 0.0215662025432096,
+            "buildUpLosses": [0.0001123637073770509, 2.706511758156097, 0.19515516490795667],
+            "channelEntries": [1.1413410443328251, 0.21730425060159023, 0.4422822313941083],
+            "lineExposures": [0.000058290789225254776, 0, 0],
+            "isolation": [0.38432164158872956, 0.21296604236813588, 0],
+            "shots": [0.00009419336015718943, 0, 0],
+            "overloads": [0, 0, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_1_7",
+                "score": 1.8360703321715406
+              },
+              {
+                "playerId": "footballer_pro_1_9",
+                "score": 1.046556776289854
+              }
+            ],
+            "observedEpisode": 169,
+            "controlOrigin": {
+              "x": 60.709818471314115,
+              "y": 3.319798488491797
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.2150214741350947,
+              "lineDepthMetres": 1.9351932672158523,
+              "compactness": 0.2150214741350947,
+              "buildUpSafety": 0.3471331666208908,
+              "support": 0.3471331666208908,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:60:footballer_pro_0_7"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 1351,
+            "maximumLineDepthMetres": 6.05057669140905,
+            "meanCaution": {
+              "samples": 1351,
+              "mean": 0.2140329890114729
+            },
+            "responseReasons": {
+              "neutral": 764,
+              "repeated_build_up_loss": 587
+            },
+            "maximumBuildUpLossEvidence": 9.160288813267933
+          },
+          "away": {
+            "samples": 1351,
+            "maximumLineDepthMetres": 6.862538253741282,
+            "meanCaution": {
+              "samples": 1351,
+              "mean": 0.4265163880538234
+            },
+            "responseReasons": {
+              "neutral": 280,
+              "territorial_pressure": 1,
+              "repeated_build_up_loss": 1070
+            },
+            "maximumBuildUpLossEvidence": 10.784418919792493
+          }
+        },
+        "performance": {
+          "elapsedMs": 75127.92109999999,
+          "hiddenWorkMs": 74315.03900000002,
+          "hiddenSpeed": 35.73839206362262,
+          "canonicalSpeed": 35.94402667433109,
+          "ticks": 108016,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "4590c1ea32cba05ba7241744ff5da3d8cb64dc97b29609e1788b2abbe21d8076",
+          "statistics": "a94fc8e4167721b90a000274abd1572121ecf2d63c1cb8fd9690febc689e97e6",
+          "tacticalTimeline": "9b925c20ee85e9d565e5d6e1fb865ae6bb734fa7c05f6a4d564a903d255e8be5"
+        }
+      },
+      "workTimeChangePercent": 63.83996402216465
+    },
+    {
+      "role": "CM",
+      "scenario": "balanced-balanced",
+      "seed": "pr148:balanced-balanced:b",
+      "requestedMinutes": 45,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 10,
+          "nonInteractiveEpisodes": 3,
+          "humanLeadIns": 7,
+          "prompts": 11,
+          "promptsPerSequence": 1.1,
+          "hiddenCanonicalSeconds": 2640.524999999831,
+          "visibleCanonicalSeconds": 59.475000000169274
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_14",
+          "position": "central_midfielder",
+          "touches": 49,
+          "carries": 0,
+          "passes": 30,
+          "shots": 0,
+          "distanceMetres": 2757.4706817325746,
+          "sprintDistanceMetres": 8.429330679400524
+        },
+        "football": {
+          "passes": 418,
+          "shots": 4,
+          "touches": 523
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1307,
+              "mean": 44.46310955460872
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 719,
+              "mean": 49.03856370506943
+            },
+            "outfieldWidthMetres": {
+              "samples": 1307,
+              "mean": 34.70103906847066
+            },
+            "outfieldLengthMetres": {
+              "samples": 1307,
+              "mean": 25.727261546523895
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1307,
+              "mean": 39.09566911393408
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 588,
+              "mean": 45.28548189845472
+            },
+            "outfieldWidthMetres": {
+              "samples": 1307,
+              "mean": 35.03200124835455
+            },
+            "outfieldLengthMetres": {
+              "samples": 1307,
+              "mean": 24.888935788344167
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 49820.789,
+          "hiddenWorkMs": 48328.00860000003,
+          "hiddenSpeed": 54.63757097576392,
+          "canonicalSpeed": 54.19424409356504,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "e2d0485095799b146542fa619867b3fac84280358aba8160e04cb9d379cc64ae",
+          "statistics": "e10d83ce94c79adb902d2b3f5c8a658c83e4ac40bdd59b14371d0e0cad668470",
+          "tacticalTimeline": "a1a52dbeeaae51572bad14b645f4fbd375d322f75dc3ee366ee7ea12e88cd2e7"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "presentation": {
+          "surfacedSequences": 14,
+          "nonInteractiveEpisodes": 3,
+          "humanLeadIns": 11,
+          "prompts": 13,
+          "promptsPerSequence": 0.9285714285714286,
+          "hiddenCanonicalSeconds": 2628.8749999999372,
+          "visibleCanonicalSeconds": 71.12500000006293
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_14",
+          "position": "central_midfielder",
+          "slotPosition": "central_midfielder",
+          "touches": 59,
+          "carries": 0,
+          "passes": 52,
+          "shots": 0,
+          "distanceMetres": 2958.8094765095866,
+          "sprintDistanceMetres": 0
+        },
+        "football": {
+          "passes": 424,
+          "shots": 8,
+          "touches": 514
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1307,
+              "mean": 42.68190024404945
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 844,
+              "mean": 46.793658463970274
+            },
+            "outfieldWidthMetres": {
+              "samples": 1307,
+              "mean": 30.487761209956446
+            },
+            "outfieldLengthMetres": {
+              "samples": 1307,
+              "mean": 26.229982379585255
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1307,
+              "mean": 36.220238523934206
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 463,
+              "mean": 44.10410710128379
+            },
+            "outfieldWidthMetres": {
+              "samples": 1307,
+              "mean": 32.22689515298281
+            },
+            "outfieldLengthMetres": {
+              "samples": 1307,
+              "mean": 25.841141007734088
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2582.000000004923,
+            "matchupCaution": 0.035041322314049494,
+            "territorialPressure": 0.19457732554664384,
+            "buildUpLosses": [0.5761478611662434, 6.985907451926834, 0.00025336227581670317],
+            "channelEntries": [0.00012020443761152562, 0.19024584474406697, 0.1865685580375979],
+            "lineExposures": [0.00019232710017844055, 0, 0.2985096928601573],
+            "isolation": [0.00014424532513383043, 0.22926402781635438, 0.22388226964511793],
+            "shots": [0, 0.40779681444687976, 0],
+            "overloads": [0.050552564579682324, 0, 0.15986946667608756],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_11",
+                "score": 3.707448233454807
+              },
+              {
+                "playerId": "footballer_pro_0_4",
+                "score": 2.184085677814557
+              },
+              {
+                "playerId": "footballer_pro_0_3",
+                "score": 0.8613561586740707
+              },
+              {
+                "playerId": "footballer_pro_0_13",
+                "score": 0.21869299345884868
+              }
+            ],
+            "observedEpisode": 125,
+            "controlOrigin": {
+              "x": 48.41604588358206,
+              "y": 22.227844330418918
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.6173648569218918,
+              "lineDepthMetres": 5.556283712297026,
+              "compactness": 0.6173648569218918,
+              "buildUpSafety": 0.9512871569992297,
+              "support": 0.9512871569992297,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:b:shot:444:footballer_pro_0_21"
+          },
+          "away": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2699.7000000054386,
+            "retainUntil": 2506.0000000046466,
+            "matchupCaution": 0,
+            "territorialPressure": 0.00007065808345162025,
+            "buildUpLosses": [0, 3.293121157709143, 0.27908681170773936],
+            "channelEntries": [0, 0.31576624994188396, 1.364246141053652],
+            "lineExposures": [0, 0, 0.6570781541346499],
+            "isolation": [0, 0.37676126698620926, 0.3577179712261903],
+            "shots": [0, 0.5879330906329273, 0],
+            "overloads": [0, 0, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_1_7",
+                "score": 1.8255918455451638
+              },
+              {
+                "playerId": "footballer_pro_1_4",
+                "score": 0.753173556749939
+              }
+            ],
+            "observedEpisode": 125,
+            "controlOrigin": {
+              "x": 88.21527932858493,
+              "y": 64.33684316333384
+            },
+            "entryObserved": true,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.31759395641565047,
+              "lineDepthMetres": 2.858345607740854,
+              "compactness": 0.31759395641565047,
+              "buildUpSafety": 0.5183462160957908,
+              "support": 0.5183462160957908,
+              "flankProtection": [0, 0.024048506813049448, 0.019291533710520985],
+              "doublePress": 0.15,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:b:shot:444:footballer_pro_0_21"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.4663934519726356
+            },
+            "responseReasons": {
+              "neutral": 184,
+              "repeated_build_up_loss": 1166
+            },
+            "maximumBuildUpLossEvidence": 9.923607299467658
+          },
+          "away": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.343443378932667,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.24167788107717922
+            },
+            "responseReasons": {
+              "neutral": 746,
+              "repeated_build_up_loss": 604
+            },
+            "maximumBuildUpLossEvidence": 8.473631665559822
+          }
+        },
+        "performance": {
+          "elapsedMs": 80226.7197,
+          "hiddenWorkMs": 78680.30990000004,
+          "hiddenSpeed": 33.41210784936087,
+          "canonicalSpeed": 33.65462292483585,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "e5aa270a2a133f4dd3c75e7dbb8ef9fff228775d9f98483472537d52ce031441",
+          "statistics": "9ae7fd4753c79138d69ed0a56b2afee445931ff231e34457fd0fc14ebdf61c0b",
+          "tacticalTimeline": "596407f1f0b1af86325b30b715fe860f9d3edd829e1da8495c9f794736313147"
+        }
+      },
+      "workTimeChangePercent": 61.03060852769715
+    },
+    {
+      "role": "CM",
+      "scenario": "balanced-balanced",
+      "seed": "pr148:balanced-balanced:c",
+      "requestedMinutes": 45,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 3,
+          "away": 1
+        },
+        "presentation": {
+          "surfacedSequences": 14,
+          "nonInteractiveEpisodes": 7,
+          "humanLeadIns": 7,
+          "prompts": 7,
+          "promptsPerSequence": 0.5,
+          "hiddenCanonicalSeconds": 2630.424999999784,
+          "visibleCanonicalSeconds": 69.57500000021588
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_14",
+          "position": "central_midfielder",
+          "touches": 39,
+          "carries": 0,
+          "passes": 15,
+          "shots": 0,
+          "distanceMetres": 2644.0501970143996,
+          "sprintDistanceMetres": 0
+        },
+        "football": {
+          "passes": 405,
+          "shots": 7,
+          "touches": 542
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1306,
+              "mean": 43.74488099158604
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 677,
+              "mean": 48.710400426282156
+            },
+            "outfieldWidthMetres": {
+              "samples": 1306,
+              "mean": 34.28430279263518
+            },
+            "outfieldLengthMetres": {
+              "samples": 1306,
+              "mean": 26.165030024908553
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1306,
+              "mean": 39.486068194142746
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 629,
+              "mean": 45.786422503365934
+            },
+            "outfieldWidthMetres": {
+              "samples": 1306,
+              "mean": 35.17220410754277
+            },
+            "outfieldLengthMetres": {
+              "samples": 1306,
+              "mean": 25.076523588373817
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 43055.124800000005,
+          "hiddenWorkMs": 41432.158200000034,
+          "hiddenSpeed": 63.48752066697269,
+          "canonicalSpeed": 62.71030481370245,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "ceb4217fa17ea47c52d05b8e2ad9858b4681c1a2ba264d1c126626c33f54fa31",
+          "statistics": "123d0dbb9d2b3d4650318e87db11afa670b10b071caba5d3e028b173f6473034",
+          "tacticalTimeline": "a1a52dbeeaae51572bad14b645f4fbd375d322f75dc3ee366ee7ea12e88cd2e7"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "presentation": {
+          "surfacedSequences": 9,
+          "nonInteractiveEpisodes": 3,
+          "humanLeadIns": 6,
+          "prompts": 8,
+          "promptsPerSequence": 0.8888888888888888,
+          "hiddenCanonicalSeconds": 2646.574999999924,
+          "visibleCanonicalSeconds": 53.42500000007635
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_14",
+          "position": "central_midfielder",
+          "slotPosition": "central_midfielder",
+          "touches": 69,
+          "carries": 0,
+          "passes": 52,
+          "shots": 0,
+          "distanceMetres": 3000.1682393271567,
+          "sprintDistanceMetres": 1.8799365059206097
+        },
+        "football": {
+          "passes": 407,
+          "shots": 5,
+          "touches": 515
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1301,
+              "mean": 42.248611364444216
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 846,
+              "mean": 46.35821320325974
+            },
+            "outfieldWidthMetres": {
+              "samples": 1301,
+              "mean": 30.32531924933297
+            },
+            "outfieldLengthMetres": {
+              "samples": 1301,
+              "mean": 25.856437503570284
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1301,
+              "mean": 37.85797933723383
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 455,
+              "mean": 46.97876716240442
+            },
+            "outfieldWidthMetres": {
+              "samples": 1301,
+              "mean": 32.690443478824264
+            },
+            "outfieldLengthMetres": {
+              "samples": 1301,
+              "mean": 26.018888836348566
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2632.000000005105,
+            "matchupCaution": 0.035041322314049494,
+            "territorialPressure": 0.045514727725638464,
+            "buildUpLosses": [0, 7.262703150716922, 0],
+            "channelEntries": [0.007634062253257009, 1.5930234246595005, 0],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0.009160874703908434, 0.8628466441266028, 0],
+            "shots": [0, 2.8731071524774805, 0],
+            "overloads": [0.08909035428962972, 0, 0.23859184626568447],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_3",
+                "score": 2.49456945039155
+              },
+              {
+                "playerId": "footballer_pro_0_4",
+                "score": 1.8117576523472225
+              },
+              {
+                "playerId": "footballer_pro_0_11",
+                "score": 0.3497482753217289
+              },
+              {
+                "playerId": "footballer_pro_0_14",
+                "score": 0.06269454506912261
+              }
+            ],
+            "observedEpisode": 148,
+            "controlOrigin": {
+              "x": 37.75063332278443,
+              "y": 30.76786608102161
+            },
+            "entryObserved": true,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.85,
+              "lineDepthMetres": 7.6499999999999995,
+              "compactness": 0.85,
+              "buildUpSafety": 1,
+              "support": 1,
+              "flankProtection": [0, 0.6668169659129356, 0],
+              "doublePress": 0.4300721436382091,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:c:shot:580:footballer_pro_1_21"
+          },
+          "away": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2298.00000000389,
+            "matchupCaution": 0,
+            "territorialPressure": 0.015425797609812627,
+            "buildUpLosses": [0, 0.4620843625607715, 0.17404885433412495],
+            "channelEntries": [0.49291812909965865, 0, 0.03218149155599451],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0.5953967677562467, 0, 0.03883018445257377],
+            "shots": [0, 0, 0],
+            "overloads": [0, 0, 0.0004498414322731228],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_1_7",
+                "score": 0.6276675660676969
+              }
+            ],
+            "observedEpisode": 148,
+            "controlOrigin": {
+              "x": 51.3108909181552,
+              "y": 33.07636267743074
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.002776643569766273,
+              "lineDepthMetres": 0.024989792127896454,
+              "compactness": 0.002776643569766273,
+              "buildUpSafety": 0.0018048183203480774,
+              "support": 0.0018048183203480774,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "neutral"
+            },
+            "lastShotId": "pr148:balanced-balanced:c:shot:580:footballer_pro_1_21"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.4347794894658578
+            },
+            "responseReasons": {
+              "neutral": 347,
+              "repeated_build_up_loss": 1003
+            },
+            "maximumBuildUpLossEvidence": 8.670181346778955
+          },
+          "away": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 6.41741951343327,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.10456003184913884
+            },
+            "responseReasons": {
+              "neutral": 1091,
+              "repeated_build_up_loss": 257,
+              "territorial_pressure": 2
+            },
+            "maximumBuildUpLossEvidence": 5.963861399242099
+          }
+        },
+        "performance": {
+          "elapsedMs": 81885.48689999999,
+          "hiddenWorkMs": 81140.52160000001,
+          "hiddenSpeed": 32.617180020690476,
+          "canonicalSpeed": 32.972875929739395,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "4081d7ce44d127b627d6d8bee79bad64a7983705b0e436f051c2e6c0085a7bfe",
+          "statistics": "0c027e8f21f2587530f7cde8137d709c4bfb686a5459787378504c29ebe07024",
+          "tacticalTimeline": "149dbf5095f083f6bf3ff9b199dbfdec25b03ad40b71388056598ecafb659e94"
+        }
+      },
+      "workTimeChangePercent": 90.1875497524977
+    },
+    {
+      "role": "RW",
+      "scenario": "balanced-balanced",
+      "seed": "pr148:balanced-balanced:a",
+      "requestedMinutes": 45,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 4,
+          "nonInteractiveEpisodes": 2,
+          "humanLeadIns": 2,
+          "prompts": 2,
+          "promptsPerSequence": 0.5,
+          "hiddenCanonicalSeconds": 2686.824999999952,
+          "visibleCanonicalSeconds": 13.17500000004793
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "touches": 24,
+          "carries": 0,
+          "passes": 23,
+          "shots": 0,
+          "distanceMetres": 5581.329998902519,
+          "sprintDistanceMetres": 469.64408149467204
+        },
+        "football": {
+          "passes": 427,
+          "shots": 2,
+          "touches": 580
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1328,
+              "mean": 43.83071287100481
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 783,
+              "mean": 47.70483560663707
+            },
+            "outfieldWidthMetres": {
+              "samples": 1328,
+              "mean": 33.48107920789027
+            },
+            "outfieldLengthMetres": {
+              "samples": 1328,
+              "mean": 24.742274680599156
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1328,
+              "mean": 39.16579997818967
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 545,
+              "mean": 46.037354847309
+            },
+            "outfieldWidthMetres": {
+              "samples": 1328,
+              "mean": 34.024644868045236
+            },
+            "outfieldLengthMetres": {
+              "samples": 1328,
+              "mean": 25.619191590649027
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 45140.6215,
+          "hiddenWorkMs": 44997.0474,
+          "hiddenSpeed": 59.711140069158226,
+          "canonicalSpeed": 59.81308874978604,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "92ace8fabfaf6f9f4e9e004bcfdb4abed9efc10b87266e5f6835c8b045b63e1a",
+          "statistics": "34506250844cb983deb017a8b5ba3790a1a1b1b79e9e6bc5830c32b7d8624913",
+          "tacticalTimeline": "a1a52dbeeaae51572bad14b645f4fbd375d322f75dc3ee366ee7ea12e88cd2e7"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 6,
+          "nonInteractiveEpisodes": 3,
+          "humanLeadIns": 3,
+          "prompts": 6,
+          "promptsPerSequence": 1,
+          "hiddenCanonicalSeconds": 2656.674999999974,
+          "visibleCanonicalSeconds": 43.32500000002619
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "slotPosition": "central_midfielder",
+          "touches": 7,
+          "carries": 22,
+          "passes": 4,
+          "shots": 0,
+          "distanceMetres": 5941.957595214404,
+          "sprintDistanceMetres": 402.4914094130537
+        },
+        "football": {
+          "passes": 356,
+          "shots": 4,
+          "touches": 469
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1307,
+              "mean": 39.39046844662628
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 660,
+              "mean": 46.20557977685019
+            },
+            "outfieldWidthMetres": {
+              "samples": 1307,
+              "mean": 30.588509319670226
+            },
+            "outfieldLengthMetres": {
+              "samples": 1307,
+              "mean": 25.608662874760864
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1307,
+              "mean": 39.12480789132959
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 647,
+              "mean": 46.182985051743174
+            },
+            "outfieldWidthMetres": {
+              "samples": 1307,
+              "mean": 35.86347404009801
+            },
+            "outfieldLengthMetres": {
+              "samples": 1307,
+              "mean": 27.365085084703633
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2646.000000005156,
+            "matchupCaution": 0.03801652892561962,
+            "territorialPressure": 0.021088845711726516,
+            "buildUpLosses": [0.6013633484068882, 3.766983737720601, 0.0008537033750387361],
+            "channelEntries": [0.24876341828344897, 0.3251123060868595, 0.000055759738979902165],
+            "lineExposures": [0.0004924078387317392, 0, 0],
+            "isolation": [0.2575425007335283, 0.3932726297023145, 0],
+            "shots": [0, 0.02040880484159822, 0],
+            "overloads": [0.00029000609313898555, 0.00008043774422230485, 0.009628297529237231],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_4",
+                "score": 1.2072972516747758
+              },
+              {
+                "playerId": "footballer_pro_0_11",
+                "score": 0.6555071944770725
+              },
+              {
+                "playerId": "footballer_pro_0_3",
+                "score": 0.5076564582880668
+              }
+            ],
+            "observedEpisode": 155,
+            "controlOrigin": {
+              "x": 60.85067780047804,
+              "y": 42.75935166142598
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.4217880133591603,
+              "lineDepthMetres": 3.7960921202324425,
+              "compactness": 0.4217880133591603,
+              "buildUpSafety": 0.6638000386041825,
+              "support": 0.6638000386041825,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:684:footballer_pro_1_19"
+          },
+          "away": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2722.0000000054324,
+            "matchupCaution": 0,
+            "territorialPressure": 0.06810327459364679,
+            "buildUpLosses": [0, 4.733328776890211, 0.014395030862165831],
+            "channelEntries": [0.10960293312356822, 0.017636164057288704, 0.009937817000614886],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0.13363480771998276, 0.004334874304520818, 0.006088294183347365],
+            "shots": [0, 0.00046648808157078125, 0],
+            "overloads": [0, 0.0014615391253829362, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_1_9",
+                "score": 1.9577925164440038
+              },
+              {
+                "playerId": "footballer_pro_1_7",
+                "score": 0.2285775966423245
+              }
+            ],
+            "observedEpisode": 157,
+            "controlOrigin": {
+              "x": 62.7794345841112,
+              "y": 25.158007519845018
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.22455292399834967,
+              "lineDepthMetres": 2.020976315985147,
+              "compactness": 0.22455292399834967,
+              "buildUpSafety": 0.32224532133761763,
+              "support": 0.32224532133761763,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:684:footballer_pro_1_19"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.49168068067176485
+            },
+            "responseReasons": {
+              "neutral": 109,
+              "repeated_build_up_loss": 1241
+            },
+            "maximumBuildUpLossEvidence": 7.716108307980546
+          },
+          "away": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 6.7357489626111136,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.2543232045886124
+            },
+            "responseReasons": {
+              "neutral": 631,
+              "territorial_pressure": 2,
+              "channel_exposure": 115,
+              "repeated_build_up_loss": 602
+            },
+            "maximumBuildUpLossEvidence": 8.735024216546556
+          }
+        },
+        "performance": {
+          "elapsedMs": 40507.4315,
+          "hiddenWorkMs": 39783.80510000001,
+          "hiddenSpeed": 66.77780049751885,
+          "canonicalSpeed": 66.6544359891098,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "5aef139b100aec7c603d4ace246c10fa2ad332130f61c4ee8db16736f8d6ac4e",
+          "statistics": "a1682daf29a63469d547a7e3d9f2ec328f8839b6e9504a872f590ffee6cfa164",
+          "tacticalTimeline": "8e9949be1a8633021d172dd66ea28e6d2fcba541ec5a5d35d2ffe18257250c9f"
+        }
+      },
+      "workTimeChangePercent": -10.263903876467461
+    },
+    {
+      "role": "RW",
+      "scenario": "balanced-balanced",
+      "seed": "pr148:balanced-balanced:b",
+      "requestedMinutes": 45,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 8,
+          "nonInteractiveEpisodes": 3,
+          "humanLeadIns": 5,
+          "prompts": 5,
+          "promptsPerSequence": 0.625,
+          "hiddenCanonicalSeconds": 2658.2499999999504,
+          "visibleCanonicalSeconds": 41.75000000004954
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "touches": 34,
+          "carries": 0,
+          "passes": 33,
+          "shots": 0,
+          "distanceMetres": 5847.300787326502,
+          "sprintDistanceMetres": 495.3451364371831
+        },
+        "football": {
+          "passes": 439,
+          "shots": 3,
+          "touches": 574
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1312,
+              "mean": 45.6405881507796
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 921,
+              "mean": 48.04988992587996
+            },
+            "outfieldWidthMetres": {
+              "samples": 1312,
+              "mean": 33.90718207212842
+            },
+            "outfieldLengthMetres": {
+              "samples": 1312,
+              "mean": 25.350664853493097
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1312,
+              "mean": 36.73842245541502
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 391,
+              "mean": 42.93125553244023
+            },
+            "outfieldWidthMetres": {
+              "samples": 1312,
+              "mean": 32.48326992890184
+            },
+            "outfieldLengthMetres": {
+              "samples": 1312,
+              "mean": 25.20401405816318
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 53200.0989,
+          "hiddenWorkMs": 52319.157999999996,
+          "hiddenSpeed": 50.80834825361583,
+          "canonicalSpeed": 50.75178535053438,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "42ff6d02744be4322fb393f2f45fcd6109689691ee1efed841a2925e80ff7710",
+          "statistics": "91beff4e211633ad38957d9895c4556c3f0bec8010b6e3e89712d45a7bfd0578",
+          "tacticalTimeline": "a1a52dbeeaae51572bad14b645f4fbd375d322f75dc3ee366ee7ea12e88cd2e7"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 2,
+          "away": 1
+        },
+        "presentation": {
+          "surfacedSequences": 5,
+          "nonInteractiveEpisodes": 5,
+          "humanLeadIns": 0,
+          "prompts": 0,
+          "promptsPerSequence": 0,
+          "hiddenCanonicalSeconds": 2670.1499999999737,
+          "visibleCanonicalSeconds": 29.85000000002617
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "slotPosition": "central_midfielder",
+          "touches": 9,
+          "carries": 1,
+          "passes": 9,
+          "shots": 0,
+          "distanceMetres": 6468.161219741994,
+          "sprintDistanceMetres": 344.02418873966246
+        },
+        "football": {
+          "passes": 416,
+          "shots": 7,
+          "touches": 521
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1316,
+              "mean": 43.49595495742942
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 929,
+              "mean": 46.66685526241482
+            },
+            "outfieldWidthMetres": {
+              "samples": 1316,
+              "mean": 30.812414426170868
+            },
+            "outfieldLengthMetres": {
+              "samples": 1316,
+              "mean": 26.34894547967032
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1316,
+              "mean": 35.77680481136384
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 387,
+              "mean": 44.52953757478732
+            },
+            "outfieldWidthMetres": {
+              "samples": 1316,
+              "mean": 31.62129886354415
+            },
+            "outfieldLengthMetres": {
+              "samples": 1316,
+              "mean": 25.09234187386831
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2204.000000003548,
+            "matchupCaution": 0.03801652892561962,
+            "territorialPressure": 0.000001855751829330019,
+            "buildUpLosses": [0, 1.1068587180695164, 0],
+            "channelEntries": [0, 0.16783969881076144, 0],
+            "lineExposures": [0, 0.000056088786863914306, 0],
+            "isolation": [0, 0.010187158566540734, 0],
+            "shots": [0, 0.1841632284699183, 0],
+            "overloads": [0.023384626006363086, 0.006979114525035131, 0.015447639988045953],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_5",
+                "score": 0.3599250050220108
+              },
+              {
+                "playerId": "footballer_pro_0_4",
+                "score": 0.1782587738294855
+              },
+              {
+                "playerId": "footballer_pro_0_14",
+                "score": 0.14350251266143169
+              },
+              {
+                "playerId": "footballer_pro_0_3",
+                "score": 0.09149179116865312
+              }
+            ],
+            "observedEpisode": 153,
+            "controlOrigin": {
+              "x": 51.5693524779068,
+              "y": 26.51409379381781
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.020909456691579467,
+              "lineDepthMetres": 0.1881851102242152,
+              "compactness": 0.020909456691579467,
+              "buildUpSafety": 0.013591146849526654,
+              "support": 0.013591146849526654,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "neutral"
+            },
+            "lastShotId": "pr148:balanced-balanced:b:shot:438:footballer_pro_1_22"
+          },
+          "away": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2699.025000005436,
+            "retainUntil": 2598.0000000049813,
+            "matchupCaution": 0,
+            "territorialPressure": 0.09189857746374078,
+            "buildUpLosses": [0.007255830694280002, 2.2116585304510776, 0.15236561556472208],
+            "channelEntries": [0.0018521167666168965, 0.0006421855296832898, 0.0027808425037013215],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0.0022484434407452794, 0.0007706226356199489, 0],
+            "shots": [0, 0.003630461953735635, 0],
+            "overloads": [0, 0, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_1_7",
+                "score": 2.3433265863751793
+              }
+            ],
+            "observedEpisode": 159,
+            "controlOrigin": {
+              "x": 45.8992430953123,
+              "y": 36.28861038616572
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.14261268763185425,
+              "lineDepthMetres": 1.2835141886866883,
+              "compactness": 0.14261268763185425,
+              "buildUpSafety": 0.21651792379750795,
+              "support": 0.21651792379750795,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "neutral"
+            },
+            "lastShotId": "pr148:balanced-balanced:b:shot:438:footballer_pro_1_22"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.3515155762323284
+            },
+            "responseReasons": {
+              "neutral": 402,
+              "channel_exposure": 31,
+              "territorial_pressure": 7,
+              "repeated_build_up_loss": 910
+            },
+            "maximumBuildUpLossEvidence": 8.931428684063658
+          },
+          "away": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.18328921628856856
+            },
+            "responseReasons": {
+              "neutral": 922,
+              "repeated_build_up_loss": 428
+            },
+            "maximumBuildUpLossEvidence": 7.529464447090788
+          }
+        },
+        "performance": {
+          "elapsedMs": 40672.388,
+          "hiddenWorkMs": 40341.70249999999,
+          "hiddenSpeed": 66.18833203680421,
+          "canonicalSpeed": 66.38410314142361,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "4c3c64a7b8da7459b90a2be3d4721c14f6d7b512ca5f47e82c227de39196b156",
+          "statistics": "95806f1549177204457d0c9f1a66fbb233a465860eab18a2ead6d861395234eb",
+          "tacticalTimeline": "19c4abac52463ec40845ce19769bbe7f101b91c6280d5f5499d4beaa7c552dc5"
+        }
+      },
+      "workTimeChangePercent": -23.54828498260555
+    },
+    {
+      "role": "RW",
+      "scenario": "strong-weak",
+      "seed": "pr151:strong-weak:a",
+      "requestedMinutes": 45,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 2700.650000005442,
+        "status": "half_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 2,
+          "nonInteractiveEpisodes": 1,
+          "humanLeadIns": 1,
+          "prompts": 1,
+          "promptsPerSequence": 0.5,
+          "hiddenCanonicalSeconds": 2692.775000005429,
+          "visibleCanonicalSeconds": 7.875000000013131
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "touches": 13,
+          "carries": 42,
+          "passes": 13,
+          "shots": 0,
+          "distanceMetres": 5317.630878338348,
+          "sprintDistanceMetres": 286.31213376950313
+        },
+        "football": {
+          "passes": 436,
+          "shots": 1,
+          "touches": 578
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1340,
+              "mean": 43.36434760388312
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 698,
+              "mean": 48.52464943191698
+            },
+            "outfieldWidthMetres": {
+              "samples": 1340,
+              "mean": 32.68103537978896
+            },
+            "outfieldLengthMetres": {
+              "samples": 1340,
+              "mean": 24.544218633397094
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1340,
+              "mean": 42.402195755050755
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 642,
+              "mean": 47.7756564457774
+            },
+            "outfieldWidthMetres": {
+              "samples": 1340,
+              "mean": 32.69097980275514
+            },
+            "outfieldLengthMetres": {
+              "samples": 1340,
+              "mean": 23.46725692227243
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 35855.7095,
+          "hiddenWorkMs": 35801.595700000005,
+          "hiddenSpeed": 75.21382629337464,
+          "canonicalSpeed": 75.31994311827638,
+          "ticks": 108026,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "678d5aee856e1cfba71dc239ba0a4300da3e9c118062c03efca9562b7e8aad05",
+          "statistics": "8f9a322b1a8d981e0e97c520e82e4f7a18598ab084e5bd39c7cf1685f7521651",
+          "tacticalTimeline": "205fc8111830cd70425ecf8d60ab3132ee5ff1808ff1e8c16beb59a9c6ba0087"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 2,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 2,
+          "nonInteractiveEpisodes": 1,
+          "humanLeadIns": 1,
+          "prompts": 9,
+          "promptsPerSequence": 4.5,
+          "hiddenCanonicalSeconds": 2671.2249999998953,
+          "visibleCanonicalSeconds": 28.775000000104683
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "slotPosition": "central_midfielder",
+          "touches": 7,
+          "carries": 16,
+          "passes": 6,
+          "shots": 1,
+          "distanceMetres": 4990.1185528936385,
+          "sprintDistanceMetres": 97.06206441936772
+        },
+        "football": {
+          "passes": 411,
+          "shots": 3,
+          "touches": 642
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1340,
+              "mean": 41.304043052924825
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 501,
+              "mean": 50.125904695309295
+            },
+            "outfieldWidthMetres": {
+              "samples": 1340,
+              "mean": 31.7776467662859
+            },
+            "outfieldLengthMetres": {
+              "samples": 1340,
+              "mean": 26.024251737820865
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1340,
+              "mean": 40.61326160000789
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 839,
+              "mean": 46.05715500756787
+            },
+            "outfieldWidthMetres": {
+              "samples": 1340,
+              "mean": 28.562028773260632
+            },
+            "outfieldLengthMetres": {
+              "samples": 1340,
+              "mean": 24.877668920308686
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2488.000000004581,
+            "matchupCaution": 0,
+            "territorialPressure": 0.06202629024987329,
+            "buildUpLosses": [0, 1.1628377349320163, 0],
+            "channelEntries": [0, 0, 0.3761305919784983],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0, 0, 0],
+            "shots": [0, 0, 0],
+            "overloads": [0, 0, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_3",
+                "score": 0.9667040106163444
+              }
+            ],
+            "observedEpisode": 261,
+            "controlOrigin": {
+              "x": 57.81959028752157,
+              "y": 38.22472162968206
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.011164732244977191,
+              "lineDepthMetres": 0.10048259020479472,
+              "compactness": 0.011164732244977191,
+              "buildUpSafety": 0.007257075959235175,
+              "support": 0.007257075959235175,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "neutral"
+            },
+            "lastShotId": "pr151:strong-weak:a:shot:442:footballer_pro_0_7"
+          },
+          "away": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 2432.0000000043774,
+            "matchupCaution": 0.39834710743801677,
+            "territorialPressure": 0.000041849028229244184,
+            "buildUpLosses": [0, 0.8277887831225883, 0],
+            "channelEntries": [0, 0.7533837188896053, 0],
+            "lineExposures": [0, 0.599105615136117, 0],
+            "isolation": [0, 0.059527539448156405, 0],
+            "shots": [0, 0.4732816624686619, 0],
+            "overloads": [0, 0, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_63_12",
+                "score": 0.3924012990092147
+              },
+              {
+                "playerId": "footballer_pro_63_4",
+                "score": 0.17786029812911208
+              },
+              {
+                "playerId": "footballer_pro_63_5",
+                "score": 0.1368616219916351
+              }
+            ],
+            "observedEpisode": 248,
+            "controlOrigin": {
+              "x": 42.329587017771,
+              "y": 29.630543153773583
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.23527254590152988,
+              "lineDepthMetres": 2.1174529131137687,
+              "compactness": 0.23527254590152988,
+              "buildUpSafety": 0.15292715483599442,
+              "support": 0.15292715483599442,
+              "flankProtection": [0, 0.11540992517427477, 0],
+              "doublePress": 0.1653967640836519,
+              "reason": "matchup"
+            },
+            "lastShotId": "pr151:strong-weak:a:shot:442:footballer_pro_0_7"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 2.3379292425831317,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.015923658400511582
+            },
+            "responseReasons": {
+              "neutral": 1329,
+              "repeated_build_up_loss": 21
+            },
+            "maximumBuildUpLossEvidence": 2.8853791458445928
+          },
+          "away": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.5689293074199504
+            },
+            "responseReasons": {
+              "neutral": 1,
+              "matchup": 335,
+              "repeated_build_up_loss": 911,
+              "territorial_pressure": 25,
+              "channel_exposure": 78
+            },
+            "maximumBuildUpLossEvidence": 7.163555514086181
+          }
+        },
+        "performance": {
+          "elapsedMs": 43968.54699999999,
+          "hiddenWorkMs": 43575.46399999999,
+          "hiddenSpeed": 61.30112578950153,
+          "canonicalSpeed": 61.407532980337066,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "3350723c997fb712637574eb38fdcb21a5a78e62fc08b3e5e7775778de6af9c9",
+          "statistics": "ef84edf3c48429ac5c18b7a1001196be12b519ee7eaa0e008a5a04d9535d6a94",
+          "tacticalTimeline": "6be91ff478458edf9320acb985ee243338ae3746805f4ed08449f4b5d7a16b1a"
+        }
+      },
+      "workTimeChangePercent": 22.626347695058136
+    },
+    {
+      "role": "RW",
+      "scenario": "strong-weak",
+      "seed": "pr151:strong-weak:b",
+      "requestedMinutes": 45,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 2701.2500000054442,
+        "status": "half_time",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 7,
+          "nonInteractiveEpisodes": 3,
+          "humanLeadIns": 4,
+          "prompts": 10,
+          "promptsPerSequence": 1.4285714285714286,
+          "hiddenCanonicalSeconds": 2633.6500000054257,
+          "visibleCanonicalSeconds": 67.6000000000183
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "touches": 17,
+          "carries": 7,
+          "passes": 14,
+          "shots": 0,
+          "distanceMetres": 5093.110661024213,
+          "sprintDistanceMetres": 198.5145949018181
+        },
+        "football": {
+          "passes": 431,
+          "shots": 4,
+          "touches": 637
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1326,
+              "mean": 42.506469298946676
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 609,
+              "mean": 48.31606539885466
+            },
+            "outfieldWidthMetres": {
+              "samples": 1326,
+              "mean": 33.11288269950827
+            },
+            "outfieldLengthMetres": {
+              "samples": 1326,
+              "mean": 24.217360340279036
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1326,
+              "mean": 43.7626111081492
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 717,
+              "mean": 48.78515848283755
+            },
+            "outfieldWidthMetres": {
+              "samples": 1326,
+              "mean": 32.67315145304732
+            },
+            "outfieldLengthMetres": {
+              "samples": 1326,
+              "mean": 23.58687527577333
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 40113.91380000001,
+          "hiddenWorkMs": 39270.29820000002,
+          "hiddenSpeed": 67.06468045117683,
+          "canonicalSpeed": 67.33947760553455,
+          "ticks": 108050,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "e3e2565796be4fbb7b0730f9045f7313f452de9858274fa2a2ec260865061fb4",
+          "statistics": "431f308b517a9932683779eeb44f549ba5325e00a4b541031d1b53db5da354b2",
+          "tacticalTimeline": "205fc8111830cd70425ecf8d60ab3132ee5ff1808ff1e8c16beb59a9c6ba0087"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 3,
+          "nonInteractiveEpisodes": 1,
+          "humanLeadIns": 2,
+          "prompts": 14,
+          "promptsPerSequence": 4.666666666666667,
+          "hiddenCanonicalSeconds": 2657.4999999999245,
+          "visibleCanonicalSeconds": 42.50000000007573
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "slotPosition": "central_midfielder",
+          "touches": 8,
+          "carries": 13,
+          "passes": 6,
+          "shots": 1,
+          "distanceMetres": 5257.8129489142875,
+          "sprintDistanceMetres": 140.27188641712735
+        },
+        "football": {
+          "passes": 414,
+          "shots": 3,
+          "touches": 616
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1336,
+              "mean": 42.236156088227276
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 573,
+              "mean": 50.0561182339167
+            },
+            "outfieldWidthMetres": {
+              "samples": 1336,
+              "mean": 31.862346450434536
+            },
+            "outfieldLengthMetres": {
+              "samples": 1336,
+              "mean": 26.05574317229706
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 1336,
+              "mean": 39.957947700808795
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 763,
+              "mean": 46.30839227073419
+            },
+            "outfieldWidthMetres": {
+              "samples": 1336,
+              "mean": 28.836781769996318
+            },
+            "outfieldLengthMetres": {
+              "samples": 1336,
+              "mean": 24.95497615344474
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.0000000054324,
+            "retainUntil": 1912.0000000024856,
+            "matchupCaution": 0,
+            "territorialPressure": 0.04025226067934033,
+            "buildUpLosses": [0, 0.10594676023782731, 0],
+            "channelEntries": [0, 0, 0],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0, 0, 0],
+            "shots": [0, 0, 0],
+            "overloads": [0, 0, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_5",
+                "score": 0.10525326984496207
+              }
+            ],
+            "observedEpisode": 251,
+            "controlOrigin": {
+              "x": 63.631201643487216,
+              "y": 35.85718570461776
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.007245406922281259,
+              "lineDepthMetres": 0.06520866230053134,
+              "compactness": 0.007245406922281259,
+              "buildUpSafety": 0.0047095144994828185,
+              "support": 0.0047095144994828185,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "neutral"
+            },
+            "lastShotId": "pr151:strong-weak:b:shot:412:footballer_pro_0_19"
+          },
+          "away": {
+            "evaluatedAt": 2698.0000000054324,
+            "decayedAt": 2698.100000005433,
+            "retainUntil": 2696.000000005338,
+            "matchupCaution": 0.39834710743801677,
+            "territorialPressure": 0.01104326559444114,
+            "buildUpLosses": [0, 3.426882703011935, 0.0004581596090992225],
+            "channelEntries": [0, 0.575109518011614, 0],
+            "lineExposures": [0, 0.4319387073802238, 0],
+            "isolation": [0, 0.3182996063525694, 0.01464876951474033],
+            "shots": [0, 0.43370399623717165, 0],
+            "overloads": [0, 0, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_63_5",
+                "score": 2.443565219604094
+              },
+              {
+                "playerId": "footballer_pro_63_3",
+                "score": 0.16973385512222103
+              }
+            ],
+            "observedEpisode": 252,
+            "controlOrigin": {
+              "x": 55.966348052463765,
+              "y": 45.99658000427104
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.6097672035554749,
+              "lineDepthMetres": 5.487904831999273,
+              "compactness": 0.6097672035554749,
+              "buildUpSafety": 0.7532490280680708,
+              "support": 0.7532490280680708,
+              "flankProtection": [0, 0.0862948009931005, 0],
+              "doublePress": 0.15142150447668823,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr151:strong-weak:b:shot:412:footballer_pro_0_19"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 1.493364843047846,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.011382327421614874
+            },
+            "responseReasons": {
+              "neutral": 1350
+            },
+            "maximumBuildUpLossEvidence": 2.3973015235124415
+          },
+          "away": {
+            "samples": 1350,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 1350,
+              "mean": 0.5451803797275635
+            },
+            "responseReasons": {
+              "neutral": 1,
+              "matchup": 484,
+              "channel_exposure": 10,
+              "repeated_build_up_loss": 855
+            },
+            "maximumBuildUpLossEvidence": 9.971727582584476
+          }
+        },
+        "performance": {
+          "elapsedMs": 41826.820500000016,
+          "hiddenWorkMs": 41166.74759999999,
+          "hiddenSpeed": 64.55452895676231,
+          "canonicalSpeed": 64.55188244585788,
+          "ticks": 108000,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "c33a006e199d652e227ccc676791f3aecb5dc96e112e646d3b1f5805ffce11c2",
+          "statistics": "eb0f12c79a008d928ea3ff9e00c2de53e742bd0c333e567ec8d4e38cfd8b0059",
+          "tacticalTimeline": "18878bc07099d66b5032edbf7c19fbde157fa71e36bf3c0219d5018ce8023f3f"
+        }
+      },
+      "workTimeChangePercent": 4.270106149552544
+    },
+    {
+      "role": "RW",
+      "scenario": "balanced-balanced",
+      "seed": "pr148:balanced-balanced:a",
+      "requestedMinutes": 90,
+      "repeat": 1,
+      "before": {
+        "canonicalSeconds": 5410.099999985956,
+        "status": "full_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 13,
+          "nonInteractiveEpisodes": 6,
+          "humanLeadIns": 7,
+          "prompts": 9,
+          "promptsPerSequence": 0.6923076923076923,
+          "hiddenCanonicalSeconds": 5331.249999986689,
+          "visibleCanonicalSeconds": 78.84999999926731
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "touches": 57,
+          "carries": 21,
+          "passes": 54,
+          "shots": 0,
+          "distanceMetres": 11359.41089616096,
+          "sprintDistanceMetres": 992.7639855660335
+        },
+        "football": {
+          "passes": 853,
+          "shots": 6,
+          "touches": 1128
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2650,
+              "mean": 44.190551398681656
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1600,
+              "mean": 47.89143514135678
+            },
+            "outfieldWidthMetres": {
+              "samples": 2650,
+              "mean": 33.6446932897887
+            },
+            "outfieldLengthMetres": {
+              "samples": 2650,
+              "mean": 25.044273413359093
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2650,
+              "mean": 38.71863834553102
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1050,
+              "mean": 45.40032347145996
+            },
+            "outfieldWidthMetres": {
+              "samples": 2650,
+              "mean": 33.9537664056648
+            },
+            "outfieldLengthMetres": {
+              "samples": 2650,
+              "mean": 25.426020356108246
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 83178.3055,
+          "hiddenWorkMs": 81138.78790000002,
+          "hiddenSpeed": 65.7053197116676,
+          "canonicalSpeed": 65.04220021632871,
+          "ticks": 216404,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "529589352c5d9a3c23aa0d7185ae52f63c11f60dafe7b679fd8f4550f2ef945e",
+          "statistics": "f89b41f406c9e306d4144041efb5f0ee7773213fb2e5f89a6a931990affdc592",
+          "tacticalTimeline": "af7869ce08c49a75cb9d2cea6085073bcd5cbbb7867508ff6029f967d820307b"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 5400,
+        "status": "full_time",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 10,
+          "nonInteractiveEpisodes": 5,
+          "humanLeadIns": 5,
+          "prompts": 9,
+          "promptsPerSequence": 0.9,
+          "hiddenCanonicalSeconds": 5329.175000000144,
+          "visibleCanonicalSeconds": 70.82499999985612
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "slotPosition": "central_midfielder",
+          "touches": 13,
+          "carries": 22,
+          "passes": 8,
+          "shots": 0,
+          "distanceMetres": 12611.785708442087,
+          "sprintDistanceMetres": 813.9090337617899
+        },
+        "football": {
+          "passes": 780,
+          "shots": 7,
+          "touches": 971
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2624,
+              "mean": 40.10978193677278
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1520,
+              "mean": 45.22687849004007
+            },
+            "outfieldWidthMetres": {
+              "samples": 2624,
+              "mean": 30.151295366227387
+            },
+            "outfieldLengthMetres": {
+              "samples": 2624,
+              "mean": 25.417682339980214
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2624,
+              "mean": 38.31298551600405
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1104,
+              "mean": 45.92569170003501
+            },
+            "outfieldWidthMetres": {
+              "samples": 2624,
+              "mean": 34.41700837403015
+            },
+            "outfieldLengthMetres": {
+              "samples": 2624,
+              "mean": 26.88794059908703
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 5398.024999986132,
+            "decayedAt": 5398.024999986132,
+            "retainUntil": 5122.024999990497,
+            "matchupCaution": 0.03801652892561962,
+            "territorialPressure": 0.08101323763561245,
+            "buildUpLosses": [0.7381949992881289, 9.659452879440032, 0.39016334725331114],
+            "channelEntries": [0.0023937217999313843, 0.5022774020512585, 0.4789764730265],
+            "lineExposures": [0.003817824423561232, 0, 0.29757033441602054],
+            "isolation": [0.002871215865213893, 0.6027329782122525, 0.475322127340133],
+            "shots": [0, 1.1991201649363297, 0],
+            "overloads": [0.2231458954904283, 0.02673114292564735, 0.07556531991721442],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_4",
+                "score": 4.047067350583543
+              },
+              {
+                "playerId": "footballer_pro_0_0",
+                "score": 1.1981357058674158
+              },
+              {
+                "playerId": "footballer_pro_0_3",
+                "score": 0.7846968107018802
+              },
+              {
+                "playerId": "footballer_pro_0_7",
+                "score": 0.7365051877952754
+              },
+              {
+                "playerId": "footballer_pro_0_14",
+                "score": 0.7147156620144041
+              },
+              {
+                "playerId": "footballer_pro_0_5",
+                "score": 0.1887963106708733
+              }
+            ],
+            "observedEpisode": 315,
+            "controlOrigin": {
+              "x": 38.66493647677127,
+              "y": 40.98145416407258
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.85,
+              "lineDepthMetres": 7.6499999999999995,
+              "compactness": 0.85,
+              "buildUpSafety": 1,
+              "support": 1,
+              "flankProtection": [0, 0.18984888508346773, 0],
+              "doublePress": 0.2011274648400645,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:1170:footballer_pro_1_22"
+          },
+          "away": {
+            "evaluatedAt": 5398.024999986132,
+            "decayedAt": 5398.024999986132,
+            "retainUntil": 4750.024999995911,
+            "matchupCaution": 0,
+            "territorialPressure": 0.03496123851576515,
+            "buildUpLosses": [0.00025188418290896436, 0.3165423109612585, 0.011454515599025642],
+            "channelEntries": [
+              0.000003344494083154405, 0.00014373652753488767, 0.03144796446718531
+            ],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0.0000040778180928704874, 1.3227713026933986e-7, 0.03664368460025107],
+            "shots": [0, 0.00025227761451987517, 0],
+            "overloads": [0.000014057544759639622, 4.4598340736291995e-8, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_1_7",
+                "score": 0.31800468354809497
+              }
+            ],
+            "observedEpisode": 316,
+            "controlOrigin": {
+              "x": 47.63346145554399,
+              "y": 54.77479420366072
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0,
+              "lineDepthMetres": 0,
+              "compactness": 0,
+              "buildUpSafety": 0,
+              "support": 0,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "neutral"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:1170:footballer_pro_1_22"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 2700,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 2700,
+              "mean": 0.5385706614565483
+            },
+            "responseReasons": {
+              "neutral": 157,
+              "repeated_build_up_loss": 2477,
+              "protecting_lead": 66
+            },
+            "maximumBuildUpLossEvidence": 11.016483309005785
+          },
+          "away": {
+            "samples": 2700,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 2700,
+              "mean": 0.20033105921859315
+            },
+            "responseReasons": {
+              "neutral": 1571,
+              "territorial_pressure": 4,
+              "channel_exposure": 115,
+              "repeated_build_up_loss": 1010
+            },
+            "maximumBuildUpLossEvidence": 8.735024216546556
+          }
+        },
+        "performance": {
+          "elapsedMs": 76091.1012,
+          "hiddenWorkMs": 75030.1342,
+          "hiddenSpeed": 71.02712872397,
+          "canonicalSpeed": 70.96756276146519,
+          "ticks": 216001,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "2f0728779ee721ae372a54b9297b087a543be69ebc07507c34ac8d6558a9215d",
+          "statistics": "572254c61254ca3468b7f7c218d8f4b811299ff3d5decf06bae922e792a95ae3",
+          "tacticalTimeline": "2fb7841f8fe018da926fe07b890a75cd42be4d4a54f9fc72f20277c1acdbd078"
+        }
+      },
+      "workTimeChangePercent": -8.520496128644982
+    },
+    {
+      "role": "RW",
+      "scenario": "balanced-balanced",
+      "seed": "pr148:balanced-balanced:a",
+      "requestedMinutes": 90,
+      "repeat": 2,
+      "before": {
+        "canonicalSeconds": 5410.099999985956,
+        "status": "full_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 13,
+          "nonInteractiveEpisodes": 6,
+          "humanLeadIns": 7,
+          "prompts": 9,
+          "promptsPerSequence": 0.6923076923076923,
+          "hiddenCanonicalSeconds": 5331.249999986689,
+          "visibleCanonicalSeconds": 78.84999999926731
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "touches": 57,
+          "carries": 21,
+          "passes": 54,
+          "shots": 0,
+          "distanceMetres": 11359.41089616096,
+          "sprintDistanceMetres": 992.7639855660335
+        },
+        "football": {
+          "passes": 853,
+          "shots": 6,
+          "touches": 1128
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2650,
+              "mean": 44.190551398681656
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1600,
+              "mean": 47.89143514135678
+            },
+            "outfieldWidthMetres": {
+              "samples": 2650,
+              "mean": 33.6446932897887
+            },
+            "outfieldLengthMetres": {
+              "samples": 2650,
+              "mean": 25.044273413359093
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2650,
+              "mean": 38.71863834553102
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1050,
+              "mean": 45.40032347145996
+            },
+            "outfieldWidthMetres": {
+              "samples": 2650,
+              "mean": 33.9537664056648
+            },
+            "outfieldLengthMetres": {
+              "samples": 2650,
+              "mean": 25.426020356108246
+            }
+          }
+        },
+        "tacticalMemory": null,
+        "tacticalObservation": null,
+        "performance": {
+          "elapsedMs": 83178.3055,
+          "hiddenWorkMs": 81138.78790000002,
+          "hiddenSpeed": 65.7053197116676,
+          "canonicalSpeed": 65.04220021632871,
+          "ticks": 216404,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "529589352c5d9a3c23aa0d7185ae52f63c11f60dafe7b679fd8f4550f2ef945e",
+          "statistics": "f89b41f406c9e306d4144041efb5f0ee7773213fb2e5f89a6a931990affdc592",
+          "tacticalTimeline": "af7869ce08c49a75cb9d2cea6085073bcd5cbbb7867508ff6029f967d820307b"
+        }
+      },
+      "after": {
+        "canonicalSeconds": 5400,
+        "status": "full_time",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "presentation": {
+          "surfacedSequences": 10,
+          "nonInteractiveEpisodes": 5,
+          "humanLeadIns": 5,
+          "prompts": 9,
+          "promptsPerSequence": 0.9,
+          "hiddenCanonicalSeconds": 5329.175000000144,
+          "visibleCanonicalSeconds": 70.82499999985612
+        },
+        "controlled": {
+          "playerId": "footballer_pro_0_19",
+          "position": "right_winger",
+          "slotPosition": "central_midfielder",
+          "touches": 13,
+          "carries": 22,
+          "passes": 8,
+          "shots": 0,
+          "distanceMetres": 12611.785708442087,
+          "sprintDistanceMetres": 813.9090337617899
+        },
+        "football": {
+          "passes": 780,
+          "shots": 7,
+          "touches": 971
+        },
+        "structure": {
+          "home": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2624,
+              "mean": 40.10978193677278
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1520,
+              "mean": 45.22687849004007
+            },
+            "outfieldWidthMetres": {
+              "samples": 2624,
+              "mean": 30.151295366227387
+            },
+            "outfieldLengthMetres": {
+              "samples": 2624,
+              "mean": 25.417682339980214
+            }
+          },
+          "away": {
+            "defensiveLineOwnDepthMetres": {
+              "samples": 2624,
+              "mean": 38.31298551600405
+            },
+            "buildUpLineOwnDepthMetres": {
+              "samples": 1104,
+              "mean": 45.92569170003501
+            },
+            "outfieldWidthMetres": {
+              "samples": 2624,
+              "mean": 34.41700837403015
+            },
+            "outfieldLengthMetres": {
+              "samples": 2624,
+              "mean": 26.88794059908703
+            }
+          }
+        },
+        "tacticalMemory": {
+          "home": {
+            "evaluatedAt": 5398.024999986132,
+            "decayedAt": 5398.024999986132,
+            "retainUntil": 5122.024999990497,
+            "matchupCaution": 0.03801652892561962,
+            "territorialPressure": 0.08101323763561245,
+            "buildUpLosses": [0.7381949992881289, 9.659452879440032, 0.39016334725331114],
+            "channelEntries": [0.0023937217999313843, 0.5022774020512585, 0.4789764730265],
+            "lineExposures": [0.003817824423561232, 0, 0.29757033441602054],
+            "isolation": [0.002871215865213893, 0.6027329782122525, 0.475322127340133],
+            "shots": [0, 1.1991201649363297, 0],
+            "overloads": [0.2231458954904283, 0.02673114292564735, 0.07556531991721442],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_0_4",
+                "score": 4.047067350583543
+              },
+              {
+                "playerId": "footballer_pro_0_0",
+                "score": 1.1981357058674158
+              },
+              {
+                "playerId": "footballer_pro_0_3",
+                "score": 0.7846968107018802
+              },
+              {
+                "playerId": "footballer_pro_0_7",
+                "score": 0.7365051877952754
+              },
+              {
+                "playerId": "footballer_pro_0_14",
+                "score": 0.7147156620144041
+              },
+              {
+                "playerId": "footballer_pro_0_5",
+                "score": 0.1887963106708733
+              }
+            ],
+            "observedEpisode": 315,
+            "controlOrigin": {
+              "x": 38.66493647677127,
+              "y": 40.98145416407258
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0.85,
+              "lineDepthMetres": 7.6499999999999995,
+              "compactness": 0.85,
+              "buildUpSafety": 1,
+              "support": 1,
+              "flankProtection": [0, 0.18984888508346773, 0],
+              "doublePress": 0.2011274648400645,
+              "reason": "repeated_build_up_loss"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:1170:footballer_pro_1_22"
+          },
+          "away": {
+            "evaluatedAt": 5398.024999986132,
+            "decayedAt": 5398.024999986132,
+            "retainUntil": 4750.024999995911,
+            "matchupCaution": 0,
+            "territorialPressure": 0.03496123851576515,
+            "buildUpLosses": [0.00025188418290896436, 0.3165423109612585, 0.011454515599025642],
+            "channelEntries": [
+              0.000003344494083154405, 0.00014373652753488767, 0.03144796446718531
+            ],
+            "lineExposures": [0, 0, 0],
+            "isolation": [0.0000040778180928704874, 1.3227713026933986e-7, 0.03664368460025107],
+            "shots": [0, 0.00025227761451987517, 0],
+            "overloads": [0.000014057544759639622, 4.4598340736291995e-8, 0],
+            "pressuredPlayers": [
+              {
+                "playerId": "footballer_pro_1_7",
+                "score": 0.31800468354809497
+              }
+            ],
+            "observedEpisode": 316,
+            "controlOrigin": {
+              "x": 47.63346145554399,
+              "y": 54.77479420366072
+            },
+            "entryObserved": false,
+            "lineObserved": false,
+            "isolationObserved": false,
+            "response": {
+              "caution": 0,
+              "lineDepthMetres": 0,
+              "compactness": 0,
+              "buildUpSafety": 0,
+              "support": 0,
+              "flankProtection": [0, 0, 0],
+              "doublePress": 0.15,
+              "reason": "neutral"
+            },
+            "lastShotId": "pr148:balanced-balanced:a:shot:1170:footballer_pro_1_22"
+          }
+        },
+        "tacticalObservation": {
+          "home": {
+            "samples": 2700,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 2700,
+              "mean": 0.5385706614565483
+            },
+            "responseReasons": {
+              "neutral": 157,
+              "repeated_build_up_loss": 2477,
+              "protecting_lead": 66
+            },
+            "maximumBuildUpLossEvidence": 11.016483309005785
+          },
+          "away": {
+            "samples": 2700,
+            "maximumLineDepthMetres": 7.6499999999999995,
+            "meanCaution": {
+              "samples": 2700,
+              "mean": 0.20033105921859315
+            },
+            "responseReasons": {
+              "neutral": 1571,
+              "territorial_pressure": 4,
+              "channel_exposure": 115,
+              "repeated_build_up_loss": 1010
+            },
+            "maximumBuildUpLossEvidence": 8.735024216546556
+          }
+        },
+        "performance": {
+          "elapsedMs": 66031.047,
+          "hiddenWorkMs": 65201.35570000003,
+          "hiddenSpeed": 81.73411339053094,
+          "canonicalSpeed": 81.77971189825294,
+          "ticks": 216001,
+          "rendererCallsBackground": 0
+        },
+        "hashes": {
+          "canonicalState": "2f0728779ee721ae372a54b9297b087a543be69ebc07507c34ac8d6558a9215d",
+          "statistics": "572254c61254ca3468b7f7c218d8f4b811299ff3d5decf06bae922e792a95ae3",
+          "tacticalTimeline": "2fb7841f8fe018da926fe07b890a75cd42be4d4a54f9fc72f20277c1acdbd078"
+        }
+      },
+      "workTimeChangePercent": -20.615061099074683
+    }
+  ],
+  "reactiveScenarios": {
+    "seeds": [
+      {
+        "seed": "pr151-tactics-1",
+        "pressAttempts": 6,
+        "canonicalPressWins": 6,
+        "threatEvidence": 13.351055821067188,
+        "adaptiveLineDepthMetres": 7.6499999999999995,
+        "buildUpLineBeforeMetres": 40.773114681643115,
+        "buildUpLineAfterMetres": 38.50244861493259,
+        "supportOutlets": 2,
+        "supportDistanceBeforeMetres": 19.692403951058612,
+        "supportDistanceAfterMetres": 10.34577723655987,
+        "recycleChoicesBefore": 3,
+        "recycleChoicesAfter": 12,
+        "selectionSamples": 12,
+        "weakTeamWidthBeforeMetres": 39.249599999999994,
+        "weakTeamWidthAfterMetres": 35.20492872,
+        "weakTeamLineBeforeMetres": 37.64424,
+        "weakTeamLineAfterMetres": 34.07807933400001,
+        "weakTeamAttackingOutlets": 2,
+        "safeDoublePress": true,
+        "unsafeDoublePressDeclined": true
+      },
+      {
+        "seed": "pr151-tactics-2",
+        "pressAttempts": 6,
+        "canonicalPressWins": 5,
+        "threatEvidence": 11.16292184852747,
+        "adaptiveLineDepthMetres": 7.6499999999999995,
+        "buildUpLineBeforeMetres": 41.039713421251676,
+        "buildUpLineAfterMetres": 38.788087509456204,
+        "supportOutlets": 2,
+        "supportDistanceBeforeMetres": 19.78850894283363,
+        "supportDistanceAfterMetres": 10.521807937686155,
+        "recycleChoicesBefore": 3,
+        "recycleChoicesAfter": 12,
+        "selectionSamples": 12,
+        "weakTeamWidthBeforeMetres": 39.249599999999994,
+        "weakTeamWidthAfterMetres": 35.20492872,
+        "weakTeamLineBeforeMetres": 37.64424,
+        "weakTeamLineAfterMetres": 34.07807933400001,
+        "weakTeamAttackingOutlets": 2,
+        "safeDoublePress": true,
+        "unsafeDoublePressDeclined": true
+      },
+      {
+        "seed": "pr151-tactics-3",
+        "pressAttempts": 6,
+        "canonicalPressWins": 6,
+        "threatEvidence": 13.351055821067188,
+        "adaptiveLineDepthMetres": 7.6499999999999995,
+        "buildUpLineBeforeMetres": 40.95516884345302,
+        "buildUpLineAfterMetres": 38.72329563143371,
+        "supportOutlets": 2,
+        "supportDistanceBeforeMetres": 19.57753847365113,
+        "supportDistanceAfterMetres": 10.29999093636002,
+        "recycleChoicesBefore": 3,
+        "recycleChoicesAfter": 12,
+        "selectionSamples": 12,
+        "weakTeamWidthBeforeMetres": 39.249599999999994,
+        "weakTeamWidthAfterMetres": 35.20492872,
+        "weakTeamLineBeforeMetres": 37.64424,
+        "weakTeamLineAfterMetres": 34.07807933400001,
+        "weakTeamAttackingOutlets": 2,
+        "safeDoublePress": true,
+        "unsafeDoublePressDeclined": true
+      }
+    ],
+    "collectionScope": "bounded_deterministic_reactive_tactical_scenarios"
+  },
+  "telemetryReference": {
+    "schemaVersion": 1,
+    "contract": "complete_sorted_all_field_match_flow_telemetry_sha256",
+    "ticks": 2400,
+    "fixedDt": 0.025,
+    "seeds": ["pr146-flow-reference:a", "pr146-flow-reference:b"],
+    "observations": [
+      {
+        "revision": "pr150-pristine-main",
+        "runs": [
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:a",
+            "hash": "3ced1597287169d8941900f27ad4ac6ef274ea40398fca84a8d1535668ec5dba",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:b",
+            "hash": "1a5102f3ebc44473c3378dd71a9f512a00e0dda24744138a198690a5df08cfb8",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:a",
+            "hash": "3ced1597287169d8941900f27ad4ac6ef274ea40398fca84a8d1535668ec5dba",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:b",
+            "hash": "1a5102f3ebc44473c3378dd71a9f512a00e0dda24744138a198690a5df08cfb8",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          }
+        ],
+        "repeatedHashesIdentical": true
+      },
+      {
+        "revision": "pr151-before-localization",
+        "runs": [
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:a",
+            "hash": "d49916e35b2f6fe774fc4877649eb559f1b8f15dd257279129c159fd5a105b6e",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:b",
+            "hash": "654d8bbcd8c8768745e3653fae6e792cbd7a1f1436e8338a830193cb5ca99bfe",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:a",
+            "hash": "d49916e35b2f6fe774fc4877649eb559f1b8f15dd257279129c159fd5a105b6e",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:b",
+            "hash": "654d8bbcd8c8768745e3653fae6e792cbd7a1f1436e8338a830193cb5ca99bfe",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          }
+        ],
+        "repeatedHashesIdentical": true
+      },
+      {
+        "revision": "pr151-final-localized-adaptation",
+        "runs": [
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:a",
+            "hash": "d49916e35b2f6fe774fc4877649eb559f1b8f15dd257279129c159fd5a105b6e",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:b",
+            "hash": "654d8bbcd8c8768745e3653fae6e792cbd7a1f1436e8338a830193cb5ca99bfe",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:a",
+            "hash": "d49916e35b2f6fe774fc4877649eb559f1b8f15dd257279129c159fd5a105b6e",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:b",
+            "hash": "654d8bbcd8c8768745e3653fae6e792cbd7a1f1436e8338a830193cb5ca99bfe",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          }
+        ],
+        "repeatedHashesIdentical": true
+      },
+      {
+        "revision": "cooperative-contact-final",
+        "runs": [
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:a",
+            "hash": "5bc15a964d4af302d1c01eb9ab77d6342cca7cebc709e39b485224c667e05e08",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:b",
+            "hash": "552479f1c27632d2c17503248aec578656d198eb11451e4ee7f2eecfec7edd6a",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:a",
+            "hash": "5bc15a964d4af302d1c01eb9ab77d6342cca7cebc709e39b485224c667e05e08",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:b",
+            "hash": "552479f1c27632d2c17503248aec578656d198eb11451e4ee7f2eecfec7edd6a",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          }
+        ],
+        "repeatedHashesIdentical": true
+      },
+      {
+        "revision": "cooperative-contact-context-final",
+        "runs": [
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:a",
+            "hash": "0b4a6d4b2dd6eb0327dd1e6089423449eaa73b85deaf99cb14470fa685d048b6",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 1,
+            "seed": "pr146-flow-reference:b",
+            "hash": "ac8983f8eaed1ddeb2a69b535bbc95b6f5ba57850551d368f8adbb47e1737021",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:a",
+            "hash": "0b4a6d4b2dd6eb0327dd1e6089423449eaa73b85deaf99cb14470fa685d048b6",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          },
+          {
+            "repeat": 2,
+            "seed": "pr146-flow-reference:b",
+            "hash": "ac8983f8eaed1ddeb2a69b535bbc95b6f5ba57850551d368f8adbb47e1737021",
+            "canonicalSeconds": 59.99999999999766,
+            "schemaValidated": true,
+            "telemetryInvariantsPassed": true
+          }
+        ],
+        "repeatedHashesIdentical": true
+      }
+    ]
+  },
+  "shotParity": {
+    "config": {
+      "seedFamily": "pr151-shot-parity",
+      "repeats": 16
+    },
+    "collectionScope": "paired_launch_and_first_physical_resolution",
+    "fixtures": [
+      {
+        "name": "close-still-open",
+        "location": {
+          "x": 94,
+          "y": 34
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "defenderDistance": 18
+      },
+      {
+        "name": "close-running-pressure",
+        "location": {
+          "x": 94,
+          "y": 34
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 5,
+          "y": 0
+        },
+        "defenderDistance": 2.5
+      },
+      {
+        "name": "angle-still-open",
+        "location": {
+          "x": 90,
+          "y": 46
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "defenderDistance": 18
+      },
+      {
+        "name": "angle-sideways-pressure",
+        "location": {
+          "x": 90,
+          "y": 46
+        },
+        "facingAngle": 0,
+        "velocity": {
+          "x": 0,
+          "y": 4
+        },
+        "defenderDistance": 2.5
+      },
+      {
+        "name": "range-running-open",
+        "location": {
+          "x": 83,
+          "y": 34
+        },
+        "facingAngle": 1.5707963267948966,
+        "velocity": {
+          "x": 6,
+          "y": 0
+        },
+        "defenderDistance": 18
+      },
+      {
+        "name": "range-turned-pressure",
+        "location": {
+          "x": 83,
+          "y": 34
+        },
+        "facingAngle": -0.7853981633974483,
+        "velocity": {
+          "x": -2,
+          "y": 3
+        },
+        "defenderDistance": 2.5
+      }
+    ],
+    "sharedInputs": {
+      "shooterAttributes": {
+        "technique": 72,
+        "firstTouch": 76,
+        "passing": 72,
+        "dribbling": 56,
+        "finishing": 72,
+        "tackling": 56,
+        "positioning": 77,
+        "heading": 71,
+        "setPieces": 66,
+        "gameReading": 81,
+        "composure": 72,
+        "concentration": 63,
+        "leadership": 76,
+        "determination": 66,
+        "aggression": 67,
+        "pace": 62,
+        "stamina": 68,
+        "strength": 70,
+        "agility": 72,
+        "jumping": 71,
+        "ambition": 70,
+        "professionalism": 68,
+        "reflexes": 21,
+        "handling": 17,
+        "oneOnOnes": 25,
+        "goalkeeperSweeping": 5,
+        "goalkeeperKicking": 11,
+        "goalkeeperThrowing": 15
+      },
+      "keeperAttributes": {
+        "technique": 71,
+        "firstTouch": 68,
+        "passing": 77,
+        "dribbling": 75,
+        "finishing": 70,
+        "tackling": 79,
+        "positioning": 75,
+        "heading": 66,
+        "setPieces": 74,
+        "gameReading": 81,
+        "composure": 70,
+        "concentration": 75,
+        "leadership": 59,
+        "determination": 55,
+        "aggression": 59,
+        "pace": 62,
+        "stamina": 59,
+        "strength": 61,
+        "agility": 75,
+        "jumping": 57,
+        "ambition": 75,
+        "professionalism": 66,
+        "reflexes": 75,
+        "handling": 75,
+        "oneOnOnes": 88,
+        "goalkeeperSweeping": 91,
+        "goalkeeperKicking": 74,
+        "goalkeeperThrowing": 78
+      },
+      "dominantFoot": "left",
+      "weakFootProficiency": 35,
+      "keeperPosition": {
+        "x": 101,
+        "y": 34.8
+      },
+      "horizontalTargets": [-0.62, 0.62]
+    },
+    "fixtureCount": 6,
+    "seedCount": 16,
+    "pairs": 576,
+    "canonicalLaunchDifferences": 0,
+    "targetMenuDifferences": 0,
+    "keeperInputDifferences": 0,
+    "physicalResultDifferences": 0,
+    "maximumPairedErrorDelta": 0,
+    "human": {
+      "shots": 576,
+      "meanHorizontalError": 0.16081840833151423,
+      "meanVerticalError": 0.05384872200750094,
+      "horizontalErrorStdDev": 1.0009816100642461,
+      "verticalErrorStdDev": 0.7028315547326981,
+      "meanActualTarget": {
+        "horizontal": 0.16081840833151467,
+        "vertical": 0.46051538867416714
+      },
+      "meanPressure": 0.3203232034697099,
+      "projectedOnTargetPercent": 47.395833333333336,
+      "onTargetPercent": 47.56944444444444,
+      "postPercent": 3.4722222222222223,
+      "crossbarPercent": 3.4722222222222223,
+      "savePercent": 14.583333333333334,
+      "goalPercent": 32.986111111111114,
+      "unresolved": 0
+    },
+    "npc": {
+      "shots": 576,
+      "meanHorizontalError": 0.16081840833151423,
+      "meanVerticalError": 0.05384872200750094,
+      "horizontalErrorStdDev": 1.0009816100642461,
+      "verticalErrorStdDev": 0.7028315547326981,
+      "meanActualTarget": {
+        "horizontal": 0.16081840833151467,
+        "vertical": 0.46051538867416714
+      },
+      "meanPressure": 0.3203232034697099,
+      "projectedOnTargetPercent": 47.395833333333336,
+      "onTargetPercent": 47.56944444444444,
+      "postPercent": 3.4722222222222223,
+      "crossbarPercent": 3.4722222222222223,
+      "savePercent": 14.583333333333334,
+      "goalPercent": 32.986111111111114,
+      "unresolved": 0
+    }
+  },
+  "observerParity": {
+    "canonicalInvariant": true,
+    "results": [
+      {
+        "mode": "release_minimal",
+        "canonicalSeconds": 599.9999999997282,
+        "humanDecisionInputs": 0,
+        "hashes": {
+          "canonicalState": "b6531787f45fde56f286ed4fb20b3583deccfc23692edb4f6aaf4e5bbce71e39",
+          "playerState": "91fe606f4ee83ac8fd30f0fe85cfd587819ed4064625080af18f1479d76bfd0c",
+          "statistics": "f98bd258f79eaa55d65859dc9b22b28e66b34b7ea50e84f98ebdefdb7a25e844",
+          "majorEventSequence": "41c58c8e286b9dbdb69ccd07ab5ab9fc0dedd8e1a0a862288d8a513552b4b7d2",
+          "majorEventCount": 204,
+          "randomnessEvidence": "2517c2172195209bb79f8e7b8264bb6d662d2aab4279636de87d393febbb1e6a"
+        },
+        "elapsedMs": 14195.007000000018,
+        "rendererCallsBackground": 0,
+        "lateToEarlyCostRatio": 1.0386832304472593
+      },
+      {
+        "mode": "normal",
+        "canonicalSeconds": 599.9999999997282,
+        "humanDecisionInputs": 0,
+        "hashes": {
+          "canonicalState": "b6531787f45fde56f286ed4fb20b3583deccfc23692edb4f6aaf4e5bbce71e39",
+          "playerState": "91fe606f4ee83ac8fd30f0fe85cfd587819ed4064625080af18f1479d76bfd0c",
+          "statistics": "f98bd258f79eaa55d65859dc9b22b28e66b34b7ea50e84f98ebdefdb7a25e844",
+          "majorEventSequence": "41c58c8e286b9dbdb69ccd07ab5ab9fc0dedd8e1a0a862288d8a513552b4b7d2",
+          "majorEventCount": 204,
+          "randomnessEvidence": "2517c2172195209bb79f8e7b8264bb6d662d2aab4279636de87d393febbb1e6a"
+        },
+        "elapsedMs": 14001.248200000031,
+        "rendererCallsBackground": 0,
+        "lateToEarlyCostRatio": 1.1729145608421052
+      },
+      {
+        "mode": "dev",
+        "canonicalSeconds": 599.9999999997282,
+        "humanDecisionInputs": 0,
+        "hashes": {
+          "canonicalState": "b6531787f45fde56f286ed4fb20b3583deccfc23692edb4f6aaf4e5bbce71e39",
+          "playerState": "91fe606f4ee83ac8fd30f0fe85cfd587819ed4064625080af18f1479d76bfd0c",
+          "statistics": "f98bd258f79eaa55d65859dc9b22b28e66b34b7ea50e84f98ebdefdb7a25e844",
+          "majorEventSequence": "41c58c8e286b9dbdb69ccd07ab5ab9fc0dedd8e1a0a862288d8a513552b4b7d2",
+          "majorEventCount": 204,
+          "randomnessEvidence": "2517c2172195209bb79f8e7b8264bb6d662d2aab4279636de87d393febbb1e6a"
+        },
+        "elapsedMs": 19174.842399999958,
+        "rendererCallsBackground": 0,
+        "lateToEarlyCostRatio": 1.58583650657895
+      }
+    ]
+  },
+  "performanceAttribution": {
+    "canonicalMinutes": 10,
+    "sampleStride": 37,
+    "semantics": "inclusive_sampled_spans_do_not_sum_as_exclusive_cost; headless_same_fixture; different_football_trajectories",
+    "results": [
+      {
+        "phase": "baseline",
+        "revision": "PR150",
+        "seed": "pr148:balanced-balanced:a",
+        "canonicalSeconds": 599.9999999997282,
+        "elapsedMs": 12987.527399999999,
+        "controlledOwnerSeconds": 23.825000000000188,
+        "controlled": {
+          "touches": 7,
+          "carries": 0,
+          "passes": 5,
+          "shots": 0
+        },
+        "sampledAgency": {
+          "other": {
+            "calls": 399,
+            "ms": 92.89399999999557
+          },
+          "opponent_owner": {
+            "calls": 223,
+            "ms": 5.4600999999995565
+          },
+          "owner": {
+            "calls": 25,
+            "ms": 60.100299999997105
+          },
+          "intended_receiver": {
+            "calls": 2,
+            "ms": 0.3984999999993306
+          }
+        },
+        "inclusiveEstimatedSpans": [
+          {
+            "category": "agency_projection",
+            "sampledMs": 159.16519999999775,
+            "estimatedMs": 5886.41468474568,
+            "sampledCalls": 649
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 33.81020000001706,
+            "estimatedMs": 1250.404345763343,
+            "sampledCalls": 649
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 62.22509999998897,
+            "estimatedMs": 2301.2740372877274,
+            "sampledCalls": 646
+          }
+        ]
+      },
+      {
+        "phase": "original",
+        "revision": "PR151-before-localization",
+        "seed": "pr148:balanced-balanced:a",
+        "canonicalSeconds": 599.9999999997282,
+        "elapsedMs": 15900.801199999998,
+        "controlledOwnerSeconds": 49.649999999960244,
+        "controlled": {
+          "touches": 15,
+          "carries": 0,
+          "passes": 10,
+          "shots": 0
+        },
+        "sampledAgency": {
+          "other": {
+            "calls": 453,
+            "ms": 69.91460000001439
+          },
+          "opponent_owner": {
+            "calls": 142,
+            "ms": 3.0155999999988126
+          },
+          "owner": {
+            "calls": 54,
+            "ms": 134.22449999999844
+          }
+        },
+        "inclusiveEstimatedSpans": [
+          {
+            "category": "agency_projection",
+            "sampledMs": 207.39839999999867,
+            "estimatedMs": 7669.586440677917,
+            "sampledCalls": 649
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 35.166300000011006,
+            "estimatedMs": 1300.4486902931653,
+            "sampledCalls": 649
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 99.28349999999773,
+            "estimatedMs": 3671.500770415941,
+            "sampledCalls": 643
+          }
+        ]
+      },
+      {
+        "phase": "final",
+        "revision": "PR151-final",
+        "seed": "pr148:balanced-balanced:a",
+        "canonicalSeconds": 599.9999999997282,
+        "elapsedMs": 18737.611,
+        "controlledOwnerSeconds": 53.09999999998818,
+        "controlled": {
+          "touches": 12,
+          "carries": 0,
+          "passes": 12,
+          "shots": 0
+        },
+        "sampledAgency": {
+          "other": {
+            "calls": 449,
+            "ms": 69.71819999998809
+          },
+          "opponent_owner": {
+            "calls": 143,
+            "ms": 3.37990000000309
+          },
+          "owner": {
+            "calls": 57,
+            "ms": 175.5580000000075
+          }
+        },
+        "inclusiveEstimatedSpans": [
+          {
+            "category": "agency_projection",
+            "sampledMs": 248.89569999999776,
+            "estimatedMs": 9205.305835284971,
+            "sampledCalls": 649
+          },
+          {
+            "category": "tactical_planning",
+            "sampledMs": 40.81539999998722,
+            "estimatedMs": 1509.5409032352748,
+            "sampledCalls": 649
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 131.36899999997286,
+            "estimatedMs": 4858.628824344142,
+            "sampledCalls": 646
+          }
+        ]
+      }
+    ]
+  },
+  "touchRegression": {
+    "carryIntentions": 40,
+    "physicalSubsteps": 1600,
+    "publicTouches": 1,
+    "internalCarries": 40
+  },
+  "cooperativeContactRegression": {
+    "schemaVersion": 1,
+    "evidenceSource": "src/core/matchSimulation/cooperativePressPhysics.test.ts",
+    "evidenceKind": "verified test assertions; latency and exact peak step are not instrumented",
+    "verification": {
+      "cooperativePhysicalCasesPassed": 8,
+      "targetedCasesPassed": 33,
+      "targetedFiles": [
+        "pr148Cadence.test.ts",
+        "cooperativePressPhysics.test.ts",
+        "teamThreatMemory.test.ts"
+      ],
+      "priorPhysicalIntegrationTargetedCasesPassed": 52,
+      "targetedCasesFailed": 0,
+      "eslint": "passed",
+      "typescriptBuild": "passed"
+    },
+    "originalEscortObservation": {
+      "fixtureSeed": "pr151-physical-pincer",
+      "configuration": "earlier unmodified escort geometry, initial primary 1.1 m from carrier, no pre-seeded duel lock",
+      "canonicalSecondsPerSide": 8,
+      "homeCarrierChallengeAttempts": 0,
+      "awayCarrierChallengeAttempts": 0
+    },
+    "correctedPhysicalFixtures": {
+      "fixtureSeed": "pr151-physical-pincer",
+      "tickSeconds": 0.025,
+      "maximumCanonicalSeconds": 8,
+      "initialPrimarySeparationMetres": 2.3,
+      "primaryPairPreLocked": true,
+      "homeCarrier": {
+        "actualSecondaryAttempt": true,
+        "primaryReattempt": false,
+        "lastChallengeTechnique": "standing",
+        "lastChallengeFromBehind": false,
+        "lastChallengeBallDistanceMetresAtMost": 0.95,
+        "highRiskIntents": 0,
+        "fouls": 0,
+        "nearbyPlayerStepMetresStrictlyBelow": 0.25,
+        "completeReplayStateEqual": true,
+        "latencyCanonicalSeconds": null
+      },
+      "awayCarrier": {
+        "actualSecondaryAttempt": true,
+        "primaryReattempt": false,
+        "lastChallengeTechnique": "standing",
+        "lastChallengeFromBehind": false,
+        "lastChallengeBallDistanceMetresAtMost": 0.95,
+        "highRiskIntents": 0,
+        "fouls": 0,
+        "nearbyPlayerStepMetresStrictlyBelow": 0.25,
+        "completeReplayStateEqual": true,
+        "latencyCanonicalSeconds": null
+      }
+    },
+    "additionalCases": [
+      {
+        "case": "nearest body locked; vetted partner has legal front-side ball access",
+        "secondaryAttemptsAfterOneCanonicalStep": 1,
+        "primaryAttemptsAfterOneCanonicalStep": 0
+      },
+      {
+        "case": "initially distant un-locked primary closes the screen through normal containment",
+        "canonicalChallengeOccurs": true,
+        "highRiskIntents": 0,
+        "fouls": 0
+      },
+      {
+        "case": "central cover behind a wide carrier's x coordinate",
+        "goalCentreProjectionPreservesCoverAndPartner": true
+      },
+      {
+        "case": "secondary's dangerous receiver cannot inherit a mark",
+        "cooperativeRecruitment": false,
+        "secondaryAttemptDuringEightSeconds": false
+      },
+      {
+        "case": "previous secondary already participated in the same close possession duel",
+        "freshSafeThirdPlayerRecruited": true,
+        "primaryAndFormerSecondaryEpisodeLocksRemainActive": true
+      },
+      {
+        "case": "ordinary central slow scan versus selected retention or remembered pressure",
+        "ordinaryScanRecruitment": false,
+        "selectedHoldRecruitment": true,
+        "rememberedDoublePressAtPointThreeRecruitment": true,
+        "existingPr148CanonicalContainmentRegression": "passed; separation >1.9 m and zero challenge attempts"
+      }
+    ],
+    "existingUnsafeCoverageRegressions": "passed in teamThreatMemory.test.ts",
+    "contactResolverReachAndCollisionRules": "unchanged"
+  },
+  "retainedPossessionDiagnosis": {
+    "scope": "same_CM_b45_fixture_exact_agency_probes_without_presentation_windows; bounded_streak_summaries_only; clocks_excluded",
+    "beforePhysicalCorrection": [
+      {
+        "seed": "pr148:balanced-balanced:b",
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "ticks": 108000,
+        "decisions": 5,
+        "counts": {
+          "passes": 167,
+          "shots": 1,
+          "carries": 17
+        },
+        "actionTypes": {
+          "pass": 167,
+          "carry": 17,
+          "hold": 5,
+          "header": 10,
+          "shot": 1,
+          "cross": 1
+        },
+        "maximums": {
+          "ownerSeconds": 1649.7250000060017,
+          "stationaryOwnerSeconds": 1649.7250000060017,
+          "sameBallEpisodeSeconds": 1674.0750000006506,
+          "actionGapSeconds": 1646.4750000005502,
+          "restartSetupSeconds": 2.09999999999809
+        },
+        "controlled": {
+          "touches": 20,
+          "passes": 17,
+          "carries": 0,
+          "shots": 0,
+          "distance": 1150.1820295084096
+        }
+      }
+    ],
+    "afterPhysicalCorrection": [
+      {
+        "seed": "pr148:balanced-balanced:b",
+        "canonicalSeconds": 2700,
+        "status": "half_time",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "ticks": 108000,
+        "decisions": 13,
+        "counts": {
+          "passes": 424,
+          "shots": 8,
+          "carries": 25
+        },
+        "actionTypes": {
+          "pass": 424,
+          "carry": 25,
+          "hold": 2,
+          "header": 28,
+          "cross": 6,
+          "shot": 8
+        },
+        "maximums": {
+          "ownerSeconds": 13.02499999999926,
+          "stationaryOwnerSeconds": 13.02499999999926,
+          "sameBallEpisodeSeconds": 153.62500000055888,
+          "actionGapSeconds": 11.425000000041564,
+          "restartSetupSeconds": 2.09999999999809
+        },
+        "controlled": {
+          "touches": 59,
+          "passes": 52,
+          "carries": 0,
+          "shots": 0,
+          "distance": 2958.8094765095866
+        }
+      }
+    ]
+  },
+  "limitations": [
+    "Headless work excludes renderer/React/context capture/human thinking time; not a browser wall-time measurement.",
+    "Baseline and final measurements are serial cold processes, not an isolated feature overhead estimate.",
+    "Physical changes alter football outcomes and later DEV-selected actions; no guarantee all seeds reduce prompts.",
+    "Exact 20 episodes/66 prompts human playtest cannot be reproduced without its seed/setup/action trace.",
+    "Right winger is forced into the current formation when absent from the XI; role-specific involvement varies.",
+    "Controlled tactical scenes demonstrate response and safer choices, not a league turnover distribution.",
+    "Shot parity tests settled driven/placed/chip and equivalent explicit targets; no incoming volleys/headers."
+  ]
+}

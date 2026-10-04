@@ -4,6 +4,7 @@ import { BALL_PHYSICS, projectFutureBallTrajectory, type PhysicalBall } from './
 import { BALL_RADIUS, GOAL_HEIGHT } from './ballFlight';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
+import { deriveMovementCapability } from './locomotion';
 
 /** Reaction seconds, metre contact envelope, and canonical locomotion acceleration limits. */
 export const GOALKEEPER_PHYSICS = {
@@ -15,8 +16,6 @@ export const GOALKEEPER_PHYSICS = {
   contactReachMetres: 1.25,
   passiveBodyRadiusMetres: 0.5,
   contactCentreHeight: 1.05,
-  baseAcceleration: 3.2,
-  agilityAcceleration: 5.5,
   baseMaximumSpeed: 3.6,
   agilityMaximumSpeed: 0.035,
 } as const;
@@ -116,7 +115,7 @@ export const projectGoalkeeperIntervention = (
   const ballTotalFlightTime = state.ball.flightTime ?? 0;
   const reactionRemaining = Math.max(0, reactionDelay - ballTotalFlightTime);
   const movementTime = Math.max(0, elapsed - reactionRemaining);
-  const acceleration = c.baseAcceleration + (attributes.agility / 100) * c.agilityAcceleration;
+  const acceleration = deriveMovementCapability(keeper).acceleration;
   const maximumSpeed = c.baseMaximumSpeed + attributes.agility * c.agilityMaximumSpeed;
   const initialSpeed = Math.min(
     maximumSpeed,

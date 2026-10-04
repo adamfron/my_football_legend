@@ -1,5 +1,6 @@
 import { deriveCanonicalCoachProfile } from '../coachProfiles';
 import { emitMatchEvents } from './matchEventFeed';
+import { initialiseTeamThreatMemory, observeTeamThreats } from './teamThreatMemory';
 import type { SingleMatchSession } from '../singleMatch';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
@@ -42,7 +43,7 @@ import {
   incomingBallIntentKey,
   projectPlayerDecisionOpportunity,
 } from './playerDecision';
-import { projectLocomotion, projectSprintEpisode } from './locomotion';
+import { deriveMovementCapability, projectLocomotion, projectSprintEpisode } from './locomotion';
 import { isDefensiveEpisodeLocked, shouldCommitRoutinePress } from './defensiveChallenges';
 import {
   classifyRelativeMovement,
@@ -74,6 +75,7 @@ import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling
 import {
   beginDefensiveChallenge,
   chooseNpcDefensiveChallengeAction,
+  deriveCooperativePress,
   resolveDefensiveChallenge,
 } from './defensiveChallenges';
 import { advanceMatchRules, applyChallengeInfringement, enforceMinimumPlayers } from './matchRules';
@@ -221,7 +223,8 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       ? { controlledFootballerId: session.setup.control.footballerId }
       : {}),
   };
-  const positioned = { ...state, players: deriveTacticalTargets(state) };
+  const initialised = initialiseTeamThreatMemory(state);
+  const positioned = { ...initialised, players: deriveTacticalTargets(initialised) };
   return { ...positioned, statistics: createMatchStatistics(positioned) };
 };
 
@@ -914,6 +917,9 @@ const stepTacticalMatchCore = (
   const plannedPlayers = tacticalPlanDue ? deriveTacticalTargets(state) : state.players;
   endPerformanceSpan('tactical_planning', planningSpan);
   const movementSpan = startPerformanceSpan('movement_physics');
+  const cooperativePress = state.ball.ownerId
+    ? deriveCooperativePress(state, state.possessionTeam === 'home' ? 'away' : 'home')
+    : null;
   state.players = plannedPlayers.map((player) => {
     let movementTarget = player.target;
     if (state.ballCarrierIntent?.actorId === player.id) {
@@ -978,12 +984,12 @@ const stepTacticalMatchCore = (
           ? (state.onBallPreparation.micro?.localTarget ?? player.position)
           : player.position;
     } else if (
-      state.nearestChallengerId === player.id &&
+      (state.nearestChallengerId === player.id || cooperativePress?.primaryId === player.id) &&
       state.ball.ownerId &&
       state.defensiveChallenge?.actorId !== player.id &&
       state.playerMovementIntent?.actorId !== player.id &&
       (isDefensiveEpisodeLocked(state, player.id, state.ball.ownerId) ||
-        !shouldCommitRoutinePress(state, player.id))
+        !shouldCommitRoutinePress(state, player.id, cooperativePress ?? null))
     ) {
       const owner = state.players.find((candidate) => candidate.id === state.ball.ownerId)!;
       const away = {
@@ -996,14 +1002,16 @@ const stepTacticalMatchCore = (
           ? { x: away.x / separation, y: away.y / separation }
           : { x: player.team === 'home' ? -1 : 1, y: 0 };
       movementTarget = clampPitchPoint({
-        x: owner.position.x + direction.x * 2.3,
-        y: owner.position.y + direction.y * 2.3,
+        x:
+          owner.position.x + direction.x * (cooperativePress?.primaryId === player.id ? 0.95 : 2.3),
+        y:
+          owner.position.y + direction.y * (cooperativePress?.primaryId === player.id ? 0.95 : 2.3),
       });
     }
     const dx = movementTarget.x - player.position.x,
       dy = movementTarget.y - player.position.y,
       d = Math.max(0.001, Math.hypot(dx, dy));
-    const locomotion = projectLocomotion(state, player, movementTarget);
+    const locomotion = projectLocomotion(state, player, movementTarget, cooperativePress ?? null);
     const preparing =
       state.onBallPreparation?.actorId === player.id &&
       state.ball.ownerId === player.id &&
@@ -1027,13 +1035,8 @@ const stepTacticalMatchCore = (
       state.time < state.onBallPreparation.continuation.until;
     const maxSpeed =
       locomotion.targetSpeed * (receivingMomentum ? 1 : movementModeSpeedFactor(movementMode));
-    const agility = player.profile.attributes.agility / 100;
-    const accelerationRate =
-      (3.2 + agility * 5.5) *
-      (state.ballCarrierIntent?.actorId === player.id &&
-      state.ballCarrierIntent.movementMode === 'sprint'
-        ? 1.2
-        : 1);
+    const capability = deriveMovementCapability(player);
+    const accelerationRate = capability.acceleration;
     const structural =
       !preparing &&
       ['structural_adjustment', 'maintain_shape', 'support_run'].includes(locomotion.reason);
@@ -1061,6 +1064,10 @@ const stepTacticalMatchCore = (
       x: player.position.x + velocity.x * dt,
       y: player.position.y + velocity.y * dt,
     });
+    // A legally positioned penalty keeper starts on the goal line. Preserve that boundary
+    // through integration instead of snapping the body 0.4 m inward on the first live tick.
+    if (player.profile.primaryPosition === 'goalkeeper')
+      integratedPosition.x = Math.max(0, Math.min(105, player.position.x + velocity.x * dt));
     let next = integratedPosition;
     const close = state.players.filter(
       (p) => p.id !== player.id && distance(p.position, next) < 1.15,
@@ -1090,7 +1097,7 @@ const stepTacticalMatchCore = (
       sprintBursts: 0,
       maxSpeed: 0,
     };
-    const athleteMaximumSpeed = 6.2 + (player.profile.attributes.pace / 100) * 3.3;
+    const athleteMaximumSpeed = capability.maximumSprintSpeed;
     const speedRatio = speed / athleteMaximumSpeed;
     const sprint = projectSprintEpisode(player, speedRatio, state.time, dt);
     const actualSprinting = sprint.actualSprinting;
@@ -1678,61 +1685,75 @@ const stepTacticalMatchCore = (
       state.currentPressure = evaluated.value;
       if (evaluated.nearestChallengerId) state.nearestChallengerId = evaluated.nearestChallengerId;
       else delete state.nearestChallengerId;
-      const challenger = state.players.find((p) => p.id === evaluated.nearestChallengerId);
-      const duelDistance = challenger ? distance(challenger.position, owner.position) : Infinity;
-      const ballDistance = challenger ? distance(challenger.position, state.ball) : Infinity;
-      const challengerFacingError = challenger
-        ? Math.abs(
-            normalizeAngle(
-              angleForVector({
-                x: state.ball.x - challenger.position.x,
-                y: state.ball.y - challenger.position.y,
-              }) - challenger.facingAngle,
-            ),
-          )
-        : Math.PI;
-      const relativeSpeed = challenger
-        ? Math.hypot(
-            challenger.velocity.x - owner.velocity.x,
-            challenger.velocity.y - owner.velocity.y,
-          )
-        : Infinity;
-      const shielding =
-        state.ballCarrierIntent?.actorId === owner.id &&
-        state.ballCarrierIntent.executionMode === 'shield';
-      const hasChallengeAccess =
-        ballDistance <= (shielding ? 0.72 : 0.95) &&
-        challengerFacingError <= (shielding ? Math.PI * 0.3 : Math.PI * 0.42) &&
-        relativeSpeed <= 8.5;
-      const sameDuel = Boolean(
-        challenger &&
-          state.recentDuel &&
-          state.recentDuel.ballEpisode === (state.ballEpisode ?? 0) &&
-          state.recentDuel.expiresAt > state.time &&
-          state.recentDuel.participants.includes(owner.id) &&
-          state.recentDuel.participants.includes(challenger.id),
-      );
-      if (
-        !state.periodEndPending &&
-        !state.defensiveChallenge &&
-        challenger &&
-        !sameDuel &&
-        duelDistance < 3.2
-      ) {
-        const selected = chooseNpcDefensiveChallengeAction(state, challenger.id);
-        // Ordinary autonomous contacts retain the old narrow access envelope. Only NPCs can
-        // initiate a contextual high-risk approach; a controlled player needs explicit intent.
+      const defendingSide = owner.team === 'home' ? 'away' : 'home';
+      let challengerId = evaluated.nearestChallengerId;
+      let contactPress = cooperativePress ?? null;
+      for (let candidateIndex = 0; candidateIndex < 2; candidateIndex++) {
+        if (candidateIndex === 1) {
+          // Recheck coverage only when the nearest body could not engage and a partner
+          // actually had a pressing intention. The ordinary resolver still decides contact.
+          if (!cooperativePress || state.defensiveChallenge) break;
+          contactPress = deriveCooperativePress(state, defendingSide) ?? null;
+          challengerId = contactPress?.secondaryId;
+          if (!challengerId || challengerId === evaluated.nearestChallengerId) break;
+        }
+        const challenger = state.players.find((p) => p.id === challengerId);
+        const duelDistance = challenger ? distance(challenger.position, owner.position) : Infinity;
+        const ballDistance = challenger ? distance(challenger.position, state.ball) : Infinity;
+        const challengerFacingError = challenger
+          ? Math.abs(
+              normalizeAngle(
+                angleForVector({
+                  x: state.ball.x - challenger.position.x,
+                  y: state.ball.y - challenger.position.y,
+                }) - challenger.facingAngle,
+              ),
+            )
+          : Math.PI;
+        const relativeSpeed = challenger
+          ? Math.hypot(
+              challenger.velocity.x - owner.velocity.x,
+              challenger.velocity.y - owner.velocity.y,
+            )
+          : Infinity;
+        const shielding =
+          state.ballCarrierIntent?.actorId === owner.id &&
+          state.ballCarrierIntent.executionMode === 'shield';
+        const hasChallengeAccess =
+          ballDistance <= (shielding ? 0.72 : 0.95) &&
+          challengerFacingError <= (shielding ? Math.PI * 0.3 : Math.PI * 0.42) &&
+          relativeSpeed <= 8.5;
+        const sameDuel = Boolean(
+          challenger &&
+            state.recentDuel &&
+            state.recentDuel.ballEpisode === (state.ballEpisode ?? 0) &&
+            state.recentDuel.expiresAt > state.time &&
+            state.recentDuel.participants.includes(owner.id) &&
+            state.recentDuel.participants.includes(challenger.id),
+        );
         if (
-          selected &&
-          (selected.technique !== 'standing' || (duelDistance < 1.65 && hasChallengeAccess))
-        )
-          state = beginDefensiveChallenge(
-            state,
-            selected,
-            challenger.id === state.controlledFootballerId
-              ? 'autonomous_routine'
-              : 'autonomous_npc',
-          );
+          !state.periodEndPending &&
+          !state.defensiveChallenge &&
+          challenger &&
+          !sameDuel &&
+          duelDistance < 3.2
+        ) {
+          const selected = chooseNpcDefensiveChallengeAction(state, challenger.id, contactPress);
+          // Ordinary autonomous contacts retain the old narrow access envelope. Only NPCs can
+          // initiate a contextual high-risk approach; a controlled player needs explicit intent.
+          if (
+            selected &&
+            (selected.technique !== 'standing' || (duelDistance < 1.65 && hasChallengeAccess))
+          )
+            state = beginDefensiveChallenge(
+              state,
+              selected,
+              challenger.id === state.controlledFootballerId
+                ? 'autonomous_routine'
+                : 'autonomous_npc',
+            );
+        }
+        if (state.defensiveChallenge) break;
       }
     } else {
       state.currentPressure = 0;
@@ -1871,6 +1892,7 @@ export const stepTacticalMatch = (
   next = advanceMatchRules(input, next);
   next = emitCanonicalActionEvents(input, next);
   next = emitMatchEvents(input, next);
+  next = observeTeamThreats(input, next);
   next = {
     ...next,
     statistics: observePlayerMatchStats(
@@ -1918,6 +1940,7 @@ export const stepTacticalMatchAfterDecisionProbe = (
   next = advanceMatchRules(input, next);
   next = emitCanonicalActionEvents(input, next);
   next = emitMatchEvents(input, next);
+  next = observeTeamThreats(input, next);
   return {
     ...next,
     status: next.status ?? status,

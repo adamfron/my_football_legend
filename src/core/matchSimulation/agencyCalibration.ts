@@ -12,4 +12,6 @@ export const PLAYER_AGENCY_CALIBRATION = Object.freeze({
   carryChallengeLaneRadius: 1.5,
   carryChallengeDistance: 4,
   meaningfulReceptionPressureDistance: 2.4,
+  // A long switch into safe space is circulation; close control under a press is a commitment.
+  meaningfulLongReceptionProgress: 65,
 });

@@ -14,8 +14,8 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR150 są ukończone w opisanym zakresie. Następny etap to PR151 — kondycja, urazy,
-doliczony czas i inteligencja zmian, na podstawie kanonicznego obciążenia.
+PR105–PR151 są ukończone w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
+z reaktywną taktyką zespołów. Kondycja, urazy, doliczony czas i inteligencja zmian pozostają później.
 W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
@@ -194,9 +194,18 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - spalony przy zagraniu, pośredni wolny, ustawienie ofensywnych wolnych i aktualne wektory ruchu;
 - architektura, testy i pomiary: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUOUS_INTENT.md).
 
+**PR151 — Match Cadence Calibration + Reactive Team Tactics**
+
+- ograniczona, zanikająca pamięć zagrożeń i stopniowa odpowiedź w normalnym pozycjonowaniu;
+- bezpieczniejsze rozegranie, krótkie wsparcie, ochrona kanału i kontekstowy drugi obrońca;
+- mniej rutynowych nowych sekwencji przy zachowaniu ciągłości znaczących wyborów człowieka;
+- legalne pozycje karnych, wspólny profil ruchu, parytet strzałów i jawny zakres telemetrii;
+- deterministyczne scenariusze, kilka seedów 45/90 minut i dowody:
+  [PR151_REACTIVE_TACTICS.md](PR151_REACTIVE_TACTICS.md).
+
 ### NEXT
 
-**PR151 — Fatigue, Injury Risk, Added Time & Substitution Intelligence**
+**Fatigue, Injury Risk, Added Time & Substitution Intelligence**
 
 - kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
 - kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
@@ -438,7 +447,8 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
-NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: PR150 → PR151.
+NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: po PR151 rozwój kondycji,
+urazów, doliczonego czasu i inteligencji zmian.
 Poniższa lista jest historycznym kontekstem systemów kariery; starsze plany pakietów
 zagranicznych nie wyprzedzają obecnej kolejności silnika meczu.
 

@@ -44,6 +44,14 @@ export const matchPresentationPolicySchema = z.object({
 });
 export type MatchPresentationPolicy = z.infer<typeof matchPresentationPolicySchema>;
 
+/** The key-player policy opens a new NPC shot sequence around a 0.16 scoring expectation.
+ * This measures chance quality, never caps episodes or changes ownership of human actions. */
+export const SHOT_PRESENTATION_CALIBRATION = Object.freeze({
+  baselineImportance: 0.86,
+  expectationWeight: 0.25,
+  maximumImportance: 0.97,
+});
+
 export const MATCH_PRESENTATION_POLICIES: Record<
   MatchPresentationPolicy['id'],
   MatchPresentationPolicy
@@ -93,8 +101,9 @@ const inPenaltyArea = (team: TeamSide, x: number, y: number) =>
  * Omitted/undefined retains the standalone projection API. */
 export const projectMatchMoment = (
   state: TacticalMatchState,
-  projectedDecision: ReturnType<typeof projectPlayerDecisionOpportunity> | null =
-    projectPlayerDecisionOpportunity(state),
+  projectedDecision: ReturnType<
+    typeof projectPlayerDecisionOpportunity
+  > | null = projectPlayerDecisionOpportunity(state),
 ): MatchMomentCandidate => {
   const controlledId = state.controlledFootballerId;
   const decision = projectedDecision;
@@ -119,7 +128,12 @@ export const projectMatchMoment = (
     lead = 3;
   } else if (state.ball.travelKind === 'shot' && state.ball.shot) {
     kind = 'shot';
-    importance = 0.9;
+    importance = Math.min(
+      SHOT_PRESENTATION_CALIBRATION.maximumImportance,
+      SHOT_PRESENTATION_CALIBRATION.baselineImportance +
+        state.ball.shot.effectiveScoringExpectation *
+          SHOT_PRESENTATION_CALIBRATION.expectationWeight,
+    );
     actorIds = [state.ball.shot.shooterId];
     reasons = ['shot_in_flight'];
     lead = 2;
