@@ -446,6 +446,14 @@ for (const scenario of config.scenarios)
         preparationMovementMetres: summarizeCalibrationDistribution(preparationMovement),
         possessionSeconds,
         agency: agency.snapshot(state.time),
+        collectionScope: {
+          canonicalStatistics: 'whole_canonical_match',
+          agency: 'exact_tick_boundary_observer',
+          decisions: 'explicit_dev_ai_selection_at_exact_tick_boundary',
+          presentation: 'observational_moment_clustering',
+          presentationRuntime: null,
+          presentationRuntimeUnavailableReason: 'no_live_presentation_runtime_in_this_benchmark',
+        },
         decisions: {
           promptsShown: decisionPrompts,
           per45Minutes: state.time > 0 ? (decisionPrompts * 2700) / state.time : 0,

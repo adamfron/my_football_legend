@@ -17,6 +17,7 @@ import {
   type ObserverCoverageInterval,
 } from './backgroundPublication';
 import { formatDiagnosticMatchTime, formatMatchTime } from './matchTime';
+import { createSessionTelemetryReport } from './matchBenchmarkReport';
 import {
   appendReplayFrame,
   sampleReplayFrame,
@@ -779,6 +780,10 @@ export const RunningLab = ({
                   }
                   contextHistoryRef.current.observe(next, true);
                   if (background) {
+                    // Count the sequence on its hidden-to-visible entry. Later choices in the
+                    // same live sequence increase prompts, never presentation density.
+                    presentationTelemetryRef.current.episodesStarted += 1;
+                    presentationTelemetryRef.current.episodesPresented += 1;
                     const requested = requestedDecisionLeadIn(next, projected);
                     const frames = contextHistoryRef.current.leadIn(next.time, requested);
                     leadInFramesRef.current = frames;
@@ -1599,14 +1604,24 @@ export const RunningLab = ({
               <button
                 onClick={() => {
                   const current = stateRef.current;
+                  const report = createSessionTelemetryReport({
+                    canonicalSeconds: current.time,
+                    coverage: observerCoverageRef.current,
+                    flow: telemetryRef.current,
+                    agency: agencyTrackerRef.current.snapshot(current.time),
+                    positioning: positioningSamplesRef.current,
+                    presentation: presentationTelemetryRef.current,
+                  });
                   const summary = {
                     metadata: {
-                      schema: 'mfl-session-benchmark-v2',
+                      schema: 'mfl-session-benchmark-v3',
                       seed: current.seed,
                       observerMode,
-                      observationScope: devObservation
-                        ? 'dev_since_mode_enabled'
-                        : 'canonical_statistics_only',
+                      observationScope:
+                        report.collectionScope.detailedObservers !== 'unavailable'
+                          ? 'dev_since_mode_enabled'
+                          : 'canonical_statistics_only',
+                      collectionScope: report.collectionScope,
                       positioningSampleCapacity: 6000,
                       observerCoverage: observerCoverageRef.current.map((interval) => ({
                         ...interval,
@@ -1614,25 +1629,30 @@ export const RunningLab = ({
                       })),
                     },
                     duration: current.time,
-                    segments: diagnostics.exportSegments(
-                      current,
-                      telemetryRef.current,
-                      positioningSamplesRef.current,
-                    ),
+                    segments: diagnostics
+                      .exportSegments(current, telemetryRef.current, positioningSamplesRef.current)
+                      .map((segment) => ({
+                        ...segment,
+                        observationScope: report.collectionScope.detailedObservers,
+                        matchFlowTelemetry:
+                          report.collectionScope.detailedObservers === 'unavailable'
+                            ? null
+                            : segment.matchFlowTelemetry,
+                        sampledPositioning:
+                          report.collectionScope.detailedObservers === 'unavailable'
+                            ? null
+                            : segment.sampledPositioning,
+                      })),
                     controlledPlayer: current.controlledFootballerId,
                     canonicalStatistics: current.statistics,
                     defensiveTelemetry: current.defensiveTelemetry,
                     discipline: current.discipline,
                     recentCanonicalActionEvents: current.actionEvents ?? [],
-                    matchFlowTelemetry: telemetryRef.current,
-                    decisionTelemetry: telemetryRef.current.controlled,
+                    ...report,
                     passingNetwork: current.statistics?.passingNetwork ?? [],
-                    sampledPositioning: positioningSamplesRef.current,
                     runtimeDiagnostics: diagnostics.runtimeDiagnostics,
                     omittedRuntimeDiagnostics: diagnostics.omittedRuntimeDiagnostics,
                     rendererLifecycle: diagnostics.rendererLifecycle,
-                    presentationRuntime: presentationTelemetryRef.current,
-                    playerAgency: agencyTrackerRef.current.snapshot(current.time),
                     contextBuffer: contextHistoryRef.current.snapshot(),
                     presentationWindows: windowDiagnosticsRef.current,
                     backgroundPerformance: backgroundPerformanceRef.current.snapshot(

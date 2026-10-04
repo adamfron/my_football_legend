@@ -21,6 +21,7 @@ import {
 } from './matchRules';
 import { canonicalActionEventSchema, type CanonicalActionEvent } from './actionEvents';
 import { matchEventSchema, type MatchEvent } from './matchEventFeed';
+import { teamThreatMemorySchema, type TeamThreatMemory } from './teamThreatMemory';
 import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
 import {
@@ -396,6 +397,8 @@ export interface MatchTeamState {
   style: TacticalStyle;
   phase: MatchPhase;
   phaseElapsed: number;
+  /** Bounded canonical football evidence and gradual team response, independent of presentation. */
+  threatMemory?: TeamThreatMemory;
 }
 export interface MatchBallState extends PitchPoint {
   executionType?: PassExecutionType;
@@ -713,6 +716,7 @@ export const tacticalMatchStateSchema = z
         style: tacticalStyleSchema,
         phase: matchPhaseSchema,
         phaseElapsed: z.number().nonnegative(),
+        threatMemory: teamThreatMemorySchema.optional(),
       }),
     ),
     players: z.array(

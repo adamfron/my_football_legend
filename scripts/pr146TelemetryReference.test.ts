@@ -14,7 +14,18 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR150 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR151 complete telemetry reference (PR146 observer contract)', () => {
+  // PR151 intentionally changes attribute-based movement, reactive team positioning and
+  // presentation cadence. Reproduced both complete hashes twice after 2,400 identical ticks;
+  // the pristine PR150 checkout independently reproduced both previous reference hashes.
+  // Repeated both seeds twice after response localization (unchanged), then again after
+  // cooperative contact/goalward-cover changes, then their contextual slow-scan guard.
+  // Both revisions intentionally changed the hashes and reproduced each seed twice.
+  // Prior localization hashes: d49916e35b2f6fe774fc4877649eb559f1b8f15dd257279129c159fd5a105b6e (a),
+  // 654d8bbcd8c8768745e3653fae6e792cbd7a1f1436e8338a830193cb5ca99bfe (b).
+  // Keep the complete sorted all-field assertion and schema/invariant checks; see PR151 report.
+  // Previous PR150: 3ced1597287169d8941900f27ad4ac6ef274ea40398fca84a8d1535668ec5dba (a),
+  // 1a5102f3ebc44473c3378dd71a9f512a00e0dda24744138a198690a5df08cfb8 (b).
   // PR150 intentionally changes momentum-preserving reception, attribute/context pass execution,
   // launch-time offside, resolved out-of-play failures and realized-edge accounting.
   // Full-output hashes were reproduced twice
@@ -36,8 +47,8 @@ describe('PR150 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '3ced1597287169d8941900f27ad4ac6ef274ea40398fca84a8d1535668ec5dba'],
-    ['pr146-flow-reference:b', '1a5102f3ebc44473c3378dd71a9f512a00e0dda24744138a198690a5df08cfb8'],
+    ['pr146-flow-reference:a', '0b4a6d4b2dd6eb0327dd1e6089423449eaa73b85deaf99cb14470fa685d048b6'],
+    ['pr146-flow-reference:b', 'ac8983f8eaed1ddeb2a69b535bbc95b6f5ba57850551d368f8adbb47e1737021'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

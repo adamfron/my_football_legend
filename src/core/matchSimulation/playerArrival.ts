@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
-import { projectLocomotion } from './locomotion';
+import { deriveMovementCapability, projectLocomotion } from './locomotion';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 
@@ -55,7 +55,7 @@ export const estimatePlayerArrivalTime = (
             },
           };
     const targetSpeed = projectLocomotion(projectedState, player, target).targetSpeed;
-    const acceleration = 3.2 + (player.profile.attributes.agility / 100) * 5.5;
+    const acceleration = deriveMovementCapability(player).acceleration;
     const accelerationTime =
       Math.hypot(
         (direction.x / Math.max(metres, 0.001)) * targetSpeed - player.velocity.x,

@@ -1,6 +1,7 @@
 import { projectPlayerDecisionProbe } from './playerDecision';
 import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { emitCanonicalActionEvents } from './actionEvents';
+import { deriveBuildUpReliefWeight, TEAM_THREAT_TUNING, threatChannel } from './teamThreatMemory';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   clampPitchPoint,
@@ -342,6 +343,12 @@ export const scoreActionForAI = (
   }
   const style = state.teams[actor.team].style;
   const underPressure = pressure(state, actor);
+  const memory = state.teams[actor.team].threatMemory;
+  const buildUpSafety =
+    (actor.team === 'home' ? actor.position.x : 105 - actor.position.x) < 48
+      ? (memory?.response.buildUpSafety ?? 0) *
+        deriveBuildUpReliefWeight(state, actor, underPressure)
+      : 0;
   const preparationMargin = preparationMarginForAction(state, actor, action);
   const preparationPenalty = preparationMargin < 0 ? Math.min(65, -preparationMargin * 55) : 0;
   if (action.type === 'hold') {
@@ -373,7 +380,8 @@ export const scoreActionForAI = (
       (style === 'possession' ? 18 : style === 'direct' ? -6 : 0) +
       (scanningContext ? 8 + scanningQuality : 0) -
       underPressure * (scanningContext ? 30 : 18) -
-      completedScanningPenalty;
+      completedScanningPenalty -
+      buildUpSafety * underPressure * 14;
     const shieldingQuality =
       (actor.profile.attributes.strength +
         actor.profile.attributes.firstTouch +
@@ -403,7 +411,8 @@ export const scoreActionForAI = (
               9,
         ),
       ) *
-        30
+        30 -
+      buildUpSafety * underPressure * 18
     );
   if (action.type === 'shot')
     return (
@@ -510,8 +519,40 @@ export const scoreActionForAI = (
     0,
     terminalOpportunityValue(state, actor) - fieldValue(action.target, actor.team) * 0.32,
   );
+  const rememberedReceiver =
+    memory?.pressuredPlayers.find((player) => player.playerId === receiver.id)?.score ?? 0;
+  const receiverBuildUp =
+    (actor.team === 'home' ? receiver.position.x : 105 - receiver.position.x) < 48;
+  const safeOutlet = length <= 28 && receiverPressure < 0.42 && laneRisk <= 1;
+  const pressureEscaped = Math.max(
+    0,
+    Math.min(1, (underPressure - receiverPressure) / TEAM_THREAT_TUNING.meaningfulPressureEscape),
+  );
+  // Recycle away from the repeated trap without prohibiting progression or making GK-only loops.
+  const adaptationValue =
+    buildUpSafety *
+      ((safeOutlet
+        ? pressureEscaped *
+          (12 +
+            (progression <= 4 &&
+            (receiver.duty === 'defend' || receiver.profile.primaryPosition === 'goalkeeper')
+              ? 9
+              : 0))
+        : 0) -
+        receiverPressure * 19 -
+        laneRisk * 7) -
+    (receiverBuildUp
+      ? (memory?.response.buildUpSafety ?? 0) *
+        Math.min(
+          4,
+          rememberedReceiver + (memory?.buildUpLosses[threatChannel(receiver.position)] ?? 0) * 0.3,
+        ) *
+        receiverPressure *
+        9
+      : 0);
   return (
     28 +
+    adaptationValue +
     progression * (state.teams[actor.team].phase === 'attacking_transition' ? 1.5 : 1.05) -
     length * 0.3 -
     receiverPressure * 17 -
@@ -852,8 +893,34 @@ const resolveMatchActionCanonical = (
     const duration = Math.max(0.28, distance(actor.position, target) / shot.speed);
     const shotElevation = shot.launchElevation;
     const shotVelocity = shot.launchVelocity;
+    const penaltyReleased = state.scenario === 'penalty' && restart?.phase === 'release';
+    const { restart: _shotRestart, ...shotBaseState } = baseState;
+    void _shotRestart;
     return {
-      ...baseState,
+      ...shotBaseState,
+      ...(penaltyReleased
+        ? {
+            scenario: 'open_play' as const,
+            teams: {
+              home: {
+                ...state.teams.home,
+                phase:
+                  actor.team === 'home'
+                    ? ('attacking_transition' as const)
+                    : ('defensive_transition' as const),
+                phaseElapsed: 0,
+              },
+              away: {
+                ...state.teams.away,
+                phase:
+                  actor.team === 'away'
+                    ? ('attacking_transition' as const)
+                    : ('defensive_transition' as const),
+                phaseElapsed: 0,
+              },
+            },
+          }
+        : {}),
       ball: {
         x: state.ball.x,
         y: state.ball.y,
@@ -882,7 +949,7 @@ const resolveMatchActionCanonical = (
       currentActorId: actor.id,
       actionCooldown: duration + 0.45,
       decisionIndex: state.decisionIndex + 1,
-      ...(restart ? { restart, restartAction: action } : {}),
+      ...(restart && !penaltyReleased ? { restart, restartAction: action } : {}),
     };
   }
   if (action.type === 'cross' || action.type === 'header') {

@@ -12,6 +12,8 @@ import {
 import type { MatchPlayerState, TacticalMatchState, TacticalStyle } from './matchState';
 import { restartInfluence } from './restartGeometry';
 import { deriveGoalkeeperBasePosition } from './goalkeeperPositioning';
+import { deriveCooperativePress } from './defensiveChallenges';
+import { deriveBuildUpReliefWeight, threatChannel } from './teamThreatMemory';
 
 export interface TacticalStyleParameters {
   width: number;
@@ -115,6 +117,7 @@ export const deriveTeamBlockTransform = (
 ): TeamBlockTransform => {
   const owns = state.possessionTeam === side,
     parameters = TACTICAL_STYLE_PARAMETERS[state.teams[side].style];
+  const response = state.teams[side].threatMemory?.response;
   const dir = direction(side),
     ballDepth = dir * (state.ball.x - PITCH_LENGTH / 2);
   const transition = state.teams[side].phase.includes('transition')
@@ -124,11 +127,14 @@ export const deriveTeamBlockTransform = (
   const stableAdvance = owns
     ? 7 + parameters.lineHeight * 5 + ballDepth * 0.16 + sustained * 7
     : -2 + parameters.lineHeight * 3 + ballDepth * 0.08 - Math.max(0, -ballDepth - 10) * 0.35;
-  const advance = stableAdvance * (0.7 + 0.3 * transition);
+  const advance = stableAdvance * (0.7 + 0.3 * transition) - (response?.lineDepthMetres ?? 0);
   const lateral = (state.ball.y - 34) * parameters.ballShift * 0.34;
-  const widthScale = parameters.width * (owns ? 1 : 0.82);
+  const widthScale =
+    parameters.width * (owns ? 1 : 0.82) * (1 - (response?.compactness ?? 0) * 0.2);
   const depthScale =
-    (owns ? 0.98 : 0.82) * (state.teams[side].phase.includes('transition') ? 1.08 : 1);
+    (owns ? 0.98 : 0.82) *
+    (state.teams[side].phase.includes('transition') ? 1.08 : 1) *
+    (1 - (response?.compactness ?? 0) * 0.1);
   return {
     advance,
     lateral,
@@ -418,6 +424,7 @@ export const applyRoleRelationships = (
 export interface PressingAssignment {
   primary?: string;
   cover?: string;
+  secondary?: { playerId: string; target: PitchPoint };
   screen: string[];
 }
 export const derivePressingAssignment = (
@@ -427,18 +434,95 @@ export const derivePressingAssignment = (
   const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
   if (!carrier || carrier.team === side) return { screen: [] };
   const candidates = state.players
-    .filter((p) => p.team === side && p.profile.primaryPosition !== 'goalkeeper')
+    .filter(
+      (p) =>
+        p.team === side &&
+        p.profile.primaryPosition !== 'goalkeeper' &&
+        !state.discipline?.[p.id]?.sentOff,
+    )
     .sort(
-      (a, b) => distance(a.position, carrier.position) - distance(b.position, carrier.position),
+      (a, b) =>
+        distance(a.position, carrier.position) - distance(b.position, carrier.position) ||
+        a.id.localeCompare(b.id),
     );
+  const cooperative = deriveCooperativePress(state, side);
   return {
-    ...(candidates[0] ? { primary: candidates[0].id } : {}),
-    ...(candidates[1] ? { cover: candidates[1].id } : {}),
+    ...(cooperative
+      ? {
+          primary: cooperative.primaryId,
+          secondary: { playerId: cooperative.secondaryId, target: cooperative.target },
+        }
+      : candidates[0]
+        ? { primary: candidates[0].id }
+        : {}),
+    ...(candidates.find(
+      (player) =>
+        player.id !== (cooperative?.primaryId ?? candidates[0]?.id) &&
+        player.id !== cooperative?.secondaryId,
+    )
+      ? {
+          cover: candidates.find(
+            (player) =>
+              player.id !== (cooperative?.primaryId ?? candidates[0]?.id) &&
+              player.id !== cooperative?.secondaryId,
+          )!.id,
+        }
+      : {}),
     screen: candidates
       .slice(2, 5)
       .filter((p) => distance(p.position, carrier.position) < 32)
       .map((p) => p.id),
   };
+};
+
+export const buildUpSupportSchema = z.object({
+  playerId: z.string(),
+  target: z.object({ x: z.number(), y: z.number() }),
+  weight: z.number().min(0).max(1),
+});
+/** Two staggered short outlets relieve the pressured owner; GK recycling remains a pass choice. */
+export const deriveBuildUpSupport = (
+  state: TacticalMatchState,
+  side: TeamSide,
+): z.infer<typeof buildUpSupportSchema>[] => {
+  const owner = state.players.find((player) => player.id === state.ball.ownerId);
+  if (!owner || owner.team !== side) return [];
+  const support = owner
+    ? (state.teams[side].threatMemory?.response.support ?? 0) *
+      deriveBuildUpReliefWeight(state, owner)
+    : 0;
+  if (
+    support < 0.1 ||
+    (side === 'home' ? owner.position.x : 105 - owner.position.x) >= 48 ||
+    state.restart?.phase === 'setup'
+  )
+    return [];
+  const dir = direction(side);
+  return state.players
+    .filter(
+      (player) =>
+        player.team === side &&
+        player.id !== owner.id &&
+        player.profile.primaryPosition !== 'goalkeeper' &&
+        !state.discipline?.[player.id]?.sentOff &&
+        distance(player.position, owner.position) <= 34,
+    )
+    .sort(
+      (a, b) =>
+        distance(a.position, owner.position) -
+          distance(b.position, owner.position) +
+          (a.duty === 'attack' ? 8 : 0) -
+          (b.duty === 'attack' ? 8 : 0) || a.id.localeCompare(b.id),
+    )
+    .slice(0, 2)
+    .map((player, index) => ({
+      playerId: player.id,
+      weight: support,
+      target: clampPitchPoint({
+        x: owner.position.x - dir * (index === 0 ? 4 : 7),
+        y: owner.position.y + (index === 0 ? -7 : 7),
+      }),
+    }));
 };
 
 /** Furthest legal attacking depth, expressed in canonical pitch coordinates. */
@@ -536,6 +620,10 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     home: deriveFinalThirdOccupations(state, 'home'),
     away: deriveFinalThirdOccupations(state, 'away'),
   };
+  const buildUpSupport = {
+    home: deriveBuildUpSupport(state, 'home'),
+    away: deriveBuildUpSupport(state, 'away'),
+  };
   return state.players.map((player) => {
     const neutralAnchor = deriveNeutralFormationAnchor(player);
     const parameters = TACTICAL_STYLE_PARAMETERS[state.teams[player.team].style],
@@ -566,7 +654,9 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
                 x: lerp(ideal.x, carrier.position.x, 0.68 * parameters.pressing * local),
                 y: lerp(ideal.y, carrier.position.y, 0.68 * parameters.pressing * local),
               };
-        } else if (assignment.cover === player.id)
+        } else if (assignment.secondary?.playerId === player.id)
+          ideal = assignment.secondary.target;
+        else if (assignment.cover === player.id)
           ideal = {
             x: lerp(ideal.x, carrier.position.x - dir * 5, 0.28 * local),
             y: lerp(ideal.y, carrier.position.y, 0.28 * local),
@@ -577,6 +667,21 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
             y: lerp(ideal.y, carrier.position.y, 0.16 * local),
           };
       }
+    }
+    const supportAssignment = buildUpSupport[player.team].find(
+      (assignment) => assignment.playerId === player.id,
+    );
+    if (supportAssignment)
+      ideal = {
+        x: lerp(ideal.x, supportAssignment.target.x, supportAssignment.weight),
+        y: lerp(ideal.y, supportAssignment.target.y, supportAssignment.weight),
+      };
+    if (!isKeeper && carrier && carrier.team !== player.team) {
+      const protection =
+        state.teams[player.team].threatMemory?.response.flankProtection[
+          threatChannel(carrier.position)
+        ] ?? 0;
+      ideal.y = lerp(ideal.y, carrier.position.y, protection * 0.14);
     }
     if (!isKeeper && state.possessionTeam === player.team)
       ideal = seekSpace(state, player, ideal, offside[player.team]);

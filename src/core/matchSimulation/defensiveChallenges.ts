@@ -1,6 +1,13 @@
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
-import { distance, pitchPointSchema, physicalPointSchema, teamSideSchema } from './matchSpace';
+import {
+  clampPitchPoint,
+  distance,
+  pitchPointSchema,
+  physicalPointSchema,
+  teamSideSchema,
+  type TeamSide,
+} from './matchSpace';
 import type { ActionSource, MatchAction, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 
@@ -182,6 +189,7 @@ export const deriveDefensiveContext = (
 const shouldCommitPressInContext = (
   state: TacticalMatchState,
   c: NonNullable<ReturnType<typeof deriveDefensiveContext>>,
+  cooperativePress?: CooperativePress | null,
 ): boolean => {
   const explicit = state.playerMovementIntent;
   if (
@@ -211,6 +219,9 @@ const shouldCommitPressInContext = (
       preparation.readyAt > state.time &&
       preparation.receptionKind === 'heavy_touch');
   if (unstableControl) return true;
+  // A structurally vetted partner is already a chosen press, even while the first
+  // defender contains. Contact still requires the ordinary comfortable window.
+  if (cooperativePress?.secondaryId === c.actor.id) return true;
   const booked =
     (state.discipline?.[c.actor.id]?.yellowCards ?? 0) > 0 ||
     state.pendingCards?.some((foul) => foul.actorId === c.actor.id && foul.card !== 'none');
@@ -219,9 +230,202 @@ const shouldCommitPressInContext = (
 };
 
 /** Ordinary covered circulation is jockeyed; threats, exposed control and chosen presses close down. */
-export const shouldCommitRoutinePress = (state: TacticalMatchState, actorId: string): boolean => {
+export const shouldCommitRoutinePress = (
+  state: TacticalMatchState,
+  actorId: string,
+  cooperativePress?: CooperativePress | null,
+): boolean => {
   const c = deriveDefensiveContext(state, actorId);
-  return c ? shouldCommitPressInContext(state, c) : false;
+  return c
+    ? shouldCommitPressInContext(
+        state,
+        c,
+        cooperativePress === undefined
+          ? deriveCooperativePress(state, c.actor.team)
+          : cooperativePress,
+      )
+    : false;
+};
+
+export const cooperativePressSchema = z.object({
+  primaryId: z.string(),
+  secondaryId: z.string(),
+  target: pitchPointSchema,
+  coverIds: z.array(z.string()).max(22),
+  safetyScore: z.number().min(0).max(1),
+});
+export type CooperativePress = z.infer<typeof cooperativePressSchema>;
+export const COOPERATIVE_PRESS_TUNING = {
+  engagingDistance: 3.6,
+  supportDistance: 11,
+  slowCarrierSpeed: 2.4,
+  inheritedMarkDistance: 8,
+  goalCoverDistance: 28,
+  advancedThreatProgress: 71,
+  adaptiveDoublePressThreshold: 0.25,
+} as const;
+
+/** A second body is recruited by ball/coverage geometry, never by a shielding timer.
+ * availability is the neutral hook for future stamina and fatigue. */
+export const deriveCooperativePress = (
+  state: TacticalMatchState,
+  side: TeamSide,
+  availability: (playerId: string) => number = () => 1,
+): CooperativePress | undefined => {
+  if (state.restart?.phase === 'setup' || !state.ball.ownerId) return;
+  const carrier = state.players.find((player) => player.id === state.ball.ownerId);
+  if (!carrier || carrier.team === side) return;
+  const shield =
+    (state.ballCarrierIntent?.actorId === carrier.id &&
+      (state.ballCarrierIntent.executionMode === 'shield' ||
+        state.ballCarrierIntent.movementMode === 'retain')) ||
+    (state.currentAction?.actorId === carrier.id && state.currentAction.type === 'hold') ||
+    (state.humanPossessionEpisode?.actorId === carrier.id &&
+      state.humanPossessionEpisode.intent === 'retain');
+  const confined = carrier.position.y < 6 || carrier.position.y > 62;
+  const slow =
+    Math.hypot(carrier.velocity.x, carrier.velocity.y) <= COOPERATIVE_PRESS_TUNING.slowCarrierSpeed;
+  const progress = carrier.team === 'home' ? carrier.position.x : 105 - carrier.position.x;
+  const willingness = state.teams[side].threatMemory?.response.doublePress ?? 0.15;
+  // An ordinary covered reception remains a scan. Slow control recruits a partner
+  // only for an advanced threat or a channel the team has learned to double press.
+  if (
+    !shield &&
+    !confined &&
+    (!slow ||
+      (progress < COOPERATIVE_PRESS_TUNING.advancedThreatProgress &&
+        willingness <= COOPERATIVE_PRESS_TUNING.adaptiveDoublePressThreshold))
+  )
+    return;
+  const defenders = state.players
+    .filter(
+      (player) =>
+        player.team === side &&
+        player.profile.primaryPosition !== 'goalkeeper' &&
+        !state.discipline?.[player.id]?.sentOff,
+    )
+    .sort(
+      (a, b) =>
+        distance(a.position, carrier.position) - distance(b.position, carrier.position) ||
+        a.id.localeCompare(b.id),
+    );
+  const primary =
+    state.defensiveChallenge?.opponentId === carrier.id
+      ? defenders.find((player) => player.id === state.defensiveChallenge?.actorId)
+      : defenders
+          .filter(
+            (player) =>
+              distance(player.position, carrier.position) <=
+              COOPERATIVE_PRESS_TUNING.engagingDistance,
+          )
+          .sort((a, b) => {
+            // Keep the goal-side screen primary as its partner passes closer to the ball.
+            // Nearest-body reassignment would send the arriving partner back to containment.
+            const dir = carrier.team === 'home' ? 1 : -1;
+            const screenScore = (player: typeof a) =>
+              dir * (player.position.x - carrier.position.x) -
+              Math.abs(player.position.y - carrier.position.y) * 0.5;
+            return screenScore(b) - screenScore(a) || a.id.localeCompare(b.id);
+          })[0];
+  if (
+    !primary ||
+    distance(primary.position, carrier.position) > COOPERATIVE_PRESS_TUNING.engagingDistance
+  )
+    return;
+  const attackDirection = carrier.team === 'home' ? 1 : -1;
+  const toGoal = {
+    x: (carrier.team === 'home' ? 105 : 0) - carrier.position.x,
+    y: 34 - carrier.position.y,
+  };
+  const goalDistance = Math.max(0.001, Math.hypot(toGoal.x, toGoal.y));
+  for (const candidate of defenders) {
+    if (
+      candidate.id === primary.id ||
+      isDefensiveEpisodeLocked(state, candidate.id, carrier.id) ||
+      availability(candidate.id) < 0.5 ||
+      distance(candidate.position, carrier.position) >
+        COOPERATIVE_PRESS_TUNING.supportDistance + willingness * 2 ||
+      (state.playerMovementIntent?.actorId === candidate.id &&
+        state.playerMovementIntent.expiresAt > state.time)
+    )
+      continue;
+    const remaining = defenders.filter(
+      (player) => player.id !== primary.id && player.id !== candidate.id,
+    );
+    const goalCover = remaining.filter(
+      (player) =>
+        ((player.position.x - carrier.position.x) * toGoal.x +
+          (player.position.y - carrier.position.y) * toGoal.y) /
+          goalDistance >
+          2 &&
+        Math.abs(player.position.y - 34) < 20 &&
+        distance(player.position, carrier.position) < COOPERATIVE_PRESS_TUNING.goalCoverDistance,
+    );
+    // Even a trapped carrier may release centrally. Keep an outfield screen behind the duel.
+    if (progress > 45 && goalCover.length === 0) continue;
+    const exposedReceiver = state.players.some((receiver) => {
+      if (
+        receiver.team !== carrier.team ||
+        receiver.id === carrier.id ||
+        receiver.profile.primaryPosition === 'goalkeeper' ||
+        state.discipline?.[receiver.id]?.sentOff ||
+        distance(receiver.position, carrier.position) > 30 ||
+        Math.abs(receiver.position.y - 34) > 23 ||
+        attackDirection * (receiver.position.x - carrier.position.x) < -5
+      )
+        return false;
+      const assignedDistance = distance(candidate.position, receiver.position);
+      if (assignedDistance > 10) return false;
+      const inheritedDistance = Math.min(
+        ...remaining.map((player) => distance(player.position, receiver.position)),
+      );
+      return (
+        inheritedDistance > COOPERATIVE_PRESS_TUNING.inheritedMarkDistance ||
+        inheritedDistance > assignedDistance + 3
+      );
+    });
+    if (exposedReceiver) continue;
+    const fromPrimary = {
+      x: carrier.position.x - primary.position.x,
+      y: carrier.position.y - primary.position.y,
+    };
+    const primaryDistance = Math.max(0.001, Math.hypot(fromPrimary.x, fromPrimary.y));
+    const protectedDirection = {
+      x: fromPrimary.x / primaryDistance,
+      y: fromPrimary.y / primaryDistance,
+    };
+    const shoulder = { x: -protectedDirection.y, y: protectedDirection.x };
+    const shoulderSide =
+      Math.sign(
+        (candidate.position.x - carrier.position.x) * shoulder.x +
+          (candidate.position.y - carrier.position.y) * shoulder.y,
+      ) || 1;
+    // Approach the exposed ball shoulder rather than escorting the same goal-side lane.
+    // A short orbit waypoint takes a rear approach around the body before closing contact.
+    const desired = {
+      x: protectedDirection.x * 1.05 + shoulder.x * shoulderSide * 0.1,
+      y: protectedDirection.y * 1.05 + shoulder.y * shoulderSide * 0.1,
+    };
+    const desiredAngle = Math.atan2(desired.y, desired.x);
+    const currentAngle = Math.atan2(
+      candidate.position.y - carrier.position.y,
+      candidate.position.x - carrier.position.x,
+    );
+    const turn = normalizeAngle(desiredAngle - currentAngle);
+    const orbiting = Math.abs(turn) > Math.PI / 3;
+    const targetAngle = orbiting ? currentAngle + (Math.sign(turn) * Math.PI) / 3 : desiredAngle;
+    const radius = orbiting ? 1.05 : Math.max(0.55, Math.hypot(desired.x, desired.y));
+    return {
+      primaryId: primary.id,
+      secondaryId: candidate.id,
+      target: clampPitchPoint({
+        x: carrier.position.x + Math.cos(targetAngle) * radius,
+        y: carrier.position.y + Math.sin(targetAngle) * radius,
+      }),
+      coverIds: goalCover.map((player) => player.id),
+      safetyScore: Math.min(1, 0.55 + goalCover.length * 0.15 + (confined || shield ? 0.15 : 0)),
+    };
+  }
 };
 
 /** Close bodies still contesting one possession are one duel, even after a short timer ends. */
@@ -366,10 +570,22 @@ export const beginDefensiveChallenge = (
 export const chooseNpcDefensiveChallengeAction = (
   state: TacticalMatchState,
   actorId: string,
+  cooperativePress?: CooperativePress | null,
 ): DefensiveChallengeAction | undefined => {
   const options = enumerateDefensiveChallengeActions(state, actorId);
+  if (options.length === 0) return;
   const c = deriveDefensiveContext(state, actorId);
-  if (!c || !shouldCommitPressInContext(state, c)) return;
+  if (
+    !c ||
+    !shouldCommitPressInContext(
+      state,
+      c,
+      cooperativePress === undefined
+        ? deriveCooperativePress(state, c.actor.team)
+        : cooperativePress,
+    )
+  )
+    return;
   const actor = c.actor;
   const forward = { x: Math.sin(c.opponent.facingAngle), y: Math.cos(c.opponent.facingAngle) };
   const rearApproach =

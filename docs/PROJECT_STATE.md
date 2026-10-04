@@ -1,5 +1,19 @@
 # My Football Legend — Current Project State
 
+## PR151 — Match Cadence Calibration + Reactive Team Tactics
+
+Połączono domknięcie playtestu PR150 z pierwszą reaktywną warstwą zespołów. Ograniczona,
+zanikająca pamięć strat i zagrożeń zmienia normalne cele bloku, zwartość, wsparcie oraz
+wybór bezpiecznego rozegrania. Lokalny drugi obrońca doskakuje tylko z zachowaniem osłony.
+Zachowuje blokady par obrońca–posiadacz i korzysta ze wspólnego resolvera kontaktu.
+Mniej rutynowych przyjęć otwiera sekwencje; istniejące posiadanie człowieka zachowuje sprawczość.
+Karne mają legalne pozycje odbitek i rozwiązują ustawienie po kopnięciu. Profil ruchu korzysta
+ze wspólnych atrybutów, a eksport odróżnia niezbierane dane od zmierzonego zera.
+
+Architektura, definicje pomiarów, audyt wspólnego strzału i ograniczenia:
+[PR151_REACTIVE_TACTICS.md](PR151_REACTIVE_TACTICS.md).
+Pełne fatigue, urazy, czas doliczony i inteligencja zmian pozostają później.
+
 ## PR150 — Continuous Ball Control, Intent-Based Play & Space Passing
 
 Domknięcie PR149 i PR150 zachowuje rytm PR148. Publiczny kontakt to jeden ciągły epizod
@@ -15,7 +29,7 @@ Kontrakty, ograniczenia i walidacja: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUO
 [PR150_ACCOUNTING.md](PR150_ACCOUNTING.md).
 Pełne porównanie 45/90 minut, deterministyczne hashe, wydajność i jawne ograniczenia:
 [PR150_CALIBRATION.md](PR150_CALIBRATION.md).
-NEXT: **PR151 — Fatigue, Injury Risk, Added Time & Substitution Intelligence**.
+Rozszerzenie opisuje PR151 powyżej; poprzedni plan kondycji przeniesiono do późniejszego etapu.
 
 ## PR149 — Match Readability, Animation & Match Centre v2
 

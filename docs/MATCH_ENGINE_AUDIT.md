@@ -1,4 +1,13 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR150
+# Audyt silnika meczu — PR140 / aktualizacja PR151
+
+PR151: ograniczona pamięć zagrożeń należy do core i wpływa na istniejące cele bloku,
+wsparcie oraz rzeczywisty wybór podań. Odpowiedź narasta stopniowo, zanika i zachowuje osłonę
+przy lokalnym podwojeniu. Podwojenie zachowuje blokady par, fizyczny dostęp do piłki
+i wspólny resolver odbioru. Poprawiono legalne pozycje karnych i reakcję na odbitkę,
+wspólny profil ruchu oraz semantykę niezbieranej telemetrii. Selekcja nowych sekwencji pozostaje
+niezależna od ciągłości ludzkiego posiadania. Audyt parytetu używa tego samego fizycznego
+stanu i resolvera. Architektura, pomiary, odtworzenie i ograniczenia:
+[PR151_REACTIVE_TACTICS.md](PR151_REACTIVE_TACTICS.md).
 
 PR150: publiczne kontakty opisują ciągły epizod kontroli; wewnętrzne dowody kontaktów
 pozostają szczegółowe. Sieć udanego podania ma rzeczywistego odbiorcę zarówno dla próby,

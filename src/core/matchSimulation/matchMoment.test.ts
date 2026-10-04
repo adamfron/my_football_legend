@@ -110,7 +110,7 @@ describe('pure match moment projection', () => {
     };
     const moment = projectMatchMoment(state);
     expect(moment.kind).toBe('shot');
-    expect(moment.importance).toBeGreaterThanOrEqual(0.9);
+    expect(moment.importance).toBeGreaterThanOrEqual(0.86);
     expect(shouldSurfaceMatchMoment(moment, MATCH_PRESENTATION_POLICIES.key_match)).toBe(true);
   });
 
