@@ -139,4 +139,27 @@ describe('permanent Match Centre', () => {
       '59%',
     ]);
   });
+
+  it('identifies the fouling team from canonical metadata even after the actor leaves the pitch', () => {
+    const state = createTacticalMatch(session);
+    const actor = state.players.find((player) => player.team === 'away')!;
+    const canonical = {
+      ...state,
+      players: state.players.filter((player) => player.id !== actor.id),
+      matchEvents: [
+        {
+          id: 'foul',
+          replayKey: 'foul',
+          kind: 'foul' as const,
+          team: 'away' as const,
+          actorId: actor.id,
+          at: 1089,
+        },
+      ],
+    };
+    act(() => root.render(<MatchCentre state={canonical} session={session} kits={DEFAULT_KITS} />));
+    expect(container.querySelector('[data-event-kind="foul"]')!.textContent).toContain(
+      `${actor.profile.firstName} ${actor.profile.lastName} (${session.away.club.name})`,
+    );
+  });
 });

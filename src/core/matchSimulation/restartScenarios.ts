@@ -77,6 +77,12 @@ export const applyRestartScenario = (
     },
   };
   delete state.throwInRestriction;
+  delete state.ballCarrierIntent;
+  delete state.playerMovementIntent;
+  delete state.pendingReceptionIntent;
+  delete state.onBallPreparation;
+  delete state.humanPossessionEpisode;
+  delete state.postActionAgencyCheckpoint;
   state.players = state.players.map((player) => {
     const position = geometry.targets[player.id] ?? player.position;
     return {

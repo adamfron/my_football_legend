@@ -16,6 +16,19 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
   const owner = state.players.find((player) => player.id === state.ball.ownerId);
   const elapsed = state.time - pending.selectedAt;
   const intent = pending.selectedIntent;
+  // A one-touch receiver may immediately start another flight. Resolve the spatial intention
+  // from its actual canonical delivery result rather than attributing that later ball ownership.
+  const spatialResult =
+    intent === 'space_pass'
+      ? [state.lastResolvedPass, state.lastPassDiagnostic].find(
+          (pass) =>
+            pass &&
+            pass.passerId === pending.actorId &&
+            pass.releasedAt >= pending.selectedAt &&
+            pass.finalResult !== undefined &&
+            pass.resolvedAt !== undefined,
+        )
+      : undefined;
   let result: NonNullable<PlayerDecisionOutcome['result']> | undefined;
   if (
     intent.startsWith('challenge:') &&
@@ -38,12 +51,21 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
     !state.ball.shot
   )
     result = { kind: 'shot_resolved', shotOutcome: state.lastShot.outcome };
-  else if (intent.startsWith('pass:') && !state.ball.travelKind && elapsed > 0.2) {
-    const completed = Boolean(owner && owner.team === actorTeam && owner.id !== pending.actorId);
+  else if (
+    spatialResult ||
+    ((intent.startsWith('pass:') || intent === 'space_pass') &&
+      !state.ball.travelKind &&
+      elapsed > 0.2)
+  ) {
+    const completed = spatialResult
+      ? spatialResult.finalResult === 'completed'
+      : Boolean(owner && owner.team === actorTeam && owner.id !== pending.actorId);
     result = {
       kind: completed ? 'pass_completed' : 'pass_failed',
       passCompleted: completed,
-      teamRetainedPossession: owner?.team === actorTeam,
+      teamRetainedPossession: owner
+        ? owner.team === actorTeam
+        : completed && state.possessionTeam === actorTeam,
       turnover: Boolean(owner && owner.team !== actorTeam),
     };
   } else if (intent === 'carry' && elapsed > 0.35 && !state.ballCarrierIntent) {

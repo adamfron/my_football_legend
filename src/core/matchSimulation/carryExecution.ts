@@ -65,6 +65,7 @@ export const deriveCarryExecution = (
     ({ player, metres }) =>
       metres < 7 && distanceToSegment(player.position, actor.position, intent.target) < 1.65,
   );
+  const intention = intent.movementMode;
   let mode: CarryExecutionMode =
     !closest || closest.metres > 7
       ? targetDistance > 9 && Math.hypot(actor.velocity.x, actor.velocity.y) > 2
@@ -77,18 +78,31 @@ export const deriveCarryExecution = (
         : blocker
           ? 'evade'
           : 'controlled';
+  // Explicit football intent owns the objective. Pressure changes its physical route, but may
+  // only replace progress with prolonged shielding when retaining the ball was selected.
+  if (intention === 'sprint') mode = 'burst';
+  else if (intention === 'retain') mode = closest && closest.metres < 5 ? 'shield' : 'controlled';
+  else if (intention === 'dribble')
+    mode = blocker ? 'evade' : closest && closest.metres < 3 ? 'tight_dribble' : 'controlled';
+  else if (intention === 'carry' && mode === 'shield') mode = 'evade';
   // Semantic hysteresis: retain a recent mode unless pressure crosses a meaningful boundary.
-  if (intent.executionMode && state.time - (intent.modeSince ?? intent.startedAt) < 0.65)
+  if (
+    intent.executionMode &&
+    state.time - (intent.modeSince ?? intent.startedAt) < 0.65 &&
+    (intention === undefined ||
+      (intention !== 'sprint' && (intent.executionMode !== 'shield' || intention === 'retain')))
+  )
     mode = intent.executionMode;
-  let localTarget = intent.target;
+  let localTarget = intention === 'retain' ? actor.position : intent.target;
   if (mode === 'evade' && blocker) {
     const dx = intent.target.x - actor.position.x;
     const dy = intent.target.y - actor.position.y;
     const length = Math.max(0.1, Math.hypot(dx, dy));
     const candidates = [-1, 1].map((side) =>
       clampPitchPoint({
-        x: blocker.player.position.x + (-dy / length) * 3.2 * side,
-        y: blocker.player.position.y + (dx / length) * 3.2 * side,
+        x:
+          blocker.player.position.x + (-dy / length) * (intention === 'dribble' ? 4.2 : 2.4) * side,
+        y: blocker.player.position.y + (dx / length) * (intention === 'dribble' ? 4.2 : 2.4) * side,
       }),
     );
     localTarget = candidates.sort((a, b) => {
@@ -115,7 +129,9 @@ export const deriveCarryExecution = (
     Math.min(
       1,
       (a.dribbling + a.technique + a.agility + a.composure + a.gameReading) / 500 -
-        Math.max(0, 3.5 - (closest?.metres ?? 10)) * 0.06,
+        Math.max(0, 3.5 - (closest?.metres ?? 10)) * 0.06 -
+        (intention === 'sprint' ? 0.15 : 0) +
+        (intention === 'retain' ? 0.08 : 0),
     ),
   );
   return carryExecutionSchema.parse({
@@ -133,7 +149,7 @@ export const deriveCarryExecution = (
               : 0.42,
     touchDistance:
       mode === 'burst'
-        ? 1.35
+        ? 1.35 + (intention === 'sprint' ? (1 - projectedControl) * 0.75 : 0)
         : mode === 'controlled'
           ? 0.72
           : mode === 'tight_dribble'

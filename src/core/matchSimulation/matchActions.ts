@@ -13,7 +13,11 @@ import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } 
 import { resolveCanonicalShot } from './shotResolver';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { evaluateRunSpace } from './reachableSpace';
-import { captureOffsideSnapshot } from './offside';
+import {
+  captureOffsideSnapshot,
+  isDirectOffsideExemptRestart,
+  secondLastOpponentLine,
+} from './offside';
 import { projectPassReception, receptionPreparationSchema } from './passReception';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { deriveAerialLaunchPlan, deriveLaunchVelocity } from './ballPhysics';
@@ -24,6 +28,8 @@ import {
   type ThrowInDiagnostic,
 } from './throwIn';
 import { derivePassLaunchPlan } from './passLaunchPlan';
+import { deriveSpacePassPlan, type SpacePassPlan } from './spacePassing';
+import { interpretPassExecution } from './passExecution';
 import { projectReceiverReadiness } from './receiverReadiness';
 import { deriveFinalThirdOccupations } from './tacticalPositioning';
 import { preparationMarginForAction } from './onBallPreparation';
@@ -261,7 +267,7 @@ export const enumerateAvailableActions = (
         lead && space && space.utility >= 6
           ? projectPassReception(state, actor, p, 'through')
           : undefined;
-      if (lead && distance(lead.projection.releaseTarget, projection.releaseTarget) >= 1.6)
+      if (lead && distance(lead.projection.releaseTarget, projection.releaseTarget) >= 1.6) {
         actions.push({
           type: 'pass',
           actorId,
@@ -272,6 +278,28 @@ export const enumerateAvailableActions = (
               : lead.projection.releaseTarget,
           intent: through?.semanticIntent === 'through' ? 'through' : 'lead',
         });
+        if (through?.semanticIntent === 'through') {
+          const laneBlocked = opponents(state, actor).some(
+            (defender) =>
+              distanceToSegment(defender.position, actor.position, through.releaseTarget) < 2.5,
+          );
+          const line = secondLastOpponentLine(state, actor.team);
+          const highLine = actor.team === 'home' ? line < 82 : line > 23;
+          if (
+            laneBlocked &&
+            highLine &&
+            (actor.profile.attributes.passing + actor.profile.attributes.technique) / 2 >= 55
+          )
+            actions.push({
+              type: 'pass',
+              actorId,
+              receiverId: p.id,
+              target: projectPassReception(state, actor, p, 'through', 'lofted').releaseTarget,
+              intent: 'through',
+              delivery: 'lofted',
+            });
+        }
+      }
     });
   return actions;
 };
@@ -279,9 +307,26 @@ export const scoreActionForAI = (
   state: TacticalMatchState,
   actorId: string,
   action: MatchAction,
-) => {
+): number => {
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return -Infinity;
+  if (action.type === 'space_pass') {
+    const plan = deriveSpacePassPlan(state, actor, action.target);
+    if (!plan) return -Infinity;
+    return (
+      scoreActionForAI(state, actorId, {
+        type: 'pass',
+        actorId,
+        receiverId: plan.receiverId,
+        target: plan.requestedSpace,
+        requestedSpace: plan.requestedSpace,
+        intent: plan.intent,
+        delivery: plan.delivery,
+      }) +
+      Math.min(8, plan.anticipationAdvantage * 5) -
+      plan.groundLaneRisk * (plan.delivery === 'ground' ? 4 : 1)
+    );
+  }
   if (action.type === 'challenge') {
     const attributes = actor.profile.attributes;
     const opponent = state.players.find((player) => player.id === action.opponentId);
@@ -389,6 +434,13 @@ export const scoreActionForAI = (
     );
   }
   const receiver = state.players.find((p) => p.id === action.receiverId)!;
+  const line = secondLastOpponentLine(state, actor.team);
+  const offsideLine =
+    actor.team === 'home' ? Math.max(state.ball.x, line) : Math.min(state.ball.x, line);
+  const offsideRisk =
+    actor.team === 'home'
+      ? receiver.position.x > Math.max(52.5, offsideLine) + 0.01
+      : receiver.position.x < Math.min(52.5, offsideLine) - 0.01;
   const length = distance(actor.position, action.target);
   const progression =
     fieldValue(action.target, actor.team) - fieldValue(actor.position, actor.team);
@@ -473,6 +525,7 @@ export const scoreActionForAI = (
     styleIntent +
     throughContext +
     -threatLoss -
+    (offsideRisk && !isDirectOffsideExemptRestart(state) ? 80 : 0) -
     preparationPenalty +
     (lead
       ? Math.min(20, (lead.defenderEta - lead.receiverEta) * 12) -
@@ -588,7 +641,10 @@ export const hasActiveMatchActionParticipants = (
       (state.scenario === 'throw_in' &&
         state.restart?.phase === 'setup' &&
         state.restart.takerId === actor.id) ||
-      state.players.some((player) => player.id === action.receiverId && player.team === actor.team)
+      (action.receiverId !== actor.id &&
+        state.players.some(
+          (player) => player.id === action.receiverId && player.team === actor.team,
+        ))
     );
   if (action.type === 'challenge')
     return state.players.some(
@@ -618,6 +674,27 @@ const resolveMatchActionCanonical = (
   if (!hasActiveMatchActionParticipants(state, action)) return state;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
+  if (
+    state.restart?.phase === 'setup' &&
+    state.restart.indirect &&
+    (action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot'))
+  )
+    return state;
+  let spacePlan: SpacePassPlan | undefined;
+  if (action.type === 'space_pass') {
+    if (state.ball.ownerId !== actor.id || state.restart?.phase === 'setup') return state;
+    spacePlan = deriveSpacePassPlan(state, actor, action.target);
+    if (!spacePlan) return state;
+    action = {
+      type: 'pass',
+      actorId: actor.id,
+      receiverId: spacePlan.receiverId,
+      target: spacePlan.requestedSpace,
+      requestedSpace: spacePlan.requestedSpace,
+      intent: spacePlan.intent,
+      delivery: spacePlan.delivery,
+    };
+  }
   if (action.type === 'challenge') return beginDefensiveChallenge(state, action, source);
   if (!canContactAfterThrowIn(state, action.actorId)) return state;
   const requestedThrow =
@@ -733,8 +810,14 @@ const resolveMatchActionCanonical = (
         startPosition: { ...actor.position },
         closestPointReached: { ...actor.position },
         humanSelected: consciouslySelected,
+        movementMode: action.movementMode ?? (consciouslySelected ? 'carry' : undefined),
+        lastProgressAt: state.time,
         // Arrival is the primary lifetime; this bounded margin is only a safety net.
-        expiresAt: state.time + Math.min(12, Math.max(1.8, estimatedArrival + 1.25)),
+        expiresAt:
+          state.time +
+          (action.movementMode === 'retain'
+            ? 8
+            : Math.min(12, Math.max(1.8, estimatedArrival + 1.25))),
       },
       currentAction: action,
       latestAction: action,
@@ -915,22 +998,52 @@ const resolveMatchActionCanonical = (
   }
   const receiverId = action.receiverId;
   const receiver = state.players.find((p) => p.id === receiverId)!;
-  const projection =
-    state.scenario === 'throw_in'
+  const projection = spacePlan
+    ? {
+        releaseTarget: spacePlan.requestedSpace,
+        expectedReceptionPoint: spacePlan.requestedSpace,
+        semanticIntent: spacePlan.intent,
+        launchPlan: spacePlan.launchPlan,
+        receiverReadiness: spacePlan.launchPlan.receiverReadiness,
+        receiverAwarenessDelay: spacePlan.launchPlan.receiverReadiness.awareAt,
+        estimatedReceiverArrival: spacePlan.receiverArrival,
+        leadDistance: distance(receiver.position, spacePlan.requestedSpace),
+        receiverMovement: 'continue_run' as const,
+        predictionHorizon: spacePlan.predictionHorizon,
+      }
+    : state.scenario === 'throw_in'
       ? undefined
       : projectPassReception(state, actor, receiver, action.intent, action.delivery);
   if (projection && projection.semanticIntent !== action.intent)
     action = { ...action, intent: projection.semanticIntent };
   const target = projection?.releaseTarget ?? action.target;
+  const execution = interpretPassExecution(
+    state,
+    actor,
+    target,
+    action.intent,
+    action.delivery ?? 'ground',
+    {
+      firstTime: Boolean(action.firstTime),
+      spatial: Boolean(action.requestedSpace) || action.intent === 'through',
+    },
+  );
   const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;
-  const isThrowIn = restart?.phase === 'release' && state.scenario === 'throw_in';
-  const isLongDistribution = restart?.phase === 'release' && state.scenario === 'goal_kick';
+  const isThrowIn =
+    state.restart?.phase === 'setup' &&
+    restart?.phase === 'release' &&
+    state.scenario === 'throw_in';
+  const isLongDistribution =
+    state.restart?.phase === 'setup' &&
+    restart?.phase === 'release' &&
+    state.scenario === 'goal_kick';
   const releasePosition = { x: state.ball.x, y: state.ball.y };
   const canonicalPlan =
-    action.delivery === 'lofted'
+    spacePlan?.launchPlan ??
+    (action.delivery === 'lofted'
       ? derivePassLaunchPlan(state, actor, receiver, target, action.intent, 'lofted')
       : (projection?.launchPlan ??
-        derivePassLaunchPlan(state, actor, receiver, target, action.intent));
+        derivePassLaunchPlan(state, actor, receiver, target, action.intent)));
   const throwPlan = isThrowIn
     ? deriveAerialLaunchPlan(releasePosition, target, 'throw_in', {
         ability: (actor.profile.attributes.passing + actor.profile.attributes.technique) / 2,
@@ -952,7 +1065,14 @@ const resolveMatchActionCanonical = (
   const launchElevation =
     throwPlan?.elevation ?? distributionPlan?.elevation ?? canonicalPlan.elevation;
   const launchVelocity =
-    throwPlan?.velocity ?? distributionPlan?.velocity ?? canonicalPlan.velocity;
+    throwPlan?.velocity ??
+    distributionPlan?.velocity ??
+    deriveLaunchVelocity(
+      releasePosition,
+      execution.physicalTarget,
+      canonicalPlan.speed,
+      canonicalPlan.elevation,
+    );
   const defenders = state.players.filter((p) => p.team !== actor.team);
   const bestDefenderArrival = Math.min(
     ...defenders.map(
@@ -965,28 +1085,26 @@ const resolveMatchActionCanonical = (
       x: state.ball.x,
       y: state.ball.y,
       from: releasePosition,
-      target: { ...target },
+      target: throwPlan || distributionPlan ? { ...target } : { ...execution.physicalTarget },
       intendedReceiverId: receiver.id,
-      travelKind:
-        restart?.phase === 'release' && state.scenario === 'throw_in'
-          ? 'throw_in'
-          : restart?.phase === 'release' && state.scenario === 'goal_kick'
-            ? 'long_distribution'
-            : action.intent === 'through'
-              ? 'through_ball'
-              : 'pass',
-      sourceAction: action.type,
+      travelKind: isThrowIn
+        ? 'throw_in'
+        : isLongDistribution
+          ? 'long_distribution'
+          : action.intent === 'through'
+            ? 'through_ball'
+            : 'pass',
+      sourceAction: action.requestedSpace ? 'space_pass' : action.type,
+      executionType: execution.type,
       flightTime: 0,
       distanceTravelled: 0,
-      ...(restart?.phase === 'release' && state.scenario === 'throw_in'
-        ? { releaseHeight: 1.9 }
-        : {}),
-      height: restart?.phase === 'release' && state.scenario === 'throw_in' ? 1.9 : 0,
+      ...(isThrowIn ? { releaseHeight: 1.9 } : {}),
+      height: isThrowIn ? 1.9 : 0,
       airborne:
-        (restart?.phase === 'release' &&
-          (state.scenario === 'goal_kick' || state.scenario === 'throw_in')) ||
+        isThrowIn ||
+        isLongDistribution ||
         action.delivery === 'lofted' ||
-        (action.intent === 'direct' && duration > 1.5),
+        canonicalPlan.elevation > 0,
       velocity: launchVelocity,
       launchVelocity,
       launchSpeed,
@@ -1034,6 +1152,9 @@ const resolveMatchActionCanonical = (
               : 99,
             leadDistance: projection.leadDistance,
             intent: projection.semanticIntent,
+            executionType: execution.type,
+            delivery: action.delivery ?? 'ground',
+            ...(action.requestedSpace ? { requestedSpace: action.requestedSpace } : {}),
             ballArrivalEstimate: duration,
             meetingErrorSeconds: projection.estimatedReceiverArrival - duration,
             predictionHorizon: projection.predictionHorizon,
@@ -1070,6 +1191,9 @@ const resolveMatchActionCanonical = (
               : 99,
             leadDistance: distance(receiver.position, target),
             intent: action.intent,
+            executionType: execution.type,
+            delivery: action.delivery ?? 'ground',
+            ...(action.requestedSpace ? { requestedSpace: action.requestedSpace } : {}),
             ballArrivalEstimate: throwPlan?.predictedFlightTime ?? duration,
           },
         }),

@@ -36,8 +36,12 @@ import {
 } from './ballFlight';
 import { resolveFormationDuty } from '../footballerWorld';
 import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
-import { isOffsideOffence } from './offside';
-import { countSemanticPlayerChoices, projectPlayerDecisionOpportunity } from './playerDecision';
+import { awardOffsideRestart, findOffsideContestant, isOffsideOffence } from './offside';
+import {
+  countSemanticPlayerChoices,
+  incomingBallIntentKey,
+  projectPlayerDecisionOpportunity,
+} from './playerDecision';
 import { projectLocomotion, projectSprintEpisode } from './locomotion';
 import { isDefensiveEpisodeLocked, shouldCommitRoutinePress } from './defensiveChallenges';
 import {
@@ -59,7 +63,11 @@ import { toPitchPoint } from './matchSpace';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
 import { deriveCarryExecution, hasReachedCarryDecisionWaypoint } from './carryExecution';
-import { hasActiveHumanPossession, reconcileHumanPossession } from './possessionAgency';
+import {
+  advanceHumanIntentProgress,
+  hasActiveHumanPossession,
+  reconcileHumanPossession,
+} from './possessionAgency';
 import { canExecuteCanonicalShot } from './shootingOptions';
 import { createMatchStatistics, observePlayerMatchStats } from './playerMatchStats';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
@@ -87,6 +95,15 @@ const applyBoundaryRestart = (
   crossing: PitchBoundaryCrossing,
   previous: { x: number; y: number },
 ) => {
+  // Crossing a line ends the active delivery even when no player has contacted it. Preserve
+  // that failed result before the restart's next release replaces lastPassDiagnostic.
+  const unresolvedPass =
+    state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
+      ? { ...state.lastPassDiagnostic, resolvedAt: state.time, finalResult: 'unclaimed' as const }
+      : undefined;
+  const resolvedState = unresolvedPass
+    ? { ...state, lastPassDiagnostic: unresolvedPass, lastResolvedPass: unresolvedPass }
+    : state;
   const last = state.players.find((p) => p.id === state.ball.lastTouchPlayerId);
   const restartTeam: TeamSide = crossing.boundary.startsWith('touchline')
     ? (last?.team ?? state.possessionTeam) === 'home'
@@ -105,7 +122,7 @@ const applyBoundaryRestart = (
       ? ('corner' as const)
       : ('goal_kick' as const);
   return {
-    ...applyRestartScenario(state, scenario, {
+    ...applyRestartScenario(resolvedState, scenario, {
       restartTeam,
       ...(scenario === 'throw_in' ? { restartPoint: crossing.point } : {}),
     }),
@@ -208,18 +225,30 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
   return { ...positioned, statistics: createMatchStatistics(positioned) };
 };
 
+/** A direct restart exemption and its delivery context end at another player's real contact. */
+const applyIncomingContact = (state: TacticalMatchState, actorId: string): TacticalMatchState => {
+  state = applyThrowInContact(state, actorId);
+  if (state.restart?.phase !== 'release' || state.restart.takerId === actorId) return state;
+  const { restart: _completed, ...openPlay } = state;
+  void _completed;
+  return { ...openPlay, scenario: 'open_play' };
+};
+
 /** Executes only an actual incoming contact, before the reception resolver can settle it. */
 const tryIncomingFinish = (
   state: TacticalMatchState,
   actorId: string,
 ): TacticalMatchState | undefined => {
   if (!canContactAfterThrowIn(state, actorId)) return;
-  if (isOffsideOffence(state.offsideSnapshot, actorId)) return;
+  if (isOffsideOffence(state.offsideSnapshot, actorId))
+    return awardOffsideRestart(state, actorId, { x: state.ball.x, y: state.ball.y });
   const pending =
     state.pendingReceptionIntent?.actorId === actorId ? state.pendingReceptionIntent : undefined;
   const selected = pending?.action;
   const action = selected
-    ? selected.type === 'shot' || selected.type === 'header'
+    ? selected.type === 'shot' ||
+      selected.type === 'header' ||
+      (selected.type === 'pass' && selected.firstTime)
       ? selected
       : undefined
     : actorId !== state.controlledFootballerId
@@ -227,11 +256,21 @@ const tryIncomingFinish = (
       : undefined;
   if (
     !action ||
-    (action.type !== 'shot' && action.type !== 'header') ||
-    !canExecuteCanonicalShot(state, action)
+    (action.type === 'pass'
+      ? (state.ball.height ?? 0) > 0.65
+      : (action.type !== 'shot' && action.type !== 'header') ||
+        !canExecuteCanonicalShot(state, action))
   )
     return;
-  const ready = { ...applyThrowInContact(state, actorId) };
+  const ready = { ...withoutOffsideSnapshot(applyIncomingContact(state, actorId)) };
+  if (action.type === 'pass')
+    ready.ball = {
+      x: state.ball.x,
+      y: state.ball.y,
+      ownerId: actorId,
+      lastTouchPlayerId: actorId,
+      ...(state.ball.height !== undefined ? { height: state.ball.height } : {}),
+    };
   delete ready.pendingReceptionIntent;
   delete ready.receptionPreparation;
   const contactActor = state.players.find((player) => player.id === actorId);
@@ -262,7 +301,9 @@ const changePossession = (
   cause: 'tackle' | 'interception' | 'claim' = 'claim',
 ) => {
   if (!canContactAfterThrowIn(state, ownerId)) return state;
-  state = applyThrowInContact(state, ownerId);
+  if (isOffsideOffence(state.offsideSnapshot, ownerId))
+    return awardOffsideRestart(state, ownerId, { x: state.ball.x, y: state.ball.y });
+  state = applyIncomingContact(state, ownerId);
   const owner = state.players.find((p) => p.id === ownerId)!;
   // Pressure at release belongs to the passer. Reception and preparation use the receiver's
   // current canonical opponents, including a marker that arrived during the flight.
@@ -274,6 +315,17 @@ const changePossession = (
       ? resolveReceptionOutcome(state, owner, { x: state.ball.x, y: state.ball.y })
       : undefined;
   const receptionPoint = reception?.resultingPoint ?? { x: state.ball.x, y: state.ball.y };
+  if (reception?.retainedVelocity) {
+    state = {
+      ...state,
+      players: state.players.map((player) =>
+        player.id === ownerId
+          ? { ...player, velocity: { ...reception.retainedVelocity! } }
+          : player,
+      ),
+    };
+  }
+  const preparedOwner = state.players.find((player) => player.id === ownerId)!;
   if (owner.team === state.possessionTeam) {
     const next: TacticalMatchState = {
       ...state,
@@ -291,7 +343,7 @@ const changePossession = (
       ...(reception ? { lastReceptionOutcome: reception } : {}),
       onBallPreparation: deriveOnBallPreparation(
         state,
-        owner,
+        preparedOwner,
         reception?.kind === 'failed_control' ? 'heavy_touch' : reception?.kind,
       ),
       ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
@@ -337,6 +389,8 @@ const changePossession = (
       const { receptionPreparation: _resolvedReception, ...heavyTouchState } = next;
       void _resolvedReception;
       delete heavyTouchState.pendingReceptionIntent;
+      const crossing = findPitchBoundaryCrossing(reception.contactPoint, receptionPoint);
+      if (crossing) return applyBoundaryRestart(heavyTouchState, crossing, reception.contactPoint);
       return makeLoose(
         {
           ...heavyTouchState,
@@ -349,32 +403,39 @@ const changePossession = (
       const { pendingReceptionIntent, ...ready } = next;
       void pendingReceptionIntent;
       delete ready.receptionPreparation;
-      const receptionAction = state.pendingReceptionIntent.action;
+      const requested = state.pendingReceptionIntent.action;
+      // A first-time delivery that could not be struck in the physical contact envelope has
+      // already required control. Keep the chosen release objective, with honest execution identity.
+      const receptionAction =
+        requested.type === 'pass' && requested.firstTime
+          ? { ...requested, firstTime: false }
+          : requested;
       const selected = resolveMatchAction(
-        ready,
+        withoutOffsideSnapshot(ready),
         receptionAction,
         state.pendingReceptionIntent.actionSource ?? 'human_selected',
       );
+      // The incoming choice already owns this first touch. Routine clean control is not another
+      // football choice, so it must not fabricate an immediate handoff checkpoint.
       return receptionAction.type === 'hold' && selected.humanPossessionEpisode
         ? {
             ...selected,
-            postActionAgencyCheckpoint: {
-              actorId: ownerId,
-              completedAction: 'hold' as const,
-              at: state.time,
+            humanPossessionEpisode: {
+              ...selected.humanPossessionEpisode,
+              intent: 'control' as const,
             },
           }
         : selected;
     }
     if (state.pendingReceptionIntent) delete next.pendingReceptionIntent;
     delete next.receptionPreparation;
-    return next;
+    return withoutOffsideSnapshot(next);
   }
   const teams = { ...state.teams };
   for (const side of ['home', 'away'] as const)
     teams[side] = { ...teams[side], phase: transitionPhase(side === owner.team), phaseElapsed: 0 };
   const next: TacticalMatchState = {
-    ...state,
+    ...withoutOffsideSnapshot(state),
     teams,
     possessionTeam: owner.team,
     timeSincePossessionChanged: 0,
@@ -639,6 +700,8 @@ const stepTacticalMatchCore = (
   if (
     state.pendingReceptionIntent &&
     (state.time >= state.pendingReceptionIntent.expiresAt ||
+      (state.pendingReceptionIntent.ballEpisode.startsWith('flight:') &&
+        state.pendingReceptionIntent.ballEpisode !== incomingBallIntentKey(state)) ||
       (state.scenario !== 'open_play' && state.restart?.phase !== 'release') ||
       (state.ball.ownerId && state.ball.ownerId !== state.pendingReceptionIntent.actorId))
   ) {
@@ -672,17 +735,21 @@ const stepTacticalMatchCore = (
     if (
       !carrier ||
       state.ball.ownerId !== carrier.id ||
-      state.time >= intent.expiresAt ||
-      (intent.humanSelected
-        ? hasReachedCarryDecisionWaypoint(carrier, intent)
-        : distance(carrier.position, intent.target) <= 0.75)
+      (intent.movementMode !== 'retain' && state.time >= intent.expiresAt) ||
+      (intent.movementMode === 'retain' && state.periodEndPending) ||
+      (intent.movementMode !== 'retain' &&
+        (intent.humanSelected
+          ? hasReachedCarryDecisionWaypoint(carrier, intent)
+          : distance(carrier.position, intent.target) <= 0.75))
     ) {
       const reason =
         !carrier || state.ball.ownerId !== carrier.id
           ? state.recentDuel?.resolvedAt === state.time
             ? ('contact' as const)
             : ('ball_lost' as const)
-          : intent.humanSelected && hasReachedCarryDecisionWaypoint(carrier, intent)
+          : intent.movementMode !== 'retain' &&
+              intent.humanSelected &&
+              hasReachedCarryDecisionWaypoint(carrier, intent)
             ? ('decision_waypoint' as const)
             : distance(carrier.position, intent.target) <= 0.75
               ? ('target_reached' as const)
@@ -875,8 +942,21 @@ const stepTacticalMatchCore = (
     if (
       state.receptionPreparation?.actorId === player.id &&
       state.time >= state.receptionPreparation.awarenessAt
-    )
-      player = { ...player, target: state.receptionPreparation.expectedContactPoint };
+    ) {
+      const preparation = state.receptionPreparation;
+      let contactTarget = preparation.expectedContactPoint;
+      const velocitySpeed = Math.hypot(player.velocity.x, player.velocity.y);
+      if (
+        preparation.movement === 'run_onto_ball' &&
+        velocitySpeed > 1 &&
+        distance(player.position, contactTarget) < 3
+      )
+        contactTarget = clampPitchPoint({
+          x: contactTarget.x + (player.velocity.x / velocitySpeed) * 3,
+          y: contactTarget.y + (player.velocity.y / velocitySpeed) * 3,
+        });
+      player = { ...player, target: contactTarget };
+    }
     if (state.receptionPreparation?.actorId === player.id) movementTarget = player.target;
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
     if (
@@ -941,9 +1021,19 @@ const stepTacticalMatchCore = (
       dt,
     );
     const movementMode = classifyRelativeMovement(facingAngle, { x: dx, y: dy }, d);
-    const maxSpeed = locomotion.targetSpeed * movementModeSpeedFactor(movementMode);
+    const receivingMomentum =
+      state.onBallPreparation?.actorId === player.id &&
+      state.onBallPreparation.continuation &&
+      state.time < state.onBallPreparation.continuation.until;
+    const maxSpeed =
+      locomotion.targetSpeed * (receivingMomentum ? 1 : movementModeSpeedFactor(movementMode));
     const agility = player.profile.attributes.agility / 100;
-    const accelerationRate = 3.2 + agility * 5.5;
+    const accelerationRate =
+      (3.2 + agility * 5.5) *
+      (state.ballCarrierIntent?.actorId === player.id &&
+      state.ballCarrierIntent.movementMode === 'sprint'
+        ? 1.2
+        : 1);
     const structural =
       !preparing &&
       ['structural_adjustment', 'maintain_shape', 'support_run'].includes(locomotion.reason);
@@ -1109,7 +1199,7 @@ const stepTacticalMatchCore = (
             ? resolveContinuousGroundPassClaim(state, previous, next)
             : undefined;
         if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction)) {
-          state = applyThrowInContact(state, contact.playerId!);
+          state = applyIncomingContact(state, contact.playerId!);
           const contactingPlayer = state.players.find((player) => player.id === contact.playerId)!;
           if (contact.cause !== 'interception') {
             const finish = tryIncomingFinish(
@@ -1316,6 +1406,17 @@ const stepTacticalMatchCore = (
               ...(winner ? { winnerId: winner.id } : {}),
             },
           };
+          const offsideContestant = findOffsideContestant(
+            base,
+            duel.contestants.map((player) => player.id),
+          );
+          if (offsideContestant)
+            return awardOffsideRestart(
+              base,
+              offsideContestant,
+              contactPoint,
+              'challenged_opponent',
+            );
           if (duel.outcome === 'keeper_claim' && winner)
             return changePossession({ ...base, ball: { ...contactPoint } }, winner.id, 'claim');
           // A missed contest does not itself touch or flatten the ball.
@@ -1323,7 +1424,7 @@ const stepTacticalMatchCore = (
           if (duel.outcome === 'keeper_punch')
             return makeLoose(
               {
-                ...(winner ? applyThrowInContact(base, winner.id) : base),
+                ...(winner ? applyIncomingContact(base, winner.id) : base),
                 ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
               },
               { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
@@ -1356,7 +1457,7 @@ const stepTacticalMatchCore = (
                 });
           return resolveMatchAction(
             {
-              ...applyThrowInContact(base, winner.id),
+              ...applyIncomingContact(base, winner.id),
               ball: {
                 ...state.ball,
                 ...contactPoint,
@@ -1413,6 +1514,17 @@ const stepTacticalMatchCore = (
                 }
               : {}),
           };
+          const offsideContestant = findOffsideContestant(
+            base,
+            duel.contestants.map((player) => player.id),
+          );
+          if (offsideContestant)
+            return awardOffsideRestart(
+              base,
+              offsideContestant,
+              { x: state.ball.x, y: state.ball.y },
+              'challenged_opponent',
+            );
           if (duel.outcome === 'keeper_claim' && duel.winner)
             return changePossession(
               { ...base, ball: { ...duel.winner.position } },
@@ -1423,7 +1535,7 @@ const stepTacticalMatchCore = (
           if (duel.outcome === 'keeper_punch')
             return makeLoose(
               {
-                ...(duel.winner ? applyThrowInContact(base, duel.winner.id) : base),
+                ...(duel.winner ? applyIncomingContact(base, duel.winner.id) : base),
                 ball: {
                   ...state.ball,
                   secondBallPriorityIds: priority,
@@ -1466,7 +1578,7 @@ const stepTacticalMatchCore = (
                 });
           return resolveMatchAction(
             {
-              ...applyThrowInContact(base, winner.id),
+              ...applyIncomingContact(base, winner.id),
               ball: { ...state.ball, ownerId: winner.id, lastTouchPlayerId: winner.id },
             },
             {
@@ -1485,31 +1597,11 @@ const stepTacticalMatchCore = (
         const landing = { x: state.ball.x, y: state.ball.y };
         const claim = resolveGroundPassClaim(state, landing);
         if (claim.playerId) {
-          if (isOffsideOffence(state.offsideSnapshot, claim.playerId)) {
-            const offender = state.players.find((player) => player.id === claim.playerId)!;
-            const opponent = state.players
-              .filter((player) => player.team !== offender.team)
-              .sort((a, b) => distance(a.position, landing) - distance(b.position, landing))[0];
-            if (opponent) {
-              const legalRestartState = withoutOffsideSnapshot({
-                ...state,
-                ball: landing,
-                lastOffsideOffence: {
-                  playerId: offender.id,
-                  at: state.time,
-                  reason: 'attempted_receive',
-                },
-              });
-              state = changePossession(legalRestartState, opponent.id, 'claim');
-              state.ball = { ...landing, ownerId: opponent.id };
-            }
-          } else {
-            state = changePossession(
-              withoutOffsideSnapshot({ ...state, ball: { ...state.ball, ...landing } }),
-              claim.playerId,
-              claim.cause,
-            );
-          }
+          state = changePossession(
+            { ...state, ball: { ...state.ball, ...landing } },
+            claim.playerId,
+            claim.cause,
+          );
         } else {
           state = finishUnclaimedDelivery(state);
         }
@@ -1559,7 +1651,11 @@ const stepTacticalMatchCore = (
       const deliberateMovement =
         state.ballCarrierIntent?.actorId === owner.id ||
         state.playerMovementIntent?.actorId === owner.id;
-      const controlOffset = deliberateMovement ? 1.15 : 0.45;
+      const controlOffset = deliberateMovement
+        ? state.ballCarrierIntent?.actorId === owner.id
+          ? (state.ballCarrierIntent.touchDistance ?? 1.15)
+          : 1.15
+        : 0.45;
       const micro =
         !deliberateMovement && state.onBallPreparation?.actorId === owner.id
           ? state.onBallPreparation.micro
@@ -1750,8 +1846,9 @@ export const stepTacticalMatch = (
     prepared = { ...input, periodEndPending: true };
     delete prepared.pendingPlayerDecision;
   }
-  let next = reconcileHumanPossession(stepTacticalMatchCore(prepared, rawDelta));
+  let next = stepTacticalMatchCore(prepared, rawDelta);
   if (next === input) return input;
+  next = advanceHumanIntentProgress(next);
   if (!next.status) next = { ...next, status };
   if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
@@ -1801,7 +1898,7 @@ export const stepTacticalMatchAfterDecisionProbe = (
     input.periodEndPending || input.time + rawDelta >= threshold
       ? { ...input, periodEndPending: true }
       : input;
-  let next = reconcileHumanPossession(stepTacticalMatchCore(prepared, rawDelta, true));
+  let next = advanceHumanIntentProgress(stepTacticalMatchCore(prepared, rawDelta, true));
   if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
       ...clearTransientPeriodState(next),

@@ -29,7 +29,7 @@ const createFlowFixture = (seed = 'flow-performance-regression') => {
 };
 
 describe('session benchmark observations', () => {
-  it('observes the actual queued reception and reconciles a completion-only physical network edge', () => {
+  it('reattributes the original attempt to the actual queued reception without completion-only edges', () => {
     const before = createFlowFixture('pr149-flow-actual-reception');
     const passer = before.players.find((player) => player.id === before.ball.ownerId)!;
     const [intended, actual] = before.players.filter(
@@ -105,7 +105,7 @@ describe('session benchmark observations', () => {
       'completed',
     );
     expect(telemetry.passingNetwork.find((edge) => edge.receiverId === actual!.id)).toMatchObject({
-      attempted: 0,
+      attempted: 1,
       completed: 1,
     });
     expect(() => assertTelemetryInvariants(telemetry)).not.toThrow();

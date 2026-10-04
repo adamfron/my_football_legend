@@ -170,7 +170,7 @@ describe('PR148 sustained sprint episodes and locomotion', () => {
     const carrier = carried.players.find((player) => player.id === actorId)!;
     expect(
       Math.hypot(carried.ball.x - carrier.position.x, carried.ball.y - carrier.position.y),
-    ).toBeCloseTo(1.15);
+    ).toBeCloseTo(carried.ballCarrierIntent?.touchDistance ?? 1.15);
   });
 
   it('jockeys a controlled owner with defensive cover instead of creating a routine tackle', () => {

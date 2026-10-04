@@ -13,6 +13,7 @@ const eventLabels: Record<MatchEvent['kind'], string> = {
   red_card: 'Czerwona kartka',
   penalty: 'Rzut karny',
   foul: 'Faul',
+  offside: 'Spalony',
   kick_off: 'Rozpoczęcie gry',
 };
 
@@ -119,7 +120,11 @@ export const MatchCentre = ({
                 <time>{formatMatchTime(event.at)}</time>
                 <div>
                   <strong>{eventLabels[event.kind]}</strong>
-                  <span>{player ?? session[event.team].club.name}</span>
+                  <span>
+                    {player
+                      ? `${player} (${session[event.team].club.name})`
+                      : session[event.team].club.name}
+                  </span>
                   {event.score && (
                     <span className="match-centre__event-score">
                       {event.score.home}–{event.score.away}
@@ -146,6 +151,15 @@ export const MatchCentre = ({
         <summary>Wszystkie statystyki</summary>
         {table([
           row('Podania celne', statistics.home.passesCompleted, statistics.away.passesCompleted),
+          row('Podania otrzymane', statistics.home.passesReceived, statistics.away.passesReceived),
+          row('Kontakty z piłką', statistics.home.touches, statistics.away.touches),
+          row('Prowadzenia', statistics.home.carries, statistics.away.carries),
+          row('Posiadanie wygrane', statistics.home.possessionWon, statistics.away.possessionWon),
+          row(
+            'Posiadanie stracone',
+            statistics.home.possessionLost,
+            statistics.away.possessionLost,
+          ),
           row('Strzały zablokowane', statistics.home.blockedShots, statistics.away.blockedShots),
           row('Faule', statistics.home.fouls, statistics.away.fouls),
           row('Żółte kartki', statistics.home.yellowCards, statistics.away.yellowCards),

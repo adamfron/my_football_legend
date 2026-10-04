@@ -125,6 +125,7 @@ export const tacticalFrameSchema = z.object({
   interceptionTarget: tacticalPointSchema.optional(),
   carryTarget: tacticalPointSchema.optional(),
   carryMode: z.enum(['burst', 'controlled', 'tight_dribble', 'evade', 'shield']).optional(),
+  showMotionVectors: z.boolean().optional(),
 });
 export const tacticalSequenceSchema = z.object({
   id: z.string().min(1),

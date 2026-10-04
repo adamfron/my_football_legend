@@ -80,8 +80,7 @@ describe('PR149 canonical accounting', () => {
       received.statistics!.players.find((entry) => entry.playerId === intended!.id)?.passesReceived,
     ).toBe(0);
     expect(received.statistics!.passingNetwork).toEqual([
-      { passerId: passer.id, receiverId: intended!.id, attempted: 1, completed: 0 },
-      { passerId: passer.id, receiverId: actual!.id, attempted: 0, completed: 1 },
+      { passerId: passer.id, receiverId: actual!.id, attempted: 1, completed: 1 },
     ]);
     expect(received.actionEvents?.find((event) => event.kind === 'reception')?.actorId).toBe(
       actual!.id,

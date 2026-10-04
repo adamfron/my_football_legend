@@ -9,6 +9,7 @@ import {
   matchStateToFrame,
   matchStatisticsSchema,
   resolveMatchAction,
+  assertMatchStatisticsInvariants,
   type TacticalMatchState,
 } from '.';
 
@@ -44,6 +45,109 @@ const completedPass = (base: TacticalMatchState, passerId: string, scorerId: str
 });
 
 describe('canonical contact and pass event semantics', () => {
+  it('counts reception, carry samples, shielding and release as one public control episode', () => {
+    const initial = state('pr150-control-episode');
+    const [passer, receiver, target] = initial.players.filter((player) => player.team === 'home');
+    const received: TacticalMatchState = {
+      ...completedPass(initial, passer!.id, receiver!.id),
+      time: 1,
+      ball: { ...receiver!.position, ownerId: receiver!.id },
+    };
+    let statistics = observePlayerMatchStats(createMatchStatistics(initial), initial, received);
+    const carry = resolveMatchAction(received, {
+      type: 'carry',
+      actorId: receiver!.id,
+      target: { x: receiver!.position.x + 10, y: receiver!.position.y },
+    });
+    const progressed: TacticalMatchState = {
+      ...carry,
+      time: 2,
+      players: carry.players.map((player) =>
+        player.id === receiver!.id
+          ? { ...player, position: { x: player.position.x + 2, y: player.position.y } }
+          : player,
+      ),
+    };
+    statistics = observePlayerMatchStats(statistics, received, progressed);
+    const shield = { ...progressed, time: 3 };
+    statistics = observePlayerMatchStats(statistics, progressed, shield);
+    const released = resolveMatchAction(shield, {
+      type: 'pass',
+      actorId: receiver!.id,
+      receiverId: target!.id,
+      target: target!.position,
+      intent: 'support',
+    });
+    statistics = observePlayerMatchStats(statistics, shield, released);
+    expect(statistics.players.find((player) => player.playerId === receiver!.id)).toMatchObject({
+      touches: 1,
+      carries: 1,
+      passesReceived: 1,
+      passesAttempted: 1,
+    });
+    expect(
+      statistics.observedContactIds.filter((id) => id.includes(receiver!.id)).length,
+    ).toBeGreaterThanOrEqual(3);
+    expect(statistics.activeControlEpisode).toBeUndefined();
+    expect(() => assertMatchStatisticsInvariants(statistics)).not.toThrow();
+  });
+
+  it('starts a new public touch after release and recovery, including unsuccessful contact', () => {
+    const initial = state('pr150-recovery-touch');
+    const actor = initial.players.find((player) => player.id === initial.ball.ownerId)!;
+    const failed: TacticalMatchState = {
+      ...initial,
+      time: 1,
+      ball: { ...actor.position },
+      lastReceptionOutcome: {
+        receiverId: actor.id,
+        kind: 'failed_control',
+        contactPoint: actor.position,
+      },
+    };
+    const first = observePlayerMatchStats(createMatchStatistics(initial), initial, failed);
+    const recovered = { ...failed, time: 2, ball: { ...actor.position, ownerId: actor.id } };
+    const second = observePlayerMatchStats(first, failed, recovered);
+    expect(second.players.find((player) => player.playerId === actor.id)?.touches).toBe(2);
+    expect(second.activeControlEpisode?.playerId).toBe(actor.id);
+    expect(observePlayerMatchStats(second, recovered, structuredClone(recovered))).toEqual(second);
+  });
+
+  it('moves exactly one attempt to an unintended actual receiver and preserves intended evidence', () => {
+    const initial = state('pr150-realized-network');
+    const [passer, intended, actual] = initial.players.filter((player) => player.team === 'home');
+    const release = completedPass(initial, passer!.id, intended!.id);
+    const received = {
+      ...release,
+      lastPassDiagnostic: { ...release.lastPassDiagnostic, actualReceiverId: actual!.id },
+    };
+    const statistics = observePlayerMatchStats(createMatchStatistics(initial), initial, received);
+    expect(received.lastPassDiagnostic.intendedReceiverId).toBe(intended!.id);
+    expect(statistics.passingNetwork).toEqual([
+      { passerId: passer!.id, receiverId: actual!.id, attempted: 1, completed: 1 },
+    ]);
+    expect(() => assertMatchStatisticsInvariants(statistics)).not.toThrow();
+    expect(
+      matchStatisticsSchema.safeParse({
+        ...statistics,
+        passingNetwork: [{ ...statistics.passingNetwork[0], attempted: 0, completed: 1 }],
+      }).success,
+    ).toBe(false);
+  });
+
+  it('never reports an own recovery as a self pass', () => {
+    const initial = state('pr150-no-self-pass');
+    const actor = initial.players[0]!;
+    const next = completedPass(initial, actor.id, actor.id);
+    const statistics = observePlayerMatchStats(createMatchStatistics(initial), initial, next);
+    expect(statistics.passingNetwork).toEqual([]);
+    expect(statistics.players.find((player) => player.playerId === actor.id)).toMatchObject({
+      passesAttempted: 0,
+      passesCompleted: 0,
+      passesReceived: 0,
+    });
+    expect(() => assertMatchStatisticsInvariants(statistics)).not.toThrow();
+  });
   it('reuses inert whole-match histories and preserves earlier snapshots on a new event', () => {
     const initial = state('stats-history-sharing');
     const [passer, receiver] = initial.players.filter((player) => player.team === 'home');
@@ -193,6 +297,47 @@ describe('canonical contact and pass event semantics', () => {
       touches: 1,
       passesReceived: 0,
     });
+  });
+
+  it('counts separate failed receptions at the same point after preparation has been cleared', () => {
+    const initial = state('pr150-repeated-failed-contact');
+    const [passer, receiver] = initial.players.filter((player) => player.team === 'home');
+    const contactPoint = { ...receiver!.position };
+    const pass = completedPass(initial, passer!.id, receiver!.id).lastPassDiagnostic;
+    const failed: TacticalMatchState = {
+      ...initial,
+      time: 1,
+      ball: { ...contactPoint },
+      lastPassDiagnostic: {
+        ...pass,
+        actualContactPoint: contactPoint,
+        finalResult: 'technical_error',
+        receptionOutcome: 'failed_control',
+      },
+      lastReceptionOutcome: { receiverId: receiver!.id, kind: 'failed_control', contactPoint },
+    };
+    delete failed.onBallPreparation;
+    const first = observePlayerMatchStats(createMatchStatistics(initial), initial, failed);
+    const failedAgain: TacticalMatchState = {
+      ...failed,
+      time: 2,
+      lastPassDiagnostic: {
+        ...failed.lastPassDiagnostic!,
+        passId: 'another-failed-reception',
+        releasedAt: 1.2,
+        resolvedAt: 2,
+      },
+    };
+    const second = observePlayerMatchStats(first, failed, failedAgain);
+    expect(second.players.find((player) => player.playerId === receiver!.id)?.touches).toBe(2);
+    expect(observePlayerMatchStats(second, failedAgain, structuredClone(failedAgain))).toEqual(
+      second,
+    );
+    const recovered = structuredClone(failedAgain);
+    recovered.time += 0.025;
+    recovered.ball.ownerId = receiver!.id;
+    const third = observePlayerMatchStats(second, failedAgain, recovered);
+    expect(third.players.find((player) => player.playerId === receiver!.id)?.touches).toBe(3);
   });
 
   it('counts a substep keeper catch once when ownership also changes at the tick boundary', () => {

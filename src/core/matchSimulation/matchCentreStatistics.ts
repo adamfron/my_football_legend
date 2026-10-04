@@ -12,6 +12,11 @@ export const matchCentreTeamStatisticsSchema = z.object({
   possessionPercentage: z.number().min(0).max(100).optional(),
   passesAttempted: count,
   passesCompleted: count,
+  passesReceived: count,
+  touches: count,
+  carries: count,
+  possessionWon: count,
+  possessionLost: count,
   completionPercentage: z.number().min(0).max(100).optional(),
   fouls: count,
   yellowCards: count,
@@ -51,6 +56,11 @@ export const projectMatchCentreStatistics = (state: TacticalMatchState): MatchCe
         | 'shotsOnTarget'
         | 'passesAttempted'
         | 'passesCompleted'
+        | 'passesReceived'
+        | 'touches'
+        | 'carries'
+        | 'possessionWon'
+        | 'possessionLost'
         | 'tacklesAttempted'
         | 'tacklesWon'
         | 'interceptions',
@@ -70,6 +80,11 @@ export const projectMatchCentreStatistics = (state: TacticalMatchState): MatchCe
         : {}),
       passesAttempted: attempts,
       passesCompleted: completed,
+      passesReceived: sum('passesReceived'),
+      touches: sum('touches'),
+      carries: sum('carries'),
+      possessionWon: sum('possessionWon'),
+      possessionLost: sum('possessionLost'),
       ...(attempts > 0 ? { completionPercentage: (100 * completed) / attempts } : {}),
       fouls: events
         ? events.filter((event) => event.kind === 'foul').length

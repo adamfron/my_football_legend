@@ -14,7 +14,8 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR149 są ukończone w opisanym zakresie. Następny etap to PR150 — stamina i trwałość fizyczna.
+PR105–PR150 są ukończone w opisanym zakresie. Następny etap to PR151 — kondycja, urazy,
+doliczony czas i inteligencja zmian, na podstawie kanonicznego obciążenia.
 W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
@@ -185,12 +186,21 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - raport, deterministyczne porównania i ograniczenia:
   [PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
 
+**PR150 — Continuous Ball Control, Intent-Based Play & Space Passing**
+
+- trwała intencja człowieka, tryby prowadzenia/sprintu/dryblingu/osłony i zachowanie pędu przyjęcia;
+- jeden publiczny kontakt na epizod kontroli; spójna sieć podań i audyt sprintu;
+- zagrania do biegnących partnerów w wolne pole, płaskie i górne podania prostopadłe;
+- spalony przy zagraniu, pośredni wolny, ustawienie ofensywnych wolnych i aktualne wektory ruchu;
+- architektura, testy i pomiary: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUOUS_INTENT.md).
+
 ### NEXT
 
-**PR150 — Stamina & Physical Persistence**
+**PR151 — Fatigue, Injury Risk, Added Time & Substitution Intelligence**
 
 - kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
 - kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
+- ryzyko urazów, doliczony czas i decyzje zmian, oparte na tym samym obciążeniu człowieka i NPC;
 - integracja kariery i kalibracja deterministycznych pełnych meczów, bez maskowania rytmu kwotami.
 
 Później: filmowe powtórki, finalne animacje, duża kalibracja lig, świadomy wybór piętki i
@@ -428,7 +438,7 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
-NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: PR149 → PR150.
+NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: PR150 → PR151.
 Poniższa lista jest historycznym kontekstem systemów kariery; starsze plany pakietów
 zagranicznych nie wyprzedzają obecnej kolejności silnika meczu.
 

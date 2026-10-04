@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import type { TeamSide } from './matchSpace';
+import { clampPitchPoint, type PitchPoint } from './matchSpace';
+import { applyRestartScenario } from './restartScenarios';
 
 export const offsideSnapshotSchema = z.object({
   attackingTeam: z.enum(['home', 'away']),
@@ -31,6 +33,10 @@ export const captureOffsideSnapshot = (
 ): OffsideSnapshot | undefined => {
   let relevantAttackerIds: string[];
   if (action.type === 'pass') relevantAttackerIds = [action.receiverId];
+  else if (action.type === 'space_pass')
+    relevantAttackerIds = state.players
+      .filter((player) => player.team === state.possessionTeam && player.id !== action.actorId)
+      .map((player) => player.id);
   else if (action.type === 'cross' || action.type === 'header')
     relevantAttackerIds = action.intendedTargetId ? [action.intendedTargetId] : [];
   else return;
@@ -39,9 +45,7 @@ export const captureOffsideSnapshot = (
   const line = secondLastOpponentLine(state, passer.team);
   const offsideLineX =
     passer.team === 'home' ? Math.max(state.ball.x, line) : Math.min(state.ball.x, line);
-  const exemptRestart =
-    state.restart?.phase === 'setup' &&
-    ['goal_kick', 'corner', 'throw_in'].includes(state.scenario);
+  const exemptRestart = Boolean(isDirectOffsideExemptRestart(state));
   const attackerX = Object.fromEntries(
     state.players
       .filter((p) => p.team === passer.team && p.id !== passer.id)
@@ -72,11 +76,75 @@ export const captureOffsideSnapshot = (
 };
 
 export const isOffsideOffence = (snapshot: OffsideSnapshot | undefined, playerId: string) =>
-  Boolean(
-    snapshot &&
-      snapshot.relevantAttackerIds.includes(playerId) &&
-      snapshot.offsidePlayerIds.includes(playerId),
-  );
+  Boolean(snapshot && snapshot.offsidePlayerIds.includes(playerId));
+
+/** Both goal-kick scenario variants represent the same direct-reception law exemption. */
+export const isDirectOffsideExemptRestart = (state: TacticalMatchState) =>
+  state.restart?.phase === 'setup' &&
+  ['goal_kick', 'gk_short', 'corner', 'throw_in'].includes(state.scenario);
+
+/** A reachable aerial contest is active participation even when the offside attacker loses it. */
+export const findOffsideContestant = (
+  state: TacticalMatchState,
+  contestantIds: readonly string[],
+): string | undefined => {
+  const snapshot = state.offsideSnapshot;
+  if (
+    !snapshot ||
+    !contestantIds.some((id) =>
+      state.players.some((player) => player.id === id && player.team !== snapshot.attackingTeam),
+    )
+  )
+    return undefined;
+  return contestantIds.find((id) => isOffsideOffence(snapshot, id));
+};
+
+/** Called only for meaningful ball competition/contact. Merely standing beyond the line is passive.
+ * The recorded launch geometry survives a defender stepping or an attacker running back onside. */
+export const awardOffsideRestart = (
+  state: TacticalMatchState,
+  playerId: string,
+  point: PitchPoint,
+  reason: 'attempted_receive' | 'challenged_opponent' | 'interfered' = 'attempted_receive',
+): TacticalMatchState => {
+  const snapshot = state.offsideSnapshot;
+  if (!isOffsideOffence(snapshot, playerId) || !snapshot) return state;
+  const restartTeam = snapshot.attackingTeam === 'home' ? 'away' : 'home';
+  const cleaned = { ...state };
+  delete cleaned.offsideSnapshot;
+  delete cleaned.pendingReceptionIntent;
+  delete cleaned.receptionPreparation;
+  delete cleaned.playerMovementIntent;
+  delete cleaned.ballCarrierIntent;
+  delete cleaned.humanPossessionEpisode;
+  delete cleaned.postActionAgencyCheckpoint;
+  delete cleaned.onBallPreparation;
+  if (cleaned.lastPassDiagnostic && !cleaned.lastPassDiagnostic.finalResult) {
+    cleaned.lastPassDiagnostic = {
+      ...cleaned.lastPassDiagnostic,
+      actualContactPoint: { ...point },
+      resolvedAt: state.time,
+      finalResult: 'unclaimed',
+    };
+    cleaned.lastResolvedPass = cleaned.lastPassDiagnostic;
+  }
+  const next = applyRestartScenario(cleaned, 'free_kick_far', {
+    restartTeam,
+    restartPoint: clampPitchPoint(point),
+  });
+  return {
+    ...next,
+    ...(next.restart ? { restart: { ...next.restart, indirect: true } } : {}),
+    lastOffsideOffence: {
+      playerId,
+      at: state.time,
+      reason,
+      passerId: snapshot.passerId,
+      releasedAt: snapshot.releasedAt,
+      offsideLineX: snapshot.offsideLineX,
+    },
+  };
+};
 
 /** A controlled deliberate play starts a new phase; saves and accidental contacts preserve it. */
 export const registerOpponentTouch = (

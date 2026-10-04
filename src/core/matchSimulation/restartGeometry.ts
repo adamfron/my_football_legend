@@ -58,7 +58,7 @@ export const deriveDefensiveWall = (
   const dx = goal.x - ball.x,
     dy = goal.y - ball.y,
     length = Math.max(0.1, Math.hypot(dx, dy)),
-    centre = { x: ball.x + (dx / length) * 9, y: ball.y + (dy / length) * 9 },
+    centre = { x: ball.x + (dx / length) * 9.15, y: ball.y + (dy / length) * 9.15 },
     perpendicular = { x: -dy / length, y: dx / length };
   return Array.from({ length: size }, (_, index) => {
     const offset = (index - (size - 1) / 2) * 0.85;
@@ -377,7 +377,8 @@ const deriveHomeRestartGeometry = (
     points.set(awayGk.id, { x: 103.5, y: scenario === 'free_kick_wide' ? 31 : 35 });
     const close = scenario === 'free_kick_close',
       wide = scenario === 'free_kick_wide',
-      wallSize = Math.min(away.length, close ? 5 : wide ? 0 : 2);
+      advanced = ball.x >= 65,
+      wallSize = Math.min(away.length, close ? 4 : wide ? 0 : 2);
     const wall = deriveDefensiveWall(ball, { x: 105, y: 34 }, wallSize),
       // Prefer mobile midfield responsibility and retain dominant aerial markers.
       wallPlayers = stableRank(
@@ -390,48 +391,86 @@ const deriveHomeRestartGeometry = (
       );
     wall.forEach((point, i) => points.set(wallPlayers[i]!.id, point));
     wall.forEach((point, i) => assign(wallPlayers[i]!, 'wall', 'protect_zone', point));
-    const aerial = chooseAerialTargets(state, 'home', wide ? 5 : close ? 2 : 4).filter(
-      (p) => p.id !== taker.id,
-    );
+    const aerial = stableRank(
+      home.filter((p) => p.id !== taker.id),
+      aerialScore,
+    ).slice(0, advanced ? Math.min(wide ? 4 : 3, Math.max(0, home.length - 5)) : 2);
     aerial.forEach((p, i) => {
-      const zone = wide
-        ? { x: 96 + (i % 2) * 2, y: 26 + (i % 3) * 6 }
-        : { x: close ? 78 + i * 2.4 : 91 + (i % 2) * 3, y: 25 + (i % 4) * 6 };
-      place(p, zone, 2.5);
-      assign(p, 'runner', 'attack_landing_zone', zone);
+      const nearY = ball.y <= 34 ? 27 : 41;
+      const zone = advanced
+        ? {
+            x: Math.max(ball.x + 2, 94 + (i % 2) * 2),
+            y: i === 0 ? nearY : i === 1 ? 34 : 68 - nearY,
+          }
+        : { x: Math.min(88, ball.x + 12 + (i % 2) * 3), y: 26 + (i % 3) * 8 };
+      place(p, zone, 1.4);
+      assign(
+        p,
+        i === 0 ? 'near_post_target' : i === 1 ? 'central_target' : 'far_post_target',
+        i === 0 ? 'attack_near_post' : i === 1 ? 'attack_central' : 'attack_far_post',
+        zone,
+      );
     });
-    home
-      .filter((p) => p.id !== taker.id && !aerial.includes(p))
-      .forEach((p, i) => {
-        const zone = {
-          x: wide ? (i < 3 ? 84 : 68) : close ? 72 : i < 3 ? 82 : 70,
-          y: 16 + (i % 6) * 7,
-        };
-        place(p, zone, 3);
-        assign(
-          p,
-          i < 3 ? 'second_ball' : 'rest',
-          i < 3 ? 'attack_second_ball' : 'rest_defence',
-          zone,
-        );
-      });
+    stableRank(
+      home.filter((p) => p.id !== taker.id && !aerial.includes(p)),
+      (p) =>
+        p.profile.attributes.passing +
+        p.profile.attributes.gameReading -
+        p.profile.attributes.positioning * 0.3,
+    ).forEach((p, i) => {
+      const zone =
+        i === 0
+          ? { x: ball.x - 1, y: ball.y + (ball.y <= 34 ? 6 : -6) }
+          : i === 1
+            ? {
+                x: advanced ? Math.max(ball.x - 3, 86) : ball.x + 5,
+                y: 34 + (ball.y <= 34 ? -8 : 8),
+              }
+            : i === 2
+              ? { x: ball.x - 12, y: 34 }
+              : { x: Math.min(68, ball.x - 19) - ((i - 3) % 2) * 4, y: 23 + ((i - 3) % 3) * 11 };
+      place(p, zone, 1.2);
+      assign(
+        p,
+        i === 0
+          ? 'short_option'
+          : i === 1
+            ? 'edge_support'
+            : i === 2
+              ? 'recycle_support'
+              : 'rest_defence',
+        i === 0
+          ? 'short_option'
+          : i === 1
+            ? 'attack_second_ball'
+            : i === 2
+              ? 'support_ball'
+              : 'rest_defence',
+        zone,
+      );
+    });
     away
       .filter((p) => !points.has(p.id))
       .forEach((p, i) => {
-        const zone = {
-          x: wide ? 94 - (i % 2) * 5 : close ? 88 + (i % 3) * 2.2 : 90 + (i % 3) * 2,
-          y: 20 + (i % 6) * 6,
-        };
-        place(p, zone, 2);
+        const marked = aerial[i % Math.max(1, aerial.length)];
+        const markedPoint = marked && points.get(marked.id);
+        const zone =
+          markedPoint && i < aerial.length * 2
+            ? {
+                x: Math.min(103, markedPoint.x + 1.1),
+                y: markedPoint.y + (i < aerial.length ? 0.9 : -1.5),
+              }
+            : { x: Math.max(82, Math.min(99, ball.x + 8)), y: 19 + (i % 6) * 6 };
+        place(p, zone, 0.8);
         assign(
           p,
           i < 6 ? 'marking_line' : 'zonal_protection',
           i < 6 ? 'mark_opponent' : 'protect_zone',
           zone,
-          aerial[i]?.id,
+          marked?.id,
         );
       });
-    if (!close) landingZone = wide ? { x: 97, y: 34 } : { x: 94, y: 34 };
+    landingZone = advanced ? { x: 96, y: 34 } : { x: Math.min(88, ball.x + 14), y: 34 };
   } else if (scenario === 'penalty') {
     taker = choosePenaltyTaker(state, 'home');
     points.set(taker.id, ball);

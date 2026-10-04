@@ -1,5 +1,24 @@
 # Match Engine Handoff
 
+## PR150 contracts (supersede historical public-touch/network definitions below)
+
+- Preserve PR148 cadence. Routine contacts never reopen human agency by themselves.
+  `humanPossessionEpisode` owns the player's goal; route obstruction needs actual blocking
+  geometry plus stalled progress. AI adjusts execution without changing that target.
+- Public `touches` counts continuous control/intervention episodes. Detailed contact IDs
+  remain internal. Release, loss, another intervention and restarts close the public episode.
+- Completed network edges use actual reception: relocate the original attempt when a different
+  teammate receives, never invent an attempt. No self edge; outgoing/incoming totals reconcile.
+- `space_pass` is a location intent. Release-time runner geometry selects an ordinary canonical
+  pass with execution metadata; physical error may leave the pitch. Never favour controlled IDs.
+- Offside uses frozen launch positions and meaningful participation. Direct goal kicks (short
+  and long), corners and throws are exempt. Offside free kicks are indirect at the commit boundary.
+- Reception retains quality-dependent momentum. Queued first-time releases preserve the incoming
+  resolved delivery and create a fresh outgoing identity/offside snapshot.
+- Motion arrows observe current velocity only; headless canonical state cannot depend on them.
+- Evidence and limits: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUOUS_INTENT.md),
+  [PR150_ACCOUNTING.md](PR150_ACCOUNTING.md). Next: PR151 fatigue/injuries/added time/substitutions.
+
 ## PR149 contracts
 
 - Preserve `npcPossessionDecisionDelay` and the sparse human agency model. `onBallPreparation.micro`
@@ -7,8 +26,8 @@
 - Never clear incoming velocity/height before physical reception. Poor control leaves a real
   loose ball and recovery requirement; quality evidence supports future calibration.
 - `lastResolvedPass` survives a queued next pass/first-time finish. Successful teammate contact
-  uses `actualReceiverId`, which can differ from `intendedReceiverId`. Attempted network edges
-  describe intent; completed edges describe actual reception, so only aggregate totals reconcile.
+  uses `actualReceiverId`, which can differ from `intendedReceiverId`. PR150 now relocates
+  the original attempt to that actual relationship; the intended target remains diagnostic.
 - `state.matchEvents` persists beyond short action label retention and uses canonical IDs/time.
   Extend the schema/feed/UI together for future substitutions, injuries and other event kinds.
 - `projectMatchCentreStatistics` includes dismissed player records and credits canonical live
@@ -19,7 +38,7 @@
   canonical progression. UI animation and replay use recorded frame time and roster boundaries.
 - `npm run benchmark:readability` compares a clean engine via `--engine-root`, retains reception/
   hold/agency/accounting evidence and hashes, and can measure `--replay=true` observer cost.
-- Recommended next work: **PR150 — Stamina & Physical Persistence**. Cinematic replay, final art,
+- The former stamina plan follows PR150 as **PR151**. Cinematic replay, final art,
   stadium archetypes and large league calibration remain separate. Details and final evidence:
   [PR149_IMPLEMENTATION_CALIBRATION.md](PR149_IMPLEMENTATION_CALIBRATION.md).
 
@@ -33,7 +52,8 @@
   progression, another player or a new deliberate delivery creates new football context;
   another defender can challenge immediately. Booking suppresses risk; routine human support
   withdraws unsafe challenges. Relative component ability remains stochastic.
-- `touches` counts canonical discrete contacts, not possession maintenance/provenance. One
+- Historically PR148 `touches` counted canonical discrete contacts. PR150 supersedes the public
+  counter with continuous episodes and preserves this detailed evidence internally. One
   meaningful executed carry supplies one contact and `dribble` event. Stale reception evidence
   cannot be renewed by another player's preparation.
 - `chooseNpcAction` remains the shared pure policy. `chooseNpcRoutineAction` adds live

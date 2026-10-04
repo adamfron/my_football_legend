@@ -1,6 +1,10 @@
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
-import { collectContactEvidence } from './contactEvidence';
+import {
+  collectContactEvidence,
+  controlEpisodeSchema,
+  projectControlEpisodes,
+} from './contactEvidence';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
 
 export const teamAccountingSchema = z.object({
@@ -37,6 +41,10 @@ export const playerMatchStatsSchema = z.object({
   interceptions: z.number().int().nonnegative(),
   possessionWon: z.number().int().nonnegative(),
   possessionLost: z.number().int().nonnegative(),
+  fouls: z.number().int().nonnegative().default(0),
+  yellowCards: z.number().int().nonnegative().default(0),
+  redCards: z.number().int().nonnegative().default(0),
+  offsides: z.number().int().nonnegative().default(0),
   distanceCovered: z.number().nonnegative(),
   sprintDistance: z.number().nonnegative(),
   sprintBursts: z.number().int().nonnegative(),
@@ -61,14 +69,23 @@ export const matchStatisticsSchema = z.object({
   observedShotIds: z.array(z.string()),
   observedShotResultIds: z.array(z.string()),
   observedContactIds: z.array(z.string()),
+  /** One active possession/control episode; physical contacts are retained separately. */
+  activeControlEpisode: controlEpisodeSchema.optional(),
   observedCarryIds: z.array(z.string()),
   passingNetwork: z.array(
-    z.object({
-      passerId: z.string(),
-      receiverId: z.string(),
-      attempted: z.number().int().nonnegative(),
-      completed: z.number().int().nonnegative(),
-    }),
+    z
+      .object({
+        passerId: z.string(),
+        receiverId: z.string(),
+        attempted: z.number().int().nonnegative(),
+        completed: z.number().int().nonnegative(),
+      })
+      .superRefine((edge, context) => {
+        if (edge.completed > edge.attempted)
+          context.addIssue({ code: 'custom', message: 'Completed passes exceed edge attempts.' });
+        if (edge.passerId === edge.receiverId)
+          context.addIssue({ code: 'custom', message: 'Self-passing is not a public pass.' });
+      }),
   ),
   observedAssistGoalIds: z.array(z.string()),
   observedPossessionEvents: z.array(z.string()),
@@ -117,6 +134,10 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
     interceptions: 0,
     possessionWon: 0,
     possessionLost: 0,
+    fouls: 0,
+    yellowCards: 0,
+    redCards: 0,
+    offsides: 0,
     distanceCovered: 0,
     sprintDistance: 0,
     sprintBursts: 0,
@@ -183,12 +204,14 @@ export const observePlayerMatchStats = (
       }
     }
     const offside = next.lastOffsideOffence;
+    let newOffsidePlayerId: string | undefined;
     if (offside) {
       const id = `${next.seed}:offside:${offside.at}:${offside.playerId}`;
       if (!containsIdentity(result.observedOffsideIds ?? [], id)) {
         result.observedOffsideIds = [...(result.observedOffsideIds ?? []), id];
         const team = result.playerTeams?.[offside.playerId];
         if (team) accounting[team].offsides++;
+        newOffsidePlayerId = offside.playerId;
       }
     }
     const appendIdentity = (key: IdentityHistory, id: string) => {
@@ -201,6 +224,16 @@ export const observePlayerMatchStats = (
     };
     const playersById = new Map(result.players.map((entry) => [entry.playerId, entry]));
     const stats = (id: string) => playersById.get(id);
+    if (newOffsidePlayerId) {
+      const offender = stats(newOffsidePlayerId);
+      if (offender) offender.offsides = (offender.offsides ?? 0) + 1;
+    }
+    for (const entry of result.players) {
+      entry.fouls = next.defensiveTelemetry?.byPlayer[entry.playerId]?.fouls ?? entry.fouls ?? 0;
+      entry.yellowCards = next.discipline?.[entry.playerId]?.yellowCards ?? entry.yellowCards ?? 0;
+      entry.redCards = next.discipline?.[entry.playerId]?.sentOff ? 1 : (entry.redCards ?? 0);
+      entry.offsides ??= 0;
+    }
     for (const player of next.players) {
       const entry = stats(player.id)!;
       entry.minutesPlayed = next.time / 60;
@@ -233,12 +266,24 @@ export const observePlayerMatchStats = (
         }
       }
     }
+    const newContacts = [];
     for (const contact of collectContactEvidence(previous, next)) {
       if (containsIdentity(result.observedContactIds, contact.id)) continue;
       appendIdentity('observedContactIds', contact.id);
-      const player = stats(contact.playerId);
+      newContacts.push(contact);
+    }
+    const control = projectControlEpisodes(
+      previous,
+      next,
+      newContacts,
+      statistics.activeControlEpisode,
+    );
+    for (const episode of control.started) {
+      const player = stats(episode.playerId);
       if (player) player.touches++;
     }
+    if (control.active) result.activeControlEpisode = control.active;
+    else delete result.activeControlEpisode;
     const action = next.latestAction;
     if (action?.type === 'carry' && next.ballCarrierIntent?.actorId === action.actorId) {
       const carryId = `${next.seed}:carry:${next.ballCarrierIntent.startedAt}:${action.actorId}`;
@@ -255,6 +300,13 @@ export const observePlayerMatchStats = (
         .map((pass) => [pass.passId, pass]),
     );
     for (const pass of passes.values()) {
+      if (pass.passerId === pass.intendedReceiverId) {
+        if (!containsIdentity(result.observedPassAttemptIds, pass.passId))
+          appendIdentity('observedPassAttemptIds', pass.passId);
+        if (pass.finalResult && !containsIdentity(result.observedPassResultIds, pass.passId))
+          appendIdentity('observedPassResultIds', pass.passId);
+        continue;
+      }
       if (pass && !containsIdentity(result.observedPassAttemptIds, pass.passId)) {
         appendIdentity('observedPassAttemptIds', pass.passId);
         stats(pass.passerId)!.passesAttempted++;
@@ -275,13 +327,36 @@ export const observePlayerMatchStats = (
         if (
           pass.finalResult === 'completed' &&
           pass.actualContactPoint &&
-          pass.resolvedAt !== undefined
+          pass.resolvedAt !== undefined &&
+          (pass.actualReceiverId ?? pass.intendedReceiverId) !== pass.passerId
         ) {
           stats(pass.passerId)!.passesCompleted++;
           const receiverId = pass.actualReceiverId ?? pass.intendedReceiverId;
           stats(receiverId)!.passesReceived++;
-          // Attempts describe the intended endpoint; completions describe the physical endpoint.
-          // A teammate can meet a misdirected pass without inventing another pass attempt.
+          // A completed edge describes the realized football relationship. Reattribute the
+          // original attempt, rather than inventing an attempt for the physical receiver.
+          // The selected target remains canonically recorded in the pass diagnostic.
+          if (receiverId !== pass.intendedReceiverId) {
+            const intendedEdge = mutableNetwork().find(
+              (edge) =>
+                edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
+            );
+            if (intendedEdge) intendedEdge.attempted--;
+            const realized = result.passingNetwork.find(
+              (edge) => edge.passerId === pass.passerId && edge.receiverId === receiverId,
+            );
+            if (realized) realized.attempted++;
+            else
+              result.passingNetwork.push({
+                passerId: pass.passerId,
+                receiverId,
+                attempted: 1,
+                completed: 0,
+              });
+            result.passingNetwork = result.passingNetwork.filter(
+              (edge) => edge.attempted !== 0 || edge.completed !== 0,
+            );
+          }
           const completedEdge = mutableNetwork().find(
             (edge) => edge.passerId === pass.passerId && edge.receiverId === receiverId,
           );
@@ -290,7 +365,7 @@ export const observePlayerMatchStats = (
             result.passingNetwork.push({
               passerId: pass.passerId,
               receiverId,
-              attempted: 0,
+              attempted: 1,
               completed: 1,
             });
           result.assistCandidate = {
@@ -391,6 +466,12 @@ export const playerMatchSummarySchema = playerMatchStatsSchema.pick({
   tacklesAttempted: true,
   tacklesWon: true,
   interceptions: true,
+  possessionWon: true,
+  possessionLost: true,
+  fouls: true,
+  yellowCards: true,
+  redCards: true,
+  offsides: true,
   distanceCovered: true,
   sprintDistance: true,
   sprintBursts: true,
@@ -400,6 +481,36 @@ export const playerMatchSummarySchema = playerMatchStatsSchema.pick({
   catches: true,
   parries: true,
 });
+
+/** Import/export and benchmark validation. All public passes have one canonical target;
+ * a realized completion moves that original attempt to the physical receiver's edge. */
+export const assertMatchStatisticsInvariants = (statistics: MatchStatistics) => {
+  const attempts = new Map<string, number>();
+  const completed = new Map<string, number>();
+  const received = new Map<string, number>();
+  for (const edge of statistics.passingNetwork) {
+    if (
+      edge.passerId === edge.receiverId ||
+      edge.completed > edge.attempted ||
+      edge.attempted < 0 ||
+      edge.completed < 0
+    )
+      throw new Error('Passing network invariant failed: invalid edge or self pass.');
+    attempts.set(edge.passerId, (attempts.get(edge.passerId) ?? 0) + edge.attempted);
+    completed.set(edge.passerId, (completed.get(edge.passerId) ?? 0) + edge.completed);
+    received.set(edge.receiverId, (received.get(edge.receiverId) ?? 0) + edge.completed);
+  }
+  for (const player of statistics.players) {
+    if (
+      (attempts.get(player.playerId) ?? 0) !== player.passesAttempted ||
+      (completed.get(player.playerId) ?? 0) !== player.passesCompleted ||
+      (received.get(player.playerId) ?? 0) !== player.passesReceived ||
+      player.shotsOnTarget > player.shots ||
+      player.tacklesWon > player.tacklesAttempted
+    )
+      throw new Error(`Public statistics invariant failed for ${player.playerId}.`);
+  }
+};
 export const projectPlayerMatchSummary = (statistics: MatchStatistics, playerId: string) =>
   playerMatchSummarySchema.parse(statistics.players.find((entry) => entry.playerId === playerId));
 

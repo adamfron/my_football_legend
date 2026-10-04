@@ -1,4 +1,12 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR149
+# Audyt silnika meczu — PR140 / aktualizacja PR150
+
+PR150: publiczne kontakty opisują ciągły epizod kontroli; wewnętrzne dowody kontaktów
+pozostają szczegółowe. Sieć udanego podania ma rzeczywistego odbiorcę zarówno dla próby,
+jak i ukończenia, z zachowaniem zamierzonego celu w diagnostyce. Rutynowe mikroakcje
+zachowują wybraną intencję, przyjęcie zachowuje pęd, a zagranie do wolnego pola korzysta
+z pozycji i ruchu partnerów. Spalony korzysta z migawki chwili zagrania; wektory UI
+obserwują obecną prędkość. Szczegóły: [PR150_CONTINUOUS_INTENT.md](PR150_CONTINUOUS_INTENT.md)
+i [PR150_ACCOUNTING.md](PR150_ACCOUNTING.md).
 
 PR149: ustalono, że pauza NPC wynika z zachowanego timera skanowania PR148 oraz przypięcia
 właściciela do pozycji. Istniejący `onBallPreparation` ma teraz jawny mikrostan i lokalny ruch,
