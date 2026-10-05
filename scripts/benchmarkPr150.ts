@@ -445,7 +445,7 @@ for (const scenario of config.scenarios)
         preparationPhaseSeconds,
         preparationMovementMetres: summarizeCalibrationDistribution(preparationMovement),
         possessionSeconds,
-        agency: agency.snapshot(state.time),
+        agency: agency.snapshot(state.time, state),
         collectionScope: {
           canonicalStatistics: 'whole_canonical_match',
           agency: 'exact_tick_boundary_observer',

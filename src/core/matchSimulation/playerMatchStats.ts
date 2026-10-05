@@ -6,6 +6,7 @@ import {
   projectControlEpisodes,
 } from './contactEvidence';
 import { startPerformanceSpan, endPerformanceSpan } from './performanceProfiling';
+import { emptyTurnoverCauseCounts, turnoverCauseCountsSchema } from './possessionEvents';
 
 export const teamAccountingSchema = z.object({
   possessionSeconds: z.number().nonnegative(),
@@ -19,6 +20,7 @@ export const teamAccountingSchema = z.object({
   penalties: z.number().int().nonnegative().optional(),
   kickOffs: z.number().int().nonnegative().optional(),
   possessionChanges: z.number().int().nonnegative().optional(),
+  turnoverCauses: turnoverCauseCountsSchema.optional(),
 });
 const emptyTeamAccounting = () => ({
   possessionSeconds: 0,
@@ -31,6 +33,7 @@ const emptyTeamAccounting = () => ({
   penalties: 0,
   kickOffs: 0,
   possessionChanges: 0,
+  turnoverCauses: emptyTurnoverCauseCounts(),
 });
 
 export const playerMatchStatsSchema = z.object({
@@ -50,6 +53,7 @@ export const playerMatchStatsSchema = z.object({
   interceptions: z.number().int().nonnegative(),
   possessionWon: z.number().int().nonnegative(),
   possessionLost: z.number().int().nonnegative(),
+  possessionLossCauses: turnoverCauseCountsSchema.optional(),
   /** Ground/keeper claim of an uncontrolled ball, including a team's own second ball. */
   looseBallRecoveries: z.number().int().nonnegative().default(0),
   /** A physical shot deflection is separate from a challenge and a possession win. */
@@ -75,6 +79,7 @@ export const matchStatisticsSchema = z.object({
   players: z.array(playerMatchStatsSchema),
   /** Stable membership survives dismissal from the active physics roster. */
   playerTeams: z.record(z.string(), z.enum(['home', 'away'])).optional(),
+  playerActiveSince: z.record(z.string(), z.number().nonnegative()).optional(),
   teamAccounting: z.object({ home: teamAccountingSchema, away: teamAccountingSchema }).optional(),
   observedThrough: z.number().nonnegative().optional(),
   observedRestartIds: z.array(z.string()).optional(),
@@ -104,6 +109,7 @@ export const matchStatisticsSchema = z.object({
   ),
   observedAssistGoalIds: z.array(z.string()),
   observedPossessionEvents: z.array(z.string()),
+  observedPossessionLossIds: z.array(z.string()).optional(),
   observedChallengeIds: z.array(z.string()).optional(),
   observedChallengeResultIds: z.array(z.string()).optional(),
   observedRecoveryIds: z.array(z.string()).optional(),
@@ -132,6 +138,9 @@ type IdentityHistory = {
 
 export const createMatchStatistics = (state: TacticalMatchState): MatchStatistics => ({
   playerTeams: Object.fromEntries(state.players.map((player) => [player.id, player.team])),
+  playerActiveSince: Object.fromEntries(
+    state.players.map((player) => [player.id, player.activeSince ?? 0]),
+  ),
   teamAccounting: { home: emptyTeamAccounting(), away: emptyTeamAccounting() },
   observedThrough: state.time,
   observedRestartIds: [],
@@ -153,6 +162,7 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
     interceptions: 0,
     possessionWon: 0,
     possessionLost: 0,
+    possessionLossCauses: emptyTurnoverCauseCounts(),
     looseBallRecoveries: 0,
     blocks: 0,
     duelsWon: 0,
@@ -178,6 +188,7 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
   passingNetwork: [],
   observedAssistGoalIds: [],
   observedPossessionEvents: [],
+  observedPossessionLossIds: [],
   observedChallengeIds: [],
   observedChallengeResultIds: [],
   observedRecoveryIds: [],
@@ -196,6 +207,7 @@ const resumeTeamAccounting = (statistics: MatchStatistics, side: 'home' | 'away'
   return {
     ...emptyTeamAccounting(),
     ...previous,
+    turnoverCauses: { ...emptyTurnoverCauseCounts(), ...previous?.turnoverCauses },
     goalKicks: previous?.goalKicks ?? countAwards(['goal_kick', 'gk_short']),
     penalties: previous?.penalties ?? countAwards(['penalty']),
     kickOffs: previous?.kickOffs ?? countAwards(['kick_off']),
@@ -229,6 +241,21 @@ export const observePlayerMatchStats = (
           ...previous.players.map((player) => [player.id, player.team]),
           ...next.players.map((player) => [player.id, player.team]),
         ]),
+      playerActiveSince: {
+        ...statistics.playerActiveSince,
+        ...Object.fromEntries(
+          previous.players.map((player) => [
+            player.id,
+            player.activeSince ?? statistics.playerActiveSince?.[player.id] ?? 0,
+          ]),
+        ),
+        ...Object.fromEntries(
+          next.players.map((player) => [
+            player.id,
+            player.activeSince ?? statistics.playerActiveSince?.[player.id] ?? 0,
+          ]),
+        ),
+      },
       teamAccounting: {
         home: resumeTeamAccounting(statistics, 'home'),
         away: resumeTeamAccounting(statistics, 'away'),
@@ -243,6 +270,16 @@ export const observePlayerMatchStats = (
         (previous.lastChallenge ? [previous.lastChallenge.id] : []),
     };
     const accounting = result.teamAccounting!;
+    const newcomers = next.players.filter(
+      (player) => !result.players.some((entry) => entry.playerId === player.id),
+    );
+    if (newcomers.length) {
+      result.players.push(...createMatchStatistics({ ...next, players: newcomers }).players);
+      result.playerTeams = {
+        ...result.playerTeams,
+        ...Object.fromEntries(newcomers.map((player) => [player.id, player.team])),
+      };
+    }
     const elapsed = Math.max(
       0,
       next.time - Math.max(previous.time, statistics.observedThrough ?? previous.time),
@@ -259,18 +296,22 @@ export const observePlayerMatchStats = (
     )
       accounting[previous.possessionTeam].possessionSeconds += elapsed;
     const restart = next.restart;
-    if (restart) {
-      const id = `${next.seed}:restart:${restart.startedAt}:${restart.restartTeam}:${next.scenario}`;
+    const award = next.lastRestartAward;
+    if (award || restart) {
+      const id =
+        award?.id ??
+        `${next.seed}:restart:${restart!.startedAt}:${restart!.restartTeam}:${next.scenario}`;
       if (!containsIdentity(result.observedRestartIds ?? [], id)) {
         result.observedRestartIds = [...(result.observedRestartIds ?? []), id];
-        const team = accounting[restart.restartTeam];
-        if (next.scenario === 'corner') team.corners++;
-        if (next.scenario.startsWith('free_kick')) team.freeKicks++;
-        if (next.scenario === 'throw_in') team.throwIns++;
-        if (next.scenario === 'goal_kick' || next.scenario === 'gk_short')
+        const team = accounting[award?.team ?? restart!.restartTeam];
+        const scenario = award?.scenario ?? next.scenario;
+        if (scenario === 'corner') team.corners++;
+        if (scenario.startsWith('free_kick')) team.freeKicks++;
+        if (scenario === 'throw_in') team.throwIns++;
+        if (scenario === 'goal_kick' || scenario === 'gk_short')
           team.goalKicks = (team.goalKicks ?? 0) + 1;
-        if (next.scenario === 'penalty') team.penalties = (team.penalties ?? 0) + 1;
-        if (next.scenario === 'kick_off') team.kickOffs = (team.kickOffs ?? 0) + 1;
+        if (scenario === 'penalty') team.penalties = (team.penalties ?? 0) + 1;
+        if (scenario === 'kick_off') team.kickOffs = (team.kickOffs ?? 0) + 1;
       }
     }
     const offside = next.lastOffsideOffence;
@@ -293,7 +334,13 @@ export const observePlayerMatchStats = (
       return result.passingNetwork;
     };
     const playersById = new Map(result.players.map((entry) => [entry.playerId, entry]));
-    const stats = (id: string) => playersById.get(id);
+    const stats = (id: string, at = next.time) => {
+      const sentOffAt = next.discipline?.[id]?.sentOffAt;
+      return (sentOffAt === undefined || at <= sentOffAt) &&
+        at >= (result.playerActiveSince?.[id] ?? 0)
+        ? playersById.get(id)
+        : undefined;
+    };
     if (newOffsidePlayerId) {
       const offender = stats(newOffsidePlayerId);
       if (offender) offender.offsides = (offender.offsides ?? 0) + 1;
@@ -306,10 +353,12 @@ export const observePlayerMatchStats = (
       entry.looseBallRecoveries ??= 0;
       entry.blocks ??= 0;
       entry.duelsWon ??= 0;
+      entry.possessionLossCauses = { ...emptyTurnoverCauseCounts(), ...entry.possessionLossCauses };
     }
     for (const player of next.players) {
       const entry = stats(player.id)!;
-      entry.minutesPlayed = next.time / 60;
+      entry.minutesPlayed =
+        Math.max(0, next.time - (result.playerActiveSince?.[player.id] ?? 0)) / 60;
       const running = player.locomotionTelemetry;
       if (running) {
         entry.distanceCovered = running.distanceTotal;
@@ -323,7 +372,8 @@ export const observePlayerMatchStats = (
     for (const entry of result.players) {
       const sentOffAt = next.discipline?.[entry.playerId]?.sentOffAt;
       if (sentOffAt !== undefined) {
-        entry.minutesPlayed = sentOffAt / 60;
+        entry.minutesPlayed =
+          Math.max(0, sentOffAt - (result.playerActiveSince?.[entry.playerId] ?? 0)) / 60;
         if (sentOffAt !== previous.discipline?.[entry.playerId]?.sentOffAt) {
           // The player moved earlier in this tick before the referee removed the active body.
           // showCard retains that final telemetry; subsequent observations keep it frozen.
@@ -352,7 +402,7 @@ export const observePlayerMatchStats = (
       statistics.activeControlEpisode,
     );
     for (const episode of control.started) {
-      const player = stats(episode.playerId);
+      const player = stats(episode.playerId, episode.startedAt);
       if (player) player.touches++;
     }
     const physicalContact = next.lastBallContact;
@@ -376,7 +426,8 @@ export const observePlayerMatchStats = (
       const carryId = `${next.seed}:carry:${next.ballCarrierIntent.startedAt}:${action.actorId}`;
       if (!containsIdentity(result.observedCarryIds, carryId)) {
         appendIdentity('observedCarryIds', carryId);
-        stats(action.actorId)!.carries++;
+        const carrier = stats(action.actorId, next.ballCarrierIntent.startedAt);
+        if (carrier) carrier.carries++;
       }
     }
     // A preselected human reception action can release the next pass in the same physics tick.
@@ -396,7 +447,9 @@ export const observePlayerMatchStats = (
       }
       if (pass && !containsIdentity(result.observedPassAttemptIds, pass.passId)) {
         appendIdentity('observedPassAttemptIds', pass.passId);
-        stats(pass.passerId)!.passesAttempted++;
+        const passer = stats(pass.passerId, pass.releasedAt);
+        if (!passer) continue;
+        passer.passesAttempted++;
         const edge = mutableNetwork().find(
           (edge) => edge.passerId === pass.passerId && edge.receiverId === pass.intendedReceiverId,
         );
@@ -417,9 +470,12 @@ export const observePlayerMatchStats = (
           pass.resolvedAt !== undefined &&
           (pass.actualReceiverId ?? pass.intendedReceiverId) !== pass.passerId
         ) {
-          stats(pass.passerId)!.passesCompleted++;
+          const passer = stats(pass.passerId, pass.releasedAt);
           const receiverId = pass.actualReceiverId ?? pass.intendedReceiverId;
-          stats(receiverId)!.passesReceived++;
+          const receiver = stats(receiverId, pass.resolvedAt);
+          if (!passer || !receiver) continue;
+          passer.passesCompleted++;
+          receiver.passesReceived++;
           // A completed edge describes the realized football relationship. Reattribute the
           // original attempt, rather than inventing an attempt for the physical receiver.
           // The selected target remains canonically recorded in the pass diagnostic.
@@ -466,17 +522,17 @@ export const observePlayerMatchStats = (
     const shot = next.ball.shot ?? next.lastShot;
     if (shot && !containsIdentity(result.observedShotIds, shot.shotId)) {
       appendIdentity('observedShotIds', shot.shotId);
-      const shooter = stats(shot.shooterId)!;
-      shooter.shots++;
+      const shooter = stats(shot.shooterId, shot.releasedAt ?? next.time);
+      if (shooter) shooter.shots++;
     }
     const shotResult = next.lastShot;
     if (shotResult?.outcome && !containsIdentity(result.observedShotResultIds, shotResult.shotId)) {
       const shot = shotResult;
       appendIdentity('observedShotResultIds', shot.shotId);
-      const shooter = stats(shot.shooterId)!;
+      const shooter = stats(shot.shooterId, shot.releasedAt ?? next.time);
       // Posts and crossbars which stay out are off-target. Blocks are a separate outcome.
-      if (['goal', 'save'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
-      if (shot.outcome === 'goal') shooter.goals++;
+      if (shooter && ['goal', 'save'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
+      if (shooter && shot.outcome === 'goal') shooter.goals++;
       if (shot.outcome === 'block') {
         const team = result.playerTeams?.[shot.shooterId];
         if (team) accounting[team].blockedShots++;
@@ -487,7 +543,8 @@ export const observePlayerMatchStats = (
         result.assistCandidate.passerId !== shot.shooterId &&
         !containsIdentity(result.observedAssistGoalIds, shot.shotId)
       ) {
-        stats(result.assistCandidate.passerId)!.assists++;
+        const provider = stats(result.assistCandidate.passerId, shot.releasedAt ?? next.time);
+        if (provider) provider.assists++;
         appendIdentity('observedAssistGoalIds', shot.shotId);
       }
       const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
@@ -511,14 +568,17 @@ export const observePlayerMatchStats = (
     for (const challenge of [next.defensiveChallenge, next.lastChallenge]) {
       if (!challenge || containsIdentity(result.observedChallengeIds ?? [], challenge.id)) continue;
       appendIdentity('observedChallengeIds', challenge.id);
-      const challenger = stats(challenge.actorId);
+      const challenger = stats(
+        challenge.actorId,
+        'startedAt' in challenge ? challenge.startedAt : challenge.at,
+      );
       if (challenger) challenger.tacklesAttempted++;
     }
     const challenge = next.lastChallenge;
     if (challenge && !containsIdentity(result.observedChallengeResultIds ?? [], challenge.id)) {
       appendIdentity('observedChallengeResultIds', challenge.id);
       if (challenge.outcome === 'clean_win') {
-        const challenger = stats(challenge.actorId);
+        const challenger = stats(challenge.actorId, challenge.at);
         if (challenger) {
           challenger.tacklesWon++;
           challenger.duelsWon++;
@@ -543,10 +603,24 @@ export const observePlayerMatchStats = (
     const recovery = next.lastBallRecovery;
     if (recovery && !containsIdentity(result.observedRecoveryIds ?? [], recovery.id)) {
       appendIdentity('observedRecoveryIds', recovery.id);
-      const winner = stats(recovery.playerId);
+      const winner = stats(recovery.playerId, recovery.at);
       if (winner) winner.looseBallRecoveries++;
     }
     const change = next.lastPossessionChange;
+    const loss = next.lastPossessionLoss;
+    if (loss && !containsIdentity(result.observedPossessionLossIds ?? [], loss.id)) {
+      appendIdentity('observedPossessionLossIds', loss.id);
+      accounting[loss.from].turnoverCauses![loss.cause]++;
+      const loser = loss.loserId ? stats(loss.loserId, loss.at) : undefined;
+      if (loser) {
+        loser.possessionLost++;
+        loser.possessionLossCauses![loss.cause]++;
+      }
+      const candidateTeam = result.assistCandidate
+        ? result.playerTeams?.[result.assistCandidate.scorerId]
+        : undefined;
+      if (candidateTeam && loss.to !== candidateTeam) delete result.assistCandidate;
+    }
     const eventId = change
       ? `${change.at}:${change.from}:${change.to}:${change.cause}${change.winnerId ? `:${change.winnerId}` : ''}`
       : undefined;
@@ -554,14 +628,20 @@ export const observePlayerMatchStats = (
       appendIdentity('observedPossessionEvents', eventId);
       accounting[change.to].possessionChanges = (accounting[change.to].possessionChanges ?? 0) + 1;
       const winnerId = change.winnerId ?? next.ball.ownerId;
-      const winner = winnerId ? stats(winnerId) : undefined;
+      const winner = winnerId ? stats(winnerId, change.at) : undefined;
       if (winner) {
         winner.possessionWon++;
-        if (change.cause === 'interception') winner.interceptions++;
+        if (
+          loss && loss.at === change.at
+            ? loss.cause === 'interception'
+            : change.cause === 'interception'
+        )
+          winner.interceptions++;
       }
       const loserId = change.winnerId ? change.loserId : (change.loserId ?? previous.ball.ownerId);
-      const loser = loserId ? stats(loserId) : undefined;
-      if (loser) loser.possessionLost++;
+      const loser = loserId ? stats(loserId, change.at) : undefined;
+      if (loser && (!loss || loss.at !== change.at || loss.from !== change.from))
+        loser.possessionLost++;
       // A controlled opponent possession invalidates the direct-provider chain. A later reclaim is
       // a new attacking sequence and cannot revive the old pass.
       const candidateTeam = result.assistCandidate
@@ -592,6 +672,7 @@ export const playerMatchSummarySchema = playerMatchStatsSchema.pick({
   interceptions: true,
   possessionWon: true,
   possessionLost: true,
+  possessionLossCauses: true,
   looseBallRecoveries: true,
   blocks: true,
   duelsWon: true,
@@ -611,7 +692,10 @@ export const playerMatchSummarySchema = playerMatchStatsSchema.pick({
 
 /** Import/export and benchmark validation. All public passes have one canonical target;
  * a realized completion moves that original attempt to the physical receiver's edge. */
-export const assertMatchStatisticsInvariants = (statistics: MatchStatistics) => {
+export const assertMatchStatisticsInvariants = (
+  statistics: MatchStatistics,
+  state?: TacticalMatchState,
+) => {
   const attempts = new Map<string, number>();
   const completed = new Map<string, number>();
   const received = new Map<string, number>();
@@ -632,6 +716,7 @@ export const assertMatchStatisticsInvariants = (statistics: MatchStatistics) => 
       (attempts.get(player.playerId) ?? 0) !== player.passesAttempted ||
       (completed.get(player.playerId) ?? 0) !== player.passesCompleted ||
       (received.get(player.playerId) ?? 0) !== player.passesReceived ||
+      player.passesCompleted > player.passesAttempted ||
       player.passesReceived > player.touches ||
       player.shotsOnTarget > player.shots ||
       player.goals > player.shotsOnTarget ||
@@ -639,6 +724,41 @@ export const assertMatchStatisticsInvariants = (statistics: MatchStatistics) => 
       player.tacklesWon > player.tacklesAttempted
     )
       throw new Error(`Public statistics invariant failed for ${player.playerId}.`);
+    if (
+      player.possessionLossCauses &&
+      Object.values(player.possessionLossCauses).reduce((sum, count) => sum + count, 0) >
+        player.possessionLost
+    )
+      throw new Error(`Possession loss attribution invariant failed for ${player.playerId}.`);
+    const sentOffAt = state?.discipline?.[player.playerId]?.sentOffAt;
+    if (
+      sentOffAt !== undefined &&
+      player.minutesPlayed >
+        Math.max(0, sentOffAt - (statistics.playerActiveSince?.[player.playerId] ?? 0)) / 60 + 1e-9
+    )
+      throw new Error(`Dismissed player minutes invariant failed for ${player.playerId}.`);
+  }
+  if (
+    state &&
+    statistics.activeControlEpisode &&
+    !state.players.some((player) => player.id === statistics.activeControlEpisode!.playerId)
+  )
+    throw new Error('Inactive player control episode invariant failed.');
+  for (const side of ['home', 'away'] as const) {
+    const causes = statistics.teamAccounting?.[side].turnoverCauses;
+    if (!causes) continue;
+    for (const cause of Object.keys(causes) as (keyof typeof causes)[]) {
+      const attributed = statistics.players.reduce(
+        (sum, player) =>
+          sum +
+          (statistics.playerTeams?.[player.playerId] === side
+            ? (player.possessionLossCauses?.[cause] ?? 0)
+            : 0),
+        0,
+      );
+      if (attributed > causes[cause])
+        throw new Error(`Team loss attribution invariant failed for ${side}:${cause}.`);
+    }
   }
 };
 export const projectPlayerMatchSummary = (statistics: MatchStatistics, playerId: string) =>

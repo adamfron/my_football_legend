@@ -483,13 +483,30 @@ describe('PR150 first-class spatial intent and canonical execution', () => {
     expect(next.lastPassDiagnostic).toMatchObject({
       passId: failedPassId,
       resolvedAt: next.time,
-      finalResult: 'unclaimed',
+      finalResult: 'out_of_play',
     });
     expect(next.lastResolvedPass).toEqual(next.lastPassDiagnostic);
     expect(next.lastResolvedPass?.actualContactPoint).toBeUndefined();
+    expect(next.lastPossessionLoss).toMatchObject({
+      cause: 'pass_out',
+      from: 'home',
+      to: 'away',
+      loserId: passer.id,
+      passId: failedPassId,
+      restartId: next.lastRestartAward!.id,
+    });
+    expect(next.lastRestartAward).toMatchObject({
+      scenario: 'throw_in',
+      cause: 'boundary',
+      team: 'away',
+      lossId: next.lastPossessionLoss!.id,
+    });
+    expect(next.statistics?.teamAccounting?.home.turnoverCauses?.pass_out).toBe(1);
     expect(next.statistics?.players.find((entry) => entry.playerId === passer.id)).toMatchObject({
       passesAttempted: 1,
       passesCompleted: 0,
+      possessionLost: 1,
+      possessionLossCauses: { pass_out: 1 },
     });
     expect(next.statistics?.observedPassResultIds.filter((id) => id === failedPassId)).toHaveLength(
       1,

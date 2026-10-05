@@ -328,7 +328,7 @@ for (const scenario of config.scenarios)
         preparationPhaseSeconds,
         preparationMovementMetres: summarizeCalibrationDistribution(preparationMovement),
         possessionSeconds,
-        agency: agency.snapshot(state.time),
+        agency: agency.snapshot(state.time, state),
         controlled: controlled
           ? {
               position: session.home.players.find(

@@ -1,5 +1,11 @@
 # Match Behaviour & Calibration — PR145
 
+The expanded PR152 follow-up adds causal turnover/restart accounting, active-player agency
+rates and contextual defensive calibration. Shared challenge selection tests ball access
+before risky commitment; missed standing pokes no longer become fouls from proximity alone.
+New evidence and limits supersede the earlier PR152 discipline audit where they differ:
+[PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
+
 PR152 updates the canonical participation/accounting contracts without role-specific touch
 quotas or a new presentation cadence. Public contacts remain continuous episodes; tackle
 commitments/results share stable identities, and restart deliveries are included in live

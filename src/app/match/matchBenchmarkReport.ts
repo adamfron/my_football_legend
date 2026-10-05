@@ -55,6 +55,7 @@ export const createSessionTelemetryReport = (options: {
   presentation: PresentationRuntimeTelemetry;
   state?: TacticalMatchState;
   participation?: CanonicalParticipationCoverage;
+  measuredPosition?: string | undefined;
 }) => {
   const coverage = options.coverage.map((interval) => ({
     ...interval,
@@ -81,7 +82,13 @@ export const createSessionTelemetryReport = (options: {
     },
     matchFlowTelemetry: collected ? options.flow : null,
     canonicalSanity: options.state
-      ? projectCanonicalMatchSanity(options.state, options.presentation, options.participation)
+      ? projectCanonicalMatchSanity(
+          options.state,
+          options.presentation,
+          options.participation,
+          undefined,
+          options.measuredPosition,
+        )
       : null,
     decisionTelemetry: collected ? options.flow.controlled : null,
     playerAgency: collected ? options.agency : null,

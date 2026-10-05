@@ -1,5 +1,11 @@
 # Audyt silnika meczu — PR140 / aktualizacja PR152
 
+Rozszerzony prompt PR152: przyczyna straty i przyznanie wznowienia mają oddzielne kanoniczne
+fakty. Publiczne epizody kontroli nie naliczają przypadkowych bloków/parad. Aktywne minuty
+ograniczają wskaźniki decyzji; dostęp do piłki ogranicza autonomiczne ryzykowne wejścia.
+Aktualne definicje, macierz regresji i wyniki:
+[PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
+
 PR152: audyt rozdziela udział w kanonicznym futbolu, oczekującą decyzję człowieka i widoczne
 ujęcia. Usunięto rezerwowanie strzału/dośrodkowania, pierwszego kontaktu, wznowienia i wyboru
 obronnego wyłącznie na podstawie tożsamości sterowania. Rzeczywista decyzja i wybrana intencja

@@ -10,6 +10,7 @@ import * as canonicalWindows from '../src/core/matchSimulation/presentationWindo
 import * as canonicalFlow from '../src/core/matchSimulation/matchFlowTelemetry';
 import * as canonicalAgency from '../src/core/matchSimulation/playerAgency';
 import { assertMatchStatisticsInvariants } from '../src/core/matchSimulation/playerMatchStats';
+import { MatchDebugRecorder } from '../src/app/match/matchDebugCapture';
 import {
   CanonicalParticipationTracker,
   canonicalMatchSanitySchema,
@@ -19,8 +20,59 @@ import {
 export const pr152RunConfigSchema = z.object({
   minutes: z.number().positive().max(90).default(45),
   variant: z.enum(['surfaced', 'controlled_autonomous', 'npc']).default('surfaced'),
-  observerMode: z.enum(['normal', 'dev']).default('normal'),
+  observerMode: z.enum(['normal', 'dev', 'capture']).default('normal'),
+  presentationPolicy: canonicalMoments.matchPresentationPolicySchema.shape.id.default('key_player'),
 });
+export const pr152BenchmarkConfigSchema = z.object({
+  minutes: z.array(z.coerce.number().positive().max(90)).nonempty(),
+  seeds: z.array(z.string().min(1)).nonempty(),
+  scenarios: z
+    .array(z.enum(['balanced-balanced', 'weak-strong', 'aggressive-defenders']))
+    .nonempty(),
+  positions: z.array(z.enum(['central_midfielder', 'left_back', 'striker'])).nonempty(),
+  variants: z.array(pr152RunConfigSchema.shape.variant).nonempty(),
+  observerModes: z.array(pr152RunConfigSchema.shape.observerMode).nonempty(),
+  presentationPolicies: z.array(pr152RunConfigSchema.shape.presentationPolicy).nonempty(),
+  repeats: z.coerce.number().int().min(1).max(3).default(1),
+  revision: z.string(),
+  allowInvariantFailures: z.boolean().default(false),
+});
+/** --matrix=quick is a structural smoke sample; acceptance uses full halves.
+ * Explicit flags always override presets, and --position remains supported. */
+export const createPr152BenchmarkConfig = (argv: string[]) => {
+  const args = new Map(
+    argv.map((arg) => {
+      const [key, ...value] = arg.replace(/^--/, '').split('=');
+      return [key, value.join('=')];
+    }),
+  );
+  const matrix = args.get('matrix');
+  if (matrix && !['quick', 'acceptance'].includes(matrix))
+    throw new Error(`Unknown matrix: ${matrix}`);
+  const allRoles = 'central_midfielder,left_back,striker';
+  return pr152BenchmarkConfigSchema.parse({
+    minutes: (args.get('minutes') ?? (matrix === 'quick' ? '3' : matrix ? '45' : '45,90')).split(
+      ',',
+    ),
+    seeds: (args.get('seeds') ?? (matrix === 'quick' ? 'a,b' : 'a,b,c')).split(','),
+    scenarios: (
+      args.get('scenarios') ?? (matrix ? 'balanced-balanced,weak-strong' : 'balanced-balanced')
+    ).split(','),
+    positions: (
+      args.get('positions') ??
+      args.get('position') ??
+      (matrix ? allRoles : 'central_midfielder')
+    ).split(','),
+    variants: (args.get('variants') ?? 'surfaced').split(','),
+    observerModes: (args.get('observer-modes') ?? (matrix ? 'normal,capture' : 'normal')).split(
+      ',',
+    ),
+    presentationPolicies: (args.get('policies') ?? 'key_player').split(','),
+    repeats: args.get('repeats'),
+    revision: args.get('revision') ?? 'working-tree',
+    allowInvariantFailures: args.has('allow-invariant-failures'),
+  });
+};
 export type Pr152EngineModules = {
   engine: typeof canonicalEngine;
   decisions: typeof canonicalDecisions;
@@ -62,6 +114,7 @@ export const pr152RunResultSchema = z.object({
   requestedMinutes: z.number().positive(),
   variant: pr152RunConfigSchema.shape.variant,
   observerMode: pr152RunConfigSchema.shape.observerMode,
+  presentationPolicy: pr152RunConfigSchema.shape.presentationPolicy,
   fixture: z.object({
     playerId: z.string(),
     position: z.string(),
@@ -92,6 +145,11 @@ export const pr152RunResultSchema = z.object({
     defendingThirdSeconds: z.number().nonnegative(),
   }),
   invariantFailures: z.array(z.string()),
+  foulSeverity: z.object({
+    ordinary: z.number().int().nonnegative(),
+    reckless: z.number().int().nonnegative(),
+    excessive_force: z.number().int().nonnegative(),
+  }),
   hashes: z.object({
     canonicalState: z.string().length(64),
     statistics: z.string().length(64),
@@ -104,8 +162,10 @@ export const pr152RunResultSchema = z.object({
     canonicalSpeed: z.number().nonnegative(),
     hiddenSpeed: z.number().nullable(),
     ticks: z.number().int().nonnegative(),
-    rendererCallsBackground: z.literal(0),
+    rendererCallsBackground: z.null(),
+    rendererEvidence: z.literal('headless_unavailable_use_RunningLab_instrumentation'),
     detailedObserverCalls: z.number().int().nonnegative(),
+    captureRecorderCalls: z.number().int().nonnegative(),
   }),
 });
 export type Pr152RunResult = z.infer<typeof pr152RunResultSchema>;
@@ -132,19 +192,24 @@ export const runPr152MatchSanity = (
   }
   const participation = new CanonicalParticipationTracker();
   const runtime = presentation.createPresentationRuntimeTelemetry();
-  const policy = moments.MATCH_PRESENTATION_POLICIES.key_player;
+  const policy = moments.MATCH_PRESENTATION_POLICIES[config.presentationPolicy];
   let episode: canonicalPresentation.MatchMomentEpisode | undefined;
   let consequence: canonicalWindows.ConsequenceWindow | undefined;
-  let visible = false;
+  let visible = policy.fullMatch;
+  if (visible) runtime.episodesPresented++;
   let hiddenBatchStart = performance.now();
   let hiddenWorkMs = 0;
   let ticks = 0;
   let detailedObserverCalls = 0;
-  let detailedFlow = config.observerMode === 'dev' ? flow.createMatchFlowTelemetry() : undefined;
+  let captureRecorderCalls = 0;
+  const recorder = config.observerMode === 'capture' ? new MatchDebugRecorder() : undefined;
+  let detailedFlow = config.observerMode !== 'normal' ? flow.createMatchFlowTelemetry() : undefined;
   const detailedAgency =
-    config.observerMode === 'dev' ? new agency.PlayerAgencyTracker() : undefined;
+    config.observerMode !== 'normal' ? new agency.PlayerAgencyTracker() : undefined;
   const timeline = createHash('sha256');
   let lastEventId: string | undefined;
+  let lastFoulId: string | undefined;
+  const foulSeverity = { ordinary: 0, reckless: 0, excessive_force: 0 };
   const positional = {
     samples: 0,
     meanX: null as number | null,
@@ -173,6 +238,10 @@ export const runPr152MatchSanity = (
   const observeTransition = (before: TacticalMatchState, after: TacticalMatchState) => {
     participation.observe(before, after, !visible, playerId);
     const seconds = Math.max(0, after.time - before.time);
+    if (after.lastFoul && after.lastFoul.id !== lastFoulId) {
+      foulSeverity[after.lastFoul.severity]++;
+      lastFoulId = after.lastFoul.id;
+    }
     if (visible) runtime.visibleCanonicalSeconds += seconds;
     else runtime.hiddenCanonicalSeconds += seconds;
     const events = after.actionEvents ?? [];
@@ -206,6 +275,12 @@ export const runPr152MatchSanity = (
       detailedFlow = flow.observeMatchFlow(detailedFlow, before, after);
       detailedObserverCalls++;
     }
+    if (recorder) {
+      captureRecorderCalls++;
+      recorder.record(after);
+      if (recorder.lastObservationError)
+        invariantFailures.add(`capture_observer:${recorder.lastObservationError}`);
+    }
   };
   const started = performance.now();
   hiddenBatchStart = started;
@@ -214,7 +289,7 @@ export const runPr152MatchSanity = (
       state = engine.startSecondHalf(state);
       consequence = undefined;
       episode = undefined;
-      setVisible(false);
+      setVisible(policy.fullMatch);
     }
     if (state.status === 'full_time') throw new Error('Match ended before requested duration');
     const projection =
@@ -231,14 +306,15 @@ export const runPr152MatchSanity = (
         setVisible(true);
       }
       participation.markVisiblePlayerInvolvement();
-      consequence = windows.createConsequenceWindow(state, projection.opportunity.actorId);
+      if (!policy.fullMatch)
+        consequence = windows.createConsequenceWindow(state, projection.opportunity.actorId);
       const before = state;
       state = decisions.resolveDevPlayerDecision(state, projection.opportunity).state;
       if (state === before) throw new Error(`DEV selection failed ${projection.opportunity.id}`);
       observeTransition(before, state);
       continue;
     }
-    if (config.variant === 'surfaced') {
+    if (!policy.fullMatch) {
       if (consequence) {
         const result = windows.observeConsequenceWindow(consequence, state);
         consequence = result.window;
@@ -297,7 +373,13 @@ export const runPr152MatchSanity = (
       invariantFailures.add(error instanceof Error ? error.message : String(error));
     }
   }
-  const canonical = projectCanonicalMatchSanity(state, runtime, participation.snapshot(), playerId);
+  const canonical = projectCanonicalMatchSanity(
+    state,
+    runtime,
+    participation.snapshot(),
+    playerId,
+    selected.profile.primaryPosition,
+  );
   if (!canonical) throw new Error('Canonical statistics unavailable');
   const finalStatistics = state.statistics;
   // Compare football behavior while preserving full raw-state hashes separately. Autonomous
@@ -327,6 +409,7 @@ export const runPr152MatchSanity = (
     targetReached: state.time + 1e-7 >= target,
     completionReason: state.status === 'abandoned' ? 'abandoned' : 'requested_duration',
     observerMode: config.observerMode,
+    presentationPolicy: config.presentationPolicy,
     status: state.status,
     score: state.score,
     canonical,
@@ -340,6 +423,7 @@ export const runPr152MatchSanity = (
     },
     positionalInvolvement: positional,
     invariantFailures: [...invariantFailures].sort(),
+    foulSeverity,
     hashes: {
       canonicalState: pr152Fingerprint(state),
       statistics: pr152Fingerprint(finalStatistics),
@@ -352,8 +436,10 @@ export const runPr152MatchSanity = (
       canonicalSpeed: (state.time * 1000) / elapsedMs,
       hiddenSpeed: hiddenWorkMs ? (runtime.hiddenCanonicalSeconds * 1000) / hiddenWorkMs : null,
       ticks,
-      rendererCallsBackground: 0,
+      rendererCallsBackground: null,
+      rendererEvidence: 'headless_unavailable_use_RunningLab_instrumentation',
       detailedObserverCalls,
+      captureRecorderCalls,
     },
   });
   if (

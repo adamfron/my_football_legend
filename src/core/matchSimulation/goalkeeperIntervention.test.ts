@@ -176,8 +176,22 @@ describe('physical goalkeeper intervention projection', () => {
     expect(state.ball.velocity!.x).toBeLessThan(0);
     expect(state.score.home).toBe(0);
     expect(state.statistics?.players.find((entry) => entry.playerId === keeper.id)).toMatchObject({
-      touches: 1,
+      touches: 0,
       saves: 0,
+      catches: 0,
+      parries: 0,
+      possessionWon: 0,
     });
+    expect(state.ball.ownerId).toBeUndefined();
+    expect(state.statistics?.activeControlEpisode?.playerId).not.toBe(keeper.id);
+    expect(state.statistics?.observedContactIds).toContain(
+      `${state.seed}:contact:${keeper.id}:${state.lastBallContact!.at.toFixed(6)}`,
+    );
+    expect(state.pendingPossessionLoss).toMatchObject({
+      actorId: shooter.id,
+      cause: 'shot',
+      team: 'home',
+    });
+    expect(state.lastPossessionLoss).toBeUndefined();
   });
 });

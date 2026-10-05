@@ -131,6 +131,8 @@ export const awardOffsideRestart = (
   const next = applyRestartScenario(cleaned, 'free_kick_far', {
     restartTeam,
     restartPoint: clampPitchPoint(point),
+    cause: 'offside',
+    loserId: snapshot.passerId,
   });
   return {
     ...next,

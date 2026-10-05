@@ -81,6 +81,11 @@ import {
 } from './defensiveChallenges';
 import { advanceMatchRules, applyChallengeInfringement, enforceMinimumPlayers } from './matchRules';
 import { emitCanonicalActionEvents } from './actionEvents';
+import {
+  isInaccuratePassCollection,
+  recordPossessionLoss,
+  restartAwardId,
+} from './possessionEvents';
 
 const transitionPhase = (owns: boolean): MatchPhase =>
   owns ? 'attacking_transition' : 'defensive_transition';
@@ -102,9 +107,9 @@ const applyBoundaryRestart = (
   // that failed result before the restart's next release replaces lastPassDiagnostic.
   const unresolvedPass =
     state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
-      ? { ...state.lastPassDiagnostic, resolvedAt: state.time, finalResult: 'unclaimed' as const }
+      ? { ...state.lastPassDiagnostic, resolvedAt: state.time, finalResult: 'out_of_play' as const }
       : undefined;
-  const resolvedState = unresolvedPass
+  let resolvedState = unresolvedPass
     ? { ...state, lastPassDiagnostic: unresolvedPass, lastResolvedPass: unresolvedPass }
     : state;
   const last = state.players.find((p) => p.id === state.ball.lastTouchPlayerId);
@@ -124,9 +129,30 @@ const applyBoundaryRestart = (
     : last?.team === (crossing.boundary === 'goal_line_home' ? 'home' : 'away')
       ? ('corner' as const)
       : ('goal_kick' as const);
+  const pass = resolvedState.lastPassDiagnostic;
+  const pending = resolvedState.pendingPossessionLoss;
+  const untouchedPass = Boolean(
+    pass &&
+      state.ball.lastTouchPlayerId === pass.passerId &&
+      (unresolvedPass || (pending?.cause === 'bad_pass' && pending.passId === pass.passId)),
+  );
+  resolvedState = recordPossessionLoss(resolvedState, {
+    key: `boundary:${state.time.toFixed(6)}:${crossing.boundary}`,
+    to: restartTeam,
+    cause:
+      pending?.cause === 'heavy_touch' || pending?.cause === 'failed_control'
+        ? pending.cause
+        : untouchedPass
+          ? 'pass_out'
+          : (pending?.cause ?? (state.ball.shot ? 'shot' : 'other')),
+    loserId: pending?.actorId ?? (untouchedPass ? pass?.passerId : state.ball.lastTouchPlayerId),
+    ...(pass && (untouchedPass || pending?.passId === pass.passId) ? { passId: pass.passId } : {}),
+    restartId: restartAwardId(state, restartTeam, scenario),
+  });
   return {
     ...applyRestartScenario(resolvedState, scenario, {
       restartTeam,
+      cause: 'boundary',
       ...(scenario === 'throw_in' ? { restartPoint: crossing.point } : {}),
     }),
     lastBoundaryRestart: scenario,
@@ -280,7 +306,11 @@ const tryIncomingFinish = (
       actualContactPoint: { x: state.ball.x, y: state.ball.y },
       resolvedAt: state.time,
       ...(teammateContact ? { actualReceiverId: actorId } : {}),
-      finalResult: teammateContact ? 'completed' : 'intercepted',
+      finalResult: teammateContact
+        ? 'completed'
+        : isInaccuratePassCollection(ready)
+          ? 'inaccurate'
+          : 'intercepted',
     };
   if (ready.lastPassDiagnostic?.finalResult) ready.lastResolvedPass = ready.lastPassDiagnostic;
   if (contactActor && contactActor.team !== ready.possessionTeam) {
@@ -388,6 +418,9 @@ const changePossession = (
         : {}),
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
+    // A teammate reclaim restores the same team's attack. A heavy contact is not counted as
+    // a loss unless an opponent actually acquires the ball or it exits for their restart.
+    delete next.pendingPossessionLoss;
     if (next.lastPassDiagnostic?.finalResult && next.lastPassDiagnostic.resolvedAt === state.time)
       next.lastResolvedPass = next.lastPassDiagnostic;
     if (
@@ -403,6 +436,14 @@ const changePossession = (
       next.onBallPreparation = recoveryReadiness;
     }
     if (reception?.kind === 'heavy_touch' || reception?.kind === 'failed_control') {
+      next.pendingPossessionLoss = {
+        id: `${state.seed}:control-error:${state.time.toFixed(6)}:${ownerId}`,
+        at: state.time,
+        team: owner.team,
+        actorId: ownerId,
+        cause: reception.kind,
+        ...(state.lastPassDiagnostic ? { passId: state.lastPassDiagnostic.passId } : {}),
+      };
       const dx =
         (reception.resultingPoint?.x ?? reception.contactPoint.x) - reception.contactPoint.x;
       const dy =
@@ -457,6 +498,48 @@ const changePossession = (
   const teams = { ...state.teams };
   for (const side of ['home', 'away'] as const)
     teams[side] = { ...teams[side], phase: transitionPhase(side === owner.team), phaseElapsed: 0 };
+  const pending = state.pendingPossessionLoss;
+  const incomingPass = state.lastPassDiagnostic;
+  const livePass = Boolean(
+    incomingPass &&
+      (state.ball.travelKind ||
+        !incomingPass.finalResult ||
+        incomingPass.resolvedAt === state.time) &&
+      (!incomingPass.finalResult ||
+        incomingPass.finalResult === 'intercepted' ||
+        incomingPass.finalResult === 'inaccurate'),
+  );
+  const lossCause =
+    cause === 'tackle'
+      ? 'tackle'
+      : (pending?.cause ??
+        (state.ball.shot ||
+        (state.lastShot?.outcome === 'save' && state.lastBallContact?.at === state.time)
+          ? 'shot'
+          : livePass
+            ? isInaccuratePassCollection(state)
+              ? 'bad_pass'
+              : 'interception'
+            : cause === 'interception'
+              ? 'interception'
+              : 'loose_ball_claim'));
+  state = recordPossessionLoss(state, {
+    key: `acquisition:${state.time.toFixed(6)}:${ownerId}`,
+    to: owner.team,
+    cause: lossCause,
+    winnerId: ownerId,
+    loserId:
+      pending?.actorId ??
+      state.ball.ownerId ??
+      (livePass
+        ? incomingPass?.passerId
+        : lossCause === 'shot'
+          ? (state.ball.shot?.shooterId ?? state.lastShot?.shooterId)
+          : state.ball.lastTouchPlayerId),
+    ...(incomingPass && (livePass || pending?.passId === incomingPass.passId)
+      ? { passId: incomingPass.passId }
+      : {}),
+  });
   const next: TacticalMatchState = {
     ...withoutOffsideSnapshot(state),
     teams,
@@ -473,7 +556,7 @@ const changePossession = (
       to: owner.team,
       cause,
       winnerId: ownerId,
-      ...(state.ball.ownerId ? { loserId: state.ball.ownerId } : {}),
+      ...(state.lastPossessionLoss?.loserId ? { loserId: state.lastPossessionLoss.loserId } : {}),
       ...(cause === 'tackle' && state.lastChallenge?.actorId === ownerId
         ? { challengeId: state.lastChallenge.id }
         : {}),
@@ -484,7 +567,8 @@ const changePossession = (
             ...state.lastPassDiagnostic,
             actualContactPoint: { x: state.ball.x, y: state.ball.y },
             resolvedAt: state.time,
-            finalResult: 'intercepted' as const,
+            finalResult:
+              lossCause === 'bad_pass' ? ('inaccurate' as const) : ('intercepted' as const),
           },
         }
       : {}),
@@ -520,11 +604,82 @@ const makeLoose = (state: TacticalMatchState, velocity = { x: 0, y: 0 }): Tactic
   },
 });
 
+/** An uncontrolled opponent deflection already makes the delivery incomplete. Possession is
+ * awarded only if/when the rebound is controlled; a teammate's recovery cannot complete it. */
+const recordPassDeflection = (
+  state: TacticalMatchState,
+  actorId: string,
+  point: { x: number; y: number },
+): TacticalMatchState => {
+  const actor = state.players.find((player) => player.id === actorId);
+  const pass = state.lastPassDiagnostic;
+  if (!actor || actor.team === state.possessionTeam || !pass || pass.finalResult) return state;
+  const inaccurate = isInaccuratePassCollection({ ...state, ball: { ...point } });
+  const resolved = {
+    ...pass,
+    actualContactPoint: point,
+    resolvedAt: state.time,
+    finalResult: inaccurate ? ('inaccurate' as const) : ('intercepted' as const),
+  };
+  return {
+    ...state,
+    lastPassDiagnostic: resolved,
+    lastResolvedPass: resolved,
+    pendingPossessionLoss: {
+      id: `${state.seed}:pass-deflection:${pass.passId}`,
+      at: state.time,
+      team: state.possessionTeam,
+      actorId: pass.passerId,
+      cause: inaccurate ? 'bad_pass' : 'interception',
+      passId: pass.passId,
+    },
+  };
+};
+
+/** A deliberate header is a controlled football action even without a settled owner. */
+const prepareIncomingHeaderDelivery = (state: TacticalMatchState, actorId: string) => {
+  const actor = state.players.find((player) => player.id === actorId)!;
+  let ready = applyIncomingContact(state, actorId);
+  const pass = ready.lastPassDiagnostic;
+  if (pass && !pass.finalResult) {
+    const teammate = actor.team === state.possessionTeam;
+    const resolved = {
+      ...pass,
+      actualContactPoint: { x: state.ball.x, y: state.ball.y },
+      resolvedAt: state.time,
+      finalResult: teammate
+        ? ('completed' as const)
+        : isInaccuratePassCollection(state)
+          ? ('inaccurate' as const)
+          : ('intercepted' as const),
+      ...(teammate ? { actualReceiverId: actorId } : {}),
+    };
+    ready = { ...ready, lastPassDiagnostic: resolved, lastResolvedPass: resolved };
+  }
+  if (actor.team !== ready.possessionTeam) {
+    const incomingBall = ready.ball;
+    ready = { ...changePossession(ready, actorId, 'interception'), ball: incomingBall };
+  }
+  return ready;
+};
+
 /** An unclaimed delivery ends at physical rest, without an invented touch or energy loss. */
 const finishUnclaimedDelivery = (state: TacticalMatchState): TacticalMatchState =>
   makeLoose(
     {
       ...state,
+      ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
+        ? {
+            pendingPossessionLoss: {
+              id: `${state.seed}:unclaimed:${state.lastPassDiagnostic.passId}`,
+              at: state.time,
+              team: state.possessionTeam,
+              actorId: state.lastPassDiagnostic.passerId,
+              cause: 'bad_pass' as const,
+              passId: state.lastPassDiagnostic.passId,
+            },
+          }
+        : {}),
       ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
         ? {
             lastPassDiagnostic: {
@@ -548,6 +703,13 @@ const finishShotContact = (
   const shooter = state.players.find((player) => player.id === shot.shooterId)!;
   const base = {
     ...state,
+    pendingPossessionLoss: {
+      id: `${state.seed}:shot-outcome:${shot.shotId}`,
+      at: state.time,
+      team: shooter.team,
+      actorId: shot.shooterId,
+      cause: 'shot' as const,
+    },
     lastBallContact: contact,
     lastShot: shot,
     ball: { x: contact.point.x, y: contact.point.y, height: contact.point.z },
@@ -580,7 +742,11 @@ const finishShotContact = (
         },
       },
       'goal_kick',
-      { restartTeam: shooter.team === 'home' ? 'away' : 'home' },
+      {
+        restartTeam: shooter.team === 'home' ? 'away' : 'home',
+        cause: 'shot',
+        loserId: shooter.id,
+      },
     );
   if (contact.kind === 'goalkeeper') {
     const projection = goalkeeperProjection;
@@ -621,6 +787,13 @@ const finishShotContact = (
   return makeLoose(
     {
       ...base,
+      pendingPossessionLoss: {
+        id: `${state.seed}:shot-rebound:${shot.shotId}`,
+        at: state.time,
+        team: shooter.team,
+        actorId: shot.shooterId,
+        cause: 'shot',
+      },
       lastShotResult: frameResult,
       lastShot: {
         ...shot,
@@ -828,7 +1001,11 @@ const stepTacticalMatchCore = (
     const { goalCompletionUntil: _freeze, pendingKickoffTeam: _team, ...completed } = state;
     void _freeze;
     void _team;
-    return applyRestartScenario(completed, 'kick_off', { restartTeam: kickoffTeam });
+    return applyRestartScenario(completed, 'kick_off', {
+      restartTeam: kickoffTeam,
+      cause: 'goal',
+      ...(state.lastShot ? { loserId: state.lastShot.shooterId } : {}),
+    });
   }
   if (
     !state.periodEndPending &&
@@ -1295,7 +1472,7 @@ const stepTacticalMatchCore = (
           const incoming = state.ball.velocity ?? { x: 0, y: 0 };
           return makeLoose(
             {
-              ...state,
+              ...recordPassDeflection(state, contact.playerId!, contact.landingPosition),
               ball: { ...contact.landingPosition, lastTouchPlayerId: contact.playerId! },
             },
             { x: -incoming.x * 0.22, y: incoming.y * 0.35 + (rng.float() - 0.5) * 3 },
@@ -1463,7 +1640,13 @@ const stepTacticalMatchCore = (
           if (duel.outcome === 'keeper_punch')
             return makeLoose(
               {
-                ...(winner ? applyIncomingContact(base, winner.id) : base),
+                ...(winner
+                  ? recordPassDeflection(
+                      applyIncomingContact(base, winner.id),
+                      winner.id,
+                      contactPoint,
+                    )
+                  : base),
                 ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
               },
               { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
@@ -1496,7 +1679,7 @@ const stepTacticalMatchCore = (
                 });
           return resolveMatchAction(
             {
-              ...applyIncomingContact(base, winner.id),
+              ...prepareIncomingHeaderDelivery(base, winner.id),
               ball: {
                 ...state.ball,
                 ...contactPoint,
@@ -1582,7 +1765,13 @@ const stepTacticalMatchCore = (
           if (duel.outcome === 'keeper_punch')
             return makeLoose(
               {
-                ...(duel.winner ? applyIncomingContact(base, duel.winner.id) : base),
+                ...(duel.winner
+                  ? recordPassDeflection(
+                      applyIncomingContact(base, duel.winner.id),
+                      duel.winner.id,
+                      state.ball,
+                    )
+                  : base),
                 ball: {
                   ...state.ball,
                   secondBallPriorityIds: priority,
@@ -1625,7 +1814,7 @@ const stepTacticalMatchCore = (
                 });
           return resolveMatchAction(
             {
-              ...applyIncomingContact(base, winner.id),
+              ...prepareIncomingHeaderDelivery(base, winner.id),
               ball: { ...state.ball, ownerId: winner.id, lastTouchPlayerId: winner.id },
             },
             {

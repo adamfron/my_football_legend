@@ -1,5 +1,13 @@
 # Architektura
 
+## Przyczyny strat i aktywne minuty
+
+Rozszerzony zakres PR152 rozdziela kanoniczną przyczynę zakończenia posiadania od
+wynikającego wznowienia. Tożsamości zdarzeń zapewniają jednokrotne naliczenie; wznowienie
+nie zastępuje dowodu podania poza boisko, błędnego przyjęcia ani odbioru. Wskaźniki decyzji
+piłkarza używają jego aktywnych minut. Szczegółowy kontrakt i walidacja:
+[PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
+
 ## Udział piłkarza, decyzja człowieka i prezentacja
 
 Kontrolowana tożsamość uczestniczy w całym kanonicznym meczu, również w ukrytych tickach.

@@ -56,6 +56,7 @@ export const challengeDiagnosticSchema = z.object({
   lateness: z.number().nonnegative(),
   force: z.number().nonnegative(),
   fromBehind: z.boolean(),
+  ballReachable: z.boolean().optional(),
 });
 export type ChallengeDiagnostic = z.infer<typeof challengeDiagnosticSchema>;
 const counter = z.number().int().nonnegative();
@@ -81,6 +82,7 @@ export const defensiveCountersSchema = z.object({
 export type DefensiveCounters = z.infer<typeof defensiveCountersSchema>;
 export const defensiveTelemetrySchema = defensiveCountersSchema.extend({
   byPlayer: z.record(z.string(), defensiveCountersSchema),
+  byTechnique: z.partialRecord(defensiveTechniqueSchema, defensiveCountersSchema).optional(),
 });
 export const createDefensiveCounters = (): DefensiveCounters => ({
   opportunities: 0,
@@ -106,6 +108,7 @@ export const countDefensiveEvent = (
   state: TacticalMatchState,
   actorId: string,
   field: keyof DefensiveCounters,
+  technique?: DefensiveTechnique,
 ): TacticalMatchState => {
   const previous = state.defensiveTelemetry ?? { ...createDefensiveCounters(), byPlayer: {} };
   const player = previous.byPlayer[actorId] ?? createDefensiveCounters();
@@ -115,6 +118,17 @@ export const countDefensiveEvent = (
       ...previous,
       [field]: previous[field] + 1,
       byPlayer: { ...previous.byPlayer, [actorId]: { ...player, [field]: player[field] + 1 } },
+      ...(technique
+        ? {
+            byTechnique: {
+              ...previous.byTechnique,
+              [technique]: {
+                ...(previous.byTechnique?.[technique] ?? createDefensiveCounters()),
+                [field]: (previous.byTechnique?.[technique]?.[field] ?? 0) + 1,
+              },
+            },
+          }
+        : {}),
     },
   };
 };
@@ -547,15 +561,17 @@ export const beginDefensiveChallenge = (
     latestActionSource: source,
   };
   next = countDefensiveEvent(
-    countDefensiveEvent(next, action.actorId, 'opportunities'),
+    countDefensiveEvent(next, action.actorId, 'opportunities', action.technique),
     action.actorId,
     'attempted',
+    action.technique,
   );
-  if (action.technique === 'slide') next = countDefensiveEvent(next, action.actorId, 'slides');
+  if (action.technique === 'slide')
+    next = countDefensiveEvent(next, action.actorId, 'slides', action.technique);
   if (action.technique === 'tactical')
-    next = countDefensiveEvent(next, action.actorId, 'tacticalIntents');
+    next = countDefensiveEvent(next, action.actorId, 'tacticalIntents', action.technique);
   if (action.technique !== 'standing')
-    next = countDefensiveEvent(next, action.actorId, 'highRiskIntents');
+    next = countDefensiveEvent(next, action.actorId, 'highRiskIntents', action.technique);
   return next;
 };
 
@@ -613,15 +629,42 @@ export const chooseNpcDefensiveChallengeAction = (
     Math.min(3, c.covering) * 7 -
     (rearApproach ? 10 : 0) -
     (booked ? 28 : 0);
+  // Choosing an aggressive intent is not choosing to run through an inaccessible ball.
+  // Containment/movement closes the remaining distance; an actual tackle is committed
+  // only when the ball is exposed and already inside that technique's contact window.
+  const exposedBall = !rearApproach && c.ballDistance <= c.opponentDistance + 0.24;
+  const committedWindow = Math.max(0.75, 1.1 - c.relativeSpeed * 0.025);
+  const slideWindow = Math.max(1.05, 1.75 - c.relativeSpeed * 0.03);
+  if (comfortableStanding && !c.danger && !c.promisingAttack && !desperate)
+    return comfortableStanding;
   // An individual/context threshold, never a quota or match-wide random foul budget.
-  if (riskAppetite >= 72 && !c.dogso && !isDefendingPenaltyArea(actor.team, c.opponent.position)) {
+  if (
+    riskAppetite >= 72 &&
+    c.opponentDistance <= 1.35 &&
+    !c.dogso &&
+    !isDefendingPenaltyArea(actor.team, c.opponent.position)
+  ) {
     const tactical = options.find((action) => action.technique === 'tactical');
     if (tactical) return tactical;
   }
   const slide = options.find((action) => action.technique === 'slide');
-  if (slide && riskAppetite >= 64 && a.tackling >= 65 && !rearApproach) return slide;
+  if (
+    slide &&
+    riskAppetite >= 64 &&
+    a.tackling >= 65 &&
+    exposedBall &&
+    c.ballDistance <= slideWindow
+  )
+    return slide;
   const committed = options.find((action) => action.technique === 'committed');
-  if (committed && riskAppetite >= 58 && a.tackling >= 50) return committed;
+  if (
+    committed &&
+    riskAppetite >= 58 &&
+    a.tackling >= 50 &&
+    exposedBall &&
+    c.ballDistance <= committedWindow
+  )
+    return committed;
   return comfortableStanding;
 };
 
@@ -663,10 +706,14 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
       lateness: 0,
       force: 0,
       fromBehind: false,
+      ballReachable: false,
     };
     const next = { ...state, lastChallenge: diagnostic };
     delete next.defensiveChallenge;
-    return { state: countDefensiveEvent(next, intent.actorId, 'missed'), diagnostic };
+    return {
+      state: countDefensiveEvent(next, intent.actorId, 'missed', intent.technique),
+      diagnostic,
+    };
   }
   const elapsed = state.time - intent.startedAt;
   const reach = intent.technique === 'slide' ? 1.9 : intent.technique === 'committed' ? 1.25 : 0.95;
@@ -706,7 +753,9 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     Math.max(0, elapsed - 0.45) * 0.35;
   const commitment =
     intent.technique === 'standing'
-      ? 0.15
+      ? c.relativeSpeed > 3.5 && (fromBehind || !ballReachable)
+        ? 0.6
+        : 0.15
       : intent.technique === 'committed'
         ? 0.65
         : intent.technique === 'slide'
@@ -733,9 +782,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
   // A standing poke that fails to find the ball is often simply beaten. Mere proximity is
   // not an infringement; opponent-first contact needs a committed/impeding physical action.
   const impedingContact =
-    intent.technique !== 'standing' ||
-    (c.relativeSpeed > 3.5 && (fromBehind || lateness > 0.3)) ||
-    lateness > 0.55;
+    intent.technique !== 'standing' || (c.relativeSpeed > 3.5 && (fromBehind || lateness > 0.3));
   const illegalContact =
     opponentContact &&
     (intent.technique === 'tactical' ||
@@ -789,6 +836,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     lateness,
     force,
     fromBehind,
+    ballReachable,
   };
   let next: TacticalMatchState = {
     ...state,
@@ -821,6 +869,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
         : outcome === 'foul'
           ? 'fouls'
           : outcome,
+    intent.technique,
   );
   return {
     state: next,

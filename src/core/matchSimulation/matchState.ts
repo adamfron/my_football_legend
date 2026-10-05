@@ -1,5 +1,12 @@
 import { z } from 'zod';
 import {
+  possessionLossSchema,
+  pendingPossessionLossSchema,
+  restartAwardSchema,
+  type PossessionLoss,
+  type RestartAward,
+} from './possessionEvents';
+import {
   defensiveTechniqueSchema,
   defensiveChallengeSchema,
   challengeDiagnosticSchema,
@@ -335,6 +342,8 @@ export type RestartLivenessDiagnostic = z.infer<typeof restartLivenessDiagnostic
 
 export interface MatchPlayerState {
   id: string;
+  /** Match-clock entry time. Existing starting players default to kickoff (zero). */
+  activeSince?: number;
   team: TeamSide;
   profile: FootballerProfile;
   slotIndex: number;
@@ -554,6 +563,9 @@ export const aerialContactSchema = z.object({
 
 export const passDiagnosticSchema = z.object({
   executionType: passExecutionTypeSchema.optional(),
+  intendedTarget: pitchPointSchema.optional(),
+  physicalTarget: physicalPointSchema.optional(),
+  executionQuality: z.number().min(0).max(1).optional(),
   requestedSpace: pitchPointSchema.optional(),
   delivery: z.enum(['ground', 'lofted']).optional(),
   passId: z.string(),
@@ -577,7 +589,9 @@ export const passDiagnosticSchema = z.object({
   receptionOutcome: z
     .enum(['clean_control', 'directional_control', 'heavy_touch', 'failed_control'])
     .optional(),
-  finalResult: z.enum(['completed', 'intercepted', 'unclaimed', 'technical_error']).optional(),
+  finalResult: z
+    .enum(['completed', 'intercepted', 'inaccurate', 'out_of_play', 'unclaimed', 'technical_error'])
+    .optional(),
 });
 
 export interface TacticalMatchState {
@@ -653,6 +667,9 @@ export interface TacticalMatchState {
   currentPressure: number;
   nearestChallengerId?: string;
   lastPossessionChange?: z.infer<typeof possessionChangeSchema>;
+  lastPossessionLoss?: PossessionLoss;
+  pendingPossessionLoss?: z.infer<typeof pendingPossessionLossSchema>;
+  lastRestartAward?: RestartAward;
   lastBallRecovery?: z.infer<typeof ballRecoverySchema>;
   lastShotResult?: ShotResult;
   lastShot?: ShotDiagnostic;
@@ -689,6 +706,9 @@ export interface TacticalMatchState {
   /** Retains a physical incoming result when a prepared one-touch pass starts a new diagnostic. */
   lastResolvedPass?: TacticalMatchState['lastPassDiagnostic'];
   lastPassDiagnostic?: {
+    intendedTarget?: PitchPoint;
+    physicalTarget?: PhysicalPoint;
+    executionQuality?: number;
     executionType?: PassExecutionType;
     requestedSpace?: PitchPoint;
     delivery?: 'ground' | 'lofted';
@@ -712,7 +732,13 @@ export interface TacticalMatchState {
     meetingErrorSeconds?: number;
     predictionHorizon?: number;
     receptionOutcome?: ReceptionOutcome['kind'];
-    finalResult?: 'completed' | 'intercepted' | 'unclaimed' | 'technical_error';
+    finalResult?:
+      | 'completed'
+      | 'intercepted'
+      | 'inaccurate'
+      | 'out_of_play'
+      | 'unclaimed'
+      | 'technical_error';
   };
   lastCarryDiagnostic?: CarryDiagnostic;
 }
@@ -742,6 +768,7 @@ export const tacticalMatchStateSchema = z
     players: z.array(
       z.object({
         id: z.string(),
+        activeSince: z.number().nonnegative().optional(),
         team: teamSideSchema,
         position: pitchPointSchema,
         facingAngle: z.number().finite(),
@@ -799,6 +826,9 @@ export const tacticalMatchStateSchema = z
     possessionTeam: teamSideSchema,
     timeSincePossessionChanged: z.number().nonnegative(),
     lastPossessionChange: possessionChangeSchema.optional(),
+    lastPossessionLoss: possessionLossSchema.optional(),
+    pendingPossessionLoss: pendingPossessionLossSchema.optional(),
+    lastRestartAward: restartAwardSchema.optional(),
     lastBallRecovery: ballRecoverySchema.optional(),
     lastAerialContact: aerialContactSchema.optional(),
     recentDuel: recentDuelSchema.optional(),

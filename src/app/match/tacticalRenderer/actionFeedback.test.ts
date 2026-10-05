@@ -35,6 +35,24 @@ const event = (
 });
 
 describe('canonical micro-feedback projection', () => {
+  it('retains accounting facts in frames without adding visible micro-feedback', () => {
+    const facts = (['pass_result', 'possession_loss', 'restart', 'recovery'] as const).map((kind) =>
+      event(kind),
+    );
+    expect(frameActionEvents(facts, 1100)).toEqual(facts);
+    for (const atMs of [1000, 1100, 1500]) {
+      expect(selectActionFeedback(facts, atMs)).toEqual([]);
+      expect(
+        selectFrameFeedback({
+          timestampMs: atMs,
+          ball: { x: 50, y: 34 },
+          players: [],
+          actionEvents: facts,
+        }),
+      ).toEqual([]);
+    }
+  });
+
   it('labels a canonical preparation phase once, keeps scanning quiet and prioritizes match outcomes', () => {
     const frame: TacticalFrame = {
       timestampMs: 1200,

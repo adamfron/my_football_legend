@@ -1212,6 +1212,9 @@ const resolveMatchActionCanonical = (
             readiness: projection.receiverReadiness,
           }),
           lastPassDiagnostic: {
+            intendedTarget: execution.intendedTarget,
+            physicalTarget: execution.physicalTarget,
+            executionQuality: execution.quality,
             passId: episode,
             passerId: actor.id,
             intendedReceiverId: receiver.id,
@@ -1251,6 +1254,9 @@ const resolveMatchActionCanonical = (
               }
             : {}),
           lastPassDiagnostic: {
+            intendedTarget: execution.intendedTarget,
+            physicalTarget: execution.physicalTarget,
+            executionQuality: execution.quality,
             passId: episode,
             passerId: actor.id,
             intendedReceiverId: receiver.id,

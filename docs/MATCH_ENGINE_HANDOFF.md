@@ -1,5 +1,20 @@
 # Match Engine Handoff
 
+## Expanded PR152 statistics / discipline contracts
+
+- Preserve `lastPossessionLoss` football cause across `lastRestartAward`; link award to loss
+  without recording a second loss. Pass provenance survives loose flight and restart setup.
+- Completed passing means actual controlled teammate reception; error/recovery/interception
+  evidence and granular contact do not imply completion or another possession episode.
+- Controlled-player agency rates use active seconds and expose their source; whole-match
+  presentation rates remain separate. Later entrants use their canonical `activeSince`.
+- Autonomous risky challenges require physical access to the ball. Contact, foul severity
+  and card decision remain distinct. Delayed cards retain the original challenge technique.
+- Accounting ledger events remain silent in floating feedback. Normal hidden simulation
+  still does not call the renderer. Headless benchmarks report renderer evidence unavailable.
+- Expanded brief, compact results and remaining calibration scope:
+  [PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
+
 ## PR152 contracts
 
 - Canonical football participation, human decisions and selected footage are independent.
@@ -28,7 +43,7 @@
 - Implementation, measurements and exact restart-reset entry paths:
   [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-Next recommended scope: **PR153 — Dead Ball & Restart Continuity**. Replace hard restart
+Next recommended scope after this statistics/discipline follow-up: **Dead Ball & Restart Continuity**. Replace hard restart
 position assignment with physical repositioning, add a goal-reaction state and score/time-driven
 celebration versus urgent restart, retrieve the ball after a late comeback goal, derive restart
 readiness, and establish canonical stoppage-time accounting. PR152 does not implement that scope.

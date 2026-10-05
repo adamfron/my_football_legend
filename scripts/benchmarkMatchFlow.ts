@@ -37,7 +37,7 @@ const report = result.sessions.map(
     possessionChanges: telemetry.possessionChanges,
     interceptions: telemetry.turnoverCauses.interception,
     tackles: telemetry.turnoverCauses.tackle,
-    restarts: telemetry.turnoverCauses.restart,
+    restarts: telemetry.restartAwards,
     spellSeconds: {
       mean: rates.averagePossessionEpisodeDuration,
       median: rates.medianPossessionSpell,
