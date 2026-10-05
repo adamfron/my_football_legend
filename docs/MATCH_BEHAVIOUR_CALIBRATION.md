@@ -1,5 +1,14 @@
 # Match Behaviour & Calibration — PR145
 
+PR152 updates the canonical participation/accounting contracts without role-specific touch
+quotas or a new presentation cadence. Public contacts remain continuous episodes; tackle
+commitments/results share stable identities, and restart deliveries are included in live
+possession accounting while setup/goal-completion intervals are excluded. Current multi-seed
+participation, discipline/restart evidence and limits are in
+[PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md), with the statistical
+glossary in [PR152_ACCOUNTING.md](PR152_ACCOUNTING.md). Historical PR145 contact definitions
+below have been superseded by PR150's episode semantics.
+
 `src/core/matchSimulation` remains the sole football authority. All execution randomness uses
 the seeded generator. Presentation, contact statistics and calibration reports observe the
 same state; the fixed physics step remains 0.025 s.
@@ -73,9 +82,10 @@ An attached-ball tick or rendered foot movement is not an additional contact.
 - **Pass attempted:** one released `PassDiagnostic.passId`, including targeted throws and
   restart passes. Release is a touch. Crosses and non-shot headers are currently separate
   delivery categories: they generate contact evidence but no pass/network edge.
-- **Pass completed / received:** only an intended receiver's completed physical contact,
-  with `actualContactPoint` and `resolvedAt`. The passer, receiver and network edge increment
-  together once. Interceptions, deflections and another teammate's claim do not complete it.
+- **Pass completed / received:** a teammate's completed physical reception, with
+  `actualReceiverId`, `actualContactPoint` and `resolvedAt`. PR150/152 credit the actual
+  receiver even when different from the intended target. The passer, receiver and network
+  edge increment together once. Opponent interceptions and mere deflections do not complete it.
 - **Shot:** one actual released shot ID; its later outcome updates the same shot once.
   On-target means final goal or save. Frame hits which stay out and blocked attempts are
   separate outcomes. Unobstructed projected classification is diagnostic, not a second result.

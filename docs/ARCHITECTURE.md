@@ -1,5 +1,20 @@
 # Architektura
 
+## Udział piłkarza, decyzja człowieka i prezentacja
+
+Kontrolowana tożsamość uczestniczy w całym kanonicznym meczu, również w ukrytych tickach.
+Pozycjonowanie, dostępność podania, przyjęcie i autonomiczny wybór akcji korzystają ze wspólnych
+systemów NPC. Rzeczywista oczekująca decyzja zatrzymuje migawkę, a wybrana intencja człowieka
+zachowuje własność wykonania; poza tymi granicami piłkarz gra autonomicznie. Selekcja materiału
+do pokazania nie usuwa kontaktów ani udziału w sieci podań i nie ustala kwot statystyk.
+
+`playerAgencyEnabled: false` służy jawnemu przebiegowi bez interwencji, zachowując identyfikator
+kontrolowanego zawodnika. Porównanie z NPC usuwa wyłącznie tę tożsamość sterowania ze sklonowanej
+migawki, dzięki czemu rola, XI, atrybuty, taktyka i seed pozostają te same. `canonicalSanity`
+projektuje tanie kanoniczne sumy bez obserwatora DEV; oddzielny licznik prezentacji przypisuje
+przyrosty udziału do widocznych/ukrytych fragmentów. Ostrzeżenia obserwują wynik, nigdy go korygują.
+Szczegóły i audyt resetów wznowień: [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
+
 ## Kanoniczny fast path i częstotliwości
 
 `stepTacticalMatch` pozostaje jedynym przejściem futbolowym. Integracja piłki, ruchu, granic i
@@ -738,12 +753,13 @@ od poprzednio wyświetlonej wartości do najnowszego czasu kanonicznego, monoton
 czasem nadrabiania; pauza go zamraża. Nie wykonuje ticków, nie losuje i nie może opóźnić znalezionego
 momentu ani zmienić zachowanej okazji gracza.
 
-Każda ukryta okazja ma jawny wynik proxy. `on_ball` używa rankingu NPC, `restart` wybiera z tego
+Jawna delegacja DEV ma określony wynik proxy. `on_ball` używa rankingu NPC, `restart` wybiera z tego
 samego kanonicznego enumeratora wznowień, a reception, ruch bez piłki, obrona, bramkarz i loose ball
 jawnie delegują następny tick do istniejących autonomicznych resolverów. Wynik rozróżnia wykonaną
-akcję, delegację, brak legalnej akcji i nieaktualną okazję. Kontrolowane wznowienie z wieloma opcjami
-nie może więc czekać na ukryte UI; dodatkowo po ośmiu kanonicznych sekundach `setup` watchdog wybiera
-istniejący fallback i zapisuje anormalną diagnozę zamiast teleportować mecz do open play.
+akcję, delegację, brak legalnej akcji i nieaktualną okazję. W domyślnym trybie znacząca okazja
+jest pokazywana i zamraża silnik do decyzji człowieka. PR152 pozwala autonomicznie wykonać
+wznowienie bez faktycznej oczekującej decyzji. Po ośmiu kanonicznych sekundach `setup` watchdog
+pozostaje anormalnym fallbackiem żywotności i zapisuje diagnozę.
 
 Telemetria projekcji („kandydat kwalifikowałby się”) pozostaje oddzielona od telemetrii runtime
 (uruchomione/pokazane epizody, prompty, proxy, lead-iny, aborty, sekundy ukryte/widoczne, batche i

@@ -519,6 +519,39 @@ export const recentDuelSchema = z.object({
 });
 export type RecentDuel = z.infer<typeof recentDuelSchema>;
 
+/** Acquisition evidence survives the winner releasing the ball later in the same tick. */
+export const possessionChangeSchema = z.object({
+  at: z.number().nonnegative(),
+  from: teamSideSchema,
+  to: teamSideSchema,
+  cause: z.enum(['tackle', 'interception', 'claim']),
+  winnerId: z.string().optional(),
+  loserId: z.string().optional(),
+  challengeId: z.string().optional(),
+});
+
+export const ballRecoverySchema = z.object({
+  id: z.string(),
+  at: z.number().nonnegative(),
+  playerId: z.string(),
+});
+
+export const aerialContactSchema = z.object({
+  id: z.string().optional(),
+  point: pitchPointSchema,
+  ballHeight: z.number().nonnegative(),
+  candidates: z.array(
+    z.object({
+      playerId: z.string(),
+      horizontalDistance: z.number().nonnegative(),
+      reachableHeight: z.number().nonnegative(),
+      contactQuality: z.number().nonnegative(),
+    }),
+  ),
+  contestantIds: z.array(z.string()),
+  winnerId: z.string().optional(),
+});
+
 export const passDiagnosticSchema = z.object({
   executionType: passExecutionTypeSchema.optional(),
   requestedSpace: pitchPointSchema.optional(),
@@ -590,6 +623,8 @@ export interface TacticalMatchState {
   /** Permanent renderer-independent facts; replay footage has separate bounded retention. */
   matchEvents?: MatchEvent[];
   controlledFootballerId?: string;
+  /** Identity stays canonical; headless/no-intervention runs can disable human agency alone. */
+  playerAgencyEnabled?: boolean;
   playerMovementIntent?: PlayerMovementIntent;
   pendingReceptionIntent?: PendingReceptionIntent;
   /** Short-lived canonical execution override shared by human and NPC carries. */
@@ -617,12 +652,8 @@ export interface TacticalMatchState {
   score: z.infer<typeof matchScoreSchema>;
   currentPressure: number;
   nearestChallengerId?: string;
-  lastPossessionChange?: {
-    at: number;
-    from: TeamSide;
-    to: TeamSide;
-    cause: 'tackle' | 'interception' | 'claim';
-  };
+  lastPossessionChange?: z.infer<typeof possessionChangeSchema>;
+  lastBallRecovery?: z.infer<typeof ballRecoverySchema>;
   lastShotResult?: ShotResult;
   lastShot?: ShotDiagnostic;
   lastBallContact?: BallContact;
@@ -645,18 +676,7 @@ export interface TacticalMatchState {
     lastTouchTeam?: TeamSide;
     restartTeam: TeamSide;
   };
-  lastAerialContact?: {
-    point: PitchPoint;
-    ballHeight: number;
-    candidates: Array<{
-      playerId: string;
-      horizontalDistance: number;
-      reachableHeight: number;
-      contactQuality: number;
-    }>;
-    contestantIds: string[];
-    winnerId?: string;
-  };
+  lastAerialContact?: z.infer<typeof aerialContactSchema>;
   restartAction?: MatchAction;
   throwInRestriction?: ThrowInRestriction;
   lastThrowInDiagnostic?: ThrowInDiagnostic;
@@ -778,6 +798,9 @@ export const tacticalMatchStateSchema = z
     currentPressure: z.number().min(0).max(1),
     possessionTeam: teamSideSchema,
     timeSincePossessionChanged: z.number().nonnegative(),
+    lastPossessionChange: possessionChangeSchema.optional(),
+    lastBallRecovery: ballRecoverySchema.optional(),
+    lastAerialContact: aerialContactSchema.optional(),
     recentDuel: recentDuelSchema.optional(),
     defensiveEpisodes: z.array(defensiveEpisodeSchema).max(22).optional(),
     ballEpisode: z.number().int().nonnegative().optional(),
@@ -797,6 +820,7 @@ export const tacticalMatchStateSchema = z
     actionEventSequence: z.number().int().nonnegative().optional(),
     matchEvents: z.array(matchEventSchema).optional(),
     controlledFootballerId: z.string().optional(),
+    playerAgencyEnabled: z.boolean().optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
     ballCarrierIntent: ballCarrierIntentSchema.optional(),

@@ -14,6 +14,11 @@ export const teamAccountingSchema = z.object({
   corners: z.number().int().nonnegative(),
   freeKicks: z.number().int().nonnegative(),
   throwIns: z.number().int().nonnegative(),
+  // Keep missing legacy counters distinguishable until their canonical ledgers are migrated.
+  goalKicks: z.number().int().nonnegative().optional(),
+  penalties: z.number().int().nonnegative().optional(),
+  kickOffs: z.number().int().nonnegative().optional(),
+  possessionChanges: z.number().int().nonnegative().optional(),
 });
 const emptyTeamAccounting = () => ({
   possessionSeconds: 0,
@@ -22,6 +27,10 @@ const emptyTeamAccounting = () => ({
   corners: 0,
   freeKicks: 0,
   throwIns: 0,
+  goalKicks: 0,
+  penalties: 0,
+  kickOffs: 0,
+  possessionChanges: 0,
 });
 
 export const playerMatchStatsSchema = z.object({
@@ -41,6 +50,12 @@ export const playerMatchStatsSchema = z.object({
   interceptions: z.number().int().nonnegative(),
   possessionWon: z.number().int().nonnegative(),
   possessionLost: z.number().int().nonnegative(),
+  /** Ground/keeper claim of an uncontrolled ball, including a team's own second ball. */
+  looseBallRecoveries: z.number().int().nonnegative().default(0),
+  /** A physical shot deflection is separate from a challenge and a possession win. */
+  blocks: z.number().int().nonnegative().default(0),
+  /** A won contested challenge or aerial duel; uncontested recoveries are excluded. */
+  duelsWon: z.number().int().nonnegative().default(0),
   fouls: z.number().int().nonnegative().default(0),
   yellowCards: z.number().int().nonnegative().default(0),
   redCards: z.number().int().nonnegative().default(0),
@@ -89,6 +104,10 @@ export const matchStatisticsSchema = z.object({
   ),
   observedAssistGoalIds: z.array(z.string()),
   observedPossessionEvents: z.array(z.string()),
+  observedChallengeIds: z.array(z.string()).optional(),
+  observedChallengeResultIds: z.array(z.string()).optional(),
+  observedRecoveryIds: z.array(z.string()).optional(),
+  observedDuelIds: z.array(z.string()).optional(),
   assistCandidate: z
     .object({ passerId: z.string(), scorerId: z.string(), passId: z.string() })
     .optional(),
@@ -107,7 +126,7 @@ const containsIdentity = (ids: readonly string[], id: string) => {
   return index.has(id);
 };
 type IdentityHistory = {
-  [Key in keyof MatchStatistics]: MatchStatistics[Key] extends string[] ? Key : never;
+  [Key in keyof MatchStatistics]: NonNullable<MatchStatistics[Key]> extends string[] ? Key : never;
 }[keyof MatchStatistics] &
   keyof MatchStatistics;
 
@@ -134,6 +153,9 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
     interceptions: 0,
     possessionWon: 0,
     possessionLost: 0,
+    looseBallRecoveries: 0,
+    blocks: 0,
+    duelsWon: 0,
     fouls: 0,
     yellowCards: 0,
     redCards: 0,
@@ -156,7 +178,37 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
   passingNetwork: [],
   observedAssistGoalIds: [],
   observedPossessionEvents: [],
+  observedChallengeIds: [],
+  observedChallengeResultIds: [],
+  observedRecoveryIds: [],
+  observedDuelIds: [],
 });
+
+/** Rebuild only absent legacy counters, once; fresh snapshots already store cheap totals. */
+const resumeTeamAccounting = (statistics: MatchStatistics, side: 'home' | 'away') => {
+  const previous = statistics.teamAccounting?.[side];
+  const countAwards = (scenarios: readonly string[]) =>
+    (statistics.observedRestartIds ?? []).reduce(
+      (total, id) =>
+        total + Number(scenarios.some((scenario) => id.endsWith(`:${side}:${scenario}`))),
+      0,
+    );
+  return {
+    ...emptyTeamAccounting(),
+    ...previous,
+    goalKicks: previous?.goalKicks ?? countAwards(['goal_kick', 'gk_short']),
+    penalties: previous?.penalties ?? countAwards(['penalty']),
+    kickOffs: previous?.kickOffs ?? countAwards(['kick_off']),
+    // Possession keys begin at:from:to:cause. New source evidence appends the winner;
+    // player identity can itself contain separators, so destination is a fixed prefix field.
+    possessionChanges:
+      previous?.possessionChanges ??
+      statistics.observedPossessionEvents.reduce(
+        (total, id) => total + Number(id.split(':')[2] === side),
+        0,
+      ),
+  };
+};
 
 /** Immutable observer: event ids provide exactly-once counting; locomotion is projected, not copied. */
 export const observePlayerMatchStats = (
@@ -178,9 +230,17 @@ export const observePlayerMatchStats = (
           ...next.players.map((player) => [player.id, player.team]),
         ]),
       teamAccounting: {
-        home: { ...(statistics.teamAccounting?.home ?? emptyTeamAccounting()) },
-        away: { ...(statistics.teamAccounting?.away ?? emptyTeamAccounting()) },
+        home: resumeTeamAccounting(statistics, 'home'),
+        away: resumeTeamAccounting(statistics, 'away'),
       },
+      // Old snapshots already observed the last resolved challenge using adjacency. Seed the
+      // new identity ledgers with that historical result when resuming, rather than replay it.
+      observedChallengeIds:
+        statistics.observedChallengeIds ??
+        (previous.lastChallenge ? [previous.lastChallenge.id] : []),
+      observedChallengeResultIds:
+        statistics.observedChallengeResultIds ??
+        (previous.lastChallenge ? [previous.lastChallenge.id] : []),
     };
     const accounting = result.teamAccounting!;
     const elapsed = Math.max(
@@ -188,9 +248,15 @@ export const observePlayerMatchStats = (
       next.time - Math.max(previous.time, statistics.observedThrough ?? previous.time),
     );
     result.observedThrough = Math.max(statistics.observedThrough ?? previous.time, next.time);
-    // Possession is the canonical team spell, including its passes/loose-ball flight. Dead-ball
-    // setup and interval time are excluded; percentages use the two credited live-time totals.
-    if (previous.scenario === 'open_play' && previous.status !== 'half_time')
+    // The restart scenario survives a legal release for its delivery context. That flight is
+    // live football too; only setup, intervals and the scored-goal completion pause are dead.
+    // Percentages use the two credited canonical live-time totals, without renderer input.
+    if (
+      (previous.scenario === 'open_play' || previous.restart?.phase === 'release') &&
+      previous.restart?.phase !== 'setup' &&
+      previous.status !== 'half_time' &&
+      previous.goalCompletionUntil === undefined
+    )
       accounting[previous.possessionTeam].possessionSeconds += elapsed;
     const restart = next.restart;
     if (restart) {
@@ -201,6 +267,10 @@ export const observePlayerMatchStats = (
         if (next.scenario === 'corner') team.corners++;
         if (next.scenario.startsWith('free_kick')) team.freeKicks++;
         if (next.scenario === 'throw_in') team.throwIns++;
+        if (next.scenario === 'goal_kick' || next.scenario === 'gk_short')
+          team.goalKicks = (team.goalKicks ?? 0) + 1;
+        if (next.scenario === 'penalty') team.penalties = (team.penalties ?? 0) + 1;
+        if (next.scenario === 'kick_off') team.kickOffs = (team.kickOffs ?? 0) + 1;
       }
     }
     const offside = next.lastOffsideOffence;
@@ -215,7 +285,7 @@ export const observePlayerMatchStats = (
       }
     }
     const appendIdentity = (key: IdentityHistory, id: string) => {
-      result[key] = [...result[key], id];
+      result[key] = [...(result[key] ?? []), id];
     };
     const mutableNetwork = () => {
       if (result.passingNetwork === statistics.passingNetwork)
@@ -233,6 +303,9 @@ export const observePlayerMatchStats = (
       entry.yellowCards = next.discipline?.[entry.playerId]?.yellowCards ?? entry.yellowCards ?? 0;
       entry.redCards = next.discipline?.[entry.playerId]?.sentOff ? 1 : (entry.redCards ?? 0);
       entry.offsides ??= 0;
+      entry.looseBallRecoveries ??= 0;
+      entry.blocks ??= 0;
+      entry.duelsWon ??= 0;
     }
     for (const player of next.players) {
       const entry = stats(player.id)!;
@@ -281,6 +354,20 @@ export const observePlayerMatchStats = (
     for (const episode of control.started) {
       const player = stats(episode.playerId);
       if (player) player.touches++;
+    }
+    const physicalContact = next.lastBallContact;
+    if (
+      physicalContact?.kind === 'defender' &&
+      physicalContact.playerId &&
+      newContacts.some(
+        (contact) =>
+          contact.source === 'flight_contact' &&
+          contact.playerId === physicalContact.playerId &&
+          contact.at === physicalContact.at,
+      )
+    ) {
+      const blocker = stats(physicalContact.playerId);
+      if (blocker) blocker.blocks++;
     }
     if (control.active) result.activeControlEpisode = control.active;
     else delete result.activeControlEpisode;
@@ -417,26 +504,63 @@ export const observePlayerMatchStats = (
           keeperStats.parries++;
       }
     }
-    const challenge = next.lastChallenge;
-    if (challenge && challenge.id !== previous.lastChallenge?.id) {
+    // The intent identity counts one legitimate attempt, even while contact is still pending.
+    // A copied result can be observed after an unrelated challenge; history, not adjacency,
+    // supplies exactly-once accounting. A clean win belongs to the challenger, never whichever
+    // teammate happens to own the ball at the observation boundary.
+    for (const challenge of [next.defensiveChallenge, next.lastChallenge]) {
+      if (!challenge || containsIdentity(result.observedChallengeIds ?? [], challenge.id)) continue;
+      appendIdentity('observedChallengeIds', challenge.id);
       const challenger = stats(challenge.actorId);
       if (challenger) challenger.tacklesAttempted++;
     }
+    const challenge = next.lastChallenge;
+    if (challenge && !containsIdentity(result.observedChallengeResultIds ?? [], challenge.id)) {
+      appendIdentity('observedChallengeResultIds', challenge.id);
+      if (challenge.outcome === 'clean_win') {
+        const challenger = stats(challenge.actorId);
+        if (challenger) {
+          challenger.tacklesWon++;
+          challenger.duelsWon++;
+        }
+      }
+    }
+    const aerial = next.lastAerialContact;
+    if (aerial?.id && aerial.winnerId && aerial.contestantIds.length > 1) {
+      const duelId = aerial.id;
+      const winnerTeam = result.playerTeams?.[aerial.winnerId];
+      const contested = aerial.contestantIds.some(
+        (id) => result.playerTeams?.[id] && result.playerTeams[id] !== winnerTeam,
+      );
+      if (contested && !containsIdentity(result.observedDuelIds ?? [], duelId)) {
+        appendIdentity('observedDuelIds', duelId);
+        const winner = stats(aerial.winnerId);
+        if (winner) winner.duelsWon++;
+      }
+    }
+    // The source records a recovery before the winner can release again in this tick.
+    // Same-team second balls count too; restart placement and pass receptions do not.
+    const recovery = next.lastBallRecovery;
+    if (recovery && !containsIdentity(result.observedRecoveryIds ?? [], recovery.id)) {
+      appendIdentity('observedRecoveryIds', recovery.id);
+      const winner = stats(recovery.playerId);
+      if (winner) winner.looseBallRecoveries++;
+    }
     const change = next.lastPossessionChange;
-    const eventId = change ? `${change.at}:${change.from}:${change.to}:${change.cause}` : undefined;
+    const eventId = change
+      ? `${change.at}:${change.from}:${change.to}:${change.cause}${change.winnerId ? `:${change.winnerId}` : ''}`
+      : undefined;
     if (change && eventId && !containsIdentity(result.observedPossessionEvents, eventId)) {
       appendIdentity('observedPossessionEvents', eventId);
-      const winner = next.ball.ownerId ? stats(next.ball.ownerId) : undefined;
+      accounting[change.to].possessionChanges = (accounting[change.to].possessionChanges ?? 0) + 1;
+      const winnerId = change.winnerId ?? next.ball.ownerId;
+      const winner = winnerId ? stats(winnerId) : undefined;
       if (winner) {
         winner.possessionWon++;
         if (change.cause === 'interception') winner.interceptions++;
-        if (change.cause === 'tackle') {
-          // Old snapshots without attempt evidence remain readable; new matches count misses too.
-          if (!challenge) winner.tacklesAttempted++;
-          winner.tacklesWon++;
-        }
       }
-      const loser = previous.ball.ownerId ? stats(previous.ball.ownerId) : undefined;
+      const loserId = change.winnerId ? change.loserId : (change.loserId ?? previous.ball.ownerId);
+      const loser = loserId ? stats(loserId) : undefined;
       if (loser) loser.possessionLost++;
       // A controlled opponent possession invalidates the direct-provider chain. A later reclaim is
       // a new attacking sequence and cannot revive the old pass.
@@ -468,6 +592,9 @@ export const playerMatchSummarySchema = playerMatchStatsSchema.pick({
   interceptions: true,
   possessionWon: true,
   possessionLost: true,
+  looseBallRecoveries: true,
+  blocks: true,
+  duelsWon: true,
   fouls: true,
   yellowCards: true,
   redCards: true,
@@ -505,7 +632,10 @@ export const assertMatchStatisticsInvariants = (statistics: MatchStatistics) => 
       (attempts.get(player.playerId) ?? 0) !== player.passesAttempted ||
       (completed.get(player.playerId) ?? 0) !== player.passesCompleted ||
       (received.get(player.playerId) ?? 0) !== player.passesReceived ||
+      player.passesReceived > player.touches ||
       player.shotsOnTarget > player.shots ||
+      player.goals > player.shotsOnTarget ||
+      player.interceptions > player.possessionWon ||
       player.tacklesWon > player.tacklesAttempted
     )
       throw new Error(`Public statistics invariant failed for ${player.playerId}.`);

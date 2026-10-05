@@ -18,6 +18,7 @@ import {
 } from './backgroundPublication';
 import { formatDiagnosticMatchTime, formatMatchTime } from './matchTime';
 import { createSessionTelemetryReport } from './matchBenchmarkReport';
+import { CanonicalParticipationTracker } from '../../core/matchSimulation/canonicalMatchSanity';
 import {
   appendReplayFrame,
   sampleReplayFrame,
@@ -501,6 +502,7 @@ export const RunningLab = ({
   const presentationSamplesRef = useRef(new WeakMap<TacticalMatchState, TacticalMatchState[]>());
   const presentationClockRef = useRef(createPresentationClock(state.time));
   const presentationTelemetryRef = useRef(createPresentationRuntimeTelemetry());
+  const canonicalParticipationRef = useRef(new CanonicalParticipationTracker());
   const backgroundPerformanceRef = useRef(new BackgroundPerformanceTracker());
   const profilerRef = useRef(new PerformanceProfiler());
   const profiledTicksRef = useRef(0);
@@ -533,6 +535,7 @@ export const RunningLab = ({
   const resetPresentation = useCallback((next: TacticalMatchState) => {
     replayEpochRef.current++;
     const phase = presentationPolicyRef.current.fullMatch ? 'full_match' : 'background_simulation';
+    if (phase === 'background_simulation') canonicalParticipationRef.current.beginHiddenSequence();
     setPresentationPhase(phase);
     presentationPhaseRef.current = phase;
     phaseBeforeReplayRef.current = phase;
@@ -578,6 +581,7 @@ export const RunningLab = ({
     resetPresentation(initial);
     backgroundPerformanceRef.current = new BackgroundPerformanceTracker();
     presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
+    canonicalParticipationRef.current = new CanonicalParticipationTracker();
     publishState(initial);
     profilerRef.current = new PerformanceProfiler();
     profiledTicksRef.current = 0;
@@ -751,6 +755,7 @@ export const RunningLab = ({
                   const candidate = projectMatchMoment(next, projected);
                   setDecisionBoundary(projected);
                   presentationTelemetryRef.current.humanDecisionPromptsShown += 1;
+                  canonicalParticipationRef.current.markVisiblePlayerInvolvement();
                   if (devObservation) {
                     const diagnostic: PresentationDecisionDiagnostic = {
                       at: next.time,
@@ -831,6 +836,8 @@ export const RunningLab = ({
                     });
                   consequenceRef.current = result.window;
                   if (result.endReason) {
+                    if (!presentationPolicy.fullMatch)
+                      canonicalParticipationRef.current.beginHiddenSequence();
                     boundaryDetected = true;
                     windowEvent({
                       at: next.time,
@@ -857,6 +864,8 @@ export const RunningLab = ({
                     presentationTelemetryRef.current.episodesStarted += 1;
                     presentationTelemetryRef.current.episodesPresented += 1;
                     visibleEpisodeRef.current = appendMomentCandidate(undefined, candidate);
+                    if (candidate.controlledPlayerInvolved)
+                      canonicalParticipationRef.current.markVisiblePlayerInvolvement();
                     boundaryDetected = true;
                     windowEvent({
                       at: next.time,
@@ -877,6 +886,8 @@ export const RunningLab = ({
                   const candidate = projectMatchMoment(next, agency.opportunity ?? null);
                   endPerformanceSpan('match_moment', momentStarted);
                   const episode = visibleEpisodeRef.current;
+                  if (candidate.controlledPlayerInvolved)
+                    canonicalParticipationRef.current.markVisiblePlayerInvolvement();
                   const bounded =
                     next.time - episode.startedAt >=
                     PRESENTATION_WINDOW_RULES.maximumEpisodeSeconds;
@@ -891,6 +902,7 @@ export const RunningLab = ({
                       reason: bounded ? 'episode_safety_bound' : 'quiet_context',
                     });
                     visibleEpisodeRef.current = undefined;
+                    canonicalParticipationRef.current.beginHiddenSequence();
                     setPresentationPhase('background_simulation');
                     break;
                   }
@@ -912,6 +924,7 @@ export const RunningLab = ({
                     : stepTacticalMatch(next, FIXED_MATCH_DT);
                   endPerformanceSpan('canonical_step', canonicalStarted);
                   diagnostics.latestState = next;
+                  canonicalParticipationRef.current.observe(previousState, next, background);
                   executedTicks += 1;
                   if (background)
                     presentationTelemetryRef.current.hiddenCanonicalSeconds += FIXED_MATCH_DT;
@@ -1315,6 +1328,7 @@ export const RunningLab = ({
     consequenceRef.current = createConsequenceWindow(state, opportunity.actorId);
     windowEvent({ at: state.time, type: 'consequence_started', actorId: opportunity.actorId });
     setPresentationPhase('post_moment');
+    canonicalParticipationRef.current.observe(state, next, false);
     publishState(next);
     setDecisionBoundary(undefined);
     setSelectedTarget(undefined);
@@ -1442,8 +1456,10 @@ export const RunningLab = ({
                 ['background_simulation', 'full_match', 'presenting_live_moment'].includes(
                   presentationPhase,
                 )
-              )
+              ) {
+                if (id !== 'full_match') canonicalParticipationRef.current.beginHiddenSequence();
                 setPresentationPhase(id === 'full_match' ? 'full_match' : 'background_simulation');
+              }
             }}
           >
             <option value="key_player">Najważniejsze moje akcje</option>
@@ -1611,10 +1627,12 @@ export const RunningLab = ({
                     agency: agencyTrackerRef.current.snapshot(current.time),
                     positioning: positioningSamplesRef.current,
                     presentation: presentationTelemetryRef.current,
+                    state: current,
+                    participation: canonicalParticipationRef.current.snapshot(),
                   });
                   const summary = {
                     metadata: {
-                      schema: 'mfl-session-benchmark-v3',
+                      schema: 'mfl-session-benchmark-v4',
                       seed: current.seed,
                       observerMode,
                       observationScope:
@@ -1732,6 +1750,8 @@ export const RunningLab = ({
                           ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
                           : undefined,
                       );
+                      presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
+                      canonicalParticipationRef.current = new CanonicalParticipationTracker();
                       resetPresentation(next);
                       const segmentId = diagnostics.beginSegment(
                         next,

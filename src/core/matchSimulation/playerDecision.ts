@@ -205,6 +205,7 @@ export const playerDecisionProbeSchema = z.object({
   blockedReason: z
     .enum([
       'no_controlled_player',
+      'agency_disabled',
       'not_open_play',
       'resolution_in_progress',
       'routine',
@@ -969,6 +970,7 @@ export const projectPlayerAgency = (
     probe: playerDecisionProbeSchema.parse({ actorId, candidate: false, blockedReason, ...extra }),
   });
   if (!actorId || !actor) return blocked('no_controlled_player');
+  if (state.playerAgencyEnabled === false) return blocked('agency_disabled');
   if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
     return blocked('not_open_play');
   if (state.defensiveChallenge?.actorId === actorId) return blocked('resolution_in_progress');
@@ -1487,6 +1489,12 @@ export const projectPlayerDecisionOpportunity = (
   return projectPlayerAgency(state, gate).opportunity;
 };
 
+/** Identity alone never reserves football actions. Only an exact meaningful opportunity does. */
+export const hasPendingPlayerDecision = (state: TacticalMatchState, actorId: string): boolean =>
+  state.playerAgencyEnabled !== false &&
+  actorId === state.controlledFootballerId &&
+  Boolean(projectPlayerDecisionOpportunity(state));
+
 export const applyPlayerDecision = (
   state: TacticalMatchState,
   opportunity: PlayerDecisionOpportunity,
@@ -1496,6 +1504,7 @@ export const applyPlayerDecision = (
     state.status === 'abandoned' ||
     state.status === 'full_time' ||
     state.status === 'half_time' ||
+    state.playerAgencyEnabled === false ||
     opportunity.actorId !== state.controlledFootballerId ||
     opportunity.openedAt !== state.time ||
     !state.players.some((player) => player.id === opportunity.actorId)
@@ -1590,6 +1599,7 @@ export const resolveDevPlayerDecision = (
     state.status === 'abandoned' ||
     state.status === 'half_time' ||
     state.status === 'full_time' ||
+    state.playerAgencyEnabled === false ||
     opportunity.actorId !== state.controlledFootballerId ||
     opportunity.openedAt !== state.time ||
     state.playerDecisionGate?.lastSituationSignature === opportunity.signature ||

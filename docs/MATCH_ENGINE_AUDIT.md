@@ -1,4 +1,20 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR151
+# Audyt silnika meczu — PR140 / aktualizacja PR152
+
+PR152: audyt rozdziela udział w kanonicznym futbolu, oczekującą decyzję człowieka i widoczne
+ujęcia. Usunięto rezerwowanie strzału/dośrodkowania, pierwszego kontaktu, wznowienia i wyboru
+obronnego wyłącznie na podstawie tożsamości sterowania. Rzeczywista decyzja i wybrana intencja
+nadal zatrzymują/przejmują właściwą granicę. Odbiory są liczone według wykonawcy i tożsamości
+próby, a zdobycie piłki zachowuje uczestników również po natychmiastowym wypuszczeniu.
+Przechwyt, odzyskanie luźnej piłki, blok i wygrany pojedynek nie zastępują udanego odbioru.
+Tani eksport kanoniczny oraz udział ukryty/widoczny działają bez obserwatora DEV.
+
+Potwierdzono twardy reset w `restartScenarios.ts:applyRestartScenario`: przypisanie pozycji,
+celu/idealnego celu i zerowej prędkości. Wywołują go granice boiska, strzał poza bramkę,
+koniec 0,55-sekundowego interwału gola, faul/korzyść, spalony, zmiana wykonawcy po kartce,
+druga połowa i jawny wybór scenariusza DEV. Dokładna mapa, testy, wyniki i ograniczenia:
+[PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
+Następny zakres: **PR153 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
+pozostaje poza PR152.
 
 PR151: ograniczona pamięć zagrożeń należy do core i wpływa na istniejące cele bloku,
 wsparcie oraz rzeczywisty wybór podań. Odpowiedź narasta stopniowo, zanika i zachowuje osłonę
@@ -88,8 +104,10 @@ PR145 zastępuje dawną definicję wejść w posiadanie dowodami rzeczywistych k
 `contactEvidence.ts` scala wypuszczenie, przyjęcie, kontakt lotu i zmianę kontroli według
 zawodnika/czasu. Przyjęcie i strzał z pierwszej piłki albo catch/owner bramkarza liczą się raz.
 Tick prowadzenia z przyczepioną piłką nie tworzy fikcyjnego kontaktu. UI używa „Kontakty”.
-Ukończone podanie wymaga kontaktu zamierzonego odbiorcy i razem zwiększa licznik podającego,
-otrzymane podania odbiorcy oraz krawędź sieci. Telemetria korzysta z tych samych sum.
+Ukończone podanie wymaga fizycznego kontaktu kolegi z drużyny; PR152 przypisuje je do
+`actualReceiverId`, a zamierzony cel zachowuje jako diagnostykę. Razem zwiększa licznik
+podającego, otrzymane podania rzeczywistego odbiorcy oraz krawędź sieci.
+Telemetria korzysta z tych samych sum.
 Dokładne definicje, świadome ograniczenia kategorii i stałe opisuje
 [MATCH_BEHAVIOUR_CALIBRATION.md](MATCH_BEHAVIOUR_CALIBRATION.md).
 Flaga kontrolowania nie jest wejściem rankingu adresatów; nie wprowadzono kwot pozycyjnych.
@@ -99,8 +117,8 @@ Flaga kontrolowania nie jest wejściem rankingu adresatów; nie wprowadzono kwot
 `defensiveChallenges.ts` zapisuje fizyczny zamiar odbioru i wynik jednej próby: brak kontaktu,
 minięcie, czysty odbiór, luźną piłkę albo faul. Geometria i kanoniczne atrybuty ograniczają
 dostępność zwykłej/zaangażowanej próby, wślizgu i taktycznego zatrzymania; menu pozostaje
-target-first. Wysokie ryzyko kontrolowanego zawodnika wymaga jawnej intencji człowieka
-(albo jawnej delegacji DEV), rutyna pozostaje autonomiczna. NPC korzysta z tego samego resolvera.
+target-first. PR152 rezerwuje granicę faktycznej oczekującej decyzji człowieka; poza nią
+kontrolowany zawodnik korzysta z tej samej autonomicznej polityki i resolvera co NPC.
 
 `matchRules.ts` klasyfikuje dowód kontaktu, przechowuje dyscyplinę i kolejkę opóźnionych kartek,
 prowadzi trzysekundowe okno korzyści oraz używa istniejących wznowień z kanonicznej lokalizacji.

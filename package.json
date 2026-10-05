@@ -36,6 +36,7 @@
     "benchmark:intent": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr150.ts",
     "benchmark:reactive": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkReactiveTactics.ts",
     "benchmark:cadence": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr151.ts",
+    "benchmark:sanity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr152.ts",
     "benchmark:shot-parity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkShotParity.ts"
   },
   "dependencies": {

@@ -524,13 +524,6 @@ export const beginDefensiveChallenge = (
   )
     return state;
   if (
-    action.technique !== 'standing' &&
-    action.actorId === state.controlledFootballerId &&
-    source !== 'human_selected' &&
-    source !== 'dev_ai_selected'
-  )
-    return state;
-  if (
     state.recentDuel &&
     state.recentDuel.expiresAt > state.time &&
     state.recentDuel.participants.includes(action.actorId) &&
@@ -604,11 +597,6 @@ export const chooseNpcDefensiveChallengeAction = (
   const comfortableReach = Math.max(0.45, 0.55 + defensiveControl * 0.3 - c.relativeSpeed * 0.025);
   const comfortableStanding =
     !rearApproach && c.ballDistance <= comfortableReach ? standing : undefined;
-  if (actorId === state.controlledFootballerId) {
-    // Routine support can wait for clean ball access; serious commitment requires a choice.
-    if (rearApproach || c.relativeSpeed > 4.5 || c.facingError > Math.PI * 0.3) return;
-    return comfortableStanding;
-  }
   const desperate =
     state.time >= 80 * 60 &&
     state.score[actor.team] < state.score[actor.team === 'home' ? 'away' : 'home'];
@@ -734,19 +722,13 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     execution + skill * 0.65 - lateness * 0.35 > 0.2;
   const accidentalMistiming =
     execution < Math.max(0.008, (1 - skill) * 0.025 + c.relativeSpeed * 0.002 + lateness * 0.025);
-  const controlledRoutine =
-    c.actor.id === state.controlledFootballerId &&
-    intent.source !== 'human_selected' &&
-    intent.source !== 'dev_ai_selected';
+  const autonomousStanding =
+    intent.technique === 'standing' &&
+    (intent.source === 'autonomous_routine' || intent.source === 'autonomous_npc');
   const routineWithdrawn =
-    controlledRoutine &&
-    (fromBehind ||
-      !ballReachable ||
-      c.relativeSpeed > 4.5 ||
-      lateness > 0.3 ||
-      accidentalMistiming);
-  // A routine poke is withdrawn when the timing deteriorates. An explicitly selected tackle
-  // retains its commitment and all normal foul/card consequences in this same resolver.
+    autonomousStanding && (fromBehind || !ballReachable || c.relativeSpeed > 4.5 || lateness > 0.3);
+  // Any autonomous routine poke is withdrawn when the timing deteriorates. Human identity
+  // does not change physics; an explicitly selected or committed tackle retains its risk.
   if (routineWithdrawn) opponentContact = false;
   // A standing poke that fails to find the ball is often simply beaten. Mere proximity is
   // not an infringement; opponent-first contact needs a committed/impeding physical action.
