@@ -2,6 +2,9 @@ import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import type { PlayerMatchStats } from './playerMatchStats';
 import type { PresentationRuntimeTelemetry } from './matchPresentation';
+import { projectPlayerActiveTime, playerActiveTimeSchema } from './playerActiveMinutes';
+import { turnoverCauseCountsSchema } from './possessionEvents';
+import { defensiveTechniqueSchema, defensiveCountersSchema } from './defensiveChallenges';
 
 const count = z.number().int().nonnegative();
 const measure = z.number().nonnegative();
@@ -19,7 +22,8 @@ export const canonicalParticipationCoverageSchema = z.object({
     sprintDistanceMetres: measure,
   }),
   visiblePossessionEpisodes: count,
-  visibleEpisodesInvolvingPlayer: count,
+  visiblePlayerInvolvingSequences: count,
+  visibleDefensiveInvolvements: count,
 });
 export type CanonicalParticipationCoverage = z.infer<typeof canonicalParticipationCoverageSchema>;
 
@@ -45,7 +49,8 @@ export class CanonicalParticipationTracker {
       sprintDistanceMetres: 0,
     },
     visiblePossessionEpisodes: 0,
-    visibleEpisodesInvolvingPlayer: 0,
+    visiblePlayerInvolvingSequences: 0,
+    visibleDefensiveInvolvements: 0,
   };
   private visibleSequenceInvolvesPlayer = false;
 
@@ -56,7 +61,7 @@ export class CanonicalParticipationTracker {
   markVisiblePlayerInvolvement() {
     if (this.visibleSequenceInvolvesPlayer) return;
     this.visibleSequenceInvolvesPlayer = true;
-    this.coverage.visibleEpisodesInvolvingPlayer++;
+    this.coverage.visiblePlayerInvolvingSequences++;
   }
 
   observe(
@@ -88,6 +93,7 @@ export class CanonicalParticipationTracker {
       target.sprintDistanceMetres += difference('sprintDistance');
     } else {
       this.coverage.visiblePossessionEpisodes += possessions;
+      this.coverage.visibleDefensiveInvolvements += defense;
       if (possessions || defense || difference('passesAttempted') || difference('shots'))
         this.markVisiblePlayerInvolvement();
     }
@@ -126,6 +132,28 @@ export const canonicalTeamSanitySchema = z.object({
   distanceMetres: measure,
   sprintDistanceMetres: measure,
   restarts: restartsSchema,
+  turnoverCauses: turnoverCauseCountsSchema.nullable(),
+});
+const roleComparisonPlayerSchema = z.object({
+  playerId: z.string(),
+  activeMinutes: measure,
+  possessionEpisodes: count,
+  possessionEpisodesPerActive90: ratio,
+  passesReceived: count,
+  passesCompleted: count,
+  completedPassesToTeamShare: ratio,
+  completedPassesFromTeamShare: ratio,
+});
+export const challengeCalibrationSchema = z.object({
+  technique: defensiveTechniqueSchema,
+  counters: defensiveCountersSchema,
+  foulRatePerAttempt: ratio,
+  yellowRatePerAttempt: ratio,
+  redRatePerAttempt: ratio,
+  cardIncidentRatePerAttempt: ratio,
+  yellowRatePerFoul: ratio,
+  redRatePerFoul: ratio,
+  cardIncidentRatePerFoul: ratio,
 });
 export const canonicalMatchSanitySchema = z.object({
   canonicalSeconds: measure,
@@ -135,9 +163,11 @@ export const canonicalMatchSanitySchema = z.object({
       team: z.enum(['home', 'away']),
       position: z.string(),
       minutes: measure,
+      activeTime: playerActiveTimeSchema,
       possessionEpisodes: count,
       passesReceived: count,
       passesAttempted: count,
+      passesCompleted: count,
       carries: count,
       shots: count,
       defense: z.object({
@@ -153,19 +183,25 @@ export const canonicalMatchSanitySchema = z.object({
       sprintDistanceMetres: measure,
       humanDecisionPrompts: count.nullable(),
       presentationCoverage: canonicalParticipationCoverageSchema.nullable(),
+      comparableRolePlayers: z.array(roleComparisonPlayerSchema),
     })
     .nullable(),
   teams: z.object({ home: canonicalTeamSanitySchema, away: canonicalTeamSanitySchema }),
   ratios: z.object({
     controlledPlayerTouchShare: ratio,
     controlledPlayerPassShare: ratio,
-    humanPromptsPer90: ratio,
+    controlledPlayerCompletedPassesFromShare: ratio,
+    controlledPlayerCompletedPassesToShare: ratio,
+    humanPromptsPerActive45: ratio,
+    humanPromptsPerActive90: ratio,
+    presentationPromptsPerCanonical90: ratio,
     canonicalPlayerPossessionsPerHumanPrompt: ratio,
     foulsPer90: ratio,
     cardsPer90: ratio,
     penaltiesPer90: ratio,
     throwInsPer90: ratio,
   }),
+  challengeCalibration: z.array(challengeCalibrationSchema).nullable(),
   warnings: z.array(
     z.object({ code: z.string(), playerId: z.string().nullable(), evidence: z.string() }),
   ),
@@ -181,6 +217,7 @@ export const projectCanonicalMatchSanity = (
   presentation?: PresentationRuntimeTelemetry,
   participation?: CanonicalParticipationCoverage,
   measuredPlayerId = state.controlledFootballerId,
+  measuredPosition?: string,
 ): CanonicalMatchSanity | null => {
   const statistics = state.statistics;
   if (!statistics) return null;
@@ -240,12 +277,16 @@ export const projectCanonicalMatchSanity = (
         penalties: accountingValue('penalties'),
         kickOffs: accountingValue('kickOffs'),
       },
+      turnoverCauses: accounting?.turnoverCauses ?? null,
     };
   };
   const teams = { home: teamSummary('home'), away: teamSummary('away') };
   const player = statistics.players.find((p) => p.playerId === measuredPlayerId);
   const team = player ? membership[player.playerId] : undefined;
   const active = state.players.find((p) => p.id === measuredPlayerId);
+  const activeTime = projectPlayerActiveTime(state, measuredPlayerId);
+  const position =
+    active?.profile.primaryPosition ?? measuredPosition ?? 'unavailable_after_removal';
   const extra = (field: string) =>
     player && field in player ? Number(player[field as keyof PlayerMatchStats]) : null;
   const controlled =
@@ -253,11 +294,13 @@ export const projectCanonicalMatchSanity = (
       ? {
           playerId: player.playerId,
           team,
-          position: active?.profile.primaryPosition ?? 'unavailable_after_removal',
-          minutes: player.minutesPlayed,
+          position,
+          minutes: activeTime.seconds / 60,
+          activeTime,
           possessionEpisodes: player.touches,
           passesReceived: player.passesReceived,
           passesAttempted: player.passesAttempted,
+          passesCompleted: player.passesCompleted,
           carries: player.carries,
           shots: player.shots,
           defense: {
@@ -273,6 +316,33 @@ export const projectCanonicalMatchSanity = (
           sprintDistanceMetres: player.sprintDistance,
           humanDecisionPrompts: presentation?.humanDecisionPromptsShown ?? null,
           presentationCoverage: participation ?? null,
+          comparableRolePlayers: statistics.players
+            .filter(
+              (peer) =>
+                peer.playerId !== player.playerId &&
+                membership[peer.playerId] === team &&
+                state.players.find((candidate) => candidate.id === peer.playerId)?.profile
+                  .primaryPosition === position,
+            )
+            .map((peer) => {
+              const seconds = projectPlayerActiveTime(state, peer.playerId).seconds;
+              return {
+                playerId: peer.playerId,
+                activeMinutes: seconds / 60,
+                possessionEpisodes: peer.touches,
+                possessionEpisodesPerActive90: divide(peer.touches * 5400, seconds),
+                passesReceived: peer.passesReceived,
+                passesCompleted: peer.passesCompleted,
+                completedPassesToTeamShare: divide(
+                  peer.passesReceived,
+                  teams[team].passesCompleted,
+                ),
+                completedPassesFromTeamShare: divide(
+                  peer.passesCompleted,
+                  teams[team].passesCompleted,
+                ),
+              };
+            }),
         }
       : null;
   const per90 = (value: number) => divide(value * 5400, state.time);
@@ -294,18 +364,11 @@ export const projectCanonicalMatchSanity = (
   for (const p of statistics.players) {
     const side = membership[p.playerId];
     if (!side) continue;
-    const position = state.players.find((activePlayer) => activePlayer.id === p.playerId)?.profile
-      .primaryPosition;
-    if (
-      position &&
-      ['left_back', 'right_back', 'left_wing_back', 'right_wing_back'].includes(position) &&
-      teams[side].passesAttempted >= 100 &&
-      p.passesAttempted / teams[side].passesAttempted > 0.35
-    )
+    if (p.passesCompleted > p.passesAttempted)
       warnings.push({
-        code: 'fullback_dominates_passing',
+        code: 'invalid_pass_accounting',
         playerId: p.playerId,
-        evidence: `${p.passesAttempted}/${teams[side].passesAttempted} team attempted passes`,
+        evidence: `${p.passesCompleted} completed / ${p.passesAttempted} attempts`,
       });
     if (p.tacklesWon > p.tacklesAttempted)
       warnings.push({
@@ -342,7 +405,23 @@ export const projectCanonicalMatchSanity = (
       controlledPlayerPassShare: controlled
         ? divide(controlled.passesAttempted, teams[controlled.team].passesAttempted)
         : null,
-      humanPromptsPer90: presentation ? per90(presentation.humanDecisionPromptsShown) : null,
+      controlledPlayerCompletedPassesFromShare: controlled
+        ? divide(controlled.passesCompleted, teams[controlled.team].passesCompleted)
+        : null,
+      controlledPlayerCompletedPassesToShare: controlled
+        ? divide(controlled.passesReceived, teams[controlled.team].passesCompleted)
+        : null,
+      humanPromptsPerActive45:
+        controlled && presentation
+          ? divide(presentation.humanDecisionPromptsShown * 2700, activeTime.seconds)
+          : null,
+      humanPromptsPerActive90:
+        controlled && presentation
+          ? divide(presentation.humanDecisionPromptsShown * 5400, activeTime.seconds)
+          : null,
+      presentationPromptsPerCanonical90: presentation
+        ? per90(presentation.humanDecisionPromptsShown)
+        : null,
       canonicalPlayerPossessionsPerHumanPrompt:
         controlled && presentation
           ? divide(controlled.possessionEpisodes, presentation.humanDecisionPromptsShown)
@@ -352,6 +431,25 @@ export const projectCanonicalMatchSanity = (
       penaltiesPer90: per90(penalties),
       throwInsPer90: per90(throwIns),
     },
+    challengeCalibration: state.defensiveTelemetry?.byTechnique
+      ? Object.entries(state.defensiveTelemetry.byTechnique).map(([technique, counters]) => ({
+          technique,
+          counters,
+          foulRatePerAttempt: divide(counters.fouls, counters.attempted),
+          yellowRatePerAttempt: divide(counters.yellowCards, counters.attempted),
+          redRatePerAttempt: divide(counters.redCards, counters.attempted),
+          cardIncidentRatePerAttempt: divide(
+            counters.yellowCards + counters.straightReds,
+            counters.attempted,
+          ),
+          yellowRatePerFoul: divide(counters.yellowCards, counters.fouls),
+          redRatePerFoul: divide(counters.redCards, counters.fouls),
+          cardIncidentRatePerFoul: divide(
+            counters.yellowCards + counters.straightReds,
+            counters.fouls,
+          ),
+        }))
+      : null,
     warnings,
   });
 };

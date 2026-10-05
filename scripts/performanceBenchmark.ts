@@ -362,7 +362,7 @@ export const runPerformanceBenchmark = (
     ? recorder.export(session, FIXED_MATCH_DT, { width: 0, height: 0 }, false, 0)
     : {
         telemetry: isDevObservationMode(config.mode) ? telemetry : undefined,
-        agency: isDevObservationMode(config.mode) ? agency.snapshot(state.time) : undefined,
+        agency: isDevObservationMode(config.mode) ? agency.snapshot(state.time, state) : undefined,
       };
   const packagingMs = performance.now() - packagingStarted;
   const serializationStarted = performance.now();

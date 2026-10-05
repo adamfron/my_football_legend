@@ -2,7 +2,11 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase';
 import { createCalibrationSession } from './matchCalibrationBenchmark';
-import { pr152Distribution, runPr152MatchSanity } from './pr152MatchSanityBenchmark';
+import {
+  createPr152BenchmarkConfig,
+  pr152Distribution,
+  runPr152MatchSanity,
+} from './pr152MatchSanityBenchmark';
 
 const world = createCanonicalWorldDatabase();
 
@@ -18,7 +22,10 @@ describe('PR152 deterministic sanity driver', () => {
     expect(normal.invariantFailures).toEqual([]);
     expect(normal.performance.detailedObserverCalls).toBe(0);
     expect(dev.performance.detailedObserverCalls).toBeGreaterThan(0);
-    expect(normal.performance.rendererCallsBackground).toBe(0);
+    expect(normal.performance.rendererCallsBackground).toBeNull();
+    expect(normal.performance.rendererEvidence).toBe(
+      'headless_unavailable_use_RunningLab_instrumentation',
+    );
     expect(
       normal.presentation.hiddenCanonicalSeconds + normal.presentation.visibleCanonicalSeconds,
     ).toBeCloseTo(normal.canonical.canonicalSeconds, 7);
@@ -38,7 +45,10 @@ describe('PR152 deterministic sanity driver', () => {
     expect(npc.hashes.behaviour).toBe(controlled.hashes.behaviour);
     expect(npc.hashes.statistics).toBe(controlled.hashes.statistics);
     expect(npc.positionalInvolvement).toEqual(controlled.positionalInvolvement);
-    expect(npc.canonical.controlled).toEqual(controlled.canonical.controlled);
+    expect({ ...npc.canonical.controlled, presentationCoverage: null }).toEqual({
+      ...controlled.canonical.controlled,
+      presentationCoverage: null,
+    });
     expect(controlled.presentation.prompts).toBe(0);
     expect(npc.presentation.prompts).toBe(0);
   }, 60000);
@@ -52,5 +62,55 @@ describe('PR152 deterministic sanity driver', () => {
       mean: 5,
     });
     expect(pr152Distribution([9, 1, 4]).median).toBe(4);
+  });
+
+  it('keeps full, extended, key and player policies independent of canonical human inputs', () => {
+    const session = createCalibrationSession(world, 'balanced-balanced', 'pr152-policy-parity');
+    const policies = [
+      'full_match',
+      'extended_match',
+      'key_match',
+      'player_extended',
+      'key_player',
+    ] as const;
+    const results = policies.map((presentationPolicy) =>
+      runPr152MatchSanity(session, { minutes: 1, presentationPolicy }),
+    );
+    for (const result of results) {
+      expect(result.hashes).toEqual(results[0]!.hashes);
+      expect(result.canonical.teams).toEqual(results[0]!.canonical.teams);
+      expect(result.presentation.prompts).toBe(results[0]!.presentation.prompts);
+    }
+    expect(results[0]!.presentation.hiddenCanonicalSeconds).toBe(0);
+    expect(results[4]!.presentation.hiddenCanonicalSeconds).toBeGreaterThan(0);
+  }, 60000);
+
+  it('measures capture observer work without changing canonical football', () => {
+    const session = createCalibrationSession(world, 'balanced-balanced', 'pr152-capture-parity');
+    const normal = runPr152MatchSanity(session, { minutes: 0.25 });
+    const capture = runPr152MatchSanity(session, { minutes: 0.25, observerMode: 'capture' });
+    expect(capture.hashes).toEqual(normal.hashes);
+    expect(capture.canonical).toEqual(normal.canonical);
+    expect(normal.performance.captureRecorderCalls).toBe(0);
+    expect(capture.performance.captureRecorderCalls).toBeGreaterThan(0);
+    expect(capture.invariantFailures).toEqual([]);
+  }, 60000);
+
+  it('offers a fast matrix covering roles, strengths and measured observation modes', () => {
+    const config = createPr152BenchmarkConfig(['--matrix=quick']);
+    expect(config.positions).toEqual(['central_midfielder', 'left_back', 'striker']);
+    expect(config.scenarios).toEqual(['balanced-balanced', 'weak-strong']);
+    expect(config.observerModes).toEqual(['normal', 'capture']);
+    expect(config.seeds).toHaveLength(2);
+    expect(
+      createPr152BenchmarkConfig([
+        '--matrix=acceptance',
+        '--minutes=5',
+        '--position=striker',
+        '--observer-modes=normal',
+      ]).minutes,
+    ).toEqual([5]);
+    expect(createPr152BenchmarkConfig(['--position=striker']).positions).toEqual(['striker']);
+    expect(() => createPr152BenchmarkConfig(['--matrix=unknown'])).toThrow('Unknown matrix');
   });
 });

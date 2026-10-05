@@ -7,6 +7,11 @@ export const FEEDBACK_MAX_LIFETIME_MS = 1600;
 
 /** Declarative Polish feedback. Routine contacts/movement do not produce floating text. */
 const feedback = {
+  // Canonical accounting evidence stays in the ledger without adding visible prompts/labels.
+  pass_result: { text: '', priority: 0, lifetimeMs: 0 },
+  possession_loss: { text: '', priority: 0, lifetimeMs: 0 },
+  restart: { text: '', priority: 0, lifetimeMs: 0 },
+  recovery: { text: '', priority: 0, lifetimeMs: 0 },
   pass: { text: 'PODANIE', priority: 1, lifetimeMs: 700 },
   through_pass: { text: 'PODANIE PROSTOPADŁE', priority: 2, lifetimeMs: 850 },
   cross: { text: 'DOŚRODKOWANIE', priority: 3, lifetimeMs: 850 },

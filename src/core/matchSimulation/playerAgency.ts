@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { projectPlayerAgency } from './playerDecision';
 import type { TacticalMatchState } from './matchState';
+import { projectPlayerActiveTime, playerActiveTimeSchema } from './playerActiveMinutes';
 
 export const agencyOwnershipSchema = z.enum([
   'human_decision',
@@ -18,6 +19,9 @@ export const agencyTelemetrySchema = z.object({
 });
 export const agencySessionMetricsSchema = agencyTelemetrySchema.extend({
   canonicalSeconds: z.number().nonnegative(),
+  activePlayerSeconds: z.number().nonnegative(),
+  activeTimeSource: playerActiveTimeSchema.shape.source,
+  rateBasis: z.literal('active_player_minutes'),
   decisionsPer45Minutes: z.number().nonnegative(),
   decisionsPer90Minutes: z.number().nonnegative(),
 });
@@ -39,6 +43,8 @@ export type AgencySessionMetrics = z.infer<typeof agencySessionMetricsSchema>;
 /** Counts semantic candidate entries, not 40 identical probes per second. Bounded memory. */
 export class PlayerAgencyTracker {
   private lastKey = '';
+  private activePlayerSeconds = 0;
+  private activeTimeSource: z.infer<typeof playerActiveTimeSchema>['source'] = 'unavailable';
   private counts: AgencyTelemetry = {
     candidates: 0,
     meaningfulHumanDecisions: 0,
@@ -51,6 +57,9 @@ export class PlayerAgencyTracker {
     state: TacticalMatchState,
     evaluation: ReturnType<typeof projectPlayerAgency>,
   ): AgencyDiagnostic | undefined {
+    const active = projectPlayerActiveTime(state);
+    this.activePlayerSeconds = active.seconds;
+    this.activeTimeSource = active.source;
     const { probe, opportunity } = evaluation;
     const reason = opportunity?.triggerReason ?? probe.ownershipReason ?? probe.blockedReason;
     const category = opportunity
@@ -90,7 +99,13 @@ export class PlayerAgencyTracker {
         : {}),
     };
   }
-  snapshot(canonicalSeconds: number): AgencySessionMetrics {
+  snapshot(canonicalSeconds: number, state?: TacticalMatchState): AgencySessionMetrics {
+    const active = state
+      ? projectPlayerActiveTime(state)
+      : {
+          seconds: this.activePlayerSeconds,
+          source: this.activeTimeSource,
+        };
     const counts = {
       ...this.counts,
       byKind: { ...this.counts.byKind },
@@ -99,10 +114,13 @@ export class PlayerAgencyTracker {
     return {
       ...counts,
       canonicalSeconds,
+      activePlayerSeconds: active.seconds,
+      activeTimeSource: active.source,
+      rateBasis: 'active_player_minutes',
       decisionsPer45Minutes:
-        canonicalSeconds > 0 ? (counts.meaningfulHumanDecisions * 2700) / canonicalSeconds : 0,
+        active.seconds > 0 ? (counts.meaningfulHumanDecisions * 2700) / active.seconds : 0,
       decisionsPer90Minutes:
-        canonicalSeconds > 0 ? (counts.meaningfulHumanDecisions * 5400) / canonicalSeconds : 0,
+        active.seconds > 0 ? (counts.meaningfulHumanDecisions * 5400) / active.seconds : 0,
     };
   }
 }

@@ -57,3 +57,4 @@ export * from './matchReplay';
 export * from './matchCentreStatistics';
 export * from './spacePassing';
 export * from './passExecution';
+export * from './possessionEvents';

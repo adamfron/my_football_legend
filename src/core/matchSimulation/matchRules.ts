@@ -4,6 +4,7 @@ import type { TacticalMatchState } from './matchState';
 import { applyRestartScenario } from './restartScenarios';
 import {
   countDefensiveEvent,
+  defensiveTechniqueSchema,
   deriveDefensiveContext,
   type ChallengeDiagnostic,
 } from './defensiveChallenges';
@@ -12,6 +13,7 @@ export const ADVANTAGE_WINDOW_SECONDS = 3;
 export const foulFactSchema = z.object({
   id: z.string(),
   challengeId: z.string(),
+  technique: defensiveTechniqueSchema.optional(),
   at: z.number().nonnegative(),
   actorId: z.string(),
   team: teamSideSchema,
@@ -126,7 +128,9 @@ export const classifyChallengeFoul = (
     (challenge.technique === 'slide' && challenge.fromBehind && challenge.force > 6.2)
       ? 'excessive_force'
       : challenge.force > 4.2 ||
-          challenge.lateness > 0.4 ||
+          // Distance outside ball reach is a timing error, not proof of reckless
+          // physical danger. Low-speed standing contact remains an ordinary foul.
+          (challenge.lateness > 0.4 && challenge.force > 2.5) ||
           (challenge.technique === 'slide' && challenge.fromBehind && challenge.force > 2.5)
         ? 'reckless'
         : 'ordinary';
@@ -141,6 +145,7 @@ export const classifyChallengeFoul = (
   return {
     id: `${challenge.id}:foul`,
     challengeId: challenge.id,
+    technique: challenge.technique,
     at: challenge.at,
     actorId: challenge.actorId,
     team: challenge.team,
@@ -240,13 +245,15 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
         }
       : {}),
   };
-  if (foul.card === 'yellow') next = countDefensiveEvent(next, foul.actorId, 'yellowCards');
+  if (foul.card === 'yellow')
+    next = countDefensiveEvent(next, foul.actorId, 'yellowCards', foul.technique);
   if (sentOff) {
-    next = countDefensiveEvent(next, foul.actorId, 'redCards');
+    next = countDefensiveEvent(next, foul.actorId, 'redCards', foul.technique);
     next = countDefensiveEvent(
       next,
       foul.actorId,
       kind === 'second_yellow_red' ? 'secondYellowDismissals' : 'straightReds',
+      foul.technique,
     );
     next = removeDismissedExecution(next, foul.actorId);
     // No substitutions in this PR. A deterministic surviving teammate becomes emergency keeper.
@@ -353,7 +360,7 @@ export const awardFoulRestart = (state: TacticalMatchState, foul: FoulFact): Tac
   if (state.status === 'abandoned' || state.status === 'full_time') return state;
   let prepared = clearFoulExecution(state);
   if (foul.penalty && prepared.lastPenaltyAwardId !== foul.id) {
-    prepared = countDefensiveEvent(prepared, foul.actorId, 'penalties');
+    prepared = countDefensiveEvent(prepared, foul.actorId, 'penalties', foul.technique);
     prepared = { ...prepared, lastPenaltyAwardId: foul.id };
   }
   const attackingProgress = progress(foul.position, foul.awardedTeam);
@@ -368,6 +375,8 @@ export const awardFoulRestart = (state: TacticalMatchState, foul: FoulFact): Tac
   return applyRestartScenario(prepared, scenario, {
     restartTeam: foul.awardedTeam,
     restartPoint: point,
+    cause: 'foul',
+    loserId: foul.actorId,
   });
 };
 
@@ -415,11 +424,16 @@ export const applyChallengeInfringement = (
         ? { pendingCards: [...(next.pendingCards ?? []), foul].slice(-22) }
         : {}),
     };
-    return countDefensiveEvent(next, foul.actorId, 'advantagePlayed');
+    return countDefensiveEvent(next, foul.actorId, 'advantagePlayed', foul.technique);
   }
   if (next.pendingAdvantage) {
     const interrupted = next.pendingAdvantage.foul;
-    next = countDefensiveEvent(next, interrupted.actorId, 'advantageRecalled');
+    next = countDefensiveEvent(
+      next,
+      interrupted.actorId,
+      'advantageRecalled',
+      interrupted.technique,
+    );
     next = { ...next, lastAdvantage: advanceFact(next, interrupted, 'recalled') };
   }
   next = showCard(next, foul);
@@ -467,7 +481,7 @@ export const advanceMatchRules = (
       next = { ...next, lastAdvantage: advanceFact(next, foul, 'realized') };
       delete next.pendingAdvantage;
     } else if (failed || stoppage || next.time >= advantage.expiresAt) {
-      next = countDefensiveEvent(next, foul.actorId, 'advantageRecalled');
+      next = countDefensiveEvent(next, foul.actorId, 'advantageRecalled', foul.technique);
       next = { ...next, lastAdvantage: advanceFact(next, foul, 'recalled') };
       next = awardFoulRestart(next, foul);
     } else if (looseSince !== advantage.looseSince) {

@@ -1,5 +1,13 @@
 # My Football Legend — Current Project State
 
+## Rozszerzony zakres PR152 — statystyki i dyscyplina
+
+Po scaleniu pierwotnego PR152 uzupełniono semantykę strat/wznowień, aktywne minuty decyzji,
+kontrakt epizodów posiadania i bezpieczniejszy autonomiczny dobór wejść defensywnych.
+W DEV rozdzielono udział kanoniczny, widoczny i rzeczywiste pytania człowieka; telemetria
+obejmuje przyczyny strat oraz faule/kartki według techniki. Wyniki i ograniczenia:
+[PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
+
 ## PR152 — Canonical Player Participation, Statistical Invariants & Match Sanity
 
 Kontrolowany piłkarz korzysta ze wspólnej autonomii poza rzeczywistą decyzją człowieka.
@@ -9,11 +17,11 @@ umożliwia deterministyczne porównanie tego samego zawodnika z NPC.
 
 Odbiory mają jednoznaczną tożsamość próby/wyniku i wykonawcę; przydział posiadania zachowuje
 uczestników po natychmiastowym wypuszczeniu piłki. Oddzielono odzyskania, bloki i pojedynki.
-Eksport Match Lab v4 pokazuje tani raport kanoniczny i udział ukryty/widoczny bez DEV.
+Eksport Match Lab v5 pokazuje tani raport kanoniczny i udział ukryty/widoczny bez DEV.
 Pasmo ostrzeżeń pozostaje diagnostyczne. Audyt i dowody:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-Następny etap: **PR153 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
+Następny etap po uzupełnieniu statystyk/dyscypliny: **Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
 reakcja po golu, celebracja/pilne wznowienie według wyniku i czasu, odzyskanie piłki po późnym
 golu, gotowość wznowienia i fundament doliczonego czasu. PR152 nie implementuje tego etapu.
 

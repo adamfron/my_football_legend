@@ -12,6 +12,10 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ## Autorytatywna kolejność rozwoju Single Match
 
+Rozszerzony prompt PR152 jest realizowany na świeżej gałęzi po scaleniu oryginalnego #152:
+semantyka strat/wznowień, aktywne minuty decyzji i kalibracja dyscypliny. Dokument wyników:
+[PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
+
 ### COMPLETED
 
 PR105–PR152 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
@@ -218,7 +222,7 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 
 ### NEXT
 
-**PR153 — Dead Ball & Restart Continuity**
+**Dead Ball & Restart Continuity — po rozszerzeniu statystyk/dyscypliny PR152**
 
 - fizyczne przejście z bieżących pozycji do legalnego ustawienia wznowienia;
 - stan reakcji po golu i wybór celebracji albo pilnego wznowienia według wyniku/czasu;
@@ -226,9 +230,9 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - gotowość wznowienia oparta na pozycjach i dostępności piłki;
 - fundament doliczonego czasu oparty na kanonicznych przerwach.
 
-Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR152 nie implementuje PR153.
+Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. Bieżące uzupełnienie nie implementuje ciągłości wznowień.
 
-Po PR153:
+Po ciągłości wznowień:
 
 **Fatigue, Injury Risk, Added Time & Substitution Intelligence**
 
@@ -472,8 +476,8 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
-NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: po PR152 ciągłość martwej piłki
-i wznowień (PR153), następnie rozwój kondycji,
+NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: po rozszerzeniu PR152 ciągłość martwej piłki
+i wznowień, następnie rozwój kondycji,
 urazów, doliczonego czasu i inteligencji zmian.
 Poniższa lista jest historycznym kontekstem systemów kariery; starsze plany pakietów
 zagranicznych nie wyprzedzają obecnej kolejności silnika meczu.

@@ -1,5 +1,11 @@
 # PR152 canonical accounting and restart audit
 
+The expanded follow-up supersedes the earlier control/intervention episode and discipline
+scope below: incidental contacts without control do not start canonical possession episodes,
+loss causes survive distinct restart awards, and active player minutes define agency rates.
+Current contracts and calibration evidence:
+[PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
+
 ## Statistical meanings
 
 `touches` means continuous individual control/contact episodes. Receiving, controlling,

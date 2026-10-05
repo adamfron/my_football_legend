@@ -11,6 +11,7 @@ import { MatchLabDiagnosticsController } from './matchLabDiagnostics';
 import { ViewportVideoRecorder } from './matchDebugCapture';
 import { RunningLab } from './TacticalMatchSandbox';
 import { MatchReplayHistory } from '../../core/matchSimulation/matchReplay';
+import { stepTacticalMatchAfterDecisionProbe } from '../../core/matchSimulation/matchSimulation';
 
 const observed = vi.hoisted(() => ({
   render: vi.fn(),
@@ -161,6 +162,74 @@ describe('background Match Lab orchestration', () => {
     );
     expect(centre.querySelector('.match-centre__score')!.textContent).toContain('1–0');
     expect(observed.render).not.toHaveBeenCalled();
+  });
+
+  it('advances real hidden football without renderer calls in normal, DEV and capture modes', () => {
+    observed.step.mockImplementation(stepTacticalMatchAfterDecisionProbe);
+    const initial = controller.latestState;
+    const details = container.querySelector<HTMLDetailsElement>('.lab-diagnostics')!;
+    act(() => {
+      details.open = true;
+      details.dispatchEvent(new Event('toggle'));
+    });
+    const observer = [...container.querySelectorAll<HTMLSelectElement>('select')].find((select) =>
+      [...select.options].some((option) => option.value === 'capture'),
+    )!;
+    for (const mode of ['normal', 'dev', 'capture']) {
+      const before = controller.latestState;
+      act(() => {
+        observer.value = mode;
+        observer.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      expect(controller.latestState).toBe(before);
+      act(() => vi.advanceTimersByTime(1));
+      expect(controller.latestState.time).toBeGreaterThan(before.time);
+      expect(observed.render).not.toHaveBeenCalled();
+    }
+    expect(
+      controller.latestState.statistics?.players.some((player) => player.minutesPlayed > 0),
+    ).toBe(true);
+    expect(controller.latestState.ball).not.toEqual(initial.ball);
+    expect(controller.crashPackage).toBeUndefined();
+  });
+
+  it('changing observation mode and every presentation policy preserves a paused canonical snapshot', () => {
+    const pause = [...container.querySelectorAll<HTMLButtonElement>('nav button')].find(
+      (button) => button.textContent === 'Pauza',
+    )!;
+    act(() => pause.click());
+    const snapshot = structuredClone(controller.latestState);
+    const details = container.querySelector<HTMLDetailsElement>('.lab-diagnostics')!;
+    act(() => {
+      details.open = true;
+      details.dispatchEvent(new Event('toggle'));
+    });
+    const observer = [...container.querySelectorAll<HTMLSelectElement>('select')].find((select) =>
+      [...select.options].some((option) => option.value === 'capture'),
+    )!;
+    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    for (const mode of ['normal', 'dev', 'capture', 'release_minimal']) {
+      act(() => {
+        observer.value = mode;
+        observer.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      for (const id of [
+        'full_match',
+        'extended_match',
+        'key_match',
+        'player_extended',
+        'key_player',
+      ]) {
+        act(() => {
+          policy.value = id;
+          policy.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+        expect(controller.latestState).toEqual(snapshot);
+      }
+    }
+    act(() => vi.advanceTimersByTime(50));
+    expect(controller.latestState).toEqual(snapshot);
+    expect(observed.step).not.toHaveBeenCalled();
   });
 
   it('keeps canonical background football running when the optional replay observer fails', () => {

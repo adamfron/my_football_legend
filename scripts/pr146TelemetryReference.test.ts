@@ -14,7 +14,12 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR151 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR152 complete telemetry reference (PR146 observer contract)', () => {
+  // Expanded PR152 intentionally separates football loss causes from restart awards.
+  // These full-output hashes retain every exported field, including identity ledgers;
+  // both seeds are reproduced in focused validation and the complete verify suite.
+  // Previous PR151 hashes: 0b4a6d4b2dd6eb0327dd1e6089423449eaa73b85deaf99cb14470fa685d048b6 (a),
+  // ac8983f8eaed1ddeb2a69b535bbc95b6f5ba57850551d368f8adbb47e1737021 (b).
   // PR151 intentionally changes attribute-based movement, reactive team positioning and
   // presentation cadence. Reproduced both complete hashes twice after 2,400 identical ticks;
   // the pristine PR150 checkout independently reproduced both previous reference hashes.
@@ -47,8 +52,8 @@ describe('PR151 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '0b4a6d4b2dd6eb0327dd1e6089423449eaa73b85deaf99cb14470fa685d048b6'],
-    ['pr146-flow-reference:b', 'ac8983f8eaed1ddeb2a69b535bbc95b6f5ba57850551d368f8adbb47e1737021'],
+    ['pr146-flow-reference:a', '57b122ac016fccc3733e4d2ff31107ab60e7525f97fb6102ae6e8fcdba2afda3'],
+    ['pr146-flow-reference:b', '292256575ff857cf3f16b788ed0eb8810739c358388a3472ad7a7d61921d33bc'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(
@@ -67,6 +72,11 @@ describe('PR151 complete telemetry reference (PR146 observer contract)', () => {
     }
     assertTelemetryInvariants(telemetry);
     matchFlowTelemetrySchema.parse(telemetry);
+    expect(telemetry.turnoverCauses).not.toHaveProperty('restart');
+    expect(Object.values(telemetry.turnoverCauses).reduce((sum, count) => sum + count, 0)).toBe(
+      telemetry.observedPossessionLossIds.length,
+    );
+    expect(telemetry.restartAwards).toBe(telemetry.observedRestartAwardIds.length);
     const stableJson = JSON.stringify(telemetry, (_key, value: unknown) =>
       value && typeof value === 'object' && !Array.isArray(value)
         ? Object.fromEntries(

@@ -6,6 +6,7 @@ import { createTacticalMatch } from './matchSimulation';
 import { createPresentationRuntimeTelemetry } from './matchPresentation';
 import { CanonicalParticipationTracker, projectCanonicalMatchSanity } from './canonicalMatchSanity';
 import type { TacticalMatchState } from './matchState';
+import { createDefensiveCounters } from './defensiveChallenges';
 
 const world = createCanonicalWorldDatabase();
 const fixture = () => {
@@ -81,7 +82,8 @@ describe('PR152 cheap whole-match canonical sanity', () => {
         sprintDistanceMetres: 2,
       },
       visiblePossessionEpisodes: 1,
-      visibleEpisodesInvolvingPlayer: 2,
+      visiblePlayerInvolvingSequences: 2,
+      visibleDefensiveInvolvements: 1,
     });
     const report = projectCanonicalMatchSanity(
       intercepted,
@@ -118,7 +120,7 @@ describe('PR152 cheap whole-match canonical sanity', () => {
     // This fixture deliberately models a pre-PR152 serialized team-accounting object.
     for (const accounting of Object.values(legacy.statistics!.teamAccounting!)) {
       for (const key of ['goalKicks', 'penalties', 'kickOffs', 'possessionChanges'])
-        delete (accounting as Record<string, number>)[key];
+        delete (accounting as unknown as Record<string, unknown>)[key];
     }
     for (const player of legacy.statistics!.players) {
       for (const key of ['looseBallRecoveries', 'blocks', 'duelsWon'])
@@ -143,7 +145,7 @@ describe('PR152 cheap whole-match canonical sanity', () => {
         away: { possessionChanges: 1, restarts: { penalties: 1 } },
       },
       ratios: {
-        humanPromptsPer90: 30,
+        humanPromptsPerActive90: 30,
         canonicalPlayerPossessionsPerHumanPrompt: 7 / 15,
         penaltiesPer90: 2,
       },
@@ -160,7 +162,7 @@ describe('PR152 cheap whole-match canonical sanity', () => {
   it('reports unavailable data as null and preserves undefined ratios at zero duration/denominators', () => {
     const initial = fixture();
     expect(projectCanonicalMatchSanity(initial)?.ratios).toMatchObject({
-      humanPromptsPer90: null,
+      humanPromptsPerActive90: null,
       controlledPlayerTouchShare: null,
       foulsPer90: null,
       canonicalPlayerPossessionsPerHumanPrompt: null,
@@ -168,5 +170,90 @@ describe('PR152 cheap whole-match canonical sanity', () => {
     const withoutStatistics = { ...initial };
     delete withoutStatistics.statistics;
     expect(projectCanonicalMatchSanity(withoutStatistics)).toBeNull();
+  });
+
+  it('uses dismissed active minutes, preserves role metadata and keeps whole-session rates separate', () => {
+    const initial = fixture();
+    const playerId = initial.controlledFootballerId!;
+    const state = increment(initial, {
+      touches: 12,
+      minutesPlayed: 45,
+      passesReceived: 8,
+      passesCompleted: 7,
+      passesAttempted: 9,
+    });
+    state.time = 2700;
+    const teammateId = state.players.find(
+      (player) => player.team === 'home' && player.id !== playerId,
+    )!.id;
+    state.statistics!.players = state.statistics!.players.map((player) =>
+      player.playerId === teammateId
+        ? { ...player, passesAttempted: 5, passesCompleted: 5 }
+        : player,
+    );
+    state.players = state.players.filter((player) => player.id !== playerId);
+    state.discipline = {
+      [playerId]: { team: 'home', yellowCards: 2, sentOff: true, sentOffAt: 1416 },
+    };
+    const presentation = createPresentationRuntimeTelemetry();
+    presentation.humanDecisionPromptsShown = 4;
+    const report = projectCanonicalMatchSanity(
+      state,
+      presentation,
+      undefined,
+      playerId,
+      'central_midfielder',
+    )!;
+    expect(report.controlled?.minutes).toBe(23.6);
+    expect(report.controlled?.position).toBe('central_midfielder');
+    expect(report.ratios.humanPromptsPerActive45).toBeCloseTo((4 * 2700) / 1416, 8);
+    expect(report.ratios.humanPromptsPerActive90).toBeCloseTo((4 * 5400) / 1416, 8);
+    expect(report.ratios.presentationPromptsPerCanonical90).toBe(8);
+    expect(report.ratios.controlledPlayerCompletedPassesFromShare).toBeCloseTo(7 / 12);
+    // Receiver and passer counts have independent football semantics; no forced equality.
+    expect(report.ratios.controlledPlayerCompletedPassesToShare).toBeCloseTo(8 / 12);
+    expect(report.controlled?.comparableRolePlayers.length).toBeGreaterThan(0);
+  });
+
+  it('uses cumulative played minutes for a substitute rather than elapsed match time', () => {
+    const state = increment(fixture(), { minutesPlayed: 6 });
+    state.time = 2700;
+    const presentation = createPresentationRuntimeTelemetry();
+    presentation.humanDecisionPromptsShown = 4;
+    const report = projectCanonicalMatchSanity(state, presentation)!;
+    expect(report.controlled?.activeTime).toEqual({
+      seconds: 360,
+      source: 'canonical_minutes_played',
+    });
+    expect(report.ratios.humanPromptsPerActive45).toBe(30);
+    expect(report.ratios.humanPromptsPerActive90).toBe(60);
+  });
+
+  it('reports challenge card incidents without double-counting a second-yellow dismissal', () => {
+    const state = fixture();
+    state.defensiveTelemetry = {
+      ...createDefensiveCounters(),
+      byPlayer: {},
+      byTechnique: {
+        standing: {
+          ...createDefensiveCounters(),
+          attempted: 10,
+          fouls: 2,
+          yellowCards: 2,
+          redCards: 1,
+          secondYellowDismissals: 1,
+        },
+      },
+    };
+    expect(projectCanonicalMatchSanity(state)?.challengeCalibration).toMatchObject([
+      {
+        technique: 'standing',
+        foulRatePerAttempt: 0.2,
+        yellowRatePerAttempt: 0.2,
+        redRatePerAttempt: 0.1,
+        cardIncidentRatePerAttempt: 0.2,
+        cardIncidentRatePerFoul: 1,
+      },
+    ]);
   });
 });

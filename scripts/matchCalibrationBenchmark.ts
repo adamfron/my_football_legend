@@ -391,7 +391,7 @@ export const runCalibrationBenchmark = (
       maximumPairAttempts,
       topPairShare: raw.passesAttempted > 0 ? maximumPairAttempts / raw.passesAttempted : 0,
     },
-    agency: agency.snapshot(state.time),
+    agency: agency.snapshot(state.time, state),
     performance: {
       elapsedMs,
       ticks,

@@ -20,6 +20,10 @@ export const canonicalActionEventSchema = z.object({
   at: z.number().nonnegative().finite(),
   kind: z.enum([
     'pass',
+    'pass_result',
+    'possession_loss',
+    'restart',
+    'recovery',
     'through_pass',
     'cross',
     'reception',
@@ -141,6 +145,27 @@ export const emitCanonicalActionEvents = (
       });
   }
   const reception = next.lastReceptionOutcome;
+  if (
+    pass?.finalResult &&
+    pass.resolvedAt !== undefined &&
+    (pass.passId !== previousPass?.passId || pass.finalResult !== previousPass?.finalResult)
+  ) {
+    const actor = actorFact(pass.passerId, pass.actualContactPoint ?? pass.physicalTarget);
+    if (actor)
+      add({
+        ...actor,
+        key: `pass-result:${pass.passId}`,
+        at: pass.resolvedAt,
+        kind: 'pass_result',
+        targetId: pass.actualReceiverId ?? pass.intendedReceiverId,
+        outcome: pass.finalResult,
+        cause:
+          next.lastPossessionLoss?.passId === pass.passId
+            ? next.lastPossessionLoss.cause
+            : (pass.receptionOutcome ?? pass.finalResult),
+        parentId: eventId(`pass:${pass.passId}`),
+      });
+  }
   if (reception && reception !== previous.lastReceptionOutcome) {
     const actor = actorFact(reception.receiverId, reception.contactPoint);
     if (actor) {
@@ -270,22 +295,72 @@ export const emitCanonicalActionEvents = (
           break;
         }
       }
-      if (possession.cause !== 'claim' || parent)
-        add({
-          ...actor,
-          key: `possession:${ownerId}:${possession.at.toFixed(6)}`,
-          at: possession.at,
-          kind: possession.cause === 'tackle' ? 'tackle' : 'interception',
-          outcome: 'won',
-          cause: possession.cause,
-          targetId:
-            parent?.actorId ??
-            (possession.winnerId
-              ? possession.loserId
-              : (possession.loserId ?? previous.ball.ownerId)),
-          ...(parent ? { parentId: parent.id } : {}),
-        });
+      add({
+        ...actor,
+        key: `possession:${ownerId}:${possession.at.toFixed(6)}`,
+        at: possession.at,
+        kind:
+          possession.cause === 'tackle'
+            ? 'tackle'
+            : possession.cause === 'interception' && next.lastPossessionLoss?.cause !== 'bad_pass'
+              ? 'interception'
+              : 'recovery',
+        outcome: 'won',
+        cause: possession.cause,
+        targetId:
+          parent?.actorId ??
+          (possession.winnerId
+            ? possession.loserId
+            : (possession.loserId ?? previous.ball.ownerId)),
+        ...(parent ? { parentId: parent.id } : {}),
+      });
     }
+  }
+  const loss = next.lastPossessionLoss;
+  if (loss && loss.id !== previous.lastPossessionLoss?.id && loss.loserId) {
+    const actor = actorFact(loss.loserId, loss.position);
+    if (actor)
+      add({
+        ...actor,
+        key: `loss:${loss.id}`,
+        at: loss.at,
+        kind: 'possession_loss',
+        outcome: 'lost',
+        cause: loss.cause,
+        targetId: loss.winnerId,
+        ...(loss.passId ? { parentId: eventId(`pass:${loss.passId}`) } : {}),
+      });
+  }
+  const award = next.lastRestartAward;
+  if (award && award.id !== previous.lastRestartAward?.id) {
+    const actor = actorFact(award.takerId, next.ball);
+    if (actor)
+      add({
+        ...actor,
+        key: `restart:${award.id}`,
+        at: award.at,
+        kind: 'restart',
+        outcome: award.scenario,
+        cause: award.cause,
+        ...(award.lossId ? { parentId: eventId(`loss:${award.lossId}`) } : {}),
+      });
+  }
+  const recovery = next.lastBallRecovery;
+  if (
+    recovery &&
+    recovery.id !== previous.lastBallRecovery?.id &&
+    !(possession?.winnerId === recovery.playerId && possession.at === recovery.at)
+  ) {
+    const actor = actorFact(recovery.playerId, next.ball);
+    if (actor)
+      add({
+        ...actor,
+        key: `recovery:${recovery.id}`,
+        at: recovery.at,
+        kind: 'recovery',
+        outcome: 'won',
+        cause: 'loose_ball_claim',
+      });
   }
   const challenge = next.lastChallenge;
   if (challenge && challenge.id !== previous.lastChallenge?.id)

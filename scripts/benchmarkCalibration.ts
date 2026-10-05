@@ -117,7 +117,7 @@ const sessions = Array.from({ length: config.seeds }, (_, index) => {
         : 0,
     },
     lead: { attempts: leadAttempts, behindActiveMotion: leadBehindMotion },
-    agency: agency.snapshot(state.time),
+    agency: agency.snapshot(state.time, state),
     reasons,
     statistics: {
       receivedWithoutTouch: stats.filter((s) => s.passesReceived > s.touches).length,

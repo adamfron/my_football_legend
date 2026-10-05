@@ -39,6 +39,36 @@ export const projectControlEpisodes = (
   let episode = active && { ...active };
   const started: ControlEpisode[] = [];
   for (const contact of [...contacts].sort((a, b) => a.at - b.at)) {
+    const reception = next.lastReceptionOutcome;
+    if (
+      contact.source === 'controlled_contact' &&
+      reception?.receiverId === contact.playerId &&
+      (reception.kind === 'heavy_touch' || reception.kind === 'failed_control') &&
+      next.ball.ownerId !== contact.playerId &&
+      episode?.playerId !== contact.playerId &&
+      !contacts.some(
+        (other) =>
+          other.playerId === contact.playerId &&
+          other.at === contact.at &&
+          ['pass_release', 'shot_release', 'delivery_release'].includes(other.source),
+      )
+    )
+      continue;
+    // A deflection or a parry has granular contact evidence, but does not itself constitute
+    // controlled possession. The acquisition/reception/release sources remain episode evidence.
+    if (
+      contact.source === 'flight_contact' &&
+      next.ball.ownerId !== contact.playerId &&
+      !(
+        next.lastPossessionChange?.winnerId === contact.playerId &&
+        next.lastPossessionChange.at === contact.at
+      ) &&
+      !(
+        next.lastBallRecovery?.playerId === contact.playerId &&
+        next.lastBallRecovery.at === contact.at
+      )
+    )
+      continue;
     if (!episode || episode.playerId !== contact.playerId) {
       episode = {
         playerId: contact.playerId,
@@ -53,6 +83,7 @@ export const projectControlEpisodes = (
   if (
     episode &&
     (next.ball.ownerId !== episode.playerId ||
+      !next.players.some((player) => player.id === episode!.playerId) ||
       next.restart?.phase === 'setup' ||
       next.status === 'half_time' ||
       next.status === 'full_time' ||

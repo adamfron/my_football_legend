@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { emptyTurnoverCauseCounts, turnoverCauseCountsSchema } from './possessionEvents';
 import { distance } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { shotDiagnosticSchema, type TacticalMatchState } from './matchState';
@@ -78,6 +79,7 @@ const passOutcomeDiagnosticSchema = z.object({
   outcome: z.enum([
     'completed',
     'intercepted',
+    'bad_pass',
     'failed_reception',
     'out_of_play',
     'unclaimed',
@@ -114,20 +116,8 @@ export const matchFlowTelemetrySchema = z.object({
   failedSaves: z.number().int().nonnegative(),
   noChanceGoals: z.number().int().nonnegative(),
   possessionChanges: z.number().int().nonnegative(),
-  turnoverCauses: z.record(
-    z.enum([
-      'tackle',
-      'interception',
-      'bad_pass',
-      'pass_out',
-      'heavy_touch',
-      'failed_control',
-      'loose_ball_claim',
-      'restart',
-      'other',
-    ]),
-    z.number().int().nonnegative(),
-  ),
+  turnoverCauses: turnoverCauseCountsSchema,
+  restartAwards: z.number().int().nonnegative().default(0),
   possessionSpellDurations: z.array(z.number().nonnegative()),
   possessionSpells: z.array(possessionSpellDiagnosticSchema),
   actionTempoSamples: z.array(actionTempoSampleSchema),
@@ -253,6 +243,8 @@ export const matchFlowTelemetrySchema = z.object({
   observedPassResultIds: z.array(z.string()),
   observedShotIds: z.array(z.string()),
   observedMajorActionIds: z.array(z.string()),
+  observedPossessionLossIds: z.array(z.string()),
+  observedRestartAwardIds: z.array(z.string()),
   shotDiagnostics: z.array(shotDiagnosticSchema),
 });
 export type MatchFlowTelemetry = z.infer<typeof matchFlowTelemetrySchema>;
@@ -267,6 +259,8 @@ type TelemetryIndexes = {
   passResults: Set<string>;
   shots: Set<string>;
   majorActions: Set<string>;
+  possessionLosses: Set<string>;
+  restartAwards: Set<string>;
   passOutcomes: Map<string, number>;
   longestPossessionSpell: number;
   statisticsNetwork?: NonNullable<TacticalMatchState['statistics']>['passingNetwork'];
@@ -284,6 +278,8 @@ const claimTelemetryIndexes = (previous: MatchFlowTelemetry, next: MatchFlowTele
       passResults: new Set(previous.observedPassResultIds),
       shots: new Set(previous.observedShotIds),
       majorActions: new Set(previous.observedMajorActionIds),
+      possessionLosses: new Set(previous.observedPossessionLossIds),
+      restartAwards: new Set(previous.observedRestartAwardIds),
       passOutcomes: new Map(),
       longestPossessionSpell: 0,
     };
@@ -338,17 +334,8 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
     failedSaves: 0,
     noChanceGoals: 0,
     possessionChanges: 0,
-    turnoverCauses: {
-      tackle: 0,
-      interception: 0,
-      bad_pass: 0,
-      pass_out: 0,
-      heavy_touch: 0,
-      failed_control: 0,
-      loose_ball_claim: 0,
-      restart: 0,
-      other: 0,
-    },
+    turnoverCauses: emptyTurnoverCauseCounts(),
+    restartAwards: 0,
     possessionSpellDurations: [],
     possessionSpells: [],
     actionTempoSamples: [],
@@ -451,6 +438,8 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
     observedPassResultIds: [],
     observedShotIds: [],
     observedMajorActionIds: [],
+    observedPossessionLossIds: [],
+    observedRestartAwardIds: [],
     shotDiagnostics: [],
   });
 
@@ -510,7 +499,6 @@ export const observeMatchFlow = (
     },
   };
   const indexes = claimTelemetryIndexes(telemetry, result);
-  const resolvedPass = next.lastResolvedPass ?? next.lastPassDiagnostic;
   const observedPasses = new Map(
     [next.lastResolvedPass, next.lastPassDiagnostic]
       .filter((pass): pass is NonNullable<typeof pass> => Boolean(pass))
@@ -585,6 +573,19 @@ export const observeMatchFlow = (
       );
     if (!nearPost(previous) && nearPost(next)) result.nearPostOccupationEpisodes++;
   }
+  const loss = next.lastPossessionLoss;
+  const newLoss = loss && !indexes.possessionLosses.has(loss.id);
+  if (newLoss) {
+    result.turnoverCauses[loss.cause]++;
+    append('observedPossessionLossIds', loss.id);
+    indexes.possessionLosses.add(loss.id);
+  }
+  const award = next.lastRestartAward;
+  if (award && !indexes.restartAwards.has(award.id)) {
+    result.restartAwards++;
+    append('observedRestartAwardIds', award.id);
+    indexes.restartAwards.add(award.id);
+  }
   if (previous.possessionTeam !== next.possessionTeam) {
     result.possessionChanges++;
     const spell = previous.timeSincePossessionChanged;
@@ -592,28 +593,7 @@ export const observeMatchFlow = (
     indexes.longestPossessionSpell = Math.max(indexes.longestPossessionSpell, spell);
     if (spell < 0.5) result.microSpellsUnder0_5s++;
     if (spell <= next.time - previous.time + 0.001) result.adjacentTickPossessionFlips++;
-    const cause =
-      next.scenario !== 'open_play'
-        ? 'restart'
-        : next.lastBoundaryCrossing && next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
-          ? 'pass_out'
-          : next.lastReceptionOutcome !== previous.lastReceptionOutcome &&
-              next.lastReceptionOutcome?.kind === 'heavy_touch'
-            ? 'heavy_touch'
-            : next.lastReceptionOutcome !== previous.lastReceptionOutcome &&
-                next.lastReceptionOutcome?.kind === 'failed_control'
-              ? 'failed_control'
-              : resolvedPass?.finalResult === 'intercepted'
-                ? 'interception'
-                : resolvedPass?.finalResult === 'technical_error'
-                  ? 'bad_pass'
-                  : next.recentDuel?.winnerId === next.ball.ownerId &&
-                      next.recentDuel?.resolvedAt === next.time
-                    ? 'tackle'
-                    : !previous.ball.ownerId
-                      ? 'loose_ball_claim'
-                      : 'other';
-    result.turnoverCauses[cause]++;
+    const cause = newLoss ? loss.cause : undefined;
     append('possessionSpells', {
       team: previous.possessionTeam,
       startedAt: result.observerState.spellStartedAt,
@@ -898,15 +878,19 @@ export const observeMatchFlow = (
           outcome:
             diagnostic.finalResult === 'completed'
               ? 'completed'
-              : diagnostic.finalResult === 'intercepted'
-                ? 'intercepted'
-                : diagnostic.finalResult === 'technical_error'
-                  ? 'technical_error'
-                  : diagnostic.receptionOutcome === 'failed_control'
-                    ? 'failed_reception'
-                    : next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
-                      ? 'out_of_play'
-                      : 'unclaimed',
+              : diagnostic.finalResult === 'out_of_play'
+                ? 'out_of_play'
+                : diagnostic.finalResult === 'inaccurate'
+                  ? 'bad_pass'
+                  : diagnostic.finalResult === 'intercepted'
+                    ? 'intercepted'
+                    : diagnostic.finalResult === 'technical_error'
+                      ? 'technical_error'
+                      : diagnostic.receptionOutcome === 'failed_control'
+                        ? 'failed_reception'
+                        : next.lastBoundaryCrossing !== previous.lastBoundaryCrossing
+                          ? 'out_of_play'
+                          : 'unclaimed',
         };
       }
       if (moving && diagnostic.finalResult === 'completed') result.movingReceiverCompletions++;

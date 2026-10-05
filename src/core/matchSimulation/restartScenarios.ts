@@ -1,11 +1,17 @@
 import { deriveRestartGeometry } from './restartGeometry';
 import type { RestartScenario, TacticalMatchState } from './matchState';
+import { recordPossessionLoss, restartAwardId, type RestartAward } from './possessionEvents';
 
 /** Ephemeral deterministic DEV setup. It is geometry/lifecycle input, not a laws engine. */
 export const applyRestartScenario = (
   input: TacticalMatchState,
   scenario: RestartScenario,
-  options: { restartTeam: 'home' | 'away'; restartPoint?: { x: number; y: number } } = {
+  options: {
+    restartTeam: 'home' | 'away';
+    restartPoint?: { x: number; y: number };
+    cause?: RestartAward['cause'];
+    loserId?: string;
+  } = {
     restartTeam: 'home',
   },
 ): TacticalMatchState => {
@@ -16,6 +22,17 @@ export const applyRestartScenario = (
     return { ...openPlay, scenario };
   }
   const restartTeam = options.restartTeam;
+  const awardId = restartAwardId(input, restartTeam, scenario);
+  const cause =
+    options.cause ?? (input.lastPossessionLoss?.restartId === awardId ? 'boundary' : 'bookkeeping');
+  if (cause === 'foul' || cause === 'offside' || cause === 'shot' || cause === 'goal')
+    input = recordPossessionLoss(input, {
+      key: `restart:${awardId}`,
+      to: restartTeam,
+      cause: cause === 'shot' || cause === 'goal' ? 'shot' : 'foul_stoppage',
+      loserId: options.loserId,
+      restartId: awardId,
+    });
   const geometry = deriveRestartGeometry(input, scenario, restartTeam, options.restartPoint);
   const setPiece =
     scenario === 'corner' || scenario.startsWith('free_kick') || scenario === 'penalty';
@@ -75,6 +92,17 @@ export const applyRestartScenario = (
       ...(geometry.cornerPlan ? { cornerPlan: geometry.cornerPlan } : {}),
       ...(geometry.landingZone ? { landingZone: geometry.landingZone } : {}),
     },
+    lastRestartAward: {
+      id: awardId,
+      at: input.time,
+      team: restartTeam,
+      scenario,
+      takerId: geometry.taker.id,
+      cause,
+      ...(input.lastPossessionLoss?.restartId === awardId
+        ? { lossId: input.lastPossessionLoss.id }
+        : {}),
+    },
   };
   delete state.throwInRestriction;
   delete state.ballCarrierIntent;
@@ -83,6 +111,7 @@ export const applyRestartScenario = (
   delete state.onBallPreparation;
   delete state.humanPossessionEpisode;
   delete state.postActionAgencyCheckpoint;
+  delete state.pendingPossessionLoss;
   state.players = state.players.map((player) => {
     const position = geometry.targets[player.id] ?? player.position;
     return {

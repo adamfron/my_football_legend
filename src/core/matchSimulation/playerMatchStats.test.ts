@@ -92,7 +92,7 @@ describe('canonical contact and pass event semantics', () => {
     expect(() => assertMatchStatisticsInvariants(statistics)).not.toThrow();
   });
 
-  it('starts a new public touch after release and recovery, including unsuccessful contact', () => {
+  it('starts a controlled public episode on recovery while retaining unsuccessful contact separately', () => {
     const initial = state('pr150-recovery-touch');
     const actor = initial.players.find((player) => player.id === initial.ball.ownerId)!;
     const failed: TacticalMatchState = {
@@ -108,7 +108,9 @@ describe('canonical contact and pass event semantics', () => {
     const first = observePlayerMatchStats(createMatchStatistics(initial), initial, failed);
     const recovered = { ...failed, time: 2, ball: { ...actor.position, ownerId: actor.id } };
     const second = observePlayerMatchStats(first, failed, recovered);
-    expect(second.players.find((player) => player.playerId === actor.id)?.touches).toBe(2);
+    expect(first.players.find((player) => player.playerId === actor.id)?.touches).toBe(0);
+    expect(first.observedContactIds.length).toBe(1);
+    expect(second.players.find((player) => player.playerId === actor.id)?.touches).toBe(1);
     expect(second.activeControlEpisode?.playerId).toBe(actor.id);
     expect(observePlayerMatchStats(second, recovered, structuredClone(recovered))).toEqual(second);
   });
@@ -294,7 +296,7 @@ describe('canonical contact and pass event semantics', () => {
     };
     const statistics = observePlayerMatchStats(createMatchStatistics(initial), initial, next);
     expect(statistics.players.find((p) => p.playerId === receiver.id)).toMatchObject({
-      touches: 1,
+      touches: 0,
       passesReceived: 0,
     });
   });
@@ -329,7 +331,7 @@ describe('canonical contact and pass event semantics', () => {
       },
     };
     const second = observePlayerMatchStats(first, failed, failedAgain);
-    expect(second.players.find((player) => player.playerId === receiver!.id)?.touches).toBe(2);
+    expect(second.players.find((player) => player.playerId === receiver!.id)?.touches).toBe(0);
     expect(observePlayerMatchStats(second, failedAgain, structuredClone(failedAgain))).toEqual(
       second,
     );
@@ -337,7 +339,7 @@ describe('canonical contact and pass event semantics', () => {
     recovered.time += 0.025;
     recovered.ball.ownerId = receiver!.id;
     const third = observePlayerMatchStats(second, failedAgain, recovered);
-    expect(third.players.find((player) => player.playerId === receiver!.id)?.touches).toBe(3);
+    expect(third.players.find((player) => player.playerId === receiver!.id)?.touches).toBe(1);
   });
 
   it('counts a substep keeper catch once when ownership also changes at the tick boundary', () => {

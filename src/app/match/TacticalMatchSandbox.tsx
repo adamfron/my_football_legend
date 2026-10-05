@@ -18,7 +18,10 @@ import {
 } from './backgroundPublication';
 import { formatDiagnosticMatchTime, formatMatchTime } from './matchTime';
 import { createSessionTelemetryReport } from './matchBenchmarkReport';
-import { CanonicalParticipationTracker } from '../../core/matchSimulation/canonicalMatchSanity';
+import {
+  CanonicalParticipationTracker,
+  projectCanonicalMatchSanity,
+} from '../../core/matchSimulation/canonicalMatchSanity';
 import {
   appendReplayFrame,
   sampleReplayFrame,
@@ -532,6 +535,21 @@ export const RunningLab = ({
   observerModeRef.current = observerMode;
   presentationPhaseRef.current = presentationPhase;
   const devObservation = isDevObservationMode(observerMode);
+  const measuredPosition = [...session.home.players, ...session.away.players].find(
+    (player) => player.footballerId === state.controlledFootballerId,
+  )?.profile.primaryPosition;
+  const participationDiagnostic = geometryExpanded
+    ? projectCanonicalMatchSanity(
+        state,
+        presentationTelemetryRef.current,
+        canonicalParticipationRef.current.snapshot(),
+        undefined,
+        measuredPosition,
+      )
+    : null;
+  const agencyDiagnostic = geometryExpanded
+    ? agencyTrackerRef.current.snapshot(state.time, state)
+    : null;
   const resetPresentation = useCallback((next: TacticalMatchState) => {
     replayEpochRef.current++;
     const phase = presentationPolicyRef.current.fullMatch ? 'full_match' : 'background_simulation';
@@ -1624,15 +1642,16 @@ export const RunningLab = ({
                     canonicalSeconds: current.time,
                     coverage: observerCoverageRef.current,
                     flow: telemetryRef.current,
-                    agency: agencyTrackerRef.current.snapshot(current.time),
+                    agency: agencyTrackerRef.current.snapshot(current.time, current),
                     positioning: positioningSamplesRef.current,
                     presentation: presentationTelemetryRef.current,
                     state: current,
                     participation: canonicalParticipationRef.current.snapshot(),
+                    measuredPosition,
                   });
                   const summary = {
                     metadata: {
-                      schema: 'mfl-session-benchmark-v4',
+                      schema: 'mfl-session-benchmark-v5',
                       seed: current.seed,
                       observerMode,
                       observationScope:
@@ -2181,13 +2200,61 @@ export const RunningLab = ({
             {geometryExpanded && situation && (
               <>
                 <p>
-                  Sprawczość:{' '}
-                  {agencyTrackerRef.current.snapshot(state.time).meaningfulHumanDecisions} decyzji ·
-                  rutyna: {agencyTrackerRef.current.snapshot(state.time).routineDelegated} · jedna
-                  opcja: {agencyTrackerRef.current.snapshot(state.time).singleOptionDelegated} ·
-                  bufor kontekstu: {contextHistoryRef.current.snapshot().samplesRetained}/62 próbek
-                  (10 Hz)
+                  Sprawczość: {agencyDiagnostic?.meaningfulHumanDecisions} obserwowanych kandydatów
+                  decyzji · rutyna: {agencyDiagnostic?.routineDelegated} · jedna opcja:{' '}
+                  {agencyDiagnostic?.singleOptionDelegated} · bufor kontekstu:{' '}
+                  {contextHistoryRef.current.snapshot().samplesRetained}/62 próbek (10 Hz)
                 </p>
+                {participationDiagnostic?.controlled && (
+                  <p>
+                    Kanoniczne epizody posiadania:{' '}
+                    {participationDiagnostic.controlled.possessionEpisodes} · ukryte:{' '}
+                    {participationDiagnostic.controlled.presentationCoverage?.hidden
+                      .possessionEpisodes ?? '—'}{' '}
+                    · widoczne epizody posiadania:{' '}
+                    {participationDiagnostic.controlled.presentationCoverage
+                      ?.visiblePossessionEpisodes ?? '—'}
+                    <br />
+                    Widoczne sekwencje z udziałem piłkarza:{' '}
+                    {participationDiagnostic.controlled.presentationCoverage
+                      ?.visiblePlayerInvolvingSequences ?? '—'}{' '}
+                    · pytania do człowieka:{' '}
+                    {participationDiagnostic.controlled.humanDecisionPrompts ?? '—'}
+                    <br />
+                    Aktywne minuty: {participationDiagnostic.controlled.minutes.toFixed(2)} ·
+                    pytania / aktywne 45:{' '}
+                    {participationDiagnostic.ratios.humanPromptsPerActive45?.toFixed(2) ?? '—'} · /
+                    aktywne 90:{' '}
+                    {participationDiagnostic.ratios.humanPromptsPerActive90?.toFixed(2) ?? '—'}
+                    <br />
+                    Zdarzenia obronne ukryte / widoczne:{' '}
+                    {participationDiagnostic.controlled.presentationCoverage?.hidden
+                      .defensiveInvolvements ?? '—'}
+                    {' / '}
+                    {participationDiagnostic.controlled.presentationCoverage
+                      ?.visibleDefensiveInvolvements ?? '—'}{' '}
+                    · udział w epizodach zespołu:{' '}
+                    {participationDiagnostic.ratios.controlledPlayerTouchShare === null
+                      ? '—'
+                      : `${(participationDiagnostic.ratios.controlledPlayerTouchShare * 100).toFixed(1)}%`}
+                    <br />
+                    Epizod posiadania obejmuje przyjęcie, prowadzenie i oddanie/utratę piłki.
+                    Widoczność epizodu liczymy w chwili jego rozpoczęcia. Widoczna sekwencja może
+                    obejmować kilka takich epizodów.
+                    <br />
+                    Udział w celnych podaniach zespołu od / do piłkarza:{' '}
+                    {participationDiagnostic.ratios.controlledPlayerCompletedPassesFromShare ===
+                    null
+                      ? '—'
+                      : `${(participationDiagnostic.ratios.controlledPlayerCompletedPassesFromShare * 100).toFixed(1)}%`}
+                    {' / '}
+                    {participationDiagnostic.ratios.controlledPlayerCompletedPassesToShare === null
+                      ? '—'
+                      : `${(participationDiagnostic.ratios.controlledPlayerCompletedPassesToShare * 100).toFixed(1)}%`}{' '}
+                    · inni zawodnicy zespołu w tej samej roli:{' '}
+                    {participationDiagnostic.controlled.comparableRolePlayers.length}
+                  </p>
+                )}
                 {opportunity && opportunity.kind === 'on_ball' && (
                   <button
                     className="dev-ai-choice"
