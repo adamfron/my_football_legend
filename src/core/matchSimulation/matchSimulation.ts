@@ -41,6 +41,7 @@ import { awardOffsideRestart, findOffsideContestant, isOffsideOffence } from './
 import {
   countSemanticPlayerChoices,
   incomingBallIntentKey,
+  hasPendingPlayerDecision,
   projectPlayerDecisionOpportunity,
 } from './playerDecision';
 import { deriveMovementCapability, projectLocomotion, projectSprintEpisode } from './locomotion';
@@ -254,7 +255,7 @@ const tryIncomingFinish = (
       (selected.type === 'pass' && selected.firstTime)
       ? selected
       : undefined
-    : actorId !== state.controlledFootballerId
+    : !hasPendingPlayerDecision(state, actorId)
       ? chooseIncomingShotAction(state, actorId)
       : undefined;
   if (
@@ -265,15 +266,7 @@ const tryIncomingFinish = (
         !canExecuteCanonicalShot(state, action))
   )
     return;
-  const ready = { ...withoutOffsideSnapshot(applyIncomingContact(state, actorId)) };
-  if (action.type === 'pass')
-    ready.ball = {
-      x: state.ball.x,
-      y: state.ball.y,
-      ownerId: actorId,
-      lastTouchPlayerId: actorId,
-      ...(state.ball.height !== undefined ? { height: state.ball.height } : {}),
-    };
+  let ready = { ...withoutOffsideSnapshot(applyIncomingContact(state, actorId)) };
   delete ready.pendingReceptionIntent;
   delete ready.receptionPreparation;
   const contactActor = state.players.find((player) => player.id === actorId);
@@ -290,6 +283,20 @@ const tryIncomingFinish = (
       finalResult: teammateContact ? 'completed' : 'intercepted',
     };
   if (ready.lastPassDiagnostic?.finalResult) ready.lastResolvedPass = ready.lastPassDiagnostic;
+  if (contactActor && contactActor.team !== ready.possessionTeam) {
+    // A first-time interception is a real team turnover even though no settled owner survives
+    // the tick. Keep the incoming flight geometry for the physical strike after recording it.
+    const incomingBall = ready.ball;
+    ready = { ...changePossession(ready, actorId, 'interception'), ball: incomingBall };
+  }
+  if (action.type === 'pass')
+    ready.ball = {
+      x: state.ball.x,
+      y: state.ball.y,
+      ownerId: actorId,
+      lastTouchPlayerId: actorId,
+      ...(state.ball.height !== undefined ? { height: state.ball.height } : {}),
+    };
   const resolved = resolveMatchAction(
     ready,
     action,
@@ -308,6 +315,19 @@ const changePossession = (
     return awardOffsideRestart(state, ownerId, { x: state.ball.x, y: state.ball.y });
   state = applyIncomingContact(state, ownerId);
   const owner = state.players.find((p) => p.id === ownerId)!;
+  if (
+    cause === 'claim' &&
+    !state.ball.ownerId &&
+    (state.ball.looseSince !== undefined || !state.ball.travelKind || state.ball.shot)
+  )
+    state = {
+      ...state,
+      lastBallRecovery: {
+        id: `${state.seed}:recovery:${state.time.toFixed(6)}:${ownerId}`,
+        at: state.time,
+        playerId: ownerId,
+      },
+    };
   // Pressure at release belongs to the passer. Reception and preparation use the receiver's
   // current canonical opponents, including a marker that arrived during the flight.
   state = { ...state, currentPressure: evaluatePressure(state, owner).value };
@@ -447,7 +467,17 @@ const changePossession = (
     ball: controlledBall,
     ballOwnershipStartedAt: state.time,
     onBallPreparation: deriveOnBallPreparation(state, owner),
-    lastPossessionChange: { at: state.time, from: state.possessionTeam, to: owner.team, cause },
+    lastPossessionChange: {
+      at: state.time,
+      from: state.possessionTeam,
+      to: owner.team,
+      cause,
+      winnerId: ownerId,
+      ...(state.ball.ownerId ? { loserId: state.ball.ownerId } : {}),
+      ...(cause === 'tackle' && state.lastChallenge?.actorId === ownerId
+        ? { challengeId: state.lastChallenge.id }
+        : {}),
+    },
     ...(state.lastPassDiagnostic && !state.lastPassDiagnostic.finalResult
       ? {
           lastPassDiagnostic: {
@@ -631,6 +661,7 @@ const stepTacticalMatchCore = (
   if (
     input.restart?.phase === 'setup' &&
     input.restart.takerId === input.controlledFootballerId &&
+    input.playerAgencyEnabled !== false &&
     input.time - input.restart.startedAt >= RESTART_SETUP_WATCHDOG_SECONDS
   ) {
     const legalActions = enumerateRestartActions(input);
@@ -804,7 +835,7 @@ const stepTacticalMatchCore = (
     state.restart?.phase === 'setup' &&
     state.time - state.restart.startedAt >= 2.1
   ) {
-    const controlledTaker = state.restart.takerId === state.controlledFootballerId;
+    const awaitsRestartDecision = hasPendingPlayerDecision(state, state.restart.takerId);
     const restartActions = enumerateRestartActions(state);
     const restartOptions = restartActions.map((action, index) => ({
       id: `restart-${index}`,
@@ -816,11 +847,11 @@ const stepTacticalMatchCore = (
     // A controlled taker only waits for a genuine choice. One mandatory action, and the
     // deterministic zero-option fallback, preserve restart liveness without confirmation UI.
     const watchdogTriggered =
-      controlledTaker &&
+      awaitsRestartDecision &&
       meaningfulChoices > 1 &&
       state.time - state.restart.startedAt >= RESTART_SETUP_WATCHDOG_SECONDS;
     const action =
-      controlledTaker && meaningfulChoices > 1 && !watchdogTriggered
+      awaitsRestartDecision && meaningfulChoices > 1 && !watchdogTriggered
         ? undefined
         : (restartActions[0] ?? chooseRestartAction(state));
     if (action) {
@@ -1406,6 +1437,7 @@ const stepTacticalMatchCore = (
             aerialContestantIds: duel.contestants.map((p) => p.id),
             lastAerialResult: duel.outcome,
             lastAerialContact: {
+              id: `${state.seed}:aerial:${state.ballEpisode ?? 0}:${state.time.toFixed(6)}`,
               point: contactPoint,
               ballHeight: state.ball.height ?? 0,
               candidates: physical.map(({ contact }) => contact),
@@ -1505,6 +1537,14 @@ const stepTacticalMatchCore = (
             ...state,
             aerialContestantIds: duel.contestants.map((p) => p.id),
             lastAerialResult: duel.outcome,
+            lastAerialContact: {
+              id: `${state.seed}:aerial:${state.ballEpisode ?? 0}:${state.time.toFixed(6)}`,
+              point: { x: state.ball.x, y: state.ball.y },
+              ballHeight: state.ball.height ?? 0,
+              candidates: physical.map(({ contact }) => contact),
+              contestantIds: duel.contestants.map((p) => p.id),
+              ...(duel.winner ? { winnerId: duel.winner.id } : {}),
+            },
             ...(state.keeperIntervention
               ? {
                   keeperIntervention: {
@@ -1736,11 +1776,12 @@ const stepTacticalMatchCore = (
           !state.defensiveChallenge &&
           challenger &&
           !sameDuel &&
-          duelDistance < 3.2
+          duelDistance < 3.2 &&
+          !hasPendingPlayerDecision(state, challenger.id)
         ) {
           const selected = chooseNpcDefensiveChallengeAction(state, challenger.id, contactPress);
-          // Ordinary autonomous contacts retain the old narrow access envelope. Only NPCs can
-          // initiate a contextual high-risk approach; a controlled player needs explicit intent.
+          // Routine contacts use the same physical envelope for every footballer. The exact
+          // agency boundary above reserves any currently pending human choice.
           if (
             selected &&
             (selected.technique !== 'standing' || (duelDistance < 1.65 && hasChallengeAccess))

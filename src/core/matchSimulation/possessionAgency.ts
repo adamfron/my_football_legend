@@ -11,7 +11,8 @@ import { hasReachedCarryDecisionWaypoint } from './carryExecution';
 /** A human choice owns this physical possession, independently of an action cooldown. */
 export const hasActiveHumanPossession = (state: TacticalMatchState): boolean =>
   Boolean(
-    state.humanPossessionEpisode &&
+    state.playerAgencyEnabled !== false &&
+      state.humanPossessionEpisode &&
       state.humanPossessionEpisode.actorId === state.controlledFootballerId &&
       state.ball.ownerId === state.humanPossessionEpisode.actorId &&
       (state.scenario === 'open_play' || state.restart?.phase === 'release') &&

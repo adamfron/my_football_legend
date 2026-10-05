@@ -254,7 +254,7 @@ export const emitCanonicalActionEvents = (
   }
   const possession = next.lastPossessionChange;
   if (possession && possession !== previous.lastPossessionChange) {
-    const ownerId = next.ball.ownerId ?? next.ball.lastTouchPlayerId;
+    const ownerId = possession.winnerId ?? next.ball.ownerId ?? next.ball.lastTouchPlayerId;
     const actor = ownerId && actorFact(ownerId, next.ball);
     if (actor && actor.team === possession.to) {
       let parent: CanonicalActionEvent | undefined;
@@ -278,7 +278,11 @@ export const emitCanonicalActionEvents = (
           kind: possession.cause === 'tackle' ? 'tackle' : 'interception',
           outcome: 'won',
           cause: possession.cause,
-          targetId: parent?.actorId ?? previous.ball.ownerId,
+          targetId:
+            parent?.actorId ??
+            (possession.winnerId
+              ? possession.loserId
+              : (possession.loserId ?? previous.ball.ownerId)),
           ...(parent ? { parentId: parent.id } : {}),
         });
     }

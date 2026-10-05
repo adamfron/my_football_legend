@@ -1,5 +1,38 @@
 # Match Engine Handoff
 
+## PR152 contracts
+
+- Canonical football participation, human decisions and selected footage are independent.
+  A controlled identity never removes a player from passing, positioning or autonomous action
+  policy. Exact meaningful agency pauses the snapshot; selected carry/retain intentions keep
+  their existing ownership. Routine hidden and visible football uses ordinary NPC policy.
+- `playerAgencyEnabled: false` disables intervention while retaining canonical player identity
+  for deterministic no-intervention comparisons. It is not a lower-detail simulation or a
+  presentation policy. The default remains meaningful human agency with PR151 sparse cadence.
+- Shot/cross, incoming first-time contact, restart and defensive action reservations depend on
+  a real pending decision. Keep agency projection at the caller boundary; defensive schema/
+  physics modules must not reverse-import the decision module and create initialization cycles.
+- Public `touches` remain continuous possession/control or intervention episodes. Executed
+  carry intentions are a separate counter. Preserve receive→carry→pass and first-time semantics;
+  do not equate all counters or compensate distributions with quotas.
+- Count tackle commitments/results once by canonical challenge identity, credit clean wins to
+  the challenger, and retain explicit possession-acquisition actors across an immediate release.
+  Interceptions, uncontrolled-ball recovery, physical blocks and contested duel wins are distinct.
+  Autonomous standing safety uses deteriorated physical context for all identities; a random
+  execution mistake is not preemptively withdrawn. Explicit committed actions retain their risk.
+- Match Lab export v4 contains cheap whole-match `canonicalSanity` even without DEV observers.
+  Presentation-owned scalar deltas attribute hidden involvement and visible player sequences.
+  Optional absent coverage remains null; observers never influence RNG or canonical football.
+- Sanity bands only warn. Multi-seed distributions separate accounting failures, contact-policy
+  causes and remaining calibration/seed variation. One playtest is not a global tuning target.
+- Implementation, measurements and exact restart-reset entry paths:
+  [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
+
+Next recommended scope: **PR153 — Dead Ball & Restart Continuity**. Replace hard restart
+position assignment with physical repositioning, add a goal-reaction state and score/time-driven
+celebration versus urgent restart, retrieve the ball after a late comeback goal, derive restart
+readiness, and establish canonical stoppage-time accounting. PR152 does not implement that scope.
+
 ## PR151 contracts
 
 - `teams[side].threatMemory` is validated canonical evidence, not presentation telemetry.
@@ -77,8 +110,9 @@
   UI scheduling respect the terminal state. Statistics keep the dismissal-time minutes.
 - Defensive episodes join lingering close-pair contacts across a win/reclaim. Separation,
   progression, another player or a new deliberate delivery creates new football context;
-  another defender can challenge immediately. Booking suppresses risk; routine human support
-  withdraws unsafe challenges. Relative component ability remains stochastic.
+  another defender can challenge immediately. Booking suppresses risk; PR152 makes physical
+  withdrawal from unsafe autonomous standing challenges shared by every player.
+  Relative component ability remains stochastic.
 - Historically PR148 `touches` counted canonical discrete contacts. PR150 supersedes the public
   counter with continuous episodes and preserves this detailed evidence internally. One
   meaningful executed carry supplies one contact and `dribble` event. Stale reception evidence
@@ -92,7 +126,8 @@
   A completed chosen hold invites closure; physical pressure then restores the owner's agency.
   A timer alone neither opens a prompt nor delegates a major action.
 - Explicit DEV hold/carry selections preserve the same ownership/waypoint handoff as human
-  selections. A speculative shot cannot bypass the unchanged-situation pause gate.
+  selections. PR152 protects a real pending choice and selected possession intent;
+  otherwise delegated autonomous shots use the ordinary NPC policy.
 - Locomotion brakes at target, excludes collision correction from distance, and treats a live
   delivery separately from a loose-ball race. Sprint maturation/hysteresis controls burst counts;
   sprint distance remains continuous. See [PR148_CALIBRATION.md](PR148_CALIBRATION.md).
@@ -111,7 +146,8 @@ Każde zjawisko futbolowe ma jeden system kanoniczny.
 - `matchActions.ts` enumeruje i uruchamia wspólne akcje człowieka/NPC; wyspecjalizowane pliki
   rozwiązują lot, kontakt, przyjęcie, prowadzenie i bramkarza.
 - PR147 `defensiveChallenges.ts` wykonuje wspólne fizyczne próby standing/committed/slide/tactical;
-  kontrolowany zawodnik nie wybiera sam techniki o wysokim ryzyku. `matchRules.ts` rozstrzyga
+  PR152 rezerwuje faktyczną oczekującą decyzję człowieka, a poza nią stosuje wspólną politykę NPC.
+  `matchRules.ts` rozstrzyga
   faul/kartkę i korzyść na kanonicznych faktach, korzystając z istniejących wznowień.
 - `actionEvents.ts` zachowuje kanoniczne dowody przez 12 s / maks. 96 zdarzeń. Mikrofeedback
   odczytuje czas wyświetlanej klatki live/lead-in/replay, nie animację ani zegar aktualnego core.

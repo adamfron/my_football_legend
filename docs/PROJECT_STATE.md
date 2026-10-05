@@ -1,5 +1,22 @@
 # My Football Legend — Current Project State
 
+## PR152 — Canonical Player Participation, Statistical Invariants & Match Sanity
+
+Kontrolowany piłkarz korzysta ze wspólnej autonomii poza rzeczywistą decyzją człowieka.
+Zachowano rzadkie znaczące wejścia PR151 i ciągłość wybranej intencji. Tożsamość sterowania
+nie rezerwuje już samodzielnie terminalnych zagrań ani obrony, a jawny tryb bez interwencji
+umożliwia deterministyczne porównanie tego samego zawodnika z NPC.
+
+Odbiory mają jednoznaczną tożsamość próby/wyniku i wykonawcę; przydział posiadania zachowuje
+uczestników po natychmiastowym wypuszczeniu piłki. Oddzielono odzyskania, bloki i pojedynki.
+Eksport Match Lab v4 pokazuje tani raport kanoniczny i udział ukryty/widoczny bez DEV.
+Pasmo ostrzeżeń pozostaje diagnostyczne. Audyt i dowody:
+[PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
+
+Następny etap: **PR153 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
+reakcja po golu, celebracja/pilne wznowienie według wyniku i czasu, odzyskanie piłki po późnym
+golu, gotowość wznowienia i fundament doliczonego czasu. PR152 nie implementuje tego etapu.
+
 ## PR151 — Match Cadence Calibration + Reactive Team Tactics
 
 Połączono domknięcie playtestu PR150 z pierwszą reaktywną warstwą zespołów. Ograniczona,

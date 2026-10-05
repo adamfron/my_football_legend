@@ -14,8 +14,9 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ### COMPLETED
 
-PR105–PR151 są ukończone w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
-z reaktywną taktyką zespołów. Kondycja, urazy, doliczony czas i inteligencja zmian pozostają później.
+PR105–PR152 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
+z reaktywną taktyką zespołów; PR152 oddziela autonomię piłkarza od ludzkiej sprawczości i dodaje
+kanoniczne inwarianty oraz diagnostykę udziału/statystyk. Kondycja i urazy pozostają później.
 W szczególności:
 
 - **PR118:** fizyczne ETA przechwytu i przekazanie sprawczości zawodnikowi.
@@ -116,6 +117,8 @@ W szczególności:
   jawnie agresywny/lekkomyślny odbiór o wysokim ryzyku kartki zwykle wymaga decyzji człowieka.
   Zwykła fizyczna gra może przypadkowo skończyć się faulem, ale autonomia nie wybiera po cichu
   niebezpiecznej akcji, by następnie jedynie poinformować gracza o wyrzuceniu;
+  ten historyczny kontrakt PR147 zastępuje PR152: faktyczna oczekująca decyzja pozostaje
+  zarezerwowana dla człowieka, a poza nią działa wspólna polityka autonomiczna wszystkich piłkarzy;
 - czytelny feedback akcji/kontaktu z kanonicznych zdarzeń: subtelne, krótkie etykiety przy akcji,
   np. „odbiór”, „wślizg”, „podanie”, „strzał”, „faul”. To prezentacja dowodów, nie drugi silnik
   przepisów ani wnioskowanie z animacji. Łańcuch podanie → ciężkie przyjęcie → przechwyt może
@@ -137,7 +140,8 @@ W szczególności:
 - wspólny milestone PR147.1/PR148: przerwanie meczu poniżej siedmiu aktywnych zawodników,
   ze stanem `abandoned`, powodem `insufficient_players`, rzeczywistym wynikiem i czasem;
 - kompletne usunięcie wykluczonego z aktywnego składu i celów, zachowanie historii i zamrożenie minut;
-- ryzyko odbioru zależne od kartki, atrybutów i kontekstu; konserwatywna autonomia człowieka;
+- ryzyko odbioru zależne od kartki, atrybutów i kontekstu; historyczna konserwatywna autonomia
+  człowieka zastąpiona w PR152 wspólną polityką poza faktyczną oczekującą decyzją;
 - epizody pojedynków, kalibracja fauli/kartek i znaczenie składowych jakości obrońcy;
 - dyskretne kontakty z piłką, epizody sprintu oraz rzeczywisty rytm podań i ruchu;
 - deterministyczny benchmark wielu seedów z surowymi liczbami, per-90, rozkładami i dowodami
@@ -203,7 +207,28 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - deterministyczne scenariusze, kilka seedów 45/90 minut i dowody:
   [PR151_REACTIVE_TACTICS.md](PR151_REACTIVE_TACTICS.md).
 
+**PR152 — Canonical Player Participation, Statistical Invariants & Match Sanity**
+
+- pełna autonomia kontrolowanego piłkarza poza rzeczywistą oczekującą decyzją człowieka;
+- ciągłe epizody kontroli piłki i próby/wygrane odbiory z jednoznacznych zdarzeń;
+- tani raport kanoniczny bez obserwatora DEV, udział ukryty/widoczny i pasma ostrzeżeń;
+- porównanie tego samego zawodnika z NPC, wiele seedów 45/90 minut i deterministyczne dowody;
+- audyt resetów pozycji, bez implementowania kolejnej fazy wizualnej:
+  [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
+
 ### NEXT
+
+**PR153 — Dead Ball & Restart Continuity**
+
+- fizyczne przejście z bieżących pozycji do legalnego ustawienia wznowienia;
+- stan reakcji po golu i wybór celebracji albo pilnego wznowienia według wyniku/czasu;
+- odzyskanie piłki z bramki po późnym golu odrabiającym stratę;
+- gotowość wznowienia oparta na pozycjach i dostępności piłki;
+- fundament doliczonego czasu oparty na kanonicznych przerwach.
+
+Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR152 nie implementuje PR153.
+
+Po PR153:
 
 **Fatigue, Injury Risk, Added Time & Substitution Intelligence**
 
@@ -447,7 +472,8 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
-NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: po PR151 rozwój kondycji,
+NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: po PR152 ciągłość martwej piłki
+i wznowień (PR153), następnie rozwój kondycji,
 urazów, doliczonego czasu i inteligencji zmian.
 Poniższa lista jest historycznym kontekstem systemów kariery; starsze plany pakietów
 zagranicznych nie wyprzedzają obecnej kolejności silnika meczu.

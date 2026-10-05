@@ -4,6 +4,10 @@ import { createMatchFlowTelemetry } from '../../core/matchSimulation/matchFlowTe
 import { createPresentationRuntimeTelemetry } from '../../core/matchSimulation/matchPresentation';
 import { PlayerAgencyTracker } from '../../core/matchSimulation/playerAgency';
 import { createSessionTelemetryReport, sessionTelemetryReportSchema } from './matchBenchmarkReport';
+import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
+import { createSingleMatchSession } from '../../core/singleMatch';
+import { createTacticalMatch } from '../../core/matchSimulation/matchSimulation';
+import { CanonicalParticipationTracker } from '../../core/matchSimulation/canonicalMatchSanity';
 
 const fixture = () => {
   const presentation = createPresentationRuntimeTelemetry();
@@ -38,6 +42,45 @@ describe('PR151 benchmark collection scope', () => {
       presentationRuntime: { humanDecisionPromptsShown: 66, episodesPresented: 20 },
     });
     expect(sessionTelemetryReportSchema.safeParse(report).success).toBe(true);
+    expect(report.canonicalSanity).toBeNull();
+  });
+
+  it('exports cheap canonical participation in normal mode without claiming detailed observer coverage', () => {
+    const world = createCanonicalWorldDatabase();
+    const spectator = createSingleMatchSession(world, {
+      homeClubId: world.clubs[0]!.id,
+      awayClubId: world.clubs[1]!.id,
+      seed: 'normal-summary',
+      control: { mode: 'spectator' },
+    });
+    const player = spectator.home.players.find(
+      (entry) => entry.profile.primaryPosition === 'central_midfielder',
+    )!;
+    const state = createTacticalMatch(
+      createSingleMatchSession(world, {
+        ...spectator.setup,
+        control: {
+          mode: 'player',
+          clubId: spectator.home.club.id,
+          footballerId: player.footballerId,
+          forceIntoXI: false,
+        },
+      }),
+    );
+    const report = createSessionTelemetryReport({
+      ...fixture(),
+      state,
+      participation: new CanonicalParticipationTracker().snapshot(),
+      coverage: [{ mode: 'normal', startedAt: 0 }],
+    });
+    expect(report.collectionScope.detailedObservers).toBe('unavailable');
+    expect(report.matchFlowTelemetry).toBeNull();
+    expect(report.canonicalSanity?.controlled).toMatchObject({
+      playerId: state.controlledFootballerId,
+      humanDecisionPrompts: 66,
+      possessionEpisodes: 0,
+      presentationCoverage: { hidden: { possessionEpisodes: 0 } },
+    });
   });
 
   it('preserves genuine measured zeros and identifies whole-session DEV collection', () => {

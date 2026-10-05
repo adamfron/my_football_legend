@@ -1,4 +1,4 @@
-import { projectPlayerDecisionProbe } from './playerDecision';
+import { hasPendingPlayerDecision } from './playerDecision';
 import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { emitCanonicalActionEvents } from './actionEvents';
 import { deriveBuildUpReliefWeight, TEAM_THREAT_TUNING, threatChannel } from './teamThreatMemory';
@@ -736,7 +736,15 @@ const resolveMatchActionCanonical = (
       delivery: spacePlan.delivery,
     };
   }
-  if (action.type === 'challenge') return beginDefensiveChallenge(state, action, source);
+  if (action.type === 'challenge') {
+    if (
+      source !== 'human_selected' &&
+      source !== 'dev_ai_selected' &&
+      hasPendingPlayerDecision(state, action.actorId)
+    )
+      return state;
+    return beginDefensiveChallenge(state, action, source);
+  }
   if (!canContactAfterThrowIn(state, action.actorId)) return state;
   const requestedThrow =
     state.restart?.phase === 'setup' && state.scenario === 'throw_in' && action.type === 'pass'
@@ -798,15 +806,14 @@ const resolveMatchActionCanonical = (
     source !== 'dev_ai_selected'
   )
     return state;
-  // Meaningful high-impact choices stay human-owned. Forced legal actions may use canonical
-  // autonomy; the agency evaluator alone determines whether playable alternatives exist.
+  // The current opportunity owns a meaningful choice; a controlled identity does not reserve
+  // every shot/cross during autonomous circulation or after an explicit delegation.
   if (
-    action.actorId === state.controlledFootballerId &&
     (action.type === 'shot' || action.type === 'cross') &&
     source !== 'human_selected' &&
     source !== 'dev_ai_selected' &&
     source !== 'restart_liveness_watchdog' &&
-    projectPlayerDecisionProbe(state).blockedReason !== 'single_option_autonomy'
+    hasPendingPlayerDecision(state, action.actorId)
   )
     return state;
   const restart =

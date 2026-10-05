@@ -15,6 +15,12 @@ import {
 } from '../../core/matchSimulation/matchPresentation';
 import { isDevObservationMode } from '../../core/matchSimulation/performanceProfiling';
 import {
+  canonicalMatchSanitySchema,
+  projectCanonicalMatchSanity,
+  type CanonicalParticipationCoverage,
+} from '../../core/matchSimulation/canonicalMatchSanity';
+import type { TacticalMatchState } from '../../core/matchSimulation/matchState';
+import {
   observerCoverageIntervalSchema,
   type ObserverCoverageInterval,
 } from './backgroundPublication';
@@ -30,6 +36,7 @@ export const sessionCollectionScopeSchema = z.object({
 
 export const sessionTelemetryReportSchema = z.object({
   collectionScope: sessionCollectionScopeSchema,
+  canonicalSanity: canonicalMatchSanitySchema.nullable(),
   matchFlowTelemetry: matchFlowTelemetrySchema.nullable(),
   decisionTelemetry: matchFlowTelemetrySchema.shape.controlled.nullable(),
   playerAgency: agencySessionMetricsSchema.nullable(),
@@ -46,6 +53,8 @@ export const createSessionTelemetryReport = (options: {
   agency: AgencySessionMetrics;
   positioning: PositioningSample[];
   presentation: PresentationRuntimeTelemetry;
+  state?: TacticalMatchState;
+  participation?: CanonicalParticipationCoverage;
 }) => {
   const coverage = options.coverage.map((interval) => ({
     ...interval,
@@ -71,6 +80,9 @@ export const createSessionTelemetryReport = (options: {
       observerCoverage: coverage,
     },
     matchFlowTelemetry: collected ? options.flow : null,
+    canonicalSanity: options.state
+      ? projectCanonicalMatchSanity(options.state, options.presentation, options.participation)
+      : null,
     decisionTelemetry: collected ? options.flow.controlled : null,
     playerAgency: collected ? options.agency : null,
     sampledPositioning: collected ? options.positioning : null,

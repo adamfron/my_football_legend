@@ -300,22 +300,24 @@ describe('PR147 one canonical physical defence resolver', () => {
     expect(result.diagnostic?.outcome).toBe('missed');
     expect(result.state.lastFoul).toBeUndefined();
   });
-  it('never selects a controlled player high-risk intent autonomously', () => {
+  it('ranks canonical defensive intent identically when human agency is suppressed', () => {
     const { state, defender, attacker } = fixture();
+    const npcAction = chooseNpcDefensiveChallengeAction(state, defender.id);
     state.controlledFootballerId = defender.id;
+    state.playerAgencyEnabled = false;
     expect(
       enumerateDefensiveChallengeActions(state, defender.id).some(
         (action) => action.technique === 'tactical',
       ),
     ).toBe(true);
-    expect(chooseNpcDefensiveChallengeAction(state, defender.id)?.technique).toBe('standing');
+    expect(chooseNpcDefensiveChallengeAction(state, defender.id)).toEqual(npcAction);
     expect(
-      beginDefensiveChallenge(
+      resolveMatchAction(
         state,
         { type: 'challenge', actorId: defender.id, opponentId: attacker.id, technique: 'tactical' },
         'autonomous_npc',
       ),
-    ).toBe(state);
+    ).toMatchObject({ defensiveChallenge: { technique: 'tactical', source: 'autonomous_npc' } });
   });
   it('NPC high-risk intent enters the same canonical physical resolver', () => {
     const { state, defender } = fixture();
@@ -342,7 +344,7 @@ describe('PR147 one canonical physical defence resolver', () => {
       attributes: { ...defender.profile.attributes, aggression: 40 },
     };
     state.ball = { x: 51.35, y: 34, ownerId: attacker.id, lastTouchPlayerId: attacker.id };
-    // PR148 routine human support withdraws a mistimed poke. NPCs retain accidental fouls.
+    // A real execution error can still foul; physical withdrawal cannot predict the RNG roll.
     state.controlledFootballerId = state.players.find(
       (p) => p.id !== defender.id && p.team === defender.team,
     )!.id;

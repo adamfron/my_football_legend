@@ -112,7 +112,8 @@ export const projectContextualInteractions = (
 ): ContextualInteraction[] => {
   if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
     return [];
-  if (opportunity.actorId !== state.controlledFootballerId) return [];
+  if (state.playerAgencyEnabled === false || opportunity.actorId !== state.controlledFootballerId)
+    return [];
   const actor = state.players.find((player) => player.id === opportunity.actorId);
   if (!actor) return [];
   if (opportunity.kind === 'incoming_ball') {
@@ -388,6 +389,7 @@ export const applyContextualInteraction = (
     state.status === 'abandoned' ||
     state.status === 'full_time' ||
     state.status === 'half_time' ||
+    state.playerAgencyEnabled === false ||
     opportunity.actorId !== state.controlledFootballerId ||
     opportunity.openedAt !== state.time ||
     !state.players.some((player) => player.id === opportunity.actorId)

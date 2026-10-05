@@ -557,11 +557,10 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
     expect(advantage.pendingCards).toHaveLength(1);
     expect(chooseNpcDefensiveChallengeAction(advantage, defender.id)?.technique).toBe('standing');
   });
-  it('routine human defence withdraws from rear/unsafe contact while explicit actions remain available', () => {
+  it('all routine standing defence withdraws from rear/unsafe contact while committed actions retain risk', () => {
     const { state, defender, attacker } = fixture();
     state.controlledFootballerId = defender.id;
     attacker.facingAngle = Math.PI / 2;
-    expect(chooseNpcDefensiveChallengeAction(state, defender.id)).toBeUndefined();
     const action = {
       type: 'challenge' as const,
       actorId: defender.id,
@@ -573,6 +572,13 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
     );
     expect(routine.diagnostic?.outcome).not.toBe('foul');
     expect(routine.diagnostic?.opponentContact).toBe(false);
+    const npcState = { ...state };
+    delete npcState.controlledFootballerId;
+    const npc = resolveDefensiveChallenge(
+      beginDefensiveChallenge(npcState, action, 'autonomous_npc'),
+    );
+    expect(npc.diagnostic?.outcome).toBe(routine.diagnostic?.outcome);
+    expect(npc.diagnostic?.opponentContact).toBe(false);
     const explicit = beginDefensiveChallenge(
       state,
       { ...action, technique: 'committed' },

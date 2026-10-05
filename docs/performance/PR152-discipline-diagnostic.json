@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 1,
+  "purpose": "paired one-seed causal attribution, diagnostic only; timings excluded",
+  "createdAt": "2026-10-05T13:13:25.719Z",
+  "rows": [
+    {
+      "revision": "before",
+      "fixture": {
+        "playerId": "footballer_pro_0_7",
+        "position": "left_back",
+        "slotPosition": "left_back",
+        "homeFormation": "3-4-2-1",
+        "awayFormation": "4-4-2"
+      },
+      "canonicalSeconds": 2700,
+      "instrumentation": "read-only wrappers observe fixed-step and explicit DEV-selection return states; no RNG/action changes; exact four benchmark hashes match stored final row",
+      "exactHashes": {
+        "canonicalState": "5755a60a237fd074b9e687a0afc1bdb12688e543431db66933394dff96fb1e2e",
+        "statistics": "ac5e50c2ca2277d244af2f8e7661eab0a5fec3539a609a4bcfb3a9dc56b2b2ce",
+        "actionTimeline": "38bebaac4696b96d103b3801d12384ed69f3e522cca140b25fad3ffa69db6236",
+        "behaviour": "e2a3d1878c5ce14783dc016ae435c22e4fb84f1ab3225330131d37b8634f62b2"
+      },
+      "matchesStoredFinalHashes": true,
+      "coverage": {
+        "acceptedObserved": 35,
+        "canonicalAccepted": 35,
+        "resultsObserved": 35,
+        "foulFactsObserved": 7,
+        "canonicalFouls": 7,
+        "exactAcceptedCoverage": true,
+        "exactFoulCoverage": true
+      },
+      "acceptedByTechniqueSource": {
+        "committed:autonomous_npc": 9,
+        "standing:autonomous_npc": 25,
+        "standing:autonomous_routine": 1
+      },
+      "resultsByTechniqueSourceOutcome": {
+        "committed:autonomous_npc:foul": 7,
+        "standing:autonomous_npc:clean_win": 14,
+        "committed:autonomous_npc:clean_win": 2,
+        "standing:autonomous_npc:loose_ball": 3,
+        "standing:autonomous_npc:beaten": 8,
+        "standing:autonomous_routine:clean_win": 1
+      },
+      "resultsByActorGroup": {
+        "opponents:foul": 4,
+        "teammates:clean_win": 8,
+        "opponents:clean_win": 8,
+        "teammates:loose_ball": 2,
+        "teammates:beaten": 4,
+        "teammates:foul": 3,
+        "controlled:clean_win": 1,
+        "opponents:loose_ball": 1,
+        "opponents:beaten": 4
+      },
+      "foulsByTechniqueSource": {
+        "committed:autonomous_npc": 7
+      },
+      "foulsByActorGroup": {
+        "opponents": 4,
+        "teammates": 3
+      },
+      "penaltyActors": [
+        {
+          "actorId": "footballer_pro_0_9",
+          "group": "teammates",
+          "at": 1021.7499999993446,
+          "card": "none",
+          "technique": "committed",
+          "source": "autonomous_npc"
+        },
+        {
+          "actorId": "footballer_pro_0_3",
+          "group": "teammates",
+          "at": 2178.2750000035417,
+          "card": "yellow",
+          "technique": "committed",
+          "source": "autonomous_npc"
+        }
+      ],
+      "physicalGroups": {
+        "allResolved": {
+          "count": 35,
+          "fromBehind": 3,
+          "ballFirst": 26,
+          "relativeSpeed": {
+            "samples": 35,
+            "minimum": 0.5688692762119721,
+            "maximum": 5.692006703733351,
+            "mean": 2.1452728736357267
+          },
+          "lateness": {
+            "samples": 35,
+            "minimum": 0,
+            "maximum": 0.546374138608141,
+            "mean": 0.06132070676858331
+          },
+          "ballDistance": {
+            "samples": 35,
+            "minimum": 0.3853975487210124,
+            "maximum": 1.7088741386072497,
+            "mean": 0.8760081444431171
+          },
+          "opponentDistance": {
+            "samples": 35,
+            "minimum": 0.009397944799240152,
+            "maximum": 1.6232119301693813,
+            "mean": 1.050222073743927
+          },
+          "facingError": {
+            "samples": 35,
+            "minimum": 0.0017366376887970603,
+            "maximum": 0.8272185874918634,
+            "mean": 0.15919359659910817
+          },
+          "force": {
+            "samples": 35,
+            "minimum": 0.10863284266389579,
+            "maximum": 2.8162287872389515,
+            "mean": 0.573121465057813
+          },
+          "beyondTechniqueReach": 7
+        },
+        "allFouls": {
+          "count": 7,
+          "fromBehind": 3,
+          "ballFirst": 0,
+          "relativeSpeed": {
+            "samples": 7,
+            "minimum": 0.5688692762119721,
+            "maximum": 2.849144163967015,
+            "mean": 1.7409530122879175
+          },
+          "lateness": {
+            "samples": 7,
+            "minimum": 0.11362709254749825,
+            "maximum": 0.546374138608141,
+            "mean": 0.3041035338429393
+          },
+          "ballDistance": {
+            "samples": 7,
+            "minimum": 1.3636270925474983,
+            "maximum": 1.7088741386072497,
+            "mean": 1.5278535338428452
+          },
+          "opponentDistance": {
+            "samples": 7,
+            "minimum": 1.1132641186063756,
+            "maximum": 1.3315793280667312,
+            "mean": 1.2156049329211702
+          },
+          "facingError": {
+            "samples": 7,
+            "minimum": 0.0017366376887970603,
+            "maximum": 0.6554341698241402,
+            "mean": 0.20416777863012112
+          },
+          "force": {
+            "samples": 7,
+            "minimum": 0.3697650295377819,
+            "maximum": 1.8519437065785598,
+            "mean": 1.1316194579871468
+          },
+          "beyondTechniqueReach": 7
+        },
+        "controlledFouls": {
+          "count": 0,
+          "fromBehind": 0,
+          "ballFirst": 0,
+          "relativeSpeed": null,
+          "lateness": null,
+          "ballDistance": null,
+          "opponentDistance": null,
+          "facingError": null,
+          "force": null,
+          "beyondTechniqueReach": 0
+        },
+        "selectedFoulCount": 0
+      },
+      "controlled": {
+        "playerId": "footballer_pro_0_7",
+        "touches": 57,
+        "passesReceived": 49,
+        "passesAttempted": 55,
+        "tacklesAttempted": 1,
+        "tacklesWon": 2,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "defensiveCounters": {
+          "opportunities": 1,
+          "attempted": 1,
+          "missed": 0,
+          "beaten": 0,
+          "cleanWins": 1,
+          "looseBalls": 0,
+          "fouls": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "secondYellowDismissals": 0,
+          "straightReds": 0,
+          "penalties": 0,
+          "advantageRecalled": 0,
+          "highRiskIntents": 0,
+          "slides": 0,
+          "tacticalIntents": 0,
+          "advantagePlayed": 0
+        }
+      },
+      "totals": {
+        "opportunities": 35,
+        "attempted": 35,
+        "missed": 0,
+        "beaten": 8,
+        "cleanWins": 17,
+        "looseBalls": 3,
+        "fouls": 7,
+        "yellowCards": 3,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 2,
+        "advantageRecalled": 1,
+        "highRiskIntents": 9,
+        "slides": 0,
+        "tacticalIntents": 0,
+        "advantagePlayed": 2
+      },
+      "cardsObserved": 3
+    },
+    {
+      "revision": "after",
+      "fixture": {
+        "playerId": "footballer_pro_0_7",
+        "position": "left_back",
+        "slotPosition": "left_back",
+        "homeFormation": "3-4-2-1",
+        "awayFormation": "4-4-2"
+      },
+      "canonicalSeconds": 2707.525000005467,
+      "instrumentation": "read-only wrappers observe fixed-step and explicit DEV-selection return states; no RNG/action changes; exact four benchmark hashes match stored final row",
+      "exactHashes": {
+        "canonicalState": "71dc220a5d63de8be4e6170b5eb9058c66fcf22161eaea2990757ff2aabe1595",
+        "statistics": "ea94ce79dc375d6014de2066c0ef7cd0949ac70eecfd0cdcb02a8f08b5884b4a",
+        "actionTimeline": "450575617fc58539ccb9a5601ee55ca5d9ae4d10ad3913353c988e6341e8d6d5",
+        "behaviour": "9c0f0d8a6b7e09ead40ddab96bee048eb5a61177bae3db9a9fe67ee555e686c4"
+      },
+      "matchesStoredFinalHashes": true,
+      "coverage": {
+        "acceptedObserved": 79,
+        "canonicalAccepted": 79,
+        "resultsObserved": 79,
+        "foulFactsObserved": 20,
+        "canonicalFouls": 20,
+        "exactAcceptedCoverage": true,
+        "exactFoulCoverage": true
+      },
+      "acceptedByTechniqueSource": {
+        "committed:autonomous_npc": 17,
+        "standing:autonomous_npc": 51,
+        "committed:autonomous_routine": 3,
+        "standing:autonomous_routine": 2,
+        "slide:autonomous_npc": 3,
+        "slide:autonomous_routine": 3
+      },
+      "resultsByTechniqueSourceOutcome": {
+        "committed:autonomous_npc:foul": 14,
+        "standing:autonomous_npc:clean_win": 29,
+        "committed:autonomous_npc:clean_win": 2,
+        "standing:autonomous_npc:loose_ball": 6,
+        "standing:autonomous_npc:beaten": 15,
+        "committed:autonomous_routine:foul": 2,
+        "standing:autonomous_routine:beaten": 2,
+        "committed:autonomous_routine:loose_ball": 1,
+        "slide:autonomous_npc:foul": 2,
+        "slide:autonomous_npc:clean_win": 1,
+        "slide:autonomous_routine:foul": 2,
+        "committed:autonomous_npc:loose_ball": 1,
+        "slide:autonomous_routine:loose_ball": 1,
+        "standing:autonomous_npc:missed": 1
+      },
+      "resultsByActorGroup": {
+        "opponents:foul": 7,
+        "teammates:clean_win": 13,
+        "opponents:clean_win": 19,
+        "teammates:loose_ball": 5,
+        "teammates:beaten": 6,
+        "controlled:foul": 4,
+        "teammates:foul": 9,
+        "opponents:loose_ball": 2,
+        "controlled:beaten": 2,
+        "controlled:loose_ball": 2,
+        "opponents:beaten": 9,
+        "teammates:missed": 1
+      },
+      "foulsByTechniqueSource": {
+        "committed:autonomous_npc": 14,
+        "committed:autonomous_routine": 2,
+        "slide:autonomous_npc": 2,
+        "slide:autonomous_routine": 2
+      },
+      "foulsByActorGroup": {
+        "opponents": 7,
+        "controlled": 4,
+        "teammates": 9
+      },
+      "penaltyActors": [
+        {
+          "actorId": "footballer_pro_0_14",
+          "group": "teammates",
+          "at": 798.4499999995477,
+          "card": "yellow",
+          "technique": "committed",
+          "source": "autonomous_npc"
+        },
+        {
+          "actorId": "footballer_pro_0_11",
+          "group": "teammates",
+          "at": 1847.5250000023384,
+          "card": "none",
+          "technique": "committed",
+          "source": "autonomous_npc"
+        }
+      ],
+      "physicalGroups": {
+        "allResolved": {
+          "count": 79,
+          "fromBehind": 7,
+          "ballFirst": 57,
+          "relativeSpeed": {
+            "samples": 79,
+            "minimum": 0.2829947644178291,
+            "maximum": 5.1152688759343485,
+            "mean": 1.9217693082290326
+          },
+          "lateness": {
+            "samples": 79,
+            "minimum": 0,
+            "maximum": 1.0309066110412188,
+            "mean": 0.0622899804046296
+          },
+          "ballDistance": {
+            "samples": 79,
+            "minimum": 0.44489343010087157,
+            "maximum": 2.280906611041219,
+            "mean": 0.9472505070084903
+          },
+          "opponentDistance": {
+            "samples": 79,
+            "minimum": 0.2349946858439517,
+            "maximum": 1.933920212964478,
+            "mean": 1.110823910695654
+          },
+          "facingError": {
+            "samples": 79,
+            "minimum": 0.00046005959672079655,
+            "maximum": 1.2778960322847563,
+            "mean": 0.08065944952034096
+          },
+          "force": {
+            "samples": 79,
+            "minimum": 0.042449214662674366,
+            "maximum": 4.603741988340913,
+            "mean": 0.7489026728494296
+          },
+          "beyondTechniqueReach": 19
+        },
+        "allFouls": {
+          "count": 20,
+          "fromBehind": 7,
+          "ballFirst": 0,
+          "relativeSpeed": {
+            "samples": 20,
+            "minimum": 0.5688692762119721,
+            "maximum": 5.1152688759343485,
+            "mean": 2.3337070519153436
+          },
+          "lateness": {
+            "samples": 20,
+            "minimum": 0,
+            "maximum": 1.0309066110412188,
+            "mean": 0.23983207556873093
+          },
+          "ballDistance": {
+            "samples": 20,
+            "minimum": 1.2816403708952508,
+            "maximum": 2.280906611041219,
+            "mean": 1.5894257046067937
+          },
+          "opponentDistance": {
+            "samples": 20,
+            "minimum": 0.9018474587228722,
+            "maximum": 1.7252666233131397,
+            "mean": 1.2241237698056497
+          },
+          "facingError": {
+            "samples": 20,
+            "minimum": 0.0007680192825443299,
+            "maximum": 0.6554341698241402,
+            "mean": 0.08136258421949441
+          },
+          "force": {
+            "samples": 20,
+            "minimum": 0.3697650295377819,
+            "maximum": 4.603741988340913,
+            "mean": 1.7039993565917873
+          },
+          "beyondTechniqueReach": 19
+        },
+        "controlledFouls": {
+          "count": 4,
+          "fromBehind": 1,
+          "ballFirst": 0,
+          "relativeSpeed": {
+            "samples": 4,
+            "minimum": 1.3581142082609445,
+            "maximum": 3.9153712424808114,
+            "mean": 3.2121750420683175
+          },
+          "lateness": {
+            "samples": 4,
+            "minimum": 0.10057313475830298,
+            "maximum": 0.3261700606286875,
+            "mean": 0.18680440687495697
+          },
+          "ballDistance": {
+            "samples": 4,
+            "minimum": 1.350573134758303,
+            "maximum": 2.0819350963848637,
+            "mean": 1.761804406874957
+          },
+          "opponentDistance": {
+            "samples": 4,
+            "minimum": 1.1482508255404065,
+            "maximum": 1.7019370159926943,
+            "mean": 1.4643224931197931
+          },
+          "facingError": {
+            "samples": 4,
+            "minimum": 0.0034190194668095586,
+            "maximum": 0.035053057903057905,
+            "mean": 0.013164623518013396
+          },
+          "force": {
+            "samples": 4,
+            "minimum": 0.882774235369614,
+            "maximum": 3.4605377489983384,
+            "mean": 2.561364697190126
+          },
+          "beyondTechniqueReach": 4
+        },
+        "selectedFoulCount": 0
+      },
+      "controlled": {
+        "playerId": "footballer_pro_0_7",
+        "touches": 49,
+        "passesReceived": 41,
+        "passesAttempted": 49,
+        "tacklesAttempted": 8,
+        "tacklesWon": 0,
+        "fouls": 4,
+        "yellowCards": 0,
+        "redCards": 0,
+        "defensiveCounters": {
+          "opportunities": 8,
+          "attempted": 8,
+          "missed": 0,
+          "beaten": 2,
+          "cleanWins": 0,
+          "looseBalls": 2,
+          "fouls": 4,
+          "yellowCards": 0,
+          "redCards": 0,
+          "secondYellowDismissals": 0,
+          "straightReds": 0,
+          "penalties": 0,
+          "advantageRecalled": 0,
+          "highRiskIntents": 6,
+          "slides": 3,
+          "tacticalIntents": 0,
+          "advantagePlayed": 2
+        }
+      },
+      "totals": {
+        "opportunities": 79,
+        "attempted": 79,
+        "missed": 1,
+        "beaten": 17,
+        "cleanWins": 32,
+        "looseBalls": 9,
+        "fouls": 20,
+        "yellowCards": 6,
+        "redCards": 0,
+        "secondYellowDismissals": 0,
+        "straightReds": 0,
+        "penalties": 2,
+        "advantageRecalled": 5,
+        "highRiskIntents": 26,
+        "slides": 6,
+        "tacticalIntents": 0,
+        "advantagePlayed": 10
+      },
+      "cardsObserved": 6
+    }
+  ],
+  "units": {
+    "distance": "metres",
+    "relativeSpeed": "metres_per_second",
+    "facingError": "radians",
+    "lateness": "engine_composite_index_distance_facing_elapsed_not_seconds",
+    "force": "engine_relative_speed_times_commitment_index_not_newtons"
+  },
+  "interpretation": {
+    "attemptsBeforeAfter": [
+      35,
+      79
+    ],
+    "riskyIntentsBeforeAfter": [
+      9,
+      26
+    ],
+    "riskyIntentFoulShareBeforeAfter": [
+      0.7777777777777778,
+      0.7692307692307693
+    ],
+    "standingFoulsBeforeAfter": [
+      0,
+      0
+    ],
+    "selectedFoulsBeforeAfter": [
+      0,
+      0
+    ],
+    "foulsBeyondTechniqueReachBeforeAfter": [
+      7,
+      19
+    ],
+    "penaltiesBeforeAfter": [
+      2,
+      2
+    ],
+    "controlledPenaltiesBeforeAfter": [
+      0,
+      0
+    ],
+    "scope": "one paired trajectory; restores canonical autonomous involvement and exposes residual committed/slide contact selection risk; not a global calibration conclusion"
+  }
+}
