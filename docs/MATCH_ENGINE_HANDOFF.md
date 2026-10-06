@@ -1,5 +1,33 @@
 # Match Engine Handoff
 
+## PR155 contracts
+
+- Enabled human agency reserves every controlled shot, including first-time/header finishes
+  and restart shots. The canonical boundary rejects every source except `human_selected`.
+  A rejected legal autonomous proposal sets `shotAgencyRequest`; the pure agency projection
+  must expose it through every presentation policy, even after a previously delegated choice.
+- Explicit `playerAgencyEnabled: false` retains the existing no-intervention comparison mode.
+  A committed incoming human action retains its source at actual contact. DEV selection
+  cannot silently execute or relabel a controlled shot as human.
+- One-touch passes use ordinary pass targets, launch plans, execution error and accounting.
+  Physical incoming contact must be low enough for a kick; no settled preparation delay.
+  Feet, lead, space and lofted choices use the same physical resolver for human and NPC.
+  The receiver's control value must never inherit the previous carrier's scanning clock.
+- Last contact, acquisition attempt and secure control are different facts. Airborne redirects
+  cannot themselves flip canonical possession. Physical overlap locks an aerial contest until
+  separation; loose-ball acquisition keeps one candidate while control is unresolved.
+  Failed control stays loose. Do not fix turnover noise by filtering telemetry.
+- Loose-ball contestants chase the actual intercept. Formation blend/noise must not keep
+  them outside contact radius. Support jobs are escape, pivot, third man, width and rest defence;
+  the next midfield line can approach deep build-up. Do not enforce touch shares/CM utility bonuses.
+- Pressure/support and central-lane probes remain read-only, bounded and sampled at 1 Hz.
+  Public touches still mean continuous control episodes. Preserve identity accounting,
+  fixed 25 ms stepping, replay/observer parity and zero background renderer calls.
+- Reproduction and measured limitations:
+  [PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md).
+- Next: PR156 restarts, PR157 fatigue/injuries/substitutions/added time, PR158 presentation.
+  Full post-goal/restart choreography remains outside PR155.
+
 ## PR154 contracts
 
 - `passDecision.ts` scores intended solutions before seeded execution error. Keep selection,
@@ -22,7 +50,7 @@
   Replay, observer parity and statistical ledgers remain mandatory regression checks.
 - Reproduction, measured results and remaining limits:
   [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
-- Next work is GitHub PR155 restarts, PR156 fatigue/injuries/substitutions/added time, PR157
+- Next work is GitHub PR156 restarts, PR157 fatigue/injuries/substitutions/added time, PR158
   presentation/replay/stadium. Full restart resets and stamina remain outside PR154.
 
 ## Expanded PR152 statistics / discipline contracts

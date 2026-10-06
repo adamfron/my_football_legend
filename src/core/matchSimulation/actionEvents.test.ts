@@ -9,7 +9,7 @@ import {
   stepTacticalMatchAfterDecisionProbe,
 } from './matchSimulation';
 import { resolveMatchAction } from './matchActions';
-import { projectPlayerDecisionOpportunity } from './playerDecision';
+import { projectPlayerDecisionOpportunity, incomingBallIntentKey } from './playerDecision';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
 import {
   ACTION_EVENT_CAPACITY,
@@ -234,6 +234,14 @@ describe('canonical action event transitions', () => {
       leadDistance: 0,
     };
     state.actionCooldown = 10;
+    state.pendingReceptionIntent = {
+      actorId: receiver.id,
+      action: { type: 'hold', actorId: receiver.id },
+      actionSource: 'human_selected',
+      createdAt: state.time,
+      expiresAt: state.time + 2,
+      ballEpisode: incomingBallIntentKey(state),
+    };
     expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
     state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
     expect(state.lastReceptionOutcome?.kind).toBe('heavy_touch');

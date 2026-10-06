@@ -570,17 +570,19 @@ describe('player decision lifecycle', () => {
       opportunity = projectPlayerDecisionOpportunity(state)!;
     const action = chooseNpcAction(state, opportunity.actorId)!;
     expect(letAiDecide(state, opportunity)).toEqual(
-      resolveMatchAction(
-        {
-          ...state,
-          playerDecisionGate: {
-            lastSituationSignature: opportunity.signature,
-            lastResolvedAt: state.time,
-          },
-        },
-        action,
-        'dev_ai_selected',
-      ),
+      action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot')
+        ? state
+        : resolveMatchAction(
+            {
+              ...state,
+              playerDecisionGate: {
+                lastSituationSignature: opportunity.signature,
+                lastResolvedAt: state.time,
+              },
+            },
+            action,
+            'dev_ai_selected',
+          ),
     );
     delete state.controlledFootballerId;
     expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();

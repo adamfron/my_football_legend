@@ -4,6 +4,7 @@ import { deriveLooseBallAssignments } from './looseBallPhysics';
 import {
   clampPitchPoint,
   distance,
+  distanceToSegment,
   formationSlotToTeamSpace,
   PITCH_LENGTH,
   type PitchPoint,
@@ -477,6 +478,7 @@ export const derivePressingAssignment = (
 
 export const buildUpSupportSchema = z.object({
   playerId: z.string(),
+  role: z.enum(['escape', 'pivot', 'third_man', 'width_run', 'rest_defence']),
   target: z.object({ x: z.number(), y: z.number() }),
   weight: z.number().min(0).max(1),
 });
@@ -496,14 +498,10 @@ export const deriveBuildUpSupport = (
       .map((p) => distance(p.position, owner.position)),
   );
   const localPressure = Math.max(0, 1 - nearest / 11);
-  const support = Math.min(
-    1,
-    0.42 +
-      localPressure * 0.5 +
-      (state.teams[side].threatMemory?.response.support ?? 0) *
-        deriveBuildUpReliefWeight(state, owner) *
-        0.2,
-  );
+  const learnedRelief =
+    (state.teams[side].threatMemory?.response.support ?? 0) *
+    deriveBuildUpReliefWeight(state, owner);
+  const support = Math.min(1, 0.64 + localPressure * 0.3 + learnedRelief * 0.2);
   const dir = direction(side);
   const candidates = state.players
     .filter(
@@ -512,7 +510,10 @@ export const deriveBuildUpSupport = (
         player.id !== owner.id &&
         player.profile.primaryPosition !== 'goalkeeper' &&
         !state.discipline?.[player.id]?.sentOff &&
-        distance(player.position, owner.position) <= 34,
+        // The next midfield line must be able to come towards a deep fullback. A single
+        // short radius can exclude the entire central triangle before build-up has begun.
+        distance(player.position, owner.position) <=
+          (player.slot.position.includes('midfielder') ? 46 : 34),
     )
     .sort(
       (a, b) =>
@@ -523,7 +524,6 @@ export const deriveBuildUpSupport = (
           (a.slot.position.includes('midfielder') ? 7 : 0) +
           (b.slot.position.includes('midfielder') ? 7 : 0) || a.id.localeCompare(b.id),
     );
-  const outlets = candidates.slice(0, 2);
   const presser = state.players
     .filter((p) => p.team !== side)
     .sort((a, b) => distance(a.position, owner.position) - distance(b.position, owner.position))[0];
@@ -533,36 +533,100 @@ export const deriveBuildUpSupport = (
       : owner.position.y > 52
         ? -1
         : Math.sign(owner.position.y - (presser?.position.y ?? 34)) || 1;
-  const assignments = outlets.map((player, index) => ({
-    playerId: player.id,
-    weight: support,
-    target: clampPitchPoint({
-      x: owner.position.x - dir * (index === 0 ? 5 : 9),
-      y: owner.position.y + escapeSign * (index === 0 ? 8 : -8),
-    }),
-  }));
+  const assignments: z.infer<typeof buildUpSupportSchema>[] = [];
+  const foes = state.players.filter((p) => p.team !== side);
+  const used = new Set<string>();
+  const progress = side === 'home' ? owner.position.x : 105 - owner.position.x;
+  const slow = Math.max(0, 1 - Math.hypot(owner.velocity.x, owner.velocity.y) / 3);
+  const weight = Math.min(1, support + localPressure * slow * 0.12);
+  const assign = (
+    player: MatchPlayerState | undefined,
+    role: z.infer<typeof buildUpSupportSchema>['role'],
+    points: PitchPoint[],
+    strength = weight,
+  ) => {
+    if (!player) return;
+    // Clear both the carrier's lane and the receiver's marker. Remain within a local
+    // tactical job; a shadowed target is re-evaluated whenever the geometry changes.
+    const target = points
+      .map(clampPitchPoint)
+      .map((point) => {
+        const lane = Math.min(
+          6,
+          ...foes
+            .filter((p) => distance(p.position, owner.position) > 2)
+            .map((p) => distanceToSegment(p.position, owner.position, point)),
+        );
+        const clearance = Math.min(8, ...foes.map((p) => distance(p.position, point)));
+        return { point, score: lane * 2 + clearance - distance(player.position, point) * 0.14 };
+      })
+      .sort((a, b) => b.score - a.score)[0]!.point;
+    used.add(player.id);
+    assignments.push({ playerId: player.id, role, target, weight: strength });
+  };
+  const pivot =
+    progress < 62 ? candidates.find((p) => p.slot.position.includes('midfielder')) : undefined;
+  assign(
+    pivot,
+    'pivot',
+    [-1, 1].flatMap((sign) =>
+      [9, 14].map((depth) => ({
+        x: owner.position.x + dir * (depth - learnedRelief * 7),
+        y: 34 + sign * 8,
+      })),
+    ),
+  );
+  const escape =
+    candidates.find((p) => !used.has(p.id) && p.slot.position.includes('midfielder')) ??
+    candidates.find((p) => !used.has(p.id) && p.slot.position === 'center_back') ??
+    candidates.find((p) => !used.has(p.id) && !isWideDefender(p));
+  assign(
+    escape,
+    'escape',
+    [escapeSign, -escapeSign].flatMap((sign) =>
+      [-4, 2].map((depth) => ({
+        x: owner.position.x + dir * depth,
+        y: owner.position.y + sign * (10 - learnedRelief * 3),
+      })),
+    ),
+  );
   const thirdMan = candidates.find(
-    (p) => !outlets.includes(p) && p.slot.position.includes('midfielder') && p.duty !== 'defend',
+    (p) => !used.has(p.id) && p.slot.position.includes('midfielder') && p.duty !== 'defend',
   );
-  if (thirdMan && localPressure > 0.15)
-    assignments.push({
-      playerId: thirdMan.id,
-      weight: Math.min(0.72, support),
-      target: clampPitchPoint({
-        x: owner.position.x + dir * 9,
-        y: owner.position.y - escapeSign * 12,
-      }),
-    });
+  if (localPressure > 0.15 || pivot) {
+    const connection = assignments.find((a) => a.role === 'pivot')?.target ?? owner.position;
+    assign(
+      thirdMan,
+      'third_man',
+      [-1, 1].map((sign) => ({
+        x: connection.x + dir * (9 - learnedRelief * 5),
+        y: 34 + sign * (13 - learnedRelief * 3),
+      })),
+      Math.min(0.85, weight),
+    );
+  }
+  const runner = candidates.find((p) => !used.has(p.id) && isWideAttacker(p));
+  if (localPressure > 0.35 && slow > 0.4)
+    assign(
+      runner,
+      'width_run',
+      [
+        {
+          x: owner.position.x + dir * 16,
+          y: 34 + (Math.sign((runner?.neutralAnchor.y ?? 34) - 34) || escapeSign) * 25,
+        },
+      ],
+      Math.min(0.8, weight),
+    );
   // A centre-back behind build-up stays connected as a reset option instead of following a high line.
-  const centreBack = candidates.find(
-    (p) => p.slot.position === 'center_back' && !outlets.includes(p),
-  );
+  const centreBack = candidates.find((p) => p.slot.position === 'center_back' && !used.has(p.id));
   if (centreBack && (side === 'home' ? owner.position.x : 105 - owner.position.x) < 58)
     assignments.push({
       playerId: centreBack.id,
+      role: 'rest_defence',
       weight: 0.52,
       target: clampPitchPoint({
-        x: owner.position.x - dir * 16,
+        x: owner.position.x - dir * (16 - learnedRelief * 5),
         y: 34 + Math.sign(centreBack.neutralAnchor.y - 34) * 10,
       }),
     });
@@ -745,7 +809,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       ideal = seekSpace(state, player, ideal, offside[player.team]);
     const occupation = occupations[player.team].find(({ playerId }) => playerId === player.id);
     if (occupation && !supportAssignment) ideal = occupation.target;
-    else if (!isKeeper && runs[player.team].includes(player.id)) {
+    else if (!isKeeper && !supportAssignment && runs[player.team].includes(player.id)) {
       const overlap = isWideDefender(player) && Math.abs(state.ball.y - player.position.y) < 18;
       ideal = {
         x: ideal.x + dir * (overlap ? 13 : 9 + parameters.forwardRuns * 7),
@@ -763,13 +827,9 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     const looseAssignment = looseAssignments.find(({ playerId }) => playerId === player.id);
     const coverAssignment = looseAssignments.find(({ coverId }) => coverId === player.id);
     if (coverAssignment?.coverTarget) ideal = coverAssignment.coverTarget;
-    if (looseAssignment)
-      ideal = looseAssignment.goalkeeper
-        ? looseAssignment.target
-        : {
-            x: lerp(ideal.x, looseAssignment.target.x, 0.94),
-            y: lerp(ideal.y, looseAssignment.target.y, 0.94),
-          };
+    // A nominated contestant must reach the actual contact point. Blending the race with a
+    // distant formation anchor can leave a stationary loose ball just beyond control radius.
+    if (looseAssignment) ideal = looseAssignment.target;
     ideal = clampPitchPoint(
       isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player.team),
     );
@@ -790,7 +850,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       e1 = errorAt(period + 1),
       smooth = blend * blend * (3 - 2 * blend);
     const errorSize =
-      (1 - restartWeight) *
+      (looseAssignment ? 0 : 1 - restartWeight) *
       (1 - player.profile.attributes.positioning / 100) *
       (2.5 + parameters.freedom * 2);
     const noisy = clampPitchPoint({

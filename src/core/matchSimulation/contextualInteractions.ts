@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { deriveFirstTimeSpacePass } from './firstTimePassing';
 import { deriveHumanLeadPass, enumerateAvailableActions } from './matchActions';
 import {
   attackDirection,
@@ -131,15 +132,17 @@ export const projectContextualInteractions = (
                 (action.type === 'header' && action.intent === 'header_shot'),
             ),
           );
-    if (target.kind === 'space')
-      return asActions(
-        target,
-        incomingActions
+    if (target.kind === 'space') {
+      const firstTime = deriveFirstTimeSpacePass(state, actor.id, target.point);
+      return asActions(target, [
+        ...incomingActions
           .filter((action) => action.type === 'carry')
           .map((action) =>
             action.type === 'carry' ? { ...action, target: target.point } : action,
           ),
-      );
+        ...(firstTime ? [firstTime] : []),
+      ]);
+    }
     if (target.kind === 'player' && target.playerId !== actor.id)
       return asActions(
         target,

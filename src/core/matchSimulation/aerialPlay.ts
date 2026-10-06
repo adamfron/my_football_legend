@@ -1,9 +1,29 @@
 import { RandomGenerator } from '../random/RandomGenerator';
+import { z } from 'zod';
+import { pitchPointSchema } from './matchSpace';
 import { distance, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { canContactAfterThrowIn } from './throwIn';
 
 export type AerialOutcome = NonNullable<TacticalMatchState['lastAerialResult']>;
+export const aerialContactLockSchema = z.object({
+  playerId: z.string(),
+  point: pitchPointSchema,
+  at: z.number().nonnegative(),
+});
+
+/** A new action/owner ID cannot re-arm continuous body overlap. Real separation can. */
+export const activeAerialContactLocks = (state: TacticalMatchState) =>
+  (state.aerialContactLocks ?? []).filter((lock) => {
+    const player = state.players.find((p) => p.id === lock.playerId);
+    return (
+      player &&
+      distance(player.position, state.ball) < 1.6 &&
+      distance(state.ball, lock.point) < 2.4 &&
+      (state.ball.height ?? 0) > 0.45 &&
+      (state.ball.height ?? 0) < player.profile.heightCm / 100 + 0.55
+    );
+  });
 
 export interface AerialContactCandidate {
   playerId: string;
@@ -43,18 +63,24 @@ export const evaluateAerialContact = (
   };
 };
 
-export const findAerialContactCandidates = (state: TacticalMatchState, lookaheadSeconds = 0.025) =>
-  state.players
+export const findAerialContactCandidates = (
+  state: TacticalMatchState,
+  lookaheadSeconds = 0.025,
+) => {
+  const lockedIds = new Set(activeAerialContactLocks(state).map((lock) => lock.playerId));
+  return state.players
     .filter(
       (p) =>
         p.profile.primaryPosition !== 'goalkeeper' &&
         distance(p.position, state.ball) < 2.2 &&
+        !lockedIds.has(p.id) &&
         canContactAfterThrowIn(state, p.id),
     )
     .map((p) => ({ player: p, contact: evaluateAerialContact(p, state.ball, lookaheadSeconds) }))
     .filter((entry): entry is { player: MatchPlayerState; contact: AerialContactCandidate } =>
       Boolean(entry.contact),
     );
+};
 
 export const aerialAbility = (player: MatchPlayerState, ball: PitchPoint) => {
   const a = player.profile.attributes;

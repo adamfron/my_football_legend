@@ -1,4 +1,6 @@
 import { hasPendingPlayerDecision } from './playerDecision';
+import { isHumanControlled, isShotAction } from './actionAgency';
+import { enumerateFirstTimePasses, canExecuteFirstTimePass } from './firstTimePassing';
 import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { emitCanonicalActionEvents } from './actionEvents';
 import {
@@ -8,6 +10,7 @@ import {
   threatChannel,
 } from './teamThreatMemory';
 import { evaluatePassDecision } from './passDecision';
+import { angleForVector, normalizeAngle } from './playerOrientation';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   clampPitchPoint,
@@ -219,6 +222,7 @@ export const enumerateAvailableActions = (
   if (state.ball.ownerId !== actorId)
     return [
       ...enumerateCanonicalShootingOptions(state, actorId),
+      ...enumerateFirstTimePasses(state, actorId),
       ...enumerateDefensiveChallengeActions(state, actorId),
     ];
   const dir = actor.team === 'home' ? 1 : -1;
@@ -726,12 +730,36 @@ export const chooseIncomingShotAction = (
   actorId: string,
 ): MatchAction | undefined => {
   const control: MatchAction = { type: 'hold', actorId };
-  const controlValue = scoreActionForAI(state, actorId, control);
+  // The receiver has not yet possessed the ball. The previous carrier's completed scanning
+  // clock must not devalue a fresh control and force every routine reception into a layoff.
+  const controlValue = scoreActionForAI(
+    { ...state, ballOwnershipStartedAt: state.time },
+    actorId,
+    control,
+  );
+  const actor = state.players.find((p) => p.id === actorId);
+  if (!actor) return undefined;
   return rankAvailableActionsForAI(state, actorId).find(
     ({ action, score }) =>
-      (action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot')) &&
-      canExecuteCanonicalShot(state, action) &&
-      score > controlValue,
+      (isShotAction(action)
+        ? canExecuteCanonicalShot(state, action)
+        : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action)) &&
+      score >
+        controlValue +
+          (action.type === 'pass'
+            ? 18 +
+              (1 - evaluatePressure(state, actor).value) * 18 +
+              Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 5 +
+              Math.abs(
+                normalizeAngle(
+                  angleForVector({
+                    x: action.target.x - actor.position.x,
+                    y: action.target.y - actor.position.y,
+                  }) - actor.facingAngle,
+                ),
+              ) *
+                6
+            : 0),
   )?.action;
 };
 
@@ -783,6 +811,12 @@ const resolveMatchActionCanonical = (
   if (!hasActiveMatchActionParticipants(state, action)) return state;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
+  // Last line of defence: no autonomous path (including DEV and restart recovery) may
+  // manufacture a human shot. The pure agency projection exposes the same opportunity.
+  if (isHumanControlled(state, actor.id) && isShotAction(action) && source !== 'human_selected')
+    return !hasActiveHumanPossession(state) && canExecuteCanonicalShot(state, action)
+      ? { ...state, shotAgencyRequest: action }
+      : state;
   if (
     state.restart?.phase === 'setup' &&
     state.restart.indirect &&
@@ -858,8 +892,9 @@ const resolveMatchActionCanonical = (
   }
   if (
     state.ball.ownerId !== action.actorId &&
-    ((action.type !== 'shot' && (action.type !== 'header' || action.intent !== 'header_shot')) ||
-      !canExecuteCanonicalShot(state, action))
+    !(isShotAction(action)
+      ? canExecuteCanonicalShot(state, action)
+      : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action))
   )
     return state;
   if (
@@ -896,10 +931,12 @@ const resolveMatchActionCanonical = (
   const {
     ballCarrierIntent: _interruptedCarry,
     postActionAgencyCheckpoint: _checkpoint,
+    shotAgencyRequest: _shotRequest,
     ...baseState
   } = prepared;
   void _interruptedCarry;
   void _checkpoint;
+  void _shotRequest;
   if (action.type === 'hold')
     return {
       ...baseState,
@@ -1289,6 +1326,13 @@ const resolveMatchActionCanonical = (
             readiness: projection.receiverReadiness,
           }),
           lastPassDiagnostic: {
+            ...(action.firstTime
+              ? {
+                  actionSource: source,
+                  incomingSpeed: execution.incomingSpeed ?? 0,
+                  incomingHeight: execution.incomingHeight ?? 0,
+                }
+              : {}),
             selectionQuality,
             intendedTarget: execution.intendedTarget,
             physicalTarget: execution.physicalTarget,

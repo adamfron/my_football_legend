@@ -1,0 +1,27 @@
+{
+  "case": "supplied-observer",
+  "seed": "lab-muwhj3er",
+  "minutes": 45,
+  "observer": "normal",
+  "samples": 1,
+  "execution": "sequential, after all other task benchmark/verification processes completed",
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "osRelease": "10.0.26200",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "parallelism": 16
+  },
+  "before": {
+    "elapsedMs": 15332.5618,
+    "canonicalHash": "17eb986ffaa5530631842fe873babfe6609969131e6c58627cc08d9f181568ce"
+  },
+  "after": {
+    "elapsedMs": 16754.6158,
+    "canonicalHash": "1c6d359ae34cec02e34fd99847a52c95b027a0af96a4a9fa9982f49cc018507e"
+  },
+  "ratio": 1.0927473189770545,
+  "exactNormalDevBothRevisions": true,
+  "renderer": "headless run does not measure browser/3D cost; existing renderer/background lifecycle tests passed",
+  "interpretation": "One descriptive pair, with different football trajectories. Not a causal optimization claim."
+}

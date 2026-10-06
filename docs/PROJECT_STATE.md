@@ -1,5 +1,32 @@
 # My Football Legend — Current Project State
 
+## PR155 — Player Agency, First-Time Passing & Possession Stability
+
+Baza: scalony GitHub #154, `235caf8a`. Każdy strzał kontrolowanego piłkarza przy
+włączonej sprawczości wymaga `human_selected`, również pierwszy kontakt, główka,
+karne i wolne. Autonomiczna propozycja strzału otwiera rzeczywistą decyzję niezależnie
+od czułości oglądania i wcześniejszego przekazania rutynowej gry. Jawny tryb
+`playerAgencyEnabled: false` nadal służy porównaniom bez interwencji.
+
+Podania z pierwszej piłki korzystają ze wspólnego resolvera podań: do nogi, na dobieg,
+do przestrzeni i górą. Mają fizyczny kontakt, błąd zależny od atrybutów/kontekstu
+i zerowe oczekiwanie na opanowanie; NPC porównuje je z nowym przyjęciem, bez
+dziedziczenia zegara poprzedniego posiadacza. Rutynowe przyjęcia pozostają autonomiczne.
+
+Kontakt głową nie przyznaje już automatycznie posiadania. Oddzielono kontakt,
+próbę opanowania i zabezpieczoną piłkę; ten sam nakładający się pojedynek powietrzny
+uzbraja się ponownie dopiero po rozdzieleniu. Lokalne wsparcie obejmuje wyjście,
+centralny pivot, trzeciego zawodnika, bieg szeroki i asekurację. Kolejna linia pomocy
+może zejść do głębokiego rozegrania. Nie ma kwot kontaktów ani premii użytkowej CM.
+
+Zakres, odtworzenie, wyniki wielu seedów i ograniczenia:
+[PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md).
+Historyczny opis autonomii PR152 poniżej jest od PR155 ograniczony twardą własnością
+strzału człowieka. Pełna choreografia wznowień pozostaje kolejnym etapem.
+
+Następne etapy: **PR156 — Dead Ball & Restart Continuity**, **PR157 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR158 — Match Presentation / Replay / Stadium Polish**.
+
 ## PR154 — Situational Football Intelligence, Attribute Fidelity & Anti-Deadlock Calibration
 
 Baza to scalony GitHub #153 (`7b175c7a`), uzupełniający statystyki/dyscyplinę PR152.
@@ -14,8 +41,7 @@ Dystans strzału ma jedno źródło w kanonicznym zdarzeniu strzału. Inwarianty
 statystyk i kroku 25 ms pozostają obowiązujące. Architektura, odtworzenie i dowody:
 [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
 
-Następne etapy: **PR155 — Dead Ball & Restart Continuity**, **PR156 — Fatigue, Injuries,
-Substitutions & Added Time**, **PR157 — Match Presentation / Replay / Stadium polish**.
+Kolejność planowana przy PR154 została zaktualizowana w PR155 powyżej.
 
 ## Rozszerzony zakres PR152 — statystyki i dyscyplina
 
@@ -38,7 +64,7 @@ Eksport Match Lab v5 pokazuje tani raport kanoniczny i udział ukryty/widoczny b
 Pasmo ostrzeżeń pozostaje diagnostyczne. Audyt i dowody:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-Po PR154 następny etap to **PR155 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
+Po stabilizacji PR155 następny etap to **PR156 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
 reakcja po golu, celebracja/pilne wznowienie według wyniku i czasu, odzyskanie piłki po późnym
 golu, gotowość wznowienia i fundament doliczonego czasu. PR152 nie implementuje tego etapu.
 

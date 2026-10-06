@@ -14,7 +14,10 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR154 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR155 complete telemetry reference (PR146 observer contract)', () => {
+  // PR155 changes support geometry, incoming passing and canonical contested ownership.
+  // The previous PR154 complete hashes are retained in docs/performance/PR155-validation.json.
+  // Keep the complete all-field identity/invariant assertion and reproduce both seeds twice.
   // PR154 changes actual football selection/contact geometry and adds pass-selection facts.
   // Retain every exported field, identity ledger and invariant in these regenerated hashes.
   // Expanded PR152 intentionally separates football loss causes from restart awards.
@@ -54,8 +57,8 @@ describe('PR154 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '148e48743e6fba4d0b0fffc120432104867004fbddc87be2e325248626b6098b'],
-    ['pr146-flow-reference:b', '6837c0963f01d6353ca9b186ba0d79a23d0a30efc1eba0191f32f59d4ed16ab9'],
+    ['pr146-flow-reference:a', '832fbc7b756fc0bf74b47f9f550c04f558918687fbc0a8771e22eaca6dd2c260'],
+    ['pr146-flow-reference:b', 'aec3fc0d7d54450b2637b4240b8653340fdec479627f907f70153791712143b6'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

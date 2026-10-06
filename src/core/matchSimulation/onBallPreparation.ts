@@ -319,7 +319,8 @@ export const preparationMarginForAction = (
         ? 'header'
         : undefined;
   // First-time execution is a contact/timing problem, never a settled-possession waiting period.
-  if (shotContact && shotContact !== 'settled') return 0;
+  if ((shotContact && shotContact !== 'settled') || (action.type === 'pass' && action.firstTime))
+    return 0;
   const preparation = state.onBallPreparation;
   if (
     !preparation ||

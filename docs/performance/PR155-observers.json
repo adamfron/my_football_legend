@@ -1,0 +1,30 @@
+{
+  "inputPolicy": "explicit highest canonical score among surfaced options; original human tape unavailable",
+  "canonicalFields": "complete serialized TacticalMatchState, including score, all players, event/statistics identity ledgers and RNG index",
+  "results": [
+    {
+      "case": "supplied-player",
+      "seed": "lab-muwhj3er",
+      "minutes": 5,
+      "choices": 19,
+      "modes": {
+        "normal": "acc48fa0be5cda73c9a3e159e01c667aabda566752c3e36ba855c6dad61d6fa0",
+        "dev": "acc48fa0be5cda73c9a3e159e01c667aabda566752c3e36ba855c6dad61d6fa0",
+        "capture": "acc48fa0be5cda73c9a3e159e01c667aabda566752c3e36ba855c6dad61d6fa0"
+      },
+      "exact": true
+    },
+    {
+      "case": "supplied-player",
+      "seed": "pr155-natural-b",
+      "minutes": 5,
+      "choices": 2,
+      "modes": {
+        "normal": "f0e97323451a33c9866cb599fddc12d27d502758e41654efe569b6eda54601c6",
+        "dev": "f0e97323451a33c9866cb599fddc12d27d502758e41654efe569b6eda54601c6",
+        "capture": "f0e97323451a33c9866cb599fddc12d27d502758e41654efe569b6eda54601c6"
+      },
+      "exact": true
+    }
+  ]
+}

@@ -104,7 +104,7 @@ describe('PR152 canonical identity and temporary human agency', () => {
     expect(state.playerDecisionGate).toBeUndefined();
   });
 
-  it('keeps a pending meaningful choice frozen, then permits a delegated autonomous shot', () => {
+  it('keeps shooting human-owned after a previously delegated choice', () => {
     const { state, actorId } = attackingFixture();
     const opportunity = projectPlayerDecisionOpportunity(state)!;
     expect(opportunity.kind).toBe('on_ball');
@@ -113,7 +113,7 @@ describe('PR152 canonical identity and temporary human agency', () => {
     )!;
     expect(hasPendingPlayerDecision(state, actorId)).toBe(true);
     expect(stepTacticalMatch(state, FIXED_MATCH_DT)).toEqual(state);
-    expect(resolveMatchAction(state, shot, 'autonomous_routine')).toBe(state);
+    expect(resolveMatchAction(state, shot, 'autonomous_routine').ball).toEqual(state.ball);
     const delegated = {
       ...state,
       playerDecisionGate: {
@@ -122,7 +122,11 @@ describe('PR152 canonical identity and temporary human agency', () => {
       },
     };
     expect(hasPendingPlayerDecision(delegated, actorId)).toBe(false);
-    expect(resolveMatchAction(delegated, shot, 'autonomous_routine').ball.travelKind).toBe('shot');
+    const blocked = resolveMatchAction(delegated, shot, 'autonomous_routine');
+    expect(blocked.ball.shot).toBeUndefined();
+    expect(hasPendingPlayerDecision(blocked, actorId)).toBe(true);
+    expect(projectPlayerDecisionOpportunity(blocked)).toBeDefined();
+    expect(resolveMatchAction(blocked, shot, 'human_selected').ball.travelKind).toBe('shot');
   });
 
   it('permits a routine controlled cross when the exact agency probe has no pending choice', () => {
@@ -145,7 +149,7 @@ describe('PR152 canonical identity and temporary human agency', () => {
     );
   });
 
-  it('uses normal first-time finishing at a contact without a pending meaningful human choice', () => {
+  it('surfaces a late first-time finishing contact and shares the NPC physics after human commitment', () => {
     const { state, actorId } = attackingFixture();
     state.players.find((player) => player.id === actorId)!.facingAngle = 0;
     const passer = state.players.find(
@@ -168,15 +172,29 @@ describe('PR152 canonical identity and temporary human agency', () => {
       sourceAction: 'pass',
     };
     state.actionCooldown = 10;
-    // The ball is already at contact: PR151 correctly avoids a token incoming menu here.
-    expect(projectPlayerDecisionOpportunity(state)).toBeUndefined();
+    const opportunity = projectPlayerDecisionOpportunity(state)!;
+    expect(opportunity.triggerReason).toBe('human_shot_selection_required');
     const npc = structuredClone(state);
     delete npc.controlledFootballerId;
-    const next = stepTacticalMatch(state, FIXED_MATCH_DT);
+    expect(stepTacticalMatch(state, FIXED_MATCH_DT)).toEqual(state);
     const npcNext = stepTacticalMatch(npc, FIXED_MATCH_DT);
+    const selectedShot = npcNext.latestAction!;
+    const shot = opportunity.options.find(
+      (o) =>
+        o.kind === 'action' &&
+        o.action.type === 'shot' &&
+        selectedShot.type === 'shot' &&
+        o.action.intent === selectedShot.intent &&
+        JSON.stringify(o.action.goalTarget) === JSON.stringify(selectedShot.goalTarget),
+    )!;
+    const next = stepTacticalMatch(
+      applyPlayerDecision(state, opportunity, shot.id),
+      FIXED_MATCH_DT,
+    );
     expect(next.ball.shot?.firstTime).toBe(true);
     expect(next.ball).toEqual(npcNext.ball);
     expect(next.latestAction).toEqual(npcNext.latestAction);
+    expect(next.latestActionSource).toBe('human_selected');
   });
 
   it('releases a delegated controlled restart at the normal setup boundary', () => {

@@ -10,6 +10,7 @@ import {
   enumerateAvailableActions,
   projectPassReception,
   resolveMatchAction,
+  projectPlayerDecisionOpportunity,
 } from '.';
 
 const world = createCanonicalWorldDatabase();
@@ -140,7 +141,10 @@ describe('PR123 final-third and interaction integrity', () => {
       (action) => action.type === 'shot',
     )!;
     expect(shot).toBeDefined();
-    expect(resolveMatchAction(state, shot, 'autonomous_npc')).toBe(state);
+    const blocked = resolveMatchAction(state, shot, 'autonomous_npc');
+    expect(blocked.ball).toEqual(state.ball);
+    expect(blocked.shotAgencyRequest).toEqual(shot);
+    expect(projectPlayerDecisionOpportunity(blocked)).toBeDefined();
     expect(resolveMatchAction(state, shot, 'human_selected').latestActionSource).toBe(
       'human_selected',
     );
