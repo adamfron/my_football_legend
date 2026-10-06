@@ -1,6 +1,15 @@
 import { PresentationContextHistory } from './tacticalRenderer/contextHistory';
 import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
 import { projectSprintEpisode } from '../../core/matchSimulation/locomotion';
+import { getPlayerOverall } from '../../core/playerOverall';
+import {
+  runAttributeMicroLab,
+  type AttributeMicroLabResult,
+} from '../../core/matchSimulation/attributeMicroLab';
+import {
+  projectFormationConnectivity,
+  PressureSupportTracker,
+} from '../../core/matchSimulation/footballIntelligenceDiagnostics';
 import {
   isDevObservationMode,
   PerformanceProfiler,
@@ -315,6 +324,20 @@ export const TacticalMatchSandbox = () => {
   return (
     <RunningLabGuard
       session={session}
+      squadOveralls={
+        Object.fromEntries(
+          (['home', 'away'] as const).map((side) => {
+            const profiles = (session[side].club.squadPlayerIds ?? [])
+              .map((id) => world.footballers[id]?.profile)
+              .filter((p): p is NonNullable<typeof p> => Boolean(p));
+            return [
+              side,
+              profiles.reduce((sum, p) => sum + getPlayerOverall(p, p.primaryPosition), 0) /
+                Math.max(1, profiles.length),
+            ];
+          }),
+        ) as { home: number; away: number }
+      }
       onSetup={() => setSession(undefined)}
       onRestart={() => setSession(createSingleMatchSession(world, session.setup))}
       onRandomize={() => {
@@ -386,6 +409,7 @@ export class MatchLabErrorBoundary extends Component<
 
 type RunningLabProps = {
   session: SingleMatchSession;
+  squadOveralls?: { home: number; away: number };
   onSetup(): void;
   onRestart(): void;
   onRandomize(): void;
@@ -433,14 +457,17 @@ export const RunningLab = ({
   onRestart,
   onRandomize,
   diagnostics,
+  squadOveralls,
 }: {
   session: SingleMatchSession;
   onSetup(): void;
   onRestart(): void;
   onRandomize(): void;
   diagnostics: MatchLabDiagnosticsController;
+  squadOveralls?: { home: number; away: number };
 }) => {
   const kits = useMemo(() => projectMatchKits(session.home.club, session.away.club), [session]);
+  const [attributeLab, setAttributeLab] = useState<AttributeMicroLabResult>();
   const [state, setState] = useState<TacticalMatchState>(() => diagnostics.latestState),
     [playing, setPlaying] = useState(true),
     [speed, setSpeed] = useState(1),
@@ -528,6 +555,7 @@ export const RunningLab = ({
   const performanceProfile =
     diagnosticsExpanded && performanceExpanded ? profilerRef.current.snapshot() : undefined;
   const telemetryRef = useRef(diagnostics.telemetry);
+  const pressureSupportRef = useRef(new PressureSupportTracker());
   const positioningSamplesRef = useRef<PositioningSample[]>(diagnostics.positioningSamples);
   const observerModeRef = useRef(observerMode);
   const observerCoverageRef = useRef<ObserverCoverageInterval[]>([]);
@@ -614,6 +642,7 @@ export const RunningLab = ({
       diagnostics.report('observer_error', error, { module: 'MatchDebugRecorder.record' });
     }
     telemetryRef.current = createMatchFlowTelemetry(`${initial.seed}:segment:0`);
+    pressureSupportRef.current = new PressureSupportTracker();
     diagnostics.telemetry = telemetryRef.current;
     try {
       positioningSamplesRef.current = isDevObservationMode(observerModeRef.current)
@@ -975,6 +1004,7 @@ export const RunningLab = ({
                       previousState,
                       next,
                     );
+                    pressureSupportRef.current.observe(previousState, next);
                     endPerformanceSpan('match_flow', flowStarted);
                     diagnostics.telemetry = telemetryRef.current;
                   }
@@ -1601,6 +1631,91 @@ export const RunningLab = ({
         <summary>DEV · Diagnostyka, scenariusze i zapis meczu</summary>
         {diagnosticsExpanded && (
           <>
+            <p>
+              OVR XI: {session.home.club.name} {session.home.strength.toFixed(1)} ·{' '}
+              {session.away.club.name} {session.away.strength.toFixed(1)}
+              {squadOveralls && (
+                <>
+                  {' '}
+                  · OVR kadr: {squadOveralls.home.toFixed(1)} / {squadOveralls.away.toFixed(1)}
+                </>
+              )}
+            </p>
+            <details>
+              <summary>DEV · Attribute Micro Lab</summary>
+              <p>
+                Identyczna geometria i seedy; zmieniamy jeden atrybut w pasmach 20 / 40 / 60 / 80 /
+                100. Wyniki opisują rozkłady wykonania i ETA.
+              </p>
+              <button onClick={() => setAttributeLab(runAttributeMicroLab(state))}>
+                Uruchom macierz atrybutów
+              </button>
+              {attributeLab && (
+                <>
+                  <button
+                    onClick={() =>
+                      downloadBlob(
+                        new Blob([JSON.stringify(attributeLab, null, 2)], {
+                          type: 'application/json',
+                        }),
+                        'mfl-attribute-micro-lab.json',
+                      )
+                    }
+                  >
+                    Eksportuj macierz JSON
+                  </button>
+                  <p>
+                    {attributeLab.rows.length} wariantów · {attributeLab.config.repetitions}{' '}
+                    powtórzeń każdego wariantu
+                  </p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Pomiar / atrybut / kontekst</th>
+                        <th>Pasmo</th>
+                        <th>Średnia</th>
+                        <th>P05 / P50 / P95</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {attributeLab.rows.map((row) => (
+                        <tr key={`${row.metric}:${row.attribute}:${row.context}:${row.band}`}>
+                          <td>
+                            {row.metric} / {row.attribute} / {row.context}
+                          </td>
+                          <td>{row.band}</td>
+                          <td>{row.distribution.mean.toFixed(3)}</td>
+                          <td>
+                            {row.distribution.p05.toFixed(3)} / {row.distribution.median.toFixed(3)}{' '}
+                            / {row.distribution.p95.toFixed(3)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
+            </details>
+            <details>
+              <summary>DEV · Reakcja wsparcia na presję</summary>
+              <p>
+                Ostatnie epizody: ruch partnerów, czas reakcji, odległości i dostępne opcje. Pomiar
+                zbierany w DEV/capture.
+              </p>
+              <button
+                onClick={() =>
+                  downloadBlob(
+                    new Blob([JSON.stringify(pressureSupportRef.current.snapshot(), null, 2)], {
+                      type: 'application/json',
+                    }),
+                    'mfl-pressure-support.json',
+                  )
+                }
+              >
+                Eksportuj epizody JSON
+              </button>
+              <pre>{JSON.stringify(pressureSupportRef.current.snapshot().slice(-8), null, 2)}</pre>
+            </details>
             <nav className="debug-capture" aria-label="Eksport diagnostyczny">
               <label>
                 Tryb obserwacji{' '}
@@ -2199,6 +2314,36 @@ export const RunningLab = ({
             <summary>DEV · Stan i geometria</summary>
             {geometryExpanded && situation && (
               <>
+                {(() => {
+                  const selected = state.players.find(
+                    (p) =>
+                      p.id ===
+                      (selectedTarget?.kind === 'player'
+                        ? selectedTarget.playerId
+                        : (state.controlledFootballerId ?? state.ball.ownerId)),
+                  );
+                  return (
+                    selected && (
+                      <p>
+                        Wybrany piłkarz: {selected.profile.firstName} {selected.profile.lastName} ·
+                        OVR {getPlayerOverall(selected.profile, selected.profile.primaryPosition)}
+                        <br />
+                        {Object.entries(selected.profile.attributes)
+                          .map(([key, value]) => `${key}: ${value}`)
+                          .join(' · ')}
+                      </p>
+                    )
+                  );
+                })()}
+                {projectFormationConnectivity(state).map((team) => (
+                  <p key={team.side}>
+                    Łączność {team.formation}: obrona{' '}
+                    {(team.lineInvolvement.defence! * 100).toFixed(1)}% · środek{' '}
+                    {(team.lineInvolvement.midfield! * 100).toFixed(1)}% · największa relacja{' '}
+                    {(team.topEdgeShare * 100).toFixed(1)}%<br />
+                    {team.warnings.join(' · ') || 'Brak ostrzeżeń udziału'}
+                  </p>
+                ))}
                 <p>
                   Sprawczość: {agencyDiagnostic?.meaningfulHumanDecisions} obserwowanych kandydatów
                   decyzji · rutyna: {agencyDiagnostic?.routineDelegated} · jedna opcja:{' '}

@@ -1,7 +1,7 @@
 import { z } from 'zod';
+import { passDecisionQualitySchema } from './passDecision';
 import { emptyTurnoverCauseCounts, turnoverCauseCountsSchema } from './possessionEvents';
 import { distance } from './matchSpace';
-import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { shotDiagnosticSchema, type TacticalMatchState } from './matchState';
 import { shotContactSchema } from './shotIntent';
 import { deriveFlankRelationship, deriveFlankRunAssignments } from './tacticalPositioning';
@@ -71,6 +71,13 @@ const ballHoldDiagnosticSchema = z.object({
 });
 const passOutcomeDiagnosticSchema = z.object({
   passId: z.string(),
+  passerId: z.string().optional(),
+  receiverId: z.string().optional(),
+  selection: passDecisionQualitySchema.optional(),
+  executionErrorMetres: z.number().nonnegative().optional(),
+  receiverFailure: z.boolean().optional(),
+  defenderInterception: z.boolean().optional(),
+  targetActuallyOutOfPlay: z.boolean().optional(),
   intent: z.enum(['support', 'progressive', 'direct', 'lead', 'through']),
   originThird: thirdSchema,
   length: z.number().nonnegative(),
@@ -733,6 +740,17 @@ export const observeMatchFlow = (
             indexes.passOutcomes.set(releasedPass.passId, result.passOutcomes.length);
           append('passOutcomes', {
             passId: releasedPass.passId,
+            passerId: releasedPass.passerId,
+            receiverId: releasedPass.intendedReceiverId,
+            ...(releasedPass.selectionQuality ? { selection: releasedPass.selectionQuality } : {}),
+            ...(releasedPass.physicalTarget && releasedPass.intendedTarget
+              ? {
+                  executionErrorMetres: distance(
+                    releasedPass.physicalTarget,
+                    releasedPass.intendedTarget,
+                  ),
+                }
+              : {}),
             intent: action.intent,
             originThird: third(passer.team, passer.position.x),
             length: distance(passer.position, releasedPass.predictedReceptionPoint),
@@ -875,6 +893,14 @@ export const observeMatchFlow = (
           result.passOutcomes = result.passOutcomes.slice();
         result.passOutcomes[passOutcomeIndex] = {
           ...result.passOutcomes[passOutcomeIndex]!,
+          receiverFailure: ['failed_control', 'heavy_touch'].includes(
+            diagnostic.receptionOutcome ?? '',
+          ),
+          defenderInterception: diagnostic.finalResult === 'intercepted',
+          targetActuallyOutOfPlay:
+            diagnostic.finalResult === 'out_of_play' ||
+            (next.lastBoundaryCrossing !== previous.lastBoundaryCrossing &&
+              diagnostic.finalResult !== 'completed'),
           outcome:
             diagnostic.finalResult === 'completed'
               ? 'completed'
@@ -958,9 +984,7 @@ export const observeMatchFlow = (
     append('shotDiagnostics', shot);
     result.shots++;
     if (inFinalThird(shooter?.team ?? 'home', previous.ball.x)) result.threatFlow.resultingShots++;
-    const metres = shooter
-      ? distance(shooter.position, { x: shooter.team === 'home' ? 105 : 0, y: 34 })
-      : 0;
+    const metres = shot.distance;
     append('shotDistances', metres);
     if (metres >= 30) result.longShots++;
     if (shot.outcome === 'goal') {
@@ -972,11 +996,7 @@ export const observeMatchFlow = (
     if (shot.outcome === 'save') result.saves++;
     if (shot.goalkeeperAction === 'failed_save') result.failedSaves++;
     if (shot.goalkeeperAction === 'no_chance' && shot.outcome === 'goal') result.noChanceGoals++;
-    if (shooter)
-      append(
-        'shootingOpportunityValues',
-        evaluateShootingOpportunity(previous, shooter).effectiveScoringExpectation,
-      );
+    if (shooter) append('shootingOpportunityValues', shot.effectiveScoringExpectation);
     if (shot.shooterId === next.controlledFootballerId) result.controlled.shots++;
   }
   // Four observational samples per canonical second are sufficient to catch football episodes
@@ -1079,6 +1099,13 @@ const assertTelemetryTotals = (telemetry: MatchFlowTelemetry) => {
 };
 
 export const assertTelemetryInvariants = (telemetry: MatchFlowTelemetry) => {
+  if (
+    telemetry.shotDistances.length !== telemetry.shotDiagnostics.length ||
+    telemetry.shotDiagnostics.some(
+      (shot, index) => Math.abs(shot.distance - telemetry.shotDistances[index]!) > 1e-9,
+    )
+  )
+    throw new Error('Canonical shotId distance disagrees with aggregate shot distance.');
   assertTelemetryTotals(telemetry);
   for (const spell of telemetry.possessionSpellDurations)
     if (spell > telemetry.canonicalMinutes * 60 + 0.001)

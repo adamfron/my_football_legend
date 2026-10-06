@@ -1158,17 +1158,9 @@ const stepTacticalMatchCore = (
       state.time >= state.receptionPreparation.awarenessAt
     ) {
       const preparation = state.receptionPreparation;
-      let contactTarget = preparation.expectedContactPoint;
-      const velocitySpeed = Math.hypot(player.velocity.x, player.velocity.y);
-      if (
-        preparation.movement === 'run_onto_ball' &&
-        velocitySpeed > 1 &&
-        distance(player.position, contactTarget) < 3
-      )
-        contactTarget = clampPitchPoint({
-          x: contactTarget.x + (player.velocity.x / velocitySpeed) * 3,
-          y: contactTarget.y + (player.velocity.y / velocitySpeed) * 3,
-        });
+      const contactTarget = preparation.expectedContactPoint;
+      // Meet the forecast ball, then preserve momentum at actual reception. Advancing a runner's
+      // target three metres past the meeting point each tick made reachable lead balls miss him.
       player = { ...player, target: contactTarget };
     }
     if (state.receptionPreparation?.actorId === player.id) movementTarget = player.target;

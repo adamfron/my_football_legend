@@ -107,6 +107,7 @@ export const projectGoalkeeperIntervention = (
   const c = GOALKEEPER_PHYSICS;
   const reactionDelay =
     c.baseReactionSeconds -
+    (shot.distance < 18 && shot.blockingDefenders <= 1 ? attributes.oneOnOnes * 0.0007 : 0) -
     attributes.reflexes * c.reflexReactionReduction +
     (facingError / Math.PI) * c.facingReactionSeconds;
   // Reaction belongs to the shot episode, not to this particular projection tick. The current

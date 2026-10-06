@@ -79,11 +79,19 @@ export const interpretPassExecution = (
   const awkwardTurn = type === 'turning_pass' ? (facingError / Math.PI) * 0.22 : 0;
   const weakPenalty =
     type === 'weak_foot' ? (1 - passer.profile.weakFootProficiency / 100) * 0.12 : 0;
+  const distribution =
+    passer.profile.primaryPosition === 'goalkeeper' &&
+    state.restart?.phase === 'setup' &&
+    state.scenario === 'goal_kick';
   const quality = Math.max(
     0.08,
     Math.min(
       1,
-      (a.passing * 2 + a.technique + a.gameReading + a.composure) / 500 -
+      ((distribution ? a.goalkeeperKicking : a.passing) * 2 +
+        a.technique +
+        a.gameReading +
+        a.composure) /
+        500 -
         pressure * 0.2 -
         awkwardTurn -
         weakPenalty -
@@ -93,10 +101,10 @@ export const interpretPassExecution = (
   // Ordinary feet passing keeps its existing calibration. Spatial/difficult releases reveal
   // their real accuracy envelope, including touchline exits rather than clipping errors in-bounds.
   const spread =
-    options.spatial || options.firstTime
+    options.spatial || options.firstTime || intent === 'lead' || distribution
       ? (0.18 + metres * 0.045) * (1 - quality) +
         (type === 'turning_pass' || type === 'first_time' ? (1 - quality) * 0.65 : 0)
-      : 0;
+      : (0.1 + metres * 0.015) * (1 - quality);
   const rng = RandomGenerator.fromSeed(
     `${state.seed}:pass-execution:${state.decisionIndex}:${passer.id}`,
   );

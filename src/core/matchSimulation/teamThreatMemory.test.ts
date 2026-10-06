@@ -93,7 +93,8 @@ describe('PR151 rolling team threat memory', () => {
       possessionTeam: 'home' as const,
       ball: { ...carrier.position, ownerId: carrier.id },
     };
-    expect(deriveBuildUpSupport(onBall, 'home')).toHaveLength(2);
+    expect(deriveBuildUpSupport(onBall, 'home').length).toBeGreaterThanOrEqual(2);
+    expect(deriveBuildUpSupport(onBall, 'home').length).toBeLessThanOrEqual(4);
     const receiver = onBall.players.find(
       (player) =>
         player.team === 'home' &&
@@ -240,7 +241,7 @@ describe('PR151 rolling team threat memory', () => {
     expect(scoreActionForAI(state, carrier.id, progressive)).toBe(
       scoreActionForAI(neutral, carrier.id, progressive),
     );
-    expect(deriveBuildUpSupport(state, 'home')).toEqual([]);
+    expect(deriveBuildUpSupport(state, 'home')).toEqual(deriveBuildUpSupport(neutral, 'home'));
     expect(chooseNpcAction(state, carrier.id)).toEqual(chooseNpcAction(neutral, carrier.id));
   });
 

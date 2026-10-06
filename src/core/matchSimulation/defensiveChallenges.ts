@@ -8,7 +8,7 @@ import {
   teamSideSchema,
   type TeamSide,
 } from './matchSpace';
-import type { ActionSource, MatchAction, TacticalMatchState } from './matchState';
+import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 
 export const defensiveTechniqueSchema = z.enum(['standing', 'committed', 'slide', 'tactical']);
@@ -213,6 +213,7 @@ const shouldCommitPressInContext = (
       explicit.type === 'attack_space')
   )
     return true;
+  if (protectedPressReceiver(state, c.actor)) return false;
   const progress = c.opponent.team === 'home' ? c.opponent.position.x : 105 - c.opponent.position.x;
   const nearGoal = progress >= 78 && Math.abs(c.opponent.position.y - 34) <= 18;
   if (c.covering < 2 || c.danger || c.promisingAttack || nearGoal) return true;
@@ -278,6 +279,59 @@ export const COOPERATIVE_PRESS_TUNING = {
   advancedThreatProgress: 71,
   adaptiveDoublePressThreshold: 0.25,
 } as const;
+
+/** A press must not abandon a dangerous nearby receiver without a real marking handoff. */
+export const protectedPressReceiver = (
+  state: TacticalMatchState,
+  candidate: MatchPlayerState,
+  availableCover?: MatchPlayerState[],
+): MatchPlayerState | undefined => {
+  if (state.restart?.phase === 'setup') return;
+  const carrier = state.players.find((p) => p.id === state.ball.ownerId);
+  if (!carrier || carrier.team === candidate.team) return;
+  // No receiver at advanced depth can lie inside these two physical distance envelopes.
+  const depth = (p: MatchPlayerState) =>
+    carrier.team === 'home' ? p.position.x : 105 - p.position.x;
+  if (
+    depth(carrier) < COOPERATIVE_PRESS_TUNING.advancedThreatProgress - 30 ||
+    depth(candidate) < COOPERATIVE_PRESS_TUNING.advancedThreatProgress - 10
+  )
+    return;
+  const defenders = state.players.filter(
+    (p) =>
+      p.team === candidate.team &&
+      p.id !== candidate.id &&
+      p.slot.position !== 'goalkeeper' &&
+      !state.discipline?.[p.id]?.sentOff,
+  );
+  const engaging = defenders
+    .filter(
+      (p) => distance(p.position, carrier.position) <= COOPERATIVE_PRESS_TUNING.engagingDistance,
+    )
+    .sort(
+      (a, b) => distance(a.position, carrier.position) - distance(b.position, carrier.position),
+    )[0];
+  const remaining = availableCover ?? defenders.filter((p) => p.id !== engaging?.id);
+  const dir = carrier.team === 'home' ? 1 : -1;
+  return state.players.find((receiver) => {
+    if (
+      receiver.team !== carrier.team ||
+      receiver.id === carrier.id ||
+      receiver.slot.position === 'goalkeeper' ||
+      (carrier.team === 'home' ? receiver.position.x : 105 - receiver.position.x) <
+        COOPERATIVE_PRESS_TUNING.advancedThreatProgress ||
+      state.discipline?.[receiver.id]?.sentOff ||
+      distance(receiver.position, carrier.position) > 30 ||
+      Math.abs(receiver.position.y - 34) > 23 ||
+      dir * (receiver.position.x - carrier.position.x) < -5
+    )
+      return false;
+    const assigned = distance(candidate.position, receiver.position);
+    if (assigned > 10) return false;
+    const inherited = Math.min(...remaining.map((p) => distance(p.position, receiver.position)));
+    return inherited > COOPERATIVE_PRESS_TUNING.inheritedMarkDistance || inherited > assigned + 3;
+  });
+};
 
 /** A second body is recruited by ball/coverage geometry, never by a shielding timer.
  * availability is the neutral hook for future stamina and fatigue. */
@@ -346,7 +400,6 @@ export const deriveCooperativePress = (
     distance(primary.position, carrier.position) > COOPERATIVE_PRESS_TUNING.engagingDistance
   )
     return;
-  const attackDirection = carrier.team === 'home' ? 1 : -1;
   const toGoal = {
     x: (carrier.team === 'home' ? 105 : 0) - carrier.position.x,
     y: 34 - carrier.position.y,
@@ -377,27 +430,7 @@ export const deriveCooperativePress = (
     );
     // Even a trapped carrier may release centrally. Keep an outfield screen behind the duel.
     if (progress > 45 && goalCover.length === 0) continue;
-    const exposedReceiver = state.players.some((receiver) => {
-      if (
-        receiver.team !== carrier.team ||
-        receiver.id === carrier.id ||
-        receiver.profile.primaryPosition === 'goalkeeper' ||
-        state.discipline?.[receiver.id]?.sentOff ||
-        distance(receiver.position, carrier.position) > 30 ||
-        Math.abs(receiver.position.y - 34) > 23 ||
-        attackDirection * (receiver.position.x - carrier.position.x) < -5
-      )
-        return false;
-      const assignedDistance = distance(candidate.position, receiver.position);
-      if (assignedDistance > 10) return false;
-      const inheritedDistance = Math.min(
-        ...remaining.map((player) => distance(player.position, receiver.position)),
-      );
-      return (
-        inheritedDistance > COOPERATIVE_PRESS_TUNING.inheritedMarkDistance ||
-        inheritedDistance > assignedDistance + 3
-      );
-    });
+    const exposedReceiver = protectedPressReceiver(state, candidate, remaining);
     if (exposedReceiver) continue;
     const fromPrimary = {
       x: carrier.position.x - primary.position.x,
@@ -633,9 +666,17 @@ export const chooseNpcDefensiveChallengeAction = (
   // Containment/movement closes the remaining distance; an actual tackle is committed
   // only when the ball is exposed and already inside that technique's contact window.
   const exposedBall = !rearApproach && c.ballDistance <= c.opponentDistance + 0.24;
+  const forwardRole = ['striker', 'left_winger', 'right_winger'].includes(actor.slot.position);
+  // A forward closes/screens the route while a low-skill poke at protected control has little
+  // value. A clearly exposed ball or immediate threat still admits a real opportunistic tackle.
+  const standingWorthwhile =
+    !forwardRole ||
+    a.tackling >= 58 ||
+    c.danger ||
+    (exposedBall && c.ballDistance < c.opponentDistance - 0.12 && a.gameReading >= 45);
   const committedWindow = Math.max(0.75, 1.1 - c.relativeSpeed * 0.025);
   const slideWindow = Math.max(1.05, 1.75 - c.relativeSpeed * 0.03);
-  if (comfortableStanding && !c.danger && !c.promisingAttack && !desperate)
+  if (comfortableStanding && standingWorthwhile && !c.danger && !c.promisingAttack && !desperate)
     return comfortableStanding;
   // An individual/context threshold, never a quota or match-wide random foul budget.
   if (
@@ -665,7 +706,7 @@ export const chooseNpcDefensiveChallengeAction = (
     c.ballDistance <= committedWindow
   )
     return committed;
-  return comfortableStanding;
+  return standingWorthwhile ? comfortableStanding : undefined;
 };
 
 const isDefendingPenaltyArea = (team: 'home' | 'away', point: { x: number; y: number }) =>

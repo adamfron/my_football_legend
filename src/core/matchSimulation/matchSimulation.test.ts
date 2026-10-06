@@ -510,6 +510,10 @@ describe('autonomous tactical simulation', () => {
     const primary = state.players.find((player) => player.id === assignment.primary)!;
     const cover = state.players.find((player) => player.id === assignment.cover)!;
     primary.position = { x: carrier.position.x + 6, y: carrier.position.y };
+    primary.profile = {
+      ...primary.profile,
+      attributes: { ...primary.profile.attributes, tackling: 80 },
+    };
     cover.position = { x: carrier.position.x + 8, y: carrier.position.y + 4 };
     const targets = deriveTacticalTargets(state);
     const primaryTarget = targets.find((player) => player.id === primary.id)!;

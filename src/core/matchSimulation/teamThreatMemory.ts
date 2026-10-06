@@ -40,6 +40,27 @@ export const tacticalResponseSchema = z.object({
   ]),
 });
 export type TacticalResponse = z.infer<typeof tacticalResponseSchema>;
+export const recentSolutionSchema = z.object({
+  id: z.string(),
+  actorId: z.string(),
+  action: z.string(),
+  receiverId: z.string().optional(),
+  channel: z.number().int().min(0).max(2),
+  origin: pitchPointSchema,
+  at: z.number().nonnegative(),
+  pressure: z.number().min(0).max(1),
+  outcome: z.enum([
+    'completed',
+    'intercepted',
+    'out_of_play',
+    'technical_error',
+    'unclaimed',
+    'inaccurate',
+    'tackle',
+    'other',
+  ]),
+});
+export type RecentSolution = z.infer<typeof recentSolutionSchema>;
 export const teamThreatMemorySchema = z.object({
   evaluatedAt: z.number().nonnegative(),
   decayedAt: z.number().nonnegative(),
@@ -53,6 +74,7 @@ export const teamThreatMemorySchema = z.object({
   shots: channelsSchema,
   overloads: channelsSchema,
   pressuredPlayers: z.array(z.object({ playerId: z.string(), score: scoreSchema })).max(22),
+  recentSolutions: z.array(recentSolutionSchema).max(32).default([]),
   observedEpisode: z.number().int(),
   controlOrigin: pitchPointSchema,
   entryObserved: z.boolean(),
@@ -97,6 +119,7 @@ export const createTeamThreatMemory = (matchupCaution = 0, time = 0): TeamThreat
   shots: emptyChannels(),
   overloads: emptyChannels(),
   pressuredPlayers: [],
+  recentSolutions: [],
   observedEpisode: -1,
   controlOrigin: { x: 52.5, y: 34 },
   entryObserved: false,
@@ -104,6 +127,117 @@ export const createTeamThreatMemory = (matchupCaution = 0, time = 0): TeamThreat
   isolationObserved: false,
   response: neutralTacticalResponse(),
 });
+
+/** The same geometry can still be the best route. Evidence fades over football seconds and
+ * changed origins/pressure; successful, safe switches receive only a small repetition cost. */
+export const deriveSolutionPenalty = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  action: string,
+  target: PitchPoint,
+  receiverId?: string,
+  expectedCompletion = 0.5,
+) =>
+  (state.teams[actor.team].threatMemory?.recentSolutions ?? []).reduce((sum, entry) => {
+    if (
+      entry.actorId !== actor.id ||
+      entry.action !== action ||
+      (receiverId ? entry.receiverId !== receiverId : entry.channel !== threatChannel(target))
+    )
+      return sum;
+    const unchanged =
+      Math.max(0, 1 - distance(actor.position, entry.origin) / 18) *
+      Math.max(0, 1 - Math.abs(state.currentPressure - entry.pressure) / 0.6);
+    const weight = Math.pow(0.5, Math.max(0, state.time - entry.at) / 45) * unchanged;
+    return (
+      sum +
+      weight *
+        (entry.outcome === 'completed'
+          ? 1.5 * (1 - expectedCompletion)
+          : 9 + (1 - expectedCompletion) * 9)
+    );
+  }, 0);
+
+const observeRecentSolutions = (
+  previous: TacticalMatchState,
+  next: TacticalMatchState,
+  side: TeamSide,
+  memory: TeamThreatMemory,
+): TeamThreatMemory => {
+  const events: RecentSolution[] = [];
+  for (const pass of [next.lastResolvedPass, next.lastPassDiagnostic]) {
+    if (!pass || pass.resolvedAt === undefined) continue;
+    if (
+      [previous.lastResolvedPass, previous.lastPassDiagnostic].some(
+        (p) => p?.passId === pass.passId && p.resolvedAt !== undefined,
+      )
+    )
+      continue;
+    if (memory.recentSolutions?.some((e) => e.id === pass.passId)) continue;
+    const actor = previous.players.find((p) => p.id === pass.passerId && p.team === side);
+    if (!actor || !pass.finalResult) continue;
+    events.push({
+      id: pass.passId,
+      actorId: actor.id,
+      action: pass.intent ?? 'support',
+      receiverId: pass.intendedReceiverId,
+      channel: threatChannel(pass.intendedTarget ?? pass.predictedReceptionPoint),
+      origin: previous.ball.from ?? actor.position,
+      at: pass.resolvedAt,
+      pressure: pass.selectionQuality?.pressure ?? previous.currentPressure,
+      outcome: pass.finalResult,
+    });
+  }
+  const carry = previous.ballCarrierIntent;
+  if (
+    carry &&
+    next.ballCarrierIntent?.startedAt !== carry.startedAt &&
+    previous.time - carry.startedAt > 0.9
+  ) {
+    const actor = previous.players.find((p) => p.id === carry.actorId && p.team === side);
+    if (
+      actor &&
+      distance(actor.position, carry.startPosition) < 1.8 &&
+      previous.currentPressure > 0.4
+    )
+      events.push({
+        id: `${actor.id}:stalled-carry:${carry.startedAt}`,
+        actorId: actor.id,
+        action: 'carry',
+        channel: threatChannel(carry.target),
+        origin: carry.startPosition,
+        at: next.time,
+        pressure: previous.currentPressure,
+        outcome: 'other',
+      });
+  }
+  const loss = next.lastPossessionLoss;
+  if (
+    loss &&
+    loss.id !== previous.lastPossessionLoss?.id &&
+    loss.from === side &&
+    loss.cause === 'tackle'
+  ) {
+    const actor = previous.players.find((p) => p.id === loss.loserId);
+    if (actor)
+      events.push({
+        id: loss.id,
+        actorId: actor.id,
+        action: previous.ballCarrierIntent?.actorId === actor.id ? 'carry' : 'hold',
+        channel: threatChannel(previous.ballCarrierIntent?.target ?? actor.position),
+        origin: { ...actor.position },
+        at: loss.at,
+        pressure: previous.currentPressure,
+        outcome: 'tackle',
+      });
+  }
+  if (!events.length) return memory;
+  const unique = new Map([...(memory.recentSolutions ?? []), ...events].map((e) => [e.id, e]));
+  return {
+    ...memory,
+    recentSolutions: [...unique.values()].filter((e) => next.time - e.at < 240).slice(-32),
+  };
+};
 
 /** Eleven metres gives a presser roughly one or two seconds to close. The existing pressure
  * model's 0.25–0.70 range runs from approaching pressure to a tight duel. Historical danger
@@ -304,7 +438,8 @@ export const observeTeamThreats = (
   const shot = next.ball.shot ?? next.lastShot;
   let teams = next.teams;
   for (const side of ['home', 'away'] as const) {
-    const initial = next.teams[side].threatMemory ?? createTeamThreatMemory(0, previous.time);
+    const oldMemory = next.teams[side].threatMemory ?? createTeamThreatMemory(0, previous.time);
+    const initial = observeRecentSolutions(previous, next, side, oldMemory);
     const due = next.time - initial.evaluatedAt >= TEAM_THREAT_TUNING.evaluationSeconds - 1e-9;
     const newShot = live && shot && shot.shotId !== initial.lastShotId;
     const turnover =
@@ -317,7 +452,7 @@ export const observeTeamThreats = (
       previous.possessionTeam === side;
     const opposingOwner = live && owner?.team === opposing(side) ? owner : undefined;
     const newEpisode = opposingOwner && initial.observedEpisode !== episode;
-    if (!due && !newShot && !turnover && !newEpisode) continue;
+    if (!due && !newShot && !turnover && !newEpisode && initial === oldMemory) continue;
     let memory = decayMemory(initial, next.time);
     if (newEpisode && opposingOwner)
       memory = {

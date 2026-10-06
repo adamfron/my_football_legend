@@ -61,8 +61,20 @@ const shotState = (startX: number) => {
 
 describe('physical goalkeeper intervention projection', () => {
   it('gives the keeper substantially more response time on the same distant trajectory', () => {
-    const close = projectGoalkeeperIntervention(shotState(94))!;
-    const distant = projectGoalkeeperIntervention(shotState(55))!;
+    const closeState = shotState(94),
+      distantState = shotState(55);
+    // Compare flight time independently of PR154's close-range one-on-one response.
+    for (const state of [closeState, distantState]) {
+      const keeper = state.players.find(
+        (p) => p.profile.primaryPosition === 'goalkeeper' && p.team === 'away',
+      )!;
+      keeper.profile = {
+        ...keeper.profile,
+        attributes: { ...keeper.profile.attributes, oneOnOnes: 0 },
+      };
+    }
+    const close = projectGoalkeeperIntervention(closeState)!;
+    const distant = projectGoalkeeperIntervention(distantState)!;
     expect(distant.timeAvailable).toBeGreaterThan(close.timeAvailable + 1);
     expect(distant.reactionDelay).toBeCloseTo(close.reactionDelay);
   });

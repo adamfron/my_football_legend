@@ -1,5 +1,30 @@
 # Match Engine Handoff
 
+## PR154 contracts
+
+- `passDecision.ts` scores intended solutions before seeded execution error. Keep selection,
+  physical release, receiver control and defender interception separate in diagnostics.
+- The reception target is the predicted meeting point; do not advance it beyond the ball
+  each tick. Ordinary chosen carry uses the shared `carry` movement mode for every source.
+- Possession urgency requires current pressure after physical preparation. Free scanning
+  and late lead protection at a corner retain value; no timer forces a pass.
+- `recentSolutions` is bounded to 32 entries inside existing team threat memory. Penalties
+  decay with time and disappear with changed origin/pressure; there is no permanent ban.
+- Support exists before remembered traps: two escape angles, a midfield third man and CB
+  reset when applicable. Targets go through normal movement. Never enforce touch shares.
+- A dangerous receiver's mark may be abandoned only after geometric coverage can inherit it.
+  Weak forward screening changes intent selection; explicit tackles keep shared contact physics.
+- Keeper claim arbitration chooses one primary player; the other covers. Agency requires
+  a relevant local threat and distinct actionable arrival geometry, with actual flight direction.
+- Canonical shot distance comes from the released shot record, including post-goal/restart
+  aggregation. UI attributes/OVR and micro-lab results are observational, never engine multipliers.
+- New pressure/connectivity probes are DEV/capture only and cannot alter canonical state.
+  Replay, observer parity and statistical ledgers remain mandatory regression checks.
+- Reproduction, measured results and remaining limits:
+  [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
+- Next work is GitHub PR155 restarts, PR156 fatigue/injuries/substitutions/added time, PR157
+  presentation/replay/stadium. Full restart resets and stamina remain outside PR154.
+
 ## Expanded PR152 statistics / discipline contracts
 
 - Preserve `lastPossessionLoss` football cause across `lastRestartAward`; link award to loss

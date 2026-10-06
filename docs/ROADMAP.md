@@ -12,13 +12,15 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 ## Autorytatywna kolejność rozwoju Single Match
 
-Rozszerzony prompt PR152 jest realizowany na świeżej gałęzi po scaleniu oryginalnego #152:
-semantyka strat/wznowień, aktywne minuty decyzji i kalibracja dyscypliny. Dokument wyników:
+GitHub #153 scalił uzupełnienie PR152: semantykę strat/wznowień, aktywne minuty decyzji
+i kalibrację dyscypliny. PR154 rozwija sytuacyjną inteligencję, atrybuty oraz wyjście z presji.
+Dokumenty wyników:
+[PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md),
 [PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
 
 ### COMPLETED
 
-PR105–PR152 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
+PR105–PR154 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
 z reaktywną taktyką zespołów; PR152 oddziela autonomię piłkarza od ludzkiej sprawczości i dodaje
 kanoniczne inwarianty oraz diagnostykę udziału/statystyk. Kondycja i urazy pozostają później.
 W szczególności:
@@ -222,7 +224,7 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 
 ### NEXT
 
-**Dead Ball & Restart Continuity — po rozszerzeniu statystyk/dyscypliny PR152**
+**PR155 — Dead Ball & Restart Continuity**
 
 - fizyczne przejście z bieżących pozycji do legalnego ustawienia wznowienia;
 - stan reakcji po golu i wybór celebracji albo pilnego wznowienia według wyniku/czasu;
@@ -230,18 +232,19 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - gotowość wznowienia oparta na pozycjach i dostępności piłki;
 - fundament doliczonego czasu oparty na kanonicznych przerwach.
 
-Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. Bieżące uzupełnienie nie implementuje ciągłości wznowień.
+Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR154 nie implementuje pełnej ciągłości wznowień.
 
 Po ciągłości wznowień:
 
-**Fatigue, Injury Risk, Added Time & Substitution Intelligence**
+**PR156 — Fatigue, Injuries, Substitutions & Added Time**
 
 - kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
 - kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
 - ryzyko urazów, doliczony czas i decyzje zmian, oparte na tym samym obciążeniu człowieka i NPC;
 - integracja kariery i kalibracja deterministycznych pełnych meczów, bez maskowania rytmu kwotami.
 
-Później: filmowe powtórki, finalne animacje, duża kalibracja lig, świadomy wybór piętki i
+**PR157 — Match Presentation / Replay / Stadium polish**: filmowe powtórki, finalne animacje,
+parametryczne stadiony. Później: duża kalibracja lig, świadomy wybór piętki i
 parametryczne stadiony z trwałą tożsamością klubu. Stadion pozostaje kosmetyczny; PR149 nie
 wdraża jego geometrii ani sztuki.
 

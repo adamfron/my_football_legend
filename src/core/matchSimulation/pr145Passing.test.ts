@@ -247,9 +247,10 @@ describe('PR145 reachable pass meeting semantics', () => {
       intent: 'lead',
       delivery: 'lofted',
     });
-    expect(release.ball.target).toEqual(lofted.releaseTarget);
+    expect(release.lastPassDiagnostic?.intendedTarget).toEqual(lofted.releaseTarget);
+    expect(release.ball.target).toEqual(release.lastPassDiagnostic?.physicalTarget);
     expect(release.ball.launchVelocity?.z).toBeGreaterThan(0);
-    expect(release.lastPassDiagnostic?.ballArrivalEstimate).toBeCloseTo(
+    expect(release.lastPassDiagnostic?.selectionQuality?.ballEta).toBeCloseTo(
       lofted.estimatedBallArrival,
       6,
     );

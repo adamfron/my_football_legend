@@ -1,7 +1,13 @@
 import { hasPendingPlayerDecision } from './playerDecision';
 import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { emitCanonicalActionEvents } from './actionEvents';
-import { deriveBuildUpReliefWeight, TEAM_THREAT_TUNING, threatChannel } from './teamThreatMemory';
+import {
+  deriveBuildUpReliefWeight,
+  deriveSolutionPenalty,
+  TEAM_THREAT_TUNING,
+  threatChannel,
+} from './teamThreatMemory';
+import { evaluatePassDecision } from './passDecision';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   clampPitchPoint,
@@ -90,6 +96,29 @@ export const evaluatePressure = (state: TacticalMatchState, actor: MatchPlayerSt
 };
 const pressure = (state: TacticalMatchState, actor: MatchPlayerState) =>
   evaluatePressure(state, actor).value;
+
+/** Pressure makes prolonged protection unstable. Free patience and late corner retention remain useful. */
+export const derivePossessionUrgency = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  value = pressure(state, actor),
+) => {
+  const age = Math.max(0, state.time - (state.ballOwnershipStartedAt ?? state.time));
+  const preparation =
+    state.onBallPreparation?.actorId === actor.id
+      ? Math.max(0, state.onBallPreparation.readyAt - state.onBallPreparation.gainedAt)
+      : 0;
+  const corner =
+    (actor.team === 'home' ? actor.position.x : 105 - actor.position.x) > 94 &&
+    Math.abs(actor.position.y - 34) > 25;
+  const protectingLead =
+    state.time > 80 * 60 &&
+    state.score[actor.team] > state.score[actor.team === 'home' ? 'away' : 'home'];
+  return (
+    Math.min(1, (Math.max(0, value - 0.38) * Math.max(0, age - preparation)) / 2.8) *
+    (corner && protectingLead ? 0.28 : 1)
+  );
+};
 
 export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const opportunity = evaluateShootingOpportunity(state, actor);
@@ -343,6 +372,7 @@ export const scoreActionForAI = (
   }
   const style = state.teams[actor.team].style;
   const underPressure = pressure(state, actor);
+  const urgency = derivePossessionUrgency(state, actor, underPressure);
   const memory = state.teams[actor.team].threatMemory;
   const buildUpSafety =
     (actor.team === 'home' ? actor.position.x : 105 - actor.position.x) < 48
@@ -390,7 +420,9 @@ export const scoreActionForAI = (
     // A modest retention floor keeps a last-resort shield preferable to several losing actions.
     // It is far below a useful release and depends on ball protection, not elapsed-match totals.
     return underPressure >= 0.65
-      ? Math.max(utility, 14 + shieldingQuality * 8 - underPressure * 4)
+      ? Math.max(utility, 14 + shieldingQuality * 8 - underPressure * 4) -
+          urgency * 35 -
+          deriveSolutionPenalty(state, actor, 'hold', actor.position, undefined, 0.3)
       : utility;
   }
   if (action.type === 'carry')
@@ -412,7 +444,29 @@ export const scoreActionForAI = (
         ),
       ) *
         30 -
-      buildUpSafety * underPressure * 18
+      buildUpSafety * underPressure * 18 -
+      opponents(state, actor).filter(
+        (p) =>
+          distance(p.position, actor.position) < 6 &&
+          distanceToSegment(p.position, actor.position, action.target) < 1.7,
+      ).length *
+        (12 + urgency * 12) *
+        (1 - actor.profile.attributes.dribbling / 160) +
+      Math.max(
+        0,
+        distance(
+          action.target,
+          state.players.find((p) => p.id === state.nearestChallengerId)?.position ?? actor.position,
+        ) -
+          distance(
+            actor.position,
+            state.players.find((p) => p.id === state.nearestChallengerId)?.position ??
+              actor.position,
+          ),
+      ) *
+        underPressure *
+        2 -
+      deriveSolutionPenalty(state, actor, 'carry', action.target, undefined, 0.5)
     );
   if (action.type === 'shot')
     return (
@@ -443,6 +497,14 @@ export const scoreActionForAI = (
     );
   }
   const receiver = state.players.find((p) => p.id === action.receiverId)!;
+  const decision = evaluatePassDecision(
+    state,
+    actor,
+    receiver,
+    action.target,
+    action.intent,
+    action.delivery,
+  );
   const line = secondLastOpponentLine(state, actor.team);
   const offsideLine =
     actor.team === 'home' ? Math.max(state.ball.x, line) : Math.min(state.ball.x, line);
@@ -508,7 +570,6 @@ export const scoreActionForAI = (
         ? 5
         : 0;
   const space = action.intent === 'through' ? evaluateRunSpace(state, actor, receiver) : undefined;
-  const lead = action.intent === 'lead' ? deriveLeadPass(state, actor, receiver) : undefined;
   const throughContext =
     action.intent === 'through'
       ? space && space.defenderArrival - space.attackerArrival >= 0.2
@@ -552,6 +613,16 @@ export const scoreActionForAI = (
       : 0);
   return (
     28 +
+    decision.utilityAdjustment +
+    urgency * decision.expectedCompletion * 24 -
+    deriveSolutionPenalty(
+      state,
+      actor,
+      action.intent,
+      action.target,
+      receiver.id,
+      decision.expectedCompletion,
+    ) +
     adaptationValue +
     progression * (state.teams[actor.team].phase === 'attacking_transition' ? 1.5 : 1.05) -
     length * 0.3 -
@@ -568,13 +639,10 @@ export const scoreActionForAI = (
     -threatLoss -
     (offsideRisk && !isDirectOffsideExemptRestart(state) ? 80 : 0) -
     preparationPenalty +
-    (lead
-      ? Math.min(20, (lead.defenderEta - lead.receiverEta) * 12) -
-        lead.laneRisk * 6 +
-        Math.min(12, distance(receiver.position, action.target) * 1.2)
-      : action.intent === 'lead'
-        ? -45
-        : 0) +
+    (action.intent === 'lead'
+      ? Math.min(12, Math.max(0, decision.defenderEta - decision.receiverEta) * 8) *
+        decision.expectedCompletion
+      : 0) +
     (space ? Math.max(-35, Math.min(25, space.utility)) : 0)
   );
 };
@@ -858,7 +926,7 @@ const resolveMatchActionCanonical = (
         startPosition: { ...actor.position },
         closestPointReached: { ...actor.position },
         humanSelected: consciouslySelected,
-        movementMode: action.movementMode ?? (consciouslySelected ? 'carry' : undefined),
+        movementMode: action.movementMode ?? 'carry',
         lastProgressAt: state.time,
         // Arrival is the primary lifetime; this bounded margin is only a safety net.
         expiresAt:
@@ -1091,6 +1159,15 @@ const resolveMatchActionCanonical = (
   if (projection && projection.semanticIntent !== action.intent)
     action = { ...action, intent: projection.semanticIntent };
   const target = projection?.releaseTarget ?? action.target;
+  const selectionQuality = evaluatePassDecision(
+    state,
+    actor,
+    receiver,
+    target,
+    action.intent,
+    action.delivery,
+    projection?.launchPlan,
+  );
   const execution = interpretPassExecution(
     state,
     actor,
@@ -1124,7 +1201,7 @@ const resolveMatchActionCanonical = (
       })
     : undefined;
   const distributionPlan = isLongDistribution
-    ? deriveAerialLaunchPlan(releasePosition, target, 'long_pass', {
+    ? deriveAerialLaunchPlan(releasePosition, execution.physicalTarget, 'long_pass', {
         ability: actor.profile.attributes.goalkeeperKicking,
       })
     : undefined;
@@ -1159,7 +1236,7 @@ const resolveMatchActionCanonical = (
       x: state.ball.x,
       y: state.ball.y,
       from: releasePosition,
-      target: throwPlan || distributionPlan ? { ...target } : { ...execution.physicalTarget },
+      target: throwPlan ? { ...target } : { ...execution.physicalTarget },
       intendedReceiverId: receiver.id,
       travelKind: isThrowIn
         ? 'throw_in'
@@ -1212,6 +1289,7 @@ const resolveMatchActionCanonical = (
             readiness: projection.receiverReadiness,
           }),
           lastPassDiagnostic: {
+            selectionQuality,
             intendedTarget: execution.intendedTarget,
             physicalTarget: execution.physicalTarget,
             executionQuality: execution.quality,
@@ -1254,6 +1332,7 @@ const resolveMatchActionCanonical = (
               }
             : {}),
           lastPassDiagnostic: {
+            selectionQuality,
             intendedTarget: execution.intendedTarget,
             physicalTarget: execution.physicalTarget,
             executionQuality: execution.quality,

@@ -1,4 +1,12 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR152
+# Audyt silnika meczu — PR140 / aktualizacja PR154
+
+PR154 extends the merged GitHub #153 baseline with intended-pass ETA/lane/boundary scoring,
+seeded physical execution diagnostics, receiver meeting-point movement, pressure-driven utility,
+immediate formation support and bounded recent-solution memory. Mark handoff and keeper claim
+ownership use current physical geometry. Micro-lab/OVR/support diagnostics remain observational.
+Shot-distance aggregation now reads the canonical shot record after resolution/restarts.
+The full calibration and invariants are documented in
+[PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
 
 Rozszerzony prompt PR152: przyczyna straty i przyznanie wznowienia mają oddzielne kanoniczne
 fakty. Publiczne epizody kontroli nie naliczają przypadkowych bloków/parad. Aktywne minuty
@@ -19,7 +27,7 @@ celu/idealnego celu i zerowej prędkości. Wywołują go granice boiska, strzał
 koniec 0,55-sekundowego interwału gola, faul/korzyść, spalony, zmiana wykonawcy po kartce,
 druga połowa i jawny wybór scenariusza DEV. Dokładna mapa, testy, wyniki i ograniczenia:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
-Następny zakres: **PR153 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
+Następny zakres: **PR155 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
 pozostaje poza PR152.
 
 PR151: ograniczona pamięć zagrożeń należy do core i wpływa na istniejące cele bloku,
