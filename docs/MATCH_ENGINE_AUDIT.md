@@ -1,4 +1,23 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR154
+# Audyt silnika meczu — PR140 / aktualizacja PR155
+
+PR155: `actionAgency.ts` i ostatnia granica `resolveMatchAction` rezerwują wszystkie
+strzały dla człowieka przy włączonej sprawczości. `playerDecision.ts` projektuje
+autonomiczną propozycję strzału jako obowiązkową decyzję, niezależnie od polityki
+prezentacji. Wspólne opcje/resolvery fizyczne pozostają identyczne dla human/NPC.
+
+`firstTimePassing.ts` używa prognozy kontaktu z `shootingOptions.ts` oraz istniejących
+celów/planów/resolvera podania. Porównanie NPC z przyjęciem rozpoczyna świeży zegar
+kontroli. `ballAcquisition.ts` zachowuje jednego nominowanego uczestnika do rozstrzygnięcia
+fizycznego opanowania. Kontakt głową w `matchSimulation.ts` nie oznacza posiadania;
+`aerialPlay.ts` blokuje powtórzenie nakładającego się kontaktu do rozdzielenia geometrii.
+Ścieżka pościgu celuje w rzeczywisty punkt kontaktu, bez domieszki kotwicy formacyjnej.
+
+`tacticalPositioning.ts` przydziela komplementarne zadania wsparcia i pozwala kolejnej
+linii pomocy zejść po głębokie rozegranie. Diagnostyka presji i centralnych połączeń
+jest ograniczonym obserwatorem; nie wpływa na RNG, decyzje, statystyki ani renderer.
+Dowody, definicje i ograniczenia:
+[PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md).
+Historyczny kontrakt autonomii strzału PR152 poniżej zastępuje twarda własność PR155.
 
 PR154 extends the merged GitHub #153 baseline with intended-pass ETA/lane/boundary scoring,
 seeded physical execution diagnostics, receiver meeting-point movement, pressure-driven utility,
@@ -27,7 +46,7 @@ celu/idealnego celu i zerowej prędkości. Wywołują go granice boiska, strzał
 koniec 0,55-sekundowego interwału gola, faul/korzyść, spalony, zmiana wykonawcy po kartce,
 druga połowa i jawny wybór scenariusza DEV. Dokładna mapa, testy, wyniki i ograniczenia:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
-Następny zakres: **PR155 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
+Następny zakres: **PR156 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
 pozostaje poza PR152.
 
 PR151: ograniczona pamięć zagrożeń należy do core i wpływa na istniejące cele bloku,

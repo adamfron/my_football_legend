@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { ballAcquisitionSchema, type BallAcquisition } from './ballAcquisition';
+import { aerialContactLockSchema } from './aerialPlay';
 import {
   possessionLossSchema,
   pendingPossessionLossSchema,
@@ -563,6 +565,9 @@ export const aerialContactSchema = z.object({
 });
 
 export const passDiagnosticSchema = z.object({
+  incomingSpeed: z.number().nonnegative().optional(),
+  incomingHeight: z.number().nonnegative().optional(),
+  actionSource: actionSourceSchema.optional(),
   selectionQuality: passDecisionQualitySchema.optional(),
   executionType: passExecutionTypeSchema.optional(),
   intendedTarget: pitchPointSchema.optional(),
@@ -597,6 +602,8 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  ballAcquisition?: BallAcquisition;
+  aerialContactLocks?: z.infer<typeof aerialContactLockSchema>[];
   seed: string;
   time: number;
   decisionIndex: number;
@@ -643,6 +650,7 @@ export interface TacticalMatchState {
   playerAgencyEnabled?: boolean;
   playerMovementIntent?: PlayerMovementIntent;
   pendingReceptionIntent?: PendingReceptionIntent;
+  shotAgencyRequest?: MatchAction;
   /** Short-lived canonical execution override shared by human and NPC carries. */
   ballCarrierIntent?: BallCarrierIntent;
   /** Human ownership lasts for the physical possession, never an arbitrary cooldown. */
@@ -708,6 +716,9 @@ export interface TacticalMatchState {
   /** Retains a physical incoming result when a prepared one-touch pass starts a new diagnostic. */
   lastResolvedPass?: TacticalMatchState['lastPassDiagnostic'];
   lastPassDiagnostic?: {
+    incomingSpeed?: number;
+    incomingHeight?: number;
+    actionSource?: ActionSource;
     selectionQuality?: PassDecisionQuality;
     intendedTarget?: PitchPoint;
     physicalTarget?: PhysicalPoint;
@@ -750,6 +761,8 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    ballAcquisition: ballAcquisitionSchema.optional(),
+    aerialContactLocks: z.array(aerialContactLockSchema).max(22).optional(),
     seed: z.string().min(1),
     time: z.number().nonnegative().finite(),
     decisionIndex: z.number().int().nonnegative(),
@@ -856,6 +869,7 @@ export const tacticalMatchStateSchema = z
     playerAgencyEnabled: z.boolean().optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
+    shotAgencyRequest: matchActionSchema.optional(),
     ballCarrierIntent: ballCarrierIntentSchema.optional(),
     humanPossessionEpisode: humanPossessionEpisodeSchema.optional(),
     lastCarryDiagnostic: carryDiagnosticSchema.optional(),

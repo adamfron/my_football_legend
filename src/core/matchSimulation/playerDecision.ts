@@ -4,9 +4,12 @@ import {
   enumerateAvailableActions,
   chooseRestartAction,
   chooseNpcAction,
+  npcPossessionDecisionDelay,
+  type RankedAiAction,
   resolveMatchAction,
   rankAvailableActionsForAI,
   hasActiveMatchActionParticipants,
+  chooseIncomingShotAction,
 } from './matchActions';
 import { evaluateMatchSituation, matchSituationEvaluationSchema } from './matchSituationEvaluator';
 import {
@@ -35,13 +38,19 @@ import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { BALL_RADIUS } from './ballFlight';
 import { enumerateRestartActions } from './matchActions';
-import { enumerateCanonicalShootingOptions, incomingShotContact } from './shootingOptions';
+import {
+  enumerateCanonicalShootingOptions,
+  incomingShotContact,
+  canExecuteCanonicalShot,
+} from './shootingOptions';
 import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
 import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { canContactAfterThrowIn } from './throwIn';
 import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { deriveStructuralPosition } from './tacticalPositioning';
 import { arbitrateGoalkeeperClaim } from './goalkeeperClaim';
+import { isShotAction } from './actionAgency';
+import { enumerateFirstTimePasses } from './firstTimePassing';
 
 export const proxyResolutionStatusSchema = z.enum([
   'resolved_action',
@@ -409,11 +418,11 @@ const actionFamily = (action: MatchAction) =>
 export const evaluateOnBallDecisionRelevance = (
   state: TacticalMatchState,
   actorId: string,
+  ranked: readonly RankedAiAction[] = rankAvailableActionsForAI(state, actorId),
 ): OnBallDecisionRelevance => {
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return { relevant: false, score: 0, reasons: [], viableFamilies: [] };
   const situation = evaluateMatchSituation(state, actorId);
-  const ranked = rankAvailableActionsForAI(state, actorId);
   const best = ranked[0]?.canonicalScore ?? 0;
   const competitive = ranked.filter((a) => best - a.canonicalScore <= 14);
   const families = [...new Set(competitive.map((a) => actionFamily(a.action)))];
@@ -982,16 +991,43 @@ export const projectPlayerAgency = (
   if (state.scenario !== 'open_play' && state.restart?.phase !== 'release' && !controlledRestart)
     return blocked('not_open_play');
   const humanPossession = hasActiveHumanPossession(state);
+  // Share one pure ranking within this probe. Agency and relevance inspect identical policy;
+  // no cache survives a snapshot mutation or changes the engine's RNG/decision cadence.
+  let ownerRanking: RankedAiAction[] | undefined;
+  const rankedOwnerActions = () => (ownerRanking ??= rankAvailableActionsForAI(state, actorId));
+  let ownerRelevance: OnBallDecisionRelevance | undefined;
+  const onBallRelevance = () =>
+    (ownerRelevance ??= evaluateOnBallDecisionRelevance(state, actorId, rankedOwnerActions()));
+  const routineReady =
+    state.restart?.phase === 'setup' ||
+    state.ballOwnershipStartedAt === undefined ||
+    state.time - state.ballOwnershipStartedAt >= npcPossessionDecisionDelay(state, actor);
+  const autonomousChoice =
+    !humanPossession && !state.pendingReceptionIntent
+      ? state.ball.ownerId === actorId && state.actionCooldown <= 0 && routineReady
+        ? rankedOwnerActions()[0]?.action
+        : !state.ball.ownerId && state.ball.travelKind && distance(actor.position, state.ball) < 2.2
+          ? chooseIncomingShotAction(state, actorId)
+          : undefined
+      : undefined;
+  const mandatoryShot = Boolean(
+    (state.shotAgencyRequest?.actorId === actorId &&
+      isShotAction(state.shotAgencyRequest) &&
+      canExecuteCanonicalShot(state, state.shotAgencyRequest)) ||
+      (autonomousChoice && isShotAction(autonomousChoice)) ||
+      (controlledRestart && enumerateRestartActions(state).some(isShotAction)),
+  );
   let redecisionReason = humanPossessionRedecisionReason(state);
   const preparation = state.onBallPreparation;
   if (
     !redecisionReason &&
     humanPossession &&
+    !mandatoryShot &&
     state.humanPossessionEpisode?.intent === 'control' &&
     preparation?.actorId === actorId &&
     state.time >= preparation.readyAt &&
     (!preparation.continuation || state.time >= preparation.continuation.until) &&
-    evaluateOnBallDecisionRelevance(state, actorId).relevant
+    onBallRelevance().relevant
   )
     redecisionReason = 'controlled_reception_complete';
   const continuingCarry = humanPossession && state.ballCarrierIntent?.actorId === actorId;
@@ -1000,11 +1036,13 @@ export const projectPlayerAgency = (
     !controlledRestart &&
     isActionResolutionInProgress(state) &&
     !state.ball.travelKind &&
-    !redecisionReason
+    !redecisionReason &&
+    !mandatoryShot
   )
     return blocked('resolution_in_progress');
   if (
     humanPossession &&
+    !mandatoryShot &&
     !redecisionReason &&
     (continuingCarry || state.postActionAgencyCheckpoint?.actorId !== actorId)
   )
@@ -1048,6 +1086,7 @@ export const projectPlayerAgency = (
     state.onBallPreparation?.actorId === actorId &&
     state.onBallPreparation.kind === 'shielding' &&
     state.time < state.onBallPreparation.readyAt &&
+    !mandatoryShot &&
     !humanPossession
   )
     return blocked('routine', {
@@ -1067,7 +1106,7 @@ export const projectPlayerAgency = (
     }));
   } else if (
     state.ball.ownerId === actorId &&
-    (agencyHandoff || redecisionReason || evaluateOnBallDecisionRelevance(state, actorId).relevant)
+    (mandatoryShot || agencyHandoff || redecisionReason || onBallRelevance().relevant)
   ) {
     kind = 'on_ball';
     const available = enumerateAvailableActions(state, actorId);
@@ -1135,7 +1174,11 @@ export const projectPlayerAgency = (
           },
         },
       ];
-    } else if (!state.pendingReceptionIntent && incoming.relevant && roleProfile !== 'goalkeeper') {
+    } else if (
+      !state.pendingReceptionIntent &&
+      (incoming.relevant || mandatoryShot) &&
+      roleProfile !== 'goalkeeper'
+    ) {
       kind = 'incoming_ball';
       const target = state.ball.target ?? actor.position;
       options = [
@@ -1168,47 +1211,12 @@ export const projectPlayerAgency = (
           action,
         })),
       );
-      const receptionPoint = clampPitchPoint(target);
-      const firstTimeSkill =
-        (actor.profile.attributes.firstTouch +
-          actor.profile.attributes.technique +
-          actor.profile.attributes.passing +
-          actor.profile.attributes.gameReading) /
-        400;
-      const outgoing = state.players
-        .filter(
-          (player) =>
-            player.team === actor.team &&
-            player.id !== actorId &&
-            distance(player.position, receptionPoint) >= 4 &&
-            distance(player.position, receptionPoint) <= 24,
-        )
-        .filter((player) =>
-          state.players.every(
-            (foe) =>
-              foe.team === actor.team ||
-              distanceToSegment(foe.position, receptionPoint, player.position) > 1.5,
-          ),
-        )
-        .sort(
-          (a, b) =>
-            distance(a.position, receptionPoint) - distance(b.position, receptionPoint) ||
-            a.id.localeCompare(b.id),
-        )
-        .slice(0, firstTimeSkill >= 0.5 && (state.ball.height ?? 0) < 0.8 ? 2 : 0);
       options.push(
-        ...outgoing.map((receiver, index) => ({
+        ...enumerateFirstTimePasses(state, actorId).map((action, index) => ({
           id: `first-time-pass-${index}`,
           kind: 'action' as const,
           labelKey: 'first_time_pass',
-          action: {
-            type: 'pass' as const,
-            actorId,
-            receiverId: receiver.id,
-            target: receiver.position,
-            intent: 'support' as const,
-            firstTime: true,
-          },
+          action,
         })),
       );
     } else if (interception.viable && roleProfile !== 'goalkeeper') {
@@ -1366,7 +1374,7 @@ export const projectPlayerAgency = (
     ...new Set(options.map((option) => derivePlayerChoiceFamily(option, kind))),
   ];
   // A pause must expose a genuine choice. Single low-value prompts remain autonomous.
-  if (countSemanticPlayerChoices(options, kind) < 2)
+  if (!mandatoryShot && countSemanticPlayerChoices(options, kind) < 2)
     return blocked('single_option_autonomy', {
       ...context,
       opportunityKind: kind,
@@ -1375,7 +1383,12 @@ export const projectPlayerAgency = (
   const signature = `${signatureFor(state, kind)}${redecisionReason ? `:${redecisionReason}` : ''}`;
   const postActionCheckpoint =
     kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;
-  if (!postActionCheckpoint && !redecisionReason && gate.lastSituationSignature === signature)
+  if (
+    !mandatoryShot &&
+    !postActionCheckpoint &&
+    !redecisionReason &&
+    gate.lastSituationSignature === signature
+  )
     return blocked('same_situation', { ...context, signature });
   const newPossessionEpisode =
     kind === 'on_ball' && (state.ballOwnershipStartedAt ?? -1) >= (gate.lastResolvedAt ?? Infinity);
@@ -1396,6 +1409,7 @@ export const projectPlayerAgency = (
     !postActionCheckpoint &&
     !redecisionReason &&
     !absoluteOwnershipRequired &&
+    !mandatoryShot &&
     gate.lastResolvedAt !== undefined &&
     state.time - gate.lastResolvedAt < 1.5
   )
@@ -1405,13 +1419,12 @@ export const projectPlayerAgency = (
     actorId,
     openedAt: state.time,
     kind,
-    triggerReason:
-      kind === 'restart'
+    triggerReason: mandatoryShot
+      ? 'human_shot_selection_required'
+      : kind === 'restart'
         ? `restart_${state.scenario}`
         : kind === 'on_ball'
-          ? redecisionReason ||
-            evaluateOnBallDecisionRelevance(state, actorId).reasons.join(',') ||
-            situation.reasons[0]
+          ? redecisionReason || onBallRelevance().reasons.join(',') || situation.reasons[0]
           : kind === 'incoming_ball'
             ? projectIncomingPlayerInvolvement(state, actorId).reasons.join(',')
             : (context.ownershipReason ?? situation.reasons[0]),
@@ -1440,7 +1453,7 @@ export const projectPlayerAgency = (
           }),
       ).size
     : countSemanticPlayerChoices(options, kind);
-  if (choices < 2)
+  if (!mandatoryShot && choices < 2)
     return blocked(choices === 1 ? 'single_option_autonomy' : 'no_contextual_interactions', {
       ...context,
       opportunityKind: kind,
@@ -1525,7 +1538,11 @@ export const applyPlayerDecision = (
     !state.players.some((player) => player.id === opportunity.actorId)
   )
     return state;
-  if (state.playerDecisionGate?.lastSituationSignature === opportunity.signature) return state;
+  if (
+    state.playerDecisionGate?.lastSituationSignature === opportunity.signature &&
+    opportunity.triggerReason !== 'human_shot_selection_required'
+  )
+    return state;
   const option = opportunity.options.find((candidate) => candidate.id === optionId);
   if (!option) return state;
   if (option.kind === 'action' && !hasActiveMatchActionParticipants(state, option.action))
@@ -1617,7 +1634,8 @@ export const resolveDevPlayerDecision = (
     state.playerAgencyEnabled === false ||
     opportunity.actorId !== state.controlledFootballerId ||
     opportunity.openedAt !== state.time ||
-    state.playerDecisionGate?.lastSituationSignature === opportunity.signature ||
+    (state.playerDecisionGate?.lastSituationSignature === opportunity.signature &&
+      opportunity.triggerReason !== 'human_shot_selection_required') ||
     !state.players.some((player) => player.id === opportunity.actorId)
   )
     return {
@@ -1635,6 +1653,13 @@ export const resolveDevPlayerDecision = (
   };
   if (opportunity.kind === 'on_ball') {
     const action = chooseNpcAction(state, opportunity.actorId);
+    if (action && isShotAction(action))
+      return {
+        state,
+        status: 'no_legal_action',
+        opportunityKind: opportunity.kind,
+        reason: 'human_shot_selection_required',
+      };
     return action
       ? {
           state: resolveMatchAction(gated, action, 'dev_ai_selected'),
@@ -1654,6 +1679,13 @@ export const resolveDevPlayerDecision = (
   // resolver draws from the exact canonical restart enumeration, avoiding a background-only AI.
   if (opportunity.kind === 'restart') {
     const action = chooseRestartAction(state);
+    if (action && isShotAction(action))
+      return {
+        state,
+        status: 'no_legal_action',
+        opportunityKind: opportunity.kind,
+        reason: 'human_shot_selection_required',
+      };
     const selected = opportunity.options.find(
       (option) =>
         option.kind === 'action' && JSON.stringify(option.action) === JSON.stringify(action),

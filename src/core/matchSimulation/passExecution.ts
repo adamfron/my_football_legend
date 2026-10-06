@@ -25,6 +25,8 @@ export const passExecutionSchema = z.object({
   quality: z.number().min(0).max(1),
   facingError: z.number().min(0).max(Math.PI),
   pressure: z.number().min(0).max(1),
+  incomingSpeed: z.number().nonnegative().optional(),
+  incomingHeight: z.number().nonnegative().optional(),
   intendedTarget: pitchPointSchema,
   physicalTarget: physicalPointSchema,
 });
@@ -83,6 +85,15 @@ export const interpretPassExecution = (
     passer.profile.primaryPosition === 'goalkeeper' &&
     state.restart?.phase === 'setup' &&
     state.scenario === 'goal_kick';
+  const incomingSpeed = Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0);
+  const incomingHeight = state.ball.height ?? 0;
+  const firstTimeDifficulty = options.firstTime
+    ? 0.03 +
+      incomingSpeed / 160 +
+      incomingHeight * 0.12 +
+      (facingError / Math.PI) * 0.14 +
+      Math.max(0, metres - 18) / 240
+    : 0;
   const quality = Math.max(
     0.08,
     Math.min(
@@ -95,7 +106,7 @@ export const interpretPassExecution = (
         pressure * 0.2 -
         awkwardTurn -
         weakPenalty -
-        (options.firstTime ? 0.08 : 0),
+        firstTimeDifficulty,
     ),
   );
   // Ordinary feet passing keeps its existing calibration. Spatial/difficult releases reveal
@@ -116,6 +127,7 @@ export const interpretPassExecution = (
     quality,
     facingError,
     pressure,
+    ...(options.firstTime ? { incomingSpeed, incomingHeight } : {}),
     intendedTarget: { ...target },
     physicalTarget: {
       x: target.x + (direction.x / length) * depthError - (direction.y / length) * lateralError,

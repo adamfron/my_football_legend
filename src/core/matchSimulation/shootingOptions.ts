@@ -51,18 +51,29 @@ const bodyDifficulty = (actor: MatchPlayerState, point: { x: number; y: number }
 };
 
 /** Forecasts only the committed ball through the shared integrator and the player's reachable ETA. */
-export const incomingShotContact = (
+export const incomingBallContact = (
   state: TacticalMatchState,
   actorId: string,
+  purpose: 'shot' | 'pass' = 'shot',
 ): IncomingShotContact | undefined => {
   const actor = state.players.find((player) => player.id === actorId);
   if (
     !actor ||
-    actor.profile.primaryPosition === 'goalkeeper' ||
+    (purpose === 'shot' && actor.profile.primaryPosition === 'goalkeeper') ||
     (state.ball.ownerId && state.ball.ownerId !== actorId) ||
     !state.ball.travelKind ||
     state.ball.shot ||
     state.ball.lastTouchPlayerId === actorId
+  )
+    return undefined;
+  if (
+    state.aerialContactLocks?.some(
+      (lock) =>
+        lock.playerId === actorId &&
+        lock.at < state.time &&
+        distance(actor.position, state.ball) < 1.6 &&
+        distance(state.ball, lock.point) < 2.4,
+    )
   )
     return undefined;
   const speed = Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0);
@@ -81,9 +92,13 @@ export const incomingShotContact = (
     airborne: state.ball.airborne ?? false,
     bounceCount: state.ball.bounceCount ?? 0,
   };
-  const samples = [{ at: 0, ball: current }, ...projectFutureBallTrajectory(current, 1.4, 0.05)];
+  function* samples() {
+    yield { at: 0, ball: current };
+    // Most committed contacts are already local. Forecast only if this first sample fails.
+    yield* projectFutureBallTrajectory(current, purpose === 'pass' ? 1.8 : 1.4, 0.05);
+  }
   const a = actor.profile.attributes;
-  for (const sample of samples) {
+  for (const sample of samples()) {
     const point = { x: sample.ball.position.x, y: sample.ball.position.y };
     if (point.x < 0 || point.x > PITCH_LENGTH || point.y < 0 || point.y > PITCH_WIDTH) continue;
     const height = sample.ball.position.z;
@@ -96,7 +111,11 @@ export const incomingShotContact = (
     const body = bodyDifficulty(actor, point);
     if (height >= 1.45) body.footDifficulty = 0;
     const incomingSpeed = Math.hypot(sample.ball.velocity.x, sample.ball.velocity.y);
-    if (incomingSpeed > 32 + a.technique * 0.15 || body.facingDifficulty > 0.94) continue;
+    if (
+      incomingSpeed > 32 + a.technique * 0.15 ||
+      (purpose === 'shot' && body.facingDifficulty > 0.94)
+    )
+      continue;
     const quality =
       height >= 1.45
         ? (a.heading * 0.4 + a.jumping * 0.15 + a.technique * 0.2 + a.composure * 0.25) / 100
@@ -120,6 +139,8 @@ export const incomingShotContact = (
   }
   return undefined;
 };
+export const incomingShotContact = (state: TacticalMatchState, actorId: string) =>
+  incomingBallContact(state, actorId, 'shot');
 
 /** One legal family for both menu projection and AI ranking; no control-mode input. */
 export const enumerateCanonicalShootingOptions = (

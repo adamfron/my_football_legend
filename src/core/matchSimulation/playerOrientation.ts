@@ -1,5 +1,6 @@
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import type { PitchPoint } from './matchSpace';
+import { distance } from './matchSpace';
 
 export type RelativeMovementMode =
   | 'forward'
@@ -58,6 +59,18 @@ export const deriveOrientationTarget = (
   if (goalkeeper || receptionAware || (defending && movementDistance < 10))
     return angleForVector(ballVector);
   if (carrier && movementDistance < 7) return player.team === 'home' ? Math.PI / 2 : -Math.PI / 2;
+  if (
+    !defending &&
+    !carrier &&
+    player.slot.position.includes('midfielder') &&
+    movementDistance < 3 &&
+    distance(player.position, state.ball) < 30
+  ) {
+    // Arrive with an open body: see the ball and the attacking direction before reception.
+    const forward = player.team === 'home' ? 1 : -1;
+    const length = Math.max(1, Math.hypot(ballVector.x, ballVector.y));
+    return angleForVector({ x: ballVector.x / length + forward * 0.8, y: ballVector.y / length });
+  }
   return movementDistance > 0.05 ? angleForVector(movement) : player.facingAngle;
 };
 

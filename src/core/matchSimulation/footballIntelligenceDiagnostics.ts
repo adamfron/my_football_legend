@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
-import { distance } from './matchSpace';
+import { distance, distanceToSegment } from './matchSpace';
+import { deriveCooperativePress } from './defensiveChallenges';
 import { deriveBuildUpSupport } from './tacticalPositioning';
 import { rankAvailableActionsForAI } from './matchActions';
 
@@ -18,6 +19,18 @@ export const pressureSupportEpisodeSchema = z.object({
   viableOptions: z.number().int().nonnegative(),
   changedSupportPlayers: z.number().int().nonnegative(),
   continuedHoldingReason: z.string(),
+  initialSupportDistances: z.array(z.number().nonnegative()),
+  viableOptionsBefore: z.number().int().nonnegative(),
+  responders: z.array(
+    z.object({
+      playerId: z.string(),
+      role: z.string(),
+      displacement: z.number().nonnegative(),
+      laneClearance: z.number().nonnegative(),
+    }),
+  ),
+  secondaryPresser: z.string().nullable(),
+  secondaryPresserResponseLatency: z.number().nonnegative().nullable(),
 });
 export type PressureSupportEpisode = z.infer<typeof pressureSupportEpisodeSchema>;
 
@@ -62,6 +75,14 @@ export class PressureSupportTracker {
         viableOptions: 0,
         changedSupportPlayers: 0,
         continuedHoldingReason: 'preparing',
+        initialSupportDistances: next.players
+          .filter((p) => p.team === actor.team && p.id !== actor.id)
+          .map((p) => distance(actor.position, p.position))
+          .sort((a, b) => a - b),
+        viableOptionsBefore: 0,
+        responders: [],
+        secondaryPresser: null,
+        secondaryPresserResponseLatency: null,
       };
       this.origins = new Map(
         next.players
@@ -99,6 +120,37 @@ export class PressureSupportTracker {
     this.active.nearestSupportDistance = distances[0] ?? 99;
     this.active.secondSupportDistance = distances[1] ?? 99;
     const assignments = this.probes.deriveBuildUpSupport(next, actor.team);
+    this.active.responders = assignments.flatMap((assignment) => {
+      const player = teammates.find((p) => p.id === assignment.playerId),
+        origin = this.origins.get(assignment.playerId);
+      return player && origin
+        ? [
+            {
+              playerId: player.id,
+              role: assignment.role ?? 'legacy_support',
+              displacement: distance(origin, player.position),
+              laneClearance: Math.max(
+                0,
+                Math.min(
+                  10,
+                  ...next.players
+                    .filter((p) => p.team !== actor.team)
+                    .map((p) => distanceToSegment(p.position, actor.position, player.position)),
+                ),
+              ),
+            },
+          ]
+        : [];
+    });
+    const secondary = deriveCooperativePress(next, actor.team === 'home' ? 'away' : 'home');
+    if (secondary) {
+      this.active.secondaryPresser = secondary.secondaryId;
+      if (
+        this.active.secondaryPresserResponseLatency === null &&
+        this.active.pressureStartedAt !== null
+      )
+        this.active.secondaryPresserResponseLatency = next.time - this.active.pressureStartedAt;
+    }
     for (const assignment of assignments) {
       const player = teammates.find((p) => p.id === assignment.playerId);
       const origin = this.origins.get(assignment.playerId);
@@ -121,6 +173,9 @@ export class PressureSupportTracker {
     this.active.viableOptions = ranking.filter(
       (r) => r.action.type === 'pass' && r.canonicalScore > 20,
     ).length;
+    if (this.active.duration === 0 && next.time - this.active.startedAt < 0.05)
+      this.active.viableOptionsBefore = this.active.viableOptions;
+    this.active.duration = next.time - this.active.startedAt;
     this.active.continuedHoldingReason = next.ballCarrierIntent
       ? 'movement_committed'
       : next.onBallPreparation && next.time < next.onBallPreparation.readyAt
@@ -157,6 +212,8 @@ export const formationConnectivitySchema = z.object({
     }),
   ),
   lineInvolvement: z.record(z.string(), z.number()),
+  receivedShareByLine: z.record(z.string(), z.number()),
+  fullbackCirculationShare: z.number(),
   topEdgeShare: z.number(),
   warnings: z.array(z.string()),
 });
@@ -202,6 +259,80 @@ export const projectFormationConnectivity = (state: TacticalMatchState) =>
         ]),
       ),
       topEdgeShare,
+      receivedShareByLine: Object.fromEntries(
+        ['keeper', 'defence', 'midfield', 'attack'].map((key) => [
+          key,
+          roles.filter((p) => p.line === key).reduce((s, p) => s + p.receivedShare, 0),
+        ]),
+      ),
+      fullbackCirculationShare:
+        edges
+          .filter((e) =>
+            roles.some(
+              (p) =>
+                p.playerId === e.receiverId &&
+                ['left_back', 'right_back', 'left_wing_back', 'right_wing_back'].includes(p.role),
+            ),
+          )
+          .reduce((s, e) => s + e.attempted, 0) / Math.max(1, attempts),
       warnings,
     });
   });
+
+export const centralConnectivityEvidenceSchema = z.object({
+  centralLaneAvailabilityEvents: z.number().int().nonnegative(),
+  centralReceiverRejectedDespiteViableLane: z.number().int().nonnegative(),
+  sampledSeconds: z.number().nonnegative(),
+});
+/** Read-only geometric availability. Count distinct carrier/receiver episodes, never award touches. */
+export class CentralConnectivityTracker {
+  private lastProbe = -1;
+  private seen = new Set<string>();
+  private evidence = {
+    centralLaneAvailabilityEvents: 0,
+    centralReceiverRejectedDespiteViableLane: 0,
+    sampledSeconds: 0,
+  };
+  private available(state: TacticalMatchState) {
+    const carrier = state.players.find((p) => p.id === state.ball.ownerId);
+    if (!carrier || !carrier.slot.position.includes('back') || state.restart?.phase === 'setup')
+      return [];
+    return state.players.filter(
+      (p) =>
+        p.team === carrier.team &&
+        p.slot.position.includes('midfielder') &&
+        distance(p.position, carrier.position) >= 4 &&
+        distance(p.position, carrier.position) <= 28 &&
+        state.players.every(
+          (foe) =>
+            foe.team === carrier.team ||
+            distanceToSegment(foe.position, carrier.position, p.position) > 1.5,
+        ),
+    );
+  }
+  observe(previous: TacticalMatchState, next: TacticalMatchState) {
+    if (next.time - this.lastProbe >= 1) {
+      this.lastProbe = next.time;
+      this.evidence.sampledSeconds++;
+      for (const p of this.available(next)) {
+        const key = `${next.ball.ownerId}:${next.ballOwnershipStartedAt}:${p.id}`;
+        if (!this.seen.has(key)) {
+          this.seen.add(key);
+          this.evidence.centralLaneAvailabilityEvents++;
+        }
+      }
+    }
+    const action = next.latestAction;
+    if (
+      action?.type === 'pass' &&
+      (next.decisionIndex !== previous.decisionIndex || action !== previous.latestAction)
+    ) {
+      const viable = this.available(previous);
+      if (viable.length && !viable.some((p) => p.id === action.receiverId))
+        this.evidence.centralReceiverRejectedDespiteViableLane++;
+    }
+  }
+  snapshot() {
+    return centralConnectivityEvidenceSchema.parse(this.evidence);
+  }
+}

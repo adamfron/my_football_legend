@@ -14,13 +14,16 @@ Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane
 
 GitHub #153 scalił uzupełnienie PR152: semantykę strat/wznowień, aktywne minuty decyzji
 i kalibrację dyscypliny. PR154 rozwija sytuacyjną inteligencję, atrybuty oraz wyjście z presji.
+PR155 stabilizuje własność strzału człowieka, wspólne podanie z pierwszej piłki,
+kanoniczne opanowanie luźnej piłki oraz geometrię wsparcia i połączenia pomocy.
 Dokumenty wyników:
+[PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md),
 [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md),
 [PR152_STATISTICS_DISCIPLINE.md](PR152_STATISTICS_DISCIPLINE.md).
 
 ### COMPLETED
 
-PR105–PR154 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
+PR105–PR155 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
 z reaktywną taktyką zespołów; PR152 oddziela autonomię piłkarza od ludzkiej sprawczości i dodaje
 kanoniczne inwarianty oraz diagnostykę udziału/statystyk. Kondycja i urazy pozostają później.
 W szczególności:
@@ -224,7 +227,7 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 
 ### NEXT
 
-**PR155 — Dead Ball & Restart Continuity**
+**PR156 — Dead Ball & Restart Continuity**
 
 - fizyczne przejście z bieżących pozycji do legalnego ustawienia wznowienia;
 - stan reakcji po golu i wybór celebracji albo pilnego wznowienia według wyniku/czasu;
@@ -236,14 +239,14 @@ Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR154 nie i
 
 Po ciągłości wznowień:
 
-**PR156 — Fatigue, Injuries, Substitutions & Added Time**
+**PR157 — Fatigue, Injuries, Substitutions & Added Time**
 
 - kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
 - kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
 - ryzyko urazów, doliczony czas i decyzje zmian, oparte na tym samym obciążeniu człowieka i NPC;
 - integracja kariery i kalibracja deterministycznych pełnych meczów, bez maskowania rytmu kwotami.
 
-**PR157 — Match Presentation / Replay / Stadium polish**: filmowe powtórki, finalne animacje,
+**PR158 — Match Presentation / Replay / Stadium Polish**: filmowe powtórki, finalne animacje,
 parametryczne stadiony. Później: duża kalibracja lig, świadomy wybór piętki i
 parametryczne stadiony z trwałą tożsamością klubu. Stadion pozostaje kosmetyczny; PR149 nie
 wdraża jego geometrii ani sztuki.
@@ -479,7 +482,7 @@ będzie uzupełniać akademie kolejnymi kohortami.
 # Następne kroki
 
 Model cyklu życia to **statyczna tożsamość + data + rzadkie mutacje kariery**. Aktualną kolejność
-NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: po rozszerzeniu PR152 ciągłość martwej piłki
+NEXT definiuje sekcja „Autorytatywna kolejność rozwoju Single Match”: po stabilizacji PR155 ciągłość martwej piłki
 i wznowień, następnie rozwój kondycji,
 urazów, doliczonego czasu i inteligencji zmian.
 Poniższa lista jest historycznym kontekstem systemów kariery; starsze plany pakietów

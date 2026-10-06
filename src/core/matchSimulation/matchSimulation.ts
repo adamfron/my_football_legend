@@ -22,6 +22,7 @@ export const RESTART_SETUP_WATCHDOG_SECONDS = 8;
 import {
   goalkeeperIntervention,
   findAerialContactCandidates,
+  activeAerialContactLocks,
   resolveAerialDuel,
   secondBallPriority,
 } from './aerialPlay';
@@ -64,6 +65,7 @@ import { advanceOnBallPreparation, deriveOnBallPreparation } from './onBallPrepa
 import { toPitchPoint } from './matchSpace';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome } from './passReception';
+import { advanceBallAcquisition } from './ballAcquisition';
 import { deriveCarryExecution, hasReachedCarryDecisionWaypoint } from './carryExecution';
 import {
   advanceHumanIntentProgress,
@@ -319,14 +321,6 @@ const tryIncomingFinish = (
     const incomingBall = ready.ball;
     ready = { ...changePossession(ready, actorId, 'interception'), ball: incomingBall };
   }
-  if (action.type === 'pass')
-    ready.ball = {
-      x: state.ball.x,
-      y: state.ball.y,
-      ownerId: actorId,
-      lastTouchPlayerId: actorId,
-      ...(state.ball.height !== undefined ? { height: state.ball.height } : {}),
-    };
   const resolved = resolveMatchAction(
     ready,
     action,
@@ -344,6 +338,10 @@ const changePossession = (
   if (isOffsideOffence(state.offsideSnapshot, ownerId))
     return awardOffsideRestart(state, ownerId, { x: state.ball.x, y: state.ball.y });
   state = applyIncomingContact(state, ownerId);
+  if (state.ballAcquisition) {
+    state = { ...state };
+    delete state.ballAcquisition;
+  }
   const owner = state.players.find((p) => p.id === ownerId)!;
   if (
     cause === 'claim' &&
@@ -636,7 +634,7 @@ const recordPassDeflection = (
   };
 };
 
-/** A deliberate header is a controlled football action even without a settled owner. */
+/** An aerial redirect is a contact, not secure control. Canonical possession waits for acquisition. */
 const prepareIncomingHeaderDelivery = (state: TacticalMatchState, actorId: string) => {
   const actor = state.players.find((player) => player.id === actorId)!;
   let ready = applyIncomingContact(state, actorId);
@@ -656,10 +654,18 @@ const prepareIncomingHeaderDelivery = (state: TacticalMatchState, actorId: strin
     };
     ready = { ...ready, lastPassDiagnostic: resolved, lastResolvedPass: resolved };
   }
-  if (actor.team !== ready.possessionTeam) {
-    const incomingBall = ready.ball;
-    ready = { ...changePossession(ready, actorId, 'interception'), ball: incomingBall };
-  }
+  if (actor.team !== ready.possessionTeam)
+    ready = {
+      ...ready,
+      pendingPossessionLoss: {
+        id: `${state.seed}:header-contest:${state.ballEpisode ?? 0}`,
+        at: state.time,
+        team: ready.possessionTeam,
+        actorId: pass?.passerId ?? state.ball.lastTouchPlayerId ?? actorId,
+        cause: 'interception',
+        ...(pass ? { passId: pass.passId } : {}),
+      },
+    };
   return ready;
 };
 
@@ -829,6 +835,8 @@ const stepTacticalMatchCore = (
   decisionAlreadyProjected = false,
 ): TacticalMatchState => {
   input = reconcileHumanPossession(resolvePendingPlayerDecision(input));
+  if (input.shotAgencyRequest && !input.periodEndPending && projectPlayerDecisionOpportunity(input))
+    return input;
   // Recover snapshots whose setup clock was already allowed to overrun (for example by a future
   // presentation/UI regression) before the normal human-opportunity freeze can hold them forever.
   if (
@@ -873,6 +881,8 @@ const stepTacticalMatchCore = (
     actionCooldown: Math.max(0, input.actionCooldown - dt),
     teams: { ...input.teams },
   };
+  if (state.aerialContactLocks)
+    state = { ...state, aerialContactLocks: activeAerialContactLocks(state) };
   if (state.restart) state.restartStalledSeconds = state.time - state.restart.startedAt;
   else delete state.restartStalledSeconds;
   if (
@@ -1603,6 +1613,18 @@ const stepTacticalMatchCore = (
           const contactPoint = { x: state.ball.x, y: state.ball.y };
           const base = {
             ...state,
+            ...(winner
+              ? {
+                  aerialContactLocks: [
+                    ...activeAerialContactLocks(state),
+                    ...physical.map(({ player }) => ({
+                      playerId: player.id,
+                      point: { x: state.ball.x, y: state.ball.y },
+                      at: state.time,
+                    })),
+                  ].slice(-22),
+                }
+              : {}),
             aerialContestantIds: duel.contestants.map((p) => p.id),
             lastAerialResult: duel.outcome,
             lastAerialContact: {
@@ -1710,6 +1732,18 @@ const stepTacticalMatchCore = (
           const duel = resolveAerialDuel(state);
           const base = {
             ...state,
+            ...(duel.winner
+              ? {
+                  aerialContactLocks: [
+                    ...activeAerialContactLocks(state),
+                    ...physical.map(({ player }) => ({
+                      playerId: player.id,
+                      point: { x: state.ball.x, y: state.ball.y },
+                      at: state.time,
+                    })),
+                  ].slice(-22),
+                }
+              : {}),
             aerialContestantIds: duel.contestants.map((p) => p.id),
             lastAerialResult: duel.outcome,
             lastAerialContact: {
@@ -1866,8 +1900,11 @@ const stepTacticalMatchCore = (
           1.15,
           2.1 - Math.hypot(rolled.velocity.x, rolled.velocity.y) * 0.04,
         );
-        if (claimant && distance(claimant.p.position, state.ball) <= controlRadius)
-          state = changePossession(state, claimant.p.id, 'claim');
+        const acquisition = advanceBallAcquisition(state, claimant?.p, controlRadius);
+        state = acquisition.state;
+        if (acquisition.securedPlayerId)
+          state = changePossession(state, acquisition.securedPlayerId, 'claim');
+        else if (acquisition.failedVelocity) state = makeLoose(state, acquisition.failedVelocity);
       }
     } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {
       const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
@@ -2040,6 +2077,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
     playerMovementIntent: _movement,
     defensiveChallenge: _challenge,
     pendingPlayerDecision: _decision,
+    shotAgencyRequest: _shotRequest,
     postActionAgencyCheckpoint: _checkpoint,
     humanPossessionEpisode: _humanPossession,
     restart: _restart,
@@ -2056,6 +2094,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
     _movement,
     _challenge,
     _decision,
+    _shotRequest,
     _checkpoint,
     _humanPossession,
     _restart,

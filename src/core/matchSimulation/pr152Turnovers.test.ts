@@ -18,6 +18,7 @@ import {
   recordPossessionLoss,
   resolveMatchAction,
   stepTacticalMatchAfterDecisionProbe,
+  incomingBallIntentKey,
   type MatchFlowTelemetry,
   type FoulFact,
   type PossessionLossCause,
@@ -89,6 +90,12 @@ const runUntil = (run: Trace, predicate: (state: TacticalMatchState) => boolean,
     predicate(run.state),
     JSON.stringify({
       ball: run.state.ball,
+      acquisition: run.state.ballAcquisition,
+      nearby: run.state.players
+        .filter(
+          (p) => Math.hypot(p.position.x - run.state.ball.x, p.position.y - run.state.ball.y) < 5,
+        )
+        .map((p) => ({ id: p.id, position: p.position, target: p.target, velocity: p.velocity })),
       pass: run.state.lastResolvedPass,
       loss: run.state.lastPossessionLoss,
       reception: run.state.lastReceptionOutcome,
@@ -202,6 +209,9 @@ describe('PR152 causal turnover scenarios from canonical physics', () => {
       physicalTarget: { x: 40, y: 38 },
       executionQuality: 0.1,
     };
+    // Isolate the opponent's collection; a teammate reclaim followed by a tackle is different.
+    run.state.players.find((p) => p.id === receiver.id)!.position = { x: 80, y: 34 };
+    run.state.players.find((p) => p.id === passer.id)!.position = { x: 10, y: 34 };
     runUntil(run, (state) => state.possessionTeam === 'away');
     checkLoss(run, 'bad_pass', passer.id);
     expect(run.state.lastResolvedPass?.finalResult).toBe('inaccurate');
@@ -261,6 +271,14 @@ describe('PR152 causal turnover scenarios from canonical physics', () => {
       run.state.players.find((player) => player.id === opponent.id)!.position = { x: 41.6, y: 34 };
       run.state.ball = { ...run.state.ball, x: 39.3, velocity: { x: speed, y: 0, z: 0 } };
       run.state.receptionPreparation!.awarenessAt = run.state.time - 1;
+      run.state.pendingReceptionIntent = {
+        actorId: receiver.id,
+        action: { type: 'hold', actorId: receiver.id },
+        actionSource: 'autonomous_npc',
+        createdAt: run.state.time,
+        expiresAt: run.state.time + 2,
+        ballEpisode: incomingBallIntentKey(run.state),
+      };
       tick(run);
       expect(run.state.lastReceptionOutcome?.kind).toBe(cause);
       expect(run.state.lastPossessionLoss).toBeUndefined();

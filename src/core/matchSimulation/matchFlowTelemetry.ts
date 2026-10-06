@@ -70,6 +70,10 @@ const ballHoldDiagnosticSchema = z.object({
   terminalAction: z.string(),
 });
 const passOutcomeDiagnosticSchema = z.object({
+  executionType: z.string().optional(),
+  incomingSpeed: z.number().nonnegative().optional(),
+  incomingHeight: z.number().nonnegative().optional(),
+  actionSource: z.string().optional(),
   passId: z.string(),
   passerId: z.string().optional(),
   receiverId: z.string().optional(),
@@ -130,6 +134,17 @@ export const matchFlowTelemetrySchema = z.object({
   actionTempoSamples: z.array(actionTempoSampleSchema),
   ballHolds: z.array(ballHoldDiagnosticSchema),
   passOutcomes: z.array(passOutcomeDiagnosticSchema),
+  firstTimePassAttempts: z.number().int().nonnegative().default(0),
+  firstTimePassCompleted: z.number().int().nonnegative().default(0),
+  firstTimePassByIntent: z
+    .record(
+      z.string(),
+      z.object({
+        attempts: z.number().int().nonnegative(),
+        completed: z.number().int().nonnegative(),
+      }),
+    )
+    .default({}),
   observerState: z.object({
     spellStartedAt: z.number(),
     spellStartThird: thirdSchema,
@@ -348,6 +363,9 @@ export const createMatchFlowTelemetry = (benchmarkRunId = 'benchmark-run-0'): Ma
     actionTempoSamples: [],
     ballHolds: [],
     passOutcomes: [],
+    firstTimePassAttempts: 0,
+    firstTimePassCompleted: 0,
+    firstTimePassByIntent: {},
     observerState: {
       spellStartedAt: 0,
       spellStartThird: 'middle',
@@ -643,9 +661,13 @@ export const observeMatchFlow = (
     indexes.majorActions.add(actionEpisodeId);
     const human = next.latestActionSource === 'human_selected';
     const source = human ? 'human' : 'autonomous';
-    if (action.type === 'shot') result.controlled.majorActionSources.shots[source]++;
+    const shooting =
+      action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot');
+    if (shooting && !human && next.playerAgencyEnabled !== false)
+      throw new Error('Human-controlled footballer executed an autonomous shot');
+    if (shooting) result.controlled.majorActionSources.shots[source]++;
     if (action.type === 'cross') result.controlled.majorActionSources.crosses[source]++;
-    if (['shot', 'cross'].includes(action.type))
+    if (shooting || action.type === 'cross')
       result.controlled.majorActionSources.highImpactActions[source]++;
   }
   if (newAction && action.type === 'carry') {
@@ -739,6 +761,10 @@ export const observeMatchFlow = (
           if (!indexes.passOutcomes.has(releasedPass.passId))
             indexes.passOutcomes.set(releasedPass.passId, result.passOutcomes.length);
           append('passOutcomes', {
+            executionType: releasedPass.executionType,
+            incomingSpeed: releasedPass.incomingSpeed,
+            incomingHeight: releasedPass.incomingHeight,
+            actionSource: releasedPass.actionSource,
             passId: releasedPass.passId,
             passerId: releasedPass.passerId,
             receiverId: releasedPass.intendedReceiverId,
@@ -759,6 +785,17 @@ export const observeMatchFlow = (
               releasedPass.receiverArrivalEstimate - releasedPass.bestDefenderArrivalEstimate,
             outcome: 'unclaimed',
           });
+          if (releasedPass.executionType === 'first_time') {
+            result.firstTimePassAttempts++;
+            const prior = result.firstTimePassByIntent[action.intent] ?? {
+              attempts: 0,
+              completed: 0,
+            };
+            result.firstTimePassByIntent = {
+              ...result.firstTimePassByIntent,
+              [action.intent]: { ...prior, attempts: prior.attempts + 1 },
+            };
+          }
         }
         const receiver = next.players.find(
           (player) => player.id === releasedPass.intendedReceiverId,
@@ -888,6 +925,15 @@ export const observeMatchFlow = (
         Math.hypot(diagnostic.receiverVelocityAtRelease.x, diagnostic.receiverVelocityAtRelease.y) >
         0.5;
       const passOutcomeIndex = indexes.passOutcomes.get(diagnostic.passId);
+      if (diagnostic.executionType === 'first_time' && diagnostic.finalResult === 'completed') {
+        result.firstTimePassCompleted++;
+        const intent = diagnostic.intent ?? 'support';
+        const prior = result.firstTimePassByIntent[intent] ?? { attempts: 0, completed: 0 };
+        result.firstTimePassByIntent = {
+          ...result.firstTimePassByIntent,
+          [intent]: { ...prior, completed: prior.completed + 1 },
+        };
+      }
       if (passOutcomeIndex !== undefined) {
         if (result.passOutcomes === telemetry.passOutcomes)
           result.passOutcomes = result.passOutcomes.slice();
@@ -1077,6 +1123,8 @@ export const observeMatchFlow = (
 };
 
 const assertTelemetryTotals = (telemetry: MatchFlowTelemetry) => {
+  if (telemetry.firstTimePassCompleted > telemetry.firstTimePassAttempts)
+    throw new Error('Telemetry invariant failed: first-time completions exceed attempts.');
   if (telemetry.passesCompleted > telemetry.passesAttempted)
     throw new Error('Telemetry invariant failed: completed passes exceed attempts.');
   if (
