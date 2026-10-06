@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
-import { deriveCooperativePress, isDefensiveEpisodeLocked } from './defensiveChallenges';
+import {
+  deriveCooperativePress,
+  isDefensiveEpisodeLocked,
+  protectedPressReceiver,
+} from './defensiveChallenges';
 import {
   createTacticalMatch,
   FIXED_MATCH_DT,
@@ -91,6 +95,7 @@ const shieldFixture = (side: TeamSide = 'home') => {
 const runShield = (initial: TacticalMatchState) => {
   let state = initial;
   const attempts = new Set<string>();
+  let abandonedDangerousMark = false;
   let maximumStep = 0;
   for (let tick = 0; tick < 8 / FIXED_MATCH_DT; tick++) {
     const previous = state;
@@ -101,10 +106,16 @@ const runShield = (initial: TacticalMatchState) => {
         distance(player.position, previous.players.find((p) => p.id === player.id)!.position),
       );
     if (state.defensiveChallenge) attempts.add(state.defensiveChallenge.actorId);
-    if (state.lastChallenge) attempts.add(state.lastChallenge.actorId);
+    if (state.lastChallenge) {
+      attempts.add(state.lastChallenge.actorId);
+      if (state.lastChallenge.id !== previous.lastChallenge?.id) {
+        const challenger = previous.players.find((p) => p.id === state.lastChallenge!.actorId)!;
+        if (protectedPressReceiver(previous, challenger)) abandonedDangerousMark = true;
+      }
+    }
     if (state.ball.ownerId !== initial.ball.ownerId) break;
   }
-  return { state, attempts, maximumStep };
+  return { state, attempts, maximumStep, abandonedDangerousMark };
 };
 
 describe('PR151 cooperative physical engagement', () => {
@@ -192,8 +203,22 @@ describe('PR151 cooperative physical engagement', () => {
         p.team === 'home' && p.id !== f.carrierId && p.profile.primaryPosition !== 'goalkeeper',
     )!;
     receiver.position = { x: 86, y: 14 };
+    // Preserve the dangerous mark throughout this fixture; support movement otherwise
+    // legitimately opens a handoff and changes the initial no-inheritance geometry.
+    f.state.playerMovementIntent = {
+      actorId: receiver.id,
+      type: 'hold_shape',
+      target: { ...receiver.position },
+      startedAt: 10,
+      expiresAt: 19,
+    };
     expect(deriveCooperativePress(f.state, 'away')).toBeUndefined();
-    expect(runShield(f.state).attempts.has(f.secondaryId)).toBe(false);
+    expect(
+      protectedPressReceiver(f.state, f.state.players.find((p) => p.id === f.secondaryId)!),
+    ).toBe(receiver);
+    // Dynamic support can make a later handoff safe. Every actual contact must still
+    // preserve coverage in its own pre-contact geometry, rather than freezing the XI.
+    expect(runShield(f.state).abandonedDangerousMark).toBe(false);
   });
 
   it('recruits a fresh safe player after the earlier secondary already joined the same possession duel', () => {

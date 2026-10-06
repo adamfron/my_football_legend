@@ -41,6 +41,7 @@ import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { canContactAfterThrowIn } from './throwIn';
 import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { deriveStructuralPosition } from './tacticalPositioning';
+import { arbitrateGoalkeeperClaim } from './goalkeeperClaim';
 
 export const proxyResolutionStatusSchema = z.enum([
   'resolved_action',
@@ -1093,7 +1094,16 @@ export const projectPlayerAgency = (
         'corner_delivery',
       ].includes(state.ball.travelKind ?? '') &&
       interception.viable &&
-      (interception.arrivalMargin ?? -Infinity) >= -0.35;
+      (interception.arrivalMargin ?? -Infinity) >= -0.35 &&
+      Boolean(
+        interception.contactPoint &&
+          arbitrateGoalkeeperClaim(
+            state,
+            actor,
+            interception.contactPoint,
+            interception.arrivalTime,
+          ).meaningfulChoice,
+      );
     if (keeperFlight) {
       kind = 'goalkeeper_response';
       const cross = ['cross', 'free_kick_delivery', 'corner_delivery'].includes(
@@ -1255,7 +1265,12 @@ export const projectPlayerAgency = (
       const role = roleProfile;
       const ownGoal = { x: actor.team === 'home' ? 0 : 105, y: 34 };
       const keeperThreat =
-        role === 'goalkeeper' && Boolean(carrier && distance(carrier.position, ownGoal) < 27);
+        role === 'goalkeeper' &&
+        Boolean(
+          carrier &&
+            distance(carrier.position, ownGoal) < 27 &&
+            arbitrateGoalkeeperClaim(state, actor, carrier.position).meaningfulChoice,
+        );
       const threshold = keeperThreat
         ? 32
         : role === 'defender'

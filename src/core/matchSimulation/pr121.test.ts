@@ -46,6 +46,10 @@ describe('PR121 spatial and goalkeeper agency', () => {
     const attacker = state.players.find((player) => player.team === 'away')!;
     state.controlledFootballerId = keeper.id;
     keeper.position = { x: 3, y: 34 };
+    for (const defender of state.players.filter(
+      (player) => player.team === 'home' && player.id !== keeper.id,
+    ))
+      defender.position = { x: 55, y: 50 };
     attacker.position = { x: 22, y: 34 };
     state.ball = { ...attacker.position, ownerId: attacker.id };
     state.possessionTeam = 'away';

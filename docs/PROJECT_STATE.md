@@ -1,5 +1,22 @@
 # My Football Legend — Current Project State
 
+## PR154 — Situational Football Intelligence, Attribute Fidelity & Anti-Deadlock Calibration
+
+Baza to scalony GitHub #153 (`7b175c7a`), uzupełniający statystyki/dyscyplinę PR152.
+Dobór podania uwzględnia ETA odbiorcy i obrońców, zajętość korytarza oraz ryzyko wyjścia
+piłki. Fizyczne wykonanie ma osobną, deterministyczną diagnostykę błędu. Zespół tworzy
+natychmiastowe połączenia z pomocą i stoperem; presja zwiększa wartość wyjścia z posiadania.
+Krótka pamięć rozwiązań rozszerza istniejącą `threatMemory`. Bramkarz i obrońca mają jednego
+głównego wykonawcę interwencji, a pressujący zachowuje groźne krycie do bezpiecznego przekazania.
+
+DEV zawiera macierz pojedynczych atrybutów, OVR zawodnika/XI/kadry i epizody reakcji wsparcia.
+Dystans strzału ma jedno źródło w kanonicznym zdarzeniu strzału. Inwarianty kontroli,
+statystyk i kroku 25 ms pozostają obowiązujące. Architektura, odtworzenie i dowody:
+[PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
+
+Następne etapy: **PR155 — Dead Ball & Restart Continuity**, **PR156 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR157 — Match Presentation / Replay / Stadium polish**.
+
 ## Rozszerzony zakres PR152 — statystyki i dyscyplina
 
 Po scaleniu pierwotnego PR152 uzupełniono semantykę strat/wznowień, aktywne minuty decyzji,
@@ -21,7 +38,7 @@ Eksport Match Lab v5 pokazuje tani raport kanoniczny i udział ukryty/widoczny b
 Pasmo ostrzeżeń pozostaje diagnostyczne. Audyt i dowody:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-Następny etap po uzupełnieniu statystyk/dyscypliny: **Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
+Po PR154 następny etap to **PR155 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
 reakcja po golu, celebracja/pilne wznowienie według wyniku i czasu, odzyskanie piłki po późnym
 golu, gotowość wznowienia i fundament doliczonego czasu. PR152 nie implementuje tego etapu.
 

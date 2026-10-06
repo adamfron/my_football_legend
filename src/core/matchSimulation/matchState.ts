@@ -49,6 +49,7 @@ import {
 } from './throwIn';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
 import { passExecutionTypeSchema, type PassExecutionType } from './passExecution';
+import { passDecisionQualitySchema, type PassDecisionQuality } from './passDecision';
 import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
 import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
 import type { MatchStatistics } from './playerMatchStats';
@@ -562,6 +563,7 @@ export const aerialContactSchema = z.object({
 });
 
 export const passDiagnosticSchema = z.object({
+  selectionQuality: passDecisionQualitySchema.optional(),
   executionType: passExecutionTypeSchema.optional(),
   intendedTarget: pitchPointSchema.optional(),
   physicalTarget: physicalPointSchema.optional(),
@@ -706,6 +708,7 @@ export interface TacticalMatchState {
   /** Retains a physical incoming result when a prepared one-touch pass starts a new diagnostic. */
   lastResolvedPass?: TacticalMatchState['lastPassDiagnostic'];
   lastPassDiagnostic?: {
+    selectionQuality?: PassDecisionQuality;
     intendedTarget?: PitchPoint;
     physicalTarget?: PhysicalPoint;
     executionQuality?: number;

@@ -449,6 +449,23 @@ const deriveHomeRestartGeometry = (
         zone,
       );
     });
+    const protectingLateLead = state.time > 80 * 60 && state.score.away > state.score.home;
+    const outlet =
+      !protectingLateLead && away.length >= 8
+        ? stableRank(
+            away.filter((p) => !points.has(p.id)),
+            (p) =>
+              p.profile.attributes.pace * 0.4 +
+              p.profile.attributes.gameReading * 0.3 +
+              p.profile.attributes.firstTouch * 0.3 +
+              (p.duty === 'attack' ? 12 : 0),
+          )[0]
+        : undefined;
+    if (outlet) {
+      const zone = { x: Math.max(40, Math.min(68, ball.x - 24)), y: outlet.neutralAnchor.y };
+      place(outlet, zone, 0.8);
+      assign(outlet, 'counter_outlet', 'counter_outlet', zone);
+    }
     away
       .filter((p) => !points.has(p.id))
       .forEach((p, i) => {
