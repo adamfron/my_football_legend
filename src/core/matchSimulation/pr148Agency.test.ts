@@ -84,11 +84,21 @@ const fixture = () => {
 
 describe('PR148 substantial midfield route choices', () => {
   it('surfaces a near-best line-breaking outlet even when recycling ranks first', () => {
-    const { state, actor, forward } = fixture();
-    const ranked = rankAvailableActionsForAI(state, actor.id);
+    const { state, actor, forward, recycle } = fixture();
+    const canonical = rankAvailableActionsForAI(state, actor.id);
+    const recycling = canonical.find(
+      ({ action }) => action.type === 'pass' && action.receiverId === recycle.id,
+    )!;
+    // Exercise the relevance projection's supplied-ranking contract. PR156 can rank the
+    // forward link first physically; this fixture must still cover a near-best alternative
+    // when a safe recycle leads, without requiring the former unconditional width bonus.
+    const ranked = [
+      { ...recycling, canonicalScore: canonical[0]!.canonicalScore + 2 },
+      ...canonical.filter((r) => r !== recycling),
+    ];
     expect(evaluateActionImpact(state, ranked[0]!.action).family).toBe('routine');
     expect(fieldValue(forward.position, actor.team)).toBeLessThan(55);
-    expect(evaluateOnBallDecisionRelevance(state, actor.id)).toMatchObject({
+    expect(evaluateOnBallDecisionRelevance(state, actor.id, ranked)).toMatchObject({
       relevant: true,
       reasons: expect.arrayContaining(['line_breaking_outlet_choice']),
     });
@@ -98,6 +108,7 @@ describe('PR148 substantial midfield route choices', () => {
   it('keeps short recycling and forward passes without a defensive line routine', () => {
     const short = fixture();
     short.forward.position = { x: 64.9, y: 32 };
+    short.forward.target = short.forward.position;
     expect(evaluateOnBallDecisionRelevance(short.state, short.actor.id).relevant).toBe(false);
     const open = fixture();
     open.defender.position = { x: 95, y: 60 };

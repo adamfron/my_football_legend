@@ -1,0 +1,53 @@
+{
+  "base": "cdbf07e0696f95e17d9f064552e861cb5bff64e4",
+  "environment": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "arch": "x64",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "logicalCpus": 16
+  },
+  "protocol": "Sequential paired PR155 then PR156 normal headless 45-minute native spectator runs; three-minute warm-up per revision, excluded. No concurrent benchmark or verification jobs. Wall time covers stepping, public statistics, flip accounting and report assembly, excludes world/XI setup. Same machine and fixture; trajectories differ after calibration, so this is descriptive throughput, not identical-operation causal profiling. No renderer calls or browser capture timing.",
+  "pairs": [
+    {
+      "seed": "lab-muwhj3er",
+      "ticks": 108000,
+      "simulationSeconds": 2700,
+      "beforeMs": 16905.8351,
+      "afterMs": 17756.9471,
+      "ratio": 1.0503442743269158,
+      "beforeCanonicalHash": "1c6d359ae34cec02e34fd99847a52c95b027a0af96a4a9fa9982f49cc018507e",
+      "afterCanonicalHash": "1d95df0a965b96bc4307789a73c3985ea480cf0c791c79ac9a364eb79fd75055",
+      "beforeNormalDevParity": true,
+      "afterNormalDevParity": true
+    },
+    {
+      "seed": "pr155-natural-b",
+      "ticks": 108000,
+      "simulationSeconds": 2700.0000000054397,
+      "beforeMs": 17478.099499999997,
+      "afterMs": 18385.306399999998,
+      "ratio": 1.0519053516087375,
+      "beforeCanonicalHash": "1e010c045251687b402bb594f66c1f32cc91cd18290230ce21a37787cd0148bb",
+      "afterCanonicalHash": "e61b6b28a089dbe77f15a8aba7bee68317b1713349ef002bb4f4ee438f6b804a",
+      "beforeNormalDevParity": true,
+      "afterNormalDevParity": true
+    },
+    {
+      "seed": "pr155-natural-c",
+      "ticks": 108000,
+      "simulationSeconds": 2700,
+      "beforeMs": 18227.815499999997,
+      "afterMs": 17324.3955,
+      "ratio": 0.9504372863550217,
+      "beforeCanonicalHash": "e6fbd165ccc8ead94acf3d667655a037ab187677e0e4029134d9383f55300653",
+      "afterCanonicalHash": "819a99bd561cf3d57fd6bb5314de9f521376e298c00ec5ca8e48587a04eb200f",
+      "beforeNormalDevParity": true,
+      "afterNormalDevParity": true
+    }
+  ],
+  "medianBeforeMs": 17478.099499999997,
+  "medianAfterMs": 17756.9471,
+  "medianPairRatio": 1.0503442743269158,
+  "browserMeasured": false
+}

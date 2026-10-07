@@ -565,6 +565,9 @@ export const aerialContactSchema = z.object({
 });
 
 export const passDiagnosticSchema = z.object({
+  receiverRelationshipAtRelease: z
+    .enum(['support_behind', 'provide_width', 'overlap', 'underlap', 'rest_defence'])
+    .optional(),
   incomingSpeed: z.number().nonnegative().optional(),
   incomingHeight: z.number().nonnegative().optional(),
   actionSource: actionSourceSchema.optional(),
@@ -716,6 +719,12 @@ export interface TacticalMatchState {
   /** Retains a physical incoming result when a prepared one-touch pass starts a new diagnostic. */
   lastResolvedPass?: TacticalMatchState['lastPassDiagnostic'];
   lastPassDiagnostic?: {
+    receiverRelationshipAtRelease?:
+      | 'support_behind'
+      | 'provide_width'
+      | 'overlap'
+      | 'underlap'
+      | 'rest_defence';
     incomingSpeed?: number;
     incomingHeight?: number;
     actionSource?: ActionSource;

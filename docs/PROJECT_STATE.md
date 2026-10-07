@@ -1,5 +1,20 @@
 # My Football Legend — Current Project State
 
+## PR156 — Agency Parity, Passing Difficulty & Connectivity
+
+Baza: scalony PR155, `cdbf07e0`. Wyłączona sprawczość zachowuje obserwacyjną tożsamość
+kontroli, również w źródłach akcji. Każde wznowienie kontrolowanego wykonawcy poza autem
+wymaga jawnego `human_selected`; rutyna, DEV i watchdog nie mogą go wykonać.
+Podania korzystają ze wspólnej ciągłej trudności wykonania i prognozy przyjęcia/utrzymania.
+Dolny zakres atrybutów oznacza bardzo słabą umiejętność; generowanie świata i OVR są bez zmian.
+Niskie piłki w powietrzu mają rzeczywisty kontakt przyjęcia, oczekiwanie nie zakłada blokady,
+a relacja overlap/underlap zostaje na tożsamości podania z chwili wypuszczenia.
+Diagnostyka sieci, centralnych alternatyw i ewolucji wsparcia pozostaje ograniczonym obserwatorem.
+Dowody, odtworzenie i ograniczenia: [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md).
+
+Następne etapy: **PR157 — Dead Ball & Restart Continuity**, **PR158 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR159 — Match Presentation / Replay / Stadium Polish**.
+
 ## PR155 — Player Agency, First-Time Passing & Possession Stability
 
 Baza: scalony GitHub #154, `235caf8a`. Każdy strzał kontrolowanego piłkarza przy
@@ -24,8 +39,8 @@ Zakres, odtworzenie, wyniki wielu seedów i ograniczenia:
 Historyczny opis autonomii PR152 poniżej jest od PR155 ograniczony twardą własnością
 strzału człowieka. Pełna choreografia wznowień pozostaje kolejnym etapem.
 
-Następne etapy: **PR156 — Dead Ball & Restart Continuity**, **PR157 — Fatigue, Injuries,
-Substitutions & Added Time**, **PR158 — Match Presentation / Replay / Stadium Polish**.
+Następne etapy: **PR157 — Dead Ball & Restart Continuity**, **PR158 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR159 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR154 — Situational Football Intelligence, Attribute Fidelity & Anti-Deadlock Calibration
 
@@ -64,7 +79,7 @@ Eksport Match Lab v5 pokazuje tani raport kanoniczny i udział ukryty/widoczny b
 Pasmo ostrzeżeń pozostaje diagnostyczne. Audyt i dowody:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-Po stabilizacji PR155 następny etap to **PR156 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
+Po stabilizacji PR155 następny etap to **PR157 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
 reakcja po golu, celebracja/pilne wznowienie według wyniku i czasu, odzyskanie piłki po późnym
 golu, gotowość wznowienia i fundament doliczonego czasu. PR152 nie implementuje tego etapu.
 

@@ -1,0 +1,259 @@
+{
+  "base": "cdbf07e0696f95e17d9f064552e861cb5bff64e4",
+  "fixedStepSeconds": 0.025,
+  "verification": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "mainTestFiles": 152,
+    "mainTests": 1180,
+    "careerTests": 5,
+    "lint": "passed",
+    "typescriptAndViteBuild": "passed",
+    "toolScriptsStrictTypecheck": "passed",
+    "referenceHashRepetitions": 2,
+    "verifyLogSha256": "558e60ae694c133d233c6631212f9d6b4e6430bdf910964db81f1b5dd75c01c6",
+    "existingBuildWarnings": [
+      "large bundle",
+      "careerStorage mixed static/dynamic imports"
+    ]
+  },
+  "agency": {
+    "seeds": [
+      "lab-muwhj3er",
+      "pr155-natural-b",
+      "pr155-natural-c"
+    ],
+    "completeCpuReferences": 3,
+    "completeDisabledIdentityRuns": 66,
+    "enabledPrefixes": 66,
+    "canonicalFailures": 0,
+    "actualRngStreamFailures": 0,
+    "statisticsNetworkSupportFailures": 0,
+    "enabledDivergenceBeforeDecisionOpportunity": 0,
+    "enabledPreChoiceApplicationBoundaryDifferences": 1,
+    "controlledShotAutonomy": "Zero by canonical guard and existing/PR156 contract tests; enabled prefixes are not full-match human intervention totals.",
+    "controlledNonThrowRestartAutonomy": "Zero by same-state/RNG-free exhaustive 9 restart types x 4 blocked action sources x 5 presentation/watch policies, both step entry points and DEV; throw-in exception retained."
+  },
+  "baselineAgency": {
+    "minutes": 1,
+    "completeCpuReferences": 1,
+    "identityRuns": 22,
+    "divergences": [
+      {
+        "playerId": "footballer_pro_9_7",
+        "role": "left_back",
+        "firstDivergence": {
+          "at": 5.725000000000014,
+          "path": ".currentActionSource"
+        }
+      },
+      {
+        "playerId": "footballer_pro_9_9",
+        "role": "right_back",
+        "firstDivergence": {
+          "at": 18.899999999999995,
+          "path": ".currentActionSource"
+        }
+      }
+    ]
+  },
+  "passing": {
+    "mainCellsPerRevision": 280,
+    "repetitionsPerCell": 64,
+    "individualAttributeSweeps": 4,
+    "individualCellsEach": 42,
+    "individualRepetitions": 64,
+    "isolatedContextCells": 72,
+    "isolatedRepetitions": 32,
+    "unresolvedMainFinal": 0,
+    "legacyAttributeRowsPerRevision": 740,
+    "legacyMeanOrderingViolations": 0,
+    "firstTimeCells": 960,
+    "firstTimeRepetitions": 4,
+    "firstTimePhysicalParityFailures": 0,
+    "firstTimeErrorOrderingFailures": 0,
+    "firstTimeUnresolved": 0
+  },
+  "flow": {
+    "fixtures": 4,
+    "seeds": 3,
+    "minutesPerFixture": 45,
+    "allPlayersPerFixture": 22,
+    "baselineAdjacentFlips": 9,
+    "baselineLegitimateCleanTackles": 8,
+    "baselineLegitimateFirstTimeInterceptions": 1,
+    "finalAdjacentFlips": 3,
+    "finalLegitimateCleanTackles": 3,
+    "filteredEvents": 0
+  },
+  "observerParity": {
+    "normalDevCapturePlayerMinutes": 5,
+    "seeds": 3,
+    "fullCanonicalHashesEqual": true,
+    "normalDevSpectatorMinutes": 45,
+    "revisions": 2,
+    "fullCanonicalHashesEqualAt45": true
+  },
+  "exploratoryFlightDiagnosis": {
+    "definition": "Intermediate code experiments before final release-speed/width calibration. Passing alone varies; other skills 60. Not final acceptance or PR155 baseline data. Regression tests reproduce the missing low-height contact and fictitious waiting lock directly.",
+    "stages": [
+      {
+        "stage": "Low-flight foot control still missing, waiting lock removed",
+        "rows": [
+          {
+            "ability": 60,
+            "context": {
+              "id": "diagonal-switch",
+              "intent": "direct",
+              "delivery": "lofted",
+              "angle": 1.1,
+              "motion": 2,
+              "turn": 0,
+              "passerPressure": 14,
+              "receiverPressure": 30,
+              "firstTime": false
+            },
+            "length": 50,
+            "attempts": 64,
+            "completed": 18,
+            "executionErrorMean": 4.350108567464052
+          },
+          {
+            "ability": 100,
+            "context": {
+              "id": "diagonal-switch",
+              "intent": "direct",
+              "delivery": "lofted",
+              "angle": 1.1,
+              "motion": 2,
+              "turn": 0,
+              "passerPressure": 14,
+              "receiverPressure": 30,
+              "firstTime": false
+            },
+            "length": 50,
+            "attempts": 64,
+            "completed": 4,
+            "executionErrorMean": 1.6768251776692213
+          }
+        ]
+      },
+      {
+        "stage": "Low-flight continuous foot control enabled",
+        "rows": [
+          {
+            "ability": 60,
+            "context": {
+              "id": "diagonal-switch",
+              "intent": "direct",
+              "delivery": "lofted",
+              "angle": 1.1,
+              "motion": 2,
+              "turn": 0,
+              "passerPressure": 14,
+              "receiverPressure": 30,
+              "firstTime": false
+            },
+            "length": 50,
+            "attempts": 64,
+            "completed": 52,
+            "executionErrorMean": 4.350108567464052
+          },
+          {
+            "ability": 100,
+            "context": {
+              "id": "diagonal-switch",
+              "intent": "direct",
+              "delivery": "lofted",
+              "angle": 1.1,
+              "motion": 2,
+              "turn": 0,
+              "passerPressure": 14,
+              "receiverPressure": 30,
+              "firstTime": false
+            },
+            "length": 50,
+            "attempts": 64,
+            "completed": 64,
+            "executionErrorMean": 1.6768251776692213
+          }
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "Persistent full-match divergence checked every 10s and at full time; enabled prefixes and short all-22 regression inspect every 25ms frame.",
+    "Human policy is explicit highest canonical score; original playtest input tape unavailable.",
+    "No external football dataset or league-wide realism claim.",
+    "Bounded central/pressure/sequence samples; full public counters, all directed edges and all exported adjacent flips retained.",
+    "Long high-pressure moving carries and some reciprocal concentration remain; formal completion can be nonmonotonic in awkward first-touch contexts.",
+    "Performance is same-machine headless throughput on differing trajectories; no renderer or browser capture measured."
+  ],
+  "evidence": [
+    {
+      "file": "PR156-agency.json",
+      "bytes": 225777,
+      "sha256": "a6030d5bce0765881be484f2ca1edfe6750b143ab8f75df59412566e2be5be91"
+    },
+    {
+      "file": "PR156-first-time.json",
+      "bytes": 233461,
+      "sha256": "47eae84b9507e264b1aba2b085f1c84ac9a6a5b01531b93ea2fcda4641a1336d"
+    },
+    {
+      "file": "PR156-flow-balanced-balanced.json",
+      "bytes": 491246,
+      "sha256": "935e9d2b604e5edd0e7ca0fec059e3beba384f55d193d5bf02e3cd27a8b7c13e"
+    },
+    {
+      "file": "PR156-flow-strong-weak.json",
+      "bytes": 562711,
+      "sha256": "8adc07f061d06e82116b30eee7497d24c2789111454907271bbf8877d51e1f4e"
+    },
+    {
+      "file": "PR156-flow-supplied-observer.json",
+      "bytes": 533495,
+      "sha256": "b2b75299dbef2c413285052be7463a56c19f51be3a4f2a880406a003761eafbd"
+    },
+    {
+      "file": "PR156-flow-supplied-player.json",
+      "bytes": 580823,
+      "sha256": "36ca6319f5b2006e58f4007fc8a590712e5600b9898bae64c0d25ea1639b610e"
+    },
+    {
+      "file": "PR156-legacy-attributes.json",
+      "bytes": 331213,
+      "sha256": "fa30e38bad60575b7c96fe16838919e8da8dfa8364e533fc2b0fc1e7408bafd5"
+    },
+    {
+      "file": "PR156-observers.json",
+      "bytes": 1448,
+      "sha256": "9ec026ee1f305378d8904f7f955768ce59aa0e2b1e74bcaf8cc4c0f01751eb6b"
+    },
+    {
+      "file": "PR156-passing-after.json",
+      "bytes": 272682,
+      "sha256": "0d97e19f3dd9ce497523789f3f0f5393027d4d61cef8e126937ddbe3c38cefaa"
+    },
+    {
+      "file": "PR156-passing-attributes.json",
+      "bytes": 164261,
+      "sha256": "debdf5e2710dbff67f5dbd74ba8a1c9367d0aa679511aa3309bc2ba66e0ccefe"
+    },
+    {
+      "file": "PR156-passing-before.json",
+      "bytes": 269213,
+      "sha256": "574ef156efecf88663589243ad8a6c163b71bfc24760795c19881bf85f0b275f"
+    },
+    {
+      "file": "PR156-passing-contexts.json",
+      "bytes": 70196,
+      "sha256": "4732f15da4749fb43c3b27403f3e5db952b221a57ff4256724ab1d100d56a9ce"
+    },
+    {
+      "file": "PR156-performance.json",
+      "bytes": 2295,
+      "sha256": "bd73531020400d912fed3f8dbf5b9dcbfd843c6fc2b3d44218f2f9fc1a82a50b"
+    }
+  ]
+}

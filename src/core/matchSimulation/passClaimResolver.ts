@@ -11,31 +11,38 @@ export const groundPassClaimSchema = z.object({
 });
 export type GroundPassClaim = z.infer<typeof groundPassClaimSchema>;
 
-export interface ContinuousGroundPassClaim extends GroundPassClaim {
-  segmentFraction: number;
-  /** 0 at the edge of the contact envelope, 1 through the player's centre. */
-  contactMargin: number;
-}
+export const continuousGroundPassClaimSchema = groundPassClaimSchema.extend({
+  segmentFraction: z.number().min(0).max(1),
+  contactMargin: z.number().min(0).max(1),
+});
+export type ContinuousGroundPassClaim = z.infer<typeof continuousGroundPassClaimSchema>;
 
 /** Earliest player contact on this fixed-step segment, ordered alongside boundary crossings. */
 export const resolveContinuousGroundPassClaim = (
   state: TacticalMatchState,
-  from: PitchPoint,
-  to: PitchPoint,
+  from: PitchPoint & { z?: number },
+  to: PitchPoint & { z?: number },
   controlRadius = 1.05,
 ): ContinuousGroundPassClaim | undefined => {
   const dx = to.x - from.x,
     dy = to.y - from.y;
   const lengthSquared = dx * dx + dy * dy;
   if (lengthSquared < 1e-8) return undefined;
+  // Low airborne deliveries have the same physical foot-control envelope as rolling
+  // passes. Restrict the segment itself, so an earlier high portion cannot win contact.
+  const fromHeight = from.z ?? 0,
+    toHeight = to.z ?? 0;
+  if (Math.min(fromHeight, toHeight) > 0.65) return undefined;
+  const lowStart = fromHeight > 0.65 ? (fromHeight - 0.65) / (fromHeight - toHeight) : 0;
+  const lowEnd = toHeight > 0.65 ? (0.65 - fromHeight) / (toHeight - fromHeight) : 1;
   const passer = state.players.find((player) => player.id === state.currentActorId);
   return state.players
     .filter((player) => player.id !== passer?.id && canContactAfterThrowIn(state, player.id))
     .map((player) => {
       const segmentFraction = Math.max(
-        0,
+        lowStart,
         Math.min(
-          1,
+          lowEnd,
           ((player.position.x - from.x) * dx + (player.position.y - from.y) * dy) / lengthSquared,
         ),
       );

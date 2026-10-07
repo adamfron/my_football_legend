@@ -32,6 +32,77 @@ export const passExecutionSchema = z.object({
 });
 export type PassExecution = z.infer<typeof passExecutionSchema>;
 
+export const passDifficultyProfileSchema = z.object({
+  ability: z.number().min(0).max(1),
+  difficulty: z.number().nonnegative(),
+  uncertaintyMetres: z.number().positive(),
+  facingError: z.number().min(0).max(Math.PI),
+  pressure: z.number().min(0).max(1),
+});
+export type PassDifficultyProfile = z.infer<typeof passDifficultyProfileSchema>;
+
+/** Shared distribution, before sampling. No distance gate or identity/role utility bonus.
+ * Metres/18 scales continuous range demands; the low end represents poor football competence.
+ * Geometric skill aggregation prevents other good attributes from erasing a missing pass skill. */
+export const derivePassDifficulty = (
+  state: TacticalMatchState,
+  passer: MatchPlayerState,
+  target: PitchPoint,
+  intent: PassLaunchIntent,
+  delivery: PassDelivery,
+  options: { firstTime?: boolean; receiverSpeed?: number } = {},
+): PassDifficultyProfile => {
+  const a = passer.profile.attributes;
+  const distribution =
+    passer.profile.primaryPosition === 'goalkeeper' &&
+    state.restart?.phase === 'setup' &&
+    state.scenario === 'goal_kick';
+  const primary = (distribution ? a.goalkeeperKicking : a.passing) / 100;
+  const ability =
+    Math.pow(primary, 0.65) *
+    Math.pow(a.technique / 100, 0.25) *
+    Math.pow((a.gameReading + a.composure) / 200, 0.1);
+  const dx = target.x - passer.position.x,
+    dy = target.y - passer.position.y;
+  const metres = Math.hypot(dx, dy);
+  const facingError = Math.abs(
+    normalizeAngle(angleForVector({ x: dx, y: dy }) - passer.facingAngle),
+  );
+  const nearest = Math.min(
+    14,
+    ...state.players
+      .filter((p) => p.team !== passer.team)
+      .map((p) => distance(p.position, passer.position)),
+  );
+  const pressure = Math.max(0, 1 - nearest / 14);
+  const lateral = dx * Math.cos(passer.facingAngle) - dy * Math.sin(passer.facingAngle);
+  const weaker = passer.profile.dominantFoot === 'right' ? lateral < -1 : lateral > 1;
+  const incoming = options.firstTime
+    ? 0.3 +
+      Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 55 +
+      (state.ball.height ?? 0) * 0.4
+    : 0;
+  const difficulty =
+    1 +
+    Math.abs(dy) / 50 +
+    (delivery === 'lofted' ? 0.25 : 0) +
+    (intent === 'lead' || intent === 'through' ? 0.2 + (options.receiverSpeed ?? 0) / 24 : 0) +
+    Math.pow(facingError / Math.PI, 2) * 0.75 +
+    pressure * 0.7 +
+    (weaker ? (1 - passer.profile.weakFootProficiency / 100) * 0.2 : 0) +
+    incoming;
+  const rangeDemand = 0.18 + metres * 0.03 + Math.pow(metres / 18, 2) * 0.55;
+  const uncertaintyMetres =
+    0.12 + rangeDemand * (0.09 + Math.pow(1 - ability, 2) / (0.08 + ability)) * difficulty;
+  return passDifficultyProfileSchema.parse({
+    ability,
+    difficulty,
+    uncertaintyMetres,
+    facingError,
+    pressure,
+  });
+};
+
 /** Interprets football intent using the current body and ability; the human never selects a trick.
  * The seed describes this release alone. Neither UI observation nor future receiver motion is RNG. */
 export const interpretPassExecution = (
@@ -40,7 +111,7 @@ export const interpretPassExecution = (
   target: PitchPoint,
   intent: PassLaunchIntent,
   delivery: PassDelivery,
-  options: { firstTime?: boolean; spatial?: boolean } = {},
+  options: { firstTime?: boolean; spatial?: boolean; receiverSpeed?: number } = {},
 ): PassExecution => {
   const a = passer.profile.attributes;
   const metres = distance(passer.position, target);
@@ -78,49 +149,18 @@ export const interpretPassExecution = (
   else if (delivery === 'ground' && weakerSide && facingError > 0.65)
     type =
       a.technique >= 78 && passer.profile.weakFootProficiency < 65 ? 'outside_foot' : 'weak_foot';
-  const awkwardTurn = type === 'turning_pass' ? (facingError / Math.PI) * 0.22 : 0;
-  const weakPenalty =
-    type === 'weak_foot' ? (1 - passer.profile.weakFootProficiency / 100) * 0.12 : 0;
-  const distribution =
-    passer.profile.primaryPosition === 'goalkeeper' &&
-    state.restart?.phase === 'setup' &&
-    state.scenario === 'goal_kick';
   const incomingSpeed = Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0);
   const incomingHeight = state.ball.height ?? 0;
-  const firstTimeDifficulty = options.firstTime
-    ? 0.03 +
-      incomingSpeed / 160 +
-      incomingHeight * 0.12 +
-      (facingError / Math.PI) * 0.14 +
-      Math.max(0, metres - 18) / 240
-    : 0;
-  const quality = Math.max(
-    0.08,
-    Math.min(
-      1,
-      ((distribution ? a.goalkeeperKicking : a.passing) * 2 +
-        a.technique +
-        a.gameReading +
-        a.composure) /
-        500 -
-        pressure * 0.2 -
-        awkwardTurn -
-        weakPenalty -
-        firstTimeDifficulty,
-    ),
-  );
-  // Ordinary feet passing keeps its existing calibration. Spatial/difficult releases reveal
-  // their real accuracy envelope, including touchline exits rather than clipping errors in-bounds.
-  const spread =
-    options.spatial || options.firstTime || intent === 'lead' || distribution
-      ? (0.18 + metres * 0.045) * (1 - quality) +
-        (type === 'turning_pass' || type === 'first_time' ? (1 - quality) * 0.65 : 0)
-      : (0.1 + metres * 0.015) * (1 - quality);
+  const profile = derivePassDifficulty(state, passer, target, intent, delivery, options);
+  const quality = profile.ability / (1 + (profile.difficulty - 1) * 0.25 + metres / 400);
   const rng = RandomGenerator.fromSeed(
     `${state.seed}:pass-execution:${state.decisionIndex}:${passer.id}`,
   );
-  const lateralError = (rng.float() - 0.5) * 2 * spread;
-  const depthError = (rng.float() - 0.5) * spread;
+  // Unbounded Gaussian tails permit occasional perfect connections and occasional elite errors.
+  const radius = Math.sqrt(-2 * Math.log(Math.max(1e-12, rng.float())));
+  const angle = rng.float() * Math.PI * 2;
+  const lateralError = radius * Math.cos(angle) * profile.uncertaintyMetres;
+  const depthError = radius * Math.sin(angle) * profile.uncertaintyMetres * 0.65;
   const length = Math.max(0.001, metres);
   return passExecutionSchema.parse({
     type,

@@ -15,6 +15,7 @@ import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
 import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
 import { applyRestartScenario } from './restartScenarios';
+import { requiresHumanRestart } from './actionAgency';
 import { applyThrowInContact, canContactAfterThrowIn } from './throwIn';
 
 /** Canonical safety net. Presentation normally resolves controlled choices long before this. */
@@ -64,7 +65,7 @@ import {
 import { advanceOnBallPreparation, deriveOnBallPreparation } from './onBallPreparation';
 import { toPitchPoint } from './matchSpace';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
-import { resolveReceptionOutcome } from './passReception';
+import { resolveReceptionOutcome, projectLiveReceptionTarget } from './passReception';
 import { advanceBallAcquisition } from './ballAcquisition';
 import { deriveCarryExecution, hasReachedCarryDecisionWaypoint } from './carryExecution';
 import {
@@ -835,6 +836,7 @@ const stepTacticalMatchCore = (
   decisionAlreadyProjected = false,
 ): TacticalMatchState => {
   input = reconcileHumanPossession(resolvePendingPlayerDecision(input));
+  if (input.restart && requiresHumanRestart(input, input.restart.takerId)) return input;
   if (input.shotAgencyRequest && !input.periodEndPending && projectPlayerDecisionOpportunity(input))
     return input;
   // Recover snapshots whose setup clock was already allowed to overrun (for example by a future
@@ -1130,6 +1132,12 @@ const stepTacticalMatchCore = (
     state.planningSchedule.semanticKey !== semanticKey ||
     state.time - state.planningSchedule.lastTacticalPlanAt >= 0.1 - FIXED_MATCH_DT / 2;
   if (tacticalPlanDue) state.planningSchedule = { lastTacticalPlanAt: state.time, semanticKey };
+  if (tacticalPlanDue && state.receptionPreparation) {
+    const receiver = state.players.find((p) => p.id === state.receptionPreparation!.actorId);
+    const point = receiver && projectLiveReceptionTarget(state, receiver);
+    if (point)
+      state.receptionPreparation = { ...state.receptionPreparation, expectedContactPoint: point };
+  }
   // Formation/pressure plans are stable intentions. Integrate bodies at 40 Hz, but only answer
   // the expensive tactical question at 10 Hz or immediately after a semantic football event.
   const plannedPlayers = tacticalPlanDue ? deriveTacticalTargets(state) : state.players;
@@ -1412,7 +1420,7 @@ const stepTacticalMatchCore = (
       if (!state.ball.shot) {
         const crossing = findPitchBoundaryCrossing(previous, next);
         const contact =
-          !integrated.airborne && nextHeight <= 0.2
+          Math.min(previous.z, nextHeight) <= 0.65
             ? resolveContinuousGroundPassClaim(state, previous, next)
             : undefined;
         if (contact && (!crossing || contact.segmentFraction < crossing.segmentFraction)) {
@@ -1678,7 +1686,9 @@ const stepTacticalMatchCore = (
           ) {
             // A selected receive waits for reachable foot control. A duel recommendation never
             // overrides human intent or manufactures a shooting action outside shared AI ranking.
-            if ((state.ball.height ?? 0) > 1.45) return base;
+            // Waiting for lower control is not a touch. Do not install contact locks
+            // or a fabricated aerial contact: they would block the subsequent real receive.
+            if ((state.ball.height ?? 0) > 1.45) return state;
             return changePossession(base, winner.id, 'claim');
           }
           const target =
@@ -2004,13 +2014,7 @@ const stepTacticalMatchCore = (
             selected &&
             (selected.technique !== 'standing' || (duelDistance < 1.65 && hasChallengeAccess))
           )
-            state = beginDefensiveChallenge(
-              state,
-              selected,
-              challenger.id === state.controlledFootballerId
-                ? 'autonomous_routine'
-                : 'autonomous_npc',
-            );
+            state = beginDefensiveChallenge(state, selected, 'autonomous_npc');
         }
         if (state.defensiveChallenge) break;
       }
@@ -2044,13 +2048,7 @@ const stepTacticalMatchCore = (
         awaitsPlayer || hasActiveHumanPossession(state)
           ? undefined
           : chooseNpcRoutineAction(state, ownerId);
-      const controlled = state.ball.ownerId === state.controlledFootballerId;
-      if (action)
-        state = resolveMatchAction(
-          state,
-          action,
-          controlled ? 'autonomous_routine' : 'autonomous_npc',
-        );
+      if (action) state = resolveMatchAction(state, action, 'autonomous_npc');
     }
     return state;
   } finally {
@@ -2117,6 +2115,7 @@ export const stepTacticalMatch = (
   rawDelta = 0.1,
 ): TacticalMatchState => {
   input = enforceMinimumPlayers(input);
+  if (input.restart && requiresHumanRestart(input, input.restart.takerId)) return input;
   const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
   if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
   const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
@@ -2174,6 +2173,7 @@ export const stepTacticalMatchAfterDecisionProbe = (
   rawDelta = FIXED_MATCH_DT,
 ): TacticalMatchState => {
   input = enforceMinimumPlayers(input);
+  if (input.restart && requiresHumanRestart(input, input.restart.takerId)) return input;
   const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
   if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
   const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;

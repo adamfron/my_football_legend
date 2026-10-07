@@ -31,6 +31,25 @@ export const pressureSupportEpisodeSchema = z.object({
   ),
   secondaryPresser: z.string().nullable(),
   secondaryPresserResponseLatency: z.number().nonnegative().nullable(),
+  optionEvolution: z
+    .array(
+      z.object({
+        at: z.number(),
+        pressure: z.number(),
+        viablePasses: z.number(),
+        viableCarries: z.number(),
+        escape: z.boolean(),
+        pivot: z.boolean(),
+        thirdMan: z.boolean(),
+        width: z.boolean(),
+        reset: z.boolean(),
+        bestAction: z.string(),
+        bestUtility: z.number(),
+        reason: z.string(),
+      }),
+    )
+    .max(64)
+    .optional(),
 });
 export type PressureSupportEpisode = z.infer<typeof pressureSupportEpisodeSchema>;
 
@@ -83,6 +102,7 @@ export class PressureSupportTracker {
         responders: [],
         secondaryPresser: null,
         secondaryPresserResponseLatency: null,
+        optionEvolution: [],
       };
       this.origins = new Map(
         next.players
@@ -185,6 +205,35 @@ export class PressureSupportTracker {
           : this.active.viableOptions === 0
             ? 'no_viable_outlet'
             : 'scanning_or_release_cooldown';
+    const viablePasses = ranking.filter((r) => r.action.type === 'pass' && r.canonicalScore > 20);
+    const offered = (role: string) =>
+      assignments.some(
+        (a) =>
+          a.role === role &&
+          viablePasses.some((r) => r.action.type === 'pass' && r.action.receiverId === a.playerId),
+      );
+    this.active.optionEvolution = [
+      ...(this.active.optionEvolution ?? []),
+      {
+        at: next.time,
+        pressure: next.currentPressure,
+        viablePasses: viablePasses.length,
+        viableCarries: ranking.filter((r) => r.action.type === 'carry' && r.canonicalScore > 20)
+          .length,
+        escape: offered('escape'),
+        pivot: offered('pivot'),
+        thirdMan: offered('third_man'),
+        width: offered('width_run'),
+        reset: viablePasses.some(
+          (r) =>
+            r.action.type === 'pass' &&
+            (actor.team === 'home' ? 1 : -1) * (r.action.target.x - actor.position.x) < -3,
+        ),
+        bestAction: ranking[0]?.action.type ?? 'none',
+        bestUtility: ranking[0]?.canonicalScore ?? 0,
+        reason: this.active.continuedHoldingReason,
+      },
+    ].slice(-64);
   }
   snapshot() {
     return this.episodes.map((e) => ({ ...e }));

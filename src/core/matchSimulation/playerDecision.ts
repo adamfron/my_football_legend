@@ -49,7 +49,7 @@ import { canContactAfterThrowIn } from './throwIn';
 import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { deriveStructuralPosition } from './tacticalPositioning';
 import { arbitrateGoalkeeperClaim } from './goalkeeperClaim';
-import { isShotAction } from './actionAgency';
+import { isShotAction, requiresHumanRestart } from './actionAgency';
 import { enumerateFirstTimePasses } from './firstTimePassing';
 
 export const proxyResolutionStatusSchema = z.enum([
@@ -988,6 +988,7 @@ export const projectPlayerAgency = (
     state.scenario !== 'open_play' &&
     state.restart?.phase === 'setup' &&
     state.restart.takerId === actorId;
+  const mandatoryRestart = requiresHumanRestart(state, actorId);
   if (state.scenario !== 'open_play' && state.restart?.phase !== 'release' && !controlledRestart)
     return blocked('not_open_play');
   const humanPossession = hasActiveHumanPossession(state);
@@ -1098,7 +1099,9 @@ export const projectPlayerAgency = (
     });
   if (controlledRestart) {
     kind = 'restart';
-    options = enumerateRestartActions(state).map((action, index) => ({
+    const actions = enumerateRestartActions(state);
+    const fallback = mandatoryRestart && !actions.length ? chooseRestartAction(state) : undefined;
+    options = (fallback ? [fallback] : actions).map((action, index) => ({
       id: `restart-${index}`,
       kind: 'action' as const,
       labelKey: actionLabel(action),
@@ -1374,7 +1377,7 @@ export const projectPlayerAgency = (
     ...new Set(options.map((option) => derivePlayerChoiceFamily(option, kind))),
   ];
   // A pause must expose a genuine choice. Single low-value prompts remain autonomous.
-  if (!mandatoryShot && countSemanticPlayerChoices(options, kind) < 2)
+  if (!mandatoryShot && !mandatoryRestart && countSemanticPlayerChoices(options, kind) < 2)
     return blocked('single_option_autonomy', {
       ...context,
       opportunityKind: kind,
@@ -1385,6 +1388,7 @@ export const projectPlayerAgency = (
     kind === 'on_ball' && state.postActionAgencyCheckpoint?.actorId === actorId;
   if (
     !mandatoryShot &&
+    !mandatoryRestart &&
     !postActionCheckpoint &&
     !redecisionReason &&
     gate.lastSituationSignature === signature
@@ -1410,6 +1414,7 @@ export const projectPlayerAgency = (
     !redecisionReason &&
     !absoluteOwnershipRequired &&
     !mandatoryShot &&
+    !mandatoryRestart &&
     gate.lastResolvedAt !== undefined &&
     state.time - gate.lastResolvedAt < 1.5
   )
@@ -1453,7 +1458,7 @@ export const projectPlayerAgency = (
           }),
       ).size
     : countSemanticPlayerChoices(options, kind);
-  if (!mandatoryShot && choices < 2)
+  if (!mandatoryShot && !mandatoryRestart && choices < 2)
     return blocked(choices === 1 ? 'single_option_autonomy' : 'no_contextual_interactions', {
       ...context,
       opportunityKind: kind,
@@ -1540,7 +1545,8 @@ export const applyPlayerDecision = (
     return state;
   if (
     state.playerDecisionGate?.lastSituationSignature === opportunity.signature &&
-    opportunity.triggerReason !== 'human_shot_selection_required'
+    opportunity.triggerReason !== 'human_shot_selection_required' &&
+    !requiresHumanRestart(state, opportunity.actorId)
   )
     return state;
   const option = opportunity.options.find((candidate) => candidate.id === optionId);
@@ -1627,6 +1633,13 @@ export const resolveDevPlayerDecision = (
   state: TacticalMatchState,
   opportunity: PlayerDecisionOpportunity,
 ): ProxyResolutionResult => {
+  if (requiresHumanRestart(state, opportunity.actorId))
+    return {
+      state,
+      status: 'no_legal_action',
+      opportunityKind: opportunity.kind,
+      reason: 'human_restart_selection_required',
+    };
   if (
     state.status === 'abandoned' ||
     state.status === 'half_time' ||
@@ -1635,7 +1648,8 @@ export const resolveDevPlayerDecision = (
     opportunity.actorId !== state.controlledFootballerId ||
     opportunity.openedAt !== state.time ||
     (state.playerDecisionGate?.lastSituationSignature === opportunity.signature &&
-      opportunity.triggerReason !== 'human_shot_selection_required') ||
+      opportunity.triggerReason !== 'human_shot_selection_required' &&
+      !requiresHumanRestart(state, opportunity.actorId)) ||
     !state.players.some((player) => player.id === opportunity.actorId)
   )
     return {

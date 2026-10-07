@@ -12,6 +12,66 @@ import { angleForVector, normalizeAngle } from './playerOrientation';
 import { projectReceiverReadiness, receiverReadinessProjectionSchema } from './receiverReadiness';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { projectLocomotion } from './locomotion';
+import { projectFutureBallTrajectory } from './ballPhysics';
+
+/** An aware receiver meets the actual flight, including execution error. The release-time
+ * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
+ * Use the canonical integrator/arrival estimator, never move a body or ball to this forecast. */
+export const projectLiveReceptionTarget = (
+  state: TacticalMatchState,
+  receiver: MatchPlayerState,
+): PitchPoint | undefined => {
+  if (
+    state.ball.ownerId ||
+    !state.ball.velocity ||
+    !state.receptionPreparation ||
+    state.time < state.receptionPreparation.awarenessAt
+  )
+    return undefined;
+  if (state.scenario === 'throw_in') return undefined;
+  const desired =
+    state.lastPassDiagnostic?.intendedReceiverId === receiver.id
+      ? state.lastPassDiagnostic.predictedReceptionPoint
+      : state.receptionPreparation.expectedContactPoint;
+  const horizon = Math.min(
+    3,
+    Math.max(0.3, state.receptionPreparation.expectedArrivalTime - state.time + 1),
+  );
+  const samples = projectFutureBallTrajectory(
+    {
+      position: { x: state.ball.x, y: state.ball.y, z: state.ball.height ?? 0.11 },
+      velocity: {
+        x: state.ball.velocity.x,
+        y: state.ball.velocity.y,
+        z: state.ball.velocity.z ?? 0,
+      },
+      airborne: state.ball.airborne ?? false,
+      bounceCount: state.ball.bounceCount ?? 0,
+    },
+    horizon,
+    0.1,
+  );
+  let target: PitchPoint | undefined,
+    bestCost = Infinity;
+  for (const sample of samples) {
+    const point = pitchPointSchema.safeParse(sample.ball.position);
+    if (!point.success) break;
+    // Adjust the meeting location rather than chasing the earliest estimated intercept.
+    // The latter ignores braking/body orientation and can pull a prepared receiver away
+    // from a perfectly reachable delivery. Actual contact height/reach remains canonical.
+    // A receive objective prepares reachable low control. Chasing a head-height
+    // sample can strand the receiver behind the descending ball, even on an accurate pass.
+    if (sample.ball.position.z > 0.65) continue;
+    const cost =
+      distance(point.data, desired) +
+      Math.abs(state.time + sample.at - state.receptionPreparation.expectedArrivalTime) * 0.2;
+    if (cost < bestCost) {
+      bestCost = cost;
+      target = point.data;
+    }
+  }
+  return target;
+};
 
 /** Seconds/metres: bounded receiver continuation, shared by lead and through options. */
 export const PASS_MEETING_CALIBRATION = Object.freeze({
