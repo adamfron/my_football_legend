@@ -45,10 +45,19 @@ const makeState = (controlled = true) => {
       (p) => p.team === 'home' && p.profile.primaryPosition !== 'goalkeeper',
     )!;
     state.controlledFootballerId = actor.id;
-    actor.position = { x: 85, y: 34 };
+    // The presentation parity test starts with a credible close-range human choice.
+    actor.position = { x: 94, y: 34 };
     state.ball = { ...actor.position, ownerId: actor.id };
     state.possessionTeam = 'home';
-    state.players.find((p) => p.team === 'away')!.position = { x: 85.5, y: 34 };
+    state.players.find(
+      (p) => p.team === 'away' && p.profile.primaryPosition === 'goalkeeper',
+    )!.position = { x: 103, y: 34 };
+    state.players.find(
+      (p) => p.team === 'away' && p.profile.primaryPosition !== 'goalkeeper',
+    )!.position = {
+      x: 92.5,
+      y: 34,
+    };
   }
   return state;
 };

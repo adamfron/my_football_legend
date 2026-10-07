@@ -1,4 +1,68 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR156
+# Audyt silnika meczu — PR140 / aktualizacja PR157
+
+## PR157 — dynamic pressing and shooting calibration (validated; calibration limits remain)
+
+`derivePressingPlan` projects contain/screen/engage/emergency intentions from attributes,
+cover, control exposure, discipline and threat. Engage approaches the exposed ball shoulder;
+containment preserves space deliberately. Aggression affects commitment/recruitment/technique,
+never the quality of an identical physical challenge. Existing episode locks still prevent re-arm spam.
+`onBallPreparation.ts` and `carryExecution.ts` respond to an arriving defender's predicted
+trajectory through ordinary locomotion. Local support and smaller remote block shifts use
+the existing tactical architecture; no movement timer forces a release or tackle.
+
+Confirmed defects: the shield-only 0.72 m eligibility guard could not be reached under
+1.15 m body separation and 0.32–0.38 m ball offset, despite the shared 0.95 m resolver reach;
+keeper Positioning leaked into the shooter's pressure/trajectory; and a rejected controlled
+shot proposal initialized or pruned the canonical action ledger. The first is corrected by
+consistent eligibility/approach geometry, the second by geometric shooting pressure,
+the third by preserving the entire football state when only `shotAgencyRequest` is created.
+The shooting lab additionally exposed an x-only extension that shifted angled rays at the
+goal plane, missing shot results when the touchline was crossed first, and generated headers
+defaulting to the keeper's central path. Ray continuation now preserves the sampled aim;
+earliest-boundary resolution records the shot once without overwriting an earlier same-shot
+save/block. Generated headers use the existing geometry-based placed target, while explicit
+human targets remain authoritative.
+Exploratory native full matches also exposed excessive committed selection (83 fouls in one
+seed). Final selection prioritises an attainable standing poke and forecasts exposed ball/body
+geometry at the existing committed/slide preparation times. The shared resolver quality and
+discipline remain unchanged; the final full-match matrix, rather than a foul quota, verifies it.
+
+`shootingDifficulty.ts` supplies continuous target-plane uncertainty for distance, angle,
+pressure, orientation, weak foot, moving/airborne contact, visible goal area and blockers.
+Finishing/Heading, Technique, Composure and Agility answer different demands. The low end
+has broad finite error; maximum skill retains uncertainty. Expected placement is an RNG-free
+selection approximation. Goals/saves still require the common flight/contact pipeline.
+
+`pressingDiagnostics.ts` observes approach → contain/screen → contact/escape/release →
+handoff/recovery. Static-pressure counts require controlled close possession (≤2.6 m),
+both actor speeds and actual ball motion relative to the body <0.35 m/s, and ≥2 s without
+a sampled meaningful solution change. Assignment
+is refreshed at 4 Hz; expensive option/geometry/evolution probes run at 1 Hz, while speeds
+and action/carry-mode/microphase changes are observed every 25 ms; a decision-index increment
+alone does not reset stationarity. It retains ≤256 episodes ×8 samples plus
+a 241-bin duration histogram (one-second bins; final bucket covers ≥240 s). Observer
+timers and counters never feed the engine. Extra independently seeded diagnostic rankings
+are distinguished from canonical engine RNG draws in integrity evidence.
+
+The benchmark separates execution, projected/public on-target outcome, keeper intervention
+and goals. Full verification passed: lint, 1215 main tests/156 files, 5 career tests and build;
+four new benchmark scripts pass strict TypeScript. Final integrity preserves 66 disabled
+identities, 124,345 enabled pre-decision ticks and normal/DEV/capture canonical/RNG parity;
+144 blocked controlled shot proposals consume zero RNG.
+
+Twelve paired 90-minute matches per revision use the same corrected observer: static episodes
+164/13,126 (1.25%) → 10/16,243 (0.062%). This remains a bounded diagnostic improvement.
+Attempts 1,112→4,207, shots 214→74, high-pressure stationary time 1,824.81→3,327.01 s and shielding
+4,390.15→13,016.69 s expose remaining density/selection/passivity weaknesses. Central save
+saturation, easy open goals, close/chip geometry and wall blocks also remain calibration limits.
+No league-realism conclusion follows. Six alternating 600-second runs (three pairs) show a
+median runtime ratio 1.00754 (~+0.75%) without rendering or simulation-frequency changes.
+Compact evidence: [flow](performance/PR157-flow-summary.json),
+[integrity](performance/PR157-integrity-summary.json), [performance](performance/PR157-performance.json).
+Measurements, reproduction and unresolved limits belong to
+[PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md](PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md).
+Next: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries, Substitutions &
+Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR156 — integrity and difficulty calibration
 
@@ -58,7 +122,7 @@ celu/idealnego celu i zerowej prędkości. Wywołują go granice boiska, strzał
 koniec 0,55-sekundowego interwału gola, faul/korzyść, spalony, zmiana wykonawcy po kartce,
 druga połowa i jawny wybór scenariusza DEV. Dokładna mapa, testy, wyniki i ograniczenia:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
-Następny zakres: **PR157 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
+Następny zakres po kalibracji PR157: **PR158 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
 pozostaje poza PR152.
 
 PR151: ograniczona pamięć zagrożeń należy do core i wpływa na istniejące cele bloku,

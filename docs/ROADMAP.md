@@ -17,7 +17,11 @@ i kalibrację dyscypliny. PR154 rozwija sytuacyjną inteligencję, atrybuty oraz
 PR155 stabilizuje własność strzału człowieka, wspólne podanie z pierwszej piłki,
 kanoniczne opanowanie luźnej piłki oraz geometrię wsparcia i połączenia pomocy.
 PR156 dodaje integralność sprawczości, trudność podań, diagnostykę centralnych połączeń i przepływu.
-Nie wdraża pełnej choreografii wznowień. Dokumenty wyników:
+PR157 rozwija dynamiczne intencje pressingu, fizyczną reakcję posiadacza i kalibrację
+strzałów według umiejętności × ciągłej trudności. Implementacja i wymagana walidacja PR157
+są zakończone; pełna choreografia
+wznowień i bogatsze menu wolnych należą do PR158. Dokumenty wyników:
+[PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md](PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md),
 [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md),
 [PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md),
 [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md),
@@ -227,9 +231,30 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - audyt resetów pozycji, bez implementowania kolejnej fazy wizualnej:
   [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
+### CURRENT — PR157 (implementacja i walidacja zakończone)
+
+**PR157 — Dynamic Pressing, Ball-Carrier Response & Shooting Difficulty Calibration**
+
+- reprodukcja statycznego pressingu i ograniczona obserwacja całego epizodu;
+- obserwator: przypisanie 4 Hz, opcje/geometria/ewolucja 1 Hz, prędkości i istotne zmiany akcji co 25 ms;
+- contain/screen/engage/emergency, agresja jako zaangażowanie, kontekstowe ryzyko kartki;
+- dojście do dostępnej piłki, reakcja posiadacza na pęd rywala i lokalne przesunięcia zespołów;
+- ciągła trudność strzału, izolacja atrybutów, fizyczny lejek strzału/bramkarza i istniejące wolne;
+- deterministyczne macierze before/after, wydajność oraz kontrakty sprawczości PR155/PR156;
+- brak pełnej choreografii wznowień, nowych menu wolnych, kondycji i przebudowy prezentacji.
+
+Walidacja: `npm run verify` (lint, 1215 testów głównych +5 kariery, build), ścisły TypeScript
+czterech benchmarków, 66 porównań tożsamości i 144 odrzucone propozycje strzału bez RNG.
+Pełny przepływ 24 meczów: statyczne epizody 164/13126→10/16243; mediana kosztu symulacji
+około +0,75% w 3 sparowanych pomiarach 600 s. Pozostają większa gęstość prób odbioru
+(1112→4207), mniej strzałów (214→74), więcej stania pod dużą presją i osłaniania oraz
+nasycone geometrie strzału/bramkarza. Nie jest to potwierdzenie realizmu ani uzasadnienie
+statystycznych celów. [Przepływ](performance/PR157-flow-summary.json),
+[integralność](performance/PR157-integrity-summary.json), [wydajność](performance/PR157-performance.json).
+
 ### NEXT
 
-**PR157 — Dead Ball & Restart Continuity**
+**PR158 — Dead Ball & Restart Continuity**
 
 - fizyczne przejście z bieżących pozycji do legalnego ustawienia wznowienia;
 - stan reakcji po golu i wybór celebracji albo pilnego wznowienia według wyniku/czasu;
@@ -237,18 +262,19 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - gotowość wznowienia oparta na pozycjach i dostępności piłki;
 - fundament doliczonego czasu oparty na kanonicznych przerwach.
 
-Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR154 nie implementuje pełnej ciągłości wznowień.
+Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR157 kalibruje istniejącą
+fizykę wolnego, ale nie implementuje pełnej ciągłości wznowień ani menu technik PR158.
 
 Po ciągłości wznowień:
 
-**PR158 — Fatigue, Injuries, Substitutions & Added Time**
+**PR159 — Fatigue, Injuries, Substitutions & Added Time**
 
 - kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
 - kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
 - ryzyko urazów, doliczony czas i decyzje zmian, oparte na tym samym obciążeniu człowieka i NPC;
 - integracja kariery i kalibracja deterministycznych pełnych meczów, bez maskowania rytmu kwotami.
 
-**PR159 — Match Presentation / Replay / Stadium Polish**: filmowe powtórki, finalne animacje,
+**PR160 — Match Presentation / Replay / Stadium Polish**: filmowe powtórki, finalne animacje,
 parametryczne stadiony. Później: duża kalibracja lig, świadomy wybór piętki i
 parametryczne stadiony z trwałą tożsamością klubu. Stadion pozostaje kosmetyczny; PR149 nie
 wdraża jego geometrii ani sztuki.

@@ -320,7 +320,12 @@ describe('PR147 one canonical physical defence resolver', () => {
     ).toMatchObject({ defensiveChallenge: { technique: 'tactical', source: 'autonomous_npc' } });
   });
   it('NPC high-risk intent enters the same canonical physical resolver', () => {
-    const { state, defender } = fixture();
+    const { state, defender, attacker } = fixture();
+    // The ball is outside a comfortable immediate poke and moving across the press.
+    // A reachable standing contact must take precedence over an intentional foul.
+    state.ball.x = 22.9;
+    defender.velocity = { x: 4, y: 0 };
+    attacker.velocity = { x: 0, y: 3 };
     const action = chooseNpcDefensiveChallengeAction(state, defender.id)!;
     expect(action.technique).toBe('tactical');
     const npc = beginDefensiveChallenge(state, action, 'autonomous_npc');

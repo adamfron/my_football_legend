@@ -13,7 +13,11 @@ import {
 import type { MatchPlayerState, TacticalMatchState, TacticalStyle } from './matchState';
 import { restartInfluence } from './restartGeometry';
 import { deriveGoalkeeperBasePosition } from './goalkeeperPositioning';
-import { deriveCooperativePress, protectedPressReceiver } from './defensiveChallenges';
+import {
+  deriveCooperativePress,
+  derivePressingPlan,
+  protectedPressReceiver,
+} from './defensiveChallenges';
 import { deriveBuildUpReliefWeight, threatChannel } from './teamThreatMemory';
 
 export interface TacticalStyleParameters {
@@ -761,15 +765,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
         } else if (assignment.primary === player.id) {
           const commits =
             distance(player.position, carrier.position) <= 10 + parameters.pressing * 8;
-          const screens =
-            ['striker', 'left_winger', 'right_winger'].includes(player.slot.position) &&
-            player.profile.attributes.tackling < 58 &&
-            (carrier.team === 'home' ? carrier.position.x : 105 - carrier.position.x) < 78 &&
-            distance(carrier.position, state.ball) < 1.1;
-          const approach = {
-            x: carrier.position.x - dir * (screens ? 2.15 : 0.8 + (1 - parameters.pressing) * 0.6),
-            y: carrier.position.y + (screens ? (34 - carrier.position.y) * 0.08 : 0),
-          };
+          const approach = derivePressingPlan(state, player.id)?.target ?? carrier.position;
           ideal = commits
             ? approach
             : {
@@ -788,6 +784,14 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
             x: lerp(ideal.x, (carrier.position.x + 52.5) / 2, 0.16 * local),
             y: lerp(ideal.y, carrier.position.y, 0.16 * local),
           };
+        else {
+          // Smaller remote shifts preserve the block while the local duel changes.
+          const compression = local * 0.075;
+          ideal = {
+            x: lerp(ideal.x, carrier.position.x - dir * 9, compression),
+            y: lerp(ideal.y, carrier.position.y, compression),
+          };
+        }
       }
     }
     const supportAssignment = buildUpSupport[player.team].find(

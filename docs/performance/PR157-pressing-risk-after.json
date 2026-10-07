@@ -1,0 +1,1871 @@
+{
+  "version": 1,
+  "engineRoot": "C:\\Users\\Admin\\Documents\\Codex\\2026-10-07\\cz\\work\\mfl",
+  "configuration": {
+    "repetitions": 32,
+    "seconds": 6
+  },
+  "selectedContexts": [
+    "emergency_run",
+    "booked_emergency",
+    "tactical_break",
+    "immediate_dogso",
+    "late_trailing"
+  ],
+  "definitions": {
+    "pairedSeeds": "Seed depends only on repetition, never attribute/context.",
+    "fixture": "22 canonical players, 6 seconds by default; scanning fixtures hold decision cooldown to isolate physical movement; release context permits normal NPC choices.",
+    "static": "Both actors <0.25m/s within2.5m, controlled ball relative speed<0.3m/s, no challenge/action/intent/phase change or target/ball displacement>0.35m, for>=1 continuous second. Diagnostic only.",
+    "structuralFailures": "0.5-second samples with any advanced central attacker >8m from nearest outfield defender; not attribution of a conceded chance.",
+    "fixedContact": "Forced standing action at identical reachable geometry; aggression is excluded from resolver quality.",
+    "supportDistance": "Cumulative actual movement of local attacking teammates, not a claimed response latency.",
+    "acceleration": "Model has no separate acceleration or balance attribute. Pace/agility/strength sweeps affect derived physical acceleration; agility represents body recovery.",
+    "cards": "Actual canonical issued card identities during the episode; pending cards remain pending."
+  },
+  "cells": [
+    {
+      "id": "context:late_trailing:aggression:30",
+      "context": "late_trailing",
+      "defender": {
+        "aggression": 30
+      },
+      "attempts": 32,
+      "challengeAttempts": 0,
+      "challengeFrequency": 0,
+      "bodyContacts": 0,
+      "cleanWins": 0,
+      "looseBalls": 0,
+      "beaten": 0,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 32,
+      "stationarySeconds": 125.925,
+      "outcomes": {
+        "static": 32
+      },
+      "techniques": {},
+      "intentionSeconds": {
+        "contain": 192
+      },
+      "minDistance": 2.205915,
+      "engagementSpeed": null,
+      "approachTime": 1.803125,
+      "containmentSeconds": 6,
+      "carrierMovingSeconds": 1.025,
+      "carrierDistance": 0.635527,
+      "supportDistance": 13.593597,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 5.044721,
+          "actorSpeed": 0,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 0.1625,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 85.1484,
+            "y": 34
+          },
+          "intention": "contain",
+          "pressure": 0.38771,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "controlling",
+          "support": []
+        },
+        {
+          "at": 5.525,
+          "metres": 2.206974,
+          "actorSpeed": 0,
+          "defenderSpeed": 0,
+          "relativeSpeed": 0,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 85.242674,
+            "y": 33.406072
+          },
+          "intention": "contain",
+          "pressure": 0.508763,
+          "challengeOptions": [
+            "standing",
+            "committed"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "scanning",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 79.094274,
+                "y": 43.371505
+              }
+            },
+            {
+              "role": "third_man",
+              "target": {
+                "x": 92.094274,
+                "y": 47
+              }
+            },
+            {
+              "role": "width_run",
+              "target": {
+                "x": 99.094274,
+                "y": 59
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:late_trailing:aggression:60",
+      "context": "late_trailing",
+      "defender": {
+        "aggression": 60
+      },
+      "attempts": 32,
+      "challengeAttempts": 32,
+      "challengeFrequency": 1,
+      "bodyContacts": 32,
+      "cleanWins": 17,
+      "looseBalls": 1,
+      "beaten": 14,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 14,
+      "stationarySeconds": 41.6,
+      "outcomes": {
+        "static": 14,
+        "loose_ball": 1,
+        "successful_tackle": 17
+      },
+      "techniques": {
+        "standing": 32
+      },
+      "intentionSeconds": {
+        "engage": 46.95,
+        "contain": 64
+      },
+      "minDistance": 1.139451,
+      "engagementSpeed": 1.220316,
+      "approachTime": 0.979687,
+      "containmentSeconds": 2,
+      "carrierMovingSeconds": 1.246875,
+      "carrierDistance": 0.889124,
+      "supportDistance": 5.942984,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 5.044703,
+          "actorSpeed": 0,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 0.1625,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 84.12,
+            "y": 34
+          },
+          "intention": "engage",
+          "pressure": 0.401231,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "controlling",
+          "support": []
+        },
+        {
+          "at": 5.525,
+          "metres": 1.934487,
+          "actorSpeed": 0,
+          "defenderSpeed": 0,
+          "relativeSpeed": 0,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 85.074802,
+            "y": 33.402627
+          },
+          "intention": "contain",
+          "pressure": 0.53433,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "recover_duel",
+          "carrierIntent": "scanning",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 79.080002,
+                "y": 43.367859
+              }
+            },
+            {
+              "role": "third_man",
+              "target": {
+                "x": 92.080002,
+                "y": 47
+              }
+            },
+            {
+              "role": "width_run",
+              "target": {
+                "x": 99.080002,
+                "y": 59
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:late_trailing:aggression:90",
+      "context": "late_trailing",
+      "defender": {
+        "aggression": 90
+      },
+      "attempts": 32,
+      "challengeAttempts": 32,
+      "challengeFrequency": 1,
+      "bodyContacts": 32,
+      "cleanWins": 19,
+      "looseBalls": 1,
+      "beaten": 12,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 12,
+      "stationarySeconds": 37.15,
+      "outcomes": {
+        "static": 12,
+        "loose_ball": 1,
+        "successful_tackle": 19
+      },
+      "techniques": {
+        "standing": 32
+      },
+      "intentionSeconds": {
+        "emergency": 47.025,
+        "contain": 54.8
+      },
+      "minDistance": 1.1398,
+      "engagementSpeed": 1.205314,
+      "approachTime": 0.979687,
+      "containmentSeconds": 1.7125,
+      "carrierMovingSeconds": 1.195312,
+      "carrierDistance": 0.860007,
+      "supportDistance": 5.095323,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 5.044703,
+          "actorSpeed": 0,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 0.1625,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 84.12,
+            "y": 34
+          },
+          "intention": "emergency",
+          "pressure": 0.414731,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "controlling",
+          "support": []
+        },
+        {
+          "at": 5.525,
+          "metres": 1.786346,
+          "actorSpeed": 0,
+          "defenderSpeed": 0,
+          "relativeSpeed": 0,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 84.919762,
+            "y": 33.402125
+          },
+          "intention": "contain",
+          "pressure": 0.55439,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "recover_duel",
+          "carrierIntent": "scanning",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 79.078562,
+                "y": 43.367328
+              }
+            },
+            {
+              "role": "third_man",
+              "target": {
+                "x": 92.078562,
+                "y": 47
+              }
+            },
+            {
+              "role": "width_run",
+              "target": {
+                "x": 99.078562,
+                "y": 59
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:emergency_run:aggression:30",
+      "context": "emergency_run",
+      "defender": {
+        "tackling": 90,
+        "positioning": 90,
+        "gameReading": 90,
+        "composure": 10,
+        "aggression": 30
+      },
+      "attempts": 32,
+      "challengeAttempts": 36,
+      "challengeFrequency": 1,
+      "bodyContacts": 36,
+      "cleanWins": 24,
+      "looseBalls": 6,
+      "beaten": 6,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 24,
+        "active_containment": 2,
+        "loose_ball": 6
+      },
+      "techniques": {
+        "slide": 36
+      },
+      "intentionSeconds": {
+        "engage": 32.325,
+        "contain": 15.975
+      },
+      "minDistance": 1.059139,
+      "engagementSpeed": 5.066501,
+      "approachTime": 0.678906,
+      "containmentSeconds": 0.499219,
+      "carrierMovingSeconds": 1.485938,
+      "carrierDistance": 3.860171,
+      "supportDistance": 0,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959885,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.608592,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 86.289274,
+            "y": 34.049447
+          },
+          "intention": "engage",
+          "pressure": 0.431966,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        },
+        {
+          "at": 0.525,
+          "metres": 2.906576,
+          "actorSpeed": 3.086512,
+          "defenderSpeed": 3.035848,
+          "relativeSpeed": 4.558648,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 87.157785,
+            "y": 36.089797
+          },
+          "intention": "engage",
+          "pressure": 0.59722,
+          "challengeOptions": [
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        }
+      ]
+    },
+    {
+      "id": "context:emergency_run:aggression:60",
+      "context": "emergency_run",
+      "defender": {
+        "tackling": 90,
+        "positioning": 90,
+        "gameReading": 90,
+        "composure": 10,
+        "aggression": 60
+      },
+      "attempts": 32,
+      "challengeAttempts": 36,
+      "challengeFrequency": 1,
+      "bodyContacts": 36,
+      "cleanWins": 24,
+      "looseBalls": 7,
+      "beaten": 5,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 24,
+        "loose_ball": 7,
+        "active_containment": 1
+      },
+      "techniques": {
+        "slide": 36
+      },
+      "intentionSeconds": {
+        "emergency": 32.525,
+        "contain": 14.8
+      },
+      "minDistance": 1.059089,
+      "engagementSpeed": 5.07358,
+      "approachTime": 0.678906,
+      "containmentSeconds": 0.4625,
+      "carrierMovingSeconds": 1.453906,
+      "carrierDistance": 3.791163,
+      "supportDistance": 0,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959885,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.608592,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 86.289274,
+            "y": 34.049447
+          },
+          "intention": "emergency",
+          "pressure": 0.445466,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        },
+        {
+          "at": 0.525,
+          "metres": 2.906576,
+          "actorSpeed": 3.086512,
+          "defenderSpeed": 3.035848,
+          "relativeSpeed": 4.558648,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 87.157785,
+            "y": 36.089797
+          },
+          "intention": "emergency",
+          "pressure": 0.61072,
+          "challengeOptions": [
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        }
+      ]
+    },
+    {
+      "id": "context:emergency_run:aggression:90",
+      "context": "emergency_run",
+      "defender": {
+        "tackling": 90,
+        "positioning": 90,
+        "gameReading": 90,
+        "composure": 10,
+        "aggression": 90
+      },
+      "attempts": 32,
+      "challengeAttempts": 36,
+      "challengeFrequency": 1,
+      "bodyContacts": 36,
+      "cleanWins": 24,
+      "looseBalls": 7,
+      "beaten": 5,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 24,
+        "active_containment": 1,
+        "loose_ball": 7
+      },
+      "techniques": {
+        "slide": 36
+      },
+      "intentionSeconds": {
+        "emergency": 32.8,
+        "contain": 15.375
+      },
+      "minDistance": 1.059045,
+      "engagementSpeed": 5.040912,
+      "approachTime": 0.678906,
+      "containmentSeconds": 0.480469,
+      "carrierMovingSeconds": 1.476563,
+      "carrierDistance": 3.813185,
+      "supportDistance": 0,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959885,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.608592,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 86.289274,
+            "y": 34.049447
+          },
+          "intention": "emergency",
+          "pressure": 0.458966,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        },
+        {
+          "at": 0.525,
+          "metres": 2.906576,
+          "actorSpeed": 3.086512,
+          "defenderSpeed": 3.035848,
+          "relativeSpeed": 4.558648,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 87.157785,
+            "y": 36.089797
+          },
+          "intention": "emergency",
+          "pressure": 0.62422,
+          "challengeOptions": [
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        }
+      ]
+    },
+    {
+      "id": "context:booked_emergency:aggression:30",
+      "context": "booked_emergency",
+      "defender": {
+        "tackling": 90,
+        "positioning": 90,
+        "gameReading": 90,
+        "composure": 10,
+        "aggression": 30
+      },
+      "attempts": 32,
+      "challengeAttempts": 33,
+      "challengeFrequency": 1,
+      "bodyContacts": 33,
+      "cleanWins": 23,
+      "looseBalls": 8,
+      "beaten": 1,
+      "fouls": 1,
+      "cards": 1,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 23,
+        "loose_ball": 8,
+        "presser_sent_off": 1
+      },
+      "techniques": {
+        "standing": 33
+      },
+      "intentionSeconds": {
+        "contain": 62.025,
+        "engage": 27.3
+      },
+      "minDistance": 1.195746,
+      "engagementSpeed": 2.103997,
+      "approachTime": 0.971875,
+      "containmentSeconds": 1.938281,
+      "carrierMovingSeconds": 2.766406,
+      "carrierDistance": 6.663889,
+      "supportDistance": 10.835731,
+      "secondarySeconds": 0,
+      "structuralFailures": 1,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959981,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.601076,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 87.336874,
+            "y": 34.049447
+          },
+          "intention": "contain",
+          "pressure": 0.431852,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        },
+        {
+          "at": 2.525,
+          "metres": 1.326005,
+          "actorSpeed": 1.23322,
+          "defenderSpeed": 0.155975,
+          "relativeSpeed": 1.387984,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 89.706578,
+            "y": 33.254742
+          },
+          "intention": "engage",
+          "pressure": 0.592024,
+          "challengeOptions": [
+            "standing",
+            "committed",
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 84.512534,
+                "y": 44.174528
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:booked_emergency:aggression:60",
+      "context": "booked_emergency",
+      "defender": {
+        "tackling": 90,
+        "positioning": 90,
+        "gameReading": 90,
+        "composure": 10,
+        "aggression": 60
+      },
+      "attempts": 32,
+      "challengeAttempts": 35,
+      "challengeFrequency": 1,
+      "bodyContacts": 35,
+      "cleanWins": 24,
+      "looseBalls": 6,
+      "beaten": 4,
+      "fouls": 1,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 24,
+        "loose_ball": 6,
+        "active_containment": 2
+      },
+      "techniques": {
+        "standing": 35
+      },
+      "intentionSeconds": {
+        "engage": 68.375,
+        "contain": 13.35
+      },
+      "minDistance": 1.131608,
+      "engagementSpeed": 3.655613,
+      "approachTime": 0.678906,
+      "containmentSeconds": 0.417187,
+      "carrierMovingSeconds": 2.521094,
+      "carrierDistance": 6.065752,
+      "supportDistance": 0,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959885,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.608592,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 86.289274,
+            "y": 34.049447
+          },
+          "intention": "engage",
+          "pressure": 0.445466,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        },
+        {
+          "at": 2.025,
+          "metres": 1.232408,
+          "actorSpeed": 1.426774,
+          "defenderSpeed": 3.774969,
+          "relativeSpeed": 3.50508,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 88.990248,
+            "y": 33.889224
+          },
+          "intention": "engage",
+          "pressure": 0.638009,
+          "challengeOptions": [
+            "standing",
+            "committed",
+            "slide",
+            "tactical"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        }
+      ]
+    },
+    {
+      "id": "context:booked_emergency:aggression:90",
+      "context": "booked_emergency",
+      "defender": {
+        "tackling": 90,
+        "positioning": 90,
+        "gameReading": 90,
+        "composure": 10,
+        "aggression": 90
+      },
+      "attempts": 32,
+      "challengeAttempts": 36,
+      "challengeFrequency": 1,
+      "bodyContacts": 36,
+      "cleanWins": 23,
+      "looseBalls": 8,
+      "beaten": 5,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 23,
+        "loose_ball": 8,
+        "active_containment": 1
+      },
+      "techniques": {
+        "slide": 36
+      },
+      "intentionSeconds": {
+        "emergency": 32.625,
+        "contain": 14.8
+      },
+      "minDistance": 1.059094,
+      "engagementSpeed": 5.073257,
+      "approachTime": 0.678906,
+      "containmentSeconds": 0.4625,
+      "carrierMovingSeconds": 1.457813,
+      "carrierDistance": 3.800813,
+      "supportDistance": 0,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959885,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.608592,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 86.289274,
+            "y": 34.049447
+          },
+          "intention": "emergency",
+          "pressure": 0.458966,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        },
+        {
+          "at": 0.525,
+          "metres": 2.906576,
+          "actorSpeed": 3.086512,
+          "defenderSpeed": 3.035848,
+          "relativeSpeed": 4.558648,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 87.157785,
+            "y": 36.089797
+          },
+          "intention": "emergency",
+          "pressure": 0.62422,
+          "challengeOptions": [
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "dribble",
+          "support": []
+        }
+      ]
+    },
+    {
+      "id": "context:tactical_break:aggression:30",
+      "context": "tactical_break",
+      "defender": {
+        "aggression": 30
+      },
+      "attempts": 32,
+      "challengeAttempts": 13,
+      "challengeFrequency": 0.40625,
+      "bodyContacts": 13,
+      "cleanWins": 6,
+      "looseBalls": 2,
+      "beaten": 5,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "active_containment": 24,
+        "successful_tackle": 6,
+        "loose_ball": 2
+      },
+      "techniques": {
+        "standing": 13
+      },
+      "intentionSeconds": {
+        "contain": 188.425
+      },
+      "minDistance": 1.329623,
+      "engagementSpeed": 1.586491,
+      "approachTime": 0.944531,
+      "containmentSeconds": 5.888281,
+      "carrierMovingSeconds": 5.882031,
+      "carrierDistance": 11.573935,
+      "supportDistance": 21.83294,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959935,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.604334,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 75.032637,
+            "y": 34.03807
+          },
+          "intention": "contain",
+          "pressure": 0.391407,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "wait_for_touch",
+          "carrierIntent": "dribble",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 68.08623,
+                "y": 44.003859
+              }
+            }
+          ]
+        },
+        {
+          "at": 5.525,
+          "metres": 1.145255,
+          "actorSpeed": 1.620522,
+          "defenderSpeed": 1.156,
+          "relativeSpeed": 2.591615,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 85.312664,
+            "y": 40.081019
+          },
+          "intention": "contain",
+          "pressure": 0.555782,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "recover_duel",
+          "carrierIntent": "dribble",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 79.386674,
+                "y": 50.7569
+              }
+            },
+            {
+              "role": "third_man",
+              "target": {
+                "x": 92.386674,
+                "y": 47
+              }
+            },
+            {
+              "role": "width_run",
+              "target": {
+                "x": 99.386674,
+                "y": 59
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:tactical_break:aggression:60",
+      "context": "tactical_break",
+      "defender": {
+        "aggression": 60
+      },
+      "attempts": 32,
+      "challengeAttempts": 45,
+      "challengeFrequency": 1,
+      "bodyContacts": 45,
+      "cleanWins": 17,
+      "looseBalls": 10,
+      "beaten": 18,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 17,
+        "active_containment": 5,
+        "loose_ball": 10
+      },
+      "techniques": {
+        "committed": 45
+      },
+      "intentionSeconds": {
+        "engage": 40.15,
+        "contain": 49.95
+      },
+      "minDistance": 0.975367,
+      "engagementSpeed": 4.469881,
+      "approachTime": 0.675781,
+      "containmentSeconds": 1.560937,
+      "carrierMovingSeconds": 2.7875,
+      "carrierDistance": 6.395256,
+      "supportDistance": 7.390574,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959877,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.609508,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 74.020237,
+            "y": 34.03807
+          },
+          "intention": "engage",
+          "pressure": 0.404975,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "close_ball_shoulder",
+          "carrierIntent": "dribble",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 68.08623,
+                "y": 44.003859
+              }
+            }
+          ]
+        },
+        {
+          "at": 0.525,
+          "metres": 2.897046,
+          "actorSpeed": 3.197454,
+          "defenderSpeed": 3.051822,
+          "relativeSpeed": 4.717963,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 75.116437,
+            "y": 36.098238
+          },
+          "intention": "engage",
+          "pressure": 0.574377,
+          "challengeOptions": [
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "close_ball_shoulder",
+          "carrierIntent": "dribble",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 69.520954,
+                "y": 44.805083
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:tactical_break:aggression:90",
+      "context": "tactical_break",
+      "defender": {
+        "aggression": 90
+      },
+      "attempts": 32,
+      "challengeAttempts": 45,
+      "challengeFrequency": 1,
+      "bodyContacts": 45,
+      "cleanWins": 13,
+      "looseBalls": 11,
+      "beaten": 21,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 0,
+      "outcomes": {
+        "successful_tackle": 13,
+        "active_containment": 8,
+        "loose_ball": 11
+      },
+      "techniques": {
+        "committed": 45
+      },
+      "intentionSeconds": {
+        "engage": 32.075,
+        "contain": 53.075,
+        "emergency": 8.9
+      },
+      "minDistance": 0.975288,
+      "engagementSpeed": 4.38443,
+      "approachTime": 0.675781,
+      "containmentSeconds": 1.658594,
+      "carrierMovingSeconds": 2.920313,
+      "carrierDistance": 6.617374,
+      "supportDistance": 8.569491,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 4.959877,
+          "actorSpeed": 3.452637,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 3.609508,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 74.020237,
+            "y": 34.03807
+          },
+          "intention": "engage",
+          "pressure": 0.418475,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "close_ball_shoulder",
+          "carrierIntent": "dribble",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 68.08623,
+                "y": 44.003859
+              }
+            }
+          ]
+        },
+        {
+          "at": 0.525,
+          "metres": 2.897046,
+          "actorSpeed": 3.197454,
+          "defenderSpeed": 3.051822,
+          "relativeSpeed": 4.717963,
+          "ballOffset": 0.5,
+          "target": {
+            "x": 75.116437,
+            "y": 36.098238
+          },
+          "intention": "engage",
+          "pressure": 0.587877,
+          "challengeOptions": [
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "close_ball_shoulder",
+          "carrierIntent": "dribble",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 69.520954,
+                "y": 44.805083
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:immediate_dogso:aggression:30",
+      "context": "immediate_dogso",
+      "defender": {
+        "aggression": 30
+      },
+      "attempts": 32,
+      "challengeAttempts": 32,
+      "challengeFrequency": 1,
+      "bodyContacts": 32,
+      "cleanWins": 19,
+      "looseBalls": 5,
+      "beaten": 8,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 8,
+      "stationarySeconds": 22.35,
+      "outcomes": {
+        "static": 8,
+        "successful_tackle": 19,
+        "loose_ball": 5
+      },
+      "techniques": {
+        "standing": 32
+      },
+      "intentionSeconds": {
+        "engage": 46.925,
+        "contain": 37.05
+      },
+      "minDistance": 1.137897,
+      "engagementSpeed": 1.320871,
+      "approachTime": 0.979687,
+      "containmentSeconds": 1.157812,
+      "carrierMovingSeconds": 1.0625,
+      "carrierDistance": 0.753282,
+      "supportDistance": 0.2055,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 5.044703,
+          "actorSpeed": 0,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 0.1625,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 92.12,
+            "y": 34
+          },
+          "intention": "engage",
+          "pressure": 0.387731,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "controlling",
+          "support": []
+        },
+        {
+          "at": 5.525,
+          "metres": 2.164762,
+          "actorSpeed": 0,
+          "defenderSpeed": 0,
+          "relativeSpeed": 0,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 93.305764,
+            "y": 33.403564
+          },
+          "intention": "contain",
+          "pressure": 0.570632,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "recover_duel",
+          "carrierIntent": "scanning",
+          "support": [
+            {
+              "role": "escape",
+              "target": {
+                "x": 87.077364,
+                "y": 43.36885
+              }
+            },
+            {
+              "role": "third_man",
+              "target": {
+                "x": 100.077364,
+                "y": 47
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context:immediate_dogso:aggression:60",
+      "context": "immediate_dogso",
+      "defender": {
+        "aggression": 60
+      },
+      "attempts": 32,
+      "challengeAttempts": 32,
+      "challengeFrequency": 1,
+      "bodyContacts": 32,
+      "cleanWins": 14,
+      "looseBalls": 5,
+      "beaten": 13,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 13,
+      "stationarySeconds": 25.85,
+      "outcomes": {
+        "successful_tackle": 14,
+        "static": 13,
+        "loose_ball": 5
+      },
+      "techniques": {
+        "committed": 32
+      },
+      "intentionSeconds": {
+        "engage": 44.45,
+        "contain": 60.35
+      },
+      "minDistance": 1.077728,
+      "engagementSpeed": 2.791349,
+      "approachTime": 0.979687,
+      "containmentSeconds": 1.885937,
+      "carrierMovingSeconds": 1.682812,
+      "carrierDistance": 1.219549,
+      "supportDistance": 0.333938,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 5.044703,
+          "actorSpeed": 0,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 0.1625,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 92.12,
+            "y": 34
+          },
+          "intention": "engage",
+          "pressure": 0.401231,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "controlling",
+          "support": []
+        },
+        {
+          "at": 1.025,
+          "metres": 1.962479,
+          "actorSpeed": 0.211577,
+          "defenderSpeed": 3.571021,
+          "relativeSpeed": 3.362613,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 92.080392,
+            "y": 33.821337
+          },
+          "intention": "engage",
+          "pressure": 0.634092,
+          "challengeOptions": [
+            "standing",
+            "committed",
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "adjusting",
+          "support": []
+        }
+      ]
+    },
+    {
+      "id": "context:immediate_dogso:aggression:90",
+      "context": "immediate_dogso",
+      "defender": {
+        "aggression": 90
+      },
+      "attempts": 32,
+      "challengeAttempts": 32,
+      "challengeFrequency": 1,
+      "bodyContacts": 32,
+      "cleanWins": 16,
+      "looseBalls": 4,
+      "beaten": 12,
+      "fouls": 0,
+      "cards": 0,
+      "staticEpisodes": 0,
+      "stationarySeconds": 12.45,
+      "outcomes": {
+        "successful_tackle": 16,
+        "active_containment": 12,
+        "loose_ball": 4
+      },
+      "techniques": {
+        "committed": 32
+      },
+      "intentionSeconds": {
+        "emergency": 44.5,
+        "contain": 55.675
+      },
+      "minDistance": 1.080811,
+      "engagementSpeed": 2.790185,
+      "approachTime": 0.979687,
+      "containmentSeconds": 1.739844,
+      "carrierMovingSeconds": 1.328125,
+      "carrierDistance": 1.257571,
+      "supportDistance": 0.51375,
+      "secondarySeconds": 0,
+      "structuralFailures": 0,
+      "trace": [
+        {
+          "at": 0.025,
+          "metres": 5.044703,
+          "actorSpeed": 0,
+          "defenderSpeed": 0.1625,
+          "relativeSpeed": 0.1625,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 92.12,
+            "y": 34
+          },
+          "intention": "emergency",
+          "pressure": 0.414731,
+          "challengeOptions": [],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "controlling",
+          "support": []
+        },
+        {
+          "at": 1.025,
+          "metres": 1.966971,
+          "actorSpeed": 0.297511,
+          "defenderSpeed": 3.584186,
+          "relativeSpeed": 3.37426,
+          "ballOffset": 0.45,
+          "target": {
+            "x": 92.078042,
+            "y": 33.879827
+          },
+          "intention": "emergency",
+          "pressure": 0.648189,
+          "challengeOptions": [
+            "standing",
+            "committed",
+            "slide"
+          ],
+          "chosen": null,
+          "reason": "immediate_threat",
+          "carrierIntent": "adjusting",
+          "support": []
+        }
+      ]
+    }
+  ],
+  "fixedContact": [
+    {
+      "attribute": "aggression",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "aggression",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "aggression",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "aggression",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "aggression",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "tackling",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 36,
+        "beaten": 72,
+        "loose_ball": 18,
+        "foul": 2
+      }
+    },
+    {
+      "attribute": "tackling",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 41,
+        "loose_ball": 24,
+        "beaten": 62,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "tackling",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "tackling",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 68,
+        "loose_ball": 21,
+        "beaten": 38,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "tackling",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 72,
+        "loose_ball": 24,
+        "beaten": 31,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "gameReading",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 40,
+        "loose_ball": 24,
+        "beaten": 63,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "gameReading",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 45,
+        "loose_ball": 23,
+        "beaten": 59,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "gameReading",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "gameReading",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 66,
+        "loose_ball": 16,
+        "beaten": 45,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "gameReading",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 67,
+        "loose_ball": 19,
+        "beaten": 41,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "positioning",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 40,
+        "loose_ball": 24,
+        "beaten": 63,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "positioning",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 45,
+        "loose_ball": 23,
+        "beaten": 59,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "positioning",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "positioning",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 66,
+        "loose_ball": 16,
+        "beaten": 45,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "positioning",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 67,
+        "loose_ball": 19,
+        "beaten": 41,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "strength",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 48,
+        "loose_ball": 23,
+        "beaten": 56,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "strength",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 51,
+        "loose_ball": 21,
+        "beaten": 55,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "strength",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "strength",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 57,
+        "loose_ball": 21,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "strength",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 60,
+        "loose_ball": 19,
+        "beaten": 48,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 78,
+        "loose_ball": 23,
+        "beaten": 26,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 68,
+        "loose_ball": 21,
+        "beaten": 38,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 41,
+        "loose_ball": 24,
+        "beaten": 62,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "dribbling",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 37,
+        "beaten": 70,
+        "loose_ball": 20,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 68,
+        "loose_ball": 23,
+        "beaten": 36,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 66,
+        "loose_ball": 16,
+        "beaten": 45,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 45,
+        "loose_ball": 23,
+        "beaten": 59,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "technique",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 42,
+        "loose_ball": 24,
+        "beaten": 61,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 10,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 67,
+        "loose_ball": 19,
+        "beaten": 41,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 30,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 64,
+        "loose_ball": 17,
+        "beaten": 46,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 60,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 55,
+        "loose_ball": 23,
+        "beaten": 49,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 90,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 46,
+        "loose_ball": 24,
+        "beaten": 57,
+        "foul": 1
+      }
+    },
+    {
+      "attribute": "agility",
+      "band": 100,
+      "attempts": 128,
+      "outcomes": {
+        "clean_win": 45,
+        "loose_ball": 23,
+        "beaten": 59,
+        "foul": 1
+      }
+    }
+  ],
+  "wallSeconds": 18.424829,
+  "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+  "sourceFingerprint": {
+    "algorithm": "sha256",
+    "scope": "Sorted non-test .ts files in src/core/matchSimulation; relative path + NUL + bytes + NUL",
+    "files": 77,
+    "digest": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a"
+  },
+  "provenance": {
+    "baselineCommit": "83570049ef86622f9ebefd26e3afc6bb654ae6ba",
+    "frozenAt": "2026-10-07T22:05:15.172Z",
+    "fingerprintRecordedAfterRun": true,
+    "policy": "Fresh complete paired rerun on immutable baseline or frozen final runtime. Source fingerprint added after run; future benchmark runs calculate and verify the fingerprint themselves.",
+    "lateFixture": "83-minute contexts correctly use second_half. Earlier first_half late-trailing rows were invalid and are superseded by this complete rerun."
+  }
+}

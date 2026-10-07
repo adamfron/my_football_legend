@@ -1,0 +1,167 @@
+{
+  "evidence": "docs/performance/PR157-integrity-after.json",
+  "canonicalSourceHashConvention": "Root frozen non-test matchSimulation source hash",
+  "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+  "runtimeSourceFingerprint": {
+    "algorithm": "sha256",
+    "scope": "Non-test TypeScript in src/core and src/app/match, canonical world fixture and loader",
+    "files": 187,
+    "digest": "78387ba2c180a21d53f46ec8273a5bc4fac7e5f5567f6b90999827a588033b90"
+  },
+  "runtimeSourcesUnchangedDuringRun": true,
+  "fixedStepSeconds": 0.025,
+  "configuredSeconds": 60,
+  "seeds": [
+    "lab-muwhj3er",
+    "pr155-natural-b",
+    "pr155-natural-c"
+  ],
+  "ownership": {
+    "contexts": [
+      "settled",
+      "first_time",
+      "header",
+      "rebound",
+      "pressure",
+      "direct_free_kick"
+    ],
+    "cases": 18,
+    "blockedAutonomousProposals": 144,
+    "blockedPhysicalRngDraws": 0,
+    "footballStateUnchanged": true,
+    "humanSelectedReleased": true,
+    "humanNpcLaunchParity": true,
+    "humanNpcRngParity": true
+  },
+  "identity": {
+    "comparisons": 66,
+    "disabledCanonicalParity": true,
+    "disabledActualRngParity": true,
+    "enabledPreDecisionCanonicalParity": true,
+    "enabledCanonicalDrawSequencePreserved": true,
+    "comparedPrefixTicks": 124345,
+    "firstOpportunityKinds": {
+      "no_opportunity_within_window": 43,
+      "on_ball": 20,
+      "defensive_response": 2,
+      "incoming_ball": 1
+    },
+    "firstOpportunityBoundaryDivergences": 0,
+    "independentAgencyRankingDraws": 12490
+  },
+  "observers": {
+    "normalDevCaptureExactCanonicalParity": true,
+    "normalDevCaptureExactActualRngParity": true,
+    "newPressingTrackerObserved": true,
+    "pressingEpisodesBySeed": [
+      {
+        "seed": "lab-muwhj3er",
+        "dev": {
+          "episodes": 16,
+          "retainedEpisodes": 16,
+          "maximumRetainedEvolutionSamples": 8
+        },
+        "capture": {
+          "episodes": 16,
+          "retainedEpisodes": 16,
+          "maximumRetainedEvolutionSamples": 8
+        }
+      },
+      {
+        "seed": "pr155-natural-b",
+        "dev": {
+          "episodes": 13,
+          "retainedEpisodes": 13,
+          "maximumRetainedEvolutionSamples": 6
+        },
+        "capture": {
+          "episodes": 13,
+          "retainedEpisodes": 13,
+          "maximumRetainedEvolutionSamples": 6
+        }
+      },
+      {
+        "seed": "pr155-natural-c",
+        "dev": {
+          "episodes": 11,
+          "retainedEpisodes": 11,
+          "maximumRetainedEvolutionSamples": 6
+        },
+        "capture": {
+          "episodes": 11,
+          "retainedEpisodes": 11,
+          "maximumRetainedEvolutionSamples": 6
+        }
+      }
+    ],
+    "independentProbeDrawsBySeed": [
+      {
+        "seed": "lab-muwhj3er",
+        "dev": 2489,
+        "capture": 45643
+      },
+      {
+        "seed": "pr155-natural-b",
+        "dev": 2414,
+        "capture": 44805
+      },
+      {
+        "seed": "pr155-natural-c",
+        "dev": 2358,
+        "capture": 45675
+      }
+    ]
+  },
+  "canonicalRuns": [
+    {
+      "seed": "lab-muwhj3er",
+      "ticks": 2401,
+      "steppedSeconds": 60.025000000000006,
+      "canonicalHash": "b365a5fa3a6edba1a15e75631676374b2a7586005a890dedf77e6c1e233cf8a9",
+      "actualRandomDraws": 54216,
+      "actualRandomStreamHash": "9c9c07c58488c833f1b45c2c1804f4ce7bdb386961d12a4194654969153cbae2"
+    },
+    {
+      "seed": "pr155-natural-b",
+      "ticks": 2401,
+      "steppedSeconds": 60.025000000000006,
+      "canonicalHash": "d5b07d455015be53cb12374c469319305a69a40abb6d6c30c0407125922695a5",
+      "actualRandomDraws": 53587,
+      "actualRandomStreamHash": "63de2a818f20d2a95a92baff141d829031ae6ed1aabf3d8a745622087f8b14f7"
+    },
+    {
+      "seed": "pr155-natural-c",
+      "ticks": 2401,
+      "steppedSeconds": 60.025000000000006,
+      "canonicalHash": "b5651dccedcf77bfec461c25a13c31dbf2fa7c3f76241645fe153b5b5114fc8f",
+      "actualRandomDraws": 53685,
+      "actualRandomStreamHash": "e17f14cd3182e24c846b4182edba992e426ee7a142168a9a3121dc4ce4f4df0a"
+    }
+  ],
+  "testEvidence": {
+    "frozenOwnershipAndObserverTests": 11,
+    "positiveAgencyFixtureTests": 44,
+    "focusedEslintPassed": true,
+    "fullVerify": {
+      "passed": true,
+      "mainFiles": 156,
+      "mainTests": 1215,
+      "careerTests": 5,
+      "lint": true,
+      "build": true,
+      "strictBenchmarkTypeScriptScripts": 4
+    },
+    "controlledPerformance": {
+      "pairs": 3,
+      "runs": 6,
+      "configuredSecondsPerRun": 600,
+      "medianAfterBeforeRatio": 1.0075369203259572
+    }
+  },
+  "limits": [
+    "Enabled agency compares the complete canonical prefix until the first genuine human decision, not an unchosen entire match.",
+    "Optional diagnostic/agency ranking draws use independent recreated seeded generators; preserving the actual canonical engine draw sequence is the contract.",
+    "The 60-second target produces2401 fixed ticks (60.025seconds) due to floating-point accumulation; all compared variants use the same window.",
+    "Micro/contended elapsed wall times are not controlled full-match performance measurements."
+  ]
+}

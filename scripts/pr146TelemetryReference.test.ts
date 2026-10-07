@@ -14,7 +14,11 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR156 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR157 complete telemetry reference (PR146 observer contract)', () => {
+  // PR157 changes physical pressing/carrier choices, shooting uncertainty and goal-ray geometry.
+  // Both complete 2,400-tick outputs were reproduced twice against the frozen final source;
+  // both pristine PR156 references were independently reproduced twice first. Full telemetry,
+  // all-field comparisons, schemas and identity invariants: PR157-telemetry-reference.json.
   // PR156 changes physical passing uncertainty, expected-outcome selection and live
   // receiver adjustment. Both complete 2,400-tick outputs were independently repeated.
   // Previous PR155 references remain in docs/performance/PR155-validation.json.
@@ -60,8 +64,8 @@ describe('PR156 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '048b9a022c74f4830f4daf7fe627902c10b827bfea69c4da3d870a08beb5fa2a'],
-    ['pr146-flow-reference:b', '13ee6756863416bdd17293a9a77bf911f4a278e15ed9b3a40f0c8debdde0aa01'],
+    ['pr146-flow-reference:a', '1f2c62cc5ab35f0b10e645cc44173813a669478932a64d58b728e0cae9c39387'],
+    ['pr146-flow-reference:b', '590c427bc9ca46ab6bf96007f6c145c252c0dfbd15e798473afc58b485c6b36a'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

@@ -809,8 +809,14 @@ export const resolveMatchAction = (
   state: TacticalMatchState,
   action: MatchAction,
   source: ActionSource = 'autonomous_npc',
-): TacticalMatchState =>
-  emitCanonicalActionEvents(state, resolveMatchActionCanonical(state, action, source));
+): TacticalMatchState => {
+  const next = resolveMatchActionCanonical(state, action, source);
+  // A reserved proposal is a request for human ownership, not a football action.
+  // Preserve the ledger exactly, including absent or old retained entries.
+  if (source !== 'human_selected' && isShotAction(action) &&
+      isHumanControlled(state, action.actorId)) return next;
+  return emitCanonicalActionEvents(state, next);
+};
 
 const resolveMatchActionCanonical = (
   state: TacticalMatchState,
@@ -1007,7 +1013,7 @@ const resolveMatchActionCanonical = (
       {
         ...state,
         decisionIndex: state.decisionIndex + 1,
-        currentPressure: evaluatePressure(state, actor).value,
+        currentPressure: evaluateShootingOpportunity(state, actor).pressure,
       },
       action,
     );
@@ -1084,7 +1090,7 @@ const resolveMatchActionCanonical = (
             {
               ...state,
               decisionIndex: state.decisionIndex + 1,
-              currentPressure: evaluatePressure(state, actor).value,
+              currentPressure: evaluateShootingOpportunity(state, actor).pressure,
             },
             action,
           )

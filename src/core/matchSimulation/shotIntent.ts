@@ -35,6 +35,14 @@ export const shotExecutionErrorProfileSchema = z.object({
   contactDifficulty: z.number().nonnegative(),
   orientationDifficulty: z.number().min(0).max(1),
   weakFootDifficulty: z.number().min(0).max(1),
+  // Optional for snapshots predating PR157; all new shots include these continuous demands.
+  intrinsicDifficulty: z.number().nonnegative().optional(),
+  horizontalSigmaMetres: z.number().positive().optional(),
+  verticalSigmaMetres: z.number().positive().optional(),
+  ballMovementDifficulty: z.number().nonnegative().optional(),
+  ballHeightDifficulty: z.number().nonnegative().optional(),
+  targetWindowDifficulty: z.number().min(0).max(1).optional(),
+  blockerDifficulty: z.number().min(0).max(1).optional(),
 });
 export type ShotExecutionErrorProfile = z.infer<typeof shotExecutionErrorProfileSchema>;
 

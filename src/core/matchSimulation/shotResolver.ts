@@ -10,7 +10,8 @@ import {
   projectFutureBallTrajectory,
   type BallVelocity3d,
 } from './ballPhysics';
-import { shotExecutionErrorProfileSchema, type ShotExecutionErrorProfile } from './shotIntent';
+import { type ShotExecutionErrorProfile } from './shotIntent';
+import { deriveShootingDifficulty } from './shootingDifficulty';
 import type {
   MatchAction,
   MatchPlayerState,
@@ -34,25 +35,6 @@ const normal = (rng: RandomGenerator) => {
   return sample;
 };
 
-/** Calibrated target-plane deviations; every term describes execution context, not goal chance. */
-export const SHOT_EXECUTION_ERROR = {
-  minimumHorizontalSigma: 0.12,
-  minimumVerticalSigma: 0.1,
-  abilityHorizontalWeight: 1.3,
-  abilityVerticalWeight: 1.15,
-  distanceHorizontalWeight: 0.4,
-  distanceVerticalWeight: 0.4,
-  angleHorizontalWeight: 0.28,
-  angleVerticalWeight: 0.2,
-  contactHorizontalWeight: 0.24,
-  contactVerticalWeight: 0.32,
-  orientationHorizontalWeight: 0.18,
-  orientationVerticalWeight: 0.13,
-  weakFootHorizontalWeight: 0.2,
-  weakFootVerticalWeight: 0.22,
-  maximumSigma: 1.65,
-} as const;
-
 export const deriveShotExecutionErrorProfile = (
   state: TacticalMatchState,
   action: ShotAction,
@@ -60,55 +42,24 @@ export const deriveShotExecutionErrorProfile = (
   const shooter = state.players.find((player) => player.id === action.actorId)!;
   const opportunity = evaluateShootingOpportunity(state, shooter);
   const profile = deriveShotExecutionProfile(state, action);
-  const a = shooter.profile.attributes;
-  const executionQuality =
-    ((action.type === 'header' ? a.heading : a.finishing) * 0.45 +
-      a.technique * 0.25 +
-      a.composure * 0.3) /
-    100;
-  const distanceDifficulty = Math.pow(Math.max(0, opportunity.distance - 9) / 26, 1.25);
-  const angleDifficulty = 1 - opportunity.angle;
-  const pressureDifficulty = Math.max(opportunity.pressure, state.currentPressure);
-  const contactDifficulty = profile.firstTimeDifficulty;
-  const orientationDifficulty = profile.orientationDifficulty;
-  const weakFootDifficulty = profile.dominantFootDifficulty;
-  const c = SHOT_EXECUTION_ERROR;
-  const horizontalSigma = clamp(
-    (c.minimumHorizontalSigma +
-      Math.pow(1 - executionQuality, 1.2) * c.abilityHorizontalWeight +
-      distanceDifficulty * c.distanceHorizontalWeight +
-      angleDifficulty * c.angleHorizontalWeight +
-      pressureDifficulty * profile.pressureSensitivity * 1.25 +
-      contactDifficulty * c.contactHorizontalWeight +
-      orientationDifficulty * c.orientationHorizontalWeight +
-      weakFootDifficulty * c.weakFootHorizontalWeight) *
-      profile.errorMultiplier,
-    c.minimumHorizontalSigma,
-    c.maximumSigma,
+  const firstTime = profile.contact !== 'settled';
+  const incomingSpeed = Math.hypot(
+    (state.ball.velocity?.x ?? 0) - (firstTime ? shooter.velocity.x : 0),
+    (state.ball.velocity?.y ?? 0) - (firstTime ? shooter.velocity.y : 0),
+    state.ball.velocity?.z ?? 0,
   );
-  const verticalSigma = clamp(
-    (c.minimumVerticalSigma +
-      Math.pow(1 - executionQuality, 1.15) * c.abilityVerticalWeight +
-      distanceDifficulty * c.distanceVerticalWeight +
-      angleDifficulty * c.angleVerticalWeight +
-      pressureDifficulty * profile.pressureSensitivity +
-      contactDifficulty * c.contactVerticalWeight +
-      orientationDifficulty * c.orientationVerticalWeight +
-      weakFootDifficulty * c.weakFootVerticalWeight) *
-      profile.errorMultiplier,
-    c.minimumVerticalSigma,
-    c.maximumSigma,
-  );
-  return shotExecutionErrorProfileSchema.parse({
-    executionQuality,
-    horizontalSigma,
-    verticalSigma,
-    distanceDifficulty,
-    angleDifficulty,
-    pressureDifficulty,
-    contactDifficulty,
-    orientationDifficulty,
-    weakFootDifficulty,
+  return deriveShootingDifficulty(shooter, {
+    distance: opportunity.distance,
+    angle: opportunity.angle,
+    pressure: Math.max(opportunity.pressure, state.currentPressure),
+    orientation: profile.orientationDifficulty,
+    weakFoot: profile.dominantFootDifficulty,
+    incomingSpeed,
+    ballHeight: state.ball.height ?? 0,
+    contact: profile.contact,
+    intent: profile.intent,
+    targetWindow: 1 - opportunity.visibleTargetArea,
+    blockers: opportunity.blockingDemand,
   });
 };
 
@@ -155,7 +106,13 @@ export const resolveCanonicalShot = (
   const contactHeight = Math.max(0, state.ball.height ?? 0);
   const contactPoint = { x: state.ball.x, y: state.ball.y };
   const lineEnd = { x: goalX, y: goalY };
-  const flightTarget = { ...lineEnd, x: goalX + (attackingRight ? 2 : -2) };
+  // Continue the selected goal ray beyond the line. Extending x alone pulled angled shots
+  // toward the shooter's side at the actual goal plane, even with zero execution error.
+  const goalRayLength = Math.max(0.001, distance(contactPoint, lineEnd));
+  const flightTarget = {
+    x: lineEnd.x + ((lineEnd.x - contactPoint.x) / goalRayLength) * 2,
+    y: lineEnd.y + ((lineEnd.y - contactPoint.y) / goalRayLength) * 2,
+  };
   const length = distance(contactPoint, flightTarget);
   const duration = Math.max(0.28, length / nominalSpeed);
   let launchElevation = Math.atan2(
@@ -241,7 +198,7 @@ export const resolveCanonicalShot = (
     blockingDefenders: opportunity.blockingDefenders,
     baseXg: opportunity.baseXg,
     effectiveScoringExpectation: opportunity.effectiveScoringExpectation,
-    shooterExecutionQuality: opportunity.shooterExecutionQuality,
+    shooterExecutionQuality: executionErrorProfile.executionQuality,
     intendedTarget: intended,
     actualTarget: actual,
     error: { horizontal: horizontalError, vertical: verticalError },

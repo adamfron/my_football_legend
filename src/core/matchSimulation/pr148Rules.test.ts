@@ -411,7 +411,8 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
       ).defensiveChallenge,
     ).toBeDefined();
     cover[1]!.position = { x: 90, y: 62 };
-    expect(shouldCommitRoutinePress(state, defender.id)).toBe(true);
+    // PR157: poor cover favours delay, while the exposed ball still admits a safe poke.
+    expect(shouldCommitRoutinePress(state, defender.id)).toBe(false);
     expect(chooseNpcDefensiveChallengeAction(state, defender.id)?.technique).toBe('standing');
     cover[1]!.position = { x: 46, y: 34 };
     state.ballCarrierIntent = {
@@ -487,7 +488,8 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
       ...defender.profile,
       attributes: { ...defender.profile.attributes, gameReading: 35, positioning: 35 },
     };
-    expect(shouldCommitRoutinePress(state, defender.id)).toBe(false);
+    // Poor anticipation no longer disables an aggressive temperament; its execution pays for it.
+    expect(shouldCommitRoutinePress(state, defender.id)).toBe(true);
   });
   it('a close standing poke cannot win or loosen the ball without a legal ball-first contact', () => {
     for (let i = 0; i < 30; i++) {
@@ -546,8 +548,14 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
   });
   it('booked defenders and an already queued booking suppress ordinary risky choices', () => {
     const { state, defender, attacker } = fixture();
-    expect(chooseNpcDefensiveChallengeAction(state, defender.id)?.technique).not.toBe('standing');
+    state.ball.x = 22.9;
+    defender.velocity = { x: 4, y: 0 };
+    attacker.velocity = { x: 0, y: 3 };
+    expect(chooseNpcDefensiveChallengeAction(state, defender.id)?.technique).toBe('tactical');
     state.discipline = { [defender.id]: { yellowCards: 1, sentOff: false, team: defender.team } };
+    expect(chooseNpcDefensiveChallengeAction(state, defender.id)).toBeUndefined();
+    // Booking still permits a physically safe standing intervention.
+    state.ball.x = 22.5;
     expect(chooseNpcDefensiveChallengeAction(state, defender.id)?.technique).toBe('standing');
     delete state.discipline;
     const advantage = applyChallengeInfringement(
@@ -587,7 +595,11 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
     expect(explicit.defensiveChallenge).toBeDefined();
   });
   it('a booked NPC can still commit when exceptional danger, temperament and late score justify it', () => {
-    const { state, defender } = fixture('pr148-booked-desperate');
+    const { state, defender, attacker } = fixture('pr148-booked-desperate');
+    // Closing velocities leave a ball-first slide window beyond comfortable standing reach.
+    state.ball.x = 22.95;
+    defender.velocity = { x: 1, y: 0 };
+    attacker.velocity = { x: -3, y: 0 };
     state.time = 83 * 60;
     state.score = { home: 0, away: 1 };
     state.discipline = { [defender.id]: { yellowCards: 1, sentOff: false, team: defender.team } };
@@ -602,7 +614,7 @@ describe('PR148 context-aware defensive intent and one duel episode', () => {
         gameReading: 100,
       },
     };
-    expect(chooseNpcDefensiveChallengeAction(state, defender.id)?.technique).not.toBe('standing');
+    expect(chooseNpcDefensiveChallengeAction(state, defender.id)?.technique).toBe('slide');
   });
   it('does not reopen a close unchanged contest after its short recovery timer, but releases on separation', () => {
     const { state, defender, attacker } = fixture('pr148-episode');

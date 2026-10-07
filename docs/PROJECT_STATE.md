@@ -1,5 +1,61 @@
 # My Football Legend — Current Project State
 
+## PR157 — Dynamic Pressing, Ball-Carrier Response & Shooting Difficulty Calibration
+
+Implementacja i wymagane walidacje zakończone na scalonym PR156, `83570049`.
+Zamrożony kod kanoniczny: `977e70b1…`. Intencja pressingu
+rozróżnia contain, screen, engage i emergency; cel engage prowadzi do fizycznie
+dostępnego boku piłki. Agresja zmienia skłonność do zaangażowania, a kartka,
+asekuracja i zagrożenie zmieniają ryzyko. Jakość identycznego kontaktu nadal zależy
+od umiejętności i fizyki, bez premii do odbioru za samą agresję.
+Posiadacz koryguje istniejące mikrocele i trasę prowadzenia względem przewidywanego
+pędu pressującego; obrót, przyspieszenie i odzyskanie równowagi pozostają fizyczne.
+
+`shootingDifficulty.ts` rozdziela ciągłą trudność strzału od końcowego wyniku:
+finishing/heading odpowiada za umiejscowienie, technique za trudny kontakt/zwrot,
+composure za presję, agility za kontrolę ciała. Ten sam profil służy resolverowi
+i przybliżeniu oczekiwanego wykonania. Bramkarz nadal potrzebuje fizycznego kontaktu.
+Naprawiono wpływ jego atrybutów na trajektorię strzelca oraz zmianę rejestru akcji
+przez odrzuconą autonomiczną propozycję kontrolowanego strzału.
+Usunięto niespójny warunek dostępu do osłanianej piłki, który wymagał dystansu
+mniejszego niż dopuszczała separacja ciał; zasięg wspólnego resolvera pozostał ten sam.
+Naprawiono też przedłużenie ukośnej trajektorii za linię bramkową i zapis fizycznego
+wyjścia strzału za linię boczną. Wcześniejsza obrona/blok tego samego strzału pozostaje
+ostatecznym wynikiem. Generowane główki NPC wybierają istniejący cel umiejscowienia;
+jawny cel wybrany przez człowieka pozostaje wiążący.
+
+`PressingTracker` jest wyłącznie obserwatorem: podejście → contain/screen → kontakt,
+ucieczka/wypuszczenie → przekazanie/odzyskanie struktury. Statyczny epizod wymaga
+bliskości do 2,6 m, prędkości obu aktorów i piłki względem ciała poniżej 0,35 m/s,
+kontrolowanej piłki i co najmniej 2 s bez zmiany próbkowanego rozwiązania. Próby kontaktu są oddzielone
+od zakończenia epizodu. Przypisanie pressującego jest odświeżane przy 4 Hz,
+kosztowne opcje/geometria i próbki ewolucji przy 1 Hz, a prędkości oraz zmiany akcji,
+trybu prowadzenia i mikrofazy są obserwowane co 25 ms. Sam wzrost indeksu decyzji
+nie zeruje statycznego epizodu. Retencja to 256 epizodów po maksymalnie 8 próbek i histogram
+w sekundowych przedziałach, z ostatnim przedziałem dla ≥240 s. Timer nie wpływa na decyzje ani ruch.
+
+`npm run verify` przeszedł: lint, 1215 testów głównych w 156 plikach, 5 testów kariery
+i build. Cztery nowe benchmarki przeszły ścisłą kontrolę TypeScript. Integralność obejmuje
+66 porównań tożsamości, 124345 ticków przed decyzją, identyczne hashe/RNG normal/DEV/capture,
+18 porównań wykonania strzału i 144 odrzucone propozycje z zerowym użyciem RNG.
+W 12 sparowanych pełnych meczach na rewizję statyczne epizody spadły z 164/13126 (1,25%)
+do 10/16243 (0,062%). Sześć naprzemiennych przebiegów po 600 s (3 pary) daje medianę
+kosztu czasu ×1,00754, około +0,75%, bez renderera i bez zmiany kroku symulacji.
+
+Ograniczenia pozostają istotne: liczba prób odbioru wzrosła 1112→4207, a strzałów spadła
+214→74. Czas stania posiadacza pod dużą presją wzrósł 1824,81→3327,01 s, osłaniania
+4390,15→13016,69 s. Mniej statycznych epizodów nie oznacza rozwiązania wszystkich
+pasywnych sytuacji ani dowodu realizmu. Nasycone łatwe strzały/obrony, bloki muru,
+geometria bramkarza i ostrożne zatrzymane mikroduelowe przypadki są jawnie opisane.
+Raport, odtworzenie i dowody: [PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md](PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md).
+Zwięzłe dane: [flow](performance/PR157-flow-summary.json),
+[integralność](performance/PR157-integrity-summary.json),
+[wydajność](performance/PR157-performance.json).
+
+Kolejność po PR157: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue,
+Injuries, Substitutions & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
+PR157 nie dodaje menu wolnych PR158, kondycji, zmian ani nowej prezentacji.
+
 ## PR156 — Agency Parity, Passing Difficulty & Connectivity
 
 Baza: scalony PR155, `cdbf07e0`. Wyłączona sprawczość zachowuje obserwacyjną tożsamość
@@ -12,8 +68,8 @@ a relacja overlap/underlap zostaje na tożsamości podania z chwili wypuszczenia
 Diagnostyka sieci, centralnych alternatyw i ewolucji wsparcia pozostaje ograniczonym obserwatorem.
 Dowody, odtworzenie i ograniczenia: [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md).
 
-Następne etapy: **PR157 — Dead Ball & Restart Continuity**, **PR158 — Fatigue, Injuries,
-Substitutions & Added Time**, **PR159 — Match Presentation / Replay / Stadium Polish**.
+Aktualna kolejność po rozszerzeniu PR157: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR155 — Player Agency, First-Time Passing & Possession Stability
 
@@ -39,8 +95,8 @@ Zakres, odtworzenie, wyniki wielu seedów i ograniczenia:
 Historyczny opis autonomii PR152 poniżej jest od PR155 ograniczony twardą własnością
 strzału człowieka. Pełna choreografia wznowień pozostaje kolejnym etapem.
 
-Następne etapy: **PR157 — Dead Ball & Restart Continuity**, **PR158 — Fatigue, Injuries,
-Substitutions & Added Time**, **PR159 — Match Presentation / Replay / Stadium Polish**.
+Aktualna kolejność po rozszerzeniu PR157: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR154 — Situational Football Intelligence, Attribute Fidelity & Anti-Deadlock Calibration
 
@@ -79,7 +135,7 @@ Eksport Match Lab v5 pokazuje tani raport kanoniczny i udział ukryty/widoczny b
 Pasmo ostrzeżeń pozostaje diagnostyczne. Audyt i dowody:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-Po stabilizacji PR155 następny etap to **PR157 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
+Po kalibracji PR157 kolejny etap to **PR158 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
 reakcja po golu, celebracja/pilne wznowienie według wyniku i czasu, odzyskanie piłki po późnym
 golu, gotowość wznowienia i fundament doliczonego czasu. PR152 nie implementuje tego etapu.
 
