@@ -10,6 +10,9 @@ import {
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { BALL_PHYSICS } from './ballPhysics';
 import { deriveMovementCapability } from './locomotion';
+import { derivePassDifficulty } from './passExecution';
+import { resolveReceptionOutcome } from './passReception';
+import { angleForVector, integrateFacing } from './playerOrientation';
 
 export const passDecisionQualitySchema = z.object({
   expectedCompletion: z.number().min(0).max(1),
@@ -25,6 +28,10 @@ export const passDecisionQualitySchema = z.object({
   receiverLateBy: z.number().nonnegative(),
   targetPredictedOutOfPlay: z.boolean(),
   utilityAdjustment: z.number(),
+  executionUncertaintyMetres: z.number().nonnegative().optional(),
+  expectedReceptionQuality: z.number().min(0).max(1).optional(),
+  expectedRetainedPossession: z.number().min(0).max(1).optional(),
+  receiverAdjustmentCost: z.number().nonnegative().optional(),
 });
 export type PassDecisionQuality = z.infer<typeof passDecisionQualitySchema>;
 const clamp = (n: number) => Math.max(0, Math.min(1, n));
@@ -71,6 +78,7 @@ export const evaluatePassDecision = (
   intent: PassLaunchIntent,
   delivery: PassDelivery = 'ground',
   suppliedPlan?: PassLaunchPlan,
+  firstTime = false,
 ): PassDecisionQuality => {
   const plan =
     suppliedPlan ?? derivePassLaunchPlan(state, passer, receiver, target, intent, delivery);
@@ -120,15 +128,75 @@ export const evaluatePassDecision = (
     : clamp((1.2 - boundaryMargin) / 1.2);
   const raceRisk = clamp((receiverEta - defenderEta + 0.35) / 1.1);
   const timingRisk = clamp(receiverLateBy / 0.7);
-  const expectedCompletion = clamp(
+  const geometricCompletion = clamp(
     0.96 -
       laneOccupation * 0.21 -
       raceRisk * 0.4 -
       timingRisk * 0.45 -
       boundaryRisk * 0.22 -
-      pressure * (1 - passerAbility / 100) * 0.14 -
-      Math.max(0, length - 30) / 220,
+      pressure * (1 - passerAbility / 100) * 0.14,
   );
+  const execution = derivePassDifficulty(state, passer, target, intent, delivery, {
+    firstTime,
+    receiverSpeed: Math.hypot(receiver.velocity.x, receiver.velocity.y),
+  });
+  const receivingClearance = Math.min(14, ...opponents.map((p) => distance(p.position, target)));
+  const receivingPressure = clamp(1 - receivingClearance / 14);
+  // Receiver opportunity to meet the error envelope before a recovering opponent arrives.
+  const adjustmentWindow = Math.max(
+    0,
+    Math.min(plan.predictedArrivalTime - receiverEta, defenderEta - receiverEta),
+  );
+  const reachableRadius = 0.9 + Math.min(3, adjustmentWindow * 1.5);
+  const executionReach =
+    1 - Math.exp(-(reachableRadius ** 2) / (2 * execution.uncertaintyMetres ** 2));
+  const incomingDirection = { x: dx / Math.max(0.001, length), y: dy / Math.max(0.001, length) };
+  const predictedReception = resolveReceptionOutcome(
+    {
+      ...state,
+      time: state.time + plan.predictedArrivalTime,
+      currentPressure: receivingPressure,
+      ball: {
+        x: target.x,
+        y: target.y,
+        height: delivery === 'lofted' ? 0.35 : 0.11,
+        velocity: {
+          x: incomingDirection.x * plan.predictedArrivalSpeed,
+          y: incomingDirection.y * plan.predictedArrivalSpeed,
+          z: 0,
+        },
+      },
+      receptionPreparation: {
+        actorId: receiver.id,
+        sourceActorId: passer.id,
+        releasedAt: state.time,
+        awarenessAt: state.time + plan.receiverReadiness.awareAt,
+        expectedContactPoint: target,
+        expectedArrivalTime: state.time + plan.predictedArrivalTime,
+        movement: runner ? 'run_onto_ball' : 'meet_ball',
+        ballEpisode: 'forecast',
+        readiness: plan.receiverReadiness,
+      },
+    },
+    {
+      ...receiver,
+      position: target,
+      facingAngle: integrateFacing(
+        receiver.facingAngle,
+        angleForVector({ x: -dx, y: -dy }),
+        receiver.profile.attributes.agility,
+        Math.hypot(receiver.velocity.x, receiver.velocity.y),
+        Math.max(0, plan.predictedArrivalTime - plan.receiverReadiness.awareAt),
+      ),
+    },
+    target,
+  );
+  const expectedReceptionQuality = predictedReception.quality?.score ?? 0;
+  const receiverAdjustmentCost = execution.uncertaintyMetres * (1 + receivingPressure);
+  const receptionRetention = clamp((expectedReceptionQuality - 0.25) / 0.5);
+  const recoveryRisk = clamp((plan.predictedArrivalTime - defenderEta + 0.3) / 2) * 0.35;
+  const expectedCompletion = geometricCompletion * executionReach;
+  const expectedRetainedPossession = expectedCompletion * receptionRetention * (1 - recoveryRisk);
   const selectionQuality = targetPredictedOutOfPlay ? 0 : expectedCompletion;
   const read = (a.gameReading + a.composure) / 200;
   const urgency =
@@ -157,8 +225,15 @@ export const evaluatePassDecision = (
     boundaryMargin,
     receiverLateBy,
     targetPredictedOutOfPlay,
+    executionUncertaintyMetres: execution.uncertaintyMetres,
+    expectedReceptionQuality,
+    expectedRetainedPossession,
+    receiverAdjustmentCost,
     utilityAdjustment:
-      -(1 - selectionQuality) * (38 + read * 38) * (1 - appetite * 0.3) -
+      -(1 - (targetPredictedOutOfPlay ? 0 : expectedRetainedPossession)) *
+        (38 + read * 38) *
+        (1 - appetite * 0.3) -
+      receiverAdjustmentCost * (0.7 + read) -
       (targetPredictedOutOfPlay ? 65 + read * 25 : 0) +
       (runner && expectedCompletion > 0.62 ? (expectedCompletion - 0.62) * 22 : 0),
   };

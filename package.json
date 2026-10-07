@@ -39,6 +39,9 @@
     "benchmark:sanity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr152.ts",
     "benchmark:intelligence": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr154.ts",
     "benchmark:stability": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr155.ts",
+    "benchmark:agency": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr156Agency.ts",
+    "benchmark:passing-difficulty": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr156Passing.ts",
+    "benchmark:connectivity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr156Flow.ts",
     "benchmark:shot-parity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkShotParity.ts"
   },
   "dependencies": {

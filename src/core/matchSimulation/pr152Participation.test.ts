@@ -197,7 +197,7 @@ describe('PR152 canonical identity and temporary human agency', () => {
     expect(next.latestActionSource).toBe('human_selected');
   });
 
-  it('releases a delegated controlled restart at the normal setup boundary', () => {
+  it('PR156 reserves a controlled restart after a delegated gate until human selection', () => {
     let state = applyRestartScenario(fixture(), 'kick_off', { restartTeam: 'home' });
     state.controlledFootballerId = state.restart!.takerId;
     const opportunity = projectPlayerDecisionOpportunity(state)!;
@@ -209,6 +209,11 @@ describe('PR152 canonical identity and temporary human agency', () => {
       },
     };
     for (let tick = 0; tick < 90; tick++) state = stepTacticalMatch(state, FIXED_MATCH_DT);
+    expect(state.restart?.phase).toBe('setup');
+    const renewed = projectPlayerDecisionOpportunity(state)!;
+    expect(renewed).toBeDefined();
+    const selected = renewed.options.find((o) => o.kind === 'action')!;
+    state = applyPlayerDecision(state, renewed, selected.id);
     expect(state.restart?.phase).toBe('release');
     expect(state.lastRestartLivenessRecovery).toBeUndefined();
     expect(state.time).toBeLessThan(3);

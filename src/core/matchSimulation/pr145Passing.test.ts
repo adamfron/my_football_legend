@@ -461,7 +461,10 @@ describe('PR145 throw target and contact integrity', () => {
       sourceAction: 'pass',
     };
     const waiting = stepTacticalMatch(release, FIXED_MATCH_DT);
-    expect(waiting.lastAerialContact?.winnerId).toBe(action.receiverId);
+    expect(waiting.lastAerialContact).toBeUndefined();
+    expect(
+      waiting.aerialContactLocks?.some((lock) => lock.playerId === action.receiverId),
+    ).not.toBe(true);
     expect(waiting.ball.ownerId).toBeUndefined();
     expect(waiting.lastThrowInDiagnostic?.nextContactPlayerId).toBeUndefined();
     expect(canContactAfterThrowIn(waiting, action.actorId)).toBe(false);

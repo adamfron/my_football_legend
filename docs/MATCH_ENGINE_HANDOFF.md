@@ -1,5 +1,26 @@
 # Match Engine Handoff
 
+## PR156 contracts
+
+- Keep all ordinary canonical fields/source ledgers identical when agency is disabled and only
+  controlled identity changes. The fixed XI all-22 benchmark includes full halves and actual RNG draws.
+- Every enabled controlled non-throw restart requires `human_selected`, regardless of watch policy,
+  legal option count, previous gate, setup age or DEV delegation. Rejection must not draw RNG or
+  alter ball/statistics/ledger; throw-ins retain their explicit exception.
+- `derivePassDifficulty` is shared by physical execution and expected-outcome selection. Do not
+  replace continuous uncertainty/control/recovery costs with distance gates or role bonuses.
+- Low airborne control is a real continuous contact. Clip contact to reachable height before
+  ordering against a boundary. Waiting above control height must not create a touch or aerial lock.
+- The aware receiver corrects toward the actual forecast flight through normal movement. Preserve
+  the original desired meeting point as evidence; never snap a player or ball to an objective.
+- Preserve `receiverRelationshipAtRelease` on pass identity and resolved copies. Overlap completion
+  must not be reclassified by later receiver geometry. Underlap/other relationships remain available.
+- Network and pressure evolution are bounded observers. Keep genuine adjacent control contests;
+  classify ownership changes with current contact evidence, not a stale diagnostic or a filtered count.
+- Attribute semantics concern individual skills; OVR, generation and career distributions stay intact.
+- Reproduction, measurements and limits: [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md).
+- Next: PR157 restart continuity, PR158 fatigue/injuries/substitutions/added time, PR159 presentation.
+
 ## PR155 contracts
 
 - Enabled human agency reserves every controlled shot, including first-time/header finishes
@@ -25,7 +46,7 @@
   fixed 25 ms stepping, replay/observer parity and zero background renderer calls.
 - Reproduction and measured limitations:
   [PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md).
-- Next: PR156 restarts, PR157 fatigue/injuries/substitutions/added time, PR158 presentation.
+- Next: PR157 restarts, PR158 fatigue/injuries/substitutions/added time, PR159 presentation.
   Full post-goal/restart choreography remains outside PR155.
 
 ## PR154 contracts
@@ -50,7 +71,7 @@
   Replay, observer parity and statistical ledgers remain mandatory regression checks.
 - Reproduction, measured results and remaining limits:
   [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
-- Next work is GitHub PR156 restarts, PR157 fatigue/injuries/substitutions/added time, PR158
+- Next work is GitHub PR157 restarts, PR158 fatigue/injuries/substitutions/added time, PR159
   presentation/replay/stadium. Full restart resets and stamina remain outside PR154.
 
 ## Expanded PR152 statistics / discipline contracts

@@ -1,4 +1,16 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR155
+# Audyt silnika meczu — PR140 / aktualizacja PR156
+
+## PR156 — integrity and difficulty calibration
+
+Disabled controlled identity no longer relabels ordinary actions. Controlled non-throw restart
+ownership is enforced before resolution/stepping/DEV delegation; presentation gates cannot
+suppress its real human decision. Passing execution and utility share continuous uncertainty
+and reception evidence. Low airborne foot control uses continuous segment contact, high-control
+waiting creates no contact lock, and explicit ground delivery retains its physical meaning.
+Release-time flank relationships survive reception. Bounded network/central/pressure observers
+record football causes rather than imposing role shares or a release timer.
+Evidence, attribute-scale audit and limitations: [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md).
+Historical autonomy descriptions below are constrained by PR155 shot and PR156 restart ownership.
 
 PR155: `actionAgency.ts` i ostatnia granica `resolveMatchAction` rezerwują wszystkie
 strzały dla człowieka przy włączonej sprawczości. `playerDecision.ts` projektuje
@@ -46,7 +58,7 @@ celu/idealnego celu i zerowej prędkości. Wywołują go granice boiska, strzał
 koniec 0,55-sekundowego interwału gola, faul/korzyść, spalony, zmiana wykonawcy po kartce,
 druga połowa i jawny wybór scenariusza DEV. Dokładna mapa, testy, wyniki i ograniczenia:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
-Następny zakres: **PR156 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
+Następny zakres: **PR157 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
 pozostaje poza PR152.
 
 PR151: ograniczona pamięć zagrożeń należy do core i wpływa na istniejące cele bloku,

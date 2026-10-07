@@ -1,5 +1,5 @@
 import { hasPendingPlayerDecision } from './playerDecision';
-import { isHumanControlled, isShotAction } from './actionAgency';
+import { isHumanControlled, isShotAction, requiresHumanRestart } from './actionAgency';
 import { enumerateFirstTimePasses, canExecuteFirstTimePass } from './firstTimePassing';
 import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { emitCanonicalActionEvents } from './actionEvents';
@@ -41,7 +41,7 @@ import { derivePassLaunchPlan } from './passLaunchPlan';
 import { deriveSpacePassPlan, type SpacePassPlan } from './spacePassing';
 import { interpretPassExecution } from './passExecution';
 import { projectReceiverReadiness } from './receiverReadiness';
-import { deriveFinalThirdOccupations } from './tacticalPositioning';
+import { deriveFinalThirdOccupations, deriveFlankRelationship } from './tacticalPositioning';
 import { preparationMarginForAction } from './onBallPreparation';
 import {
   canExecuteCanonicalShot,
@@ -508,6 +508,8 @@ export const scoreActionForAI = (
     action.target,
     action.intent,
     action.delivery,
+    undefined,
+    Boolean(action.firstTime),
   );
   const line = secondLastOpponentLine(state, actor.team);
   const offsideLine =
@@ -525,9 +527,17 @@ export const scoreActionForAI = (
     ...opponents(state, actor).map((opponent) => distance(opponent.position, receiver.position)),
   );
   const widthGained = Math.abs(action.target.y - 34) - Math.abs(actor.position.y - 34);
+  const carrierClearance = Math.min(
+    15,
+    ...opponents(state, actor).map((opponent) => distance(opponent.position, actor.position)),
+  );
+  // Changing flank has value when it opens space or escapes a congested pocket.
+  // Merely crossing the centre line must not make a neutral return a useful wall pass.
+  const spaceReleased = Math.max(0, markerSeparation - carrierClearance) / 15;
+  const switchOpportunity = Math.max(spaceReleased, underPressure - receiverPressure, 0);
   const switchValue =
     Math.sign(actor.position.y - 34) !== Math.sign(action.target.y - 34)
-      ? Math.min(12, Math.abs(action.target.y - actor.position.y) * 0.22)
+      ? Math.min(12, Math.abs(action.target.y - actor.position.y) * 0.22) * switchOpportunity
       : 0;
   const escapesPressure = Math.max(0, underPressure - receiverPressure) * 14;
   const recycleValue =
@@ -633,7 +643,7 @@ export const scoreActionForAI = (
     receiverPressure * 17 -
     laneRisk * 10 +
     markerSeparation * 0.7 +
-    Math.max(0, widthGained) * 0.35 +
+    Math.max(0, widthGained) * 0.35 * switchOpportunity +
     switchValue +
     recycleValue -
     staleReturnPenalty +
@@ -811,6 +821,7 @@ const resolveMatchActionCanonical = (
   if (!hasActiveMatchActionParticipants(state, action)) return state;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
+  if (requiresHumanRestart(state, actor.id) && source !== 'human_selected') return state;
   // Last line of defence: no autonomous path (including DEV and restart recovery) may
   // manufacture a human shot. The pure agency projection exposes the same opportunity.
   if (isHumanControlled(state, actor.id) && isShotAction(action) && source !== 'human_selected')
@@ -1204,6 +1215,7 @@ const resolveMatchActionCanonical = (
     action.intent,
     action.delivery,
     projection?.launchPlan,
+    Boolean(action.firstTime),
   );
   const execution = interpretPassExecution(
     state,
@@ -1214,6 +1226,7 @@ const resolveMatchActionCanonical = (
     {
       firstTime: Boolean(action.firstTime),
       spatial: Boolean(action.requestedSpace) || action.intent === 'through',
+      receiverSpeed: Math.hypot(receiver.velocity.x, receiver.velocity.y),
     },
   );
   const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;
@@ -1249,7 +1262,20 @@ const resolveMatchActionCanonical = (
   const throwReadiness = isThrowIn
     ? projectReceiverReadiness(state, receiver, target, duration, 'support')
     : undefined;
-  const launchSpeed = throwPlan?.speed ?? distributionPlan?.speed ?? canonicalPlan.speed;
+  // Range error changes energy, but cannot manufacture unlimited foot speed from a bad aim.
+  // Preserve the ordinary launch planner's 30 m/s physical ceiling.
+  const sampledSpeed = Math.min(
+    30,
+    canonicalPlan.speed *
+      Math.sqrt(
+        Math.max(
+          0.05,
+          distance(releasePosition, execution.physicalTarget) /
+            Math.max(0.1, distance(releasePosition, execution.intendedTarget)),
+        ),
+      ),
+  );
+  const launchSpeed = throwPlan?.speed ?? distributionPlan?.speed ?? sampledSpeed;
   const launchElevation =
     throwPlan?.elevation ?? distributionPlan?.elevation ?? canonicalPlan.elevation;
   const launchVelocity =
@@ -1258,7 +1284,7 @@ const resolveMatchActionCanonical = (
     deriveLaunchVelocity(
       releasePosition,
       execution.physicalTarget,
-      canonicalPlan.speed,
+      sampledSpeed,
       canonicalPlan.elevation,
     );
   const defenders = state.players.filter((p) => p.team !== actor.team);
@@ -1326,6 +1352,7 @@ const resolveMatchActionCanonical = (
             readiness: projection.receiverReadiness,
           }),
           lastPassDiagnostic: {
+            receiverRelationshipAtRelease: deriveFlankRelationship(state, receiver),
             ...(action.firstTime
               ? {
                   actionSource: source,
@@ -1376,6 +1403,7 @@ const resolveMatchActionCanonical = (
               }
             : {}),
           lastPassDiagnostic: {
+            receiverRelationshipAtRelease: deriveFlankRelationship(state, receiver),
             selectionQuality,
             intendedTarget: execution.intendedTarget,
             physicalTarget: execution.physicalTarget,

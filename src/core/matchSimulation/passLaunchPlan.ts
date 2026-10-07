@@ -50,14 +50,7 @@ export const derivePassLaunchPlan = (
       metres / (intent === 'support' ? 9 : intent === 'progressive' ? 13 : 17),
     ),
   );
-  const elevation =
-    delivery === 'lofted'
-      ? metres > 35
-        ? 0.42
-        : 0.34
-      : intent === 'direct' && metres > 25
-        ? 0.28
-        : 0;
+  const elevation = delivery === 'lofted' ? (metres > 35 ? 0.42 : 0.34) : 0;
   if (elevation > 0) {
     const aerial = deriveAerialLaunchPlan(
       releasePosition,

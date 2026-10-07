@@ -4,7 +4,7 @@ import { emptyTurnoverCauseCounts, turnoverCauseCountsSchema } from './possessio
 import { distance } from './matchSpace';
 import { shotDiagnosticSchema, type TacticalMatchState } from './matchState';
 import { shotContactSchema } from './shotIntent';
-import { deriveFlankRelationship, deriveFlankRunAssignments } from './tacticalPositioning';
+import { deriveFlankRunAssignments } from './tacticalPositioning';
 import {
   MATCH_PRESENTATION_POLICIES,
   projectMatchMoment,
@@ -525,7 +525,7 @@ export const observeMatchFlow = (
   };
   const indexes = claimTelemetryIndexes(telemetry, result);
   const observedPasses = new Map(
-    [next.lastResolvedPass, next.lastPassDiagnostic]
+    [next.lastPassDiagnostic, next.lastResolvedPass]
       .filter((pass): pass is NonNullable<typeof pass> => Boolean(pass))
       .map((pass) => [pass.passId, pass]),
   );
@@ -806,7 +806,7 @@ export const observeMatchFlow = (
             receiver.slot.position,
           )
         ) {
-          const relation = deriveFlankRelationship(previous, receiver);
+          const relation = releasedPass.receiverRelationshipAtRelease;
           const length = distance(
             passer?.position ?? previous.ball,
             releasedPass.predictedReceptionPoint,
@@ -906,8 +906,7 @@ export const observeMatchFlow = (
           });
         if (receiverId === next.controlledFootballerId) result.controlled.passesReceived++;
         const receiver = next.players.find((player) => player.id === receiverId);
-        if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
-          result.overlapPassCompleted++;
+        if (diagnostic.receiverRelationshipAtRelease === 'overlap') result.overlapPassCompleted++;
         if (receiver) {
           const passer = next.players.find((player) => player.id === diagnostic.passerId);
           if (
@@ -1015,10 +1014,7 @@ export const observeMatchFlow = (
   ) {
     result.passesOutOfPlay++;
     if (boundary.boundary.startsWith('touchline')) result.widePassesOutOfPlay++;
-    const receiver = previous.players.find(
-      (player) => player.id === previous.ball.intendedReceiverId,
-    );
-    if (receiver && deriveFlankRelationship(previous, receiver) === 'overlap')
+    if (previous.lastPassDiagnostic?.receiverRelationshipAtRelease === 'overlap')
       result.overlapPassOutOfPlay++;
   }
   if (next.lastShot && !indexes.shots.has(`${result.benchmarkRunId}:${next.lastShot.shotId}`)) {
