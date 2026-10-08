@@ -153,9 +153,11 @@ export const projectLocomotion = (
     distance(player.position, state.ball) < 15 &&
     distance(target, state.ball) < 5;
   if (looseRace) return result('sprint', 'loose_ball_race');
-  // The screen also needs contact-level arrival precision; a formation margin would
-  // leave the carrier facing only its partner and keep both bodies outside ball access.
-  if (cooperativePress?.primaryId === player.id && state.defensiveChallenge?.actorId !== player.id)
+  if (
+    cooperativePress?.primaryId === player.id &&
+    state.defensiveChallenge?.actorId !== player.id &&
+    !shouldCommitRoutinePress(state, player.id, cooperativePress)
+  )
     return result(metres < 3 ? 'walk' : 'jog', 'contain');
   if (
     state.nearestChallengerId === player.id &&

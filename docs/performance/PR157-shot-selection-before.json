@@ -1,0 +1,2168 @@
+{
+  "config": {
+    "repetitions": 64,
+    "bands": [
+      10,
+      60,
+      100
+    ],
+    "distances": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      25,
+      32
+    ]
+  },
+  "root": "C:\\Users\\Admin\\Documents\\Codex\\2026-10-07\\cz\\work\\baseline",
+  "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+  "runtimeMilliseconds": 12543.838,
+  "collectionScope": "canonical_release_and_first_physical_resolution",
+  "definitions": {
+    "headerAim": "Physical header controls deliberately use the legacy central target (horizontal0, vertical0.55), with no explicit goalTarget. Other contexts use the target recipe recorded in the row.",
+    "pairedSeeds": "Ability, individual skill, difficulty and keeper skill share the same release seed and shooter identity. Canonical outcomes may diverge physically after launch.",
+    "horizontalError": "Absolute sampled target-plane coordinate error multiplied by goal half-width (3.66m). It is intended execution error, separate from physical flight height/drag and keeper intervention.",
+    "verticalError": "Absolute sampled target-plane coordinate error multiplied by goal height (2.44m). Negative aiming heights can bounce into goal.",
+    "onTarget": "Final public result goal or save. ProjectedOnTarget is unobstructed physical goal-plane classification.",
+    "blocks": "Final first physical block includes failed keeper contacts. GoalkeeperContacts is every final shot carrying keeperId, including passive-body contacts. Contacts minus saves measures non-save keeper contacts, not an exact passive-only classifier.",
+    "rangeMatrix": "Keeper displaced laterally 12m to isolate execution with an open goal. Context and keeper matrices use the named normal geometry.",
+    "freeKick": "Existing applyRestartScenario free_kick_close establishes the actual taker, defensive wall, keeper and release lifecycle. Only existing shot actions are exercised; no new restart UI/choreography.",
+    "selection": "Top-ranked legal shot family, overall action counts, and best shot/pass/carry canonical utility and final score (including existing deterministic decision noise). Families with no legal option are absent. Sterile fixtures measure bounded preference, not full-match action frequency.",
+    "selectionFixture": "Representative choice supplement places one skill60 teammate6m behind and6m lateral to the shooter as a legal short passing outlet; other named geometry is unchanged.",
+    "reactionReach": "Release-time advisory canonical keeper projection; actual contact and outcomes still come from fixed-step locomotion/CCD."
+  },
+  "rows": [
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "settled",
+        "distance": 20,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 10,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 32,
+      "onTarget": 32,
+      "blocks": 0,
+      "posts": 3,
+      "crossbars": 0,
+      "wide": 23,
+      "over": 6,
+      "goalkeeperContacts": 23,
+      "catches": 8,
+      "parries": 15,
+      "saves": 23,
+      "goals": 9,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 53,
+        "driven": 10,
+        "chip": 1
+      },
+      "selectionTopAction": {
+        "carry": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 29.065678953193355,
+            "p50": 29.66984561986,
+            "p90": 29.66984561986,
+            "max": 29.66984561986
+          },
+          "scored": {
+            "mean": 29.695623826963356,
+            "p50": 29.652724494847362,
+            "p90": 32.71021368696064,
+            "max": 33.63166494822771
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 19.5870631097139,
+            "p50": 19.587063109713917,
+            "p90": 19.587063109713917,
+            "max": 19.587063109713917
+          },
+          "scored": {
+            "mean": 18.946206801549828,
+            "p50": 18.75763099289251,
+            "p90": 22.131256737026696,
+            "max": 23.538794353816037
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 40.647619047619074,
+            "p50": 41.3690476190476,
+            "p90": 41.3690476190476,
+            "max": 41.3690476190476
+          },
+          "scored": {
+            "mean": 41.495005062965355,
+            "p50": 41.33981773571243,
+            "p90": 43.9411395263104,
+            "max": 45.1646535523413
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.0999999999999999,
+        "p50": 0.1,
+        "p90": 0.1,
+        "max": 0.1
+      },
+      "horizontalErrorMetres": {
+        "mean": 3.5057736544503526,
+        "p50": 3.156480282573153,
+        "p90": 7.337966364466806,
+        "max": 14.077782412005941
+      },
+      "verticalErrorMetres": {
+        "mean": 1.705542782011321,
+        "p50": 1.3514949595420143,
+        "p90": 3.778523280414514,
+        "max": 6.879527315865863
+      },
+      "launchSpeed": {
+        "mean": 25.435484368656756,
+        "p50": 25.249645258765668,
+        "p90": 27.22034019725397,
+        "max": 28.825512601155786
+      },
+      "reactionSeconds": {
+        "mean": 0.24000000000000019,
+        "p50": 0.24,
+        "p90": 0.24,
+        "max": 0.24
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 3.4534211026737824,
+        "p50": 3.126089803517508,
+        "p90": 6.63778693789622,
+        "max": 13.402984527216134
+      },
+      "availableKeeperReach": {
+        "mean": 2.3117419921875033,
+        "p50": 2.2692000000000014,
+        "p90": 2.665700000000002,
+        "max": 3.3823250000000016
+      },
+      "physicalReachable": 25,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 20,
+        "p50": 20,
+        "p90": 20,
+        "max": 20
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "settled",
+        "distance": 20,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 60,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 46,
+      "onTarget": 46,
+      "blocks": 0,
+      "posts": 3,
+      "crossbars": 1,
+      "wide": 11,
+      "over": 3,
+      "goalkeeperContacts": 30,
+      "catches": 11,
+      "parries": 19,
+      "saves": 30,
+      "goals": 16,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 61,
+        "driven": 2,
+        "chip": 1
+      },
+      "selectionTopAction": {
+        "carry": 45,
+        "shot": 19
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 46.083027625267235,
+            "p50": 46.34865262526717,
+            "p90": 46.34865262526717,
+            "max": 46.34865262526717
+          },
+          "scored": {
+            "mean": 46.152640855012535,
+            "p50": 46.331531500254535,
+            "p90": 49.389020692367815,
+            "max": 50.31047195363488
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 33.38490133041158,
+            "p50": 33.384901330411545,
+            "p90": 33.384901330411545,
+            "max": 33.384901330411545
+          },
+          "scored": {
+            "mean": 32.744045022247505,
+            "p50": 32.555469213590136,
+            "p90": 35.929094957724324,
+            "max": 37.336632574513665
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 46.89761904761908,
+            "p50": 47.6190476190476,
+            "p90": 47.6190476190476,
+            "max": 47.6190476190476
+          },
+          "scored": {
+            "mean": 47.74500506296536,
+            "p50": 47.58981773571243,
+            "p90": 50.1911395263104,
+            "max": 51.4146535523413
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.6000000000000008,
+        "p50": 0.6,
+        "p90": 0.6,
+        "max": 0.6
+      },
+      "horizontalErrorMetres": {
+        "mean": 1.7238028818643543,
+        "p50": 1.5520539384339387,
+        "p90": 3.60810731463916,
+        "max": 6.922101733883864
+      },
+      "verticalErrorMetres": {
+        "mean": 0.8660666258001645,
+        "p50": 0.686282802015759,
+        "p90": 1.918716400720721,
+        "max": 3.4933917063784694
+      },
+      "launchSpeed": {
+        "mean": 27.68548436865676,
+        "p50": 27.499645258765668,
+        "p90": 29.47034019725397,
+        "max": 31.075512601155786
+      },
+      "reactionSeconds": {
+        "mean": 0.24000000000000019,
+        "p50": 0.24,
+        "p90": 0.24,
+        "max": 0.24
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 2.1600540266676695,
+        "p50": 1.8631080616321043,
+        "p90": 3.999967734573225,
+        "max": 7.364600497368248
+      },
+      "availableKeeperReach": {
+        "mean": 2.005994433593752,
+        "p50": 2.014481250000001,
+        "p90": 2.180231250000001,
+        "max": 2.5604812500000023
+      },
+      "physicalReachable": 34,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 20,
+        "p50": 20,
+        "p90": 20,
+        "max": 20
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "settled",
+        "distance": 20,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 100,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 63,
+      "onTarget": 63,
+      "blocks": 0,
+      "posts": 0,
+      "crossbars": 0,
+      "wide": 1,
+      "over": 0,
+      "goalkeeperContacts": 37,
+      "catches": 14,
+      "parries": 23,
+      "saves": 37,
+      "goals": 26,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 64
+      },
+      "selectionTopAction": {
+        "shot": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 60.42826410678529,
+            "p50": 60.42826410678536,
+            "p90": 60.42826410678536,
+            "max": 60.42826410678536
+          },
+          "scored": {
+            "mean": 60.19736535467521,
+            "p50": 60.41114298177273,
+            "p90": 63.46863217388601,
+            "max": 64.39008343515307
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 31.673538788600524,
+            "p50": 31.673538788600474,
+            "p90": 31.673538788600474,
+            "max": 31.673538788600474
+          },
+          "scored": {
+            "mean": 31.03268248043645,
+            "p50": 30.844106671779066,
+            "p90": 34.217732415913254,
+            "max": 35.625270032702595
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 51.89761904761909,
+            "p50": 52.6190476190476,
+            "p90": 52.6190476190476,
+            "max": 52.6190476190476
+          },
+          "scored": {
+            "mean": 52.74500506296536,
+            "p50": 52.58981773571243,
+            "p90": 55.1911395263104,
+            "max": 56.4146535523413
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "horizontalErrorMetres": {
+        "mean": 0.6413130245419265,
+        "p50": 0.5774166037086382,
+        "p90": 1.342338059163989,
+        "max": 2.5752561652193
+      },
+      "verticalErrorMetres": {
+        "mean": 0.32131679824425285,
+        "p50": 0.2546157374786999,
+        "p90": 0.7118572546872084,
+        "max": 1.2960728478244794
+      },
+      "launchSpeed": {
+        "mean": 29.485484368656763,
+        "p50": 29.29964525876567,
+        "p90": 31.270340197253972,
+        "max": 32.87551260115579
+      },
+      "reactionSeconds": {
+        "mean": 0.24000000000000019,
+        "p50": 0.24,
+        "p90": 0.24,
+        "max": 0.24
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 1.7407323444286817,
+        "p50": 1.7437510805678897,
+        "p90": 2.5471541869554386,
+        "max": 3.7734284067008117
+      },
+      "availableKeeperReach": {
+        "mean": 1.8662698242187505,
+        "p50": 1.864981250000001,
+        "p90": 2.014481250000001,
+        "max": 2.2692000000000014
+      },
+      "physicalReachable": 39,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 20,
+        "p50": 20,
+        "p90": 20,
+        "max": 20
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "chip-rushing-keeper",
+        "distance": 12,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "chip",
+        "target": {
+          "horizontal": 0,
+          "vertical": 0.55
+        },
+        "keeperDepth": 5,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 10,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 26,
+      "onTarget": 26,
+      "blocks": 0,
+      "posts": 1,
+      "crossbars": 1,
+      "wide": 20,
+      "over": 16,
+      "goalkeeperContacts": 0,
+      "catches": 0,
+      "parries": 0,
+      "saves": 0,
+      "goals": 26,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "chip": 54,
+        "driven": 7,
+        "placed": 3
+      },
+      "selectionTopAction": {
+        "shot": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 71.46316594112275,
+            "p50": 72.20816594112274,
+            "p90": 72.20816594112274,
+            "max": 72.20816594112274
+          },
+          "scored": {
+            "mean": 72.51760660621065,
+            "p50": 72.6471647073662,
+            "p90": 75.37977617729065,
+            "max": 76.14499991323409
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": -1.3048368211040597,
+            "p50": -1.3048368211040575,
+            "p90": -1.3048368211040575,
+            "max": -1.3048368211040575
+          },
+          "scored": {
+            "mean": -1.9456931292681352,
+            "p50": -2.134268937925466,
+            "p90": 1.239356806208722,
+            "max": 2.646894422998063
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 32.252380952380925,
+            "p50": 32.25238095238093,
+            "p90": 32.25238095238093,
+            "max": 32.25238095238093
+          },
+          "scored": {
+            "mean": 32.17886520633693,
+            "p50": 32.038506433509625,
+            "p90": 34.824472859643734,
+            "max": 36.04798688567463
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.0999999999999999,
+        "p50": 0.1,
+        "p90": 0.1,
+        "max": 0.1
+      },
+      "horizontalErrorMetres": {
+        "mean": 4.391051493363545,
+        "p50": 3.953554571605249,
+        "p90": 9.190949370630495,
+        "max": 17.63270352751211
+      },
+      "verticalErrorMetres": {
+        "mean": 2.0899242581810844,
+        "p50": 1.6560839930531683,
+        "p90": 4.630096381708847,
+        "max": 8.4299796955501
+      },
+      "launchSpeed": {
+        "mean": 12.532743502924745,
+        "p50": 11.700447209531879,
+        "p90": 14.606370550410189,
+        "max": 19.836761412173217
+      },
+      "reactionSeconds": {
+        "mean": 0.19800000000000026,
+        "p50": 0.198,
+        "p90": 0.198,
+        "max": 0.198
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 3.663073312429567,
+        "p50": 3.210299798103405,
+        "p90": 6.0753244188870195,
+        "max": 9.644820742638917
+      },
+      "availableKeeperReach": {
+        "mean": 2.9119195429687523,
+        "p50": 2.9677192500000027,
+        "p90": 3.4727692500000025,
+        "max": 3.6091880000000023
+      },
+      "physicalReachable": 29,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 12,
+        "p50": 12,
+        "p90": 12,
+        "max": 12
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0.37750000000000034,
+        "p50": 0.3775,
+        "p90": 0.3775,
+        "max": 0.3775
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "chip-rushing-keeper",
+        "distance": 12,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "chip",
+        "target": {
+          "horizontal": 0,
+          "vertical": 0.55
+        },
+        "keeperDepth": 5,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 60,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 52,
+      "onTarget": 52,
+      "blocks": 0,
+      "posts": 0,
+      "crossbars": 0,
+      "wide": 6,
+      "over": 6,
+      "goalkeeperContacts": 0,
+      "catches": 0,
+      "parries": 0,
+      "saves": 0,
+      "goals": 52,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "chip": 52,
+        "placed": 6,
+        "driven": 6
+      },
+      "selectionTopAction": {
+        "shot": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 121.82116845290156,
+            "p50": 122.6161684529016,
+            "p90": 122.6161684529016,
+            "max": 122.6161684529016
+          },
+          "scored": {
+            "mean": 123.05359531274743,
+            "p50": 123.05516721914506,
+            "p90": 125.78777868906951,
+            "max": 126.55300242501295
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": -0.4699739588157712,
+            "p50": -0.4699739588157712,
+            "p90": -0.4699739588157712,
+            "max": -0.4699739588157712
+          },
+          "scored": {
+            "mean": -1.1108302669798462,
+            "p50": -1.2994060756371795,
+            "p90": 2.0742196684970082,
+            "max": 3.481757285286349
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 37.152380952380966,
+            "p50": 37.15238095238093,
+            "p90": 37.15238095238093,
+            "max": 37.15238095238093
+          },
+          "scored": {
+            "mean": 37.07886520633697,
+            "p50": 36.93850643350962,
+            "p90": 39.72447285964373,
+            "max": 40.94798688567463
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.6000000000000008,
+        "p50": 0.6,
+        "p90": 0.6,
+        "max": 0.6
+      },
+      "horizontalErrorMetres": {
+        "mean": 2.169180303759046,
+        "p50": 1.9530567381238881,
+        "p90": 4.540330801802246,
+        "max": 8.710559020250418
+      },
+      "verticalErrorMetres": {
+        "mean": 1.0466927627891736,
+        "p50": 0.8294133738647453,
+        "p90": 2.3188823014901234,
+        "max": 4.221970582547036
+      },
+      "launchSpeed": {
+        "mean": 11.7468137280161,
+        "p50": 11.49848376923841,
+        "p90": 12.728160409576201,
+        "max": 13.951794233285836
+      },
+      "reactionSeconds": {
+        "mean": 0.19800000000000026,
+        "p50": 0.198,
+        "p90": 0.198,
+        "max": 0.198
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 3.029410730509419,
+        "p50": 2.860776157255124,
+        "p90": 3.7997661892223693,
+        "max": 5.20174489606056
+      },
+      "availableKeeperReach": {
+        "mean": 3.290474225661059,
+        "p50": 3.3404130000000025,
+        "p90": 3.892169230769232,
+        "max": 3.892169230769232
+      },
+      "physicalReachable": 41,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 12,
+        "p50": 12,
+        "p90": 12,
+        "max": 12
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0.3099999999999999,
+        "p50": 0.31,
+        "p90": 0.31,
+        "max": 0.31
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "chip-rushing-keeper",
+        "distance": 12,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "chip",
+        "target": {
+          "horizontal": 0,
+          "vertical": 0.55
+        },
+        "keeperDepth": 5,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 100,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 64,
+      "onTarget": 64,
+      "blocks": 0,
+      "posts": 0,
+      "crossbars": 0,
+      "wide": 0,
+      "over": 0,
+      "goalkeeperContacts": 0,
+      "catches": 0,
+      "parries": 0,
+      "saves": 0,
+      "goals": 64,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 10,
+        "chip": 50,
+        "driven": 4
+      },
+      "selectionTopAction": {
+        "shot": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 157.26433333333327,
+            "p50": 157.928,
+            "p90": 157.928,
+            "max": 157.928
+          },
+          "scored": {
+            "mean": 158.55248280606676,
+            "p50": 159.024089662984,
+            "p90": 161.0996102361679,
+            "max": 161.86483397211134
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": -8.452254975500917,
+            "p50": -8.452254975500914,
+            "p90": -8.452254975500914,
+            "max": -8.452254975500914
+          },
+          "scored": {
+            "mean": -9.093111283664987,
+            "p50": -9.281687092322322,
+            "p90": -5.908061348188134,
+            "max": -4.500523731398793
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 41.07238095238094,
+            "p50": 41.07238095238093,
+            "p90": 41.07238095238093,
+            "max": 41.07238095238093
+          },
+          "scored": {
+            "mean": 40.998865206336944,
+            "p50": 40.858506433509625,
+            "p90": 43.644472859643734,
+            "max": 44.86798688567463
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "horizontalErrorMetres": {
+        "mean": 0.8010482370569102,
+        "p50": 0.7212367981744526,
+        "p90": 1.676681269019526,
+        "max": 3.2166887809464644
+      },
+      "verticalErrorMetres": {
+        "mean": 0.36344012588890084,
+        "p50": 0.2879948268755325,
+        "p90": 0.8051788505055969,
+        "max": 1.465982735880632
+      },
+      "launchSpeed": {
+        "mean": 11.576148461684085,
+        "p50": 11.55579682711881,
+        "p90": 11.745418012909191,
+        "max": 12.137830180164183
+      },
+      "reactionSeconds": {
+        "mean": 0.19800000000000026,
+        "p50": 0.198,
+        "p90": 0.198,
+        "max": 0.198
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 3.111595693684137,
+        "p50": 3.0949115750935725,
+        "p90": 3.197204836962268,
+        "max": 3.533867461713364
+      },
+      "availableKeeperReach": {
+        "mean": 3.6899449218749996,
+        "p50": 3.7496692307692325,
+        "p90": 3.892169230769232,
+        "max": 4.177169230769231
+      },
+      "physicalReachable": 60,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 12,
+        "p50": 12,
+        "p90": 12,
+        "max": 12
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0.25600000000000017,
+        "p50": 0.256,
+        "p90": 0.256,
+        "max": 0.256
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "blocked",
+        "distance": 20,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": true,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 10,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 31,
+      "onTarget": 0,
+      "blocks": 34,
+      "posts": 0,
+      "crossbars": 0,
+      "wide": 23,
+      "over": 7,
+      "goalkeeperContacts": 0,
+      "catches": 0,
+      "parries": 0,
+      "saves": 0,
+      "goals": 0,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 15,
+        "driven": 49
+      },
+      "selectionTopAction": {
+        "carry": 62,
+        "pass": 2
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 5.699415165932539,
+            "p50": 6.114314719503966,
+            "p90": 6.114314719503966,
+            "max": 6.114314719503966
+          },
+          "scored": {
+            "mean": 7.01258630762614,
+            "p50": 7.369566834932414,
+            "p90": 9.141109536802617,
+            "max": 9.907113957619515
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 18.79817340603656,
+            "p50": 18.798173406036575,
+            "p90": 18.798173406036575,
+            "max": 18.798173406036575
+          },
+          "scored": {
+            "mean": 18.941361159659913,
+            "p50": 19.237172172280033,
+            "p90": 21.969783642204483,
+            "max": 22.73500737814792
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 24.85986286333939,
+            "p50": 25.038478306175655,
+            "p90": 25.038478306175655,
+            "max": 25.038478306175655
+          },
+          "scored": {
+            "mean": 25.831494977543503,
+            "p50": 26.407221425937003,
+            "p90": 28.368019420955136,
+            "max": 28.69742765152592
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.0999999999999999,
+        "p50": 0.1,
+        "p90": 0.1,
+        "max": 0.1
+      },
+      "horizontalErrorMetres": {
+        "mean": 4.143820690690635,
+        "p50": 3.7309563006384003,
+        "p90": 8.67346835414474,
+        "max": 16.639923676720375
+      },
+      "verticalErrorMetres": {
+        "mean": 1.982915958328859,
+        "p50": 1.5712891820377024,
+        "p90": 4.393026191237059,
+        "max": 7.998347883306965
+      },
+      "launchSpeed": {
+        "mean": 25.435484368656756,
+        "p50": 25.249645258765668,
+        "p90": 27.22034019725397,
+        "max": 28.825512601155786
+      },
+      "reactionSeconds": {
+        "mean": 0.24000000000000019,
+        "p50": 0.24,
+        "p90": 0.24,
+        "max": 0.24
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 4.009464457097786,
+        "p50": 3.694641746789827,
+        "p90": 7.613641011609389,
+        "max": 15.552306988394514
+      },
+      "availableKeeperReach": {
+        "mean": 2.363897370793272,
+        "p50": 2.2692000000000014,
+        "p90": 2.7749812500000024,
+        "max": 3.7952692307692315
+      },
+      "physicalReachable": 22,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 20,
+        "p50": 20,
+        "p90": 20,
+        "max": 20
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0.5103571428571424,
+        "p50": 0.5103571428571428,
+        "p90": 0.5103571428571428,
+        "max": 0.5103571428571428
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "blocked",
+        "distance": 20,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": true,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 60,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 40,
+      "onTarget": 0,
+      "blocks": 48,
+      "posts": 0,
+      "crossbars": 0,
+      "wide": 15,
+      "over": 1,
+      "goalkeeperContacts": 0,
+      "catches": 0,
+      "parries": 0,
+      "saves": 0,
+      "goals": 0,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 25,
+        "driven": 39
+      },
+      "selectionTopAction": {
+        "pass": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 15.102615577648699,
+            "p50": 14.879401291934425,
+            "p90": 15.450829863362996,
+            "max": 15.450829863362996
+          },
+          "scored": {
+            "mean": 16.494632803005242,
+            "p50": 16.572860609554738,
+            "p90": 18.672200530049974,
+            "max": 19.412649191730708
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 40.568961883795644,
+            "p50": 40.56896188379564,
+            "p90": 40.56896188379564,
+            "max": 40.56896188379564
+          },
+          "scored": {
+            "mean": 40.712149637418996,
+            "p50": 41.007960650039095,
+            "p90": 43.740572119963545,
+            "max": 44.50579585590698
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 33.54409560956453,
+            "p50": 33.97278911564625,
+            "p90": 33.97278911564625,
+            "max": 33.97278911564625
+          },
+          "scored": {
+            "mean": 34.38404792904664,
+            "p50": 34.56096032589261,
+            "p90": 36.54488102290905,
+            "max": 37.76839504893995
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.6000000000000008,
+        "p50": 0.6,
+        "p90": 0.6,
+        "max": 0.6
+      },
+      "horizontalErrorMetres": {
+        "mean": 2.277461611701968,
+        "p50": 2.0505495734240764,
+        "p90": 4.76697538125962,
+        "max": 9.145373370165107
+      },
+      "verticalErrorMetres": {
+        "mean": 1.106754336530569,
+        "p50": 0.8770069698916535,
+        "p90": 2.4519449587472817,
+        "max": 4.464236705417634
+      },
+      "launchSpeed": {
+        "mean": 27.68548436865676,
+        "p50": 27.499645258765668,
+        "p90": 29.47034019725397,
+        "max": 31.075512601155786
+      },
+      "reactionSeconds": {
+        "mean": 0.24000000000000019,
+        "p50": 0.24,
+        "p90": 0.24,
+        "max": 0.24
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 2.5388535480142362,
+        "p50": 2.167996118911962,
+        "p90": 4.870793893682424,
+        "max": 9.338088829797258
+      },
+      "availableKeeperReach": {
+        "mean": 2.027849414062502,
+        "p50": 2.014481250000001,
+        "p90": 2.180231250000001,
+        "max": 2.5604812500000023
+      },
+      "physicalReachable": 30,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 20,
+        "p50": 20,
+        "p90": 20,
+        "max": 20
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0.442857142857143,
+        "p50": 0.44285714285714284,
+        "p90": 0.44285714285714284,
+        "max": 0.44285714285714284
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "blocked",
+        "distance": 20,
+        "angleRadians": 0,
+        "pressure": 0,
+        "turnRadians": 0,
+        "weakFoot": false,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": true,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 100,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 56,
+      "onTarget": 0,
+      "blocks": 61,
+      "posts": 0,
+      "crossbars": 0,
+      "wide": 3,
+      "over": 0,
+      "goalkeeperContacts": 0,
+      "catches": 0,
+      "parries": 0,
+      "saves": 0,
+      "goals": 0,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 43,
+        "driven": 21
+      },
+      "selectionTopAction": {
+        "carry": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": 24.48487016086643,
+            "p50": 25.28705766086645,
+            "p90": 25.28705766086645,
+            "max": 25.28705766086645
+          },
+          "scored": {
+            "mean": 25.502410888171887,
+            "p50": 25.567594362769196,
+            "p90": 28.327425727967093,
+            "max": 29.24887698923416
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 32.11194387430557,
+            "p50": 32.11194387430561,
+            "p90": 32.11194387430561,
+            "max": 32.11194387430561
+          },
+          "scored": {
+            "mean": 32.25513162792892,
+            "p50": 32.55094264054907,
+            "p90": 35.28355411047352,
+            "max": 36.048777846416954
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 43.85207482993199,
+            "p50": 43.85207482993195,
+            "p90": 43.85207482993195,
+            "max": 43.85207482993195
+          },
+          "scored": {
+            "mean": 43.778559083888,
+            "p50": 43.63820031106064,
+            "p90": 46.42416673719475,
+            "max": 47.64768076322565
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "horizontalErrorMetres": {
+        "mean": 1.1274611092574056,
+        "p50": 1.0151279322386881,
+        "p90": 2.35989898733847,
+        "max": 4.527432098753992
+      },
+      "verticalErrorMetres": {
+        "mean": 0.5326561365049494,
+        "p50": 0.4220838616587595,
+        "p90": 1.1800663304769818,
+        "max": 2.148537392142094
+      },
+      "launchSpeed": {
+        "mean": 29.485484368656763,
+        "p50": 29.29964525876567,
+        "p90": 31.270340197253972,
+        "max": 32.87551260115579
+      },
+      "reactionSeconds": {
+        "mean": 0.24000000000000019,
+        "p50": 0.24,
+        "p90": 0.24,
+        "max": 0.24
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 1.8649478866366365,
+        "p50": 1.783222593786732,
+        "p90": 3.1991609244598465,
+        "max": 5.437356599545138
+      },
+      "availableKeeperReach": {
+        "mean": 1.8686057617187506,
+        "p50": 1.864981250000001,
+        "p90": 2.014481250000001,
+        "max": 2.2692000000000014
+      },
+      "physicalReachable": 34,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 20,
+        "p50": 20,
+        "p90": 20,
+        "max": 20
+      },
+      "actualAngle": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "actualPressure": {
+        "mean": 0.38885714285714346,
+        "p50": 0.38885714285714285,
+        "p90": 0.38885714285714285,
+        "max": 0.38885714285714285
+      },
+      "orientationDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "weakFootDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "difficult",
+        "distance": 25,
+        "angleRadians": 0.5,
+        "pressure": 0.9,
+        "turnRadians": 2.2,
+        "weakFoot": true,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 10,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 29,
+      "onTarget": 29,
+      "blocks": 0,
+      "posts": 0,
+      "crossbars": 0,
+      "wide": 23,
+      "over": 12,
+      "goalkeeperContacts": 15,
+      "catches": 5,
+      "parries": 10,
+      "saves": 15,
+      "goals": 14,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "driven": 60,
+        "placed": 4
+      },
+      "selectionTopAction": {
+        "carry": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": -15.055481949370739,
+            "p50": -14.729440828941854,
+            "p90": -14.729440828941854,
+            "max": -14.729440828941854
+          },
+          "scored": {
+            "mean": -14.27009595978671,
+            "p50": -13.926931731559428,
+            "p90": -11.702646011643203,
+            "max": -10.936641590826305
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 1.1490075910693005,
+            "p50": 1.1490075910693003,
+            "p90": 1.1490075910693003,
+            "max": 1.1490075910693003
+          },
+          "scored": {
+            "mean": 1.292195344692652,
+            "p50": 1.588006357312758,
+            "p90": 4.320617827237208,
+            "max": 5.085841563180645
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 24.947309042220475,
+            "p50": 24.947309042220496,
+            "p90": 24.947309042220496,
+            "max": 24.947309042220496
+          },
+          "scored": {
+            "mean": 24.87379329617648,
+            "p50": 24.73343452334919,
+            "p90": 27.5194009494833,
+            "max": 28.742914975514196
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.0999999999999999,
+        "p50": 0.1,
+        "p90": 0.1,
+        "max": 0.1
+      },
+      "horizontalErrorMetres": {
+        "mean": 4.688239244592697,
+        "p50": 4.221132393061649,
+        "p90": 9.812995725415181,
+        "max": 18.82609046851052
+      },
+      "verticalErrorMetres": {
+        "mean": 2.5476017768843153,
+        "p50": 2.018753793041222,
+        "p90": 5.644052277498878,
+        "max": 10.276081139023416
+      },
+      "launchSpeed": {
+        "mean": 25.435484368656756,
+        "p50": 25.249645258765668,
+        "p90": 27.22034019725397,
+        "max": 28.825512601155786
+      },
+      "reactionSeconds": {
+        "mean": 0.2703145747778034,
+        "p50": 0.2703145747778036,
+        "p90": 0.2703145747778036,
+        "max": 0.2703145747778036
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 5.337044660159386,
+        "p50": 4.784278312198212,
+        "p90": 10.058293657809912,
+        "max": 19.45359737910306
+      },
+      "availableKeeperReach": {
+        "mean": 2.8539679482793616,
+        "p50": 2.642992269494699,
+        "p90": 3.6240833222835525,
+        "max": 5.759976154535744
+      },
+      "physicalReachable": 22,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 25.000000000000004,
+        "p50": 25.000000000000004,
+        "p90": 25.000000000000004,
+        "max": 25.000000000000004
+      },
+      "actualAngle": {
+        "mean": 0.22673300225128526,
+        "p50": 0.22673300225128545,
+        "p90": 0.22673300225128545,
+        "max": 0.22673300225128545
+      },
+      "actualPressure": {
+        "mean": 0.6230190266949435,
+        "p50": 0.6230190266949439,
+        "p90": 0.6230190266949439,
+        "max": 0.6230190266949439
+      },
+      "orientationDifficulty": {
+        "mean": 0.7040896589738617,
+        "p50": 0.7040896589738613,
+        "p90": 0.7040896589738613,
+        "max": 0.7040896589738613
+      },
+      "weakFootDifficulty": {
+        "mean": 0.899999999999999,
+        "p50": 0.9,
+        "p90": 0.9,
+        "max": 0.9
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "difficult",
+        "distance": 25,
+        "angleRadians": 0.5,
+        "pressure": 0.9,
+        "turnRadians": 2.2,
+        "weakFoot": true,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 60,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 31,
+      "onTarget": 31,
+      "blocks": 0,
+      "posts": 2,
+      "crossbars": 0,
+      "wide": 22,
+      "over": 9,
+      "goalkeeperContacts": 16,
+      "catches": 7,
+      "parries": 9,
+      "saves": 16,
+      "goals": 15,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 12,
+        "driven": 52
+      },
+      "selectionTopAction": {
+        "carry": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": -13.490253070717458,
+            "p50": -12.951192209430781,
+            "p90": -12.951192209430781,
+            "max": -12.951192209430781
+          },
+          "scored": {
+            "mean": -12.269040139158037,
+            "p50": -12.07136742950305,
+            "p90": -9.92439739213213,
+            "max": -9.158392971315232
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 17.05025447451488,
+            "p50": 17.050254474514873,
+            "p90": 17.050254474514873,
+            "max": 17.050254474514873
+          },
+          "scored": {
+            "mean": 17.19344222813823,
+            "p50": 17.48925324075833,
+            "p90": 20.22186471068278,
+            "max": 20.987088446626217
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 31.758335016531422,
+            "p50": 31.758335016531426,
+            "p90": 31.758335016531426,
+            "max": 31.758335016531426
+          },
+          "scored": {
+            "mean": 31.684819270487427,
+            "p50": 31.54446049766012,
+            "p90": 34.33042692379423,
+            "max": 35.553940949825126
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 0.6000000000000008,
+        "p50": 0.6,
+        "p90": 0.6,
+        "max": 0.6
+      },
+      "horizontalErrorMetres": {
+        "mean": 3.9305111348965003,
+        "p50": 3.5388995755575032,
+        "p90": 8.22698820456357,
+        "max": 15.783357962884443
+      },
+      "verticalErrorMetres": {
+        "mean": 1.8822898570646451,
+        "p50": 1.4915517107228096,
+        "p90": 4.17009536226319,
+        "max": 7.592459494204303
+      },
+      "launchSpeed": {
+        "mean": 27.68548436865676,
+        "p50": 27.499645258765668,
+        "p90": 29.47034019725397,
+        "max": 31.075512601155786
+      },
+      "reactionSeconds": {
+        "mean": 0.2703145747778034,
+        "p50": 0.2703145747778036,
+        "p90": 0.2703145747778036,
+        "max": 0.2703145747778036
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 4.780249195535067,
+        "p50": 4.06337072956611,
+        "p90": 8.998593883914218,
+        "max": 16.954871864211178
+      },
+      "availableKeeperReach": {
+        "mean": 2.444941503670589,
+        "p50": 2.3421143746988773,
+        "p90": 2.98043266429052,
+        "max": 4.334976154535749
+      },
+      "physicalReachable": 21,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 25.000000000000004,
+        "p50": 25.000000000000004,
+        "p90": 25.000000000000004,
+        "max": 25.000000000000004
+      },
+      "actualAngle": {
+        "mean": 0.22673300225128526,
+        "p50": 0.22673300225128545,
+        "p90": 0.22673300225128545,
+        "max": 0.22673300225128545
+      },
+      "actualPressure": {
+        "mean": 0.5555190266949445,
+        "p50": 0.5555190266949439,
+        "p90": 0.5555190266949439,
+        "max": 0.5555190266949439
+      },
+      "orientationDifficulty": {
+        "mean": 0.7040896589738617,
+        "p50": 0.7040896589738613,
+        "p90": 0.7040896589738613,
+        "max": 0.7040896589738613
+      },
+      "weakFootDifficulty": {
+        "mean": 0.899999999999999,
+        "p50": 0.9,
+        "p90": 0.9,
+        "max": 0.9
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "matrix": "contexts",
+      "context": {
+        "id": "difficult",
+        "distance": 25,
+        "angleRadians": 0.5,
+        "pressure": 0.9,
+        "turnRadians": 2.2,
+        "weakFoot": true,
+        "incomingSpeed": 0,
+        "contact": "settled",
+        "intent": "placed",
+        "target": {
+          "horizontal": 0.55,
+          "vertical": 0.3
+        },
+        "keeperDepth": 2,
+        "keeperLateral": 0,
+        "blocker": false,
+        "freeKick": false
+      },
+      "attribute": "bundle",
+      "ability": 100,
+      "keeperAbility": 60,
+      "attempts": 64,
+      "rejected": 0,
+      "unresolved": 0,
+      "projectedOnTarget": 35,
+      "onTarget": 35,
+      "blocks": 0,
+      "posts": 2,
+      "crossbars": 0,
+      "wide": 23,
+      "over": 4,
+      "goalkeeperContacts": 16,
+      "catches": 5,
+      "parries": 11,
+      "saves": 16,
+      "goals": 19,
+      "contactTypes": {
+        "settled": 64
+      },
+      "selectionTopFamily": {
+        "placed": 18,
+        "driven": 46
+      },
+      "selectionTopAction": {
+        "carry": 64
+      },
+      "selectionUtility": {
+        "shot": {
+          "samples": 64,
+          "canonical": {
+            "mean": -11.668089587951354,
+            "p50": -11.386373296021336,
+            "p90": -11.386373296021336,
+            "max": -11.386373296021336
+          },
+          "scored": {
+            "mean": -10.296465882286238,
+            "p50": -10.06334471666705,
+            "p90": -8.359578478722685,
+            "max": -7.593574057905787
+          }
+        },
+        "pass": {
+          "samples": 64,
+          "canonical": {
+            "mean": 19.22415899157211,
+            "p50": 19.224158991572104,
+            "p90": 19.224158991572104,
+            "max": 19.224158991572104
+          },
+          "scored": {
+            "mean": 19.367346745195462,
+            "p50": 19.66315775781556,
+            "p90": 22.39576922774001,
+            "max": 23.160992963683448
+          }
+        },
+        "carry": {
+          "samples": 64,
+          "canonical": {
+            "mean": 37.20715579598022,
+            "p50": 37.20715579598017,
+            "p90": 37.20715579598017,
+            "max": 37.20715579598017
+          },
+          "scored": {
+            "mean": 37.133640049936226,
+            "p50": 36.99328127710886,
+            "p90": 39.77924770324297,
+            "max": 41.00276172927387
+          }
+        }
+      },
+      "executionQuality": {
+        "mean": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "horizontalErrorMetres": {
+        "mean": 2.780510632451938,
+        "p50": 2.503477934372115,
+        "p90": 5.81991181064242,
+        "max": 11.165416691473325
+      },
+      "verticalErrorMetres": {
+        "mean": 1.3081916570390253,
+        "p50": 1.0366286024899156,
+        "p90": 2.8982167339928893,
+        "max": 5.276760180928762
+      },
+      "launchSpeed": {
+        "mean": 29.485484368656763,
+        "p50": 29.29964525876567,
+        "p90": 31.270340197253972,
+        "max": 32.87551260115579
+      },
+      "reactionSeconds": {
+        "mean": 0.2703145747778034,
+        "p50": 0.2703145747778036,
+        "p90": 0.2703145747778036,
+        "max": 0.2703145747778036
+      },
+      "requiredKeeperDisplacement": {
+        "mean": 4.13426171428771,
+        "p50": 3.8076413012845833,
+        "p90": 7.4234850805424415,
+        "max": 12.982361323951176
+      },
+      "availableKeeperReach": {
+        "mean": 2.1853358425890326,
+        "p50": 2.0777989799030565,
+        "p90": 2.5386371378960915,
+        "max": 3.225705427487733
+      },
+      "physicalReachable": 16,
+      "trajectoryParityFailures": 0,
+      "actualDistance": {
+        "mean": 25.000000000000004,
+        "p50": 25.000000000000004,
+        "p90": 25.000000000000004,
+        "max": 25.000000000000004
+      },
+      "actualAngle": {
+        "mean": 0.22673300225128526,
+        "p50": 0.22673300225128545,
+        "p90": 0.22673300225128545,
+        "max": 0.22673300225128545
+      },
+      "actualPressure": {
+        "mean": 0.5015190266949434,
+        "p50": 0.5015190266949439,
+        "p90": 0.5015190266949439,
+        "max": 0.5015190266949439
+      },
+      "orientationDifficulty": {
+        "mean": 0.7040896589738617,
+        "p50": 0.7040896589738613,
+        "p90": 0.7040896589738613,
+        "max": 0.7040896589738613
+      },
+      "weakFootDifficulty": {
+        "mean": 0.899999999999999,
+        "p50": 0.9,
+        "p90": 0.9,
+        "max": 0.9
+      },
+      "contactDifficulty": {
+        "mean": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "phase": "intermediate_before_boundary_fix",
+  "attempts": 18112,
+  "unresolved": 7,
+  "keeperTrajectoryParityFailures": 0,
+  "cells": [
+    {
+      "context": "difficult",
+      "ability": 5,
+      "unresolved": 4,
+      "attempts": 64,
+      "horizontalErrorMetres": {
+        "mean": 13.477547007639851,
+        "p50": 12.13472847371768,
+        "p90": 28.20997484878612,
+        "max": 54.120429018650576
+      }
+    },
+    {
+      "context": "difficult",
+      "ability": 10,
+      "unresolved": 2,
+      "attempts": 64,
+      "horizontalErrorMetres": {
+        "mean": 12.255164594610045,
+        "p50": 11.034136603048921,
+        "p90": 25.651395226869603,
+        "max": 49.21183099406009
+      }
+    },
+    {
+      "context": "difficult",
+      "ability": 20,
+      "unresolved": 1,
+      "attempts": 64,
+      "horizontalErrorMetres": {
+        "mean": 10.031195949796938,
+        "p50": 9.03175029168447,
+        "p90": 20.996386455681254,
+        "max": 40.28126394702371
+      }
+    }
+  ],
+  "confirmedCause": "Shot branch ignored earlier pitch-boundary CCD; outside_pitch restart dropped active shot without a miss result.",
+  "correction": "Compare physical pitch boundary against contact segment fraction; preserve a single active miss before restart."
+}

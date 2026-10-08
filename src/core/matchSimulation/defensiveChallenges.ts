@@ -200,48 +200,197 @@ export const deriveDefensiveContext = (
   };
 };
 
-const shouldCommitPressInContext = (
+export const pressingPlanSchema = z.object({
+  actorId: z.string(),
+  opponentId: z.string(),
+  intention: z.enum(['contain', 'screen', 'engage', 'emergency']),
+  commitment: z.number().min(0).max(1),
+  target: pitchPointSchema,
+  standOff: z.number().nonnegative(),
+  booked: z.boolean(),
+  covering: z.number().int().nonnegative(),
+  reason: z.enum([
+    'protect_receiver',
+    'wait_for_touch',
+    'screen_lane',
+    'close_ball_shoulder',
+    'exposed_control',
+    'immediate_threat',
+    'selected_press',
+    'recover_duel',
+  ]),
+});
+export type PressingPlan = z.infer<typeof pressingPlanSchema>;
+
+const projectPressingPlan = (
   state: TacticalMatchState,
   c: NonNullable<ReturnType<typeof deriveDefensiveContext>>,
   cooperativePress?: CooperativePress | null,
-): boolean => {
+): PressingPlan => {
   const explicit = state.playerMovementIntent;
-  if (
+  const selected = Boolean(
     state.defensiveChallenge?.actorId === c.actor.id ||
-    (explicit?.actorId === c.actor.id &&
-      explicit.expiresAt > state.time &&
-      explicit.type === 'attack_space')
-  )
-    return true;
-  if (protectedPressReceiver(state, c.actor)) return false;
+      (explicit?.actorId === c.actor.id &&
+        explicit.expiresAt > state.time &&
+        explicit.type === 'attack_space'),
+  );
+  const protectedReceiver = protectedPressReceiver(state, c.actor);
   const progress = c.opponent.team === 'home' ? c.opponent.position.x : 105 - c.opponent.position.x;
   const nearGoal = progress >= 78 && Math.abs(c.opponent.position.y - 34) <= 18;
-  if (c.covering < 2 || c.danger || c.promisingAttack || nearGoal) return true;
   const carry = state.ballCarrierIntent;
-  if (carry?.actorId === c.opponent.id && carry.expiresAt > state.time) return true;
-  // Finishing a chosen scan/shield invites pressure: containing an uncommitted
-  // reception must not let an explicitly waiting owner stand unchallenged forever.
-  if (
+  const movingIntent = carry?.actorId === c.opponent.id && carry.expiresAt > state.time;
+  const invited =
     state.currentAction?.type === 'hold' &&
     state.currentAction.actorId === c.opponent.id &&
-    state.actionCooldown <= 0
-  )
-    return true;
+    state.actionCooldown <= 0;
   const preparation = state.onBallPreparation;
   const unstableControl =
     distance(c.opponent.position, state.ball) > 1.45 ||
     (preparation?.actorId === c.opponent.id &&
       preparation.readyAt > state.time &&
       preparation.receptionKind === 'heavy_touch');
-  if (unstableControl) return true;
-  // A structurally vetted partner is already a chosen press, even while the first
-  // defender contains. Contact still requires the ordinary comfortable window.
-  if (cooperativePress?.secondaryId === c.actor.id) return true;
-  const booked =
+  const booked = Boolean(
     (state.discipline?.[c.actor.id]?.yellowCards ?? 0) > 0 ||
-    state.pendingCards?.some((foul) => foul.actorId === c.actor.id && foul.card !== 'none');
+      state.pendingCards?.some((foul) => foul.actorId === c.actor.id && foul.card !== 'none'),
+  );
   const a = c.actor.profile.attributes;
-  return !booked && a.aggression >= 75 && (a.gameReading + a.positioning) / 2 >= 70;
+  const reading = (a.gameReading + a.positioning) / 200;
+  const trailingLate =
+    state.time >= 80 * 60 && state.score[c.actor.team] < state.score[c.opponent.team];
+  // Temperament controls commitment. Tackling/strength are deliberately absent: neither
+  // turns aggression into better execution or substitutes for willingness to engage.
+  const commitment = Math.max(
+    0,
+    Math.min(
+      1,
+      (a.aggression / 100) * 0.64 +
+        ((100 - a.composure) / 100) * 0.08 +
+        reading * 0.08 +
+        Math.min(3, c.covering) * 0.035 -
+        (c.covering === 0 ? 0.12 : 0) +
+        (unstableControl ? 0.29 : 0) +
+        (movingIntent ? 0.12 : 0) +
+        (invited ? 0.22 : 0) +
+        (nearGoal || c.danger ? 0.25 : c.promisingAttack ? 0.12 : 0) +
+        (trailingLate ? 0.1 : 0) -
+        (booked ? 0.2 + (a.composure / 100) * 0.08 : 0),
+    ),
+  );
+  const locked = isDefensiveEpisodeLocked(state, c.actor.id, c.opponent.id);
+  const partner = cooperativePress?.secondaryId === c.actor.id;
+  const screening =
+    protectedReceiver ||
+    (cooperativePress?.primaryId === c.actor.id &&
+      !selected &&
+      !invited &&
+      !unstableControl &&
+      !nearGoal);
+  const intention: PressingPlan['intention'] = locked
+    ? 'contain'
+    : screening && !selected
+      ? 'screen'
+      : nearGoal && commitment >= 0.76
+        ? 'emergency'
+        : selected ||
+            partner ||
+            unstableControl ||
+            invited ||
+            (c.dogso && progress >= 88) ||
+            (movingIntent && c.covering > 0) ||
+            commitment >= 0.56
+          ? 'engage'
+          : 'contain';
+  const reason: PressingPlan['reason'] = locked
+    ? 'recover_duel'
+    : protectedReceiver
+      ? 'protect_receiver'
+      : intention === 'screen'
+        ? 'screen_lane'
+        : selected || partner
+          ? 'selected_press'
+          : unstableControl
+            ? 'exposed_control'
+            : nearGoal
+              ? 'immediate_threat'
+              : intention === 'engage'
+                ? 'close_ball_shoulder'
+                : 'wait_for_touch';
+  const dir = c.opponent.team === 'home' ? 1 : -1;
+  const anticipation = 0.08 + reading * 0.26;
+  const predicted = {
+    x: c.opponent.position.x + c.opponent.velocity.x * anticipation,
+    y: c.opponent.position.y + c.opponent.velocity.y * anticipation,
+  };
+  // A pincer screen occupies the body side, while its partner approaches the ball
+  // shoulder. Standing farther back makes the carrier shield only the arriving partner.
+  let standOff =
+    cooperativePress?.primaryId === c.actor.id
+      ? 1.12
+      : intention === 'contain'
+        ? 1.75 + (1 - commitment) * 0.8
+        : intention === 'screen'
+          ? 2.1
+          : 1.12;
+  let target = {
+    x: predicted.x + dir * standOff,
+    y: predicted.y + (cooperativePress?.primaryId === c.actor.id ? 0 : (34 - predicted.y) * 0.055),
+  };
+  if (protectedReceiver && !selected)
+    target = { x: protectedReceiver.position.x + dir * 2, y: protectedReceiver.position.y };
+  else if (partner) target = cooperativePress!.target;
+  else if ((intention === 'engage' || intention === 'emergency') && c.opponentDistance < 3.5) {
+    // Reach the actual exposed shoulder, orbiting around protected control. A goal-side
+    // resting point can lie permanently outside poke reach; enlarging tackle radii hides it.
+    const bx = state.ball.x - c.opponent.position.x,
+      by = state.ball.y - c.opponent.position.y;
+    const ballAngle =
+      Math.hypot(bx, by) > 0.15
+        ? Math.atan2(by, bx)
+        : Math.atan2(
+            c.actor.position.y - c.opponent.position.y,
+            c.actor.position.x - c.opponent.position.x,
+          );
+    const currentAngle = Math.atan2(
+      c.actor.position.y - c.opponent.position.y,
+      c.actor.position.x - c.opponent.position.x,
+    );
+    const turn = normalizeAngle(ballAngle - currentAngle);
+    const approachAngle = currentAngle + Math.max(-Math.PI / 3, Math.min(Math.PI / 3, turn));
+    standOff = Math.abs(turn) > Math.PI / 3 ? 1.3 : 1.12;
+    target = {
+      x: predicted.x + Math.cos(approachAngle) * standOff,
+      y: predicted.y + Math.sin(approachAngle) * standOff,
+    };
+  }
+  return {
+    actorId: c.actor.id,
+    opponentId: c.opponent.id,
+    intention,
+    commitment,
+    target: clampPitchPoint(target),
+    standOff,
+    booked,
+    covering: c.covering,
+    reason,
+  };
+};
+
+/** Pure continuous tactical projection; recomputed from physical context, without a press timer. */
+export const derivePressingPlan = (
+  state: TacticalMatchState,
+  actorId: string,
+  cooperativePress?: CooperativePress | null,
+): PressingPlan | undefined => {
+  const c = deriveDefensiveContext(state, actorId);
+  return c
+    ? projectPressingPlan(
+        state,
+        c,
+        cooperativePress === undefined
+          ? deriveCooperativePress(state, c.actor.team)
+          : cooperativePress,
+      )
+    : undefined;
 };
 
 /** Ordinary covered circulation is jockeyed; threats, exposed control and chosen presses close down. */
@@ -250,16 +399,8 @@ export const shouldCommitRoutinePress = (
   actorId: string,
   cooperativePress?: CooperativePress | null,
 ): boolean => {
-  const c = deriveDefensiveContext(state, actorId);
-  return c
-    ? shouldCommitPressInContext(
-        state,
-        c,
-        cooperativePress === undefined
-          ? deriveCooperativePress(state, c.actor.team)
-          : cooperativePress,
-      )
-    : false;
+  const intention = derivePressingPlan(state, actorId, cooperativePress)?.intention;
+  return intention === 'engage' || intention === 'emergency';
 };
 
 export const cooperativePressSchema = z.object({
@@ -416,6 +557,19 @@ export const deriveCooperativePress = (
         state.playerMovementIntent.expiresAt > state.time)
     )
       continue;
+    // Safe cover permits initiative; temperament and a booking shift recruitment
+    // continuously rather than excluding every cautious or booked player.
+    const candidateAttributes = candidate.profile.attributes;
+    const booked = (state.discipline?.[candidate.id]?.yellowCards ?? 0) > 0;
+    const initiative =
+      (candidateAttributes.aggression / 100) * 0.58 +
+      willingness * 0.4 +
+      (candidateAttributes.gameReading / 100) * 0.12 +
+      (candidateAttributes.positioning / 100) * 0.06 +
+      (shield || confined ? 0.2 : 0) +
+      (progress >= 78 ? 0.18 : 0) -
+      (booked ? 0.17 + (candidateAttributes.composure / 100) * 0.06 : 0);
+    if (initiative < 0.34) continue;
     const remaining = defenders.filter(
       (player) => player.id !== primary.id && player.id !== candidate.id,
     );
@@ -534,7 +688,9 @@ export const enumerateDefensiveChallengeActions = (
   if (c.ballDistance <= 2.4 && c.facingError <= Math.PI * 0.42 && c.relativeSpeed <= 8.5)
     actions.push(action('standing'));
   if (
-    (c.danger || distance(c.actor.position, c.actor.anchor) >= 4.5) &&
+    (c.danger ||
+      distance(c.actor.position, c.actor.anchor) >= 4.5 ||
+      c.actor.profile.attributes.aggression >= 70) &&
     c.ballDistance <= 2.4 &&
     c.facingError <= Math.PI * 0.55
   )
@@ -617,17 +773,13 @@ export const chooseNpcDefensiveChallengeAction = (
   const options = enumerateDefensiveChallengeActions(state, actorId);
   if (options.length === 0) return;
   const c = deriveDefensiveContext(state, actorId);
-  if (
-    !c ||
-    !shouldCommitPressInContext(
-      state,
-      c,
-      cooperativePress === undefined
-        ? deriveCooperativePress(state, c.actor.team)
-        : cooperativePress,
-    )
-  )
-    return;
+  if (!c) return;
+  const plan = projectPressingPlan(
+    state,
+    c,
+    cooperativePress === undefined ? deriveCooperativePress(state, c.actor.team) : cooperativePress,
+  );
+  const commits = plan.intention === 'engage' || plan.intention === 'emergency';
   const actor = c.actor;
   const forward = { x: Math.sin(c.opponent.facingAngle), y: Math.cos(c.opponent.facingAngle) };
   const rearApproach =
@@ -659,7 +811,8 @@ export const chooseNpcDefensiveChallengeAction = (
     (a.tackling + a.positioning + a.gameReading) * 0.08 +
     (c.danger ? 12 : 0) +
     (desperate ? 8 : 0) -
-    Math.min(3, c.covering) * 7 -
+    (c.covering === 0 && !c.danger ? 10 : 0) +
+    Math.min(3, c.covering) * 3 -
     (rearApproach ? 10 : 0) -
     (booked ? 28 : 0);
   // Choosing an aggressive intent is not choosing to run through an inaccessible ball.
@@ -674,10 +827,75 @@ export const chooseNpcDefensiveChallengeAction = (
     a.tackling >= 58 ||
     c.danger ||
     (exposedBall && c.ballDistance < c.opponentDistance - 0.12 && a.gameReading >= 45);
+  // Containment is still effective defence: a clearly reachable exposed ball may be
+  // poked safely without converting every jockey into a committed engagement.
+  if (!commits)
+    return standingWorthwhile && exposedBall && (c.danger || c.covering < 2)
+      ? comfortableStanding
+      : undefined;
   const committedWindow = Math.max(0.75, 1.1 - c.relativeSpeed * 0.025);
   const slideWindow = Math.max(1.05, 1.75 - c.relativeSpeed * 0.03);
-  if (comfortableStanding && standingWorthwhile && !c.danger && !c.promisingAttack && !desperate)
-    return comfortableStanding;
+  // Eager closing does not justify replacing an immediate legal poke with a slower
+  // opponent-first action. Prepared contact must still find the exposed ball later.
+  if (comfortableStanding && standingWorthwhile) return comfortableStanding;
+  const ballVector = { x: state.ball.x - actor.position.x, y: state.ball.y - actor.position.y };
+  const closingSpeed =
+    -(
+      (c.opponent.velocity.x - actor.velocity.x) * ballVector.x +
+      (c.opponent.velocity.y - actor.velocity.y) * ballVector.y
+    ) / Math.max(0.01, c.ballDistance);
+  const controlledShoulderReachable = distance(plan.target, state.ball) <= comfortableReach + 0.06;
+  // Continue the actual approach when the chosen shoulder offers a safe standing
+  // solution. There is no wait timer and no feedback from observed foul totals.
+  if (controlledShoulderReachable && c.relativeSpeed <= 4.5 && closingSpeed >= -0.5 && !c.dogso)
+    return;
+  const contactForecast = (seconds: number) => {
+    const actorPoint = {
+      x: actor.position.x + actor.velocity.x * seconds,
+      y: actor.position.y + actor.velocity.y * seconds,
+    };
+    const opponentPoint = {
+      x: c.opponent.position.x + c.opponent.velocity.x * seconds,
+      y: c.opponent.position.y + c.opponent.velocity.y * seconds,
+    };
+    let ballPoint = {
+      x: state.ball.x + c.opponent.velocity.x * seconds,
+      y: state.ball.y + c.opponent.velocity.y * seconds,
+    };
+    if (
+      state.onBallPreparation?.actorId === c.opponent.id &&
+      state.onBallPreparation.micro?.shielding
+    ) {
+      const nearest = state.players
+        .filter((p) => p.team === actor.team)
+        .map((p) => ({
+          x: p.position.x + p.velocity.x * seconds,
+          y: p.position.y + p.velocity.y * seconds,
+        }))
+        .sort((a, b) => distance(a, opponentPoint) - distance(b, opponentPoint))[0];
+      if (nearest) {
+        const length = Math.max(0.01, distance(nearest, opponentPoint));
+        ballPoint = {
+          x: opponentPoint.x + ((opponentPoint.x - nearest.x) / length) * 0.38,
+          y: opponentPoint.y + ((opponentPoint.y - nearest.y) / length) * 0.38,
+        };
+      }
+    }
+    const ballMetres = distance(actorPoint, ballPoint);
+    const bodyMetres = distance(actorPoint, opponentPoint);
+    return {
+      ballMetres,
+      exposed: ballMetres < bodyMetres - 0.1,
+      aligned:
+        Math.abs(
+          normalizeAngle(
+            angleForVector({ x: ballPoint.x - actorPoint.x, y: ballPoint.y - actorPoint.y }) -
+              actor.facingAngle,
+          ),
+        ) <
+        Math.PI * 0.4,
+    };
+  };
   // An individual/context threshold, never a quota or match-wide random foul budget.
   if (
     riskAppetite >= 72 &&
@@ -689,21 +907,28 @@ export const chooseNpcDefensiveChallengeAction = (
     if (tactical) return tactical;
   }
   const slide = options.find((action) => action.technique === 'slide');
+  const slideContact = slide && contactForecast(0.18);
   if (
     slide &&
     riskAppetite >= 64 &&
     a.tackling >= 65 &&
     exposedBall &&
-    c.ballDistance <= slideWindow
+    c.ballDistance <= slideWindow &&
+    slideContact?.exposed &&
+    slideContact.aligned &&
+    slideContact.ballMetres <= 1.65
   )
     return slide;
   const committed = options.find((action) => action.technique === 'committed');
+  const committedContact = committed && contactForecast(0.1);
   if (
     committed &&
     riskAppetite >= 58 &&
-    a.tackling >= 50 &&
     exposedBall &&
-    c.ballDistance <= committedWindow
+    c.ballDistance <= committedWindow &&
+    committedContact?.exposed &&
+    committedContact.aligned &&
+    committedContact.ballMetres <= 1.1
   )
     return committed;
   return standingWorthwhile ? comfortableStanding : undefined;

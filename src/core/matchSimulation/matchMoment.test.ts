@@ -40,10 +40,22 @@ describe('pure match moment projection', () => {
       (player) => player.team === 'home' && player.profile.primaryPosition !== 'goalkeeper',
     )!;
     state.controlledFootballerId = actor.id;
-    actor.position = { x: 85, y: 34 };
+    // A credible close-range shot makes this an actual agency opportunity.
+    actor.position = { x: 94, y: 34 };
     state.ball = { ...actor.position, ownerId: actor.id };
     state.possessionTeam = actor.team;
-    state.players.find((player) => player.team !== actor.team)!.position = { x: 85.5, y: 34 };
+    state.players.find(
+      (player) => player.team !== actor.team && player.profile.primaryPosition === 'goalkeeper',
+    )!.position = {
+      x: 103,
+      y: 34,
+    };
+    state.players.find(
+      (player) => player.team !== actor.team && player.profile.primaryPosition !== 'goalkeeper',
+    )!.position = {
+      x: 92.5,
+      y: 34,
+    };
 
     const decisionSnapshot = structuredClone(state);
     const positive = projectPlayerAgency(state);

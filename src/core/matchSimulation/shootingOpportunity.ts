@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { distance, distanceToSegment, PITCH_LENGTH, PITCH_WIDTH } from './matchSpace';
-import { evaluatePressure } from './matchActions';
+import { angleForVector, normalizeAngle } from './playerOrientation';
+import { approximateShotPlacement, deriveShootingDifficulty } from './shootingDifficulty';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 
 export const shotRelevanceSchema = z.enum(['non_viable', 'speculative', 'credible', 'high_value']);
@@ -10,6 +11,8 @@ export const shootingOpportunitySchema = z.object({
   angle: z.number().min(0).max(1),
   pressure: z.number().min(0).max(1),
   blockingDefenders: z.number().int().nonnegative(),
+  blockingDemand: z.number().nonnegative(),
+  visibleTargetArea: z.number().min(0).max(1),
   goalkeeper: z.object({
     goalkeeperId: z.string().optional(),
     distanceFromGoalCentre: z.number().nonnegative(),
@@ -38,7 +41,30 @@ export const evaluateShootingOpportunity = (
   const metres = distance(shooter.position, goal);
   const lateral = Math.abs(shooter.position.y - PITCH_WIDTH / 2);
   const angle = clamp01(1 - lateral / Math.max(7, metres * 0.62));
-  const pressure = evaluatePressure(state, shooter).value;
+  // Pressure is observable geometry. Keeper skill must never change the shooter's launch;
+  // shooter composure/technique answer this demand inside the shared execution profile.
+  const nearby = state.players
+    .filter((player) => player.team !== shooter.team)
+    .map((player) => ({ player, metres: distance(player.position, shooter.position) }))
+    .filter(({ metres }) => metres < 14)
+    .sort((a, b) => a.metres - b.metres);
+  const nearest = nearby[0];
+  const closing = nearest
+    ? Math.max(
+        0,
+        -(
+          nearest.player.velocity.x * (nearest.player.position.x - shooter.position.x) +
+          nearest.player.velocity.y * (nearest.player.position.y - shooter.position.y)
+        ) / Math.max(0.2, nearest.metres),
+      )
+    : 0;
+  const pressure = nearest
+    ? clamp01(
+        (1 - nearest.metres / 14) * 0.62 +
+          Math.min(0.15, closing / 35) +
+          Math.min(0.15, (nearby.length - 1) * 0.06),
+      )
+    : 0;
   const blockingDefenders = state.players.filter(
     (player) =>
       player.team !== shooter.team &&
@@ -46,6 +72,19 @@ export const evaluateShootingOpportunity = (
       distance(player.position, shooter.position) < metres &&
       distanceToSegment(player.position, shooter.position, goal) < 1.65,
   ).length;
+  const blockingDemand = state.players
+    .filter(
+      (player) => player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
+    )
+    .reduce((sum, player) => {
+      const progress =
+        ((player.position.x - shooter.position.x) * (goal.x - shooter.position.x) +
+          (player.position.y - shooter.position.y) * (goal.y - shooter.position.y)) /
+        Math.max(0.01, metres * metres);
+      const insideFlight = clamp01(progress * 5) * clamp01((1 - progress) * 5);
+      const separation = distanceToSegment(player.position, shooter.position, goal);
+      return sum + insideFlight * Math.exp(-((separation / 1.65) ** 2));
+    }, 0);
   const goalkeeper = state.players.find(
     (player) => player.team !== shooter.team && player.profile.primaryPosition === 'goalkeeper',
   );
@@ -68,10 +107,39 @@ export const evaluateShootingOpportunity = (
       Math.pow(0.72, blockingDefenders) *
       keeperExposureMultiplier,
   );
-  const a = shooter.profile.attributes;
-  const shooterExecutionQuality =
-    (a.finishing * 0.45 + a.technique * 0.28 + a.composure * 0.27) / 100;
-  const executionMultiplier = 0.62 + shooterExecutionQuality * 0.76;
+  const visibleTargetArea = clamp01(
+    1 -
+      (goalkeeper
+        ? goalCoverage * 0.33 * Math.exp(-Math.abs(goalkeeper.position.y - goal.y) / 4)
+        : 0),
+  );
+  const orientation =
+    Math.abs(
+      normalizeAngle(
+        angleForVector({ x: goal.x - shooter.position.x, y: goal.y - shooter.position.y }) -
+          shooter.facingAngle,
+      ),
+    ) / Math.PI;
+  const lateralContact =
+    (state.ball.x - shooter.position.x) * Math.cos(shooter.facingAngle) -
+    (state.ball.y - shooter.position.y) * Math.sin(shooter.facingAngle);
+  const weakSide =
+    shooter.profile.dominantFoot === 'right' ? lateralContact < -0.15 : lateralContact > 0.15;
+  const execution = deriveShootingDifficulty(shooter, {
+    distance: metres,
+    angle,
+    pressure,
+    orientation,
+    weakFoot: weakSide ? 1 - shooter.profile.weakFootProficiency / 100 : 0,
+    incomingSpeed: 0,
+    ballHeight: 0.11,
+    contact: 'settled',
+    intent: 'placed',
+    targetWindow: 1 - visibleTargetArea,
+    blockers: blockingDemand,
+  });
+  const shooterExecutionQuality = execution.executionQuality;
+  const executionMultiplier = approximateShotPlacement(execution) * 1.16;
   const effectiveScoringExpectation = clamp01(baseXg * executionMultiplier);
   const category =
     effectiveScoringExpectation < 0.018
@@ -87,6 +155,8 @@ export const evaluateShootingOpportunity = (
     angle,
     pressure,
     blockingDefenders,
+    blockingDemand,
+    visibleTargetArea,
     goalkeeper: {
       ...(goalkeeper ? { goalkeeperId: goalkeeper.id } : {}),
       distanceFromGoalCentre: goalkeeperDistance,

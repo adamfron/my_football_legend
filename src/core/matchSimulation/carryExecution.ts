@@ -89,6 +89,14 @@ export const deriveCarryExecution = (
   if (
     intent.executionMode &&
     state.time - (intent.modeSince ?? intent.startedAt) < 0.65 &&
+    // An arriving body can invalidate the previous route inside its ordinary mode
+    // hysteresis. This is spatial anticipation, not a countdown escape or stun.
+    (!closest ||
+      closest.metres > 2.8 ||
+      Math.hypot(
+        closest.player.velocity.x - actor.velocity.x,
+        closest.player.velocity.y - actor.velocity.y,
+      ) < 2.2) &&
     (intention === undefined ||
       (intention !== 'sprint' && (intent.executionMode !== 'shield' || intention === 'retain')))
   )
@@ -106,11 +114,19 @@ export const deriveCarryExecution = (
       }),
     );
     localTarget = candidates.sort((a, b) => {
+      const anticipation = 0.12 + (actor.profile.attributes.gameReading / 100) * 0.25;
       const clearance = (point: typeof a) =>
-        Math.min(...defenders.map(({ player }) => distance(point, player.position)));
+        Math.min(
+          ...defenders.map(({ player }) =>
+            distance(point, {
+              x: player.position.x + player.velocity.x * anticipation,
+              y: player.position.y + player.velocity.y * anticipation,
+            }),
+          ),
+        );
       const score = (point: typeof a) =>
         distance(point, intent.target) -
-        clearance(point) * 0.7 +
+        clearance(point) * (0.5 + (actor.profile.attributes.dribbling / 100) * 0.45) +
         (point.y < 2 || point.y > 66 ? 5 : 0);
       return score(a) - score(b) || a.y - b.y;
     })[0]!;
@@ -119,8 +135,8 @@ export const deriveCarryExecution = (
     const awayY = actor.position.y - closest.player.position.y;
     const length = Math.max(0.1, Math.hypot(awayX, awayY));
     localTarget = clampPitchPoint({
-      x: actor.position.x + awayX / length,
-      y: actor.position.y + awayY / length,
+      x: actor.position.x + (awayX / length) * 0.85,
+      y: actor.position.y + (awayY / length) * 0.85,
     });
   }
   const a = actor.profile.attributes;

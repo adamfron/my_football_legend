@@ -1,0 +1,558 @@
+{
+  "baseCommit": "83570049ef86622f9ebefd26e3afc6bb654ae6ba",
+  "finalValidationCompletedAt": "2026-10-07T22:23:05.470Z",
+  "fixedStepSeconds": 0.025,
+  "sourceFingerprint": {
+    "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+    "recordedAt": "2026-10-07T22:16:57.378Z",
+    "base": "83570049ef86622f9ebefd26e3afc6bb654ae6ba",
+    "policy": "Final standing-priority/contact-forecast pressing correction and fixed static observer. Any further runtime edit invalidates after evidence.",
+    "scope": "Sorted raw on-disk non-test .ts paths in src/core/matchSimulation + NUL + bytes + NUL"
+  },
+  "normalizedSourceFingerprint": {
+    "scope": "Same scope and path order, CRLF normalized to LF for Git/checkout portability",
+    "digest": "247b88d08cda9c63d148ec2f95ed9215d17096d404122c5c206c09e8f1e79711"
+  },
+  "integrityRuntimeFingerprint": {
+    "algorithm": "sha256",
+    "scope": "Non-test TypeScript in src/core and src/app/match, canonical world fixture and loader",
+    "files": 187,
+    "digest": "78387ba2c180a21d53f46ec8273a5bc4fac7e5f5567f6b90999827a588033b90"
+  },
+  "checks": {
+    "verify": {
+      "command": "npm run verify",
+      "exitCode": 0,
+      "main": {
+        "files": 156,
+        "tests": 1215
+      },
+      "fullCareer": {
+        "files": 1,
+        "tests": 5
+      },
+      "lint": "passed",
+      "productionBuild": "passed",
+      "workerPolicy": "VITEST_MAX_WORKERS=2, unchanged test assertions and canonical frequency",
+      "logSha256": "c7e241ac36418098883210053efdf3c9e03e3c6b7d85b62d961fb1496106769e"
+    },
+    "benchmarkTypeScript": {
+      "strict": true,
+      "exactOptionalPropertyTypes": true,
+      "exitCode": 0,
+      "files": [
+        "benchmarkPr157Flow.ts",
+        "benchmarkPr157Pressing.ts",
+        "benchmarkPr157Shooting.ts",
+        "benchmarkPr157Integrity.ts"
+      ]
+    },
+    "flow": {
+      "matchedPairs": 12,
+      "completeMatches": 24,
+      "seedsPerFixture": 3,
+      "minutesPerMatch": 90,
+      "fixtures": 4,
+      "sourceHashesStable": true,
+      "observerHashesIdentical": true
+    },
+    "integrity": {
+      "disabledIdentityComparisons": 66,
+      "enabledIdentityPrefixes": 66,
+      "blockedRepeatedProposals": 144,
+      "humanNpcLaunchComparisons": 18,
+      "blockedRngDraws": 0,
+      "canonicalAndRngModeParity": true
+    },
+    "shooting": {
+      "mainCells": 283,
+      "pairedSamplesPerCell": 64,
+      "physicalAttemptsPerRevision": 18112,
+      "generatedHeaderAttemptsPerRevision": 896,
+      "choiceAttemptsPerRevision": 768,
+      "unresolvedAfter": 0,
+      "rejectedAfter": 0,
+      "keeperLaunchMismatchesBefore": 512,
+      "keeperLaunchMismatchesAfter": 0
+    },
+    "pressing": {
+      "coreCells": 122,
+      "pairedTrialsPerCell": 32,
+      "duelsPerRevision": 3904,
+      "riskCells": 15,
+      "riskDuelsPerRevision": 480,
+      "fixedContactCells": 40,
+      "fixedContactTrialsPerCell": 128
+    },
+    "telemetryReference": {
+      "seeds": 2,
+      "replaysPerSeedAndRevision": 2,
+      "exportedFields": 80,
+      "fullSortedFieldHashesAndInvariantsPreserved": true
+    },
+    "performance": {
+      "pairs": 3,
+      "targetCanonicalSecondsPerRun": 600,
+      "actualCanonicalSecondsPerRun": 600.025,
+      "ticksPerRun": 24001,
+      "medianAfterBeforeRatio": 1.0075369203259572,
+      "renderer": false,
+      "sequentialAlternating": true
+    }
+  },
+  "limitations": [
+    "Natural challenge density is substantially higher; no league realism claim or forced statistical targets.",
+    "Some fixtures have fewer shots, more shielding/high-pressure stationary time and lower pass completion despite fewer prolonged static episodes.",
+    "Cautious held-control and cooperative shielding cells can remain contained; stationary micro metric is not a whole-team freeze.",
+    "Central/easy and stranded-keeper shooting geometries saturate finite samples; existing direct-free-kick low targets are often wall blocked.",
+    "Enabled agency/mode parity experiments are bounded 60s windows; full natural football fixtures are90m."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/performance/PR157-flow-after-balanced-balanced.json",
+      "classification": "final_validation",
+      "sha256": "302ee97267e4641ece7dc35443567a3ebbbd720abb2e847d4233c2e05d869ce0",
+      "bytes": 234894,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR157",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-after-high-press.json",
+      "classification": "final_validation",
+      "sha256": "c9542870b59213711095dd19ca418e0aebadd898726b9e486a51e0840c4e8dca",
+      "bytes": 247049,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR157",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-after-native-433-pressing-442.json",
+      "classification": "final_validation",
+      "sha256": "3289550d9d012c29f2ff0719469906b73d02f13e277774bd0895adbab5752fb9",
+      "bytes": 255025,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR157",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-after-strong-weak.json",
+      "classification": "final_validation",
+      "sha256": "c415c3c620672d983b13d703ccf5c8ac4ce2b846ee649294af9af0504ef244b4",
+      "bytes": 297069,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR157",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-before-balanced-balanced.json",
+      "classification": "final_validation",
+      "sha256": "4983f00020258d827b6226b819dad55f673770b75ddeb7ad1ce7674d6ce98655",
+      "bytes": 255306,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR156",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-before-high-press.json",
+      "classification": "final_validation",
+      "sha256": "eadb08371e5bb292b545aa6b57381d52a2e2245f203781cc1b61086e5b0ad24a",
+      "bytes": 357855,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR156",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-before-native-433-pressing-442.json",
+      "classification": "final_validation",
+      "sha256": "46c514cfa2b91c5ef48b5b45219b4a2b0b623c838b1824adb744296b00f62b6f",
+      "bytes": 301463,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR156",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-before-strong-weak.json",
+      "classification": "final_validation",
+      "sha256": "b7a7b32f3167a8ef6c1b9f4cb0aa338087aa4d79183e0dae41727853f4195f01",
+      "bytes": 466707,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "observerSourceHash": "58df9177755d127c0c95af77617d2fb0f015bbee95addecab10e952aab0445e8",
+      "matches": 3,
+      "configuration": {
+        "minutes": 90,
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "revision": "PR156",
+        "observer": "normal"
+      }
+    },
+    {
+      "path": "docs/performance/PR157-flow-summary.json",
+      "classification": "final_validation",
+      "sha256": "927de862885c8ed2eee376f000feb4d00a5e3cf3c031697ba746acb3ab2e5341",
+      "bytes": 178997,
+      "rows": 24
+    },
+    {
+      "path": "docs/performance/PR157-generated-headers-after.json",
+      "classification": "final_validation",
+      "sha256": "7a5f7eb24b0259af1606e3d8144f3ac54f307975e42ccc83fb6525cb10075963",
+      "bytes": 53107,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "rows": 14,
+      "configuration": {
+        "repetitions": 64,
+        "bands": [
+          5,
+          10,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "distances": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          25,
+          32
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-generated-headers-before.json",
+      "classification": "final_validation",
+      "sha256": "6eda936643d2790ae2456298d13e007dd9c6825ede9cba6fff59e96332a0dbd3",
+      "bytes": 45625,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "rows": 14,
+      "configuration": {
+        "repetitions": 64,
+        "bands": [
+          5,
+          10,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "distances": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          25,
+          32
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-integrity-after.json",
+      "classification": "final_validation",
+      "sha256": "21954e78f11b91be76756821645c80f9fb9ee41ebb63c03651aeef83ac08f91d",
+      "bytes": 96252,
+      "configuration": {
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "seconds": 60,
+        "revision": "PR157",
+        "checks": [
+          "ownership",
+          "simulation"
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-integrity-before.json",
+      "classification": "final_validation",
+      "sha256": "eef6e2c9dadbd965f339ec392a09f86b1921de5904d6e2ef5f22f8a4bce2e7a5",
+      "bytes": 85462,
+      "configuration": {
+        "seeds": [
+          "lab-muwhj3er",
+          "pr155-natural-b",
+          "pr155-natural-c"
+        ],
+        "seconds": 60,
+        "revision": "PR156",
+        "checks": [
+          "simulation"
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-integrity-summary.json",
+      "classification": "final_validation",
+      "sha256": "a7003d670b3cc20922c9cda3cb46581863b87fbb122901a72d91daca27f28500",
+      "bytes": 5171,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a"
+    },
+    {
+      "path": "docs/performance/PR157-performance.json",
+      "classification": "final_validation",
+      "sha256": "e98419c252462b3c22717db879827a2fca453b543c4509dcedf27c60f611f45a",
+      "bytes": 44316,
+      "rows": 6
+    },
+    {
+      "path": "docs/performance/PR157-pressing-after.json",
+      "classification": "final_validation",
+      "sha256": "24e49b2fdb93aefab555f30daf0d5b04c90d37bfa00ba4d2907f85ee024180e5",
+      "bytes": 407793,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "cells": 122,
+      "configuration": {
+        "repetitions": 32,
+        "seconds": 6
+      }
+    },
+    {
+      "path": "docs/performance/PR157-pressing-before.json",
+      "classification": "final_validation",
+      "sha256": "9d043858415459a16fd7e54cbe7684dd49dde1bbf57c5f1058d4cca23dce1275",
+      "bytes": 391594,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "cells": 122,
+      "configuration": {
+        "repetitions": 32,
+        "seconds": 6
+      }
+    },
+    {
+      "path": "docs/performance/PR157-pressing-overcommit-diagnosis.json",
+      "classification": "exploratory_superseded_diagnosis",
+      "sha256": "a247a299315462b5e5730cb7340743a43952e982e1b9d35246f2ac6622a4a5e5",
+      "bytes": 9471,
+      "canonicalSourceHash": "90fae09148ba3732a5729f95dc58695dfb706bad772bdd2d6b0b65d3aaa1a667",
+      "rows": 4,
+      "reason": "Full matches exposed excessive committed challenge preference; kept as diagnosis, not final calibration"
+    },
+    {
+      "path": "docs/performance/PR157-pressing-risk-after.json",
+      "classification": "final_validation",
+      "sha256": "e3a5afcb123e9a9f28d998461b61cce23954cd842715a164c87389fb9fd360f1",
+      "bytes": 45904,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "cells": 15,
+      "configuration": {
+        "repetitions": 32,
+        "seconds": 6
+      }
+    },
+    {
+      "path": "docs/performance/PR157-pressing-risk-before.json",
+      "classification": "final_validation",
+      "sha256": "2cab65a77ff43cb589c9cbebbf62d9baeaf84b243341cd93574320569f1a56d1",
+      "bytes": 47107,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "cells": 15,
+      "configuration": {
+        "repetitions": 32,
+        "seconds": 6
+      }
+    },
+    {
+      "path": "docs/performance/PR157-shooting-after.json",
+      "classification": "final_validation",
+      "sha256": "c2836c1c031cf00016517d501f51668ebcfb6f416e80c99e9bdfaea9e2d33f90",
+      "bytes": 1108797,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "rows": 283,
+      "configuration": {
+        "repetitions": 64,
+        "bands": [
+          5,
+          10,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "distances": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          25,
+          32
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-shooting-before.json",
+      "classification": "final_validation",
+      "sha256": "939d873f08c8d3d902a358a9cd638f596e25bd745a6ac484f0ad8fd5f0272ca7",
+      "bytes": 871692,
+      "rows": 283,
+      "configuration": {
+        "repetitions": 64,
+        "bands": [
+          5,
+          10,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "distances": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          25,
+          32
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-shooting-flight-diagnosis.json",
+      "classification": "exploratory_superseded_diagnosis",
+      "sha256": "26c59922e9b1f0be254924fad045a738e2260a5be323a46de2361cb910d12957",
+      "bytes": 1276,
+      "cells": 3,
+      "reason": "Intermediate unresolved flight before touchline correction"
+    },
+    {
+      "path": "docs/performance/PR157-shot-selection-after.json",
+      "classification": "final_validation",
+      "sha256": "76bdb6cbac5f835e7f903469ba2995ef7835db6299c181237a39918974c5cca7",
+      "bytes": 56380,
+      "canonicalSourceHash": "977e70b1e12438eb6803ad9e8a114939f313f122d116f7e76577fce49fc25d3a",
+      "rows": 12,
+      "configuration": {
+        "repetitions": 64,
+        "bands": [
+          10,
+          60,
+          100
+        ],
+        "distances": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          25,
+          32
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-shot-selection-before.json",
+      "classification": "final_validation",
+      "sha256": "fdcd41787c5acd55cabf96d22550c4589a5b2391f3d79f9d1d5c6f36642a969b",
+      "bytes": 55780,
+      "canonicalSourceHash": "f1c194c4ce225cfd8e8e648323e377d0aaa31b5ec4058388643df9306e873204",
+      "rows": 12,
+      "configuration": {
+        "repetitions": 64,
+        "bands": [
+          10,
+          60,
+          100
+        ],
+        "distances": [
+          4,
+          8,
+          12,
+          16,
+          20,
+          25,
+          32
+        ]
+      }
+    },
+    {
+      "path": "docs/performance/PR157-telemetry-reference.json",
+      "classification": "final_validation",
+      "sha256": "1a926082cc46b542d109c16598656fc41736a29405b37a5bf73bcbeb0ed18d03",
+      "bytes": 273754
+    }
+  ]
+}

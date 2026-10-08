@@ -158,16 +158,20 @@ describe('PR154 football decisions and cooperative pressure', () => {
       early - 15,
     );
   });
-  it('a weak forward screens protected circulation while a skilled presser can close contact', () => {
+  it('a cautious forward contains while aggression closes contact independently of tackling quality', () => {
     const { state, actor, receiver, defender } = fixture();
     receiver.position = { x: 20, y: 34 };
     defender.position = { x: 48, y: 34 };
     defender.profile.attributes.tackling = 20;
+    defender.profile.attributes.aggression = 30;
     const weak = deriveTacticalTargets(state).find((p) => p.id === defender.id)!;
     defender.profile.attributes.tackling = 80;
     const skilled = deriveTacticalTargets(state).find((p) => p.id === defender.id)!;
+    expect(skilled.idealTarget).toEqual(weak.idealTarget);
+    defender.profile.attributes.aggression = 100;
+    const committed = deriveTacticalTargets(state).find((p) => p.id === defender.id)!;
     expect(distance(weak.idealTarget, actor.position)).toBeGreaterThan(1.7);
-    expect(distance(skilled.idealTarget, actor.position)).toBeLessThan(1.4);
+    expect(distance(committed.idealTarget, actor.position)).toBeLessThan(1.4);
   });
   it('creates short midfield connections before historical threat evidence and moves physically', () => {
     const { state, defender } = fixture();

@@ -1,5 +1,65 @@
 # Match Engine Handoff
 
+## PR157 contracts (validated)
+
+- Keep one seeded canonical engine at 0.025 s. Pressing plans are continuous tactical
+  projections, never forced-tackle or forced-pass deadlines. Contain/screen can deliberately
+  stop outside contact; engage targets the accessible ball shoulder through actual locomotion.
+- Aggression means willingness/risk, not tackle quality. Preserve paired fixed-contact
+  Aggression equality and independent Tackling outcome tests. A yellow shifts commitment,
+  recruitment and risky technique preference, but immediate danger may still justify contact.
+- Keep defensive episode/re-arm protections. The shield eligibility fix aligns with the existing
+  0.95 m physical reach; do not enlarge shared tackle radii to remove static situations.
+- Prefer an attainable safe standing contact before a slower risky technique. Prepared committed/
+  slide choices forecast ball/body geometry at their existing contact time, including safe-side
+  shielding. Do not calibrate them with quotas or observed match-wide foul totals.
+- Carrier microfootwork and carry routing anticipate defender momentum using existing skills.
+  Preserve the chosen destination and actual acceleration/turning; never stun the defender,
+  teleport an actor or automatically release a controlled possession on pressure.
+- Preserve PR155 controlled shot and PR156 non-throw restart ownership at every source.
+  An illegal autonomous controlled shot can add only `shotAgencyRequest`; ball, statistics,
+  RNG and action ledger stay untouched, including absent/stale ledgers and repeated proposals.
+- `deriveShootingDifficulty` is the common ability × context model. Finishing/Heading answer
+  placement, Technique contact/turning, Composure pressure and Agility body control. No duplicate
+  balance/acceleration/shot-power skill is added where the canonical model lacks it.
+- Keep the full shooting funnel: execution/error/speed/contact, projected and public on-target,
+  blocks/frame/misses, physical keeper contact/handling, final save/goal. Keeper ability must
+  not change the shooter's launch; the shot boundary injects geometric shooting pressure.
+- Keeper reach/contact remain physical. Saturated central save cells, open-goal cells, chip/
+  close-range geometry and wall blocks remain explicit calibration limits. Family preference
+  and shot-versus-pass/carry decisions are distinct measurements.
+- Preserve the sampled goal ray through the goal plane. The earliest physical pitch-boundary
+  crossing records one shot result; a later boundary must not overwrite a resolved same-shot
+  save/block. Generated headers may choose the existing placed target, but never replace an
+  explicit human aim.
+- `PressingTracker` is an optional read-only observer. Its static diagnostic requires ≤2.6 m,
+  both actor speeds and actual controlled-ball motion relative to the body <0.35 m/s,
+  controlled possession and ≥2 s of unchanged sampled solution.
+  Refresh presser assignments at 4 Hz and expensive option/geometry/evolution probes at 1 Hz;
+  observe speeds/action/carry-mode/microphase changes every 25 ms; decision-index increments
+  alone do not reset stationarity. Retain ≤256 episodes ×8 samples and a fixed
+  241-bin duration histogram (one-second bins, final bucket ≥240 s).
+  Challenge events are separate from terminal episode outcomes. No canonical code consumes it.
+- Compare exact disabled-identity and normal/DEV/capture canonical hashes/RNG streams.
+  Independently seeded diagnostic/agency ranking draws are recorded separately; they do not
+  advance a mutable football RNG. Waiting for a genuine controlled decision is an agency pause.
+- Existing direct free kicks are benchmarked through their current restart/physical path.
+  Full wall/restart choreography and richer strike/cross menus belong to PR158.
+- Verification passed: lint, 1,215 main tests in 156 files, 5 career tests and build; four new
+  benchmark scripts pass strict TypeScript. All 66 identity comparisons, 124,345 pre-decision
+  ticks, 18 shot launch comparisons and 144 blocked proposals preserve their required state/RNG
+  contracts. See [integrity summary](performance/PR157-integrity-summary.json).
+- Twelve 90-minute matches per revision: static 164/13,126→10/16,243, but attempts 1,112→4,207,
+  shots 214→74, stationary high-pressure time 1,824.81→3,327.01 s and shielding 4,390.15→13,016.69 s.
+  Keep these density/shot-selection/passivity limitations explicit; fewer static episodes do not
+  establish realism. [Flow evidence](performance/PR157-flow-summary.json).
+- Six alternating 600-second runs (three pairs) without renderer: median runtime ratio 1.00754,
+  approximately +0.75%. [Performance evidence](performance/PR157-performance.json).
+- Reproduction, numerical relationships and remaining limitations:
+  [PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md](PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md).
+- Next: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries, Substitutions
+  & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
+
 ## PR156 contracts
 
 - Keep all ordinary canonical fields/source ledgers identical when agency is disabled and only
@@ -19,7 +79,7 @@
   classify ownership changes with current contact evidence, not a stale diagnostic or a filtered count.
 - Attribute semantics concern individual skills; OVR, generation and career distributions stay intact.
 - Reproduction, measurements and limits: [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md).
-- Next: PR157 restart continuity, PR158 fatigue/injuries/substitutions/added time, PR159 presentation.
+- Current next sequence after PR157: PR158 restart continuity, PR159 fatigue/injuries/substitutions/added time, PR160 presentation.
 
 ## PR155 contracts
 
@@ -46,7 +106,7 @@
   fixed 25 ms stepping, replay/observer parity and zero background renderer calls.
 - Reproduction and measured limitations:
   [PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md).
-- Next: PR157 restarts, PR158 fatigue/injuries/substitutions/added time, PR159 presentation.
+- Current next sequence after PR157: PR158 restarts, PR159 fatigue/injuries/substitutions/added time, PR160 presentation.
   Full post-goal/restart choreography remains outside PR155.
 
 ## PR154 contracts
@@ -71,7 +131,7 @@
   Replay, observer parity and statistical ledgers remain mandatory regression checks.
 - Reproduction, measured results and remaining limits:
   [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
-- Next work is GitHub PR157 restarts, PR158 fatigue/injuries/substitutions/added time, PR159
+- Current next work after PR157 is GitHub PR158 restarts, PR159 fatigue/injuries/substitutions/added time, PR160
   presentation/replay/stadium. Full restart resets and stamina remain outside PR154.
 
 ## Expanded PR152 statistics / discipline contracts

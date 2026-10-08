@@ -42,7 +42,11 @@
     "benchmark:agency": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr156Agency.ts",
     "benchmark:passing-difficulty": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr156Passing.ts",
     "benchmark:connectivity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr156Flow.ts",
-    "benchmark:shot-parity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkShotParity.ts"
+    "benchmark:shot-parity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkShotParity.ts",
+    "benchmark:pressing": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Pressing.ts",
+    "benchmark:shooting-difficulty": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Shooting.ts",
+    "benchmark:dynamic-flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Flow.ts",
+    "benchmark:pressing-integrity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Integrity.ts"
   },
   "dependencies": {
     "react": "19.2.8",

@@ -47,7 +47,7 @@ import {
   projectPlayerDecisionOpportunity,
 } from './playerDecision';
 import { deriveMovementCapability, projectLocomotion, projectSprintEpisode } from './locomotion';
-import { isDefensiveEpisodeLocked, shouldCommitRoutinePress } from './defensiveChallenges';
+import { derivePressingPlan } from './defensiveChallenges';
 import {
   classifyRelativeMovement,
   deriveOrientationTarget,
@@ -115,6 +115,19 @@ const applyBoundaryRestart = (
   let resolvedState = unresolvedPass
     ? { ...state, lastPassDiagnostic: unresolvedPass, lastResolvedPass: unresolvedPass }
     : state;
+  // A shot can leave a touchline before reaching its target goal plane. Preserve its one
+  // physical miss before restart setup clears the launched episode, including recovery paths.
+  const activeShot = state.ball.shot;
+  if (activeShot && !(state.lastShot?.shotId === activeShot.shotId && state.lastShot.outcome))
+    resolvedState = {
+      ...resolvedState,
+      lastShotResult: 'miss',
+      lastShot: {
+        ...activeShot,
+        outcome: 'miss',
+        classification: (state.ball.height ?? 0) > GOAL_HEIGHT ? 'over' : 'wide',
+      },
+    };
   const last = state.players.find((p) => p.id === state.ball.lastTouchPlayerId);
   const restartTeam: TeamSide = crossing.boundary.startsWith('touchline')
     ? (last?.team ?? state.possessionTeam) === 'home'
@@ -1204,27 +1217,12 @@ const stepTacticalMatchCore = (
     } else if (
       (state.nearestChallengerId === player.id || cooperativePress?.primaryId === player.id) &&
       state.ball.ownerId &&
+      distance(player.position, state.ball) <= 18 &&
       state.defensiveChallenge?.actorId !== player.id &&
-      state.playerMovementIntent?.actorId !== player.id &&
-      (isDefensiveEpisodeLocked(state, player.id, state.ball.ownerId) ||
-        !shouldCommitRoutinePress(state, player.id, cooperativePress ?? null))
+      state.playerMovementIntent?.actorId !== player.id
     ) {
-      const owner = state.players.find((candidate) => candidate.id === state.ball.ownerId)!;
-      const away = {
-        x: player.position.x - owner.position.x,
-        y: player.position.y - owner.position.y,
-      };
-      const separation = Math.hypot(away.x, away.y);
-      const direction =
-        separation > 0.001
-          ? { x: away.x / separation, y: away.y / separation }
-          : { x: player.team === 'home' ? -1 : 1, y: 0 };
-      movementTarget = clampPitchPoint({
-        x:
-          owner.position.x + direction.x * (cooperativePress?.primaryId === player.id ? 0.95 : 2.3),
-        y:
-          owner.position.y + direction.y * (cooperativePress?.primaryId === player.id ? 0.95 : 2.3),
-      });
+      movementTarget =
+        derivePressingPlan(state, player.id, cooperativePress ?? null)?.target ?? movementTarget;
     }
     const dx = movementTarget.x - player.position.x,
       dy = movementTarget.y - player.position.y,
@@ -1595,6 +1593,20 @@ const stepTacticalMatchCore = (
           attackingTeam: shooter.team,
           candidates,
         });
+        const crossing = findPitchBoundaryCrossing(previous, next);
+        if (crossing && (!found || crossing.segmentFraction < found.segmentFraction))
+          return applyBoundaryRestart(
+            {
+              ...state,
+              ball: {
+                ...state.ball,
+                ...crossing.point,
+                height: previous.z + (next.z - previous.z) * crossing.segmentFraction,
+              },
+            },
+            crossing,
+            previous,
+          );
         if (found) {
           const incoming = { x: (next.x - previous.x) / dt, y: (next.y - previous.y) / dt };
           const rebound = deterministicRebound(found.kind, incoming, shooter.team);
@@ -1988,7 +2000,7 @@ const stepTacticalMatchCore = (
           state.ballCarrierIntent?.actorId === owner.id &&
           state.ballCarrierIntent.executionMode === 'shield';
         const hasChallengeAccess =
-          ballDistance <= (shielding ? 0.72 : 0.95) &&
+          ballDistance <= 0.95 &&
           challengerFacingError <= (shielding ? Math.PI * 0.3 : Math.PI * 0.42) &&
           relativeSpeed <= 8.5;
         const sameDuel = Boolean(

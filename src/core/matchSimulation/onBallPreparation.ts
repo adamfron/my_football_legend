@@ -224,6 +224,44 @@ export const projectPossessionMicroBehaviour = (
         x: origin.x + movementDirection.x * adjustment,
         y: origin.y + movementDirection.y * adjustment,
       });
+  if (
+    nearest &&
+    pressure > 0.6 &&
+    distance(nearest.position, actor.position) < 3.5 &&
+    age >= controlDuration
+  ) {
+    // The normal scan has finite footwork, but its old fixed reception-origin
+    // target did not respond when a presser arrived. Find a safer body-side pocket
+    // inside that footprint. Existing acceleration/turning determine whether it works.
+    const skill =
+      (actor.profile.attributes.dribbling +
+        actor.profile.attributes.technique +
+        actor.profile.attributes.agility) /
+      300;
+    const horizon = 0.12 + (actor.profile.attributes.gameReading / 100) * 0.22;
+    const predicted = {
+      x: nearest.position.x + nearest.velocity.x * horizon,
+      y: nearest.position.y + nearest.velocity.y * horizon,
+    };
+    const lateral = { x: -awayDirection.y, y: awayDirection.x };
+    const candidates = [-1, 1].map((side) =>
+      clampPitchPoint({
+        x: origin.x + awayDirection.x * 0.5 + lateral.x * side * (0.9 + skill * 0.85),
+        y: origin.y + awayDirection.y * 0.5 + lateral.y * side * (0.9 + skill * 0.85),
+      }),
+    );
+    const target = candidates
+      .map((point) => ({
+        point,
+        value:
+          distance(point, predicted) -
+          distance(point, actor.position) * 0.22 -
+          (point.y < 2 || point.y > 66 ? 1.5 : 0),
+      }))
+      .sort((a, b) => b.value - a.value || a.point.y - b.point.y)[0]!.point;
+    localTarget.x = target.x;
+    localTarget.y = target.y;
+  }
   const continuing = preparation.continuation && state.time < preparation.continuation.until;
   const ballDistance = shield ? 0.38 : phase === 'directional_touch' ? 0.72 : 0.45;
   // A receiver can face the incoming pass while guiding it into their run. Keep that first

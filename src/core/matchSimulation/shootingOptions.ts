@@ -178,6 +178,7 @@ export const enumerateCanonicalShootingOptions = (
         target: goal,
         intent: 'header_shot',
         firstTime: true,
+        goalTarget: goalTarget('placed'),
         decisionBallHeight: state.ball.height ?? 0,
       },
     ];

@@ -51,6 +51,28 @@ const makeState = () => {
   return state;
 };
 
+const makeMeaningfulState = () => {
+  const state = makeState();
+  const actor = state.players.find((player) => player.id === state.controlledFootballerId)!;
+  // Test agency with a credible close-range chance; a pressured 20m centre-back shot
+  // is correctly speculative after the shooting-difficulty calibration.
+  actor.position = { x: 94, y: 34 };
+  state.ball = { ...actor.position, ownerId: actor.id };
+  state.players.find(
+    (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
+  )!.position = {
+    x: 103,
+    y: 34,
+  };
+  state.players.find(
+    (player) => player.team === 'away' && player.profile.primaryPosition !== 'goalkeeper',
+  )!.position = {
+    x: 92.5,
+    y: 34,
+  };
+  return state;
+};
+
 describe('PR133 projection boundaries', () => {
   it.each([
     { x: 50, y: 67.99, velocity: { x: 0, y: 20, z: 0 } },
@@ -80,7 +102,7 @@ describe('PR133 projection boundaries', () => {
 
 describe('player decision lifecycle', () => {
   it('projects canonical on-ball actions once without consuming or mutating state', () => {
-    const state = makeState(),
+    const state = makeMeaningfulState(),
       snapshot = structuredClone(state);
     const opportunity = projectPlayerDecisionOpportunity(state)!;
     expect(
@@ -95,7 +117,7 @@ describe('player decision lifecycle', () => {
   });
 
   it('does not let historical action fields deadlock a meaningful receiver decision', () => {
-    const state = makeState();
+    const state = makeMeaningfulState();
     state.currentAction = { type: 'hold', actorId: state.players[1]!.id };
     state.latestAction = state.currentAction;
     const opportunity = projectPlayerDecisionOpportunity(state);
@@ -260,7 +282,7 @@ describe('player decision lifecycle', () => {
   });
 
   it('resolves a selected action through the identical canonical resolver exactly once', () => {
-    const state = makeState(),
+    const state = makeMeaningfulState(),
       opportunity = projectPlayerDecisionOpportunity(state)!;
     const option = opportunity.options.find(
       (candidate) => candidate.kind === 'action' && candidate.action.type === 'pass',
@@ -308,7 +330,7 @@ describe('player decision lifecycle', () => {
   });
 
   it('projects target-first menus without mutating the snapshot', () => {
-    const state = makeState(),
+    const state = makeMeaningfulState(),
       snapshot = structuredClone(state),
       opportunity = projectPlayerDecisionOpportunity(state)!;
     const teammate = state.players.find(
@@ -468,7 +490,7 @@ describe('player decision lifecycle', () => {
         };
       });
       const opportunity = {
-        ...projectPlayerDecisionOpportunity(makeState())!,
+        ...projectPlayerDecisionOpportunity(makeMeaningfulState())!,
         actorId: actor.id,
         openedAt: state.time,
         kind: 'off_ball_run' as const,
@@ -566,7 +588,7 @@ describe('player decision lifecycle', () => {
   });
 
   it('skips through the canonical NPC path and spectator mode never projects', () => {
-    const state = makeState(),
+    const state = makeMeaningfulState(),
       opportunity = projectPlayerDecisionOpportunity(state)!;
     const action = chooseNpcAction(state, opportunity.actorId)!;
     expect(letAiDecide(state, opportunity)).toEqual(
