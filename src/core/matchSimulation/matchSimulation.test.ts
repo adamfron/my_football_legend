@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { FORMATIONS } from '../footballerWorld';
 import { createSingleMatchSession } from '../singleMatch';
+import { derivePressingPlan } from './defensiveChallenges';
+import { derivePressingOpportunity } from './tacticalPreferences';
 import {
   chooseNpcAction,
   ballReactionWeight,
@@ -512,9 +514,21 @@ describe('autonomous tactical simulation', () => {
     primary.position = { x: carrier.position.x + 6, y: carrier.position.y };
     primary.profile = {
       ...primary.profile,
-      attributes: { ...primary.profile.attributes, tackling: 80 },
+      attributes: { ...primary.profile.attributes, tackling: 80, aggression: 90 },
     };
     cover.position = { x: carrier.position.x + 8, y: carrier.position.y + 4 };
+    // Commitment needs an exposed touch and closed local outlets. The default CB
+    // fixture has six safe receivers and should instead screen its passing lanes.
+    state.players
+      .filter((player) => player.team === carrier.team && player.id !== carrier.id)
+      .forEach((player, index) => {
+        player.position = { x: 5 + index * 0.2, y: 65 };
+      });
+    state.ball.x = carrier.position.x + 1.6;
+    const opportunity = derivePressingOpportunity(state, 'away');
+    expect(opportunity.safeOutletCount).toBe(0);
+    expect(opportunity.engagement).toBeGreaterThan(0.3);
+    expect(derivePressingPlan(state, primary.id)?.intention).toBe('engage');
     const targets = deriveTacticalTargets(state);
     const primaryTarget = targets.find((player) => player.id === primary.id)!;
     const coverTarget = targets.find((player) => player.id === cover.id)!;

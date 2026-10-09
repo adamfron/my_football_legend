@@ -173,15 +173,76 @@ describe('seekable presentation poses', () => {
       expect(projected.players.find((entry) => entry.id === owner.id)?.preparation).toBe(
         mode === 'shield' ? 'shielding' : 'carrying',
       );
-      expect(
-        projected.players.find((entry) => entry.id === owner.id)?.canonicalBallPlacement,
-      ).toBeUndefined();
+      expect(projected.players.find((entry) => entry.id === owner.id)?.canonicalBallPlacement).toBe(
+        true,
+      );
       expect(projected.carryMode).toBe(mode);
-      expect(deriveOwnedBallPose(projected)).not.toEqual(projected.ball);
+      expect(deriveOwnedBallPose(projected)).toEqual(projected.ball);
       expect(snapshot).toEqual(before);
       expect(tacticalFrameSchema.safeParse(projected).success).toBe(true);
     },
   );
+
+  it('preserves a real ball between contacts while the carrier turns in live, hidden and replay frames', () => {
+    let state = applyRestartScenario(makeState(), 'open_play');
+    delete state.restart;
+    state.time = 100;
+    state.actionCooldown = 20;
+    state.players.forEach((entry, index) => {
+      entry.position = { x: entry.team === 'home' ? 10 : 95, y: 4 + (index % 10) * 6 };
+      entry.velocity = { x: 0, y: 0 };
+      entry.target = { ...entry.position };
+    });
+    const owner = state.players.find((entry) => entry.id === state.ball.ownerId)!;
+    owner.position = { x: 52, y: 34 };
+    owner.facingAngle = Math.PI / 2;
+    state.ball = { x: 52.45, y: 34, ownerId: owner.id, lastTouchPlayerId: owner.id, height: 0 };
+    state.ballOwnershipStartedAt = state.time;
+    state = resolveMatchAction(
+      state,
+      { type: 'carry', actorId: owner.id, target: { x: 42, y: 34 } },
+      'human_selected',
+    );
+    const projector = new PresentationFrameProjector();
+    const context = new PresentationContextHistory();
+    let firstContactAt: number | undefined;
+    for (let tick = 0; tick < 6; tick++) {
+      state = stepTacticalMatch(state, FIXED_MATCH_DT);
+      expect(state.ball.ownerId).toBe(owner.id);
+      expect(state.controlledBallContact!.physicalContacts).toBe(1);
+      firstContactAt ??= state.controlledBallContact!.lastContactAt;
+      expect(state.controlledBallContact!.lastContactAt).toBe(firstContactAt);
+      const canonical = freeze(structuredClone(state));
+      const before = structuredClone(canonical);
+      const live = projector.frame(canonical);
+      context.observe(canonical, true);
+      expect(deriveOwnedBallPose(live)).toEqual(live.ball);
+      expect(deriveOwnedBallPose(context.sample(state.time * 1000)!)).toEqual(live.ball);
+      expect(live.ball.x).toBe(state.ball.x);
+      expect(live.ball.y).toBe(state.ball.y);
+      expect(canonical).toEqual(before);
+    }
+    const finalOwner = state.players.find((entry) => entry.id === owner.id)!;
+    expect(Math.abs(finalOwner.facingAngle - owner.facingAngle)).toBeGreaterThan(0.3);
+    const recorded = freeze({
+      ...state,
+      matchEvents: [
+        {
+          id: 'pr158-real-carry-replay',
+          replayKey: 'pr158-real-carry-replay',
+          at: state.time,
+          kind: 'goal' as const,
+          team: 'home' as const,
+        },
+      ],
+    });
+    const history = new MatchReplayHistory();
+    history.observe(recorded);
+    const snapshot = history.getWindow('pr158-real-carry-replay')!.frames[0]!;
+    const replay = replaySnapshotToFrame(snapshot);
+    expect(replay.players.find((entry) => entry.id === owner.id)?.preparation).toBe('carrying');
+    expect(deriveOwnedBallPose(replay)).toEqual(projector.frame(state).ball);
+  });
 
   it('uses the actual incoming receiver and contact time when a new pass diagnostic is already active', () => {
     const state = makeState();

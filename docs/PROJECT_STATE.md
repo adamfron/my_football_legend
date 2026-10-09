@@ -1,5 +1,72 @@
 # My Football Legend — Current Project State
 
+## PR158 — Ball Contact Geometry, Press Resistance, Duel Cadence & Tactical Pressing Intelligence
+
+Baza: scalony PR157 / `main`, `73c0fabed04ee4a31da85fa918f19bbc42344975`.
+Kontrolowana piłka ma jeden ograniczony plan kolejnego kontaktu i rzeczywistą prędkość.
+Między osiągalnymi kontaktami stóp porusza ją wspólny integrator; sam obrót ciała nie
+obraca ani nie przenosi piłki. Geometria stóp i osłaniającego tułowia rozróżnia dostęp
+do odsłoniętej piłki od samej bliskości posiadacza. Siła i zwinność wpływają na utrzymanie
+równowagi przy rzeczywistym kontakcie z osłaniającym ciałem. Identyczne wybrane kontakty
+człowieka i NPC nadal korzystają ze wspólnego resolvera oraz istniejących blokad pojedynku.
+Publiczny kontakt pozostaje jednym ciągłym epizodem kontroli, mimo wielu mikrokontaktów.
+Fizyczne kontakty nie dopisują już historii ID przy każdym impulsie: deduplikację zapewnia
+jeden opcjonalny znacznik ostatniego kontaktu na zawodnika. Stare zapisy zachowują historyczne
+ID, a odtworzenie kontaktu po zakończeniu kontroli lub połowy nadal nie dubluje statystyk.
+Rejestry podań, strzałów i epizodów kontroli pozostają dyskretną księgowością.
+Naprawa `47f99f54` ma 34 zaliczone testy skupione i dokładny parytet eksportowanego futbolu:
+18 okien, 1760 prób kontaktowych i 210 scenariuszy taktycznych. Pełne `npm run verify`
+zalicza lint, 1263 testy główne/163 pliki, 5 testów kariery/1 plik i build; skrypty
+benchmarkowe przechodzą ścisły TypeScript. Izolowane trzy pary jednej konfiguracji raportują release_minimal -2.64%, normal -2.41%, dev +3.02%, capture -1.22%;
+osobny obserwator dodaje +2.50% mediany czasu. Wynik nie dowodzi szerokiego
+przyspieszenia; pełne zakresy, hashe i ograniczenia są w raporcie.
+
+Sześć ciągłych preferencji opisuje wysokość i zwartość bloku, pressing zorganizowany,
+counterpressing, cierpliwość oraz pionową progresję. Gotowość odbiorców, dostępne wyjścia,
+orientacja, jakość kontaktu, lokalna przewaga i asekuracja decydują o pressingu albo
+osłonie linii. Dopasowanie do rzeczywistej XI jest ciągłe; preferencja nie zwiększa jakości
+fizycznego wykonania. Krótsza użyteczna trasa może być cenniejsza od niepotrzebnego sprintu.
+
+Obserwator oddziela stratę→presję, stratę→opanowane odzyskanie, presję→odzyskanie,
+odzyskanie→progresję, strzał i gol. Zegary nie są deadline'ami; przerwy cenzurują epizody.
+Obciążenie ruchowe jest ograniczonym pomiarem bez utraty kondycji. Cel interakcji ma
+32–48 pikseli CSS zależnie od projekcji i filtruje legalnych zawodników; fizyczny zasięg
+odbioru pozostaje niezależny. Testy rozdzielają faktyczny faul/korzyść i ręczny scenariusz
+DEV: późniejsze wznowienie DEV nie usuwa wcześniej prawidłowo wykonanego strzału.
+Projekcja prowadzenia na żywo i w powtórce zachowuje pozycję kanonicznej piłki; animacja
+nie przykleja jej ponownie do orientacji twarzy i nie maskuje ruchu między kontaktami.
+
+Nie odnaleziono oryginalnego interaktywnego eksportu z 208 próbami ani opisanego capture
+752,05 s; te liczby nie są zweryfikowaną bazą. Pełne pomiary, weryfikacja, jawne pogorszenia
+i ograniczenia: [PR158_BALL_CONTACT_PRESSING_TACTICS.md](PR158_BALL_CONTACT_PRESSING_TACTICS.md).
+Osie trenerskie: [PR158_TACTICAL_PREFERENCES.md](PR158_TACTICAL_PREFERENCES.md).
+
+Końcowa macierz zawiera 18 sparowanych okien po 90 minut na rewizję. Faktyczne statusy:
+PR157 {"second_half":4,"full_time":14}, PR158 {"full_time":12,"second_half":6}; natywnego gwizdka
+nie zastępuje sztuczne full-time. Próby odbioru 6645→4418, ukończone podania
+10005→13074, strzały 110→16,
+gole 68→10, sąsiednie przeskoki posiadania
+24→94 i epizody <0,5 s
+51→189 pozostają jawne.
+Opanowanie luźnej piłki wymaga osiągalnego kontaktu stopy; wcześniejsza nominacja nie
+rezerwuje piłki, nie zatrzymuje pogoni i nie przekazuje obcemu zawodnikowi zegara przygotowania.
+Próg obrotu >180° ma przemieszczenie <2 m, >360° ma <3 m; sumuje także skany i odwracanie
+kierunku. Dane dotyczą końcowego kodu `47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba`, po naprawach wspólnej ścieżki
+opanowania. Draft wymaga kalibracji przed scaleniem: udział środkowych pomocników
+(publiczne epizody kontroli — touch — 4957→3461, przyjęcia 2831→1993)
+spadł mimo większej liczby podań. Lab wymaganych zwrotów pogorszył obrót >360°/net<3 m
+2→16
+i faule 90→369.
+Dowody integralności, wydajności, pełnego verify i ograniczenia zawiera raport.
+
+Aktualna kolejność: **PR159 — Dead Ball & Restart Continuity**, **PR160 — Fatigue,
+Injuries, Substitutions & Added Time**, **PR161 — Match Presentation / Replay / Stadium Polish**.
+PR160 rozdzieli długotrwałą rezerwę i krótkotrwałą gotowość do intensywnego wysiłku;
+PR158 nie włącza zużycia/regeneracji, urazów, zmian ani modyfikatorów wieku. Profile trenerów
+i rozwój/starzenie pozostają później, bez wspólnej kary wieku na wszystkie umiejętności.
+
+[Manifest dowodów](performance/PR158-evidence-manifest.json) opisuje zamrożone wejścia, kod i raporty w archiwum. Lokalny plik wynikowy/załącznik `outputs/PR158-evidence.zip` zawiera 824 wpisy ze sprawdzonymi hashami; pięć podsumowań odtworzono dokładnie z wejść. Sumę kontrolną ZIP zapisano osobno w lokalnych metadanych.
+
 ## PR157 — Dynamic Pressing, Ball-Carrier Response & Shooting Difficulty Calibration
 
 Implementacja i wymagane walidacje zakończone na scalonym PR156, `83570049`.
@@ -52,9 +119,9 @@ Zwięzłe dane: [flow](performance/PR157-flow-summary.json),
 [integralność](performance/PR157-integrity-summary.json),
 [wydajność](performance/PR157-performance.json).
 
-Kolejność po PR157: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue,
-Injuries, Substitutions & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
-PR157 nie dodaje menu wolnych PR158, kondycji, zmian ani nowej prezentacji.
+Aktualna kolejność po PR158: **PR159 — Dead Ball & Restart Continuity**, **PR160 — Fatigue,
+Injuries, Substitutions & Added Time**, **PR161 — Match Presentation / Replay / Stadium Polish**.
+PR157 nie dodaje menu wolnych PR159, kondycji, zmian ani nowej prezentacji.
 
 ## PR156 — Agency Parity, Passing Difficulty & Connectivity
 
@@ -68,8 +135,8 @@ a relacja overlap/underlap zostaje na tożsamości podania z chwili wypuszczenia
 Diagnostyka sieci, centralnych alternatyw i ewolucji wsparcia pozostaje ograniczonym obserwatorem.
 Dowody, odtworzenie i ograniczenia: [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md).
 
-Aktualna kolejność po rozszerzeniu PR157: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries,
-Substitutions & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
+Aktualna kolejność po PR158: **PR159 — Dead Ball & Restart Continuity**, **PR160 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR161 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR155 — Player Agency, First-Time Passing & Possession Stability
 
@@ -95,8 +162,8 @@ Zakres, odtworzenie, wyniki wielu seedów i ograniczenia:
 Historyczny opis autonomii PR152 poniżej jest od PR155 ograniczony twardą własnością
 strzału człowieka. Pełna choreografia wznowień pozostaje kolejnym etapem.
 
-Aktualna kolejność po rozszerzeniu PR157: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries,
-Substitutions & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
+Aktualna kolejność po PR158: **PR159 — Dead Ball & Restart Continuity**, **PR160 — Fatigue, Injuries,
+Substitutions & Added Time**, **PR161 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR154 — Situational Football Intelligence, Attribute Fidelity & Anti-Deadlock Calibration
 
@@ -135,7 +202,7 @@ Eksport Match Lab v5 pokazuje tani raport kanoniczny i udział ukryty/widoczny b
 Pasmo ostrzeżeń pozostaje diagnostyczne. Audyt i dowody:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-Po kalibracji PR157 kolejny etap to **PR158 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
+Po mechanice kontaktów PR158 kolejny etap to **PR159 — Dead Ball & Restart Continuity**: fizyczne ustawianie do wznowień,
 reakcja po golu, celebracja/pilne wznowienie według wyniku i czasu, odzyskanie piłki po późnym
 golu, gotowość wznowienia i fundament doliczonego czasu. PR152 nie implementuje tego etapu.
 

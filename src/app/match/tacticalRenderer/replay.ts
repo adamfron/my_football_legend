@@ -142,6 +142,7 @@ export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame =
               preparation:
                 carrying.mode === 'shield' ? ('shielding' as const) : ('carrying' as const),
               preparationSinceMs: carrying.startedAt * 1000,
+              canonicalBallPlacement: true,
             }
           : micro &&
               (snapshot.ball.ownerId === player.id ||

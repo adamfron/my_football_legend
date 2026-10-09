@@ -10,6 +10,9 @@ import {
 } from './matchSpace';
 import type { ActionSource, MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
+import { deriveBallContactAccess } from './ballContactGeometry';
+import { integrateGroundRolling } from './ballPhysics';
+import { derivePressingOpportunity } from './tacticalPreferences';
 
 export const defensiveTechniqueSchema = z.enum(['standing', 'committed', 'slide', 'tactical']);
 export type DefensiveTechnique = z.infer<typeof defensiveTechniqueSchema>;
@@ -57,6 +60,9 @@ export const challengeDiagnosticSchema = z.object({
   force: z.number().nonnegative(),
   fromBehind: z.boolean(),
   ballReachable: z.boolean().optional(),
+  bodyOccludes: z.boolean().optional(),
+  defenderContactEta: z.number().nonnegative().optional(),
+  carrierContactEta: z.number().nonnegative().optional(),
 });
 export type ChallengeDiagnostic = z.infer<typeof challengeDiagnosticSchema>;
 const counter = z.number().int().nonnegative();
@@ -254,6 +260,9 @@ const projectPressingPlan = (
       state.pendingCards?.some((foul) => foul.actorId === c.actor.id && foul.card !== 'none'),
   );
   const a = c.actor.profile.attributes;
+  const opportunity = derivePressingOpportunity(state, c.actor.team);
+  const easyBuildUp =
+    progress < 40 && opportunity.safeOutletCount >= 2 && opportunity.engagement < 0.3;
   const reading = (a.gameReading + a.positioning) / 200;
   const trailingLate =
     state.time >= 80 * 60 && state.score[c.actor.team] < state.score[c.opponent.team];
@@ -273,13 +282,17 @@ const projectPressingPlan = (
         (invited ? 0.22 : 0) +
         (nearGoal || c.danger ? 0.25 : c.promisingAttack ? 0.12 : 0) +
         (trailingLate ? 0.1 : 0) -
-        (booked ? 0.2 + (a.composure / 100) * 0.08 : 0),
+        (booked ? 0.2 + (a.composure / 100) * 0.08 : 0) -
+        (!selected && !nearGoal && !c.danger && easyBuildUp
+          ? (1 - opportunity.engagement) * 0.3
+          : 0),
     ),
   );
   const locked = isDefensiveEpisodeLocked(state, c.actor.id, c.opponent.id);
   const partner = cooperativePress?.secondaryId === c.actor.id;
   const screening =
     protectedReceiver ||
+    (!selected && !nearGoal && !unstableControl && easyBuildUp) ||
     (cooperativePress?.primaryId === c.actor.id &&
       !selected &&
       !invited &&
@@ -294,10 +307,10 @@ const projectPressingPlan = (
         : selected ||
             partner ||
             unstableControl ||
-            invited ||
+            (invited && !easyBuildUp) ||
             (c.dogso && progress >= 88) ||
-            (movingIntent && c.covering > 0) ||
-            commitment >= 0.56
+            (movingIntent && c.covering > 0 && !easyBuildUp) ||
+            (commitment >= 0.56 && !easyBuildUp)
           ? 'engage'
           : 'contain';
   const reason: PressingPlan['reason'] = locked
@@ -337,6 +350,8 @@ const projectPressingPlan = (
   };
   if (protectedReceiver && !selected)
     target = { x: protectedReceiver.position.x + dir * 2, y: protectedReceiver.position.y };
+  else if (intention === 'screen' && opportunity.safeOutletCount >= 2 && !cooperativePress)
+    target = opportunity.screenTarget;
   else if (partner) target = cooperativePress!.target;
   else if ((intention === 'engage' || intention === 'emergency') && c.opponentDistance < 3.5) {
     // Reach the actual exposed shoulder, orbiting around protected control. A goal-side
@@ -495,6 +510,15 @@ export const deriveCooperativePress = (
   const slow =
     Math.hypot(carrier.velocity.x, carrier.velocity.y) <= COOPERATIVE_PRESS_TUNING.slowCarrierSpeed;
   const progress = carrier.team === 'home' ? carrier.position.x : 105 - carrier.position.x;
+  const opportunity = derivePressingOpportunity(state, side);
+  if (
+    progress < 40 &&
+    !confined &&
+    opportunity.safeOutletCount >= 2 &&
+    opportunity.engagement < 0.28 &&
+    opportunity.triggers.heavyTouch < 0.45
+  )
+    return;
   const willingness = state.teams[side].threatMemory?.response.doublePress ?? 0.15;
   // An ordinary covered reception remains a scan. Slow control recruits a partner
   // only for an advanced threat or a channel the team has learned to double press.
@@ -568,7 +592,8 @@ export const deriveCooperativePress = (
       (candidateAttributes.positioning / 100) * 0.06 +
       (shield || confined ? 0.2 : 0) +
       (progress >= 78 ? 0.18 : 0) -
-      (booked ? 0.17 + (candidateAttributes.composure / 100) * 0.06 : 0);
+      (booked ? 0.17 + (candidateAttributes.composure / 100) * 0.06 : 0) +
+      opportunity.engagement * 0.06;
     if (initiative < 0.34) continue;
     const remaining = defenders.filter(
       (player) => player.id !== primary.id && player.id !== candidate.id,
@@ -781,6 +806,7 @@ export const chooseNpcDefensiveChallengeAction = (
   );
   const commits = plan.intention === 'engage' || plan.intention === 'emergency';
   const actor = c.actor;
+  const contactAccess = deriveBallContactAccess(state, actor, c.opponent);
   const forward = { x: Math.sin(c.opponent.facingAngle), y: Math.cos(c.opponent.facingAngle) };
   const rearApproach =
     ((actor.position.x - c.opponent.position.x) * forward.x +
@@ -797,7 +823,7 @@ export const chooseNpcDefensiveChallengeAction = (
   // for a comfortable contact window: skill extends reliable reach, relative motion narrows it.
   const comfortableReach = Math.max(0.45, 0.55 + defensiveControl * 0.3 - c.relativeSpeed * 0.025);
   const comfortableStanding =
-    !rearApproach && c.ballDistance <= comfortableReach ? standing : undefined;
+    !contactAccess.bodyOccludes && c.ballDistance <= comfortableReach ? standing : undefined;
   const desperate =
     state.time >= 80 * 60 &&
     state.score[actor.team] < state.score[actor.team === 'home' ? 'away' : 'home'];
@@ -818,7 +844,7 @@ export const chooseNpcDefensiveChallengeAction = (
   // Choosing an aggressive intent is not choosing to run through an inaccessible ball.
   // Containment/movement closes the remaining distance; an actual tackle is committed
   // only when the ball is exposed and already inside that technique's contact window.
-  const exposedBall = !rearApproach && c.ballDistance <= c.opponentDistance + 0.24;
+  const exposedBall = !contactAccess.bodyOccludes && c.ballDistance <= c.opponentDistance + 0.24;
   const forwardRole = ['striker', 'left_winger', 'right_winger'].includes(actor.slot.position);
   // A forward closes/screens the route while a low-skill poke at protected control has little
   // value. A clearly exposed ball or immediate threat still admits a real opportunistic tackle.
@@ -858,29 +884,13 @@ export const chooseNpcDefensiveChallengeAction = (
       x: c.opponent.position.x + c.opponent.velocity.x * seconds,
       y: c.opponent.position.y + c.opponent.velocity.y * seconds,
     };
-    let ballPoint = {
-      x: state.ball.x + c.opponent.velocity.x * seconds,
-      y: state.ball.y + c.opponent.velocity.y * seconds,
-    };
-    if (
-      state.onBallPreparation?.actorId === c.opponent.id &&
-      state.onBallPreparation.micro?.shielding
-    ) {
-      const nearest = state.players
-        .filter((p) => p.team === actor.team)
-        .map((p) => ({
-          x: p.position.x + p.velocity.x * seconds,
-          y: p.position.y + p.velocity.y * seconds,
-        }))
-        .sort((a, b) => distance(a, opponentPoint) - distance(b, opponentPoint))[0];
-      if (nearest) {
-        const length = Math.max(0.01, distance(nearest, opponentPoint));
-        ballPoint = {
-          x: opponentPoint.x + ((opponentPoint.x - nearest.x) / length) * 0.38,
-          y: opponentPoint.y + ((opponentPoint.y - nearest.y) / length) * 0.38,
-        };
-      }
-    }
+    // Forecast the current physical velocity; an intended shield/turn cannot rotate the ball
+    // to the safe shoulder before an actual contact. The finite carrier plan is not guaranteed.
+    const ballPoint = integrateGroundRolling(
+      state.ball,
+      state.ball.velocity ?? c.opponent.velocity,
+      seconds,
+    ).position;
     const ballMetres = distance(actorPoint, ballPoint);
     const bodyMetres = distance(actorPoint, opponentPoint);
     return {
@@ -988,7 +998,8 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
   const aligned = c.facingError <= Math.PI * (intent.technique === 'tactical' ? 0.68 : 0.5);
   let opponentContact =
     c.opponentDistance <= (intent.technique === 'slide' ? 1.75 : 1.35) && aligned;
-  const ballReachable = c.ballDistance <= reach && aligned && (state.ball.height ?? 0) < 0.5;
+  const access = deriveBallContactAccess(state, c.actor, c.opponent, reach);
+  const ballReachable = access.ballReachable && aligned;
   if (elapsed < minimumTime || (!opponentContact && !ballReachable)) {
     if (state.time < intent.expiresAt) return { state };
   }
@@ -1029,21 +1040,27 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
           : 0.5;
   const force = c.relativeSpeed * commitment;
   const originalPossession = state.ball.ownerId === intent.opponentId;
+  // A careful rear poke can reach a ball beyond the carrier's ordinary leg footprint;
+  // committed/sliding rear body contact retains its calibrated risk. Source/identity has
+  // no place in the physical resolver: the same chosen technique has the same result.
+  const exposedRearPoke =
+    intent.technique === 'standing' &&
+    c.relativeSpeed <= 3.5 &&
+    distance(state.ball, c.opponent.position) > 0.65 &&
+    !access.bodyOccludes;
   const ballFirst =
     ballReachable &&
     originalPossession &&
-    !fromBehind &&
+    !access.bodyOccludes &&
+    (!fromBehind || exposedRearPoke) &&
     c.ballDistance <= c.opponentDistance + 0.24 &&
     execution + skill * 0.65 - lateness * 0.35 > 0.2;
   const accidentalMistiming =
     execution < Math.max(0.008, (1 - skill) * 0.025 + c.relativeSpeed * 0.002 + lateness * 0.025);
-  const autonomousStanding =
-    intent.technique === 'standing' &&
-    (intent.source === 'autonomous_routine' || intent.source === 'autonomous_npc');
   const routineWithdrawn =
-    autonomousStanding && (fromBehind || !ballReachable || c.relativeSpeed > 4.5 || lateness > 0.3);
-  // Any autonomous routine poke is withdrawn when the timing deteriorates. Human identity
-  // does not change physics; an explicitly selected or committed tackle retains its risk.
+    intent.technique === 'standing' && fromBehind && !exposedRearPoke && c.relativeSpeed <= 3.5;
+  // A cautious rear poke withdraws before body contact. Once a fast contact physically occurs,
+  // the same foul risk applies to the chosen technique regardless of who selected it.
   if (routineWithdrawn) opponentContact = false;
   // A standing poke that fails to find the ball is often simply beaten. Mere proximity is
   // not an infringement; opponent-first contact needs a committed/impeding physical action.
@@ -1079,8 +1096,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
             distance(p.position, c.opponent.position) < 4.2,
         ).length,
       ) *
-        0.035 -
-      (state.ballCarrierIntent?.executionMode === 'shield' ? 0.16 : 0);
+        0.035;
     outcome = success > 0.58 ? 'clean_win' : success > 0.42 ? 'loose_ball' : 'beaten';
   }
   const diagnostic: ChallengeDiagnostic = {
@@ -1103,6 +1119,9 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
     force,
     fromBehind,
     ballReachable,
+    bodyOccludes: access.bodyOccludes,
+    defenderContactEta: access.defenderEta,
+    carrierContactEta: access.carrierEta,
   };
   let next: TacticalMatchState = {
     ...state,

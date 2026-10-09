@@ -89,6 +89,8 @@ export const matchStatisticsSchema = z.object({
   observedShotIds: z.array(z.string()),
   observedShotResultIds: z.array(z.string()),
   observedContactIds: z.array(z.string()),
+  /** Bounded physical-contact dedup survives closed episodes and replayed transitions. */
+  observedPhysicalContactAt: z.record(z.string(), z.number().nonnegative()).optional(),
   /** One active possession/control episode; physical contacts are retained separately. */
   activeControlEpisode: controlEpisodeSchema.optional(),
   observedCarryIds: z.array(z.string()),
@@ -184,6 +186,7 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
   observedShotIds: [],
   observedShotResultIds: [],
   observedContactIds: [],
+  observedPhysicalContactAt: {},
   observedCarryIds: [],
   passingNetwork: [],
   observedAssistGoalIds: [],
@@ -391,6 +394,22 @@ export const observePlayerMatchStats = (
     }
     const newContacts = [];
     for (const contact of collectContactEvidence(previous, next)) {
+      if (contact.source === 'physical_control') {
+        const lastAt = result.observedPhysicalContactAt?.[contact.playerId];
+        // Older saves retain physical IDs in their event ledger. Continue respecting those
+        // identities while newer physical contacts use one timestamp per footballer.
+        if (
+          (lastAt !== undefined && lastAt >= contact.at) ||
+          containsIdentity(result.observedContactIds, contact.id)
+        )
+          continue;
+        result.observedPhysicalContactAt = {
+          ...result.observedPhysicalContactAt,
+          [contact.playerId]: contact.at,
+        };
+        newContacts.push(contact);
+        continue;
+      }
       if (containsIdentity(result.observedContactIds, contact.id)) continue;
       appendIdentity('observedContactIds', contact.id);
       newContacts.push(contact);

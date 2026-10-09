@@ -161,6 +161,7 @@ export const projectPlayerPreparation = (
     return {
       preparation: carry.executionMode === 'shield' ? 'shielding' : 'carrying',
       preparationSinceMs: carry.startedAt * 1000,
+      canonicalBallPlacement: true,
     };
   const preparation =
     state.onBallPreparation?.actorId === playerId ? state.onBallPreparation : undefined;

@@ -46,7 +46,12 @@
     "benchmark:pressing": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Pressing.ts",
     "benchmark:shooting-difficulty": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Shooting.ts",
     "benchmark:dynamic-flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Flow.ts",
-    "benchmark:pressing-integrity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Integrity.ts"
+    "benchmark:pressing-integrity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr157Integrity.ts",
+    "benchmark:ball-contact": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr158Contact.ts",
+    "benchmark:tactical-preferences": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr158Tactics.ts",
+    "benchmark:tactical-scenarios": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr158TacticalScenarios.ts",
+    "benchmark:contact-flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr158Flow.ts",
+    "benchmark:contact-telemetry": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr158TelemetryReference.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

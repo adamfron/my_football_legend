@@ -82,7 +82,12 @@ describe('PR149 canonical possession micro-behaviour', () => {
     for (let tick = 0; tick < 200; tick++) {
       const next = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
       phases.add(next.onBallPreparation!.micro!.phase);
-      expect(collectContactEvidence(state, next)).toEqual([]);
+      // PR158 records real finite foot contacts while the same public control episode continues.
+      expect(
+        collectContactEvidence(state, next).filter(
+          (contact) => contact.source !== 'physical_control',
+        ),
+      ).toEqual([]);
       state = next;
     }
     const prepared = owner(state);
@@ -93,6 +98,7 @@ describe('PR149 canonical possession micro-behaviour', () => {
     expect(distance(prepared.position, actor.position)).toBeLessThan(1.1);
     expect(prepared.facingAngle).not.toBe(actor.facingAngle);
     expect(state.ball.ownerId).toBe(actor.id);
+    expect(state.contactControlTelemetry!.physicalContacts).toBeGreaterThan(1);
     expect(distance(state.ball, initial.ball)).toBeGreaterThan(0.2);
     expect(state.decisionIndex).toBe(initial.decisionIndex);
     expect(chooseNpcRoutineAction(state, actor.id)).toBeUndefined();
@@ -296,7 +302,13 @@ describe('PR149 context-based reception quality', () => {
     expect(maintained.onBallPreparation!.micro!.phase).toBe('directional_touch');
     expect(maintained.onBallPreparation!.micro!.touchDirection!.x).toBeGreaterThan(0.9);
     expect(maintained.ball.x).toBeGreaterThanOrEqual(contact.ball.x);
-    expect(maintained.ball.x).toBeGreaterThan(owner(maintained).position.x);
+    // Continuous reception can occur behind the moving body. A directional impulse overtakes
+    // it according to physics; the ball cannot instantly teleport to a forward body offset.
+    expect(maintained.ball.velocity!.x).toBeGreaterThan(owner(maintained).velocity.x);
+    let advanced = maintained;
+    for (let tick = 0; tick < 6; tick++)
+      advanced = stepTacticalMatchAfterDecisionProbe(advanced, FIXED_MATCH_DT);
+    expect(advanced.ball.x).toBeGreaterThan(owner(advanced).position.x);
     expect(maintained.onBallPreparation!.gainedAt).toBe(gainedAt);
     expect(maintained.onBallPreparation!.readyAt).toBe(readyAt);
     expect(maintained.ballOwnershipStartedAt).toBe(ownershipStartedAt);
@@ -322,11 +334,11 @@ describe('PR149 context-based reception quality', () => {
   });
 
   it.each([
-    [45, 12],
-    [10, 18],
+    [45, 12, 'still_recovering'],
+    [10, 18, 'recovery_elapsed'],
   ] as const)(
-    'rebases %s-skill recovery when the same receiver reclaims a %s m/s poor touch',
-    (receiverSkill, incomingSpeed) => {
+    'rebases %s-skill recovery after a %s m/s poor touch when %s',
+    (receiverSkill, incomingSpeed, recovery) => {
       const { receiver, before } = physicalContact(receiverSkill, incomingSpeed);
       if (receiverSkill === 10) {
         const movingReceiver = before.players.find((player) => player.id === receiver.id)!;
@@ -342,14 +354,30 @@ describe('PR149 context-based reception quality', () => {
       for (let tick = 0; tick < 100 && !state.ball.ownerId; tick++)
         state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
       expect(state.ball.ownerId).toBe(receiver.id);
-      expect(state.time).toBeLessThan(readyAt);
       const claimedPosition = { ...owner(state).position };
       expect(distance(claimedPosition, originalOrigin)).toBeGreaterThan(0.05);
+      if (recovery === 'still_recovering') {
+        expect(state.time).toBeLessThan(readyAt);
+        expect(state.onBallPreparation!.gainedAt).toBe(gainedAt);
+        expect(state.onBallPreparation!.readyAt).toBe(readyAt);
+      } else {
+        // A real foot contact can occur after the original recovery has elapsed.
+        // It starts ordinary preparation instead of resurrecting that old clock.
+        expect(state.time).toBeGreaterThan(readyAt);
+        expect(state.onBallPreparation!.gainedAt).toBe(state.time);
+        expect(state.onBallPreparation!.readyAt).toBeGreaterThan(state.time);
+      }
+      const claimedGainedAt = state.onBallPreparation!.gainedAt;
+      const claimedReadyAt = state.onBallPreparation!.readyAt;
       state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
-      expect(state.onBallPreparation!.gainedAt).toBe(gainedAt);
-      expect(state.onBallPreparation!.readyAt).toBe(readyAt);
-      expect(state.onBallPreparation!.receptionKind).toBe('heavy_touch');
-      expect(state.onBallPreparation!.micro!.phase).toBe('recovering');
+      expect(state.onBallPreparation!.gainedAt).toBe(claimedGainedAt);
+      expect(state.onBallPreparation!.readyAt).toBe(claimedReadyAt);
+      expect(state.onBallPreparation!.receptionKind).toBe(
+        recovery === 'still_recovering' ? 'heavy_touch' : undefined,
+      );
+      expect(state.onBallPreparation!.micro!.phase).toBe(
+        recovery === 'still_recovering' ? 'recovering' : 'controlling',
+      );
       expect(state.onBallPreparation!.micro!.origin).toEqual(claimedPosition);
     },
   );

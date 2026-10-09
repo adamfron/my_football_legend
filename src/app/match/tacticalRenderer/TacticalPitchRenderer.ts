@@ -30,6 +30,7 @@ import {
   shotAimIntentToGoalPoint,
   updateTacticalCameraPose,
   selectScreenSpacePlayerCandidate,
+  screenSpacePlayerPickRadius,
   type MatchCameraPreferences,
   validateRenderFrame,
 } from './model';
@@ -673,14 +674,15 @@ export class TacticalPitchRenderer {
   recover() {
     this.onContextRestored();
   }
-  /** Presentation-only hit test: no canonical state or football legality is consulted. */
+  /** Presentation-only hit test. The caller supplies legal targets; picking cannot commit play. */
   pick(
     clientX: number,
     clientY: number,
     goalIntentSide?: 'home' | 'away',
-    actionablePlayerIds: readonly string[] = [],
+    actionablePlayerIds?: readonly string[],
   ): PresentationTarget | undefined {
     const rect = this.renderer.domElement.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return undefined;
     const pointer = new THREE.Vector2(
       ((clientX - rect.left) / rect.width) * 2 - 1,
       -((clientY - rect.top) / rect.height) * 2 + 1,
@@ -722,42 +724,56 @@ export class TacticalPitchRenderer {
         // The marker is a handle for the canonical incoming ball, not a new space action.
         return { kind: 'ball', point: worldToTactical(this.ball.position) };
     }
-    const actionable = new Set(actionablePlayerIds);
+    const actionable = actionablePlayerIds === undefined ? undefined : new Set(actionablePlayerIds);
     const activeIds = new Set(this.lastValidFrame?.players.map((player) => player.id));
+    // Expand only eligible actors in CSS pixels, so a crowded, nearer but unrelated body
+    // cannot pre-empt the requested defender/pass target. Projection reflects zoom and orbit.
+    const fallback = selectScreenSpacePlayerCandidate(
+      [...this.playerMeshes.entries()]
+        .filter(([id]) => activeIds.has(id) && (!actionable || actionable.has(id)))
+        .map(([playerId, mesh]) => {
+          const centre = mesh.position.clone().add(new THREE.Vector3(0, 0.9, 0));
+          const projected = centre.clone().project(this.camera);
+          const bodyRadius = [
+            new THREE.Vector3(0, -0.9, 0),
+            new THREE.Vector3(0, 1, 0),
+            new THREE.Vector3(0.6, 0, 0),
+            new THREE.Vector3(0, 0, 0.6),
+          ].reduce((maximum, offset) => {
+            const edge = centre.clone().add(offset).project(this.camera);
+            return Math.max(
+              maximum,
+              Math.hypot(
+                ((edge.x - projected.x) * rect.width) / 2,
+                ((edge.y - projected.y) * rect.height) / 2,
+              ),
+            );
+          }, 0);
+          return {
+            playerId,
+            x: rect.left + ((projected.x + 1) / 2) * rect.width,
+            y: rect.top + ((1 - projected.y) / 2) * rect.height,
+            depth: projected.z,
+            actionable: true,
+            pickRadius: screenSpacePlayerPickRadius(bodyRadius),
+          };
+        }),
+      { x: clientX, y: clientY },
+      32,
+    );
+    if (fallback) return { kind: 'player', playerId: fallback.playerId };
     const playerHits = this.raycaster.intersectObjects(
       [...this.playerPickers.entries()]
-        .filter(([id]) => activeIds.has(id))
+        .filter(([id]) => activeIds.has(id) && (!actionable || actionable.has(id)))
         .map(([, picker]) => picker),
     );
-    const playerHit =
-      playerHits.find((hit) => {
-        let object: THREE.Object3D | null = hit.object;
-        while (object && !object.userData.playerId) object = object.parent;
-        return object?.userData.playerId && actionable.has(String(object.userData.playerId));
-      }) ?? playerHits[0];
+    const playerHit = playerHits[0];
     if (playerHit) {
       let object: THREE.Object3D | null = playerHit.object;
       while (object && !object.userData.playerId) object = object.parent;
       if (object?.userData.playerId)
         return { kind: 'player', playerId: String(object.userData.playerId) };
     }
-    const fallback = selectScreenSpacePlayerCandidate(
-      [...this.playerMeshes.entries()]
-        .filter(([id]) => activeIds.has(id))
-        .map(([playerId, mesh]) => {
-          const projected = mesh.position.clone().project(this.camera);
-          return {
-            playerId,
-            x: rect.left + ((projected.x + 1) / 2) * rect.width,
-            y: rect.top + ((1 - projected.y) / 2) * rect.height,
-            depth: projected.z,
-            actionable: actionable.has(playerId),
-          };
-        }),
-      { x: clientX, y: clientY },
-      22,
-    );
-    if (fallback) return { kind: 'player', playerId: fallback.playerId };
     const pitchHit = this.raycaster.intersectObject(this.pitch)[0];
     if (!pitchHit) return undefined;
     const point = worldToTactical(pitchHit.point);

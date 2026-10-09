@@ -57,6 +57,7 @@ import {
   angleForVector,
 } from './playerOrientation';
 import { integrateBallFlight } from './ballPhysics';
+import { advanceControlledBall, reconcileControlledBallContact } from './ballContactGeometry';
 import {
   GOALKEEPER_PHYSICS,
   projectGoalkeeperIntervention,
@@ -1221,8 +1222,10 @@ const stepTacticalMatchCore = (
       state.defensiveChallenge?.actorId !== player.id &&
       state.playerMovementIntent?.actorId !== player.id
     ) {
+      const pressureSpan = startPerformanceSpan('pressure_decision');
       movementTarget =
         derivePressingPlan(state, player.id, cooperativePress ?? null)?.target ?? movementTarget;
+      endPerformanceSpan('pressure_decision', pressureSpan);
     }
     const dx = movementTarget.x - player.position.x,
       dy = movementTarget.y - player.position.y,
@@ -1930,29 +1933,14 @@ const stepTacticalMatchCore = (
       }
     } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {
       const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
-      const speed = Math.hypot(owner.velocity.x, owner.velocity.y),
-        dirX = speed > 0.2 ? owner.velocity.x / speed : owner.team === 'home' ? 1 : -1,
-        dirY = speed > 0.2 ? owner.velocity.y / speed : 0;
-      // Scanning keeps the ball at the feet. Only deliberate movement pushes it into a stride;
-      // a stationary receiver must not offer every nearby marker a permanently exposed ball.
-      const deliberateMovement =
-        state.ballCarrierIntent?.actorId === owner.id ||
-        state.playerMovementIntent?.actorId === owner.id;
-      const controlOffset = deliberateMovement
-        ? state.ballCarrierIntent?.actorId === owner.id
-          ? (state.ballCarrierIntent.touchDistance ?? 1.15)
-          : 1.15
-        : 0.45;
-      const micro =
-        !deliberateMovement && state.onBallPreparation?.actorId === owner.id
-          ? state.onBallPreparation.micro
-          : undefined;
-      state.ball = {
-        ...state.ball,
-        x: owner.position.x + (micro?.ballOffset.x ?? dirX * controlOffset),
-        y: owner.position.y + (micro?.ballOffset.y ?? dirY * controlOffset),
-        ownerId: owner.id,
-      };
+      const beforeContact = { x: state.ball.x, y: state.ball.y };
+      const contactSpan = startPerformanceSpan('ball_contact_control');
+      const controlled = advanceControlledBall(state, owner, dt);
+      endPerformanceSpan('ball_contact_control', contactSpan);
+      state = controlled.state;
+      const crossing = findPitchBoundaryCrossing(beforeContact, state.ball);
+      if (crossing) return applyBoundaryRestart(state, crossing, beforeContact);
+      if (controlled.looseVelocity) state = makeLoose(state, controlled.looseVelocity);
     }
   } finally {
     endPerformanceSpan('ball_physics', ballSpan);
@@ -2162,6 +2150,7 @@ export const stepTacticalMatch = (
     };
   }
   next = advanceMatchRules(input, next);
+  next = reconcileControlledBallContact(next);
   next = emitCanonicalActionEvents(input, next);
   next = emitMatchEvents(input, next);
   next = observeTeamThreats(input, next);
@@ -2211,6 +2200,7 @@ export const stepTacticalMatchAfterDecisionProbe = (
     };
   }
   next = advanceMatchRules(input, next);
+  next = reconcileControlledBallContact(next);
   next = emitCanonicalActionEvents(input, next);
   next = emitMatchEvents(input, next);
   next = observeTeamThreats(input, next);

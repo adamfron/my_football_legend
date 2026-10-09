@@ -1,0 +1,29 @@
+{
+  "previousCanonicalSourceHash": "0cf35eb91eebb959c743de58a7e5788a8b61d76dd2988a9db8aaa8e0bf989201",
+  "finalCanonicalSourceHash": "47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba",
+  "observerSourceHash": "0bc95e566e0fbc304f9af0e3491fc1dc272fc7cf95087a93a6420afe909fbd53",
+  "comparison": "Exact per-row equality of all fixture identity, football counters, planned diagnostics, suitability, preferences, physical transition clocks, workload, rotation traces and initial/final scenario outcome fields. Only elapsedMs and canonicalStateHash are omitted; elapsed time varies under CPU contention and the canonical full-state hash changes with statistics watermark metadata.",
+  "excludedRowFields": [
+    "elapsedMs",
+    "canonicalStateHash"
+  ],
+  "scope": "210 rerun after fixtures: 105 ten-minute tactical rows and 105 twelve-second synthetic rows; this is an equality result for the stated deterministic matrix, not a proof for arbitrary unseen fixtures.",
+  "beforeArtifactDigestsUnchanged": {
+    "PR158-tactics-before.json": "23c16c42864f43b957b38718a349155d5be7ec768208249fef563fab7595fdac",
+    "PR158-tactical-scenarios-before.json": "fe9a96ee0d7ca664f658b5b704026eeed30adff534e2e21cc4c78586ee28d648"
+  },
+  "groups": [
+    {
+      "file": "PR158-tactics-after.json",
+      "rows": 105,
+      "identicalRows": 105,
+      "normalizedRowsSha256": "3a907c67263720d7b210c3b19792676182a6bea2289c667ff0df94e07547c4b2"
+    },
+    {
+      "file": "PR158-tactical-scenarios-after.json",
+      "rows": 105,
+      "identicalRows": 105,
+      "normalizedRowsSha256": "b23d87a5b16445fff8e9a065e7f83f4022d0f1afb94cc4eafbca3f236bccf61e"
+    }
+  ]
+}

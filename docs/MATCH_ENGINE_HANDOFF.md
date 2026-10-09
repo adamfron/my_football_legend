@@ -1,5 +1,89 @@
 # Match Engine Handoff
 
+## PR158 contracts
+
+- Preserve the one deterministic 0.025 s engine. `controlledBallContact` is one bounded
+  anticipation plan; it does not reserve possession or a successful next contact.
+- Apply finite reachable foot-contact impulses and the existing rolling integrator between
+  contacts. Do not restore body-relative ball coordinates, rotate the ball with the owner,
+  snap actors to targets, or create a second physics path for a skill move.
+- Keep candidate-specific turn/contact difficulty and defender/carrier ETA separate from
+  actual contact resolution. Technique, Dribbling, Agility, First Touch and Composure answer
+  control demands; Strength/Agility resist actual protecting-torso load through balance.
+  A strong shield still exposes its accessible side and remains vulnerable to another defender.
+- Release, restart and ownership discontinuity must clear stale contact plans. Several physical
+  contacts within continuous control remain one public touch; do not make a 25 ms contact a
+  new human decision or public possession episode.
+- Keep physical-contact accounting bounded with one optional latest-contact timestamp per
+  player. Repeated/older evidence must remain deduplicated after release or half-time; earlier
+  statistics branches remain immutable. Old saves retain historical contact IDs, while new
+  impulses do not append them. Existing pass/shot/control ledgers are discrete event accounting.
+  The `47f99f54` fix passes four new regressions and 34 focused tests. Exported football matches
+  in all 18 windows, 1,760 contact trials and 210 tactical/scenario rows; stated timing and
+  bookkeeping checksums are omitted explicitly. Final verify passes lint, 1,263 main tests/163
+  files, five career tests/one file and build; strict benchmark TypeScript passes. Record the
+  isolated final performance honestly: release_minimal -2.64%, normal -2.41%, dev +3.02%, capture -1.22%;
+  observer median elapsed overhead +2.50%. Keep absent baseline instrumentation
+  as n/a, nested spans nonadditive, and the hot derivePressingPlan scope separate from all pressure
+  computation. No broad speedup or browser/MediaRecorder timing was established.
+- Preserve the calibrated shared challenge/foul resolver, actor-source physical parity and
+  pair re-arm locks. An independent second defender retains a legal opportunity. Aggression
+  changes willingness/risk rather than an identical contact's success quality.
+- Six tactical preference axes use 0–1 and default from existing styles. Coach philosophy
+  controls positioning and ranking, never execution accuracy. Suitability uses the active XI
+  with continuous cost/adaptation, not role/ability eligibility gates or hidden quotas.
+- Situational pressure considers ready safe outlets, lanes, contact/orientation, local numbers,
+  touchline and cover/risk behind. Screen/block can be useful without a tackle. Recent-loss
+  opportunity may remain after eight seconds; observer clock bins must never cancel tactics.
+- Keep all six transition clocks distinct. Record actual shot release, not its later result;
+  forward progression needs signed geometry. Censor interrupted losses/regains. Per-presser
+  episodes must survive nearest-player switches, and snapshots must not mutate live episodes.
+- Workload is bounded read-only open-play observation: intensity distance, sprint intervals,
+  repeat efforts, turns, pressing distance and low effort. Speed-bin crossings and formal
+  challenge body contacts are explicit proxies, not calibrated physiological reserves.
+- UI picking is projected CSS-pixel geometry with caller-supplied legal contextual targets.
+  Its 32–48 px radius must not enlarge foot/tackle range, consume RNG or alter state before commit.
+- Live and replay carrying projections preserve canonical ball coordinates. Do not restore
+  face-relative visual placement that would hide inter-contact travel/exposure from the player.
+- Preserve PR155 shot and PR156 non-throw restart ownership for every action source. A real
+  advantage shot remains after a later DEV restart; a whistle before execution creates no shot.
+  `scenario_changed` alone proves neither a natural foul nor an advantage recall.
+- Evidence, reproduction, numerical tradeoffs and limitations:
+  [PR158_BALL_CONTACT_PRESSING_TACTICS.md](PR158_BALL_CONTACT_PRESSING_TACTICS.md),
+  [preference contract](PR158_TACTICAL_PREFERENCES.md).
+- Secure a loose ball only at an actual reachable contact. Anticipated acquisition at a wider
+  radius must preserve the chase and loose-ball opportunity, rather than announce ownership
+  and stop before contact. Keep public touches/reception accounting on actual secured control.
+- Preserve the final matched evidence and every remaining tradeoff: attempts
+  6645→4418, completed passes 10005→13074,
+  shots 110→16, goals 68→10,
+  adjacent-tick flips 24→94 and
+  short spells 51→189.
+  Neither quotas nor filtering may repair a result. The fixed 25 ms engine remains authoritative.
+  Low-progress absolute rotation includes scans/reversals: >180° uses net <2 m; >360° uses
+  net <3 m. Stop lab owned movement at stoppage as well as loss, excluding restart placement.
+- A nomination never reserves a loose ball. Another actually reachable legal foot starts its
+  own preparation and cannot borrow the prior nominee's clock. An unreachable opponent cannot
+  create a physical contact contest or pair lock merely by entering the broad nomination radius.
+- Final source/hash, complete verification, integrity and performance are retained in the
+  PR158 report. Superseded prototype results must not be mixed into the final matrices.
+- Keep this a draft for calibration before merging. Central-midfielder touches
+  4957→3461 and receptions 2831→1993
+  regress despite increased aggregate passing. Demanded-turn >360°/net<3 m trials
+  2→16
+  and lab fouls 90→369 also worsen.
+
+
+
+The [evidence manifest](performance/PR158-evidence-manifest.json) inventories archived raw, source and report snapshots. The local output/attachment `outputs/PR158-evidence.zip` contains 824 hash-checked entries; five compact summaries regenerated exactly. Its checksum is retained separately in local metadata.
+
+Next: **PR159 — Dead Ball & Restart Continuity**, **PR160 — Fatigue, Injuries, Substitutions
+& Added Time**, **PR161 — Match Presentation / Replay / Stadium Polish**. PR160 should separate
+a slowly changing long-term capacity from short-term burst readiness constrained by capacity;
+PR158 implements no depletion/recovery penalty. Future age/development must keep physical,
+technical, tactical intelligence, stamina, workload and recovery separate, without blanket age
+reductions or named-player longevity exceptions. A later coach profile may own the existing vector.
+
 ## PR157 contracts (validated)
 
 - Keep one seeded canonical engine at 0.025 s. Pressing plans are continuous tactical
@@ -44,7 +128,7 @@
   Independently seeded diagnostic/agency ranking draws are recorded separately; they do not
   advance a mutable football RNG. Waiting for a genuine controlled decision is an agency pause.
 - Existing direct free kicks are benchmarked through their current restart/physical path.
-  Full wall/restart choreography and richer strike/cross menus belong to PR158.
+  Full wall/restart choreography and richer strike/cross menus belong to PR159.
 - Verification passed: lint, 1,215 main tests in 156 files, 5 career tests and build; four new
   benchmark scripts pass strict TypeScript. All 66 identity comparisons, 124,345 pre-decision
   ticks, 18 shot launch comparisons and 144 blocked proposals preserve their required state/RNG
@@ -57,8 +141,8 @@
   approximately +0.75%. [Performance evidence](performance/PR157-performance.json).
 - Reproduction, numerical relationships and remaining limitations:
   [PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md](PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md).
-- Next: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries, Substitutions
-  & Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
+- Next: **PR159 — Dead Ball & Restart Continuity**, **PR160 — Fatigue, Injuries, Substitutions
+  & Added Time**, **PR161 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR156 contracts
 
@@ -79,7 +163,7 @@
   classify ownership changes with current contact evidence, not a stale diagnostic or a filtered count.
 - Attribute semantics concern individual skills; OVR, generation and career distributions stay intact.
 - Reproduction, measurements and limits: [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md).
-- Current next sequence after PR157: PR158 restart continuity, PR159 fatigue/injuries/substitutions/added time, PR160 presentation.
+- Current next sequence after PR158: PR159 restart continuity, PR160 fatigue/injuries/substitutions/added time, PR161 presentation.
 
 ## PR155 contracts
 
@@ -106,7 +190,7 @@
   fixed 25 ms stepping, replay/observer parity and zero background renderer calls.
 - Reproduction and measured limitations:
   [PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md).
-- Current next sequence after PR157: PR158 restarts, PR159 fatigue/injuries/substitutions/added time, PR160 presentation.
+- Current next sequence after PR158: PR159 restarts, PR160 fatigue/injuries/substitutions/added time, PR161 presentation.
   Full post-goal/restart choreography remains outside PR155.
 
 ## PR154 contracts
@@ -131,7 +215,7 @@
   Replay, observer parity and statistical ledgers remain mandatory regression checks.
 - Reproduction, measured results and remaining limits:
   [PR154_FOOTBALL_INTELLIGENCE.md](PR154_FOOTBALL_INTELLIGENCE.md).
-- Current next work after PR157 is GitHub PR158 restarts, PR159 fatigue/injuries/substitutions/added time, PR160
+- Current next work after PR158 is GitHub PR159 restarts, PR160 fatigue/injuries/substitutions/added time, PR161
   presentation/replay/stadium. Full restart resets and stamina remain outside PR154.
 
 ## Expanded PR152 statistics / discipline contracts

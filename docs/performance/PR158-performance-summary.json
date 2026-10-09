@@ -1,0 +1,3061 @@
+{
+  "methodology": "Three alternating PR157/PR158 fresh-process pairs; same 10-minute fixture, explicit deterministic controlled-player decisions and four observer modes per process. Run only after other benchmark/test workers have finished. Inclusive sampled spans every37ticks are nested and cannot be added as exclusive CPU percentages. Export is excluded from simulation timing; browser/MediaRecorder not measured.",
+  "minutes": 10,
+  "repetitions": 3,
+  "sourceHashes": {
+    "before": "ead52806e69247434e2ef41a9181994213836d0620ea227fe62bf8ce5e180351",
+    "after": "47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 33601875968
+  },
+  "modeStateAndRandomnessParity": [
+    {
+      "revision": "before",
+      "repetition": 1,
+      "equality": true
+    },
+    {
+      "revision": "after",
+      "repetition": 1,
+      "equality": true
+    },
+    {
+      "revision": "before",
+      "repetition": 2,
+      "equality": true
+    },
+    {
+      "revision": "after",
+      "repetition": 2,
+      "equality": true
+    },
+    {
+      "revision": "before",
+      "repetition": 3,
+      "equality": true
+    },
+    {
+      "revision": "after",
+      "repetition": 3,
+      "equality": true
+    }
+  ],
+  "byMode": [
+    {
+      "mode": "release_minimal",
+      "before": {
+        "elapsedMs": 15393.28709999999,
+        "millisecondsPerTick": 0.6413869624999996,
+        "canonicalSecondsPerWallSecond": 38.97802958535923,
+        "runs": [
+          {
+            "elapsedMs": 15544.369700000034,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 180.80280000000744,
+                  "estimatedMs": 6686.081972265299,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 39.59299999996438,
+                  "estimatedMs": 1464.1479198754162,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 59.34439999999654,
+                  "estimatedMs": 2194.5540832048027,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.271499999972548,
+                  "estimatedMs": 231.9198767324209,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 101.89790000001403,
+                  "estimatedMs": 3768.181201849518,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.9854999999802203,
+                  "estimatedMs": 110.40369799618689,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 18.418100000018057,
+                  "estimatedMs": 681.1007704166925,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 236.07929999998123,
+                  "estimatedMs": 8730.205238828274,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5898000000174761,
+                  "estimatedMs": 21.810785824991417,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 95.861699999954,
+                  "estimatedMs": 3544.962711862706,
+                  "sampledCalls": 11924
+                }
+              ]
+            },
+            "batchP50Ms": 5.093899999999849,
+            "batchP95Ms": 71.11629999999968,
+            "lateToEarlyCostRatio": 1.274542633411428,
+            "export": {
+              "packagingMs": 0.026799999999639113,
+              "serializationMs": 0.004100000001926674,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 15393.28709999999,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 181.44080000000008,
+                  "estimatedMs": 6709.67519260401,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 38.848999999993,
+                  "estimatedMs": 1436.6348228040556,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 59.01499999999987,
+                  "estimatedMs": 2182.372881355928,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.930299999970316,
+                  "estimatedMs": 256.2822804303353,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 101.1472999999811,
+                  "estimatedMs": 3740.4240369792706,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.8767999999943186,
+                  "estimatedMs": 106.38397534647713,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 18.790500000008706,
+                  "estimatedMs": 694.8721109402295,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 235.16070000003685,
+                  "estimatedMs": 8696.235439138498,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5816999999996142,
+                  "estimatedMs": 21.511248073945673,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 97.78669999992144,
+                  "estimatedMs": 3616.149152539468,
+                  "sampledCalls": 11924
+                }
+              ]
+            },
+            "batchP50Ms": 5.236399999999776,
+            "batchP95Ms": 66.61839999999938,
+            "lateToEarlyCostRatio": 1.139424186659751,
+            "export": {
+              "packagingMs": 0.01359999999840511,
+              "serializationMs": 0.003399999997782288,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 15061.458400000003,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 173.79029999996612,
+                  "estimatedMs": 6426.759938365466,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 38.70189999999036,
+                  "estimatedMs": 1431.195069337086,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 56.875200000015525,
+                  "estimatedMs": 2103.2431432979547,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.795099999993795,
+                  "estimatedMs": 251.2825885976134,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 98.612000000036,
+                  "estimatedMs": 3646.668721110731,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.8973999999996067,
+                  "estimatedMs": 107.14576271184987,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 18.084100000007084,
+                  "estimatedMs": 668.7494607090448,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 229.19570000000897,
+                  "estimatedMs": 8475.64992295873,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.610599999988608,
+                  "estimatedMs": 22.57996918293774,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 95.38150000004975,
+                  "estimatedMs": 3527.204930664398,
+                  "sampledCalls": 11924
+                }
+              ]
+            },
+            "batchP50Ms": 5.059499999999844,
+            "batchP95Ms": 67.80589999999938,
+            "lateToEarlyCostRatio": 1.1968142102216337,
+            "export": {
+              "packagingMs": 0.027999999998428393,
+              "serializationMs": 0.004300000000512227,
+              "jsonBytes": 2
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.27858674884438744,
+          "tactical_planning": 0.05985978428350232,
+          "movement_physics": 0.09093220338983032,
+          "ball_physics": 0.010470107858233891,
+          "action_resolution": 0.15585100154080295,
+          "pass_contact_evidence": 0.0044644067796604115,
+          "statistics": 0.02837919876736219,
+          "canonical_step": 0.3623431432974374,
+          "benchmark_evidence": 0.0009087827427079756,
+          "interception_eta": 0.14770677966094609
+        }
+      },
+      "after": {
+        "elapsedMs": 14987.250899999995,
+        "millisecondsPerTick": 0.6244687874999998,
+        "canonicalSecondsPerWallSecond": 40.03402652048271,
+        "runs": [
+          {
+            "elapsedMs": 14987.250899999995,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 150.72200000000055,
+                  "estimatedMs": 5573.694915254258,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 58.016800000000444,
+                  "estimatedMs": 2145.4594761171197,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 80.56750000000727,
+                  "estimatedMs": 2979.3836671805466,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 6.562100000007035,
+                  "estimatedMs": 242.66625577838036,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 15.055399999997917,
+                  "estimatedMs": 556.7482280430663,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 100.31449999999722,
+                  "estimatedMs": 3709.6271186439653,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.0816999999879044,
+                  "estimatedMs": 113.9611710319102,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 18.498400000009497,
+                  "estimatedMs": 684.0702619417997,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 283.96440000001223,
+                  "estimatedMs": 10500.994761171485,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.0126999999990858,
+                  "estimatedMs": 37.44961479195387,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 10.402300000000196,
+                  "estimatedMs": 384.67673343606276,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 111.05459999991217,
+                  "estimatedMs": 4106.795685667014,
+                  "sampledCalls": 12030
+                }
+              ]
+            },
+            "batchP50Ms": 7.189800000000105,
+            "batchP95Ms": 28.24539999999979,
+            "lateToEarlyCostRatio": 1.6297020248504297,
+            "export": {
+              "packagingMs": 0.014299999998911517,
+              "serializationMs": 0.004000000000814907,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 15612.941999999965,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 154.26240000001712,
+                  "estimatedMs": 5704.618798151635,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 59.11170000001016,
+                  "estimatedMs": 2185.948844376339,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 84.10350000001324,
+                  "estimatedMs": 3110.144838213125,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 6.864400000002092,
+                  "estimatedMs": 253.845300462327,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 14.55679999999063,
+                  "estimatedMs": 538.3100154079741,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 100.88889999998014,
+                  "estimatedMs": 3730.868412942255,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.252999999989129,
+                  "estimatedMs": 120.29583975306487,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 19.475199999987467,
+                  "estimatedMs": 720.1922958392901,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 289.89170000000763,
+                  "estimatedMs": 10720.186132511839,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.0363999999902944,
+                  "estimatedMs": 38.32604006127438,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 11.563800000008769,
+                  "estimatedMs": 427.62896764285125,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 113.40300000001048,
+                  "estimatedMs": 4193.63944530085,
+                  "sampledCalls": 12030
+                }
+              ]
+            },
+            "batchP50Ms": 7.504000000000815,
+            "batchP95Ms": 32.033799999999246,
+            "lateToEarlyCostRatio": 1.5471440377877046,
+            "export": {
+              "packagingMs": 0.013399999999819556,
+              "serializationMs": 0.004600000000209548,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 14836.107500000004,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 148.9442000000165,
+                  "estimatedMs": 5507.951926040672,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 54.99650000000236,
+                  "estimatedMs": 2033.7688751926914,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 80.15630000001033,
+                  "estimatedMs": 2964.1775038524625,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 6.370900000007964,
+                  "estimatedMs": 235.59568567055646,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 14.469599999989555,
+                  "estimatedMs": 535.0853620951453,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 101.26970000000301,
+                  "estimatedMs": 3744.9503852081243,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.045099999998797,
+                  "estimatedMs": 112.60770416020206,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 18.126499999995076,
+                  "estimatedMs": 670.3174114019752,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 280.64330000000814,
+                  "estimatedMs": 10378.18058551648,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.3321999999864147,
+                  "estimatedMs": 49.2647149455685,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 11.626599999987093,
+                  "estimatedMs": 429.9513097067646,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 109.90800000015656,
+                  "estimatedMs": 4064.3944530104127,
+                  "sampledCalls": 12030
+                }
+              ]
+            },
+            "batchP50Ms": 7.016599999999926,
+            "batchP95Ms": 27.798499999999876,
+            "lateToEarlyCostRatio": 1.6731843230674628,
+            "export": {
+              "packagingMs": 0.01419999999961874,
+              "serializationMs": 0.004999999999199645,
+              "jsonBytes": 2
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.2322372881355941,
+          "tactical_planning": 0.08939414483821333,
+          "movement_physics": 0.12414098613252278,
+          "ball_contact_control": 0.010111093990765848,
+          "ball_physics": 0.022429583975332255,
+          "action_resolution": 0.1554528505392606,
+          "pass_contact_evidence": 0.0047483821263295915,
+          "statistics": 0.02850292758090832,
+          "canonical_step": 0.4375414483821452,
+          "benchmark_evidence": 0.0015969183358864323,
+          "pressure_decision": 0.017817873651785467,
+          "interception_eta": 0.17111648690279227
+        }
+      },
+      "elapsedChangePercent": -2.6377485027223035
+    },
+    {
+      "mode": "normal",
+      "before": {
+        "elapsedMs": 14586.996900000071,
+        "millisecondsPerTick": 0.6077915375000029,
+        "canonicalSecondsPerWallSecond": 41.13252399469045,
+        "runs": [
+          {
+            "elapsedMs": 14586.996900000071,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 172.04489999996804,
+                  "estimatedMs": 6362.215100152902,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.5221000000055938,
+                  "estimatedMs": 93.26718027755663,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 34.74839999993492,
+                  "estimatedMs": 1284.9947611686257,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 53.80639999995765,
+                  "estimatedMs": 1989.7590138659225,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.076600000025792,
+                  "estimatedMs": 224.7124807405532,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 93.86349999995218,
+                  "estimatedMs": 3471.069337440451,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.542600000040693,
+                  "estimatedMs": 94.02526964711346,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 15.080999999943742,
+                  "estimatedMs": 557.694915252157,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 209.70929999999862,
+                  "estimatedMs": 7755.04345146374,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5273999999699299,
+                  "estimatedMs": 19.503235746191557,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.8597000000154367,
+                  "estimatedMs": 105.75161787422263,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 94.89970000016183,
+                  "estimatedMs": 3509.3879815160003,
+                  "sampledCalls": 11924
+                }
+              ]
+            },
+            "batchP50Ms": 4.4386000000013155,
+            "batchP95Ms": 64.58480000000054,
+            "lateToEarlyCostRatio": 1.3306063885386683,
+            "export": {
+              "packagingMs": 0.004300000000512227,
+              "serializationMs": 0.005099999998492422,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 14655.635399999992,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 162.43000000006577,
+                  "estimatedMs": 6006.656394455437,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.427499999957945,
+                  "estimatedMs": 89.76887519104882,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 34.919699999965815,
+                  "estimatedMs": 1291.3294298908777,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 52.13310000002821,
+                  "estimatedMs": 1927.880431434017,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 5.74299999998766,
+                  "estimatedMs": 212.3759630195745,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 90.57329999999638,
+                  "estimatedMs": 3349.3978428349974,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.3853000000308384,
+                  "estimatedMs": 88.20832049420667,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 15.90820000000167,
+                  "estimatedMs": 588.2847457627737,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 205.45299999996496,
+                  "estimatedMs": 7597.645608627365,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5081999999456457,
+                  "estimatedMs": 18.793220336973032,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.866799999963405,
+                  "estimatedMs": 106.01417565350035,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 89.14019999981974,
+                  "estimatedMs": 3296.4018489917935,
+                  "sampledCalls": 11924
+                }
+              ]
+            },
+            "batchP50Ms": 4.380099999998492,
+            "batchP95Ms": 64.1163000000015,
+            "lateToEarlyCostRatio": 1.2392476197520277,
+            "export": {
+              "packagingMs": 0.008899999997083796,
+              "serializationMs": 0.004100000001926674,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 14233.584900000018,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 162.74890000000414,
+                  "estimatedMs": 6018.449306625732,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.412399999982881,
+                  "estimatedMs": 89.21047765730223,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 36.35959999995066,
+                  "estimatedMs": 1344.576887517436,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 52.15210000000843,
+                  "estimatedMs": 1928.5830508477695,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.512699999966571,
+                  "estimatedMs": 240.83944529922607,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 91.40040000000772,
+                  "estimatedMs": 3379.9839753469732,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.4069000000363303,
+                  "estimatedMs": 89.00708782877031,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 14.913700000060999,
+                  "estimatedMs": 551.5081664121171,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 207.3836000000556,
+                  "estimatedMs": 7669.039137136109,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5313000000642205,
+                  "estimatedMs": 19.64745762949352,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.7616000000689382,
+                  "estimatedMs": 102.1238828993136,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 89.58609999994223,
+                  "estimatedMs": 3312.891217255183,
+                  "sampledCalls": 11924
+                }
+              ]
+            },
+            "batchP50Ms": 4.18670000000202,
+            "batchP95Ms": 59.66569999999774,
+            "lateToEarlyCostRatio": 1.2598641923963003,
+            "export": {
+              "packagingMs": 0.0051000000021304,
+              "serializationMs": 0.004700000001321314,
+              "jsonBytes": 2
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.2507687211094055,
+          "match_moment": 0.003740369799627034,
+          "tactical_planning": 0.0538053929121199,
+          "movement_physics": 0.08035762711865706,
+          "ball_physics": 0.009363020030856383,
+          "action_resolution": 0.1408326656394572,
+          "pass_contact_evidence": 0.0037086286595320963,
+          "statistics": 0.023237288135506542,
+          "canonical_step": 0.3195432973806712,
+          "benchmark_evidence": 0.0008126348227579815,
+          "context_history": 0.004406317411425943,
+          "interception_eta": 0.1380371340522993
+        }
+      },
+      "after": {
+        "elapsedMs": 14235.329700000015,
+        "millisecondsPerTick": 0.5931387375000006,
+        "canonicalSecondsPerWallSecond": 42.14865497633873,
+        "runs": [
+          {
+            "elapsedMs": 14210.148400000124,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 139.42569999997795,
+                  "estimatedMs": 5155.958089367444,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.746800000066287,
+                  "estimatedMs": 101.57657935530183,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 51.497200000014345,
+                  "estimatedMs": 1904.3648690298064,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 75.02590000000419,
+                  "estimatedMs": 2774.45546995393,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 5.876800000009098,
+                  "estimatedMs": 217.3238828971007,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 12.398999999999432,
+                  "estimatedMs": 458.51463790444745,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 87.9052000000047,
+                  "estimatedMs": 3250.7315870571847,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.7643999999927473,
+                  "estimatedMs": 102.22742681020947,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 16.20069999993939,
+                  "estimatedMs": 599.101386746603,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 250.2090999999764,
+                  "estimatedMs": 9252.724807395121,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.8741000000318309,
+                  "estimatedMs": 32.32419106435122,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.8712999999897875,
+                  "estimatedMs": 106.18058551580108,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 9.511400000050344,
+                  "estimatedMs": 351.7312788924627,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 108.17329999982394,
+                  "estimatedMs": 4000.245300455739,
+                  "sampledCalls": 12030
+                }
+              ]
+            },
+            "batchP50Ms": 6.322000000000116,
+            "batchP95Ms": 27.762900000001537,
+            "lateToEarlyCostRatio": 1.7122123481688905,
+            "export": {
+              "packagingMs": 0.004899999999906868,
+              "serializationMs": 0.004400000001623994,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 14712.835799999928,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 145.81940000002942,
+                  "estimatedMs": 5392.39691833699,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.748200000023644,
+                  "estimatedMs": 101.6283513105816,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 53.71439999994982,
+                  "estimatedMs": 1986.356856700764,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 77.56939999991664,
+                  "estimatedMs": 2868.5140215685665,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 5.563800000047195,
+                  "estimatedMs": 205.74915254411818,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 12.903599999990547,
+                  "estimatedMs": 477.17473035404186,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 92.41840000002776,
+                  "estimatedMs": 3417.6295839763734,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.9174999999486317,
+                  "estimatedMs": 107.88906009055033,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 16.83780000004481,
+                  "estimatedMs": 622.6613251172195,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 260.8132000000296,
+                  "estimatedMs": 9644.864098614347,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.8432000000138942,
+                  "estimatedMs": 31.18151001592213,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.889600000005885,
+                  "estimatedMs": 106.85731895245183,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 10.130500000028405,
+                  "estimatedMs": 374.62557781306896,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 111.94219999994675,
+                  "estimatedMs": 4139.619106315443,
+                  "sampledCalls": 12030
+                }
+              ]
+            },
+            "batchP50Ms": 6.600099999999657,
+            "batchP95Ms": 28.442599999998492,
+            "lateToEarlyCostRatio": 1.8879594849699501,
+            "export": {
+              "packagingMs": 0.010400000002846355,
+              "serializationMs": 0.004799999998795101,
+              "jsonBytes": 2
+            }
+          },
+          {
+            "elapsedMs": 14235.329700000015,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 139.97650000000067,
+                  "estimatedMs": 5176.326656394478,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.6815999999944324,
+                  "estimatedMs": 99.16548536188965,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 49.446700000007695,
+                  "estimatedMs": 1828.5374422190828,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 75.90339999999378,
+                  "estimatedMs": 2806.9053929119427,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 5.434399999998277,
+                  "estimatedMs": 200.96394452998254,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 12.29139999997642,
+                  "estimatedMs": 454.53559321946705,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 92.80010000000766,
+                  "estimatedMs": 3431.7448382129182,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.819500000041444,
+                  "estimatedMs": 104.26502311401335,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 16.328900000009526,
+                  "estimatedMs": 603.8422187985033,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 253.92249999994056,
+                  "estimatedMs": 9390.046224959282,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.8967000000247936,
+                  "estimatedMs": 33.15993836763489,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.8726000000278873,
+                  "estimatedMs": 106.22865947714838,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 9.51830000001246,
+                  "estimatedMs": 351.9864406784269,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 109.84099999989303,
+                  "estimatedMs": 4061.916795065382,
+                  "sampledCalls": 12030
+                }
+              ]
+            },
+            "batchP50Ms": 6.3650999999990745,
+            "batchP95Ms": 27.184400000001915,
+            "lateToEarlyCostRatio": 1.803952478845065,
+            "export": {
+              "packagingMs": 0.004799999998795101,
+              "serializationMs": 0.004400000001623994,
+              "jsonBytes": 2
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.2156802773497699,
+          "match_moment": 0.004232357473137576,
+          "tactical_planning": 0.07934853620957527,
+          "movement_physics": 0.11695439137133094,
+          "ball_contact_control": 0.008572881356004924,
+          "ball_physics": 0.019104776579351977,
+          "action_resolution": 0.14240123266568222,
+          "pass_contact_evidence": 0.00434437596308389,
+          "statistics": 0.025160092449937638,
+          "canonical_step": 0.39125192603997005,
+          "benchmark_evidence": 0.0013468412943479675,
+          "context_history": 0.004426194144881183,
+          "pressure_decision": 0.014666101694934455,
+          "interception_eta": 0.16924653312772425
+        }
+      },
+      "elapsedChangePercent": -2.410826590359083
+    },
+    {
+      "mode": "dev",
+      "before": {
+        "elapsedMs": 15615.887199999928,
+        "millisecondsPerTick": 0.6506619666666636,
+        "canonicalSecondsPerWallSecond": 38.422408686438956,
+        "runs": [
+          {
+            "elapsedMs": 16413.810700000082,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 173.8417000000627,
+                  "estimatedMs": 6428.660708785062,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 1.9650000001129229,
+                  "estimatedMs": 72.66563944947636,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 1.3536000000349304,
+                  "estimatedMs": 50.056086287886494,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 36.1774999998961,
+                  "estimatedMs": 1337.8428351271286,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 53.65679999992062,
+                  "estimatedMs": 1984.2268104747227,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.947600000119564,
+                  "estimatedMs": 256.9220339027266,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 99.12240000004749,
+                  "estimatedMs": 3665.543297382342,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.561200000014651,
+                  "estimatedMs": 94.7130970729609,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 15.551099999975122,
+                  "estimatedMs": 575.0791987664144,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 217.82170000005863,
+                  "estimatedMs": 8055.039753469041,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 35.259699999991426,
+                  "estimatedMs": 1303.9026194141668,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5661000000800414,
+                  "estimatedMs": 20.934360557659467,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.6627999999436724,
+                  "estimatedMs": 98.4702619393654,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 103.80110000018976,
+                  "estimatedMs": 3838.561479205785,
+                  "sampledCalls": 12951
+                }
+              ]
+            },
+            "batchP50Ms": 4.937899999997171,
+            "batchP95Ms": 75.05479999999807,
+            "lateToEarlyCostRatio": 1.4205837555615801,
+            "export": {
+              "packagingMs": 0.14100000000325963,
+              "serializationMs": 0.8634999999994761,
+              "jsonBytes": 166834
+            }
+          },
+          {
+            "elapsedMs": 15615.887199999928,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 166.20270000013625,
+                  "estimatedMs": 6146.170724196102,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 1.82659999999305,
+                  "estimatedMs": 67.54761171006658,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 1.3152000001064152,
+                  "estimatedMs": 48.63605547388901,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 37.57899999998699,
+                  "estimatedMs": 1389.6702619409675,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 54.432899999810616,
+                  "estimatedMs": 2012.9269645538595,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 5.805199999926117,
+                  "estimatedMs": 214.67611710050357,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 92.82019999998738,
+                  "estimatedMs": 3432.488135592754,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.4847000000263506,
+                  "estimatedMs": 91.8841294308666,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 15.7566000000661,
+                  "estimatedMs": 582.6785824369591,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 212.8146000000488,
+                  "estimatedMs": 7869.877349770681,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 33.90789999995832,
+                  "estimatedMs": 1253.9130970708777,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5639000000301166,
+                  "estimatedMs": 20.853004623609863,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.19379999990997,
+                  "estimatedMs": 81.12665639112372,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 99.81589999957941,
+                  "estimatedMs": 3691.188905993692,
+                  "sampledCalls": 12951
+                }
+              ]
+            },
+            "batchP50Ms": 4.887200000004668,
+            "batchP95Ms": 71.23649999999907,
+            "lateToEarlyCostRatio": 1.240740845702965,
+            "export": {
+              "packagingMs": 0.10360000000218861,
+              "serializationMs": 0.5319000000017695,
+              "jsonBytes": 166834
+            }
+          },
+          {
+            "elapsedMs": 15603.360500000126,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 164.4449999999306,
+                  "estimatedMs": 6081.171032354907,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 1.7272999999549938,
+                  "estimatedMs": 63.87550076875171,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 1.2992000000122061,
+                  "estimatedMs": 48.04437596347142,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 36.22990000004938,
+                  "estimatedMs": 1339.780585518005,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 54.87400000000707,
+                  "estimatedMs": 2029.2388289679043,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.266700000120181,
+                  "estimatedMs": 231.74237288580025,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 92.26269999991928,
+                  "estimatedMs": 3411.871802770513,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.530899999979738,
+                  "estimatedMs": 93.59260400541405,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 15.280799999884039,
+                  "estimatedMs": 565.0835130927842,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 211.20990000002348,
+                  "estimatedMs": 7810.535593221208,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 36.05980000010459,
+                  "estimatedMs": 1333.490292761957,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.5762000000977423,
+                  "estimatedMs": 21.307858247065973,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.2537999999985914,
+                  "estimatedMs": 83.34545454540246,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 100.21600000005492,
+                  "estimatedMs": 3705.9845916815384,
+                  "sampledCalls": 12951
+                }
+              ]
+            },
+            "batchP50Ms": 4.747600000002421,
+            "batchP95Ms": 73.61419999999634,
+            "lateToEarlyCostRatio": 1.2571947196965527,
+            "export": {
+              "packagingMs": 0.1368000000002212,
+              "serializationMs": 0.7274000000033993,
+              "jsonBytes": 166834
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.2560904468415043,
+          "match_moment": 0.002814483821252774,
+          "diagnostics": 0.002026502311412042,
+          "tactical_planning": 0.055824191063250206,
+          "movement_physics": 0.08387195685641081,
+          "ball_physics": 0.00965593220357501,
+          "action_resolution": 0.14302033898303143,
+          "pass_contact_evidence": 0.0038996918335589188,
+          "statistics": 0.023961633281933934,
+          "canonical_step": 0.32791155624044505,
+          "match_flow": 0.05432927580892362,
+          "benchmark_evidence": 0.0008722650232358112,
+          "context_history": 0.0034727272727251026,
+          "interception_eta": 0.15441602465339743
+        }
+      },
+      "after": {
+        "elapsedMs": 16087.25200000003,
+        "millisecondsPerTick": 0.6703021666666679,
+        "canonicalSecondsPerWallSecond": 37.296612249234805,
+        "runs": [
+          {
+            "elapsedMs": 16087.25200000003,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 152.32310000000507,
+                  "estimatedMs": 5632.903543913902,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.0458000000289758,
+                  "estimatedMs": 75.6536209563874,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 1.4315000000096916,
+                  "estimatedMs": 52.93682588633683,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 55.089600000021164,
+                  "estimatedMs": 2037.2117103243577,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 81.17489999984173,
+                  "estimatedMs": 3001.845300456397,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 5.685700000005454,
+                  "estimatedMs": 210.25701078602606,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 12.313200000033248,
+                  "estimatedMs": 455.34175654976576,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 91.5341000000044,
+                  "estimatedMs": 3384.9281972266654,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.947699999967881,
+                  "estimatedMs": 109.00585516059962,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 17.19859999997425,
+                  "estimatedMs": 636.0036979959661,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 265.0781000000243,
+                  "estimatedMs": 9802.579969184259,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 26.520400000001246,
+                  "estimatedMs": 980.7235747304005,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.9045000000696746,
+                  "estimatedMs": 33.44838212892479,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.5351999999584223,
+                  "estimatedMs": 93.75161787211424,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 10.513500000026397,
+                  "estimatedMs": 388.7889060102212,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 123.94389999994746,
+                  "estimatedMs": 4583.441602463389,
+                  "sampledCalls": 12762
+                }
+              ]
+            },
+            "batchP50Ms": 7.171200000004319,
+            "batchP95Ms": 35.730600000002596,
+            "lateToEarlyCostRatio": 1.6167530668019978,
+            "export": {
+              "packagingMs": 0.133800000003248,
+              "serializationMs": 0.5876000000062049,
+              "jsonBytes": 172660
+            }
+          },
+          {
+            "elapsedMs": 16316.870399999876,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 153.8633000000009,
+                  "estimatedMs": 5689.860092449956,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 1.89940000009301,
+                  "estimatedMs": 70.23975347031163,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 1.4714000000312808,
+                  "estimatedMs": 54.41232665755122,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 53.39880000004632,
+                  "estimatedMs": 1974.6859784300646,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 76.4737000000423,
+                  "estimatedMs": 2827.995069339007,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 5.640400000113004,
+                  "estimatedMs": 208.5818181859971,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 12.832199999938894,
+                  "estimatedMs": 474.53436055243986,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 101.87620000000243,
+                  "estimatedMs": 3767.3787365178096,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 2.9271999999509717,
+                  "estimatedMs": 108.24776579171545,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 17.786300000036135,
+                  "estimatedMs": 657.7368258873148,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 269.8191000000443,
+                  "estimatedMs": 9977.902003083302,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 26.167599999967933,
+                  "estimatedMs": 967.6770416012796,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.8688000000402099,
+                  "estimatedMs": 32.128197227989276,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.345100000024104,
+                  "estimatedMs": 86.7217257327866,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 9.993900000041322,
+                  "estimatedMs": 369.57411402309975,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 122.19439999995302,
+                  "estimatedMs": 4518.745146377308,
+                  "sampledCalls": 12762
+                }
+              ]
+            },
+            "batchP50Ms": 6.853499999997439,
+            "batchP95Ms": 30.54239999999845,
+            "lateToEarlyCostRatio": 1.9691659034143043,
+            "export": {
+              "packagingMs": 0.10020000000076834,
+              "serializationMs": 0.5881999999983236,
+              "jsonBytes": 172660
+            }
+          },
+          {
+            "elapsedMs": 15644.704199999916,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 141.58549999993193,
+                  "estimatedMs": 5235.82742680796,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 1.9006999999728578,
+                  "estimatedMs": 70.28782742580677,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 1.407500000015716,
+                  "estimatedMs": 52.049306626158995,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 52.00459999996747,
+                  "estimatedMs": 1923.1285053917093,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 78.20009999997637,
+                  "estimatedMs": 2891.83728813472,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 5.667499999963184,
+                  "estimatedMs": 209.58397534532577,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 13.29170000000886,
+                  "estimatedMs": 491.5266563947807,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 94.25849999999627,
+                  "estimatedMs": 3485.6764252695084,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.0522999999157037,
+                  "estimatedMs": 112.87395993524946,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 17.27070000007734,
+                  "estimatedMs": 638.6699537778986,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 262.7189999999864,
+                  "estimatedMs": 9715.340523882394,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 24.777999999911117,
+                  "estimatedMs": 916.2896764219828,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.8802999999606982,
+                  "estimatedMs": 32.553466870657566,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 2.490599999880942,
+                  "estimatedMs": 92.10231124367121,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 10.036200000082317,
+                  "estimatedMs": 371.13836672107186,
+                  "sampledCalls": 487
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 116.03039999980683,
+                  "estimatedMs": 4290.800616325677,
+                  "sampledCalls": 12762
+                }
+              ]
+            },
+            "batchP50Ms": 7.054700000000594,
+            "batchP95Ms": 30.48109999999724,
+            "lateToEarlyCostRatio": 1.71255525386355,
+            "export": {
+              "packagingMs": 0.13599999999860302,
+              "serializationMs": 0.639100000000326,
+              "jsonBytes": 172660
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.2347043143297459,
+          "match_moment": 0.002928659476075282,
+          "diagnostics": 0.0022057010785973678,
+          "tactical_planning": 0.08227858243458602,
+          "movement_physics": 0.12049322033894666,
+          "ball_contact_control": 0.008732665639388574,
+          "ball_physics": 0.019772265023018328,
+          "action_resolution": 0.14523651771956286,
+          "pass_contact_evidence": 0.004541910631691651,
+          "statistics": 0.026611248074079108,
+          "canonical_step": 0.4084408320493441,
+          "match_flow": 0.04031987673338665,
+          "benchmark_evidence": 0.0013563944529440652,
+          "context_history": 0.003837596301819634,
+          "pressure_decision": 0.015464098613377995,
+          "interception_eta": 0.18828104776572116
+        }
+      },
+      "elapsedChangePercent": 3.0184951643356106
+    },
+    {
+      "mode": "capture",
+      "before": {
+        "elapsedMs": 101171.64100000006,
+        "millisecondsPerTick": 4.215485041666669,
+        "canonicalSecondsPerWallSecond": 5.930515647163693,
+        "runs": [
+          {
+            "elapsedMs": 101171.64100000006,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 172.1368000000948,
+                  "estimatedMs": 6365.61355932554,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 3.845799999726296,
+                  "estimatedMs": 142.21756547524055,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 2.3461999998107785,
+                  "estimatedMs": 86.76240369099952,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 43.86509999984992,
+                  "estimatedMs": 1622.1300462194115,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 59.67629999978817,
+                  "estimatedMs": 2206.8277349690543,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.743199999633362,
+                  "estimatedMs": 249.36332818366824,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 94.0255999997753,
+                  "estimatedMs": 3477.063790438532,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.823299999748997,
+                  "estimatedMs": 141.38551616945443,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 23.772100000089267,
+                  "estimatedMs": 879.09152542703,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 238.38999999995576,
+                  "estimatedMs": 8815.65485361932,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 39.66699999997218,
+                  "estimatedMs": 1466.8844375952733,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.6599999998215935,
+                  "estimatedMs": 24.406779654419484,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 4.087799999957497,
+                  "estimatedMs": 151.1667180261632,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 744.730700000393,
+                  "estimatedMs": 27540.118335915922,
+                  "sampledCalls": 103138
+                },
+                {
+                  "category": "debug_serialization",
+                  "sampledMs": 116.93869999976596,
+                  "estimatedMs": 4324.38952233341,
+                  "sampledCalls": 1297
+                },
+                {
+                  "category": "debug_construction",
+                  "sampledMs": 2284.8027999998812,
+                  "estimatedMs": 84491.937134048,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_retention",
+                  "sampledMs": 4.471400000133144,
+                  "estimatedMs": 165.35223421139517,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_capture",
+                  "sampledMs": 2289.78270000044,
+                  "estimatedMs": 84676.09368260487,
+                  "sampledCalls": 649
+                }
+              ]
+            },
+            "batchP50Ms": 74.62569999998959,
+            "batchP95Ms": 173.2167000000045,
+            "lateToEarlyCostRatio": 1.0824899355029367,
+            "export": {
+              "packagingMs": 17.229200000001583,
+              "serializationMs": 37.399700000009034,
+              "jsonBytes": 9191709
+            }
+          },
+          {
+            "elapsedMs": 101430.49840000019,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 172.00559999984398,
+                  "estimatedMs": 6360.761787359408,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 3.3795000000463915,
+                  "estimatedMs": 124.97380585687736,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 2.2727000000159023,
+                  "estimatedMs": 84.0443759636081,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 43.44589999965683,
+                  "estimatedMs": 1606.6280431306072,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 59.22769999999582,
+                  "estimatedMs": 2190.2385208010783,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.609900000148627,
+                  "estimatedMs": 244.43389831058101,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 96.66500000043743,
+                  "estimatedMs": 3574.6687211255758,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.628799999925832,
+                  "estimatedMs": 134.19291216983046,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 23.481600000137405,
+                  "estimatedMs": 868.3488443810444,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 239.2262000002229,
+                  "estimatedMs": 8846.577503860324,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 44.05129999991186,
+                  "estimatedMs": 1629.0157164836437,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.7196000002804794,
+                  "estimatedMs": 26.61078583471727,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 4.081300000070769,
+                  "estimatedMs": 150.92634823066018,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 742.1579999970927,
+                  "estimatedMs": 27444.97996907585,
+                  "sampledCalls": 103138
+                },
+                {
+                  "category": "debug_serialization",
+                  "sampledMs": 112.65810000008787,
+                  "estimatedMs": 4166.093066259028,
+                  "sampledCalls": 1297
+                },
+                {
+                  "category": "debug_construction",
+                  "sampledMs": 2260.8704000000216,
+                  "estimatedMs": 83606.91771956938,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_retention",
+                  "sampledMs": 4.2797000000064145,
+                  "estimatedMs": 158.2631741142588,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_capture",
+                  "sampledMs": 2265.8112999998702,
+                  "estimatedMs": 83789.63204930183,
+                  "sampledCalls": 649
+                }
+              ]
+            },
+            "batchP50Ms": 74.5193999999974,
+            "batchP95Ms": 175.94070000000647,
+            "lateToEarlyCostRatio": 1.0239234720053394,
+            "export": {
+              "packagingMs": 17.034500000008848,
+              "serializationMs": 36.463099999993574,
+              "jsonBytes": 9191709
+            }
+          },
+          {
+            "elapsedMs": 100097.08850000013,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "d5a51f2ed186d7c6cd616f90ce68859350c728710537e8f83a775df48f846152",
+              "playerState": "c05ad72466f7695adb9538959b4ef66338ea0a50650d81fd273e507d3bfa708d",
+              "statistics": "61cee05447c91f609ac28795972850e7fd20aed51e1c7639412554ba476a3040",
+              "majorEventSequence": "8bfa65a14caf9038a8fe13fce8ee4de3c912d54d240f88dfb27ab1c6b4eae3b3",
+              "majorEventCount": 216,
+              "randomnessEvidence": "31ea86847a18b482dd7565dea217176e710f61744a615cdde0b0f9906e5fc5d7"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 171.5633000000962,
+                  "estimatedMs": 6344.405546998936,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 2.692499999946449,
+                  "estimatedMs": 99.56856702421383,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 2.252000000102271,
+                  "estimatedMs": 83.27889060470648,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 44.32050000000163,
+                  "estimatedMs": 1638.9707241911235,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 58.070400000076916,
+                  "estimatedMs": 2147.441602468176,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 6.362100000173086,
+                  "estimatedMs": 235.27026194784912,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 98.71349999991071,
+                  "estimatedMs": 3650.4221879782085,
+                  "sampledCalls": 648
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 3.5143999999272637,
+                  "estimatedMs": 129.96240369530713,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 22.80180000019027,
+                  "estimatedMs": 843.2098613321518,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 239.9200000001074,
+                  "estimatedMs": 8872.234206475467,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 36.103799999764306,
+                  "estimatedMs": 1335.1174113934412,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 0.6480000001029111,
+                  "estimatedMs": 23.963020034622293,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 3.9095000003580935,
+                  "estimatedMs": 144.57318953558436,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 742.4978000011106,
+                  "estimatedMs": 27457.545762752936,
+                  "sampledCalls": 103138
+                },
+                {
+                  "category": "debug_serialization",
+                  "sampledMs": 111.42200000032608,
+                  "estimatedMs": 4120.382126360287,
+                  "sampledCalls": 1297
+                },
+                {
+                  "category": "debug_construction",
+                  "sampledMs": 2214.9786000000895,
+                  "estimatedMs": 81909.84036980302,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_retention",
+                  "sampledMs": 4.414899999705085,
+                  "estimatedMs": 163.2628659367058,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_capture",
+                  "sampledMs": 2219.9440000000614,
+                  "estimatedMs": 82093.46070878502,
+                  "sampledCalls": 649
+                }
+              ]
+            },
+            "batchP50Ms": 73.33340000000317,
+            "batchP95Ms": 166.96140000000014,
+            "lateToEarlyCostRatio": 1.0312114992684336,
+            "export": {
+              "packagingMs": 16.610799999994924,
+              "serializationMs": 36.65890000000945,
+              "jsonBytes": 9191709
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.26503174113997535,
+          "match_moment": 0.005207241910703223,
+          "diagnostics": 0.003501848998483671,
+          "tactical_planning": 0.06758875192580881,
+          "movement_physics": 0.09125993836671159,
+          "ball_physics": 0.010184745762940876,
+          "action_resolution": 0.14894453004689898,
+          "pass_contact_evidence": 0.005591371340409603,
+          "statistics": 0.036181201849210184,
+          "canonical_step": 0.3686073959941802,
+          "match_flow": 0.06112018489980305,
+          "benchmark_evidence": 0.0010169491522674784,
+          "context_history": 0.0062885978429441745,
+          "interception_eta": 1.1440644067813723,
+          "debug_serialization": 0.17358721109412617,
+          "debug_construction": 3.483621571648724,
+          "debug_retention": 0.006802619414029408,
+          "debug_capture": 3.4912346687209097
+        }
+      },
+      "after": {
+        "elapsedMs": 99934.56049999976,
+        "millisecondsPerTick": 4.163940020833324,
+        "canonicalSecondsPerWallSecond": 6.003928941076692,
+        "runs": [
+          {
+            "elapsedMs": 101096.08699999968,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 146.87710000000516,
+                  "estimatedMs": 5431.510631741331,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 4.083999999893422,
+                  "estimatedMs": 151.02619414089696,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 2.4626000000862405,
+                  "estimatedMs": 91.06687211412908,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 60.75360000035289,
+                  "estimatedMs": 2246.6662557911704,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 83.17529999968974,
+                  "estimatedMs": 3075.820030805168,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 7.361000000186323,
+                  "estimatedMs": 272.20955316559593,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 14.60079999986192,
+                  "estimatedMs": 539.9371340472821,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 93.04749999969499,
+                  "estimatedMs": 3440.893682577319,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 4.142699999996694,
+                  "estimatedMs": 153.19691833577915,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 25.76639999991312,
+                  "estimatedMs": 952.8406779628889,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 288.60620000016934,
+                  "estimatedMs": 10672.648382132611,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 28.985100000179955,
+                  "estimatedMs": 1071.8681047832342,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.0551000000195927,
+                  "estimatedMs": 39.01756548608664,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 4.34689999990951,
+                  "estimatedMs": 160.748228039797,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 765.2620000007228,
+                  "estimatedMs": 28299.365177222415,
+                  "sampledCalls": 102800
+                },
+                {
+                  "category": "debug_serialization",
+                  "sampledMs": 117.44860000025074,
+                  "estimatedMs": 4343.2456086379325,
+                  "sampledCalls": 1297
+                },
+                {
+                  "category": "debug_construction",
+                  "sampledMs": 2254.7094000001234,
+                  "estimatedMs": 83379.08412943446,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_retention",
+                  "sampledMs": 4.841800000009243,
+                  "estimatedMs": 179.04961479232952,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_capture",
+                  "sampledMs": 2260.211200000187,
+                  "estimatedMs": 83582.54052388982,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 11.086599999776809,
+                  "estimatedMs": 409.98212633997446,
+                  "sampledCalls": 487
+                }
+              ]
+            },
+            "batchP50Ms": 80.2271000000037,
+            "batchP95Ms": 142.50950000000012,
+            "lateToEarlyCostRatio": 1.08341006287695,
+            "export": {
+              "packagingMs": 17.419099999999162,
+              "serializationMs": 35.31930000000284,
+              "jsonBytes": 9075440
+            }
+          },
+          {
+            "elapsedMs": 99934.56049999976,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 154.260700000028,
+                  "estimatedMs": 5704.555932204426,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 3.965700000131619,
+                  "estimatedMs": 146.65146379531413,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 2.3521000002729124,
+                  "estimatedMs": 86.98058552627104,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 62.06839999998192,
+                  "estimatedMs": 2295.287519259732,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 84.89539999992849,
+                  "estimatedMs": 3139.4292758062925,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 7.176200000241806,
+                  "estimatedMs": 265.37565486256295,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 15.560399999885703,
+                  "estimatedMs": 575.423112476513,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 96.53089999967051,
+                  "estimatedMs": 3569.7097072297265,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 4.117499999738357,
+                  "estimatedMs": 152.2650231028052,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 25.801700000054552,
+                  "estimatedMs": 954.1460708802917,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 296.0697999999247,
+                  "estimatedMs": 10948.652080120484,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 28.421900000423193,
+                  "estimatedMs": 1051.0409861481612,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.0331999999834807,
+                  "estimatedMs": 38.207704159635654,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 4.536800000380026,
+                  "estimatedMs": 167.77072420511655,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 782.334599999871,
+                  "estimatedMs": 28930.709399070733,
+                  "sampledCalls": 102800
+                },
+                {
+                  "category": "debug_serialization",
+                  "sampledMs": 113.18190000015602,
+                  "estimatedMs": 4185.463174119792,
+                  "sampledCalls": 1297
+                },
+                {
+                  "category": "debug_construction",
+                  "sampledMs": 2274.5549999998475,
+                  "estimatedMs": 84112.97380584953,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_retention",
+                  "sampledMs": 4.6494000001766835,
+                  "estimatedMs": 171.93466872764316,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_capture",
+                  "sampledMs": 2279.7286000001914,
+                  "estimatedMs": 84304.29337442927,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 11.00330000006943,
+                  "estimatedMs": 406.90169491782177,
+                  "sampledCalls": 487
+                }
+              ]
+            },
+            "batchP50Ms": 79.46729999999661,
+            "batchP95Ms": 134.49139999999898,
+            "lateToEarlyCostRatio": 1.0854647496955443,
+            "export": {
+              "packagingMs": 16.17009999998845,
+              "serializationMs": 35.20620000001509,
+              "jsonBytes": 9075440
+            }
+          },
+          {
+            "elapsedMs": 99658.12079999971,
+            "ticks": 24000,
+            "canonicalSeconds": 599.9999999997282,
+            "hashes": {
+              "canonicalState": "3e601e33293ff221f39a36a6b28d07aebf265b80f8ac4f64879c9fd6524f9ee2",
+              "playerState": "2ab2e0e2906df9c7ba43834221189582cd2b4d94b9c7ab9f335d74a08251f19a",
+              "statistics": "4c21879498ed3df997bfd6d170e2d975ba12255e1100e1ba90a664202fe15285",
+              "majorEventSequence": "27bda7aa0f773b8ee186275b9b379c8b1a01667fa4f6943e32e976426c77b2dc",
+              "majorEventCount": 224,
+              "randomnessEvidence": "805a0b4054f313394c4ebd3a619abb771b211a31f4d2b2326010ff2f23398aca"
+            },
+            "profile": {
+              "enabled": true,
+              "sampleEveryTicks": 37,
+              "ticks": 24000,
+              "sampledTicks": 649,
+              "timingSemantics": "inclusive_sampled_spans",
+              "categories": [
+                {
+                  "category": "agency_projection",
+                  "sampledMs": 146.04220000001806,
+                  "estimatedMs": 5400.636055470622,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_moment",
+                  "sampledMs": 4.196999999847321,
+                  "estimatedMs": 155.20493065691176,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "diagnostics",
+                  "sampledMs": 2.425100000014936,
+                  "estimatedMs": 89.68012326711629,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "tactical_planning",
+                  "sampledMs": 60.05310000036843,
+                  "estimatedMs": 2220.761787378802,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "movement_physics",
+                  "sampledMs": 86.40230000022711,
+                  "estimatedMs": 3195.1543913797395,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "ball_contact_control",
+                  "sampledMs": 7.241099999730068,
+                  "estimatedMs": 267.7756548436389,
+                  "sampledCalls": 500
+                },
+                {
+                  "category": "ball_physics",
+                  "sampledMs": 14.657799999447889,
+                  "estimatedMs": 542.0449922754227,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "action_resolution",
+                  "sampledMs": 88.72859999959473,
+                  "estimatedMs": 3281.180893667602,
+                  "sampledCalls": 647
+                },
+                {
+                  "category": "pass_contact_evidence",
+                  "sampledMs": 4.262699999912002,
+                  "estimatedMs": 157.63451463465032,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "statistics",
+                  "sampledMs": 26.15980000028503,
+                  "estimatedMs": 967.3885978533757,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "canonical_step",
+                  "sampledMs": 287.4637999999395,
+                  "estimatedMs": 10630.402465329043,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "match_flow",
+                  "sampledMs": 28.191400000046997,
+                  "estimatedMs": 1042.5171032374853,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "benchmark_evidence",
+                  "sampledMs": 1.0410000000556465,
+                  "estimatedMs": 38.49614792193454,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "context_history",
+                  "sampledMs": 4.722799999944982,
+                  "estimatedMs": 174.64899845713342,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "interception_eta",
+                  "sampledMs": 752.9969000004348,
+                  "estimatedMs": 27845.80215718095,
+                  "sampledCalls": 102800
+                },
+                {
+                  "category": "debug_serialization",
+                  "sampledMs": 116.70689999969909,
+                  "estimatedMs": 4315.8175654742345,
+                  "sampledCalls": 1297
+                },
+                {
+                  "category": "debug_construction",
+                  "sampledMs": 2239.7926999997,
+                  "estimatedMs": 82827.4650231014,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_retention",
+                  "sampledMs": 4.753499999853375,
+                  "estimatedMs": 175.7842835076749,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "debug_capture",
+                  "sampledMs": 2245.1315999998915,
+                  "estimatedMs": 83024.8973805815,
+                  "sampledCalls": 649
+                },
+                {
+                  "category": "pressure_decision",
+                  "sampledMs": 11.703699999932724,
+                  "estimatedMs": 432.8024653287911,
+                  "sampledCalls": 487
+                }
+              ]
+            },
+            "batchP50Ms": 79.65799999999581,
+            "batchP95Ms": 133.49659999999858,
+            "lateToEarlyCostRatio": 1.0894306822807567,
+            "export": {
+              "packagingMs": 17.468499999988126,
+              "serializationMs": 34.885699999984354,
+              "jsonBytes": 9075440
+            }
+          }
+        ],
+        "inclusiveSpanMsPerTick": {
+          "agency_projection": 0.22631294298922214,
+          "match_moment": 0.00629275808920404,
+          "diagnostics": 0.003736671802796512,
+          "tactical_planning": 0.09361109399129877,
+          "movement_physics": 0.13080955315859552,
+          "ball_contact_control": 0.011157318951818289,
+          "ball_physics": 0.022585208011475948,
+          "action_resolution": 0.1433705701073883,
+          "pass_contact_evidence": 0.006383204930657464,
+          "statistics": 0.03975608628667882,
+          "canonical_step": 0.4446936825888588,
+          "match_flow": 0.04379337442284005,
+          "benchmark_evidence": 0.0016040061634139393,
+          "context_history": 0.006990446841879857,
+          "interception_eta": 1.1791402157176005,
+          "debug_serialization": 0.17982573189475978,
+          "debug_construction": 3.4741285053931024,
+          "debug_retention": 0.007324345146153121,
+          "debug_capture": 3.482605855162076,
+          "pressure_decision": 0.017082588597498935
+        }
+      },
+      "elapsedChangePercent": -1.2227542103427025
+    }
+  ]
+}

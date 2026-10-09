@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { clampPitchPoint, distance, distanceToSegment, pitchPointSchema } from './matchSpace';
 import type { BallCarrierIntent, MatchPlayerState, TacticalMatchState } from './matchState';
+import { angleForVector, normalizeAngle } from './playerOrientation';
 
 export const carryExecutionModeSchema = z.enum([
   'burst',
@@ -127,6 +128,18 @@ export const deriveCarryExecution = (
       const score = (point: typeof a) =>
         distance(point, intent.target) -
         clearance(point) * (0.5 + (actor.profile.attributes.dribbling / 100) * 0.45) +
+        (intent.localTarget
+          ? Math.abs(
+              normalizeAngle(
+                angleForVector({ x: point.x - actor.position.x, y: point.y - actor.position.y }) -
+                  angleForVector({
+                    x: intent.localTarget.x - actor.position.x,
+                    y: intent.localTarget.y - actor.position.y,
+                  }),
+              ),
+            ) *
+            (0.5 + (1 - actor.profile.attributes.agility / 100) * 0.7)
+          : 0) +
         (point.y < 2 || point.y > 66 ? 5 : 0);
       return score(a) - score(b) || a.y - b.y;
     })[0]!;

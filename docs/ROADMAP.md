@@ -19,8 +19,10 @@ kanoniczne opanowanie luźnej piłki oraz geometrię wsparcia i połączenia pom
 PR156 dodaje integralność sprawczości, trudność podań, diagnostykę centralnych połączeń i przepływu.
 PR157 rozwija dynamiczne intencje pressingu, fizyczną reakcję posiadacza i kalibrację
 strzałów według umiejętności × ciągłej trudności. Implementacja i wymagana walidacja PR157
-są zakończone; pełna choreografia
-wznowień i bogatsze menu wolnych należą do PR158. Dokumenty wyników:
+są zakończone. PR158 dodaje kolejne fizyczne kontakty z piłką, odporność na presję,
+rytm pojedynków i sytuacyjne preferencje taktyczne; pełna choreografia
+wznowień i bogatsze menu wolnych należą do PR159. Dokumenty wyników:
+[PR158_BALL_CONTACT_PRESSING_TACTICS.md](PR158_BALL_CONTACT_PRESSING_TACTICS.md),
 [PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md](PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md),
 [PR156_AGENCY_PASSING_CONNECTIVITY.md](PR156_AGENCY_PASSING_CONNECTIVITY.md),
 [PR155_PLAYER_AGENCY_STABILITY.md](PR155_PLAYER_AGENCY_STABILITY.md),
@@ -29,7 +31,7 @@ wznowień i bogatsze menu wolnych należą do PR158. Dokumenty wyników:
 
 ### COMPLETED
 
-PR105–PR156 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
+PR105–PR157 są zaimplementowane w opisanym zakresie. PR151 łączy kalibrację po playteście PR150
 z reaktywną taktyką zespołów; PR152 oddziela autonomię piłkarza od ludzkiej sprawczości i dodaje
 kanoniczne inwarianty oraz diagnostykę udziału/statystyk. Kondycja i urazy pozostają później.
 W szczególności:
@@ -231,7 +233,7 @@ PR148 koryguje rytm i semantykę dystansu/sprintów bez maskowania ich zmęczeni
 - audyt resetów pozycji, bez implementowania kolejnej fazy wizualnej:
   [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
 
-### CURRENT — PR157 (implementacja i walidacja zakończone)
+### COMPLETED — PR157 (implementacja i walidacja zakończone)
 
 **PR157 — Dynamic Pressing, Ball-Carrier Response & Shooting Difficulty Calibration**
 
@@ -252,9 +254,56 @@ nasycone geometrie strzału/bramkarza. Nie jest to potwierdzenie realizmu ani uz
 statystycznych celów. [Przepływ](performance/PR157-flow-summary.json),
 [integralność](performance/PR157-integrity-summary.json), [wydajność](performance/PR157-performance.json).
 
+### CURRENT — PR158
+
+**PR158 — Ball Contact Geometry, Press Resistance, Duel Cadence & Tactical Pressing Intelligence**
+
+- rzeczywista piłka pomiędzy osiągalnymi kontaktami, jeden ograniczony plan kolejnego kontaktu;
+- fizyczna trudność zwrotu, osłaniający tułów, odsłonięta piłka i dostęp drugiego obrońcy;
+- ranking proponowanego prowadzenia według kontaktu/ekspozycji i legalne proste wyjścia podaniem;
+- sytuacyjny pressing, counterpressing i blok z sześcioma ciągłymi preferencjami;
+- ciągłe dopasowanie do rzeczywistej XI oraz ekonomiczne trasy i wartościowe pozycje;
+- sześć niezależnych zegarów przejścia, cenzurowanie przerw i ograniczone pomiary obciążenia;
+- publiczny kontakt jako epizod kontroli, wspólny resolver human/NPC i istniejąca sprawczość;
+- ograniczona deduplikacja kontaktów fizycznych przez znacznik czasu na zawodnika, z obsługą
+  starych zapisów i ochroną przed ponownym kontaktem po zamknięciu epizodu lub połowy;
+- wygodniejszy ekranowy wybór legalnego celu bez powiększania fizycznego zasięgu;
+- pozycja prowadzonej piłki zgodna z kanoniczną trajektorią także w animacji i powtórce;
+- deterministyczne scenariusze, sparowane pełne mecze, wydajność oraz parytet obserwatorów;
+- brak pełnej przebudowy wznowień, zużycia kondycji, starzenia i nowych systemów trenera.
+
+Pomiar, weryfikacja i jawne ograniczenia:
+[PR158_BALL_CONTACT_PRESSING_TACTICS.md](PR158_BALL_CONTACT_PRESSING_TACTICS.md).
+Kontrakt przyszłego profilu trenera: [PR158_TACTICAL_PREFERENCES.md](PR158_TACTICAL_PREFERENCES.md).
+
+Audyt księgowości wykrył wzrost historycznych ID wraz z każdym impulsem fizycznym.
+Naprawa `47f99f54` ma 34 zaliczone testy skupione oraz dokładny parytet eksportowanego
+futbolu w 18 oknach, 1760 próbach kontaktowych i 210 scenariuszach taktycznych. Dyskretne
+rejestry podań, strzałów i kontroli pozostają zachowane. Pełne verify zalicza lint,
+1263 testy główne/163 pliki, 5 testów kariery/1 plik i build; benchmarki przechodzą
+ścisły TypeScript. Izolowane trzy pary jednej konfiguracji: release_minimal -2.64%, normal -2.41%, dev +3.02%, capture -1.22%;
+osobny obserwator +2.50% mediany czasu. Nie jest to dowód ogólnego przyspieszenia
+ani kosztu przeglądarki/wideo; dokładne zakresy i hashe zawiera raport.
+
+Końcowa macierz 18 sparowanych okien po 90 minut na rewizję raportuje próby odbioru
+6645→4418, ukończone podania 10005→13074,
+strzały 110→16, gole 68→10,
+sąsiednie przeskoki posiadania 24→94
+i krótkie epizody 51→189.
+Naprawiono przedwczesne opanowanie bez kontaktu stopy oraz rezerwowanie luźnej piłki
+przez wcześniejszą nominację. Każde okno zachowuje faktyczny status natywnego końca części.
+Wyniki, ograniczenia, integralność i pełne verify są w raporcie; liczby nie są kwotami
+ani dowodem zakończenia kalibracji całego futbolu. PR pozostaje draftem przed scaleniem:
+spadł udział środkowych pomocników (publiczne epizody kontroli — touch — 4957→3461,
+przyjęcia 2831→1993); lab wymaganych zwrotów
+pogorszył obrót >360°/net<3 m 2→16
+i faule 90→369.
+
+[Manifest dowodów](performance/PR158-evidence-manifest.json) opisuje zamrożone wejścia, kod i raporty w archiwum. Lokalny plik wynikowy/załącznik `outputs/PR158-evidence.zip` zawiera 824 wpisy ze sprawdzonymi hashami; pięć podsumowań odtworzono dokładnie z wejść. Sumę kontrolną ZIP zapisano osobno w lokalnych metadanych.
+
 ### NEXT
 
-**PR158 — Dead Ball & Restart Continuity**
+**PR159 — Dead Ball & Restart Continuity**
 
 - fizyczne przejście z bieżących pozycji do legalnego ustawienia wznowienia;
 - stan reakcji po golu i wybór celebracji albo pilnego wznowienia według wyniku/czasu;
@@ -263,21 +312,28 @@ statystycznych celów. [Przepływ](performance/PR157-flow-summary.json),
 - fundament doliczonego czasu oparty na kanonicznych przerwach.
 
 Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR157 kalibruje istniejącą
-fizykę wolnego, ale nie implementuje pełnej ciągłości wznowień ani menu technik PR158.
+fizykę wolnego, ale nie implementuje pełnej ciągłości wznowień ani menu technik PR159.
 
 Po ciągłości wznowień:
 
-**PR159 — Fatigue, Injuries, Substitutions & Added Time**
+**PR160 — Fatigue, Injuries, Substitutions & Added Time**
 
 - kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
+- osobno długotrwała rezerwa/zdolność oraz krótkotrwała gotowość do powtarzanego intensywnego
+  wysiłku, ograniczona przez tę rezerwę; obserwacje PR158 nie są jeszcze krzywą zużycia;
 - kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
 - ryzyko urazów, doliczony czas i decyzje zmian, oparte na tym samym obciążeniu człowieka i NPC;
 - integracja kariery i kalibracja deterministycznych pełnych meczów, bez maskowania rytmu kwotami.
 
-**PR160 — Match Presentation / Replay / Stadium Polish**: filmowe powtórki, finalne animacje,
+**PR161 — Match Presentation / Replay / Stadium Polish**: filmowe powtórki, finalne animacje,
 parametryczne stadiony. Później: duża kalibracja lig, świadomy wybór piętki i
 parametryczne stadiony z trwałą tożsamością klubu. Stadion pozostaje kosmetyczny; PR149 nie
 wdraża jego geometrii ani sztuki.
+
+Później: trwałe profile trenerów korzystające z istniejących osi, rozwój i starzenie zawodników.
+Spadek możliwości fizycznych nie oznacza takiej samej utraty techniki, podań, wykończenia albo
+inteligencji pozycyjnej. Oddzielić umiejętności, kondycję, obciążenie i regenerację; dopuścić
+wczesny spadek fizyczny oraz wyjątkową długowieczność bez wyjątków dla nazwanych zawodników.
 
 Późniejsza stamina/fatigue ograniczy powtarzane sprinty, regenerację, szybkość lokomocji,
 jakość wykonania i gotowość do długich biegów. Najpierw należy ustalić rozsądny rytm ruchu

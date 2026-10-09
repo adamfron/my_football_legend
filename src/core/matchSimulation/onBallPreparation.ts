@@ -256,6 +256,20 @@ export const projectPossessionMicroBehaviour = (
         value:
           distance(point, predicted) -
           distance(point, actor.position) * 0.22 -
+          // Reversing the last footwork route also needs a finite turn/contact. A few
+          // centimetres of clearance do not justify an opposite pocket every tick.
+          (previous
+            ? Math.abs(
+                normalizeAngle(
+                  angleForVector({ x: point.x - actor.position.x, y: point.y - actor.position.y }) -
+                    angleForVector({
+                      x: previous.localTarget.x - actor.position.x,
+                      y: previous.localTarget.y - actor.position.y,
+                    }),
+                ),
+              ) *
+              (0.2 + (1 - skill) * 0.35)
+            : 0) -
           (point.y < 2 || point.y > 66 ? 1.5 : 0),
       }))
       .sort((a, b) => b.value - a.value || a.point.y - b.point.y)[0]!.point;

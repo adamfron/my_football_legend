@@ -3,6 +3,7 @@ import { isHumanControlled, isShotAction, requiresHumanRestart } from './actionA
 import { enumerateFirstTimePasses, canExecuteFirstTimePass } from './firstTimePassing';
 import { beginDefensiveChallenge, enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { emitCanonicalActionEvents } from './actionEvents';
+import { reconcileControlledBallContact } from './ballContactGeometry';
 import {
   deriveBuildUpReliefWeight,
   deriveSolutionPenalty,
@@ -42,6 +43,11 @@ import { deriveSpacePassPlan, type SpacePassPlan } from './spacePassing';
 import { interpretPassExecution } from './passExecution';
 import { projectReceiverReadiness } from './receiverReadiness';
 import { deriveFinalThirdOccupations, deriveFlankRelationship } from './tacticalPositioning';
+import {
+  deriveEconomicalMovementCost,
+  deriveTeamTacticalPreferences,
+  type TacticalPreferences,
+} from './tacticalPreferences';
 import { preparationMarginForAction } from './onBallPreparation';
 import {
   canExecuteCanonicalShot,
@@ -53,6 +59,7 @@ import {
   hasActiveHumanPossession,
   reconcileHumanPossession,
 } from './possessionAgency';
+import { deriveBallContactAccess, estimateCarrierContactWindow } from './ballContactGeometry';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -341,6 +348,7 @@ export const scoreActionForAI = (
   state: TacticalMatchState,
   actorId: string,
   action: MatchAction,
+  suppliedPreferences?: TacticalPreferences,
 ): number => {
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return -Infinity;
@@ -348,15 +356,20 @@ export const scoreActionForAI = (
     const plan = deriveSpacePassPlan(state, actor, action.target);
     if (!plan) return -Infinity;
     return (
-      scoreActionForAI(state, actorId, {
-        type: 'pass',
+      scoreActionForAI(
+        state,
         actorId,
-        receiverId: plan.receiverId,
-        target: plan.requestedSpace,
-        requestedSpace: plan.requestedSpace,
-        intent: plan.intent,
-        delivery: plan.delivery,
-      }) +
+        {
+          type: 'pass',
+          actorId,
+          receiverId: plan.receiverId,
+          target: plan.requestedSpace,
+          requestedSpace: plan.requestedSpace,
+          intent: plan.intent,
+          delivery: plan.delivery,
+        },
+        suppliedPreferences,
+      ) +
       Math.min(8, plan.anticipationAdvantage * 5) -
       plan.groundLaneRisk * (plan.delivery === 'ground' ? 4 : 1)
     );
@@ -375,6 +388,7 @@ export const scoreActionForAI = (
     return 8 + danger * 0.3 + attributes.aggression * 0.12 - disciplineRisk * 1.4;
   }
   const style = state.teams[actor.team].style;
+  const preferences = suppliedPreferences ?? deriveTeamTacticalPreferences(state, actor.team);
   const underPressure = pressure(state, actor);
   const urgency = derivePossessionUrgency(state, actor, underPressure);
   const memory = state.teams[actor.team].threatMemory;
@@ -411,7 +425,7 @@ export const scoreActionForAI = (
         : 0;
     const utility =
       35 +
-      (style === 'possession' ? 18 : style === 'direct' ? -6 : 0) +
+      (preferences.possessionPatience - 0.5) * 40 +
       (scanningContext ? 8 + scanningQuality : 0) -
       underPressure * (scanningContext ? 30 : 18) -
       completedScanningPenalty -
@@ -429,7 +443,30 @@ export const scoreActionForAI = (
           deriveSolutionPenalty(state, actor, 'hold', actor.position, undefined, 0.3)
       : utility;
   }
-  if (action.type === 'carry')
+  if (action.type === 'carry') {
+    const contact = estimateCarrierContactWindow(state, actor, action.target);
+    const contactDelay = Math.max(0, contact.earliestContactAt - state.time);
+    const interceptors = opponents(state, actor).filter(
+      (player) => distance(player.position, state.ball) < 8,
+    );
+    const contactRisk = Math.max(
+      0,
+      ...interceptors.map((defender) => {
+        const access = deriveBallContactAccess(state, defender, actor);
+        const beatenToContact = Math.max(
+          0,
+          Math.min(
+            1,
+            (contactDelay + 0.15 - access.defenderEta) / Math.max(0.2, contactDelay + 0.15),
+          ),
+        );
+        return (
+          beatenToContact *
+          Math.max(contact.exposure, access.exposure) *
+          (1 - access.shielding * 0.65)
+        );
+      }),
+    );
     return (
       18 +
       (fieldValue(action.target, actor.team) - fieldValue(actor.position, actor.team)) * 1.3 +
@@ -470,8 +507,12 @@ export const scoreActionForAI = (
       ) *
         underPressure *
         2 -
-      deriveSolutionPenalty(state, actor, 'carry', action.target, undefined, 0.5)
+      deriveSolutionPenalty(state, actor, 'carry', action.target, undefined, 0.5) -
+      deriveEconomicalMovementCost(actor, action.target) * 2 -
+      contact.difficulty * (8 + underPressure * 10) -
+      contactRisk * 30
     );
+  }
   if (action.type === 'shot')
     return (
       shotUtility(state, actor) + canonicalShotStyleUtility(state, action) - preparationPenalty
@@ -573,16 +614,8 @@ export const scoreActionForAI = (
     20;
   const styleIntent =
     action.intent === 'direct' || action.intent === 'through'
-      ? style === 'direct'
-        ? 15
-        : style === 'counter_attacking'
-          ? 18
-          : style === 'possession'
-            ? -5
-            : 4
-      : style === 'possession'
-        ? 5
-        : 0;
+      ? (preferences.verticality - 0.4) * 36
+      : (preferences.possessionPatience - 0.5) * 14;
   const space = action.intent === 'through' ? evaluateRunSpace(state, actor, receiver) : undefined;
   const throughContext =
     action.intent === 'through'
@@ -672,9 +705,11 @@ export const rankAvailableActionsForAI = (
   actorId: string,
 ): RankedAiAction[] => {
   const rng = RandomGenerator.fromSeed(`${state.seed}:decision:${state.decisionIndex}:${actorId}`);
+  const actor = state.players.find((player) => player.id === actorId);
+  const preferences = actor ? deriveTeamTacticalPreferences(state, actor.team) : undefined;
   return enumerateAvailableActions(state, actorId)
     .map((action) => {
-      const canonicalScore = scoreActionForAI(state, actorId, action);
+      const canonicalScore = scoreActionForAI(state, actorId, action, preferences);
       const deterministicNoise = (rng.float() - 0.5) * 8;
       return {
         action,
@@ -698,7 +733,8 @@ export const npcPossessionDecisionDelay = (state: TacticalMatchState, actor: Mat
   const scoringRange = progress > 82 && Math.abs(actor.position.y - 34) < 18;
   // Most pressure represents a nearby marker, not an imminent tackle. Only genuinely intense
   // pressure removes most scanning time; ordinary midfield possession gives support runs time.
-  const scanning = 6 - danger * danger * danger * 4.8;
+  const patience = deriveTeamTacticalPreferences(state, actor.team).possessionPatience;
+  const scanning = 4.2 + patience * 1.8 - danger * danger * danger * 4.8;
   const skill =
     (actor.profile.attributes.firstTouch +
       actor.profile.attributes.gameReading +
@@ -813,9 +849,13 @@ export const resolveMatchAction = (
   const next = resolveMatchActionCanonical(state, action, source);
   // A reserved proposal is a request for human ownership, not a football action.
   // Preserve the ledger exactly, including absent or old retained entries.
-  if (source !== 'human_selected' && isShotAction(action) &&
-      isHumanControlled(state, action.actorId)) return next;
-  return emitCanonicalActionEvents(state, next);
+  if (
+    source !== 'human_selected' &&
+    isShotAction(action) &&
+    isHumanControlled(state, action.actorId)
+  )
+    return next;
+  return emitCanonicalActionEvents(state, reconcileControlledBallContact(next));
 };
 
 const resolveMatchActionCanonical = (

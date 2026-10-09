@@ -15,6 +15,7 @@ export const contactEvidenceSchema = z.object({
     'controlled_contact',
     'delivery_release',
     'carry_control',
+    'physical_control',
   ]),
 });
 export type ContactEvidence = z.infer<typeof contactEvidenceSchema>;
@@ -96,8 +97,8 @@ export const projectControlEpisodes = (
   return { active: episode, started };
 };
 
-/** Discrete football contacts: release, reception, physical contact, acquisition and one control
- * contact per executed carry. Ownership maintenance and last-touch provenance are not contacts.
+/** Discrete football contacts: release, reception, physical contact and acquisition.
+ * Ownership maintenance and last-touch provenance are not contacts.
  * First-time reception/shot evidence describes one physical contact at the same player/time. */
 export const collectContactEvidence = (
   previous: TacticalMatchState,
@@ -207,10 +208,19 @@ export const collectContactEvidence = (
     if (
       carry &&
       carrier &&
+      !next.controlledBallContact &&
       next.ball.ownerId === carrier.id &&
       distance(carry.startPosition, carrier.position) >= 0.8
     )
       add(carrier.id, carry.startedAt, 'carry_control', `carry:${carry.startedAt.toFixed(6)}`);
+    const physicalControl = next.controlledBallContact;
+    if (
+      physicalControl &&
+      physicalControl.physicalContacts > 0 &&
+      (physicalControl.actorId !== previous.controlledBallContact?.actorId ||
+        physicalControl.lastContactAt !== previous.controlledBallContact?.lastContactAt)
+    )
+      add(physicalControl.actorId, physicalControl.lastContactAt, 'physical_control');
     // Crosses and non-shot headers are releases too, although separately classified from passes.
     if (
       next.ball.launchVelocity &&

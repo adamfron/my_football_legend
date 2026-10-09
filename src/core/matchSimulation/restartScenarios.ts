@@ -109,6 +109,7 @@ export const applyRestartScenario = (
   delete state.playerMovementIntent;
   delete state.pendingReceptionIntent;
   delete state.onBallPreparation;
+  delete state.controlledBallContact;
   delete state.humanPossessionEpisode;
   delete state.postActionAgencyCheckpoint;
   delete state.pendingPossessionLoss;

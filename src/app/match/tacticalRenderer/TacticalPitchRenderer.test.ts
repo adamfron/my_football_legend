@@ -189,6 +189,119 @@ describe('TacticalPitchRenderer viewport lifecycle', () => {
     renderer.dispose();
   });
 
+  it('picks a legal defender outside the old 22px envelope across zoom, orbit and touchlines', () => {
+    const context = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    const animationFrames: FrameRequestCallback[] = [];
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+      animationFrames.push(callback);
+      return animationFrames.length;
+    });
+    vi.stubGlobal('cancelAnimationFrame', vi.fn());
+    vi.stubGlobal('devicePixelRatio', 3);
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 800 },
+      clientHeight: { get: () => 500 },
+    });
+    const input: TacticalFrame = {
+      ...frame,
+      ball: { x: 44, y: 3 },
+      players: [{ id: 'defender', team: 'away', x: 52.5, y: 3, facing: 0 }],
+    };
+    const before = structuredClone(input);
+    const renderer = new TacticalPitchRenderer(host, input);
+    const canvas = renderer.getCanvas();
+    canvas.getBoundingClientRect = () =>
+      ({ left: 120, top: 40, width: 800, height: 500 }) as DOMRect;
+    canvas.setPointerCapture = vi.fn();
+    canvas.hasPointerCapture = vi.fn(() => true);
+    canvas.releasePointerCapture = vi.fn();
+    for (const preset of ['overview', 'action', 'player_focus'] as const)
+      for (const zoom of [0, 0.5, 1]) {
+        renderer.setCameraPreferences({ preset, zoom }, 'defender');
+        for (let count = 0; animationFrames.length && count < 100; count++)
+          animationFrames.shift()!(count * 16);
+        for (const orbit of [0, 35]) {
+          const pointer = (type: string, x: number, y: number) => {
+            const event = new MouseEvent(type, { button: 1, clientX: x, clientY: y });
+            Object.defineProperty(event, 'pointerId', { value: 1 });
+            canvas.dispatchEvent(event);
+          };
+          pointer('pointerdown', 100, 100);
+          pointer('pointermove', 100 + orbit, 100 + orbit / 2);
+          pointer('pointerup', 100 + orbit, 100 + orbit / 2);
+          const scene = render.mock.lastCall![0] as THREE.Scene;
+          const camera = render.mock.lastCall![1] as THREE.Camera;
+          const actor = scene.children.find((object) => object.userData.playerId === 'defender')!;
+          const projected = actor.position
+            .clone()
+            .add(new THREE.Vector3(0, 0.9, 0))
+            .project(camera);
+          const x = 120 + (projected.x + 1) * 400,
+            y = 40 + (1 - projected.y) * 250;
+          expect(x + 29).toBeGreaterThanOrEqual(120);
+          expect(x + 29).toBeLessThanOrEqual(920);
+          expect(y).toBeGreaterThanOrEqual(40);
+          expect(y).toBeLessThanOrEqual(540);
+          expect(renderer.pick(x + 29, y, undefined, ['defender'])).toEqual({
+            kind: 'player',
+            playerId: 'defender',
+          });
+          expect(renderer.pick(x + 55, y, undefined, ['defender'])).not.toEqual({
+            kind: 'player',
+            playerId: 'defender',
+          });
+        }
+      }
+    expect(input).toEqual(before);
+    renderer.dispose();
+    context.mockRestore();
+    vi.unstubAllGlobals();
+  });
+
+  it('selects the nearest allowed player in a crowd and excludes unrelated overlapping pickers', () => {
+    const context = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 800 },
+      clientHeight: { get: () => 500 },
+    });
+    const input: TacticalFrame = {
+      ...frame,
+      ball: { x: 20, y: 20 },
+      players: [
+        { id: 'legal-a', team: 'away', x: 52.5, y: 34 },
+        { id: 'legal-b', team: 'away', x: 53.2, y: 34 },
+        { id: 'unrelated', team: 'home', x: 53.2, y: 34 },
+      ],
+    };
+    const renderer = new TacticalPitchRenderer(host, input);
+    renderer.getCanvas().getBoundingClientRect = () =>
+      ({ left: 0, top: 0, width: 800, height: 500 }) as DOMRect;
+    const scene = render.mock.lastCall![0] as THREE.Scene;
+    const camera = render.mock.lastCall![1] as THREE.Camera;
+    const actor = scene.children.find((object) => object.userData.playerId === 'legal-b')!;
+    const projected = actor.position
+      .clone()
+      .add(new THREE.Vector3(0, 0.9, 0))
+      .project(camera);
+    const x = (projected.x + 1) * 400,
+      y = (1 - projected.y) * 250;
+    expect(renderer.pick(x, y, undefined, ['legal-a', 'legal-b'])).toEqual({
+      kind: 'player',
+      playerId: 'legal-b',
+    });
+    expect(renderer.pick(x, y, undefined, ['legal-a'])).toEqual({
+      kind: 'player',
+      playerId: 'legal-a',
+    });
+    expect(renderer.pick(x, y, undefined, [])?.kind).not.toBe('player');
+    renderer.dispose();
+    context.mockRestore();
+  });
+
   it('renders canonical feedback through the real pitch path and expires it at frame time', () => {
     const host = document.createElement('div');
     document.body.append(host);
