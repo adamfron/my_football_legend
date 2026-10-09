@@ -1,0 +1,76 @@
+{
+  "config": {
+    "seconds": 600,
+    "repetitions": 3
+  },
+  "canonicalSourceHash": "47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba",
+  "observerSourceHash": "23fe0b3c0ff0147e274b2d7406ea8d3b4fd1ec820ea0e57e93415a696dac289e",
+  "observerSourceScope": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+  "methodology": "Current frozen canonical spectator engine, fresh state perrun; three alternated enabled/disabled pairs of the ContactTacticalTracker alone. Full-state hash parity in everyrun; sample observer calls every37ticks. No renderer/replay/DEV or export cost included. Run sequentially after competing workers finish.",
+  "medianDisabledMs": 6555.887500000001,
+  "medianEnabledMs": 6719.576399999998,
+  "elapsedChangePercent": 2.4968228939254544,
+  "canonicalParity": true,
+  "rows": [
+    {
+      "repetition": 1,
+      "enabled": false,
+      "ticks": 24001,
+      "elapsedMs": 7387.072,
+      "observerSampledMs": 0,
+      "observerSampledCalls": 0,
+      "observerEstimatedMs": 0,
+      "canonicalHash": "63c37a5cef2e952fe06a2858e6c590221ad8ca42f0a48c39df797cb1465deac1"
+    },
+    {
+      "repetition": 1,
+      "enabled": true,
+      "ticks": 24001,
+      "elapsedMs": 7802.505999999999,
+      "observerSampledMs": 9.296800000034636,
+      "observerSampledCalls": 649,
+      "observerEstimatedMs": 343.809702312529,
+      "canonicalHash": "63c37a5cef2e952fe06a2858e6c590221ad8ca42f0a48c39df797cb1465deac1"
+    },
+    {
+      "repetition": 2,
+      "enabled": true,
+      "ticks": 24001,
+      "elapsedMs": 6719.576399999998,
+      "observerSampledMs": 5.8725999999969645,
+      "observerSampledCalls": 649,
+      "observerEstimatedMs": 217.17761571637465,
+      "canonicalHash": "63c37a5cef2e952fe06a2858e6c590221ad8ca42f0a48c39df797cb1465deac1"
+    },
+    {
+      "repetition": 2,
+      "enabled": false,
+      "ticks": 24001,
+      "elapsedMs": 6382.780999999999,
+      "observerSampledMs": 0,
+      "observerSampledCalls": 0,
+      "observerEstimatedMs": 0,
+      "canonicalHash": "63c37a5cef2e952fe06a2858e6c590221ad8ca42f0a48c39df797cb1465deac1"
+    },
+    {
+      "repetition": 3,
+      "enabled": false,
+      "ticks": 24001,
+      "elapsedMs": 6555.887500000001,
+      "observerSampledMs": 0,
+      "observerSampledCalls": 0,
+      "observerEstimatedMs": 0,
+      "canonicalHash": "63c37a5cef2e952fe06a2858e6c590221ad8ca42f0a48c39df797cb1465deac1"
+    },
+    {
+      "repetition": 3,
+      "enabled": true,
+      "ticks": 24001,
+      "elapsedMs": 6563.779800000004,
+      "observerSampledMs": 5.413199999966309,
+      "observerSampledCalls": 649,
+      "observerEstimatedMs": 200.1883100141624,
+      "canonicalHash": "63c37a5cef2e952fe06a2858e6c590221ad8ca42f0a48c39df797cb1465deac1"
+    }
+  ]
+}

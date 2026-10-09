@@ -31,6 +31,13 @@ import {
 import { canonicalActionEventSchema, type CanonicalActionEvent } from './actionEvents';
 import { matchEventSchema, type MatchEvent } from './matchEventFeed';
 import { teamThreatMemorySchema, type TeamThreatMemory } from './teamThreatMemory';
+import { tacticalPreferencesSchema, type TacticalPreferences } from './tacticalPreferences';
+import {
+  controlledBallContactSchema,
+  contactControlTelemetrySchema,
+  type ControlledBallContact,
+  type ContactControlTelemetry,
+} from './ballContactGeometry';
 import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
 import {
@@ -407,6 +414,8 @@ export interface MatchTeamState {
   clubId: string;
   formation: FormationId;
   style: TacticalStyle;
+  /** Strategic coach preference only; physical execution remains shared. */
+  tacticalPreferences?: TacticalPreferences;
   phase: MatchPhase;
   phaseElapsed: number;
   /** Bounded canonical football evidence and gradual team response, independent of presentation. */
@@ -605,6 +614,9 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  /** One bounded anticipation plan; ownership never guarantees the next foot contact. */
+  controlledBallContact?: ControlledBallContact;
+  contactControlTelemetry?: ContactControlTelemetry;
   ballAcquisition?: BallAcquisition;
   aerialContactLocks?: z.infer<typeof aerialContactLockSchema>[];
   seed: string;
@@ -771,6 +783,8 @@ export interface TacticalMatchState {
 export const tacticalMatchStateSchema = z
   .object({
     ballAcquisition: ballAcquisitionSchema.optional(),
+    controlledBallContact: controlledBallContactSchema.optional(),
+    contactControlTelemetry: contactControlTelemetrySchema.optional(),
     aerialContactLocks: z.array(aerialContactLockSchema).max(22).optional(),
     seed: z.string().min(1),
     time: z.number().nonnegative().finite(),
@@ -785,6 +799,7 @@ export const tacticalMatchStateSchema = z
         clubId: z.string(),
         formation: z.string(),
         style: tacticalStyleSchema,
+        tacticalPreferences: tacticalPreferencesSchema.optional(),
         phase: matchPhaseSchema,
         phaseElapsed: z.number().nonnegative(),
         threatMemory: teamThreatMemorySchema.optional(),

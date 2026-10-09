@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { distance, signedForwardDistance } from './matchSpace';
+import { estimateCarrierContactWindow } from './ballContactGeometry';
 import {
   isDefensiveEpisodeLocked,
   shouldCommitRoutinePress,
@@ -99,7 +100,16 @@ export const projectLocomotion = (
   if (state.restart?.phase === 'setup') return result('walk', 'restart_setup');
   const ballIntent =
     state.ballCarrierIntent?.actorId === player.id ? state.ballCarrierIntent : undefined;
-  if (ballIntent?.movementMode === 'sprint') return result('sprint', 'ball_carry');
+  const turnPreparationFactor = ballIntent
+    ? 1 -
+      estimateCarrierContactWindow(state, player, target).difficulty *
+        (0.18 + (1 - player.profile.attributes.agility / 100) * 0.34)
+    : 1;
+  if (ballIntent?.movementMode === 'sprint')
+    return {
+      ...result('sprint', 'ball_carry'),
+      targetSpeed: speedFor('sprint') * turnPreparationFactor,
+    };
   if (ballIntent?.movementMode === 'retain')
     return { ...result('walk', 'ball_carry'), targetSpeed: 1.1 };
   const continuation =
@@ -187,6 +197,7 @@ export const projectLocomotion = (
       ...projection,
       targetSpeed:
         projection.targetSpeed *
+        turnPreparationFactor *
         (mode === 'shield'
           ? 0.42
           : mode === 'tight_dribble'

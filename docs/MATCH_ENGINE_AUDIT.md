@@ -1,4 +1,87 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR157
+# Audyt silnika meczu — PR140 / aktualizacja PR158
+
+## PR158 — finite contacts, press resistance and situational tactics
+
+Base: merged PR157, `73c0fabed04ee4a31da85fa918f19bbc42344975`. The confirmed controlled-ball
+defect was body-relative coordinate replacement every tick: rotation could move the ball
+without a foot contact. `ballContactGeometry.ts` now supplies one bounded anticipation plan,
+transformed foot/torso access and velocity impulses at actual reachable contacts. Between
+contacts the existing rolling integrator advances the ball at the unchanged 0.025 s step.
+Ownership never guarantees the next contact or excludes an independent legal defender.
+
+Turn/contact preparation depends continuously on angle, orientation, speed, angular velocity,
+relative ball motion, offset, balance and existing skills. Protecting-body compression and
+relative speed load balance; Strength/Agility resist that physical load. Exposed-side access
+does not disappear for a strong carrier. Release/restart/ownership changes invalidate the plan.
+Granular physical evidence still projects one public touch per continuous control episode.
+The seeded challenge outcome/foul pipeline and pair re-arm locks remain shared by all sources.
+
+Accounting review found continuous physical-control impulses growing the legacy contact-ID
+ledger while public touches stayed at one. The `47f99f54` fix uses one optional latest-contact
+timestamp per player, preserves legacy saved IDs, and rejects repeated/older evidence after
+release or half-time without mutating earlier statistics branches. Discrete pass/shot/control
+ledgers remain. Four new regressions and 34 focused tests pass; all exported football fields
+match exactly in 18 windows, 1,760 contact trials and 210 tactical/scenario rows, with only
+stated bookkeeping checksums/timing omitted. Final verify passes lint, 1,263 main tests/163
+files, five career tests/one file and build; strict benchmark TypeScript passes. Three isolated fresh-process pairs measure elapsed time: release_minimal -2.64%, normal -2.41%, dev +3.02%, capture -1.22%;
+the separate observer adds +2.50% median elapsed time. This single-fixture
+result does not establish broad speedup, exclusive CPU shares, or browser/video cost.
+The bounded diagnostic tracker alone must not be cited as proof of bounded accounting.
+
+Candidate carry ranking considers its proposed contact difficulty, window and defender access.
+The six preference axes influence decision/positioning, while active-XI suitability exposes
+press cost and line risk. Safe ready outlets can favour screening or a block, and a useful
+local counterpress decays with geometry/time rather than an eight-second cancellation.
+No style adds a physical success multiplier, no role has a participation quota, and no timer
+forces a turnover. PR155 controlled-shot and PR156 non-throw restart ownership remain binding.
+
+`ContactTacticalTracker` separates attempts/results/contact/recovery, six transition clocks,
+continuous pressure episodes, carrier rotation and bounded all-22 workload. It is read-only:
+snapshots cannot split a live carrier episode, old shot results cannot become post-regain
+releases, backward pass labels do not imply progression, and stoppages censor transitions.
+Restart placement and dismissed players do not inflate open-play workload. Pressure actors
+are independently observed; a nearest-player swap is not a new continuous pressure event.
+
+Presentation picking uses projected 32–48 CSS-pixel player targets and legal contextual IDs.
+It does not change physical contact ranges or consume canonical RNG. Accounting regressions
+preserve a released advantage shot after a manual DEV restart and reject a pre-execution
+whistle-invalidated shot. The missing original 752.05 capture proves no production foul bug.
+Live/replay carrying frames must also preserve canonical ball placement; face-relative
+animation must not replace the finite physical trajectory with a visually attached ball.
+
+Interpretation limits: reach evidence for a resolved challenge is not evidence for every
+unresolved intent; workload speed crossings and lane/exposed-transition samples are proxies;
+formal challenge body contacts do not fully measure continuous shielding load. Demanded turn
+labs show physical possibility, while autonomous frequency belongs to controlled carrier
+episodes in full matches. Provider CHALLENGE/RECOVERY definitions cannot be equated to MFL.
+Frozen before/after evidence, verification and performance belong to
+[PR158_BALL_CONTACT_PRESSING_TACTICS.md](PR158_BALL_CONTACT_PRESSING_TACTICS.md).
+The next scopes are PR159 restarts, PR160 fatigue/injuries/substitutions/added time, and
+PR161 presentation/replay/stadium. PR158 enables no stamina depletion or age penalty.
+
+The final paired matrix has 18 fixed 90-minute canonical windows per revision, preserving
+actual statuses (PR157 {"second_half":4,"full_time":14}; PR158 {"full_time":12,"second_half":6}).
+The acquisition-integration defects are corrected: broad proximity cannot secure control
+before actual foot reach, stop pursuit before contact, or reserve a loose ball against another
+legally reachable player. A replacement nominee begins fresh preparation without inheriting
+the earlier clock/outcome. Completed final-source attempts 6645→4418,
+passes 10005→13074, shots 110→16,
+goals 68→10, adjacent-tick flips
+24→94 and short spells
+51→189 remain explicit.
+Absolute rotation includes scans/reversals: >180° uses net <2 m; >360° uses net <3 m.
+Lab owned movement is censored at the first stoppage as well as ownership loss, preventing
+restart placement from being reported as dribble. Final source `47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba` replaces
+superseded prototype evidence; complete validation and tradeoffs are in the PR158 report.
+Draft calibration remains necessary before merging: central-midfielder touches
+4957→3461 and receptions 2831→1993
+regress despite more aggregate passing. Demanded-turn >360°/net<3 m trials
+2→16
+and lab fouls 90→369 also worsen.
+
+
+
+The [evidence manifest](performance/PR158-evidence-manifest.json) inventories archived raw, source and report snapshots. The local output/attachment `outputs/PR158-evidence.zip` contains 824 hash-checked entries; five compact summaries regenerated exactly. Its checksum is retained separately in local metadata.
 
 ## PR157 — dynamic pressing and shooting calibration (validated; calibration limits remain)
 
@@ -61,8 +144,8 @@ Compact evidence: [flow](performance/PR157-flow-summary.json),
 [integrity](performance/PR157-integrity-summary.json), [performance](performance/PR157-performance.json).
 Measurements, reproduction and unresolved limits belong to
 [PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md](PR157_DYNAMIC_PRESSING_SHOOTING_CALIBRATION.md).
-Next: **PR158 — Dead Ball & Restart Continuity**, **PR159 — Fatigue, Injuries, Substitutions &
-Added Time**, **PR160 — Match Presentation / Replay / Stadium Polish**.
+Next: **PR159 — Dead Ball & Restart Continuity**, **PR160 — Fatigue, Injuries, Substitutions &
+Added Time**, **PR161 — Match Presentation / Replay / Stadium Polish**.
 
 ## PR156 — integrity and difficulty calibration
 
@@ -122,7 +205,7 @@ celu/idealnego celu i zerowej prędkości. Wywołują go granice boiska, strzał
 koniec 0,55-sekundowego interwału gola, faul/korzyść, spalony, zmiana wykonawcy po kartce,
 druga połowa i jawny wybór scenariusza DEV. Dokładna mapa, testy, wyniki i ograniczenia:
 [PR152_CANONICAL_PARTICIPATION.md](PR152_CANONICAL_PARTICIPATION.md).
-Następny zakres po kalibracji PR157: **PR158 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
+Następny zakres po mechanice kontaktów PR158: **PR159 — Dead Ball & Restart Continuity**; implementacja ciągłości wznowień
 pozostaje poza PR152.
 
 PR151: ograniczona pamięć zagrożeń należy do core i wpływa na istniejące cele bloku,

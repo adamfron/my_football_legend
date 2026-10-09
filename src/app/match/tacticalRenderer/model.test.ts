@@ -13,6 +13,8 @@ import {
   shotAimIntentToGoalPoint,
   matchCameraPreferencesSchema,
   selectScreenSpacePlayerCandidate,
+  screenSpacePlayerCandidateSchema,
+  screenSpacePlayerPickRadius,
   updateTacticalCameraPose,
 } from './model';
 
@@ -135,5 +137,26 @@ describe('tactical presentation model', () => {
       'target-a',
     );
     expect(selectScreenSpacePlayerCandidate(candidates, { x: 140, y: 100 }, 18)).toBeUndefined();
+  });
+  it('keeps the player pick envelope usable when zoomed out and bounded when zoomed in', () => {
+    expect(screenSpacePlayerPickRadius(2)).toBe(32);
+    expect(screenSpacePlayerPickRadius(25)).toBe(37);
+    expect(screenSpacePlayerPickRadius(100)).toBe(48);
+    const candidate = {
+      playerId: 'defender',
+      x: 100,
+      y: 100,
+      depth: 0.2,
+      actionable: true,
+      pickRadius: 32,
+    };
+    expect(screenSpacePlayerCandidateSchema.safeParse(candidate).success).toBe(true);
+    expect(selectScreenSpacePlayerCandidate([candidate], { x: 130, y: 100 }, 22)?.playerId).toBe(
+      'defender',
+    );
+    expect(selectScreenSpacePlayerCandidate([candidate], { x: 150, y: 100 }, 22)).toBeUndefined();
+    expect(
+      selectScreenSpacePlayerCandidate([{ ...candidate, depth: 2 }], { x: 100, y: 100 }, 22),
+    ).toBeUndefined();
   });
 });

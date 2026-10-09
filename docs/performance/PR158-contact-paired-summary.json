@@ -1,0 +1,5245 @@
+{
+  "configuration": {
+    "repetitions": 32,
+    "seconds": 6
+  },
+  "baselineSource": {
+    "algorithm": "sha256",
+    "scope": "Sorted non-test .ts files in src/core/matchSimulation; relative path + NUL + bytes + NUL",
+    "files": 77,
+    "digest": "ead52806e69247434e2ef41a9181994213836d0620ea227fe62bf8ce5e180351"
+  },
+  "currentSource": {
+    "algorithm": "sha256",
+    "scope": "Sorted non-test .ts files in src/core/matchSimulation; relative path + NUL + bytes + NUL",
+    "files": 80,
+    "digest": "47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba"
+  },
+  "methodology": "Paired seed by repetition; canonical 25ms engine. Carrier rotation/displacement/contact metrics stop at the first initial ownership loss or interruption (restart, non-open-play scenario or period change); the entire interrupting interval is excluded before measuring placement movement. Six-second traces and aggregate defender events continue to final outcome, including the final owner identity in retained. Sharp/roulette are explicit requested direction experiments. Physical contacts unavailable in PR157 are null, never zero actual. Eta uses bounded speed proxy for defender; next-contact ETA absent in baseline. No provider-count equivalence.",
+  "totals": {
+    "stationaryPirouettes": {
+      "baseline": 112,
+      "current": 36
+    },
+    "completeRotationLittleProgress": {
+      "baseline": 2,
+      "current": 16
+    },
+    "retained": {
+      "baseline": 984,
+      "current": 523
+    },
+    "passReleases": {
+      "baseline": 96,
+      "current": 128
+    },
+    "attempts": {
+      "baseline": 1195,
+      "current": 1529
+    },
+    "clean": {
+      "baseline": 584,
+      "current": 558
+    },
+    "loose": {
+      "baseline": 154,
+      "current": 152
+    },
+    "fouls": {
+      "baseline": 90,
+      "current": 369
+    },
+    "physicalContacts": {
+      "baseline": null,
+      "current": 23488
+    },
+    "ownedSeconds": {
+      "baseline": 7098.825000000014,
+      "current": 5940.350000000005
+    },
+    "exposedSeconds": {
+      "baseline": 806.875,
+      "current": 563.8249999999997
+    },
+    "directionRevisions": {
+      "baseline": 24687,
+      "current": 15293
+    },
+    "repeatedCarrySelections": {
+      "baseline": 84,
+      "current": 64
+    },
+    "interruptionCensored": {
+      "baseline": 90,
+      "current": 369
+    }
+  },
+  "rows": [
+    {
+      "cell": {
+        "id": "context:stationary",
+        "context": "stationary"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 10,
+        "current": 15,
+        "delta": 5
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 19,
+        "current": 14,
+        "delta": -5
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 3,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 473,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 20.719736806523795,
+        "current": 31.079605209785697,
+        "delta": 10.359868403261903
+      },
+      "meanNetMetres": {
+        "baseline": 0.2676146950351824,
+        "current": 0.7615255473260425,
+        "delta": 0.49391085229086007
+      },
+      "meanTravelledMetres": {
+        "baseline": 0.4205840374891194,
+        "current": 1.3961910391674115,
+        "delta": 0.9756070016782921
+      },
+      "ownedSeconds": {
+        "baseline": 78.90000000000018,
+        "current": 104.22500000000025,
+        "delta": 25.325000000000074
+      },
+      "exposedSeconds": {
+        "baseline": 11.55000000000001,
+        "current": 14.75000000000001,
+        "delta": 3.200000000000001
+      },
+      "directionRevisions": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:moving",
+        "context": "moving"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 6,
+        "current": 4,
+        "delta": -2
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 43,
+        "current": 47,
+        "delta": 4
+      },
+      "clean": {
+        "baseline": 22,
+        "current": 26,
+        "delta": 4
+      },
+      "loose": {
+        "baseline": 5,
+        "current": 2,
+        "delta": -3
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 359,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 16.735624104914564,
+        "current": 43.324219506806585,
+        "delta": 26.58859540189202
+      },
+      "meanNetMetres": {
+        "baseline": 3.824649603069576,
+        "current": 5.5578307183988,
+        "delta": 1.733181115329224
+      },
+      "meanTravelledMetres": {
+        "baseline": 4.795604863016382,
+        "current": 6.568758417337067,
+        "delta": 1.773153554320685
+      },
+      "ownedSeconds": {
+        "baseline": 66.00000000000001,
+        "current": 81.95000000000002,
+        "delta": 15.950000000000003
+      },
+      "exposedSeconds": {
+        "baseline": 9,
+        "current": 15.749999999999998,
+        "delta": 6.749999999999998
+      },
+      "directionRevisions": {
+        "baseline": 105,
+        "current": 7,
+        "delta": -98
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:sharp_turn",
+        "context": "sharp_turn"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "context:shallow_turn",
+        "context": "shallow_turn"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 11,
+        "current": 6,
+        "delta": -5
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 44,
+        "current": 44,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 17,
+        "current": 21,
+        "delta": 4
+      },
+      "loose": {
+        "baseline": 9,
+        "current": 5,
+        "delta": -4
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 380,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 44.33416812979235,
+        "current": 55.5434235962014,
+        "delta": 11.209255466409047
+      },
+      "meanNetMetres": {
+        "baseline": 3.116929961357856,
+        "current": 5.646315644940183,
+        "delta": 2.5293856835823267
+      },
+      "meanTravelledMetres": {
+        "baseline": 4.1796174340165235,
+        "current": 6.508818250087607,
+        "delta": 2.3292008160710838
+      },
+      "ownedSeconds": {
+        "baseline": 71.10000000000002,
+        "current": 87.85000000000011,
+        "delta": 16.750000000000085
+      },
+      "exposedSeconds": {
+        "baseline": 4.9750000000000005,
+        "current": 16.275000000000006,
+        "delta": 11.300000000000004
+      },
+      "directionRevisions": {
+        "baseline": 106,
+        "current": 8,
+        "delta": -98
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      }
+    },
+    {
+      "cell": {
+        "id": "context:roulette",
+        "context": "roulette"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 8,
+        "current": 0,
+        "delta": -8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 16,
+        "current": 9,
+        "delta": -7
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 12,
+        "current": 14,
+        "delta": 2
+      },
+      "loose": {
+        "baseline": 5,
+        "current": 2,
+        "delta": -3
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 577,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 329.67211094664066,
+        "current": 336.6473153063114,
+        "delta": 6.975204359670727
+      },
+      "meanNetMetres": {
+        "baseline": 3.023750391276337,
+        "current": 3.5338227963817594,
+        "delta": 0.5100724051054226
+      },
+      "meanTravelledMetres": {
+        "baseline": 9.669308623228872,
+        "current": 9.319095613267828,
+        "delta": -0.35021300996104365
+      },
+      "ownedSeconds": {
+        "baseline": 159.95000000000016,
+        "current": 141.80000000000013,
+        "delta": -18.150000000000034
+      },
+      "exposedSeconds": {
+        "baseline": 4.050000000000001,
+        "current": 8.700000000000003,
+        "delta": 4.650000000000002
+      },
+      "directionRevisions": {
+        "baseline": 160,
+        "current": 128,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "context:shield_front",
+        "context": "shield_front"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 800,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 1.2430892214418061,
+        "current": 1.249270567676133,
+        "delta": 0.006181346234326979
+      },
+      "meanTravelledMetres": {
+        "baseline": 4.822459809719469,
+        "current": 4.812451477117357,
+        "delta": -0.010008332602111203
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 192.00000000000063,
+        "delta": 0
+      },
+      "exposedSeconds": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "directionRevisions": {
+        "baseline": 0,
+        "current": 1,
+        "delta": 1
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:shield_side",
+        "context": "shield_side"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 800,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 0.5967256868125606,
+        "current": 0.7034823733063628,
+        "delta": 0.10675668649380221
+      },
+      "meanTravelledMetres": {
+        "baseline": 4.579933124657374,
+        "current": 4.5552545556358135,
+        "delta": -0.024678569021560293
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 192.00000000000063,
+        "delta": 0
+      },
+      "exposedSeconds": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "directionRevisions": {
+        "baseline": 0,
+        "current": 2,
+        "delta": 2
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:shield_back",
+        "context": "shield_back"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 822,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 0.890820004215079,
+        "current": 1.7941393569848798,
+        "delta": 0.9033193527698008
+      },
+      "meanTravelledMetres": {
+        "baseline": 4.661572955524549,
+        "current": 4.839011360347348,
+        "delta": 0.17743840482279882
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 192.00000000000063,
+        "delta": 0
+      },
+      "exposedSeconds": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "directionRevisions": {
+        "baseline": 0,
+        "current": 1,
+        "delta": 1
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:shield_two",
+        "context": "shield_two"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 30,
+        "delta": -2
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 21,
+        "delta": 21
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 2,
+        "delta": 2
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 659,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 1.5731104973257337,
+        "current": 1.8863507750118087,
+        "delta": 0.313240277686075
+      },
+      "meanTravelledMetres": {
+        "baseline": 2.2672033615701084,
+        "current": 3.1658034726431876,
+        "delta": 0.8986001110730792
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 186.05000000000058,
+        "delta": -5.9500000000000455
+      },
+      "exposedSeconds": {
+        "baseline": 121.22499999999994,
+        "current": 37.47499999999996,
+        "delta": -83.74999999999997
+      },
+      "directionRevisions": {
+        "baseline": 5014,
+        "current": 2970,
+        "delta": -2044
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 2,
+        "delta": 2
+      }
+    },
+    {
+      "cell": {
+        "id": "context:push_run",
+        "context": "push_run"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 0,
+        "delta": -32
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 32,
+        "current": 0,
+        "delta": -32
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 32,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 3.4315627526261756,
+        "current": 9.445652491658592,
+        "delta": 6.014089739032416
+      },
+      "meanTravelledMetres": {
+        "baseline": 3.4315627526261756,
+        "current": 9.44568092354303,
+        "delta": 6.014118170916854
+      },
+      "ownedSeconds": {
+        "baseline": 21.20000000000001,
+        "current": 53.79999999999992,
+        "delta": 32.59999999999991
+      },
+      "exposedSeconds": {
+        "baseline": 7.999999999999999,
+        "current": 5.799999999999998,
+        "delta": -2.200000000000001
+      },
+      "directionRevisions": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 32,
+        "current": 0,
+        "delta": -32
+      }
+    },
+    {
+      "cell": {
+        "id": "context:release",
+        "context": "release"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "passReleases": {
+        "baseline": 16,
+        "current": 32,
+        "delta": 16
+      },
+      "attempts": {
+        "baseline": 26,
+        "current": 0,
+        "delta": -26
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 0,
+        "delta": -14
+      },
+      "loose": {
+        "baseline": 2,
+        "current": 0,
+        "delta": -2
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 192,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 62.392822998579774,
+        "current": 74.59910492603213,
+        "delta": 12.206281927452352
+      },
+      "meanNetMetres": {
+        "baseline": 2.4000571816723895,
+        "current": 2.675557664113743,
+        "delta": 0.2755004824413536
+      },
+      "meanTravelledMetres": {
+        "baseline": 2.7526956799763953,
+        "current": 2.990033936137348,
+        "delta": 0.23733825616095272
+      },
+      "ownedSeconds": {
+        "baseline": 44.87499999999993,
+        "current": 42.400000000000006,
+        "delta": -2.4749999999999233
+      },
+      "exposedSeconds": {
+        "baseline": 5.225,
+        "current": 0,
+        "delta": -5.225
+      },
+      "directionRevisions": {
+        "baseline": 36,
+        "current": 0,
+        "delta": -36
+      },
+      "repeatedCarrySelections": {
+        "baseline": 42,
+        "current": 32,
+        "delta": -10
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:shield_release",
+        "context": "shield_release"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "passReleases": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 31,
+        "current": 26,
+        "delta": -5
+      },
+      "clean": {
+        "baseline": 13,
+        "current": 7,
+        "delta": -6
+      },
+      "loose": {
+        "baseline": 11,
+        "current": 3,
+        "delta": -8
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 96,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 6.134773704024754,
+        "current": 1.3335169474420032,
+        "delta": -4.801256756582751
+      },
+      "meanNetMetres": {
+        "baseline": 0.4147394992588347,
+        "current": 0.4158283026685742,
+        "delta": 0.0010888034097394916
+      },
+      "meanTravelledMetres": {
+        "baseline": 0.420712500000021,
+        "current": 0.42071250000001265,
+        "delta": -8.326672684688674e-15
+      },
+      "ownedSeconds": {
+        "baseline": 24.000000000000004,
+        "current": 24.000000000000004,
+        "delta": 0
+      },
+      "exposedSeconds": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "directionRevisions": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:touchline",
+        "context": "touchline"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 16,
+        "current": 9,
+        "delta": -7
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 46,
+        "delta": 14
+      },
+      "clean": {
+        "baseline": 15,
+        "current": 19,
+        "delta": 4
+      },
+      "loose": {
+        "baseline": 4,
+        "current": 6,
+        "delta": 2
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 359,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 34.321487619938566,
+        "current": 34.36521844683152,
+        "delta": 0.043730826892954155
+      },
+      "meanNetMetres": {
+        "baseline": 3.5954536991071384,
+        "current": 5.6560264223220695,
+        "delta": 2.060572723214931
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.044962850942018,
+        "current": 5.941770582379044,
+        "delta": -0.10319226856297448
+      },
+      "ownedSeconds": {
+        "baseline": 94.2250000000002,
+        "current": 81.90000000000008,
+        "delta": -12.325000000000117
+      },
+      "exposedSeconds": {
+        "baseline": 25.09999999999998,
+        "current": 35.17499999999994,
+        "delta": 10.07499999999996
+      },
+      "directionRevisions": {
+        "baseline": 13,
+        "current": 0,
+        "delta": -13
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:autonomous",
+        "context": "autonomous"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "passReleases": {
+        "baseline": 16,
+        "current": 32,
+        "delta": 16
+      },
+      "attempts": {
+        "baseline": 26,
+        "current": 0,
+        "delta": -26
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 0,
+        "delta": -14
+      },
+      "loose": {
+        "baseline": 2,
+        "current": 0,
+        "delta": -2
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 192,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 62.392822998579774,
+        "current": 74.59910492603213,
+        "delta": 12.206281927452352
+      },
+      "meanNetMetres": {
+        "baseline": 2.4000571816723895,
+        "current": 2.675557664113743,
+        "delta": 0.2755004824413536
+      },
+      "meanTravelledMetres": {
+        "baseline": 2.7526956799763953,
+        "current": 2.990033936137348,
+        "delta": 0.23733825616095272
+      },
+      "ownedSeconds": {
+        "baseline": 44.87499999999993,
+        "current": 42.400000000000006,
+        "delta": -2.4749999999999233
+      },
+      "exposedSeconds": {
+        "baseline": 5.225,
+        "current": 0,
+        "delta": -5.225
+      },
+      "directionRevisions": {
+        "baseline": 36,
+        "current": 0,
+        "delta": -36
+      },
+      "repeatedCarrySelections": {
+        "baseline": 42,
+        "current": 32,
+        "delta": -10
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "context:first_time_pass",
+        "context": "first_time_pass"
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      },
+      "passReleases": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 33,
+        "current": 32,
+        "delta": -1
+      },
+      "clean": {
+        "baseline": 21,
+        "current": 18,
+        "delta": -3
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 5,
+        "delta": 2
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 0,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanTravelledMetres": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "ownedSeconds": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "exposedSeconds": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "directionRevisions": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:dribbling:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "dribbling": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 18,
+        "current": 3,
+        "delta": -15
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 19,
+        "delta": 5
+      },
+      "loose": {
+        "baseline": 5,
+        "current": 3,
+        "delta": -2
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 8,
+        "delta": 8
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 316,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 266.2685053898297,
+        "current": 237.67728203974903,
+        "delta": -28.591223350080696
+      },
+      "meanNetMetres": {
+        "baseline": 4.851107605992795,
+        "current": 4.549163894528982,
+        "delta": -0.3019437114638137
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.462241562619431,
+        "current": 5.489272383378579,
+        "delta": -0.9729691792408515
+      },
+      "ownedSeconds": {
+        "baseline": 119.50000000000013,
+        "current": 83.79999999999988,
+        "delta": -35.700000000000244
+      },
+      "exposedSeconds": {
+        "baseline": 6.425000000000002,
+        "current": 4.850000000000001,
+        "delta": -1.5750000000000002
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 34,
+        "delta": -46
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 8,
+        "delta": 8
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:dribbling:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "dribbling": 60
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:dribbling:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "dribbling": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 21,
+        "current": 16,
+        "delta": -5
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 11,
+        "current": 5,
+        "delta": -6
+      },
+      "loose": {
+        "baseline": 2,
+        "current": 5,
+        "delta": 3
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 8,
+        "delta": 8
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 539,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 294.3653815001009,
+        "current": 298.1935922880373,
+        "delta": 3.8282107879363707
+      },
+      "meanNetMetres": {
+        "baseline": 5.445416091825797,
+        "current": 5.215010741624626,
+        "delta": -0.23040535020117048
+      },
+      "meanTravelledMetres": {
+        "baseline": 7.286291204092474,
+        "current": 6.540594217215674,
+        "delta": -0.7456969868767995
+      },
+      "ownedSeconds": {
+        "baseline": 141.07500000000027,
+        "current": 126.87500000000014,
+        "delta": -14.20000000000013
+      },
+      "exposedSeconds": {
+        "baseline": 4,
+        "current": 4.100000000000001,
+        "delta": 0.10000000000000142
+      },
+      "directionRevisions": {
+        "baseline": 88,
+        "current": 64,
+        "delta": -24
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 8,
+        "delta": 8
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:technique:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "technique": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 16,
+        "current": 5,
+        "delta": -11
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 15,
+        "current": 18,
+        "delta": 3
+      },
+      "loose": {
+        "baseline": 2,
+        "current": 2,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 339,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 247.58424633339638,
+        "delta": -21.218112621360547
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.605381341834966,
+        "delta": -0.3345206335170863
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.623301283276569,
+        "delta": -0.9294593599712035
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 91.09999999999995,
+        "delta": -31.350000000000207
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 4.875000000000001,
+        "delta": -0.9249999999999989
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 66,
+        "delta": -14
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:technique:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "technique": 60
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:technique:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "technique": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 18,
+        "current": 12,
+        "delta": -6
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 12,
+        "current": 9,
+        "delta": -3
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 3,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 508,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 279.8798550600982,
+        "current": 294.3388757561526,
+        "delta": 14.459020696054438
+      },
+      "meanNetMetres": {
+        "baseline": 5.168713894406159,
+        "current": 5.366214434594449,
+        "delta": 0.19750054018828944
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.84954122244719,
+        "current": 6.859511706885802,
+        "delta": 0.009970484438611926
+      },
+      "ownedSeconds": {
+        "baseline": 130.2500000000002,
+        "current": 120.45000000000005,
+        "delta": -9.800000000000153
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.899999999999997,
+        "delta": 3.099999999999997
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 74,
+        "delta": -6
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:agility:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "agility": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 21,
+        "current": 10,
+        "delta": -11
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 11,
+        "current": 17,
+        "delta": 6
+      },
+      "loose": {
+        "baseline": 5,
+        "current": 6,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 423,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 282.66081726587237,
+        "current": 244.28175880399164,
+        "delta": -38.37905846188073
+      },
+      "meanNetMetres": {
+        "baseline": 4.559675259404278,
+        "current": 4.696651106691797,
+        "delta": 0.13697584728751888
+      },
+      "meanTravelledMetres": {
+        "baseline": 5.620539148856593,
+        "current": 6.0955562502080145,
+        "delta": 0.4750171013514217
+      },
+      "ownedSeconds": {
+        "baseline": 128.8500000000002,
+        "current": 106.02500000000008,
+        "delta": -22.825000000000117
+      },
+      "exposedSeconds": {
+        "baseline": 2.400000000000001,
+        "current": 11.424999999999995,
+        "delta": 9.024999999999995
+      },
+      "directionRevisions": {
+        "baseline": 64,
+        "current": 41,
+        "delta": -23
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:agility:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "agility": 60
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:agility:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "agility": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 0,
+        "delta": -32
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 448,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 360,
+        "current": 359.99999999999994,
+        "delta": -5.684341886080802e-14
+      },
+      "meanNetMetres": {
+        "baseline": 7.139203552299738,
+        "current": 5.219535568857788,
+        "delta": -1.9196679834419497
+      },
+      "meanTravelledMetres": {
+        "baseline": 11.33864321820459,
+        "current": 7.22129623586462,
+        "delta": -4.11734698233997
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 112.57499999999987,
+        "delta": -79.42500000000075
+      },
+      "exposedSeconds": {
+        "baseline": 12.400000000000004,
+        "current": 1.8749999999999998,
+        "delta": -10.525000000000004
+      },
+      "directionRevisions": {
+        "baseline": 128,
+        "current": 80,
+        "delta": -48
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:firstTouch:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "firstTouch": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 16,
+        "current": 9,
+        "delta": -7
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 12,
+        "delta": -2
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 6,
+        "delta": 3
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 376,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 256.07349778893274,
+        "delta": -12.728861165824185
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.937600563721023,
+        "delta": -0.0023014116310289268
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 6.147640378421237,
+        "delta": -0.40512026482653596
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 97.99999999999996,
+        "delta": -24.450000000000202
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 7.6250000000000036,
+        "delta": 1.8250000000000037
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 56,
+        "delta": -24
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:firstTouch:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "firstTouch": 60
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:firstTouch:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "firstTouch": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 8,
+        "delta": -9
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 11,
+        "delta": -3
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 3,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 433,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 284.3158473860183,
+        "delta": 15.51348843126135
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 5.037431697925061,
+        "delta": 0.09752972257300829
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 6.375646027468957,
+        "delta": -0.17711461577881593
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 108.74999999999997,
+        "delta": -13.700000000000188
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 11.174999999999992,
+        "delta": 5.374999999999992
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 66,
+        "delta": -14
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:strength:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "strength": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 9,
+        "current": 8,
+        "delta": -1
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 13,
+        "current": 15,
+        "delta": 2
+      },
+      "loose": {
+        "baseline": 2,
+        "current": 7,
+        "delta": 5
+      },
+      "fouls": {
+        "baseline": 9,
+        "current": 0,
+        "delta": -9
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 416,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 260.5081706881601,
+        "current": 262.9870858074824,
+        "delta": 2.4789151193223233
+      },
+      "meanNetMetres": {
+        "baseline": 4.270877540885798,
+        "current": 5.006540712219961,
+        "delta": 0.7356631713341635
+      },
+      "meanTravelledMetres": {
+        "baseline": 5.171262363948794,
+        "current": 6.326391749628175,
+        "delta": 1.1551293856793805
+      },
+      "ownedSeconds": {
+        "baseline": 100.15000000000006,
+        "current": 108.80000000000003,
+        "delta": 8.649999999999963
+      },
+      "exposedSeconds": {
+        "baseline": 3.0000000000000013,
+        "current": 11.024999999999995,
+        "delta": 8.024999999999993
+      },
+      "directionRevisions": {
+        "baseline": 64,
+        "current": 63,
+        "delta": -1
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 9,
+        "current": 0,
+        "delta": -9
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:strength:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "strength": 60
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:strength:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "strength": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 18,
+        "current": 7,
+        "delta": -11
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 13,
+        "current": 13,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 2,
+        "current": 3,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 394,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 279.8994803718418,
+        "current": 288.0331036679076,
+        "delta": 8.13362329606582
+      },
+      "meanNetMetres": {
+        "baseline": 5.1582820203946,
+        "current": 4.91754085844425,
+        "delta": -0.2407411619503499
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.867222683409385,
+        "current": 6.1786879377485775,
+        "delta": -0.6885347456608075
+      },
+      "ownedSeconds": {
+        "baseline": 130.1500000000002,
+        "current": 100.42499999999995,
+        "delta": -29.72500000000025
+      },
+      "exposedSeconds": {
+        "baseline": 5.200000000000003,
+        "current": 11.399999999999995,
+        "delta": 6.199999999999992
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:composure:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "composure": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 16,
+        "current": 7,
+        "delta": -9
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 15,
+        "current": 16,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 2,
+        "current": 3,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 375,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 251.40279521836018,
+        "delta": -17.399563736396743
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.880162584915929,
+        "delta": -0.059739390436122974
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 6.022271440384101,
+        "delta": -0.5304892028636718
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 94.87499999999994,
+        "delta": -27.575000000000216
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 6.575000000000003,
+        "delta": 0.775000000000003
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 55,
+        "delta": -25
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:composure:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "composure": 60
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "attacker:composure:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "composure": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 18,
+        "current": 7,
+        "delta": -11
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 12,
+        "current": 10,
+        "delta": -2
+      },
+      "loose": {
+        "baseline": 5,
+        "current": 5,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 420,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 278.859315389277,
+        "delta": 10.056956434520089
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 5.146672927345858,
+        "delta": 0.20677095199380524
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 6.5170897035557775,
+        "delta": -0.035670939691994974
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 104.87499999999999,
+        "delta": -17.575000000000173
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 12.374999999999996,
+        "delta": 6.574999999999997
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 57,
+        "delta": -23
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "defender:aggression:20",
+        "context": "roulette",
+        "defender": {
+          "aggression": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 8,
+        "current": 0,
+        "delta": -8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 25,
+        "delta": -7
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 16,
+        "delta": 16
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 7,
+        "delta": 7
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 754,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 342.19524628517814,
+        "current": 344.45477162108114,
+        "delta": 2.2595253359029925
+      },
+      "meanNetMetres": {
+        "baseline": 3.2624871820108203,
+        "current": 5.39066281964327,
+        "delta": 2.12817563763245
+      },
+      "meanTravelledMetres": {
+        "baseline": 11.767354679942304,
+        "current": 12.137989652594317,
+        "delta": 0.37063497265201306
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 189.20000000000059,
+        "delta": -2.80000000000004
+      },
+      "exposedSeconds": {
+        "baseline": 9.599999999999996,
+        "current": 16.999999999999996,
+        "delta": 7.4
+      },
+      "directionRevisions": {
+        "baseline": 176,
+        "current": 144,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "defender:aggression:95",
+        "context": "roulette",
+        "defender": {
+          "aggression": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 8,
+        "current": 0,
+        "delta": -8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 16,
+        "current": 9,
+        "delta": -7
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 12,
+        "current": 14,
+        "delta": 2
+      },
+      "loose": {
+        "baseline": 5,
+        "current": 2,
+        "delta": -3
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 577,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 329.67236808953186,
+        "current": 336.6455036270114,
+        "delta": 6.97313553747955
+      },
+      "meanNetMetres": {
+        "baseline": 3.023035500763138,
+        "current": 3.53287486044291,
+        "delta": 0.5098393596797717
+      },
+      "meanTravelledMetres": {
+        "baseline": 9.669189558718992,
+        "current": 9.31867081478152,
+        "delta": -0.3505187439374726
+      },
+      "ownedSeconds": {
+        "baseline": 159.95000000000016,
+        "current": 141.80000000000013,
+        "delta": -18.150000000000034
+      },
+      "exposedSeconds": {
+        "baseline": 4.050000000000001,
+        "current": 8.750000000000004,
+        "delta": 4.700000000000003
+      },
+      "directionRevisions": {
+        "baseline": 160,
+        "current": 128,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "defender:tackling:20",
+        "context": "roulette",
+        "defender": {
+          "tackling": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 8,
+        "current": 0,
+        "delta": -8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 19,
+        "current": 15,
+        "delta": -4
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 33,
+        "delta": 1
+      },
+      "clean": {
+        "baseline": 9,
+        "current": 12,
+        "delta": 3
+      },
+      "loose": {
+        "baseline": 4,
+        "current": 6,
+        "delta": 2
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 672,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 331.0669895019424,
+        "current": 342.3181565931447,
+        "delta": 11.25116709120232
+      },
+      "meanNetMetres": {
+        "baseline": 2.9984147298143236,
+        "current": 4.47563061024875,
+        "delta": 1.4772158804344264
+      },
+      "meanTravelledMetres": {
+        "baseline": 10.013254991194549,
+        "current": 10.896748100240728,
+        "delta": 0.8834931090461797
+      },
+      "ownedSeconds": {
+        "baseline": 165.00000000000023,
+        "current": 164.22500000000028,
+        "delta": -0.7749999999999488
+      },
+      "exposedSeconds": {
+        "baseline": 4.450000000000001,
+        "current": 17.599999999999994,
+        "delta": 13.149999999999993
+      },
+      "directionRevisions": {
+        "baseline": 160,
+        "current": 128,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      }
+    },
+    {
+      "cell": {
+        "id": "defender:tackling:95",
+        "context": "roulette",
+        "defender": {
+          "tackling": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 8,
+        "current": 0,
+        "delta": -8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 16,
+        "current": 6,
+        "delta": -10
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 13,
+        "current": 15,
+        "delta": 2
+      },
+      "loose": {
+        "baseline": 5,
+        "current": 3,
+        "delta": -2
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 563,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 329.63296216879803,
+        "current": 335.34810550160853,
+        "delta": 5.715143332810499
+      },
+      "meanNetMetres": {
+        "baseline": 3.1813915648941893,
+        "current": 3.356758577067757,
+        "delta": 0.17536701217356754
+      },
+      "meanTravelledMetres": {
+        "baseline": 9.658695363510533,
+        "current": 9.08062100348842,
+        "delta": -0.5780743600221143
+      },
+      "ownedSeconds": {
+        "baseline": 159.95000000000022,
+        "current": 138.50000000000006,
+        "delta": -21.45000000000016
+      },
+      "exposedSeconds": {
+        "baseline": 4.05,
+        "current": 6.900000000000003,
+        "delta": 2.850000000000003
+      },
+      "directionRevisions": {
+        "baseline": 160,
+        "current": 128,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "defender:gameReading:20",
+        "context": "roulette",
+        "defender": {
+          "gameReading": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 12,
+        "current": 4,
+        "delta": -8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 20,
+        "current": 13,
+        "delta": -7
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 33,
+        "delta": 1
+      },
+      "clean": {
+        "baseline": 10,
+        "current": 17,
+        "delta": 7
+      },
+      "loose": {
+        "baseline": 8,
+        "current": 4,
+        "delta": -4
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 602,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 334.29753730630006,
+        "current": 340.7187886009851,
+        "delta": 6.421251294685021
+      },
+      "meanNetMetres": {
+        "baseline": 3.16122116378999,
+        "current": 4.9886004242116915,
+        "delta": 1.8273792604217016
+      },
+      "meanTravelledMetres": {
+        "baseline": 10.036874535171945,
+        "current": 9.927196574738305,
+        "delta": -0.10967796043363975
+      },
+      "ownedSeconds": {
+        "baseline": 168.32500000000033,
+        "current": 148.2750000000001,
+        "delta": -20.05000000000024
+      },
+      "exposedSeconds": {
+        "baseline": 5.499999999999999,
+        "current": 13.799999999999999,
+        "delta": 8.3
+      },
+      "directionRevisions": {
+        "baseline": 192,
+        "current": 128,
+        "delta": -64
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "defender:gameReading:95",
+        "context": "roulette",
+        "defender": {
+          "gameReading": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 15,
+        "current": 0,
+        "delta": -15
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 15,
+        "current": 3,
+        "delta": -12
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 17,
+        "current": 4,
+        "delta": -13
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 2,
+        "delta": 2
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 24,
+        "delta": 24
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 382,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 330.0813717797742,
+        "current": 328.5050950375307,
+        "delta": -1.5762767422435218
+      },
+      "meanNetMetres": {
+        "baseline": 2.9908940733256824,
+        "current": 4.226849430024116,
+        "delta": 1.235955356698434
+      },
+      "meanTravelledMetres": {
+        "baseline": 9.858618586049909,
+        "current": 6.536106277464217,
+        "delta": -3.322512308585692
+      },
+      "ownedSeconds": {
+        "baseline": 164.05000000000015,
+        "current": 96.34999999999985,
+        "delta": -67.7000000000003
+      },
+      "exposedSeconds": {
+        "baseline": 5.124999999999999,
+        "current": 2.7500000000000013,
+        "delta": -2.374999999999998
+      },
+      "directionRevisions": {
+        "baseline": 192,
+        "current": 92,
+        "delta": -100
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 24,
+        "delta": 24
+      }
+    },
+    {
+      "cell": {
+        "id": "approach:0",
+        "context": "sharp_turn",
+        "approachAngle": 0
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "approach:1.5707963267948966",
+        "context": "sharp_turn",
+        "approachAngle": 1.5707963267948966
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 24,
+        "delta": 24
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 12,
+        "current": 9,
+        "delta": -3
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 17,
+        "current": 18,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 6,
+        "delta": 3
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 296,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 242.0012287458328,
+        "current": 226.14573433717922,
+        "delta": -15.855494408653584
+      },
+      "meanNetMetres": {
+        "baseline": 3.2594082775231845,
+        "current": 2.5555708916763122,
+        "delta": -0.7038373858468723
+      },
+      "meanTravelledMetres": {
+        "baseline": 3.7308021995935916,
+        "current": 3.087730188555935,
+        "delta": -0.6430720110376567
+      },
+      "ownedSeconds": {
+        "baseline": 86.47500000000015,
+        "current": 70.80000000000014,
+        "delta": -15.675000000000011
+      },
+      "exposedSeconds": {
+        "baseline": 4.849999999999999,
+        "current": 5.2,
+        "delta": 0.3500000000000014
+      },
+      "directionRevisions": {
+        "baseline": 64,
+        "current": 32,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      }
+    },
+    {
+      "cell": {
+        "id": "approach:3.141592653589793",
+        "context": "sharp_turn",
+        "approachAngle": 3.141592653589793
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 5,
+        "current": 0,
+        "delta": -5
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 15,
+        "current": 11,
+        "delta": -4
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 12,
+        "current": 17,
+        "delta": 5
+      },
+      "loose": {
+        "baseline": 7,
+        "current": 8,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 292,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 252.17860513440831,
+        "current": 231.64556663489617,
+        "delta": -20.533038499512145
+      },
+      "meanNetMetres": {
+        "baseline": 3.062860011463311,
+        "current": 3.7256262240605946,
+        "delta": 0.6627662125972837
+      },
+      "meanTravelledMetres": {
+        "baseline": 4.076266952374257,
+        "current": 4.747756938299698,
+        "delta": 0.6714899859254411
+      },
+      "ownedSeconds": {
+        "baseline": 92.30000000000027,
+        "current": 69.52500000000012,
+        "delta": -22.775000000000148
+      },
+      "exposedSeconds": {
+        "baseline": 7.075000000000002,
+        "current": 17.15,
+        "delta": 10.074999999999996
+      },
+      "directionRevisions": {
+        "baseline": 101,
+        "current": 3,
+        "delta": -98
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "relative_speed:0",
+        "context": "sharp_turn",
+        "approachSpeed": 0
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 10,
+        "delta": -22
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 10,
+        "delta": 10
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 3,
+        "delta": 3
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 8,
+        "delta": 8
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 548,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 360,
+        "current": 360,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 9.00460681478124,
+        "current": 7.241653799643319,
+        "delta": -1.7629530151379216
+      },
+      "meanTravelledMetres": {
+        "baseline": 12.084652665417916,
+        "current": 9.478874736811056,
+        "delta": -2.6057779286068605
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 142.05000000000007,
+        "delta": -49.95000000000056
+      },
+      "exposedSeconds": {
+        "baseline": 14.599999999999994,
+        "current": 11.049999999999997,
+        "delta": -3.549999999999997
+      },
+      "directionRevisions": {
+        "baseline": 128,
+        "current": 96,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 8,
+        "delta": 8
+      }
+    },
+    {
+      "cell": {
+        "id": "relative_speed:5",
+        "context": "sharp_turn",
+        "approachSpeed": 5
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 12,
+        "current": 14,
+        "delta": 2
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 18,
+        "current": 20,
+        "delta": 2
+      },
+      "loose": {
+        "baseline": 7,
+        "current": 4,
+        "delta": -3
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 1,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 384,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 226.39083269556266,
+        "current": 233.2326552764281,
+        "delta": 6.841822580865426
+      },
+      "meanNetMetres": {
+        "baseline": 3.133594487480851,
+        "current": 4.2383789595078465,
+        "delta": 1.1047844720269957
+      },
+      "meanTravelledMetres": {
+        "baseline": 3.948557190900599,
+        "current": 5.407616675141953,
+        "delta": 1.459059484241354
+      },
+      "ownedSeconds": {
+        "baseline": 82.87500000000003,
+        "current": 92.02500000000005,
+        "delta": 9.15000000000002
+      },
+      "exposedSeconds": {
+        "baseline": 3.600000000000001,
+        "current": 8.275000000000004,
+        "delta": 4.6750000000000025
+      },
+      "directionRevisions": {
+        "baseline": 56,
+        "current": 39,
+        "delta": -17
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 1,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "offset:0.32",
+        "context": "sharp_turn",
+        "ballOffset": 0.32
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.83933108310293,
+        "delta": -9.963027871653992
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.61597861217644,
+        "delta": -0.323923363175612
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671171861227381,
+        "delta": -0.8815887820203914
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "offset:1.2",
+        "context": "sharp_turn",
+        "ballOffset": 1.2
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 0,
+        "delta": -17
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 0,
+        "delta": -14
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 0,
+        "delta": -3
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 32,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 118.44807120565417,
+        "delta": -150.35428774910275
+      },
+      "meanNetMetres": {
+        "baseline": 4.939902104136201,
+        "current": 0.894639417184294,
+        "delta": -4.045262686951907
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.552760668504578,
+        "current": 0.894639417184294,
+        "delta": -5.658121251320284
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 16.000000000000004,
+        "delta": -106.45000000000016
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 2.4000000000000004,
+        "delta": -3.3999999999999995
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 0,
+        "delta": -80
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 0,
+        "delta": -1
+      }
+    },
+    {
+      "cell": {
+        "id": "body_orientation:0",
+        "context": "sharp_turn",
+        "bodyOrientation": 0
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 0,
+        "delta": -32
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 320,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 270.00000000000006,
+        "current": 270,
+        "delta": -5.684341886080802e-14
+      },
+      "meanNetMetres": {
+        "baseline": 7.219923834946145,
+        "current": 4.45842836127835,
+        "delta": -2.761495473667795
+      },
+      "meanTravelledMetres": {
+        "baseline": 10.957147564254234,
+        "current": 5.224462000550619,
+        "delta": -5.7326855637036145
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 79.79999999999986,
+        "delta": -112.20000000000077
+      },
+      "exposedSeconds": {
+        "baseline": 13.400000000000007,
+        "current": 2.800000000000001,
+        "delta": -10.600000000000007
+      },
+      "directionRevisions": {
+        "baseline": 128,
+        "current": 64,
+        "delta": -64
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      }
+    },
+    {
+      "cell": {
+        "id": "body_orientation:1.5707963267948966",
+        "context": "sharp_turn",
+        "bodyOrientation": 1.5707963267948966
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 17,
+        "current": 3,
+        "delta": -14
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 24,
+        "current": 32,
+        "delta": 8
+      },
+      "clean": {
+        "baseline": 14,
+        "current": 15,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 4,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 349,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 268.8023589547569,
+        "current": 258.8393518887841,
+        "delta": -9.963007065972818
+      },
+      "meanNetMetres": {
+        "baseline": 4.939901975352052,
+        "current": 4.615991322935719,
+        "delta": -0.3239106524163331
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.5527606432477725,
+        "current": 5.671190611392095,
+        "delta": -0.8815700318556772
+      },
+      "ownedSeconds": {
+        "baseline": 122.45000000000016,
+        "current": 89.52499999999988,
+        "delta": -32.92500000000028
+      },
+      "exposedSeconds": {
+        "baseline": 5.8,
+        "current": 8.374999999999998,
+        "delta": 2.5749999999999984
+      },
+      "directionRevisions": {
+        "baseline": 80,
+        "current": 53,
+        "delta": -27
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 1,
+        "current": 8,
+        "delta": 7
+      }
+    },
+    {
+      "cell": {
+        "id": "body_orientation:-1.5707963267948966",
+        "context": "sharp_turn",
+        "bodyOrientation": -1.5707963267948966
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 0,
+        "delta": -32
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 320,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 180.00000000000003,
+        "current": 180,
+        "delta": -2.842170943040401e-14
+      },
+      "meanNetMetres": {
+        "baseline": 7.219923834946145,
+        "current": 4.455824457057303,
+        "delta": -2.764099377888842
+      },
+      "meanTravelledMetres": {
+        "baseline": 10.957147564254234,
+        "current": 5.223771950633572,
+        "delta": -5.7333756136206615
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 79.79999999999986,
+        "delta": -112.20000000000077
+      },
+      "exposedSeconds": {
+        "baseline": 13.400000000000007,
+        "current": 2.800000000000001,
+        "delta": -10.600000000000007
+      },
+      "directionRevisions": {
+        "baseline": 128,
+        "current": 64,
+        "delta": -64
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      }
+    },
+    {
+      "cell": {
+        "id": "shield_strength:20",
+        "context": "shield_two",
+        "attacker": {
+          "strength": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 28,
+        "delta": -4
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 21,
+        "delta": 21
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 1,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 3,
+        "delta": 3
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 648,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 1.4374722415337449,
+        "current": 1.7954730725065808,
+        "delta": 0.35800083097283597
+      },
+      "meanTravelledMetres": {
+        "baseline": 2.034481795885693,
+        "current": 2.9487443353993896,
+        "delta": 0.9142625395136967
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 184.92500000000058,
+        "delta": -7.0750000000000455
+      },
+      "exposedSeconds": {
+        "baseline": 131.87499999999994,
+        "current": 33.14999999999996,
+        "delta": -98.72499999999998
+      },
+      "directionRevisions": {
+        "baseline": 5060,
+        "current": 3084,
+        "delta": -1976
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 3,
+        "delta": 3
+      }
+    },
+    {
+      "cell": {
+        "id": "shield_strength:60",
+        "context": "shield_two",
+        "attacker": {
+          "strength": 60
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 30,
+        "delta": -2
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 21,
+        "delta": 21
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 2,
+        "delta": 2
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 659,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 1.5731104973257337,
+        "current": 1.8863507750118087,
+        "delta": 0.313240277686075
+      },
+      "meanTravelledMetres": {
+        "baseline": 2.2672033615701084,
+        "current": 3.1658034726431876,
+        "delta": 0.8986001110730792
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 186.05000000000058,
+        "delta": -5.9500000000000455
+      },
+      "exposedSeconds": {
+        "baseline": 121.22499999999994,
+        "current": 37.47499999999996,
+        "delta": -83.74999999999997
+      },
+      "directionRevisions": {
+        "baseline": 5014,
+        "current": 2970,
+        "delta": -2044
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 2,
+        "delta": 2
+      }
+    },
+    {
+      "cell": {
+        "id": "shield_strength:95",
+        "context": "shield_two",
+        "attacker": {
+          "strength": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 29,
+        "delta": -3
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 21,
+        "delta": 21
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 1,
+        "delta": 1
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 1,
+        "delta": 1
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 638,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "meanNetMetres": {
+        "baseline": 1.4882118815822518,
+        "current": 1.9094062353358647,
+        "delta": 0.4211943537536129
+      },
+      "meanTravelledMetres": {
+        "baseline": 2.1511854399033923,
+        "current": 2.965752846987371,
+        "delta": 0.8145674070839788
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 185.27500000000055,
+        "delta": -6.72500000000008
+      },
+      "exposedSeconds": {
+        "baseline": 115.09999999999994,
+        "current": 38.32499999999997,
+        "delta": -76.77499999999998
+      },
+      "directionRevisions": {
+        "baseline": 5115,
+        "current": 3453,
+        "delta": -1662
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 1,
+        "delta": 1
+      }
+    },
+    {
+      "cell": {
+        "id": "booked",
+        "context": "roulette",
+        "booked": true
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 8,
+        "current": 0,
+        "delta": -8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 32,
+        "current": 25,
+        "delta": -7
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 0,
+        "current": 16,
+        "delta": 16
+      },
+      "clean": {
+        "baseline": 0,
+        "current": 7,
+        "delta": 7
+      },
+      "loose": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 754,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 342.19524628517814,
+        "current": 343.8781250928388,
+        "delta": 1.682878807660643
+      },
+      "meanNetMetres": {
+        "baseline": 3.2624871820108203,
+        "current": 5.253030019487904,
+        "delta": 1.9905428374770833
+      },
+      "meanTravelledMetres": {
+        "baseline": 11.767354679942304,
+        "current": 12.027053341639629,
+        "delta": 0.2596986616973247
+      },
+      "ownedSeconds": {
+        "baseline": 192.00000000000063,
+        "current": 189.20000000000059,
+        "delta": -2.80000000000004
+      },
+      "exposedSeconds": {
+        "baseline": 9.599999999999996,
+        "current": 16.2,
+        "delta": 6.600000000000003
+      },
+      "directionRevisions": {
+        "baseline": 176,
+        "current": 144,
+        "delta": -32
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "elite:roulette",
+        "context": "roulette",
+        "attacker": {
+          "dribbling": 95,
+          "technique": 95,
+          "agility": 95,
+          "firstTouch": 95,
+          "composure": 95
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 0,
+        "current": 8,
+        "delta": 8
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 2,
+        "current": 16,
+        "delta": 14
+      },
+      "retained": {
+        "baseline": 6,
+        "current": 5,
+        "delta": -1
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 2,
+        "current": 1,
+        "delta": -1
+      },
+      "loose": {
+        "baseline": 1,
+        "current": 2,
+        "delta": 1
+      },
+      "fouls": {
+        "baseline": 24,
+        "current": 24,
+        "delta": 0
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 573,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 352.9997845995352,
+        "current": 362.25238651020214,
+        "delta": 9.252601910666954
+      },
+      "meanNetMetres": {
+        "baseline": 3.437883397956499,
+        "current": 2.6860646770242336,
+        "delta": -0.7518187209322655
+      },
+      "meanTravelledMetres": {
+        "baseline": 5.256251683628312,
+        "current": 8.170585493942474,
+        "delta": 2.9143338103141616
+      },
+      "ownedSeconds": {
+        "baseline": 77,
+        "current": 120.77499999999993,
+        "delta": 43.774999999999935
+      },
+      "exposedSeconds": {
+        "baseline": 6.600000000000004,
+        "current": 5.725,
+        "delta": -0.8750000000000044
+      },
+      "directionRevisions": {
+        "baseline": 151,
+        "current": 176,
+        "delta": 25
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 24,
+        "current": 24,
+        "delta": 0
+      }
+    },
+    {
+      "cell": {
+        "id": "low:roulette",
+        "context": "roulette",
+        "attacker": {
+          "dribbling": 20,
+          "technique": 20,
+          "agility": 20,
+          "firstTouch": 20,
+          "composure": 20
+        }
+      },
+      "duelsPerRevision": 32,
+      "stationaryPirouettes": {
+        "baseline": 32,
+        "current": 0,
+        "delta": -32
+      },
+      "completeRotationLittleProgress": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "retained": {
+        "baseline": 2,
+        "current": 0,
+        "delta": -2
+      },
+      "passReleases": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "attempts": {
+        "baseline": 32,
+        "current": 32,
+        "delta": 0
+      },
+      "clean": {
+        "baseline": 29,
+        "current": 0,
+        "delta": -29
+      },
+      "loose": {
+        "baseline": 3,
+        "current": 0,
+        "delta": -3
+      },
+      "fouls": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      },
+      "physicalContacts": {
+        "baseline": null,
+        "current": 256,
+        "delta": null
+      },
+      "meanRotationDegrees": {
+        "baseline": 227.0262083310914,
+        "current": 227.8815273936607,
+        "delta": 0.8553190625692935
+      },
+      "meanNetMetres": {
+        "baseline": 0.47967885027121693,
+        "current": 3.7098750202051924,
+        "delta": 3.2301961699339756
+      },
+      "meanTravelledMetres": {
+        "baseline": 6.061651544916328,
+        "current": 4.196373902511934,
+        "delta": -1.8652776424043944
+      },
+      "ownedSeconds": {
+        "baseline": 132.5999999999997,
+        "current": 71.59999999999984,
+        "delta": -60.99999999999987
+      },
+      "exposedSeconds": {
+        "baseline": 6.3999999999999995,
+        "current": 2.600000000000001,
+        "delta": -3.7999999999999985
+      },
+      "directionRevisions": {
+        "baseline": 192,
+        "current": 64,
+        "delta": -128
+      },
+      "repeatedCarrySelections": {
+        "baseline": 0,
+        "current": 0,
+        "delta": 0
+      },
+      "interruptionCensored": {
+        "baseline": 0,
+        "current": 32,
+        "delta": 32
+      }
+    }
+  ]
+}

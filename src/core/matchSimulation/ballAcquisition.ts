@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { distance, pitchPointSchema } from './matchSpace';
 import type { TacticalMatchState, MatchPlayerState } from './matchState';
+import { playerContactGeometry } from './ballContactGeometry';
+import { canContactAfterThrowIn } from './throwIn';
 
 export const ballAcquisitionSchema = z.object({
   id: z.string(),
@@ -15,6 +17,19 @@ export const ballAcquisitionSchema = z.object({
   incomingSpeed: z.number().nonnegative(),
 });
 export type BallAcquisition = z.infer<typeof ballAcquisitionSchema>;
+
+const groundContactDistance = (state: TacticalMatchState, player: MatchPlayerState) => {
+  const geometry = playerContactGeometry(player);
+  return Math.min(
+    distance(geometry.leftFoot, state.ball),
+    distance(geometry.rightFoot, state.ball),
+  );
+};
+const canGroundContact = (state: TacticalMatchState, player: MatchPlayerState) =>
+  !state.discipline?.[player.id]?.sentOff &&
+  canContactAfterThrowIn(state, player.id) &&
+  (state.ball.height ?? 0) < 0.5 &&
+  groundContactDistance(state, player) <= playerContactGeometry(player).footReach;
 
 /** Proximity nominates an attempt. It cannot award secure control/canonical possession. */
 export const advanceBallAcquisition = (
@@ -39,6 +54,22 @@ export const advanceBallAcquisition = (
     const next = { ...state };
     delete next.ballAcquisition;
     return { state: next };
+  }
+  if (active && !canGroundContact(state, candidate)) {
+    // Anticipation cannot reserve a loose ball. A different legal foot already
+    // at the ball starts its own preparation, with no borrowed clock or outcome.
+    const available = state.players
+      .filter((player) => player.id !== candidate.id && canGroundContact(state, player))
+      .sort(
+        (a, b) =>
+          groundContactDistance(state, a) - groundContactDistance(state, b) ||
+          a.id.localeCompare(b.id),
+      )[0];
+    if (available) {
+      const next = { ...state };
+      delete next.ballAcquisition;
+      return advanceBallAcquisition(next, available, radius);
+    }
   }
   if (!active) {
     const rival = state.players
@@ -65,11 +96,16 @@ export const advanceBallAcquisition = (
     return { state: { ...state, ballAcquisition: attempt } };
   }
   if (state.time < active.readyAt) return { state };
+  // The broad radius nominates a pursuit, not a contact. Keep that attempt while the
+  // ordinary loose-ball assignment brings the claimant to the ball. Securing from
+  // two metres stopped the chase and made the new finite-control envelope reject
+  // a possession that had never involved an actual foot contact.
+  if (!canGroundContact(state, candidate)) return { state };
   const rng = RandomGenerator.fromSeed(active.id);
   const rival = state.players.find((p) => p.id === active.opponentId);
   const contested = Boolean(
     rival &&
-      distance(rival.position, state.ball) <= radius &&
+      canGroundContact(state, rival) &&
       distance(rival.position, state.ball) < distance(candidate.position, state.ball) + 0.35,
   );
   const secured =
@@ -88,7 +124,7 @@ export const advanceBallAcquisition = (
       failedVelocity: { x: (rng.float() - 0.5) * 5, y: (rng.float() - 0.5) * 5 },
     };
   }
-  if (rival)
+  if (contested && rival)
     next.defensiveEpisodes = [
       ...(next.defensiveEpisodes ?? []),
       {

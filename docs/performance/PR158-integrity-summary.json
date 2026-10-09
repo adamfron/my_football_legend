@@ -1,0 +1,1583 @@
+{
+  "sourceFingerprint": {
+    "algorithm": "sha256",
+    "scope": "Non-test TypeScript in src/core and src/app/match, canonical world fixture and loader",
+    "files": 190,
+    "digest": "ccc757a9fa8d243d5e6ba1c85b94cfd8e7bd2245dc287f3b86af171d450bc9be"
+  },
+  "config": {
+    "seeds": [
+      "lab-muwhj3er",
+      "pr155-natural-b",
+      "pr155-natural-c"
+    ],
+    "seconds": 60,
+    "revision": "PR158",
+    "checks": [
+      "ownership",
+      "simulation"
+    ]
+  },
+  "fixedStepSeconds": 0.025,
+  "exclusions": [
+    "controlledFootballerId",
+    "playerAgencyEnabled"
+  ],
+  "rngDefinition": "SHA256 of ordered actual post-draw RNG exports within canonical engine entry. Optional diagnostic probes recreate independent seeded ranking noise; those draws are reported separately and cannot alter the engine stream. Blocked shots compare every football field except the permitted shotAgencyRequest and consume zero draws.",
+  "counters": {
+    "identities": 66,
+    "comparedTicks": 125536,
+    "genuineDecisionOpportunities": 22,
+    "shotLaunchParityCells": 18,
+    "blockedProposals": 144,
+    "blockedCanonicalRngDraws": 0
+  },
+  "checks": {
+    "disabledIdentityParity": true,
+    "enabledPrefixParity": true,
+    "normalDevCaptureCanonicalParity": true,
+    "normalDevCaptureRngParity": true,
+    "selectedHumanNpcShotParity": true
+  },
+  "shotOwnership": [
+    {
+      "context": "settled",
+      "seed": "lab-muwhj3er",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "3863b2bf2da91100852aab12f44df5f4c794cb1c0a03b41e1ec0ab89d1748f7b"
+    },
+    {
+      "context": "first_time",
+      "seed": "lab-muwhj3er",
+      "contact": "first_time",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "8651a3a040990ebae4d6f50abdd4fc0911f3edfa1e4e492515680e4af9ae9afe"
+    },
+    {
+      "context": "header",
+      "seed": "lab-muwhj3er",
+      "contact": "header",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "60e7f1895a8e6136ffb2cd7431516bed416ce6329fd45ac9cff8693f2f411054"
+    },
+    {
+      "context": "rebound",
+      "seed": "lab-muwhj3er",
+      "contact": "first_time",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "dbedeafec9429ae2273d4c66566f995935a35a6b4f2bfb453b7e917780d8cbdd"
+    },
+    {
+      "context": "pressure",
+      "seed": "lab-muwhj3er",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "c66b1281531772b6a3982186c69cc916a9999ade445b8a71c9e31c464a28859f"
+    },
+    {
+      "context": "direct_free_kick",
+      "seed": "lab-muwhj3er",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "4ce77a2ccbef88a16c7d492a9247dd5d6a8b0f429d92a3d9198c2f99ba545dfd"
+    },
+    {
+      "context": "settled",
+      "seed": "pr155-natural-b",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "483994ebb4fc4676f0359f89af55d50af1ebbe4bdbdef620ad587f50004d465c"
+    },
+    {
+      "context": "first_time",
+      "seed": "pr155-natural-b",
+      "contact": "first_time",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "7203c58d06c68bb80a3a99a3b74c075a46bc9d4fd9db3a1a6c458ca9f09bba1c"
+    },
+    {
+      "context": "header",
+      "seed": "pr155-natural-b",
+      "contact": "header",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "91140a143682d60115bcb722143b1710c5ec3b5ac645caf6cb50332a32dba77d"
+    },
+    {
+      "context": "rebound",
+      "seed": "pr155-natural-b",
+      "contact": "first_time",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "00ca0445e444ad4f99e9d24ff787f0e8737862c28d305725382972d4d2055a25"
+    },
+    {
+      "context": "pressure",
+      "seed": "pr155-natural-b",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "d83fa2588811038024ebee687d63bf310d738a87fe23eb790b7d2d9e68b1f9fb"
+    },
+    {
+      "context": "direct_free_kick",
+      "seed": "pr155-natural-b",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "df6324255d4176271a0e77abe0a2d8d13e8fb3b58f7796749cbd92fb1a40cd88"
+    },
+    {
+      "context": "settled",
+      "seed": "pr155-natural-c",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "74634f2d92b74987270a15962e14d37e6a3b42588e042e5a21722726af3da20d"
+    },
+    {
+      "context": "first_time",
+      "seed": "pr155-natural-c",
+      "contact": "first_time",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "77172cbf69d347a375c810f2c44733bb15bdc379966c0273c11564aa758faebc"
+    },
+    {
+      "context": "header",
+      "seed": "pr155-natural-c",
+      "contact": "header",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "d4fe08fdf984f2559cdcff1c1a623a84bbf6b3db5a492e4eaa91f993edfb978b"
+    },
+    {
+      "context": "rebound",
+      "seed": "pr155-natural-c",
+      "contact": "first_time",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "b30a7274030386342430452f42ffb618dfca571190b60cb06a995e2eec81d6fa"
+    },
+    {
+      "context": "pressure",
+      "seed": "pr155-natural-c",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "0fbb7bd468cde989f66e141e209c1ea41e89df8ac7d31c99fca46eedd532e485"
+    },
+    {
+      "context": "direct_free_kick",
+      "seed": "pr155-natural-c",
+      "contact": "settled",
+      "proposalsBlocked": 8,
+      "blockedRngDraws": 0,
+      "footballStateUnchanged": true,
+      "humanShotReleased": true,
+      "humanNpcLaunchParity": true,
+      "humanNpcRngParity": true,
+      "ballHash": "22e68f82c9a20e1a8140728e5135494f713a64d58e9ba0ceec9537da56ec3ecb"
+    }
+  ],
+  "simulations": [
+    {
+      "seed": "lab-muwhj3er",
+      "normalDevCaptureCanonicalParity": true,
+      "normalDevCaptureRngParity": true,
+      "modes": {
+        "normal": {
+          "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "randomCalls": 54370,
+          "randomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "observerRandomCalls": 0,
+          "observerRandomStreamHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "ticks": 2401,
+          "pressingObserver": null
+        },
+        "dev": {
+          "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "randomCalls": 54370,
+          "randomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "observerRandomCalls": 2258,
+          "observerRandomStreamHash": "173e7b8f4e073945df2868d33a9cf35f49dc8ca263169188d90575b8bcc6c6ce",
+          "ticks": 2401,
+          "pressingObserver": {
+            "episodes": 17,
+            "retainedEpisodes": 17,
+            "maximumRetainedEvolutionSamples": 5
+          }
+        },
+        "capture": {
+          "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "randomCalls": 54370,
+          "randomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "observerRandomCalls": 41328,
+          "observerRandomStreamHash": "48fa81bc5a7708f508e7d526cb3e2fdfb62f42008950ca60aee3d63091535a64",
+          "ticks": 2401,
+          "pressingObserver": {
+            "episodes": 17,
+            "retainedEpisodes": 17,
+            "maximumRetainedEvolutionSamples": 5
+          }
+        }
+      },
+      "identities": [
+        {
+          "playerId": "footballer_pro_9_0",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_7",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 1,
+            "comparedThrough": 0.025,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 104,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "a00f13eb90982ced20f8f36c431063eb7de70111abf47ab1f36c3877b1bbc442",
+            "referenceCanonicalHash": "a00f13eb90982ced20f8f36c431063eb7de70111abf47ab1f36c3877b1bbc442"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_3",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 258,
+            "comparedThrough": 6.450000000000024,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 19,
+            "seededProjectionDraws": 92,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "8ae803cee8bba05ef174cc8ce7a582a61991ed56aaa3cdd6902e798c4be31e06",
+            "referenceCanonicalHash": "8ae803cee8bba05ef174cc8ce7a582a61991ed56aaa3cdd6902e798c4be31e06"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_5",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_9",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 764,
+            "comparedThrough": 19.099999999999984,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 499,
+            "seededProjectionDraws": 88,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "b8c387310c413930542dc53eb03b5a2725214a36f862fec78dbf7d5ad1f7196f",
+            "referenceCanonicalHash": "b8c387310c413930542dc53eb03b5a2725214a36f862fec78dbf7d5ad1f7196f"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_14",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_13",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 224,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_11",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_17",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 1229,
+            "comparedThrough": 30.724999999999323,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 178,
+            "seededProjectionDraws": 92,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "4cb7a11947f1811b02e6e206b588e650581d57658bd637287c04ff7a508cb587",
+            "referenceCanonicalHash": "4cb7a11947f1811b02e6e206b588e650581d57658bd637287c04ff7a508cb587"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_19",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_22",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_0",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_7",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_3",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_4",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_9",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 1139,
+            "comparedThrough": 28.47499999999945,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": "defensive_response",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "73e867d2fe1cb3518027a81feb5214a125e1132919120c7d9ac712eccbbf30e4",
+            "referenceCanonicalHash": "73e867d2fe1cb3518027a81feb5214a125e1132919120c7d9ac712eccbbf30e4"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_12",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_14",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_17",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_19",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 1545,
+            "comparedThrough": 38.62499999999888,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 42,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "8e274d3bd17d98e4cdc642418172856777cdcf0085419ae1215f406ee1353ac5",
+            "referenceCanonicalHash": "8e274d3bd17d98e4cdc642418172856777cdcf0085419ae1215f406ee1353ac5"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_21",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_22",
+          "disabledCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+          "disabledRandomStreamHash": "3ffa7d5b931e4ca2ea40147253285c5faeb1c5673a161754a3778099d409cb85",
+          "disabledRandomCalls": 54370,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674",
+            "referenceCanonicalHash": "ac6f516dfd32ca21871666d4548052a9b9286a6ec603f1bbe9b69f641ccae674"
+          }
+        }
+      ]
+    },
+    {
+      "seed": "pr155-natural-b",
+      "normalDevCaptureCanonicalParity": true,
+      "normalDevCaptureRngParity": true,
+      "modes": {
+        "normal": {
+          "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "randomCalls": 54066,
+          "randomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "observerRandomCalls": 0,
+          "observerRandomStreamHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "ticks": 2401,
+          "pressingObserver": null
+        },
+        "dev": {
+          "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "randomCalls": 54066,
+          "randomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "observerRandomCalls": 2119,
+          "observerRandomStreamHash": "cc5f9ad67e931501f952ba3206c9471b3bcd77efa3e643f850656f0386c0fbb0",
+          "ticks": 2401,
+          "pressingObserver": {
+            "episodes": 10,
+            "retainedEpisodes": 10,
+            "maximumRetainedEvolutionSamples": 6
+          }
+        },
+        "capture": {
+          "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "randomCalls": 54066,
+          "randomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "observerRandomCalls": 41687,
+          "observerRandomStreamHash": "7297d3019e1e5a5cb6a35c73bf784063744b81b3615309eedf84a6c8646c767f",
+          "ticks": 2401,
+          "pressingObserver": {
+            "episodes": 10,
+            "retainedEpisodes": 10,
+            "maximumRetainedEvolutionSamples": 6
+          }
+        }
+      },
+      "identities": [
+        {
+          "playerId": "footballer_pro_9_0",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_7",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 1,
+            "comparedThrough": 0.025,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 104,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "30c98ce0fe012665b32a591f374819e5bbd8c8790a8bc2a1e00bae196c46f548",
+            "referenceCanonicalHash": "30c98ce0fe012665b32a591f374819e5bbd8c8790a8bc2a1e00bae196c46f548"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_3",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_5",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_9",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 310,
+            "comparedThrough": 7.750000000000043,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 18,
+            "seededProjectionDraws": 88,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "9f18cb315622d8d7fbdc4c6a2f134ede11f4f26c80d09466a7b74eed794fef5a",
+            "referenceCanonicalHash": "9f18cb315622d8d7fbdc4c6a2f134ede11f4f26c80d09466a7b74eed794fef5a"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_14",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_13",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_11",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_17",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_19",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 624,
+            "comparedThrough": 15.600000000000154,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 969,
+            "seededProjectionDraws": 88,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "3cfee403b121f40b3d7ac8fb35b26b3bbd67adca69a3ece2d9b752beeb4998d4",
+            "referenceCanonicalHash": "3cfee403b121f40b3d7ac8fb35b26b3bbd67adca69a3ece2d9b752beeb4998d4"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_22",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_0",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_7",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 970,
+            "comparedThrough": 24.24999999999969,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 1173,
+            "seededProjectionDraws": 92,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "fcbbf00e2da526518fc26ed5d837281558ffc1bd7bdf7d8a1641764f37544436",
+            "referenceCanonicalHash": "fcbbf00e2da526518fc26ed5d837281558ffc1bd7bdf7d8a1641764f37544436"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_3",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 1589,
+            "comparedThrough": 39.724999999998815,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 19,
+            "seededProjectionDraws": 104,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "b2a7a7c3499d6aa2bc910633ebcc1f06c80ecc4617d2057349b08a0dfa6ade8e",
+            "referenceCanonicalHash": "b2a7a7c3499d6aa2bc910633ebcc1f06c80ecc4617d2057349b08a0dfa6ade8e"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_4",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 1830,
+            "comparedThrough": 45.74999999999847,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 17,
+            "seededProjectionDraws": 88,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "cf0eec72b27da8b486496774fc3fc7c55ab4fc10d3dc2eeedad8da4a808cd505",
+            "referenceCanonicalHash": "cf0eec72b27da8b486496774fc3fc7c55ab4fc10d3dc2eeedad8da4a808cd505"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_9",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 1156,
+            "comparedThrough": 28.899999999999427,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 92,
+            "seededProjectionDraws": 96,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "cd57a057ccf1185598829d6e0bab7c15f39ef9f0c67240a1d14b08c624b31e91",
+            "referenceCanonicalHash": "cd57a057ccf1185598829d6e0bab7c15f39ef9f0c67240a1d14b08c624b31e91"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_12",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2009,
+            "comparedThrough": 50.22499999999822,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": "incoming_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "7812a764126079539905673d064e682e55290e7eaf259296055bf13e98947c68",
+            "referenceCanonicalHash": "7812a764126079539905673d064e682e55290e7eaf259296055bf13e98947c68"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_14",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 1307,
+            "comparedThrough": 32.674999999999216,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": "incoming_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "faa54a75dc498827d3a5ce6fe27772d493fdd68708abbc3347c02b4c7083eedb",
+            "referenceCanonicalHash": "faa54a75dc498827d3a5ce6fe27772d493fdd68708abbc3347c02b4c7083eedb"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_17",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_19",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 2124,
+            "seededProjectionDraws": 92,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_21",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_22",
+          "disabledCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+          "disabledRandomStreamHash": "4522eff7915bf81d6ee0385a45311aa30168ec47e2f77491cc5eadd0c0b8e1f0",
+          "disabledRandomCalls": 54066,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42",
+            "referenceCanonicalHash": "83f208190a57169249df304f89f84992196e5487765f551a00e107699f779b42"
+          }
+        }
+      ]
+    },
+    {
+      "seed": "pr155-natural-c",
+      "normalDevCaptureCanonicalParity": true,
+      "normalDevCaptureRngParity": true,
+      "modes": {
+        "normal": {
+          "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "randomCalls": 53887,
+          "randomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "observerRandomCalls": 0,
+          "observerRandomStreamHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "ticks": 2401,
+          "pressingObserver": null
+        },
+        "dev": {
+          "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "randomCalls": 53887,
+          "randomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "observerRandomCalls": 2338,
+          "observerRandomStreamHash": "bbc93b7f2af018bae02e75a3ab2324c01bb0fba9deac86c2d9075cd43b0f1d6c",
+          "ticks": 2401,
+          "pressingObserver": {
+            "episodes": 10,
+            "retainedEpisodes": 10,
+            "maximumRetainedEvolutionSamples": 5
+          }
+        },
+        "capture": {
+          "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "randomCalls": 53887,
+          "randomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "observerRandomCalls": 43291,
+          "observerRandomStreamHash": "a6df656b72ef5405c8d480a08fc0fa9eaaa812a52ee37ebcabab197e31b2e106",
+          "ticks": 2401,
+          "pressingObserver": {
+            "episodes": 10,
+            "retainedEpisodes": 10,
+            "maximumRetainedEvolutionSamples": 5
+          }
+        }
+      },
+      "identities": [
+        {
+          "playerId": "footballer_pro_9_0",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_7",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 1,
+            "comparedThrough": 0.025,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 104,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "e9cbe3d71bb1e48edbf3b6ffa113372772d23eecb5b365316ed8a0bde03a23e6",
+            "referenceCanonicalHash": "e9cbe3d71bb1e48edbf3b6ffa113372772d23eecb5b365316ed8a0bde03a23e6"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_3",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 1597,
+            "comparedThrough": 39.9249999999988,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 385,
+            "seededProjectionDraws": 96,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "2712d80393323df1985ddf16ab9ff395673aa8e6af2dc8d1d0a594c1057a78c8",
+            "referenceCanonicalHash": "2712d80393323df1985ddf16ab9ff395673aa8e6af2dc8d1d0a594c1057a78c8"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_5",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_9",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 1835,
+            "comparedThrough": 45.874999999998465,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 36,
+            "seededProjectionDraws": 80,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "83bbc0d33c0b2bc870861828213089a8223b19fa3deed4ecd35a926e2f0cf20c",
+            "referenceCanonicalHash": "83bbc0d33c0b2bc870861828213089a8223b19fa3deed4ecd35a926e2f0cf20c"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_14",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_13",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_11",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_17",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 338,
+            "comparedThrough": 8.450000000000053,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 726,
+            "seededProjectionDraws": 88,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "c0c4e06a6594cc15e867efcc1d7ba9b8f3cdc606c379d17fea957a3a2dde0cc1",
+            "referenceCanonicalHash": "c0c4e06a6594cc15e867efcc1d7ba9b8f3cdc606c379d17fea957a3a2dde0cc1"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_19",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_9_22",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_0",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_7",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_3",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_4",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 694,
+            "comparedThrough": 17.350000000000083,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 21,
+            "seededProjectionDraws": 92,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "2dbbc88806c254ad364ed08db2d2d0fbf40be127b112b407cdc0dbe83570438f",
+            "referenceCanonicalHash": "2dbbc88806c254ad364ed08db2d2d0fbf40be127b112b407cdc0dbe83570438f"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_9",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 209,
+            "comparedThrough": 5.225000000000007,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": "defensive_response",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "dbe7d1865df30583edeeaccf68b156765a1776dfda071de9ecba53fffb92457d",
+            "referenceCanonicalHash": "dbe7d1865df30583edeeaccf68b156765a1776dfda071de9ecba53fffb92457d"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_12",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_14",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_17",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_19",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 486,
+            "comparedThrough": 12.150000000000105,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 80,
+            "opportunity": "on_ball",
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "552c2fd4e64ef2bc87564f79df95de98fef38d6b89c74c32ad04036267827d0c",
+            "referenceCanonicalHash": "552c2fd4e64ef2bc87564f79df95de98fef38d6b89c74c32ad04036267827d0c"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_21",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        },
+        {
+          "playerId": "footballer_pro_1_22",
+          "disabledCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+          "disabledRandomStreamHash": "eb12df3189a5e41e2b8ab8a7a12929d73d89780c3d62fc31423b4d173b64e762",
+          "disabledRandomCalls": 53887,
+          "enabledPrefix": {
+            "comparedTicks": 2401,
+            "comparedThrough": 60.02499999999766,
+            "canonicalParity": true,
+            "canonicalDrawSequencePreserved": true,
+            "independentAgencyRankingDraws": 0,
+            "seededProjectionDraws": 0,
+            "opportunity": null,
+            "actionBoundaryDivergence": false,
+            "canonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49",
+            "referenceCanonicalHash": "0bf6c21435ac0732f5b753ccfe49345c8cbc53d2397cf0e284b636f04d969d49"
+          }
+        }
+      ]
+    }
+  ],
+  "timingPolicy": "This integrity run may overlap other workers. Elapsed times are intentionally omitted; see the separate isolated performance comparison."
+}

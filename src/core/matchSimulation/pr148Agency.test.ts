@@ -238,11 +238,18 @@ describe('PR148 defensive responsibility', () => {
 
 describe('PR148 explicit DEV possession continuity', () => {
   it('commits a canonical DEV-ranked hold without opening another menu on the next tick', () => {
-    const { state, actor, recycle } = fixture();
+    const { state, actor, recycle, forward } = fixture();
     state.ballOwnershipStartedAt = state.time;
     state.decisionIndex = 2;
     recycle.position = { x: 35, y: 44 };
     recycle.target = recycle.position;
+    // Preserve a near-best meaningful release while hold wins the seeded DEV ranking.
+    // PR158's independent patience/progression axes move the old 67m route below that band.
+    forward.position = { x: 68, y: 32 };
+    forward.target = forward.position;
+    expect(evaluateOnBallDecisionRelevance(state, actor.id).reasons).toContain(
+      'line_breaking_outlet_choice',
+    );
     const opportunity = projectPlayerAgency(state).opportunity!;
     expect(opportunity?.kind).toBe('on_ball');
     expect(rankAvailableActionsForAI(state, actor.id)[0]?.action.type).toBe('hold');

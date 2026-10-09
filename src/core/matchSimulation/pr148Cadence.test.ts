@@ -158,9 +158,14 @@ describe('PR148 sustained sprint episodes and locomotion', () => {
     expect(still.position).toEqual(actor.position);
     expect(still.locomotionTelemetry?.distanceTotal).toBe(0);
     expect(scanning.ball.ownerId).toBe(actorId);
+    // Finite physical touches keep the ball in the foot envelope rather than enforcing a
+    // mathematically exact rigid-body offset on every tick.
     expect(
       Math.hypot(scanning.ball.x - still.position.x, scanning.ball.y - still.position.y),
-    ).toBeCloseTo(0.45);
+    ).toBeGreaterThan(0.2);
+    expect(
+      Math.hypot(scanning.ball.x - still.position.x, scanning.ball.y - still.position.y),
+    ).toBeLessThan(1.1);
     let carried = resolveMatchAction(initial, { type: 'carry', actorId, target: { x: 48, y: 34 } });
     for (let tick = 0; tick < 40; tick++)
       carried = stepTacticalMatchAfterDecisionProbe(carried, FIXED_MATCH_DT);
@@ -170,7 +175,9 @@ describe('PR148 sustained sprint episodes and locomotion', () => {
     const carrier = carried.players.find((player) => player.id === actorId)!;
     expect(
       Math.hypot(carried.ball.x - carrier.position.x, carried.ball.y - carrier.position.y),
-    ).toBeCloseTo(carried.ballCarrierIntent?.touchDistance ?? 1.15);
+    ).toBeLessThan(2.05);
+    expect(carried.ball.velocity).toBeDefined();
+    expect(carried.contactControlTelemetry!.physicalContacts).toBeGreaterThan(1);
   });
 
   it('jockeys a controlled owner with defensive cover instead of creating a routine tackle', () => {

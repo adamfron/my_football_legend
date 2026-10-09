@@ -35,6 +35,7 @@ import { distance } from './matchSpace';
 import { runPassFlightMatrix } from '../../../scripts/pr154PassFlightMatrix';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { RandomGenerator } from '../random/RandomGenerator';
+import { derivePressingOpportunity } from './tacticalPreferences';
 
 const world = createCanonicalWorldDatabase();
 const fixture = (seed = 'pr154') => {
@@ -161,7 +162,22 @@ describe('PR154 football decisions and cooperative pressure', () => {
   it('a cautious forward contains while aggression closes contact independently of tackling quality', () => {
     const { state, actor, receiver, defender } = fixture();
     receiver.position = { x: 20, y: 34 };
-    defender.position = { x: 48, y: 34 };
+    actor.position = { x: 55, y: 34 };
+    state.ball = { ...state.ball, x: 55.4, y: 34 };
+    defender.position = { x: 58, y: 34 };
+    // Temperament is compared with a justified, covered press. PR158 correctly screens
+    // an isolated pursuit against the previous fixture's nine open recycling outlets.
+    state.teams.away.style = 'pressing';
+    state.players
+      .filter((p) => p.team === 'home' && p.id !== actor.id && p.id !== receiver.id)
+      .forEach((p) => {
+        p.position = { x: 5, y: 4 };
+      });
+    state.players.find(
+      (p) => p.team === 'away' && p.id !== defender.id && p.slot.position !== 'goalkeeper',
+    )!.position = { x: 75, y: 34 };
+    expect(derivePressingOpportunity(state, 'away').engagement).toBeGreaterThan(0.3);
+    expect(derivePressingOpportunity(state, 'away').safeOutletCount).toBe(0);
     defender.profile.attributes.tackling = 20;
     defender.profile.attributes.aggression = 30;
     const weak = deriveTacticalTargets(state).find((p) => p.id === defender.id)!;

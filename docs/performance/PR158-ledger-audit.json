@@ -1,0 +1,214 @@
+{
+  "generatedAtUtc": "2026-10-09T06:30:52.032Z",
+  "preCompressionCanonicalSourceHash": "0cf35eb91eebb959c743de58a7e5788a8b61d76dd2988a9db8aaa8e0bf989201",
+  "boundedCanonicalSourceHash": "47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba",
+  "canonicalSourceFiles": 80,
+  "evidenceTimestampsUtc": {
+    "growthReportWrittenAt": "2026-10-09T04:50:38.860Z",
+    "comparisonReportWrittenAt": "2026-10-09T06:23:19.877Z",
+    "additionalCorrectnessScriptWrittenAt": "2026-10-09T06:26:28.890Z"
+  },
+  "finding": "Historical observedContactIds accumulated every physical_control impulse even during one continuous public control episode. The serialized array and its per-snapshot membership index grew with physical contact count. No physics, tactical decisions or contact timings read this accounting ledger.",
+  "legacyReading": "observedPhysicalContactAt is optional in the schema. Older saves without it still parse, retain their historical contact IDs, and skip a replayed physical transition if its ID was already stored. New physical contacts use an immutable per-player latest timestamp. Existing nonphysical event histories remain unchanged.",
+  "safeDedup": "A watermark must survive activeControlEpisode closure: active episode state alone cannot reject an earlier physical transition after release or half-time. Per-player timestamp >= contact.at skips repeat/older physical evidence, with existing ID membership also respected. Do not discard legacy IDs during migration.",
+  "productionChangeFiles": [
+    "src/core/matchSimulation/playerMatchStats.ts",
+    "src/core/matchSimulation/playerMatchStatsPhysicalContacts.test.ts"
+  ],
+  "productionValidation": {
+    "accountingAndContactSuites": "34/34 tests passed at 2026-10-09T06:28:35Z; four new focused tests reran successfully at 2026-10-09T06:29:40Z after adding watermark branch immutability assertions.",
+    "eslint": "Passed for the two modified files.",
+    "typescriptBuild": "tsc-b passed.",
+    "remaining": "Parent reruns canonical after datasets and complete verify using the new source hash; this audit does not claim full-match trajectory equality from scratch alone."
+  },
+  "growth": [
+    {
+      "seconds": 10,
+      "physicalContacts": 50,
+      "publicTouches": 1,
+      "historicalContactIds": 50,
+      "contactIdsBytes": 3051
+    },
+    {
+      "seconds": 20,
+      "physicalContacts": 100,
+      "publicTouches": 1,
+      "historicalContactIds": 100,
+      "contactIdsBytes": 6101
+    },
+    {
+      "seconds": 60,
+      "physicalContacts": 300,
+      "publicTouches": 1,
+      "historicalContactIds": 300,
+      "contactIdsBytes": 18301
+    },
+    {
+      "seconds": 120,
+      "physicalContacts": 600,
+      "publicTouches": 1,
+      "historicalContactIds": 600,
+      "contactIdsBytes": 36601
+    }
+  ],
+  "observerComparison": {
+    "methodology": "Isolated statistics observer on identical precomputed real continuous-control transitions, two alternating pairs per duration. Host scheduling was not controlled. Timings measure this observer microbenchmark, not full-engine or release throughput. All statistic fields except historical contact IDs and bounded watermarks were compared by SHA256.",
+    "results": [
+      {
+        "seconds": 100,
+        "ticks": 4000,
+        "pair": 0,
+        "timings": [
+          {
+            "name": "original",
+            "milliseconds": 59.443300000000136,
+            "historicalIds": 500,
+            "physicalWatermarks": 0,
+            "publicHash": "fe08519dbbe528f49eb808c8765852b0776b0548a7845a90d0d41fc4a984faea"
+          },
+          {
+            "name": "bounded",
+            "milliseconds": 49.141399999999976,
+            "historicalIds": 0,
+            "physicalWatermarks": 1,
+            "publicHash": "fe08519dbbe528f49eb808c8765852b0776b0548a7845a90d0d41fc4a984faea"
+          }
+        ]
+      },
+      {
+        "seconds": 100,
+        "ticks": 4000,
+        "pair": 1,
+        "timings": [
+          {
+            "name": "bounded",
+            "milliseconds": 50.82830000000013,
+            "historicalIds": 0,
+            "physicalWatermarks": 1,
+            "publicHash": "fe08519dbbe528f49eb808c8765852b0776b0548a7845a90d0d41fc4a984faea"
+          },
+          {
+            "name": "original",
+            "milliseconds": 52.60179999999991,
+            "historicalIds": 500,
+            "physicalWatermarks": 0,
+            "publicHash": "fe08519dbbe528f49eb808c8765852b0776b0548a7845a90d0d41fc4a984faea"
+          }
+        ]
+      },
+      {
+        "seconds": 200,
+        "ticks": 8000,
+        "pair": 0,
+        "timings": [
+          {
+            "name": "original",
+            "milliseconds": 110.1739,
+            "historicalIds": 1000,
+            "physicalWatermarks": 0,
+            "publicHash": "c9ae44222e41c88828e08dfb9acbb04ea46e9a089b926573cc849805084ea340"
+          },
+          {
+            "name": "bounded",
+            "milliseconds": 85.48360000000002,
+            "historicalIds": 0,
+            "physicalWatermarks": 1,
+            "publicHash": "c9ae44222e41c88828e08dfb9acbb04ea46e9a089b926573cc849805084ea340"
+          }
+        ]
+      },
+      {
+        "seconds": 200,
+        "ticks": 8000,
+        "pair": 1,
+        "timings": [
+          {
+            "name": "bounded",
+            "milliseconds": 69.86239999999998,
+            "historicalIds": 0,
+            "physicalWatermarks": 1,
+            "publicHash": "c9ae44222e41c88828e08dfb9acbb04ea46e9a089b926573cc849805084ea340"
+          },
+          {
+            "name": "original",
+            "milliseconds": 92.80439999999999,
+            "historicalIds": 1000,
+            "physicalWatermarks": 0,
+            "publicHash": "c9ae44222e41c88828e08dfb9acbb04ea46e9a089b926573cc849805084ea340"
+          }
+        ]
+      },
+      {
+        "seconds": 400,
+        "ticks": 16000,
+        "pair": 0,
+        "timings": [
+          {
+            "name": "original",
+            "milliseconds": 228.10069999999996,
+            "historicalIds": 2000,
+            "physicalWatermarks": 0,
+            "publicHash": "8b7ebe9b9a3db4bed787fec6e4378ac82ee4eb56877c5039d401a0ab328f3f58"
+          },
+          {
+            "name": "bounded",
+            "milliseconds": 164.4485000000002,
+            "historicalIds": 0,
+            "physicalWatermarks": 1,
+            "publicHash": "8b7ebe9b9a3db4bed787fec6e4378ac82ee4eb56877c5039d401a0ab328f3f58"
+          }
+        ]
+      },
+      {
+        "seconds": 400,
+        "ticks": 16000,
+        "pair": 1,
+        "timings": [
+          {
+            "name": "bounded",
+            "milliseconds": 137.55740000000014,
+            "historicalIds": 0,
+            "physicalWatermarks": 1,
+            "publicHash": "8b7ebe9b9a3db4bed787fec6e4378ac82ee4eb56877c5039d401a0ab328f3f58"
+          },
+          {
+            "name": "original",
+            "milliseconds": 255.73879999999963,
+            "historicalIds": 2000,
+            "physicalWatermarks": 0,
+            "publicHash": "8b7ebe9b9a3db4bed787fec6e4378ac82ee4eb56877c5039d401a0ab328f3f58"
+          }
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "name": "original",
+        "case": "closed_episode_reobserved",
+        "publicTouches": 1
+      },
+      {
+        "name": "original",
+        "case": "same_time_contact_release_reobserved",
+        "publicTouches": 1,
+        "publicHash": "6aacebd9255875cb4d5ef95858e54a56089a41bf12c4f78e852171ef6190ac9e"
+      },
+      {
+        "name": "bounded",
+        "case": "closed_episode_reobserved",
+        "publicTouches": 1
+      },
+      {
+        "name": "bounded",
+        "case": "same_time_contact_release_reobserved",
+        "publicTouches": 1,
+        "publicHash": "6aacebd9255875cb4d5ef95858e54a56089a41bf12c4f78e852171ef6190ac9e"
+      }
+    ],
+    "additionalCorrectnessCases": [
+      "Original and bounded: separate physical-contact observation then same-time pass release, replay old physical transition, replay release: one public touch and unchanged public state.",
+      "Bounded: physical contact then half-time closure, replay old physical transition: one public touch and no recreated active episode.",
+      "Original and bounded: earlier statistics snapshots are not mutated by release observation."
+    ]
+  }
+}

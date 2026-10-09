@@ -147,13 +147,19 @@ export const presentationTargetSchema = z.discriminatedUnion('kind', [
 ]);
 export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
 
-export interface ScreenSpacePlayerCandidate {
-  playerId: string;
-  x: number;
-  y: number;
-  depth: number;
-  actionable: boolean;
-}
+export const screenSpacePlayerCandidateSchema = z.object({
+  playerId: z.string(),
+  x: z.number().finite(),
+  y: z.number().finite(),
+  depth: z.number().finite(),
+  actionable: z.boolean(),
+  pickRadius: z.number().min(0).max(48).optional(),
+});
+export type ScreenSpacePlayerCandidate = z.infer<typeof screenSpacePlayerCandidateSchema>;
+
+/** CSS pixels, derived from the current projection rather than canonical contact reach. */
+export const screenSpacePlayerPickRadius = (projectedBodyRadius: number) =>
+  Math.max(32, Math.min(48, projectedBodyRadius + 12));
 
 /** Deterministic minimum-size picker used when world geometry misses a small rendered player. */
 export const selectScreenSpacePlayerCandidate = (
@@ -168,7 +174,9 @@ export const selectScreenSpacePlayerCandidate = (
     }))
     .filter(
       (candidate) =>
-        candidate.depth >= -1 && candidate.depth <= 1 && candidate.screenDistance <= radius,
+        candidate.depth >= -1 &&
+        candidate.depth <= 1 &&
+        candidate.screenDistance <= (candidate.pickRadius ?? radius),
     )
     .sort(
       (a, b) =>

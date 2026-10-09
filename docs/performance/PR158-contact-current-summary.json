@@ -1,0 +1,1441 @@
+{
+  "configuration": {
+    "repetitions": 32,
+    "seconds": 6
+  },
+  "sourceFingerprint": {
+    "algorithm": "sha256",
+    "scope": "Sorted non-test .ts files in src/core/matchSimulation; relative path + NUL + bytes + NUL",
+    "files": 80,
+    "digest": "47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba"
+  },
+  "methodology": "Paired seed by repetition; canonical 25ms engine. Carrier rotation/displacement/contact metrics stop at the first initial ownership loss or interruption (restart, non-open-play scenario or period change); the entire interrupting interval is excluded before measuring placement movement. Six-second traces and aggregate defender events continue to final outcome, including the final owner identity in retained. Sharp/roulette are explicit requested direction experiments. Physical contacts unavailable in PR157 are null, never zero actual. Eta uses bounded speed proxy for defender; next-contact ETA absent in baseline. No provider-count equivalence.",
+  "rows": [
+    {
+      "cell": {
+        "id": "context:stationary",
+        "context": "stationary"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 15,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 14,
+      "loose": 3,
+      "fouls": 0,
+      "physicalContacts": 473,
+      "meanRotationDegrees": 31.079605209785697,
+      "meanNetMetres": 0.7615255473260425,
+      "meanTravelledMetres": 1.3961910391674115,
+      "ownedSeconds": 104.22500000000025,
+      "exposedSeconds": 14.75000000000001,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:moving",
+        "context": "moving"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 4,
+      "passReleases": 0,
+      "attempts": 47,
+      "clean": 26,
+      "loose": 2,
+      "fouls": 0,
+      "physicalContacts": 359,
+      "meanRotationDegrees": 43.324219506806585,
+      "meanNetMetres": 5.5578307183988,
+      "meanTravelledMetres": 6.568758417337067,
+      "ownedSeconds": 81.95000000000002,
+      "exposedSeconds": 15.749999999999998,
+      "directionRevisions": 7,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:sharp_turn",
+        "context": "sharp_turn"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "context:shallow_turn",
+        "context": "shallow_turn"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 6,
+      "passReleases": 0,
+      "attempts": 44,
+      "clean": 21,
+      "loose": 5,
+      "fouls": 0,
+      "physicalContacts": 380,
+      "meanRotationDegrees": 55.5434235962014,
+      "meanNetMetres": 5.646315644940183,
+      "meanTravelledMetres": 6.508818250087607,
+      "ownedSeconds": 87.85000000000011,
+      "exposedSeconds": 16.275000000000006,
+      "directionRevisions": 8,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:roulette",
+        "context": "roulette"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 9,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 14,
+      "loose": 2,
+      "fouls": 8,
+      "physicalContacts": 577,
+      "meanRotationDegrees": 336.6473153063114,
+      "meanNetMetres": 3.5338227963817594,
+      "meanTravelledMetres": 9.319095613267828,
+      "ownedSeconds": 141.80000000000013,
+      "exposedSeconds": 8.700000000000003,
+      "directionRevisions": 128,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "context:shield_front",
+        "context": "shield_front"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 32,
+      "passReleases": 0,
+      "attempts": 0,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 800,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 1.249270567676133,
+      "meanTravelledMetres": 4.812451477117357,
+      "ownedSeconds": 192.00000000000063,
+      "exposedSeconds": 0,
+      "directionRevisions": 1,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:shield_side",
+        "context": "shield_side"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 32,
+      "passReleases": 0,
+      "attempts": 0,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 800,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 0.7034823733063628,
+      "meanTravelledMetres": 4.5552545556358135,
+      "ownedSeconds": 192.00000000000063,
+      "exposedSeconds": 0,
+      "directionRevisions": 2,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:shield_back",
+        "context": "shield_back"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 32,
+      "passReleases": 0,
+      "attempts": 0,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 822,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 1.7941393569848798,
+      "meanTravelledMetres": 4.839011360347348,
+      "ownedSeconds": 192.00000000000063,
+      "exposedSeconds": 0,
+      "directionRevisions": 1,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:shield_two",
+        "context": "shield_two"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 30,
+      "passReleases": 0,
+      "attempts": 21,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 2,
+      "physicalContacts": 659,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 1.8863507750118087,
+      "meanTravelledMetres": 3.1658034726431876,
+      "ownedSeconds": 186.05000000000058,
+      "exposedSeconds": 37.47499999999996,
+      "directionRevisions": 2970,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 2
+    },
+    {
+      "cell": {
+        "id": "context:push_run",
+        "context": "push_run"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 0,
+      "attempts": 0,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 32,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 9.445652491658592,
+      "meanTravelledMetres": 9.44568092354303,
+      "ownedSeconds": 53.79999999999992,
+      "exposedSeconds": 5.799999999999998,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:release",
+        "context": "release"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 32,
+      "attempts": 0,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 192,
+      "meanRotationDegrees": 74.59910492603213,
+      "meanNetMetres": 2.675557664113743,
+      "meanTravelledMetres": 2.990033936137348,
+      "ownedSeconds": 42.400000000000006,
+      "exposedSeconds": 0,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 32,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:shield_release",
+        "context": "shield_release"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 32,
+      "attempts": 26,
+      "clean": 7,
+      "loose": 3,
+      "fouls": 0,
+      "physicalContacts": 96,
+      "meanRotationDegrees": 1.3335169474420032,
+      "meanNetMetres": 0.4158283026685742,
+      "meanTravelledMetres": 0.42071250000001265,
+      "ownedSeconds": 24.000000000000004,
+      "exposedSeconds": 0,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:touchline",
+        "context": "touchline"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 9,
+      "passReleases": 0,
+      "attempts": 46,
+      "clean": 19,
+      "loose": 6,
+      "fouls": 0,
+      "physicalContacts": 359,
+      "meanRotationDegrees": 34.36521844683152,
+      "meanNetMetres": 5.6560264223220695,
+      "meanTravelledMetres": 5.941770582379044,
+      "ownedSeconds": 81.90000000000008,
+      "exposedSeconds": 35.17499999999994,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:autonomous",
+        "context": "autonomous"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 32,
+      "attempts": 0,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 192,
+      "meanRotationDegrees": 74.59910492603213,
+      "meanNetMetres": 2.675557664113743,
+      "meanTravelledMetres": 2.990033936137348,
+      "ownedSeconds": 42.400000000000006,
+      "exposedSeconds": 0,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 32,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "context:first_time_pass",
+        "context": "first_time_pass"
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 32,
+      "attempts": 32,
+      "clean": 18,
+      "loose": 5,
+      "fouls": 0,
+      "physicalContacts": 0,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 0,
+      "meanTravelledMetres": 0,
+      "ownedSeconds": 0,
+      "exposedSeconds": 0,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "attacker:dribbling:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "dribbling": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 19,
+      "loose": 3,
+      "fouls": 8,
+      "physicalContacts": 316,
+      "meanRotationDegrees": 237.67728203974903,
+      "meanNetMetres": 4.549163894528982,
+      "meanTravelledMetres": 5.489272383378579,
+      "ownedSeconds": 83.79999999999988,
+      "exposedSeconds": 4.850000000000001,
+      "directionRevisions": 34,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:dribbling:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "dribbling": 60
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:dribbling:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "dribbling": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 16,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 5,
+      "loose": 5,
+      "fouls": 8,
+      "physicalContacts": 539,
+      "meanRotationDegrees": 298.1935922880373,
+      "meanNetMetres": 5.215010741624626,
+      "meanTravelledMetres": 6.540594217215674,
+      "ownedSeconds": 126.87500000000014,
+      "exposedSeconds": 4.100000000000001,
+      "directionRevisions": 64,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:technique:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "technique": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 5,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 18,
+      "loose": 2,
+      "fouls": 8,
+      "physicalContacts": 339,
+      "meanRotationDegrees": 247.58424633339638,
+      "meanNetMetres": 4.605381341834966,
+      "meanTravelledMetres": 5.623301283276569,
+      "ownedSeconds": 91.09999999999995,
+      "exposedSeconds": 4.875000000000001,
+      "directionRevisions": 66,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:technique:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "technique": 60
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:technique:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "technique": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 12,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 9,
+      "loose": 3,
+      "fouls": 8,
+      "physicalContacts": 508,
+      "meanRotationDegrees": 294.3388757561526,
+      "meanNetMetres": 5.366214434594449,
+      "meanTravelledMetres": 6.859511706885802,
+      "ownedSeconds": 120.45000000000005,
+      "exposedSeconds": 8.899999999999997,
+      "directionRevisions": 74,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:agility:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "agility": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 10,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 17,
+      "loose": 6,
+      "fouls": 0,
+      "physicalContacts": 423,
+      "meanRotationDegrees": 244.28175880399164,
+      "meanNetMetres": 4.696651106691797,
+      "meanTravelledMetres": 6.0955562502080145,
+      "ownedSeconds": 106.02500000000008,
+      "exposedSeconds": 11.424999999999995,
+      "directionRevisions": 41,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "attacker:agility:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "agility": 60
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:agility:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "agility": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 32,
+      "physicalContacts": 448,
+      "meanRotationDegrees": 359.99999999999994,
+      "meanNetMetres": 5.219535568857788,
+      "meanTravelledMetres": 7.22129623586462,
+      "ownedSeconds": 112.57499999999987,
+      "exposedSeconds": 1.8749999999999998,
+      "directionRevisions": 80,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 32
+    },
+    {
+      "cell": {
+        "id": "attacker:firstTouch:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "firstTouch": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 9,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 12,
+      "loose": 6,
+      "fouls": 8,
+      "physicalContacts": 376,
+      "meanRotationDegrees": 256.07349778893274,
+      "meanNetMetres": 4.937600563721023,
+      "meanTravelledMetres": 6.147640378421237,
+      "ownedSeconds": 97.99999999999996,
+      "exposedSeconds": 7.6250000000000036,
+      "directionRevisions": 56,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:firstTouch:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "firstTouch": 60
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:firstTouch:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "firstTouch": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 8,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 11,
+      "loose": 3,
+      "fouls": 8,
+      "physicalContacts": 433,
+      "meanRotationDegrees": 284.3158473860183,
+      "meanNetMetres": 5.037431697925061,
+      "meanTravelledMetres": 6.375646027468957,
+      "ownedSeconds": 108.74999999999997,
+      "exposedSeconds": 11.174999999999992,
+      "directionRevisions": 66,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:strength:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "strength": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 8,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 7,
+      "fouls": 0,
+      "physicalContacts": 416,
+      "meanRotationDegrees": 262.9870858074824,
+      "meanNetMetres": 5.006540712219961,
+      "meanTravelledMetres": 6.326391749628175,
+      "ownedSeconds": 108.80000000000003,
+      "exposedSeconds": 11.024999999999995,
+      "directionRevisions": 63,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "attacker:strength:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "strength": 60
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:strength:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "strength": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 7,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 13,
+      "loose": 3,
+      "fouls": 8,
+      "physicalContacts": 394,
+      "meanRotationDegrees": 288.0331036679076,
+      "meanNetMetres": 4.91754085844425,
+      "meanTravelledMetres": 6.1786879377485775,
+      "ownedSeconds": 100.42499999999995,
+      "exposedSeconds": 11.399999999999995,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:composure:20",
+        "context": "sharp_turn",
+        "attacker": {
+          "composure": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 7,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 16,
+      "loose": 3,
+      "fouls": 8,
+      "physicalContacts": 375,
+      "meanRotationDegrees": 251.40279521836018,
+      "meanNetMetres": 4.880162584915929,
+      "meanTravelledMetres": 6.022271440384101,
+      "ownedSeconds": 94.87499999999994,
+      "exposedSeconds": 6.575000000000003,
+      "directionRevisions": 55,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:composure:60",
+        "context": "sharp_turn",
+        "attacker": {
+          "composure": 60
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "attacker:composure:95",
+        "context": "sharp_turn",
+        "attacker": {
+          "composure": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 7,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 10,
+      "loose": 5,
+      "fouls": 8,
+      "physicalContacts": 420,
+      "meanRotationDegrees": 278.859315389277,
+      "meanNetMetres": 5.146672927345858,
+      "meanTravelledMetres": 6.5170897035557775,
+      "ownedSeconds": 104.87499999999999,
+      "exposedSeconds": 12.374999999999996,
+      "directionRevisions": 57,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "defender:aggression:20",
+        "context": "roulette",
+        "defender": {
+          "aggression": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 25,
+      "passReleases": 0,
+      "attempts": 16,
+      "clean": 7,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 754,
+      "meanRotationDegrees": 344.45477162108114,
+      "meanNetMetres": 5.39066281964327,
+      "meanTravelledMetres": 12.137989652594317,
+      "ownedSeconds": 189.20000000000059,
+      "exposedSeconds": 16.999999999999996,
+      "directionRevisions": 144,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "defender:aggression:95",
+        "context": "roulette",
+        "defender": {
+          "aggression": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 9,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 14,
+      "loose": 2,
+      "fouls": 8,
+      "physicalContacts": 577,
+      "meanRotationDegrees": 336.6455036270114,
+      "meanNetMetres": 3.53287486044291,
+      "meanTravelledMetres": 9.31867081478152,
+      "ownedSeconds": 141.80000000000013,
+      "exposedSeconds": 8.750000000000004,
+      "directionRevisions": 128,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "defender:tackling:20",
+        "context": "roulette",
+        "defender": {
+          "tackling": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 15,
+      "passReleases": 0,
+      "attempts": 33,
+      "clean": 12,
+      "loose": 6,
+      "fouls": 0,
+      "physicalContacts": 672,
+      "meanRotationDegrees": 342.3181565931447,
+      "meanNetMetres": 4.47563061024875,
+      "meanTravelledMetres": 10.896748100240728,
+      "ownedSeconds": 164.22500000000028,
+      "exposedSeconds": 17.599999999999994,
+      "directionRevisions": 128,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "defender:tackling:95",
+        "context": "roulette",
+        "defender": {
+          "tackling": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 6,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 3,
+      "fouls": 8,
+      "physicalContacts": 563,
+      "meanRotationDegrees": 335.34810550160853,
+      "meanNetMetres": 3.356758577067757,
+      "meanTravelledMetres": 9.08062100348842,
+      "ownedSeconds": 138.50000000000006,
+      "exposedSeconds": 6.900000000000003,
+      "directionRevisions": 128,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "defender:gameReading:20",
+        "context": "roulette",
+        "defender": {
+          "gameReading": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 4,
+      "completeRotationLittleProgress": 0,
+      "retained": 13,
+      "passReleases": 0,
+      "attempts": 33,
+      "clean": 17,
+      "loose": 4,
+      "fouls": 0,
+      "physicalContacts": 602,
+      "meanRotationDegrees": 340.7187886009851,
+      "meanNetMetres": 4.9886004242116915,
+      "meanTravelledMetres": 9.927196574738305,
+      "ownedSeconds": 148.2750000000001,
+      "exposedSeconds": 13.799999999999999,
+      "directionRevisions": 128,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "defender:gameReading:95",
+        "context": "roulette",
+        "defender": {
+          "gameReading": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 4,
+      "loose": 2,
+      "fouls": 24,
+      "physicalContacts": 382,
+      "meanRotationDegrees": 328.5050950375307,
+      "meanNetMetres": 4.226849430024116,
+      "meanTravelledMetres": 6.536106277464217,
+      "ownedSeconds": 96.34999999999985,
+      "exposedSeconds": 2.7500000000000013,
+      "directionRevisions": 92,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 24
+    },
+    {
+      "cell": {
+        "id": "approach:0",
+        "context": "sharp_turn",
+        "approachAngle": 0
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "approach:1.5707963267948966",
+        "context": "sharp_turn",
+        "approachAngle": 1.5707963267948966
+      },
+      "duels": 32,
+      "stationaryPirouettes": 24,
+      "completeRotationLittleProgress": 0,
+      "retained": 9,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 18,
+      "loose": 6,
+      "fouls": 0,
+      "physicalContacts": 296,
+      "meanRotationDegrees": 226.14573433717922,
+      "meanNetMetres": 2.5555708916763122,
+      "meanTravelledMetres": 3.087730188555935,
+      "ownedSeconds": 70.80000000000014,
+      "exposedSeconds": 5.2,
+      "directionRevisions": 32,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "approach:3.141592653589793",
+        "context": "sharp_turn",
+        "approachAngle": 3.141592653589793
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 11,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 17,
+      "loose": 8,
+      "fouls": 0,
+      "physicalContacts": 292,
+      "meanRotationDegrees": 231.64556663489617,
+      "meanNetMetres": 3.7256262240605946,
+      "meanTravelledMetres": 4.747756938299698,
+      "ownedSeconds": 69.52500000000012,
+      "exposedSeconds": 17.15,
+      "directionRevisions": 3,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "relative_speed:0",
+        "context": "sharp_turn",
+        "approachSpeed": 0
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 10,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 10,
+      "loose": 3,
+      "fouls": 8,
+      "physicalContacts": 548,
+      "meanRotationDegrees": 360,
+      "meanNetMetres": 7.241653799643319,
+      "meanTravelledMetres": 9.478874736811056,
+      "ownedSeconds": 142.05000000000007,
+      "exposedSeconds": 11.049999999999997,
+      "directionRevisions": 96,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "relative_speed:5",
+        "context": "sharp_turn",
+        "approachSpeed": 5
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 14,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 20,
+      "loose": 4,
+      "fouls": 1,
+      "physicalContacts": 384,
+      "meanRotationDegrees": 233.2326552764281,
+      "meanNetMetres": 4.2383789595078465,
+      "meanTravelledMetres": 5.407616675141953,
+      "ownedSeconds": 92.02500000000005,
+      "exposedSeconds": 8.275000000000004,
+      "directionRevisions": 39,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 1
+    },
+    {
+      "cell": {
+        "id": "offset:0.32",
+        "context": "sharp_turn",
+        "ballOffset": 0.32
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.83933108310293,
+      "meanNetMetres": 4.61597861217644,
+      "meanTravelledMetres": 5.671171861227381,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "offset:1.2",
+        "context": "sharp_turn",
+        "ballOffset": 1.2
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 32,
+      "meanRotationDegrees": 118.44807120565417,
+      "meanNetMetres": 0.894639417184294,
+      "meanTravelledMetres": 0.894639417184294,
+      "ownedSeconds": 16.000000000000004,
+      "exposedSeconds": 2.4000000000000004,
+      "directionRevisions": 0,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "body_orientation:0",
+        "context": "sharp_turn",
+        "bodyOrientation": 0
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 32,
+      "physicalContacts": 320,
+      "meanRotationDegrees": 270,
+      "meanNetMetres": 4.45842836127835,
+      "meanTravelledMetres": 5.224462000550619,
+      "ownedSeconds": 79.79999999999986,
+      "exposedSeconds": 2.800000000000001,
+      "directionRevisions": 64,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 32
+    },
+    {
+      "cell": {
+        "id": "body_orientation:1.5707963267948966",
+        "context": "sharp_turn",
+        "bodyOrientation": 1.5707963267948966
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 3,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 15,
+      "loose": 4,
+      "fouls": 8,
+      "physicalContacts": 349,
+      "meanRotationDegrees": 258.8393518887841,
+      "meanNetMetres": 4.615991322935719,
+      "meanTravelledMetres": 5.671190611392095,
+      "ownedSeconds": 89.52499999999988,
+      "exposedSeconds": 8.374999999999998,
+      "directionRevisions": 53,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 8
+    },
+    {
+      "cell": {
+        "id": "body_orientation:-1.5707963267948966",
+        "context": "sharp_turn",
+        "bodyOrientation": -1.5707963267948966
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 32,
+      "physicalContacts": 320,
+      "meanRotationDegrees": 180,
+      "meanNetMetres": 4.455824457057303,
+      "meanTravelledMetres": 5.223771950633572,
+      "ownedSeconds": 79.79999999999986,
+      "exposedSeconds": 2.800000000000001,
+      "directionRevisions": 64,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 32
+    },
+    {
+      "cell": {
+        "id": "shield_strength:20",
+        "context": "shield_two",
+        "attacker": {
+          "strength": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 28,
+      "passReleases": 0,
+      "attempts": 21,
+      "clean": 1,
+      "loose": 0,
+      "fouls": 3,
+      "physicalContacts": 648,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 1.7954730725065808,
+      "meanTravelledMetres": 2.9487443353993896,
+      "ownedSeconds": 184.92500000000058,
+      "exposedSeconds": 33.14999999999996,
+      "directionRevisions": 3084,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 3
+    },
+    {
+      "cell": {
+        "id": "shield_strength:60",
+        "context": "shield_two",
+        "attacker": {
+          "strength": 60
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 30,
+      "passReleases": 0,
+      "attempts": 21,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 2,
+      "physicalContacts": 659,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 1.8863507750118087,
+      "meanTravelledMetres": 3.1658034726431876,
+      "ownedSeconds": 186.05000000000058,
+      "exposedSeconds": 37.47499999999996,
+      "directionRevisions": 2970,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 2
+    },
+    {
+      "cell": {
+        "id": "shield_strength:95",
+        "context": "shield_two",
+        "attacker": {
+          "strength": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 29,
+      "passReleases": 0,
+      "attempts": 21,
+      "clean": 1,
+      "loose": 0,
+      "fouls": 1,
+      "physicalContacts": 638,
+      "meanRotationDegrees": 0,
+      "meanNetMetres": 1.9094062353358647,
+      "meanTravelledMetres": 2.965752846987371,
+      "ownedSeconds": 185.27500000000055,
+      "exposedSeconds": 38.32499999999997,
+      "directionRevisions": 3453,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 1
+    },
+    {
+      "cell": {
+        "id": "booked",
+        "context": "roulette",
+        "booked": true
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 25,
+      "passReleases": 0,
+      "attempts": 16,
+      "clean": 7,
+      "loose": 0,
+      "fouls": 0,
+      "physicalContacts": 754,
+      "meanRotationDegrees": 343.8781250928388,
+      "meanNetMetres": 5.253030019487904,
+      "meanTravelledMetres": 12.027053341639629,
+      "ownedSeconds": 189.20000000000059,
+      "exposedSeconds": 16.2,
+      "directionRevisions": 144,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 0
+    },
+    {
+      "cell": {
+        "id": "elite:roulette",
+        "context": "roulette",
+        "attacker": {
+          "dribbling": 95,
+          "technique": 95,
+          "agility": 95,
+          "firstTouch": 95,
+          "composure": 95
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 8,
+      "completeRotationLittleProgress": 16,
+      "retained": 5,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 1,
+      "loose": 2,
+      "fouls": 24,
+      "physicalContacts": 573,
+      "meanRotationDegrees": 362.25238651020214,
+      "meanNetMetres": 2.6860646770242336,
+      "meanTravelledMetres": 8.170585493942474,
+      "ownedSeconds": 120.77499999999993,
+      "exposedSeconds": 5.725,
+      "directionRevisions": 176,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 24
+    },
+    {
+      "cell": {
+        "id": "low:roulette",
+        "context": "roulette",
+        "attacker": {
+          "dribbling": 20,
+          "technique": 20,
+          "agility": 20,
+          "firstTouch": 20,
+          "composure": 20
+        }
+      },
+      "duels": 32,
+      "stationaryPirouettes": 0,
+      "completeRotationLittleProgress": 0,
+      "retained": 0,
+      "passReleases": 0,
+      "attempts": 32,
+      "clean": 0,
+      "loose": 0,
+      "fouls": 32,
+      "physicalContacts": 256,
+      "meanRotationDegrees": 227.8815273936607,
+      "meanNetMetres": 3.7098750202051924,
+      "meanTravelledMetres": 4.196373902511934,
+      "ownedSeconds": 71.59999999999984,
+      "exposedSeconds": 2.600000000000001,
+      "directionRevisions": 64,
+      "repeatedCarrySelections": 0,
+      "interruptionCensored": 32
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "beforeCanonicalSource": "0cf35eb91eebb959c743de58a7e5788a8b61d76dd2988a9db8aaa8e0bf989201",
+  "afterCanonicalSource": "47f99f54b75785040c94e7e81c0799af79d42ceb92d501b09388c089be3ca0ba",
+  "runtimeChange": "Physical-contact deduplication uses one optional timestamp per player instead of a growing contact ID history; legacy IDs remain respected.",
+  "equalityDefinition": "Every exported football, workload, transition, contact-trace and RNG-stream field is compared exactly. Wall times and complete canonical-state checksums are omitted explicitly because the statistics bookkeeping representation changed. This is not complete pre/post canonical-state equality.",
+  "proofs": [
+    {
+      "input": "pr158-flow-acceptance-after-a.json",
+      "rows": 6,
+      "omittedFields": [
+        "elapsedMs",
+        "canonicalHash"
+      ],
+      "sha256": "eb0742b7667b2b4bbc0a32ccf0c19c207a7bda8a7f5e71f46c320fe8851150ac"
+    },
+    {
+      "input": "pr158-flow-acceptance-after-b.json",
+      "rows": 6,
+      "omittedFields": [
+        "elapsedMs",
+        "canonicalHash"
+      ],
+      "sha256": "b9769f9e6e9631db1a6774b3358a4dbd2b1fbbdcb1bda63c2910b9b630ece1d4"
+    },
+    {
+      "input": "pr158-flow-acceptance-after-c.json",
+      "rows": 6,
+      "omittedFields": [
+        "elapsedMs",
+        "canonicalHash"
+      ],
+      "sha256": "d7e65d6fade4313d7da02597af702034ef63df7097ac42f655f278dd9de72853"
+    },
+    {
+      "input": "PR158-contact-current.json",
+      "cells": 55,
+      "pairedTrials": 1760,
+      "omittedFields": [],
+      "sha256": "d7fae2ba62c0d42415031d8face9a3441dabb08f1d1da541cff9ab82bad646ec"
+    },
+    {
+      "input": "pr158-integrity.json",
+      "seeds": 3,
+      "identities": 66,
+      "shotOwnershipCells": 18,
+      "omittedFields": [
+        "elapsedMs",
+        "canonicalHash",
+        "referenceCanonicalHash"
+      ],
+      "sha256": "2d95aae64a8a1cf4043608d6326caa0d7242fce239bde7e9beef6eaa138f700b"
+    }
+  ],
+  "tacticalProof": "PR158-tactical-accounting-equivalence.json compares all 105 tactical and 105 scenario rows separately."
+}

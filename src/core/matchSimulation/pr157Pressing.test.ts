@@ -227,9 +227,13 @@ describe('PR157 continuous pressing, risk and physical carrier response', () => 
     expect(chooseNpcDefensiveChallengeAction(state, defender.id, null)?.technique).toBe(
       'committed',
     );
-    // The same current ball position is no longer accessible once its safe-side touch
-    // is predicted behind the carrier. The presser continues movement without a tackle timer.
+    // A shielding intention cannot move an exposed ball before the next actual contact.
+    // PR158 keeps its physical velocity until a reachable foot executes the safe-side touch.
     state.onBallPreparation!.micro!.shielding = true;
+    expect(chooseNpcDefensiveChallengeAction(state, defender.id, null)?.technique).toBe(
+      'committed',
+    );
+    state.ball.x = 51.55;
     expect(chooseNpcDefensiveChallengeAction(state, defender.id, null)).toBeUndefined();
     expect(state.defensiveChallenge).toBeUndefined();
   });

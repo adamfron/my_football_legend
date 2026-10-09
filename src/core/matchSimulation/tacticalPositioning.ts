@@ -19,6 +19,13 @@ import {
   protectedPressReceiver,
 } from './defensiveChallenges';
 import { deriveBuildUpReliefWeight, threatChannel } from './teamThreatMemory';
+import {
+  deriveEconomicalMovementCost,
+  derivePressingOpportunity,
+  deriveTeamTacticalPreferences,
+  type PressingOpportunity,
+  type TacticalPreferences,
+} from './tacticalPreferences';
 
 export interface TacticalStyleParameters {
   width: number;
@@ -91,6 +98,21 @@ export const TACTICAL_STYLE_PARAMETERS: Record<TacticalStyle, TacticalStyleParam
 const direction = (side: TeamSide) => (side === 'home' ? 1 : -1);
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
+/** Legacy styles keep their width/freedom; coach axes control their specific football jobs. */
+export const deriveTacticalStyleParameters = (
+  state: TacticalMatchState,
+  side: TeamSide,
+  preferences = deriveTeamTacticalPreferences(state, side),
+): TacticalStyleParameters => ({
+  ...TACTICAL_STYLE_PARAMETERS[state.teams[side].style],
+  compactness: 1.2 - preferences.compactness * 0.5,
+  lineHeight: preferences.blockHeight,
+  supportDistance: 1.22 - preferences.possessionPatience * 0.55,
+  pressing: preferences.organisedPress,
+  forwardRuns: 0.35 + preferences.verticality * 0.6,
+  transitionUrgency: 0.35 + preferences.verticality * 0.65,
+});
+
 /** Match-only resting transform: formation data describes shape, never literal pitch occupation. */
 export const deriveNeutralFormationAnchor = (
   player: Pick<MatchPlayerState, 'slot' | 'team' | 'profile'>,
@@ -119,9 +141,10 @@ export interface TeamBlockTransform {
 export const deriveTeamBlockTransform = (
   state: TacticalMatchState,
   side: TeamSide,
+  preferences?: TacticalPreferences,
 ): TeamBlockTransform => {
   const owns = state.possessionTeam === side,
-    parameters = TACTICAL_STYLE_PARAMETERS[state.teams[side].style];
+    parameters = deriveTacticalStyleParameters(state, side, preferences);
   const response = state.teams[side].threatMemory?.response;
   const dir = direction(side),
     ballDepth = dir * (state.ball.x - PITCH_LENGTH / 2);
@@ -131,13 +154,15 @@ export const deriveTeamBlockTransform = (
   const sustained = owns ? Math.min(1, state.timeSincePossessionChanged / 8) : 0;
   const stableAdvance = owns
     ? 7 + parameters.lineHeight * 5 + ballDepth * 0.16 + sustained * 7
-    : -2 + parameters.lineHeight * 3 + ballDepth * 0.08 - Math.max(0, -ballDepth - 10) * 0.35;
+    : -8 + parameters.lineHeight * 15 + ballDepth * 0.08 - Math.max(0, -ballDepth - 10) * 0.35;
   const advance = stableAdvance * (0.7 + 0.3 * transition) - (response?.lineDepthMetres ?? 0);
   const lateral = (state.ball.y - 34) * parameters.ballShift * 0.34;
   const widthScale =
-    parameters.width * (owns ? 1 : 0.82) * (1 - (response?.compactness ?? 0) * 0.2);
+    parameters.width *
+    (owns ? 1 : 0.82 * parameters.compactness) *
+    (1 - (response?.compactness ?? 0) * 0.2);
   const depthScale =
-    (owns ? 0.98 : 0.82) *
+    (owns ? 0.98 : 0.82 * parameters.compactness) *
     (state.teams[side].phase.includes('transition') ? 1.08 : 1) *
     (1 - (response?.compactness ?? 0) * 0.1);
   return {
@@ -431,6 +456,7 @@ export interface PressingAssignment {
   cover?: string;
   secondary?: { playerId: string; target: PitchPoint };
   screen: string[];
+  opportunity?: PressingOpportunity;
 }
 export const derivePressingAssignment = (
   state: TacticalMatchState,
@@ -447,11 +473,20 @@ export const derivePressingAssignment = (
     )
     .sort(
       (a, b) =>
-        distance(a.position, carrier.position) - distance(b.position, carrier.position) ||
-        a.id.localeCompare(b.id),
+        distance(a.position, carrier.position) -
+          distance(b.position, carrier.position) +
+          deriveEconomicalMovementCost(a, carrier.position) -
+          deriveEconomicalMovementCost(b, carrier.position) +
+          (b.profile.attributes.gameReading +
+            b.profile.attributes.positioning -
+            a.profile.attributes.gameReading -
+            a.profile.attributes.positioning) *
+            0.01 || a.id.localeCompare(b.id),
     );
+  const opportunity = derivePressingOpportunity(state, side);
   const cooperative = deriveCooperativePress(state, side);
   return {
+    opportunity,
     ...(cooperative
       ? {
           primary: cooperative.primaryId,
@@ -667,8 +702,8 @@ const seekSpace = (
   player: MatchPlayerState,
   structural: PitchPoint,
   offside: number,
+  parameters = deriveTacticalStyleParameters(state, player.team),
 ) => {
-  const parameters = TACTICAL_STYLE_PARAMETERS[state.teams[player.team].style];
   const freedom =
     parameters.freedom * (player.duty === 'attack' ? 1 : player.duty === 'support' ? 0.65 : 0.25);
   if (freedom < 0.15) return structural;
@@ -685,7 +720,14 @@ const seekSpace = (
       const nearest = Math.min(...opponents.map((p) => distance(point, p.position)));
       const deviation = distance(point, structural),
         progression = dir * (point.x - structural.x);
-      return { point, score: nearest * 0.5 + progression * 0.25 - deviation * (1.1 - freedom) };
+      return {
+        point,
+        score:
+          nearest * 0.5 +
+          progression * 0.25 -
+          deviation * (1.1 - freedom) -
+          deriveEconomicalMovementCost(player, point) * 0.6,
+      };
     })
     .sort((a, b) => b.score - a.score)[0]!.point;
 };
@@ -695,6 +737,7 @@ export const deriveStructuralPosition = (
   state: TacticalMatchState,
   player: MatchPlayerState,
   neutralAnchor = deriveNeutralFormationAnchor(player),
+  block = deriveTeamBlockTransform(state, player.team),
 ): PitchPoint => {
   if (player.profile.primaryPosition === 'goalkeeper')
     return applyRoleRelationships(
@@ -702,7 +745,6 @@ export const deriveStructuralPosition = (
       player,
       deriveGoalkeeperBasePosition(state.ball, player.team),
     );
-  const block = deriveTeamBlockTransform(state, player.team);
   const dir = direction(player.team);
   const structural = {
     x:
@@ -715,6 +757,18 @@ export const deriveStructuralPosition = (
 };
 
 export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerState[] => {
+  const preferences = {
+    home: deriveTeamTacticalPreferences(state, 'home'),
+    away: deriveTeamTacticalPreferences(state, 'away'),
+  };
+  const parametersBySide = {
+    home: deriveTacticalStyleParameters(state, 'home', preferences.home),
+    away: deriveTacticalStyleParameters(state, 'away', preferences.away),
+  };
+  const blocks = {
+    home: deriveTeamBlockTransform(state, 'home', preferences.home),
+    away: deriveTeamBlockTransform(state, 'away', preferences.away),
+  };
   const looseAssignments = deriveLooseBallAssignments(state);
   const assignments = {
     home: derivePressingAssignment(state, 'home'),
@@ -738,10 +792,10 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
   };
   return state.players.map((player) => {
     const neutralAnchor = deriveNeutralFormationAnchor(player);
-    const parameters = TACTICAL_STYLE_PARAMETERS[state.teams[player.team].style],
+    const parameters = parametersBySide[player.team],
       dir = direction(player.team);
     const isKeeper = player.profile.primaryPosition === 'goalkeeper';
-    const structural = deriveStructuralPosition(state, player, neutralAnchor);
+    const structural = deriveStructuralPosition(state, player, neutralAnchor, blocks[player.team]);
     let ideal = structural;
     const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
     if (!isKeeper && carrier) {
@@ -764,14 +818,21 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
           ideal = { x: protectedReceiver.position.x - dir * 2, y: protectedReceiver.position.y };
         } else if (assignment.primary === player.id) {
           const commits =
+            (assignment.opportunity?.engagement ?? 0) >= 0.3 &&
             distance(player.position, carrier.position) <= 10 + parameters.pressing * 8;
           const approach = derivePressingPlan(state, player.id)?.target ?? carrier.position;
-          ideal = commits
-            ? approach
-            : {
-                x: lerp(ideal.x, carrier.position.x, 0.68 * parameters.pressing * local),
-                y: lerp(ideal.y, carrier.position.y, 0.68 * parameters.pressing * local),
-              };
+          ideal =
+            !commits && assignment.opportunity
+              ? {
+                  x: lerp(ideal.x, assignment.opportunity.screenTarget.x, 0.35 * local),
+                  y: lerp(ideal.y, assignment.opportunity.screenTarget.y, 0.35 * local),
+                }
+              : commits
+                ? approach
+                : {
+                    x: lerp(ideal.x, carrier.position.x, 0.68 * parameters.pressing * local),
+                    y: lerp(ideal.y, carrier.position.y, 0.68 * parameters.pressing * local),
+                  };
         } else if (assignment.secondary?.playerId === player.id)
           ideal = assignment.secondary.target;
         else if (assignment.cover === player.id)
@@ -781,8 +842,16 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
           };
         else if (assignment.screen.includes(player.id))
           ideal = {
-            x: lerp(ideal.x, (carrier.position.x + 52.5) / 2, 0.16 * local),
-            y: lerp(ideal.y, carrier.position.y, 0.16 * local),
+            x: lerp(
+              ideal.x,
+              assignment.opportunity?.screenTarget.x ?? (carrier.position.x + 52.5) / 2,
+              0.22 * local,
+            ),
+            y: lerp(
+              ideal.y,
+              assignment.opportunity?.screenTarget.y ?? carrier.position.y,
+              0.22 * local,
+            ),
           };
         else {
           // Smaller remote shifts preserve the block while the local duel changes.
@@ -810,7 +879,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       ideal.y = lerp(ideal.y, carrier.position.y, protection * 0.14);
     }
     if (!isKeeper && state.possessionTeam === player.team)
-      ideal = seekSpace(state, player, ideal, offside[player.team]);
+      ideal = seekSpace(state, player, ideal, offside[player.team], parameters);
     const occupation = occupations[player.team].find(({ playerId }) => playerId === player.id);
     if (occupation && !supportAssignment) ideal = occupation.target;
     else if (!isKeeper && !supportAssignment && runs[player.team].includes(player.id)) {
