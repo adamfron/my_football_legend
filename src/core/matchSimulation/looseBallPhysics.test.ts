@@ -76,14 +76,17 @@ describe('loose ball physics', () => {
       looseSince: state.time,
       lastTouchPlayerId: lastTouch.id,
     };
-    const next = stepTacticalMatch(state, FIXED_MATCH_DT);
+    const partial = stepTacticalMatch(state, FIXED_MATCH_DT);
+    expect(partial.scenario).toBe('open_play'); // The trailing ball edge still overlaps the line.
+    const next = stepTacticalMatch(partial, FIXED_MATCH_DT);
     expect(next.scenario).toBe('throw_in');
     expect(next.lastBoundaryRestart).toBe('throw_in');
     expect(next.lastBoundaryCrossing).toMatchObject({
       boundary: 'touchline_bottom',
       restartTeam: 'away',
     });
-    expect(next.ball.ownerId).toBeTruthy();
+    expect(next.ball.ownerId).toBeUndefined();
+    expect(next.restart).toMatchObject({ phase: 'preparing', origin: 'live_event' });
   });
 
   it.each([

@@ -1,5 +1,18 @@
 # Roadmap
 
+Aktualny etap: **PR159 — Dead Ball & Restart Continuity** ma implementację i wymaganą
+walidację zakończone; draft do przeglądu. Pełny verify PASS (1372 testy, lint/build),
+12/12 krótkich restart windows i exact-state observer parity PASS; focused runtime +16,4%.
+[Raport PR159](PR159_DEAD_BALL_RESTART_CONTINUITY.md) zawiera kontrakty i zakres dowodów.
+PR158 jest scalony; wcześniejsze draft/calibration sformułowania pozostają historycznym
+zapisem diagnoz, nie aktualnym statusem merge.
+
+Otwarte PR158: shots 110→16, goals 68→10, CM touches 4957→3461/receptions
+2831→1993, flips 24→94, spells <0,5 s 51→189, prolonged/low-progress rotations.
+Ciągłość wznowień nie dowodzi poprawy open-play realism. Po PR160 i PR161 należy
+wykonać wspólny full-match diagnostic and realism audit, zamiast nowej kampanii
+18 pełnych meczów po każdym etapie.
+
 ## Historyczne / późniejsze pomysły równowagi pozycyjnej
 
 - Rozszerzyć wspólny model o człon kompensacji pustych stref po czerwonych kartkach albo
@@ -254,7 +267,7 @@ nasycone geometrie strzału/bramkarza. Nie jest to potwierdzenie realizmu ani uz
 statystycznych celów. [Przepływ](performance/PR157-flow-summary.json),
 [integralność](performance/PR157-integrity-summary.json), [wydajność](performance/PR157-performance.json).
 
-### CURRENT — PR158
+### COMPLETED — PR158 (merged)
 
 **PR158 — Ball Contact Geometry, Press Resistance, Duel Cadence & Tactical Pressing Intelligence**
 
@@ -301,7 +314,7 @@ i faule 90→369.
 
 [Manifest dowodów](performance/PR158-evidence-manifest.json) opisuje zamrożone wejścia, kod i raporty w archiwum. Lokalny plik wynikowy/załącznik `outputs/PR158-evidence.zip` zawiera 824 wpisy ze sprawdzonymi hashami; pięć podsumowań odtworzono dokładnie z wejść. Sumę kontrolną ZIP zapisano osobno w lokalnych metadanych.
 
-### NEXT
+### CURRENT — PR159 (verified, draft review)
 
 **PR159 — Dead Ball & Restart Continuity**
 
@@ -311,10 +324,12 @@ i faule 90→369.
 - gotowość wznowienia oparta na pozycjach i dostępności piłki;
 - fundament doliczonego czasu oparty na kanonicznych przerwach.
 
-Dokładne wejścia obecnego teleportowania zapisano w audycie PR152. PR157 kalibruje istniejącą
-fizykę wolnego, ale nie implementuje pełnej ciągłości wznowień ani menu technik PR159.
+Implementacja oddziela naturalne award od zamrożonych DEV fixtures, używa legalnej
+gotowości, kilku delivery/receiver choices i shared canonical spin/wall physics.
+Ledger dostarcza przerwy dla PR160; actual added time oraz końcowe animacje pozostają
+następnymi etapami. Dowody i ograniczenia centralizuje raport PR159.
 
-Po ciągłości wznowień:
+### NEXT
 
 **PR160 — Fatigue, Injuries, Substitutions & Added Time**
 

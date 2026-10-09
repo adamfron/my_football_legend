@@ -77,6 +77,7 @@ export const projectGoalkeeperIntervention = (
     velocity: { x: velocity.x, y: velocity.y, z: velocity.z ?? 0 },
     airborne: state.ball.airborne ?? false,
     bounceCount: state.ball.bounceCount ?? 0,
+    ...(state.ball.spin ? { spin: state.ball.spin } : {}),
   };
   let elapsed = 0;
   let crossedInterventionPlane = false;

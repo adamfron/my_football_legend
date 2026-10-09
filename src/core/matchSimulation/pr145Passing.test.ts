@@ -407,9 +407,19 @@ describe('PR145 throw target and contact integrity', () => {
         action: entry,
       })),
     } as unknown as Parameters<typeof projectContextualInteractions>[1];
+    const spatialChoices = projectContextualInteractions(state, opportunity, {
+      kind: 'space',
+      point: action.target,
+    });
+    expect(spatialChoices.length).toBeGreaterThan(0);
     expect(
-      projectContextualInteractions(state, opportunity, { kind: 'space', point: action.target }),
-    ).toEqual([]);
+      spatialChoices.every(
+        (choice) =>
+          choice.resolution.kind === 'action' &&
+          choice.resolution.action.type === 'pass' &&
+          choice.resolution.action.receiverId !== action.actorId,
+      ),
+    ).toBe(true);
   });
 
   it('excludes the thrower from immediate loose-ball ownership and actions', () => {

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { canonicalActionEventSchema } from '../../../core/matchSimulation/actionEvents';
 import { shotContactSchema, shotIntentSchema } from '../../../core/matchSimulation/shotIntent';
+import { restartPhaseSchema } from '../../../core/matchSimulation/matchState';
 import {
   goalIntentToPitch,
   pitchToGoalIntent,
@@ -119,6 +120,16 @@ export const tacticalFrameSchema = z.object({
   /** Persistent canonical roster boundary, independent of short-lived action labels. */
   dismissals: z.record(z.string(), z.number().nonnegative().finite()).optional(),
   continuity: z.string().optional(),
+  restart: z
+    .object({
+      spot: tacticalPointSchema,
+      phase: restartPhaseSchema,
+      takerId: z.string(),
+      wallIds: z.array(z.string()).max(22),
+      deliveryTarget: tacticalPointSchema.optional(),
+      ready: z.boolean(),
+    })
+    .optional(),
   actionableTargets: z.array(z.string()).optional(),
   selectedTarget: z.string().optional(),
   selectedPoint: tacticalPointSchema.optional(),

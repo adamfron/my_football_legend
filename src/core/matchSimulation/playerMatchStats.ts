@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import {
@@ -88,6 +89,8 @@ export const matchStatisticsSchema = z.object({
   observedPassResultIds: z.array(z.string()),
   observedShotIds: z.array(z.string()),
   observedShotResultIds: z.array(z.string()),
+  observedGoalIds: z.array(z.string()).optional(),
+  observedShotOnTargetIds: z.array(z.string()).optional(),
   observedContactIds: z.array(z.string()),
   /** Bounded physical-contact dedup survives closed episodes and replayed transitions. */
   observedPhysicalContactAt: z.record(z.string(), z.number().nonnegative()).optional(),
@@ -185,6 +188,8 @@ export const createMatchStatistics = (state: TacticalMatchState): MatchStatistic
   observedPassResultIds: [],
   observedShotIds: [],
   observedShotResultIds: [],
+  observedGoalIds: [],
+  observedShotOnTargetIds: [],
   observedContactIds: [],
   observedPhysicalContactAt: {},
   observedCarryIds: [],
@@ -271,6 +276,14 @@ export const observePlayerMatchStats = (
       observedChallengeResultIds:
         statistics.observedChallengeResultIds ??
         (previous.lastChallenge ? [previous.lastChallenge.id] : []),
+      observedGoalIds:
+        statistics.observedGoalIds ??
+        (previous.lastShot?.outcome === 'goal' ? [previous.lastShot.shotId] : []),
+      observedShotOnTargetIds:
+        statistics.observedShotOnTargetIds ??
+        (previous.lastShot && ['goal', 'save'].includes(previous.lastShot.outcome ?? '')
+          ? [previous.lastShot.shotId]
+          : []),
     };
     const accounting = result.teamAccounting!;
     const newcomers = next.players.filter(
@@ -293,8 +306,9 @@ export const observePlayerMatchStats = (
     // Percentages use the two credited canonical live-time totals, without renderer input.
     if (
       (previous.scenario === 'open_play' || previous.restart?.phase === 'release') &&
-      previous.restart?.phase !== 'setup' &&
+      !isRestartSetup(previous) &&
       previous.status !== 'half_time' &&
+      previous.postGoal === undefined &&
       previous.goalCompletionUntil === undefined
     )
       accounting[previous.possessionTeam].possessionSeconds += elapsed;
@@ -550,21 +564,17 @@ export const observePlayerMatchStats = (
       appendIdentity('observedShotResultIds', shot.shotId);
       const shooter = stats(shot.shooterId, shot.releasedAt ?? next.time);
       // Posts and crossbars which stay out are off-target. Blocks are a separate outcome.
-      if (shooter && ['goal', 'save'].includes(shot.outcome ?? '')) shooter.shotsOnTarget++;
-      if (shooter && shot.outcome === 'goal') shooter.goals++;
+      if (
+        shooter &&
+        ['goal', 'save'].includes(shot.outcome ?? '') &&
+        !containsIdentity(result.observedShotOnTargetIds ?? [], shot.shotId)
+      ) {
+        shooter.shotsOnTarget++;
+        appendIdentity('observedShotOnTargetIds', shot.shotId);
+      }
       if (shot.outcome === 'block') {
         const team = result.playerTeams?.[shot.shooterId];
         if (team) accounting[team].blockedShots++;
-      }
-      if (
-        shot.outcome === 'goal' &&
-        result.assistCandidate?.scorerId === shot.shooterId &&
-        result.assistCandidate.passerId !== shot.shooterId &&
-        !containsIdentity(result.observedAssistGoalIds, shot.shotId)
-      ) {
-        const provider = stats(result.assistCandidate.passerId, shot.releasedAt ?? next.time);
-        if (provider) provider.assists++;
-        appendIdentity('observedAssistGoalIds', shot.shotId);
       }
       const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
       const keeper = next.players.find(
@@ -572,13 +582,43 @@ export const observePlayerMatchStats = (
           player.team !== defendingTeam && player.profile.primaryPosition === 'goalkeeper',
       );
       const keeperStats = keeper ? stats(keeper.id) : undefined;
-      if (keeperStats && shot.outcome === 'goal') keeperStats.goalsConceded++;
       if (keeperStats && shot.outcome === 'save') {
         keeperStats.saves++;
         if (shot.goalkeeperAction === 'catch') keeperStats.catches++;
         if (shot.goalkeeperAction === 'parry' || shot.goalkeeperAction === 'parry_away')
           keeperStats.parries++;
       }
+    }
+    // A rebound can upgrade the same shot from frame/block/save to a goal. Its launch and
+    // initial contact stay counted once; the eventual goal has its own persisted identity.
+    if (
+      shotResult?.outcome === 'goal' &&
+      !containsIdentity(result.observedGoalIds ?? [], shotResult.shotId)
+    ) {
+      appendIdentity('observedGoalIds', shotResult.shotId);
+      const shooter = stats(shotResult.shooterId, shotResult.releasedAt ?? next.time);
+      if (shooter) {
+        shooter.goals++;
+        if (!containsIdentity(result.observedShotOnTargetIds ?? [], shotResult.shotId)) {
+          shooter.shotsOnTarget++;
+          appendIdentity('observedShotOnTargetIds', shotResult.shotId);
+        }
+      }
+      if (
+        result.assistCandidate?.scorerId === shotResult.shooterId &&
+        result.assistCandidate.passerId !== shotResult.shooterId &&
+        !containsIdentity(result.observedAssistGoalIds, shotResult.shotId)
+      ) {
+        const provider = stats(result.assistCandidate.passerId, shotResult.releasedAt ?? next.time);
+        if (provider) provider.assists++;
+        appendIdentity('observedAssistGoalIds', shotResult.shotId);
+      }
+      const scoringTeam = result.playerTeams?.[shotResult.shooterId];
+      const keeper = next.players.find(
+        (player) => player.team !== scoringTeam && player.profile.primaryPosition === 'goalkeeper',
+      );
+      const keeperStats = keeper ? stats(keeper.id) : undefined;
+      if (keeperStats) keeperStats.goalsConceded++;
     }
     // The intent identity counts one legitimate attempt, even while contact is still pending.
     // A copied result can be observed after an unrelated challenge; history, not adjacency,

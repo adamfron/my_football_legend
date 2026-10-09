@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import {
   clampPitchPoint,
@@ -205,7 +206,7 @@ export const derivePressingOpportunity = (
       numericalAdvantage: 0,
     },
   };
-  if (!carrier || carrier.team === side || state.restart?.phase === 'setup') return empty;
+  if (!carrier || carrier.team === side || isRestartSetup(state)) return empty;
   const defenders = state.players.filter(
     (player) =>
       player.team === side &&

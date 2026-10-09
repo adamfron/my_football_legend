@@ -8,9 +8,12 @@ import {
   BALL_PHYSICS,
   deriveLaunchVelocity,
   projectFutureBallTrajectory,
+  ballSpinSchema,
+  ZERO_BALL_SPIN,
+  type BallSpin3d,
   type BallVelocity3d,
 } from './ballPhysics';
-import { type ShotExecutionErrorProfile } from './shotIntent';
+import { shotExecutionErrorProfileSchema, type ShotExecutionErrorProfile } from './shotIntent';
 import { deriveShootingDifficulty } from './shootingDifficulty';
 import type {
   MatchAction,
@@ -25,6 +28,7 @@ export interface CanonicalShot extends ShotDiagnostic {
   heightMetres: number;
   launchVelocity: BallVelocity3d;
   launchElevation: number;
+  launchSpin: BallSpin3d;
 }
 
 const clamp = (value: number, low: number, high: number) => Math.max(low, Math.min(high, value));
@@ -48,7 +52,22 @@ export const deriveShotExecutionErrorProfile = (
     (state.ball.velocity?.y ?? 0) - (firstTime ? shooter.velocity.y : 0),
     state.ball.velocity?.z ?? 0,
   );
-  return deriveShootingDifficulty(shooter, {
+  const freeKickProfile = action.type === 'shot' ? action.freeKickProfile : undefined;
+  const executionShooter = freeKickProfile
+    ? {
+        ...shooter,
+        profile: {
+          ...shooter.profile,
+          attributes: {
+            ...shooter.profile.attributes,
+            finishing:
+              shooter.profile.attributes.setPieces * 0.7 +
+              shooter.profile.attributes.finishing * 0.3,
+          },
+        },
+      }
+    : shooter;
+  const errorProfile = deriveShootingDifficulty(executionShooter, {
     distance: opportunity.distance,
     angle: opportunity.angle,
     pressure: Math.max(opportunity.pressure, state.currentPressure),
@@ -61,6 +80,66 @@ export const deriveShotExecutionErrorProfile = (
     targetWindow: 1 - opportunity.visibleTargetArea,
     blockers: opportunity.blockingDemand,
   });
+  if (!freeKickProfile) return errorProfile;
+  const demand =
+    freeKickProfile === 'power_bend' ? 1.4 : freeKickProfile === 'dipping' ? 1.3 : 1.12;
+  const verticalDemand = freeKickProfile === 'dipping' ? demand * 1.18 : demand;
+  return shotExecutionErrorProfileSchema.parse({
+    ...errorProfile,
+    horizontalSigma: errorProfile.horizontalSigma * demand,
+    verticalSigma: errorProfile.verticalSigma * verticalDemand,
+    horizontalSigmaMetres: errorProfile.horizontalSigmaMetres! * demand,
+    verticalSigmaMetres: errorProfile.verticalSigmaMetres! * verticalDemand,
+    intrinsicDifficulty: (errorProfile.intrinsicDifficulty ?? 1) * demand,
+    executionQuality: errorProfile.executionQuality / demand,
+  });
+};
+
+/** Bounded launch correction uses the live solver and never adjusts a ball after its release. */
+const solveSpinningLaunch = (
+  from: { x: number; y: number; z: number },
+  goalX: number,
+  goalY: number,
+  height: number,
+  speed: number,
+  initialElevation: number,
+  spin: BallSpin3d,
+) => {
+  let heading = Math.atan2(goalY - from.y, goalX - from.x);
+  let elevation = initialElevation;
+  let velocity = { x: 0, y: 0, z: 0 };
+  const metres = Math.max(1, Math.hypot(goalX - from.x, goalY - from.y));
+  for (let iteration = 0; iteration < 4; iteration += 1) {
+    velocity = {
+      x: Math.cos(heading) * speed * Math.cos(elevation),
+      y: Math.sin(heading) * speed * Math.cos(elevation),
+      z: speed * Math.sin(elevation),
+    };
+    if (iteration === 3) break;
+    let previous = from;
+    for (const sample of projectFutureBallTrajectory(
+      { position: from, velocity, spin, airborne: true, bounceCount: 0 },
+      6,
+      0.025,
+    )) {
+      const next = sample.ball.position;
+      const dx = next.x - previous.x;
+      const fraction = dx === 0 ? -1 : (goalX - previous.x) / dx;
+      if (fraction >= 0 && fraction <= 1) {
+        const y = previous.y + (next.y - previous.y) * fraction;
+        const z = previous.z + (next.z - previous.z) * fraction;
+        heading += Math.sign(goalX - from.x) * Math.atan2(goalY - y, metres) * 0.9;
+        elevation = clamp(
+          elevation + Math.atan2(Math.max(BALL_RADIUS, height) - z, metres) * 0.9,
+          0,
+          0.75,
+        );
+        break;
+      }
+      previous = next;
+    }
+  }
+  return { velocity, elevation };
 };
 
 const defaultTarget = (action: ShotAction, shooter: MatchPlayerState) => ({
@@ -122,6 +201,7 @@ export const resolveCanonicalShot = (
     length,
   );
   let speed = nominalSpeed;
+  const freeKickProfile = action.type === 'shot' ? action.freeKickProfile : undefined;
   if (profile.intent === 'chip') {
     // Solve a lofted physical launch with a technique-owned upward component. Goal-plane aiming
     // chooses arrival height, never erases the defining loft. Speed adjusts to range instead.
@@ -142,14 +222,56 @@ export const resolveCanonicalShot = (
     speed = Math.hypot(horizontalSpeed, verticalSpeed);
     launchElevation = Math.atan2(verticalSpeed, horizontalSpeed);
   }
-  const launchVelocity = deriveLaunchVelocity(contactPoint, flightTarget, speed, launchElevation);
+  const direction = {
+    x: (lineEnd.x - contactPoint.x) / goalRayLength,
+    y: (lineEnd.y - contactPoint.y) / goalRayLength,
+  };
+  let launchSpin: BallSpin3d = ZERO_BALL_SPIN;
+  if (freeKickProfile && !['under_wall', 'wall_gap'].includes(freeKickProfile)) {
+    const ability =
+      (shooter.profile.attributes.setPieces + shooter.profile.attributes.technique) / 200;
+    const spinError = 1 + normal(rng) * (1 - ability) * 0.16;
+    const lateral =
+      freeKickProfile === 'power_bend'
+        ? (85 + ability * 25) * spinError
+        : freeKickProfile === 'controlled_curl'
+          ? (58 + ability * 20) * spinError
+          : 0;
+    const top = freeKickProfile === 'dipping' ? (75 + ability * 35) * spinError : 10;
+    launchSpin = ballSpinSchema.parse({
+      x: clamp(-direction.y * top, -160, 160),
+      y: clamp(direction.x * top, -160, 160),
+      z: clamp(lateral * (shooter.profile.dominantFoot === 'right' ? 1 : -1), -160, 160),
+    });
+  }
+  if (freeKickProfile === 'under_wall') launchElevation = 0;
+  let launchVelocity = deriveLaunchVelocity(contactPoint, flightTarget, speed, launchElevation);
+  if (launchSpin !== ZERO_BALL_SPIN) {
+    const solved = solveSpinningLaunch(
+      { ...contactPoint, z: Math.max(BALL_RADIUS, contactHeight) },
+      goalX,
+      goalY,
+      intendedHeightMetres,
+      speed,
+      launchElevation,
+      launchSpin,
+    );
+    launchVelocity = solved.velocity;
+    launchElevation = solved.elevation;
+  }
   // A miss below the grass can bounce/roll into the goal. Diagnose the physical goal-plane
   // crossing, rather than classifying the unclamped aiming height as an impossible low miss.
   let previous = { ...contactPoint, z: Math.max(BALL_RADIUS, contactHeight) };
   let classification: CanonicalShot['classification'] = 'wide';
   let heightMetres = intendedHeightMetres;
   for (const sample of projectFutureBallTrajectory(
-    { position: previous, velocity: launchVelocity, airborne: true, bounceCount: 0 },
+    {
+      position: previous,
+      velocity: launchVelocity,
+      spin: launchSpin,
+      airborne: true,
+      bounceCount: 0,
+    },
     6,
     0.025,
   )) {
@@ -184,6 +306,8 @@ export const resolveCanonicalShot = (
     executionErrorProfile,
     launchSpeed: speed,
     launchVerticalComponent: launchVelocity.z,
+    launchSpin,
+    ...(freeKickProfile ? { freeKickProfile } : {}),
     context:
       action.type === 'header'
         ? 'header'

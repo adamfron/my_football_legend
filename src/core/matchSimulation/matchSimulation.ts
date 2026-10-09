@@ -1,3 +1,17 @@
+import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
+import {
+  prepareRestartMovement,
+  advanceRestartPlacement,
+  canExecutePreparedRestart,
+  advanceRestartWallResponses,
+} from './restartLifecycle';
+import {
+  beginPostGoalReaction,
+  preparePostGoalMovement,
+  advancePostGoalReaction,
+} from './postGoalReactions';
+import { endStoppage } from './stoppageLedger';
+import { resolveRestartGoalOutcome } from './restartLaws';
 import { deriveCanonicalCoachProfile } from '../coachProfiles';
 import { emitMatchEvents } from './matchEventFeed';
 import { initialiseTeamThreatMemory, observeTeamThreats } from './teamThreatMemory';
@@ -14,7 +28,7 @@ import {
 import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, MatchPhase, TacticalMatchState } from './matchState';
 import { deriveNeutralFormationAnchor, deriveTacticalTargets } from './tacticalPositioning';
-import { applyRestartScenario } from './restartScenarios';
+import { awardNaturalRestart } from './restartScenarios';
 import { requiresHumanRestart } from './actionAgency';
 import { applyThrowInContact, canContactAfterThrowIn } from './throwIn';
 
@@ -31,6 +45,9 @@ import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBo
 import { resolveContinuousGroundPassClaim, resolveGroundPassClaim } from './passClaimResolver';
 import {
   deterministicRebound,
+  resolveBallRebound,
+  deriveWallContactCandidate,
+  BALL_RADIUS,
   findFirstBallContact,
   GOAL_HEIGHT,
   type BallContact,
@@ -38,7 +55,7 @@ import {
   type FlightPoint,
 } from './ballFlight';
 import { resolveFormationDuty } from '../footballerWorld';
-import { deriveLooseBallAssignments, rollLooseBall } from './looseBallPhysics';
+import { deriveLooseBallAssignments } from './looseBallPhysics';
 import { awardOffsideRestart, findOffsideContestant, isOffsideOffence } from './offside';
 import {
   countSemanticPlayerChoices,
@@ -106,6 +123,7 @@ const applyBoundaryRestart = (
   state: TacticalMatchState,
   crossing: PitchBoundaryCrossing,
   previous: { x: number; y: number },
+  segmentSeconds = 0,
 ) => {
   // Crossing a line ends the active delivery even when no player has contacted it. Preserve
   // that failed result before the restart's next release replaces lastPassDiagnostic.
@@ -167,10 +185,13 @@ const applyBoundaryRestart = (
     restartId: restartAwardId(state, restartTeam, scenario),
   });
   return {
-    ...applyRestartScenario(resolvedState, scenario, {
+    ...awardNaturalRestart(resolvedState, scenario, {
       restartTeam,
       cause: 'boundary',
-      ...(scenario === 'throw_in' ? { restartPoint: crossing.point } : {}),
+      restartPoint: crossing.point,
+      incidentPoint: crossing.point,
+      incidentId: `${state.seed}:boundary:${state.time}:${crossing.boundary}`,
+      eventAt: state.time - segmentSeconds + crossing.segmentFraction * segmentSeconds,
     }),
     lastBoundaryRestart: scenario,
     lastBoundaryCrossing: {
@@ -275,11 +296,24 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
 /** A direct restart exemption and its delivery context end at another player's real contact. */
 const applyIncomingContact = (state: TacticalMatchState, actorId: string): TacticalMatchState => {
   state = applyThrowInContact(state, actorId);
+  if (state.restartTouchRestriction && state.restartTouchRestriction.takerId !== actorId)
+    state = {
+      ...state,
+      restartTouchRestriction: { ...state.restartTouchRestriction, touchedByOther: true },
+    };
   if (state.restart?.phase !== 'release' || state.restart.takerId === actorId) return state;
   const { restart: _completed, ...openPlay } = state;
   void _completed;
-  return { ...openPlay, scenario: 'open_play' };
+  return { ...openPlay, scenario: 'open_play', players: clearWallResponses(openPlay.players) };
 };
+
+const clearWallResponses = (players: MatchPlayerState[]) =>
+  players.map((player) => {
+    if (!player.restartWallResponse) return player;
+    const { restartWallResponse: _response, ...normal } = player;
+    void _response;
+    return normal;
+  });
 
 /** Executes only an actual incoming contact, before the reception resolver can settle it. */
 const tryIncomingFinish = (
@@ -717,7 +751,7 @@ const finishUnclaimedDelivery = (state: TacticalMatchState): TacticalMatchState 
 const finishShotContact = (
   state: TacticalMatchState,
   contact: BallContact,
-  incoming: { x: number; y: number },
+  incoming: { x: number; y: number; z?: number },
   goalkeeperProjection = projectGoalkeeperIntervention(state),
 ): TacticalMatchState => {
   let shot = state.ball.shot!;
@@ -736,23 +770,51 @@ const finishShotContact = (
     ball: { x: contact.point.x, y: contact.point.y, height: contact.point.z },
   };
   if (contact.kind === 'goal_plane') {
+    const restriction = state.restartTouchRestriction;
+    const lawOutcome = restriction
+      ? resolveRestartGoalOutcome(
+          restriction.scenario,
+          restriction.team,
+          shooter.team,
+          restriction.indirect,
+          restriction.touchedByOther,
+        )
+      : 'goal';
+    if (lawOutcome !== 'goal')
+      return awardNaturalRestart(
+        { ...base, lastShot: { ...shot, outcome: 'miss' as const }, lastShotResult: 'miss' },
+        lawOutcome === 'corner' ? 'corner' : 'goal_kick',
+        {
+          restartTeam: shooter.team === 'home' ? 'away' : 'home',
+          cause: 'shot',
+          incidentId: shot.shotId + ':direct-goal-disallowed',
+          incidentPoint: contact.point,
+        },
+      );
     const score = { ...state.score, [shooter.team]: state.score[shooter.team] + 1 };
-    return {
-      ...base,
-      lastShot: { ...shot, outcome: 'goal', classification: 'on_target' },
-      score,
-      lastShotResult: 'goal',
-      goalCompletionUntil: state.time + 0.55,
-      pendingKickoffTeam: shooter.team === 'home' ? 'away' : 'home',
-      ball: {
-        ...base.ball,
-        velocity: { x: incoming.x * 0.28, y: incoming.y * 0.28 },
-        looseSince: state.time,
+    return beginPostGoalReaction(
+      {
+        ...base,
+        lastShot: { ...shot, outcome: 'goal', classification: 'on_target' },
+        score,
+        lastShotResult: 'goal',
+
+        pendingKickoffTeam: shooter.team === 'home' ? 'away' : 'home',
+        ball: {
+          ...base.ball,
+          velocity: { x: incoming.x, y: incoming.y, z: incoming.z ?? 0 },
+          airborne: state.ball.airborne ?? false,
+          ...(state.ball.spin ? { spin: state.ball.spin } : {}),
+          looseSince: state.time,
+        },
       },
-    };
+      shooter.team,
+      shooter.id,
+      shot.shotId,
+    );
   }
   if (contact.kind === 'out')
-    return applyRestartScenario(
+    return awardNaturalRestart(
       {
         ...base,
         lastShotResult: 'miss',
@@ -766,6 +828,8 @@ const finishShotContact = (
       {
         restartTeam: shooter.team === 'home' ? 'away' : 'home',
         cause: 'shot',
+        incidentId: shot.shotId + ':out',
+        incidentPoint: contact.point,
         loserId: shooter.id,
       },
     );
@@ -805,7 +869,13 @@ const finishShotContact = (
   const local = state.players
     .filter((player) => distance(player.position, contact.point) < 18)
     .slice(0, 6);
-  return makeLoose(
+  const rebound = resolveBallRebound(
+    contact.kind,
+    { ...incoming, z: incoming.z ?? 0 },
+    shooter.team,
+    state.ball.spin,
+  );
+  const loose = makeLoose(
     {
       ...base,
       pendingPossessionLoss: {
@@ -828,8 +898,20 @@ const finishShotContact = (
         secondBallPriorityIds: secondBallPriority(state, local),
       },
     },
-    deterministicRebound(contact.kind, incoming, shooter.team),
+    rebound.velocity,
   );
+  const touched = contact.playerId ? applyIncomingContact(loose, contact.playerId) : loose;
+  return {
+    ...touched,
+    ball: {
+      ...touched.ball,
+      height: contact.point.z,
+      airborne: contact.point.z > 0.15 || Math.abs(rebound.velocity.z) > 1.15,
+      velocity: rebound.velocity,
+      ...(rebound.spin ? { spin: rebound.spin } : {}),
+      bounceCount: state.ball.bounceCount ?? 0,
+    },
+  };
 };
 
 const tacticalSemanticKey = (state: TacticalMatchState) =>
@@ -850,7 +932,14 @@ const stepTacticalMatchCore = (
   decisionAlreadyProjected = false,
 ): TacticalMatchState => {
   input = reconcileHumanPossession(resolvePendingPlayerDecision(input));
-  if (input.restart && requiresHumanRestart(input, input.restart.takerId)) return input;
+  if (
+    !input.periodEndPending &&
+    isRestartDecisionBoundary(input) &&
+    input.restart &&
+    requiresHumanRestart(input, input.restart.takerId) &&
+    !input.restart.selectedAction
+  )
+    return input;
   if (input.shotAgencyRequest && !input.periodEndPending && projectPlayerDecisionOpportunity(input))
     return input;
   // Recover snapshots whose setup clock was already allowed to overrun (for example by a future
@@ -897,6 +986,7 @@ const stepTacticalMatchCore = (
     actionCooldown: Math.max(0, input.actionCooldown - dt),
     teams: { ...input.teams },
   };
+  state = preparePostGoalMovement(prepareRestartMovement(state));
   if (state.aerialContactLocks)
     state = { ...state, aerialContactLocks: activeAerialContactLocks(state) };
   if (state.restart) state.restartStalledSeconds = state.time - state.restart.startedAt;
@@ -904,7 +994,11 @@ const stepTacticalMatchCore = (
   if (
     state.scenario === 'open_play' &&
     !state.ball.ownerId &&
-    (state.ball.x < 0 || state.ball.x > 105 || state.ball.y < 0 || state.ball.y > 68)
+    !state.postGoal &&
+    (state.ball.x < -BALL_RADIUS ||
+      state.ball.x > 105 + BALL_RADIUS ||
+      state.ball.y < -BALL_RADIUS ||
+      state.ball.y > 68 + BALL_RADIUS)
   ) {
     const outside = { x: state.ball.x, y: state.ball.y };
     const boundary =
@@ -1027,7 +1121,7 @@ const stepTacticalMatchCore = (
     const { goalCompletionUntil: _freeze, pendingKickoffTeam: _team, ...completed } = state;
     void _freeze;
     void _team;
-    return applyRestartScenario(completed, 'kick_off', {
+    return awardNaturalRestart(completed, 'kick_off', {
       restartTeam: kickoffTeam,
       cause: 'goal',
       ...(state.lastShot ? { loserId: state.lastShot.shooterId } : {}),
@@ -1084,7 +1178,7 @@ const stepTacticalMatchCore = (
   ) {
     const { restart: _restart, ...openPlay } = state;
     void _restart;
-    state = { ...openPlay, scenario: 'open_play' };
+    state = { ...openPlay, scenario: 'open_play', players: clearWallResponses(openPlay.players) };
   }
   for (const side of ['home', 'away'] as const) {
     const team = state.teams[side],
@@ -1154,12 +1248,18 @@ const stepTacticalMatchCore = (
   }
   // Formation/pressure plans are stable intentions. Integrate bodies at 40 Hz, but only answer
   // the expensive tactical question at 10 Hz or immediately after a semantic football event.
-  const plannedPlayers = tacticalPlanDue ? deriveTacticalTargets(state) : state.players;
+  const plannedPlayers =
+    isLiveRestartSetup(state) || state.postGoal
+      ? state.players
+      : tacticalPlanDue
+        ? deriveTacticalTargets(state)
+        : state.players;
   endPerformanceSpan('tactical_planning', planningSpan);
   const movementSpan = startPerformanceSpan('movement_physics');
-  const cooperativePress = state.ball.ownerId
-    ? deriveCooperativePress(state, state.possessionTeam === 'home' ? 'away' : 'home')
-    : null;
+  const cooperativePress =
+    state.ball.ownerId && !isRestartSetup(state) && !state.postGoal
+      ? deriveCooperativePress(state, state.possessionTeam === 'home' ? 'away' : 'home')
+      : null;
   state.players = plannedPlayers.map((player) => {
     let movementTarget = player.target;
     if (state.ballCarrierIntent?.actorId === player.id) {
@@ -1279,7 +1379,12 @@ const stepTacticalMatchCore = (
       x: player.velocity.x + velocityDelta.x * velocityScale,
       y: player.velocity.y + velocityDelta.y * velocityScale,
     };
-    const integratedPosition = clampPitchPoint({
+    const stopped = isLiveRestartSetup(state) || Boolean(state.postGoal);
+    const movementBounds = (point: { x: number; y: number }) =>
+      stopped
+        ? { x: Math.max(-8, Math.min(113, point.x)), y: Math.max(-8, Math.min(76, point.y)) }
+        : clampPitchPoint(point);
+    const integratedPosition = movementBounds({
       x: player.position.x + velocity.x * dt,
       y: player.position.y + velocity.y * dt,
     });
@@ -1298,7 +1403,7 @@ const stepTacticalMatchCore = (
       // Body separation is a small constraint correction, not an extra 4.8 m/s motor whose
       // artificial velocity feeds the following tick or whose jitter earns running distance.
       const separation = Math.min(Math.max(0, 1.15 - od), 0.65 * dt);
-      next = clampPitchPoint({
+      next = movementBounds({
         x: next.x + (ox / od) * separation,
         y: next.y + (oy / od) * separation,
       });
@@ -1373,6 +1478,32 @@ const stepTacticalMatchCore = (
   endPerformanceSpan('movement_physics', movementSpan);
   const ballSpan = startPerformanceSpan('ball_physics');
   try {
+    if (state.postGoal) return advancePostGoalReaction(state, dt);
+    if (isLiveRestartSetup(state)) {
+      state = advanceRestartPlacement(state, dt);
+      const restart = state.restart!;
+      if (
+        !restart.selectedAction &&
+        restart.readiness?.legalReady &&
+        !requiresHumanRestart(state, restart.takerId)
+      ) {
+        const choice = chooseRestartAction(state);
+        if (choice) state = resolveMatchAction(state, choice, 'autonomous_npc');
+      }
+      if (canExecutePreparedRestart(state)) {
+        const ready = state.restart!;
+        const prepared = {
+          ...state,
+          ball: { ...state.ball, ownerId: ready.takerId },
+          restart: { ...ready, executing: true },
+        };
+        const executed = resolveMatchAction(prepared, ready.selectedAction!, ready.selectedSource);
+        if (executed.decisionIndex > state.decisionIndex)
+          return advanceRestartWallResponses(executed);
+      }
+      return state;
+    }
+    state = advanceRestartWallResponses(state);
     if (state.goalCompletionUntil !== undefined) {
       const velocity = state.ball.velocity ?? { x: 0, y: 0 };
       state.ball = {
@@ -1410,6 +1541,7 @@ const stepTacticalMatchCore = (
           },
           airborne: state.ball.airborne ?? false,
           bounceCount: state.ball.bounceCount ?? 0,
+          ...(state.ball.spin ? { spin: state.ball.spin } : {}),
         },
         dt,
       );
@@ -1535,7 +1667,25 @@ const stepTacticalMatchCore = (
             if (finish) return finish;
           }
         }
-        if (crossing) return applyBoundaryRestart(state, crossing, previous);
+        if (crossing)
+          return applyBoundaryRestart(
+            {
+              ...state,
+              ball: {
+                ...state.ball,
+                x: next.x,
+                y: next.y,
+                height: next.z,
+                velocity: integrated.velocity,
+                airborne: integrated.airborne,
+                bounceCount: integrated.bounceCount,
+                ...(integrated.spin ? { spin: integrated.spin } : {}),
+              },
+            },
+            crossing,
+            previous,
+            dt,
+          );
       }
       state.ball = {
         ...state.ball,
@@ -1549,6 +1699,7 @@ const stepTacticalMatchCore = (
         velocity: integrated.velocity,
         airborne: integrated.airborne,
         bounceCount: integrated.bounceCount,
+        ...(integrated.spin ? { spin: integrated.spin } : {}),
       };
       if (state.ball.shot) {
         const shot = state.ball.shot;
@@ -1558,12 +1709,26 @@ const stepTacticalMatchCore = (
             (player) =>
               player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
           )
-          .map((defender) => ({
-            kind: 'defender' as const,
-            playerId: defender.id,
-            centre: { ...defender.position, z: 0.9 },
-            radius: 0.72,
-          }));
+          .map((defender) =>
+            state.restart?.roles[defender.id]?.key.includes('wall')
+              ? deriveWallContactCandidate(
+                  defender.id,
+                  defender.position,
+                  defender.profile.heightCm / 100,
+                  defender.restartWallResponse?.jumpHeight ?? 0,
+                  {
+                    x: defender.position.x - defender.velocity.x * dt,
+                    y: defender.position.y - defender.velocity.y * dt,
+                  },
+                  defender.restartWallResponse?.previousJumpHeight ?? 0,
+                )
+              : {
+                  kind: 'defender' as const,
+                  playerId: defender.id,
+                  centre: { ...defender.position, z: 0.9 },
+                  radius: 0.72,
+                },
+          );
         const keeperProjection = goalkeeperProjectionAtSegmentStart;
         const defendingKeeper = state.players.find(
           (player) =>
@@ -1603,15 +1768,21 @@ const stepTacticalMatchCore = (
               ...state,
               ball: {
                 ...state.ball,
-                ...crossing.point,
-                height: previous.z + (next.z - previous.z) * crossing.segmentFraction,
+                x: next.x,
+                y: next.y,
+                height: next.z,
               },
             },
             crossing,
             previous,
+            dt,
           );
         if (found) {
-          const incoming = { x: (next.x - previous.x) / dt, y: (next.y - previous.y) / dt };
+          const incoming = {
+            x: integrated.velocity.x,
+            y: integrated.velocity.y,
+            z: integrated.velocity.z,
+          };
           const rebound = deterministicRebound(found.kind, incoming, shooter.team);
           const contact: BallContact = {
             ...found,
@@ -1896,15 +2067,191 @@ const stepTacticalMatchCore = (
     } else if (!state.ball.ownerId && state.ball.looseSince !== undefined) {
       const velocity = state.ball.velocity ?? { x: 0, y: 0 },
         looseSince = state.ball.looseSince;
-      const projected = { x: state.ball.x + velocity.x * dt, y: state.ball.y + velocity.y * dt };
-      const crossing = findPitchBoundaryCrossing(state.ball, projected);
-      if (crossing) return applyBoundaryRestart(state, crossing, state.ball);
-      const rolled = rollLooseBall(state.ball, velocity, dt);
+      const previous: FlightPoint = {
+        x: state.ball.x,
+        y: state.ball.y,
+        z: state.ball.height ?? BALL_RADIUS,
+      };
+      const integrated = integrateBallFlight(
+        {
+          position: previous,
+          velocity: { x: velocity.x, y: velocity.y, z: velocity.z ?? 0 },
+          airborne: state.ball.airborne ?? false,
+          bounceCount: state.ball.bounceCount ?? 0,
+          ...(state.ball.spin ? { spin: state.ball.spin } : {}),
+        },
+        dt,
+      );
+      const next = integrated.position;
+      const continuation =
+        state.lastShot &&
+        state.pendingPossessionLoss?.id === `${state.seed}:shot-rebound:${state.lastShot.shotId}`
+          ? state.lastShot
+          : undefined;
+      const shootingPlayer = continuation
+        ? state.players.find((player) => player.id === continuation.shooterId)
+        : undefined;
+      const attackingTeam = shootingPlayer?.team ?? state.possessionTeam;
+      const goalkeeperProjection = continuation
+        ? projectGoalkeeperIntervention({
+            ...state,
+            ball: {
+              ...state.ball,
+              shot: continuation,
+              flightTime: Math.max(0, state.time - dt - (continuation.releasedAt ?? looseSince)),
+            },
+          })
+        : undefined;
+      const lastContact = state.lastBallContact;
+      const sameBounce = integrated.bounceCount === (state.ball.bounceCount ?? 0);
+      const candidates: ContactCandidate[] = [];
+      if (
+        Math.hypot(velocity.x, velocity.y, velocity.z ?? 0) > 0.5 &&
+        (state.ball.airborne || previous.z > 0.5 || continuation)
+      ) {
+        const previousPositions = new Map(
+          input.players.map((player) => [player.id, player.position]),
+        );
+        for (const player of state.players) {
+          if (state.discipline?.[player.id]?.sentOff || !canContactAfterThrowIn(state, player.id))
+            continue;
+          // One overlap is one contact. Release this short lock on separation or a fresh bounce.
+          if (
+            lastContact?.playerId === player.id &&
+            sameBounce &&
+            state.time - lastContact.at < 0.15 &&
+            distance(previous, lastContact.point) < 1.2
+          )
+            continue;
+          const previousPosition = previousPositions.get(player.id) ?? player.position;
+          if (player.restartWallResponse || state.restart?.roles[player.id]?.key.includes('wall')) {
+            candidates.push(
+              deriveWallContactCandidate(
+                player.id,
+                player.position,
+                player.profile.heightCm / 100,
+                player.restartWallResponse?.jumpHeight ?? 0,
+                previousPosition,
+                player.restartWallResponse?.previousJumpHeight ?? 0,
+              ),
+            );
+          } else {
+            const keeper = player.profile.primaryPosition === 'goalkeeper';
+            const height = keeper ? GOALKEEPER_PHYSICS.contactCentreHeight : 0.9;
+            candidates.push({
+              kind: keeper ? 'goalkeeper' : 'defender',
+              playerId: player.id,
+              centre: { ...player.position, z: height },
+              previousCentre: { ...previousPosition, z: height },
+              radius: keeper ? GOALKEEPER_PHYSICS.passiveBodyRadiusMetres : 0.72,
+            });
+          }
+        }
+      }
+      let found = findFirstBallContact({ previous, next, attackingTeam, candidates });
+      if (
+        found &&
+        found.kind === lastContact?.kind &&
+        !found.playerId &&
+        found.segmentFraction < 1e-7 &&
+        sameBounce &&
+        state.time - lastContact.at < 0.15
+      )
+        found = undefined;
+      const crossing = findPitchBoundaryCrossing(previous, next);
+      if (
+        crossing &&
+        (!found ||
+          crossing.segmentFraction < found.segmentFraction ||
+          found.kind === 'out' ||
+          (found.kind === 'goal_plane' && !continuation))
+      )
+        return applyBoundaryRestart(
+          {
+            ...state,
+            ball: {
+              ...state.ball,
+              x: next.x,
+              y: next.y,
+              height: next.z,
+              velocity: integrated.velocity,
+              airborne: integrated.airborne,
+              bounceCount: integrated.bounceCount,
+              ...(integrated.spin ? { spin: integrated.spin } : {}),
+            },
+          },
+          crossing,
+          previous,
+          dt,
+        );
       state.ball = {
         ...state.ball,
-        ...rolled.position,
-        velocity: rolled.velocity,
+        x: next.x,
+        y: next.y,
+        height: next.z,
+        airborne: integrated.airborne,
+        velocity: integrated.velocity,
+        bounceCount: integrated.bounceCount,
+        ...(integrated.spin ? { spin: integrated.spin } : {}),
       };
+      if (found && found.kind !== 'out') {
+        const incoming = {
+          x: (next.x - previous.x) / dt,
+          y: (next.y - previous.y) / dt,
+          z: (next.z - previous.z) / dt,
+        };
+        const rebound = resolveBallRebound(found.kind, incoming, attackingTeam, integrated.spin);
+        const contact: BallContact = {
+          ...found,
+          at: state.time - dt + found.segmentFraction * dt,
+          preContactSpeed: Math.hypot(incoming.x, incoming.y, incoming.z),
+          postContactSpeed:
+            found.kind === 'goal_plane'
+              ? Math.hypot(incoming.x, incoming.y, incoming.z)
+              : Math.hypot(rebound.velocity.x, rebound.velocity.y, rebound.velocity.z),
+        };
+        if (continuation) {
+          const physical = {
+            ...state,
+            ball: {
+              ...state.ball,
+              shot: continuation,
+              flightTime: Math.max(0, state.time - (continuation.releasedAt ?? looseSince)),
+            },
+          };
+          const resolved = finishShotContact(physical, contact, incoming, goalkeeperProjection);
+          if (resolved.ball.looseSince !== undefined && !resolved.postGoal && !resolved.restart) {
+            const outgoing = resolved.ball.velocity ?? rebound.velocity;
+            const speed = Math.max(0.001, Math.hypot(outgoing.x, outgoing.y));
+            return {
+              ...resolved,
+              ball: {
+                ...resolved.ball,
+                x: resolved.ball.x + (outgoing.x / speed) * 0.002,
+                y: resolved.ball.y + (outgoing.y / speed) * 0.002,
+              },
+            };
+          }
+          return resolved;
+        }
+        const speed = Math.max(0.001, Math.hypot(rebound.velocity.x, rebound.velocity.y));
+        const touched = found.playerId ? applyIncomingContact(state, found.playerId) : state;
+        return {
+          ...touched,
+          lastBallContact: contact,
+          ballEpisode: (touched.ballEpisode ?? 0) + 1,
+          ball: {
+            ...touched.ball,
+            x: found.point.x + (rebound.velocity.x / speed) * 0.002,
+            y: found.point.y + (rebound.velocity.y / speed) * 0.002,
+            height: found.point.z,
+            velocity: rebound.velocity,
+            airborne: found.point.z > BALL_RADIUS || rebound.airborne,
+            ...(found.playerId ? { lastTouchPlayerId: found.playerId } : {}),
+            ...(rebound.spin ? { spin: rebound.spin } : {}),
+          },
+        };
+      }
       if (state.time - looseSince > 0.35) {
         const assignments = deriveLooseBallAssignments(state);
         const assignedIds = new Set(assignments.map((assignment) => assignment.playerId));
@@ -1923,7 +2270,7 @@ const stepTacticalMatchCore = (
           .sort((a, b) => a.score - b.score || a.p.id.localeCompare(b.p.id))[0];
         const controlRadius = Math.max(
           1.15,
-          2.1 - Math.hypot(rolled.velocity.x, rolled.velocity.y) * 0.04,
+          2.1 - Math.hypot(integrated.velocity.x, integrated.velocity.y) * 0.04,
         );
         const acquisition = advanceBallAcquisition(state, claimant?.p, controlRadius);
         state = acquisition.state;
@@ -1931,7 +2278,7 @@ const stepTacticalMatchCore = (
           state = changePossession(state, acquisition.securedPlayerId, 'claim');
         else if (acquisition.failedVelocity) state = makeLoose(state, acquisition.failedVelocity);
       }
-    } else if (state.ball.ownerId && state.restart?.phase !== 'setup') {
+    } else if (state.ball.ownerId && !isRestartSetup(state)) {
       const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
       const beforeContact = { x: state.ball.x, y: state.ball.y };
       const contactSpan = startPerformanceSpan('ball_contact_control');
@@ -1939,7 +2286,7 @@ const stepTacticalMatchCore = (
       endPerformanceSpan('ball_contact_control', contactSpan);
       state = controlled.state;
       const crossing = findPitchBoundaryCrossing(beforeContact, state.ball);
-      if (crossing) return applyBoundaryRestart(state, crossing, beforeContact);
+      if (crossing) return applyBoundaryRestart(state, crossing, beforeContact, dt);
       if (controlled.looseVelocity) state = makeLoose(state, controlled.looseVelocity);
     }
   } finally {
@@ -1947,7 +2294,7 @@ const stepTacticalMatchCore = (
   }
   const actionSpan = startPerformanceSpan('action_resolution');
   try {
-    if (state.ball.ownerId && !state.ball.travelKind && state.restart?.phase !== 'setup') {
+    if (state.ball.ownerId && !state.ball.travelKind && !isRestartSetup(state)) {
       const owner = state.players.find((p) => p.id === state.ball.ownerId)!;
       const evaluated = evaluatePressure(state, owner);
       state.currentPressure = evaluated.value;
@@ -2037,7 +2384,7 @@ const stepTacticalMatchCore = (
       !state.periodEndPending &&
       state.actionCooldown <= 0 &&
       state.ball.ownerId &&
-      state.restart?.phase !== 'setup'
+      !isRestartSetup(state)
     ) {
       const ownerId = state.ball.ownerId;
       if (!ownerId) return state;
@@ -2098,7 +2445,11 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
     _restart,
     _pending,
   ];
-  return stable;
+  const next = endStoppage(stable, state.status === 'abandoned' ? 'abandoned' : 'period_end');
+  delete next.postGoal;
+  delete next.restartTouchRestriction;
+  next.players = clearWallResponses(next.players);
+  return next;
 };
 
 /** Starts the prepared second-half kickoff; canonical directions remain team-relative and stable. */
@@ -2106,7 +2457,7 @@ export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState =
   state = enforceMinimumPlayers(state);
   if (state.status !== 'half_time') return state;
   const ready = { ...state, status: 'second_half' as const, actionCooldown: 0.4 };
-  return applyRestartScenario(ready, 'kick_off', { restartTeam: 'away' });
+  return awardNaturalRestart(ready, 'kick_off', { restartTeam: 'away' });
 };
 
 /** Regulation wrapper. Thresholds stop new choices, while committed ball physics finish safely. */
@@ -2115,10 +2466,18 @@ export const stepTacticalMatch = (
   rawDelta = 0.1,
 ): TacticalMatchState => {
   input = enforceMinimumPlayers(input);
-  if (input.restart && requiresHumanRestart(input, input.restart.takerId)) return input;
   const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
   if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
   const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
+  if (
+    !input.periodEndPending &&
+    input.time + Math.min(0.25, Math.max(0.01, rawDelta)) < threshold &&
+    isRestartDecisionBoundary(input) &&
+    input.restart &&
+    requiresHumanRestart(input, input.restart.takerId) &&
+    !input.restart.selectedAction
+  )
+    return input;
   let prepared = input;
   if (
     input.periodEndPending ||
@@ -2133,7 +2492,13 @@ export const stepTacticalMatch = (
   if (!next.status) next = { ...next, status };
   if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
-      ...clearTransientPeriodState(next),
+      ...clearTransientPeriodState({
+        ...next,
+        time:
+          input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
+            ? Math.max(threshold, next.time)
+            : threshold,
+      }),
       // Ordinary threshold-only play stops exactly on regulation time. An accepted physical
       // commitment may finish just after it; never rewind its canonical contact/card evidence.
       time:
@@ -2174,10 +2539,18 @@ export const stepTacticalMatchAfterDecisionProbe = (
   rawDelta = FIXED_MATCH_DT,
 ): TacticalMatchState => {
   input = enforceMinimumPlayers(input);
-  if (input.restart && requiresHumanRestart(input, input.restart.takerId)) return input;
   const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
   if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
   const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
+  if (
+    !input.periodEndPending &&
+    input.time + rawDelta < threshold &&
+    isRestartDecisionBoundary(input) &&
+    input.restart &&
+    requiresHumanRestart(input, input.restart.takerId) &&
+    !input.restart.selectedAction
+  )
+    return input;
   const prepared =
     input.periodEndPending || input.time + rawDelta >= threshold
       ? { ...input, periodEndPending: true }
@@ -2185,7 +2558,13 @@ export const stepTacticalMatchAfterDecisionProbe = (
   let next = advanceHumanIntentProgress(stepTacticalMatchCore(prepared, rawDelta, true));
   if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
     next = {
-      ...clearTransientPeriodState(next),
+      ...clearTransientPeriodState({
+        ...next,
+        time:
+          input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
+            ? Math.max(threshold, next.time)
+            : threshold,
+      }),
       time:
         input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
           ? Math.max(threshold, next.time)

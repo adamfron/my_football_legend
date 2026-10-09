@@ -97,7 +97,13 @@ export const projectLocomotion = (
     reason,
     targetSpeed: speedFor(intensity),
   });
-  if (state.restart?.phase === 'setup') return result('walk', 'restart_setup');
+  if (state.restart && state.restart.phase !== 'release')
+    return result(metres > 12 ? 'run' : metres > 3 ? 'jog' : 'walk', 'restart_setup');
+  if (state.postGoal)
+    return result(
+      state.postGoal.urgent && metres > 8 ? 'run' : metres > 3 ? 'jog' : 'walk',
+      'restart_setup',
+    );
   const ballIntent =
     state.ballCarrierIntent?.actorId === player.id ? state.ballCarrierIntent : undefined;
   const turnPreparationFactor = ballIntent

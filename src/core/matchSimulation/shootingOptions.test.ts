@@ -7,6 +7,9 @@ import {
   deriveShotExecutionProfile,
   enumerateCanonicalShootingOptions,
   incomingShotContact,
+  enumerateFreeKickStrikeProfiles,
+  findFreeKickWallGapTarget,
+  isFreeKickWallGapTarget,
 } from './shootingOptions';
 import {
   chooseIncomingShotAction,
@@ -62,6 +65,122 @@ const fixture = (seed = 'pr144-shooting') => {
   state.actionCooldown = 0;
   return { state, shooter, keeper };
 };
+
+describe('PR159 geometry-derived free-kick profiles', () => {
+  const freeKick = () => {
+    const { state, shooter } = fixture('pr159-wall-options');
+    shooter.position = { x: 83, y: 34 };
+    state.ball = { ...shooter.position, ownerId: shooter.id, height: BALL_RADIUS };
+    state.scenario = 'free_kick_close';
+    state.restart = {
+      phase: 'setup',
+      restartTeam: 'home',
+      startedAt: 0,
+      takerId: shooter.id,
+      targets: {},
+      executionChoices: ['direct_shot'],
+      roles: {},
+    };
+    const wall = state.players
+      .filter((player) => player.team === 'away' && player.profile.primaryPosition !== 'goalkeeper')
+      .slice(0, 2);
+    wall.forEach((player, index) => {
+      player.position = { x: 92.15, y: 34 + (index === 0 ? -0.3 : 0.3) };
+      player.profile.attributes.jumping = 70;
+      state.restart!.roles[player.id] = {
+        key: 'wall',
+        intent: 'protect_zone',
+        zone: { centre: player.position, radius: 0.5, timing: 0 },
+      };
+    });
+    return { state, shooter, wall };
+  };
+  it('offers under-wall risk without ordering a jump, and hides physically impossible gaps', () => {
+    const { state, shooter, wall } = freeKick();
+    const before = structuredClone(state);
+    const profiles = enumerateFreeKickStrikeProfiles(state, shooter.id);
+    expect(profiles).toContain('under_wall');
+    expect(profiles).not.toContain('wall_gap');
+    expect(state).toEqual(before);
+    wall[0]!.position.y = 33.4;
+    wall[1]!.position.y = 34.6;
+    expect(enumerateFreeKickStrikeProfiles(state, shooter.id)).toContain('wall_gap');
+    expect(findFreeKickWallGapTarget(state, shooter.id)?.horizontal).toBeCloseTo(0);
+    expect(isFreeKickWallGapTarget(state, shooter.id, { horizontal: 1, vertical: 0.04 })).toBe(
+      false,
+    );
+    expect(wall.every((player) => player.restartWallResponse === undefined)).toBe(true);
+  });
+  it('does not offer spin profiles for indirect restarts or high under-wall targets', () => {
+    const { state, shooter } = freeKick();
+    expect(
+      enumerateFreeKickStrikeProfiles(state, shooter.id, { horizontal: 0, vertical: 0.6 }),
+    ).not.toContain('under_wall');
+    state.restart!.indirect = true;
+    expect(enumerateFreeKickStrikeProfiles(state, shooter.id)).toEqual([]);
+  });
+  it('keeps legally direct keeper goal-kick attempts beyond open-play range available', () => {
+    const { state } = fixture('pr159-keeper-direct');
+    const keeper = state.players.find(
+      (player) => player.team === 'home' && player.profile.primaryPosition === 'goalkeeper',
+    )!;
+    keeper.position = { x: 5.5, y: 34 };
+    state.ball = { ...keeper.position, ownerId: keeper.id };
+    state.scenario = 'goal_kick';
+    state.restart = {
+      phase: 'setup',
+      restartTeam: 'home',
+      startedAt: 0,
+      takerId: keeper.id,
+      targets: {},
+      roles: {},
+      executionChoices: ['direct_shot'],
+    };
+    const actions = enumerateCanonicalShootingOptions(state, keeper.id);
+    expect(actions.some((action) => action.type === 'shot' && action.intent === 'driven')).toBe(
+      true,
+    );
+    expect(
+      canExecuteCanonicalShot(
+        state,
+        actions.find((action) => action.type === 'shot')! as Extract<MatchAction, { type: 'shot' }>,
+      ),
+    ).toBe(true);
+    delete state.restart;
+    state.scenario = 'open_play';
+    expect(enumerateCanonicalShootingOptions(state, keeper.id)).toEqual([]);
+  });
+  it('retains a penalty chip without requiring the keeper to leave the goal line', () => {
+    const { state, shooter, keeper } = fixture('pr159-penalty-chip');
+    shooter.position = { x: 94, y: 34 };
+    keeper.position = { x: 105, y: 34 };
+    state.ball = { ...shooter.position, ownerId: shooter.id };
+    const defender = state.players.find(
+      (player) => player.team !== shooter.team && player.id !== keeper.id,
+    )!;
+    defender.position = { x: 93, y: 34 };
+    expect(
+      enumerateCanonicalShootingOptions(state, shooter.id).some(
+        (action) => action.type === 'shot' && action.intent === 'chip',
+      ),
+    ).toBe(false);
+    state.scenario = 'penalty';
+    state.restart = {
+      phase: 'setup',
+      restartTeam: 'home',
+      startedAt: 0,
+      takerId: shooter.id,
+      targets: {},
+      roles: {},
+      executionChoices: ['direct_shot'],
+    };
+    expect(
+      enumerateCanonicalShootingOptions(state, shooter.id).some(
+        (action) => action.type === 'shot' && action.intent === 'chip',
+      ),
+    ).toBe(true);
+  });
+});
 const incomingFixture = (height = BALL_RADIUS, bounceCount = 0, beforeArrival = false) => {
   const setup = fixture();
   const passer = setup.state.players.find(

@@ -3,6 +3,34 @@ import type { TacticalMatchState } from '../../../core/matchSimulation/matchStat
 import { CUE_DURATION_MS } from './animation';
 import type { AnimationCue, TacticalFrame, TacticalPlayer } from './model';
 import { frameActionEvents, frameDismissals } from './actionFeedback';
+import { isRestartSetup } from '../../../core/matchSimulation/restartPhase';
+
+/** Canonical landmarks remain anchored even while the ball and footballers move. */
+export const projectRestartPresentation = (
+  state: TacticalMatchState,
+): Pick<TacticalFrame, 'restart'> => {
+  const restart = state.restart;
+  if (!restart || restart.phase === 'release') return {};
+  const spot = restart.spot ?? state.ball;
+  return {
+    restart: {
+      spot: { x: spot.x, y: spot.y },
+      phase: restart.phase,
+      takerId: restart.takerId,
+      wallIds: Object.entries(restart.roles)
+        .filter(([id, role]) => role.key === 'wall' && state.players.some((p) => p.id === id))
+        .map(([id]) => id),
+      ...(restart.selectedAction && 'target' in restart.selectedAction
+        ? { deliveryTarget: { ...restart.selectedAction.target } }
+        : {}),
+      ready: Boolean(
+        restart.readiness?.ballReady &&
+          restart.readiness?.takerReady &&
+          restart.readiness?.legalReady,
+      ),
+    },
+  };
+};
 
 /** Observe completed transitions, including contacts without their own timestamp. No resolvers. */
 export const observeAnimationCues = (
@@ -133,10 +161,16 @@ export const projectPlayerPreparation = (
 ): Pick<TacticalPlayer, 'preparation' | 'preparationSinceMs' | 'canonicalBallPlacement'> => {
   if (
     state.scenario === 'throw_in' &&
-    state.restart?.phase === 'setup' &&
+    (state.restart?.phase === 'setup' || state.restart?.phase === 'kick_preparation') &&
+    state.restart &&
     state.restart.takerId === playerId
   )
-    return { preparation: 'throw', preparationSinceMs: state.restart.startedAt * 1000 };
+    return {
+      preparation: 'throw',
+      preparationSinceMs: state.restart.startedAt * 1000,
+      canonicalBallPlacement: state.restart.origin === 'live_event',
+    };
+  if (isRestartSetup(state) || state.postGoal) return { canonicalBallPlacement: true };
   if (
     state.keeperIntervention?.keeperId === playerId &&
     state.keeperIntervention.intention !== 'stay'
@@ -200,6 +234,7 @@ export class PresentationFrameProjector {
       (state.seed !== this.previous.seed ||
         state.time < this.previous.time ||
         state.time - this.previous.time > 0.15 ||
+        state.players.length !== this.previous.players.length ||
         (state.restart?.phase === 'setup' &&
           (state.restart.startedAt !== this.previous.restart?.startedAt ||
             this.previous.restart?.phase !== 'setup' ||
@@ -231,6 +266,7 @@ export class PresentationFrameProjector {
     const frame = matchStateToFrame(state, options);
     return {
       ...frame,
+      ...projectRestartPresentation(state),
       actionEvents: frameActionEvents(state.actionEvents ?? [], frame.timestampMs),
       dismissals: frameDismissals(state),
       continuity: `${state.seed}:${this.continuity}`,

@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { BALL_RADIUS } from './ballFlight';
+import { BALL_RADIUS, deriveWallContactCandidate, findFirstBallContact } from './ballFlight';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { evaluateAerialContact } from './aerialPlay';
-import { goalIntentToPitch } from './goalCoordinates';
+import { goalIntentToPitch, pitchToGoalIntent } from './goalCoordinates';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { distance, pitchPointSchema, PITCH_LENGTH, PITCH_WIDTH } from './matchSpace';
@@ -11,10 +11,129 @@ import {
   shotExecutionProfileSchema,
   shotPreparationSeconds,
   type ShotExecutionProfile,
+  type FreeKickStrikeProfile,
 } from './shotIntent';
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
+import { isRestartSetup } from './restartPhase';
 
 type ShotAction = Extract<MatchAction, { type: 'shot' | 'header' }>;
+
+const freeKickWall = (state: TacticalMatchState, actorId: string) => {
+  const actor = state.players.find((player) => player.id === actorId);
+  return actor
+    ? state.players.filter(
+        (player) =>
+          player.team !== actor.team && state.restart?.roles?.[player.id]?.key.includes('wall'),
+      )
+    : [];
+};
+
+/** The selected ray must enter the wall's span and clear every finite member volume. */
+export const isFreeKickWallGapTarget = (
+  state: TacticalMatchState,
+  actorId: string,
+  goalTarget: { horizontal: number; vertical: number },
+) => {
+  const actor = state.players.find((player) => player.id === actorId);
+  const wall = freeKickWall(state, actorId);
+  if (!actor || wall.length < 2) return false;
+  const target = goalIntentToPitch(actor.team, goalTarget);
+  const dx = target.x - state.ball.x;
+  const dy = target.y - state.ball.y;
+  const metres = Math.max(0.1, Math.hypot(dx, dy));
+  const offsets = wall.map(
+    (player) =>
+      ((player.position.x - state.ball.x) * -dy + (player.position.y - state.ball.y) * dx) / metres,
+  );
+  if (Math.min(...offsets) >= 0 || Math.max(...offsets) <= 0) return false;
+  const contact = findFirstBallContact({
+    previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
+    next: { x: target.x, y: target.y, z: Math.max(BALL_RADIUS, target.height) },
+    attackingTeam: actor.team,
+    candidates: wall.map((player) =>
+      deriveWallContactCandidate(
+        player.id,
+        player.position,
+        player.profile.heightCm / 100,
+        player.restartWallResponse?.jumpHeight ?? 0,
+      ),
+    ),
+  });
+  return contact?.kind !== 'defender';
+};
+
+/** Finds an actual centre-ball route through a gap, rather than assigning a gap success label. */
+export const findFreeKickWallGapTarget = (state: TacticalMatchState, actorId: string) => {
+  const actor = state.players.find((player) => player.id === actorId);
+  const wall = freeKickWall(state, actorId);
+  if (!actor || wall.length < 2) return undefined;
+  const goalX = actor.team === 'home' ? PITCH_LENGTH : 0;
+  const ordered = [...wall].sort((a, b) => a.position.y - b.position.y || a.id.localeCompare(b.id));
+  for (let index = 1; index < ordered.length; index += 1) {
+    const first = ordered[index - 1]!;
+    const second = ordered[index]!;
+    const middle = {
+      x: (first.position.x + second.position.x) / 2,
+      y: (first.position.y + second.position.y) / 2,
+    };
+    const dx = middle.x - state.ball.x;
+    if (Math.abs(dx) < 0.1) continue;
+    const goalY = state.ball.y + ((middle.y - state.ball.y) * (goalX - state.ball.x)) / dx;
+    const intent = pitchToGoalIntent(actor.team, { y: goalY, height: BALL_RADIUS });
+    if (Math.abs(intent.horizontal) >= 0.96) continue;
+    const contact = findFirstBallContact({
+      previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
+      next: { x: goalX, y: goalY, z: BALL_RADIUS },
+      attackingTeam: actor.team,
+      candidates: wall.map((player) =>
+        deriveWallContactCandidate(
+          player.id,
+          player.position,
+          player.profile.heightCm / 100,
+          player.restartWallResponse?.jumpHeight ?? 0,
+        ),
+      ),
+    });
+    if (contact?.kind !== 'defender') return intent;
+  }
+  return undefined;
+};
+
+/** Pure menu eligibility; a possible jump is a risk to assess, never an order for the wall. */
+export const enumerateFreeKickStrikeProfiles = (
+  state: TacticalMatchState,
+  actorId: string,
+  goalTarget = { horizontal: 0, vertical: BALL_RADIUS / 2.44 },
+): FreeKickStrikeProfile[] => {
+  const actor = state.players.find((player) => player.id === actorId);
+  if (
+    !actor ||
+    !state.scenario.startsWith('free_kick') ||
+    state.restart?.takerId !== actorId ||
+    !isRestartSetup(state) ||
+    state.restart.indirect
+  )
+    return [];
+  const profiles: FreeKickStrikeProfile[] = ['power_bend', 'controlled_curl', 'dipping'];
+  const wall = freeKickWall(state, actorId);
+  const target = goalIntentToPitch(actor.team, goalTarget);
+  const groundedContact = findFirstBallContact({
+    previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
+    next: { x: target.x, y: target.y, z: Math.max(BALL_RADIUS, target.height) },
+    attackingTeam: actor.team,
+    candidates: wall.map((player) =>
+      deriveWallContactCandidate(player.id, player.position, player.profile.heightCm / 100),
+    ),
+  });
+  if (
+    goalTarget.vertical * 2.44 <= 0.3 &&
+    groundedContact?.kind === 'defender' &&
+    wall.some((player) => player.profile.attributes.jumping >= 35)
+  )
+    profiles.push('under_wall');
+  if (isFreeKickWallGapTarget(state, actorId, goalTarget)) profiles.push('wall_gap');
+  return profiles;
+};
 export const incomingShotContactSchema = z.object({
   point: pitchPointSchema,
   height: z.number().nonnegative(),
@@ -91,6 +210,7 @@ export const incomingBallContact = (
     },
     airborne: state.ball.airborne ?? false,
     bounceCount: state.ball.bounceCount ?? 0,
+    ...(state.ball.spin ? { spin: state.ball.spin } : {}),
   };
   function* samples() {
     yield { at: 0, ball: current };
@@ -148,7 +268,11 @@ export const enumerateCanonicalShootingOptions = (
   actorId: string,
 ): MatchAction[] => {
   const actor = state.players.find((player) => player.id === actorId);
-  if (!actor || actor.profile.primaryPosition === 'goalkeeper') return [];
+  const directRestart =
+    Boolean(state.restart && isRestartSetup(state) && state.restart.takerId === actorId) &&
+    !state.restart?.indirect &&
+    state.scenario !== 'throw_in';
+  if (!actor || (actor.profile.primaryPosition === 'goalkeeper' && !directRestart)) return [];
   const settled =
     state.ball.ownerId === actorId && !state.ball.travelKind && (state.ball.height ?? 0) <= 0.45;
   const incoming = settled ? undefined : incomingShotContact(state, actorId);
@@ -156,7 +280,7 @@ export const enumerateCanonicalShootingOptions = (
   const point = incoming?.point ?? actor.position;
   const goal = { x: actor.team === 'home' ? PITCH_LENGTH : 0, y: PITCH_WIDTH / 2 };
   const range = distance(point, goal);
-  if (range > (incoming ? 29 : 60)) return [];
+  if (!directRestart && range > (incoming ? 29 : 60)) return [];
   const keeper = state.players.find(
     (player) => player.team !== actor.team && player.profile.primaryPosition === 'goalkeeper',
   );
@@ -203,7 +327,11 @@ export const enumerateCanonicalShootingOptions = (
       distance(player.position, point) < 6,
   );
   const keeperOut = keeper ? Math.abs(keeper.position.x - goal.x) >= 2.5 : true;
-  if (settled && range >= 4 && range <= 24 && (keeperOut || (!nearbyDefender && range <= 20)))
+  if (
+    settled &&
+    ((directRestart && state.scenario === 'penalty') ||
+      (range >= 4 && range <= 24 && (keeperOut || (!nearbyDefender && range <= 20))))
+  )
     intents.push('chip');
   return intents.map((intent) => {
     const aim = goalTarget(intent);
@@ -227,6 +355,14 @@ export const canExecuteCanonicalShot = (state: TacticalMatchState, action: ShotA
   if (state.ball.shot) return false;
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor || (state.ball.ownerId && state.ball.ownerId !== actor.id)) return false;
+  if (
+    action.type === 'shot' &&
+    action.freeKickProfile &&
+    !enumerateFreeKickStrikeProfiles(state, actor.id, action.goalTarget).includes(
+      action.freeKickProfile,
+    )
+  )
+    return false;
   if (action.type === 'header') {
     return (
       action.intent !== 'header_shot' ||
@@ -264,6 +400,17 @@ export const deriveShotExecutionProfile = (
   const body = bodyDifficulty(actor, state.ball);
   const firstTime = contact !== 'settled';
   const a = actor.profile.attributes;
+  const freeKickProfile = header ? undefined : action.freeKickProfile;
+  const strikeDemand =
+    freeKickProfile === 'power_bend'
+      ? 0.55
+      : freeKickProfile === 'controlled_curl'
+        ? 0.28
+        : freeKickProfile === 'dipping'
+          ? 0.45
+          : freeKickProfile
+            ? 0.2
+            : 0;
   const contactDifficulty =
     contact === 'volley'
       ? 0.18 + (1 - (a.technique + a.agility) / 200) * 0.3
@@ -272,12 +419,28 @@ export const deriveShotExecutionProfile = (
         : contact === 'header'
           ? 0.08 + (1 - a.heading / 100) * 0.3
           : 0;
-  const difficulty = firstTime ? (incoming?.executionDifficulty ?? 0.35) + contactDifficulty : 0;
+  const difficulty =
+    (firstTime ? (incoming?.executionDifficulty ?? 0.35) + contactDifficulty : 0) +
+    strikeDemand * (1 + (1 - (a.setPieces + a.technique) / 200));
   return shotExecutionProfileSchema.parse({
     intent,
     contact,
     nominalSpeed:
-      (intent === 'driven' ? 31 : intent === 'placed' ? 25 : intent === 'chip' ? 17 : 19) +
+      (freeKickProfile === 'power_bend'
+        ? 34
+        : freeKickProfile === 'controlled_curl'
+          ? 24
+          : freeKickProfile === 'dipping'
+            ? 27
+            : freeKickProfile === 'under_wall'
+              ? 27
+              : intent === 'driven'
+                ? 31
+                : intent === 'placed'
+                  ? 25
+                  : intent === 'chip'
+                    ? 17
+                    : 19) +
       actor.profile.attributes.technique * 0.045,
     errorMultiplier:
       (intent === 'driven' ? 1.12 : intent === 'placed' ? 0.88 : intent === 'chip' ? 1.05 : 1) *

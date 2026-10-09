@@ -310,9 +310,11 @@ describe('restart geometry and lifecycle', () => {
     const wallVector = { x: near.at(-1)!.x - near[0]!.x, y: near.at(-1)!.y - near[0]!.y };
     const goalVector = { x: 22, y: 4 };
     expect(Math.abs(wallVector.x * goalVector.x + wallVector.y * goalVector.y)).toBeLessThan(0.01);
+    const wide = preset('free_kick_wide');
+    expect(wide.players.filter((p) => p.team === 'home' && p.position.x > 88).length).toBe(3);
     expect(
-      preset('free_kick_wide').players.filter((p) => p.team === 'home' && p.position.x > 88).length,
-    ).toBeGreaterThan(3);
+      Object.values(wide.restart!.roles).filter((role) => role.key === 'rest_defence').length,
+    ).toBeGreaterThanOrEqual(2);
   });
 
   it('keeps all penalty participants plausible and setup stable until execution', () => {

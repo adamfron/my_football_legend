@@ -1,0 +1,1080 @@
+{
+  "benchmark": "PR159 focused restart continuity: paired compact evidence",
+  "baseCodeSha": "a7c90299c01c080eb356fe88e0ef47d4a7b1f639",
+  "codeSha": "6e303b97eb1d82685f206fd1aea5dd5aeea5969a",
+  "codeTreeSha": "2d8bce620269164141d95726323d5d032408590e",
+  "harness": "scripts/benchmarkPr159Restarts.ts",
+  "configuration": {
+    "secondsPerCell": 20,
+    "repetitionsPerScenario": 2,
+    "dt": 0.025,
+    "ticksPerRevision": 9600,
+    "simulatedSecondsPerRevision": 240,
+    "warmupTicksExcluded": 40,
+    "fixtureConstructionExcluded": true,
+    "processOrder": ["before", "after"],
+    "control": "spectator/NPC, playerAgencyEnabled=false",
+    "fixtureClubs": "first two clubs of canonical world database: clubs[0]/clubs[1]",
+    "seedTemplate": "pr159-focused-runtime-${scenario}-${repetition}",
+    "note": "Each engine constructs its own seeded DEV fixture, receives the same bounded offsets, then invokes legacy DEV setup before / natural award after. Comparable conditions, not byte-identical initial role geometry or identical stopped-play work."
+  },
+  "comparison": {
+    "runtimeChangePercent": 16.354150668813915,
+    "beforeAverageTickMs": 0.4538912083333334,
+    "afterAverageTickMs": 0.5281212604166667,
+    "beforeReturnedToOpenPlay": 12,
+    "afterReturnedToOpenPlay": 12
+  },
+  "validation": {
+    "command": "npm run verify",
+    "result": "PASS",
+    "exitCode": 0,
+    "lint": "PASS",
+    "mainTests": 1367,
+    "mainFiles": 171,
+    "mainDurationSeconds": 193.21,
+    "careerTests": 5,
+    "careerFiles": 1,
+    "careerDurationSeconds": 52.15,
+    "build": "tsc -b && vite build: PASS",
+    "hostAdjustments": "test:main maxWorkers=2; TEMP/TMP relocated to a writable task directory; existing test assertions, exclusions and timeouts retained.",
+    "logSha256": "16394039cca91411632aa4ada67ee24d3d697454741d37a8828d4a1e05fdabc9",
+    "integrityTest": "src/core/matchSimulation/pr159Integrity.test.ts",
+    "integrityCases": [
+      "160 fixed ticks / 4 seconds of exact canonical state equality: release_minimal, normal, DEV, capture observers and both step entries; real curl release and spin observed.",
+      "Schema-validated signed physical transport resumes identically through placement, release and one ledger interval. A separate continuity case validates off-pitch transport serialization.",
+      "Queued and unselected human restarts close at the terminal whistle without automatic execution.",
+      "Unavailable pass/cross receiver or closed wall gap invalidates the queue and reopens human choice within the same award."
+    ]
+  },
+  "supplementalPhysics": {
+    "measurement": "Shared integrator, identical launch, only spin changed; 0.6 seconds.",
+    "launchPosition": {
+      "x": 20,
+      "y": 34,
+      "z": 1
+    },
+    "launchVelocity": {
+      "x": 28,
+      "y": 0,
+      "z": 9
+    },
+    "zeroSpin": {
+      "y": 34,
+      "z": 4.3423108306
+    },
+    "lateral": {
+      "spinRadiansPerSecond": {
+        "x": 0,
+        "y": 0,
+        "z": 80
+      },
+      "y": 34.539121637
+    },
+    "topspin": {
+      "spinRadiansPerSecond": {
+        "x": 0,
+        "y": 100,
+        "z": 0
+      },
+      "z": 3.6635882407
+    }
+  },
+  "limitations": [
+    "One sequential before/after pair on seeded fixture windows; no confidence interval, isolated module cost, league realism or general speedup claim.",
+    "No human decisions automated by benchmark; ownership separately tested.",
+    "Pre-release step maxima describe tick movement; award displacement is measured independently.",
+    "No additional 18-full-match calibration campaign; PR158 open-play regressions remain explicit.",
+    "Simplified aerodynamic/goal-frame collision model; general source-free own-goal handling remains an engine gap."
+  ],
+  "before": {
+    "benchmark": "PR159 focused restart continuity",
+    "implementation": "legacy_dev_placement",
+    "configuration": {
+      "seconds": 20,
+      "repetitions": 2
+    },
+    "dt": 0.025,
+    "limitations": [
+      "Fixed seeded fixture windows; no league-wide realism or scoring claims.",
+      "No human decisions are automated.",
+      "Runtime includes canonical movement and accounting; fixture construction is excluded."
+    ],
+    "summary": {
+      "cells": 12,
+      "released": 12,
+      "runtimeMs": 4357.355600000001,
+      "awardMaximumPlayerDisplacement": 2.5,
+      "awardBallDisplacement": 2.8284271247461903,
+      "maximumPlayerStep": 0,
+      "maximumBallStep": 0
+    },
+    "results": [
+      {
+        "scenario": "kick_off",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 409.37789999999995,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.149999999999993,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-kick_off-0:restart:0:home:kick_off"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "kick_off",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 330.7352000000001,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.149999999999993,
+            "phase": "open_play",
+            "blockers": []
+          },
+          {
+            "at": 18.500000000000018,
+            "phase": "setup",
+            "blockers": []
+          }
+        ],
+        "awardIds": [
+          "pr159-focused-runtime-kick_off-1:restart:0:home:kick_off",
+          "pr159-focused-runtime-kick_off-1:restart:18.500000000000018:away:free_kick_far"
+        ],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "goal_kick",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 320.3258000000001,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 4.199999999999992,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-goal_kick-0:restart:0:home:goal_kick"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "goal_kick",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 284.08809999999994,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 4.349999999999994,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-goal_kick-1:restart:0:home:goal_kick"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "corner",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 342.38549999999987,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.8749999999999902,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-corner-0:restart:0:home:corner"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "corner",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 439.4136000000003,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.4749999999999917,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-corner-1:restart:0:home:corner"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_wide",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 327.35030000000006,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 4.399999999999995,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 6.500000000000025,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 8.675000000000056,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": [
+          "pr159-focused-runtime-free_kick_wide-0:restart:0:home:free_kick_wide",
+          "pr159-focused-runtime-free_kick_wide-0:restart:4.399999999999995:away:goal_kick"
+        ],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_wide",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 366.1836999999996,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.4499999999999917,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-free_kick_wide-1:restart:0:home:free_kick_wide"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_close",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 400.8094000000001,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 6.1250000000000195,
+            "phase": "open_play",
+            "blockers": []
+          },
+          {
+            "at": 7.000000000000032,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 9.100000000000062,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 13.100000000000119,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": [
+          "pr159-focused-runtime-free_kick_close-0:restart:0:home:free_kick_close",
+          "pr159-focused-runtime-free_kick_close-0:restart:7.000000000000032:home:free_kick_close"
+        ],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_close",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 409.5549000000001,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 6.1250000000000195,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-free_kick_close-1:restart:0:home:free_kick_close"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "penalty",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 375.3694000000005,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "open_play",
+            "blockers": []
+          },
+          {
+            "at": 2.5999999999999948,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 5.225000000000007,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 6.300000000000022,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": [
+          "pr159-focused-runtime-penalty-0:restart:0:home:penalty",
+          "pr159-focused-runtime-penalty-0:restart:2.5999999999999948:away:goal_kick",
+          "pr159-focused-runtime-penalty-0:restart:3.124999999999993:away:kick_off"
+        ],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "penalty",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 351.7618000000002,
+        "awardMaximumPlayerDisplacement": 2.5,
+        "awardBallDisplacement": 2.8284271247461903,
+        "releaseAt": 2.1249999999999964,
+        "maximumPlayerStep": 0,
+        "maximumBallStep": 0,
+        "elapsedBeforeRelease": 2.1249999999999964,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 2.1249999999999964,
+            "phase": "open_play",
+            "blockers": []
+          },
+          {
+            "at": 2.574999999999995,
+            "phase": "setup",
+            "blockers": []
+          },
+          {
+            "at": 4.674999999999999,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 6.950000000000031,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": [
+          "pr159-focused-runtime-penalty-1:restart:0:home:penalty",
+          "pr159-focused-runtime-penalty-1:restart:2.574999999999995:away:goal_kick"
+        ],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      }
+    ]
+  },
+  "after": {
+    "benchmark": "PR159 focused restart continuity",
+    "implementation": "live_physical_restart",
+    "configuration": {
+      "seconds": 20,
+      "repetitions": 2
+    },
+    "dt": 0.025,
+    "limitations": [
+      "Fixed seeded fixture windows; no league-wide realism or scoring claims.",
+      "No human decisions are automated.",
+      "Runtime includes canonical movement and accounting; fixture construction is excluded."
+    ],
+    "summary": {
+      "cells": 12,
+      "released": 12,
+      "runtimeMs": 5069.964100000001,
+      "awardMaximumPlayerDisplacement": 0,
+      "awardBallDisplacement": 0,
+      "maximumPlayerStep": 0.13826035143034196,
+      "maximumBallStep": 0.04475000000000263
+    },
+    "results": [
+      {
+        "scenario": "kick_off",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 486.1301000000001,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.474999999999995,
+        "maximumPlayerStep": 0.04287500000000018,
+        "maximumBallStep": 0.04287500000000018,
+        "elapsedBeforeRelease": 2.474999999999995,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.274999999999996,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.474999999999995,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.2999999999999923,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-kick_off-0:restart:0:home:kick_off"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "kick_off",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 356.22180000000026,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.474999999999995,
+        "maximumPlayerStep": 0.04287500000000018,
+        "maximumBallStep": 0.04287500000000018,
+        "elapsedBeforeRelease": 2.474999999999995,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.274999999999996,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.474999999999995,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.2999999999999923,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-kick_off-1:restart:0:home:kick_off"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "goal_kick",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 332.90549999999985,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 5.725000000000014,
+        "maximumPlayerStep": 0.13826035143034196,
+        "maximumBallStep": 0.037309819846661485,
+        "elapsedBeforeRelease": 5.725000000000014,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 5.550000000000011,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 5.725000000000014,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 7.500000000000039,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-goal_kick-0:restart:0:home:goal_kick"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "goal_kick",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 264.00409999999965,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 5.725000000000014,
+        "maximumPlayerStep": 0.13790000000000607,
+        "maximumBallStep": 0.037309819846661485,
+        "elapsedBeforeRelease": 5.725000000000014,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 5.550000000000011,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 5.725000000000014,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 7.500000000000039,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-goal_kick-1:restart:0:home:goal_kick"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "corner",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 463.9692,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.4249999999999954,
+        "maximumPlayerStep": 0.10684411155141013,
+        "maximumBallStep": 0.04475000000000263,
+        "elapsedBeforeRelease": 2.4249999999999954,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.224999999999996,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.4249999999999954,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 4.274999999999993,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-corner-0:restart:0:home:corner"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "corner",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 555.8444000000004,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.4249999999999954,
+        "maximumPlayerStep": 0.10771284050541913,
+        "maximumBallStep": 0.04475000000000263,
+        "elapsedBeforeRelease": 2.4249999999999954,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.224999999999996,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.4249999999999954,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 4.324999999999994,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-corner-1:restart:0:home:corner"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_wide",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 399.88779999999997,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.6999999999999944,
+        "maximumPlayerStep": 0.10933397474044265,
+        "maximumBallStep": 0.04475000000000106,
+        "elapsedBeforeRelease": 2.6999999999999944,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.499999999999995,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.6999999999999944,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.89999999999999,
+            "phase": "open_play",
+            "blockers": []
+          },
+          {
+            "at": 10.35000000000008,
+            "phase": "preparing",
+            "blockers": []
+          },
+          {
+            "at": 18.874999999999996,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 19.199999999999978,
+            "phase": "open_play",
+            "blockers": []
+          },
+          {
+            "at": 19.599999999999955,
+            "phase": "post_goal",
+            "blockers": []
+          }
+        ],
+        "awardIds": [
+          "pr159-focused-runtime-free_kick_wide-0:restart:0:home:free_kick_wide",
+          "pr159-focused-runtime-free_kick_wide-0:restart:10.35000000000008:home:penalty"
+        ],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_wide",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 472.8082000000004,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.6999999999999944,
+        "maximumPlayerStep": 0.10941729145237541,
+        "maximumBallStep": 0.04475000000000106,
+        "elapsedBeforeRelease": 2.6999999999999944,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.499999999999995,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.6999999999999944,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 3.8499999999999903,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-free_kick_wide-1:restart:0:home:free_kick_wide"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_close",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 383.3275000000003,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 6.375000000000023,
+        "maximumPlayerStep": 0.10892114647518573,
+        "maximumBallStep": 0.04475000000000106,
+        "elapsedBeforeRelease": 6.375000000000023,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.499999999999995,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 6.375000000000023,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 6.4750000000000245,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-free_kick_close-0:restart:0:home:free_kick_close"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "free_kick_close",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 440.884,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 6.300000000000022,
+        "maximumPlayerStep": 0.10890535038742596,
+        "maximumBallStep": 0.04475000000000106,
+        "elapsedBeforeRelease": 6.300000000000022,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": ["ball_not_placed", "taker_not_ready"]
+          },
+          {
+            "at": 2.499999999999995,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 6.300000000000022,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 6.4000000000000234,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-free_kick_close-1:restart:0:home:free_kick_close"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "penalty",
+        "repetition": 0,
+        "ticks": 800,
+        "runtimeMs": 467.6188000000002,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.5999999999999948,
+        "maximumPlayerStep": 0.045687499999999895,
+        "maximumBallStep": 0.04287500000000515,
+        "elapsedBeforeRelease": 2.5999999999999948,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": [
+              "ball_not_placed",
+              "taker_not_ready",
+              "opponent_restriction",
+              "participant_restriction"
+            ]
+          },
+          {
+            "at": 2.274999999999996,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.5999999999999948,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": ["pr159-focused-runtime-penalty-0:restart:0:home:penalty"],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      },
+      {
+        "scenario": "penalty",
+        "repetition": 1,
+        "ticks": 800,
+        "runtimeMs": 446.3626999999997,
+        "awardMaximumPlayerDisplacement": 0,
+        "awardBallDisplacement": 0,
+        "releaseAt": 2.5999999999999948,
+        "maximumPlayerStep": 0.04568749999999966,
+        "maximumBallStep": 0.04287500000000515,
+        "elapsedBeforeRelease": 2.5999999999999948,
+        "phaseTrace": [
+          {
+            "at": 0.025,
+            "phase": "preparing",
+            "blockers": [
+              "ball_not_placed",
+              "taker_not_ready",
+              "opponent_restriction",
+              "participant_restriction"
+            ]
+          },
+          {
+            "at": 2.274999999999996,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 2.5999999999999948,
+            "phase": "open_play",
+            "blockers": []
+          },
+          {
+            "at": 7.57500000000004,
+            "phase": "preparing",
+            "blockers": []
+          },
+          {
+            "at": 11.600000000000097,
+            "phase": "kick_preparation",
+            "blockers": []
+          },
+          {
+            "at": 12.300000000000107,
+            "phase": "release",
+            "blockers": []
+          },
+          {
+            "at": 12.325000000000108,
+            "phase": "open_play",
+            "blockers": []
+          }
+        ],
+        "awardIds": [
+          "pr159-focused-runtime-penalty-1:restart:0:home:penalty",
+          "pr159-focused-runtime-penalty-1:restart:7.57500000000004:away:goal_kick"
+        ],
+        "returnedToOpenPlay": true,
+        "remainingBlockers": []
+      }
+    ]
+  }
+}

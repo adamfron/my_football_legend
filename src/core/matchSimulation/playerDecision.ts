@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { projectContextualInteractions } from './contextualInteractions';
+import { canonicalShotLabel, projectContextualInteractions } from './contextualInteractions';
+import { isRestartSetup } from './restartPhase';
 import {
   enumerateAvailableActions,
   chooseRestartAction,
@@ -171,7 +172,7 @@ export const countSemanticPlayerChoices = (
       if (option.kind === 'action' && option.action.type === 'pass')
         return `${family}:${option.action.receiverId}`;
       if (option.kind === 'action' && option.action.type === 'shot')
-        return `${family}:${option.action.intent}:${option.action.contact ?? 'settled'}`;
+        return `${family}:${option.action.intent}:${option.action.contact ?? 'settled'}:${option.action.freeKickProfile ?? 'ordinary'}:${JSON.stringify(option.action.goalTarget ?? option.action.target)}`;
       if (option.kind === 'action' && option.action.type === 'header')
         return `${family}:${option.action.intent}`;
       if (
@@ -319,6 +320,13 @@ const projectSelectableInteractionTargetsCanonical = (
       else if (option.action.type === 'shot')
         targets.push({ kind: 'goal', side: actor.team === 'home' ? 'away' : 'home' });
       else if (option.action.type === 'cross')
+        targets.push(
+          { kind: 'space', point: option.action.target },
+          ...(option.action.intendedTargetId
+            ? [{ kind: 'player' as const, playerId: option.action.intendedTargetId }]
+            : []),
+        );
+      else if (option.action.type === 'space_pass')
         targets.push({ kind: 'space', point: option.action.target });
     }
     return targets;
@@ -646,6 +654,7 @@ export const evaluatePassInterceptionOpportunity = (
       velocity: { x: velocity.x, y: velocity.y, z: velocity.z ?? 0 },
       airborne: state.ball.airborne ?? false,
       bounceCount: state.ball.bounceCount ?? 0,
+      ...(state.ball.spin ? { spin: state.ball.spin } : {}),
     },
     2.5,
     0.05,
@@ -883,7 +892,7 @@ const actionLabel = (action: MatchAction) =>
       : action.type === 'carry'
         ? 'carry'
         : action.type === 'shot'
-          ? `shot_${action.intent}`
+          ? canonicalShotLabel(action)
           : action.type === 'cross'
             ? `cross_${action.intent}`
             : action.type === 'pass'
@@ -986,7 +995,8 @@ export const projectPlayerAgency = (
   if (state.defensiveChallenge?.actorId === actorId) return blocked('resolution_in_progress');
   const controlledRestart =
     state.scenario !== 'open_play' &&
-    state.restart?.phase === 'setup' &&
+    (state.restart?.phase === 'setup' || state.restart?.phase === 'awaiting_decision') &&
+    !state.restart.selectedAction &&
     state.restart.takerId === actorId;
   const mandatoryRestart = requiresHumanRestart(state, actorId);
   if (state.scenario !== 'open_play' && state.restart?.phase !== 'release' && !controlledRestart)
@@ -1000,7 +1010,7 @@ export const projectPlayerAgency = (
   const onBallRelevance = () =>
     (ownerRelevance ??= evaluateOnBallDecisionRelevance(state, actorId, rankedOwnerActions()));
   const routineReady =
-    state.restart?.phase === 'setup' ||
+    isRestartSetup(state) ||
     state.ballOwnershipStartedAt === undefined ||
     state.time - state.ballOwnershipStartedAt >= npcPossessionDecisionDelay(state, actor);
   const autonomousChoice =

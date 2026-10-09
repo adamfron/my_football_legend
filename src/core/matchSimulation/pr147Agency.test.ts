@@ -319,7 +319,28 @@ describe('PR147 dismissed player availability and ten-man continuation', () => {
       )!;
       expect(restartAction).toBeDefined();
       let next = resolveMatchAction(state, restartAction, 'autonomous_npc');
-      expect(next.restart?.phase).toBe('release');
+      expect(next.restart?.phase).toBe('kick_preparation');
+      expect(next.ball).toEqual(state.ball);
+      const awardId = state.lastRestartAward!.id;
+      for (
+        let tick = 0;
+        tick < 1600 &&
+        !next.stoppageLedger?.intervals.some(
+          (interval) => interval.awardId === awardId && interval.endReason === 'execution',
+        );
+        tick++
+      ) {
+        next = stepTacticalMatch(next, 0.025);
+        expect(next.players.some((player) => player.id === actor.id)).toBe(false);
+        expect(next.ball.ownerId).not.toBe(actor.id);
+        expect(next.defensiveChallenge?.actorId).not.toBe(actor.id);
+        expect(projectPlayerAgency(next).opportunity).toBeUndefined();
+      }
+      const executedAt = next.stoppageLedger?.intervals.find(
+        (interval) => interval.awardId === awardId,
+      )?.executedAt;
+      expect(executedAt).toBeDefined();
+      const continuationStartedAt = next.time;
       for (let tick = 0; tick < 400; tick++) {
         next = stepTacticalMatch(next, 0.025);
         expect(next.players.some((player) => player.id === actor.id)).toBe(false);
@@ -327,7 +348,7 @@ describe('PR147 dismissed player availability and ten-man continuation', () => {
         expect(next.defensiveChallenge?.actorId).not.toBe(actor.id);
         expect(projectPlayerAgency(next).opportunity).toBeUndefined();
       }
-      expect(next.time).toBeCloseTo(20, 8);
+      expect(next.time).toBeCloseTo(continuationStartedAt + 10, 8);
       expect(next.players.filter((player) => player.team === actor.team)).toHaveLength(10);
       expect(next.statistics!.players.find((entry) => entry.playerId === actor.id)).toMatchObject({
         passesAttempted: 3,

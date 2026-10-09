@@ -54,12 +54,15 @@ export class TacticalPitchRenderer {
   private readonly targetMarkers = new Map<string, THREE.Mesh>();
   private readonly anchorMarkers = new Map<string, THREE.Mesh>();
   private readonly idealMarkers = new Map<string, THREE.Mesh>();
+  private readonly restartPlayerMarkers = new Map<string, THREE.Mesh>();
   private readonly ball: THREE.Mesh;
   private readonly ballShadow: THREE.Mesh;
   private readonly ballPicker: THREE.Mesh;
   private readonly interceptionMarker: THREE.Mesh;
   private readonly selectionMarker: THREE.Mesh;
   private readonly carryTargetMarker: THREE.Mesh;
+  private readonly restartSpotMarker: THREE.Mesh;
+  private readonly restartDeliveryMarker: THREE.Mesh;
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
@@ -195,6 +198,24 @@ export class TacticalPitchRenderer {
     this.selectionMarker.rotation.x = -Math.PI / 2;
     this.selectionMarker.visible = false;
     this.scene.add(this.selectionMarker);
+    const restartMarker = (inner: number, outer: number, color: number) => {
+      const marker = new THREE.Mesh(
+        new THREE.RingGeometry(inner, outer, 28),
+        new THREE.MeshBasicMaterial({
+          color,
+          side: THREE.DoubleSide,
+          depthTest: false,
+          transparent: true,
+          opacity: 0.85,
+        }),
+      );
+      marker.rotation.x = -Math.PI / 2;
+      marker.visible = false;
+      this.scene.add(marker);
+      return marker;
+    };
+    this.restartSpotMarker = restartMarker(0.65, 0.9, 0xf4c970);
+    this.restartDeliveryMarker = restartMarker(1.5, 1.7, 0x75dfe3);
     const shadow = new THREE.Mesh(
       new THREE.CircleGeometry(0.48, 16),
       new THREE.MeshBasicMaterial({ color: 0x101814, transparent: true, opacity: 0.28 }),
@@ -480,6 +501,13 @@ export class TacticalPitchRenderer {
           if (marker.parent !== this.scene) this.scene.add(marker);
         } else this.scene.remove(marker);
       }
+      const restartMarker = this.restartPlayerMarkers.get(id);
+      if (restartMarker)
+        restartMarker.visible = Boolean(
+          activeIds.has(id) &&
+            frame.restart &&
+            (frame.restart.takerId === id || frame.restart.wallIds.includes(id)),
+        );
     }
     for (const player of frame.players) {
       if (!this.playerModels.has(player.id)) {
@@ -497,6 +525,31 @@ export class TacticalPitchRenderer {
       if (actionMarker) {
         actionMarker.visible = Boolean(frame.actionableTargets?.includes(player.id));
         actionMarker.scale.setScalar(frame.selectedTarget === player.id ? 1.18 : 1);
+      }
+      if (
+        frame.restart &&
+        (frame.restart.takerId === player.id || frame.restart.wallIds.includes(player.id))
+      ) {
+        let marker = this.restartPlayerMarkers.get(player.id);
+        if (!marker) {
+          marker = new THREE.Mesh(
+            new THREE.RingGeometry(1.1, 1.22, 24),
+            new THREE.MeshBasicMaterial({
+              side: THREE.DoubleSide,
+              depthTest: false,
+              transparent: true,
+              opacity: 0.65,
+            }),
+          );
+          marker.rotation.x = -Math.PI / 2;
+          this.restartPlayerMarkers.set(player.id, marker);
+          this.scene.add(marker);
+        }
+        marker.visible = true;
+        (marker.material as THREE.MeshBasicMaterial).color.setHex(
+          frame.restart.takerId === player.id ? 0x75dfe3 : 0xf4c970,
+        );
+        marker.position.set(world.x, 0.065, world.z);
       }
       const target = player.target && tacticalToWorld(player.target),
         anchor = player.anchor && tacticalToWorld(player.anchor),
@@ -521,7 +574,7 @@ export class TacticalPitchRenderer {
     const ball = tacticalToWorld(presentedBall, Math.max(BALL_RADIUS, presentedBall.height ?? 0));
     this.ball.position.set(ball.x, ball.y, ball.z);
     const thrower = frame.players.find(
-      (p) => p.preparation === 'throw' && p.id === frame.ball.ownerId,
+      (p) => p.preparation === 'throw' && !p.canonicalBallPlacement && p.id === frame.ball.ownerId,
     );
     const heldModel = thrower && this.playerModels.get(thrower.id);
     if (heldModel) {
@@ -552,6 +605,19 @@ export class TacticalPitchRenderer {
     if (frame.selectedPoint) {
       const point = tacticalToWorld(frame.selectedPoint);
       this.selectionMarker.position.set(point.x, 0.09, point.z);
+    }
+    this.restartSpotMarker.visible = Boolean(frame.restart);
+    this.restartDeliveryMarker.visible = Boolean(frame.restart?.deliveryTarget);
+    if (frame.restart) {
+      const spot = tacticalToWorld(frame.restart.spot);
+      this.restartSpotMarker.position.set(spot.x, 0.07, spot.z);
+      (this.restartSpotMarker.material as THREE.MeshBasicMaterial).color.setHex(
+        frame.restart.ready ? 0x7adea2 : 0xf4c970,
+      );
+      if (frame.restart.deliveryTarget) {
+        const target = tacticalToWorld(frame.restart.deliveryTarget);
+        this.restartDeliveryMarker.position.set(target.x, 0.07, target.z);
+      }
     }
     this.renderMotionVectors(frame);
     this.renderer.render(this.scene, this.camera);

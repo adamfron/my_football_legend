@@ -1,7 +1,15 @@
 import { RandomGenerator } from '../random/RandomGenerator';
 import { clampPitchPoint, distance, type PitchPoint, type TeamSide } from './matchSpace';
 import { TACTICAL_STYLE_PARAMETERS } from './tacticalPositioning';
-import type { MatchPlayerState, RestartScenario, TacticalMatchState } from './matchState';
+import type {
+  MatchAction,
+  MatchPlayerState,
+  RestartScenario,
+  TacticalMatchState,
+} from './matchState';
+import { deriveMovementCapability } from './locomotion';
+import { isRestartSetup } from './restartPhase';
+import { deriveTeamTacticalPreferences } from './tacticalPreferences';
 import {
   chooseCornerPlan,
   TACTICAL_SITUATION_PLAYBOOK,
@@ -9,9 +17,23 @@ import {
 } from './tacticalSituations';
 
 const outfield = (state: TacticalMatchState, side: TeamSide) =>
-  state.players.filter((p) => p.team === side && p.profile.primaryPosition !== 'goalkeeper');
+  state.players.filter(
+    (p) =>
+      p.team === side &&
+      p.profile.primaryPosition !== 'goalkeeper' &&
+      !state.discipline?.[p.id]?.sentOff,
+  );
 const goalkeeper = (state: TacticalMatchState, side: TeamSide) =>
-  state.players.find((p) => p.team === side && p.profile.primaryPosition === 'goalkeeper')!;
+  state.players.find(
+    (p) =>
+      p.team === side &&
+      p.profile.primaryPosition === 'goalkeeper' &&
+      !state.discipline?.[p.id]?.sentOff,
+  ) ??
+  stableRank(
+    state.players.filter((p) => p.team === side && !state.discipline?.[p.id]?.sentOff),
+    (p) => -distance(p.position, { x: side === 'home' ? 0 : 105, y: 34 }),
+  )[0]!;
 const stableRank = (players: MatchPlayerState[], score: (p: MatchPlayerState) => number) =>
   [...players].sort((a, b) => score(b) - score(a) || a.id.localeCompare(b.id));
 const aerialScore = (p: MatchPlayerState) =>
@@ -111,6 +133,7 @@ const deriveHomeRestartGeometry = (
   state: TacticalMatchState,
   scenario: RestartScenario,
   restartPoint?: PitchPoint,
+  options: { takerId?: string; selectedAction?: MatchAction } = {},
 ) => {
   const ball = restartPoint ?? variantBall(scenario),
     home = outfield(state, 'home'),
@@ -130,6 +153,9 @@ const deriveHomeRestartGeometry = (
   let taker = home[0]!,
     landingZone: PitchPoint | undefined,
     cornerPlan: ReturnType<typeof chooseCornerPlan> | undefined;
+  const nominatedTaker = state.players.find(
+    (p) => p.id === options.takerId && p.team === 'home' && !state.discipline?.[p.id]?.sentOff,
+  );
   const place = (player: MatchPlayerState, base: PitchPoint, amount = 2) => {
     const error = jitter(state.seed, `${scenario}:${player.id}`, amount);
     points.set(player.id, clampPitchPoint({ x: base.x + error.x, y: base.y + error.y }));
@@ -150,8 +176,9 @@ const deriveHomeRestartGeometry = (
     };
   };
   if (scenario === 'goal_kick' || scenario === 'gk_short') {
-    taker = homeGk;
-    points.set(homeGk.id, ball);
+    taker = nominatedTaker ?? homeGk;
+    points.set(homeGk.id, homeGk.id === taker.id ? ball : homeGk.neutralAnchor);
+    points.set(taker.id, ball);
     points.set(awayGk.id, { x: 99.5, y: 34 });
     const backs = stableRank(home, (p) => -p.neutralAnchor.x).slice(0, 4),
       rest = home.filter((p) => !backs.includes(p));
@@ -233,7 +260,7 @@ const deriveHomeRestartGeometry = (
         .forEach((p) => assign(p, 'press_cover', 'cover_press', points.get(p.id)!));
     }
   } else if (scenario === 'throw_in') {
-    taker = stableRank(home, (p) => -distance(p.position, ball))[0]!;
+    taker = nominatedTaker ?? stableRank(home, (p) => -distance(p.position, ball))[0]!;
     points.set(taker.id, {
       x: Math.max(0.4, Math.min(104.6, ball.x)),
       y: ball.y === 0 ? 0.4 : 67.6,
@@ -292,60 +319,10 @@ const deriveHomeRestartGeometry = (
     landingZone = optionZones[Math.abs(state.decisionIndex) % optionZones.length];
   } else if (scenario === 'corner') {
     cornerPlan = chooseCornerPlan(state.seed);
-    taker = chooseCornerTaker(state, 'home');
+    taker = nominatedTaker ?? chooseCornerTaker(state, 'home');
     points.set(taker.id, ball);
     points.set(homeGk.id, { x: 7, y: 34 });
     points.set(awayGk.id, { x: 103.8, y: 34 });
-    const aerial = chooseAerialTargets(state, 'home', 10)
-        .filter((p) => p.id !== taker.id)
-        .slice(0, 5),
-      attackZones =
-        cornerPlan === 'direct_near_post'
-          ? [
-              { x: 101, y: 27 },
-              { x: 100, y: 29 },
-              { x: 99, y: 31 },
-              { x: 97, y: 41 },
-              { x: 94, y: 35 },
-            ]
-          : [
-              { x: 99, y: 27 },
-              { x: 98, y: 34 },
-              { x: 97, y: 41 },
-              { x: 93.5, y: 34 },
-              { x: 91, y: 25 },
-            ];
-    aerial.forEach((p, i) => {
-      const zone = attackZones[i % attackZones.length]!;
-      place(p, zone, 3.2);
-      assign(
-        p,
-        i < 2 ? 'near' : i < 4 ? 'central' : 'far',
-        i < 2 ? 'attack_near_post' : i < 4 ? 'attack_central' : 'attack_far_post',
-        zone,
-      );
-    });
-    home
-      .filter((p) => p.id !== taker.id && !aerial.includes(p))
-      .forEach((p, i) => {
-        const short = cornerPlan === 'short_corner' ? i === 0 : i === 3;
-        const zone = short
-          ? { x: 101, y: 5 }
-          : i === 0 || (cornerPlan === 'short_corner' && i === 1)
-            ? { x: 88, y: 25 + i * 16 }
-            : { x: 70, y: 24 + i * 5 };
-        place(p, zone, 3);
-        assign(
-          p,
-          short ? 'short' : i === 0 || (cornerPlan === 'short_corner' && i === 1) ? 'edge' : 'rest',
-          short
-            ? 'short_option'
-            : i === 0 || (cornerPlan === 'short_corner' && i === 1)
-              ? 'attack_second_ball'
-              : 'rest_defence',
-          zone,
-        );
-      });
     const defenceZones = [
       { x: 101, y: 27 },
       { x: 100, y: 34 },
@@ -355,30 +332,33 @@ const deriveHomeRestartGeometry = (
       { x: 91, y: 28 },
     ];
     away.forEach((p, i) => {
-      const outlet = i >= 7;
-      const zone = outlet
-        ? { x: 76 - (i - 7) * 3, y: i % 2 ? 18 : 50 }
-        : defenceZones[i % defenceZones.length]!;
+      const outlet = i === away.length - 1;
+      const zone = outlet ? { x: 70, y: i % 2 ? 18 : 50 } : defenceZones[i % defenceZones.length]!;
       place(p, zone, 2.8);
-      const marked = i >= 2 && i < 7 ? aerial[i - 2] : undefined;
       assign(
         p,
-        marked ? 'markers' : i < 2 ? 'zone' : 'outlet',
-        marked ? 'mark_opponent' : i < 2 ? 'protect_zone' : 'counter_outlet',
+        outlet ? 'counter_outlet' : 'zone',
+        outlet ? 'counter_outlet' : 'protect_zone',
         zone,
-        marked?.id,
       );
     });
     landingZone = { x: 97, y: 34 };
   } else if (scenario.startsWith('free_kick')) {
-    taker = chooseFreeKickTaker(state, 'home');
+    taker = nominatedTaker ?? chooseFreeKickTaker(state, 'home');
     points.set(taker.id, { x: ball.x - 2.2, y: ball.y });
     points.set(homeGk.id, { x: 8, y: 34 });
     points.set(awayGk.id, { x: 103.5, y: scenario === 'free_kick_wide' ? 31 : 35 });
-    const close = scenario === 'free_kick_close',
-      wide = scenario === 'free_kick_wide',
+    const wide = scenario === 'free_kick_wide',
       advanced = ball.x >= 65,
-      wallSize = Math.min(away.length, close ? 4 : wide ? 0 : 2);
+      goalDistance = distance(ball, { x: 105, y: 34 }),
+      wallSize = Math.min(
+        away.length,
+        goalDistance < 31
+          ? 4
+          : goalDistance < 42 && (!wide || options.selectedAction?.type === 'shot')
+            ? 2
+            : 0,
+      );
     const wall = deriveDefensiveWall(ball, { x: 105, y: 34 }, wallSize),
       // Prefer mobile midfield responsibility and retain dominant aerial markers.
       wallPlayers = stableRank(
@@ -391,64 +371,6 @@ const deriveHomeRestartGeometry = (
       );
     wall.forEach((point, i) => points.set(wallPlayers[i]!.id, point));
     wall.forEach((point, i) => assign(wallPlayers[i]!, 'wall', 'protect_zone', point));
-    const aerial = stableRank(
-      home.filter((p) => p.id !== taker.id),
-      aerialScore,
-    ).slice(0, advanced ? Math.min(wide ? 4 : 3, Math.max(0, home.length - 5)) : 2);
-    aerial.forEach((p, i) => {
-      const nearY = ball.y <= 34 ? 27 : 41;
-      const zone = advanced
-        ? {
-            x: Math.max(ball.x + 2, 94 + (i % 2) * 2),
-            y: i === 0 ? nearY : i === 1 ? 34 : 68 - nearY,
-          }
-        : { x: Math.min(88, ball.x + 12 + (i % 2) * 3), y: 26 + (i % 3) * 8 };
-      place(p, zone, 1.4);
-      assign(
-        p,
-        i === 0 ? 'near_post_target' : i === 1 ? 'central_target' : 'far_post_target',
-        i === 0 ? 'attack_near_post' : i === 1 ? 'attack_central' : 'attack_far_post',
-        zone,
-      );
-    });
-    stableRank(
-      home.filter((p) => p.id !== taker.id && !aerial.includes(p)),
-      (p) =>
-        p.profile.attributes.passing +
-        p.profile.attributes.gameReading -
-        p.profile.attributes.positioning * 0.3,
-    ).forEach((p, i) => {
-      const zone =
-        i === 0
-          ? { x: ball.x - 1, y: ball.y + (ball.y <= 34 ? 6 : -6) }
-          : i === 1
-            ? {
-                x: advanced ? Math.max(ball.x - 3, 86) : ball.x + 5,
-                y: 34 + (ball.y <= 34 ? -8 : 8),
-              }
-            : i === 2
-              ? { x: ball.x - 12, y: 34 }
-              : { x: Math.min(68, ball.x - 19) - ((i - 3) % 2) * 4, y: 23 + ((i - 3) % 3) * 11 };
-      place(p, zone, 1.2);
-      assign(
-        p,
-        i === 0
-          ? 'short_option'
-          : i === 1
-            ? 'edge_support'
-            : i === 2
-              ? 'recycle_support'
-              : 'rest_defence',
-        i === 0
-          ? 'short_option'
-          : i === 1
-            ? 'attack_second_ball'
-            : i === 2
-              ? 'support_ball'
-              : 'rest_defence',
-        zone,
-      );
-    });
     const protectingLateLead = state.time > 80 * 60 && state.score.away > state.score.home;
     const outlet =
       !protectingLateLead && away.length >= 8
@@ -469,27 +391,13 @@ const deriveHomeRestartGeometry = (
     away
       .filter((p) => !points.has(p.id))
       .forEach((p, i) => {
-        const marked = aerial[i % Math.max(1, aerial.length)];
-        const markedPoint = marked && points.get(marked.id);
-        const zone =
-          markedPoint && i < aerial.length * 2
-            ? {
-                x: Math.min(103, markedPoint.x + 1.1),
-                y: markedPoint.y + (i < aerial.length ? 0.9 : -1.5),
-              }
-            : { x: Math.max(82, Math.min(99, ball.x + 8)), y: 19 + (i % 6) * 6 };
+        const zone = { x: Math.max(82, Math.min(99, ball.x + 8)), y: 19 + (i % 6) * 6 };
         place(p, zone, 0.8);
-        assign(
-          p,
-          i < 6 ? 'marking_line' : 'zonal_protection',
-          i < 6 ? 'mark_opponent' : 'protect_zone',
-          zone,
-          marked?.id,
-        );
+        assign(p, 'zonal_protection', 'protect_zone', zone);
       });
     landingZone = advanced ? { x: 96, y: 34 } : { x: Math.min(88, ball.x + 14), y: 34 };
   } else if (scenario === 'penalty') {
-    taker = choosePenaltyTaker(state, 'home');
+    taker = nominatedTaker ?? choosePenaltyTaker(state, 'home');
     points.set(taker.id, ball);
     points.set(homeGk.id, { x: 5.5, y: 34 });
     points.set(awayGk.id, { x: 105, y: 34 });
@@ -527,7 +435,7 @@ const deriveHomeRestartGeometry = (
       );
     });
   } else {
-    taker = stableRank(home, (p) => -distance(p.position, ball))[0]!;
+    taker = nominatedTaker ?? stableRank(home, (p) => -distance(p.position, ball))[0]!;
     if (scenario === 'kick_off') {
       home
         .filter((p) => p.id !== taker.id)
@@ -548,7 +456,208 @@ const deriveHomeRestartGeometry = (
     } else state.players.forEach((p) => place(p, p.neutralAnchor, 1));
     points.set(taker.id, ball);
   }
-  for (const player of state.players)
+  // The delivery shapes responsibilities, not the current ranking of aerial attributes alone.
+  // Reserve cover before choosing receivers so an excellent heading defender can still protect
+  // a counterattack. This bounded assignment runs only at award or after a changed selection.
+  if (scenario === 'corner' || scenario.startsWith('free_kick')) {
+    const selected = options.selectedAction;
+    if (scenario === 'corner' && selected) {
+      cornerPlan =
+        selected.type === 'pass'
+          ? 'short_corner'
+          : selected.type === 'cross' &&
+              (ball.y <= 34 ? selected.target.y < 31 : selected.target.y > 37)
+            ? 'direct_near_post'
+            : 'direct_mixed_or_far';
+    }
+    const preferences = deriveTeamTacticalPreferences(state, 'home');
+    const defendingLead = state.time > 75 * 60 && state.score.home > state.score.away;
+    const candidates = home.filter((p) => p.id !== taker.id);
+    const selectedReceiverId =
+      selected?.type === 'pass'
+        ? selected.receiverId
+        : selected?.type === 'cross'
+          ? selected.intendedTargetId
+          : undefined;
+    const coverCount = Math.min(
+      candidates.length,
+      defendingLead || preferences.verticality < 0.42 ? 3 : 2,
+    );
+    const covers = stableRank(
+      candidates.filter((p) => p.id !== selectedReceiverId),
+      (p) =>
+        p.profile.attributes.positioning * 0.35 +
+        p.profile.attributes.gameReading * 0.25 +
+        p.profile.attributes.tackling * 0.2 +
+        p.profile.attributes.pace * 0.2 +
+        (p.duty === 'defend' ? 12 : 0) -
+        p.neutralAnchor.x * 0.25 -
+        distance(p.position, { x: Math.min(70, ball.x - 20), y: 34 }) * 0.35,
+    ).slice(0, coverCount);
+    covers.forEach((p, i) => {
+      const zone = {
+        x: Math.max(8, Math.min(70, ball.x - 20) - (i % 2) * 4),
+        y: i === 2 ? 34 : 23 + i * 22,
+      };
+      place(p, zone, 0.8);
+      assign(p, 'rest_defence', 'rest_defence', zone);
+      roles[p.id]!.zone.radius = 6;
+    });
+    const available = candidates.filter((p) => !covers.includes(p));
+    const take = (zone: PitchPoint, score: (p: MatchPlayerState) => number) => {
+      const chosen = stableRank(
+        available.filter((p) => p.id !== selectedReceiverId),
+        (p) => {
+          const capability = deriveMovementCapability(p);
+          const arrival = distance(p.position, zone) / capability.runSpeed;
+          const clearance = Math.min(
+            8,
+            ...away.map((opponent) => distance(opponent.position, zone)),
+          );
+          return score(p) - arrival * 5 + clearance;
+        },
+      )[0];
+      if (chosen) available.splice(available.indexOf(chosen), 1);
+      return chosen;
+    };
+    const shortZone = clampPitchPoint(
+      scenario === 'corner'
+        ? { x: ball.x - 5, y: ball.y <= 34 ? 6 : 62 }
+        : { x: ball.x - 1.5, y: ball.y + (ball.y <= 34 ? 6 : -6) },
+    );
+    const receiver =
+      selected?.type === 'pass' ? available.find((p) => p.id === selected.receiverId) : undefined;
+    if (receiver) available.splice(available.indexOf(receiver), 1);
+    const short =
+      receiver ??
+      take(
+        shortZone,
+        (p) =>
+          p.profile.attributes.passing * 0.5 +
+          p.profile.attributes.firstTouch * 0.3 +
+          p.profile.attributes.gameReading * 0.2,
+      );
+    if (short) {
+      const zone = receiver && selected?.type === 'pass' ? selected.target : shortZone;
+      place(short, zone, 0.6);
+      assign(short, receiver ? 'selected_receiver' : 'short_option', 'short_option', zone);
+      roles[short.id]!.zone.radius = 2;
+    }
+    const direct = selected?.type === 'shot' || (!selected && scenario === 'free_kick_close');
+    const deliveryTarget =
+      selected && (selected.type === 'cross' || selected.type === 'space_pass')
+        ? selected.target
+        : undefined;
+    const edgeZone = clampPitchPoint({
+      x: scenario === 'corner' ? 86 : Math.min(87, Math.max(24, ball.x + 7)),
+      y: 34,
+    });
+    const edge = take(
+      edgeZone,
+      (p) =>
+        p.profile.attributes.gameReading * 0.5 +
+        p.profile.attributes.passing * 0.3 +
+        p.profile.attributes.firstTouch * 0.2,
+    );
+    if (edge) {
+      place(edge, edgeZone, 0.7);
+      assign(edge, 'edge_support', 'attack_second_ball', edgeZone);
+      roles[edge.id]!.zone.radius = 4;
+    }
+    const nearY = ball.y <= 34 ? 27 : 41;
+    const deliveryDepth = scenario === 'corner' ? 97 : Math.min(96, ball.x + 18);
+    const reboundDepth = Math.min(91, ball.x + 8);
+    const zones = direct
+      ? [
+          { x: reboundDepth, y: 29 },
+          { x: reboundDepth, y: 39 },
+          { x: Math.max(12, reboundDepth - 4), y: 34 },
+        ]
+      : [
+          { x: deliveryDepth + 1, y: nearY },
+          { x: deliveryDepth, y: 34 },
+          { x: deliveryDepth - 1, y: 68 - nearY },
+        ];
+    if (deliveryTarget) {
+      const nearest = zones
+        .map((zone, index) => ({ index, d: distance(zone, deliveryTarget) }))
+        .sort((a, b) => a.d - b.d)[0]!;
+      zones[nearest.index] = deliveryTarget;
+    }
+    const receivers: MatchPlayerState[] = [];
+    zones.forEach((point, i) => {
+      const zone = clampPitchPoint(point);
+      const intended =
+        selected?.type === 'cross' && selected.intendedTargetId
+          ? available.find((p) => p.id === selected.intendedTargetId)
+          : undefined;
+      const target =
+        deliveryTarget && distance(zone, deliveryTarget) < 0.1 && intended
+          ? intended
+          : take(zone, (p) =>
+              direct
+                ? p.profile.attributes.gameReading * 0.5 + p.profile.attributes.pace * 0.5
+                : aerialScore(p) * 0.65 +
+                  p.profile.attributes.gameReading * 0.2 +
+                  p.profile.attributes.pace * 0.15,
+            );
+      if (!target) return;
+      if (target === intended) available.splice(available.indexOf(target), 1);
+      receivers.push(target);
+      place(target, zone, selected?.type === 'cross' && selected.intent === 'driven' ? 0.7 : 1.5);
+      assign(
+        target,
+        direct
+          ? 'rebound_attacker'
+          : i === 0
+            ? 'near_post_target'
+            : i === 1
+              ? 'central_target'
+              : 'far_post_target',
+        direct
+          ? 'attack_second_ball'
+          : i === 0
+            ? 'attack_near_post'
+            : i === 1
+              ? 'attack_central'
+              : 'attack_far_post',
+        zone,
+      );
+      roles[target.id]!.zone.radius = direct ? 4 : 3;
+      roles[target.id]!.zone.timing =
+        selected?.type === 'cross' && selected.intent === 'floated' ? 0.35 : 0;
+    });
+    available.forEach((p, i) => {
+      const zone = clampPitchPoint(
+        i === 0
+          ? { x: ball.x - 3, y: ball.y + (ball.y <= 34 ? 2 : -2) }
+          : { x: ball.x - 12, y: 20 + (i % 3) * 14 },
+      );
+      place(p, zone, 0.7);
+      assign(p, i === 0 ? 'secondary_taker' : 'recycle_support', 'support_ball', zone);
+      roles[p.id]!.zone.radius = 3;
+    });
+    const defenders = stableRank(
+      away.filter((p) => roles[p.id]?.key !== 'wall' && roles[p.id]?.intent !== 'counter_outlet'),
+      (p) => p.profile.attributes.positioning + p.profile.attributes.gameReading,
+    );
+    defenders.forEach((p, i) => {
+      const marked = receivers[i % Math.max(1, receivers.length)];
+      if (!marked || i >= receivers.length * 2) return;
+      const zone = clampPitchPoint({
+        x: roles[marked.id]!.zone.centre.x + 1.3,
+        y: roles[marked.id]!.zone.centre.y + (i < receivers.length ? 0.8 : -1.2),
+      });
+      place(p, zone, 0.45);
+      assign(p, 'marker', 'mark_opponent', zone, marked.id);
+      roles[p.id]!.zone.radius = 2;
+    });
+    landingZone = clampPitchPoint(deliveryTarget ?? zones[1]!);
+    points.set(taker.id, scenario === 'corner' ? ball : { x: ball.x - 1.4, y: ball.y });
+    assign(taker, 'taker', 'support_ball', points.get(taker.id)!);
+    roles[taker.id]!.zone.radius = 0.6;
+  }
+  for (const player of state.players.filter((p) => !state.discipline?.[p.id]?.sentOff))
     if (!roles[player.id])
       assign(
         player,
@@ -556,14 +665,17 @@ const deriveHomeRestartGeometry = (
         player.team === 'home' ? 'support_ball' : 'protect_zone',
         points.get(player.id) ?? player.position,
       );
-  spreadCluster(points, state.players);
+  spreadCluster(
+    points,
+    state.players.filter((p) => !state.discipline?.[p.id]?.sentOff),
+  );
   // Preserve law-critical exact locations after separation.
   if (scenario === 'penalty') {
     points.set(homeGk.id, { x: 5.5, y: 34 });
     points.set(awayGk.id, { x: 105, y: 34 });
     points.set(taker.id, ball);
   }
-  if (scenario === 'goal_kick' || scenario === 'gk_short') points.set(homeGk.id, ball);
+  if (scenario === 'goal_kick' || scenario === 'gk_short') points.set(taker.id, ball);
   if (scenario === 'corner') points.set(taker.id, ball);
   const definition =
     TACTICAL_SITUATION_PLAYBOOK[scenario as keyof typeof TACTICAL_SITUATION_PLAYBOOK];
@@ -591,8 +703,10 @@ export const deriveRestartGeometry = (
   scenario: RestartScenario,
   restartTeam: TeamSide = 'home',
   restartPoint?: PitchPoint,
+  options: { takerId?: string; selectedAction?: MatchAction } = {},
 ) => {
-  if (restartTeam === 'home') return deriveHomeRestartGeometry(state, scenario, restartPoint);
+  if (restartTeam === 'home')
+    return deriveHomeRestartGeometry(state, scenario, restartPoint, options);
   const swap = (side: TeamSide): TeamSide => (side === 'home' ? 'away' : 'home');
   const mirrored: TacticalMatchState = {
     ...state,
@@ -618,6 +732,19 @@ export const deriveRestartGeometry = (
     mirrored,
     scenario,
     restartPoint ? mirrorPoint(restartPoint) : undefined,
+    {
+      ...options,
+      ...(options.selectedAction
+        ? {
+            selectedAction: {
+              ...options.selectedAction,
+              ...('target' in options.selectedAction
+                ? { target: mirrorPoint(options.selectedAction.target) }
+                : {}),
+            },
+          }
+        : {}),
+    },
   );
   return {
     ...geometry,
@@ -638,7 +765,93 @@ export const deriveRestartGeometry = (
 
 export const restartInfluence = (state: TacticalMatchState) => {
   if (!state.restart) return 0;
-  if (state.restart.phase === 'setup') return 1;
+  if (isRestartSetup(state)) return 1;
   if (state.scenario === 'penalty') return 0;
   return Math.max(0, 1 - (state.time - (state.restart.executedAt ?? state.time)) / 4);
+};
+
+/** Small per-tick projection over the stored plan. Only targets change: existing locomotion
+ * owns acceleration, turning and travel. It never rebuilds or separates the whole formation. */
+export const deriveRestartMovementTargets = (
+  state: TacticalMatchState,
+): Record<string, PitchPoint> => {
+  const restart = state.restart;
+  if (!restart) return {};
+  const players = new Map(
+    state.players.filter((p) => !state.discipline?.[p.id]?.sentOff).map((p) => [p.id, p]),
+  );
+  const targets: Record<string, PitchPoint> = {};
+  const selected = restart.selectedAction;
+  const markers = new Map<string, MatchPlayerState>();
+  for (const [id, role] of Object.entries(restart.roles)) {
+    const marker = players.get(id);
+    if (role.markerId && marker && !markers.has(role.markerId)) markers.set(role.markerId, marker);
+  }
+  const walls = Object.entries(restart.roles)
+    .filter(([, role]) => role.key === 'wall')
+    .map(([id]) => players.get(id))
+    .filter((p): p is MatchPlayerState => Boolean(p));
+  for (const [id, planned] of Object.entries(restart.targets)) {
+    const player = players.get(id);
+    if (!player) continue;
+    const role = restart.roles[id];
+    let target = planned;
+    if (restart.origin !== 'dev_fixture' && role && id !== restart.takerId && role.key !== 'wall') {
+      const marked = role.markerId ? players.get(role.markerId) : undefined;
+      if (marked && role.intent === 'mark_opponent') {
+        target = {
+          x: marked.position.x + (player.team === 'away' ? 1.2 : -1.2),
+          y: marked.position.y + (planned.y >= marked.position.y ? 0.8 : -0.8),
+        };
+      } else {
+        const centre = role.zone.centre;
+        const receiver =
+          selected?.type === 'cross'
+            ? selected.intendedTargetId
+            : selected?.type === 'pass'
+              ? selected.receiverId
+              : undefined;
+        const selectedRun = Boolean(
+          selected && (role.intent.startsWith('attack_') || id === receiver),
+        );
+        const radius = selectedRun ? Math.min(1, role.zone.radius) : Math.min(3, role.zone.radius);
+        const remaining = distance(player.position, centre);
+        target =
+          remaining <= radius
+            ? player.position
+            : {
+                x: centre.x + ((player.position.x - centre.x) * radius) / remaining,
+                y: centre.y + ((player.position.y - centre.y) * radius) / remaining,
+              };
+        const marker = markers.get(id);
+        if (
+          selectedRun &&
+          marker &&
+          distance(player.position, marker.position) < 1.5 &&
+          id !== receiver
+        ) {
+          target = {
+            x: target.x,
+            y: target.y + (player.position.y >= marker.position.y ? 0.8 : -0.8),
+          };
+        }
+      }
+      // A three-player wall also constrains attacking preparation, independently of UI labels.
+      if (walls.length >= 3 && player.team === restart.restartTeam) {
+        for (const wall of walls) {
+          const gap = distance(target, wall.position);
+          if (gap >= 1.25) continue;
+          const dx = target.x - wall.position.x,
+            dy = target.y - wall.position.y;
+          const d = Math.hypot(dx, dy);
+          target =
+            d < 0.01
+              ? { x: wall.position.x + (player.team === 'home' ? -1.25 : 1.25), y: wall.position.y }
+              : { x: wall.position.x + (dx / d) * 1.25, y: wall.position.y + (dy / d) * 1.25 };
+        }
+      }
+    }
+    targets[id] = clampPitchPoint(target);
+  }
+  return targets;
 };

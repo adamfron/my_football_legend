@@ -141,6 +141,12 @@ import {
 import './TacticalMatchSandbox.css';
 import { MatchCentre } from './MatchCentre';
 import {
+  groupContextualInteractions,
+  projectRestartDecisionInteractions,
+} from '../../core/matchSimulation/contextualInteractions';
+import { distance } from '../../core/matchSimulation/matchSpace';
+import { enumerateFreeKickStrikeProfiles } from '../../core/matchSimulation/shootingOptions';
+import {
   MatchLabDiagnosticsController,
   runtimeErrorFromEvent,
   runtimeErrorFromRejection,
@@ -1316,6 +1322,14 @@ export const RunningLab = ({
       progressive_pass: 'Podanie progresywne',
       pass_into_space: 'Zagraj przed niego',
       cross: 'Dośrodkuj',
+      floated_cross: 'Dośrodkuj górą',
+      driven_cross: 'Dośrodkuj mocno',
+      cutback_cross: 'Wycofaj przed pole karne',
+      free_kick_power_bend: 'Mocny strzał z rotacją',
+      free_kick_controlled_curl: 'Podkręcony strzał techniczny',
+      free_kick_dipping: 'Strzał opadający',
+      free_kick_under_wall: 'Nisko pod murem',
+      free_kick_wall_gap: 'Przez lukę w murze',
       hold_ball: 'Osłoń / utrzymaj piłkę',
       carry_here: 'Prowadź tutaj',
       sprint_here: 'Sprintem tutaj',
@@ -1357,6 +1371,49 @@ export const RunningLab = ({
       keeper_hold_position: 'Trzymaj pozycję',
       keeper_close_angle: 'Skróć kąt',
     })[interaction.labelKey] ?? interaction.labelKey;
+  const interactionFamilyLabels = {
+    shoot: 'Strzał',
+    cross: 'Dośrodkowanie',
+    pass: 'Podanie',
+    short_routine: 'Krótkie rozegranie',
+    movement: 'Ruch',
+    defending: 'Obrona',
+  };
+  const restartGroups =
+    opportunity?.kind === 'restart'
+      ? groupContextualInteractions(projectRestartDecisionInteractions(state, opportunity), true)
+      : [];
+  const restartTargetLabel = (interaction: ContextualInteraction) => {
+    const resolution = interaction.resolution;
+    if (resolution.kind !== 'action') return '';
+    const action = resolution.action;
+    const receiverId =
+      action.type === 'pass'
+        ? action.receiverId
+        : action.type === 'cross'
+          ? action.intendedTargetId
+          : undefined;
+    const receiver = state.players.find((p) => p.id === receiverId);
+    const role = receiverId ? state.restart?.roles[receiverId] : undefined;
+    const developing =
+      receiver && role && distance(receiver.position, role.zone.centre) > role.zone.radius;
+    if (receiver && action.type === 'pass')
+      return `${receiver.profile.lastName}${developing ? ' · ustawia się' : ''}`;
+    if (action.type === 'space_pass') return 'W wolną przestrzeń';
+    if (action.type !== 'cross') return '';
+    const ballNearTop = (state.restart?.spot?.y ?? state.ball.y) <= 34;
+    const near = ballNearTop ? action.target.y < 31 : action.target.y > 37;
+    const far = ballNearTop ? action.target.y > 37 : action.target.y < 31;
+    const target =
+      action.intent === 'cutback'
+        ? 'Przed pole karne'
+        : near
+          ? 'Bliższy słupek'
+          : far
+            ? 'Dalszy słupek'
+            : 'Środek';
+    return `${target}${receiver ? ` · ${receiver.profile.lastName}${developing ? ' ustawia się' : ''}` : ''}`;
+  };
   const uiEvent = (type: string, data?: Record<string, unknown>) =>
     observerMode === 'capture' && debugRecorderRef.current.ui(stateRef.current.time, type, data);
   const closeOpportunity = (
@@ -2135,9 +2192,21 @@ export const RunningLab = ({
                       target: { x: point.x, y: point.y },
                       goalTarget: shotAim,
                     };
+                    const profileAvailable =
+                      action.type !== 'shot' ||
+                      !action.freeKickProfile ||
+                      enumerateFreeKickStrikeProfiles(state, action.actorId, shotAim).includes(
+                        action.freeKickProfile,
+                      );
                     return (
                       <button
                         key={item.id}
+                        disabled={!profileAvailable}
+                        title={
+                          profileAvailable
+                            ? undefined
+                            : 'Ustaw niski cel lub wolną drogę przez mur, aby wykonać ten strzał.'
+                        }
                         onClick={() =>
                           closeOpportunity(
                             applyContextualInteraction(state, opportunity, {
@@ -2188,24 +2257,34 @@ export const RunningLab = ({
               aria-label="Dostępne zagrania"
               onClick={(event) => event.stopPropagation()}
             >
-              {interactions.slice(0, 5).map((interaction) => (
-                <button
-                  key={interaction.id}
-                  onClick={() => {
-                    uiEvent('player_interaction_selected', {
-                      target: selectedTarget,
-                      interactionId: interaction.id,
-                    });
-                    closeOpportunity(
-                      applyContextualInteraction(state, opportunity, interaction),
-                      'player',
-                      interaction,
-                    );
-                  }}
-                >
-                  {interactionLabel(interaction)}
-                </button>
-              ))}
+              {groupContextualInteractions(interactions, opportunity.kind === 'restart').map(
+                (group) => (
+                  <div className="context-menu__group" key={group.family}>
+                    <strong>{interactionFamilyLabels[group.family]}</strong>
+                    {group.interactions.map((interaction) => (
+                      <button
+                        key={interaction.id}
+                        onClick={() => {
+                          uiEvent('player_interaction_selected', {
+                            target: selectedTarget,
+                            interactionId: interaction.id,
+                          });
+                          closeOpportunity(
+                            applyContextualInteraction(state, opportunity, interaction),
+                            'player',
+                            interaction,
+                          );
+                        }}
+                      >
+                        {interactionLabel(interaction)}
+                        {opportunity.kind === 'restart' && (
+                          <small>{restartTargetLabel(interaction)}</small>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                ),
+              )}
             </section>
           )}
         </div>
@@ -2254,6 +2333,73 @@ export const RunningLab = ({
                       ? 'Mecz czeka na Twój wybór. Wskaż cel na boisku, następnie wybierz dostępne zagranie.'
                       : 'Piłkarze wykonują decyzje symulacji. Kolejny wybór pojawi się w odpowiednim kontekście.'}
           </p>
+          {state.restart && state.restart.phase !== 'release' && (
+            <section
+              className="restart-readiness"
+              aria-label="Przygotowanie wznowienia"
+              aria-live="polite"
+            >
+              <strong>Przygotowanie wznowienia</strong>
+              <span>
+                Wykonawca:{' '}
+                {state.players.find((p) => p.id === state.restart?.takerId)?.profile.lastName ??
+                  'wybór zawodnika'}
+              </span>
+              {state.restart.readiness && (
+                <span>
+                  {state.restart.readiness.ballReady ? 'Piłka na miejscu' : 'Piłka w drodze'} ·{' '}
+                  {state.restart.readiness.legalReady
+                    ? 'Pozycje zgodne z przepisami'
+                    : 'Ustawianie zawodników'}
+                </span>
+              )}
+              <span>
+                {state.restart.phase === 'awaiting_decision' || opportunity?.kind === 'restart'
+                  ? 'Czeka na Twój wybór'
+                  : state.restart.phase === 'kick_preparation'
+                    ? 'Przygotowanie wybranego zagrania'
+                    : 'Zawodnicy przygotowują wznowienie'}
+              </span>
+            </section>
+          )}
+          {opportunity?.kind === 'restart' && !replaying && restartGroups.length > 0 && (
+            <section className="restart-choices" aria-label="Wybór wznowienia">
+              {restartGroups.map((group) => (
+                <fieldset key={group.family}>
+                  <legend>{interactionFamilyLabels[group.family]}</legend>
+                  {group.family === 'shoot' ? (
+                    <button
+                      onClick={() => {
+                        const target = group.interactions[0]!.target;
+                        setSelectedTarget(target);
+                        setShotAim({ horizontal: 0, vertical: 0.45 });
+                        setMenuPosition(undefined);
+                        uiEvent('shot_aim_opened', { target });
+                      }}
+                    >
+                      Wskaż miejsce i wysokość strzału
+                    </button>
+                  ) : (
+                    group.interactions.map((interaction) => (
+                      <button
+                        key={interaction.id}
+                        onClick={() =>
+                          closeOpportunity(
+                            applyContextualInteraction(state, opportunity, interaction),
+                            'player',
+                            interaction,
+                          )
+                        }
+                      >
+                        {interactionLabel(interaction)}
+                        <small>{restartTargetLabel(interaction)}</small>
+                      </button>
+                    ))
+                  )}
+                </fieldset>
+              ))}
+            </section>
+          )}
           <p>
             <strong>
               {owner?.profile.firstName} {owner?.profile.lastName}

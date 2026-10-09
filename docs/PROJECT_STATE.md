@@ -1,5 +1,40 @@
 # My Football Legend — Current Project State
 
+## PR159 — Dead Ball & Restart Continuity
+
+Baza: scalony PR158, `main`, `a7c90299c01c080eb356fe88e0ef47d4a7b1f639`.
+Implementacja i wymagana walidacja zakończone, draft do przeglądu. Końcowe
+`npm run verify` PASS: lint, 1367 testów głównych, 5 kariery i build. Kod dowodów:
+`6e303b97eb1d82685f206fd1aea5dd5aeea5969a`. Krótki smoke: 12/12 release/open play,
+0 m award displacement; focused runtime +16,4%, bez wniosków o całych meczach.
+
+Naturalny restart zachowuje pozycje/prędkości i realną piłkę. Niezmienny incident
+oraz legalny spot prowadzą przez odzyskanie, ruch do stref, odczyt gotowości,
+wybór i fizyczne przygotowanie do wspólnego resolvera. DEV injection pozostaje
+jawnym zamrożonym fixture. Controlled non-throw restart zawsze wymaga człowieka;
+odrzucona autonomous propozycja nie zużywa execution RNG ani nie tworzy statystyk.
+Menu daje wide direct shots i kilku odbiorców/delivery bez filtra xG. Canonical
+spin/Magnus rozróżnia curl/dip; mur używa rzeczywistych kapsuł, prześwitów i skoku.
+UI/replay tylko projektują realny ball, spot, taker, mur, target i readiness.
+
+Po golu kontekstowa reakcja oraz rzeczywisty retriever prowadzą do kickoff dla
+zespołu, który stracił gola. Ograniczony ledger zapisuje kanoniczne przerwy i
+milestone; actual added-time policy należy do PR160. Testowane przepisy mają
+referencję IFAB 2026/27. Pełny handball, countdown/pełny penalty protocol i
+przedłużenie połowy na penalty pozostają poza obecnym wdrożeniem. Indirect goal
+wymaga innego kontaktu; obecne menu indirect nadal nie proponuje shot ku bramce.
+
+Otwarte diagnozy PR158 pozostają: shots 110→16, goals 68→10, CM touches
+4957→3461/receptions 2831→1993, adjacent-tick flips 24→94, spells <0,5 s
+51→189 oraz prolonged/low-progress rotations. Naprawa wznowień nie dowodzi
+poprawy open-play realism. Historyczne wyniki i draft/calibration uwagi PR158
+poniżej zachowano jako dokumentację tamtego etapu; PR158 jest już scalony.
+
+Dowody skupione, exact-state observer parity, odpowiedzi na 15 pytań i ograniczenia:
+[PR159_DEAD_BALL_RESTART_CONTINUITY.md](PR159_DEAD_BALL_RESTART_CONTINUITY.md).
+Następnie PR160 fatigue/injuries/substitutions/added time, PR161 presentation/replay/stadium,
+potem wspólny full-match diagnostic and realism audit.
+
 ## PR158 — Ball Contact Geometry, Press Resistance, Duel Cadence & Tactical Pressing Intelligence
 
 Baza: scalony PR157 / `main`, `73c0fabed04ee4a31da85fa918f19bbc42344975`.

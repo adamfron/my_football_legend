@@ -1,4 +1,44 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR158
+# Audyt silnika meczu — PR140 / aktualizacja PR159
+
+## PR159 — continuity, shared spin and state-based restart readiness
+
+Base: merged PR158, `a7c90299c01c080eb356fe88e0ef47d4a7b1f639`. Implementation
+replaces live restart snapshot placement with an immutable incident/award, physical
+retrieval and existing locomotion toward role zones. Frozen DEV injection remains
+explicit. Legal readiness observes the ball and active roster; tactical receiver
+readiness is separate. Selection queues one shared action and preserves absolute
+controlled non-throw ownership, including no execution RNG/accounting on rejection.
+
+Canonical spin is part of the shared flight/forecast/rebound path. Ordinary direct
+shots remain eligible without xG ranking; chip and wall-specific profiles share
+physical eligibility with execution. Moving body capsules and actual jump lift
+decide wall contact. Post-goal urgency/retrieval and a bounded overlapping-reason
+stoppage ledger supply canonical state for PR160/PR161. Frame/replay landmarks are
+read-only and distinguish the moving ball from the legal spot.
+
+IFAB 2026/27 location/readiness/scoring/offside contracts are tested, with explicit
+scope limits: indirect menu excludes shots even though kicking toward goal is legal
+before the required other-player touch; full handball/penalty procedure, countdown,
+half-end penalty extension and official added-time policy are deferred. Old optional
+save fields retain legacy setup/release and zero-spin behaviour.
+
+Final full verify PASS: lint, 1367 main tests/171 files, five career tests and build.
+Code revision: `6e303b97eb1d82685f206fd1aea5dd5aeea5969a`. Focused smoke: 12/12
+released and returned to open play, zero player/ball award displacement. Runtime
+4357.36→5069.96 ms (+16.4%) for 9600 ticks, with comparable but changed seeded geometry.
+160-tick exact-state observer/step-entry parity and save/transport/release parity PASS.
+These tests establish specific mechanics, not league flow realism or a general
+speedup. Simplified frame rebounds and general source-free own-goal handling remain
+limitations. Evidence and the 15 answers are centralized in
+[PR159_DEAD_BALL_RESTART_CONTINUITY.md](PR159_DEAD_BALL_RESTART_CONTINUITY.md).
+
+PR158 open issues remain explicit: shots 110→16, goals 68→10; CM touches
+4957→3461/receptions 2831→1993; adjacent-tick flips 24→94, spells <0.5 s 51→189;
+prolonged/low-progress rotations. The demanded-turn lab separately records
+
+> 360°/net<3 m 2→16 and fouls 90→369. Historical PR158 draft/calibration wording
+> below is preserved evidence; PR158 is merged. Reassess the interacting systems
+> after PR160 and PR161 through one combined full-match diagnostic and realism audit.
 
 ## PR158 — finite contacts, press resistance and situational tactics
 
@@ -78,8 +118,6 @@ Draft calibration remains necessary before merging: central-midfielder touches
 regress despite more aggregate passing. Demanded-turn >360°/net<3 m trials
 2→16
 and lab fouls 90→369 also worsen.
-
-
 
 The [evidence manifest](performance/PR158-evidence-manifest.json) inventories archived raw, source and report snapshots. The local output/attachment `outputs/PR158-evidence.zip` contains 824 hash-checked entries; five compact summaries regenerated exactly. Its checksum is retained separately in local metadata.
 

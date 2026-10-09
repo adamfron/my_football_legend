@@ -25,16 +25,16 @@ describe('parametric advanced free-kick responsibility', () => {
       const geometry = deriveRestartGeometry(state, 'free_kick_close', side, ball);
       const roles = Object.values(geometry.roles).map((role) => role.key);
       for (const key of [
-        'near_post_target',
-        'central_target',
-        'far_post_target',
+        'rebound_attacker',
         'short_option',
         'edge_support',
-        'recycle_support',
         'rest_defence',
         'wall',
       ])
         expect(roles).toContain(key);
+      expect(roles.some((role) => role === 'secondary_taker' || role === 'recycle_support')).toBe(
+        true,
+      );
       const attackers = state.players.filter(
         (player) => player.team === side && player.id !== geometry.taker.id,
       );
@@ -54,6 +54,17 @@ describe('parametric advanced free-kick responsibility', () => {
         restartPoint: ball,
       });
       expect(restart.restart?.roles).toEqual(geometry.roles);
+      const crossingPlan = deriveRestartGeometry(state, 'free_kick_close', side, ball, {
+        selectedAction: {
+          type: 'cross',
+          actorId: geometry.taker.id,
+          target: { x: side === 'home' ? 96 : 9, y: 41 },
+          intent: 'floated',
+        },
+      });
+      const crossingRoles = Object.values(crossingPlan.roles).map((role) => role.key);
+      for (const key of ['near_post_target', 'central_target', 'far_post_target', 'rest_defence'])
+        expect(crossingRoles).toContain(key);
     },
   );
 });

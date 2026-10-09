@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { distance, physicalPointSchema, pitchPointSchema, type PitchPoint } from './matchSpace';
@@ -55,7 +56,7 @@ export const derivePassDifficulty = (
   const a = passer.profile.attributes;
   const distribution =
     passer.profile.primaryPosition === 'goalkeeper' &&
-    state.restart?.phase === 'setup' &&
+    isRestartSetup(state) &&
     state.scenario === 'goal_kick';
   const primary = (distribution ? a.goalkeeperKicking : a.passing) / 100;
   const ability =

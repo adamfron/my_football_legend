@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
+import { enumerateRestartActions } from './matchActions';
 import {
   aerialAbility,
   applyRestartScenario,
@@ -112,7 +113,11 @@ describe('canonical airborne play', () => {
       let state = applyRestartScenario(makeState(`delivery-${scenario}`), scenario);
       if (scenario === 'corner')
         state = { ...state, restart: { ...state.restart!, cornerPlan: 'direct_near_post' } };
-      const action = chooseRestartAction(state)!;
+      const action = enumerateRestartActions(state).find((action) =>
+        scenario === 'goal_kick'
+          ? action.type === 'pass' && action.delivery === 'lofted'
+          : action.type === 'cross' && action.intent === 'floated',
+      )!;
       const released = resolveMatchAction(state, action);
       expect(released.ball.airborne).toBe(true);
       expect(scenario === 'goal_kick' ? released.ball.travelKind : action.type).toBe(

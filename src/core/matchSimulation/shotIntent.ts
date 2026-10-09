@@ -2,6 +2,14 @@ import { z } from 'zod';
 
 /** Techniques are independent of contact: a first-time finish can be driven or placed. */
 export const shotIntentSchema = z.enum(['driven', 'placed', 'chip']);
+export const freeKickStrikeProfileSchema = z.enum([
+  'power_bend',
+  'controlled_curl',
+  'dipping',
+  'under_wall',
+  'wall_gap',
+]);
+export type FreeKickStrikeProfile = z.infer<typeof freeKickStrikeProfileSchema>;
 export const footShotContactSchema = z.enum(['settled', 'first_time', 'half_volley', 'volley']);
 export const shotContactSchema = z.enum([
   'settled',
@@ -51,5 +59,5 @@ export const shotPreparationSeconds = (
   contact: z.infer<typeof shotContactSchema>,
 ) => (contact !== 'settled' ? 0 : intent === 'placed' ? 0.28 : intent === 'driven' ? 0.2 : 0.24);
 
-// Curled, outside-foot, toe-poke and improvised techniques can extend intent independently of
-// contact. Curled shots deliberately stay out of legal menus until canonical spin/Magnus exists.
+// Free-kick profiles author launch energy and spin in the shared solver, independently of contact.
+// Outside-foot, toe-poke and improvised contacts remain outside the implemented technique family.

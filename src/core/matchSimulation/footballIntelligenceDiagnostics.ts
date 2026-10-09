@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import { distance, distanceToSegment } from './matchSpace';
@@ -66,7 +67,7 @@ export class PressureSupportTracker {
     if (
       this.active &&
       (next.ball.ownerId !== this.active.actorId ||
-        next.restart?.phase === 'setup' ||
+        isRestartSetup(next) ||
         ['half_time', 'full_time'].includes(next.status ?? ''))
     ) {
       const episode = {
@@ -344,8 +345,7 @@ export class CentralConnectivityTracker {
   };
   private available(state: TacticalMatchState) {
     const carrier = state.players.find((p) => p.id === state.ball.ownerId);
-    if (!carrier || !carrier.slot.position.includes('back') || state.restart?.phase === 'setup')
-      return [];
+    if (!carrier || !carrier.slot.position.includes('back') || isRestartSetup(state)) return [];
     return state.players.filter(
       (p) =>
         p.team === carrier.team &&

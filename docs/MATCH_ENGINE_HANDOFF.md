@@ -1,5 +1,55 @@
 # Match Engine Handoff
 
+## PR159 contracts
+
+- Natural awards preserve real player/ball positions, velocities and immutable
+  incident provenance. Distinguish `origin: live_event` from frozen `dev_fixture`;
+  keep legacy optional fields readable. Never use DEV geometry to place a live roster.
+- `preparing -> awaiting_decision -> kick_preparation -> release` is owned by core.
+  Retrieval/placement, taker reach, legal readiness, tactical readiness and actual
+  action preparation govern transitions. Missing takers/retrievers reassign within
+  the same award. A watchdog cannot choose for a controlled non-throw taker.
+- Queue human selection once. Rejected autonomous proposals must preserve canonical
+  execution RNG, physical state and accounting. One option still requires a human.
+  Use the same shot/pass/cross/contact resolver for every action source.
+- Derive role/zone plans at award or changed delivery; reserve cover before receivers.
+  Update bounded movement targets from current positions/marking and the saved plan,
+  not full all-pairs geometry every tick. After release use normal football contacts.
+- Ordinary legally direct placed/driven shots remain available independent of xG.
+  Chip and free-kick profile availability share pure physical eligibility and are
+  revalidated at execution. Keep actual ball spin in runtime, forecasts, keeper reads,
+  interceptions and rebounds. Missing spin must preserve the calibrated old trajectory.
+- Wall jump is defensive state, never a guarantee attached to under-wall selection.
+  Finite moving body capsules and ball radius decide under-wall/gap contact. Keep
+  attacker 1 m separation for a wall of at least three and the quick-kick exception.
+- Post-goal movement preserves real state; urgent retrieval reaches the scored ball
+  and transports it physically. The conceding team owns the next kickoff. The simple
+  canonical enclosure is independent of renderer/stadium art.
+- Stoppage ledger records canonical timestamps, one active interval, overlapping
+  reasons and the last 512 completed intervals plus retained totals. No UI wall-time,
+  automatic 1:1 added-time policy or observer may change canonical football.
+- UI/replay project existing spot, ball, taker, wall, target and readiness. They do
+  not create eligibility, change placement or schedule execution. Final animation,
+  stadium and cinematic replay are PR161 scope.
+- Rule reference is IFAB 2026/27. Preserve tested special locations, physical other
+  touches and immediate-reception offside exceptions. Document scope limits honestly:
+  indirect menu currently hides shot actions; full handball/penalty protocol,
+  countdown and half-end penalty extension remain deferred.
+- Final full verify PASS: lint, 1367 main tests/171 files, five career tests, build.
+  Code revision: `6e303b97eb1d82685f206fd1aea5dd5aeea5969a`. Focused smoke releases
+  12/12 and returns to open play, with zero award displacement; runtime +16.4%
+  over 9600 ticks (comparable seeded fixtures, geometry differs between revisions).
+  Exact-state 160-tick observer/step parity and persisted transport/release PASS.
+  Simplified frame rebounds and general source-free own-goal handling remain gaps. Central
+  report: [PR159_DEAD_BALL_RESTART_CONTINUITY.md](PR159_DEAD_BALL_RESTART_CONTINUITY.md).
+- Retain PR158 open issues: shots 110→16, goals 68→10, CM touches 4957→3461 /
+  receptions 2831→1993, flips 24→94, spells <0.5 s 51→189 and low-progress
+  rotations. Do not infer open-play realism from improved restart continuity.
+  Historical PR158 draft remarks below describe prior evidence; PR158 is merged.
+- Next: PR160 fatigue/injuries/substitutions/added time, PR161 presentation/replay/
+  stadium, then a combined full-match diagnostic and realism audit. No new isolated
+  18-match calibration campaign solely for PR159.
+
 ## PR158 contracts
 
 - Preserve the one deterministic 0.025 s engine. `controlledBallContact` is one bounded
@@ -72,8 +122,6 @@
   regress despite increased aggregate passing. Demanded-turn >360°/net<3 m trials
   2→16
   and lab fouls 90→369 also worsen.
-
-
 
 The [evidence manifest](performance/PR158-evidence-manifest.json) inventories archived raw, source and report snapshots. The local output/attachment `outputs/PR158-evidence.zip` contains 824 hash-checked entries; five compact summaries regenerated exactly. Its checksum is retained separately in local metadata.
 

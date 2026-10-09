@@ -99,7 +99,7 @@ export const TACTICAL_SITUATION_PLAYBOOK: Record<
       role('angles', 'attacking', 'support_ball', [3, 5], ['passing']),
     ],
     defendingRoles: [role('compact_block', 'defending', 'protect_zone', [10, 10], ['defending'])],
-    executionChoices: ['short_pass'],
+    executionChoices: ['short_pass', 'direct_shot'],
     releaseSeconds: 4,
   },
   goal_kick: {
@@ -116,7 +116,7 @@ export const TACTICAL_SITUATION_PLAYBOOK: Record<
       role('contest', 'defending', 'mark_opponent', [2, 4], ['aerial']),
       role('cover', 'defending', 'protect_zone', [3, 5], ['defending']),
     ],
-    executionChoices: ['long_delivery'],
+    executionChoices: ['long_delivery', 'short_pass'],
     releaseSeconds: 4,
   },
   gk_short: {
@@ -131,7 +131,7 @@ export const TACTICAL_SITUATION_PLAYBOOK: Record<
       role('press_cover', 'defending', 'cover_press', [1, 2], ['defending']),
       role('screen', 'defending', 'screen_lane', [2, 3], ['game_reading']),
     ],
-    executionChoices: ['short_pass'],
+    executionChoices: ['short_pass', 'long_delivery'],
     releaseSeconds: 4,
   },
   corner: {
@@ -141,6 +141,7 @@ export const TACTICAL_SITUATION_PLAYBOOK: Record<
       role('central', 'attacking', 'attack_central', [1, 2], ['aerial']),
       role('far', 'attacking', 'attack_far_post', [1, 2], ['aerial']),
       role('edge', 'attacking', 'attack_second_ball', [1, 1], ['game_reading']),
+      role('short', 'attacking', 'short_option', [1, 1], ['passing', 'nearest']),
       role('rest', 'attacking', 'rest_defence', [2, 2], ['defending']),
     ],
     defendingRoles: [
@@ -148,7 +149,7 @@ export const TACTICAL_SITUATION_PLAYBOOK: Record<
       role('markers', 'defending', 'mark_opponent', [3, 5], ['defending']),
       role('outlet', 'defending', 'counter_outlet', [0, 1], ['pace']),
     ],
-    executionChoices: ['long_delivery', 'short_pass'],
+    executionChoices: ['long_delivery', 'short_pass', 'direct_shot'],
     releaseSeconds: 4,
   },
   free_kick_far: {
@@ -176,7 +177,7 @@ export const TACTICAL_SITUATION_PLAYBOOK: Record<
       role('wall', 'defending', 'protect_zone', [3, 5], ['aerial']),
       role('cover', 'defending', 'mark_opponent', [3, 5], ['defending']),
     ],
-    executionChoices: ['direct_shot', 'combination'],
+    executionChoices: ['direct_shot', 'combination', 'long_delivery', 'short_pass'],
     releaseSeconds: 4,
   },
   free_kick_wide: {
@@ -186,13 +187,14 @@ export const TACTICAL_SITUATION_PLAYBOOK: Record<
       role('central', 'attacking', 'attack_central', [2, 3], ['aerial']),
       role('far', 'attacking', 'attack_far_post', [1, 1], ['aerial']),
       role('edge', 'attacking', 'attack_second_ball', [1, 2], ['passing']),
+      role('short', 'attacking', 'short_option', [1, 1], ['passing', 'nearest']),
       role('rest', 'attacking', 'rest_defence', [2, 2], ['defending']),
     ],
     defendingRoles: [
       role('line', 'defending', 'protect_zone', [2, 3], ['aerial']),
       role('markers', 'defending', 'mark_opponent', [3, 5], ['defending']),
     ],
-    executionChoices: ['long_delivery', 'short_pass', 'combination'],
+    executionChoices: ['long_delivery', 'short_pass', 'combination', 'direct_shot'],
     releaseSeconds: 4,
   },
   penalty: {

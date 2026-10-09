@@ -10,7 +10,6 @@ import {
   type ShootingDifficultyContext,
 } from './shootingDifficulty';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
-import { findFirstBallContact } from './ballFlight';
 import { projectFutureBallTrajectory } from './ballPhysics';
 import { goalIntentToPitch } from './goalCoordinates';
 
@@ -87,16 +86,16 @@ describe('PR157 continuous shooting ability × difficulty', () => {
       6,
       0.025,
     )) {
-      const contact = findFirstBallContact({
-        previous,
-        next: sample.ball.position,
-        attackingTeam: shooter.team,
-      });
-      previous = sample.ball.position;
-      if (contact) {
-        crossingY = contact.point.y;
+      // Aiming is authored on the physical line; a goal is awarded later, once the whole
+      // ball has crossed. Keep testing the original PR157 launch ray without moving its aim.
+      const next = sample.ball.position;
+      const goalX = goalIntentToPitch(shooter.team, shot.actualTarget).x;
+      const fraction = (goalX - previous.x) / (next.x - previous.x);
+      if (fraction >= 0 && fraction <= 1) {
+        crossingY = previous.y + (next.y - previous.y) * fraction;
         break;
       }
+      previous = next;
     }
     expect(crossingY).toBeDefined();
     expect(crossingY).toBeCloseTo(goalIntentToPitch(shooter.team, shot.actualTarget).y, 8);
