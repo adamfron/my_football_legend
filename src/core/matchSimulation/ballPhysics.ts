@@ -7,11 +7,21 @@ export interface BallVelocity3d {
   y: number;
   z: number;
 }
+/** Angular velocity in radians/second in the same world axes as the flight. */
+export const ballSpinSchema = z.object({
+  x: z.number().finite().min(-160).max(160),
+  y: z.number().finite().min(-160).max(160),
+  z: z.number().finite().min(-160).max(160),
+});
+export type BallSpin3d = z.infer<typeof ballSpinSchema>;
+export const ZERO_BALL_SPIN: BallSpin3d = { x: 0, y: 0, z: 0 };
 export interface PhysicalBall {
   position: FlightPoint;
   velocity: BallVelocity3d;
   airborne: boolean;
   bounceCount: number;
+  /** Missing in older snapshots and ordinary launches: exactly the zero-spin regime. */
+  spin?: BallSpin3d;
 }
 export interface PhysicalBallForecastSample {
   at: number;
@@ -25,6 +35,11 @@ export const BALL_PHYSICS = {
   /** Neutral grass horizontal deceleration in m/s²; applied only during ground contact. */
   rollingDeceleration: 3.2,
   settleVerticalSpeed: 1.15,
+  magnusCoefficient: 0.0014,
+  maximumMagnusAcceleration: 7.5,
+  airborneSpinDecay: 0.12,
+  rollingSpinDecay: 2.4,
+  bounceSpinRetention: 0.55,
 } as const;
 
 export const ballEnvironmentSchema = z.object({
@@ -95,6 +110,31 @@ export const dragAcceleration = (v: BallVelocity3d): BallVelocity3d => {
   };
 };
 
+/** Bounded Magnus lift is perpendicular to velocity; it cannot propel a stationary ball. */
+export const magnusAcceleration = (
+  velocity: BallVelocity3d,
+  spin: BallSpin3d = ZERO_BALL_SPIN,
+): BallVelocity3d => {
+  const coefficient = BALL_PHYSICS.magnusCoefficient;
+  const acceleration = {
+    x: coefficient * (spin.y * velocity.z - spin.z * velocity.y),
+    y: coefficient * (spin.z * velocity.x - spin.x * velocity.z),
+    z: coefficient * (spin.x * velocity.y - spin.y * velocity.x),
+  };
+  const scale = Math.min(
+    1,
+    BALL_PHYSICS.maximumMagnusAcceleration /
+      Math.max(0.000001, Math.hypot(acceleration.x, acceleration.y, acceleration.z)),
+  );
+  return { x: acceleration.x * scale, y: acceleration.y * scale, z: acceleration.z * scale };
+};
+
+const dampSpin = (spin: BallSpin3d, retention: number): BallSpin3d => ({
+  x: spin.x * retention,
+  y: spin.y * retention,
+  z: spin.z * retention,
+});
+
 /** Exact constant-deceleration ground regime shared by 3D integration and loose-ball ETA. */
 export const integrateGroundRolling = (
   position: PhysicalPoint,
@@ -117,7 +157,7 @@ export const integrateGroundRolling = (
   };
 };
 
-/** Shared fixed-step integrator. Future spin adds another acceleration term beside gravity/drag. */
+/** Shared fixed-step integrator for ordinary and spinning launches, forecasts and live play. */
 export const integrateBallFlight = (
   ball: PhysicalBall,
   dt: number,
@@ -132,11 +172,13 @@ export const integrateBallFlight = (
     velocity: { ...ball.velocity },
     airborne: ball.airborne,
     bounceCount: ball.bounceCount,
+    ...(ball.spin ? { spin: { ...ball.spin } } : {}),
   };
   for (let index = 0; index < steps; index += 1) {
     let velocity = { ...current.velocity };
     let airborne = current.airborne || current.position.z > BALL_RADIUS || velocity.z > 0;
     let bounceCount = current.bounceCount;
+    let spin = current.spin;
     if (airborne) {
       const gravity = gravityAcceleration();
       const drag = dragAcceleration(velocity);
@@ -145,6 +187,14 @@ export const integrateBallFlight = (
         y: velocity.y + (gravity.y + drag.y) * step,
         z: velocity.z + (gravity.z + drag.z) * step,
       };
+      // Preserve every arithmetic operation in the existing zero-spin calibration.
+      if (spin && (spin.x !== 0 || spin.y !== 0 || spin.z !== 0)) {
+        const magnus = magnusAcceleration(current.velocity, spin);
+        velocity.x += magnus.x * step;
+        velocity.y += magnus.y * step;
+        velocity.z += magnus.z * step;
+        spin = dampSpin(spin, Math.exp(-BALL_PHYSICS.airborneSpinDecay * step));
+      }
     } else {
       const rolled = integrateGroundRolling(current.position, velocity, step, environment);
       current = {
@@ -152,6 +202,7 @@ export const integrateBallFlight = (
         velocity: { ...rolled.velocity, z: 0 },
         airborne: false,
         bounceCount,
+        ...(spin ? { spin: dampSpin(spin, Math.exp(-BALL_PHYSICS.rollingSpinDecay * step)) } : {}),
       };
       continue;
     }
@@ -166,12 +217,13 @@ export const integrateBallFlight = (
       velocity.x *= BALL_PHYSICS.horizontalRestitution;
       velocity.y *= BALL_PHYSICS.horizontalRestitution;
       velocity.z = -velocity.z * BALL_PHYSICS.verticalRestitution;
+      if (spin) spin = dampSpin(spin, BALL_PHYSICS.bounceSpinRetention);
       if (velocity.z < BALL_PHYSICS.settleVerticalSpeed) {
         velocity.z = 0;
         airborne = false;
       }
     }
-    current = { position, velocity, airborne, bounceCount };
+    current = { position, velocity, airborne, bounceCount, ...(spin ? { spin } : {}) };
   }
   return current;
 };

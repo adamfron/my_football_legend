@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { integrateGroundRolling } from './ballPhysics';
 import { distance, distanceToSegment, physicalPointSchema } from './matchSpace';
@@ -64,7 +65,7 @@ export const reconcileControlledBallContact = (state: TacticalMatchState): Tacti
     (state.ball.ownerId === active.actorId &&
       !state.ball.travelKind &&
       state.ball.looseSince === undefined &&
-      state.restart?.phase !== 'setup' &&
+      !isRestartSetup(state) &&
       (state.ballOwnershipStartedAt === undefined ||
         active.ownershipStartedAt === state.ballOwnershipStartedAt))
   )
@@ -365,7 +366,7 @@ export const advanceControlledBall = (
   actor: MatchPlayerState,
   dt: number,
 ): { state: TacticalMatchState; looseVelocity?: { x: number; y: number } } => {
-  if (state.ball.ownerId !== actor.id || state.ball.travelKind || state.restart?.phase === 'setup')
+  if (state.ball.ownerId !== actor.id || state.ball.travelKind || isRestartSetup(state))
     return { state };
   const ownershipStartedAt =
     state.ballOwnershipStartedAt ?? state.onBallPreparation?.gainedAt ?? state.time;

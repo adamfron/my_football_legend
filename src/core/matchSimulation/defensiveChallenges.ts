@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
@@ -150,7 +151,7 @@ export const deriveDefensiveContext = (
     !actor ||
     !opponent ||
     actor.team === opponent.team ||
-    state.restart?.phase === 'setup' ||
+    isRestartSetup(state) ||
     state.status === 'abandoned' ||
     state.status === 'full_time' ||
     state.status === 'half_time' ||
@@ -442,7 +443,7 @@ export const protectedPressReceiver = (
   candidate: MatchPlayerState,
   availableCover?: MatchPlayerState[],
 ): MatchPlayerState | undefined => {
-  if (state.restart?.phase === 'setup') return;
+  if (isRestartSetup(state)) return;
   const carrier = state.players.find((p) => p.id === state.ball.ownerId);
   if (!carrier || carrier.team === candidate.team) return;
   // No receiver at advanced depth can lie inside these two physical distance envelopes.
@@ -496,7 +497,7 @@ export const deriveCooperativePress = (
   side: TeamSide,
   availability: (playerId: string) => number = () => 1,
 ): CooperativePress | undefined => {
-  if (state.restart?.phase === 'setup' || !state.ball.ownerId) return;
+  if (isRestartSetup(state) || !state.ball.ownerId) return;
   const carrier = state.players.find((player) => player.id === state.ball.ownerId);
   if (!carrier || carrier.team === side) return;
   const shield =
@@ -656,7 +657,7 @@ export const deriveCooperativePress = (
 
 /** Close bodies still contesting one possession are one duel, even after a short timer ends. */
 const episodeIsActive = (state: TacticalMatchState, episode: DefensiveEpisode): boolean => {
-  if (state.restart?.phase === 'setup') return false;
+  if (isRestartSetup(state)) return false;
   const [firstId, secondId] = episode.participants;
   const first = state.players.find((p) => p.id === firstId);
   const second = state.players.find((p) => p.id === secondId);

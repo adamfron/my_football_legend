@@ -1,7 +1,10 @@
 import { z } from 'zod';
 import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
-import { applyRestartScenario } from './restartScenarios';
+import { awardNaturalRestart } from './restartScenarios';
+import { replaceUnavailableRestartTaker } from './restartLifecycle';
+import { isRestartSetup } from './restartPhase';
+import { beginStoppage, endStoppage } from './stoppageLedger';
 import {
   countDefensiveEvent,
   defensiveTechniqueSchema,
@@ -102,12 +105,14 @@ export const enforceMinimumPlayers = (
   delete next.restart;
   delete next.restartAction;
   delete next.throwInRestriction;
+  delete next.restartTouchRestriction;
+  delete next.postGoal;
   delete next.pendingPlayerDecision;
   delete next.nearestChallengerId;
   delete next.aerialContestantIds;
   delete next.pendingCards;
   delete next.periodEndPending;
-  return clearFoulExecution(next);
+  return clearFoulExecution(endStoppage(next, 'abandoned'));
 };
 
 /** A defending team's own rectangle, independent of camera or restart orientation. */
@@ -278,6 +283,7 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
         };
     }
   }
+  if (next.stoppageLedger?.active) next = beginStoppage(next, foul.id, 'discipline', foul.at);
   return sentOff ? enforceMinimumPlayers(next, true) : next;
 };
 
@@ -353,6 +359,7 @@ const clearFoulExecution = (state: TacticalMatchState): TacticalMatchState => {
   delete next.pendingAdvantage;
   delete next.goalCompletionUntil;
   delete next.pendingKickoffTeam;
+  delete next.postGoal;
   return next;
 };
 
@@ -372,9 +379,12 @@ export const awardFoulRestart = (state: TacticalMatchState, foul: FoulFact): Tac
         : 'free_kick_wide'
       : 'free_kick_far';
   const point = foul.penalty ? { x: foul.awardedTeam === 'home' ? 94 : 11, y: 34 } : foul.position;
-  return applyRestartScenario(prepared, scenario, {
+  return awardNaturalRestart(prepared, scenario, {
     restartTeam: foul.awardedTeam,
     restartPoint: point,
+    incidentPoint: foul.position,
+    incidentId: foul.id,
+    eventAt: foul.at,
     cause: 'foul',
     loserId: foul.actorId,
   });
@@ -466,7 +476,7 @@ export const advanceMatchRules = (
     );
     const goal = next.score[foul.awardedTeam] > previous.score[foul.awardedTeam];
     const stoppage =
-      next.restart?.phase === 'setup' || next.status === 'half_time' || next.status === 'full_time';
+      isRestartSetup(next) || next.status === 'half_time' || next.status === 'full_time';
     const lost =
       Boolean(owner && owner.team !== foul.awardedTeam) ||
       progress(next.ball, foul.awardedTeam) < advantage.startProgress - 3;
@@ -493,7 +503,8 @@ export const advanceMatchRules = (
     }
   }
   const stopped =
-    next.restart?.phase === 'setup' ||
+    isRestartSetup(next) ||
+    next.postGoal !== undefined ||
     next.goalCompletionUntil !== undefined ||
     next.status === 'half_time' ||
     next.status === 'full_time';
@@ -508,10 +519,7 @@ export const advanceMatchRules = (
       next.restart &&
       !next.players.some((p) => p.id === next.restart!.takerId)
     )
-      next = applyRestartScenario(clearFoulExecution(next), next.scenario, {
-        restartTeam: next.restart.restartTeam,
-        restartPoint: next.ball,
-      });
+      next = replaceUnavailableRestartTaker(clearFoulExecution(next));
   }
   return next;
 };

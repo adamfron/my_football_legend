@@ -47,6 +47,7 @@ export const projectLiveReceptionTarget = (
       },
       airborne: state.ball.airborne ?? false,
       bounceCount: state.ball.bounceCount ?? 0,
+      ...(state.ball.spin ? { spin: state.ball.spin } : {}),
     },
     horizon,
     0.1,

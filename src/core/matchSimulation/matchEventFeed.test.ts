@@ -61,7 +61,11 @@ describe('permanent canonical match feed and recorded replay', () => {
     };
     const history = new MatchReplayHistory();
     history.observe(initial);
-    for (let tick = 0; tick < 180; tick++) {
+    for (
+      let tick = 0;
+      tick < 2400 && !state.matchEvents?.some((event) => event.kind === 'kick_off');
+      tick++
+    ) {
       state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
       history.observe(state);
     }

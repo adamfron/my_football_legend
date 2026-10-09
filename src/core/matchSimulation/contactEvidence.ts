@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import { distance } from './matchSpace';
@@ -85,7 +86,7 @@ export const projectControlEpisodes = (
     episode &&
     (next.ball.ownerId !== episode.playerId ||
       !next.players.some((player) => player.id === episode!.playerId) ||
-      next.restart?.phase === 'setup' ||
+      isRestartSetup(next) ||
       next.status === 'half_time' ||
       next.status === 'full_time' ||
       next.status === 'abandoned')
@@ -197,11 +198,7 @@ export const collectContactEvidence = (
           next.onBallPreparation.gainedAt !== previous.onBallPreparation?.gainedAt));
     if (newReception)
       add(reception.receiverId, contactAt(reception.receiverId), 'controlled_contact');
-    if (
-      next.ball.ownerId &&
-      next.ball.ownerId !== previous.ball.ownerId &&
-      next.restart?.phase !== 'setup'
-    )
+    if (next.ball.ownerId && next.ball.ownerId !== previous.ball.ownerId && !isRestartSetup(next))
       add(next.ball.ownerId, contactAt(next.ball.ownerId), 'controlled_contact');
     const carry = next.ballCarrierIntent ?? previous.ballCarrierIntent;
     const carrier = carry && next.players.find((player) => player.id === carry.actorId);

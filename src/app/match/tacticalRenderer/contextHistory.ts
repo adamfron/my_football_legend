@@ -1,5 +1,9 @@
 import type { TacticalMatchState } from '../../../core/matchSimulation/matchState';
-import { observeAnimationCues, projectPlayerPreparation } from './frameProjection';
+import {
+  observeAnimationCues,
+  projectPlayerPreparation,
+  projectRestartPresentation,
+} from './frameProjection';
 import type { AnimationCue, TacticalFrame } from './model';
 import { sampleReplayFrame } from './replay';
 import { frameActionEvents, frameDismissals } from './actionFeedback';
@@ -35,6 +39,7 @@ export class PresentationContextHistory {
     if (
       this.previous &&
       (state.time - this.previous.time > 0.15 ||
+        state.players.length !== this.previous.players.length ||
         (state.restart?.phase === 'setup' &&
           (state.restart.startedAt !== this.previous.restart?.startedAt ||
             this.previous.restart?.phase !== 'setup')))
@@ -47,6 +52,7 @@ export class PresentationContextHistory {
       actionEvents: frameActionEvents(state.actionEvents ?? [], state.time * 1000),
       dismissals: frameDismissals(state),
       continuity: `context:${state.seed}:${this.continuity}`,
+      ...projectRestartPresentation(state),
       ball: {
         x: state.ball.x,
         y: state.ball.y,

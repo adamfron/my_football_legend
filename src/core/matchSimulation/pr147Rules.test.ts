@@ -24,7 +24,7 @@ import {
   isOwnPenaltyArea,
 } from './matchRules';
 import { tacticalMatchStateSchema, type TacticalMatchState } from './matchState';
-import { applyRestartScenario } from './restartScenarios';
+import { applyRestartScenario, awardNaturalRestart } from './restartScenarios';
 import { angleForVector } from './playerOrientation';
 import { choosePenaltyTaker } from './restartGeometry';
 import { enumerateRestartActions, resolveMatchAction } from './matchActions';
@@ -365,7 +365,11 @@ describe('PR147 one canonical physical defence resolver', () => {
       card: 'none',
       awardedTeam: 'away',
     });
-    expect(next.restart).toMatchObject({ phase: 'setup', restartTeam: 'away' });
+    expect(next.restart).toMatchObject({
+      phase: 'preparing',
+      origin: 'live_event',
+      restartTeam: 'away',
+    });
     expect(next.defensiveTelemetry).toMatchObject({ attempted: 1, fouls: 1, cleanWins: 0 });
   });
   it('committed reckless physical contact books the player and restarts during full ticks', () => {
@@ -398,7 +402,7 @@ describe('PR147 one canonical physical defence resolver', () => {
     expect(next.lastChallenge!.force).toBeGreaterThan(4.2);
     expect(next.lastFoul?.severity).toBe('reckless');
     expect(next.lastCard?.kind).toBe('yellow');
-    expect(next.restart?.phase).toBe('setup');
+    expect(next.restart?.phase).toBe('preparing');
     expect(next.players.some((p) => p.id === defender.id)).toBe(true);
     expect(next.actionEvents?.some((event) => event.kind === 'foul')).toBe(true);
     expect(
@@ -674,11 +678,32 @@ describe('PR147 canonical cards, restarts and advantage', () => {
   });
   it('uses the actual outside-area infringement point for the same free-kick lifecycle', () => {
     const { state, defender, attacker } = fixture();
-    const next = applyChallengeInfringement(state, foulContact(state, defender.id, attacker.id));
+    state.time = 37.125;
+    const contact = foulContact(state, defender.id, attacker.id, { at: 37.105 });
+    const next = applyChallengeInfringement(state, contact);
     expect(next.scenario).toBe('free_kick_close');
-    expect(next.ball.x).toBeCloseTo(23.2, 12);
-    expect(next.ball.y).toBe(34);
-    expect(next.restart).toMatchObject({ phase: 'setup', restartTeam: 'away' });
+    expect(next.restart?.spot?.x).toBeCloseTo(23.2, 12);
+    expect(next.restart?.spot?.y).toBe(34);
+    expect(next.ball).toMatchObject({ x: state.ball.x, y: state.ball.y });
+    expect(next.players.map((player) => player.position)).toEqual(
+      state.players.map((player) => player.position),
+    );
+    expect(next.restart).toMatchObject({
+      phase: 'preparing',
+      origin: 'live_event',
+      restartTeam: 'away',
+    });
+    expect(next.lastRestartAward).toMatchObject({
+      origin: 'live_event',
+      at: 37.125,
+      eventAt: 37.105,
+      incidentId: `${contact.id}:foul`,
+      incidentPosition: contact.position,
+      offendingPlayerId: defender.id,
+      fouledPlayerId: attacker.id,
+    });
+    expect(next.lastRestartAward?.legalRestartPosition?.x).toBeCloseTo(contact.position.x, 12);
+    expect(next.lastRestartAward?.legalRestartPosition?.y).toBe(contact.position.y);
   });
   it('defending-team penalty-area contact produces a penalty at the canonical spot', () => {
     const { state, defender, attacker } = fixture();
@@ -686,7 +711,8 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     const next = applyChallengeInfringement(state, foulContact(state, defender.id, attacker.id));
     expect(next.lastFoul?.position).toEqual({ x: 12, y: 34 });
     expect(next.scenario).toBe('penalty');
-    expect(next.ball).toMatchObject({ x: 11, y: 34 });
+    expect(next.restart?.spot).toEqual({ x: 11, y: 34 });
+    expect(next.ball).toMatchObject({ x: state.ball.x, y: state.ball.y });
     expect(isOwnPenaltyArea({ x: 12, y: 34 }, 'away')).toBe(false);
     expect(isOwnPenaltyArea({ x: 93, y: 34 }, 'away')).toBe(true);
     expect(next.defensiveTelemetry?.penalties).toBe(1);
@@ -719,8 +745,9 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     expect(lost.lastAdvantage?.outcome).toBe('recalled');
     expect(lost.time).toBe(0.5);
     expect(lost.restart?.restartTeam).toBe('away');
-    expect(lost.ball.x).toBeCloseTo(23.2, 12);
-    expect(lost.ball.y).toBe(34);
+    expect(lost.restart?.spot?.x).toBeCloseTo(23.2, 12);
+    expect(lost.restart?.spot?.y).toBe(34);
+    expect(lost.ball).toMatchObject({ x: 22, y: 34 });
   });
   it('retains a delayed card after realized advantage until the next stoppage', () => {
     const { state, defender, attacker } = fixture();
@@ -743,6 +770,39 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     );
     expect(stopped.lastCard).toMatchObject({ kind: 'yellow', delayed: true, at: 4, foulAt: 0 });
     expect(stopped.pendingCards).toBeUndefined();
+  });
+  it('merges delayed discipline into the natural stoppage without counting advantage play as dead ball', () => {
+    const { state, defender, attacker } = fixture();
+    state.currentPressure = 0.4;
+    const played = applyChallengeInfringement(
+      state,
+      foulContact(state, defender.id, attacker.id, { force: 5 }),
+    );
+    expect(played.stoppageLedger?.active).toBeUndefined();
+    const realized = advanceMatchRules(played, { ...played, time: 3.01 });
+    expect(realized.pendingAdvantage).toBeUndefined();
+    expect(realized.stoppageLedger?.active).toBeUndefined();
+    const naturalStop = awardNaturalRestart({ ...realized, time: 4 }, 'throw_in', {
+      restartTeam: 'away',
+      incidentPoint: { x: 20, y: 0 },
+      incidentId: 'pr147-after-advantage-boundary',
+      eventAt: 3.995,
+      cause: 'boundary',
+    });
+    const stopped = advanceMatchRules(realized, naturalStop);
+    expect(stopped.lastCard).toMatchObject({ kind: 'yellow', delayed: true, at: 4, foulAt: 0 });
+    expect(stopped.stoppageLedger?.active).toMatchObject({
+      id: naturalStop.stoppageLedger!.active!.id,
+      awardId: naturalStop.lastRestartAward!.id,
+      eventAt: 3.995,
+      startedAt: 4,
+      reasons: ['throw_in', 'discipline'],
+    });
+    expect(stopped.stoppageLedger?.completedSeconds).toBe(0);
+    expect(stopped.stoppageLedger?.intervals).toEqual([]);
+    expect(advanceMatchRules(stopped, { ...stopped }).stoppageLedger).toEqual(
+      stopped.stoppageLedger,
+    );
   });
   it('applies a delayed card when the advantage is recalled', () => {
     const { state, defender, attacker } = fixture();
@@ -864,6 +924,6 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     );
     expect(next.pendingAdvantage).toBeUndefined();
     expect(next.lastCard?.kind).toBe('yellow');
-    expect(next.restart?.phase).toBe('setup');
+    expect(next.restart?.phase).toBe('preparing');
   });
 });

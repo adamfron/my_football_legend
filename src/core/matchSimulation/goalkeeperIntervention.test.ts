@@ -60,6 +60,21 @@ const shotState = (startX: number) => {
 };
 
 describe('physical goalkeeper intervention projection', () => {
+  it('reads canonical spin when projecting the keeper contact point', () => {
+    const ordinary = shotState(75);
+    ordinary.ball.velocity = { x: 27, y: 0, z: 8 };
+    const curled = structuredClone(ordinary);
+    curled.ball.spin = { x: 0, y: 0, z: 90 };
+    const dipping = structuredClone(ordinary);
+    dipping.ball.spin = { x: 0, y: 90, z: 0 };
+    const baseline = projectGoalkeeperIntervention(ordinary)!;
+    expect(projectGoalkeeperIntervention(curled)!.contactPoint.y).toBeGreaterThan(
+      baseline.contactPoint.y + 1,
+    );
+    expect(projectGoalkeeperIntervention(dipping)!.contactPoint.z).toBeLessThan(
+      baseline.contactPoint.z - 0.5,
+    );
+  });
   it('gives the keeper substantially more response time on the same distant trajectory', () => {
     const closeState = shotState(94),
       distantState = shotState(55);

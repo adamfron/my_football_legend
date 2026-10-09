@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import type { PlayerDecisionOpportunity } from './playerDecision';
@@ -146,7 +147,7 @@ export const observeConsequenceWindow = (
     state.time > window.selectedAt
       ? 'possession_consequence'
       : undefined;
-  const ballOut = state.restart?.phase === 'setup' && state.restart.startedAt > window.selectedAt;
+  const ballOut = isRestartSetup(state) && state.restart.startedAt > window.selectedAt;
   if (
     next.outcomeAt === undefined &&
     (outcome || ballOut || reception || turnover || (evidence && !state.ball.travelKind))

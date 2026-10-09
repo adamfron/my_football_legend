@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { canonicalActionEventSchema } from './actionEvents';
 import { onBallPreparationSchema } from './onBallPreparation';
@@ -69,8 +70,7 @@ export class MatchReplayHistory {
     const events = state.matchEvents ?? [];
     const fresh = events.slice(this.eventCount);
     this.eventCount = events.length;
-    if (state.restart?.phase === 'setup' && state.restart.startedAt !== this.lastRestart)
-      this.continuity++;
+    if (isRestartSetup(state) && state.restart.startedAt !== this.lastRestart) this.continuity++;
     this.lastRestart = state.restart?.startedAt;
     const last = this.rolling.at(-1);
     const terminal = ['half_time', 'full_time', 'abandoned'].includes(state.status ?? '');

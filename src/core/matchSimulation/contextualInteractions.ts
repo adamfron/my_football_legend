@@ -59,18 +59,20 @@ const passLabel = (intent: string, delivery?: 'ground' | 'lofted') =>
       : intent === 'lead'
         ? 'lead_pass'
         : 'pass_to_feet';
-const shotLabel = (action: Extract<MatchAction, { type: 'shot' }>) =>
-  action.contact === 'volley'
-    ? `volley_${action.intent}`
-    : action.contact === 'half_volley'
-      ? `half_volley_${action.intent}`
-      : action.contact === 'first_time'
-        ? `first_time_${action.intent}`
-        : action.intent === 'placed'
-          ? 'placed_shot'
-          : action.intent === 'chip'
-            ? 'chip_shot'
-            : 'driven_shot';
+export const canonicalShotLabel = (action: Extract<MatchAction, { type: 'shot' }>) =>
+  action.freeKickProfile
+    ? `free_kick_${action.freeKickProfile}`
+    : action.contact === 'volley'
+      ? `volley_${action.intent}`
+      : action.contact === 'half_volley'
+        ? `half_volley_${action.intent}`
+        : action.contact === 'first_time'
+          ? `first_time_${action.intent}`
+          : action.intent === 'placed'
+            ? 'placed_shot'
+            : action.intent === 'chip'
+              ? 'chip_shot'
+              : 'driven_shot';
 const asActions = (
   target: PlayerInteractionTarget,
   actions: ReturnType<typeof enumerateAvailableActions>,
@@ -87,11 +89,11 @@ const asActions = (
               ? 'first_time_pass'
               : passLabel(action.intent, action.delivery)
             : action.type === 'shot'
-              ? shotLabel(action)
+              ? canonicalShotLabel(action)
               : action.type === 'header'
                 ? 'header_shot'
                 : action.type === 'cross'
-                  ? 'cross'
+                  ? `${action.intent}_cross`
                   : action.type === 'hold'
                     ? 'hold_ball'
                     : action.type === 'carry' && action.movementMode === 'sprint'
@@ -170,9 +172,9 @@ export const projectContextualInteractions = (
     for (const action of actions)
       if (
         (action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot')) &&
-        !humanShotTypes.has(action.intent)
+        !humanShotTypes.has(JSON.stringify(action))
       )
-        humanShotTypes.set(action.intent, action);
+        humanShotTypes.set(JSON.stringify(action), action);
     return asActions(target, [...humanShotTypes.values()]);
   }
   if (target.kind === 'player') {
@@ -309,7 +311,15 @@ export const projectContextualInteractions = (
     );
   }
   if (target.kind !== 'space') return [];
-  if (opportunity.kind === 'restart') return [];
+  if (opportunity.kind === 'restart')
+    return asActions(
+      target,
+      actions.filter(
+        (action) =>
+          (action.type === 'cross' || action.type === 'space_pass' || action.type === 'pass') &&
+          distance(action.target, point) <= 1.5,
+      ),
+    );
   if (state.ball.ownerId === actor.id) {
     const metres = distance(actor.position, point);
     const pressure = state.currentPressure;
@@ -359,6 +369,92 @@ export const projectContextualInteractions = (
     ];
   }
   return [];
+};
+
+export const contextualInteractionFamilySchema = z.enum([
+  'shoot',
+  'cross',
+  'pass',
+  'short_routine',
+  'movement',
+  'defending',
+]);
+export const contextualInteractionGroupSchema = z.object({
+  family: contextualInteractionFamilySchema,
+  interactions: z.array(contextualInteractionSchema),
+});
+
+/** Group only already legal canonical actions; never discard a low-value action or cap a menu. */
+export const groupContextualInteractions = (
+  interactions: ContextualInteraction[],
+  restart = false,
+) => {
+  const groups = new Map<
+    z.infer<typeof contextualInteractionFamilySchema>,
+    ContextualInteraction[]
+  >();
+  for (const interaction of interactions) {
+    const resolution = interaction.resolution;
+    const action = resolution.kind === 'action' ? resolution.action : undefined;
+    const family =
+      resolution.kind === 'defensive' || action?.type === 'challenge'
+        ? 'defending'
+        : !action
+          ? 'movement'
+          : action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot')
+            ? 'shoot'
+            : action.type === 'cross'
+              ? 'cross'
+              : restart && action.type === 'pass' && action.intent === 'support'
+                ? 'short_routine'
+                : action.type === 'pass' || action.type === 'space_pass'
+                  ? 'pass'
+                  : 'movement';
+    const group = groups.get(family) ?? [];
+    group.push(interaction);
+    groups.set(family, group);
+  }
+  return contextualInteractionFamilySchema.options.flatMap((family) => {
+    const items = groups.get(family);
+    return items?.length ? [{ family, interactions: items }] : [];
+  });
+};
+
+/** Sidebar and pitch targets expose the same canonical restart options. */
+export const projectRestartDecisionInteractions = (
+  state: TacticalMatchState,
+  opportunity: PlayerDecisionOpportunity,
+): ContextualInteraction[] => {
+  if (
+    opportunity.kind !== 'restart' ||
+    state.playerAgencyEnabled === false ||
+    opportunity.actorId !== state.controlledFootballerId ||
+    state.status === 'abandoned' ||
+    state.status === 'half_time' ||
+    state.status === 'full_time'
+  )
+    return [];
+  const actor = state.players.find((p) => p.id === opportunity.actorId);
+  if (!actor) return [];
+  return opportunity.options.flatMap((option) => {
+    if (option.kind !== 'action' || !hasActiveMatchActionParticipants(state, option.action))
+      return [];
+    const action = option.action;
+    const target: PlayerInteractionTarget | undefined =
+      action.type === 'shot'
+        ? { kind: 'goal', side: actor.team === 'home' ? 'away' : 'home' }
+        : action.type === 'pass'
+          ? { kind: 'player', playerId: action.receiverId }
+          : action.type === 'cross' || action.type === 'space_pass'
+            ? { kind: 'space', point: action.target }
+            : undefined;
+    return target
+      ? asActions(target, [action]).map((interaction) => ({
+          ...interaction,
+          id: `restart:${option.id}`,
+        }))
+      : [];
+  });
 };
 
 const isMeaningfulOffBallSpace = (

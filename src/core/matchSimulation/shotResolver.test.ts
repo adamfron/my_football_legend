@@ -8,6 +8,8 @@ import {
   stepTacticalMatch,
 } from '.';
 import { deriveShotExecutionErrorProfile } from './shotResolver';
+import { projectFutureBallTrajectory } from './ballPhysics';
+import { BALL_RADIUS } from './ballFlight';
 
 const world = createCanonicalWorldDatabase();
 const makeState = (seed: string) => {
@@ -125,6 +127,83 @@ describe('canonical shot resolver v2', () => {
         current.ball.travelKind ||
         current.restart,
     ).toBeTruthy();
+  });
+});
+
+describe('PR159 physical free-kick strike profiles', () => {
+  const prepare = () => {
+    const setup = makeState('pr159-strike');
+    setup.shooter.position = { x: 78, y: 34 };
+    setup.shooter.facingAngle = Math.PI / 2;
+    for (const player of setup.state.players)
+      if (player.id !== setup.shooter.id) player.position = { x: 40, y: 8 };
+    setup.state.ball = {
+      ...setup.shooter.position,
+      ownerId: setup.shooter.id,
+      height: BALL_RADIUS,
+    };
+    setup.state.scenario = 'free_kick_close';
+    Object.assign(setup.shooter.profile.attributes, {
+      setPieces: 85,
+      technique: 85,
+      finishing: 85,
+      composure: 85,
+    });
+    return {
+      ...setup,
+      action: {
+        type: 'shot' as const,
+        actorId: setup.shooter.id,
+        target: { x: 105, y: 34 },
+        goalTarget: { horizontal: 0.2, vertical: 0.6 },
+        intent: 'placed' as const,
+      },
+    };
+  };
+  it('creates different launch energy, lateral curvature and topspin through the shared solver', () => {
+    const { state, action } = prepare();
+    const ordinary = resolveCanonicalShot(state, action);
+    const curled = resolveCanonicalShot(state, { ...action, freeKickProfile: 'controlled_curl' });
+    const powerful = resolveCanonicalShot(state, { ...action, freeKickProfile: 'power_bend' });
+    const dipping = resolveCanonicalShot(state, { ...action, freeKickProfile: 'dipping' });
+    expect(ordinary.launchSpin).toEqual({ x: 0, y: 0, z: 0 });
+    expect(Math.abs(powerful.launchSpin.z)).toBeGreaterThan(Math.abs(curled.launchSpin.z));
+    expect(powerful.speed).toBeGreaterThan(curled.speed);
+    expect(dipping.launchSpin.y).toBeGreaterThan(curled.launchSpin.y);
+    const forecast = (shot: typeof curled, spinning: boolean) =>
+      projectFutureBallTrajectory(
+        {
+          position: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
+          velocity: shot.launchVelocity,
+          airborne: true,
+          bounceCount: 0,
+          ...(spinning ? { spin: shot.launchSpin } : {}),
+        },
+        0.5,
+        0.025,
+      ).at(-1)!.ball;
+    expect(
+      Math.abs(forecast(curled, true).position.y - forecast(curled, false).position.y),
+    ).toBeGreaterThan(0.2);
+    expect(forecast(dipping, true).position.z).toBeLessThan(
+      forecast(dipping, false).position.z - 0.25,
+    );
+    expect(resolveCanonicalShot(state, { ...action, freeKickProfile: 'controlled_curl' })).toEqual(
+      curled,
+    );
+  });
+  it('keeps set-piece skill and the vertical demand of dipping strikes in execution error', () => {
+    const { state, shooter, action } = prepare();
+    const dip = { ...action, freeKickProfile: 'dipping' as const };
+    const skilled = deriveShotExecutionErrorProfile(state, dip);
+    shooter.profile.attributes.setPieces = 20;
+    shooter.profile.attributes.technique = 30;
+    const unskilled = deriveShotExecutionErrorProfile(state, dip);
+    expect(unskilled.horizontalSigma).toBeGreaterThan(skilled.horizontalSigma);
+    expect(unskilled.verticalSigma).toBeGreaterThan(skilled.verticalSigma);
+    expect(skilled.intrinsicDifficulty).toBeGreaterThan(
+      deriveShotExecutionErrorProfile(state, action).intrinsicDifficulty!,
+    );
   });
 });
 

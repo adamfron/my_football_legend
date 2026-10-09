@@ -417,6 +417,53 @@
   padding: 0.55rem 0.7rem;
   text-align: left;
 }
+.context-menu__group,
+.restart-readiness {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.context-menu__group > strong {
+  font-size: 0.75rem;
+  color: #3b5550;
+}
+.context-menu button small,
+.restart-choices button small {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  color: #496059;
+}
+.restart-readiness {
+  padding: 0.6rem;
+  border-left: 3px solid #4c9c73;
+  background: #edf4ef;
+  font-size: 0.8rem;
+}
+.restart-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  margin-top: 0.7rem;
+}
+.restart-choices fieldset {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.4rem;
+  border: 1px solid #c1d4c5;
+}
+.restart-choices legend {
+  padding: 0 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.restart-choices button {
+  padding: 0.5rem;
+  text-align: left;
+}
 .dev-ai-choice {
   float: right;
   border-style: dashed !important;

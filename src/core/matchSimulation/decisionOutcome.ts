@@ -9,6 +9,12 @@ import {
 export const resolvePendingPlayerDecision = (state: TacticalMatchState): TacticalMatchState => {
   const pending = state.pendingPlayerDecision;
   if (!pending || pending.result) return state;
+  if (
+    state.restart?.selectedAction &&
+    state.restart.phase !== 'release' &&
+    state.restart.takerId === pending.actorId
+  )
+    return state;
   const actor = state.players.find((player) => player.id === pending.actorId);
   const challenge = state.lastChallenge;
   if (!actor && !challenge) return state;
@@ -16,6 +22,12 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
   const owner = state.players.find((player) => player.id === state.ball.ownerId);
   const elapsed = state.time - pending.selectedAt;
   const intent = pending.selectedIntent;
+  const lostAtRestart = Boolean(
+    actorTeam &&
+      state.lastRestartAward?.origin === 'live_event' &&
+      state.lastRestartAward.at >= pending.selectedAt &&
+      state.lastRestartAward.team !== actorTeam,
+  );
   // A one-touch receiver may immediately start another flight. Resolve the spatial intention
   // from its actual canonical delivery result rather than attributing that later ball ownership.
   const spatialResult =
@@ -66,7 +78,7 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
       teamRetainedPossession: owner
         ? owner.team === actorTeam
         : completed && state.possessionTeam === actorTeam,
-      turnover: Boolean(owner && owner.team !== actorTeam),
+      turnover: Boolean(owner && owner.team !== actorTeam) || lostAtRestart,
     };
   } else if (intent === 'carry' && elapsed > 0.35 && !state.ballCarrierIntent) {
     const retained = state.ball.ownerId === pending.actorId;

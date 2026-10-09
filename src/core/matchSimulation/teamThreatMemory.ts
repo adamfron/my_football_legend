@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { distance, pitchPointSchema, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
@@ -424,7 +425,7 @@ export const observeTeamThreats = (
   // A released goal-kick/GK build-up is already playable football even while presentation
   // retains its restart scenario. Setup and the committed penalty itself supply no threats.
   const live =
-    next.restart?.phase !== 'setup' &&
+    !isRestartSetup(next) &&
     next.scenario !== 'penalty' &&
     !next.goalCompletionUntil &&
     next.status !== 'half_time' &&
@@ -444,7 +445,7 @@ export const observeTeamThreats = (
     const newShot = live && shot && shot.shotId !== initial.lastShotId;
     const turnover =
       live &&
-      previous.restart?.phase !== 'setup' &&
+      !isRestartSetup(previous) &&
       previous.scenario !== 'penalty' &&
       previous.ball.travelKind !== 'shot' &&
       !previous.ball.shot &&

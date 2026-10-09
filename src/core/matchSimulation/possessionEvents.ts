@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { distance, physicalPointSchema, teamSideSchema } from './matchSpace';
+import { distance, physicalPointSchema, pitchPointSchema, teamSideSchema } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 
 /** A football cause ends the previous possession. Awarding/placing a restart is separate. */
@@ -55,6 +55,15 @@ export const pendingPossessionLossSchema = z.object({
   passId: z.string().optional(),
 });
 export const restartAwardSchema = z.object({
+  origin: z.enum(['live_event', 'dev_fixture']).optional(),
+  incidentId: z.string().optional(),
+  eventAt: z.number().nonnegative().optional(),
+  incidentPosition: pitchPointSchema.optional(),
+  legalRestartPosition: pitchPointSchema.optional(),
+  indirect: z.boolean().optional(),
+  fouledPlayerId: z.string().optional(),
+  offendingPlayerId: z.string().optional(),
+  recalledAdvantageId: z.string().optional(),
   id: z.string(),
   at: z.number().nonnegative(),
   team: teamSideSchema,

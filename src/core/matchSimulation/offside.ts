@@ -1,8 +1,10 @@
 import { z } from 'zod';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import type { TeamSide } from './matchSpace';
-import { clampPitchPoint, type PitchPoint } from './matchSpace';
-import { applyRestartScenario } from './restartScenarios';
+import type { PitchPoint } from './matchSpace';
+import { awardNaturalRestart } from './restartScenarios';
+import { restartLawContract } from './restartLaws';
+import { isRestartSetup } from './restartPhase';
 
 export const offsideSnapshotSchema = z.object({
   attackingTeam: z.enum(['home', 'away']),
@@ -80,8 +82,8 @@ export const isOffsideOffence = (snapshot: OffsideSnapshot | undefined, playerId
 
 /** Both goal-kick scenario variants represent the same direct-reception law exemption. */
 export const isDirectOffsideExemptRestart = (state: TacticalMatchState) =>
-  state.restart?.phase === 'setup' &&
-  ['goal_kick', 'gk_short', 'corner', 'throw_in'].includes(state.scenario);
+  isRestartSetup(state) &&
+  restartLawContract(state.scenario, state.restart?.indirect).offsideExempt;
 
 /** A reachable aerial contest is active participation even when the offside attacker loses it. */
 export const findOffsideContestant = (
@@ -128,15 +130,18 @@ export const awardOffsideRestart = (
     };
     cleaned.lastResolvedPass = cleaned.lastPassDiagnostic;
   }
-  const next = applyRestartScenario(cleaned, 'free_kick_far', {
+  const next = awardNaturalRestart(cleaned, 'free_kick_far', {
     restartTeam,
-    restartPoint: clampPitchPoint(point),
+    restartPoint: point,
+    incidentPoint: point,
+    incidentId: `${state.seed}:offside:${snapshot.releasedAt}:${playerId}:${state.time}`,
+    eventAt: state.time,
+    indirect: true,
     cause: 'offside',
     loserId: snapshot.passerId,
   });
   return {
     ...next,
-    ...(next.restart ? { restart: { ...next.restart, indirect: true } } : {}),
     lastOffsideOffence: {
       playerId,
       at: state.time,

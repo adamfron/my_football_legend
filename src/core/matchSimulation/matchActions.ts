@@ -1,3 +1,7 @@
+import { selectRestartAction } from './restartLifecycle';
+import { enumerateContextualRestartActions } from './restartOptions';
+import { endStoppage } from './stoppageLedger';
+import { isRestartSetup } from './restartPhase';
 import { hasPendingPlayerDecision } from './playerDecision';
 import { isHumanControlled, isShotAction, requiresHumanRestart } from './actionAgency';
 import { enumerateFirstTimePasses, canExecuteFirstTimePass } from './firstTimePassing';
@@ -224,7 +228,7 @@ export const enumerateAvailableActions = (
     return [];
   const actor = state.players.find((p) => p.id === actorId);
   if (!actor) return [];
-  if (state.restart?.phase === 'setup')
+  if (isRestartSetup(state))
     return state.restart.takerId === actorId ? enumerateRestartActions(state) : [];
   if (state.ball.ownerId !== actorId)
     return [
@@ -420,7 +424,7 @@ export const scoreActionForAI = (
     // after preparation, release/carry gains value while a briefly useful shield can still win
     // against unsafe alternatives. This removes permanent idle ownership without a hold quota.
     const completedScanningPenalty =
-      state.restart?.phase !== 'setup' && controlAge >= readyAfter
+      !isRestartSetup(state) && controlAge >= readyAfter
         ? Math.min(46, 18 + (controlAge - readyAfter) * 7)
         : 0;
     const utility =
@@ -761,7 +765,7 @@ export const chooseNpcRoutineAction = (
   const actor = state.players.find((player) => player.id === actorId);
   if (!actor) return undefined;
   if (
-    state.restart?.phase !== 'setup' &&
+    !isRestartSetup(state) &&
     state.ball.ownerId === actorId &&
     state.ballOwnershipStartedAt !== undefined &&
     state.time - state.ballOwnershipStartedAt < npcPossessionDecisionDelay(state, actor)
@@ -822,7 +826,7 @@ export const hasActiveMatchActionParticipants = (
   if (action.type === 'pass')
     return (
       (state.scenario === 'throw_in' &&
-        state.restart?.phase === 'setup' &&
+        isRestartSetup(state) &&
         state.restart.takerId === actor.id) ||
       (action.receiverId !== actor.id &&
         state.players.some(
@@ -846,7 +850,22 @@ export const resolveMatchAction = (
   action: MatchAction,
   source: ActionSource = 'autonomous_npc',
 ): TacticalMatchState => {
-  const next = resolveMatchActionCanonical(state, action, source);
+  let next = resolveMatchActionCanonical(state, action, source);
+  if (next === state) return state;
+  if (isRestartSetup(state) && action.type !== 'hold' && next.decisionIndex > state.decisionIndex) {
+    const restart = state.restart!;
+    next = endStoppage({
+      ...next,
+      restartTouchRestriction: {
+        awardId: restart.awardId ?? state.seed + ':restart:' + restart.startedAt,
+        scenario: state.scenario,
+        takerId: restart.takerId,
+        team: restart.restartTeam,
+        indirect: restart.indirect ?? false,
+        touchedByOther: false,
+      },
+    });
+  }
   // A reserved proposal is a request for human ownership, not a football action.
   // Preserve the ledger exactly, including absent or old retained entries.
   if (
@@ -868,6 +887,16 @@ const resolveMatchActionCanonical = (
   const actor = state.players.find((player) => player.id === action.actorId);
   if (!actor) return state;
   if (requiresHumanRestart(state, actor.id) && source !== 'human_selected') return state;
+
+  if (state.restart?.origin === 'live_event' && isRestartSetup(state) && !state.restart.executing) {
+    if (
+      action.actorId !== state.restart.takerId ||
+      !['pass', 'space_pass', 'cross', 'shot'].includes(action.type) ||
+      (action.type === 'shot' && state.restart.indirect)
+    )
+      return state;
+    return selectRestartAction(state, action, source);
+  }
   // Last line of defence: no autonomous path (including DEV and restart recovery) may
   // manufacture a human shot. The pure agency projection exposes the same opportunity.
   if (isHumanControlled(state, actor.id) && isShotAction(action) && source !== 'human_selected')
@@ -875,14 +904,15 @@ const resolveMatchActionCanonical = (
       ? { ...state, shotAgencyRequest: action }
       : state;
   if (
-    state.restart?.phase === 'setup' &&
+    isRestartSetup(state) &&
     state.restart.indirect &&
     (action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot'))
   )
     return state;
   let spacePlan: SpacePassPlan | undefined;
   if (action.type === 'space_pass') {
-    if (state.ball.ownerId !== actor.id || state.restart?.phase === 'setup') return state;
+    if (state.ball.ownerId !== actor.id || (isRestartSetup(state) && !state.restart?.executing))
+      return state;
     spacePlan = deriveSpacePassPlan(state, actor, action.target);
     if (!spacePlan) return state;
     action = {
@@ -906,11 +936,11 @@ const resolveMatchActionCanonical = (
   }
   if (!canContactAfterThrowIn(state, action.actorId)) return state;
   const requestedThrow =
-    state.restart?.phase === 'setup' && state.scenario === 'throw_in' && action.type === 'pass'
+    isRestartSetup(state) && state.scenario === 'throw_in' && action.type === 'pass'
       ? action
       : undefined;
   let throwFallbackReason: ThrowInDiagnostic['fallbackReason'];
-  if (state.restart?.phase === 'setup' && state.scenario === 'throw_in') {
+  if (isRestartSetup(state) && state.scenario === 'throw_in') {
     if (
       action.actorId !== state.restart.takerId ||
       action.type !== 'pass' ||
@@ -977,7 +1007,7 @@ const resolveMatchActionCanonical = (
   )
     return state;
   const restart =
-    state.restart?.phase === 'setup' && action.type !== 'hold'
+    isRestartSetup(state) && action.type !== 'hold'
       ? { ...state.restart, phase: 'release' as const, executedAt: state.time }
       : state.restart;
   const offsideSnapshot = captureOffsideSnapshot(state, action);
@@ -1105,6 +1135,7 @@ const resolveMatchActionCanonical = (
         releaseHeight: state.ball.height ?? 0,
         airborne: true,
         velocity: shotVelocity,
+        spin: shot.launchSpin,
         launchVelocity: shotVelocity,
         launchSpeed: shot.speed,
         launchElevation: shotElevation,
@@ -1277,13 +1308,9 @@ const resolveMatchActionCanonical = (
   );
   const episode = `${state.seed}:pass:${state.decisionIndex}:${actor.id}`;
   const isThrowIn =
-    state.restart?.phase === 'setup' &&
-    restart?.phase === 'release' &&
-    state.scenario === 'throw_in';
+    isRestartSetup(state) && restart?.phase === 'release' && state.scenario === 'throw_in';
   const isLongDistribution =
-    state.restart?.phase === 'setup' &&
-    restart?.phase === 'release' &&
-    state.scenario === 'goal_kick';
+    isRestartSetup(state) && restart?.phase === 'release' && state.scenario === 'goal_kick';
   const releasePosition = { x: state.ball.x, y: state.ball.y };
   const canonicalPlan =
     spacePlan?.launchPlan ??
@@ -1494,146 +1521,24 @@ const resolveMatchActionCanonical = (
   };
 };
 
-export const enumerateRestartActions = (state: TacticalMatchState): MatchAction[] => {
-  if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
-    return [];
-  const restart = state.restart;
-  if (!restart || restart.phase !== 'setup') return [];
-  const actor = state.players.find((p) => p.id === restart.takerId);
-  if (!actor) return [];
-  if (state.scenario === 'kick_off')
-    return state.players
-      .filter(
-        (player) =>
-          player.team === actor.team &&
-          player.id !== actor.id &&
-          player.profile.primaryPosition !== 'goalkeeper',
-      )
-      .sort(
-        (a, b) =>
-          distance(a.position, actor.position) - distance(b.position, actor.position) ||
-          a.id.localeCompare(b.id),
-      )
-      .slice(0, 3)
-      .map((receiver) => ({
-        type: 'pass' as const,
-        actorId: actor.id,
-        receiverId: receiver.id,
-        target: projectPassReception(state, actor, receiver, 'support').releaseTarget,
-        intent: 'support' as const,
-      }));
-  if (state.scenario === 'penalty' || state.scenario === 'free_kick_close')
-    return [
-      {
-        type: 'shot',
-        actorId: actor.id,
-        target: { x: 105, y: 30.5 + (state.decisionIndex % 3) * 3.5 },
-        intent: 'placed',
-      },
-    ];
-  if (state.scenario === 'throw_in') {
-    const receivers = state.players
-      .filter((p) => isLegalThrowInReceiver(actor, p))
-      .sort(
-        (a, b) =>
-          distance(a.position, restart.landingZone ?? actor.position) -
-            distance(b.position, restart.landingZone ?? actor.position) || a.id.localeCompare(b.id),
-      )
-      .slice(0, 4);
-    return receivers.map((receiver) => ({
-      type: 'pass' as const,
-      actorId: actor.id,
-      receiverId: receiver.id,
-      target: clampPitchPoint(receiver.position),
-      receiverPositionAtSelection: { ...receiver.position },
-      intent: 'support' as const,
-    }));
-  }
-  if (
-    (state.scenario === 'goal_kick' ||
-      state.scenario === 'corner' ||
-      state.scenario === 'free_kick_far' ||
-      state.scenario === 'free_kick_wide') &&
-    restart.landingZone
-  ) {
-    const receiver = state.players
-      .filter((p) => p.team === actor.team && p.id !== actor.id)
-      .sort(
-        (a, b) =>
-          distance(a.position, restart.landingZone!) - distance(b.position, restart.landingZone!),
-      )[0]!;
-    if (state.scenario === 'corner' && restart.cornerPlan === 'short_corner') {
-      const short = state.players
-        .filter((p) => p.team === actor.team && p.id !== actor.id)
-        .sort(
-          (a, b) => distance(a.position, actor.position) - distance(b.position, actor.position),
-        )[0]!;
-      return [
-        {
-          type: 'pass',
-          actorId: actor.id,
-          receiverId: short.id,
-          target: short.position,
-          intent: 'support',
-        },
-      ];
-    }
-    return [
-      {
-        type: state.scenario === 'goal_kick' ? 'pass' : 'cross',
-        actorId: actor.id,
-        ...(state.scenario === 'goal_kick'
-          ? { receiverId: receiver.id, intent: 'direct' as const }
-          : { intendedTargetId: receiver.id, intent: 'floated' as const }),
-        target: restart.landingZone,
-      } as MatchAction,
-    ];
-  }
-  const receiver = state.players
-    .filter(
-      (p) =>
-        p.team === actor.team && p.id !== actor.id && p.profile.primaryPosition !== 'goalkeeper',
-    )
-    .sort((a, b) => distance(a.position, actor.position) - distance(b.position, actor.position))[0];
-  return receiver
-    ? [
-        {
-          type: 'pass',
-          actorId: actor.id,
-          receiverId: receiver.id,
-          target: receiver.position,
-          intent: 'support',
-        },
-      ]
-    : [];
-};
+export const enumerateRestartActions = enumerateContextualRestartActions;
 
 export const chooseRestartAction = (state: TacticalMatchState): MatchAction | undefined => {
-  const available = enumerateRestartActions(state)[0];
-  if (available) return available;
   const restart = state.restart;
-  const taker = restart && state.players.find((player) => player.id === restart.takerId);
-  const receiver =
-    taker &&
-    state.players
-      .filter((player) =>
-        state.scenario === 'throw_in'
-          ? isLegalThrowInReceiver(taker, player)
-          : player.team === taker.team && player.id !== taker.id,
-      )
-      .sort(
-        (a, b) =>
-          distance(a.position, taker.position) - distance(b.position, taker.position) ||
-          a.id.localeCompare(b.id),
-      )[0];
-  return taker && receiver
-    ? {
-        type: 'pass',
-        actorId: taker.id,
-        receiverId: receiver.id,
-        target: clampPitchPoint(receiver.position),
-        receiverPositionAtSelection: { ...receiver.position },
-        intent: 'support',
-      }
-    : undefined;
+  if (!restart) return undefined;
+  const spot = restart.spot ?? state.ball;
+  const projected = {
+    ...state,
+    ball: { ...state.ball, ...spot, ownerId: restart.takerId },
+    players: state.players.map((player) =>
+      player.id === restart.takerId ? { ...player, position: spot } : player,
+    ),
+  };
+  return enumerateRestartActions(state)
+    .map((action, index) => ({
+      action,
+      index,
+      score: scoreActionForAI(projected, action.actorId, action),
+    }))
+    .sort((a, b) => b.score - a.score || a.index - b.index)[0]?.action;
 };

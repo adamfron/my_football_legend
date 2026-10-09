@@ -1,3 +1,4 @@
+import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { deriveLooseBallAssignments } from './looseBallPhysics';
@@ -529,7 +530,7 @@ export const deriveBuildUpSupport = (
 ): z.infer<typeof buildUpSupportSchema>[] => {
   const owner = state.players.find((player) => player.id === state.ball.ownerId);
   if (!owner || owner.team !== side) return [];
-  if (state.restart?.phase === 'setup') return [];
+  if (isRestartSetup(state)) return [];
   const nearest = Math.min(
     14,
     ...state.players

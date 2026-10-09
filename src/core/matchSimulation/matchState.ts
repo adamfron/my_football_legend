@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { ballSpinSchema, type BallSpin3d } from './ballPhysics';
+import { stoppageLedgerSchema, type StoppageLedger } from './stoppageLedger';
 import { ballAcquisitionSchema, type BallAcquisition } from './ballAcquisition';
 import { aerialContactLockSchema } from './aerialPlay';
 import {
@@ -69,6 +71,7 @@ import {
   shotExecutionProfileSchema,
   shotExecutionErrorProfileSchema,
   shotIntentSchema,
+  freeKickStrikeProfileSchema,
 } from './shotIntent';
 
 export const matchPhaseSchema = z.enum([
@@ -121,6 +124,7 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     actorId: z.string(),
     target: pitchPointSchema,
     intent: shotIntentSchema,
+    freeKickProfile: freeKickStrikeProfileSchema.optional(),
     contact: footShotContactSchema.optional(),
     decisionBallHeight: z.number().nonnegative().optional(),
     goalTarget: z
@@ -315,9 +319,41 @@ export const restartScenarioSchema = z.enum([
   'throw_in',
 ]);
 export type RestartScenario = z.infer<typeof restartScenarioSchema>;
-export const restartPhaseSchema = z.enum(['setup', 'release']);
+export const restartPhaseSchema = z.enum([
+  'setup',
+  'preparing',
+  'awaiting_decision',
+  'kick_preparation',
+  'release',
+]);
 export type RestartPhase = z.infer<typeof restartPhaseSchema>;
 export const restartLifecycleSchema = z.object({
+  origin: z.enum(['live_event', 'dev_fixture']).optional(),
+  awardId: z.string().optional(),
+  spot: pitchPointSchema.optional(),
+  ceremonial: z.boolean().optional(),
+  selectedAction: matchActionSchema.optional(),
+  selectedSource: actionSourceSchema.optional(),
+  selectedAt: z.number().nonnegative().optional(),
+  preparationStartedAt: z.number().nonnegative().optional(),
+  executing: z.boolean().optional(),
+  retrieval: z
+    .object({
+      playerId: z.string(),
+      stage: z.enum(['approach', 'transport', 'placed']),
+      attachedOffset: physicalPointSchema.optional(),
+    })
+    .optional(),
+  readiness: z
+    .object({
+      ballReady: z.boolean(),
+      takerReady: z.boolean(),
+      legalReady: z.boolean(),
+      tacticalReady: z.boolean(),
+      blockers: z.array(z.string()).max(48),
+    })
+    .optional(),
+  blockedSince: z.number().nonnegative().optional(),
   indirect: z.boolean().optional(),
   restartTeam: teamSideSchema,
   phase: restartPhaseSchema,
@@ -339,6 +375,14 @@ export const restartLifecycleSchema = z.object({
   ),
 });
 export type RestartLifecycle = z.infer<typeof restartLifecycleSchema>;
+export const restartWallResponseSchema = z.object({
+  awardId: z.string(),
+  choice: z.enum(['hold', 'jump']),
+  startedAt: z.number().nonnegative(),
+  reactionAt: z.number().nonnegative(),
+  jumpHeight: z.number().nonnegative(),
+  previousJumpHeight: z.number().nonnegative(),
+});
 export const restartLivenessDiagnosticSchema = z.object({
   at: z.number().nonnegative(),
   scenario: restartScenarioSchema,
@@ -351,6 +395,7 @@ export const restartLivenessDiagnosticSchema = z.object({
 export type RestartLivenessDiagnostic = z.infer<typeof restartLivenessDiagnosticSchema>;
 
 export interface MatchPlayerState {
+  restartWallResponse?: z.infer<typeof restartWallResponseSchema>;
   id: string;
   /** Match-clock entry time. Existing starting players default to kickoff (zero). */
   activeSince?: number;
@@ -422,6 +467,7 @@ export interface MatchTeamState {
   threatMemory?: TeamThreatMemory;
 }
 export interface MatchBallState extends PitchPoint {
+  spin?: BallSpin3d;
   executionType?: PassExecutionType;
   height?: number;
   releaseHeight?: number;
@@ -462,6 +508,8 @@ export interface MatchBallState extends PitchPoint {
 export const shotResultSchema = z.enum(['goal', 'save', 'block', 'miss', 'post', 'crossbar']);
 export type ShotResult = z.infer<typeof shotResultSchema>;
 export const shotDiagnosticSchema = z.object({
+  freeKickProfile: freeKickStrikeProfileSchema.optional(),
+  launchSpin: ballSpinSchema.optional(),
   shotId: z.string(),
   shooterId: z.string(),
   releasedAt: z.number().nonnegative().optional(),
@@ -683,6 +731,25 @@ export interface TacticalMatchState {
   ballOwnershipStartedAt?: number;
   scenario: RestartScenario;
   restart?: RestartLifecycle;
+  stoppageLedger?: StoppageLedger;
+  restartTouchRestriction?: {
+    awardId: string;
+    scenario: RestartScenario;
+    takerId: string;
+    team: TeamSide;
+    indirect: boolean;
+    touchedByOther: boolean;
+  };
+  postGoal?: {
+    goalId: string;
+    scoringTeam: TeamSide;
+    kickoffTeam: TeamSide;
+    startedAt: number;
+    urgent: boolean;
+    retrieverId: string;
+    reactionUntil: number;
+    targets: Record<string, PitchPoint>;
+  };
   /** DEV-observable liveness duration; canonical decisions never depend on it. */
   restartStalledSeconds?: number;
   /** Abnormal safety-net activation; normal restart resolution never writes this diagnostic. */
@@ -782,6 +849,29 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    stoppageLedger: stoppageLedgerSchema.optional(),
+    restartTouchRestriction: z
+      .object({
+        awardId: z.string(),
+        scenario: restartScenarioSchema,
+        takerId: z.string(),
+        team: teamSideSchema,
+        indirect: z.boolean(),
+        touchedByOther: z.boolean(),
+      })
+      .optional(),
+    postGoal: z
+      .object({
+        goalId: z.string(),
+        scoringTeam: teamSideSchema,
+        kickoffTeam: teamSideSchema,
+        startedAt: z.number().nonnegative(),
+        urgent: z.boolean(),
+        retrieverId: z.string(),
+        reactionUntil: z.number().nonnegative(),
+        targets: z.record(z.string(), pitchPointSchema),
+      })
+      .optional(),
     ballAcquisition: ballAcquisitionSchema.optional(),
     controlledBallContact: controlledBallContactSchema.optional(),
     contactControlTelemetry: contactControlTelemetrySchema.optional(),
@@ -794,73 +884,82 @@ export const tacticalMatchStateSchema = z
     periodEndPending: z.boolean().optional(),
     teams: z.record(
       teamSideSchema,
-      z.object({
-        side: teamSideSchema,
-        clubId: z.string(),
-        formation: z.string(),
-        style: tacticalStyleSchema,
-        tacticalPreferences: tacticalPreferencesSchema.optional(),
-        phase: matchPhaseSchema,
-        phaseElapsed: z.number().nonnegative(),
-        threatMemory: teamThreatMemorySchema.optional(),
-      }),
+      z
+        .object({
+          side: teamSideSchema,
+          clubId: z.string(),
+          formation: z.string(),
+          style: tacticalStyleSchema,
+          tacticalPreferences: tacticalPreferencesSchema.optional(),
+          phase: matchPhaseSchema,
+          phaseElapsed: z.number().nonnegative(),
+          threatMemory: teamThreatMemorySchema.optional(),
+        })
+        .passthrough(),
     ),
     players: z.array(
-      z.object({
-        id: z.string(),
-        activeSince: z.number().nonnegative().optional(),
-        team: teamSideSchema,
-        position: pitchPointSchema,
-        facingAngle: z.number().finite(),
-        desiredFacingAngle: z.number().finite().optional(),
-        movementMode: z
-          .enum(['forward', 'diagonal', 'shuffle', 'backpedal', 'turn_and_run'])
-          .optional(),
-        turnRate: z.number().nonnegative().finite().optional(),
-        target: pitchPointSchema,
-        anchor: pitchPointSchema,
-        neutralAnchor: pitchPointSchema,
-        idealTarget: pitchPointSchema,
-      }),
-    ),
-    ball: pitchPointSchema.extend({
-      ownerId: z.string().optional(),
-      height: z.number().nonnegative().finite().optional(),
-      releaseHeight: z.number().nonnegative().finite().optional(),
-      airborne: z.boolean().optional(),
-      flightTime: z.number().nonnegative().finite().optional(),
-      distanceTravelled: z.number().nonnegative().finite().optional(),
-      velocity: z
+      z
         .object({
-          x: z.number().finite(),
-          y: z.number().finite(),
-          z: z.number().finite().optional(),
+          id: z.string(),
+          restartWallResponse: restartWallResponseSchema.optional(),
+          activeSince: z.number().nonnegative().optional(),
+          team: teamSideSchema,
+          position: physicalPointSchema,
+          velocity: physicalPointSchema.optional(),
+          facingAngle: z.number().finite(),
+          desiredFacingAngle: z.number().finite().optional(),
+          movementMode: z
+            .enum(['forward', 'diagonal', 'shuffle', 'backpedal', 'turn_and_run'])
+            .optional(),
+          turnRate: z.number().nonnegative().finite().optional(),
+          target: physicalPointSchema,
+          anchor: pitchPointSchema,
+          neutralAnchor: pitchPointSchema,
+          idealTarget: physicalPointSchema,
         })
-        .optional(),
-      bounceCount: z.number().int().nonnegative().optional(),
-      travelKind: z
-        .enum([
-          'pass',
-          'through_ball',
-          'cross',
-          'long_distribution',
-          'free_kick_delivery',
-          'corner_delivery',
-          'shot',
-          'header',
-          'throw_in',
-        ])
-        .optional(),
-      sourceAction: z
-        .enum(['hold', 'carry', 'pass', 'space_pass', 'shot', 'cross', 'header'])
-        .optional(),
-      executionType: passExecutionTypeSchema.optional(),
-      looseSince: z.number().optional(),
-      targetHeight: z.number().nonnegative().finite().optional(),
-      shot: shotDiagnosticSchema.optional(),
-      from: physicalPointSchema.optional(),
-      target: physicalPointSchema.optional(),
-    }),
+        .passthrough(),
+    ),
+    ball: physicalPointSchema
+      .extend({
+        spin: ballSpinSchema.optional(),
+        ownerId: z.string().optional(),
+        height: z.number().nonnegative().finite().optional(),
+        releaseHeight: z.number().nonnegative().finite().optional(),
+        airborne: z.boolean().optional(),
+        flightTime: z.number().nonnegative().finite().optional(),
+        distanceTravelled: z.number().nonnegative().finite().optional(),
+        velocity: z
+          .object({
+            x: z.number().finite(),
+            y: z.number().finite(),
+            z: z.number().finite().optional(),
+          })
+          .optional(),
+        bounceCount: z.number().int().nonnegative().optional(),
+        travelKind: z
+          .enum([
+            'pass',
+            'through_ball',
+            'cross',
+            'long_distribution',
+            'free_kick_delivery',
+            'corner_delivery',
+            'shot',
+            'header',
+            'throw_in',
+          ])
+          .optional(),
+        sourceAction: z
+          .enum(['hold', 'carry', 'pass', 'space_pass', 'shot', 'cross', 'header'])
+          .optional(),
+        executionType: passExecutionTypeSchema.optional(),
+        looseSince: z.number().optional(),
+        targetHeight: z.number().nonnegative().finite().optional(),
+        shot: shotDiagnosticSchema.optional(),
+        from: physicalPointSchema.optional(),
+        target: physicalPointSchema.optional(),
+      })
+      .passthrough(),
     score: matchScoreSchema,
     currentPressure: z.number().min(0).max(1),
     possessionTeam: teamSideSchema,
@@ -926,7 +1025,7 @@ export const tacticalMatchStateSchema = z
     lastResolvedPass: passDiagnosticSchema.optional(),
     lastBoundaryCrossing: pitchBoundaryCrossingSchema
       .extend({
-        previous: pitchPointSchema,
+        previous: physicalPointSchema,
         lastTouchPlayerId: z.string().optional(),
         lastTouchTeam: teamSideSchema.optional(),
         restartTeam: teamSideSchema,

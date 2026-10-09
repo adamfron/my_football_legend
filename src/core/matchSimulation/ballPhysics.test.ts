@@ -6,6 +6,7 @@ import {
   deriveLaunchVelocity,
   integrateBallFlight,
   projectFutureBallTrajectory,
+  magnusAcceleration,
   type PhysicalBall,
 } from './ballPhysics';
 
@@ -49,6 +50,92 @@ describe('shared fixed-step ball physics', () => {
     expect(
       Math.hypot(result.ball.velocity.x, result.ball.velocity.y, result.ball.velocity.z),
     ).toBeLessThan(Math.hypot(16, 3, -4));
+  });
+});
+
+describe('PR159 canonical spin', () => {
+  const launch: PhysicalBall = {
+    position: { x: 20, y: 34, z: 1 },
+    velocity: { x: 28, y: 0, z: 9 },
+    airborne: true,
+    bounceCount: 0,
+  };
+  it('keeps the calibrated zero-spin trajectory exactly unchanged', () => {
+    const ordinary = integrateBallFlight(launch, 0.5);
+    const spinning = integrateBallFlight({ ...launch, spin: { x: 0, y: 0, z: 0 } }, 0.5);
+    expect(spinning.position).toEqual(ordinary.position);
+    expect(spinning.velocity).toEqual(ordinary.velocity);
+    expect(spinning.bounceCount).toBe(ordinary.bounceCount);
+  });
+  it('bends oppositely with opposite lateral spin and applies actual topspin drop', () => {
+    const right = integrateBallFlight({ ...launch, spin: { x: 0, y: 0, z: 80 } }, 0.6);
+    const left = integrateBallFlight({ ...launch, spin: { x: 0, y: 0, z: -80 } }, 0.6);
+    expect(right.position.y - 34).toBeGreaterThan(0.3);
+    expect(left.position.y - 34).toBeCloseTo(-(right.position.y - 34), 10);
+    const ordinary = integrateBallFlight(launch, 0.6);
+    const dipping = integrateBallFlight({ ...launch, spin: { x: 0, y: 100, z: 0 } }, 0.6);
+    expect(dipping.position.z).toBeLessThan(ordinary.position.z - 0.3);
+    expect(dipping.velocity.z).toBeLessThan(ordinary.velocity.z);
+  });
+  it('uses identical spin in the forecast, fixed runtime and equivalent batching', () => {
+    const initial = { ...launch, spin: { x: 0, y: 70, z: 90 } };
+    let live = initial;
+    for (let tick = 0; tick < 4; tick++) live = integrateBallFlight(live, 0.025) as typeof initial;
+    expect(integrateBallFlight(initial, 0.1)).toEqual(live);
+    expect(projectFutureBallTrajectory(initial, 0.1, 0.025).at(-1)?.ball).toEqual(live);
+  });
+  it('mirrors the same spinning flight correctly toward either goal', () => {
+    const initial = { ...launch, spin: { x: 5, y: 70, z: 90 } };
+    const result = integrateBallFlight(initial, 0.5);
+    const mirrored = integrateBallFlight(
+      {
+        ...initial,
+        position: {
+          x: 105 - initial.position.x,
+          y: 68 - initial.position.y,
+          z: initial.position.z,
+        },
+        velocity: { x: -initial.velocity.x, y: -initial.velocity.y, z: initial.velocity.z },
+        spin: { x: -initial.spin.x, y: -initial.spin.y, z: initial.spin.z },
+      },
+      0.5,
+    );
+    expect(mirrored.position.x).toBeCloseTo(105 - result.position.x, 10);
+    expect(mirrored.position.y).toBeCloseTo(68 - result.position.y, 10);
+    expect(mirrored.position.z).toBeCloseTo(result.position.z, 10);
+  });
+  it('bounds Magnus lift and loses spin on grass contact instead of curving forever', () => {
+    expect(magnusAcceleration({ x: 0, y: 0, z: 0 }, { x: 100, y: 100, z: 100 })).toEqual({
+      x: 0,
+      y: 0,
+      z: 0,
+    });
+    const acceleration = magnusAcceleration({ x: 100, y: 0, z: 0 }, { x: 0, y: 160, z: 160 });
+    expect(Math.hypot(acceleration.x, acceleration.y, acceleration.z)).toBeLessThanOrEqual(
+      BALL_PHYSICS.maximumMagnusAcceleration,
+    );
+    const impact = integrateBallFlight(
+      {
+        ...launch,
+        position: { x: 20, y: 34, z: 0.12 },
+        velocity: { x: 18, y: 0, z: -2 },
+        spin: { x: 0, y: 80, z: 50 },
+      },
+      0.025,
+    );
+    expect(impact.bounceCount).toBe(1);
+    expect(impact.spin!.y).toBeLessThan(80 * BALL_PHYSICS.bounceSpinRetention);
+    const rolling = integrateBallFlight(
+      {
+        ...impact,
+        airborne: false,
+        position: { ...impact.position, z: BALL_RADIUS },
+        velocity: { x: 18, y: 0, z: 0 },
+      },
+      1,
+    );
+    expect(rolling.spin!.y).toBeLessThan(impact.spin!.y * 0.1);
+    expect(rolling.position.y).toBe(impact.position.y);
   });
 });
 

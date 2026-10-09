@@ -513,8 +513,34 @@ describe('PR150 first-class spatial intent and canonical execution', () => {
     );
     expect(observePlayerMatchStats(next.statistics!, next, { ...next })).toEqual(next.statistics);
     const restartAction = chooseRestartAction(next)!;
-    const thrown = resolveMatchAction(next, restartAction);
-    expect(thrown.lastPassDiagnostic?.passId).not.toBe(failedPassId);
+    let thrown = resolveMatchAction(next, restartAction);
+    expect(thrown.restart?.phase).toBe('kick_preparation');
+    expect(thrown.lastPassDiagnostic?.passId).toBe(failedPassId);
+    for (let tick = 0; tick < 1600 && thrown.lastPassDiagnostic?.passId === failedPassId; tick++)
+      thrown = stepTacticalMatchAfterDecisionProbe(thrown, FIXED_MATCH_DT);
+    expect(
+      thrown.lastPassDiagnostic?.passId,
+      JSON.stringify({
+        phase: thrown.restart?.phase,
+        readiness: thrown.restart?.readiness,
+        retrieval: thrown.restart?.retrieval,
+        ball: thrown.ball,
+        time: thrown.time,
+        decisionIndex: thrown.decisionIndex,
+        executionAt: thrown.restart?.executedAt,
+        taker: thrown.players.find((player) => player.id === thrown.restart?.takerId)?.position,
+        retrieverPosition: thrown.players.find(
+          (player) => player.id === thrown.restart?.retrieval?.playerId,
+        )?.position,
+        retrieverTarget: thrown.players.find(
+          (player) => player.id === thrown.restart?.retrieval?.playerId,
+        )?.target,
+        retrieverVelocity: thrown.players.find(
+          (player) => player.id === thrown.restart?.retrieval?.playerId,
+        )?.velocity,
+        spot: thrown.restart?.spot,
+      }),
+    ).not.toBe(failedPassId);
     expect(thrown.lastResolvedPass).toEqual(next.lastResolvedPass);
     const observed = stepTacticalMatchAfterDecisionProbe(thrown, FIXED_MATCH_DT);
     expect(observed.lastResolvedPass?.passId).toBe(failedPassId);
@@ -554,10 +580,25 @@ describe('PR150 launch-time active offside and restart evidence', () => {
       expect(stopped).toMatchObject({
         scenario: 'free_kick_far',
         possessionTeam: 'away',
-        restart: { phase: 'setup', restartTeam: 'away', indirect: true },
+        restart: {
+          phase: 'preparing',
+          origin: 'live_event',
+          restartTeam: 'away',
+          indirect: true,
+          spot: { x: 70, y: 34 },
+        },
         lastOffsideOffence: { playerId: runner.id, releasedAt: state.time, offsideLineX: 78 },
       });
-      expect(stopped.ball.x).toBeCloseTo(70);
+      expect(stopped.ball).toMatchObject({
+        x: released.ball.x,
+        y: released.ball.y,
+        height: released.ball.height,
+        velocity: released.ball.velocity,
+        airborne: released.ball.airborne,
+      });
+      expect(stopped.players.map((player) => player.position)).toEqual(
+        released.players.map((player) => player.position),
+      );
       expect(stopped.offsideSnapshot).toBeUndefined();
       const evidence = emitMatchEvents(released, emitCanonicalActionEvents(released, stopped));
       expect(evidence.matchEvents?.at(-1)).toMatchObject({
@@ -674,7 +715,7 @@ describe('PR150 launch-time active offside and restart evidence', () => {
         },
         'human_selected',
       ),
-    ).toMatchObject({ restart: { phase: 'setup', indirect: true } });
+    ).toMatchObject({ restart: { phase: 'preparing', origin: 'live_event', indirect: true } });
     expect(
       resolveMatchAction(
         stopped,
@@ -690,13 +731,17 @@ describe('PR150 launch-time active offside and restart evidence', () => {
     const teammate = stopped.players.find(
       (player) => player.team === 'away' && player.id !== takerId,
     )!;
-    const laidOff = resolveMatchAction(stopped, {
+    let laidOff = resolveMatchAction(stopped, {
       type: 'pass',
       actorId: takerId,
       receiverId: teammate.id,
       target: teammate.position,
       intent: 'support',
     });
+    expect(laidOff.restart?.phase).toBe('kick_preparation');
+    expect(laidOff.ball).toEqual(stopped.ball);
+    for (let tick = 0; tick < 1600 && laidOff.restart?.executedAt === undefined; tick++)
+      laidOff = stepTacticalMatchAfterDecisionProbe(laidOff, FIXED_MATCH_DT);
     expect(laidOff.restart?.phase).toBe('release');
     expect(laidOff.ball.ownerId).toBeUndefined();
   });
@@ -927,7 +972,12 @@ describe('PR150 launch-time active offside and restart evidence', () => {
     };
     const next = stepTacticalMatchAfterDecisionProbe(released, FIXED_MATCH_DT);
     expect(next.lastOffsideOffence?.playerId).toBe(runner.id);
-    expect(next.restart).toMatchObject({ phase: 'setup', restartTeam: 'away', indirect: true });
+    expect(next.restart).toMatchObject({
+      phase: 'preparing',
+      origin: 'live_event',
+      restartTeam: 'away',
+      indirect: true,
+    });
     expect(next.statistics?.teamAccounting?.home.offsides).toBe(1);
     expect(next.statistics?.teamAccounting?.away.freeKicks).toBe(1);
     expect(next.matchEvents?.at(-1)?.kind).toBe('offside');

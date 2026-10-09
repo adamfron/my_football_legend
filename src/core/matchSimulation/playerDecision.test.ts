@@ -265,8 +265,13 @@ describe('player decision lifecycle', () => {
     expect(opportunity?.kind).toBe('restart');
     expect(opportunity?.options.length).toBeGreaterThanOrEqual(2);
     expect(
-      opportunity?.options.every(
+      opportunity?.options.some(
         (option) => option.kind === 'action' && option.action.type === 'pass',
+      ),
+    ).toBe(true);
+    expect(
+      opportunity?.options.some(
+        (option) => option.kind === 'action' && option.action.type === 'shot',
       ),
     ).toBe(true);
     const option = opportunity!.options[0]!;
