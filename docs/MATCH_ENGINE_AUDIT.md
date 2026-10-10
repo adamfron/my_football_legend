@@ -1,4 +1,31 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR160
+# Audyt silnika meczu — PR140 / aktualizacja PR161
+
+## PR161 — canonical presentation and targeted boundary liveness
+
+Base: merged PR160 `d4b389b`. Equivalent `lab-mv2640wz` geometry proves legal
+partial touchline overlap was rejected by loose-ball prediction's inside-pitch
+schema. Raw whole-ball legality plus existing reachable player intentions restore
+actual foot recovery after 0.775 s, without moving the ball or enlarging reach.
+The 12-case matrix checks meaningful contacts and actual throw-in release/open play.
+The original complete export is unavailable; do not claim an exact original match.
+
+Live, context and replay share actual contact/locomotion/fitness/participation facts.
+Bounded keyframes and discontinuity signatures protect IDs, event timing and ball
+ownership. Overhead/opt-in diagnostics expose actual, movement, nominal and ideal
+targets without reranking tactics. Stable club stadia are entirely cosmetic.
+Hidden orchestration remains renderer-free; replay controls preserve canonical state.
+Final verify passes 1529 main tests/182 files, five career tests, lint and build.
+Minimal fixture CPU median is +0.24%; separate bounded observer capture costs +16.48%.
+The uninjected full match legally ends at 5461.3 s: 877 passes, 1100 public touches,
+five substitutions, zero shots; no liveness diagnostics. Existing shot flow remains open.
+
+[PR161 report](PR161_MATCH_PRESENTATION_REPLAY_STADIUM.md) records focused tests,
+final verification, repeatable costs, 30 acceptance answers and compact evidence.
+Software SVG scene exports do not validate native WebGL/FPS or live browser layout.
+Unsaved assignment reasons and sparse historical contact timing remain unavailable.
+No new shooting/CM quotas, dribbling policies or 18-match calibration campaign.
+Next is the **Combined Match Engine Realism & Playability Audit**, retaining all
+shot/CM/rotation/formation/contest/pressure-ranking issues below.
 
 ## PR160 — actual workload, lawful substitutions and referee time
 

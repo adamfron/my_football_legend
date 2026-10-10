@@ -1,0 +1,275 @@
+{
+  "base": "d4b389b",
+  "scope": "30 requested presentation regression cells",
+  "provenance": "Structural coverage combines real canonical resolvers, recorded states and explicitly synthetic geometry/pose fixtures. Existing PR159/160 canonical tests support lifecycle claims; this matrix does not claim 30 browser playtests.",
+  "visualEvidence": "Four small real Three.js scene/rig SVG software render exports; WebGL/FPS/live browser layout unverified.",
+  "rows": [
+    {
+      "id": 1,
+      "scenario": "idle / walk / run / sprint",
+      "testFiles": ["src/app/match/tacticalRenderer/pr161Presentation.test.ts"],
+      "assertion": "Speed-dependent articulation; unchanged actor root."
+    },
+    {
+      "id": 2,
+      "scenario": "acceleration / deceleration",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Adjacent measured velocity change; absent across hidden gap."
+    },
+    {
+      "id": 3,
+      "scenario": "sharp body turn",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Shortest facing delta and turn pose; no cosmetic football displacement."
+    },
+    {
+      "id": 4,
+      "scenario": "actual contact",
+      "testFiles": ["src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"],
+      "assertion": "Real finite resolver timestamp/point/velocity and bounded keyframe."
+    },
+    {
+      "id": 5,
+      "scenario": "exposed ball between micro-contacts",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/app/match/tacticalRenderer/model.test.ts"
+      ],
+      "assertion": "Canonical ball preserved; no body-relative attachment."
+    },
+    {
+      "id": 6,
+      "scenario": "failed close-control contact",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/core/matchSimulation/pr161BoundaryLiveness.test.ts"
+      ],
+      "assertion": "Real unreachable plan fails; no executed phantom contact; reacquisition."
+    },
+    {
+      "id": 7,
+      "scenario": "multi-contact carry / prolonged rotation",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Repeated contacts remain repeated poses, no named roulette."
+    },
+    {
+      "id": 8,
+      "scenario": "shield / physical challenge",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Actual shield mode and challenge result distinguished."
+    },
+    {
+      "id": 9,
+      "scenario": "contain / engage",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Stored defensive commitment determines pose."
+    },
+    {
+      "id": 10,
+      "scenario": "keeper save / missed reach",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Catch/parry and failed-save/no-chance remain different."
+    },
+    {
+      "id": 11,
+      "scenario": "low / high collection",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Actual contact height, no invented catch on parry."
+    },
+    {
+      "id": 12,
+      "scenario": "penalty preparation / execution",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/core/matchSimulation/pr160PenaltyLiveness.test.ts"
+      ],
+      "assertion": "Temporary keeper readiness plus lawful canonical CPU kick."
+    },
+    {
+      "id": 13,
+      "scenario": "free-kick wall",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/core/matchSimulation/pr159RestartGeometry.test.ts"
+      ],
+      "assertion": "Actual wall response/lift in all paths, no root translation."
+    },
+    {
+      "id": 14,
+      "scenario": "curved flight",
+      "testFiles": [
+        "src/core/matchSimulation/ballPhysics.test.ts",
+        "src/core/matchSimulation/ballFlight.test.ts",
+        "src/core/matchSimulation/pr159ReboundIntegration.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "Canonical ball samples and existing spin physics; no cosmetic bend."
+    },
+    {
+      "id": 15,
+      "scenario": "normal throw-in",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/core/matchSimulation/pr159RestartContinuity.test.ts",
+        "src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts"
+      ],
+      "assertion": "Actual physical ball/thrower/readiness and released throw cue remain equivalent in live/context/replay."
+    },
+    {
+      "id": 16,
+      "scenario": "legal partially outside ball",
+      "testFiles": [
+        "src/core/matchSimulation/pr161BoundaryLiveness.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"
+      ],
+      "assertion": "No premature out, canonical visible ball and reachable foot."
+    },
+    {
+      "id": 17,
+      "scenario": "whole-crossing throw-in",
+      "testFiles": ["src/core/matchSimulation/pr161BoundaryLiveness.test.ts"],
+      "assertion": "Actual award/release/reception, both touchlines."
+    },
+    {
+      "id": 18,
+      "scenario": "departing substitute",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/core/matchSimulation/pr160Substitutions.test.ts"
+      ],
+      "assertion": "Walkoff body remains distinct from active eligibility."
+    },
+    {
+      "id": 19,
+      "scenario": "incoming substitute",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/core/matchSimulation/pr160Substitutions.test.ts"
+      ],
+      "assertion": "Staged outside then actual legal entry; original ID."
+    },
+    {
+      "id": 20,
+      "scenario": "injured departure",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/core/matchSimulation/pr160Substitutions.test.ts",
+        "src/core/matchSimulation/pr160FitnessInjuries.test.ts"
+      ],
+      "assertion": "Actual assessment/restriction and assisted-removal continuity."
+    },
+    {
+      "id": 21,
+      "scenario": "temporary goalkeeper",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/core/matchSimulation/pr160PenaltyLiveness.test.ts"
+      ],
+      "assertion": "Live/context/replay/kit use temporary match role; profile unchanged."
+    },
+    {
+      "id": 22,
+      "scenario": "stamina display",
+      "testFiles": [
+        "src/app/match/pr161Viewer.test.tsx",
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts"
+      ],
+      "assertion": "Independent actual capacity/readiness, injury restriction, no mutation."
+    },
+    {
+      "id": 23,
+      "scenario": "added-time clock",
+      "testFiles": [
+        "src/app/match/pr161Viewer.test.tsx",
+        "src/core/matchSimulation/pr160Timekeeping.test.ts"
+      ],
+      "assertion": "Actual second-half start; correct nominal-plus-added display."
+    },
+    {
+      "id": 24,
+      "scenario": "goal / urgent retrieval",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/core/matchSimulation/pr159RestartContinuity.test.ts",
+        "src/core/matchSimulation/pr160PenaltyLiveness.test.ts"
+      ],
+      "assertion": "Actual goal-plane crossing, scorer reaction versus urgent retriever, shared live/context/replay facts and physical return to kickoff; no future goal pose."
+    },
+    {
+      "id": 25,
+      "scenario": "terminal penalty",
+      "testFiles": [
+        "src/core/matchSimulation/pr160PenaltyLiveness.test.ts",
+        "src/core/matchSimulation/pr160Timekeeping.test.ts"
+      ],
+      "assertion": "Physical kick/rebound completes before period end, no fake waiting."
+    },
+    {
+      "id": 26,
+      "scenario": "controlled departure to spectator",
+      "testFiles": [
+        "src/core/matchSimulation/pr160Substitutions.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/app/match/backgroundOrchestration.test.tsx"
+      ],
+      "assertion": "Control ID never transfers; decision eligibility removed in core. Real canonical substitution in RunningLab updates spectator status and continues observer play."
+    },
+    {
+      "id": 27,
+      "scenario": "substitution replay",
+      "testFiles": ["src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"],
+      "assertion": "Recorded staged/outgoing/incoming identities; no morphing."
+    },
+    {
+      "id": 28,
+      "scenario": "contact replay",
+      "testFiles": ["src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts"],
+      "assertion": "Bounded before/after micro-contact samples, no future evidence."
+    },
+    {
+      "id": 29,
+      "scenario": "replay / live isolation",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/app/match/pr161Viewer.test.tsx",
+        "src/app/match/backgroundOrchestration.test.tsx"
+      ],
+      "assertion": "Full-state/RNG equality and paused viewer clock controls; explicit return."
+    },
+    {
+      "id": 30,
+      "scenario": "overlay / camera no mutation",
+      "testFiles": [
+        "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+        "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+        "src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts",
+        "src/app/match/backgroundOrchestration.test.tsx"
+      ],
+      "assertion": "Overhead/replay cameras, projected picking, frozen canonical input and hidden zero updates."
+    }
+  ]
+}

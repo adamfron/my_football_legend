@@ -1,0 +1,166 @@
+{
+  "seed": "pr161-observer-cost",
+  "dt": 0.025,
+  "ticksPerRun": 4800,
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        "
+  },
+  "methodology": "Three alternating 120-second pairs after short warmup. Observers include bounded replay and context capture, never Three.js. Playback is interpolation plus pure poses, excluding WebGL.",
+  "limitation": "Single deterministic scene; Node CPU timings do not establish browser FPS or league realism.",
+  "canonicalInvariant": true,
+  "observerOverheadPercent": 16.47713811892919,
+  "runs": [
+    {
+      "observed": false,
+      "canonicalSeconds": 120.00000000001016,
+      "elapsedMs": 1635.5564000000002,
+      "hash": "e3db752f16f2cd3f680b16715d5ab4869c6a10f941967ea416f2eef291b8c8b0",
+      "replayCaptureMs": 0,
+      "context": {
+        "samplesRetained": 0,
+        "samplesWritten": 0,
+        "sampleWorkMs": 0,
+        "sampleHz": 10,
+        "capacity": 128
+      },
+      "replay": {
+        "rollingSamples": 0,
+        "windows": 0,
+        "retainedSamples": 0,
+        "estimatedBytes": 4,
+        "sampleHz": 5,
+        "maxWindows": 8,
+        "keyframes": 0
+      },
+      "playbackMs": 0.0003000000001520675,
+      "poses": 0
+    },
+    {
+      "observed": true,
+      "canonicalSeconds": 120.00000000001016,
+      "elapsedMs": 1777.8064,
+      "hash": "e3db752f16f2cd3f680b16715d5ab4869c6a10f941967ea416f2eef291b8c8b0",
+      "replayCaptureMs": 104.66039999997429,
+      "context": {
+        "samplesRetained": 85,
+        "samplesWritten": 1432,
+        "sampleWorkMs": 93.52199999998584,
+        "sampleHz": 10,
+        "capacity": 128
+      },
+      "replay": {
+        "rollingSamples": 113,
+        "windows": 0,
+        "retainedSamples": 113,
+        "estimatedBytes": 4417228,
+        "sampleHz": 5,
+        "maxWindows": 8,
+        "keyframes": 61
+      },
+      "playbackMs": 61.1837000000005,
+      "poses": 44000
+    },
+    {
+      "observed": true,
+      "canonicalSeconds": 120.00000000001016,
+      "elapsedMs": 1701.9285,
+      "hash": "e3db752f16f2cd3f680b16715d5ab4869c6a10f941967ea416f2eef291b8c8b0",
+      "replayCaptureMs": 90.51560000002246,
+      "context": {
+        "samplesRetained": 85,
+        "samplesWritten": 1432,
+        "sampleWorkMs": 85.65470000000369,
+        "sampleHz": 10,
+        "capacity": 128
+      },
+      "replay": {
+        "rollingSamples": 113,
+        "windows": 0,
+        "retainedSamples": 113,
+        "estimatedBytes": 4417228,
+        "sampleHz": 5,
+        "maxWindows": 8,
+        "keyframes": 61
+      },
+      "playbackMs": 42.920100000000275,
+      "poses": 44000
+    },
+    {
+      "observed": false,
+      "canonicalSeconds": 120.00000000001016,
+      "elapsedMs": 1526.3135999999995,
+      "hash": "e3db752f16f2cd3f680b16715d5ab4869c6a10f941967ea416f2eef291b8c8b0",
+      "replayCaptureMs": 0,
+      "context": {
+        "samplesRetained": 0,
+        "samplesWritten": 0,
+        "sampleWorkMs": 0,
+        "sampleHz": 10,
+        "capacity": 128
+      },
+      "replay": {
+        "rollingSamples": 0,
+        "windows": 0,
+        "retainedSamples": 0,
+        "estimatedBytes": 4,
+        "sampleHz": 5,
+        "maxWindows": 8,
+        "keyframes": 0
+      },
+      "playbackMs": 0.00010000000111176632,
+      "poses": 0
+    },
+    {
+      "observed": false,
+      "canonicalSeconds": 120.00000000001016,
+      "elapsedMs": 1398.9691999999995,
+      "hash": "e3db752f16f2cd3f680b16715d5ab4869c6a10f941967ea416f2eef291b8c8b0",
+      "replayCaptureMs": 0,
+      "context": {
+        "samplesRetained": 0,
+        "samplesWritten": 0,
+        "sampleWorkMs": 0,
+        "sampleHz": 10,
+        "capacity": 128
+      },
+      "replay": {
+        "rollingSamples": 0,
+        "windows": 0,
+        "retainedSamples": 0,
+        "estimatedBytes": 4,
+        "sampleHz": 5,
+        "maxWindows": 8,
+        "keyframes": 0
+      },
+      "playbackMs": 0.00019999999858555384,
+      "poses": 0
+    },
+    {
+      "observed": true,
+      "canonicalSeconds": 120.00000000001016,
+      "elapsedMs": 1910.733400000001,
+      "hash": "e3db752f16f2cd3f680b16715d5ab4869c6a10f941967ea416f2eef291b8c8b0",
+      "replayCaptureMs": 109.60250000002998,
+      "context": {
+        "samplesRetained": 85,
+        "samplesWritten": 1432,
+        "sampleWorkMs": 98.89359999994849,
+        "sampleHz": 10,
+        "capacity": 128
+      },
+      "replay": {
+        "rollingSamples": 113,
+        "windows": 0,
+        "retainedSamples": 113,
+        "estimatedBytes": 4417228,
+        "sampleHz": 5,
+        "maxWindows": 8,
+        "keyframes": 61
+      },
+      "playbackMs": 49.60199999999895,
+      "poses": 44000
+    }
+  ]
+}

@@ -7,7 +7,10 @@ import {
   FIXED_MATCH_DT,
   stepTacticalMatch,
 } from '../src/core/matchSimulation/matchSimulation';
-import { PresentationContextHistory } from '../src/app/match/tacticalRenderer/contextHistory';
+import {
+  PresentationContextHistory,
+  CONTEXT_MAX_SAMPLES,
+} from '../src/app/match/tacticalRenderer/contextHistory';
 
 const world = createCanonicalWorldDatabase();
 const session = createSingleMatchSession(world, {
@@ -64,7 +67,7 @@ process.stdout.write(
       canonicalMinutes: 5,
       sampleHz: 10,
       historySeconds: 6,
-      capacity: 62,
+      capacity: CONTEXT_MAX_SAMPLES,
       runtime: process.version,
       runs,
       relativeWallOverheadPercent: (average(true) / average(false) - 1) * 100,

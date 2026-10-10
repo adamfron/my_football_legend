@@ -1,18 +1,21 @@
 # Roadmap
 
-Aktualny etap: **PR160 — Fatigue, Injuries, Substitutions & Added Time**.
-Implementacja i `npm run verify` zakończone: lint, 1452 + 5 testów, build.
-Pełny mecz kontrolny zakończony legalnie (90+1, 5 zmian, 0 strzałów);
-skupiony pomiar CPU: +22,54%. PR159 jest scalony.
-[Raport PR160](PR160_FATIGUE_INJURIES_SUBSTITUTIONS_ADDED_TIME.md) opisuje także
-odtworzenie i naprawę oryginalnego soft locku karnego, dwie rezerwy, rzeczywiste
-urazy/zmiany, datowaną regenerację i kanoniczny doliczony czas.
-Następny feature PR to **PR161 — Match Presentation / Replay / Stadium Polish**.
+Aktualny etap: **PR161 — Match Presentation / Replay / Stadium Polish**,
+z celowaną naprawą boundary-ball liveness, na scalonym PR160 `d4b389b`.
+Wspólna kanoniczna projekcja, replay keyframes/controls, overhead/diagnostyka,
+rzeczywiste zmiany/kondycja i kosmetyczne stadiony mają skupione dowody w
+[raporcie PR161](PR161_MATCH_PRESENTATION_REPLAY_STADIUM.md).
+Równoważny fixture `lab-mv2640wz`: odzyskanie po 0,775 s i 12/12 matrix;
+oryginalny pełny eksport niedostępny. Verify PASS: 1529 testów głównych, 5 kariery,
+lint/TypeScript/build. Mecz kontrolny dochodzi do legalnego 90+1 bez zakleszczenia,
+z 877 próbami podań i 0 strzałów. Wszystkie pomiary są w raporcie.
+Natywne WebGL/FPS i UI wymagają interaktywnego przeglądu; eksporty SVG są software.
+Następnie **Combined Match Engine Realism & Playability Audit**.
 Wcześniejsze draft/calibration sformułowania są historią, nie aktualnym statusem.
 
 Otwarte PR158: shots 110→16, goals 68→10, CM touches 4957→3461/receptions
 2831→1993, flips 24→94, spells <0,5 s 51→189, prolonged/low-progress rotations.
-Ciągłość wznowień nie dowodzi poprawy open-play realism. Po PR160 i PR161 należy
+Ciągłość wznowień i lepsza prezentacja nie dowodzą poprawy open-play realism. Po PR161 należy
 wykonać wspólny full-match diagnostic and realism audit, zamiast nowej kampanii
 18 pełnych meczów po każdym etapie.
 
@@ -22,9 +25,10 @@ wykonać wspólny full-match diagnostic and realism audit, zamiast nowej kampani
   opuszczeniu strefy przez zawodnika, bez przebudowywania formacji od zera.
 - Dodać modyfikatory ról dla libero i wahadłowych oraz bogatsze ograniczenia pozycyjne stałych
   fragmentów gry na wspólnym modelu celu.
-- Dodać późniejszy widok debug taktyki z góry do kalibracji bloków, średnich pozycji i przestrzeni.
+- PR161 wdraża widok overhead i diagnostykę taktyki; kalibracja bloków, średnich pozycji
+  i przestrzeni należy do następnego wspólnego audytu.
 
-Elementy te są punktami rozwoju architektury i nie są obecnie zaimplementowane.
+Pierwsze dwa elementy pozostają punktami rozwoju architektury; nie są zaimplementowane.
 
 ## Autorytatywna kolejność rozwoju Single Match
 
@@ -332,7 +336,7 @@ gotowości, kilku delivery/receiver choices i shared canonical spin/wall physics
 Ledger dostarcza przerwy dla PR160; actual added time oraz końcowe animacje pozostają
 następnymi etapami. Dowody i ograniczenia centralizuje raport PR159.
 
-### CURRENT
+### PR160 — completed baseline
 
 **PR160 — Fatigue, Injuries, Substitutions & Added Time**
 
@@ -343,12 +347,18 @@ następnymi etapami. Dowody i ograniczenia centralizuje raport PR159.
 - skupione laby, observer smoke i parytet deterministyczny; granica narracyjnej kariery
   opisana jawnie w raporcie, bez dodatkowej kampanii 18 meczów.
 
+### CURRENT
+
+**PR161 — Match Presentation / Replay / Stadium Polish**: kanoniczne kontakty/animacje,
+ograniczone replay keyframes i sterowanie, overhead/diagnostyka, stabilne kosmetyczne
+stadiony oraz naprawa legalnej luźnej piłki przy linii. Dowody i granice w raporcie PR161.
+
 ### NEXT
 
-**PR161 — Match Presentation / Replay / Stadium Polish**: filmowe powtórki, finalne animacje,
-parametryczne stadiony. Później: duża kalibracja lig, świadomy wybór piętki i
-parametryczne stadiony z trwałą tożsamością klubu. Stadion pozostaje kosmetyczny; PR149 nie
-wdraża jego geometrii ani sztuki.
+**Combined Match Engine Realism & Playability Audit**: wspólna ocena ruchu/formacji,
+wyboru akcji, kontaktów/osłony, pressingu, sieci podań/CM, strzałów, bramkarzy,
+kondycji, urazów/zmian, wznowień/czasu, sprawczości oraz observer/replay.
+Reprezentatywne seedy, realne rozkłady referencyjne, statystyki ról i playtesty.
 
 Później: trwałe profile trenerów korzystające z istniejących osi, rozwój i starzenie zawodników.
 Spadek możliwości fizycznych nie oznacza takiej samej utraty techniki, podań, wykończenia albo

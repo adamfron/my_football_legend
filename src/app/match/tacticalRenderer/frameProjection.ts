@@ -1,10 +1,19 @@
-import { projectMatchVisiblePlayers } from '../../../core/matchSimulation/substitutions';
+import {
+  canonicalBallPresentation,
+  projectPresentationPlayers,
+  projectCanonicalPlayerPresentation,
+  presentationDiscontinuity,
+  ballPresentationDiscontinuity,
+  type CanonicalPlayerPresentation,
+  projectCanonicalReleasePresentation,
+} from '../../../core/matchSimulation/canonicalPresentation';
 import { matchStateToFrame } from '../../../core/matchSimulation/matchSimulation';
 import type { TacticalMatchState } from '../../../core/matchSimulation/matchState';
 import { CUE_DURATION_MS } from './animation';
 import type { AnimationCue, TacticalFrame, TacticalPlayer } from './model';
 import { frameActionEvents, frameDismissals } from './actionFeedback';
 import { isRestartSetup } from '../../../core/matchSimulation/restartPhase';
+import { isMatchGoalkeeper } from '../../../core/matchSimulation/matchGoalkeeper';
 
 /** Canonical landmarks remain anchored even while the ball and footballers move. */
 export const projectRestartPresentation = (
@@ -29,6 +38,9 @@ export const projectRestartPresentation = (
           restart.readiness?.takerReady &&
           restart.readiness?.legalReady,
       ),
+      scenario: state.scenario,
+      blockers: [...(restart.readiness?.blockers ?? [])],
+      retrievalStage: restart.retrieval?.stage,
     },
   };
 };
@@ -49,34 +61,12 @@ export const observeAnimationCues = (
       previous.ball.launchVelocity !== ball.launchVelocity ||
       previous.ball.travelKind !== ball.travelKind)
   ) {
-    const actor = state.players.find((p) => p.id === ball.lastTouchPlayerId);
-    const shot = ball.shot?.shooterId === ball.lastTouchPlayerId ? ball.shot : undefined;
-    const kind: AnimationCue['kind'] =
-      ball.travelKind === 'throw_in'
-        ? 'throw'
-        : shot?.contact === 'header' || ball.sourceAction === 'header'
-          ? 'header'
-          : ball.sourceAction === 'shot'
-            ? 'shot'
-            : ball.sourceAction === 'cross'
-              ? 'cross'
-              : actor?.profile.primaryPosition === 'goalkeeper'
-                ? 'distribution'
-                : 'pass';
-    cues.set(ball.lastTouchPlayerId, {
-      kind,
-      atMs: Math.max(0, atMs - ball.flightTime * 1000),
-      // These cues only select cosmetic follow-through. Football feedback reads the separate
-      // canonical event ledger, including historical context/replay timestamps.
-      ...(shot
-        ? {
-            shotIntent: shot.intent,
-            shotContact: shot.contact,
-            firstTime: shot.firstTime,
-            contactHeight: shot.ballHeightAtContact,
-          }
-        : {}),
-    });
+    const release = projectCanonicalReleasePresentation(state, ball.lastTouchPlayerId);
+    if (release) {
+      const { travelKind: _travelKind, ...cue } = release;
+      void _travelKind;
+      cues.set(ball.lastTouchPlayerId, cue);
+    }
   }
   if (state.actionEvents !== previous?.actionEvents) {
     for (const event of state.actionEvents ?? []) {
@@ -112,8 +102,8 @@ export const observeAnimationCues = (
   const aerial = state.lastAerialContact;
   if (previous && aerial && aerial !== previous.lastAerialContact) {
     for (const id of aerial.contestantIds) {
-      const keeper =
-        state.players.find((p) => p.id === id)?.profile.primaryPosition === 'goalkeeper';
+      const contestant = state.players.find((p) => p.id === id);
+      const keeper = contestant && isMatchGoalkeeper(contestant);
       const kind =
         id !== aerial.winnerId
           ? 'contest'
@@ -219,12 +209,14 @@ export class PresentationFrameProjector {
   private previous: TacticalMatchState | undefined;
   private cues = new Map<string, AnimationCue>();
   private gait = new Map<string, { phase: number; speed: number }>();
+  private evidence = new Map<string, CanonicalPlayerPresentation>();
   private continuity = 0;
 
   reset() {
     this.previous = undefined;
     this.cues.clear();
     this.gait.clear();
+    this.evidence.clear();
     this.continuity++;
   }
 
@@ -246,7 +238,15 @@ export class PresentationFrameProjector {
     for (const [id, cue] of observeAnimationCues(this.previous, state)) this.cues.set(id, cue);
     for (const [id, cue] of this.cues)
       if (state.time * 1000 - cue.atMs > CUE_DURATION_MS) this.cues.delete(id);
-    for (const player of projectMatchVisiblePlayers(state)) {
+    const visiblePlayers = projectPresentationPlayers(state);
+    const ids = new Set(visiblePlayers.map((player) => player.id));
+    for (const id of this.gait.keys()) if (!ids.has(id)) this.gait.delete(id);
+    for (const id of this.evidence.keys()) if (!ids.has(id)) this.evidence.delete(id);
+    for (const player of visiblePlayers) {
+      this.evidence.set(
+        player.id,
+        projectCanonicalPlayerPresentation(state, player, this.previous),
+      );
       const speed = Math.hypot(player.velocity.x, player.velocity.y);
       const old = this.gait.get(player.id);
       // Phase integrates measured canonical speed, never moves a player. Cadence is metres/stride.
@@ -265,18 +265,40 @@ export class PresentationFrameProjector {
   ): TacticalFrame {
     this.observe(state);
     const frame = matchStateToFrame(state, options);
-    const visiblePlayers = projectMatchVisiblePlayers(state);
+    const visiblePlayers = projectPresentationPlayers(state);
     return {
       ...frame,
       ...projectRestartPresentation(state),
-      actionEvents: frameActionEvents(state.actionEvents ?? [], frame.timestampMs),
+      actionEvents: structuredClone(frameActionEvents(state.actionEvents ?? [], frame.timestampMs)),
       dismissals: frameDismissals(state),
-      continuity: `${state.seed}:${this.continuity}`,
-      players: frame.players.map((player, index): TacticalPlayer => {
-        const canonical = visiblePlayers[index]!;
+      continuity: `${state.seed}:${this.continuity}:${presentationDiscontinuity(state)}`,
+      ballContinuity: ballPresentationDiscontinuity(state),
+      ball: canonicalBallPresentation(state),
+      ...('carryTarget' in frame && frame.carryTarget
+        ? { carryTarget: { ...frame.carryTarget } }
+        : {}),
+      players: visiblePlayers.map((canonical): TacticalPlayer => {
+        const player = frame.players.find((entry) => entry.id === canonical.id) ?? {
+          id: canonical.id,
+          team: canonical.team,
+          x: canonical.position.x,
+          y: canonical.position.y,
+          facing: canonical.facingAngle,
+          goalkeeper:
+            canonical.goalkeeperRole ?? canonical.profile.primaryPosition === 'goalkeeper',
+          protagonist: canonical.id === state.controlledFootballerId,
+          displayNumber: canonical.slotIndex + 1,
+          target: canonical.target,
+          anchor: canonical.neutralAnchor,
+          idealTarget: canonical.idealTarget,
+        };
         const preparation = projectPlayerPreparation(state, player.id);
         return {
           ...player,
+          target: { ...canonical.target },
+          anchor: { ...canonical.neutralAnchor },
+          idealTarget: { ...canonical.idealTarget },
+          ...this.evidence.get(player.id),
           velocity: { ...canonical.velocity },
           heightCm: canonical.profile.heightCm,
           weightKg: canonical.profile.weightKg,
@@ -285,6 +307,7 @@ export class PresentationFrameProjector {
           gaitSpeed: this.gait.get(player.id)?.speed ?? 0,
           cue: this.cues.get(player.id),
           ...preparation,
+          canonicalBallPlacement: true,
           preparationSide: Math.sign(
             canonical.velocity.x * Math.cos(canonical.facingAngle) -
               canonical.velocity.y * Math.sin(canonical.facingAngle),
