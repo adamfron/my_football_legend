@@ -1,11 +1,16 @@
 // @vitest-environment jsdom
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import * as THREE from 'three';
 import { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
 import { TacticalPitchRenderer } from '../src/app/match/tacticalRenderer/TacticalPitchRenderer';
-import { DEFAULT_KITS, type TacticalPlayer } from '../src/app/match/tacticalRenderer/model';
+import {
+  DEFAULT_KITS,
+  PITCH_LENGTH,
+  PITCH_WIDTH,
+  type TacticalPlayer,
+} from '../src/app/match/tacticalRenderer/model';
 import { PlayerModel, PlayerModelResources } from '../src/app/match/tacticalRenderer/playerModel';
 import { createTacticalDiagnosticFixture } from '../src/app/match/tacticalRenderer/diagnosticOverlay';
 import { deriveStadiumConfiguration } from '../src/app/match/tacticalRenderer/stadium';
@@ -30,6 +35,21 @@ vi.mock('three', async (original) => {
 });
 
 const output = process.env.MFL_PR161_VISUAL_OUTPUT;
+// Full stadium SVG expansion and timing samples are an opt-in evidence export.
+// CI exercises the real scenes/rigs without benchmarking or expanding the crowd.
+const renderSamples = output ? 300 : 2;
+const expectPlayerRoots = (scene: THREE.Scene, players: TacticalPlayer[]) => {
+  const roots = scene.children.filter(
+    (object) => object instanceof THREE.Group && object.userData.playerId,
+  );
+  expect(roots).toHaveLength(players.length);
+  for (const player of players) {
+    const root = roots.find((object) => object.userData.playerId === player.id)!;
+    expect(root).toBeDefined();
+    expect(root.position.x).toBeCloseTo(player.x - PITCH_LENGTH / 2);
+    expect(root.position.z).toBeCloseTo(player.y - PITCH_WIDTH / 2);
+  }
+};
 const renderSvg = (scene: THREE.Scene, camera: THREE.Camera, name: string, title: string) => {
   // SVGRenderer has no instancing support: expand only in this detached export.
   scene.traverse((object) => {
@@ -96,102 +116,152 @@ const renderSvg = (scene: THREE.Scene, camera: THREE.Camera, name: string, title
 };
 
 describe('PR161 reproducible software scene evidence', () => {
-  it('exports two stable stadium archetypes and honest tactical landmarks from the real renderer scene', () => {
-    vi.stubGlobal(
-      'ResizeObserver',
-      class {
-        observe() {}
-        disconnect() {}
-      },
-    );
-    vi.stubGlobal('devicePixelRatio', 1);
-    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
-    const fixture = createTacticalDiagnosticFixture();
-    const world = createCanonicalWorldDatabase();
-    const canonical = new PresentationFrameProjector().frame(
-      createTacticalMatch(
-        createSingleMatchSession(world, {
-          homeClubId: world.clubs[0]!.id,
-          awayClubId: world.clubs[1]!.id,
-          seed: 'pr161-stadium-view',
-          control: { mode: 'spectator' },
-        }),
-      ),
-    );
-    const reports = [];
-    for (const archetype of ['community', 'bowl'] as const) {
-      let id = '';
-      for (let index = 0; index < 100; index++) {
-        const candidate = `pr161-stadium-${index}`;
-        if (deriveStadiumConfiguration(candidate, DEFAULT_KITS.home).archetype === archetype) {
-          id = candidate;
-          break;
-        }
-      }
-      expect(id).not.toBe('');
-      const host = document.createElement('div');
-      Object.defineProperties(host, { clientWidth: { value: 1280 }, clientHeight: { value: 720 } });
-      document.body.append(host);
-      const renderer = new TacticalPitchRenderer(
-        host,
-        canonical,
-        undefined,
-        DEFAULT_KITS,
-        undefined,
-        { homeClubId: id },
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
+  it(
+    'preserves both stadium archetypes and honest tactical landmarks in exportable renderer scenes',
+    () => {
+      vi.stubGlobal(
+        'ResizeObserver',
+        class {
+          observe() {}
+          disconnect() {}
+        },
       );
-      renderer.setCameraPreferences({ preset: 'overview', zoom: 0 });
-      vi.useFakeTimers({ toFake: ['requestAnimationFrame', 'cancelAnimationFrame'] });
-      renderer.setCameraPreferences({ preset: 'overview', zoom: 0 });
-      vi.runAllTimers();
-      vi.useRealTimers();
-      let exported = renderer.exportPresentationScene();
-      renderSvg(
-        exported.scene,
-        exported.camera,
-        `stadium-${archetype}`,
-        `PR161 | ${archetype} | real scene / SVG software render`,
-      );
-      for (let tick = 0; tick < 300; tick++)
-        renderer.render({ ...canonical, timestampMs: canonical.timestampMs + tick * 16.667 });
-      reports.push({ scene: 'canonical-22-body', ...renderer.getPresentationMetrics() });
-      if (archetype === 'community') {
-        renderer.render(fixture);
-        renderer.setCameraPreferences({ preset: 'overhead', zoom: 0.5 });
-        renderer.setDiagnostics({
-          movement: true,
-          shape: true,
-          assignments: true,
-          contacts: true,
-          ball: true,
-        });
-        exported = renderer.exportPresentationScene();
-        renderSvg(
-          exported.scene,
-          exported.camera,
-          'tactical-diagnostic',
-          'PR161 | synthetic diagnostic | yellow: movement, blue: anchor, purple: tactical',
-        );
-      }
-      for (let tick = 0; tick < 300; tick++)
-        renderer.render({ ...fixture, timestampMs: fixture.timestampMs + tick * 16.667 });
-      reports.push({ scene: 'diagnostic-8-body-cumulative', ...renderer.getPresentationMetrics() });
-      renderer.dispose();
-      host.remove();
-    }
-    if (output)
-      writeFileSync(
-        resolve(output, 'renderer-metrics.json'),
-        JSON.stringify(
-          {
-            method: 'Real CPU scene updates with mocked WebGL; draw calls / GPU / FPS unmeasured.',
-            reports,
-          },
-          null,
-          2,
+      vi.stubGlobal('devicePixelRatio', 1);
+      vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+      const fixture = createTacticalDiagnosticFixture();
+      const world = createCanonicalWorldDatabase();
+      const canonical = new PresentationFrameProjector().frame(
+        createTacticalMatch(
+          createSingleMatchSession(world, {
+            homeClubId: world.clubs[0]!.id,
+            awayClubId: world.clubs[1]!.id,
+            seed: 'pr161-stadium-view',
+            control: { mode: 'spectator' },
+          }),
         ),
       );
-  });
+      const reports = [];
+      expect(canonical.players).toHaveLength(22);
+      expect(fixture.players).toHaveLength(8);
+      for (const archetype of ['community', 'bowl'] as const) {
+        let id = '';
+        for (let index = 0; index < 100; index++) {
+          const candidate = `pr161-stadium-${index}`;
+          if (deriveStadiumConfiguration(candidate, DEFAULT_KITS.home).archetype === archetype) {
+            id = candidate;
+            break;
+          }
+        }
+        expect(id).not.toBe('');
+        const host = document.createElement('div');
+        Object.defineProperties(host, {
+          clientWidth: { value: 1280 },
+          clientHeight: { value: 720 },
+        });
+        document.body.append(host);
+        const renderer = new TacticalPitchRenderer(
+          host,
+          canonical,
+          undefined,
+          DEFAULT_KITS,
+          undefined,
+          { homeClubId: id },
+        );
+        try {
+          renderer.setCameraPreferences({ preset: 'overview', zoom: 0 });
+          vi.useFakeTimers({ toFake: ['requestAnimationFrame', 'cancelAnimationFrame'] });
+          renderer.setCameraPreferences({ preset: 'overview', zoom: 0 });
+          vi.runAllTimers();
+          vi.useRealTimers();
+          let exported = renderer.exportPresentationScene();
+          expectPlayerRoots(exported.scene, canonical.players);
+          const metrics = renderer.getPresentationMetrics();
+          expect(metrics.stadiumArchetype).toBe(archetype);
+          expect(metrics.activeAnimatedModels).toBe(22);
+          expect(metrics.crowdInstances).toBeGreaterThan(0);
+          expect(metrics.crowdInstances).toBeLessThan(2500);
+          expect(metrics.sharedGeometries).toBeLessThan(metrics.sceneMeshes);
+          expect(exported.scene.getObjectByName('cosmetic-stadium')?.userData.decoration).toBe(
+            true,
+          );
+          const crowd = exported.scene.getObjectByName('static-crowd-silhouette')!;
+          expect(crowd).toBeInstanceOf(THREE.InstancedMesh);
+          expect((crowd as THREE.InstancedMesh).count).toBe(metrics.crowdInstances);
+          if (output)
+            renderSvg(
+              exported.scene,
+              exported.camera,
+              `stadium-${archetype}`,
+              `PR161 | ${archetype} | real scene / SVG software render`,
+            );
+          for (let tick = 0; tick < renderSamples; tick++)
+            renderer.render({ ...canonical, timestampMs: canonical.timestampMs + tick * 16.667 });
+          expect(renderer.getPresentationMetrics().renderSamples - metrics.renderSamples).toBe(
+            renderSamples,
+          );
+          reports.push({ scene: 'canonical-22-body', ...renderer.getPresentationMetrics() });
+          if (archetype === 'community') {
+            renderer.render(fixture);
+            renderer.setCameraPreferences({ preset: 'overhead', zoom: 0.5 });
+            renderer.setDiagnostics({
+              movement: true,
+              shape: true,
+              assignments: true,
+              contacts: true,
+              ball: true,
+            });
+            exported = renderer.exportPresentationScene();
+            expectPlayerRoots(exported.scene, fixture.players);
+            const lines = exported.scene.getObjectByName('read-only-tactical-diagnostics')!;
+            expect(lines).toBeInstanceOf(THREE.LineSegments);
+            expect(lines.visible).toBe(true);
+            expect((lines as THREE.LineSegments).geometry.drawRange.count).toBeGreaterThan(0);
+            expect(
+              host.querySelector('[data-tactical-diagnostic-id="carrier"]')?.textContent,
+            ).toContain('7 kontaktów');
+            if (output)
+              renderSvg(
+                exported.scene,
+                exported.camera,
+                'tactical-diagnostic',
+                'PR161 | synthetic diagnostic | yellow: movement, blue: anchor, purple: tactical',
+              );
+          }
+          for (let tick = 0; tick < renderSamples; tick++)
+            renderer.render({ ...fixture, timestampMs: fixture.timestampMs + tick * 16.667 });
+          expect(renderer.getPresentationMetrics().activeAnimatedModels).toBe(8);
+          expectPlayerRoots(renderer.exportPresentationScene().scene, fixture.players);
+          reports.push({
+            scene: 'diagnostic-8-body-cumulative',
+            ...renderer.getPresentationMetrics(),
+          });
+        } finally {
+          renderer.dispose();
+          host.remove();
+        }
+      }
+      if (output)
+        writeFileSync(
+          resolve(output, 'renderer-metrics.json'),
+          JSON.stringify(
+            {
+              method:
+                'Real CPU scene updates with mocked WebGL; draw calls / GPU / FPS unmeasured.',
+              reports,
+            },
+            null,
+            2,
+          ),
+        );
+    },
+    output ? 30_000 : 5_000,
+  );
 
   it('exports the actual articulated rig poses without moving any fixture root for animation', () => {
     const scene = new THREE.Scene();

@@ -148,11 +148,22 @@ the compact condition display separates long-term capacity and burst readiness.
 ## Verification and performance
 
 The final frozen `npm run verify` passes lint, **1529 main tests in 182 files**,
-**5 full-career tests**, TypeScript and the production build. The external Windows
-npm wrapper limits main workers to one; repository scripts/exclusions are unchanged.
+**5 full-career tests**, TypeScript and the production build. The CI-fix rerun uses
+`VITEST_MAX_WORKERS=2` on Windows, matching CI; repository scripts/exclusions are unchanged.
 Existing Vite warnings concern the shared careerStorage import and bundle size.
 The machine [verification record](performance/PR161-verification.json) includes
 source fingerprints and explicit review limits.
+
+CI follow-up: the initial Ubuntu quality run failed only because the combined
+stadium evidence test took **5,805 ms**, exceeding Vitest's default **5,000 ms**.
+Ordinary CI now checks both real stadium scenes, all 22 canonical/8 diagnostic
+player roots, instanced crowds and live diagnostic labels with two update samples.
+The four full software SVG exports and 300-sample measurements remain available
+through `MFL_PR161_VISUAL_OUTPUT`; that explicit export uses a bounded 30-second
+test timeout. The normal CI timeout remains five seconds, and the small actual-rig
+SVG rendering check still runs unconditionally. Focused validation with two workers
+passes all 18 tests: the stadium test takes **339 ms** without export and **3,207 ms**
+with the complete export. Renderers, hosts, mocks and timers are cleaned up on failure.
 
 Three alternating fresh-process **120 s** before/after pairs use the existing fixture
 on the exact merged PR160 source tree, with profiling disabled and no concurrent

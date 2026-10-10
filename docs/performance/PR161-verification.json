@@ -12,7 +12,19 @@
   },
   "typescript": "pass",
   "productionBuild": "pass",
-  "environment": "Windows; workspace-local TEMP/TMP; external npm wrapper limits main workers to one; package scripts unchanged.",
+  "environment": "Windows; workspace-local TEMP/TMP; VITEST_MAX_WORKERS=2 matches CI; package scripts unchanged.",
+  "ciTimeoutFix": {
+    "initialFailedRunId": 38069013365,
+    "initialStadiumTestMs": 5805,
+    "defaultTimeoutMs": 5000,
+    "explicitEvidenceExportTimeoutMs": 30000,
+    "focusedTestsPassed": 18,
+    "focusedWorkers": 2,
+    "stadiumTestWithoutExportMs": 339,
+    "stadiumTestWithFullExportMs": 3207,
+    "softwareSvgExports": 4,
+    "softwareSvgExportsUnchanged": true
+  },
   "buildWarnings": [
     "existing ineffective dynamic import of careerStorage",
     "bundle over 500 kB"
