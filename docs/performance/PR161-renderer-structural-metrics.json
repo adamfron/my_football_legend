@@ -1,0 +1,69 @@
+{
+  "method": "Real CPU scene updates with mocked WebGL; draw calls / GPU / FPS unmeasured.",
+  "reports": [
+    {
+      "scene": "canonical-22-body",
+      "renderSamples": 301,
+      "averageCpuMs": 0.06437774086378285,
+      "maxCpuMs": 2.31269999999995,
+      "activeAnimatedModels": 22,
+      "cachedModels": 22,
+      "sceneMeshes": 710,
+      "sharedGeometries": 181,
+      "crowdInstances": 512,
+      "stadiumArchetype": "community",
+      "stadiumDetail": "standard",
+      "drawCalls": null,
+      "triangles": null,
+      "diagnosticBufferBytes": 30720
+    },
+    {
+      "scene": "diagnostic-8-body-cumulative",
+      "renderSamples": 604,
+      "averageCpuMs": 0.17044751655626425,
+      "maxCpuMs": 8.13630000000012,
+      "activeAnimatedModels": 8,
+      "cachedModels": 30,
+      "sceneMeshes": 334,
+      "sharedGeometries": 97,
+      "crowdInstances": 512,
+      "stadiumArchetype": "community",
+      "stadiumDetail": "standard",
+      "drawCalls": null,
+      "triangles": null,
+      "diagnosticBufferBytes": 30720
+    },
+    {
+      "scene": "canonical-22-body",
+      "renderSamples": 301,
+      "averageCpuMs": 0.05942425249169442,
+      "maxCpuMs": 0.2705000000005384,
+      "activeAnimatedModels": 22,
+      "cachedModels": 22,
+      "sceneMeshes": 755,
+      "sharedGeometries": 181,
+      "crowdInstances": 1319,
+      "stadiumArchetype": "bowl",
+      "stadiumDetail": "standard",
+      "drawCalls": null,
+      "triangles": null,
+      "diagnosticBufferBytes": 30720
+    },
+    {
+      "scene": "diagnostic-8-body-cumulative",
+      "renderSamples": 601,
+      "averageCpuMs": 0.04821231281196298,
+      "maxCpuMs": 2.202900000000227,
+      "activeAnimatedModels": 8,
+      "cachedModels": 30,
+      "sceneMeshes": 379,
+      "sharedGeometries": 97,
+      "crowdInstances": 1319,
+      "stadiumArchetype": "bowl",
+      "stadiumDetail": "standard",
+      "drawCalls": null,
+      "triangles": null,
+      "diagnosticBufferBytes": 30720
+    }
+  ]
+}

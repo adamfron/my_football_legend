@@ -1,0 +1,824 @@
+{
+  "baseline": "d4b389b",
+  "baselineHead": "9da7e244ce5e3fe53c84304fdb2628e622c18547",
+  "baselineTree": "7a721c0b720e1714a75322e5d5dea686c7ca702c",
+  "seed": "pr161-performance:balanced:a",
+  "seconds": 120,
+  "repetitions": 3,
+  "modes": [
+    "release_minimal",
+    "normal",
+    "dev",
+    "capture"
+  ],
+  "sourceHashes": {
+    "before": "c23a7fe32cb6cdb5cfcfdba0ab2754aa51e2c7c42dfe5072d4b1e857e612d59c",
+    "after": "d5078d6bbc28662d72179c7b54155a9ffc96ee6584fe5157b9e1577b134e8447"
+  },
+  "methodology": "Three alternating before/after pairs, fresh sequential Node processes, existing benchmark fixture and explicit deterministic decision policy, profiling disabled, no concurrent tests; full-state hashes must replay within each revision.",
+  "limitation": "A focused equivalent starting fixture; gameplay can diverge naturally with the boundary acquisition correction. This is not a scoring calibration or broad match performance estimate. Renderer and video capture excluded.",
+  "comparisons": [
+    {
+      "mode": "release_minimal",
+      "beforeMedianMs": 3582.7117000000044,
+      "afterMedianMs": 3591.249900000005,
+      "changePercent": 0.23831669179521509,
+      "beforeRangeMs": [
+        3548.0096999999946,
+        3614.3426999999965
+      ],
+      "afterRangeMs": [
+        3560.0962999999965,
+        3629.235400000001
+      ]
+    },
+    {
+      "mode": "normal",
+      "beforeMedianMs": 3452.1505999999927,
+      "afterMedianMs": 3562.693,
+      "changePercent": 3.2021314481473606,
+      "beforeRangeMs": [
+        3363.1129999999976,
+        3529.220899999995
+      ],
+      "afterRangeMs": [
+        3556.078700000001,
+        3607.419099999993
+      ]
+    },
+    {
+      "mode": "dev",
+      "beforeMedianMs": 3446.9383999999973,
+      "afterMedianMs": 3534.3521000000055,
+      "changePercent": 2.5359809157021296,
+      "beforeRangeMs": [
+        3334.8272000000006,
+        3595.713300000005
+      ],
+      "afterRangeMs": [
+        3496.2225000000217,
+        3552.440800000026
+      ]
+    },
+    {
+      "mode": "capture",
+      "beforeMedianMs": 20889.669600000037,
+      "afterMedianMs": 21328.088400000015,
+      "changePercent": 2.098734965152227,
+      "beforeRangeMs": [
+        20650.872099999982,
+        21010.217999999993
+      ],
+      "afterRangeMs": [
+        21184.523900000022,
+        21542.33479999997
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "revision": "before",
+      "repetition": 1,
+      "mode": "release_minimal",
+      "elapsedMs": 3582.7117000000044,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 1,
+      "mode": "normal",
+      "elapsedMs": 3363.1129999999976,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 1,
+      "mode": "dev",
+      "elapsedMs": 3334.8272000000006,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 1,
+      "mode": "capture",
+      "elapsedMs": 21010.217999999993,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 1,
+      "mode": "release_minimal",
+      "elapsedMs": 3629.235400000001,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 1,
+      "mode": "normal",
+      "elapsedMs": 3562.693,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 1,
+      "mode": "dev",
+      "elapsedMs": 3496.2225000000217,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 1,
+      "mode": "capture",
+      "elapsedMs": 21328.088400000015,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 2,
+      "mode": "release_minimal",
+      "elapsedMs": 3560.0962999999965,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 2,
+      "mode": "normal",
+      "elapsedMs": 3556.078700000001,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 2,
+      "mode": "dev",
+      "elapsedMs": 3534.3521000000055,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 2,
+      "mode": "capture",
+      "elapsedMs": 21184.523900000022,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 2,
+      "mode": "release_minimal",
+      "elapsedMs": 3548.0096999999946,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 2,
+      "mode": "normal",
+      "elapsedMs": 3452.1505999999927,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 2,
+      "mode": "dev",
+      "elapsedMs": 3595.713300000005,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 2,
+      "mode": "capture",
+      "elapsedMs": 20889.669600000037,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 3,
+      "mode": "release_minimal",
+      "elapsedMs": 3614.3426999999965,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 3,
+      "mode": "normal",
+      "elapsedMs": 3529.220899999995,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 3,
+      "mode": "dev",
+      "elapsedMs": 3446.9383999999973,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 3,
+      "mode": "capture",
+      "elapsedMs": 20650.872099999982,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "517c2dfeadbe796e1f87ad2ec6664de98ff52866a42466ddf1647dffc252a17c",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "d4b389b"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 3,
+      "mode": "release_minimal",
+      "elapsedMs": 3591.249900000005,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 3,
+      "mode": "normal",
+      "elapsedMs": 3607.419099999993,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 3,
+      "mode": "dev",
+      "elapsedMs": 3552.440800000026,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 3,
+      "mode": "capture",
+      "elapsedMs": 21542.33479999997,
+      "canonicalSeconds": 120.00000000001016,
+      "ticks": 4800,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "c2173042c0b939ea04c9ea3e95a8f0f23e26c1edcb364cebac24d86b850d339a",
+        "playerState": "2729a4e29a64266eee25ebfbe8dfd8bd491350f4a2cb8be83a901b1f42570784",
+        "statistics": "c4beaf37c5a44e6c9c6abd3184445e90b6eb01876f1d9c6663c08b955eab021c",
+        "majorEventSequence": "c1235e62212a9655a0ba9a5632be6dd9bbaba12e7edb27588bf02afbff97fff1",
+        "majorEventCount": 42,
+        "randomnessEvidence": "479b1ea069f59198a3a9b81e14ea897f21010a2fd83ddb875392be8d6efcd626"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR161-working-tree"
+      }
+    }
+  ]
+}

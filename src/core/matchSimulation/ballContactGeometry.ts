@@ -22,6 +22,7 @@ export type ContactBodyRegion = z.infer<typeof contactBodyRegionSchema>;
 const unit = z.object({ x: z.number().min(-1).max(1), y: z.number().min(-1).max(1) });
 export const physicalContactPlanSchema = z.object({
   actorId: z.string(),
+  /** Intended region of the plan; the finite reach model has no independent limb solver. */
   region: contactBodyRegionSchema,
   intendedPosition: physicalPointSchema,
   earliestAt: z.number().nonnegative(),
@@ -31,6 +32,23 @@ export const physicalContactPlanSchema = z.object({
   difficulty: z.number().min(0).max(1),
 });
 export type PhysicalContactPlan = z.infer<typeof physicalContactPlanSchema>;
+/** One latest executed impulse/failed plan, never a per-tick contact archive. */
+export const groundContactFactSchema = z.object({
+  actorId: z.string(),
+  at: z.number().nonnegative(),
+  /** The nearest eligible foot on execution; intended region for an unexecuted plan. */
+  region: contactBodyRegionSchema,
+  intendedRegion: contactBodyRegionSchema.optional(),
+  point: physicalPointSchema,
+  incomingVelocity: physicalPointSchema,
+  outgoingVelocity: physicalPointSchema,
+  /** Actual retained impulse efficiency, not an inferred probability of success. */
+  quality: z.number().min(0).max(1).optional(),
+  retained: z.boolean(),
+  executed: z.boolean(),
+  physicalCount: z.number().int().nonnegative(),
+});
+export type GroundContactFact = z.infer<typeof groundContactFactSchema>;
 export const controlledBallContactSchema = z.object({
   actorId: z.string(),
   ownershipStartedAt: z.number().nonnegative(),
@@ -433,6 +451,7 @@ export const advanceControlledBall = (
     x: state.ball.velocity?.x ?? actor.velocity.x,
     y: state.ball.velocity?.y ?? actor.velocity.y,
   };
+  let contactFact: GroundContactFact | undefined;
   const bodyContest = deriveShieldBodyContest({ ...state, controlledBallContact: active }, actor);
   const fitness = deriveFitnessPhysicalModifiers(actor);
   let balance = clamp01(
@@ -477,6 +496,25 @@ export const advanceControlledBall = (
     velocity = {
       x: desired.x * efficiency + velocity.x * (1 - efficiency),
       y: desired.y * efficiency + velocity.y * (1 - efficiency),
+    };
+    contactFact = {
+      actorId: actor.id,
+      at: state.time,
+      region:
+        distance(geometry.leftFoot, state.ball) < distance(geometry.rightFoot, state.ball)
+          ? 'left_foot'
+          : 'right_foot',
+      intendedRegion: active.nextContact.region,
+      point: { x: state.ball.x, y: state.ball.y },
+      incomingVelocity: {
+        x: state.ball.velocity?.x ?? actor.velocity.x,
+        y: state.ball.velocity?.y ?? actor.velocity.y,
+      },
+      outgoingVelocity: { ...velocity },
+      quality: efficiency,
+      retained: true,
+      executed: true,
+      physicalCount: active.physicalContacts + 1,
     };
     balance = clamp01(balance - window.difficulty * (1 - skill) * 0.12);
     active = {
@@ -535,6 +573,7 @@ export const advanceControlledBall = (
     ball,
     controlledBallContact: active,
     contactControlTelemetry: telemetry,
+    ...(contactFact ? { lastGroundContact: contactFact } : {}),
     ...(bodyContest.load > 0
       ? {
           players: state.players.map((player) =>
@@ -551,6 +590,22 @@ export const advanceControlledBall = (
       ? 3.2
       : 2.05;
   if (distance(actor.position, ball) > maximumEnvelope) {
+    next.lastGroundContact = contactFact
+      ? { ...contactFact, retained: false }
+      : {
+          actorId: actor.id,
+          at: state.time,
+          region: active.nextContact.region,
+          point: { x: ball.x, y: ball.y },
+          incomingVelocity: {
+            x: state.ball.velocity?.x ?? actor.velocity.x,
+            y: state.ball.velocity?.y ?? actor.velocity.y,
+          },
+          outgoingVelocity: { ...rolled.velocity },
+          retained: false,
+          executed: false,
+          physicalCount: active.physicalContacts,
+        };
     next.contactControlTelemetry = { ...telemetry, failedControls: telemetry.failedControls + 1 };
     delete next.controlledBallContact;
     next.pendingPossessionLoss = {

@@ -1,0 +1,30 @@
+{
+  "command": "npm run verify",
+  "exitCode": 0,
+  "lint": "pass",
+  "main": {
+    "files": 182,
+    "tests": 1529
+  },
+  "fullCareer": {
+    "files": 1,
+    "tests": 5
+  },
+  "typescript": "pass",
+  "productionBuild": "pass",
+  "environment": "Windows; workspace-local TEMP/TMP; external npm wrapper limits main workers to one; package scripts unchanged.",
+  "buildWarnings": [
+    "existing ineffective dynamic import of careerStorage",
+    "bundle over 500 kB"
+  ],
+  "headlessModesInvariant": true,
+  "presentationObserverCanonicalInvariant": true,
+  "sourceHashes": {
+    "before": "c23a7fe32cb6cdb5cfcfdba0ab2754aa51e2c7c42dfe5072d4b1e857e612d59c",
+    "after": "d5078d6bbc28662d72179c7b54155a9ffc96ee6584fe5157b9e1577b134e8447"
+  },
+  "limitations": [
+    "SVG software evidence; browser WebGL/FPS and live UI layout unverified",
+    "equivalent boundary geometry, unavailable complete original export"
+  ]
+}

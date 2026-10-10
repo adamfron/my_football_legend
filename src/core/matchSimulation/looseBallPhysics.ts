@@ -4,12 +4,17 @@ import {
   distance,
   pitchPointSchema,
   teamSideSchema,
+  toPitchPoint,
   type PhysicalPoint,
   type PitchPoint,
   type TeamSide,
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
-import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
+import {
+  findPitchBoundaryCrossing,
+  isBallWithinPlayingBoundary,
+  type PitchBoundaryCrossing,
+} from './pitchBoundary';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { canContactAfterThrowIn } from './throwIn';
 import { BALL_PHYSICS, integrateGroundRolling } from './ballPhysics';
@@ -63,8 +68,10 @@ export const predictLooseBallIntercept = (
   const predicted = rollLooseBall(ball, velocity, horizon).position;
   const crossing = findPitchBoundaryCrossing(ball, predicted);
   if (crossing) return { kind: 'boundary', crossing };
-  const playable = pitchPointSchema.safeParse(predicted);
-  return playable.success ? { kind: 'in_play', point: playable.data } : { kind: 'boundary' };
+  if (!isBallWithinPlayingBoundary(predicted)) return { kind: 'boundary' };
+  // Only the player's approach target is constrained to its movement envelope. The
+  // actual ball is neither moved nor treated as out because its centre crossed paint.
+  return { kind: 'in_play', point: toPitchPoint(predicted) };
 };
 
 export const looseBallAssignmentSchema = z.object({
@@ -109,12 +116,11 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
       boundaryTime = (evaluated.at(-1)?.ballArrivalTime ?? 0) + crossing.segmentFraction * 0.25;
       break;
     }
-    const playable = pitchPointSchema.safeParse(interceptPoint);
-    if (!playable.success) {
+    if (!isBallWithinPlayingBoundary(interceptPoint)) {
       crossedBoundary = true;
       break;
     }
-    const playablePoint = playable.data;
+    const playablePoint = toPitchPoint(interceptPoint);
     const candidates = state.players.flatMap((player) => {
       if (!canContactAfterThrowIn(state, player.id)) return [];
       const goalkeeper = isMatchGoalkeeper(player);
@@ -138,7 +144,8 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
       ];
     });
     evaluated.push({ ballArrivalTime, candidates });
-    previousPoint = playablePoint;
+    // Boundary evidence follows the raw ball path, never its constrained approach target.
+    previousPoint = interceptPoint;
   }
   const reachable = evaluated.find(({ candidates }) =>
     candidates.some(

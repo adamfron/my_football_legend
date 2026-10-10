@@ -42,10 +42,24 @@ export class PlayerModel {
   readonly rightHand = new THREE.Object3D();
   readonly picker: THREE.Mesh;
   private readonly pose = createPlayerPose();
+  private readonly shirtMeshes: THREE.Mesh[] = [];
+  private readonly trimMeshes: THREE.Mesh[] = [];
+  private readonly socksMeshes: THREE.Mesh[] = [];
+  private readonly handMeshes: THREE.Mesh[] = [];
+  private readonly patternMeshes: THREE.Mesh[] = [];
+  private readonly shortsMesh: THREE.Mesh;
+  private goalkeeperRole: boolean;
+  private readonly skinColor: number;
 
-  constructor(player: TacticalPlayer, kit: KitPresentation, resources: PlayerModelResources) {
+  constructor(
+    player: TacticalPlayer,
+    private readonly kit: KitPresentation,
+    private readonly resources: PlayerModelResources,
+  ) {
     const dimensions = projectBodyDimensions(player);
     const appearance = derivePlayerAppearance(player.id);
+    this.goalkeeperRole = Boolean(player.goalkeeper);
+    this.skinColor = appearance.skinColor;
     this.root.userData.playerId = player.id;
     this.body.scale.set(dimensions.width, dimensions.height / 1.8, dimensions.width);
     this.root.add(this.body);
@@ -66,14 +80,21 @@ export class PlayerModel {
     const trim = player.goalkeeper ? kit.goalkeeper.accent : kit.secondary;
     this.torso.position.y = 0.9;
     this.body.add(this.torso);
-    mesh(this.torso, resources.cylinder, shirt, [0.255, 0.54, 0.17], [0, 0.31, 0]);
+    this.shirtMeshes.push(
+      mesh(this.torso, resources.cylinder, shirt, [0.255, 0.54, 0.17], [0, 0.31, 0]),
+    );
     // Small shoulder panels and collar keep solid canonical kits readable too.
-    mesh(this.torso, resources.box, trim, [0.13, 0.11, 0.29], [-0.22, 0.52, 0]);
-    mesh(this.torso, resources.box, trim, [0.13, 0.11, 0.29], [0.22, 0.52, 0]);
-    mesh(this.torso, resources.box, trim, [0.16, 0.04, 0.27], [0, 0.59, 0]);
+    this.trimMeshes.push(
+      mesh(this.torso, resources.box, trim, [0.13, 0.11, 0.29], [-0.22, 0.52, 0]),
+    );
+    this.trimMeshes.push(
+      mesh(this.torso, resources.box, trim, [0.13, 0.11, 0.29], [0.22, 0.52, 0]),
+    );
+    this.trimMeshes.push(mesh(this.torso, resources.box, trim, [0.16, 0.04, 0.27], [0, 0.59, 0]));
     const panel = (w: number, h: number, x: number, y: number, angle = 0) => {
       const patch = mesh(this.torso, resources.box, trim, [w, h, 0.012], [x, y, 0.174]);
       patch.rotation.z = angle;
+      this.patternMeshes.push(patch);
     };
     if (!player.goalkeeper) {
       if (kit.pattern === 'vertical_stripes')
@@ -82,7 +103,7 @@ export class PlayerModel {
       if (kit.pattern === 'hoops') for (const y of [0.17, 0.32, 0.47]) panel(0.42, 0.055, 0, y);
       if (kit.pattern === 'sash') panel(0.08, 0.54, 0, 0.31, -0.6);
     }
-    mesh(
+    this.shortsMesh = mesh(
       this.body,
       resources.box,
       player.goalkeeper ? shirt : kit.shorts,
@@ -119,29 +140,35 @@ export class PlayerModel {
       mesh(hip, resources.cylinder, appearance.skinColor, [0.085, 0.38, 0.085], [0, -0.19, 0]);
       knee.position.y = -0.38;
       hip.add(knee);
-      mesh(
-        knee,
-        resources.cylinder,
-        player.goalkeeper ? shirt : kit.socks,
-        [0.065, 0.36, 0.065],
-        [0, -0.18, 0],
+      this.socksMeshes.push(
+        mesh(
+          knee,
+          resources.cylinder,
+          player.goalkeeper ? shirt : kit.socks,
+          [0.065, 0.36, 0.065],
+          [0, -0.18, 0],
+        ),
       );
       const boot = mesh(knee, resources.box, '#181c1d', [0.13, 0.12, 0.26], [0, -0.41, 0.06]);
       boot.userData.orientationFeature = 'local_forward_boot';
       arm.position.set(side * 0.29, 0.5, 0);
       this.torso.add(arm);
-      mesh(arm, resources.cylinder, shirt, [0.075, 0.23, 0.075], [0, -0.115, 0]);
+      this.shirtMeshes.push(
+        mesh(arm, resources.cylinder, shirt, [0.075, 0.23, 0.075], [0, -0.115, 0]),
+      );
       elbow.position.y = -0.23;
       arm.add(elbow);
       mesh(elbow, resources.cylinder, appearance.skinColor, [0.055, 0.22, 0.055], [0, -0.11, 0]);
       hand.position.y = -0.25;
       elbow.add(hand);
-      mesh(
-        hand,
-        resources.sphere,
-        player.goalkeeper ? '#eee9ce' : appearance.skinColor,
-        [0.065, 0.075, 0.06],
-        [0, 0, 0],
+      this.handMeshes.push(
+        mesh(
+          hand,
+          resources.sphere,
+          player.goalkeeper ? '#eee9ce' : appearance.skinColor,
+          [0.065, 0.075, 0.06],
+          [0, 0, 0],
+        ),
       );
     }
     this.picker = new THREE.Mesh(resources.picker, resources.pickerMaterial);
@@ -151,14 +178,34 @@ export class PlayerModel {
   }
 
   update(player: TacticalPlayer, timestampMs: number) {
+    if (Boolean(player.goalkeeper) !== this.goalkeeperRole) {
+      this.goalkeeperRole = Boolean(player.goalkeeper);
+      const shirt = player.goalkeeper ? this.kit.goalkeeper.primary : this.kit.primary;
+      const trim = player.goalkeeper ? this.kit.goalkeeper.accent : this.kit.secondary;
+      for (const mesh of this.shirtMeshes) mesh.material = this.resources.material(shirt);
+      for (const mesh of this.trimMeshes) mesh.material = this.resources.material(trim);
+      for (const mesh of this.socksMeshes)
+        mesh.material = this.resources.material(player.goalkeeper ? shirt : this.kit.socks);
+      for (const mesh of this.handMeshes)
+        mesh.material = this.resources.material(player.goalkeeper ? '#eee9ce' : this.skinColor);
+      for (const mesh of this.patternMeshes) mesh.visible = !player.goalkeeper;
+      this.shortsMesh.material = this.resources.material(
+        player.goalkeeper ? shirt : this.kit.shorts,
+      );
+    }
+    this.root.userData.participation = player.participation ?? 'active';
+    this.root.userData.goalkeeperRole = Boolean(player.goalkeeper);
     const pose = derivePlayerPose(player, timestampMs, this.pose);
     this.body.position.y = pose.lift - pose.crouch;
     this.body.rotation.z = pose.roll;
     this.torso.rotation.x = pose.lean;
+    this.torso.rotation.y = pose.torsoYaw;
     this.head.rotation.x = pose.head;
     this.head.rotation.y = pose.headYaw;
     this.leftHip.rotation.x = pose.hipLeft;
     this.rightHip.rotation.x = pose.hipRight;
+    this.leftHip.rotation.z = pose.hipSpread;
+    this.rightHip.rotation.z = pose.hipSpread;
     this.leftKnee.rotation.x = pose.kneeLeft;
     this.rightKnee.rotation.x = pose.kneeRight;
     this.leftArm.rotation.set(pose.armLeft, 0, -pose.armSpread);

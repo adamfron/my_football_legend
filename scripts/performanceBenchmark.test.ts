@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../src/core/singleMatch';
 import * as matchSimulation from '../src/core/matchSimulation/matchSimulation';
+import { CONTEXT_MAX_SAMPLES } from '../src/app/match/tacticalRenderer/contextHistory';
 import {
   assertCanonicalBenchmarkEquality,
   canonicalHash,
@@ -83,7 +84,8 @@ describe('PR146 deterministic performance harness', () => {
       expect(result.profile.sampledTicks).toBe(0);
       expect(result.planning.plansRecomputed + result.planning.plansReused).toBe(result.ticks);
       expect(result.planning.plansReused).toBeGreaterThan(result.planning.plansRecomputed);
-      expect(result.context.samplesRetained).toBeLessThanOrEqual(62);
+      expect(result.context.capacity).toBe(CONTEXT_MAX_SAMPLES);
+      expect(result.context.samplesRetained).toBeLessThanOrEqual(CONTEXT_MAX_SAMPLES);
       expect(result.defensiveTelemetry).toEqual(results[0]!.defensiveTelemetry);
       expect(result.discipline).toEqual(results[0]!.discipline);
       for (const bucket of result.buckets) {

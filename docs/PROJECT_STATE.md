@@ -1,5 +1,29 @@
 # My Football Legend — Current Project State
 
+## PR161 — Match Presentation, Replay, Stadium Polish & Boundary-Ball Liveness
+
+Baza: scalony PR160 / `main`, `d4b389b3db5e14e9ebc61bb1ec8bce21e3557a85`.
+Wdrożono wspólne fakty kanonicznej prezentacji, kontakty/keyframes, oddzielne
+tożsamości zmian, overhead/diagnostykę, sterowanie replay, zegar okresu/doliczenia,
+dwie rezerwy w UI i kosmetyczne stadiony stabilne dla klubu.
+
+Potwierdzono w równoważnym fixture `lab-mv2640wz` niezgodność legalnego środka piłki
+z walidacją celu acquisition: y=-0,0324 odrzucało pursuit mimo piłki nadal w grze.
+Poprawka pozostawia prawdziwą piłkę i istniejący zasięg stopy; odzyskanie po 0,775 s,
+12/12 przypadków granicy, realny release i open play po prawidłowym aucie. Oryginalnego
+pełnego eksportu nie dostarczono. Renderer/replay nie rozstrzygają futbolu.
+
+Pełne `npm run verify`: lint, 1529 testów głównych/182 pliki, 5 testów kariery,
+TypeScript i build PASS. Medianowy koszt minimalnego fixture +0,24%; osobny zapis
+replay/context +16,48%. Mecz kontrolny kończy się przy 90+1: 877 prób podań,
+1100 kontaktów publicznych, 5 zmian, 0 strzałów; bez zakleszczenia.
+Wyniki wszystkich trybów i 30 odpowiedzi: [raport PR161](PR161_MATCH_PRESENTATION_REPLAY_STADIUM.md).
+Małe eksporty rzeczywistej sceny/rigów SVG są dowodem software; natywne WebGL/FPS
+i układ UI wymagają interaktywnego przeglądu po timeout lokalnej przeglądarki narzędziowej.
+Następnie **Combined Match Engine Realism & Playability Audit**. Zero/niski wolumen
+strzałów, udział CM, obroty, sztywne odtwarzanie formacji i contest/ranking nadal otwarte.
+Poniższe wyniki PR160 i starszych etapów zachowano jako historię.
+
 ## PR160 — Fatigue, Injuries, Substitutions & Added Time
 
 Baza: scalony PR159, `09c05fa9c09edf89cd8310485a61560eb67e4cde`.

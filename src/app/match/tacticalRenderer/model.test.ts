@@ -114,10 +114,10 @@ describe('tactical presentation model', () => {
       ).lookAt,
     ).toEqual(tacticalToWorld({ x: 40, y: 20 }));
   });
-  it('projects an owned ball to the feet without changing a ball in flight', () => {
+  it('preserves recorded owned-ball position even when sparse frames have no contact hints', () => {
     const frame = structuredClone(createTacticalScenarios()[0]!.sequence.frames[0]!);
     frame.ball = { x: frame.players[0]!.x, y: frame.players[0]!.y, ownerId: frame.players[0]!.id };
-    expect(deriveOwnedBallPose(frame)).not.toEqual(frame.ball);
+    expect(deriveOwnedBallPose(frame)).toBe(frame.ball);
     frame.ball.height = 1;
     expect(deriveOwnedBallPose(frame)).toBe(frame.ball);
   });

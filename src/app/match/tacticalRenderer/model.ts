@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { canonicalActionEventSchema } from '../../../core/matchSimulation/actionEvents';
 import { shotContactSchema, shotIntentSchema } from '../../../core/matchSimulation/shotIntent';
 import { restartPhaseSchema } from '../../../core/matchSimulation/matchState';
+import { physicalPointSchema } from '../../../core/matchSimulation/matchSpace';
+import { canonicalPlayerPresentationShape } from '../../../core/matchSimulation/canonicalPresentation';
 import {
   goalIntentToPitch,
   pitchToGoalIntent,
@@ -40,7 +42,8 @@ export const tacticalPointSchema = z.object({
   x: z.number().min(0).max(PITCH_LENGTH),
   y: z.number().min(0).max(PITCH_WIDTH),
 });
-export const tacticalPlayerSchema = tacticalPointSchema.extend({
+export const tacticalPlayerSchema = physicalPointSchema.extend({
+  ...canonicalPlayerPresentationShape,
   id: z.string().min(1),
   team: z.enum(['home', 'away']),
   facing: z.number().optional(),
@@ -74,13 +77,15 @@ export const tacticalPlayerSchema = tacticalPointSchema.extend({
   protagonist: z.boolean().optional(),
   goalkeeper: z.boolean().optional(),
   displayNumber: z.number().int().min(1).max(99).optional(),
-  target: tacticalPointSchema.optional(),
-  anchor: tacticalPointSchema.optional(),
-  idealTarget: tacticalPointSchema.optional(),
+  target: physicalPointSchema.optional(),
+  anchor: physicalPointSchema.optional(),
+  idealTarget: physicalPointSchema.optional(),
 });
-export const tacticalBallSchema = tacticalPointSchema.extend({
+export const tacticalBallSchema = physicalPointSchema.extend({
   height: z.number().nonnegative().optional(),
   ownerId: z.string().optional(),
+  radius: z.number().positive().optional(),
+  velocity: physicalPointSchema.extend({ z: z.number().finite().optional() }).optional(),
 });
 export const kitPresentationSchema = z.object({
   primary: z.string(),
@@ -120,6 +125,8 @@ export const tacticalFrameSchema = z.object({
   /** Persistent canonical roster boundary, independent of short-lived action labels. */
   dismissals: z.record(z.string(), z.number().nonnegative().finite()).optional(),
   continuity: z.string().optional(),
+  ballContinuity: z.string().optional(),
+  keyframe: z.boolean().optional(),
   restart: z
     .object({
       spot: tacticalPointSchema,
@@ -128,6 +135,9 @@ export const tacticalFrameSchema = z.object({
       wallIds: z.array(z.string()).max(22),
       deliveryTarget: tacticalPointSchema.optional(),
       ready: z.boolean(),
+      scenario: z.string().optional(),
+      blockers: z.array(z.string()).max(48).optional(),
+      retrievalStage: z.enum(['approach', 'transport', 'placed']).optional(),
     })
     .optional(),
   actionableTargets: z.array(z.string()).optional(),
@@ -153,7 +163,7 @@ export type TacticalSequence = z.infer<typeof tacticalSequenceSchema>;
 export const presentationTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('player'), playerId: z.string() }),
   z.object({ kind: z.literal('pitch'), point: tacticalPointSchema }),
-  z.object({ kind: z.literal('ball'), point: tacticalPointSchema }),
+  z.object({ kind: z.literal('ball'), point: physicalPointSchema }),
   z.object({ kind: z.literal('goal'), side: z.enum(['home', 'away']) }),
 ]);
 export type PresentationTarget = z.infer<typeof presentationTargetSchema>;
@@ -200,7 +210,7 @@ export const selectScreenSpacePlayerCandidate = (
 export const matchCameraModeSchema = z.enum(['tactical', 'shot_aim', 'goal_replay']);
 export type MatchCameraMode = z.infer<typeof matchCameraModeSchema>;
 export const matchCameraPreferencesSchema = z.object({
-  preset: z.enum(['overview', 'action', 'player_focus']),
+  preset: z.enum(['overview', 'action', 'player_focus', 'overhead']),
   zoom: z.number().min(0).max(1),
 });
 export type MatchCameraPreferences = z.infer<typeof matchCameraPreferencesSchema>;
@@ -209,27 +219,8 @@ export const DEFAULT_MATCH_CAMERA_PREFERENCES: MatchCameraPreferences = {
   zoom: 0.35,
 };
 
-/** Presentation-only owned-ball pose. Canonical ownership coordinates remain untouched. */
-export const deriveOwnedBallPose = (frame: TacticalFrame): TacticalBall => {
-  if (!frame.ball.ownerId || (frame.ball.height ?? 0) > 0.05) return frame.ball;
-  const owner = frame.players.find((player) => player.id === frame.ball.ownerId);
-  if (!owner) return frame.ball;
-  // Preparation places each touch and shield canonically. Preserve the recorded ball offset.
-  if (owner.canonicalBallPlacement) return frame.ball;
-  const facing = owner.facing ?? (owner.team === 'home' ? Math.PI / 2 : -Math.PI / 2);
-  const distance =
-    frame.carryMode === 'burst'
-      ? 1.35
-      : frame.carryMode === 'tight_dribble' || frame.carryMode === 'shield'
-        ? 0.38
-        : 0.72;
-  return {
-    ...frame.ball,
-    x: owner.x + Math.sin(facing) * distance,
-    y: owner.y + Math.cos(facing) * distance,
-    height: 0,
-  };
-};
+/** Canonical owned-ball coordinates remain exact, including sparse legacy snapshots. */
+export const deriveOwnedBallPose = (frame: TacticalFrame): TacticalBall => frame.ball;
 
 export const shotAimIntentSchema = z.object({
   horizontal: z.number().min(-1).max(1),

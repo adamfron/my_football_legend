@@ -12,9 +12,13 @@ import { ViewportVideoRecorder } from './matchDebugCapture';
 import { RunningLab } from './TacticalMatchSandbox';
 import { MatchReplayHistory } from '../../core/matchSimulation/matchReplay';
 import { stepTacticalMatchAfterDecisionProbe } from '../../core/matchSimulation/matchSimulation';
+import { applyRestartScenario } from '../../core/matchSimulation/restartScenarios';
+import { requestSubstitutions } from '../../core/matchSimulation/substitutions';
+import { isEligibleForNormalPosition } from '../../core/footballerWorld';
 
 const observed = vi.hoisted(() => ({
   render: vi.fn(),
+  presentationActive: vi.fn(),
   reportRenderer: undefined as ((error?: string) => void) | undefined,
   step: vi.fn<(state: TacticalMatchState, delta: number) => TacticalMatchState>(),
   agency: vi.fn<
@@ -53,6 +57,10 @@ vi.mock('./tacticalRenderer/TacticalPitchRenderer', () => ({
     render = observed.render;
     setCameraMode() {}
     setCameraPreferences() {}
+    setDiagnostics() {}
+    setStadiumDetail() {}
+    setReplayCamera() {}
+    setPresentationActive = observed.presentationActive;
     getCanvas() {
       return document.createElement('canvas');
     }
@@ -71,6 +79,7 @@ describe('background Match Lab orchestration', () => {
     ).IS_REACT_ACT_ENVIRONMENT = true;
     vi.useFakeTimers();
     observed.render.mockClear();
+    observed.presentationActive.mockClear();
     observed.step.mockReset();
     observed.step.mockImplementation((state, delta) => ({ ...state, time: state.time + delta }));
     observed.agency.mockReset();
@@ -135,6 +144,22 @@ describe('background Match Lab orchestration', () => {
     expect(observed.render).not.toHaveBeenCalled();
     expect(capture).not.toHaveBeenCalled();
     expect(ViewportVideoRecorder.prototype.start).not.toHaveBeenCalled();
+  });
+
+  it('deactivates the viewer in background and passes current football before visibility restoration', () => {
+    expect(observed.presentationActive).toHaveBeenLastCalledWith(false);
+    act(() => vi.advanceTimersByTime(5));
+    const current = controller.latestState;
+    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    act(() => {
+      policy.value = 'full_match';
+      policy.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    const activation = observed.presentationActive.mock.lastCall!;
+    expect(activation[0]).toBe(true);
+    expect(activation[1].timestampMs).toBeCloseTo(current.time * 1000);
+    expect(activation[1].ball).toMatchObject({ x: current.ball.x, y: current.ball.y });
+    expect(controller.latestState).toBe(current);
   });
 
   it('publishes hidden goals to Match Centre without rendering the missed football', () => {
@@ -327,6 +352,167 @@ describe('background Match Lab orchestration', () => {
       expect(container.querySelector('.match-status-title')!.textContent).toBe('GRA AUTONOMICZNA');
     },
   );
+
+  it('keeps football frozen through replay pause, speed, restart and camera changes, then resumes live', () => {
+    const initial = controller.latestState;
+    const goal = {
+      id: 'viewer-goal',
+      replayKey: 'viewer-goal',
+      at: 0.2,
+      kind: 'goal' as const,
+      team: 'home' as const,
+    };
+    const recording = new MatchReplayHistory();
+    recording.observe(initial);
+    recording.observe({ ...initial, time: 0.2, matchEvents: [goal] });
+    recording.observe({ ...initial, time: 0.4, matchEvents: [goal] });
+    vi.spyOn(MatchReplayHistory.prototype, 'hasWindow').mockReturnValue(true);
+    vi.spyOn(MatchReplayHistory.prototype, 'getWindow').mockReturnValue({
+      ...recording.getWindow(goal.replayKey)!,
+      complete: true,
+    });
+    observed.step.mockImplementation((state, delta) => ({
+      ...state,
+      time: state.time + delta,
+      matchEvents: [goal],
+    }));
+    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    act(() => {
+      policy.value = 'full_match';
+      policy.dispatchEvent(new Event('change', { bubbles: true }));
+      vi.advanceTimersByTime(80);
+    });
+    act(() =>
+      container
+        .querySelector<HTMLButtonElement>('.match-centre button[aria-label^="Powtórka:"]')!
+        .click(),
+    );
+    const frozen = JSON.stringify(controller.latestState);
+    const steps = observed.step.mock.calls.length;
+    const buttons = () => [
+      ...container.querySelectorAll<HTMLButtonElement>('.replay-controls button'),
+    ];
+    act(() =>
+      buttons()
+        .find((button) => button.textContent === 'Pauza powtórki')!
+        .click(),
+    );
+    const speed = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Tempo powtórki"]',
+    )!;
+    act(() => {
+      speed.value = '2';
+      speed.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    const camera = container.querySelector<HTMLSelectElement>(
+      'select[aria-label="Kamera powtórki"]',
+    )!;
+    act(() => {
+      camera.value = 'actors';
+      camera.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    act(() =>
+      buttons()
+        .find((button) => button.textContent === 'Powtórka od początku')!
+        .click(),
+    );
+    act(() => vi.advanceTimersByTime(1000));
+    expect(JSON.stringify(controller.latestState)).toBe(frozen);
+    expect(observed.step).toHaveBeenCalledTimes(steps);
+    act(() =>
+      buttons()
+        .find((button) => button.textContent === 'Wróć do meczu')!
+        .click(),
+    );
+    act(() => vi.advanceTimersByTime(80));
+    expect(controller.latestState.time).toBeGreaterThan(JSON.parse(frozen).time);
+  });
+
+  it('shows the spectator transition after a real controlled-player substitution without transferring control', () => {
+    const world = createCanonicalWorldDatabase();
+    const setup = { homeClubId: 'pro_9', awayClubId: 'pro_1', seed: 'pr161-controlled-ui-sub' };
+    const squad = createSingleMatchSession(world, { ...setup, control: { mode: 'spectator' } });
+    const footballer = squad.home.players.find(
+      (player) => player.profile.primaryPosition !== 'goalkeeper',
+    )!;
+    const session = createSingleMatchSession(world, {
+      ...setup,
+      control: {
+        mode: 'player',
+        clubId: squad.home.club.id,
+        footballerId: footballer.footballerId,
+        forceIntoXI: false,
+      },
+    });
+    controller = new MatchLabDiagnosticsController(
+      session,
+      createTacticalMatch(session),
+      createMatchFlowTelemetry(),
+    );
+    act(() =>
+      root.render(
+        <RunningLab
+          key="controlled-substitution"
+          session={session}
+          diagnostics={controller}
+          onSetup={() => undefined}
+          onRestart={() => undefined}
+          onRandomize={() => undefined}
+        />,
+      ),
+    );
+    expect(container.textContent).not.toContain('Twój piłkarz zakończył udział');
+    const controlledId = controller.latestState.controlledFootballerId!;
+    let incomingId = '';
+    let requested = false;
+    observed.step.mockImplementation((state, delta) => {
+      if (!requested) {
+        // Deterministic legal stoppage/edge geometry; exit and entry use the real canonical step.
+        state = applyRestartScenario(state, 'throw_in');
+        const outgoing = state.players.find((player) => player.id === controlledId)!;
+        const incoming = state.bench!.home.find((player) =>
+          isEligibleForNormalPosition(player.profile, outgoing.slot.position),
+        )!;
+        incomingId = incoming.id;
+        state = {
+          ...state,
+          playerAgencyEnabled: false,
+          players: state.players.map((player) =>
+            player.id === controlledId
+              ? { ...player, position: { x: 52.5, y: 0.2 }, velocity: { x: 0, y: 0 } }
+              : player,
+          ),
+        };
+        state = requestSubstitutions(state, 'home', [{ outgoingId: controlledId, incomingId }]);
+        expect(state.substitutionState!.pending).toHaveLength(1);
+        requested = true;
+      }
+      return stepTacticalMatchAfterDecisionProbe(state, delta);
+    });
+    const policy = container.querySelector<HTMLSelectElement>('nav select')!;
+    act(() => {
+      policy.value = 'key_player';
+      policy.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    act(() => vi.advanceTimersByTime(300));
+    const final = controller.latestState;
+    expect(
+      final.substitutionState!.completed.some(
+        (fact) => fact.outgoingId === controlledId && fact.incomingId === incomingId,
+      ),
+    ).toBe(true);
+    expect(final.controlledFootballerId).toBe(controlledId);
+    expect(final.players.some((player) => player.id === controlledId)).toBe(false);
+    expect(final.players.some((player) => player.id === incomingId)).toBe(true);
+    expect(container.querySelector('.match-centre [role="status"]')?.textContent).toContain(
+      'Obserwujesz dalszy przebieg spotkania',
+    );
+    expect(container.querySelector('.match-moment-options')).toBeNull();
+    const before = final.time;
+    act(() => vi.advanceTimersByTime(20));
+    expect(controller.latestState.time).toBeGreaterThan(before);
+    expect(controller.latestState.controlledFootballerId).toBe(controlledId);
+  }, 30_000);
 
   it('keeps a paused reset clock at zero when an old replay callback arrives before effect cleanup', () => {
     const callbacks: FrameRequestCallback[] = [];
