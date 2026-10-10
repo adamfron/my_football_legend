@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { footballerConditionSchema } from '../core/fitnessRecovery';
 
 export const narrativeVariantSchema = z.object({
   key: z.string().min(1),
@@ -315,6 +316,7 @@ export const worldFootballerSchema = z.object({
   currentClubId: id.optional(),
   reputation: score.optional(),
   fitness: score.optional(),
+  condition: footballerConditionSchema.optional(),
   currentContract: contractSchema.optional(),
 });
 export const professionalOfferSchema = z.object({
@@ -656,6 +658,7 @@ export const careerStateSchema = z.object({
         )
         .optional(),
       footballerAttributeOverrides: z.record(id, playerAttributesSchema.partial()).optional(),
+      footballerConditionOverrides: z.record(id, footballerConditionSchema).optional(),
       npcClubMembership: z.record(id, id.nullable()),
       youthCohortOverrides: z.record(z.string(), z.array(id)).optional(),
       newFootballers: z.record(id, worldFootballerSchema),

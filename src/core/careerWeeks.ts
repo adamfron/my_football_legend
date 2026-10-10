@@ -8,11 +8,11 @@ import type {
 import { hasSeenRegularSeasonEvent } from './history/careerMemory';
 import { RandomGenerator } from './random/RandomGenerator';
 import { createLeagueSeason, settleLeagueRound, VISTULA_NOVA_ID } from './leagueSeason';
-import { getTrainingEffortEffects } from './playerPreferences';
 import { applyTrainingDevelopmentCheckpoint } from './development';
 import { initializeSeasonParticipation } from './seasonParticipation';
 import { scheduleEvent } from './careerCalendar';
 import { contractCoversDate } from './contractValidity';
+import { recoverCareerFitnessToDate } from './careerFitness';
 
 const DAY = 86_400_000;
 export const CAREER_LOOP_START = '2026-08-20';
@@ -353,14 +353,7 @@ export const advanceCareerWeek = (career: CareerState): CareerState => {
   return initializeWeekContent(
     {
       ...developedCareer,
-      player: {
-        ...developedCareer.player,
-        fitness: Math.min(
-          100,
-          developedCareer.player.fitness +
-            getTrainingEffortEffects(developedCareer.player.trainingEffort ?? 3).weeklyRecovery,
-        ),
-      },
+      ...recoverCareerFitnessToDate(developedCareer, next.startDate),
       currentDate:
         !developedCareer.currentDate || next.startDate > developedCareer.currentDate
           ? next.startDate

@@ -31,6 +31,7 @@ import { getFootballerManagerAssignment } from './footballerWorld';
 import { getCurrentSquadSelectionContext } from './youthWorld';
 import { getNextCurrentWeekMoment } from './careerCalendar';
 import { simulateGoalkeeperPerformance } from './goalkeeperPerformance';
+import { recoverCareerFitnessToDate, recordSummaryAppearanceCondition } from './careerFitness';
 
 export const getCareerProgressBlocker = (career: CareerState): string | undefined => {
   if ((career.careerStatus ?? 'active') === 'retired') return 'career is retired';
@@ -88,7 +89,7 @@ const playerGroup = (position: string) =>
 export const simulateRoutinePlayerMatch = (
   career: CareerState,
   fixture: Fixture,
-  projected = projectFixtureParticipation(career, fixture),
+  projected?: ReturnType<typeof projectFixtureParticipation>,
 ): CareerState => {
   if (
     career.seasonParticipation?.some(
@@ -96,6 +97,8 @@ export const simulateRoutinePlayerMatch = (
     )
   )
     return career;
+  career = recoverCareerFitnessToDate(career, fixture.date);
+  projected ??= projectFixtureParticipation(career, fixture);
   const rng = RandomGenerator.fromSeed(
     `${career.seed}:${career.currentSeason}:quick-player:${fixture.id}`,
   );
@@ -268,11 +271,6 @@ export const simulateRoutinePlayerMatch = (
       ...effects.career,
       player: {
         ...career.player,
-        fitness: clamp(
-          career.player.fitness - Math.round((minutes / 14) * effort.fitnessCostMultiplier),
-          0,
-          100,
-        ),
         morale: clamp(
           career.player.morale + (rating && rating >= 7.2 ? 2 : rating && rating < 5.8 ? -2 : 0),
           0,
@@ -290,7 +288,7 @@ export const simulateRoutinePlayerMatch = (
   );
   return recordParticipation(
     {
-      ...completed,
+      ...recordSummaryAppearanceCondition(completed, appearance),
       selectionStanding: updateSelectionStanding(completed.selectionStanding, appearance.rating),
     },
     minutes > 0
@@ -350,6 +348,7 @@ export const advanceSimulationStep = (initial: CareerState): CareerState => {
       };
     const fixture = moment?.kind === 'fixture' ? moment.fixture : undefined;
     if (fixture) {
+      career = recoverCareerFitnessToDate(career, fixture.date);
       const roundIndex =
         career.leagueSeason?.rounds.findIndex((r) => r.fixtures.some((f) => f.id === fixture.id)) ??
         0;

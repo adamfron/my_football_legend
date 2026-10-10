@@ -1,3 +1,4 @@
+import { projectMatchVisiblePlayers } from '../../../core/matchSimulation/substitutions';
 import { matchStateToFrame } from '../../../core/matchSimulation/matchSimulation';
 import type { TacticalMatchState } from '../../../core/matchSimulation/matchState';
 import { CUE_DURATION_MS } from './animation';
@@ -245,7 +246,7 @@ export class PresentationFrameProjector {
     for (const [id, cue] of observeAnimationCues(this.previous, state)) this.cues.set(id, cue);
     for (const [id, cue] of this.cues)
       if (state.time * 1000 - cue.atMs > CUE_DURATION_MS) this.cues.delete(id);
-    for (const player of state.players) {
+    for (const player of projectMatchVisiblePlayers(state)) {
       const speed = Math.hypot(player.velocity.x, player.velocity.y);
       const old = this.gait.get(player.id);
       // Phase integrates measured canonical speed, never moves a player. Cadence is metres/stride.
@@ -264,6 +265,7 @@ export class PresentationFrameProjector {
   ): TacticalFrame {
     this.observe(state);
     const frame = matchStateToFrame(state, options);
+    const visiblePlayers = projectMatchVisiblePlayers(state);
     return {
       ...frame,
       ...projectRestartPresentation(state),
@@ -271,7 +273,7 @@ export class PresentationFrameProjector {
       dismissals: frameDismissals(state),
       continuity: `${state.seed}:${this.continuity}`,
       players: frame.players.map((player, index): TacticalPlayer => {
-        const canonical = state.players[index]!;
+        const canonical = visiblePlayers[index]!;
         const preparation = projectPlayerPreparation(state, player.id);
         return {
           ...player,

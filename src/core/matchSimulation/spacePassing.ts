@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import {
   distance,
@@ -57,7 +58,7 @@ export const deriveSpacePassPlan = (
         remaining / pace +
         Math.max(0, distance(projected, target) - remaining) * 0.12 -
         Math.max(0, advancing) * 0.1 +
-        (player.profile.primaryPosition === 'goalkeeper' ? 2 : 0);
+        (isMatchGoalkeeper(player) ? 2 : 0);
       return { player, score, advancing };
     })
     .sort((a, b) => a.score - b.score || a.player.id.localeCompare(b.player.id));
@@ -90,7 +91,7 @@ export const deriveSpacePassPlan = (
         (1 - player.profile.attributes.gameReading / 100) * 0.35,
     ),
   );
-  const keeper = defenders.find((player) => player.profile.primaryPosition === 'goalkeeper');
+  const keeper = defenders.find((player) => isMatchGoalkeeper(player));
   const keeperArrival = keeper
     ? distance(keeper.position, target) / (4.8 + keeper.profile.attributes.pace * 0.035)
     : 99;

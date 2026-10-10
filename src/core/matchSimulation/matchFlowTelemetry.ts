@@ -1,3 +1,5 @@
+import { findMatchParticipant } from './matchParticipants';
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { passDecisionQualitySchema } from './passDecision';
 import { emptyTurnoverCauseCounts, turnoverCauseCountsSchema } from './possessionEvents';
@@ -328,7 +330,7 @@ const observeAttackingOccupancy = (state: TacticalMatchState, side: 'home' | 'aw
   const edgeX = side === 'home' ? 86 : 19;
   const farPostY = state.ball.y < 34 ? 48 : 20;
   for (const player of state.players) {
-    if (player.team !== side || player.profile.primaryPosition === 'goalkeeper') continue;
+    if (player.team !== side || isMatchGoalkeeper(player)) continue;
     const { x, y } = player.position;
     const attackingBox = side === 'home' ? x >= 88.5 : x <= 16.5;
     if (attackingBox) {
@@ -1019,7 +1021,7 @@ export const observeMatchFlow = (
   }
   if (next.lastShot && !indexes.shots.has(`${result.benchmarkRunId}:${next.lastShot.shotId}`)) {
     const shot = next.lastShot,
-      shooter = next.players.find((player) => player.id === shot.shooterId);
+      shooter = findMatchParticipant(next, shot.shooterId);
     const shotId = `${result.benchmarkRunId}:${shot.shotId}`;
     append('observedShotIds', shotId);
     indexes.shots.add(shotId);

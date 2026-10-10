@@ -28,6 +28,8 @@ export const matchCentreTeamStatisticsSchema = z.object({
   tacklesAttempted: count,
   tacklesWon: count,
   interceptions: count,
+  substitutions: count,
+  injuries: count,
 });
 export const matchCentreStatisticsSchema = z.object({
   home: matchCentreTeamStatisticsSchema,
@@ -102,6 +104,9 @@ export const projectMatchCentreStatistics = (state: TacticalMatchState): MatchCe
       tacklesAttempted: sum('tacklesAttempted'),
       tacklesWon: sum('tacklesWon'),
       interceptions: sum('interceptions'),
+      substitutions:
+        state.substitutionState?.completed.filter((change) => change.team === team).length ?? 0,
+      injuries: events?.filter((event) => event.kind === 'injury').length ?? 0,
     };
   };
   return { home: project('home'), away: project('away') };

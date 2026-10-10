@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import {
   distance,
@@ -116,7 +117,7 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
     const playablePoint = playable.data;
     const candidates = state.players.flatMap((player) => {
       if (!canContactAfterThrowIn(state, player.id)) return [];
-      const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
+      const goalkeeper = isMatchGoalkeeper(player);
       if (goalkeeper && !isInsideOwnPenaltyArea(playablePoint, player.team)) return [];
       const estimatedArrivalTime = estimatePlayerArrivalTime(
         state,
@@ -161,7 +162,7 @@ export const deriveLooseBallAssignments = (state: TacticalMatchState): LooseBall
   const velocity = state.ball.velocity ?? { x: 0, y: 0 };
   const candidates = state.players.flatMap((player) => {
     if (!canContactAfterThrowIn(state, player.id)) return [];
-    const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
+    const goalkeeper = isMatchGoalkeeper(player);
     const prediction = predictLooseBallIntercept(state.ball, velocity, player);
     if (prediction.kind === 'boundary') return [];
     const target = prediction.point;

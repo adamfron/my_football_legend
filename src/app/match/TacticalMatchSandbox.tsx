@@ -2413,8 +2413,11 @@ export const RunningLab = ({
               <strong>
                 Twój występ ·{' '}
                 {
-                  state.players.find((player) => player.id === state.controlledFootballerId)
-                    ?.profile.lastName
+                  [
+                    ...state.players,
+                    ...(state.departedPlayers ?? []),
+                    ...(state.substitutionState?.pending.map((request) => request.outgoing) ?? []),
+                  ].find((player) => player.id === state.controlledFootballerId)?.profile.lastName
                 }
               </strong>
               <br />

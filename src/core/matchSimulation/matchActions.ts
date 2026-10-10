@@ -1,7 +1,9 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { selectRestartAction } from './restartLifecycle';
 import { enumerateContextualRestartActions } from './restartOptions';
 import { endStoppage } from './stoppageLedger';
 import { isRestartSetup } from './restartPhase';
+import { canParticipatePhysically } from './matchInjuries';
 import { hasPendingPlayerDecision } from './playerDecision';
 import { isHumanControlled, isShotAction, requiresHumanRestart } from './actionAgency';
 import { enumerateFirstTimePasses, canExecuteFirstTimePass } from './firstTimePassing';
@@ -167,7 +169,7 @@ export const deriveLeadPass = (
   const projection = projectPassReception(state, passer, receiver, 'lead');
   if (projection.semanticIntent !== 'lead') return undefined;
   const speed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
-  if (receiver.profile.primaryPosition === 'goalkeeper' && speed < 1.2) return undefined;
+  if (isMatchGoalkeeper(receiver) && speed < 1.2) return undefined;
   const desired = {
     x: receiver.target.x - receiver.position.x,
     y: receiver.target.y - receiver.position.y,
@@ -211,7 +213,7 @@ export const deriveHumanLeadPass = (
   const projection = projectPassReception(state, passer, receiver, 'lead');
   if (projection.semanticIntent !== 'lead') return undefined;
   const motion = Math.hypot(receiver.velocity.x, receiver.velocity.y);
-  if (receiver.profile.primaryPosition === 'goalkeeper' && motion < 1.2) return undefined;
+  if (isMatchGoalkeeper(receiver) && motion < 1.2) return undefined;
   const tacticalRun = distance(receiver.position, receiver.target);
   if (Math.max(motion, tacticalRun) < 1.2 || projection.leadDistance < 1.6) return undefined;
   // The canonical launch/readiness plan decides whether the attempt physically exists. Risk and
@@ -646,8 +648,7 @@ export const scoreActionForAI = (
       ((safeOutlet
         ? pressureEscaped *
           (12 +
-            (progression <= 4 &&
-            (receiver.duty === 'defend' || receiver.profile.primaryPosition === 'goalkeeper')
+            (progression <= 4 && (receiver.duty === 'defend' || isMatchGoalkeeper(receiver))
               ? 9
               : 0))
         : 0) -
@@ -822,7 +823,7 @@ export const hasActiveMatchActionParticipants = (
   if (state.status === 'abandoned' || state.status === 'full_time' || state.status === 'half_time')
     return false;
   const actor = state.players.find((player) => player.id === action.actorId);
-  if (!actor) return false;
+  if (!actor || !canParticipatePhysically(actor)) return false;
   if (action.type === 'pass')
     return (
       (state.scenario === 'throw_in' &&
@@ -830,17 +831,25 @@ export const hasActiveMatchActionParticipants = (
         state.restart.takerId === actor.id) ||
       (action.receiverId !== actor.id &&
         state.players.some(
-          (player) => player.id === action.receiverId && player.team === actor.team,
+          (player) =>
+            player.id === action.receiverId &&
+            player.team === actor.team &&
+            canParticipatePhysically(player),
         ))
     );
   if (action.type === 'challenge')
     return state.players.some(
-      (player) => player.id === action.opponentId && player.team !== actor.team,
+      (player) =>
+        player.id === action.opponentId &&
+        player.team !== actor.team &&
+        canParticipatePhysically(player),
     );
   if (action.type === 'cross' || action.type === 'header')
     return (
       !action.intendedTargetId ||
-      state.players.some((player) => player.id === action.intendedTargetId)
+      state.players.some(
+        (player) => player.id === action.intendedTargetId && canParticipatePhysically(player),
+      )
     );
   return true;
 };

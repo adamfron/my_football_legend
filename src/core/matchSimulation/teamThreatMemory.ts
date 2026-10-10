@@ -1,3 +1,5 @@
+import { findMatchParticipant } from './matchParticipants';
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { distance, pitchPointSchema, type PitchPoint, type TeamSide } from './matchSpace';
@@ -512,7 +514,7 @@ export const observeTeamThreats = (
       const defenders = next.players.filter(
         (player) =>
           player.team === side &&
-          player.profile.primaryPosition !== 'goalkeeper' &&
+          !isMatchGoalkeeper(player) &&
           !next.discipline?.[player.id]?.sentOff,
       );
       const covering = defenders.filter(
@@ -549,7 +551,7 @@ export const observeTeamThreats = (
       }
     }
     if (newShot && shot) {
-      const shooter = next.players.find((player) => player.id === shot.shooterId);
+      const shooter = findMatchParticipant(next, shot.shooterId);
       if (shooter?.team === opposing(side) && shot.context !== 'penalty')
         memory.shots = add(
           memory.shots,

@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
@@ -5,6 +6,7 @@ import { distance, physicalPointSchema, pitchPointSchema, type PitchPoint } from
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import type { PassDelivery, PassLaunchIntent } from './passLaunchPlan';
+import { difficultActionPhysicalCost } from './matchFitness';
 
 export const passExecutionTypeSchema = z.enum([
   'normal',
@@ -55,9 +57,7 @@ export const derivePassDifficulty = (
 ): PassDifficultyProfile => {
   const a = passer.profile.attributes;
   const distribution =
-    passer.profile.primaryPosition === 'goalkeeper' &&
-    isRestartSetup(state) &&
-    state.scenario === 'goal_kick';
+    isMatchGoalkeeper(passer) && isRestartSetup(state) && state.scenario === 'goal_kick';
   const primary = (distribution ? a.goalkeeperKicking : a.passing) / 100;
   const ability =
     Math.pow(primary, 0.65) *
@@ -83,6 +83,9 @@ export const derivePassDifficulty = (
       Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 55 +
       (state.ball.height ?? 0) * 0.4
     : 0;
+  const physicalDemand =
+    (options.firstTime ? incoming : 0) +
+    (facingError / Math.PI) * Math.min(1, Math.hypot(passer.velocity.x, passer.velocity.y) / 6);
   const difficulty =
     1 +
     Math.abs(dy) / 50 +
@@ -91,7 +94,8 @@ export const derivePassDifficulty = (
     Math.pow(facingError / Math.PI, 2) * 0.75 +
     pressure * 0.7 +
     (weaker ? (1 - passer.profile.weakFootProficiency / 100) * 0.2 : 0) +
-    incoming;
+    incoming +
+    difficultActionPhysicalCost(passer, physicalDemand) * 0.75;
   const rangeDemand = 0.18 + metres * 0.03 + Math.pow(metres / 18, 2) * 0.55;
   const uncertaintyMetres =
     0.12 + rangeDemand * (0.09 + Math.pow(1 - ability, 2) / (0.08 + ability)) * difficulty;

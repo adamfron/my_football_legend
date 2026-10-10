@@ -1,3 +1,5 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
@@ -81,6 +83,9 @@ export const matchStatisticsSchema = z.object({
   /** Stable membership survives dismissal from the active physics roster. */
   playerTeams: z.record(z.string(), z.enum(['home', 'away'])).optional(),
   playerActiveSince: z.record(z.string(), z.number().nonnegative()).optional(),
+  playerActiveUntil: z.record(z.string(), z.number().nonnegative()).optional(),
+  /** Accrued previous appearances for competition-authorised return substitutions. */
+  playerMinutesBeforeEntry: z.record(z.string(), z.number().nonnegative()).optional(),
   teamAccounting: z.object({ home: teamAccountingSchema, away: teamAccountingSchema }).optional(),
   observedThrough: z.number().nonnegative().optional(),
   observedRestartIds: z.array(z.string()).optional(),
@@ -264,6 +269,8 @@ export const observePlayerMatchStats = (
           ]),
         ),
       },
+      playerActiveUntil: { ...statistics.playerActiveUntil, ...next.statistics?.playerActiveUntil },
+      playerMinutesBeforeEntry: { ...statistics.playerMinutesBeforeEntry },
       teamAccounting: {
         home: resumeTeamAccounting(statistics, 'home'),
         away: resumeTeamAccounting(statistics, 'away'),
@@ -286,6 +293,13 @@ export const observePlayerMatchStats = (
           : []),
     };
     const accounting = result.teamAccounting!;
+    for (const player of next.players) {
+      if ((player.activeSince ?? 0) > (statistics.playerActiveSince?.[player.id] ?? 0)) {
+        result.playerMinutesBeforeEntry![player.id] =
+          statistics.players.find((entry) => entry.playerId === player.id)?.minutesPlayed ?? 0;
+        delete result.playerActiveUntil![player.id];
+      }
+    }
     const newcomers = next.players.filter(
       (player) => !result.players.some((entry) => entry.playerId === player.id),
     );
@@ -353,7 +367,9 @@ export const observePlayerMatchStats = (
     const playersById = new Map(result.players.map((entry) => [entry.playerId, entry]));
     const stats = (id: string, at = next.time) => {
       const sentOffAt = next.discipline?.[id]?.sentOffAt;
+      const departedAt = result.playerActiveUntil?.[id];
       return (sentOffAt === undefined || at <= sentOffAt) &&
+        (departedAt === undefined || at <= departedAt) &&
         at >= (result.playerActiveSince?.[id] ?? 0)
         ? playersById.get(id)
         : undefined;
@@ -375,6 +391,7 @@ export const observePlayerMatchStats = (
     for (const player of next.players) {
       const entry = stats(player.id)!;
       entry.minutesPlayed =
+        (result.playerMinutesBeforeEntry?.[player.id] ?? 0) +
         Math.max(0, next.time - (result.playerActiveSince?.[player.id] ?? 0)) / 60;
       const running = player.locomotionTelemetry;
       if (running) {
@@ -384,12 +401,50 @@ export const observePlayerMatchStats = (
         entry.maxSpeed = running.maxSpeed;
       }
     }
+    for (const request of next.substitutionState?.pending ?? []) {
+      const entry = playersById.get(request.outgoing.id);
+      if (entry) {
+        entry.minutesPlayed =
+          (result.playerMinutesBeforeEntry?.[entry.playerId] ?? 0) +
+          Math.max(
+            0,
+            (request.leftAt ?? next.time) - (result.playerActiveSince?.[entry.playerId] ?? 0),
+          ) /
+            60;
+        const running = request.outgoing.locomotionTelemetry;
+        if (running) {
+          entry.distanceCovered = running.distanceTotal;
+          entry.sprintDistance = running.distanceSprint;
+          entry.sprintBursts = running.sprintBursts;
+          entry.maxSpeed = running.maxSpeed;
+        }
+      }
+    }
+    for (const entry of result.players) {
+      const leftAt = result.playerActiveUntil?.[entry.playerId];
+      if (leftAt !== undefined)
+        entry.minutesPlayed =
+          (result.playerMinutesBeforeEntry?.[entry.playerId] ?? 0) +
+          Math.max(0, leftAt - (result.playerActiveSince?.[entry.playerId] ?? 0)) / 60;
+      if (leftAt !== undefined && leftAt !== statistics.playerActiveUntil?.[entry.playerId]) {
+        const finalEntry = next.statistics?.players.find(
+          (player) => player.playerId === entry.playerId,
+        );
+        if (finalEntry) {
+          entry.distanceCovered = finalEntry.distanceCovered;
+          entry.sprintDistance = finalEntry.sprintDistance;
+          entry.sprintBursts = finalEntry.sprintBursts;
+          entry.maxSpeed = finalEntry.maxSpeed;
+        }
+      }
+    }
     // Removal from the active array preserves history, including the exact canonical dismissal
     // time rather than the preceding physics tick. Terminal observers cannot extend minutes.
     for (const entry of result.players) {
       const sentOffAt = next.discipline?.[entry.playerId]?.sentOffAt;
       if (sentOffAt !== undefined) {
         entry.minutesPlayed =
+          (result.playerMinutesBeforeEntry?.[entry.playerId] ?? 0) +
           Math.max(0, sentOffAt - (result.playerActiveSince?.[entry.playerId] ?? 0)) / 60;
         if (sentOffAt !== previous.discipline?.[entry.playerId]?.sentOffAt) {
           // The player moved earlier in this tick before the referee removed the active body.
@@ -576,10 +631,9 @@ export const observePlayerMatchStats = (
         const team = result.playerTeams?.[shot.shooterId];
         if (team) accounting[team].blockedShots++;
       }
-      const defendingTeam = next.players.find((player) => player.id === shot.shooterId)?.team;
+      const attackingTeam = findMatchParticipant(next, shot.shooterId)?.team;
       const keeper = next.players.find(
-        (player) =>
-          player.team !== defendingTeam && player.profile.primaryPosition === 'goalkeeper',
+        (player) => player.team !== attackingTeam && isMatchGoalkeeper(player),
       );
       const keeperStats = keeper ? stats(keeper.id) : undefined;
       if (keeperStats && shot.outcome === 'save') {
@@ -615,7 +669,7 @@ export const observePlayerMatchStats = (
       }
       const scoringTeam = result.playerTeams?.[shotResult.shooterId];
       const keeper = next.players.find(
-        (player) => player.team !== scoringTeam && player.profile.primaryPosition === 'goalkeeper',
+        (player) => player.team !== scoringTeam && isMatchGoalkeeper(player),
       );
       const keeperStats = keeper ? stats(keeper.id) : undefined;
       if (keeperStats) keeperStats.goalsConceded++;
@@ -793,7 +847,9 @@ export const assertMatchStatisticsInvariants = (
     if (
       sentOffAt !== undefined &&
       player.minutesPlayed >
-        Math.max(0, sentOffAt - (statistics.playerActiveSince?.[player.playerId] ?? 0)) / 60 + 1e-9
+        (statistics.playerMinutesBeforeEntry?.[player.playerId] ?? 0) +
+          Math.max(0, sentOffAt - (statistics.playerActiveSince?.[player.playerId] ?? 0)) / 60 +
+          1e-9
     )
       throw new Error(`Dismissed player minutes invariant failed for ${player.playerId}.`);
   }

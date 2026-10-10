@@ -18,6 +18,7 @@ import { deriveCanonicalCoachProfile } from './coachProfiles';
 import { resolveCareerWorldFootballer } from './worldDatabase';
 import { deriveNpcDevelopmentCurveId } from './seasonDevelopment';
 import { createProfessionalContract } from './playerEconomy';
+import { isConditionAvailable } from './fitnessRecovery';
 
 export type FormationId = '4-3-3' | '4-2-3-1' | '4-4-2' | '3-4-2-1' | '3-5-2';
 export type TacticalDuty = 'defend' | 'support' | 'attack';
@@ -534,7 +535,7 @@ export const evaluateCandidateForSlot = (
     context?.fitness ??
     (isProtagonist
       ? (protagonist?.fitness ?? 90)
-      : (career.footballerWorld?.[player.id]?.fitness ?? 90));
+      : (resolveCareerWorldFootballer(career, player.id)?.fitness ?? 90));
   const trust =
     ((context?.coachTrust ?? (isProtagonist ? career.selectionStanding : 50) ?? 50) - 50) / 25;
   const coach = deriveCanonicalCoachProfile(club.managerId ?? 'manager');
@@ -589,7 +590,9 @@ const selectManagerXI = (
         getFitnessSelectionPenalty(
           player.id === protagonist?.id
             ? (protagonist?.fitness ?? 90)
-            : (career.footballerWorld?.[player.id]?.fitness ?? 90),
+            : isConditionAvailable(resolveCareerWorldFootballer(career, player.id)?.condition)
+              ? (resolveCareerWorldFootballer(career, player.id)?.fitness ?? 90)
+              : 0,
         ) !== Number.NEGATIVE_INFINITY,
     )
     .sort((a, b) => a.id.localeCompare(b.id));

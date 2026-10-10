@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "09c05fa9c09edf89cd8310485a61560eb67e4cde",
+  "validatedDate": "2026-10-10",
+  "canonicalSourceHash": "f120ac45e2c9de253e001e2c8d1ab340c4f3161247040c909d7e1dd92b1d1339",
+  "verify": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "lintPassed": true,
+    "main": {
+      "files": 177,
+      "passed": 1452,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 459.1
+    },
+    "fullCareer": {
+      "files": 1,
+      "passed": 5,
+      "failed": 0,
+      "durationSeconds": 58.95
+    },
+    "buildPassed": true,
+    "hostConfiguration": "Windows, Node24.19.0. Local npm wrapper adds --maxWorkers=1 to test:main only; repository scripts, exclusions and test timeouts are unchanged."
+  },
+  "supplemental": {
+    "strictTypeScriptBenchmarksPassed": [
+      "scripts/benchmarkPr160Fitness.ts",
+      "scripts/benchmarkPr160Restarts.ts",
+      "scripts/benchmarkPr160FullMatch.ts"
+    ],
+    "typecheckSettings": "tsconfig.node.json strict/noUnused/noUncheckedIndexedAccess/exactOptionalPropertyTypes retained; add engine DOM/JSON support and existing src/vite-env.d.ts declarations.",
+    "nodeSyntaxPassed": [
+      "scripts/benchmarkPr160Performance.mjs",
+      "scripts/benchmarkPr160TelemetryReference.mjs"
+    ],
+    "uninjectedFullMatch": {
+      "evidence": "PR160-full-match-sanity.json",
+      "exitCode": 0,
+      "halftimeSeconds": 2700,
+      "fulltimeSeconds": 5460,
+      "requiredDeadlineSeconds": 5460,
+      "ticks": 218401,
+      "passesAttempted": 874,
+      "touches": 1061,
+      "shots": 0,
+      "fatigueSubstitutions": { "home": 2, "away": 3 },
+      "temporaryDiscomforts": 1,
+      "statisticsInvariantsPassed": true,
+      "livenessDiagnostics": 0
+    },
+    "finalPerformance": {
+      "evidence": "PR160-performance.json",
+      "freshProcesses": 6,
+      "canonicalSecondsPerRun": 300,
+      "ticksPerRun": 12000,
+      "beforeMedianMs": 8220.718100000007,
+      "afterMedianMs": 10073.37379999999,
+      "changePercent": 22.536421726953293,
+      "withinRevisionStateAndRngReplayPassed": true
+    },
+    "historicalBlockedStateReplayOnFinalSource": {
+      "inputSha256": "29fe5c5a303be0d2340b06c7ae2cdb39bb10fae0fb65ad3da364057d1da6f126",
+      "awardId": "lab-mv1fg3zw:restart:415.1249999998963:away:penalty",
+      "initialAt": 599.9999999997282,
+      "released": {
+        "ticks": 15,
+        "at": 600.3749999997278,
+        "source": "autonomous_npc",
+        "shotId": "lab-mv1fg3zw:shot:95:footballer_pro_1_19"
+      },
+      "elapsedSeconds": 0.37499999999965894
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { clampPitchPoint, distance, type PitchPoint, type TeamSide } from './matchSpace';
 import { TACTICAL_STYLE_PARAMETERS } from './tacticalPositioning';
@@ -18,17 +19,11 @@ import {
 
 const outfield = (state: TacticalMatchState, side: TeamSide) =>
   state.players.filter(
-    (p) =>
-      p.team === side &&
-      p.profile.primaryPosition !== 'goalkeeper' &&
-      !state.discipline?.[p.id]?.sentOff,
+    (p) => p.team === side && !isMatchGoalkeeper(p) && !state.discipline?.[p.id]?.sentOff,
   );
 const goalkeeper = (state: TacticalMatchState, side: TeamSide) =>
   state.players.find(
-    (p) =>
-      p.team === side &&
-      p.profile.primaryPosition === 'goalkeeper' &&
-      !state.discipline?.[p.id]?.sentOff,
+    (p) => p.team === side && isMatchGoalkeeper(p) && !state.discipline?.[p.id]?.sentOff,
   ) ??
   stableRank(
     state.players.filter((p) => p.team === side && !state.discipline?.[p.id]?.sentOff),
@@ -674,6 +669,9 @@ const deriveHomeRestartGeometry = (
     points.set(homeGk.id, { x: 5.5, y: 34 });
     points.set(awayGk.id, { x: 105, y: 34 });
     points.set(taker.id, ball);
+    // A dismissed keeper can be replaced by an active outfielder. The match role, rather
+    // than the footballer's permanent preferred position, owns Law 14 positioning.
+    assign(awayGk, 'penalty_goalkeeper', 'protect_zone', { x: 105, y: 34 });
   }
   if (scenario === 'goal_kick' || scenario === 'gk_short') points.set(taker.id, ball);
   if (scenario === 'corner') points.set(taker.id, ball);

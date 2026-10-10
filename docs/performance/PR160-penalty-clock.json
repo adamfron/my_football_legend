@@ -1,0 +1,898 @@
+{
+  "schemaVersion": 2,
+  "baselineRevision": "09c05fa",
+  "dt": 0.025,
+  "referenceLaws": [
+    "https://www.theifab.com/laws/latest/the-duration-of-the-match/",
+    "https://www.theifab.com/laws/latest/the-penalty-kick/"
+  ],
+  "historicalReference": {
+    "file": "lab-mv1fg3zw-benchmark-sesji.json",
+    "found": true,
+    "sourceLocation": "User Desktop/mfl; external evidence is not committed.",
+    "byteLength": 16611963,
+    "sha256": "4aea18a1657c0608f95921a21cd814fd871a2cd545429120d366d4bfd563bd8b",
+    "schema": "mfl-session-benchmark-v5",
+    "seed": "lab-mv1fg3zw",
+    "originalDurationSeconds": 2700,
+    "canonicalInitialStateIncluded": false,
+    "originalEngineRevisionIncluded": false,
+    "reconstructedBaseline": {
+      "engineRevision": "09c05fa",
+      "clubs": ["pro_9", "pro_1"],
+      "startingXI": [
+        "footballer_pro_9_0",
+        "footballer_pro_9_7",
+        "footballer_pro_9_3",
+        "footballer_pro_9_5",
+        "footballer_pro_9_9",
+        "footballer_pro_9_14",
+        "footballer_pro_9_13",
+        "footballer_pro_9_11",
+        "footballer_pro_9_17",
+        "footballer_pro_9_19",
+        "footballer_pro_9_22",
+        "footballer_pro_1_0",
+        "footballer_pro_1_7",
+        "footballer_pro_1_3",
+        "footballer_pro_1_4",
+        "footballer_pro_1_9",
+        "footballer_pro_1_12",
+        "footballer_pro_1_14",
+        "footballer_pro_1_17",
+        "footballer_pro_1_19",
+        "footballer_pro_1_21",
+        "footballer_pro_1_22"
+      ],
+      "exactlyMatchingXI": true,
+      "identityLedgers": {
+        "observedPassAttemptIds": {
+          "count": 61,
+          "exactMatch": true,
+          "sha256": "e2b9b4146589140d5c194f8d54074c4bc4d1eb2809e8c3b2413e8d66f4e21710"
+        },
+        "observedPassResultIds": {
+          "count": 60,
+          "exactMatch": true,
+          "sha256": "81ca00f9304ce5e31281835d2bc1595e24663be3e4dad40b69d3312ef40a7ee2"
+        },
+        "observedShotIds": {
+          "count": 1,
+          "exactMatch": true,
+          "sha256": "51c0b60cbfa1e81605ccb5f9ac7c04b5a0964699e285c1fe7467f44c8f98c7dc"
+        },
+        "observedShotResultIds": {
+          "count": 1,
+          "exactMatch": true,
+          "sha256": "51c0b60cbfa1e81605ccb5f9ac7c04b5a0964699e285c1fe7467f44c8f98c7dc"
+        },
+        "observedRestartIds": {
+          "count": 3,
+          "exactMatch": true,
+          "sha256": "5151ed8f7ed53819c61a36d380fb2dd213ac9b135c88c251a88602e51c03f858"
+        },
+        "observedChallengeIds": {
+          "count": 23,
+          "exactMatch": true,
+          "sha256": "13ee6e5f104c2a191a9bee435eb8487986efbd6191679dbcc29d34469f2511d6"
+        },
+        "observedChallengeResultIds": {
+          "count": 23,
+          "exactMatch": true,
+          "sha256": "13ee6e5f104c2a191a9bee435eb8487986efbd6191679dbcc29d34469f2511d6"
+        }
+      },
+      "ballFingerprints": [
+        {
+          "at": 2.499999999999995,
+          "original": {
+            "x": 27.393953949955264,
+            "y": 15.280000000000001,
+            "ownerId": "footballer_pro_9_7"
+          },
+          "reconstructed": {
+            "x": 27.393953949955264,
+            "y": 15.280000000000001,
+            "ownerId": "footballer_pro_9_7"
+          },
+          "coordinateErrorMetres": 0,
+          "ownerExactMatch": true
+        },
+        {
+          "at": 100.50000000000573,
+          "original": {
+            "x": 65.35100983571874,
+            "y": 62.18055738029327
+          },
+          "reconstructed": {
+            "x": 65.35100983571895,
+            "y": 62.18055738029331
+          },
+          "coordinateErrorMetres": 2.161031364628563e-13,
+          "ownerExactMatch": true
+        },
+        {
+          "at": 414.4999999998969,
+          "original": {
+            "x": 13.645197282729287,
+            "y": 37.58056966117757,
+            "ownerId": "footballer_pro_1_12"
+          },
+          "reconstructed": {
+            "x": 13.64519728272918,
+            "y": 37.58056966117796,
+            "ownerId": "footballer_pro_1_12"
+          },
+          "coordinateErrorMetres": 4.050716828981883e-13,
+          "ownerExactMatch": true
+        }
+      ],
+      "recipe": [
+        "Use baseline 09c05fa and createCanonicalWorldDatabase().",
+        "createSingleMatchSession(world, { homeClubId: world.clubs[9].id, awayClubId: world.clubs[1].id, seed: \"lab-mv1fg3zw\", control: { mode: \"spectator\" } }).",
+        "createTacticalMatch(session), then 24000 calls of stepTacticalMatchAfterDecisionProbe(state, 0.025), preserving the resulting canonical state.",
+        "The naturally awarded penalty at 415.125 s remains blocked through the sampled baseline 600 s state. The original export retains the same event identities and stationary ball through 2700 s.",
+        "Pass that complete blocked 600 s canonical state to the current engine without changing bodies, ball, roles or selections; the same award executes after 15 physical ticks."
+      ],
+      "reconstructionLimit": "Telemetry lacks the original full initial state and engine hash; equality is established for all 22 XI identities, all seven canonical identity ledgers and pre-penalty ball fingerprints within 1e-9 m, rather than every original state byte."
+    },
+    "rootCauseProven": true
+  },
+  "historicalRootCause": {
+    "cause": "Penalty-area legal projection accepted a barely-outside intended target. Locomotion stopped within its 0.08 m arrival radius while the actual participant remained inside the area, so physical legal readiness never became true.",
+    "award": {
+      "at": 415.1249999998963,
+      "awardId": "lab-mv1fg3zw:restart:415.1249999998963:away:penalty",
+      "incidentId": "lab-mv1fg3zw:challenge:415.000000:footballer_pro_9_0:footballer_pro_1_12:committed:foul",
+      "origin": "live_event",
+      "team": "away",
+      "spot": {
+        "x": 11,
+        "y": 34
+      },
+      "takerId": "footballer_pro_1_19",
+      "keeperId": "footballer_pro_9_0",
+      "retrieval": {
+        "playerId": "footballer_pro_1_12",
+        "stage": "placed",
+        "attachedOffset": {
+          "x": 0.42399028542814143,
+          "y": 0.053255838736077976
+        }
+      },
+      "originalCards": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    "before": {
+      "at": 599.9999999997282,
+      "phase": "preparing",
+      "readiness": {
+        "ballReady": true,
+        "takerReady": true,
+        "legalReady": false,
+        "tacticalReady": true,
+        "blockers": ["participant_restriction"]
+      },
+      "legalReadiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": false,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": ["participant_restriction"]
+      },
+      "ball": {
+        "x": 11.050017293263995,
+        "y": 34.037071252246704,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_1_12",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "taker": {
+        "id": "footballer_pro_1_19",
+        "position": {
+          "x": 11.051695705721455,
+          "y": 33.97651292617064
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "keeper": {
+        "id": "footballer_pro_9_0",
+        "position": {
+          "x": 0.06952865950585214,
+          "y": 35.92992022292089
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "selectedAction": null,
+      "selectedSource": null,
+      "preparationStartedAt": null,
+      "canExecutePreparedRestart": false,
+      "blockingActor": {
+        "id": "footballer_pro_1_12",
+        "position": {
+          "x": 16.48731140893103,
+          "y": 47.0150416543275
+        },
+        "target": {
+          "x": 16.503302916222147,
+          "y": 47.082018990216795
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "role": {
+          "key": "rebound_attack",
+          "intent": "attack_second_ball",
+          "zone": {
+            "centre": {
+              "x": 17.200000000000003,
+              "y": 50
+            },
+            "radius": 8,
+            "timing": 0
+          }
+        },
+        "distanceToIntendedTargetMetres": 0.06885994356859199
+      },
+      "penaltyAreaBounds": {
+        "maxX": 16.5,
+        "minY": 13.84,
+        "maxY": 54.16
+      },
+      "samePendingAwardObservedFrom": 415.1249999998963,
+      "samePendingAwardObservedThrough": 599.9999999997282
+    },
+    "fix": "Apply the existing 0.3 m outside-area intent margin also when a proposed target is barely outside the area. The physical legal boundary and locomotion arrival tolerance are unchanged.",
+    "afterSameFrozenState": {
+      "initialAt": 599.9999999997282,
+      "releaseAt": 600.3749999997278,
+      "releaseSeconds": 0.37499999999965894,
+      "actionSource": "autonomous_npc",
+      "shotId": "lab-mv1fg3zw:shot:95:footballer_pro_1_19",
+      "shotContext": "penalty",
+      "physicalReadinessTrace": [
+        {
+          "at": 600.0249999997282,
+          "phase": "preparing",
+          "readiness": {
+            "ballReady": true,
+            "takerReady": true,
+            "legalReady": false,
+            "tacticalReady": true,
+            "blockers": ["participant_restriction"]
+          },
+          "actor": {
+            "id": "footballer_pro_1_12",
+            "position": {
+              "x": 16.491784935161622,
+              "y": 47.015999875629824
+            },
+            "target": {
+              "x": 16.8,
+              "y": 47.082018990216795
+            },
+            "velocity": {
+              "x": 0.1789410492236243,
+              "y": 0.03832885209305914
+            }
+          },
+          "selectedSource": null,
+          "selectedActionType": null,
+          "preparationStartedAt": null,
+          "canExecutePreparedRestart": false,
+          "decisionIndex": 94
+        },
+        {
+          "at": 600.0499999997281,
+          "phase": "kick_preparation",
+          "readiness": {
+            "ballReady": true,
+            "takerReady": true,
+            "legalReady": true,
+            "tacticalReady": true,
+            "blockers": []
+          },
+          "actor": {
+            "id": "footballer_pro_1_12",
+            "position": {
+              "x": 16.50073511582784,
+              "y": 47.01789997503446
+            },
+            "target": {
+              "x": 16.8,
+              "y": 47.08108373122587
+            },
+            "velocity": {
+              "x": 0.35800722664873774,
+              "y": 0.0760039761854614
+            }
+          },
+          "selectedSource": "autonomous_npc",
+          "selectedActionType": "shot",
+          "preparationStartedAt": null,
+          "canExecutePreparedRestart": false,
+          "decisionIndex": 94
+        },
+        {
+          "at": 600.3749999997278,
+          "phase": "released",
+          "readiness": null,
+          "actor": {
+            "id": "footballer_pro_1_12",
+            "position": {
+              "x": 16.57365374685806,
+              "y": 47.26942507389843
+            },
+            "target": {
+              "x": 16.976423924416775,
+              "y": 49.025313517880335
+            },
+            "velocity": {
+              "x": 0.20287243782988185,
+              "y": 0.8844283639544415
+            }
+          },
+          "selectedSource": null,
+          "selectedActionType": null,
+          "preparationStartedAt": null,
+          "canExecutePreparedRestart": false,
+          "decisionIndex": 95
+        }
+      ]
+    },
+    "minimalRegression": "src/core/matchSimulation/pr160PenaltyLiveness.test.ts: original club/XI, reconstructed blocking actor position/target/role, placed ball and retrieval offset; all other actors are legally prepared."
+  },
+  "additionalSyntheticCoverage": {
+    "keeperResponsibilityRegression": "Unavailable preferred goalkeeper exposed geometry/readiness actor disagreement. Canonical match goalkeeper responsibility and penalty_goalkeeper restart role are now shared across nomination, positioning and readiness, without editing permanent profiles. Original telemetry has zero cards, so this is an additional regression.",
+    "fixtureClubs": ["pro_0", "pro_1"],
+    "summary": {
+      "cells": 10,
+      "secondsPerCell": 60,
+      "ticksPerRevision": 24000,
+      "executedBefore": 6,
+      "executedAfter": 10,
+      "beforeRuntimeMs": 5146.3905,
+      "afterRuntimeMs": 6420.539100000001,
+      "runtimeLimitations": [
+        "Sequential local processes; not an isolated controlled performance measurement.",
+        "Baseline deadlocks/cancels four cells while current cells execute, so code paths differ.",
+        "Equivalent open-play performance evidence is recorded separately."
+      ]
+    },
+    "reproductionCommand": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr160Restarts.ts --engine-root <baseline-or-current-path> --output <result.json>",
+    "matrix": [
+      {
+        "side": "home",
+        "variant": "ordinary",
+        "before": {
+          "releaseSeconds": 10.675,
+          "status": "first_half",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 10.725,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 9.8,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 10.05,
+            "phase": "kick_preparation",
+            "blockers": ["taker_not_ready"],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 10.425,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": 425.4249999999905,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          }
+        ]
+      },
+      {
+        "side": "home",
+        "variant": "unavailable_keeper",
+        "before": {
+          "releaseSeconds": null,
+          "status": "first_half",
+          "blockers": ["opponent_restriction"]
+        },
+        "after": {
+          "releaseSeconds": 14.95,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 14.625,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 14.95,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          }
+        ]
+      },
+      {
+        "side": "home",
+        "variant": "far_taker_illegal_players",
+        "before": {
+          "releaseSeconds": 19.85,
+          "status": "first_half",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 19.95,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 19.625,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 19.95,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          },
+          {
+            "elapsedSeconds": 59.2,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          }
+        ]
+      },
+      {
+        "side": "home",
+        "variant": "unavailable_taker",
+        "before": {
+          "releaseSeconds": 13.275,
+          "status": "first_half",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 13.625,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 13.3,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 13.625,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          },
+          {
+            "elapsedSeconds": 54.4,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          }
+        ]
+      },
+      {
+        "side": "home",
+        "variant": "terminal",
+        "before": {
+          "releaseSeconds": null,
+          "status": "half_time",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 10.725,
+          "status": "half_time",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 9.8,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 10.05,
+            "phase": "kick_preparation",
+            "blockers": ["taker_not_ready"],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 10.425,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": 2710.4150000000377,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          }
+        ]
+      },
+      {
+        "side": "away",
+        "variant": "ordinary",
+        "before": {
+          "releaseSeconds": 12.125,
+          "status": "first_half",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 12.3,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 11.975,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 12.3,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          }
+        ]
+      },
+      {
+        "side": "away",
+        "variant": "unavailable_keeper",
+        "before": {
+          "releaseSeconds": null,
+          "status": "first_half",
+          "blockers": ["opponent_restriction"]
+        },
+        "after": {
+          "releaseSeconds": 12.3,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 11.975,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 12.3,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          }
+        ]
+      },
+      {
+        "side": "away",
+        "variant": "far_taker_illegal_players",
+        "before": {
+          "releaseSeconds": 18.75,
+          "status": "first_half",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 19.05,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 18.725,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 19.05,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          },
+          {
+            "elapsedSeconds": 57.575,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 7
+          }
+        ]
+      },
+      {
+        "side": "away",
+        "variant": "unavailable_taker",
+        "before": {
+          "releaseSeconds": 18.6,
+          "status": "first_half",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 18.775,
+          "status": "first_half",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 18.45,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 18.775,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          },
+          {
+            "elapsedSeconds": 21.925,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          }
+        ]
+      },
+      {
+        "side": "away",
+        "variant": "terminal",
+        "before": {
+          "releaseSeconds": null,
+          "status": "half_time",
+          "blockers": []
+        },
+        "after": {
+          "releaseSeconds": 12.3,
+          "status": "half_time",
+          "blockers": [],
+          "softLocks": 0
+        },
+        "phaseTrace": [
+          {
+            "elapsedSeconds": 11.975,
+            "phase": "kick_preparation",
+            "blockers": [],
+            "selectedSource": "autonomous_npc",
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 0
+          },
+          {
+            "elapsedSeconds": 12.3,
+            "phase": "released",
+            "blockers": [],
+            "selectedSource": null,
+            "preparationStartedAt": null,
+            "canExecutePreparedRestart": false,
+            "decisionIndex": 1
+          }
+        ]
+      }
+    ],
+    "scoredBallKickoffContinuity": {
+      "discoveredBy": "Full-half penalty smoke after the penalty executed and scored.",
+      "cause": "The nominated goalkeeper correctly targeted the stationary scored ball outside the pitch, but an unconditional goalkeeper x-clamp overrode the existing stopped-play enclosure bounds, making its real pickup radius unreachable.",
+      "before": {
+        "at": 569.2249999997562,
+        "awardId": "pr160-full-half-penalty:restart:434.7999999998784:home:kick_off",
+        "phase": "preparing",
+        "retrievalStage": "approach",
+        "blockers": ["ball_not_placed", "taker_not_ready"],
+        "unchangedSeconds": 122.99999999988813,
+        "progressAbsentSeconds": 116.84999999989373,
+        "ball": {
+          "x": -1.1597539281079288,
+          "y": 31.042615624941835,
+          "height": 0.11,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "takerId": "footballer_pro_0_21",
+        "retrieverId": "footballer_pro_0_0",
+        "retriever": {
+          "id": "footballer_pro_0_0",
+          "role": "shape",
+          "position": {
+            "x": 0,
+            "y": 31.042615624942243
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "legalTarget": {
+            "x": 0.4,
+            "y": 31.042615624941835
+          }
+        },
+        "taker": {
+          "id": "footballer_pro_0_21",
+          "role": "taker",
+          "position": {
+            "x": 49.94161428374806,
+            "y": 34.00234084508625
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "legalTarget": {
+            "x": 52.5,
+            "y": 34
+          }
+        }
+      },
+      "fix": "Only the nominated live-restart retriever in approach/transport stages bypasses the goalkeeper goal-line x-clamp and uses the existing enclosure(-8..113 x,-8..76 y). Physical ball integration,1.1m pickup radius and all other goalkeeper constraints remain unchanged.",
+      "focusedRegressions": {
+        "home": "PASS",
+        "away": "PASS",
+        "assertions": [
+          "Real goalkeeper crosses its goal line to retrieve the actual scored ball.",
+          "Ball XY remains unchanged before physical pickup.",
+          "Retrieval transitions approach to transport.",
+          "The same kickoff award executes autonomously."
+        ]
+      },
+      "fullHalfAfter": {
+        "status": "PASS",
+        "seed": "pr160-full-half-penalty",
+        "fullHalfTestRuntimeSeconds": 81.284,
+        "fileTestsPassed": 15,
+        "fileTotalRuntimeSeconds": 86.69
+      }
+    }
+  },
+  "focusedContracts": {
+    "latestFocusedRun": {
+      "timekeepingTestsPassed": 17,
+      "penaltyReadinessAndObserverTestsPassed": 14,
+      "fullHalfSkippedToAvoidDuplicateLoad": 1,
+      "totalPassed": 31,
+      "durationSeconds": 5.72
+    },
+    "fullHalfSmoke": {
+      "seed": "pr160-full-half-penalty",
+      "status": "PASS after scored-ball kickoff continuity correction; repeated again in final verification",
+      "clockBoundaryAndPenaltyExecutionAndProgressAsserted": true,
+      "testFile": "src/core/matchSimulation/pr160PenaltyLiveness.test.ts",
+      "finalVerifyPending": false,
+      "finalVerifyEvidence": "PR160-validation.json",
+      "latestStandaloneTestRuntimeSeconds": 81.284
+    },
+    "humanPendingChoicePreserved": true,
+    "diagnostics": {
+      "sampleRateHz": 1,
+      "reportAfterUnchangedSeconds": 30,
+      "softLockRequiresAbsentProgressSeconds": 10,
+      "retainedReports": 32,
+      "maxActorsPerReport": 24,
+      "physicalAndRngAndAccountingStateUnchangedByObserver": true
+    },
+    "humanRestartMenuProjectedAtFreeze": true,
+    "terminalReboundContracts": {
+      "keeperFailedSaveBlockAloneDoesNotComplete": true,
+      "subsequentPhysicalNonkeeperContactCompletes": true,
+      "seriouslyInjuredActorRemovedAndRetainedBeforeRebound": true,
+      "pendingAssessmentCannotFreezeOrReplaceMovingTerminalRebound": true,
+      "canonicalMovingParryContinuesIntoActualGoalAndHalfTime": true
+    }
+  }
+}

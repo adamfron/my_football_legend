@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import {
@@ -10,6 +11,7 @@ import {
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState, TacticalStyle } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
+import { deriveFitnessPhysicalModifiers } from './matchFitness';
 
 const unit = z.number().min(0).max(1).finite();
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
@@ -87,9 +89,7 @@ export const deriveTacticalSuitability = (
 ): TacticalSuitability => {
   const roster = state.players.filter(
     (player) =>
-      player.team === side &&
-      player.profile.primaryPosition !== 'goalkeeper' &&
-      !state.discipline?.[player.id]?.sentOff,
+      player.team === side && !isMatchGoalkeeper(player) && !state.discipline?.[player.id]?.sentOff,
   );
   const central = roster.filter(
     (player) =>
@@ -209,9 +209,7 @@ export const derivePressingOpportunity = (
   if (!carrier || carrier.team === side || isRestartSetup(state)) return empty;
   const defenders = state.players.filter(
     (player) =>
-      player.team === side &&
-      player.profile.primaryPosition !== 'goalkeeper' &&
-      !state.discipline?.[player.id]?.sentOff,
+      player.team === side && !isMatchGoalkeeper(player) && !state.discipline?.[player.id]?.sentOff,
   );
   const receivers = state.players.filter(
     (player) =>
@@ -366,6 +364,8 @@ export const deriveEconomicalMovementCost = (player: MatchPlayerState, target: P
     ) / Math.PI;
   return (
     metres * (0.025 + (1 - (a.stamina + a.agility) / 200) * 0.055) +
-    turn * (0.3 + speed * 0.12) * (1 - a.agility / 200)
+    turn * (0.3 + speed * 0.12) * (1 - a.agility / 200) +
+    (1 - deriveFitnessPhysicalModifiers(player).acceleration) *
+      (metres * 0.045 + turn * speed * 0.1)
   );
 };

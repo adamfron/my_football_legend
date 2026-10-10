@@ -1,8 +1,9 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { distance, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, RestartScenario, TacticalMatchState } from './matchState';
 
-/** Fixed rule reference. Countdown and half-end penalty extensions remain deferred to PR160. */
+/** Fixed rule reference; period-end penalty extensions are owned by matchTimekeeping. */
 export const RESTART_LAWS_VERSION = 'IFAB_2026_27' as const;
 export const RESTART_REQUIRED_DISTANCE = 9.15;
 const GOAL_AREA_Y = [24.84, 43.16] as const;
@@ -17,11 +18,11 @@ const inGoalArea = (point: PitchPoint, team: TeamSide) =>
   ownDepth(point, team) <= 5.5 &&
   point.y >= GOAL_AREA_Y[0] &&
   point.y <= GOAL_AREA_Y[1];
-const inPenaltyArea = (point: PitchPoint, team: TeamSide) =>
-  ownDepth(point, team) >= 0 &&
-  ownDepth(point, team) <= 16.5 &&
-  point.y >= PENALTY_AREA_Y[0] &&
-  point.y <= PENALTY_AREA_Y[1];
+const inPenaltyArea = (point: PitchPoint, team: TeamSide, margin = 0) =>
+  ownDepth(point, team) >= -margin &&
+  ownDepth(point, team) <= 16.5 + margin &&
+  point.y >= PENALTY_AREA_Y[0] - margin &&
+  point.y <= PENALTY_AREA_Y[1] + margin;
 
 /** Incident provenance stays immutable; this returns one permissible restart placement. */
 export const legalRestartPosition = (
@@ -119,7 +120,9 @@ const outsideCircle = (
   return pitchTarget({ x: centre.x + inwardX * radius, y: centre.y });
 };
 const outsidePenaltyArea = (target: PitchPoint, team: TeamSide): PitchPoint => {
-  if (!inPenaltyArea(target, team)) return target;
+  // Locomotion brakes within 0.08 m of its target. A target barely outside a law boundary
+  // can therefore leave the body illegally inside forever; keep the existing intent margin.
+  if (!inPenaltyArea(target, team, 0.3)) return target;
   const candidates = [
     { x: team === 'home' ? 16.8 : 88.2, y: target.y },
     { x: target.x, y: PENALTY_AREA_Y[0] - 0.3 },
@@ -127,6 +130,21 @@ const outsidePenaltyArea = (target: PitchPoint, team: TeamSide): PitchPoint => {
   ];
   return candidates.sort((a, b) => distance(a, target) - distance(b, target))[0]!;
 };
+
+/** Geometry nominates a real active keeper, including an outfield replacement after dismissal. */
+export const restartPenaltyGoalkeeper = (state: TacticalMatchState) =>
+  state.players.find(
+    (player) =>
+      player.team !== state.restart?.restartTeam &&
+      !state.discipline?.[player.id]?.sentOff &&
+      state.restart?.roles[player.id]?.key === 'penalty_goalkeeper',
+  ) ??
+  state.players.find(
+    (player) =>
+      player.team !== state.restart?.restartTeam &&
+      !state.discipline?.[player.id]?.sentOff &&
+      isMatchGoalkeeper(player),
+  );
 
 /** Projects movement intentions, never player coordinates; arrival is handled by locomotion. */
 export const legalizeRestartPlayerTarget = (
@@ -146,7 +164,7 @@ export const legalizeRestartPlayerTarget = (
     target.x = player.team === 'home' ? Math.min(target.x, 52.3) : Math.max(target.x, 52.7);
     if (opponent) target = outsideCircle(target, spot, 9.3, player.team === 'home' ? -1 : 1);
   } else if (state.scenario === 'penalty') {
-    if (opponent && player.profile.primaryPosition === 'goalkeeper')
+    if (opponent && player.id === restartPenaltyGoalkeeper(state)?.id)
       return { x: player.team === 'home' ? 0 : 105, y: bound(target.y, 30.5, 37.5) };
     target.x =
       restart.restartTeam === 'home'
@@ -279,7 +297,7 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
       (player) => distance(player.position, spot) >= RESTART_REQUIRED_DISTANCE - EPSILON,
     );
   } else if (state.scenario === 'penalty') {
-    const keeper = opponents.find((player) => player.profile.primaryPosition === 'goalkeeper');
+    const keeper = restartPenaltyGoalkeeper(state);
     opponentsReady = Boolean(
       keeper &&
         ownDepth(keeper.position, keeper.team) <= 0.4 &&

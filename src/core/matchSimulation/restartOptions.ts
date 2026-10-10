@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import { distance, clampPitchPoint } from './matchSpace';
 import { isRestartSetup } from './restartPhase';
@@ -118,7 +119,7 @@ export const enumerateContextualRestartActions = (state: TacticalMatchState): Ma
     });
   if (state.scenario === 'goal_kick' || state.scenario === 'gk_short') {
     const long = teammates
-      .filter((p) => p.profile.primaryPosition !== 'goalkeeper')
+      .filter((p) => !isMatchGoalkeeper(p))
       .sort((a, b) => (b.position.x - a.position.x) * direction || a.id.localeCompare(b.id))
       .slice(0, 3);
     return [

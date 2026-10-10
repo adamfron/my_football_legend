@@ -1,4 +1,39 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR159
+# Audyt silnika meczu — PR140 / aktualizacja PR160
+
+## PR160 — actual workload, lawful substitutions and referee time
+
+Base: merged PR159 `09c05fa`. Original `lab-mv1fg3zw` telemetry reconstructs the
+actual keeper foul, XI and ball/identity fingerprints. A participant stopped
+0.06885994 m from a barely legal intention while remaining inside the penalty
+area; the existing 0.3 m intention clearance now prevents that arrival/legal
+conflict. Same blocked state releases after 0.375 s. Readiness thresholds and
+physics remain authoritative. Synthetic unavailable-keeper coverage also aligns
+match role, geometry and laws without changing permanent player profiles.
+
+Two reserves follow actual integrated displacement, impulses, turns and contact.
+Fitness has contextual physical consequences, no universal late-minute technical
+attribute penalty. Injury exposure is contextual/deduplicated; unable actors lose
+participation before contacts/actions. Real bench bodies leave/enter physically,
+retain separate stats and their own condition/health, and obey configurable IFAB
+2026/27 substitution limits/opportunities and delayed-entry protocol.
+
+PR159's ledger supplies one union of qualifying reasons, ordinary preparation
+allowance, monotonic announced minimum and further loss during added time.
+Terminal penalties/retakes require physical completion; pending human choices
+retain ownership. Event feed, frame and replay are read-only. Career recovery
+uses existing dates; canonical adapter/commit are tested, while the current
+narrative product records explicitly estimated summary workload.
+
+Final `npm run verify` PASS: lint, 1452 main tests/177 files, five full-career tests
+and build. The uninjected full match ends legally at 90+1 with five genuine
+substitutions, one temporary discomfort and zero shots. Three alternating
+300 s CPU pairs measure +22.54% median cost (8.221→10.073 s); this focused
+fixture does not establish broad performance or scoring realism.
+Evidence and all 30 acceptance answers:
+[PR160 report](PR160_FATIGUE_INJURIES_SUBSTITUTIONS_ADDED_TIME.md).
+The previous shot/CM/rotation/contest/formation/action-ranking concerns remain.
+No scoring-rate tuning or exhaustive calibration claims. PR161 visual review and
+the following integrated audit must examine all systems together.
 
 ## PR159 — continuity, shared spin and state-based restart readiness
 

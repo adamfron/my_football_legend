@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import type { PitchPoint } from './matchSpace';
 import { distance } from './matchSpace';
@@ -54,7 +55,7 @@ export const deriveOrientationTarget = (
     state.receptionPreparation?.actorId === player.id &&
       state.time >= state.receptionPreparation.awarenessAt,
   );
-  const goalkeeper = player.profile.primaryPosition === 'goalkeeper';
+  const goalkeeper = isMatchGoalkeeper(player);
   const carrier = state.ball.ownerId === player.id;
   if (goalkeeper || receptionAware || (defending && movementDistance < 10))
     return angleForVector(ballVector);
@@ -81,10 +82,11 @@ export const integrateFacing = (
   agility: number,
   speed: number,
   dt: number,
+  turningModifier = 1,
 ) => {
   const stationaryRate = 2.2 + (agility / 100) * 3.8;
   const speedFactor = Math.max(0.38, 1 - speed / 13);
-  const maxStep = stationaryRate * speedFactor * dt;
+  const maxStep = stationaryRate * speedFactor * turningModifier * dt;
   const delta = normalizeAngle(desired - current);
   return normalizeAngle(current + Math.max(-maxStep, Math.min(maxStep, delta)));
 };

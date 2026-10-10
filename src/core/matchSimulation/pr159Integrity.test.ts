@@ -21,6 +21,8 @@ import { PresentationFrameProjector } from '../../app/match/tacticalRenderer/fra
 const world = createCanonicalWorldDatabase();
 const physicallyPrepared = (
   scenario: 'free_kick_wide' | 'free_kick_close' = 'free_kick_wide',
+  at = 100,
+  period: 'first_half' | 'second_half' = 'first_half',
 ): TacticalMatchState => {
   const initial = createTacticalMatch(
     createSingleMatchSession(world, {
@@ -30,10 +32,10 @@ const physicallyPrepared = (
       control: { mode: 'spectator' },
     }),
   );
-  let state = awardNaturalRestart({ ...initial, time: 100 }, scenario, {
+  let state = awardNaturalRestart({ ...initial, time: at, status: period }, scenario, {
     restartTeam: 'home',
-    incidentId: 'integrity-foul-100',
-    eventAt: 100,
+    incidentId: `integrity-foul-${at}`,
+    eventAt: at,
     incidentPoint: scenario === 'free_kick_close' ? { x: 83, y: 34 } : { x: 78.125, y: 8.75 },
     cause: 'foul',
   });
@@ -158,7 +160,7 @@ describe('PR159 restart integrity across observers, persistence and terminal dec
   });
 
   it('freezes an unchosen human restart but terminates a queued choice at the full-time clock boundary identically', () => {
-    const prepared = physicallyPrepared();
+    const prepared = physicallyPrepared('free_kick_wide', 5399, 'second_half');
     const awaiting: TacticalMatchState = {
       ...prepared,
       time: 5399.99,

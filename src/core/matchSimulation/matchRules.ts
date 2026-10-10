@@ -1,3 +1,5 @@
+import { findMatchParticipant } from './matchParticipants';
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
@@ -5,6 +7,7 @@ import { awardNaturalRestart } from './restartScenarios';
 import { replaceUnavailableRestartTaker } from './restartLifecycle';
 import { isRestartSetup } from './restartPhase';
 import { beginStoppage, endStoppage } from './stoppageLedger';
+import { minimumEligiblePlayerCount } from './substitutions';
 import {
   countDefensiveEvent,
   defensiveTechniqueSchema,
@@ -78,12 +81,8 @@ export const enforceMinimumPlayers = (
 ): TacticalMatchState => {
   if (state.status === 'abandoned' || (state.status === 'full_time' && !afterDismissal))
     return state;
-  let home = 0;
-  let away = 0;
-  for (const player of state.players) {
-    if (player.team === 'home') home++;
-    else away++;
-  }
+  const home = minimumEligiblePlayerCount(state, 'home');
+  const away = minimumEligiblePlayerCount(state, 'away');
   const team = home < 7 ? 'home' : away < 7 ? 'away' : undefined;
   if (!team) return state;
   const next: TacticalMatchState = {
@@ -106,6 +105,7 @@ export const enforceMinimumPlayers = (
   delete next.restartAction;
   delete next.throwInRestriction;
   delete next.restartTouchRestriction;
+  delete next.droppedBallTouchRestriction;
   delete next.postGoal;
   delete next.pendingPlayerDecision;
   delete next.nearestChallengerId;
@@ -193,6 +193,9 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
   const kind: CardFact['kind'] =
     foul.card === 'red' ? 'red' : yellowCards === 2 ? 'second_yellow_red' : 'yellow';
   const sentOff = kind !== 'yellow';
+  const dismissedPlayer = sentOff
+    ? state.players.find((player) => player.id === foul.actorId)
+    : undefined;
   const finalRunning = sentOff
     ? state.players.find((player) => player.id === foul.actorId)?.locomotionTelemetry
     : undefined;
@@ -225,16 +228,38 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
       ...(state.recentCards?.[0]?.at === state.time ? state.recentCards : []),
       card,
     ].slice(-22),
-    ...(sentOff ? { players: state.players.filter((p) => p.id !== foul.actorId) } : {}),
+    ...(sentOff
+      ? {
+          players: state.players.filter((p) => p.id !== foul.actorId),
+          departedPlayers: dismissedPlayer
+            ? [
+                ...(state.departedPlayers ?? []).filter(
+                  (player) => player.id !== dismissedPlayer.id,
+                ),
+                dismissedPlayer,
+              ]
+            : (state.departedPlayers ?? []),
+        }
+      : {}),
     ...(sentOff && state.statistics
       ? {
           statistics: {
             ...state.statistics,
+            playerActiveUntil: {
+              ...state.statistics.playerActiveUntil,
+              [foul.actorId]: state.time,
+            },
             players: state.statistics.players.map((entry) =>
               entry.playerId === foul.actorId
                 ? {
                     ...entry,
-                    minutesPlayed: state.time / 60,
+                    minutesPlayed:
+                      (state.statistics!.playerMinutesBeforeEntry?.[foul.actorId] ?? 0) +
+                      Math.max(
+                        0,
+                        state.time - (state.statistics!.playerActiveSince?.[foul.actorId] ?? 0),
+                      ) /
+                        60,
                     ...(finalRunning
                       ? {
                           distanceCovered: finalRunning.distanceTotal,
@@ -261,10 +286,8 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
       foul.technique,
     );
     next = removeDismissedExecution(next, foul.actorId);
-    // No substitutions in this PR. A deterministic surviving teammate becomes emergency keeper.
-    if (
-      !next.players.some((p) => p.team === foul.team && p.profile.primaryPosition === 'goalkeeper')
-    ) {
+    // A surviving teammate fills the goalkeeper role until a legal replacement can enter.
+    if (!next.players.some((p) => p.team === foul.team && isMatchGoalkeeper(p))) {
       const replacement = next.players
         .filter((p) => p.team === foul.team)
         .sort(
@@ -276,9 +299,7 @@ const showCard = (state: TacticalMatchState, foul: FoulFact): TacticalMatchState
         next = {
           ...next,
           players: next.players.map((p) =>
-            p.id === replacement.id
-              ? { ...p, profile: { ...p.profile, primaryPosition: 'goalkeeper' as const } }
-              : p,
+            p.id === replacement.id ? { ...p, goalkeeperRole: true } : p,
           ),
         };
     }
@@ -472,7 +493,7 @@ export const advanceMatchRules = (
       shot &&
         shot.shooterId &&
         (shot.releasedAt ?? -1) >= foul.at &&
-        next.players.find((p) => p.id === shot.shooterId)?.team === foul.awardedTeam,
+        findMatchParticipant(next, shot.shooterId)?.team === foul.awardedTeam,
     );
     const goal = next.score[foul.awardedTeam] > previous.score[foul.awardedTeam];
     const stoppage =

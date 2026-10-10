@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { clampPitchPoint, distance, distanceToSegment, pitchPointSchema } from './matchSpace';
 import type { BallCarrierIntent, MatchPlayerState, TacticalMatchState } from './matchState';
@@ -47,9 +48,7 @@ export const hasReachedCarryDecisionWaypoint = (
 };
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
-  state.players.filter(
-    (player) => player.team !== actor.team && player.profile.primaryPosition !== 'goalkeeper',
-  );
+  state.players.filter((player) => player.team !== actor.team && !isMatchGoalkeeper(player));
 
 /** Contextual micro-execution of an authoritative carry destination; never selects another action. */
 export const deriveCarryExecution = (

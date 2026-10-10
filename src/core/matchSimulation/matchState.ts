@@ -1,6 +1,35 @@
 import { z } from 'zod';
+import { matchFitnessSchema, type MatchFitness } from './matchFitness';
+import { matchInjurySchema, type MatchInjury } from './matchInjuries';
+import {
+  droppedBallTouchRestrictionSchema,
+  injuryAssessmentSchema,
+  type DroppedBallTouchRestriction,
+  type InjuryAssessment,
+} from './injuryStoppage';
+import { matchTimekeepingSchema, type MatchTimekeeping } from './matchTimekeeping';
+import {
+  restartBlockingObservationSchema,
+  restartBlockingDiagnosticSchema,
+  type RestartBlockingObservation,
+  type RestartBlockingDiagnostic,
+} from './restartLiveness';
+import {
+  matchSubstitutionRulesSchema,
+  substitutionStateSchema,
+  matchBenchPlayerSchema,
+  departedMatchPlayerSchema,
+  type MatchSubstitutionRules,
+  type MatchSubstitutionState,
+  type MatchBenchPlayer,
+} from './substitutions';
 import { ballSpinSchema, type BallSpin3d } from './ballPhysics';
-import { stoppageLedgerSchema, type StoppageLedger } from './stoppageLedger';
+import {
+  stoppageLedgerSchema,
+  type StoppageLedger,
+  addedTimePolicySchema,
+  type AddedTimePolicy,
+} from './stoppageLedger';
 import { ballAcquisitionSchema, type BallAcquisition } from './ballAcquisition';
 import { aerialContactLockSchema } from './aerialPlay';
 import {
@@ -395,6 +424,9 @@ export const restartLivenessDiagnosticSchema = z.object({
 export type RestartLivenessDiagnostic = z.infer<typeof restartLivenessDiagnosticSchema>;
 
 export interface MatchPlayerState {
+  goalkeeperRole?: boolean;
+  fitness?: MatchFitness;
+  injury?: MatchInjury;
   restartWallResponse?: z.infer<typeof restartWallResponseSchema>;
   id: string;
   /** Match-clock entry time. Existing starting players default to kickoff (zero). */
@@ -662,6 +694,18 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  injuryAssessment?: InjuryAssessment;
+  droppedBallTouchRestriction?: DroppedBallTouchRestriction;
+  addedTimePolicy?: AddedTimePolicy;
+  timekeeping?: MatchTimekeeping;
+  restartBlockingObservation?: RestartBlockingObservation;
+  restartLivenessDiagnostics?: RestartBlockingDiagnostic[];
+  substitutionRules?: MatchSubstitutionRules;
+  substitutionState?: MatchSubstitutionState;
+  bench?: Record<TeamSide, MatchBenchPlayer[]>;
+  departedPlayers?: MatchPlayerState[];
+  injuries?: MatchInjury[];
+  pendingInjuryAssessment?: string;
   /** One bounded anticipation plan; ownership never guarantees the next foot contact. */
   controlledBallContact?: ControlledBallContact;
   contactControlTelemetry?: ContactControlTelemetry;
@@ -670,7 +714,7 @@ export interface TacticalMatchState {
   seed: string;
   time: number;
   decisionIndex: number;
-  /** Canonical regulation lifecycle. Stoppage time is deliberately future work. */
+  /** Canonical period lifecycle; added time derives from the stoppage ledger. */
   status?: MatchPeriod;
   termination?: z.infer<typeof matchTerminationSchema>;
   periodEndPending?: boolean;
@@ -849,6 +893,23 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    injuryAssessment: injuryAssessmentSchema.optional(),
+    droppedBallTouchRestriction: droppedBallTouchRestrictionSchema.optional(),
+    addedTimePolicy: addedTimePolicySchema.optional(),
+    timekeeping: matchTimekeepingSchema.optional(),
+    restartBlockingObservation: restartBlockingObservationSchema.optional(),
+    restartLivenessDiagnostics: z.array(restartBlockingDiagnosticSchema).max(32).optional(),
+    substitutionRules: matchSubstitutionRulesSchema.optional(),
+    substitutionState: substitutionStateSchema.optional(),
+    bench: z
+      .object({
+        home: z.array(matchBenchPlayerSchema).max(30),
+        away: z.array(matchBenchPlayerSchema).max(30),
+      })
+      .optional(),
+    departedPlayers: z.array(departedMatchPlayerSchema).max(30).optional(),
+    injuries: z.array(matchInjurySchema).max(32).optional(),
+    pendingInjuryAssessment: z.string().optional(),
     stoppageLedger: stoppageLedgerSchema.optional(),
     restartTouchRestriction: z
       .object({
@@ -901,6 +962,9 @@ export const tacticalMatchStateSchema = z
       z
         .object({
           id: z.string(),
+          goalkeeperRole: z.boolean().optional(),
+          fitness: matchFitnessSchema.optional(),
+          injury: matchInjurySchema.optional(),
           restartWallResponse: restartWallResponseSchema.optional(),
           activeSince: z.number().nonnegative().optional(),
           team: teamSideSchema,

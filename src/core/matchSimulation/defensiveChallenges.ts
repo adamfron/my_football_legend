@@ -1,5 +1,8 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
+import { deriveFitnessPhysicalModifiers } from './matchFitness';
+import { canParticipatePhysically } from './matchInjuries';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
   clampPitchPoint,
@@ -156,7 +159,9 @@ export const deriveDefensiveContext = (
     state.status === 'full_time' ||
     state.status === 'half_time' ||
     state.discipline?.[actor.id]?.sentOff ||
-    state.discipline?.[opponent.id]?.sentOff
+    state.discipline?.[opponent.id]?.sentOff ||
+    !canParticipatePhysically(actor) ||
+    !canParticipatePhysically(opponent)
   )
     return;
   const opponentDistance = distance(actor.position, opponent.position);
@@ -177,7 +182,7 @@ export const deriveDefensiveContext = (
     (p) =>
       p.team === actor.team &&
       p.id !== actor.id &&
-      p.profile.primaryPosition !== 'goalkeeper' &&
+      !isMatchGoalkeeper(p) &&
       attackDirection * (p.position.x - opponent.position.x) > 0 &&
       Math.abs(p.position.y - opponent.position.y) < 12 &&
       distance(p.position, opponent.position) < 22,
@@ -267,6 +272,9 @@ const projectPressingPlan = (
   const reading = (a.gameReading + a.positioning) / 200;
   const trailingLate =
     state.time >= 80 * 60 && state.score[c.actor.team] < state.score[c.opponent.team];
+  const physicalPressCost =
+    (1 - deriveFitnessPhysicalModifiers(c.actor).acceleration) *
+    Math.min(1, c.opponentDistance / 12);
   // Temperament controls commitment. Tackling/strength are deliberately absent: neither
   // turns aggression into better execution or substitutes for willingness to engage.
   const commitment = Math.max(
@@ -283,6 +291,7 @@ const projectPressingPlan = (
         (invited ? 0.22 : 0) +
         (nearGoal || c.danger ? 0.25 : c.promisingAttack ? 0.12 : 0) +
         (trailingLate ? 0.1 : 0) -
+        (!selected && !nearGoal && !c.danger ? physicalPressCost * 0.22 : 0) -
         (booked ? 0.2 + (a.composure / 100) * 0.08 : 0) -
         (!selected && !nearGoal && !c.danger && easyBuildUp
           ? (1 - opportunity.engagement) * 0.3
@@ -535,7 +544,7 @@ export const deriveCooperativePress = (
     .filter(
       (player) =>
         player.team === side &&
-        player.profile.primaryPosition !== 'goalkeeper' &&
+        !isMatchGoalkeeper(player) &&
         !state.discipline?.[player.id]?.sentOff,
     )
     .sort(
@@ -995,7 +1004,8 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
   const elapsed = state.time - intent.startedAt;
   const reach = intent.technique === 'slide' ? 1.9 : intent.technique === 'committed' ? 1.25 : 0.95;
   const minimumTime =
-    intent.technique === 'standing' ? 0 : intent.technique === 'slide' ? 0.18 : 0.1;
+    (intent.technique === 'standing' ? 0 : intent.technique === 'slide' ? 0.18 : 0.1) *
+    deriveFitnessPhysicalModifiers(c.actor).contactRecovery;
   const aligned = c.facingError <= Math.PI * (intent.technique === 'tactical' ? 0.68 : 0.5);
   let opponentContact =
     c.opponentDistance <= (intent.technique === 'slide' ? 1.75 : 1.35) && aligned;

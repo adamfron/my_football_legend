@@ -11,6 +11,8 @@ export const matchEventKindSchema = z.enum([
   'foul',
   'offside',
   'kick_off',
+  'substitution',
+  'injury',
 ]);
 /** Permanent football facts. Short-lived action labels and replay retention are independent. */
 export const matchEventSchema = z.object({
@@ -45,6 +47,26 @@ export const emitMatchEvents = (
     key
       ? next.actionEvents?.find((event) => event.id === `${next.seed}:action:${key}`)?.id
       : undefined;
+  for (const change of next.substitutionState?.completed ?? []) {
+    if (previous.substitutionState?.completed.some((old) => old.id === change.id)) continue;
+    add({
+      id: change.id,
+      at: change.enteredAt,
+      kind: 'substitution',
+      team: change.team,
+      actorId: change.incomingId,
+      relatedPlayerId: change.outgoingId,
+    });
+  }
+  for (const injury of next.injuries ?? []) {
+    if (previous.injuries?.some((old) => old.id === injury.id)) continue;
+    const actor =
+      next.players.find((player) => player.id === injury.playerId) ??
+      next.departedPlayers?.find((player) => player.id === injury.playerId) ??
+      previous.players.find((player) => player.id === injury.playerId);
+    if (actor)
+      add({ id: injury.id, at: injury.at, kind: 'injury', team: actor.team, actorId: actor.id });
+  }
   for (const team of ['home', 'away'] as const) {
     if (next.score[team] <= previous.score[team]) continue;
     const shot = next.lastShot?.outcome === 'goal' ? next.lastShot : undefined;

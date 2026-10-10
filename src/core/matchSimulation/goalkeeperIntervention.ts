@@ -1,3 +1,5 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { findMatchParticipant } from './matchParticipants';
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { BALL_PHYSICS, projectFutureBallTrajectory, type PhysicalBall } from './ballPhysics';
@@ -67,9 +69,9 @@ export const projectGoalkeeperIntervention = (
   const shot = state.ball.shot;
   const velocity = state.ball.velocity;
   if (!shot || !velocity) return undefined;
-  const shooter = state.players.find((player) => player.id === shot.shooterId);
+  const shooter = findMatchParticipant(state, shot.shooterId);
   const keeper = state.players.find(
-    (player) => player.team !== shooter?.team && player.profile.primaryPosition === 'goalkeeper',
+    (player) => player.team !== shooter?.team && isMatchGoalkeeper(player),
   );
   if (!keeper) return undefined;
   let physical: PhysicalBall = {
