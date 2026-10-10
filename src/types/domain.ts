@@ -367,6 +367,8 @@ export interface CareerWorldDelta {
         [footballerId: Id]: { [K in keyof PlayerAttributes]?: PlayerAttributes[K] | undefined };
       }
     | undefined;
+  /** Temporary physical condition, separate from permanent attributes and identity. */
+  footballerConditionOverrides?: Record<Id, FootballerCondition> | undefined;
   /** The sole persisted source of NPC professional membership after bootstrap. */
   npcClubMembership: Record<Id, Id | null>;
   /** Effective youth membership after lifecycle changes; the shipped cohort stays immutable. */
@@ -709,8 +711,19 @@ export interface WorldFootballer {
   currentClubId?: Id | undefined;
   reputation?: number | undefined;
   fitness?: number | undefined;
+  condition?: FootballerCondition | undefined;
   /** Persistent contract fact; payroll simulation deliberately remains protagonist-only. */
   currentContract?: Contract | undefined;
+}
+export interface FootballerCondition {
+  capacity: number;
+  lastUpdatedDate: string;
+  lastAppearanceDate?: string | undefined;
+  lastAppearanceMinutes?: number | undefined;
+  lastMatchId?: Id | undefined;
+  source?: 'canonical' | 'summary' | undefined;
+  injuryUntilDate?: string | undefined;
+  injuryStatus?: 'discomfort' | 'playable' | 'unable' | 'absence' | undefined;
 }
 export interface ClubInfrastructure {
   coachingQuality: number;

@@ -11,6 +11,7 @@ import type {
 import { professionalClubSchema, worldFootballerSchema } from '../schemas/domainSchemas';
 import { projectNpcAttributesAtDate } from './seasonDevelopment';
 import { parseProceduralFootballerId, resolveProceduralFootballer } from './proceduralFootballers';
+import { recoverFootballerCondition } from './fitnessRecovery';
 
 export const WORLD_DATABASE_VERSION = 'pl-2026-v2';
 export const WORLD_DATABASE_SEED = 'mfl-world-pl-2026-v2';
@@ -59,7 +60,21 @@ export const clearWorldDatabaseCache = () => {
 };
 /** Synchronous fallback for tests and already-bundled desktop builds. Browser UX preloads the asset. */
 
-type WorldContext = Pick<CareerState, 'player' | 'worldDelta'> & { baseWorld: WorldDatabase };
+type WorldContext = Pick<CareerState, 'player' | 'worldDelta'> &
+  Partial<Pick<CareerState, 'currentDate'>> & { baseWorld: WorldDatabase };
+const withRecoveredCondition = (
+  footballer: WorldFootballer,
+  delta: CareerWorldDelta | undefined,
+  date: string | undefined,
+): WorldFootballer => {
+  const stored =
+    delta?.footballerConditionOverrides?.[footballer.profile.id] ?? footballer.condition;
+  if (!stored) return footballer;
+  const condition = date
+    ? recoverFootballerCondition(stored, date, footballer.profile.attributes.stamina)
+    : stored;
+  return { ...footballer, condition, fitness: condition.capacity };
+};
 export const resolveWorldFootballer = (
   world: WorldContext,
   id: Id,
@@ -79,7 +94,7 @@ export const resolveWorldFootballer = (
     ...(clubId !== undefined ? { currentClubId: clubId ?? undefined } : {}),
   };
   const attributes = delta?.footballerAttributeOverrides?.[id];
-  return attributes
+  const effective = attributes
     ? {
         ...composed,
         profile: {
@@ -88,6 +103,7 @@ export const resolveWorldFootballer = (
         },
       }
     : composed;
+  return withRecoveredCondition(effective, delta, world.currentDate);
 };
 
 const composeFootballerState = (
@@ -134,7 +150,7 @@ export const resolveCareerWorldFootballer = (
       }
     : footballer;
   const patch = delta?.footballerAttributeOverrides?.[id];
-  return patch
+  const effective = patch
     ? {
         ...projected,
         profile: {
@@ -143,6 +159,7 @@ export const resolveCareerWorldFootballer = (
         },
       }
     : projected;
+  return withRecoveredCondition(effective, delta, career.currentDate);
 };
 
 /** Boundary-local resolver: indexes retirement once and may memoize an immutable pass. */
@@ -194,8 +211,11 @@ export const createCareerWorldFootballerResolver = (
             },
           }
         : projected;
-    cache?.set(id, effective);
-    return effective;
+    const conditioned = effective
+      ? withRecoveredCondition(effective, delta, career.currentDate)
+      : effective;
+    cache?.set(id, conditioned);
+    return conditioned;
   };
 };
 export const resolveNpcClubMembership = (

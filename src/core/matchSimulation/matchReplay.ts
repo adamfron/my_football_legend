@@ -1,3 +1,5 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { projectMatchVisiblePlayers } from './substitutions';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { canonicalActionEventSchema } from './actionEvents';
@@ -87,14 +89,14 @@ export class MatchReplayHistory {
     const frame: ReplaySnapshot = {
       timestampMs: state.time * 1000,
       continuity: `replay:${state.seed}:${this.continuity}`,
-      players: state.players.map((p) => ({
+      players: projectMatchVisiblePlayers(state).map((p) => ({
         id: p.id,
         team: p.team,
         x: p.position.x,
         y: p.position.y,
         facing: p.facingAngle,
         velocity: { ...p.velocity },
-        goalkeeper: p.profile.primaryPosition === 'goalkeeper',
+        goalkeeper: isMatchGoalkeeper(p),
         protagonist: p.id === state.controlledFootballerId,
         displayNumber: p.slotIndex + 1,
         heightCm: p.profile.heightCm,

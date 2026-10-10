@@ -140,6 +140,57 @@ describe('permanent Match Centre', () => {
     ]);
   });
 
+  it('shows real substitute names, injury facts, added time and departed controlled participation', () => {
+    const state = createTacticalMatch(session);
+    const outgoing = state.players.find((player) => player.team === 'home')!;
+    const incoming = session.home.bench![0]!;
+    const canonical = {
+      ...state,
+      time: 2762,
+      controlledFootballerId: outgoing.id,
+      players: state.players.filter((player) => player.id !== outgoing.id),
+      departedPlayers: [outgoing],
+      timekeeping: {
+        period: 'first_half' as const,
+        periodStartedAt: 0,
+        nominalEndAt: 2700,
+        qualifyingLostSeconds: 92,
+        minimumAnnouncedAddedSeconds: 120,
+        additionalLostAfterAnnouncement: 0,
+        requiredEndAt: 2820,
+      },
+      matchEvents: [
+        {
+          id: 'injury',
+          replayKey: 'injury',
+          at: 2600,
+          kind: 'injury' as const,
+          team: 'home' as const,
+          actorId: outgoing.id,
+        },
+        {
+          id: 'change',
+          replayKey: 'change',
+          at: 2620,
+          kind: 'substitution' as const,
+          team: 'home' as const,
+          actorId: incoming.footballerId,
+          relatedPlayerId: outgoing.id,
+        },
+      ],
+    };
+    act(() => root.render(<MatchCentre state={canonical} session={session} kits={DEFAULT_KITS} />));
+    expect(container.querySelector('.match-centre__clock')!.textContent).toContain(
+      'co najmniej 2 min',
+    );
+    expect(container.querySelector('[role="status"]')!.textContent).toContain('zakończył udział');
+    const change = container.querySelector('[data-event-kind="substitution"]')!.textContent!;
+    expect(change).toContain(`${incoming.profile.firstName} ${incoming.profile.lastName}`);
+    expect(change).toContain(`${outgoing.profile.firstName} ${outgoing.profile.lastName}`);
+    expect(container.querySelector('[data-event-kind="injury"]')!.textContent).toContain('Uraz');
+    expect(canonical.controlledFootballerId).toBe(outgoing.id);
+  });
+
   it('identifies the fouling team from canonical metadata even after the actor leaves the pitch', () => {
     const state = createTacticalMatch(session);
     const actor = state.players.find((player) => player.team === 'away')!;

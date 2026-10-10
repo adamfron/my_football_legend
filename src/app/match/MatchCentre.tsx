@@ -15,6 +15,8 @@ const eventLabels: Record<MatchEvent['kind'], string> = {
   foul: 'Faul',
   offside: 'Spalony',
   kick_off: 'Rozpoczęcie gry',
+  substitution: 'Zmiana',
+  injury: 'Uraz',
 };
 
 /** Always projects the complete canonical match, including football hidden by watch policy. */
@@ -33,7 +35,12 @@ export const MatchCentre = ({
 }) => {
   const statistics = projectMatchCentreStatistics(state);
   const roster = new Map(
-    [...session.home.players, ...session.away.players].map((player) => [
+    [
+      ...session.home.players,
+      ...session.away.players,
+      ...(session.home.bench ?? []),
+      ...(session.away.bench ?? []),
+    ].map((player) => [
       player.footballerId,
       `${player.profile.firstName} ${player.profile.lastName}`,
     ]),
@@ -102,7 +109,19 @@ export const MatchCentre = ({
       </p>
       <p className="match-centre__clock">
         {formatMatchTime(state.time)} · pełny przebieg spotkania
+        {state.timekeeping?.minimumAnnouncedAddedSeconds !== undefined &&
+          ` · doliczono co najmniej ${Math.ceil(state.timekeeping.minimumAnnouncedAddedSeconds / 60)} min`}
       </p>
+      {state.controlledFootballerId &&
+        !state.players.some((player) => player.id === state.controlledFootballerId) &&
+        (state.departedPlayers?.some((player) => player.id === state.controlledFootballerId) ||
+          state.substitutionState?.pending.some(
+            (request) => request.outgoing.id === state.controlledFootballerId,
+          )) && (
+          <p role="status">
+            Twój piłkarz zakończył udział w meczu. Obserwujesz dalszy przebieg spotkania.
+          </p>
+        )}
       <h3>Wydarzenia</h3>
       {events.length === 0 ? (
         <p className="match-centre__empty">Jeszcze bez ważnych wydarzeń.</p>
@@ -121,9 +140,11 @@ export const MatchCentre = ({
                 <div>
                   <strong>{eventLabels[event.kind]}</strong>
                   <span>
-                    {player
-                      ? `${player} (${session[event.team].club.name})`
-                      : session[event.team].club.name}
+                    {event.kind === 'substitution'
+                      ? `${player ?? event.actorId} ← ${roster.get(event.relatedPlayerId ?? '') ?? event.relatedPlayerId}`
+                      : player
+                        ? `${player} (${session[event.team].club.name})`
+                        : session[event.team].club.name}
                   </span>
                   {event.score && (
                     <span className="match-centre__event-score">
@@ -171,6 +192,8 @@ export const MatchCentre = ({
           row('Próby odbioru', statistics.home.tacklesAttempted, statistics.away.tacklesAttempted),
           row('Odbiory wygrane', statistics.home.tacklesWon, statistics.away.tacklesWon),
           row('Przechwyty', statistics.home.interceptions, statistics.away.interceptions),
+          row('Zmiany', statistics.home.substitutions, statistics.away.substitutions),
+          row('Urazy', statistics.home.injuries, statistics.away.injuries),
         ])}
       </details>
     </section>

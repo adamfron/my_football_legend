@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
@@ -119,8 +120,7 @@ export const deriveNeutralFormationAnchor = (
   player: Pick<MatchPlayerState, 'slot' | 'team' | 'profile'>,
 ): PitchPoint => {
   const relative = formationSlotToTeamSpace(player.slot);
-  if (player.profile.primaryPosition === 'goalkeeper')
-    return { x: player.team === 'home' ? 5.5 : 99.5, y: 34 };
+  if (isMatchGoalkeeper(player)) return { x: player.team === 'home' ? 5.5 : 99.5, y: 34 };
   const ownHalfX = 16 + relative.depth * 39;
   return {
     x: player.team === 'home' ? ownHalfX : PITCH_LENGTH - ownHalfX,
@@ -182,11 +182,7 @@ export const deriveAttackingRunIds = (state: TacticalMatchState, side: TeamSide)
   const urgency = state.teams[side].phase === 'attacking_transition' ? 1.25 : 1;
   return state.players
     .filter(
-      (p) =>
-        p.team === side &&
-        p.id !== carrier.id &&
-        p.profile.primaryPosition !== 'goalkeeper' &&
-        p.duty !== 'defend',
+      (p) => p.team === side && p.id !== carrier.id && !isMatchGoalkeeper(p) && p.duty !== 'defend',
     )
     .map((p) => ({
       p,
@@ -249,7 +245,7 @@ export const deriveFinalThirdOccupations = (
       (player) =>
         player.team === side &&
         player.id !== carrier.id &&
-        player.profile.primaryPosition !== 'goalkeeper' &&
+        !isMatchGoalkeeper(player) &&
         !isWideDefender(player) &&
         !flankRunnerIds.has(player.id) &&
         player.duty !== 'defend',
@@ -338,7 +334,7 @@ export const deriveFlankRunAssignments = (state: TacticalMatchState, side: TeamS
         (player) =>
           player.team === side &&
           player.id !== fullback.id &&
-          player.profile.primaryPosition !== 'goalkeeper' &&
+          !isMatchGoalkeeper(player) &&
           dir * (player.position.x - state.ball.x) < -5,
       ).length;
       const ballSide = Math.sign(state.ball.y - 34) === flankSign;
@@ -396,7 +392,7 @@ export const deriveFlankRelationship = (
     (player) =>
       player.team === fullback.team &&
       player.id !== fullback.id &&
-      player.profile.primaryPosition !== 'goalkeeper' &&
+      !isMatchGoalkeeper(player) &&
       dir * (player.position.x - state.ball.x) < -5,
   ).length;
   if (sameSideInfluence < 0.22 || cover < 2 || fullback.duty === 'defend') return 'rest_defence';
@@ -466,12 +462,7 @@ export const derivePressingAssignment = (
   const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);
   if (!carrier || carrier.team === side) return { screen: [] };
   const candidates = state.players
-    .filter(
-      (p) =>
-        p.team === side &&
-        p.profile.primaryPosition !== 'goalkeeper' &&
-        !state.discipline?.[p.id]?.sentOff,
-    )
+    .filter((p) => p.team === side && !isMatchGoalkeeper(p) && !state.discipline?.[p.id]?.sentOff)
     .sort(
       (a, b) =>
         distance(a.position, carrier.position) -
@@ -548,7 +539,7 @@ export const deriveBuildUpSupport = (
       (player) =>
         player.team === side &&
         player.id !== owner.id &&
-        player.profile.primaryPosition !== 'goalkeeper' &&
+        !isMatchGoalkeeper(player) &&
         !state.discipline?.[player.id]?.sentOff &&
         // The next midfield line must be able to come towards a deep fullback. A single
         // short radius can exclude the entire central triangle before build-up has begun.
@@ -740,7 +731,7 @@ export const deriveStructuralPosition = (
   neutralAnchor = deriveNeutralFormationAnchor(player),
   block = deriveTeamBlockTransform(state, player.team),
 ): PitchPoint => {
-  if (player.profile.primaryPosition === 'goalkeeper')
+  if (isMatchGoalkeeper(player))
     return applyRoleRelationships(
       state,
       player,
@@ -795,7 +786,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     const neutralAnchor = deriveNeutralFormationAnchor(player);
     const parameters = parametersBySide[player.team],
       dir = direction(player.team);
-    const isKeeper = player.profile.primaryPosition === 'goalkeeper';
+    const isKeeper = isMatchGoalkeeper(player);
     const structural = deriveStructuralPosition(state, player, neutralAnchor, blocks[player.team]);
     let ideal = structural;
     const carrier = state.ball.ownerId && state.players.find((p) => p.id === state.ball.ownerId);

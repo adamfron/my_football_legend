@@ -1,4 +1,35 @@
+import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
+import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
+import {
+  advanceMatchFitness,
+  createMatchFitness,
+  deriveFitnessPhysicalModifiers,
+  recoverHalftimeFitness,
+} from './matchFitness';
+import { advanceMatchInjuries, canParticipatePhysically } from './matchInjuries';
+import {
+  initialiseMatchSubstitutions,
+  projectMatchVisiblePlayers,
+  planCoachSubstitutions,
+  substitutionBlocksRestart,
+  stepSubstitutionInterval,
+  advanceMatchSubstitutions,
+  completeHalftimeSubstitutions,
+} from './substitutions';
+import {
+  observeDroppedBallContact,
+  processInjuryAssessment,
+  resolveDroppedBallGoalOutcome,
+  stepInjuryAssessmentInterval,
+} from './injuryStoppage';
+import {
+  preparePeriodEnd,
+  periodCanEnd,
+  clockPeriodThreshold,
+  resetSecondHalfTimekeeping,
+} from './matchTimekeeping';
+import { observeRestartLiveness } from './restartLiveness';
 import {
   prepareRestartMovement,
   advanceRestartPlacement,
@@ -11,7 +42,7 @@ import {
   advancePostGoalReaction,
 } from './postGoalReactions';
 import { endStoppage } from './stoppageLedger';
-import { resolveRestartGoalOutcome } from './restartLaws';
+import { resolveRestartGoalOutcome, deriveRestartLegalReadiness } from './restartLaws';
 import { deriveCanonicalCoachProfile } from '../coachProfiles';
 import { emitMatchEvents } from './matchEventFeed';
 import { initialiseTeamThreatMemory, observeTeamThreats } from './teamThreatMemory';
@@ -232,6 +263,8 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         id: player.footballerId,
         team: side,
         profile: player.profile,
+        fitness: createMatchFitness(player.condition ?? 100),
+        ...(player.injury ? { injury: player.injury } : {}),
         slotIndex: player.slotIndex,
         slot: player.slot,
         duty: resolveFormationDuty(player.slot),
@@ -247,7 +280,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       };
     });
   const players = [...build('home', session.home), ...build('away', session.away)];
-  const owner = session.home.players.find((p) => p.profile.primaryPosition !== 'goalkeeper')!;
+  const owner = session.home.players.find((p) => !isMatchGoalkeeper(p))!;
   const state: TacticalMatchState = {
     seed: session.setup.seed,
     time: 0,
@@ -290,11 +323,15 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
   };
   const initialised = initialiseTeamThreatMemory(state);
   const positioned = { ...initialised, players: deriveTacticalTargets(initialised) };
-  return { ...positioned, statistics: createMatchStatistics(positioned) };
+  return initialiseMatchSubstitutions(
+    { ...positioned, statistics: createMatchStatistics(positioned) },
+    session,
+  );
 };
 
 /** A direct restart exemption and its delivery context end at another player's real contact. */
 const applyIncomingContact = (state: TacticalMatchState, actorId: string): TacticalMatchState => {
+  state = observeDroppedBallContact(state, actorId);
   state = applyThrowInContact(state, actorId);
   if (state.restartTouchRestriction && state.restartTouchRestriction.takerId !== actorId)
     state = {
@@ -754,8 +791,9 @@ const finishShotContact = (
   incoming: { x: number; y: number; z?: number },
   goalkeeperProjection = projectGoalkeeperIntervention(state),
 ): TacticalMatchState => {
+  if (contact.playerId) state = applyIncomingContact(state, contact.playerId);
   let shot = state.ball.shot!;
-  const shooter = state.players.find((player) => player.id === shot.shooterId)!;
+  const shooter = findMatchParticipant(state, shot.shooterId)!;
   const base = {
     ...state,
     pendingPossessionLoss: {
@@ -771,15 +809,19 @@ const finishShotContact = (
   };
   if (contact.kind === 'goal_plane') {
     const restriction = state.restartTouchRestriction;
-    const lawOutcome = restriction
-      ? resolveRestartGoalOutcome(
-          restriction.scenario,
-          restriction.team,
-          shooter.team,
-          restriction.indirect,
-          restriction.touchedByOther,
-        )
-      : 'goal';
+    const droppedOutcome = resolveDroppedBallGoalOutcome(state, shooter.team);
+    const lawOutcome =
+      droppedOutcome !== 'goal'
+        ? droppedOutcome
+        : restriction
+          ? resolveRestartGoalOutcome(
+              restriction.scenario,
+              restriction.team,
+              shooter.team,
+              restriction.indirect,
+              restriction.touchedByOther,
+            )
+          : 'goal';
     if (lawOutcome !== 'goal')
       return awardNaturalRestart(
         { ...base, lastShot: { ...shot, outcome: 'miss' as const }, lastShotResult: 'miss' },
@@ -979,6 +1021,9 @@ const stepTacticalMatchCore = (
   )
     return input;
   const dt = Math.min(0.25, Math.max(0.01, rawDelta));
+  input = planCoachSubstitutions(processInjuryAssessment(input));
+  if (input.injuryAssessment) return stepInjuryAssessmentInterval(input, dt);
+  if (substitutionBlocksRestart(input)) return stepSubstitutionInterval(input, dt);
   let state = {
     ...input,
     time: input.time + dt,
@@ -1261,6 +1306,7 @@ const stepTacticalMatchCore = (
       ? deriveCooperativePress(state, state.possessionTeam === 'home' ? 'away' : 'home')
       : null;
   state.players = plannedPlayers.map((player) => {
+    if (!canParticipatePhysically(player)) return { ...player, velocity: { x: 0, y: 0 } };
     let movementTarget = player.target;
     if (state.ballCarrierIntent?.actorId === player.id) {
       const execution = deriveCarryExecution(state, player, state.ballCarrierIntent);
@@ -1340,12 +1386,13 @@ const stepTacticalMatchCore = (
       ? (state.onBallPreparation?.micro?.orientationTarget ??
         deriveOrientationTarget(state, player))
       : deriveOrientationTarget(state, player);
+    const fitnessEffects = deriveFitnessPhysicalModifiers(player);
     const facingAngle = integrateFacing(
       player.facingAngle,
       desiredFacingAngle,
       player.profile.attributes.agility,
       Math.hypot(player.velocity.x, player.velocity.y),
-      dt,
+      dt * fitnessEffects.turning,
     );
     const movementMode = classifyRelativeMovement(facingAngle, { x: dx, y: dy }, d);
     const receivingMomentum =
@@ -1367,7 +1414,9 @@ const stepTacticalMatchCore = (
       x: (dx / d) * desiredSpeed,
       y: (dy / d) * desiredSpeed,
     };
-    const acceleration = accelerationRate * dt;
+    const previousSpeed = Math.hypot(player.velocity.x, player.velocity.y);
+    const braking = desiredSpeed < previousSpeed;
+    const acceleration = accelerationRate * dt * (braking ? fitnessEffects.braking : 1);
     const velocityDelta = {
       x: desiredVelocity.x - player.velocity.x,
       y: desiredVelocity.y - player.velocity.y,
@@ -1390,7 +1439,12 @@ const stepTacticalMatchCore = (
     });
     // A legally positioned penalty keeper starts on the goal line. Preserve that boundary
     // through integration instead of snapping the body 0.4 m inward on the first live tick.
-    if (player.profile.primaryPosition === 'goalkeeper')
+    const retrievingStoppedBall =
+      isLiveRestartSetup(state) &&
+      state.restart?.retrieval?.playerId === player.id &&
+      (state.restart.retrieval.stage === 'approach' ||
+        state.restart.retrieval.stage === 'transport');
+    if (isMatchGoalkeeper(player) && !retrievingStoppedBall)
       integratedPosition.x = Math.max(0, Math.min(105, player.position.x + velocity.x * dt));
     let next = integratedPosition;
     const close = state.players.filter(
@@ -1410,7 +1464,25 @@ const stepTacticalMatchCore = (
     }
     const samples = player.samples + 1;
     const travelled = distance(player.position, integratedPosition);
-    const speed = Math.hypot(velocity.x, velocity.y);
+    const actualVelocity = {
+      x: (integratedPosition.x - player.position.x) / dt,
+      y: (integratedPosition.y - player.position.y) / dt,
+    };
+    const speed = Math.hypot(actualVelocity.x, actualVelocity.y);
+    const actualSpeed = travelled / dt;
+    const turnRadians =
+      previousSpeed > 0.1 && actualSpeed > 0.1
+        ? Math.acos(
+            Math.max(
+              -1,
+              Math.min(
+                1,
+                (player.velocity.x * actualVelocity.x + player.velocity.y * actualVelocity.y) /
+                  Math.max(0.001, previousSpeed * speed),
+              ),
+            ),
+          )
+        : 0;
     const previousTelemetry = player.locomotionTelemetry ?? {
       distanceTotal: 0,
       distanceWalk: 0,
@@ -1442,11 +1514,18 @@ const stepTacticalMatchCore = (
     void [_oldSprint, _oldRecovery, _oldBurst];
     return {
       ...movingPlayer,
+      fitness: advanceMatchFitness(player, {
+        dt,
+        distance: travelled,
+        speed: actualSpeed,
+        previousSpeed,
+        turnRadians,
+        sprinting: actualSprinting && actualSpeed > 0.1,
+        sprintBurst: sprint.countBurst,
+        pressing: locomotion.reason === 'press_commit',
+      }),
       position: next,
-      velocity: {
-        x: (integratedPosition.x - player.position.x) / dt,
-        y: (integratedPosition.y - player.position.y) / dt,
-      },
+      velocity: actualVelocity,
       facingAngle,
       desiredFacingAngle,
       movementMode,
@@ -1476,6 +1555,9 @@ const stepTacticalMatchCore = (
     };
   });
   endPerformanceSpan('movement_physics', movementSpan);
+  state = advanceMatchInjuries(input, state);
+  state = processInjuryAssessment(state);
+  if (state.injuryAssessment) return state;
   const ballSpan = startPerformanceSpan('ball_physics');
   try {
     if (state.postGoal) return advancePostGoalReaction(state, dt);
@@ -1703,12 +1785,9 @@ const stepTacticalMatchCore = (
       };
       if (state.ball.shot) {
         const shot = state.ball.shot;
-        const shooter = state.players.find((player) => player.id === shot.shooterId)!;
+        const shooter = findMatchParticipant(state, shot.shooterId)!;
         const candidates: ContactCandidate[] = state.players
-          .filter(
-            (player) =>
-              player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
-          )
+          .filter((player) => player.team !== shooter.team && !isMatchGoalkeeper(player))
           .map((defender) =>
             state.restart?.roles[defender.id]?.key.includes('wall')
               ? deriveWallContactCandidate(
@@ -1731,8 +1810,7 @@ const stepTacticalMatchCore = (
           );
         const keeperProjection = goalkeeperProjectionAtSegmentStart;
         const defendingKeeper = state.players.find(
-          (player) =>
-            player.team !== shooter.team && player.profile.primaryPosition === 'goalkeeper',
+          (player) => player.team !== shooter.team && isMatchGoalkeeper(player),
         );
         // Reaction controls an active save, never whether a standing body physically exists.
         if (defendingKeeper)
@@ -2089,7 +2167,7 @@ const stepTacticalMatchCore = (
           ? state.lastShot
           : undefined;
       const shootingPlayer = continuation
-        ? state.players.find((player) => player.id === continuation.shooterId)
+        ? findMatchParticipant(state, continuation.shooterId)
         : undefined;
       const attackingTeam = shootingPlayer?.team ?? state.possessionTeam;
       const goalkeeperProjection = continuation
@@ -2136,7 +2214,7 @@ const stepTacticalMatchCore = (
               ),
             );
           } else {
-            const keeper = player.profile.primaryPosition === 'goalkeeper';
+            const keeper = isMatchGoalkeeper(player);
             const height = keeper ? GOALKEEPER_PHYSICS.contactCentreHeight : 0.9;
             candidates.push({
               kind: keeper ? 'goalkeeper' : 'defender',
@@ -2379,6 +2457,8 @@ const stepTacticalMatchCore = (
       else if (resolution.diagnostic?.outcome === 'foul')
         state = applyChallengeInfringement(state, resolution.diagnostic);
     }
+    state = processInjuryAssessment(advanceMatchInjuries(input, state));
+    if (state.injuryAssessment) return state;
     if (state.status === 'abandoned') return state;
     if (
       !state.periodEndPending &&
@@ -2402,14 +2482,6 @@ const stepTacticalMatchCore = (
     endPerformanceSpan('action_resolution', actionSpan);
   }
 };
-
-const hasImmediateResolution = (state: TacticalMatchState) =>
-  Boolean(
-    state.ball.travelKind ||
-      state.goalCompletionUntil ||
-      state.ballCarrierIntent ||
-      state.defensiveChallenge,
-  );
 
 const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchState => {
   const {
@@ -2448,6 +2520,7 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
   const next = endStoppage(stable, state.status === 'abandoned' ? 'abandoned' : 'period_end');
   delete next.postGoal;
   delete next.restartTouchRestriction;
+  delete next.droppedBallTouchRestriction;
   next.players = clearWallResponses(next.players);
   return next;
 };
@@ -2456,156 +2529,119 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
 export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState => {
   state = enforceMinimumPlayers(state);
   if (state.status !== 'half_time') return state;
-  const ready = { ...state, status: 'second_half' as const, actionCooldown: 0.4 };
+  state = completeHalftimeSubstitutions({
+    ...state,
+    players: state.players.map(recoverHalftimeFitness),
+  });
+  if (state.substitutionState?.pending.length) return state;
+  const ready = resetSecondHalfTimekeeping({
+    ...state,
+    status: 'second_half' as const,
+    actionCooldown: 0.4,
+  });
   return awardNaturalRestart(ready, 'kick_off', { restartTeam: 'away' });
 };
 
-/** Regulation wrapper. Thresholds stop new choices, while committed ball physics finish safely. */
-export const stepTacticalMatch = (
-  input: TacticalMatchState,
-  rawDelta = 0.1,
+/** Both entries share the referee, physical substitutions and canonical observers. */
+const stepCanonicalMatch = (
+  original: TacticalMatchState,
+  rawDelta: number,
+  decisionAlreadyProjected: boolean,
 ): TacticalMatchState => {
-  input = enforceMinimumPlayers(input);
-  const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
+  let input = enforceMinimumPlayers(ensureMatchGoalkeepers(processInjuryAssessment(original)));
+  const status = input.status ?? (input.time >= 2700 ? 'second_half' : 'first_half');
   if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
-  const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
+  const dt = Math.min(0.25, Math.max(0.01, rawDelta));
+  // A terminal penalty stays human-owned; an ordinary unplayed restart cannot delay the whistle.
   if (
-    !input.periodEndPending &&
-    input.time + Math.min(0.25, Math.max(0.01, rawDelta)) < threshold &&
-    isRestartDecisionBoundary(input) &&
     input.restart &&
+    (isRestartDecisionBoundary(input) || deriveRestartLegalReadiness(input).ready) &&
     requiresHumanRestart(input, input.restart.takerId) &&
     !input.restart.selectedAction
-  )
-    return input;
-  let prepared = input;
-  if (
-    input.periodEndPending ||
-    input.time + Math.min(0.25, Math.max(0.01, rawDelta)) >= threshold
   ) {
-    prepared = { ...input, periodEndPending: true };
-    delete prepared.pendingPlayerDecision;
+    const clock = preparePeriodEnd(input, dt);
+    if (input.scenario === 'penalty' || !periodCanEnd(clock))
+      return isRestartDecisionBoundary(input) ? input : advanceRestartPlacement(input, 0);
+    input = clock;
   }
-  let next = stepTacticalMatchCore(prepared, rawDelta);
-  if (next === input) return input;
+  if (!input.periodEndPending) input = planCoachSubstitutions(input);
+  input = preparePeriodEnd(input, dt);
+  const prepared = input;
+  let next = stepTacticalMatchCore(prepared, rawDelta, decisionAlreadyProjected);
+  if (next === prepared) return original;
   next = advanceHumanIntentProgress(next);
   if (!next.status) next = { ...next, status };
-  if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
+  // Blocking intervals already advance their own pending bodies; ordinary football ticks
+  // still service delayed entrants during the first eligible later stoppage.
+  if (!prepared.injuryAssessment && !substitutionBlocksRestart(prepared) && !next.injuryAssessment)
+    next = advanceMatchSubstitutions(prepared, next, dt);
+  next = preparePeriodEnd(next);
+  if (
+    periodCanEnd(next) &&
+    !original.ball.travelKind &&
+    !original.ball.shot &&
+    !original.defensiveChallenge &&
+    !next.timekeeping?.terminalPenalty &&
+    original.time < clockPeriodThreshold(next)
+  )
+    next = { ...next, time: clockPeriodThreshold(next) };
+  next = advanceMatchRules(original, next);
+  next = processInjuryAssessment(advanceMatchInjuries(original, next));
+  next = ensureMatchGoalkeepers(next);
+  next = preparePeriodEnd(next);
+  if (periodCanEnd(next)) {
+    const threshold = clockPeriodThreshold(next);
+    const endedAt = Math.max(threshold, next.time);
     next = {
-      ...clearTransientPeriodState({
-        ...next,
-        time:
-          input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
-            ? Math.max(threshold, next.time)
-            : threshold,
-      }),
-      // Ordinary threshold-only play stops exactly on regulation time. An accepted physical
-      // commitment may finish just after it; never rewind its canonical contact/card evidence.
-      time:
-        input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
-          ? Math.max(threshold, next.time)
-          : threshold,
+      ...clearTransientPeriodState({ ...next, time: endedAt }),
+      time: endedAt,
       status: status === 'first_half' ? 'half_time' : 'full_time',
       actionCooldown: 0,
+      ...(next.timekeeping ? { timekeeping: { ...next.timekeeping, endedAt } } : {}),
       ball: {
         x: next.ball.x,
         y: next.ball.y,
         ...(next.ball.lastTouchPlayerId ? { lastTouchPlayerId: next.ball.lastTouchPlayerId } : {}),
       },
     };
+    next = advanceMatchRules(original, next);
   }
-  next = advanceMatchRules(input, next);
   next = reconcileControlledBallContact(next);
-  next = emitCanonicalActionEvents(input, next);
-  next = emitMatchEvents(input, next);
-  next = observeTeamThreats(input, next);
-  next = {
+  next = observeRestartLiveness(next);
+  next = emitCanonicalActionEvents(original, next);
+  next = emitMatchEvents(original, next);
+  next = observeTeamThreats(original, next);
+  return {
     ...next,
     statistics: observePlayerMatchStats(
-      input.statistics ?? createMatchStatistics(input),
-      input,
+      original.statistics ?? createMatchStatistics(original),
+      original,
       next,
     ),
   };
-  return next;
 };
 
-/**
- * Canonical fast entry after an exact human-decision probe has returned no opportunity.
- * It skips only that duplicate pure projection; all physics and action resolution are identical.
- */
+export const stepTacticalMatch = (input: TacticalMatchState, rawDelta = 0.1): TacticalMatchState =>
+  stepCanonicalMatch(input, rawDelta, false);
+
+/** Skips only the duplicate pure human-decision projection after an exact negative probe. */
 export const stepTacticalMatchAfterDecisionProbe = (
   input: TacticalMatchState,
   rawDelta = FIXED_MATCH_DT,
-): TacticalMatchState => {
-  input = enforceMinimumPlayers(input);
-  const status = input.status ?? (input.time >= 45 * 60 ? 'second_half' : 'first_half');
-  if (status === 'full_time' || status === 'half_time' || status === 'abandoned') return input;
-  const threshold = status === 'first_half' ? 45 * 60 : 90 * 60;
-  if (
-    !input.periodEndPending &&
-    input.time + rawDelta < threshold &&
-    isRestartDecisionBoundary(input) &&
-    input.restart &&
-    requiresHumanRestart(input, input.restart.takerId) &&
-    !input.restart.selectedAction
-  )
-    return input;
-  const prepared =
-    input.periodEndPending || input.time + rawDelta >= threshold
-      ? { ...input, periodEndPending: true }
-      : input;
-  let next = advanceHumanIntentProgress(stepTacticalMatchCore(prepared, rawDelta, true));
-  if (next.status !== 'abandoned' && next.periodEndPending && !hasImmediateResolution(next)) {
-    next = {
-      ...clearTransientPeriodState({
-        ...next,
-        time:
-          input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
-            ? Math.max(threshold, next.time)
-            : threshold,
-      }),
-      time:
-        input.periodEndPending || hasImmediateResolution(input) || input.time >= threshold
-          ? Math.max(threshold, next.time)
-          : threshold,
-      status: status === 'first_half' ? 'half_time' : 'full_time',
-      actionCooldown: 0,
-      ball: {
-        x: next.ball.x,
-        y: next.ball.y,
-        ...(next.ball.lastTouchPlayerId ? { lastTouchPlayerId: next.ball.lastTouchPlayerId } : {}),
-      },
-    };
-  }
-  next = advanceMatchRules(input, next);
-  next = reconcileControlledBallContact(next);
-  next = emitCanonicalActionEvents(input, next);
-  next = emitMatchEvents(input, next);
-  next = observeTeamThreats(input, next);
-  return {
-    ...next,
-    status: next.status ?? status,
-    statistics: observePlayerMatchStats(
-      input.statistics ?? createMatchStatistics(input),
-      input,
-      next,
-    ),
-  };
-};
+): TacticalMatchState => stepCanonicalMatch(input, rawDelta, true);
 
 export const matchStateToFrame = (
   state: TacticalMatchState,
   options: { includeAiCarryTarget?: boolean } = {},
 ) => ({
   timestampMs: state.time * 1000,
-  players: state.players.map((p) => {
+  players: projectMatchVisiblePlayers(state).map((p) => {
     return {
       id: p.id,
       team: p.team,
       x: p.position.x,
       y: p.position.y,
-      goalkeeper: p.profile.primaryPosition === 'goalkeeper',
+      goalkeeper: isMatchGoalkeeper(p),
       protagonist: p.id === state.controlledFootballerId,
       // Match Lab fallback. A registered career/club squad number should override this here later.
       displayNumber: p.slotIndex + 1,

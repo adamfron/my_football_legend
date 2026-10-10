@@ -1,5 +1,35 @@
 # My Football Legend — Current Project State
 
+## PR160 — Fatigue, Injuries, Substitutions & Added Time
+
+Baza: scalony PR159, `09c05fa9c09edf89cd8310485a61560eb67e4cde`.
+Implementacja i pełne `npm run verify` zakończone: lint, 1452 testy główne w 177
+plikach, 5 testów kariery i build. Pełny mecz kontrolny kończy się legalnie po
+90+1 minutach; 5 rzeczywistych zmian, 1 przejściowy dyskomfort i 0 strzałów.
+Skupiony pomiar CPU wykazuje +22,54% kosztu (8,221→10,073 s na 300 s symulacji).
+Oryginalny seed i XI odtwarzają
+naturalny faul/karny: jeden uczestnik zatrzymywał się w promieniu dojścia, lecz nadal
+w polu karnym. Istniejący margines celu 0,3 m obejmuje teraz także cel tuż za linią.
+Ten sam zakleszczony stan wykonuje karny po 0,375 s; CPU matrix 6/10→10/10.
+
+Kanoniczny rzeczywisty ruch/kontakt zmienia długą rezerwę i szybką gotowość;
+fizyczne efekty mają wspólną ścieżkę człowieka/NPC. Kontekstowe urazy, rzeczywista
+ławka, legalne wyjście/wejście, decyzje trenera, statystyki i kontrola gracza są
+połączone z ledgerem utraconego czasu. Minimum ogłoszonego doliczenia jest monotoniczne,
+a końcowy karny/retake kończy się fizycznie przed gwizdkiem. UI/replay projektują
+zejście, wejście, nazwane wydarzenia i czas; nie podejmują decyzji futbolowych.
+
+Datowana kondycja i zdrowie korzystają z obecnego kalendarza/overlay świata.
+Adapter i zapis kanonicznego występu zachowują rzeczywiste obciążenie; obecna narracyjna
+ścieżka kariery jawnie używa `source: summary`. Przyszłe podłączenie kanonicznego
+ekranu kariery i wszystkie obciążenia NPC z meczów tła pozostają granicą integracji.
+Nie ma nowego kalendarza, mutacji trwałych atrybutów ani kampanii 18 meczów.
+
+[Raport PR160: 30 odpowiedzi, liczby, trace i granice](PR160_FATIGUE_INJURIES_SUBSTITUTIONS_ADDED_TIME.md).
+Otwarte problemy PR158/PR159 nadal obowiązują. Następny **PR161 — Match Presentation /
+Replay / Stadium Polish**, potem wspólny audyt całego silnika. Poniższe sekcje
+zachowują wyniki historycznych etapów; PR159 jest scalony.
+
 ## PR159 — Dead Ball & Restart Continuity
 
 Baza: scalony PR158, `main`, `a7c90299c01c080eb356fe88e0ef47d4a7b1f639`.

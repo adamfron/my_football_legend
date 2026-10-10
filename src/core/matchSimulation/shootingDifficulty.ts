@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { MatchPlayerState } from './matchState';
+import { difficultActionPhysicalCost } from './matchFitness';
 import {
   shotContactSchema,
   shotExecutionErrorProfileSchema,
@@ -59,6 +60,10 @@ export const deriveShootingDifficulty = (
         ballMovementDifficulty * 0.7 +
         ballHeightDifficulty * 0.5;
   const blockerDifficulty = 1 - Math.exp(-context.blockers * 0.6);
+  const physicalDemand =
+    contactDifficulty +
+    context.orientation * Math.min(1, Math.hypot(shooter.velocity.x, shooter.velocity.y) / 6);
+  const physicalUncertainty = difficultActionPhysicalCost(shooter, physicalDemand) * 0.026;
   const base = 0.012 + primaryError * 0.145 + techniqueError * 0.032;
   const range = distanceDifficulty * 0.013 * (0.22 + primaryError * 0.78);
   const angle = angleDifficulty * 0.04 * (0.2 + techniqueError * 0.8);
@@ -85,7 +90,15 @@ export const deriveShootingDifficulty = (
   const horizontalSigmaMetres =
     (0.12 +
       context.distance *
-        (base + range + angle + pressure + orientation + weakFoot + contact + window)) *
+        (base +
+          range +
+          angle +
+          pressure +
+          orientation +
+          weakFoot +
+          contact +
+          window +
+          physicalUncertainty)) *
     style;
   const verticalSigmaMetres =
     (0.1 +
@@ -97,7 +110,8 @@ export const deriveShootingDifficulty = (
           orientation * 0.8 +
           weakFoot +
           contact * 1.15 +
-          window * 0.75)) *
+          window * 0.75 +
+          physicalUncertainty)) *
     style;
   const intrinsicDifficulty =
     1 +

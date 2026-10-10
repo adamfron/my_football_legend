@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import { clampPitchPoint, distance, type PitchPoint } from './matchSpace';
@@ -88,10 +89,7 @@ export const replaceUnavailableRestartTaker = (state: TacticalMatchState): Tacti
   const spot = restart.spot ?? state.ball;
   candidates.sort(
     (a, b) =>
-      (keeperRestart
-        ? Number(b.profile.primaryPosition === 'goalkeeper') -
-          Number(a.profile.primaryPosition === 'goalkeeper')
-        : 0) ||
+      (keeperRestart ? Number(isMatchGoalkeeper(b)) - Number(isMatchGoalkeeper(a)) : 0) ||
       b.profile.attributes.setPieces - a.profile.attributes.setPieces ||
       distance(a.position, spot) - distance(b.position, spot) ||
       a.id.localeCompare(b.id),

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { distance, signedForwardDistance } from './matchSpace';
 import { estimateCarrierContactWindow } from './ballContactGeometry';
+import { deriveFitnessPhysicalModifiers } from './matchFitness';
 import {
   isDefensiveEpisodeLocked,
   shouldCommitRoutinePress,
@@ -39,24 +40,27 @@ export const movementCapabilitySchema = z.object({
 });
 export type MovementCapability = z.infer<typeof movementCapabilitySchema>;
 
-/** Metres/second and metres/second². Stamina describes a fixed athlete capability here;
- * there is no fatigue ledger, exhaustion threshold, or automatic end of a chosen sprint. */
+/** Metres/second and metres/second². The fixed attributes and current physical reserves
+ * describe attainable movement. Neither identity nor human/NPC action source is relevant. */
 export const deriveMovementCapability = (
   player: MatchPlayerState,
   modifiers: MovementCapacityModifiers = NEUTRAL_MOVEMENT_CAPACITY,
 ): MovementCapability => {
   const a = player.profile.attributes;
   const pace = a.pace / 100;
-  const maximumSprintSpeed = (6.2 + pace * 3.3) * modifiers.speed;
+  const fitness = deriveFitnessPhysicalModifiers(player);
+  const speedModifier = modifiers.speed * fitness.speed;
+  const maximumSprintSpeed = (6.2 + pace * 3.3) * speedModifier;
   return {
-    walkSpeed: (1.25 + pace * 0.75) * modifiers.speed,
-    jogSpeed: (2.6 + pace * 1.5) * modifiers.speed,
-    runSpeed: (4.4 + pace * 1.8) * modifiers.speed,
+    walkSpeed: (1.25 + pace * 0.75) * speedModifier,
+    jogSpeed: (2.6 + pace * 1.5) * speedModifier,
+    runSpeed: (4.4 + pace * 1.8) * speedModifier,
     maximumSprintSpeed,
     sustainedSprintSpeed: maximumSprintSpeed * (0.94 + (a.stamina / 100) * 0.06),
     acceleration:
       (3.2 + (a.agility / 100) * 3.5 + pace * 1.4 + (a.strength / 100) * 0.6) *
-      modifiers.acceleration,
+      modifiers.acceleration *
+      fitness.acceleration,
   };
 };
 

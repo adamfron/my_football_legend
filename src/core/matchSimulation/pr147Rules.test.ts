@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../singleMatch';
 import {
@@ -595,6 +596,10 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     );
     expect(next.lastCard?.kind).toBe('second_yellow_red');
     expect(next.players.some((p) => p.id === defender.id)).toBe(false);
+    expect(next.departedPlayers?.find((player) => player.id === defender.id)?.fitness).toEqual(
+      defender.fitness,
+    );
+    expect(next.statistics?.playerActiveUntil?.[defender.id]).toBe(next.time);
     expect(next.statistics?.players.find((p) => p.playerId === defender.id)).toBeDefined();
     expect(next.discipline?.[defender.id]).toMatchObject({ yellowCards: 2, sentOff: true });
     expect(next.discipline?.[defender.id]?.sentOffAt).toBe(next.time);
@@ -649,10 +654,10 @@ describe('PR147 canonical cards, restarts and advantage', () => {
     );
     expect(next.players.filter((p) => p.team === 'home')).toHaveLength(10);
     expect(
-      next.players
-        .filter((p) => p.team === 'home' && p.profile.primaryPosition === 'goalkeeper')
-        .map((p) => p.id),
+      next.players.filter((p) => p.team === 'home' && isMatchGoalkeeper(p)).map((p) => p.id),
     ).toEqual([candidate.id]);
+    expect(next.players.find((p) => p.id === candidate.id)!.profile).toEqual(candidate.profile);
+    expect(next.players.find((p) => p.id === candidate.id)!.goalkeeperRole).toBe(true);
     expect(state.players.find((p) => p.id === candidate.id)!.profile.primaryPosition).toBe(
       previousPosition,
     );

@@ -1,3 +1,4 @@
+import { findMatchParticipant } from './matchParticipants';
 import { z } from 'zod';
 import type { TacticalMatchState, MatchPlayerState } from './matchState';
 import { distance, type TeamSide } from './matchSpace';
@@ -461,7 +462,7 @@ export class ContactTacticalTracker {
         releaseAt >= regain.at &&
         releaseAt >= previous.time &&
         releaseAt <= next.time &&
-        nextPlayers.get(releasedShot.shooterId)?.team === side
+        findMatchParticipant(next, releasedShot.shooterId)?.team === side
       ) {
         record(this.teamClocks[side].regainToShot, releaseAt - regain.at);
         regain.shot = true;

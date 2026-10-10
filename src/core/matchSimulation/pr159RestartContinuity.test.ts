@@ -442,7 +442,22 @@ describe('PR159 dead-ball interval ledger and persisted compatibility', () => {
   ] as const)(
     'closes the active ledger when $status reaches its terminal whistle',
     ({ status, time, result, at }) => {
-      const state: TacticalMatchState = { ...physicallyPrepared(), status, time };
+      const prepared = physicallyPrepared();
+      const state: TacticalMatchState = {
+        ...prepared,
+        status,
+        time,
+        // This is a newly begun ordinary restart at the boundary, not a 45-minute delay.
+        stoppageLedger: {
+          ...prepared.stoppageLedger!,
+          active: {
+            ...prepared.stoppageLedger!.active!,
+            startedAt: time,
+            eventAt: time,
+            period: status,
+          },
+        },
+      };
       const next = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
       expect(next.status).toBe(result);
       expect(next.time).toBe(at);

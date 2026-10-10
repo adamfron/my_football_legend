@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { goalIntentToPitch } from './goalCoordinates';
 import { projectGoalkeeperIntervention } from './goalkeeperIntervention';
@@ -183,7 +184,7 @@ export const runShotParityBenchmark = (
     (player) => player.team === 'home' && player.profile.primaryPosition === 'striker',
   )!;
   const templateKeeper = template.players.find(
-    (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
+    (player) => player.team === 'away' && isMatchGoalkeeper(player),
   )!;
   const sharedInputs = {
     shooterAttributes: {
@@ -235,10 +236,10 @@ export const runShotParityBenchmark = (
             (player) => player.team === 'home' && player.profile.primaryPosition === 'striker',
           )!;
           const keeper = npc.players.find(
-            (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
+            (player) => player.team === 'away' && isMatchGoalkeeper(player),
           )!;
           const defender = npc.players.find(
-            (player) => player.team === 'away' && player.profile.primaryPosition !== 'goalkeeper',
+            (player) => player.team === 'away' && !isMatchGoalkeeper(player),
           )!;
           for (const player of npc.players) {
             player.position = {

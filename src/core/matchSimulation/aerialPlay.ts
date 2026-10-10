@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { z } from 'zod';
 import { pitchPointSchema } from './matchSpace';
@@ -39,7 +40,7 @@ export const evaluateAerialContact = (
   ball: PitchPoint & { height?: number },
   lookaheadSeconds = 0.025,
 ): AerialContactCandidate | undefined => {
-  if (player.profile.primaryPosition === 'goalkeeper') return undefined;
+  if (isMatchGoalkeeper(player)) return undefined;
   const predicted = {
     x: player.position.x + player.velocity.x * lookaheadSeconds,
     y: player.position.y + player.velocity.y * lookaheadSeconds,
@@ -71,7 +72,7 @@ export const findAerialContactCandidates = (
   return state.players
     .filter(
       (p) =>
-        p.profile.primaryPosition !== 'goalkeeper' &&
+        !isMatchGoalkeeper(p) &&
         distance(p.position, state.ball) < 2.2 &&
         !lockedIds.has(p.id) &&
         canContactAfterThrowIn(state, p.id),
@@ -114,7 +115,7 @@ export const selectAerialContestants = (state: TacticalMatchState, point = state
   );
   const ranked = (team: TeamSide) =>
     eligible
-      .filter((p) => p.team === team && p.profile.primaryPosition !== 'goalkeeper')
+      .filter((p) => p.team === team && !isMatchGoalkeeper(p))
       .sort(
         (a, b) => aerialAbility(b, point) - aerialAbility(a, point) || a.id.localeCompare(b.id),
       );
@@ -137,9 +138,7 @@ export const goalkeeperIntervention = (
   score: number;
 } => {
   const defending = state.possessionTeam === 'home' ? 'away' : 'home';
-  const keeper = state.players.find(
-    (p) => p.team === defending && p.profile.primaryPosition === 'goalkeeper',
-  );
+  const keeper = state.players.find((p) => p.team === defending && isMatchGoalkeeper(p));
   if (!keeper || !canContactAfterThrowIn(state, keeper.id)) return { decision: 'stay', score: 0 };
   const goalX = defending === 'home' ? 0 : 105;
   if (

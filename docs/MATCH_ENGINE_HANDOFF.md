@@ -1,5 +1,49 @@
 # Match Engine Handoff
 
+## PR160 contracts and next work
+
+- Baseline is merged PR159 `09c05fa`; PR161 presentation/replay/stadium remains next.
+  Read [PR160 report](PR160_FATIGUE_INJURIES_SUBSTITUTIONS_ADDED_TIME.md) and its
+  compact evidence before editing. Final `npm run verify` passes lint, 1452 main
+  tests/177 files, five full-career tests and build. The uninjected full match
+  ends legally at 90+1 with five substitutions and zero shots. Three alternating
+  300 s CPU pairs measure +22.54% median cost; preserve this measured limitation.
+- Legal intentions must accommodate locomotion arrival. Preserve the existing
+  0.3 m penalty-area clearance even when a proposed target is just outside; the
+  historical 0.06886 m arrival left a body inside and blocked penalty selection.
+  Never declare readiness or force a kick after a timeout. Bounded diagnostics
+  distinguish slow preparation, CPU soft lock and genuine pending human input.
+- `goalkeeperRole` is temporary match responsibility. Do not rewrite permanent
+  primary positions/attributes. Award, legal readiness and physics use the same
+  actual actor; a normal keeper entering clears fallback assignment.
+- Update fitness from completed motion/contact, not elapsed minute or requested
+  sprint. Capacity and immediate readiness differ; recovery is capped by capacity.
+  Keep ordinary/held-interval samples disjoint and do not count contact time twice.
+  Preserve shared human/NPC resolvers and exact normal/DEV/capture RNG parity.
+- Serious injuries remove active agency before contacts/actions, retaining released
+  physics and final participation. Assessment/substitution reasons merge in one
+  ledger. Dropped-ball play starts at ground contact and needs two distinct player
+  contacts for a goal. Full medical re-entry and source-free own goals remain limited.
+- Bench profiles are actual squad identities with their own condition and health.
+  Outgoing/incoming bodies are distinct from the active football roster; projection
+  shows walkoff without restoring eligibility. Entry is at halfway after legal
+  exit/referee permission. Delayed entrants wait for a stoppage starting after the
+  restarted minute, with the halftime rest handled deterministically.
+- Participation begins/ends at actual entry/exit/dismissal. Preserve departed bodies
+  for condition commit and stats. Clean stale action/ball/contact/retrieval plans.
+  Controlled departure stops decisions, retains ID/summary and never transfers control.
+- Use `stoppageLedger` as the only lost-time evidence. Completed period totals
+  survive retention. Announced minimum never decreases; additional lost time
+  extends the deadline. Second half gets 2700 s after the real first-half end.
+  Complete terminal penalty/retake physics, then end without a goal kickoff.
+- Career persistence uses existing dates and sparse world overlays. The canonical
+  adapter/committer is ready; narrative quick appearances are marked `summary`.
+  Do not claim physical workload for background fixtures not run by this engine.
+- PR161 visual inspection: real exit/entry and delayed entry, injury removal/drop,
+  controlled spectator transition, added time and terminal penalty rebounds,
+  temporary keeper identity, fatigue gait/contact recovery and replay statistics.
+  Carry all PR158/PR159 open football-flow issues into the subsequent combined audit.
+
 ## PR159 contracts
 
 - Natural awards preserve real player/ball positions, velocities and immutable

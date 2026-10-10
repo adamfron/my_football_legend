@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { BALL_RADIUS, deriveWallContactCandidate, findFirstBallContact } from './ballFlight';
 import { projectFutureBallTrajectory } from './ballPhysics';
@@ -178,7 +179,7 @@ export const incomingBallContact = (
   const actor = state.players.find((player) => player.id === actorId);
   if (
     !actor ||
-    (purpose === 'shot' && actor.profile.primaryPosition === 'goalkeeper') ||
+    (purpose === 'shot' && isMatchGoalkeeper(actor)) ||
     (state.ball.ownerId && state.ball.ownerId !== actorId) ||
     !state.ball.travelKind ||
     state.ball.shot ||
@@ -272,7 +273,7 @@ export const enumerateCanonicalShootingOptions = (
     Boolean(state.restart && isRestartSetup(state) && state.restart.takerId === actorId) &&
     !state.restart?.indirect &&
     state.scenario !== 'throw_in';
-  if (!actor || (actor.profile.primaryPosition === 'goalkeeper' && !directRestart)) return [];
+  if (!actor || (isMatchGoalkeeper(actor) && !directRestart)) return [];
   const settled =
     state.ball.ownerId === actorId && !state.ball.travelKind && (state.ball.height ?? 0) <= 0.45;
   const incoming = settled ? undefined : incomingShotContact(state, actorId);
@@ -282,7 +283,7 @@ export const enumerateCanonicalShootingOptions = (
   const range = distance(point, goal);
   if (!directRestart && range > (incoming ? 29 : 60)) return [];
   const keeper = state.players.find(
-    (player) => player.team !== actor.team && player.profile.primaryPosition === 'goalkeeper',
+    (player) => player.team !== actor.team && isMatchGoalkeeper(player),
   );
   const goalTarget = (intent: 'driven' | 'placed' | 'chip') => ({
     horizontal:
@@ -323,7 +324,7 @@ export const enumerateCanonicalShootingOptions = (
   const nearbyDefender = state.players.some(
     (player) =>
       player.team !== actor.team &&
-      player.profile.primaryPosition !== 'goalkeeper' &&
+      !isMatchGoalkeeper(player) &&
       distance(player.position, point) < 6,
   );
   const keeperOut = keeper ? Math.abs(keeper.position.x - goal.x) >= 2.5 : true;

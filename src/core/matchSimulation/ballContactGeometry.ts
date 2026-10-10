@@ -4,6 +4,12 @@ import { integrateGroundRolling } from './ballPhysics';
 import { distance, distanceToSegment, physicalPointSchema } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
+import { canParticipatePhysically } from './matchInjuries';
+import {
+  deriveFitnessPhysicalModifiers,
+  difficultActionPhysicalCost,
+  recordPhysicalContactFitness,
+} from './matchFitness';
 
 export const contactBodyRegionSchema = z.enum([
   'left_foot',
@@ -174,6 +180,7 @@ export const estimateCarrierContactWindow = (
   const offset = distance(actor.position, state.ball);
   const speed = Math.hypot(actor.velocity.x, actor.velocity.y);
   const skill = controlSkill(actor);
+  const fitness = deriveFitnessPhysicalModifiers(actor);
   const difficulty = clamp01(
     (turnAngle / Math.PI) * 0.32 +
       (bodyError / Math.PI) * 0.14 +
@@ -181,9 +188,16 @@ export const estimateCarrierContactWindow = (
       Math.min(1, (actor.turnRate ?? 0) / 6) * 0.1 +
       Math.min(1, relativeBallSpeed / 8) * 0.14 +
       Math.max(0, offset - 0.45) * 0.17 +
-      (1 - (active?.balance ?? 1)) * 0.14,
+      (1 - (active?.balance ?? 1)) * 0.14 +
+      difficultActionPhysicalCost(
+        actor,
+        (turnAngle / Math.PI) * Math.min(1, speed / 6) + relativeBallSpeed / 12,
+      ) *
+        0.2,
   );
-  const preparation = 0.14 + (1 - skill) * 0.13 + difficulty * (0.16 + (1 - skill) * 0.22);
+  const preparation =
+    (0.14 + (1 - skill) * 0.13 + difficulty * (0.16 + (1 - skill) * 0.22)) *
+    (1 + (fitness.contactRecovery - 1) * difficulty);
   const earliestContactAt = active
     ? Math.max(state.time, active.lastContactAt + preparation)
     : state.time;
@@ -270,7 +284,8 @@ export const deriveBallContactAccess = (
       ? clamp01(
           ((carrier.profile.attributes.strength / 100) * 0.65 +
             (carrier.profile.attributes.agility / 100) * 0.35) *
-            balance,
+            balance *
+            deriveFitnessPhysicalModifiers(carrier).shielding,
         )
       : 0;
   return {
@@ -325,8 +340,9 @@ export const deriveShieldBodyContest = (state: TacticalMatchState, carrier: Matc
     );
   }
   const resistance =
-    (carrier.profile.attributes.strength / 100) * 0.72 +
-    (carrier.profile.attributes.agility / 100) * 0.28;
+    ((carrier.profile.attributes.strength / 100) * 0.72 +
+      (carrier.profile.attributes.agility / 100) * 0.28) *
+    deriveFitnessPhysicalModifiers(carrier).shielding;
   return { load, balanceDemand: load * (1 - resistance) };
 };
 
@@ -366,7 +382,12 @@ export const advanceControlledBall = (
   actor: MatchPlayerState,
   dt: number,
 ): { state: TacticalMatchState; looseVelocity?: { x: number; y: number } } => {
-  if (state.ball.ownerId !== actor.id || state.ball.travelKind || isRestartSetup(state))
+  if (
+    state.ball.ownerId !== actor.id ||
+    state.ball.travelKind ||
+    isRestartSetup(state) ||
+    !canParticipatePhysically(actor)
+  )
     return { state };
   const ownershipStartedAt =
     state.ballOwnershipStartedAt ?? state.onBallPreparation?.gainedAt ?? state.time;
@@ -413,16 +434,22 @@ export const advanceControlledBall = (
     y: state.ball.velocity?.y ?? actor.velocity.y,
   };
   const bodyContest = deriveShieldBodyContest({ ...state, controlledBallContact: active }, actor);
+  const fitness = deriveFitnessPhysicalModifiers(actor);
   let balance = clamp01(
     active.balance +
-      dt * (0.75 + actor.profile.attributes.agility / 100) * (1 - bodyContest.load * 0.9) -
+      dt *
+        (0.75 + actor.profile.attributes.agility / 100) *
+        fitness.balanceRecovery *
+        (1 - bodyContest.load * 0.9) -
       ((rotation * Math.hypot(actor.velocity.x, actor.velocity.y)) / 12) *
         (1 - (actor.profile.attributes.agility / 100) * 0.65),
   );
   balance = clamp01(balance - bodyContest.balanceDemand * dt * 3.2);
   if (state.time + 1e-8 >= active.nextContact.earliestAt && reachable) {
     const skill = controlSkill(actor);
-    const interval = 0.15 + (1 - skill) * 0.14 + window.difficulty * 0.2 + (1 - balance) * 0.16;
+    const interval =
+      (0.15 + (1 - skill) * 0.14 + window.difficulty * 0.2 + (1 - balance) * 0.16) *
+      (1 + (fitness.contactRecovery - 1) * window.difficulty);
     const carry =
       state.ballCarrierIntent?.actorId === actor.id ? state.ballCarrierIntent : undefined;
     const offset =
@@ -508,6 +535,15 @@ export const advanceControlledBall = (
     ball,
     controlledBallContact: active,
     contactControlTelemetry: telemetry,
+    ...(bodyContest.load > 0
+      ? {
+          players: state.players.map((player) =>
+            player.id === actor.id
+              ? recordPhysicalContactFitness(player, bodyContest.load, dt)
+              : player,
+          ),
+        }
+      : {}),
   };
   const maximumEnvelope =
     state.ballCarrierIntent?.actorId === actor.id &&

@@ -3,6 +3,7 @@ import type { RestartScenario, TacticalMatchState } from './matchState';
 import { recordPossessionLoss, restartAwardId, type RestartAward } from './possessionEvents';
 import { legalRestartPosition } from './restartLaws';
 import { beginStoppage, restartStoppageReason } from './stoppageLedger';
+import { ensureMatchGoalkeepers } from './matchGoalkeeper';
 
 export interface RestartScenarioOptions {
   restartTeam: 'home' | 'away';
@@ -43,6 +44,8 @@ const buildRestart = (
     void _restart;
     return { ...openPlay, scenario };
   }
+  // A lawful interruption appoints the real emergency keeper before deriving any geometry.
+  input = ensureMatchGoalkeepers(input);
   const restartTeam = options.restartTeam;
   const awardId = restartAwardId(input, restartTeam, scenario);
   const incidentId = options.incidentId ?? `${input.seed}:incident:${input.time}:${scenario}`;
@@ -194,6 +197,7 @@ const buildRestart = (
   delete state.keeperIntervention;
   delete state.offsideSnapshot;
   delete state.restartTouchRestriction;
+  delete state.droppedBallTouchRestriction;
   delete state.postGoal;
   state.players = state.players.map((player) => {
     const { restartWallResponse: _response, ...normal } = player;

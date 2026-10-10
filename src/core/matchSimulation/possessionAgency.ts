@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { distance, distanceToSegment } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import {
@@ -59,11 +60,11 @@ export const derivePossessionDecisionContext = (
   const actor = state.players.find((player) => player.id === actorId)!;
   const goal = { x: actor.team === 'home' ? 105 : 0, y: 34 };
   const foes = state.players.filter((player) => player.team !== actor.team);
-  const defenders = foes.filter((player) => player.profile.primaryPosition !== 'goalkeeper');
+  const defenders = foes.filter((player) => !isMatchGoalkeeper(player));
   const nearest = defenders
     .map((player) => ({ player, metres: distance(player.position, actor.position) }))
     .sort((a, b) => a.metres - b.metres || a.player.id.localeCompare(b.player.id))[0];
-  const keeper = foes.find((player) => player.profile.primaryPosition === 'goalkeeper');
+  const keeper = foes.find((player) => isMatchGoalkeeper(player));
   const keeperDistance = keeper ? distance(keeper.position, actor.position) : 105;
   const keeperAdvance = keeper ? Math.abs(goal.x - keeper.position.x) : 0;
   const keeperClosing = keeper

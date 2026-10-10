@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { distance, distanceToSegment, PITCH_LENGTH, PITCH_WIDTH } from './matchSpace';
 import { angleForVector, normalizeAngle } from './playerOrientation';
@@ -68,14 +69,12 @@ export const evaluateShootingOpportunity = (
   const blockingDefenders = state.players.filter(
     (player) =>
       player.team !== shooter.team &&
-      player.profile.primaryPosition !== 'goalkeeper' &&
+      !isMatchGoalkeeper(player) &&
       distance(player.position, shooter.position) < metres &&
       distanceToSegment(player.position, shooter.position, goal) < 1.65,
   ).length;
   const blockingDemand = state.players
-    .filter(
-      (player) => player.team !== shooter.team && player.profile.primaryPosition !== 'goalkeeper',
-    )
+    .filter((player) => player.team !== shooter.team && !isMatchGoalkeeper(player))
     .reduce((sum, player) => {
       const progress =
         ((player.position.x - shooter.position.x) * (goal.x - shooter.position.x) +
@@ -86,7 +85,7 @@ export const evaluateShootingOpportunity = (
       return sum + insideFlight * Math.exp(-((separation / 1.65) ** 2));
     }, 0);
   const goalkeeper = state.players.find(
-    (player) => player.team !== shooter.team && player.profile.primaryPosition === 'goalkeeper',
+    (player) => player.team !== shooter.team && isMatchGoalkeeper(player),
   );
   const goalkeeperDistance = goalkeeper ? distance(goalkeeper.position, goal) : 0;
   const estimatedRecoveryTime = goalkeeperDistance / 6.5;

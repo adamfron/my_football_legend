@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import { distance, distanceToSegment, pitchPointSchema } from './matchSpace';
@@ -293,9 +294,7 @@ export class PressingTracker {
         samples: [],
       };
       this.origins = new Map(next.players.map((p) => [p.id, { ...p.position }]));
-      const defenders = next.players.filter(
-        (p) => p.team === side && p.profile.primaryPosition !== 'goalkeeper',
-      );
+      const defenders = next.players.filter((p) => p.team === side && !isMatchGoalkeeper(p));
       this.initialCentroid = centroid(defenders.map((p) => p.position));
       this.initialLocalDistance =
         defenders
@@ -320,8 +319,7 @@ export class PressingTracker {
     const priorCarrier = previous.players.find((p) => p.id === carrier.id);
     if (priorCarrier) e.carrierDistance += distance(priorCarrier.position, carrier.position);
     for (const p of next.players) {
-      if (p.id === carrier.id || p.id === primary.id || p.profile.primaryPosition === 'goalkeeper')
-        continue;
+      if (p.id === carrier.id || p.id === primary.id || isMatchGoalkeeper(p)) continue;
       e.otherPlayerDistance += speed(p.velocity) * dt;
     }
     const latest = e.samples.at(-1);
@@ -374,9 +372,7 @@ export class PressingTracker {
     const ranking = this.probes.rankAvailableActionsForAI(next, carrier.id);
     const supports = this.probes.deriveBuildUpSupport(next, carrier.team);
     const viable = ranking.filter((r) => r.action.type === 'pass' && r.canonicalScore > 20);
-    const defenders = next.players.filter(
-      (p) => p.team === side && p.profile.primaryPosition !== 'goalkeeper',
-    );
+    const defenders = next.players.filter((p) => p.team === side && !isMatchGoalkeeper(p));
     const uncovered = next.players.filter(
       (p) =>
         p.team === carrier.team &&

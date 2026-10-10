@@ -1,3 +1,4 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { canonicalShotLabel, projectContextualInteractions } from './contextualInteractions';
 import { isRestartSetup } from './restartPhase';
@@ -685,7 +686,7 @@ export const evaluatePassInterceptionOpportunity = (
   const playerArrival = candidate.playerArrival;
   const arrivalMargin = candidate.arrivalMargin;
   const reachableContact =
-    candidate.contactHeight <= (defender.profile.primaryPosition === 'goalkeeper' ? 2.65 : 2.15) &&
+    candidate.contactHeight <= (isMatchGoalkeeper(defender) ? 2.65 : 2.15) &&
     playerArrival.reachable &&
     arrivalMargin >= 0 &&
     arrivalMargin <= 0.9;
@@ -702,7 +703,7 @@ export const evaluatePassInterceptionOpportunity = (
       ({ at, ball, point }) =>
         at > 0 &&
         at + PLAYER_AGENCY_CALIBRATION.interceptionEarlierContactLead < arrivalTime &&
-        ball.position.z <= (player.profile.primaryPosition === 'goalkeeper' ? 2.65 : 2.15) &&
+        ball.position.z <= (isMatchGoalkeeper(player) ? 2.65 : 2.15) &&
         distance(player.position, point) <= PLAYER_AGENCY_CALIBRATION.interceptionLaneContactRadius,
     ),
   );

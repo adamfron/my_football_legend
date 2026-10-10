@@ -1,0 +1,211 @@
+{
+  "baseline": "09c05fa",
+  "seed": "pr160-performance:balanced:a",
+  "seconds": 300,
+  "repetitions": 3,
+  "modes": ["release_minimal"],
+  "sourceHashes": {
+    "before": "a8db4f915a171a70135ecc6ee882b959b90370a0cddcc5d703a7a7af2a5edf9b",
+    "after": "c23a7fe32cb6cdb5cfcfdba0ab2754aa51e2c7c42dfe5072d4b1e857e612d59c"
+  },
+  "methodology": "Three alternating before/after pairs, fresh sequential Node processes, existing benchmark fixture and explicit deterministic decision policy, profiling disabled, no concurrent tests; full-state hashes must replay within each revision.",
+  "limitation": "A focused equivalent starting fixture; gameplay can diverge naturally with fitness. This is not a scoring calibration or broad match performance estimate. Renderer and video capture excluded.",
+  "comparisons": [
+    {
+      "mode": "release_minimal",
+      "beforeMedianMs": 8220.718100000007,
+      "afterMedianMs": 10073.37379999999,
+      "changePercent": 22.536421726953293,
+      "beforeRangeMs": [8218.29630000002, 8339.1317],
+      "afterRangeMs": [9764.432299999993, 10081.042599999993]
+    }
+  ],
+  "samples": [
+    {
+      "revision": "before",
+      "repetition": 1,
+      "mode": "release_minimal",
+      "elapsedMs": 8220.718100000007,
+      "canonicalSeconds": 300.000000000001,
+      "ticks": 12000,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "588c2e247ac90951a34ebaf2835de1be042921c0bf21174691450ade9338ea32",
+        "playerState": "828e2ce18c0e945e0cb8e7d3af95e16d6406a0d4f49480bc9112f63c2e97c6fd",
+        "statistics": "1bed3ab5211fbffe2167de24552d3e69a07de7d812c8e7fab0c7d52b0d24ffbd",
+        "majorEventSequence": "c1f6b34ce6bc7ac674f327c9e288f7d6b985841e0ee3ac0e476bad64ed9cd4ed",
+        "majorEventCount": 106,
+        "randomnessEvidence": "5959f3ef4a952ba4a5058ab62af2be9a195155a47d1bdcc2e635e69406f0dba0"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "09c05fa"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 1,
+      "mode": "release_minimal",
+      "elapsedMs": 10073.37379999999,
+      "canonicalSeconds": 300.000000000001,
+      "ticks": 12000,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "eb8d0ce78b2186d85a723bdbf9cdc0b428b44aeb73bfc61c2e748c397ea1ff67",
+        "playerState": "1870bf985ffdcf6259fe9e577611a4bfe363dbf4a10fc1372b9b80ba813eac97",
+        "statistics": "9fce5d015084fda723116f6d96367c72bfceb7dac15038914a56d0ba97dedbf2",
+        "majorEventSequence": "4326663c192623a8f788b4d3d05f1e4eca0c28b864b36a9b9c8929697e1bdc04",
+        "majorEventCount": 111,
+        "randomnessEvidence": "8a415a2d8524661782295319e128ebbd4d9ce11dd7b17c62a5b24dd1bf7a5687"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR160-working-tree"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 2,
+      "mode": "release_minimal",
+      "elapsedMs": 9764.432299999993,
+      "canonicalSeconds": 300.000000000001,
+      "ticks": 12000,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "eb8d0ce78b2186d85a723bdbf9cdc0b428b44aeb73bfc61c2e748c397ea1ff67",
+        "playerState": "1870bf985ffdcf6259fe9e577611a4bfe363dbf4a10fc1372b9b80ba813eac97",
+        "statistics": "9fce5d015084fda723116f6d96367c72bfceb7dac15038914a56d0ba97dedbf2",
+        "majorEventSequence": "4326663c192623a8f788b4d3d05f1e4eca0c28b864b36a9b9c8929697e1bdc04",
+        "majorEventCount": 111,
+        "randomnessEvidence": "8a415a2d8524661782295319e128ebbd4d9ce11dd7b17c62a5b24dd1bf7a5687"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR160-working-tree"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 2,
+      "mode": "release_minimal",
+      "elapsedMs": 8339.1317,
+      "canonicalSeconds": 300.000000000001,
+      "ticks": 12000,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "588c2e247ac90951a34ebaf2835de1be042921c0bf21174691450ade9338ea32",
+        "playerState": "828e2ce18c0e945e0cb8e7d3af95e16d6406a0d4f49480bc9112f63c2e97c6fd",
+        "statistics": "1bed3ab5211fbffe2167de24552d3e69a07de7d812c8e7fab0c7d52b0d24ffbd",
+        "majorEventSequence": "c1f6b34ce6bc7ac674f327c9e288f7d6b985841e0ee3ac0e476bad64ed9cd4ed",
+        "majorEventCount": 106,
+        "randomnessEvidence": "5959f3ef4a952ba4a5058ab62af2be9a195155a47d1bdcc2e635e69406f0dba0"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "09c05fa"
+      }
+    },
+    {
+      "revision": "before",
+      "repetition": 3,
+      "mode": "release_minimal",
+      "elapsedMs": 8218.29630000002,
+      "canonicalSeconds": 300.000000000001,
+      "ticks": 12000,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "588c2e247ac90951a34ebaf2835de1be042921c0bf21174691450ade9338ea32",
+        "playerState": "828e2ce18c0e945e0cb8e7d3af95e16d6406a0d4f49480bc9112f63c2e97c6fd",
+        "statistics": "1bed3ab5211fbffe2167de24552d3e69a07de7d812c8e7fab0c7d52b0d24ffbd",
+        "majorEventSequence": "c1f6b34ce6bc7ac674f327c9e288f7d6b985841e0ee3ac0e476bad64ed9cd4ed",
+        "majorEventCount": 106,
+        "randomnessEvidence": "5959f3ef4a952ba4a5058ab62af2be9a195155a47d1bdcc2e635e69406f0dba0"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "09c05fa"
+      }
+    },
+    {
+      "revision": "after",
+      "repetition": 3,
+      "mode": "release_minimal",
+      "elapsedMs": 10081.042599999993,
+      "canonicalSeconds": 300.000000000001,
+      "ticks": 12000,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "status": "first_half",
+      "humanDecisionInputs": 0,
+      "hashes": {
+        "canonicalState": "eb8d0ce78b2186d85a723bdbf9cdc0b428b44aeb73bfc61c2e748c397ea1ff67",
+        "playerState": "1870bf985ffdcf6259fe9e577611a4bfe363dbf4a10fc1372b9b80ba813eac97",
+        "statistics": "9fce5d015084fda723116f6d96367c72bfceb7dac15038914a56d0ba97dedbf2",
+        "majorEventSequence": "4326663c192623a8f788b4d3d05f1e4eca0c28b864b36a9b9c8929697e1bdc04",
+        "majorEventCount": 111,
+        "randomnessEvidence": "8a415a2d8524661782295319e128ebbd4d9ce11dd7b17c62a5b24dd1bf7a5687"
+      },
+      "environment": {
+        "node": "v24.19.0",
+        "platform": "win32",
+        "osRelease": "10.0.26200",
+        "cpu": "AMD Ryzen 7 260 w/ Radeon 780M Graphics        ",
+        "logicalCpus": 16,
+        "totalMemoryBytes": 33601875968,
+        "revision": "PR160-working-tree"
+      }
+    }
+  ]
+}

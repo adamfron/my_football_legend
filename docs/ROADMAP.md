@@ -1,11 +1,14 @@
 # Roadmap
 
-Aktualny etap: **PR159 — Dead Ball & Restart Continuity** ma implementację i wymaganą
-walidację zakończone; draft do przeglądu. Pełny verify PASS (1372 testy, lint/build),
-12/12 krótkich restart windows i exact-state observer parity PASS; focused runtime +16,4%.
-[Raport PR159](PR159_DEAD_BALL_RESTART_CONTINUITY.md) zawiera kontrakty i zakres dowodów.
-PR158 jest scalony; wcześniejsze draft/calibration sformułowania pozostają historycznym
-zapisem diagnoz, nie aktualnym statusem merge.
+Aktualny etap: **PR160 — Fatigue, Injuries, Substitutions & Added Time**.
+Implementacja i `npm run verify` zakończone: lint, 1452 + 5 testów, build.
+Pełny mecz kontrolny zakończony legalnie (90+1, 5 zmian, 0 strzałów);
+skupiony pomiar CPU: +22,54%. PR159 jest scalony.
+[Raport PR160](PR160_FATIGUE_INJURIES_SUBSTITUTIONS_ADDED_TIME.md) opisuje także
+odtworzenie i naprawę oryginalnego soft locku karnego, dwie rezerwy, rzeczywiste
+urazy/zmiany, datowaną regenerację i kanoniczny doliczony czas.
+Następny feature PR to **PR161 — Match Presentation / Replay / Stadium Polish**.
+Wcześniejsze draft/calibration sformułowania są historią, nie aktualnym statusem.
 
 Otwarte PR158: shots 110→16, goals 68→10, CM touches 4957→3461/receptions
 2831→1993, flips 24→94, spells <0,5 s 51→189, prolonged/low-progress rotations.
@@ -314,7 +317,7 @@ i faule 90→369.
 
 [Manifest dowodów](performance/PR158-evidence-manifest.json) opisuje zamrożone wejścia, kod i raporty w archiwum. Lokalny plik wynikowy/załącznik `outputs/PR158-evidence.zip` zawiera 824 wpisy ze sprawdzonymi hashami; pięć podsumowań odtworzono dokładnie z wejść. Sumę kontrolną ZIP zapisano osobno w lokalnych metadanych.
 
-### CURRENT — PR159 (verified, draft review)
+### COMPLETED — PR159 (merged)
 
 **PR159 — Dead Ball & Restart Continuity**
 
@@ -329,16 +332,18 @@ gotowości, kilku delivery/receiver choices i shared canonical spin/wall physics
 Ledger dostarcza przerwy dla PR160; actual added time oraz końcowe animacje pozostają
 następnymi etapami. Dowody i ograniczenia centralizuje raport PR159.
 
-### NEXT
+### CURRENT
 
 **PR160 — Fatigue, Injuries, Substitutions & Added Time**
 
-- kanoniczne obciążenie, kondycja, zmęczenie i regeneracja, z trwałością między spotkaniami;
-- osobno długotrwała rezerwa/zdolność oraz krótkotrwała gotowość do powtarzanego intensywnego
-  wysiłku, ograniczona przez tę rezerwę; obserwacje PR158 nie są jeszcze krzywą zużycia;
-- kontekstowe efekty fizyczne dla sprintu/ruchu/wykonania, oparte na jawnych danych i testach;
-- ryzyko urazów, doliczony czas i decyzje zmian, oparte na tym samym obciążeniu człowieka i NPC;
-- integracja kariery i kalibracja deterministycznych pełnych meczów, bez maskowania rytmu kwotami.
+- rzeczywiste obciążenie, dwie rezerwy, fizyczne skutki i datowana regeneracja;
+- kontekstowe urazy, prawdziwa ławka, legalne zmiany oraz decyzje trenera;
+- ledger utraconego czasu, minimum doliczenia i końcowy karny/retake;
+- odtworzony oryginalny soft lock i poprawka celu legalnego ruchu;
+- skupione laby, observer smoke i parytet deterministyczny; granica narracyjnej kariery
+  opisana jawnie w raporcie, bez dodatkowej kampanii 18 meczów.
+
+### NEXT
 
 **PR161 — Match Presentation / Replay / Stadium Polish**: filmowe powtórki, finalne animacje,
 parametryczne stadiony. Później: duża kalibracja lig, świadomy wybór piętki i

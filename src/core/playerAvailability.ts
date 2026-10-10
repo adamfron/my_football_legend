@@ -6,6 +6,7 @@ import type {
   PlayerInjury,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
+import { isCareerFootballerPhysicallyAvailable } from './careerFitness';
 
 const emptyState = (): PlayerAvailabilityState => ({
   injuries: [],
@@ -18,7 +19,6 @@ const emptyState = (): PlayerAvailabilityState => ({
 export const availabilityState = (career: CareerState) => career.playerAvailability ?? emptyState();
 
 export const getPlayerAvailability = (career: CareerState, date: string) => {
-  void date;
   const state = availabilityState(career);
   const injury = state.injuries.find(
     (item) => item.status === 'active' && item.matchesRemaining > 0,
@@ -32,6 +32,8 @@ export const getPlayerAvailability = (career: CareerState, date: string) => {
   if (injury && injury.severity !== 'knock')
     return { available: false, status: 'injured' as const, injury };
   if (injury) return { available: true, status: 'knock' as const, injury };
+  if (!isCareerFootballerPhysicallyAvailable(career, career.player.id, date))
+    return { available: false, status: 'injured' as const };
   if (career.player.fitness < 25) return { available: false, status: 'unfit' as const };
   return { available: true, status: 'healthy' as const };
 };

@@ -27,6 +27,7 @@ import { RandomGenerator } from './random/RandomGenerator';
 import { evaluateMatchRating, normalizeTeamStats } from './matchFeedback';
 import { evaluatePlayStyleUnlocks, playStyleDecisionModifier } from './playStyles';
 import { applyMatchAvailabilityEffects, getPlayerAvailability } from './playerAvailability';
+import { recoverCareerFitnessToDate, recordSummaryAppearanceCondition } from './careerFitness';
 import { settleLeagueRound } from './leagueSeason';
 import { applyAppearanceConsequences } from './appearanceConsequences';
 import {
@@ -802,6 +803,7 @@ const startConfiguredMatch = (
 /** Starts an interactive match for an arbitrary generated fixture. */
 export const startFixtureMatch = (career: CareerState, fixture: Fixture): CareerState => {
   if (career.activeMatch) return career;
+  career = recoverCareerFitnessToDate(career, fixture.date);
   const projection = projectFixtureParticipation(career, fixture);
   return projection.willPlay ? startConfiguredMatch(career, fixture, projection) : career;
 };
@@ -820,7 +822,6 @@ export const resolveMatchDecision = (career: CareerState, decisionId: string): C
   // settle the already simulated match rather than leaving the career behind an unusable card.
   if (!def || !choice)
     return finishMatch({ ...career, activeMatch: { ...match, currentMoment: undefined } });
-  const fatigue = Math.max(0, moment.minute - 55) * 0.18;
   const weighted = Object.entries(choice.weights.attributes).reduce(
     (s, [k, w]) => s + career.player.attributes[k as keyof PlayerAttributes] * w!,
     0,
@@ -833,8 +834,7 @@ export const resolveMatchDecision = (career: CareerState, decisionId: string): C
     weighted +
     career.player.fitness * (choice.weights.fitnessWeight ?? 0) +
     career.player.morale * (choice.weights.moraleWeight ?? 0) -
-    match.opponent.strength * 0.25 -
-    fatigue +
+    match.opponent.strength * 0.25 +
     previous * 0.2 +
     playStyleDecisionModifier(career, moment.definitionId, decisionId) +
     rng.int(-18, 18) -
@@ -1081,16 +1081,8 @@ export const finishMatch = (career: CareerState): CareerState => {
         m.teamLevel === 'senior' ? 88 : 65,
       ),
     );
-  const load = m.plannedMinutes + career.player.matchEffort * 8;
   const completedCareer: CareerState = {
     ...effects.career,
-    player: {
-      ...career.player,
-      fitness: Math.max(
-        0,
-        career.player.fitness - Math.round(m.plannedMinutes / 18) + (load < 65 ? 2 : 0),
-      ),
-    },
     matchHistory: [...(career.matchHistory ?? []), appearance],
     historyFacts: [...career.historyFacts, ...facts, ...effects.facts],
     activeMatch: {
@@ -1111,13 +1103,13 @@ export const finishMatch = (career: CareerState): CareerState => {
   const settled =
     roundIndex >= 0
       ? settleLeagueRound(
-          completedCareer,
+          recordSummaryAppearanceCondition(completedCareer, appearance),
           roundIndex,
           m.teamLevel === 'senior'
             ? { homeGoals: home, awayGoals: away, playerAppearanceMatchId: appearance.matchId }
             : undefined,
         )
-      : completedCareer;
+      : recordSummaryAppearanceCondition(completedCareer, appearance);
   const fixture: Fixture = {
     id: m.id,
     seasonId: settled.leagueSeason?.id ?? String(settled.currentSeason),
