@@ -79,6 +79,7 @@ export const interpolatePresentationFrames = (
     }),
     ball:
       previous.ball.ownerId !== next.ball.ownerId ||
+      previous.ballContinuity !== next.ballContinuity ||
       next.players.some(
         (p) => p.cue && p.cue.atMs > previous.timestampMs && p.cue.atMs <= next.timestampMs,
       )
@@ -99,11 +100,14 @@ export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame =
   return {
     timestampMs: snapshot.timestampMs,
     continuity: snapshot.continuity,
+    ballContinuity: snapshot.ballContinuity,
+    keyframe: snapshot.keyframe,
+    restart: snapshot.restart,
     ball: { ...snapshot.ball },
     actionEvents: snapshot.actionEvents,
     dismissals: snapshot.dismissals,
     ...(carryMode ? { carryMode } : {}),
-    players: snapshot.players.map(({ possessionPreparation, carrying, ...player }) => {
+    players: snapshot.players.map(({ possessionPreparation, carrying, releaseCue, ...player }) => {
       const event = [...snapshot.actionEvents]
         .reverse()
         .find(
@@ -135,6 +139,21 @@ export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame =
                   ? 'receive'
                   : 'pass'
         : undefined;
+      const recordedRelease =
+        releaseCue &&
+        releaseCue.atMs <= snapshot.timestampMs &&
+        snapshot.timestampMs - releaseCue.atMs < CUE_DURATION_MS &&
+        (!event || event.at * 1000 <= releaseCue.atMs)
+          ? releaseCue
+          : undefined;
+      const cue: AnimationCue | undefined = recordedRelease
+        ? (({ travelKind: _travelKind, ...fact }) => {
+            void _travelKind;
+            return fact;
+          })(recordedRelease)
+        : kind && event
+          ? { kind, atMs: event.at * 1000 }
+          : undefined;
       const micro = possessionPreparation?.micro;
       const preparation =
         carrying && snapshot.ball.ownerId === player.id
@@ -156,8 +175,9 @@ export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame =
             : {};
       return {
         ...player,
-        ...(kind && event ? { cue: { kind, atMs: event.at * 1000 } } : {}),
+        ...(cue ? { cue } : {}),
         ...preparation,
+        canonicalBallPlacement: true,
       };
     }),
   };

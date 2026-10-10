@@ -1,0 +1,712 @@
+{
+  "referenceSeed": "lab-mv2640wz",
+  "originalExportAvailable": false,
+  "reconstruction": "equivalent deterministic canonical geometry fixtures",
+  "fixedStep": 0.025,
+  "cases": 12,
+  "passed": 12,
+  "results": [
+    {
+      "case": "1 stationary wholly inside",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": 0.25
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_12",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_17",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_19",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 439.69999999999936,
+        "elapsedSeconds": 0.6999999999993634,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.0816,
+          "y": 0.25
+        },
+        "actorPosition": {
+          "x": 44.25703137846054,
+          "y": 0.8122843107697346
+        },
+        "footDistance": 0.7897912112192612,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "2 centre beyond paint, ball still legal",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_12",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_17",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_19",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 439.7749999999993,
+        "elapsedSeconds": 0.7749999999992951,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "actorPosition": {
+          "x": 44.38034888162922,
+          "y": 0.750625559185395
+        },
+        "footDistance": 0.8070489154748901,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "3 whole ball beyond touchline",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": -0.12
+        },
+        "legal": false,
+        "assignments": []
+      },
+      "result": {
+        "at": 453.54999999998677,
+        "elapsedSeconds": 14.549999999986767,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_9",
+        "ball": {
+          "x": 29.566191102316537,
+          "y": 10.310738673703268
+        },
+        "actorPosition": {
+          "x": 29.854489747912922,
+          "y": 9.358570574794731
+        },
+        "footDistance": 0.8108314641472557,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": {
+          "at": 439.025,
+          "boundary": "touchline_top",
+          "point": {
+            "x": 45.0816,
+            "y": 0
+          },
+          "spot": {
+            "x": 45.0816,
+            "y": 0
+          }
+        },
+        "releasedAt": 449.3499999999906,
+        "passResult": "unclaimed",
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "4 slow tangential movement",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.113240625,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_12",
+            "target": {
+              "x": 45.113240625,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_17",
+            "target": {
+              "x": 45.113240625,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_19",
+            "target": {
+              "x": 45.113240625,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 439.7749999999993,
+        "elapsedSeconds": 0.7749999999992951,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.113240624999996,
+          "y": -0.0324
+        },
+        "actorPosition": {
+          "x": 44.397198621626195,
+          "y": 0.752445208351653
+        },
+        "footDistance": 0.8185843825325413,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "5 approaching corner",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 104.8,
+          "y": -0.0324
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 104.6,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_21",
+            "target": {
+              "x": 104.6,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_12",
+            "target": {
+              "x": 104.6,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_14",
+            "target": {
+              "x": 104.6,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 440.49999999999864,
+        "elapsedSeconds": 1.4999999999986358,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 104.825,
+          "y": -0.0324
+        },
+        "actorPosition": {
+          "x": 103.96911655647328,
+          "y": 0.5172058705523157
+        },
+        "footDistance": 0.8198936806652061,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "6 opposite touchline",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": 68.1
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.0816,
+              "y": 67.6
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_11",
+            "target": {
+              "x": 45.0816,
+              "y": 67.6
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_9",
+            "target": {
+              "x": 45.0816,
+              "y": 67.6
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_4",
+            "target": {
+              "x": 45.0816,
+              "y": 67.6
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 439.7999999999993,
+        "elapsedSeconds": 0.7999999999992724,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.0816,
+          "y": 68.1
+        },
+        "actorPosition": {
+          "x": 44.413777097863026,
+          "y": 67.2660885489315
+        },
+        "footDistance": 0.8186213496177185,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "7 actual failed finite control",
+      "passed": true,
+      "initial": {
+        "at": 439.025,
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_12",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_17",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_19",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 440.3249999999988,
+        "elapsedSeconds": 1.2999999999988177,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "actorPosition": {
+          "x": 44.506592868931406,
+          "y": 0.8041836456127585
+        },
+        "footDistance": 0.7892020938858402,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "8 after recorded defender deflection",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.0956625,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_12",
+            "target": {
+              "x": 45.0956625,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_17",
+            "target": {
+              "x": 45.0956625,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_19",
+            "target": {
+              "x": 45.0956625,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 439.7749999999993,
+        "elapsedSeconds": 0.7749999999992951,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.0956625,
+          "y": -0.0324
+        },
+        "actorPosition": {
+          "x": 44.38785625170885,
+          "y": 0.7514321170724105
+        },
+        "footDistance": 0.8121496849343498,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "9 multiple legal claimants",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_12",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_7",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_17",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 439.4249999999996,
+        "elapsedSeconds": 0.42499999999961346,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.0816,
+          "y": -0.0324
+        },
+        "actorPosition": {
+          "x": 44.37340420538456,
+          "y": 0.4
+        },
+        "footDistance": 0.5719411907397626,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "10 body constrained by pitch edge",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": -0.105
+        },
+        "legal": true,
+        "assignments": [
+          {
+            "playerId": "footballer_pro_0_3",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_0_12",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_17",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          },
+          {
+            "playerId": "footballer_pro_1_19",
+            "target": {
+              "x": 45.0816,
+              "y": 0.4
+            }
+          }
+        ]
+      },
+      "result": {
+        "at": 439.62499999999943,
+        "elapsedSeconds": 0.6249999999994316,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_3",
+        "ball": {
+          "x": 45.0816,
+          "y": -0.105
+        },
+        "actorPosition": {
+          "x": 44.16451938677429,
+          "y": 0.4
+        },
+        "footDistance": 0.7914730607317991,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": null,
+        "releasedAt": null,
+        "passResult": null,
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "11 whole crossing then throw-in release",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": 68.02
+        },
+        "legal": true,
+        "assignments": []
+      },
+      "result": {
+        "at": 449.72499999999025,
+        "elapsedSeconds": 10.724999999990246,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_1_17",
+        "ball": {
+          "x": 64.6461048245162,
+          "y": 50.45771858895153
+        },
+        "actorPosition": {
+          "x": 64.73644359877666,
+          "y": 49.62833795818595
+        },
+        "footDistance": 0.6117469938345954,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": {
+          "at": 439.17499999999984,
+          "boundary": "touchline_bottom",
+          "point": {
+            "x": 45.0816,
+            "y": 68
+          },
+          "spot": {
+            "x": 45.0816,
+            "y": 68
+          }
+        },
+        "releasedAt": 448.4749999999914,
+        "passResult": "completed",
+        "unresolvedDiagnostics": 0
+      }
+    },
+    {
+      "case": "12 throw-in returns to open play",
+      "passed": true,
+      "initial": {
+        "at": 439,
+        "ball": {
+          "x": 45.0816,
+          "y": 0.02
+        },
+        "legal": true,
+        "assignments": []
+      },
+      "result": {
+        "at": 453.67499999998665,
+        "elapsedSeconds": 14.674999999986653,
+        "scenario": "open_play",
+        "ownerId": "footballer_pro_0_9",
+        "ball": {
+          "x": 29.050877654057377,
+          "y": 10.056078909831102
+        },
+        "actorPosition": {
+          "x": 29.428869841217374,
+          "y": 9.152970482451648
+        },
+        "footDistance": 0.7951880656268672,
+        "footReach": 0.82,
+        "publicTouches": 1,
+        "award": {
+          "at": 439.14999999999986,
+          "boundary": "touchline_top",
+          "point": {
+            "x": 45.0816,
+            "y": 0
+          },
+          "spot": {
+            "x": 45.0816,
+            "y": 0
+          }
+        },
+        "releasedAt": 449.4749999999905,
+        "passResult": "unclaimed",
+        "unresolvedDiagnostics": 0
+      }
+    }
+  ]
+}

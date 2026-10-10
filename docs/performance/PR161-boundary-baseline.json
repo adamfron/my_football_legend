@@ -1,0 +1,112 @@
+{
+  "referenceSeed": "lab-mv2640wz",
+  "originalExportAvailable": false,
+  "reconstruction": "equivalent deterministic geometry; original complete canonical state unavailable in repository",
+  "fixedStep": 0.025,
+  "initial": {
+    "at": 439,
+    "ball": {
+      "x": 45.0816,
+      "y": -0.0324,
+      "velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "height": 0,
+      "airborne": false,
+      "looseSince": 438,
+      "lastTouchPlayerId": "footballer_pro_0_3"
+    },
+    "ballRadius": 0.11,
+    "crossing": null,
+    "nearestFootDistance": 2.266419193015885,
+    "assignments": [],
+    "races": [],
+    "prediction": {
+      "kind": "boundary"
+    }
+  },
+  "trace": [
+    {
+      "at": 439.025,
+      "ball": {
+        "x": 45.0816,
+        "y": -0.0324,
+        "ownerId": null
+      },
+      "scenario": "open_play",
+      "nearestFootDistance": 2.2488561981462265,
+      "assignments": [],
+      "acquisition": null
+    },
+    {
+      "at": 440.02499999999907,
+      "ball": {
+        "x": 45.0816,
+        "y": -0.0324,
+        "ownerId": null
+      },
+      "scenario": "open_play",
+      "nearestFootDistance": 5.280772682709991,
+      "assignments": [],
+      "acquisition": null
+    },
+    {
+      "at": 441.02499999999816,
+      "ball": {
+        "x": 45.0816,
+        "y": -0.0324,
+        "ownerId": null
+      },
+      "scenario": "open_play",
+      "nearestFootDistance": 8.894386351369652,
+      "assignments": [],
+      "acquisition": null
+    },
+    {
+      "at": 442.02499999999725,
+      "ball": {
+        "x": 45.0816,
+        "y": -0.0324,
+        "ownerId": null
+      },
+      "scenario": "open_play",
+      "nearestFootDistance": 12.479813299087654,
+      "assignments": [],
+      "acquisition": null
+    },
+    {
+      "at": 443.02499999999634,
+      "ball": {
+        "x": 45.0816,
+        "y": -0.0324,
+        "ownerId": null
+      },
+      "scenario": "open_play",
+      "nearestFootDistance": 15.359627086070551,
+      "assignments": [],
+      "acquisition": null
+    },
+    {
+      "at": 444.02499999999543,
+      "ball": {
+        "x": 45.0816,
+        "y": -0.0324,
+        "ownerId": null
+      },
+      "scenario": "open_play",
+      "nearestFootDistance": 15.999031205165434,
+      "assignments": [],
+      "acquisition": null
+    }
+  ],
+  "result": {
+    "recoveredAt": null,
+    "finalTime": 444.99999999999454,
+    "finalScenario": "open_play",
+    "ownerId": null,
+    "physicalContacts": 0,
+    "boundaryRestart": null
+  }
+}

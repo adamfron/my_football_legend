@@ -41,7 +41,7 @@ export const defensiveEpisodeSchema = z.object({
   participants: z.tuple([z.string(), z.string()]),
   ballEpisode: z.number().int().nonnegative(),
   resolvedAt: z.number().nonnegative(),
-  position: pitchPointSchema,
+  position: physicalPointSchema,
 });
 export type DefensiveEpisode = z.infer<typeof defensiveEpisodeSchema>;
 export const challengeDiagnosticSchema = z.object({

@@ -1,5 +1,42 @@
 # Match Engine Handoff
 
+## PR161 contracts and next work
+
+- Baseline is merged PR160 `d4b389b`; read the [PR161 report](PR161_MATCH_PRESENTATION_REPLAY_STADIUM.md)
+  and compact traces. Next work is the **Combined Match Engine Realism & Playability Audit**,
+  not another isolated feature calibration. Final verification/performance are in that report.
+  `npm run verify` passes 1529 main/5 career tests, lint, TypeScript and build.
+  One uninjected match ends legally at 90+1 with 877 pass attempts, five changes and
+  zero shots; do not reinterpret this continuity result as scoring realism.
+- Test raw ball coordinates against whole-ball legality. Clamp only the pursuing
+  player's intention. Preserve physical acquisition/contest coordinates, existing
+  foot reach and exact trailing-edge legality. `lab-mv2640wz` is an equivalent
+  geometry fixture because the original complete export was unavailable.
+- Loose-ball diagnostics are bounded observations only. Never resolve a state,
+  create an out, move a ball or grant possession after diagnostic elapsed time.
+- `canonicalPresentation` is shared by live/context/replay. Missing acceleration
+  across gaps, NPC assignment reasons and contact timestamps stay missing.
+  Planned contact and executed/failure evidence are separate; no pose is football authority.
+- Retain canonical roots/ball path; no visual foot attachment or successful named
+  skill inferred from repeated contacts. Temporary keeper is a match role in every path.
+  Staged/departing bodies are distinct from active eligibility and retain actor IDs.
+- Keep bounded before/after event keyframes and do not interpolate across owner,
+  contact, roster, score, restart, period or long observation gaps. Dense contact
+  retention can shorten lead-in; do not claim a complete tick archive.
+  Preserve optional recorded release cues (throw/header/volley/distribution), one
+  per actor, at the shared 620 ms TTL; rapid A→B must retain A's real contact kind.
+- Replay cursor/camera/controls read history and explicitly restore the prior
+  presentation phase, including a human decision. Generation tokens invalidate
+  reset callbacks. Hidden normal/DEV/capture must execute zero renderer updates.
+- All diagnostic groups default off. Actual/movement/nominal/ideal markers differ;
+  do not run decision ranking to invent unpersisted assignments. Club hash/stadium
+  detail never use canonical RNG or become interaction targets.
+- Small SVG exports use actual scene/rigs but are software evidence. Native WebGL
+  FPS, shading, draw-call counts and live UI layout remain an interactive review
+  task after loopback browser timeout. Use exposed renderer metrics for that review.
+- Carry zero/low shots, scarce CM receptions, low-progress rotations, rigid formation
+  restoration, unstable contests and pressure/carry ranking into the combined audit.
+
 ## PR160 contracts and next work
 
 - Baseline is merged PR159 `09c05fa`; PR161 presentation/replay/stadium remains next.

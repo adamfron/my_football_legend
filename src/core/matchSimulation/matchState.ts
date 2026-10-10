@@ -1,4 +1,10 @@
 import { z } from 'zod';
+import {
+  looseBallLivenessObservationSchema,
+  looseBallLivenessDiagnosticSchema,
+  type LooseBallLivenessObservation,
+  type LooseBallLivenessDiagnostic,
+} from './looseBallLiveness';
 import { matchFitnessSchema, type MatchFitness } from './matchFitness';
 import { matchInjurySchema, type MatchInjury } from './matchInjuries';
 import {
@@ -66,8 +72,10 @@ import { tacticalPreferencesSchema, type TacticalPreferences } from './tacticalP
 import {
   controlledBallContactSchema,
   contactControlTelemetrySchema,
+  groundContactFactSchema,
   type ControlledBallContact,
   type ContactControlTelemetry,
+  type GroundContactFact,
 } from './ballContactGeometry';
 import type { FootballerProfile } from '../../types/domain';
 import type { FormationId, FormationSlot, TacticalDuty } from '../footballerWorld';
@@ -700,6 +708,8 @@ export interface TacticalMatchState {
   timekeeping?: MatchTimekeeping;
   restartBlockingObservation?: RestartBlockingObservation;
   restartLivenessDiagnostics?: RestartBlockingDiagnostic[];
+  looseBallLivenessObservation?: LooseBallLivenessObservation;
+  looseBallLivenessDiagnostics?: LooseBallLivenessDiagnostic[];
   substitutionRules?: MatchSubstitutionRules;
   substitutionState?: MatchSubstitutionState;
   bench?: Record<TeamSide, MatchBenchPlayer[]>;
@@ -708,6 +718,7 @@ export interface TacticalMatchState {
   pendingInjuryAssessment?: string;
   /** One bounded anticipation plan; ownership never guarantees the next foot contact. */
   controlledBallContact?: ControlledBallContact;
+  lastGroundContact?: GroundContactFact;
   contactControlTelemetry?: ContactControlTelemetry;
   ballAcquisition?: BallAcquisition;
   aerialContactLocks?: z.infer<typeof aerialContactLockSchema>[];
@@ -899,6 +910,8 @@ export const tacticalMatchStateSchema = z
     timekeeping: matchTimekeepingSchema.optional(),
     restartBlockingObservation: restartBlockingObservationSchema.optional(),
     restartLivenessDiagnostics: z.array(restartBlockingDiagnosticSchema).max(32).optional(),
+    looseBallLivenessObservation: looseBallLivenessObservationSchema.optional(),
+    looseBallLivenessDiagnostics: z.array(looseBallLivenessDiagnosticSchema).max(32).optional(),
     substitutionRules: matchSubstitutionRulesSchema.optional(),
     substitutionState: substitutionStateSchema.optional(),
     bench: z
@@ -935,6 +948,7 @@ export const tacticalMatchStateSchema = z
       .optional(),
     ballAcquisition: ballAcquisitionSchema.optional(),
     controlledBallContact: controlledBallContactSchema.optional(),
+    lastGroundContact: groundContactFactSchema.optional(),
     contactControlTelemetry: contactControlTelemetrySchema.optional(),
     aerialContactLocks: z.array(aerialContactLockSchema).max(22).optional(),
     seed: z.string().min(1),

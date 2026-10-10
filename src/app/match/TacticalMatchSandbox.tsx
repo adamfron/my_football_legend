@@ -25,7 +25,14 @@ import {
   shouldPublishBackgroundState,
   type ObserverCoverageInterval,
 } from './backgroundPublication';
-import { formatDiagnosticMatchTime, formatMatchTime } from './matchTime';
+import { formatDiagnosticMatchTime, formatMatchTime, formatPeriodClock } from './matchTime';
+import { ReplayControls } from './ReplayControls';
+import { PlayerFitness } from './PlayerFitness';
+import { advanceReplayViewer, type ReplaySpeed } from './replayViewer';
+import {
+  DEFAULT_TACTICAL_DIAGNOSTICS,
+  type TacticalDiagnosticOptions,
+} from './tacticalRenderer/diagnosticOverlay';
 import { createSessionTelemetryReport } from './matchBenchmarkReport';
 import {
   CanonicalParticipationTracker,
@@ -140,6 +147,7 @@ import {
 } from './matchDebugCapture';
 import './TacticalMatchSandbox.css';
 import { MatchCentre } from './MatchCentre';
+import { matchEventLabels } from './matchEventLabels';
 import {
   groupContextualInteractions,
   projectRestartDecisionInteractions,
@@ -489,6 +497,15 @@ export const RunningLab = ({
     [performanceExpanded, setPerformanceExpanded] = useState(false),
     [geometryExpanded, setGeometryExpanded] = useState(false),
     [goalReplay, setGoalReplay] = useState<RenderFrame[]>([]),
+    [replayPlaying, setReplayPlaying] = useState(true),
+    [replaySpeed, setReplaySpeed] = useState<ReplaySpeed>(0.5),
+    [replayTitle, setReplayTitle] = useState('Ostatni zapisany fragment'),
+    [replayEventAt, setReplayEventAt] = useState<number>(),
+    [tacticalDiagnostics, setTacticalDiagnostics] = useState<TacticalDiagnosticOptions>(
+      DEFAULT_TACTICAL_DIAGNOSTICS,
+    ),
+    [stadiumDetail, setStadiumDetail] = useState<'minimal' | 'standard'>('standard'),
+    [replayCamera, setReplayCamera] = useState<'ball' | 'actors' | 'overview'>('ball'),
     [captureStatus, setCaptureStatus] = useState<DebugCaptureStatus>('idle'),
     [saveMessage, setSaveMessage] = useState<string>(),
     [captureError, setCaptureError] = useState<string>(),
@@ -509,6 +526,7 @@ export const RunningLab = ({
     replayBufferRef = useRef<RenderFrame[]>([]),
     matchReplayRef = useRef(new MatchReplayHistory()),
     replayEpochRef = useRef(0),
+    replayClockRef = useRef({ cursorMs: 0, lastWallMs: 0 }),
     scoreRef = useRef(0),
     stateRef = useRef(state),
     rendererFaultRef = useRef(false),
@@ -532,7 +550,20 @@ export const RunningLab = ({
     },
     [observerMode],
   );
-  const finishReplay = () => setPresentationPhase(phaseBeforeReplayRef.current);
+  const finishReplay = () => {
+    setPresentationPhase(phaseBeforeReplayRef.current);
+    setDisplayTime(stateRef.current.time);
+  };
+  const beginReplay = (frames: RenderFrame[], title: string, eventAt?: number) => {
+    if (frames.length < 2) return;
+    replayClockRef.current = { cursorMs: frames[0]!.timestampMs, lastWallMs: performance.now() };
+    setReplayPlaying(true);
+    setReplayTitle(title);
+    setReplayEventAt(eventAt);
+    setGoalReplay(frames);
+    phaseBeforeReplayRef.current = presentationPhase;
+    setPresentationPhase('replay');
+  };
   const animationProjectorRef = useRef(new PresentationFrameProjector());
   // React may evaluate an updater twice. Only consume samples belonging to its committed result.
   const presentationSamplesRef = useRef(new WeakMap<TacticalMatchState, TacticalMatchState[]>());
@@ -701,6 +732,7 @@ export const RunningLab = ({
       },
       kits,
       setCameraPreferences,
+      { homeClubId: session.home.club.id, active: presentationPolicyRef.current.fullMatch },
     );
     const videoRecorder = videoRecorderRef.current;
     rendererRef.current = renderer;
@@ -1161,6 +1193,25 @@ export const RunningLab = ({
     publishState,
     windowEvent,
   ]);
+  // Activity is set before frame/camera/diagnostic effects. Background preferences are deferred
+  // by the renderer; re-entry stores a fresh recorded frame before any scene update or redraw.
+  useEffect(() => {
+    const renderer = rendererRef.current;
+    if (!renderer) return;
+    const phase = presentationPhaseRef.current;
+    const hidden = !presentationPolicyRef.current.fullMatch && phase === 'background_simulation';
+    if (hidden) {
+      renderer.setPresentationActive(false);
+      return;
+    }
+    const freshFrame =
+      phase === 'replay'
+        ? sampleReplayFrame(goalReplay, replayClockRef.current.cursorMs)
+        : phase === 'lead_in' && leadInRef.current
+          ? sampleReplayFrame(leadInFramesRef.current, leadInRef.current.displayTime * 1000)
+          : animationProjectorRef.current.frame(stateRef.current, { includeAiCarryTarget: debug });
+    renderer.setPresentationActive(true, freshFrame, debug);
+  }, [presentationPhase, presentationPolicy.fullMatch, goalReplay, debug, session]);
   useEffect(() => {
     let frame = 0;
     let previous = performance.now();
@@ -1271,30 +1322,46 @@ export const RunningLab = ({
     rendererRef.current?.setCameraPreferences(cameraPreferences, state.controlledFootballerId);
   }, [cameraPreferences, state.controlledFootballerId]);
   useEffect(() => {
+    rendererRef.current?.setDiagnostics(tacticalDiagnostics);
+  }, [tacticalDiagnostics]);
+  useEffect(() => {
+    rendererRef.current?.setStadiumDetail(stadiumDetail);
+  }, [stadiumDetail]);
+  useEffect(() => {
+    rendererRef.current?.setReplayCamera(replayCamera);
+  }, [replayCamera]);
+  useEffect(() => {
     if (!replaying || goalReplay.length === 0) return;
-    const started = performance.now(),
-      firstTimestamp = goalReplay[0]!.timestampMs;
+    replayClockRef.current.lastWallMs = performance.now();
     let animation = 0;
     let active = true;
     const replayEpoch = replayEpochRef.current;
     const play = (now: number) => {
       // A reset invalidates callbacks immediately, before React cleans up the old RAF effect.
       if (!active || replayEpoch !== replayEpochRef.current) return;
-      const replayTimestamp = firstTimestamp + (now - started) * 0.5;
+      replayClockRef.current = advanceReplayViewer(
+        replayClockRef.current,
+        now,
+        goalReplay.at(-1)!.timestampMs,
+        replaySpeed,
+        replayPlaying,
+      );
+      const replayTimestamp = replayClockRef.current.cursorMs;
       const frame = sampleReplayFrame(goalReplay, replayTimestamp);
       if (frame) {
         rendererRef.current?.render(frame, debug);
         setDisplayTime(frame.timestampMs / 1000);
       }
-      if (replayTimestamp < goalReplay.at(-1)!.timestampMs) animation = requestAnimationFrame(play);
-      else finishReplay();
+      if (replayPlaying && replayTimestamp < goalReplay.at(-1)!.timestampMs)
+        animation = requestAnimationFrame(play);
+      else if (replayPlaying) setReplayPlaying(false);
     };
     animation = requestAnimationFrame(play);
     return () => {
       active = false;
       cancelAnimationFrame(animation);
     };
-  }, [replaying, goalReplay, debug]);
+  }, [replaying, goalReplay, debug, replayPlaying, replaySpeed]);
   const owner = state.players.find((p) => p.id === state.ball.ownerId),
     actor = state.players.find((p) => p.id === state.currentActorId),
     controlledActor = state.players.find((p) => p.id === state.controlledFootballerId),
@@ -1535,7 +1602,7 @@ export const RunningLab = ({
           </h1>
         </div>
         <p>
-          {formatMatchTime(displayTime)} ·{' '}
+          {formatPeriodClock(state, displayTime)} ·{' '}
           {state.status === 'abandoned'
             ? 'Mecz przerwany'
             : replaying
@@ -1575,7 +1642,7 @@ export const RunningLab = ({
           </select>
         </label>
         <button
-          disabled={state.status === 'abandoned' || state.status === 'full_time'}
+          disabled={replaying || state.status === 'abandoned' || state.status === 'full_time'}
           onClick={() => {
             publishState(stateRef.current);
             uiEvent(playing ? 'paused' : 'playing');
@@ -1586,6 +1653,7 @@ export const RunningLab = ({
         </button>
         {[1, 2, 4, 8, 16].map((v) => (
           <button
+            disabled={replaying}
             className={speed === v ? 'active' : ''}
             key={v}
             onClick={() => {
@@ -1600,13 +1668,11 @@ export const RunningLab = ({
           disabled={!goalReplay.length || replaying || presentationPhase === 'lead_in'}
           onClick={() => {
             uiEvent('replay_started');
-            phaseBeforeReplayRef.current = presentationPhase;
-            setPresentationPhase('replay');
+            beginReplay(goalReplay, 'Ostatni zapisany fragment');
           }}
         >
-          Powtórka 0.5×
+          Powtórka
         </button>
-        {replaying && <button onClick={finishReplay}>Zakończ powtórkę</button>}
         {state.status === 'half_time' && (
           <button onClick={() => publishState(startSecondHalf(stateRef.current))}>
             Rozpocznij drugą połowę
@@ -1627,6 +1693,25 @@ export const RunningLab = ({
           Powrót do menu
         </button>
       </nav>
+      {replaying && (
+        <ReplayControls
+          title={replayTitle}
+          eventAt={replayEventAt}
+          playing={replayPlaying}
+          speed={replaySpeed}
+          onPlaying={setReplayPlaying}
+          onSpeed={setReplaySpeed}
+          onLive={finishReplay}
+          onRestart={() => {
+            replayClockRef.current = {
+              cursorMs: goalReplay[0]!.timestampMs,
+              lastWallMs: performance.now(),
+            };
+            setGoalReplay([...goalReplay]);
+            setReplayPlaying(true);
+          }}
+        />
+      )}
       <nav
         className="camera-controls"
         aria-label="Ustawienia kamery"
@@ -1638,6 +1723,7 @@ export const RunningLab = ({
             ['overview', 'Przegląd'],
             ['action', 'Akcja'],
             ['player_focus', 'Zawodnik'],
+            ['overhead', 'Taktyczna z góry'],
           ] as const
         ).map(([preset, label]) => (
           <button
@@ -1677,7 +1763,63 @@ export const RunningLab = ({
               ? 'Kamera powtórki'
               : 'Kółko: zoom · Środkowy: obrót · Shift + środkowy: przesunięcie'}
         </small>
+        {replaying && (
+          <label>
+            Kamera powtórki{' '}
+            <select
+              aria-label="Kamera powtórki"
+              value={replayCamera}
+              onChange={(event) => setReplayCamera(event.target.value as typeof replayCamera)}
+            >
+              <option value="ball">Za piłką</option>
+              <option value="actors">Wykonawca i bramkarz</option>
+              <option value="overview">Przegląd boiska</option>
+            </select>
+          </label>
+        )}
+        <label>
+          Stadion{' '}
+          <select
+            aria-label="Szczegółowość stadionu"
+            value={stadiumDetail}
+            onChange={(event) => setStadiumDetail(event.target.value as typeof stadiumDetail)}
+          >
+            <option value="minimal">Minimalny</option>
+            <option value="standard">Standardowy</option>
+          </select>
+        </label>
       </nav>
+      <details className="presentation-diagnostics">
+        <summary>Widok diagnostyczny</summary>
+        <div>
+          {(
+            [
+              ['identity', 'ID i role'],
+              ['movement', 'Ruch i orientacja'],
+              ['shape', 'Kotwice i cele taktyczne'],
+              ['assignments', 'Krycie, pressing i wsparcie'],
+              ['contacts', 'Plan i kontakt stopy'],
+              ['fitness', 'Rezerwa i gotowość'],
+              ['ball', 'Piłka i wznowienie'],
+            ] as const
+          ).map(([key, label]) => (
+            <label key={key}>
+              <input
+                type="checkbox"
+                checked={tacticalDiagnostics[key]}
+                onChange={(event) =>
+                  setTacticalDiagnostics((current) => ({ ...current, [key]: event.target.checked }))
+                }
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+        <small>
+          Pozycja: zawodnik · cel ruchu: żółty · kotwica formacji: niebieski · cel taktyczny:
+          fioletowy. Brak danych pozostaje widoczny jako brak danych.
+        </small>
+      </details>
       <details
         className="lab-diagnostics"
         onToggle={(event) => {
@@ -2301,12 +2443,48 @@ export const RunningLab = ({
             onReplay={(replayKey) => {
               const recorded = matchReplayRef.current.getWindow(replayKey);
               if (!recorded || recorded.frames.length < 2) return;
-              setGoalReplay(recorded.frames.map(replaySnapshotToFrame));
-              phaseBeforeReplayRef.current = presentationPhase;
-              setPresentationPhase('replay');
+              beginReplay(
+                recorded.frames.map(replaySnapshotToFrame),
+                matchReplayRef.current.listWindows().find((entry) => entry.replayKey === replayKey)
+                  ?.title ??
+                  matchEventLabels[recorded.event.kind as keyof typeof matchEventLabels] ??
+                  'Zapisane wydarzenie',
+                recorded.event.at,
+              );
               uiEvent('match_event_replay_started', { replayKey });
             }}
           />
+          {matchReplayRef.current
+            .listWindows()
+            .some((entry) => entry.complete && !Object.hasOwn(matchEventLabels, entry.kind)) && (
+            <details className="match-centre__highlights">
+              <summary>Zapisane akcje</summary>
+              <ul>
+                {matchReplayRef.current
+                  .listWindows()
+                  .filter((entry) => entry.complete && !Object.hasOwn(matchEventLabels, entry.kind))
+                  .map((entry) => (
+                    <li key={entry.replayKey}>
+                      <button
+                        disabled={replaying || presentationPhase === 'lead_in'}
+                        onClick={() => {
+                          const recorded = matchReplayRef.current.getWindow(entry.replayKey);
+                          if (recorded)
+                            beginReplay(
+                              recorded.frames.map(replaySnapshotToFrame),
+                              entry.title,
+                              entry.eventAt,
+                            );
+                        }}
+                      >
+                        {formatMatchTime(entry.eventAt)} · {entry.title}
+                      </button>
+                    </li>
+                  ))}
+              </ul>
+            </details>
+          )}
+          {(controlledActor ?? owner) && <PlayerFitness player={(controlledActor ?? owner)!} />}
           <div className="match-status-title">
             {state.status === 'abandoned'
               ? 'MECZ PRZERWANY'

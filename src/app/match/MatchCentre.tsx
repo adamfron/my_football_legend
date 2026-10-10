@@ -1,23 +1,10 @@
 import type { CSSProperties, ReactNode } from 'react';
 import type { SingleMatchSession } from '../../core/singleMatch';
 import type { TacticalMatchState } from '../../core/matchSimulation/matchState';
-import type { MatchEvent } from '../../core/matchSimulation/matchEventFeed';
 import { projectMatchCentreStatistics } from '../../core/matchSimulation/matchCentreStatistics';
 import type { KitPresentation } from './tacticalRenderer/model';
-import { formatMatchTime } from './matchTime';
-
-const eventLabels: Record<MatchEvent['kind'], string> = {
-  goal: 'Gol',
-  yellow_card: 'Żółta kartka',
-  second_yellow_red: 'Druga żółta · czerwona kartka',
-  red_card: 'Czerwona kartka',
-  penalty: 'Rzut karny',
-  foul: 'Faul',
-  offside: 'Spalony',
-  kick_off: 'Rozpoczęcie gry',
-  substitution: 'Zmiana',
-  injury: 'Uraz',
-};
+import { formatMatchTime, formatPeriodClock, matchPeriodLabel } from './matchTime';
+import { matchEventLabels } from './matchEventLabels';
 
 /** Always projects the complete canonical match, including football hidden by watch policy. */
 export const MatchCentre = ({
@@ -108,7 +95,7 @@ export const MatchCentre = ({
         <span title={session.away.club.name}>{session.away.club.name}</span>
       </p>
       <p className="match-centre__clock">
-        {formatMatchTime(state.time)} · pełny przebieg spotkania
+        {formatPeriodClock(state)} · {matchPeriodLabel(state)} · pełny przebieg spotkania
         {state.timekeeping?.minimumAnnouncedAddedSeconds !== undefined &&
           ` · doliczono co najmniej ${Math.ceil(state.timekeeping.minimumAnnouncedAddedSeconds / 60)} min`}
       </p>
@@ -138,7 +125,7 @@ export const MatchCentre = ({
               >
                 <time>{formatMatchTime(event.at)}</time>
                 <div>
-                  <strong>{eventLabels[event.kind]}</strong>
+                  <strong>{matchEventLabels[event.kind]}</strong>
                   <span>
                     {event.kind === 'substitution'
                       ? `${player ?? event.actorId} ← ${roster.get(event.relatedPlayerId ?? '') ?? event.relatedPlayerId}`
@@ -156,7 +143,7 @@ export const MatchCentre = ({
                   <button
                     type="button"
                     onClick={() => onReplay?.(event.replayKey)}
-                    aria-label={`Powtórka: ${eventLabels[event.kind]}, ${formatMatchTime(event.at)}`}
+                    aria-label={`Powtórka: ${matchEventLabels[event.kind]}, ${formatMatchTime(event.at)}`}
                   >
                     ▶
                   </button>

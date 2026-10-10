@@ -562,3 +562,47 @@
 .tactical-sandbox input {
   border-radius: 1px;
 }
+
+.replay-controls,
+.presentation-diagnostics {
+  margin: 6px auto;
+  padding: 7px;
+  border: 1px solid #8c969a;
+  background: #e6e9e8;
+  max-width: 1450px;
+}
+.replay-controls,
+.presentation-diagnostics > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.presentation-diagnostics summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+.presentation-diagnostics small {
+  display: block;
+  margin-top: 6px;
+}
+.player-fitness {
+  display: grid;
+  gap: 5px;
+  padding: 7px;
+  border: 1px solid #aeb4b7;
+  margin: 7px 0;
+}
+.player-fitness label {
+  display: grid;
+  grid-template-columns: 1fr 5rem 2.4rem;
+  align-items: center;
+  gap: 5px;
+}
+.player-fitness meter {
+  width: 100%;
+  height: 14px;
+}
+.player-fitness small {
+  color: #566167;
+}

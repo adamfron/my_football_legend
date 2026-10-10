@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { RandomGenerator } from '../random/RandomGenerator';
-import { distance, pitchPointSchema } from './matchSpace';
+import { distance, physicalPointSchema } from './matchSpace';
 import type { TacticalMatchState, MatchPlayerState } from './matchState';
 import { playerContactGeometry } from './ballContactGeometry';
 import { canContactAfterThrowIn } from './throwIn';
@@ -12,7 +12,7 @@ export const ballAcquisitionSchema = z.object({
   startedAt: z.number().nonnegative(),
   readyAt: z.number().nonnegative(),
   ballEpisode: z.number().int().nonnegative(),
-  origin: pitchPointSchema,
+  origin: physicalPointSchema,
   controlQuality: z.number().min(0).max(1),
   incomingSpeed: z.number().nonnegative(),
 });

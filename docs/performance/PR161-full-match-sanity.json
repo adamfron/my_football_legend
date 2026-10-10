@@ -1,0 +1,1015 @@
+{
+  "fixture": {
+    "seed": "pr161-full-match-sanity",
+    "homeClubId": "pro_0",
+    "awayClubId": "pro_1",
+    "fixedDt": 0.025,
+    "playerAgencyEnabled": false,
+    "initialPlayers": [
+      {
+        "id": "footballer_pro_0_0",
+        "team": "home",
+        "condition": 0.78
+      },
+      {
+        "id": "footballer_pro_0_3",
+        "team": "home",
+        "condition": 0.9
+      },
+      {
+        "id": "footballer_pro_0_5",
+        "team": "home",
+        "condition": 0.9
+      },
+      {
+        "id": "footballer_pro_0_4",
+        "team": "home",
+        "condition": 0.79
+      },
+      {
+        "id": "footballer_pro_0_7",
+        "team": "home",
+        "condition": 0.91
+      },
+      {
+        "id": "footballer_pro_0_9",
+        "team": "home",
+        "condition": 0.86
+      },
+      {
+        "id": "footballer_pro_0_14",
+        "team": "home",
+        "condition": 0.88
+      },
+      {
+        "id": "footballer_pro_0_11",
+        "team": "home",
+        "condition": 0.98
+      },
+      {
+        "id": "footballer_pro_0_13",
+        "team": "home",
+        "condition": 0.97
+      },
+      {
+        "id": "footballer_pro_0_12",
+        "team": "home",
+        "condition": 0.86
+      },
+      {
+        "id": "footballer_pro_0_21",
+        "team": "home",
+        "condition": 0.99
+      },
+      {
+        "id": "footballer_pro_1_0",
+        "team": "away",
+        "condition": 0.95
+      },
+      {
+        "id": "footballer_pro_1_7",
+        "team": "away",
+        "condition": 0.86
+      },
+      {
+        "id": "footballer_pro_1_3",
+        "team": "away",
+        "condition": 0.84
+      },
+      {
+        "id": "footballer_pro_1_4",
+        "team": "away",
+        "condition": 0.96
+      },
+      {
+        "id": "footballer_pro_1_9",
+        "team": "away",
+        "condition": 0.87
+      },
+      {
+        "id": "footballer_pro_1_12",
+        "team": "away",
+        "condition": 0.99
+      },
+      {
+        "id": "footballer_pro_1_14",
+        "team": "away",
+        "condition": 0.97
+      },
+      {
+        "id": "footballer_pro_1_17",
+        "team": "away",
+        "condition": 0.86
+      },
+      {
+        "id": "footballer_pro_1_19",
+        "team": "away",
+        "condition": 0.9
+      },
+      {
+        "id": "footballer_pro_1_21",
+        "team": "away",
+        "condition": 0.92
+      },
+      {
+        "id": "footballer_pro_1_22",
+        "team": "away",
+        "condition": 0.8
+      }
+    ],
+    "namedBench": {
+      "home": [
+        "footballer_pro_0_1",
+        "footballer_pro_0_8",
+        "footballer_pro_0_15",
+        "footballer_pro_0_19",
+        "footballer_pro_0_17",
+        "footballer_pro_0_22",
+        "footballer_pro_0_18",
+        "footballer_pro_0_23",
+        "footballer_pro_0_10"
+      ],
+      "away": [
+        "footballer_pro_1_1",
+        "footballer_pro_1_8",
+        "footballer_pro_1_13",
+        "footballer_pro_1_23",
+        "footballer_pro_1_5",
+        "footballer_pro_1_10",
+        "footballer_pro_1_11",
+        "footballer_pro_1_15",
+        "footballer_pro_1_20"
+      ]
+    }
+  },
+  "periods": [
+    {
+      "status": "half_time",
+      "actualEndedAt": 2701.3000000054444,
+      "nominalEndAt": 2700,
+      "requiredEndAt": 2700,
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 0,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 2700,
+        "minimumAnnouncedAddedSeconds": 0,
+        "announcedAt": 2700,
+        "lostAtAnnouncement": 0,
+        "endedAt": 2701.3000000054444
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "qualifyingLostSeconds": {
+        "first_half": 0,
+        "second_half": 0
+      },
+      "completedStoppages": 9
+    },
+    {
+      "status": "full_time",
+      "actualEndedAt": 5461.300000005444,
+      "nominalEndAt": 5401.300000005444,
+      "requiredEndAt": 5461.300000005444,
+      "timekeeping": {
+        "period": "second_half",
+        "periodStartedAt": 2701.3000000054444,
+        "nominalEndAt": 5401.300000005444,
+        "qualifyingLostSeconds": 37.29999999973643,
+        "additionalLostAfterAnnouncement": 0,
+        "requiredEndAt": 5461.300000005444,
+        "minimumAnnouncedAddedSeconds": 60,
+        "announcedAt": 5401.300000005444,
+        "lostAtAnnouncement": 37.29999999973643,
+        "endedAt": 5461.300000005444
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "qualifyingLostSeconds": {
+        "first_half": 0,
+        "second_half": 37.29999999973643
+      },
+      "completedStoppages": 18
+    }
+  ],
+  "ticks": 218453,
+  "wallMillisecondsIncludingProgressChecks": 72794,
+  "methodology": "One uninjected canonical spectator match. Headless progress/statistics checks; no replay capture, Three.js or browser rendering.",
+  "finalStatus": "full_time",
+  "finalTime": 5461.300000005444,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "football": {
+    "passes": 877,
+    "shots": 0,
+    "touches": 1100
+  },
+  "liveness": {
+    "maximumNoProgressSeconds": 16.675000000060663,
+    "maximumUnchangedBlockerSeconds": 13.125000000047748,
+    "diagnostics": [],
+    "looseBallDiagnostics": []
+  },
+  "substitutions": {
+    "pending": [],
+    "completed": [
+      {
+        "id": "pr161-full-match-sanity:substitution:home:0:footballer_pro_0_12:footballer_pro_0_15",
+        "team": "home",
+        "outgoingId": "footballer_pro_0_12",
+        "incomingId": "footballer_pro_0_15",
+        "requestedAt": 3985.5750000101166,
+        "leftAt": 3990.075000010133,
+        "enteredAt": 3990.4750000101344,
+        "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:3985.450000:footballer_pro_1_21:footballer_pro_0_11:committed:foul",
+        "reason": "fatigue",
+        "delayed": false
+      },
+      {
+        "id": "pr161-full-match-sanity:substitution:away:0:footballer_pro_1_22:footballer_pro_1_23",
+        "team": "away",
+        "outgoingId": "footballer_pro_1_22",
+        "incomingId": "footballer_pro_1_23",
+        "requestedAt": 3985.5750000101166,
+        "leftAt": 3992.4000000101414,
+        "enteredAt": 3992.800000010143,
+        "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:3985.450000:footballer_pro_1_21:footballer_pro_0_11:committed:foul",
+        "reason": "fatigue",
+        "delayed": false
+      },
+      {
+        "id": "pr161-full-match-sanity:substitution:away:1:footballer_pro_1_7:footballer_pro_1_8",
+        "team": "away",
+        "outgoingId": "footballer_pro_1_7",
+        "incomingId": "footballer_pro_1_8",
+        "requestedAt": 4118.050000010197,
+        "leftAt": 4121.675000010145,
+        "enteredAt": 4122.050000010139,
+        "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:4117.925000:footballer_pro_1_21:footballer_pro_0_15:committed:foul",
+        "reason": "fatigue",
+        "delayed": false
+      },
+      {
+        "id": "pr161-full-match-sanity:substitution:home:1:footballer_pro_0_9:footballer_pro_0_8",
+        "team": "home",
+        "outgoingId": "footballer_pro_0_9",
+        "incomingId": "footballer_pro_0_8",
+        "requestedAt": 5244.19999999381,
+        "leftAt": 5246.149999993781,
+        "enteredAt": 5246.549999993776,
+        "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:boundary:5244.19999999381:touchline_bottom",
+        "reason": "fatigue",
+        "delayed": false
+      },
+      {
+        "id": "pr161-full-match-sanity:substitution:away:2:footballer_pro_1_9:footballer_pro_1_10",
+        "team": "away",
+        "outgoingId": "footballer_pro_1_9",
+        "incomingId": "footballer_pro_1_10",
+        "requestedAt": 5244.19999999381,
+        "leftAt": 5250.549999993717,
+        "enteredAt": 5250.924999993712,
+        "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:boundary:5244.19999999381:touchline_bottom",
+        "reason": "fatigue",
+        "delayed": false
+      }
+    ],
+    "used": {
+      "home": 2,
+      "away": 3
+    },
+    "opportunities": {
+      "home": 2,
+      "away": 3
+    },
+    "opportunityIds": {
+      "home": [
+        "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:3985.450000:footballer_pro_1_21:footballer_pro_0_11:committed:foul",
+        "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:boundary:5244.19999999381:touchline_bottom"
+      ],
+      "away": [
+        "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:3985.450000:footballer_pro_1_21:footballer_pro_0_11:committed:foul",
+        "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:4117.925000:footballer_pro_1_21:footballer_pro_0_15:committed:foul",
+        "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:boundary:5244.19999999381:touchline_bottom"
+      ]
+    },
+    "lastCoachAt": 5244.19999999381
+  },
+  "injuries": [
+    {
+      "id": "pr161-full-match-sanity:challenge:4227.700000:footballer_pro_0_7:footballer_pro_1_19:committed:physical-injury:footballer_pro_1_19:injury",
+      "playerId": "footballer_pro_1_19",
+      "at": 4227.8250000086,
+      "status": "discomfort",
+      "mechanism": "tackle",
+      "injuryType": "impact",
+      "expiresAt": 4465.8250000086,
+      "recoveryDays": 0,
+      "assessmentRequired": false
+    }
+  ],
+  "trace": [
+    {
+      "id": "pr161-full-match-sanity:substitution:home:0:footballer_pro_0_12:footballer_pro_0_15",
+      "team": "home",
+      "outgoingId": "footballer_pro_0_12",
+      "incomingId": "footballer_pro_0_15",
+      "requestedAt": 3985.5750000101166,
+      "leftAt": 3990.075000010133,
+      "enteredAt": 3990.4750000101344,
+      "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:3985.450000:footballer_pro_1_21:footballer_pro_0_11:committed:foul",
+      "reason": "fatigue",
+      "delayed": false
+    },
+    {
+      "id": "pr161-full-match-sanity:substitution:away:0:footballer_pro_1_22:footballer_pro_1_23",
+      "team": "away",
+      "outgoingId": "footballer_pro_1_22",
+      "incomingId": "footballer_pro_1_23",
+      "requestedAt": 3985.5750000101166,
+      "leftAt": 3992.4000000101414,
+      "enteredAt": 3992.800000010143,
+      "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:3985.450000:footballer_pro_1_21:footballer_pro_0_11:committed:foul",
+      "reason": "fatigue",
+      "delayed": false
+    },
+    {
+      "id": "pr161-full-match-sanity:substitution:away:1:footballer_pro_1_7:footballer_pro_1_8",
+      "team": "away",
+      "outgoingId": "footballer_pro_1_7",
+      "incomingId": "footballer_pro_1_8",
+      "requestedAt": 4118.050000010197,
+      "leftAt": 4121.675000010145,
+      "enteredAt": 4122.050000010139,
+      "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:challenge:4117.925000:footballer_pro_1_21:footballer_pro_0_15:committed:foul",
+      "reason": "fatigue",
+      "delayed": false
+    },
+    {
+      "id": "pr161-full-match-sanity:challenge:4227.700000:footballer_pro_0_7:footballer_pro_1_19:committed:physical-injury:footballer_pro_1_19:injury",
+      "playerId": "footballer_pro_1_19",
+      "at": 4227.8250000086,
+      "status": "discomfort",
+      "mechanism": "tackle",
+      "injuryType": "impact",
+      "expiresAt": 4465.8250000086,
+      "recoveryDays": 0,
+      "assessmentRequired": false
+    },
+    {
+      "id": "pr161-full-match-sanity:substitution:home:1:footballer_pro_0_9:footballer_pro_0_8",
+      "team": "home",
+      "outgoingId": "footballer_pro_0_9",
+      "incomingId": "footballer_pro_0_8",
+      "requestedAt": 5244.19999999381,
+      "leftAt": 5246.149999993781,
+      "enteredAt": 5246.549999993776,
+      "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:boundary:5244.19999999381:touchline_bottom",
+      "reason": "fatigue",
+      "delayed": false
+    },
+    {
+      "id": "pr161-full-match-sanity:substitution:away:2:footballer_pro_1_9:footballer_pro_1_10",
+      "team": "away",
+      "outgoingId": "footballer_pro_1_9",
+      "incomingId": "footballer_pro_1_10",
+      "requestedAt": 5244.19999999381,
+      "leftAt": 5250.549999993717,
+      "enteredAt": 5250.924999993712,
+      "opportunityId": "pr161-full-match-sanity:stoppage:pr161-full-match-sanity:boundary:5244.19999999381:touchline_bottom",
+      "reason": "fatigue",
+      "delayed": false
+    }
+  ],
+  "players": [
+    {
+      "id": "footballer_pro_0_0",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 346.63219775388666,
+      "sprintDistanceMetres": 0,
+      "longTermCapacity": 0.7087029377449917,
+      "burstReadiness": 0.7087029377449917,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 326.0500242729271,
+        "distanceJog": 15.917011778682687,
+        "distanceRun": 4.665161702276914,
+        "distanceSprint": 0,
+        "sprintSeconds": 0,
+        "sprintBursts": 0,
+        "accelerationImpulse": 3476.859274675835,
+        "brakingImpulse": 3476.859274675826,
+        "turningLoad": 31.810900905637187,
+        "intensivePressSeconds": 0,
+        "bodyContactLoad": 0
+      }
+    },
+    {
+      "id": "footballer_pro_0_3",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 7488.855058653419,
+      "sprintDistanceMetres": 39.266444470994294,
+      "longTermCapacity": 0.6322078023903266,
+      "burstReadiness": 0.6322078023903266,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 3032.839511744491,
+        "distanceJog": 4094.820911914993,
+        "distanceRun": 321.9281905232426,
+        "distanceSprint": 39.266444470994294,
+        "sprintSeconds": 5.225000000000007,
+        "sprintBursts": 2,
+        "accelerationImpulse": 6251.184868166108,
+        "brakingImpulse": 6247.240467560853,
+        "turningLoad": 3496.232827113351,
+        "intensivePressSeconds": 7.975000000000046,
+        "bodyContactLoad": 4.85040644022387
+      }
+    },
+    {
+      "id": "footballer_pro_0_5",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 6283.342721012907,
+      "sprintDistanceMetres": 6.760784651075567,
+      "longTermCapacity": 0.6803705558873316,
+      "burstReadiness": 0.6803705558873316,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 3411.1916834482786,
+        "distanceJog": 2768.567353300859,
+        "distanceRun": 96.82289961270384,
+        "distanceSprint": 6.760784651075567,
+        "sprintSeconds": 0.9500000000000005,
+        "sprintBursts": 1,
+        "accelerationImpulse": 5255.190484423201,
+        "brakingImpulse": 5248.330601322971,
+        "turningLoad": 2367.853716320293,
+        "intensivePressSeconds": 0,
+        "bodyContactLoad": 2.3955930751400873
+      }
+    },
+    {
+      "id": "footballer_pro_0_4",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 6857.237417193088,
+      "sprintDistanceMetres": 20.420637616395236,
+      "longTermCapacity": 0.5439904854906826,
+      "burstReadiness": 0.4707694527450675,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 3320.565066494936,
+        "distanceJog": 3313.599963326774,
+        "distanceRun": 202.6517497562176,
+        "distanceSprint": 20.420637616395236,
+        "sprintSeconds": 2.799999999999994,
+        "sprintBursts": 0,
+        "accelerationImpulse": 5803.151373834818,
+        "brakingImpulse": 5799.397753574977,
+        "turningLoad": 3202.633406034872,
+        "intensivePressSeconds": 3.399999999999992,
+        "bodyContactLoad": 8.296200288500781
+      }
+    },
+    {
+      "id": "footballer_pro_0_7",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 7085.657350503813,
+      "sprintDistanceMetres": 95.45981084059711,
+      "longTermCapacity": 0.6741384231325843,
+      "burstReadiness": 0.6727090121828623,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 3309.628317179791,
+        "distanceJog": 2950.7391644759723,
+        "distanceRun": 729.8300580080785,
+        "distanceSprint": 95.45981084059711,
+        "sprintSeconds": 12.775000000000114,
+        "sprintBursts": 6,
+        "accelerationImpulse": 6514.783738222685,
+        "brakingImpulse": 6513.643859191552,
+        "turningLoad": 3780.35527451533,
+        "intensivePressSeconds": 58.44999999999775,
+        "bodyContactLoad": 20.6623413626741
+      }
+    },
+    {
+      "id": "footballer_pro_0_9",
+      "team": "home",
+      "minutes": 87.4358333332297,
+      "distanceMetres": 7911.180187830651,
+      "sprintDistanceMetres": 41.777067668645785,
+      "longTermCapacity": 0.6329738685281999,
+      "burstReadiness": 0.6038630605844214,
+      "workload": {
+        "seconds": 5246.149999993781,
+        "distanceWalk": 3130.481067631235,
+        "distanceJog": 4075.507127394829,
+        "distanceRun": 663.4149251369125,
+        "distanceSprint": 41.777067668645785,
+        "sprintSeconds": 5.650000000000013,
+        "sprintBursts": 1,
+        "accelerationImpulse": 5854.934883174116,
+        "brakingImpulse": 5852.082808871593,
+        "turningLoad": 4163.057529709508,
+        "intensivePressSeconds": 47.22499999999839,
+        "bodyContactLoad": 12.193456289558588
+      }
+    },
+    {
+      "id": "footballer_pro_0_14",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 9520.692588618112,
+      "sprintDistanceMetres": 18.965905343192702,
+      "longTermCapacity": 0.62338884644642,
+      "burstReadiness": 0.4771690000661415,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2806.5525728766875,
+        "distanceJog": 6171.472749325361,
+        "distanceRun": 523.7013610732494,
+        "distanceSprint": 18.965905343192702,
+        "sprintSeconds": 2.7249999999999943,
+        "sprintBursts": 1,
+        "accelerationImpulse": 5020.190064310177,
+        "brakingImpulse": 5013.046580886412,
+        "turningLoad": 6575.700028171939,
+        "intensivePressSeconds": 4.975000000000003,
+        "bodyContactLoad": 8.937947688420278
+      }
+    },
+    {
+      "id": "footballer_pro_0_11",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 11056.074971071672,
+      "sprintDistanceMetres": 17.48163563474821,
+      "longTermCapacity": 0.7569231331170082,
+      "burstReadiness": 0.7556140241387044,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2566.6618013333546,
+        "distanceJog": 7702.654410958396,
+        "distanceRun": 769.2771231454461,
+        "distanceSprint": 17.48163563474821,
+        "sprintSeconds": 2.474999999999995,
+        "sprintBursts": 1,
+        "accelerationImpulse": 4563.24309872395,
+        "brakingImpulse": 4554.665141780635,
+        "turningLoad": 7692.73052236482,
+        "intensivePressSeconds": 9.475000000000067,
+        "bodyContactLoad": 8.867269758482074
+      }
+    },
+    {
+      "id": "footballer_pro_0_13",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 11448.210727506344,
+      "sprintDistanceMetres": 182.83644831803372,
+      "longTermCapacity": 0.7168681326892377,
+      "burstReadiness": 0.6288512175528019,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2671.113688674807,
+        "distanceJog": 7922.934363658588,
+        "distanceRun": 671.3262268548507,
+        "distanceSprint": 182.83644831803372,
+        "sprintSeconds": 25.024999999999647,
+        "sprintBursts": 13,
+        "accelerationImpulse": 4874.894005704006,
+        "brakingImpulse": 4866.264845689833,
+        "turningLoad": 6259.336675284654,
+        "intensivePressSeconds": 16.20000000000015,
+        "bodyContactLoad": 3.127257722038475
+      }
+    },
+    {
+      "id": "footballer_pro_0_12",
+      "team": "home",
+      "minutes": 66.50125000016888,
+      "distanceMetres": 8451.51357138388,
+      "sprintDistanceMetres": 282.57329090000957,
+      "longTermCapacity": 0.6901025916971026,
+      "burstReadiness": 0.41248097742693474,
+      "workload": {
+        "seconds": 3990.075000010133,
+        "distanceWalk": 2025.6652644757553,
+        "distanceJog": 5590.10983878169,
+        "distanceRun": 553.1651772264505,
+        "distanceSprint": 282.57329090000957,
+        "sprintSeconds": 40.799999999998754,
+        "sprintBursts": 29,
+        "accelerationImpulse": 3241.775234522805,
+        "brakingImpulse": 3237.1305776871995,
+        "turningLoad": 4290.854987719514,
+        "intensivePressSeconds": 7.425000000000038,
+        "bodyContactLoad": 1.705276101871201
+      }
+    },
+    {
+      "id": "footballer_pro_0_21",
+      "team": "home",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 7940.848726663608,
+      "sprintDistanceMetres": 351.77489746421816,
+      "longTermCapacity": 0.718112462206715,
+      "burstReadiness": 0.6934768398199219,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2905.889986699205,
+        "distanceJog": 3881.4628826954477,
+        "distanceRun": 801.7209598056401,
+        "distanceSprint": 351.77489746421816,
+        "sprintSeconds": 47.799999999998356,
+        "sprintBursts": 37,
+        "accelerationImpulse": 6046.238694216221,
+        "brakingImpulse": 6045.111003228747,
+        "turningLoad": 3938.3700566974635,
+        "intensivePressSeconds": 85.55000000000233,
+        "bodyContactLoad": 8.765288755354778
+      }
+    },
+    {
+      "id": "footballer_pro_1_0",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 217.8447490063817,
+      "sprintDistanceMetres": 0,
+      "longTermCapacity": 0.9166511711327033,
+      "burstReadiness": 0.9166511711327033,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 215.24004716527477,
+        "distanceJog": 2.6047018411067877,
+        "distanceRun": 0,
+        "distanceSprint": 0,
+        "sprintSeconds": 0,
+        "sprintBursts": 0,
+        "accelerationImpulse": 2392.4365697211556,
+        "brakingImpulse": 2392.436569721155,
+        "turningLoad": 17.145616641469847,
+        "intensivePressSeconds": 0,
+        "bodyContactLoad": 0
+      }
+    },
+    {
+      "id": "footballer_pro_1_7",
+      "team": "away",
+      "minutes": 68.69458333350241,
+      "distanceMetres": 5899.3922933784415,
+      "sprintDistanceMetres": 15.222890941244422,
+      "longTermCapacity": 0.7156733919777447,
+      "burstReadiness": 0.6295108875368796,
+      "workload": {
+        "seconds": 4121.675000010145,
+        "distanceWalk": 2101.9652520211976,
+        "distanceJog": 2932.299273731288,
+        "distanceRun": 849.9048766846983,
+        "distanceSprint": 15.222890941244422,
+        "sprintSeconds": 1.999999999999997,
+        "sprintBursts": 1,
+        "accelerationImpulse": 4654.221332115018,
+        "brakingImpulse": 4650.763390153101,
+        "turningLoad": 2438.611481713373,
+        "intensivePressSeconds": 5.725000000000014,
+        "bodyContactLoad": 2.7779555816828068
+      }
+    },
+    {
+      "id": "footballer_pro_1_3",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 6331.622277426063,
+      "sprintDistanceMetres": 3.7354166055634135,
+      "longTermCapacity": 0.6564517069757546,
+      "burstReadiness": 0.6521015993887082,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2866.291549984119,
+        "distanceJog": 3371.031206791232,
+        "distanceRun": 90.56410404535396,
+        "distanceSprint": 3.7354166055634135,
+        "sprintSeconds": 0.5250000000000001,
+        "sprintBursts": 0,
+        "accelerationImpulse": 4648.35403404788,
+        "brakingImpulse": 4639.5055468899145,
+        "turningLoad": 2599.0039472433923,
+        "intensivePressSeconds": 0.7250000000000003,
+        "bodyContactLoad": 1.978946572349689
+      }
+    },
+    {
+      "id": "footballer_pro_1_4",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 6428.628861823714,
+      "sprintDistanceMetres": 1.1898573685441907,
+      "longTermCapacity": 0.7730979323693723,
+      "burstReadiness": 0.767607941848171,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2805.020762632376,
+        "distanceJog": 3487.1182306034825,
+        "distanceRun": 135.30001121937238,
+        "distanceSprint": 1.1898573685441907,
+        "sprintSeconds": 0.175,
+        "sprintBursts": 0,
+        "accelerationImpulse": 4949.958125799471,
+        "brakingImpulse": 4933.809251561115,
+        "turningLoad": 2619.084190983269,
+        "intensivePressSeconds": 1.0000000000000004,
+        "bodyContactLoad": 2.306062247362262
+      }
+    },
+    {
+      "id": "footballer_pro_1_9",
+      "team": "away",
+      "minutes": 87.50916666656195,
+      "distanceMetres": 7049.745773648246,
+      "sprintDistanceMetres": 45.84998187361868,
+      "longTermCapacity": 0.6693926814277058,
+      "burstReadiness": 0.632051864529675,
+      "workload": {
+        "seconds": 5250.549999993717,
+        "distanceWalk": 2828.00273874688,
+        "distanceJog": 3325.4977116227024,
+        "distanceRun": 850.3953414052613,
+        "distanceSprint": 45.84998187361868,
+        "sprintSeconds": 6.025000000000018,
+        "sprintBursts": 1,
+        "accelerationImpulse": 5987.8850322096605,
+        "brakingImpulse": 5983.140460898252,
+        "turningLoad": 3119.111158475184,
+        "intensivePressSeconds": 8.350000000000051,
+        "bodyContactLoad": 4.474632246289057
+      }
+    },
+    {
+      "id": "footballer_pro_1_12",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 9395.110949486085,
+      "sprintDistanceMetres": 18.94715004142267,
+      "longTermCapacity": 0.7601411760715983,
+      "burstReadiness": 0.7161483787658142,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2964.4784905927704,
+        "distanceJog": 5984.104964374549,
+        "distanceRun": 427.5803444777548,
+        "distanceSprint": 18.94715004142267,
+        "sprintSeconds": 2.549999999999995,
+        "sprintBursts": 2,
+        "accelerationImpulse": 5046.373657299493,
+        "brakingImpulse": 5043.030675981348,
+        "turningLoad": 6420.7001993249505,
+        "intensivePressSeconds": 1.8749999999999973,
+        "bodyContactLoad": 7.365367405179545
+      }
+    },
+    {
+      "id": "footballer_pro_1_14",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 9153.424102576355,
+      "sprintDistanceMetres": 8.974110572002214,
+      "longTermCapacity": 0.7725770972359468,
+      "burstReadiness": 0.7373937431470913,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2954.2508434975935,
+        "distanceJog": 5804.778214714174,
+        "distanceRun": 385.4209337928376,
+        "distanceSprint": 8.974110572002214,
+        "sprintSeconds": 1.2999999999999994,
+        "sprintBursts": 0,
+        "accelerationImpulse": 4688.480657500991,
+        "brakingImpulse": 4685.199934137075,
+        "turningLoad": 6236.594943350664,
+        "intensivePressSeconds": 1.7249999999999979,
+        "bodyContactLoad": 2.8576588753361505
+      }
+    },
+    {
+      "id": "footballer_pro_1_17",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 8217.01576653896,
+      "sprintDistanceMetres": 110.61775819493677,
+      "longTermCapacity": 0.5894580572222465,
+      "burstReadiness": 0.5812063888771402,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2575.3060499439666,
+        "distanceJog": 4987.036149077356,
+        "distanceRun": 544.0558093234706,
+        "distanceSprint": 110.61775819493677,
+        "sprintSeconds": 14.375000000000137,
+        "sprintBursts": 9,
+        "accelerationImpulse": 5783.974502055483,
+        "brakingImpulse": 5782.480528125878,
+        "turningLoad": 3769.432792522564,
+        "intensivePressSeconds": 6.87500000000003,
+        "bodyContactLoad": 10.685182445217686
+      }
+    },
+    {
+      "id": "footballer_pro_1_19",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 8212.150786450105,
+      "sprintDistanceMetres": 175.91506208920896,
+      "longTermCapacity": 0.6252464558667885,
+      "burstReadiness": 0.5593723681206546,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 2496.146215319326,
+        "distanceJog": 4905.382110987947,
+        "distanceRun": 634.7073980540903,
+        "distanceSprint": 175.91506208920896,
+        "sprintSeconds": 22.87499999999977,
+        "sprintBursts": 16,
+        "accelerationImpulse": 5951.098161670848,
+        "brakingImpulse": 5949.761802333331,
+        "turningLoad": 4265.244582950872,
+        "intensivePressSeconds": 26.099999999999586,
+        "bodyContactLoad": 6.051884203194985
+      }
+    },
+    {
+      "id": "footballer_pro_1_21",
+      "team": "away",
+      "minutes": 91.02166666675741,
+      "distanceMetres": 9743.802557384177,
+      "sprintDistanceMetres": 260.27592135682096,
+      "longTermCapacity": 0.654293213558365,
+      "burstReadiness": 0.5581258311349278,
+      "workload": {
+        "seconds": 5461.32499999065,
+        "distanceWalk": 3052.1082611055062,
+        "distanceJog": 5492.261539855625,
+        "distanceRun": 939.1568350663422,
+        "distanceSprint": 260.27592135682096,
+        "sprintSeconds": 35.17499999999907,
+        "sprintBursts": 22,
+        "accelerationImpulse": 5613.54578022461,
+        "brakingImpulse": 5613.097938421526,
+        "turningLoad": 6010.182627842999,
+        "intensivePressSeconds": 117.70000000000964,
+        "bodyContactLoad": 11.77594708755532
+      }
+    },
+    {
+      "id": "footballer_pro_1_22",
+      "team": "away",
+      "minutes": 66.54000000016903,
+      "distanceMetres": 6419.008418260494,
+      "sprintDistanceMetres": 169.7217206483758,
+      "longTermCapacity": 0.6131086079692943,
+      "burstReadiness": 0.47840508491470607,
+      "workload": {
+        "seconds": 3992.4000000101414,
+        "distanceWalk": 2490.062097989913,
+        "distanceJog": 3133.5285889694583,
+        "distanceRun": 625.6960106529596,
+        "distanceSprint": 169.7217206483758,
+        "sprintSeconds": 23.824999999999715,
+        "sprintBursts": 17,
+        "accelerationImpulse": 3780.155068306803,
+        "brakingImpulse": 3778.5167482408,
+        "turningLoad": 3476.418639624549,
+        "intensivePressSeconds": 63.74999999999745,
+        "bodyContactLoad": 7.286111401077793
+      }
+    },
+    {
+      "id": "footballer_pro_0_15",
+      "team": "home",
+      "minutes": 24.513749999921835,
+      "distanceMetres": 3137.707761157001,
+      "sprintDistanceMetres": 43.33914197835225,
+      "longTermCapacity": 0.9223191461030963,
+      "burstReadiness": 0.8818775792272162,
+      "workload": {
+        "seconds": 1471.2750000009696,
+        "distanceWalk": 707.8602710231002,
+        "distanceJog": 2147.160887592966,
+        "distanceRun": 239.88228339232083,
+        "distanceSprint": 43.33914197835225,
+        "sprintSeconds": 5.875000000000016,
+        "sprintBursts": 3,
+        "accelerationImpulse": 1295.6116264790744,
+        "brakingImpulse": 1291.0433693473015,
+        "turningLoad": 1571.6956680786404,
+        "intensivePressSeconds": 5.050000000000004,
+        "bodyContactLoad": 1.373490624084887
+      }
+    },
+    {
+      "id": "footballer_pro_1_23",
+      "team": "away",
+      "minutes": 24.474999999921693,
+      "distanceMetres": 2161.342432600842,
+      "sprintDistanceMetres": 60.8118418605416,
+      "longTermCapacity": 0.8488772819591617,
+      "burstReadiness": 0.8488772819591617,
+      "workload": {
+        "seconds": 1468.9500000009612,
+        "distanceWalk": 998.4359878763256,
+        "distanceJog": 950.5355358063402,
+        "distanceRun": 152.0941976931673,
+        "distanceSprint": 60.8118418605416,
+        "sprintSeconds": 7.975000000000046,
+        "sprintBursts": 4,
+        "accelerationImpulse": 1654.7491863040898,
+        "brakingImpulse": 1654.7491863040968,
+        "turningLoad": 909.6816327143665,
+        "intensivePressSeconds": 3.649999999999991,
+        "bodyContactLoad": 0.6179924356283507
+      }
+    },
+    {
+      "id": "footballer_pro_1_8",
+      "team": "away",
+      "minutes": 22.320833333255088,
+      "distanceMetres": 1886.7782959671529,
+      "sprintDistanceMetres": 5.863647161731708,
+      "longTermCapacity": 0.9181135252900758,
+      "burstReadiness": 0.9181135252900758,
+      "workload": {
+        "seconds": 1339.6750000004909,
+        "distanceWalk": 686.0618285852863,
+        "distanceJog": 956.9259703818371,
+        "distanceRun": 238.44143868701013,
+        "distanceSprint": 5.863647161731708,
+        "sprintSeconds": 0.7750000000000004,
+        "sprintBursts": 0,
+        "accelerationImpulse": 1444.6210470833316,
+        "brakingImpulse": 1443.3378176708077,
+        "turningLoad": 935.5637107332752,
+        "intensivePressSeconds": 3.4749999999999917,
+        "bodyContactLoad": 1.2750458212262112
+      }
+    },
+    {
+      "id": "footballer_pro_0_8",
+      "team": "home",
+      "minutes": 3.579166666861147,
+      "distanceMetres": 209.66377560589754,
+      "sprintDistanceMetres": 0,
+      "longTermCapacity": 0.9693637751776434,
+      "burstReadiness": 0.9681447929275855,
+      "workload": {
+        "seconds": 215.2000000000318,
+        "distanceWalk": 122.4055158009792,
+        "distanceJog": 53.07032954701264,
+        "distanceRun": 34.722803984269135,
+        "distanceSprint": 0,
+        "sprintSeconds": 0,
+        "sprintBursts": 0,
+        "accelerationImpulse": 282.25368604130074,
+        "brakingImpulse": 281.18819898069984,
+        "turningLoad": 74.91125017862107,
+        "intensivePressSeconds": 0,
+        "bodyContactLoad": 0
+      }
+    },
+    {
+      "id": "footballer_pro_1_10",
+      "team": "away",
+      "minutes": 3.5062500001955414,
+      "distanceMetres": 195.45190703276705,
+      "sprintDistanceMetres": 0,
+      "longTermCapacity": 0.9821951907234415,
+      "burstReadiness": 0.9821951907234415,
+      "workload": {
+        "seconds": 210.8000000000308,
+        "distanceWalk": 82.28657677556211,
+        "distanceJog": 98.5112640416988,
+        "distanceRun": 15.177888028675612,
+        "distanceSprint": 0,
+        "sprintSeconds": 0,
+        "sprintBursts": 0,
+        "accelerationImpulse": 239.2522323002043,
+        "brakingImpulse": 239.25223230020455,
+        "turningLoad": 68.63443640574043,
+        "intensivePressSeconds": 0.07500000000000001,
+        "bodyContactLoad": 0.004203313704871095
+      }
+    }
+  ]
+}

@@ -30,6 +30,7 @@ import {
   resetSecondHalfTimekeeping,
 } from './matchTimekeeping';
 import { observeRestartLiveness } from './restartLiveness';
+import { observeLooseBallLiveness } from './looseBallLiveness';
 import {
   prepareRestartMovement,
   advanceRestartPlacement,
@@ -72,7 +73,11 @@ import {
   resolveAerialDuel,
   secondBallPriority,
 } from './aerialPlay';
-import { findPitchBoundaryCrossing, type PitchBoundaryCrossing } from './pitchBoundary';
+import {
+  findPitchBoundaryCrossing,
+  isBallWithinPlayingBoundary,
+  type PitchBoundaryCrossing,
+} from './pitchBoundary';
 import { resolveContinuousGroundPassClaim, resolveGroundPassClaim } from './passClaimResolver';
 import {
   deterministicRebound,
@@ -1040,21 +1045,23 @@ const stepTacticalMatchCore = (
     state.scenario === 'open_play' &&
     !state.ball.ownerId &&
     !state.postGoal &&
-    (state.ball.x < -BALL_RADIUS ||
-      state.ball.x > 105 + BALL_RADIUS ||
-      state.ball.y < -BALL_RADIUS ||
-      state.ball.y > 68 + BALL_RADIUS)
+    !isBallWithinPlayingBoundary(state.ball)
   ) {
     const outside = { x: state.ball.x, y: state.ball.y };
     const boundary =
-      state.ball.y < 0
+      state.ball.y < -BALL_RADIUS
         ? ('touchline_top' as const)
-        : state.ball.y > 68
+        : state.ball.y > 68 + BALL_RADIUS
           ? ('touchline_bottom' as const)
           : state.ball.x < 0
             ? ('goal_line_home' as const)
             : ('goal_line_away' as const);
-    const point = clampPitchPoint({ x: state.ball.x, y: state.ball.y });
+    // A recovered wholly-out snapshot has no preceding segment to reconstruct. Use
+    // the actually crossed whole-ball plane and project evidence onto its painted line.
+    const point = {
+      x: Math.max(0, Math.min(105, state.ball.x)),
+      y: Math.max(0, Math.min(68, state.ball.y)),
+    };
     return applyBoundaryRestart(
       {
         ...state,
@@ -2608,6 +2615,7 @@ const stepCanonicalMatch = (
   }
   next = reconcileControlledBallContact(next);
   next = observeRestartLiveness(next);
+  next = observeLooseBallLiveness(next);
   next = emitCanonicalActionEvents(original, next);
   next = emitMatchEvents(original, next);
   next = observeTeamThreats(original, next);

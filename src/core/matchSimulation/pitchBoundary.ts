@@ -1,5 +1,11 @@
 import { z } from 'zod';
-import { pitchPointSchema, type PhysicalPoint, type PitchPoint } from './matchSpace';
+import {
+  PITCH_LENGTH,
+  PITCH_WIDTH,
+  pitchPointSchema,
+  type PhysicalPoint,
+  type PitchPoint,
+} from './matchSpace';
 import { BALL_RADIUS } from './ballFlight';
 
 export const pitchBoundarySchema = z.enum([
@@ -17,12 +23,22 @@ export const pitchBoundaryCrossingSchema = z.object({
 });
 export type PitchBoundaryCrossing = z.infer<typeof pitchBoundaryCrossingSchema>;
 
+/** The centre may lie beyond the paint while part of the law-sized ball remains in play. */
+export const isBallWithinPlayingBoundary = (point: PhysicalPoint): boolean =>
+  Number.isFinite(point.x) &&
+  Number.isFinite(point.y) &&
+  point.x >= -BALL_RADIUS &&
+  point.x <= PITCH_LENGTH + BALL_RADIUS &&
+  point.y >= -BALL_RADIUS &&
+  point.y <= PITCH_WIDTH + BALL_RADIUS;
+
 /** Wholly out means the ball's trailing edge crossed the line, not its centre.
  * The physical crossing fraction orders contacts; the point projects onto the legal line. */
 export const findPitchBoundaryCrossing = (
   previous: PhysicalPoint,
   next: PhysicalPoint,
 ): PitchBoundaryCrossing | undefined => {
+  if (isBallWithinPlayingBoundary(next)) return undefined;
   const dx = next.x - previous.x;
   const dy = next.y - previous.y;
   const candidates: PitchBoundaryCrossing[] = [];

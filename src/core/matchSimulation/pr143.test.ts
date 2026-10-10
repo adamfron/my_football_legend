@@ -170,7 +170,7 @@ describe('PR143 agency belongs to football, viewing belongs to presentation', ()
 });
 
 describe('PR143 historical context and outcome windows', () => {
-  it('captures usable hidden football at 10 Hz, catches up before activation, and never rewinds state', () => {
+  it('captures usable hidden football at a 10 Hz baseline plus bounded keyframes, catches up before activation, and never rewinds state', () => {
     const history = new PresentationContextHistory();
     let state = makeState(false);
     history.observe(state);
@@ -193,7 +193,8 @@ describe('PR143 historical context and outcome windows', () => {
       sampleReplayFrame(frames, at);
     expect(frames).toEqual(frozen);
     expect(state).toEqual(snapshot);
-    expect(history.snapshot().samplesWritten).toBeLessThanOrEqual(52);
+    expect(history.snapshot().samplesRetained).toBeLessThanOrEqual(CONTEXT_MAX_SAMPLES);
+    expect(frames.some((frame) => frame.keyframe)).toBe(true);
   });
 
   it('keeps a selected pass visible until canonical reception and a readable tail', () => {
