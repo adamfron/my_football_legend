@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      # Bound concurrent simulation/export work on shared runners.
-      VITEST_MAX_WORKERS: '2'
+      # Simulation parity tests keep their original time limits on a shared CPU.
+      VITEST_MAX_WORKERS: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
