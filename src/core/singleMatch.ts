@@ -50,8 +50,8 @@ export interface SingleMatchPlayer {
   footballerId: string;
   profile: FootballerProfile;
   /** Temporary condition, separate from permanent football attributes. */
-  condition?: number;
-  injury?: MatchInjury;
+  condition?: number | undefined;
+  injury?: MatchInjury | undefined;
   slotIndex: number;
   slot: (typeof FORMATIONS)[keyof typeof FORMATIONS][number];
   x: number;
@@ -66,7 +66,7 @@ export interface SingleMatchTeam {
     footballerId: string;
     profile: FootballerProfile;
     condition: number;
-    injury?: MatchInjury;
+    injury?: MatchInjury | undefined;
   }[];
 }
 export interface SingleMatchSession {

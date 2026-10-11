@@ -22,6 +22,12 @@ export const buildStartMenuUrl = (href: string) => {
   return url;
 };
 
+/** Same URLs on direct load and in-app navigation; browser back/forward remains authoritative. */
+export const navigateApp = (url: URL) => {
+  globalThis.history.pushState(null, '', url.href);
+  globalThis.dispatchEvent(new PopStateEvent('popstate'));
+};
+
 export interface MatchTransitionLog {
   action: string;
   before?: unknown;

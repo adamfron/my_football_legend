@@ -166,7 +166,19 @@ export const resolveCanonicalShot = (
   const shooter = state.players.find((player) => player.id === action.actorId)!;
   const attackingRight = shooter.team === 'home';
   const goalX = attackingRight ? PITCH_LENGTH : 0;
-  const intended = action.goalTarget ? action.goalTarget : defaultTarget(action, shooter);
+  const wallTarget = action.type === 'shot' ? action.freeKickWallTarget : undefined;
+  // Extend the selected ray. The existing error, launcher and finite collisions still own it.
+  const intended = wallTarget
+    ? pitchToGoalIntent(shooter.team, {
+        y:
+          state.ball.y +
+          ((wallTarget.y - state.ball.y) * (goalX - state.ball.x)) /
+            (wallTarget.x - state.ball.x || 0.001),
+        height: 0.11,
+      })
+    : action.goalTarget
+      ? action.goalTarget
+      : defaultTarget(action, shooter);
   const opportunity = evaluateShootingOpportunity(state, shooter);
   const profile = deriveShotExecutionProfile(state, action);
   const executionErrorProfile = deriveShotExecutionErrorProfile(state, action);
@@ -244,7 +256,7 @@ export const resolveCanonicalShot = (
       z: clamp(lateral * (shooter.profile.dominantFoot === 'right' ? 1 : -1), -160, 160),
     });
   }
-  if (freeKickProfile === 'under_wall') launchElevation = 0;
+  if (freeKickProfile === 'under_wall' || wallTarget) launchElevation = 0;
   let launchVelocity = deriveLaunchVelocity(contactPoint, flightTarget, speed, launchElevation);
   if (launchSpin !== ZERO_BALL_SPIN) {
     const solved = solveSpinningLaunch(

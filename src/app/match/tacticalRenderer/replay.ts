@@ -103,6 +103,7 @@ export const replaySnapshotToFrame = (snapshot: ReplaySnapshot): TacticalFrame =
     ballContinuity: snapshot.ballContinuity,
     keyframe: snapshot.keyframe,
     restart: snapshot.restart,
+    ...(snapshot.offside ? { offside: snapshot.offside } : {}),
     ball: { ...snapshot.ball },
     actionEvents: snapshot.actionEvents,
     dismissals: snapshot.dismissals,

@@ -99,7 +99,14 @@ export const createCareerSingleMatchSession = (
   const recovered = recoverCareerFitnessToDate(career, date);
   const atDate = { ...recovered, currentDate: date };
   const footballers: Record<string, WorldFootballer> = { ...baseWorld.footballers };
-  const clubs = baseWorld.clubs.map((baseClub) => {
+  const knownClubs = [...baseWorld.clubs];
+  for (const id of [setup.homeClubId, setup.awayClubId]) {
+    const club =
+      resolveEffectiveProfessionalClub(atDate, id) ??
+      (atDate.currentProfessionalClub?.id === id ? atDate.currentProfessionalClub : undefined);
+    if (club && !knownClubs.some((item) => item.id === id)) knownClubs.push(club);
+  }
+  const clubs = knownClubs.map((baseClub) => {
     if (baseClub.id !== setup.homeClubId && baseClub.id !== setup.awayClubId) return baseClub;
     const club = resolveEffectiveProfessionalClub(atDate, baseClub.id) ?? baseClub;
     const ids = resolveEffectiveSeniorSquad(atDate, club.id);

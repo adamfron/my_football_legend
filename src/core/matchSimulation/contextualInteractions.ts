@@ -31,12 +31,20 @@ import { PLAYER_AGENCY_CALIBRATION } from './agencyCalibration';
 import { enumerateDefensiveChallengeActions } from './defensiveChallenges';
 import { secondLastOpponentLine } from './offside';
 import { deriveSpacePassPlan } from './spacePassing';
+import { enumerateFreeKickStrikeProfiles } from './shootingOptions';
+import { goalIntentToPitch } from './goalCoordinates';
 
 export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('player'), playerId: z.string() }),
   z.object({ kind: z.literal('space'), point: pitchPointSchema }),
   z.object({ kind: z.literal('ball'), point: pitchPointSchema }),
-  z.object({ kind: z.literal('goal'), side: teamSideSchema }),
+  z.object({
+    kind: z.literal('goal'),
+    side: teamSideSchema,
+    aim: z
+      .object({ horizontal: z.number().min(-1).max(1), vertical: z.number().min(0).max(1) })
+      .optional(),
+  }),
 ]);
 export type PlayerInteractionTarget = z.infer<typeof playerInteractionTargetSchema>;
 export const contextualInteractionSchema = z.object({
@@ -168,6 +176,30 @@ export const projectContextualInteractions = (
       : enumerateAvailableActions(state, actor.id);
   if (target.kind === 'goal') {
     if (target.side === actor.team) return [];
+    if (opportunity.kind === 'restart' && state.scenario.startsWith('free_kick')) {
+      if (state.restart?.indirect) return [];
+      const aim = target.aim ?? { horizontal: 0, vertical: 0.45 };
+      const point = goalIntentToPitch(actor.team, aim);
+      const ordinary = actions.filter(
+        (a): a is Extract<MatchAction, { type: 'shot' }> => a.type === 'shot' && !a.freeKickProfile,
+      );
+      const shots: MatchAction[] = ordinary.map((action) => ({
+        ...action,
+        goalTarget: aim,
+        target: { x: point.x, y: point.y },
+      }));
+      for (const freeKickProfile of enumerateFreeKickStrikeProfiles(state, actor.id, aim))
+        shots.push({
+          type: 'shot',
+          actorId: actor.id,
+          target: { x: point.x, y: point.y },
+          goalTarget: aim,
+          contact: 'settled',
+          freeKickProfile,
+          intent: ['power_bend', 'under_wall'].includes(freeKickProfile) ? 'driven' : 'placed',
+        });
+      return asActions(target, shots);
+    }
     const humanShotTypes = new Map<string, Extract<MatchAction, { type: 'shot' | 'header' }>>();
     for (const action of actions)
       if (
@@ -185,6 +217,24 @@ export const projectContextualInteractions = (
       );
     const selected = state.players.find((player) => player.id === target.playerId);
     if (!selected) return [];
+    if (
+      opportunity.kind === 'restart' &&
+      state.scenario.startsWith('free_kick') &&
+      !state.restart?.indirect &&
+      selected.team !== actor.team &&
+      state.restart?.roles[selected.id]?.key === 'wall'
+    ) {
+      return asActions(target, [
+        {
+          type: 'shot',
+          actorId: actor.id,
+          intent: 'driven',
+          target: { ...selected.position },
+          freeKickWallTarget: { ...selected.position },
+          contact: 'settled',
+        },
+      ]).map((item) => ({ ...item, labelKey: 'free_kick_wall_power' }));
+    }
     if (selected.team === actor.team) {
       const selectedActions = actions.filter(
         (action) =>
@@ -311,7 +361,57 @@ export const projectContextualInteractions = (
     );
   }
   if (target.kind !== 'space') return [];
-  if (opportunity.kind === 'restart')
+  if (opportunity.kind === 'restart') {
+    const wall = state.players.find(
+      (player) =>
+        player.team !== actor.team &&
+        state.restart?.roles[player.id]?.key === 'wall' &&
+        distance(player.position, point) <= 1.2,
+    );
+    if (wall && state.scenario.startsWith('free_kick'))
+      return projectContextualInteractions(state, opportunity, {
+        kind: 'player',
+        playerId: wall.id,
+      });
+    if (state.scenario.startsWith('free_kick') && distance(actor.position, point) >= 3) {
+      const existing = actions.filter(
+        (action) =>
+          (action.type === 'cross' || action.type === 'space_pass' || action.type === 'pass') &&
+          distance(action.target, point) <= 1.5,
+      );
+      const receiver = state.players
+        .filter(
+          (p) => p.team === actor.team && p.id !== actor.id && !state.discipline?.[p.id]?.sentOff,
+        )
+        .sort(
+          (a, b) =>
+            distance(a.position, point) - distance(b.position, point) || a.id.localeCompare(b.id),
+        )[0];
+      if (!receiver || distance(receiver.position, point) > 18) return asActions(target, existing);
+      return asActions(target, [
+        ...existing,
+        {
+          type: 'pass',
+          actorId: actor.id,
+          receiverId: receiver.id,
+          target: point,
+          requestedSpace: point,
+          intent: 'lead',
+          delivery: 'ground',
+        },
+        ...(signedForwardDistance(actor.position, point, actor.team) > 8
+          ? [
+              {
+                type: 'cross' as const,
+                actorId: actor.id,
+                target: point,
+                intendedTargetId: receiver.id,
+                intent: 'floated' as const,
+              },
+            ]
+          : []),
+      ]);
+    }
     return asActions(
       target,
       actions.filter(
@@ -320,6 +420,7 @@ export const projectContextualInteractions = (
           distance(action.target, point) <= 1.5,
       ),
     );
+  }
   if (state.ball.ownerId === actor.id) {
     const metres = distance(actor.position, point);
     const pressure = state.currentPressure;

@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import databaseJson from '../../.generated-public/data/world/pl-2026-v2.json';
 import {
   buildWorldDatabaseUrl,
@@ -6,6 +6,8 @@ import {
   resolveWorldFootballer,
   resolveWorldSquad,
   worldDatabaseSchema,
+  loadWorldDatabase,
+  clearWorldDatabaseCache,
 } from './worldDatabase';
 import { generateStartingPlayerProfile } from './playerCreator';
 
@@ -28,6 +30,25 @@ const player = generateStartingPlayerProfile(
 ).player;
 
 describe('static world URL', () => {
+  test('shares concurrent loads, caches a validated world and retries a failed load', async () => {
+    clearWorldDatabaseCache();
+    const fetcher = vi.fn().mockResolvedValue({ ok: true, json: async () => databaseJson });
+    vi.stubGlobal('fetch', fetcher);
+    try {
+      const [first, second] = await Promise.all([loadWorldDatabase(), loadWorldDatabase()]);
+      expect(first).toBe(second);
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      expect(await loadWorldDatabase()).toBe(first);
+      clearWorldDatabaseCache();
+      fetcher.mockResolvedValueOnce({ ok: true, json: async () => ({ version: 'invalid' }) });
+      await expect(loadWorldDatabase()).rejects.toThrow();
+      expect(await loadWorldDatabase()).toEqual(database);
+      expect(fetcher).toHaveBeenCalledTimes(3);
+    } finally {
+      vi.unstubAllGlobals();
+      clearWorldDatabaseCache();
+    }
+  });
   test('builds the URL for the domain root', () => {
     expect(buildWorldDatabaseUrl('/')).toBe('/data/world/pl-2026-v2.json');
   });

@@ -1,4 +1,25 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR163
+# Audyt silnika meczu — PR140 / aktualizacja PR164
+
+## PR164 — restart ownership, tempo and boundary evidence
+
+[PR164 report](PR164_STARTUP_STORAGE_MATCH_CONTRACTS.md) distinguishes the supplied
+historical observations from equivalent fixtures. Released shots are no longer
+invalidated by pre-release eligibility. Canonical wall readiness precedes ceremonial
+human selection; permission is state-derived and the ledger closes on execution.
+Quick-kick law and exact human selections remain intact. Offside replay retains the
+real release frame, with position-level precision and no invented body-part geometry.
+
+The matched 120-pass lab measures actual release/contact/control/routine readiness/
+next physical release. Long-range launch-time compression is documented, without a
+global speed correction or artificial possession delay. Sparse terminal attacks,
+forecast errors and equal-4-4-2 identity asymmetry remain open.
+
+The versioned native-session contract is tested through two actual full canonical
+fixture matches, immutable career commit and v7 reload/duplicate rejection. Rich
+human evidence and NPC summaries are bounded; replay/DEV state is excluded. The
+20-season save audit uses the current summary path, not full canonical results.
+Browser production HTTP transfer and Node parse/hydration are separate measurements.
+Next: PR165 visual identities, PR166 production career wiring and retention policy.
 
 ## PR163 — offensive continuation evidence
 

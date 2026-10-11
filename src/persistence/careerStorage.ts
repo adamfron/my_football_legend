@@ -24,6 +24,13 @@ export type CareerStorageLoadResult =
 const DATABASE_NAME = 'my-football-legend';
 const STORE_NAME = 'careerSaves';
 const PRIMARY_SLOT = 'primary';
+const availableLegacyStorage = () => {
+  try {
+    return globalThis.localStorage;
+  } catch {
+    return undefined;
+  }
+};
 
 const requestResult = <T>(request: IDBRequest<T>) =>
   new Promise<T>((resolve, reject) => {
@@ -41,7 +48,9 @@ const transactionDone = (transaction: IDBTransaction) =>
   });
 
 const isQuotaError = (error: unknown) =>
-  error instanceof Error &&
+  typeof error === 'object' &&
+  error !== null &&
+  'name' in error &&
   (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED');
 
 export class CareerStorage {
@@ -49,10 +58,11 @@ export class CareerStorage {
   private modeValue?: CareerStorageMode;
   private writeQueue: Promise<void> = Promise.resolve();
   private diagnosticsValue?: CareerStorageDiagnostics;
+  private initialization?: Promise<CareerStorageMode>;
 
   constructor(
     private readonly indexedDatabase: IDBFactory | undefined = globalThis.indexedDB,
-    private readonly legacyStorage: Storage | undefined = globalThis.localStorage,
+    private readonly legacyStorage: Storage | null | undefined = availableLegacyStorage(),
   ) {}
 
   get mode(): CareerStorageMode | undefined {
@@ -65,6 +75,10 @@ export class CareerStorage {
 
   private async initialize(): Promise<CareerStorageMode> {
     if (this.modeValue) return this.modeValue;
+    return (this.initialization ??= this.openDatabase());
+  }
+
+  private async openDatabase(): Promise<CareerStorageMode> {
     if (!this.indexedDatabase) {
       this.modeValue = 'legacy-localstorage-fallback';
       return this.modeValue;
@@ -72,13 +86,23 @@ export class CareerStorage {
     try {
       const request = this.indexedDatabase.open(DATABASE_NAME, 1);
       this.database = await new Promise<IDBDatabase>((resolve, reject) => {
+        let rejected = false;
         request.onupgradeneeded = () => {
           if (!request.result.objectStoreNames.contains(STORE_NAME))
             request.result.createObjectStore(STORE_NAME);
         };
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error ?? new Error('IndexedDB open failed'));
-        request.onblocked = () => reject(new Error('IndexedDB open blocked'));
+        request.onsuccess = () => {
+          if (rejected) request.result.close();
+          else resolve(request.result);
+        };
+        request.onerror = () => {
+          rejected = true;
+          reject(request.error ?? new Error('IndexedDB open failed'));
+        };
+        request.onblocked = () => {
+          rejected = true;
+          reject(new Error('IndexedDB open blocked'));
+        };
       });
       this.modeValue = 'indexeddb';
     } catch {
@@ -90,8 +114,10 @@ export class CareerStorage {
   private async readIndexedDb(): Promise<string | null> {
     const transaction = this.database!.transaction(STORE_NAME, 'readonly');
     const done = transactionDone(transaction);
-    const value = await requestResult(transaction.objectStore(STORE_NAME).get(PRIMARY_SLOT));
-    await done;
+    const [value] = await Promise.all([
+      requestResult(transaction.objectStore(STORE_NAME).get(PRIMARY_SLOT)),
+      done,
+    ]);
     return typeof value === 'string' ? value : null;
   }
 
@@ -113,10 +139,24 @@ export class CareerStorage {
     };
   }
 
-  async load(): Promise<CareerStorageLoadResult> {
+  load(): Promise<CareerStorageLoadResult> {
+    const operation = this.writeQueue.then(() => this.loadCurrent());
+    this.writeQueue = operation.then(
+      () => undefined,
+      () => undefined,
+    );
+    return operation;
+  }
+
+  private async loadCurrent(): Promise<CareerStorageLoadResult> {
     const mode = await this.initialize();
     if (mode === 'legacy-localstorage-fallback') {
-      const raw = this.legacyStorage?.getItem(CAREER_SAVE_KEY) ?? null;
+      let raw: string | null;
+      try {
+        raw = this.legacyStorage?.getItem(CAREER_SAVE_KEY) ?? null;
+      } catch {
+        return { ok: false, reason: 'transaction_failure', mode };
+      }
       const result = parseCareerSave(raw);
       if (raw) this.updateDiagnostics(raw);
       return { ...result, mode };
@@ -132,7 +172,12 @@ export class CareerStorage {
       this.updateDiagnostics(indexed);
       return { ...result, mode };
     }
-    const legacy = this.legacyStorage?.getItem(CAREER_SAVE_KEY) ?? null;
+    let legacy: string | null;
+    try {
+      legacy = this.legacyStorage?.getItem(CAREER_SAVE_KEY) ?? null;
+    } catch {
+      return { ok: false, reason: 'transaction_failure', mode };
+    }
     const migrated = parseCareerSave(legacy);
     if (!migrated.ok) return { ...migrated, mode };
     const normalized = JSON.stringify(migrated.save);
@@ -182,8 +227,13 @@ export class CareerStorage {
     return operation;
   }
 
-  async delete(): Promise<void> {
-    await this.writeQueue;
+  delete(): Promise<void> {
+    const operation = this.writeQueue.then(() => this.deleteCurrent());
+    this.writeQueue = operation.catch(() => undefined);
+    return operation;
+  }
+
+  private async deleteCurrent(): Promise<void> {
     const mode = await this.initialize();
     if (mode === 'indexeddb') {
       const transaction = this.database!.transaction(STORE_NAME, 'readwrite');

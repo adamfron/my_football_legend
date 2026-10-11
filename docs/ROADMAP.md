@@ -1,5 +1,31 @@
 # Roadmap
 
+Aktualny etap: **PR164 — Startup, Storage, Match Contracts & Restart Integrity**.
+[Raport PR164](PR164_STARTUP_STORAGE_MATCH_CONTRACTS.md) dokumentuje kanoniczne
+release/zgodę sędziego, kontekstowe wolne, moment podania w replay spalonego,
+rzeczywisty transfer HTTP, skalowanie świata/zapisów oraz kontrakt fixture→mecz→commit.
+Status obowiązkowego `verify` jest w raporcie i jego receipt walidacji.
+
+Autorytatywna kolejność kolejnych etapów:
+
+1. **PR165 — Visual DNA & Character Creator**: stabilne tożsamości twarzy,
+   parametry wyglądu, kosmetyka i wizualne starzenie.
+2. **PR166 — Career–Match Integration & Playstyles**: rzeczywiste przejścia kariery
+   do kanonicznego meczu i rozwój stylów z decyzji; przed włączeniem pełnej kariery
+   zdefiniować archiwizację wyników v1 i ponownie zmierzyć wzrost zapisu.
+3. **PR167 — NPC Development & Footballer Diversity**: rozwój zależny od pozycji,
+   różnorodność atrybutów/archetypów i uproszczone style NPC.
+4. **PR168 — Coaches, Match Briefings & Tactical Intelligence**: preferencje trenerów,
+   przeciwnik, kontekst meczu i instrukcje zawodnika.
+5. **PR169 — Career Stories, News & Season Narratives**: modularne historie,
+   wiadomości i osobista historia kariery.
+6. **PR170 — Match Atmosphere & Stylized Visual Polish**: ceremonie, portrety,
+   ławki, prości widzowie i opcjonalny cel shading.
+
+Sparse-shot, kalibracja prognoz podań i asymetria logicznych ID 4-4-2 pozostają
+ograniczeniami silnika. Nie dodawać kwot strzałów ani wyrównywania rezultatów.
+Poniższe wcześniejsze „aktualny/następny etap” są historią, nie zastępują tej kolejności.
+
 Aktualny etap: **PR163 — Offensive Momentum, Run-On Passing & Contextual Ball Progression**.
 [Raport PR163](PR163_OFFENSIVE_MOMENTUM_SPACE_PASSING.md) dokumentuje rzeczywiste
 kontakty, porównanie rankingów, laboratorium podań oraz ograniczenia ofensywy.

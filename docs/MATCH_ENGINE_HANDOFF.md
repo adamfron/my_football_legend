@@ -1,5 +1,41 @@
 # Match Engine Handoff
 
+## PR164 contracts and next work
+
+- Read [PR164](PR164_STARTUP_STORAGE_MATCH_CONTRACTS.md) and its compact receipts.
+  Base is merged PR163 `f812e96`; original two debug exports were unavailable.
+- Never reuse pre-execution menu eligibility to invalidate `phase=release` or an
+  executed restart. Physical ball/shot ownership, statistics and ledger are canonical.
+- Build the real ceremonial wall before the final human target/technique; retain
+  its prepared geometry on selection. Permission is `authorisedAt`, not a UI timer.
+  Keep the explicit quick-kick exception; readiness does not close stoppage time.
+- Goal selection maps through the active camera to team-space intention. Specialist
+  profiles/wall Easter egg require actual geometry; preserve exact delivery actions.
+  Human agency stays frozen and explicit; failed selections keep the choice open.
+- Offside replay must use the detached actual release frame. Later positions cannot
+  redraw its line. Replay remains bounded/read-only and excluded from career storage.
+- Native `careerMatchContract.ts` Zod v1 owns fixture/world/owner/roster/seed guards,
+  full-time result bounds and immutable idempotent commit. Cosmetic seed/IDs must
+  never change football RNG. No xG/rating model is inferred from missing counters.
+- PR166 still needs UI integration, academy/trial roster policy, development/news
+  consequences and seasonal archival of rich outcomes. The 96 kB per-match ceiling
+  does not make indefinite full-result history fit the 3 MB save budget. Preserve
+  completion fingerprints when compacting; measure canonical-career growth again.
+- `CareerStorage` queues migration/read/write/delete and removes legacy only after
+  verified commit. Preserve `footballerConditionOverrides` in v7. Failed migrations
+  and interrupted replacement writes must keep a readable last-good source.
+- Reproduce loading with `benchmark:browser-transfer` against a preserved baseline
+  dist and external Playwright/Edge runtime. Do not add Playwright to game dependencies.
+  Headers/encoded bytes in receipts describe the controlled HTTP host, not production
+  GitHub Pages. World sizes are UTF-8; gzip/Brotli estimates and CPU samples are separate.
+- Keep sparse-shot, forecast and logical-identity limitations open. Tempo evidence
+  prioritizes opportunity/decision work; do not introduce a global delay/speed fix
+  without matched physical reference evidence. Main tests run with two workers;
+  heavy integration/contract tests run serially, preserving existing timeouts.
+- Next PR165 visual DNA/creator, PR166 integration/playstyles, PR167 NPC diversity,
+  PR168 coaches, PR169 narratives, PR170 atmosphere. Earlier next-stage entries below
+  describe historical plans.
+
 ## PR163 contracts and next work
 
 - Read [the PR163 report](PR163_OFFENSIVE_MOMENTUM_SPACE_PASSING.md) and its numerical

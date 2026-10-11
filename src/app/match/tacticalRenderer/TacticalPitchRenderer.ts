@@ -80,6 +80,7 @@ export class TacticalPitchRenderer {
   private readonly carryTargetMarker: THREE.Mesh;
   private readonly restartSpotMarker: THREE.Mesh;
   private readonly restartDeliveryMarker: THREE.Mesh;
+  private readonly offsideLine: THREE.Mesh;
   private readonly observer: ResizeObserver;
   private readonly raycaster = new THREE.Raycaster();
   private readonly pitch: THREE.Mesh;
@@ -270,6 +271,12 @@ export class TacticalPitchRenderer {
     };
     this.restartSpotMarker = restartMarker(0.65, 0.9, 0xf4c970);
     this.restartDeliveryMarker = restartMarker(1.5, 1.7, 0x75dfe3);
+    this.offsideLine = new THREE.Mesh(
+      new THREE.BoxGeometry(0.09, 0.04, PITCH_WIDTH),
+      new THREE.MeshBasicMaterial({ color: 0xff6347, depthTest: false }),
+    );
+    this.offsideLine.visible = false;
+    this.scene.add(this.offsideLine);
     const shadow = new THREE.Mesh(
       new THREE.CircleGeometry(BALL_RADIUS * 1.6, 16),
       new THREE.MeshBasicMaterial({ color: 0x101814, transparent: true, opacity: 0.28 }),
@@ -559,6 +566,19 @@ export class TacticalPitchRenderer {
     }
     this.report(undefined);
     const activeIds = new Set(frame.players.map((player) => player.id));
+    const offsideAttackers = new Set([
+      ...(frame.offside?.relevantAttackerIds ?? []),
+      ...(frame.offside?.offsidePlayerIds ?? []),
+    ]);
+    const offsideDefenders = new Set(
+      frame.offside
+        ? frame.players
+            .filter((p) => p.team !== frame.offside!.attackingTeam)
+            .sort((a, b) => (frame.offside!.attackingTeam === 'home' ? b.x - a.x : a.x - b.x))
+            .slice(0, 2)
+            .map((p) => p.id)
+        : [],
+    );
     // A canonical dismissal removes all visible/pickable objects at this frame. The bounded
     // identity cache can still restore the same rig when viewing a pre-dismissal replay.
     for (const [id, mesh] of this.playerMeshes) {
@@ -576,8 +596,10 @@ export class TacticalPitchRenderer {
       if (restartMarker)
         restartMarker.visible = Boolean(
           activeIds.has(id) &&
-            frame.restart &&
-            (frame.restart.takerId === id || frame.restart.wallIds.includes(id)),
+            ((frame.restart &&
+              (frame.restart.takerId === id || frame.restart.wallIds.includes(id))) ||
+              offsideAttackers.has(id) ||
+              offsideDefenders.has(id)),
         );
     }
     for (const player of frame.players) {
@@ -597,9 +619,13 @@ export class TacticalPitchRenderer {
         actionMarker.visible = Boolean(frame.actionableTargets?.includes(player.id));
         actionMarker.scale.setScalar(frame.selectedTarget === player.id ? 1.18 : 1);
       }
+      const offsideAttacker = offsideAttackers.has(player.id);
+      const offsideDefender = offsideDefenders.has(player.id);
       if (
-        frame.restart &&
-        (frame.restart.takerId === player.id || frame.restart.wallIds.includes(player.id))
+        (frame.restart &&
+          (frame.restart.takerId === player.id || frame.restart.wallIds.includes(player.id))) ||
+        offsideAttacker ||
+        offsideDefender
       ) {
         let marker = this.restartPlayerMarkers.get(player.id);
         if (!marker) {
@@ -618,7 +644,13 @@ export class TacticalPitchRenderer {
         }
         marker.visible = true;
         (marker.material as THREE.MeshBasicMaterial).color.setHex(
-          frame.restart.takerId === player.id ? 0x75dfe3 : 0xf4c970,
+          offsideAttacker
+            ? 0xff635b
+            : offsideDefender
+              ? 0x71e4a0
+              : frame.restart?.takerId === player.id
+                ? 0x75dfe3
+                : 0xf4c970,
         );
         marker.position.set(world.x, 0.065, world.z);
       }
@@ -668,6 +700,9 @@ export class TacticalPitchRenderer {
       this.selectionMarker.position.set(point.x, 0.09, point.z);
     }
     this.restartSpotMarker.visible = Boolean(frame.restart);
+    this.offsideLine.visible = Boolean(frame.offside);
+    if (frame.offside)
+      this.offsideLine.position.set(frame.offside.offsideLineX - PITCH_LENGTH / 2, 0.1, 0);
     this.restartDeliveryMarker.visible = Boolean(frame.restart?.deliveryTarget);
     if (frame.restart) {
       const spot = tacticalToWorld(frame.restart.spot);
@@ -1062,6 +1097,15 @@ export class TacticalPitchRenderer {
     return { kind: 'pitch', point };
   }
   /** Maps the projected goal mouth to normalized intention; dragging does not touch camera state. */
+  pickGoalTarget(clientX: number, clientY: number, team: 'home' | 'away') {
+    return screenToGoalIntent(
+      this.camera,
+      team,
+      { x: clientX, y: clientY },
+      this.renderer.domElement.getBoundingClientRect(),
+    );
+  }
+
   pickGoalAim(
     clientX: number,
     clientY: number,

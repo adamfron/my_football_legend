@@ -1422,6 +1422,8 @@ const stepTacticalMatchCore = (
           ? (state.onBallPreparation.micro?.localTarget ?? player.position)
           : player.position;
     } else if (
+      !isRestartSetup(state) &&
+      !state.postGoal &&
       (state.nearestChallengerId === player.id || cooperativePress?.primaryId === player.id) &&
       state.ball.ownerId &&
       distance(player.position, state.ball) <= 18 &&
