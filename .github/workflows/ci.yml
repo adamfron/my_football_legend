@@ -9,7 +9,9 @@ concurrency:
 jobs:
   quality:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Main + restart + two full canonical fixtures exceed 15 minutes in series.
+    # Keep individual test timeouts; allow the complete verify pipeline to finish.
+    timeout-minutes: 30
     env:
       # Simulation parity tests keep their original time limits on a shared CPU.
       VITEST_MAX_WORKERS: '1'

@@ -315,7 +315,8 @@ parallel test run exceeded existing CPU time limits and exposed an obsolete menu
 expectation (three profiles rather than target-valid regenerated choices). Focused
 serial reruns passed the parity tests; menu coverage now retains exact crosses and
 validates target-specific techniques. Main verification uses two workers; integration
-and full-match contract runs are serial. Existing timeout limits were not raised.
+and full-match contract runs are serial. Existing individual test timeout limits
+were not raised.
 
 **`npm run verify`: PASS** — lint, 1553 main tests in 187 files, 31 renderer/liveness
 integration tests, two contract tests, five full-career tests (1591 total), TypeScript
@@ -323,6 +324,15 @@ and production build. Follow-up final lint and 26 focused UI/storage tests also 
 as does the native Edge HTTP/lifecycle/denied-storage audit. Final browser artifact
 hashes match the production build produced by the complete verify run. No merge or
 deployment is part of this PR.
+
+The first [GitHub CI run](https://github.com/adamfron/my_football_legend/actions/runs/38164271701)
+was cancelled by the workflow's 15-minute job budget during the full-fixture contract
+test. Its 1553 main tests passed in 482.55 s and its 31 renderer/liveness tests passed
+in 95.96 s; the contract run then had only about five minutes left. The completed
+local contract run took 623.61 s, and the full-career suite another 73.19 s. These
+measurements already exceed 21 minutes when combined with the observed CI main
+suite, before installation, lint and build. CI now allows 30 minutes for the whole
+job. The test coverage and individual test timeouts are unchanged.
 
 | #   | Answer / evidence                                                                                                                                          |
 | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
