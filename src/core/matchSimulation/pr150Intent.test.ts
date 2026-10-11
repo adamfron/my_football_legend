@@ -269,6 +269,10 @@ describe('PR150 persistent football intentions', () => {
       'human_selected',
     );
     expect(projectLocomotion(chosen, actor).intensity).toBe('sprint');
+    // Compare the same committed physical action. PR162 permits a new NPC decision
+    // within this three-second window; a policy change would no longer be a
+    // locomotion/fitness parity experiment.
+    chosen.actionCooldown = 100;
     let moved = chosen;
     let autonomous = structuredClone(chosen);
     delete autonomous.controlledFootballerId;

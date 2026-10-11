@@ -21,7 +21,11 @@ export const benchmarkResultSchema = z.object({
     teamAccounting: true,
     passingNetwork: true,
   }),
-  funnel: funnelSummarySchema.nullable(),
+  // Baseline telemetry definitions are versioned; retain them rather than
+  // pretending a V1 observation was collected by the corrected observer.
+  funnel: funnelSummarySchema
+    .extend({ version: z.union([z.literal(1), z.literal(2), z.literal(3)]) })
+    .nullable(),
   finalDiagnostics: z.unknown(),
 });
 export type BenchmarkResult = z.infer<typeof benchmarkResultSchema>;
@@ -218,5 +222,28 @@ export const joinBenchmarkShards = (files: BenchmarkFile[]): BenchmarkFile => {
     completedMatches: files.reduce((a, f) => a + f.completedMatches, 0),
     profiles: Object.assign({}, ...files.map((f) => f.profiles)),
     results: files.flatMap((f) => f.results),
+  };
+};
+
+/** Extend an immutable experiment by disjoint seed blocks, preserving the pilot's observations. */
+export const joinBenchmarkSeedBlocks = (files: BenchmarkFile[]): BenchmarkFile => {
+  if (!files.length) throw new Error('No seed blocks');
+  const first = files[0]!;
+  const invariant = (f: BenchmarkFile) =>
+    JSON.stringify({ ...f.manifest, config: { ...f.manifest.config, seeds: [] } });
+  if (files.some((f) => invariant(f) !== invariant(first)))
+    throw new Error('Incompatible immutable seed-block manifests');
+  const seeds = files.flatMap((f) => f.manifest.config.seeds);
+  if (new Set(seeds).size !== seeds.length) throw new Error('Overlapping seed blocks');
+  const results = files.flatMap((f) => f.results);
+  if (new Set(results.map((r) => r.key)).size !== results.length)
+    throw new Error('Duplicate match keys');
+  return {
+    ...first,
+    manifest: { ...first.manifest, config: { ...first.manifest.config, seeds } },
+    expectedMatches: files.reduce((a, f) => a + f.expectedMatches, 0),
+    completedMatches: files.reduce((a, f) => a + f.completedMatches, 0),
+    profiles: Object.assign({}, ...files.map((f) => f.profiles)),
+    results,
   };
 };
