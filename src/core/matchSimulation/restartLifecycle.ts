@@ -221,6 +221,13 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
           x: retrievalTarget.x + (length > 0.2 ? dx / length : 0) * 3,
           y: retrievalTarget.y + (length > 0.2 ? dy / length : spot.y < 34 ? 1 : -1) * 3,
         });
+        // Clamping an outward staging direction at a goal/touch line can put the
+        // teammate back inside the body corridor. Choose a reachable inward target.
+        if (distance(proposed, retrievalTarget) < 2.5)
+          proposed = clampPitchPoint({
+            x: retrievalTarget.x + (retrievalTarget.x <= 52.5 ? 1 : -1) * 3,
+            y: retrievalTarget.y,
+          });
       }
       const target =
         retrieval.stage !== 'placed' && player.id === retrieval.playerId

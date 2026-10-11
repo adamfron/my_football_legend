@@ -163,4 +163,34 @@ describe('PR162 causal football corrections', () => {
     expect(restart.restart?.awardId).not.toBe(award);
     expect(restart.time - state.time).toBeLessThan(30);
   });
+  it('stages a different goal-kick taker inward when the original clearance direction leaves the pitch', () => {
+    const { state } = fixture();
+    const spot = { x: 0, y: 43.16 };
+    let restart = awardNaturalRestart({ ...state, ball: { ...spot, height: 0 } }, 'goal_kick', {
+      restartTeam: 'home',
+      incidentId: 'pr162-line-placement',
+      incidentPoint: spot,
+      cause: 'boundary',
+    });
+    const keeper = restart.players.find((p) => p.id === restart.restart!.takerId)!;
+    const retriever = restart.players.find((p) => p.team === 'home' && p.slotIndex === 2)!;
+    const endpoint = { x: 1.0775, y: 43.3338 };
+    keeper.position = { x: 0.4, y: 43.16 };
+    retriever.position = { ...endpoint };
+    restart.restart!.retrieval = {
+      playerId: retriever.id,
+      stage: 'transport',
+      attachedOffset: { x: -1.0775, y: -0.1738 },
+    };
+    const prepared = prepareRestartMovement(restart);
+    expect(
+      distance(prepared.players.find((p) => p.id === keeper.id)!.target, endpoint),
+    ).toBeGreaterThanOrEqual(2.5);
+    expect(prepared.ball).toEqual(restart.ball);
+    const award = restart.restart!.awardId;
+    for (let tick = 0; tick < 1200 && restart.restart?.awardId === award; tick++)
+      restart = stepTacticalMatchAfterDecisionProbe(restart, FIXED_MATCH_DT);
+    expect(restart.restart?.awardId).not.toBe(award);
+    expect(restart.time - state.time).toBeLessThan(30);
+  });
 });
