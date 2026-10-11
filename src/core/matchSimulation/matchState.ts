@@ -684,7 +684,7 @@ export const passDiagnosticSchema = z.object({
   receiverPositionAtRelease: pitchPointSchema,
   receiverVelocityAtRelease: physicalPointSchema,
   predictedReceptionPoint: pitchPointSchema,
-  actualContactPoint: pitchPointSchema.optional(),
+  actualContactPoint: physicalPointSchema.optional(),
   awarenessDelay: z.number().nonnegative(),
   receiverArrivalEstimate: z.number().nonnegative(),
   bestDefenderArrivalEstimate: z.number().nonnegative(),

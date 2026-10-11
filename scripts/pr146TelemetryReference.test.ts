@@ -14,7 +14,11 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR160 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR162 complete telemetry reference (PR146 observer contract)', () => {
+  // PR162 intentionally changes decision timing, depth jobs and pass forecasts.
+  // Both pristine PR161 and current complete outputs were reproduced twice per
+  // seed in fresh fixtures, preserving every exported field and identity invariant:
+  // docs/performance/PR162-telemetry-reference.json.
   // PR160 changes actual workload, reserve-dependent movement/contact and physically demanding
   // execution. Both pristine PR159 references and new complete 2,400-tick outputs were
   // reproduced twice per seed in fresh Node processes: PR160-telemetry-reference.json.
@@ -71,8 +75,8 @@ describe('PR160 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', 'ced0737b03698f104bd1134a570f07497749ec1da53a32757875f90b41673468'],
-    ['pr146-flow-reference:b', 'b245012ab69a7176d043866f0bb0002dd3724e6c440d88044905efe1a03335b6'],
+    ['pr146-flow-reference:a', '7111d00522056d3d147fa084f9ee324b3d0bfc31a00da9e735a6701d61d0fad3'],
+    ['pr146-flow-reference:b', 'e1638793fc40c4f54fcabe499cd58e16f1a1f377d1d2c9ec73c9b8b4a86a9272'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

@@ -609,9 +609,10 @@ export const scoreActionForAI = (
     returning && !usefulWallPass
       ? 30 * Math.max(0.35, 1 - (state.time - lastPass!.resolvedAt!) / 12)
       : 0;
-  const laneRisk = opponents(state, actor).filter(
-    (p) => distanceToSegment(p.position, actor.position, action.target) < 3.5,
-  ).length;
+  // The physical forecast excludes endpoint markers and checks whether a defender
+  // can arrive before the travelling ball. A second static 3.5m corridor counted
+  // those markers again even when the pass had already beaten them.
+  const laneRisk = decision.laneOccupation;
   const technical =
     (actor.profile.attributes.passing +
       actor.profile.attributes.technique +
@@ -625,7 +626,7 @@ export const scoreActionForAI = (
   const space = action.intent === 'through' ? evaluateRunSpace(state, actor, receiver) : undefined;
   const throughContext =
     action.intent === 'through'
-      ? space && space.defenderArrival - space.attackerArrival >= 0.2
+      ? decision.defenderEta - decision.receiverEta >= 0.2
         ? -10
         : -38
       : 0;
@@ -725,30 +726,45 @@ export const rankAvailableActionsForAI = (
     })
     .sort((a, b) => b.score - a.score);
 };
-/** Reception is followed by scanning/control time in ordinary possession. Pressure, transitions
- * and a live scoring chance shorten that time, so rapid combinations remain contextual. This
- * delays the actual decision rather than reducing exported pass statistics. */
+/** Perception overlaps the incoming flight. Physical control still owns its readiness clock;
+ * tactical patience influences deliberate holding in ranking, rather than imposing another
+ * multi-second blackout after every reception. First-time contact uses its existing resolver. */
 export const npcPossessionDecisionDelay = (state: TacticalMatchState, actor: MatchPlayerState) => {
-  const progress = fieldValue(actor.position, actor.team);
+  const progress = actor.team === 'home' ? actor.position.x : 105 - actor.position.x;
   const danger = Math.max(0, Math.min(1, state.currentPressure));
   const transition =
     state.teams[actor.team].phase === 'attacking_transition' &&
     progress > 55 &&
     state.timeSincePossessionChanged < 2;
-  const scoringRange = progress > 82 && Math.abs(actor.position.y - 34) < 18;
-  // Most pressure represents a nearby marker, not an imminent tackle. Only genuinely intense
-  // pressure removes most scanning time; ordinary midfield possession gives support runs time.
+  const scoringRange = distance(actor.position, { x: actor.team === 'home' ? 105 : 0, y: 34 }) < 27;
   const patience = deriveTeamTacticalPreferences(state, actor.team).possessionPatience;
-  const scanning = 4.2 + patience * 1.8 - danger * danger * danger * 4.8;
   const skill =
     (actor.profile.attributes.firstTouch +
       actor.profile.attributes.gameReading +
       actor.profile.attributes.composure) /
     300;
+  const scanDemand = 0.35 + (1 - skill) * 0.85 + patience * 0.75;
+  const reception = state.lastResolvedPass;
+  const anticipated =
+    reception?.actualReceiverId === actor.id &&
+    reception.finalResult === 'completed' &&
+    reception.resolvedAt !== undefined &&
+    Math.abs(reception.resolvedAt - (state.ballOwnershipStartedAt ?? state.time)) < 0.1
+      ? Math.min(
+          scanDemand,
+          Math.max(0, reception.resolvedAt - reception.releasedAt - reception.awarenessDelay) *
+            skill,
+        )
+      : 0;
+  const physical =
+    state.onBallPreparation?.actorId === actor.id
+      ? Math.max(0, state.onBallPreparation.readyAt - state.onBallPreparation.gainedAt)
+      : 0;
+  const perception = (scanDemand - anticipated) * (1 - danger * 0.65);
   return Math.max(
-    0.35,
-    Math.min(scanning, transition ? 1.05 : Infinity, scoringRange ? 0.65 : Infinity) +
-      (0.55 - skill) * 0.4,
+    physical,
+    0.2,
+    Math.min(perception, transition ? 0.6 : Infinity, scoringRange ? 0.4 : Infinity),
   );
 };
 

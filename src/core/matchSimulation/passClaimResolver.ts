@@ -1,11 +1,14 @@
 import { z } from 'zod';
-import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
+import { distance, physicalPointSchema, type PitchPoint } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 import { canContactAfterThrowIn } from './throwIn';
 
 export const GROUND_PASS_CONTROL_RADIUS = 2.2;
 export const groundPassClaimSchema = z.object({
-  landingPosition: pitchPointSchema,
+  // A ball centre can sit partly beyond a painted line while the whole ball remains
+  // in play. Boundary adjudication owns legality; contact evidence must preserve
+  // the finite physical coordinate rather than reject or clamp it to the paint.
+  landingPosition: physicalPointSchema,
   playerId: z.string().optional(),
   cause: z.enum(['claim', 'interception']).optional(),
 });

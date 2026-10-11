@@ -126,7 +126,7 @@ export const receptionQualityEvidenceSchema = z.object({
 export const receptionOutcomeSchema = z.object({
   receiverId: z.string(),
   kind: z.enum(['clean_control', 'directional_control', 'heavy_touch', 'failed_control']),
-  contactPoint: pitchPointSchema,
+  contactPoint: physicalPointSchema,
   resultingPoint: physicalPointSchema.optional(),
   quality: receptionQualityEvidenceSchema.optional(),
   retainedVelocity: z.object({ x: z.number().finite(), y: z.number().finite() }).optional(),

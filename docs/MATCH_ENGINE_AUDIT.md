@@ -1,4 +1,26 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR161
+# Audyt silnika meczu — PR140 / aktualizacja PR162
+
+## PR162 — integrated attacking-flow evidence
+
+Read [the integrated audit](PR162_INTEGRATED_MATCH_REALISM_AUDIT.md) and
+[formation benchmark protocol](FORMATION_GEOMETRY_BENCHMARK.md). The actual
+930-pass/zero-shot export is preserved with its coverage and hash, without
+claiming an exact source-revision replay. Independent funnel stages separate
+controlled possession, progression, final-third/box entry, available/executable
+shot options, ranking and actual physical release.
+
+Confirmed corrections: perception overlaps incoming awareness and uses metres;
+physical readiness remains authoritative; one contextual depth/compensation job
+is reserved; pass risk/race selection shares canonical forecasts; restart targets
+leave achievable body space; reception contact schemas retain finite physical
+coordinates. Original success probabilities, real offside at release, goalkeeper
+contacts, controlled-foot physics and human decision guards remain in force.
+
+The frozen matrix completes 120/120 full matches (12 mirrored seed blocks per matchup), with only 36 total shots. Equal-4-4-2 identity asymmetry remains unresolved. The late physical threat-origin schema repair is validation-only and has its own two-full-match complete-state parity receipt. Public numerical reports and local full records are distinguished in performance/PR162-DATA_README.md.
+
+Sparse offensive creation remains open. See the ten canonical tables and raw
+seed blocks for coverage and uncertainty; censored baseline matches are not
+full-match draws. V1/V2 progressive-reception definitions are explicitly distinct.
 
 ## PR161 — canonical presentation and targeted boundary liveness
 

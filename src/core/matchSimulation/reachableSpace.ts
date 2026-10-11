@@ -1,6 +1,9 @@
 import { z } from 'zod';
-import { clampPitchPoint, distance, distanceToSegment, type PitchPoint } from './matchSpace';
+import { clampPitchPoint, distanceToSegment, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { deriveMovementCapability } from './locomotion';
+import { estimatePlayerArrivalTime } from './playerArrival';
+import { earliestDefenderArrival } from './passDecision';
 
 export const predictedRunSchema = z.object({
   playerId: z.string(),
@@ -37,8 +40,9 @@ export const predictReachableRun = (
       : desiredLength > 0.2 && (player.duty !== 'attack' || desiredDirection.x * fallbackX >= 0)
         ? desiredDirection
         : { x: fallbackX, y: 0 };
-  const maxSpeed = 6.2 + (player.profile.attributes.pace / 100) * 3.3;
-  const acceleration = 3.2 + (player.profile.attributes.agility / 100) * 5.5;
+  const capability = deriveMovementCapability(player);
+  const maxSpeed = capability.maximumSprintSpeed;
+  const acceleration = capability.acceleration;
   const points: PredictedRun['points'] = [];
   for (let t = step; t <= horizon + 1e-9; t += step) {
     const reachableSpeed = Math.min(maxSpeed, speed + acceleration * t);
@@ -80,17 +84,10 @@ export const evaluateRunSpace = (
   const defenders = state.players.filter((p) => p.team !== passer.team);
   return run.points
     .map(({ t, position }) => {
-      const defenderArrival = Math.min(
-        ...defenders.map((defender) => {
-          const prediction = predictReachableRun(defender);
-          const sample =
-            prediction.points.find((point) => point.t >= t) ?? prediction.points.at(-1)!;
-          const pace = 5.5 + defender.profile.attributes.pace * 0.035;
-          return Math.min(
-            sample.t + distance(sample.position, position) / pace,
-            distance(defender.position, position) / pace,
-          );
-        }),
+      const defenderArrival = earliestDefenderArrival(state, defenders, position);
+      const attackerArrival = Math.max(
+        t,
+        estimatePlayerArrivalTime(state, runner, position, 'intercept').estimatedTime,
       );
       const laneRisk = defenders.reduce(
         (risk, defender) =>
@@ -102,10 +99,14 @@ export const evaluateRunSpace = (
       const boundary = Math.min(position.y, 68 - position.y, position.x, 105 - position.x);
       return {
         target: position,
-        attackerArrival: t,
+        attackerArrival,
         defenderArrival,
         laneRisk,
-        utility: progress * 1.4 + (defenderArrival - t) * 12 - laneRisk * 8 + Math.min(5, boundary),
+        utility:
+          progress * 1.4 +
+          (defenderArrival - attackerArrival) * 12 -
+          laneRisk * 8 +
+          Math.min(5, boundary),
       };
     })
     .sort((a, b) => b.utility - a.utility)[0];

@@ -2,7 +2,7 @@ import { findMatchParticipant } from './matchParticipants';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
-import { distance, pitchPointSchema, type PitchPoint, type TeamSide } from './matchSpace';
+import { distance, physicalPointSchema, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 
 /** Football time, metres and bounded evidence; shared by observation, response and tests. */
@@ -49,7 +49,7 @@ export const recentSolutionSchema = z.object({
   action: z.string(),
   receiverId: z.string().optional(),
   channel: z.number().int().min(0).max(2),
-  origin: pitchPointSchema,
+  origin: physicalPointSchema,
   at: z.number().nonnegative(),
   pressure: z.number().min(0).max(1),
   outcome: z.enum([
@@ -79,7 +79,7 @@ export const teamThreatMemorySchema = z.object({
   pressuredPlayers: z.array(z.object({ playerId: z.string(), score: scoreSchema })).max(22),
   recentSolutions: z.array(recentSolutionSchema).max(32).default([]),
   observedEpisode: z.number().int(),
-  controlOrigin: pitchPointSchema,
+  controlOrigin: physicalPointSchema,
   entryObserved: z.boolean(),
   lineObserved: z.boolean(),
   isolationObserved: z.boolean(),

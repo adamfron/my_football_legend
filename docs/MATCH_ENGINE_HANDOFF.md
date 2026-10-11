@@ -1,5 +1,30 @@
 # Match Engine Handoff
 
+## PR162 contracts and next work
+
+- Baseline: pristine merged PR161 `4d61ee8`. Read the
+  [integrated report](PR162_INTEGRATED_MATCH_REALISM_AUDIT.md),
+  [benchmark protocol](FORMATION_GEOMETRY_BENCHMARK.md) and
+  [canonical evidence tables](performance/PR162-EVIDENCE_TABLES.md) first.
+- Do not infer a fixed balance target from scores or shot counts. The original
+  observation has 930 passes/0 shots/0 box entries; depth access and terminal
+  selection remain the important unresolved causal stages.
+- Preserve physical readiness, canonical action sources, human shot/restart
+  agency, actual receiver credit, offside at release and full-ball boundary law.
+  Actual contact evidence can be partly beyond paint; tactical targets stay bounded.
+- Restart liveness must come from physically achievable targets. Never relax
+  placement speed/legal readiness, force a kick, teleport a participant or end a
+  half to make the benchmark finish.
+- Benchmark fixtures construct fresh equal profiles/legal native XIs and benches.
+  Stable logical IDs reverse sides. Source/configuration hashes reject accidental
+  checkpoint mixing; full outcomes and sample observations are distinct.
+- Next experiment: inspect rejected progressive/terminal options in sustained
+  final-third possession, then probe logical-ID/initialisation asymmetry and separate geometry from duties. Missing advanced counters are unknown, not zeros. Wider formation
+  superiority and club-quality ordering are not established by the sparse 12-block matrix. Equal 4-4-2 shows an unresolved logical-identity signal despite side reversal.
+- Completed main coverage is 120/120 full matches at frozen source 86673d5. A later finite-physical-origin schema repair has a separate full-state parity receipt; never rewrite the matrix provenance to the newer source. Public reports contain numerical aggregates; full profiles/traces/states remain local.
+- Player-model/bench/spectator presentation follow-ups remain separate; club
+  stadium configuration must stay independent of match seed.
+
 ## PR161 contracts and next work
 
 - Baseline is merged PR160 `d4b389b`; read the [PR161 report](PR161_MATCH_PRESENTATION_REPLAY_STADIUM.md)

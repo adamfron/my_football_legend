@@ -198,12 +198,37 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
         retrieval.stage !== 'placed' &&
         retrieval.playerId !== current.takerId &&
         player.id === current.takerId;
-      const proposed = stagingTaker
+      let proposed = stagingTaker
         ? clampPitchPoint({
             x: spot.x - (current.restartTeam === 'home' ? 1 : -1) * 2.5,
             y: spot.y,
           })
         : (targets[player.id] ?? current.targets[player.id] ?? player.target);
+      // Every teammate must leave room for the transporting body, not only the taker.
+      // A short-option receiver can otherwise occupy the placement endpoint and keep
+      // the retriever moving indefinitely through physical body separation.
+      if (
+        retrieval.stage !== 'placed' &&
+        player.id !== retrieval.playerId &&
+        player.team === current.restartTeam &&
+        (distance(proposed, retrievalTarget) < 2.5 ||
+          distance(player.position, retrievalTarget) < 2.5)
+      ) {
+        const dx = proposed.x - retrievalTarget.x;
+        const dy = proposed.y - retrievalTarget.y;
+        const length = Math.hypot(dx, dy);
+        proposed = clampPitchPoint({
+          x: retrievalTarget.x + (length > 0.2 ? dx / length : 0) * 3,
+          y: retrievalTarget.y + (length > 0.2 ? dy / length : spot.y < 34 ? 1 : -1) * 3,
+        });
+        // Clamping an outward staging direction at a goal/touch line can put the
+        // teammate back inside the body corridor. Choose a reachable inward target.
+        if (distance(proposed, retrievalTarget) < 2.5)
+          proposed = clampPitchPoint({
+            x: retrievalTarget.x + (retrievalTarget.x <= 52.5 ? 1 : -1) * 3,
+            y: retrievalTarget.y,
+          });
+      }
       const target =
         retrieval.stage !== 'placed' && player.id === retrieval.playerId
           ? retrievalTarget

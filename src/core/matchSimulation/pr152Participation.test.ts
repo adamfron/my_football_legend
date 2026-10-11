@@ -121,7 +121,9 @@ describe('PR152 canonical identity and temporary human agency', () => {
         lastResolvedAt: state.time,
       },
     };
-    expect(hasPendingPlayerDecision(delegated, actorId)).toBe(false);
+    // The shorter contextual cadence already exposes the mandatory finishing
+    // opportunity, even after the generic possession prompt was delegated.
+    expect(hasPendingPlayerDecision(delegated, actorId)).toBe(true);
     const blocked = resolveMatchAction(delegated, shot, 'autonomous_routine');
     expect(blocked.ball.shot).toBeUndefined();
     expect(hasPendingPlayerDecision(blocked, actorId)).toBe(true);

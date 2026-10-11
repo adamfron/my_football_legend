@@ -208,6 +208,79 @@ export const deriveAttackingRunIds = (state: TacticalMatchState, side: TeamSide)
     .map(({ p }) => p.id);
 };
 
+export const depthRunAssignmentSchema = z.object({
+  playerId: z.string(),
+  role: z.enum(['stretch_line', 'compensate_drop']),
+  target: z.object({ x: z.number(), y: z.number() }),
+});
+export type DepthRunAssignment = z.infer<typeof depthRunAssignmentSchema>;
+
+/** One relational depth job: a forward stretches the line while another player connects.
+ * The job needs possession and space; it changes a locomotion target, never a pass outcome. */
+export const deriveDepthRunAssignments = (
+  state: TacticalMatchState,
+  side: TeamSide,
+): DepthRunAssignment[] => {
+  if (state.possessionTeam !== side || !state.ball.ownerId) return [];
+  const carrier = state.players.find((p) => p.id === state.ball.ownerId);
+  if (!carrier || carrier.team !== side) return [];
+  const dir = direction(side);
+  const progress = side === 'home' ? carrier.position.x : 105 - carrier.position.x;
+  if (progress < 35) return [];
+  const line = calculateOffsideLine(state, side);
+  if (dir * (line - carrier.position.x) < 7) return [];
+  const available = state.players.filter(
+    (p) =>
+      p.team === side &&
+      p.id !== carrier.id &&
+      !isMatchGoalkeeper(p) &&
+      p.duty !== 'defend' &&
+      !state.discipline?.[p.id]?.sentOff,
+  );
+  const forwards = available
+    .filter((p) => p.slot.position === 'striker')
+    .sort((a, b) => dir * (b.position.x - a.position.x) || a.id.localeCompare(b.id));
+  let runner = forwards[0];
+  let role: DepthRunAssignment['role'] = 'stretch_line';
+  const dropped = state.players.some(
+    (p) =>
+      p.team === side &&
+      p.slot.position === 'striker' &&
+      dir * (line - p.position.x) > 15 &&
+      dir * (p.position.x - carrier.position.x) < 4,
+  );
+  if ((!runner || dir * (line - runner.position.x) > 15) && dropped) {
+    const compensation = available
+      .filter(
+        (p) =>
+          p.slot.position !== 'striker' &&
+          !isWideDefender(p) &&
+          dir * (p.position.x - carrier.position.x) > 3,
+      )
+      .sort((a, b) => dir * (b.position.x - a.position.x) || a.id.localeCompare(b.id))[0];
+    if (compensation) {
+      runner = compensation;
+      role = 'compensate_drop';
+    }
+  }
+  if (!runner) return [];
+  const margin = 1 + (1 - runner.profile.attributes.gameReading / 100) * 2;
+  const x =
+    side === 'home'
+      ? Math.min(line - margin, carrier.position.x + 26)
+      : Math.max(line + margin, carrier.position.x - 26);
+  return [
+    {
+      playerId: runner.id,
+      role,
+      target: clampPitchPoint({
+        x,
+        y: 34 + (runner.neutralAnchor.y - 34) * 0.7,
+      }),
+    },
+  ];
+};
+
 export const finalThirdOccupationSchema = z.enum([
   'near_post',
   'penalty_spot',
@@ -534,11 +607,13 @@ export const deriveBuildUpSupport = (
     deriveBuildUpReliefWeight(state, owner);
   const support = Math.min(1, 0.64 + localPressure * 0.3 + learnedRelief * 0.2);
   const dir = direction(side);
+  const depthIds = new Set(deriveDepthRunAssignments(state, side).map((p) => p.playerId));
   const candidates = state.players
     .filter(
       (player) =>
         player.team === side &&
         player.id !== owner.id &&
+        !depthIds.has(player.id) &&
         !isMatchGoalkeeper(player) &&
         !state.discipline?.[player.id]?.sentOff &&
         // The next midfield line must be able to come towards a deep fullback. A single
@@ -774,6 +849,10 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     home: deriveAttackingRunIds(state, 'home'),
     away: deriveAttackingRunIds(state, 'away'),
   };
+  const depthRuns = {
+    home: deriveDepthRunAssignments(state, 'home'),
+    away: deriveDepthRunAssignments(state, 'away'),
+  };
   const occupations = {
     home: deriveFinalThirdOccupations(state, 'home'),
     away: deriveFinalThirdOccupations(state, 'away'),
@@ -873,6 +952,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     if (!isKeeper && state.possessionTeam === player.team)
       ideal = seekSpace(state, player, ideal, offside[player.team], parameters);
     const occupation = occupations[player.team].find(({ playerId }) => playerId === player.id);
+    const depthRun = depthRuns[player.team].find(({ playerId }) => playerId === player.id);
     if (occupation && !supportAssignment) ideal = occupation.target;
     else if (!isKeeper && !supportAssignment && runs[player.team].includes(player.id)) {
       const overlap = isWideDefender(player) && Math.abs(state.ball.y - player.position.y) < 18;
@@ -889,6 +969,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
           : ideal.y,
       };
     }
+    if (depthRun && !occupation) ideal = depthRun.target;
     const looseAssignment = looseAssignments.find(({ playerId }) => playerId === player.id);
     const coverAssignment = looseAssignments.find(({ coverId }) => coverId === player.id);
     if (coverAssignment?.coverTarget) ideal = coverAssignment.coverTarget;

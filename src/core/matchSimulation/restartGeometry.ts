@@ -75,10 +75,12 @@ export const deriveDefensiveWall = (
   const dx = goal.x - ball.x,
     dy = goal.y - ball.y,
     length = Math.max(0.1, Math.hypot(dx, dy)),
-    centre = { x: ball.x + (dx / length) * 9.15, y: ball.y + (dy / length) * 9.15 },
+    centre = { x: ball.x + (dx / length) * 9.5, y: ball.y + (dy / length) * 9.5 },
     perpendicular = { x: -dy / length, y: dx / length };
   return Array.from({ length: size }, (_, index) => {
-    const offset = (index - (size - 1) / 2) * 0.85;
+    // The canonical body separation is 1.15m. An 0.85m wall could never settle;
+    // neighbouring bodies kept pushing each other back inside the legal radius.
+    const offset = (index - (size - 1) / 2) * 1.3;
     return clampPitchPoint({
       x: centre.x + perpendicular.x * offset,
       y: centre.y + perpendicular.y * offset,
