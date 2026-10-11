@@ -9,7 +9,7 @@ concurrency:
 jobs:
   quality:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       # Simulation parity tests keep their original time limits on a shared CPU.
       VITEST_MAX_WORKERS: '1'

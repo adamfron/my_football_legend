@@ -92,6 +92,8 @@ export const teamMetrics = (r: BenchmarkResult, side: 'home' | 'away') => {
     t = r.statistics.teamAccounting?.[side];
   const passes = sum('passesAttempted'),
     completed = sum('passesCompleted');
+  const count = (map: Record<string, number> | undefined, key: string) =>
+    map ? (map[key] ?? 0) : null;
   return {
     goals: r.score[side],
     conceded: r.score[side === 'home' ? 'away' : 'home'],
@@ -105,7 +107,7 @@ export const teamMetrics = (r: BenchmarkResult, side: 'home' | 'away') => {
     offsides: t?.offsides ?? 0,
     passes,
     completed,
-    passCompletion: passes ? completed / passes : 0,
+    passCompletion: passes ? completed / passes : null,
     possessionSeconds: t?.possessionSeconds ?? 0,
     tackles: sum('tacklesAttempted'),
     tackleWins: sum('tacklesWon'),
@@ -113,32 +115,34 @@ export const teamMetrics = (r: BenchmarkResult, side: 'home' | 'away') => {
     recoveries: sum('looseBallRecoveries'),
     distance: sum('distanceCovered'),
     sprintDistance: sum('sprintDistance'),
-    controlled: r.funnel?.teams[side].possessions ?? 0,
-    advanced10: s?.advance_10 ?? 0,
-    sustainedFinal: s?.sustained_final ?? 0,
-    finalEntries: e?.final_entry ?? 0,
-    boxEntries: e?.box_entry ?? 0,
-    credible: s?.credible_position ?? 0,
-    progressive: e?.progressive_pass ?? 0,
-    progressiveCompleted: e?.progressive_completed ?? 0,
-    behindReleaseLine: e?.received_behind_release_line ?? 0,
-    backward: e?.backward_pass ?? 0,
-    lateral: e?.lateral_pass ?? 0,
-    through: e?.through_attempt ?? 0,
-    throughCompleted: e?.through_completed ?? 0,
-    strikerAttempts: e?.striker_pass_attempt ?? 0,
-    strikerReceptions: r.funnel?.teams[side].roles.striker?.receptions ?? 0,
-    firstTime: e?.first_time_pass ?? 0,
-    sampledDecisions: e?.sampled_decisions ?? 0,
-    shotCandidates: e?.sampled_shot_candidates ?? 0,
-    executableShotSamples: e?.sampled_executable_shot ?? 0,
-    shotFirst: e?.sampled_shot_ranked_first ?? 0,
-    width: r.funnel?.teams[side].spatial.width?.mean ?? 0,
-    depth: r.funnel?.teams[side].spatial.depth?.mean ?? 0,
-    forwardLineGap: r.funnel?.teams[side].spatial.attacking_forward_line_gap?.mean ?? 0,
-    targetDeviation: r.funnel?.teams[side].spatial.target_distance?.mean ?? 0,
-    anchorDeviation: r.funnel?.teams[side].spatial.anchor_distance?.mean ?? 0,
-    rotationSeconds: r.funnel?.teams[side].seconds.rotation_over360_low_progress ?? 0,
+    controlled: r.funnel?.teams[side].possessions ?? null,
+    advanced10: count(s, 'advance_10'),
+    sustainedFinal: count(s, 'sustained_final'),
+    finalEntries: count(e, 'final_entry'),
+    boxEntries: count(e, 'box_entry'),
+    credible: count(s, 'credible_position'),
+    progressive: count(e, 'progressive_pass'),
+    progressiveCompleted:
+      r.funnel && r.funnel.version >= 2 ? count(e, 'progressive_completed') : null,
+    behindReleaseLine:
+      r.funnel && r.funnel.version >= 2 ? count(e, 'received_behind_release_line') : null,
+    backward: count(e, 'backward_pass'),
+    lateral: count(e, 'lateral_pass'),
+    through: count(e, 'through_attempt'),
+    throughCompleted: count(e, 'through_completed'),
+    strikerAttempts: count(e, 'striker_pass_attempt'),
+    strikerReceptions: r.funnel ? (r.funnel.teams[side].roles.striker?.receptions ?? 0) : null,
+    firstTime: count(e, 'first_time_pass'),
+    sampledDecisions: count(e, 'sampled_decisions'),
+    shotCandidates: count(e, 'sampled_shot_candidates'),
+    executableShotSamples: count(e, 'sampled_executable_shot'),
+    shotFirst: count(e, 'sampled_shot_ranked_first'),
+    width: r.funnel?.teams[side].spatial.width?.mean ?? null,
+    depth: r.funnel?.teams[side].spatial.depth?.mean ?? null,
+    forwardLineGap: r.funnel?.teams[side].spatial.attacking_forward_line_gap?.mean ?? null,
+    targetDeviation: r.funnel?.teams[side].spatial.target_distance?.mean ?? null,
+    anchorDeviation: r.funnel?.teams[side].spatial.anchor_distance?.mean ?? null,
+    rotationSeconds: count(r.funnel?.teams[side].seconds, 'rotation_over360_low_progress'),
   };
 };
 
@@ -165,8 +169,13 @@ export const summarizeBenchmark = (file: BenchmarkFile) => {
         {
           seed,
           differences: Object.fromEntries(
-            keys.map((k) => [k, pair.reduce((a, r) => a + r.anchor[k] - r.opponent[k], 0) / 2]),
-          ) as Record<(typeof keys)[number], number>,
+            keys.map((k) => [
+              k,
+              pair.some((r) => r.anchor[k] === null || r.opponent[k] === null)
+                ? null
+                : pair.reduce((a, r) => a + r.anchor[k]! - r.opponent[k]!, 0) / 2,
+            ]),
+          ) as Record<(typeof keys)[number], number | null>,
         },
       ];
     });
@@ -183,14 +192,23 @@ export const summarizeBenchmark = (file: BenchmarkFile) => {
           .length,
       },
       anchorMeans: Object.fromEntries(
-        keys.map((k) => [k, descriptive(rows.map((r) => r.anchor[k])).mean]),
+        keys.map((k) => [
+          k,
+          descriptive(rows.map((r) => r.anchor[k]).filter((v): v is number => v !== null)).mean,
+        ]),
       ),
       opponentMeans: Object.fromEntries(
-        keys.map((k) => [k, descriptive(rows.map((r) => r.opponent[k])).mean]),
+        keys.map((k) => [
+          k,
+          descriptive(rows.map((r) => r.opponent[k]).filter((v): v is number => v !== null)).mean,
+        ]),
       ),
       seedBlocks: blocks,
       paired: Object.fromEntries(
-        keys.map((k) => [k, descriptive(blocks.map((b) => b.differences[k]))]),
+        keys.map((k) => [
+          k,
+          descriptive(blocks.map((b) => b.differences[k]).filter((v): v is number => v !== null)),
+        ]),
       ),
     };
   });
@@ -202,6 +220,41 @@ export const summarizeBenchmark = (file: BenchmarkFile) => {
     metrics,
     formations,
     performance: descriptive(metrics.map((r) => r.msPerTick)),
+  };
+};
+
+/** Independent accounting gates on collected V3 data; they cannot influence a match. */
+export const validateFunnelAccounting = (file: BenchmarkFile) => {
+  let checkedTeams = 0;
+  for (const row of file.results) {
+    if (!row.funnel || row.funnel.version < 3) continue;
+    for (const side of ['home', 'away'] as const) {
+      const team = row.funnel.teams[side],
+        stages = team.stages,
+        events = team.events;
+      const actualShots = teamMetrics(row, side).shots;
+      if ((events.shot_release ?? 0) !== actualShots)
+        throw new Error(
+          `Shot release accounting differs from canonical statistics: ${row.key}:${side}`,
+        );
+      if (Object.values(stages).some((count) => count > team.possessions))
+        throw new Error(`Unique stage exceeds controlled possessions: ${row.key}:${side}`);
+      if (
+        (stages.shot_after_final ?? 0) > (stages.final_entry ?? 0) ||
+        (stages.shot_after_box ?? 0) > (stages.box_entry ?? 0) ||
+        (events.sampled_executable_shot_ranked_first ?? 0) > (events.sampled_executable_shot ?? 0)
+      )
+        throw new Error(`Conditional numerator exceeds denominator: ${row.key}:${side}`);
+      if (Object.values(team.conversions).some((rate) => rate !== null && (rate < 0 || rate > 1)))
+        throw new Error(`Invalid conditional rate: ${row.key}:${side}`);
+      checkedTeams++;
+    }
+  }
+  return {
+    checkedTeams,
+    canonicalShotReleasesEqual: true,
+    uniqueStagesBounded: true,
+    conditionalRatesValid: true,
   };
 };
 

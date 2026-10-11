@@ -5,7 +5,8 @@ import {
   professionalClubSchema,
   playerPositionSchema,
 } from '../src/schemas/domainSchemas';
-import { getEffectivePositionOverall } from '../src/core/playerOverall';
+import { getEffectivePositionOverall, getPlayerOverall } from '../src/core/playerOverall';
+import { createCanonicalWorldDatabase } from './createCanonicalWorldDatabase';
 import { playerRole } from '../src/core/matchSimulation/attackingFunnel';
 import type { MatchPlayerState } from '../src/core/matchSimulation/matchState';
 
@@ -18,7 +19,7 @@ const teamSchema = z.object({
       footballerId: z.string(),
       profile: footballerProfileSchema,
       condition: z.number(),
-      slot: z.object({ position: playerPositionSchema, duty: z.string() }),
+      slot: z.object({ position: playerPositionSchema, duty: z.string().optional() }),
     }),
   ),
   bench: z.array(
@@ -42,6 +43,7 @@ const teams = new Map<string, z.infer<typeof teamSchema>>();
 for (const profile of Object.values(input.profiles))
   for (const side of ['home', 'away'] as const) teams.set(profile[side].club.id, profile[side]);
 const mean = (values: number[]) => values.reduce((a, b) => a + b, 0) / values.length;
+const world = createCanonicalWorldDatabase();
 const outputs = [...teams.values()].map((team) => {
   const group = (position: string) => playerRole({ slot: { position } } as MatchPlayerState);
   const groups = [...new Set(team.players.map((p) => group(p.slot.position)))].map((role) => {
@@ -59,13 +61,19 @@ const outputs = [...teams.values()].map((team) => {
         ]),
       ),
       meanCondition: mean(players.map((p) => p.condition)),
-      identities: players.map((p) => p.footballerId),
     };
   });
   return {
     clubId: team.club.id,
     name: team.club.name,
-    headlineRating: team.club.strengthRating,
+    storedClubRating: team.club.strengthRating,
+    squadAveragePrimaryOverall: mean(
+      (team.club.squadPlayerIds ?? []).map((id) => {
+        const profile = world.footballers[id]?.profile;
+        if (!profile) throw new Error(`Missing canonical squad identity: ${id}`);
+        return getPlayerOverall(profile, profile.primaryPosition);
+      }),
+    ),
     selectedXIRating: team.strength,
     formation: team.formation,
     managerId: team.club.managerId,
@@ -74,7 +82,6 @@ const outputs = [...teams.values()].map((team) => {
     groups,
     benchCount: team.bench.length,
     benchMeanCondition: mean(team.bench.map((p) => p.condition)),
-    benchIdentities: team.bench.map((p) => p.footballerId),
   };
 });
 writeFileSync(
@@ -93,7 +100,8 @@ writeFileSync(
 console.info(
   outputs.map((team) => ({
     name: team.name,
-    headline: team.headlineRating,
+    storedClubRating: team.storedClubRating,
+    squadAverage: team.squadAveragePrimaryOverall,
     xi: team.selectedXIRating,
     groups: team.groups.map((g) => ({ role: g.role, overall: g.effectiveOverall })),
     bench: team.benchCount,

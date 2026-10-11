@@ -1,16 +1,23 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { gzipSync } from 'node:zlib';
+import { z } from 'zod';
 import {
   benchmarkFileSchema,
   joinBenchmarkShards,
   joinBenchmarkSeedBlocks,
   summarizeBenchmark,
+  validateFunnelAccounting,
   type BenchmarkFile,
 } from './formationBenchmarkSummary';
 
 const source = resolve(process.argv.find((a) => a.startsWith('--source='))?.slice(9) ?? '..');
 const out = resolve('docs/performance');
+const archiveOut = resolve(
+  process.argv.find((arg) => arg.startsWith('--archive-dir='))?.slice(14) ?? '../PR162-evidence',
+);
 mkdirSync(out, { recursive: true });
+mkdirSync(archiveOut, { recursive: true });
 const read = (name: string) => {
   const file = benchmarkFileSchema.parse(JSON.parse(readFileSync(resolve(source, name), 'utf8')));
   for (const result of file.results) {
@@ -28,8 +35,18 @@ const read = (name: string) => {
   }
   return file;
 };
-const save = (name: string, value: unknown) =>
-  writeFileSync(resolve(out, name), JSON.stringify(value, null, 2) + '\n');
+const archived = new Set([
+  'PR162-formation-pilot.json',
+  'PR162-formation-main.json',
+  'PR162-baseline.json',
+  'PR162-clubs.json',
+  'PR162-scenarios.json',
+]);
+const save = (name: string, value: unknown) => {
+  if (archived.has(name))
+    writeFileSync(resolve(archiveOut, name + '.gz'), gzipSync(JSON.stringify(value) + '\n'));
+  else writeFileSync(resolve(out, name), JSON.stringify(value, null, 2) + '\n');
+};
 const compact = (file: BenchmarkFile) => ({
   ...file,
   results: file.results.map((r) => {
@@ -74,14 +91,79 @@ save('PR162-formation-pilot.json', compact(pilot));
 if (main) save('PR162-formation-main.json', compact(main));
 save('PR162-baseline.json', compact(baseline));
 save('PR162-clubs.json', compact(clubs));
-save('PR162-summary.json', summaries);
+writeFileSync(
+  resolve(archiveOut, 'PR162-summary.json.gz'),
+  gzipSync(JSON.stringify(summaries) + '\n'),
+);
+const aggregateSummary = (summary: ReturnType<typeof summarizeBenchmark> | null) =>
+  summary
+    ? {
+        manifest: summary.manifest,
+        expectedMatches: summary.expectedMatches,
+        observedMatches: summary.observedMatches,
+        fullMatches: summary.fullMatches,
+        formations: summary.formations,
+        orientations: summary.metrics.map((row) => ({
+          formation: row.formation,
+          seed: row.seed,
+          reversed: row.reversed,
+          status: row.status,
+          anchorGoals: row.anchor.goals,
+          opponentGoals: row.opponent.goals,
+          anchorShots: row.anchor.shots,
+          opponentShots: row.opponent.shots,
+          anchorFinalEntries: row.anchor.finalEntries,
+          opponentFinalEntries: row.opponent.finalEntries,
+          anchorBoxEntries: row.anchor.boxEntries,
+          opponentBoxEntries: row.opponent.boxEntries,
+        })),
+        performance: summary.performance,
+      }
+    : null;
+// Public numerical aggregates omit individual profiles, canonical states and action traces.
+save('PR162-summary.json', {
+  pilot: aggregateSummary(summaries.pilot),
+  main: aggregateSummary(summaries.main),
+  baseline: aggregateSummary(summaries.baseline),
+  clubs: aggregateSummary(summaries.clubs),
+});
+save('PR162-funnel-validation.json', {
+  pilot: validateFunnelAccounting(pilot),
+  main: main ? validateFunnelAccounting(main) : null,
+  clubs: validateFunnelAccounting(clubs),
+});
+const observation = JSON.parse(readFileSync(resolve(source, 'original-observation.json'), 'utf8'));
+observation.sourceFile = String(observation.sourceFile).split(/[\\/]/).at(-1);
+const teamOverviewSchema = z.object({
+  club: z.object({ id: z.string(), name: z.string() }),
+  formation: z.string(),
+  strength: z.number(),
+  players: z.array(z.unknown()),
+  bench: z.array(z.unknown()),
+});
+const fixtureOverviews = Object.entries(baseline.profiles).map(([hash, profile]) => {
+  const parsed = z.object({ home: teamOverviewSchema, away: teamOverviewSchema }).parse(profile);
+  return {
+    fixtureHash: hash,
+    teams: ['home', 'away'].map((side) => {
+      const team = parsed[side as 'home' | 'away'];
+      return {
+        side,
+        club: team.club,
+        formation: team.formation,
+        selectedXIStrength: team.strength,
+        selectedPlayers: team.players.length,
+        benchCount: team.bench.length,
+      };
+    }),
+  };
+});
 save('PR162-baseline-manifest.json', {
   ...baseline.manifest,
   completedMatches: baseline.completedMatches,
   expectedMatches: baseline.expectedMatches,
-  originalObservation: JSON.parse(
-    readFileSync(resolve(source, 'original-observation.json'), 'utf8'),
-  ),
+  fixtureOverviews,
+  originalObservation: observation,
 });
 const scenariosBefore = JSON.parse(
   readFileSync(resolve(source, 'scenarios-before-valid.json'), 'utf8'),
@@ -89,6 +171,42 @@ const scenariosBefore = JSON.parse(
 const scenariosAfter = JSON.parse(
   readFileSync(resolve(source, 'PR162-final-scenarios.json'), 'utf8'),
 );
+const controlledRowSchema = z.object({
+  scenario: z.string(),
+  seed: z.string(),
+  initial: z.object({
+    delay: z.number(),
+    physicalReadyAfter: z.number(),
+    opportunity: z.object({
+      category: z.string(),
+      distance: z.number(),
+      effectiveScoringExpectation: z.number(),
+    }),
+    ranking: z.array(z.object({ action: z.object({ type: z.string() }), score: z.number() })),
+  }),
+  final: z.object({ time: z.number(), shots: z.number(), passes: z.number() }),
+});
+const controlledRows = (value: unknown) =>
+  z
+    .object({ rows: z.array(controlledRowSchema) })
+    .parse(value)
+    .rows.map((row) => ({
+      scenario: row.scenario,
+      seed: row.seed,
+      delay: row.initial.delay,
+      physicalReadyAfter: row.initial.physicalReadyAfter,
+      opportunity: row.initial.opportunity,
+      highestRanked: row.initial.ranking[0],
+      final: row.final,
+    }));
+save('PR162-controlled-summary.json', {
+  baselineCommit: baseline.manifest.commit,
+  correctedCommit: pilot.manifest.commit,
+  methodology:
+    'Twenty-second windows; same explicit geometry and seeds. Rebound label shares the edge-box geometry. Initial ranking is a probe, not a selected canonical action.',
+  before: controlledRows(scenariosBefore),
+  after: controlledRows(scenariosAfter),
+});
 save('PR162-scenarios.json', {
   before: scenariosBefore,
   after: scenariosAfter,
@@ -274,7 +392,7 @@ report += table(
   ]),
 );
 report +=
-  '\nSamples are spaced ≥2 seconds and require a controlled owner with action cooldown ≤0. They are observations, not an exhaustive count of canonical decisions. An executable option may still have physical preparation cost.\n\n';
+  '\nSamples are spaced ≥2 seconds and require a controlled owner with action cooldown ≤0. They are observations, not an exhaustive count of canonical decisions. An executable option may still have physical preparation cost and can be a poor long-range shot. Zero first-ranked samples alone do not prove a selection defect.\n\n';
 report += '## 10. Matched controlled situations before / after\n\n';
 const beforeRows = scenariosBefore.rows as Array<{
     scenario: string;
@@ -304,6 +422,46 @@ report += table(
 );
 report +=
   '\nThese are 20-second scenarios, not full matches. edge_box and rebound share geometry; they are not six independent seeds.\n\n';
+report += '## 10b. Matched full native-club funnel before / after\n\n';
+const nativePairs = baseline.results
+  .filter((row) => row.formation === 'clubs' && row.finalStatus === 'full_time')
+  .map((before) => {
+    const after = clubs.results.find(
+      (row) => row.key === before.key && row.finalStatus === 'full_time',
+    );
+    if (!after || before.initialStateHash !== after.initialStateHash)
+      throw new Error('Native before/after initial state differs');
+    return { before, after };
+  });
+report += table(
+  [
+    'Seed',
+    'Anchor side',
+    'Club',
+    'Passes before/after',
+    'Final entries before/after',
+    'Box entries before/after',
+    'Canonical shots before/after',
+  ],
+  nativePairs.flatMap(({ before, after }) => {
+    const a = summarizeBenchmark({ ...baseline, results: [before], completedMatches: 1 });
+    const b = summarizeBenchmark({ ...clubs, results: [after], completedMatches: 1 });
+    return ['anchor', 'opponent'].map((role) => {
+      const old = a.metrics[0]![role as 'anchor' | 'opponent'],
+        current = b.metrics[0]![role as 'anchor' | 'opponent'];
+      return [
+        before.seed,
+        before.reversed ? 'away' : 'home',
+        role === 'anchor' ? 'Błękitni' : 'Górnik',
+        `${old.passes}/${current.passes}`,
+        `${old.finalEntries}/${current.finalEntries}`,
+        `${old.boxEntries}/${current.boxEntries}`,
+        `${old.shots}/${current.shots}`,
+      ];
+    });
+  }),
+);
+report += `\n${nativePairs.length} identical initial states reached the final whistle on both sources. Three censored baseline club matches are excluded from this matched full comparison. Controlled-entry definitions are unchanged; progressive completion and invalid V1 shot-stage conversions are not compared. More circulation and final entries do not establish a solved box/shot funnel.\n\n`;
 report += '## Conditional attacking conversions\n\n';
 const ratio = (numerator: number, denominator: number) =>
   denominator
@@ -375,7 +533,9 @@ report += table(
     r.status,
     `${r.anchor.goals}:${r.opponent.goals}`,
     `${r.anchor.shots}:${r.opponent.shots}`,
-    r.anchor.finalEntries - r.opponent.finalEntries,
+    r.anchor.finalEntries === null || r.opponent.finalEntries === null
+      ? '—'
+      : r.anchor.finalEntries - r.opponent.finalEntries,
   ]),
 );
 report += `\n## Coverage limitations\n\nMain coverage: ${main?.completedMatches ?? 0}/120 observed, ${summaries.main?.fullMatches ?? 0} full-time; no missing or censored result is extrapolated. Telemetry V1 baseline does not measure progressive completion or reception beyond the release-time line as V2/V3 do. V1/V2 shot-stage conditional conversions are discarded because settlement could close possession first; canonical shot totals remain valid. Do not treat absent counters as zeros. Pressure escape duration, all cross releases, defensive line clustering, opportunity expectation at every decision and substitutions by tactical job are not fully instrumented here; canonical traces/tests and workload totals support narrower conclusions.\n`;

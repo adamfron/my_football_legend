@@ -1,7 +1,9 @@
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import process from 'node:process';
 import console from 'node:console';
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -118,6 +120,7 @@ const comparisons = Object.keys(previousHashes).map((seed) => {
 const report = {
   experiment: 'PR162 complete telemetry reference (PR146 observer contract)',
   baselineCommit: '4d61ee8e0214bd230b27bbbc41a7b7024411afd8',
+  sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   ticks: 2400,
   fixedStepSeconds: 0.025,
   repetitionsPerSeedAndRevision: 2,
@@ -134,5 +137,32 @@ const report = {
   records,
 };
 const output = resolve(repo, 'docs/performance/PR162-telemetry-reference.json');
-writeFileSync(output, `${JSON.stringify(report, null, 2)}\n`);
+const archive = resolve(repo, '../PR162-evidence');
+mkdirSync(archive, { recursive: true });
+writeFileSync(
+  resolve(archive, 'PR162-telemetry-complete.json.gz'),
+  gzipSync(JSON.stringify(report) + '\n'),
+);
+const summaries = Object.fromEntries(
+  Object.entries(records).map(([revision, record]) => [
+    revision,
+    {
+      canonicalSourceHash: record.canonicalSourceHash,
+      outputs: record.outputs.map(({ seed, repetition, sha256 }) => ({ seed, repetition, sha256 })),
+    },
+  ]),
+);
+writeFileSync(
+  output,
+  `${JSON.stringify(
+    {
+      ...report,
+      records: summaries,
+      retention:
+        'All 80-field payloads were compared in full and retained in the local complete-evidence archive. Public evidence contains repeat hashes, field inventories and validation results.',
+    },
+    null,
+    2,
+  )}\n`,
+);
 console.log(output);

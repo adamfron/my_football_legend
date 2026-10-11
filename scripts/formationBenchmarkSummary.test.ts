@@ -3,8 +3,12 @@ import { describe, expect, it } from 'vitest';
 import {
   descriptive,
   joinBenchmarkSeedBlocks,
+  teamMetrics,
+  type BenchmarkResult,
   type BenchmarkFile,
 } from './formationBenchmarkSummary';
+import { createFormationBenchmarkMatch } from '../src/core/matchSimulation/benchmarkFixtures';
+import { AttackingFunnelTracker } from '../src/core/matchSimulation/attackingFunnel';
 
 describe('PR162 paired seed-block summaries', () => {
   it('retains every seed-block value and uses the small-sample interval', () => {
@@ -72,5 +76,47 @@ describe('PR162 paired seed-block summaries', () => {
     expect(() => joinBenchmarkSeedBlocks([a, b])).toThrow(
       'Incompatible immutable seed-block manifests',
     );
+  });
+  it('distinguishes observed zeros from counters absent in an older or disabled observer', () => {
+    const state = createFormationBenchmarkMatch({
+      opponent: '4-4-2',
+      seed: 'missing-observation',
+    }).state;
+    const row: BenchmarkResult = {
+      key: 'fixture',
+      formation: '4-4-2',
+      seed: state.seed,
+      reversed: false,
+      fixtureHash: 'fixture',
+      initialStateHash: 'initial',
+      stateHash: 'final',
+      finalStatus: 'full_time',
+      finalTime: 5400,
+      ticks: 216000,
+      wallMs: 1,
+      score: state.score,
+      statistics: state.statistics!,
+      funnel: null,
+      finalDiagnostics: {},
+    };
+    expect(teamMetrics(row, 'home')).toMatchObject({
+      shots: 0,
+      passCompletion: null,
+      controlled: null,
+      progressiveCompleted: null,
+      forwardLineGap: null,
+    });
+    row.funnel = new AttackingFunnelTracker().snapshot(0);
+    expect(teamMetrics(row, 'home')).toMatchObject({
+      controlled: 0,
+      progressiveCompleted: 0,
+      behindReleaseLine: 0,
+      forwardLineGap: null,
+    });
+    row.funnel.version = 1;
+    expect(teamMetrics(row, 'home')).toMatchObject({
+      progressiveCompleted: null,
+      behindReleaseLine: null,
+    });
   });
 });

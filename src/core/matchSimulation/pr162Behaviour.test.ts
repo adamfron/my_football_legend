@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { createFormationBenchmarkMatch } from './benchmarkFixtures';
-import { npcPossessionDecisionDelay } from './matchActions';
+import { npcPossessionDecisionDelay, resolveMatchAction } from './matchActions';
 import { deriveOnBallPreparation } from './onBallPreparation';
 import {
   deriveBuildUpSupport,
@@ -17,6 +17,8 @@ import { evaluatePassDecision } from './passDecision';
 import { resolveGroundPassClaim, groundPassClaimSchema } from './passClaimResolver';
 import { projectReceiverReadiness } from './receiverReadiness';
 import { resolveReceptionOutcome, receptionOutcomeSchema } from './passReception';
+import { tacticalMatchStateSchema } from './matchState';
+import { teamThreatMemorySchema } from './teamThreatMemory';
 
 const fixture = (formation: '4-4-2' | '4-3-3' = '4-4-2') => {
   const state = createFormationBenchmarkMatch({
@@ -43,6 +45,57 @@ const fixture = (formation: '4-4-2' | '4-3-3' = '4-4-2') => {
 };
 
 describe('PR162 causal football corrections', () => {
+  it.each([-0.0324, 68.0324])(
+    'retains a real near-line pass origin in tactical memory at y=%s',
+    (y) => {
+      const { state, carrier } = fixture();
+      carrier.position = { x: 45, y: y < 0 ? 0.3 : 67.7 };
+      const receiver = state.players.find((p) => p.team === 'home' && p.slotIndex === 6)!;
+      receiver.position = { x: 60, y: y < 0 ? 8 : 60 };
+      state.ball = { x: 45, y, height: 0.11, ownerId: carrier.id };
+      state.ballOwnershipStartedAt = state.time - 2;
+      state.onBallPreparation = deriveOnBallPreparation(
+        { ...state, time: state.time - 2 },
+        carrier,
+        'clean_control',
+      );
+      const origin = { x: state.ball.x, y: state.ball.y };
+      let next = resolveMatchAction(state, {
+        type: 'pass',
+        actorId: carrier.id,
+        receiverId: receiver.id,
+        target: receiver.position,
+        intent: 'support',
+      });
+      const passId = next.lastPassDiagnostic?.passId;
+      expect(next.ball.travelKind).toBe('pass');
+      expect(next.ball.from).toEqual(origin);
+      for (
+        let tick = 0;
+        tick < 240 &&
+        !next.teams.home.threatMemory?.recentSolutions.some((entry) => entry.id === passId);
+        tick++
+      )
+        next = stepTacticalMatchAfterDecisionProbe(next, FIXED_MATCH_DT);
+      const entry = next.teams.home.threatMemory?.recentSolutions.find(
+        (candidate) => candidate.id === passId,
+      );
+      expect(entry?.origin).toEqual(origin);
+      expect(entry?.outcome).toBeDefined();
+      expect(teamThreatMemorySchema.safeParse(next.teams.home.threatMemory).success).toBe(true);
+      expect(tacticalMatchStateSchema.safeParse(next).success).toBe(true);
+      expect(
+        teamThreatMemorySchema.safeParse({ ...next.teams.home.threatMemory, controlOrigin: origin })
+          .success,
+      ).toBe(true);
+      expect(
+        teamThreatMemorySchema.safeParse({
+          ...next.teams.home.threatMemory,
+          controlOrigin: { x: Infinity, y },
+        }).success,
+      ).toBe(false);
+    },
+  );
   it('preserves a partly beyond-line physical ground-pass contact coordinate', () => {
     const { state } = fixture();
     const point = { x: 45, y: -0.0324 };
