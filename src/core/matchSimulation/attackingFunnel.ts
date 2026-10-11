@@ -8,7 +8,7 @@ import { rankAvailableActionsForAI, npcPossessionDecisionDelay } from './matchAc
 import { canExecuteCanonicalShot } from './shootingOptions';
 import { normalizeAngle } from './playerOrientation';
 
-export const FUNNEL_VERSION = 2;
+export const FUNNEL_VERSION = 3;
 const countMap = z.record(z.string(), z.number().nonnegative().finite());
 export const funnelTeamSchema = z.object({
   possessions: z.number().int().nonnegative(),
@@ -216,6 +216,24 @@ export class AttackingFunnelTracker {
   }
   observe(previous: TacticalMatchState, next: TacticalMatchState) {
     const dt = Math.max(0, next.time - previous.time);
+    // A launch clears ownership; its eventual goal/save can also close the sequence.
+    // Attribute the canonical release before either transition, not at lastShot settlement.
+    for (const shot of [next.ball.shot, next.lastShot]) {
+      if (!shot) continue;
+      const shooter = [...next.players, ...(next.departedPlayers ?? [])].find(
+        (p) => p.id === shot.shooterId,
+      );
+      if (!shooter) continue;
+      const totals = this.totals[shooter.team];
+      if (this.once(`shot:${shot.shotId}`)) {
+        bump(totals.events, 'shot_release');
+        if (this.active?.side === shooter.team) this.stage('shot');
+      }
+      if (shot.outcome && this.once(`shot-outcome:${shot.shotId}`)) {
+        bump(totals.events, `shot_${shot.outcome}`);
+        if (shot.reboundSource) bump(totals.events, `rebound_${shot.reboundSource}`);
+      }
+    }
     const stopped =
       isRestartSetup(next) ||
       Boolean(next.postGoal) ||
@@ -298,7 +316,15 @@ export class AttackingFunnelTracker {
             this.probes.executable(next, action),
         );
         if (executable.length) this.stage('sampled_executable_shot');
-        if (ranking[0]?.action.type === 'shot') this.stage('sampled_shot_ranked_first');
+        const first = ranking[0]?.action;
+        if (
+          first?.type === 'shot' ||
+          (first?.type === 'header' && first.intent === 'header_shot')
+        ) {
+          this.stage('sampled_shot_ranked_first');
+          if (this.probes.executable(next, first))
+            this.stage('sampled_executable_shot_ranked_first');
+        }
         bump(this.totals[actor.team].events, 'sampled_shot_candidates', shots.length);
         for (const { action } of ranking)
           if (action.type === 'pass') {
@@ -400,16 +426,6 @@ export class AttackingFunnelTracker {
             bump(t.events, 'received_behind_release_line');
         }
         this.passOrigins.delete(pass.passId);
-      }
-    }
-    const shot = next.lastShot;
-    if (shot && this.once(`shot:${shot.shotId}`)) {
-      const shooter = [...next.players, ...(next.departedPlayers ?? [])].find(
-        (p) => p.id === shot.shooterId,
-      );
-      if (shooter) {
-        bump(this.totals[shooter.team].events, 'shot_release');
-        if (this.active?.side === shooter.team) this.stage('shot');
       }
     }
     if (next.lastChallenge && this.once(`challenge:${next.lastChallenge.id}`)) {
@@ -515,7 +531,7 @@ export class AttackingFunnelTracker {
               shot_after_final: rate(t.stages.shot_after_final ?? 0, t.stages.final_entry ?? 0),
               shot_after_box: rate(t.stages.shot_after_box ?? 0, t.stages.box_entry ?? 0),
               sampled_shot_ranked_when_executable: rate(
-                t.events.sampled_shot_ranked_first ?? 0,
+                t.events.sampled_executable_shot_ranked_first ?? 0,
                 t.events.sampled_executable_shot ?? 0,
               ),
             },

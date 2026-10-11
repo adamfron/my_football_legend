@@ -6,6 +6,7 @@ import {
 } from './benchmarkFixtures';
 import { AttackingFunnelTracker } from './attackingFunnel';
 import { FIXED_MATCH_DT, stepTacticalMatchAfterDecisionProbe } from './matchSimulation';
+import { shotDiagnosticSchema } from './matchState';
 
 describe('PR162 benchmark contracts', () => {
   it('constructs every legal native XI with equal attributes, auxiliaries and genuine bench identities', () => {
@@ -106,5 +107,91 @@ describe('PR162 benchmark contracts', () => {
     const loose = { ...state, ball: { x: 90, y: 34 }, time: 1 };
     tracker.observe(state, loose);
     expect(tracker.snapshot(1).teams.home.possessions).toBe(0);
+  });
+  it('counts a physical release before its later goal closes possession, without double counting the outcome', () => {
+    const initial = createFormationBenchmarkMatch({ opponent: '4-4-2', seed: 'shot-stage' }).state;
+    initial.actionCooldown = 100;
+    const tracker = new AttackingFunnelTracker({
+      ranking: () => [],
+      opportunity: () => ({ category: 'non_viable' }) as never,
+      executable: () => false,
+      delay: () => 0,
+    });
+    const middle = { ...initial, time: 1, ball: { ...initial.ball, x: 50, y: 34 } };
+    const box = { ...initial, time: 2, ball: { ...initial.ball, x: 90, y: 34 } };
+    tracker.observe(initial, middle);
+    tracker.observe(middle, box);
+    const shot = shotDiagnosticSchema.parse({
+      shotId: 'physical-release',
+      shooterId: box.ball.ownerId,
+      releasedAt: 2.025,
+      context: 'open_play',
+      distance: 15,
+      angle: 1,
+      pressure: 0,
+      blockingDefenders: 0,
+      baseXg: 0.5,
+      effectiveScoringExpectation: 0.5,
+      shooterExecutionQuality: 0.5,
+      intendedTarget: { horizontal: 0, vertical: 1 },
+      actualTarget: { horizontal: 0, vertical: 1 },
+      error: { horizontal: 0, vertical: 0 },
+      speed: 20,
+      classification: 'on_target',
+    });
+    const release = { ...box, time: 2.025, ball: { x: 90, y: 34, shot } };
+    tracker.observe(box, release);
+    expect(tracker.snapshot(2.025).teams.home.events.shot_release).toBe(1);
+    const goal = {
+      ...release,
+      time: 3,
+      lastShot: { ...shot, outcome: 'goal' as const },
+      ball: { x: 105, y: 34 },
+      postGoal: {
+        goalId: 'goal',
+        scoringTeam: 'home' as const,
+        kickoffTeam: 'away' as const,
+        startedAt: 3,
+        urgent: false,
+        retrieverId: shot.shooterId,
+        reactionUntil: 4,
+        targets: {},
+      },
+    };
+    tracker.observe(release, goal);
+    tracker.observe(goal, { ...goal, time: 4 });
+    const totals = tracker.snapshot(4).teams.home;
+    expect(totals.events.shot_release).toBe(1);
+    expect(totals.stages.shot).toBe(1);
+    expect(totals.conversions.shot_after_final).toBe(1);
+    expect(totals.conversions.shot_after_box).toBe(1);
+  });
+  it('attributes a release resolved in the same step before a stoppage closes the attacking sequence', () => {
+    const initial = createFormationBenchmarkMatch({
+      opponent: '4-4-2',
+      seed: 'instant-shot',
+    }).state;
+    initial.actionCooldown = 100;
+    const tracker = new AttackingFunnelTracker({
+      ranking: () => [],
+      opportunity: () => ({ category: 'non_viable' }) as never,
+      executable: () => false,
+      delay: () => 0,
+    });
+    const entry = { ...initial, time: 1, ball: { ...initial.ball, x: 50, y: 34 } };
+    const final = { ...entry, time: 2, ball: { ...entry.ball, x: 75 } };
+    tracker.observe(initial, entry);
+    tracker.observe(entry, final);
+    const stopped = {
+      ...final,
+      time: 3,
+      status: 'half_time' as const,
+      lastShot: { shotId: 'instant', shooterId: final.ball.ownerId! } as NonNullable<
+        typeof final.lastShot
+      >,
+      ball: { x: 105, y: 34 },
+    };
+    tracker.observe(final, stopped);
+    expect(tracker.snapshot(3).teams.home.conversions.shot_after_final).toBe(1);
   });
 });

@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { execFileSync } from 'node:child_process';
 import { createFormationBenchmarkSession } from '../src/core/matchSimulation/benchmarkFixtures';
 const args = new Map(
   process.argv.slice(2).map((arg) => {
@@ -198,7 +199,10 @@ mkdirSync(dirname(out), { recursive: true });
 writeFileSync(
   out,
   JSON.stringify({
-    engineRoot: root,
+    sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], {
+      cwd: root,
+      encoding: 'utf8',
+    }).trim(),
     methodology:
       'Explicit frozen tactical setups; subsequent 800 ticks use only canonical physics. Rebound is an unforced shot setup and may not produce a save or second shot. No injected success.',
     rows,
