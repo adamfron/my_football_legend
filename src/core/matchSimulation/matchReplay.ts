@@ -20,6 +20,7 @@ import { onBallPreparationSchema } from './onBallPreparation';
 import { teamSideSchema, physicalPointSchema } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 import { matchEventSchema, matchEventKindSchema } from './matchEventFeed';
+import { offsideSnapshotSchema } from './offside';
 
 export const REPLAY_SAMPLE_SECONDS = 0.2;
 export const REPLAY_ROLLING_SECONDS = 12;
@@ -29,6 +30,7 @@ export const REPLAY_AFTER_SECONDS = 3;
 export const REPLAY_MAX_WINDOWS = 8;
 export const REPLAY_MAX_WINDOW_SAMPLES = 144;
 export const replaySnapshotSchema = z.object({
+  offside: offsideSnapshotSchema.optional(),
   timestampMs: z.number().nonnegative(),
   continuity: z.string(),
   ballContinuity: z.string().optional(),
@@ -95,6 +97,7 @@ export const replayEventSchema = matchEventSchema.extend({
 });
 export type ReplayEvent = z.infer<typeof replayEventSchema>;
 export const matchReplayWindowSchema = z.object({
+  offsideFrame: replaySnapshotSchema.optional(),
   event: replayEventSchema,
   frames: z.array(replaySnapshotSchema).max(REPLAY_MAX_WINDOW_SAMPLES),
   complete: z.boolean(),
@@ -224,9 +227,20 @@ export class MatchReplayHistory {
   private previous: TacticalMatchState | undefined;
   private actionSequence = -1;
   private releaseCues = new Map<string, ReleasePresentation>();
+  private offsideReleaseFrame?: ReplaySnapshot;
   observe(state: TacticalMatchState) {
     if (state.seed !== this.seed || state.time < this.lastTime) this.reset(state.seed);
     const previous = this.previous;
+    // Keep the actual pass/contact frame; later player positions cannot adjudicate this pass.
+    if (
+      state.offsideSnapshot &&
+      state.offsideSnapshot.releasedAt === state.time &&
+      state.offsideSnapshot.releasedAt * 1000 !== this.offsideReleaseFrame?.timestampMs
+    )
+      this.offsideReleaseFrame = {
+        ...captureReplaySnapshot(state, this.continuity, previous, true),
+        offside: structuredClone(state.offsideSnapshot),
+      };
     this.lastTime = state.time;
     const events = state.matchEvents ?? [];
     const fresh: ReplayEvent[] = events.slice(this.eventCount);
@@ -375,6 +389,10 @@ export class MatchReplayHistory {
       )
         continue;
       this.windows.set(event.replayKey, {
+        ...(event.kind === 'offside' &&
+        this.offsideReleaseFrame?.offside?.releasedAt === state.lastOffsideOffence?.releasedAt
+          ? { offsideFrame: structuredClone(this.offsideReleaseFrame) }
+          : {}),
         event: structuredClone(event),
         frames,
         complete: terminal || state.time >= event.at + REPLAY_AFTER_SECONDS,
@@ -409,7 +427,14 @@ export class MatchReplayHistory {
       }));
   }
   snapshot() {
-    const retained = [...this.rolling, ...[...this.windows.values()].flatMap((w) => w.frames)];
+    const retained = [
+      ...this.rolling,
+      ...(this.offsideReleaseFrame ? [this.offsideReleaseFrame] : []),
+      ...[...this.windows.values()].flatMap((w) => [
+        ...w.frames,
+        ...(w.offsideFrame ? [w.offsideFrame] : []),
+      ]),
+    ];
     const unique = new Set(retained);
     return {
       rollingSamples: this.rolling.length,
@@ -432,5 +457,6 @@ export class MatchReplayHistory {
     this.previous = undefined;
     this.actionSequence = -1;
     this.releaseCues.clear();
+    delete this.offsideReleaseFrame;
   }
 }

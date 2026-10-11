@@ -6,7 +6,7 @@ import { resolveRegularSeasonEvent } from '../core/events/regularSeasonEvents';
 import { advanceCareerFlow } from '../core/careerFlow';
 import { createCareerState, generateStartingPlayerProfile } from '../core/playerCreator';
 import type { CareerState, ProfessionalOffer } from '../types/domain';
-import { CareerWeekGame, EventCard, SeasonEndSummary } from './App';
+import { CareerWeekGame, EventCard, SeasonEndSummary } from './CareerApp';
 import { SeasonView } from './career/SeasonView';
 import { CareerView } from './career/CareerView';
 import { scheduleEvent } from '../core/careerCalendar';

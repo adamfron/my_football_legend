@@ -1,0 +1,233 @@
+{
+  "baselineCommit": "f812e961ff84ce67c551a655d7918a21e9839b1d",
+  "measuredAt": "2026-10-11",
+  "runtime": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "browser": "153.0.4234.32"
+  },
+  "sourceFingerprint": "3e49a1a2f76907231b7d090cdd4b9e2fbd370bf8e4bd849e217d3a409cef8751",
+  "sourceFingerprintPolicy": "SHA256 of sorted source/config path and SHA256(LF-normalized UTF8 content); docs and generated artifacts excluded",
+  "sourceFileCount": 561,
+  "commands": [
+    {
+      "command": "npm run verify",
+      "exitCode": 0,
+      "mainTests": 1553,
+      "mainFiles": 187,
+      "matchIntegrationTests": 31,
+      "contractTests": 2,
+      "careerTests": 5,
+      "totalTests": 1591,
+      "lint": "PASS",
+      "typescript": "PASS",
+      "productionBuild": "PASS",
+      "mainWorkers": 2
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "note": "Follow-up on final browser fixture and creator storage-error guard"
+    },
+    {
+      "command": "vitest run src/app/App.test.tsx src/app/careerSeasonRendering.test.tsx src/persistence/pr164StorageIntegrity.test.ts --maxWorkers=1",
+      "exitCode": 0,
+      "tests": 26
+    },
+    {
+      "command": "node scripts/benchmarkPr164Browser.mjs ../baseline-dist",
+      "exitCode": 0,
+      "scenarios": 12,
+      "pageErrors": 0,
+      "lifecycle": {
+        "detachedOnCareerReturn": true
+      },
+      "storage": {
+        "bytes": 91810,
+        "writeMs": 1.0999999046325684,
+        "readMs": 1,
+        "roundTrip": true,
+        "abortedWritePreserved": true,
+        "legacyRemoved": true,
+        "deniedStorageKeptCreator": true
+      }
+    },
+    {
+      "command": "npm run benchmark:startup-storage",
+      "exitCode": 0,
+      "completedSeasons": [0, 1, 5, 10, 20],
+      "path": "existing calendar/summary simulation, not twenty canonical-engine seasons"
+    },
+    {
+      "command": "npm run benchmark:pass-tempo",
+      "exitCode": 0,
+      "attempts": 120,
+      "completed": 115
+    }
+  ],
+  "earlierAttempt": "Unrestricted parallel verify interrupted after timeout failures and obsolete PR159 menu count. Focused parity reruns passed; final main suite uses two workers without increasing existing timeouts.",
+  "originalExports": {
+    "lab-mv3zlmht": "unavailable; equivalent regression fixture",
+    "lab-mv40xcii": "unavailable; controlled tempo fixtures"
+  },
+  "logSha256": "1be1c5d209c620cd6f64d7b7c2d225b031e94a2edc10522ba64c4a615dd6af53",
+  "browserArtifactsMatchFinalVerifyBuild": true,
+  "artifact": [
+    {
+      "path": "assets/App-BZcExH8B.js",
+      "raw": 17613,
+      "gzip": 6415,
+      "brotli": 5691,
+      "sha256": "5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06"
+    },
+    {
+      "path": "assets/App-SDzukxDC.css",
+      "raw": 27267,
+      "gzip": 6867,
+      "brotli": 6081,
+      "sha256": "1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2"
+    },
+    {
+      "path": "assets/CareerApp-DKjzv1zm.js",
+      "raw": 115445,
+      "gzip": 36193,
+      "brotli": 31781,
+      "sha256": "642034d75441cf39f472108c0180b20a7889f61e75deaf4ace3bac323fa7df41"
+    },
+    {
+      "path": "assets/devTools-CWLjknqM.js",
+      "raw": 196494,
+      "gzip": 59428,
+      "brotli": 51077,
+      "sha256": "c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d"
+    },
+    {
+      "path": "assets/index-B-dXY9W-.js",
+      "raw": 180970,
+      "gzip": 56810,
+      "brotli": 49337,
+      "sha256": "a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a"
+    },
+    {
+      "path": "assets/index-B0GGk5Ld.css",
+      "raw": 468,
+      "gzip": 309,
+      "brotli": 224,
+      "sha256": "8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4"
+    },
+    {
+      "path": "assets/matchEngine-CH5ykBFq.js",
+      "raw": 31131,
+      "gzip": 11440,
+      "brotli": 10245,
+      "sha256": "5ccf6a9323785055842f8cb2d45e7dfe4eb7ac3b0c097dc7ce45465134fd0bbf"
+    },
+    {
+      "path": "assets/MatchGame-Bc2yvS7j.js",
+      "raw": 7016,
+      "gzip": 2712,
+      "brotli": 2472,
+      "sha256": "64e78d9df507a484bea924018381071d32f88a540f423d3817dc179e0240708c"
+    },
+    {
+      "path": "assets/positionPresentation-D2oCnQgD.js",
+      "raw": 5279,
+      "gzip": 2380,
+      "brotli": 2149,
+      "sha256": "fd4b9a13bb97d2921274e70883355f04128b60845be60f4c4234babaf60e1c1b"
+    },
+    {
+      "path": "assets/react-B3l9tXpq.js",
+      "raw": 7555,
+      "gzip": 2888,
+      "brotli": 2587,
+      "sha256": "864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31"
+    },
+    {
+      "path": "assets/TacticalMatchSandbox-BVAquBgQ.js",
+      "raw": 1146791,
+      "gzip": 311849,
+      "brotli": 254767,
+      "sha256": "abf508589315a3904aff189ee43fa071a979d941095d489a749997af745a72d2"
+    },
+    {
+      "path": "assets/TacticalMatchSandbox-D-pepOZp.css",
+      "raw": 9323,
+      "gzip": 2662,
+      "brotli": 2302,
+      "sha256": "428005b309a14dfac59e573e9ec9e8158159c8f4c1f2876ce245fd934069b667"
+    },
+    {
+      "path": "data/world/pl-2026-v2.json",
+      "raw": 3279949,
+      "gzip": 330027,
+      "brotli": 191940,
+      "sha256": "e56faae7bd70af244ec1e4d78441790f161a91fb31bcd15fd4a20ed2a9953bcd"
+    },
+    {
+      "path": "index.html",
+      "raw": 568,
+      "gzip": 232,
+      "brotli": 160,
+      "sha256": "ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed"
+    }
+  ],
+  "baselineArtifact": [
+    {
+      "path": "assets/index-CJ68l6Nf.css",
+      "raw": 37056,
+      "gzip": 8882,
+      "brotli": 7923,
+      "sha256": "f6d2ee879e75d715d250305d84b7cff0ae2839b7a45a797e41929ed0bbfe6481"
+    },
+    {
+      "path": "assets/index-DEuI6C29.js",
+      "raw": 1697893,
+      "gzip": 480927,
+      "brotli": 393093,
+      "sha256": "68e8b4d4cecf3ca6186dde39195cb05ab80ae949c30a1f44b3e24362943d3fa3"
+    },
+    {
+      "path": "data/world/pl-2026-v2.json",
+      "raw": 3279949,
+      "gzip": 330027,
+      "brotli": 191940,
+      "sha256": "e56faae7bd70af244ec1e4d78441790f161a91fb31bcd15fd4a20ed2a9953bcd"
+    },
+    {
+      "path": "index.html",
+      "raw": 207,
+      "gzip": 163,
+      "brotli": 100,
+      "sha256": "505f1ef491cf155f4ee81cae0f620d536cab46886f4422c2385716b85a3fbd60"
+    }
+  ],
+  "receipts": [
+    {
+      "file": "PR164-browser.json",
+      "sha256": "a23b12cccf7916d7bd3a4419bd811c2317e42865952bd529dccb3bd4b9723929",
+      "bytes": 70242
+    },
+    {
+      "file": "PR164-passing.json",
+      "sha256": "c9d7c1a1cc923207628fc12b0c79ee6bca65129de2074b47f655745ef3e72495",
+      "bytes": 204692
+    },
+    {
+      "file": "PR164-storage-world.json",
+      "sha256": "d6e6f7f20cfac14e1c04be82749c6ea8598afc567aebb674b66306f36ead996e",
+      "bytes": 9671
+    },
+    {
+      "file": "PR164-contract.json",
+      "sha256": "cefcc374f671b2d429e49d52f537b098ba74a383ec15c2253f57cefbfda8d4d3",
+      "bytes": 9268
+    }
+  ],
+  "limits": [
+    "Deferred renderer chunk remains >500kB",
+    "Sparse shots/prediction calibration/equal-4-4-2 identity asymmetry remain open",
+    "Native career UI wiring and rich-result seasonal retention remain PR166 work",
+    "Controlled HTTP host, not a published deployment or FPS proof"
+  ]
+}

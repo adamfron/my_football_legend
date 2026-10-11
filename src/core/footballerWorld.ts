@@ -26,7 +26,7 @@ export type FootballerSelectionWorld = Pick<CareerState, 'footballerWorld'> &
   Partial<Pick<CareerState, 'player' | 'worldDelta' | 'currentDate'>>;
 export interface FormationSlot {
   position: PlayerPosition;
-  duty?: TacticalDuty;
+  duty?: TacticalDuty | undefined;
   x: number;
   y: number;
 }

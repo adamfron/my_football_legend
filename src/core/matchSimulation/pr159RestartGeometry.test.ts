@@ -216,9 +216,19 @@ describe('PR159 canonical restart presentation', () => {
         action,
       })),
     };
+    const goalChoices = projectContextualInteractions(state, opportunity, {
+      kind: 'goal',
+      side: 'away',
+      aim: { horizontal: 0, vertical: 0.45 },
+    });
+    expect(goalChoices.map((choice) => choice.labelKey)).toEqual(
+      expect.arrayContaining(['placed_shot', 'free_kick_controlled_curl', 'free_kick_dipping']),
+    );
     expect(
-      projectContextualInteractions(state, opportunity, { kind: 'goal', side: 'away' }),
-    ).toHaveLength(3);
+      goalChoices.every(
+        (choice) => choice.resolution.kind === 'action' && choice.resolution.action.type === 'shot',
+      ),
+    ).toBe(true);
     for (const action of actions.filter(
       (candidate) => candidate.type === 'cross' || candidate.type === 'space_pass',
     )) {

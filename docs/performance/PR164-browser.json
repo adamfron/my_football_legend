@@ -1,0 +1,1972 @@
+{
+  "browser": "153.0.4234.32",
+  "server": "loopback HTTP, precompressed br quality11/gzip9; immutable hash assets, revalidated HTML/world; no service worker; bytes include HTTP response headers from CDP loadingFinished",
+  "artifact": {
+    "baseline": [
+      {
+        "path": "assets/index-CJ68l6Nf.css",
+        "raw": 37056,
+        "gzip": 8882,
+        "brotli": 7923
+      },
+      {
+        "path": "assets/index-DEuI6C29.js",
+        "raw": 1697893,
+        "gzip": 480927,
+        "brotli": 393093
+      },
+      {
+        "path": "data/world/pl-2026-v2.json",
+        "raw": 3279949,
+        "gzip": 330027,
+        "brotli": 191940
+      },
+      {
+        "path": "index.html",
+        "raw": 207,
+        "gzip": 163,
+        "brotli": 100
+      }
+    ],
+    "current": [
+      {
+        "path": "assets/App-BZcExH8B.js",
+        "raw": 17613,
+        "gzip": 6415,
+        "brotli": 5691
+      },
+      {
+        "path": "assets/App-SDzukxDC.css",
+        "raw": 27267,
+        "gzip": 6867,
+        "brotli": 6081
+      },
+      {
+        "path": "assets/CareerApp-DKjzv1zm.js",
+        "raw": 115445,
+        "gzip": 36193,
+        "brotli": 31781
+      },
+      {
+        "path": "assets/devTools-CWLjknqM.js",
+        "raw": 196494,
+        "gzip": 59428,
+        "brotli": 51077
+      },
+      {
+        "path": "assets/index-B-dXY9W-.js",
+        "raw": 180970,
+        "gzip": 56810,
+        "brotli": 49337
+      },
+      {
+        "path": "assets/index-B0GGk5Ld.css",
+        "raw": 468,
+        "gzip": 309,
+        "brotli": 224
+      },
+      {
+        "path": "assets/matchEngine-CH5ykBFq.js",
+        "raw": 31131,
+        "gzip": 11440,
+        "brotli": 10245
+      },
+      {
+        "path": "assets/MatchGame-Bc2yvS7j.js",
+        "raw": 7016,
+        "gzip": 2712,
+        "brotli": 2472
+      },
+      {
+        "path": "assets/positionPresentation-D2oCnQgD.js",
+        "raw": 5279,
+        "gzip": 2380,
+        "brotli": 2149
+      },
+      {
+        "path": "assets/react-B3l9tXpq.js",
+        "raw": 7555,
+        "gzip": 2888,
+        "brotli": 2587
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-BVAquBgQ.js",
+        "raw": 1146791,
+        "gzip": 311849,
+        "brotli": 254767
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-D-pepOZp.css",
+        "raw": 9323,
+        "gzip": 2662,
+        "brotli": 2302
+      },
+      {
+        "path": "data/world/pl-2026-v2.json",
+        "raw": 3279949,
+        "gzip": 330027,
+        "brotli": 191940
+      },
+      {
+        "path": "index.html",
+        "raw": 568,
+        "gzip": 232,
+        "brotli": 160
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "baseline-cold",
+      "elapsedMs": 679,
+      "requests": [
+        {
+          "url": "/my_football_legend/",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Connection": "keep-alive",
+            "Content-Encoding": "br",
+            "Content-Length": "100",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "ETag": "\"505f1ef491cf155f4ee81cae0f620d536cab46886f4422c2385716b85a3fbd60\"",
+            "Keep-Alive": "timeout=5",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 419
+        },
+        {
+          "url": "/my_football_legend/assets/index-CJ68l6Nf.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"f6d2ee879e75d715d250305d84b7cff0ae2839b7a45a797e41929ed0bbfe6481\"",
+            "Connection": "keep-alive",
+            "Content-Length": "7923",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 8243
+        },
+        {
+          "url": "/my_football_legend/assets/index-DEuI6C29.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"68e8b4d4cecf3ca6186dde39195cb05ab80ae949c30a1f44b3e24362943d3fa3\"",
+            "Connection": "keep-alive",
+            "Content-Length": "393093",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 393422
+        }
+      ],
+      "transferredBytes": 402084,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-DEuI6C29.js",
+          "transferSize": 393393,
+          "encodedBodySize": 393093,
+          "decodedBodySize": 1697893
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-CJ68l6Nf.css",
+          "transferSize": 8223,
+          "encodedBodySize": 7923,
+          "decodedBodySize": 37056
+        },
+        {
+          "name": "http://127.0.0.1:56987/favicon.ico",
+          "transferSize": 300,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "return-after-deployment",
+      "elapsedMs": 551,
+      "requests": [
+        {
+          "url": "/my_football_legend/",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Connection": "keep-alive",
+            "Content-Encoding": "br",
+            "Content-Length": "160",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "ETag": "\"ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed\"",
+            "Keep-Alive": "timeout=5",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 479
+        },
+        {
+          "url": "/my_football_legend/assets/App-SDzukxDC.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "6081",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 6401
+        },
+        {
+          "url": "/my_football_legend/assets/index-B0GGk5Ld.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4\"",
+            "Connection": "keep-alive",
+            "Content-Length": "224",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 543
+        },
+        {
+          "url": "/my_football_legend/assets/react-B3l9tXpq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2587",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 2914
+        },
+        {
+          "url": "/my_football_legend/assets/App-BZcExH8B.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06\"",
+            "Connection": "keep-alive",
+            "Content-Length": "5691",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 6018
+        },
+        {
+          "url": "/my_football_legend/assets/index-B-dXY9W-.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a\"",
+            "Connection": "keep-alive",
+            "Content-Length": "49337",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 49665
+        },
+        {
+          "url": "/my_football_legend/assets/devTools-CWLjknqM.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d\"",
+            "Connection": "keep-alive",
+            "Content-Length": "51077",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:38 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 51405
+        }
+      ],
+      "transferredBytes": 117425,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B-dXY9W-.js",
+          "transferSize": 49637,
+          "encodedBodySize": 49337,
+          "decodedBodySize": 180970
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/react-B3l9tXpq.js",
+          "transferSize": 2887,
+          "encodedBodySize": 2587,
+          "decodedBodySize": 7555
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-BZcExH8B.js",
+          "transferSize": 5991,
+          "encodedBodySize": 5691,
+          "decodedBodySize": 17613
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/devTools-CWLjknqM.js",
+          "transferSize": 51377,
+          "encodedBodySize": 51077,
+          "decodedBodySize": 196494
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-SDzukxDC.css",
+          "transferSize": 6381,
+          "encodedBodySize": 6081,
+          "decodedBodySize": 27267
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B0GGk5Ld.css",
+          "transferSize": 524,
+          "encodedBodySize": 224,
+          "decodedBodySize": 468
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "cold-start",
+      "elapsedMs": 550,
+      "requests": [
+        {
+          "url": "/my_football_legend/",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Connection": "keep-alive",
+            "Content-Encoding": "br",
+            "Content-Length": "160",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "ETag": "\"ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed\"",
+            "Keep-Alive": "timeout=5",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 479
+        },
+        {
+          "url": "/my_football_legend/assets/App-SDzukxDC.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "6081",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 6401
+        },
+        {
+          "url": "/my_football_legend/assets/index-B0GGk5Ld.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4\"",
+            "Connection": "keep-alive",
+            "Content-Length": "224",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 543
+        },
+        {
+          "url": "/my_football_legend/assets/react-B3l9tXpq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2587",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 2914
+        },
+        {
+          "url": "/my_football_legend/assets/App-BZcExH8B.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06\"",
+            "Connection": "keep-alive",
+            "Content-Length": "5691",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 6018
+        },
+        {
+          "url": "/my_football_legend/assets/index-B-dXY9W-.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a\"",
+            "Connection": "keep-alive",
+            "Content-Length": "49337",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 49665
+        },
+        {
+          "url": "/my_football_legend/assets/devTools-CWLjknqM.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d\"",
+            "Connection": "keep-alive",
+            "Content-Length": "51077",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 51405
+        }
+      ],
+      "transferredBytes": 117425,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B-dXY9W-.js",
+          "transferSize": 49637,
+          "encodedBodySize": 49337,
+          "decodedBodySize": 180970
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/react-B3l9tXpq.js",
+          "transferSize": 2887,
+          "encodedBodySize": 2587,
+          "decodedBodySize": 7555
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-BZcExH8B.js",
+          "transferSize": 5991,
+          "encodedBodySize": 5691,
+          "decodedBodySize": 17613
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/devTools-CWLjknqM.js",
+          "transferSize": 51377,
+          "encodedBodySize": 51077,
+          "decodedBodySize": 196494
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-SDzukxDC.css",
+          "transferSize": 6381,
+          "encodedBodySize": 6081,
+          "decodedBodySize": 27267
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B0GGk5Ld.css",
+          "transferSize": 524,
+          "encodedBodySize": 224,
+          "decodedBodySize": 468
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "warm-start",
+      "elapsedMs": 540,
+      "requests": [
+        {
+          "url": "/my_football_legend/assets/index-B-dXY9W-.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a\"",
+            "Connection": "keep-alive",
+            "Content-Length": "49337",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/react-B3l9tXpq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2587",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/devTools-CWLjknqM.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d\"",
+            "Connection": "keep-alive",
+            "Content-Length": "51077",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-BZcExH8B.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06\"",
+            "Connection": "keep-alive",
+            "Content-Length": "5691",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-SDzukxDC.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "6081",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/index-B0GGk5Ld.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4\"",
+            "Connection": "keep-alive",
+            "Content-Length": "224",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "Content-Length": "160",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "ETag": "\"ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed\"",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 308
+        }
+      ],
+      "transferredBytes": 308,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B-dXY9W-.js",
+          "transferSize": 0,
+          "encodedBodySize": 49337,
+          "decodedBodySize": 180970
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/react-B3l9tXpq.js",
+          "transferSize": 0,
+          "encodedBodySize": 2587,
+          "decodedBodySize": 7555
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/devTools-CWLjknqM.js",
+          "transferSize": 0,
+          "encodedBodySize": 51077,
+          "decodedBodySize": 196494
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-BZcExH8B.js",
+          "transferSize": 0,
+          "encodedBodySize": 5691,
+          "decodedBodySize": 17613
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-SDzukxDC.css",
+          "transferSize": 0,
+          "encodedBodySize": 6081,
+          "decodedBodySize": 27267
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B0GGk5Ld.css",
+          "transferSize": 0,
+          "encodedBodySize": 224,
+          "decodedBodySize": 468
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "first-career",
+      "elapsedMs": 612,
+      "requests": [
+        {
+          "url": "/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"fd4b9a13bb97d2921274e70883355f04128b60845be60f4c4234babaf60e1c1b\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2149",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 2476
+        },
+        {
+          "url": "/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5ccf6a9323785055842f8cb2d45e7dfe4eb7ac3b0c097dc7ce45465134fd0bbf\"",
+            "Connection": "keep-alive",
+            "Content-Length": "10245",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 10573
+        },
+        {
+          "url": "/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"642034d75441cf39f472108c0180b20a7889f61e75deaf4ace3bac323fa7df41\"",
+            "Connection": "keep-alive",
+            "Content-Length": "31781",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 32109
+        },
+        {
+          "url": "/my_football_legend/data/world/pl-2026-v2.json",
+          "status": 200,
+          "mime": "application/json",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "ETag": "\"e56faae7bd70af244ec1e4d78441790f161a91fb31bcd15fd4a20ed2a9953bcd\"",
+            "Connection": "keep-alive",
+            "Content-Length": "191940",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:41 GMT",
+            "Content-Type": "application/json",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 192269
+        }
+      ],
+      "transferredBytes": 237427,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "transferSize": 32081,
+          "encodedBodySize": 31781,
+          "decodedBodySize": 115445
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "transferSize": 2449,
+          "encodedBodySize": 2149,
+          "decodedBodySize": 5279
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "transferSize": 10545,
+          "encodedBodySize": 10245,
+          "decodedBodySize": 31131
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/data/world/pl-2026-v2.json",
+          "transferSize": 192240,
+          "encodedBodySize": 191940,
+          "decodedBodySize": 3279949
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "resume-career",
+      "elapsedMs": 1023,
+      "requests": [
+        {
+          "url": "/my_football_legend/assets/index-B-dXY9W-.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a\"",
+            "Connection": "keep-alive",
+            "Content-Length": "49337",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/react-B3l9tXpq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2587",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/devTools-CWLjknqM.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d\"",
+            "Connection": "keep-alive",
+            "Content-Length": "51077",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-BZcExH8B.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06\"",
+            "Connection": "keep-alive",
+            "Content-Length": "5691",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-SDzukxDC.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "6081",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/index-B0GGk5Ld.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4\"",
+            "Connection": "keep-alive",
+            "Content-Length": "224",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "Content-Length": "160",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:41 GMT",
+            "ETag": "\"ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed\"",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 308
+        },
+        {
+          "url": "/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"642034d75441cf39f472108c0180b20a7889f61e75deaf4ace3bac323fa7df41\"",
+            "Connection": "keep-alive",
+            "Content-Length": "31781",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"fd4b9a13bb97d2921274e70883355f04128b60845be60f4c4234babaf60e1c1b\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2149",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5ccf6a9323785055842f8cb2d45e7dfe4eb7ac3b0c097dc7ce45465134fd0bbf\"",
+            "Connection": "keep-alive",
+            "Content-Length": "10245",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/data/world/pl-2026-v2.json",
+          "status": 200,
+          "mime": "application/json",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "Content-Length": "191940",
+            "Date": "Sun, 11 Oct 2026 18:10:41 GMT",
+            "ETag": "\"e56faae7bd70af244ec1e4d78441790f161a91fb31bcd15fd4a20ed2a9953bcd\"",
+            "Content-Type": "application/json",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 315
+        }
+      ],
+      "transferredBytes": 623,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B-dXY9W-.js",
+          "transferSize": 0,
+          "encodedBodySize": 49337,
+          "decodedBodySize": 180970
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/react-B3l9tXpq.js",
+          "transferSize": 0,
+          "encodedBodySize": 2587,
+          "decodedBodySize": 7555
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/devTools-CWLjknqM.js",
+          "transferSize": 0,
+          "encodedBodySize": 51077,
+          "decodedBodySize": 196494
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-BZcExH8B.js",
+          "transferSize": 0,
+          "encodedBodySize": 5691,
+          "decodedBodySize": 17613
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-SDzukxDC.css",
+          "transferSize": 0,
+          "encodedBodySize": 6081,
+          "decodedBodySize": 27267
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B0GGk5Ld.css",
+          "transferSize": 0,
+          "encodedBodySize": 224,
+          "decodedBodySize": 468
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "transferSize": 0,
+          "encodedBodySize": 31781,
+          "decodedBodySize": 115445
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "transferSize": 0,
+          "encodedBodySize": 2149,
+          "decodedBodySize": 5279
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "transferSize": 0,
+          "encodedBodySize": 10245,
+          "decodedBodySize": 31131
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/data/world/pl-2026-v2.json",
+          "transferSize": 300,
+          "encodedBodySize": 191940,
+          "decodedBodySize": 3279949
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "first-playable-match",
+      "elapsedMs": 688,
+      "requests": [
+        {
+          "url": "/my_football_legend/assets/TacticalMatchSandbox-D-pepOZp.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"428005b309a14dfac59e573e9ec9e8158159c8f4c1f2876ce245fd934069b667\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2302",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:42 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 2622
+        },
+        {
+          "url": "/my_football_legend/assets/TacticalMatchSandbox-BVAquBgQ.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"abf508589315a3904aff189ee43fa071a979d941095d489a749997af745a72d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "254767",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:42 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 255096
+        }
+      ],
+      "transferredBytes": 257718,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/TacticalMatchSandbox-BVAquBgQ.js",
+          "transferSize": 255067,
+          "encodedBodySize": 254767,
+          "decodedBodySize": 1146791
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/TacticalMatchSandbox-D-pepOZp.css",
+          "transferSize": 2602,
+          "encodedBodySize": 2302,
+          "decodedBodySize": 9323
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "career-return-after-match",
+      "elapsedMs": 25,
+      "requests": [],
+      "transferredBytes": 0,
+      "resources": [],
+      "errors": []
+    },
+    {
+      "name": "second-match-same-document",
+      "elapsedMs": 216,
+      "requests": [],
+      "transferredBytes": 0,
+      "resources": [],
+      "errors": []
+    },
+    {
+      "name": "match-reload",
+      "elapsedMs": 744,
+      "requests": [
+        {
+          "url": "/my_football_legend/assets/index-B-dXY9W-.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a\"",
+            "Connection": "keep-alive",
+            "Content-Length": "49337",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/react-B3l9tXpq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2587",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/devTools-CWLjknqM.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d\"",
+            "Connection": "keep-alive",
+            "Content-Length": "51077",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-BZcExH8B.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06\"",
+            "Connection": "keep-alive",
+            "Content-Length": "5691",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-SDzukxDC.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "6081",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/index-B0GGk5Ld.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4\"",
+            "Connection": "keep-alive",
+            "Content-Length": "224",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:39 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/?devtools=1&matchSandbox=1",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Connection": "keep-alive",
+            "Content-Encoding": "br",
+            "Content-Length": "160",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:43 GMT",
+            "ETag": "\"ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed\"",
+            "Keep-Alive": "timeout=5",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 479
+        },
+        {
+          "url": "/my_football_legend/assets/TacticalMatchSandbox-BVAquBgQ.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"abf508589315a3904aff189ee43fa071a979d941095d489a749997af745a72d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "254767",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:42 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"fd4b9a13bb97d2921274e70883355f04128b60845be60f4c4234babaf60e1c1b\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2149",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:40 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/TacticalMatchSandbox-D-pepOZp.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"428005b309a14dfac59e573e9ec9e8158159c8f4c1f2876ce245fd934069b667\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2302",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:42 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/data/world/pl-2026-v2.json",
+          "status": 200,
+          "mime": "application/json",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "Content-Length": "191940",
+            "Date": "Sun, 11 Oct 2026 18:10:43 GMT",
+            "ETag": "\"e56faae7bd70af244ec1e4d78441790f161a91fb31bcd15fd4a20ed2a9953bcd\"",
+            "Content-Type": "application/json",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 315
+        }
+      ],
+      "transferredBytes": 794,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B-dXY9W-.js",
+          "transferSize": 0,
+          "encodedBodySize": 49337,
+          "decodedBodySize": 180970
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/react-B3l9tXpq.js",
+          "transferSize": 0,
+          "encodedBodySize": 2587,
+          "decodedBodySize": 7555
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/devTools-CWLjknqM.js",
+          "transferSize": 0,
+          "encodedBodySize": 51077,
+          "decodedBodySize": 196494
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-BZcExH8B.js",
+          "transferSize": 0,
+          "encodedBodySize": 5691,
+          "decodedBodySize": 17613
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-SDzukxDC.css",
+          "transferSize": 0,
+          "encodedBodySize": 6081,
+          "decodedBodySize": 27267
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B0GGk5Ld.css",
+          "transferSize": 0,
+          "encodedBodySize": 224,
+          "decodedBodySize": 468
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/TacticalMatchSandbox-BVAquBgQ.js",
+          "transferSize": 0,
+          "encodedBodySize": 254767,
+          "decodedBodySize": 1146791
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "transferSize": 0,
+          "encodedBodySize": 2149,
+          "decodedBodySize": 5279
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/TacticalMatchSandbox-D-pepOZp.css",
+          "transferSize": 0,
+          "encodedBodySize": 2302,
+          "decodedBodySize": 9323
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/data/world/pl-2026-v2.json",
+          "transferSize": 300,
+          "encodedBodySize": 191940,
+          "decodedBodySize": 3279949
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "legacy-migration-resume",
+      "elapsedMs": 967,
+      "requests": [
+        {
+          "url": "/my_football_legend/assets/index-B-dXY9W-.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a\"",
+            "Connection": "keep-alive",
+            "Content-Length": "49337",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/react-B3l9tXpq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2587",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/devTools-CWLjknqM.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d\"",
+            "Connection": "keep-alive",
+            "Content-Length": "51077",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-BZcExH8B.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06\"",
+            "Connection": "keep-alive",
+            "Content-Length": "5691",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/App-SDzukxDC.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "6081",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/assets/index-B0GGk5Ld.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4\"",
+            "Connection": "keep-alive",
+            "Content-Length": "224",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 0
+        },
+        {
+          "url": "/my_football_legend/",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "Content-Length": "160",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "ETag": "\"ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed\"",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 308
+        },
+        {
+          "url": "/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"fd4b9a13bb97d2921274e70883355f04128b60845be60f4c4234babaf60e1c1b\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2149",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 2476
+        },
+        {
+          "url": "/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5ccf6a9323785055842f8cb2d45e7dfe4eb7ac3b0c097dc7ce45465134fd0bbf\"",
+            "Connection": "keep-alive",
+            "Content-Length": "10245",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 10573
+        },
+        {
+          "url": "/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"642034d75441cf39f472108c0180b20a7889f61e75deaf4ace3bac323fa7df41\"",
+            "Connection": "keep-alive",
+            "Content-Length": "31781",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 32109
+        },
+        {
+          "url": "/my_football_legend/data/world/pl-2026-v2.json",
+          "status": 200,
+          "mime": "application/json",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "ETag": "\"e56faae7bd70af244ec1e4d78441790f161a91fb31bcd15fd4a20ed2a9953bcd\"",
+            "Connection": "keep-alive",
+            "Content-Length": "191940",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:44 GMT",
+            "Content-Type": "application/json",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 192269
+        }
+      ],
+      "transferredBytes": 237735,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B-dXY9W-.js",
+          "transferSize": 0,
+          "encodedBodySize": 49337,
+          "decodedBodySize": 180970
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/react-B3l9tXpq.js",
+          "transferSize": 0,
+          "encodedBodySize": 2587,
+          "decodedBodySize": 7555
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/devTools-CWLjknqM.js",
+          "transferSize": 0,
+          "encodedBodySize": 51077,
+          "decodedBodySize": 196494
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-BZcExH8B.js",
+          "transferSize": 0,
+          "encodedBodySize": 5691,
+          "decodedBodySize": 17613
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-SDzukxDC.css",
+          "transferSize": 0,
+          "encodedBodySize": 6081,
+          "decodedBodySize": 27267
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B0GGk5Ld.css",
+          "transferSize": 0,
+          "encodedBodySize": 224,
+          "decodedBodySize": 468
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "transferSize": 32081,
+          "encodedBodySize": 31781,
+          "decodedBodySize": 115445
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "transferSize": 2449,
+          "encodedBodySize": 2149,
+          "decodedBodySize": 5279
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "transferSize": 10545,
+          "encodedBodySize": 10245,
+          "decodedBodySize": 31131
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/data/world/pl-2026-v2.json",
+          "transferSize": 192240,
+          "encodedBodySize": 191940,
+          "decodedBodySize": 3279949
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "storage-unavailable-creator",
+      "elapsedMs": 986,
+      "requests": [
+        {
+          "url": "/my_football_legend/",
+          "status": 200,
+          "mime": "text/html",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Connection": "keep-alive",
+            "Content-Encoding": "br",
+            "Content-Length": "160",
+            "Content-Type": "text/html",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "ETag": "\"ec05f1139d7fae96918fd762abf614c1835e189940b6499457ef6a1fe017cbed\"",
+            "Keep-Alive": "timeout=5",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 479
+        },
+        {
+          "url": "/my_football_legend/assets/App-SDzukxDC.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"1cbec5184460a3d16610927b40d172028d4c7859a203df8c2ffa37c7fb8e92d2\"",
+            "Connection": "keep-alive",
+            "Content-Length": "6081",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 6401
+        },
+        {
+          "url": "/my_football_legend/assets/index-B0GGk5Ld.css",
+          "status": 200,
+          "mime": "text/css",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"8484b444e0bbb83064a003b1b4eb10e9e09992130b98d6af837b63d0dae88ad4\"",
+            "Connection": "keep-alive",
+            "Content-Length": "224",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/css",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 543
+        },
+        {
+          "url": "/my_football_legend/assets/react-B3l9tXpq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"864ceb1b7c4c99da89e68db9a9247648ab70f31d154e68e64a1f66cf96a3fd31\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2587",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 2914
+        },
+        {
+          "url": "/my_football_legend/assets/App-BZcExH8B.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5bf751e723f54e24dbe3b71a8a8c69044d98a081ccc50303708a456be037ff06\"",
+            "Connection": "keep-alive",
+            "Content-Length": "5691",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 6018
+        },
+        {
+          "url": "/my_football_legend/assets/index-B-dXY9W-.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"a13ca34b4b937b9b3cfb9adeee0bdf2c3f53e2718959b4c5af56512344b4f99a\"",
+            "Connection": "keep-alive",
+            "Content-Length": "49337",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 49665
+        },
+        {
+          "url": "/my_football_legend/assets/devTools-CWLjknqM.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"c16d847bdd01b3722789f91c3e9a01b194f7dbfceb5127738f38f20d1680086d\"",
+            "Connection": "keep-alive",
+            "Content-Length": "51077",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 51405
+        },
+        {
+          "url": "/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"fd4b9a13bb97d2921274e70883355f04128b60845be60f4c4234babaf60e1c1b\"",
+            "Connection": "keep-alive",
+            "Content-Length": "2149",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 2476
+        },
+        {
+          "url": "/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"5ccf6a9323785055842f8cb2d45e7dfe4eb7ac3b0c097dc7ce45465134fd0bbf\"",
+            "Connection": "keep-alive",
+            "Content-Length": "10245",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 10573
+        },
+        {
+          "url": "/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "status": 200,
+          "mime": "text/javascript",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=31536000, immutable",
+            "Content-Encoding": "br",
+            "ETag": "\"642034d75441cf39f472108c0180b20a7889f61e75deaf4ace3bac323fa7df41\"",
+            "Connection": "keep-alive",
+            "Content-Length": "31781",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:45 GMT",
+            "Content-Type": "text/javascript",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 32109
+        },
+        {
+          "url": "/my_football_legend/data/world/pl-2026-v2.json",
+          "status": 200,
+          "mime": "application/json",
+          "cache": false,
+          "headers": {
+            "Cache-Control": "public, max-age=0, must-revalidate",
+            "Content-Encoding": "br",
+            "ETag": "\"e56faae7bd70af244ec1e4d78441790f161a91fb31bcd15fd4a20ed2a9953bcd\"",
+            "Connection": "keep-alive",
+            "Content-Length": "191940",
+            "Keep-Alive": "timeout=5",
+            "Date": "Sun, 11 Oct 2026 18:10:46 GMT",
+            "Content-Type": "application/json",
+            "Vary": "Accept-Encoding"
+          },
+          "transferredBytes": 192269
+        }
+      ],
+      "transferredBytes": 354852,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B-dXY9W-.js",
+          "transferSize": 49637,
+          "encodedBodySize": 49337,
+          "decodedBodySize": 180970
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/react-B3l9tXpq.js",
+          "transferSize": 2887,
+          "encodedBodySize": 2587,
+          "decodedBodySize": 7555
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/devTools-CWLjknqM.js",
+          "transferSize": 51377,
+          "encodedBodySize": 51077,
+          "decodedBodySize": 196494
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-SDzukxDC.css",
+          "transferSize": 6381,
+          "encodedBodySize": 6081,
+          "decodedBodySize": 27267
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/App-BZcExH8B.js",
+          "transferSize": 5991,
+          "encodedBodySize": 5691,
+          "decodedBodySize": 17613
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/index-B0GGk5Ld.css",
+          "transferSize": 524,
+          "encodedBodySize": 224,
+          "decodedBodySize": 468
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/CareerApp-DKjzv1zm.js",
+          "transferSize": 32081,
+          "encodedBodySize": 31781,
+          "decodedBodySize": 115445
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/positionPresentation-D2oCnQgD.js",
+          "transferSize": 2449,
+          "encodedBodySize": 2149,
+          "decodedBodySize": 5279
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/assets/matchEngine-CH5ykBFq.js",
+          "transferSize": 10545,
+          "encodedBodySize": 10245,
+          "decodedBodySize": 31131
+        },
+        {
+          "name": "http://127.0.0.1:56987/my_football_legend/data/world/pl-2026-v2.json",
+          "transferSize": 192240,
+          "encodedBodySize": 191940,
+          "decodedBodySize": 3279949
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "storage": {
+    "bytes": 91810,
+    "writeMs": 1.0999999046325684,
+    "readMs": 1,
+    "roundTrip": true,
+    "abortedWritePreserved": true,
+    "legacyRemoved": true,
+    "deniedStorageKeptCreator": true
+  },
+  "lifecycle": {
+    "detachedOnCareerReturn": true
+  }
+}

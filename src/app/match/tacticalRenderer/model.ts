@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { canonicalActionEventSchema } from '../../../core/matchSimulation/actionEvents';
 import { shotContactSchema, shotIntentSchema } from '../../../core/matchSimulation/shotIntent';
 import { restartPhaseSchema } from '../../../core/matchSimulation/matchState';
+import { offsideSnapshotSchema } from '../../../core/matchSimulation/offside';
 import { physicalPointSchema } from '../../../core/matchSimulation/matchSpace';
 import { canonicalPlayerPresentationShape } from '../../../core/matchSimulation/canonicalPresentation';
 import {
@@ -127,6 +128,7 @@ export const tacticalFrameSchema = z.object({
   continuity: z.string().optional(),
   ballContinuity: z.string().optional(),
   keyframe: z.boolean().optional(),
+  offside: offsideSnapshotSchema.optional(),
   restart: z
     .object({
       spot: tacticalPointSchema,

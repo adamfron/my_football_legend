@@ -134,7 +134,7 @@ import {
   type ShotAimIntent,
   shotAimIntentToGoalPoint,
 } from './tacticalRenderer/model';
-import { buildStartMenuUrl } from '../devTools';
+import { buildStartMenuUrl, navigateApp } from '../devTools';
 import {
   debugBasename,
   downloadBlob,
@@ -153,7 +153,6 @@ import {
   projectRestartDecisionInteractions,
 } from '../../core/matchSimulation/contextualInteractions';
 import { distance } from '../../core/matchSimulation/matchSpace';
-import { enumerateFreeKickStrikeProfiles } from '../../core/matchSimulation/shootingOptions';
 import {
   MatchLabDiagnosticsController,
   runtimeErrorFromEvent,
@@ -186,12 +185,23 @@ export const TacticalMatchSandbox = () => {
     [seed, setSeed] = useState(freshSeed),
     [force, setForce] = useState(true),
     [session, setSession] = useState<SingleMatchSession>();
+  const [worldError, setWorldError] = useState<string>();
   useEffect(() => {
-    void loadWorldDatabase().then((value) => {
-      setWorld(value);
-      setHomeId(value.clubs[0]!.id);
-      setAwayId(value.clubs[1]!.id);
-    });
+    let active = true;
+    void loadWorldDatabase()
+      .then((value) => {
+        if (!active) return;
+        setWorld(value);
+        setHomeId(value.clubs[0]!.id);
+        setAwayId(value.clubs[1]!.id);
+      })
+      .catch((error: unknown) => {
+        if (active)
+          setWorldError(error instanceof Error ? error.message : 'Nie udało się wczytać świata.');
+      });
+    return () => {
+      active = false;
+    };
   }, []);
   const controlledClubId = control === 'home' ? homeId : awayId;
   const players = useMemo(
@@ -209,7 +219,16 @@ export const TacticalMatchSandbox = () => {
   if (!world)
     return (
       <main className="tactical-sandbox">
-        <p>Ładowanie świata Single Match Lab…</p>
+        {worldError ? (
+          <>
+            <p role="alert">{worldError}</p>
+            <button onClick={() => navigateApp(new URL('./', window.location.href))}>
+              Powrót do menu
+            </button>
+          </>
+        ) : (
+          <p>Ładowanie świata Single Match Lab…</p>
+        )}
       </main>
     );
   if (!session)
@@ -554,10 +573,20 @@ export const RunningLab = ({
     setPresentationPhase(phaseBeforeReplayRef.current);
     setDisplayTime(stateRef.current.time);
   };
-  const beginReplay = (frames: RenderFrame[], title: string, eventAt?: number) => {
+  const beginReplay = (
+    frames: RenderFrame[],
+    title: string,
+    eventAt?: number,
+    offsideFrame?: RenderFrame,
+  ) => {
     if (frames.length < 2) return;
+    if (offsideFrame)
+      frames = [
+        offsideFrame,
+        ...frames.filter((frame) => frame.timestampMs > offsideFrame.timestampMs),
+      ];
     replayClockRef.current = { cursorMs: frames[0]!.timestampMs, lastWallMs: performance.now() };
-    setReplayPlaying(true);
+    setReplayPlaying(!offsideFrame);
     setReplayTitle(title);
     setReplayEventAt(eventAt);
     setGoalReplay(frames);
@@ -1397,6 +1426,7 @@ export const RunningLab = ({
       free_kick_dipping: 'Strzał opadający',
       free_kick_under_wall: 'Nisko pod murem',
       free_kick_wall_gap: 'Przez lukę w murze',
+      free_kick_wall_power: 'Z całej siły w mur',
       hold_ball: 'Osłoń / utrzymaj piłkę',
       carry_here: 'Prowadź tutaj',
       sprint_here: 'Sprintem tutaj',
@@ -1488,7 +1518,7 @@ export const RunningLab = ({
     source: 'player' | 'ai',
     selected: unknown,
   ) => {
-    if (!opportunity) return;
+    if (!opportunity || next === state) return;
     uiEvent(source === 'ai' ? 'player_decision_skipped_to_ai' : 'player_decision_selected', {
       opportunityId: opportunity.id,
       actorId: opportunity.actorId,
@@ -1687,30 +1717,37 @@ export const RunningLab = ({
         <button onClick={onRestart}>Restart — ten sam seed</button>
         <button onClick={onRandomize}>Losuj seed</button>
         <button onClick={onSetup}>Zmień ustawienia</button>
-        <button
-          onClick={() => globalThis.location.assign(buildStartMenuUrl(globalThis.location.href))}
-        >
+        <button onClick={() => navigateApp(buildStartMenuUrl(globalThis.location.href))}>
           Powrót do menu
         </button>
       </nav>
       {replaying && (
-        <ReplayControls
-          title={replayTitle}
-          eventAt={replayEventAt}
-          playing={replayPlaying}
-          speed={replaySpeed}
-          onPlaying={setReplayPlaying}
-          onSpeed={setReplaySpeed}
-          onLive={finishReplay}
-          onRestart={() => {
-            replayClockRef.current = {
-              cursorMs: goalReplay[0]!.timestampMs,
-              lastWallMs: performance.now(),
-            };
-            setGoalReplay([...goalReplay]);
-            setReplayPlaying(true);
-          }}
-        />
+        <div>
+          {goalReplay[0]?.offside && (
+            <p role="status">
+              Moment podania: {formatDiagnosticMatchTime(goalReplay[0].offside.releasedAt)} ·
+              kierunek ataku {goalReplay[0].offside.attackingTeam === 'home' ? '→' : '←'}. Czerwony:
+              atakujący; zielony: obrońcy wyznaczający linię. Wznów, aby obejrzeć dalszy przebieg.
+            </p>
+          )}
+          <ReplayControls
+            title={replayTitle}
+            eventAt={replayEventAt}
+            playing={replayPlaying}
+            speed={replaySpeed}
+            onPlaying={setReplayPlaying}
+            onSpeed={setReplaySpeed}
+            onLive={finishReplay}
+            onRestart={() => {
+              replayClockRef.current = {
+                cursorMs: goalReplay[0]!.timestampMs,
+                lastWallMs: performance.now(),
+              };
+              setGoalReplay([...goalReplay]);
+              setReplayPlaying(true);
+            }}
+          />
+        </div>
       )}
       <nav
         className="camera-controls"
@@ -2234,7 +2271,15 @@ export const RunningLab = ({
               projected.some((item) => item.resolution.kind === 'action')
             ) {
               setSelectedTarget(target);
-              setShotAim({ horizontal: 0, vertical: 0.45 });
+              setShotAim(
+                opportunityActor
+                  ? (rendererRef.current?.pickGoalTarget(
+                      event.clientX,
+                      event.clientY,
+                      opportunityActor.team,
+                    ) ?? { horizontal: 0, vertical: 0.45 })
+                  : { horizontal: 0, vertical: 0.45 },
+              );
               setMenuPosition(undefined);
               uiEvent('shot_aim_opened', { target });
               return;
@@ -2311,7 +2356,10 @@ export const RunningLab = ({
                 }}
               />
               <div className="shot-aim__actions">
-                {projectContextualInteractions(state, opportunity, selectedTarget)
+                {projectContextualInteractions(state, opportunity, {
+                  ...selectedTarget,
+                  aim: shotAim,
+                })
                   .filter(
                     (item) =>
                       item.resolution.kind === 'action' &&
@@ -2334,21 +2382,9 @@ export const RunningLab = ({
                       target: { x: point.x, y: point.y },
                       goalTarget: shotAim,
                     };
-                    const profileAvailable =
-                      action.type !== 'shot' ||
-                      !action.freeKickProfile ||
-                      enumerateFreeKickStrikeProfiles(state, action.actorId, shotAim).includes(
-                        action.freeKickProfile,
-                      );
                     return (
                       <button
                         key={item.id}
-                        disabled={!profileAvailable}
-                        title={
-                          profileAvailable
-                            ? undefined
-                            : 'Ustaw niski cel lub wolną drogę przez mur, aby wykonać ten strzał.'
-                        }
                         onClick={() =>
                           closeOpportunity(
                             applyContextualInteraction(state, opportunity, {
@@ -2450,6 +2486,7 @@ export const RunningLab = ({
                   matchEventLabels[recorded.event.kind as keyof typeof matchEventLabels] ??
                   'Zapisane wydarzenie',
                 recorded.event.at,
+                recorded.offsideFrame ? replaySnapshotToFrame(recorded.offsideFrame) : undefined,
               );
               uiEvent('match_event_replay_started', { replayKey });
             }}
@@ -2518,6 +2555,9 @@ export const RunningLab = ({
               aria-live="polite"
             >
               <strong>Przygotowanie wznowienia</strong>
+              {state.restart.authorisedAt !== undefined && (
+                <span role="status">◉ Sędzia pozwala wznowić</span>
+              )}
               <span>
                 Wykonawca:{' '}
                 {state.players.find((p) => p.id === state.restart?.takerId)?.profile.lastName ??
@@ -2542,40 +2582,44 @@ export const RunningLab = ({
           )}
           {opportunity?.kind === 'restart' && !replaying && restartGroups.length > 0 && (
             <section className="restart-choices" aria-label="Wybór wznowienia">
-              {restartGroups.map((group) => (
-                <fieldset key={group.family}>
-                  <legend>{interactionFamilyLabels[group.family]}</legend>
-                  {group.family === 'shoot' ? (
-                    <button
-                      onClick={() => {
-                        const target = group.interactions[0]!.target;
-                        setSelectedTarget(target);
-                        setShotAim({ horizontal: 0, vertical: 0.45 });
-                        setMenuPosition(undefined);
-                        uiEvent('shot_aim_opened', { target });
-                      }}
-                    >
-                      Wskaż miejsce i wysokość strzału
-                    </button>
-                  ) : (
-                    group.interactions.map((interaction) => (
+              {restartGroups
+                .filter(
+                  (group) => !state.scenario.startsWith('free_kick') || group.family === 'shoot',
+                )
+                .map((group) => (
+                  <fieldset key={group.family}>
+                    <legend>{interactionFamilyLabels[group.family]}</legend>
+                    {group.family === 'shoot' ? (
                       <button
-                        key={interaction.id}
-                        onClick={() =>
-                          closeOpportunity(
-                            applyContextualInteraction(state, opportunity, interaction),
-                            'player',
-                            interaction,
-                          )
-                        }
+                        onClick={() => {
+                          const target = group.interactions[0]!.target;
+                          setSelectedTarget(target);
+                          setShotAim({ horizontal: 0, vertical: 0.45 });
+                          setMenuPosition(undefined);
+                          uiEvent('shot_aim_opened', { target });
+                        }}
                       >
-                        {interactionLabel(interaction)}
-                        <small>{restartTargetLabel(interaction)}</small>
+                        Wskaż miejsce i wysokość strzału
                       </button>
-                    ))
-                  )}
-                </fieldset>
-              ))}
+                    ) : (
+                      group.interactions.map((interaction) => (
+                        <button
+                          key={interaction.id}
+                          onClick={() =>
+                            closeOpportunity(
+                              applyContextualInteraction(state, opportunity, interaction),
+                              'player',
+                              interaction,
+                            )
+                          }
+                        >
+                          {interactionLabel(interaction)}
+                          <small>{restartTargetLabel(interaction)}</small>
+                        </button>
+                      ))
+                    )}
+                  </fieldset>
+                ))}
             </section>
           )}
           <p>

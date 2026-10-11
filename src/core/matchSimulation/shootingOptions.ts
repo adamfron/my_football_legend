@@ -358,6 +358,19 @@ export const canExecuteCanonicalShot = (state: TacticalMatchState, action: ShotA
   if (!actor || (state.ball.ownerId && state.ball.ownerId !== actor.id)) return false;
   if (
     action.type === 'shot' &&
+    action.freeKickWallTarget &&
+    (!isRestartSetup(state) ||
+      !state.scenario.startsWith('free_kick') ||
+      state.restart.indirect ||
+      action.intent !== 'driven' ||
+      action.freeKickProfile ||
+      !freeKickWall(state, actor.id).some(
+        (player) => distance(player.position, action.freeKickWallTarget!) <= 1.2,
+      ))
+  )
+    return false;
+  if (
+    action.type === 'shot' &&
     action.freeKickProfile &&
     !enumerateFreeKickStrikeProfiles(state, actor.id, action.goalTarget).includes(
       action.freeKickProfile,

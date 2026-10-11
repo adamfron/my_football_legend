@@ -1,7 +1,7 @@
 import { deriveRestartGeometry } from './restartGeometry';
 import type { RestartScenario, TacticalMatchState } from './matchState';
 import { recordPossessionLoss, restartAwardId, type RestartAward } from './possessionEvents';
-import { legalRestartPosition } from './restartLaws';
+import { legalRestartPosition, deriveRestartLegalReadiness } from './restartLaws';
 import { beginStoppage, restartStoppageReason } from './stoppageLedger';
 import { ensureMatchGoalkeepers } from './matchGoalkeeper';
 
@@ -14,6 +14,7 @@ export interface RestartScenarioOptions {
   indirect?: boolean;
   cause?: RestartAward['cause'];
   loserId?: string;
+  ceremonial?: boolean;
 }
 
 /** Ephemeral deterministic DEV setup. It is geometry/lifecycle input, not a laws engine. */
@@ -141,7 +142,12 @@ const buildRestart = (
       awardId,
       spot: { ...(spot ?? geometry.ball) },
       ...(options.indirect ? { indirect: true } : {}),
-      ceremonial: scenario === 'penalty' || scenario === 'kick_off',
+      ceremonial:
+        options.ceremonial ??
+        (scenario === 'penalty' ||
+          scenario === 'kick_off' ||
+          (scenario.startsWith('free_kick') &&
+            Object.values(geometry.roles).some((role) => role.key === 'wall'))),
       restartTeam,
       startedAt: input.time,
       takerId: geometry.taker.id,
@@ -234,5 +240,7 @@ const buildRestart = (
       velocity: { x: 0, y: 0 },
     };
   });
+  if (state.restart?.ceremonial && deriveRestartLegalReadiness(state).ready)
+    state.restart = { ...state.restart, authorisedAt: state.time };
   return state;
 };

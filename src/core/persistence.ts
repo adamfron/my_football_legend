@@ -80,6 +80,7 @@ const PERSISTED_WORLD_DELTA_KEYS = [
   'footballerOverrides',
   'footballerStateOverrides',
   'footballerAttributeOverrides',
+  'footballerConditionOverrides',
   'npcClubMembership',
   'youthCohortOverrides',
   'newFootballers',

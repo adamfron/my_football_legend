@@ -357,6 +357,19 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
     !takerReady ? 'taker_not_ready' : '',
     !opponentsReady ? 'opponent_restriction' : '',
     !participantsReady ? 'participant_restriction' : '',
+    isFreeKick(state.scenario) &&
+    restart.ceremonial &&
+    state.players.some(
+      (player) =>
+        restart.roles[player.id]?.key === 'wall' &&
+        (distance(
+          player.position,
+          legalizeRestartPlayerTarget(state, player, restart.targets[player.id] ?? player.target),
+        ) > 0.6 ||
+          Math.hypot(player.velocity.x, player.velocity.y) > 0.5),
+    )
+      ? 'wall_developing'
+      : '',
   ].filter(Boolean);
   return {
     ready: blockers.length === 0,

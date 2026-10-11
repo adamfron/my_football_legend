@@ -162,6 +162,8 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     target: pitchPointSchema,
     intent: shotIntentSchema,
     freeKickProfile: freeKickStrikeProfileSchema.optional(),
+    /** A fixed region selected by the human, never a tracking target or collision guarantee. */
+    freeKickWallTarget: pitchPointSchema.optional(),
     contact: footShotContactSchema.optional(),
     decisionBallHeight: z.number().nonnegative().optional(),
     goalTarget: z
@@ -369,6 +371,8 @@ export const restartLifecycleSchema = z.object({
   awardId: z.string().optional(),
   spot: pitchPointSchema.optional(),
   ceremonial: z.boolean().optional(),
+  /** Canonical referee permission, independent of selection and actual physical release. */
+  authorisedAt: z.number().nonnegative().optional(),
   selectedAction: matchActionSchema.optional(),
   selectedSource: actionSourceSchema.optional(),
   selectedAt: z.number().nonnegative().optional(),

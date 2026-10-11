@@ -1,5 +1,34 @@
 # My Football Legend — Current Project State
 
+## PR164 — Startup, Storage, Match Contracts & Restart Integrity
+
+Baza: scalony PR163 `f812e96`. Wykonany restart zachowuje własność epizodu i nie
+wraca do przygotowania po pojawieniu się `ball.shot`. Mur ceremonialnego wolnego
+ustawia się przed ostatecznym wyborem; zgoda sędziego pochodzi z gotowości kanonicznej.
+Cel bramki wyznacza dostępne techniki, a strzał w rzeczywisty mur korzysta ze wspólnej
+fizyki. Replay spalonego zatrzymuje się na zachowanym momencie podania.
+
+Lazy shell/kariery/Lab i nawigacja w aplikacji ograniczają zimny transfer menu
+około 402→117 kB Brotli; drugi mecz tej samej sesji pobiera 0 dodatkowych bajtów
+modułów. Rzeczywista przeglądarka HTTP oraz artefakty produkcyjne są mierzone osobno.
+Deterministyczna kariera ścieżki podsumowań po 20 sezonach ma 1,21 MB UTF-8.
+Naprawiono zachowanie kondycji przy zapisie v7 i serializację migracji/operacji storage.
+
+Zod kontrakt wejścia/wyniku v1 łączy prawdziwy fixture kariery z kanonicznym silnikiem,
+ogranicza wynik do 96 kB i zapewnia idempotentny commit po save/load. Pełny test
+rozgrywa ten sam fixture dwukrotnie z decyzjami człowieka. Integracja ekranów kariery
+z kanonicznym meczem oraz archiwizacja bogatych wyników pozostają w PR166.
+Obecne UI kariery zachowuje ścieżkę narracyjną. Nie kalibrowano globalnie prędkości
+podań: laboratorium 120 prób oddziela lot, opanowanie i następną fizyczną akcję.
+
+Wyniki, status pełnego `verify`, 36 odpowiedzi i ograniczenia są w
+[raporcie PR164](PR164_STARTUP_STORAGE_MATCH_CONTRACTS.md).
+Oryginalne eksporty `lab-mv3zlmht`/`lab-mv40xcii` nie były dostępne;
+regresja restartu ma równoważny fixture. Mała liczba strzałów i asymetria ID 4-4-2
+pozostają otwarte. Następny etap: **PR165 — Visual DNA & Character Creator**,
+następnie PR166 integracja/style, PR167 rozwój NPC, PR168 trenerzy, PR169 narracje,
+PR170 atmosfera. Poniższe sekcje są historią poprzednich etapów.
+
 ## PR163 — Offensive Momentum / Space Passing
 
 Baza: scalony PR162 `34ee3da`. Połączono świadome przygotowanie przyjęcia,

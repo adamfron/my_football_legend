@@ -4,7 +4,7 @@ import type { MatchAction, TacticalMatchState } from './matchState';
 import { clampPitchPoint, distance, type PitchPoint } from './matchSpace';
 import { deriveRestartGeometry, deriveRestartMovementTargets } from './restartGeometry';
 import { deriveRestartLegalReadiness, legalizeRestartPlayerTarget } from './restartLaws';
-import { isLiveRestartSetup } from './restartPhase';
+import { isLiveRestartSetup, isRestartSetup } from './restartPhase';
 import { isHumanControlled } from './actionAgency';
 import { integrateBallFlight } from './ballPhysics';
 import { markStoppageReady } from './stoppageLedger';
@@ -16,7 +16,9 @@ import { canExecuteCanonicalShot } from './shootingOptions';
 export const isRestartSelectionAvailable = (state: TacticalMatchState) => {
   const restart = state.restart,
     action = restart?.selectedAction;
-  if (!restart || !action) return true;
+  // Released physics owns the episode. Menu eligibility only describes an unexecuted choice.
+  if (!restart || !action || restart.phase === 'release' || restart.executedAt !== undefined)
+    return true;
   const available = (id: string) =>
     state.players.some((player) => player.id === id && !state.discipline?.[id]?.sentOff);
   if (!available(action.actorId) || action.actorId !== restart.takerId) return false;
@@ -43,7 +45,13 @@ export const isRestartSelectionAvailable = (state: TacticalMatchState) => {
 
 const invalidateObsoleteRestartSelection = (state: TacticalMatchState): TacticalMatchState => {
   const restart = state.restart;
-  if (!restart || !restart.selectedAction || isRestartSelectionAvailable(state)) return state;
+  if (
+    !restart ||
+    !isRestartSetup(state) ||
+    !restart.selectedAction ||
+    isRestartSelectionAvailable(state)
+  )
+    return state;
   const {
     selectedAction: _action,
     selectedSource: _source,
@@ -66,7 +74,7 @@ const invalidateObsoleteRestartSelection = (state: TacticalMatchState): Tactical
     restart: {
       ...unselected,
       phase: 'preparing',
-      ceremonial: state.scenario === 'penalty' || state.scenario === 'kick_off',
+      ceremonial: restart.ceremonial,
       targets: geometry.targets,
       roles: geometry.roles,
     },
@@ -79,6 +87,7 @@ export const replaceUnavailableRestartTaker = (state: TacticalMatchState): Tacti
   const restart = state.restart;
   if (
     !restart ||
+    !isRestartSetup(state) ||
     state.players.some((p) => p.id === restart.takerId && !state.discipline?.[p.id]?.sentOff)
   )
     return state;
@@ -135,10 +144,14 @@ export const selectRestartAction = (
   const restart = state.restart;
   if (!restart || restart.selectedAction || action.actorId !== restart.takerId) return state;
   const spot = restart.spot ?? state.ball;
-  const geometry = deriveRestartGeometry(state, state.scenario, restart.restartTeam, spot, {
-    takerId: restart.takerId,
-    selectedAction: action,
-  });
+  const preserveWall =
+    state.scenario.startsWith('free_kick') && restart.ceremonial && action.type === 'shot';
+  const geometry = preserveWall
+    ? restart
+    : deriveRestartGeometry(state, state.scenario, restart.restartTeam, spot, {
+        takerId: restart.takerId,
+        selectedAction: action,
+      });
   return {
     ...state,
     restart: {
@@ -147,7 +160,7 @@ export const selectRestartAction = (
       selectedAction: action,
       selectedSource: source,
       selectedAt: state.time,
-      ceremonial: action.type === 'shot' || action.type === 'cross' || restart.ceremonial,
+      ceremonial: restart.ceremonial,
       targets: geometry.targets,
       roles: geometry.roles,
       ...(geometry.landingZone ? { landingZone: geometry.landingZone } : {}),
@@ -364,6 +377,9 @@ export const advanceRestartPlacement = (
         tacticalReady,
         blockers,
       },
+      // The first legally established configuration authorises this award. The ledger stays open.
+      authorisedAt:
+        legal.ready && tacticalReady ? (next.restart!.authorisedAt ?? next.time) : undefined,
       preparationStartedAt:
         action && legal.ready && tacticalReady
           ? (next.restart!.preparationStartedAt ?? next.time)
@@ -381,9 +397,12 @@ export const canExecutePreparedRestart = (state: TacticalMatchState) => {
     action = restart?.selectedAction;
   if (
     !restart ||
+    !isRestartSetup(state) ||
+    restart.executedAt !== undefined ||
     !action ||
     !restart.readiness?.legalReady ||
     !restart.readiness.tacticalReady ||
+    (restart.ceremonial && restart.authorisedAt === undefined) ||
     !isRestartSelectionAvailable(state) ||
     !deriveRestartLegalReadiness(state).ready ||
     state.periodEndPending ||

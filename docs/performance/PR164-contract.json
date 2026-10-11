@@ -1,0 +1,276 @@
+{
+  "seed": "pr164-contract:canonical:2027-28:league_2027_1_1",
+  "inputFingerprint": "a01dd2d5",
+  "selection": "explicit forceIntoXI=true for controlled-player coverage; default adapter uses manager selection",
+  "fullMatchRepetitions": 2,
+  "identical": true,
+  "endedAt": 5534.19999998415,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "resultBytes": 35361,
+  "saveBytes": 112528,
+  "participants": 28,
+  "substitutions": 6,
+  "cards": 0,
+  "controlledEvidence": {
+    "playerId": "player_pr164_contract",
+    "selected": 11,
+    "resolved": 11,
+    "byIntent": [
+      {
+        "kind": "on_ball:shot:driven",
+        "attempts": 8,
+        "resolved": 8,
+        "retained": 0,
+        "turnovers": 0,
+        "completedPasses": 0,
+        "progressTotal": 0,
+        "pressureTotal": 5.615680696348695,
+        "firstSelectedAt": 87.05000000000267,
+        "lastResolvedAt": 5258.424999988163
+      },
+      {
+        "kind": "incoming_ball:pass:support",
+        "attempts": 2,
+        "resolved": 2,
+        "retained": 0,
+        "turnovers": 0,
+        "completedPasses": 0,
+        "progressTotal": 0,
+        "pressureTotal": 0.9667619340527537,
+        "firstSelectedAt": 1171.3499999998785,
+        "lastResolvedAt": 3509.7250000029458
+      },
+      {
+        "kind": "defensive_response:hold_shape",
+        "attempts": 1,
+        "resolved": 1,
+        "retained": 0,
+        "turnovers": 0,
+        "completedPasses": 0,
+        "progressTotal": 0,
+        "pressureTotal": 0.6207079186669838,
+        "firstSelectedAt": 2258.1750000038323,
+        "lastResolvedAt": 2259.3250000038365
+      }
+    ],
+    "recentOutcomes": [
+      {
+        "decisionId": "player_pr164_contract:38:on_ball:38:player_pr164_contract:86.25000000000249:attacking_transition:2:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 87.05000000000267,
+        "resolvedAt": 88.9750000000031,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.7270960178567463,
+          "fieldProgress": 0.4584982668782102,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "miss"
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:518:incoming_ball:518:loose:1170.399999999875:positional_attack:1:1",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 1171.3499999998785,
+        "resolvedAt": 1172.849999999884,
+        "decisionKind": "incoming_ball",
+        "selectedIntent": "pass:support",
+        "startContext": {
+          "phase": "positional_attack",
+          "pressure": 0.3058379111468147,
+          "fieldProgress": 0.377299771580851,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "pass_failed",
+          "teamRetainedPossession": false,
+          "passCompleted": false,
+          "turnover": false
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:983:defensive_response:365:footballer_pro_63_5:pr164-contract:canonical:2027-28:league_2027_1_1:pass:982:footballer_pro_63_5",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 2258.1750000038323,
+        "resolvedAt": 2259.3250000038365,
+        "decisionKind": "defensive_response",
+        "selectedIntent": "hold_shape",
+        "startContext": {
+          "phase": "defensive_block",
+          "pressure": 0.6207079186669838,
+          "fieldProgress": 0.37051589344280145,
+          "possession": "away"
+        },
+        "result": {
+          "kind": "defensive_action_resolved",
+          "teamRetainedPossession": false,
+          "duelWon": false,
+          "duelLost": true
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:1332:on_ball:1332:player_pr164_contract:3090.1250000014193:attacking_transition:2:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 3092.3500000014274,
+        "resolvedAt": 3092.4250000014276,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.735857973864678,
+          "fieldProgress": 0.46494012098285126,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "block"
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:1451:on_ball:1451:player_pr164_contract:3341.800000002335:attacking_transition:2:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 3342.425000002337,
+        "resolvedAt": 3344.1500000023434,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.7011792681638254,
+          "fieldProgress": 0.4228710982540082,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "miss"
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:1516:incoming_ball:1516:loose:3506.3750000029336:attacking_transition:1:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 3508.20000000294,
+        "resolvedAt": 3509.7250000029458,
+        "decisionKind": "incoming_ball",
+        "selectedIntent": "pass:support",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.660924022905939,
+          "fieldProgress": 0.39154364428425753,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "pass_failed",
+          "teamRetainedPossession": false,
+          "passCompleted": false,
+          "turnover": false
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:1538:on_ball:1538:player_pr164_contract:3554.92500000311:positional_attack:2:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 3556.300000003115,
+        "resolvedAt": 3556.3750000031155,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "positional_attack",
+          "pressure": 0.7286267776491808,
+          "fieldProgress": 0.45596515351246664,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "block"
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:1645:on_ball:1645:player_pr164_contract:3800.2000000040025:attacking_transition:1:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 3801.3000000040065,
+        "resolvedAt": 3803.7000000040152,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.6832137654320721,
+          "fieldProgress": 0.3777648084669573,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "miss"
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:1902:on_ball:1902:player_pr164_contract:4410.350000000504:attacking_transition:2:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 4412.150000000478,
+        "resolvedAt": 4414.700000000441,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.6606871173198756,
+          "fieldProgress": 0.42685308375858694,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "miss"
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:2217:on_ball:2217:player_pr164_contract:5180.374999989299:attacking_transition:2:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 5181.974999989276,
+        "resolvedAt": 5182.0499999892745,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.6769215394859236,
+          "fieldProgress": 0.4451784620548685,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "block"
+        }
+      },
+      {
+        "decisionId": "player_pr164_contract:2251:on_ball:2251:player_pr164_contract:5253.574999988234:attacking_transition:1:2",
+        "actorId": "player_pr164_contract",
+        "selectedAt": 5255.6499999882035,
+        "resolvedAt": 5258.424999988163,
+        "decisionKind": "on_ball",
+        "selectedIntent": "shot:driven",
+        "startContext": {
+          "phase": "attacking_transition",
+          "pressure": 0.7020982365763936,
+          "fieldProgress": 0.3717924586126942,
+          "possession": "home"
+        },
+        "result": {
+          "kind": "shot_resolved",
+          "shotOutcome": "miss"
+        }
+      }
+    ]
+  },
+  "checks": [
+    "real calendar fixture",
+    "full-time canonical physics",
+    "repeat equality",
+    "schema v7 save/hydrate",
+    "duplicate no-op",
+    "conflict rejected",
+    "wrong career/date rejected",
+    "condition persisted"
+  ]
+}

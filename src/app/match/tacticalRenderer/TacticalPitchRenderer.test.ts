@@ -21,6 +21,7 @@ import * as THREE from 'three';
 import type { TacticalFrame } from './model';
 import { createTacticalDiagnosticFixture } from './diagnosticOverlay';
 import { BALL_RADIUS } from '../../../core/matchSimulation/ballFlight';
+import { goalIntentToPitch } from '../../../core/matchSimulation/goalCoordinates';
 import { PlayerModel } from './playerModel';
 import type { CanonicalActionEvent } from '../../../core/matchSimulation/actionEvents';
 import { createCanonicalWorldDatabase } from '../../../../scripts/createCanonicalWorldDatabase';
@@ -525,6 +526,85 @@ describe('TacticalPitchRenderer viewport lifecycle', () => {
     const snapshot = renderer.exportPresentationScene();
     expect(snapshot.scene).not.toBe(scene);
     expect(snapshot.camera).not.toBe(camera);
+    renderer.dispose();
+    context.mockRestore();
+  });
+
+  it('projects the same goal target after camera switches in both attacking directions', () => {
+    const context = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 900 },
+      clientHeight: { get: () => 600 },
+    });
+    const renderer = new TacticalPitchRenderer(host, createTacticalDiagnosticFixture());
+    renderer.getCanvas().getBoundingClientRect = () =>
+      ({ left: 20, top: 40, width: 900, height: 600 }) as DOMRect;
+    for (const team of ['home', 'away'] as const) {
+      for (const mode of ['tactical', 'shot_aim', 'goal_replay'] as const) {
+        renderer.setCameraMode(mode, team === 'home' ? 'carrier' : 'presser', team);
+        const camera = render.mock.lastCall![1] as THREE.Camera;
+        camera.updateMatrixWorld(true);
+        const intent = { horizontal: 0.37, vertical: 0.63 };
+        const goal = goalIntentToPitch(team, intent);
+        const projected = new THREE.Vector3(goal.x - 52.5, goal.height, goal.y - 34).project(
+          camera,
+        );
+        const actual = renderer.pickGoalTarget(
+          20 + (projected.x + 1) * 450,
+          40 + (1 - projected.y) * 300,
+          team,
+        );
+        expect(actual?.horizontal).toBeCloseTo(intent.horizontal, 5);
+        expect(actual?.vertical).toBeCloseTo(intent.vertical, 5);
+      }
+    }
+    renderer.dispose();
+    context.mockRestore();
+  });
+
+  it('clears obsolete offside highlights when another release frame is presented', () => {
+    const context = vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    const host = document.createElement('div');
+    document.body.append(host);
+    Object.defineProperties(host, {
+      clientWidth: { get: () => 900 },
+      clientHeight: { get: () => 600 },
+    });
+    const input = createTacticalDiagnosticFixture();
+    const offside = {
+      attackingTeam: 'home' as const,
+      passerId: 'carrier',
+      relevantAttackerIds: ['lane'],
+      ballX: 57,
+      secondLastOpponentX: 70,
+      offsideLineX: 70,
+      releasedAt: 12,
+      attackerX: { lane: 72 },
+      offsidePlayerIds: ['lane'],
+      exemptRestart: false,
+      opponentTouch: 'none' as const,
+    };
+    const renderer = new TacticalPitchRenderer(host, { ...input, offside });
+    const scene = render.mock.lastCall![0] as THREE.Scene;
+    const redRings = () =>
+      scene.children.filter(
+        (object) =>
+          object instanceof THREE.Mesh &&
+          object.geometry instanceof THREE.RingGeometry &&
+          object.visible &&
+          (object.material as THREE.MeshBasicMaterial).color.getHex() === 0xff635b,
+      );
+    expect(redRings()).toHaveLength(1);
+    renderer.render({
+      ...input,
+      offside: { ...offside, relevantAttackerIds: ['pivot'], offsidePlayerIds: ['pivot'] },
+    });
+    expect(redRings()).toHaveLength(1);
+    expect(redRings()[0]!.position.x).toBe(49 - 52.5);
+    renderer.render(input);
+    expect(redRings()).toHaveLength(0);
     renderer.dispose();
     context.mockRestore();
   });
