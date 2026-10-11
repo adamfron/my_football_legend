@@ -1,5 +1,26 @@
 # My Football Legend — Current Project State
 
+## PR162 — Integrated Match Realism / Formation Geometry Audit
+
+Baza: scalony PR161, `4d61ee8`. Dodano legalne, równe składy wszystkich pięciu
+formacji, niezależny lejek ataku, sparowane seedy/orientacje i wznawialny headless
+benchmark. Poprawki dotyczą czasu percepcji przy zachowaniu fizycznej gotowości,
+zadania głębi/kompensacji, wspólnej prognozy podań, wykonalnej geometrii wznowień
+oraz prawdziwych współrzędnych kontaktu przy linii.
+
+Oryginalny eksport `lab-mv2ymq0c` potwierdza 930 podań, 0 strzałów i 0 wejść w pole
+karne. Trzy kontrolowane sytuacje przy polu karnym: strzały 1→5, oczekiwanie
+5,04→0,40 s. Szybsza cyrkulacja sama nie rozwiązuje braku okazji. Nie uznajemy
+balansu ofensywy za naprawiony; pokrycie, wyniki 120/120 pełnych meczów i ograniczenia są w
+[raporcie PR162](PR162_INTEGRATED_MATCH_REALISM_AUDIT.md) oraz
+[tabelach kanonicznych](performance/PR162-EVIDENCE_TABLES.md).
+
+Macierz 12 seedów × 5 formacji × 2 strony daje tylko 36 strzałów; wykryto też asymetrię równych 4-4-2 przy zachowanych logicznych ID. Osobno: 6 meczów klubów, 18 okien wrażliwości, 2 pełne mecze 70/50 i 12 legalnych prób dobitki na każdej rewizji. Publiczne raporty liczbowe mają źródła i hashe; pełne dane pozostają w lokalnym archiwum. Końcowa poprawka schematu pamięci fizycznego kontaktu ma osobny dowód identyczności dwóch pełnych meczów.
+
+Nie zmieniono skuteczności strzałów, odbioru ani praw człowieka do decyzji.
+Stadion nadal zależy od klubu; modele piłkarzy, widzowie/sprite i zapełnione ławki
+pozostają osobnym zadaniem prezentacyjnym. Szczegóły poprzednich PR poniżej są historią.
+
 ## PR161 — Match Presentation, Replay, Stadium Polish & Boundary-Ball Liveness
 
 Baza: scalony PR160 / `main`, `d4b389b3db5e14e9ebc61bb1ec8bce21e3557a85`.

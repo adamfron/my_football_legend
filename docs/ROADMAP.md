@@ -1,5 +1,18 @@
 # Roadmap
 
+Aktualny etap: **PR162 — Integrated Match Realism / Formation Geometry Audit**.
+Potwierdzone przyczyny mają celowane poprawki i pomiar kanonicznego lejka ataku.
+[Raport PR162](PR162_INTEGRATED_MATCH_REALISM_AUDIT.md) oraz
+[protokół benchmarku](FORMATION_GEOMETRY_BENCHMARK.md) zastępują wcześniejszy
+opis „następnego audytu”. Kompletna macierz 120/120 meczów równych formacji jest eksperymentem diagnostycznym,
+nie dowodem przewagi 4-4-2 ani rozwiązania balansu.
+
+Następnie: sprawdzić odrzucane opcje progresji/strzału w utrzymanym ataku,
+zbadać asymetrię logicznych ID/inicjalizacji równych 4-4-2 oraz oddzielić obowiązki od geometrii w szerszej ablacji.
+Szersze poziomy atrybutów/all-vs-all są opcjonalnym rozszerzeniem CLI. Nie dodawać
+kwot strzałów ani premii za tożsamość klubu. Przebudowa modeli/ławek/widzów jest
+oddzielnym follow-upem prezentacji. Poniższe etapy zachowano jako historię.
+
 Aktualny etap: **PR161 — Match Presentation / Replay / Stadium Polish**,
 z celowaną naprawą boundary-ball liveness, na scalonym PR160 `d4b389b`.
 Wspólna kanoniczna projekcja, replay keyframes/controls, overhead/diagnostyka,

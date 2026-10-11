@@ -354,7 +354,7 @@ report += table(
   }),
 );
 report +=
-  '\nCounts are whole-experiment canonical loss/challenge identities; foul zones use the committing team direction.\n\n';
+  '\nCounts are whole-experiment canonical loss/challenge identities. Foul zones cover observed ground challenges in the committing team direction, not a complete spatial census of every foul source. Canonical total fouls remain separate.\n\n';
 report += '## 8. Actual shape and variability\n\n';
 report += table(
   [
