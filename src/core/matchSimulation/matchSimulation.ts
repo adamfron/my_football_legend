@@ -1506,8 +1506,16 @@ const stepTacticalMatchCore = (
       state.restart?.retrieval?.playerId === player.id &&
       (state.restart.retrieval.stage === 'approach' ||
         state.restart.retrieval.stage === 'transport');
-    if (isMatchGoalkeeper(player) && !retrievingStoppedBall)
-      integratedPosition.x = Math.max(0, Math.min(105, player.position.x + velocity.x * dt));
+    if (isMatchGoalkeeper(player) && !retrievingStoppedBall) {
+      // A keeper who fetched a scored ball behind the line must hand it over and return
+      // through ordinary locomotion. Changing retrieval roles must never snap that body.
+      const minimumX = stopped ? Math.min(0, player.position.x) : 0;
+      const maximumX = stopped ? Math.max(105, player.position.x) : 105;
+      integratedPosition.x = Math.max(
+        minimumX,
+        Math.min(maximumX, player.position.x + velocity.x * dt),
+      );
+    }
     let next = integratedPosition;
     const close = state.players.filter(
       (p) => p.id !== player.id && distance(p.position, next) < 1.15,

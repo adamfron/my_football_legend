@@ -11,6 +11,9 @@ import { PlayerCard } from '../shared/PlayerCard';
 import { CreatorHeader } from './CreatorHeader';
 import { CreatorSteps } from './CreatorSteps';
 import { getFootballArchetype } from '../../core/footballArchetypes';
+import { AppearanceEditor } from '../appearance/AppearanceEditor';
+import { initialAppearanceFor } from '../appearance/appearanceDraft';
+import type { FootballerVisualIdentity } from '../../core/visualIdentity';
 
 const pitchPosition: Record<PositionId, { short: string; className: string }> = {
   striker: { short: 'N', className: 'pitch-striker' },
@@ -56,6 +59,9 @@ type Props = {
   nextIdentity: () => void;
   nextProfile: () => void;
   finish: () => void;
+  appearance?: FootballerVisualIdentity | undefined;
+  setAppearance?: (value: FootballerVisualIdentity) => void;
+  resetAppearance?: () => void;
   worldStatus?: 'loading' | 'ready' | 'error';
   retryWorld?: () => void;
 };
@@ -246,6 +252,22 @@ export const PlayerCreator = (p: Props) => (
         )}
         {p.step === 2 && p.generated && (
           <div>
+            <h1>Wygląd</h1>
+            <AppearanceEditor
+              source={p.generated.player}
+              date="2026-07-01"
+              value={p.appearance ?? initialAppearanceFor(p.generated.player)}
+              onChange={(value) => p.setAppearance?.(value)}
+              onReset={() => p.resetAppearance?.()}
+            />
+            <nav className="creator-actions">
+              <button onClick={() => p.setStep(1)}>&lt; Wstecz</button>
+              <button onClick={() => p.setStep(3)}>Dalej &gt;</button>
+            </nav>
+          </div>
+        )}
+        {p.step === 3 && p.generated && (
+          <div>
             <h1>Wybór zawodnika</h1>
             <PlayerCard profile={p.generated} seed={p.seed} />
             <div className="variant-picker">
@@ -260,7 +282,7 @@ export const PlayerCreator = (p: Props) => (
               ))}
             </div>
             <nav className="creator-actions">
-              <button onClick={() => p.setStep(1)}>&lt; Wstecz</button>
+              <button onClick={() => p.setStep(2)}>&lt; Wstecz</button>
               <button
                 disabled={p.worldStatus != null && p.worldStatus !== 'ready'}
                 onClick={p.finish}

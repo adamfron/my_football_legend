@@ -1,5 +1,24 @@
 # Roadmap
 
+Aktualny etap: **PR165 — Visual DNA & Character Creator**.
+[Raport PR165](PR165_VISUAL_DNA_CHARACTER_CREATOR.md) obejmuje stałe twarze v1,
+starzenie, kreator/edycję kosmetyki, wspólne modele/portrety, naprawy wznowień oraz
+ograniczone eksperymenty taktyczne. Status końcowego `verify` i pomiary są w raporcie.
+
+Autorytatywna kolejność kolejnych etapów pozostaje:
+
+- **PR166 — Career–Match Integration & Playstyles**.
+- **PR167 — NPC Development & Footballer Diversity**.
+- **PR168 — Coaches, Match Briefings & Tactical Intelligence**.
+- **PR169 — Career Stories, News & Season Narratives**.
+- **PR170 — Match Atmosphere & Stylized Visual Polish**.
+
+Po planowanych etapach tożsamości/kariery osobny zakres taktyczny powinien zbadać
+dynamiczne prognozy przechwytu/utrzymania przyjęcia, wartość drugiej piłki, trwałe
+przekazywanie krycia, zamiany DM/fullback z zastępstwem ochrony środka i koszt
+rozciągnięcia linii. Eksperyment PR165 nie zmienia numeracji PR166–PR170.
+Poniższe wcześniejsze opisy zachowano jako historię planu.
+
 Aktualny etap: **PR164 — Startup, Storage, Match Contracts & Restart Integrity**.
 [Raport PR164](PR164_STARTUP_STORAGE_MATCH_CONTRACTS.md) dokumentuje kanoniczne
 release/zgodę sędziego, kontekstowe wolne, moment podania w replay spalonego,

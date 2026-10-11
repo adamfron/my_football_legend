@@ -1,5 +1,6 @@
 import type { SingleMatchSession } from '../../core/singleMatch';
 import type { TacticalPlayer } from './tacticalRenderer/model';
+import { deriveAppearance } from '../../core/visualIdentity';
 
 export const createSingleMatchTacticalPlayers = (session: SingleMatchSession): TacticalPlayer[] => [
   ...session.home.players.map((player) => ({
@@ -7,6 +8,15 @@ export const createSingleMatchTacticalPlayers = (session: SingleMatchSession): T
     team: 'home' as const,
     x: player.x,
     y: player.y,
+    appearance: deriveAppearance(
+      {
+        ...player.profile,
+        visualIdentity:
+          session.presentation?.visualIdentities[player.footballerId] ??
+          player.profile.visualIdentity,
+      },
+      session.presentation?.date ?? '2026-07-01',
+    ),
     goalkeeper: player.profile.primaryPosition === 'goalkeeper',
     protagonist:
       session.setup.control.mode === 'player' &&
@@ -17,6 +27,15 @@ export const createSingleMatchTacticalPlayers = (session: SingleMatchSession): T
     team: 'away' as const,
     x: 105 - player.x,
     y: 68 - player.y,
+    appearance: deriveAppearance(
+      {
+        ...player.profile,
+        visualIdentity:
+          session.presentation?.visualIdentities[player.footballerId] ??
+          player.profile.visualIdentity,
+      },
+      session.presentation?.date ?? '2026-07-01',
+    ),
     goalkeeper: player.profile.primaryPosition === 'goalkeeper',
     protagonist:
       session.setup.control.mode === 'player' &&

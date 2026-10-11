@@ -1,0 +1,38 @@
+{
+  "command": "npm run verify",
+  "exitCode": 0,
+  "status": "PASS",
+  "localDate": "2026-10-12 Europe/Warsaw",
+  "node": "v24.19.0",
+  "suites": [
+    {
+      "suite": "main",
+      "passed": 1593,
+      "total": 1593
+    },
+    {
+      "suite": "restart_renderer_integration",
+      "passed": 31,
+      "total": 31
+    },
+    {
+      "suite": "full_match_contract",
+      "passed": 2,
+      "total": 2
+    },
+    {
+      "suite": "full_career",
+      "passed": 5,
+      "total": 5
+    }
+  ],
+  "totalTests": 1631,
+  "lint": "PASS",
+  "typescript": "PASS",
+  "productionBuild": "PASS",
+  "generatedWorldFile": "PASS",
+  "elapsedSeconds": 726.394,
+  "logSha256": "2c584e402a1cf3fb99c8c7c70213c9bfc9b7f43f4136e43158c6ed90692e91bd",
+  "supplemental": "40 restart tests after deep-net fix; final benchmark runner lint/TypeScript checks pass; unchanged existing test timeouts. Final renderer/identity tests are part of main suite.",
+  "limitations": "An earlier focused sandbox whole-half run timed out during concurrent work; two native full pipelines retained existing timeouts and passed. Model render timings are CPU-side and do not establish whole-match GPU/FPS."
+}

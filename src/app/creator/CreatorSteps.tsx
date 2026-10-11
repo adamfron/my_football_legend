@@ -1,4 +1,4 @@
-const labels = ['Tożsamość', 'Profil', 'Wybór zawodnika'];
+const labels = ['Tożsamość', 'Profil', 'Wygląd', 'Wybór zawodnika'];
 export const CreatorSteps = ({ step }: { step: number }) => (
   <ol className="creator-steps" aria-label="Postęp kreatora">
     {labels.map((label, index) => (

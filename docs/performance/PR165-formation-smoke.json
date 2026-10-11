@@ -1,0 +1,196 @@
+{
+  "manifest": {
+    "commit": "4f08a37b83067c5bd8e59fb297ab6156ef0fe86e",
+    "engineHash": "417241d983567074ccc18f29c1a0c4c8afc7f2ecd1d138c069a22fa77b7fa0ca",
+    "benchmarkHash": "463fb00d37e7c030d4813a267124168efbeb84951a4dd1fba179ea68796edbc9",
+    "telemetryVersion": 3,
+    "fixedDt": 0.025,
+    "node": "v24.19.0",
+    "config": {
+      "anchor": "4-4-2",
+      "opponents": [
+        "4-3-3",
+        "4-2-3-1",
+        "4-4-2",
+        "3-4-2-1",
+        "3-5-2"
+      ],
+      "attributes": 50,
+      "opponentAttributes": 50,
+      "seeds": [
+        "pr165-geometry-smoke"
+      ],
+      "minutes": 0.1,
+      "style": "balanced",
+      "normaliseDuties": false,
+      "traces": false,
+      "mode": "geometry",
+      "observer": true
+    }
+  },
+  "method": "Native legal equal-attribute XIs, one seed per formation and reversed orientation; fixed 6-second observation windows, not full matches or realism calibration. Canonical statistics invariants checked by existing formation runner.",
+  "expectedMatches": 10,
+  "completedMatches": 10,
+  "results": [
+    {
+      "key": "4-3-3:pr165-geometry-smoke:false",
+      "formation": "4-3-3",
+      "seed": "pr165-geometry-smoke",
+      "reversed": false,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 294.47620000000006,
+      "initialStateHash": "627fd506ecc06eb8e53ff8097792bdd1ce10b838226566ca7c7fa825859a214e",
+      "stateHash": "31f3a51dc04a46e41ca88e7c7277ca9cfeafd8a039027c8433a4e8ea44fa3ba6",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "4-3-3:pr165-geometry-smoke:true",
+      "formation": "4-3-3",
+      "seed": "pr165-geometry-smoke",
+      "reversed": true,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 159.32580000000007,
+      "initialStateHash": "12c49d3666b35eea20f0fc5251b1f28d13fd51e088bfac969a9fd51c0f7930dc",
+      "stateHash": "ca5f32bc0ac9c8498da680ccf231ec619cc56f7e8f9efc928f99c8fddc03ac98",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "4-2-3-1:pr165-geometry-smoke:false",
+      "formation": "4-2-3-1",
+      "seed": "pr165-geometry-smoke",
+      "reversed": false,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 139.41000000000008,
+      "initialStateHash": "d61538d220eb42e4187d348505c5bee169a9792f3fb12308494b7a2f4cc5971d",
+      "stateHash": "a99adfd7294bcae71fe0f007df9e131fa8d736b869436bad6c1de7b17f292888",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "4-2-3-1:pr165-geometry-smoke:true",
+      "formation": "4-2-3-1",
+      "seed": "pr165-geometry-smoke",
+      "reversed": true,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 141.4656,
+      "initialStateHash": "8c5830d6b38f8235911f50cc8820fde24e9b137633785c452ea5f449915cbc4a",
+      "stateHash": "3c739532e60f6687c2430e6851211947b8a547fc9a1dd40e4af4f0bb8ec2704c",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "4-4-2:pr165-geometry-smoke:false",
+      "formation": "4-4-2",
+      "seed": "pr165-geometry-smoke",
+      "reversed": false,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 114.66640000000007,
+      "initialStateHash": "c2c72688831bad1565f481680099ec3d6f3e365fc66279b2b85e5ad23ebb4bff",
+      "stateHash": "c6b591057b82d787e8f84b83d31e20381d8a9eeedef522e77ed63783014f873c",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "4-4-2:pr165-geometry-smoke:true",
+      "formation": "4-4-2",
+      "seed": "pr165-geometry-smoke",
+      "reversed": true,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 129.22490000000016,
+      "initialStateHash": "681a5b07d1e8e1336e65d8aac244a5601c2e4f00448770bf6e8d4b828a2e6a6a",
+      "stateHash": "713db8b54e408b9e91b8a0bd7e00e8087d8993a6dfef6066f388251d73fcb3f1",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "3-4-2-1:pr165-geometry-smoke:false",
+      "formation": "3-4-2-1",
+      "seed": "pr165-geometry-smoke",
+      "reversed": false,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 141.4636999999998,
+      "initialStateHash": "c003c04410870dd0df24b83c78934a0bbb204d8dbf03b0f72152ddc5a164053b",
+      "stateHash": "8deaa5d8c7fcaea9b2f3460990f218f4d9aef50b2d1673ffa53060374d485a03",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "3-4-2-1:pr165-geometry-smoke:true",
+      "formation": "3-4-2-1",
+      "seed": "pr165-geometry-smoke",
+      "reversed": true,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 152.61079999999993,
+      "initialStateHash": "aaecef76e04943c91e5146a1a335607627396c01028197b32733273e7ceb5a49",
+      "stateHash": "b615c400982776d600d0083a88add64353437abfe9488189d207dea0f3b797f8",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "3-5-2:pr165-geometry-smoke:false",
+      "formation": "3-5-2",
+      "seed": "pr165-geometry-smoke",
+      "reversed": false,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 198.2167999999997,
+      "initialStateHash": "7ea55a1a2d7998bf1aaa0aaad043dd1d6e9b6c83da64aca354cf0ba80ef91c37",
+      "stateHash": "71c4145983dfedc8d4fc0447db15cf1524af695f69026a7382c81c02ace84ad7",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "key": "3-5-2:pr165-geometry-smoke:true",
+      "formation": "3-5-2",
+      "seed": "pr165-geometry-smoke",
+      "reversed": true,
+      "finalStatus": "first_half",
+      "finalTime": 6.000000000000018,
+      "ticks": 240,
+      "wallMs": 194.86929999999984,
+      "initialStateHash": "6199605b0902027a3d15f111adbd9e4e04db6e74061e1f9ececc422b2b4708aa",
+      "stateHash": "a2c2461934f88b7a9259b2810fa9791ba2a009c88c9f342dd0bfdad4e90b90fc",
+      "score": {
+        "home": 0,
+        "away": 0
+      }
+    }
+  ]
+}

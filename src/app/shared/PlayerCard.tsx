@@ -1,9 +1,14 @@
+import { lazy, Suspense } from 'react';
 import { getGoalkeeperRadarAxes, getOutfieldRadarAxes, type RadarAxis } from '../../core/radar';
 import { translate } from '../../core/narrative/localization';
 import type { PlayerAttributes } from '../../types/domain';
 import { type StartingPlayerProfile } from '../../core/playerCreator';
 import { ATTRIBUTE_GROUPS, ATTRIBUTE_PRESENTATION } from '../../core/attributePresentation';
 import { formatAttributeDelta, getSeasonAttributeDelta } from '../../core/developmentFeedback';
+import { deriveAppearance } from '../../core/visualIdentity';
+const PlayerPreview = lazy(() =>
+  import('../appearance/PlayerPreview').then((module) => ({ default: module.PlayerPreview })),
+);
 
 const RADAR_RADIUS = 75;
 const RADAR_LABEL_RADIUS = 104;
@@ -13,8 +18,6 @@ const RADAR_VIEWBOX_SIZE = (RADAR_RADIUS + RADAR_MARGIN) * 2;
 
 const tParam = (key: string, params: Record<string, string>) =>
   translate(key, Object.fromEntries(Object.entries(params).map(([k, v]) => [k, translate(v)])));
-const initials = (first: string, last: string) =>
-  `${first[0] ?? 'M'}${last[0] ?? 'F'}`.toUpperCase();
 export const RadarChart = ({
   attributes,
   baseline,
@@ -112,15 +115,20 @@ export const PlayerCard = ({
   profile,
   seed,
   baseline,
+  date = '2026-07-01',
 }: {
   profile: StartingPlayerProfile;
   seed: string;
   baseline?: PlayerAttributes | undefined;
+  date?: string;
 }) => (
   <section className="card">
-    <div className={`portrait portrait-${seed.length % 4}`}>
-      <span>{initials(profile.player.firstName, profile.player.lastName)}</span>
-    </div>
+    <Suspense fallback={<p role="status">Wczytywanie portretu…</p>}>
+      <PlayerPreview
+        appearance={deriveAppearance(profile.player, date)}
+        label={`Portret: ${profile.player.firstName} ${profile.player.lastName}`}
+      />
+    </Suspense>
     <div>
       <h3>
         {profile.player.firstName} {profile.player.lastName}

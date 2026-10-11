@@ -58,7 +58,7 @@ export const restartAwardSchema = z.object({
   origin: z.enum(['live_event', 'dev_fixture']).optional(),
   incidentId: z.string().optional(),
   eventAt: z.number().nonnegative().optional(),
-  incidentPosition: pitchPointSchema.optional(),
+  incidentPosition: physicalPointSchema.optional(),
   legalRestartPosition: pitchPointSchema.optional(),
   indirect: z.boolean().optional(),
   fouledPlayerId: z.string().optional(),

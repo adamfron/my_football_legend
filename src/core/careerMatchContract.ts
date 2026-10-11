@@ -25,6 +25,7 @@ import { playerMatchStatsSchema, teamAccountingSchema } from './matchSimulation/
 import { playerDecisionOutcomeSchema, type TacticalMatchState } from './matchSimulation/matchState';
 import { cardFactSchema } from './matchSimulation/matchRules';
 import { teamSideSchema } from './matchSimulation/matchSpace';
+import { matchVisualContextSchema, toCanonicalFootballProfile } from './visualIdentity';
 
 export const MATCH_CONTRACT_VERSION = 1;
 export const MATCH_RESULT_MAX_BYTES = 96_000;
@@ -33,7 +34,7 @@ const count = z.number().int().min(0).max(1_000_000);
 const date = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const rosterPlayer = z.object({
   footballerId: id,
-  profile: footballerProfileSchema,
+  profile: footballerProfileSchema.omit({ visualIdentity: true }),
   condition: z.number().min(0).max(100),
   injury: matchInjurySchema.optional(),
 });
@@ -86,7 +87,12 @@ const careerMatchBaseSchema = z
       ball: z.literal('canonical-default'),
       weather: z.literal('neutral'),
     }),
-    presentation: z.object({ seed: id, stadiumId: id, visualPlayerIds: z.record(id, id) }),
+    presentation: z.object({
+      seed: id,
+      stadiumId: id,
+      visualPlayerIds: z.record(id, id),
+      visualContext: matchVisualContextSchema.optional(),
+    }),
   })
   .strict();
 export const careerMatchInputSchema = careerMatchBaseSchema.superRefine((input, context) => {
@@ -151,7 +157,25 @@ const footballFingerprint = (
     fixture: input.fixture,
     world: input.world,
     footballSeed: input.footballSeed,
-    session: input.session,
+    session: {
+      setup: input.session.setup,
+      ...Object.fromEntries(
+        (['home', 'away'] as const).map((side) => [
+          side,
+          {
+            ...input.session[side],
+            players: input.session[side].players.map((player) => ({
+              ...player,
+              profile: toCanonicalFootballProfile(player.profile),
+            })),
+            bench: input.session[side].bench.map((player) => ({
+              ...player,
+              profile: toCanonicalFootballProfile(player.profile),
+            })),
+          },
+        ]),
+      ),
+    },
     environment: input.environment,
     substitutionRules: input.substitutionRules,
   });
@@ -231,6 +255,7 @@ export const createCareerMatchInput = (
     },
     presentation: {
       seed: presentationSeed,
+      ...(session.presentation ? { visualContext: session.presentation } : {}),
       stadiumId: `stadium:${canonical.homeClubId}`,
       visualPlayerIds: Object.fromEntries(
         [

@@ -64,6 +64,48 @@ export const faceGenomeSchema = z.object({
   ageSigns: unit,
   accessories: unit,
 });
+export const cosmeticOverridesSchema = z
+  .object({
+    presentation: z.enum(['masculine', 'feminine', 'neutral']).optional(),
+    hairstyle: z.enum(['cropped', 'short', 'side_part', 'curly', 'long', 'shaved']).optional(),
+    hairColor: unit.optional(),
+    facialHair: z.enum(['none', 'stubble', 'beard']).optional(),
+    accessories: z.enum(['none', 'headband', 'glasses']).optional(),
+  })
+  .strict();
+export const footballerVisualIdentitySchema = z
+  .object({
+    version: z.literal(1),
+    faceSeed: z.string().min(1).max(256),
+    faceGenome: faceGenomeSchema.strict().optional(),
+    cosmetics: cosmeticOverridesSchema.optional(),
+    changeMetadata: z
+      .object({
+        meaningfulChanges: z.number().int().nonnegative(),
+        lastChangedDate: isoDateSchema,
+        lastCountedDate: isoDateSchema.optional(),
+        recentStyleFingerprints: z.array(z.string().max(16)).max(8),
+      })
+      .strict()
+      .optional(),
+  })
+  .strict();
+export const resolvedAppearanceSchema = z
+  .object({
+    identityId: id,
+    version: z.literal(1),
+    faceSeed: z.string().min(1).max(256),
+    baseFace: faceGenomeSchema,
+    face: faceGenomeSchema,
+    ageYears: z.number().int().nonnegative(),
+    maturity: unit,
+    ageLines: unit,
+    greyFraction: unit,
+    cosmetics: cosmeticOverridesSchema.required(),
+    heightCm: z.number().positive(),
+    weightKg: z.number().positive(),
+  })
+  .strict();
 export const playerAttributesSchema = z
   .object({
     technique: score,
@@ -144,6 +186,7 @@ export const footballerProfileSchema = z.object({
   lastName: z.string(),
   age: z.number().int().min(15),
   dateOfBirth: isoDateSchema.optional(),
+  visualIdentity: footballerVisualIdentitySchema.optional(),
   nationality: z.string(),
   heightCm: z.number(),
   weightKg: z.number(),

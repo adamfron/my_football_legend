@@ -1,5 +1,24 @@
 # Match Engine Handoff
 
+## PR165 handoff
+
+- Use `deriveAppearance` with the existing profile ID, date and optional cosmetics.
+  Never put visual data/RNG in canonical profiles, hashes, colliders or result commits.
+- Pass `session.presentation` / contract `presentation.visualContext` to the frame
+  projector. Pitch/portrait/replay share PlayerModel/head construction; caches and
+  per-preview resources are bounded/disposed. Cosmetic changes preserve morphology.
+- Preserve fixed legal wall slots during target separation. Historical late-free-kick
+  onset was absent; equivalent regression evidence is explicitly limited. Liveness
+  diagnostics never alter laws, human ownership, ball or phases.
+- `handoff`/`transfer` are stoppage logistics, separate from `resolveMatchAction`.
+  Keep the single ball path and outside keeper return continuous through role changes;
+  preserve the penalty keeper boundary for bodies already within the pitch.
+- Tactical experiments remain isolated. Persistent hybrid marking requires line
+  integrity, DM/flank replacement and central lane ownership. Three seeds per
+  geometry do not justify universal calibration or touch quotas.
+- [PR165 report](PR165_VISUAL_DNA_CHARACTER_CREATOR.md) contains measurements,
+  visual evidence, verification and limits. PR166–PR170 retain their planned scopes.
+
 ## PR164 contracts and next work
 
 - Read [PR164](PR164_STARTUP_STORAGE_MATCH_CONTRACTS.md) and its compact receipts.

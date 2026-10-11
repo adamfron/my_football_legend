@@ -48,6 +48,11 @@ export const replaySnapshotSchema = z.object({
         displayNumber: z.number().int(),
         heightCm: z.number(),
         weightKg: z.number(),
+        dateOfBirth: z
+          .string()
+          .regex(/^\d{4}-\d{2}-\d{2}$/)
+          .optional(),
+        age: z.number().int().nonnegative().optional(),
         dominantFoot: z.enum(['left', 'right']),
         target: physicalPointSchema.optional(),
         anchor: physicalPointSchema.optional(),
@@ -79,7 +84,7 @@ export const replaySnapshotSchema = z.object({
       ready: z.boolean(),
       scenario: z.string().optional(),
       blockers: z.array(z.string()).max(48).optional(),
-      retrievalStage: z.enum(['approach', 'transport', 'placed']).optional(),
+      retrievalStage: z.enum(['approach', 'handoff', 'transfer', 'transport', 'placed']).optional(),
     })
     .optional(),
   actionEvents: z.array(canonicalActionEventSchema).max(96),
@@ -137,6 +142,8 @@ export const captureReplaySnapshot = (
       displayNumber: p.slotIndex + 1,
       heightCm: p.profile.heightCm,
       weightKg: p.profile.weightKg,
+      dateOfBirth: p.profile.dateOfBirth,
+      age: p.profile.age,
       dominantFoot: p.profile.dominantFoot,
       target: { ...p.target },
       anchor: { ...p.neutralAnchor },

@@ -38,11 +38,7 @@ import {
   CanonicalParticipationTracker,
   projectCanonicalMatchSanity,
 } from '../../core/matchSimulation/canonicalMatchSanity';
-import {
-  appendReplayFrame,
-  sampleReplayFrame,
-  replaySnapshotToFrame,
-} from './tacticalRenderer/replay';
+import { appendReplayFrame, sampleReplayFrame } from './tacticalRenderer/replay';
 import { MatchReplayHistory } from '../../core/matchSimulation/matchReplay';
 /* eslint-disable react-hooks/refs, react-hooks/immutability -- Match Lab's imperative renderer and
    diagnostic recorders are observer-only refs intentionally kept outside React state. */
@@ -593,7 +589,8 @@ export const RunningLab = ({
     phaseBeforeReplayRef.current = presentationPhase;
     setPresentationPhase('replay');
   };
-  const animationProjectorRef = useRef(new PresentationFrameProjector());
+  const animationProjectorRef = useRef(new PresentationFrameProjector(session.presentation));
+  animationProjectorRef.current.setAppearanceContext(session.presentation);
   // React may evaluate an updater twice. Only consume samples belonging to its committed result.
   const presentationSamplesRef = useRef(new WeakMap<TacticalMatchState, TacticalMatchState[]>());
   const presentationClockRef = useRef(createPresentationClock(state.time));
@@ -2480,13 +2477,17 @@ export const RunningLab = ({
               const recorded = matchReplayRef.current.getWindow(replayKey);
               if (!recorded || recorded.frames.length < 2) return;
               beginReplay(
-                recorded.frames.map(replaySnapshotToFrame),
+                recorded.frames.map((snapshot) =>
+                  animationProjectorRef.current.replayFrame(snapshot),
+                ),
                 matchReplayRef.current.listWindows().find((entry) => entry.replayKey === replayKey)
                   ?.title ??
                   matchEventLabels[recorded.event.kind as keyof typeof matchEventLabels] ??
                   'Zapisane wydarzenie',
                 recorded.event.at,
-                recorded.offsideFrame ? replaySnapshotToFrame(recorded.offsideFrame) : undefined,
+                recorded.offsideFrame
+                  ? animationProjectorRef.current.replayFrame(recorded.offsideFrame)
+                  : undefined,
               );
               uiEvent('match_event_replay_started', { replayKey });
             }}
@@ -2508,7 +2509,9 @@ export const RunningLab = ({
                           const recorded = matchReplayRef.current.getWindow(entry.replayKey);
                           if (recorded)
                             beginReplay(
-                              recorded.frames.map(replaySnapshotToFrame),
+                              recorded.frames.map((snapshot) =>
+                                animationProjectorRef.current.replayFrame(snapshot),
+                              ),
                               entry.title,
                               entry.eventAt,
                             );

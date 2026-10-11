@@ -14,6 +14,14 @@ import type { AnimationCue, TacticalFrame, TacticalPlayer } from './model';
 import { frameActionEvents, frameDismissals } from './actionFeedback';
 import { isRestartSetup } from '../../../core/matchSimulation/restartPhase';
 import { isMatchGoalkeeper } from '../../../core/matchSimulation/matchGoalkeeper';
+import {
+  deriveAppearance,
+  type MatchVisualContext,
+  type ResolvedAppearance,
+} from '../../../core/visualIdentity';
+import type { FootballerProfile, FootballerVisualIdentity } from '../../../types/domain';
+import type { ReplaySnapshot } from '../../../core/matchSimulation/matchReplay';
+import { replaySnapshotToFrame } from './replay';
 
 /** Canonical landmarks remain anchored even while the ball and footballers move. */
 export const projectRestartPresentation = (
@@ -211,6 +219,64 @@ export class PresentationFrameProjector {
   private gait = new Map<string, { phase: number; speed: number }>();
   private evidence = new Map<string, CanonicalPlayerPresentation>();
   private continuity = 0;
+  private appearanceCache = new Map<
+    string,
+    {
+      profile: FootballerProfile;
+      visualIdentity: FootballerVisualIdentity | undefined;
+      appearance: ResolvedAppearance;
+    }
+  >();
+
+  constructor(private appearanceContext?: MatchVisualContext) {}
+
+  setAppearanceContext(context?: MatchVisualContext) {
+    if (context === this.appearanceContext) return;
+    this.appearanceContext = context;
+    this.appearanceCache.clear();
+  }
+
+  /** Reconstruct recorded participants with the same date and edits as the live match. */
+  replayFrame(snapshot: ReplaySnapshot): TacticalFrame {
+    const frame = replaySnapshotToFrame(snapshot);
+    return {
+      ...frame,
+      players: frame.players.map((player) => {
+        const recorded = snapshot.players.find((entry) => entry.id === player.id)!;
+        const appearance =
+          this.appearanceCache.get(player.id)?.appearance ??
+          deriveAppearance(
+            {
+              id: player.id,
+              age: recorded.age ?? 24,
+              dateOfBirth: recorded.dateOfBirth,
+              heightCm: recorded.heightCm,
+              weightKg: recorded.weightKg,
+              visualIdentity: this.appearanceContext?.visualIdentities[player.id],
+            },
+            this.appearanceContext?.date ?? '2026-07-01',
+          );
+        return { ...player, appearance };
+      }),
+    };
+  }
+
+  private appearance(profile: FootballerProfile): ResolvedAppearance {
+    const visualIdentity =
+      this.appearanceContext?.visualIdentities[profile.id] ?? profile.visualIdentity;
+    const cached = this.appearanceCache.get(profile.id);
+    if (cached?.profile === profile && cached.visualIdentity === visualIdentity)
+      return cached.appearance;
+    const appearance = deriveAppearance(
+      { ...profile, visualIdentity },
+      this.appearanceContext?.date ?? '2026-07-01',
+    );
+    // XI, bench and departed participants fit comfortably; malicious diagnostic IDs cannot grow this indefinitely.
+    if (this.appearanceCache.size >= 64)
+      this.appearanceCache.delete(this.appearanceCache.keys().next().value!);
+    this.appearanceCache.set(profile.id, { profile, visualIdentity, appearance });
+    return appearance;
+  }
 
   reset() {
     this.previous = undefined;
@@ -302,6 +368,7 @@ export class PresentationFrameProjector {
           velocity: { ...canonical.velocity },
           heightCm: canonical.profile.heightCm,
           weightKg: canonical.profile.weightKg,
+          appearance: this.appearance(canonical.profile),
           dominantFoot: canonical.profile.dominantFoot,
           gaitPhase: this.gait.get(player.id)?.phase ?? 0,
           gaitSpeed: this.gait.get(player.id)?.speed ?? 0,

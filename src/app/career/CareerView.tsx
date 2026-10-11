@@ -26,6 +26,7 @@ import { describeCurrentPlayerProfile } from '../../core/playerProfilePresentati
 import { isDevToolsEnabled } from '../devTools';
 import { WorldBrowser } from './WorldBrowser';
 import type { CareerCommit } from '../careerCommit';
+import { ProfileAppearanceEditor } from '../appearance/ProfileAppearanceEditor';
 
 export const PLAYBACK_INTERVAL_MS = 1000;
 type Detail = 'player' | 'club' | 'contract' | 'career' | 'world';
@@ -60,6 +61,7 @@ export const CareerView = ({
 }) => {
   const [playing, setPlaying] = useState(false);
   const [detail, setDetail] = useState<Detail>();
+  const [editingAppearance, setEditingAppearance] = useState(false);
   const [error, setError] = useState<string>();
   const tableRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLOListElement>(null);
@@ -109,7 +111,10 @@ export const CareerView = ({
     entries?.item(entries.length - 1)?.scrollIntoView?.({ block: 'center' });
   }, [completedCount]);
 
-  const toggle = (next: Detail) => setDetail((current) => (current === next ? undefined : next));
+  const toggle = (next: Detail) => {
+    setEditingAppearance(false);
+    setDetail((current) => (current === next ? undefined : next));
+  };
   const seasonName = career.leagueSeason?.name ?? String(career.currentSeason);
   const balance = (career.finances ?? []).reduce((sum, item) => sum + item.amount, 0);
   const fixtures = career.leagueSeason?.rounds.flatMap((round) => round.fixtures) ?? [];
@@ -232,25 +237,50 @@ export const CareerView = ({
             <button
               className="detail-close"
               aria-label="Zamknij"
-              onClick={() => setDetail(undefined)}
+              onClick={() => {
+                setDetail(undefined);
+                setEditingAppearance(false);
+              }}
             >
               ×
             </button>
           </header>
           {detail === 'player' && (
             <div className="player-detail">
-              <PlayerCard
-                profile={{
-                  player: career.player,
-                  profileDescriptionKey: 'creator.profileDescription',
-                  profileDescriptionParams: {
-                    description: describeCurrentPlayerProfile(career.player),
-                  },
-                  rollIndex: 0,
-                }}
-                seed={career.seed}
-                baseline={career.seasonStartingAttributes}
-              />
+              {editingAppearance ? (
+                <ProfileAppearanceEditor
+                  career={career}
+                  onCareer={onCareer}
+                  persistencePending={persistencePending}
+                  onClose={() => setEditingAppearance(false)}
+                />
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    disabled={persistencePending}
+                    onClick={() => {
+                      setPlaying(false);
+                      setEditingAppearance(true);
+                    }}
+                  >
+                    Zmień wygląd
+                  </button>
+                  <PlayerCard
+                    profile={{
+                      player: career.player,
+                      profileDescriptionKey: 'creator.profileDescription',
+                      profileDescriptionParams: {
+                        description: describeCurrentPlayerProfile(career.player),
+                      },
+                      rollIndex: 0,
+                    }}
+                    seed={career.seed}
+                    baseline={career.seasonStartingAttributes}
+                    date={career.currentDate ?? `${career.currentSeason}-07-01`}
+                  />
+                </>
+              )}
               <section className="player-projection">
                 <div>
                   <h3>STYLE GRY / ATUTY</h3>

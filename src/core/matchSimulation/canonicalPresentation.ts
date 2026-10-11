@@ -188,7 +188,7 @@ export const goalResponsePresentationSchema = z.object({
   urgent: z.boolean().optional(),
   scorerId: z.string().optional(),
   retrieverId: z.string().optional(),
-  retrievalStage: z.enum(['approach', 'transport', 'placed']).optional(),
+  retrievalStage: z.enum(['approach', 'handoff', 'transfer', 'transport', 'placed']).optional(),
 });
 export const canonicalPlayerPresentationShape = {
   acceleration: physicalPointSchema.optional(),

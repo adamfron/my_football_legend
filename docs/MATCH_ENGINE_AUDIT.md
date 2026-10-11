@@ -1,4 +1,28 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR164
+# Audyt silnika meczu — PR140 / aktualizacja PR165
+
+## PR165 — identity isolation, wall readiness and ball logistics
+
+Visual identity stays in optional presentation context; canonical XI/bench profiles
+strip cosmetics. Shared pitch/portrait construction and 1200-tick complete-state
+parity cover cosmetic edits; date-based aging and old saves retain footballer IDs.
+
+Equivalent packed free kick stalls main with a placed ball and `wall_developing`.
+Target separation displaced wall slots into marker clearance. Pinned wall targets
+preserve laws/movement and release 4/4 human/CPU mirrored cases after 8.575–8.600 s.
+Historical onset was unavailable; its exact cause is not established. The observer
+records bounded transitions, assigned/legal targets, readiness and body clearance.
+
+Nearest keeper retrieval no longer implies midfield transport. A continuous stopped
+ball transfer gives the journey to an outfielder; ordinary keeper depth falls
+53.5→5.4 m without competitive touches/passes. Deep-back-net regressions prevent
+an outside keeper snapping to the line during handoff or return. Human/penalty/
+throw-in contracts remain binding.
+
+240 passing probes distinguish availability, ranking, intended contact, any-teammate
+completion and retention. Isolated marking improves some threat distances but
+stretches the line/reduces central cover. No blanket nerf or experimental policy ships.
+Evidence, 32 answers, final verification and limitations:
+[PR165 report](PR165_VISUAL_DNA_CHARACTER_CREATOR.md). PR166–PR170 remain unchanged.
 
 ## PR164 — restart ownership, tempo and boundary evidence
 

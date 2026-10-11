@@ -33,6 +33,54 @@ export interface FaceGenome {
   accessories: number;
 }
 
+export type CosmeticPresentation = 'masculine' | 'feminine' | 'neutral';
+export type Hairstyle = 'cropped' | 'short' | 'side_part' | 'curly' | 'long' | 'shaved';
+export type FacialHair = 'none' | 'stubble' | 'beard';
+export type VisualAccessory = 'none' | 'headband' | 'glasses';
+export interface CosmeticOverrides {
+  presentation?: CosmeticPresentation | undefined;
+  hairstyle?: Hairstyle | undefined;
+  hairColor?: number | undefined;
+  facialHair?: FacialHair | undefined;
+  accessories?: VisualAccessory | undefined;
+}
+/** Optional compact appearance data; unedited NPCs reconstruct this from their existing ID. */
+export interface FootballerVisualIdentity {
+  version: 1;
+  faceSeed: string;
+  faceGenome?: FaceGenome | undefined;
+  cosmetics?: CosmeticOverrides | undefined;
+  /** Bounded achievement-ready summary. Repeated toggles do not constitute new styles. */
+  changeMetadata?:
+    | {
+        meaningfulChanges: number;
+        lastChangedDate: string;
+        lastCountedDate?: string | undefined;
+        recentStyleFingerprints: string[];
+      }
+    | undefined;
+}
+export interface ResolvedAppearance {
+  identityId: Id;
+  version: 1;
+  faceSeed: string;
+  baseFace: FaceGenome;
+  face: FaceGenome;
+  ageYears: number;
+  maturity: number;
+  ageLines: number;
+  greyFraction: number;
+  cosmetics: {
+    presentation: CosmeticPresentation;
+    hairstyle: Hairstyle;
+    hairColor: number;
+    facialHair: FacialHair;
+    accessories: VisualAccessory;
+  };
+  heightCm: number;
+  weightKg: number;
+}
+
 export interface PlayerAttributes {
   technique: number;
   firstTouch: number;
@@ -103,6 +151,7 @@ export interface FootballerProfile {
   age: number;
   /** Canonical lifecycle age source. `age` remains as a legacy/derived compatibility field. */
   dateOfBirth?: string | undefined;
+  visualIdentity?: FootballerVisualIdentity | undefined;
   nationality: string;
   heightCm: number;
   weightKg: number;

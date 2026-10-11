@@ -1,9 +1,12 @@
 import * as THREE from 'three';
 import { createPlayerPose, derivePlayerPose, projectBodyDimensions } from './animation';
-import { derivePlayerAppearance, type KitPresentation, type TacticalPlayer } from './model';
+import { type KitPresentation, type TacticalPlayer } from './model';
+import { deriveAppearance } from '../../../core/visualIdentity';
+import { appearanceColors, buildParametricHead } from './faceModel';
 
 /** Per-renderer shared GPU resources; no geometry or material allocation during posing. */
 export class PlayerModelResources {
+  static readonly MAX_MATERIALS = 128;
   readonly box = new THREE.BoxGeometry(1, 1, 1);
   readonly sphere = new THREE.SphereGeometry(1, 8, 6);
   readonly cylinder = new THREE.CylinderGeometry(1, 1, 1, 6);
@@ -17,10 +20,33 @@ export class PlayerModelResources {
   material(color: string | number) {
     let material = this.materials.get(color);
     if (!material) {
+      // Finite face palettes normally stay below the cap. Arbitrary kit inputs cannot
+      // grow this renderer's GPU cache indefinitely; reuse the nearest existing swatch.
+      if (this.materials.size >= PlayerModelResources.MAX_MATERIALS) {
+        const wanted = new THREE.Color(color);
+        return [...this.materials.values()].reduce((nearest, candidate) => {
+          const distance = (value: THREE.Color) =>
+            (value.r - wanted.r) ** 2 + (value.g - wanted.g) ** 2 + (value.b - wanted.b) ** 2;
+          return distance(candidate.color) < distance(nearest.color) ? candidate : nearest;
+        });
+      }
       material = new THREE.MeshStandardMaterial({ color, roughness: 0.85 });
       this.materials.set(color, material);
     }
     return material;
+  }
+  get counts() {
+    return { geometries: 4, materials: this.materials.size + 1 };
+  }
+  dispose(
+    alreadyDisposedGeometries = new Set<THREE.BufferGeometry>(),
+    alreadyDisposedMaterials = new Set<THREE.Material>(),
+  ) {
+    for (const geometry of [this.box, this.sphere, this.cylinder, this.picker])
+      if (!alreadyDisposedGeometries.has(geometry)) geometry.dispose();
+    for (const material of [...this.materials.values(), this.pickerMaterial])
+      if (!alreadyDisposedMaterials.has(material)) material.dispose();
+    this.materials.clear();
   }
 }
 
@@ -57,9 +83,23 @@ export class PlayerModel {
     private readonly resources: PlayerModelResources,
   ) {
     const dimensions = projectBodyDimensions(player);
-    const appearance = derivePlayerAppearance(player.id);
+    const appearance =
+      player.appearance ??
+      deriveAppearance(
+        {
+          id: player.id,
+          dateOfBirth: '2000-07-01',
+          heightCm: player.heightCm ?? 180,
+          weightKg: player.weightKg ?? 75,
+        },
+        '2026-07-01',
+      );
+    const colors = appearanceColors(appearance);
+    const presentation = appearance.cosmetics.presentation;
+    const shoulderWidth =
+      presentation === 'feminine' ? 0.92 : presentation === 'masculine' ? 1.04 : 1;
     this.goalkeeperRole = Boolean(player.goalkeeper);
-    this.skinColor = appearance.skinColor;
+    this.skinColor = colors.skin;
     this.root.userData.playerId = player.id;
     this.body.scale.set(dimensions.width, dimensions.height / 1.8, dimensions.width);
     this.root.add(this.body);
@@ -81,7 +121,13 @@ export class PlayerModel {
     this.torso.position.y = 0.9;
     this.body.add(this.torso);
     this.shirtMeshes.push(
-      mesh(this.torso, resources.cylinder, shirt, [0.255, 0.54, 0.17], [0, 0.31, 0]),
+      mesh(
+        this.torso,
+        resources.cylinder,
+        shirt,
+        [0.255 * shoulderWidth, 0.54, 0.17],
+        [0, 0.31, 0],
+      ),
     );
     // Small shoulder panels and collar keep solid canonical kits readable too.
     this.trimMeshes.push(
@@ -112,32 +158,14 @@ export class PlayerModel {
     );
     this.head.position.y = 0.7;
     this.torso.add(this.head);
-    mesh(this.head, resources.sphere, appearance.skinColor, [0.16, 0.19, 0.155], [0, 0, 0]);
-    const face = mesh(
-      this.head,
-      resources.box,
-      appearance.skinColor,
-      [0.065, 0.07, 0.07],
-      [0, -0.005, 0.16],
-    );
-    face.userData.orientationFeature = 'local_forward_face';
-    if (appearance.hairStyle !== 'bald') {
-      const hair = mesh(
-        this.head,
-        resources.sphere,
-        appearance.hairColor,
-        [0.164, appearance.hairStyle === 'buzz' ? 0.05 : 0.085, 0.155],
-        [0, 0.145, -0.01],
-      );
-      hair.userData.hairStyle = appearance.hairStyle;
-    }
+    buildParametricHead(this.head, appearance, resources);
     for (const [hip, knee, arm, elbow, hand, side] of [
       [this.leftHip, this.leftKnee, this.leftArm, this.leftElbow, this.leftHand, -1],
       [this.rightHip, this.rightKnee, this.rightArm, this.rightElbow, this.rightHand, 1],
     ] as const) {
       hip.position.set(side * 0.125, 0.87, 0);
       this.body.add(hip);
-      mesh(hip, resources.cylinder, appearance.skinColor, [0.085, 0.38, 0.085], [0, -0.19, 0]);
+      mesh(hip, resources.cylinder, colors.skin, [0.085, 0.38, 0.085], [0, -0.19, 0]);
       knee.position.y = -0.38;
       hip.add(knee);
       this.socksMeshes.push(
@@ -158,14 +186,14 @@ export class PlayerModel {
       );
       elbow.position.y = -0.23;
       arm.add(elbow);
-      mesh(elbow, resources.cylinder, appearance.skinColor, [0.055, 0.22, 0.055], [0, -0.11, 0]);
+      mesh(elbow, resources.cylinder, colors.skin, [0.055, 0.22, 0.055], [0, -0.11, 0]);
       hand.position.y = -0.25;
       elbow.add(hand);
       this.handMeshes.push(
         mesh(
           hand,
           resources.sphere,
-          player.goalkeeper ? '#eee9ce' : appearance.skinColor,
+          player.goalkeeper ? '#eee9ce' : colors.skin,
           [0.065, 0.075, 0.06],
           [0, 0, 0],
         ),
