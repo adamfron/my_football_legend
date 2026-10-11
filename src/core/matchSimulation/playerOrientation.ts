@@ -57,6 +57,19 @@ export const deriveOrientationTarget = (
   );
   const goalkeeper = isMatchGoalkeeper(player);
   const carrier = state.ball.ownerId === player.id;
+  if (receptionAware && state.receptionPreparation?.continuation) {
+    const continuation = state.receptionPreparation.continuation;
+    const run = {
+      x: continuation.target.x - player.position.x,
+      y: continuation.target.y - player.position.y,
+    };
+    const ballLength = Math.max(1, Math.hypot(ballVector.x, ballVector.y));
+    const runLength = Math.max(1, Math.hypot(run.x, run.y));
+    return angleForVector({
+      x: ballVector.x / ballLength + (run.x / runLength) * 0.9,
+      y: ballVector.y / ballLength + (run.y / runLength) * 0.9,
+    });
+  }
   if (goalkeeper || receptionAware || (defending && movementDistance < 10))
     return angleForVector(ballVector);
   if (carrier && movementDistance < 7) return player.team === 'home' ? Math.PI / 2 : -Math.PI / 2;

@@ -11,6 +11,9 @@ import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { derivePassLaunchPlan, passLaunchPlanSchema } from './passLaunchPlan';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { secondLastOpponentLine } from './offside';
+import { earliestDefenderArrival } from './passDecision';
+import { clampPitchPoint } from './matchSpace';
+import type { MatchAction } from './matchState';
 
 export const spacePassPlanSchema = z.object({
   requestedSpace: pitchPointSchema,
@@ -53,9 +56,9 @@ export const deriveSpacePassPlan = (
         x: player.position.x + player.velocity.x * horizon,
         y: player.position.y + player.velocity.y * horizon,
       };
-      const pace = 4.8 + player.profile.attributes.pace * 0.035;
+      const arrival = estimatePlayerArrivalTime(state, player, target, 'intercept').estimatedTime;
       const score =
-        remaining / pace +
+        arrival +
         Math.max(0, distance(projected, target) - remaining) * 0.12 -
         Math.max(0, advancing) * 0.1 +
         (isMatchGoalkeeper(player) ? 2 : 0);
@@ -83,17 +86,10 @@ export const deriveSpacePassPlan = (
       distance(player.position, passer.position) > 2
     );
   }).length;
-  const defenderArrival = Math.min(
-    99,
-    ...defenders.map(
-      (player) =>
-        distance(player.position, target) / (4.8 + player.profile.attributes.pace * 0.035) +
-        (1 - player.profile.attributes.gameReading / 100) * 0.35,
-    ),
-  );
+  const defenderArrival = earliestDefenderArrival(state, defenders, target);
   const keeper = defenders.find((player) => isMatchGoalkeeper(player));
   const keeperArrival = keeper
-    ? distance(keeper.position, target) / (4.8 + keeper.profile.attributes.pace * 0.035)
+    ? estimatePlayerArrivalTime(state, keeper, target, 'intercept').estimatedTime
     : 99;
   const progress = signedForwardDistance(passer.position, target, passer.team);
   const ledForward = signedForwardDistance(receiver.position, target, passer.team);
@@ -104,7 +100,7 @@ export const deriveSpacePassPlan = (
       ? 'through'
       : distance(receiver.position, target) > 2 && candidate.advancing > 0.7
         ? 'lead'
-        : metres > 38
+        : metres > 38 && progress > 8
           ? 'direct'
           : progress > 8
             ? 'progressive'
@@ -137,4 +133,56 @@ export const deriveSpacePassPlan = (
     anticipationAdvantage: Math.min(defenderArrival, keeperArrival) - receiverArrival,
     predictionHorizon: horizon,
   });
+};
+
+/** Three meaningful zones at a possession decision, including stationary prospective runners.
+ * Release-time offside and the shared race/flight forecast prune candidates, never grant success. */
+export const enumerateNpcSpacePasses = (
+  state: TacticalMatchState,
+  passer: MatchPlayerState,
+): MatchAction[] => {
+  const dir = passer.team === 'home' ? 1 : -1;
+  const line = secondLastOpponentLine(state, passer.team);
+  const legalLine =
+    passer.team === 'home'
+      ? Math.max(52.5, line, state.ball.x)
+      : Math.min(52.5, line, state.ball.x);
+  const runners = state.players
+    .filter(
+      (p) =>
+        p.team === passer.team &&
+        p.id !== passer.id &&
+        !isMatchGoalkeeper(p) &&
+        p.duty !== 'defend' &&
+        distance(p.position, passer.position) < 42 &&
+        signedForwardDistance(passer.position, p.position, passer.team) > 2 &&
+        (passer.team === 'home'
+          ? p.position.x <= legalLine + 0.01
+          : p.position.x >= legalLine - 0.01),
+    )
+    .sort(
+      (a, b) =>
+        distance(a.position, passer.position) - distance(b.position, passer.position) ||
+        a.id.localeCompare(b.id),
+    )
+    .slice(0, 3);
+  const actions: MatchAction[] = [];
+  for (const runner of runners) {
+    const wide = Math.abs(runner.position.y - 34) > 17;
+    const target = clampPitchPoint({
+      x: runner.position.x + dir * (wide ? 10 : 8),
+      y: runner.position.y + (wide ? (34 - runner.position.y) * 0.08 : 0),
+    });
+    const plan = deriveSpacePassPlan(state, passer, target);
+    if (
+      !plan ||
+      plan.receiverId !== runner.id ||
+      plan.anticipationAdvantage < 0.2 ||
+      plan.receiverArrival > plan.launchPlan.predictedArrivalTime + 0.3 ||
+      Math.min(target.y, 68 - target.y, target.x, 105 - target.x) < 2
+    )
+      continue;
+    actions.push({ type: 'space_pass', actorId: passer.id, target });
+  }
+  return actions;
 };

@@ -422,7 +422,9 @@ const actionFamily = (action: MatchAction) =>
       : action.intent === 'progressive'
         ? 'progressive_pass'
         : 'direct_pass'
-    : action.type;
+    : action.type === 'carry' && action.movementMode === 'sprint'
+      ? 'sprint_carry'
+      : action.type;
 /** RNG-free projection over the canonical action ranking; it changes only whether play pauses. */
 export const evaluateOnBallDecisionRelevance = (
   state: TacticalMatchState,
@@ -436,7 +438,15 @@ export const evaluateOnBallDecisionRelevance = (
   const competitive = ranked.filter((a) => best - a.canonicalScore <= 14);
   const families = [...new Set(competitive.map((a) => actionFamily(a.action)))];
   const progressive = families.some((f) =>
-    ['progressive_pass', 'direct_pass', 'carry', 'cross', 'shot'].includes(f),
+    [
+      'progressive_pass',
+      'direct_pass',
+      'space_pass',
+      'carry',
+      'sprint_carry',
+      'cross',
+      'shot',
+    ].includes(f),
   );
   const preferredImpact = ranked[0]
     ? evaluateActionImpact(state, ranked[0].action).family
@@ -492,6 +502,20 @@ export const evaluateOnBallDecisionRelevance = (
   const significantPreferred =
     preferredImpact === 'high_impact' &&
     (preferredAction?.type !== 'carry' || (riskyCarry && hasTerminalAlternative));
+  const sprintRouteChoice =
+    (actor.team === 'home' ? actor.position.x : 105 - actor.position.x) >= 60 &&
+    Math.abs(actor.position.y - 34) >= 15 &&
+    competitive.some(
+      ({ action }) =>
+        action.type === 'carry' &&
+        action.movementMode === 'sprint' &&
+        signedForwardDistance(actor.position, action.target, actor.team) >= 8 &&
+        distance(actor.position, action.target) >= 12,
+    ) &&
+    ranked.some(
+      ({ action }) =>
+        action.type === 'pass' || (action.type === 'carry' && action.movementMode !== 'sprint'),
+    );
   // A credible line-breaking outlet competes with recycling even when both options are passes.
   // fieldValue includes centrality, so use physical forward metres for this commitment.
   const progressiveRouteChoice = competitive.some(({ action, canonicalScore }) => {
@@ -517,10 +541,14 @@ export const evaluateOnBallDecisionRelevance = (
     );
   });
   if (progressiveRouteChoice) reasons.push('line_breaking_outlet_choice');
+  if (sprintRouteChoice) reasons.push('sprint_corridor_choice');
   if (significantPreferred || absolutePlayerOwned) reasons.push('autopilot_escalation');
   return onBallDecisionRelevanceSchema.parse({
     relevant:
-      absolutePlayerOwned || progressiveRouteChoice || (significantPreferred && hasAlternative),
+      absolutePlayerOwned ||
+      progressiveRouteChoice ||
+      sprintRouteChoice ||
+      (significantPreferred && hasAlternative),
     score,
     reasons,
     viableFamilies: families,
@@ -1039,7 +1067,13 @@ export const projectPlayerAgency = (
     preparation?.actorId === actorId &&
     state.time >= preparation.readyAt &&
     (!preparation.continuation || state.time >= preparation.continuation.until) &&
-    onBallRelevance().relevant
+    onBallRelevance().relevant &&
+    // A chosen incoming control already expressed the human's first-touch intention.
+    // An unchanged open sprint route cannot immediately ask that same choice again;
+    // semantic pressure/route changes above still reopen the decision normally.
+    (!onBallRelevance().reasons.includes('sprint_corridor_choice') ||
+      onBallRelevance().reasons.includes('autopilot_escalation') ||
+      onBallRelevance().reasons.includes('line_breaking_outlet_choice'))
   )
     redecisionReason = 'controlled_reception_complete';
   const continuingCarry = humanPossession && state.ballCarrierIntent?.actorId === actorId;

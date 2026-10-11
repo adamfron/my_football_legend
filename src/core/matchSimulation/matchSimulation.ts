@@ -120,6 +120,7 @@ import { advanceOnBallPreparation, deriveOnBallPreparation } from './onBallPrepa
 import { toPitchPoint } from './matchSpace';
 import { resolvePendingPlayerDecision } from './decisionOutcome';
 import { resolveReceptionOutcome, projectLiveReceptionTarget } from './passReception';
+import { prepareReceptionContinuation } from './receptionContinuation';
 import { advanceBallAcquisition } from './ballAcquisition';
 import { deriveCarryExecution, hasReachedCarryDecisionWaypoint } from './carryExecution';
 import {
@@ -507,6 +508,32 @@ const changePossession = (
         : {}),
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
+    if (
+      next.onBallPreparation?.plannedCarry &&
+      reception &&
+      reception.kind !== 'heavy_touch' &&
+      reception.kind !== 'failed_control'
+    ) {
+      // The passer's cooldown is not the receiver's readiness. An anticipated continuation
+      // waits for the actual control/turn preparation, then competes in the ordinary ranking.
+      next.actionCooldown = Math.max(0.12, next.onBallPreparation.readyAt - state.time);
+      if (reception.kind === 'directional_control' && reception.resultingPoint) {
+        const dx = reception.resultingPoint.x - reception.contactPoint.x;
+        const dy = reception.resultingPoint.y - reception.contactPoint.y;
+        const length = Math.max(0.01, Math.hypot(dx, dy));
+        const speed = Math.hypot(preparedOwner.velocity.x, preparedOwner.velocity.y);
+        // A finite first-contact impulse starts at the contact, not its future waypoint.
+        next.ball = {
+          ...controlledBall,
+          height: 0.11,
+          velocity: {
+            x: (dx / length) * (1.2 + speed * 0.7),
+            y: (dy / length) * (1.2 + speed * 0.7),
+            z: 0,
+          },
+        };
+      }
+    }
     // A teammate reclaim restores the same team's attack. A heavy contact is not counted as
     // a loss unless an opponent actually acquires the ball or it exits for their restart.
     delete next.pendingPossessionLoss;
@@ -1295,8 +1322,10 @@ const stepTacticalMatchCore = (
   if (tacticalPlanDue && state.receptionPreparation) {
     const receiver = state.players.find((p) => p.id === state.receptionPreparation!.actorId);
     const point = receiver && projectLiveReceptionTarget(state, receiver);
-    if (point)
-      state.receptionPreparation = { ...state.receptionPreparation, expectedContactPoint: point };
+    if (point && receiver) {
+      state.receptionPreparation = prepareReceptionContinuation(state, receiver, point)!;
+      state.receptionPreparation = { ...state.receptionPreparation!, expectedContactPoint: point };
+    }
   }
   // Formation/pressure plans are stable intentions. Integrate bodies at 40 Hz, but only answer
   // the expensive tactical question at 10 Hz or immediately after a semantic football event.
@@ -1343,10 +1372,34 @@ const stepTacticalMatchCore = (
       state.time >= state.receptionPreparation.awarenessAt
     ) {
       const preparation = state.receptionPreparation;
-      const contactTarget = preparation.expectedContactPoint;
+      const contactTarget = preparation.runOn?.target ?? preparation.expectedContactPoint;
       // Meet the forecast ball, then preserve momentum at actual reception. Advancing a runner's
       // target three metres past the meeting point each tick made reachable lead balls miss him.
-      player = { ...player, target: contactTarget };
+      // A prepared directional contact can overlap acceleration. The meeting remains on
+      // the flight; a small continuation target prevents braking at the earliest contact.
+      const continuation = preparation.continuation;
+      const remaining = distance(player.position, contactTarget);
+      const target =
+        !preparation.runOn &&
+        continuation &&
+        remaining < 2.5 &&
+        state.time < continuation.expiresAt &&
+        (state.ball.height ?? 0) <= 0.65 &&
+        preparation.expectedArrivalTime - state.time <= 0.35
+          ? clampPitchPoint({
+              x:
+                contactTarget.x +
+                ((continuation.target.x - contactTarget.x) /
+                  Math.max(1, distance(contactTarget, continuation.target))) *
+                  2,
+              y:
+                contactTarget.y +
+                ((continuation.target.y - contactTarget.y) /
+                  Math.max(1, distance(contactTarget, continuation.target))) *
+                  2,
+            })
+          : contactTarget;
+      player = { ...player, target };
     }
     if (state.receptionPreparation?.actorId === player.id) movementTarget = player.target;
     if (state.restart?.phase === 'setup') return { ...player, velocity: { x: 0, y: 0 } };
@@ -2482,7 +2535,19 @@ const stepTacticalMatchCore = (
         awaitsPlayer || hasActiveHumanPossession(state)
           ? undefined
           : chooseNpcRoutineAction(state, ownerId);
-      if (action) state = resolveMatchAction(state, action, 'autonomous_npc');
+      if (action) {
+        const carry = state.ballCarrierIntent;
+        if (
+          action.type === 'carry' &&
+          carry?.actorId === action.actorId &&
+          state.time < carry.expiresAt &&
+          distance(carry.target, action.target) < 0.1 &&
+          (carry.movementMode ?? 'carry') === (action.movementMode ?? 'carry')
+        )
+          // Re-evaluation keeps this existing intention. Explicit executions still count.
+          state = { ...state, actionCooldown: 0.25 };
+        else state = resolveMatchAction(state, action, 'autonomous_npc');
+      }
     }
     return state;
   } finally {

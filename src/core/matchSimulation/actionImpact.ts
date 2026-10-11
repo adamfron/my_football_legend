@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { distance, fieldValue } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import type { MatchAction, TacticalMatchState } from './matchState';
+import { classifyPass } from './passClassification';
 
 export const actionImpactSchema = z.object({
   family: z.enum(['routine', 'meaningful', 'high_impact']),
@@ -47,10 +48,16 @@ export const evaluateActionImpact = (
     reason = action.type;
   } else if (
     action.type === 'pass' &&
-    (action.intent === 'through' || action.intent === 'direct' || progression >= 18)
+    (action.intent === 'through' ||
+      classifyPass(actor.position, action.target, actor.team, action.intent).purpose ===
+        'direct_attack' ||
+      progression >= 18)
   ) {
     family = 'high_impact';
     reason = 'progressive_pass';
+  } else if (action.type === 'space_pass' && progression >= 8) {
+    family = 'high_impact';
+    reason = 'space_pass';
   } else if (
     action.type === 'carry' &&
     (progression >= 10 || zoneChange || defenderProximity <= 5)

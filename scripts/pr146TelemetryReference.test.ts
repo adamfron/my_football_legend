@@ -14,7 +14,10 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR162 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR163 complete telemetry reference (PR146 observer contract)', () => {
+  // PR163 preserves these 60-second references; dedicated fixtures exercise its new routes.
+  // Pristine PR162 and final complete payloads repeat twice with every exported field,
+  // schema and identity invariant preserved: PR163-telemetry-reference.json.
   // PR162 intentionally changes decision timing, depth jobs and pass forecasts.
   // Both pristine PR161 and current complete outputs were reproduced twice per
   // seed in fresh fixtures, preserving every exported field and identity invariant:

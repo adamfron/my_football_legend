@@ -292,6 +292,9 @@ describe('PR149 context-based reception quality', () => {
     movingReceiver.facingAngle = -Math.PI / 2;
     before.receptionPreparation!.awarenessAt = before.time - 1.2;
     before.receptionPreparation!.movement = 'run_onto_ball';
+    // Test contact geometry with human ownership; autonomous run-on is covered in PR163.
+    before.controlledFootballerId = receiver.id;
+    before.playerAgencyEnabled = true;
     const contact = stepTacticalMatchAfterDecisionProbe(before, FIXED_MATCH_DT);
     expect(contact.lastReceptionOutcome?.kind).toBe('directional_control');
     expect(contact.ball.ownerId).toBe(receiver.id);

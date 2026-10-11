@@ -1,4 +1,23 @@
-# Audyt silnika meczu — PR140 / aktualizacja PR162
+# Audyt silnika meczu — PR140 / aktualizacja PR163
+
+## PR163 — offensive continuation evidence
+
+[PR163 report](PR163_OFFENSIVE_MOMENTUM_SPACE_PASSING.md) separates the original
+Baran/Kowalski rankings from equivalent canonical fixtures. Both original forward
+carries existed and initially ranked first; stationary reception and later defensive
+recovery changed the opportunity. Exact original facing/preparation ETA are unavailable.
+
+Connections now cover aware reception continuation, low-phase directional contact,
+reachable sprint corridors, bounded ordinary space passes and deliberate non-contact.
+Physical ownership/completion, offside, goalkeeper reach, turning, fatigue and human
+agency remain canonical. Independent length/direction/purpose remove the false
+offensive label from long backward switches without globally reducing long-pass skill.
+
+Validation retains complete telemetry fields and identity ledgers, tests the formerly
+missed high switch, and checks observer result counts against official pass statistics.
+Numerical before/after tables and CPU costs are in the report. Sparse terminal attack,
+context-dependent completion forecast errors and equal-4-4-2 identity asymmetry remain open.
+Next architecture work is PR164's startup/storage/match-contract audit.
 
 ## PR162 — integrated attacking-flow evidence
 
