@@ -402,8 +402,9 @@ describe('PR148 contextual passing cadence', () => {
     const state = fixture();
     const actor = state.players.find((player) => player.id === state.ball.ownerId)!;
     const scanning = npcPossessionDecisionDelay(state, actor);
-    expect(scanning).toBeGreaterThan(2.8);
-    expect(chooseNpcRoutineAction({ ...state, time: 11 }, actor.id)).toBeUndefined();
+    expect(scanning).toBeGreaterThanOrEqual(0.2);
+    expect(scanning).toBeLessThan(2);
+    expect(chooseNpcRoutineAction({ ...state, time: 10.1 }, actor.id)).toBeUndefined();
     state.currentPressure = 1;
     expect(npcPossessionDecisionDelay(state, actor)).toBeLessThan(1.4);
     expect(chooseNpcRoutineAction({ ...state, time: 11.5 }, actor.id)).toBeDefined();

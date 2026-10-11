@@ -188,7 +188,15 @@ export const legalizeRestartPlayerTarget = (
     if (opponent) {
       const onOwnGoalLine = ownDepth(target, player.team) <= 0.4 && Math.abs(target.y - 34) <= 3.66;
       if (!onOwnGoalLine)
-        target = outsideCircle(target, spot, 9.3, player.team === 'home' ? -1 : 1);
+        // Markers must stand beyond the wall's body envelope during preparation.
+        // Projecting all defenders onto the same 9.3m arc creates an impossible
+        // packed target and body separation repeatedly violates the 9.15m law.
+        target = outsideCircle(
+          target,
+          spot,
+          restart.roles[player.id]?.key === 'wall' ? 9.5 : 11,
+          player.team === 'home' ? -1 : 1,
+        );
       if (inPenaltyArea(spot, restart.restartTeam))
         target = outsidePenaltyArea(target, restart.restartTeam);
     } else {

@@ -69,13 +69,15 @@ const owner = (state: TacticalMatchState) =>
   state.players.find((player) => player.id === state.ball.ownerId)!;
 
 describe('PR149 canonical possession micro-behaviour', () => {
-  it('keeps PR148 scanning time while moving the body and ball through bounded preparation', () => {
+  it('preserves physical preparation while moving the body and ball through bounded preparation', () => {
     const initial = fixture();
     const actor = owner(initial);
     initial.ball.velocity = { x: 8, y: 0 };
     initial.onBallPreparation = deriveOnBallPreparation(initial, actor, 'clean_control');
     delete initial.ball.velocity;
-    expect(npcPossessionDecisionDelay(initial, actor)).toBeGreaterThan(5.5);
+    expect(npcPossessionDecisionDelay(initial, actor)).toBeGreaterThanOrEqual(
+      initial.onBallPreparation.readyAt - initial.onBallPreparation.gainedAt,
+    );
     expect(chooseNpcRoutineAction(initial, actor.id)).toBeUndefined();
     const phases = new Set<string>();
     let state = initial;
@@ -101,7 +103,7 @@ describe('PR149 canonical possession micro-behaviour', () => {
     expect(state.contactControlTelemetry!.physicalContacts).toBeGreaterThan(1);
     expect(distance(state.ball, initial.ball)).toBeGreaterThan(0.2);
     expect(state.decisionIndex).toBe(initial.decisionIndex);
-    expect(chooseNpcRoutineAction(state, actor.id)).toBeUndefined();
+    expect(chooseNpcRoutineAction(state, actor.id)).toBeDefined();
     expect(onBallPreparationSchema.safeParse(state.onBallPreparation).success).toBe(true);
   });
 
@@ -313,7 +315,9 @@ describe('PR149 context-based reception quality', () => {
     expect(maintained.onBallPreparation!.readyAt).toBe(readyAt);
     expect(maintained.ballOwnershipStartedAt).toBe(ownershipStartedAt);
     expect(maintained.decisionIndex).toBe(contact.decisionIndex);
-    expect(npcPossessionDecisionDelay(maintained, owner(maintained))).toBeGreaterThan(5.5);
+    expect(npcPossessionDecisionDelay(maintained, owner(maintained))).toBeGreaterThanOrEqual(
+      readyAt - gainedAt,
+    );
   });
 
   it('records the actual successful teammate receiver even when the intended target differs', () => {

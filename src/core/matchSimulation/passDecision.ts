@@ -39,7 +39,7 @@ const clamp = (n: number) => Math.max(0, Math.min(1, n));
 /** Prune only runners whose fastest possible travel cannot beat the current physical ETA.
  * The bound includes initial momentum, the 0.8m contact envelope and the estimator's 10s cap.
  * Survivors still use the identical 25ms acceleration/turn projection. */
-const earliestDefenderArrival = (
+export const earliestDefenderArrival = (
   state: TacticalMatchState,
   players: MatchPlayerState[],
   target: PitchPoint,
