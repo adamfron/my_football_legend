@@ -1,5 +1,26 @@
 # My Football Legend — Current Project State
 
+## PR163 — Offensive Momentum / Space Passing
+
+Baza: scalony PR162 `34ee3da`. Połączono świadome przygotowanie przyjęcia,
+kierunkowy kontakt, kontekstowe korytarze sprintu i zwykłe podania NPC w przestrzeń.
+Celowe przepuszczenie piłki pozostaje brakiem kontaktu: nie nadaje własności,
+zaliczenia podania ani ochrony przed obrońcą. Długi przerzut do tyłu nie uzyskuje
+już intencji ofensywnej tylko przez odległość. Człowiek zachowuje wybór,
+a jawne prowadzenia zachowują dotychczasową księgę statystyk.
+
+Oryginalny `lab-mv3lzwth`: 1162 próby, 1063 ukończenia, zero strzałów.
+Prowadzenie było dostępne i początkowo najlepsze; podczas zatrzymanego przyjęcia
+obrońca zmniejszał dystans około 8→5 m. Oryginalny eksport nie zawiera pełnego
+stanu/orientacji, więc przypadki Barana i Kowalskiego są równoważnymi fixture.
+Wyniki, status pełnej walidacji, parowane mecze, koszt CPU i ograniczenia są w
+[raporcie PR163](PR163_OFFENSIVE_MOMENTUM_SPACE_PASSING.md).
+Ogólna kreacja strzałów pozostaje otwartym problemem. Asymetria równych 4-4-2
+i rozbieżność prognoz ukończenia pozostają jawne.
+
+Następny etap: **PR164 — Startup, Storage & Match Contract Audit**.
+Poniższe sekcje opisują wcześniejsze etapy.
+
 ## PR162 — Integrated Match Realism / Formation Geometry Audit
 
 Baza: scalony PR161, `4d61ee8`. Dodano legalne, równe składy wszystkich pięciu

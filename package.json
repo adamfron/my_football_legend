@@ -30,6 +30,7 @@
     "benchmark:match-flow": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkMatchFlow.ts",
     "benchmark:formation-geometry": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkFormationGeometry.ts",
     "benchmark:pr162-scenarios": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr162Scenarios.ts",
+    "benchmark:offensive-momentum": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr163.ts",
     "benchmark:background": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkBackgroundSimulation.ts",
     "benchmark:context": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPresentationContext.ts",
     "benchmark:calibration": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkCalibration.ts",

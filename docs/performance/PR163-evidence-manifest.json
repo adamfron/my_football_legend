@@ -1,0 +1,51 @@
+{
+  "baseline": "34ee3da98b20195841f87d0156d965649bb97f1a",
+  "receipts": [
+    {
+      "file": "matches-before-final-v2.json",
+      "sha256": "a401ef8421ac2fed510e1d199078248839edcfb0e666ef08af55f4095d82c00a"
+    },
+    {
+      "file": "matches-after-final-v2.json",
+      "sha256": "2496c8beaa185a46c8b55163a80ccf02ee9fe57eca335ff883b005825ee9e017"
+    },
+    {
+      "file": "scenarios-before-release.json",
+      "sha256": "5eb22ae45bec0761d7deb842d9ce17273be312cf4259445c8e7309d5abc0de62"
+    },
+    {
+      "file": "scenarios-after-release.json",
+      "sha256": "df8ce5b87a98d8990a9704bddaa9a775452a9969f91ab7b2de03fb06e45f86c5"
+    },
+    {
+      "file": "passing-before.json",
+      "sha256": "307af234ee5dfef0d200e162065154b5cdbb68bf910a9517651e317fc5ae14f9"
+    },
+    {
+      "file": "passing-after.json",
+      "sha256": "a6616d6e669e5935252e6df36fc4281e661c37721f8dd9ebee9731d3e59e8008"
+    },
+    {
+      "file": "reception-before.json",
+      "sha256": "fbbe1bb9bf33db7bbdb68e062387ffa50288f35f73bf63507522dd260d680db1"
+    },
+    {
+      "file": "reception-after.json",
+      "sha256": "a925bb7293ef992a039c9cfd39e537b68e3ce414354068fc9bc2ae733cd167e9"
+    },
+    {
+      "file": "performance-final.json",
+      "sha256": "c5a81c7e3f2ccdd79c783353e020ed3af4f535d09c7467e7a5b77dea9e9336bd"
+    }
+  ],
+  "note": "Manifests identify measured working trees; all public tables derive from complete local numerical records. Final after matches, scenarios and passing cells share one source hash. Baseline v2 has no bypasses, so the technical-failure counter repair cannot change its zero run-on failure count. Rejected corridor-clipping and changed short-carry trials are excluded. Full after matches combine two balanced rows and twelve other rows from identical source/harness hashes, with component receipts in the manifest.",
+  "sourceHashes": {
+    "matchesBefore": "cf0fcdb337c6257996541f99f35ed612e40ec41537fd31c620aa63542dec1ca6",
+    "matchesAfter": "2104cc0fe90224a81ddbc4bd319fe312dc00e5f81c61ee53fd66cb4b7f347bd0",
+    "passingAfter": "2104cc0fe90224a81ddbc4bd319fe312dc00e5f81c61ee53fd66cb4b7f347bd0"
+  },
+  "funnelVersions": {
+    "pr162": 3,
+    "pr163": 2
+  }
+}

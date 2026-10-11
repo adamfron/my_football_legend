@@ -1,5 +1,31 @@
 # Match Engine Handoff
 
+## PR163 contracts and next work
+
+- Read [the PR163 report](PR163_OFFENSIVE_MOMENTUM_SPACE_PASSING.md) and its numerical
+  receipts first. Baseline is merged PR162 `34ee3da`; the original 1162/1063-pass
+  observation is available, but not a complete replay checkpoint.
+- Reception continuation belongs to existing preparation after awareness. Actual
+  low-flight timing, contact coordinates, turning and stamina remain physical authority.
+  Never extend the approach past a high lofted meeting prematurely.
+- Deliberate run-on omits only the intended receiver from an early contest. It grants
+  no owner, executed contact or pass credit. Human intentions and release-time offside
+  override autonomous planning. Every defender/keeper remains contestable.
+- Keep at most three sprint corridors, six samples per corridor and three NPC space
+  candidates. Reranking is a bounded opportunity evaluation, not a per-tick grid.
+  Reaffirming an NPC carry preserves its current target; explicit executions still count.
+  An uncontested sprint corridor is not a controlled-dribble success model: preserve
+  the existing short routes and their local evasion/contact costs rather than clipping
+  every contested dribble's progression to zero.
+- Length, direction and purpose are derived metadata, independent of the legacy action
+  schema. A backward `direct` record must stay loadable without gaining attacking utility.
+- PR162 attacking funnel remains v3. PR163 continuation results use chronological
+  resolution identities so an old retained completion cannot alternate with a newer
+  unclaimed diagnostic and inflate counters. Full-match pass counters must match the
+  official ledger. Bounded sample means are not exhaustive full-match means.
+- Next: **PR164 — Startup, Storage & Match Contract Audit**. Retain sparse-shot,
+  prediction-calibration and equal-4-4-2 identity limitations; no outcome balancing.
+
 ## PR162 contracts and next work
 
 - Baseline: pristine merged PR161 `4d61ee8`. Read the

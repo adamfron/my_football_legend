@@ -3,6 +3,7 @@ import { clampPitchPoint, distance, pitchPointSchema, type PitchPoint } from './
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 import { shotPreparationSeconds } from './shotIntent';
+import { receptionContinuationSchema } from './receptionContinuationSchema';
 
 export const possessionMicroBehaviourSchema = z.object({
   phase: z.enum([
@@ -44,6 +45,7 @@ export const onBallPreparationSchema = z.object({
   kind: z.enum(['immediate_control', 'directional_touch', 'settling', 'shielding']),
   receptionKind: z.enum(['clean_control', 'directional_control', 'heavy_touch']).optional(),
   incomingSpeed: z.number().nonnegative(),
+  plannedCarry: receptionContinuationSchema.optional(),
   micro: possessionMicroBehaviourSchema.optional(),
   continuation: z
     .object({
@@ -98,6 +100,11 @@ export const deriveOnBallPreparation = (
             : 'settling',
     ...(receptionKind ? { receptionKind } : {}),
     incomingSpeed,
+    ...(receptionKind !== 'heavy_touch' &&
+    state.receptionPreparation?.actorId === actor.id &&
+    state.receptionPreparation.continuation
+      ? { plannedCarry: state.receptionPreparation.continuation }
+      : {}),
     ...(receptionKind !== 'heavy_touch' &&
     receptionKind &&
     Math.hypot(actor.velocity.x, actor.velocity.y) > 0.7

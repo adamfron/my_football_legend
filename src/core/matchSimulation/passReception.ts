@@ -13,6 +13,7 @@ import { projectReceiverReadiness, receiverReadinessProjectionSchema } from './r
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { projectLocomotion } from './locomotion';
 import { projectFutureBallTrajectory } from './ballPhysics';
+import { receptionContinuationSchema, runOnReceptionSchema } from './receptionContinuationSchema';
 
 /** An aware receiver meets the actual flight, including execution error. The release-time
  * desired point remains diagnostic evidence; this only supplies a normal locomotion target.
@@ -111,6 +112,8 @@ export const receptionPreparationSchema = z.object({
   movement: z.enum(['wait', 'meet_ball', 'run_onto_ball']),
   ballEpisode: z.string(),
   readiness: receiverReadinessProjectionSchema,
+  continuation: receptionContinuationSchema.optional(),
+  runOn: runOnReceptionSchema.optional(),
 });
 export type ReceptionPreparation = z.infer<typeof receptionPreparationSchema>;
 
@@ -380,29 +383,37 @@ export const resolveReceptionOutcome = (
           ? 2.2 + (0.34 - quality) * 3
           : 0;
   const displacementDirection =
-    kind === 'directional_control' && speed > 0.1
-      ? { x: receiver.velocity.x / speed, y: receiver.velocity.y / speed }
-      : horizontalSpeed > 0.1
-        ? {
-            x: (state.ball.velocity?.x ?? 0) / horizontalSpeed,
-            y: (state.ball.velocity?.y ?? 0) / horizontalSpeed,
-          }
-        : { x: Math.sin(receiver.facingAngle), y: Math.cos(receiver.facingAngle) };
+    kind === 'directional_control' &&
+    state.receptionPreparation?.actorId === receiver.id &&
+    state.receptionPreparation.continuation
+      ? (() => {
+          const target = state.receptionPreparation!.continuation!.target;
+          const length = Math.max(0.01, distance(contactPoint, target));
+          return {
+            x: (target.x - contactPoint.x) / length,
+            y: (target.y - contactPoint.y) / length,
+          };
+        })()
+      : kind === 'directional_control' && speed > 0.1
+        ? { x: receiver.velocity.x / speed, y: receiver.velocity.y / speed }
+        : horizontalSpeed > 0.1
+          ? {
+              x: (state.ball.velocity?.x ?? 0) / horizontalSpeed,
+              y: (state.ball.velocity?.y ?? 0) / horizontalSpeed,
+            }
+          : { x: Math.sin(receiver.facingAngle), y: Math.cos(receiver.facingAngle) };
   const displacedPoint = {
     x: contactPoint.x + displacementDirection.x * displacement,
     y: contactPoint.y + displacementDirection.y * displacement,
   };
-  const resultingPoint =
-    displacement > 0
-      ? kind === 'directional_control'
-        ? clampPitchPoint(displacedPoint)
-        : displacedPoint
-      : undefined;
+  const resultingPoint = displacement > 0 ? displacedPoint : undefined;
   const selected =
     state.pendingReceptionIntent?.actorId === receiver.id &&
     state.pendingReceptionIntent.action.type === 'carry'
       ? state.pendingReceptionIntent.action.target
-      : undefined;
+      : state.receptionPreparation?.actorId === receiver.id
+        ? state.receptionPreparation.continuation?.target
+        : undefined;
   const selectedVector = selected
     ? { x: selected.x - contactPoint.x, y: selected.y - contactPoint.y }
     : receiver.velocity;

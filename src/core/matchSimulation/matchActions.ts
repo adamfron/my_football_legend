@@ -45,7 +45,7 @@ import {
   type ThrowInDiagnostic,
 } from './throwIn';
 import { derivePassLaunchPlan } from './passLaunchPlan';
-import { deriveSpacePassPlan, type SpacePassPlan } from './spacePassing';
+import { deriveSpacePassPlan, enumerateNpcSpacePasses, type SpacePassPlan } from './spacePassing';
 import { interpretPassExecution } from './passExecution';
 import { projectReceiverReadiness } from './receiverReadiness';
 import { deriveFinalThirdOccupations, deriveFlankRelationship } from './tacticalPositioning';
@@ -66,6 +66,8 @@ import {
   reconcileHumanPossession,
 } from './possessionAgency';
 import { deriveBallContactAccess, estimateCarrierContactWindow } from './ballContactGeometry';
+import { enumerateCarryChoices, projectCarryOpportunity } from './carryOpportunity';
+import { classifyPass } from './passClassification';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -239,16 +241,18 @@ export const enumerateAvailableActions = (
       ...enumerateDefensiveChallengeActions(state, actorId),
     ];
   const dir = actor.team === 'home' ? 1 : -1;
-  const carryTargets = [
-    { x: actor.position.x + dir * 6, y: actor.position.y },
-    { x: actor.position.x + dir * 10, y: actor.position.y + (34 - actor.position.y) * 0.35 },
-    { x: actor.position.x + dir * 5, y: actor.position.y + (actor.position.y < 34 ? -5 : 5) },
-    { x: actor.position.x - dir * 3, y: actor.position.y + (34 - actor.position.y) * 0.25 },
-  ].map(clampPitchPoint);
   const actions: MatchAction[] = [
     { type: 'hold', actorId },
-    ...carryTargets.map((target) => ({ type: 'carry' as const, actorId, target })),
+    ...enumerateCarryChoices(state, actor),
   ];
+  const committedCarry = state.ballCarrierIntent;
+  if (committedCarry?.actorId === actorId && state.time < committedCarry.expiresAt)
+    actions.push({
+      type: 'carry',
+      actorId,
+      target: committedCarry.target,
+      ...(committedCarry.movementMode ? { movementMode: committedCarry.movementMode } : {}),
+    });
   const advanced = fieldValue(actor.position, actor.team) > 54;
   const channelWidth = Math.abs(actor.position.y - 34);
   const deliveryAngle = Math.abs(actor.position.x - (actor.team === 'home' ? 105 : 0));
@@ -289,7 +293,7 @@ export const enumerateAvailableActions = (
     .forEach((p) => {
       const progress = dir * (p.position.x - actor.position.x),
         length = distance(p.position, actor.position);
-      const intent = length > 42 ? 'direct' : progress > 8 ? 'progressive' : 'support';
+      const intent = progress > 8 ? (length > 42 ? 'direct' : 'progressive') : 'support';
       const projection = projectPassReception(state, actor, p, intent);
       actions.push({
         type: 'pass',
@@ -348,6 +352,7 @@ export const enumerateAvailableActions = (
         }
       }
     });
+  actions.push(...enumerateNpcSpacePasses(state, actor));
   return actions;
 };
 export const scoreActionForAI = (
@@ -375,9 +380,7 @@ export const scoreActionForAI = (
           delivery: plan.delivery,
         },
         suppliedPreferences,
-      ) +
-      Math.min(8, plan.anticipationAdvantage * 5) -
-      plan.groundLaneRisk * (plan.delivery === 'ground' ? 4 : 1)
+      ) + Math.min(6, Math.max(0, plan.anticipationAdvantage) * 3)
     );
   }
   if (action.type === 'challenge') {
@@ -450,6 +453,32 @@ export const scoreActionForAI = (
       : utility;
   }
   if (action.type === 'carry') {
+    const opportunity = projectCarryOpportunity(state, actor, action.target, action.movementMode);
+    const planned =
+      state.onBallPreparation?.actorId === actor.id
+        ? state.onBallPreparation.plannedCarry
+        : undefined;
+    const continuity =
+      planned &&
+      state.time < planned.expiresAt &&
+      opportunity.freeDistance >= 3 &&
+      distance(planned.target, action.target) < 5 &&
+      planned.mode === (action.movementMode ?? 'carry')
+        ? 5
+        : 0;
+    const committed = state.ballCarrierIntent;
+    const carryContinuity =
+      committed?.actorId === actor.id &&
+      state.time < committed.expiresAt &&
+      distance(committed.target, action.target) < 0.1 &&
+      (committed.movementMode ?? 'carry') === (action.movementMode ?? 'carry') &&
+      opportunity.freeDistance >= Math.min(3, distance(actor.position, action.target))
+        ? 5
+        : 0;
+    const burstCost =
+      action.movementMode === 'sprint'
+        ? 5 + (1 - (actor.fitness?.burstReadiness ?? 1)) * 18 + opportunity.turnCost * 5
+        : 0;
     const contact = estimateCarrierContactWindow(state, actor, action.target);
     const contactDelay = Math.max(0, contact.earliestContactAt - state.time);
     const interceptors = opponents(state, actor).filter(
@@ -473,9 +502,17 @@ export const scoreActionForAI = (
         );
       }),
     );
+    // A free-running burst needs an uncontested corridor. A controlled dribble can
+    // evade a defender through the existing local route/contact model below;
+    // clipping its progress to zero counts that same defensive contest twice.
+    const progressionTarget = action.movementMode === 'sprint' ? opportunity.target : action.target;
     return (
       18 +
-      (fieldValue(action.target, actor.team) - fieldValue(actor.position, actor.team)) * 1.3 +
+      (fieldValue(progressionTarget, actor.team) - fieldValue(actor.position, actor.team)) * 1.3 +
+      opportunity.crossingAccess * Math.min(10, opportunity.support * 3) +
+      continuity +
+      carryContinuity -
+      burstCost +
       (actor.profile.attributes.dribbling +
         actor.profile.attributes.agility +
         actor.profile.attributes.pace +
@@ -619,8 +656,16 @@ export const scoreActionForAI = (
       actor.profile.attributes.gameReading +
       actor.profile.attributes.composure) /
     20;
+  const classification = classifyPass(
+    actor.position,
+    action.target,
+    actor.team,
+    action.intent,
+    action.delivery,
+    Boolean(action.requestedSpace),
+  );
   const styleIntent =
-    action.intent === 'direct' || action.intent === 'through'
+    classification.purpose === 'direct_attack' || action.intent === 'through'
       ? (preferences.verticality - 0.4) * 36
       : (preferences.possessionPatience - 0.5) * 14;
   const space = action.intent === 'through' ? evaluateRunSpace(state, actor, receiver) : undefined;
@@ -760,11 +805,18 @@ export const npcPossessionDecisionDelay = (state: TacticalMatchState, actor: Mat
     state.onBallPreparation?.actorId === actor.id
       ? Math.max(0, state.onBallPreparation.readyAt - state.onBallPreparation.gainedAt)
       : 0;
+  const planned =
+    state.onBallPreparation?.actorId === actor.id && state.onBallPreparation.plannedCarry;
   const perception = (scanDemand - anticipated) * (1 - danger * 0.65);
   return Math.max(
     physical,
     0.2,
-    Math.min(perception, transition ? 0.6 : Infinity, scoringRange ? 0.4 : Infinity),
+    Math.min(
+      perception,
+      planned && state.time < planned.expiresAt ? 0.25 : Infinity,
+      transition ? 0.6 : Infinity,
+      scoringRange ? 0.4 : Infinity,
+    ),
   );
 };
 

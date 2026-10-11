@@ -1,17 +1,23 @@
 # Roadmap
 
-Aktualny etap: **PR162 — Integrated Match Realism / Formation Geometry Audit**.
-Potwierdzone przyczyny mają celowane poprawki i pomiar kanonicznego lejka ataku.
-[Raport PR162](PR162_INTEGRATED_MATCH_REALISM_AUDIT.md) oraz
-[protokół benchmarku](FORMATION_GEOMETRY_BENCHMARK.md) zastępują wcześniejszy
-opis „następnego audytu”. Kompletna macierz 120/120 meczów równych formacji jest eksperymentem diagnostycznym,
-nie dowodem przewagi 4-4-2 ani rozwiązania balansu.
+Aktualny etap: **PR163 — Offensive Momentum, Run-On Passing & Contextual Ball Progression**.
+[Raport PR163](PR163_OFFENSIVE_MOMENTUM_SPACE_PASSING.md) dokumentuje rzeczywiste
+kontakty, porównanie rankingów, laboratorium podań oraz ograniczenia ofensywy.
+Benchmark pięciu formacji i lejek PR162 v3 pozostają porównywalne. Asymetria
+logicznych ID równych 4-4-2 wymaga dalszego audytu; nie dodawać kwot strzałów ani
+wyrównywania rezultatów. Prognoza ukończenia wymaga szerszej kalibracji danych.
 
-Następnie: sprawdzić odrzucane opcje progresji/strzału w utrzymanym ataku,
-zbadać asymetrię logicznych ID/inicjalizacji równych 4-4-2 oraz oddzielić obowiązki od geometrii w szerszej ablacji.
-Szersze poziomy atrybutów/all-vs-all są opcjonalnym rozszerzeniem CLI. Nie dodawać
-kwot strzałów ani premii za tożsamość klubu. Przebudowa modeli/ławek/widzów jest
-oddzielnym follow-upem prezentacji. Poniższe etapy zachowano jako historię.
+Następny etap: **PR164 — Startup, Storage & Match Contract Audit**:
+
+- zmierzyć pierwszy transfer przeglądarki, kod meczu ładowany na żądanie i dane świata;
+- wyznaczyć budżet zapisu kariery, cache i powrotnej wizyty;
+- sprawdzić skalowalne generowanie świata i wersjonowane wejścia/wyjścia career-to-match;
+- dopiero na tych kontraktach rozwijać PR165+ — tożsamość wizualną zawodników
+  i systemy kariery, bez wcześniejszego dokładania dużych paczek zasobów.
+
+Kreator twarzy, kosmetyczna płeć, wygląd/starzenie, stadiony, osiągnięcia,
+długoterminowe style NPC, krzywe rozwoju, wiadomości, briefingi i ceremonie
+pozostają osobnymi etapami. Poniższe opisy zachowano jako historię.
 
 Aktualny etap: **PR161 — Match Presentation / Replay / Stadium Polish**,
 z celowaną naprawą boundary-ball liveness, na scalonym PR160 `d4b389b`.
