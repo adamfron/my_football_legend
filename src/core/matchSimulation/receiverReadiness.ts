@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
+import { distance, physicalPointSchema, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
 
 export const receiverReadinessProjectionSchema = z.object({
-  contactPoint: pitchPointSchema,
+  contactPoint: physicalPointSchema,
   awareAt: z.number().nonnegative(),
   readyAt: z.number().nonnegative(),
   earliestUsefulContactTime: z.number().nonnegative(),

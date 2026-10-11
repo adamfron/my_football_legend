@@ -15,6 +15,8 @@ import { distance } from './matchSpace';
 import { predictReachableRun } from './reachableSpace';
 import { evaluatePassDecision } from './passDecision';
 import { resolveGroundPassClaim, groundPassClaimSchema } from './passClaimResolver';
+import { projectReceiverReadiness } from './receiverReadiness';
+import { resolveReceptionOutcome, receptionOutcomeSchema } from './passReception';
 
 const fixture = (formation: '4-4-2' | '4-3-3' = '4-4-2') => {
   const state = createFormationBenchmarkMatch({
@@ -45,6 +47,11 @@ describe('PR162 causal football corrections', () => {
     const { state } = fixture();
     const point = { x: 45, y: -0.0324 };
     expect(resolveGroundPassClaim(state, point).landingPosition).toEqual(point);
+    const receiver = state.players.find((p) => p.team === 'home' && p.slotIndex === 6)!;
+    receiver.position = { x: 45, y: 0.4 };
+    expect(projectReceiverReadiness(state, receiver, point, 0).contactPoint).toEqual(point);
+    const outcome = resolveReceptionOutcome(state, receiver, point);
+    expect(receptionOutcomeSchema.parse(outcome).contactPoint).toEqual(point);
     expect(groundPassClaimSchema.safeParse({ landingPosition: { x: NaN, y: 0 } }).success).toBe(
       false,
     );
