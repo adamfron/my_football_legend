@@ -1381,6 +1381,7 @@ export class TacticalPitchRenderer {
       if ('map' in material && material.map instanceof THREE.Texture) material.map.dispose();
       material.dispose();
     });
+    this.modelResources.dispose(geometries, materialsToDispose);
     this.renderer.dispose();
     this.renderer.domElement.removeEventListener('webglcontextlost', this.onContextLost);
     this.renderer.domElement.removeEventListener('webglcontextrestored', this.onContextRestored);

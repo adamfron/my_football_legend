@@ -1,5 +1,31 @@
 # My Football Legend — Current Project State
 
+## PR165 — Visual DNA & Character Creator
+
+Baza: scalony PR164 `4f08a37`. Wspólny resolver v1 używa istniejącego `FaceGenome`,
+stałego ID/seed oraz daty urodzenia. Model meczowy, replay, portret, kreator i profil
+zachowują tę samą twarz. Kreator ma etap wyglądu, profil zapisuje kosmetykę, a starsze
+zapisy v3–v7 są zgodne. Wygląd pozostaje poza danymi, RNG i fizyką piłkarską.
+
+Równoważny późny wolny wykazał `wall_developing`: rozdzielanie celów przesuwało mur
+w obszar kolizji z markerem. Stałe cele muru przywracają legalne wykonanie w 4/4
+wariantach po około 8,6 s. Eksport historyczny nie był dostępny; jego dokładna
+przyczyna pozostaje niepotwierdzona. Bramkarz zbiera i przekazuje piłkę zawodnikowi
+z pola; maksymalna głębokość od własnej bramki spada z 53,5 do 5,4 m. Transfer oraz
+powrót z tylnej siatki są ciągłe, bez dodatkowych statystyk podań.
+
+240 prób podań i 42 eksperymenty krycia rozdzielają ofertę, ranking i wykonanie.
+Eksperymentalne krycie pozostaje poza produkcją: lepsza bliskość napastnika kosztuje
+rozciągnięcie linii, a osłona skrzydła przez DM może odsłonić środek.
+Start nadal pobiera około 116 kB Brotli; podgląd Three.js jest lazy. Mediana zgłoszenia
+klatki 22 samych modeli rośnie z 1,2 do 1,9 ms na Radeon 780M, bufory geometrii
+pozostają 6,6 kB. Kosmetyka dodaje 340 B zapisu; własna twarz 706 B.
+
+Końcowy status `verify`, 32 odpowiedzi, galeria i ograniczenia:
+[raport PR165](PR165_VISUAL_DNA_CHARACTER_CREATOR.md).
+Następny pozostaje **PR166 — Career–Match Integration & Playstyles**, potem PR167
+rozwój NPC, PR168 trenerzy, PR169 narracje i PR170 atmosfera. Poniżej historia.
+
 ## PR164 — Startup, Storage, Match Contracts & Restart Integrity
 
 Baza: scalony PR163 `f812e96`. Wykonany restart zachowuje własność epizodu i nie

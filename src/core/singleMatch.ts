@@ -15,6 +15,7 @@ import {
 } from './footballerWorld';
 import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
+import { toCanonicalFootballProfile, type MatchVisualContext } from './visualIdentity';
 
 export const singleMatchSetupSchema = z
   .object({
@@ -73,6 +74,7 @@ export interface SingleMatchSession {
   setup: SingleMatchSetup;
   home: SingleMatchTeam;
   away: SingleMatchTeam;
+  presentation?: MatchVisualContext | undefined;
 }
 
 const preMatchInjury = (player: WorldFootballer): MatchInjury | undefined => {
@@ -194,6 +196,7 @@ const forcePlayer = (
 export const createSingleMatchSession = (
   world: WorldDatabase,
   input: SingleMatchSetup,
+  date = '2026-07-01',
 ): SingleMatchSession => {
   const setup = singleMatchSetupSchema.parse(input);
   const homeClub = world.clubs.find((club) => club.id === setup.homeClubId);
@@ -221,7 +224,30 @@ export const createSingleMatchSession = (
     else
       away = forcePlayer(away, controlled.profile, controlled.fitness, preMatchInjury(controlled));
   }
-  return { setup, home, away };
+  const presentation: MatchVisualContext = {
+    date,
+    visualIdentities: Object.fromEntries(
+      [...home.players, ...away.players, ...(home.bench ?? []), ...(away.bench ?? [])]
+        .filter((player) => player.profile.visualIdentity)
+        .map((player) => [player.footballerId, player.profile.visualIdentity!]),
+    ),
+  };
+  const footballTeam = (team: SingleMatchTeam): SingleMatchTeam => ({
+    ...team,
+    players: team.players.map((player) => ({
+      ...player,
+      profile: toCanonicalFootballProfile(player.profile),
+    })),
+    ...(team.bench
+      ? {
+          bench: team.bench.map((player) => ({
+            ...player,
+            profile: toCanonicalFootballProfile(player.profile),
+          })),
+        }
+      : {}),
+  });
+  return { setup, home: footballTeam(home), away: footballTeam(away), presentation };
 };
 
 export const getSingleMatchPlayerOverall = (profile: FootballerProfile) =>

@@ -10,6 +10,11 @@ import {
 } from './restartLaws';
 
 const point = z.object({ x: z.number().finite(), y: z.number().finite() });
+const transition = z.object({
+  at: z.number().nonnegative(),
+  phase: z.string(),
+  retrievalStage: z.string(),
+});
 export const restartBlockingObservationSchema = z.object({
   signature: z.string(),
   since: z.number().nonnegative(),
@@ -17,6 +22,8 @@ export const restartBlockingObservationSchema = z.object({
   lastProgressAt: z.number().nonnegative(),
   remainingPhysicalDistance: z.number().nonnegative(),
   lastDiagnosticAt: z.number().nonnegative().optional(),
+  awardId: z.string().optional(),
+  transitions: z.array(transition).max(12).optional(),
 });
 export type RestartBlockingObservation = z.infer<typeof restartBlockingObservationSchema>;
 export const restartBlockingDiagnosticSchema = z.object({
@@ -36,6 +43,18 @@ export const restartBlockingDiagnosticSchema = z.object({
   selectedActionType: z.string().optional(),
   selectedSource: z.string().optional(),
   preparationStartedAt: z.number().optional(),
+  retrieverId: z.string().optional(),
+  legalReady: z.boolean().optional(),
+  tacticalReady: z.boolean().optional(),
+  transitions: z.array(transition).max(12).optional(),
+  selectedAction: z
+    .object({
+      type: z.string(),
+      actorId: z.string(),
+      receiverId: z.string().optional(),
+      target: point.optional(),
+    })
+    .optional(),
   actors: z
     .array(
       z.object({
@@ -44,6 +63,10 @@ export const restartBlockingDiagnosticSchema = z.object({
         position: point,
         velocity: point,
         legalTarget: point,
+        assignedTarget: point.optional(),
+        targetDistance: z.number().nonnegative().optional(),
+        nearestBodyId: z.string().optional(),
+        minimumBodySeparation: z.number().nonnegative().optional(),
       }),
     )
     .max(24),
@@ -79,13 +102,36 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
   const previous = state.restartBlockingObservation;
   if (previous?.signature === signature && state.time - previous.sampledAt < 1) return state;
   const spot = restart.spot ?? state.ball;
-  const actors = state.players.slice(0, 24).map((player) => ({
-    id: player.id,
-    role: restart.roles[player.id]?.key ?? 'unassigned',
-    position: { ...player.position },
-    velocity: { ...player.velocity },
-    legalTarget: legalizeRestartPlayerTarget(state, player, player.target),
-  }));
+  const awardId = restart.awardId ?? `${state.seed}:restart:${restart.startedAt}`;
+  const latestTransition = {
+    at: state.time,
+    phase: restart.phase,
+    retrievalStage: restart.retrieval?.stage ?? 'not_started',
+  };
+  const history = previous?.awardId === awardId ? (previous.transitions ?? []) : [];
+  const lastTransition = history.at(-1);
+  const transitions =
+    lastTransition?.phase === latestTransition.phase &&
+    lastTransition.retrievalStage === latestTransition.retrievalStage
+      ? history
+      : [...history, latestTransition].slice(-12);
+  const actors = state.players.slice(0, 24).map((player) => {
+    const nearest = state.players
+      .filter((p) => p.id !== player.id)
+      .map((p) => ({ id: p.id, gap: distance(p.position, player.position) }))
+      .sort((a, b) => a.gap - b.gap)[0];
+    return {
+      id: player.id,
+      role: restart.roles[player.id]?.key ?? 'unassigned',
+      position: { ...player.position },
+      velocity: { ...player.velocity },
+      legalTarget: legalizeRestartPlayerTarget(state, player, player.target),
+      assignedTarget: { ...player.target },
+      targetDistance: distance(player.position, player.target),
+      nearestBodyId: nearest?.id,
+      minimumBodySeparation: nearest?.gap,
+    };
+  });
   const remainingPhysicalDistance =
     distance(state.ball, spot) +
     actors.reduce((sum, actor) => sum + distance(actor.position, actor.legalTarget), 0);
@@ -99,6 +145,8 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
         ? state.time
         : previous.lastProgressAt,
     remainingPhysicalDistance,
+    awardId,
+    transitions,
     ...(previous?.signature === signature && previous.lastDiagnosticAt !== undefined
       ? { lastDiagnosticAt: previous.lastDiagnosticAt }
       : {}),
@@ -118,7 +166,7 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
     unchangedSeconds: state.time - observation.since,
     progressAbsentSeconds: state.time - observation.lastProgressAt,
     classification,
-    awardId: restart.awardId ?? `${state.seed}:restart:${restart.startedAt}`,
+    awardId,
     phase: restart.phase,
     origin: restart.origin ?? 'legacy_fixture',
     blockers,
@@ -139,6 +187,26 @@ export const observeRestartLiveness = (state: TacticalMatchState): TacticalMatch
     selectedActionType: restart.selectedAction?.type,
     selectedSource: restart.selectedSource,
     preparationStartedAt: restart.preparationStartedAt,
+    retrieverId: restart.retrieval?.playerId,
+    legalReady: deriveRestartLegalReadiness(state).ready,
+    tacticalReady: restart.readiness?.tacticalReady ?? false,
+    transitions,
+    ...(restart.selectedAction
+      ? {
+          selectedAction: {
+            type: restart.selectedAction.type,
+            actorId: restart.selectedAction.actorId,
+            ...('target' in restart.selectedAction
+              ? { target: { ...restart.selectedAction.target } }
+              : {}),
+            ...('receiverId' in restart.selectedAction
+              ? { receiverId: restart.selectedAction.receiverId }
+              : 'intendedTargetId' in restart.selectedAction
+                ? { receiverId: restart.selectedAction.intendedTargetId }
+                : {}),
+          },
+        }
+      : {}),
     actors,
   };
   observation = { ...observation, lastDiagnosticAt: state.time };

@@ -1,0 +1,57 @@
+{
+  "browser": "153.0.4234.32",
+  "basis": "Same standalone harness, 22 IDs/body dimensions, camera, lighting, viewport; actual game PlayerModel from clean main 4f08a37 versus PR165. CPU submit timings and RAF cadence, not GPU time or full-match FPS.",
+  "harnessHash": "c7c21f7658a628af9e829a69b0c7d806dc65f1e74012064d1bf2a875cde07d7a",
+  "playerModelHashes": {
+    "baseline": "d1182257888195d78e4fc11a5d860b5d68a6119218516691635ee922b8ec070e",
+    "current": "a540087c9f72abe3c6681f25b7ad6defa5a54a85bb8ece790f7bfc1597a39629"
+  },
+  "rows": [
+    {
+      "version": "main",
+      "models": 22,
+      "frames": 60,
+      "generationMs": 3.4000000953674316,
+      "firstSubmitMs": 39.700000286102295,
+      "medianSubmitMs": 1.1999998092651367,
+      "p95SubmitMs": 2.200000286102295,
+      "observedRafHz": 152.1402784940691,
+      "drawCalls": 459,
+      "triangles": 14104,
+      "geometries": 4,
+      "textures": 0,
+      "programs": 2,
+      "geometryBufferBytes": 6616,
+      "materials": 11,
+      "viewport": {
+        "width": 1200,
+        "height": 980,
+        "pixelRatio": 1
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "version": "PR165",
+      "models": 22,
+      "frames": 60,
+      "generationMs": 6.199999809265137,
+      "firstSubmitMs": 22.199999809265137,
+      "medianSubmitMs": 1.9000000953674316,
+      "p95SubmitMs": 2.9000000953674316,
+      "observedRafHz": 160.09290815551265,
+      "drawCalls": 835,
+      "triangles": 37248,
+      "geometries": 4,
+      "textures": 0,
+      "programs": 2,
+      "geometryBufferBytes": 6616,
+      "materials": 27,
+      "viewport": {
+        "width": 1200,
+        "height": 980,
+        "pixelRatio": 1
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

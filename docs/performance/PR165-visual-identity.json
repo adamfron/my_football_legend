@@ -1,0 +1,40 @@
+{
+  "seed": "pr165-visual-performance",
+  "environment": "Local Node CPU samples; browser/GPU cost is measured separately. Warmed 3-sample medians, not a throughput guarantee.",
+  "saveBytes": {
+    "baseline": 3819,
+    "editedCosmetics": 4159,
+    "customFace": 4525,
+    "cosmeticIncrease": 340,
+    "customFaceIncrease": 706
+  },
+  "npcVisualIdentityFields": 0,
+  "appearanceGeneration": {
+    "players": 22,
+    "repeats": 200,
+    "totalMs": 13.597500000000082,
+    "perPlayerMs": 0.0030903409090909276
+  },
+  "projection": {
+    "cold22PlayersMs": 1.478900000000067,
+    "cached22PlayersMs": 0.055157500000000255,
+    "cacheLimit": 64
+  },
+  "headless": {
+    "ticks": 1200,
+    "canonicalDt": 0.025,
+    "baselineMs": [
+      1045.5399000000002,
+      877.7736999999997,
+      840.1246000000001
+    ],
+    "cosmeticMs": [
+      881.5865000000003,
+      843.8109000000004,
+      862.3180000000002
+    ],
+    "baselineMedianMs": 877.7736999999997,
+    "cosmeticMedianMs": 862.3180000000002,
+    "byteIdenticalCanonicalStates": true
+  }
+}

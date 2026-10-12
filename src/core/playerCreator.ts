@@ -27,6 +27,7 @@ import {
 import { getEligibleFootballArchetypes, getFootballArchetype } from './footballArchetypes';
 import { describePlayerProfile } from './playerProfilePresentation';
 import { getAgeOnDate } from './age';
+import { footballerVisualIdentitySchema } from '../schemas/domainSchemas';
 export const STARTING_AGE = 16,
   MIN_HEIGHT_CM = 155,
   MAX_HEIGHT_CM = 205,
@@ -119,6 +120,7 @@ export const creatorInputSchema = identityInputSchema.extend({
   heightCm: heightCmSchema,
   weightKg: weightKgSchema,
   seed: z.string().min(1),
+  visualIdentity: footballerVisualIdentitySchema.optional(),
 });
 export type CreatorInput = z.input<typeof creatorInputSchema>;
 export const attributeKeys = OVR_ATTRIBUTE_KEYS;
@@ -146,7 +148,14 @@ const positionShape: Record<PlayerPosition, Partial<Record<AttributeKey, number>
   },
   left_back: { pace: 9, stamina: 10, tackling: 8, passing: 5, finishing: -8 },
   right_back: { pace: 9, stamina: 10, tackling: 8, passing: 5, finishing: -8 },
-  central_midfielder: { tackling: 5, technique: 6, passing: 10, gameReading: 10, stamina: 6, dribbling: 4 },
+  central_midfielder: {
+    tackling: 5,
+    technique: 6,
+    passing: 10,
+    gameReading: 10,
+    stamina: 6,
+    dribbling: 4,
+  },
   left_winger: {
     pace: 12,
     dribbling: 12,
@@ -376,6 +385,7 @@ const build = (
     lastName: parsed.lastName,
     age: STARTING_AGE,
     dateOfBirth: deriveCreatorDateOfBirth(parsed.birthMonth, parsed.birthDay),
+    ...(parsed.visualIdentity ? { visualIdentity: parsed.visualIdentity } : {}),
     nationality: parsed.nationality,
     heightCm: parsed.heightCm,
     weightKg: parsed.weightKg,

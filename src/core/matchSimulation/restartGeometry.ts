@@ -103,26 +103,34 @@ const jitter = (seed: string, id: string, amountX: number, amountY = amountX): P
   const rng = RandomGenerator.fromSeed(`${seed}:restart:${id}`);
   return { x: (rng.float() - 0.5) * amountX, y: (rng.float() - 0.5) * amountY };
 };
-const spreadCluster = (points: Map<string, PitchPoint>, players: MatchPlayerState[]) => {
-  // Tactical zones may overlap; this final physical pass only prevents model intersection.
+const spreadCluster = (
+  points: Map<string, PitchPoint>,
+  players: MatchPlayerState[],
+  fixedIds = new Set<string>(),
+) => {
+  // Wall slots already have legal, physically feasible spacing. Moving them into a marker's
+  // envelope can produce endless separation velocity and prevent ceremonial authorisation.
+  // Separate the other planned targets along their actual displacement; never move bodies.
   for (let iteration = 0; iteration < 3; iteration++)
     for (let a = 0; a < players.length; a++)
       for (let b = a + 1; b < players.length; b++) {
         const pa = points.get(players[a]!.id)!,
           pb = points.get(players[b]!.id)!,
           d = distance(pa, pb);
-        if (d >= 1.05) continue;
+        const fixedA = fixedIds.has(players[a]!.id),
+          fixedB = fixedIds.has(players[b]!.id);
+        if (fixedA && fixedB) continue;
+        const wallPair = fixedA || fixedB;
+        if (d >= (wallPair ? 1.3 : 1.05)) continue;
         const angleRng = RandomGenerator.fromSeed(`separate:${players[a]!.id}:${players[b]!.id}`),
           angle = angleRng.float() * Math.PI * 2,
-          push = (1.08 - d) / 2;
-        points.set(
-          players[a]!.id,
-          clampPitchPoint({ x: pa.x + Math.cos(angle) * push, y: pa.y + Math.sin(angle) * push }),
-        );
-        points.set(
-          players[b]!.id,
-          clampPitchPoint({ x: pb.x - Math.cos(angle) * push, y: pb.y - Math.sin(angle) * push }),
-        );
+          ux = wallPair && d > 0.001 ? (pa.x - pb.x) / d : Math.cos(angle),
+          uy = wallPair && d > 0.001 ? (pa.y - pb.y) / d : Math.sin(angle),
+          push = wallPair ? 1.32 - d : (1.08 - d) / 2;
+        if (!fixedA)
+          points.set(players[a]!.id, clampPitchPoint({ x: pa.x + ux * push, y: pa.y + uy * push }));
+        if (!fixedB)
+          points.set(players[b]!.id, clampPitchPoint({ x: pb.x - ux * push, y: pb.y - uy * push }));
       }
 };
 
@@ -657,6 +665,11 @@ const deriveHomeRestartGeometry = (
   spreadCluster(
     points,
     state.players.filter((p) => !state.discipline?.[p.id]?.sentOff),
+    new Set(
+      Object.entries(roles)
+        .filter(([, role]) => role.key === 'wall')
+        .map(([id]) => id),
+    ),
   );
   // Preserve law-critical exact locations after separation.
   if (scenario === 'penalty') {

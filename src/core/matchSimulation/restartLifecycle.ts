@@ -196,12 +196,14 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
   const retrieval = current.retrieval!;
   const spot = current.spot ?? state.ball;
   const retrievalTarget: PitchPoint =
-    retrieval.stage === 'approach'
-      ? state.ball
-      : {
-          x: spot.x - (retrieval.attachedOffset?.x ?? 0),
-          y: spot.y - (retrieval.attachedOffset?.y ?? 0),
-        };
+    retrieval.stage === 'handoff' || retrieval.stage === 'transfer'
+      ? state.players.find((p) => p.id === retrieval.playerId)!.position
+      : retrieval.stage === 'approach'
+        ? state.ball
+        : {
+            x: spot.x - (retrieval.attachedOffset?.x ?? 0),
+            y: spot.y - (retrieval.attachedOffset?.y ?? 0),
+          };
   return {
     ...state,
     players: state.players.map((player) => {
@@ -243,11 +245,14 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
           });
       }
       const target =
-        retrieval.stage !== 'placed' && player.id === retrieval.playerId
-          ? retrievalTarget
-          : stagingTaker
-            ? proposed
-            : legalizeRestartPlayerTarget(state, player, proposed);
+        (retrieval.stage === 'handoff' || retrieval.stage === 'transfer') &&
+        player.id === retrieval.recipientId
+          ? retrieval.handoffPoint!
+          : retrieval.stage !== 'placed' && player.id === retrieval.playerId
+            ? retrievalTarget
+            : stagingTaker
+              ? proposed
+              : legalizeRestartPlayerTarget(state, player, proposed);
       return {
         ...player,
         target: { x: target.x, y: target.y },
@@ -336,6 +341,36 @@ export const advanceRestartPlacement = (
         velocity: { ...retriever.velocity, z: 0 },
       },
     };
+    // A keeper can fetch the scored ball, but an outfielder owns a long return to midfield.
+    // Plan a short, visible dead-ball handoff; the keeper stops at the retrieval point.
+    if (
+      state.scenario === 'kick_off' &&
+      isMatchGoalkeeper(retriever) &&
+      distance(next.ball, spot) > 20
+    ) {
+      const direction = spot.x >= next.ball.x ? 1 : -1;
+      const handoffPoint = clampPitchPoint({ x: next.ball.x + direction * 6, y: next.ball.y });
+      const recipient = state.players
+        .filter(
+          (p) =>
+            p.team === retriever.team &&
+            !isMatchGoalkeeper(p) &&
+            !state.discipline?.[p.id]?.sentOff,
+        )
+        .sort(
+          (a, b) =>
+            distance(a.position, handoffPoint) - distance(b.position, handoffPoint) ||
+            a.id.localeCompare(b.id),
+        )[0];
+      if (recipient)
+        return {
+          ...next,
+          restart: {
+            ...restart,
+            retrieval: { ...retrieval, stage: 'handoff', recipientId: recipient.id, handoffPoint },
+          },
+        };
+    }
     if (
       distance(next.ball, spot) <= 0.15 &&
       height <= 0.1 &&
@@ -346,6 +381,87 @@ export const advanceRestartPlacement = (
         ball: { ...next.ball, velocity: { x: 0, y: 0, z: 0 } },
         restart: { ...restart, retrieval: { ...retrieval, stage: 'placed' } },
       };
+  } else if (retrieval.stage === 'handoff' || retrieval.stage === 'transfer') {
+    const recipient = state.players.find(
+      (p) => p.id === retrieval.recipientId && !state.discipline?.[p.id]?.sentOff,
+    );
+    if (!recipient || !retrieval.handoffPoint) {
+      // A substituted/dismissed recipient invalidates preparation, never the canonical ball.
+      return {
+        ...state,
+        restart: { ...restart, retrieval: { playerId: retriever.id, stage: 'approach' } },
+      };
+    }
+    if (retrieval.stage === 'handoff') {
+      next = { ...state, ball: { ...state.ball, velocity: { x: 0, y: 0, z: 0 }, airborne: false } };
+      if (
+        distance(recipient.position, retrieval.handoffPoint) <= 0.4 &&
+        Math.hypot(recipient.velocity.x, recipient.velocity.y) <= 0.5
+      ) {
+        const length = distance(state.ball, retrieval.handoffPoint);
+        next = {
+          ...next,
+          restart: {
+            ...restart,
+            retrieval: {
+              ...retrieval,
+              stage: 'transfer',
+              transfer: {
+                method: length <= 1.5 ? 'hand' : 'roll',
+                from: { x: state.ball.x, y: state.ball.y },
+                to: { ...retrieval.handoffPoint },
+                fromHeight: state.ball.height ?? 0,
+                elapsed: 0,
+                duration: Math.max(0.3, length / 4),
+              },
+            },
+          },
+        };
+      }
+    } else if (retrieval.transfer) {
+      // Explicit stoppage logistics path at 4 m/s. No competitive action, possession, touch,
+      // duel or RNG draw exists on this path; the normal match ball moves every physical tick.
+      const transfer = retrieval.transfer;
+      const elapsed = Math.min(transfer.duration, transfer.elapsed + dt);
+      const progress = elapsed / transfer.duration;
+      const x = transfer.from.x + (transfer.to.x - transfer.from.x) * progress;
+      const y = transfer.from.y + (transfer.to.y - transfer.from.y) * progress;
+      const height = transfer.fromHeight + (0.12 - transfer.fromHeight) * Math.min(1, progress * 4);
+      next = {
+        ...state,
+        ball: {
+          ...state.ball,
+          x,
+          y,
+          height,
+          airborne: false,
+          velocity: {
+            x: (transfer.to.x - transfer.from.x) / transfer.duration,
+            y: (transfer.to.y - transfer.from.y) / transfer.duration,
+            z: 0,
+          },
+        },
+        restart: { ...restart, retrieval: { ...retrieval, transfer: { ...transfer, elapsed } } },
+      };
+      if (elapsed >= transfer.duration) {
+        next = { ...next, ball: { ...next.ball, velocity: { x: 0, y: 0, z: 0 } } };
+        if (distance(recipient.position, next.ball) <= 1.1)
+          next = {
+            ...next,
+            restart: {
+              ...restart,
+              retrieval: {
+                playerId: recipient.id,
+                stage: 'transport',
+                attachedOffset: {
+                  x: next.ball.x - recipient.position.x,
+                  y: next.ball.y - recipient.position.y,
+                },
+              },
+            },
+          };
+      }
+    }
   }
   const legal = deriveRestartLegalReadiness(next);
   const action = next.restart!.selectedAction;

@@ -1,0 +1,478 @@
+{
+  "browser": "153.0.4234.32",
+  "server": "loopback HTTP Brotli11, immutable hash assets, no service worker; CDP loadingFinished encodedDataLength includes response overhead; elapsed includes network idle",
+  "baseline": "clean main 4f08a37 rebuilt with same toolchain",
+  "artifacts": {
+    "baseline": [
+      {
+        "path": "assets/App-BZcExH8B.js",
+        "raw": 17613,
+        "brotli": 5691
+      },
+      {
+        "path": "assets/App-SDzukxDC.css",
+        "raw": 27267,
+        "brotli": 6081
+      },
+      {
+        "path": "assets/CareerApp-DKjzv1zm.js",
+        "raw": 115445,
+        "brotli": 31781
+      },
+      {
+        "path": "assets/devTools-CWLjknqM.js",
+        "raw": 196494,
+        "brotli": 51077
+      },
+      {
+        "path": "assets/index-B-dXY9W-.js",
+        "raw": 180970,
+        "brotli": 49337
+      },
+      {
+        "path": "assets/index-B0GGk5Ld.css",
+        "raw": 468,
+        "brotli": 224
+      },
+      {
+        "path": "assets/matchEngine-CH5ykBFq.js",
+        "raw": 31131,
+        "brotli": 10245
+      },
+      {
+        "path": "assets/MatchGame-Bc2yvS7j.js",
+        "raw": 7016,
+        "brotli": 2472
+      },
+      {
+        "path": "assets/positionPresentation-D2oCnQgD.js",
+        "raw": 5279,
+        "brotli": 2149
+      },
+      {
+        "path": "assets/react-B3l9tXpq.js",
+        "raw": 7555,
+        "brotli": 2587
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-BVAquBgQ.js",
+        "raw": 1146791,
+        "brotli": 254767
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-D-pepOZp.css",
+        "raw": 9323,
+        "brotli": 2302
+      },
+      {
+        "path": "data/world/pl-2026-v2.json",
+        "raw": 3279949,
+        "brotli": 191940
+      },
+      {
+        "path": "index.html",
+        "raw": 568,
+        "brotli": 160
+      }
+    ],
+    "current": [
+      {
+        "path": "assets/CareerApp-7VQsRTsb.js",
+        "raw": 122201,
+        "brotli": 33432
+      },
+      {
+        "path": "assets/index-BqDYf0vp.css",
+        "raw": 29893,
+        "brotli": 6612
+      },
+      {
+        "path": "assets/index-DIB7X0N3.js",
+        "raw": 399599,
+        "brotli": 105223
+      },
+      {
+        "path": "assets/matchEngine-CZHrv-Px.js",
+        "raw": 31128,
+        "brotli": 10256
+      },
+      {
+        "path": "assets/MatchGame-4GVTho1K.js",
+        "raw": 7013,
+        "brotli": 2466
+      },
+      {
+        "path": "assets/model-B1-Ds1md.js",
+        "raw": 772985,
+        "brotli": 170194
+      },
+      {
+        "path": "assets/PlayerPreview-DIUfNfDC.js",
+        "raw": 1660,
+        "brotli": 781
+      },
+      {
+        "path": "assets/positionPresentation-D2oCnQgD.js",
+        "raw": 5279,
+        "brotli": 2149
+      },
+      {
+        "path": "assets/previewScene-p4E3e_2a.js",
+        "raw": 592,
+        "brotli": 349
+      },
+      {
+        "path": "assets/react-B3l9tXpq.js",
+        "raw": 7555,
+        "brotli": 2587
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-B6RCYgyS.js",
+        "raw": 386696,
+        "brotli": 94830
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-D-pepOZp.css",
+        "raw": 9323,
+        "brotli": 2302
+      },
+      {
+        "path": "assets/VisualGallery-DZ2eFbMu.js",
+        "raw": 5566,
+        "brotli": 2235
+      },
+      {
+        "path": "data/world/pl-2026-v2.json",
+        "raw": 3279949,
+        "brotli": 191940
+      },
+      {
+        "path": "index.html",
+        "raw": 298,
+        "brotli": 125
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "version": "baseline",
+      "name": "cold-start",
+      "bytes": 117260,
+      "elapsedIncludingIdleMs": 562.899599999997,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 379
+        },
+        {
+          "url": "assets/App-SDzukxDC.css",
+          "bytes": 6327
+        },
+        {
+          "url": "assets/index-B0GGk5Ld.css",
+          "bytes": 469
+        },
+        {
+          "url": "assets/react-B3l9tXpq.js",
+          "bytes": 2840
+        },
+        {
+          "url": "assets/App-BZcExH8B.js",
+          "bytes": 5944
+        },
+        {
+          "url": "assets/index-B-dXY9W-.js",
+          "bytes": 49591
+        },
+        {
+          "url": "assets/devTools-CWLjknqM.js",
+          "bytes": 51331
+        },
+        {
+          "url": "http://127.0.0.1:64049/favicon.ico",
+          "bytes": 379
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "first-creator",
+      "bytes": 44936,
+      "elapsedIncludingIdleMs": 345.32670000000144,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/matchEngine-CH5ykBFq.js",
+          "bytes": 10499
+        },
+        {
+          "url": "assets/CareerApp-DKjzv1zm.js",
+          "bytes": 32035
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "first-portrait",
+      "bytes": 0,
+      "elapsedIncludingIdleMs": 34.119699999999284,
+      "requests": [],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "first-career",
+      "bytes": 0,
+      "elapsedIncludingIdleMs": 74.18079999999827,
+      "requests": [],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "first-playable-match",
+      "bytes": 257949,
+      "elapsedIncludingIdleMs": 1542.3673999999992,
+      "requests": [
+        {
+          "url": "assets/TacticalMatchSandbox-D-pepOZp.css",
+          "bytes": 2548
+        },
+        {
+          "url": "http://127.0.0.1:64049/favicon.ico",
+          "bytes": 379
+        },
+        {
+          "url": "assets/TacticalMatchSandbox-BVAquBgQ.js",
+          "bytes": 255022
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "second-match-same-document",
+      "bytes": 379,
+      "elapsedIncludingIdleMs": 145.15699999999924,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:64049/favicon.ico",
+          "bytes": 379
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "cold-start",
+      "bytes": 115864,
+      "elapsedIncludingIdleMs": 545.3828999999969,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 344
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 6858
+        },
+        {
+          "url": "assets/react-B3l9tXpq.js",
+          "bytes": 2840
+        },
+        {
+          "url": "assets/index-DIB7X0N3.js",
+          "bytes": 105478
+        },
+        {
+          "url": "http://127.0.0.1:64049/favicon.ico",
+          "bytes": 344
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "first-creator",
+      "bytes": 46598,
+      "elapsedIncludingIdleMs": 342.6967000000004,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/matchEngine-CZHrv-Px.js",
+          "bytes": 10510
+        },
+        {
+          "url": "assets/CareerApp-7VQsRTsb.js",
+          "bytes": 33686
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "first-portrait",
+      "bytes": 172083,
+      "elapsedIncludingIdleMs": 371.8137999999999,
+      "requests": [
+        {
+          "url": "assets/PlayerPreview-DIUfNfDC.js",
+          "bytes": 1033
+        },
+        {
+          "url": "assets/previewScene-p4E3e_2a.js",
+          "bytes": 601
+        },
+        {
+          "url": "assets/model-B1-Ds1md.js",
+          "bytes": 170449
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "first-career",
+      "bytes": 0,
+      "elapsedIncludingIdleMs": 98.80149999999776,
+      "requests": [],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "first-playable-match",
+      "bytes": 97976,
+      "elapsedIncludingIdleMs": 944.4641999999985,
+      "requests": [
+        {
+          "url": "assets/TacticalMatchSandbox-D-pepOZp.css",
+          "bytes": 2548
+        },
+        {
+          "url": "http://127.0.0.1:64049/favicon.ico",
+          "bytes": 344
+        },
+        {
+          "url": "assets/TacticalMatchSandbox-B6RCYgyS.js",
+          "bytes": 95084
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "second-match-same-document",
+      "bytes": 344,
+      "elapsedIncludingIdleMs": 171.5424000000021,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:64049/favicon.ico",
+          "bytes": 344
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "first-model-gallery",
+      "bytes": 3176,
+      "elapsedIncludingIdleMs": 972.2299999999996,
+      "requests": [
+        {
+          "url": "assets/index-DIB7X0N3.js",
+          "bytes": 0
+        },
+        {
+          "url": "assets/react-B3l9tXpq.js",
+          "bytes": 0
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 0
+        },
+        {
+          "url": "?devtools=1&visualGallery=1",
+          "bytes": 344
+        },
+        {
+          "url": "assets/model-B1-Ds1md.js",
+          "bytes": 0
+        },
+        {
+          "url": "assets/previewScene-p4E3e_2a.js",
+          "bytes": 0
+        },
+        {
+          "url": "assets/VisualGallery-DZ2eFbMu.js",
+          "bytes": 2488
+        },
+        {
+          "url": "http://127.0.0.1:64049/favicon.ico",
+          "bytes": 344
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "profileSaved": true,
+  "preview": {
+    "rendered": "true",
+    "faceSeed": "footballer:player_pr165_browser",
+    "renderGeometries": "4",
+    "renderTriangles": "1688",
+    "renderCalls": "32"
+  },
+  "gallery": {
+    "first": {
+      "models": 12,
+      "drawCalls": 780,
+      "triangles": 34728,
+      "geometries": 4,
+      "textures": 0,
+      "materials": 18,
+      "renderSubmitMs": 30.8
+    },
+    "final": {
+      "models": 12,
+      "drawCalls": 780,
+      "triangles": 34728,
+      "geometries": 4,
+      "textures": 0,
+      "materials": 32,
+      "renderSubmitMs": 4.7
+    },
+    "models22": {
+      "kind": "22_player_models_without_stadium_or_physics",
+      "frames": 60,
+      "generationMs": 4.799999713897705,
+      "firstSubmitMs": 7.699999809265137,
+      "medianSubmitMs": 2.9000000953674316,
+      "p95SubmitMs": 3.5999999046325684,
+      "rafElapsedMs": 403.23400000000004,
+      "observedRafHz": 146.31702683801464,
+      "drawCalls": 835,
+      "triangles": 37248,
+      "geometries": 4,
+      "textures": 0,
+      "materials": 32,
+      "geometryBufferBytes": 6616,
+      "programs": 2,
+      "viewport": {
+        "width": 1240,
+        "height": 1020,
+        "pixelRatio": 1
+      }
+    }
+  },
+  "renderer": {
+    "vendor": "Google Inc. (AMD)",
+    "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  }
+}

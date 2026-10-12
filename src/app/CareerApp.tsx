@@ -93,6 +93,7 @@ import { StartScreen } from './StartScreen';
 import { positionCode, positionLabel } from '../core/positionPresentation';
 import './App.css';
 import type { CareerCommit } from './careerCommit';
+import { createVisualIdentity, type FootballerVisualIdentity } from '../core/visualIdentity';
 const MatchGame = lazy(() =>
   import('./match/MatchGame').then((module) => ({ default: module.MatchGame })),
 );
@@ -1000,6 +1001,7 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
   });
   const [variants, setVariants] = useState<StartingPlayerProfile[]>([]);
   const [selectedVariant, setSelectedVariant] = useState(0);
+  const [appearance, setAppearance] = useState<FootballerVisualIdentity>();
   const [worldDatabase, setWorldDatabase] = useState<WorldDatabase>();
   const [worldError, setWorldError] = useState<string>();
   const persistenceInProgress = useRef(false);
@@ -1042,7 +1044,11 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
       .then(setWorldDatabase)
       .catch(() => setWorldError('Nie udało się przygotować świata. Spróbuj ponownie.'));
   }, [view, worldDatabase, worldError]);
-  const generated = variants[selectedVariant] ?? null;
+  const selectedProfile = variants[selectedVariant] ?? null;
+  const generated =
+    selectedProfile && appearance
+      ? { ...selectedProfile, player: { ...selectedProfile.player, visualIdentity: appearance } }
+      : selectedProfile;
   const heightForHint = Number(profileInput.heightCm);
   const weightRange =
     Number.isInteger(heightForHint) && heightForHint >= 155 && heightForHint <= 205
@@ -1082,6 +1088,7 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
     setView('creator');
     setStep(0);
     setSeed('');
+    setAppearance(undefined);
     clearVariants();
   };
   const resetCareer = async () => {
@@ -1096,6 +1103,7 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
     setView('creator');
     setStep(0);
     setSeed('');
+    setAppearance(undefined);
     clearVariants();
   };
   const continueCareer = async () => {
@@ -1132,7 +1140,7 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
     }
     setIdentity(result.data);
     setFieldErrors(emptyErrors());
-    setSeed(result.data.customSeed?.trim() || makeReadableSeed());
+    setSeed(result.data.customSeed?.trim() || seed || makeReadableSeed());
     clearVariants();
     setStep(1);
   };
@@ -1144,7 +1152,10 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
     }
     const input: CreatorInput = { ...identity, age: STARTING_AGE, ...result.data, seed };
     setFieldErrors(emptyErrors());
-    setVariants(generateStartingProfileVariants(input, seed));
+    const nextVariants = generateStartingProfileVariants(input, seed);
+    setVariants(nextVariants);
+    const initial = createVisualIdentity(nextVariants[0]!.player.id);
+    setAppearance((previous) => (previous?.faceSeed === initial.faceSeed ? previous : initial));
     setSelectedVariant(0);
     setStep(2);
   };
@@ -1239,6 +1250,11 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
           nextIdentity={nextIdentity}
           nextProfile={nextProfile}
           finish={finish}
+          appearance={appearance}
+          setAppearance={setAppearance}
+          resetAppearance={() =>
+            generated && setAppearance(createVisualIdentity(generated.player.id))
+          }
           worldStatus={worldError ? 'error' : worldDatabase ? 'ready' : 'loading'}
           retryWorld={() => setWorldError(undefined)}
         />

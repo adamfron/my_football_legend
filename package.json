@@ -59,7 +59,12 @@
     "test:match-contract": "vitest run src/core/careerMatchContract.test.ts --maxWorkers=1 --reporter=verbose",
     "benchmark:startup-storage": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr164.ts",
     "benchmark:pass-tempo": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr164Passing.ts",
-    "benchmark:browser-transfer": "node scripts/benchmarkPr164Browser.mjs"
+    "benchmark:browser-transfer": "node scripts/benchmarkPr164Browser.mjs",
+    "benchmark:pr165-tactics": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr165Tactics.ts",
+    "benchmark:pr165-visual": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr165VisualIdentity.ts",
+    "benchmark:pr165-integrity": "node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr165Integrity.ts",
+    "benchmark:pr165-browser": "node scripts/benchmarkPr165Browser.mjs",
+    "benchmark:pr165-models": "node scripts/benchmarkPr165ModelRender.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

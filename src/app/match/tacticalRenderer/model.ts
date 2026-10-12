@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { resolvedAppearanceSchema } from '../../../schemas/domainSchemas';
 import { canonicalActionEventSchema } from '../../../core/matchSimulation/actionEvents';
 import { shotContactSchema, shotIntentSchema } from '../../../core/matchSimulation/shotIntent';
 import { restartPhaseSchema } from '../../../core/matchSimulation/matchState';
@@ -51,6 +52,7 @@ export const tacticalPlayerSchema = physicalPointSchema.extend({
   velocity: z.object({ x: z.number().finite(), y: z.number().finite() }).optional(),
   heightCm: z.number().positive().optional(),
   weightKg: z.number().positive().optional(),
+  appearance: resolvedAppearanceSchema.optional(),
   dominantFoot: z.enum(['left', 'right']).optional(),
   gaitPhase: z.number().optional(),
   gaitSpeed: z.number().nonnegative().optional(),
@@ -139,7 +141,7 @@ export const tacticalFrameSchema = z.object({
       ready: z.boolean(),
       scenario: z.string().optional(),
       blockers: z.array(z.string()).max(48).optional(),
-      retrievalStage: z.enum(['approach', 'transport', 'placed']).optional(),
+      retrievalStage: z.enum(['approach', 'handoff', 'transfer', 'transport', 'placed']).optional(),
     })
     .optional(),
   actionableTargets: z.array(z.string()).optional(),

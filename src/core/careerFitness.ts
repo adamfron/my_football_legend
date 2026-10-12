@@ -127,7 +127,7 @@ export const createCareerSingleMatchSession = (
     }
     return { ...club, squadPlayerIds: squad };
   });
-  return createSingleMatchSession({ ...baseWorld, clubs, footballers }, setup);
+  return createSingleMatchSession({ ...baseWorld, clubs, footballers }, setup, date);
 };
 
 /** A finished canonical fixture commits the actual participating bodies, including outgoing

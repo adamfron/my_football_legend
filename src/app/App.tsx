@@ -1,7 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { StartScreen } from './StartScreen';
 import { careerStorage } from '../persistence/careerStorage';
-import { buildMatchLabUrl, isMatchSandboxEnabled, navigateApp } from './devTools';
+import {
+  buildMatchLabUrl,
+  isMatchSandboxEnabled,
+  isDevToolsEnabled,
+  navigateApp,
+} from './devTools';
 import './App.css';
 
 const CareerScreen = lazy(() =>
@@ -12,9 +17,16 @@ const TacticalMatchSandbox = lazy(() =>
     default: module.TacticalMatchSandbox,
   })),
 );
+const VisualGallery = lazy(() =>
+  import('./appearance/VisualGallery').then((module) => ({ default: module.VisualGallery })),
+);
+const isVisualGalleryEnabled = () =>
+  isDevToolsEnabled() &&
+  new URLSearchParams(globalThis.location?.search ?? '').get('visualGallery') === '1';
 
 export const App = () => {
   const [lab, setLab] = useState(isMatchSandboxEnabled);
+  const [gallery, setGallery] = useState(isVisualGalleryEnabled);
   const [careerAction, setCareerAction] = useState<'new' | 'resume'>();
   const [careerVisible, setCareerVisible] = useState(false);
   const [careerInstance, setCareerInstance] = useState(0);
@@ -27,6 +39,7 @@ export const App = () => {
     let active = true;
     const route = () => {
       setLab(isMatchSandboxEnabled());
+      setGallery(isVisualGalleryEnabled());
       setCareerVisible(false);
       void careerStorage
         .exists()
@@ -61,13 +74,14 @@ export const App = () => {
         </main>
       }
     >
-      {lab && <TacticalMatchSandbox />}
+      {gallery && <VisualGallery />}
+      {lab && !gallery && <TacticalMatchSandbox />}
       {careerAction && (
-        <div hidden={lab || !careerVisible}>
+        <div hidden={gallery || lab || !careerVisible}>
           <CareerScreen key={careerInstance} initialAction={careerAction} />
         </div>
       )}
-      {!lab && !careerVisible && (
+      {!gallery && !lab && !careerVisible && (
         <StartScreen
           canContinue={canContinue}
           status={status}

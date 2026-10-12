@@ -381,8 +381,20 @@ export const restartLifecycleSchema = z.object({
   retrieval: z
     .object({
       playerId: z.string(),
-      stage: z.enum(['approach', 'transport', 'placed']),
+      stage: z.enum(['approach', 'handoff', 'transfer', 'transport', 'placed']),
       attachedOffset: physicalPointSchema.optional(),
+      recipientId: z.string().optional(),
+      handoffPoint: physicalPointSchema.optional(),
+      transfer: z
+        .object({
+          method: z.enum(['roll', 'hand']),
+          from: physicalPointSchema,
+          to: physicalPointSchema,
+          fromHeight: z.number().nonnegative(),
+          elapsed: z.number().nonnegative(),
+          duration: z.number().positive(),
+        })
+        .optional(),
     })
     .optional(),
   readiness: z
