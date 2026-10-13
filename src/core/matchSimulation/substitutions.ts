@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { playStyleIdSchema } from '../playStyles';
 import { footballerProfileSchema, formationSlotSchema } from '../../schemas/domainSchemas';
 import { getEffectivePositionOverall } from '../playerOverall';
 import { isEligibleForNormalPosition, getTacticalDutyFit } from '../footballerWorld';
@@ -38,6 +39,7 @@ export const DEFAULT_SUBSTITUTION_RULES: MatchSubstitutionRules = {
   delayedEntrySeconds: 60,
 };
 export const matchBenchPlayerSchema = z.object({
+  playStyles: z.array(playStyleIdSchema).max(6).optional(),
   id: z.string().min(1),
   profile: footballerProfileSchema,
   condition: z.number().min(0).max(100),
@@ -48,7 +50,9 @@ export type MatchBenchPlayer = z.infer<typeof matchBenchPlayerSchema>;
 /** Retain the actual departing body and profile; profile identities are never overwritten. */
 export const departedMatchPlayerSchema = z
   .object({
+    playStyles: z.array(playStyleIdSchema).max(6).optional(),
     id: z.string(),
+    endsSwitched: z.boolean().optional(),
     team: teamSideSchema,
     profile: footballerProfileSchema,
     slotIndex: z.number().int().nonnegative(),
@@ -141,6 +145,7 @@ export const initialiseMatchSubstitutions = (
         .slice(0, (state.substitutionRules ?? DEFAULT_SUBSTITUTION_RULES).namedBenchSize)
         .map((player) => ({
           id: player.footballerId,
+          ...(player.playStyles ? { playStyles: player.playStyles } : {}),
           profile: player.profile,
           condition: player.condition,
           ...(player.injury ? { injury: player.injury } : {}),
@@ -628,7 +633,9 @@ export const advanceMatchSubstitutions = (
       const entrant: MatchPlayerState = {
         id: request.incoming.id,
         team: request.team,
+        endsSwitched: state.endsSwitched,
         profile: request.incoming.profile,
+        ...(request.incoming.playStyles ? { playStyles: request.incoming.playStyles } : {}),
         slotIndex: request.outgoing.slotIndex,
         slot: request.outgoing.slot,
         duty: request.outgoing.duty,

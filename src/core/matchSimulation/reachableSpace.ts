@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
 import { clampPitchPoint, distanceToSegment, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
@@ -29,7 +30,7 @@ export const predictReachableRun = (
   };
   const desiredLength = Math.hypot(desired.x, desired.y);
   const speed = Math.hypot(player.velocity.x, player.velocity.y);
-  const fallbackX = options.attackingDirection ?? (player.team === 'home' ? 1 : -1);
+  const fallbackX = options.attackingDirection ?? (attacksRight(player) ? 1 : -1);
   const desiredDirection = {
     x: desired.x / Math.max(0.2, desiredLength),
     y: desired.y / Math.max(0.2, desiredLength),
@@ -95,7 +96,7 @@ export const evaluateRunSpace = (
           Math.max(0, 1 - distanceToSegment(defender.position, passer.position, position) / 5),
         0,
       );
-      const progress = (passer.team === 'home' ? 1 : -1) * (position.x - runner.position.x);
+      const progress = (attacksRight(passer) ? 1 : -1) * (position.x - runner.position.x);
       const boundary = Math.min(position.y, 68 - position.y, position.x, 105 - position.x);
       return {
         target: position,

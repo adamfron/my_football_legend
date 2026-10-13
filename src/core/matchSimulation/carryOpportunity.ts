@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
 import {
   clampPitchPoint,
@@ -93,13 +94,13 @@ export const projectCarryOpportunity = (
     x: actor.position.x + direction.x * freeDistance,
     y: actor.position.y + direction.y * freeDistance,
   });
-  const depth = actor.team === 'home' ? end.x : 105 - end.x;
+  const depth = attacksRight(actor) ? end.x : 105 - end.x;
   const wide = Math.abs(end.y - 34) >= 15;
   const support = state.players.filter(
     (p) =>
       p.team === actor.team &&
       p.id !== actor.id &&
-      (actor.team === 'home' ? p.position.x : 105 - p.position.x) > 65 &&
+      (attacksRight(actor) ? p.position.x : 105 - p.position.x) > 65 &&
       Math.abs(p.position.y - 34) < 23,
   ).length;
   return carryOpportunitySchema.parse({
@@ -119,7 +120,7 @@ export const enumerateCarryChoices = (
   state: TacticalMatchState,
   actor: MatchPlayerState,
 ): MatchAction[] => {
-  const dir = actor.team === 'home' ? 1 : -1;
+  const dir = attacksRight(actor) ? 1 : -1;
   const actions: MatchAction[] = [
     {
       type: 'carry',
@@ -162,7 +163,7 @@ export const enumerateCarryChoices = (
     const opportunity = projectCarryOpportunity(state, actor, target, 'sprint');
     if (
       opportunity.freeDistance >= 12 &&
-      signedForwardDistance(actor.position, opportunity.target, actor.team) > 8
+      signedForwardDistance(actor.position, opportunity.target, actor) > 8
     )
       actions.push({
         type: 'carry',

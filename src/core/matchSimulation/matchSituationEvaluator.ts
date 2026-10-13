@@ -69,7 +69,7 @@ export const evaluateMatchSituation = (
           .map((p) => Math.hypot(p.position.x - actor.position.x, p.position.y - actor.position.y)),
       )
     : undefined;
-  const fieldProgress = actor ? fieldValue(actor.position, actor.team) / 105 : undefined;
+  const fieldProgress = actor ? fieldValue(actor.position, actor) / 105 : undefined;
   const shot = actor ? evaluateShootingOpportunity(state, actor) : undefined;
   let kind: MatchSituationEvaluation['kind'] = 'routine';
   let importance = 0.16;

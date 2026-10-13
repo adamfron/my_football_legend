@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { findMatchParticipant } from './matchParticipants';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
@@ -326,13 +327,13 @@ const observeAttackingOccupancy = (state: TacticalMatchState, side: 'home' | 'aw
     penaltySpotAttackers = 0,
     farPostAttackers = 0,
     edgeOfBoxSupport = 0;
-  const spotX = side === 'home' ? 94 : 11;
-  const edgeX = side === 'home' ? 86 : 19;
+  const spotX = attacksRight(side, state) ? 94 : 11;
+  const edgeX = attacksRight(side, state) ? 86 : 19;
   const farPostY = state.ball.y < 34 ? 48 : 20;
   for (const player of state.players) {
     if (player.team !== side || isMatchGoalkeeper(player)) continue;
     const { x, y } = player.position;
-    const attackingBox = side === 'home' ? x >= 88.5 : x <= 16.5;
+    const attackingBox = attacksRight(side, state) ? x >= 88.5 : x <= 16.5;
     if (attackingBox) {
       boxAttackers++;
       if (Math.abs(x - spotX) <= 5 && Math.abs(y - 34) <= 7) penaltySpotAttackers++;
@@ -550,18 +551,21 @@ export const observeMatchFlow = (
   result.canonicalMinutes = next.time / 60;
   const dt = Math.max(0, next.time - previous.time);
   const third = (side: 'home' | 'away', x: number) => {
-    const progress = side === 'home' ? x : 105 - x;
+    const progress = attacksRight(side, next) ? x : 105 - x;
     return progress < 35
       ? ('defensive' as const)
       : progress < 70
         ? ('middle' as const)
         : ('final' as const);
   };
-  const progress = next.possessionTeam === 'home' ? next.ball.x : 105 - next.ball.x;
+  const progress = attacksRight(next.possessionTeam, next) ? next.ball.x : 105 - next.ball.x;
   result.observerState.maxProgress = Math.max(result.observerState.maxProgress, progress);
-  const inFinalThird = (side: 'home' | 'away', x: number) => (side === 'home' ? x >= 70 : x <= 35);
+  const inFinalThird = (side: 'home' | 'away', x: number) =>
+    attacksRight(side, next) ? x >= 70 : x <= 35;
   const inBox = (side: 'home' | 'away', point: { x: number; y: number }) =>
-    (side === 'home' ? point.x >= 88.5 : point.x <= 16.5) && point.y >= 13.8 && point.y <= 54.2;
+    (attacksRight(side, next) ? point.x >= 88.5 : point.x <= 16.5) &&
+    point.y >= 13.8 &&
+    point.y <= 54.2;
   if (next.possessionTeam && inFinalThird(next.possessionTeam, next.ball.x))
     result.finalThirdPossessionSeconds += dt;
   if (
@@ -703,7 +707,7 @@ export const observeMatchFlow = (
       Math.abs(actor.position.y - 34) > 18
     ) {
       result.crossesFromAdvancedWideArea++;
-      if ((actor.team === 'home' ? 1 : -1) * (action.target.x - actor.position.x) < 5)
+      if ((attacksRight(actor) ? 1 : -1) * (action.target.x - actor.position.x) < 5)
         result.cutbacks++;
     }
   }
@@ -755,8 +759,7 @@ export const observeMatchFlow = (
               interval: next.time - result.observerState.lastPassAt,
             });
           result.observerState.lastPassAt = next.time;
-          const progress =
-            (passer.team === 'home' ? 1 : -1) * (action.target.x - passer.position.x);
+          const progress = (attacksRight(passer) ? 1 : -1) * (action.target.x - passer.position.x);
           if (progress > 5) result.progressivePasses++;
           else if (progress < -2) result.backwardPasses++;
           else result.lateralPasses++;
@@ -913,7 +916,7 @@ export const observeMatchFlow = (
           const passer = next.players.find((player) => player.id === diagnostic.passerId);
           if (
             passer &&
-            (passer.team === 'home' ? 1 : -1) * (receiver.position.x - passer.position.x) > 5
+            (attacksRight(passer) ? 1 : -1) * (receiver.position.x - passer.position.x) > 5
           ) {
             result.threatFlow.progressiveReceptions++;
             if (inFinalThird(receiver.team, receiver.position.x))

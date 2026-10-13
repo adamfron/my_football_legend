@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { z } from 'zod';
@@ -140,7 +141,7 @@ export const goalkeeperIntervention = (
   const defending = state.possessionTeam === 'home' ? 'away' : 'home';
   const keeper = state.players.find((p) => p.team === defending && isMatchGoalkeeper(p));
   if (!keeper || !canContactAfterThrowIn(state, keeper.id)) return { decision: 'stay', score: 0 };
-  const goalX = defending === 'home' ? 0 : 105;
+  const goalX = attacksRight(keeper) ? 0 : 105;
   if (
     Math.abs(point.x - goalX) > 18 ||
     Math.abs(point.y - 34) > 23 ||
@@ -208,10 +209,10 @@ export const resolveAerialDuel = (
     return { outcome: 'loose_ball' as const, contestants };
   const attacking = winner.player.team === state.possessionTeam;
   const goalX = attacking
-    ? winner.player.team === 'home'
+    ? attacksRight(winner.player)
       ? 105
       : 0
-    : winner.player.team === 'home'
+    : attacksRight(winner.player)
       ? 0
       : 105;
   const goalDistance = Math.hypot(winner.player.position.x - goalX, winner.player.position.y - 34);

@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { BALL_RADIUS, deriveWallContactCandidate, findFirstBallContact } from './ballFlight';
@@ -38,7 +39,7 @@ export const isFreeKickWallGapTarget = (
   const actor = state.players.find((player) => player.id === actorId);
   const wall = freeKickWall(state, actorId);
   if (!actor || wall.length < 2) return false;
-  const target = goalIntentToPitch(actor.team, goalTarget);
+  const target = goalIntentToPitch(actor, goalTarget);
   const dx = target.x - state.ball.x;
   const dy = target.y - state.ball.y;
   const metres = Math.max(0.1, Math.hypot(dx, dy));
@@ -68,7 +69,7 @@ export const findFreeKickWallGapTarget = (state: TacticalMatchState, actorId: st
   const actor = state.players.find((player) => player.id === actorId);
   const wall = freeKickWall(state, actorId);
   if (!actor || wall.length < 2) return undefined;
-  const goalX = actor.team === 'home' ? PITCH_LENGTH : 0;
+  const goalX = attacksRight(actor) ? PITCH_LENGTH : 0;
   const ordered = [...wall].sort((a, b) => a.position.y - b.position.y || a.id.localeCompare(b.id));
   for (let index = 1; index < ordered.length; index += 1) {
     const first = ordered[index - 1]!;
@@ -80,7 +81,7 @@ export const findFreeKickWallGapTarget = (state: TacticalMatchState, actorId: st
     const dx = middle.x - state.ball.x;
     if (Math.abs(dx) < 0.1) continue;
     const goalY = state.ball.y + ((middle.y - state.ball.y) * (goalX - state.ball.x)) / dx;
-    const intent = pitchToGoalIntent(actor.team, { y: goalY, height: BALL_RADIUS });
+    const intent = pitchToGoalIntent(actor, { y: goalY, height: BALL_RADIUS });
     if (Math.abs(intent.horizontal) >= 0.96) continue;
     const contact = findFirstBallContact({
       previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
@@ -117,7 +118,7 @@ export const enumerateFreeKickStrikeProfiles = (
     return [];
   const profiles: FreeKickStrikeProfile[] = ['power_bend', 'controlled_curl', 'dipping'];
   const wall = freeKickWall(state, actorId);
-  const target = goalIntentToPitch(actor.team, goalTarget);
+  const target = goalIntentToPitch(actor, goalTarget);
   const groundedContact = findFirstBallContact({
     previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
     next: { x: target.x, y: target.y, z: Math.max(BALL_RADIUS, target.height) },
@@ -149,7 +150,7 @@ export const incomingShotContactSchema = z.object({
 export type IncomingShotContact = z.infer<typeof incomingShotContactSchema>;
 
 const bodyDifficulty = (actor: MatchPlayerState, point: { x: number; y: number }) => {
-  const goal = { x: actor.team === 'home' ? PITCH_LENGTH : 0, y: PITCH_WIDTH / 2 };
+  const goal = { x: attacksRight(actor) ? PITCH_LENGTH : 0, y: PITCH_WIDTH / 2 };
   const facingDifficulty =
     Math.abs(
       normalizeAngle(
@@ -279,7 +280,7 @@ export const enumerateCanonicalShootingOptions = (
   const incoming = settled ? undefined : incomingShotContact(state, actorId);
   if (!settled && !incoming) return [];
   const point = incoming?.point ?? actor.position;
-  const goal = { x: actor.team === 'home' ? PITCH_LENGTH : 0, y: PITCH_WIDTH / 2 };
+  const goal = { x: attacksRight(actor) ? PITCH_LENGTH : 0, y: PITCH_WIDTH / 2 };
   const range = distance(point, goal);
   if (!directRestart && range > (incoming ? 29 : 60)) return [];
   const keeper = state.players.find(
@@ -336,7 +337,7 @@ export const enumerateCanonicalShootingOptions = (
     intents.push('chip');
   return intents.map((intent) => {
     const aim = goalTarget(intent);
-    const goalPoint = goalIntentToPitch(actor.team, aim);
+    const goalPoint = goalIntentToPitch(actor, aim);
     return {
       type: 'shot',
       actorId,

@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
@@ -185,20 +186,20 @@ const applyBoundaryRestart = (
       },
     };
   const last = state.players.find((p) => p.id === state.ball.lastTouchPlayerId);
+  const defendingEnd: TeamSide =
+    (crossing.boundary === 'goal_line_home') !== Boolean(state.endsSwitched) ? 'home' : 'away';
   const restartTeam: TeamSide = crossing.boundary.startsWith('touchline')
     ? (last?.team ?? state.possessionTeam) === 'home'
       ? 'away'
       : 'home'
-    : crossing.boundary === 'goal_line_home'
-      ? last?.team === 'home'
+    : last?.team === defendingEnd
+      ? defendingEnd === 'home'
         ? 'away'
         : 'home'
-      : last?.team === 'away'
-        ? 'home'
-        : 'away';
+      : defendingEnd;
   const scenario = crossing.boundary.startsWith('touchline')
     ? ('throw_in' as const)
-    : last?.team === (crossing.boundary === 'goal_line_home' ? 'home' : 'away')
+    : last?.team === defendingEnd
       ? ('corner' as const)
       : ('goal_kick' as const);
   const pass = resolvedState.lastPassDiagnostic;
@@ -267,6 +268,7 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
       const anchor = deriveNeutralFormationAnchor(prototype);
       return {
         id: player.footballerId,
+        ...(player.playStyles ? { playStyles: player.playStyles } : {}),
         team: side,
         profile: player.profile,
         fitness: createMatchFitness(player.condition ?? 100),
@@ -1906,7 +1908,7 @@ const stepTacticalMatchCore = (
         const found = findFirstBallContact({
           previous,
           next,
-          attackingTeam: shooter.team,
+          attackingTeam: shooter,
           candidates,
         });
         const crossing = findPitchBoundaryCrossing(previous, next);
@@ -1931,7 +1933,7 @@ const stepTacticalMatchCore = (
             y: integrated.velocity.y,
             z: integrated.velocity.z,
           };
-          const rebound = deterministicRebound(found.kind, incoming, shooter.team);
+          const rebound = deterministicRebound(found.kind, incoming, shooter);
           const contact: BallContact = {
             ...found,
             at: state.time - dt + found.segmentFraction * dt,
@@ -2005,7 +2007,7 @@ const stepTacticalMatchCore = (
                   : base),
                 ball: { ...contactPoint, ...(winner ? { lastTouchPlayerId: winner.id } : {}) },
               },
-              { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
+              { x: attacksRight(state.possessionTeam, state) ? -7 : 7, y: 2 },
             );
           const finish = tryIncomingFinish(base, winner.id);
           if (finish) return finish;
@@ -2028,11 +2030,11 @@ const stepTacticalMatchCore = (
           const target =
             duel.outcome === 'clearance_header'
               ? clampPitchPoint({
-                  x: contactPoint.x + (winner.team === 'home' ? 20 : -20),
+                  x: contactPoint.x + (attacksRight(winner) ? 20 : -20),
                   y: contactPoint.y + (contactPoint.y < 34 ? 8 : -8),
                 })
               : clampPitchPoint({
-                  x: contactPoint.x + (winner.team === 'home' ? 9 : -9),
+                  x: contactPoint.x + (attacksRight(winner) ? 9 : -9),
                   y: contactPoint.y,
                 });
           return resolveMatchAction(
@@ -2148,7 +2150,7 @@ const stepTacticalMatchCore = (
                   ...(duel.winner ? { lastTouchPlayerId: duel.winner.id } : {}),
                 },
               },
-              { x: state.possessionTeam === 'home' ? -7 : 7, y: 2 },
+              { x: attacksRight(state.possessionTeam, state) ? -7 : 7, y: 2 },
             );
           if (!duel.winner)
             return state.ball.airborne
@@ -2175,11 +2177,11 @@ const stepTacticalMatchCore = (
           const target =
             duel.outcome === 'clearance_header'
               ? clampPitchPoint({
-                  x: winner.position.x + (winner.team === 'home' ? 20 : -20),
+                  x: winner.position.x + (attacksRight(winner) ? 20 : -20),
                   y: winner.position.y + (winner.position.y < 34 ? 8 : -8),
                 })
               : clampPitchPoint({
-                  x: winner.position.x + (winner.team === 'home' ? 9 : -9),
+                  x: winner.position.x + (attacksRight(winner) ? 9 : -9),
                   y: winner.position.y,
                 });
           return resolveMatchAction(
@@ -2607,7 +2609,8 @@ const clearTransientPeriodState = (state: TacticalMatchState): TacticalMatchStat
   return next;
 };
 
-/** Starts the prepared second-half kickoff; canonical directions remain team-relative and stable. */
+/** Switch physical ends during the interval. Bodies walk to the new kickoff targets;
+ * their positions and accumulated work are never mirrored/teleported. */
 export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState => {
   state = enforceMinimumPlayers(state);
   if (state.status !== 'half_time') return state;
@@ -2618,9 +2621,25 @@ export const startSecondHalf = (state: TacticalMatchState): TacticalMatchState =
   if (state.substitutionState?.pending.length) return state;
   const ready = resetSecondHalfTimekeeping({
     ...state,
+    endsSwitched: true,
+    teams: {
+      home: { ...state.teams.home, endsSwitched: true },
+      away: { ...state.teams.away, endsSwitched: true },
+    },
+    players: state.players.map((player) => {
+      const switched = { ...player, endsSwitched: true };
+      const anchor = deriveNeutralFormationAnchor(switched);
+      return { ...switched, anchor, neutralAnchor: anchor, idealTarget: anchor, target: anchor };
+    }),
     status: 'second_half' as const,
     actionCooldown: 0.4,
   });
+  delete ready.teams.home.threatMemory;
+  delete ready.teams.away.threatMemory;
+  delete ready.offsideSnapshot;
+  delete ready.onBallPreparation;
+  delete ready.playerMovementIntent;
+  delete ready.ballCarrierIntent;
   return awardNaturalRestart(ready, 'kick_off', { restartTeam: 'away' });
 };
 
@@ -2722,6 +2741,7 @@ export const matchStateToFrame = (
     return {
       id: p.id,
       team: p.team,
+      ...(p.endsSwitched ? { endsSwitched: true } : {}),
       x: p.position.x,
       y: p.position.y,
       goalkeeper: isMatchGoalkeeper(p),

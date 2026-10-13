@@ -478,13 +478,18 @@ export const SeasonEndSummary = ({
       <h3>Zawodnik</h3>
       <p>
         Występy: {summary.statistics.appearances} · starty: {summary.statistics.starts} ·{' '}
-        {summary.statistics.minutes} min
+        {Math.round(summary.statistics.minutes)} min
       </p>
       <p>
         {summary.statistics.goals} G · {summary.statistics.assists} A · xG{' '}
-        {summary.statistics.xG.toFixed(2).replace('.', ',')} · xA{' '}
-        {summary.statistics.xA.toFixed(2).replace('.', ',')} · średnia{' '}
-        {summary.statistics.averageRating?.toFixed(1).replace('.', ',') ?? '—'}
+        {career.seasonParticipation?.some((r) => r.metricsSource === 'canonical')
+          ? '— (brak pełnych danych)'
+          : summary.statistics.xG.toFixed(2).replace('.', ',')}{' '}
+        · xA{' '}
+        {career.seasonParticipation?.some((r) => r.metricsSource === 'canonical')
+          ? '— (brak pełnych danych)'
+          : summary.statistics.xA.toFixed(2).replace('.', ',')}{' '}
+        · średnia {summary.statistics.averageRating?.toFixed(1).replace('.', ',') ?? '—'}
       </p>
       <p>
         Kartki: {summary.statistics.yellowCards} żółtych · {summary.statistics.redCards} czerwonych
@@ -879,11 +884,15 @@ const RetiredCareerSummary = ({
                 <td>{getSeasonHonours(career.historyFacts, season).join(', ') || '—'}</td>
                 <td>{season.player.appearances}</td>
                 <td>{season.player.starts}</td>
-                <td>{season.player.minutes}</td>
+                <td>{Math.round(season.player.minutes)}</td>
                 <td>
                   {season.player.goals}G {season.player.assists}A
                 </td>
-                <td>{season.player.averageRating.toFixed(1)}</td>
+                <td>
+                  {season.player.ratedAppearances === 0
+                    ? '—'
+                    : season.player.averageRating.toFixed(1)}
+                </td>
                 <td>
                   {season.development.seasonStartOVR}→{season.development.seasonEndOVR}
                 </td>

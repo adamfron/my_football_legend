@@ -88,7 +88,7 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
       teamRetainedPossession: owner?.team === actorTeam,
       turnover: Boolean(owner && owner.team !== actorTeam),
       progressDelta: actor
-        ? fieldValue(actor.position, actor.team) / 100 - pending.startContext.fieldProgress
+        ? fieldValue(actor.position, actor) / 100 - pending.startContext.fieldProgress
         : 0,
     };
   } else if (
@@ -108,7 +108,7 @@ export const resolvePendingPlayerDecision = (state: TacticalMatchState): Tactica
       kind: 'movement_completed',
       teamRetainedPossession: owner?.team === actorTeam,
       progressDelta: actor
-        ? fieldValue(actor.position, actor.team) / 100 - pending.startContext.fieldProgress
+        ? fieldValue(actor.position, actor) / 100 - pending.startContext.fieldProgress
         : 0,
     };
   }

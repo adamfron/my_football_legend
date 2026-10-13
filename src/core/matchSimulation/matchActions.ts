@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { selectRestartAction } from './restartLifecycle';
 import { enumerateContextualRestartActions } from './restartOptions';
@@ -127,7 +128,7 @@ export const derivePossessionUrgency = (
       ? Math.max(0, state.onBallPreparation.readyAt - state.onBallPreparation.gainedAt)
       : 0;
   const corner =
-    (actor.team === 'home' ? actor.position.x : 105 - actor.position.x) > 94 &&
+    (attacksRight(actor) ? actor.position.x : 105 - actor.position.x) > 94 &&
     Math.abs(actor.position.y - 34) > 25;
   const protectingLead =
     state.time > 80 * 60 &&
@@ -155,7 +156,7 @@ export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) 
 /** Reusable value of preserving the current terminal attacking state. */
 export const terminalOpportunityValue = (state: TacticalMatchState, actor: MatchPlayerState) => {
   const opportunity = evaluateShootingOpportunity(state, actor);
-  const goalDistance = distance(actor.position, { x: actor.team === 'home' ? 105 : 0, y: 34 });
+  const goalDistance = distance(actor.position, { x: attacksRight(actor) ? 105 : 0, y: 34 });
   return Math.max(
     0,
     opportunity.effectiveScoringExpectation * 62 + Math.max(0, 22 - goalDistance) * 0.7,
@@ -240,7 +241,7 @@ export const enumerateAvailableActions = (
       ...enumerateFirstTimePasses(state, actorId),
       ...enumerateDefensiveChallengeActions(state, actorId),
     ];
-  const dir = actor.team === 'home' ? 1 : -1;
+  const dir = attacksRight(actor) ? 1 : -1;
   const actions: MatchAction[] = [
     { type: 'hold', actorId },
     ...enumerateCarryChoices(state, actor),
@@ -253,9 +254,9 @@ export const enumerateAvailableActions = (
       target: committedCarry.target,
       ...(committedCarry.movementMode ? { movementMode: committedCarry.movementMode } : {}),
     });
-  const advanced = fieldValue(actor.position, actor.team) > 54;
+  const advanced = fieldValue(actor.position, actor) > 54;
   const channelWidth = Math.abs(actor.position.y - 34);
-  const deliveryAngle = Math.abs(actor.position.x - (actor.team === 'home' ? 105 : 0));
+  const deliveryAngle = Math.abs(actor.position.x - (attacksRight(actor) ? 105 : 0));
   if (advanced && channelWidth >= 12 && deliveryAngle <= 44) {
     const occupations = deriveFinalThirdOccupations(state, actor.team).filter(
       ({ occupation }) => occupation !== 'rest_defence' && occupation !== 'wide_support',
@@ -269,7 +270,7 @@ export const enumerateAvailableActions = (
         y: assignment.target.y * 0.7 + receiverProjection.releaseTarget.y * 0.3,
       };
       const byline =
-        deliveryAngle < 13 && signedForwardDistance(target, actor.position, actor.team) < -1;
+        deliveryAngle < 13 && signedForwardDistance(target, actor.position, actor) < -1;
       const intent =
         byline && ['penalty_spot', 'edge_support'].includes(assignment.occupation)
           ? 'cutback'
@@ -335,7 +336,7 @@ export const enumerateAvailableActions = (
               distanceToSegment(defender.position, actor.position, through.releaseTarget) < 2.5,
           );
           const line = secondLastOpponentLine(state, actor.team);
-          const highLine = actor.team === 'home' ? line < 82 : line > 23;
+          const highLine = attacksRight(actor) ? line < 82 : line > 23;
           if (
             laneBlocked &&
             highLine &&
@@ -387,7 +388,7 @@ export const scoreActionForAI = (
     const attributes = actor.profile.attributes;
     const opponent = state.players.find((player) => player.id === action.opponentId);
     if (!opponent) return -Infinity;
-    const danger = 100 - fieldValue(opponent.position, actor.team);
+    const danger = 100 - fieldValue(opponent.position, actor);
     const disciplineRisk = (state.discipline?.[actorId]?.yellowCards ?? 0) * 25;
     if (action.technique === 'standing') return 35 + attributes.tackling * 0.15;
     if (action.technique === 'committed')
@@ -402,14 +403,14 @@ export const scoreActionForAI = (
   const urgency = derivePossessionUrgency(state, actor, underPressure);
   const memory = state.teams[actor.team].threatMemory;
   const buildUpSafety =
-    (actor.team === 'home' ? actor.position.x : 105 - actor.position.x) < 48
+    (attacksRight(actor) ? actor.position.x : 105 - actor.position.x) < 48
       ? (memory?.response.buildUpSafety ?? 0) *
         deriveBuildUpReliefWeight(state, actor, underPressure)
       : 0;
   const preparationMargin = preparationMarginForAction(state, actor, action);
   const preparationPenalty = preparationMargin < 0 ? Math.min(65, -preparationMargin * 55) : 0;
   if (action.type === 'hold') {
-    const fieldProgress = fieldValue(actor.position, actor.team);
+    const fieldProgress = fieldValue(actor.position, actor);
     const scanningContext =
       state.teams[actor.team].phase === 'positional_attack' &&
       fieldProgress < 70 &&
@@ -508,7 +509,7 @@ export const scoreActionForAI = (
     const progressionTarget = action.movementMode === 'sprint' ? opportunity.target : action.target;
     return (
       18 +
-      (fieldValue(progressionTarget, actor.team) - fieldValue(actor.position, actor.team)) * 1.3 +
+      (fieldValue(progressionTarget, actor) - fieldValue(actor.position, actor)) * 1.3 +
       opportunity.crossingAccess * Math.min(10, opportunity.support * 3) +
       continuity +
       carryContinuity -
@@ -596,15 +597,14 @@ export const scoreActionForAI = (
     Boolean(action.firstTime),
   );
   const line = secondLastOpponentLine(state, actor.team);
-  const offsideLine =
-    actor.team === 'home' ? Math.max(state.ball.x, line) : Math.min(state.ball.x, line);
-  const offsideRisk =
-    actor.team === 'home'
-      ? receiver.position.x > Math.max(52.5, offsideLine) + 0.01
-      : receiver.position.x < Math.min(52.5, offsideLine) - 0.01;
+  const offsideLine = attacksRight(actor)
+    ? Math.max(state.ball.x, line)
+    : Math.min(state.ball.x, line);
+  const offsideRisk = attacksRight(actor)
+    ? receiver.position.x > Math.max(52.5, offsideLine) + 0.01
+    : receiver.position.x < Math.min(52.5, offsideLine) - 0.01;
   const length = distance(actor.position, action.target);
-  const progression =
-    fieldValue(action.target, actor.team) - fieldValue(actor.position, actor.team);
+  const progression = fieldValue(action.target, actor) - fieldValue(actor.position, actor);
   const receiverPressure = pressure(state, receiver);
   const markerSeparation = Math.min(
     15,
@@ -659,7 +659,7 @@ export const scoreActionForAI = (
   const classification = classifyPass(
     actor.position,
     action.target,
-    actor.team,
+    actor,
     action.intent,
     action.delivery,
     Boolean(action.requestedSpace),
@@ -677,12 +677,12 @@ export const scoreActionForAI = (
       : 0;
   const threatLoss = Math.max(
     0,
-    terminalOpportunityValue(state, actor) - fieldValue(action.target, actor.team) * 0.32,
+    terminalOpportunityValue(state, actor) - fieldValue(action.target, actor) * 0.32,
   );
   const rememberedReceiver =
     memory?.pressuredPlayers.find((player) => player.playerId === receiver.id)?.score ?? 0;
   const receiverBuildUp =
-    (actor.team === 'home' ? receiver.position.x : 105 - receiver.position.x) < 48;
+    (attacksRight(actor) ? receiver.position.x : 105 - receiver.position.x) < 48;
   const safeOutlet = length <= 28 && receiverPressure < 0.42 && laneRisk <= 1;
   const pressureEscaped = Math.max(
     0,
@@ -775,13 +775,13 @@ export const rankAvailableActionsForAI = (
  * tactical patience influences deliberate holding in ranking, rather than imposing another
  * multi-second blackout after every reception. First-time contact uses its existing resolver. */
 export const npcPossessionDecisionDelay = (state: TacticalMatchState, actor: MatchPlayerState) => {
-  const progress = actor.team === 'home' ? actor.position.x : 105 - actor.position.x;
+  const progress = attacksRight(actor) ? actor.position.x : 105 - actor.position.x;
   const danger = Math.max(0, Math.min(1, state.currentPressure));
   const transition =
     state.teams[actor.team].phase === 'attacking_transition' &&
     progress > 55 &&
     state.timeSincePossessionChanged < 2;
-  const scoringRange = distance(actor.position, { x: actor.team === 'home' ? 105 : 0, y: 34 }) < 27;
+  const scoringRange = distance(actor.position, { x: attacksRight(actor) ? 105 : 0, y: 34 }) < 27;
   const patience = deriveTeamTacticalPreferences(state, actor.team).possessionPatience;
   const skill =
     (actor.profile.attributes.firstTouch +
@@ -1164,7 +1164,7 @@ const resolveMatchActionCanonical = (
       },
       action,
     );
-    const direction = actor.team === 'home' ? 1 : -1;
+    const direction = attacksRight(actor) ? 1 : -1;
     const target = { ...shot.goalPoint, x: shot.goalPoint.x + direction * 2 };
     const duration = Math.max(0.28, distance(actor.position, target) / shot.speed);
     const shotElevation = shot.launchElevation;
@@ -1269,7 +1269,7 @@ const resolveMatchActionCanonical = (
     const headerTarget = headerShot
       ? {
           ...headerShot.goalPoint,
-          x: headerShot.goalPoint.x + (actor.team === 'home' ? 2 : -2),
+          x: headerShot.goalPoint.x + (attacksRight(actor) ? 2 : -2),
         }
       : action.target;
     const launchSpeed =

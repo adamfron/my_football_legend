@@ -124,7 +124,13 @@ export const advanceMatchFitness = (
     repeatedEffort;
   const injuryRecovery = player.injury && player.injury.status !== 'discomfort' ? 0.65 : 1;
   const restoration =
-    dt * 0.0105 * lowWork * (0.55 + conditioning * 0.65) * (0.3 + capacity * 0.7) * injuryRecovery;
+    dt *
+    0.0105 *
+    lowWork *
+    (0.55 + conditioning * 0.65) *
+    (0.3 + capacity * 0.7) *
+    injuryRecovery *
+    (player.playStyles?.includes('engine') && previous.workload.seconds >= 3600 ? 1.03 : 1);
   const readiness = Math.max(
     0,
     Math.min(capacity, previous.burstReadiness - burstCost + restoration),

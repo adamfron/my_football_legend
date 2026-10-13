@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { clampPitchPoint, distance, type PitchPoint, type TeamSide } from './matchSpace';
@@ -27,7 +28,7 @@ const goalkeeper = (state: TacticalMatchState, side: TeamSide) =>
   ) ??
   stableRank(
     state.players.filter((p) => p.team === side && !state.discipline?.[p.id]?.sentOff),
-    (p) => -distance(p.position, { x: side === 'home' ? 0 : 105, y: 34 }),
+    (p) => -distance(p.position, { x: attacksRight(side, state) ? 0 : 105, y: 34 }),
   )[0]!;
 const stableRank = (players: MatchPlayerState[], score: (p: MatchPlayerState) => number) =>
   [...players].sort((a, b) => score(b) - score(a) || a.id.localeCompare(b.id));
@@ -709,7 +710,64 @@ export const deriveRestartGeometry = (
   restartTeam: TeamSide = 'home',
   restartPoint?: PitchPoint,
   options: { takerId?: string; selectedAction?: MatchAction } = {},
-) => {
+): ReturnType<typeof deriveHomeRestartGeometry> => {
+  if (state.endsSwitched) {
+    // The established restart planner uses a right-attacking home basis. Rotate only its
+    // planning input/output; logical team ownership and the actual bodies remain unchanged.
+    const normalized: TacticalMatchState = {
+      ...state,
+      endsSwitched: false,
+      teams: {
+        home: { ...state.teams.home, endsSwitched: false },
+        away: { ...state.teams.away, endsSwitched: false },
+      },
+      players: state.players.map((p) => ({
+        ...p,
+        endsSwitched: false,
+        position: mirrorPoint(p.position),
+        target: mirrorPoint(p.target),
+        anchor: mirrorPoint(p.anchor),
+        neutralAnchor: mirrorPoint(p.neutralAnchor),
+        idealTarget: mirrorPoint(p.idealTarget),
+        meanPosition: mirrorPoint(p.meanPosition),
+        velocity: { x: -p.velocity.x, y: -p.velocity.y },
+        facingAngle: p.facingAngle + Math.PI,
+      })),
+      ball: { ...state.ball, ...mirrorPoint(state.ball) },
+    };
+    const geometry = deriveRestartGeometry(
+      normalized,
+      scenario,
+      restartTeam,
+      restartPoint ? mirrorPoint(restartPoint) : undefined,
+      {
+        ...options,
+        ...(options.selectedAction && 'target' in options.selectedAction
+          ? {
+              selectedAction: {
+                ...options.selectedAction,
+                target: mirrorPoint(options.selectedAction.target),
+              },
+            }
+          : {}),
+      },
+    );
+    return {
+      ...geometry,
+      ball: mirrorPoint(geometry.ball),
+      taker: state.players.find((p) => p.id === geometry.taker.id)!,
+      targets: Object.fromEntries(
+        Object.entries(geometry.targets).map(([id, point]) => [id, mirrorPoint(point)]),
+      ),
+      roles: Object.fromEntries(
+        Object.entries(geometry.roles).map(([id, role]) => [
+          id,
+          { ...role, zone: { ...role.zone, centre: mirrorPoint(role.zone.centre) } },
+        ]),
+      ),
+      ...(geometry.landingZone ? { landingZone: mirrorPoint(geometry.landingZone) } : {}),
+    };
+  }
   if (restartTeam === 'home')
     return deriveHomeRestartGeometry(state, scenario, restartPoint, options);
   const swap = (side: TeamSide): TeamSide => (side === 'home' ? 'away' : 'home');
@@ -805,7 +863,7 @@ export const deriveRestartMovementTargets = (
       const marked = role.markerId ? players.get(role.markerId) : undefined;
       if (marked && role.intent === 'mark_opponent') {
         target = {
-          x: marked.position.x + (player.team === 'away' ? 1.2 : -1.2),
+          x: marked.position.x + (attacksRight(player) ? -1.2 : 1.2),
           y: marked.position.y + (planned.y >= marked.position.y ? 0.8 : -0.8),
         };
       } else {
@@ -851,7 +909,7 @@ export const deriveRestartMovementTargets = (
           const d = Math.hypot(dx, dy);
           target =
             d < 0.01
-              ? { x: wall.position.x + (player.team === 'home' ? -1.25 : 1.25), y: wall.position.y }
+              ? { x: wall.position.x + (attacksRight(player) ? -1.25 : 1.25), y: wall.position.y }
               : { x: wall.position.x + (dx / d) * 1.25, y: wall.position.y + (dy / d) * 1.25 };
         }
       }

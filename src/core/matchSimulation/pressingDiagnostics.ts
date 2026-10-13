@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
@@ -229,7 +230,7 @@ export class PressingTracker {
         pass &&
         origin &&
         previousCarrier &&
-        (previousCarrier.team === 'home' ? 1 : -1) *
+        (attacksRight(previousCarrier) ? 1 : -1) *
           ((release!.intendedTarget?.x ?? next.ball.x) - origin.x) <
           -3;
       this.finish(
@@ -377,7 +378,7 @@ export class PressingTracker {
       (p) =>
         p.team === carrier.team &&
         p.id !== carrier.id &&
-        (carrier.team === 'home' ? p.position.x : 105 - p.position.x) > 71 &&
+        (attacksRight(carrier) ? p.position.x : 105 - p.position.x) > 71 &&
         distance(carrier.position, p.position) < 30 &&
         Math.min(...defenders.map((d) => distance(d.position, p.position))) > 8,
     );

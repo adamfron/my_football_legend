@@ -114,7 +114,7 @@ describe('compact league season', () => {
     expect(getLeagueTable(state).every((row) => row.played === 1)).toBe(true);
   });
 
-  it('does not make an academy selection important just because there was no senior debut', () => {
+  it('offers the first youth appearance while later academy fixtures remain routine without a senior debut', () => {
     const state = career();
     const league = state.leagueSeason!.rounds[5]!.fixtures.find((f) =>
       [f.homeClubId, f.awayClubId].includes(VISTULA_NOVA_ID),
@@ -146,6 +146,41 @@ describe('compact league season', () => {
         teamLevel: 'academy',
         started: true,
         willPlay: true,
+      }),
+    ).toBe('notable');
+    const afterYouthDebut = {
+      ...state,
+      matchHistory: [
+        {
+          matchId: 'youth-debut',
+          date: '2026-08-01',
+          opponentId: 'opponent',
+          teamLevel: 'academy' as const,
+          started: true,
+          minutes: 90,
+          goals: 0,
+          assists: 0,
+          xG: 0,
+          xA: 0,
+          keyPasses: 0,
+          defensiveActions: 0,
+          saves: 0,
+          personalImpact: 0,
+        },
+      ],
+    };
+    expect(
+      evaluateMatchImportance(afterYouthDebut, fixture, {
+        teamLevel: 'academy',
+        started: true,
+        willPlay: true,
+      }),
+    ).toBe('routine');
+    expect(
+      evaluateMatchImportance(state, fixture, {
+        teamLevel: 'academy',
+        started: false,
+        willPlay: false,
       }),
     ).toBe('routine');
     expect(
@@ -214,5 +249,18 @@ describe('compact league season', () => {
         willPlay: true,
       }),
     ).toBe('notable');
+    const currentCanonical = Array.from({ length: 4 }, (_, index) => ({
+      ...state.historyFacts[0]!,
+      id: `canonical-${index}`,
+      factType: 'canonical_match_result',
+      season: 2028,
+    }));
+    expect(
+      evaluateMatchImportance(
+        { ...nextSeason, historyFacts: [...nextSeason.historyFacts, ...currentCanonical] },
+        fixture,
+        { teamLevel: 'senior', started: false, willPlay: true },
+      ),
+    ).toBe('routine');
   });
 });

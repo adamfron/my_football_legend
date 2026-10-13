@@ -48,6 +48,7 @@ export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
 ]);
 export type PlayerInteractionTarget = z.infer<typeof playerInteractionTargetSchema>;
 export const contextualInteractionSchema = z.object({
+  labelDetail: z.string().optional(),
   id: z.string(),
   target: playerInteractionTargetSchema,
   labelKey: z.string(),
@@ -58,6 +59,68 @@ export const contextualInteractionSchema = z.object({
   ]),
 });
 export type ContextualInteraction = z.infer<typeof contextualInteractionSchema>;
+
+const stableMechanic = (value: unknown): string =>
+  JSON.stringify(value, (_key, item: unknown) =>
+    item && typeof item === 'object' && !Array.isArray(item)
+      ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b)))
+      : item,
+  );
+const mechanicId = (action: MatchAction) => {
+  let hash = 2166136261;
+  for (const character of stableMechanic(action))
+    hash = Math.imul(hash ^ character.charCodeAt(0), 16777619);
+  return `action:${action.type}:${(hash >>> 0).toString(16)}`;
+};
+
+/** Collapse only identical target+resolution mechanics. Label collisions keep every intent. */
+export const uniqueContextualInteractions = (interactions: ContextualInteraction[]) => {
+  const unique = new Map<string, ContextualInteraction>();
+  for (const interaction of interactions) {
+    const key = stableMechanic({ target: interaction.target, resolution: interaction.resolution });
+    if (!unique.has(key)) unique.set(key, interaction);
+  }
+  const values = [...unique.values()];
+  return values.map((item) => {
+    const collisions = values.filter((other) => other.labelKey === item.labelKey);
+    if (collisions.length < 2) return item;
+    const r = item.resolution;
+    const action = r.kind === 'action' ? r.action : undefined;
+    const intent =
+      action && 'intent' in action ? action.intent : r.kind !== 'action' ? r.intent.type : '';
+    const names: Record<string, string> = {
+      support: 'wsparcie',
+      direct: 'bezpośrednio',
+      progressive: 'progresywnie',
+      lead: 'na dobieg',
+      through: 'za linię',
+      carry: 'prowadzenie',
+      dribble: 'drybling',
+      retain: 'ochrona',
+      sprint: 'sprint',
+      forward: 'do przodu',
+      left: 'w lewo',
+      right: 'w prawo',
+      back: 'do tyłu',
+    };
+    const target =
+      item.target.kind === 'player'
+        ? ''
+        : item.target.kind === 'space' || item.target.kind === 'ball'
+          ? `${item.target.point.x.toFixed(1)}, ${item.target.point.y.toFixed(1)}`
+          : '';
+    const delivery =
+      action?.type === 'pass' && action.delivery
+        ? action.delivery === 'lofted'
+          ? 'górą'
+          : 'po ziemi'
+        : '';
+    return {
+      ...item,
+      labelDetail: [names[intent] ?? intent, delivery, target].filter(Boolean).join(' · '),
+    };
+  });
+};
 
 const passLabel = (intent: string, delivery?: 'ground' | 'lofted') =>
   delivery === 'lofted'
@@ -85,34 +148,36 @@ const asActions = (
   target: PlayerInteractionTarget,
   actions: ReturnType<typeof enumerateAvailableActions>,
 ) =>
-  actions.map((action, index) =>
-    contextualInteractionSchema.parse({
-      id: `action:${action.type}:${index}`,
-      target,
-      labelKey:
-        action.type === 'space_pass'
-          ? 'play_here'
-          : action.type === 'pass'
-            ? action.firstTime
-              ? 'first_time_pass'
-              : passLabel(action.intent, action.delivery)
-            : action.type === 'shot'
-              ? canonicalShotLabel(action)
-              : action.type === 'header'
-                ? 'header_shot'
-                : action.type === 'cross'
-                  ? `${action.intent}_cross`
-                  : action.type === 'hold'
-                    ? 'hold_ball'
-                    : action.type === 'carry' && action.movementMode === 'sprint'
-                      ? 'sprint_here'
-                      : action.type === 'carry' && action.movementMode === 'dribble'
-                        ? 'dribble_here'
-                        : action.type === 'carry' && action.movementMode === 'retain'
-                          ? 'retain_here'
-                          : 'carry_here',
-      resolution: { kind: 'action', action },
-    }),
+  uniqueContextualInteractions(
+    actions.map((action) =>
+      contextualInteractionSchema.parse({
+        id: mechanicId(action),
+        target,
+        labelKey:
+          action.type === 'space_pass'
+            ? 'play_here'
+            : action.type === 'pass'
+              ? action.firstTime
+                ? 'first_time_pass'
+                : passLabel(action.intent, action.delivery)
+              : action.type === 'shot'
+                ? canonicalShotLabel(action)
+                : action.type === 'header'
+                  ? 'header_shot'
+                  : action.type === 'cross'
+                    ? `${action.intent}_cross`
+                    : action.type === 'hold'
+                      ? 'hold_ball'
+                      : action.type === 'carry' && action.movementMode === 'sprint'
+                        ? 'sprint_here'
+                        : action.type === 'carry' && action.movementMode === 'dribble'
+                          ? 'dribble_here'
+                          : action.type === 'carry' && action.movementMode === 'retain'
+                            ? 'retain_here'
+                            : 'carry_here',
+        resolution: { kind: 'action', action },
+      }),
+    ),
   );
 
 /** Pure, RNG-free menu projection. UI and renderer only identify a world target. */
@@ -179,7 +244,7 @@ export const projectContextualInteractions = (
     if (opportunity.kind === 'restart' && state.scenario.startsWith('free_kick')) {
       if (state.restart?.indirect) return [];
       const aim = target.aim ?? { horizontal: 0, vertical: 0.45 };
-      const point = goalIntentToPitch(actor.team, aim);
+      const point = goalIntentToPitch(actor, aim);
       const ordinary = actions.filter(
         (a): a is Extract<MatchAction, { type: 'shot' }> => a.type === 'shot' && !a.freeKickProfile,
       );
@@ -399,7 +464,7 @@ export const projectContextualInteractions = (
           intent: 'lead',
           delivery: 'ground',
         },
-        ...(signedForwardDistance(actor.position, point, actor.team) > 8
+        ...(signedForwardDistance(actor.position, point, actor) > 8
           ? [
               {
                 type: 'cross' as const,
@@ -446,9 +511,9 @@ export const projectContextualInteractions = (
     isMeaningfulOffBallSpace(state, actor, point)
   ) {
     const line = secondLastOpponentLine(state, actor.team);
-    const threatensLine = signedForwardDistance({ x: line, y: point.y }, point, actor.team) >= -2;
+    const threatensLine = signedForwardDistance({ x: line, y: point.y }, point, actor) >= -2;
     const type =
-      signedForwardDistance(actor.position, point, actor.team) > 4 && threatensLine
+      signedForwardDistance(actor.position, point, actor) > 4 && threatensLine
         ? 'run_in_behind'
         : 'attack_space';
     return [
@@ -494,7 +559,7 @@ export const groupContextualInteractions = (
     z.infer<typeof contextualInteractionFamilySchema>,
     ContextualInteraction[]
   >();
-  for (const interaction of interactions) {
+  for (const interaction of uniqueContextualInteractions(interactions)) {
     const resolution = interaction.resolution;
     const action = resolution.kind === 'action' ? resolution.action : undefined;
     const family =
@@ -537,25 +602,27 @@ export const projectRestartDecisionInteractions = (
     return [];
   const actor = state.players.find((p) => p.id === opportunity.actorId);
   if (!actor) return [];
-  return opportunity.options.flatMap((option) => {
-    if (option.kind !== 'action' || !hasActiveMatchActionParticipants(state, option.action))
-      return [];
-    const action = option.action;
-    const target: PlayerInteractionTarget | undefined =
-      action.type === 'shot'
-        ? { kind: 'goal', side: actor.team === 'home' ? 'away' : 'home' }
-        : action.type === 'pass'
-          ? { kind: 'player', playerId: action.receiverId }
-          : action.type === 'cross' || action.type === 'space_pass'
-            ? { kind: 'space', point: action.target }
-            : undefined;
-    return target
-      ? asActions(target, [action]).map((interaction) => ({
-          ...interaction,
-          id: `restart:${option.id}`,
-        }))
-      : [];
-  });
+  return uniqueContextualInteractions(
+    opportunity.options.flatMap((option) => {
+      if (option.kind !== 'action' || !hasActiveMatchActionParticipants(state, option.action))
+        return [];
+      const action = option.action;
+      const target: PlayerInteractionTarget | undefined =
+        action.type === 'shot'
+          ? { kind: 'goal', side: actor.team === 'home' ? 'away' : 'home' }
+          : action.type === 'pass'
+            ? { kind: 'player', playerId: action.receiverId }
+            : action.type === 'cross' || action.type === 'space_pass'
+              ? { kind: 'space', point: action.target }
+              : undefined;
+      return target
+        ? asActions(target, [action]).map((interaction) => ({
+            ...interaction,
+            id: `restart:${option.id}`,
+          }))
+        : [];
+    }),
+  );
 };
 
 const isMeaningfulOffBallSpace = (
@@ -566,15 +633,15 @@ const isMeaningfulOffBallSpace = (
   if (distance(actor.position, point) > 22) return false;
   const carrier = state.players.find((player) => player.id === state.ball.ownerId);
   if (!carrier || carrier.team !== actor.team) return false;
-  const forward = signedForwardDistance(actor.position, point, actor.team);
+  const forward = signedForwardDistance(actor.position, point, actor);
   const role = deriveDecisionRole(actor);
-  const ballDepth = fieldValue(carrier.position, actor.team) / 100;
-  const pointDepth = fieldValue(point, actor.team) / 100;
+  const ballDepth = fieldValue(carrier.position, actor) / 100;
+  const pointDepth = fieldValue(point, actor) / 100;
   if (role === 'forward' && (ballDepth < 0.35 || pointDepth < 0.3 || forward < -5)) return false;
   const supportLane = distance(point, carrier.position) <= 18 && forward >= -5;
   const line = secondLastOpponentLine(state, actor.team);
   const lineThreat =
-    forward > 0 && signedForwardDistance({ x: line, y: point.y }, point, actor.team) >= -6;
+    forward > 0 && signedForwardDistance({ x: line, y: point.y }, point, actor) >= -6;
   const width = Math.abs(point.y - 34) > 16 && forward >= -2;
   return supportLane || lineThreat || width;
 };
@@ -642,7 +709,7 @@ export const applyContextualInteraction = (
       signedForwardDistance(
         state.players.find((player) => player.id === resolution.intent.actorId)!.position,
         resolution.intent.target,
-        state.players.find((player) => player.id === resolution.intent.actorId)!.team,
+        state.players.find((player) => player.id === resolution.intent.actorId)!,
       ) <= 0
     )
       return state;
@@ -657,7 +724,7 @@ export const applyContextualInteraction = (
   if (!opponent || !actor) return state;
   const target =
     resolution.intent.type === 'contain'
-      ? { x: actor.position.x - attackDirection(actor.team) * 1.5, y: actor.position.y }
+      ? { x: actor.position.x - attackDirection(actor) * 1.5, y: actor.position.y }
       : resolution.intent.commitment === 'aggressive'
         ? {
             x: opponent.position.x + opponent.velocity.x * 0.35,

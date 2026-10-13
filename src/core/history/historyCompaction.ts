@@ -1,5 +1,6 @@
 import type { CareerState, HistoryFact } from '../../types/domain';
 import { rememberFacts } from './careerMemory';
+import { retainCareerMatchResults } from '../careerMatchRetention';
 
 const TECHNICAL_FACT_TYPES = new Set([
   'career_week_completed',
@@ -28,7 +29,7 @@ export const compactCareerHistory = (career: CareerState, completedSeason: numbe
     return !drop;
   });
   const retainedIds = new Set(historyFacts.map((fact) => fact.id));
-  return {
+  return retainCareerMatchResults({
     ...career,
     historyFacts,
     careerMemory: rememberFacts(career.careerMemory, removed),
@@ -40,5 +41,5 @@ export const compactCareerHistory = (career: CareerState, completedSeason: numbe
       ...season,
       milestones: season.milestones.filter((id) => retainedIds.has(id)),
     })),
-  };
+  });
 };

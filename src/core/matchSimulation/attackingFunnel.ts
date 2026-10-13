@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
-import { distance, type TeamSide } from './matchSpace';
+import { attacksRight, distance, type TeamOrientation, type TeamSide } from './matchSpace';
 import { isRestartSetup } from './restartPhase';
 import { calculateOffsideLine } from './tacticalPositioning';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
@@ -100,7 +100,8 @@ const empty = (): Totals => ({
 const bump = (map: Record<string, number>, key: string, value = 1) => {
   map[key] = (map[key] ?? 0) + value;
 };
-export const attackingDepth = (x: number, side: TeamSide) => (side === 'home' ? x : 105 - x);
+export const attackingDepth = (x: number, side: TeamOrientation) =>
+  attacksRight(side) ? x : 105 - x;
 export const pitchThird = (depth: number) =>
   depth < 35 ? 'defensive' : depth < 70 ? 'middle' : 'final';
 export const playerRole = (player: MatchPlayerState) =>
@@ -253,7 +254,7 @@ export class AttackingFunnelTracker {
       if (this.active && actor.team !== this.active.side)
         this.close(next.time, next.lastPossessionChange?.cause ?? 'opponent_control');
       if (!this.active) {
-        const depth = attackingDepth(next.ball.x, actor.team);
+        const depth = attackingDepth(next.ball.x, actor);
         const t = this.totals[actor.team];
         t.possessions++;
         this.active = {
@@ -273,7 +274,7 @@ export class AttackingFunnelTracker {
         if (depth < 70) this.stage('starts_outside_final');
       }
       const p = this.active!;
-      const depth = attackingDepth(next.ball.x, actor.team);
+      const depth = attackingDepth(next.ball.x, actor);
       p.maxAdvance = Math.max(p.maxAdvance, depth - p.startDepth);
       for (const metres of [5, 10, 20, 30])
         if (p.maxAdvance >= metres && !p.stages.has(`advance_${metres}`))
@@ -386,8 +387,7 @@ export class AttackingFunnelTracker {
           line: calculateOffsideLine(previous, passer.team),
         });
         const progress =
-          attackingDepth(pass.predictedReceptionPoint.x, passer.team) -
-          attackingDepth(origin.x, passer.team);
+          attackingDepth(pass.predictedReceptionPoint.x, passer) - attackingDepth(origin.x, passer);
         bump(
           t.events,
           progress > 5 ? 'progressive_pass' : progress < -2 ? 'backward_pass' : 'lateral_pass',
@@ -402,26 +402,24 @@ export class AttackingFunnelTracker {
           const role = playerRole(receiver);
           const r = (t.roles[role] ??= {});
           bump(r, 'receptions');
-          bump(r, pitchThird(attackingDepth(pass.actualContactPoint.x, passer.team)));
+          bump(r, pitchThird(attackingDepth(pass.actualContactPoint.x, passer)));
           bump(t.network, `${playerRole(passer)}>${role}`);
           if (pass.intent === 'through') bump(t.events, 'through_completed');
           const origin = this.passOrigins.get(pass.passId);
           if (
             this.active?.side === passer.team &&
             origin &&
-            attackingDepth(pass.actualContactPoint.x, passer.team) -
-              attackingDepth(origin.x, passer.team) >
-              5
+            attackingDepth(pass.actualContactPoint.x, passer) - attackingDepth(origin.x, passer) > 5
           ) {
             bump(t.events, 'progressive_completed');
             this.stage('progressive_reception');
           }
           if (
             origin &&
-            attackingDepth(pass.receiverPositionAtRelease.x, passer.team) <=
-              attackingDepth(origin.line, passer.team) &&
-            attackingDepth(pass.actualContactPoint.x, passer.team) >
-              attackingDepth(origin.line, passer.team) + 1
+            attackingDepth(pass.receiverPositionAtRelease.x, passer) <=
+              attackingDepth(origin.line, passer) &&
+            attackingDepth(pass.actualContactPoint.x, passer) >
+              attackingDepth(origin.line, passer) + 1
           )
             bump(t.events, 'received_behind_release_line');
         }
@@ -432,13 +430,13 @@ export class AttackingFunnelTracker {
       const c = next.lastChallenge;
       bump(
         this.totals[c.team].events,
-        `challenge_${c.outcome}_${pitchThird(attackingDepth(c.position.x, c.team))}`,
+        `challenge_${c.outcome}_${pitchThird(attackingDepth(c.position.x, next.teams[c.team]))}`,
       );
     }
     if (loss && this.once(`loss:${loss.id}`)) {
       bump(
         this.totals[loss.from].events,
-        `loss_${loss.cause}_${pitchThird(attackingDepth(loss.position.x, loss.from))}`,
+        `loss_${loss.cause}_${pitchThird(attackingDepth(loss.position.x, next.teams[loss.from]))}`,
       );
     }
     // All-player spatial observations at 0.1 Hz; online moments, bounded representative samples.
@@ -449,14 +447,14 @@ export class AttackingFunnelTracker {
           (p) => p.team === side && p.slot.position !== 'goalkeeper',
         );
         if (!players.length) continue;
-        const xs = players.map((p) => attackingDepth(p.position.x, side));
+        const xs = players.map((p) => attackingDepth(p.position.x, next.teams[side]));
         const ys = players.map((p) => p.position.y);
         this.moment(side, 'width', Math.max(...ys) - Math.min(...ys));
         this.moment(side, 'depth', Math.max(...xs) - Math.min(...xs));
-        const lineDepth = attackingDepth(calculateOffsideLine(next, side), side);
+        const lineDepth = attackingDepth(calculateOffsideLine(next, side), next.teams[side]);
         const forwards = players.filter((p) => p.slot.position === 'striker');
         for (const p of players) {
-          this.moment(side, `${p.id}:depth`, attackingDepth(p.position.x, side));
+          this.moment(side, `${p.id}:depth`, attackingDepth(p.position.x, next.teams[side]));
           this.moment(side, 'anchor_distance', distance(p.position, p.neutralAnchor));
           this.moment(side, 'target_distance', distance(p.position, p.idealTarget));
         }
@@ -466,19 +464,19 @@ export class AttackingFunnelTracker {
             next.possessionTeam === side
               ? 'attacking_forward_line_gap'
               : 'defending_forward_line_gap',
-            lineDepth - attackingDepth(p.position.x, side),
+            lineDepth - attackingDepth(p.position.x, next.teams[side]),
           );
         if (this.detailed && this.spatialSamples.length < 24)
           this.spatialSamples.push({
             time: next.time,
             side,
-            ballDepth: attackingDepth(next.ball.x, side),
+            ballDepth: attackingDepth(next.ball.x, next.teams[side]),
             lineDepth,
             forwards: forwards.map((p) => ({
               id: p.id,
-              depth: attackingDepth(p.position.x, side),
-              targetDepth: attackingDepth(p.idealTarget.x, side),
-              lineGap: lineDepth - attackingDepth(p.position.x, side),
+              depth: attackingDepth(p.position.x, next.teams[side]),
+              targetDepth: attackingDepth(p.idealTarget.x, next.teams[side]),
+              lineGap: lineDepth - attackingDepth(p.position.x, next.teams[side]),
             })),
           });
       }

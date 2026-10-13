@@ -16,7 +16,11 @@ import {
   isOriginatingMatchInjury,
   presentInjury,
 } from '../../core/injuryPresentation';
-import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../../core/playStyles';
+import {
+  getPlayStyleProgress,
+  getUnlockedPlayStyles,
+  PLAY_STYLE_PRESENTATION,
+} from '../../core/playStyles';
 import type { CareerState } from '../../types/domain';
 import { ClubView } from './ClubView';
 import { HistoryView } from './HistoryView';
@@ -77,6 +81,7 @@ export const CareerView = ({
     [career.currentClub, career.currentProfessionalClub, career.seed],
   );
   const playStyles = getUnlockedPlayStyles(career);
+  const playStyleProgress = getPlayStyleProgress(career);
   const progressBlocker = getCareerProgressBlocker(career);
 
   useEffect(() => {
@@ -148,6 +153,18 @@ export const CareerView = ({
           {playing ? '❚❚ Pauza' : '▶ Graj'}
         </button>
       </header>
+
+      {career.historyFacts
+        .filter((f) => f.factType === 'play_style_unlocked' && f.date === career.currentDate)
+        .map((f) => {
+          const id = playStyles.find((id) => id === f.data.playStyleId);
+          return id ? (
+            <p role="status" key={f.id}>
+              Nowy styl gry: <strong>{PLAY_STYLE_PRESENTATION[id].name}</strong> ·{' '}
+              {PLAY_STYLE_PRESENTATION[id].effect}
+            </p>
+          ) : null;
+        })}
 
       <div className="summary-strip">
         <button className={detail === 'player' ? 'selected' : ''} onClick={() => toggle('player')}>
@@ -289,11 +306,40 @@ export const CareerView = ({
                       <article key={id}>
                         <strong>{PLAY_STYLE_PRESENTATION[id].name}</strong>
                         <p>{PLAY_STYLE_PRESENTATION[id].description}</p>
+                        <p>{PLAY_STYLE_PRESENTATION[id].effect}</p>
+                        <small>
+                          Udokumentowane zachowanie:{' '}
+                          {playStyleProgress.find((p) => p.style === id)?.matches ?? 0} meczów ·{' '}
+                          {playStyleProgress.find((p) => p.style === id)?.situations ?? 0} istotnych
+                          sytuacji
+                        </small>
+                        <small>
+                          Wykształcony:{' '}
+                          {
+                            career.historyFacts.find(
+                              (f) =>
+                                f.factType === 'play_style_unlocked' && f.data.playStyleId === id,
+                            )?.date
+                          }
+                        </small>
                       </article>
                     ))
                   ) : (
                     <p>Brak wykształconych stylów gry.</p>
                   )}
+                  {playStyleProgress
+                    .filter((p) => p.matches > 0 && !playStyles.includes(p.style))
+                    .map((p) => (
+                      <p key={p.style}>
+                        {PLAY_STYLE_PRESENTATION[p.style].name}: {Math.min(4, p.matches)}/4 mecze ·{' '}
+                        {Math.min(8, p.situations)}/8 istotnych sytuacji · {Math.min(2, p.contexts)}
+                        /2 konteksty · {Math.min(2, p.successes)}/2 udane wykonania
+                      </p>
+                    ))}
+                  <small>
+                    Style rozwijają się z rozstrzygniętych decyzji w kilku meczach, przy co najmniej
+                    180 minutach doświadczenia i właściwych umiejętnościach na poziomie 45.
+                  </small>
                 </div>
                 <div>
                   <h3>PODEJŚCIE</h3>
@@ -430,7 +476,7 @@ export const CareerView = ({
               if (entry.kind === 'fixture') {
                 const fixture = fixtures.find((item) => item.id === entry.fixtureId);
                 const score = fixture?.completed
-                  ? `${fixture.homeGoals}:${fixture.awayGoals}`
+                  ? `${fixture.homeGoals}:${fixture.awayGoals}${fixture.outcome === 'abandoned' ? ' · przerwany' : ''}`
                   : '—';
                 const participation = entry.participation;
                 const completedParticipation =

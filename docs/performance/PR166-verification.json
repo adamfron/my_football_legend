@@ -1,0 +1,419 @@
+{
+  "repository": "adamfron/my_football_legend",
+  "baseCommit": "ebb88a579098973cfefe72c26898c1b736541db4",
+  "verified": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "tests": 1659,
+    "main": {
+      "files": 197,
+      "tests": 1619,
+      "durationSeconds": 229.41
+    },
+    "matchIntegration": {
+      "files": 2,
+      "tests": 31,
+      "durationSeconds": 77.75
+    },
+    "matchContract": {
+      "files": 1,
+      "tests": 4,
+      "durationSeconds": 683.38,
+      "completeMatches": 3
+    },
+    "fullCareer": {
+      "files": 1,
+      "tests": 5,
+      "durationSeconds": 43.01
+    },
+    "lint": "PASS",
+    "typescriptBuild": "PASS"
+  },
+  "followupValidation": {
+    "orientationMatrix": "5/5 PASS, expanded coverage; final full contracts include these direction changes",
+    "playStyles": "13/13 PASS after final GK forward-pass guard",
+    "reserveUiSuite": "20/20 PASS after missing-statistics guard; final reserve status assertion 1/1 PASS",
+    "matchCentre": "5/5 PASS after reserve status",
+    "finalLint": "PASS",
+    "finalTypescriptBuild": "PASS",
+    "uniqueTestsWithReserveRegression": 1659,
+    "archiveMinutes": "17/17 consequence/persistence tests PASS; actual two-second cameo retains exact archived minutes through save/parse; final full verify includes this assertion.",
+    "browser": "30 real human selections, 29 canonical resolved outcomes, full time, saved round trip, next-fixture module reuse and natural reserve preflight; browser module received a focused ESLint pass after adding the final transfer-only mode.",
+    "longCareer": "20 actual seasonal rollovers from the resolved-outcome production save PASS; permanent canonical fingerprint and first score preserved."
+  },
+  "testPolicy": "Package scripts, dependencies, CI, worker counts and timeouts unchanged. Browser/CPU benchmarks excluded from the isolated full verify run.",
+  "source": [
+    {
+      "path": "scripts/benchmarkPr166Browser.mjs",
+      "sha256": "cec7a18270a02f74e8a5440dd8cea9467fcd1d8046a3f4db356182224de5d49f"
+    },
+    {
+      "path": "scripts/benchmarkPr166Cpu.mjs",
+      "sha256": "77414e40ccf3d4a5a58f6a70af3f98eb4739989bf1d3979e5b64f83448f0b8dc"
+    },
+    {
+      "path": "scripts/benchmarkPr166Storage.ts",
+      "sha256": "0e1a968256e46f5a408d635c5160524133177b824419d616c697d2c0cf5034ef"
+    },
+    {
+      "path": "src/app/match/pr166CareerMatch.test.tsx",
+      "sha256": "8db64bfc9ee67ae74534dbb3031e2212acf5070fa585306b0f01353ac81f14f1"
+    },
+    {
+      "path": "src/core/careerMatchDiscipline.ts",
+      "sha256": "1fa32ba34837be9fffc95dbc967b5b2be983861bbeb11d61f1161ecc39633b7d"
+    },
+    {
+      "path": "src/core/careerMatchMilestones.ts",
+      "sha256": "e3357eea047c2895188349bebbcff31f38d2ba880464600b30a44e33d66d5933"
+    },
+    {
+      "path": "src/core/careerMatchRetention.ts",
+      "sha256": "6d3f0c1287beaf2473e0273e21d163604bbf4f63ecbff629b639ba5671375d78"
+    },
+    {
+      "path": "src/core/careerMatchSummary.ts",
+      "sha256": "da5b7dceb4607d91e6be1969b27089b463e2c7a95136561670e3cc794e300258"
+    },
+    {
+      "path": "src/core/matchSimulation/pr166OrientationMenus.test.ts",
+      "sha256": "0e72fa8e97bbd7f13e496a9bb5fd21ae0d88040a6598a01fe34ec132e1a8cf79"
+    },
+    {
+      "path": "src/core/pr166CareerConsequences.test.ts",
+      "sha256": "be672a895c79c9c01353de552a59aa526c40042538d919f4938175e84dc3ad2c"
+    },
+    {
+      "path": "src/core/pr166PlayStyles.test.ts",
+      "sha256": "16de67b200bb1c3c47983492c523ac7a4c48440cff75ce1fb52e5a3c240646aa"
+    },
+    {
+      "path": "src/app/CareerApp.tsx",
+      "sha256": "58fbeee27515534c89324bf75207513561a93332014a58b6dca9a0882e8e215b"
+    },
+    {
+      "path": "src/app/career/CareerView.tsx",
+      "sha256": "4ceab9d452e8a61817ab7730855a331cafc9b9ed5a63ad697411489444ffe0b9"
+    },
+    {
+      "path": "src/app/match/MatchCentre.tsx",
+      "sha256": "df649c931fd0348236d1474c69aa96628096e752be6e4c23caa2ef09623f2235"
+    },
+    {
+      "path": "src/app/match/MatchGame.tsx",
+      "sha256": "c412b2a3fba3fad0242d86627c2de1ba63e5e881ba2b5cdced5dac970ff71944"
+    },
+    {
+      "path": "src/app/match/TacticalMatchSandbox.css",
+      "sha256": "fc7713b250d3013e126d64336312421e96f302099a4a9a8051f83860c3423fc5"
+    },
+    {
+      "path": "src/app/match/TacticalMatchSandbox.tsx",
+      "sha256": "eb4b20de445200a6aec8ea29fb014f13533c779eacbb7bf2c27c99965209e760"
+    },
+    {
+      "path": "src/app/match/backgroundOrchestration.test.tsx",
+      "sha256": "ed0e6e1bc7a0210423eff3134211c0fe4072cb5d0e120aca3f8dbe45a9dc0344"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/TacticalPitchRenderer.ts",
+      "sha256": "2a5abfc4659c7c271439fc9578a51e7af5d1301eeef676120b2a68c9dfcccfba"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/model.ts",
+      "sha256": "ed38c71cc5e55e7beb82b33976f18b8d39b862af6f321d2cf920c9b982e37a3d"
+    },
+    {
+      "path": "src/components/CompactFixtureList.tsx",
+      "sha256": "a759382de56aa1f8401f7bdf97ada9dc6e27c9597dc1005b3291f9816a1c9acb"
+    },
+    {
+      "path": "src/core/careerFitness.ts",
+      "sha256": "aaeb5913e9e2d6e9b84281eefe99c9b34c9270f02acbacb8b315e36fac2843fc"
+    },
+    {
+      "path": "src/core/careerMatchContract.test.ts",
+      "sha256": "ecfc575442272247bf4e2fa1f052a34aa439668bdd65ae0a869004de90a52c9e"
+    },
+    {
+      "path": "src/core/careerMatchContract.ts",
+      "sha256": "838df17f0901bb25a44cf9c6a854078f869e76a477b674757683ea8532d0be6e"
+    },
+    {
+      "path": "src/core/careerSimulation.ts",
+      "sha256": "8eaa4cc91762aa8dc632a79be5b6fb02df0e533410eb303f4b7a6f336890917f"
+    },
+    {
+      "path": "src/core/history/historyCompaction.ts",
+      "sha256": "44ffa1c28bb8f4b92286731b9c5178cdcf3ef3837dc44df9f91fe9847ec8cca4"
+    },
+    {
+      "path": "src/core/leagueSeason.test.ts",
+      "sha256": "91bf89050bb2ed508b0dd20ecd3149fa2e8888b0a98819fadb0dca6d952eb74a"
+    },
+    {
+      "path": "src/core/leagueSeason.ts",
+      "sha256": "ead33b550be6a511bc745d6e658b695ca7f3a20ef4c7fa658711183b84e722a2"
+    },
+    {
+      "path": "src/core/matchFeedback.ts",
+      "sha256": "0f565aca7aa565ddf09def6d0954f53cda9e52870b06b0ada2cc129cd7600636"
+    },
+    {
+      "path": "src/core/matchParticipationPresentation.ts",
+      "sha256": "0af537d39f444862fa7a630f3fe1cf08b76352874b39b1d61faaa9cb15f3e18e"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "sha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "sha256": "effa54d3917992142ad95a38b1c20c0664c53a627f25985ccbfc4226cea17a74"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnel.ts",
+      "sha256": "419d5de30bd23b96a839de5f0566bc52e0543f2c6d401e7c683a0986f051c13e"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "sha256": "882970546c28e9f77f90e5b54d1d563acff1300c3a24c8da5d7317592cb9affd"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "sha256": "5fd9f37f3d035dd974cac5e8ca82de8e88a4647ba85a0d2d43ee577ccb2483fe"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+      "sha256": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "sha256": "fd7c74a46b1fc9b948435bb2700fa82791bb3736043d0b7e1ea2ecd9ff88cc3f"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "sha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "sha256": "f3220bdcedc9ff5b27da1ee572777c10fae318c6cb0d62e2f464e8b250e19f43"
+    },
+    {
+      "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+      "sha256": "9b77f781828a9ba78c9d6b54c1fb2e4da22ea964cde10eab7f3dbd737d7f154d"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "sha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "sha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "sha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "sha256": "8e0b66b93dc35f3cc2022d2d660dbb36fa315eceb1a80de732712c578cd80a3a"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "sha256": "6265b90ddba5e4d9bbb38fb368aabd819163ea31930aa00c3fa0a635101a315d"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "sha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "sha256": "12ecf57fff223a060692be11143cf162e163879831f90be92c9ccd5bc78ef249"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "sha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+      "sha256": "21594d86a552f043e5e13245e18511a4dd78299c3ad364167be03f15e4c5ba42"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.ts",
+      "sha256": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchReplay.ts",
+      "sha256": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "sha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "sha256": "92a96b458e90a84ec5411a2abcb0ed32a27e8efe8b8ad7b6a3b0c2b682d0db2f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "sha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "sha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "sha256": "5e9c3e757dc404354e1802e925e5c7da6de10535fed02299e59d0003c31a5b5c"
+    },
+    {
+      "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+      "sha256": "db37a402bdb8fab07804af847134a9e549ab3e76771b21b0d356ee3e9b57f5a9"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "sha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "sha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "sha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+    },
+    {
+      "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+      "sha256": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "sha256": "a1cd6b6d8e6412d03fcdd84215d849980926ce9f4e34e90cccfa3bf158f25244"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "sha256": "6426c3a5814bb3370018b9138cede371ea86e63ac609a5359466e5d483625bb1"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "sha256": "d9f5b9ee27b5972de1a278d236c300dce834e96829fdeada90a3d07baa268d54"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "sha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+    },
+    {
+      "path": "src/core/matchSimulation/presentationWindows.ts",
+      "sha256": "56be9e47c926c46cb86ff5cd1b7fb2d1d8d6839d546109b4c52abdebcbc33b1c"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+      "sha256": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "sha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "sha256": "8c5fff48d219ec13f2c7e2a4590239f975366295469fa7563bcb717bbb7d2d53"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "sha256": "ce4676a28f52f4476cfb26d10e8fb73f1ea16de56bc343c31f05d5df25e44a59"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "sha256": "4b6c22c0e2ef22abf7e261f178e76da0ef4647e706f3252d2540b9aa27b92a8a"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "sha256": "91de1cc4464e4badc4a5f9a5fda873be5ea935295c2a74f54b40d0b38ac72d77"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "sha256": "05997e371e4b75e5edbb49d8bcb28bb1b6d9fe89d3891c56598a8c8007e16cfb"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "sha256": "5fdc8a1481bbd85cd8e741cb246508c8e7a8c78932d27b937b7d4b4c5a625c2e"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "sha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "sha256": "02cce8c460f69bf9fe4cbec8608f0d4989294bd6965957eba73d18aa3e5d463a"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "sha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "sha256": "bb5bc914529d5b5283c53eb136e07793ee54b212533de6bc97a8d96464360938"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "sha256": "91d59b76787478f6151eae874fb5bf007b213fbaa609639b67bcd791ab986974"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "sha256": "aeb178a1dfd8728c8321dd9a71032034cdf106fdc2023e5b23a6413d49ee094c"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "sha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+    },
+    {
+      "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+      "sha256": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "sha256": "ede232572ae3778d8638dfaf183b1491b98d36affdedac14143996c3612cdba6"
+    },
+    {
+      "path": "src/core/narrative/factPresentation.ts",
+      "sha256": "dda9aa3ad16e01f60e58957c5230420fcecd11f07a68f67cd652bc638d246c4f"
+    },
+    {
+      "path": "src/core/persistence.ts",
+      "sha256": "2863f5cc0e923679e513e1fe9765d9bfecc2b8e395a93f5ece0c0e7fe59a04e1"
+    },
+    {
+      "path": "src/core/playStyles.ts",
+      "sha256": "fc3a0b1d4fe147938ee77894c73404f5a86f0f678c03d04511ad23a2ec79f410"
+    },
+    {
+      "path": "src/core/playerAvailability.ts",
+      "sha256": "5f6835101ba463e252d90401c6e5ae27f6c47828db34f077a6bf9068d9f94623"
+    },
+    {
+      "path": "src/core/positionLearning.test.ts",
+      "sha256": "6cbd118ab4d093ccde1cf58625769f0e378d51a52eafb0da4ef3ab90413f30ae"
+    },
+    {
+      "path": "src/core/seasonArchive.ts",
+      "sha256": "72776006eb772d1f835ddb17116817377a41f996dde59d64a69dd8e1ddf87f78"
+    },
+    {
+      "path": "src/core/seasonParticipation.ts",
+      "sha256": "cf79055e575b3d5b087c33d5cf6a62960d56f9d832390d8d661064f218678c9a"
+    },
+    {
+      "path": "src/core/singleMatch.ts",
+      "sha256": "fa703f498512ac8b410eb04c264d3f030f67bd800ff79db5b5053c410ecb277d"
+    },
+    {
+      "path": "src/schemas/domainSchemas.ts",
+      "sha256": "abbfbec908e35c4a3bb24e59c508395fce554ca019b398f03d32c9c163110b7c"
+    },
+    {
+      "path": "src/types/domain.ts",
+      "sha256": "ff9a1a53cda677e9a313f4f57d8ae8187344227fc392245639e3fb2de5038b9c"
+    }
+  ]
+}

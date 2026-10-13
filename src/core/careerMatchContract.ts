@@ -7,7 +7,7 @@ import {
 import type { CareerState, WorldDatabase } from '../types/domain';
 import { FORMATIONS } from './footballerWorld';
 import { singleMatchSetupSchema } from './singleMatch';
-import { createCareerSingleMatchSession } from './careerFitness';
+import { createCareerSingleMatchSession, recoverCareerFitnessToDate } from './careerFitness';
 import { getCurrentFixture } from './careerWeeks';
 import { settleLeagueRound } from './leagueSeason';
 import { recordParticipation } from './seasonParticipation';
@@ -22,10 +22,26 @@ import {
   substitutionFactSchema,
 } from './matchSimulation/substitutions';
 import { playerMatchStatsSchema, teamAccountingSchema } from './matchSimulation/playerMatchStats';
-import { playerDecisionOutcomeSchema, type TacticalMatchState } from './matchSimulation/matchState';
+import {
+  matchTerminationSchema,
+  playerDecisionOutcomeSchema,
+  type TacticalMatchState,
+} from './matchSimulation/matchState';
 import { cardFactSchema } from './matchSimulation/matchRules';
 import { teamSideSchema } from './matchSimulation/matchSpace';
 import { matchVisualContextSchema, toCanonicalFootballProfile } from './visualIdentity';
+import {
+  evaluatePlayStyleUnlocks,
+  getUnlockedPlayStyles,
+  playStyleEvidenceSchema,
+  playStyleIdSchema,
+  qualifyingPlayStyles,
+  type PlayStyleEvidence,
+} from './playStyles';
+import { applyAppearanceConsequences } from './appearanceConsequences';
+import { retainCareerMatchResults } from './careerMatchRetention';
+import { recordCanonicalCareerMilestones } from './careerMatchMilestones';
+import { compactMatchParticipant } from './careerMatchSummary';
 
 export const MATCH_CONTRACT_VERSION = 1;
 export const MATCH_RESULT_MAX_BYTES = 96_000;
@@ -37,6 +53,7 @@ const rosterPlayer = z.object({
   profile: footballerProfileSchema.omit({ visualIdentity: true }),
   condition: z.number().min(0).max(100),
   injury: matchInjurySchema.optional(),
+  playStyles: z.array(playStyleIdSchema).max(6).optional(),
 });
 const team = z.object({
   club: professionalClubSchema,
@@ -188,8 +205,7 @@ export const createCareerMatchInput = (
 ): CareerMatchInput => {
   const fixture = getCurrentFixture(career);
   const league = career.leagueSeason;
-  if (!fixture || !league || league.competition.category !== 'professional')
-    throw new Error('A current professional career fixture is required.');
+  if (!fixture || !league) throw new Error('A current career fixture is required.');
   const roundIndex = league.rounds.findIndex((r) => r.fixtures.some((f) => f.id === fixture.id));
   const canonical = league.rounds[roundIndex]?.fixtures.find((f) => f.id === fixture.id);
   if (!canonical || canonical.completed)
@@ -215,6 +231,11 @@ export const createCareerMatchInput = (
     },
     fixture.date,
   );
+  for (const side of ['home', 'away'] as const)
+    session[side].bench = (session[side].bench ?? []).slice(0, 7);
+  for (const side of ['home', 'away'] as const)
+    for (const p of [...session[side].players, ...(session[side].bench ?? [])])
+      if (p.footballerId === career.player.id) p.playStyles = getUnlockedPlayStyles(career);
   const base = {
     version: MATCH_CONTRACT_VERSION,
     fixture: {
@@ -247,7 +268,7 @@ export const createCareerMatchInput = (
         bench: session.away.bench ?? [],
       },
     },
-    substitutionRules: DEFAULT_SUBSTITUTION_RULES,
+    substitutionRules: { ...DEFAULT_SUBSTITUTION_RULES, namedBenchSize: 7 },
     environment: {
       pitch: 'standard_105x68' as const,
       ball: 'canonical-default' as const,
@@ -307,8 +328,9 @@ export const careerMatchResultSchema = z
     fixture: fixtureSchema,
     world: worldSchema,
     footballSeed: id,
-    status: z.literal('full_time'),
-    endedAt: z.number().min(5400).max(10800),
+    status: z.enum(['full_time', 'abandoned']),
+    termination: matchTerminationSchema.optional(),
+    endedAt: z.number().nonnegative().max(10800),
     score: z.object({ home: count, away: count }),
     participants: z.array(participant).min(22).max(40),
     teamAccounting: z.object({ home: teamAccountingSchema, away: teamAccountingSchema }),
@@ -320,12 +342,13 @@ export const careerMatchResultSchema = z
       resolved: count,
       byIntent: z.array(aggregate).max(32),
       recentOutcomes: z.array(playerDecisionOutcomeSchema).max(12),
+      behaviour: z.array(playStyleEvidenceSchema).max(6).optional(),
     }),
     narrativeFacts: z
       .array(
         z.object({
           kind: z.enum(['score', 'goal', 'card', 'injury', 'substitution']),
-          at: z.number().nonnegative(),
+          at: z.number().nonnegative().optional(),
           actorId: id.optional(),
           data: z.record(id, z.union([z.string().max(256), z.number().finite(), z.boolean()])),
         }),
@@ -334,6 +357,12 @@ export const careerMatchResultSchema = z
   })
   .strict()
   .superRefine((result, ctx) => {
+    if (
+      (result.status === 'full_time' && (result.endedAt < 5400 || result.termination)) ||
+      (result.status === 'abandoned' &&
+        (!result.termination || result.termination.at !== result.endedAt))
+    )
+      ctx.addIssue({ code: 'custom', message: 'Invalid terminal match outcome.' });
     if (new Set(result.participants.map((p) => p.id)).size !== result.participants.length)
       ctx.addIssue({ code: 'custom', message: 'Duplicate result participant.' });
     for (const p of result.participants)
@@ -358,6 +387,8 @@ export class CareerMatchEvidence {
   private groups = new Map<string, z.infer<typeof aggregate>>();
   private outcomes: z.infer<typeof playerDecisionOutcomeSchema>[] = [];
   private cards = new Map<string, z.infer<typeof cardFactSchema>>();
+  private behaviour = new Map<string, PlayStyleEvidence>();
+  private windows = new Set<string>();
   observe(state: TacticalMatchState) {
     for (const card of state.recentCards ?? []) this.cards.set(card.id, card);
     if (state.lastCard) this.cards.set(state.lastCard.id, state.lastCard);
@@ -390,6 +421,31 @@ export class CareerMatchEvidence {
         group.progressTotal += outcome.result.progressDelta ?? 0;
         group.lastResolvedAt = outcome.resolvedAt;
         this.outcomes = [...this.outcomes.slice(-11), structuredClone(outcome)];
+        for (const style of qualifyingPlayStyles(outcome)) {
+          // At most one useful situation per five match minutes/style, capped per fixture.
+          const window = `${style}:${Math.floor(outcome.selectedAt / 300)}`;
+          const value = this.behaviour.get(style) ?? {
+            style,
+            situations: 0,
+            successes: 0,
+            contexts: [],
+          };
+          if (this.windows.has(window) || value.situations >= 8) continue;
+          this.windows.add(window);
+          value.situations++;
+          value.successes += Number(
+            Boolean(
+              outcome.result.passCompleted ||
+                outcome.result.duelWon ||
+                outcome.result.retainedPossession ||
+                outcome.result.teamRetainedPossession ||
+                ['goal', 'save', 'post', 'crossbar'].includes(outcome.result.shotOutcome ?? ''),
+            ),
+          );
+          const context = `${outcome.startContext.phase}:${outcome.startContext.pressure >= 0.5 ? 'pressed' : 'space'}`;
+          if (!value.contexts.includes(context)) value.contexts.push(context);
+          this.behaviour.set(style, value);
+        }
       }
       this.groups.set(key, group);
     }
@@ -401,6 +457,7 @@ export class CareerMatchEvidence {
       resolved: this.resolved.size,
       byIntent: [...this.groups.values()].map((g) => ({ ...g })),
       recentOutcomes: structuredClone(this.outcomes),
+      behaviour: [...this.behaviour.values()].map((value) => structuredClone(value)),
     };
   }
   cardFacts() {
@@ -415,7 +472,7 @@ export const finishCareerMatch = (
 ): CareerMatchResult => {
   const input = careerMatchInputSchema.parse(raw);
   if (
-    state.status !== 'full_time' ||
+    (state.status !== 'full_time' && state.status !== 'abandoned') ||
     state.seed !== input.footballSeed ||
     state.teams.home.clubId !== input.fixture.homeClubId ||
     state.teams.away.clubId !== input.fixture.awayClubId
@@ -451,6 +508,7 @@ export const finishCareerMatch = (
     world: input.world,
     footballSeed: input.footballSeed,
     status: state.status,
+    ...(state.termination ? { termination: state.termination } : {}),
     endedAt: state.time,
     score: state.score,
     participants,
@@ -464,7 +522,6 @@ export const finishCareerMatch = (
         .filter((p) => p.stats.goals > 0)
         .map((p) => ({
           kind: 'goal',
-          at: state.time,
           actorId: p.id,
           data: { goals: p.stats.goals, summary: true },
         })),
@@ -553,6 +610,21 @@ export const applyCareerMatchResult = (
   validateResultParticipants(input, result);
   const f = result.fixture,
     league = career.leagueSeason;
+  if (
+    f.ownerPlayerId !== career.player.id ||
+    f.ownerCareerSeed !== career.seed ||
+    world.version !== result.world.version ||
+    world.seed !== result.world.seed ||
+    career.worldDatabaseVersion !== world.version
+  )
+    throw new Error('Result does not belong to this career calendar/world.');
+  const factId = `canonical_match:${f.id}`;
+  const prior = career.historyFacts.find((fact) => fact.id === factId);
+  if (prior) {
+    if (prior.data.resultFingerprint !== contractFingerprint(result))
+      throw new Error('Conflicting completion for an already committed fixture.');
+    return career;
+  }
   const fixture = career.careerCalendar?.fixtures.find((item) => item.id === f.id);
   const leagueFixture = league?.rounds[f.roundIndex]?.fixtures.find((item) => item.id === f.id);
   if (
@@ -570,13 +642,6 @@ export const applyCareerMatchResult = (
     leagueFixture.awayClubId !== f.awayClubId
   )
     throw new Error('Result does not belong to this career calendar/world.');
-  const factId = `canonical_match:${f.id}`;
-  const prior = career.historyFacts.find((fact) => fact.id === factId);
-  if (prior) {
-    if (prior.data.resultFingerprint !== contractFingerprint(result))
-      throw new Error('Conflicting completion for an already committed fixture.');
-    return career;
-  }
   if (
     leagueFixture.completed ||
     getCurrentFixture(career)?.id !== f.id ||
@@ -588,7 +653,8 @@ export const applyCareerMatchResult = (
     ).footballFingerprint !== input.footballFingerprint
   )
     throw new Error('Fixture is completed, stale or is not the current career input.');
-  const delta = career.worldDelta ?? emptyWorldDelta(),
+  const recovered = recoverCareerFitnessToDate(career, f.date);
+  const delta = recovered.worldDelta ?? emptyWorldDelta(),
     conditions = { ...delta.footballerConditionOverrides };
   for (const p of result.participants)
     if (p.stats.minutesPlayed > 0)
@@ -612,12 +678,42 @@ export const applyCareerMatchResult = (
   const yellows = stats?.yellowCards ?? 0;
   const red = result.cards.find((c) => c.actorId === career.player.id && c.kind !== 'yellow');
   let next: CareerState = {
-    ...career,
+    ...recovered,
     currentDate: f.date,
-    player: { ...career.player, fitness: controlled?.condition ?? career.player.fitness },
+    careerCalendar: { ...career.careerCalendar!, currentDate: f.date },
+    player: { ...recovered.player, fitness: controlled?.condition ?? recovered.player.fitness },
     worldDelta: { ...delta, footballerConditionOverrides: conditions },
     playerAvailability: {
       ...availability,
+      injuries:
+        controlled?.injury && controlled.injury.recoveryDays > 0
+          ? [
+              ...availability.injuries.filter((injury) => injury.id !== controlled.injury!.id),
+              {
+                id: controlled.injury.id,
+                startDate: f.date,
+                canonicalRecoveryDate: conditionRecoveryDate(
+                  f.date,
+                  controlled.injury.recoveryDays,
+                ),
+                severity:
+                  controlled.injury.status === 'playable'
+                    ? ('knock' as const)
+                    : controlled.injury.recoveryDays >= 14
+                      ? ('moderate' as const)
+                      : ('minor' as const),
+                injuryType:
+                  controlled.injury.injuryType === 'muscle'
+                    ? ('strain' as const)
+                    : controlled.injury.injuryType === 'joint'
+                      ? ('joint_injury' as const)
+                      : ('bruise' as const),
+                matchesRemaining: Math.ceil(controlled.injury.recoveryDays / 7),
+                source: 'match' as const,
+                status: 'active' as const,
+              },
+            ]
+          : availability.injuries,
       leagueYellowCards: availability.leagueYellowCards + yellows,
       suspensionMatchesRemaining: Math.max(
         availability.suspensionMatchesRemaining,
@@ -639,10 +735,11 @@ export const applyCareerMatchResult = (
               matchId: result.completedMatchId,
               date: f.date,
               opponentId: fixture.opponent.id,
-              teamLevel: 'senior',
+              teamLevel: league.competition.category === 'professional' ? 'senior' : 'academy',
+              metricsSource: 'canonical',
               started: controlled!.started,
               assignedPosition: controlled!.position,
-              minutes: Math.round(stats.minutesPlayed),
+              minutes: stats.minutesPlayed,
               goals: stats.goals,
               assists: stats.assists,
               xG: 0,
@@ -652,6 +749,7 @@ export const applyCareerMatchResult = (
               saves: stats.saves,
               personalImpact: 0,
               yellowCards: yellows,
+              ...(controlled?.injury ? { injuryId: controlled.injury.id } : {}),
               ...(red
                 ? { redCard: red.kind === 'red' ? ('direct' as const) : ('second_yellow' as const) }
                 : {}),
@@ -673,6 +771,21 @@ export const applyCareerMatchResult = (
           contractVersion: MATCH_CONTRACT_VERSION,
           resultFingerprint: contractFingerprint(result),
           result,
+          summary: {
+            retentionVersion: 1,
+            completedMatchId: result.completedMatchId,
+            inputFingerprint: result.inputFingerprint,
+            fixture: f,
+            status: result.status,
+            score: result.score,
+            teamNames: { home: input.session.home.club.name, away: input.session.away.club.name },
+            teamAccounting: result.teamAccounting,
+            playerStatistics: stats ?? null,
+            participants: result.participants.map(compactMatchParticipant),
+            styles: result.controlledEvidence.behaviour ?? [],
+            cards: result.cards,
+            narrativeFacts: result.narrativeFacts,
+          },
         },
         causes: [],
         tags: ['match', 'canonical'],
@@ -689,7 +802,7 @@ export const applyCareerMatchResult = (
     date: f.date,
     opponentId: fixture.opponent.id,
     venue: fixture.venue,
-    competition: fixture.competition,
+    competition: league.competition.name,
     homeClubId: f.homeClubId,
     awayClubId: f.awayClubId,
     fixtureStatus: 'completed',
@@ -698,8 +811,12 @@ export const applyCareerMatchResult = (
       ? 'starter'
       : stats && stats.minutesPlayed > 0
         ? 'substitute'
-        : 'unused_bench',
-    plannedMinutes: 90,
+        : [...input.session.home.bench, ...input.session.away.bench].some(
+              (p) => p.footballerId === career.player.id,
+            )
+          ? 'unused_bench'
+          : 'not_selected',
+    plannedMinutes: controlled?.started ? 90 : 0,
     minutes: Math.round(stats?.minutesPlayed ?? 0),
     started: controlled?.started ?? false,
     assignedPosition: controlled?.position,
@@ -709,15 +826,23 @@ export const applyCareerMatchResult = (
     // The current physical counter does not export xG/xA. Preserve ledger defaults without inventing a model.
     xG: 0,
     xA: 0,
+    metricsSource: 'canonical',
+    ...(stats ? { canonicalStats: stats } : {}),
     defensiveActions: (stats?.tacklesWon ?? 0) + (stats?.interceptions ?? 0),
     yellowCards: yellows,
     ...(red
       ? { redCard: red.kind === 'red' ? ('direct' as const) : ('second_yellow' as const) }
       : {}),
   });
-  return settleLeagueRound(next, f.roundIndex, {
+  if (stats && stats.minutesPlayed > 0)
+    next = applyAppearanceConsequences(next, next.matchHistory!.at(-1)!);
+  next = recordCanonicalCareerMilestones(career, next, result);
+  next = settleLeagueRound(next, f.roundIndex, {
     homeGoals: result.score.home,
     awayGoals: result.score.away,
     playerAppearanceMatchId: result.completedMatchId,
+    ...(result.status === 'abandoned' ? { outcome: 'abandoned' as const } : {}),
   });
+  for (let i = 0; i < 6; i++) next = evaluatePlayStyleUnlocks(next, f.date);
+  return retainCareerMatchResults({ ...next, activeMatch: undefined, decisionPoint: undefined });
 };

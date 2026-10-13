@@ -73,6 +73,7 @@ const buildRestart = (
         restartTeam,
         options.restartPoint ?? incidentPoint,
         options.indirect,
+        input.endsSwitched,
       )
     : options.restartPoint;
   const geometry = deriveRestartGeometry(input, scenario, restartTeam, spot);

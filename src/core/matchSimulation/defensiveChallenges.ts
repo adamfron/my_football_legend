@@ -1,3 +1,4 @@
+import { attacksRight, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
@@ -176,8 +177,8 @@ export const deriveDefensiveContext = (
     actor.velocity.x - opponent.velocity.x,
     actor.velocity.y - opponent.velocity.y,
   );
-  const attackDirection = opponent.team === 'home' ? 1 : -1;
-  const progress = opponent.team === 'home' ? opponent.position.x : 105 - opponent.position.x;
+  const attackDirection = attacksRight(opponent) ? 1 : -1;
+  const progress = attacksRight(opponent) ? opponent.position.x : 105 - opponent.position.x;
   const covering = state.players.filter(
     (p) =>
       p.team === actor.team &&
@@ -247,7 +248,7 @@ const projectPressingPlan = (
         explicit.type === 'attack_space'),
   );
   const protectedReceiver = protectedPressReceiver(state, c.actor);
-  const progress = c.opponent.team === 'home' ? c.opponent.position.x : 105 - c.opponent.position.x;
+  const progress = attacksRight(c.opponent) ? c.opponent.position.x : 105 - c.opponent.position.x;
   const nearGoal = progress >= 78 && Math.abs(c.opponent.position.y - 34) <= 18;
   const carry = state.ballCarrierIntent;
   const movingIntent = carry?.actorId === c.opponent.id && carry.expiresAt > state.time;
@@ -338,8 +339,11 @@ const projectPressingPlan = (
               : intention === 'engage'
                 ? 'close_ball_shoulder'
                 : 'wait_for_touch';
-  const dir = c.opponent.team === 'home' ? 1 : -1;
-  const anticipation = 0.08 + reading * 0.26;
+  const dir = attacksRight(c.opponent) ? 1 : -1;
+  const anticipation =
+    0.08 +
+    reading * 0.26 +
+    (c.actor.playStyles?.includes('ball_winner') && c.ballDistance < 8 ? 0.02 : 0);
   const predicted = {
     x: c.opponent.position.x + c.opponent.velocity.x * anticipation,
     y: c.opponent.position.y + c.opponent.velocity.y * anticipation,
@@ -457,7 +461,7 @@ export const protectedPressReceiver = (
   if (!carrier || carrier.team === candidate.team) return;
   // No receiver at advanced depth can lie inside these two physical distance envelopes.
   const depth = (p: MatchPlayerState) =>
-    carrier.team === 'home' ? p.position.x : 105 - p.position.x;
+    attacksRight(carrier) ? p.position.x : 105 - p.position.x;
   if (
     depth(carrier) < COOPERATIVE_PRESS_TUNING.advancedThreatProgress - 30 ||
     depth(candidate) < COOPERATIVE_PRESS_TUNING.advancedThreatProgress - 10
@@ -478,13 +482,13 @@ export const protectedPressReceiver = (
       (a, b) => distance(a.position, carrier.position) - distance(b.position, carrier.position),
     )[0];
   const remaining = availableCover ?? defenders.filter((p) => p.id !== engaging?.id);
-  const dir = carrier.team === 'home' ? 1 : -1;
+  const dir = attacksRight(carrier) ? 1 : -1;
   return state.players.find((receiver) => {
     if (
       receiver.team !== carrier.team ||
       receiver.id === carrier.id ||
       receiver.slot.position === 'goalkeeper' ||
-      (carrier.team === 'home' ? receiver.position.x : 105 - receiver.position.x) <
+      (attacksRight(carrier) ? receiver.position.x : 105 - receiver.position.x) <
         COOPERATIVE_PRESS_TUNING.advancedThreatProgress ||
       state.discipline?.[receiver.id]?.sentOff ||
       distance(receiver.position, carrier.position) > 30 ||
@@ -519,7 +523,7 @@ export const deriveCooperativePress = (
   const confined = carrier.position.y < 6 || carrier.position.y > 62;
   const slow =
     Math.hypot(carrier.velocity.x, carrier.velocity.y) <= COOPERATIVE_PRESS_TUNING.slowCarrierSpeed;
-  const progress = carrier.team === 'home' ? carrier.position.x : 105 - carrier.position.x;
+  const progress = attacksRight(carrier) ? carrier.position.x : 105 - carrier.position.x;
   const opportunity = derivePressingOpportunity(state, side);
   if (
     progress < 40 &&
@@ -564,7 +568,7 @@ export const deriveCooperativePress = (
           .sort((a, b) => {
             // Keep the goal-side screen primary as its partner passes closer to the ball.
             // Nearest-body reassignment would send the arriving partner back to containment.
-            const dir = carrier.team === 'home' ? 1 : -1;
+            const dir = attacksRight(carrier) ? 1 : -1;
             const screenScore = (player: typeof a) =>
               dir * (player.position.x - carrier.position.x) -
               Math.abs(player.position.y - carrier.position.y) * 0.5;
@@ -576,7 +580,7 @@ export const deriveCooperativePress = (
   )
     return;
   const toGoal = {
-    x: (carrier.team === 'home' ? 105 : 0) - carrier.position.x,
+    x: (attacksRight(carrier) ? 105 : 0) - carrier.position.x,
     y: 34 - carrier.position.y,
   };
   const goalDistance = Math.max(0.001, Math.hypot(toGoal.x, toGoal.y));
@@ -921,7 +925,7 @@ export const chooseNpcDefensiveChallengeAction = (
     riskAppetite >= 72 &&
     c.opponentDistance <= 1.35 &&
     !c.dogso &&
-    !isDefendingPenaltyArea(actor.team, c.opponent.position)
+    !isDefendingPenaltyArea(actor, c.opponent.position)
   ) {
     const tactical = options.find((action) => action.technique === 'tactical');
     if (tactical) return tactical;
@@ -954,8 +958,8 @@ export const chooseNpcDefensiveChallengeAction = (
   return standingWorthwhile ? comfortableStanding : undefined;
 };
 
-const isDefendingPenaltyArea = (team: 'home' | 'away', point: { x: number; y: number }) =>
-  point.y >= 13.84 && point.y <= 54.16 && (team === 'home' ? point.x <= 16.5 : point.x >= 88.5);
+const isDefendingPenaltyArea = (team: TeamOrientation, point: { x: number; y: number }) =>
+  point.y >= 13.84 && point.y <= 54.16 && (attacksRight(team) ? point.x <= 16.5 : point.x >= 88.5);
 
 export const challengeResolutionSchema = z.object({
   state: z.custom<TacticalMatchState>(),
@@ -1094,7 +1098,7 @@ export const resolveDefensiveChallenge = (state: TacticalMatchState): ChallengeR
       (1 - c.facingError / Math.PI) * 0.08 -
       Math.max(
         0,
-        c.opponent.velocity.x * (c.opponent.team === 'home' ? 1 : -1) -
+        c.opponent.velocity.x * (attacksRight(c.opponent) ? 1 : -1) -
           c.actor.profile.attributes.pace / 18,
       ) *
         0.04 +

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { retainCareerMatchResults } from './careerMatchRetention';
 import type { CareerState, CareerWorldDelta, WorldFootballer } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
 import { WORLD_DATABASE_VERSION } from './worldDatabase';
@@ -256,12 +257,14 @@ export const createCareerSave = (
 export const saveCareer = createCareerSave;
 /** Uses the exact persistable representation without touching browser storage. */
 export const serializeCareerSave = (career: CareerState): string => {
-  return JSON.stringify(createCareerSave(career, new Date(0).toISOString()));
+  return JSON.stringify(
+    createCareerSave(retainCareerMatchResults(career), new Date(0).toISOString()),
+  );
 };
 
 export const serializeCurrentCareerSave = (career: CareerState): string => {
   try {
-    return JSON.stringify(createCareerSave(career));
+    return JSON.stringify(createCareerSave(retainCareerMatchResults(career)));
   } catch (error) {
     if (error instanceof CareerPersistenceError) throw error;
     throw new CareerPersistenceError('serialization_failure', 'Career serialization failed', {

@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import {
@@ -91,10 +92,10 @@ export const deriveSpacePassPlan = (
   const keeperArrival = keeper
     ? estimatePlayerArrivalTime(state, keeper, target, 'intercept').estimatedTime
     : 99;
-  const progress = signedForwardDistance(passer.position, target, passer.team);
-  const ledForward = signedForwardDistance(receiver.position, target, passer.team);
+  const progress = signedForwardDistance(passer.position, target, passer);
+  const ledForward = signedForwardDistance(receiver.position, target, passer);
   const line = secondLastOpponentLine(state, passer.team);
-  const beyondLine = passer.team === 'home' ? target.x > line + 1 : target.x < line - 1;
+  const beyondLine = attacksRight(passer) ? target.x > line + 1 : target.x < line - 1;
   const intent =
     progress > 8 && ledForward > 2 && (candidate.advancing > 0.8 || beyondLine)
       ? 'through'
@@ -110,7 +111,7 @@ export const deriveSpacePassPlan = (
       passer.profile.attributes.technique +
       passer.profile.attributes.gameReading) /
     3;
-  const highLine = passer.team === 'home' ? line < 82 : line > 23;
+  const highLine = attacksRight(passer) ? line < 82 : line > 23;
   // A loft is an interpretation of a blocked lane + credible run, not a guaranteed successful option.
   const delivery =
     groundLaneRisk > 0 &&
@@ -141,12 +142,11 @@ export const enumerateNpcSpacePasses = (
   state: TacticalMatchState,
   passer: MatchPlayerState,
 ): MatchAction[] => {
-  const dir = passer.team === 'home' ? 1 : -1;
+  const dir = attacksRight(passer) ? 1 : -1;
   const line = secondLastOpponentLine(state, passer.team);
-  const legalLine =
-    passer.team === 'home'
-      ? Math.max(52.5, line, state.ball.x)
-      : Math.min(52.5, line, state.ball.x);
+  const legalLine = attacksRight(passer)
+    ? Math.max(52.5, line, state.ball.x)
+    : Math.min(52.5, line, state.ball.x);
   const runners = state.players
     .filter(
       (p) =>
@@ -155,8 +155,8 @@ export const enumerateNpcSpacePasses = (
         !isMatchGoalkeeper(p) &&
         p.duty !== 'defend' &&
         distance(p.position, passer.position) < 42 &&
-        signedForwardDistance(passer.position, p.position, passer.team) > 2 &&
-        (passer.team === 'home'
+        signedForwardDistance(passer.position, p.position, passer) > 2 &&
+        (attacksRight(passer)
           ? p.position.x <= legalLine + 0.01
           : p.position.x >= legalLine - 0.01),
     )

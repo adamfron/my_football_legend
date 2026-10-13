@@ -1,3 +1,4 @@
+import { attacksRight, type TeamOrientation } from './matchSpace';
 import { findMatchParticipant } from './matchParticipants';
 import { z } from 'zod';
 import type { TacticalMatchState, MatchPlayerState } from './matchState';
@@ -95,8 +96,8 @@ const bin = (seconds: number) =>
 const record = (values: number[], seconds: number) => {
   values[bin(Math.max(0, seconds))]!++;
 };
-const third = (x: number, side: TeamSide) =>
-  Math.min(2, Math.floor((side === 'home' ? x : 105 - x) / 35));
+const third = (x: number, side: TeamOrientation) =>
+  Math.min(2, Math.floor((attacksRight(side) ? x : 105 - x) / 35));
 const isForward = (p: MatchPlayerState) => /striker|winger|forward/.test(p.slot.position);
 
 /** Read-only bounded observer. Its clocks, turn thresholds and effort bins never drive tactics.
@@ -385,7 +386,7 @@ export class ContactTacticalTracker {
           contacted: false,
           escaped: false,
         });
-        this.totals.pressureByThird[third(p.position.x, p.team)]!++;
+        this.totals.pressureByThird[third(p.position.x, p)]!++;
         if (isForward(p) && liveCarrier.slot.position === 'center_back')
           this.totals.forwardOnCentreBackPresses++;
         const pending = this.losses[p.team];
@@ -418,7 +419,7 @@ export class ContactTacticalTracker {
           shot: false,
           goal: false,
         };
-        this.totals.regainByThird[third(next.ball.x, recovery.to)]!++;
+        this.totals.regainByThird[third(next.ball.x, next.teams[recovery.to])]!++;
       }
     }
     for (const side of ['home', 'away'] as const) {
@@ -430,7 +431,7 @@ export class ContactTacticalTracker {
       const passTarget = pass?.intendedTarget ?? pass?.physicalTarget ?? next.ball.target;
       const passOrigin =
         next.ball.from ?? previous.players.find((p) => p.id === pass?.passerId)?.position;
-      const direction = side === 'home' ? 1 : -1;
+      const direction = attacksRight(side, next) ? 1 : -1;
       if (
         !regain.progress &&
         ((pass?.passId !== previous.lastPassDiagnostic?.passId &&
@@ -509,7 +510,7 @@ export class ContactTacticalTracker {
           carrier &&
           defender &&
           next.ball.ownerId === carrier.id &&
-          (carrier.team === 'home' ? 1 : -1) * (carrier.position.x - episode.originX) >= 3 &&
+          (attacksRight(carrier) ? 1 : -1) * (carrier.position.x - episode.originX) >= 3 &&
           distance(defender.position, next.ball) > 3.5
         ) {
           episode.escaped = true;
@@ -520,7 +521,7 @@ export class ContactTacticalTracker {
       this.lastProbeAt = next.time;
       const carrier = nextPlayers.get(next.ball.ownerId)!;
       const side = carrier.team === 'home' ? 'away' : 'home';
-      const direction = carrier.team === 'home' ? 1 : -1;
+      const direction = attacksRight(carrier) ? 1 : -1;
       const defenders = next.players.filter(
         (p) =>
           p.team === side && p.slot.position !== 'goalkeeper' && !next.discipline?.[p.id]?.sentOff,

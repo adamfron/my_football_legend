@@ -1,5 +1,25 @@
 # Roadmap
 
+Aktualny etap: **PR166 — Career–Match Integration & Behavioural PlayStyles**.
+[Raport PR166](PR166_CAREER_MATCH_INTEGRATION_PLAYSTYLES.md) obejmuje prawdziwe
+fixtures U-17/pro w kanonicznym runtime 3D, dobór trenera, konsekwencje i bezpieczny
+commit, retencję wyników, sześć stylów oraz naprawy zmiany stron i menu.
+
+Autorytatywna kolejność kolejnych etapów:
+
+- **PR167 — NPC Development & Footballer Diversity**: rozwój, krzywe,
+  różnorodność i style NPC; PR166 przenosi ich kondycję i rzeczywiste kary.
+- **PR168 — Coaches, Match Briefings & Tactical Intelligence**: preferencje,
+  przeciwnik, instrukcje i bogatsza ocena decyzji. Sparse shots, długie rotacje,
+  prognozy przechwytu, druga piłka i przekazywanie krycia pozostają do audytu,
+  bez kwot strzałów i wymuszania sukcesów.
+- **PR169 — Career Stories, News & Season Narratives**.
+- **PR170 — Match Atmosphere & Stylized Visual Polish**.
+
+Późniejsza adjudykacja przerwanych meczów, bezpieczne checkpointy mid-match i
+pełne archiwum replay wymagają osobnego zakresu; obecny niezapisany fixture
+restartuje deterministycznie. Poniższe opisy zachowano jako historię planu.
+
 Aktualny etap: **PR165 — Visual DNA & Character Creator**.
 [Raport PR165](PR165_VISUAL_DNA_CHARACTER_CREATOR.md) obejmuje stałe twarze v1,
 starzenie, kreator/edycję kosmetyki, wspólne modele/portrety, naprawy wznowień oraz

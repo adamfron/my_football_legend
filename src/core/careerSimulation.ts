@@ -362,7 +362,10 @@ export const advanceSimulationStep = (initial: CareerState): CareerState => {
       if (
         career.player.matchPresentation !== 'simulate_all' &&
         importance !== 'routine' &&
-        projection.willPlay
+        getPlayerAvailability(career, fixture.date).available &&
+        (projection.willPlay ||
+          projection.status.endsWith('bench') ||
+          projection.status.endsWith('starter'))
       )
         return {
           ...startFixtureMatch(career, { ...fixture, matchImportance: importance }),

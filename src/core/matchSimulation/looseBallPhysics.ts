@@ -1,3 +1,4 @@
+import { attacksRight, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import {
@@ -7,7 +8,6 @@ import {
   toPitchPoint,
   type PhysicalPoint,
   type PitchPoint,
-  type TeamSide,
 } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
 import {
@@ -53,8 +53,8 @@ export const rollLooseBall = (
   };
 };
 
-const isInsideOwnPenaltyArea = (point: PitchPoint, side: TeamSide) =>
-  point.y >= 13.84 && point.y <= 54.16 && (side === 'home' ? point.x <= 16.5 : point.x >= 88.5);
+const isInsideOwnPenaltyArea = (point: PitchPoint, side: TeamOrientation) =>
+  point.y >= 13.84 && point.y <= 54.16 && (attacksRight(side) ? point.x <= 16.5 : point.x >= 88.5);
 
 export const predictLooseBallIntercept = (
   ball: PitchPoint,
@@ -124,7 +124,7 @@ export const evaluateGlobalBallRace = (state: TacticalMatchState): BallRaceCandi
     const candidates = state.players.flatMap((player) => {
       if (!canContactAfterThrowIn(state, player.id)) return [];
       const goalkeeper = isMatchGoalkeeper(player);
-      if (goalkeeper && !isInsideOwnPenaltyArea(playablePoint, player.team)) return [];
+      if (goalkeeper && !isInsideOwnPenaltyArea(playablePoint, player)) return [];
       const estimatedArrivalTime = estimatePlayerArrivalTime(
         state,
         player,
@@ -173,7 +173,7 @@ export const deriveLooseBallAssignments = (state: TacticalMatchState): LooseBall
     const prediction = predictLooseBallIntercept(state.ball, velocity, player);
     if (prediction.kind === 'boundary') return [];
     const target = prediction.point;
-    if (goalkeeper && !isInsideOwnPenaltyArea(target, player.team)) return [];
+    if (goalkeeper && !isInsideOwnPenaltyArea(target, player)) return [];
     const reading =
       (player.profile.attributes.gameReading +
         player.profile.attributes.positioning +
@@ -181,7 +181,7 @@ export const deriveLooseBallAssignments = (state: TacticalMatchState): LooseBall
       300;
     const eta = estimatePlayerArrivalTime(state, player, target, 'loose_ball').estimatedTime;
     const priority = state.ball.secondBallPriorityIds?.includes(player.id) ? 0.7 : 0;
-    const ownDanger = player.team === 'home' ? 1 - target.x / 105 : target.x / 105;
+    const ownDanger = attacksRight(player) ? 1 - target.x / 105 : target.x / 105;
     const transition = state.teams[player.team].phase.includes('transition') ? 0.35 : 0;
     return [
       {
@@ -203,7 +203,7 @@ export const deriveLooseBallAssignments = (state: TacticalMatchState): LooseBall
     const player = state.players.find((p) => p.id === keeper.playerId)!;
     const arbitration = arbitrateGoalkeeperClaim(state, player, keeper.target);
     if (arbitration.primaryId !== keeper.playerId) return outfield;
-    const goalX = side === 'home' ? 0 : 105;
+    const goalX = attacksRight(side, state) ? 0 : 105;
     return [
       {
         ...keeper,

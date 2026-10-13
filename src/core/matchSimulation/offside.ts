@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import type { TeamSide } from './matchSpace';
@@ -7,6 +8,7 @@ import { restartLawContract } from './restartLaws';
 import { isRestartSetup } from './restartPhase';
 
 export const offsideSnapshotSchema = z.object({
+  endsSwitched: z.boolean().optional(),
   attackingTeam: z.enum(['home', 'away']),
   passerId: z.string(),
   relevantAttackerIds: z.array(z.string()),
@@ -25,8 +27,8 @@ export const secondLastOpponentLine = (state: TacticalMatchState, attackingTeam:
   const xs = state.players
     .filter((p) => p.team !== attackingTeam)
     .map((p) => p.position.x)
-    .sort((a, b) => (attackingTeam === 'home' ? b - a : a - b));
-  return xs[1] ?? xs[0] ?? (attackingTeam === 'home' ? 105 : 0);
+    .sort((a, b) => (attacksRight(attackingTeam, state) ? b - a : a - b));
+  return xs[1] ?? xs[0] ?? (attacksRight(attackingTeam, state) ? 105 : 0);
 };
 
 export const captureOffsideSnapshot = (
@@ -45,8 +47,9 @@ export const captureOffsideSnapshot = (
   const passer = state.players.find((p) => p.id === action.actorId);
   if (!passer) return;
   const line = secondLastOpponentLine(state, passer.team);
-  const offsideLineX =
-    passer.team === 'home' ? Math.max(state.ball.x, line) : Math.min(state.ball.x, line);
+  const offsideLineX = attacksRight(passer)
+    ? Math.max(state.ball.x, line)
+    : Math.min(state.ball.x, line);
   const exemptRestart = Boolean(isDirectOffsideExemptRestart(state));
   const attackerX = Object.fromEntries(
     state.players
@@ -57,13 +60,14 @@ export const captureOffsideSnapshot = (
     ? []
     : Object.entries(attackerX)
         .filter(([, x]) =>
-          passer.team === 'home'
+          attacksRight(passer)
             ? x > offsideLineX + 0.01 && x > 52.5
             : x < offsideLineX - 0.01 && x < 52.5,
         )
         .map(([id]) => id);
   return {
     attackingTeam: passer.team,
+    ...(state.endsSwitched ? { endsSwitched: true } : {}),
     passerId: passer.id,
     relevantAttackerIds,
     ballX: state.ball.x,

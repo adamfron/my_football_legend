@@ -1,7 +1,7 @@
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
 import type { MatchAction, TacticalMatchState } from './matchState';
-import { clampPitchPoint, distance, type PitchPoint } from './matchSpace';
+import { attacksRight, clampPitchPoint, distance, type PitchPoint } from './matchSpace';
 import { deriveRestartGeometry, deriveRestartMovementTargets } from './restartGeometry';
 import { deriveRestartLegalReadiness, legalizeRestartPlayerTarget } from './restartLaws';
 import { isLiveRestartSetup, isRestartSetup } from './restartPhase';
@@ -215,7 +215,7 @@ export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatch
         player.id === current.takerId;
       let proposed = stagingTaker
         ? clampPitchPoint({
-            x: spot.x - (current.restartTeam === 'home' ? 1 : -1) * 2.5,
+            x: spot.x - (attacksRight(current.restartTeam, state) ? 1 : -1) * 2.5,
             y: spot.y,
           })
         : (targets[player.id] ?? current.targets[player.id] ?? player.target);

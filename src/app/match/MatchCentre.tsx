@@ -101,6 +101,14 @@ export const MatchCentre = ({
       </p>
       {state.controlledFootballerId &&
         !state.players.some((player) => player.id === state.controlledFootballerId) &&
+        ([...(state.bench?.home ?? []), ...(state.bench?.away ?? [])].some(
+          (player) => player.id === state.controlledFootballerId,
+        ) ||
+          state.substitutionState?.pending.some(
+            (request) => request.incoming.id === state.controlledFootballerId,
+          )) && <p role="status">Jesteś na ławce. O wejściu decyduje trener.</p>}
+      {state.controlledFootballerId &&
+        !state.players.some((player) => player.id === state.controlledFootballerId) &&
         (state.departedPlayers?.some((player) => player.id === state.controlledFootballerId) ||
           state.substitutionState?.pending.some(
             (request) => request.outgoing.id === state.controlledFootballerId,

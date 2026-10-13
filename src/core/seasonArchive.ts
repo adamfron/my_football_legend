@@ -1,7 +1,7 @@
 import type { CareerState, CompletedSeasonSnapshot } from '../types/domain';
 import { getLeagueTable } from './leagueSeason';
 import { getPlayerOverall } from './playerOverall';
-import { getSeasonOutfieldStats } from './seasonParticipation';
+import { getSeasonOutfieldStats, participationMinutes } from './seasonParticipation';
 
 export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSeasonSnapshot => {
   const season = career.leagueSeason!;
@@ -47,23 +47,31 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
       venue: match.venue,
       ...(match.score ? { score: match.score } : {}),
       started: match.started,
-      substitute: !match.started && match.minutes > 0,
+      substitute: !match.started && participationMinutes(match) > 0,
       ...(match.assignedPosition ? { assignedPosition: match.assignedPosition } : {}),
-      minutes: match.minutes,
+      minutes: participationMinutes(match),
       goals: match.goals,
       assists: match.assists,
       ...(match.rating !== undefined ? { rating: match.rating } : {}),
       ...(match.yellowCards ? { yellowCards: match.yellowCards } : {}),
       ...(match.redCard ? { redCard: match.redCard } : {}),
-      ...(match.goalkeeperStats
+      ...(match.canonicalStats && match.assignedPosition === 'goalkeeper'
         ? {
             goalkeeper: {
-              saves: match.goalkeeperStats.saves,
-              goalsConceded: match.goalkeeperStats.goalsConceded,
-              cleanSheet: match.goalkeeperStats.cleanSheet,
+              saves: match.canonicalStats.saves,
+              goalsConceded: match.canonicalStats.goalsConceded,
+              cleanSheet: match.minutes >= 60 && match.canonicalStats.goalsConceded === 0,
             },
           }
-        : {}),
+        : match.goalkeeperStats
+          ? {
+              goalkeeper: {
+                saves: match.goalkeeperStats.saves,
+                goalsConceded: match.goalkeeperStats.goalsConceded,
+                cleanSheet: match.goalkeeperStats.cleanSheet,
+              },
+            }
+          : {}),
     })),
     milestones: career.historyFacts
       .filter((f) => f.season === career.currentSeason && f.narrativeImportance >= 80)

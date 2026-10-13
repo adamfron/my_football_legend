@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { canonicalShotLabel, projectContextualInteractions } from './contextualInteractions';
@@ -503,13 +504,13 @@ export const evaluateOnBallDecisionRelevance = (
     preferredImpact === 'high_impact' &&
     (preferredAction?.type !== 'carry' || (riskyCarry && hasTerminalAlternative));
   const sprintRouteChoice =
-    (actor.team === 'home' ? actor.position.x : 105 - actor.position.x) >= 60 &&
+    (attacksRight(actor) ? actor.position.x : 105 - actor.position.x) >= 60 &&
     Math.abs(actor.position.y - 34) >= 15 &&
     competitive.some(
       ({ action }) =>
         action.type === 'carry' &&
         action.movementMode === 'sprint' &&
-        signedForwardDistance(actor.position, action.target, actor.team) >= 8 &&
+        signedForwardDistance(actor.position, action.target, actor) >= 8 &&
         distance(actor.position, action.target) >= 12,
     ) &&
     ranked.some(
@@ -520,13 +521,13 @@ export const evaluateOnBallDecisionRelevance = (
   // fieldValue includes centrality, so use physical forward metres for this commitment.
   const progressiveRouteChoice = competitive.some(({ action, canonicalScore }) => {
     if (action.type !== 'pass' || best - canonicalScore > 5) return false;
-    const forward = signedForwardDistance(actor.position, action.target, actor.team);
+    const forward = signedForwardDistance(actor.position, action.target, actor);
     if (forward < 18) return false;
     const breaksLine = state.players.some(
       (player) =>
         player.team !== actor.team &&
-        signedForwardDistance(actor.position, player.position, actor.team) >= 4 &&
-        signedForwardDistance(player.position, action.target, actor.team) >= 3 &&
+        signedForwardDistance(actor.position, player.position, actor) >= 4 &&
+        signedForwardDistance(player.position, action.target, actor) >= 3 &&
         distanceToSegment(player.position, actor.position, action.target) <= 6,
     );
     return (
@@ -602,7 +603,7 @@ export const projectIncomingPlayerInvolvement = (
   );
   const attacking = Boolean(
     actor &&
-      fieldValue(state.ball.target ?? actor.position, actor.team) >
+      fieldValue(state.ball.target ?? actor.position, actor) >
         PLAYER_AGENCY_CALIBRATION.meaningfulLongReceptionProgress,
   );
   const tightReceptionPressure = Boolean(
@@ -801,7 +802,7 @@ export const evaluateDefensiveCommitment = (
   const structure = deriveStructuralPosition(state, actor);
   const shapeDeparture = distance(structure, point);
   const shapeDepartureIncrease = shapeDeparture - distance(structure, actor.position);
-  const ownGoal = { x: actor.team === 'home' ? 0 : 105, y: 34 };
+  const ownGoal = { x: attacksRight(actor) ? 0 : 105, y: 34 };
   const dangerousReceiver =
     distance(point, ownGoal) <= PLAYER_AGENCY_CALIBRATION.dangerousGoalDistance;
   const protectedRunner = state.players.some(
@@ -810,7 +811,7 @@ export const evaluateDefensiveCommitment = (
       player.id !== state.ball.ownerId &&
       deriveDecisionRole(actor) !== 'forward' &&
       distance(player.position, ownGoal) <= PLAYER_AGENCY_CALIBRATION.dangerousGoalDistance &&
-      signedForwardDistance(player.position, actor.position, actor.team) > 2 &&
+      signedForwardDistance(player.position, actor.position, actor) > 2 &&
       distance(player.position, actor.position) <=
         PLAYER_AGENCY_CALIBRATION.protectedRunnerDistance &&
       distance(player.position, point) > displacement + 1.5,
@@ -824,7 +825,7 @@ export const evaluateDefensiveCommitment = (
         player.team === actor.team &&
         player.id !== actor.id &&
         deriveDecisionRole(player) === 'defender' &&
-        signedForwardDistance(player.position, structure, actor.team) >= 0 &&
+        signedForwardDistance(player.position, structure, actor) >= 0 &&
         Math.abs(player.position.y - structure.y) < 12 &&
         distance(player.position, structure) < 22,
     );
@@ -987,7 +988,7 @@ export const evaluateMovementOpportunityValue = (
     ),
     nextVector = Math.atan2(target.y - carrier.position.y, target.x - carrier.position.x);
   const passingAngleGain = Math.min(Math.PI, Math.abs(nextVector - currentVector));
-  const forwardGain = Math.max(0, signedForwardDistance(target, actor.position, actor.team));
+  const forwardGain = Math.max(0, signedForwardDistance(target, actor.position, actor));
   const spaceGain = clearance(target) - clearance(actor.position);
   const laneGain =
     Math.abs(target.y - carrier.position.y) - Math.abs(actor.position.y - carrier.position.y);
@@ -1245,7 +1246,7 @@ export const projectPlayerAgency = (
             actorId,
             movementMode: 'carry',
             target: clampPitchPoint({
-              x: target.x + attackDirection(actor.team) * 6,
+              x: target.x + attackDirection(actor) * 6,
               y: target.y,
             }),
           },
@@ -1319,7 +1320,7 @@ export const projectPlayerAgency = (
     if (ownerTeam !== actor.team) {
       const metres = carrier ? distance(actor.position, carrier.position) : Infinity;
       const role = roleProfile;
-      const ownGoal = { x: actor.team === 'home' ? 0 : 105, y: 34 };
+      const ownGoal = { x: attacksRight(actor) ? 0 : 105, y: 34 };
       const keeperThreat =
         role === 'goalkeeper' &&
         Boolean(
@@ -1636,9 +1637,13 @@ export const createPendingOutcome = (
   selection: {
     id: string;
     action?: MatchAction;
-    intent?: { type: string };
+    intent?: { type: string; target?: { x: number; y: number } };
     target?: unknown;
-    resolution?: { kind: string; action?: MatchAction; intent?: { type: string } };
+    resolution?: {
+      kind: string;
+      action?: MatchAction;
+      intent?: { type: string; target?: { x: number; y: number } };
+    };
   },
 ) => {
   const actor = state.players.find((player) => player.id === opportunity.actorId)!;
@@ -1655,7 +1660,49 @@ export const createPendingOutcome = (
     : selection.intent
       ? selection.intent.type
       : (selection.resolution?.intent?.type ?? selection.id);
+  const selectedPoint =
+    action && action.type === 'pass'
+      ? state.players.find((p) => p.id === action.receiverId)?.position
+      : action && 'target' in action
+        ? action.target
+        : selection.target && typeof selection.target === 'object' && 'point' in selection.target
+          ? (selection.target as { point: { x: number; y: number } }).point
+          : (selection.intent?.target ?? selection.resolution?.intent?.target);
+  const direction = attacksRight(actor) ? 1 : -1;
+  const forwardMetres = selectedPoint ? (selectedPoint.x - actor.position.x) * direction : 0;
+  const opponents = state.players.filter((p) => p.team !== actor.team);
+  const targetDepth = (selectedPoint?.x ?? actor.position.x) * direction;
+  const defenders = opponents
+    .filter((p) => p.slot.position.includes('back'))
+    .map((p) => p.position.x * direction);
+  const midfielders = opponents
+    .filter((p) => p.slot.position.includes('midfielder'))
+    .map((p) => p.position.x * direction);
   return {
+    behaviourContext: {
+      forwardMetres,
+      opponentsBypassed: selectedPoint
+        ? opponents.filter(
+            (p) =>
+              (p.position.x - actor.position.x) * direction > 0 &&
+              (selectedPoint.x - p.position.x) * direction > 0 &&
+              Math.abs(p.position.y - selectedPoint.y) < 12,
+          ).length
+        : 0,
+      betweenLines:
+        midfielders.length > 0 &&
+        defenders.length > 0 &&
+        targetDepth > Math.max(...midfielders) &&
+        targetDepth < Math.min(...defenders),
+      goalDistance: distance(actor.position, { x: direction > 0 ? 105 : 0, y: 34 }),
+      activeEffort: forwardMetres > 5 && (actor.fitness?.burstReadiness ?? 1) > 0.35,
+      goalkeeper: actor.slot.position === 'goalkeeper',
+      pressOpportunity:
+        opportunity.kind === 'defensive_response' &&
+        opponents.some(
+          (p) => p.id === state.ball.ownerId && distance(p.position, actor.position) < 12,
+        ),
+    },
     decisionId: opportunity.id,
     actorId: opportunity.actorId,
     selectedAt: state.time,
@@ -1665,7 +1712,7 @@ export const createPendingOutcome = (
     startContext: {
       phase: state.teams[actor.team].phase,
       pressure: state.currentPressure,
-      fieldProgress: fieldValue(actor.position, actor.team) / 100,
+      fieldProgress: fieldValue(actor.position, actor) / 100,
       possession: state.possessionTeam,
     },
   };

@@ -1,3 +1,4 @@
+import { attacksRight, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { distance, type PitchPoint, type TeamSide } from './matchSpace';
@@ -12,13 +13,14 @@ const EPSILON = 0.01;
 const bound = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 const isFreeKick = (scenario: RestartScenario) => scenario.startsWith('free_kick');
 const opposite = (side: TeamSide): TeamSide => (side === 'home' ? 'away' : 'home');
-const ownDepth = (point: PitchPoint, team: TeamSide) => (team === 'home' ? point.x : 105 - point.x);
-const inGoalArea = (point: PitchPoint, team: TeamSide) =>
+const ownDepth = (point: PitchPoint, team: TeamOrientation) =>
+  attacksRight(team) ? point.x : 105 - point.x;
+const inGoalArea = (point: PitchPoint, team: TeamOrientation) =>
   ownDepth(point, team) >= 0 &&
   ownDepth(point, team) <= 5.5 &&
   point.y >= GOAL_AREA_Y[0] &&
   point.y <= GOAL_AREA_Y[1];
-const inPenaltyArea = (point: PitchPoint, team: TeamSide, margin = 0) =>
+const inPenaltyArea = (point: PitchPoint, team: TeamOrientation, margin = 0) =>
   ownDepth(point, team) >= -margin &&
   ownDepth(point, team) <= 16.5 + margin &&
   point.y >= PENALTY_AREA_Y[0] - margin &&
@@ -30,20 +32,30 @@ export const legalRestartPosition = (
   team: TeamSide,
   incidentPoint: PitchPoint,
   indirect = false,
+  endsSwitched = false,
 ): PitchPoint => {
+  if (endsSwitched) {
+    const point = legalRestartPosition(
+      scenario,
+      team,
+      { x: 105 - incidentPoint.x, y: 68 - incidentPoint.y },
+      indirect,
+    );
+    return { x: 105 - point.x, y: 68 - point.y };
+  }
   const point = { x: bound(incidentPoint.x, 0, 105), y: bound(incidentPoint.y, 0, 68) };
   if (scenario === 'kick_off') return { x: 52.5, y: 34 };
-  if (scenario === 'penalty') return { x: team === 'home' ? 94 : 11, y: 34 };
+  if (scenario === 'penalty') return { x: attacksRight(team) ? 94 : 11, y: 34 };
   if (scenario === 'throw_in') return { x: point.x, y: point.y <= 34 ? 0 : 68 };
   if (scenario === 'corner')
-    return { x: team === 'home' ? 104.5 : 0.5, y: point.y <= 34 ? 0.5 : 67.5 };
+    return { x: attacksRight(team) ? 104.5 : 0.5, y: point.y <= 34 ? 0.5 : 67.5 };
   if (scenario === 'goal_kick' || scenario === 'gk_short')
     return {
-      x: team === 'home' ? bound(point.x, 0, 5.5) : bound(point.x, 99.5, 105),
+      x: attacksRight(team) ? bound(point.x, 0, 5.5) : bound(point.x, 99.5, 105),
       y: bound(point.y, GOAL_AREA_Y[0], GOAL_AREA_Y[1]),
     };
   if (isFreeKick(scenario) && indirect && inGoalArea(point, opposite(team)))
-    return { x: team === 'home' ? 99.5 : 5.5, y: point.y };
+    return { x: attacksRight(team) ? 99.5 : 5.5, y: point.y };
   return point;
 };
 
@@ -119,12 +131,12 @@ const outsideCircle = (
   const inwardX = centre.x <= 52.5 ? 1 : -1;
   return pitchTarget({ x: centre.x + inwardX * radius, y: centre.y });
 };
-const outsidePenaltyArea = (target: PitchPoint, team: TeamSide): PitchPoint => {
+const outsidePenaltyArea = (target: PitchPoint, team: TeamOrientation): PitchPoint => {
   // Locomotion brakes within 0.08 m of its target. A target barely outside a law boundary
   // can therefore leave the body illegally inside forever; keep the existing intent margin.
   if (!inPenaltyArea(target, team, 0.3)) return target;
   const candidates = [
-    { x: team === 'home' ? 16.8 : 88.2, y: target.y },
+    { x: attacksRight(team) ? 16.8 : 88.2, y: target.y },
     { x: target.x, y: PENALTY_AREA_Y[0] - 0.3 },
     { x: target.x, y: PENALTY_AREA_Y[1] + 0.3 },
   ];
@@ -156,37 +168,42 @@ export const legalizeRestartPlayerTarget = (
   if (!restart) return proposed;
   const spot =
     restart.spot ??
-    legalRestartPosition(state.scenario, restart.restartTeam, state.ball, restart.indirect);
+    legalRestartPosition(
+      state.scenario,
+      restart.restartTeam,
+      state.ball,
+      restart.indirect,
+      state.endsSwitched,
+    );
   if (player.id === restart.takerId) return spot;
   let target = pitchTarget(proposed);
   const opponent = player.team !== restart.restartTeam;
   if (state.scenario === 'kick_off') {
-    target.x = player.team === 'home' ? Math.min(target.x, 52.3) : Math.max(target.x, 52.7);
-    if (opponent) target = outsideCircle(target, spot, 9.3, player.team === 'home' ? -1 : 1);
+    target.x = attacksRight(player) ? Math.min(target.x, 52.3) : Math.max(target.x, 52.7);
+    if (opponent) target = outsideCircle(target, spot, 9.3, attacksRight(player) ? -1 : 1);
   } else if (state.scenario === 'penalty') {
     if (opponent && player.id === restartPenaltyGoalkeeper(state)?.id)
-      return { x: player.team === 'home' ? 0 : 105, y: bound(target.y, 30.5, 37.5) };
-    target.x =
-      restart.restartTeam === 'home'
-        ? Math.min(target.x, spot.x - 0.3)
-        : Math.max(target.x, spot.x + 0.3);
-    target = outsidePenaltyArea(target, opposite(restart.restartTeam));
-    target = outsideCircle(target, spot, 9.3, restart.restartTeam === 'home' ? -1 : 1);
-    target = outsidePenaltyArea(target, opposite(restart.restartTeam));
+      return { x: attacksRight(player) ? 0 : 105, y: bound(target.y, 30.5, 37.5) };
+    target.x = attacksRight(restart.restartTeam, state)
+      ? Math.min(target.x, spot.x - 0.3)
+      : Math.max(target.x, spot.x + 0.3);
+    target = outsidePenaltyArea(target, state.teams[opposite(restart.restartTeam)]);
+    target = outsideCircle(target, spot, 9.3, attacksRight(restart.restartTeam, state) ? -1 : 1);
+    target = outsidePenaltyArea(target, state.teams[opposite(restart.restartTeam)]);
   } else if (opponent && (state.scenario === 'goal_kick' || state.scenario === 'gk_short')) {
-    target = outsidePenaltyArea(target, restart.restartTeam);
+    target = outsidePenaltyArea(target, state.teams[restart.restartTeam]);
   } else if (opponent && state.scenario === 'corner') {
     target = outsideCircle(
       target,
-      { x: restart.restartTeam === 'home' ? 105 : 0, y: spot.y <= 34 ? 0 : 68 },
+      { x: attacksRight(restart.restartTeam, state) ? 105 : 0, y: spot.y <= 34 ? 0 : 68 },
       10.3,
-      restart.restartTeam === 'home' ? -1 : 1,
+      attacksRight(restart.restartTeam, state) ? -1 : 1,
     );
   } else if (opponent && state.scenario === 'throw_in') {
-    target = outsideCircle(target, spot, 2.2, player.team === 'home' ? -1 : 1);
+    target = outsideCircle(target, spot, 2.2, attacksRight(player) ? -1 : 1);
   } else if (isFreeKick(state.scenario)) {
     if (opponent) {
-      const onOwnGoalLine = ownDepth(target, player.team) <= 0.4 && Math.abs(target.y - 34) <= 3.66;
+      const onOwnGoalLine = ownDepth(target, player) <= 0.4 && Math.abs(target.y - 34) <= 3.66;
       if (!onOwnGoalLine)
         // Markers must stand beyond the wall's body envelope during preparation.
         // Projecting all defenders onto the same 9.3m arc creates an impossible
@@ -195,10 +212,10 @@ export const legalizeRestartPlayerTarget = (
           target,
           spot,
           restart.roles[player.id]?.key === 'wall' ? 9.5 : 11,
-          player.team === 'home' ? -1 : 1,
+          attacksRight(player) ? -1 : 1,
         );
-      if (inPenaltyArea(spot, restart.restartTeam))
-        target = outsidePenaltyArea(target, restart.restartTeam);
+      if (inPenaltyArea(spot, state.teams[restart.restartTeam]))
+        target = outsidePenaltyArea(target, state.teams[restart.restartTeam]);
     } else {
       const wall = state.players.filter(
         (defender) =>
@@ -211,7 +228,7 @@ export const legalizeRestartPlayerTarget = (
               target,
               defender.position,
               1.1,
-              restart.restartTeam === 'home' ? -1 : 1,
+              attacksRight(restart.restartTeam, state) ? -1 : 1,
             );
         if (wall.some((defender) => distance(target, defender.position) < 1.05)) {
           // A cluster of overlapping exclusion circles has a simple safe ball-side fallback.
@@ -266,12 +283,19 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
   );
   const spot =
     restart.spot ??
-    legalRestartPosition(state.scenario, restart.restartTeam, state.ball, restart.indirect);
+    legalRestartPosition(
+      state.scenario,
+      restart.restartTeam,
+      state.ball,
+      restart.indirect,
+      state.endsSwitched,
+    );
   const legalSpot = legalRestartPosition(
     state.scenario,
     restart.restartTeam,
     spot,
     restart.indirect,
+    state.endsSwitched,
   );
   const speed = Math.hypot(
     state.ball.velocity?.x ?? 0,
@@ -299,7 +323,7 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
   if (state.scenario === 'kick_off') {
     participantsReady = state.players.every(
       (player) =>
-        player.id === restart.takerId || ownDepth(player.position, player.team) <= 52.5 + EPSILON,
+        player.id === restart.takerId || ownDepth(player.position, player) <= 52.5 + EPSILON,
     );
     opponentsReady = opponents.every(
       (player) => distance(player.position, spot) >= RESTART_REQUIRED_DISTANCE - EPSILON,
@@ -308,25 +332,29 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
     const keeper = restartPenaltyGoalkeeper(state);
     opponentsReady = Boolean(
       keeper &&
-        ownDepth(keeper.position, keeper.team) <= 0.4 &&
+        ownDepth(keeper.position, keeper) <= 0.4 &&
         Math.abs(keeper.position.y - 34) <= 3.66,
     );
     participantsReady = state.players.every(
       (player) =>
         player.id === restart.takerId ||
         player.id === keeper?.id ||
-        (!inPenaltyArea(player.position, opposite(restart.restartTeam)) &&
-          ownDepth(player.position, restart.restartTeam) < ownDepth(spot, restart.restartTeam) &&
+        (!inPenaltyArea(player.position, state.teams[opposite(restart.restartTeam)]) &&
+          ownDepth(player.position, state.teams[restart.restartTeam]) <
+            ownDepth(spot, state.teams[restart.restartTeam]) &&
           distance(player.position, spot) >= RESTART_REQUIRED_DISTANCE - EPSILON),
     );
   } else if (state.scenario === 'goal_kick' || state.scenario === 'gk_short') {
     opponentsReady = opponents.every(
-      (player) => !inPenaltyArea(player.position, restart.restartTeam),
+      (player) => !inPenaltyArea(player.position, state.teams[restart.restartTeam]),
     );
   } else if (state.scenario === 'throw_in') {
     opponentsReady = opponents.every((player) => distance(player.position, spot) >= 2 - EPSILON);
   } else if (state.scenario === 'corner') {
-    const corner = { x: restart.restartTeam === 'home' ? 105 : 0, y: spot.y <= 34 ? 0 : 68 };
+    const corner = {
+      x: attacksRight(restart.restartTeam, state) ? 105 : 0,
+      y: spot.y <= 34 ? 0 : 68,
+    };
     opponentsReady = opponents.every(
       (player) => distance(player.position, corner) >= 1 + RESTART_REQUIRED_DISTANCE - EPSILON,
     );
@@ -335,12 +363,12 @@ export const deriveRestartLegalReadiness = (state: TacticalMatchState): RestartL
       quickRestart ||
       opponents.every((player) => {
         const onOwnGoalLine =
-          ownDepth(player.position, player.team) <= 0.4 && Math.abs(player.position.y - 34) <= 3.66;
+          ownDepth(player.position, player) <= 0.4 && Math.abs(player.position.y - 34) <= 3.66;
         return (
           (onOwnGoalLine ||
             distance(player.position, spot) >= RESTART_REQUIRED_DISTANCE - EPSILON) &&
-          (!inPenaltyArea(spot, restart.restartTeam) ||
-            !inPenaltyArea(player.position, restart.restartTeam))
+          (!inPenaltyArea(spot, state.teams[restart.restartTeam]) ||
+            !inPenaltyArea(player.position, state.teams[restart.restartTeam]))
         );
       });
     const wall = opponents.filter((player) => restart.roles[player.id]?.key === 'wall');

@@ -28,7 +28,11 @@ export const CompactFixtureRow = ({ item }: { item: CompactFixtureItem }) => {
         )}{' '}
         ({venue === 'home' ? 'D' : 'W'})
       </strong>
-      <span>{fixture.completed ? `${fixture.homeGoals}:${fixture.awayGoals}` : '—'}</span>
+      <span>
+        {fixture.completed
+          ? `${fixture.homeGoals}:${fixture.awayGoals}${fixture.outcome === 'abandoned' ? ' · przerwany' : ''}`
+          : '—'}
+      </span>
       {fixture.completed && (
         <span>
           <MatchParticipationSummary participation={participation} />

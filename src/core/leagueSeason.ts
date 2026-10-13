@@ -258,6 +258,7 @@ export const simulateLeagueFixture = (
 };
 
 export interface KnownVistulaResult {
+  outcome?: 'abandoned';
   homeGoals: number;
   awayGoals: number;
   playerAppearanceMatchId?: string;
@@ -380,7 +381,7 @@ export const getLeagueTable = (career: Pick<CareerState, 'leagueSeason'>): Leagu
   );
   season.rounds
     .flatMap((round) => round.fixtures)
-    .filter((fixture) => fixture.completed)
+    .filter((fixture) => fixture.completed && fixture.outcome !== 'abandoned')
     .forEach((fixture) => {
       const home = rows.get(fixture.homeClubId)!;
       const away = rows.get(fixture.awayClubId)!;
@@ -453,15 +454,31 @@ export const getSeasonContext = (career: CareerState) => {
 export const evaluateMatchImportance = (
   career: CareerState,
   fixture: Fixture,
-  expected?: { teamLevel: 'senior' | 'academy'; started: boolean; willPlay: boolean },
+  expected?: {
+    teamLevel: 'senior' | 'academy';
+    started: boolean;
+    willPlay: boolean;
+    status?: string;
+  },
 ): MatchImportance => {
   const senior = (career.matchHistory ?? []).filter(
     (match) => match.teamLevel === 'senior' && match.minutes > 0,
   );
   const priorInteractive = career.historyFacts.filter(
-    (fact) => fact.factType === 'interactive_match' && fact.season === career.currentSeason,
+    (fact) =>
+      ['interactive_match', 'canonical_match_result'].includes(fact.factType) &&
+      fact.season === career.currentSeason,
   ).length;
-  if (!expected?.willPlay) return 'routine';
+  if (!expected || (!expected.willPlay && !expected.status?.endsWith('bench'))) return 'routine';
+  if (
+    career.leagueSeason?.competition.category === 'youth' &&
+    expected.teamLevel === 'academy' &&
+    !(career.matchHistory ?? []).some(
+      (match) => match.teamLevel === 'academy' && match.minutes > 0,
+    ) &&
+    priorInteractive === 0
+  )
+    return 'notable';
   if (!senior.length && expected?.teamLevel === 'senior' && expected.willPlay) return 'major';
   if (
     !senior.some((match) => match.started) &&

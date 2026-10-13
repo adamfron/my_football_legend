@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import {
   canonicalPlayerPresentationShape,
@@ -41,6 +42,7 @@ export const replaySnapshotSchema = z.object({
         ...canonicalPlayerPresentationShape,
         id: z.string(),
         team: teamSideSchema,
+        endsSwitched: z.boolean().optional(),
         facing: z.number(),
         velocity: physicalPointSchema,
         goalkeeper: z.boolean(),
@@ -133,6 +135,7 @@ export const captureReplaySnapshot = (
     return {
       id: p.id,
       team: p.team,
+      ...(p.endsSwitched ? { endsSwitched: true } : {}),
       x: p.position.x,
       y: p.position.y,
       facing: p.facingAngle,
@@ -264,7 +267,7 @@ export class MatchReplayHistory {
             ? 'dangerous_shot'
             : ['tackle', 'slide_tackle'].includes(event.kind) &&
                 event.outcome === 'won' &&
-                (event.team === 'home' ? event.position.x < 35 : event.position.x > 70)
+                (attacksRight(event.team, state) ? event.position.x < 35 : event.position.x > 70)
               ? 'decisive_challenge'
               : undefined;
       if (kind)

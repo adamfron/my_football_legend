@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
 import { distance, signedForwardDistance } from './matchSpace';
@@ -88,7 +89,7 @@ export class OffensiveContinuationTracker {
         const classification = classifyPass(
           previous.ball,
           pass.intendedTarget ?? pass.predictedReceptionPoint,
-          actor.team,
+          actor,
           pass.intent ?? 'support',
           pass.delivery,
           Boolean(pass.requestedSpace),
@@ -234,7 +235,7 @@ export class OffensiveContinuationTracker {
       const receiver = state.players.find((p) => p.id === passage.actorId);
       const elapsed = state.time - passage.at;
       const advance = receiver
-        ? signedForwardDistance(passage.origin, receiver.position, passage.side)
+        ? signedForwardDistance(passage.origin, receiver.position, receiver)
         : 0;
       if (!passage.retained && elapsed >= 1 && state.ball.ownerId === passage.actorId) {
         passage.retained = true;
@@ -247,11 +248,13 @@ export class OffensiveContinuationTracker {
         this.trace(passage.id, 'useful_continuation', state, undefined, advance);
       }
       const depth = receiver
-        ? receiver.team === 'home'
+        ? attacksRight(receiver)
           ? receiver.position.x
           : 105 - receiver.position.x
         : 0;
-      const originDepth = passage.side === 'home' ? passage.origin.x : 105 - passage.origin.x;
+      const originDepth = attacksRight(passage.side, state)
+        ? passage.origin.x
+        : 105 - passage.origin.x;
       if (receiver && state.ball.ownerId === passage.actorId && advance >= 5) {
         if (!passage.finalThird && originDepth < 70 && depth >= 70) {
           passage.finalThird = true;
@@ -270,7 +273,7 @@ export class OffensiveContinuationTracker {
           if (
             action.type === 'carry' &&
             receiver &&
-            signedForwardDistance(receiver.position, action.target, receiver.team) > 2
+            signedForwardDistance(receiver.position, action.target, receiver) > 2
           )
             this.add(action.movementMode === 'sprint' ? 'sprint_carry' : 'forward_carry');
           else if (action.type === 'cross')
@@ -279,7 +282,7 @@ export class OffensiveContinuationTracker {
           else if (
             action.type === 'pass' &&
             receiver &&
-            signedForwardDistance(receiver.position, action.target, receiver.team) > 5
+            signedForwardDistance(receiver.position, action.target, receiver) > 5
           )
             this.add('progressive_followup');
         }

@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
@@ -228,7 +229,7 @@ export class PressureSupportTracker {
         reset: viablePasses.some(
           (r) =>
             r.action.type === 'pass' &&
-            (actor.team === 'home' ? 1 : -1) * (r.action.target.x - actor.position.x) < -3,
+            (attacksRight(actor) ? 1 : -1) * (r.action.target.x - actor.position.x) < -3,
         ),
         bestAction: ranking[0]?.action.type ?? 'none',
         bestUtility: ranking[0]?.canonicalScore ?? 0,

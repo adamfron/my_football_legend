@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { distance, signedForwardDistance, type PitchPoint, type TeamSide } from './matchSpace';
+import {
+  distance,
+  signedForwardDistance,
+  type PitchPoint,
+  type TeamOrientation,
+} from './matchSpace';
 import type { PassDelivery, PassLaunchIntent } from './passLaunchPlan';
 
 export const passClassificationSchema = z.object({
@@ -13,7 +18,7 @@ export const passClassificationSchema = z.object({
 export const classifyPass = (
   from: PitchPoint,
   target: PitchPoint,
-  team: TeamSide,
+  team: TeamOrientation,
   intent: PassLaunchIntent,
   delivery: PassDelivery = 'ground',
   spatial = false,

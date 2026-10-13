@@ -1,7 +1,8 @@
+import { attacksRight, type TeamOrientation } from './matchSpace';
 import { findMatchParticipant } from './matchParticipants';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
-import { pitchPointSchema, teamSideSchema, type PitchPoint, type TeamSide } from './matchSpace';
+import { pitchPointSchema, teamSideSchema, type PitchPoint } from './matchSpace';
 import type { TacticalMatchState } from './matchState';
 import { awardNaturalRestart } from './restartScenarios';
 import { replaceUnavailableRestartTaker } from './restartLifecycle';
@@ -72,7 +73,8 @@ export const advantageFactSchema = z.object({
   outcome: z.enum(['played', 'realized', 'recalled']),
 });
 export type AdvantageFact = z.infer<typeof advantageFactSchema>;
-const progress = (point: PitchPoint, side: TeamSide) => (side === 'home' ? point.x : 105 - point.x);
+const progress = (point: PitchPoint, side: TeamOrientation) =>
+  attacksRight(side) ? point.x : 105 - point.x;
 
 /** No competition result is inferred: preserve the score and the actual canonical whistle time. */
 export const enforceMinimumPlayers = (
@@ -116,10 +118,10 @@ export const enforceMinimumPlayers = (
 };
 
 /** A defending team's own rectangle, independent of camera or restart orientation. */
-export const isOwnPenaltyArea = (point: PitchPoint, defendingTeam: TeamSide): boolean =>
+export const isOwnPenaltyArea = (point: PitchPoint, defendingTeam: TeamOrientation): boolean =>
   point.y >= 13.84 &&
   point.y <= 54.16 &&
-  (defendingTeam === 'home' ? point.x <= 16.5 : point.x >= 88.5);
+  (attacksRight(defendingTeam) ? point.x <= 16.5 : point.x >= 88.5);
 
 export const classifyChallengeFoul = (
   state: TacticalMatchState,
@@ -140,7 +142,7 @@ export const classifyChallengeFoul = (
         ? 'reckless'
         : 'ordinary';
   const tactical = challenge.technique === 'tactical';
-  const penalty = isOwnPenaltyArea(challenge.position, challenge.team);
+  const penalty = isOwnPenaltyArea(challenge.position, state.teams[challenge.team]);
   const card: FoulFact['card'] =
     severity === 'excessive_force' || (c.dogso && (tactical || !penalty))
       ? 'red'
@@ -391,7 +393,7 @@ export const awardFoulRestart = (state: TacticalMatchState, foul: FoulFact): Tac
     prepared = countDefensiveEvent(prepared, foul.actorId, 'penalties', foul.technique);
     prepared = { ...prepared, lastPenaltyAwardId: foul.id };
   }
-  const attackingProgress = progress(foul.position, foul.awardedTeam);
+  const attackingProgress = progress(foul.position, state.teams[foul.awardedTeam]);
   const scenario = foul.penalty
     ? 'penalty'
     : attackingProgress >= 76
@@ -399,7 +401,9 @@ export const awardFoulRestart = (state: TacticalMatchState, foul: FoulFact): Tac
         ? 'free_kick_close'
         : 'free_kick_wide'
       : 'free_kick_far';
-  const point = foul.penalty ? { x: foul.awardedTeam === 'home' ? 94 : 11, y: 34 } : foul.position;
+  const point = foul.penalty
+    ? { x: attacksRight(foul.awardedTeam, state) ? 94 : 11, y: 34 }
+    : foul.position;
   return awardNaturalRestart(prepared, scenario, {
     restartTeam: foul.awardedTeam,
     restartPoint: point,
@@ -438,7 +442,7 @@ export const applyChallengeInfringement = (
   const useful =
     !next.periodEndPending &&
     owner?.team === foul.awardedTeam &&
-    progress(next.ball, foul.awardedTeam) >= 65 &&
+    progress(next.ball, next.teams[foul.awardedTeam]) >= 65 &&
     next.currentPressure < 0.82 &&
     foul.card !== 'red' &&
     !foul.penalty;
@@ -448,7 +452,7 @@ export const applyChallengeInfringement = (
       pendingAdvantage: {
         foul,
         expiresAt: next.time + ADVANTAGE_WINDOW_SECONDS,
-        startProgress: progress(next.ball, foul.awardedTeam),
+        startProgress: progress(next.ball, next.teams[foul.awardedTeam]),
       },
       lastAdvantage: advanceFact(next, foul, 'played'),
       ...(foul.card !== 'none'
@@ -487,7 +491,8 @@ export const advanceMatchRules = (
       next.ball.travelKind &&
       next.players.find((p) => p.id === next.ball.lastTouchPlayerId)?.team === foul.awardedTeam;
     const useful = owner?.team === foul.awardedTeam || attackingRelease;
-    const progressed = progress(next.ball, foul.awardedTeam) >= advantage.startProgress + 5;
+    const progressed =
+      progress(next.ball, next.teams[foul.awardedTeam]) >= advantage.startProgress + 5;
     const shot = next.ball.shot ?? next.lastShot;
     const attemptedShot = Boolean(
       shot &&
@@ -500,7 +505,7 @@ export const advanceMatchRules = (
       isRestartSetup(next) || next.status === 'half_time' || next.status === 'full_time';
     const lost =
       Boolean(owner && owner.team !== foul.awardedTeam) ||
-      progress(next.ball, foul.awardedTeam) < advantage.startProgress - 3;
+      progress(next.ball, next.teams[foul.awardedTeam]) < advantage.startProgress - 3;
     const looseSince = useful ? undefined : (advantage.looseSince ?? next.time);
     const failed = lost || (looseSince !== undefined && next.time - looseSince >= 0.6);
     if (

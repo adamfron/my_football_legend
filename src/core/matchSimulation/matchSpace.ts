@@ -7,13 +7,27 @@ export const PITCH_WIDTH = 68;
 export const teamSideSchema = z.enum(['home', 'away']);
 export type TeamSide = z.infer<typeof teamSideSchema>;
 
-/** Canonical team-space direction: home attacks increasing x, away decreasing x. */
-export const attackDirection = (side: TeamSide): 1 | -1 => (side === 'home' ? 1 : -1);
+export type TeamOrientation =
+  | TeamSide
+  | { team?: TeamSide; side?: TeamSide; endsSwitched?: boolean | undefined };
+/** Logical club identity stays fixed; the current period owns its physical attacking end. */
+export const attackDirection = (
+  subject: TeamOrientation,
+  match?: { endsSwitched?: boolean | undefined },
+): 1 | -1 => {
+  const side = typeof subject === 'string' ? subject : (subject.team ?? subject.side);
+  const switched = typeof subject === 'string' ? match?.endsSwitched : subject.endsSwitched;
+  return (side === 'home') !== Boolean(switched) ? 1 : -1;
+};
+export const attacksRight = (
+  subject: TeamOrientation,
+  match?: { endsSwitched?: boolean | undefined },
+) => attackDirection(subject, match) > 0;
 
-export const signedForwardDistance = (from: PitchPoint, to: PitchPoint, side: TeamSide) =>
+export const signedForwardDistance = (from: PitchPoint, to: PitchPoint, side: TeamOrientation) =>
   (to.x - from.x) * attackDirection(side);
 
-export const isAheadOf = (from: PitchPoint, to: PitchPoint, side: TeamSide) =>
+export const isAheadOf = (from: PitchPoint, to: PitchPoint, side: TeamOrientation) =>
   signedForwardDistance(from, to, side) > 0;
 export const pitchPointSchema = z.object({
   x: z.number().min(0).max(PITCH_LENGTH),
@@ -44,15 +58,14 @@ export const formationSlotToTeamSpace = (slot: FormationSlot): TeamPoint => ({
 });
 
 /** Team-relative left/right rotates with attack direction; camera orientation is irrelevant. */
-export const teamSpaceToPitch = (point: TeamPoint, side: TeamSide): PitchPoint => ({
-  x: side === 'home' ? point.depth * PITCH_LENGTH : (1 - point.depth) * PITCH_LENGTH,
-  y:
-    side === 'home'
-      ? ((point.lateral + 1) * PITCH_WIDTH) / 2
-      : ((1 - point.lateral) * PITCH_WIDTH) / 2,
+export const teamSpaceToPitch = (point: TeamPoint, side: TeamOrientation): PitchPoint => ({
+  x: attacksRight(side) ? point.depth * PITCH_LENGTH : (1 - point.depth) * PITCH_LENGTH,
+  y: attacksRight(side)
+    ? ((point.lateral + 1) * PITCH_WIDTH) / 2
+    : ((1 - point.lateral) * PITCH_WIDTH) / 2,
 });
 
-export const formationSlotToPitch = (slot: FormationSlot, side: TeamSide) =>
+export const formationSlotToPitch = (slot: FormationSlot, side: TeamOrientation) =>
   teamSpaceToPitch(formationSlotToTeamSpace(slot), side);
 
 /** The only boundary from unconstrained physical geometry into player movement geometry. */
@@ -68,8 +81,8 @@ export const clampPitchPoint = toPitchPoint;
 export const distance = (a: PhysicalPoint, b: PhysicalPoint) => Math.hypot(a.x - b.x, a.y - b.y);
 
 /** A deliberately small, team-relative territorial model (not xG). */
-export const fieldValue = (point: PitchPoint, side: TeamSide) => {
-  const depth = side === 'home' ? point.x / PITCH_LENGTH : 1 - point.x / PITCH_LENGTH;
+export const fieldValue = (point: PitchPoint, side: TeamOrientation) => {
+  const depth = attacksRight(side) ? point.x / PITCH_LENGTH : 1 - point.x / PITCH_LENGTH;
   const centrality = 1 - Math.min(1, Math.abs(point.y - PITCH_WIDTH / 2) / (PITCH_WIDTH / 2));
   const finalThird = Math.max(0, (depth - 2 / 3) * 3);
   return depth * 70 + centrality * (5 + finalThird * 15) + finalThird * 10;

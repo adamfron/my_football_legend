@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
 import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
 import type { MatchPlayerState, TacticalMatchState } from './matchState';
@@ -23,7 +24,7 @@ export const arbitrateGoalkeeperClaim = (
   target: PitchPoint,
   ballEta = 0,
 ): GoalkeeperClaim => {
-  const ownGoal = { x: keeper.team === 'home' ? 0 : 105, y: 34 };
+  const ownGoal = { x: attacksRight(keeper) ? 0 : 105, y: 34 };
   const defenders = state.players
     .filter((p) => p.team === keeper.team && p.id !== keeper.id)
     .map((p) => ({
@@ -45,8 +46,7 @@ export const arbitrateGoalkeeperClaim = (
     Math.max(0.03, 0.3 - (a.goalkeeperSweeping * 0.65 + a.gameReading * 0.35) / 400);
   const zone = distance(target, ownGoal) < 28 && Math.abs(target.y - 34) < 24;
   const ballApproaching =
-    !state.ball.travelKind ||
-    (state.ball.velocity?.x ?? 0) * (keeper.team === 'home' ? -1 : 1) > 0.2;
+    !state.ball.travelKind || (state.ball.velocity?.x ?? 0) * (attacksRight(keeper) ? -1 : 1) > 0.2;
   const reachable = ballEta === 0 || keeperEta <= ballEta + 0.35;
   const risk =
     Math.max(0, distance(target, ownGoal) - 14) * (1 - a.goalkeeperSweeping / 100) * 0.035;
