@@ -543,6 +543,8 @@ export type TrainingPlan =
   | 'sweeper_keeper'
   | 'weak_foot';
 export interface SeasonParticipationRecord {
+  canonicalStats?: CanonicalAppearanceStats | undefined;
+  metricsSource?: 'canonical' | undefined;
   fixtureId: string;
   seasonId?: string | undefined;
   competitionId?: string | undefined;
@@ -571,6 +573,24 @@ export interface SeasonParticipationRecord {
   redCard?: 'second_yellow' | 'direct' | undefined;
   goalkeeperStats?: GoalkeeperMatchStats | undefined;
   rating?: number | undefined;
+}
+
+/** Available physical counters only; estimated rating/xG/xA have no placeholder here. */
+export interface CanonicalAppearanceStats {
+  minutesPlayed?: number | undefined;
+  saves: number;
+  goalsConceded: number;
+  catches: number;
+  parries: number;
+  touches: number;
+  shots: number;
+  shotsOnTarget: number;
+  tacklesWon: number;
+  interceptions: number;
+  passesAttempted: number;
+  passesCompleted: number;
+  distanceCovered: number;
+  sprintBursts: number;
 }
 
 export interface GoalkeeperMatchStats {
@@ -616,6 +636,8 @@ export interface CompletedSeasonSnapshot {
     keyPasses: number;
     defensiveActions: number;
     averageRating: number;
+    ratedAppearances?: number | undefined;
+    canonicalAppearances?: number | undefined;
     yellowCards: number;
     redCards: number;
     missedBySuspension: number;
@@ -666,6 +688,7 @@ export type InjuryType =
   | 'joint_injury'
   | 'concussion';
 export interface PlayerInjury {
+  canonicalRecoveryDate?: string | undefined;
   id: Id;
   startDate: string;
   severity: InjurySeverity;
@@ -848,6 +871,7 @@ export interface LeagueClubProfile {
   form: number;
 }
 export interface LeagueFixture {
+  outcome?: 'abandoned' | undefined;
   id: string;
   roundIndex: number;
   date: string;
@@ -1151,6 +1175,7 @@ export interface MatchState {
   completed: boolean;
 }
 export interface MatchAppearance {
+  metricsSource?: 'canonical' | undefined;
   matchId: string;
   date: string;
   opponentId: string;

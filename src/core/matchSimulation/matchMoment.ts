@@ -1,3 +1,4 @@
+import { attacksRight, type TeamOrientation } from './matchSpace';
 import { z } from 'zod';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { countSemanticPlayerChoices, projectPlayerDecisionOpportunity } from './playerDecision';
@@ -93,8 +94,8 @@ export const MATCH_PRESENTATION_POLICIES: Record<
   },
 };
 
-const inPenaltyArea = (team: TeamSide, x: number, y: number) =>
-  (team === 'home' ? x >= 88.5 : x <= 16.5) && y >= 13.8 && y <= 54.2;
+const inPenaltyArea = (team: TeamOrientation, x: number, y: number) =>
+  (attacksRight(team) ? x >= 88.5 : x <= 16.5) && y >= 13.8 && y <= 54.2;
 
 /** Pure observational projection. It never owns an action, mutates state, or consumes RNG.
  * Pass null after an exact negative agency probe to reuse its answer without projecting twice.
@@ -176,7 +177,7 @@ export const projectMatchMoment = (
     importance = 0.72;
     reasons = [state.scenario];
     lead = 3;
-  } else if (owner && inPenaltyArea(owner.team, state.ball.x, state.ball.y)) {
+  } else if (owner && inPenaltyArea(owner, state.ball.x, state.ball.y)) {
     const shot = evaluateShootingOpportunity(state, owner);
     kind = 'box_entry';
     importance = Math.min(0.88, 0.5 + shot.effectiveScoringExpectation);

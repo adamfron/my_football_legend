@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { z } from 'zod';
@@ -83,7 +84,7 @@ export const projectGoalkeeperIntervention = (
   };
   let elapsed = 0;
   let crossedInterventionPlane = false;
-  const attackingRight = shooter?.team === 'home';
+  const attackingRight = Boolean(shooter && attacksRight(shooter));
   for (const sample of projectFutureBallTrajectory(physical, maxSeconds, 0.025)) {
     const next = sample.ball;
     elapsed = sample.at;

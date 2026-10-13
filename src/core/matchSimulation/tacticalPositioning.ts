@@ -1,3 +1,4 @@
+import { attacksRight, attackDirection, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
@@ -97,7 +98,7 @@ export const TACTICAL_STYLE_PARAMETERS: Record<TacticalStyle, TacticalStyleParam
     freedom: 0.48,
   },
 };
-const direction = (side: TeamSide) => (side === 'home' ? 1 : -1);
+const direction = attackDirection;
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 /** Legacy styles keep their width/freedom; coach axes control their specific football jobs. */
@@ -117,14 +118,14 @@ export const deriveTacticalStyleParameters = (
 
 /** Match-only resting transform: formation data describes shape, never literal pitch occupation. */
 export const deriveNeutralFormationAnchor = (
-  player: Pick<MatchPlayerState, 'slot' | 'team' | 'profile'>,
+  player: Pick<MatchPlayerState, 'slot' | 'team' | 'profile' | 'endsSwitched'>,
 ): PitchPoint => {
   const relative = formationSlotToTeamSpace(player.slot);
-  if (isMatchGoalkeeper(player)) return { x: player.team === 'home' ? 5.5 : 99.5, y: 34 };
+  if (isMatchGoalkeeper(player)) return { x: attacksRight(player) ? 5.5 : 99.5, y: 34 };
   const ownHalfX = 16 + relative.depth * 39;
   return {
-    x: player.team === 'home' ? ownHalfX : PITCH_LENGTH - ownHalfX,
-    y: 34 + relative.lateral * 26 * direction(player.team),
+    x: attacksRight(player) ? ownHalfX : PITCH_LENGTH - ownHalfX,
+    y: 34 + relative.lateral * 26 * direction(player),
   };
 };
 
@@ -147,7 +148,7 @@ export const deriveTeamBlockTransform = (
   const owns = state.possessionTeam === side,
     parameters = deriveTacticalStyleParameters(state, side, preferences);
   const response = state.teams[side].threatMemory?.response;
-  const dir = direction(side),
+  const dir = direction(side, state),
     ballDepth = dir * (state.ball.x - PITCH_LENGTH / 2);
   const transition = state.teams[side].phase.includes('transition')
     ? Math.min(1, state.teams[side].phaseElapsed / 3)
@@ -201,7 +202,7 @@ export const deriveAttackingRunIds = (state: TacticalMatchState, side: TeamSide)
     .slice(
       0,
       state.teams[side].phase === 'attacking_transition' ||
-        direction(side) * (state.ball.x - 52.5) > 18
+        direction(side, state) * (state.ball.x - 52.5) > 18
         ? 3
         : 2,
     )
@@ -224,8 +225,8 @@ export const deriveDepthRunAssignments = (
   if (state.possessionTeam !== side || !state.ball.ownerId) return [];
   const carrier = state.players.find((p) => p.id === state.ball.ownerId);
   if (!carrier || carrier.team !== side) return [];
-  const dir = direction(side);
-  const progress = side === 'home' ? carrier.position.x : 105 - carrier.position.x;
+  const dir = direction(side, state);
+  const progress = attacksRight(side, state) ? carrier.position.x : 105 - carrier.position.x;
   if (progress < 35) return [];
   const line = calculateOffsideLine(state, side);
   if (dir * (line - carrier.position.x) < 7) return [];
@@ -265,10 +266,9 @@ export const deriveDepthRunAssignments = (
   }
   if (!runner) return [];
   const margin = 1 + (1 - runner.profile.attributes.gameReading / 100) * 2;
-  const x =
-    side === 'home'
-      ? Math.min(line - margin, carrier.position.x + 26)
-      : Math.max(line + margin, carrier.position.x - 26);
+  const x = attacksRight(side, state)
+    ? Math.min(line - margin, carrier.position.x + 26)
+    : Math.max(line + margin, carrier.position.x - 26);
   return [
     {
       playerId: runner.id,
@@ -305,7 +305,7 @@ export const deriveFinalThirdOccupations = (
   side: TeamSide,
 ): FinalThirdOccupationAssignment[] => {
   if (state.possessionTeam !== side || !state.ball.ownerId) return [];
-  const dir = direction(side);
+  const dir = direction(side, state);
   const depth = dir * (state.ball.x - 52.5);
   if (depth < 18 || state.timeSincePossessionChanged < 1.2) return [];
   const carrier = state.players.find((player) => player.id === state.ball.ownerId);
@@ -330,9 +330,9 @@ export const deriveFinalThirdOccupations = (
     })
     .slice(0, 3);
   const offside = calculateOffsideLine(state, side);
-  const goalX = side === 'home' ? 105 : 0;
-  const boxX = side === 'home' ? 92 : 13;
-  const edgeX = side === 'home' ? 85.5 : 19.5;
+  const goalX = attacksRight(side, state) ? 105 : 0;
+  const boxX = attacksRight(side, state) ? 92 : 13;
+  const edgeX = attacksRight(side, state) ? 85.5 : 19.5;
   const ballSide = state.ball.y < 34 ? -1 : 1;
   const wide = Math.abs(state.ball.y - 34) >= 15;
   const assignments: FinalThirdOccupationAssignment[] = [];
@@ -345,7 +345,7 @@ export const deriveFinalThirdOccupations = (
     assignments.push({
       playerId: player.id,
       occupation,
-      target: constrainTargetOnside(clampPitchPoint(point), offside, side, 1.1),
+      target: constrainTargetOnside(clampPitchPoint(point), offside, state.teams[side], 1.1),
     });
   };
   const central = runners.find((player) => !isWideDefender(player));
@@ -392,7 +392,7 @@ export type FlankRunAssignment = z.infer<typeof flankRunAssignmentSchema>;
 /** Dedicated relational flank budget: one committed side, with explicit cover behind the ball. */
 export const deriveFlankRunAssignments = (state: TacticalMatchState, side: TeamSide) => {
   if (state.possessionTeam !== side || !state.ball.ownerId) return [];
-  const dir = direction(side);
+  const dir = direction(side, state);
   const candidates = state.players
     .filter((player) => player.team === side && isWideDefender(player) && player.duty !== 'defend')
     .map((fullback) => {
@@ -454,7 +454,7 @@ export const deriveFlankRelationship = (
       Math.sign(player.neutralAnchor.y - 34) === flankSign,
   );
   if (!winger) return 'support_behind';
-  const dir = direction(fullback.team);
+  const dir = direction(fullback);
   const lateralDistance = Math.abs(state.ball.y - fullback.neutralAnchor.y);
   const sameSideInfluence =
     Math.sign(state.ball.y - 34) === flankSign
@@ -481,7 +481,7 @@ export const applyRoleRelationships = (
 ): PitchPoint => {
   const mates = state.players.filter((mate) => mate.team === player.team && mate.id !== player.id);
   const owns = state.possessionTeam === player.team;
-  const dir = direction(player.team);
+  const dir = direction(player);
   const widePartner = mates.find((mate) => {
     const sameFlank =
       Math.sign(mate.neutralAnchor.y - 34) === Math.sign(player.neutralAnchor.y - 34);
@@ -606,7 +606,7 @@ export const deriveBuildUpSupport = (
     (state.teams[side].threatMemory?.response.support ?? 0) *
     deriveBuildUpReliefWeight(state, owner);
   const support = Math.min(1, 0.64 + localPressure * 0.3 + learnedRelief * 0.2);
-  const dir = direction(side);
+  const dir = direction(side, state);
   const depthIds = new Set(deriveDepthRunAssignments(state, side).map((p) => p.playerId));
   const candidates = state.players
     .filter(
@@ -642,7 +642,7 @@ export const deriveBuildUpSupport = (
   const assignments: z.infer<typeof buildUpSupportSchema>[] = [];
   const foes = state.players.filter((p) => p.team !== side);
   const used = new Set<string>();
-  const progress = side === 'home' ? owner.position.x : 105 - owner.position.x;
+  const progress = attacksRight(side, state) ? owner.position.x : 105 - owner.position.x;
   const slow = Math.max(0, 1 - Math.hypot(owner.velocity.x, owner.velocity.y) / 3);
   const weight = Math.min(1, support + localPressure * slow * 0.12);
   const assign = (
@@ -726,7 +726,7 @@ export const deriveBuildUpSupport = (
     );
   // A centre-back behind build-up stays connected as a reset option instead of following a high line.
   const centreBack = candidates.find((p) => p.slot.position === 'center_back' && !used.has(p.id));
-  if (centreBack && (side === 'home' ? owner.position.x : 105 - owner.position.x) < 58)
+  if (centreBack && (attacksRight(side, state) ? owner.position.x : 105 - owner.position.x) < 58)
     assignments.push({
       playerId: centreBack.id,
       role: 'rest_defence',
@@ -741,15 +741,15 @@ export const deriveBuildUpSupport = (
 
 /** Furthest legal attacking depth, expressed in canonical pitch coordinates. */
 export const calculateOffsideLine = (
-  state: Pick<TacticalMatchState, 'players' | 'ball'>,
+  state: Pick<TacticalMatchState, 'players' | 'ball' | 'endsSwitched'>,
   attackingSide: TeamSide,
 ) => {
   const xs = state.players
     .filter((p) => p.team !== attackingSide)
     .map((p) => p.position.x)
-    .sort((a, b) => (attackingSide === 'home' ? b - a : a - b));
-  const secondLast = xs[1] ?? (attackingSide === 'home' ? PITCH_LENGTH : 0);
-  return attackingSide === 'home'
+    .sort((a, b) => (attacksRight(attackingSide, state) ? b - a : a - b));
+  const secondLast = xs[1] ?? (attacksRight(attackingSide, state) ? PITCH_LENGTH : 0);
+  return attacksRight(attackingSide, state)
     ? Math.max(state.ball.x, secondLast)
     : Math.min(state.ball.x, secondLast);
 };
@@ -757,11 +757,11 @@ export const calculateOffsideLine = (
 export const constrainTargetOnside = (
   point: PitchPoint,
   line: number,
-  side: TeamSide,
+  side: TeamOrientation,
   margin = 0.7,
 ): PitchPoint => ({
   ...point,
-  x: side === 'home' ? Math.min(point.x, line - margin) : Math.max(point.x, line + margin),
+  x: attacksRight(side) ? Math.min(point.x, line - margin) : Math.max(point.x, line + margin),
 });
 
 const seekSpace = (
@@ -774,14 +774,14 @@ const seekSpace = (
   const freedom =
     parameters.freedom * (player.duty === 'attack' ? 1 : player.duty === 'support' ? 0.65 : 0.25);
   if (freedom < 0.15) return structural;
-  const dir = direction(player.team),
+  const dir = direction(player),
     opponents = state.players.filter((p) => p.team !== player.team);
   const candidates = [
     structural,
     { x: structural.x + dir * 3, y: structural.y - 3 },
     { x: structural.x + dir * 3, y: structural.y + 3 },
     { x: structural.x - dir * 2, y: structural.y },
-  ].map((p) => constrainTargetOnside(clampPitchPoint(p), offside, player.team));
+  ].map((p) => constrainTargetOnside(clampPitchPoint(p), offside, player));
   return candidates
     .map((point) => {
       const nearest = Math.min(...opponents.map((p) => distance(point, p.position)));
@@ -807,12 +807,8 @@ export const deriveStructuralPosition = (
   block = deriveTeamBlockTransform(state, player.team),
 ): PitchPoint => {
   if (isMatchGoalkeeper(player))
-    return applyRoleRelationships(
-      state,
-      player,
-      deriveGoalkeeperBasePosition(state.ball, player.team),
-    );
-  const dir = direction(player.team);
+    return applyRoleRelationships(state, player, deriveGoalkeeperBasePosition(state.ball, player));
+  const dir = direction(player);
   const structural = {
     x:
       52.5 +
@@ -864,7 +860,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
   return state.players.map((player) => {
     const neutralAnchor = deriveNeutralFormationAnchor(player);
     const parameters = parametersBySide[player.team],
-      dir = direction(player.team);
+      dir = direction(player);
     const isKeeper = isMatchGoalkeeper(player);
     const structural = deriveStructuralPosition(state, player, neutralAnchor, blocks[player.team]);
     let ideal = structural;
@@ -960,10 +956,10 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
         x: ideal.x + dir * (overlap ? 13 : 9 + parameters.forwardRuns * 7),
         y: overlap
           ? player.slot.position.startsWith('left')
-            ? player.team === 'home'
+            ? attacksRight(player)
               ? 5
               : 63
-            : player.team === 'home'
+            : attacksRight(player)
               ? 63
               : 5
           : ideal.y,
@@ -977,7 +973,7 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
     // distant formation anchor can leave a stationary loose ball just beyond control radius.
     if (looseAssignment) ideal = looseAssignment.target;
     ideal = clampPitchPoint(
-      isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player.team),
+      isKeeper ? ideal : constrainTargetOnside(ideal, offside[player.team], player),
     );
     const restartWeight = restartInfluence(state),
       restartTarget = state.restart?.targets[player.id];

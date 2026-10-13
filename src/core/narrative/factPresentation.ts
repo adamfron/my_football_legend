@@ -1,4 +1,5 @@
 import type { CareerState, HistoryFact } from '../../types/domain';
+import { PLAY_STYLE_PRESENTATION, playStyleIdSchema } from '../playStyles';
 
 export interface FactPresentation {
   title: string;
@@ -19,6 +20,7 @@ const labels: Record<string, string> = {
   season_completed: 'Sezon zakończony',
   attribute_changed: 'Rozwój zawodnika',
   play_style_unlocked: 'Nowy styl gry',
+  canonical_match_result: 'Mecz ligowy',
   retired: 'Zakończenie kariery',
 };
 export const getFactPresentation = (career: CareerState, fact: HistoryFact): FactPresentation => {
@@ -29,12 +31,24 @@ export const getFactPresentation = (career: CareerState, fact: HistoryFact): Fac
   });
   const clubName = fact.clubs.includes(career.currentClub.id) ? career.currentClub.name : undefined;
   const title = labels[fact.factType] ?? 'Wydarzenie kariery';
+  const style = playStyleIdSchema.safeParse(fact.data.playStyleId);
+  const match = fact.data.summary as
+    | {
+        teamNames?: { home: string; away: string };
+        score?: { home: number; away: number };
+        status?: string;
+      }
+    | undefined;
   const summary =
-    fact.factType === 'career_started'
-      ? `Rozpocząłeś pierwszy sezon w ${career.currentClub.name}.`
-      : fact.factType === 'first_professional_contract'
-        ? `Podpisałeś pierwszy profesjonalny kontrakt z ${String(fact.data.clubName ?? clubName ?? 'klubem')}.`
-        : `Kanoniczny zapis wydarzenia: ${fact.factType.replaceAll('_', ' ')}.`;
+    fact.factType === 'play_style_unlocked' && style.success
+      ? `${PLAY_STYLE_PRESENTATION[style.data].name}. ${PLAY_STYLE_PRESENTATION[style.data].effect}`
+      : fact.factType === 'canonical_match_result' && match?.score
+        ? `${match.teamNames?.home ?? 'Gospodarze'} ${match.score.home}:${match.score.away} ${match.teamNames?.away ?? 'Goście'}${match.status === 'abandoned' ? ' · mecz przerwany, bez rozstrzygnięcia tabeli' : ''}.`
+        : fact.factType === 'career_started'
+          ? `Rozpocząłeś pierwszy sezon w ${career.currentClub.name}.`
+          : fact.factType === 'first_professional_contract'
+            ? `Podpisałeś pierwszy profesjonalny kontrakt z ${String(fact.data.clubName ?? clubName ?? 'klubem')}.`
+            : `Kanoniczny zapis wydarzenia: ${fact.factType.replaceAll('_', ' ')}.`;
   return {
     title,
     summary,

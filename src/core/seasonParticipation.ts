@@ -20,19 +20,23 @@ export const getExpectedAvailableMinuteShare = (
     star_player: { min: 0.82, target: 0.9, max: 1 },
   })[role];
 
+export const participationMinutes = (record: SeasonParticipationRecord) =>
+  record.canonicalStats?.minutesPlayed ?? record.minutes;
 export const getSeasonAppearanceStats = (records: SeasonParticipationRecord[]) => {
-  const played = records.filter((record) => record.minutes > 0);
+  const played = records.filter((record) => participationMinutes(record) > 0);
   const ratings = played.flatMap((record) => (record.rating === undefined ? [] : [record.rating]));
   const result = {
     appearances: played.length,
     starts: played.filter((record) => record.started).length,
     substituteAppearances: played.filter((record) => !record.started).length,
-    minutes: played.reduce((sum, record) => sum + record.minutes, 0),
+    minutes: played.reduce((sum, record) => sum + participationMinutes(record), 0),
     goals: played.reduce((sum, record) => sum + record.goals, 0),
     assists: played.reduce((sum, record) => sum + record.assists, 0),
     xG: played.reduce((sum, record) => sum + record.xG, 0),
     xA: played.reduce((sum, record) => sum + record.xA, 0),
     averageRating: ratings.length ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0,
+    ratedAppearances: ratings.length,
+    canonicalAppearances: played.filter((record) => record.metricsSource === 'canonical').length,
   };
   const completedFixtures = records.filter((record) => record.fixtureStatus !== 'scheduled').length;
   if (
@@ -59,7 +63,7 @@ export const deriveSeasonPositionUsage = (
 ): SeasonPositionUsage[] => {
   const usage = new Map<PlayerPosition, SeasonPositionUsage>();
   for (const record of records) {
-    if (!record.assignedPosition || record.minutes <= 0) continue;
+    if (!record.assignedPosition || participationMinutes(record) <= 0) continue;
     const current = usage.get(record.assignedPosition) ?? {
       position: record.assignedPosition,
       appearances: 0,
@@ -68,7 +72,7 @@ export const deriveSeasonPositionUsage = (
     };
     current.appearances += 1;
     current.starts += Number(record.started);
-    current.minutes += record.minutes;
+    current.minutes += participationMinutes(record);
     usage.set(record.assignedPosition, current);
   }
   return [...usage.values()].sort(
@@ -78,7 +82,7 @@ export const deriveSeasonPositionUsage = (
 
 export const getSeasonOutfieldStats = (records: SeasonParticipationRecord[]) => {
   const appearance = getSeasonAppearanceStats(records);
-  const played = records.filter((record) => record.minutes > 0);
+  const played = records.filter((record) => participationMinutes(record) > 0);
   return {
     ...appearance,
     keyPasses: played.reduce((sum, record) => sum + (record.keyPasses ?? 0), 0),
@@ -90,22 +94,33 @@ export const getSeasonOutfieldStats = (records: SeasonParticipationRecord[]) => 
 
 export const getSeasonGoalkeeperStats = (records: SeasonParticipationRecord[]) => {
   const appearance = getSeasonAppearanceStats(records);
-  const played = records.filter((record) => record.minutes > 0);
+  const played = records.filter((record) => participationMinutes(record) > 0);
   const detailed = played.flatMap((record) =>
     record.goalkeeperStats ? [record.goalkeeperStats] : [],
   );
-  const saves = detailed.reduce((sum, stats) => sum + stats.saves, 0);
+  const canonical = played.filter(
+    (record) => record.assignedPosition === 'goalkeeper' && record.canonicalStats,
+  );
+  const saves =
+    detailed.reduce((sum, stats) => sum + stats.saves, 0) +
+    canonical.reduce((sum, record) => sum + record.canonicalStats!.saves, 0);
   const faced = detailed.reduce((sum, stats) => sum + stats.shotsOnTargetFaced, 0);
-  const goalsConceded = detailed.reduce((sum, stats) => sum + stats.goalsConceded, 0);
+  const goalsConceded =
+    detailed.reduce((sum, stats) => sum + stats.goalsConceded, 0) +
+    canonical.reduce((sum, record) => sum + record.canonicalStats!.goalsConceded, 0);
   const xGA = detailed.reduce((sum, stats) => sum + stats.xGA, 0);
   return {
     ...appearance,
     goalsConceded,
-    cleanSheets: detailed.filter((stats) => stats.cleanSheet).length,
+    cleanSheets:
+      detailed.filter((stats) => stats.cleanSheet).length +
+      canonical.filter(
+        (record) => record.minutes >= 60 && record.canonicalStats!.goalsConceded === 0,
+      ).length,
     saves,
-    savePercentage: faced ? (saves / faced) * 100 : 0,
-    xGA: Number(xGA.toFixed(2)),
-    goalsPrevented: Number((xGA - goalsConceded).toFixed(2)),
+    savePercentage: canonical.length ? undefined : faced ? (saves / faced) * 100 : 0,
+    xGA: canonical.length ? undefined : Number(xGA.toFixed(2)),
+    goalsPrevented: canonical.length ? undefined : Number((xGA - goalsConceded).toFixed(2)),
     errorsLeadingToGoal: detailed.reduce((sum, stats) => sum + stats.errorsLeadingToGoal, 0),
   };
 };
@@ -199,7 +214,12 @@ export const recordParticipation = (
   )
     throw new Error('Duplicate season participation fixture.');
   const next = { ...career, seasonParticipation };
-  return index < 0 ? applyPositionLearning(next, record) : next;
+  const newlyCompleted =
+    index < 0 ||
+    (records[index]?.fixtureStatus === 'scheduled' && record.fixtureStatus === 'completed');
+  return newlyCompleted
+    ? applyPositionLearning(next, { ...record, minutes: participationMinutes(record) })
+    : next;
 };
 
 /** Creates the season ledger up front; completed rows are never overwritten. */

@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
 import type { TacticalMatchState } from './matchState';
@@ -38,7 +39,7 @@ export const isDangerousPresentationContext = (state: TacticalMatchState): boole
   const actor = state.players.find((p) => p.id === state.controlledFootballerId);
   const owner = state.players.find((p) => p.id === state.ball.ownerId);
   const team = owner?.team ?? actor?.team ?? state.possessionTeam;
-  const progress = team === 'home' ? state.ball.x : 105 - state.ball.x;
+  const progress = attacksRight(team, state) ? state.ball.x : 105 - state.ball.x;
   return (
     progress >= 70 ||
     Boolean(state.ball.shot) ||

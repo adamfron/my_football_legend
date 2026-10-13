@@ -1,66 +1,21 @@
-import { MatchMomentumChart } from '../../components/MatchMomentumChart';
-import { advanceCareerWeek } from '../../core/careerWeeks';
-import { describePerformance } from '../../core/matchFeedback';
-import { advanceMatch, MATCH_MOMENT_LIBRARY, resolveMatchDecision } from '../../core/matchEngine';
-import { matchStateSummary } from '../../core/progressionDiagnostics';
+import { useEffect, useRef, useState } from 'react';
 import type { CareerState } from '../../types/domain';
-import { recordMatchTransition } from '../devTools';
 import type { CareerCommit } from '../careerCommit';
+import { loadWorldDatabase } from '../../core/worldDatabase';
+import {
+  applyCareerMatchResult,
+  CareerMatchEvidence,
+  createCareerMatchInput,
+  finishCareerMatch,
+  startCareerMatch,
+  type CareerMatchInput,
+} from '../../core/careerMatchContract';
+import type { TacticalMatchState } from '../../core/matchSimulation/matchState';
+import type { SingleMatchSession } from '../../core/singleMatch';
+import { RunningLabGuard } from './TacticalMatchSandbox';
+import { getUnlockedPlayStyles, PLAY_STYLE_PRESENTATION } from '../../core/playStyles';
 
-// Legacy career presentation only. It will be replaced by matchSimulation integration rather than
-// developed in parallel with the canonical Single Match engine.
-
-const statusLabel: Record<string, string> = {
-  senior_starter: 'Pierwszy skład seniorów',
-  senior_bench: 'Ławka seniorów',
-  senior_out: 'Poza kadrą seniorów',
-  academy_starter: 'Pierwszy skład akademii',
-  academy_bench: 'Ławka akademii',
-  no_match: 'Poza meczem',
-};
-const numberPl = (value: number, digits = 1) =>
-  value.toLocaleString('pl-PL', { minimumFractionDigits: digits, maximumFractionDigits: digits });
-export const MatchHud = ({ career }: { career: CareerState }) => {
-  const match = career.activeMatch!;
-  const home = match.venue === 'home' ? career.currentClub.name : match.opponent.name;
-  const away = match.venue === 'away' ? career.currentClub.name : match.opponent.name;
-  return (
-    <div className="match-hud">
-      <div className="match-score">
-        <span>{home}</span>
-        <strong>
-          {match.homeGoals} : {match.awayGoals}
-        </strong>
-        <span>{away}</span>
-      </div>
-      <div className="match-minute">
-        {match.currentMinute}' · {match.teamLevel === 'senior' ? 'Seniorzy' : 'Akademia'}
-      </div>
-      {match.momentum && (
-        <MatchMomentumChart points={match.momentum} currentMinute={match.currentMinute} />
-      )}
-      <div className="match-kpis">
-        {match.liveRating !== undefined && (
-          <span>
-            Ocena <strong>{numberPl(match.liveRating)}</strong>
-          </span>
-        )}
-        <span>
-          Minuty <strong>{match.playerMinutes}</strong>
-        </span>
-        <span>
-          xA{' '}
-          <strong>
-            {numberPl(
-              match.resolvedMoments.reduce((s, r) => s + r.xA, 0),
-              2,
-            )}
-          </strong>
-        </span>
-      </div>
-    </div>
-  );
-};
+/** The Lab and career share one runtime; React owns only the save/return transaction. */
 export const MatchGame = ({
   career,
   onCareer,
@@ -70,169 +25,157 @@ export const MatchGame = ({
   onCareer: CareerCommit;
   persistencePending?: boolean;
 }) => {
-  const match = career.activeMatch;
-  const transition = (action: string, next: CareerState) => {
-    const before = matchStateSummary(career.activeMatch);
-    const after = matchStateSummary(next.activeMatch);
-    const validTransition = JSON.stringify(before) !== JSON.stringify(after);
-    recordMatchTransition({
-      action,
-      before,
-      after,
-      validTransition,
-      ...(!validTransition ? { warning: 'unchanged actionable match state' } : {}),
-    });
-    void onCareer(next);
+  const [prepared, setPrepared] = useState<{
+    input: CareerMatchInput;
+    initial: TacticalMatchState;
+    session: SingleMatchSession;
+    epoch: number;
+  }>();
+  const [error, setError] = useState<string>();
+  const [busy, setBusy] = useState(false);
+  const [intro, setIntro] = useState(true);
+  const committing = useRef(false);
+  const evidence = useRef(new CareerMatchEvidence());
+  const generation = useRef(0);
+  useEffect(() => {
+    if (career.activeMatch?.completed) return;
+    const epochRef = generation;
+    const epoch = ++epochRef.current;
+    void loadWorldDatabase()
+      .then((world) => {
+        const input = createCareerMatchInput(career, world);
+        const initial = startCareerMatch(input);
+        const session = {
+          ...input.session,
+          ...(input.presentation.visualContext
+            ? { presentation: input.presentation.visualContext }
+            : {}),
+        };
+        if (generation.current === epoch) setPrepared({ input, initial, session, epoch });
+      })
+      .catch((reason: unknown) => {
+        if (generation.current === epoch)
+          setError(reason instanceof Error ? reason.message : 'Nie udało się przygotować meczu.');
+      });
+    return () => {
+      epochRef.current++;
+    };
+  }, [career]);
+  const leave = () => {
+    if (committing.current) return;
+    void onCareer({ ...career, activeMatch: undefined, decisionPoint: undefined });
   };
-  if (!match)
+  const complete = async (state: TacticalMatchState) => {
+    if (
+      !prepared ||
+      prepared.epoch !== generation.current ||
+      committing.current ||
+      persistencePending
+    )
+      return;
+    committing.current = true;
+    setBusy(true);
+    const epoch = prepared.epoch;
+    try {
+      const result = finishCareerMatch(prepared.input, state, evidence.current);
+      const world = await loadWorldDatabase();
+      if (generation.current !== epoch) return;
+      const next = applyCareerMatchResult(career, world, prepared.input, result);
+      // onCareer exposes the next state only after the queued storage transaction succeeds.
+      if (!(await onCareer(next)))
+        setError('Wynik nie został zapisany. Pozostał tu do ponowienia zapisu.');
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Nie udało się zapisać wyniku.');
+    } finally {
+      committing.current = false;
+      if (generation.current === epoch) setBusy(false);
+    }
+  };
+  if (career.activeMatch?.completed)
     return (
       <section>
-        <p>Trwa przygotowanie spotkania.</p>
-      </section>
-    );
-  const definition =
-    match.currentMoment &&
-    MATCH_MOMENT_LIBRARY.find((m) => m.id === match.currentMoment!.definitionId);
-  if (match.completed) {
-    const a = career.matchHistory?.at(-1);
-    const forGoals = match.venue === 'home' ? match.homeGoals : match.awayGoals;
-    const against = match.venue === 'home' ? match.awayGoals : match.homeGoals;
-    const quality = !a?.minutes
-      ? 'krótki występ bez większego wpływu'
-      : a.personalImpact >= 5
-        ? 'bardzo mocny występ'
-        : a.personalImpact >= 2
-          ? 'solidny występ'
-          : a.personalImpact >= -1
-            ? 'nierówny mecz'
-            : 'trudny wieczór';
-    return (
-      <section>
-        <MatchHud career={career} />
-        <h2>Wynik</h2>
-        <h3>
-          {career.currentClub.name} {forGoals}:{against} {match.opponent.name}
-        </h3>
-        {match.teamStats && (
-          <div className="team-stats">
-            <strong>
-              {match.venue === 'home' ? career.currentClub.name : match.opponent.name}
-            </strong>
-            <strong>Statystyka</strong>
-            <strong>
-              {match.venue === 'away' ? career.currentClub.name : match.opponent.name}
-            </strong>
-            {(
-              [
-                ['Posiadanie', 'possession'],
-                ['Strzały', 'shots'],
-                ['Strzały celne', 'shotsOnTarget'],
-                ['xG', 'xG'],
-                ['Groźne akcje', 'dangerousActions'],
-              ] as const
-            ).flatMap(([label, key]) => [
-              <span key={`${key}h`}>
-                {key === 'xG'
-                  ? numberPl(match.teamStats!.home[key], 2)
-                  : match.teamStats!.home[key]}
-                {key === 'possession' ? '%' : ''}
-              </span>,
-              <span key={key}>{label}</span>,
-              <span key={`${key}a`}>
-                {key === 'xG'
-                  ? numberPl(match.teamStats!.away[key], 2)
-                  : match.teamStats!.away[key]}
-                {key === 'possession' ? '%' : ''}
-              </span>,
-            ])}
-          </div>
-        )}
-        <h3>Twój występ</h3>
+        <h2>Zapisany wynik wcześniejszego meczu</h2>
         <p>
-          {a?.started ? 'Pierwszy skład' : 'Rezerwowy'} · {a?.minutes ?? 0} minut · gole{' '}
-          {a?.goals ?? 0} · asysty {a?.assists ?? 0} · xG {numberPl(a?.xG ?? 0, 2)} · xA{' '}
-          {numberPl(a?.xA ?? 0, 2)} · kluczowe podania {a?.keyPasses ?? 0} · akcje defensywne{' '}
-          {a?.defensiveActions ?? 0}
-          {career.player.primaryPosition === 'goalkeeper' ? ` · obrony ${a?.saves ?? 0}` : ''} ·
-          ocena {a?.rating === undefined ? '—' : numberPl(a.rating)}
+          {career.activeMatch.homeGoals}:{career.activeMatch.awayGoals} ·{' '}
+          {career.activeMatch.opponent.name}
         </p>
-        <p>
-          {a ? describePerformance(a.rating, a.minutes, forGoals > against) : quality}. Wynik
-          drużyny powstał z całego przebiegu spotkania, nie tylko z twoich akcji.
-        </p>
-        <button
-          disabled={persistencePending}
-          onClick={() => void onCareer(advanceCareerWeek(career))}
-        >
-          Przejdź do kolejnego tygodnia
+        <button disabled={persistencePending} onClick={leave}>
+          Wróć do kariery
         </button>
       </section>
     );
-  }
-  if (!match.currentMoment)
+  if (!prepared)
     return (
       <section>
-        <MatchHud career={career} />
-        <h2>Decyzja sztabu</h2>
-        <p>
-          {match.date} · {match.venue === 'home' ? 'dom' : 'wyjazd'} · {match.opponent.name}
+        <h2>Przygotowanie meczu</h2>
+        <p role={error ? 'alert' : 'status'}>
+          {error ?? 'Trener wybiera kadrę na rzeczywisty mecz ligowy…'}
         </p>
-        <h3>{statusLabel[match.squadStatus]}</h3>
-        <p>
-          {match.squadStatus.includes('bench')
-            ? 'Radecki nie rzuca cię jeszcze od pierwszej minuty, ale zostawia szansę na wejście.'
-            : match.playerMinutes === 0
-              ? 'Ten weekend oglądasz z boku. Potraktuj decyzję jako motywację i zadbaj o gotowość.'
-              : 'Dostajesz szansę od początku. Sztab oczekuje realizacji zadań.'}
-        </p>
-        <button
-          disabled={persistencePending}
-          onClick={() => transition('advance', advanceMatch(career))}
-        >
-          {match.plannedMinutes ? 'Rozpocznij mecz' : 'Przyjmij decyzję i przejdź dalej'}
-        </button>
+        {error && <button onClick={leave}>Wróć do kariery</button>}
       </section>
     );
+  const { input, initial, session } = prepared;
+  const body = initial.players.find((p) => p.id === career.player.id);
+  const bench = input.session.home.bench
+    .concat(input.session.away.bench)
+    .some((p) => p.footballerId === career.player.id);
+  const participation = body
+    ? 'Pierwszy skład'
+    : bench
+      ? 'Ławka · o wejściu decyduje trener'
+      : 'Poza kadrą';
   return (
-    <section>
-      <MatchHud career={career} />
-      <p>{match.currentMoment.minute}. minuta · sytuacja meczowa</p>
-      {match.resolvedMoments.at(-1)?.ratingAfter !== undefined && (
-        <aside className="rating-change">
-          <strong>
-            Ocena {numberPl(match.resolvedMoments.at(-1)!.ratingBefore ?? 6)} →{' '}
-            {numberPl(match.resolvedMoments.at(-1)!.ratingAfter!)}
-          </strong>
-          <p>{match.resolvedMoments.at(-1)!.ratingExplanation}</p>
-        </aside>
-      )}
-      <h2>{match.currentMoment.description}</h2>
+    <section className="career-canonical-match">
+      {error && <p role="alert">{error}</p>}
       <p>
-        Masz niewiele czasu. Rywal szybko skraca dystans, ale za jego plecami otwiera się
-        przestrzeń.
+        {input.fixture.date} · {career.leagueSeason?.competition.name}
+        {intro ? ` · ${career.player.firstName} ${career.player.lastName} · ${participation}` : ''}
       </p>
-      <div className="choices">
-        {definition?.decisions.map((d) => (
-          <article className="decision-card" key={d.id}>
-            <h3>{d.label}</h3>
-            <p>{d.description}</p>
-            <section className="possible-benefits">
-              <h4>Możesz zyskać</h4>
-              <p>{d.visibleGain}</p>
-            </section>
-            <section className="possible-risks">
-              <h4>Ryzykujesz</h4>
-              <p>{d.visibleRisk}</p>
-            </section>
-            <button
-              disabled={persistencePending}
-              onClick={() => transition(`decision:${d.id}`, resolveMatchDecision(career, d.id))}
-            >
-              Wybierz
-            </button>
-          </article>
-        ))}
-      </div>
+      {intro ? (
+        <>
+          <h2>
+            {input.session.home.club.name} — {input.session.away.club.name}
+          </h2>
+          <p>
+            Kontrolujesz swoje decyzje podczas udziału w meczu. Zwykła gra przebiega samodzielnie.
+          </p>
+          <p>
+            Przerwanie lub odświeżenie rozpocznie niezapisany mecz od początku, z tym samym składem
+            i warunkami początkowymi.
+          </p>
+          {(['home', 'away'] as const).map((side) => (
+            <details key={side}>
+              <summary>{input.session[side].club.name} · skład trenera</summary>
+              <p>{input.session[side].players.map((p) => p.profile.lastName).join(', ')}</p>
+              <p>Rezerwa: {input.session[side].bench.map((p) => p.profile.lastName).join(', ')}</p>
+            </details>
+          ))}
+          {getUnlockedPlayStyles(career).map((id) => (
+            <p key={id}>
+              {PLAY_STYLE_PRESENTATION[id].name} · {PLAY_STYLE_PRESENTATION[id].effect}
+            </p>
+          ))}
+          <button disabled={persistencePending} onClick={() => setIntro(false)}>
+            Rozpocznij mecz 3D
+          </button>
+          <button disabled={persistencePending} onClick={leave}>
+            Wróć do kariery
+          </button>
+        </>
+      ) : (
+        <RunningLabGuard
+          key={input.footballFingerprint}
+          session={session}
+          initialState={initial}
+          careerMode
+          onObserve={(state) => evidence.current.observe(state)}
+          onComplete={(state) => void complete(state)}
+          completionPending={busy || persistencePending}
+          onSetup={leave}
+          onRestart={() => undefined}
+          onRandomize={() => undefined}
+        />
+      )}
     </section>
   );
 };

@@ -28,10 +28,10 @@ export const evaluateActionImpact = (
       reason: 'unknown_actor',
     });
   const target = 'target' in action ? action.target : actor.position;
-  const progression = fieldValue(target, actor.team) - fieldValue(actor.position, actor.team);
+  const progression = fieldValue(target, actor) - fieldValue(actor.position, actor);
   const zoneChange =
-    Math.floor(fieldValue(target, actor.team) / 17.5) >
-    Math.floor(fieldValue(actor.position, actor.team) / 17.5);
+    Math.floor(fieldValue(target, actor) / 17.5) >
+    Math.floor(fieldValue(actor.position, actor) / 17.5);
   const defenderProximity = Math.min(
     105,
     ...state.players
@@ -49,7 +49,7 @@ export const evaluateActionImpact = (
   } else if (
     action.type === 'pass' &&
     (action.intent === 'through' ||
-      classifyPass(actor.position, action.target, actor.team, action.intent).purpose ===
+      classifyPass(actor.position, action.target, actor, action.intent).purpose ===
         'direct_attack' ||
       progression >= 18)
   ) {

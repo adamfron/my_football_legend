@@ -1000,7 +1000,15 @@ export class TacticalPitchRenderer {
     // Only the visible presentation goal plane owns a goal intention. Pitch grass is never a
     // hidden shot button.
     if (goalIntentSide) {
-      const goalPlane = this.goalPlanes.get(goalIntentSide);
+      const switched = this.lastValidFrame?.players.find(
+        (p) => p.id === this.focusedPlayerId,
+      )?.endsSwitched;
+      const physicalSide = switched
+        ? goalIntentSide === 'home'
+          ? 'away'
+          : 'home'
+        : goalIntentSide;
+      const goalPlane = this.goalPlanes.get(physicalSide);
       const goalHit = goalPlane && this.raycaster.intersectObject(goalPlane)[0];
       if (goalHit) return { kind: 'goal', side: goalIntentSide };
       // Expanded physical goal area, independent of the exact post/net geometry.
@@ -1167,10 +1175,14 @@ export class TacticalPitchRenderer {
     } else if (mode === 'shot_aim') {
       this.camera = this.shotCamera;
       const focused = this.lastValidFrame?.players.find((player) => player.id === focusedPlayerId);
-      const pose = deriveShotAimCameraPose(focusedTeam ?? 'home', {
-        x: focused?.x ?? PITCH_LENGTH / 2,
-        y: focused?.y ?? PITCH_WIDTH / 2,
-      });
+      const pose = deriveShotAimCameraPose(
+        focusedTeam ?? 'home',
+        {
+          x: focused?.x ?? PITCH_LENGTH / 2,
+          y: focused?.y ?? PITCH_WIDTH / 2,
+        },
+        focused?.endsSwitched,
+      );
       this.shotCamera.position.set(pose.position.x, pose.position.y, pose.position.z);
       this.shotCamera.lookAt(pose.lookAt.x, pose.lookAt.y, pose.lookAt.z);
       const opponentGoal = pose.opponentGoal;

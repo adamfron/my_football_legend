@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { goalIntentToPitch, pitchToGoalIntent } from './goalCoordinates';
 import { RandomGenerator } from '../random/RandomGenerator';
 import { distance, PITCH_LENGTH, type PitchPoint } from './matchSpace';
@@ -144,7 +145,7 @@ const solveSpinningLaunch = (
 
 const defaultTarget = (action: ShotAction, shooter: MatchPlayerState) => ({
   horizontal: clamp(
-    pitchToGoalIntent(shooter.team, { y: action.target.y, height: 0 }).horizontal,
+    pitchToGoalIntent(shooter, { y: action.target.y, height: 0 }).horizontal,
     -1,
     1,
   ),
@@ -164,12 +165,12 @@ export const resolveCanonicalShot = (
   action: ShotAction,
 ): CanonicalShot => {
   const shooter = state.players.find((player) => player.id === action.actorId)!;
-  const attackingRight = shooter.team === 'home';
+  const attackingRight = attacksRight(shooter);
   const goalX = attackingRight ? PITCH_LENGTH : 0;
   const wallTarget = action.type === 'shot' ? action.freeKickWallTarget : undefined;
   // Extend the selected ray. The existing error, launcher and finite collisions still own it.
   const intended = wallTarget
-    ? pitchToGoalIntent(shooter.team, {
+    ? pitchToGoalIntent(shooter, {
         y:
           state.ball.y +
           ((wallTarget.y - state.ball.y) * (goalX - state.ball.x)) /
@@ -191,7 +192,7 @@ export const resolveCanonicalShot = (
     horizontal: intended.horizontal + horizontalError,
     vertical: intended.vertical + verticalError,
   };
-  const goalY = goalIntentToPitch(shooter.team, actual).y;
+  const goalY = goalIntentToPitch(shooter, actual).y;
   const intendedHeightMetres = actual.vertical * GOAL_HEIGHT;
   const nominalSpeed = clamp(profile.nominalSpeed + normal(rng) * 1.8, 13, 38);
   const contactHeight = Math.max(0, state.ball.height ?? 0);
@@ -288,7 +289,7 @@ export const resolveCanonicalShot = (
     0.025,
   )) {
     const next = sample.ball.position;
-    const contact = findFirstBallContact({ previous, next, attackingTeam: shooter.team });
+    const contact = findFirstBallContact({ previous, next, attackingTeam: shooter });
     previous = next;
     if (!contact) continue;
     heightMetres = contact.point.z;

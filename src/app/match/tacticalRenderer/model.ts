@@ -45,6 +45,7 @@ export const tacticalPointSchema = z.object({
   y: z.number().min(0).max(PITCH_WIDTH),
 });
 export const tacticalPlayerSchema = physicalPointSchema.extend({
+  endsSwitched: z.boolean().optional(),
   ...canonicalPlayerPresentationShape,
   id: z.string().min(1),
   team: z.enum(['home', 'away']),
@@ -263,14 +264,18 @@ export const updateTacticalCameraPose = (
   };
 };
 
-export const deriveShotAimCameraPose = (team: 'home' | 'away', shooter: TacticalPoint) => {
-  const attackDirection = team === 'home' ? 1 : -1;
+export const deriveShotAimCameraPose = (
+  team: 'home' | 'away',
+  shooter: TacticalPoint,
+  endsSwitched = false,
+) => {
+  const attackDirection = (team === 'home') !== endsSwitched ? 1 : -1;
   const world = tacticalToWorld(shooter);
   return {
     attackDirection,
     position: { x: world.x - attackDirection * 12.5, y: 6.5, z: world.z },
     lookAt: { x: world.x + attackDirection * 26, y: 1.4, z: world.z * 0.35 },
-    opponentGoal: team === 'home' ? ('away' as const) : ('home' as const),
+    opponentGoal: attackDirection > 0 ? ('away' as const) : ('home' as const),
   };
 };
 

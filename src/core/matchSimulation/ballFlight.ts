@@ -1,5 +1,6 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
-import type { PhysicalPoint, PitchPoint, TeamSide } from './matchSpace';
+import type { PhysicalPoint, PitchPoint, TeamOrientation } from './matchSpace';
 import type { BallSpin3d, BallVelocity3d } from './ballPhysics';
 
 /** Law-sized goal geometry in pitch metres. Renderers project this geometry; they do not own it. */
@@ -48,7 +49,7 @@ export interface ContactCandidate {
 export interface FlightContactQuery {
   previous: FlightPoint;
   next: FlightPoint;
-  attackingTeam: TeamSide;
+  attackingTeam: TeamOrientation;
   candidates?: ContactCandidate[];
 }
 
@@ -176,7 +177,7 @@ export const findFirstBallContact = (query: FlightContactQuery): Intersection | 
       });
   }
 
-  const goalX = query.attackingTeam === 'home' ? 105 : 0;
+  const goalX = attacksRight(query.attackingTeam) ? 105 : 0;
   const dx = next.x - previous.x;
   const planeT = dx === 0 ? undefined : (goalX - previous.x) / dx;
   if (planeT !== undefined && planeT >= 0 && planeT <= 1) {
@@ -200,7 +201,7 @@ export const findFirstBallContact = (query: FlightContactQuery): Intersection | 
   }
   // Frame contact is at its own geometry; scoring/out occurs only after the trailing edge
   // passes the goal line. A return from the net toward the pitch cannot score a second goal.
-  const direction = query.attackingTeam === 'home' ? 1 : -1;
+  const direction = attacksRight(query.attackingTeam) ? 1 : -1;
   const scoringT =
     dx * direction > 0 ? (goalX + direction * BALL_RADIUS - previous.x) / dx : undefined;
   if (scoringT !== undefined && scoringT >= 0 && scoringT <= 1) {
@@ -218,10 +219,10 @@ export const findFirstBallContact = (query: FlightContactQuery): Intersection | 
 export const deterministicRebound = (
   kind: BallContactKind,
   incoming: PitchPoint,
-  attackingTeam: TeamSide,
+  attackingTeam: TeamOrientation,
 ): PitchPoint => {
   const speed = Math.max(5, Math.hypot(incoming.x, incoming.y));
-  const away = attackingTeam === 'home' ? -1 : 1;
+  const away = attacksRight(attackingTeam) ? -1 : 1;
   if (kind === 'left_post') return { x: away * speed * 0.48, y: speed * 0.42 };
   if (kind === 'right_post') return { x: away * speed * 0.48, y: -speed * 0.42 };
   if (kind === 'crossbar') return { x: away * speed * 0.55, y: incoming.y * 0.25 };
@@ -233,7 +234,7 @@ export const deterministicRebound = (
 export const resolveBallRebound = (
   kind: BallContactKind,
   incoming: BallVelocity3d,
-  attackingTeam: TeamSide,
+  attackingTeam: TeamOrientation,
   spin?: BallSpin3d,
 ): { velocity: BallVelocity3d; spin?: BallSpin3d; airborne: boolean } => {
   const horizontal = deterministicRebound(kind, incoming, attackingTeam);

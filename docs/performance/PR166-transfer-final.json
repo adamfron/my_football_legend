@@ -1,0 +1,676 @@
+{
+  "browser": "153.0.4234.32",
+  "scope": "Transfer and legitimate fixture startup/restart only; full-match human/result coverage is recorded separately in PR166-browser.json.",
+  "baseline": "PR165 exact same source tree as merged main c34ad9b7556b604b17d98382fcc33a7e209bd044; existing production build",
+  "server": "Loopback HTTP Brotli11, same immutable asset policy for both revisions; CDP encodedDataLength includes response overhead; CPU timings and GPU/FPS excluded",
+  "artifacts": {
+    "baseline": [
+      {
+        "path": "assets/CareerApp-7VQsRTsb.js",
+        "raw": 122201,
+        "brotli": 33432
+      },
+      {
+        "path": "assets/index-BqDYf0vp.css",
+        "raw": 29893,
+        "brotli": 6612
+      },
+      {
+        "path": "assets/index-DIB7X0N3.js",
+        "raw": 399599,
+        "brotli": 105223
+      },
+      {
+        "path": "assets/matchEngine-CZHrv-Px.js",
+        "raw": 31128,
+        "brotli": 10256
+      },
+      {
+        "path": "assets/MatchGame-4GVTho1K.js",
+        "raw": 7013,
+        "brotli": 2466
+      },
+      {
+        "path": "assets/model-B1-Ds1md.js",
+        "raw": 772985,
+        "brotli": 170194
+      },
+      {
+        "path": "assets/PlayerPreview-DIUfNfDC.js",
+        "raw": 1660,
+        "brotli": 781
+      },
+      {
+        "path": "assets/positionPresentation-D2oCnQgD.js",
+        "raw": 5279,
+        "brotli": 2149
+      },
+      {
+        "path": "assets/previewScene-p4E3e_2a.js",
+        "raw": 592,
+        "brotli": 349
+      },
+      {
+        "path": "assets/react-B3l9tXpq.js",
+        "raw": 7555,
+        "brotli": 2587
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-B6RCYgyS.js",
+        "raw": 386696,
+        "brotli": 94830
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-D-pepOZp.css",
+        "raw": 9323,
+        "brotli": 2302
+      },
+      {
+        "path": "assets/VisualGallery-DZ2eFbMu.js",
+        "raw": 5566,
+        "brotli": 2235
+      },
+      {
+        "path": "data/world/pl-2026-v2.json",
+        "raw": 3279949,
+        "brotli": 191940
+      },
+      {
+        "path": "index.html",
+        "raw": 298,
+        "brotli": 125
+      }
+    ],
+    "current": [
+      {
+        "path": "assets/appearanceConsequences-BprWIVpT.js",
+        "raw": 4082,
+        "brotli": 1512
+      },
+      {
+        "path": "assets/CareerApp-Drnbieh7.js",
+        "raw": 140994,
+        "brotli": 39238
+      },
+      {
+        "path": "assets/index-BqDYf0vp.css",
+        "raw": 29893,
+        "brotli": 6612
+      },
+      {
+        "path": "assets/index-DaZhP0Jn.js",
+        "raw": 200829,
+        "brotli": 55107
+      },
+      {
+        "path": "assets/MatchGame-DrtNKN6c.js",
+        "raw": 22107,
+        "brotli": 7058
+      },
+      {
+        "path": "assets/model-DLCmrvJ2.js",
+        "raw": 774863,
+        "brotli": 170707
+      },
+      {
+        "path": "assets/PlayerPreview-Bh2WwCM6.js",
+        "raw": 1636,
+        "brotli": 773
+      },
+      {
+        "path": "assets/positionPresentation-D2oCnQgD.js",
+        "raw": 5279,
+        "brotli": 2149
+      },
+      {
+        "path": "assets/previewScene-CmrMn_Jv.js",
+        "raw": 592,
+        "brotli": 354
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-0kKGedtd.css",
+        "raw": 9572,
+        "brotli": 2341
+      },
+      {
+        "path": "assets/TacticalMatchSandbox-BstIs7AI.js",
+        "raw": 392189,
+        "brotli": 96352
+      },
+      {
+        "path": "assets/VisualGallery-BBddC55T.js",
+        "raw": 5542,
+        "brotli": 2205
+      },
+      {
+        "path": "assets/worldDatabase-I95ueXLF.js",
+        "raw": 217878,
+        "brotli": 57132
+      },
+      {
+        "path": "data/world/pl-2026-v2.json",
+        "raw": 3279949,
+        "brotli": 191940
+      },
+      {
+        "path": "index.html",
+        "raw": 306,
+        "brotli": 127
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "version": "baseline",
+      "name": "cold-menu",
+      "bytes": 115864,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 344
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 6858
+        },
+        {
+          "url": "assets/react-B3l9tXpq.js",
+          "bytes": 2840
+        },
+        {
+          "url": "assets/index-DIB7X0N3.js",
+          "bytes": 105478
+        },
+        {
+          "url": "http://127.0.0.1:51461/favicon.ico",
+          "bytes": 344
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "cold-career-module",
+      "bytes": 46598,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/matchEngine-CZHrv-Px.js",
+          "bytes": 10510
+        },
+        {
+          "url": "assets/CareerApp-7VQsRTsb.js",
+          "bytes": 33686
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "career-home",
+      "bytes": 0,
+      "requests": [],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "career-creation-through-home",
+      "bytes": 410850,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/matchEngine-CZHrv-Px.js",
+          "bytes": 10510
+        },
+        {
+          "url": "assets/CareerApp-7VQsRTsb.js",
+          "bytes": 33686
+        },
+        {
+          "url": "data/world/pl-2026-v2.json",
+          "bytes": 192169
+        },
+        {
+          "url": "assets/PlayerPreview-DIUfNfDC.js",
+          "bytes": 1033
+        },
+        {
+          "url": "assets/previewScene-p4E3e_2a.js",
+          "bytes": 601
+        },
+        {
+          "url": "assets/model-B1-Ds1md.js",
+          "bytes": 170449
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "cold-saved-career-menu",
+      "bytes": 115864,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 344
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 6858
+        },
+        {
+          "url": "assets/react-B3l9tXpq.js",
+          "bytes": 2840
+        },
+        {
+          "url": "assets/index-DIB7X0N3.js",
+          "bytes": 105478
+        },
+        {
+          "url": "http://127.0.0.1:51461/favicon.ico",
+          "bytes": 344
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "baseline",
+      "name": "cold-saved-career-screen",
+      "bytes": 238767,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/matchEngine-CZHrv-Px.js",
+          "bytes": 10510
+        },
+        {
+          "url": "assets/CareerApp-7VQsRTsb.js",
+          "bytes": 33686
+        },
+        {
+          "url": "data/world/pl-2026-v2.json",
+          "bytes": 192169
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-menu",
+      "bytes": 120297,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 346
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 6858
+        },
+        {
+          "url": "assets/index-DaZhP0Jn.js",
+          "bytes": 55361
+        },
+        {
+          "url": "assets/worldDatabase-I95ueXLF.js",
+          "bytes": 57386
+        },
+        {
+          "url": "http://127.0.0.1:51461/favicon.ico",
+          "bytes": 346
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-career-module",
+      "bytes": 43659,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/appearanceConsequences-BprWIVpT.js",
+          "bytes": 1765
+        },
+        {
+          "url": "assets/CareerApp-Drnbieh7.js",
+          "bytes": 39492
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current-reserve",
+      "name": "career-home",
+      "bytes": 0,
+      "requests": [],
+      "errors": []
+    },
+    {
+      "version": "current-reserve",
+      "name": "career-creation-through-home",
+      "bytes": 408421,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/appearanceConsequences-BprWIVpT.js",
+          "bytes": 1765
+        },
+        {
+          "url": "assets/CareerApp-Drnbieh7.js",
+          "bytes": 39492
+        },
+        {
+          "url": "data/world/pl-2026-v2.json",
+          "bytes": 192169
+        },
+        {
+          "url": "assets/PlayerPreview-Bh2WwCM6.js",
+          "bytes": 1025
+        },
+        {
+          "url": "assets/previewScene-CmrMn_Jv.js",
+          "bytes": 606
+        },
+        {
+          "url": "assets/model-DLCmrvJ2.js",
+          "bytes": 170962
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-saved-career-menu",
+      "bytes": 120297,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 346
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 6858
+        },
+        {
+          "url": "assets/index-DaZhP0Jn.js",
+          "bytes": 55361
+        },
+        {
+          "url": "assets/worldDatabase-I95ueXLF.js",
+          "bytes": 57386
+        },
+        {
+          "url": "http://127.0.0.1:51461/favicon.ico",
+          "bytes": 346
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-saved-career-screen",
+      "bytes": 235828,
+      "requests": [
+        {
+          "url": "assets/appearanceConsequences-BprWIVpT.js",
+          "bytes": 1765
+        },
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/CareerApp-Drnbieh7.js",
+          "bytes": 39492
+        },
+        {
+          "url": "data/world/pl-2026-v2.json",
+          "bytes": 192169
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current-reserve",
+      "name": "first-career-fixture-introduction",
+      "bytes": 277466,
+      "requests": [
+        {
+          "url": "assets/TacticalMatchSandbox-0kKGedtd.css",
+          "bytes": 2587
+        },
+        {
+          "url": "assets/MatchGame-DrtNKN6c.js",
+          "bytes": 7311
+        },
+        {
+          "url": "assets/TacticalMatchSandbox-BstIs7AI.js",
+          "bytes": 96606
+        },
+        {
+          "url": "assets/model-DLCmrvJ2.js",
+          "bytes": 170962
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "cold-menu",
+      "bytes": 120297,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 346
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 6858
+        },
+        {
+          "url": "assets/index-DaZhP0Jn.js",
+          "bytes": 55361
+        },
+        {
+          "url": "assets/worldDatabase-I95ueXLF.js",
+          "bytes": 57386
+        },
+        {
+          "url": "http://127.0.0.1:51461/favicon.ico",
+          "bytes": 346
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "cold-career-module",
+      "bytes": 43659,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/appearanceConsequences-BprWIVpT.js",
+          "bytes": 1765
+        },
+        {
+          "url": "assets/CareerApp-Drnbieh7.js",
+          "bytes": 39492
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "career-home",
+      "bytes": 0,
+      "requests": [],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "career-creation-through-home",
+      "bytes": 408421,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/appearanceConsequences-BprWIVpT.js",
+          "bytes": 1765
+        },
+        {
+          "url": "assets/CareerApp-Drnbieh7.js",
+          "bytes": 39492
+        },
+        {
+          "url": "data/world/pl-2026-v2.json",
+          "bytes": 192169
+        },
+        {
+          "url": "assets/PlayerPreview-Bh2WwCM6.js",
+          "bytes": 1025
+        },
+        {
+          "url": "assets/previewScene-CmrMn_Jv.js",
+          "bytes": 606
+        },
+        {
+          "url": "assets/model-DLCmrvJ2.js",
+          "bytes": 170962
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "cold-saved-career-menu",
+      "bytes": 120297,
+      "requests": [
+        {
+          "url": "",
+          "bytes": 346
+        },
+        {
+          "url": "assets/index-BqDYf0vp.css",
+          "bytes": 6858
+        },
+        {
+          "url": "assets/index-DaZhP0Jn.js",
+          "bytes": 55361
+        },
+        {
+          "url": "assets/worldDatabase-I95ueXLF.js",
+          "bytes": 57386
+        },
+        {
+          "url": "http://127.0.0.1:51461/favicon.ico",
+          "bytes": 346
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "cold-saved-career-screen",
+      "bytes": 235828,
+      "requests": [
+        {
+          "url": "assets/positionPresentation-D2oCnQgD.js",
+          "bytes": 2402
+        },
+        {
+          "url": "assets/appearanceConsequences-BprWIVpT.js",
+          "bytes": 1765
+        },
+        {
+          "url": "assets/CareerApp-Drnbieh7.js",
+          "bytes": 39492
+        },
+        {
+          "url": "data/world/pl-2026-v2.json",
+          "bytes": 192169
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "first-career-fixture-introduction",
+      "bytes": 277466,
+      "requests": [
+        {
+          "url": "assets/TacticalMatchSandbox-0kKGedtd.css",
+          "bytes": 2587
+        },
+        {
+          "url": "assets/MatchGame-DrtNKN6c.js",
+          "bytes": 7311
+        },
+        {
+          "url": "assets/TacticalMatchSandbox-BstIs7AI.js",
+          "bytes": 96606
+        },
+        {
+          "url": "assets/model-DLCmrvJ2.js",
+          "bytes": 170962
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "first-career-3d-runtime",
+      "bytes": 0,
+      "requests": [],
+      "errors": []
+    },
+    {
+      "version": "current",
+      "name": "second-fixture-restart-module-reuse",
+      "bytes": 0,
+      "requests": [],
+      "errors": []
+    }
+  ],
+  "smoke": {
+    "careerSeed": "pr166-youth",
+    "careerPosition": "lw",
+    "careerPolicy": "key_player",
+    "baselineCareerHomeHeap": 27749575,
+    "baselineCareerMatch": "PR165 still has the legacy narrative route; canonical career transfer has no baseline equivalent",
+    "current-reserveCareerHomeHeap": 28438392,
+    "reservePreflight": {
+      "seed": "pr166-youth",
+      "position": "striker",
+      "naturallySelectedBench": true,
+      "runtimeOpened": true,
+      "errors": [],
+      "consoleErrors": []
+    },
+    "errors": [],
+    "consoleErrors": [],
+    "currentCareerHomeHeap": 28348734,
+    "fixtureIntroduction": "2026-09-05 · Polska Liga U-17 · Jan Junior · Pierwszy skład\n\nVistula Nova — Polonia Przemyśl U-17\n\nKontrolujesz swoje decyzje podczas udziału w meczu. Zwykła gra przebiega samodzielnie.\n\nPrzerwanie lub odświeżenie rozpocznie niezapisany mecz od początku, z tym samym składem i warunkami początkowymi.\n\nVistula Nova · skład trenera\nPolonia Przemyśl U-17 · skład trenera\nRozpocznij mecz 3DWróć do kariery",
+    "developerControlsAbsent": true
+  }
+}

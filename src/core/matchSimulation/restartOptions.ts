@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import { distance, clampPitchPoint } from './matchSpace';
@@ -46,8 +47,8 @@ export const enumerateContextualRestartActions = (state: TacticalMatchState): Ma
       intent: 'support',
     }));
   if (state.scenario === 'throw_in') return passes;
-  const direction = actor.team === 'home' ? 1 : -1;
-  const goalX = actor.team === 'home' ? 105 : 0;
+  const direction = attacksRight(actor) ? 1 : -1;
+  const goalX = attacksRight(actor) ? 105 : 0;
   // Project the contact the taker is preparing for. This is a pure eligibility forecast:
   // the actual ball and player still have to reach these conditions through the lifecycle.
   const shotContext: TacticalMatchState = {

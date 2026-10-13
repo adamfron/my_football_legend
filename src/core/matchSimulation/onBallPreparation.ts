@@ -1,4 +1,6 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
+import { playStylePreparationRelief } from '../playStyles';
 import { clampPitchPoint, distance, pitchPointSchema, type PitchPoint } from './matchSpace';
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
@@ -79,7 +81,18 @@ export const deriveOnBallPreparation = (
       incomingSpeed / 24 +
       (facingError / Math.PI) * 0.7 +
       pressure * 0.35 -
-      technique * 0.52 +
+      technique * 0.52 -
+      playStylePreparationRelief(actor.playStyles, {
+        forwardMetres: 0,
+        goalDistance: 100,
+        pressure,
+        goalkeeper: actor.slot.position === 'goalkeeper',
+        pass: false,
+        shot: false,
+        reception:
+          receptionKind === 'directional_control' &&
+          state.teams[actor.team].phase === 'positional_attack',
+      }) +
       (receptionKind === 'directional_control'
         ? -0.18
         : receptionKind === 'heavy_touch'
@@ -143,7 +156,7 @@ export const projectPossessionMicroBehaviour = (
     .reduce<
       MatchPlayerState | undefined
     >((best, player) => (!best || distance(player.position, actor.position) < distance(best.position, actor.position) ? player : best), undefined);
-  const forward = actor.team === 'home' ? 1 : -1;
+  const forward = attacksRight(actor) ? 1 : -1;
   const away = nearest
     ? { x: actor.position.x - nearest.position.x, y: actor.position.y - nearest.position.y }
     : { x: forward, y: 0 };
@@ -178,7 +191,7 @@ export const projectPossessionMicroBehaviour = (
     previous?.passingAngle ??
     (receiver
       ? angleForVector({ x: receiver.position.x - origin.x, y: receiver.position.y - origin.y })
-      : actor.team === 'home'
+      : attacksRight(actor)
         ? Math.PI / 2
         : -Math.PI / 2);
   const turnError = Math.abs(normalizeAngle(openAngle - actor.facingAngle));
@@ -405,6 +418,14 @@ export const preparationMarginForAction = (
       : action.type === 'cross'
         ? 0.14
         : 0) -
-    skill * 0.22;
+    skill * 0.22 -
+    playStylePreparationRelief(actor.playStyles, {
+      forwardMetres: (target.x - actor.position.x) * (attacksRight(actor) ? 1 : -1),
+      goalDistance: distance(actor.position, { x: attacksRight(actor) ? 105 : 0, y: 34 }),
+      pressure: state.currentPressure,
+      goalkeeper: actor.slot.position === 'goalkeeper',
+      pass: action.type === 'pass' || action.type === 'space_pass',
+      shot: action.type === 'shot',
+    });
   return state.time - (preparation.readyAt + Math.max(0, actionNeed));
 };

@@ -1,0 +1,25 @@
+{
+  "source": "Summary captured from the final passing npm run verify console output. Full provenance/equality/save assertions run in careerMatchContract.test.ts. Earlier richer captures are replaced because they describe an earlier source revision.",
+  "scenario": "Existing graduation/offer APIs prepare the professional career; actual scheduled league fixture, world squads and natural coach selection, forceIntoXI=false.",
+  "fullMatchRepetitions": 2,
+  "identical": true,
+  "score": {
+    "home": 0,
+    "away": 0
+  },
+  "endedAt": 5460,
+  "resultBytes": 29179,
+  "participants": 25,
+  "substitutions": 3,
+  "controlledEvidence": {
+    "selected": 7,
+    "resolved": 5
+  },
+  "checks": [
+    "complete canonical fixtures",
+    "strict complete result/evidence equality",
+    "commit/save/hydrate",
+    "duplicate no-op",
+    "conflicts and wrong career/world/date/roster rejected"
+  ]
+}

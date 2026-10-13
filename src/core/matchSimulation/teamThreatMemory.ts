@@ -1,3 +1,4 @@
+import { attacksRight, type TeamOrientation } from './matchSpace';
 import { findMatchParticipant } from './matchParticipants';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
@@ -96,7 +97,8 @@ type ChannelScores = z.infer<typeof channelsSchema>;
 const clamp = (value: number, maximum = 1) => Math.max(0, Math.min(maximum, value));
 export const threatChannel = (point: PitchPoint): 0 | 1 | 2 =>
   point.y < 23 ? 0 : point.y > 45 ? 2 : 1;
-const depth = (point: PitchPoint, side: TeamSide) => (side === 'home' ? point.x : 105 - point.x);
+const depth = (point: PitchPoint, side: TeamOrientation) =>
+  attacksRight(side) ? point.x : 105 - point.x;
 const opposing = (side: TeamSide): TeamSide => (side === 'home' ? 'away' : 'home');
 const emptyChannels = (): ChannelScores => [0, 0, 0];
 export const neutralTacticalResponse = (): TacticalResponse => ({
@@ -250,7 +252,7 @@ export const deriveBuildUpReliefWeight = (
   actor: MatchPlayerState,
   currentPressure?: number,
 ): number => {
-  if (depth(actor.position, actor.team) >= TEAM_THREAT_TUNING.buildUpDepth) return 0;
+  if (depth(actor.position, actor) >= TEAM_THREAT_TUNING.buildUpDepth) return 0;
   let nearestSquared = Infinity;
   for (const opponent of state.players) {
     if (opponent.team === actor.team || state.discipline?.[opponent.id]?.sentOff) continue;
@@ -482,7 +484,7 @@ export const observeTeamThreats = (
           .map((player) => distance(player.position, point)),
       );
       if (
-        depth(point, side) < TEAM_THREAT_TUNING.buildUpDepth &&
+        depth(point, previous.teams[side]) < TEAM_THREAT_TUNING.buildUpDepth &&
         (nearest < 8 ||
           previous.currentPressure > 0.35 ||
           (livePass &&
@@ -506,7 +508,7 @@ export const observeTeamThreats = (
     }
     if (opposingOwner) {
       const channel = threatChannel(opposingOwner.position);
-      const progress = depth(opposingOwner.position, opposingOwner.team);
+      const progress = depth(opposingOwner.position, opposingOwner);
       if (!memory.entryObserved && progress >= TEAM_THREAT_TUNING.finalThirdDepth) {
         memory.channelEntries = add(memory.channelEntries, channel, 1);
         memory.entryObserved = true;
@@ -519,14 +521,14 @@ export const observeTeamThreats = (
       );
       const covering = defenders.filter(
         (player) =>
-          depth(player.position, opposingOwner.team) > progress &&
+          depth(player.position, opposingOwner) > progress &&
           Math.abs(player.position.y - opposingOwner.position.y) < 15 &&
           distance(player.position, opposingOwner.position) < 26,
       );
       if (
         !memory.lineObserved &&
         progress >= 60 &&
-        progress - depth(memory.controlOrigin, opposingOwner.team) >= 10 &&
+        progress - depth(memory.controlOrigin, opposingOwner) >= 10 &&
         covering.length <= 2
       ) {
         memory.lineExposures = add(memory.lineExposures, channel, 1.6);
@@ -563,7 +565,7 @@ export const observeTeamThreats = (
     if (due) {
       const territory =
         live && next.possessionTeam !== side
-          ? clamp((depth(next.ball, opposing(side)) - 45) / 40)
+          ? clamp((depth(next.ball, next.teams[opposing(side)]) - 45) / 40)
           : 0;
       const weight = 1 - Math.exp(-(next.time - initial.evaluatedAt) / 12);
       memory.territorialPressure += (territory - memory.territorialPressure) * weight;

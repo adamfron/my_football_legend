@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
 import { distance, distanceToSegment, PITCH_LENGTH, PITCH_WIDTH } from './matchSpace';
@@ -38,7 +39,7 @@ export const evaluateShootingOpportunity = (
   state: TacticalMatchState,
   shooter: MatchPlayerState,
 ): ShootingOpportunity => {
-  const goal = { x: shooter.team === 'home' ? PITCH_LENGTH : 0, y: PITCH_WIDTH / 2 };
+  const goal = { x: attacksRight(shooter) ? PITCH_LENGTH : 0, y: PITCH_WIDTH / 2 };
   const metres = distance(shooter.position, goal);
   const lateral = Math.abs(shooter.position.y - PITCH_WIDTH / 2);
   const angle = clamp01(1 - lateral / Math.max(7, metres * 0.62));

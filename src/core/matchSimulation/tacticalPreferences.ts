@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
@@ -248,7 +249,7 @@ export const derivePressingOpportunity = (
     })
     .sort((a, b) => b.quality - a.quality || a.receiver.id.localeCompare(b.receiver.id));
   const safeOutletCount = outlets.filter((outlet) => outlet.quality >= 0.35).length;
-  const opponentDir = carrier.team === 'home' ? 1 : -1;
+  const opponentDir = attacksRight(carrier) ? 1 : -1;
   const cover = defenders.filter(
     (player) =>
       opponentDir * (player.position.x - carrier.position.x) > 3 &&
@@ -279,12 +280,12 @@ export const derivePressingOpportunity = (
         ? 0.6
         : 0),
   );
-  const attackingFacing = carrier.team === 'home' ? Math.PI / 2 : -Math.PI / 2;
+  const attackingFacing = attacksRight(carrier) ? Math.PI / 2 : -Math.PI / 2;
   const poorOrientation = Math.abs(normalizeAngle(carrier.facingAngle - attackingFacing)) / Math.PI;
   const touchline = clamp((8 - Math.min(carrier.position.y, 68 - carrier.position.y)) / 8);
   const isolation = 1 - clamp(safeOutletCount / 3);
   const numericalAdvantage = clamp((localDefenders - localSupport) / 3);
-  const progress = carrier.team === 'home' ? carrier.position.x : 105 - carrier.position.x;
+  const progress = attacksRight(carrier) ? carrier.position.x : 105 - carrier.position.x;
   const riskBehind = clamp(
     (1 - coverQuality) * 0.6 + preferences.blockHeight * 0.2 + Math.max(0, progress - 55) / 60,
   );

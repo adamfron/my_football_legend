@@ -1,0 +1,389 @@
+{
+  "node": "v24.19.0",
+  "baselineTree": "c34ad9b7556b604b17d98382fcc33a7e209bd044",
+  "method": "Three sequential baseline/current pairs, fresh Node processes on the same Windows host, no concurrent browser/test benchmark workload. 2400 fixed 0.025-second steps per mode. Interactive includes agency projection; background uses the decision-probed tick. Controlled free kick uses an explicit Lab scenario, not a claimed real-career fixture. 200 preliminary probes warm agency; the initial human pause can hold their football clock. Background follows interactive in each process; JIT/GC affect timings. Memory is unforced process heap/RSS, not a retained-memory or leak claim. Rendering and browser scheduling excluded.",
+  "summaries": [
+    {
+      "scenario": "open-play",
+      "mode": "interactive",
+      "baselineMedianMs": 4444.254999999999,
+      "currentMedianMs": 4408.061900000001,
+      "changePercent": -0.8143794629245749,
+      "sampledFootballStateEqual": true,
+      "selected": [
+        0,
+        0,
+        0
+      ],
+      "currentHeapAfterRange": [
+        120712432,
+        123482904
+      ]
+    },
+    {
+      "scenario": "open-play",
+      "mode": "background",
+      "baselineMedianMs": 2715.3701,
+      "currentMedianMs": 2688.094899999999,
+      "changePercent": -1.004474491341012,
+      "sampledFootballStateEqual": true,
+      "selected": [
+        0,
+        0,
+        0
+      ],
+      "currentHeapAfterRange": [
+        80989208,
+        142233576
+      ]
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "mode": "interactive",
+      "baselineMedianMs": 2274.3031,
+      "currentMedianMs": 2314.9647999999997,
+      "changePercent": 1.787875151733287,
+      "sampledFootballStateEqual": true,
+      "selected": [
+        4,
+        4,
+        4
+      ],
+      "currentHeapAfterRange": [
+        87932072,
+        96310376
+      ]
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "mode": "background",
+      "baselineMedianMs": 1715.1972999999998,
+      "currentMedianMs": 1575.7392,
+      "changePercent": -8.130732248703975,
+      "sampledFootballStateEqual": true,
+      "selected": [
+        4,
+        4,
+        4
+      ],
+      "currentHeapAfterRange": [
+        118415064,
+        126417672
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "scenario": "open-play",
+      "repetition": 1,
+      "version": "baseline",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 4557.794999999999,
+      "beforeHeapBytes": 54017056,
+      "afterHeapBytes": 117447720,
+      "rssBytes": 285712384,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 1,
+      "version": "baseline",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 2794.6040999999987,
+      "beforeHeapBytes": 119575688,
+      "afterHeapBytes": 75495216,
+      "rssBytes": 296558592,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 1,
+      "version": "current",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 4521.9429,
+      "beforeHeapBytes": 59366720,
+      "afterHeapBytes": 122208464,
+      "rssBytes": 298348544,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 1,
+      "version": "current",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 2676.995499999999,
+      "beforeHeapBytes": 124239352,
+      "afterHeapBytes": 80989208,
+      "rssBytes": 296931328,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 2,
+      "version": "baseline",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 4444.254999999999,
+      "beforeHeapBytes": 64846072,
+      "afterHeapBytes": 118370600,
+      "rssBytes": 293732352,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 2,
+      "version": "baseline",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 2602.207400000001,
+      "beforeHeapBytes": 56157528,
+      "afterHeapBytes": 95008168,
+      "rssBytes": 286445568,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 2,
+      "version": "current",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 4408.061900000001,
+      "beforeHeapBytes": 64839832,
+      "afterHeapBytes": 120712432,
+      "rssBytes": 305491968,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 2,
+      "version": "current",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 2755.0258999999996,
+      "beforeHeapBytes": 122697840,
+      "afterHeapBytes": 142233576,
+      "rssBytes": 303407104,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 3,
+      "version": "baseline",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 4434.3267000000005,
+      "beforeHeapBytes": 64979408,
+      "afterHeapBytes": 121271560,
+      "rssBytes": 299032576,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 3,
+      "version": "baseline",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 2715.3701,
+      "beforeHeapBytes": 58623816,
+      "afterHeapBytes": 98291344,
+      "rssBytes": 294596608,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 3,
+      "version": "current",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 4367.199,
+      "beforeHeapBytes": 59605904,
+      "afterHeapBytes": 123482904,
+      "rssBytes": 295952384,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "open-play",
+      "repetition": 3,
+      "version": "current",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 2688.094899999999,
+      "beforeHeapBytes": 125702224,
+      "afterHeapBytes": 82343688,
+      "rssBytes": 300535808,
+      "selected": 0,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":64.99999999999766,\"decisionIndex\":30,\"ball\":{\"x\":49.3503125030802,\"y\":51.68454863579381,\"from\":{\"x\":52.23352558453578,\"y\":43.41479363636465},\"target\":{\"x\":47.64822251163069,\"y\":56.566555902895104},\"intendedReceiverId\":\"geometry:opponent:7\",\"travelKind\":\"pass\",\"sourceAction\":\"pass\",\"executionType\":\"first_time\",\"flightTime\":0.8500000000000004,\"distanceTravelled\":8.778077577148538,\"height\":0.11,\"airborne\":false,\"velocity\":{\"x\":-2.9442887168201612,\"y\":8.444934747380506,\"z\":0},\"launchVelocity\":{\"x\":-3.839742063075369,\"y\":11.013312310099877,\"z\":0},\"launchSpeed\":11.663475774860073,\"launchElevation\":0,\"bounceCount\":0,\"lastTouchPlayerId\":\"geometry:opponent:5\"}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 1,
+      "version": "baseline",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 2264.4013000000004,
+      "beforeHeapBytes": 57286496,
+      "afterHeapBytes": 93841376,
+      "rssBytes": 225435648,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 1,
+      "version": "baseline",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 1601.1313,
+      "beforeHeapBytes": 63291552,
+      "afterHeapBytes": 65579360,
+      "rssBytes": 295612416,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 1,
+      "version": "current",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 2314.9647999999997,
+      "beforeHeapBytes": 58191344,
+      "afterHeapBytes": 88229992,
+      "rssBytes": 230490112,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 1,
+      "version": "current",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 1633.0928000000004,
+      "beforeHeapBytes": 91057992,
+      "afterHeapBytes": 118415064,
+      "rssBytes": 299266048,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 2,
+      "version": "baseline",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 2374.8052,
+      "beforeHeapBytes": 57080736,
+      "afterHeapBytes": 68657008,
+      "rssBytes": 227442688,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 2,
+      "version": "baseline",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 1715.1972999999998,
+      "beforeHeapBytes": 71508856,
+      "afterHeapBytes": 79482208,
+      "rssBytes": 295788544,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 2,
+      "version": "current",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 2369.0661,
+      "beforeHeapBytes": 58320984,
+      "afterHeapBytes": 96310376,
+      "rssBytes": 231129088,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 2,
+      "version": "current",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 1571.0228000000002,
+      "beforeHeapBytes": 65817112,
+      "afterHeapBytes": 126417672,
+      "rssBytes": 299130880,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 3,
+      "version": "baseline",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 2274.3031,
+      "beforeHeapBytes": 57156680,
+      "afterHeapBytes": 91061592,
+      "rssBytes": 226762752,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 3,
+      "version": "baseline",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 1726.9214000000006,
+      "beforeHeapBytes": 93881600,
+      "afterHeapBytes": 106411088,
+      "rssBytes": 293404672,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 3,
+      "version": "current",
+      "mode": "interactive",
+      "footballSeconds": 60,
+      "elapsedMs": 2289.8586999999998,
+      "beforeHeapBytes": 53002800,
+      "afterHeapBytes": 87932072,
+      "rssBytes": 229449728,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    },
+    {
+      "scenario": "controlled-free-kick",
+      "repetition": 3,
+      "version": "current",
+      "mode": "background",
+      "footballSeconds": 60,
+      "elapsedMs": 1575.7392,
+      "beforeHeapBytes": 90277744,
+      "afterHeapBytes": 119718816,
+      "rssBytes": 304504832,
+      "selected": 4,
+      "stateDigest": "{\"score\":{\"home\":0,\"away\":0},\"time\":59.99999999999766,\"decisionIndex\":10,\"ball\":{\"x\":41.53387653054642,\"y\":14.583230201528432,\"ownerId\":\"geometry:anchor:1\",\"lastTouchPlayerId\":\"geometry:anchor:1\",\"velocity\":{\"x\":-0.01058543623695204,\"y\":0.5376779467891777,\"z\":0},\"height\":0,\"airborne\":false}}"
+    }
+  ]
+}

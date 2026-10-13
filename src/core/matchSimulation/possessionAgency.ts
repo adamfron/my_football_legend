@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { distance, distanceToSegment } from './matchSpace';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
@@ -58,7 +59,7 @@ export const derivePossessionDecisionContext = (
   observeSupport = state.humanPossessionEpisode?.intent === 'retain',
 ) => {
   const actor = state.players.find((player) => player.id === actorId)!;
-  const goal = { x: actor.team === 'home' ? 105 : 0, y: 34 };
+  const goal = { x: attacksRight(actor) ? 105 : 0, y: 34 };
   const foes = state.players.filter((player) => player.team !== actor.team);
   const defenders = foes.filter((player) => !isMatchGoalkeeper(player));
   const nearest = defenders

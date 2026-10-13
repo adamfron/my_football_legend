@@ -241,7 +241,7 @@ export class PassingConnectivityTracker {
           at: next.time,
           players: [...new Set(this.recent.flatMap((p) => [p.passer, p.receiver]))],
           length: this.recent.length,
-          progression: signedForwardDistance(first.origin, target, actor.team),
+          progression: signedForwardDistance(first.origin, target, actor),
           displacement,
           returnsToSameArea: displacement < 3,
         });

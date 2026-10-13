@@ -85,6 +85,7 @@ import {
   type MatchPresentationPhase,
   letAiDecide,
   projectContextualInteractions,
+  projectSelectableInteractionTargets,
   applyContextualInteraction,
   type PlayerInteractionTarget,
   type ContextualInteraction,
@@ -385,6 +386,7 @@ export class MatchLabErrorBoundary extends Component<
   {
     controller: MatchLabDiagnosticsController;
     onSetup(): void;
+    careerMode?: boolean;
     children: ReactNode;
   },
   { error?: Error }
@@ -401,6 +403,17 @@ export class MatchLabErrorBoundary extends Component<
   }
   render() {
     if (!this.state.error) return this.props.children;
+    if (this.props.careerMode)
+      return (
+        <section role="alert">
+          <h2>Mecz został przerwany przez błąd</h2>
+          <p>
+            Wynik nie został zatwierdzony. Możesz wrócić do kariery i rozpocząć ten mecz od
+            początku.
+          </p>
+          <button onClick={this.props.onSetup}>Wróć do kariery</button>
+        </section>
+      );
     const { controller } = this.props;
     const crash = controller.crashPackage;
     return (
@@ -438,6 +451,11 @@ export class MatchLabErrorBoundary extends Component<
 
 type RunningLabProps = {
   session: SingleMatchSession;
+  careerMode?: boolean;
+  initialState?: TacticalMatchState;
+  onObserve?: (state: TacticalMatchState) => void;
+  onComplete?: (state: TacticalMatchState) => void;
+  completionPending?: boolean;
   squadOveralls?: { home: number; away: number };
   onSetup(): void;
   onRestart(): void;
@@ -446,9 +464,9 @@ type RunningLabProps = {
 const FatalCrash = ({ message }: { message: string }) => {
   throw new Error(message);
 };
-const RunningLabGuard = (props: RunningLabProps) => {
+export const RunningLabGuard = (props: RunningLabProps) => {
   const [controller] = useState(() => {
-    const initial = createTacticalMatch(props.session);
+    const initial = props.initialState ?? createTacticalMatch(props.session);
     return new MatchLabDiagnosticsController(
       props.session,
       initial,
@@ -470,7 +488,11 @@ const RunningLabGuard = (props: RunningLabProps) => {
     };
   }, [controller]);
   return (
-    <MatchLabErrorBoundary controller={controller} onSetup={props.onSetup}>
+    <MatchLabErrorBoundary
+      controller={controller}
+      onSetup={props.onSetup}
+      careerMode={props.careerMode ?? false}
+    >
       {controller.crashPackage ? (
         <FatalCrash message={controller.crashPackage.error.message} />
       ) : (
@@ -487,6 +509,11 @@ export const RunningLab = ({
   onRandomize,
   diagnostics,
   squadOveralls,
+  careerMode = false,
+  initialState,
+  onObserve,
+  onComplete,
+  completionPending = false,
 }: {
   session: SingleMatchSession;
   onSetup(): void;
@@ -494,15 +521,23 @@ export const RunningLab = ({
   onRandomize(): void;
   diagnostics: MatchLabDiagnosticsController;
   squadOveralls?: { home: number; away: number };
+  careerMode?: boolean;
+  initialState?: TacticalMatchState;
+  onObserve?: (state: TacticalMatchState) => void;
+  onComplete?: (state: TacticalMatchState) => void;
+  completionPending?: boolean;
 }) => {
   const kits = useMemo(() => projectMatchKits(session.home.club, session.away.club), [session]);
   const [attributeLab, setAttributeLab] = useState<AttributeMicroLabResult>();
   const [state, setState] = useState<TacticalMatchState>(() => diagnostics.latestState),
     [playing, setPlaying] = useState(true),
     [speed, setSpeed] = useState(1),
-    [presentationPolicyId, setPresentationPolicyId] =
-      useState<MatchPresentationPolicy['id']>('full_match'),
-    [presentationPhase, setPresentationPhase] = useState<MatchPresentationPhase>('full_match'),
+    [presentationPolicyId, setPresentationPolicyId] = useState<MatchPresentationPolicy['id']>(
+      careerMode ? 'key_player' : 'full_match',
+    ),
+    [presentationPhase, setPresentationPhase] = useState<MatchPresentationPhase>(
+      careerMode ? 'background_simulation' : 'full_match',
+    ),
     [displayTime, setDisplayTime] = useState(() => diagnostics.latestState.time),
     [debug, setDebug] = useState(false),
     [observerMode, setObserverMode] = useState<PerformanceObserverMode>('normal'),
@@ -549,6 +584,8 @@ export const RunningLab = ({
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
   const replaying = presentationPhase === 'replay';
+  const onObserveRef = useRef(onObserve);
+  onObserveRef.current = onObserve;
   const opportunity =
     presentationPhase === 'awaiting_player_decision' ? decisionBoundary : undefined;
   const contextHistoryRef = useRef(new PresentationContextHistory());
@@ -671,6 +708,7 @@ export const RunningLab = ({
   }, []);
   const publishState = useCallback(
     (next: TacticalMatchState) => {
+      onObserveRef.current?.(next);
       try {
         matchReplayRef.current.observe(next);
       } catch (error) {
@@ -686,7 +724,7 @@ export const RunningLab = ({
   );
   useEffect(() => {
     if (!hostRef.current) return;
-    const initial = createTacticalMatch(session);
+    const initial = initialState ?? createTacticalMatch(session);
     resetPresentation(initial);
     backgroundPerformanceRef.current = new BackgroundPerformanceTracker();
     presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
@@ -767,7 +805,7 @@ export const RunningLab = ({
       renderer.dispose();
       videoRecorder.dispose();
     };
-  }, [session, diagnostics, kits, publishState, resetPresentation]);
+  }, [session, initialState, diagnostics, kits, publishState, resetPresentation]);
   useEffect(() => {
     const last = observerCoverageRef.current.at(-1);
     if (!last || last.mode !== observerMode) {
@@ -1036,6 +1074,7 @@ export const RunningLab = ({
                   endPerformanceSpan('canonical_step', canonicalStarted);
                   diagnostics.latestState = next;
                   canonicalParticipationRef.current.observe(previousState, next, background);
+                  onObserveRef.current?.(next);
                   executedTicks += 1;
                   if (background)
                     presentationTelemetryRef.current.hiddenCanonicalSeconds += FIXED_MATCH_DT;
@@ -1400,7 +1439,8 @@ export const RunningLab = ({
         )
       : [];
   const controlledSummary =
-    state.controlledFootballerId && state.statistics
+    state.controlledFootballerId &&
+    state.statistics?.players.some((entry) => entry.playerId === state.controlledFootballerId)
       ? projectPlayerMatchSummary(state.statistics, state.controlledFootballerId)
       : undefined;
   const interactions =
@@ -1408,63 +1448,68 @@ export const RunningLab = ({
       ? projectContextualInteractions(state, opportunity, selectedTarget)
       : [];
   const interactionLabel = (interaction: ContextualInteraction) =>
-    ({
-      pass_to_feet: 'Podaj do nogi',
-      lead_pass: 'Podaj na dobieg',
-      lofted_pass: 'Zagraj górą',
-      progressive_pass: 'Podanie progresywne',
-      pass_into_space: 'Zagraj przed niego',
-      cross: 'Dośrodkuj',
-      floated_cross: 'Dośrodkuj górą',
-      driven_cross: 'Dośrodkuj mocno',
-      cutback_cross: 'Wycofaj przed pole karne',
-      free_kick_power_bend: 'Mocny strzał z rotacją',
-      free_kick_controlled_curl: 'Podkręcony strzał techniczny',
-      free_kick_dipping: 'Strzał opadający',
-      free_kick_under_wall: 'Nisko pod murem',
-      free_kick_wall_gap: 'Przez lukę w murze',
-      free_kick_wall_power: 'Z całej siły w mur',
-      hold_ball: 'Osłoń / utrzymaj piłkę',
-      carry_here: 'Prowadź tutaj',
-      sprint_here: 'Sprintem tutaj',
-      dribble_here: 'Drybluj w tym kierunku',
-      retain_here: 'Utrzymaj piłkę',
-      play_here: 'Zagraj tutaj',
-      first_time_pass: 'Podaj z pierwszej piłki',
-      placed_shot: 'Strzał techniczny',
-      driven_shot: 'Strzał mocny',
-      chip_shot: 'Lob',
-      first_time_driven: 'Z pierwszej · mocno',
-      first_time_placed: 'Z pierwszej · technicznie',
-      half_volley_driven: 'Półwolej · mocno',
-      half_volley_placed: 'Półwolej · technicznie',
-      volley_driven: 'Wolej · mocno',
-      volley_placed: 'Wolej · technicznie',
-      header_shot: 'Strzał głową',
-      contain: 'Pilnuj / opóźniaj',
-      close_down: 'Doskok',
-      normal_challenge: 'Odbiór',
-      standing_challenge: 'Odbiór',
-      committed_challenge: 'Zdecydowany odbiór',
-      slide_tackle: 'Wślizg',
-      tactical_foul: 'Zatrzymaj atak',
-      aggressive_challenge: 'Ostry odbiór',
-      press: 'Pressuj',
-      challenge: 'Odbierz',
-      hold_line: 'Trzymaj linię',
-      intercept: 'Wyjdź do przechwytu',
-      control_ball: 'Przyjmij i osłoń',
-      first_touch_into_space: 'Pierwszy kontakt w przestrzeń',
-      attack_ball: 'Walcz o piłkę',
-      move_here: 'Pokaż się tutaj',
-      run_in_behind: 'Rusz za linię',
-      keeper_stay: 'Zostań',
-      keeper_stay_line: 'Zostań na linii',
-      keeper_sweep: 'Wyjdź do piłki',
-      keeper_claim_cross: 'Wyjdź do dośrodkowania',
-      keeper_hold_position: 'Trzymaj pozycję',
-      keeper_close_angle: 'Skróć kąt',
-    })[interaction.labelKey] ?? interaction.labelKey;
+    [
+      {
+        pass_to_feet: 'Podaj do nogi',
+        lead_pass: 'Podaj na dobieg',
+        lofted_pass: 'Zagraj górą',
+        progressive_pass: 'Podanie progresywne',
+        pass_into_space: 'Zagraj przed niego',
+        cross: 'Dośrodkuj',
+        floated_cross: 'Dośrodkuj górą',
+        driven_cross: 'Dośrodkuj mocno',
+        cutback_cross: 'Wycofaj przed pole karne',
+        free_kick_power_bend: 'Mocny strzał z rotacją',
+        free_kick_controlled_curl: 'Podkręcony strzał techniczny',
+        free_kick_dipping: 'Strzał opadający',
+        free_kick_under_wall: 'Nisko pod murem',
+        free_kick_wall_gap: 'Przez lukę w murze',
+        free_kick_wall_power: 'Z całej siły w mur',
+        hold_ball: 'Osłoń / utrzymaj piłkę',
+        carry_here: 'Prowadź tutaj',
+        sprint_here: 'Sprintem tutaj',
+        dribble_here: 'Drybluj w tym kierunku',
+        retain_here: 'Utrzymaj piłkę',
+        play_here: 'Zagraj tutaj',
+        first_time_pass: 'Podaj z pierwszej piłki',
+        placed_shot: 'Strzał techniczny',
+        driven_shot: 'Strzał mocny',
+        chip_shot: 'Lob',
+        first_time_driven: 'Z pierwszej · mocno',
+        first_time_placed: 'Z pierwszej · technicznie',
+        half_volley_driven: 'Półwolej · mocno',
+        half_volley_placed: 'Półwolej · technicznie',
+        volley_driven: 'Wolej · mocno',
+        volley_placed: 'Wolej · technicznie',
+        header_shot: 'Strzał głową',
+        contain: 'Pilnuj / opóźniaj',
+        close_down: 'Doskok',
+        normal_challenge: 'Odbiór',
+        standing_challenge: 'Odbiór',
+        committed_challenge: 'Zdecydowany odbiór',
+        slide_tackle: 'Wślizg',
+        tactical_foul: 'Zatrzymaj atak',
+        aggressive_challenge: 'Ostry odbiór',
+        press: 'Pressuj',
+        challenge: 'Odbierz',
+        hold_line: 'Trzymaj linię',
+        intercept: 'Wyjdź do przechwytu',
+        control_ball: 'Przyjmij i osłoń',
+        first_touch_into_space: 'Pierwszy kontakt w przestrzeń',
+        attack_ball: 'Walcz o piłkę',
+        move_here: 'Pokaż się tutaj',
+        run_in_behind: 'Rusz za linię',
+        keeper_stay: 'Zostań',
+        keeper_stay_line: 'Zostań na linii',
+        keeper_sweep: 'Wyjdź do piłki',
+        keeper_claim_cross: 'Wyjdź do dośrodkowania',
+        keeper_hold_position: 'Trzymaj pozycję',
+        keeper_close_angle: 'Skróć kąt',
+      }[interaction.labelKey] ?? interaction.labelKey,
+      interaction.labelDetail,
+    ]
+      .filter(Boolean)
+      .join(' · ');
   const interactionFamilyLabels = {
     shoot: 'Strzał',
     cross: 'Dośrodkowanie',
@@ -1617,7 +1662,9 @@ export const RunningLab = ({
     <main className="tactical-sandbox">
       <header>
         <div>
-          <span className="dev-badge">SINGLE MATCH LAB · MECZ</span>
+          <span className="dev-badge">
+            {careerMode ? 'KARIERA · MECZ' : 'SINGLE MATCH LAB · MECZ'}
+          </span>
           <h1>
             <i className="team-swatch" style={{ background: kits.home.primary }} />
             {session.home.club.name}{' '}
@@ -1629,18 +1676,52 @@ export const RunningLab = ({
           </h1>
         </div>
         <p>
-          {formatPeriodClock(state, displayTime)} ·{' '}
+          {formatPeriodClock(
+            state,
+            state.status === 'full_time' || state.status === 'abandoned' ? state.time : displayTime,
+          )}{' '}
+          ·{' '}
           {state.status === 'abandoned'
             ? 'Mecz przerwany'
-            : replaying
-              ? 'Powtórka'
-              : opportunity
-                ? 'Twój wybór'
-                : playing
-                  ? 'Mecz trwa'
-                  : 'Pauza'}
+            : state.status === 'full_time'
+              ? 'Koniec meczu'
+              : replaying
+                ? 'Powtórka'
+                : opportunity
+                  ? 'Twój wybór'
+                  : playing
+                    ? 'Mecz trwa'
+                    : 'Pauza'}
         </p>
       </header>
+      {careerMode && session.setup.control.mode === 'player' && (
+        <p role="status">
+          {(() => {
+            const id =
+              session.setup.control.mode === 'player' ? session.setup.control.footballerId : '';
+            const active = state.players.find((p) => p.id === id);
+            const departed = state.departedPlayers?.find((p) => p.id === id);
+            const bench = [...(state.bench?.home ?? []), ...(state.bench?.away ?? [])].find(
+              (p) => p.id === id,
+            );
+            const profile = active?.profile ?? departed?.profile ?? bench?.profile;
+            const status = state.discipline?.[id]?.sentOff
+              ? 'Wykluczony'
+              : state.status === 'full_time'
+                ? active || departed
+                  ? 'Występ zakończony'
+                  : 'Bez występu'
+                : active
+                  ? 'Na boisku'
+                  : departed
+                    ? 'Po zmianie'
+                    : bench
+                      ? 'Na ławce · decyzja trenera'
+                      : 'Poza kadrą';
+            return `${profile?.firstName ?? ''} ${profile?.lastName ?? ''} · ${status}`;
+          })()}
+        </p>
+      )}
       <nav>
         <label>
           Czułość momentów{' '}
@@ -1711,20 +1792,39 @@ export const RunningLab = ({
             mniej niż siedmiu zawodników. Zachowano wynik i czas przerwania.
           </p>
         )}
-        <button onClick={onRestart}>Restart — ten sam seed</button>
-        <button onClick={onRandomize}>Losuj seed</button>
-        <button onClick={onSetup}>Zmień ustawienia</button>
-        <button onClick={() => navigateApp(buildStartMenuUrl(globalThis.location.href))}>
-          Powrót do menu
-        </button>
+        {!careerMode && (
+          <>
+            <button onClick={onRestart}>Restart — ten sam seed</button>
+            <button onClick={onRandomize}>Losuj seed</button>
+            <button onClick={onSetup}>Zmień ustawienia</button>
+            <button onClick={() => navigateApp(buildStartMenuUrl(globalThis.location.href))}>
+              Powrót do menu
+            </button>
+          </>
+        )}
+        {careerMode && (state.status === 'full_time' || state.status === 'abandoned') && (
+          <button disabled={completionPending} onClick={() => onComplete?.(stateRef.current)}>
+            {completionPending ? 'Zapisywanie wyniku…' : 'Zapisz wynik i wróć do kariery'}
+          </button>
+        )}
+        {careerMode && state.status !== 'full_time' && state.status !== 'abandoned' && (
+          <button onClick={onSetup}>
+            Wróć do kariery · rozpocznij ten mecz później od początku
+          </button>
+        )}
       </nav>
       {replaying && (
         <div>
           {goalReplay[0]?.offside && (
             <p role="status">
               Moment podania: {formatDiagnosticMatchTime(goalReplay[0].offside.releasedAt)} ·
-              kierunek ataku {goalReplay[0].offside.attackingTeam === 'home' ? '→' : '←'}. Czerwony:
-              atakujący; zielony: obrońcy wyznaczający linię. Wznów, aby obejrzeć dalszy przebieg.
+              kierunek ataku{' '}
+              {(goalReplay[0].offside.attackingTeam === 'home') !==
+              Boolean(goalReplay[0].offside.endsSwitched)
+                ? '→'
+                : '←'}
+              . Czerwony: atakujący; zielony: obrońcy wyznaczający linię. Wznów, aby obejrzeć dalszy
+              przebieg.
             </p>
           )}
           <ReplayControls
@@ -1823,400 +1923,414 @@ export const RunningLab = ({
           </select>
         </label>
       </nav>
-      <details className="presentation-diagnostics">
-        <summary>Widok diagnostyczny</summary>
-        <div>
-          {(
-            [
-              ['identity', 'ID i role'],
-              ['movement', 'Ruch i orientacja'],
-              ['shape', 'Kotwice i cele taktyczne'],
-              ['assignments', 'Krycie, pressing i wsparcie'],
-              ['contacts', 'Plan i kontakt stopy'],
-              ['fitness', 'Rezerwa i gotowość'],
-              ['ball', 'Piłka i wznowienie'],
-            ] as const
-          ).map(([key, label]) => (
-            <label key={key}>
-              <input
-                type="checkbox"
-                checked={tacticalDiagnostics[key]}
-                onChange={(event) =>
-                  setTacticalDiagnostics((current) => ({ ...current, [key]: event.target.checked }))
-                }
-              />
-              {label}
-            </label>
-          ))}
-        </div>
-        <small>
-          Pozycja: zawodnik · cel ruchu: żółty · kotwica formacji: niebieski · cel taktyczny:
-          fioletowy. Brak danych pozostaje widoczny jako brak danych.
-        </small>
-      </details>
-      <details
-        className="lab-diagnostics"
-        onToggle={(event) => {
-          if (event.target === event.currentTarget)
-            setDiagnosticsExpanded(event.currentTarget.open);
-        }}
-      >
-        <summary>DEV · Diagnostyka, scenariusze i zapis meczu</summary>
-        {diagnosticsExpanded && (
-          <>
-            <p>
-              OVR XI: {session.home.club.name} {session.home.strength.toFixed(1)} ·{' '}
-              {session.away.club.name} {session.away.strength.toFixed(1)}
-              {squadOveralls && (
-                <>
-                  {' '}
-                  · OVR kadr: {squadOveralls.home.toFixed(1)} / {squadOveralls.away.toFixed(1)}
-                </>
-              )}
-            </p>
-            <details>
-              <summary>DEV · Attribute Micro Lab</summary>
-              <p>
-                Identyczna geometria i seedy; zmieniamy jeden atrybut w pasmach 20 / 40 / 60 / 80 /
-                100. Wyniki opisują rozkłady wykonania i ETA.
-              </p>
-              <button onClick={() => setAttributeLab(runAttributeMicroLab(state))}>
-                Uruchom macierz atrybutów
-              </button>
-              {attributeLab && (
-                <>
-                  <button
-                    onClick={() =>
-                      downloadBlob(
-                        new Blob([JSON.stringify(attributeLab, null, 2)], {
-                          type: 'application/json',
-                        }),
-                        'mfl-attribute-micro-lab.json',
-                      )
-                    }
-                  >
-                    Eksportuj macierz JSON
-                  </button>
-                  <p>
-                    {attributeLab.rows.length} wariantów · {attributeLab.config.repetitions}{' '}
-                    powtórzeń każdego wariantu
-                  </p>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Pomiar / atrybut / kontekst</th>
-                        <th>Pasmo</th>
-                        <th>Średnia</th>
-                        <th>P05 / P50 / P95</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {attributeLab.rows.map((row) => (
-                        <tr key={`${row.metric}:${row.attribute}:${row.context}:${row.band}`}>
-                          <td>
-                            {row.metric} / {row.attribute} / {row.context}
-                          </td>
-                          <td>{row.band}</td>
-                          <td>{row.distribution.mean.toFixed(3)}</td>
-                          <td>
-                            {row.distribution.p05.toFixed(3)} / {row.distribution.median.toFixed(3)}{' '}
-                            / {row.distribution.p95.toFixed(3)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </>
-              )}
-            </details>
-            <details>
-              <summary>DEV · Reakcja wsparcia na presję</summary>
-              <p>
-                Ostatnie epizody: ruch partnerów, czas reakcji, odległości i dostępne opcje. Pomiar
-                zbierany w DEV/capture.
-              </p>
-              <button
-                onClick={() =>
-                  downloadBlob(
-                    new Blob([JSON.stringify(pressureSupportRef.current.snapshot(), null, 2)], {
-                      type: 'application/json',
-                    }),
-                    'mfl-pressure-support.json',
-                  )
-                }
-              >
-                Eksportuj epizody JSON
-              </button>
-              <pre>{JSON.stringify(pressureSupportRef.current.snapshot().slice(-8), null, 2)}</pre>
-            </details>
-            <nav className="debug-capture" aria-label="Eksport diagnostyczny">
-              <label>
-                Tryb obserwacji{' '}
-                <select
-                  aria-label="Tryb obserwacji"
-                  value={observerMode}
-                  disabled={isCaptureTriggerDisabled(captureStatus)}
+      {!careerMode && (
+        <details className="presentation-diagnostics">
+          <summary>Widok diagnostyczny</summary>
+          <div>
+            {(
+              [
+                ['identity', 'ID i role'],
+                ['movement', 'Ruch i orientacja'],
+                ['shape', 'Kotwice i cele taktyczne'],
+                ['assignments', 'Krycie, pressing i wsparcie'],
+                ['contacts', 'Plan i kontakt stopy'],
+                ['fitness', 'Rezerwa i gotowość'],
+                ['ball', 'Piłka i wznowienie'],
+              ] as const
+            ).map(([key, label]) => (
+              <label key={key}>
+                <input
+                  type="checkbox"
+                  checked={tacticalDiagnostics[key]}
                   onChange={(event) =>
-                    setObserverMode(performanceObserverModeSchema.parse(event.target.value))
+                    setTacticalDiagnostics((current) => ({
+                      ...current,
+                      [key]: event.target.checked,
+                    }))
+                  }
+                />
+                {label}
+              </label>
+            ))}
+          </div>
+          <small>
+            Pozycja: zawodnik · cel ruchu: żółty · kotwica formacji: niebieski · cel taktyczny:
+            fioletowy. Brak danych pozostaje widoczny jako brak danych.
+          </small>
+        </details>
+      )}
+      {!careerMode && (
+        <details
+          className="lab-diagnostics"
+          onToggle={(event) => {
+            if (event.target === event.currentTarget)
+              setDiagnosticsExpanded(event.currentTarget.open);
+          }}
+        >
+          <summary>DEV · Diagnostyka, scenariusze i zapis meczu</summary>
+          {diagnosticsExpanded && (
+            <>
+              <p>
+                OVR XI: {session.home.club.name} {session.home.strength.toFixed(1)} ·{' '}
+                {session.away.club.name} {session.away.strength.toFixed(1)}
+                {squadOveralls && (
+                  <>
+                    {' '}
+                    · OVR kadr: {squadOveralls.home.toFixed(1)} / {squadOveralls.away.toFixed(1)}
+                  </>
+                )}
+              </p>
+              <details>
+                <summary>DEV · Attribute Micro Lab</summary>
+                <p>
+                  Identyczna geometria i seedy; zmieniamy jeden atrybut w pasmach 20 / 40 / 60 / 80
+                  / 100. Wyniki opisują rozkłady wykonania i ETA.
+                </p>
+                <button onClick={() => setAttributeLab(runAttributeMicroLab(state))}>
+                  Uruchom macierz atrybutów
+                </button>
+                {attributeLab && (
+                  <>
+                    <button
+                      onClick={() =>
+                        downloadBlob(
+                          new Blob([JSON.stringify(attributeLab, null, 2)], {
+                            type: 'application/json',
+                          }),
+                          'mfl-attribute-micro-lab.json',
+                        )
+                      }
+                    >
+                      Eksportuj macierz JSON
+                    </button>
+                    <p>
+                      {attributeLab.rows.length} wariantów · {attributeLab.config.repetitions}{' '}
+                      powtórzeń każdego wariantu
+                    </p>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Pomiar / atrybut / kontekst</th>
+                          <th>Pasmo</th>
+                          <th>Średnia</th>
+                          <th>P05 / P50 / P95</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {attributeLab.rows.map((row) => (
+                          <tr key={`${row.metric}:${row.attribute}:${row.context}:${row.band}`}>
+                            <td>
+                              {row.metric} / {row.attribute} / {row.context}
+                            </td>
+                            <td>{row.band}</td>
+                            <td>{row.distribution.mean.toFixed(3)}</td>
+                            <td>
+                              {row.distribution.p05.toFixed(3)} /{' '}
+                              {row.distribution.median.toFixed(3)} /{' '}
+                              {row.distribution.p95.toFixed(3)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </>
+                )}
+              </details>
+              <details>
+                <summary>DEV · Reakcja wsparcia na presję</summary>
+                <p>
+                  Ostatnie epizody: ruch partnerów, czas reakcji, odległości i dostępne opcje.
+                  Pomiar zbierany w DEV/capture.
+                </p>
+                <button
+                  onClick={() =>
+                    downloadBlob(
+                      new Blob([JSON.stringify(pressureSupportRef.current.snapshot(), null, 2)], {
+                        type: 'application/json',
+                      }),
+                      'mfl-pressure-support.json',
+                    )
                   }
                 >
-                  <option value="release_minimal">release_minimal</option>
-                  <option value="normal">normal</option>
-                  <option value="dev">dev</option>
-                  <option value="capture">capture</option>
-                </select>
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={videoEnabled}
-                  disabled={observerMode !== 'capture' || isCaptureTriggerDisabled(captureStatus)}
-                  onChange={(event) => setVideoEnabled(event.target.checked)}
-                />{' '}
-                Nagrywaj WebM (DEV)
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={profilingEnabled}
-                  onChange={(event) => setProfilingEnabled(event.target.checked)}
-                />{' '}
-                Profiluj podsystemy (DEV)
-              </label>
-              <button
-                onClick={() => {
-                  const current = stateRef.current;
-                  const report = createSessionTelemetryReport({
-                    canonicalSeconds: current.time,
-                    coverage: observerCoverageRef.current,
-                    flow: telemetryRef.current,
-                    agency: agencyTrackerRef.current.snapshot(current.time, current),
-                    positioning: positioningSamplesRef.current,
-                    presentation: presentationTelemetryRef.current,
-                    state: current,
-                    participation: canonicalParticipationRef.current.snapshot(),
-                    measuredPosition,
-                  });
-                  const summary = {
-                    metadata: {
-                      schema: 'mfl-session-benchmark-v5',
-                      seed: current.seed,
-                      observerMode,
-                      observationScope:
-                        report.collectionScope.detailedObservers !== 'unavailable'
-                          ? 'dev_since_mode_enabled'
-                          : 'canonical_statistics_only',
-                      collectionScope: report.collectionScope,
-                      positioningSampleCapacity: 6000,
-                      observerCoverage: observerCoverageRef.current.map((interval) => ({
-                        ...interval,
-                        endedAt: interval.endedAt ?? current.time,
-                      })),
-                    },
-                    duration: current.time,
-                    segments: diagnostics
-                      .exportSegments(current, telemetryRef.current, positioningSamplesRef.current)
-                      .map((segment) => ({
-                        ...segment,
-                        observationScope: report.collectionScope.detailedObservers,
-                        matchFlowTelemetry:
-                          report.collectionScope.detailedObservers === 'unavailable'
-                            ? null
-                            : segment.matchFlowTelemetry,
-                        sampledPositioning:
-                          report.collectionScope.detailedObservers === 'unavailable'
-                            ? null
-                            : segment.sampledPositioning,
-                      })),
-                    controlledPlayer: current.controlledFootballerId,
-                    canonicalStatistics: current.statistics,
-                    defensiveTelemetry: current.defensiveTelemetry,
-                    discipline: current.discipline,
-                    recentCanonicalActionEvents: current.actionEvents ?? [],
-                    ...report,
-                    passingNetwork: current.statistics?.passingNetwork ?? [],
-                    runtimeDiagnostics: diagnostics.runtimeDiagnostics,
-                    omittedRuntimeDiagnostics: diagnostics.omittedRuntimeDiagnostics,
-                    rendererLifecycle: diagnostics.rendererLifecycle,
-                    contextBuffer: contextHistoryRef.current.snapshot(),
-                    presentationWindows: windowDiagnosticsRef.current,
-                    backgroundPerformance: backgroundPerformanceRef.current.snapshot(
-                      presentationTelemetryRef.current.rendererCallsBackground,
-                    ),
-                    presentationDecisions: presentationDecisionsRef.current,
-                    subsystemProfile: profilerRef.current.snapshot(),
-                    uiPerformance: uiPerformanceRef.current,
-                  };
-                  downloadBlob(
-                    new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
-                    `${current.seed}-benchmark-sesji.json`,
-                  );
-                }}
-              >
-                Eksportuj benchmark sesji
-              </button>
-              <button
-                disabled={observerMode !== 'capture' || isCaptureTriggerDisabled(captureStatus)}
-                onClick={triggerCapture}
-              >
-                Przechwyć debug ±10 s
-              </button>
-              <button
-                disabled={observerMode !== 'capture' || isCaptureTriggerDisabled(captureStatus)}
-                onClick={savePastOnly}
-              >
-                Zapisz ostatnie 10 s
-              </button>
-              <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
-              {captureStatus === 'idle' && (
-                <span>
-                  {observerMode !== 'capture'
-                    ? 'Włącz tryb capture, aby buforować debug ±10 s'
-                    : videoRecorderRef.current.active
-                      ? `Gotowy — bufor: ${videoRecorderRef.current.bufferedSeconds.toFixed(1)} s`
-                      : 'Wideo niedostępne — zapis będzie zawierał JSON'}
-                </span>
-              )}
-              {captureStatus === 'capturing' && (
-                <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
-              )}
-              {(captureStatus === 'processing' ||
-                captureStatus === 'ready' ||
-                captureStatus === 'saved' ||
-                captureStatus === 'error') && (
-                <>
-                  <strong>
-                    {describeDebugCapture(
-                      captureStatus,
-                      Boolean(debugExport),
-                      Boolean(debugExport?.video),
-                      captureError,
-                    )}
-                  </strong>
-                  {debugExport && captureStatus !== 'processing' && (
-                    <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
-                  )}
-                  {saveMessage && <span>{saveMessage}</span>}
-                </>
-              )}
-            </nav>
-            <nav className="scenario-picker" aria-label="Scenariusz developerski">
-              <strong>Sytuacja:</strong>
-              {scenarios.map(([scenario, label]) => (
-                <button
-                  key={scenario}
-                  className={state.scenario === scenario ? 'active' : ''}
-                  onClick={() => {
-                    setPlaying(false);
-                    clearDebugBuffer();
-                    {
-                      const next = applyRestartScenario(
-                        createTacticalMatch(session),
-                        scenario,
-                        scenario === 'throw_in'
-                          ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
-                          : undefined,
-                      );
-                      presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
-                      canonicalParticipationRef.current = new CanonicalParticipationTracker();
-                      resetPresentation(next);
-                      const segmentId = diagnostics.beginSegment(
-                        next,
-                        telemetryRef.current,
-                        positioningSamplesRef.current,
-                      );
-                      telemetryRef.current = createMatchFlowTelemetry(segmentId);
-                      positioningSamplesRef.current = devObservation
-                        ? [sampleCanonicalPositioning(next)]
-                        : [];
-                      diagnostics.telemetry = telemetryRef.current;
-                      diagnostics.positioningSamples = positioningSamplesRef.current;
-                      if (observerMode === 'capture') {
-                        debugRecorderRef.current.record(next);
-                        debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', {
-                          scenario,
-                        });
-                      }
-                      publishState(next);
+                  Eksportuj epizody JSON
+                </button>
+                <pre>
+                  {JSON.stringify(pressureSupportRef.current.snapshot().slice(-8), null, 2)}
+                </pre>
+              </details>
+              <nav className="debug-capture" aria-label="Eksport diagnostyczny">
+                <label>
+                  Tryb obserwacji{' '}
+                  <select
+                    aria-label="Tryb obserwacji"
+                    value={observerMode}
+                    disabled={isCaptureTriggerDisabled(captureStatus)}
+                    onChange={(event) =>
+                      setObserverMode(performanceObserverModeSchema.parse(event.target.value))
                     }
+                  >
+                    <option value="release_minimal">release_minimal</option>
+                    <option value="normal">normal</option>
+                    <option value="dev">dev</option>
+                    <option value="capture">capture</option>
+                  </select>
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={videoEnabled}
+                    disabled={observerMode !== 'capture' || isCaptureTriggerDisabled(captureStatus)}
+                    onChange={(event) => setVideoEnabled(event.target.checked)}
+                  />{' '}
+                  Nagrywaj WebM (DEV)
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={profilingEnabled}
+                    onChange={(event) => setProfilingEnabled(event.target.checked)}
+                  />{' '}
+                  Profiluj podsystemy (DEV)
+                </label>
+                <button
+                  onClick={() => {
+                    const current = stateRef.current;
+                    const report = createSessionTelemetryReport({
+                      canonicalSeconds: current.time,
+                      coverage: observerCoverageRef.current,
+                      flow: telemetryRef.current,
+                      agency: agencyTrackerRef.current.snapshot(current.time, current),
+                      positioning: positioningSamplesRef.current,
+                      presentation: presentationTelemetryRef.current,
+                      state: current,
+                      participation: canonicalParticipationRef.current.snapshot(),
+                      measuredPosition,
+                    });
+                    const summary = {
+                      metadata: {
+                        schema: 'mfl-session-benchmark-v5',
+                        seed: current.seed,
+                        observerMode,
+                        observationScope:
+                          report.collectionScope.detailedObservers !== 'unavailable'
+                            ? 'dev_since_mode_enabled'
+                            : 'canonical_statistics_only',
+                        collectionScope: report.collectionScope,
+                        positioningSampleCapacity: 6000,
+                        observerCoverage: observerCoverageRef.current.map((interval) => ({
+                          ...interval,
+                          endedAt: interval.endedAt ?? current.time,
+                        })),
+                      },
+                      duration: current.time,
+                      segments: diagnostics
+                        .exportSegments(
+                          current,
+                          telemetryRef.current,
+                          positioningSamplesRef.current,
+                        )
+                        .map((segment) => ({
+                          ...segment,
+                          observationScope: report.collectionScope.detailedObservers,
+                          matchFlowTelemetry:
+                            report.collectionScope.detailedObservers === 'unavailable'
+                              ? null
+                              : segment.matchFlowTelemetry,
+                          sampledPositioning:
+                            report.collectionScope.detailedObservers === 'unavailable'
+                              ? null
+                              : segment.sampledPositioning,
+                        })),
+                      controlledPlayer: current.controlledFootballerId,
+                      canonicalStatistics: current.statistics,
+                      defensiveTelemetry: current.defensiveTelemetry,
+                      discipline: current.discipline,
+                      recentCanonicalActionEvents: current.actionEvents ?? [],
+                      ...report,
+                      passingNetwork: current.statistics?.passingNetwork ?? [],
+                      runtimeDiagnostics: diagnostics.runtimeDiagnostics,
+                      omittedRuntimeDiagnostics: diagnostics.omittedRuntimeDiagnostics,
+                      rendererLifecycle: diagnostics.rendererLifecycle,
+                      contextBuffer: contextHistoryRef.current.snapshot(),
+                      presentationWindows: windowDiagnosticsRef.current,
+                      backgroundPerformance: backgroundPerformanceRef.current.snapshot(
+                        presentationTelemetryRef.current.rendererCallsBackground,
+                      ),
+                      presentationDecisions: presentationDecisionsRef.current,
+                      subsystemProfile: profilerRef.current.snapshot(),
+                      uiPerformance: uiPerformanceRef.current,
+                    };
+                    downloadBlob(
+                      new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' }),
+                      `${current.seed}-benchmark-sesji.json`,
+                    );
                   }}
                 >
-                  {label}
+                  Eksportuj benchmark sesji
                 </button>
-              ))}
-            </nav>
-            <p className="runtime-status">
-              Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
-              <strong>{presentationPolicyId}</strong> · Renderer:{' '}
-              <strong>
-                {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'
-                  ? 'suppressed'
-                  : diagnostics.rendererLifecycle}
-              </strong>{' '}
-              · Kanoniczny: <strong>{formatDiagnosticMatchTime(state.time)}</strong> · Wyświetlany:{' '}
-              <strong>{formatDiagnosticMatchTime(displayTime)}</strong> · Runtime:{' '}
-              <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
-            </p>
-            <details
-              className="presentation-diagnostics"
-              onToggle={(event) => {
-                if (event.target === event.currentTarget)
-                  setPerformanceExpanded(event.currentTarget.open);
-              }}
-            >
-              <summary>DEV · Wydajność symulacji w tle</summary>
-              {backgroundPerformance && (
-                <p>
-                  Tryb: {observerMode} · Przedział: {Math.floor(state.time / 300) * 5}–
-                  {Math.floor(state.time / 300) * 5 + 5} min · Kanoniczny:{' '}
-                  {formatDiagnosticMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} ·
-                  Realnie: {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s ·
-                  Przepustowość: {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}× ·
-                  Rolling: {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch
-                  p50/p95/p99: {backgroundPerformance.p50BatchMs.toFixed(1)}/
-                  {backgroundPerformance.p95BatchMs.toFixed(1)}/
-                  {backgroundPerformance.p99BatchMs.toFixed(1)} ms · Ticki/s:{' '}
-                  {backgroundPerformance.ticksPerRealSecond.toFixed(0)} · Renderer tła:{' '}
-                  {backgroundPerformance.rendererCallsBackground} · Publikacje UI:{' '}
-                  {uiPerformanceRef.current.backgroundPublications} · Oczekiwanie scheduler:{' '}
-                  {(uiPerformanceRef.current.backgroundSchedulingWaitMs / 1000).toFixed(2)} s ·
-                  Maks. decyzja → commit:{' '}
-                  {uiPerformanceRef.current.maximumDecisionCommitMs.toFixed(1)} ms
-                </p>
-              )}
-              {performanceProfile?.enabled && (
-                <p>
-                  Profil próbkowany 1/{performanceProfile.sampleEveryTicks} ticków (czasy zawierają
-                  wywołania zagnieżdżone):{' '}
-                  {performanceProfile.categories
-                    .map(
-                      (category) =>
-                        `${category.category}: ${(category.estimatedMs / 1000).toFixed(2)} s`,
-                    )
-                    .join(' · ')}
-                </p>
-              )}
-            </details>
-            <details className="presentation-diagnostics">
-              <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
-              {presentationDecisionsRef.current.length ? (
-                presentationDecisionsRef.current
-                  .slice(-8)
-                  .reverse()
-                  .map((item, index) => (
-                    <p key={`${item.at}:${item.opportunityKind}:${index}`}>
-                      {formatDiagnosticMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
-                      {item.importance.toFixed(2)} · {item.policyId} / próg{' '}
-                      {item.threshold.toFixed(2)} → <strong>{item.result}</strong> ({item.reason})
-                    </p>
-                  ))
-              ) : (
-                <p>Brak decyzji prezentacyjnych w tej sesji.</p>
-              )}
-            </details>
-          </>
-        )}
-      </details>
+                <button
+                  disabled={observerMode !== 'capture' || isCaptureTriggerDisabled(captureStatus)}
+                  onClick={triggerCapture}
+                >
+                  Przechwyć debug ±10 s
+                </button>
+                <button
+                  disabled={observerMode !== 'capture' || isCaptureTriggerDisabled(captureStatus)}
+                  onClick={savePastOnly}
+                >
+                  Zapisz ostatnie 10 s
+                </button>
+                <button onClick={clearDebugBuffer}>Wyczyść bufor debug</button>
+                {captureStatus === 'idle' && (
+                  <span>
+                    {observerMode !== 'capture'
+                      ? 'Włącz tryb capture, aby buforować debug ±10 s'
+                      : videoRecorderRef.current.active
+                        ? `Gotowy — bufor: ${videoRecorderRef.current.bufferedSeconds.toFixed(1)} s`
+                        : 'Wideo niedostępne — zapis będzie zawierał JSON'}
+                  </span>
+                )}
+                {captureStatus === 'capturing' && (
+                  <strong>Debug: zapisano historię · +{remaining.toFixed(1)} s</strong>
+                )}
+                {(captureStatus === 'processing' ||
+                  captureStatus === 'ready' ||
+                  captureStatus === 'saved' ||
+                  captureStatus === 'error') && (
+                  <>
+                    <strong>
+                      {describeDebugCapture(
+                        captureStatus,
+                        Boolean(debugExport),
+                        Boolean(debugExport?.video),
+                        captureError,
+                      )}
+                    </strong>
+                    {debugExport && captureStatus !== 'processing' && (
+                      <button onClick={() => void savePackage()}>Zapisz pakiet…</button>
+                    )}
+                    {saveMessage && <span>{saveMessage}</span>}
+                  </>
+                )}
+              </nav>
+              <nav className="scenario-picker" aria-label="Scenariusz developerski">
+                <strong>Sytuacja:</strong>
+                {scenarios.map(([scenario, label]) => (
+                  <button
+                    key={scenario}
+                    className={state.scenario === scenario ? 'active' : ''}
+                    onClick={() => {
+                      setPlaying(false);
+                      clearDebugBuffer();
+                      {
+                        const next = applyRestartScenario(
+                          createTacticalMatch(session),
+                          scenario,
+                          scenario === 'throw_in'
+                            ? { restartTeam: 'home', restartPoint: { x: 72, y: 0 } }
+                            : undefined,
+                        );
+                        presentationTelemetryRef.current = createPresentationRuntimeTelemetry();
+                        canonicalParticipationRef.current = new CanonicalParticipationTracker();
+                        resetPresentation(next);
+                        const segmentId = diagnostics.beginSegment(
+                          next,
+                          telemetryRef.current,
+                          positioningSamplesRef.current,
+                        );
+                        telemetryRef.current = createMatchFlowTelemetry(segmentId);
+                        positioningSamplesRef.current = devObservation
+                          ? [sampleCanonicalPositioning(next)]
+                          : [];
+                        diagnostics.telemetry = telemetryRef.current;
+                        diagnostics.positioningSamples = positioningSamplesRef.current;
+                        if (observerMode === 'capture') {
+                          debugRecorderRef.current.record(next);
+                          debugRecorderRef.current.ui(next.time, 'scenario_button_clicked', {
+                            scenario,
+                          });
+                        }
+                        publishState(next);
+                      }
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </nav>
+              <p className="runtime-status">
+                Prezentacja: <strong>{presentationPhase}</strong> · Polityka:{' '}
+                <strong>{presentationPolicyId}</strong> · Renderer:{' '}
+                <strong>
+                  {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation'
+                    ? 'suppressed'
+                    : diagnostics.rendererLifecycle}
+                </strong>{' '}
+                · Kanoniczny: <strong>{formatDiagnosticMatchTime(state.time)}</strong> ·
+                Wyświetlany: <strong>{formatDiagnosticMatchTime(displayTime)}</strong> · Runtime:{' '}
+                <strong>{diagnostics.runtimeDiagnostics.length ? 'error captured' : 'OK'}</strong>
+              </p>
+              <details
+                className="presentation-diagnostics"
+                onToggle={(event) => {
+                  if (event.target === event.currentTarget)
+                    setPerformanceExpanded(event.currentTarget.open);
+                }}
+              >
+                <summary>DEV · Wydajność symulacji w tle</summary>
+                {backgroundPerformance && (
+                  <p>
+                    Tryb: {observerMode} · Przedział: {Math.floor(state.time / 300) * 5}–
+                    {Math.floor(state.time / 300) * 5 + 5} min · Kanoniczny:{' '}
+                    {formatDiagnosticMatchTime(backgroundPerformance.canonicalSecondsAdvanced)} ·
+                    Realnie: {(backgroundPerformance.realElapsedMs / 1000).toFixed(1)} s ·
+                    Przepustowość: {backgroundPerformance.canonicalSecondsPerRealSecond.toFixed(1)}×
+                    · Rolling: {backgroundPerformance.rollingCanonicalSpeed.toFixed(1)}× · Batch
+                    p50/p95/p99: {backgroundPerformance.p50BatchMs.toFixed(1)}/
+                    {backgroundPerformance.p95BatchMs.toFixed(1)}/
+                    {backgroundPerformance.p99BatchMs.toFixed(1)} ms · Ticki/s:{' '}
+                    {backgroundPerformance.ticksPerRealSecond.toFixed(0)} · Renderer tła:{' '}
+                    {backgroundPerformance.rendererCallsBackground} · Publikacje UI:{' '}
+                    {uiPerformanceRef.current.backgroundPublications} · Oczekiwanie scheduler:{' '}
+                    {(uiPerformanceRef.current.backgroundSchedulingWaitMs / 1000).toFixed(2)} s ·
+                    Maks. decyzja → commit:{' '}
+                    {uiPerformanceRef.current.maximumDecisionCommitMs.toFixed(1)} ms
+                  </p>
+                )}
+                {performanceProfile?.enabled && (
+                  <p>
+                    Profil próbkowany 1/{performanceProfile.sampleEveryTicks} ticków (czasy
+                    zawierają wywołania zagnieżdżone):{' '}
+                    {performanceProfile.categories
+                      .map(
+                        (category) =>
+                          `${category.category}: ${(category.estimatedMs / 1000).toFixed(2)} s`,
+                      )
+                      .join(' · ')}
+                  </p>
+                )}
+              </details>
+              <details className="presentation-diagnostics">
+                <summary>DEV · Dlaczego pokazano lub ukryto decyzję?</summary>
+                {presentationDecisionsRef.current.length ? (
+                  presentationDecisionsRef.current
+                    .slice(-8)
+                    .reverse()
+                    .map((item, index) => (
+                      <p key={`${item.at}:${item.opportunityKind}:${index}`}>
+                        {formatDiagnosticMatchTime(item.at)} · {item.opportunityKind} · ważność{' '}
+                        {item.importance.toFixed(2)} · {item.policyId} / próg{' '}
+                        {item.threshold.toFixed(2)} → <strong>{item.result}</strong> ({item.reason})
+                      </p>
+                    ))
+                ) : (
+                  <p>Brak decyzji prezentacyjnych w tej sesji.</p>
+                )}
+              </details>
+            </>
+          )}
+        </details>
+      )}
       <section className="sandbox-grid">
         <div
           className={`pitch-stage ${opportunity ? 'pitch-stage--interactive' : ''}`}
@@ -2313,9 +2427,21 @@ export const RunningLab = ({
           </div>
           {!presentationPolicy.fullMatch && presentationPhase === 'background_simulation' && (
             <section className="background-presentation" aria-live="polite">
-              <small>{presentationPolicyId}</small>
-              <h2>Symulacja meczu…</h2>
-              <strong>{formatMatchTime(displayTime)}</strong>
+              <small>{careerMode ? 'Mecz Twojej drużyny' : presentationPolicyId}</small>
+              <h2>
+                {state.status === 'full_time'
+                  ? 'Koniec meczu'
+                  : state.status === 'abandoned'
+                    ? 'Mecz przerwany'
+                    : 'Symulacja meczu…'}
+              </h2>
+              <strong>
+                {formatMatchTime(
+                  state.status === 'full_time' || state.status === 'abandoned'
+                    ? state.time
+                    : displayTime,
+                )}
+              </strong>
               <p>
                 {session.home.club.name} {state.score.home}–{state.score.away}{' '}
                 {session.away.club.name}
@@ -2373,7 +2499,10 @@ export const RunningLab = ({
                     )
                       return null;
                     if (!shotAimTeam) return null;
-                    const point = shotAimIntentToGoalPoint(shotAimTeam, shotAim);
+                    const point = shotAimIntentToGoalPoint(
+                      { team: shotAimTeam, endsSwitched: state.endsSwitched },
+                      shotAim,
+                    );
                     const action = {
                       ...item.resolution.action,
                       target: { x: point.x, y: point.y },
@@ -2423,6 +2552,64 @@ export const RunningLab = ({
                   return `${speed < 0.35 ? 'Stoisz' : speed < 2.2 ? 'Idziesz' : sprinting ? 'Sprintujesz' : 'Biegniesz'} (${speed.toFixed(1)} m/s) · `;
                 })()}
               Wybierz piłkę, piłkarza, przestrzeń lub bramkę
+              {careerMode && !shotAim && (
+                <label onClick={(event) => event.stopPropagation()}>
+                  {' '}
+                  lub wybierz cel z listy{' '}
+                  <select
+                    aria-label="Cel decyzji piłkarskiej"
+                    value=""
+                    onChange={(event) => {
+                      if (!event.target.value) return;
+                      const target: PlayerInteractionTarget = JSON.parse(event.target.value);
+                      const projected = projectContextualInteractions(state, opportunity, target);
+                      if (!projected.length) return;
+                      setSelectedTarget(target);
+                      if (target.kind === 'goal') {
+                        setShotAim({ horizontal: 0, vertical: 0.45 });
+                        setMenuPosition(undefined);
+                        uiEvent('shot_aim_opened', { target });
+                      } else {
+                        setMenuPosition({ x: 16, y: 60 });
+                        uiEvent('interaction_target_selected', { target });
+                        uiEvent('context_menu_opened', {
+                          target,
+                          interactionIds: projected.map((item) => item.id),
+                        });
+                      }
+                    }}
+                  >
+                    <option value="">Wybierz cel…</option>
+                    {Array.from(
+                      new Map(
+                        [
+                          ...projectSelectableInteractionTargets(state, opportunity),
+                          ...state.players.map((player) => ({
+                            kind: 'player' as const,
+                            playerId: player.id,
+                          })),
+                        ]
+                          .filter(
+                            (target) =>
+                              projectContextualInteractions(state, opportunity, target).length > 0,
+                          )
+                          .map((target) => [JSON.stringify(target), target]),
+                      ).entries(),
+                    ).map(([key, target]) => (
+                      <option key={key} value={key}>
+                        {target.kind === 'player'
+                          ? state.players.find((player) => player.id === target.playerId)?.profile
+                              .lastName
+                          : target.kind === 'ball'
+                            ? 'Piłka'
+                            : target.kind === 'goal'
+                              ? 'Bramka rywala'
+                              : `Przestrzeń ${Math.round(target.point.x)}, ${Math.round(target.point.y)} m`}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
             </div>
           )}
           {opportunity && !replaying && menuPosition && interactions.length > 0 && (
@@ -2528,28 +2715,32 @@ export const RunningLab = ({
           <div className="match-status-title">
             {state.status === 'abandoned'
               ? 'MECZ PRZERWANY'
-              : replaying
-                ? 'POWTÓRKA'
-                : presentationPhase === 'lead_in'
-                  ? 'KONTEKST DECYZJI'
-                  : opportunity
-                    ? 'TWOJA DECYZJA'
-                    : 'GRA AUTONOMICZNA'}
+              : state.status === 'full_time'
+                ? 'KONIEC MECZU'
+                : replaying
+                  ? 'POWTÓRKA'
+                  : presentationPhase === 'lead_in'
+                    ? 'KONTEKST DECYZJI'
+                    : opportunity
+                      ? 'TWOJA DECYZJA'
+                      : 'GRA AUTONOMICZNA'}
           </div>
           <p
             className={opportunity ? 'decision-status decision-status--active' : 'decision-status'}
           >
             {state.status === 'abandoned'
               ? 'Spotkanie zakończyło się z powodu zbyt małej liczby zawodników.'
-              : replaying
-                ? 'Oglądasz zapisany fragment meczu.'
-                : presentationPhase === 'lead_in'
-                  ? 'Zobacz, jak rozwinęła się sytuacja. Wybór będzie dostępny po dojściu do piłki.'
-                  : session.setup.control.mode === 'spectator'
-                    ? 'Obserwujesz mecz. Wszystkie decyzje wykonuje symulacja.'
-                    : opportunity
-                      ? 'Mecz czeka na Twój wybór. Wskaż cel na boisku, następnie wybierz dostępne zagranie.'
-                      : 'Piłkarze wykonują decyzje symulacji. Kolejny wybór pojawi się w odpowiednim kontekście.'}
+              : state.status === 'full_time'
+                ? 'Wynik jest gotowy do zatwierdzenia i zapisania w karierze.'
+                : replaying
+                  ? 'Oglądasz zapisany fragment meczu.'
+                  : presentationPhase === 'lead_in'
+                    ? 'Zobacz, jak rozwinęła się sytuacja. Wybór będzie dostępny po dojściu do piłki.'
+                    : session.setup.control.mode === 'spectator'
+                      ? 'Obserwujesz mecz. Wszystkie decyzje wykonuje symulacja.'
+                      : opportunity
+                        ? 'Mecz czeka na Twój wybór. Wskaż cel na boisku, następnie wybierz dostępne zagranie.'
+                        : 'Piłkarze wykonują decyzje symulacji. Kolejny wybór pojawi się w odpowiednim kontekście.'}
           </p>
           {state.restart && state.restart.phase !== 'release' && (
             <section
@@ -2678,239 +2869,243 @@ export const RunningLab = ({
             {state.possessionTeam === 'home' ? session.home.club.name : session.away.club.name} przy
             piłce
           </h2>
-          <details
-            className="player-diagnostics"
-            onToggle={(event) => {
-              if (event.target === event.currentTarget)
-                setGeometryExpanded(event.currentTarget.open);
-            }}
-          >
-            <summary>DEV · Stan i geometria</summary>
-            {geometryExpanded && situation && (
-              <>
-                {(() => {
-                  const selected = state.players.find(
-                    (p) =>
-                      p.id ===
-                      (selectedTarget?.kind === 'player'
-                        ? selectedTarget.playerId
-                        : (state.controlledFootballerId ?? state.ball.ownerId)),
-                  );
-                  return (
-                    selected && (
-                      <p>
-                        Wybrany piłkarz: {selected.profile.firstName} {selected.profile.lastName} ·
-                        OVR {getPlayerOverall(selected.profile, selected.profile.primaryPosition)}
-                        <br />
-                        {Object.entries(selected.profile.attributes)
-                          .map(([key, value]) => `${key}: ${value}`)
-                          .join(' · ')}
-                      </p>
-                    )
-                  );
-                })()}
-                {projectFormationConnectivity(state).map((team) => (
-                  <p key={team.side}>
-                    Łączność {team.formation}: obrona{' '}
-                    {(team.lineInvolvement.defence! * 100).toFixed(1)}% · środek{' '}
-                    {(team.lineInvolvement.midfield! * 100).toFixed(1)}% · największa relacja{' '}
-                    {(team.topEdgeShare * 100).toFixed(1)}%<br />
-                    {team.warnings.join(' · ') || 'Brak ostrzeżeń udziału'}
-                  </p>
-                ))}
-                <p>
-                  Sprawczość: {agencyDiagnostic?.meaningfulHumanDecisions} obserwowanych kandydatów
-                  decyzji · rutyna: {agencyDiagnostic?.routineDelegated} · jedna opcja:{' '}
-                  {agencyDiagnostic?.singleOptionDelegated} · bufor kontekstu:{' '}
-                  {contextHistoryRef.current.snapshot().samplesRetained}/62 próbek (10 Hz)
-                </p>
-                {participationDiagnostic?.controlled && (
+          {!careerMode && (
+            <details
+              className="player-diagnostics"
+              onToggle={(event) => {
+                if (event.target === event.currentTarget)
+                  setGeometryExpanded(event.currentTarget.open);
+              }}
+            >
+              <summary>DEV · Stan i geometria</summary>
+              {geometryExpanded && situation && (
+                <>
+                  {(() => {
+                    const selected = state.players.find(
+                      (p) =>
+                        p.id ===
+                        (selectedTarget?.kind === 'player'
+                          ? selectedTarget.playerId
+                          : (state.controlledFootballerId ?? state.ball.ownerId)),
+                    );
+                    return (
+                      selected && (
+                        <p>
+                          Wybrany piłkarz: {selected.profile.firstName} {selected.profile.lastName}{' '}
+                          · OVR{' '}
+                          {getPlayerOverall(selected.profile, selected.profile.primaryPosition)}
+                          <br />
+                          {Object.entries(selected.profile.attributes)
+                            .map(([key, value]) => `${key}: ${value}`)
+                            .join(' · ')}
+                        </p>
+                      )
+                    );
+                  })()}
+                  {projectFormationConnectivity(state).map((team) => (
+                    <p key={team.side}>
+                      Łączność {team.formation}: obrona{' '}
+                      {(team.lineInvolvement.defence! * 100).toFixed(1)}% · środek{' '}
+                      {(team.lineInvolvement.midfield! * 100).toFixed(1)}% · największa relacja{' '}
+                      {(team.topEdgeShare * 100).toFixed(1)}%<br />
+                      {team.warnings.join(' · ') || 'Brak ostrzeżeń udziału'}
+                    </p>
+                  ))}
                   <p>
-                    Kanoniczne epizody posiadania:{' '}
-                    {participationDiagnostic.controlled.possessionEpisodes} · ukryte:{' '}
-                    {participationDiagnostic.controlled.presentationCoverage?.hidden
-                      .possessionEpisodes ?? '—'}{' '}
-                    · widoczne epizody posiadania:{' '}
-                    {participationDiagnostic.controlled.presentationCoverage
-                      ?.visiblePossessionEpisodes ?? '—'}
-                    <br />
-                    Widoczne sekwencje z udziałem piłkarza:{' '}
-                    {participationDiagnostic.controlled.presentationCoverage
-                      ?.visiblePlayerInvolvingSequences ?? '—'}{' '}
-                    · pytania do człowieka:{' '}
-                    {participationDiagnostic.controlled.humanDecisionPrompts ?? '—'}
-                    <br />
-                    Aktywne minuty: {participationDiagnostic.controlled.minutes.toFixed(2)} ·
-                    pytania / aktywne 45:{' '}
-                    {participationDiagnostic.ratios.humanPromptsPerActive45?.toFixed(2) ?? '—'} · /
-                    aktywne 90:{' '}
-                    {participationDiagnostic.ratios.humanPromptsPerActive90?.toFixed(2) ?? '—'}
-                    <br />
-                    Zdarzenia obronne ukryte / widoczne:{' '}
-                    {participationDiagnostic.controlled.presentationCoverage?.hidden
-                      .defensiveInvolvements ?? '—'}
-                    {' / '}
-                    {participationDiagnostic.controlled.presentationCoverage
-                      ?.visibleDefensiveInvolvements ?? '—'}{' '}
-                    · udział w epizodach zespołu:{' '}
-                    {participationDiagnostic.ratios.controlledPlayerTouchShare === null
-                      ? '—'
-                      : `${(participationDiagnostic.ratios.controlledPlayerTouchShare * 100).toFixed(1)}%`}
-                    <br />
-                    Epizod posiadania obejmuje przyjęcie, prowadzenie i oddanie/utratę piłki.
-                    Widoczność epizodu liczymy w chwili jego rozpoczęcia. Widoczna sekwencja może
-                    obejmować kilka takich epizodów.
-                    <br />
-                    Udział w celnych podaniach zespołu od / do piłkarza:{' '}
-                    {participationDiagnostic.ratios.controlledPlayerCompletedPassesFromShare ===
-                    null
-                      ? '—'
-                      : `${(participationDiagnostic.ratios.controlledPlayerCompletedPassesFromShare * 100).toFixed(1)}%`}
-                    {' / '}
-                    {participationDiagnostic.ratios.controlledPlayerCompletedPassesToShare === null
-                      ? '—'
-                      : `${(participationDiagnostic.ratios.controlledPlayerCompletedPassesToShare * 100).toFixed(1)}%`}{' '}
-                    · inni zawodnicy zespołu w tej samej roli:{' '}
-                    {participationDiagnostic.controlled.comparableRolePlayers.length}
+                    Sprawczość: {agencyDiagnostic?.meaningfulHumanDecisions} obserwowanych
+                    kandydatów decyzji · rutyna: {agencyDiagnostic?.routineDelegated} · jedna opcja:{' '}
+                    {agencyDiagnostic?.singleOptionDelegated} · bufor kontekstu:{' '}
+                    {contextHistoryRef.current.snapshot().samplesRetained}/62 próbek (10 Hz)
                   </p>
-                )}
-                {opportunity && opportunity.kind === 'on_ball' && (
-                  <button
-                    className="dev-ai-choice"
-                    onClick={() =>
-                      closeOpportunity(letAiDecide(state, opportunity), 'ai', 'npc_choice')
-                    }
-                  >
-                    DEV: wykonaj wybór AI
-                  </button>
-                )}
-                <p>
-                  Czas kanoniczny: {formatDiagnosticMatchTime(state.time)}
-                  <br />
-                  Stały tick: {FIXED_MATCH_DT.toFixed(3)} s · tempo: {speed}×
-                  <br />
-                  Prędkość piłki:{' '}
-                  {Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0).toFixed(
-                    1,
-                  )}{' '}
-                  m/s · wysokość {(state.ball.height ?? 0).toFixed(1)} m
-                  <br />
-                  Bufor powtórki: {replayBufferRef.current.length} kl. /{' '}
-                  {(
-                    ((replayBufferRef.current.at(-1)?.timestampMs ?? 0) -
-                      (replayBufferRef.current[0]?.timestampMs ?? 0)) /
-                    1000
-                  ).toFixed(1)}{' '}
-                  s
-                  <br />
-                  Prędkość aktora:{' '}
-                  {Math.hypot(actor?.velocity.x ?? 0, actor?.velocity.y ?? 0).toFixed(1)} m/s Fazy:{' '}
-                  {state.teams.home.phase} / {state.teams.away.phase}
-                  <br />
-                  Formacje: {state.teams.home.formation} / {state.teams.away.formation}
-                  <br />
-                  Style: {state.teams.home.style} / {state.teams.away.style}
-                  <br />
-                  Wznowienie: {state.restart?.phase ?? 'gra otwarta'}
-                  <br />
-                  Właściciel: {owner?.profile.firstName} {owner?.profile.lastName}
-                  <br />
-                  Aktor: {actor?.profile.firstName} {actor?.profile.lastName}
-                  <br />
-                  Akcja: {state.latestAction?.type ?? '—'}
-                  <br />
-                  Ostatnia decyzja:{' '}
-                  {state.lastPlayerDecisionOutcome?.selectedIntent ??
-                    state.pendingPlayerDecision?.selectedIntent ??
-                    '—'}
-                  {' · '}
-                  {state.lastPlayerDecisionOutcome?.result?.kind ??
-                    (state.pendingPlayerDecision ? 'w toku' : '—')}
-                  <br />
-                  Piłka:{' '}
-                  {state.ball.ownerId
-                    ? 'w posiadaniu'
-                    : state.ball.travelKind
-                      ? 'w ruchu'
-                      : 'bezpańska'}
-                  <br />
-                  Presja: {Math.round(state.currentPressure * 100)}%
-                  <br />
-                  Sytuacja: {situation.kind} · ważność {situation.importance.toFixed(2)} · decyzja{' '}
-                  {situation.decisionWorthiness.toFixed(2)}
-                  <br />
-                  Powody: {situation.reasons.join(', ')} · aktor: {situation.actorId ?? '—'}
-                  <br />
-                  Kontekst: bramka {situation.context.goalDistance?.toFixed(1) ?? '—'} m · presja{' '}
-                  {situation.context.pressure !== undefined
-                    ? `${Math.round(situation.context.pressure * 100)}%`
-                    : '—'}
-                  <br />
-                  Ostatni strzał: {state.lastShotResult ?? '—'}
-                  <br />
-                  Ostatni kontakt: {state.lastBallContact?.kind ?? '—'}
-                  {state.lastBallContact &&
-                    ` · (${state.lastBallContact.point.x.toFixed(2)}, ${state.lastBallContact.point.y.toFixed(2)}, ${state.lastBallContact.point.z.toFixed(2)}) · ${state.lastBallContact.preContactSpeed.toFixed(1)}→${state.lastBallContact.postContactSpeed.toFixed(1)} m/s`}
-                  <br />
-                  {state.lastShot && (
-                    <>
-                      Strzał DEV: cel {state.lastShot.intendedTarget.horizontal.toFixed(2)}/
-                      {state.lastShot.intendedTarget.vertical.toFixed(2)} →{' '}
-                      {state.lastShot.actualTarget.horizontal.toFixed(2)}/
-                      {state.lastShot.actualTarget.vertical.toFixed(2)} ·{' '}
-                      {state.lastShot.speed.toFixed(1)} m/s · {state.lastShot.classification} ·{' '}
-                      {state.lastShot.goalkeeperAction ?? 'bez interwencji'}
-                      {state.lastShot.reboundSource
-                        ? ` · odbicie: ${state.lastShot.reboundSource}`
-                        : ''}
+                  {participationDiagnostic?.controlled && (
+                    <p>
+                      Kanoniczne epizody posiadania:{' '}
+                      {participationDiagnostic.controlled.possessionEpisodes} · ukryte:{' '}
+                      {participationDiagnostic.controlled.presentationCoverage?.hidden
+                        .possessionEpisodes ?? '—'}{' '}
+                      · widoczne epizody posiadania:{' '}
+                      {participationDiagnostic.controlled.presentationCoverage
+                        ?.visiblePossessionEpisodes ?? '—'}
                       <br />
-                    </>
+                      Widoczne sekwencje z udziałem piłkarza:{' '}
+                      {participationDiagnostic.controlled.presentationCoverage
+                        ?.visiblePlayerInvolvingSequences ?? '—'}{' '}
+                      · pytania do człowieka:{' '}
+                      {participationDiagnostic.controlled.humanDecisionPrompts ?? '—'}
+                      <br />
+                      Aktywne minuty: {participationDiagnostic.controlled.minutes.toFixed(2)} ·
+                      pytania / aktywne 45:{' '}
+                      {participationDiagnostic.ratios.humanPromptsPerActive45?.toFixed(2) ?? '—'} ·
+                      / aktywne 90:{' '}
+                      {participationDiagnostic.ratios.humanPromptsPerActive90?.toFixed(2) ?? '—'}
+                      <br />
+                      Zdarzenia obronne ukryte / widoczne:{' '}
+                      {participationDiagnostic.controlled.presentationCoverage?.hidden
+                        .defensiveInvolvements ?? '—'}
+                      {' / '}
+                      {participationDiagnostic.controlled.presentationCoverage
+                        ?.visibleDefensiveInvolvements ?? '—'}{' '}
+                      · udział w epizodach zespołu:{' '}
+                      {participationDiagnostic.ratios.controlledPlayerTouchShare === null
+                        ? '—'
+                        : `${(participationDiagnostic.ratios.controlledPlayerTouchShare * 100).toFixed(1)}%`}
+                      <br />
+                      Epizod posiadania obejmuje przyjęcie, prowadzenie i oddanie/utratę piłki.
+                      Widoczność epizodu liczymy w chwili jego rozpoczęcia. Widoczna sekwencja może
+                      obejmować kilka takich epizodów.
+                      <br />
+                      Udział w celnych podaniach zespołu od / do piłkarza:{' '}
+                      {participationDiagnostic.ratios.controlledPlayerCompletedPassesFromShare ===
+                      null
+                        ? '—'
+                        : `${(participationDiagnostic.ratios.controlledPlayerCompletedPassesFromShare * 100).toFixed(1)}%`}
+                      {' / '}
+                      {participationDiagnostic.ratios.controlledPlayerCompletedPassesToShare ===
+                      null
+                        ? '—'
+                        : `${(participationDiagnostic.ratios.controlledPlayerCompletedPassesToShare * 100).toFixed(1)}%`}{' '}
+                      · inni zawodnicy zespołu w tej samej roli:{' '}
+                      {participationDiagnostic.controlled.comparableRolePlayers.length}
+                    </p>
                   )}
-                  Seed: <code>{state.seed}</code>
-                </p>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={debug}
-                    onChange={(e) => {
-                      uiEvent('debug_markers_changed', { enabled: e.target.checked });
-                      setDebug(e.target.checked);
-                    }}
-                  />{' '}
-                  Kotwice i cele
-                </label>
-                <details>
-                  <summary>Benchmark pozycyjny (DEV)</summary>
-                  {shapeMetrics.map(([side, metric]) => (
-                    <div key={side}>
-                      <strong>{side === 'home' ? 'Gospodarze' : 'Goście'}</strong>: środek{' '}
-                      {metric.centroid.x.toFixed(1)}, {metric.centroid.y.toFixed(1)} · długość{' '}
-                      {metric.length.toFixed(1)} m · szerokość {metric.width.toFixed(1)} m ·
-                      rozciągnięcie {metric.stretchIndex.toFixed(1)} m · pole{' '}
-                      {metric.convexHullArea.toFixed(0)} m² · przed/za piłką{' '}
-                      {metric.playersAheadOfBall}/{metric.playersBehindBall} · linie DEF–MID{' '}
-                      {metric.lines.defenceToMidfield.toFixed(1)} m, MID–ATT{' '}
-                      {metric.lines.midfieldToAttack.toFixed(1)} m · zabezpieczenie{' '}
-                      {metric.restDefenceCount} · pasy{' '}
-                      {Object.values(metric.lanes)
-                        .slice(0, 5)
-                        .map((value) => (value ? '✓' : '—'))
-                        .join(' ')}
-                    </div>
-                  ))}
-                </details>
-                <details>
-                  <summary>Średnie pozycje (DEV)</summary>
-                  {state.players.map((p) => (
-                    <div key={p.id}>
-                      {p.profile.lastName}: {p.meanPosition.x.toFixed(1)},{' '}
-                      {p.meanPosition.y.toFixed(1)}
-                    </div>
-                  ))}
-                </details>
-              </>
-            )}
-          </details>
+                  {opportunity && opportunity.kind === 'on_ball' && (
+                    <button
+                      className="dev-ai-choice"
+                      onClick={() =>
+                        closeOpportunity(letAiDecide(state, opportunity), 'ai', 'npc_choice')
+                      }
+                    >
+                      DEV: wykonaj wybór AI
+                    </button>
+                  )}
+                  <p>
+                    Czas kanoniczny: {formatDiagnosticMatchTime(state.time)}
+                    <br />
+                    Stały tick: {FIXED_MATCH_DT.toFixed(3)} s · tempo: {speed}×
+                    <br />
+                    Prędkość piłki:{' '}
+                    {Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0).toFixed(
+                      1,
+                    )}{' '}
+                    m/s · wysokość {(state.ball.height ?? 0).toFixed(1)} m
+                    <br />
+                    Bufor powtórki: {replayBufferRef.current.length} kl. /{' '}
+                    {(
+                      ((replayBufferRef.current.at(-1)?.timestampMs ?? 0) -
+                        (replayBufferRef.current[0]?.timestampMs ?? 0)) /
+                      1000
+                    ).toFixed(1)}{' '}
+                    s
+                    <br />
+                    Prędkość aktora:{' '}
+                    {Math.hypot(actor?.velocity.x ?? 0, actor?.velocity.y ?? 0).toFixed(1)} m/s
+                    Fazy: {state.teams.home.phase} / {state.teams.away.phase}
+                    <br />
+                    Formacje: {state.teams.home.formation} / {state.teams.away.formation}
+                    <br />
+                    Style: {state.teams.home.style} / {state.teams.away.style}
+                    <br />
+                    Wznowienie: {state.restart?.phase ?? 'gra otwarta'}
+                    <br />
+                    Właściciel: {owner?.profile.firstName} {owner?.profile.lastName}
+                    <br />
+                    Aktor: {actor?.profile.firstName} {actor?.profile.lastName}
+                    <br />
+                    Akcja: {state.latestAction?.type ?? '—'}
+                    <br />
+                    Ostatnia decyzja:{' '}
+                    {state.lastPlayerDecisionOutcome?.selectedIntent ??
+                      state.pendingPlayerDecision?.selectedIntent ??
+                      '—'}
+                    {' · '}
+                    {state.lastPlayerDecisionOutcome?.result?.kind ??
+                      (state.pendingPlayerDecision ? 'w toku' : '—')}
+                    <br />
+                    Piłka:{' '}
+                    {state.ball.ownerId
+                      ? 'w posiadaniu'
+                      : state.ball.travelKind
+                        ? 'w ruchu'
+                        : 'bezpańska'}
+                    <br />
+                    Presja: {Math.round(state.currentPressure * 100)}%
+                    <br />
+                    Sytuacja: {situation.kind} · ważność {situation.importance.toFixed(2)} · decyzja{' '}
+                    {situation.decisionWorthiness.toFixed(2)}
+                    <br />
+                    Powody: {situation.reasons.join(', ')} · aktor: {situation.actorId ?? '—'}
+                    <br />
+                    Kontekst: bramka {situation.context.goalDistance?.toFixed(1) ?? '—'} m · presja{' '}
+                    {situation.context.pressure !== undefined
+                      ? `${Math.round(situation.context.pressure * 100)}%`
+                      : '—'}
+                    <br />
+                    Ostatni strzał: {state.lastShotResult ?? '—'}
+                    <br />
+                    Ostatni kontakt: {state.lastBallContact?.kind ?? '—'}
+                    {state.lastBallContact &&
+                      ` · (${state.lastBallContact.point.x.toFixed(2)}, ${state.lastBallContact.point.y.toFixed(2)}, ${state.lastBallContact.point.z.toFixed(2)}) · ${state.lastBallContact.preContactSpeed.toFixed(1)}→${state.lastBallContact.postContactSpeed.toFixed(1)} m/s`}
+                    <br />
+                    {state.lastShot && (
+                      <>
+                        Strzał DEV: cel {state.lastShot.intendedTarget.horizontal.toFixed(2)}/
+                        {state.lastShot.intendedTarget.vertical.toFixed(2)} →{' '}
+                        {state.lastShot.actualTarget.horizontal.toFixed(2)}/
+                        {state.lastShot.actualTarget.vertical.toFixed(2)} ·{' '}
+                        {state.lastShot.speed.toFixed(1)} m/s · {state.lastShot.classification} ·{' '}
+                        {state.lastShot.goalkeeperAction ?? 'bez interwencji'}
+                        {state.lastShot.reboundSource
+                          ? ` · odbicie: ${state.lastShot.reboundSource}`
+                          : ''}
+                        <br />
+                      </>
+                    )}
+                    Seed: <code>{state.seed}</code>
+                  </p>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={debug}
+                      onChange={(e) => {
+                        uiEvent('debug_markers_changed', { enabled: e.target.checked });
+                        setDebug(e.target.checked);
+                      }}
+                    />{' '}
+                    Kotwice i cele
+                  </label>
+                  <details>
+                    <summary>Benchmark pozycyjny (DEV)</summary>
+                    {shapeMetrics.map(([side, metric]) => (
+                      <div key={side}>
+                        <strong>{side === 'home' ? 'Gospodarze' : 'Goście'}</strong>: środek{' '}
+                        {metric.centroid.x.toFixed(1)}, {metric.centroid.y.toFixed(1)} · długość{' '}
+                        {metric.length.toFixed(1)} m · szerokość {metric.width.toFixed(1)} m ·
+                        rozciągnięcie {metric.stretchIndex.toFixed(1)} m · pole{' '}
+                        {metric.convexHullArea.toFixed(0)} m² · przed/za piłką{' '}
+                        {metric.playersAheadOfBall}/{metric.playersBehindBall} · linie DEF–MID{' '}
+                        {metric.lines.defenceToMidfield.toFixed(1)} m, MID–ATT{' '}
+                        {metric.lines.midfieldToAttack.toFixed(1)} m · zabezpieczenie{' '}
+                        {metric.restDefenceCount} · pasy{' '}
+                        {Object.values(metric.lanes)
+                          .slice(0, 5)
+                          .map((value) => (value ? '✓' : '—'))
+                          .join(' ')}
+                      </div>
+                    ))}
+                  </details>
+                  <details>
+                    <summary>Średnie pozycje (DEV)</summary>
+                    {state.players.map((p) => (
+                      <div key={p.id}>
+                        {p.profile.lastName}: {p.meanPosition.x.toFixed(1)},{' '}
+                        {p.meanPosition.y.toFixed(1)}
+                      </div>
+                    ))}
+                  </details>
+                </>
+              )}
+            </details>
+          )}
         </aside>
       </section>
     </main>

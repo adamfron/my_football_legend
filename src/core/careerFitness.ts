@@ -18,6 +18,10 @@ import {
 } from './worldDatabase';
 import { createSingleMatchSession, type SingleMatchSetup } from './singleMatch';
 import type { TacticalMatchState } from './matchSimulation/matchState';
+import { getYouthSquadSelectionContext } from './youthWorld';
+import { getPolishU17TeamDefinitions, getYouthTeamDisplayName } from '../content/world/polishU17';
+import { professionalClubSchema } from '../schemas/domainSchemas';
+import { suspendedCareerFootballers } from './careerMatchDiscipline';
 
 /** Commits recovery at the existing simulation date before selection or a scheduled fixture. */
 export const recoverCareerFitnessToDate = (career: CareerState, date: string): CareerState => {
@@ -100,6 +104,71 @@ export const createCareerSingleMatchSession = (
   const atDate = { ...recovered, currentDate: date };
   const footballers: Record<string, WorldFootballer> = { ...baseWorld.footballers };
   const knownClubs = [...baseWorld.clubs];
+  const suspended = suspendedCareerFootballers(career, date);
+  if (career.leagueSeason?.competition.category === 'youth') {
+    const definitions = getPolishU17TeamDefinitions(career.clubWorld ?? baseWorld.clubs);
+    for (const teamId of [setup.homeClubId, setup.awayClubId]) {
+      const definition = definitions.find((team) => team.id === teamId);
+      const selection = getYouthSquadSelectionContext(atDate, teamId, career.currentSeason);
+      if (!definition || !selection) throw new Error(`Brak rzeczywistej kadry U-17: ${teamId}.`);
+      const parent = definition.parentClubId
+        ? resolveEffectiveProfessionalClub(atDate, definition.parentClubId)
+        : undefined;
+      // Transport metadata only: competition and identities remain the actual youth season.
+      const club = professionalClubSchema.parse({
+        ...parent,
+        id: teamId,
+        name: getYouthTeamDisplayName(definition, parent),
+        managerId: selection.managerId,
+        country: parent?.country ?? 'PL',
+        region: parent?.region ?? 'Polska',
+        leagueTier: parent?.leagueTier ?? 4,
+        reputation: parent?.reputation ?? 20,
+        financialLevel: parent?.financialLevel ?? 20,
+        playingStyle: parent?.playingStyle ?? 'rozwój',
+        youthPolicy: 100,
+        developmentReputation: parent?.developmentReputation ?? 50,
+        sellingClubTendency: parent?.sellingClubTendency ?? 50,
+        pressureLevel: 20,
+        coachYouthTrust: 100,
+        archetype: parent?.archetype ?? 'LOCAL_DEVELOPMENT',
+        positionalNeeds:
+          parent?.positionalNeeds ??
+          Object.fromEntries(
+            ['goalkeeper', 'defense', 'midfield', 'attack'].map((unit) => [
+              unit,
+              { starterQuality: 45, depth: 'normal', needLevel: 50 },
+            ]),
+          ),
+        squadPlayerIds: selection.squadPlayerIds?.filter((id) => !suspended.has(id)),
+      });
+      for (const playerId of selection.squadPlayerIds ?? []) {
+        const player =
+          playerId === career.player.id && career.developmentProfile
+            ? {
+                profile: recovered.player,
+                developmentProfile: career.developmentProfile,
+                careerStatus: 'active' as const,
+              }
+            : resolveCareerWorldFootballer(atDate, playerId);
+        if (!player) throw new Error(`Brak piłkarza kohorty: ${playerId}.`);
+        footballers[playerId] = {
+          ...player,
+          currentClubId: teamId,
+          ...(playerId === career.player.id
+            ? { profile: career.player, fitness: recovered.player.fitness }
+            : {}),
+        };
+      }
+      knownClubs.push(club);
+    }
+    return createSingleMatchSession(
+      { ...baseWorld, clubs: knownClubs, footballers },
+      setup,
+      date,
+      recovered,
+    );
+  }
   for (const id of [setup.homeClubId, setup.awayClubId]) {
     const club =
       resolveEffectiveProfessionalClub(atDate, id) ??
@@ -110,7 +179,9 @@ export const createCareerSingleMatchSession = (
     if (baseClub.id !== setup.homeClubId && baseClub.id !== setup.awayClubId) return baseClub;
     const club = resolveEffectiveProfessionalClub(atDate, baseClub.id) ?? baseClub;
     const ids = resolveEffectiveSeniorSquad(atDate, club.id);
-    const squad = ids.length ? ids : (club.squadPlayerIds ?? []);
+    const squad = (ids.length ? ids : (club.squadPlayerIds ?? [])).filter(
+      (id) => !suspended.has(id),
+    );
     for (const id of squad) {
       const player = resolveCareerWorldFootballer(atDate, id) ?? footballers[id];
       if (player) footballers[id] = player;
@@ -127,7 +198,7 @@ export const createCareerSingleMatchSession = (
     }
     return { ...club, squadPlayerIds: squad };
   });
-  return createSingleMatchSession({ ...baseWorld, clubs, footballers }, setup, date);
+  return createSingleMatchSession({ ...baseWorld, clubs, footballers }, setup, date, recovered);
 };
 
 /** A finished canonical fixture commits the actual participating bodies, including outgoing

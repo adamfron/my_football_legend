@@ -20,8 +20,10 @@ export const availabilityState = (career: CareerState) => career.playerAvailabil
 
 export const getPlayerAvailability = (career: CareerState, date: string) => {
   const state = availabilityState(career);
-  const injury = state.injuries.find(
-    (item) => item.status === 'active' && item.matchesRemaining > 0,
+  const injury = state.injuries.find((item) =>
+    item.canonicalRecoveryDate
+      ? date < item.canonicalRecoveryDate
+      : item.status === 'active' && item.matchesRemaining > 0,
   );
   if (state.suspensionMatchesRemaining > 0)
     return {

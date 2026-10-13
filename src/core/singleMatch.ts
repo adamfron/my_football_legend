@@ -4,6 +4,7 @@ import type {
   ProfessionalClub,
   WorldDatabase,
   WorldFootballer,
+  PlayStyleId,
 } from '../types/domain';
 import type { MatchInjury } from './matchSimulation/matchInjuries';
 import {
@@ -12,6 +13,7 @@ import {
   getManagerPreferredFormation,
   selectBestXI,
   selectMatchBench,
+  type SquadSelectionWorld,
 } from './footballerWorld';
 import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { RandomGenerator } from './random/RandomGenerator';
@@ -48,6 +50,7 @@ export const singleMatchSetupSchema = z
 
 export type SingleMatchSetup = z.infer<typeof singleMatchSetupSchema>;
 export interface SingleMatchPlayer {
+  playStyles?: PlayStyleId[] | undefined;
   footballerId: string;
   profile: FootballerProfile;
   /** Temporary condition, separate from permanent football attributes. */
@@ -64,6 +67,7 @@ export interface SingleMatchTeam {
   strength: number;
   players: SingleMatchPlayer[];
   bench?: {
+    playStyles?: PlayStyleId[] | undefined;
     footballerId: string;
     profile: FootballerProfile;
     condition: number;
@@ -101,7 +105,12 @@ const preMatchInjury = (player: WorldFootballer): MatchInjury | undefined => {
     assessmentRequired: false,
   };
 };
-const buildTeam = (world: WorldDatabase, club: ProfessionalClub, seed: string): SingleMatchTeam => {
+const buildTeam = (
+  world: WorldDatabase,
+  club: ProfessionalClub,
+  seed: string,
+  selection?: Pick<SquadSelectionWorld, 'player' | 'selectionStanding'>,
+): SingleMatchTeam => {
   const squad = (club.squadPlayerIds ?? [])
     .map((id) => world.footballers[id])
     .filter(
@@ -112,7 +121,7 @@ const buildTeam = (world: WorldDatabase, club: ProfessionalClub, seed: string): 
         !['unable', 'absence'].includes(player.condition?.injuryStatus ?? ''),
     );
   if (!squad[0]) throw new Error(`Klub ${club.name} nie ma kadry.`);
-  const context = { footballerWorld: world.footballers };
+  const context = { ...selection, footballerWorld: world.footballers };
   const preferred = getManagerPreferredFormation(club.managerId);
   const eligibleClub = { ...club, squadPlayerIds: squad.map((player) => player!.profile.id) };
   const selected = selectBestXI(context, eligibleClub, preferred);
@@ -197,6 +206,7 @@ export const createSingleMatchSession = (
   world: WorldDatabase,
   input: SingleMatchSetup,
   date = '2026-07-01',
+  selection?: Pick<SquadSelectionWorld, 'player' | 'selectionStanding'>,
 ): SingleMatchSession => {
   const setup = singleMatchSetupSchema.parse(input);
   const homeClub = world.clubs.find((club) => club.id === setup.homeClubId);
@@ -216,8 +226,8 @@ export const createSingleMatchSession = (
       ))
   )
     throw new Error('Wybrany piłkarz nie należy do kontrolowanego klubu.');
-  let home = buildTeam(world, homeClub, setup.seed);
-  let away = buildTeam(world, awayClub, setup.seed);
+  let home = buildTeam(world, homeClub, setup.seed, selection);
+  let away = buildTeam(world, awayClub, setup.seed, selection);
   if (setup.control.mode === 'player' && setup.control.forceIntoXI && controlled) {
     if (setup.control.clubId === home.club.id)
       home = forcePlayer(home, controlled.profile, controlled.fitness, preMatchInjury(controlled));

@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import {
   distance,
   signedForwardDistance,
@@ -37,7 +38,7 @@ export const prepareReceptionContinuation = (
     (receiver.profile.attributes.gameReading + receiver.profile.attributes.composure) / 200;
   if (awareness < 0.4 || speed < 1 || state.time > preparation.expectedArrivalTime + 1.5)
     return { ...preparation, continuation: undefined, runOn: undefined };
-  const dir = receiver.team === 'home' ? 1 : -1;
+  const dir = attacksRight(receiver) ? 1 : -1;
   const projected = { ...receiver, position: meeting };
   const readiness = receiver.fitness?.burstReadiness ?? 1;
   const target = clampPitchPoint({
@@ -78,14 +79,14 @@ export const prepareReceptionContinuation = (
     signedForwardDistance(
       receiver.position,
       { x: receiver.position.x + velocity.x, y: receiver.position.y + velocity.y },
-      receiver.team,
+      receiver,
     ) < 1
   )
     runOn = undefined;
   else if (
     !runOn ||
     state.time >= runOn.expiresAt ||
-    signedForwardDistance(state.ball, runOn.target, receiver.team) < 0 ||
+    signedForwardDistance(state.ball, runOn.target, receiver) < 0 ||
     earliestDefenderArrival(
       state,
       state.players.filter((p) => p.team !== receiver.team),
@@ -112,7 +113,7 @@ export const prepareReceptionContinuation = (
       if (!point.success || sample.ball.position.z > 0.65 || sample.at < 0.35) return false;
       if (Math.min(point.data.y, 68 - point.data.y, point.data.x, 105 - point.data.x) < 1.5)
         return false;
-      if (signedForwardDistance(meeting, point.data, receiver.team) < 2.5) return false;
+      if (signedForwardDistance(meeting, point.data, receiver) < 2.5) return false;
       const eta = estimatePlayerArrivalTime(state, receiver, point.data, 'intercept').estimatedTime;
       return (
         eta <= sample.at + 0.12 &&

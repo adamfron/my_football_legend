@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { RandomGenerator } from '../random/RandomGenerator';
 import type { TacticalMatchState } from './matchState';
 import { clampPitchPoint, distance, type TeamSide } from './matchSpace';
@@ -42,10 +43,9 @@ export const beginPostGoalReaction = (
         });
       else
         target = {
-          x:
-            player.team === 'home'
-              ? Math.min(player.neutralAnchor.x, 49)
-              : Math.max(player.neutralAnchor.x, 56),
+          x: attacksRight(player)
+            ? Math.min(player.neutralAnchor.x, 49)
+            : Math.max(player.neutralAnchor.x, 56),
           y: player.neutralAnchor.y,
         };
       return [player.id, target];
@@ -111,18 +111,15 @@ export const advancePostGoalReaction = (
       dt,
     ),
   );
-  const backX = reaction.scoringTeam === 'home' ? 107.4 : -2.4;
-  if (
-    (reaction.scoringTeam === 'home' && integrated.position.x > backX) ||
-    (reaction.scoringTeam === 'away' && integrated.position.x < backX)
-  ) {
+  const right = attacksRight(reaction.scoringTeam, state);
+  const backX = right ? 107.4 : -2.4;
+  if ((right && integrated.position.x > backX) || (!right && integrated.position.x < backX)) {
     integrated.position.x = backX;
     integrated.velocity.x *= -0.08;
     integrated.velocity.y *= 0.3;
     integrated.velocity.z *= 0.3;
   }
-  const behindGoal =
-    reaction.scoringTeam === 'home' ? integrated.position.x > 105 : integrated.position.x < 0;
+  const behindGoal = right ? integrated.position.x > 105 : integrated.position.x < 0;
   if (behindGoal) {
     const halfWidth = GOAL_WIDTH / 2 - BALL_RADIUS;
     if (Math.abs(integrated.position.y - 34) > halfWidth) {

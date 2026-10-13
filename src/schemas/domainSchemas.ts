@@ -545,6 +545,7 @@ export const leagueClubProfileSchema = z.object({
   form: z.number().min(-20).max(20),
 });
 export const leagueFixtureSchema = z.object({
+  outcome: z.literal('abandoned').optional(),
   id,
   roundIndex: z.number().int().nonnegative(),
   date: z.string(),
@@ -810,6 +811,8 @@ export const careerStateSchema = z.object({
           keyPasses: z.number(),
           defensiveActions: z.number(),
           averageRating: z.number(),
+          ratedAppearances: z.number().int().nonnegative().optional(),
+          canonicalAppearances: z.number().int().nonnegative().optional(),
           yellowCards: z.number(),
           redCards: z.number(),
           missedBySuspension: z.number(),
@@ -835,7 +838,8 @@ export const careerStateSchema = z.object({
             started: z.boolean(),
             substitute: z.boolean(),
             assignedPosition: playerPositionSchema.optional(),
-            minutes: z.number().int().nonnegative(),
+            // Canonical appearances retain exact minutes, including sub-minute cameos.
+            minutes: z.number().nonnegative(),
             goals: z.number().int().nonnegative(),
             assists: z.number().int().nonnegative(),
             rating: z.number().optional(),
@@ -866,6 +870,25 @@ export const careerStateSchema = z.object({
     .array(
       z.object({
         fixtureId: id,
+        canonicalStats: z
+          .object({
+            minutesPlayed: z.number().nonnegative().optional(),
+            saves: z.number().int().nonnegative(),
+            goalsConceded: z.number().int().nonnegative(),
+            catches: z.number().int().nonnegative(),
+            parries: z.number().int().nonnegative(),
+            touches: z.number().int().nonnegative(),
+            shots: z.number().int().nonnegative(),
+            shotsOnTarget: z.number().int().nonnegative(),
+            tacklesWon: z.number().int().nonnegative(),
+            interceptions: z.number().int().nonnegative(),
+            passesAttempted: z.number().int().nonnegative(),
+            passesCompleted: z.number().int().nonnegative(),
+            distanceCovered: z.number().nonnegative(),
+            sprintBursts: z.number().int().nonnegative(),
+          })
+          .optional(),
+        metricsSource: z.literal('canonical').optional(),
         date: z.string(),
         opponentId: id,
         venue: z.enum(['home', 'away']),
@@ -944,6 +967,7 @@ export const careerStateSchema = z.object({
         z.object({
           id,
           startDate: z.string(),
+          canonicalRecoveryDate: z.string().optional(),
           severity: z.enum(['knock', 'minor', 'moderate', 'major']),
           injuryType: z.enum([
             'bruise',
@@ -1029,6 +1053,7 @@ export const careerStateSchema = z.object({
       z.object({
         matchId: id,
         date: z.string(),
+        metricsSource: z.literal('canonical').optional(),
         opponentId: id,
         teamLevel: z.enum(['senior', 'academy']),
         started: z.boolean(),

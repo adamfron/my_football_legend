@@ -1,0 +1,65 @@
+{
+  "seed": "pr166-youth",
+  "completedSeasons": 20,
+  "scenario": "Actual production U-17 canonical match, then existing routine fixtures with real career rollovers/save/hydration; retained canonical fingerprint checked at milestones.",
+  "baselineRoutineOnly20Seasons": {
+    "bytes": 1211563,
+    "source": "docs/performance/PR164-storage-world.json",
+    "comparable": false,
+    "reason": "Different seed; routine-only historical reference, not a measured before/after canonical career."
+  },
+  "records": [
+    {
+      "completedSeasons": 0,
+      "age": 16,
+      "actualCanonicalReceipts": 1,
+      "archivedFixtures": 0,
+      "saveBytes": 101456,
+      "richCanonicalResults": 1
+    },
+    {
+      "completedSeasons": 1,
+      "age": 16,
+      "actualCanonicalReceipts": 1,
+      "archivedFixtures": 0,
+      "saveBytes": 160882,
+      "richCanonicalResults": 1
+    },
+    {
+      "completedSeasons": 5,
+      "age": 20,
+      "actualCanonicalReceipts": 1,
+      "archivedFixtures": 112,
+      "saveBytes": 715076,
+      "richCanonicalResults": 0
+    },
+    {
+      "completedSeasons": 10,
+      "age": 25,
+      "actualCanonicalReceipts": 1,
+      "archivedFixtures": 262,
+      "saveBytes": 915128,
+      "richCanonicalResults": 0
+    },
+    {
+      "completedSeasons": 20,
+      "age": 35,
+      "actualCanonicalReceipts": 1,
+      "archivedFixtures": 562,
+      "saveBytes": 1222458,
+      "richCanonicalResults": 0
+    }
+  ],
+  "capacity": [
+    {
+      "canonicalReceipts": 120,
+      "saveBytes": 2085185,
+      "meaning": "Capacity simulation: clones of one actual production-browser canonical receipt added to the actual long career; no claim of independently played fixtures."
+    },
+    {
+      "canonicalReceipts": 600,
+      "saveBytes": 5622785,
+      "meaning": "Capacity simulation: clones of one actual production-browser canonical receipt added to the actual long career; no claim of independently played fixtures."
+    }
+  ]
+}

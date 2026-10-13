@@ -1,5 +1,29 @@
 # My Football Legend — Current Project State
 
+## PR166 — Career–Match Integration & Behavioural PlayStyles
+
+Baza: scalony PR165 `ebb88a5`. Grywalny fixture U-17 i profesjonalny przechodzi
+przez kontrakt PR164 do współdzielonego runtime 3D, następnie przez jeden
+walidowany wynik do księgi udziału, kondycji, dyscypliny, historii i kolejki zapisu.
+Trener wybiera rzeczywisty skład oraz siedmiu rezerwowych; ławka nie wymusza
+występu. Rutynowa symulacja i istniejący kalendarz pozostają dostępne.
+
+Sześć stylów korzysta z bounded, rozstrzygniętego evidence decyzji człowieka,
+przenoszonego między sezonami. Skutki są lokalne: mała ulga przygotowania,
+bliska antycypacja albo regeneracja po wysiłku. Trzy ostatnie bogate wyniki
+bieżącego sezonu pozostają w zapisie; permanentne receipts chronią rekordy,
+progres i idempotencję. Niezapisany mecz restartuje od początku. Przerwanie
+ma jawny status; późniejsza adjudykacja i mid-match resume nie są dostarczone.
+
+Druga połowa odwraca fizyczne cele/geometrię/przepisy bez teleportowania ciał
+i zmiany klubowej własności score. Menu deduplikuje identyczne mechaniki,
+pozostawiając rozróżnialne intencje. Wygląd PR165 i lazy loading są wspólne.
+
+[Raport PR166](PR166_CAREER_MATCH_INTEGRATION_PLAYSTYLES.md) zawiera architekturę,
+24 odpowiedzi, końcowe verify, browser smoke, pomiary i ograniczenia.
+Następny etap: **PR167 — NPC Development & Footballer Diversity**, potem
+PR168 trenerzy/inteligencja, PR169 narracje, PR170 atmosfera. Poniżej historia.
+
 ## PR165 — Visual DNA & Character Creator
 
 Baza: scalony PR164 `4f08a37`. Wspólny resolver v1 używa istniejącego `FaceGenome`,

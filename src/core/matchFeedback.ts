@@ -89,7 +89,10 @@ export const getSeasonPlayerSummary = (
     ...totals,
     xG: round(totals.xG),
     xA: round(totals.xA),
-    saves: ledger.reduce((sum, m) => sum + (m.goalkeeperStats?.saves ?? 0), 0),
+    saves: ledger.reduce(
+      (sum, m) => sum + (m.canonicalStats?.saves ?? m.goalkeeperStats?.saves ?? 0),
+      0,
+    ),
     ...(rated.length
       ? { averageRating: round(rated.reduce((s, m) => s + m.rating!, 0) / rated.length, 1) }
       : {}),

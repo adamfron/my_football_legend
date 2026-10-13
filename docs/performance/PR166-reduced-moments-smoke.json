@@ -1,0 +1,155 @@
+{
+  "seed": "pr166-youth",
+  "position": "cm",
+  "presentationPolicy": "player_extended",
+  "decisions": 0,
+  "halftimeTransitions": 1,
+  "savedRoundTrip": true,
+  "reservePreflight": {
+    "seed": "pr166-youth",
+    "position": "striker",
+    "naturallySelectedBench": true,
+    "runtimeOpened": true,
+    "errors": [],
+    "consoleErrors": []
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "score": "0:0",
+  "note": "Real fresh career, normal policy, no eligible presented human decision. Canonical full-time/commit/reload/next fixture succeeded; this run does not provide human-choice UI coverage. Full-match UI coverage is measured separately.",
+  "transfer": [
+    {
+      "version": "baseline",
+      "name": "cold-menu",
+      "bytes": 115864
+    },
+    {
+      "version": "baseline",
+      "name": "cold-career-module",
+      "bytes": 46598
+    },
+    {
+      "version": "baseline",
+      "name": "career-home",
+      "bytes": 0
+    },
+    {
+      "version": "baseline",
+      "name": "career-creation-through-home",
+      "bytes": 410850
+    },
+    {
+      "version": "baseline",
+      "name": "cold-saved-career-menu",
+      "bytes": 115864
+    },
+    {
+      "version": "baseline",
+      "name": "cold-saved-career-screen",
+      "bytes": 238767
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-menu",
+      "bytes": 120303
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-career-module",
+      "bytes": 43637
+    },
+    {
+      "version": "current-reserve",
+      "name": "career-home",
+      "bytes": 0
+    },
+    {
+      "version": "current-reserve",
+      "name": "career-creation-through-home",
+      "bytes": 408428
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-saved-career-menu",
+      "bytes": 120303
+    },
+    {
+      "version": "current-reserve",
+      "name": "cold-saved-career-screen",
+      "bytes": 235806
+    },
+    {
+      "version": "current-reserve",
+      "name": "first-career-fixture-introduction",
+      "bytes": 277594
+    },
+    {
+      "version": "current",
+      "name": "cold-menu",
+      "bytes": 120303
+    },
+    {
+      "version": "current",
+      "name": "cold-career-module",
+      "bytes": 43637
+    },
+    {
+      "version": "current",
+      "name": "career-home",
+      "bytes": 0
+    },
+    {
+      "version": "current",
+      "name": "career-creation-through-home",
+      "bytes": 408428
+    },
+    {
+      "version": "current",
+      "name": "cold-saved-career-menu",
+      "bytes": 120303
+    },
+    {
+      "version": "current",
+      "name": "cold-saved-career-screen",
+      "bytes": 235806
+    },
+    {
+      "version": "current",
+      "name": "first-career-fixture-introduction",
+      "bytes": 277594
+    },
+    {
+      "version": "current",
+      "name": "first-career-3d-runtime",
+      "bytes": 0
+    },
+    {
+      "version": "current",
+      "name": "second-fixture-restart-module-reuse",
+      "bytes": 0
+    },
+    {
+      "version": "current",
+      "name": "subsequent-career-fixture-module-reuse",
+      "bytes": 0
+    }
+  ],
+  "additionalFullMatch": {
+    "policy": "full_match",
+    "seed": "pr166-youth",
+    "position": "cm",
+    "decisions": 0,
+    "halfTimes": 1,
+    "savedRoundTrip": true,
+    "errors": [],
+    "consoleErrors": []
+  },
+  "holdOnlyWingerProbe": {
+    "position": "lw",
+    "selected": 26,
+    "resolved": 0,
+    "behaviour": [],
+    "savedRoundTrip": true,
+    "note": "The initial menu smoke selected hold each time. These unresolved hold decisions earned no PlayStyle evidence. The final positive browser smoke explicitly chooses available passes and requires a resolved canonical outcome."
+  }
+}

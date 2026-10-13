@@ -1,3 +1,4 @@
+import { attacksRight } from './matchSpace';
 import { z } from 'zod';
 import { distance, signedForwardDistance } from './matchSpace';
 import { estimateCarrierContactWindow } from './ballContactGeometry';
@@ -192,7 +193,7 @@ export const projectLocomotion = (
   if (cooperativePress?.secondaryId === player.id)
     return result(metres > 8 ? 'sprint' : 'run', 'press_commit');
   const defensiveTransition = state.teams[player.team].phase === 'defensive_transition';
-  const ownGoalX = player.team === 'home' ? 0 : 105;
+  const ownGoalX = attacksRight(player) ? 0 : 105;
   const behindPlay =
     Math.abs(player.position.x - ownGoalX) > Math.abs(state.ball.x - ownGoalX) + 10;
   if (defensiveTransition && behindPlay && metres > 8) return result('sprint', 'recovery_run');
@@ -219,7 +220,7 @@ export const projectLocomotion = (
                 : 1),
     };
   }
-  const forward = signedForwardDistance(player.position, target, player.team);
+  const forward = signedForwardDistance(player.position, target, player);
   if (
     player.duty === 'attack' &&
     forward > 14 &&

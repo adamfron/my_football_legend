@@ -428,6 +428,50 @@ describe('background Match Lab orchestration', () => {
     expect(controller.latestState.time).toBeGreaterThan(JSON.parse(frozen).time);
   });
 
+  it('renders a selected reserve before canonical statistics exist and keeps football advancing without human agency', () => {
+    const reserve = controller.session.home.bench![0]!;
+    const session = {
+      ...controller.session,
+      setup: {
+        ...controller.session.setup,
+        control: {
+          mode: 'player' as const,
+          clubId: controller.session.home.club.id,
+          footballerId: reserve.footballerId,
+          forceIntoXI: false,
+        },
+      },
+    };
+    const initial = createTacticalMatch(session);
+    expect(initial.players.some((player) => player.id === reserve.footballerId)).toBe(false);
+    expect(
+      initial.statistics!.players.some((entry) => entry.playerId === reserve.footballerId),
+    ).toBe(false);
+    controller = new MatchLabDiagnosticsController(session, initial, createMatchFlowTelemetry());
+    act(() =>
+      root.render(
+        <RunningLab
+          key="selected-reserve"
+          session={session}
+          diagnostics={controller}
+          careerMode
+          onSetup={() => undefined}
+          onRestart={() => undefined}
+          onRandomize={() => undefined}
+        />,
+      ),
+    );
+    expect(container.querySelector('.tactical-sandbox')).not.toBeNull();
+    expect(container.querySelector('.match-centre [role="status"]')?.textContent).toContain(
+      'Jesteś na ławce. O wejściu decyduje trener.',
+    );
+    expect(container.textContent).not.toContain('Twój występ');
+    expect(container.querySelector('.match-moment-options')).toBeNull();
+    act(() => vi.advanceTimersByTime(20));
+    expect(controller.latestState.time).toBeGreaterThan(initial.time);
+    expect(controller.latestState.controlledFootballerId).toBe(reserve.footballerId);
+  });
+
   it('shows the spectator transition after a real controlled-player substitution without transferring control', () => {
     const world = createCanonicalWorldDatabase();
     const setup = { homeClubId: 'pro_9', awayClubId: 'pro_1', seed: 'pr161-controlled-ui-sub' };

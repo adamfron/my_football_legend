@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { playStyleIdSchema } from '../playStyles';
 import {
   looseBallLivenessObservationSchema,
   looseBallLivenessDiagnosticSchema,
@@ -308,6 +309,17 @@ export const matchPlanningScheduleSchema = z.object({
 });
 export type MatchPlanningSchedule = z.infer<typeof matchPlanningScheduleSchema>;
 export const playerDecisionOutcomeSchema = z.object({
+  behaviourContext: z
+    .object({
+      forwardMetres: z.number().finite(),
+      opponentsBypassed: z.number().int().nonnegative(),
+      betweenLines: z.boolean(),
+      goalDistance: z.number().nonnegative(),
+      activeEffort: z.boolean(),
+      goalkeeper: z.boolean(),
+      pressOpportunity: z.boolean(),
+    })
+    .optional(),
   decisionId: z.string(),
   actorId: z.string(),
   selectedAt: z.number().nonnegative(),
@@ -448,6 +460,8 @@ export const restartLivenessDiagnosticSchema = z.object({
 export type RestartLivenessDiagnostic = z.infer<typeof restartLivenessDiagnosticSchema>;
 
 export interface MatchPlayerState {
+  endsSwitched?: boolean | undefined;
+  playStyles?: z.infer<typeof playStyleIdSchema>[] | undefined;
   goalkeeperRole?: boolean;
   fitness?: MatchFitness;
   injury?: MatchInjury;
@@ -511,6 +525,7 @@ export const locomotionTelemetrySchema = z.object({
 });
 export type LocomotionTelemetry = z.infer<typeof locomotionTelemetrySchema>;
 export interface MatchTeamState {
+  endsSwitched?: boolean | undefined;
   side: TeamSide;
   clubId: string;
   formation: FormationId;
@@ -718,6 +733,7 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  endsSwitched?: boolean | undefined;
   injuryAssessment?: InjuryAssessment;
   droppedBallTouchRestriction?: DroppedBallTouchRestriction;
   addedTimePolicy?: AddedTimePolicy;
@@ -967,6 +983,7 @@ export const tacticalMatchStateSchema = z
     lastGroundContact: groundContactFactSchema.optional(),
     contactControlTelemetry: contactControlTelemetrySchema.optional(),
     aerialContactLocks: z.array(aerialContactLockSchema).max(22).optional(),
+    endsSwitched: z.boolean().optional(),
     seed: z.string().min(1),
     time: z.number().nonnegative().finite(),
     decisionIndex: z.number().int().nonnegative(),
@@ -977,6 +994,7 @@ export const tacticalMatchStateSchema = z
       teamSideSchema,
       z
         .object({
+          endsSwitched: z.boolean().optional(),
           side: teamSideSchema,
           clubId: z.string(),
           formation: z.string(),
@@ -993,10 +1011,12 @@ export const tacticalMatchStateSchema = z
         .object({
           id: z.string(),
           goalkeeperRole: z.boolean().optional(),
+          playStyles: z.array(playStyleIdSchema).max(6).optional(),
           fitness: matchFitnessSchema.optional(),
           injury: matchInjurySchema.optional(),
           restartWallResponse: restartWallResponseSchema.optional(),
           activeSince: z.number().nonnegative().optional(),
+          endsSwitched: z.boolean().optional(),
           team: teamSideSchema,
           position: physicalPointSchema,
           velocity: physicalPointSchema.optional(),
