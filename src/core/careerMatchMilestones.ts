@@ -59,7 +59,7 @@ export const recordCanonicalCareerMilestones = (
       data: {
         matchId: result.completedMatchId,
         fixtureId: result.fixture.id,
-        source: 'canonical',
+        source: result.continuation ? 'canonical_plus_summary' : 'canonical',
         minutes: participant.stats.minutesPlayed,
         started: participant.started,
       },

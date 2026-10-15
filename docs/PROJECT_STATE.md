@@ -1,5 +1,35 @@
 # My Football Legend — Current Project State
 
+## PR167 — NPC Development, Footballer Diversity & Flexible Career Matches
+
+Baza: scalony PR166 `678c75a`. Osiem istniejących krzywych rozwija teraz
+specjalizacje, stabilne okresy stagnacji, charakter i środowisko macierzystego
+klubu/akademii. Projekcja po dacie pozostaje czysta; potwierdzone doświadczenie,
+wyjątkowe nadpisania i chwilowa kondycja mają osobne warstwy. NPC trafiają do
+wspólnego runtime ze swoimi rzeczywistymi profilami i maksymalnie dwoma stylami.
+Karty klubowe ujawniają obecne atuty i źródło stylu, bez przyszłych prognoz.
+
+Każdy fixture skierowany przez dotychczasowe reguły do rozgrywania oferuje
+„Rozegraj mecz 3D” / „Symuluj mecz” przed importem runtime. „Symuluj do końca”
+zatrzymuje kanoniczny prefiks i domyka wyłącznie resztę czasu lekkim modelem.
+Kontrakt wyniku v2/source v1 zachowuje wynik, udział, kartki, zmiany, urazy,
+kondycję i rzeczywiste decyzje. Indywidualne statystyki akcji końcówki pozostają
+jawnie niepełne; nie przypisuje się fikcyjnych strzelców ani kontaktów.
+
+Zapis v7 i trzy bogate wyniki aktywnego sezonu pozostają; kompaktowe receipts
+chronią idempotencję i źródło danych. W Edge sprawdzono oba wybory U-17/pro,
+trzy wybory w UI (dwa rozstrzygnięte przed przekazaniem) i kontynuację,
+anulowanie, odczyt oraz kolejny fixture.
+Końcowe `npm run verify`: **PASS — 1702 testy, lint, TypeScript i build**.
+Pomiary oraz odpowiedzi na 25 pytań: [raport PR167](PR167_NPC_DEVELOPMENT_FOOTBALLER_DIVERSITY.md).
+Otwarte pozostają pełna historia środowisk treningowych, szczegółowe akcje
+statystycznej końcówki i zaobserwowany przypadek nadmiernego doliczenia pierwszej
+połowy. Nie deklarujemy ogólnej naprawy liveness ani kalibracji silnika.
+
+Następny etap: **PR168 — Coaches, Match Briefings & Tactical Intelligence**,
+potem **PR169** narracje i wiadomości oraz **PR170** atmosfera i oprawa.
+Poniżej historia wcześniejszych etapów.
+
 ## PR166 — Career–Match Integration & Behavioural PlayStyles
 
 Baza: scalony PR165 `ebb88a5`. Grywalny fixture U-17 i profesjonalny przechodzi

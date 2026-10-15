@@ -128,6 +128,53 @@ describe('background Match Lab orchestration', () => {
     vi.restoreAllMocks();
   });
 
+  it('freezes the authoritative clock for remainder confirmation, resumes on cancel and hands off once', () => {
+    const handoff = vi.fn(() => true);
+    act(() =>
+      root.render(
+        <RunningLab
+          session={controller.session}
+          diagnostics={controller}
+          careerMode
+          onSimulateRemainder={handoff}
+          onSetup={() => undefined}
+          onRestart={() => undefined}
+          onRandomize={() => undefined}
+        />,
+      ),
+    );
+    const button = () =>
+      [...container.querySelectorAll('button')].find((b) => b.textContent === 'Symuluj do końca')!;
+    act(() => button().click());
+    const frozen = controller.latestState;
+    const steps = observed.step.mock.calls.length;
+    act(() => vi.advanceTimersByTime(500));
+    expect(controller.latestState).toBe(frozen);
+    expect(observed.step).toHaveBeenCalledTimes(steps);
+    expect(container.querySelector('dialog[open]')?.textContent).toContain(
+      'Dotychczasowe zdarzenia zostaną zachowane',
+    );
+    act(() =>
+      [...container.querySelectorAll('dialog button')]
+        .find((b) => b.textContent === 'Anuluj')!
+        .dispatchEvent(new MouseEvent('click', { bubbles: true })),
+    );
+    expect(container.querySelector('dialog')).toBeNull();
+    act(() => vi.advanceTimersByTime(100));
+    expect(observed.step.mock.calls.length).toBeGreaterThan(steps);
+    act(() => button().click());
+    const accepted = controller.latestState;
+    const confirm = container.querySelector<HTMLButtonElement>('dialog button')!;
+    act(() => {
+      confirm.click();
+      confirm.click();
+    });
+    expect(handoff).toHaveBeenCalledTimes(1);
+    expect(handoff).toHaveBeenCalledWith(accepted, false);
+    act(() => vi.advanceTimersByTime(500));
+    expect(controller.latestState).toBe(accepted);
+  });
+
   it('keeps hidden rendering and capture off while coarse React updates cannot roll back canonical progress', () => {
     const capture = vi.spyOn(controller.recorder, 'record');
     act(() => vi.advanceTimersByTime(10));

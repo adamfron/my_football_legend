@@ -1,3 +1,4 @@
+import { getProfileAge } from './age';
 import type {
   CareerState,
   FootballerCondition,
@@ -155,6 +156,7 @@ export const createCareerSingleMatchSession = (
         footballers[playerId] = {
           ...player,
           currentClubId: teamId,
+          profile: { ...player.profile, age: getProfileAge(player.profile, date, '2026-07-01') },
           ...(playerId === career.player.id
             ? { profile: career.player, fitness: recovered.player.fitness }
             : {}),
@@ -184,7 +186,11 @@ export const createCareerSingleMatchSession = (
     );
     for (const id of squad) {
       const player = resolveCareerWorldFootballer(atDate, id) ?? footballers[id];
-      if (player) footballers[id] = player;
+      if (player)
+        footballers[id] = {
+          ...player,
+          profile: { ...player.profile, age: getProfileAge(player.profile, date, '2026-07-01') },
+        };
     }
     if (atDate.currentProfessionalClub?.id === club.id && atDate.developmentProfile) {
       footballers[atDate.player.id] = {

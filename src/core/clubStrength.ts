@@ -18,7 +18,7 @@ export const getBootstrapClubStrength = (
   club: Pick<ProfessionalClub, 'strengthRating' | 'overallStrength'>,
 ) => Math.max(0, Math.min(100, club.strengthRating ?? club.overallStrength ?? 50));
 
-const liveStrengthCache = new Map<string, number>();
+const liveStrengthCache = new WeakMap<object, Map<string, number>>();
 
 /** The only live sporting-strength resolver. A broken professional squad is an integrity error. */
 export const getCareerClubStrength = (career: CareerState, club: ProfessionalClub) => {
@@ -30,13 +30,18 @@ export const getCareerClubStrength = (career: CareerState, club: ProfessionalClu
   // An initialized (including empty) list must satisfy the legal-XI invariant.
   if (effective.squadPlayerIds === undefined) return getBootstrapClubStrength(club);
   const key = `${career.seed}:${club.id}:${career.currentDate ?? ''}:${effective.managerId ?? ''}:${effective.squadPlayerIds.join(',')}`;
-  const cached = liveStrengthCache.get(key);
+  let strengths = liveStrengthCache.get(career);
+  if (!strengths) {
+    strengths = new Map();
+    liveStrengthCache.set(career, strengths);
+  }
+  const cached = strengths.get(key);
   if (cached !== undefined) return cached;
   const strength = getSquadDerivedClubStrength(career, effective);
   if (strength === undefined) {
     throw new Error(`Professional club ${club.id} has no canonical legal XI`);
   }
-  liveStrengthCache.set(key, strength);
+  strengths.set(key, strength);
   return strength;
 };
 

@@ -9,7 +9,7 @@ export const footballerConditionSchema = z.object({
   lastAppearanceDate: simulationDate.optional(),
   lastAppearanceMinutes: z.number().nonnegative().finite().optional(),
   lastMatchId: z.string().min(1).optional(),
-  source: z.enum(['canonical', 'summary']).optional(),
+  source: z.enum(['canonical', 'summary', 'canonical_plus_summary']).optional(),
   injuryUntilDate: simulationDate.optional(),
   injuryStatus: z.enum(['discomfort', 'playable', 'unable', 'absence']).optional(),
 });

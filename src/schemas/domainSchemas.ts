@@ -888,7 +888,7 @@ export const careerStateSchema = z.object({
             sprintBursts: z.number().int().nonnegative(),
           })
           .optional(),
-        metricsSource: z.literal('canonical').optional(),
+        metricsSource: z.enum(['canonical', 'canonical_plus_summary']).optional(),
         date: z.string(),
         opponentId: id,
         venue: z.enum(['home', 'away']),
@@ -1053,7 +1053,7 @@ export const careerStateSchema = z.object({
       z.object({
         matchId: id,
         date: z.string(),
-        metricsSource: z.literal('canonical').optional(),
+        metricsSource: z.enum(['canonical', 'canonical_plus_summary']).optional(),
         opponentId: id,
         teamLevel: z.enum(['senior', 'academy']),
         started: z.boolean(),

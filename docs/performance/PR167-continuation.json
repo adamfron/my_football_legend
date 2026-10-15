@@ -1,0 +1,71 @@
+{
+  "provenance": "Constructed consistent handoff fixtures; not physically observed 12/45/63/89-minute games. Timing includes contract validation, prefix copy, simulation and merge. Warm local Node CPU samples; not browser latency or peak memory.",
+  "handoffs": [
+    {
+      "minute": 12,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "remainingSeconds": 4680,
+      "medianMs": 6.85369999999989,
+      "p95Ms": 9.717100000000073,
+      "resultBytes": 39225,
+      "heapBefore": 78457296,
+      "heapAfter": 90456240,
+      "identicalRepeats": 100,
+      "physicalTicksExecuted": 0
+    },
+    {
+      "minute": 45,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "remainingSeconds": 2700,
+      "medianMs": 6.507300000000214,
+      "p95Ms": 8.026100000000042,
+      "resultBytes": 39228,
+      "heapBefore": 90598992,
+      "heapAfter": 90585976,
+      "identicalRepeats": 100,
+      "physicalTicksExecuted": 0
+    },
+    {
+      "minute": 63,
+      "score": {
+        "home": 2,
+        "away": 1
+      },
+      "remainingSeconds": 1620,
+      "medianMs": 8.593200000000252,
+      "p95Ms": 11.1257999999998,
+      "resultBytes": 39227,
+      "heapBefore": 90728232,
+      "heapAfter": 89555544,
+      "identicalRepeats": 100,
+      "physicalTicksExecuted": 0
+    },
+    {
+      "minute": 89,
+      "score": {
+        "home": 3,
+        "away": 2
+      },
+      "remainingSeconds": 60,
+      "medianMs": 8.402799999999843,
+      "p95Ms": 10.058799999999792,
+      "resultBytes": 39229,
+      "heapBefore": 89697576,
+      "heapAfter": 89133976,
+      "identicalRepeats": 100,
+      "physicalTicksExecuted": 0
+    }
+  ],
+  "fullSummary": {
+    "medianMs": 0.10690000000067812,
+    "p95Ms": 0.31679999999960273,
+    "repeats": 100,
+    "physicalTicksExecuted": 0
+  }
+}

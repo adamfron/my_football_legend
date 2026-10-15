@@ -1,3 +1,4 @@
+import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
 import { PresentationContextHistory } from './tacticalRenderer/contextHistory';
 import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
 import { projectSprintEpisode } from '../../core/matchSimulation/locomotion';
@@ -455,6 +456,7 @@ type RunningLabProps = {
   initialState?: TacticalMatchState;
   onObserve?: (state: TacticalMatchState) => void;
   onComplete?: (state: TacticalMatchState) => void;
+  onSimulateRemainder?: (state: TacticalMatchState, unselectedDecision: boolean) => boolean;
   completionPending?: boolean;
   squadOveralls?: { home: number; away: number };
   onSetup(): void;
@@ -513,6 +515,7 @@ export const RunningLab = ({
   initialState,
   onObserve,
   onComplete,
+  onSimulateRemainder,
   completionPending = false,
 }: {
   session: SingleMatchSession;
@@ -525,6 +528,7 @@ export const RunningLab = ({
   initialState?: TacticalMatchState;
   onObserve?: (state: TacticalMatchState) => void;
   onComplete?: (state: TacticalMatchState) => void;
+  onSimulateRemainder?: (state: TacticalMatchState, unselectedDecision: boolean) => boolean;
   completionPending?: boolean;
 }) => {
   const kits = useMemo(() => projectMatchKits(session.home.club, session.away.club), [session]);
@@ -583,6 +587,13 @@ export const RunningLab = ({
     debugRecorderRef = useRef(diagnostics.recorder),
     videoRecorderRef = useRef(new ViewportVideoRecorder()),
     finishingRef = useRef(false);
+  const remainderFreeze = useRef(false);
+  const remainderAccepted = useRef(false);
+  const [remainderPrompt, setRemainderPrompt] = useState<{
+    state: TacticalMatchState;
+    wasPlaying: boolean;
+    unselectedDecision: boolean;
+  }>();
   const replaying = presentationPhase === 'replay';
   const onObserveRef = useRef(onObserve);
   onObserveRef.current = onObserve;
@@ -850,6 +861,7 @@ export const RunningLab = ({
     if (playing && !replaying && !decisionBoundary && presentationPhase !== 'lead_in') {
       let scheduledAt = performance.now();
       const advance = () => {
+        if (remainderFreeze.current || completionPending) return;
         const background =
           !presentationPolicy.fullMatch && presentationPhase === 'background_simulation';
         if (background)
@@ -1243,6 +1255,7 @@ export const RunningLab = ({
     return () => window.clearTimeout(timer);
   }, [
     playing,
+    completionPending,
     replaying,
     session,
     speed,
@@ -1802,8 +1815,42 @@ export const RunningLab = ({
             </button>
           </>
         )}
+        {careerMode &&
+          onSimulateRemainder &&
+          state.status !== 'full_time' &&
+          state.status !== 'abandoned' && (
+            <button
+              disabled={
+                completionPending ||
+                Boolean(remainderPrompt) ||
+                replaying ||
+                presentationPhase === 'lead_in' ||
+                !canContinueCareerMatch(stateRef.current)
+              }
+              onClick={() => {
+                const current = stateRef.current;
+                if (remainderFreeze.current || !canContinueCareerMatch(current)) return;
+                remainderFreeze.current = true;
+                publishState(current);
+                setDisplayTime(current.time);
+                setRemainderPrompt({
+                  state: current,
+                  wasPlaying: playing,
+                  unselectedDecision: Boolean(decisionBoundary),
+                });
+                setPlaying(false);
+              }}
+            >
+              Symuluj do końca
+            </button>
+          )}
         {careerMode && (state.status === 'full_time' || state.status === 'abandoned') && (
-          <button disabled={completionPending} onClick={() => onComplete?.(stateRef.current)}>
+          <button
+            disabled={completionPending}
+            onClick={() => {
+              if (!remainderFreeze.current) onComplete?.(stateRef.current);
+            }}
+          >
             {completionPending ? 'Zapisywanie wyniku…' : 'Zapisz wynik i wróć do kariery'}
           </button>
         )}
@@ -1813,6 +1860,54 @@ export const RunningLab = ({
           </button>
         )}
       </nav>
+      {remainderPrompt && (
+        <dialog
+          ref={(dialog) => {
+            if (dialog && !dialog.open) {
+              if (dialog.showModal) dialog.showModal();
+              else dialog.setAttribute('open', '');
+            }
+          }}
+          aria-label="Symulacja pozostałej części meczu"
+          onCancel={() => {
+            remainderFreeze.current = false;
+            setPlaying(remainderPrompt.wasPlaying);
+            setRemainderPrompt(undefined);
+          }}
+        >
+          <p>
+            Zakończyć rozgrywanie i zasymulować pozostałą część meczu? Dotychczasowe zdarzenia
+            zostaną zachowane.
+          </p>
+          <button
+            disabled={completionPending}
+            onClick={() => {
+              if (remainderAccepted.current) return;
+              if (
+                onSimulateRemainder?.(remainderPrompt.state, remainderPrompt.unselectedDecision)
+              ) {
+                remainderAccepted.current = true;
+                return;
+              }
+              remainderFreeze.current = false;
+              setPlaying(remainderPrompt.wasPlaying);
+              setRemainderPrompt(undefined);
+            }}
+          >
+            Tak, symuluj pozostałą część
+          </button>
+          <button
+            disabled={completionPending}
+            onClick={() => {
+              remainderFreeze.current = false;
+              setPlaying(remainderPrompt.wasPlaying);
+              setRemainderPrompt(undefined);
+            }}
+          >
+            Anuluj
+          </button>
+        </dialog>
+      )}
       {replaying && (
         <div>
           {goalReplay[0]?.offside && (
@@ -2338,7 +2433,7 @@ export const RunningLab = ({
             if (!presentationPolicy.fullMatch && presentationPhase === 'background_simulation')
               return;
             if (event.button !== 0 || rendererRef.current?.consumeCameraClick()) return;
-            if (!opportunity || shotAim || replaying) return;
+            if (remainderFreeze.current || !opportunity || shotAim || replaying) return;
             const opportunityActor = state.players.find(
               (player) => player.id === opportunity.actorId,
             );

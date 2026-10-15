@@ -1,5 +1,8 @@
+import { getCareerNpcPlayStyles } from '../../core/npcCareerIdentity';
+import { describeNpcDevelopment } from '../../core/npcFootballIdentity';
+import { PLAY_STYLE_PRESENTATION } from '../../core/playStyles';
 import { createPortal } from 'react-dom';
-import type { Contract, FootballerProfile } from '../../types/domain';
+import type { CareerState, Contract, FootballerProfile } from '../../types/domain';
 import { ATTRIBUTE_GROUPS, ATTRIBUTE_PRESENTATION } from '../../core/attributePresentation';
 import { getRankedFootballArchetypes } from '../../core/footballArchetypes';
 import { translate } from '../../core/narrative/localization';
@@ -10,12 +13,14 @@ import { positionLabel } from '../../core/positionPresentation';
 
 export const FootballerHoverCard = ({
   player,
+  career,
   contract,
   clubName,
   anchor,
   onClose,
 }: {
   player: FootballerProfile;
+  career?: CareerState;
   contract?: Contract | undefined;
   clubName: string;
   anchor: DOMRect;
@@ -67,6 +72,21 @@ export const FootballerHoverCard = ({
           {archetype?.label ?? '—'}
         </p>
       </div>
+      {career && player.id !== career.player.id && (
+        <div>
+          <p>{describeNpcDevelopment(player)}</p>
+          {getCareerNpcPlayStyles(career, player).map(({ style, source }) => (
+            <p key={style} title={PLAY_STYLE_PRESENTATION[style].effect}>
+              {PLAY_STYLE_PRESENTATION[style].name} ·{' '}
+              {source === 'established'
+                ? 'utrwalony styl'
+                : source === 'development'
+                  ? 'specjalizacja rozwinięta w karierze'
+                  : 'doświadczenie z występów'}
+            </p>
+          ))}
+        </div>
+      )}
       <RadarChart
         attributes={player.attributes}
         position={player.primaryPosition}

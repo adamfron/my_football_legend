@@ -21,6 +21,9 @@ const parsedDefinitions = definitions.map(
 
 export const POLISH_U17_STARTING_SEASON = 2026;
 export const getYouthCohortKey = (teamId: string, season: number) => `u17:${teamId}:${season}`;
+/** Stable academy ownership metadata, independent of its changing squad. */
+export const getYouthTeamParentClubId = (teamId: string) =>
+  parsedDefinitions.find((definition) => definition.id === teamId)?.parentClubId;
 
 export const getPolishU17TeamDefinitions = (clubs: readonly ProfessionalClub[]) => {
   const clubIds = new Set(clubs.map((club) => club.id));

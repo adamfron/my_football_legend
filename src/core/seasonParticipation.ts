@@ -36,7 +36,7 @@ export const getSeasonAppearanceStats = (records: SeasonParticipationRecord[]) =
     xA: played.reduce((sum, record) => sum + record.xA, 0),
     averageRating: ratings.length ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0,
     ratedAppearances: ratings.length,
-    canonicalAppearances: played.filter((record) => record.metricsSource === 'canonical').length,
+    canonicalAppearances: played.filter((record) => Boolean(record.metricsSource)).length,
   };
   const completedFixtures = records.filter((record) => record.fixtureStatus !== 'scheduled').length;
   if (
@@ -115,7 +115,7 @@ export const getSeasonGoalkeeperStats = (records: SeasonParticipationRecord[]) =
     cleanSheets:
       detailed.filter((stats) => stats.cleanSheet).length +
       canonical.filter(
-        (record) => record.minutes >= 60 && record.canonicalStats!.goalsConceded === 0,
+        (record) => record.metricsSource !== 'canonical_plus_summary' && record.minutes >= 60 && record.canonicalStats!.goalsConceded === 0,
       ).length,
     saves,
     savePercentage: canonical.length ? undefined : faced ? (saves / faced) * 100 : 0,

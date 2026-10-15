@@ -496,6 +496,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
       {preview && previewPlayer && (
         <FootballerHoverCard
           player={previewPlayer}
+          career={career}
           contract={previewContract}
           clubName={club.name}
           anchor={preview.anchor}

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { getCareerNpcPlayStyles } from './npcCareerIdentity';
 import {
   footballerProfileSchema,
   formationSlotSchema,
@@ -21,14 +22,13 @@ import {
   matchSubstitutionRulesSchema,
   substitutionFactSchema,
 } from './matchSimulation/substitutions';
-import { playerMatchStatsSchema, teamAccountingSchema } from './matchSimulation/playerMatchStats';
+import { teamAccountingSchema } from './matchSimulation/playerMatchStats';
 import {
   matchTerminationSchema,
   playerDecisionOutcomeSchema,
   type TacticalMatchState,
 } from './matchSimulation/matchState';
 import { cardFactSchema } from './matchSimulation/matchRules';
-import { teamSideSchema } from './matchSimulation/matchSpace';
 import { matchVisualContextSchema, toCanonicalFootballProfile } from './visualIdentity';
 import {
   evaluatePlayStyleUnlocks,
@@ -42,6 +42,10 @@ import { applyAppearanceConsequences } from './appearanceConsequences';
 import { retainCareerMatchResults } from './careerMatchRetention';
 import { recordCanonicalCareerMilestones } from './careerMatchMilestones';
 import { compactMatchParticipant } from './careerMatchSummary';
+import {
+  careerMatchContinuationSchema,
+  careerMatchParticipantSchema,
+} from './careerMatchProvenance';
 
 export const MATCH_CONTRACT_VERSION = 1;
 export const MATCH_RESULT_MAX_BYTES = 96_000;
@@ -164,6 +168,15 @@ export const contractFingerprint = (value: unknown): string => {
     hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
   return (hash >>> 0).toString(16).padStart(8, '0');
 };
+
+/** The receipt records UI handoff context, but presentation must not choose football RNG. */
+export const continuationFootballFingerprint = (
+  prefix: z.infer<typeof careerMatchContinuationSchema>['prefix'],
+) => {
+  const { unselectedDecision: _presentation, ...football } = prefix;
+  void _presentation;
+  return contractFingerprint(football);
+};
 const footballFingerprint = (
   input: Pick<
     CareerMatchInput,
@@ -235,7 +248,10 @@ export const createCareerMatchInput = (
     session[side].bench = (session[side].bench ?? []).slice(0, 7);
   for (const side of ['home', 'away'] as const)
     for (const p of [...session[side].players, ...(session[side].bench ?? [])])
-      if (p.footballerId === career.player.id) p.playStyles = getUnlockedPlayStyles(career);
+      p.playStyles =
+        p.footballerId === career.player.id
+          ? getUnlockedPlayStyles(career)
+          : getCareerNpcPlayStyles(career, p.profile).map((value) => value.style);
   const base = {
     version: MATCH_CONTRACT_VERSION,
     fixture: {
@@ -299,15 +315,6 @@ export const startCareerMatch = (raw: unknown): TacticalMatchState => {
   return { ...createTacticalMatch(input.session), substitutionRules: input.substitutionRules };
 };
 
-const participant = z.object({
-  id,
-  team: teamSideSchema,
-  started: z.boolean(),
-  stats: playerMatchStatsSchema,
-  condition: z.number().min(0).max(100),
-  injury: matchInjurySchema.optional(),
-  position: formationSlotSchema.shape.position,
-});
 const aggregate = z.object({
   kind: id,
   attempts: count,
@@ -322,7 +329,8 @@ const aggregate = z.object({
 });
 export const careerMatchResultSchema = z
   .object({
-    version: z.literal(MATCH_CONTRACT_VERSION),
+    version: z.union([z.literal(1), z.literal(2)]),
+    continuation: careerMatchContinuationSchema.optional(),
     completedMatchId: id,
     inputFingerprint: id,
     fixture: fixtureSchema,
@@ -332,7 +340,7 @@ export const careerMatchResultSchema = z
     termination: matchTerminationSchema.optional(),
     endedAt: z.number().nonnegative().max(10800),
     score: z.object({ home: count, away: count }),
-    participants: z.array(participant).min(22).max(40),
+    participants: z.array(careerMatchParticipantSchema).min(22).max(40),
     teamAccounting: z.object({ home: teamAccountingSchema, away: teamAccountingSchema }),
     substitutions: z.array(substitutionFactSchema).max(10),
     cards: z.array(cardFactSchema).max(80),
@@ -357,6 +365,81 @@ export const careerMatchResultSchema = z
   })
   .strict()
   .superRefine((result, ctx) => {
+    if ((result.version === 2) !== Boolean(result.continuation))
+      ctx.addIssue({ code: 'custom', message: 'Continuation requires result contract v2.' });
+    const bridge = result.continuation;
+    if (bridge) {
+      const prefix = bridge.prefix;
+      if (
+        result.status !== 'full_time' ||
+        Math.abs(result.endedAt - bridge.handoffAt - bridge.remainingSeconds) > 0.001 ||
+        contractFingerprint(prefix) !== bridge.prefixFingerprint ||
+        bridge.seed !==
+          `${result.footballSeed}:remainder:${bridge.handoffAt}:${continuationFootballFingerprint(prefix)}` ||
+        prefix.controlledEvidenceFingerprint !== contractFingerprint(result.controlledEvidence) ||
+        contractFingerprint(prefix.cards) !== contractFingerprint(result.cards) ||
+        contractFingerprint(prefix.substitutions) !== contractFingerprint(result.substitutions) ||
+        contractFingerprint(prefix.teamAccounting) !== contractFingerprint(result.teamAccounting) ||
+        prefix.score.home > result.score.home ||
+        prefix.score.away > result.score.away ||
+        prefix.participants.length !== result.participants.length ||
+        new Set(prefix.participants.map((p) => p.id)).size !== prefix.participants.length ||
+        bridge.remainingSeconds !==
+          (prefix.period === 'half_time'
+            ? 2700
+            : Math.max(0, prefix.periodEndAt - bridge.handoffAt) +
+              (prefix.period === 'first_half' ? 2700 : 0)) ||
+        new Set(prefix.activeIds).size !== prefix.activeIds.length
+      )
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Invalid canonical-to-summary prefix or chronology.',
+        });
+      for (const before of prefix.participants) {
+        const after = result.participants.find((p) => p.id === before.id);
+        const minutes = prefix.activeIds.includes(before.id) ? bridge.remainingSeconds / 60 : 0;
+        const eligible =
+          !before.stats.redCards &&
+          !['unable', 'absence'].includes(before.injury?.status ?? '') &&
+          !prefix.substitutions.some((s) => s.outgoingId === before.id);
+        const { minutesPlayed: _beforeMinutes, ...beforeStats } = before.stats;
+        const { minutesPlayed: _afterMinutes, ...afterStats } = after?.stats ?? before.stats;
+        void _beforeMinutes;
+        void _afterMinutes;
+        if (
+          !after ||
+          prefix.activeIds.includes(before.id) !== eligible ||
+          contractFingerprint(beforeStats) !== contractFingerprint(afterStats) ||
+          after.stats.minutesPlayed !== before.stats.minutesPlayed + minutes ||
+          after.team !== before.team ||
+          after.started !== before.started ||
+          after.position !== before.position ||
+          after.condition > before.condition ||
+          (!minutes && after.condition !== before.condition) ||
+          contractFingerprint(after.injury ?? null) !==
+            contractFingerprint(before.injury ?? null) ||
+          before.stats.minutesPlayed > bridge.handoffAt / 60 + 0.01 ||
+          (minutes > 0 &&
+            (before.stats.redCards > 0 ||
+              ['unable', 'absence'].includes(before.injury?.status ?? '') ||
+              prefix.substitutions.some((s) => s.outgoingId === before.id)))
+        )
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Continuation changes canonical evidence or inactive participation.',
+          });
+      }
+      if (
+        prefix.activeIds.some((id) => !prefix.participants.some((p) => p.id === id)) ||
+        prefix.events.some((event) => event.at > bridge.handoffAt) ||
+        prefix.cards.some((card) => card.at > bridge.handoffAt) ||
+        prefix.substitutions.some((s) => s.enteredAt > bridge.handoffAt)
+      )
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Prefix contains future or unknown participation.',
+        });
+    }
     if (
       (result.status === 'full_time' && (result.endedAt < 5400 || result.termination)) ||
       (result.status === 'abandoned' &&
@@ -465,6 +548,31 @@ export class CareerMatchEvidence {
   }
 }
 
+export const captureCareerMatchParticipants = (
+  input: CareerMatchInput,
+  state: TacticalMatchState,
+) => {
+  const bodies = [
+    ...state.players,
+    ...(state.departedPlayers ?? []),
+    ...(state.substitutionState?.pending.map((p) => p.outgoing) ?? []),
+  ];
+  return (state.statistics?.players ?? []).map((stats) => {
+    const body = bodies.find((p) => p.id === stats.playerId);
+    if (!body?.fitness) throw new Error('Missing actual participant condition.');
+    const side = body.team;
+    return {
+      id: body.id,
+      team: side,
+      started: input.session[side].players.some((p) => p.footballerId === body.id),
+      stats,
+      condition: body.fitness.longTermCapacity * 100,
+      ...(body.injury ? { injury: body.injury } : {}),
+      position: body.slot.position,
+    };
+  });
+};
+
 export const finishCareerMatch = (
   raw: unknown,
   state: TacticalMatchState,
@@ -479,25 +587,7 @@ export const finishCareerMatch = (
   )
     throw new Error('Only the matching completed canonical fixture may produce a result.');
   evidence.observe(state);
-  const bodies = [
-    ...state.players,
-    ...(state.departedPlayers ?? []),
-    ...(state.substitutionState?.pending.map((p) => p.outgoing) ?? []),
-  ];
-  const participants = (state.statistics?.players ?? []).map((stats) => {
-    const body = bodies.find((p) => p.id === stats.playerId);
-    if (!body?.fitness) throw new Error('Missing actual participant condition.');
-    const side = body.team;
-    return {
-      id: body.id,
-      team: side,
-      started: input.session[side].players.some((p) => p.footballerId === body.id),
-      stats,
-      condition: body.fitness.longTermCapacity * 100,
-      ...(body.injury ? { injury: body.injury } : {}),
-      position: body.slot.position,
-    };
-  });
+  const participants = captureCareerMatchParticipants(input, state);
   const substitutions = state.substitutionState?.completed ?? [];
   const cards = evidence.cardFacts();
   const result = careerMatchResultSchema.parse({
@@ -572,6 +662,18 @@ const validateResultParticipants = (input: CareerMatchInput, result: CareerMatch
     if (p.started !== starters.has(p.id) || (!p.started && !entered.has(p.id)))
       throw new Error('Participant did not enter this match.');
   }
+  for (const side of ['home', 'away'] as const)
+    if (
+      result.substitutions.filter((s) => s.team === side).length >
+        input.substitutionRules.maximumSubstitutions ||
+      (result.continuation &&
+        (result.continuation.prefix.substitutionUsage[side] !==
+          result.substitutions.filter((s) => s.team === side).length ||
+          (input.substitutionRules.maximumOpportunities !== null &&
+            result.continuation.prefix.substitutionOpportunities[side] >
+              input.substitutionRules.maximumOpportunities)))
+    )
+      throw new Error('Substitution allowance exceeded or lost during continuation.');
   for (const side of ['home', 'away'] as const)
     for (const p of input.session[side].players)
       if (!result.participants.some((r) => r.id === p.footballerId && r.started))
@@ -664,7 +766,7 @@ export const applyCareerMatchResult = (
         lastAppearanceDate: f.date,
         lastAppearanceMinutes: p.stats.minutesPlayed,
         lastMatchId: result.completedMatchId,
-        source: 'canonical',
+        source: result.continuation ? 'canonical_plus_summary' : 'canonical',
         ...(p.injury && p.injury.recoveryDays > 0
           ? {
               injuryUntilDate: conditionRecoveryDate(f.date, p.injury.recoveryDays),
@@ -736,7 +838,7 @@ export const applyCareerMatchResult = (
               date: f.date,
               opponentId: fixture.opponent.id,
               teamLevel: league.competition.category === 'professional' ? 'senior' : 'academy',
-              metricsSource: 'canonical',
+              metricsSource: result.continuation ? 'canonical_plus_summary' : 'canonical',
               started: controlled!.started,
               assignedPosition: controlled!.position,
               minutes: stats.minutesPlayed,
@@ -768,11 +870,29 @@ export const applyCareerMatchResult = (
         clubs: [f.homeClubId, f.awayClubId],
         competitions: [f.competitionId],
         data: {
-          contractVersion: MATCH_CONTRACT_VERSION,
+          contractVersion: result.version,
           resultFingerprint: contractFingerprint(result),
           result,
           summary: {
             retentionVersion: 1,
+            ...(result.continuation
+              ? {
+                  provenance: {
+                    source: result.continuation.source,
+                    handoffAt: result.continuation.handoffAt,
+                    prefixFingerprint: result.continuation.prefixFingerprint,
+                    coverage: result.continuation.coverage,
+                    canonicalEvents: result.continuation.prefix.events,
+                    substitutions: result.continuation.prefix.substitutions,
+                    canonicalMinutes:
+                      stats?.minutesPlayed !== undefined
+                        ? result.continuation.prefix.participants.find(
+                            (p) => p.id === career.player.id,
+                          )?.stats.minutesPlayed
+                        : null,
+                  },
+                }
+              : {}),
             completedMatchId: result.completedMatchId,
             inputFingerprint: result.inputFingerprint,
             fixture: f,
@@ -826,7 +946,7 @@ export const applyCareerMatchResult = (
     // The current physical counter does not export xG/xA. Preserve ledger defaults without inventing a model.
     xG: 0,
     xA: 0,
-    metricsSource: 'canonical',
+    metricsSource: result.continuation ? 'canonical_plus_summary' : 'canonical',
     ...(stats ? { canonicalStats: stats } : {}),
     defensiveActions: (stats?.tacklesWon ?? 0) + (stats?.interceptions ?? 0),
     yellowCards: yellows,

@@ -1,0 +1,67 @@
+{
+  "initialParallelRun": {
+    "mainPassed": 1660,
+    "mainFailed": 1,
+    "failure": "Existing backgroundOrchestration controlled-substitution test exceeded its unchanged 30000 ms timeout; observed 31611 ms."
+  },
+  "isolatedUnchangedSuite": {
+    "passed": 21,
+    "controlledSubstitutionMs": 26037
+  },
+  "scheduling": "Move the complete orchestration suite from the two-worker main phase to the existing one-worker integration phase. Same assertions/timeouts, all suites still mandatory in npm run verify.",
+  "secondFullRun": {
+    "mainPassed": 1640,
+    "serialIntegrationPassed": 52,
+    "canonicalContractPassed": 4,
+    "fullCareerPassed": 2,
+    "fullCareerTimeouts": [
+      72280,
+      71496,
+      69796
+    ],
+    "unchangedFullCareerTimeoutMs": 60000
+  },
+  "optimization": {
+    "change": "One latest pure projection per immutable NPC profile plus precomputed family means; source references, age, environment and curve invalidate reuse.",
+    "differentialComparisons": 2400,
+    "differences": 0,
+    "isolatedFullCareerPassed": 5,
+    "isolatedFullCareerDurationSeconds": 53.09,
+    "assertionsOrTimeoutsRelaxed": false
+  },
+  "final": {
+    "status": "PASS",
+    "command": "npm run verify",
+    "exitCode": 0,
+    "elapsedSeconds": 1434.6238445,
+    "totalPassed": 1702,
+    "stages": {
+      "main": 1641,
+      "serial match integration": 52,
+      "full canonical contract": 4,
+      "full careers": 5
+    },
+    "lint": "PASS",
+    "typescript": "PASS",
+    "productionBuild": "PASS",
+    "fullCareerDurationSeconds": 55.01,
+    "fullCanonicalContractDurationSeconds": 985.43,
+    "existingTimeoutsUnchanged": true,
+    "canonicalEvidence": {
+      "u17Score": {
+        "home": 0,
+        "away": 1
+      },
+      "u17EndedAt": 5521.375000005444,
+      "professionalScore": {
+        "home": 1,
+        "away": 0
+      },
+      "professionalEndedAt": 5460,
+      "professionalIdenticalRepetitions": 2,
+      "professionalSelected": 13,
+      "professionalResolved": 11,
+      "professionalSubstitutions": 5
+    }
+  }
+}

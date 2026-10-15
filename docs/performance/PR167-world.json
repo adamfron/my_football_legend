@@ -1,0 +1,3503 @@
+{
+  "seed": "pr164-save",
+  "source": "fresh routine-summary career",
+  "timing": "single local Node CPU run; heap samples include generation, audit and serialization; not browser FPS or peak RSS",
+  "elapsedMs": 25671.5021,
+  "firstReceipts": [],
+  "milestones": [
+    {
+      "completedSeasons": 0,
+      "date": "2026-07-01",
+      "saveBytes": 45749,
+      "projectionMs": 16.806299999999965,
+      "heapBefore": 46347208,
+      "heapAfter": 56160520,
+      "population": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 0,
+        "marketExitedFootballers": 0,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 0,
+        "criticalRepairSignings": 0
+      },
+      "ages": {
+        "n": 1536,
+        "min": 17,
+        "p10": 19,
+        "median": 26,
+        "p90": 33,
+        "max": 36,
+        "mean": 26.258463541666668
+      },
+      "overall": {
+        "n": 1536,
+        "min": 32,
+        "p10": 42,
+        "median": 57,
+        "p90": 73,
+        "max": 82,
+        "mean": 57.107421875
+      },
+      "strength": {
+        "n": 64,
+        "min": 41,
+        "p10": 45,
+        "median": 61,
+        "p90": 76,
+        "max": 79,
+        "mean": 60.25
+      },
+      "styles": [
+        {
+          "count": 0,
+          "players": 862
+        },
+        {
+          "count": 1,
+          "players": 316
+        },
+        {
+          "count": 2,
+          "players": 358
+        }
+      ],
+      "positions": [
+        {
+          "position": "goalkeeper",
+          "overall": {
+            "n": 192,
+            "min": 32,
+            "p10": 39,
+            "median": 54,
+            "p90": 71,
+            "max": 80,
+            "mean": 55.229166666666664
+          },
+          "paceMinusTechnique": {
+            "n": 192,
+            "min": -25,
+            "p10": -12,
+            "median": 1,
+            "p90": 13,
+            "max": 23,
+            "mean": 0.7916666666666666
+          }
+        },
+        {
+          "position": "center_back",
+          "overall": {
+            "n": 256,
+            "min": 34,
+            "p10": 43,
+            "median": 57,
+            "p90": 73,
+            "max": 80,
+            "mean": 57.50390625
+          },
+          "paceMinusTechnique": {
+            "n": 256,
+            "min": -22,
+            "p10": -14,
+            "median": -1,
+            "p90": 13,
+            "max": 26,
+            "mean": -0.5546875
+          }
+        },
+        {
+          "position": "left_back",
+          "overall": {
+            "n": 128,
+            "min": 34,
+            "p10": 43,
+            "median": 57,
+            "p90": 73,
+            "max": 82,
+            "mean": 57.515625
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -23,
+            "p10": -10,
+            "median": 12,
+            "p90": 27,
+            "max": 34,
+            "mean": 10.984375
+          }
+        },
+        {
+          "position": "right_back",
+          "overall": {
+            "n": 128,
+            "min": 35,
+            "p10": 41,
+            "median": 57,
+            "p90": 73,
+            "max": 80,
+            "mean": 57.359375
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -18,
+            "p10": -8,
+            "median": 12,
+            "p90": 29,
+            "max": 37,
+            "mean": 10.640625
+          }
+        },
+        {
+          "position": "central_midfielder",
+          "overall": {
+            "n": 384,
+            "min": 32,
+            "p10": 43,
+            "median": 57,
+            "p90": 73,
+            "max": 81,
+            "mean": 57.119791666666664
+          },
+          "paceMinusTechnique": {
+            "n": 384,
+            "min": -32,
+            "p10": -21,
+            "median": -10,
+            "p90": 4,
+            "max": 21,
+            "mean": -8.682291666666666
+          }
+        },
+        {
+          "position": "left_winger",
+          "overall": {
+            "n": 128,
+            "min": 32,
+            "p10": 43,
+            "median": 57,
+            "p90": 73,
+            "max": 79,
+            "mean": 57.328125
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -25,
+            "p10": -13,
+            "median": 6,
+            "p90": 22,
+            "max": 32,
+            "mean": 5.390625
+          }
+        },
+        {
+          "position": "right_winger",
+          "overall": {
+            "n": 128,
+            "min": 35,
+            "p10": 43,
+            "median": 57,
+            "p90": 74,
+            "max": 80,
+            "mean": 57.7265625
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -27,
+            "p10": -14,
+            "median": 5,
+            "p90": 20,
+            "max": 34,
+            "mean": 3.5703125
+          }
+        },
+        {
+          "position": "striker",
+          "overall": {
+            "n": 192,
+            "min": 32,
+            "p10": 43,
+            "median": 58,
+            "p90": 73,
+            "max": 80,
+            "mean": 57.432291666666664
+          },
+          "paceMinusTechnique": {
+            "n": 192,
+            "min": -27,
+            "p10": -14,
+            "median": 2,
+            "p90": 19,
+            "max": 30,
+            "mean": 1.828125
+          }
+        }
+      ],
+      "examples": [
+        {
+          "id": "footballer_pro_0_5",
+          "position": "center_back",
+          "age": 35,
+          "overall": 63,
+          "pace": 54,
+          "technique": 52,
+          "gameReading": 66,
+          "strength": 67,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_12",
+          "position": "central_midfielder",
+          "age": 20,
+          "overall": 68,
+          "pace": 64,
+          "technique": 71,
+          "gameReading": 87,
+          "strength": 57,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_0_13",
+          "position": "central_midfielder",
+          "age": 33,
+          "overall": 65,
+          "pace": 65,
+          "technique": 63,
+          "gameReading": 69,
+          "strength": 76,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_17",
+          "position": "left_winger",
+          "age": 18,
+          "overall": 66,
+          "pace": 76,
+          "technique": 76,
+          "gameReading": 65,
+          "strength": 48,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_0_20",
+          "position": "right_winger",
+          "age": 20,
+          "overall": 63,
+          "pace": 75,
+          "technique": 54,
+          "gameReading": 70,
+          "strength": 57,
+          "styles": 1
+        },
+        {
+          "id": "footballer_pro_1_2",
+          "position": "goalkeeper",
+          "age": 33,
+          "overall": 58,
+          "pace": 33,
+          "technique": 54,
+          "gameReading": 69,
+          "strength": 54,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_1_6",
+          "position": "center_back",
+          "age": 20,
+          "overall": 60,
+          "pace": 54,
+          "technique": 51,
+          "gameReading": 61,
+          "strength": 64,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_1_11",
+          "position": "central_midfielder",
+          "age": 36,
+          "overall": 69,
+          "pace": 71,
+          "technique": 75,
+          "gameReading": 73,
+          "strength": 71,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_1_16",
+          "position": "central_midfielder",
+          "age": 19,
+          "overall": 62,
+          "pace": 60,
+          "technique": 64,
+          "gameReading": 80,
+          "strength": 48,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_1_23",
+          "position": "striker",
+          "age": 34,
+          "overall": 64,
+          "pace": 75,
+          "technique": 48,
+          "gameReading": 67,
+          "strength": 70,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_2_1",
+          "position": "goalkeeper",
+          "age": 36,
+          "overall": 70,
+          "pace": 58,
+          "technique": 62,
+          "gameReading": 74,
+          "strength": 49,
+          "styles": 1
+        },
+        {
+          "id": "footballer_pro_2_2",
+          "position": "goalkeeper",
+          "age": 19,
+          "overall": 61,
+          "pace": 59,
+          "technique": 54,
+          "gameReading": 46,
+          "strength": 54,
+          "styles": 0
+        }
+      ],
+      "attributeOverrides": 0
+    },
+    {
+      "completedSeasons": 1,
+      "date": "2027-05-31",
+      "saveBytes": 91810,
+      "projectionMs": 46.78679999999997,
+      "heapBefore": 67846168,
+      "heapAfter": 60715624,
+      "population": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 0,
+        "marketExitedFootballers": 0,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 0,
+        "criticalRepairSignings": 0
+      },
+      "ages": {
+        "n": 1536,
+        "min": 17,
+        "p10": 20,
+        "median": 27,
+        "p90": 34,
+        "max": 37,
+        "mean": 27.178385416666668
+      },
+      "overall": {
+        "n": 1536,
+        "min": 32,
+        "p10": 42,
+        "median": 57,
+        "p90": 73,
+        "max": 82,
+        "mean": 57.136067708333336
+      },
+      "strength": {
+        "n": 64,
+        "min": 41,
+        "p10": 45,
+        "median": 61,
+        "p90": 76,
+        "max": 79,
+        "mean": 60.25
+      },
+      "styles": [
+        {
+          "count": 0,
+          "players": 862
+        },
+        {
+          "count": 1,
+          "players": 316
+        },
+        {
+          "count": 2,
+          "players": 358
+        }
+      ],
+      "positions": [
+        {
+          "position": "goalkeeper",
+          "overall": {
+            "n": 192,
+            "min": 32,
+            "p10": 40,
+            "median": 54,
+            "p90": 70,
+            "max": 80,
+            "mean": 55.25
+          },
+          "paceMinusTechnique": {
+            "n": 192,
+            "min": -26,
+            "p10": -12,
+            "median": 1,
+            "p90": 13,
+            "max": 22,
+            "mean": 0.4270833333333333
+          }
+        },
+        {
+          "position": "center_back",
+          "overall": {
+            "n": 256,
+            "min": 33,
+            "p10": 43,
+            "median": 58,
+            "p90": 73,
+            "max": 80,
+            "mean": 57.59765625
+          },
+          "paceMinusTechnique": {
+            "n": 256,
+            "min": -23,
+            "p10": -14,
+            "median": -1,
+            "p90": 12,
+            "max": 26,
+            "mean": -1.01171875
+          }
+        },
+        {
+          "position": "left_back",
+          "overall": {
+            "n": 128,
+            "min": 34,
+            "p10": 43,
+            "median": 58,
+            "p90": 72,
+            "max": 82,
+            "mean": 57.5078125
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -23,
+            "p10": -10,
+            "median": 12,
+            "p90": 27,
+            "max": 34,
+            "mean": 10.84375
+          }
+        },
+        {
+          "position": "right_back",
+          "overall": {
+            "n": 128,
+            "min": 35,
+            "p10": 41,
+            "median": 57,
+            "p90": 73,
+            "max": 80,
+            "mean": 57.3046875
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -18,
+            "p10": -8,
+            "median": 11,
+            "p90": 29,
+            "max": 37,
+            "mean": 10.4453125
+          }
+        },
+        {
+          "position": "central_midfielder",
+          "overall": {
+            "n": 384,
+            "min": 33,
+            "p10": 43,
+            "median": 57,
+            "p90": 73,
+            "max": 81,
+            "mean": 57.169270833333336
+          },
+          "paceMinusTechnique": {
+            "n": 384,
+            "min": -32,
+            "p10": -21,
+            "median": -10,
+            "p90": 3,
+            "max": 21,
+            "mean": -9.09375
+          }
+        },
+        {
+          "position": "left_winger",
+          "overall": {
+            "n": 128,
+            "min": 32,
+            "p10": 43,
+            "median": 57,
+            "p90": 73,
+            "max": 79,
+            "mean": 57.390625
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -26,
+            "p10": -14,
+            "median": 6,
+            "p90": 22,
+            "max": 32,
+            "mean": 4.859375
+          }
+        },
+        {
+          "position": "right_winger",
+          "overall": {
+            "n": 128,
+            "min": 36,
+            "p10": 43,
+            "median": 58,
+            "p90": 73,
+            "max": 80,
+            "mean": 57.75
+          },
+          "paceMinusTechnique": {
+            "n": 128,
+            "min": -27,
+            "p10": -14,
+            "median": 4,
+            "p90": 20,
+            "max": 33,
+            "mean": 3.1640625
+          }
+        },
+        {
+          "position": "striker",
+          "overall": {
+            "n": 192,
+            "min": 32,
+            "p10": 43,
+            "median": 58,
+            "p90": 74,
+            "max": 80,
+            "mean": 57.401041666666664
+          },
+          "paceMinusTechnique": {
+            "n": 192,
+            "min": -27,
+            "p10": -14,
+            "median": 1,
+            "p90": 19,
+            "max": 30,
+            "mean": 1.4791666666666667
+          }
+        }
+      ],
+      "examples": [
+        {
+          "id": "footballer_pro_0_5",
+          "position": "center_back",
+          "age": 36,
+          "overall": 62,
+          "pace": 53,
+          "technique": 52,
+          "gameReading": 66,
+          "strength": 66,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_13",
+          "position": "central_midfielder",
+          "age": 34,
+          "overall": 65,
+          "pace": 64,
+          "technique": 63,
+          "gameReading": 70,
+          "strength": 75,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_17",
+          "position": "left_winger",
+          "age": 19,
+          "overall": 66,
+          "pace": 76,
+          "technique": 77,
+          "gameReading": 65,
+          "strength": 48,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_1_2",
+          "position": "goalkeeper",
+          "age": 34,
+          "overall": 58,
+          "pace": 32,
+          "technique": 54,
+          "gameReading": 69,
+          "strength": 53,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_1_7",
+          "position": "left_back",
+          "age": 33,
+          "overall": 72,
+          "pace": 82,
+          "technique": 67,
+          "gameReading": 75,
+          "strength": 57,
+          "styles": 1
+        },
+        {
+          "id": "footballer_pro_1_10",
+          "position": "right_back",
+          "age": 33,
+          "overall": 67,
+          "pace": 77,
+          "technique": 56,
+          "gameReading": 68,
+          "strength": 60,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_1_11",
+          "position": "central_midfielder",
+          "age": 36,
+          "overall": 69,
+          "pace": 71,
+          "technique": 75,
+          "gameReading": 73,
+          "strength": 71,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_1_15",
+          "position": "central_midfielder",
+          "age": 33,
+          "overall": 65,
+          "pace": 52,
+          "technique": 77,
+          "gameReading": 72,
+          "strength": 76,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_1_16",
+          "position": "central_midfielder",
+          "age": 20,
+          "overall": 63,
+          "pace": 61,
+          "technique": 65,
+          "gameReading": 80,
+          "strength": 49,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_1_23",
+          "position": "striker",
+          "age": 35,
+          "overall": 63,
+          "pace": 74,
+          "technique": 48,
+          "gameReading": 67,
+          "strength": 69,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_2_1",
+          "position": "goalkeeper",
+          "age": 37,
+          "overall": 70,
+          "pace": 57,
+          "technique": 62,
+          "gameReading": 74,
+          "strength": 48,
+          "styles": 1
+        },
+        {
+          "id": "footballer_pro_2_2",
+          "position": "goalkeeper",
+          "age": 20,
+          "overall": 61,
+          "pace": 59,
+          "technique": 54,
+          "gameReading": 46,
+          "strength": 54,
+          "styles": 0
+        }
+      ],
+      "attributeOverrides": 0
+    },
+    {
+      "completedSeasons": 5,
+      "date": "2031-05-31",
+      "saveBytes": 707406,
+      "projectionMs": 117.99349999999959,
+      "heapBefore": 153377856,
+      "heapAfter": 160087664,
+      "population": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 304,
+        "marketExitedFootballers": 647,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 498,
+        "criticalRepairSignings": 0
+      },
+      "ages": {
+        "n": 1535,
+        "min": 18,
+        "p10": 19,
+        "median": 27,
+        "p90": 35,
+        "max": 40,
+        "mean": 27.05472312703583
+      },
+      "overall": {
+        "n": 1535,
+        "min": 32,
+        "p10": 45,
+        "median": 55,
+        "p90": 72,
+        "max": 81,
+        "mean": 57.13159609120521
+      },
+      "strength": {
+        "n": 64,
+        "min": 46,
+        "p10": 49,
+        "median": 59,
+        "p90": 74,
+        "max": 79,
+        "mean": 60.34375
+      },
+      "styles": [
+        {
+          "count": 0,
+          "players": 981
+        },
+        {
+          "count": 1,
+          "players": 254
+        },
+        {
+          "count": 2,
+          "players": 300
+        }
+      ],
+      "positions": [
+        {
+          "position": "goalkeeper",
+          "overall": {
+            "n": 192,
+            "min": 32,
+            "p10": 43,
+            "median": 55,
+            "p90": 71,
+            "max": 80,
+            "mean": 56.494791666666664
+          },
+          "paceMinusTechnique": {
+            "n": 192,
+            "min": -27,
+            "p10": -13,
+            "median": 0,
+            "p90": 12,
+            "max": 19,
+            "mean": -0.59375
+          }
+        },
+        {
+          "position": "center_back",
+          "overall": {
+            "n": 261,
+            "min": 36,
+            "p10": 46,
+            "median": 55,
+            "p90": 71,
+            "max": 80,
+            "mean": 57.04980842911878
+          },
+          "paceMinusTechnique": {
+            "n": 261,
+            "min": -25,
+            "p10": -16,
+            "median": -2,
+            "p90": 12,
+            "max": 22,
+            "mean": -1.996168582375479
+          }
+        },
+        {
+          "position": "striker",
+          "overall": {
+            "n": 238,
+            "min": 33,
+            "p10": 45,
+            "median": 53,
+            "p90": 70,
+            "max": 81,
+            "mean": 55.57983193277311
+          },
+          "paceMinusTechnique": {
+            "n": 238,
+            "min": -29,
+            "p10": -16,
+            "median": -3,
+            "p90": 13,
+            "max": 30,
+            "mean": -1.995798319327731
+          }
+        },
+        {
+          "position": "left_back",
+          "overall": {
+            "n": 123,
+            "min": 36,
+            "p10": 47,
+            "median": 56,
+            "p90": 72,
+            "max": 81,
+            "mean": 57.96747967479675
+          },
+          "paceMinusTechnique": {
+            "n": 123,
+            "min": -22,
+            "p10": -10,
+            "median": 9,
+            "p90": 25,
+            "max": 35,
+            "mean": 8.447154471544716
+          }
+        },
+        {
+          "position": "right_back",
+          "overall": {
+            "n": 124,
+            "min": 36,
+            "p10": 47,
+            "median": 57,
+            "p90": 73,
+            "max": 80,
+            "mean": 58.024193548387096
+          },
+          "paceMinusTechnique": {
+            "n": 124,
+            "min": -21,
+            "p10": -10,
+            "median": 9,
+            "p90": 27,
+            "max": 40,
+            "mean": 8.46774193548387
+          }
+        },
+        {
+          "position": "central_midfielder",
+          "overall": {
+            "n": 359,
+            "min": 33,
+            "p10": 44,
+            "median": 56,
+            "p90": 73,
+            "max": 81,
+            "mean": 57.58774373259053
+          },
+          "paceMinusTechnique": {
+            "n": 359,
+            "min": -35,
+            "p10": -23,
+            "median": -11,
+            "p90": 3,
+            "max": 20,
+            "mean": -9.79108635097493
+          }
+        },
+        {
+          "position": "left_winger",
+          "overall": {
+            "n": 118,
+            "min": 34,
+            "p10": 44,
+            "median": 56,
+            "p90": 74,
+            "max": 79,
+            "mean": 57.32203389830509
+          },
+          "paceMinusTechnique": {
+            "n": 118,
+            "min": -28,
+            "p10": -17,
+            "median": 0,
+            "p90": 18,
+            "max": 31,
+            "mean": 1.5
+          }
+        },
+        {
+          "position": "right_winger",
+          "overall": {
+            "n": 120,
+            "min": 35,
+            "p10": 45,
+            "median": 57,
+            "p90": 74,
+            "max": 80,
+            "mean": 58.075
+          },
+          "paceMinusTechnique": {
+            "n": 120,
+            "min": -27,
+            "p10": -17,
+            "median": 2,
+            "p90": 17,
+            "max": 31,
+            "mean": 0.6083333333333333
+          }
+        }
+      ],
+      "examples": [
+        {
+          "id": "footballer_u17_pro_0_2026_1",
+          "position": "goalkeeper",
+          "age": 20,
+          "overall": 46,
+          "pace": 38,
+          "technique": 34,
+          "gameReading": 31,
+          "strength": 48,
+          "styles": 0
+        },
+        {
+          "id": "footballer_u17_pro_0_2026_20",
+          "position": "striker",
+          "age": 20,
+          "overall": 56,
+          "pace": 51,
+          "technique": 57,
+          "gameReading": 67,
+          "strength": 53,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_0_4",
+          "position": "center_back",
+          "age": 35,
+          "overall": 69,
+          "pace": 73,
+          "technique": 64,
+          "gameReading": 65,
+          "strength": 71,
+          "styles": 1
+        },
+        {
+          "id": "footballer_pro_0_11",
+          "position": "central_midfielder",
+          "age": 34,
+          "overall": 67,
+          "pace": 51,
+          "technique": 72,
+          "gameReading": 74,
+          "strength": 64,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_14",
+          "position": "central_midfielder",
+          "age": 36,
+          "overall": 66,
+          "pace": 54,
+          "technique": 72,
+          "gameReading": 87,
+          "strength": 72,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_23",
+          "position": "striker",
+          "age": 33,
+          "overall": 62,
+          "pace": 68,
+          "technique": 62,
+          "gameReading": 68,
+          "strength": 58,
+          "styles": 2
+        },
+        {
+          "id": "footballer_u17_pro_0_2026_10",
+          "position": "central_midfielder",
+          "age": 20,
+          "overall": 57,
+          "pace": 57,
+          "technique": 65,
+          "gameReading": 69,
+          "strength": 57,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2027_center_back_3",
+          "position": "center_back",
+          "age": 20,
+          "overall": 58,
+          "pace": 59,
+          "technique": 55,
+          "gameReading": 58,
+          "strength": 76,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2027_left_back_4",
+          "position": "left_back",
+          "age": 20,
+          "overall": 66,
+          "pace": 61,
+          "technique": 76,
+          "gameReading": 69,
+          "strength": 66,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2027_left_back_5",
+          "position": "left_back",
+          "age": 20,
+          "overall": 56,
+          "pace": 66,
+          "technique": 50,
+          "gameReading": 58,
+          "strength": 43,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2028_goalkeeper_0",
+          "position": "goalkeeper",
+          "age": 19,
+          "overall": 51,
+          "pace": 38,
+          "technique": 43,
+          "gameReading": 43,
+          "strength": 42,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2029_striker_16",
+          "position": "striker",
+          "age": 18,
+          "overall": 54,
+          "pace": 61,
+          "technique": 34,
+          "gameReading": 61,
+          "strength": 56,
+          "styles": 0
+        }
+      ],
+      "attributeOverrides": 0
+    },
+    {
+      "completedSeasons": 10,
+      "date": "2036-05-31",
+      "saveBytes": 886456,
+      "projectionMs": 171.27939999999944,
+      "heapBefore": 134489736,
+      "heapAfter": 116566616,
+      "population": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 755,
+        "marketExitedFootballers": 1365,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 631,
+        "criticalRepairSignings": 0
+      },
+      "ages": {
+        "n": 1535,
+        "min": 17,
+        "p10": 19,
+        "median": 26,
+        "p90": 35,
+        "max": 43,
+        "mean": 26.66384364820847
+      },
+      "overall": {
+        "n": 1535,
+        "min": 34,
+        "p10": 48,
+        "median": 54,
+        "p90": 69,
+        "max": 80,
+        "mean": 56.14527687296417
+      },
+      "strength": {
+        "n": 64,
+        "min": 49,
+        "p10": 50,
+        "median": 56,
+        "p90": 72,
+        "max": 77,
+        "mean": 58.828125
+      },
+      "styles": [
+        {
+          "count": 0,
+          "players": 1112
+        },
+        {
+          "count": 1,
+          "players": 233
+        },
+        {
+          "count": 2,
+          "players": 190
+        }
+      ],
+      "positions": [
+        {
+          "position": "striker",
+          "overall": {
+            "n": 256,
+            "min": 40,
+            "p10": 48,
+            "median": 53,
+            "p90": 68,
+            "max": 80,
+            "mean": 55.48828125
+          },
+          "paceMinusTechnique": {
+            "n": 256,
+            "min": -30,
+            "p10": -18,
+            "median": -3,
+            "p90": 14,
+            "max": 32,
+            "mean": -1.875
+          }
+        },
+        {
+          "position": "center_back",
+          "overall": {
+            "n": 271,
+            "min": 38,
+            "p10": 47,
+            "median": 54,
+            "p90": 68,
+            "max": 80,
+            "mean": 55.61254612546126
+          },
+          "paceMinusTechnique": {
+            "n": 271,
+            "min": -31,
+            "p10": -17,
+            "median": -3,
+            "p90": 13,
+            "max": 22,
+            "mean": -2.782287822878229
+          }
+        },
+        {
+          "position": "right_back",
+          "overall": {
+            "n": 129,
+            "min": 34,
+            "p10": 48,
+            "median": 54,
+            "p90": 70,
+            "max": 79,
+            "mean": 56.41085271317829
+          },
+          "paceMinusTechnique": {
+            "n": 129,
+            "min": -26,
+            "p10": -13,
+            "median": 9,
+            "p90": 27,
+            "max": 40,
+            "mean": 7.984496124031008
+          }
+        },
+        {
+          "position": "central_midfielder",
+          "overall": {
+            "n": 343,
+            "min": 36,
+            "p10": 48,
+            "median": 55,
+            "p90": 70,
+            "max": 80,
+            "mean": 56.74344023323615
+          },
+          "paceMinusTechnique": {
+            "n": 343,
+            "min": -36,
+            "p10": -24,
+            "median": -11,
+            "p90": 3,
+            "max": 21,
+            "mean": -10.763848396501457
+          }
+        },
+        {
+          "position": "left_back",
+          "overall": {
+            "n": 129,
+            "min": 38,
+            "p10": 47,
+            "median": 54,
+            "p90": 69,
+            "max": 78,
+            "mean": 55.8062015503876
+          },
+          "paceMinusTechnique": {
+            "n": 129,
+            "min": -22,
+            "p10": -11,
+            "median": 9,
+            "p90": 25,
+            "max": 32,
+            "mean": 8.031007751937985
+          }
+        },
+        {
+          "position": "goalkeeper",
+          "overall": {
+            "n": 190,
+            "min": 36,
+            "p10": 47,
+            "median": 54,
+            "p90": 70,
+            "max": 80,
+            "mean": 56.026315789473685
+          },
+          "paceMinusTechnique": {
+            "n": 190,
+            "min": -24,
+            "p10": -13,
+            "median": -1,
+            "p90": 11,
+            "max": 21,
+            "mean": -0.8736842105263158
+          }
+        },
+        {
+          "position": "right_winger",
+          "overall": {
+            "n": 100,
+            "min": 42,
+            "p10": 48,
+            "median": 55,
+            "p90": 71,
+            "max": 79,
+            "mean": 57.38
+          },
+          "paceMinusTechnique": {
+            "n": 100,
+            "min": -23,
+            "p10": -15,
+            "median": 1,
+            "p90": 16,
+            "max": 26,
+            "mean": 0.75
+          }
+        },
+        {
+          "position": "left_winger",
+          "overall": {
+            "n": 117,
+            "min": 36,
+            "p10": 47,
+            "median": 54,
+            "p90": 71,
+            "max": 80,
+            "mean": 56.282051282051285
+          },
+          "paceMinusTechnique": {
+            "n": 117,
+            "min": -25,
+            "p10": -14,
+            "median": 2,
+            "p90": 19,
+            "max": 27,
+            "mean": 2.1623931623931623
+          }
+        }
+      ],
+      "examples": [
+        {
+          "id": "footballer_pro_0_3",
+          "position": "center_back",
+          "age": 37,
+          "overall": 64,
+          "pace": 63,
+          "technique": 56,
+          "gameReading": 67,
+          "strength": 44,
+          "styles": 1
+        },
+        {
+          "id": "footballer_pro_0_9",
+          "position": "right_back",
+          "age": 33,
+          "overall": 66,
+          "pace": 68,
+          "technique": 61,
+          "gameReading": 70,
+          "strength": 52,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_16",
+          "position": "central_midfielder",
+          "age": 34,
+          "overall": 62,
+          "pace": 58,
+          "technique": 64,
+          "gameReading": 82,
+          "strength": 53,
+          "styles": 2
+        },
+        {
+          "id": "footballer_pro_0_22",
+          "position": "striker",
+          "age": 34,
+          "overall": 68,
+          "pace": 72,
+          "technique": 68,
+          "gameReading": 73,
+          "strength": 56,
+          "styles": 1
+        },
+        {
+          "id": "footballer_pro_41_3",
+          "position": "center_back",
+          "age": 36,
+          "overall": 61,
+          "pace": 59,
+          "technique": 64,
+          "gameReading": 59,
+          "strength": 52,
+          "styles": 1
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2032_goalkeeper_0",
+          "position": "goalkeeper",
+          "age": 20,
+          "overall": 55,
+          "pace": 51,
+          "technique": 49,
+          "gameReading": 60,
+          "strength": 45,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2032_central_midfielder_10",
+          "position": "central_midfielder",
+          "age": 20,
+          "overall": 53,
+          "pace": 47,
+          "technique": 56,
+          "gameReading": 71,
+          "strength": 34,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2033_goalkeeper_0",
+          "position": "goalkeeper",
+          "age": 19,
+          "overall": 56,
+          "pace": 40,
+          "technique": 51,
+          "gameReading": 44,
+          "strength": 43,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2033_central_midfielder_11",
+          "position": "central_midfielder",
+          "age": 19,
+          "overall": 50,
+          "pace": 41,
+          "technique": 51,
+          "gameReading": 65,
+          "strength": 57,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2033_striker_18",
+          "position": "striker",
+          "age": 19,
+          "overall": 52,
+          "pace": 50,
+          "technique": 55,
+          "gameReading": 52,
+          "strength": 38,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2034_center_back_1",
+          "position": "center_back",
+          "age": 18,
+          "overall": 51,
+          "pace": 46,
+          "technique": 61,
+          "gameReading": 46,
+          "strength": 59,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2034_left_back_4",
+          "position": "left_back",
+          "age": 18,
+          "overall": 51,
+          "pace": 63,
+          "technique": 38,
+          "gameReading": 50,
+          "strength": 44,
+          "styles": 0
+        }
+      ],
+      "attributeOverrides": 0
+    },
+    {
+      "completedSeasons": 20,
+      "date": "2046-05-31",
+      "saveBytes": 1214191,
+      "projectionMs": 254.59649999999965,
+      "heapBefore": 209004264,
+      "heapAfter": 266247152,
+      "population": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1623,
+        "marketExitedFootballers": 2873,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 605,
+        "criticalRepairSignings": 0
+      },
+      "ages": {
+        "n": 1535,
+        "min": 17,
+        "p10": 19,
+        "median": 27,
+        "p90": 34,
+        "max": 43,
+        "mean": 26.627361563517915
+      },
+      "overall": {
+        "n": 1535,
+        "min": 43,
+        "p10": 49,
+        "median": 53,
+        "p90": 59,
+        "max": 77,
+        "mean": 53.67817589576547
+      },
+      "strength": {
+        "n": 64,
+        "min": 50,
+        "p10": 52,
+        "median": 55,
+        "p90": 60,
+        "max": 70,
+        "mean": 55.25
+      },
+      "styles": [
+        {
+          "count": 0,
+          "players": 1320
+        },
+        {
+          "count": 1,
+          "players": 183
+        },
+        {
+          "count": 2,
+          "players": 32
+        }
+      ],
+      "positions": [
+        {
+          "position": "goalkeeper",
+          "overall": {
+            "n": 192,
+            "min": 43,
+            "p10": 47,
+            "median": 52,
+            "p90": 59,
+            "max": 76,
+            "mean": 52.604166666666664
+          },
+          "paceMinusTechnique": {
+            "n": 192,
+            "min": -27,
+            "p10": -16,
+            "median": -3,
+            "p90": 12,
+            "max": 25,
+            "mean": -2.0833333333333335
+          }
+        },
+        {
+          "position": "center_back",
+          "overall": {
+            "n": 273,
+            "min": 43,
+            "p10": 49,
+            "median": 53,
+            "p90": 59,
+            "max": 75,
+            "mean": 53.45421245421245
+          },
+          "paceMinusTechnique": {
+            "n": 273,
+            "min": -25,
+            "p10": -18,
+            "median": -3,
+            "p90": 12,
+            "max": 23,
+            "mean": -2.567765567765568
+          }
+        },
+        {
+          "position": "right_winger",
+          "overall": {
+            "n": 99,
+            "min": 46,
+            "p10": 51,
+            "median": 54,
+            "p90": 59,
+            "max": 73,
+            "mean": 54.484848484848484
+          },
+          "paceMinusTechnique": {
+            "n": 99,
+            "min": -24,
+            "p10": -14,
+            "median": 2,
+            "p90": 17,
+            "max": 29,
+            "mean": 1.2424242424242424
+          }
+        },
+        {
+          "position": "left_winger",
+          "overall": {
+            "n": 111,
+            "min": 44,
+            "p10": 49,
+            "median": 53,
+            "p90": 60,
+            "max": 68,
+            "mean": 53.765765765765764
+          },
+          "paceMinusTechnique": {
+            "n": 111,
+            "min": -31,
+            "p10": -15,
+            "median": 1,
+            "p90": 17,
+            "max": 28,
+            "mean": 1.2342342342342343
+          }
+        },
+        {
+          "position": "striker",
+          "overall": {
+            "n": 254,
+            "min": 43,
+            "p10": 49,
+            "median": 53,
+            "p90": 58,
+            "max": 71,
+            "mean": 53.33464566929134
+          },
+          "paceMinusTechnique": {
+            "n": 254,
+            "min": -30,
+            "p10": -17,
+            "median": -2,
+            "p90": 13,
+            "max": 28,
+            "mean": -1.5984251968503937
+          }
+        },
+        {
+          "position": "central_midfielder",
+          "overall": {
+            "n": 329,
+            "min": 45,
+            "p10": 50,
+            "median": 54,
+            "p90": 60,
+            "max": 77,
+            "mean": 54.56231003039514
+          },
+          "paceMinusTechnique": {
+            "n": 329,
+            "min": -35,
+            "p10": -24,
+            "median": -11,
+            "p90": 3,
+            "max": 14,
+            "mean": -10.136778115501519
+          }
+        },
+        {
+          "position": "right_back",
+          "overall": {
+            "n": 142,
+            "min": 44,
+            "p10": 49,
+            "median": 53,
+            "p90": 58,
+            "max": 68,
+            "mean": 53.16901408450704
+          },
+          "paceMinusTechnique": {
+            "n": 142,
+            "min": -21,
+            "p10": -7,
+            "median": 11,
+            "p90": 25,
+            "max": 38,
+            "mean": 10.232394366197184
+          }
+        },
+        {
+          "position": "left_back",
+          "overall": {
+            "n": 135,
+            "min": 43,
+            "p10": 49,
+            "median": 53,
+            "p90": 61,
+            "max": 72,
+            "mean": 54.022222222222226
+          },
+          "paceMinusTechnique": {
+            "n": 135,
+            "min": -21,
+            "p10": -8,
+            "median": 9,
+            "p90": 23,
+            "max": 33,
+            "mean": 8.481481481481481
+          }
+        }
+      ],
+      "examples": [
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2028_goalkeeper_0",
+          "position": "goalkeeper",
+          "age": 34,
+          "overall": 52,
+          "pace": 36,
+          "technique": 44,
+          "gameReading": 50,
+          "strength": 39,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2043_center_back_1",
+          "position": "center_back",
+          "age": 19,
+          "overall": 51,
+          "pace": 37,
+          "technique": 42,
+          "gameReading": 47,
+          "strength": 67,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2043_right_back_5",
+          "position": "right_back",
+          "age": 18,
+          "overall": 56,
+          "pace": 67,
+          "technique": 56,
+          "gameReading": 44,
+          "strength": 37,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2044_left_winger_13",
+          "position": "left_winger",
+          "age": 18,
+          "overall": 47,
+          "pace": 66,
+          "technique": 46,
+          "gameReading": 29,
+          "strength": 31,
+          "styles": 0
+        },
+        {
+          "id": "footballer_u17_pro_34_2026_0",
+          "position": "goalkeeper",
+          "age": 37,
+          "overall": 55,
+          "pace": 49,
+          "technique": 46,
+          "gameReading": 67,
+          "strength": 43,
+          "styles": 0
+        },
+        {
+          "id": "footballer_u17_pro_0_2026_10",
+          "position": "central_midfielder",
+          "age": 35,
+          "overall": 57,
+          "pace": 52,
+          "technique": 66,
+          "gameReading": 71,
+          "strength": 53,
+          "styles": 1
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_5_2028_right_winger_17",
+          "position": "right_winger",
+          "age": 34,
+          "overall": 56,
+          "pace": 63,
+          "technique": 70,
+          "gameReading": 63,
+          "strength": 35,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_5_2041_right_back_7",
+          "position": "right_back",
+          "age": 20,
+          "overall": 53,
+          "pace": 66,
+          "technique": 39,
+          "gameReading": 48,
+          "strength": 44,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_0_2042_center_back_3",
+          "position": "center_back",
+          "age": 20,
+          "overall": 57,
+          "pace": 54,
+          "technique": 59,
+          "gameReading": 62,
+          "strength": 57,
+          "styles": 0
+        },
+        {
+          "id": "footballer_proc_v2_intake_pro_27_2041_left_winger_12",
+          "position": "left_winger",
+          "age": 20,
+          "overall": 58,
+          "pace": 61,
+          "technique": 77,
+          "gameReading": 45,
+          "strength": 51,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_16_2",
+          "position": "goalkeeper",
+          "age": 37,
+          "overall": 57,
+          "pace": 42,
+          "technique": 37,
+          "gameReading": 64,
+          "strength": 39,
+          "styles": 0
+        },
+        {
+          "id": "footballer_pro_23_9",
+          "position": "right_back",
+          "age": 36,
+          "overall": 63,
+          "pace": 66,
+          "technique": 76,
+          "gameReading": 80,
+          "strength": 62,
+          "styles": 0
+        }
+      ],
+      "attributeOverrides": 0
+    }
+  ],
+  "seasons": [
+    {
+      "completed": 1,
+      "date": "2027-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 0,
+        "marketExitedFootballers": 0,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 0,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 2,
+      "date": "2028-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 112,
+        "marketExitedFootballers": 139,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 256,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 3,
+      "date": "2029-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 166,
+        "marketExitedFootballers": 312,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 362,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 4,
+      "date": "2030-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 228,
+        "marketExitedFootballers": 489,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 603,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 5,
+      "date": "2031-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 304,
+        "marketExitedFootballers": 647,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 498,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 6,
+      "date": "2032-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 392,
+        "marketExitedFootballers": 793,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 616,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 7,
+      "date": "2033-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 470,
+        "marketExitedFootballers": 945,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 526,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 8,
+      "date": "2034-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 580,
+        "marketExitedFootballers": 1069,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 618,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 9,
+      "date": "2035-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 667,
+        "marketExitedFootballers": 1213,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 549,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 10,
+      "date": "2036-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 755,
+        "marketExitedFootballers": 1365,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 631,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 11,
+      "date": "2037-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 858,
+        "marketExitedFootballers": 1505,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 552,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 12,
+      "date": "2038-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 955,
+        "marketExitedFootballers": 1654,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 616,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 13,
+      "date": "2039-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1027,
+        "marketExitedFootballers": 1820,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 538,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 14,
+      "date": "2040-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1111,
+        "marketExitedFootballers": 1977,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 584,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 15,
+      "date": "2041-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1191,
+        "marketExitedFootballers": 2144,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 534,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 16,
+      "date": "2042-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1273,
+        "marketExitedFootballers": 2286,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 605,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 17,
+      "date": "2043-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1363,
+        "marketExitedFootballers": 2443,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 574,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 18,
+      "date": "2044-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1435,
+        "marketExitedFootballers": 2596,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 621,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 19,
+      "date": "2045-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1524,
+        "marketExitedFootballers": 2746,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 571,
+        "criticalRepairSignings": 0
+      }
+    },
+    {
+      "completed": 20,
+      "date": "2046-05-31",
+      "health": {
+        "activeSeniorFootballers": 1536,
+        "activeUnattachedSeniorFootballers": 0,
+        "retiredFootballers": 1623,
+        "marketExitedFootballers": 2873,
+        "minSquadSize": 24,
+        "meanSquadSize": 24,
+        "maxSquadSize": 24,
+        "clubsBelow18": 0,
+        "clubsBelow11": 0,
+        "clubsWithoutGoalkeeper": 0,
+        "clubsWithoutTenOutfield": 0,
+        "duplicateActiveSeniorMemberships": 0,
+        "ordinaryNpcTransfers": 605,
+        "criticalRepairSignings": 0
+      }
+    }
+  ],
+  "curves": [
+    {
+      "curve": "early_peak",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.50274223034735
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 35,
+            "median": 51,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.57221206581353
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 38,
+            "median": 55,
+            "p90": 73,
+            "max": 95,
+            "mean": 55.56307129798903
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.43692870201097
+          },
+          "pace": {
+            "n": 547,
+            "min": 12,
+            "p10": 32,
+            "median": 48,
+            "p90": 67,
+            "max": 89,
+            "mean": 48.70932358318099
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 41,
+            "median": 57,
+            "p90": 75,
+            "max": 95,
+            "mean": 57.82449725776965
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 30,
+            "p10": 40,
+            "median": 48,
+            "p90": 64,
+            "max": 77,
+            "mean": 49.81170018281536
+          },
+          "pace": {
+            "n": 547,
+            "min": 5,
+            "p10": 25,
+            "median": 42,
+            "p90": 61,
+            "max": 83,
+            "mean": 42.272394881170015
+          },
+          "reading": {
+            "n": 547,
+            "min": 23,
+            "p10": 42,
+            "median": 58,
+            "p90": 77,
+            "max": 95,
+            "mean": 58.901279707495426
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 26,
+            "p10": 36,
+            "median": 44,
+            "p90": 61,
+            "max": 74,
+            "mean": 46.16270566727605
+          },
+          "pace": {
+            "n": 547,
+            "min": 1,
+            "p10": 18,
+            "median": 35,
+            "p90": 55,
+            "max": 78,
+            "mean": 35.83729433272395
+          },
+          "reading": {
+            "n": 547,
+            "min": 20,
+            "p10": 40,
+            "median": 57,
+            "p90": 76,
+            "max": 95,
+            "mean": 57.46800731261426
+          }
+        }
+      ]
+    },
+    {
+      "curve": "rapid_start",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 43,
+            "median": 51,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.97623400365631
+          },
+          "pace": {
+            "n": 547,
+            "min": 17,
+            "p10": 36,
+            "median": 52,
+            "p90": 70,
+            "max": 90,
+            "mean": 52.23217550274223
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 39,
+            "median": 55,
+            "p90": 74,
+            "max": 95,
+            "mean": 55.88665447897623
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 44,
+            "median": 52,
+            "p90": 68,
+            "max": 79,
+            "mean": 54.051188299817184
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 35,
+            "median": 51,
+            "p90": 70,
+            "max": 90,
+            "mean": 51.959780621572214
+          },
+          "reading": {
+            "n": 547,
+            "min": 23,
+            "p10": 41,
+            "median": 58,
+            "p90": 76,
+            "max": 95,
+            "mean": 58.52102376599635
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 43,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.447897623400365
+          },
+          "pace": {
+            "n": 547,
+            "min": 10,
+            "p10": 30,
+            "median": 47,
+            "p90": 65,
+            "max": 87,
+            "mean": 47.25776965265082
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 43,
+            "median": 60,
+            "p90": 78,
+            "max": 95,
+            "mean": 60.180987202925046
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 30,
+            "p10": 39,
+            "median": 47,
+            "p90": 64,
+            "max": 76,
+            "mean": 49.54844606946983
+          },
+          "pace": {
+            "n": 547,
+            "min": 5,
+            "p10": 25,
+            "median": 42,
+            "p90": 60,
+            "max": 82,
+            "mean": 42.05850091407678
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 42,
+            "median": 59,
+            "p90": 78,
+            "max": 95,
+            "mean": 59.38208409506399
+          }
+        }
+      ]
+    },
+    {
+      "curve": "balanced",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.53199268738574
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 35,
+            "median": 52,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.90493601462523
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 38,
+            "median": 55,
+            "p90": 73,
+            "max": 95,
+            "mean": 55.56307129798903
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 44,
+            "median": 52,
+            "p90": 68,
+            "max": 79,
+            "mean": 53.81535648994515
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 36,
+            "median": 52,
+            "p90": 70,
+            "max": 90,
+            "mean": 52.25776965265082
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 41,
+            "median": 57,
+            "p90": 75,
+            "max": 95,
+            "mean": 57.82449725776965
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 43,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.42230347349177
+          },
+          "pace": {
+            "n": 547,
+            "min": 11,
+            "p10": 31,
+            "median": 48,
+            "p90": 66,
+            "max": 87,
+            "mean": 47.96892138939671
+          },
+          "reading": {
+            "n": 547,
+            "min": 23,
+            "p10": 42,
+            "median": 59,
+            "p90": 78,
+            "max": 95,
+            "mean": 59.307129798903105
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 30,
+            "p10": 39,
+            "median": 47,
+            "p90": 64,
+            "max": 76,
+            "mean": 49.484460694698356
+          },
+          "pace": {
+            "n": 547,
+            "min": 5,
+            "p10": 25,
+            "median": 42,
+            "p90": 61,
+            "max": 83,
+            "mean": 42.51371115173674
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 41,
+            "median": 58,
+            "p90": 77,
+            "max": 95,
+            "mean": 58.56489945155393
+          }
+        }
+      ]
+    },
+    {
+      "curve": "steady",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.21023765996344
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 35,
+            "median": 51,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.57769652650823
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 38,
+            "median": 54,
+            "p90": 73,
+            "max": 95,
+            "mean": 55.31444241316271
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 43,
+            "median": 52,
+            "p90": 68,
+            "max": 79,
+            "mean": 53.51371115173674
+          },
+          "pace": {
+            "n": 547,
+            "min": 17,
+            "p10": 36,
+            "median": 52,
+            "p90": 70,
+            "max": 90,
+            "mean": 52.343692870201096
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 41,
+            "median": 57,
+            "p90": 75,
+            "max": 95,
+            "mean": 57.41864716636197
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 43,
+            "median": 51,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.90676416819013
+          },
+          "pace": {
+            "n": 547,
+            "min": 13,
+            "p10": 33,
+            "median": 49,
+            "p90": 67,
+            "max": 89,
+            "mean": 49.469835466179156
+          },
+          "reading": {
+            "n": 547,
+            "min": 23,
+            "p10": 42,
+            "median": 58,
+            "p90": 77,
+            "max": 95,
+            "mean": 58.96343692870201
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 65,
+            "max": 77,
+            "mean": 50.61608775137112
+          },
+          "pace": {
+            "n": 547,
+            "min": 8,
+            "p10": 28,
+            "median": 45,
+            "p90": 63,
+            "max": 85,
+            "mean": 45.04387568555759
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 41,
+            "median": 58,
+            "p90": 77,
+            "max": 95,
+            "mean": 58.716636197440586
+          }
+        }
+      ]
+    },
+    {
+      "curve": "late_bloomer",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.34917733089579
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 35,
+            "median": 51,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.62705667276051
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 38,
+            "median": 55,
+            "p90": 73,
+            "max": 95,
+            "mean": 55.56307129798903
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 44,
+            "median": 52,
+            "p90": 68,
+            "max": 79,
+            "mean": 54.0073126142596
+          },
+          "pace": {
+            "n": 547,
+            "min": 17,
+            "p10": 36,
+            "median": 53,
+            "p90": 70,
+            "max": 90,
+            "mean": 52.727605118829985
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 41,
+            "median": 57,
+            "p90": 75,
+            "max": 95,
+            "mean": 57.82449725776965
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 44,
+            "median": 52,
+            "p90": 68,
+            "max": 79,
+            "mean": 54.11700182815356
+          },
+          "pace": {
+            "n": 547,
+            "min": 14,
+            "p10": 34,
+            "median": 51,
+            "p90": 68,
+            "max": 89,
+            "mean": 50.70018281535649
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 43,
+            "median": 60,
+            "p90": 78,
+            "max": 95,
+            "mean": 60.02193784277879
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 66,
+            "max": 78,
+            "mean": 52.10603290676417
+          },
+          "pace": {
+            "n": 547,
+            "min": 9,
+            "p10": 29,
+            "median": 46,
+            "p90": 64,
+            "max": 85,
+            "mean": 45.98537477148081
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 43,
+            "median": 60,
+            "p90": 79,
+            "max": 95,
+            "mean": 60.59963436928702
+          }
+        }
+      ]
+    },
+    {
+      "curve": "long_prime",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.39488117001828
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 35,
+            "median": 52,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.782449725776964
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 38,
+            "median": 55,
+            "p90": 73,
+            "max": 95,
+            "mean": 55.44424131627056
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 44,
+            "median": 52,
+            "p90": 68,
+            "max": 79,
+            "mean": 54.03290676416819
+          },
+          "pace": {
+            "n": 547,
+            "min": 17,
+            "p10": 36,
+            "median": 53,
+            "p90": 70,
+            "max": 90,
+            "mean": 52.9926873857404
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 41,
+            "median": 57,
+            "p90": 75,
+            "max": 95,
+            "mean": 57.62705667276051
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 44,
+            "median": 52,
+            "p90": 68,
+            "max": 79,
+            "mean": 54.16453382084095
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 35,
+            "median": 51,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.47531992687386
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 43,
+            "median": 59,
+            "p90": 77,
+            "max": 95,
+            "mean": 59.681901279707496
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 43,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.621572212065814
+          },
+          "pace": {
+            "n": 547,
+            "min": 11,
+            "p10": 31,
+            "median": 48,
+            "p90": 66,
+            "max": 87,
+            "mean": 47.92870201096892
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 43,
+            "median": 60,
+            "p90": 78,
+            "max": 95,
+            "mean": 60.27056672760512
+          }
+        }
+      ]
+    },
+    {
+      "curve": "physical_early_mental_late",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.37111517367459
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 36,
+            "median": 51,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.63436928702011
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 38,
+            "median": 54,
+            "p90": 73,
+            "max": 95,
+            "mean": 55.215722120658135
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.460694698354665
+          },
+          "pace": {
+            "n": 547,
+            "min": 11,
+            "p10": 32,
+            "median": 48,
+            "p90": 67,
+            "max": 89,
+            "mean": 48.6617915904936
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 40,
+            "median": 56,
+            "p90": 75,
+            "max": 95,
+            "mean": 57.146252285191956
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 31,
+            "p10": 40,
+            "median": 48,
+            "p90": 65,
+            "max": 77,
+            "mean": 50.482632541133455
+          },
+          "pace": {
+            "n": 547,
+            "min": 5,
+            "p10": 25,
+            "median": 42,
+            "p90": 61,
+            "max": 83,
+            "mean": 41.97440585009141
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 42,
+            "median": 59,
+            "p90": 77,
+            "max": 95,
+            "mean": 59.06946983546618
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 27,
+            "p10": 37,
+            "median": 46,
+            "p90": 62,
+            "max": 75,
+            "mean": 47.57952468007313
+          },
+          "pace": {
+            "n": 547,
+            "min": 1,
+            "p10": 18,
+            "median": 35,
+            "p90": 54,
+            "max": 77,
+            "mean": 35.30164533820841
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 42,
+            "median": 59,
+            "p90": 78,
+            "max": 95,
+            "mean": 59.948811700182816
+          }
+        }
+      ]
+    },
+    {
+      "curve": "goalkeeper_late_prime",
+      "ages": [
+        {
+          "age": 18,
+          "overall": {
+            "n": 547,
+            "min": 32,
+            "p10": 40,
+            "median": 48,
+            "p90": 66,
+            "max": 78,
+            "mean": 50.46252285191956
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 33,
+            "median": 49,
+            "p90": 68,
+            "max": 90,
+            "mean": 49.94332723948812
+          },
+          "reading": {
+            "n": 547,
+            "min": 19,
+            "p10": 36,
+            "median": 52,
+            "p90": 72,
+            "max": 95,
+            "mean": 53.25411334552103
+          }
+        },
+        {
+          "age": 23,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 66,
+            "max": 78,
+            "mean": 52.01462522851919
+          },
+          "pace": {
+            "n": 547,
+            "min": 16,
+            "p10": 34,
+            "median": 50,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.020109689213896
+          },
+          "reading": {
+            "n": 547,
+            "min": 21,
+            "p10": 38,
+            "median": 54,
+            "p90": 73,
+            "max": 95,
+            "mean": 55.31444241316271
+          }
+        },
+        {
+          "age": 28,
+          "overall": {
+            "n": 547,
+            "min": 34,
+            "p10": 43,
+            "median": 51,
+            "p90": 67,
+            "max": 79,
+            "mean": 53.04387568555759
+          },
+          "pace": {
+            "n": 547,
+            "min": 15,
+            "p10": 34,
+            "median": 50,
+            "p90": 69,
+            "max": 90,
+            "mean": 51.10054844606947
+          },
+          "reading": {
+            "n": 547,
+            "min": 22,
+            "p10": 41,
+            "median": 57,
+            "p90": 75,
+            "max": 95,
+            "mean": 57.41864716636197
+          }
+        },
+        {
+          "age": 33,
+          "overall": {
+            "n": 547,
+            "min": 33,
+            "p10": 42,
+            "median": 50,
+            "p90": 67,
+            "max": 78,
+            "mean": 52.217550274223036
+          },
+          "pace": {
+            "n": 547,
+            "min": 10,
+            "p10": 30,
+            "median": 47,
+            "p90": 66,
+            "max": 87,
+            "mean": 47.179159049360145
+          },
+          "reading": {
+            "n": 547,
+            "min": 24,
+            "p10": 42,
+            "median": 59,
+            "p90": 77,
+            "max": 95,
+            "mean": 59.321755027422306
+          }
+        },
+        {
+          "age": 38,
+          "overall": {
+            "n": 547,
+            "min": 31,
+            "p10": 40,
+            "median": 48,
+            "p90": 65,
+            "max": 77,
+            "mean": 50.06581352833638
+          },
+          "pace": {
+            "n": 547,
+            "min": 5,
+            "p10": 25,
+            "median": 42,
+            "p90": 61,
+            "max": 83,
+            "mean": 42.24497257769653
+          },
+          "reading": {
+            "n": 547,
+            "min": 23,
+            "p10": 42,
+            "median": 59,
+            "p90": 78,
+            "max": 95,
+            "mean": 59.877513711151735
+          }
+        }
+      ]
+    }
+  ]
+}

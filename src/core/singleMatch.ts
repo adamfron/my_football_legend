@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { deriveNpcPlayStyles } from './npcFootballIdentity';
 import type {
   FootballerProfile,
   ProfessionalClub,
@@ -133,6 +134,7 @@ const buildTeam = (
     const injury = preMatchInjury(world.footballers[profile.id]!);
     return {
       footballerId: profile.id,
+      playStyles: deriveNpcPlayStyles(world.footballers[profile.id]!).map((value) => value.style),
       profile,
       condition: world.footballers[profile.id]?.fitness ?? 100,
       ...(injury ? { injury } : {}),
@@ -152,6 +154,7 @@ const buildTeam = (
       const injury = preMatchInjury(player);
       return {
         footballerId: player.profile.id,
+        playStyles: deriveNpcPlayStyles(player).map((value) => value.style),
         profile: player.profile,
         condition: player.fitness ?? 100,
         ...(injury ? { injury } : {}),
