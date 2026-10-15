@@ -7,6 +7,7 @@ import type {
 } from '../types/domain';
 import {
   getCurrentCareerWeek,
+  getCurrentFixture,
   advanceCareerWeek,
   recoverOrphanedSeasonOneRound,
 } from './careerWeeks';
@@ -295,6 +296,30 @@ export const simulateRoutinePlayerMatch = (
       ? participationFromAppearance(completed, fixture, appearance, projected.plannedMinutes)
       : nonAppearanceParticipation(completed, fixture, projected.plannedMinutes),
   );
+};
+
+/** Explicit one-fixture override; the existing summary path owns consequences. */
+export const simulateSelectedCareerFixture = (career: CareerState): CareerState => {
+  const fixture = getCurrentFixture(career);
+  if (!fixture || !career.leagueSeason || !career.activeMatch || career.activeMatch.completed)
+    throw new Error('Brak nierozstrzygniętego meczu do symulacji.');
+  const roundIndex = career.leagueSeason.rounds.findIndex((round) =>
+    round.fixtures.some((item) => item.id === fixture.id),
+  );
+  const leagueFixture = career.leagueSeason.rounds[roundIndex]?.fixtures.find(
+    (item) => item.id === fixture.id,
+  );
+  if (!leagueFixture || leagueFixture.completed)
+    throw new Error('Ten mecz został już rozstrzygnięty.');
+  const simulated = settleLeagueRound(simulateRoutinePlayerMatch(career, fixture), roundIndex);
+  return {
+    ...simulated,
+    currentDate: fixture.date,
+    careerCalendar: { ...simulated.careerCalendar!, currentDate: fixture.date },
+    fastForwardLog: [...(simulated.fastForwardLog ?? []), logMatch(simulated, fixture)],
+    activeMatch: undefined,
+    decisionPoint: undefined,
+  };
 };
 
 const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {

@@ -136,6 +136,14 @@ export const CareerView = ({
         } as CSSProperties
       }
     >
+      {career.seasonParticipation?.some(
+        (record) => record.metricsSource === 'canonical_plus_summary',
+      ) && (
+        <p role="note">
+          Część meczów dokończono symulacją. Minuty i wyniki są pełne; indywidualne statystyki akcji
+          obejmują tylko rozegrane fragmenty.
+        </p>
+      )}
       <header className="career-header">
         <strong>MY FOOTBALL LEGEND</strong>
         <span>Sezon {seasonName}</span>

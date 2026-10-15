@@ -544,7 +544,7 @@ export type TrainingPlan =
   | 'weak_foot';
 export interface SeasonParticipationRecord {
   canonicalStats?: CanonicalAppearanceStats | undefined;
-  metricsSource?: 'canonical' | undefined;
+  metricsSource?: 'canonical' | 'canonical_plus_summary' | undefined;
   fixtureId: string;
   seasonId?: string | undefined;
   competitionId?: string | undefined;
@@ -793,7 +793,7 @@ export interface FootballerCondition {
   lastAppearanceDate?: string | undefined;
   lastAppearanceMinutes?: number | undefined;
   lastMatchId?: Id | undefined;
-  source?: 'canonical' | 'summary' | undefined;
+  source?: 'canonical' | 'summary' | 'canonical_plus_summary' | undefined;
   injuryUntilDate?: string | undefined;
   injuryStatus?: 'discomfort' | 'playable' | 'unable' | 'absence' | undefined;
 }
@@ -1175,7 +1175,7 @@ export interface MatchState {
   completed: boolean;
 }
 export interface MatchAppearance {
-  metricsSource?: 'canonical' | undefined;
+  metricsSource?: 'canonical' | 'canonical_plus_summary' | undefined;
   matchId: string;
   date: string;
   opponentId: string;

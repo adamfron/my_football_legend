@@ -1,3 +1,4 @@
+import { getNpcExperience } from './npcFootballIdentity';
 import { z } from 'zod';
 import type {
   CareerState,
@@ -9,7 +10,11 @@ import type {
   WorldFootballer,
 } from '../types/domain';
 import { professionalClubSchema, worldFootballerSchema } from '../schemas/domainSchemas';
-import { projectNpcAttributesAtDate } from './seasonDevelopment';
+import {
+  applyNpcExperienceDevelopment,
+  getNpcDevelopmentEnvironment,
+  projectNpcAttributesAtDate,
+} from './seasonDevelopment';
 import { parseProceduralFootballerId, resolveProceduralFootballer } from './proceduralFootballers';
 import { recoverFootballerCondition } from './fitnessRecovery';
 
@@ -79,6 +84,23 @@ export const clearWorldDatabaseCache = () => {
 
 type WorldContext = Pick<CareerState, 'player' | 'worldDelta'> &
   Partial<Pick<CareerState, 'currentDate'>> & { baseWorld: WorldDatabase };
+const youthOrigins = new WeakMap<object, ReadonlyMap<Id, Id>>();
+/** Birthplace/academy comes from immutable membership metadata, never a destination transfer. */
+const npcOriginClubId = (footballer: WorldFootballer, cohorts?: WorldDatabase['youthCohorts']) => {
+  const procedural = parseProceduralFootballerId(footballer.profile.id);
+  if (procedural) return procedural.ownerId;
+  if (!cohorts) return footballer.currentClubId;
+  let index = youthOrigins.get(cohorts);
+  if (!index) {
+    index = new Map(
+      Object.entries(cohorts).flatMap(([key, ids]) =>
+        ids.map((id) => [id, key.split(':')[1]!] as const),
+      ),
+    );
+    youthOrigins.set(cohorts, index);
+  }
+  return index.get(footballer.profile.id) ?? footballer.currentClubId;
+};
 const withRecoveredCondition = (
   footballer: WorldFootballer,
   delta: CareerWorldDelta | undefined,
@@ -110,16 +132,33 @@ export const resolveWorldFootballer = (
     ...(state ? composeFootballerState(footballer, state) : footballer),
     ...(clubId !== undefined ? { currentClubId: clubId ?? undefined } : {}),
   };
-  const attributes = delta?.footballerAttributeOverrides?.[id];
-  const effective = attributes
+  const projected = world.currentDate
     ? {
         ...composed,
         profile: {
           ...composed.profile,
-          attributes: { ...composed.profile.attributes, ...attributes } as PlayerAttributes,
+          attributes: projectNpcAttributesAtDate({
+            footballer,
+            date: world.currentDate,
+            clubEnvironment: getNpcDevelopmentEnvironment(
+              footballer,
+              world.baseWorld.clubs,
+              npcOriginClubId(footballer, world.baseWorld.youthCohorts),
+            ),
+          }),
         },
       }
     : composed;
+  const attributes = delta?.footballerAttributeOverrides?.[id];
+  const effective = attributes
+    ? {
+        ...projected,
+        profile: {
+          ...projected.profile,
+          attributes: { ...projected.profile.attributes, ...attributes } as PlayerAttributes,
+        },
+      }
+    : projected;
   return withRecoveredCondition(effective, delta, world.currentDate);
 };
 
@@ -136,7 +175,17 @@ const composeFootballerState = (
 /** Composes base/new, rare full override, then the sparse development overlay. */
 export const resolveCareerWorldFootballer = (
   career: Pick<CareerState, 'footballerWorld'> &
-    Partial<Pick<CareerState, 'worldDelta' | 'currentDate' | 'seed'>>,
+    Partial<
+      Pick<
+        CareerState,
+        | 'worldDelta'
+        | 'currentDate'
+        | 'seed'
+        | 'clubWorld'
+        | 'historyFacts'
+        | 'youthCohorts'
+      >
+    >,
   id: Id,
 ): WorldFootballer | undefined => {
   const delta = career.worldDelta;
@@ -158,11 +207,24 @@ export const resolveCareerWorldFootballer = (
         ...footballer,
         profile: {
           ...footballer.profile,
-          attributes: projectNpcAttributesAtDate({
-            footballer,
-            date: career.currentDate,
-            ...(career.seed ? { seed: career.seed } : {}),
-          }),
+          attributes: applyNpcExperienceDevelopment(
+            base!,
+            projectNpcAttributesAtDate({
+              footballer,
+              date: career.currentDate,
+              ...(career.seed ? { seed: career.seed } : {}),
+              clubEnvironment: getNpcDevelopmentEnvironment(
+                base!,
+                career.clubWorld,
+                npcOriginClubId(career.footballerWorld?.[id] ?? base!, career.youthCohorts),
+              ),
+            }),
+            career.historyFacts
+              ? getNpcExperience(career as Pick<CareerState, 'historyFacts' | 'currentDate'>).get(
+                  id,
+                )
+              : undefined,
+          ),
         },
       }
     : footballer;
@@ -182,7 +244,9 @@ export const resolveCareerWorldFootballer = (
 /** Boundary-local resolver: indexes retirement once and may memoize an immutable pass. */
 export const createCareerWorldFootballerResolver = (
   career: Pick<CareerState, 'footballerWorld' | 'worldDelta'> &
-    Partial<Pick<CareerState, 'currentDate' | 'seed'>>,
+    Partial<
+      Pick<CareerState, 'currentDate' | 'seed' | 'clubWorld' | 'historyFacts' | 'youthCohorts'>
+    >,
   options: { cache?: boolean } = {},
 ) => {
   const delta = career.worldDelta;
@@ -209,11 +273,24 @@ export const createCareerWorldFootballerResolver = (
             ...footballer,
             profile: {
               ...footballer.profile,
-              attributes: projectNpcAttributesAtDate({
-                footballer,
-                date: career.currentDate,
-                ...(career.seed ? { seed: career.seed } : {}),
-              }),
+              attributes: applyNpcExperienceDevelopment(
+                base!,
+                projectNpcAttributesAtDate({
+                  footballer,
+                  date: career.currentDate,
+                  ...(career.seed ? { seed: career.seed } : {}),
+                  clubEnvironment: getNpcDevelopmentEnvironment(
+                    base!,
+                    career.clubWorld,
+                    npcOriginClubId(career.footballerWorld?.[id] ?? base!, career.youthCohorts),
+                  ),
+                }),
+                career.historyFacts
+                  ? getNpcExperience(
+                      career as Pick<CareerState, 'historyFacts' | 'currentDate'>,
+                    ).get(id)
+                  : undefined,
+              ),
             },
           }
         : footballer;

@@ -3,11 +3,15 @@ import type {
   DevelopmentFamily,
   NpcDevelopmentCurveId,
   PlayerAttributes,
+  PlayerPosition,
+  ProfessionalClub,
   WorldFootballer,
 } from '../types/domain';
 import { getProfileAge } from './age';
 import { getAttributeFamily } from './attributePresentation';
 import { hashRandomSeed } from './random/RandomGenerator';
+import { getClubDevelopmentEnvironment } from './professionalClubs';
+import { getYouthTeamParentClubId } from '../content/world/polishU17';
 
 interface NpcDevelopmentCurve {
   id: NpcDevelopmentCurveId;
@@ -107,6 +111,104 @@ const stableAttributes = new Set<keyof PlayerAttributes>([
   'professionalism',
   'determination',
 ]);
+const developmentFamilies: readonly DevelopmentFamily[] = [
+  'technical',
+  'mental',
+  'physical',
+  'goalkeeper',
+];
+const familyAttributeKeys = Object.fromEntries(
+  developmentFamilies.map((family) => [
+    family,
+    attributeKeys.filter(
+      (attribute) => getAttributeFamily(attribute) === family && !stableAttributes.has(attribute),
+    ),
+  ]),
+) as Record<DevelopmentFamily, (keyof PlayerAttributes)[]>;
+
+// Immutable identities are queried repeatedly within a season. Keep only their latest
+// projection; replaced attributes/development or another age/environment invalidate it.
+const projectionCache = new WeakMap<
+  WorldFootballer['profile'],
+  {
+    age: number;
+    anchorAge: number;
+    environment: number;
+    curveId: NpcDevelopmentCurveId;
+    development: WorldFootballer['developmentProfile'];
+    source: PlayerAttributes;
+    projected: PlayerAttributes;
+  }
+>();
+
+const positionFocus: Record<PlayerPosition, readonly (keyof PlayerAttributes)[]> = {
+  goalkeeper: [
+    'reflexes',
+    'handling',
+    'oneOnOnes',
+    'goalkeeperSweeping',
+    'goalkeeperKicking',
+    'goalkeeperThrowing',
+  ],
+  center_back: ['tackling', 'positioning', 'heading', 'strength', 'gameReading'],
+  left_back: ['pace', 'stamina', 'tackling', 'passing'],
+  right_back: ['pace', 'stamina', 'tackling', 'passing'],
+  central_midfielder: ['passing', 'technique', 'gameReading', 'positioning', 'stamina'],
+  left_winger: ['pace', 'dribbling', 'technique', 'agility', 'firstTouch'],
+  right_winger: ['pace', 'dribbling', 'technique', 'agility', 'firstTouch'],
+  striker: ['finishing', 'composure', 'firstTouch', 'positioning', 'heading'],
+};
+
+/** Small evidence-supported experience layer. Recomputed from retained facts, never
+ * fed back into natural growth; an absolute exceptional override still has precedence. */
+export const applyNpcExperienceDevelopment = (
+  footballer: WorldFootballer,
+  attributes: PlayerAttributes,
+  experience?: { minutes: number; injuryDays?: number | undefined },
+) => {
+  const credit = Math.min(
+    2,
+    Math.floor(Math.max(0, (experience?.minutes ?? 0) - (experience?.injuryDays ?? 0) * 15) / 900),
+  );
+  if (!credit) return attributes;
+  const keys = [...positionFocus[footballer.profile.primaryPosition]]
+    .filter((key) => getAttributeFamily(key) !== 'physical')
+    .sort(
+      (a, b) =>
+        footballer.profile.attributes[b] - footballer.profile.attributes[a] || a.localeCompare(b),
+    )
+    .slice(0, 2);
+  return {
+    ...attributes,
+    ...Object.fromEntries(
+      keys.map((key) => [
+        key,
+        Math.min(
+          100,
+          Math.max(
+            footballer.profile.attributes[key],
+            footballer.developmentProfile.familyCapacity[getAttributeFamily(key)],
+          ),
+          attributes[key] + credit,
+        ),
+      ]),
+    ),
+  };
+};
+
+/** Immutable origin environment, not today's transfer destination applied to a whole past.
+ * Only actual facilities/staff enter the calculation; no club-ID sporting bonuses. */
+export const getNpcDevelopmentEnvironment = (
+  footballer: WorldFootballer,
+  clubs: readonly ProfessionalClub[] = [],
+  originClubId = footballer.currentClubId,
+) => {
+  const clubId = originClubId
+    ? (getYouthTeamParentClubId(originClubId) ?? originClubId)
+    : undefined;
+  const club = clubs.find((item) => item.id === clubId);
+  return club?.infrastructure ? getClubDevelopmentEnvironment(club) : 50;
+};
 
 export const deriveNpcDevelopmentCurveId = (
   footballer: Pick<WorldFootballer, 'profile' | 'developmentProfile' | 'developmentCurveId'>,
@@ -143,6 +245,7 @@ export const projectNpcAttributesAtDate = (options: {
   footballer: WorldFootballer;
   date: string;
   seed?: string;
+  clubEnvironment?: number;
 }): PlayerAttributes => {
   const { footballer, date } = options;
   const profile = footballer.profile;
@@ -155,7 +258,28 @@ export const projectNpcAttributesAtDate = (options: {
   const anchorAge = getProfileAge(profile, anchorDate, anchorDate);
   const age = getProfileAge(profile, date, '2026-07-01');
   if (age === anchorAge) return profile.attributes;
-  const curve = NPC_DEVELOPMENT_CURVES[deriveNpcDevelopmentCurveId(footballer)];
+  const curveId = deriveNpcDevelopmentCurveId(footballer);
+  const environment = Math.max(0, Math.min(100, options.clubEnvironment ?? 50));
+  const cached = projectionCache.get(profile);
+  if (
+    cached?.age === age &&
+    cached.anchorAge === anchorAge &&
+    cached.environment === environment &&
+    cached.curveId === curveId &&
+    cached.development === development &&
+    cached.source === profile.attributes
+  )
+    return cached.projected;
+  const curve = NPC_DEVELOPMENT_CURVES[curveId];
+  const familyMeans = Object.fromEntries(
+    developmentFamilies.map((family) => {
+      const keys = familyAttributeKeys[family];
+      return [
+        family,
+        keys.reduce((sum, attribute) => sum + profile.attributes[attribute], 0) / keys.length,
+      ];
+    }),
+  ) as Record<DevelopmentFamily, number>;
   const attributes = { ...profile.attributes };
   for (const key of attributeKeys) {
     if (stableAttributes.has(key)) continue;
@@ -167,19 +291,63 @@ export const projectNpcAttributesAtDate = (options: {
       development.familyDeclineStartAge[family] + curve.peakShift[family],
     );
     const character = 0.82 + (attributes.professionalism + attributes.determination) / 500;
-    const growth = 0.55 * development.growthRate * curve.growth[family] * character;
+    const focus = positionFocus[profile.primaryPosition].includes(key)
+      ? 1.18
+      : profile.secondaryPositions.some((position) => positionFocus[position].includes(key))
+        ? 1.02
+        : 0.72;
+    const specialisation = Math.max(
+      0.7,
+      Math.min(1.3, 1 + (profile.attributes[key] - familyMeans[family]) / 65),
+    );
+    const headroom = Math.max(
+      0.1,
+      Math.min(1.2, (development.familyCapacity[family] - profile.attributes[key] + 8) / 25),
+    );
+    const environmentRate = 0.85 + environment * 0.003;
+    const growth =
+      0.55 *
+      development.growthRate *
+      curve.growth[family] *
+      character *
+      focus *
+      specialisation *
+      headroom *
+      environmentRate;
     const declineResilience = 1.12 - attributes.professionalism / 260;
     const decline =
       (family === 'physical' ? 1.05 : 0.62) * curve.decline[family] * declineResilience;
-    const noise =
-      ((hashRandomSeed(`${options.seed ?? ''}:npc-projection:${profile.id}:${key}`) % 21) - 10) /
-      100;
-    const delta = Math.round(
-      phaseValue(age, anchorAge, peak, declineStart, growth * (1 + noise), decline * (1 - noise)),
-    );
-    const capacity = development.familyCapacity[family] + 2;
+    const noise = ((hashRandomSeed(`npc-projection:${profile.id}:${key}`) % 21) - 10) / 100;
+    // Stable annual plateaus/crises are sampled from identity and age, never query order.
+    let total = 0;
+    for (let year = Math.min(age, anchorAge); year < Math.max(age, anchorAge); year++) {
+      const roll = hashRandomSeed(`npc-development:${profile.id}:${family}:${year}`) % 100;
+      const plateau = roll > 55 + development.stagnationResistance / 2 ? 0.18 : 1;
+      const crisis = roll < development.crisisSensitivity / 12 ? 0.7 : 1;
+      const annual = phaseValue(
+        year + 1,
+        year,
+        peak,
+        declineStart,
+        growth * (1 + noise),
+        decline * (1 - noise),
+      );
+      total += annual > 0 ? annual * plateau * crisis : annual / crisis;
+    }
+    const delta = Math.round(total * (age >= anchorAge ? 1 : -1));
+    // A low generated capacity must not instantly erase an already established strength.
+    const capacity = Math.max(profile.attributes[key], development.familyCapacity[family]);
     attributes[key] = Math.max(1, Math.min(100, capacity, profile.attributes[key] + delta));
   }
+  projectionCache.set(profile, {
+    age,
+    anchorAge,
+    environment,
+    curveId,
+    development,
+    source: profile.attributes,
+    projected: attributes,
+  });
   return attributes;
 };
 
@@ -207,6 +375,7 @@ export const projectNpcSeasonDevelopment = (options: {
     footballer: options.footballer,
     date: options.boundaryDate,
     seed: options.seed,
+    ...(options.clubEnvironment !== undefined ? { clubEnvironment: options.clubEnvironment } : {}),
   });
   return {
     footballer: { ...options.footballer, profile: { ...options.footballer.profile, attributes } },

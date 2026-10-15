@@ -482,11 +482,11 @@ export const SeasonEndSummary = ({
       </p>
       <p>
         {summary.statistics.goals} G · {summary.statistics.assists} A · xG{' '}
-        {career.seasonParticipation?.some((r) => r.metricsSource === 'canonical')
+        {career.seasonParticipation?.some((r) => Boolean(r.metricsSource))
           ? '— (brak pełnych danych)'
           : summary.statistics.xG.toFixed(2).replace('.', ',')}{' '}
         · xA{' '}
-        {career.seasonParticipation?.some((r) => r.metricsSource === 'canonical')
+        {career.seasonParticipation?.some((r) => Boolean(r.metricsSource))
           ? '— (brak pełnych danych)'
           : summary.statistics.xA.toFixed(2).replace('.', ',')}{' '}
         · średnia {summary.statistics.averageRating?.toFixed(1).replace('.', ',') ?? '—'}

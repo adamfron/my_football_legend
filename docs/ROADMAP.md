@@ -1,24 +1,24 @@
 # Roadmap
 
-Aktualny etap: **PR166 — Career–Match Integration & Behavioural PlayStyles**.
-[Raport PR166](PR166_CAREER_MATCH_INTEGRATION_PLAYSTYLES.md) obejmuje prawdziwe
-fixtures U-17/pro w kanonicznym runtime 3D, dobór trenera, konsekwencje i bezpieczny
-commit, retencję wyników, sześć stylów oraz naprawy zmiany stron i menu.
+Aktualny etap: **PR167 — NPC Development, Footballer Diversity & Flexible Career Matches**.
+[Raport PR167](PR167_NPC_DEVELOPMENT_FOOTBALLER_DIVERSITY.md) opisuje istniejące i
+nowe reguły rozwoju, style NPC, rzeczywiste składy, wybór przed meczem i walidowaną
+kontynuację `canonical_plus_summary`, trwały zapis oraz pomiary 20 sezonów.
+Końcowe `npm run verify`: **PASS — 1702 testy, lint, TypeScript i build**.
 
 Autorytatywna kolejność kolejnych etapów:
 
-- **PR167 — NPC Development & Footballer Diversity**: rozwój, krzywe,
-  różnorodność i style NPC; PR166 przenosi ich kondycję i rzeczywiste kary.
 - **PR168 — Coaches, Match Briefings & Tactical Intelligence**: preferencje,
-  przeciwnik, instrukcje i bogatsza ocena decyzji. Sparse shots, długie rotacje,
-  prognozy przechwytu, druga piłka i przekazywanie krycia pozostają do audytu,
-  bez kwot strzałów i wymuszania sukcesów.
+  przeciwnik, instrukcje i bogatsza ocena sytuacji/decyzji. Dotychczasowe ograniczenia
+  kreacji, prognoz przechwytu, krycia i liveness pozostają jawne; bez kwot i
+  wymuszania sukcesów.
 - **PR169 — Career Stories, News & Season Narratives**.
 - **PR170 — Match Atmosphere & Stylized Visual Polish**.
 
-Późniejsza adjudykacja przerwanych meczów, bezpieczne checkpointy mid-match i
-pełne archiwum replay wymagają osobnego zakresu; obecny niezapisany fixture
-restartuje deterministycznie. Poniższe opisy zachowano jako historię planu.
+Statystyczna końcówka nie generuje szczegółowych akcji indywidualnych. Pełna historia
+środowisk treningowych NPC, późniejsza adjudykacja przerwanych meczów, checkpointy
+mid-match i pełne archiwum replay wymagają osobnego zakresu. Niezapisany fixture
+nadal restartuje deterministycznie. Poniższe opisy zachowano jako historię planu.
 
 Aktualny etap: **PR165 — Visual DNA & Character Creator**.
 [Raport PR165](PR165_VISUAL_DNA_CHARACTER_CREATOR.md) obejmuje stałe twarze v1,
