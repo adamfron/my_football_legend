@@ -1,0 +1,397 @@
+{
+  "command": "npm run verify",
+  "status": "PASS",
+  "exitCode": 0,
+  "totalPassed": 1773,
+  "verifiedCommit": "bd2860e720544dbf5b7c6288a72e23ec77dbd149",
+  "ci": {
+    "runId": 38973551839,
+    "jobId": 117217423288,
+    "url": "https://github.com/adamfron/my_football_legend/actions/runs/38973551839",
+    "conclusion": "success",
+    "verifyStep": "success",
+    "generatedWorldCheck": "success",
+    "finishedAtUtc": "2026-10-16T22:33:25Z",
+    "environment": "Unchanged existing Ubuntu GitHub Actions workflow; Node v24.21.0; npm 11.19.0; existing VITEST_MAX_WORKERS=1; unchanged package CLI flags; no local NODE_OPTIONS"
+  },
+  "stages": {
+    "main": 1712,
+    "serialMatchIntegration": 52,
+    "fullCanonicalContract": 4,
+    "fullCareers": 5
+  },
+  "stageDurationSeconds": {
+    "main": 483.24,
+    "serialMatchIntegration": 130.07,
+    "fullCanonicalContract": 962.93,
+    "fullCareers": 85.57
+  },
+  "lint": "PASS",
+  "typescript": "PASS",
+  "productionBuild": "PASS",
+  "timeoutsWorkersExclusionsAndAssertionsUnchanged": true,
+  "local": {
+    "node": "v24.19.0",
+    "main": 1712,
+    "serialMatchIntegration": 52,
+    "fullCanonicalContract": 4,
+    "fullPipeline": "Not claimed: local log ended during full-career stage; complete PASS is evidenced by CI",
+    "heapFlag": "--max-semi-space-size=64",
+    "finalProductionBuildExitCode": 0,
+    "finalCanonicalBrowserExitCode": 0
+  },
+  "canonicalEvidence": {
+    "professional": {
+      "player": {
+        "fixtureId": "league_2027_1_1",
+        "seasonId": "2027-28",
+        "competitionId": "polish-professional-4",
+        "date": "2027-08-29",
+        "opponentId": "pro_63",
+        "venue": "home",
+        "competition": "Polska Liga Okręgowa",
+        "homeClubId": "pro_52",
+        "awayClubId": "pro_63",
+        "fixtureStatus": "completed",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "status": "starter",
+        "plannedMinutes": 90,
+        "minutes": 91,
+        "participationEvidence": {
+          "decisions": {
+            "resolved": 5,
+            "retained": 0,
+            "turnovers": 1
+          },
+          "substitutions": []
+        },
+        "rating": 6.5,
+        "ratingProvenance": {
+          "model": "canonical_v1",
+          "source": "canonical"
+        },
+        "started": true,
+        "assignedPosition": "central_midfielder",
+        "appearanceMatchId": "league_2027_1_1:43375709",
+        "goals": 0,
+        "assists": 0,
+        "xG": 0,
+        "xA": 0,
+        "metricsSource": "canonical",
+        "canonicalStats": {
+          "playerId": "player_pr164_contract",
+          "minutesPlayed": 91,
+          "touches": 12,
+          "passesAttempted": 8,
+          "passesCompleted": 4,
+          "passesReceived": 5,
+          "shots": 2,
+          "shotsOnTarget": 0,
+          "goals": 0,
+          "assists": 0,
+          "carries": 3,
+          "tacklesAttempted": 2,
+          "tacklesWon": 2,
+          "interceptions": 3,
+          "possessionWon": 6,
+          "possessionLost": 4,
+          "possessionLossCauses": {
+            "tackle": 0,
+            "interception": 1,
+            "bad_pass": 0,
+            "pass_out": 0,
+            "heavy_touch": 0,
+            "failed_control": 1,
+            "loose_ball_claim": 0,
+            "shot": 2,
+            "foul_stoppage": 0,
+            "other": 0
+          },
+          "looseBallRecoveries": 4,
+          "blocks": 0,
+          "duelsWon": 2,
+          "fouls": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "offsides": 0,
+          "distanceCovered": 11076.80580171644,
+          "sprintDistance": 196.0886205251825,
+          "sprintBursts": 13,
+          "maxSpeed": 7.643081223259801,
+          "saves": 0,
+          "goalsConceded": 0,
+          "catches": 0,
+          "parries": 0
+        },
+        "defensiveActions": 5,
+        "yellowCards": 0
+      },
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "subs": [
+        {
+          "id": "pr164-contract:canonical:2027-28:league_2027_1_1:substitution:home:0:footballer_pro_52_19:footballer_pro_52_9",
+          "team": "home",
+          "outgoingId": "footballer_pro_52_19",
+          "incomingId": "footballer_pro_52_9",
+          "requestedAt": 4028.6250000048335,
+          "leftAt": 4033.6000000048516,
+          "enteredAt": 4034.000000004853,
+          "opportunityId": "pr164-contract:canonical:2027-28:league_2027_1_1:stoppage:pr164-contract:canonical:2027-28:league_2027_1_1:shot:1594:player_pr164_contract:out",
+          "reason": "fatigue",
+          "delayed": false
+        }
+      ],
+      "total": 23,
+      "rated": 23,
+      "unrated": 0,
+      "range": [5.2, 7.6],
+      "mean": 6.191304347826086,
+      "groups": {
+        "goalkeeper": {
+          "count": 2,
+          "min": 5.9,
+          "max": 6,
+          "mean": 5.95
+        },
+        "center_back": {
+          "count": 6,
+          "min": 5.4,
+          "max": 6.1,
+          "mean": 5.833333333333333
+        },
+        "left_back": {
+          "count": 2,
+          "min": 5.8,
+          "max": 6.1,
+          "mean": 5.949999999999999
+        },
+        "right_back": {
+          "count": 3,
+          "min": 5.2,
+          "max": 7.1,
+          "mean": 6.133333333333333
+        },
+        "central_midfielder": {
+          "count": 7,
+          "min": 5.8,
+          "max": 6.9,
+          "mean": 6.3
+        },
+        "striker": {
+          "count": 3,
+          "min": 6.2,
+          "max": 7.6,
+          "mean": 7.033333333333334
+        }
+      },
+      "deterministicFullRepetitions": 2,
+      "resultBytes": 25754
+    },
+    "youth": {
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "choices": 4,
+      "endedAt": 5460.124999985228,
+      "resultBytes": 30850,
+      "saveBytes": 96431,
+      "retained600CopiesSaveBytes": 6372538
+    }
+  },
+  "sourceFingerprintMethod": "SHA256 of sorted repository-relative path + NUL + SHA256(normalized-LF file), joined by LF. All 37 raw blob hashes match verified commit; later changes are docs/evidence only.",
+  "sourceFingerprint": "b5bf49955af3655928502503834ab954b62593778b20848836b4fda07edf31be",
+  "sourceFiles": [
+    {
+      "path": "scripts/benchmarkPr169.mjs",
+      "sha": "32c8ae8ffcf000f44ba0681dd3a93d8a1f0b1e41",
+      "sha256": "296ebdeaed5eaf8bf257b1e620541ad3d175255ce5dbf4191b73b7a3f3f83ee3"
+    },
+    {
+      "path": "scripts/benchmarkPr169Browser.mjs",
+      "sha": "9b0706d537d96847f85334c8571c1885e13b004a",
+      "sha256": "1057aaa110d1b12e94a9dee1f0d85453c51898542ebca83b46790d9b0742a887"
+    },
+    {
+      "path": "scripts/measurePr169.ts",
+      "sha": "1c56057f0cf1079504ed13ce99adf567652041b4",
+      "sha256": "958d0c8d7f889aed4cde2ed9be1dc88097535afcac788f6c96c7145a9472b2b1"
+    },
+    {
+      "path": "scripts/preparePr169Browser.mjs",
+      "sha": "d65b38bbdf753ac2222a4aa1a5d98442c49d2b1c",
+      "sha256": "4d989073874af85a36f83c7df94e46a6edaba017be244b27c0933769422062e3"
+    },
+    {
+      "path": "scripts/preparePr169Browser.ts",
+      "sha": "9b8a10b33c77cf75b7428736dd2afebdefb0d4e7",
+      "sha256": "c7675f9675aaf89c84b8021d068f956dc71129fe7d91ad0b7f97782dcc3e4d9e"
+    },
+    {
+      "path": "src/app/App.css",
+      "sha": "a294f273e195b6e969aa405c5d7251b41614e748",
+      "sha256": "df2d3623da01b408385414801f37e0837e129dc39a9cffb564977bfe88bde437"
+    },
+    {
+      "path": "src/app/career/CareerView.tsx",
+      "sha": "6408fc971315eb14834427a493741f792df2b697",
+      "sha256": "d32b9bca0a47c54cb07ae302425e1be42b156d5f59783e628977cbf087bbc98b"
+    },
+    {
+      "path": "src/app/career/HistoryView.tsx",
+      "sha": "23e22476d9502afa6d7a7ad85bb501ec4c039019",
+      "sha256": "5a5cc68d4e9890ec4389d8346e37bd4fa88e578f850e5ca21798d3c05ae441f9"
+    },
+    {
+      "path": "src/app/career/NewsView.tsx",
+      "sha": "b5f28d8cb644db822e7467beefc9e77d4d80692b",
+      "sha256": "0c3446af0fc70745a441fb875c03b299a7770d12af12efa2f6895bc100cffe94"
+    },
+    {
+      "path": "src/app/CareerApp.tsx",
+      "sha": "b11d3b12d2a1312a4fb7e00f587b85bb84447742",
+      "sha256": "13e8c0771f04f8cb636d6ffb026ec0516c5c3583c13647548d278c72b7ef284c"
+    },
+    {
+      "path": "src/app/pr169CareerRendering.test.tsx",
+      "sha": "2acd41308455164c2b79a416a147b10038d99671",
+      "sha256": "686daf1dbc51051688be5ce7df098cafb29bbc7b296d008ad7bc871f37e4b1a2"
+    },
+    {
+      "path": "src/components/CareerMatchDetails.tsx",
+      "sha": "386c74260c3e6842aee16a26f0e1cf904aca606a",
+      "sha256": "5ffd572b89520753891510ccea9d8a01c0812cca7a62aeac5897f3ed91ad09f0"
+    },
+    {
+      "path": "src/content/localization/pl/history.json",
+      "sha": "b8f7159dc6e662286b900603fefa733c2fd5367d",
+      "sha256": "e78b49e0c5a0ac543fd9e89491fc4c90cf48464186daf864a2af76166b2ff172"
+    },
+    {
+      "path": "src/core/careerFlow.ts",
+      "sha": "494978c3f1c1d62b1a2eca932cab556d8c8c5bb6",
+      "sha256": "1e7655f1ca54961cab567b478bdb05accd4a6777d65c1826e225a0e42db060b7"
+    },
+    {
+      "path": "src/core/careerMatchContract.test.ts",
+      "sha": "02098879ca1cf0443d5321e8379f736b151b3be8",
+      "sha256": "2df0dd56c6bb70b260a0202be85d02156d7fe371a51e3476db0b08c7d529f180"
+    },
+    {
+      "path": "src/core/careerMatchContract.ts",
+      "sha": "f0fc9f5b678c535d9d969da51c55340d4806b167",
+      "sha256": "161dea0205976c25cb8d9f42ce30f7b92b455d0dd922364b676a3a0b6eaf3226"
+    },
+    {
+      "path": "src/core/careerMatchMilestones.ts",
+      "sha": "0b55207a4d948daa31ea2b9d517a4b436b152849",
+      "sha256": "b29867cc52b0af4a445422f9436e6ea047bac91eb81eb4eb66bab2a10e52dfbe"
+    },
+    {
+      "path": "src/core/careerMatchPresentation.ts",
+      "sha": "29f9ff2de89e1eb4667e915168d3e705cf1f68bb",
+      "sha256": "edcfaaf70c194470da4ea5961a47c926b514c630189f9ea937250c55b11d0e82"
+    },
+    {
+      "path": "src/core/careerMatchRetention.ts",
+      "sha": "c2fbb217d8db6e3143912e2966da6d428fd8c6e8",
+      "sha256": "f8473ad218bd5a3031eed0ddd918c70e89f9fa37396768a0010c4f3c42b92b92"
+    },
+    {
+      "path": "src/core/careerSeasons.ts",
+      "sha": "60a36e248538d8654d1f6a15dafa0d7a31257323",
+      "sha256": "de2ed2a4e0d2234ddaa34f5a5251d79f59b4497390555991b21f706fd88ce6c2"
+    },
+    {
+      "path": "src/core/careerSimulation.ts",
+      "sha": "ee956a5f2d137fc56e37796c18d995eab691e190",
+      "sha256": "d967e0918dc48f78eb56f74556c0f682ea21c3cbd11bee5c4f0a99f72d55a271"
+    },
+    {
+      "path": "src/core/contracts.ts",
+      "sha": "a9f116120cc2dd6dd8037ae9ee1449e513e0ec84",
+      "sha256": "36b84fb553ddea0b9033f96906448f28160c78d29967a982e1ef66897e583d76"
+    },
+    {
+      "path": "src/core/history/careerHistory.ts",
+      "sha": "0669a46ac4c10ce08cf17e2334d3500b8865db58",
+      "sha256": "f2473ad7c7f3987dbdceb97759da1d53a04fa778ec3089ed0d19827d57911c65"
+    },
+    {
+      "path": "src/core/matchEngine.ts",
+      "sha": "2f2afcabd17eabb07129200282b0ef7431e0ee1c",
+      "sha256": "302f56f06d8949191aa6ff86af4cf371b36dd56af9c8209314e46128f4889689"
+    },
+    {
+      "path": "src/core/matchFeedback.ts",
+      "sha": "06ee0663a6dd684c2de3d9350d5f77a82f35871c",
+      "sha256": "3e35a6fca0445ae40128bbb1eb256cdd44d474780956382ec81a0ef866438e17"
+    },
+    {
+      "path": "src/core/matchParticipationPresentation.ts",
+      "sha": "166532eeac7acebfbf61c87607523d24c241c63c",
+      "sha256": "767d7880e86ed6c9d10ced7f36e047d6377773970af22efd249e8fe9270e0d31"
+    },
+    {
+      "path": "src/core/narrative/careerEvidence.ts",
+      "sha": "56e251279e1c65404dedc87a2df96fb0b4aa76dd",
+      "sha256": "35bed6893444bcdfe4c6d3c40ad74b68066f8a73da12f57ae247c8baa4f5189f"
+    },
+    {
+      "path": "src/core/narrative/careerMilestones.ts",
+      "sha": "de9db7faea81bb44273a180abe21214d12af3a8d",
+      "sha256": "9a5d217fc5f33b33495b83b51890d2d08063ce9bf0cd4ebd469c6ed23e053248"
+    },
+    {
+      "path": "src/core/narrative/careerStories.ts",
+      "sha": "040fabf45821f89e8b41c88f091f8a178c9c485c",
+      "sha256": "f97ab69eb48eb2ce3ceec24464d6d79ed5beb6559f815d890ca17c5745c88371"
+    },
+    {
+      "path": "src/core/narrative/factPresentation.ts",
+      "sha": "e1ff19d48195331f0d9a47c84ebea66686ab87fb",
+      "sha256": "fb8c1a363ce49d62d7073db0d4bc374eae428b33354b315f63d4c7182978d320"
+    },
+    {
+      "path": "src/core/playerAvailability.ts",
+      "sha": "30adfbc13402c5786f7cd2d1ce71aa2d9b095e64",
+      "sha256": "dd24658b4d322c915654c3d680cf7ef36a72e8fe6e56977d74e2e599353eb1e9"
+    },
+    {
+      "path": "src/core/pr166CareerConsequences.test.ts",
+      "sha": "46f9c0643add43c2cbc5fd2b633328662858fa4d",
+      "sha256": "2a6b718b3b45f1febbb1ea2add18fe49469a56348e6abb4750bc670df8abcc2c"
+    },
+    {
+      "path": "src/core/pr169Career.test.ts",
+      "sha": "e32caa8623857006c2468a21067dc38bff7e8d7b",
+      "sha256": "254536febd6613e5adba009ee88b965895fab90c885edbdcd3c1288c8ce97e7f"
+    },
+    {
+      "path": "src/core/seasonArchive.ts",
+      "sha": "f92ad48b8389a486de237d67f78e4f7808b1a7bd",
+      "sha256": "9d38d200efdb4f62e29befa8da5c18d226d0e588b152f9fa7a8e0f226b9c33b4"
+    },
+    {
+      "path": "src/core/seasonParticipation.ts",
+      "sha": "0b1db09d2365cb294ffa991727a85ec2b43d94c4",
+      "sha256": "0797d656e575f4e9e2f6818072aedd07f4f1efeae9a584bdc70cff4377beba28"
+    },
+    {
+      "path": "src/schemas/domainSchemas.ts",
+      "sha": "806f65bd3e59418b586c6f19b77d9fd55069f17c",
+      "sha256": "3517b61f8462f1f57b4cefe8ba32b605b16abff8218f0179a5d78f46c8e9239f"
+    },
+    {
+      "path": "src/types/domain.ts",
+      "sha": "e31d7e3e35223907481495cb3bcbb0fa937d9e57",
+      "sha256": "c447e86ca5fd99d55dde7d8b2a8ac619a2ecabfd5439e6d9a2659bb322c1ad47"
+    }
+  ]
+}

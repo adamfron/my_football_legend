@@ -26,8 +26,11 @@ historii/wiadomości/statystyk: 8,61 ms (100 powtórzeń, bez renderowania).
 Edge potwierdza filtry, archiwum tylko do odczytu, szerokość 390 px,
 odnowienie z reloadem, komunikat błędu, emeryturę i rzeczywistą hybrydę 3D.
 
-Pełny `npm run verify` jest w końcowej weryfikacji; PR pozostaje draftem do
-uzyskania PASS. Szczegółowe dowody i ograniczenia zawiera
+Pełny `npm run verify`: **PASS — 1773 testy, lint, TypeScript i build** w
+niezmienionym CI. Edge potwierdził także ocenę 6,5 rzeczywistego pełnego meczu.
+600 kopii kompaktowych receiptów 3D: 3 461 188 → 3 872 978 B; permanentne dane
+rosną liniowo i przy wielu meczach przekraczają soft budget 3 MB.
+Szczegółowe dowody, parowane pomiary i ograniczenia zawiera
 [raport PR169](PR169_CAREER_STORIES_NEWS_SEASON_NARRATIVES.md).
 
 Następne: **PR170** oprawa i porządki UI, **PR171** diagnostyka,

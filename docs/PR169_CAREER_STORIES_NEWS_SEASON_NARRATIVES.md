@@ -2,8 +2,8 @@
 
 Baza: scalony PR168, `19cb7af`. Zakres obejmuje historię i prezentację kariery,
 ocenę z istniejących statystyk, retencję udziału oraz granice sezonu i kontraktu.
-Pomiary i ograniczenia są jawne w sekcji dowodów. Pełna weryfikacja jest
-w toku; PR pozostaje draftem do uzyskania PASS.
+Pełne `npm run verify`: **PASS — 1773 testy, lint, TypeScript i build**.
+Pomiary, źródła i ograniczenia są jawne w sekcji dowodów.
 
 ## Audyt i wykorzystana architektura
 
@@ -81,15 +81,15 @@ Czysta funkcja `evaluateCanonicalRating`, schemat Zod, skala **3,0–10,0**,
 jedna cyfra po przecinku. Baza 6,0; dodatki i kary są jawnie rozpisane w `terms`.
 Nie używa wyniku zespołu, reputacji, obietnicy składu ani losowania.
 
-| Składnik | Polityka |
-| --- | --- |
-| Podania | +0,006 za ukończone, łącznie najwyżej +0,35; niecelne −0,035, kara do −0,8 |
-| Gole/asysty | Gol +1,0 na pozycji atakującej, +1,2 na pozostałych; asysta +0,7; razem do +3,5 |
-| Strzały | Celny +0,12 (do +0,5), niecelny −0,035 (do −0,4); pomijane u GK |
-| Obrona | Odbiór +0,19, przechwyt +0,17, zachowany blok +0,13; obrońcy/DM ×1,25, razem do +2,2 |
-| Bramkarz | Obrona +0,32 (do +2,6), stracony gol −0,3 (do −1,8) |
-| Straty/kartki | Zachowana strata −0,04 (do −0,75), żółta −0,18, czerwona −1,4 |
-| Krótki udział | Wpływ ponad bazę ×min(1, minuty/60); poniżej 10 min brak oceny |
+| Składnik      | Polityka                                                                             |
+| ------------- | ------------------------------------------------------------------------------------ |
+| Podania       | +0,006 za ukończone, łącznie najwyżej +0,35; niecelne −0,035, kara do −0,8           |
+| Gole/asysty   | Gol +1,0 na pozycji atakującej, +1,2 na pozostałych; asysta +0,7; razem do +3,5      |
+| Strzały       | Celny +0,12 (do +0,5), niecelny −0,035 (do −0,4); pomijane u GK                      |
+| Obrona        | Odbiór +0,19, przechwyt +0,17, zachowany blok +0,13; obrońcy/DM ×1,25, razem do +2,2 |
+| Bramkarz      | Obrona +0,32 (do +2,6), stracony gol −0,3 (do −1,8)                                  |
+| Straty/kartki | Zachowana strata −0,04 (do −0,75), żółta −0,18, czerwona −1,4                        |
+| Krótki udział | Wpływ ponad bazę ×min(1, minuty/60); poniżej 10 min brak oceny                       |
 
 Duża liczba bezpiecznych podań sama nie daje wyjątkowej oceny. DM i obrońca
 mogą uzyskać wysoką ocenę przez działania defensywne; GK przez obrony. Model
@@ -124,6 +124,11 @@ Receipt zachowuje również ukończone zmiany zespołów, najwyżej dziesięć.
 Archiwum przenosi własne evidence, źródło oceny, status udziału i dokładne minuty.
 Stary zapis bez tych pól ma neutralny ograniczony opis. Nie wnioskuje się powodu
 zmiany z oceny, minuty ani samej kartki.
+
+Wersja zapisu pozostaje **v7**. Nowe pola mają schematy Zod i są opcjonalne;
+archiwalne minuty dopuszczają zachowaną część ułamkową. Nie ma migracji
+wytwarzającej brakujące akcje, nazwiska lub oceny. Projekcje nie zapisują tekstów
+wiadomości ani kopii całych meczów. Nie dodano zależności.
 
 Szczegóły są komponentem tylko do odczytu, bez importu runnera lub callbacku
 rozliczenia. Pokazują rolę, minuty, ocenę/jej brak, dane akcji, zmiany, kartki
@@ -206,14 +211,14 @@ występy) są identyczne. 24 snapshoty i niezarchiwizowany sezon dają 626 wyst�
 492 starty, 42 583 minuty, 251 goli, 154 asysty i cztery mistrzostwa najwyższej ligi.
 To wynik lekkiego modelu kariery; nie świadczy o realizmie rozkładów akcji 3D.
 
-| Pomiar | PR168 | PR169 |
-| --- | ---: | ---: |
-| Zapis po dwóch sezonach | 454 615 B | 456 210 B |
-| Zapis po 25 sezonach | 1 414 514 B | 1 414 048 B |
-| Zachowane fakty po 25 sezonach | 248 | 203 |
-| Czas całej symulacji, pojedynczy przebieg | 35 501 ms | 34 486 ms |
-| Otwarcie historii w Edge, pojedynczy przebieg | 48 ms | 49 ms |
-| Widoczne wpisy początkowej historii | 98 | 53 |
+| Pomiar                                        |       PR168 |       PR169 |
+| --------------------------------------------- | ----------: | ----------: |
+| Zapis po dwóch sezonach                       |   454 615 B |   456 210 B |
+| Zapis po 25 sezonach                          | 1 414 514 B | 1 414 048 B |
+| Zachowane fakty po 25 sezonach                |         248 |         203 |
+| Czas całej symulacji, pojedynczy przebieg     |   35 501 ms |   34 486 ms |
+| Otwarcie historii w Edge, pojedynczy przebieg |       48 ms |       49 ms |
+| Widoczne wpisy początkowej historii           |          98 |          53 |
 
 Zmiana długiego zapisu wynosi −466 B (−0,033%); krótkiego +1595 B.
 Usunięcie powielanych nowych faktów kompensuje dodane pola. Pojedyncze czasy
@@ -255,41 +260,138 @@ Ten sam test przekroczył limit również na **niezmienionym PR168** (5,308 s).
 Kontrolny przebieg z większą młodą generacją sterty Node
 (`NODE_OPTIONS=--max-semi-space-size=64`) zachował `maxWorkers=2`, wszystkie
 asercje i limity: 24 testy PR149/careerWeeks PASS, najdłuższy 4,584 s.
-Nie zmieniono konfiguracji testów ani istniejącego CI. Pełny `npm run verify`
-z tym ustawieniem jest w toku; końcowy rezultat zostanie dopisany przed
-oznaczeniem PR jako gotowego.
+Nie zmieniono konfiguracji testów ani istniejącego CI. Pełne niezmienione CI
+zakończyło się PASS; szczegółowe wyniki i odcisk kodu są poniżej.
+
+### Odtwarzanie pomiarów
+
+`node scripts/benchmarkPr169.mjs` tworzy pomiar `after` i deterministyczne
+zapisy w katalogu nadrzędnym. Ten sam harness na bazie PR168, z
+`MFL_MEASURE_LABEL=before`, daje próbę kontrolną. Następnie
+`node scripts/preparePr169Browser.mjs` przygotowuje fixture odnowienia i mierzy
+100 projekcji. `scripts/benchmarkPr169Browser.mjs` wymaga buildu bieżącego
+projektu i `../baseline-pr168/dist` oraz Playwright z dostępnym Edge;
+`MFL_PLAYWRIGHT_MODULE` może wskazać lokalną instalację Playwright.
+
+`MFL_PR169_RECEIPT=1 npm run test:match-contract` (odpowiednik ustawienia
+zmiennej środowiska w PowerShell) zapisuje autentyczny ukończony fixture i
+rozkład ocen. Po buildzie `MFL_BROWSER_PHASE=full` uruchamia wyłącznie
+przeglądarkowy odczyt tego zapisu. Pełna fizyka meczu działa w teście kontraktu;
+odczyt ukończonego wyniku w Edge nie jest opisywany jako rozegranie 90 minut
+przez UI. Osobna hybryda rzeczywiście zaczyna się od interakcji 3D w Edge.
+
+### Pełny mecz kanoniczny i rzeczywisty rozkład ocen
+
+Profesjonalny fixture `league_2027_1_1`, fingerprint `43375709`: **0:0**,
+5460 s, 23 uczestników, sześć wybranych i pięć rozstrzygniętych decyzji człowieka.
+Dwa niezależne pełne przebiegi dają identyczny wynik. Kontrolowany ŚP: 91 min,
+4/8 podań, dwa niecelne strzały, dwa odbiory, trzy przechwyty, ocena **6,5**.
+Ta sama ocena przechodzi księgę → historię → zapis/reload → snapshot.
+Edge otworzył szczegóły na produkcyjnym buildzie bez zmiany zapisu i bez błędów.
+
+| Pozycja            | Liczba | Min | Maks | Średnia |
+| ------------------ | -----: | --: | ---: | ------: |
+| goalkeeper         |      2 | 5.9 |  6.0 |    5.95 |
+| center_back        |      6 | 5.4 |  6.1 |    5.83 |
+| left_back          |      2 | 5.8 |  6.1 |    5.95 |
+| right_back         |      3 | 5.2 |  7.1 |    6.13 |
+| central_midfielder |      7 | 5.8 |  6.9 |    6.30 |
+| striker            |      3 | 6.2 |  7.6 |    7.03 |
+
+Łącznie: 23 oceny, zakres **5,2–7,6**, średnia **6,19**, bez brakujących ocen.
+To próbka jednego rzeczywistego spotkania, powtórzonego dla deterministyczności;
+nie jest populacyjną kalibracją. Mocne/słabe występy, GK/DM, bezpieczne podania,
+czerwona kartka, krótki udział i brak danych mają osobne regresje PR169.
+
+W meczu zaszła jedna zespołowa zmiana z powodu zmęczenia: żądanie 4028,625 s,
+zejście 4033,600 s, wejście 4034,000 s. Kontrolowany zawodnik nie był zmieniany;
+UI nie przypisuje mu zmiany kolegi. Własne wejście/zejście i ich nazwy/czasy
+są dodatkowo objęte regresją retencji i reloadu.
+
+[Dane i wszystkie oceny](performance/PR169-canonical.json),
+[szczegóły w Edge](images/PR169-canonical-match-details.png).
+
+### Pojemność zapisów z meczami 3D
+
+Ten sam autentyczny profesjonalny wynik zastosowano przez właścicieli kariery
+PR168 i PR169. Fingerprint wejścia musi być identyczny. Prawdziwy pojedynczy
+zapis: **109 333 → 110 008 B**, narzut +675 B. Osobna próba kopiuje receipt
+z unikalnymi ID i utrzymuje najwyżej trzy bogate wyniki bieżącego sezonu:
+
+| Kopie receiptów |       PR168 |       PR169 |
+| --------------- | ----------: | ----------: |
+| 1               |   105 684 B |   106 560 B |
+| 10              |   206 838 B |   213 888 B |
+| 120             |   813 508 B |   896 018 B |
+| 600             | 3 461 188 B | 3 872 978 B |
+
+600 kopii to +411 790 B, około +11,9%. Są to kopie pojemnościowe, **nie 600
+niezależnie rozegranych spotkań** ani pomiar czasu 25-sezonowego UI.
+Różnicę receiptów tworzą przede wszystkim zachowane zmiany zespołu oraz
+małe własne evidence i źródło oceny. Nie dodano trajektorii/replay.
+Osobna istniejąca próba z 600 kopiami rzeczywistego wyniku U-17 daje
+**6 372 538 B**; rozmiar zależy od konkretnego receiptu.
+
+Permanentne receipts/statystyki rosną liniowo. Limit trzech dotyczy bogatych
+wyników, nie całego pliku. Przykłady z 600 kopiami przekraczają istniejący
+soft budget 3 MB; jest to jawne ograniczenie długich karier z wieloma meczami 3D.
+Nie usuwano dowodów idempotencji lub osiągnięć, aby poprawić liczbę bajtów.
+[Parowany pomiar pojemności](performance/PR169-canonical-storage.json).
+
+### Końcowa pełna weryfikacja — PASS
+
+**`npm run verify`: 1773/1773 PASS**, lint, TypeScript, produkcyjny build
+i obecność wygenerowanej bazy świata. Potwierdzone przez niezmieniony workflow
+[CI #387](https://github.com/adamfron/my_football_legend/actions/runs/38973551839),
+Ubuntu, Node v24.21.0, npm 11.19.0, commit
+`bd2860e720544dbf5b7c6288a72e23ec77dbd149`.
+
+| Etap CI                    | Testy PASS |     Czas |
+| -------------------------- | ---------: | -------: |
+| Główny zestaw              |       1712 | 483,24 s |
+| Szeregowa integracja meczu |         52 | 130,07 s |
+| Pełny kontrakt kanoniczny  |          4 | 962,93 s |
+| Pełne kariery              |          5 |  85,57 s |
+
+Nie zmieniono workerów, limitów czasu, wykluczeń ani asercji. CI używa
+dotychczasowego środowiska workflow, bez lokalnego `NODE_OPTIONS`.
+Lokalnie potwierdzono 1712 + 52 + 4 PASS; lokalnego niedokończonego dziennika
+nie przedstawiamy jako pełnego PASS. Dodatkowy końcowy lokalny build i odczyt
+ukończonego meczu w Edge: PASS. Wszystkie 37 plików kodu/harnessów porównano
+bajtowo z commitem CI; późniejsze zmiany dotyczą wyłącznie dokumentacji i dowodów.
+[Receipt weryfikacji](performance/PR169-verification.json).
 
 ## Odpowiedzi akceptacyjne
 
-| # | Odpowiedź |
-| --- | --- |
-| 1 | Fakty, wątki/pamięć, warianty/lokalizacja, księga, snapshoty, receipts i kolejka zapisu. |
-| 2 | Tak: fakty mają ID, wątki `sourceIds`; komentarz nie dodaje nieobserwowanej przyczyny. |
-| 3 | Tak: wielosezonowe snapshoty i trwałe istotne fakty. |
-| 4 | Tak: retained names i ID, snapshoty/świat; brak danych nie zamienia się w obecny klub. |
-| 5 | Pierwsze debiuty/G/A i progi mają ochronę; stare duplikaty filtruje projekcja. |
-| 6 | Tak: deterministyczny selektor, rotacja powtarzanego wariantu, 24 artykuły bez zapisu tekstów. |
-| 7 | Baza 6,0, ograniczone składniki akcji, ekspozycja minutowa i skala 3–10. |
-| 8 | Tak: GK, defensywa/DM i ofensywa mają inne składniki/wagi. |
-| 9 | Tak: ta sama ocena w księdze, osi, szczegółach, średnich i archiwum. |
-| 10 | Brak oceny z jawną przyczyną; brak ekstrapolacji akcji końcówki. |
-| 11 | Tak: dokładne sekundy, oba ID i dostępne historyczne nazwiska. |
-| 12 | Tylko rzeczywisty powód strukturalnej zmiany; brak danych daje opis neutralny. |
-| 13 | Tak: evidence w księdze/snapshotach i zmiany w kompaktowym receipcie. |
-| 14 | Tak: zwarte wiersze, wewnętrzny scroll i układ 390 px. |
-| 15 | Tak: pięć filtrów i wybór sezonu. |
-| 16 | Księga teraz, unikalne snapshoty plus niezarchiwizowany sezon; akademia jest oznaczona. |
-| 17 | Tak: `available:false` i widoczna informacja o niedostępności. |
-| 18 | Tak: ukończony najwyższy poziom/1. miejsce, właściwy klub, oryginalny sezon. |
-| 19 | Tak: tożsamość sezon/klub/rodzaj rozróżnia kolejne tytuły; honours deduplikuje etykiety. |
-| 20 | Odtworzono starą datę propozycji płacowej na granicy okna i cichy brak postępu; dokładny zapis użytkownika niedostępny. |
-| 21 | Tak: walidowane odnowienie, pojedynczy commit i dalszy fixture; test wieku 25/36. |
-| 22 | Tak: widoczny błąd i brak mutacji, również po błędzie zapisu. |
-| 23 | Tak: znacznik na kaflu klubu, szczegóły w panelu klubu. |
-| 24 | Projekcje nie zmieniają wejścia/RNG; fizyka i pełny powtarzalny mecz pozostają kanoniczne. |
-| 25 | Konkretne bajty i czasy są w pomiarach poniżej, z rozdzieleniem ścieżki lekkiej i kanonicznej. |
-| 26 | Tak dla zmierzonej kariery 25 sezonów; browser i czasy projekcji są jawne. |
-| 27 | PR170 oprawa/UI, PR171 diagnostyka, PR172 kalibracja, PR173 pokolenia, PR174 lekka symulacja/style, PR175+ świat. |
+| #   | Odpowiedź                                                                                                               |
+| --- | ----------------------------------------------------------------------------------------------------------------------- |
+| 1   | Fakty, wątki/pamięć, warianty/lokalizacja, księga, snapshoty, receipts i kolejka zapisu.                                |
+| 2   | Tak: fakty mają ID, wątki `sourceIds`; komentarz nie dodaje nieobserwowanej przyczyny.                                  |
+| 3   | Tak: wielosezonowe snapshoty i trwałe istotne fakty.                                                                    |
+| 4   | Tak: retained names i ID, snapshoty/świat; brak danych nie zamienia się w obecny klub.                                  |
+| 5   | Pierwsze debiuty/G/A i progi mają ochronę; stare duplikaty filtruje projekcja.                                          |
+| 6   | Tak: deterministyczny selektor, rotacja powtarzanego wariantu, 24 artykuły bez zapisu tekstów.                          |
+| 7   | Baza 6,0, ograniczone składniki akcji, ekspozycja minutowa i skala 3–10.                                                |
+| 8   | Tak: GK, defensywa/DM i ofensywa mają inne składniki/wagi.                                                              |
+| 9   | Tak: ta sama ocena w księdze, osi, szczegółach, średnich i archiwum.                                                    |
+| 10  | Brak oceny z jawną przyczyną; brak ekstrapolacji akcji końcówki.                                                        |
+| 11  | Tak: dokładne sekundy, oba ID i dostępne historyczne nazwiska.                                                          |
+| 12  | Tylko rzeczywisty powód strukturalnej zmiany; brak danych daje opis neutralny.                                          |
+| 13  | Tak: evidence w księdze/snapshotach i zmiany w kompaktowym receipcie.                                                   |
+| 14  | Tak: zwarte wiersze, wewnętrzny scroll i układ 390 px.                                                                  |
+| 15  | Tak: pięć filtrów i wybór sezonu.                                                                                       |
+| 16  | Księga teraz, unikalne snapshoty plus niezarchiwizowany sezon; akademia jest oznaczona.                                 |
+| 17  | Tak: `available:false` i widoczna informacja o niedostępności.                                                          |
+| 18  | Tak: ukończony najwyższy poziom/1. miejsce, właściwy klub, oryginalny sezon.                                            |
+| 19  | Tak: tożsamość sezon/klub/rodzaj rozróżnia kolejne tytuły; honours deduplikuje etykiety.                                |
+| 20  | Odtworzono starą datę propozycji płacowej na granicy okna i cichy brak postępu; dokładny zapis użytkownika niedostępny. |
+| 21  | Tak: walidowane odnowienie, pojedynczy commit i dalszy fixture; test wieku 25/36.                                       |
+| 22  | Tak: widoczny błąd i brak mutacji, również po błędzie zapisu.                                                           |
+| 23  | Tak: znacznik na kaflu klubu, szczegóły w panelu klubu.                                                                 |
+| 24  | Projekcje nie zmieniają wejścia/RNG; fizyka i pełny powtarzalny mecz pozostają kanoniczne.                              |
+| 25  | Konkretne bajty i czasy są w pomiarach poniżej, z rozdzieleniem ścieżki lekkiej i kanonicznej.                          |
+| 26  | Tak dla zmierzonej kariery 25 sezonów; browser i czasy projekcji są jawne.                                              |
+| 27  | PR170 oprawa/UI, PR171 diagnostyka, PR172 kalibracja, PR173 pokolenia, PR174 lekka symulacja/style, PR175+ świat.       |
 
 ## Granice i dalszy plan
 
