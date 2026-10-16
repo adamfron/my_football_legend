@@ -10,6 +10,12 @@ import {
   type ReactNode,
 } from 'react';
 import { translate } from '../core/narrative/localization';
+import { HistoryView } from './career/HistoryView';
+import { formatCareerInteger } from '../core/numberPresentation';
+import { deriveAppearance } from '../core/visualIdentity';
+const RetirementPortrait = lazy(() =>
+  import('./appearance/PlayerPreview').then((module) => ({ default: module.PlayerPreview })),
+);
 import { CompactFixtureList, type CompactFixtureItem } from '../components/CompactFixtureList';
 import { aggregateDevelopment } from '../core/seasonDevelopment';
 import { createCompletedSeasonSnapshot } from '../core/seasonArchive';
@@ -478,7 +484,7 @@ export const SeasonEndSummary = ({
       <h3>Zawodnik</h3>
       <p>
         Występy: {summary.statistics.appearances} · starty: {summary.statistics.starts} ·{' '}
-        {Math.round(summary.statistics.minutes)} min
+        {formatCareerInteger(summary.statistics.minutes)} min
       </p>
       <p>
         {summary.statistics.goals} G · {summary.statistics.assists} A · xG{' '}
@@ -807,7 +813,12 @@ const RetiredCareerSummary = ({
   onHistory: () => void;
   onNewCareer: () => void;
 }) => {
-  const seasons = career.completedSeasons ?? [];
+  const completed = career.completedSeasons ?? [];
+  const current =
+    career.leagueSeason && !completed.some((season) => season.seasonId === career.leagueSeason!.id)
+      ? createCompletedSeasonSnapshot(career)
+      : undefined;
+  const seasons = current && current.player.appearances > 0 ? [...completed, current] : completed;
   const totals = seasons.reduce(
     (sum, season) => ({
       appearances: sum.appearances + season.player.appearances,
@@ -821,21 +832,49 @@ const RetiredCareerSummary = ({
   const milestones = getCareerMilestones(career).filter((item) =>
     ['top_tier_champion', 'retired'].includes(item.fact.factType),
   );
+  const orderedSeasons = [...seasons].sort((a, b) => a.seasonNumber - b.seasonNumber);
+  const startFact = [...career.historyFacts]
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .find((fact) => fact.factType === 'career_started');
+  const firstClubId = startFact?.clubs[0];
+  const firstClub =
+    orderedSeasons[0]?.clubName ??
+    career.clubWorld?.find((club) => club.id === firstClubId)?.name ??
+    (typeof startFact?.data.club === 'string' ? startFact.data.club : undefined) ??
+    (firstClubId === career.currentClub.id ? career.currentClub.name : 'Brak danych');
+  const firstDate = [...career.historyFacts].sort((a, b) => a.date.localeCompare(b.date))[0]?.date;
   return (
-    <section className="panel retirement-summary">
-      <p>KARIERA ZAKOŃCZONA</p>
-      <h1>Koniec kariery</h1>
-      <h2>
-        {career.player.firstName} {career.player.lastName}
-      </h2>
-      <p>Wiek zakończenia kariery: {career.retirementAge ?? career.player.age}</p>
-      <p>
-        Sezony: {career.careerSeasonNumber} · Pierwszy klub: Vistula Nova · Ostatni klub:{' '}
-        {career.currentClub.name}
-      </p>
+    <section className="career-view retirement-summary">
+      <header className="retirement-identity">
+        <Suspense fallback={<span role="status">Wczytywanie portretu…</span>}>
+          <RetirementPortrait
+            appearance={deriveAppearance(
+              career.player,
+              career.currentDate ?? `${career.currentSeason}-06-30`,
+            )}
+            label={`Portret: ${career.player.firstName} ${career.player.lastName}`}
+          />
+        </Suspense>
+        <div>
+          <p>KARIERA ZAKOŃCZONA</p>
+          <h1>Koniec kariery</h1>
+          <h2>
+            {career.player.firstName} {career.player.lastName}
+          </h2>
+          <p>Wiek zakończenia kariery: {career.retirementAge ?? career.player.age}</p>
+          <p>
+            Sezony: {seasons.length} · Pierwszy klub: {firstClub} · Ostatni klub:{' '}
+            {career.currentClub.name}
+          </p>
+          <p>
+            {firstDate ?? '—'} — {career.retirementDate ?? career.currentDate ?? '—'}
+          </p>
+        </div>
+      </header>
       <h3>Bilans kariery</h3>
       <p>
-        Występy: {totals.appearances} · starty: {totals.starts} · minuty: {totals.minutes}
+        Występy: {formatCareerInteger(totals.appearances)} · starty:{' '}
+        {formatCareerInteger(totals.starts)} · minuty: {formatCareerInteger(totals.minutes)}
       </p>
       <p>
         Gole: {totals.goals} · asysty: {totals.assists}
@@ -860,7 +899,7 @@ const RetiredCareerSummary = ({
             </tr>
           </thead>
           <tbody>
-            {seasons.map((season) => (
+            {orderedSeasons.map((season) => (
               <tr key={season.seasonId}>
                 <td>{season.label}</td>
                 <td>{season.age}</td>
@@ -884,7 +923,7 @@ const RetiredCareerSummary = ({
                 <td>{getSeasonHonours(career.historyFacts, season).join(', ') || '—'}</td>
                 <td>{season.player.appearances}</td>
                 <td>{season.player.starts}</td>
-                <td>{Math.round(season.player.minutes)}</td>
+                <td>{formatCareerInteger(season.player.minutes)}</td>
                 <td>
                   {season.player.goals}G {season.player.assists}A
                 </td>
@@ -1173,14 +1212,21 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
     if (await updateCareer(createCareerState(generated, seed, worldDatabase))) setView('career');
   };
 
-  if (view === 'career' && career && career.careerStatus === 'retired' && active !== 'history')
+  if (view === 'career' && career && career.careerStatus === 'retired')
     return (
-      <main className="shell">
-        <RetiredCareerSummary
-          career={career}
-          onHistory={() => setActive('history')}
-          onNewCareer={resetCareer}
-        />
+      <main className="retirement-shell">
+        {active === 'history' ? (
+          <section className="career-view retirement-summary retirement-history">
+            <button onClick={() => setActive('game')}>Wróć do podsumowania</button>
+            <HistoryView career={career} />
+          </section>
+        ) : (
+          <RetiredCareerSummary
+            career={career}
+            onHistory={() => setActive('history')}
+            onNewCareer={resetCareer}
+          />
+        )}
       </main>
     );
 
@@ -1188,7 +1234,7 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
     if (career.activeMatch)
       return (
         <CareerErrorBoundary career={career} backend={careerStorage.mode ?? 'uninitialized'}>
-          <main className="shell match-shell">
+          <div className="career-match-host">
             {careerError && (
               <p className="career-error" role="alert">
                 {careerError}
@@ -1199,7 +1245,7 @@ export const CareerApp = ({ initialAction = 'new' }: { initialAction?: 'new' | '
               onCareer={updateCareer}
               persistencePending={persistencePending}
             />
-          </main>
+          </div>
         </CareerErrorBoundary>
       );
     const needsDecision = Boolean(

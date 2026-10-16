@@ -672,15 +672,39 @@ const selectManagerXI = (
 const selectCanonicalXI = (
   career: SelectionCareer,
   club: SquadSelectionContext,
-  formation = getManagerPreferredFormation(club.managerId),
+  requestedFormation?: FormationId,
   selectionScore = createSelectionScore(career, club),
 ): BestXI => {
+  const formation = requestedFormation ?? getManagerPreferredFormation(club.managerId);
+  if (requestedFormation) {
+    const requested = selectManagerXI(career, club, requestedFormation, selectionScore);
+    if (requested.assignments.length === 11) return requested;
+  }
   const order = [
     formation,
     deriveCanonicalCoachProfile(club.managerId ?? 'manager').secondaryFormation,
     ...Object.keys(FORMATIONS),
   ].filter((item, index, all): item is FormationId => Boolean(item) && all.indexOf(item) === index);
-  for (const candidate of order) {
+  const coach = deriveCanonicalCoachProfile(club.managerId ?? 'manager');
+  const familiar = order
+    .slice(0, 2)
+    .map((candidate) => selectManagerXI(career, club, candidate, selectionScore));
+  const scored = familiar
+    .filter((xi) => xi.assignments.length === 11)
+    .map((xi) => ({
+      xi,
+      score:
+        xi.assignments.reduce((sum, assignment) => {
+          const player = resolveFootballer(career, assignment.footballerId)!;
+          return sum + selectionScore(player, FORMATIONS[xi.formation][assignment.slotIndex]!);
+        }, 0) - (xi.formation === formation ? 0 : 8 + (100 - coach.adaptability) * 0.16),
+    }))
+    .sort(
+      (a, b) => b.score - a.score || order.indexOf(a.xi.formation) - order.indexOf(b.xi.formation),
+    );
+  if (scored[0]) return scored[0].xi;
+  // Unfamiliar shapes are emergency alternatives when neither familiar shape is legal.
+  for (const candidate of order.slice(2)) {
     const xi = selectManagerXI(career, club, candidate, selectionScore);
     if (xi.assignments.length === 11) return xi;
   }
@@ -690,7 +714,7 @@ const selectCanonicalXI = (
 export const deriveSquadHierarchy = (
   career: SelectionCareer,
   club: SquadSelectionContext,
-  formation = getManagerPreferredFormation(club.managerId),
+  formation?: FormationId,
 ): SquadHierarchy => {
   const selectionScore = createSelectionScore(career, club);
   const xi = selectCanonicalXI(career, club, formation, selectionScore);
@@ -737,9 +761,9 @@ export const getFootballerSportingStatus = (
   career: SelectionCareer,
   club: SquadSelectionContext,
   footballerId: Id,
-  formation = getManagerPreferredFormation(club.managerId),
+  formation?: FormationId,
 ): SportingStatus => {
-  const cacheKey = `${club.id}:${formation}:${footballerId}`;
+  const cacheKey = `${club.id}:${club.managerId ?? ''}:${formation ?? 'adaptive'}:${footballerId}`;
   let careerStatuses = sportingStatusCache.get(career);
   const cached = careerStatuses?.get(cacheKey);
   if (cached) return cached;
@@ -784,9 +808,9 @@ export const getFootballerManagerAssignment = (
   career: SelectionCareer,
   club: SquadSelectionContext,
   footballerId: Id,
-  formation = getManagerPreferredFormation(club.managerId),
+  formation?: FormationId,
 ) => {
-  const key = `${club.id}:${formation}:${footballerId}`;
+  const key = `${club.id}:${club.managerId ?? ''}:${formation ?? 'adaptive'}:${footballerId}`;
   if (!managerAssignmentCache.get(career)?.has(key))
     getFootballerSportingStatus(career, club, footballerId, formation);
   return managerAssignmentCache.get(career)?.get(key);
@@ -802,7 +826,6 @@ export const getPositionalCompetition = (
     .map((id) => resolveFootballer(career, id))
     .filter((player): player is FootballerProfile => Boolean(player))
     .filter((player) => isEligibleForNormalPosition(player, position))
-    .filter((player) => player.positionFamiliarity[position] >= 0.3)
     .map((player) => ({
       player,
       effectiveOverall: getEffectivePositionOverall(player, position),
@@ -817,7 +840,7 @@ export const getPositionalCompetition = (
 export const selectBestXI = (
   career: SquadSelectionWorld,
   club: SquadSelectionContext,
-  formation = getManagerPreferredFormation(club.managerId),
+  formation?: FormationId,
 ): BestXI => {
   return selectCanonicalXI(career, club, formation);
 };

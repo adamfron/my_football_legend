@@ -1,0 +1,379 @@
+{
+  "environment": "Actual headless Edge over local uncompressed production HTTP. UI interactions only; no match-state injection.",
+  "scenarios": [
+    {
+      "scenario": "youth-summary",
+      "preflight": "Nadchodzący mecz\n\nPolska Liga U-17 · 5 września 2026\n\nVistula Nova — Polonia Przemyśl U-17\n\nPrzewidywany udział: pierwszy skład. Ostateczny udział określi wybrany tryb meczu.\n\nPlan trenera · 4-3-3\n\nPlanowana pozycja: LS — Lewy skrzydłowy\n\nNajsilniejsza formacja rywala według obecnego składu: obrona.\n\nSzukaj krótkiego wsparcia i wolnego adresata przed podaniem.\nSzukaj przestrzeni w bocznym sektorze i podania do wspierającego partnera.\nRozegraj mecz 3DSymuluj meczWróć do kariery",
+      "canonicalModuleBeforeChoice": false,
+      "careerBehindDialog": true,
+      "keyboardFocusContained": true,
+      "mobileDialogFits": true,
+      "returnDoesNotSettle": true,
+      "summaryAndSaveWallMs": 59,
+      "canonicalModuleAfterSummary": false,
+      "fixtureId": "league_2026_1_1",
+      "saveBytes": 49542,
+      "participation": {
+        "fixtureId": "league_2026_1_1",
+        "date": "2026-09-05",
+        "opponentId": "u17_pro_60",
+        "venue": "home",
+        "competition": "Polska Liga U-17",
+        "status": "starter",
+        "plannedMinutes": 81,
+        "minutes": 81,
+        "started": true,
+        "assignedPosition": "left_winger",
+        "appearanceMatchId": "academy_league_2026_1_1",
+        "goals": 0,
+        "assists": 1,
+        "xG": 0.15,
+        "xA": 0.08,
+        "rating": 7.7,
+        "seasonId": "2026-27",
+        "competitionId": "polish-u17",
+        "homeClubId": "club_vistula_nova",
+        "awayClubId": "u17_pro_60",
+        "fixtureStatus": "completed",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "keyPasses": 5,
+        "defensiveActions": 6,
+        "yellowCards": 1
+      },
+      "savedRoundTrip": true,
+      "heap": 30664466,
+      "normalStyleThresholdsHidden": true,
+      "nextFixtureReached": true,
+      "nextFixtureId": "league_2026_20_1",
+      "errors": [],
+      "consoleErrors": []
+    },
+    {
+      "scenario": "professional-summary",
+      "preflight": "Nadchodzący mecz\n\nPolska Liga Okręgowa · 29 sierpnia 2027\n\nChemik Police — ŁKS Łomża\n\nPrzewidywany udział: pierwszy skład. Ostateczny udział określi wybrany tryb meczu.\n\nPlan trenera · 4-2-3-1\n\nPlanowana pozycja: LS — Lewy skrzydłowy\n\nNajsilniejsza formacja rywala według obecnego składu: atak.\n\nDoskok podejmuj przy realnej szansie odbioru; nie odsłaniaj środka.\nSzukaj przestrzeni w bocznym sektorze i podania do wspierającego partnera.\nRozegraj mecz 3DSymuluj meczWróć do kariery",
+      "canonicalModuleBeforeChoice": false,
+      "careerBehindDialog": true,
+      "keyboardFocusContained": true,
+      "summaryAndSaveWallMs": 38,
+      "canonicalModuleAfterSummary": false,
+      "fixtureId": "league_2027_1_1",
+      "saveBytes": 73889,
+      "participation": {
+        "fixtureId": "league_2027_1_1",
+        "date": "2027-08-29",
+        "opponentId": "pro_63",
+        "venue": "home",
+        "competition": "Polska Liga Okręgowa",
+        "status": "starter",
+        "plannedMinutes": 78,
+        "minutes": 78,
+        "started": true,
+        "assignedPosition": "left_winger",
+        "appearanceMatchId": "league_2027_1_1",
+        "goals": 0,
+        "assists": 0,
+        "xG": 0.15,
+        "xA": 0.08,
+        "rating": 7,
+        "seasonId": "2027-28",
+        "competitionId": "polish-professional-4",
+        "homeClubId": "pro_51",
+        "awayClubId": "pro_63",
+        "fixtureStatus": "completed",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "keyPasses": 5,
+        "defensiveActions": 5,
+        "yellowCards": 0
+      },
+      "savedRoundTrip": true,
+      "heap": 25515777,
+      "nextFixtureReached": true,
+      "nextFixtureId": "league_2027_2_1",
+      "errors": [],
+      "consoleErrors": []
+    },
+    {
+      "scenario": "professional-play",
+      "preflight": "Nadchodzący mecz\n\nPolska Liga Okręgowa · 29 sierpnia 2027\n\nChemik Police — ŁKS Łomża\n\nPrzewidywany udział: pierwszy skład. Ostateczny udział określi wybrany tryb meczu.\n\nPlan trenera · 4-2-3-1\n\nPlanowana pozycja: LS — Lewy skrzydłowy\n\nNajsilniejsza formacja rywala według obecnego składu: atak.\n\nDoskok podejmuj przy realnej szansie odbioru; nie odsłaniaj środka.\nSzukaj przestrzeni w bocznym sektorze i podania do wspierającego partnera.\nRozegraj mecz 3DSymuluj meczWróć do kariery",
+      "canonicalModuleBeforeChoice": false,
+      "careerBehindDialog": true,
+      "keyboardFocusContained": true,
+      "canonicalModuleAfterPlay": true,
+      "handoffHeader": "KARIERA · MECZ\nChemik Police 0–0 ŁKS Łomża\n\n00:01 · Twój wybór",
+      "decisionsSelectedThroughUI": 0,
+      "fixtureId": "league_2027_1_1",
+      "saveBytes": 124589,
+      "participation": {
+        "fixtureId": "league_2027_1_1",
+        "canonicalStats": {
+          "minutesPlayed": 89.99999999999999,
+          "saves": 0,
+          "goalsConceded": 0,
+          "catches": 0,
+          "parries": 0,
+          "touches": 0,
+          "shots": 0,
+          "shotsOnTarget": 0,
+          "tacklesWon": 0,
+          "interceptions": 0,
+          "passesAttempted": 0,
+          "passesCompleted": 0,
+          "distanceCovered": 3.218953302150997,
+          "sprintBursts": 0
+        },
+        "metricsSource": "canonical_plus_summary",
+        "date": "2027-08-29",
+        "opponentId": "pro_63",
+        "venue": "home",
+        "competition": "Polska Liga Okręgowa",
+        "status": "starter",
+        "plannedMinutes": 90,
+        "minutes": 90,
+        "started": true,
+        "assignedPosition": "left_winger",
+        "appearanceMatchId": "league_2027_1_1:9e37a549",
+        "goals": 0,
+        "assists": 0,
+        "xG": 0,
+        "xA": 0,
+        "seasonId": "2027-28",
+        "competitionId": "polish-professional-4",
+        "homeClubId": "pro_51",
+        "awayClubId": "pro_63",
+        "fixtureStatus": "completed",
+        "score": {
+          "home": 1,
+          "away": 3
+        },
+        "defensiveActions": 0,
+        "yellowCards": 0
+      },
+      "savedRoundTrip": true,
+      "heap": 55798636,
+      "nextFixtureReached": true,
+      "nextFixtureId": "league_2027_2_1",
+      "errors": [],
+      "consoleErrors": []
+    },
+    {
+      "scenario": "youth-play-remainder",
+      "preflight": "Nadchodzący mecz\n\nPolska Liga U-17 · 5 września 2026\n\nVistula Nova — Polonia Przemyśl U-17\n\nPrzewidywany udział: pierwszy skład. Ostateczny udział określi wybrany tryb meczu.\n\nPlan trenera · 4-3-3\n\nPlanowana pozycja: LS — Lewy skrzydłowy\n\nNajsilniejsza formacja rywala według obecnego składu: obrona.\n\nSzukaj krótkiego wsparcia i wolnego adresata przed podaniem.\nSzukaj przestrzeni w bocznym sektorze i podania do wspierającego partnera.\nRozegraj mecz 3DSymuluj meczWróć do kariery",
+      "canonicalModuleBeforeChoice": false,
+      "careerBehindDialog": true,
+      "keyboardFocusContained": true,
+      "canonicalModuleAfterPlay": true,
+      "handoffHeader": "KARIERA · MECZ\nVistula Nova 0–0 Polonia Przemyśl U-17\n\n06:00 · Mecz trwa",
+      "cancelPreservedMatch": true,
+      "decisionsSelectedThroughUI": 3,
+      "fixtureId": "league_2026_1_1",
+      "saveBytes": 103832,
+      "participation": {
+        "fixtureId": "league_2026_1_1",
+        "canonicalStats": {
+          "minutesPlayed": 90,
+          "saves": 0,
+          "goalsConceded": 0,
+          "catches": 0,
+          "parries": 0,
+          "touches": 7,
+          "shots": 0,
+          "shotsOnTarget": 0,
+          "tacklesWon": 1,
+          "interceptions": 0,
+          "passesAttempted": 5,
+          "passesCompleted": 1,
+          "distanceCovered": 799.2021661300981,
+          "sprintBursts": 3
+        },
+        "metricsSource": "canonical_plus_summary",
+        "date": "2026-09-05",
+        "opponentId": "u17_pro_60",
+        "venue": "home",
+        "competition": "Polska Liga U-17",
+        "status": "starter",
+        "plannedMinutes": 90,
+        "minutes": 90,
+        "started": true,
+        "assignedPosition": "left_winger",
+        "appearanceMatchId": "league_2026_1_1:24ff66b6",
+        "goals": 0,
+        "assists": 0,
+        "xG": 0,
+        "xA": 0,
+        "seasonId": "2026-27",
+        "competitionId": "polish-u17",
+        "homeClubId": "club_vistula_nova",
+        "awayClubId": "u17_pro_60",
+        "fixtureStatus": "completed",
+        "score": {
+          "home": 2,
+          "away": 0
+        },
+        "defensiveActions": 1,
+        "yellowCards": 0
+      },
+      "evidence": {
+        "playerId": "player_pr166_youth",
+        "selected": 3,
+        "resolved": 3,
+        "byIntent": [
+          {
+            "kind": "on_ball:pass:support",
+            "attempts": 2,
+            "resolved": 2,
+            "retained": 0,
+            "turnovers": 0,
+            "completedPasses": 0,
+            "progressTotal": 0,
+            "pressureTotal": 1.2157021081067474,
+            "firstSelectedAt": 10.775000000000086,
+            "lastResolvedAt": 184.25000000002476
+          },
+          {
+            "kind": "incoming_ball:pass:support",
+            "attempts": 1,
+            "resolved": 1,
+            "retained": 0,
+            "turnovers": 0,
+            "completedPasses": 0,
+            "progressTotal": 0,
+            "pressureTotal": 0.4305282615476482,
+            "firstSelectedAt": 359.12499999994725,
+            "lastResolvedAt": 362.84999999994386
+          }
+        ],
+        "recentOutcomes": [
+          {
+            "behaviourContext": {
+              "forwardMetres": -59.0590303202491,
+              "opponentsBypassed": 0,
+              "betweenLines": false,
+              "goalDistance": 49.22366679551799,
+              "activeEffort": false,
+              "goalkeeper": false,
+              "pressOpportunity": false
+            },
+            "decisionId": "player_pr166_youth:5:on_ball:5:player_pr166_youth:9.425000000000066:positional_attack:2:2",
+            "actorId": "player_pr166_youth",
+            "selectedAt": 10.775000000000086,
+            "resolvedAt": 11.200000000000092,
+            "decisionKind": "on_ball",
+            "selectedIntent": "pass:support",
+            "selectedTarget": {
+              "kind": "player",
+              "playerId": "footballer_club_vistula_nova_2026_1"
+            },
+            "startContext": {
+              "phase": "positional_attack",
+              "pressure": 0.5403994962957049,
+              "fieldProgress": 0.42473549051374876,
+              "possession": "home"
+            },
+            "result": {
+              "kind": "pass_failed",
+              "teamRetainedPossession": false,
+              "passCompleted": false,
+              "turnover": false
+            }
+          },
+          {
+            "behaviourContext": {
+              "forwardMetres": -62.74193717189261,
+              "opponentsBypassed": 0,
+              "betweenLines": false,
+              "goalDistance": 45.581808109888094,
+              "activeEffort": false,
+              "goalkeeper": false,
+              "pressOpportunity": false
+            },
+            "decisionId": "player_pr166_youth:73:on_ball:73:player_pr166_youth:180.67500000002394:positional_attack:2:2",
+            "actorId": "player_pr166_youth",
+            "selectedAt": 181.8000000000242,
+            "resolvedAt": 184.25000000002476,
+            "decisionKind": "on_ball",
+            "selectedIntent": "pass:support",
+            "selectedTarget": {
+              "kind": "player",
+              "playerId": "footballer_club_vistula_nova_2026_1"
+            },
+            "startContext": {
+              "phase": "positional_attack",
+              "pressure": 0.6753026118110423,
+              "fieldProgress": 0.44970774381448436,
+              "possession": "home"
+            },
+            "result": {
+              "kind": "pass_failed",
+              "teamRetainedPossession": false,
+              "passCompleted": false,
+              "turnover": false
+            }
+          },
+          {
+            "behaviourContext": {
+              "forwardMetres": -54.88308591249947,
+              "opponentsBypassed": 0,
+              "betweenLines": false,
+              "goalDistance": 52.7124470472831,
+              "activeEffort": false,
+              "goalkeeper": false,
+              "pressOpportunity": false
+            },
+            "decisionId": "player_pr166_youth:146:incoming_ball:146:loose:358.1749999999481:positional_attack:1:0",
+            "actorId": "player_pr166_youth",
+            "selectedAt": 359.12499999994725,
+            "resolvedAt": 362.84999999994386,
+            "decisionKind": "incoming_ball",
+            "selectedIntent": "pass:support",
+            "selectedTarget": {
+              "kind": "player",
+              "playerId": "footballer_club_vistula_nova_2026_1"
+            },
+            "startContext": {
+              "phase": "positional_attack",
+              "pressure": 0.4305282615476482,
+              "fieldProgress": 0.3996571394265445,
+              "possession": "home"
+            },
+            "result": {
+              "kind": "pass_failed",
+              "teamRetainedPossession": false,
+              "passCompleted": false,
+              "turnover": false
+            }
+          }
+        ],
+        "behaviour": []
+      },
+      "provenance": {
+        "source": "canonical_plus_summary",
+        "handoffAt": 393.0249999999164,
+        "prefixFingerprint": "512ace57",
+        "coverage": "canonical_prefix_only_except_minutes_and_condition",
+        "canonicalEvents": [],
+        "substitutions": [],
+        "canonicalMinutes": 6.5504166666652734
+      },
+      "resultBytes": 44650,
+      "savedRoundTrip": true,
+      "heap": 25600739,
+      "nextFixtureReached": true,
+      "nextFixtureId": "league_2026_20_1",
+      "errors": [],
+      "consoleErrors": []
+    }
+  ],
+  "retirement": {
+    "rows": 18,
+    "mobileWidth": 370,
+    "text": "KARIERA ZAKOŃCZONA\n\nKoniec kariery\nJan Historia\n\nWiek zakończenia kariery: 34\n\nSezony: 18 · Pierwszy klub: Vistula Nova · Ostatni klub: Sporting Rawa\n\n2026-07-01 — 2044-07-01\n\nBilans kariery\n\nWystępy: 440 · starty: 378 · minuty: 31 745\n\nGole: 150 · asysty: 126\n\nŚcieżka kariery\nSezon\tWiek\tKlub\tLiga\tMiejsce\tTrofea / wyróżnienia\tWyst.\tStarty\tMin.\tG/A\tOcena\tOVR\n2026/2027\t16\tVistula Nova\tPolska Liga U-17 — poziom 0\t12.\t—\t20\t16\t1 391\t2G 5A\t7.1\t50→53\n2027/2028\t17\tLublinianka Wschód\tPolska Liga Regionalna — poziom 3\t8.\t—\t25\t24\t1 958\t7G 5A\t7.5\t53→57\n2028/2029\t18\tZryw Opole\tPolska Liga Krajowa — poziom 2\t9.\t—\t23\t22\t1 772\t10G 5A\t7.5\t57→61\n2029/2030\t19\tLKS Zielone Wzgórza\tPolska Liga Elitarna — poziom 1\t9.\t—\t18\t0\t429\t6G 3A\t7.3\t61→63\n2030/2031\t20\tZryw Opole\tPolska Liga Krajowa — poziom 2\t4.\t—\t29\t27\t2 286\t11G 10A\t7.8\t63→65\n2031/2032\t21\tAkademik Toruń\tPolska Liga Elitarna — poziom 1\t9.\t—\t23\t22\t1 776\t7G 7A\t7.6\t65→67\n2032/2033\t22\tVictoria Żary\tPolska Liga Elitarna — poziom 1\t5.\t—\t30\t27\t2 236\t16G 10A\t7.8\t67→69\n2033/2034\t23\tUnia Sandomierz\tPolska Liga Elitarna — poziom 1\t12. ↓\t—\t24\t23\t1 883\t7G 9A\t7.7\t69→69\n2034/2035\t24\tAkademik Toruń\tPolska Liga Elitarna — poziom 1\t8.\t—\t24\t22\t1 745\t8G 6A\t7.6\t69→70\n2035/2036\t25\tSporting Rawa\tPolska Liga Elitarna — poziom 1\t4.\t—\t30\t29\t2 347\t7G 9A\t7.7\t70→71\n2036/2037\t26\tWarta Kresowa\tPolska Liga Elitarna — poziom 1\t4.\t—\t27\t26\t2 118\t9G 13A\t7.9\t71→71\n2037/2038\t27\tSporting Rawa\tPolska Liga Elitarna — poziom 1\t2.\t—\t30\t28\t2 322\t11G 10A\t7.8\t71→71\n2038/2039\t28\tWarta Kresowa\tPolska Liga Elitarna — poziom 1\t10.\t—\t26\t24\t1 924\t11G 8A\t7.9\t71→72\n2039/2040\t29\tBłękitni Port\tPolska Liga Elitarna — poziom 1\t1.\t—\t21\t20\t1 636\t7G 5A\t7.8\t72→72\n2040/2041\t30\tSporting Rawa\tPolska Liga Elitarna — poziom 1\t2.\t—\t21\t17\t1 426\t9G 3A\t7.9\t72→72\n2041/2042\t31\tBłękitni Port\tPolska Liga Elitarna — poziom 1\t2.\t—\t29\t29\t2 337\t8G 5A\t7.8\t72→72\n2042/2043\t32\tSporting Rawa\tPolska Liga Elitarna — poziom 1\t1.\t—\t23\t22\t1 794\t11G 7A\t8.2\t72→72\n2043/2044\t33\tBłękitni Port\tPolska Liga Elitarna — poziom 1\t1.\t—\t17\t0\t365\t3G 6A\t7.9\t71→72\n\nNajwyższy OVR: 72\n\nNajważniejsze osiągnięcia\n\nZakończenie kariery\n\nHistoria kariery\nNowa kariera",
+    "historyOpened": true,
+    "newCareerOpened": true
+  }
+}

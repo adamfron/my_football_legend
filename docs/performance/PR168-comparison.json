@@ -1,0 +1,175 @@
+{
+  "base": "2ddeb35",
+  "sourceDigest": "bcd7b316e7db1e10e3b58b104177f19ba42023dbbd090f7080709f1155ce1e60",
+  "carry": {
+    "baseline": {
+      "n": 4,
+      "transientControlLosses": 4,
+      "retainedAtFourSeconds": 2,
+      "sharpTurnsWithLoss": 2
+    },
+    "current": {
+      "n": 4,
+      "transientControlLosses": 2,
+      "retainedAtFourSeconds": 2,
+      "sharpTurnsWithLoss": 0
+    },
+    "limitation": "Four initially controlled unpressured cases; two sharp turns, two aligned repeats, both orientations. Other loose-ball cases remain separately visible; losing physical control is not automatically losing possession permanently."
+  },
+  "passing": {
+    "baseline": {
+      "n": 10,
+      "meanCompletionForecast": 0.7394021762594362,
+      "intendedReceiverContact": 7,
+      "completed": 7,
+      "retainedTwoSeconds": 7
+    },
+    "current": {
+      "n": 10,
+      "meanCompletionForecast": 0.7394021762594362,
+      "intendedReceiverContact": 7,
+      "completed": 7,
+      "retainedTwoSeconds": 7
+    },
+    "limitation": "Ten existing PR165 counterfactual probes, one seed and two conditions. This is empirical observation, not population probability calibration. New evaluative scores do not change production rankings."
+  },
+  "evaluator": {
+    "actionCount": 25,
+    "calls": 10,
+    "medianMs": 10.247899999999845,
+    "maxMs": 17.949800000000096,
+    "invocation": "On-demand paused-decision explanation, never an every-tick search."
+  },
+  "transfers": [
+    {
+      "position": "right_winger",
+      "age": 18,
+      "ability": 60,
+      "count": 8,
+      "tiers": [
+        2,
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        3
+      ],
+      "predictionMismatches": 0,
+      "misleadingImportantRoles": 0,
+      "positionalWarnings": 0
+    },
+    {
+      "position": "right_winger",
+      "age": 25,
+      "ability": 73,
+      "count": 8,
+      "tiers": [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        1
+      ],
+      "predictionMismatches": 0,
+      "misleadingImportantRoles": 0,
+      "positionalWarnings": 0
+    },
+    {
+      "position": "right_winger",
+      "age": 33,
+      "ability": 73,
+      "count": 8,
+      "tiers": [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "predictionMismatches": 0,
+      "misleadingImportantRoles": 0,
+      "positionalWarnings": 0
+    },
+    {
+      "position": "central_midfielder",
+      "age": 25,
+      "ability": 73,
+      "count": 8,
+      "tiers": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "predictionMismatches": 0,
+      "misleadingImportantRoles": 0,
+      "positionalWarnings": 0
+    },
+    {
+      "position": "striker",
+      "age": 27,
+      "ability": 78,
+      "count": 8,
+      "tiers": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "predictionMismatches": 0,
+      "misleadingImportantRoles": 0,
+      "positionalWarnings": 0
+    },
+    {
+      "position": "goalkeeper",
+      "age": 27,
+      "ability": 78,
+      "count": 8,
+      "tiers": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "predictionMismatches": 0,
+      "misleadingImportantRoles": 0,
+      "positionalWarnings": 0
+    },
+    {
+      "position": "striker",
+      "age": 37,
+      "ability": 58,
+      "count": 5,
+      "tiers": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "predictionMismatches": 0,
+      "misleadingImportantRoles": 0,
+      "positionalWarnings": 0
+    }
+  ]
+}

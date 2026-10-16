@@ -15,6 +15,9 @@ import {
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
 describe('PR163 complete telemetry reference (PR146 observer contract)', () => {
+  // PR168 intentionally selects between familiar coach formations and supplies persistent
+  // tactical axes. Both pristine PR167 hashes and both new complete outputs were reproduced
+  // twice with all fields, schemas and identity ledgers: PR168-telemetry-reference.json.
   // PR163 preserves these 60-second references; dedicated fixtures exercise its new routes.
   // Pristine PR162 and final complete payloads repeat twice with every exported field,
   // schema and identity invariant preserved: PR163-telemetry-reference.json.
@@ -78,8 +81,8 @@ describe('PR163 complete telemetry reference (PR146 observer contract)', () => {
   // were 015e6495f4560e3f5cc5b9f579679dc79db7c5948443ab1d1637ad776ff2e9e1 (a) and
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
-    ['pr146-flow-reference:a', '7111d00522056d3d147fa084f9ee324b3d0bfc31a00da9e735a6701d61d0fad3'],
-    ['pr146-flow-reference:b', 'e1638793fc40c4f54fcabe499cd58e16f1a1f377d1d2c9ec73c9b8b4a86a9272'],
+    ['pr146-flow-reference:a', '4b259fbf53244c69ee6c13d5d8db3c33b82e0d602afe4c2945b6d74182161d11'],
+    ['pr146-flow-reference:b', '4ebb81faf85fd8bc30d31878a59aed2ff49c473b0cf55ad41d8b7f6101428a5e'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

@@ -160,7 +160,10 @@ const wantedDirection = (
         actor.facingAngle,
       );
   }
-  const destination = target ?? carry?.localTarget ?? carry?.target;
+  // Approaching a pushed touch and aiming the next physical contact have different targets.
+  // The impulse can turn toward the chosen destination only when an actual foot reaches it.
+  const destination =
+    target ?? (carry?.pursuingBall ? carry.target : carry?.localTarget) ?? carry?.target;
   return destination
     ? directionFor(
         { x: destination.x - actor.position.x, y: destination.y - actor.position.y },

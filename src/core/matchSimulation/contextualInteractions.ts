@@ -33,6 +33,7 @@ import { secondLastOpponentLine } from './offside';
 import { deriveSpacePassPlan } from './spacePassing';
 import { enumerateFreeKickStrikeProfiles } from './shootingOptions';
 import { goalIntentToPitch } from './goalCoordinates';
+import { deriveCarryPursuit } from './carryPursuit';
 
 export const playerInteractionTargetSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('player'), playerId: z.string() }),
@@ -486,7 +487,7 @@ export const projectContextualInteractions = (
       ),
     );
   }
-  if (state.ball.ownerId === actor.id) {
+  if (state.ball.ownerId === actor.id || deriveCarryPursuit(state, actor)) {
     const metres = distance(actor.position, point);
     const pressure = state.currentPressure;
     const modes: Array<'carry' | 'sprint' | 'dribble' | 'retain'> = ['carry'];
@@ -500,7 +501,7 @@ export const projectContextualInteractions = (
         target: point,
         movementMode,
       })),
-      ...(metres >= 3 && deriveSpacePassPlan(state, actor, point)
+      ...(state.ball.ownerId === actor.id && metres >= 3 && deriveSpacePassPlan(state, actor, point)
         ? [{ type: 'space_pass' as const, actorId: actor.id, target: point }]
         : []),
     ]);

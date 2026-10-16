@@ -62,13 +62,17 @@ const addEvidence = (
     style,
     situations,
     successes: Math.min(1, situations),
-    contexts: [index % 2 ? 'positional_attack:space' : 'attacking_transition:pressed'],
+    contexts: [
+      ['positional_attack:space', 'attacking_transition:pressed', 'defensive_transition:wide'][
+        index % 3
+      ]!,
+    ],
   };
   const fact: HistoryFact = {
     id: `canonical_match:style-${index}`,
     factType: 'canonical_match_result',
-    season: base.currentSeason,
-    date: `2026-09-${String(index + 1).padStart(2, '0')}`,
+    season: 2026 + Math.floor(index / 4),
+    date: `${2026 + Math.floor(index / 4)}-09-${String((index % 4) + 1).padStart(2, '0')}`,
     actors: [base.player.id],
     targets: [],
     clubs: [base.currentClub.id],
@@ -91,7 +95,7 @@ const addEvidence = (
         opponentId: 'opponent',
         teamLevel: 'academy',
         started: true,
-        minutes: 60,
+        minutes: 90,
         goals: 0,
         assists: 0,
         xG: 0,
@@ -176,13 +180,18 @@ describe('PR166 six behavioural styles', () => {
       };
       expect(qualifyingPlayStyles(meaningless)).toEqual([]);
       let base = career();
-      for (let index = 0; index < 3; index++)
+      for (let index = 0; index < 11; index++)
         base = evaluatePlayStyleUnlocks(addEvidence(base, style, index));
       expect(getUnlockedPlayStyles(base)).not.toContain(style);
-      base = evaluatePlayStyleUnlocks(addEvidence(base, style, 3));
+      base = evaluatePlayStyleUnlocks(addEvidence(base, style, 11));
       expect(getUnlockedPlayStyles(base)).toContain(style);
       const fact = base.historyFacts.find((f) => f.factType === 'play_style_unlocked')!;
-      expect(fact.causes).toHaveLength(4);
+      expect(fact.causes).toHaveLength(6);
+      expect(getPlayStyleProgress(base).find((p) => p.style === style)).toMatchObject({
+        matches: 12,
+        seasons: 3,
+        months: 24,
+      });
       expect(evaluatePlayStyleUnlocks(base)).toBe(base);
       const loaded = parseCareerSave(serializeCurrentCareerSave(base));
       expect(loaded.ok).toBe(true);
@@ -194,7 +203,7 @@ describe('PR166 six behavioural styles', () => {
         currentClub: { ...base.currentClub, id: 'next-club' },
       };
       expect(getUnlockedPlayStyles(transferred)).toContain(style);
-      expect(getPlayStyleProgress(transferred).find((p) => p.style === style)?.situations).toBe(8);
+      expect(getPlayStyleProgress(transferred).find((p) => p.style === style)?.situations).toBe(24);
       expect(evaluatePlayStyleUnlocks(transferred)).toBe(transferred);
       let harmless = career();
       for (let index = 0; index < 16; index++) harmless = addEvidence(harmless, style, index, 0);

@@ -11,7 +11,6 @@ import type { MatchInjury } from './matchSimulation/matchInjuries';
 import {
   FORMATIONS,
   getCurrentXIStrength,
-  getManagerPreferredFormation,
   selectBestXI,
   selectMatchBench,
   type SquadSelectionWorld,
@@ -123,9 +122,8 @@ const buildTeam = (
     );
   if (!squad[0]) throw new Error(`Klub ${club.name} nie ma kadry.`);
   const context = { ...selection, footballerWorld: world.footballers };
-  const preferred = getManagerPreferredFormation(club.managerId);
   const eligibleClub = { ...club, squadPlayerIds: squad.map((player) => player!.profile.id) };
-  const selected = selectBestXI(context, eligibleClub, preferred);
+  const selected = selectBestXI(context, eligibleClub);
   if (selected.assignments.length !== 11) throw new Error(`Nie udało się wybrać XI: ${club.name}.`);
   const rng = RandomGenerator.fromSeed(`${seed}:${club.id}:kickoff`);
   const players = selected.assignments.map((assignment) => {

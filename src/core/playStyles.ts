@@ -26,6 +26,20 @@ export const playStyleEvidenceSchema = z
   );
 export type PlayStyleEvidence = z.infer<typeof playStyleEvidenceSchema>;
 
+/** Developer diagnostics only. Four playable fixtures/year makes 12 meaningful matches
+ * achievable in early professional years; calendar simulation alone contributes no evidence. */
+export const PLAY_STYLE_REQUIREMENTS: Record<
+  PlayStyleId,
+  { matches: number; situations: number; successes: number; minutes: number }
+> = {
+  progressive_passer: { matches: 12, situations: 24, successes: 6, minutes: 900 },
+  between_the_lines: { matches: 12, situations: 24, successes: 6, minutes: 900 },
+  ball_winner: { matches: 12, situations: 24, successes: 6, minutes: 1080 },
+  calm_finisher: { matches: 12, situations: 24, successes: 5, minutes: 720 },
+  engine: { matches: 12, situations: 24, successes: 6, minutes: 1080 },
+  goalkeeper_distributor: { matches: 12, situations: 24, successes: 6, minutes: 900 },
+};
+
 /** Observable context, not an objective tactical-quality verdict (reserved for PR168). */
 export const qualifyingPlayStyles = (outcome: PlayerDecisionOutcome): PlayStyleId[] => {
   const c = outcome.behaviourContext;
@@ -59,9 +73,12 @@ export const qualifyingPlayStyles = (outcome: PlayerDecisionOutcome): PlayStyleI
 
 export const getPlayStyleProgress = (career: CareerState) =>
   playStyleIdSchema.options.map((style) => {
+    const seen = new Set<string>();
     const matches = career.historyFacts
       .filter((fact) => fact.factType === 'canonical_match_result')
       .flatMap((fact) => {
+        if (seen.has(fact.id)) return [];
+        seen.add(fact.id);
         const raw = (fact.data.summary as { styles?: unknown[] } | undefined)?.styles ?? [];
         const evidence = raw
           .map((value) => playStyleEvidenceSchema.safeParse(value))
@@ -71,9 +88,23 @@ export const getPlayStyleProgress = (career: CareerState) =>
         return evidence.some((item) => item.situations > 0)
           ? [{ fact, evidence: evidence[0]! }]
           : [];
-      });
+      })
+      .sort((a, b) => a.fact.date.localeCompare(b.fact.date));
+    const firstDate = matches[0]?.fact.date;
+    const lastDate = matches.at(-1)?.fact.date;
+    const months =
+      firstDate && lastDate
+        ? (Number(lastDate.slice(0, 4)) - Number(firstDate.slice(0, 4))) * 12 +
+          Number(lastDate.slice(5, 7)) -
+          Number(firstDate.slice(5, 7)) -
+          Number(lastDate.slice(8, 10) < firstDate.slice(8, 10))
+        : 0;
     return {
       style,
+      seasons: new Set(matches.map(({ fact }) => fact.season)).size,
+      months,
+      firstDate,
+      lastDate,
       matches: matches.length,
       situations: matches.reduce((sum, item) => sum + item.evidence.situations, 0),
       successes: matches.reduce((sum, item) => sum + item.evidence.successes, 0),
@@ -106,7 +137,7 @@ export const playStylePreparationRelief = (
           styles?.includes('goalkeeper_distributor') &&
             context.goalkeeper &&
             context.pass &&
-          context.forwardMetres >= 8 &&
+            context.forwardMetres >= 8 &&
             context.pressure >= 0.15,
         ),
       ) *
@@ -198,12 +229,14 @@ export const evaluatePlayStyleUnlocks = (
   const behavioural = progress.find(
     (p) =>
       !existing.has(p.style) &&
-      p.matches >= 4 &&
-      p.situations >= 8 &&
-      p.successes >= 2 &&
-      p.contexts >= 2 &&
-      minutes >= 180 &&
-      contextualAttributes[p.style] >= 45 &&
+      p.seasons >= 3 &&
+      p.months >= 24 &&
+      p.matches >= PLAY_STYLE_REQUIREMENTS[p.style].matches &&
+      p.situations >= PLAY_STYLE_REQUIREMENTS[p.style].situations &&
+      p.successes >= PLAY_STYLE_REQUIREMENTS[p.style].successes &&
+      p.contexts >= 3 &&
+      minutes >= PLAY_STYLE_REQUIREMENTS[p.style].minutes &&
+      contextualAttributes[p.style] >= 50 &&
       (p.style !== 'goalkeeper_distributor' || career.player.primaryPosition === 'goalkeeper'),
   );
   if (!behavioural) return career;
@@ -216,6 +249,8 @@ export const evaluatePlayStyleUnlocks = (
       successes: behavioural.successes,
       contexts: behavioural.contexts,
       minutes,
+      seasons: behavioural.seasons,
+      months: behavioural.months,
     },
   ];
   if (!eligible) return career;

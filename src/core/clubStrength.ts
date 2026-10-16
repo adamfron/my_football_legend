@@ -4,14 +4,11 @@ import { RandomGenerator } from './random/RandomGenerator';
 import {
   deriveSquadHierarchy,
   getContextualSquadRole,
-  getManagerPreferredFormation,
+  getPositionalCompetition,
   getSportingStatus,
   getSquadDerivedClubStrength,
 } from './footballerWorld';
-import {
-  createCareerWorldFootballerResolver,
-  resolveEffectiveProfessionalClub,
-} from './worldDatabase';
+import { resolveEffectiveProfessionalClub } from './worldDatabase';
 
 /** Generation-only quality target used before a normalized senior squad exists. */
 export const getBootstrapClubStrength = (
@@ -114,24 +111,18 @@ export const getExpectedSquadRole = (career: CareerState, club: ProfessionalClub
   }
   const squadIds = [...new Set([...(effectiveClub.squadPlayerIds ?? []), career.player.id])];
   const projectedClub = { ...effectiveClub, squadPlayerIds: squadIds };
-  const hierarchy = deriveSquadHierarchy(
-    career,
-    projectedClub,
-    getManagerPreferredFormation(club.managerId),
-  );
+  const hierarchy = deriveSquadHierarchy(career, projectedClub);
   const status = getSportingStatus(hierarchy, career.player.id);
-  const playerOverall = getPlayerOverall(career.player, career.player.primaryPosition);
-  const resolveFootballer = createCareerWorldFootballerResolver(career, { cache: true });
+  const position =
+    [...hierarchy.preferredXI, ...hierarchy.bench].find(
+      (item) => item.footballerId === career.player.id,
+    )?.position ?? career.player.primaryPosition;
+  const playerOverall = getEffectivePositionOverall(career.player, position);
   const bestCompetitor = Math.max(
     0,
-    ...(effectiveClub.squadPlayerIds ?? [])
-      .filter((id) => id !== career.player.id)
-      .map((id) => resolveFootballer(id)?.profile)
-      .filter(
-        (player): player is NonNullable<typeof player> =>
-          Boolean(player) && player!.positionFamiliarity[career.player.primaryPosition] >= 0.3,
-      )
-      .map((player) => getEffectivePositionOverall(player, career.player.primaryPosition)),
+    ...getPositionalCompetition(career, projectedClub, position, hierarchy)
+      .filter(({ player }) => player.id !== career.player.id)
+      .map(({ effectiveOverall }) => effectiveOverall),
   );
   const margin = playerOverall - bestCompetitor;
   return getContextualSquadRole(status, career.player.age, margin);

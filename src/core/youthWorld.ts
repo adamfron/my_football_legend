@@ -12,11 +12,7 @@ import type {
   ProfessionalClub,
   WorldFootballer,
 } from '../types/domain';
-import {
-  deriveSquadHierarchy,
-  getManagerPreferredFormation,
-  type SquadSelectionContext,
-} from './footballerWorld';
+import { deriveSquadHierarchy, type SquadSelectionContext } from './footballerWorld';
 import { resolveClubManagerId } from './coachProfiles';
 import { RandomGenerator } from './random/RandomGenerator';
 import { resolveEffectiveProfessionalClub, resolveYouthCohort } from './worldDatabase';
@@ -121,11 +117,7 @@ export const createPolishU17LeagueProfiles = (career: CareerState): LeagueClubPr
   return getPolishU17TeamDefinitions(clubs).map((team) => {
     const context = getYouthSquadSelectionContext(career, team.id);
     if (!context) throw new Error(`Brak kohorty U-17 dla ${team.id}.`);
-    const hierarchy = deriveSquadHierarchy(
-      career,
-      context,
-      getManagerPreferredFormation(context.managerId),
-    );
+    const hierarchy = deriveSquadHierarchy(career, context);
     const average = (items: typeof hierarchy.preferredXI) =>
       Math.round(items.reduce((sum, item) => sum + item.effectiveOverall, 0) / items.length);
     const attacking = hierarchy.preferredXI.filter((item) =>

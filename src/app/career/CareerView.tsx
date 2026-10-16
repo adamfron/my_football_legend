@@ -20,6 +20,7 @@ import {
   getPlayStyleProgress,
   getUnlockedPlayStyles,
   PLAY_STYLE_PRESENTATION,
+  PLAY_STYLE_REQUIREMENTS,
 } from '../../core/playStyles';
 import type { CareerState } from '../../types/domain';
 import { ClubView } from './ClubView';
@@ -31,6 +32,7 @@ import { isDevToolsEnabled } from '../devTools';
 import { WorldBrowser } from './WorldBrowser';
 import type { CareerCommit } from '../careerCommit';
 import { ProfileAppearanceEditor } from '../appearance/ProfileAppearanceEditor';
+import { formatCareerInteger } from '../../core/numberPresentation';
 
 export const PLAYBACK_INTERVAL_MS = 1000;
 type Detail = 'player' | 'club' | 'contract' | 'career' | 'world';
@@ -83,6 +85,12 @@ export const CareerView = ({
   const playStyles = getUnlockedPlayStyles(career);
   const playStyleProgress = getPlayStyleProgress(career);
   const progressBlocker = getCareerProgressBlocker(career);
+  const coachChange = [...career.historyFacts]
+    .reverse()
+    .find(
+      (fact) =>
+        fact.factType === 'head_coach_changed' && fact.clubs.includes(career.currentClub.id),
+    );
 
   useEffect(() => {
     if (!playing || persistencePending || transitionPending.current || progressBlocker) return;
@@ -169,7 +177,7 @@ export const CareerView = ({
           return id ? (
             <p role="status" key={f.id}>
               Nowy styl gry: <strong>{PLAY_STYLE_PRESENTATION[id].name}</strong> ·{' '}
-              {PLAY_STYLE_PRESENTATION[id].effect}
+              {PLAY_STYLE_PRESENTATION[id].description}
             </p>
           ) : null;
         })}
@@ -194,7 +202,8 @@ export const CareerView = ({
               lat
             </b>
             <span>
-              kondycja {career.player.fitness} · morale {career.player.morale}
+              kondycja {formatCareerInteger(career.player.fitness)} · morale{' '}
+              {formatCareerInteger(career.player.morale)}
             </span>
           </span>
         </button>
@@ -314,13 +323,15 @@ export const CareerView = ({
                       <article key={id}>
                         <strong>{PLAY_STYLE_PRESENTATION[id].name}</strong>
                         <p>{PLAY_STYLE_PRESENTATION[id].description}</p>
-                        <p>{PLAY_STYLE_PRESENTATION[id].effect}</p>
-                        <small>
-                          Udokumentowane zachowanie:{' '}
-                          {playStyleProgress.find((p) => p.style === id)?.matches ?? 0} meczów ·{' '}
-                          {playStyleProgress.find((p) => p.style === id)?.situations ?? 0} istotnych
-                          sytuacji
-                        </small>
+                        {isDevToolsEnabled() && <p>{PLAY_STYLE_PRESENTATION[id].effect}</p>}
+                        {isDevToolsEnabled() && (
+                          <small>
+                            Udokumentowane zachowanie:{' '}
+                            {playStyleProgress.find((p) => p.style === id)?.matches ?? 0} meczów ·{' '}
+                            {playStyleProgress.find((p) => p.style === id)?.situations ?? 0}{' '}
+                            istotnych sytuacji
+                          </small>
+                        )}
                         <small>
                           Wykształcony:{' '}
                           {
@@ -339,14 +350,24 @@ export const CareerView = ({
                     .filter((p) => p.matches > 0 && !playStyles.includes(p.style))
                     .map((p) => (
                       <p key={p.style}>
-                        {PLAY_STYLE_PRESENTATION[p.style].name}: {Math.min(4, p.matches)}/4 mecze ·{' '}
-                        {Math.min(8, p.situations)}/8 istotnych sytuacji · {Math.min(2, p.contexts)}
-                        /2 konteksty · {Math.min(2, p.successes)}/2 udane wykonania
+                        {PLAY_STYLE_PRESENTATION[p.style].name}: Rozwijający się styl gry.{' '}
+                        {PLAY_STYLE_PRESENTATION[p.style].description}{' '}
+                        {isDevToolsEnabled() && (
+                          <small>
+                            {p.matches} meczów · {p.situations} sytuacji · {p.contexts} kontekstów ·{' '}
+                            {p.successes} udanych wykonań · {p.seasons} sezonów · {p.months}{' '}
+                            miesięcy
+                            {' · '}progi: 3 sezony / 24 miesiące /{' '}
+                            {PLAY_STYLE_REQUIREMENTS[p.style].matches} meczów /{' '}
+                            {PLAY_STYLE_REQUIREMENTS[p.style].situations} sytuacji /{' '}
+                            {PLAY_STYLE_REQUIREMENTS[p.style].minutes} minut
+                          </small>
+                        )}
                       </p>
                     ))}
                   <small>
-                    Style rozwijają się z rozstrzygniętych decyzji w kilku meczach, przy co najmniej
-                    180 minutach doświadczenia i właściwych umiejętnościach na poziomie 45.
+                    Style dojrzewają przez lata powtarzalnych decyzji i doświadczeń na boisku. Wciąż
+                    możesz potrzebować doświadczenia w nowych sytuacjach.
                   </small>
                 </div>
                 <div>
@@ -413,6 +434,22 @@ export const CareerView = ({
         </section>
       )}
 
+      {coachChange && (
+        <details className="coach-change-notice">
+          <summary>Zmiana trenera · {coachChange.date}</summary>
+          <p>
+            Nowy trener ponownie ocenia skład i dopasowanie do ustawienia. Oczekiwanie kontraktowe:{' '}
+            {career.currentContract
+              ? squadRoleLabel(career.currentContract.squadRole)
+              : 'brak kontraktu'}
+            . Obecna rola sportowa:{' '}
+            {career.currentSportingStatus
+              ? squadRoleLabel(career.currentSportingStatus)
+              : 'w ocenie'}
+            .
+          </p>
+        </details>
+      )}
       {decisionPanel && <section className="career-decision">{decisionPanel}</section>}
       {error && (
         <p className="career-error" role="alert">

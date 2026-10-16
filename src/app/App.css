@@ -168,7 +168,19 @@
   outline-offset: 2px;
 }
 .detail-panel .card {
-  grid-template-columns: 150px 1fr 290px 240px;
+  grid-template-columns: 150px minmax(190px, 1fr) 290px;
+  gap: 14px;
+}
+.detail-panel .card .attrs {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 12px;
+}
+.career-decision:has(.career-choice) {
+  display: contents;
+}
+.career-view code {
+  color: #244c61;
 }
 .club-profile-redesign {
   display: grid;
@@ -532,6 +544,8 @@
   padding: 5px 8px;
   border: 1px solid #c5cacc;
   background: #f8f8f5;
+  align-self: start;
+  color: #20272b;
 }
 .player-projection article + article {
   margin-top: 5px;
@@ -736,8 +750,138 @@
   padding: 8px;
   border-left-color: var(--club-primary);
 }
-.match-shell {
-  min-height: 100vh;
+.career-match-host {
+  min-width: 0;
+}
+.career-choice {
+  width: min(620px, calc(100vw - 28px));
+  max-height: calc(100dvh - 28px);
+  overflow: auto;
+  padding: 16px;
+  border: 2px outset #d6dadd;
+  border-radius: 0;
+  background: #f1f2ef;
+  color: #20272b;
+  box-shadow: 5px 5px 0 #0004;
+}
+.career-choice::backdrop {
+  background: #17252c66;
+}
+.career-choice h2 {
+  margin-top: 0;
+  color: #15364b;
+  font-size: 1.2rem;
+}
+.career-choice h3,
+.career-choice p,
+.career-choice li {
+  color: #20272b;
+}
+.career-choice button {
+  margin: 8px 8px 0 0;
+  min-height: 36px;
+}
+.career-view button:focus-visible,
+.career-choice button:focus-visible {
+  outline: 3px solid #185a9d;
+  outline-offset: 2px;
+}
+.coach-briefing {
+  padding: 8px;
+  border: 1px inset #d6dadd;
+  background: #fff;
+}
+.coach-briefing ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+.retirement-summary {
+  display: block;
+  min-height: 0;
+  padding: 16px;
+  height: auto;
+  background: #eff0ed;
+  color: #20272b;
+}
+.retirement-shell {
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 10px;
+}
+.career-view.retirement-summary button {
+  color: #20272b;
+  background: #f4f4f1;
+  border: 1px solid #7f8b91;
+  padding: 7px 12px;
+}
+.career-view.retirement-summary .tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.retirement-history {
+  overflow: visible;
+}
+.retirement-history .mini-card {
+  background: #fff;
+  color: #20272b;
+}
+.retirement-summary h1,
+.retirement-summary h2,
+.retirement-summary h3,
+.retirement-summary p,
+.retirement-summary td {
+  color: #20272b;
+}
+.retirement-identity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  border-bottom: 3px double #7e888d;
+}
+.retirement-identity .player-preview {
+  flex: 0 0 120px;
+  width: 120px;
+  height: 140px;
+}
+.retirement-summary .table-wrap {
+  max-height: 55vh;
+  overflow: auto;
+  border: 1px inset #d6dadd;
+  background: #fff;
+}
+.retirement-summary table {
+  width: 100%;
+  color: #20272b;
+  font-family: inherit;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.retirement-summary th {
+  position: sticky;
+  top: 0;
+  background: #d9e3e9;
+  color: #142c3b;
+}
+.retirement-summary td {
+  padding: 6px;
+}
+.player-projection small {
+  color: #424b50;
+}
+@media (max-width: 600px) {
+  .player-projection {
+    grid-template-columns: 1fr;
+  }
+  .career-choice button {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+  }
+  .retirement-summary {
+    padding: 10px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -776,6 +920,9 @@
   }
   .detail-panel .card {
     display: block;
+  }
+  .detail-panel .card .attrs {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
   }
   .compact-club-header {
     grid-template-columns: 60px 1fr;

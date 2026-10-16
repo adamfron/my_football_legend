@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { clampPitchPoint, distance, distanceToSegment, pitchPointSchema } from './matchSpace';
 import type { BallCarrierIntent, MatchPlayerState, TacticalMatchState } from './matchState';
 import { angleForVector, normalizeAngle } from './playerOrientation';
+import { deriveCarryPursuit } from './carryPursuit';
 
 export const carryExecutionModeSchema = z.enum([
   'burst',
@@ -20,6 +21,7 @@ export const carryExecutionSchema = z.object({
   closestDefenderDistance: z.number().nonnegative(),
   blockerId: z.string().optional(),
   projectedControl: z.number().min(0).max(1),
+  pursuingBall: z.boolean(),
 });
 export type CarryExecution = z.infer<typeof carryExecutionSchema>;
 
@@ -152,6 +154,25 @@ export const deriveCarryExecution = (
     });
   }
   const a = actor.profile.attributes;
+  // An aligned destination already runs through the touch. Preserve its existing stride;
+  // redirect only when the new route would leave the ball or control is genuinely loose.
+  const routeLeavesBall =
+    state.ball.ownerId !== actor.id ||
+    Math.abs(
+      normalizeAngle(
+        angleForVector({
+          x: intent.target.x - actor.position.x,
+          y: intent.target.y - actor.position.y,
+        }) -
+          angleForVector({
+            x: state.ball.x - actor.position.x,
+            y: state.ball.y - actor.position.y,
+          }),
+      ),
+    ) > 0.35;
+  const pursuit = routeLeavesBall ? deriveCarryPursuit(state, actor) : undefined;
+  const pursuingBall = Boolean(pursuit);
+  if (pursuit && pursuingBall) localTarget = pursuit.target;
   const projectedControl = Math.max(
     0,
     Math.min(
@@ -188,5 +209,6 @@ export const deriveCarryExecution = (
     closestDefenderDistance: closest?.metres ?? 105,
     ...(blocker ? { blockerId: blocker.player.id } : {}),
     projectedControl,
+    pursuingBall,
   });
 };
