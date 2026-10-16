@@ -230,6 +230,7 @@ export const pendingReceptionIntentSchema = z.object({
 });
 export type PendingReceptionIntent = z.infer<typeof pendingReceptionIntentSchema>;
 export const ballCarrierIntentSchema = z.object({
+  pursuingBall: z.boolean().optional(),
   actorId: z.string(),
   type: z.literal('carry'),
   target: pitchPointSchema,

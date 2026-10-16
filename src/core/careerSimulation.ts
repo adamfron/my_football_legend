@@ -335,7 +335,7 @@ const logMatch = (career: CareerState, fixture: Fixture): FastForwardEntry => {
     type: 'match',
     fixtureId: fixture.id,
     ...(appearance?.appearanceMatchId ? { appearanceMatchId: appearance.appearanceMatchId } : {}),
-    summary: `${home} ${league?.homeGoals ?? 0}:${league?.awayGoals ?? 0} ${away}\n${appearance?.minutes ? `${appearance.minutes} min · ${appearance.goals} G · ${appearance.assists} A · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}` : 'bez występu'}`,
+    summary: `${home} ${league?.homeGoals ?? 0}:${league?.awayGoals ?? 0} ${away}\n${appearance?.minutes ? `${formatCareerInteger(appearance.minutes)} min · ${appearance.goals} G · ${appearance.assists} A · ocena ${appearance.rating?.toFixed(1).replace('.', ',') ?? '—'}` : 'bez występu'}`,
   };
 };
 
@@ -478,3 +478,4 @@ export const advanceUntilDecision = (initial: CareerState, maxWeeks = 8): Career
   }
   return career;
 };
+import { formatCareerInteger } from './numberPresentation';

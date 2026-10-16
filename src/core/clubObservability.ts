@@ -23,7 +23,7 @@ export const getClubQualityDiagnostic = (
 ): ClubQualityDiagnostic | undefined => {
   const effective = resolveEffectiveProfessionalClub(career, club.id) ?? club;
   const preferred = getManagerPreferredFormation(effective.managerId);
-  const xi = selectBestXI(career, effective, preferred);
+  const xi = selectBestXI(career, effective);
   if (xi.assignments.length !== 11) return undefined;
   const ordered = [...xi.assignments].sort(
     (a, b) => a.effectiveOverall - b.effectiveOverall || a.position.localeCompare(b.position),
@@ -39,7 +39,7 @@ export const getClubQualityDiagnostic = (
     },
     weakestGap: ordered[0]!.effectiveOverall - strength,
     formation: xi.formation,
-    preferredFormationFeasible: xi.formation === preferred,
+    preferredFormationFeasible: selectBestXI(career, effective, preferred).formation === preferred,
   };
 };
 

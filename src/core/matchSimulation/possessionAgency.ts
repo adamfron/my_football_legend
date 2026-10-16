@@ -9,6 +9,7 @@ import {
 } from './matchState';
 import { normalizeAngle } from './playerOrientation';
 import { hasReachedCarryDecisionWaypoint } from './carryExecution';
+import { deriveCarryPursuit } from './carryPursuit';
 
 /** A human choice owns this physical possession, independently of an action cooldown. */
 export const hasActiveHumanPossession = (state: TacticalMatchState): boolean =>
@@ -16,9 +17,22 @@ export const hasActiveHumanPossession = (state: TacticalMatchState): boolean =>
     state.playerAgencyEnabled !== false &&
       state.humanPossessionEpisode &&
       state.humanPossessionEpisode.actorId === state.controlledFootballerId &&
-      state.ball.ownerId === state.humanPossessionEpisode.actorId &&
+      (state.ball.ownerId === state.humanPossessionEpisode.actorId ||
+        state.players.some(
+          (actor) =>
+            actor.id === state.humanPossessionEpisode!.actorId &&
+            Boolean(deriveCarryPursuit(state, actor)),
+        )) &&
       (state.scenario === 'open_play' || state.restart?.phase === 'release') &&
-      (state.ballEpisode ?? 0) === state.humanPossessionEpisode.ballEpisode,
+      ((state.ballEpisode ?? 0) === state.humanPossessionEpisode.ballEpisode ||
+        (state.ballCarrierIntent?.humanSelected &&
+          state.ballCarrierIntent.actorId === state.humanPossessionEpisode.actorId &&
+          state.ball.lastTouchPlayerId === state.humanPossessionEpisode.actorId &&
+          (!state.ball.ownerId ||
+            (state.lastPossessionChange?.winnerId === state.humanPossessionEpisode.actorId &&
+              state.lastPossessionChange.at === state.time)) &&
+          !state.ball.travelKind &&
+          !state.ball.shot)),
   );
 
 /** Canonical evidence closes ownership; presentation and elapsed cooldown never do. */
@@ -33,6 +47,14 @@ export const reconcileHumanPossession = (state: TacticalMatchState): TacticalMat
 export const advanceHumanIntentProgress = (state: TacticalMatchState): TacticalMatchState => {
   state = reconcileHumanPossession(state);
   if (hasActiveHumanPossession(state)) {
+    if (state.humanPossessionEpisode!.ballEpisode !== (state.ballEpisode ?? 0))
+      state = {
+        ...state,
+        humanPossessionEpisode: {
+          ...state.humanPossessionEpisode!,
+          ballEpisode: state.ballEpisode ?? 0,
+        },
+      };
     const episode = state.humanPossessionEpisode!;
     const actor = state.players.find((player) => player.id === episode.actorId);
     if (actor && episode.target && episode.progressPoint) {

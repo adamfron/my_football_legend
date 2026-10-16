@@ -1,4 +1,5 @@
 import { attacksRight } from './matchSpace';
+import { deriveCarryPursuit } from './carryPursuit';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
@@ -46,6 +47,7 @@ import {
 import { endStoppage } from './stoppageLedger';
 import { resolveRestartGoalOutcome, deriveRestartLegalReadiness } from './restartLaws';
 import { deriveCanonicalCoachProfile } from '../coachProfiles';
+import { deriveCoachTacticalPreferences } from '../coachTactics';
 import { emitMatchEvents } from './matchEventFeed';
 import { initialiseTeamThreatMemory, observeTeamThreats } from './teamThreatMemory';
 import type { SingleMatchSession } from '../singleMatch';
@@ -300,6 +302,9 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         clubId: session.home.club.id,
         formation: session.home.formation,
         style: deriveCanonicalCoachProfile(session.home.club.managerId ?? 'manager').tacticalStyle,
+        tacticalPreferences: deriveCoachTacticalPreferences(
+          deriveCanonicalCoachProfile(session.home.club.managerId ?? 'manager'),
+        ),
         phase: 'positional_attack',
         phaseElapsed: 0,
       },
@@ -308,6 +313,9 @@ export const createTacticalMatch = (session: SingleMatchSession): TacticalMatchS
         clubId: session.away.club.id,
         formation: session.away.formation,
         style: deriveCanonicalCoachProfile(session.away.club.managerId ?? 'manager').tacticalStyle,
+        tacticalPreferences: deriveCoachTacticalPreferences(
+          deriveCanonicalCoachProfile(session.away.club.managerId ?? 'manager'),
+        ),
         phase: 'defensive_block',
         phaseElapsed: 0,
       },
@@ -1142,7 +1150,7 @@ const stepTacticalMatchCore = (
       };
     if (
       !carrier ||
-      state.ball.ownerId !== carrier.id ||
+      (state.ball.ownerId !== carrier.id && !deriveCarryPursuit(state, carrier)) ||
       (intent.movementMode !== 'retain' && state.time >= intent.expiresAt) ||
       (intent.movementMode === 'retain' && state.periodEndPending) ||
       (intent.movementMode !== 'retain' &&
@@ -1355,6 +1363,7 @@ const stepTacticalMatchCore = (
         modeSince: changed ? state.time : state.ballCarrierIntent.modeSince,
         localTarget: execution.localTarget,
         touchDistance: execution.touchDistance,
+        pursuingBall: execution.pursuingBall,
       };
       movementTarget = execution.localTarget;
       // The exposed target remains the committed human destination. Only locomotion consumes the

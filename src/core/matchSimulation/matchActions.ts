@@ -69,6 +69,7 @@ import {
 import { deriveBallContactAccess, estimateCarrierContactWindow } from './ballContactGeometry';
 import { enumerateCarryChoices, projectCarryOpportunity } from './carryOpportunity';
 import { classifyPass } from './passClassification';
+import { deriveCarryPursuit } from './carryPursuit';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -1056,6 +1057,11 @@ const resolveMatchActionCanonical = (
   }
   if (
     state.ball.ownerId !== action.actorId &&
+    !(
+      action.type === 'carry' &&
+      (source === 'human_selected' || source === 'dev_ai_selected') &&
+      deriveCarryPursuit(state, actor)
+    ) &&
     !(isShotAction(action)
       ? canExecuteCanonicalShot(state, action)
       : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action))

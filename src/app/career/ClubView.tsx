@@ -198,11 +198,11 @@ const SquadGroup = ({
           <span
             aria-label={
               unavailable
-                ? `Niedostępny, fitness ${fitness ?? 'brak danych'}`
-                : `Fitness ${fitness ?? 'brak danych'}`
+                ? `Niedostępny, fitness ${formatCareerInteger(fitness)}`
+                : `Fitness ${formatCareerInteger(fitness)}`
             }
           >
-            {fitness === undefined ? '—' : `${fitness}%`}
+            {fitness === undefined ? '—' : `${formatCareerInteger(fitness)}%`}
             {unavailable ? ' ⚠' : ''}
           </span>
           <span>{getRankedFootballArchetypes(player)[0]?.definition.label ?? '—'}</span>
@@ -419,7 +419,7 @@ export const ClubView = ({ career }: { career: CareerState }) => {
                       ? `zawieszenie (${availabilityState(career).suspensionMatchesRemaining})`
                       : 'dostępny'}
                 </b>{' '}
-                · Fitness: {career.player.fitness}/100
+                · Fitness: {formatCareerInteger(career.player.fitness)}/100
               </p>
               <p>Opanowane pozycje: {masteredPositions.map(positionCode).join(', ')}</p>
               <p>
@@ -506,3 +506,4 @@ export const ClubView = ({ career }: { career: CareerState }) => {
     </div>
   );
 };
+import { formatCareerInteger } from '../../core/numberPresentation';

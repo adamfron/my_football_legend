@@ -5,7 +5,7 @@ import type {
   ProfessionalClub,
   WorldManagerMoveRecord,
 } from '../types/domain';
-import { getBootstrapClubStrength } from './clubStrength';
+import { getBootstrapClubStrength, getExpectedSquadRole } from './clubStrength';
 import type { ClubSeasonProjection } from './clubWorld';
 import {
   coachProfileToPerson,
@@ -148,7 +148,15 @@ export const processManagerLifecycle = (
       targets: [changedCurrent.oldId],
       clubs: [career.currentProfessionalClub!.id],
       competitions: [],
-      data: { previousManagerId: changedCurrent.oldId, managerId: changedCurrent.newId },
+      data: {
+        previousManagerId: changedCurrent.oldId,
+        managerId: changedCurrent.newId,
+        contractualRole: career.currentContract?.squadRole,
+        previousSportingRole: career.currentSportingStatus,
+        currentSportingRole: getExpectedSquadRole(next, career.currentProfessionalClub!),
+        preferredFormation: profile.preferredFormation,
+        secondaryFormation: profile.secondaryFormation,
+      },
       causes: [],
       tags: ['coach', 'career'],
       visibility: 'public',

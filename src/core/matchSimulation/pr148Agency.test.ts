@@ -20,6 +20,7 @@ import {
 import { hasActiveHumanPossession, humanPossessionRedecisionReason } from './possessionAgency';
 import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { deriveStructuralPosition } from './tacticalPositioning';
+import { TACTICAL_PREFERENCE_DEFAULTS } from './tacticalPreferences';
 
 const world = createCanonicalWorldDatabase();
 const fixture = () => {
@@ -79,6 +80,9 @@ const fixture = () => {
   state.ball = { ...actor.position, ownerId: actor.id };
   state.teams.home.phase = 'positional_attack';
   state.teams.home.style = 'balanced';
+  // This fixture explicitly requests balanced football. PR168 persists coach axes at setup,
+  // so update those as well as the label instead of retaining the appointed coach's plan.
+  state.teams.home.tacticalPreferences = { ...TACTICAL_PREFERENCE_DEFAULTS.balanced };
   return { state, actor, forward, recycle, defender };
 };
 

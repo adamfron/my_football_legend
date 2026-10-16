@@ -1,5 +1,28 @@
 # My Football Legend — Current Project State
 
+## PR168 — Coaches, Tactical Intelligence, Transfers & Career UX
+
+Baza: scalony PR167 `2ddeb35`. Wspólny solver porównuje preferowane i drugie
+ustawienie z kosztem zmiany; prognozy transferowe i obecna rola używają tej samej
+hierarchii. Lista obejmuje do ośmiu wiarygodnych ofert. Zmiana trenera zachowuje
+kontrakt i znajomość pozycji, a zmienione oczekiwania są widoczne.
+
+Opcjonalna ocena sytuacji analizuje kanoniczne dostępne akcje bez RNG lub zmiany
+stanu. Indeksy pozostają jawną heurystyką. Poprawka prowadzenia rozdziela dojście
+do wypchniętej piłki od kierunku następnego rzeczywistego kontaktu. W kontrolowanych
+ostrych skrętach niepotrzebna przejściowa strata spada 2/2→0/2; końcowe posiadanie
+pozostaje 2/4. Nie jest to globalna kalibracja ofensywy.
+
+Nowe style człowieka wymagają trzech sezonów i co najmniej 24 miesięcy evidence;
+stare osiągnięcia i tożsamości NPC pozostają. Wybór meczu działa w oknie kariery,
+emerytura ma jasny układ, rzeczywistą historię i portret, liczby są formatowane
+wyłącznie przy wyświetlaniu. Sprawdzono rzeczywiste Edge i 18-sezonową karierę.
+Końcowy `npm run verify`: **PASS — 1742 testów, lint, TypeScript i build**.
+[Raport PR168](PR168_COACHES_TACTICAL_INTELLIGENCE_CAREER_IMPROVEMENTS.md).
+
+Następne pozostają **PR169** historie/wiadomości i bogatsza prezentacja udziału
+w meczach, następnie **PR170** atmosfera i oprawa. Poniżej historia wcześniejszych etapów.
+
 ## PR167 — NPC Development, Footballer Diversity & Flexible Career Matches
 
 Baza: scalony PR166 `678c75a`. Osiem istniejących krzywych rozwija teraz

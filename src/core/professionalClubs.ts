@@ -20,9 +20,10 @@ import {
   evaluateCandidateForSlot,
   FORMATIONS,
   getContextualSquadRole,
-  getManagerPreferredFormation,
+  getCurrentXIStrength,
   getPositionalCompetition,
   getSportingStatus,
+  getSquadDerivedClubStrength,
 } from './footballerWorld';
 import { resolveEffectiveProfessionalClub } from './worldDatabase';
 import { isNormallyEligibleForPosition } from './positionCompatibility';
@@ -211,25 +212,115 @@ export const evaluateClubInterest = (career: CareerState, club: ProfessionalClub
     club.playingStyle === 'techniczny' || club.playingStyle === 'cierpliwe posiadanie'
       ? (career.player.attributes.technique + career.player.attributes.passing - 90) / 8
       : 0;
+  const destination = projectDestination(career, club);
+  const assignment = [...destination.hierarchy.preferredXI, ...destination.hierarchy.bench].find(
+    (item) => item.footballerId === career.player.id,
+  );
+  const position = assignment?.position ?? career.player.primaryPosition;
+  const rivals = getPositionalCompetition(
+    career,
+    destination.club,
+    position,
+    destination.hierarchy,
+  ).filter(({ player }) => player.id !== career.player.id);
+  const positionalGap =
+    getEffectivePositionOverall(career.player, position) -
+    (rivals[0]?.effectiveOverall ?? need.starterQuality);
+  const standing = getSportingStatus(destination.hierarchy, career.player.id);
+  const normalized = Boolean(
+    career.footballerWorld &&
+      club.squadPlayerIds !== undefined &&
+      career.clubWorld?.some((item) => item.id === club.id && item.squadPlayerIds !== undefined),
+  );
+  if (normalized && destination.strength === undefined)
+    return {
+      score: 0,
+      interested: false,
+      need,
+      potentialEstimate,
+      sportingGap: null,
+      positionalGap,
+      standing,
+    };
+  const sportingGap = overall(career) - (destination.strength ?? getBootstrapClubStrength(club));
   const score =
-    overall(career) * 0.65 +
-    potentialEstimate * 0.18 +
-    need.needLevel * 0.2 +
-    club.coachYouthTrust * 0.13 +
-    getClubInfrastructure(club).scoutingQuality * 0.06 +
-    club.youthPolicy * 0.08 +
-    stats +
-    getPlayerForm(career).value * 1.5 +
-    career.player.reputation * 0.08 -
-    Math.max(0, career.player.age - 29) * 1.1 -
-    club.reputation * 0.55 -
-    Math.max(0, 3 - getClubLeagueTier(club)) *
-      Math.max(0, club.reputation - overall(career)) *
-      0.28 -
-    (need.depth === 'deep' ? 10 : need.depth === 'thin' ? -5 : 0) +
-    style;
-  const eliteDomesticCandidate = overall(career) >= 80 && getClubLeagueTier(club) === 1;
-  return { score, interested: eliteDomesticCandidate || score >= 37, need, potentialEstimate };
+    club.squadPlayerIds === undefined || destination.hierarchy.preferredXI.length !== 11
+      ? overall(career) * 0.65 +
+        potentialEstimate * 0.18 +
+        need.needLevel * 0.2 +
+        club.coachYouthTrust * 0.13 +
+        getClubInfrastructure(club).scoutingQuality * 0.06 +
+        club.youthPolicy * 0.08 +
+        stats +
+        getPlayerForm(career).value * 1.5 +
+        career.player.reputation * 0.08 -
+        Math.max(0, career.player.age - 29) * 1.1 -
+        club.reputation * 0.55 -
+        Math.max(0, 3 - getClubLeagueTier(club)) *
+          Math.max(0, club.reputation - overall(career)) *
+          0.28 -
+        (need.depth === 'deep' ? 10 : need.depth === 'thin' ? -5 : 0) +
+        style
+      : 45 +
+        Math.max(-20, Math.min(6, sportingGap)) * 1.5 +
+        Math.max(-15, Math.min(6, positionalGap)) * 0.9 +
+        (standing === 'starting_xi' ? 6 : standing === 'bench' ? 0 : -12) +
+        Math.max(-6, Math.min(8, stats)) +
+        getPlayerForm(career).value * 1.5 +
+        (career.player.age <= 23
+          ? Math.max(0, Math.min(4, (potentialEstimate - overall(career)) / 5))
+          : 0) +
+        career.player.reputation * 0.03 -
+        Math.max(0, career.player.age - 31) * 1.3 +
+        Math.min(3, style) -
+        Math.max(0, club.reputation - career.player.reputation - 35) * 0.08;
+  return {
+    score,
+    interested: score >= 37,
+    need,
+    potentialEstimate,
+    sportingGap,
+    positionalGap,
+    standing,
+  };
+};
+
+const destinationCache = new WeakMap<
+  CareerState,
+  Map<
+    string,
+    {
+      club: ProfessionalClub;
+      hierarchy: ReturnType<typeof deriveSquadHierarchy>;
+      strength: number | undefined;
+    }
+  >
+>();
+const projectDestination = (career: CareerState, club: ProfessionalClub) => {
+  let cache = destinationCache.get(career);
+  if (!cache) {
+    cache = new Map();
+    destinationCache.set(career, cache);
+  }
+  const effective = resolveEffectiveProfessionalClub(career, club.id) ?? club;
+  const managerId =
+    career.worldDelta?.managerOverrides[club.id] ?? club.managerId ?? effective.managerId;
+  const key = `${club.id}:${managerId ?? ''}`;
+  const cached = cache.get(key);
+  if (cached) return cached;
+  const projectedClub = {
+    ...effective,
+    managerId,
+    squadPlayerIds: [...new Set([...(effective.squadPlayerIds ?? []), career.player.id])],
+  };
+  const hierarchy = deriveSquadHierarchy(career, projectedClub);
+  // Recruitment may repair a genuine positional gap. Keep live match strength strict:
+  // an offer can use a complete projected XI, never reputation or an incomplete average.
+  const strength =
+    getSquadDerivedClubStrength(career, effective) ?? getCurrentXIStrength(hierarchy.preferredXI);
+  const value = { club: projectedClub, hierarchy, strength };
+  cache.set(key, value);
+  return value;
 };
 
 const offerOverallCache = new WeakMap<object, Map<string, number>>();
@@ -256,13 +347,17 @@ export const deriveOfferPositionIntent = (
   ProfessionalOffer,
   'plannedPosition' | 'alternativePositions' | 'tacticalPositionWarning'
 > => {
-  const formation = FORMATIONS[getManagerPreferredFormation(club.managerId)];
+  const destination = projectDestination(career, club);
+  const formation = FORMATIONS[destination.hierarchy.formation];
   const effectiveOverall = (position: CareerState['player']['primaryPosition']) =>
     offerPositionOverall(career.player, position);
   const plausible = formation.filter((slot) =>
     isNormallyEligibleForPosition(career.player, slot.position),
   );
-  const candidatesByPosition = new Map<CareerState['player']['primaryPosition'], { position: CareerState['player']['primaryPosition']; score: number }>();
+  const candidatesByPosition = new Map<
+    CareerState['player']['primaryPosition'],
+    { position: CareerState['player']['primaryPosition']; score: number }
+  >();
   for (const slot of plausible) {
     const position = slot.position;
     const need = club.positionalNeeds[group(position)];
@@ -276,7 +371,10 @@ export const deriveOfferPositionIntent = (
         (need.depth === 'thin' ? 5 : need.depth === 'deep' ? -5 : 0) +
         Math.max(-8, effectiveOverall(position) - leadingRival) * 0.35,
     };
-    if (!candidatesByPosition.has(position) || candidate.score > candidatesByPosition.get(position)!.score)
+    if (
+      !candidatesByPosition.has(position) ||
+      candidate.score > candidatesByPosition.get(position)!.score
+    )
       candidatesByPosition.set(position, candidate);
   }
   const candidates = [...candidatesByPosition.values()];
@@ -285,7 +383,15 @@ export const deriveOfferPositionIntent = (
       plannedPosition: career.player.primaryPosition,
       tacticalPositionWarning: 'Trener nie używa twojej nominalnej pozycji w obecnym ustawieniu',
     };
-  candidates.sort((a, b) => b.score - a.score || a.position.localeCompare(b.position));
+  const assigned = [...destination.hierarchy.preferredXI, ...destination.hierarchy.bench].find(
+    (item) => item.footballerId === career.player.id,
+  )?.position;
+  candidates.sort(
+    (a, b) =>
+      Number(b.position === assigned) - Number(a.position === assigned) ||
+      b.score - a.score ||
+      a.position.localeCompare(b.position),
+  );
   const [planned, ...rest] = candidates;
   const alternatives = rest.filter((item) => item.score >= planned!.score - 6).slice(0, 2);
   return {
@@ -315,7 +421,7 @@ const createProfessionalOffer = (
     ...effectiveClub,
     squadPlayerIds: [...new Set([...(effectiveClub.squadPlayerIds ?? []), career.player.id])],
   };
-  const projectedHierarchy = deriveSquadHierarchy(career, projectedClub);
+  const projectedHierarchy = projectDestination(career, club).hierarchy;
   const projectedStanding = positionIntent.tacticalPositionWarning
     ? ('deep_reserve' as const)
     : getSportingStatus(projectedHierarchy, career.player.id);
@@ -340,7 +446,7 @@ const createProfessionalOffer = (
   );
   const role = positionIntent.tacticalPositionWarning
     ? ('development_player' as const)
-    : (effectiveClub.squadPlayerIds?.length ?? 0) < 11
+    : projectedHierarchy.preferredXI.length !== 11
       ? getExpectedSquadRole(career, club)
       : getContextualSquadRole(
           projectedStanding,
@@ -442,40 +548,26 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
               2
           );
         }, 0);
-      const ai =
-        evaluateClubInterest(career, a.club).score +
-        Math.max(0, overall(career) - a.club.reputation) * 0.35;
-      const bi =
-        evaluateClubInterest(career, b.club).score +
-        Math.max(0, overall(career) - b.club.reputation) * 0.35;
+      const sportingValue = (offer: ProfessionalOffer) =>
+        (projectDestination(career, offer.club).strength ?? getBootstrapClubStrength(offer.club)) +
+        (offer.projectedStanding === 'starting_xi'
+          ? 8
+          : offer.projectedStanding === 'bench'
+            ? 0
+            : -12) +
+        Math.min(8, Math.max(-8, evaluateClubInterest(career, offer.club).score - 45)) * 0.2;
+      const ai = sportingValue(a),
+        bi = sportingValue(b);
       return preferenceScore(b) - preferenceScore(a) || bi - ai || a.id.localeCompare(b.id);
     });
-  const playerOverall = overall(career);
-  const bands = [
-    (gap: number) => gap <= -8,
-    (gap: number) => gap > -8 && gap <= 3,
-    (gap: number) => gap > 3 && gap <= 12,
-    (gap: number) => gap > 12,
-  ];
-  const selected: ProfessionalOffer[] = [];
-  for (const band of bands) {
-    const offer = candidates.find(
-      (item) => !selected.includes(item) && band(item.club.reputation - playerOverall),
-    );
-    if (offer) selected.push(offer);
-  }
-  for (const offer of candidates) {
-    if (selected.length >= (career.player.age >= 33 ? 3 : 4)) break;
-    if (!selected.includes(offer)) selected.push(offer);
-  }
-  return selected;
+  return candidates.slice(0, career.player.age >= 35 ? 5 : 8);
 };
 
 export const generateSummerWindowOffers = (career: CareerState): ProfessionalOffer[] => {
   const external = generateProfessionalOffers(career).filter(
     (o) => o.club.id !== career.currentClub.id,
   );
-  if (!career.currentProfessionalClub || !career.currentContract) return external.slice(0, 4);
+  if (!career.currentProfessionalClub || !career.currentContract) return external;
   const appearances = currentSeasonAppearances(career);
   const minutes = appearances.reduce((sum, item) => sum + item.minutes, 0);
   const contractExpires = career.currentContract.endDate <= `${career.currentSeason + 1}-06-30`;
@@ -484,7 +576,7 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
     overall(career) < getCareerClubStrength(career, career.currentProfessionalClub) - 8
   ) {
     if (external.length || career.currentContract.endDate > `${career.currentSeason + 1}-06-30`)
-      return external.slice(0, 4);
+      return external;
     return createSafetyNetOffers(career);
   }
   const role = getExpectedSquadRole(career, career.currentProfessionalClub);
@@ -527,7 +619,7 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
     risk: 'Pozycję w składzie nadal trzeba potwierdzać formą.',
     competitionAssessment: 'Znana konkurencja w obecnym zespole',
   };
-  return [renewal, ...external].slice(0, 4);
+  return [renewal, ...external].slice(0, 8);
 };
 
 const createSafetyNetOffers = (career: CareerState): ProfessionalOffer[] => {

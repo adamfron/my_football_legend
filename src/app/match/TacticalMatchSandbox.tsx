@@ -2746,6 +2746,13 @@ export const RunningLab = ({
           )}
         </div>
         <aside className="decision-board">
+          {opportunity && !replaying && (
+            <TacticalExplanation
+              key={opportunity.signature}
+              state={state}
+              actorId={opportunity.actorId}
+            />
+          )}
           <MatchCentre
             state={state}
             session={session}
@@ -3206,3 +3213,4 @@ export const RunningLab = ({
     </main>
   );
 };
+import { TacticalExplanation } from './TacticalExplanation';

@@ -1,5 +1,25 @@
 # Roadmap
 
+Aktualny etap: **PR168 — Coaches, Tactical Intelligence, Transfers & Career UX**.
+[Raport i dowody](PR168_COACHES_TACTICAL_INTELLIGENCE_CAREER_IMPROVEMENTS.md):
+wspólny dobór składu i ofert, briefing, rozdzielenie oceny decyzji od wyniku,
+ciągłość wypchniętej piłki, wieloletnie style i spójny interfejs kariery.
+Końcowy `npm run verify`: **PASS — 1742 testów, lint, TypeScript i build**.
+
+Kolejność pozostaje:
+
+- **PR169 — Career Stories, News & Season Narratives**. Dodać bogatsze wpisy meczów
+  na osi sezonu: pierwszy skład, wejście, niewykorzystana ławka, minuty wejścia/zejścia,
+  rzeczywiste ID zastępowanego i zastępującego. Powód zmiany pokazywać wyłącznie
+  z jawnego kanonicznego eventu (taktyka, kondycja, uraz, decyzja trenera, dyscyplina).
+  Zachować dostępne struktury zmian/provenance; nie wnioskować powodów z minuty lub
+  statystyk i nie dublować dużych historii. Rozwinąć narracyjne informacje zwrotne trenera.
+- **PR170 — Match Atmosphere & Stylized Visual Polish**. Atmosfera i nowe zasoby wizualne.
+
+Dokładniejsza kalibracja prognoz, dobór formacji pod konkretnego rywala, trwałe
+przekazywanie krycia i archiwum pełnych replay wymagają odrębnych pomiarów.
+Poniższe sekcje zachowano jako historię planu.
+
 Aktualny etap: **PR167 — NPC Development, Footballer Diversity & Flexible Career Matches**.
 [Raport PR167](PR167_NPC_DEVELOPMENT_FOOTBALLER_DIVERSITY.md) opisuje istniejące i
 nowe reguły rozwoju, style NPC, rzeczywiste składy, wybór przed meczem i walidowaną
