@@ -2,6 +2,29 @@ import type { CareerState } from '../types/domain';
 import { getExpectedSquadRole, getPlayerClubLevelDelta } from './clubStrength';
 import { evaluateExpectedMonthlySalary } from './playerEconomy';
 import { RandomGenerator } from './random/RandomGenerator';
+import type { HistoryFact } from '../types/domain';
+
+const recordContractDecision = (career: CareerState, type: string): CareerState => {
+  const id = `contract_decision:${type}:${career.currentClub.id}:${career.currentSeason}`;
+  if (career.historyFacts.some((f) => f.id === id)) return career;
+  const fact: HistoryFact = {
+    id,
+    factType: type,
+    season: career.currentSeason,
+    date: career.currentDate ?? `${career.currentSeason}-07-01`,
+    actors: [career.player.id],
+    targets: [],
+    clubs: [career.currentClub.id],
+    competitions: [],
+    data: { clubName: career.currentClub.name, contract: career.currentContract },
+    causes: [],
+    tags: ['contract'],
+    visibility: 'partial',
+    narrativeImportance: 65,
+    emotionalTone: type === 'contract_negotiation_rejected' ? 'negative' : 'positive',
+  };
+  return { ...career, historyFacts: [...career.historyFacts, fact] };
+};
 
 export const requestContractRenegotiation = (career: CareerState): CareerState => {
   const renewalOffer = career.professionalOffers?.find((offer) => offer.offerType === 'renewal');
@@ -27,7 +50,10 @@ export const requestContractRenegotiation = (career: CareerState): CareerState =
     RandomGenerator.fromSeed(`${career.seed}:renegotiation:${career.currentSeason}`).int(-18, 18);
   const result = score >= 60 ? 'accepted' : score >= 43 ? 'conditional' : 'rejected';
   if (result === 'rejected')
-    return { ...career, renegotiation: { season: career.currentSeason, result } };
+    return recordContractDecision(
+      { ...career, renegotiation: { season: career.currentSeason, result } },
+      'contract_negotiation_rejected',
+    );
   const salary = Math.max(
     contract.monthlySalary,
     evaluateExpectedMonthlySalary({
@@ -50,13 +76,16 @@ export const requestContractRenegotiation = (career: CareerState): CareerState =
 export const acceptRenegotiatedContract = (career: CareerState): CareerState => {
   const proposal = career.renegotiation?.proposedContract;
   return proposal
-    ? {
-        ...career,
-        currentContract: proposal,
-        currentSportingStatus: career.currentProfessionalClub
-          ? getExpectedSquadRole(career, career.currentProfessionalClub)
-          : career.currentSportingStatus,
-        renegotiation: { ...career.renegotiation!, proposedContract: undefined },
-      }
+    ? recordContractDecision(
+        {
+          ...career,
+          currentContract: proposal,
+          currentSportingStatus: career.currentProfessionalClub
+            ? getExpectedSquadRole(career, career.currentProfessionalClub)
+            : career.currentSportingStatus,
+          renegotiation: { ...career.renegotiation!, proposedContract: undefined },
+        },
+        'contract_renegotiated',
+      )
     : career;
 };

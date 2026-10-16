@@ -1,3 +1,4 @@
+import { recordSeasonAchievements } from './narrative/careerEvidence';
 import type {
   CareerState,
   Club,
@@ -5,12 +6,7 @@ import type {
   ProfessionalClub,
   ProfessionalOffer,
 } from '../types/domain';
-import {
-  clampProfessionalLeagueTier,
-  createLeagueSeason,
-  getProfessionalCompetitionName,
-  VISTULA_NOVA_ID,
-} from './leagueSeason';
+import { clampProfessionalLeagueTier, createLeagueSeason, VISTULA_NOVA_ID } from './leagueSeason';
 import { deriveCareerClubMatchRatings, getExpectedSquadRole } from './clubStrength';
 import { RandomGenerator } from './random/RandomGenerator';
 import type { PlayerAttributes, SquadRole, CareerStage } from '../types/domain';
@@ -270,32 +266,36 @@ const applyAnnualAging = (career: CareerState, date: string): CareerState => {
   };
 };
 
-export const retireCareer = (career: CareerState, reason = 'decyzja zawodnika'): CareerState => ({
-  ...career,
-  careerStatus: 'retired',
-  retirementDate: career.currentDate ?? `${career.currentSeason + 1}-06-30`,
-  retirementAge: career.player.age,
-  retirementReason: reason,
-  careerPhase: 'offseason',
-  professionalOffers: undefined,
-  activeMatch: undefined,
-  decisionPoint: undefined,
-  historyFacts: career.historyFacts.some((f) => f.factType === 'retired')
-    ? career.historyFacts
-    : [
-        ...career.historyFacts,
-        milestone(
-          career,
-          'retired',
-          career.currentDate ?? `${career.currentSeason + 1}-06-30`,
-          career.currentClub.id,
-          { age: career.player.age, reason },
-        ),
-      ],
-});
+export const retireCareer = (career: CareerState, reason = 'decyzja zawodnika'): CareerState => {
+  career = recordSeasonAchievements(career);
+  return {
+    ...career,
+    careerStatus: 'retired',
+    retirementDate: career.currentDate ?? `${career.currentSeason + 1}-06-30`,
+    retirementAge: career.player.age,
+    retirementReason: reason,
+    careerPhase: 'offseason',
+    professionalOffers: undefined,
+    activeMatch: undefined,
+    decisionPoint: undefined,
+    historyFacts: career.historyFacts.some((f) => f.factType === 'retired')
+      ? career.historyFacts
+      : [
+          ...career.historyFacts,
+          milestone(
+            career,
+            'retired',
+            career.currentDate ?? `${career.currentSeason + 1}-06-30`,
+            career.currentClub.id,
+            { age: career.player.age, reason },
+          ),
+        ],
+  };
+};
 
 /** Canonical boundary: transfers never age the player; this operation always does. */
 export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
+  career = recordSeasonAchievements(career);
   if ((career.careerStatus ?? 'active') === 'retired' || career.player.age >= 40)
     return retireCareer(career, 'limit wieku');
   const nextDate = `${career.currentSeason + 1}-07-01`;
@@ -312,38 +312,7 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
   const nextTier = clampProfessionalLeagueTier(
     movement?.nextLeagueTier ?? career.currentProfessionalClub?.leagueTier ?? 3,
   );
-  const movementFactType =
-    movement?.leagueOutcome === 'promoted'
-      ? 'club_promoted'
-      : movement?.leagueOutcome === 'relegated'
-        ? 'club_relegated'
-        : movement?.leagueOutcome === 'champion'
-          ? 'top_tier_champion'
-          : undefined;
-  const withMovement =
-    movementFactType &&
-    !career.historyFacts.some(
-      (fact) => fact.factType === movementFactType && fact.season === career.currentSeason,
-    )
-      ? {
-          ...career,
-          historyFacts: [
-            ...career.historyFacts,
-            milestone(
-              career,
-              movementFactType,
-              `${career.currentSeason + 1}-06-30`,
-              career.currentClub.id,
-              {
-                fromTier: movement?.previousLeagueTier,
-                toTier: nextTier,
-                competition: getProfessionalCompetitionName(nextTier),
-              },
-            ),
-          ],
-        }
-      : career;
-  let aged = applyAnnualAging(withMovement, nextDate);
+  let aged = applyAnnualAging(career, nextDate);
   const clubSeasonProjections = aged.clubWorld
     ? projectClubSeason(aged.clubWorld, `${aged.seed}:pyramid:${aged.currentSeason}`)
     : [];
@@ -396,27 +365,6 @@ export const advanceToNextCareerSeason = (career: CareerState): CareerState => {
     aged = {
       ...aged,
       currentProfessionalClub: { ...aged.currentProfessionalClub, leagueTier: nextTier },
-    };
-  if (
-    !aged.historyFacts.some(
-      (f) => f.factType === 'season_completed' && f.season === career.currentSeason,
-    )
-  )
-    aged = {
-      ...aged,
-      historyFacts: [
-        ...aged.historyFacts,
-        milestone(
-          aged,
-          'season_completed',
-          `${career.currentSeason + 1}-06-30`,
-          career.currentClub.id,
-          {
-            competition: career.leagueSeason?.competition.name,
-            finalPosition: career.seasonOutcome?.finalPosition,
-          },
-        ),
-      ],
     };
   aged = {
     ...aged,
@@ -472,10 +420,9 @@ export const validateProfessionalOfferAcceptance = (
   career: CareerState,
   offerOrId: ProfessionalOffer | string,
 ): ProfessionalOfferAcceptanceValidation => {
-  const offer =
-    typeof offerOrId === 'string'
-      ? career.professionalOffers?.find((item) => item.id === offerOrId)
-      : offerOrId;
+  const offer = career.professionalOffers?.find(
+    (item) => item.id === (typeof offerOrId === 'string' ? offerOrId : offerOrId.id),
+  );
   if (!offer || !career.professionalOffers?.some((item) => item.id === offer.id))
     return { valid: false, reason: 'Ta oferta nie jest już dostępna.' };
   const expectedStartDate = `${career.currentSeason + 1}-07-01`;
@@ -483,7 +430,11 @@ export const validateProfessionalOfferAcceptance = (
     return { valid: false, reason: 'Oferta zawiera niespójne dane klubu i kontraktu.' };
   if (offer.contract.startDate !== expectedStartDate)
     return { valid: false, reason: 'Oferta dotyczy innego okna kontraktowego.' };
-  if (offer.contract.endDate < offer.contract.startDate)
+  if (
+    !/^\d{4}-\d{2}-\d{2}$/.test(offer.contract.endDate) ||
+    !Number.isFinite(Date.parse(offer.contract.endDate)) ||
+    offer.contract.endDate < offer.contract.startDate
+  )
     return { valid: false, reason: 'Oferta ma nieprawidłowy okres obowiązywania.' };
   if (offer.offerType === 'renewal' && offer.club.id !== career.currentClub.id)
     return { valid: false, reason: 'Przedłużenie może zaoferować tylko obecny klub.' };
@@ -510,6 +461,7 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
   const validation = validateProfessionalOfferAcceptance(career, offerId);
   if (!validation.valid) return career;
   const { offer } = validation;
+  career = recordSeasonAchievements(career);
   // An offer is the club's complete decision. Acceptance only validates that the displayed offer
   // still belongs to this boundary; it never re-runs a hidden willingness check.
   if (
@@ -550,6 +502,10 @@ export const acceptProfessionalOffer = (career: CareerState, offerId: string): C
     )
     .map((type) =>
       milestone(career, type, date, club.id, {
+        fromClubName: career.currentClub.name,
+        toClubName: club.name,
+        fromTier: career.currentProfessionalClub?.leagueTier,
+        toTier: offer.club.leagueTier,
         fromClubId: career.currentClub.id,
         toClubId: club.id,
         contract: offer.contract,
@@ -605,10 +561,9 @@ export const acceptSeasonEndRenegotiatedContract = (career: CareerState): Career
     id: `${renewal.id}_negotiated`,
     contract: proposedContract,
   };
-  return acceptProfessionalOffer(
-    { ...career, professionalOffers: [negotiatedOffer] },
-    negotiatedOffer.id,
-  );
+  const candidate = { ...career, professionalOffers: [negotiatedOffer] };
+  if (!validateProfessionalOfferAcceptance(candidate, negotiatedOffer.id).valid) return career;
+  return acceptProfessionalOffer(candidate, negotiatedOffer.id);
 };
 export const continueWithProfessionalTrial = (career: CareerState): CareerState => {
   if (career.careerSeasonNumber !== 1) return career;

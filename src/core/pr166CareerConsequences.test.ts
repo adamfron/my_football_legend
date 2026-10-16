@@ -120,6 +120,9 @@ describe('PR166 career consequences', () => {
     const committed = applyCareerMatchResult(source, world, input, result);
     const row = committed.seasonParticipation!.find((p) => p.fixtureId === input.fixture.id)!;
     expect(row.status).toBe('substitute');
+    expect(row.participationEvidence?.substitutions[0]?.incomingId).toBe(source.player.id);
+    expect(row.participationEvidence?.substitutions[0]?.reason).toBe('tactical');
+    expect(row.participationEvidence?.substitutions[0]?.outgoingName).toBeTruthy();
     expect(row.started).toBe(false);
     expect(row.canonicalStats!.minutesPlayed).toBeGreaterThan(0);
     expect(row.canonicalStats!.minutesPlayed).toBeLessThan(1);

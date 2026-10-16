@@ -45,6 +45,39 @@ export const recordCanonicalCareerMilestones = (
       level === 'senior' ? 88 : 65,
     ],
   ];
+  const injury = participant.injury;
+  if (
+    injury &&
+    injury.recoveryDays >= 14 &&
+    !next.historyFacts.some((f) => f.id === `fact_${injury.id}`)
+  ) {
+    next = {
+      ...next,
+      historyFacts: [
+        ...next.historyFacts,
+        {
+          id: `fact_${injury.id}`,
+          factType: 'player_injured',
+          season: prior.currentSeason,
+          date: result.fixture.date,
+          actors: [prior.player.id],
+          targets: [],
+          clubs: [prior.currentClub.id],
+          competitions: [result.fixture.competitionId],
+          data: {
+            recoveryDays: injury.recoveryDays,
+            severity: injury.recoveryDays >= 28 ? 'major' : 'moderate',
+            clubName: prior.currentClub.name,
+          },
+          causes: [`canonical_match:${result.fixture.id}`],
+          tags: ['injury', 'availability'],
+          visibility: 'partial',
+          narrativeImportance: 75,
+          emotionalTone: 'negative',
+        },
+      ],
+    };
+  }
   const facts: HistoryFact[] = conditions
     .filter(([type, eligible]) => eligible && !prior.historyFacts.some((f) => f.factType === type))
     .map(([factType, , narrativeImportance]) => ({

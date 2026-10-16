@@ -1,3 +1,4 @@
+import type { ParticipationEvidence, RatingProvenance } from '../core/careerMatchPresentation';
 export type Id = string;
 export type PersistenceLevel = 'ephemeral' | 'local' | 'career';
 export type Visibility = 'hidden' | 'partial' | 'public';
@@ -543,6 +544,8 @@ export type TrainingPlan =
   | 'sweeper_keeper'
   | 'weak_foot';
 export interface SeasonParticipationRecord {
+  participationEvidence?: ParticipationEvidence | undefined;
+  ratingProvenance?: RatingProvenance | undefined;
   canonicalStats?: CanonicalAppearanceStats | undefined;
   metricsSource?: 'canonical' | 'canonical_plus_summary' | undefined;
   fixtureId: string;
@@ -655,6 +658,8 @@ export interface CompletedSeasonSnapshot {
 }
 
 export interface HistoricalPlayerMatch {
+  participationEvidence?: ParticipationEvidence | undefined;
+  ratingProvenance?: RatingProvenance | undefined;
   matchId: Id;
   date: string;
   opponentId: Id;
@@ -662,6 +667,8 @@ export interface HistoricalPlayerMatch {
   score?: { home: number; away: number } | undefined;
   started: boolean;
   substitute: boolean;
+  status?: ParticipationStatus | undefined;
+  metricsSource?: 'canonical' | 'canonical_plus_summary' | undefined;
   assignedPosition?: PlayerPosition | undefined;
   minutes: number;
   goals: number;

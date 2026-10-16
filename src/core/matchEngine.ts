@@ -1,3 +1,4 @@
+import { hasLevelMilestone } from './narrative/careerEvidence';
 /**
  * Legacy career-match placeholder used only by MatchGame.
  * Do not add football mechanics here: current Single Match work belongs exclusively in
@@ -1025,7 +1026,7 @@ export const finishMatch = (career: CareerState): CareerState => {
   if (
     m.teamLevel === 'senior' &&
     m.plannedMinutes > 0 &&
-    !(career.matchHistory ?? []).some((a) => a.teamLevel === 'senior' && a.minutes > 0)
+    !hasLevelMilestone(career, 'senior', 'appearances')
   )
     facts.push(
       makeFact(
@@ -1045,7 +1046,7 @@ export const finishMatch = (career: CareerState): CareerState => {
   if (
     m.teamLevel === 'senior' &&
     appearance.started &&
-    !(career.matchHistory ?? []).some((a) => a.teamLevel === 'senior' && a.started)
+    !hasLevelMilestone(career, 'senior', 'starts')
   )
     facts.push(
       makeFact(
@@ -1059,9 +1060,8 @@ export const finishMatch = (career: CareerState): CareerState => {
   facts.push(
     makeFact(career, 'interactive_match', m.date, { matchId: m.id, teamLevel: m.teamLevel }, 20),
   );
-  const priorLevel = (career.matchHistory ?? []).filter((a) => a.teamLevel === m.teamLevel);
   const levelName = m.teamLevel === 'senior' ? 'senior' : 'academy';
-  if (appearance.goals > 0 && !priorLevel.some((a) => a.goals > 0))
+  if (appearance.goals > 0 && !hasLevelMilestone(career, m.teamLevel, 'goals'))
     facts.push(
       makeFact(
         career,
@@ -1071,7 +1071,7 @@ export const finishMatch = (career: CareerState): CareerState => {
         m.teamLevel === 'senior' ? 92 : 68,
       ),
     );
-  if (appearance.assists > 0 && !priorLevel.some((a) => a.assists > 0))
+  if (appearance.assists > 0 && !hasLevelMilestone(career, m.teamLevel, 'assists'))
     facts.push(
       makeFact(
         career,

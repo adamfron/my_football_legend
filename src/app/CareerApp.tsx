@@ -1,3 +1,4 @@
+import { buildSeasonNarrative, buildRetirementNarrative } from '../core/narrative/careerStories';
 import {
   Component,
   lazy,
@@ -421,6 +422,34 @@ export const SeasonEndSummary = ({
   onCareer: CareerCommit;
   persistencePending?: boolean;
 }) => {
+  const [decisionError, setDecisionError] = useState<string>();
+  const decisionBusy = useRef(false);
+  const commitDecision = async (action: () => CareerState, invalidReason?: string) => {
+    if (persistencePending || decisionBusy.current) return;
+    decisionBusy.current = true;
+    setDecisionError(undefined);
+    try {
+      if (invalidReason) {
+        setDecisionError(invalidReason);
+        return;
+      }
+      const next = action();
+      if (next === career) {
+        setDecisionError(
+          'Ta propozycja nie jest już aktualna. Wybierz dostępną ofertę lub ponów negocjacje.',
+        );
+        return;
+      }
+      if (!(await onCareer(next)))
+        setDecisionError(
+          'Nie udało się zapisać decyzji. Spróbuj ponownie; umowa nie została rozliczona.',
+        );
+    } catch (e) {
+      setDecisionError(e instanceof Error ? e.message : 'Nie udało się przyjąć oferty.');
+    } finally {
+      decisionBusy.current = false;
+    }
+  };
   const table = getLeagueTable(career);
   const club = table.find((row) => row.clubId === career.leagueSeason?.controlledClubId);
   const summary = buildSeasonSummary(career, career.currentSeason);
@@ -481,6 +510,16 @@ export const SeasonEndSummary = ({
                 : `Utrzymanie: ${career.leagueSeason?.competition.name}`}
         </strong>
       </p>
+      <div className="season-narrative">
+        {buildSeasonNarrative(career, archived).map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+      </div>
+      {decisionError && (
+        <p role="alert" className="error-message">
+          {decisionError}
+        </p>
+      )}
       <h3>Zawodnik</h3>
       <p>
         Występy: {summary.statistics.appearances} · starty: {summary.statistics.starts} ·{' '}
@@ -587,7 +626,7 @@ export const SeasonEndSummary = ({
           {contractCoversNextSeason(career) && !hasContractProposal && !reachedRetirementAge && (
             <button
               disabled={persistencePending}
-              onClick={() => void onCareer(continueOnExistingContract(career))}
+              onClick={() => void commitDecision(() => continueOnExistingContract(career))}
             >
               Kontynuuj na obecnej umowie
             </button>
@@ -611,11 +650,21 @@ export const SeasonEndSummary = ({
               </p>
               <button
                 disabled={persistencePending}
-                onClick={() => void onCareer(acceptSeasonEndRenegotiatedContract(career))}
+                onClick={() =>
+                  void commitDecision(() => acceptSeasonEndRenegotiatedContract(career))
+                }
               >
                 Przyjmij
               </button>
             </>
+          )}
+          {renewalOffer && !validateProfessionalOfferAcceptance(career, renewalOffer.id).valid && (
+            <p role="alert" className="error-message">
+              {(() => {
+                const v = validateProfessionalOfferAcceptance(career, renewalOffer.id);
+                return v.valid ? '' : v.reason;
+              })()}
+            </p>
           )}
           {renewalOffer && !renegotiationProposal && (
             <div className="contract-proposal">
@@ -628,7 +677,13 @@ export const SeasonEndSummary = ({
               </p>
               <button
                 disabled={persistencePending || reachedRetirementAge}
-                onClick={() => void onCareer(acceptProfessionalOffer(career, renewalOffer.id))}
+                onClick={() => {
+                  const validation = validateProfessionalOfferAcceptance(career, renewalOffer.id);
+                  void commitDecision(
+                    () => acceptProfessionalOffer(career, renewalOffer.id),
+                    validation.valid ? undefined : validation.reason,
+                  );
+                }}
               >
                 Przyjmij
               </button>
@@ -752,7 +807,12 @@ export const SeasonEndSummary = ({
                   <button
                     disabled={persistencePending || reachedRetirementAge || !acceptance.valid}
                     title={acceptance.valid ? undefined : acceptance.reason}
-                    onClick={() => void onCareer(acceptProfessionalOffer(career, offer.id))}
+                    onClick={() =>
+                      void commitDecision(
+                        () => acceptProfessionalOffer(career, offer.id),
+                        acceptance.valid ? undefined : acceptance.reason,
+                      )
+                    }
                   >
                     Przyjmij
                   </button>
@@ -784,7 +844,7 @@ export const SeasonEndSummary = ({
         !reachedRetirementAge && (
           <button
             disabled={persistencePending}
-            onClick={() => void onCareer(continueOnExistingContract(career))}
+            onClick={() => void commitDecision(() => continueOnExistingContract(career))}
           >
             Kontynuuj na obecnej umowie
           </button>
@@ -838,9 +898,9 @@ const RetiredCareerSummary = ({
     .find((fact) => fact.factType === 'career_started');
   const firstClubId = startFact?.clubs[0];
   const firstClub =
-    orderedSeasons[0]?.clubName ??
-    career.clubWorld?.find((club) => club.id === firstClubId)?.name ??
     (typeof startFact?.data.club === 'string' ? startFact.data.club : undefined) ??
+    career.clubWorld?.find((club) => club.id === firstClubId)?.name ??
+    orderedSeasons[0]?.clubName ??
     (firstClubId === career.currentClub.id ? career.currentClub.name : 'Brak danych');
   const firstDate = [...career.historyFacts].sort((a, b) => a.date.localeCompare(b.date))[0]?.date;
   return (
@@ -871,6 +931,7 @@ const RetiredCareerSummary = ({
           </p>
         </div>
       </header>
+      <p className="retirement-story">{buildRetirementNarrative(career)}</p>
       <h3>Bilans kariery</h3>
       <p>
         Występy: {formatCareerInteger(totals.appearances)} · starty:{' '}

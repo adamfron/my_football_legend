@@ -1,3 +1,4 @@
+import { evaluateCanonicalRating, type ParticipationEvidence } from './careerMatchPresentation';
 import { z } from 'zod';
 import { getCareerNpcPlayStyles } from './npcCareerIdentity';
 import {
@@ -776,6 +777,49 @@ export const applyCareerMatchResult = (
       };
   const controlled = result.participants.find((p) => p.id === career.player.id);
   const stats = controlled?.stats;
+  const evaluation = evaluateCanonicalRating({
+    position: controlled?.position ?? '',
+    stats,
+    source: result.continuation ? 'canonical_plus_summary' : 'canonical',
+    abandoned: result.status === 'abandoned',
+  });
+  const roster = [
+    ...input.session.home.players,
+    ...input.session.away.players,
+    ...input.session.home.bench,
+    ...input.session.away.bench,
+  ];
+  const name = (id: string) => {
+    const p = roster.find((p) => p.footballerId === id);
+    return p ? p.profile.firstName + ' ' + p.profile.lastName : undefined;
+  };
+  const participationEvidence: ParticipationEvidence = {
+    decisions: {
+      resolved: result.controlledEvidence.resolved,
+      retained: result.controlledEvidence.byIntent.reduce((n, g) => n + g.retained, 0),
+      turnovers: result.controlledEvidence.byIntent.reduce((n, g) => n + g.turnovers, 0),
+    },
+    substitutions: result.substitutions
+      .filter((s) => s.outgoingId === career.player.id || s.incomingId === career.player.id)
+      .map((s) => ({
+        outgoingId: s.outgoingId,
+        incomingId: s.incomingId,
+        outgoingName: name(s.outgoingId),
+        incomingName: name(s.incomingId),
+        requestedAt: s.requestedAt,
+        leftAt: s.leftAt,
+        enteredAt: s.enteredAt,
+        reason: s.reason,
+      })),
+    ...(controlled?.injury
+      ? {
+          injury: {
+            recoveryDays: controlled.injury.recoveryDays,
+            status: controlled.injury.status,
+          },
+        }
+      : {}),
+  };
   const availability = availabilityState(career);
   const yellows = stats?.yellowCards ?? 0;
   const red = result.cards.find((c) => c.actorId === career.player.id && c.kind !== 'yellow');
@@ -850,6 +894,7 @@ export const applyCareerMatchResult = (
               defensiveActions: stats.tacklesWon + stats.interceptions,
               saves: stats.saves,
               personalImpact: 0,
+              ...(evaluation.value === undefined ? {} : { rating: evaluation.value }),
               yellowCards: yellows,
               ...(controlled?.injury ? { injuryId: controlled.injury.id } : {}),
               ...(red
@@ -875,6 +920,10 @@ export const applyCareerMatchResult = (
           result,
           summary: {
             retentionVersion: 1,
+            participationEvidence,
+            rating: evaluation.value,
+            ratingProvenance: evaluation.provenance,
+            substitutions: result.substitutions,
             ...(result.continuation
               ? {
                   provenance: {
@@ -937,7 +986,10 @@ export const applyCareerMatchResult = (
           ? 'unused_bench'
           : 'not_selected',
     plannedMinutes: controlled?.started ? 90 : 0,
-    minutes: Math.round(stats?.minutesPlayed ?? 0),
+    minutes: stats?.minutesPlayed ?? 0,
+    participationEvidence,
+    rating: evaluation.value,
+    ratingProvenance: evaluation.provenance,
     started: controlled?.started ?? false,
     assignedPosition: controlled?.position,
     appearanceMatchId: result.completedMatchId,

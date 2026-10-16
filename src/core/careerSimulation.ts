@@ -1,3 +1,4 @@
+import { hasLevelMilestone } from './narrative/careerEvidence';
 import type {
   CareerState,
   FastForwardEntry,
@@ -235,9 +236,6 @@ export const simulateRoutinePlayerMatch = (
   };
   const effects = applyMatchAvailabilityEffects(career, rawAppearance, fixture.date);
   const appearance = effects.appearance;
-  const priorSenior = (career.matchHistory ?? []).filter(
-    (item) => item.teamLevel === 'senior' && item.minutes > 0,
-  );
   const facts = [
     fact(
       career,
@@ -247,23 +245,17 @@ export const simulateRoutinePlayerMatch = (
       18,
     ),
   ];
-  if (teamLevel === 'senior' && minutes && !priorSenior.length)
+  if (teamLevel === 'senior' && minutes && !hasLevelMilestone(career, 'senior', 'appearances'))
     facts.push(
       fact(career, 'senior_debut', fixture.date, { matchId: fixture.id, started, minutes }, 90),
     );
-  if (teamLevel === 'senior' && started && !priorSenior.some((item) => item.started))
+  if (teamLevel === 'senior' && started && !hasLevelMilestone(career, 'senior', 'starts'))
     facts.push(
       fact(career, 'first_senior_start', fixture.date, { matchId: fixture.id, minutes }, 92),
     );
-  if (
-    goals &&
-    !(career.matchHistory ?? []).some((item) => item.teamLevel === teamLevel && item.goals)
-  )
+  if (goals && !hasLevelMilestone(career, teamLevel, 'goals'))
     facts.push(fact(career, `first_${teamLevel}_goal`, fixture.date, { matchId: fixture.id }, 88));
-  if (
-    assists &&
-    !(career.matchHistory ?? []).some((item) => item.teamLevel === teamLevel && item.assists)
-  )
+  if (assists && !hasLevelMilestone(career, teamLevel, 'assists'))
     facts.push(
       fact(career, `first_${teamLevel}_assist`, fixture.date, { matchId: fixture.id }, 84),
     );

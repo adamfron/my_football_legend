@@ -1,3 +1,7 @@
+import { NewsView } from './NewsView';
+import { getCareerStatistics } from '../../core/narrative/careerStories';
+import { presentSubstitutions } from '../../core/matchParticipationPresentation';
+import { CareerMatchDetails } from '../../components/CareerMatchDetails';
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { ClubStrengthTooltip } from '../../components/ClubStrengthTooltip';
 import { getCareerClubStrength, getClubStrengthPresentation } from '../../core/clubStrength';
@@ -35,7 +39,7 @@ import { ProfileAppearanceEditor } from '../appearance/ProfileAppearanceEditor';
 import { formatCareerInteger } from '../../core/numberPresentation';
 
 export const PLAYBACK_INTERVAL_MS = 1000;
-type Detail = 'player' | 'club' | 'contract' | 'career' | 'world';
+type Detail = 'player' | 'club' | 'contract' | 'career' | 'world' | 'news';
 
 const money = (value: number) => `${value.toLocaleString('pl-PL')} PLN`;
 const effortLabel = (value: number) =>
@@ -73,7 +77,8 @@ export const CareerView = ({
   const timelineRef = useRef<HTMLOListElement>(null);
   const transitionPending = useRef(false);
   const table = getLeagueTable(career);
-  const timeline = buildSeasonTimeline(career);
+  const timeline = useMemo(() => buildSeasonTimeline(career), [career]);
+  const statistics = useMemo(() => getCareerStatistics(career), [career]);
   const controlledClubId = career.leagueSeason?.controlledClubId ?? career.currentClub.id;
   const own = table.find((row) => row.clubId === controlledClubId);
   const completedCount = timeline.filter((entry) => entry.status === 'completed').length;
@@ -155,19 +160,24 @@ export const CareerView = ({
       <header className="career-header">
         <strong>MY FOOTBALL LEGEND</strong>
         <span>Sezon {seasonName}</span>
-        <button
-          aria-pressed={playing}
-          disabled={persistencePending || (!playing && Boolean(progressBlocker))}
-          title={!playing && progressBlocker ? 'Najpierw rozstrzygnij bieżącą decyzję.' : undefined}
-          onClick={() => {
-            if (!playing && getCareerProgressBlocker(career)) return;
-            setError(undefined);
-            setDetail(undefined);
-            setPlaying((value) => !value);
-          }}
-        >
-          {playing ? '❚❚ Pauza' : '▶ Graj'}
-        </button>
+        <div className="career-header-actions">
+          <button onClick={() => toggle('news')}>Wiadomości</button>
+          <button
+            aria-pressed={playing}
+            disabled={persistencePending || (!playing && Boolean(progressBlocker))}
+            title={
+              !playing && progressBlocker ? 'Najpierw rozstrzygnij bieżącą decyzję.' : undefined
+            }
+            onClick={() => {
+              if (!playing && getCareerProgressBlocker(career)) return;
+              setError(undefined);
+              setDetail(undefined);
+              setPlaying((value) => !value);
+            }}
+          >
+            {playing ? '❚❚ Pauza' : '▶ Graj'}
+          </button>
+        </div>
       </header>
 
       {career.historyFacts
@@ -215,6 +225,11 @@ export const CareerView = ({
             <small>KLUB</small>
             <strong>{career.currentClub.name}</strong>
             <b>{own?.position ?? '—'}. miejsce</b>
+            {coachChange && (
+              <span className="club-coach-badge">
+                Zmiana trenera · {coachChange.date.split('-').reverse().join('.')}
+              </span>
+            )}
             <span>
               {career.leagueSeason?.competition.name ?? 'Rozgrywki klubowe'} · siła{' '}
               {career.currentProfessionalClub
@@ -252,7 +267,19 @@ export const CareerView = ({
             Najwyższy OVR{' '}
             {career.highestOVR ?? getPlayerOverall(career.player, career.player.primaryPosition)}
           </b>
-          <span>{career.completedSeasons?.length ?? 0} zakończonych sezonów</span>
+          <span>
+            Sezon: {statistics.current.appearances} M ·{' '}
+            {career.player.primaryPosition === 'goalkeeper'
+              ? statistics.current.cleanSheets + ' CS'
+              : statistics.current.goals + ' G · ' + statistics.current.assists + ' A'}
+          </span>
+          <span>
+            Kluby (z akademią): {statistics.totals.appearances} M ·{' '}
+            {career.player.primaryPosition === 'goalkeeper'
+              ? statistics.totals.cleanSheets + ' CS'
+              : statistics.totals.goals + ' G · ' + statistics.totals.assists + ' A'}
+            {statistics.partialActions ? ' *' : ''}
+          </span>
         </button>
       </div>
 
@@ -266,7 +293,9 @@ export const CareerView = ({
                   ? 'KLUB'
                   : detail === 'contract'
                     ? 'KONTRAKT / FINANSE'
-                    : 'KARIERA'}
+                    : detail === 'news'
+                      ? 'WIADOMOŚCI'
+                      : 'KARIERA'}
             </strong>
             <button
               className="detail-close"
@@ -418,8 +447,42 @@ export const CareerView = ({
             </button>
           )}
           {detail === 'world' && <WorldBrowser career={career} />}
-          {detail === 'club' && <ClubView career={career} />}
-          {detail === 'career' && <HistoryView career={career} />}
+          {detail === 'news' && <NewsView career={career} />}
+          {detail === 'club' && (
+            <>
+              <ClubView career={career} />{' '}
+              {coachChange && (
+                <details className="coach-change-notice">
+                  <summary>Zmiana trenera · {coachChange.date}</summary>
+                  <p>
+                    Nowy trener ponownie ocenia skład i dopasowanie do ustawienia. Oczekiwanie
+                    kontraktowe:{' '}
+                    {career.currentContract
+                      ? squadRoleLabel(career.currentContract.squadRole)
+                      : 'brak kontraktu'}
+                    . Obecna rola sportowa:{' '}
+                    {career.currentSportingStatus
+                      ? squadRoleLabel(career.currentSportingStatus)
+                      : 'w ocenie'}
+                    .
+                  </p>
+                </details>
+              )}
+            </>
+          )}
+          {detail === 'career' && (
+            <>
+              {statistics.partialActions && (
+                <p>
+                  * Część meczów dokończono statystycznie. Gole, asysty i akcje sumują zachowane
+                  dane indywidualne; pełne dane końcówek są niedostępne. Minuty i liczba występów są
+                  pełne.
+                </p>
+              )}
+              <p>Reprezentacja: statystyki niedostępne — moduł nie został jeszcze wprowadzony.</p>
+              <HistoryView career={career} />
+            </>
+          )}
           {detail === 'contract' && (
             <div>
               <h2>Kontrakt i finanse</h2>
@@ -434,22 +497,6 @@ export const CareerView = ({
         </section>
       )}
 
-      {coachChange && (
-        <details className="coach-change-notice">
-          <summary>Zmiana trenera · {coachChange.date}</summary>
-          <p>
-            Nowy trener ponownie ocenia skład i dopasowanie do ustawienia. Oczekiwanie kontraktowe:{' '}
-            {career.currentContract
-              ? squadRoleLabel(career.currentContract.squadRole)
-              : 'brak kontraktu'}
-            . Obecna rola sportowa:{' '}
-            {career.currentSportingStatus
-              ? squadRoleLabel(career.currentSportingStatus)
-              : 'w ocenie'}
-            .
-          </p>
-        </details>
-      )}
       {decisionPanel && <section className="career-decision">{decisionPanel}</section>}
       {error && (
         <p className="career-error" role="alert">
@@ -543,7 +590,20 @@ export const CareerView = ({
                           : 'Mecz'}
                       </strong>
                       {completedParticipation ? (
-                        <MatchParticipationSummary participation={completedParticipation} />
+                        <>
+                          <MatchParticipationSummary participation={completedParticipation} />
+                          {presentSubstitutions(completedParticipation, career.player.id).map(
+                            (line, i) => (
+                              <small className="timeline-context" key={i}>
+                                {line}
+                              </small>
+                            ),
+                          )}
+                          <CareerMatchDetails
+                            record={completedParticipation}
+                            playerId={career.player.id}
+                          />
+                        </>
                       ) : (
                         <span>nadchodzący mecz</span>
                       )}

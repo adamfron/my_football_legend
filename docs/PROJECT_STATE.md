@@ -1,5 +1,41 @@
 # My Football Legend — Current Project State
 
+## PR169 — Career Stories, News, Match Narratives & Career History
+
+Baza: scalony PR168 `19cb7af`. Wiadomości, wątki kariery, podsumowania sezonu
+i emerytury są czystymi projekcjami rzeczywistych faktów, księgi udziału,
+pamięci i snapshotów. Historia ma zwarte, filtrowane wiersze oraz archiwa
+montowane po rozwinięciu. Dawne nazwy klubów i pierwsze osiągnięcia zachowują
+własną tożsamość; statystyki kariery nie sumują ponownie bieżącego snapshotu.
+
+Pełny kanoniczny mecz otrzymuje jawną ocenę pozycyjną 3–10, zapisywaną raz
+w księdze, historii, receipcie i archiwum. Hybryda bez akcji indywidualnych
+końcówki ma jawny brak oceny. Retencja zachowuje dokładne czasy, osoby i znane
+powody własnych zmian; szczegóły występu są wyłącznie do odczytu.
+
+Osiągnięcia końca sezonu są zapisywane przed transferem, zmianą roku i emeryturą,
+z właściwym sezonem i klubem. Najwyższa liga daje mistrzostwo, niższa odrębne
+zwycięstwo ligi. Usunięto stare propozycje płacowe z granicy letniego okna;
+przyjęcie umowy ma walidację, blokadę kliknięć, oczekiwanie na zapis i widoczny
+błąd/retry. Prawidłowe odnowienia w wieku 25/36 są objęte regresją. Oryginalny
+wadliwy zapis użytkownika nie był dostępny; nie przypisujemy usterki wiekowi.
+
+Ta sama rzeczywista kariera 25 sezonów zachowuje identyczne wyniki sportowe
+w PR168 i PR169. Zapis: 1 414 514 → 1 414 048 B. Mediana pełnych projekcji
+historii/wiadomości/statystyk: 8,61 ms (100 powtórzeń, bez renderowania).
+Edge potwierdza filtry, archiwum tylko do odczytu, szerokość 390 px,
+odnowienie z reloadem, komunikat błędu, emeryturę i rzeczywistą hybrydę 3D.
+
+Pełny `npm run verify` jest w końcowej weryfikacji; PR pozostaje draftem do
+uzyskania PASS. Szczegółowe dowody i ograniczenia zawiera
+[raport PR169](PR169_CAREER_STORIES_NEWS_SEASON_NARRATIVES.md).
+
+Następne: **PR170** oprawa i porządki UI, **PR171** diagnostyka,
+**PR172** kalibracja oparta na dowodach, **PR173** pokolenia i siła świata,
+**PR174** lekka symulacja i PlayStyles, **PR175+** rozbudowa świata.
+Autorytatywny zakres jest na początku [roadmapy](ROADMAP.md).
+Poniższe etapy i ich ówczesne plany są zapisem historycznym.
+
 ## PR168 — Coaches, Tactical Intelligence, Transfers & Career UX
 
 Baza: scalony PR167 `2ddeb35`. Wspólny solver porównuje preferowane i drugie

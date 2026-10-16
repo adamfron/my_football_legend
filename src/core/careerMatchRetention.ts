@@ -33,6 +33,7 @@ const retainedResultSchema = z.object({
   narrativeFacts: z.array(z.unknown()),
   cards: z.array(z.unknown()).optional(),
   teamAccounting: z.unknown().optional(),
+  substitutions: z.array(z.unknown()).optional(),
 });
 
 export const RETAINED_DETAILED_MATCHES = 3;
@@ -66,6 +67,7 @@ export const retainCareerMatchResults = (career: CareerState): CareerState => {
       styles: result.controlledEvidence.behaviour ?? [],
       narrativeFacts: result.narrativeFacts,
       cards: result.cards ?? [],
+      substitutions: result.substitutions ?? [],
     };
     if (recent.has(fact.id) && fact.data.summary) return fact;
     changed = true;

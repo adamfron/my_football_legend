@@ -48,6 +48,12 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
       ...(match.score ? { score: match.score } : {}),
       started: match.started,
       substitute: !match.started && participationMinutes(match) > 0,
+      status: match.status,
+      ...(match.metricsSource ? { metricsSource: match.metricsSource } : {}),
+      ...(match.participationEvidence
+        ? { participationEvidence: match.participationEvidence }
+        : {}),
+      ...(match.ratingProvenance ? { ratingProvenance: match.ratingProvenance } : {}),
       ...(match.assignedPosition ? { assignedPosition: match.assignedPosition } : {}),
       minutes: participationMinutes(match),
       goals: match.goals,
@@ -60,7 +66,10 @@ export const createCompletedSeasonSnapshot = (career: CareerState): CompletedSea
             goalkeeper: {
               saves: match.canonicalStats.saves,
               goalsConceded: match.canonicalStats.goalsConceded,
-              cleanSheet: match.minutes >= 60 && match.canonicalStats.goalsConceded === 0,
+              cleanSheet:
+                match.metricsSource !== 'canonical_plus_summary' &&
+                participationMinutes(match) >= 60 &&
+                match.canonicalStats.goalsConceded === 0,
             },
           }
         : match.goalkeeperStats

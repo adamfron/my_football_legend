@@ -1,0 +1,52 @@
+{
+  "environment": "Actual headless Microsoft Edge over production HTTP; generated deterministic save fixtures. Age-36 boundary is a controlled regression fixture, not the unavailable original user save.",
+  "scenarios": [
+    {
+      "scenario": "history-before",
+      "openWallMs": 48,
+      "rows": 98,
+      "errors": []
+    },
+    {
+      "scenario": "history-after",
+      "openWallMs": 49,
+      "rows": 53,
+      "errors": [],
+      "keyboardFilterWorked": true,
+      "archiveDetailOpened": true,
+      "noMutation": true,
+      "mobilePanelWidth": 338.59375,
+      "newsItems": 24,
+      "canonicalRuntimeLoaded": false
+    },
+    {
+      "scenario": "renewal-age36",
+      "oldSeason": 2027,
+      "newSeason": 2028,
+      "clubId": "pro_32",
+      "contract": {
+        "clubId": "pro_32",
+        "startDate": "2028-07-01",
+        "endDate": "2030-06-30",
+        "monthlySalary": 4500,
+        "signingBonus": 0,
+        "squadRole": "important_player",
+        "contractType": "professional"
+      },
+      "errors": []
+    },
+    {
+      "scenario": "invalid-renewal",
+      "visibleError": true,
+      "noMutation": true,
+      "errors": []
+    },
+    {
+      "scenario": "retirement-25-seasons",
+      "rows": 25,
+      "story": "Od Vistula Nova do Sporting Rawa: sezony z zapisanym udziałem: 25. Występy: 626; gole: 251; asysty: 154. Mistrzostwa najwyższej ligi: 4. Transfery: 23. Najwyższy zapisany OVR: 70. Pozycje: PS. Istotne urazy w zachowanej historii: 7.",
+      "errors": []
+    }
+  ],
+  "complete": false
+}

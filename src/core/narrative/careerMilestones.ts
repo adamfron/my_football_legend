@@ -1,3 +1,4 @@
+import { getDistinctCareerFacts } from './careerEvidence';
 import type {
   CareerMilestone,
   CareerState,
@@ -7,9 +8,14 @@ import type {
 
 const categories: Record<string, MilestoneCategory> = {
   career_started: 'career_turning_point',
+  career_stat_milestone: 'record',
+  career_longevity: 'career_turning_point',
   academy_selection_result: 'role_change',
   opening_month_role_assigned: 'role_change',
   senior_debut: 'debut',
+  academy_debut: 'debut',
+  first_senior_start: 'debut',
+  division_winner: 'title',
   first_senior_goal: 'goal',
   first_academy_goal: 'goal',
   first_senior_assist: 'assist',
@@ -37,7 +43,7 @@ export const classifyMilestone = (fact: HistoryFact): MilestoneCategory | undefi
 };
 
 export const getCareerMilestones = (career: CareerState): CareerMilestone[] =>
-  career.historyFacts
+  getDistinctCareerFacts(career.historyFacts)
     .flatMap((fact) => {
       const category = classifyMilestone(fact);
       return category && fact.narrativeImportance >= 55 ? [{ fact, category }] : [];

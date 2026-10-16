@@ -1,3 +1,7 @@
+import {
+  participationEvidenceSchema,
+  ratingProvenanceSchema,
+} from '../core/careerMatchPresentation';
 import { z } from 'zod';
 import { footballerConditionSchema } from '../core/fitnessRecovery';
 
@@ -837,6 +841,21 @@ export const careerStateSchema = z.object({
               .optional(),
             started: z.boolean(),
             substitute: z.boolean(),
+            status: z
+              .enum([
+                'starter',
+                'substitute',
+                'unused_bench',
+                'not_selected',
+                'injured',
+                'suspended',
+                'unfit',
+                'unavailable',
+              ])
+              .optional(),
+            metricsSource: z.enum(['canonical', 'canonical_plus_summary']).optional(),
+            participationEvidence: participationEvidenceSchema.optional(),
+            ratingProvenance: ratingProvenanceSchema.optional(),
             assignedPosition: playerPositionSchema.optional(),
             // Canonical appearances retain exact minutes, including sub-minute cameos.
             minutes: z.number().nonnegative(),
@@ -870,6 +889,8 @@ export const careerStateSchema = z.object({
     .array(
       z.object({
         fixtureId: id,
+        participationEvidence: participationEvidenceSchema.optional(),
+        ratingProvenance: ratingProvenanceSchema.optional(),
         canonicalStats: z
           .object({
             minutesPlayed: z.number().nonnegative().optional(),
@@ -904,7 +925,7 @@ export const careerStateSchema = z.object({
           'unavailable',
         ]),
         plannedMinutes: z.number().int().nonnegative(),
-        minutes: z.number().int().nonnegative(),
+        minutes: z.number().nonnegative(),
         started: z.boolean(),
         assignedPosition: playerPositionSchema.optional(),
         appearanceMatchId: z.string().optional(),

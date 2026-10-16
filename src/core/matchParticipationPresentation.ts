@@ -34,7 +34,18 @@ export const presentMatchParticipation = (
           ...(participation.redCard === 'direct' ? ['red' as const] : []),
         ];
   return {
-    text: `${participationMinutes(participation) < 1 ? '<1' : Math.round(participationMinutes(participation))}'${position} · ${stats} · ${rating(participation.goalkeeperStats?.rating ?? participation.rating)}`,
+    text: `${participation.started ? 'Pierwszy skład' : 'Rezerwowy'} · ${participationMinutes(participation) < 1 ? '<1' : Math.round(participationMinutes(participation))}'${position} · ${stats} · ${rating(participation.goalkeeperStats?.rating ?? participation.rating)}`,
     cards,
   };
 };
+
+export const presentSubstitutions = (
+  record: Pick<SeasonParticipationRecord, 'participationEvidence'>,
+  playerId: string,
+) =>
+  (record.participationEvidence?.substitutions ?? []).map((s) => {
+    const reason = { injury: 'uraz', fatigue: 'zmęczenie', tactical: 'taktycznie' }[s.reason];
+    return s.outgoingId === playerId
+      ? `Zejście w ${Math.ceil(s.leftAt / 60)}. min · zastępujący: ${s.incomingName ?? 'brak zachowanego nazwiska'} (${reason})`
+      : `Wejście w ${Math.ceil(s.enteredAt / 60)}. min · za: ${s.outgoingName ?? 'brak zachowanego nazwiska'} (${reason})`;
+  });
