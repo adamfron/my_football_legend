@@ -1,0 +1,1562 @@
+{
+  "version": 1,
+  "rows": [
+    {
+      "fixture": {
+        "family": "central_possession",
+        "seed": "pr171-b:central_possession",
+        "reversed": true,
+        "fixtureHash": "a61197516b5e271578a8eac6b5e76ba20346a40acca1c34c33c322c4e8f62078",
+        "home": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77.45454545454545,
+          "style": "balanced"
+        },
+        "away": {
+          "id": "pro_9",
+          "formation": "3-5-2",
+          "strength": 78.63636363636364,
+          "style": "possession"
+        }
+      },
+      "finalStateHash": "f7a6b63585db0cc3b09246c5967323534b3cc9e74c1fc11fc97ef27ee522bebf",
+      "completeCanonicalStateEqualWithObserversDisabled": true,
+      "status": "first_half",
+      "time": 7200.024999965349,
+      "scenario": "free_kick_wide",
+      "restart": {
+        "phase": "preparing",
+        "origin": "live_event",
+        "awardId": "pr171-b:central_possession:restart:489.2249999998289:home:free_kick_wide",
+        "spot": {
+          "x": 101.90209951227007,
+          "y": 58.982566308532974
+        },
+        "ceremonial": true,
+        "restartTeam": "home",
+        "startedAt": 489.2249999998289,
+        "takerId": "footballer_pro_10_19",
+        "targets": {
+          "footballer_pro_10_19": {
+            "x": 100.50209951227006,
+            "y": 58.982566308532974
+          },
+          "footballer_pro_10_0": {
+            "x": 8,
+            "y": 34
+          },
+          "footballer_pro_9_0": {
+            "x": 103.5,
+            "y": 31
+          },
+          "footballer_pro_9_12": {
+            "x": 101.13599080025534,
+            "y": 49.3148066176131
+          },
+          "footballer_pro_9_4": {
+            "x": 102.42610980578755,
+            "y": 49.47478458973612
+          },
+          "footballer_pro_9_3": {
+            "x": 103.71622881131975,
+            "y": 49.634762561859134
+          },
+          "footballer_pro_9_7": {
+            "x": 104.6,
+            "y": 49.79474053398215
+          },
+          "footballer_pro_9_21": {
+            "x": 67.98682566396892,
+            "y": 26.69717224601656
+          },
+          "footballer_pro_9_5": {
+            "x": 97.75489787335866,
+            "y": 41.82129000096494
+          },
+          "footballer_pro_9_9": {
+            "x": 97.48448535311036,
+            "y": 32.93861660662805
+          },
+          "footballer_pro_9_14": {
+            "x": 96.45789029665757,
+            "y": 27.652274528995623
+          },
+          "footballer_pro_9_13": {
+            "x": 97.1784877111786,
+            "y": 34.813680154457685
+          },
+          "footballer_pro_9_22": {
+            "x": 98.38572363114217,
+            "y": 39.883357513230294
+          },
+          "footballer_pro_10_11": {
+            "x": 69.90005253273993,
+            "y": 22.930913322418927
+          },
+          "footballer_pro_10_7": {
+            "x": 65.62872780337929,
+            "y": 45.3357743030414
+          },
+          "footballer_pro_10_12": {
+            "x": 100.20295998494548,
+            "y": 52.80248713388587
+          },
+          "footballer_pro_10_13": {
+            "x": 87.32279513676185,
+            "y": 34.34026610204019
+          },
+          "footballer_pro_10_22": {
+            "x": 97.79810803621183,
+            "y": 41.500670370616426
+          },
+          "footballer_pro_10_17": {
+            "x": 95.44991459569428,
+            "y": 33.44649998261593
+          },
+          "footballer_pro_10_4": {
+            "x": 94.87252267973963,
+            "y": 26.667595569742844
+          },
+          "footballer_pro_10_3": {
+            "x": 99.15673799899814,
+            "y": 57.17493493384695
+          },
+          "footballer_pro_10_9": {
+            "x": 89.62599048715492,
+            "y": 33.6902177905431
+          }
+        },
+        "roles": {
+          "footballer_pro_9_12": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 101.13599080025534,
+                "y": 49.3148066176131
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_4": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 102.42610980578755,
+                "y": 49.47478458973612
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_3": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 103.71622881131975,
+                "y": 49.634762561859134
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_7": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 104.6,
+                "y": 49.79474053398215
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_21": {
+            "key": "counter_outlet",
+            "intent": "counter_outlet",
+            "zone": {
+              "centre": {
+                "x": 68,
+                "y": 26.72
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_5": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 98.3,
+                "y": 41.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_22"
+          },
+          "footballer_pro_9_9": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 97.3,
+                "y": 32.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_17"
+          },
+          "footballer_pro_9_14": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 96.3,
+                "y": 27.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_4"
+          },
+          "footballer_pro_9_13": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 97.3,
+                "y": 34.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_17"
+          },
+          "footballer_pro_9_22": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 98.3,
+                "y": 39.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_22"
+          },
+          "footballer_pro_10_11": {
+            "key": "rest_defence",
+            "intent": "rest_defence",
+            "zone": {
+              "centre": {
+                "x": 70,
+                "y": 23
+              },
+              "radius": 6,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_7": {
+            "key": "rest_defence",
+            "intent": "rest_defence",
+            "zone": {
+              "centre": {
+                "x": 66,
+                "y": 45
+              },
+              "radius": 6,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_12": {
+            "key": "short_option",
+            "intent": "short_option",
+            "zone": {
+              "centre": {
+                "x": 100.40209951227007,
+                "y": 52.982566308532974
+              },
+              "radius": 2,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_13": {
+            "key": "edge_support",
+            "intent": "attack_second_ball",
+            "zone": {
+              "centre": {
+                "x": 87,
+                "y": 34
+              },
+              "radius": 4,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_22": {
+            "key": "near_post_target",
+            "intent": "attack_near_post",
+            "zone": {
+              "centre": {
+                "x": 97,
+                "y": 41
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_17": {
+            "key": "central_target",
+            "intent": "attack_central",
+            "zone": {
+              "centre": {
+                "x": 96,
+                "y": 34
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_4": {
+            "key": "far_post_target",
+            "intent": "attack_far_post",
+            "zone": {
+              "centre": {
+                "x": 95,
+                "y": 27
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_3": {
+            "key": "secondary_taker",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 98.90209951227007,
+                "y": 56.982566308532974
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_9": {
+            "key": "recycle_support",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 89.90209951227007,
+                "y": 34
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_19": {
+            "key": "taker",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 100.50209951227006,
+                "y": 58.982566308532974
+              },
+              "radius": 0.6,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_0": {
+            "key": "shape",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 8,
+                "y": 34
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_0": {
+            "key": "shape",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 103.5,
+                "y": 31
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          }
+        },
+        "executionChoices": [
+          "long_delivery",
+          "short_pass",
+          "combination",
+          "direct_shot"
+        ],
+        "landingZone": {
+          "x": 96,
+          "y": 34
+        },
+        "retrieval": {
+          "playerId": "footballer_pro_10_12",
+          "stage": "placed",
+          "attachedOffset": {
+            "x": -0.16475843029617465,
+            "y": -1.065458655480521
+          }
+        },
+        "readiness": {
+          "ballReady": true,
+          "takerReady": true,
+          "legalReady": false,
+          "tacticalReady": true,
+          "blockers": [
+            "wall_developing"
+          ]
+        },
+        "blockedSince": 489.2499999998289
+      },
+      "timekeeping": {
+        "period": "first_half",
+        "periodStartedAt": 0,
+        "nominalEndAt": 2700,
+        "qualifyingLostSeconds": 6680.79999996552,
+        "additionalLostAfterAnnouncement": 4500.04999995991,
+        "requiredEndAt": 9420.049999959909,
+        "minimumAnnouncedAddedSeconds": 2220,
+        "announcedAt": 2700,
+        "lostAtAnnouncement": 2180.7500000056107
+      },
+      "stoppageLedger": {
+        "intervals": [
+          {
+            "id": "pr171-b:central_possession:stoppage:pr171-b:central_possession:challenge:93.075000:footballer_pro_10_12:footballer_pro_9_13:standing:foul",
+            "incidentId": "pr171-b:central_possession:challenge:93.075000:footballer_pro_10_12:footballer_pro_9_13:standing:foul",
+            "awardId": "pr171-b:central_possession:restart:93.07500000000404:away:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 93.07500000000404,
+            "startedAt": 93.07500000000404,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 93.07500000000404
+            },
+            "ballReadyAt": 95.02500000000448,
+            "legalReadyAt": 98.6000000000053,
+            "endedAt": 98.77500000000533,
+            "endReason": "execution",
+            "executedAt": 98.77500000000533,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:central_possession:stoppage:pr171-b:central_possession:boundary:452.6249999998622:touchline_top",
+            "incidentId": "pr171-b:central_possession:boundary:452.6249999998622:touchline_top",
+            "awardId": "pr171-b:central_possession:restart:452.6249999998622:away:throw_in",
+            "reasons": [
+              "throw_in"
+            ],
+            "eventAt": 452.6050560892069,
+            "startedAt": 452.6249999998622,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "throw_in": 452.6249999998622
+            },
+            "ballReadyAt": 463.6249999998522,
+            "legalReadyAt": 463.6249999998522,
+            "endedAt": 463.824999999852,
+            "endReason": "execution",
+            "executedAt": 463.824999999852,
+            "qualifyingSeconds": 0
+          }
+        ],
+        "completedSeconds": 16.89999999999111,
+        "completedCount": 2,
+        "qualifyingCompletedSeconds": {
+          "first_half": 0,
+          "second_half": 0
+        },
+        "active": {
+          "id": "pr171-b:central_possession:stoppage:pr171-b:central_possession:challenge:487.150000:footballer_pro_9_3:footballer_pro_10_12:slide:foul",
+          "incidentId": "pr171-b:central_possession:challenge:487.150000:footballer_pro_9_3:footballer_pro_10_12:slide:foul",
+          "awardId": "pr171-b:central_possession:restart:489.2249999998289:home:free_kick_wide",
+          "reasons": [
+            "foul",
+            "substitution"
+          ],
+          "eventAt": 487.34999999983063,
+          "startedAt": 489.2249999998289,
+          "period": "first_half",
+          "reasonStartedAt": {
+            "foul": 489.2249999998289,
+            "substitution": 4600.95000000317
+          },
+          "ballReadyAt": 510.84999999980926
+        }
+      },
+      "pendingSubstitutions": [],
+      "ball": {
+        "x": 101.89267017884623,
+        "y": 58.92176739704825,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_10_12",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      }
+    },
+    {
+      "fixture": {
+        "family": "press_low",
+        "seed": "pr171-b:press_low",
+        "reversed": false,
+        "fixtureHash": "20ab2a78b8eb2c27bbaaab0247ecacea5cb552610f813c1030e4e3266c410ab8",
+        "home": {
+          "id": "pro_9",
+          "formation": "3-4-2-1",
+          "strength": 78.54545454545455,
+          "style": "pressing"
+        },
+        "away": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77.45454545454545,
+          "style": "counter_attacking"
+        }
+      },
+      "finalStateHash": "5db9482e8134e59ed6efd7a7dd31ac5cd5597a9fa7a19762205c47482cbb5a64",
+      "completeCanonicalStateEqualWithObserversDisabled": true,
+      "status": "second_half",
+      "time": 7200.024999965349,
+      "scenario": "free_kick_wide",
+      "restart": {
+        "phase": "preparing",
+        "origin": "live_event",
+        "awardId": "pr171-b:press_low:restart:5432.549999991069:away:free_kick_wide",
+        "spot": {
+          "x": 103.41720107688738,
+          "y": 56.33427471481506
+        },
+        "ceremonial": true,
+        "restartTeam": "away",
+        "startedAt": 5432.549999991069,
+        "takerId": "footballer_pro_10_14",
+        "targets": {
+          "footballer_pro_10_14": {
+            "x": 102.01720107688737,
+            "y": 56.33427471481506
+          },
+          "footballer_pro_10_0": {
+            "x": 8,
+            "y": 34
+          },
+          "footballer_pro_9_0": {
+            "x": 103.5,
+            "y": 31
+          },
+          "footballer_pro_9_12": {
+            "x": 102.1436469550706,
+            "y": 46.720193380709155
+          },
+          "footballer_pro_9_4": {
+            "x": 103.44039466698695,
+            "y": 46.8120920838539
+          },
+          "footballer_pro_9_3": {
+            "x": 104.6,
+            "y": 46.90399078699865
+          },
+          "footballer_pro_9_7": {
+            "x": 104.6,
+            "y": 46.99588949014339
+          },
+          "footballer_pro_9_5": {
+            "x": 98.31426137196831,
+            "y": 41.916406145726796
+          },
+          "footballer_pro_9_9": {
+            "x": 96.39172459132969,
+            "y": 25.981613646342886
+          },
+          "footballer_pro_9_14": {
+            "x": 97.28026486744638,
+            "y": 34.83471678231144
+          },
+          "footballer_pro_9_22": {
+            "x": 96.28199478277237,
+            "y": 27.772024785028776
+          },
+          "footballer_pro_9_21": {
+            "x": 98.18886058761272,
+            "y": 39.67582666018279
+          },
+          "footballer_pro_9_17": {
+            "x": 97.37339906260604,
+            "y": 32.930914907157415
+          },
+          "footballer_pro_10_11": {
+            "x": 70.19059169981628,
+            "y": 23.037991082668306
+          },
+          "footballer_pro_10_7": {
+            "x": 66.19226416498422,
+            "y": 44.89807474743575
+          },
+          "footballer_pro_10_10": {
+            "x": 102.18432377862914,
+            "y": 50.49103219327759
+          },
+          "footballer_pro_10_13": {
+            "x": 86.87701690795366,
+            "y": 33.73395914225839
+          },
+          "footballer_pro_10_22": {
+            "x": 97.42013242573012,
+            "y": 41.280040381709114
+          },
+          "footballer_pro_10_19": {
+            "x": 95.37378089956474,
+            "y": 34.505949950776994
+          },
+          "footballer_pro_10_17": {
+            "x": 94.47825407155324,
+            "y": 27.71255411230959
+          },
+          "footballer_pro_10_4": {
+            "x": 100.1508059771702,
+            "y": 54.496165536206775
+          },
+          "footballer_pro_10_5": {
+            "x": 91.29568139186298,
+            "y": 34.3115323489299
+          }
+        },
+        "roles": {
+          "footballer_pro_9_12": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 102.1436469550706,
+                "y": 46.720193380709155
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_4": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 103.44039466698695,
+                "y": 46.8120920838539
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_3": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 104.6,
+                "y": 46.90399078699865
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_7": {
+            "key": "wall",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 104.6,
+                "y": 46.99588949014339
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_5": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 98.3,
+                "y": 41.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_22"
+          },
+          "footballer_pro_9_9": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 96.3,
+                "y": 25.799999999999997
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_17"
+          },
+          "footballer_pro_9_14": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 97.3,
+                "y": 34.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_19"
+          },
+          "footballer_pro_9_22": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 96.3,
+                "y": 27.799999999999997
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_17"
+          },
+          "footballer_pro_9_21": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 98.3,
+                "y": 39.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_22"
+          },
+          "footballer_pro_9_17": {
+            "key": "marker",
+            "intent": "mark_opponent",
+            "zone": {
+              "centre": {
+                "x": 97.3,
+                "y": 32.8
+              },
+              "radius": 2,
+              "timing": 0
+            },
+            "markerId": "footballer_pro_10_19"
+          },
+          "footballer_pro_10_11": {
+            "key": "rest_defence",
+            "intent": "rest_defence",
+            "zone": {
+              "centre": {
+                "x": 70,
+                "y": 23
+              },
+              "radius": 6,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_7": {
+            "key": "rest_defence",
+            "intent": "rest_defence",
+            "zone": {
+              "centre": {
+                "x": 66,
+                "y": 45
+              },
+              "radius": 6,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_10": {
+            "key": "short_option",
+            "intent": "short_option",
+            "zone": {
+              "centre": {
+                "x": 101.91720107688738,
+                "y": 50.33427471481506
+              },
+              "radius": 2,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_13": {
+            "key": "edge_support",
+            "intent": "attack_second_ball",
+            "zone": {
+              "centre": {
+                "x": 87,
+                "y": 34
+              },
+              "radius": 4,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_22": {
+            "key": "near_post_target",
+            "intent": "attack_near_post",
+            "zone": {
+              "centre": {
+                "x": 97,
+                "y": 41
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_19": {
+            "key": "central_target",
+            "intent": "attack_central",
+            "zone": {
+              "centre": {
+                "x": 96,
+                "y": 34
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_17": {
+            "key": "far_post_target",
+            "intent": "attack_far_post",
+            "zone": {
+              "centre": {
+                "x": 95,
+                "y": 27
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_4": {
+            "key": "secondary_taker",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 100.41720107688738,
+                "y": 54.33427471481506
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_5": {
+            "key": "recycle_support",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 91.41720107688738,
+                "y": 34
+              },
+              "radius": 3,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_14": {
+            "key": "taker",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 102.01720107688737,
+                "y": 56.33427471481506
+              },
+              "radius": 0.6,
+              "timing": 0
+            }
+          },
+          "footballer_pro_9_0": {
+            "key": "shape",
+            "intent": "protect_zone",
+            "zone": {
+              "centre": {
+                "x": 103.5,
+                "y": 31
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          },
+          "footballer_pro_10_0": {
+            "key": "shape",
+            "intent": "support_ball",
+            "zone": {
+              "centre": {
+                "x": 8,
+                "y": 34
+              },
+              "radius": 8,
+              "timing": 0
+            }
+          }
+        },
+        "executionChoices": [
+          "long_delivery",
+          "short_pass",
+          "combination",
+          "direct_shot"
+        ],
+        "landingZone": {
+          "x": 96,
+          "y": 34
+        },
+        "retrieval": {
+          "playerId": "footballer_pro_10_10",
+          "stage": "placed",
+          "attachedOffset": {
+            "x": -0.8889871399433247,
+            "y": -0.643310169857017
+          }
+        },
+        "readiness": {
+          "ballReady": true,
+          "takerReady": true,
+          "legalReady": false,
+          "tacticalReady": true,
+          "blockers": [
+            "wall_developing"
+          ]
+        },
+        "blockedSince": 5432.574999991069
+      },
+      "timekeeping": {
+        "period": "second_half",
+        "periodStartedAt": 2820.8500000058793,
+        "nominalEndAt": 5520.850000005879,
+        "qualifyingLostSeconds": 1845.3249999742084,
+        "additionalLostAfterAnnouncement": 1679.1749999755648,
+        "requiredEndAt": 7380.024999981444,
+        "minimumAnnouncedAddedSeconds": 180,
+        "announcedAt": 5520.850000005879,
+        "lostAtAnnouncement": 166.14999999864358
+      },
+      "stoppageLedger": {
+        "intervals": [
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:117.775000:footballer_pro_10_13:footballer_pro_9_11:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:117.775000:footballer_pro_10_13:footballer_pro_9_11:committed:foul",
+            "awardId": "pr171-b:press_low:restart:117.90000000000968:home:free_kick_wide",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 117.90000000000968,
+            "startedAt": 117.90000000000968,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 117.90000000000968
+            },
+            "ballReadyAt": 144.65000000001575,
+            "legalReadyAt": 146.2250000000161,
+            "endedAt": 146.40000000001615,
+            "endReason": "execution",
+            "executedAt": 146.40000000001615,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:185.900000:footballer_pro_9_14:footballer_pro_10_19:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:185.900000:footballer_pro_9_14:footballer_pro_10_19:committed:foul",
+            "awardId": "pr171-b:press_low:restart:186.02500000002516:away:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 186.02500000002516,
+            "startedAt": 186.02500000002516,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 186.02500000002516
+            },
+            "ballReadyAt": 186.75000000002532,
+            "legalReadyAt": 186.75000000002532,
+            "endedAt": 192.45000000002662,
+            "endReason": "execution",
+            "executedAt": 192.45000000002662,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:242.675000:footballer_pro_10_4:footballer_pro_9_11:tactical:foul",
+            "incidentId": "pr171-b:press_low:challenge:242.675000:footballer_pro_10_4:footballer_pro_9_11:tactical:foul",
+            "awardId": "pr171-b:press_low:restart:242.80000000003807:home:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 242.80000000003807,
+            "startedAt": 242.80000000003807,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 242.80000000003807
+            },
+            "ballReadyAt": 245.70000000003873,
+            "legalReadyAt": 250.50000000003982,
+            "endedAt": 250.67500000003986,
+            "endReason": "execution",
+            "executedAt": 250.67500000003986,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:303.325000:footballer_pro_9_4:footballer_pro_10_13:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:303.325000:footballer_pro_9_4:footballer_pro_10_13:committed:foul",
+            "awardId": "pr171-b:press_low:restart:303.4499999999979:away:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 303.4499999999979,
+            "startedAt": 303.4499999999979,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 303.4499999999979
+            },
+            "ballReadyAt": 308.09999999999366,
+            "legalReadyAt": 310.0499999999919,
+            "endedAt": 310.2499999999917,
+            "endReason": "execution",
+            "executedAt": 310.2499999999917,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:323.000000:footballer_pro_9_7:footballer_pro_10_19:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:323.000000:footballer_pro_9_7:footballer_pro_10_19:committed:foul",
+            "awardId": "pr171-b:press_low:restart:323.12499999998:away:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 323.12499999998,
+            "startedAt": 323.12499999998,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 323.12499999998
+            },
+            "ballReadyAt": 336.47499999996785,
+            "legalReadyAt": 336.47499999996785,
+            "endedAt": 336.67499999996767,
+            "endReason": "execution",
+            "executedAt": 336.67499999996767,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:707.250000:footballer_pro_10_7:footballer_pro_9_22:slide:foul",
+            "incidentId": "pr171-b:press_low:challenge:707.250000:footballer_pro_10_7:footballer_pro_9_22:slide:foul",
+            "awardId": "pr171-b:press_low:restart:707.4499999996304:home:free_kick_close",
+            "reasons": [
+              "foul",
+              "substitution"
+            ],
+            "eventAt": 707.4499999996304,
+            "startedAt": 707.4499999996304,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 707.4499999996304,
+              "substitution": 707.4499999996304
+            },
+            "ballReadyAt": 730.3749999996096,
+            "legalReadyAt": 731.9499999996082,
+            "endedAt": 732.149999999608,
+            "endReason": "execution",
+            "executedAt": 732.149999999608,
+            "qualifyingSeconds": 24.699999999977535
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:920.525000:footballer_pro_10_7:footballer_pro_9_11:tactical:foul",
+            "incidentId": "pr171-b:press_low:challenge:920.525000:footballer_pro_10_7:footballer_pro_9_11:tactical:foul",
+            "awardId": "pr171-b:press_low:restart:921.8499999994355:home:free_kick_close",
+            "reasons": [
+              "foul",
+              "discipline"
+            ],
+            "eventAt": 920.6499999994365,
+            "startedAt": 921.8499999994355,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 921.8499999994355,
+              "discipline": 921.8499999994355
+            },
+            "ballReadyAt": 933.7999999994246,
+            "legalReadyAt": 935.8749999994227,
+            "endedAt": 936.0749999994225,
+            "endReason": "execution",
+            "executedAt": 936.0749999994225,
+            "qualifyingSeconds": 14.224999999987062
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:995.775000:footballer_pro_10_13:footballer_pro_9_9:tactical:foul",
+            "incidentId": "pr171-b:press_low:challenge:995.775000:footballer_pro_10_13:footballer_pro_9_9:tactical:foul",
+            "awardId": "pr171-b:press_low:restart:996.8999999993672:home:free_kick_far",
+            "reasons": [
+              "foul",
+              "discipline"
+            ],
+            "eventAt": 995.8999999993681,
+            "startedAt": 996.8999999993672,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 996.8999999993672,
+              "discipline": 996.8999999993672
+            },
+            "ballReadyAt": 1007.049999999358,
+            "legalReadyAt": 1008.5999999993566,
+            "endedAt": 1008.7999999993564,
+            "endReason": "execution",
+            "executedAt": 1008.7999999993564,
+            "qualifyingSeconds": 11.899999999989177
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:1544.750000:footballer_pro_9_9:footballer_pro_10_17:slide:foul",
+            "incidentId": "pr171-b:press_low:challenge:1544.750000:footballer_pro_9_9:footballer_pro_10_17:slide:foul",
+            "awardId": "pr171-b:press_low:restart:1544.9750000012377:away:free_kick_far",
+            "reasons": [
+              "foul",
+              "discipline"
+            ],
+            "eventAt": 1544.9750000012377,
+            "startedAt": 1544.9750000012377,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 1544.9750000012377,
+              "discipline": 1544.9750000012377
+            },
+            "ballReadyAt": 1560.0750000012927,
+            "legalReadyAt": 1566.4000000013157,
+            "endedAt": 1566.5750000013163,
+            "endReason": "execution",
+            "executedAt": 1566.5750000013163,
+            "qualifyingSeconds": 21.60000000007858
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:1677.475000:footballer_pro_10_19:footballer_pro_9_3:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:1677.475000:footballer_pro_10_19:footballer_pro_9_3:committed:foul",
+            "awardId": "pr171-b:press_low:restart:1677.6250000017203:home:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 1677.6250000017203,
+            "startedAt": 1677.6250000017203,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 1677.6250000017203
+            },
+            "ballReadyAt": 1678.100000001722,
+            "legalReadyAt": 1681.3500000017339,
+            "endedAt": 1681.5250000017345,
+            "endReason": "execution",
+            "executedAt": 1681.5250000017345,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:boundary:1760.5000000020218:touchline_bottom",
+            "incidentId": "pr171-b:press_low:boundary:1760.5000000020218:touchline_bottom",
+            "awardId": "pr171-b:press_low:restart:1760.5000000020218:home:throw_in",
+            "reasons": [
+              "throw_in"
+            ],
+            "eventAt": 1760.4844947685237,
+            "startedAt": 1760.5000000020218,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "throw_in": 1760.5000000020218
+            },
+            "ballReadyAt": 1769.0000000020527,
+            "legalReadyAt": 1769.0000000020527,
+            "endedAt": 1769.1750000020534,
+            "endReason": "execution",
+            "executedAt": 1769.1750000020534,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:1846.075000:footballer_pro_10_19:footballer_pro_9_3:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:1846.075000:footballer_pro_10_19:footballer_pro_9_3:committed:foul",
+            "awardId": "pr171-b:press_low:restart:1846.2250000023337:home:free_kick_far",
+            "reasons": [
+              "foul",
+              "substitution"
+            ],
+            "eventAt": 1846.2250000023337,
+            "startedAt": 1846.2250000023337,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 1846.2250000023337,
+              "substitution": 1846.2250000023337
+            },
+            "ballReadyAt": 1855.2500000023665,
+            "legalReadyAt": 1858.4500000023781,
+            "endedAt": 1858.6250000023788,
+            "endReason": "execution",
+            "executedAt": 1858.6250000023788,
+            "qualifyingSeconds": 12.400000000045111
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:1904.900000:footballer_pro_10_17:footballer_pro_9_5:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:1904.900000:footballer_pro_10_17:footballer_pro_9_5:committed:foul",
+            "awardId": "pr171-b:press_low:restart:1905.125000002548:home:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 1905.125000002548,
+            "startedAt": 1905.125000002548,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 1905.125000002548
+            },
+            "ballReadyAt": 1917.800000002594,
+            "legalReadyAt": 1919.5250000026003,
+            "endedAt": 1919.700000002601,
+            "endReason": "execution",
+            "executedAt": 1919.700000002601,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:2244.425000:footballer_pro_10_11:footballer_pro_9_22:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:2244.425000:footballer_pro_10_11:footballer_pro_9_22:committed:foul",
+            "awardId": "pr171-b:press_low:restart:2244.575000003783:home:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 2244.575000003783,
+            "startedAt": 2244.575000003783,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 2244.575000003783
+            },
+            "ballReadyAt": 2246.52500000379,
+            "legalReadyAt": 2248.6500000037977,
+            "endedAt": 2248.8250000037983,
+            "endReason": "execution",
+            "executedAt": 2248.8250000037983,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:2447.700000:footballer_pro_9_9:footballer_pro_10_17:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:2447.700000:footballer_pro_9_9:footballer_pro_10_17:committed:foul",
+            "awardId": "pr171-b:press_low:restart:2447.8500000045224:away:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 2447.8500000045224,
+            "startedAt": 2447.8500000045224,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "foul": 2447.8500000045224
+            },
+            "ballReadyAt": 2450.200000004531,
+            "legalReadyAt": 2458.5750000045614,
+            "endedAt": 2458.750000004562,
+            "endReason": "execution",
+            "executedAt": 2458.750000004562,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:boundary:2605.7000000050966:goal_line_home",
+            "incidentId": "pr171-b:press_low:boundary:2605.7000000050966:goal_line_home",
+            "awardId": "pr171-b:press_low:restart:2605.7000000050966:home:goal_kick",
+            "reasons": [
+              "goal_kick"
+            ],
+            "eventAt": 2605.678224710668,
+            "startedAt": 2605.7000000050966,
+            "period": "first_half",
+            "reasonStartedAt": {
+              "goal_kick": 2605.7000000050966
+            },
+            "ballReadyAt": 2617.7250000051404,
+            "legalReadyAt": 2619.800000005148,
+            "endedAt": 2619.9750000051486,
+            "endReason": "execution",
+            "executedAt": 2619.9750000051486,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:incident:2820.8500000058793:kick_off",
+            "incidentId": "pr171-b:press_low:incident:2820.8500000058793:kick_off",
+            "awardId": "pr171-b:press_low:restart:2820.8500000058793:away:kick_off",
+            "reasons": [
+              "period_start"
+            ],
+            "eventAt": 2820.8500000058793,
+            "startedAt": 2820.8500000058793,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "period_start": 2820.8500000058793
+            },
+            "ballReadyAt": 2829.6500000059114,
+            "legalReadyAt": 2834.3500000059285,
+            "endedAt": 2834.525000005929,
+            "endReason": "execution",
+            "executedAt": 2834.525000005929,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:shot:1432:footballer_pro_10_17",
+            "incidentId": "pr171-b:press_low:shot:1432:footballer_pro_10_17",
+            "reasons": [
+              "goal"
+            ],
+            "eventAt": 3030.3250000066414,
+            "startedAt": 3030.3250000066414,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "goal": 3030.3250000066414
+            },
+            "awardId": "pr171-b:press_low:restart:3035.950000006662:home:kick_off",
+            "ballReadyAt": 3058.850000006745,
+            "legalReadyAt": 3060.475000006751,
+            "endedAt": 3060.6500000067517,
+            "endReason": "execution",
+            "executedAt": 3060.6500000067517,
+            "qualifyingSeconds": 30.32500000011032
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:boundary:3121.200000006972:goal_line_away",
+            "incidentId": "pr171-b:press_low:boundary:3121.200000006972:goal_line_away",
+            "awardId": "pr171-b:press_low:restart:3121.200000006972:home:goal_kick",
+            "reasons": [
+              "goal_kick"
+            ],
+            "eventAt": 3121.17947853819,
+            "startedAt": 3121.200000006972,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "goal_kick": 3121.200000006972
+            },
+            "ballReadyAt": 3130.1750000070047,
+            "legalReadyAt": 3130.1750000070047,
+            "endedAt": 3130.3500000070053,
+            "endReason": "execution",
+            "executedAt": 3130.3500000070053,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:3276.400000:footballer_pro_10_22:footballer_pro_9_21:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:3276.400000:footballer_pro_10_22:footballer_pro_9_21:committed:foul",
+            "awardId": "pr171-b:press_low:restart:3276.550000007537:home:free_kick_far",
+            "reasons": [
+              "foul",
+              "substitution"
+            ],
+            "eventAt": 3276.550000007537,
+            "startedAt": 3276.550000007537,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "foul": 3276.550000007537,
+              "substitution": 3276.550000007537
+            },
+            "ballReadyAt": 3284.9250000075676,
+            "legalReadyAt": 3286.0000000075715,
+            "endedAt": 3286.175000007572,
+            "endReason": "execution",
+            "executedAt": 3286.175000007572,
+            "qualifyingSeconds": 9.625000000035016
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:3354.475000:footballer_pro_9_9:footballer_pro_10_17:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:3354.475000:footballer_pro_9_9:footballer_pro_10_17:committed:foul",
+            "awardId": "pr171-b:press_low:restart:3354.600000007821:away:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 3354.600000007821,
+            "startedAt": 3354.600000007821,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "foul": 3354.600000007821
+            },
+            "ballReadyAt": 3359.8750000078403,
+            "legalReadyAt": 3365.2250000078598,
+            "endedAt": 3365.4000000078604,
+            "endReason": "execution",
+            "executedAt": 3365.4000000078604,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:3434.550000:footballer_pro_10_11:footballer_pro_9_21:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:3434.550000:footballer_pro_10_11:footballer_pro_9_21:committed:foul",
+            "awardId": "pr171-b:press_low:restart:3434.6750000081124:home:free_kick_far",
+            "reasons": [
+              "foul",
+              "substitution"
+            ],
+            "eventAt": 3434.6750000081124,
+            "startedAt": 3434.6750000081124,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "foul": 3434.6750000081124,
+              "substitution": 3434.6750000081124
+            },
+            "ballReadyAt": 3456.6250000081923,
+            "legalReadyAt": 3458.225000008198,
+            "endedAt": 3458.4000000081987,
+            "endReason": "execution",
+            "executedAt": 3458.4000000081987,
+            "qualifyingSeconds": 23.72500000008631
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:4044.225000:footballer_pro_10_3:footballer_pro_9_12:standing:foul",
+            "incidentId": "pr171-b:press_low:challenge:4044.225000:footballer_pro_10_3:footballer_pro_9_12:standing:foul",
+            "awardId": "pr171-b:press_low:restart:4046.125000010337:home:free_kick_close",
+            "reasons": [
+              "foul",
+              "substitution"
+            ],
+            "eventAt": 4044.22500001033,
+            "startedAt": 4046.125000010337,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "foul": 4046.125000010337,
+              "substitution": 4046.125000010337
+            },
+            "ballReadyAt": 4054.8250000103685,
+            "legalReadyAt": 4064.625000010404,
+            "endedAt": 4064.800000010405,
+            "endReason": "execution",
+            "executedAt": 4064.800000010405,
+            "qualifyingSeconds": 18.67500000006794
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:4692.550000:footballer_pro_9_9:footballer_pro_10_17:slide:foul",
+            "incidentId": "pr171-b:press_low:challenge:4692.550000:footballer_pro_9_9:footballer_pro_10_17:slide:foul",
+            "awardId": "pr171-b:press_low:restart:4693.175000001828:away:free_kick_far",
+            "reasons": [
+              "foul",
+              "discipline",
+              "substitution"
+            ],
+            "eventAt": 4692.800000001834,
+            "startedAt": 4693.175000001828,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "foul": 4693.175000001828,
+              "discipline": 4693.175000001828,
+              "substitution": 4693.175000001828
+            },
+            "ballReadyAt": 4712.700000001544,
+            "legalReadyAt": 4718.47500000146,
+            "endedAt": 4718.675000001457,
+            "endReason": "execution",
+            "executedAt": 4718.675000001457,
+            "qualifyingSeconds": 25.499999999628926
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:4875.100000:footballer_pro_10_22:footballer_pro_9_5:committed:foul",
+            "incidentId": "pr171-b:press_low:challenge:4875.100000:footballer_pro_10_22:footballer_pro_9_5:committed:foul",
+            "awardId": "pr171-b:press_low:restart:4875.274999999178:home:free_kick_far",
+            "reasons": [
+              "foul"
+            ],
+            "eventAt": 4875.274999999178,
+            "startedAt": 4875.274999999178,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "foul": 4875.274999999178
+            },
+            "ballReadyAt": 4888.724999998983,
+            "legalReadyAt": 4890.774999998953,
+            "endedAt": 4890.97499999895,
+            "endReason": "execution",
+            "executedAt": 4890.97499999895,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:boundary:5175.674999994807:touchline_bottom",
+            "incidentId": "pr171-b:press_low:boundary:5175.674999994807:touchline_bottom",
+            "awardId": "pr171-b:press_low:restart:5175.674999994807:away:throw_in",
+            "reasons": [
+              "throw_in"
+            ],
+            "eventAt": 5175.663069812774,
+            "startedAt": 5175.674999994807,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "throw_in": 5175.674999994807
+            },
+            "ballReadyAt": 5180.349999994739,
+            "legalReadyAt": 5180.349999994739,
+            "endedAt": 5180.549999994736,
+            "endReason": "execution",
+            "executedAt": 5180.549999994736,
+            "qualifyingSeconds": 0
+          },
+          {
+            "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:5204.300000:footballer_pro_9_0:footballer_pro_10_17:slide:foul",
+            "incidentId": "pr171-b:press_low:challenge:5204.300000:footballer_pro_9_0:footballer_pro_10_17:slide:foul",
+            "awardId": "pr171-b:press_low:restart:5204.4999999943875:away:penalty",
+            "reasons": [
+              "penalty"
+            ],
+            "eventAt": 5204.4999999943875,
+            "startedAt": 5204.4999999943875,
+            "period": "second_half",
+            "reasonStartedAt": {
+              "penalty": 5204.4999999943875
+            },
+            "ballReadyAt": 5209.82499999431,
+            "legalReadyAt": 5214.5999999942405,
+            "endedAt": 5214.924999994236,
+            "endReason": "execution",
+            "executedAt": 5214.924999994236,
+            "qualifyingSeconds": 0
+          }
+        ],
+        "completedSeconds": 377.02499999987424,
+        "completedCount": 27,
+        "qualifyingCompletedSeconds": {
+          "first_half": 84.82500000007747,
+          "second_half": 107.84999999992851
+        },
+        "active": {
+          "id": "pr171-b:press_low:stoppage:pr171-b:press_low:challenge:5430.325000:footballer_pro_9_3:footballer_pro_10_10:standing:foul",
+          "incidentId": "pr171-b:press_low:challenge:5430.325000:footballer_pro_9_3:footballer_pro_10_10:standing:foul",
+          "awardId": "pr171-b:press_low:restart:5432.549999991069:away:free_kick_wide",
+          "reasons": [
+            "foul"
+          ],
+          "eventAt": 5430.324999991101,
+          "startedAt": 5432.549999991069,
+          "period": "second_half",
+          "reasonStartedAt": {
+            "foul": 5432.549999991069
+          },
+          "ballReadyAt": 5445.7749999908765
+        }
+      },
+      "pendingSubstitutions": [],
+      "ball": {
+        "x": 103.38368291205884,
+        "y": 56.30553630612161,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_10_10",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      }
+    }
+  ]
+}

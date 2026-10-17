@@ -7,6 +7,7 @@ import { evaluateShootingOpportunity } from './shootingOpportunity';
 import { rankAvailableActionsForAI, npcPossessionDecisionDelay } from './matchActions';
 import { canExecuteCanonicalShot } from './shootingOptions';
 import { normalizeAngle } from './playerOrientation';
+import { AttackingFunnelAudit, attackingAuditSchema } from './attackingFunnelAudit';
 
 export const FUNNEL_VERSION = 3;
 const countMap = z.record(z.string(), z.number().nonnegative().finite());
@@ -23,6 +24,7 @@ export const funnelTeamSchema = z.object({
 });
 export const funnelSummarySchema = z.object({
   version: z.literal(FUNNEL_VERSION),
+  audit: attackingAuditSchema.optional(),
   teams: z.object({ home: funnelTeamSchema, away: funnelTeamSchema }),
   possessions: z
     .array(
@@ -133,6 +135,10 @@ type Possession = {
 /** Standalone, mutable observer. No canonical imports this tracker. Retained traces are bounded;
  * totals continue after trace caps. Flight/loose claims alone never initiate possession. */
 export class AttackingFunnelTracker {
+  private audit: AttackingFunnelAudit | undefined;
+  private observedThrough = -1;
+  private observedSequence = -1;
+  private observedDecision = -1;
   private totals = { home: empty(), away: empty() };
   private active: Possession | undefined;
   private seen = new Set<string>();
@@ -168,10 +174,18 @@ export class AttackingFunnelTracker {
       delay: npcPossessionDecisionDelay,
     },
     private readonly detailed = true,
-  ) {}
+    audit = false,
+  ) {
+    if (audit) this.audit = new AttackingFunnelAudit();
+  }
   private once(id: string) {
-    if (this.seen.has(id)) return false;
+    if (this.seen.has(id)) {
+      this.seen.delete(id);
+      this.seen.add(id);
+      return false;
+    }
     this.seen.add(id);
+    if (this.seen.size > 512) this.seen.delete(this.seen.values().next().value!);
     return true;
   }
   private stage(key: string) {
@@ -216,6 +230,18 @@ export class AttackingFunnelTracker {
     this.moments[side].set(key, m);
   }
   observe(previous: TacticalMatchState, next: TacticalMatchState) {
+    const sequence = next.actionEventSequence ?? 0;
+    if (
+      next.time < this.observedThrough ||
+      (next.time === this.observedThrough &&
+        sequence <= this.observedSequence &&
+        next.decisionIndex <= this.observedDecision)
+    )
+      return;
+    this.observedThrough = next.time;
+    this.observedSequence = sequence;
+    this.observedDecision = next.decisionIndex;
+    this.audit?.observe(previous, next);
     const dt = Math.max(0, next.time - previous.time);
     // A launch clears ownership; its eventual goal/save can also close the sequence.
     // Attribute the canonical release before either transition, not at lastShot settlement.
@@ -305,6 +331,7 @@ export class AttackingFunnelTracker {
       if (next.time >= this.nextDecision && next.actionCooldown <= 0 && !next.periodEndPending) {
         this.nextDecision = next.time + 2;
         const ranking = this.probes.ranking(next, actor.id);
+        this.audit?.observeRanking(next, ranking);
         const shots = ranking.filter(
           ({ action }) =>
             action.type === 'shot' || (action.type === 'header' && action.intent === 'header_shot'),
@@ -386,6 +413,8 @@ export class AttackingFunnelTracker {
           y: origin.y,
           line: calculateOffsideLine(previous, passer.team),
         });
+        if (this.passOrigins.size > 64)
+          this.passOrigins.delete(this.passOrigins.keys().next().value!);
         const progress =
           attackingDepth(pass.predictedReceptionPoint.x, passer) - attackingDepth(origin.x, passer);
         bump(
@@ -543,6 +572,7 @@ export class AttackingFunnelTracker {
       possessions: this.possessions,
       decisions: this.decisions,
       spatialSamples: this.spatialSamples,
+      ...(this.audit ? { audit: this.audit.snapshot() } : {}),
       observedThrough: at,
     });
   }
