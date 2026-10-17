@@ -2,7 +2,12 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { performance } from 'node:perf_hooks';
-import { createCombinationFixture, PR174_DEVELOPMENT, PR174_HELD_OUT } from './pr174Fixtures';
+import {
+  createCombinationFixture,
+  PR174_DEVELOPMENT,
+  PR174_HELD_OUT,
+  PR174_TARGETED,
+} from './pr174Fixtures';
 import { pr172Hash, pr172SourceHash } from './pr172Evidence';
 import {
   tacticalMatchStateSchema,
@@ -45,7 +50,12 @@ const manifest = {
   method:
     'Prescribed physically released opening, autonomous canonical continuation; snapshots at 1/2/5/8s. Development and held-out labels fixed before policy implementation. Mirrors and variants are dependent, not population replicates.',
 };
-const fixtures = args.get('set') === 'held-out' ? PR174_HELD_OUT : PR174_DEVELOPMENT;
+const fixtures =
+  args.get('set') === 'held-out'
+    ? PR174_HELD_OUT
+    : args.get('set') === 'targeted'
+      ? PR174_TARGETED
+      : PR174_DEVELOPMENT;
 const runs = fixtures.map((input) => {
   const f = createCombinationFixture(input);
   const initial = structuredClone(f.state);

@@ -36,6 +36,16 @@ const planned = () => {
   return { ...f, state };
 };
 describe('PR174 bounded independent combinations', () => {
+  it('recognises a third player moving laterally toward an open connection', () => {
+    const f = planned();
+    const c = f.state.combinationIntent!;
+    c.kind = 'third_man';
+    c.target = { x: c.origin.x, y: c.origin.y + 6 };
+    const runner = f.state.players.find((p) => p.id === c.runnerId)!;
+    runner.position = { x: c.origin.x, y: c.origin.y + 2 };
+    runner.velocity = { x: 0, y: 3 };
+    expect(reconcileCombination(f.state).combinationIntent?.runStartedAt).toBe(f.state.time);
+  });
   it('never awards possession or changes the first pass physics when an intent is recorded', () => {
     const f = planned();
     expect(f.state.ball.ownerId).toBeUndefined();
@@ -137,6 +147,32 @@ describe('PR174 bounded independent combinations', () => {
 });
 
 describe('PR174 existing threat-memory adaptation', () => {
+  it('does not count a transient forward visit followed by recycling as retained progression', () => {
+    const f = planned();
+    let state = f.state;
+    state.teams.home.threatMemory = createTeamThreatMemory(0, state.time);
+    for (let i = 0; i < 6; i++) {
+      const previous = structuredClone(state),
+        x = i % 2 === 0 ? 81 : 68;
+      state = {
+        ...state,
+        time: state.time + 1,
+        ball: { x, y: 10, ownerId: f.a },
+        players: state.players.map((p) => (p.id === f.a ? { ...p, position: { x, y: 10 } } : p)),
+        lastResolvedPass: {
+          ...f.state.lastPassDiagnostic!,
+          passId: `recycle-${i}`,
+          passerId: f.b,
+          actualReceiverId: f.a,
+          resolvedAt: state.time + 1,
+          actualContactPoint: { x, y: 10 },
+          finalResult: 'completed',
+        },
+      };
+      state = observeTeamThreats(previous, state);
+    }
+    expect(state.teams.home.threatMemory?.attackFailures?.[0]).toBeGreaterThan(0.9);
+  });
   it('requires actual distinct completed contacts, deduplicates them and does not trigger after one window', () => {
     const f = planned();
     let state = f.state;

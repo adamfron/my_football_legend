@@ -30,6 +30,7 @@ export const combinationFixtureSchema = z.object({
       'lead',
       'trailing',
       'successful',
+      'timed_run',
     ])
     .default('open'),
   mirrored: z.boolean().default(false),
@@ -141,6 +142,29 @@ export const createCombinationFixture = (input: CombinationFixtureInput) => {
       recoveryDays: 1,
       assessmentRequired: false,
     };
+  // Additional timing probe; never used to replace covered fixtures or retune policy.
+  if (options.variant === 'timed_run') {
+    if (options.scenario === 'third_man' || options.scenario === 'press') {
+      for (const p of state.players.filter(
+        (p) =>
+          p.team === a.team &&
+          p.id !== a.id &&
+          p.id !== b.id &&
+          p.id !== c.id &&
+          p.slot.position === 'central_midfielder',
+      ))
+        p.duty = 'defend';
+      c.position = { x: 63, y: 44 };
+      c.velocity = { x: 4, y: 1 };
+      c.facingAngle = Math.PI / 2;
+    } else if (options.scenario === 'overlap') {
+      c.position = { x: 70, y: 5 };
+      c.velocity = { x: 5, y: 0 };
+    } else if (options.scenario === 'underlap') {
+      c.position = { x: 70, y: 18 };
+      c.velocity = { x: 5, y: 1 };
+    }
+  }
   if (options.variant === 'lead' || options.variant === 'trailing') {
     state.time = 81 * 60;
     state.status = 'second_half';
@@ -214,3 +238,13 @@ export const PR174_HELD_OUT: CombinationFixtureInput[] =
       seed: 'pr174-held-out-b-20261017',
     })),
   );
+
+export const PR174_TARGETED: CombinationFixtureInput[] = (
+  ['third_man', 'overlap', 'underlap', 'press'] as const
+).flatMap((scenario) =>
+  (['timed_run', 'offside', 'unavailable', 'covered'] as const).map((variant) => ({
+    scenario,
+    variant,
+    seed: 'pr174-targeted-timing',
+  })),
+);

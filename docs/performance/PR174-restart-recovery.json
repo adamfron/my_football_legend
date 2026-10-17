@@ -1,0 +1,273 @@
+{
+  "method": "Identical retained G canonical state; 30s ordinary physics, no forced release, placement, player relocation or legal bypass. Stop after actual new ball flight.",
+  "rows": [
+    {
+      "label": "G",
+      "sourceHash": "64dae37fa3432d82f8d7a3e0acd5849e03df8ee34be558680de2a05eebe85b25",
+      "initialHash": "e61666ccb2061762c1d3ac36a2c3adec2cdce56955b9f2ad7b7a56c3d397f42a",
+      "finalHash": "c54143da0c0069c503bd1904f0ef8fd8530e9405d08de01e3ad923047a95048a",
+      "time": 1684.150000001744,
+      "maxStep": 1.660565017439633e-9,
+      "release": null,
+      "readiness": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": false,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "opponent_restriction"
+        ]
+      },
+      "ball": {
+        "x": 25.60849526094549,
+        "y": 39.78186255930255,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_10_17",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      }
+    },
+    {
+      "label": "final",
+      "sourceHash": "69624e5b6a3a1a5c4598d2cf428f7c615b5a6421ca2c759f54401499254fcc47",
+      "initialHash": "e61666ccb2061762c1d3ac36a2c3adec2cdce56955b9f2ad7b7a56c3d397f42a",
+      "finalHash": "f8547e3e4fc7dba09e34e8764056c02455c399ff7d5154d4a26c6158210cccb6",
+      "time": 1656.3250000016428,
+      "maxStep": 0.05965512372902128,
+      "release": {
+        "at": 1656.3250000016428,
+        "elapsed": 2.1750000000079126,
+        "kind": "free_kick_delivery",
+        "action": {
+          "type": "cross",
+          "actorId": "footballer_pro_10_19",
+          "intendedTargetId": "footballer_pro_10_13",
+          "target": {
+            "x": 20,
+            "y": 34
+          },
+          "intent": "cutback"
+        },
+        "legalBefore": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "marker": {
+          "id": "footballer_pro_9_13",
+          "playStyles": [
+            "calm_finisher",
+            "engine"
+          ],
+          "team": "home",
+          "profile": {
+            "id": "footballer_pro_9_13",
+            "firstName": "Mateusz",
+            "lastName": "Wójcik",
+            "age": 29,
+            "dateOfBirth": "1996-11-22",
+            "nationality": "PL",
+            "heightCm": 180,
+            "weightKg": 88,
+            "attributes": {
+              "technique": 70,
+              "firstTouch": 78,
+              "passing": 95,
+              "dribbling": 68,
+              "finishing": 75,
+              "tackling": 75,
+              "positioning": 65,
+              "heading": 70,
+              "setPieces": 67,
+              "gameReading": 97,
+              "composure": 84,
+              "concentration": 65,
+              "leadership": 81,
+              "determination": 86,
+              "aggression": 75,
+              "pace": 65,
+              "stamina": 79,
+              "strength": 71,
+              "agility": 80,
+              "jumping": 64,
+              "ambition": 79,
+              "professionalism": 72,
+              "reflexes": 19,
+              "handling": 9,
+              "oneOnOnes": 5,
+              "goalkeeperSweeping": 9,
+              "goalkeeperKicking": 16,
+              "goalkeeperThrowing": 22
+            },
+            "hiddenProfile": {
+              "consistency": 70,
+              "importantMatches": 50,
+              "injuryProneness": 8,
+              "adaptability": 63,
+              "loyalty": 40,
+              "pressureResistance": 24,
+              "controversy": 67,
+              "fairPlay": 32
+            },
+            "dominantFoot": "left",
+            "weakFootProficiency": 30,
+            "traits": [],
+            "primaryPosition": "central_midfielder",
+            "secondaryPositions": [
+              "striker"
+            ],
+            "positionFamiliarity": {
+              "goalkeeper": 0,
+              "center_back": 0,
+              "left_back": 0,
+              "right_back": 0,
+              "central_midfielder": 1,
+              "left_winger": 0,
+              "right_winger": 0,
+              "striker": 0.9
+            }
+          },
+          "fitness": {
+            "longTermCapacity": 0.824169116998987,
+            "burstReadiness": 0.8197394531682383,
+            "exertionSpent": 2277.8190299129656,
+            "capacitySpent": 0.0867189986007475,
+            "burstSpent": 8.291759493660644,
+            "capacityRecovered": 0.010888115599695285,
+            "burstRecovered": 7.735331580483111,
+            "movementRiskExposure": 0.00317676241901458,
+            "assessedRiskExposure": 0.003175281857692821,
+            "workload": {
+              "seconds": 1656.3250000016428,
+              "distanceWalk": 885.1997125962681,
+              "distanceJog": 2481.0404400524526,
+              "distanceRun": 354.9800074762546,
+              "distanceSprint": 18.756752221809588,
+              "sprintSeconds": 2.9499999999999935,
+              "sprintBursts": 2,
+              "accelerationImpulse": 1263.7559022718638,
+              "brakingImpulse": 1260.9191727088603,
+              "turningLoad": 2500.0691174349595,
+              "intensivePressSeconds": 4.174999999999992,
+              "bodyContactLoad": 0.37411257285327704
+            },
+            "lastInjuryContactId": "pr171-b:senior_balanced:challenge:1446.575000:footballer_pro_9_13:footballer_pro_10_19:committed"
+          },
+          "slotIndex": 6,
+          "slot": {
+            "position": "central_midfielder",
+            "x": 32,
+            "y": 34,
+            "duty": "support"
+          },
+          "duty": "support",
+          "position": {
+            "x": 16.382739156753846,
+            "y": 40.96836104910633
+          },
+          "target": {
+            "x": 15.545532657705136,
+            "y": 44.22178738442157
+          },
+          "velocity": {
+            "x": -0.7154963341322684,
+            "y": 1.5373502778152215
+          },
+          "facingAngle": 1.6948391904016962,
+          "anchor": {
+            "x": 41.739999999999995,
+            "y": 24.64
+          },
+          "neutralAnchor": {
+            "x": 41.739999999999995,
+            "y": 24.64
+          },
+          "idealTarget": {
+            "x": 15.545532657705136,
+            "y": 44.22178738442157
+          },
+          "meanPosition": {
+            "x": 48.689302620308176,
+            "y": 26.75507754783687
+          },
+          "samples": 66254,
+          "desiredFacingAngle": 1.694839190401696,
+          "movementMode": "shuffle",
+          "turnRate": 0.1360968004389207,
+          "locomotionIntensity": "jog",
+          "locomotionReason": "restart_setup",
+          "targetSpeed": 3.5096334555429602,
+          "locomotionTelemetry": {
+            "distanceTotal": 3739.976912346824,
+            "distanceWalk": 885.1997125962681,
+            "distanceJog": 2481.0404400524526,
+            "distanceRun": 354.9800074762546,
+            "distanceSprint": 18.756752221809588,
+            "sprintSeconds": 2.9499999999999935,
+            "sprintBursts": 2,
+            "maxSpeed": 7.263752199981755
+          },
+          "sprintBurstCounted": false
+        }
+      },
+      "readiness": {
+        "ready": false,
+        "ballReady": false,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "ball_not_placed"
+        ]
+      },
+      "ball": {
+        "x": 25.60849526094549,
+        "y": 39.78186255930255,
+        "from": {
+          "x": 25.60849526094549,
+          "y": 39.78186255930255
+        },
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "intendedReceiverId": "footballer_pro_10_13",
+        "travelKind": "free_kick_delivery",
+        "sourceAction": "cross",
+        "flightTime": 0,
+        "distanceTravelled": 0,
+        "height": 0,
+        "airborne": true,
+        "velocity": {
+          "x": -18.68369931672932,
+          "y": -19.30423910609224,
+          "z": 2.69550224946436
+        },
+        "launchVelocity": {
+          "x": -18.68369931672932,
+          "y": -19.30423910609224,
+          "z": 2.69550224946436
+        },
+        "launchSpeed": 27,
+        "launchElevation": 0.1,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_10_19"
+      }
+    }
+  ]
+}

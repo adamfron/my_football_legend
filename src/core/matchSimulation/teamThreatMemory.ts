@@ -95,6 +95,7 @@ export const teamThreatMemorySchema = z.object({
     .object({
       originDepth: z.number().finite(),
       maximumDepth: z.number().finite(),
+      lastControlledDepth: z.number().finite().optional(),
       channel: z.number().int().min(0).max(2),
       passes: z.number().int().nonnegative(),
     })
@@ -303,28 +304,38 @@ const observeAttackingPossession = (
     window = window ?? {
       originDepth,
       maximumDepth: originDepth,
+      lastControlledDepth: originDepth,
       channel: threatChannel(completed),
       passes: 0,
     };
     window = {
       ...window,
       maximumDepth: Math.max(window.maximumDepth, contactDepth),
+      lastControlledDepth: contactDepth,
       passes: window.passes + 1,
     };
   }
   if (!window) return memory;
   const owner = next.players.find((p) => p.id === next.ball.ownerId && p.team === side);
-  const controlledDepth = owner ? depth(owner.position, owner) : window.maximumDepth;
-  if (controlledDepth > window.maximumDepth) window = { ...window, maximumDepth: controlledDepth };
+  const controlledDepth = owner
+    ? depth(owner.position, owner)
+    : (window.lastControlledDepth ?? window.maximumDepth);
+  if (controlledDepth !== window.lastControlledDepth)
+    window = {
+      ...window,
+      lastControlledDepth: controlledDepth,
+      maximumDepth: Math.max(window.maximumDepth, controlledDepth),
+    };
   if (!ended && !newShot && window.passes < 6)
     return window === memory.attackingWindow ? memory : { ...memory, attackingWindow: window };
   const gain = window.maximumDepth - window.originDepth;
-  const success = newShot || gain >= 10;
+  const retainedGain = controlledDepth - window.originDepth;
+  const success = newShot || (gain >= 10 && retainedGain >= 5);
   const poorExecution = pass && ['technical_error', 'inaccurate'].includes(pass.finalResult ?? '');
   const failed =
     !poorExecution &&
     !success &&
-    ((window.passes >= 6 && gain < 5) ||
+    ((window.passes >= 6 && retainedGain < 5) ||
       (ended && window.maximumDepth >= 70 && window.passes >= 2));
   const failures = [...(memory.attackFailures ?? [0, 0, 0])] as ChannelScores;
   if (failed) failures[window.channel] = clamp(failures[window.channel]! + 1, 20);
@@ -341,6 +352,7 @@ const observeAttackingPossession = (
           attackingWindow: {
             originDepth: controlledDepth,
             maximumDepth: controlledDepth,
+            lastControlledDepth: controlledDepth,
             channel: owner ? threatChannel(owner.position) : window.channel,
             passes: 0,
           },

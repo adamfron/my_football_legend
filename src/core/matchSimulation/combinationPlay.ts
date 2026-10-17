@@ -42,7 +42,16 @@ const finish = (
 ): TacticalMatchState => {
   if (!state.combinationIntent) return state;
   const { combinationIntent, ...rest } = state;
-  return { ...rest, lastCombination: { ...combinationIntent, result, endedAt: state.time } };
+  const runner = state.players.find((p) => p.id === combinationIntent.runnerId);
+  return {
+    ...rest,
+    lastCombination: {
+      ...combinationIntent,
+      ...(runner ? { runMetres: distance(runner.position, combinationIntent.origin) } : {}),
+      result,
+      endedAt: state.time,
+    },
+  };
 };
 
 /** Cheap lifetime/contact validation. No candidate search or hidden rollouts on physics ticks. */
@@ -69,7 +78,9 @@ export const reconcileCombination = (state: TacticalMatchState): TacticalMatchSt
     intent.runStartedAt === undefined &&
     metres >= 0.8 &&
     Math.hypot(runner.velocity.x, runner.velocity.y) > 1 &&
-    signedForwardDistance(intent.origin, runner.position, runner) > 0.4
+    distance(intent.origin, intent.target) - distance(runner.position, intent.target) > 0.4 &&
+    (intent.kind !== 'pass_and_go' ||
+      signedForwardDistance(intent.origin, runner.position, runner) > 0.4)
   )
     intent = { ...intent, runStartedAt: state.time, runMetres: metres };
   // Keep only physically observed milestones, not a per-tick historical track.
@@ -107,6 +118,14 @@ export const observeCombinationRelease = (
   released: TacticalMatchState,
 ): TacticalMatchState => {
   let next = reconcileCombination(released);
+  if (
+    next.combinationIntent &&
+    next.decisionIndex > previous.decisionIndex &&
+    next.ball.lastTouchPlayerId === next.combinationIntent.partnerId &&
+    ['shot', 'cross', 'header'].includes(next.latestAction?.type ?? '') &&
+    next.ball.travelKind
+  )
+    next = finish(next, 'alternative_selected');
   const pass = next.lastPassDiagnostic;
   if (
     !pass ||
@@ -200,13 +219,21 @@ export const observeCombinationRelease = (
         kind: assignment.relationship,
       });
   }
+  const usefulMovement = (
+    runner: MatchPlayerState,
+    target: { x: number; y: number },
+    kind: CombinationIntent['kind'],
+  ) =>
+    kind === 'third_man'
+      ? distance(runner.position, target) > 2 && signedForwardDistance(b.position, target, b) > 2
+      : signedForwardDistance(runner.position, target, runner) > 2;
   const viable = candidates
     .filter(
-      ({ runner, target }) =>
+      ({ runner, target, kind }) =>
         available(previous, runner) &&
         onside(previous, runner) &&
         (!isHumanControlled(previous, runner.id) || humanRun?.actorId === runner.id) &&
-        signedForwardDistance(runner.position, target, runner) > 2 &&
+        usefulMovement(runner, target, kind) &&
         distance(runner.position, target) < 17,
     )
     .map((candidate) => {
@@ -226,7 +253,7 @@ export const observeCombinationRelease = (
         score: clearance + lane - distance(candidate.runner.position, target) * 0.2,
       };
     })
-    .filter((c) => c.score > 2 && signedForwardDistance(c.runner.position, c.target, c.runner) > 2)
+    .filter((c) => c.score > 2 && usefulMovement(c.runner, c.target, c.kind))
     .sort((a, b) => b.score - a.score || a.runner.id.localeCompare(b.runner.id));
   // At most two distinct runners: an infeasible wide job must not hide a feasible passer run.
   const shortlisted = viable

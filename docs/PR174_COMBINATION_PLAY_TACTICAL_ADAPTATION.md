@@ -66,6 +66,23 @@ Production build and strict research-harness TypeScript pass. The focused physic
 PR172/173 and threat-memory regression run passes 85 tests. Full verification, held-out cohorts,
 performance measurements and final browser/career evidence are still pending at this checkpoint.
 
+The first complete CI run passed 1817/1818 main tests and exposed the expected complete
+telemetry change for seed b. Both pristine PR173 and final full outputs have now repeated
+twice per seed in fresh processes; the all-field reference is updated without removing any
+assertion, timeout, worker setting or tick. See `PR174-telemetry-reference.json`.
+
+A changed natural senior continuation also exposed a real free-kick soft lock: an encroaching
+marker's destination lay behind its own settled wall. The exact retained G state remains in
+the evidence archive. A bounded destination search leaves bodies and the ball untouched and
+allows the marker to walk around the wall before legal authorisation. The same state stays
+blocked for 30 s on G and physically releases after 2.175 s on the final engine, with legal
+readiness true and maximum body step 0.05966 m. The initial insufficient angular search is
+retained as rejected H. No defender movement or football-law threshold is weakened.
+
+Attacking evidence now distinguishes a transient forward visit followed by backward recycling
+from retained controlled progression. Third-man connections may use a purposeful lateral run;
+pass-and-go still requires actual forward movement. These cases have dedicated regressions.
+
 ## Roadmap
 
 PR175: independent match-reality validation, especially advantage-to-shot conversion and losses.
