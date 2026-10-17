@@ -966,6 +966,16 @@ export const deriveTacticalTargets = (state: TacticalMatchState): MatchPlayerSta
       };
     }
     if (depthRun && !occupation) ideal = depthRun.target;
+    const combination = state.combinationIntent;
+    if (
+      combination &&
+      combination.team === state.possessionTeam &&
+      combination.runnerId === player.id &&
+      state.time < combination.expiresAt &&
+      combination.phase !== 'continuation_flight' &&
+      !(state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id)
+    )
+      ideal = combination.target;
     const looseAssignment = looseAssignments.find(({ playerId }) => playerId === player.id);
     const coverAssignment = looseAssignments.find(({ coverId }) => coverId === player.id);
     if (coverAssignment?.coverTarget) ideal = coverAssignment.coverTarget;

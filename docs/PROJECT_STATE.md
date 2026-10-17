@@ -1,5 +1,20 @@
 # My Football Legend — Current Project State
 
+## PR174 — Combination Play & Tactical Adaptation
+
+Draft based on merged PR173 `c499123`. Bounded shared opportunities connect actual releases,
+supporting runs and independent partner choices through the existing canonical engine.
+Threat memory observes completed possession windows, distinguishes execution failures and
+allows constrained contextual distance-shot consideration. No guaranteed return or success.
+
+Validation is in progress; do not describe this checkpoint as ready. The report retains
+mixed controlled outcomes and will record the unchanged full verification, matched cohorts,
+held-out fixtures, career/browser evidence and CPU cost:
+[PR174 report](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
+
+Next: PR175 match reality → PR176 generations → PR177 summary/PlayStyles → PR178 career UX
+→ PR179+ world expansion. Historical PR171–173 evidence is preserved.
+
 ## PR173 — Dynamic Football Actions & First-Touch Intelligence
 
 Baza: scalony PR172 `7465773`. Kierunkowy pierwszy kontakt nie przesuwa już

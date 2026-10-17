@@ -1,6 +1,9 @@
 # Roadmap
 
-Aktualny etap: **PR173 — Dynamic Football Actions & First-Touch Intelligence**.
+Aktualny etap: **PR174 — Combination Play & Tactical Adaptation (draft, walidacja w toku)**.
+[Raport PR174](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
+
+Poprzedni etap: **PR173 — Dynamic Football Actions & First-Touch Intelligence (scalony)**.
 [Raport, scenariusze i granice dowodu](PR173_DYNAMIC_FOOTBALL_ACTIONS_FIRST_TOUCH.md).
 
 PR173 łączy ruchome przyjęcie z fizycznym impulsem kontroli, ograniczoną prognozą
@@ -10,7 +13,7 @@ heurystyki nie trafiają do rankingu. Nie deklarujemy rozwiązania nadmiernego r
 
 ## Autorytatywna kolejność PR173–PR179+
 
-- **PR173 — Dynamic Football Actions & First-Touch Intelligence (bieżący PR)**.
+- **PR173 — Dynamic Football Actions & First-Touch Intelligence (scalony)**.
   Ruchome przyjęcia, względny ruch i orientacja obrońców, fizyczna kontynuacja,
   istniejące cięcia/krótkie dryblingi/wypchnięcia, rezerwa zrywu oraz zestaw 1a/1b/2a.
   Zachować autonomię człowieka i jedną kanoniczną fizykę. Wdrażać tylko poprawki

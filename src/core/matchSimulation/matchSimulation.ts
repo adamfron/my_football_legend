@@ -51,6 +51,7 @@ import { deriveCanonicalCoachProfile } from '../coachProfiles';
 import { deriveCoachTacticalPreferences } from '../coachTactics';
 import { emitMatchEvents } from './matchEventFeed';
 import { initialiseTeamThreatMemory, observeTeamThreats } from './teamThreatMemory';
+import { reconcileCombination } from './combinationPlay';
 import type { SingleMatchSession } from '../singleMatch';
 import { RandomGenerator } from '../random/RandomGenerator';
 import {
@@ -1343,7 +1344,7 @@ const stepTacticalMatchCore = (
     delete state.keeperIntervention;
   }
   const planningSpan = startPerformanceSpan('tactical_planning');
-  state = advanceOnBallPreparation(state);
+  state = reconcileCombination(advanceOnBallPreparation(state));
   const semanticKey = tacticalSemanticKey(state);
   const tacticalPlanDue =
     !state.planningSchedule ||
@@ -2750,7 +2751,7 @@ const stepCanonicalMatch = (
   next = observeLooseBallLiveness(next);
   next = emitCanonicalActionEvents(original, next);
   next = emitMatchEvents(original, next);
-  next = observeTeamThreats(original, next);
+  next = reconcileCombination(observeTeamThreats(original, next));
   return {
     ...next,
     statistics: observePlayerMatchStats(

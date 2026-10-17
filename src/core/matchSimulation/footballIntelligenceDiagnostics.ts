@@ -6,6 +6,8 @@ import { distance, distanceToSegment } from './matchSpace';
 import { deriveCooperativePress } from './defensiveChallenges';
 import { deriveBuildUpSupport } from './tacticalPositioning';
 import { rankAvailableActionsForAI } from './matchActions';
+import { signedForwardDistance } from './matchSpace';
+import type { CombinationIntent } from './combinationState';
 
 export const pressureSupportEpisodeSchema = z.object({
   actorId: z.string(),
@@ -54,6 +56,145 @@ export const pressureSupportEpisodeSchema = z.object({
     .optional(),
 });
 export type PressureSupportEpisode = z.infer<typeof pressureSupportEpisodeSchema>;
+
+export const combinationDiagnosticsSchema = z.object({
+  counts: z.record(z.string(), z.number().int().nonnegative()),
+  maximumCandidates: z.number().int().nonnegative(),
+  traces: z
+    .array(
+      z.object({
+        id: z.string(),
+        kind: z.string(),
+        at: z.number(),
+        stage: z.string(),
+        metres: z.number().optional(),
+      }),
+    )
+    .max(128),
+});
+
+/** Opt-in observer. Physical IDs deduplicate repeated state observations. Forecast/rank totals
+ * are distinct from actual contacts; no observer data is retained in career state. */
+export class CombinationPlayTracker {
+  private counts: Record<string, number> = {};
+  private traces: z.infer<typeof combinationDiagnosticsSchema>['traces'] = [];
+  private activeId = '';
+  private runId = '';
+  private firstCompletedId = '';
+  private resultId = '';
+  private probeKey = '';
+  private maximumCandidates = 0;
+  private previousPass:
+    | { id: string; a: string; b: string; origin: { x: number; y: number } }
+    | undefined;
+  private lastRelease = '';
+  private pendingReturn = '';
+  private resolvedReturn = '';
+  private add(key: string) {
+    this.counts[key] = (this.counts[key] ?? 0) + 1;
+  }
+  private trace(c: CombinationIntent, stage: string, at: number) {
+    if (this.traces.length < 128)
+      this.traces.push({ id: c.id, kind: c.kind, at, stage, metres: c.runMetres });
+  }
+  observe(previous: TacticalMatchState, next: TacticalMatchState) {
+    const pass = next.lastPassDiagnostic;
+    if (pass && pass.passId !== this.lastRelease) {
+      const old = this.previousPass;
+      const runner = next.players.find((p) => p.id === pass.intendedReceiverId);
+      if (
+        old &&
+        runner &&
+        pass.passerId === old.b &&
+        runner.id === old.a &&
+        distance(old.origin, runner.position) >= 1.6 &&
+        signedForwardDistance(old.origin, runner.position, runner) > 0.4
+      ) {
+        this.add('observed_moving_return_attempts');
+        this.pendingReturn = pass.passId;
+      }
+      const a = previous.players.find((p) => p.id === pass.passerId);
+      if (a)
+        this.previousPass = {
+          id: pass.passId,
+          a: pass.passerId,
+          b: pass.intendedReceiverId,
+          origin: { ...a.position },
+        };
+      this.lastRelease = pass.passId;
+    }
+    for (const resolved of [next.lastResolvedPass, next.lastPassDiagnostic])
+      if (
+        resolved &&
+        resolved.passId === this.pendingReturn &&
+        resolved.resolvedAt !== undefined &&
+        resolved.passId !== this.resolvedReturn
+      ) {
+        this.add(`observed_moving_return_${resolved.finalResult}`);
+        this.resolvedReturn = resolved.passId;
+      }
+    const c =
+      next.combinationIntent ??
+      (next.lastCombination?.id !== this.resultId ? next.lastCombination : undefined);
+    if (c) {
+      if (c.id !== this.activeId) {
+        this.add('intentions');
+        this.add(`kind_${c.kind}`);
+        this.activeId = c.id;
+        this.trace(c, 'recognised', next.time);
+      }
+      if (c.runStartedAt !== undefined && c.id !== this.runId) {
+        this.add('runs_started');
+        this.runId = c.id;
+        this.trace(c, 'physical_run', c.runStartedAt);
+      }
+      if (c.firstCompletedAt !== undefined && c.id !== this.firstCompletedId) {
+        this.add('first_passes_completed');
+        this.firstCompletedId = c.id;
+      }
+      const key = `${c.id}:${next.decisionIndex}:${next.ball.ownerId ?? 'flight'}`;
+      if (
+        next.ball.ownerId === c.partnerId &&
+        key !== this.probeKey &&
+        c.runStartedAt !== undefined
+      ) {
+        this.probeKey = key;
+        const ranked = rankAvailableActionsForAI(next, c.partnerId);
+        this.maximumCandidates = Math.max(this.maximumCandidates, ranked.length);
+        const options = ranked.filter(
+          (r) => r.action.type === 'pass' && r.action.receiverId === c.runnerId,
+        );
+        this.add('continuation_decisions_probed');
+        if (options.length) this.add('continuation_options_generated');
+        if (ranked[0]?.action.type === 'pass' && ranked[0].action.receiverId === c.runnerId)
+          this.add('continuation_options_ranked_first');
+      }
+    }
+    if (
+      next.combinationIntent?.continuationPassId &&
+      next.combinationIntent.continuationPassId !== previous.combinationIntent?.continuationPassId
+    )
+      this.add('continuations_physically_released');
+    const result = next.lastCombination;
+    if (result && result.id !== this.resultId) {
+      this.resultId = result.id;
+      this.add(`result_${result.result}`);
+      this.trace(result, result.result, result.endedAt);
+      if (result.result === 'completed') {
+        this.add(`completed_${result.kind}`);
+        if (signedForwardDistance(result.origin, next.ball, next.teams[result.team]) > 2)
+          this.add('completed_with_controlled_progression');
+      }
+    }
+  }
+  snapshot() {
+    return combinationDiagnosticsSchema.parse({
+      counts: { ...this.counts },
+      maximumCandidates: this.maximumCandidates,
+      traces: [...this.traces],
+    });
+  }
+}
 
 /** Optional, read-only, bounded observer. Geometry/ranking probes run once per canonical second. */
 export class PressureSupportTracker {
