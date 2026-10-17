@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "rebounds": [
+    {
+      "team": "home",
+      "endsSwitched": false,
+      "kind": "defender",
+      "incoming": {
+        "x": 25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": -9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": -9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": false,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    },
+    {
+      "team": "home",
+      "endsSwitched": false,
+      "kind": "goalkeeper",
+      "incoming": {
+        "x": 25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": -8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": -8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": false,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    },
+    {
+      "team": "home",
+      "endsSwitched": true,
+      "kind": "defender",
+      "incoming": {
+        "x": -25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": -9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": 9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": true,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    },
+    {
+      "team": "home",
+      "endsSwitched": true,
+      "kind": "goalkeeper",
+      "incoming": {
+        "x": -25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": -8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": 8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": true,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    },
+    {
+      "team": "away",
+      "endsSwitched": false,
+      "kind": "defender",
+      "incoming": {
+        "x": -25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": 9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": 9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": false,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    },
+    {
+      "team": "away",
+      "endsSwitched": false,
+      "kind": "goalkeeper",
+      "incoming": {
+        "x": -25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": 8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": 8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": false,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    },
+    {
+      "team": "away",
+      "endsSwitched": true,
+      "kind": "defender",
+      "incoming": {
+        "x": 25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": 9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": -9.530351515028185,
+          "y": -1,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": true,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    },
+    {
+      "team": "away",
+      "endsSwitched": true,
+      "kind": "goalkeeper",
+      "incoming": {
+        "x": 25,
+        "y": 2,
+        "z": 1
+      },
+      "currentCaller": {
+        "velocity": {
+          "x": 8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "orientationPreserved": {
+        "velocity": {
+          "x": -8.02555917055005,
+          "y": 1.3,
+          "z": 0.42
+        },
+        "airborne": true
+      },
+      "towardAttackedGoal": true,
+      "caveat": "Current shot-contact caller supplies shooter.team, dropping endsSwitched. Orientation-preserved call is a frozen input counterfactual, not a production fix."
+    }
+  ],
+  "keeperHandover": {
+    "emergencyId": "geometry:opponent:9",
+    "simultaneousKeeperRolesError": "Cannot read properties of undefined (reading 'x')",
+    "singleKeeperControlTargetCount": 22,
+    "changedFactor": "temporary goalkeeperRole on an outfield player while a named keeper is present",
+    "relation": "Equivalent transient state created between physical keeper entry and subsequent ensureMatchGoalkeepers; actual strong/weak one-tick replay is recorded separately."
+  }
+}

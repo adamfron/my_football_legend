@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "status": "PASS",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "tests": {
+    "main": 1740,
+    "integration": 52,
+    "contract": 4,
+    "fullCareer": 5,
+    "total": 1801
+  },
+  "summary": "1801 testów: 1740 main, 52 integration, 4 canonical contract, 5 full-career; lint, TypeScript i produkcyjny build PASS. Timeouty/workery/asercje bez zmian. Końcowe research scripts mają osobny strict TypeScript i ponowiony lint.",
+  "logSha256": "9d3648b93d3c51ff2b72be2377a32123248557f5904e45c1bae0094e5f7f8812",
+  "sourceHash": "87f550ce3cf19f818ac0a7e28bb35b16e4e800fe5b413f9364ca0aaa81427943",
+  "caveat": "Research CLI/provenance/report scripts evolved additively after the full gate; final lint/strict checks and focused diagnostics are recorded separately.",
+  "finalResearchChecks": {
+    "eslint": {
+      "command": "node node_modules/eslint/bin/eslint.js .",
+      "exitCode": 0
+    },
+    "strictTypescript": {
+      "command": "tsc --noEmit --strict (all eight PR171 TypeScript research scripts)",
+      "exitCode": 0
+    },
+    "performanceRunner": {
+      "recordedRuns": 9,
+      "unrecordedWarmups": 3,
+      "completeCanonicalStateEqual": true,
+      "fullMatchConfirmations": 2
+    },
+    "focusedRegression": {
+      "command": "vitest run src/core/matchSimulation/pr171DiagnosticAudit.test.ts",
+      "exitCode": 0,
+      "tests": 13
+    },
+    "sourceAndReceipts": {
+      "unchangedCoreSourceHash": "87f550ce3cf19f818ac0a7e28bb35b16e4e800fe5b413f9364ca0aaa81427943",
+      "jsonFilesParsed": 14,
+      "fullMatchReconciliation": true
+    }
+  }
+}

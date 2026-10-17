@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "production": true,
+  "baseUrl": "http://127.0.0.1:54677/my_football_legend/",
+  "careerSeed": "pr171-browser",
+  "position": "central_midfielder",
+  "profile": "Rozgrywający",
+  "checks": {
+    "newCareer": true,
+    "play3d": true,
+    "humanPassReleased": true,
+    "resolvedDecisions": 1,
+    "simulateRemainder": true,
+    "result": "2:1",
+    "savedAndReloaded": true,
+    "appearanceAfterReload": 1,
+    "normalCareerAuditUiAdded": false,
+    "labWebglReady": true,
+    "labErrors": 0,
+    "diagnosticExportDownloaded": true
+  },
+  "exportSha256": "1444bd94582e95c132164238e8d1f307000112c7e31d901b040edc3744cc5d0b",
+  "screenshots": [
+    "career-human-pass.png",
+    "career-result.png",
+    "career-reloaded.png",
+    "lab-3d.png",
+    "lab-export.png"
+  ],
+  "limitation": "Career browser run is a canonical prefix plus summary remainder, not a full 90-minute browser match. Grey hidden-advancement screen in first screenshot is expected presentation; separate Lab image verifies WebGL."
+}

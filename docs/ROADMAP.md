@@ -1,30 +1,34 @@
 # Roadmap
 
-Aktualny etap: **PR170 — Match Atmosphere, Stylized Visual Polish & Career UI Refinement**.
-[Raport, pomiary i dowody PR170](PR170_MATCH_ATMOSPHERE_VISUAL_POLISH.md).
+Aktualny etap: **PR171 — Match Reality Diagnostic Audit**.
+[Raport, hipotezy i plan PR172](PR171_MATCH_REALITY_DIAGNOSTIC_AUDIT.md).
 
-Rozwinięto oprawę PR161/165, pomijalne przejścia i dostępny HUD. Kariera ma
-sześć ofert zewnętrznych plus odnowienie, finanse z ledgeru, mały kalendarz
-i gęstszą tabelę. Produkcyjny Edge i pomiary zachowują granice prezentacji;
-kanoniczne hasze futbolu są identyczne. Bez kalibracji silnika lub rozwoju.
+Zakończono 12 pełnych meczów kanonicznych, zachowując osobno dwa przebiegi
+bez końca meczu oraz dwie awarie przy zmianie bramkarza. Referencja StatsBomb,
+lejek, sieci CM, kontrolowane sytuacje i hasze observer ON/OFF dają podstawę
+do następnego etapu. Pełne `npm run verify`: **PASS — 1801 testów**.
+PR171 nie zmienia balansu ani zachowania kanonicznego futbolu.
 
 ## Autorytatywna kolejność PR170–PR175+
 
-- **PR170 — Match Atmosphere & Stylized Visual Polish (bieżący PR)**. Zachować atmosferę,
+- **PR170 — Match Atmosphere & Stylized Visual Polish (scalony)**. Zachować atmosferę,
   ceremonie, portrety, ławki, prostych widzów i opcjonalny cel shading. Usunąć
   nadmiarowy napis „Adam Froń — na boisku” oraz przestarzałe żółte pole interakcji
   z niedziałającym selektorem, zachowując funkcjonalne ścieżki decyzji. Ujednolicić
   pozostały HUD. Pokazać do sześciu wiarygodnych ofert zewnętrznych w zwartej siatce
   dwóch rzędów, z wyraźnymi obramowaniami. Poprawić kartę finansów i jej szczegóły,
   dodać użyteczny mały kalendarz pod tabelą i poprawić gęstość tabel większych lig.
-- **PR171 — Match Reality Diagnostic Audit**. Porównać rzeczywiste rozkłady
-  statystyk kanonicznych meczów z wiarygodnymi danymi rzeczywistej piłki. Zbadać
-  nadmierne podania, niewielki udział środkowych pomocników, mało okazji, strzałów
-  celnych, obron i rzutów rożnych; bloki strzałów, wybicia, ciągłość posiadania
-  w ataku i częstości działań według pozycji. Wymagać hipotez i kontrolowanych
-  eksperymentów przed zmianami równowagi.
+- **PR171 — Match Reality Diagnostic Audit (bieżący PR)**. Pomiary i hipotezy,
+  jawne ograniczenia porównywalności i cenzorowania, kontrolowane kontrfaktyczne
+  przypadki, rozliczenie podań oraz bounded opt-in diagnostyka. Nie stroić silnika.
 - **PR172 — Match Realism Calibration**. Wprowadzać wyłącznie korekty poparte
-  wynikami PR171. Bez kwot goli, strzałów i podań.
+  wynikami PR171. Najpierw P0: keeper handover przed restart geometry oraz
+  restart liveness (`wall_developing` i pętla added-time). Następnie zachowanie
+  orientacji defleksji i osobne eksperymenty normalnej kontaktu/parry; rzeczywiste
+  zamrożone decyzje kreacji/CM przed zmianą pojedynczego członu pozycji/utility.
+  Zweryfikować carry intent, shot contact/rejection i gotowość keeperów po przerwie.
+  Plan modułów, ryzyk i regresji jest w raporcie PR171. Bez kwot goli, strzałów,
+  podań, automatycznych przyjęć CM ani sztucznych saves/corners.
 - **PR173 — Generational Renewal & World Strength**. Zbadać ewolucję świata przez
   20–25 sezonów: sumę i średnią OVR kadr, siłę najlepszej XI, jakość pozycji i
   rozkład wieku, absolwentów akademii i uzupełnianie kadr, emerytury, blokowanie
@@ -35,13 +39,19 @@ kanoniczne hasze futbolu są identyczne. Bez kalibracji silnika lub rozwoju.
   symulacji względem poprawionego silnika kanonicznego. Zbadać nadmierne gole
   i asysty pomocników defensywnych/środkowych. Rozszerzyć rozwój ludzkich stylów
   na właściwe mecze podsumowaniowe, zachowując uczciwe źródło danych i wieloletnie
-  wymagania nabywania stylów.
+  wymagania nabywania stylów. Udział i zmiany mają spójne starter/substitute,
+  entry/exit, osobę zastępowaną/zastępującą i wyłącznie rzeczywiście modelowany
+  powód; nie wnioskować słabej gry z samej oceny lub liczby minut.
 - **PR175+ — World Expansion**. Więcej lig i klubów, puchary, reprezentacje i
   dalsze systemy świata futbolu.
 
-PR170 nie kalibruje podań, strzałów, obron, rożnych, krycia, pozycji, częstości
-decyzji ani tempa. Nie zmienia krzywych rozwoju człowieka/NPC, rozkładów G/A
-lekkiej symulacji ani liczby lig. Następny jest niezależny PR171.
+Po PR174 osobny UX follow-up: jeden zwarty wiersz fixture, zbiorczy wiersz sezonu
+w archiwum bez duplikowania dużych historii; kalendarz podąża za `career.currentDate`
+i rzeczywistymi terminami meczów, zaplanowanych treningów, życia oraz urazów
+i okresów niedostępności. Odróżniać zapisane zdarzenia od prezentacyjnej rekurencji;
+nie zapełniać pustych dni wymyślonym treningiem. Wcześniejszy wąski maintenance
+jest uzasadniony wyłącznie odtworzonym błędem blokującym zwykłe użycie.
+Kolejność PR172 → PR173 → PR174 pozostaje bez zmian.
 
 ## Historyczne zapisy roadmapy
 

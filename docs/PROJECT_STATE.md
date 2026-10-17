@@ -1,5 +1,38 @@
 # My Football Legend — Current Project State
 
+## PR171 — Match Reality Diagnostic Audit
+
+Baza: scalony PR170 `1b7e2e0`. Wyłącznie diagnostyka, eksperymenty i raport:
+kanoniczne decyzje, fizyka, bilans kariery i format zapisu pozostają bez zmian.
+Istniejący lejek ma opt-in okresy, zegary, histogramy, CM sampling i ślady strzałów,
+ograniczone pamięciowo i odporne na powtórzone obserwacje/stare eventy prezentacji.
+
+12 pełnych meczów / 24 obserwacje zespołu: średnio 1087,54 podań, 0,58 strzału
+i 0,13 rożnego na zespół. Uzgodniono 26101 fizycznych podań z oficjalną księgą;
+CM otrzymali 3316/23010 ukończeń. Lejek pokazuje 3041 kontrolowanych sekwencji,
+561 wejść final i 34 box. Elitarna referencja StatsBomb jest porównaniem struktury,
+z jawnymi różnicami definicji i brakiem odpowiedniej referencji U-17.
+
+Nie ukryto dwóch przebiegów cenzorowanych na 7200 s ani dwóch awarii silny–słaby.
+Keeper handover odtwarza brakujący cel geometry jednym tickiem; obie długie
+przerwy mają `wall_developing` i rosnący wymagany koniec. Osobne próby badają
+orientację odbić, 22 wybory AI, 72 kontakty strzałów, 9 carry i 5 restartów.
+Naturalne 14 strzałów nie daje podstaw do strojenia populacyjnej skuteczności.
+
+Pełne mecze U-17 w obu orientacjach mają identyczne hasze całego stanu observer
+ON/OFF; krótkie pary i cenzorowane replays także są zgodne. Produkcyjna przeglądarka
+potwierdza podanie człowieka, Simulate Remainder, commit/reload wyniku i DEV export.
+Pełne `npm run verify`: **PASS — 1801 testów**, lint, TypeScript, build.
+Metody, niepewność, koszty observerów, dowody i odpowiedzi na 30 pytań:
+[raport PR171](PR171_MATCH_REALITY_DIAGNOSTIC_AUDIT.md).
+
+Następny **PR172**: najpierw keeper handover/restart liveness, potem poparte
+eksperymentami mechaniki orientacji, kreacji/CM, kontaktu i human intent.
+**PR173** generacje/siła świata → **PR174** summary/PlayStyles i spójne zmiany.
+Zwarta historia/archiwum i poprawki kalendarza mają osobny UX follow-up po PR174
+(wyjątek: odtworzony blokujący błąd wymagający wcześniejszego maintenance).
+Autorytatywny zakres jest na początku [roadmapy](ROADMAP.md).
+
 ## PR170 — Match Atmosphere, Stylized Visual Polish & Career UI Refinement
 
 Baza: scalony PR169 `77fd3a3`. Trzy stadiony PR161 mają czytelniejsze sektory,
