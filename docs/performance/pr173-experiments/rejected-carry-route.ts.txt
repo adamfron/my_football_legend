@@ -1,0 +1,228 @@
+import { isMatchGoalkeeper } from './matchGoalkeeper';
+import { z } from 'zod';
+import { clampPitchPoint, distance, distanceToSegment, pitchPointSchema } from './matchSpace';
+import type { BallCarrierIntent, MatchPlayerState, TacticalMatchState } from './matchState';
+import { angleForVector, normalizeAngle } from './playerOrientation';
+import { deriveCarryPursuit } from './carryPursuit';
+import { projectDynamicRoute } from './dynamicIntervention';
+import { deriveMovementCapability } from './locomotion';
+
+export const carryExecutionModeSchema = z.enum([
+  'burst',
+  'controlled',
+  'tight_dribble',
+  'evade',
+  'shield',
+]);
+export type CarryExecutionMode = z.infer<typeof carryExecutionModeSchema>;
+export const carryExecutionSchema = z.object({
+  mode: carryExecutionModeSchema,
+  localTarget: pitchPointSchema,
+  speedFactor: z.number().positive(),
+  touchDistance: z.number().positive(),
+  closestDefenderDistance: z.number().nonnegative(),
+  blockerId: z.string().optional(),
+  projectedControl: z.number().min(0).max(1),
+  pursuingBall: z.boolean(),
+});
+export type CarryExecution = z.infer<typeof carryExecutionSchema>;
+
+/** A destination is a decision waypoint, including a physically overshot approach. */
+export const hasReachedCarryDecisionWaypoint = (
+  actor: MatchPlayerState,
+  intent: BallCarrierIntent,
+): boolean => {
+  const radius = 1.6;
+  if (distance(actor.position, intent.target) <= radius) return true;
+  const dx = intent.target.x - intent.startPosition.x;
+  const dy = intent.target.y - intent.startPosition.y;
+  const length = Math.hypot(dx, dy);
+  if (length < 0.1) return true;
+  const beyond =
+    ((actor.position.x - intent.target.x) * dx + (actor.position.y - intent.target.y) * dy) /
+    length;
+  const lateral =
+    Math.abs(
+      (actor.position.x - intent.target.x) * dy - (actor.position.y - intent.target.y) * dx,
+    ) / length;
+  return (
+    beyond >= 0 &&
+    (lateral <= radius * 2 || distance(intent.closestPointReached, intent.target) <= radius * 2)
+  );
+};
+
+const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
+  state.players.filter((player) => player.team !== actor.team && !isMatchGoalkeeper(player));
+
+/** Contextual micro-execution of an authoritative carry destination; never selects another action. */
+export const deriveCarryExecution = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  intent: BallCarrierIntent,
+): CarryExecution => {
+  const defenders = opponents(state, actor)
+    .map((player) => ({ player, metres: distance(player.position, actor.position) }))
+    .sort((a, b) => a.metres - b.metres || a.player.id.localeCompare(b.player.id));
+  const closest = defenders[0];
+  const targetDistance = distance(actor.position, intent.target);
+  const blocker = defenders.find(
+    ({ player, metres }) =>
+      metres < 7 && distanceToSegment(player.position, actor.position, intent.target) < 1.65,
+  );
+  const intention = intent.movementMode;
+  let mode: CarryExecutionMode =
+    !closest || closest.metres > 7
+      ? targetDistance > 9 && Math.hypot(actor.velocity.x, actor.velocity.y) > 2
+        ? 'burst'
+        : 'controlled'
+      : closest.metres < 2.2
+        ? blocker
+          ? 'shield'
+          : 'tight_dribble'
+        : blocker
+          ? 'evade'
+          : 'controlled';
+  // Explicit football intent owns the objective. Pressure changes its physical route, but may
+  // only replace progress with prolonged shielding when retaining the ball was selected.
+  if (intention === 'sprint') mode = 'burst';
+  else if (intention === 'retain') mode = closest && closest.metres < 5 ? 'shield' : 'controlled';
+  else if (intention === 'dribble')
+    mode = blocker ? 'evade' : closest && closest.metres < 3 ? 'tight_dribble' : 'controlled';
+  else if (intention === 'carry' && mode === 'shield') mode = 'evade';
+  // Semantic hysteresis: retain a recent mode unless pressure crosses a meaningful boundary.
+  if (
+    intent.executionMode &&
+    state.time - (intent.modeSince ?? intent.startedAt) < 0.65 &&
+    // An arriving body can invalidate the previous route inside its ordinary mode
+    // hysteresis. This is spatial anticipation, not a countdown escape or stun.
+    (!closest ||
+      closest.metres > 2.8 ||
+      Math.hypot(
+        closest.player.velocity.x - actor.velocity.x,
+        closest.player.velocity.y - actor.velocity.y,
+      ) < 2.2) &&
+    (intention === undefined ||
+      (intention !== 'sprint' && (intent.executionMode !== 'shield' || intention === 'retain')))
+  )
+    mode = intent.executionMode;
+  let localTarget = intention === 'retain' ? actor.position : intent.target;
+  if (mode === 'evade' && blocker) {
+    const dx = intent.target.x - actor.position.x;
+    const dy = intent.target.y - actor.position.y;
+    const length = Math.max(0.1, Math.hypot(dx, dy));
+    const candidates = [-1, 1].map((side) =>
+      clampPitchPoint({
+        x:
+          blocker.player.position.x + (-dy / length) * (intention === 'dribble' ? 4.2 : 2.4) * side,
+        y: blocker.player.position.y + (dx / length) * (intention === 'dribble' ? 4.2 : 2.4) * side,
+      }),
+    );
+    const recentRoute = intent.executionMode === 'evade' && !intent.pursuingBall && intent.localTarget &&
+      state.planningSchedule && state.time-state.planningSchedule.lastTacticalPlanAt > 1e-6 &&
+      candidates.some(point=>distance(point,intent.localTarget!)<1);
+    const capability=deriveMovementCapability(actor);
+    // Reuse the canonical 10Hz planning schedule. Integrating a body at 40Hz must not
+    // run a new bounded forecast on each physics tick.
+    const routeMargins = new Map(recentRoute ? [] : candidates.map(point=>[point,projectDynamicRoute(state,actor,point,capability.runSpeed*0.72)] as const));
+    localTarget = recentRoute ? intent.localTarget! : candidates.sort((a, b) => {
+      const anticipation = 0.12 + (actor.profile.attributes.gameReading / 100) * 0.25;
+      const clearance = (point: typeof a) =>
+        Math.min(
+          ...defenders.map(({ player }) =>
+            distance(point, {
+              x: player.position.x + player.velocity.x * anticipation,
+              y: player.position.y + player.velocity.y * anticipation,
+            }),
+          ),
+        );
+      const read=(actor.profile.attributes.gameReading+actor.profile.attributes.concentration)/200;
+      const dynamicClearance=(point:typeof a)=>{
+        const route=routeMargins.get(point)!;
+        return Math.max(-6,Math.min(6,route.margin*capability.runSpeed));
+      };
+      const score = (point: typeof a) =>
+        distance(point, intent.target) -
+        (clearance(point)*(1-read)+dynamicClearance(point)*read) * (0.5 + (actor.profile.attributes.dribbling / 100) * 0.45) +
+        (intent.localTarget
+          ? Math.abs(
+              normalizeAngle(
+                angleForVector({ x: point.x - actor.position.x, y: point.y - actor.position.y }) -
+                  angleForVector({
+                    x: intent.localTarget.x - actor.position.x,
+                    y: intent.localTarget.y - actor.position.y,
+                  }),
+              ),
+            ) *
+            (0.5 + (1 - actor.profile.attributes.agility / 100) * 0.7)
+          : 0) +
+        (point.y < 2 || point.y > 66 ? 5 : 0);
+      return score(a) - score(b) || a.y - b.y;
+    })[0]!;
+  } else if (mode === 'shield' && closest) {
+    const awayX = actor.position.x - closest.player.position.x;
+    const awayY = actor.position.y - closest.player.position.y;
+    const length = Math.max(0.1, Math.hypot(awayX, awayY));
+    localTarget = clampPitchPoint({
+      x: actor.position.x + (awayX / length) * 0.85,
+      y: actor.position.y + (awayY / length) * 0.85,
+    });
+  }
+  const a = actor.profile.attributes;
+  // An aligned destination already runs through the touch. Preserve its existing stride;
+  // redirect only when the new route would leave the ball or control is genuinely loose.
+  const routeLeavesBall =
+    state.ball.ownerId !== actor.id ||
+    Math.abs(
+      normalizeAngle(
+        angleForVector({
+          x: intent.target.x - actor.position.x,
+          y: intent.target.y - actor.position.y,
+        }) -
+          angleForVector({
+            x: state.ball.x - actor.position.x,
+            y: state.ball.y - actor.position.y,
+          }),
+      ),
+    ) > 0.35;
+  const pursuit = routeLeavesBall ? deriveCarryPursuit(state, actor) : undefined;
+  const pursuingBall = Boolean(pursuit);
+  if (pursuit && pursuingBall) localTarget = pursuit.target;
+  const projectedControl = Math.max(
+    0,
+    Math.min(
+      1,
+      (a.dribbling + a.technique + a.agility + a.composure + a.gameReading) / 500 -
+        Math.max(0, 3.5 - (closest?.metres ?? 10)) * 0.06 -
+        (intention === 'sprint' ? 0.15 : 0) +
+        (intention === 'retain' ? 0.08 : 0),
+    ),
+  );
+  return carryExecutionSchema.parse({
+    mode,
+    localTarget,
+    speedFactor:
+      mode === 'burst'
+        ? 1.25
+        : mode === 'controlled'
+          ? 0.85
+          : mode === 'evade'
+            ? 0.72
+            : mode === 'tight_dribble'
+              ? 0.58
+              : 0.42,
+    touchDistance:
+      mode === 'burst'
+        ? 1.35 + (intention === 'sprint' ? (1 - projectedControl) * 0.75 : 0)
+        : mode === 'controlled'
+          ? 0.72
+          : mode === 'tight_dribble'
+            ? 0.38
+            : mode === 'shield'
+              ? 0.32
+              : 0.5,
+    closestDefenderDistance: closest?.metres ?? 105,
+    ...(blocker ? { blockerId: blocker.player.id } : {}),
+    projectedControl,
+    pursuingBall,
+  });
+};

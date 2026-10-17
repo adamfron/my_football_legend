@@ -4,8 +4,22 @@ import type { TacticalMatchState } from './matchState';
 import { distance, signedForwardDistance } from './matchSpace';
 import { classifyPass } from './passClassification';
 import { shouldLetPassRun } from './receptionContinuation';
+import { normalizeAngle } from './playerOrientation';
 
 const counts = z.record(z.string(), z.number().finite().nonnegative());
+export const firstTouchContinuitySchema = z.object({
+  passId: z.string(),
+  receiverId: z.string(),
+  at: z.number().nonnegative(),
+  kind: z.string(),
+  incomingSpeed: z.number().nonnegative(),
+  speedBefore: z.number().nonnegative(),
+  speedAfter: z.number().nonnegative(),
+  orientationChange: z.number().nonnegative(),
+  controlRetained: z.boolean(),
+  nextActionDelay: z.number().nonnegative().optional(),
+  nextAction: z.string().optional(),
+});
 export const offensiveContinuationFunnelSchema = z.object({
   version: z.literal(2),
   counts,
@@ -13,6 +27,7 @@ export const offensiveContinuationFunnelSchema = z.object({
   momentumAtRelease: z.array(z.number().nonnegative()).max(32),
   momentumAtReception: z.array(z.number().nonnegative()).max(32),
   continuationLatency: z.array(z.number().nonnegative()).max(32),
+  firstTouches: z.array(firstTouchContinuitySchema).max(32).optional(),
   traces: z
     .array(
       z.object({
@@ -29,6 +44,11 @@ export const offensiveContinuationFunnelSchema = z.object({
 /** Independent bounded observer. A flight/non-contact never becomes a reception. One pending
  * passage and online totals survive trace caps; pass/contact/action identities deduplicate ticks. */
 export class OffensiveContinuationTracker {
+  private detailed: boolean;
+  private firstTouches: z.infer<typeof firstTouchContinuitySchema>[] = [];
+  constructor(detailed = false) {
+    this.detailed = detailed;
+  }
   private totals: Record<string, number> = {};
   private lengths: Record<string, Record<string, number>> = {};
   private releaseSpeeds: number[] = [];
@@ -83,6 +103,7 @@ export class OffensiveContinuationTracker {
     if (pass && pass.passId !== this.passId) {
       this.passId = pass.passId;
       this.add('released');
+      if (pass.incomingSpeed !== undefined) this.add('first_time_pass');
       const actor = state.players.find((p) => p.id === pass.passerId);
       const receiver = state.players.find((p) => p.id === pass.intendedReceiverId);
       if (actor) {
@@ -176,6 +197,33 @@ export class OffensiveContinuationTracker {
       const selfReclaim =
         result.finalResult === 'completed' &&
         (result.actualReceiverId ?? result.intendedReceiverId) === result.passerId;
+      if (
+        this.detailed &&
+        !selfReclaim &&
+        this.firstTouches.length < 32 &&
+        result.actualReceiverId
+      ) {
+        const before = previous.players.find((p) => p.id === result.actualReceiverId),
+          after = state.players.find((p) => p.id === result.actualReceiverId);
+        if (before && after)
+          this.firstTouches.push(
+            firstTouchContinuitySchema.parse({
+              passId: result.passId,
+              receiverId: after.id,
+              at,
+              kind: result.receptionOutcome ?? 'first_time_release',
+              incomingSpeed: Math.hypot(
+                previous.ball.velocity?.x ?? 0,
+                previous.ball.velocity?.y ?? 0,
+                previous.ball.velocity?.z ?? 0,
+              ),
+              speedBefore: Math.hypot(before.velocity.x, before.velocity.y),
+              speedAfter: Math.hypot(after.velocity.x, after.velocity.y),
+              orientationChange: Math.abs(normalizeAngle(after.facingAngle - before.facingAngle)),
+              controlRetained: state.ball.ownerId === after.id,
+            }),
+          );
+      }
       this.add(selfReclaim ? 'passer_reclaimed' : `result_${result.finalResult}`);
       if (result.requestedSpace) {
         this.add(`space_pass_result_${selfReclaim ? 'self_reclaim' : result.finalResult}`);
@@ -231,6 +279,20 @@ export class OffensiveContinuationTracker {
       }
     }
     const passage = this.pending;
+    if (this.detailed && state.decisionIndex !== previous.decisionIndex && state.latestAction) {
+      const touch = [...this.firstTouches]
+        .reverse()
+        .find(
+          (t) =>
+            t.receiverId === state.latestAction!.actorId &&
+            t.nextActionDelay === undefined &&
+            state.time >= t.at,
+        );
+      if (touch) {
+        touch.nextActionDelay = state.time - touch.at;
+        touch.nextAction = state.latestAction.type;
+      }
+    }
     if (passage) {
       const receiver = state.players.find((p) => p.id === passage.actorId);
       const elapsed = state.time - passage.at;
@@ -302,6 +364,7 @@ export class OffensiveContinuationTracker {
       momentumAtRelease: this.releaseSpeeds,
       momentumAtReception: this.receptionSpeeds,
       continuationLatency: this.latencies,
+      ...(this.detailed ? { firstTouches: this.firstTouches } : {}),
       traces: this.traces,
     });
   }

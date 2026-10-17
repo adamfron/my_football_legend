@@ -1,0 +1,1390 @@
+{
+  "manifest": {
+    "version": 1,
+    "stage": "F",
+    "sourceHash": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+    "node": "v24.19.0",
+    "dt": 0.025,
+    "method": "Identical frozen full states and seeded execution. Prescribed opening action, then ordinary autonomous canonical decisions for 5s. Times are seconds; distances metres. Indices are uncalibrated forecasts, not success probabilities.",
+    "harnessHash": "ae8742ead9c9e2d031a4d6baacc5b8363d1d3a45e43d190710342fe223d9ee9c"
+  },
+  "method": "Prescribed defender route to a fixed initially occupied ball location through the canonical match. Actual fixed-point envelope arrival and actual ball intervention are separate; the owner can control/move the ball and real challenges/contacts remain active. Censor at 2.5s; do not substitute censored values into mean error.",
+  "rows": [
+    {
+      "motion": "crossing",
+      "readiness": 1,
+      "agility": 25,
+      "initialHash": "d70102752bd656728203d0c58d0f6e3253e4b9d1942902f6e762894b7f4ae889",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.5999999999999948,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.129420789868925,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": null,
+      "actualBallIntervention": null,
+      "forecastError": null,
+      "lastChallenge": null,
+      "finalHash": "8480587a5444fd16e67693281a2cd6b8c8117a975b7cdff55ce9efdbb463a295"
+    },
+    {
+      "motion": "crossing",
+      "readiness": 1,
+      "agility": 85,
+      "initialHash": "aecfb17d6b3f007bd502c3beeffa75ed6ddf3fcc4e8e9207ba82271220aec954",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.024999999999997,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.999999999999997,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 1.539086313469619,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 1.9749999999998877,
+      "actualBallIntervention": 2.024999999999885,
+      "forecastError": 0.05000000000010907,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:21.825000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 22.024999999999885,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.97631439422655,
+          "y": 15.077159832532988
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.68127835554743,
+        "opponentDistance": 0.8773522742432477,
+        "facingError": 0.06574941251863109,
+        "relativeSpeed": 4.172729026999593,
+        "lateness": 0,
+        "force": 3.755456124299634,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.14808504565982972
+      },
+      "finalHash": "827cec51a5e9dada8b25373a93f55276bf70261fd42b59aedba6a9b1f84e3e0d"
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.3,
+      "agility": 25,
+      "initialHash": "7422756478a2381e9431cdf4d54d59b349c4a98547d23d6bc98795e186f33ee2",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 3.374999999999992,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.686255785858745,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": null,
+      "actualBallIntervention": null,
+      "forecastError": null,
+      "lastChallenge": null,
+      "finalHash": "4d823bd5c256c57370e4d7565f0b7f8bac49bd7fe7a42f6d23ea304561c123ae"
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.3,
+      "agility": 85,
+      "initialHash": "8cd325e2eef98a8f23e1824d34ce379f27f8247e4a07592c18ee65c2a66f3dc2",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.574999999999995,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 1.941551211561271,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": null,
+      "actualBallIntervention": null,
+      "forecastError": null,
+      "lastChallenge": null,
+      "finalHash": "4b2d5b1e6af037bd36bff4293d2ba1c6019eedc603175ecc58783d06168c9cb6"
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.01,
+      "agility": 25,
+      "initialHash": "7c1fc86001b06d015115c6b010412e15a1d21d9cb1f4705114f694eac8a5fe69",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 3.8749999999999902,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 3.0392614397087345,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": null,
+      "actualBallIntervention": null,
+      "forecastError": null,
+      "lastChallenge": null,
+      "finalHash": "4d4d4017de72851237a35904aac18ff23803ec9a1bad736744a343c7e1d7a597"
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.01,
+      "agility": 85,
+      "initialHash": "ff86e91a824ef96e5c816d7dfffa5b440b1e7905e9a4ceb6d2a410d56352b001",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.9249999999999936,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.1966939118686892,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": null,
+      "actualBallIntervention": null,
+      "forecastError": null,
+      "lastChallenge": null,
+      "finalHash": "106160e18e1392b3849ddb4f926c005a302143c25808c52d5501946c4f0b7005"
+    },
+    {
+      "motion": "aligned",
+      "readiness": 1,
+      "agility": 25,
+      "initialHash": "d3fa79770d0f5d123921f275ea77bd2621ceb9a3c0f5b6f171d0493ce113f3ef",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5500000000000002,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.4250000000000001,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.07044164050666098,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.474999999999973,
+      "actualBallIntervention": 0.4999999999999716,
+      "forecastError": 0.07500000000002716,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.300000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.49999999999997,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.9770386249499,
+          "y": 15.087369554063246
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.7459501914932737,
+        "opponentDistance": 0.9299762211674272,
+        "facingError": 0.053997950274526474,
+        "relativeSpeed": 3.646328359434905,
+        "lateness": 0,
+        "force": 3.2816955234914147,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.0986699237834543
+      },
+      "finalHash": "afd2b63ebf1905eee85d61bac4149531ece9fedc560a9fbe95f5c8e9b22c568e"
+    },
+    {
+      "motion": "aligned",
+      "readiness": 1,
+      "agility": 85,
+      "initialHash": "4c216abaeabb80b9d7e51c46546eafefbf4e76f62cb2aebe31b6007083e2a997",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.47500000000000014,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.4250000000000001,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.05091326492065595,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.42499999999997584,
+      "actualBallIntervention": 0.4499999999999744,
+      "forecastError": 0.0500000000000243,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.250000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.449999999999974,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.98069476045906,
+          "y": 15.078396903224947
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.7143180707477665,
+        "opponentDistance": 0.8769156805086225,
+        "facingError": 0.0608950087776261,
+        "relativeSpeed": 4.216205986748888,
+        "lateness": 0,
+        "force": 3.7945853880739997,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.14896337049354713
+      },
+      "finalHash": "9e6f6cdbec7b111efd99dd0992c97a12319222bf46f9d918455cf608a16151dd"
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.3,
+      "agility": 25,
+      "initialHash": "8f5b2328b399ea8d3c95fc3ce9c082027df42764676e5bb66ed434027e1850b4",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.47500000000000014,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.22044388390014674,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.42499999999997584,
+      "actualBallIntervention": 0.4999999999999716,
+      "forecastError": 0.0500000000000243,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.250000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.49999999999997,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.96442585751181,
+          "y": 15.105914036969669
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.595021211967094,
+        "opponentDistance": 0.910412618232236,
+        "facingError": 0.2695600128950897,
+        "relativeSpeed": 4.355648944476553,
+        "lateness": 0,
+        "force": 3.920084050028898,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.09892174677941412
+      },
+      "finalHash": "01d92180791179cbbcc959db7b26f4f44df21fd8e3ac34f878345d95eb16ab8c"
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.3,
+      "agility": 85,
+      "initialHash": "27a7536eb5fe0c788ec727693eebaa64fbda6b6da2f30039ce0424e36bf2a1ae",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5000000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.15933072796743278,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.4499999999999744,
+      "actualBallIntervention": 0.5249999999999702,
+      "forecastError": 0.05000000000002569,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.275000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.52499999999997,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.963599100341,
+          "y": 15.106160188651561
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.607405796148232,
+        "opponentDistance": 0.8987008031240974,
+        "facingError": 0.08861276872709567,
+        "relativeSpeed": 3.817084827355904,
+        "lateness": 0,
+        "force": 3.435376344620314,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.07374830818111633
+      },
+      "finalHash": "97124fff8e5b24fa60e2ab5ae19d4b9ae72df0392cb272a09ee77c313c7ce714"
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.01,
+      "agility": 25,
+      "initialHash": "fc9329abeca4b923512d917d08c4bd786ced4f6333979e76024a3a2ea315c34b",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.4500000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.31781058169599147,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.42499999999997584,
+      "actualBallIntervention": 0.5249999999999702,
+      "forecastError": 0.02500000000002428,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.250000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.52499999999997,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.94675369138045,
+          "y": 15.113992276011434
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.4871376011865621,
+        "opponentDistance": 0.932294634692776,
+        "facingError": 0.5913020343911413,
+        "relativeSpeed": 4.6100795037016775,
+        "lateness": 0,
+        "force": 4.14907155333151,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.07399186199892327
+      },
+      "finalHash": "43bb962ee32a4c8e9cdf2ac9912243c85190a727e19c429ee01f5577ce84c026"
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.01,
+      "agility": 85,
+      "initialHash": "98000b70b78b902b57c9246c9a5fb0d10b5c960d7502c4ab9e8f0cbc802b10e3",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.47500000000000014,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.22970467785947896,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.42499999999997584,
+      "actualBallIntervention": 0.5499999999999687,
+      "forecastError": 0.0500000000000243,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.275000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.54999999999997,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.94432805244696,
+          "y": 15.12212788869886
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.5054814398604379,
+        "opponentDistance": 0.9395706112896116,
+        "facingError": 0.3084059911170307,
+        "relativeSpeed": 4.0765384795839585,
+        "lateness": 0,
+        "force": 3.6688846316255628,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.04885482341941483
+      },
+      "finalHash": "851402f675baec5a13e7dd0486ed4bd989d55959bc778f0780ab0aa349449748"
+    },
+    {
+      "motion": "stationary",
+      "readiness": 1,
+      "agility": 25,
+      "initialHash": "04cc2ca1ec6ca5efe4c66fd975cf57c4c570bd1a2ffd4916efadafa96c6d718d",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0000000000000004,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.9250000000000005,
+        "initialSpeed": 0,
+        "targetSpeed": 5.66,
+        "turnAngle": 0,
+        "accelerationTime": 1.0337899543378999,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.9249999999999474,
+      "actualBallIntervention": 0.949999999999946,
+      "forecastError": 0.07500000000005302,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.750000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.949999999999946,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.97533499118948,
+          "y": 15.093720473991306
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.7410901892994407,
+        "opponentDistance": 0.9301749531579481,
+        "facingError": 0.05724558060732576,
+        "relativeSpeed": 3.453240846840542,
+        "lateness": 0,
+        "force": 3.107916762156488,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.17388729970793904
+      },
+      "finalHash": "d29fd21cd34ccd977fbc8f876a1d3e1a01577a22b069230a368a7e3ee0bdb571"
+    },
+    {
+      "motion": "stationary",
+      "readiness": 1,
+      "agility": 85,
+      "initialHash": "b74026ef99b15dda1a1452f1d1467c6c9d4d48e01c05b5c364886eb9bcc08c4f",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.8500000000000004,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.8000000000000004,
+        "initialSpeed": 0,
+        "targetSpeed": 5.66,
+        "turnAngle": 0,
+        "accelerationTime": 0.7471947194719473,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.774999999999956,
+      "actualBallIntervention": 0.8249999999999531,
+      "forecastError": 0.07500000000004448,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.625000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.824999999999953,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.97520086935893,
+          "y": 15.093520241596467
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6850325597117978,
+        "opponentDistance": 0.8762351885826241,
+        "facingError": 0.05368034167921465,
+        "relativeSpeed": 3.8670391487650995,
+        "lateness": 0,
+        "force": 3.4803352338885896,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.12344033802180476
+      },
+      "finalHash": "e891cc136832b23eef52ce00ab256d2e2008ef240e856a5ab1eb5419bcc49d79"
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.3,
+      "agility": 25,
+      "initialHash": "671356271625cd8d3416d16e49fd25962d664fc119248a22a6fdc7821e6f4fe3",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.125,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.0750000000000002,
+        "initialSpeed": 0,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0,
+        "accelerationTime": 1.2350709123348154,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 1.0499999999999403,
+      "actualBallIntervention": 1.124999999999936,
+      "forecastError": 0.07500000000005969,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.875000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 21.124999999999936,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.959540255599,
+          "y": 15.12217338818027
+        },
+        "outcome": "loose_ball",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6840028680620609,
+        "opponentDistance": 0.9628837057655386,
+        "facingError": 0.0818446264625976,
+        "relativeSpeed": 3.0675719834226345,
+        "lateness": 0,
+        "force": 2.7608147850803713,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.174454433384863
+      },
+      "finalHash": "aae81a41d86908c5e201cda5493f61fab1e16556707c135a5d6a5b4a0a590050"
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.3,
+      "agility": 85,
+      "initialHash": "880c0a4076b9b04a828e2d6dea8f511978663f07fe61115d1a23c344a9c1d0d3",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.9750000000000005,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.9250000000000005,
+        "initialSpeed": 0,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0,
+        "accelerationTime": 0.8926750158459555,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.8999999999999488,
+      "actualBallIntervention": 0.9749999999999446,
+      "forecastError": 0.07500000000005169,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.725000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 20.974999999999945,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.96163423108993,
+          "y": 15.112690493268405
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6365050235399256,
+        "opponentDistance": 0.9067184480912702,
+        "facingError": 0.07715339859449877,
+        "relativeSpeed": 3.4353107299996783,
+        "lateness": 0,
+        "force": 3.0917796569997105,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.1490870351283391
+      },
+      "finalHash": "1ef82c7b2767aaa9e8be3c4440a103b8ef8b572c8c9d3c24c7d7560583167881"
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.01,
+      "agility": 25,
+      "initialHash": "f79dc3a7a2b9e65ed4af765376a70ff5f75b0b326e3f8f0d3958d4cefa3b913d",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.2249999999999996,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.15,
+        "initialSpeed": 0,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0,
+        "accelerationTime": 1.3626727875541955,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 1.124999999999936,
+      "actualBallIntervention": 1.249999999999929,
+      "forecastError": 0.1000000000000636,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.975000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 21.24999999999993,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.94089675794673,
+          "y": 15.14886437004345
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6575196242298461,
+        "opponentDistance": 1.008373475859547,
+        "facingError": 0.1383834004088058,
+        "relativeSpeed": 2.7909743990481983,
+        "lateness": 0,
+        "force": 2.5118769591433785,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.04849867151387954
+      },
+      "finalHash": "f03774b496a21f13e8079ac7a98a0358f1c23597394f8b7632335f19164f7764"
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.01,
+      "agility": 85,
+      "initialHash": "9d9a1424392963859eed6b561825d00567fe03929dfb5e2641a4707a58b4172a",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0250000000000004,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.9750000000000005,
+        "initialSpeed": 0,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0,
+        "accelerationTime": 0.9849021137767947,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 0.949999999999946,
+      "actualBallIntervention": 1.074999999999939,
+      "forecastError": 0.07500000000005436,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:20.800000:geometry:opponent:4:geometry:anchor:8:slide",
+        "at": 21.07499999999994,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "slide",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 70.94362242162677,
+          "y": 15.132132405322597
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.570423075784447,
+        "opponentDistance": 0.9443583798943143,
+        "facingError": 0.10626640697868339,
+        "relativeSpeed": 3.268510408920112,
+        "lateness": 0,
+        "force": 2.941659368028101,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.04838328716964568
+      },
+      "finalHash": "69398f6e990ead4bd0240ba6408145bc4f1851b31c3d0ad50d3034dd1b0003bb"
+    },
+    {
+      "motion": "recovering",
+      "readiness": 1,
+      "agility": 25,
+      "initialHash": "748a20655bc2905af64b00add2245264991c28507c5bd0d3d06f82db8b5cb7b3",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.0749999999999966,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.199999999999996,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.9242498655092712,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 1.9499999999998892,
+      "actualBallIntervention": 2.2749999999998707,
+      "forecastError": 0.12500000000010747,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:22.275000:geometry:opponent:4:geometry:anchor:8:standing",
+        "at": 22.27499999999987,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 71,
+          "y": 15
+        },
+        "outcome": "clean_win",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6798554430598106,
+        "opponentDistance": 1.160316555266395,
+        "facingError": 0.02634354465018518,
+        "relativeSpeed": 1.9881389311902613,
+        "lateness": 0,
+        "force": 0.2982208396785392,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.07236567669037086
+      },
+      "finalHash": "1e20756928e2f0078238a024657e2333d1922287d3bfaeac5adf19d2428d61cf"
+    },
+    {
+      "motion": "recovering",
+      "readiness": 1,
+      "agility": 85,
+      "initialHash": "fc3eec5f5215a1d4d993bac7386653cb2efd6c72a2dd0432d74d6b8b4319b7f2",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.4999999999999987,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.5999999999999983,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.6680221800215524,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 1.1499999999999346,
+      "actualBallIntervention": 1.6499999999999062,
+      "forecastError": 0.35000000000006404,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:21.650000:geometry:opponent:4:geometry:anchor:8:standing",
+        "at": 21.649999999999906,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 71,
+          "y": 15
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6865950143314266,
+        "opponentDistance": 1.1425370728360784,
+        "facingError": 0.0171278437908029,
+        "relativeSpeed": 1.9610099240570364,
+        "lateness": 0,
+        "force": 0.29415148860855544,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.17247629016127064
+      },
+      "finalHash": "3c02dfb87328f9fb2b72044f5bee1a8b18bb6696f2b69fdd30d8ef239cd361f1"
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.3,
+      "agility": 25,
+      "initialHash": "decb7dbf197a30b3df2b9631f721968b0dc900578c561b5ffbb3d7924956003c",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.824999999999994,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 1.1800331568041718,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": null,
+      "actualBallIntervention": null,
+      "forecastError": null,
+      "lastChallenge": null,
+      "finalHash": "b87a7c36b169da0b66282398a99edbc08b32077b02b2ddac97e9c248abbd48ec"
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.3,
+      "agility": 85,
+      "initialHash": "f8d2dae06f5b471c4d97c12c39d212a7855d958a904cc86fd8bfd97003ebeda7",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.0999999999999965,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.999999999999997,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.8528952519475697,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 1.9249999999998906,
+      "actualBallIntervention": 2.2249999999998735,
+      "forecastError": 0.17500000000010596,
+      "lastChallenge": {
+        "id": "pr173-paired:challenge:22.225000:geometry:opponent:4:geometry:anchor:8:standing",
+        "at": 22.224999999999874,
+        "actorId": "geometry:opponent:4",
+        "team": "away",
+        "opponentId": "geometry:anchor:8",
+        "technique": "standing",
+        "source": "autonomous_npc",
+        "position": {
+          "x": 71,
+          "y": 15
+        },
+        "outcome": "beaten",
+        "ballFirst": true,
+        "opponentContact": true,
+        "ballDistance": 0.6814408926084348,
+        "opponentDistance": 1.1615647834873395,
+        "facingError": 0.01625952833911981,
+        "relativeSpeed": 2.2466258311492218,
+        "lateness": 0,
+        "force": 0.33699387467238323,
+        "fromBehind": false,
+        "ballReachable": true,
+        "bodyOccludes": false,
+        "defenderContactEta": 0,
+        "carrierContactEta": 0.12236567669036802
+      },
+      "finalHash": "ed1941edc31a3586b7004fb5e2c3c792a19a06bcd4bab523ae5a244a38ccf740"
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.01,
+      "agility": 25,
+      "initialHash": "f72ce32d618383811f718f9e12b2f14fa47910423019863f248abef033548cb5",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 3.2499999999999925,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 1.3468569117716835,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": null,
+      "actualBallIntervention": null,
+      "forecastError": null,
+      "lastChallenge": null,
+      "finalHash": "031be528541863bdeb5ba6300baa932e6ad54508b1cfd3f89908f3e3ee2e2a07"
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.01,
+      "agility": 85,
+      "initialHash": "1e759a407809fb37176bddef2d07f08f235246a8cdb87df17eba2f24121683b7",
+      "target": {
+        "x": 72,
+        "y": 15
+      },
+      "forecast": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.299999999999996,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.9734708372211177,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "actualEnvelopeArrival": 2.3999999999998636,
+      "actualBallIntervention": null,
+      "forecastError": 0.10000000000013154,
+      "lastChallenge": null,
+      "finalHash": "fda6138889bf5b3e703d8275abb7b640c32245c7561bbadbc79ff2f738f0efa7"
+    }
+  ]
+}

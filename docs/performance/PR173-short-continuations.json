@@ -1,0 +1,389 @@
+{
+  "version": 1,
+  "method": "40 genuine retained PR172 frozen decisions; selected action and three prescribed carry alternatives from each identical state. 5s canonical consequences; these are tuning/rejection states, not independent validation. Forward metres alone do not establish useful tactical exploitation.",
+  "selected": {
+    "before": {
+      "n": 40,
+      "teamPossessionAt2s": 35,
+      "teamPossessionAt5s": 30,
+      "meanMaximumControlledForwardMetres": 1.8175442541182545,
+      "canonicalGroundImpulses": 389,
+      "actualFouls": 6,
+      "cards": 3,
+      "receptionKinds": {
+        "heavy_touch": 1
+      },
+      "meanSpeedBeforeReception": 3.437559380359593,
+      "meanSpeedAfterReception": 1.377151997712311,
+      "movingToStoppedContactSamples": 0,
+      "meanNextActionDelay": null
+    },
+    "after": {
+      "n": 40,
+      "teamPossessionAt2s": 35,
+      "teamPossessionAt5s": 30,
+      "meanMaximumControlledForwardMetres": 2.062439865146668,
+      "canonicalGroundImpulses": 415,
+      "actualFouls": 4,
+      "cards": 1,
+      "receptionKinds": {
+        "clean_control": 1,
+        "heavy_touch": 1
+      },
+      "meanSpeedBeforeReception": 1.7187796901797965,
+      "meanSpeedAfterReception": 0.6885759988561555,
+      "movingToStoppedContactSamples": 0,
+      "meanNextActionDelay": null
+    },
+    "rejectedRoute": {
+      "n": 40,
+      "teamPossessionAt2s": 34,
+      "teamPossessionAt5s": 28,
+      "meanMaximumControlledForwardMetres": 1.5923140667913016,
+      "canonicalGroundImpulses": 385,
+      "actualFouls": 1,
+      "cards": 1,
+      "receptionKinds": {
+        "clean_control": 1,
+        "heavy_touch": 1
+      },
+      "meanSpeedBeforeReception": 1.7187796901797965,
+      "meanSpeedAfterReception": 0.6885759988561555,
+      "movingToStoppedContactSamples": 0,
+      "meanNextActionDelay": null
+    }
+  },
+  "carryCounterfactuals": {
+    "before": {
+      "n": 120,
+      "teamPossessionAt2s": 94,
+      "teamPossessionAt5s": 91,
+      "meanMaximumControlledForwardMetres": 3.564450535164392,
+      "canonicalGroundImpulses": 1343,
+      "actualFouls": 9,
+      "cards": 2,
+      "receptionKinds": {
+        "directional_control": 2
+      },
+      "meanSpeedBeforeReception": 2.2552372643397582,
+      "meanSpeedAfterReception": 2.1441648157432747,
+      "movingToStoppedContactSamples": 0,
+      "meanNextActionDelay": 0.5500000000001251
+    },
+    "after": {
+      "n": 120,
+      "teamPossessionAt2s": 94,
+      "teamPossessionAt5s": 90,
+      "meanMaximumControlledForwardMetres": 3.480911660593304,
+      "canonicalGroundImpulses": 1375,
+      "actualFouls": 10,
+      "cards": 3,
+      "receptionKinds": {
+        "directional_control": 1
+      },
+      "meanSpeedBeforeReception": 2.4571853153158605,
+      "meanSpeedAfterReception": 2.3570878456334947,
+      "movingToStoppedContactSamples": 0,
+      "meanNextActionDelay": 0.5500000000001251
+    },
+    "rejectedRoute": {
+      "n": 120,
+      "teamPossessionAt2s": 91,
+      "teamPossessionAt5s": 80,
+      "meanMaximumControlledForwardMetres": 3.2550267315497763,
+      "canonicalGroundImpulses": 1342,
+      "actualFouls": 9,
+      "cards": 4,
+      "receptionKinds": {
+        "directional_control": 1
+      },
+      "meanSpeedBeforeReception": 2.4571853153158605,
+      "meanSpeedAfterReception": 2.3570878456334947,
+      "movingToStoppedContactSamples": 0,
+      "meanNextActionDelay": 0.5500000000001251
+    }
+  },
+  "unchangedInitialRanking": 40,
+  "cases": [
+    {
+      "id": "central_possession:1.2749999999999995:footballer_pro_9_3",
+      "initialHash": "2766524951d76b5a71eb42b093f3ee6fb9c615be5600d5f6171acc8c1940b367",
+      "beforeHash": "7c0abfdafef08e72a7bf7311820406595c8349132ae1d05cb34d99a256708eb0",
+      "afterHash": "df1e48b938d4b2176e7b9e6e5286da8ecb6e0a57b4ecc9345d21b18f7164bab9",
+      "rejectedHash": "df1e48b938d4b2176e7b9e6e5286da8ecb6e0a57b4ecc9345d21b18f7164bab9"
+    },
+    {
+      "id": "central_possession:2.7499999999999942:footballer_pro_9_14",
+      "initialHash": "01a6201947946144ab93980fb99420224a9a680a5432989a39e9dfa93bbbf52c",
+      "beforeHash": "b46f4b56afa912d6cae079e41978a9102645dab1162027a8ad49cf770c9681ee",
+      "afterHash": "074647bc384f8fe526682e5b59bba310e133770fe135a17ad124328a6fd929ff",
+      "rejectedHash": "074647bc384f8fe526682e5b59bba310e133770fe135a17ad124328a6fd929ff"
+    },
+    {
+      "id": "central_possession:4.449999999999996:footballer_pro_9_7",
+      "initialHash": "88883e4cc2b5794c4e0856b3014f59eb9a4bc275c942bbf57d3ba554cf53940d",
+      "beforeHash": "d3481b1905d5185ee461a1c5dc0db9b8932c5c8dc98d7d11f95424d499472262",
+      "afterHash": "d3481b1905d5185ee461a1c5dc0db9b8932c5c8dc98d7d11f95424d499472262",
+      "rejectedHash": "d3481b1905d5185ee461a1c5dc0db9b8932c5c8dc98d7d11f95424d499472262"
+    },
+    {
+      "id": "central_possession:22.974999999999763:footballer_pro_9_5",
+      "initialHash": "31d2b7d4e6a078a5b129bf282b8fc627964813bbab42a76f8fb7be84d243eb1c",
+      "beforeHash": "8b773ff9d70bb85122df2f6dec871b08aefdb6ecf2dcf43afac3564791a2c235",
+      "afterHash": "8b773ff9d70bb85122df2f6dec871b08aefdb6ecf2dcf43afac3564791a2c235",
+      "rejectedHash": "8b773ff9d70bb85122df2f6dec871b08aefdb6ecf2dcf43afac3564791a2c235"
+    },
+    {
+      "id": "central_possession:34.39999999999912:footballer_pro_9_14:turnover",
+      "initialHash": "9529e3e4839005a4d0eb1d9f3b9207967d314aea555d2d6322374ed8a7d8420c",
+      "beforeHash": "1cf65dcabf264f89370b6e60a854f5da724a7413e976ffc59cb3e0f8a5d5a0ed",
+      "afterHash": "1cf65dcabf264f89370b6e60a854f5da724a7413e976ffc59cb3e0f8a5d5a0ed",
+      "rejectedHash": "387626224ca503345f9abee37e797104f9a4756bf3e53e9e3b28325cbc826dd2"
+    },
+    {
+      "id": "central_possession:35.62499999999905:footballer_pro_10_22",
+      "initialHash": "65ebd5fda848a540bc2ad5b07be9094231ee4688796de74810d2ad654b1462f3",
+      "beforeHash": "dd4afed1d403d92588bea889777dce5a27c3327329b6cac12ab9adf0638ddf86",
+      "afterHash": "dd4afed1d403d92588bea889777dce5a27c3327329b6cac12ab9adf0638ddf86",
+      "rejectedHash": "c02c49924a7499ffdc8ffb1929df4df517b488351c42c96d3722ae987af5c35d"
+    },
+    {
+      "id": "central_possession:36.94999999999897:footballer_pro_10_22",
+      "initialHash": "819fa1675130f0e45d668431d4c28ba54006744f9e733d0bc6c782b72ee37918",
+      "beforeHash": "aaec7f9a8c8ecf34485b99d1ef7959871349ff48e173dc46b0e43f3bf24e5f7d",
+      "afterHash": "04df307bc397de2fcdb1b5324bb524c80e45cd5ad14b4b53a3f2c10df4f6f42c",
+      "rejectedHash": "cebaa1bfd20bdbb087a0c5078fa22e36eb3426cc5d66f66f7b00ae0e54a6e8c2"
+    },
+    {
+      "id": "central_possession:38.2749999999989:footballer_pro_10_22",
+      "initialHash": "f2168048f1f30dafbc06f2bfd743bad68ca9925e7515aadf2356c8ff03244b90",
+      "beforeHash": "8d905a013454f6ae1f04cad62fdace063647cf1bb9d3812d6cb17e9e07a0b2ab",
+      "afterHash": "325d846ce5b6800500af4a0911667742fda8100933e29c4d79618ac68021428a",
+      "rejectedHash": "5ab6bf6a992e43f987ab5714ab8349969df077c8045353e971cfc4a0bcc5e269"
+    },
+    {
+      "id": "central_possession:39.59999999999882:footballer_pro_10_22",
+      "initialHash": "28e69eda5ad1347e391f93e87c22a3550a3e550769e7c5b112cbb9658f42691b",
+      "beforeHash": "2f8c0fc05fe9c5f37d877340d5ab5483ae4ec088528649c16658405881d2ce97",
+      "afterHash": "6751f58883ab7739375ef46f9a5a0ce28af1955e8e9802e1653ad7cee89747eb",
+      "rejectedHash": "6751f58883ab7739375ef46f9a5a0ce28af1955e8e9802e1653ad7cee89747eb"
+    },
+    {
+      "id": "central_possession:41.6999999999987:footballer_pro_10_17",
+      "initialHash": "3db17b73e6c822eaa4dfa9dacf9cd7207dd3cf0db347b584f43fe76cf9c098ab",
+      "beforeHash": "4522a3d989788610165b878ebe92b1c90eaa7633fb2e88ae2968fc7e97eb7a79",
+      "afterHash": "4522a3d989788610165b878ebe92b1c90eaa7633fb2e88ae2968fc7e97eb7a79",
+      "rejectedHash": "4522a3d989788610165b878ebe92b1c90eaa7633fb2e88ae2968fc7e97eb7a79"
+    },
+    {
+      "id": "central_possession:44.299999999998555:footballer_pro_10_7",
+      "initialHash": "1cd8428701c4e8285f21f5b0b91bb4c8743a6b2ccf33b71d0b123e3f75219ef7",
+      "beforeHash": "5a42f2a8afa697fedc3ebebdd77b37ee11b38159b55b9761e3c3c9c843316180",
+      "afterHash": "5a42f2a8afa697fedc3ebebdd77b37ee11b38159b55b9761e3c3c9c843316180",
+      "rejectedHash": "5a42f2a8afa697fedc3ebebdd77b37ee11b38159b55b9761e3c3c9c843316180"
+    },
+    {
+      "id": "central_possession:57.42499999999781:footballer_pro_10_19",
+      "initialHash": "9e49f94204ce082019af81805dae0ac8419f6fc7854d694e98555132bc11b321",
+      "beforeHash": "4593b31c6c91be272a577863eef842640d9dace71b088706955cead55a0359f1",
+      "afterHash": "6cd3b82e3bbb3ff061fd04a05251ede83bdae20736de898fb7ea9bee02cba025",
+      "rejectedHash": "6cd3b82e3bbb3ff061fd04a05251ede83bdae20736de898fb7ea9bee02cba025"
+    },
+    {
+      "id": "central_possession:65.94999999999787:footballer_pro_10_3:turnover",
+      "initialHash": "21ac76df8c64d6cbf89d9008d2980deacee87923000b8c7d9e835270b5ff95ae",
+      "beforeHash": "10ad5f2b95f4d9fe088d2ad640cd648c0b0ab5a57b5b5409870a9c5b6f84168a",
+      "afterHash": "10ad5f2b95f4d9fe088d2ad640cd648c0b0ab5a57b5b5409870a9c5b6f84168a",
+      "rejectedHash": "10ad5f2b95f4d9fe088d2ad640cd648c0b0ab5a57b5b5409870a9c5b6f84168a"
+    },
+    {
+      "id": "central_possession:68.87499999999854:footballer_pro_9_21",
+      "initialHash": "69f3ab775da4be01e3621dcdbdc36758370003eb6a4bf176769d31b2ea8245c6",
+      "beforeHash": "bc9246aff05c68faa2e2dd661317ce2509c49e5528f36830f2206f22b7e53492",
+      "afterHash": "c5adcda8da33ffd78dd985f80448685c531cdb317eb1c935a549d0c45b2acd95",
+      "rejectedHash": "c5adcda8da33ffd78dd985f80448685c531cdb317eb1c935a549d0c45b2acd95"
+    },
+    {
+      "id": "wide_direct:0.7000000000000003:footballer_pro_9_7",
+      "initialHash": "dc1450cebcea5b55dd45ddb9559bd2a337c2aa73ddbcfc5b20882709780d6c9c",
+      "beforeHash": "f812c076f674dca701d63527c5856a9c155380b38c88d93196627b716d4397f4",
+      "afterHash": "3acd8a33b36615ac381df7cc8ad5a2f05ba192a1ddd3ca270b766916441796b3",
+      "rejectedHash": "3acd8a33b36615ac381df7cc8ad5a2f05ba192a1ddd3ca270b766916441796b3"
+    },
+    {
+      "id": "wide_direct:2.4499999999999953:footballer_pro_9_17",
+      "initialHash": "fddece83cedff84083b9f16b15487b037da0f1debbfdb4208c99080142f2b092",
+      "beforeHash": "4fc04991f72e551403ad0580823366d0a3bdae42a8ece0db946491aeb8df0595",
+      "afterHash": "4fc04991f72e551403ad0580823366d0a3bdae42a8ece0db946491aeb8df0595",
+      "rejectedHash": "4fc04991f72e551403ad0580823366d0a3bdae42a8ece0db946491aeb8df0595"
+    },
+    {
+      "id": "wide_direct:4.975000000000003:footballer_pro_9_5",
+      "initialHash": "75e8024691a28e3666424773ab907195ed8b64f2e898070f215dee78483c6fc9",
+      "beforeHash": "b785956224117e4990c46421827a1e3fd5394754aff3560f2b431cbacff10b3d",
+      "afterHash": "581eac6a17093e06443b95d1228625437efe2e45769d61089f3d584fd9ac32af",
+      "rejectedHash": "581eac6a17093e06443b95d1228625437efe2e45769d61089f3d584fd9ac32af"
+    },
+    {
+      "id": "wide_direct:7.375000000000037:footballer_pro_9_19",
+      "initialHash": "3faffd8a4d9afe45c00e60a75f3d01544882347a943f15478fd70e2ec8282389",
+      "beforeHash": "c8f1ca71c54bddd28b01a3796ff99cdc504ea4d99dbf4a301ebc929c5a0a2dfc",
+      "afterHash": "3b510c2ed2328e793a4c8fcc6d4a95ece98b32e6afd6574cfeb264fa7aa4062c",
+      "rejectedHash": "3b510c2ed2328e793a4c8fcc6d4a95ece98b32e6afd6574cfeb264fa7aa4062c"
+    },
+    {
+      "id": "wide_direct:13.17500000000012:footballer_pro_9_3",
+      "initialHash": "d9204ba264d62c5ccac65c035b9504f1c2dd0bd768e798ec2a782a0df80d5910",
+      "beforeHash": "191f0ee5994ec8ab8a4b2a53e1193cfd68b50bc100979330592c21654859bd36",
+      "afterHash": "ec8a772d6f3c4cdea31dda5b03642324b3873971363a191af5e852453772ee4f",
+      "rejectedHash": "ec8a772d6f3c4cdea31dda5b03642324b3873971363a191af5e852453772ee4f"
+    },
+    {
+      "id": "wide_direct:17.475000000000076:footballer_pro_9_5",
+      "initialHash": "08a0f664a4f42c933060d4c77303b9104f67e2ee1ebe8268fa69be0a61880015",
+      "beforeHash": "a813dde7cf68860ab28791a3a6a00cbef60baa5a611d7f89257d10781300a5c9",
+      "afterHash": "3a3d545dac1c6860b3bd62bf8c85086906a372cbbf8f5b29956c90521ccf006b",
+      "rejectedHash": "3a3d545dac1c6860b3bd62bf8c85086906a372cbbf8f5b29956c90521ccf006b"
+    },
+    {
+      "id": "wide_direct:48.24999999999833:footballer_pro_9_14",
+      "initialHash": "0ee5704cbbe18152e7dc5bb3753d542244bc68443452ad69470ce4a04e4c2387",
+      "beforeHash": "ad2851904457b5c4984c03bd0d30d41d92ab3d56d2da4eeb28ce2a601c9f33e4",
+      "afterHash": "ad2851904457b5c4984c03bd0d30d41d92ab3d56d2da4eeb28ce2a601c9f33e4",
+      "rejectedHash": "ad2851904457b5c4984c03bd0d30d41d92ab3d56d2da4eeb28ce2a601c9f33e4"
+    },
+    {
+      "id": "wide_direct:65.29999999999772:footballer_pro_9_17",
+      "initialHash": "6792fb752b06c538cf5784da58e3c07c9a9cd156d88292fcfedfac54be24ea97",
+      "beforeHash": "fb0b3c46ea483ee4e21fbff1593cd7ec648cba778b9c2f8ff7df59da994d2ec8",
+      "afterHash": "11659a7837aabbb0bd12213bcd92aa5f78fdfa3627c1d542bd52bf9877a96b1c",
+      "rejectedHash": "11659a7837aabbb0bd12213bcd92aa5f78fdfa3627c1d542bd52bf9877a96b1c"
+    },
+    {
+      "id": "wide_direct:93.47500000000413:footballer_pro_9_7:turnover",
+      "initialHash": "0bc209de91df8f0ba1d9559b6799b0284ab97bc401eb82b1f06d54269a8624eb",
+      "beforeHash": "fd0c1df6d3d72ed6f7577007a1f443ce34c9da2c5ca951e370b6d032d7b17e97",
+      "afterHash": "fd0c1df6d3d72ed6f7577007a1f443ce34c9da2c5ca951e370b6d032d7b17e97",
+      "rejectedHash": "015a36b4c557ee4081faaa801158e7d157c875ab2cd05fb4f81e4d0fa50dc4fb"
+    },
+    {
+      "id": "wide_direct:95.25000000000453:footballer_pro_10_19",
+      "initialHash": "ccb17cd1cc38b30f3304e866725d224e442d8a34aee2edc5aece3018a60afdcd",
+      "beforeHash": "17318afa82231a7be3cc176a33f39d2ea04dfb02158b3c0f3e20a12a48e9d822",
+      "afterHash": "17318afa82231a7be3cc176a33f39d2ea04dfb02158b3c0f3e20a12a48e9d822",
+      "rejectedHash": "17318afa82231a7be3cc176a33f39d2ea04dfb02158b3c0f3e20a12a48e9d822"
+    },
+    {
+      "id": "wide_direct:102.42500000000616:footballer_pro_10_9:turnover",
+      "initialHash": "d5f42c58cd8f9e9e0ff57cafddf457db6ed43454a1f312bb1a6684a26ebb1ba8",
+      "beforeHash": "d74c8c32a1ece45441256eaba9a2c3a1b5dd58ccf195eeca8573b271b8822085",
+      "afterHash": "d74c8c32a1ece45441256eaba9a2c3a1b5dd58ccf195eeca8573b271b8822085",
+      "rejectedHash": "1f737e600dde42a9cfdacda062d2c3e6d12b4c9e65c9bfac03a4ad8db74d2ded"
+    },
+    {
+      "id": "wide_direct:105.40000000000684:footballer_pro_9_22",
+      "initialHash": "ec9b2cb2fa3ef4049163c25e2af7707d184ae00cb9a7bb0fffee76a94265dc95",
+      "beforeHash": "9a272c4d6f0ed361bb16856b61ec5aba71d834a04be211de3e57b191c92d7496",
+      "afterHash": "9a272c4d6f0ed361bb16856b61ec5aba71d834a04be211de3e57b191c92d7496",
+      "rejectedHash": "90e40815d5c3aa2e8b1e6db4d15940d596b4d8b963e151b3bb8726f0b84cf465"
+    },
+    {
+      "id": "wide_direct:106.72500000000714:footballer_pro_9_22",
+      "initialHash": "c7bc894b1a8a9d378d2c614a3ba3dcc2484b8b0cadd844623ac0ef92b65f9a78",
+      "beforeHash": "36d772403ee9b08dfc3ec4d4bb88dbe32518c5495566195fba4c8cba2e96cb29",
+      "afterHash": "36d772403ee9b08dfc3ec4d4bb88dbe32518c5495566195fba4c8cba2e96cb29",
+      "rejectedHash": "9750d6229d20c757700aae624099e6ce1a9d3dd4e144b9e194b70781021724c1"
+    },
+    {
+      "id": "wide_direct:108.05000000000744:footballer_pro_9_22",
+      "initialHash": "e4d67d0e6b22dd4811496ddce4fee7bafb4583b211712dc379a40365e21ac0f1",
+      "beforeHash": "97453327e71d6526ac463c37ff82b2c7e3a1655bf34046c4d9c72ff7b0dd51df",
+      "afterHash": "97453327e71d6526ac463c37ff82b2c7e3a1655bf34046c4d9c72ff7b0dd51df",
+      "rejectedHash": "e0bed39ecb138d3f772e94f227441d7cdff3b86f8e8f36e7f86a8f175bed57ca"
+    },
+    {
+      "id": "youth_native:1.424999999999999:footballer_club_vistula_nova_2026_8",
+      "initialHash": "9c731e81e828ff07890bbc3ca3bc3a352a8905a8a1c3704a43b043bf3b3708f5",
+      "beforeHash": "55c59dafefb921358396986dfa9351c0b412b50b998aa4c3305a5d275447dc9c",
+      "afterHash": "55c59dafefb921358396986dfa9351c0b412b50b998aa4c3305a5d275447dc9c",
+      "rejectedHash": "55c59dafefb921358396986dfa9351c0b412b50b998aa4c3305a5d275447dc9c"
+    },
+    {
+      "id": "youth_native:3.049999999999993:footballer_club_vistula_nova_2026_8",
+      "initialHash": "5dfdf4eeb0b8009fdb47b438d0fd1eb695554d449760a1ae059eda40c1e908ea",
+      "beforeHash": "b77885eac427fbdd59ff52f8ed31b5a2babe5d225f6ffed9c89059c870ec0022",
+      "afterHash": "b77885eac427fbdd59ff52f8ed31b5a2babe5d225f6ffed9c89059c870ec0022",
+      "rejectedHash": "b77885eac427fbdd59ff52f8ed31b5a2babe5d225f6ffed9c89059c870ec0022"
+    },
+    {
+      "id": "youth_native:6.1250000000000195:footballer_club_vistula_nova_2026_5",
+      "initialHash": "b6c70803388e7c62a5f86f53ca07db4729d7a5e8fbd9dd1411d10e1d7a9fdd6f",
+      "beforeHash": "5f1be59172299823fe2c773d9544677c5fa32f66c6018b22052cd6a1ac250008",
+      "afterHash": "5f1be59172299823fe2c773d9544677c5fa32f66c6018b22052cd6a1ac250008",
+      "rejectedHash": "5f1be59172299823fe2c773d9544677c5fa32f66c6018b22052cd6a1ac250008"
+    },
+    {
+      "id": "youth_native:8.900000000000059:footballer_club_vistula_nova_2026_9",
+      "initialHash": "83938b5b2deed8b57a180fbd66b72697fa6bbbadfceef1cccf973d33f7065fcd",
+      "beforeHash": "8249aeb84a0868bb3264c4db303ef57f6051031c781af7d8d2fc7f3f22ded9e9",
+      "afterHash": "8249aeb84a0868bb3264c4db303ef57f6051031c781af7d8d2fc7f3f22ded9e9",
+      "rejectedHash": "fd1dd07077571e2dd8725021457984c836837060402661b020688bccf00965c4"
+    },
+    {
+      "id": "youth_native:13.17500000000012:footballer_club_vistula_nova_2026_9:turnover",
+      "initialHash": "d11a5ae87025d988e3ebaad1c78a42b37d658b98d6d727792e1a5ded38fdfc74",
+      "beforeHash": "5a42bd947053e4c63e9a3d51a8400b17e325ddc0706adddb82b034d1225fcf32",
+      "afterHash": "5a42bd947053e4c63e9a3d51a8400b17e325ddc0706adddb82b034d1225fcf32",
+      "rejectedHash": "5a42bd947053e4c63e9a3d51a8400b17e325ddc0706adddb82b034d1225fcf32"
+    },
+    {
+      "id": "youth_native:16.35000000000014:footballer_u17_pro_60_2026_7",
+      "initialHash": "9f1142576a368e00f5e56e2099d892c4d923a6270e772a0b5aee4e43aca42565",
+      "beforeHash": "73b4c252e66ea48b51d6aba5bd134610826c4cb33f5ef9fe5dd047140bd81e05",
+      "afterHash": "5e55ae7744d1fd2e6d147c31302e8830640a34a6bd76e7c7bda360375d25e5d2",
+      "rejectedHash": "5e55ae7744d1fd2e6d147c31302e8830640a34a6bd76e7c7bda360375d25e5d2"
+    },
+    {
+      "id": "youth_native:17.975000000000048:footballer_u17_pro_60_2026_7",
+      "initialHash": "eb3a36093d0cce1dac22a3421e289c752bb4369a4dc2986243854152735c7354",
+      "beforeHash": "928cc9078e8304c3a1dafc425a1a613e3da4ee7613a39d349bae25441f75893b",
+      "afterHash": "e7f53a3310f8acd572bfeda33b7eb666e97b67ccb660ae47d7439abd2f9192f3",
+      "rejectedHash": "e7f53a3310f8acd572bfeda33b7eb666e97b67ccb660ae47d7439abd2f9192f3"
+    },
+    {
+      "id": "youth_native:27.024999999999533:footballer_u17_pro_60_2026_9:turnover",
+      "initialHash": "34703219aa1a158dc70d23f57cd3db5191663d43da20878623d597ac0a30ba77",
+      "beforeHash": "a49d1679a92a1dac9d0534e0fc1ab25cd41e15a0d00c75a7b3f8ff3ca7c3fd19",
+      "afterHash": "a49d1679a92a1dac9d0534e0fc1ab25cd41e15a0d00c75a7b3f8ff3ca7c3fd19",
+      "rejectedHash": "a49d1679a92a1dac9d0534e0fc1ab25cd41e15a0d00c75a7b3f8ff3ca7c3fd19"
+    },
+    {
+      "id": "youth_native:28.82499999999943:footballer_u17_pro_60_2026_9",
+      "initialHash": "0848928487e8c00763b149fc6a54ba8bd67017fc9ffc6368a78ffbc74d248a63",
+      "beforeHash": "8d8b47187acaf47cef6a9c6fa79b11b47d78a18e0523982a6f9ed3f542045960",
+      "afterHash": "8d8b47187acaf47cef6a9c6fa79b11b47d78a18e0523982a6f9ed3f542045960",
+      "rejectedHash": "8d8b47187acaf47cef6a9c6fa79b11b47d78a18e0523982a6f9ed3f542045960"
+    },
+    {
+      "id": "youth_native:32.27499999999924:footballer_club_vistula_nova_2026_21",
+      "initialHash": "e361b1a465beb0bb9c3bd1efd96b83ac202fcbcc81f1bf39c14fedf56633898c",
+      "beforeHash": "83f936a5ef9c4637b2b674226507e222f4ead596ed13299401ba97a0b770037a",
+      "afterHash": "fe9ddd611cfe2eb82125b074e225765cb004a6fd85bf22fad26ec920087a505f",
+      "rejectedHash": "fe9ddd611cfe2eb82125b074e225765cb004a6fd85bf22fad26ec920087a505f"
+    },
+    {
+      "id": "youth_native:36.499999999999:footballer_club_vistula_nova_2026_8",
+      "initialHash": "044d657e03d2e26ba821732a6d6be2a5436bb179d531a31d8174c879a457cd8d",
+      "beforeHash": "7215b03c452213021076a6b009970daa7b50d15322a596a2efe510298918bcd6",
+      "afterHash": "7215b03c452213021076a6b009970daa7b50d15322a596a2efe510298918bcd6",
+      "rejectedHash": "7215b03c452213021076a6b009970daa7b50d15322a596a2efe510298918bcd6"
+    },
+    {
+      "id": "youth_native:53.67499999999802:footballer_club_vistula_nova_2026_16",
+      "initialHash": "26a7eede256106b67f0ab72a14e7bb8dc38833fbde6d8ee8e17a4b19d696094d",
+      "beforeHash": "debbdf98fb4b044994d43319a0951ab0984e9b4b72c2e28b04037ed835974533",
+      "afterHash": "debbdf98fb4b044994d43319a0951ab0984e9b4b72c2e28b04037ed835974533",
+      "rejectedHash": "5a2501658f1b7fd84dd13edfbbbc06216fb4ddf425147635f519d680cfc7fc66"
+    }
+  ]
+}

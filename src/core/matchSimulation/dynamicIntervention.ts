@@ -1,0 +1,165 @@
+import { z } from 'zod';
+import { distance, pitchPointSchema, type PitchPoint } from './matchSpace';
+import type { MatchPlayerState, TacticalMatchState } from './matchState';
+import { deriveMovementCapability } from './locomotion';
+import { deriveFitnessPhysicalModifiers } from './matchFitness';
+import {
+  angleForVector,
+  classifyRelativeMovement,
+  integrateFacing,
+  movementModeSpeedFactor,
+  normalizeAngle,
+} from './playerOrientation';
+import { playerContactGeometry } from './ballContactGeometry';
+import { canParticipatePhysically } from './matchInjuries';
+
+export const dynamicInterventionSchema = z.object({
+  target: pitchPointSchema,
+  seconds: z.number().nonnegative().max(2.5),
+  reached: z.boolean(),
+  currentFootAccess: z.boolean(),
+  distance: z.number().nonnegative(),
+  orientationMismatch: z.number().min(0).max(Math.PI),
+  estimateKind: z.literal('bounded_kinematic_estimate'),
+});
+
+/** Bounded kinematic forecast of an observed route, using the canonical angular, speed,
+ * acceleration and braking capabilities. Zero reaction delay is an optimistic assumption;
+ * this estimate is not a guaranteed time bound, imposed response or calibrated probability.
+ * No future decisions/RNG.
+ * Nearby feet can intervene immediately even while the body is moving the wrong way. */
+export const projectDynamicIntervention = (
+  player: MatchPlayerState,
+  target: PitchPoint,
+  speedLimit?: number,
+) => {
+  const capability = deriveMovementCapability(player);
+  const fitness = deriveFitnessPhysicalModifiers(player);
+  const initialDistance = distance(player.position, target);
+  const initialFacing = Math.abs(
+    normalizeAngle(
+      angleForVector({ x: target.x - player.position.x, y: target.y - player.position.y }) -
+        player.facingAngle,
+    ),
+  );
+  const initialFeet = playerContactGeometry(player);
+  const currentFootAccess =
+    Math.min(distance(initialFeet.leftFoot, target), distance(initialFeet.rightFoot, target)) <=
+    initialFeet.footReach;
+  let position = { ...player.position },
+    velocity = { ...player.velocity },
+    facing = player.facingAngle;
+  let seconds = 0;
+  // The same 0.8m arrival envelope as playerArrival. Foot geometry additionally protects a
+  // legal immediate poke; an overshooting presser never receives a protected no-tackle window.
+  const reached = () => distance(position, target) <= 0.8;
+  const dt = 0.025;
+  while (!currentFootAccess && !reached() && seconds < 2.5 - 1e-9) {
+    const dx = target.x - position.x,
+      dy = target.y - position.y,
+      d = Math.max(0.001, Math.hypot(dx, dy));
+    const previousSpeed = Math.hypot(velocity.x, velocity.y);
+    facing = integrateFacing(
+      facing,
+      angleForVector({ x: dx, y: dy }),
+      player.profile.attributes.agility,
+      previousSpeed,
+      dt * fitness.turning,
+    );
+    const speedFactor = movementModeSpeedFactor(
+      classifyRelativeMovement(facing, { x: dx, y: dy }, d),
+    );
+    const remaining = Math.max(0, d - 0.08);
+    const desiredSpeed = Math.min(
+      Math.min(capability.maximumSprintSpeed, speedLimit ?? capability.maximumSprintSpeed) *
+        speedFactor,
+      Math.sqrt(2 * capability.acceleration * remaining),
+      remaining / dt,
+    );
+    const change = {
+      x: (dx / d) * desiredSpeed - velocity.x,
+      y: (dy / d) * desiredSpeed - velocity.y,
+    };
+    const changeLength = Math.hypot(change.x, change.y);
+    const step =
+      capability.acceleration * dt * (desiredSpeed < previousSpeed ? fitness.braking : 1);
+    const scale = changeLength > step ? step / changeLength : 1;
+    velocity = { x: velocity.x + change.x * scale, y: velocity.y + change.y * scale };
+    position = { x: position.x + velocity.x * dt, y: position.y + velocity.y * dt };
+    seconds += dt;
+  }
+  return dynamicInterventionSchema.parse({
+    target,
+    seconds: Math.min(2.5, seconds),
+    reached: currentFootAccess || reached(),
+    currentFootAccess,
+    distance: initialDistance,
+    orientationMismatch: initialFacing,
+    estimateKind: 'bounded_kinematic_estimate',
+  });
+};
+
+/** All physically relevant cover bodies are considered; distance alone cannot select the
+ * primary threat. The lower bound only prunes opponents too far away even at full speed. */
+export const earliestDynamicIntervention = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  target: PitchPoint,
+) => {
+  let seconds = 2.5;
+  let defenderId: string | undefined;
+  for (const defender of state.players) {
+    if (
+      defender.team === actor.team ||
+      state.discipline?.[defender.id]?.sentOff ||
+      !canParticipatePhysically(defender)
+    )
+      continue;
+    const maximum = Math.max(
+      deriveMovementCapability(defender).maximumSprintSpeed,
+      Math.hypot(defender.velocity.x, defender.velocity.y),
+    );
+    if (Math.max(0, distance(defender.position, target) - 1.2) / maximum > seconds) continue;
+    const forecast = projectDynamicIntervention(defender, target);
+    if (forecast.seconds < seconds) {
+      seconds = forecast.seconds;
+      defenderId = defender.id;
+    }
+  }
+  return { seconds, defenderId };
+};
+
+export const dynamicRouteSchema = z.object({
+  margin: z.number().finite(),
+  carrierSeconds: z.number().nonnegative(),
+  defenderSeconds: z.number().nonnegative(),
+  reachable: z.boolean(),
+});
+/** Two short route samples include both the first opponent and secondary cover. This is
+ * local feasibility for an existing movement primitive, not a hidden match rollout. */
+export const projectDynamicRoute = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  target: PitchPoint,
+  speedLimit: number,
+) => {
+  let margin = 2.5,
+    carrierSeconds = 0,
+    defenderSeconds = 2.5,
+    reachable = true;
+  for (const fraction of [0.5, 1]) {
+    const point = {
+      x: actor.position.x + (target.x - actor.position.x) * fraction,
+      y: actor.position.y + (target.y - actor.position.y) * fraction,
+    };
+    const carrier = projectDynamicIntervention(actor, point, speedLimit);
+    const defender = earliestDynamicIntervention(state, actor, point);
+    reachable = reachable && carrier.reached;
+    if (defender.seconds - carrier.seconds < margin) {
+      margin = defender.seconds - carrier.seconds;
+      carrierSeconds = carrier.seconds;
+      defenderSeconds = defender.seconds;
+    }
+  }
+  return dynamicRouteSchema.parse({ margin, carrierSeconds, defenderSeconds, reachable });
+};

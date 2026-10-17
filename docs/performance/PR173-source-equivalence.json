@@ -1,0 +1,489 @@
+{
+  "version": 1,
+  "measuredSourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b",
+  "finalSourceHash": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+  "changedFile": "src/core/matchSimulation/dynamicIntervention.ts",
+  "substitutions": [
+    [
+      "optimistic_physical_bound",
+      "bounded_kinematic_estimate"
+    ],
+    [
+      " * acceleration and braking capabilities. Zero reaction delay is an optimistic bound,\n * never an imposed defender response or a calibrated probability. No future decisions/RNG.",
+      " * acceleration and braking capabilities. Zero reaction delay is an optimistic assumption;\n * this estimate is not a guaranteed time bound, imposed response or calibrated probability.\n * No future decisions/RNG."
+    ]
+  ],
+  "exactEquivalenceAfterSubstitutions": true,
+  "canonicalStateConsumer": false,
+  "method": "Reconstruct the complete measured core source inventory from final sources by reversing only these exact diagnostic literal/comment substitutions. It exactly matches the hash guarded by all full-match runs. No numerical expression, branch, capability, RNG or canonical state write changes.",
+  "cohorts": [
+    {
+      "path": "pr173-experiments/cohort-central_possession-false.json.gz",
+      "jsonSha256": "d6660a70cc6d1d279a492139b44263547f8ca7b5b3d5f204a433d116cf780cfa",
+      "gzipSha256": "14daa602734b7f4cf9e52076253e3ee58ab74d7e2ec7f0ed7451ce26a1c01236",
+      "bytes": 2255700,
+      "gzipBytes": 174608,
+      "fixture": {
+        "family": "central_possession",
+        "seed": "pr171-b:central_possession",
+        "reversed": false,
+        "fixtureHash": "d344b8eb05d73c0c49ff5a3da8559e8bbe908d351d9ad61eedd7ff553778fb14",
+        "home": {
+          "id": "pro_9",
+          "formation": "3-5-2",
+          "strength": 78.63636363636364,
+          "style": "possession"
+        },
+        "away": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77.45454545454545,
+          "style": "balanced"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-central_possession-true.json.gz",
+      "jsonSha256": "a8a6926694d3f06b4c20153bdc4038595b3915f747ca8a1d5a164a6cb1f3deae",
+      "gzipSha256": "9ae09b95175105c58bbff6b548ee4bc54ef39ab84112cc80dea033abb3f546c2",
+      "bytes": 2230640,
+      "gzipBytes": 172128,
+      "fixture": {
+        "family": "central_possession",
+        "seed": "pr171-b:central_possession",
+        "reversed": true,
+        "fixtureHash": "a61197516b5e271578a8eac6b5e76ba20346a40acca1c34c33c322c4e8f62078",
+        "home": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77.45454545454545,
+          "style": "balanced"
+        },
+        "away": {
+          "id": "pro_9",
+          "formation": "3-5-2",
+          "strength": 78.63636363636364,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-press_low-false.json.gz",
+      "jsonSha256": "c35e2cf6e5932b07fa5b794df7d6ae3ac2fb66e16ed7e767894b738dfc56a97d",
+      "gzipSha256": "d8f4a8d7be06e50d6a62ee8a9540b35e403eb020433f784307490c22443510b7",
+      "bytes": 2113118,
+      "gzipBytes": 174384,
+      "fixture": {
+        "family": "press_low",
+        "seed": "pr171-b:press_low",
+        "reversed": false,
+        "fixtureHash": "20ab2a78b8eb2c27bbaaab0247ecacea5cb552610f813c1030e4e3266c410ab8",
+        "home": {
+          "id": "pro_9",
+          "formation": "3-4-2-1",
+          "strength": 78.54545454545455,
+          "style": "pressing"
+        },
+        "away": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77.45454545454545,
+          "style": "counter_attacking"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-press_low-true.json.gz",
+      "jsonSha256": "e71940df93e5581b559fc705f688bdffb62c12e0c67c3422b9c687f5e6b74bc3",
+      "gzipSha256": "0133997cc8e408b286786df1f8f035d6fae61e4401d1893ab5ab1bddc7ba44b2",
+      "bytes": 2108398,
+      "gzipBytes": 173829,
+      "fixture": {
+        "family": "press_low",
+        "seed": "pr171-b:press_low",
+        "reversed": true,
+        "fixtureHash": "181a96fe832b81ee91071e7112d5a7be5785798cdc7129d0a2f5c2ec29c2fbaf",
+        "home": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77.45454545454545,
+          "style": "counter_attacking"
+        },
+        "away": {
+          "id": "pro_9",
+          "formation": "3-4-2-1",
+          "strength": 78.54545454545455,
+          "style": "pressing"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-senior_balanced-extra-a-false.json.gz",
+      "jsonSha256": "1162fc3a62e848e57a16fbc8ad38218bf4e2f97806412c648b02ddbb8fd42a3a",
+      "gzipSha256": "19b42dc1cac572d35712ece4ee153e9b03a836d07e6ac9d6a0f3aca8dc2bbc70",
+      "bytes": 2207068,
+      "gzipBytes": 170768,
+      "fixture": {
+        "family": "senior_balanced:extra-a",
+        "seed": "pr171-extra-a:senior_balanced",
+        "reversed": false,
+        "fixtureHash": "5bda5d52b44f35365eef962cd87b6a205fc740eb903c96d8f863bc2908718f4d",
+        "home": {
+          "id": "pro_9",
+          "formation": "4-3-3",
+          "strength": 79,
+          "style": "balanced"
+        },
+        "away": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77,
+          "style": "balanced"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-senior_balanced-extra-a-true.json.gz",
+      "jsonSha256": "7e3ff205645fb5378952362fa4a83837b3ffb1b29edc83f66dfdebed4ac3753c",
+      "gzipSha256": "8e2d044b53767e3e8b70e2164a8e637c43808b790a546a72e0577fcae2e34663",
+      "bytes": 2289608,
+      "gzipBytes": 176261,
+      "fixture": {
+        "family": "senior_balanced:extra-a",
+        "seed": "pr171-extra-a:senior_balanced",
+        "reversed": true,
+        "fixtureHash": "46b5ec636e174595e4a83eee16f80b8ceeaff197eb9106f14482bc62c6ceff03",
+        "home": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77,
+          "style": "balanced"
+        },
+        "away": {
+          "id": "pro_9",
+          "formation": "4-3-3",
+          "strength": 79,
+          "style": "balanced"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-senior_balanced-false.json.gz",
+      "jsonSha256": "e3664f30e40750d60a095abed296a54b52e3f80371db6e2796eb9b5b0ccee2cf",
+      "gzipSha256": "12d3fff4cba3dfc7daa0acd69d9acca0c45c5ca7aa3e13ab7e99f1148dd705b5",
+      "bytes": 2205927,
+      "gzipBytes": 176235,
+      "fixture": {
+        "family": "senior_balanced",
+        "seed": "pr171-b:senior_balanced",
+        "reversed": false,
+        "fixtureHash": "4384698678ad37bebde50e293c6f0cfe15bd1cc0149326d26d57865775603ced",
+        "home": {
+          "id": "pro_9",
+          "formation": "4-3-3",
+          "strength": 79,
+          "style": "balanced"
+        },
+        "away": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77,
+          "style": "balanced"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-senior_balanced-true.json.gz",
+      "jsonSha256": "b50d96d9f3ea51a0ee847e46aada749991fab1cda64ef077aeb77b4cba957db0",
+      "gzipSha256": "353c1c5991ec5904a8be211fe4391909b6fe089285e1515124f781ed70460202",
+      "bytes": 2189454,
+      "gzipBytes": 175279,
+      "fixture": {
+        "family": "senior_balanced",
+        "seed": "pr171-b:senior_balanced",
+        "reversed": true,
+        "fixtureHash": "7fa943098eeff766a063255ccf5f0cb6af9a177869d9a7cedd4218952626177b",
+        "home": {
+          "id": "pro_10",
+          "formation": "4-3-3",
+          "strength": 77,
+          "style": "balanced"
+        },
+        "away": {
+          "id": "pro_9",
+          "formation": "4-3-3",
+          "strength": 79,
+          "style": "balanced"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-strong_weak-false.json.gz",
+      "jsonSha256": "35bb4ae1765f5a9cf7b3663fdca832b3ba8ec8fd82e6e57d0d75cd1605c0e51c",
+      "gzipSha256": "8176a94cae9bf39a236b44cbd676dea1d4e9f94be9fc66d2770e62c3a8940bf5",
+      "bytes": 1877647,
+      "gzipBytes": 155485,
+      "fixture": {
+        "family": "strong_weak",
+        "seed": "pr171-a:strong_weak",
+        "reversed": false,
+        "fixtureHash": "7aae304ebe85e13bcb31091f46a43ac9287d894f43238b3479accb243bec715e",
+        "home": {
+          "id": "pro_0",
+          "formation": "3-4-2-1",
+          "strength": 69,
+          "style": "possession"
+        },
+        "away": {
+          "id": "pro_60",
+          "formation": "4-4-2",
+          "strength": 48,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-strong_weak-true.json.gz",
+      "jsonSha256": "32edead79ed40926ff47cd65ee554cc7b11e861cf97a57db36b372f3e4fa29c9",
+      "gzipSha256": "2ff65494087b14c0e4c07e320abacdbfb09ffe460db86678d3227487ebb9ff0d",
+      "bytes": 1874541,
+      "gzipBytes": 157036,
+      "fixture": {
+        "family": "strong_weak",
+        "seed": "pr171-a:strong_weak",
+        "reversed": true,
+        "fixtureHash": "bfc70c41721341006664467d9b9f5af60b2e52562ba3212e52776588826e5b64",
+        "home": {
+          "id": "pro_60",
+          "formation": "4-4-2",
+          "strength": 48,
+          "style": "possession"
+        },
+        "away": {
+          "id": "pro_0",
+          "formation": "3-4-2-1",
+          "strength": 69,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-wide_direct-extra-a-false.json.gz",
+      "jsonSha256": "f1a6bab45f360726dae316428a41ab79e755a7e1d45e059468cb25304678c0a3",
+      "gzipSha256": "b7d64893aca2027769bdd4744270521a26fcae9a2d59509ac04e54b6b9030b56",
+      "bytes": 2181555,
+      "gzipBytes": 167686,
+      "fixture": {
+        "family": "wide_direct:extra-a",
+        "seed": "pr171-extra-a:wide_direct",
+        "reversed": false,
+        "fixtureHash": "2a18e1e9ec7c07a0f292035a0ed2e913182e512cf2063e134b03dd8d74f9609c",
+        "home": {
+          "id": "pro_9",
+          "formation": "4-2-3-1",
+          "strength": 78.81818181818181,
+          "style": "direct"
+        },
+        "away": {
+          "id": "pro_10",
+          "formation": "4-4-2",
+          "strength": 77.18181818181819,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-wide_direct-extra-a-true.json.gz",
+      "jsonSha256": "7a725e190f8ccfc41d1ab6f34eb409227c5a0f002eb3e3eeaa170dae5ae7b982",
+      "gzipSha256": "0187fcb1c2d3480e5f131b22f7e5bc28cbd4006b748015da789143343f2eb90e",
+      "bytes": 2210201,
+      "gzipBytes": 170280,
+      "fixture": {
+        "family": "wide_direct:extra-a",
+        "seed": "pr171-extra-a:wide_direct",
+        "reversed": true,
+        "fixtureHash": "d63a6050825b6cfeffce94344363bed087281be8caf95e2792e5297b70d10f84",
+        "home": {
+          "id": "pro_10",
+          "formation": "4-4-2",
+          "strength": 77.18181818181819,
+          "style": "possession"
+        },
+        "away": {
+          "id": "pro_9",
+          "formation": "4-2-3-1",
+          "strength": 78.81818181818181,
+          "style": "direct"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-wide_direct-false.json.gz",
+      "jsonSha256": "0385aa6efcc74062b2405e09f3cd78b41da5c396d698303c8b491835d72cd4ed",
+      "gzipSha256": "ea98e86827eca58cfc21bf54bd297200489966357470424b697091554006dc17",
+      "bytes": 2098268,
+      "gzipBytes": 168557,
+      "fixture": {
+        "family": "wide_direct",
+        "seed": "pr171-a:wide_direct",
+        "reversed": false,
+        "fixtureHash": "001446b694d263b0780d1261ce89c96137b6ccfe75a632e16ac5392646128f10",
+        "home": {
+          "id": "pro_9",
+          "formation": "4-2-3-1",
+          "strength": 78.81818181818181,
+          "style": "direct"
+        },
+        "away": {
+          "id": "pro_10",
+          "formation": "4-4-2",
+          "strength": 77.18181818181819,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-wide_direct-true.json.gz",
+      "jsonSha256": "a1988325449d7e88dbf1ed97f30ef79a7f5bf6dda270a596fb276ed9e6d05e48",
+      "gzipSha256": "d744c4a2eee261c6757bb25f2a3218b995b4fd18195b8017778a8ce3f99ce2fc",
+      "bytes": 2040154,
+      "gzipBytes": 166771,
+      "fixture": {
+        "family": "wide_direct",
+        "seed": "pr171-a:wide_direct",
+        "reversed": true,
+        "fixtureHash": "c304eee374fa74e9938c67a472cf8ae04269949ce795153e7115a08a973377c1",
+        "home": {
+          "id": "pro_10",
+          "formation": "4-4-2",
+          "strength": 77.18181818181819,
+          "style": "possession"
+        },
+        "away": {
+          "id": "pro_9",
+          "formation": "4-2-3-1",
+          "strength": 78.81818181818181,
+          "style": "direct"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-youth_native-false.json.gz",
+      "jsonSha256": "f1413b9dfa367fc7fbd9d8f3acfaadc502a7209f0202651e45618031d391c09b",
+      "gzipSha256": "4bc57068ad6d0f7a19719422497172c9c16de0160d6c5b8dc2898754f67e1be2",
+      "bytes": 1893841,
+      "gzipBytes": 149656,
+      "fixture": {
+        "family": "youth_native",
+        "seed": "pr171-a:youth_native",
+        "reversed": false,
+        "fixtureHash": "9f6d9dc8f5f73e23d5c9507f614cbe77c108402d9eb98ad1de4976bb8e3ad38a",
+        "home": {
+          "id": "club_vistula_nova",
+          "formation": "4-3-3",
+          "strength": 48,
+          "style": "possession"
+        },
+        "away": {
+          "id": "u17_pro_60",
+          "formation": "4-3-3",
+          "strength": 47,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/cohort-youth_native-true.json.gz",
+      "jsonSha256": "9a78bc6aa1fab3d2524cef6f8f547100d330391fc5e730141bbb717007ecba68",
+      "gzipSha256": "58cb9da16b6a3cfc95984724a55e9a01ff89b3e1db117771c5be8a2912c6e09a",
+      "bytes": 1891267,
+      "gzipBytes": 150656,
+      "fixture": {
+        "family": "youth_native",
+        "seed": "pr171-a:youth_native",
+        "reversed": true,
+        "fixtureHash": "8bec80f162d7e184f839876b84d3ded911f16b7da263def88c026c028c6aa17f",
+        "home": {
+          "id": "u17_pro_60",
+          "formation": "4-3-3",
+          "strength": 47,
+          "style": "possession"
+        },
+        "away": {
+          "id": "club_vistula_nova",
+          "formation": "4-3-3",
+          "strength": 48,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/confirm-youth_native-false.json.gz",
+      "jsonSha256": "8399e979559177daee9567d1e841192e3f0c44de53f5914286b56ce3a7e6af9e",
+      "gzipSha256": "640c0f286fec28e4ec62383a4e9bc73942e0824a6c5e4d81563cd2ef95f5b08c",
+      "bytes": 3017659,
+      "gzipBytes": 216413,
+      "fixture": {
+        "family": "youth_native",
+        "seed": "pr171-a:youth_native",
+        "reversed": false,
+        "fixtureHash": "9f6d9dc8f5f73e23d5c9507f614cbe77c108402d9eb98ad1de4976bb8e3ad38a",
+        "home": {
+          "id": "club_vistula_nova",
+          "formation": "4-3-3",
+          "strength": 48,
+          "style": "possession"
+        },
+        "away": {
+          "id": "u17_pro_60",
+          "formation": "4-3-3",
+          "strength": 47,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    },
+    {
+      "path": "pr173-experiments/confirm-youth_native-true.json.gz",
+      "jsonSha256": "9e1498e5ebeb96ef412fe27095a767f087110bdfbb2a61757aaaa8e069b60cea",
+      "gzipSha256": "da0c556e0a6ac2f650e781b3412c76f218c99e560630b5c0452ade3931eb680e",
+      "bytes": 3022031,
+      "gzipBytes": 219088,
+      "fixture": {
+        "family": "youth_native",
+        "seed": "pr171-a:youth_native",
+        "reversed": true,
+        "fixtureHash": "8bec80f162d7e184f839876b84d3ded911f16b7da263def88c026c028c6aa17f",
+        "home": {
+          "id": "u17_pro_60",
+          "formation": "4-3-3",
+          "strength": 47,
+          "style": "possession"
+        },
+        "away": {
+          "id": "club_vistula_nova",
+          "formation": "4-3-3",
+          "strength": 48,
+          "style": "possession"
+        }
+      },
+      "sourceHash": "8edb827cafe19fb37b5f044422494595f10541f5ac3ab595b1e251afa169e85b"
+    }
+  ]
+}

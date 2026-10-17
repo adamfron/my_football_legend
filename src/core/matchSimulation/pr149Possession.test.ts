@@ -298,7 +298,11 @@ describe('PR149 context-based reception quality', () => {
     const contact = stepTacticalMatchAfterDecisionProbe(before, FIXED_MATCH_DT);
     expect(contact.lastReceptionOutcome?.kind).toBe('directional_control');
     expect(contact.ball.ownerId).toBe(receiver.id);
-    expect(contact.ball.x).toBeGreaterThan(contact.lastReceptionOutcome!.contactPoint.x);
+    // PR173 starts the finite directional impulse at the physical contact. The future
+    // waypoint must not be assigned as the current ball position, even without a plan.
+    expect(contact.ball.x).toBeCloseTo(contact.lastReceptionOutcome!.contactPoint.x, 8);
+    expect(contact.ball.y).toBeCloseTo(contact.lastReceptionOutcome!.contactPoint.y, 8);
+    expect(contact.ball.velocity!.x).toBeGreaterThan(0);
     expect(owner(contact).facingAngle).toBeLessThan(0);
     const gainedAt = contact.onBallPreparation!.gainedAt;
     const readyAt = contact.onBallPreparation!.readyAt;

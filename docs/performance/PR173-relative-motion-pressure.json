@@ -1,0 +1,1733 @@
+{
+  "manifest": {
+    "version": 1,
+    "stage": "F",
+    "sourceHash": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+    "node": "v24.19.0",
+    "dt": 0.025,
+    "method": "Identical frozen full states and seeded execution. Prescribed opening action, then ordinary autonomous canonical decisions for 5s. Times are seconds; distances metres. Indices are uncalibrated forecasts, not success probabilities.",
+    "harnessHash": "ae8742ead9c9e2d031a4d6baacc5b8363d1d3a45e43d190710342fe223d9ee9c"
+  },
+  "rows": [
+    {
+      "motion": "crossing",
+      "readiness": 1,
+      "cover": false,
+      "initialHash": "7120afe6cb17e5dd1ac0217809c3abf6aa4c3f84ab496dff7a1c88fab0bf657c",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.1249999999999964,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 1.653699124047144,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.1749999999999963,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.1749999999999963,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 1,
+      "cover": true,
+      "initialHash": "7947593b7ded338a6710baa36e8a5a4a46148c1a3dab708b06a1da86baa5f7ba",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.1249999999999964,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 1.653699124047144,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.1749999999999963,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.6,
+      "cover": false,
+      "initialHash": "6b832c7fa9b7422763aa850668cd4627b59057b53ec0285f3e47bafc906c3223",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.4249999999999954,
+        "initialSpeed": 6,
+        "targetSpeed": 5.34304,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 1.8706351513046915,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.499999999999995,
+        "defenderId": "geometry:opponent:1"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.6,
+      "cover": true,
+      "initialHash": "9a0d6949e4e2e88367da6347512ca7f9b5409287b5bec6396b6a5e9230f4f028",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.4249999999999954,
+        "initialSpeed": 6,
+        "targetSpeed": 5.34304,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 1.8706351513046915,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.3,
+      "cover": false,
+      "initialHash": "5851c45088a631b9508aed668bb5e8b23e007fb85ec740759c2a484d7eee2e47",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.7249999999999943,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.0861348124222165,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.499999999999995,
+        "defenderId": "geometry:opponent:1"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.3,
+      "cover": true,
+      "initialHash": "651af6f4bf71043c5ce1d1d785ef7b63cf1d6d514ce729be2331118f9233f4a0",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.7249999999999943,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.0861348124222165,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.1,
+      "cover": false,
+      "initialHash": "58cf6158430538da4da6569bfd854544c2abc2e0af4bb8e483c396cc690d9f91",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.9749999999999934,
+        "initialSpeed": 6,
+        "targetSpeed": 4.94684,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.266504524107557,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.499999999999995,
+        "defenderId": "geometry:opponent:1"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.1,
+      "cover": true,
+      "initialHash": "143b86a39d972e9a33e9321ad7fc46f561fbb54b5f3b4ad6f1d9eb8f3baa17ba",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.9749999999999934,
+        "initialSpeed": 6,
+        "targetSpeed": 4.94684,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.266504524107557,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.01,
+      "cover": false,
+      "initialHash": "ea3c2b11bd8585da513ddc701dd2aaa2cb09c22c9c9d4ca609b57106c6cc2cc6",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 3.099999999999993,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.3602775010504002,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.499999999999995,
+        "defenderId": "geometry:opponent:1"
+      }
+    },
+    {
+      "motion": "crossing",
+      "readiness": 0.01,
+      "cover": true,
+      "initialHash": "d8b6a7fdef4513f72f68e533343463266ec4499fb1b1ee02ad96f9785768bdf4",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": -3.5999999999999996,
+        "y": -4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 3.099999999999993,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 3.110352820159525,
+        "accelerationTime": 2.3602775010504002,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 3.110352820159525,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 1,
+      "cover": false,
+      "initialHash": "40d58cc0593207aac397a84ffff8017a19f85c24436f1acb47b49e922c2a221b",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.4250000000000001,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.054704678265811185,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5000000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5000000000000001,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 1,
+      "cover": true,
+      "initialHash": "dafd513f7d646733147cadfdb2f84b9dc20ec032d2d965a5b1eeecd175d65c94",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.4250000000000001,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.054704678265811185,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5000000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5000000000000001,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.6,
+      "cover": false,
+      "initialHash": "647b53e74d0818e17d54e4db768dfbb836f97333567b10ff99eccceaa40cf2e7",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.4500000000000001,
+        "initialSpeed": 6,
+        "targetSpeed": 5.34304,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.11221394484034405,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5000000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5000000000000001,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.6,
+      "cover": true,
+      "initialHash": "5f911122ca1fb213fbd17f0f26c4af51ac6e888e99eb7e114a8a179c8c9350c7",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.4500000000000001,
+        "initialSpeed": 6,
+        "targetSpeed": 5.34304,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.11221394484034405,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5000000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5000000000000001,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.3,
+      "cover": false,
+      "initialHash": "4ec345f1670a4b01f637fc4d7785b3088a5c7addaae742980584d442883a3d7f",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.1711957821777735,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5000000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5000000000000001,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.3,
+      "cover": true,
+      "initialHash": "1f38a375c321fa360255061832c622e6b3aa2833d30025df71b0f77e1256f286",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.1711957821777735,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.5000000000000001,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5000000000000001,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.1,
+      "cover": false,
+      "initialHash": "50386afbcfc5e96638aaca4f858f8081ac298c2af4ad25a37ae0b044ea0a32ee",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 4.94684,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.22090851815679338,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.47500000000000014,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.47500000000000014,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.1,
+      "cover": true,
+      "initialHash": "8d91d60b3fa72cdaf2523d3b1a8b05ab7fe8841b93a117c5f780233bf2b99053",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 4.94684,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.22090851815679338,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.47500000000000014,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.47500000000000014,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.01,
+      "cover": false,
+      "initialHash": "c873a81b83783a8ff25204150dc0fd265ab4384a4e53455e4336c83a7bc89f0b",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.24681034535965293,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.47500000000000014,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.47500000000000014,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "aligned",
+      "readiness": 0.01,
+      "cover": true,
+      "initialHash": "07f0c0d93a09bcd2e9f42fabd5ac6052fa5d3d09d202eb322a714b5563e44584",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 3.5999999999999996,
+        "y": 4.800000000000001
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.47500000000000014,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.031239833430268486,
+        "accelerationTime": 0.24681034535965293,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.47500000000000014,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.03123983343026815,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.47500000000000014,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 1,
+      "cover": false,
+      "initialHash": "75cb52a2b486c67ea36260b2d8c88186d9e2c61c18624b88504b1ab4b53ee226",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.8250000000000004,
+        "initialSpeed": 0,
+        "targetSpeed": 5.66,
+        "turnAngle": 0,
+        "accelerationTime": 0.8028368794326243,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.8750000000000004,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.8750000000000004,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 1,
+      "cover": true,
+      "initialHash": "5e226866091cacd082aa27375590147cc680d6daf554cc10fbf41c086b69899a",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.8250000000000004,
+        "initialSpeed": 0,
+        "targetSpeed": 5.66,
+        "turnAngle": 0,
+        "accelerationTime": 0.8028368794326243,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.8750000000000004,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.6,
+      "cover": false,
+      "initialHash": "06d342346a80ded911242286e57cb2513494db1da19503ebd9f6f0be1a18421c",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.9000000000000005,
+        "initialSpeed": 0,
+        "targetSpeed": 5.34304,
+        "turnAngle": 0,
+        "accelerationTime": 0.8812535048655783,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.9500000000000005,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.9500000000000005,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.6,
+      "cover": true,
+      "initialHash": "a16304a288156d8fbcc9dc7fd5cec3920bc012535882248a84c534d95f4640bc",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.9000000000000005,
+        "initialSpeed": 0,
+        "targetSpeed": 5.34304,
+        "turnAngle": 0,
+        "accelerationTime": 0.8812535048655783,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 0.9500000000000005,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.3,
+      "cover": false,
+      "initialHash": "ee2a66267b1920f7dfe035719c23f9831319c8c10233e213db4f6edcca953f56",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.9500000000000005,
+        "initialSpeed": 0,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0,
+        "accelerationTime": 0.959150814898314,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0000000000000004,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 1.0000000000000004,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.3,
+      "cover": true,
+      "initialHash": "1da7ff1d519859256e18b748fbfa2c01c95ee6c2e982082d968ef2bd848c72df",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 0.9500000000000005,
+        "initialSpeed": 0,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0,
+        "accelerationTime": 0.959150814898314,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0000000000000004,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.1,
+      "cover": false,
+      "initialHash": "cf15637e49538893fcd49e089d83a4e28313e74fd137ca15e34836381b636b80",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.0000000000000004,
+        "initialSpeed": 0,
+        "targetSpeed": 4.94684,
+        "turnAngle": 0,
+        "accelerationTime": 1.024349536677538,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0500000000000003,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 1.0500000000000003,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.1,
+      "cover": true,
+      "initialHash": "8b2b22d378a77b9ca89a56c9938ee342f931c04015c93b31c60d97c6f4e6b79e",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.0000000000000004,
+        "initialSpeed": 0,
+        "targetSpeed": 4.94684,
+        "turnAngle": 0,
+        "accelerationTime": 1.024349536677538,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0500000000000003,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.01,
+      "cover": false,
+      "initialHash": "50b837ad5e61a4038a4de4ba54054a9ec0e26678b5b5add39c371a990727dc71",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.0250000000000004,
+        "initialSpeed": 0,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0,
+        "accelerationTime": 1.0582458882069816,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0750000000000002,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 1.0750000000000002,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "stationary",
+      "readiness": 0.01,
+      "cover": true,
+      "initialHash": "e5bdbcfbdfede8b787e26cae41f65856cae32eac47eafa33b05efd31d6ee8421",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.0250000000000004,
+        "initialSpeed": 0,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0,
+        "accelerationTime": 1.0582458882069816,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.0750000000000002,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.6747409422235524,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 1,
+      "cover": false,
+      "initialHash": "048de0836290b4657fe4dc0cd5740207b072eb882fd87a82106c44b8000ac6ce",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.7249999999999979,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.7177685125763489,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.5999999999999983,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 1.5999999999999983,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 1,
+      "cover": true,
+      "initialHash": "e41a8eb4d8e61bcc6b3adf4290dde8a1d6db59400e75a85a187277f832614a2c",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.7249999999999979,
+        "initialSpeed": 6,
+        "targetSpeed": 5.66,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.7177685125763489,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.5999999999999983,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.6,
+      "cover": false,
+      "initialHash": "58f520100a1c472ef8b44ef9d143208e9e60af3f3460961bf9cefcd3a19fc130",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.9249999999999972,
+        "initialSpeed": 6,
+        "targetSpeed": 5.34304,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.816299700259745,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.8999999999999972,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 1.8999999999999972,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.6,
+      "cover": true,
+      "initialHash": "8179f940201fcc05301afb9d711f5b9f9b81d3a94b9b8ba5584885bbf664d4a3",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 1.9249999999999972,
+        "initialSpeed": 6,
+        "targetSpeed": 5.34304,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.816299700259745,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 1.8999999999999972,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.3,
+      "cover": false,
+      "initialHash": "386a815bec1ebdb3bbbc66fcee8da3c100e64fa6d5c2a13fb66e21f2497e23bd",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.1749999999999963,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.9164087281564312,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.274999999999996,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.274999999999996,
+        "defenderId": "geometry:opponent:4"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.3,
+      "cover": true,
+      "initialHash": "e535a0102d87987a13528c815eb32404aead56255a2d29a62a8d7997781bb833",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.1749999999999963,
+        "initialSpeed": 6,
+        "targetSpeed": 5.10532,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 0.9164087281564312,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.274999999999996,
+        "reached": true,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.1,
+      "cover": false,
+      "initialHash": "23483517dbd1a3189a0996813701292439da2cf7549926cd9de875ac36dceb7d",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.3749999999999956,
+        "initialSpeed": 6,
+        "targetSpeed": 4.94684,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 1.0014219804709283,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.499999999999995,
+        "defenderId": "geometry:opponent:1"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.1,
+      "cover": true,
+      "initialHash": "0cf8a491fad6bdfb53d02b8ee69b1365dfba6853f497204e2d3ccb28fb015ff6",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.3749999999999956,
+        "initialSpeed": 6,
+        "targetSpeed": 4.94684,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 1.0014219804709283,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.01,
+      "cover": false,
+      "initialHash": "95ba3b12621c8223569a04f732c0ec19ec358181ff0beaad5c0427015e236756",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.474999999999995,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 1.045963346375882,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 2.499999999999995,
+        "defenderId": "geometry:opponent:1"
+      }
+    },
+    {
+      "motion": "recovering",
+      "readiness": 0.01,
+      "cover": true,
+      "initialHash": "ae4b0974f994c2c2ae976a536bee5efc52c40a650d8c387621b7ee22ecb3a6f4",
+      "position": {
+        "x": 70,
+        "y": 12.5
+      },
+      "velocity": {
+        "x": 6,
+        "y": 0
+      },
+      "legacy": {
+        "distance": 3.2015621187164243,
+        "estimatedTime": 2.474999999999995,
+        "initialSpeed": 6,
+        "targetSpeed": 4.8755239999999995,
+        "turnAngle": 0.8960553845713438,
+        "accelerationTime": 1.045963346375882,
+        "reachable": true,
+        "target": {
+          "x": 72,
+          "y": 15
+        }
+      },
+      "dynamic": {
+        "target": {
+          "x": 72,
+          "y": 15
+        },
+        "seconds": 2.499999999999995,
+        "reached": false,
+        "currentFootAccess": false,
+        "distance": 3.2015621187164243,
+        "orientationMismatch": 0.8960553845713441,
+        "estimateKind": "bounded_kinematic_estimate"
+      },
+      "earliest": {
+        "seconds": 0.5750000000000002,
+        "defenderId": "geometry:opponent:2"
+      }
+    }
+  ]
+}
