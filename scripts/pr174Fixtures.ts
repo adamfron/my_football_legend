@@ -48,7 +48,7 @@ export const createCombinationFixture = (input: CombinationFixtureInput) => {
   const { state } = f;
   const a = state.players.find((p) => p.id === f.actorId)!;
   const b = state.players.find((p) => p.id === f.supportId)!;
-  let c = state.players.find((p) => p.team === a.team && p.slot.position === 'left_back')!;
+  const c = state.players.find((p) => p.team === a.team && p.slot.position === 'left_back')!;
   const d = state.players.find((p) => p.id === f.defenderId)!;
   a.duty = 'attack';
   b.duty = 'support';

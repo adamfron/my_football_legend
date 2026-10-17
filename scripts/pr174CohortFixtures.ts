@@ -20,7 +20,7 @@ export const createPr174HeldOutFixture = (
       : family === 'press_low'
         ? ['pro_31', 'pro_40']
         : ['pro_24', 'pro_25'];
-  let session =
+  const session =
     family === 'youth_native'
       ? structuredClone(
           createCareerMatchInput(

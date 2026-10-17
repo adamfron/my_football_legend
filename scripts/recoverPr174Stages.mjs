@@ -6,11 +6,11 @@ import assert from 'node:assert/strict';
 import console from 'node:console';
 const base='docs/performance/pr174-experiments';
 const c=JSON.parse(gunzipSync(readFileSync(`${base}/PR174-C-source.json.gz`)));
-const b=structuredClone(c); b.stage='B';
+const b=JSON.parse(JSON.stringify(c)); b.stage='B';
 const actions='src/core/matchSimulation/matchActions.ts', play='src/core/matchSimulation/combinationPlay.ts';
 b.sources[actions]=b.sources[actions]
  .replace('observeCombinationRelease, enumerateCombinationPasses, isMovingCombinationReturn','observeCombinationRelease')
- .replace(/  for \(const candidate of enumerateCombinationPasses\(state, actor\)\) \{\n    if \(candidate.type === 'pass'[^\n]*\n      actions.push\(candidate\);\n  \}\n/,'')
+ .replace(/ {2}for \(const candidate of enumerateCombinationPasses\(state, actor\)\) \{\n {4}if \(candidate.type === 'pass'[^\n]*\n {6}actions.push\(candidate\);\n {2}\}\n/,'')
  .replace("receiverMoved > 4 ||\n    (isMovingCombinationReturn(state, actor, receiver) && decision.laneOccupation === 0 && decision.expectedCompletion > 0.62 && decision.defenderEta > decision.receiverEta + 0.12);",'receiverMoved > 4;');
 b.sources[play]=b.sources[play]
  .replace('constrainTargetOnside, applyRoleRelationships','constrainTargetOnside')
