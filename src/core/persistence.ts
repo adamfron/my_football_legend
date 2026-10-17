@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { limitProfessionalOffers } from './professionalOfferPolicy';
 import { retainCareerMatchResults } from './careerMatchRetention';
 import type { CareerState, CareerWorldDelta, WorldFootballer } from '../types/domain';
 import { careerStateSchema } from '../schemas/domainSchemas';
@@ -517,6 +518,9 @@ export const hydrateCareerWithWorld = (
     migrateLegacyMidfieldPositions({
       ...career,
       clubWorld: world.clubs,
+      professionalOffers: career.professionalOffers
+        ? limitProfessionalOffers(career.professionalOffers, career.currentClub.id)
+        : undefined,
       footballerWorld: world.footballers,
       youthCohorts: world.youthCohorts,
     }),

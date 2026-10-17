@@ -1,4 +1,5 @@
 import { recordSeasonAchievements } from './narrative/careerEvidence';
+import { limitProfessionalOffers } from './professionalOfferPolicy';
 import type {
   CareerState,
   Club,
@@ -420,9 +421,10 @@ export const validateProfessionalOfferAcceptance = (
   career: CareerState,
   offerOrId: ProfessionalOffer | string,
 ): ProfessionalOfferAcceptanceValidation => {
-  const offer = career.professionalOffers?.find(
-    (item) => item.id === (typeof offerOrId === 'string' ? offerOrId : offerOrId.id),
-  );
+  const offer = limitProfessionalOffers(
+    career.professionalOffers ?? [],
+    career.currentClub.id,
+  ).find((item) => item.id === (typeof offerOrId === 'string' ? offerOrId : offerOrId.id));
   if (!offer || !career.professionalOffers?.some((item) => item.id === offer.id))
     return { valid: false, reason: 'Ta oferta nie jest już dostępna.' };
   const expectedStartDate = `${career.currentSeason + 1}-07-01`;

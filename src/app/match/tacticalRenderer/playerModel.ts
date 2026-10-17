@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { createPlayerPose, derivePlayerPose, projectBodyDimensions } from './animation';
-import { type KitPresentation, type TacticalPlayer } from './model';
+import { type KitPresentation, type TacticalPlayer, type PlayerShading } from './model';
 import { deriveAppearance } from '../../../core/visualIdentity';
 import { appearanceColors, buildParametricHead } from './faceModel';
 
@@ -17,6 +17,12 @@ export class PlayerModelResources {
     depthWrite: false,
   });
   private materials = new Map<string | number, THREE.MeshStandardMaterial>();
+  private shading: PlayerShading = 'classic';
+  setShading(shading: PlayerShading) {
+    if (shading === this.shading) return;
+    this.shading = shading;
+    for (const material of this.materials.values()) { material.flatShading = shading === 'faceted'; material.needsUpdate = true; }
+  }
   material(color: string | number) {
     let material = this.materials.get(color);
     if (!material) {
@@ -30,7 +36,7 @@ export class PlayerModelResources {
           return distance(candidate.color) < distance(nearest.color) ? candidate : nearest;
         });
       }
-      material = new THREE.MeshStandardMaterial({ color, roughness: 0.85 });
+      material = new THREE.MeshStandardMaterial({ color, roughness: 0.9, flatShading: this.shading === 'faceted' });
       this.materials.set(color, material);
     }
     return material;
@@ -173,11 +179,11 @@ export class PlayerModel {
           knee,
           resources.cylinder,
           player.goalkeeper ? shirt : kit.socks,
-          [0.065, 0.36, 0.065],
+          [0.072, 0.38, 0.072],
           [0, -0.18, 0],
         ),
       );
-      const boot = mesh(knee, resources.box, '#181c1d', [0.13, 0.12, 0.26], [0, -0.41, 0.06]);
+      const boot = mesh(knee, resources.box, '#181c1d', [0.145, 0.105, 0.28], [0, -0.415, 0.065]);
       boot.userData.orientationFeature = 'local_forward_boot';
       arm.position.set(side * 0.29, 0.5, 0);
       this.torso.add(arm);

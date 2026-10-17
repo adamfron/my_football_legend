@@ -59,6 +59,7 @@ vi.mock('./tacticalRenderer/TacticalPitchRenderer', () => ({
     setCameraPreferences() {}
     setDiagnostics() {}
     setStadiumDetail() {}
+    setPlayerShading() {}
     setReplayCamera() {}
     setPresentationActive = observed.presentationActive;
     getCanvas() {

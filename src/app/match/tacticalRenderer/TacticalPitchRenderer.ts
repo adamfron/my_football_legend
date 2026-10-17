@@ -5,6 +5,7 @@ import {
   GOAL_POST_RADIUS,
 } from '../../../core/matchSimulation/ballFlight';
 import { PlayerModel, PlayerModelResources } from './playerModel';
+import { TechnicalAreaModel } from './technicalArea';
 import { createPlayerRing } from './playerMarkers';
 import { StadiumModel, deriveStadiumConfiguration, type StadiumDetail } from './stadium';
 import {
@@ -40,6 +41,7 @@ import {
   type MatchCameraMode,
   DEFAULT_KITS,
   type TacticalPlayer,
+  type PlayerShading,
   deriveShotAimCameraPose,
   shotAimIntentToGoalPoint,
   selectScreenSpacePlayerCandidate,
@@ -52,6 +54,7 @@ export type RendererLifecycle = 'waiting_for_layout' | 'ready' | 'context_lost' 
 export type RendererPresentationOptions = {
   homeClubId?: string;
   stadiumDetail?: StadiumDetail;
+  playerShading?: PlayerShading;
   active?: boolean;
 };
 
@@ -64,6 +67,7 @@ export class TacticalPitchRenderer {
   private readonly modelResources = new PlayerModelResources();
   private readonly playerModels = new Map<string, PlayerModel>();
   private readonly stadium: StadiumModel;
+  private readonly technicalArea: TechnicalAreaModel;
   private readonly playerMeshes = new Map<string, THREE.Group>();
   private readonly playerPickers = new Map<string, THREE.Mesh>();
   private readonly possessionMarkers = new Map<string, THREE.Mesh>();
@@ -148,6 +152,7 @@ export class TacticalPitchRenderer {
     this.report = onDiagnostic;
     this.presentationActive = presentationOptions.active ?? true;
     this.stadiumDetail = presentationOptions.stadiumDetail ?? 'standard';
+    this.modelResources.setShading(presentationOptions.playerShading ?? 'classic');
     this.motionGeometry.setAttribute(
       'position',
       new THREE.BufferAttribute(this.motionPositions, 3),
@@ -202,6 +207,8 @@ export class TacticalPitchRenderer {
       presentationOptions.stadiumDetail,
     );
     this.scene.add(this.stadium.root);
+    this.technicalArea = new TechnicalAreaModel(this.modelResources.box, kits);
+    this.scene.add(this.technicalArea.root);
     this.aimMarker = new THREE.Mesh(
       new THREE.RingGeometry(0.16, 0.25, 20),
       new THREE.MeshBasicMaterial({ color: 0xffe36e, side: THREE.DoubleSide, depthTest: false }),
@@ -565,6 +572,8 @@ export class TacticalPitchRenderer {
       return;
     }
     this.report(undefined);
+    this.stadium.updateCrowd(frame);
+    this.technicalArea.update(frame, this.stadiumDetail === 'standard');
     const activeIds = new Set(frame.players.map((player) => player.id));
     const offsideAttackers = new Set([
       ...(frame.offside?.relevantAttackerIds ?? []),
@@ -717,6 +726,7 @@ export class TacticalPitchRenderer {
     }
     this.renderMotionVectors(frame);
     this.renderDiagnostics(frame, debug);
+    this.stadium.setCameraCutaway(this.camera.position.x, this.camera.position.z);
     this.renderer.render(this.scene, this.camera);
     this.renderActionFeedback(frame);
     const cpuMs = performance.now() - renderStart;
@@ -735,6 +745,11 @@ export class TacticalPitchRenderer {
     this.stadiumDetail = detail;
     if (!this.presentationActive) return;
     this.stadium.setDetail(detail);
+    this.redraw();
+  }
+
+  setPlayerShading(shading: PlayerShading) {
+    this.modelResources.setShading(shading);
     this.redraw();
   }
 
@@ -797,6 +812,7 @@ export class TacticalPitchRenderer {
       sceneMeshes: meshes,
       sharedGeometries: geometries.size,
       crowdInstances: this.stadium.crowdInstances,
+      technicalAreaParticipants: this.lastValidFrame?.technicalArea?.length ?? 0,
       stadiumArchetype: this.stadium.configuration.archetype,
       stadiumDetail: this.stadium.detail.visible ? 'standard' : 'minimal',
       drawCalls: this.renderer.info?.render.calls ?? null,
@@ -1050,7 +1066,14 @@ export class TacticalPitchRenderer {
         };
     }
     const actionable = actionablePlayerIds === undefined ? undefined : new Set(actionablePlayerIds);
-    const activeIds = new Set(this.lastValidFrame?.players.map((player) => player.id));
+    const activeIds = new Set(
+      this.lastValidFrame?.players
+        .filter(
+          (player) =>
+            !['staged', 'departing', 'assisted_removal'].includes(player.participation ?? 'active'),
+        )
+        .map((player) => player.id),
+    );
     // Expand only eligible actors in CSS pixels, so a crowded, nearer but unrelated body
     // cannot pre-empt the requested defender/pass target. Projection reflects zoom and orbit.
     const fallback = selectScreenSpacePlayerCandidate(
@@ -1384,6 +1407,9 @@ export class TacticalPitchRenderer {
       }
     };
     this.scene.traverse(collectResources);
+    this.scene.traverse((object) => {
+      if (object instanceof THREE.InstancedMesh) object.dispose();
+    });
     // Detached dismissed rigs remain available to replay and need the same final disposal.
     for (const mesh of this.playerMeshes.values()) mesh.traverse(collectResources);
     for (const markers of [this.targetMarkers, this.anchorMarkers, this.idealMarkers])

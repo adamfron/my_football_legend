@@ -100,6 +100,10 @@ export const MatchCentre = ({
           ` · doliczono co najmniej ${Math.ceil(state.timekeeping.minimumAnnouncedAddedSeconds / 60)} min`}
       </p>
       {state.controlledFootballerId &&
+        state.discipline?.[state.controlledFootballerId]?.sentOff && (
+          <p role="status">Wykluczenie z gry. Obserwujesz dalszy przebieg spotkania.</p>
+        )}
+      {state.controlledFootballerId &&
         !state.players.some((player) => player.id === state.controlledFootballerId) &&
         ([...(state.bench?.home ?? []), ...(state.bench?.away ?? [])].some(
           (player) => player.id === state.controlledFootballerId,
@@ -108,6 +112,7 @@ export const MatchCentre = ({
             (request) => request.incoming.id === state.controlledFootballerId,
           )) && <p role="status">Jesteś na ławce. O wejściu decyduje trener.</p>}
       {state.controlledFootballerId &&
+        !state.discipline?.[state.controlledFootballerId]?.sentOff &&
         !state.players.some((player) => player.id === state.controlledFootballerId) &&
         (state.departedPlayers?.some((player) => player.id === state.controlledFootballerId) ||
           state.substitutionState?.pending.some(
