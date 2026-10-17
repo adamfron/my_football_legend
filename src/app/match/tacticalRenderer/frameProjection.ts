@@ -340,6 +340,50 @@ export class PresentationFrameProjector {
       continuity: `${state.seed}:${this.continuity}:${presentationDiscontinuity(state)}`,
       ballContinuity: ballPresentationDiscontinuity(state),
       ball: canonicalBallPresentation(state),
+      technicalArea: (['home', 'away'] as const).flatMap((team) => {
+        const excluded = new Set([
+          ...state.players.map((player) => player.id),
+          ...(state.substitutionState?.pending ?? []).flatMap((request) => [
+            request.incoming.id,
+            request.outgoing.id,
+          ]),
+        ]);
+        const participants = [
+          ...(state.bench?.[team] ?? [])
+            .filter((player) => !excluded.has(player.id))
+            .map((player) => ({
+              profile: player.profile,
+              id: player.id,
+              status: 'available' as const,
+            })),
+          ...(state.departedPlayers ?? [])
+            .filter(
+              (player) =>
+                player.team === team &&
+                !excluded.has(player.id) &&
+                !state.discipline?.[player.id]?.sentOff,
+            )
+            .map((player) => ({
+              profile: player.profile,
+              id: player.id,
+              status: 'departed' as const,
+            })),
+        ];
+        return participants.slice(0, 15).map((participant, index) => ({
+          status: participant.status,
+          player: {
+            id: participant.id,
+            team,
+            x: 52.5 + (team === 'home' ? -12 : 12) + ((index % 8) - 3.5) * 0.68,
+            y: -4 - Math.floor(index / 8) * 0.8,
+            facing: 0,
+            heightCm: participant.profile.heightCm,
+            weightKg: participant.profile.weightKg,
+            goalkeeper: participant.profile.primaryPosition === 'goalkeeper',
+            appearance: this.appearance(participant.profile),
+          },
+        }));
+      }),
       ...('carryTarget' in frame && frame.carryTarget
         ? { carryTarget: { ...frame.carryTarget } }
         : {}),

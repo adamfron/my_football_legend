@@ -15,6 +15,7 @@
   margin: 8px 8px 0 0;
 }
 .tactical-sandbox {
+  font-family: Tahoma, Arial, sans-serif;
   min-height: 100vh;
   padding: 10px;
   font-size: 12px;
@@ -198,9 +199,121 @@
   border: 1px solid #e7626c;
 }
 .decision-board {
-  padding: 14px;
+  padding: 10px;
   border-left: 1px solid #aeb4b7;
   background: #e6e9e8;
+}
+.decision-targets {
+  margin: 0 0 10px;
+  padding: 7px;
+  border: 1px solid #8c969a;
+  background: #f5f5f2;
+}
+.decision-targets label {
+  display: grid;
+  gap: 4px;
+}
+.decision-targets select {
+  width: 100%;
+  min-width: 0;
+  padding: 5px;
+}
+.decision-point {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 5px;
+  margin-top: 6px;
+}
+.decision-point input {
+  width: 66px;
+  box-sizing: border-box;
+  padding: 4px;
+}
+.decision-target-actions {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.decision-target-actions button {
+  text-align: left;
+}
+.match-occasion {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(480px, calc(100% - 32px));
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #8c969a;
+  border-top: 3px solid var(--home-colour);
+  background: #f5f5f2;
+  box-shadow: 3px 3px 0 #0003;
+}
+.match-occasion__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.match-occasion__heading button {
+  padding: 2px 6px;
+}
+.match-occasion__score {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  text-align: center;
+}
+.match-occasion__score b {
+  font-size: 30px;
+  font-variant-numeric: tabular-nums;
+}
+.match-occasion__score span:first-child {
+  border-bottom: 3px solid var(--home-colour);
+  padding-bottom: 5px;
+}
+.match-occasion__score span:last-child {
+  border-bottom: 3px solid var(--away-colour);
+  padding-bottom: 5px;
+}
+.match-occasion ul {
+  padding-left: 16px;
+  max-height: 110px;
+  overflow: auto;
+}
+.match-occasion small {
+  color: #566167;
+}
+.match-occasion--terminal {
+  top: 22%;
+}
+.shot-aim__actions label {
+  display: grid;
+  gap: 3px;
+}
+.tactical-sandbox nav {
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 6px;
+}
+.tactical-sandbox nav label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tactical-sandbox nav select {
+  max-width: 220px;
+}
+.context-menu {
+  max-width: calc(100% - 22px);
+  max-height: calc(100% - 30px);
+  overflow: auto;
 }
 .match-centre {
   margin-bottom: 20px;
@@ -399,19 +512,6 @@
 }
 .pitch-stage--interactive .pitch-canvas-host canvas {
   cursor: crosshair;
-}
-.interaction-hint {
-  position: absolute;
-  z-index: 3;
-  top: 0.8rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.5rem 0.8rem;
-  border: 1px solid #8c969a;
-  border-radius: 0;
-  background: #fffbe5;
-  pointer-events: none;
-  font-size: 0.82rem;
 }
 .context-menu {
   position: absolute;

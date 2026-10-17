@@ -1,0 +1,41 @@
+{
+  "recordedAt": "2026-10-17T09:25:34.209Z",
+  "base": "77fd3a33946b7f0a14733a76d9820d29b15366f4",
+  "fullVerify": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "result": "PASS",
+    "main": 1727,
+    "integration": 52,
+    "matchContract": 4,
+    "fullCareer": 5,
+    "total": 1788,
+    "lint": "PASS",
+    "typescript": "PASS",
+    "productionBuild": "PASS"
+  },
+  "finalLegacyCalendarFallback": {
+    "focusedCommand": "vitest run src/app/pr170Career.test.tsx src/app/match/pr170Hud.test.tsx src/app/match/tacticalRenderer/pr170Presentation.test.ts --maxWorkers=1",
+    "passed": 15,
+    "lint": "PASS",
+    "description": "After the main suite had run, the calendar date fallback and its serialize/hydrate regression were added; the affected tests and lint were repeated and the full pipeline built the final sources."
+  },
+  "policies": {
+    "timeoutsChanged": false,
+    "workersChanged": false,
+    "assertionsWeakened": false,
+    "ciWorkflowChanged": false
+  },
+  "productionBrowser": {
+    "browser": "Edge 155.0.4283.45",
+    "complete": true,
+    "viewports": [
+      [1920, 1080],
+      [1366, 768],
+      [820, 1180],
+      [390, 844]
+    ],
+    "tableSizes": [12, 16, 20, 24]
+  },
+  "canonicalInvariant": true
+}

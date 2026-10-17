@@ -101,6 +101,8 @@ export const kitPresentationSchema = z.object({
   goalkeeper: z.object({ primary: z.string(), accent: z.string() }),
 });
 export type KitPresentation = z.infer<typeof kitPresentationSchema>;
+export const playerShadingSchema = z.enum(['classic', 'faceted']);
+export type PlayerShading = z.infer<typeof playerShadingSchema>;
 export const DEFAULT_KITS: Record<'home' | 'away', KitPresentation> = {
   home: {
     primary: '#4da3ff',
@@ -123,6 +125,7 @@ export const DEFAULT_KITS: Record<'home' | 'away', KitPresentation> = {
 };
 export const tacticalFrameSchema = z.object({
   players: z.array(tacticalPlayerSchema),
+  technicalArea: z.array(z.object({ player: tacticalPlayerSchema, status: z.enum(['available', 'departed']) })).max(30).optional(),
   ball: tacticalBallSchema,
   timestampMs: z.number().nonnegative(),
   actionEvents: z.array(canonicalActionEventSchema).max(96).optional(),

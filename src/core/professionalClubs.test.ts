@@ -118,8 +118,8 @@ describe('professional transition', () => {
     }));
     expect(generateProfessionalOffers(a)).toEqual(generateProfessionalOffers(a));
     const offers = generateProfessionalOffers(a);
-    expect(offers).toHaveLength(8);
-    expect(new Set(offers.map((offer) => offer.club.id)).size).toBe(8);
+    expect(offers).toHaveLength(6);
+    expect(new Set(offers.map((offer) => offer.club.id)).size).toBe(6);
     expect(offers.every((offer) => evaluateClubInterest(a, offer.club).interested)).toBe(true);
   });
   it('need and youth trust increase interest', () => {

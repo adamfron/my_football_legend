@@ -1,7 +1,8 @@
 import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
 import { PresentationContextHistory } from './tacticalRenderer/contextHistory';
 import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
-import { projectSprintEpisode } from '../../core/matchSimulation/locomotion';
+import { DecisionTargets } from './DecisionTargets';
+import { MatchOccasion } from './MatchOccasion';
 import { getPlayerOverall } from '../../core/playerOverall';
 import {
   runAttributeMicroLab,
@@ -86,7 +87,6 @@ import {
   type MatchPresentationPhase,
   letAiDecide,
   projectContextualInteractions,
-  projectSelectableInteractionTargets,
   applyContextualInteraction,
   type PlayerInteractionTarget,
   type ContextualInteraction,
@@ -559,6 +559,7 @@ export const RunningLab = ({
       DEFAULT_TACTICAL_DIAGNOSTICS,
     ),
     [stadiumDetail, setStadiumDetail] = useState<'minimal' | 'standard'>('standard'),
+    [playerShading, setPlayerShading] = useState<'classic' | 'faceted'>('classic'),
     [replayCamera, setReplayCamera] = useState<'ball' | 'actors' | 'overview'>('ball'),
     [captureStatus, setCaptureStatus] = useState<DebugCaptureStatus>('idle'),
     [saveMessage, setSaveMessage] = useState<string>(),
@@ -1406,6 +1407,9 @@ export const RunningLab = ({
     rendererRef.current?.setStadiumDetail(stadiumDetail);
   }, [stadiumDetail]);
   useEffect(() => {
+    rendererRef.current?.setPlayerShading(playerShading);
+  }, [playerShading]);
+  useEffect(() => {
     rendererRef.current?.setReplayCamera(replayCamera);
   }, [replayCamera]);
   useEffect(() => {
@@ -1707,34 +1711,6 @@ export const RunningLab = ({
                     : 'Pauza'}
         </p>
       </header>
-      {careerMode && session.setup.control.mode === 'player' && (
-        <p role="status">
-          {(() => {
-            const id =
-              session.setup.control.mode === 'player' ? session.setup.control.footballerId : '';
-            const active = state.players.find((p) => p.id === id);
-            const departed = state.departedPlayers?.find((p) => p.id === id);
-            const bench = [...(state.bench?.home ?? []), ...(state.bench?.away ?? [])].find(
-              (p) => p.id === id,
-            );
-            const profile = active?.profile ?? departed?.profile ?? bench?.profile;
-            const status = state.discipline?.[id]?.sentOff
-              ? 'Wykluczony'
-              : state.status === 'full_time'
-                ? active || departed
-                  ? 'Występ zakończony'
-                  : 'Bez występu'
-                : active
-                  ? 'Na boisku'
-                  : departed
-                    ? 'Po zmianie'
-                    : bench
-                      ? 'Na ławce · decyzja trenera'
-                      : 'Poza kadrą';
-            return `${profile?.firstName ?? ''} ${profile?.lastName ?? ''} · ${status}`;
-          })()}
-        </p>
-      )}
       <nav>
         <label>
           Czułość momentów{' '}
@@ -2015,6 +1991,17 @@ export const RunningLab = ({
           >
             <option value="minimal">Minimalny</option>
             <option value="standard">Standardowy</option>
+          </select>
+        </label>
+        <label>
+          Modele{' '}
+          <select
+            aria-label="Cieniowanie zawodników"
+            value={playerShading}
+            onChange={(event) => setPlayerShading(event.target.value as typeof playerShading)}
+          >
+            <option value="classic">Klasyczne</option>
+            <option value="faceted">Fasetowe (opcjonalne)</option>
           </select>
         </label>
       </nav>
@@ -2544,6 +2531,7 @@ export const RunningLab = ({
               {!playing && <p>Wstrzymano</p>}
             </section>
           )}
+          {!replaying && <MatchOccasion state={state} session={session} kits={kits} />}
           {shotAim && opportunity && !replaying && selectedTarget?.kind === 'goal' && (
             <section
               className="shot-aim"
@@ -2574,6 +2562,34 @@ export const RunningLab = ({
                 }}
               />
               <div className="shot-aim__actions">
+                <label>
+                  Kierunek strzału
+                  <input
+                    aria-label="Kierunek strzału"
+                    type="range"
+                    min="-1"
+                    max="1"
+                    step="0.05"
+                    value={shotAim.horizontal}
+                    onChange={(event) =>
+                      setShotAim({ ...shotAim, horizontal: Number(event.target.value) })
+                    }
+                  />
+                </label>
+                <label>
+                  Wysokość strzału
+                  <input
+                    aria-label="Wysokość strzału"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={shotAim.vertical}
+                    onChange={(event) =>
+                      setShotAim({ ...shotAim, vertical: Number(event.target.value) })
+                    }
+                  />
+                </label>
                 {projectContextualInteractions(state, opportunity, {
                   ...selectedTarget,
                   aim: shotAim,
@@ -2633,80 +2649,6 @@ export const RunningLab = ({
               </div>
             </section>
           )}
-          {opportunity && !replaying && (
-            <div className="interaction-hint">
-              {controlledActor &&
-                (() => {
-                  const speed = Math.hypot(controlledActor.velocity.x, controlledActor.velocity.y);
-                  const sprinting = projectSprintEpisode(
-                    controlledActor,
-                    speed / (6.2 + controlledActor.profile.attributes.pace * 0.033),
-                    state.time,
-                    0,
-                  ).actualSprinting;
-                  return `${speed < 0.35 ? 'Stoisz' : speed < 2.2 ? 'Idziesz' : sprinting ? 'Sprintujesz' : 'Biegniesz'} (${speed.toFixed(1)} m/s) · `;
-                })()}
-              Wybierz piłkę, piłkarza, przestrzeń lub bramkę
-              {careerMode && !shotAim && (
-                <label onClick={(event) => event.stopPropagation()}>
-                  {' '}
-                  lub wybierz cel z listy{' '}
-                  <select
-                    aria-label="Cel decyzji piłkarskiej"
-                    value=""
-                    onChange={(event) => {
-                      if (!event.target.value) return;
-                      const target: PlayerInteractionTarget = JSON.parse(event.target.value);
-                      const projected = projectContextualInteractions(state, opportunity, target);
-                      if (!projected.length) return;
-                      setSelectedTarget(target);
-                      if (target.kind === 'goal') {
-                        setShotAim({ horizontal: 0, vertical: 0.45 });
-                        setMenuPosition(undefined);
-                        uiEvent('shot_aim_opened', { target });
-                      } else {
-                        setMenuPosition({ x: 16, y: 60 });
-                        uiEvent('interaction_target_selected', { target });
-                        uiEvent('context_menu_opened', {
-                          target,
-                          interactionIds: projected.map((item) => item.id),
-                        });
-                      }
-                    }}
-                  >
-                    <option value="">Wybierz cel…</option>
-                    {Array.from(
-                      new Map(
-                        [
-                          ...projectSelectableInteractionTargets(state, opportunity),
-                          ...state.players.map((player) => ({
-                            kind: 'player' as const,
-                            playerId: player.id,
-                          })),
-                        ]
-                          .filter(
-                            (target) =>
-                              projectContextualInteractions(state, opportunity, target).length > 0,
-                          )
-                          .map((target) => [JSON.stringify(target), target]),
-                      ).entries(),
-                    ).map(([key, target]) => (
-                      <option key={key} value={key}>
-                        {target.kind === 'player'
-                          ? state.players.find((player) => player.id === target.playerId)?.profile
-                              .lastName
-                          : target.kind === 'ball'
-                            ? 'Piłka'
-                            : target.kind === 'goal'
-                              ? 'Bramka rywala'
-                              : `Przestrzeń ${Math.round(target.point.x)}, ${Math.round(target.point.y)} m`}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              )}
-            </div>
-          )}
           {opportunity && !replaying && menuPosition && interactions.length > 0 && (
             <section
               className="context-menu"
@@ -2746,6 +2688,48 @@ export const RunningLab = ({
           )}
         </div>
         <aside className="decision-board">
+          {opportunity && !replaying && !shotAim && (
+            <>
+              <DecisionTargets
+                key={opportunity.signature}
+                state={state}
+                opportunity={opportunity}
+                onTarget={(target) => {
+                  setSelectedTarget(target);
+                  setMenuPosition(undefined);
+                  if (target.kind === 'goal') {
+                    setShotAim({ horizontal: 0, vertical: 0.45 });
+                    uiEvent('shot_aim_opened', { target });
+                  } else uiEvent('interaction_target_selected', { target });
+                }}
+              />
+              {selectedTarget && !menuPosition && (
+                <section
+                  className="decision-target-actions"
+                  aria-label="Zagrania do wybranego celu"
+                >
+                  {interactions.length ? (
+                    interactions.map((interaction) => (
+                      <button
+                        key={interaction.id}
+                        onClick={() =>
+                          closeOpportunity(
+                            applyContextualInteraction(state, opportunity, interaction),
+                            'player',
+                            interaction,
+                          )
+                        }
+                      >
+                        {interactionLabel(interaction)}
+                      </button>
+                    ))
+                  ) : (
+                    <p>Brak dostępnego zagrania do tego celu.</p>
+                  )}
+                </section>
+              )}
+            </>
+          )}
           {opportunity && !replaying && (
             <TacticalExplanation
               key={opportunity.signature}

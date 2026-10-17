@@ -1,16 +1,16 @@
 # Roadmap
 
-Aktualny etap: **PR169 — Career Stories, News, Match Narratives & Career History**.
-[Raport i dowody PR169](PR169_CAREER_STORIES_NEWS_SEASON_NARRATIVES.md).
+Aktualny etap: **PR170 — Match Atmosphere, Stylized Visual Polish & Career UI Refinement**.
+[Raport, pomiary i dowody PR170](PR170_MATCH_ATMOSPHERE_VISUAL_POLISH.md).
 
-Historie, wiadomości i podsumowania korzystają z istniejących faktów i archiwów.
-Oceny pełnych meczów 3D mają jawne źródło; końcówki statystyczne nie otrzymują
-pozornej precyzji. Zapis zmian zawodników, statystyki kariery, osiągnięcia i decyzje
-kontraktowe zachowują dotychczasowych właścicieli danych.
+Rozwinięto oprawę PR161/165, pomijalne przejścia i dostępny HUD. Kariera ma
+sześć ofert zewnętrznych plus odnowienie, finanse z ledgeru, mały kalendarz
+i gęstszą tabelę. Produkcyjny Edge i pomiary zachowują granice prezentacji;
+kanoniczne hasze futbolu są identyczne. Bez kalibracji silnika lub rozwoju.
 
-## Autorytatywna kolejność po PR169
+## Autorytatywna kolejność PR170–PR175+
 
-- **PR170 — Match Atmosphere & Stylized Visual Polish**. Zachować atmosferę,
+- **PR170 — Match Atmosphere & Stylized Visual Polish (bieżący PR)**. Zachować atmosferę,
   ceremonie, portrety, ławki, prostych widzów i opcjonalny cel shading. Usunąć
   nadmiarowy napis „Adam Froń — na boisku” oraz przestarzałe żółte pole interakcji
   z niedziałającym selektorem, zachowując funkcjonalne ścieżki decyzji. Ujednolicić
@@ -39,9 +39,9 @@ kontraktowe zachowują dotychczasowych właścicieli danych.
 - **PR175+ — World Expansion**. Więcej lig i klubów, puchary, reprezentacje i
   dalsze systemy świata futbolu.
 
-PR169 nie kalibruje podań, strzałów, obron, rożnych, krycia, pozycji, częstości
+PR170 nie kalibruje podań, strzałów, obron, rożnych, krycia, pozycji, częstości
 decyzji ani tempa. Nie zmienia krzywych rozwoju człowieka/NPC, rozkładów G/A
-lekkiej symulacji, liczby lig ani oprawy stadionów.
+lekkiej symulacji ani liczby lig. Następny jest niezależny PR171.
 
 ## Historyczne zapisy roadmapy
 

@@ -5,6 +5,7 @@ import type {
   ProfessionalOffer,
 } from '../types/domain';
 import { RandomGenerator } from './random/RandomGenerator';
+import { MAX_EXTERNAL_OFFERS } from './professionalOfferPolicy';
 import { getEffectivePositionOverall, getPlayerOverall } from './playerOverall';
 import { getPlayerForm } from './careerWeeks';
 import { clampProfessionalLeagueTier } from './leagueSeason';
@@ -518,6 +519,7 @@ const createProfessionalOffer = (
 export const generateProfessionalOffers = (career: CareerState): ProfessionalOffer[] => {
   const candidates = (career.clubWorld ?? generateProfessionalClubPool(career.seed))
     .flatMap((club): ProfessionalOffer[] => {
+      if (club.id === career.currentClub.id) return [];
       if (!evaluateClubInterest(career, club).interested) return [];
       return [createProfessionalOffer(career, club)];
     })
@@ -560,7 +562,33 @@ export const generateProfessionalOffers = (career: CareerState): ProfessionalOff
         bi = sportingValue(b);
       return preferenceScore(b) - preferenceScore(a) || bi - ai || a.id.localeCompare(b.id);
     });
-  return candidates.slice(0, career.player.age >= 35 ? 5 : 8);
+  // The sporting/preference rank remains authoritative. Within a similarly paid,
+  // equally viable role, offer an alternative environment before near duplicates.
+  const shortlist: ProfessionalOffer[] = [];
+  const remaining = [...candidates];
+  while (
+    remaining.length &&
+    shortlist.length < (career.player.age >= 35 ? 5 : MAX_EXTERNAL_OFFERS)
+  ) {
+    const first = remaining[0]!;
+    const signature = (offer: ProfessionalOffer) =>
+      `${getClubLeagueTier(offer.club)}:${offer.plannedPosition}:${offer.contract.squadRole}`;
+    const seen = new Set(shortlist.map(signature));
+    const alternative = remaining.findIndex(
+      (offer) =>
+        !seen.has(signature(offer)) &&
+        offer.projectedStanding === first.projectedStanding &&
+        Math.abs(offer.club.reputation - first.club.reputation) <= 2 &&
+        Math.abs(offer.contract.monthlySalary - first.contract.monthlySalary) <=
+          Math.max(1, first.contract.monthlySalary * 0.05),
+    );
+    const index =
+      !career.agentPreferences?.length && seen.has(signature(first)) && alternative >= 0
+        ? alternative
+        : 0;
+    shortlist.push(remaining.splice(index, 1)[0]!);
+  }
+  return shortlist;
 };
 
 export const generateSummerWindowOffers = (career: CareerState): ProfessionalOffer[] => {
@@ -619,7 +647,7 @@ export const generateSummerWindowOffers = (career: CareerState): ProfessionalOff
     risk: 'Pozycję w składzie nadal trzeba potwierdzać formą.',
     competitionAssessment: 'Znana konkurencja w obecnym zespole',
   };
-  return [renewal, ...external].slice(0, 8);
+  return [renewal, ...external];
 };
 
 const createSafetyNetOffers = (career: CareerState): ProfessionalOffer[] => {

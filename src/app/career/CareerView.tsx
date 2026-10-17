@@ -1,4 +1,7 @@
 import { NewsView } from './NewsView';
+import { CareerCalendar } from './CareerCalendar';
+import { FinanceView } from './FinanceView';
+import { formatPLN, projectFinances } from './financePresentation';
 import { getCareerStatistics } from '../../core/narrative/careerStories';
 import { presentSubstitutions } from '../../core/matchParticipationPresentation';
 import { CareerMatchDetails } from '../../components/CareerMatchDetails';
@@ -41,7 +44,7 @@ import { formatCareerInteger } from '../../core/numberPresentation';
 export const PLAYBACK_INTERVAL_MS = 1000;
 type Detail = 'player' | 'club' | 'contract' | 'career' | 'world' | 'news';
 
-const money = (value: number) => `${value.toLocaleString('pl-PL')} PLN`;
+const money = formatPLN;
 const effortLabel = (value: number) =>
   ['bardzo niskie', 'niskie', 'umiarkowane', 'wysokie', 'bardzo wysokie'][value - 1] ??
   'umiarkowane';
@@ -134,7 +137,7 @@ export const CareerView = ({
     setDetail((current) => (current === next ? undefined : next));
   };
   const seasonName = career.leagueSeason?.name ?? String(career.currentSeason);
-  const balance = (career.finances ?? []).reduce((sum, item) => sum + item.amount, 0);
+  const balance = useMemo(() => projectFinances(career).balance, [career]);
   const fixtures = career.leagueSeason?.rounds.flatMap((round) => round.fixtures) ?? [];
   const clubName = (id: string) =>
     career.leagueSeason?.clubs.find((club) => club.clubId === id)?.name ?? id;
@@ -483,17 +486,7 @@ export const CareerView = ({
               <HistoryView career={career} />
             </>
           )}
-          {detail === 'contract' && (
-            <div>
-              <h2>Kontrakt i finanse</h2>
-              <p>
-                {career.currentContract
-                  ? `${money(career.currentContract.monthlySalary)} miesięcznie, do ${career.currentContract.endDate}. Rola: ${squadRoleLabel(career.currentContract.squadRole)}.`
-                  : 'Nie masz obecnie kontraktu.'}
-              </p>
-              <p>Dostępne środki: {money(balance)}</p>
-            </div>
-          )}
+          {detail === 'contract' && <FinanceView career={career} />}
         </section>
       )}
 
@@ -505,59 +498,62 @@ export const CareerView = ({
       )}
 
       <div className="season-workspace">
-        <section className="season-pane">
-          <header>
-            <h2>TABELA LIGOWA</h2>
-            <span>{career.leagueSeason?.currentRound ?? 0}. kolejka</span>
-          </header>
-          <div className="pane-scroll table-scroll" ref={tableRef}>
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Klub</th>
-                  <th>M</th>
-                  <th>W</th>
-                  <th>R</th>
-                  <th>P</th>
-                  <th>BR</th>
-                  <th>+/-</th>
-                  <th>PKT</th>
-                </tr>
-              </thead>
-              <tbody>
-                {table.map((row) => (
-                  <tr
-                    key={row.clubId}
-                    aria-current={row.clubId === controlledClubId ? 'true' : undefined}
-                  >
-                    <td>{row.position}</td>
-                    <td>
-                      <ClubStrengthTooltip
-                        name={row.clubName}
-                        strength={
-                          career.leagueSeason?.clubs.find((club) => club.clubId === row.clubId)
-                            ?.strength ?? 50
-                        }
-                      />
-                    </td>
-                    <td>{row.played}</td>
-                    <td>{row.won}</td>
-                    <td>{row.drawn}</td>
-                    <td>{row.lost}</td>
-                    <td>
-                      {row.goalsFor}:{row.goalsAgainst}
-                    </td>
-                    <td>{row.goalDifference}</td>
-                    <td>
-                      <strong>{row.points}</strong>
-                    </td>
+        <div className="season-left-column">
+          <section className="season-pane">
+            <header>
+              <h2>TABELA LIGOWA</h2>
+              <span>{career.leagueSeason?.currentRound ?? 0}. kolejka</span>
+            </header>
+            <div className="pane-scroll table-scroll" ref={tableRef}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Klub</th>
+                    <th>M</th>
+                    <th>W</th>
+                    <th>R</th>
+                    <th>P</th>
+                    <th>BR</th>
+                    <th>+/-</th>
+                    <th>PKT</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+                </thead>
+                <tbody>
+                  {table.map((row) => (
+                    <tr
+                      key={row.clubId}
+                      aria-current={row.clubId === controlledClubId ? 'true' : undefined}
+                    >
+                      <td>{row.position}</td>
+                      <td>
+                        <ClubStrengthTooltip
+                          name={row.clubName}
+                          strength={
+                            career.leagueSeason?.clubs.find((club) => club.clubId === row.clubId)
+                              ?.strength ?? 50
+                          }
+                        />
+                      </td>
+                      <td>{row.played}</td>
+                      <td>{row.won}</td>
+                      <td>{row.drawn}</td>
+                      <td>{row.lost}</td>
+                      <td>
+                        {row.goalsFor}:{row.goalsAgainst}
+                      </td>
+                      <td>{row.goalDifference}</td>
+                      <td>
+                        <strong>{row.points}</strong>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <CareerCalendar key={`${career.currentSeason}:${controlledClubId}`} career={career} />
+        </div>
         <section className="season-pane">
           <header>
             <h2>OŚ SEZONU</h2>

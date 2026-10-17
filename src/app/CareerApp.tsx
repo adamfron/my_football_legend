@@ -1,4 +1,6 @@
 import { buildSeasonNarrative, buildRetirementNarrative } from '../core/narrative/careerStories';
+import { limitProfessionalOffers } from '../core/professionalOfferPolicy';
+import { resolveClubVisualIdentity } from '../core/clubVisualIdentity';
 import {
   Component,
   lazy,
@@ -9,6 +11,7 @@ import {
   useState,
   type ErrorInfo,
   type ReactNode,
+  type CSSProperties,
 } from 'react';
 import { translate } from '../core/narrative/localization';
 import { HistoryView } from './career/HistoryView';
@@ -702,12 +705,22 @@ export const SeasonEndSummary = ({
       <h3>Oferty innych klubów</h3>
       {(career.professionalOffers ?? []).length ? (
         <div className="offer-grid">
-          {career
-            .professionalOffers!.filter((offer) => offer.offerType !== 'renewal')
+          {limitProfessionalOffers(career.professionalOffers ?? [], career.currentClub.id)
+            .filter((offer) => offer.offerType !== 'renewal')
             .map((offer) => {
               const acceptance = validateProfessionalOfferAcceptance(career, offer);
+              const identity = resolveClubVisualIdentity(career.seed, offer.club);
               return (
-                <article className="mini-card offer-card" key={offer.id}>
+                <article
+                  className="mini-card offer-card"
+                  key={offer.id}
+                  style={
+                    {
+                      '--offer-primary': identity.primaryColor,
+                      '--offer-secondary': identity.secondaryColor,
+                    } as CSSProperties
+                  }
+                >
                   <h3>{offer.club.name}</h3>
                   {offer.offerType === 'renewal' && (
                     <p>
@@ -729,17 +742,7 @@ export const SeasonEndSummary = ({
                     Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
                     {qualityLabel(getClubMedicalQuality(offer.club))}
                   </p>
-                  <p>
-                    <strong>Transfer:</strong>{' '}
-                    {offer.transferKind === 'free'
-                      ? 'Wolny transfer'
-                      : `Szacowane odstępne: ${(offer.estimatedTransferFee ?? 0).toLocaleString('pl-PL')} PLN`}
-                  </p>
-                  <p>
-                    {getClubLeagueTier(offer.club) <= 2
-                      ? 'Ambitny klub zawodowy'
-                      : 'Solidny klub zawodowy'}
-                  </p>
+
                   <p>
                     <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
                   </p>
@@ -764,27 +767,6 @@ export const SeasonEndSummary = ({
                   <p>
                     <strong>Kontrakt:</strong> do {offer.contract.endDate}
                   </p>
-                  <h4>Dlaczego interesują się tobą</h4>
-                  {offer.interestReasons.map((reason) => (
-                    <p key={reason}>{reason}</p>
-                  ))}
-                  <p>
-                    <strong>Konkurencja na {positionCode(offer.plannedPosition)}:</strong>
-                  </p>
-                  {!!offer.destinationCompetition?.length && (
-                    <ul className="offer-competition">
-                      {offer.destinationCompetition.slice(0, 4).map((competitor) => (
-                        <li key={competitor.competitorId}>
-                          {competitor.competitorName} — {competitor.effectiveOverall} OVR —{' '}
-                          {competitor.expectedStatus === 'starting_xi'
-                            ? 'podstawowy skład'
-                            : competitor.expectedStatus === 'bench'
-                              ? 'ławka'
-                              : 'rezerwy'}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                   <p>
                     Ty: {getEffectivePositionOverall(career.player, offer.plannedPosition)} OVR ·
                     Prognoza:{' '}
@@ -794,9 +776,39 @@ export const SeasonEndSummary = ({
                         ? 'ławka'
                         : 'rezerwy'}
                   </p>
-                  <p>
-                    <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}
-                  </p>
+                  <details className="offer-secondary">
+                    <summary>Ocena skautów i konkurencja</summary>
+                    <p>
+                      <strong>Transfer:</strong>{' '}
+                      {offer.transferKind === 'free'
+                        ? 'Wolny transfer'
+                        : `Szacowane odstępne: ${(offer.estimatedTransferFee ?? 0).toLocaleString('pl-PL')} PLN`}
+                    </p>
+                    {offer.interestReasons.map((reason) => (
+                      <p key={reason}>{reason}</p>
+                    ))}
+                    <p>
+                      <strong>Konkurencja na {positionCode(offer.plannedPosition)}:</strong>
+                    </p>
+                    {!!offer.destinationCompetition?.length && (
+                      <ul className="offer-competition">
+                        {offer.destinationCompetition.map((competitor) => (
+                          <li key={competitor.competitorId}>
+                            {competitor.competitorName} — {competitor.effectiveOverall} OVR —{' '}
+                            {competitor.expectedStatus === 'starting_xi'
+                              ? 'podstawowy skład'
+                              : competitor.expectedStatus === 'bench'
+                                ? 'ławka'
+                                : 'rezerwy'}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <p>
+                      <strong>Filozofia:</strong> {clubArchetypeLabel(offer.club.archetype)}
+                    </p>
+                  </details>
                   <p>
                     <strong>Szansa:</strong> {offer.opportunity}
                   </p>

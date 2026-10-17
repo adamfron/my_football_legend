@@ -120,8 +120,9 @@ const applyGoalResponsePose = (player: TacticalPlayer, atMs: number, pose: Playe
     (response.reactionUntilMs === undefined || atMs <= response.reactionUntilMs)
   ) {
     // Modest recorded scorer reaction: no leap, root displacement or imagined team huddle.
-    pose.armLeft = -1.22;
-    pose.armRight = -1.35;
+    const variant = player.id.charCodeAt(player.id.length - 1) % 3;
+    pose.armLeft = variant === 1 ? -0.45 : -1.22;
+    pose.armRight = variant === 2 ? -0.5 : -1.35;
     pose.elbowLeft = pose.elbowRight = -0.48;
     pose.armSpread = 0.7;
     pose.head = -0.045;
@@ -173,10 +174,12 @@ export const derivePlayerPose = (
   out.roll = 0;
   out.crouch = player.goalkeeper && speed < 0.4 ? 0.08 : 0;
   out.lift = 0;
+  // A slight counter-rotation and staggered knee recovery follow measured stride.
+  // Canonical roots, foot contact, possession and facing remain entirely independent.
+  out.torsoYaw = Math.sin(phase) * amplitude * 0.045;
   out.head = 0;
   out.headYaw = 0;
   out.hipSpread = 0;
-  out.torsoYaw = 0;
   const lateral =
     (player.velocity?.x ?? 0) * Math.cos(facing) - (player.velocity?.y ?? 0) * Math.sin(facing);
   if (movement.direction === 'lateral') {
