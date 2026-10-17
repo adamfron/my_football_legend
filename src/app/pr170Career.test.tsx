@@ -104,7 +104,8 @@ describe('PR170 career presentation', () => {
     const fixture = base.careerCalendar!.fixtures[0]!;
     const career = {
       ...base,
-      currentDate: fixture.date,
+      currentDate: undefined,
+      careerCalendar: { ...base.careerCalendar!, currentDate: fixture.date },
       seasonParticipation: base.seasonParticipation!.map((row) =>
         row.fixtureId === fixture.id
           ? {
@@ -117,14 +118,17 @@ describe('PR170 career presentation', () => {
           : row,
       ),
     };
+    const save = parseCareerSave(serializeCurrentCareerSave(career));
+    if (!save.ok) throw Error('calendar save');
+    const reloaded = hydrateCareerWithWorld(save.save.career, pr167World);
     const original = structuredClone(career),
       host = document.createElement('div'),
       root = createRoot(host);
     await act(async () =>
       root.render(
         <>
-          <CareerCalendar career={career} />
-          <FinanceView career={career} />
+          <CareerCalendar career={reloaded} />
+          <FinanceView career={reloaded} />
         </>,
       ),
     );

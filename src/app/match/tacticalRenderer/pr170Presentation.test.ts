@@ -128,6 +128,7 @@ describe('PR170 bounded atmosphere', () => {
             resources = new PlayerModelResources(),
             projector = new PresentationFrameProjector();
           resources.setShading(shading);
+          stadium.setCameraCutaway(camera === 'overview' ? 100 : 0, camera === 'overview' ? 80 : 0);
           for (let index = 0; index < 160; index++) {
             state = stepTacticalMatchAfterDecisionProbe(state, FIXED_MATCH_DT);
             if (index % 4 === 0) {

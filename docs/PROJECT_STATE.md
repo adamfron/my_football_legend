@@ -18,7 +18,8 @@ mały kalendarz tylko do odczytu pod niezależnie przewijaną tabelą. Edge spra
 karierę 3D z rzeczywistym podaniem i zapisaną kontynuacją canonical_plus_summary.
 
 Lokalne pełne `npm run verify`: **PASS — 1788 testów**, lint, TypeScript, build.
-Końcowa powtórka po poprawce kontrastu trwa. W porównaniu z PR169 wszystkie
+Końcowy pełny przebieg i dodatkowe 15 regresji po korekcie daty starego zapisu
+również zakończyły się sukcesem. W porównaniu z PR169 wszystkie
 hasze kanoniczne pozostają identyczne. CPU minuta: 2,378 → 2,464 s bez
 obserwatorów; 3,133 → 3,351 s z kontekstem. Draw calls stadionów 964/983/1009
 → 901/903/903, pierwszy import 3D +3137 B, drugi 0 B z cache. Bez obietnicy

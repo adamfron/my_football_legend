@@ -12,7 +12,8 @@ import {
 } from './calendarPresentation';
 /** Read-only window onto the authoritative timeline. No simulation or settlement callbacks. */
 export const CareerCalendar = ({ career }: { career: CareerState }) => {
-  const today = career.currentDate ?? `${career.currentSeason}-07-01`;
+  const today =
+    career.currentDate ?? career.careerCalendar?.currentDate ?? `${career.currentSeason}-07-01`;
   const [month, setMonth] = useState(today.slice(0, 7)),
     [selected, setSelected] = useState(today);
   const [focusDate, setFocusDate] = useState<string>();

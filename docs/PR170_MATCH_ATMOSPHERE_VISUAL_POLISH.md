@@ -68,7 +68,8 @@ mechanik ekonomii, zależności ani formatu zapisu.
     ma jeden InstancedMesh, ≤30 rzeczywistych osób ×6 części. Dane pochodzą
     wyłącznie z ławki/departed w [frameProjection.ts](../src/app/match/tacticalRenderer/frameProjection.ts).
     Aktywni, staging i wyrzuceni nie są siedzącą ławką; wejście/zejście PR161
-    zachowuje czas. Brak staff IDs oznacza brak fikcyjnego sztabu.
+    zachowuje czas. Kontrakt klatki nie zawiera rosteru sztabu; referencja managerId
+    w klubie nie potwierdza obecności osoby przy ławce. Nie wymyśla się sztabu.
     Dekoracje nie mają playerId pickera, a dawny replay bez ławki jej nie wymyśla.
 12. **Nadmiarowy status.** Osobna linia „imię · Na boisku” usunięta.
     Ławka, zmiana i wykluczenie pozostają w odpowiednim MatchCentre.
@@ -121,7 +122,9 @@ mechanik ekonomii, zależności ani formatu zapisu.
 23. **Nawigacja bez symulacji.** 42 dni od poniedziałku, miesiące/Dziś/strzałki,
     stała data symulacji, rozróżnienie planu/rozegranego/zdarzenia/urazu.
     Kliknięcie pokazuje rywala, miejsce, rozgrywki, status/wynik i CareerMatchDetails.
-    Brak callbacku rozgrywania/zapisu. Browser wybiera plan i ukończony fixture,
+    Brak callbacku rozgrywania/zapisu. Przy braku głównego currentDate starszy
+    zapis używa careerCalendar.currentDate; regresja obejmuje serialize/hydrate.
+    Browser wybiera plan i ukończony fixture,
     zachowując cały zapis. Zmiana sezonu/klubu resetuje lokalny miesiąc.
 24. **Duże tabele.** [App.css](../src/app/App.css): dwa główne panele, tabela
     z własnym scrollem nad kalendarzem; 12 px, mniejszy padding, liczby do prawej,
@@ -173,7 +176,7 @@ Wszystkie 12 prób ma identyczne hasze pełnego stanu, graczy, statystyk,
 ### Renderer i GPU
 
 [PR170-render.json](performance/PR170-render.json): trzy naprzemienne pary,
-produkcjnie zbundlowany prawdziwy renderer, 1440×900 DPR1, ta sama klatka,
+produkcyjnie zbundlowany prawdziwy renderer, 1440×900 DPR1, ta sama klatka,
 stroje i kamera, 100 RAF/próbę, 11 pierwszych poza statystyką.
 Mediana trzech median; p95 CPU submission. GPU:
 EXT_disjoint_timer_query_webgl2, próbki disjoint pominięte.
@@ -226,8 +229,9 @@ Przyrost pierwszego 3D: 3137 B (1,12%), JS kariery 2142 B (1,23%).
 Brak pobrania CareerCanonicalMatch/TacticalMatchSandbox/model/Three przed
 wyborem 3D. Drugi import korzysta z cache; zero transferu potwierdza CDP,
 nie same ponowione wpisy Resource Timing. Czasy otwarcia są pojedynczymi
-obserwacjami. Pomiar ładowania: e1fa18a; końcowa zmiana koloru tekstu podsumowania
-dotyczy jedynie kilkudziesięciu bajtów CSS. Skrypt umożliwia powtórzenie.
+obserwacjami. Pomiar ładowania: e1fa18a; końcowe poprawki dotyczą koloru tekstu
+podsumowania (kilkadziesiąt bajtów CSS) i odczytu daty starszego zapisu w karierze.
+Nie zmieniają mierzonej ścieżki z istniejącym currentDate. Skrypt umożliwia powtórzenie.
 
 ## Przeglądarka i galeria
 
@@ -273,7 +277,11 @@ używa rzeczywistego gospodarza. Zrzuty laboratoryjne zawierają DEV.
 
 Pełny lokalny **npm run verify: PASS — 1788 testów**, lint, TypeScript, build:
 205 plików/1727 testów głównych +52 integracyjne +4 kontraktu meczu +5 kariery.
-Końcowa kontrola po korekcie kontrastu trwa. Timeouty, workery, workflow i
+Końcowy pełny przebieg również zakończył się sukcesem. Po ostatniej korekcie
+odczytu daty i doprecyzowaniu testu kamer powtórzono 15 nowych testów oraz lint
+dotkniętych plików; wynik PASS. Końcowy build zawiera poprawkę daty.
+[Zapis weryfikacji](performance/PR170-verification.json).
+Timeouty, workery, workflow i
 assertions poprawności nie są osłabione. Dawne oczekiwania ośmiu ofert
 zmieniono na sześć zgodnie z wymaganiem.
 
