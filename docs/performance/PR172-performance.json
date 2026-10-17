@@ -1,0 +1,211 @@
+{
+  "version": 1,
+  "method": "Serial 60-second canonical windows; one discarded warm-up per engine/mode, three measured samples. Alternating engine order, same original fixture. Run only after other research and verification processes finish. CPU stepping, not browser FPS.",
+  "sources": [
+    {
+      "engine": "PR171",
+      "sourceHash": "87f550ce3cf19f818ac0a7e28bb35b16e4e800fe5b413f9364ca0aaa81427943",
+      "fixtureHash": "4384698678ad37bebde50e293c6f0cfe15bd1cc0149326d26d57865775603ced"
+    },
+    {
+      "engine": "PR172",
+      "sourceHash": "ea7fc0ae71e8b95e34516f89ef52eb7a1d24960af52f9fa8f6998ea563512003",
+      "fixtureHash": "4384698678ad37bebde50e293c6f0cfe15bd1cc0149326d26d57865775603ced"
+    }
+  ],
+  "medians": {
+    "PR171": {
+      "plain": 1257.0123999999996,
+      "existing": 1578.306199999999,
+      "extended": 1608.3551000000007
+    },
+    "PR172": {
+      "plain": 1320.9471000000012,
+      "existing": 1648.2073000000019,
+      "extended": 1629.943299999999
+    }
+  },
+  "rows": [
+    {
+      "engine": "PR172",
+      "mode": "plain",
+      "sample": 0,
+      "wallMs": 1328.0276000000013,
+      "ticks": 2400,
+      "ticksPerSecond": 1807.191356565178,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0
+    },
+    {
+      "engine": "PR172",
+      "mode": "existing",
+      "sample": 0,
+      "wallMs": 1698.1710999999996,
+      "ticks": 2400,
+      "ticksPerSecond": 1413.285151301892,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270
+    },
+    {
+      "engine": "PR172",
+      "mode": "extended",
+      "sample": 0,
+      "wallMs": 1714.233400000001,
+      "ticks": 2400,
+      "ticksPerSecond": 1400.042724637146,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 136310
+    },
+    {
+      "engine": "PR171",
+      "mode": "plain",
+      "sample": 0,
+      "wallMs": 1257.0123999999996,
+      "ticks": 2400,
+      "ticksPerSecond": 1909.2890412218692,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0
+    },
+    {
+      "engine": "PR171",
+      "mode": "existing",
+      "sample": 0,
+      "wallMs": 1633.275700000002,
+      "ticks": 2400,
+      "ticksPerSecond": 1469.4396053281127,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270
+    },
+    {
+      "engine": "PR171",
+      "mode": "extended",
+      "sample": 0,
+      "wallMs": 1667.570599999999,
+      "ticks": 2400,
+      "ticksPerSecond": 1439.2194249526835,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 136310
+    },
+    {
+      "engine": "PR171",
+      "mode": "plain",
+      "sample": 1,
+      "wallMs": 1277.1525000000001,
+      "ticks": 2400,
+      "ticksPerSecond": 1879.180442429545,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0
+    },
+    {
+      "engine": "PR171",
+      "mode": "existing",
+      "sample": 1,
+      "wallMs": 1578.306199999999,
+      "ticks": 2400,
+      "ticksPerSecond": 1520.6174822097266,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270
+    },
+    {
+      "engine": "PR171",
+      "mode": "extended",
+      "sample": 1,
+      "wallMs": 1572.7569999999978,
+      "ticks": 2400,
+      "ticksPerSecond": 1525.9827169740802,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 136310
+    },
+    {
+      "engine": "PR172",
+      "mode": "plain",
+      "sample": 1,
+      "wallMs": 1320.9471000000012,
+      "ticks": 2400,
+      "ticksPerSecond": 1816.878208067528,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0
+    },
+    {
+      "engine": "PR172",
+      "mode": "existing",
+      "sample": 1,
+      "wallMs": 1501.003099999998,
+      "ticks": 2400,
+      "ticksPerSecond": 1598.9307417153257,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270
+    },
+    {
+      "engine": "PR172",
+      "mode": "extended",
+      "sample": 1,
+      "wallMs": 1573.3032999999996,
+      "ticks": 2400,
+      "ticksPerSecond": 1525.452848157123,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 136310
+    },
+    {
+      "engine": "PR172",
+      "mode": "plain",
+      "sample": 2,
+      "wallMs": 1245.6245999999956,
+      "ticks": 2400,
+      "ticksPerSecond": 1926.7442213328225,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0
+    },
+    {
+      "engine": "PR172",
+      "mode": "existing",
+      "sample": 2,
+      "wallMs": 1648.2073000000019,
+      "ticks": 2400,
+      "ticksPerSecond": 1456.1275150279928,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270
+    },
+    {
+      "engine": "PR172",
+      "mode": "extended",
+      "sample": 2,
+      "wallMs": 1629.943299999999,
+      "ticks": 2400,
+      "ticksPerSecond": 1472.4438574028934,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 136310
+    },
+    {
+      "engine": "PR171",
+      "mode": "plain",
+      "sample": 2,
+      "wallMs": 1173.7216000000044,
+      "ticks": 2400,
+      "ticksPerSecond": 2044.7779098552767,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0
+    },
+    {
+      "engine": "PR171",
+      "mode": "existing",
+      "sample": 2,
+      "wallMs": 1577.5734999999986,
+      "ticks": 2400,
+      "ticksPerSecond": 1521.3237291321147,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270
+    },
+    {
+      "engine": "PR171",
+      "mode": "extended",
+      "sample": 2,
+      "wallMs": 1608.3551000000007,
+      "ticks": 2400,
+      "ticksPerSecond": 1492.2077842138212,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 136310
+    }
+  ],
+  "completeStateObserverEquality": true
+}

@@ -2,6 +2,7 @@ import { canContinueCareerMatch } from '../../core/careerMatchContinuation';
 import { PresentationContextHistory } from './tacticalRenderer/contextHistory';
 import { PresentationFrameProjector } from './tacticalRenderer/frameProjection';
 import { DecisionTargets } from './DecisionTargets';
+import { ShotAimControls } from './ShotAimControls';
 import { MatchOccasion } from './MatchOccasion';
 import { getPlayerOverall } from '../../core/playerOverall';
 import {
@@ -2561,36 +2562,11 @@ export const RunningLab = ({
                     event.currentTarget.releasePointerCapture(event.pointerId);
                 }}
               />
-              <div className="shot-aim__actions">
-                <label>
-                  Kierunek strzału
-                  <input
-                    aria-label="Kierunek strzału"
-                    type="range"
-                    min="-1"
-                    max="1"
-                    step="0.05"
-                    value={shotAim.horizontal}
-                    onChange={(event) =>
-                      setShotAim({ ...shotAim, horizontal: Number(event.target.value) })
-                    }
-                  />
-                </label>
-                <label>
-                  Wysokość strzału
-                  <input
-                    aria-label="Wysokość strzału"
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
-                    value={shotAim.vertical}
-                    onChange={(event) =>
-                      setShotAim({ ...shotAim, vertical: Number(event.target.value) })
-                    }
-                  />
-                </label>
-                {projectContextualInteractions(state, opportunity, {
+              <ShotAimControls
+                key={opportunity.signature}
+                aim={shotAim}
+                onAimChange={setShotAim}
+                techniques={projectContextualInteractions(state, opportunity, {
                   ...selectedTarget,
                   aim: shotAim,
                 })
@@ -2601,52 +2577,47 @@ export const RunningLab = ({
                         (item.resolution.action.type === 'header' &&
                           item.resolution.action.intent === 'header_shot')),
                   )
-                  .map((item) => {
-                    if (
-                      item.resolution.kind !== 'action' ||
-                      (item.resolution.action.type !== 'shot' &&
-                        (item.resolution.action.type !== 'header' ||
-                          item.resolution.action.intent !== 'header_shot'))
+                  .map((item) => ({ id: item.id, label: interactionLabel(item) }))}
+                onConfirm={(id) => {
+                  const item = projectContextualInteractions(state, opportunity, {
+                    ...selectedTarget,
+                    aim: shotAim,
+                  }).find((item) => item.id === id);
+                  if (
+                    !item ||
+                    item.resolution.kind !== 'action' ||
+                    !shotAimTeam ||
+                    !(
+                      item.resolution.action.type === 'shot' ||
+                      (item.resolution.action.type === 'header' &&
+                        item.resolution.action.intent === 'header_shot')
                     )
-                      return null;
-                    if (!shotAimTeam) return null;
-                    const point = shotAimIntentToGoalPoint(
-                      { team: shotAimTeam, endsSwitched: state.endsSwitched },
-                      shotAim,
-                    );
-                    const action = {
-                      ...item.resolution.action,
-                      target: { x: point.x, y: point.y },
-                      goalTarget: shotAim,
-                    };
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() =>
-                          closeOpportunity(
-                            applyContextualInteraction(state, opportunity, {
-                              ...item,
-                              resolution: { kind: 'action', action },
-                            }),
-                            'player',
-                            action,
-                          )
-                        }
-                      >
-                        {interactionLabel(item)}
-                      </button>
-                    );
-                  })}
-                <button
-                  onClick={() => {
-                    setShotAim(undefined);
-                    setSelectedTarget(undefined);
-                    uiEvent('shot_aim_cancelled');
-                  }}
-                >
-                  Anuluj
-                </button>
-              </div>
+                  )
+                    return;
+                  const point = shotAimIntentToGoalPoint(
+                    { team: shotAimTeam, endsSwitched: state.endsSwitched },
+                    shotAim,
+                  );
+                  const action = {
+                    ...item.resolution.action,
+                    target: { x: point.x, y: point.y },
+                    goalTarget: shotAim,
+                  };
+                  closeOpportunity(
+                    applyContextualInteraction(state, opportunity, {
+                      ...item,
+                      resolution: { kind: 'action', action },
+                    }),
+                    'player',
+                    action,
+                  );
+                }}
+                onCancel={() => {
+                  setShotAim(undefined);
+                  setSelectedTarget(undefined);
+                  uiEvent('shot_aim_cancelled');
+                }}
+              />
             </section>
           )}
           {opportunity && !replaying && menuPosition && interactions.length > 0 && (

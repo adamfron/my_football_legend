@@ -28,6 +28,9 @@ export const ballContactSchema = z.object({
   playerId: z.string().optional(),
   preContactSpeed: z.number().nonnegative(),
   postContactSpeed: z.number().nonnegative(),
+  surfaceNormal: z
+    .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
+    .optional(),
 });
 export type BallContact = z.infer<typeof ballContactSchema>;
 
@@ -58,6 +61,7 @@ interface Intersection {
   point: FlightPoint;
   segmentFraction: number;
   playerId?: string;
+  surfaceNormal?: FlightPoint;
 }
 
 /** A grounded wall has no artificial hole beneath its body; lift moves the whole finite volume. */
@@ -168,13 +172,35 @@ export const findFirstBallContact = (query: FlightContactQuery): Intersection | 
       candidate.halfHeight !== undefined
         ? capsuleIntersection(a, b, centre, candidate.radius + BALL_RADIUS, candidate.halfHeight)
         : sphereIntersection(a, b, centre, candidate.radius + BALL_RADIUS);
-    if (t !== undefined)
+    if (t !== undefined) {
+      const point = interpolate(previous, next, t);
+      const body = candidate.previousCentre
+        ? interpolate(candidate.previousCentre, candidate.centre, t)
+        : candidate.centre;
+      // The closest point on the same swept capsule/sphere used by CCD is the available
+      // collision surface. No extra body geometry or random deflection angle is invented.
+      const axisZ = Math.max(
+        body.z - (candidate.halfHeight ?? 0),
+        Math.min(body.z + (candidate.halfHeight ?? 0), point.z),
+      );
+      const normal = { x: point.x - body.x, y: point.y - body.y, z: point.z - axisZ };
+      const magnitude = Math.hypot(normal.x, normal.y, normal.z);
       intersections.push({
         kind: candidate.kind,
         playerId: candidate.playerId,
-        point: interpolate(previous, next, t),
+        point,
         segmentFraction: t,
+        ...(magnitude > 0.000001
+          ? {
+              surfaceNormal: {
+                x: normal.x / magnitude,
+                y: normal.y / magnitude,
+                z: normal.z / magnitude,
+              },
+            }
+          : {}),
       });
+    }
   }
 
   const goalX = attacksRight(query.attackingTeam) ? 105 : 0;
@@ -221,13 +247,74 @@ export const deterministicRebound = (
   incoming: PitchPoint,
   attackingTeam: TeamOrientation,
 ): PitchPoint => {
-  const speed = Math.max(5, Math.hypot(incoming.x, incoming.y));
+  if (kind === 'defender' || kind === 'goalkeeper') {
+    const velocity = playerDeflection(kind, { ...incoming, z: 0 });
+    return { x: velocity.x, y: velocity.y };
+  }
+  const speed = Math.hypot(incoming.x, incoming.y);
   const away = attacksRight(attackingTeam) ? -1 : 1;
   if (kind === 'left_post') return { x: away * speed * 0.48, y: speed * 0.42 };
   if (kind === 'right_post') return { x: away * speed * 0.48, y: -speed * 0.42 };
   if (kind === 'crossbar') return { x: away * speed * 0.55, y: incoming.y * 0.25 };
-  if (kind === 'defender') return { x: away * speed * 0.38, y: -incoming.y * 0.5 };
   return { x: away * speed * 0.32, y: incoming.y * 0.65 };
+};
+
+export const reboundContextSchema = z.object({
+  surfaceNormal: z
+    .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
+    .optional(),
+  point: z
+    .object({ x: z.number().finite(), y: z.number().finite(), z: z.number().finite() })
+    .optional(),
+  goalkeeperAction: z.enum(['parry', 'parry_away', 'failed_save', 'no_chance']).optional(),
+});
+export type ReboundContext = z.infer<typeof reboundContextSchema>;
+
+/** Dissipative normal/tangent response. A glancing block preserves some forward travel;
+ * a head-on block reflects it. Legacy contacts without a normal use an opposing horizontal
+ * surface, rather than a fixed pitch direction. The keeper's reach envelope is not a hand:
+ * parry-away approximates a slightly outward-oriented hand plane, bounded by the incoming
+ * energy. It can still leave a dangerous second ball or travel behind the goal line. */
+const playerDeflection = (
+  kind: 'defender' | 'goalkeeper',
+  incoming: BallVelocity3d,
+  context: ReboundContext = {},
+): BallVelocity3d => {
+  const horizontal = Math.hypot(incoming.x, incoming.y);
+  const fallback = {
+    x: horizontal > 0.000001 ? -incoming.x / horizontal : 0,
+    y: horizontal > 0.000001 ? -incoming.y / horizontal : 0,
+    z: horizontal > 0.000001 ? 0 : -Math.sign(incoming.z),
+  };
+  let normal = context.surfaceNormal ?? fallback;
+  if (kind === 'goalkeeper' && context.goalkeeperAction === 'parry_away') {
+    const outward = Math.sign((context.point?.y ?? 34) - 34) || Math.sign(incoming.y);
+    normal = {
+      x: normal.x * 0.7 + fallback.x * 0.3,
+      y: normal.y * 0.7 + outward * 0.45,
+      z: normal.z * 0.7,
+    };
+  }
+  const magnitude = Math.hypot(normal.x, normal.y, normal.z);
+  normal =
+    magnitude > 0.000001
+      ? { x: normal.x / magnitude, y: normal.y / magnitude, z: normal.z / magnitude }
+      : fallback;
+  const dot = incoming.x * normal.x + incoming.y * normal.y + incoming.z * normal.z;
+  // An overlap already moving away must not reflect back into the same body.
+  if (dot >= 0) return { x: incoming.x * 0.72, y: incoming.y * 0.72, z: incoming.z * 0.72 };
+  const partial =
+    kind === 'goalkeeper' &&
+    (context.goalkeeperAction === 'failed_save' || context.goalkeeperAction === 'no_chance');
+  const away = kind === 'goalkeeper' && context.goalkeeperAction === 'parry_away';
+  const tangent = partial ? 0.86 : away ? 0.74 : kind === 'defender' ? 0.72 : 0.6;
+  const restitution = partial ? 0.12 : away ? 0.52 : kind === 'defender' ? 0.38 : 0.3;
+  const impulse = (tangent + restitution) * dot;
+  return {
+    x: incoming.x * tangent - impulse * normal.x,
+    y: incoming.y * tangent - impulse * normal.y,
+    z: incoming.z * tangent - impulse * normal.z,
+  };
 };
 
 /** A finite 3D continuation. Sporting outcomes remain in the shared contact resolver. */
@@ -236,8 +323,13 @@ export const resolveBallRebound = (
   incoming: BallVelocity3d,
   attackingTeam: TeamOrientation,
   spin?: BallSpin3d,
+  context?: ReboundContext,
 ): { velocity: BallVelocity3d; spin?: BallSpin3d; airborne: boolean } => {
-  const horizontal = deterministicRebound(kind, incoming, attackingTeam);
+  const deflection =
+    kind === 'defender' || kind === 'goalkeeper'
+      ? playerDeflection(kind, incoming, context)
+      : undefined;
+  const horizontal = deflection ?? deterministicRebound(kind, incoming, attackingTeam);
   const vertical =
     kind === 'crossbar'
       ? -Math.abs(incoming.z) * 0.46
@@ -245,10 +337,10 @@ export const resolveBallRebound = (
   const retention =
     kind === 'left_post' || kind === 'right_post' || kind === 'crossbar' ? 0.62 : 0.3;
   return {
-    velocity: { ...horizontal, z: vertical },
+    velocity: { ...horizontal, z: deflection?.z ?? vertical },
     ...(spin
       ? { spin: { x: spin.x * retention, y: spin.y * retention, z: -spin.z * retention } }
       : {}),
-    airborne: vertical !== 0,
+    airborne: (deflection?.z ?? vertical) !== 0,
   };
 };

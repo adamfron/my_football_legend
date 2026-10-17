@@ -78,15 +78,83 @@ export const deriveDefensiveWall = (
     length = Math.max(0.1, Math.hypot(dx, dy)),
     centre = { x: ball.x + (dx / length) * 9.5, y: ball.y + (dy / length) * 9.5 },
     perpendicular = { x: -dy / length, y: dx / length };
-  return Array.from({ length: size }, (_, index) => {
-    // The canonical body separation is 1.15m. An 0.85m wall could never settle;
-    // neighbouring bodies kept pushing each other back inside the legal radius.
-    const offset = (index - (size - 1) / 2) * 1.3;
+  const offsets = Array.from(
+    { length: size },
+    (_, index) =>
+      // The canonical body separation is 1.15m. An 0.85m wall could never settle;
+      // neighbouring bodies kept pushing each other back inside the legal radius.
+      (index - (size - 1) / 2) * 1.3,
+  );
+  // Translate the entire line along its tangent into the playable rectangle. Clipping
+  // individual slots at the goal line collapses their spacing and prevents wall readiness.
+  // Tangential translation preserves the >=9.5m radial distance from the kick.
+  let minimumShift = -Infinity,
+    maximumShift = Infinity;
+  for (const offset of offsets)
+    for (const [coordinate, tangent, low, high] of [
+      [centre.x, perpendicular.x, 0.4, 104.6],
+      [centre.y, perpendicular.y, 0.4, 67.6],
+    ]) {
+      if (Math.abs(tangent!) < 0.000001) continue;
+      const a = (low! - coordinate!) / tangent! - offset;
+      const b = (high! - coordinate!) / tangent! - offset;
+      minimumShift = Math.max(minimumShift, Math.min(a, b));
+      maximumShift = Math.min(maximumShift, Math.max(a, b));
+    }
+  const shift = Math.max(minimumShift, Math.min(maximumShift, 0));
+  return offsets.map((offset) => {
     return clampPitchPoint({
-      x: centre.x + perpendicular.x * offset,
-      y: centre.y + perpendicular.y * offset,
+      x: centre.x + perpendicular.x * (offset + shift),
+      y: centre.y + perpendicular.y * (offset + shift),
     });
   });
+};
+
+/** Repair a legacy clipped plan once, without changing bodies, the award or a human choice. */
+export const reconcileRestartWallTargets = (state: TacticalMatchState): TacticalMatchState => {
+  const restart = state.restart;
+  if (!restart || !isRestartSetup(state) || !state.scenario.startsWith('free_kick')) return state;
+  const wall = Object.entries(restart.roles).filter(
+    ([id, role]) => role.key === 'wall' && state.players.some((p) => p.id === id),
+  );
+  if (
+    !wall.some(([id], i) =>
+      wall
+        .slice(i + 1)
+        .some(
+          ([other]) =>
+            restart.targets[id] &&
+            restart.targets[other] &&
+            distance(restart.targets[id]!, restart.targets[other]!) < 1.15,
+        ),
+    )
+  )
+    return state;
+  const spot = restart.spot ?? state.ball;
+  const goal = { x: attacksRight(restart.restartTeam, state) ? 105 : 0, y: 34 };
+  const tangent = { x: -(goal.y - spot.y), y: goal.x - spot.x };
+  wall.sort(
+    ([a], [b]) =>
+      (restart.targets[a]!.x - restart.targets[b]!.x) * tangent.x +
+        (restart.targets[a]!.y - restart.targets[b]!.y) * tangent.y || a.localeCompare(b),
+  );
+  const points = deriveDefensiveWall(spot, goal, wall.length);
+  const targets = { ...restart.targets },
+    roles = { ...restart.roles };
+  wall.forEach(([id, role], i) => {
+    targets[id] = points[i]!;
+    roles[id] = { ...role, zone: { ...role.zone, centre: points[i]! } };
+  });
+  return {
+    ...state,
+    restart: {
+      ...restart,
+      targets,
+      roles,
+      authorisedAt: undefined,
+      preparationStartedAt: undefined,
+    },
+  };
 };
 
 const variantBall = (scenario: RestartScenario): PitchPoint => {

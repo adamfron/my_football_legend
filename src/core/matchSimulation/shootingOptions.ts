@@ -17,6 +17,7 @@ import {
 } from './shotIntent';
 import type { MatchAction, MatchPlayerState, TacticalMatchState } from './matchState';
 import { isRestartSetup } from './restartPhase';
+import { playerContactGeometry } from './ballContactGeometry';
 
 type ShotAction = Extract<MatchAction, { type: 'shot' | 'header' }>;
 
@@ -51,7 +52,7 @@ export const isFreeKickWallGapTarget = (
   const contact = findFirstBallContact({
     previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
     next: { x: target.x, y: target.y, z: Math.max(BALL_RADIUS, target.height) },
-    attackingTeam: actor.team,
+    attackingTeam: actor,
     candidates: wall.map((player) =>
       deriveWallContactCandidate(
         player.id,
@@ -86,7 +87,7 @@ export const findFreeKickWallGapTarget = (state: TacticalMatchState, actorId: st
     const contact = findFirstBallContact({
       previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
       next: { x: goalX, y: goalY, z: BALL_RADIUS },
-      attackingTeam: actor.team,
+      attackingTeam: actor,
       candidates: wall.map((player) =>
         deriveWallContactCandidate(
           player.id,
@@ -122,7 +123,7 @@ export const enumerateFreeKickStrikeProfiles = (
   const groundedContact = findFirstBallContact({
     previous: { x: state.ball.x, y: state.ball.y, z: BALL_RADIUS },
     next: { x: target.x, y: target.y, z: Math.max(BALL_RADIUS, target.height) },
-    attackingTeam: actor.team,
+    attackingTeam: actor,
     candidates: wall.map((player) =>
       deriveWallContactCandidate(player.id, player.position, player.profile.heightCm / 100),
     ),
@@ -275,8 +276,17 @@ export const enumerateCanonicalShootingOptions = (
     !state.restart?.indirect &&
     state.scenario !== 'throw_in';
   if (!actor || (isMatchGoalkeeper(actor) && !directRestart)) return [];
+  const feet = playerContactGeometry(actor);
+  const withinReach =
+    Math.min(distance(feet.leftFoot, state.ball), distance(feet.rightFoot, state.ball)) <=
+    feet.footReach;
   const settled =
-    state.ball.ownerId === actorId && !state.ball.travelKind && (state.ball.height ?? 0) <= 0.45;
+    state.ball.ownerId === actorId &&
+    !state.ball.travelKind &&
+    (state.ball.height ?? 0) <= 0.45 &&
+    // Previewing a restart selection may precede placement. An actual released/live shot
+    // uses the same finite feet as ball control; nominal ownership is no remote kick.
+    (directRestart || withinReach);
   const incoming = settled ? undefined : incomingShotContact(state, actorId);
   if (!settled && !incoming) return [];
   const point = incoming?.point ?? actor.position;

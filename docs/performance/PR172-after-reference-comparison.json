@@ -1,0 +1,784 @@
+{
+  "version": 1,
+  "source": "StatsBomb Open Data",
+  "repository": "https://github.com/statsbomb/open-data",
+  "commit": "4b73468fc5b0f1950f9f66fada70ad3a4f9327cb",
+  "matchesUrl": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/43/106.json",
+  "matchesSha256": "b9d7516dc9919a825f04c204ca85487958c8a2431e84140a48e944934661efc7",
+  "retrievedAt": "2026-10-17T11:41:43.294Z",
+  "selection": "First twelve chronological group-stage matches of men's World Cup 2022; periods 1–2; no selection on outcomes",
+  "limitations": "Elite senior international football, not a U-17 calibration target. No inferred live-ball clock. MFL excludes crosses from passes; comparison excludes provider cross qualifiers. Completion/control and possession-sequence definitions remain partially incompatible. Saved Off Target excluded from on-target. Saved to Post included separately and explicitly.",
+  "rows": [
+    {
+      "matchId": 3857286,
+      "date": "2022-11-20",
+      "home": "Qatar",
+      "away": "Ecuador",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857286.json",
+      "sha256": "27c12e2f24a7679d7bf60690c0832e61e04e56bdf1d62323c33b93829c673ea9",
+      "periodsSeconds": [
+        3003.344,
+        3019.667
+      ],
+      "teams": [
+        {
+          "id": 3566,
+          "name": "Qatar",
+          "passAttempts": 468,
+          "passesWithoutCrosses": 464,
+          "completedWithoutCrosses": 379,
+          "throwInsIncluded": 20,
+          "crosses": 4,
+          "corners": 1,
+          "shots": 5,
+          "shotOutcomes": {
+            "Off T": 5
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 0,
+          "secondsElapsed": 6023.011,
+          "possessionProviderIds": 79,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 3565,
+          "name": "Ecuador",
+          "passAttempts": 519,
+          "passesWithoutCrosses": 512,
+          "completedWithoutCrosses": 429,
+          "throwInsIncluded": 17,
+          "crosses": 7,
+          "corners": 3,
+          "shots": 6,
+          "shotOutcomes": {
+            "Goal": 2,
+            "Off T": 3,
+            "Saved": 1
+          },
+          "goalsFromShots": 2,
+          "shotsOnTargetConservative": 3,
+          "secondsElapsed": 6023.011,
+          "possessionProviderIds": 79,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857271,
+      "date": "2022-11-21",
+      "home": "England",
+      "away": "Iran",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857271.json",
+      "sha256": "3195e45476b96c3257e15043ac4fe17bbb640c548a4edb74d2c3b3eb8b3519e3",
+      "periodsSeconds": [
+        3543.591,
+        3485.758
+      ],
+      "teams": [
+        {
+          "id": 768,
+          "name": "England",
+          "passAttempts": 846,
+          "passesWithoutCrosses": 833,
+          "completedWithoutCrosses": 742,
+          "throwInsIncluded": 18,
+          "crosses": 13,
+          "corners": 8,
+          "shots": 13,
+          "shotOutcomes": {
+            "Off T": 2,
+            "Saved": 1,
+            "Post": 1,
+            "Goal": 6,
+            "Blocked": 3
+          },
+          "goalsFromShots": 6,
+          "shotsOnTargetConservative": 7,
+          "secondsElapsed": 7029.349,
+          "possessionProviderIds": 83,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 797,
+          "name": "Iran",
+          "passAttempts": 247,
+          "passesWithoutCrosses": 238,
+          "completedWithoutCrosses": 161,
+          "throwInsIncluded": 17,
+          "crosses": 9,
+          "corners": 0,
+          "shots": 8,
+          "shotOutcomes": {
+            "Off T": 4,
+            "Goal": 2,
+            "Blocked": 1,
+            "Saved to Post": 1
+          },
+          "goalsFromShots": 2,
+          "shotsOnTargetConservative": 3,
+          "secondsElapsed": 7029.349,
+          "possessionProviderIds": 66,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857285,
+      "date": "2022-11-21",
+      "home": "Senegal",
+      "away": "Netherlands",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857285.json",
+      "sha256": "b97e53a23b76d1fd7b4895cf68820539e24300e7e0032e4cfe429fca7a95b0fa",
+      "periodsSeconds": [
+        2863.457,
+        3307.847
+      ],
+      "teams": [
+        {
+          "id": 787,
+          "name": "Senegal",
+          "passAttempts": 430,
+          "passesWithoutCrosses": 418,
+          "completedWithoutCrosses": 337,
+          "throwInsIncluded": 17,
+          "crosses": 12,
+          "corners": 6,
+          "shots": 15,
+          "shotOutcomes": {
+            "Blocked": 4,
+            "Off T": 6,
+            "Saved": 4,
+            "Wayward": 1
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 4,
+          "secondsElapsed": 6171.304,
+          "possessionProviderIds": 86,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 941,
+          "name": "Netherlands",
+          "passAttempts": 491,
+          "passesWithoutCrosses": 474,
+          "completedWithoutCrosses": 387,
+          "throwInsIncluded": 28,
+          "crosses": 17,
+          "corners": 7,
+          "shots": 10,
+          "shotOutcomes": {
+            "Blocked": 3,
+            "Off T": 4,
+            "Goal": 2,
+            "Saved": 1
+          },
+          "goalsFromShots": 2,
+          "shotsOnTargetConservative": 3,
+          "secondsElapsed": 6171.304,
+          "possessionProviderIds": 87,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857282,
+      "date": "2022-11-21",
+      "home": "United States",
+      "away": "Wales",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857282.json",
+      "sha256": "2a6d3d04b6257bfc35a2e0c5a35f05a8997a089191ce27d0c2a5f02108f3b9db",
+      "periodsSeconds": [
+        2937.614,
+        3335.385
+      ],
+      "teams": [
+        {
+          "id": 1839,
+          "name": "United States",
+          "passAttempts": 610,
+          "passesWithoutCrosses": 592,
+          "completedWithoutCrosses": 517,
+          "throwInsIncluded": 22,
+          "crosses": 18,
+          "corners": 5,
+          "shots": 6,
+          "shotOutcomes": {
+            "Post": 1,
+            "Off T": 3,
+            "Goal": 1,
+            "Blocked": 1
+          },
+          "goalsFromShots": 1,
+          "shotsOnTargetConservative": 1,
+          "secondsElapsed": 6272.999,
+          "possessionProviderIds": 86,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 907,
+          "name": "Wales",
+          "passAttempts": 443,
+          "passesWithoutCrosses": 432,
+          "completedWithoutCrosses": 335,
+          "throwInsIncluded": 25,
+          "crosses": 11,
+          "corners": 3,
+          "shots": 7,
+          "shotOutcomes": {
+            "Off T": 3,
+            "Blocked": 1,
+            "Saved": 2,
+            "Goal": 1
+          },
+          "goalsFromShots": 1,
+          "shotsOnTargetConservative": 3,
+          "secondsElapsed": 6272.999,
+          "possessionProviderIds": 90,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857300,
+      "date": "2022-11-22",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857300.json",
+      "sha256": "76fa92d3cc2d235a47eed0a7a722332a7c3ec5d3386a8785102eeec69db80ee8",
+      "periodsSeconds": [
+        3083.141,
+        3530.121
+      ],
+      "teams": [
+        {
+          "id": 779,
+          "name": "Argentina",
+          "passAttempts": 646,
+          "passesWithoutCrosses": 626,
+          "completedWithoutCrosses": 535,
+          "throwInsIncluded": 24,
+          "crosses": 20,
+          "corners": 9,
+          "shots": 15,
+          "shotOutcomes": {
+            "Saved": 5,
+            "Goal": 1,
+            "Off T": 5,
+            "Blocked": 3,
+            "Wayward": 1
+          },
+          "goalsFromShots": 1,
+          "shotsOnTargetConservative": 6,
+          "secondsElapsed": 6613.262000000001,
+          "possessionProviderIds": 95,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 799,
+          "name": "Saudi Arabia",
+          "passAttempts": 286,
+          "passesWithoutCrosses": 281,
+          "completedWithoutCrosses": 196,
+          "throwInsIncluded": 13,
+          "crosses": 5,
+          "corners": 2,
+          "shots": 3,
+          "shotOutcomes": {
+            "Goal": 2,
+            "Blocked": 1
+          },
+          "goalsFromShots": 2,
+          "shotsOnTargetConservative": 2,
+          "secondsElapsed": 6613.262000000001,
+          "possessionProviderIds": 66,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857254,
+      "date": "2022-11-22",
+      "home": "Denmark",
+      "away": "Tunisia",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857254.json",
+      "sha256": "05b8584eea49fb178102bc067ccb5dad82c1c1988ec971a875a9229e27badb5a",
+      "periodsSeconds": [
+        2983.014,
+        3156.618
+      ],
+      "teams": [
+        {
+          "id": 776,
+          "name": "Denmark",
+          "passAttempts": 646,
+          "passesWithoutCrosses": 634,
+          "completedWithoutCrosses": 540,
+          "throwInsIncluded": 24,
+          "crosses": 12,
+          "corners": 11,
+          "shots": 11,
+          "shotOutcomes": {
+            "Blocked": 2,
+            "Saved": 5,
+            "Wayward": 2,
+            "Post": 1,
+            "Off T": 1
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 5,
+          "secondsElapsed": 6139.632,
+          "possessionProviderIds": 101,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 777,
+          "name": "Tunisia",
+          "passAttempts": 417,
+          "passesWithoutCrosses": 414,
+          "completedWithoutCrosses": 314,
+          "throwInsIncluded": 24,
+          "crosses": 3,
+          "corners": 9,
+          "shots": 13,
+          "shotOutcomes": {
+            "Blocked": 7,
+            "Off T": 4,
+            "Saved": 1,
+            "Wayward": 1
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 1,
+          "secondsElapsed": 6139.632,
+          "possessionProviderIds": 93,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857265,
+      "date": "2022-11-22",
+      "home": "Mexico",
+      "away": "Poland",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857265.json",
+      "sha256": "ed76f94790148cc865622a26fd3d29df3d5253bd04bf053c0207dc0d15e6c0a6",
+      "periodsSeconds": [
+        2823.72,
+        3143.443
+      ],
+      "teams": [
+        {
+          "id": 794,
+          "name": "Mexico",
+          "passAttempts": 544,
+          "passesWithoutCrosses": 523,
+          "completedWithoutCrosses": 431,
+          "throwInsIncluded": 21,
+          "crosses": 21,
+          "corners": 6,
+          "shots": 11,
+          "shotOutcomes": {
+            "Off T": 4,
+            "Blocked": 3,
+            "Saved": 4
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 4,
+          "secondsElapsed": 5967.1630000000005,
+          "possessionProviderIds": 86,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 789,
+          "name": "Poland",
+          "passAttempts": 362,
+          "passesWithoutCrosses": 359,
+          "completedWithoutCrosses": 259,
+          "throwInsIncluded": 23,
+          "crosses": 3,
+          "corners": 5,
+          "shots": 6,
+          "shotOutcomes": {
+            "Blocked": 2,
+            "Saved": 2,
+            "Wayward": 1,
+            "Off T": 1
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 2,
+          "secondsElapsed": 5967.1630000000005,
+          "possessionProviderIds": 86,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857279,
+      "date": "2022-11-22",
+      "home": "France",
+      "away": "Australia",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857279.json",
+      "sha256": "6e35ec73c164565b99684ab534efed808f23f6cb2c75842c8f2b413501ec96fb",
+      "periodsSeconds": [
+        3074.668,
+        3133.493
+      ],
+      "teams": [
+        {
+          "id": 771,
+          "name": "France",
+          "passAttempts": 763,
+          "passesWithoutCrosses": 738,
+          "completedWithoutCrosses": 666,
+          "throwInsIncluded": 17,
+          "crosses": 25,
+          "corners": 8,
+          "shots": 23,
+          "shotOutcomes": {
+            "Blocked": 8,
+            "Wayward": 2,
+            "Goal": 4,
+            "Off T": 7,
+            "Saved": 2
+          },
+          "goalsFromShots": 4,
+          "shotsOnTargetConservative": 6,
+          "secondsElapsed": 6208.161,
+          "possessionProviderIds": 74,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 792,
+          "name": "Australia",
+          "passAttempts": 475,
+          "passesWithoutCrosses": 469,
+          "completedWithoutCrosses": 391,
+          "throwInsIncluded": 22,
+          "crosses": 6,
+          "corners": 1,
+          "shots": 4,
+          "shotOutcomes": {
+            "Off T": 2,
+            "Goal": 1,
+            "Post": 1
+          },
+          "goalsFromShots": 1,
+          "shotsOnTargetConservative": 1,
+          "secondsElapsed": 6208.161,
+          "possessionProviderIds": 65,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857277,
+      "date": "2022-11-23",
+      "home": "Morocco",
+      "away": "Croatia",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857277.json",
+      "sha256": "0bb3e4c8ad11587af05ca6734d50e6f7ea883db9ff73d79540c434bc50715a0f",
+      "periodsSeconds": [
+        2835.995,
+        3063.683
+      ],
+      "teams": [
+        {
+          "id": 788,
+          "name": "Morocco",
+          "passAttempts": 384,
+          "passesWithoutCrosses": 381,
+          "completedWithoutCrosses": 301,
+          "throwInsIncluded": 22,
+          "crosses": 3,
+          "corners": 0,
+          "shots": 8,
+          "shotOutcomes": {
+            "Blocked": 6,
+            "Saved": 2
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 2,
+          "secondsElapsed": 5899.678,
+          "possessionProviderIds": 75,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 785,
+          "name": "Croatia",
+          "passAttempts": 686,
+          "passesWithoutCrosses": 676,
+          "completedWithoutCrosses": 575,
+          "throwInsIncluded": 28,
+          "crosses": 10,
+          "corners": 5,
+          "shots": 5,
+          "shotOutcomes": {
+            "Off T": 2,
+            "Saved": 1,
+            "Blocked": 2
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 1,
+          "secondsElapsed": 5899.678,
+          "possessionProviderIds": 92,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857284,
+      "date": "2022-11-23",
+      "home": "Germany",
+      "away": "Japan",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857284.json",
+      "sha256": "669bc6550cbe4dfb70305b04b2b8eacb0de676e576c69e4be209826bb425f0c6",
+      "periodsSeconds": [
+        3061.052,
+        3189.824
+      ],
+      "teams": [
+        {
+          "id": 770,
+          "name": "Germany",
+          "passAttempts": 826,
+          "passesWithoutCrosses": 807,
+          "completedWithoutCrosses": 716,
+          "throwInsIncluded": 33,
+          "crosses": 19,
+          "corners": 6,
+          "shots": 26,
+          "shotOutcomes": {
+            "Blocked": 6,
+            "Off T": 8,
+            "Saved": 8,
+            "Goal": 1,
+            "Wayward": 1,
+            "Post": 2
+          },
+          "goalsFromShots": 1,
+          "shotsOnTargetConservative": 9,
+          "secondsElapsed": 6250.876,
+          "possessionProviderIds": 101,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 778,
+          "name": "Japan",
+          "passAttempts": 294,
+          "passesWithoutCrosses": 289,
+          "completedWithoutCrosses": 212,
+          "throwInsIncluded": 12,
+          "crosses": 5,
+          "corners": 6,
+          "shots": 12,
+          "shotOutcomes": {
+            "Off T": 4,
+            "Blocked": 4,
+            "Saved": 2,
+            "Goal": 2
+          },
+          "goalsFromShots": 2,
+          "shotsOnTargetConservative": 4,
+          "secondsElapsed": 6250.876,
+          "possessionProviderIds": 72,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857291,
+      "date": "2022-11-23",
+      "home": "Spain",
+      "away": "Costa Rica",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857291.json",
+      "sha256": "85918fc69760bc1b208f5cfb49ef4f44337673558b5d1e00909844e91810a570",
+      "periodsSeconds": [
+        3005.144,
+        3184.882
+      ],
+      "teams": [
+        {
+          "id": 772,
+          "name": "Spain",
+          "passAttempts": 1090,
+          "passesWithoutCrosses": 1077,
+          "completedWithoutCrosses": 1006,
+          "throwInsIncluded": 24,
+          "crosses": 13,
+          "corners": 5,
+          "shots": 17,
+          "shotOutcomes": {
+            "Off T": 7,
+            "Goal": 7,
+            "Blocked": 2,
+            "Saved": 1
+          },
+          "goalsFromShots": 7,
+          "shotsOnTargetConservative": 8,
+          "secondsElapsed": 6190.026,
+          "possessionProviderIds": 83,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 795,
+          "name": "Costa Rica",
+          "passAttempts": 250,
+          "passesWithoutCrosses": 245,
+          "completedWithoutCrosses": 171,
+          "throwInsIncluded": 13,
+          "crosses": 5,
+          "corners": 0,
+          "shots": 0,
+          "shotOutcomes": {},
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 0,
+          "secondsElapsed": 6190.026,
+          "possessionProviderIds": 61,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    },
+    {
+      "matchId": 3857268,
+      "date": "2022-11-23",
+      "home": "Belgium",
+      "away": "Canada",
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3857268.json",
+      "sha256": "1e9c9f2cf8b229388e826a32bb04224ab9aadb91e5aa4614ecf66cc07c6caa48",
+      "periodsSeconds": [
+        2999.807,
+        3003.534
+      ],
+      "teams": [
+        {
+          "id": 782,
+          "name": "Belgium",
+          "passAttempts": 534,
+          "passesWithoutCrosses": 529,
+          "completedWithoutCrosses": 447,
+          "throwInsIncluded": 16,
+          "crosses": 5,
+          "corners": 4,
+          "shots": 9,
+          "shotOutcomes": {
+            "Saved": 2,
+            "Blocked": 3,
+            "Off T": 3,
+            "Goal": 1
+          },
+          "goalsFromShots": 1,
+          "shotsOnTargetConservative": 3,
+          "secondsElapsed": 6003.341,
+          "possessionProviderIds": 84,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        },
+        {
+          "id": 1833,
+          "name": "Canada",
+          "passAttempts": 480,
+          "passesWithoutCrosses": 464,
+          "completedWithoutCrosses": 392,
+          "throwInsIncluded": 28,
+          "crosses": 16,
+          "corners": 4,
+          "shots": 22,
+          "shotOutcomes": {
+            "Blocked": 8,
+            "Saved": 3,
+            "Off T": 11
+          },
+          "goalsFromShots": 0,
+          "shotsOnTargetConservative": 3,
+          "secondsElapsed": 6003.341,
+          "possessionProviderIds": 85,
+          "positionalReceptions": "not comparable: provider Pass recipient is not MFL controlled reception",
+          "liveBallSeconds": null
+        }
+      ]
+    }
+  ],
+  "distributions": {
+    "passesWithoutCrosses": {
+      "n": 24,
+      "mean": 519.7916666666666,
+      "median": 471.5,
+      "p10": 283.4,
+      "p90": 786.3,
+      "min": 238,
+      "max": 1077,
+      "sd": 198.24878712673686
+    },
+    "completedWithoutCrosses": {
+      "n": 24,
+      "mean": 434.9583333333333,
+      "median": 391.5,
+      "p10": 200.8,
+      "p90": 701,
+      "min": 161,
+      "max": 1006,
+      "sd": 198.34533839717255
+    },
+    "shots": {
+      "n": 24,
+      "mean": 10.625,
+      "median": 9.5,
+      "p10": 4.300000000000001,
+      "p90": 20.499999999999996,
+      "min": 0,
+      "max": 26,
+      "sd": 6.401904013650939
+    },
+    "shotsOnTargetConservative": {
+      "n": 24,
+      "mean": 3.375,
+      "median": 3,
+      "p10": 1,
+      "p90": 6.699999999999999,
+      "min": 0,
+      "max": 9,
+      "sd": 2.377191970932652
+    },
+    "goalsFromShots": {
+      "n": 24,
+      "mean": 1.375,
+      "median": 1,
+      "p10": 0,
+      "p90": 3.3999999999999986,
+      "min": 0,
+      "max": 7,
+      "sd": 1.844191331360894
+    },
+    "corners": {
+      "n": 24,
+      "mean": 4.75,
+      "median": 5,
+      "p10": 0.30000000000000027,
+      "p90": 8.7,
+      "min": 0,
+      "max": 11,
+      "sd": 3.017311165038612
+    }
+  }
+}

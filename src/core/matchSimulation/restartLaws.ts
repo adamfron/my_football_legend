@@ -158,6 +158,18 @@ export const restartPenaltyGoalkeeper = (state: TacticalMatchState) =>
       isMatchGoalkeeper(player),
   );
 
+/** Law 8 alone permits a keeper near halfway. Ordinary kickoff also waits for the
+ * existing 5.5m starting-depth plan, allowing its 3m support zone and ordinary braking. */
+export const areKickoffGoalkeepersReady = (state: TacticalMatchState): boolean =>
+  state.scenario !== 'kick_off' ||
+  state.restart?.origin !== 'live_event' ||
+  (['home', 'away'] as const).every((team) => {
+    const keeper = state.players.find((p) => p.team === team && isMatchGoalkeeper(p));
+    return Boolean(
+      keeper && ownDepth(keeper.position, keeper) <= 9 && Math.abs(keeper.position.y - 34) <= 5,
+    );
+  });
+
 /** Projects movement intentions, never player coordinates; arrival is handled by locomotion. */
 export const legalizeRestartPlayerTarget = (
   state: TacticalMatchState,

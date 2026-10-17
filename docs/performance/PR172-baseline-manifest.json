@@ -1,0 +1,275 @@
+{
+  "version": 1,
+  "baselineCommit": "6b2ddaa9ae14c2ca98a078b85b69b202b812196f",
+  "evidence": [
+    {
+      "name": "PR171-attacking-funnel.json",
+      "sha256": "d440367d82508f123b47f0738e9e31827f1842c1cb8e8cad3fd6af081d8faa53",
+      "bytes": 710600,
+      "keys": [
+        "version",
+        "definition",
+        "rows",
+        "traces"
+      ],
+      "arrays": {
+        "rows": 24,
+        "traces": 12
+      }
+    },
+    {
+      "name": "PR171-baseline.json",
+      "sha256": "0c0639b5d142fe56c493bc0dd790e0a3d3e69c8fa74648bf20a0da40998a7ccc",
+      "bytes": 2232835,
+      "keys": [
+        "version",
+        "fullMatches",
+        "independentDesignBlocks",
+        "censored",
+        "definition",
+        "summary",
+        "uncertainty",
+        "totalWallMs",
+        "fixtures",
+        "teamRows"
+      ],
+      "arrays": {
+        "censored": 2,
+        "fixtures": 12,
+        "teamRows": 24
+      }
+    },
+    {
+      "name": "PR171-browser.json",
+      "sha256": "a08b3ef69d89e28c8bb29bdba1e42b03eb644597876f3dc6c9bcfb8d60d06ecd",
+      "bytes": 1050,
+      "keys": [
+        "version",
+        "production",
+        "baseUrl",
+        "careerSeed",
+        "position",
+        "profile",
+        "checks",
+        "exportSha256",
+        "screenshots",
+        "limitation"
+      ],
+      "arrays": {
+        "screenshots": 5
+      }
+    },
+    {
+      "name": "PR171-censored-replays.json",
+      "sha256": "6d0735222376c91f7cbc1940563ef445c8818fdba3a3546b7761e641d7eb657f",
+      "bytes": 55300,
+      "keys": [
+        "version",
+        "rows"
+      ],
+      "arrays": {
+        "rows": 2
+      }
+    },
+    {
+      "name": "PR171-controlled-probes.json",
+      "sha256": "0e56062c49e8b857a8fd28a885e7c5a0016fab4f10d8ebfb3cbcdd6c81de0968",
+      "bytes": 323333,
+      "keys": [
+        "version",
+        "harnessHash",
+        "wallMs",
+        "shots",
+        "central"
+      ],
+      "arrays": {
+        "shots": 22,
+        "central": 5
+      }
+    },
+    {
+      "name": "PR171-engine-failures.json",
+      "sha256": "34079ea364b6378e7754ba8f7bfc4f634bd11d842cb1f95c88b04df0b7c81fdd",
+      "bytes": 618302,
+      "keys": [
+        "version",
+        "sourceManifest",
+        "policy",
+        "rows"
+      ],
+      "arrays": {
+        "rows": 2
+      }
+    },
+    {
+      "name": "PR171-hypothesis-results.json",
+      "sha256": "e78ad680e4714b071d23c5530429a427376224f0d565c391399c4a1b734106e2",
+      "bytes": 13876,
+      "keys": [
+        "version",
+        "fullMatches",
+        "totals",
+        "centralMidfield",
+        "shotOutcomes",
+        "hypotheses"
+      ],
+      "arrays": {
+        "hypotheses": 14
+      }
+    },
+    {
+      "name": "PR171-mechanical-counterfactuals.json",
+      "sha256": "a59a390d4f0b4e9d93862a22fa2ee35b1a2a07a2d4cf2dbcab6db631b5515a23",
+      "bytes": 6481,
+      "keys": [
+        "version",
+        "rebounds",
+        "keeperHandover"
+      ],
+      "arrays": {
+        "rebounds": 8
+      }
+    },
+    {
+      "name": "PR171-midfield-connectivity.json",
+      "sha256": "215dd18e325952122dc5ea6b3c964e889e4aea90d305cc98ddd0bc7def2e1b33",
+      "bytes": 1850421,
+      "keys": [
+        "version",
+        "definition",
+        "players",
+        "passing"
+      ],
+      "arrays": {
+        "players": 98,
+        "passing": 12
+      }
+    },
+    {
+      "name": "PR171-observer-equivalence.json",
+      "sha256": "2d52cabd2aba9c22f65adfbd9edb9301bc344a3de4e45c1ebb9e153111a4c871",
+      "bytes": 22148,
+      "keys": [
+        "version",
+        "method",
+        "timings",
+        "incrementalAuditRuntimePercent",
+        "allResearchRuntimePercent",
+        "completeStateEqual",
+        "fullMatchConfirmations",
+        "rows"
+      ],
+      "arrays": {
+        "fullMatchConfirmations": 2,
+        "rows": 9
+      }
+    },
+    {
+      "name": "PR171-reference-comparison.json",
+      "sha256": "bdd7d65f6428f14d79fdc6cda01593298d3a4af390d231087decd604efae2eac",
+      "bytes": 25242,
+      "keys": [
+        "version",
+        "source",
+        "repository",
+        "commit",
+        "matchesUrl",
+        "matchesSha256",
+        "retrievedAt",
+        "selection",
+        "limitations",
+        "rows",
+        "distributions"
+      ],
+      "arrays": {
+        "rows": 12
+      }
+    },
+    {
+      "name": "PR171-restart-continuity.json",
+      "sha256": "42496a8c4ceeb2979ac322077566d1105ea886e5d7a126ca4ffc8c8c329b2d89",
+      "bytes": 46785,
+      "keys": [
+        "version",
+        "carry",
+        "restarts",
+        "boundary"
+      ],
+      "arrays": {
+        "carry": 9,
+        "restarts": 5,
+        "boundary": 8
+      }
+    },
+    {
+      "name": "PR171-shot-resolution.json",
+      "sha256": "cf4f755c06950bf3c5a136af2cbe787dc341b39688522e1dfe37b886c95b0ebb",
+      "bytes": 281361,
+      "keys": [
+        "version",
+        "scope",
+        "rows"
+      ],
+      "arrays": {
+        "rows": 72
+      }
+    },
+    {
+      "name": "PR171-verification.json",
+      "sha256": "84ecabc491d4f6d1aa19a650933ce95e12cdf7540f8c14272d5d4d049c4f4344",
+      "bytes": 1630,
+      "keys": [
+        "version",
+        "status",
+        "command",
+        "exitCode",
+        "tests",
+        "summary",
+        "logSha256",
+        "sourceHash",
+        "caveat",
+        "finalResearchChecks"
+      ],
+      "arrays": {}
+    }
+  ],
+  "states": [
+    {
+      "name": "pr171-failure-false.json",
+      "sha256": "2f2d4f4bc64588a7eeb2da5c5ccd348d81431ab301bfbbb48fc691e1eb28d900",
+      "time": 4615.600000002957,
+      "status": "second_half",
+      "seed": "pr171-a:strong_weak",
+      "restart": "pr171-a:strong_weak:restart:4614.225000002977:away:free_kick_far",
+      "source": "Unmodified complete PR171 canonical replay state"
+    },
+    {
+      "name": "pr171-failure-true.json",
+      "sha256": "c2c61924bbc644749049a387cc36ec9cc183d5113592a6ce5a2df3590243fe6f",
+      "time": 4769.125000000723,
+      "status": "second_half",
+      "seed": "pr171-a:strong_weak",
+      "restart": "pr171-a:strong_weak:restart:4767.900000000741:home:free_kick_far",
+      "source": "Unmodified complete PR171 canonical replay state"
+    },
+    {
+      "name": "pr171-censored-central_possession-true.json",
+      "sha256": "f7a6b63585db0cc3b09246c5967323534b3cc9e74c1fc11fc97ef27ee522bebf",
+      "time": 7200.024999965349,
+      "status": "first_half",
+      "seed": "pr171-b:central_possession",
+      "restart": "pr171-b:central_possession:restart:489.2249999998289:home:free_kick_wide",
+      "source": "Unmodified complete PR171 canonical replay state"
+    },
+    {
+      "name": "pr171-censored-press_low-false.json",
+      "sha256": "5db9482e8134e59ed6efd7a7dd31ac5cd5597a9fa7a19762205c47482cbb5a64",
+      "time": 7200.024999965349,
+      "status": "second_half",
+      "seed": "pr171-b:press_low",
+      "restart": "pr171-b:press_low:restart:5432.549999991069:away:free_kick_wide",
+      "source": "Unmodified complete PR171 canonical replay state"
+    }
+  ],
+  "comparison": "Unchanged scripts/pr171Fixtures.ts family definitions, original seeds, dt=0.025. Keep incomplete/crashed fixtures separate; compare the 12 originally complete matches as a matched cohort and all 16 for liveness. Full-state determinism and save/reload separately from emergent distributions."
+}

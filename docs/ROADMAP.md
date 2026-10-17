@@ -1,13 +1,15 @@
 # Roadmap
 
-Aktualny etap: **PR171 — Match Reality Diagnostic Audit**.
-[Raport, hipotezy i plan PR172](PR171_MATCH_REALITY_DIAGNOSTIC_AUDIT.md).
+Aktualny etap: **PR172 — Evidence-Based Match Realism**.
+[Raport, kontrfakty, poprawki i ograniczenia](PR172_MATCH_REALISM_CALIBRATION.md).
 
-Zakończono 12 pełnych meczów kanonicznych, zachowując osobno dwa przebiegi
-bez końca meczu oraz dwie awarie przy zmianie bramkarza. Referencja StatsBomb,
-lejek, sieci CM, kontrolowane sytuacje i hasze observer ON/OFF dają podstawę
-do następnego etapu. Pełne `npm run verify`: **PASS — 1801 testów**.
-PR171 nie zmienia balansu ani zachowania kanonicznego futbolu.
+Naprawiono handover keeperów, spakowane cele muru, kickoff readiness, odbicia,
+remote shot oraz dwa problemy intencji carry. 16/16 powtórek kończy się;
+cztery dokładne stare stany również. Zachowano PR171 i zamrożoną referencję.
+40 rzeczywistych decyzji / 267 kontrfaktów nie uzasadniło ogólnego bonusu CM
+lub agresji: ofensywna kreacja i recykling pozostają jawnie nierozwiązane.
+Końcowy `npm run verify`: **PASS — 1840 testów**, lint, TypeScript i build. Browser smoke wymaga ręcznego przeglądu
+po zatrzymaniu sterowania przez kontrolę URL narzędzia Computer Use.
 
 ## Autorytatywna kolejność PR170–PR175+
 
@@ -18,17 +20,17 @@ PR171 nie zmienia balansu ani zachowania kanonicznego futbolu.
   pozostały HUD. Pokazać do sześciu wiarygodnych ofert zewnętrznych w zwartej siatce
   dwóch rzędów, z wyraźnymi obramowaniami. Poprawić kartę finansów i jej szczegóły,
   dodać użyteczny mały kalendarz pod tabelą i poprawić gęstość tabel większych lig.
-- **PR171 — Match Reality Diagnostic Audit (bieżący PR)**. Pomiary i hipotezy,
+- **PR171 — Match Reality Diagnostic Audit (scalony)**. Pomiary i hipotezy,
   jawne ograniczenia porównywalności i cenzorowania, kontrolowane kontrfaktyczne
   przypadki, rozliczenie podań oraz bounded opt-in diagnostyka. Nie stroić silnika.
-- **PR172 — Match Realism Calibration**. Wprowadzać wyłącznie korekty poparte
-  wynikami PR171. Najpierw P0: keeper handover przed restart geometry oraz
-  restart liveness (`wall_developing` i pętla added-time). Następnie zachowanie
-  orientacji defleksji i osobne eksperymenty normalnej kontaktu/parry; rzeczywiste
-  zamrożone decyzje kreacji/CM przed zmianą pojedynczego członu pozycji/utility.
-  Zweryfikować carry intent, shot contact/rejection i gotowość keeperów po przerwie.
-  Plan modułów, ryzyk i regresji jest w raporcie PR171. Bez kwot goli, strzałów,
-  podań, automatycznych przyjęć CM ani sztucznych saves/corners.
+- **PR172 — Match Realism Calibration (bieżący PR)**. Mechaniczne przyczyny P0
+  odtworzone i naprawione; legalne wykonanie zamyka przerwę bez timeout bypass.
+  Odbicia używają powierzchni CCD, pełnej orientacji i różnych parry. Rzeczywiste
+  frozen decisions i kontrolowane kontynuacje poprzedzają decyzję o pozostawieniu
+  wag podań/wsparcia bez zmian. Poprawiono fizyczny shot contact, carry intent
+  oraz kickoff keeperów. Jawne potwierdzenie po wybraniu celu i techniki strzału.
+  Pozostają rzadkie groźne okazje, nadmierny recykling i ręczny smoke UI.
+  Bez kwot goli/strzałów, premii CM, automatycznych saves lub corners.
 - **PR173 — Generational Renewal & World Strength**. Zbadać ewolucję świata przez
   20–25 sezonów: sumę i średnią OVR kadr, siłę najlepszej XI, jakość pozycji i
   rozkład wieku, absolwentów akademii i uzupełnianie kadr, emerytury, blokowanie

@@ -927,6 +927,7 @@ const finishShotContact = (
       return changePossession(
         {
           ...base,
+          lastBallContact: { ...contact, postContactSpeed: 0 },
           lastShotResult: 'save',
           lastShot: {
             ...shot,
@@ -956,12 +957,23 @@ const finishShotContact = (
   const rebound = resolveBallRebound(
     contact.kind,
     { ...incoming, z: incoming.z ?? 0 },
-    shooter.team,
+    shooter,
     state.ball.spin,
+    {
+      surfaceNormal: contact.surfaceNormal,
+      point: contact.point,
+      ...(shot.goalkeeperAction && shot.goalkeeperAction !== 'catch'
+        ? { goalkeeperAction: shot.goalkeeperAction }
+        : {}),
+    },
   );
   const loose = makeLoose(
     {
       ...base,
+      lastBallContact: {
+        ...contact,
+        postContactSpeed: Math.hypot(rebound.velocity.x, rebound.velocity.y, rebound.velocity.z),
+      },
       pendingPossessionLoss: {
         id: `${state.seed}:shot-rebound:${shot.shotId}`,
         at: state.time,
@@ -1155,7 +1167,7 @@ const stepTacticalMatchCore = (
       (intent.movementMode === 'retain' && state.periodEndPending) ||
       (intent.movementMode !== 'retain' &&
         (intent.humanSelected
-          ? hasReachedCarryDecisionWaypoint(carrier, intent)
+          ? hasReachedCarryDecisionWaypoint(carrier, intent) && !deriveCarryPursuit(state, carrier)
           : distance(carrier.position, intent.target) <= 0.75))
     ) {
       const reason =
@@ -2250,7 +2262,10 @@ const stepTacticalMatchCore = (
       const shootingPlayer = continuation
         ? findMatchParticipant(state, continuation.shooterId)
         : undefined;
-      const attackingTeam = shootingPlayer?.team ?? state.possessionTeam;
+      const attackingTeam = {
+        team: shootingPlayer?.team ?? state.possessionTeam,
+        endsSwitched: state.endsSwitched,
+      };
       const goalkeeperProjection = continuation
         ? projectGoalkeeperIntervention({
             ...state,
@@ -2359,7 +2374,10 @@ const stepTacticalMatchCore = (
           y: (next.y - previous.y) / dt,
           z: (next.z - previous.z) / dt,
         };
-        const rebound = resolveBallRebound(found.kind, incoming, attackingTeam, integrated.spin);
+        const rebound = resolveBallRebound(found.kind, incoming, attackingTeam, integrated.spin, {
+          surfaceNormal: found.surfaceNormal,
+          point: found.point,
+        });
         const contact: BallContact = {
           ...found,
           at: state.time - dt + found.segmentFraction * dt,
@@ -2665,7 +2683,9 @@ const stepCanonicalMatch = (
   // A terminal penalty stays human-owned; an ordinary unplayed restart cannot delay the whistle.
   if (
     input.restart &&
-    (isRestartDecisionBoundary(input) || deriveRestartLegalReadiness(input).ready) &&
+    (isRestartDecisionBoundary(input) ||
+      (deriveRestartLegalReadiness(input).ready &&
+        input.restart.readiness?.tacticalReady !== false)) &&
     requiresHumanRestart(input, input.restart.takerId) &&
     !input.restart.selectedAction
   ) {
