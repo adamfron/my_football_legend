@@ -1,0 +1,375 @@
+{
+  "version": 1,
+  "method": "Serial 60-second canonical windows; one discarded warm-up per engine/mode, three measured samples. Alternating engine order, same original fixture. Run only after other research and verification processes finish. CPU stepping, not browser FPS.",
+  "sources": [
+    {
+      "engine": "PR172",
+      "sourceHash": "ea7fc0ae71e8b95e34516f89ef52eb7a1d24960af52f9fa8f6998ea563512003",
+      "fixtureHash": "4384698678ad37bebde50e293c6f0cfe15bd1cc0149326d26d57865775603ced"
+    },
+    {
+      "engine": "PR173",
+      "sourceHash": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+      "fixtureHash": "4384698678ad37bebde50e293c6f0cfe15bd1cc0149326d26d57865775603ced"
+    }
+  ],
+  "medians": {
+    "PR172": {
+      "plain": 1296.2095999999947,
+      "existing": 1632.6239000000023,
+      "extended": 1668.9495000000024
+    },
+    "PR173": {
+      "plain": 1389.0352999999996,
+      "existing": 1737.0793000000012,
+      "extended": 1749.8642000000036
+    }
+  },
+  "profiles": [
+    {
+      "engine": "PR172",
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 2400,
+        "sampledTicks": 65,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 10.293199999978242,
+            "estimatedMs": 380.05661538381196,
+            "sampledCalls": 65
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 10.87660000003234,
+            "estimatedMs": 401.59753846273253,
+            "sampledCalls": 65
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 0.48760000000766013,
+            "estimatedMs": 18.003692307975143,
+            "sampledCalls": 27
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 1.8641999999817926,
+            "estimatedMs": 68.83199999932772,
+            "sampledCalls": 65
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 0.5691999999980908,
+            "estimatedMs": 21.016615384544888,
+            "sampledCalls": 65
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 0.47200000003067544,
+            "estimatedMs": 17.427692308824938,
+            "sampledCalls": 65
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 3.189700000017183,
+            "estimatedMs": 117.7735384621729,
+            "sampledCalls": 65
+          },
+          {
+            "category": "canonical_step",
+            "sampledMs": 29.728599999994913,
+            "estimatedMs": 1097.6713846151968,
+            "sampledCalls": 65
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 0.7438999999940279,
+            "estimatedMs": 27.46707692285641,
+            "sampledCalls": 26
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 4.553900000035355,
+            "estimatedMs": 168.14400000130541,
+            "sampledCalls": 283
+          }
+        ]
+      }
+    },
+    {
+      "engine": "PR173",
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 37,
+        "ticks": 2400,
+        "sampledTicks": 65,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 11.92260000002716,
+            "estimatedMs": 440.21907692407973,
+            "sampledCalls": 65
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 10.116399999998976,
+            "estimatedMs": 373.5286153845775,
+            "sampledCalls": 65
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 0.5600999999951455,
+            "estimatedMs": 20.680615384436138,
+            "sampledCalls": 29
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 2.34050000004936,
+            "estimatedMs": 86.41846154028406,
+            "sampledCalls": 65
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 19.64259999999922,
+            "estimatedMs": 725.2652307692019,
+            "sampledCalls": 65
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 0.47350000000733417,
+            "estimatedMs": 17.48307692334772,
+            "sampledCalls": 65
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 3.120900000045367,
+            "estimatedMs": 115.23323077090585,
+            "sampledCalls": 65
+          },
+          {
+            "category": "canonical_step",
+            "sampledMs": 49.80170000000362,
+            "estimatedMs": 1838.8320000001336,
+            "sampledCalls": 65
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 0.8163999999960652,
+            "estimatedMs": 30.14399999985471,
+            "sampledCalls": 24
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 11.89309999987745,
+            "estimatedMs": 439.12984614932117,
+            "sampledCalls": 885
+          }
+        ]
+      }
+    }
+  ],
+  "rows": [
+    {
+      "engine": "PR173",
+      "mode": "plain",
+      "sample": 0,
+      "wallMs": 1389.0352999999996,
+      "ticks": 2400,
+      "ticksPerSecond": 1727.8178603524336,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 0,
+      "heapUsedBytes": 178256120
+    },
+    {
+      "engine": "PR173",
+      "mode": "existing",
+      "sample": 0,
+      "wallMs": 1662.131300000001,
+      "ticks": 2400,
+      "ticksPerSecond": 1443.929249151375,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 132881,
+      "heapUsedBytes": 230781048
+    },
+    {
+      "engine": "PR173",
+      "mode": "extended",
+      "sample": 0,
+      "wallMs": 1847.4614000000001,
+      "ticks": 2400,
+      "ticksPerSecond": 1299.0799158239515,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 155705,
+      "heapUsedBytes": 235345064
+    },
+    {
+      "engine": "PR172",
+      "mode": "plain",
+      "sample": 0,
+      "wallMs": 1318.3916000000027,
+      "ticks": 2400,
+      "ticksPerSecond": 1820.3999479365577,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0,
+      "heapUsedBytes": 236569056
+    },
+    {
+      "engine": "PR172",
+      "mode": "existing",
+      "sample": 0,
+      "wallMs": 1625.1059999999998,
+      "ticks": 2400,
+      "ticksPerSecond": 1476.8267423786513,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270,
+      "heapUsedBytes": 207774128
+    },
+    {
+      "engine": "PR172",
+      "mode": "extended",
+      "sample": 0,
+      "wallMs": 1780.2010999999984,
+      "ticks": 2400,
+      "ticksPerSecond": 1348.1622946980553,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 142273,
+      "heapUsedBytes": 198259536
+    },
+    {
+      "engine": "PR172",
+      "mode": "plain",
+      "sample": 1,
+      "wallMs": 1275.5875000000015,
+      "ticks": 2400,
+      "ticksPerSecond": 1881.4859819494918,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0,
+      "heapUsedBytes": 194357848
+    },
+    {
+      "engine": "PR172",
+      "mode": "existing",
+      "sample": 1,
+      "wallMs": 1632.6239000000023,
+      "ticks": 2400,
+      "ticksPerSecond": 1470.026256506472,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270,
+      "heapUsedBytes": 222326440
+    },
+    {
+      "engine": "PR172",
+      "mode": "extended",
+      "sample": 1,
+      "wallMs": 1668.9495000000024,
+      "ticks": 2400,
+      "ticksPerSecond": 1438.0303298571926,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 142273,
+      "heapUsedBytes": 199377272
+    },
+    {
+      "engine": "PR173",
+      "mode": "plain",
+      "sample": 1,
+      "wallMs": 1412.7911999999997,
+      "ticks": 2400,
+      "ticksPerSecond": 1698.7648280934936,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 0,
+      "heapUsedBytes": 260769160
+    },
+    {
+      "engine": "PR173",
+      "mode": "existing",
+      "sample": 1,
+      "wallMs": 1737.0793000000012,
+      "ticks": 2400,
+      "ticksPerSecond": 1381.6294972831686,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 132881,
+      "heapUsedBytes": 238160664
+    },
+    {
+      "engine": "PR173",
+      "mode": "extended",
+      "sample": 1,
+      "wallMs": 1732.1926999999996,
+      "ticks": 2400,
+      "ticksPerSecond": 1385.52714140869,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 155705,
+      "heapUsedBytes": 227948192
+    },
+    {
+      "engine": "PR173",
+      "mode": "plain",
+      "sample": 2,
+      "wallMs": 1344.5952000000034,
+      "ticks": 2400,
+      "ticksPerSecond": 1784.9238194513814,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 0,
+      "heapUsedBytes": 271225264
+    },
+    {
+      "engine": "PR173",
+      "mode": "existing",
+      "sample": 2,
+      "wallMs": 1896.3438000000024,
+      "ticks": 2400,
+      "ticksPerSecond": 1265.5932958991914,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 132881,
+      "heapUsedBytes": 242499232
+    },
+    {
+      "engine": "PR173",
+      "mode": "extended",
+      "sample": 2,
+      "wallMs": 1749.8642000000036,
+      "ticks": 2400,
+      "ticksPerSecond": 1371.535002544766,
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "retainedBytes": 155705,
+      "heapUsedBytes": 227540944
+    },
+    {
+      "engine": "PR172",
+      "mode": "plain",
+      "sample": 2,
+      "wallMs": 1296.2095999999947,
+      "ticks": 2400,
+      "ticksPerSecond": 1851.5524032533085,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 0,
+      "heapUsedBytes": 272469664
+    },
+    {
+      "engine": "PR172",
+      "mode": "existing",
+      "sample": 2,
+      "wallMs": 1661.7555999999968,
+      "ticks": 2400,
+      "ticksPerSecond": 1444.2557016206263,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 126270,
+      "heapUsedBytes": 226176104
+    },
+    {
+      "engine": "PR172",
+      "mode": "extended",
+      "sample": 2,
+      "wallMs": 1627.8152000000046,
+      "ticks": 2400,
+      "ticksPerSecond": 1474.3688349881445,
+      "finalStateHash": "bb02370d4bc27cafde4ddf56088a8bf8c1c40845418761d611676d9e10d5993b",
+      "retainedBytes": 142273,
+      "heapUsedBytes": 260371152
+    }
+  ],
+  "completeStateObserverEquality": true
+}

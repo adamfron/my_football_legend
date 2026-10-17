@@ -13,6 +13,8 @@ import { projectFutureBallTrajectory } from './ballPhysics';
 import { estimatePlayerArrivalTime } from './playerArrival';
 import { earliestDefenderArrival } from './passDecision';
 import { isOffsideOffence } from './offside';
+import { projectDynamicRoute } from './dynamicIntervention';
+import { deriveMovementCapability } from './locomotion';
 
 /** Planning starts only after awareness of the actual flight, not at release. A single
  * short-lived intention is revalidated at 10Hz; execution still belongs to ordinary contacts. */
@@ -58,7 +60,7 @@ export const prepareReceptionContinuation = (
     previous &&
     Math.hypot(velocity.x - previous.incomingVelocity.x, velocity.y - previous.incomingVelocity.y) >
       Math.max(5, speed * 0.65);
-  const continuation =
+  let continuation: NonNullable<TacticalMatchState['receptionPreparation']>['continuation'] =
     clearance > 3 &&
     opportunity.freeDistance >= 5 &&
     !changedFlight &&
@@ -71,6 +73,38 @@ export const prepareReceptionContinuation = (
           incomingVelocity: previous?.incomingVelocity ?? { x: velocity.x, y: velocity.y },
         }
       : undefined;
+  // Revalidate an already observed moving reception locally. Proximity alone must not
+  // discard its feasible first touch when a presser is running past it. This does not
+  // invent a new route or commit the longer carry: ordinary ranking rechecks that later.
+  const receiverSpeed = Math.hypot(receiver.velocity.x, receiver.velocity.y);
+  const technique =
+    (receiver.profile.attributes.firstTouch + receiver.profile.attributes.technique) / 200;
+  if (
+    !continuation &&
+    previous &&
+    !changedFlight &&
+    state.time < previous.expiresAt &&
+    clearance > 1.2 &&
+    receiverSpeed > 0.7 &&
+    technique >= 0.6 &&
+    speed <= preparation.readiness.maximumComfortableArrivalSpeed &&
+    state.time <= preparation.expectedArrivalTime + 0.35
+  ) {
+    const capability = deriveMovementCapability(receiver);
+    const dx = previous.target.x - meeting.x,
+      dy = previous.target.y - meeting.y;
+    const length = Math.max(0.01, Math.hypot(dx, dy));
+    const alignment =
+      (dx * receiver.velocity.x + dy * receiver.velocity.y) /
+      Math.max(0.01, length * receiverSpeed);
+    const point = clampPitchPoint({
+      x: meeting.x + (dx / length) * Math.min(3, length),
+      y: meeting.y + (dy / length) * Math.min(3, length),
+    });
+    const route = projectDynamicRoute(state, projected, point, capability.runSpeed * 0.85);
+    if (route.reachable && alignment > 0.8 && route.margin > 0.2 + (1 - awareness) * 0.35)
+      continuation = previous;
+  }
   let runOn = preparation.runOn;
   if (
     !continuation ||

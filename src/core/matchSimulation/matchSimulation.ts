@@ -1,5 +1,6 @@
 import { attacksRight } from './matchSpace';
 import { deriveCarryPursuit } from './carryPursuit';
+import { deriveGroundControlImpulse } from './ballContactGeometry';
 import { isMatchGoalkeeper, ensureMatchGoalkeepers } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup, isLiveRestartSetup, isRestartDecisionBoundary } from './restartPhase';
@@ -518,6 +519,30 @@ const changePossession = (
         : {}),
       ...(state.ball.ownerId !== ownerId ? { ballOwnershipStartedAt: state.time } : {}),
     };
+    if (reception?.kind === 'directional_control' && reception.resultingPoint) {
+      const dx = reception.resultingPoint.x - reception.contactPoint.x;
+      const dy = reception.resultingPoint.y - reception.contactPoint.y;
+      const length = Math.max(0.01, Math.hypot(dx, dy));
+      const quality = reception.quality?.score ?? 0.64;
+      const impulse = deriveGroundControlImpulse(
+        state,
+        preparedOwner,
+        { x: dx / length, y: dy / length },
+        0.72,
+        0.15 + (1 - quality) * 0.34,
+        1 - quality,
+      );
+      // A finite first-contact impulse starts at the contact, not its future waypoint.
+      next.ball = {
+        ...controlledBall,
+        ...(state.ball.spin ? { spin: { ...state.ball.spin } } : {}),
+        height: 0.11,
+        velocity: {
+          ...impulse.velocity,
+          z: 0,
+        },
+      };
+    }
     if (
       next.onBallPreparation?.plannedCarry &&
       reception &&
@@ -527,22 +552,6 @@ const changePossession = (
       // The passer's cooldown is not the receiver's readiness. An anticipated continuation
       // waits for the actual control/turn preparation, then competes in the ordinary ranking.
       next.actionCooldown = Math.max(0.12, next.onBallPreparation.readyAt - state.time);
-      if (reception.kind === 'directional_control' && reception.resultingPoint) {
-        const dx = reception.resultingPoint.x - reception.contactPoint.x;
-        const dy = reception.resultingPoint.y - reception.contactPoint.y;
-        const length = Math.max(0.01, Math.hypot(dx, dy));
-        const speed = Math.hypot(preparedOwner.velocity.x, preparedOwner.velocity.y);
-        // A finite first-contact impulse starts at the contact, not its future waypoint.
-        next.ball = {
-          ...controlledBall,
-          height: 0.11,
-          velocity: {
-            x: (dx / length) * (1.2 + speed * 0.7),
-            y: (dy / length) * (1.2 + speed * 0.7),
-            z: 0,
-          },
-        };
-      }
     }
     // A teammate reclaim restores the same team's attack. A heavy contact is not counted as
     // a loss unless an opponent actually acquires the ball or it exits for their restart.

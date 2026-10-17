@@ -1,0 +1,146 @@
+{
+  "manifest": {
+    "version": 1,
+    "stage": "F",
+    "sourceHash": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+    "node": "v24.19.0",
+    "dt": 0.025,
+    "method": "Identical frozen full states and seeded execution. Prescribed opening action, then ordinary autonomous canonical decisions for 5s. Times are seconds; distances metres. Indices are uncalibrated forecasts, not success probabilities.",
+    "harnessHash": "ae8742ead9c9e2d031a4d6baacc5b8363d1d3a45e43d190710342fe223d9ee9c"
+  },
+  "scope": "Every JSON-compatible validated canonical state field; schema-order and JSON signed-zero/undefined normalization, no hand-selected state exclusions.",
+  "rows": [
+    {
+      "scenario": "pr173-reception-pressure-1a",
+      "mirrored": false,
+      "checkpoints": [
+        {
+          "at": 20,
+          "nextHash": "63563e9cc2552eda44692a01482dac8654b2bcb0ad01677ee64cb1de4f5b0afb"
+        },
+        {
+          "at": 20.49999999999997,
+          "nextHash": "e41d3836cdf734f523bd2f1ae583a08b80c16c823d21ae72a294b61ea5f1b6bf"
+        },
+        {
+          "at": 20.999999999999943,
+          "nextHash": "85e3b19f21d2ea0c8c0763b2ae2e5c97506c9adcc4527a26805b0bdcb5ce0948"
+        },
+        {
+          "at": 21.499999999999915,
+          "nextHash": "a99e3e8dd826fce247b7d8fa164895668359e52cc95d760b99a439280263a928"
+        }
+      ]
+    },
+    {
+      "scenario": "pr173-reception-pressure-1a",
+      "mirrored": true,
+      "checkpoints": [
+        {
+          "at": 20,
+          "nextHash": "a362dd490ac5f5bec22deaae2732930b45560bd6a79a2b79a2af3631507f5d21"
+        },
+        {
+          "at": 20.49999999999997,
+          "nextHash": "bdc7eb90a1793d15e0fa4f031b00fe0ec1b1f62f343c76e0dd56942476971f65"
+        },
+        {
+          "at": 20.999999999999943,
+          "nextHash": "9fd01830b2d42d57e46407676b23687e798e48047482172e7c797df67d18e4c4"
+        },
+        {
+          "at": 21.499999999999915,
+          "nextHash": "a27134f774bf3d0f98fb10b1a9e102cfdfdeef93eb454aefe8091e6ae6647342"
+        }
+      ]
+    },
+    {
+      "scenario": "pr173-winger-cut-1b",
+      "mirrored": false,
+      "checkpoints": [
+        {
+          "at": 20,
+          "nextHash": "95b6f33d552ee57092dadf5c40b70fd9140f607489696a5873262b36c014eabc"
+        },
+        {
+          "at": 20.49999999999997,
+          "nextHash": "1338c9d1edf6fdd46e2bda36d109be187e575a9aba15108cb92d4e7c73f8b904"
+        },
+        {
+          "at": 20.999999999999943,
+          "nextHash": "3cd918452358f6a7e9adb7e40f5df75d31b9d05a1aff5dd5e98545c24dc4496f"
+        },
+        {
+          "at": 21.499999999999915,
+          "nextHash": "747a8726a2d1625453b23ff4a76945d08b71cf9c0fd9c834cb7323a18a7fcac4"
+        }
+      ]
+    },
+    {
+      "scenario": "pr173-winger-cut-1b",
+      "mirrored": true,
+      "checkpoints": [
+        {
+          "at": 20,
+          "nextHash": "21cab7d82fc0cc6b4d0d842420d889362781512933823383b9694cb5124bc2de"
+        },
+        {
+          "at": 20.49999999999997,
+          "nextHash": "0195b1a000929798fca72b2bfe422d6d7752150789164f6398b43acbbdfda23b"
+        },
+        {
+          "at": 20.999999999999943,
+          "nextHash": "6b45bcb21896ee09e7636df0559f8f315aee404eca623368988791f394330c5f"
+        },
+        {
+          "at": 21.499999999999915,
+          "nextHash": "80ce0a5cef1f6b072ad82c94e12c9385abc599538d73f6a9a4edcd6507bbcb00"
+        }
+      ]
+    },
+    {
+      "scenario": "pr173-momentum-duel-2a",
+      "mirrored": false,
+      "checkpoints": [
+        {
+          "at": 20,
+          "nextHash": "a1afc2fa6b127e5bb0cd904a4654940d37b0e571eab93d8ed320416263b3e8ae"
+        },
+        {
+          "at": 20.49999999999997,
+          "nextHash": "9f82d19af7d6d4a4ab815db9d40a3191cfed94284836ff6acb858c6c69e31362"
+        },
+        {
+          "at": 20.999999999999943,
+          "nextHash": "2d795d8e21b854ad22fe857f682b2630c1f13d2f3293c85acf758ae721967ec3"
+        },
+        {
+          "at": 21.499999999999915,
+          "nextHash": "bef6f795e42805cb8c9aae2465892ce7739803f87d0baf5df0d36833b26c0af7"
+        }
+      ]
+    },
+    {
+      "scenario": "pr173-momentum-duel-2a",
+      "mirrored": true,
+      "checkpoints": [
+        {
+          "at": 20,
+          "nextHash": "0a1097f65941c52996140017c830c1eeefbe0cf2e85af5124298348376f1d8c5"
+        },
+        {
+          "at": 20.49999999999997,
+          "nextHash": "3ca8af99f7450e3f3f70440164013fae392fcdab4d980196d9c17fcff332d5aa"
+        },
+        {
+          "at": 20.999999999999943,
+          "nextHash": "6ef2e379998ae6fe128f531d7648d240354070a8ca3b2d8e86659818919d91b1"
+        },
+        {
+          "at": 21.499999999999915,
+          "nextHash": "caa73aea59008bf1c1b99565bca3b1af6fa97fafad60d4de23cace3f788fb700"
+        }
+      ]
+    }
+  ]
+}
