@@ -229,11 +229,13 @@ export const humanPossessionRedecisionReason = (state: TacticalMatchState): stri
   const episode = state.humanPossessionEpisode!;
   const actor = state.players.find((player) => player.id === episode.actorId)!;
   const carry = state.ballCarrierIntent;
+  const pursuing = Boolean(deriveCarryPursuit(state, actor));
   if (
     carry?.humanSelected &&
     carry.actorId === actor.id &&
     episode.intent !== 'retain' &&
-    hasReachedCarryDecisionWaypoint(actor, carry)
+    hasReachedCarryDecisionWaypoint(actor, carry) &&
+    !pursuing
   )
     return 'carry_decision_waypoint';
   const now = derivePossessionDecisionContext(state, actor.id);
@@ -292,6 +294,6 @@ export const humanPossessionRedecisionReason = (state: TacticalMatchState): stri
     now.supportReceiverIds?.some((id) => !before.supportReceiverIds!.includes(id))
   )
     return 'support_outlet_available';
-  if (now.touchDistance >= 1.8 && now.touchDistance - before.touchDistance >= 0.9)
+  if (!pursuing && now.touchDistance >= 1.8 && now.touchDistance - before.touchDistance >= 0.9)
     return 'heavy_touch';
 };

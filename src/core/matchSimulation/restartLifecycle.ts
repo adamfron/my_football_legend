@@ -2,8 +2,16 @@ import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { RandomGenerator } from '../random/RandomGenerator';
 import type { MatchAction, TacticalMatchState } from './matchState';
 import { attacksRight, clampPitchPoint, distance, type PitchPoint } from './matchSpace';
-import { deriveRestartGeometry, deriveRestartMovementTargets } from './restartGeometry';
-import { deriveRestartLegalReadiness, legalizeRestartPlayerTarget } from './restartLaws';
+import {
+  deriveRestartGeometry,
+  deriveRestartMovementTargets,
+  reconcileRestartWallTargets,
+} from './restartGeometry';
+import {
+  deriveRestartLegalReadiness,
+  legalizeRestartPlayerTarget,
+  areKickoffGoalkeepersReady,
+} from './restartLaws';
 import { isLiveRestartSetup, isRestartSetup } from './restartPhase';
 import { isHumanControlled } from './actionAgency';
 import { integrateBallFlight } from './ballPhysics';
@@ -169,7 +177,9 @@ export const selectRestartAction = (
 };
 
 export const prepareRestartMovement = (input: TacticalMatchState): TacticalMatchState => {
-  let state = invalidateObsoleteRestartSelection(replaceUnavailableRestartTaker(input));
+  let state = reconcileRestartWallTargets(
+    invalidateObsoleteRestartSelection(replaceUnavailableRestartTaker(input)),
+  );
   const restart = state.restart;
   if (!restart || !isLiveRestartSetup(state)) return state;
   if (
@@ -467,16 +477,23 @@ export const advanceRestartPlacement = (
   const action = next.restart!.selectedAction;
   const receivingId = action?.type === 'cross' ? action.intendedTargetId : undefined;
   const receiver = receivingId && next.players.find((p) => p.id === receivingId);
-  const tacticalReady =
+  const receiverReady =
     !receiver ||
     !action ||
     !('target' in action) ||
     distance(receiver.position, action.target) <= 9;
-  const blockers = [...legal.blockers, ...(!tacticalReady ? ['delivery_receiver_developing'] : [])];
+  const keepersReady = areKickoffGoalkeepersReady(next);
+  const tacticalReady = receiverReady && keepersReady;
+  const blockers = [
+    ...legal.blockers,
+    ...(!receiverReady ? ['delivery_receiver_developing'] : []),
+    ...(!keepersReady ? ['kickoff_goalkeeper_developing'] : []),
+  ];
   let phase = next.restart!.phase;
   if (
     !action &&
     legal.ready &&
+    tacticalReady &&
     isHumanControlled(next, next.restart!.takerId) &&
     next.scenario !== 'throw_in'
   )

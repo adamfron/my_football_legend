@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "manifest": {
+    "baseCommit": "6b2ddaa9ae14c2ca98a078b85b69b202b812196f",
+    "sourceHash": "ea7fc0ae71e8b95e34516f89ef52eb7a1d24960af52f9fa8f6998ea563512003",
+    "fixedDt": 0.025,
+    "node": "v24.19.0",
+    "scope": "sourceHash identifies measured working tree; baseCommit is its parent, not a claim of an unmodified checkout"
+  },
+  "fullMatches": [
+    {
+      "fixture": {
+        "family": "youth_native",
+        "seed": "pr171-a:youth_native",
+        "reversed": false,
+        "fixtureHash": "9f6d9dc8f5f73e23d5c9507f614cbe77c108402d9eb98ad1de4976bb8e3ad38a",
+        "home": {
+          "id": "club_vistula_nova",
+          "formation": "4-3-3",
+          "strength": 48,
+          "style": "possession"
+        },
+        "away": {
+          "id": "u17_pro_60",
+          "formation": "4-3-3",
+          "strength": 47,
+          "style": "possession"
+        }
+      },
+      "manifest": {
+        "version": 1,
+        "baseCommit": "6b2ddaa9ae14c2ca98a078b85b69b202b812196f",
+        "sourceHash": "ea7fc0ae71e8b95e34516f89ef52eb7a1d24960af52f9fa8f6998ea563512003",
+        "harnessHash": "1a5c67a6e20234f2cb2510c3c98dc42eeff05ab053efbf732790ff20d84d4413",
+        "fixedDt": 0.025,
+        "node": "v24.19.0",
+        "secondsLimit": 7200,
+        "observer": "existing attacking/continuation/passing trackers; opt-in audit extension"
+      },
+      "initialStateHash": "d2f42a7232d84c5e8be665141cb53fa0060df13112e18ec6eaeb68165cc7f48b",
+      "finalStateHash": "6f5f1dc860ee700f4d37a3a4daa09c0ac4715498e73e131d54d8e986f02d2851",
+      "status": "full_time",
+      "time": 5462.0249999852,
+      "ticks": 218481,
+      "completeCanonicalStateEqual": true
+    },
+    {
+      "fixture": {
+        "family": "youth_native",
+        "seed": "pr171-a:youth_native",
+        "reversed": true,
+        "fixtureHash": "8bec80f162d7e184f839876b84d3ded911f16b7da263def88c026c028c6aa17f",
+        "home": {
+          "id": "u17_pro_60",
+          "formation": "4-3-3",
+          "strength": 47,
+          "style": "possession"
+        },
+        "away": {
+          "id": "club_vistula_nova",
+          "formation": "4-3-3",
+          "strength": 48,
+          "style": "possession"
+        }
+      },
+      "manifest": {
+        "version": 1,
+        "baseCommit": "6b2ddaa9ae14c2ca98a078b85b69b202b812196f",
+        "sourceHash": "ea7fc0ae71e8b95e34516f89ef52eb7a1d24960af52f9fa8f6998ea563512003",
+        "harnessHash": "1a5c67a6e20234f2cb2510c3c98dc42eeff05ab053efbf732790ff20d84d4413",
+        "fixedDt": 0.025,
+        "node": "v24.19.0",
+        "secondsLimit": 7200,
+        "observer": "existing attacking/continuation/passing trackers; opt-in audit extension"
+      },
+      "initialStateHash": "3409fb8b1c087d6cf039b7e41e4d085096a8706fac45c3f7a42bca8fc04b9637",
+      "finalStateHash": "d81845503adc1040a19e2bc294e6b2eb6ada9d6ec899e29e85fecd1331559afa",
+      "status": "full_time",
+      "time": 5598.824999982773,
+      "ticks": 223953,
+      "completeCanonicalStateEqual": true
+    }
+  ],
+  "researchLoader": {
+    "scope": "60 canonical seconds, central_possession, original orientation; not a full-match loader test",
+    "initialStateHash": "06d68a1174b252fc03ec6dd9c65e0ab21576ac32888b0f5f0649c0c619e59fa4",
+    "finalStateHash": "d3083779328e215b3a7e4af79c10b33db5f3aa3effe7920c43916130974f6e9d",
+    "seconds": 60.02499999999766,
+    "completeCanonicalStateEqual": true,
+    "modes": [
+      "plain",
+      "existing observers with audit",
+      "decision-component Node loader"
+    ]
+  },
+  "recoveries": [
+    {
+      "name": "pr171-failure-false.json",
+      "initialHash": "2f2d4f4bc64588a7eeb2da5c5ccd348d81431ab301bfbbb48fc691e1eb28d900",
+      "finalHash": "594ea0355c28822654491267e2381a62416ef4d213dd23e7c245a8b726fa20e8",
+      "status": "full_time",
+      "time": 5520.02500000544,
+      "ticks": 36178,
+      "reloadChecks": 7,
+      "release": {
+        "at": 4616.575000002943,
+        "latency": 0.9749999999858119,
+        "award": "pr171-a:strong_weak:restart:4614.225000002977:away:free_kick_far",
+        "legal": {
+          "ballReady": true,
+          "takerReady": true,
+          "legalReady": true,
+          "tacticalReady": true,
+          "blockers": []
+        },
+        "requiredEndAt": 5400.02500000544
+      }
+    },
+    {
+      "name": "pr171-failure-true.json",
+      "initialHash": "c2c61924bbc644749049a387cc36ec9cc183d5113592a6ce5a2df3590243fe6f",
+      "finalHash": "0e4e4023ca9559b027fb1b39e2e0fe95d93165f3972c683254ce0f5c38358b89",
+      "status": "full_time",
+      "time": 5522.275000005666,
+      "ticks": 30127,
+      "reloadChecks": 6,
+      "release": {
+        "at": 4775.925000000624,
+        "latency": 6.799999999901047,
+        "award": "pr171-a:strong_weak:restart:4767.900000000741:home:free_kick_far",
+        "legal": {
+          "ballReady": true,
+          "takerReady": true,
+          "legalReady": true,
+          "tacticalReady": true,
+          "blockers": []
+        },
+        "requiredEndAt": 5462.275000005666
+      }
+    },
+    {
+      "name": "pr171-censored-central_possession-true.json",
+      "initialHash": "f7a6b63585db0cc3b09246c5967323534b3cc9e74c1fc11fc97ef27ee522bebf",
+      "finalHash": "d74178d7cc2d4695883a6b6a445db7f94c36ec86c452d2c1d977cc63bd42798b",
+      "status": "full_time",
+      "time": 12283.874999918235,
+      "ticks": 203355,
+      "reloadChecks": 34,
+      "release": {
+        "at": 7200.574999965341,
+        "latency": 0.5499999999919964,
+        "award": "pr171-b:central_possession:restart:489.2249999998289:home:free_kick_wide",
+        "legal": {
+          "ballReady": true,
+          "takerReady": true,
+          "legalReady": true,
+          "tacticalReady": true,
+          "blockers": []
+        },
+        "requiredEndAt": 9420.5999999599
+      }
+    },
+    {
+      "name": "pr171-censored-press_low-false.json",
+      "initialHash": "5db9482e8134e59ed6efd7a7dd31ac5cd5597a9fa7a19762205c47482cbb5a64",
+      "finalHash": "97f96925b2eff9680e824e4f183b1889bae379569cd215bf9857422c945b1d71",
+      "status": "full_time",
+      "time": 7381.499999981423,
+      "ticks": 7260,
+      "reloadChecks": 2,
+      "release": {
+        "at": 7201.499999965327,
+        "latency": 1.474999999978536,
+        "award": "pr171-b:press_low:restart:5432.549999991069:away:free_kick_wide",
+        "legal": {
+          "ballReady": true,
+          "takerReady": true,
+          "legalReady": true,
+          "tacticalReady": true,
+          "blockers": []
+        },
+        "requiredEndAt": 7381.499999981423
+      }
+    }
+  ],
+  "frozenTacticsReplay": {
+    "baselineCommit": "6b2ddaa9ae14c2ca98a078b85b69b202b812196f",
+    "states": 40,
+    "continuations": 267,
+    "allRankingsAndContinuationsExactlyEqual": true,
+    "scope": "Exact same frozen inputs in PR171 and final PR172; not a statement that natural match trajectories are unchanged"
+  }
+}

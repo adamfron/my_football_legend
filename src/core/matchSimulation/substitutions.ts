@@ -12,6 +12,7 @@ import { deriveRestartGeometry } from './restartGeometry';
 import { replaceUnavailableRestartTaker } from './restartLifecycle';
 import { isRestartSetup } from './restartPhase';
 import { beginStoppage } from './stoppageLedger';
+import { ensureMatchGoalkeepers } from './matchGoalkeeper';
 import {
   createMatchFitness,
   matchFitnessSchema,
@@ -713,6 +714,9 @@ export const advanceMatchSubstitutions = (
     pending.push(request);
   }
   state = { ...state, substitutionState: { ...current, pending, completed } };
+  // Entry completes the temporary handover before any consumer partitions the XI into
+  // keeper/outfield roles. In particular restart geometry must never see both appointments.
+  state = ensureMatchGoalkeepers(state);
   state = replaceUnavailableRestartTaker(state);
   if (
     completed.length !== current.completed.length &&

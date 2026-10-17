@@ -3,13 +3,19 @@ import process from 'node:process';
 import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-const input = resolve('../pr171-full');
+const argument = (key) =>
+  process.argv.find((a) => a.startsWith(`--${key}=`))?.slice(key.length + 3);
+const input = resolve(argument('input-dir') ?? '../pr171-full');
+const receiptPrefix = argument('receipt-prefix') ?? 'PR171';
+if (!/^PR\d+(-after)?$/.test(receiptPrefix)) throw new Error('Invalid receipt prefix');
+const minimumMatches = Number(argument('minimum-matches') ?? 14);
+if (!Number.isInteger(minimumMatches) || minimumMatches < 1) throw new Error('Invalid minimum');
 const paths = readdirSync(input)
   .filter((p) => p.startsWith('cohort-') && p.endsWith('.json'))
   .sort();
-if (paths.length < 14 && !process.argv.includes('--partial'))
+if (paths.length < minimumMatches && !process.argv.includes('--partial'))
   throw new Error(
-    `Expected fourteen completed/censored main-cohort receipts, found ${paths.length}`,
+    `Expected ${minimumMatches} completed/censored main-cohort receipts, found ${paths.length}`,
   );
 const all = paths.map((path) => ({
   path,
@@ -54,7 +60,7 @@ const sumMaps = (maps) => {
   return result;
 };
 const save = (name, payload) =>
-  writeFileSync(`docs/performance/PR171-${name}.json`, JSON.stringify(payload, null, 2));
+  writeFileSync(`docs/performance/${receiptPrefix}-${name}.json`, JSON.stringify(payload, null, 2));
 const teamRows = [],
   funnelRows = [],
   midfieldRows = [];

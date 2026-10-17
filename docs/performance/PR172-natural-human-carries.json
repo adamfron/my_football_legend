@@ -1,0 +1,737 @@
+{
+  "version": 1,
+  "manifest": {
+    "baseCommit": "6b2ddaa9ae14c2ca98a078b85b69b202b812196f",
+    "sourceHash": "ea7fc0ae71e8b95e34516f89ef52eb7a1d24960af52f9fa8f6998ea563512003",
+    "fixedDt": 0.025,
+    "node": "v24.19.0",
+    "scope": "sourceHash identifies measured working tree; baseCommit is its parent, not a claim of an unmodified checkout"
+  },
+  "scope": "Four frozen genuine autonomous carry decisions with the same geometry and selected action; only human ownership is activated for both engines. Stops at the first real human prompt, opponent control or restart. No automatic choice is made at a pending prompt.",
+  "rows": [
+    {
+      "id": "central_possession:35.62499999999905:footballer_pro_10_22",
+      "category": "counterattack",
+      "initialHash": "65ebd5fda848a540bc2ad5b07be9094231ee4688796de74810d2ad654b1462f3",
+      "runs": [
+        {
+          "engine": "PR171",
+          "firstPrompt": {
+            "at": 38.1749999999989,
+            "elapsed": 2.549999999999855,
+            "probe": {
+              "actorId": "footballer_pro_10_22",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 19,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet",
+                "lead_pass"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.8104066121897927,
+              "signature": "on_ball:12:footballer_pro_10_22:34.54999999999911:positional_attack:2:3:carry_decision_waypoint",
+              "roleProfile": "forward",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_10_22",
+            "ball": {
+              "x": 39.00065427709145,
+              "y": 27.46118105330035,
+              "ownerId": "footballer_pro_10_22",
+              "lastTouchPlayerId": "footballer_pro_10_22",
+              "velocity": {
+                "x": -4.402278698010355,
+                "y": 1.2728289180029644,
+                "z": 0
+              },
+              "height": 0,
+              "airborne": false
+            },
+            "position": {
+              "x": 39.81533545863659,
+              "y": 27.225632623905916
+            }
+          },
+          "contacts": 11,
+          "time": 38.1749999999989,
+          "ownerId": "footballer_pro_10_22",
+          "carry": {
+            "actorId": "footballer_pro_10_22",
+            "type": "carry",
+            "target": {
+              "x": 38.362235662664986,
+              "y": 27.64576673665408
+            },
+            "startedAt": 35.62499999999905,
+            "estimatedArrival": 10.000000000000075,
+            "startPosition": {
+              "x": 48.362235662664986,
+              "y": 24.22425651792935
+            },
+            "closestPointReached": {
+              "x": 39.924724053874264,
+              "y": 27.194005146885853
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 35.62499999999905,
+            "expiresAt": 46.87499999999912,
+            "executionMode": "controlled",
+            "modeSince": 36.29999999999901,
+            "localTarget": {
+              "x": 38.362235662664986,
+              "y": 27.64576673665408
+            },
+            "touchDistance": 0.72,
+            "pursuingBall": false
+          },
+          "loss": {
+            "to": "away",
+            "cause": "interception",
+            "winnerId": "footballer_pro_10_22",
+            "loserId": "footballer_pro_9_14",
+            "passId": "pr171-b:central_possession:pass:10:footballer_pro_9_14",
+            "id": "pr171-b:central_possession:loss:acquisition:34.550000:footballer_pro_10_22",
+            "at": 34.54999999999911,
+            "from": "home",
+            "position": {
+              "x": 47.75788552065908,
+              "y": 25.284264533607058
+            }
+          }
+        },
+        {
+          "engine": "PR172",
+          "firstPrompt": {
+            "at": 38.1749999999989,
+            "elapsed": 2.549999999999855,
+            "probe": {
+              "actorId": "footballer_pro_10_22",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 19,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet",
+                "lead_pass"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.8104066121897927,
+              "signature": "on_ball:12:footballer_pro_10_22:34.54999999999911:positional_attack:2:3:carry_decision_waypoint",
+              "roleProfile": "forward",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_10_22",
+            "ball": {
+              "x": 39.00065427709145,
+              "y": 27.46118105330035,
+              "ownerId": "footballer_pro_10_22",
+              "lastTouchPlayerId": "footballer_pro_10_22",
+              "velocity": {
+                "x": -4.402278698010355,
+                "y": 1.2728289180029644,
+                "z": 0
+              },
+              "height": 0,
+              "airborne": false
+            },
+            "position": {
+              "x": 39.81533545863659,
+              "y": 27.225632623905916
+            }
+          },
+          "contacts": 11,
+          "time": 38.1749999999989,
+          "ownerId": "footballer_pro_10_22",
+          "carry": {
+            "actorId": "footballer_pro_10_22",
+            "type": "carry",
+            "target": {
+              "x": 38.362235662664986,
+              "y": 27.64576673665408
+            },
+            "startedAt": 35.62499999999905,
+            "estimatedArrival": 10.000000000000075,
+            "startPosition": {
+              "x": 48.362235662664986,
+              "y": 24.22425651792935
+            },
+            "closestPointReached": {
+              "x": 39.924724053874264,
+              "y": 27.194005146885853
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 35.62499999999905,
+            "expiresAt": 46.87499999999912,
+            "executionMode": "controlled",
+            "modeSince": 36.29999999999901,
+            "localTarget": {
+              "x": 38.362235662664986,
+              "y": 27.64576673665408
+            },
+            "touchDistance": 0.72,
+            "pursuingBall": false
+          },
+          "loss": {
+            "to": "away",
+            "cause": "interception",
+            "winnerId": "footballer_pro_10_22",
+            "loserId": "footballer_pro_9_14",
+            "passId": "pr171-b:central_possession:pass:10:footballer_pro_9_14",
+            "id": "pr171-b:central_possession:loss:acquisition:34.550000:footballer_pro_10_22",
+            "at": 34.54999999999911,
+            "from": "home",
+            "position": {
+              "x": 47.75788552065908,
+              "y": 25.284264533607058
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "central_possession:36.94999999999897:footballer_pro_10_22",
+      "category": "attacking_midfield",
+      "initialHash": "819fa1675130f0e45d668431d4c28ba54006744f9e733d0bc6c782b72ee37918",
+      "runs": [
+        {
+          "engine": "PR171",
+          "firstPrompt": {
+            "at": 38.824999999998866,
+            "elapsed": 1.8749999999998934,
+            "probe": {
+              "actorId": "footballer_pro_10_22",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 18,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.8180913260175096,
+              "signature": "on_ball:13:footballer_pro_10_22:34.54999999999911:positional_attack:2:3:carry_decision_waypoint",
+              "roleProfile": "forward",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_10_22",
+            "ball": {
+              "x": 36.01619150116021,
+              "y": 28.36960144413309,
+              "ownerId": "footballer_pro_10_22",
+              "lastTouchPlayerId": "footballer_pro_10_22",
+              "velocity": {
+                "x": -4.394666388152549,
+                "y": 1.2918703621584673,
+                "z": 0
+              },
+              "height": 0,
+              "airborne": false
+            },
+            "position": {
+              "x": 36.88155819217311,
+              "y": 28.115215413321696
+            }
+          },
+          "contacts": 8,
+          "time": 38.824999999998866,
+          "ownerId": "footballer_pro_10_22",
+          "carry": {
+            "actorId": "footballer_pro_10_22",
+            "type": "carry",
+            "target": {
+              "x": 35.43421201074296,
+              "y": 28.540682036789846
+            },
+            "startedAt": 36.94999999999897,
+            "estimatedArrival": 2.024999999999997,
+            "startPosition": {
+              "x": 45.43421201074296,
+              "y": 25.601049287368994
+            },
+            "closestPointReached": {
+              "x": 36.97667092329324,
+              "y": 28.08725576339294
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 36.94999999999897,
+            "expiresAt": 40.22499999999897,
+            "executionMode": "tight_dribble",
+            "modeSince": 38.72499999999887,
+            "localTarget": {
+              "x": 35.43421201074296,
+              "y": 28.540682036789846
+            },
+            "touchDistance": 0.38,
+            "pursuingBall": false
+          },
+          "loss": {
+            "to": "away",
+            "cause": "interception",
+            "winnerId": "footballer_pro_10_22",
+            "loserId": "footballer_pro_9_14",
+            "passId": "pr171-b:central_possession:pass:10:footballer_pro_9_14",
+            "id": "pr171-b:central_possession:loss:acquisition:34.550000:footballer_pro_10_22",
+            "at": 34.54999999999911,
+            "from": "home",
+            "position": {
+              "x": 47.75788552065908,
+              "y": 25.284264533607058
+            }
+          }
+        },
+        {
+          "engine": "PR172",
+          "firstPrompt": {
+            "at": 38.824999999998866,
+            "elapsed": 1.8749999999998934,
+            "probe": {
+              "actorId": "footballer_pro_10_22",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 18,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.8180913260175096,
+              "signature": "on_ball:13:footballer_pro_10_22:34.54999999999911:positional_attack:2:3:carry_decision_waypoint",
+              "roleProfile": "forward",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_10_22",
+            "ball": {
+              "x": 36.01619150116021,
+              "y": 28.36960144413309,
+              "ownerId": "footballer_pro_10_22",
+              "lastTouchPlayerId": "footballer_pro_10_22",
+              "velocity": {
+                "x": -4.394666388152549,
+                "y": 1.2918703621584673,
+                "z": 0
+              },
+              "height": 0,
+              "airborne": false
+            },
+            "position": {
+              "x": 36.88155819217311,
+              "y": 28.115215413321696
+            }
+          },
+          "contacts": 8,
+          "time": 38.824999999998866,
+          "ownerId": "footballer_pro_10_22",
+          "carry": {
+            "actorId": "footballer_pro_10_22",
+            "type": "carry",
+            "target": {
+              "x": 35.43421201074296,
+              "y": 28.540682036789846
+            },
+            "startedAt": 36.94999999999897,
+            "estimatedArrival": 2.024999999999997,
+            "startPosition": {
+              "x": 45.43421201074296,
+              "y": 25.601049287368994
+            },
+            "closestPointReached": {
+              "x": 36.97667092329324,
+              "y": 28.08725576339294
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 36.94999999999897,
+            "expiresAt": 40.22499999999897,
+            "executionMode": "tight_dribble",
+            "modeSince": 38.72499999999887,
+            "localTarget": {
+              "x": 35.43421201074296,
+              "y": 28.540682036789846
+            },
+            "touchDistance": 0.38,
+            "pursuingBall": false
+          },
+          "loss": {
+            "to": "away",
+            "cause": "interception",
+            "winnerId": "footballer_pro_10_22",
+            "loserId": "footballer_pro_9_14",
+            "passId": "pr171-b:central_possession:pass:10:footballer_pro_9_14",
+            "id": "pr171-b:central_possession:loss:acquisition:34.550000:footballer_pro_10_22",
+            "at": 34.54999999999911,
+            "from": "home",
+            "position": {
+              "x": 47.75788552065908,
+              "y": 25.284264533607058
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "central_possession:38.2749999999989:footballer_pro_10_22",
+      "category": "attacking_midfield",
+      "initialHash": "f2168048f1f30dafbc06f2bfd743bad68ca9925e7515aadf2356c8ff03244b90",
+      "runs": [
+        {
+          "engine": "PR171",
+          "firstPrompt": {
+            "at": 39.29999999999884,
+            "elapsed": 1.0249999999999417,
+            "probe": {
+              "actorId": "footballer_pro_10_22",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 17,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.7981985625091336,
+              "signature": "on_ball:14:footballer_pro_10_22:34.54999999999911:positional_attack:2:3:attacking_zone",
+              "roleProfile": "forward",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_10_22",
+            "ball": {
+              "x": 34.395275994004464,
+              "y": 28.53754656653794,
+              "ownerId": "footballer_pro_10_22",
+              "lastTouchPlayerId": "footballer_pro_10_22",
+              "velocity": {
+                "x": -1.4571537022783767,
+                "y": 0.3379811644067581,
+                "z": 0
+              },
+              "height": 0,
+              "airborne": false
+            },
+            "position": {
+              "x": 34.97968454139887,
+              "y": 28.40396820353385
+            }
+          },
+          "contacts": 4,
+          "time": 39.29999999999884,
+          "ownerId": "footballer_pro_10_22",
+          "carry": {
+            "actorId": "footballer_pro_10_22",
+            "type": "carry",
+            "target": {
+              "x": 29.345834061777133,
+              "y": 29.704025725415907
+            },
+            "startedAt": 38.2749999999989,
+            "estimatedArrival": 1.999999999999997,
+            "startPosition": {
+              "x": 39.34583406177713,
+              "y": 27.390808808332164
+            },
+            "closestPointReached": {
+              "x": 35.0410804482018,
+              "y": 28.388321378169966
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 38.2749999999989,
+            "expiresAt": 41.5249999999989,
+            "executionMode": "evade",
+            "modeSince": 39.29999999999884,
+            "localTarget": {
+              "x": 36.187698755733294,
+              "y": 29.28210589153921
+            },
+            "touchDistance": 0.5,
+            "pursuingBall": false
+          },
+          "loss": {
+            "to": "away",
+            "cause": "interception",
+            "winnerId": "footballer_pro_10_22",
+            "loserId": "footballer_pro_9_14",
+            "passId": "pr171-b:central_possession:pass:10:footballer_pro_9_14",
+            "id": "pr171-b:central_possession:loss:acquisition:34.550000:footballer_pro_10_22",
+            "at": 34.54999999999911,
+            "from": "home",
+            "position": {
+              "x": 47.75788552065908,
+              "y": 25.284264533607058
+            }
+          }
+        },
+        {
+          "engine": "PR172",
+          "firstPrompt": {
+            "at": 39.29999999999884,
+            "elapsed": 1.0249999999999417,
+            "probe": {
+              "actorId": "footballer_pro_10_22",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 17,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.7981985625091336,
+              "signature": "on_ball:14:footballer_pro_10_22:34.54999999999911:positional_attack:2:3:attacking_zone",
+              "roleProfile": "forward",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_10_22",
+            "ball": {
+              "x": 34.395275994004464,
+              "y": 28.53754656653794,
+              "ownerId": "footballer_pro_10_22",
+              "lastTouchPlayerId": "footballer_pro_10_22",
+              "velocity": {
+                "x": -1.4571537022783767,
+                "y": 0.3379811644067581,
+                "z": 0
+              },
+              "height": 0,
+              "airborne": false
+            },
+            "position": {
+              "x": 34.97968454139887,
+              "y": 28.40396820353385
+            }
+          },
+          "contacts": 4,
+          "time": 39.29999999999884,
+          "ownerId": "footballer_pro_10_22",
+          "carry": {
+            "actorId": "footballer_pro_10_22",
+            "type": "carry",
+            "target": {
+              "x": 29.345834061777133,
+              "y": 29.704025725415907
+            },
+            "startedAt": 38.2749999999989,
+            "estimatedArrival": 1.999999999999997,
+            "startPosition": {
+              "x": 39.34583406177713,
+              "y": 27.390808808332164
+            },
+            "closestPointReached": {
+              "x": 35.0410804482018,
+              "y": 28.388321378169966
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 38.2749999999989,
+            "expiresAt": 41.5249999999989,
+            "executionMode": "evade",
+            "modeSince": 39.29999999999884,
+            "localTarget": {
+              "x": 36.187698755733294,
+              "y": 29.28210589153921
+            },
+            "touchDistance": 0.5,
+            "pursuingBall": false
+          },
+          "loss": {
+            "to": "away",
+            "cause": "interception",
+            "winnerId": "footballer_pro_10_22",
+            "loserId": "footballer_pro_9_14",
+            "passId": "pr171-b:central_possession:pass:10:footballer_pro_9_14",
+            "id": "pr171-b:central_possession:loss:acquisition:34.550000:footballer_pro_10_22",
+            "at": 34.54999999999911,
+            "from": "home",
+            "position": {
+              "x": 47.75788552065908,
+              "y": 25.284264533607058
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "wide_direct:93.47500000000413:footballer_pro_9_7:turnover",
+      "category": "pre_turnover",
+      "initialHash": "0bc209de91df8f0ba1d9559b6799b0284ab97bc401eb82b1f06d54269a8624eb",
+      "runs": [
+        {
+          "engine": "PR171",
+          "firstPrompt": {
+            "at": 94.27500000000431,
+            "elapsed": 0.8000000000001819,
+            "probe": {
+              "actorId": "footballer_pro_9_7",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 17,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.6956571163920883,
+              "signature": "on_ball:46:footballer_pro_9_7:90.45000000000344:set_piece_attack:2:2:possession_contested",
+              "roleProfile": "defender",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_9_7",
+            "ball": {
+              "x": 69.29064997515867,
+              "y": 13.477748708865553,
+              "ownerId": "footballer_pro_9_7",
+              "lastTouchPlayerId": "footballer_pro_9_7",
+              "height": 0,
+              "velocity": {
+                "x": 1.8097340627106469,
+                "y": -2.6625470481430287,
+                "z": 0
+              },
+              "airborne": false
+            },
+            "position": {
+              "x": 68.73457014577065,
+              "y": 13.469528013753743
+            }
+          },
+          "contacts": 4,
+          "time": 94.27500000000431,
+          "ownerId": "footballer_pro_9_7",
+          "carry": {
+            "actorId": "footballer_pro_9_7",
+            "type": "carry",
+            "target": {
+              "x": 75.93609525635485,
+              "y": 19.970517888061188
+            },
+            "startedAt": 93.47500000000413,
+            "estimatedArrival": 2.799999999999994,
+            "startPosition": {
+              "x": 65.93609525635485,
+              "y": 12.416181366247983
+            },
+            "closestPointReached": {
+              "x": 68.6772741111436,
+              "y": 13.466031638967214
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 93.47500000000413,
+            "expiresAt": 97.52500000000413,
+            "executionMode": "evade",
+            "modeSince": 93.50000000000414,
+            "localTarget": {
+              "x": 70.8245625038194,
+              "y": 10.699198973896817
+            },
+            "touchDistance": 0.5,
+            "pursuingBall": false
+          },
+          "loss": null
+        },
+        {
+          "engine": "PR172",
+          "firstPrompt": {
+            "at": 94.27500000000431,
+            "elapsed": 0.8000000000001819,
+            "probe": {
+              "actorId": "footballer_pro_9_7",
+              "candidate": true,
+              "opportunityKind": "on_ball",
+              "semanticChoiceCount": 17,
+              "semanticFamilies": [
+                "hold_shape",
+                "carry",
+                "shoot",
+                "pass_to_feet"
+              ],
+              "situationKind": "under_pressure",
+              "decisionWorthiness": 0.64,
+              "pressure": 0.6956571163920883,
+              "signature": "on_ball:46:footballer_pro_9_7:90.45000000000344:set_piece_attack:2:2:possession_contested",
+              "roleProfile": "defender",
+              "possessionMismatch": false
+            },
+            "ownerId": "footballer_pro_9_7",
+            "ball": {
+              "x": 69.29064997515867,
+              "y": 13.477748708865553,
+              "ownerId": "footballer_pro_9_7",
+              "lastTouchPlayerId": "footballer_pro_9_7",
+              "height": 0,
+              "velocity": {
+                "x": 1.8097340627106469,
+                "y": -2.6625470481430287,
+                "z": 0
+              },
+              "airborne": false
+            },
+            "position": {
+              "x": 68.73457014577065,
+              "y": 13.469528013753743
+            }
+          },
+          "contacts": 4,
+          "time": 94.27500000000431,
+          "ownerId": "footballer_pro_9_7",
+          "carry": {
+            "actorId": "footballer_pro_9_7",
+            "type": "carry",
+            "target": {
+              "x": 75.93609525635485,
+              "y": 19.970517888061188
+            },
+            "startedAt": 93.47500000000413,
+            "estimatedArrival": 2.799999999999994,
+            "startPosition": {
+              "x": 65.93609525635485,
+              "y": 12.416181366247983
+            },
+            "closestPointReached": {
+              "x": 68.6772741111436,
+              "y": 13.466031638967214
+            },
+            "humanSelected": true,
+            "movementMode": "carry",
+            "lastProgressAt": 93.47500000000413,
+            "expiresAt": 97.52500000000413,
+            "executionMode": "evade",
+            "modeSince": 93.50000000000414,
+            "localTarget": {
+              "x": 70.8245625038194,
+              "y": 10.699198973896817
+            },
+            "touchDistance": 0.5,
+            "pursuingBall": false
+          },
+          "loss": null
+        }
+      ]
+    }
+  ]
+}

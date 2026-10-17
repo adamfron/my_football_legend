@@ -1,0 +1,1623 @@
+{
+  "version": 1,
+  "carry": [
+    {
+      "name": "straight",
+      "target": {
+        "x": 85,
+        "y": 34
+      },
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "not_relevant",
+        "situationKind": "loose_ball",
+        "decisionWorthiness": 0.6384761904761904,
+        "pressure": 0,
+        "roleProfile": "forward",
+        "possessionMismatch": false
+      },
+      "firstPrompt": {
+        "at": 601.4499999999987,
+        "ownsBall": true,
+        "ballGap": 1.8059406143384393,
+        "destinationGap": 10.614877144505144,
+        "intentExpiresAt": 604.625,
+        "pursuit": true,
+        "gate": {
+          "actorId": "geometry:anchor:8",
+          "candidate": true,
+          "opportunityKind": "on_ball",
+          "semanticChoiceCount": 19,
+          "semanticFamilies": [
+            "hold_shape",
+            "carry",
+            "sprint",
+            "shoot",
+            "pass_to_feet",
+            "lead_pass"
+          ],
+          "situationKind": "routine",
+          "decisionWorthiness": 0.12,
+          "pressure": 0,
+          "signature": "on_ball:1:geometry:anchor:8:601.149999999999:positional_attack:2:0:heavy_touch",
+          "roleProfile": "forward",
+          "possessionMismatch": false
+        }
+      },
+      "recoveredAt": 601.149999999999,
+      "physicalContactAt": 601.1749999999989,
+      "endOwner": "geometry:opponent:0",
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 2.6638758031232492,
+      "endIntent": null,
+      "lastLoss": {
+        "to": "away",
+        "cause": "failed_control",
+        "winnerId": "geometry:opponent:3",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:605.900000:geometry:opponent:3",
+        "at": 605.8999999999946,
+        "from": "home",
+        "position": {
+          "x": 96.3789061973591,
+          "y": 34
+        }
+      },
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "pressure",
+      "target": {
+        "x": 85,
+        "y": 34
+      },
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "not_relevant",
+        "situationKind": "loose_ball",
+        "decisionWorthiness": 0.6384761904761904,
+        "pressure": 0.43310589050677595,
+        "roleProfile": "forward",
+        "possessionMismatch": false
+      },
+      "firstPrompt": {
+        "at": 601.2749999999988,
+        "ownsBall": true,
+        "ballGap": 0.8697164572765382,
+        "destinationGap": 11.925146288010785,
+        "intentExpiresAt": 604.625,
+        "pursuit": false,
+        "gate": {
+          "actorId": "geometry:anchor:8",
+          "candidate": true,
+          "opportunityKind": "on_ball",
+          "semanticChoiceCount": 19,
+          "semanticFamilies": [
+            "hold_shape",
+            "carry",
+            "sprint",
+            "shoot",
+            "pass_to_feet",
+            "lead_pass"
+          ],
+          "situationKind": "routine",
+          "decisionWorthiness": 0.12,
+          "pressure": 0.5759772564352521,
+          "signature": "on_ball:1:geometry:anchor:8:601.2749999999988:positional_attack:2:2:possession_contested",
+          "roleProfile": "forward",
+          "possessionMismatch": false
+        }
+      },
+      "recoveredAt": 601.2749999999988,
+      "physicalContactAt": 601.2999999999988,
+      "endOwner": null,
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 15.590110597251677,
+      "endIntent": null,
+      "lastLoss": {
+        "to": "away",
+        "cause": "failed_control",
+        "winnerId": "geometry:opponent:4",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:604.500000:geometry:opponent:4",
+        "at": 604.4999999999959,
+        "from": "home",
+        "position": {
+          "x": 82.89400517819612,
+          "y": 33.74218988297463
+        }
+      },
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "behind_ball",
+      "target": {
+        "x": 54,
+        "y": 34
+      },
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "not_relevant",
+        "situationKind": "loose_ball",
+        "decisionWorthiness": 0.6384761904761904,
+        "pressure": 0,
+        "roleProfile": "forward",
+        "possessionMismatch": false
+      },
+      "firstPrompt": {
+        "at": 602.149999999998,
+        "ownsBall": true,
+        "ballGap": 0.39633018541989884,
+        "destinationGap": 16.03299957663897,
+        "intentExpiresAt": 603.725,
+        "pursuit": false,
+        "gate": {
+          "actorId": "geometry:anchor:8",
+          "candidate": true,
+          "opportunityKind": "on_ball",
+          "semanticChoiceCount": 19,
+          "semanticFamilies": [
+            "hold_shape",
+            "carry",
+            "sprint",
+            "shoot",
+            "pass_to_feet",
+            "lead_pass"
+          ],
+          "situationKind": "routine",
+          "decisionWorthiness": 0.12,
+          "pressure": 0,
+          "signature": "on_ball:2:geometry:anchor:8:601.9499999999982:positional_attack:2:0:attacking_zone",
+          "roleProfile": "forward",
+          "possessionMismatch": false
+        }
+      },
+      "recoveredAt": 601.9499999999982,
+      "physicalContactAt": 601.9749999999982,
+      "endOwner": "geometry:anchor:8",
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 0.4681201824029808,
+      "endIntent": null,
+      "lastLoss": null,
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "sharp_turn",
+      "target": {
+        "x": 60,
+        "y": 15
+      },
+      "initialPursuit": {
+        "target": {
+          "x": 66.95,
+          "y": 34
+        },
+        "arrival": 0.8250000000000004
+      },
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "not_relevant",
+        "situationKind": "loose_ball",
+        "decisionWorthiness": 0.6384761904761904,
+        "pressure": 0,
+        "roleProfile": "forward",
+        "possessionMismatch": false
+      },
+      "firstPrompt": {
+        "at": 601.9499999999982,
+        "ownsBall": true,
+        "ballGap": 1.323262881503727,
+        "destinationGap": 21.110623466806114,
+        "intentExpiresAt": 604.6,
+        "pursuit": true,
+        "gate": {
+          "actorId": "geometry:anchor:8",
+          "candidate": true,
+          "opportunityKind": "on_ball",
+          "semanticChoiceCount": 19,
+          "semanticFamilies": [
+            "hold_shape",
+            "carry",
+            "sprint",
+            "shoot",
+            "pass_to_feet",
+            "lead_pass"
+          ],
+          "situationKind": "routine",
+          "decisionWorthiness": 0.12,
+          "pressure": 0,
+          "signature": "on_ball:2:geometry:anchor:8:601.5499999999986:positional_attack:2:0:attacking_zone",
+          "roleProfile": "forward",
+          "possessionMismatch": false
+        }
+      },
+      "recoveredAt": 601.5499999999986,
+      "physicalContactAt": 601.5749999999986,
+      "endOwner": "geometry:anchor:8",
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 0.48531086315736666,
+      "endIntent": null,
+      "lastLoss": null,
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "destination_reached",
+      "target": {
+        "x": 60,
+        "y": 34
+      },
+      "initialPursuit": {
+        "target": {
+          "x": 72.35,
+          "y": 34
+        },
+        "arrival": 1.7249999999999979
+      },
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "not_relevant",
+        "situationKind": "loose_ball",
+        "decisionWorthiness": 0.6476190476190475,
+        "pressure": 0,
+        "roleProfile": "forward",
+        "possessionMismatch": false
+      },
+      "firstPrompt": {
+        "at": 602.0499999999981,
+        "ownsBall": true,
+        "ballGap": 0.934740821698071,
+        "destinationGap": null,
+        "intentExpiresAt": null,
+        "pursuit": false,
+        "gate": {
+          "actorId": "geometry:anchor:8",
+          "candidate": true,
+          "opportunityKind": "on_ball",
+          "semanticChoiceCount": 18,
+          "semanticFamilies": [
+            "hold_shape",
+            "carry",
+            "shoot",
+            "pass_to_feet",
+            "lead_pass"
+          ],
+          "situationKind": "progression",
+          "decisionWorthiness": 0.3,
+          "pressure": 0,
+          "signature": "on_ball:2:geometry:anchor:8:602.0499999999981:positional_attack:2:0",
+          "roleProfile": "forward",
+          "possessionMismatch": false
+        }
+      },
+      "recoveredAt": 602.0499999999981,
+      "physicalContactAt": 602.0749999999981,
+      "endOwner": null,
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 4.035510881341169,
+      "endIntent": null,
+      "lastLoss": {
+        "to": "away",
+        "cause": "tackle",
+        "winnerId": "geometry:opponent:5",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:606.925000:geometry:opponent:5",
+        "at": 606.9249999999937,
+        "from": "home",
+        "position": {
+          "x": 71.2545954360785,
+          "y": 34.15105081092635
+        }
+      },
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "intercepted",
+      "target": {
+        "x": 85,
+        "y": 34
+      },
+      "initialPursuit": null,
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "resolution_in_progress"
+      },
+      "firstPrompt": null,
+      "recoveredAt": null,
+      "physicalContactAt": null,
+      "endOwner": "geometry:opponent:2",
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 12.895332764200962,
+      "endIntent": null,
+      "lastLoss": {
+        "to": "away",
+        "cause": "interception",
+        "winnerId": "geometry:opponent:9",
+        "passId": "pr168-pushed-touch:pass:1:geometry:opponent:4",
+        "id": "pr168-pushed-touch:loss:acquisition:602.575000:geometry:opponent:9",
+        "at": 602.5749999999977,
+        "from": "home",
+        "position": {
+          "x": 90.01354980821925,
+          "y": 5.425518009526106
+        }
+      },
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "unreachable",
+      "target": {
+        "x": 85,
+        "y": 34
+      },
+      "initialPursuit": null,
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "resolution_in_progress"
+      },
+      "firstPrompt": null,
+      "recoveredAt": null,
+      "physicalContactAt": null,
+      "endOwner": "geometry:opponent:8",
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 1.7153414981560484,
+      "endIntent": null,
+      "lastLoss": {
+        "to": "away",
+        "cause": "loose_ball_claim",
+        "winnerId": "geometry:opponent:4",
+        "loserId": "geometry:anchor:8",
+        "id": "pr168-pushed-touch:loss:acquisition:601.750000:geometry:opponent:4",
+        "at": 601.7499999999984,
+        "from": "home",
+        "position": {
+          "x": 87.35000000000001,
+          "y": 34
+        }
+      },
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "out",
+      "target": {
+        "x": 85,
+        "y": 34
+      },
+      "initialPursuit": null,
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "resolution_in_progress"
+      },
+      "firstPrompt": null,
+      "recoveredAt": null,
+      "physicalContactAt": null,
+      "endOwner": null,
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 21.9056330938354,
+      "endIntent": null,
+      "lastLoss": {
+        "to": "away",
+        "cause": "other",
+        "loserId": "geometry:anchor:8",
+        "restartId": "pr168-pushed-touch:restart:600.2499999999998:away:throw_in",
+        "id": "pr168-pushed-touch:loss:boundary:600.250000:touchline_top",
+        "at": 600.2499999999998,
+        "from": "home",
+        "position": {
+          "x": 64.26862665287933,
+          "y": -0.1918761806280906
+        }
+      },
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    },
+    {
+      "name": "expired",
+      "target": {
+        "x": 85,
+        "y": 34
+      },
+      "initialPursuit": null,
+      "initialAgency": {
+        "actorId": "geometry:anchor:8",
+        "candidate": false,
+        "blockedReason": "resolution_in_progress"
+      },
+      "firstPrompt": {
+        "at": 601.7249999999984,
+        "ownsBall": true,
+        "ballGap": 0.9934473106949184,
+        "destinationGap": null,
+        "intentExpiresAt": null,
+        "pursuit": false,
+        "gate": {
+          "actorId": "geometry:anchor:8",
+          "candidate": true,
+          "opportunityKind": "on_ball",
+          "semanticChoiceCount": 18,
+          "semanticFamilies": [
+            "hold_shape",
+            "carry",
+            "shoot",
+            "pass_to_feet",
+            "lead_pass"
+          ],
+          "situationKind": "routine",
+          "decisionWorthiness": 0.12,
+          "pressure": 0,
+          "signature": "on_ball:1:geometry:anchor:8:601.7249999999984:positional_attack:2:0",
+          "roleProfile": "forward",
+          "possessionMismatch": false
+        }
+      },
+      "recoveredAt": 601.7249999999984,
+      "physicalContactAt": 601.7499999999984,
+      "endOwner": "geometry:anchor:8",
+      "actorId": "geometry:anchor:8",
+      "endBallGap": 0.5014952065702828,
+      "endIntent": null,
+      "lastLoss": null,
+      "caveat": "Equivalent PR168 pushed-ball geometry; no user replay; prompts observed but no automatic human response beyond the stated initial action"
+    }
+  ],
+  "restarts": [
+    {
+      "kind": "indirect",
+      "dev": false,
+      "start": {
+        "time": 600,
+        "phase": "preparing",
+        "legal": {
+          "ready": false,
+          "ballReady": false,
+          "takerReady": false,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": [
+            "ball_not_placed",
+            "taker_not_ready"
+          ]
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 3,
+              "y": 34
+            },
+            "target": {
+              "x": 8,
+              "y": 34
+            },
+            "ownDepth": 3
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 102,
+              "y": 34
+            },
+            "target": {
+              "x": 103.5,
+              "y": 35
+            },
+            "ownDepth": 3
+          }
+        ]
+      },
+      "firstPrompt": {
+        "elapsed": 10.674999999990291,
+        "phase": "awaiting_decision",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 4.941982111373866,
+              "y": 34
+            },
+            "target": {
+              "x": 5,
+              "y": 34
+            },
+            "ownDepth": 4.941982111373866
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 102,
+              "y": 34
+            },
+            "target": {
+              "x": 102,
+              "y": 34
+            },
+            "ownDepth": 3
+          }
+        ],
+        "probe": {
+          "actorId": "geometry:anchor:1",
+          "candidate": true,
+          "opportunityKind": "restart",
+          "semanticChoiceCount": 12,
+          "semanticFamilies": [
+            "cross",
+            "restart_receiver",
+            "play_into_space"
+          ],
+          "situationKind": "set_piece",
+          "decisionWorthiness": 0.7,
+          "pressure": 0.18951725457650392,
+          "signature": "restart:0:loose:595:set_piece_attack:2:0",
+          "roleProfile": "defender",
+          "possessionMismatch": false
+        }
+      },
+      "firstLegal": {
+        "elapsed": 10.674999999990291,
+        "phase": "awaiting_decision",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 4.941982111373866,
+              "y": 34
+            },
+            "target": {
+              "x": 5,
+              "y": 34
+            },
+            "ownDepth": 4.941982111373866
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 102,
+              "y": 34
+            },
+            "target": {
+              "x": 102,
+              "y": 34
+            },
+            "ownDepth": 3
+          }
+        ]
+      },
+      "finalTime": 610.6749999999903,
+      "finalPhase": "awaiting_decision",
+      "finalLegal": {
+        "ready": true,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": []
+      },
+      "note": "Canonical positioning only; original screenshot/projection unavailable"
+    },
+    {
+      "kind": "indirect",
+      "dev": true,
+      "start": {
+        "time": 600,
+        "phase": "setup",
+        "legal": {
+          "ready": false,
+          "ballReady": true,
+          "takerReady": false,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": [
+            "taker_not_ready"
+          ]
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 8,
+              "y": 34
+            },
+            "target": {
+              "x": 8,
+              "y": 34
+            },
+            "ownDepth": 8
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 103.5,
+              "y": 35
+            },
+            "target": {
+              "x": 103.5,
+              "y": 35
+            },
+            "ownDepth": 1.5
+          }
+        ]
+      },
+      "firstPrompt": {
+        "elapsed": 0,
+        "phase": "setup",
+        "legal": {
+          "ready": false,
+          "ballReady": true,
+          "takerReady": false,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": [
+            "taker_not_ready"
+          ]
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 8,
+              "y": 34
+            },
+            "target": {
+              "x": 8,
+              "y": 34
+            },
+            "ownDepth": 8
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 103.5,
+              "y": 35
+            },
+            "target": {
+              "x": 103.5,
+              "y": 35
+            },
+            "ownDepth": 1.5
+          }
+        ],
+        "probe": {
+          "actorId": "geometry:anchor:1",
+          "candidate": true,
+          "opportunityKind": "restart",
+          "semanticChoiceCount": 12,
+          "semanticFamilies": [
+            "cross",
+            "restart_receiver",
+            "play_into_space"
+          ],
+          "situationKind": "set_piece",
+          "decisionWorthiness": 0.7,
+          "pressure": 0.1969212577505187,
+          "signature": "restart:0:geometry:anchor:1:595:set_piece_attack:2:0",
+          "roleProfile": "defender",
+          "possessionMismatch": false
+        }
+      },
+      "firstLegal": null,
+      "finalTime": 600,
+      "finalPhase": "setup",
+      "finalLegal": {
+        "ready": false,
+        "ballReady": true,
+        "takerReady": false,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": [
+          "taker_not_ready"
+        ]
+      },
+      "note": "Canonical positioning only; original screenshot/projection unavailable"
+    },
+    {
+      "kind": "penalty",
+      "dev": false,
+      "start": {
+        "time": 600,
+        "phase": "preparing",
+        "legal": {
+          "ready": false,
+          "ballReady": false,
+          "takerReady": false,
+          "opponentsReady": false,
+          "participantsReady": false,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": [
+            "ball_not_placed",
+            "taker_not_ready",
+            "opponent_restriction",
+            "participant_restriction"
+          ]
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 3,
+              "y": 34
+            },
+            "target": {
+              "x": 5.5,
+              "y": 34
+            },
+            "ownDepth": 3
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 102,
+              "y": 34
+            },
+            "target": {
+              "x": 105,
+              "y": 34
+            },
+            "ownDepth": 3
+          }
+        ]
+      },
+      "firstPrompt": {
+        "elapsed": 11.299999999989723,
+        "phase": "awaiting_decision",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 3,
+              "y": 34
+            },
+            "target": {
+              "x": 3,
+              "y": 34
+            },
+            "ownDepth": 3
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 104.93050167171658,
+              "y": 34
+            },
+            "target": {
+              "x": 105,
+              "y": 34
+            },
+            "ownDepth": 0.06949832828341584
+          }
+        ],
+        "probe": {
+          "actorId": "geometry:anchor:1",
+          "candidate": true,
+          "opportunityKind": "restart",
+          "semanticChoiceCount": 3,
+          "semanticFamilies": [
+            "shoot"
+          ],
+          "situationKind": "set_piece",
+          "decisionWorthiness": 0.7,
+          "pressure": 0.2782122318151521,
+          "signature": "restart:0:loose:595:set_piece_attack:4:1",
+          "roleProfile": "defender",
+          "possessionMismatch": false
+        }
+      },
+      "firstLegal": {
+        "elapsed": 11.299999999989723,
+        "phase": "awaiting_decision",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 3,
+              "y": 34
+            },
+            "target": {
+              "x": 3,
+              "y": 34
+            },
+            "ownDepth": 3
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 104.93050167171658,
+              "y": 34
+            },
+            "target": {
+              "x": 105,
+              "y": 34
+            },
+            "ownDepth": 0.06949832828341584
+          }
+        ]
+      },
+      "finalTime": 611.2999999999897,
+      "finalPhase": "awaiting_decision",
+      "finalLegal": {
+        "ready": true,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": []
+      },
+      "note": "Canonical positioning only; original screenshot/projection unavailable"
+    },
+    {
+      "kind": "penalty",
+      "dev": true,
+      "start": {
+        "time": 600,
+        "phase": "setup",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 5.5,
+              "y": 34
+            },
+            "target": {
+              "x": 5.5,
+              "y": 34
+            },
+            "ownDepth": 5.5
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 105,
+              "y": 34
+            },
+            "target": {
+              "x": 105,
+              "y": 34
+            },
+            "ownDepth": 0
+          }
+        ]
+      },
+      "firstPrompt": {
+        "elapsed": 0,
+        "phase": "setup",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 5.5,
+              "y": 34
+            },
+            "target": {
+              "x": 5.5,
+              "y": 34
+            },
+            "ownDepth": 5.5
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 105,
+              "y": 34
+            },
+            "target": {
+              "x": 105,
+              "y": 34
+            },
+            "ownDepth": 0
+          }
+        ],
+        "probe": {
+          "actorId": "geometry:anchor:1",
+          "candidate": true,
+          "opportunityKind": "restart",
+          "semanticChoiceCount": 3,
+          "semanticFamilies": [
+            "shoot"
+          ],
+          "situationKind": "set_piece",
+          "decisionWorthiness": 0.7,
+          "pressure": 0.29828972283088817,
+          "signature": "restart:0:geometry:anchor:1:595:set_piece_attack:4:1",
+          "roleProfile": "defender",
+          "possessionMismatch": false
+        }
+      },
+      "firstLegal": {
+        "elapsed": 0,
+        "phase": "setup",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 5.5,
+              "y": 34
+            },
+            "target": {
+              "x": 5.5,
+              "y": 34
+            },
+            "ownDepth": 5.5
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 105,
+              "y": 34
+            },
+            "target": {
+              "x": 105,
+              "y": 34
+            },
+            "ownDepth": 0
+          }
+        ]
+      },
+      "finalTime": 600,
+      "finalPhase": "setup",
+      "finalLegal": {
+        "ready": true,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": []
+      },
+      "note": "Canonical positioning only; original screenshot/projection unavailable"
+    },
+    {
+      "kind": "halftime",
+      "dev": false,
+      "start": {
+        "time": 2700,
+        "phase": "preparing",
+        "legal": {
+          "ready": false,
+          "ballReady": false,
+          "takerReady": false,
+          "opponentsReady": false,
+          "participantsReady": false,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": [
+            "ball_not_placed",
+            "taker_not_ready",
+            "opponent_restriction",
+            "participant_restriction"
+          ]
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 3,
+              "y": 34
+            },
+            "target": {
+              "x": 99.5,
+              "y": 34
+            },
+            "ownDepth": 102
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 102,
+              "y": 34
+            },
+            "target": {
+              "x": 5.5,
+              "y": 34
+            },
+            "ownDepth": 102
+          }
+        ]
+      },
+      "firstPrompt": {
+        "elapsed": 22.750000000082764,
+        "phase": "awaiting_decision",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 94.94353865580297,
+              "y": 33.94096228112772
+            },
+            "target": {
+              "x": 96.50025179107823,
+              "y": 33.96113249338294
+            },
+            "ownDepth": 10.056461344197032
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 48.10171528125669,
+              "y": 34.67153173300363
+            },
+            "target": {
+              "x": 8.499627360194712,
+              "y": 34.04728318909832
+            },
+            "ownDepth": 48.10171528125669
+          }
+        ],
+        "probe": {
+          "actorId": "geometry:opponent:5",
+          "candidate": true,
+          "opportunityKind": "restart",
+          "semanticChoiceCount": 5,
+          "semanticFamilies": [
+            "restart_receiver",
+            "shoot"
+          ],
+          "situationKind": "set_piece",
+          "decisionWorthiness": 0.7,
+          "pressure": 0.31893145324316985,
+          "signature": "restart:0:loose:595:positional_attack:1:1",
+          "roleProfile": "midfielder",
+          "possessionMismatch": false
+        }
+      },
+      "firstLegal": {
+        "elapsed": 22.750000000082764,
+        "phase": "awaiting_decision",
+        "legal": {
+          "ready": true,
+          "ballReady": true,
+          "takerReady": true,
+          "opponentsReady": true,
+          "participantsReady": true,
+          "refereeReady": true,
+          "quickRestart": false,
+          "blockers": []
+        },
+        "keepers": [
+          {
+            "id": "geometry:anchor:0",
+            "team": "home",
+            "position": {
+              "x": 94.94353865580297,
+              "y": 33.94096228112772
+            },
+            "target": {
+              "x": 96.50025179107823,
+              "y": 33.96113249338294
+            },
+            "ownDepth": 10.056461344197032
+          },
+          {
+            "id": "geometry:opponent:0",
+            "team": "away",
+            "position": {
+              "x": 48.10171528125669,
+              "y": 34.67153173300363
+            },
+            "target": {
+              "x": 8.499627360194712,
+              "y": 34.04728318909832
+            },
+            "ownDepth": 48.10171528125669
+          }
+        ]
+      },
+      "finalTime": 2722.7500000000828,
+      "finalPhase": "awaiting_decision",
+      "finalLegal": {
+        "ready": true,
+        "ballReady": true,
+        "takerReady": true,
+        "opponentsReady": true,
+        "participantsReady": true,
+        "refereeReady": true,
+        "quickRestart": false,
+        "blockers": []
+      },
+      "note": "Canonical positioning only; original screenshot/projection unavailable"
+    }
+  ],
+  "boundary": [
+    {
+      "defenderLast": false,
+      "switched": false,
+      "rapid": false,
+      "lastTouch": "geometry:anchor:0",
+      "scenario": "goal_kick",
+      "crossing": {
+        "point": {
+          "x": 105,
+          "y": 12
+        },
+        "boundary": "goal_line_away",
+        "segmentFraction": 0.512249443207138,
+        "previous": {
+          "x": 104.88,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:anchor:0",
+        "lastTouchTeam": "home",
+        "restartTeam": "away"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_away",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 105,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 105,
+          "y": 24.84
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:away:goal_kick",
+        "at": 600.025,
+        "team": "away",
+        "scenario": "goal_kick",
+        "takerId": "geometry:opponent:0",
+        "cause": "boundary",
+        "lossId": "pr171-case-a:loss:boundary:600.025000:goal_line_away"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    },
+    {
+      "defenderLast": false,
+      "switched": false,
+      "rapid": true,
+      "lastTouch": "geometry:opponent:0",
+      "scenario": "corner",
+      "crossing": {
+        "point": {
+          "x": 105,
+          "y": 12
+        },
+        "boundary": "goal_line_away",
+        "segmentFraction": 0.512249443207138,
+        "previous": {
+          "x": 104.88,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:opponent:0",
+        "lastTouchTeam": "away",
+        "restartTeam": "home"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_away",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 105,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 104.5,
+          "y": 0.5
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:home:corner",
+        "at": 600.025,
+        "team": "home",
+        "scenario": "corner",
+        "takerId": "geometry:anchor:1",
+        "cause": "boundary"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    },
+    {
+      "defenderLast": true,
+      "switched": false,
+      "rapid": false,
+      "lastTouch": "geometry:opponent:0",
+      "scenario": "corner",
+      "crossing": {
+        "point": {
+          "x": 105,
+          "y": 12
+        },
+        "boundary": "goal_line_away",
+        "segmentFraction": 0.512249443207138,
+        "previous": {
+          "x": 104.88,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:opponent:0",
+        "lastTouchTeam": "away",
+        "restartTeam": "home"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_away",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 105,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 104.5,
+          "y": 0.5
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:home:corner",
+        "at": 600.025,
+        "team": "home",
+        "scenario": "corner",
+        "takerId": "geometry:anchor:1",
+        "cause": "boundary"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    },
+    {
+      "defenderLast": true,
+      "switched": false,
+      "rapid": true,
+      "lastTouch": "geometry:anchor:0",
+      "scenario": "goal_kick",
+      "crossing": {
+        "point": {
+          "x": 105,
+          "y": 12
+        },
+        "boundary": "goal_line_away",
+        "segmentFraction": 0.512249443207138,
+        "previous": {
+          "x": 104.88,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:anchor:0",
+        "lastTouchTeam": "home",
+        "restartTeam": "away"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_away",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 105,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 105,
+          "y": 24.84
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:away:goal_kick",
+        "at": 600.025,
+        "team": "away",
+        "scenario": "goal_kick",
+        "takerId": "geometry:opponent:0",
+        "cause": "boundary",
+        "lossId": "pr171-case-a:loss:boundary:600.025000:goal_line_away"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    },
+    {
+      "defenderLast": false,
+      "switched": true,
+      "rapid": false,
+      "lastTouch": "geometry:anchor:0",
+      "scenario": "goal_kick",
+      "crossing": {
+        "point": {
+          "x": 0,
+          "y": 12
+        },
+        "boundary": "goal_line_home",
+        "segmentFraction": 0.5122494432071268,
+        "previous": {
+          "x": 0.12,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:anchor:0",
+        "lastTouchTeam": "home",
+        "restartTeam": "away"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_home",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 0,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 0,
+          "y": 24.840000000000003
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:away:goal_kick",
+        "at": 600.025,
+        "team": "away",
+        "scenario": "goal_kick",
+        "takerId": "geometry:opponent:0",
+        "cause": "boundary",
+        "lossId": "pr171-case-a:loss:boundary:600.025000:goal_line_home"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    },
+    {
+      "defenderLast": false,
+      "switched": true,
+      "rapid": true,
+      "lastTouch": "geometry:opponent:0",
+      "scenario": "corner",
+      "crossing": {
+        "point": {
+          "x": 0,
+          "y": 12
+        },
+        "boundary": "goal_line_home",
+        "segmentFraction": 0.5122494432071268,
+        "previous": {
+          "x": 0.12,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:opponent:0",
+        "lastTouchTeam": "away",
+        "restartTeam": "home"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_home",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 0,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:home:corner",
+        "at": 600.025,
+        "team": "home",
+        "scenario": "corner",
+        "takerId": "geometry:anchor:1",
+        "cause": "boundary"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    },
+    {
+      "defenderLast": true,
+      "switched": true,
+      "rapid": false,
+      "lastTouch": "geometry:opponent:0",
+      "scenario": "corner",
+      "crossing": {
+        "point": {
+          "x": 0,
+          "y": 12
+        },
+        "boundary": "goal_line_home",
+        "segmentFraction": 0.5122494432071268,
+        "previous": {
+          "x": 0.12,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:opponent:0",
+        "lastTouchTeam": "away",
+        "restartTeam": "home"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_home",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 0,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:home:corner",
+        "at": 600.025,
+        "team": "home",
+        "scenario": "corner",
+        "takerId": "geometry:anchor:1",
+        "cause": "boundary"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    },
+    {
+      "defenderLast": true,
+      "switched": true,
+      "rapid": true,
+      "lastTouch": "geometry:anchor:0",
+      "scenario": "goal_kick",
+      "crossing": {
+        "point": {
+          "x": 0,
+          "y": 12
+        },
+        "boundary": "goal_line_home",
+        "segmentFraction": 0.5122494432071268,
+        "previous": {
+          "x": 0.12,
+          "y": 12,
+          "z": 0.11
+        },
+        "lastTouchPlayerId": "geometry:anchor:0",
+        "lastTouchTeam": "home",
+        "restartTeam": "away"
+      },
+      "award": {
+        "origin": "live_event",
+        "incidentId": "pr171-case-a:boundary:600.025:goal_line_home",
+        "eventAt": 600.0128062360802,
+        "incidentPosition": {
+          "x": 0,
+          "y": 12
+        },
+        "legalRestartPosition": {
+          "x": 0,
+          "y": 24.840000000000003
+        },
+        "indirect": false,
+        "id": "pr171-case-a:restart:600.025:away:goal_kick",
+        "at": 600.025,
+        "team": "away",
+        "scenario": "goal_kick",
+        "takerId": "geometry:opponent:0",
+        "cause": "boundary",
+        "lossId": "pr171-case-a:loss:boundary:600.025000:goal_line_home"
+      },
+      "caveat": "Outgoing physical trajectory with supplied last touch; tests classification, not generation of a block/parry"
+    }
+  ]
+}

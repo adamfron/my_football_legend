@@ -1,5 +1,35 @@
 # My Football Legend — Current Project State
 
+## PR172 — Match Realism: poprawność i zamrożone decyzje
+
+Baza: scalony PR171 `6b2ddaa`. Naprawiono kolejność keeper handover przed geometrią,
+nieosiągalny mur przy linii końcowej, autoryzację kickoff dopiero po fizycznym powrocie
+keeperów, pełną orientację odbić i różne odpowiedzi normalna/styczna dla block/parry.
+Nominalny owner nie może już kopnąć wypchniętej piłki poza zasięgiem stóp. Własny
+odzyskiwalny stride nie otwiera błędnego heavy-touch prompt ani nie kończy carry
+przed odzyskaniem. W celowaniu technika poprzedza osobne potwierdzenie wykonania.
+
+16/16 tych samych pełnych fixtures kończy się bez awarii i cenzorowania; cztery
+dokładne stare stany także kończą. Historyczne pliki PR171 są identyczne. W tych
+samych 12 wcześniej pełnych meczach: 26101→25853 podań, 14→21 strzałów,
+34→39 box entries, CM 3316→3356 (14,411→14,741% ukończeń), rożne 3→3.
+Podania na sekwencję wzrosły 8,962→9,021: kreacja nadal wymaga badań.
+
+40 realnych frozen states / 267 pojedynczych kontrfaktów odtworzono dokładnie
+na PR171. Nie wdrożono niepotwierdzonej premii progresji, pozycji CM ani zmian
+wsparcia. Dwa pełne U-17 mają identyczny cały stan observer ON/OFF. Spokojny
+pomiar 60 s: plain CPU 1257,01→1320,95 ms (+5,09%); nie deklarujemy przyspieszenia.
+
+Końcowy `npm run verify`: **PASS — 1840 testów**, lint, TypeScript i build. Browser smoke w Edge zatrzymało narzędzie
+Computer Use z powodu braku pewnego bieżącego URL; pozostaje ręczny przegląd UI.
+Przyczyny, wyniki, regresje, wszystkie ograniczenia i polecenia:
+[raport PR172](PR172_MATCH_REALISM_CALIBRATION.md).
+
+Następne: **PR173** generacje/siła świata → **PR174** summary/PlayStyles i spójne
+dane udziału/zmian. **PR175+** rozszerzanie świata; historia/archiwum/kalendarz
+pozostają późniejszym UX. Nie traktować obecnych rzadkich okazji jako gotowego
+realistycznego celu dla summary. Autorytatywny zakres jest na początku roadmapy.
+
 ## PR171 — Match Reality Diagnostic Audit
 
 Baza: scalony PR170 `1b7e2e0`. Wyłącznie diagnostyka, eksperymenty i raport:
