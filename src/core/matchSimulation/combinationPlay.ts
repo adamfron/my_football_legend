@@ -170,6 +170,7 @@ export const observeCombinationRelease = (
   const restCover = previous.players.filter(
     (p) =>
       p.team === a.team &&
+      available(previous, p) &&
       p.id !== a.id &&
       p.id !== b.id &&
       !isMatchGoalkeeper(p) &&

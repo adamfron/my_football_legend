@@ -66,6 +66,7 @@ const runs = fixtures.map((input) => {
   let state = actions.resolveMatchAction(initial, f.action, source);
   const firstPass = state.lastPassDiagnostic?.passId;
   const passes = new Map<string, unknown>();
+  const actualShots = new Map<string, unknown>();
   const choices: unknown[] = [],
     combinations = new Map<string, unknown>(),
     samples: unknown[] = [];
@@ -107,6 +108,9 @@ const runs = fixtures.map((input) => {
       losses++;
     for (const p of [state.lastPassDiagnostic, state.lastResolvedPass])
       if (p && p.releasedAt >= initial.time) passes.set(p.passId, structuredClone(p));
+    for (const shot of [state.ball.shot, state.lastShot])
+      if (shot && (shot.releasedAt ?? -1) >= initial.time)
+        actualShots.set(shot.shotId, structuredClone(shot));
     const dynamic = state as typeof state & {
       combinationIntent?: { id: string };
       lastCombination?: { id: string };
@@ -148,6 +152,7 @@ const runs = fixtures.map((input) => {
     finalHash: pr172Hash(state),
     runInitiated,
     passes: [...passes.values()],
+    actualShots: [...actualShots.values()],
     choices,
     combinations: [...combinations.values()],
     samples,

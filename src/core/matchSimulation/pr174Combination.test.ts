@@ -36,6 +36,31 @@ const planned = () => {
   return { ...f, state };
 };
 describe('PR174 bounded independent combinations', () => {
+  it('does not count physically unavailable teammates as rest cover', () => {
+    const f = createCombinationFixture({ scenario: 'winger' });
+    const teammates = f.state.players.filter(
+      (p) => p.team === 'home' && ![f.a, f.b].includes(p.id) && p.slot.position !== 'goalkeeper',
+    );
+    for (const [i, p] of teammates.entries()) {
+      if (i < 2) {
+        p.position = { x: 40 + i * 4, y: 40 };
+        p.injury = {
+          id: 'cover',
+          playerId: p.id,
+          at: 20,
+          status: 'unable',
+          mechanism: 'contact',
+          injuryType: 'impact',
+          recoveryDays: 1,
+          assessmentRequired: false,
+        };
+      } else p.position = { x: 85, y: 35 + i * 3 };
+    }
+    const withoutCover = resolveMatchAction(f.state, f.action);
+    expect(withoutCover.combinationIntent).toBeUndefined();
+    for (const p of teammates) delete p.injury;
+    expect(resolveMatchAction(f.state, f.action).combinationIntent?.kind).toBe('pass_and_go');
+  });
   it('recognises a third player moving laterally toward an open connection', () => {
     const f = planned();
     const c = f.state.combinationIntent!;

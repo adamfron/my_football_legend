@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { performance } from 'node:perf_hooks';
 import { z } from 'zod';
 import { pr172Hash, pr172SourceHash } from './pr172Evidence';
+import { CombinationPlayTracker } from '../src/core/matchSimulation/footballIntelligenceDiagnostics';
 const baselineRoot = process.argv.find((a) => a.startsWith('--baseline-root='))?.slice(16);
 if (!baselineRoot) throw new Error('--baseline-root must identify PR173');
 const engines = await Promise.all(
@@ -40,9 +41,10 @@ if (pr172Hash(engines[0]!.fixture.session) !== pr172Hash(engines[1]!.fixture.ses
   throw new Error('Performance fixtures differ');
 const schema = z.object({
   engine: z.string(),
-  mode: z.enum(['plain', 'existing', 'extended']),
+  mode: z.enum(['plain', 'existing', 'extended', 'combinations']),
   sample: z.number().int(),
   wallMs: z.number().positive(),
+  cpuMs: z.number().nonnegative(),
   ticks: z.literal(2400),
   ticksPerSecond: z.number().positive(),
   finalStateHash: z.string(),
@@ -52,12 +54,17 @@ const schema = z.object({
 const rows: z.infer<typeof schema>[] = [];
 for (let sample = -1; sample < 3; sample++)
   for (const engine of sample % 2 === 0 ? [...engines].reverse() : engines)
-    for (const mode of ['plain', 'existing', 'extended'] as const) {
+    for (const mode of engine.label === 'PR174'
+      ? (['plain', 'existing', 'extended', 'combinations'] as const)
+      : (['plain', 'existing', 'extended'] as const)) {
       let state = structuredClone(engine.fixture.state),
         flow = engine.flow.createMatchFlowTelemetry('pr172-performance');
-      const funnel = new engine.funnel.AttackingFunnelTracker(undefined, true, mode === 'extended'),
+      const extended = mode === 'extended' || mode === 'combinations';
+      const funnel = new engine.funnel.AttackingFunnelTracker(undefined, true, extended),
         passing = new engine.passing.PassingConnectivityTracker();
       const continuation = new engine.continuation.OffensiveContinuationTracker(true);
+      const combinations = new CombinationPlayTracker();
+      const cpuStart = process.cpuUsage();
       const started = performance.now();
       for (let tick = 0; tick < 2400; tick++) {
         const previous = state;
@@ -66,10 +73,12 @@ for (let sample = -1; sample < 3; sample++)
           funnel.observe(previous, state);
           passing.observe(previous, state);
           flow = engine.flow.observeMatchFlow(flow, previous, state);
-          if (mode === 'extended') continuation.observe(previous, state);
+          if (extended) continuation.observe(previous, state);
+          if (mode === 'combinations') combinations.observe(previous, state);
         }
       }
       const wallMs = performance.now() - started;
+      const cpu = process.cpuUsage(cpuStart);
       if (sample >= 0)
         rows.push(
           schema.parse({
@@ -77,6 +86,7 @@ for (let sample = -1; sample < 3; sample++)
             mode,
             sample,
             wallMs,
+            cpuMs: (cpu.user + cpu.system) / 1000,
             ticks: 2400,
             ticksPerSecond: 2400000 / wallMs,
             finalStateHash: pr172Hash(state),
@@ -89,7 +99,8 @@ for (let sample = -1; sample < 3; sample++)
                       funnel: funnel.snapshot(state.time),
                       passing: passing.snapshot(),
                       flow,
-                      ...(mode === 'extended' ? { continuation: continuation.snapshot() } : {}),
+                      ...(extended ? { continuation: continuation.snapshot() } : {}),
+                      ...(mode === 'combinations' ? { combinations: combinations.snapshot() } : {}),
                     }),
                   ),
           }),
@@ -101,7 +112,10 @@ const medians = Object.fromEntries(
   engines.map((e) => [
     e.label,
     Object.fromEntries(
-      ['plain', 'existing', 'extended'].map((mode) => [
+      (e.label === 'PR174'
+        ? ['plain', 'existing', 'extended', 'combinations']
+        : ['plain', 'existing', 'extended']
+      ).map((mode) => [
         mode,
         median(rows.filter((r) => r.engine === e.label && r.mode === mode).map((r) => r.wallMs)),
       ]),
