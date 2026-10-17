@@ -27,6 +27,12 @@ Straty 2798→3190 i faule 196→219 pogarszają się. Nie deklarujemy rozwiąza
 recyklingu: mniej podań na sekwencję może też oznaczać stratę. Pełne źródła,
 odrzucone warianty oraz granice prognozy i testów są w raporcie.
 
+Pełny `npm run verify` w CI: **PASS — 1858 testów**, lint, TypeScript i build
+(Node 24.21.0 / Ubuntu, `ba2b6d3`, źródła core `72bd46ea…`). Lokalny Node 24.19.0
+ma jeden zbiorczy timeout 5 s; izolowany test przechodzi bez zmiany limitów.
+Status: **draft do oceny poprawek fizyki i ich kompromisów**, bez deklaracji
+pełnego spełnienia aspiracyjnego celu rozumienia przewagi dynamicznej przez AI.
+
 Autorytatywna kolejność: **PR174** kombinacje/adaptacja → **PR175** niezależna
 walidacja meczu → **PR176** generacje/siła świata → **PR177** summary/PlayStyles
 → **PR178** UX kariery i strzału → **PR179+** świat. Zakres na początku

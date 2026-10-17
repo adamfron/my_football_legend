@@ -257,14 +257,16 @@ nie obejmuje cold import, sieci ani renderowania przeglądarki.
 
 Końcowe mediany 60 s CPU, ms (stock Node 24, bez równoległych testów):
 
-| Tryb | PR172 | PR173 | Zmiana |
-|---|---:|---:|---:|
-| Plain canonical stepping | 1296.21 | 1389.04 | +7.16% |
+| Tryb                      |   PR172 |   PR173 | Zmiana |
+| ------------------------- | ------: | ------: | -----: |
+| Plain canonical stepping  | 1296.21 | 1389.04 | +7.16% |
 | Dotychczasowe diagnostics | 1632.62 | 1737.08 | +6.40% |
-| Rozszerzone diagnostics | 1668.95 | 1749.86 | +4.85% |
+| Rozszerzone diagnostics   | 1668.95 | 1749.86 | +4.85% |
 
 Nie deklarujemy przyspieszenia. 65 próbkowanych ticków z 2400 w każdej wersji
 obejmuje 10 kategorii inclusive spans; profiler daje identyczny pełny stan.
+Rzadkie kosztowne decyzje mogą zdominować tak małą próbkę kategorii. Ich estymat
+nie sumujemy jako udziałów ani nie zastępujemy nimi nieinstrumentowanych median.
 Utrzymane payloady diagnostics: PR173 existing 132881 B, extended 155705 B
 (PR172 126270/142273 B). Największe snapshoty heap w tych próbach: około 272 MB
 PR172 i 271 MB PR173; to nie są peak ani porównanie izolowanej pamięci silnika.
@@ -295,8 +297,11 @@ z PR172 i PR173 musi dać identyczny payload, a przeglądarka zachowuje wynik ka
 agility/readiness, lustra/połowy, finite receiving bez planned carry, human direction,
 ryzykowny kontakt, rewalidację, first-time human choice, skończone zwroty,
 lekki pass przy 1% oraz prawdziwy layoff+run i read-only observer. Istniejące testy
-PR163 także przechodzą. Pełny `npm run verify` i wynik będą podane w końcowym
-[receipt](performance/PR173-verification.json), bez zmiany timeoutów/workerów.
+PR163 także przechodzą. Pełny `npm run verify` w dotychczasowym CI: **PASS —
+1858 testów**, lint, TypeScript i produkcyjny build, bez zmiany timeoutów/workerów.
+Node 24.21.0 / Ubuntu, testowany commit `ba2b6d3`, źródła core `72bd46ea…`.
+[Uruchomienie CI](https://github.com/adamfron/my_football_legend/actions/runs/39063889407),
+[receipt i kompletny log](performance/PR173-verification.json).
 
 Lokalny pełny `npm run verify` obecnie **FAIL**: 1796 passed / 1 failed w głównym
 zestawie. Jedyna porażka to niezmieniony limit 5000 ms testu `pr149Statistics`
@@ -306,8 +311,13 @@ pozostaje przy 23/24. Seryjny Node dla dokładnego seeda daje mediany 2797.8→2
 (+2.89%) i identyczne całe stany headless/watched. Nie zastępuje to PASS w Vitest.
 Próba większej młodej generacji heap nie rozwiązała limitu i nie jest wdrożoną
 konfiguracją. Nie wydłużono czasu, nie zmniejszono kroków ani liczby workerów.
-CI i pozostałe etapy mają osobne wyniki w receipt. PR pozostaje draftem do czasu
-pełnej zielonej weryfikacji; lokalnego błędu nie przedstawiamy jako sukcesu.
+CI przeszło całą ścieżkę: main 1797, integracja 52, kontrakt kariery 4 i pełna
+kariera 5 testów. Lokalnie dodatkowo przeszły izolowane 8/8 statystyk, 52/52
+integracji i 4/4 kontraktu, w tym trzy całe mecze z zapisem/odtworzeniem.
+Osobny lokalny test pełnej kariery także przechodzi 5/5.
+Lokalnego zbiorczego błędu czasu nie przedstawiamy jako sukcesu. PR pozostaje
+draftem z powodu mieszanych wyników gry i szerszych nieosiągniętych celów AI.
+Końcowa aktualizacja wyłącznie raportu i receipts nie zmienia przetestowanego core.
 [Kontrola CPU](performance/PR173-statistics-test-cpu.json).
 
 Referencje pełnej telemetrii zmieniły się wskutek celowej zmiany toru piłki.
@@ -423,9 +433,12 @@ node --experimental-transform-types --import ./scripts/registerTypescriptLoader.
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr171.ts --output-dir=../pr173-full --mode=cohort
 node scripts/summarizePr171.mjs --input-dir=../pr173-full --receipt-prefix=PR173-after --minimum-matches=16
 node scripts/reportPr173.mjs
+node scripts/verifyPr173Evidence.mjs
 npm run verify
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr173Performance.ts --baseline-root=../baseline-pr172
 node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr173Startup.ts --baseline-root=../baseline-pr172
+node scripts/benchmarkPr173Telemetry.mjs --baseline-root=../baseline-pr172
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr173Statistics.mjs --baseline-root=../baseline-pr172
 ```
 
 Przy odtwarzaniu pełnej kohorty trzeba także uruchomić `--families=senior_balanced,wide_direct
