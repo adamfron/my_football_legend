@@ -1,5 +1,7 @@
 // @vitest-environment node
 /// <reference types="node" />
+import { evaluateCanonicalRating } from './careerMatchPresentation';
+import { createCompletedSeasonSnapshot } from './seasonArchive';
 import { describe, expect, it } from 'vitest';
 import { writeFileSync } from 'node:fs';
 import process from 'node:process';
@@ -391,6 +393,50 @@ describe('PR164 career fixture contract', () => {
           2,
         ) + '\n',
       );
+    const ratingRow = committed.seasonParticipation!.find((r) => r.fixtureId === input.fixture.id)!;
+    const participant = result.participants.find((p) => p.id === career.player.id)!;
+    expect(ratingRow.rating).toBe(
+      evaluateCanonicalRating({
+        position: participant.position,
+        source: 'canonical',
+        stats: participant.stats,
+      }).value,
+    );
+    expect(ratingRow.ratingProvenance?.source).toBe('canonical');
+    expect(
+      createCompletedSeasonSnapshot(committed).matches.find((m) => m.matchId === input.fixture.id)
+        ?.rating,
+    ).toBe(ratingRow.rating);
+    if (process.env.MFL_PR169_RECEIPT === '1') {
+      writeFileSync('../pr169-full-match.json', serializeCurrentCareerSave(committed));
+      writeFileSync(
+        'docs/performance/PR169-canonical.json',
+        JSON.stringify(
+          {
+            fixture: input.fixture,
+            score: result.score,
+            endedAt: result.endedAt,
+            substitutions: result.substitutions,
+            player: ratingRow,
+            roundTrip: hydrated.seasonParticipation!.find((r) => r.fixtureId === input.fixture.id),
+            distribution: result.participants.map((p) => ({
+              id: p.id,
+              position: p.position,
+              minutes: p.stats.minutesPlayed,
+              stats: p.stats,
+              rating: evaluateCanonicalRating({
+                position: p.position,
+                source: 'canonical',
+                stats: p.stats,
+              }).value,
+            })),
+            deterministicFullRepetitions: 2,
+          },
+          null,
+          2,
+        ) + '\n',
+      );
+    }
     console.info('PR164 canonical bridge receipt', {
       endedAt: result.endedAt,
       score: result.score,

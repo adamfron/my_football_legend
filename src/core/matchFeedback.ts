@@ -71,6 +71,8 @@ export const getSeasonPlayerSummary = (
     );
     return {
       ...completed.player,
+      averageRating:
+        completed.player.ratedAppearances === 0 ? undefined : completed.player.averageRating,
       saves: completed.matches.reduce((sum, match) => sum + (match.goalkeeper?.saves ?? 0), 0),
       ...(best ? { bestRating: best.rating, bestMatchId: best.matchId } : {}),
       seniorAppearances: 0,
@@ -87,6 +89,7 @@ export const getSeasonPlayerSummary = (
   );
   return {
     ...totals,
+    averageRating: rated.length ? totals.averageRating : undefined,
     xG: round(totals.xG),
     xA: round(totals.xA),
     saves: ledger.reduce(

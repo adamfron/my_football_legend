@@ -220,8 +220,36 @@ export const applyMatchAvailabilityEffects = (
 export const consumeUnavailableRound = (career: CareerState, date: string): CareerState => {
   const state = availabilityState(career);
   const current = getPlayerAvailability(career, date);
+  const recoveredFacts: HistoryFact[] = state.injuries
+    .filter(
+      (i) =>
+        ['moderate', 'major'].includes(i.severity) &&
+        (i.canonicalRecoveryDate
+          ? date >= i.canonicalRecoveryDate
+          : i.status === 'active' && i.matchesRemaining <= 1) &&
+        !career.historyFacts.some((f) => f.id === `recovery:${i.id}`),
+    )
+    .map((i) => ({
+      id: `recovery:${i.id}`,
+      factType: 'injury_recovered',
+      season: career.currentSeason,
+      date: i.canonicalRecoveryDate ?? date,
+      actors: [career.player.id],
+      targets: [],
+      clubs: [career.currentClub.id],
+      competitions: [],
+      data: { injuryId: i.id, clubName: career.currentClub.name },
+      causes: career.historyFacts.filter((f) => f.id === `fact_${i.id}`).map((f) => f.id),
+      tags: ['injury', 'recovery'],
+      visibility: 'partial',
+      narrativeImportance: 65,
+      emotionalTone: 'positive',
+    }));
   return {
     ...career,
+    historyFacts: recoveredFacts.length
+      ? [...career.historyFacts, ...recoveredFacts]
+      : career.historyFacts,
     playerAvailability: {
       ...state,
       suspensionMatchesRemaining: Math.max(

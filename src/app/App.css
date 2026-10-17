@@ -39,6 +39,14 @@
   justify-self: end;
   min-width: 92px;
 }
+.career-header-actions {
+  display: flex;
+  gap: 6px;
+  justify-self: end;
+}
+.career-view > .detail-panel {
+  z-index: 5;
+}
 :is(.career-view, .tactical-sandbox) button {
   border: 1px solid #8c969a;
   border-radius: 2px;
@@ -76,6 +84,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  gap: 4px;
 }
 .summary-visual {
   width: 56px;
@@ -2077,4 +2086,101 @@ tbody tr.active {
 .season-timeline .timeline-context {
   color: #76552c;
   font-size: 0.72rem;
+}
+/* Compact career history uses the same light panels and native controls as CareerView. */
+.history-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+.history-controls label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.history-controls select {
+  border: 1px solid #8c969a;
+  border-radius: 2px;
+  background: #fff;
+  color: #20272b;
+  padding: 4px 6px;
+  font: inherit;
+}
+.history-rows {
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid #747474;
+  background: #fff;
+}
+.history-row {
+  border-bottom: 1px solid #ccc;
+  color: #20272b;
+  font-size: 12px;
+}
+.history-row > summary {
+  display: grid;
+  grid-template-columns: 82px minmax(115px, 160px) minmax(110px, 170px) 1fr;
+  gap: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+.history-row:nth-child(even) {
+  background: #f1f3f3;
+}
+.history-row > summary span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.history-row p {
+  margin: 5px 10px;
+}
+.season-history,
+.career-news > details {
+  border-bottom: 1px solid #929292;
+  padding: 7px 4px;
+  color: #20272b;
+}
+.season-history > summary,
+.career-news summary,
+.career-match-details summary {
+  cursor: pointer;
+}
+.archived-match {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px;
+  border-top: 1px solid #ddd;
+  padding: 4px;
+}
+.career-match-details {
+  font-size: 12px;
+  color: #20272b;
+}
+.career-match-details p {
+  margin: 5px 0;
+}
+.club-coach-badge {
+  font-weight: 700;
+  color: #284c65;
+}
+.season-narrative,
+.retirement-story {
+  padding: 8px;
+  background: #f4f5ef;
+  border: 1px solid #888;
+}
+@media (max-width: 650px) {
+  .history-row > summary {
+    grid-template-columns: 78px 1fr;
+    gap: 4px 8px;
+  }
+  .history-row > summary span:last-child {
+    grid-column: 1 / -1;
+    white-space: normal;
+  }
+  .archived-match {
+    grid-template-columns: 1fr;
+  }
 }

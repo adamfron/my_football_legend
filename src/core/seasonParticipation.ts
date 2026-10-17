@@ -8,6 +8,7 @@ import type {
   PlayerPosition,
 } from '../types/domain';
 import { applyPositionLearning } from './positionLearning';
+import { recordParticipationMilestones } from './narrative/careerEvidence';
 
 export const getExpectedAvailableMinuteShare = (
   role: SquadRole,
@@ -115,7 +116,10 @@ export const getSeasonGoalkeeperStats = (records: SeasonParticipationRecord[]) =
     cleanSheets:
       detailed.filter((stats) => stats.cleanSheet).length +
       canonical.filter(
-        (record) => record.metricsSource !== 'canonical_plus_summary' && record.minutes >= 60 && record.canonicalStats!.goalsConceded === 0,
+        (record) =>
+          record.metricsSource !== 'canonical_plus_summary' &&
+          record.minutes >= 60 &&
+          record.canonicalStats!.goalsConceded === 0,
       ).length,
     saves,
     savePercentage: canonical.length ? undefined : faced ? (saves / faced) * 100 : 0,
@@ -218,7 +222,9 @@ export const recordParticipation = (
     index < 0 ||
     (records[index]?.fixtureStatus === 'scheduled' && record.fixtureStatus === 'completed');
   return newlyCompleted
-    ? applyPositionLearning(next, { ...record, minutes: participationMinutes(record) })
+    ? recordParticipationMilestones(
+        applyPositionLearning(next, { ...record, minutes: participationMinutes(record) }),
+      )
     : next;
 };
 

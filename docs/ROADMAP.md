@@ -1,5 +1,53 @@
 # Roadmap
 
+Aktualny etap: **PR169 — Career Stories, News, Match Narratives & Career History**.
+[Raport i dowody PR169](PR169_CAREER_STORIES_NEWS_SEASON_NARRATIVES.md).
+
+Historie, wiadomości i podsumowania korzystają z istniejących faktów i archiwów.
+Oceny pełnych meczów 3D mają jawne źródło; końcówki statystyczne nie otrzymują
+pozornej precyzji. Zapis zmian zawodników, statystyki kariery, osiągnięcia i decyzje
+kontraktowe zachowują dotychczasowych właścicieli danych.
+
+## Autorytatywna kolejność po PR169
+
+- **PR170 — Match Atmosphere & Stylized Visual Polish**. Zachować atmosferę,
+  ceremonie, portrety, ławki, prostych widzów i opcjonalny cel shading. Usunąć
+  nadmiarowy napis „Adam Froń — na boisku” oraz przestarzałe żółte pole interakcji
+  z niedziałającym selektorem, zachowując funkcjonalne ścieżki decyzji. Ujednolicić
+  pozostały HUD. Pokazać do sześciu wiarygodnych ofert zewnętrznych w zwartej siatce
+  dwóch rzędów, z wyraźnymi obramowaniami. Poprawić kartę finansów i jej szczegóły,
+  dodać użyteczny mały kalendarz pod tabelą i poprawić gęstość tabel większych lig.
+- **PR171 — Match Reality Diagnostic Audit**. Porównać rzeczywiste rozkłady
+  statystyk kanonicznych meczów z wiarygodnymi danymi rzeczywistej piłki. Zbadać
+  nadmierne podania, niewielki udział środkowych pomocników, mało okazji, strzałów
+  celnych, obron i rzutów rożnych; bloki strzałów, wybicia, ciągłość posiadania
+  w ataku i częstości działań według pozycji. Wymagać hipotez i kontrolowanych
+  eksperymentów przed zmianami równowagi.
+- **PR172 — Match Realism Calibration**. Wprowadzać wyłącznie korekty poparte
+  wynikami PR171. Bez kwot goli, strzałów i podań.
+- **PR173 — Generational Renewal & World Strength**. Zbadać ewolucję świata przez
+  20–25 sezonów: sumę i średnią OVR kadr, siłę najlepszej XI, jakość pozycji i
+  rozkład wieku, absolwentów akademii i uzupełnianie kadr, emerytury, blokowanie
+  młodych przez dobrych weteranów, trajektorie talentów, pułapy rozwoju, transfery
+  między silniejszymi i słabszymi klubami oraz spadek jakości futbolu. Powtórzyć
+  pomiary po istotnej rozbudowie bazy świata.
+- **PR174 — Summary Simulation & PlayStyles**. Kalibrować statystyki lekkiej
+  symulacji względem poprawionego silnika kanonicznego. Zbadać nadmierne gole
+  i asysty pomocników defensywnych/środkowych. Rozszerzyć rozwój ludzkich stylów
+  na właściwe mecze podsumowaniowe, zachowując uczciwe źródło danych i wieloletnie
+  wymagania nabywania stylów.
+- **PR175+ — World Expansion**. Więcej lig i klubów, puchary, reprezentacje i
+  dalsze systemy świata futbolu.
+
+PR169 nie kalibruje podań, strzałów, obron, rożnych, krycia, pozycji, częstości
+decyzji ani tempa. Nie zmienia krzywych rozwoju człowieka/NPC, rozkładów G/A
+lekkiej symulacji, liczby lig ani oprawy stadionów.
+
+## Historyczne zapisy roadmapy
+
+Poniższe dawne określenia „aktualny” i „następny” dokumentują poprzednie etapy;
+nie zastępują kolejności powyżej.
+
 Aktualny etap: **PR168 — Coaches, Tactical Intelligence, Transfers & Career UX**.
 [Raport i dowody](PR168_COACHES_TACTICAL_INTELLIGENCE_CAREER_IMPROVEMENTS.md):
 wspólny dobór składu i ofert, briefing, rozdzielenie oceny decyzji od wyniku,
