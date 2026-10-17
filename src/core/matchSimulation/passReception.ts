@@ -382,12 +382,17 @@ export const resolveReceptionOutcome = (
         : kind === 'failed_control'
           ? 2.2 + (0.34 - quality) * 3
           : 0;
+  const selected =
+    state.pendingReceptionIntent?.actorId === receiver.id &&
+    state.pendingReceptionIntent.action.type === 'carry'
+      ? state.pendingReceptionIntent.action.target
+      : state.receptionPreparation?.actorId === receiver.id
+        ? state.receptionPreparation.continuation?.target
+        : undefined;
   const displacementDirection =
-    kind === 'directional_control' &&
-    state.receptionPreparation?.actorId === receiver.id &&
-    state.receptionPreparation.continuation
+    kind === 'directional_control' && selected
       ? (() => {
-          const target = state.receptionPreparation!.continuation!.target;
+          const target = selected;
           const length = Math.max(0.01, distance(contactPoint, target));
           return {
             x: (target.x - contactPoint.x) / length,
@@ -407,13 +412,6 @@ export const resolveReceptionOutcome = (
     y: contactPoint.y + displacementDirection.y * displacement,
   };
   const resultingPoint = displacement > 0 ? displacedPoint : undefined;
-  const selected =
-    state.pendingReceptionIntent?.actorId === receiver.id &&
-    state.pendingReceptionIntent.action.type === 'carry'
-      ? state.pendingReceptionIntent.action.target
-      : state.receptionPreparation?.actorId === receiver.id
-        ? state.receptionPreparation.continuation?.target
-        : undefined;
   const selectedVector = selected
     ? { x: selected.x - contactPoint.x, y: selected.y - contactPoint.y }
     : receiver.velocity;

@@ -395,6 +395,39 @@ const planContact = (
   };
 };
 
+/** The same finite foot impulse serves ongoing control and a directional first contact.
+ * Correct toward a nearby controllable offset over one contact interval; never move the ball
+ * to that offset. Skill bounds correction speed and difficulty dissipates the impulse. */
+export const deriveGroundControlImpulse = (
+  state: TacticalMatchState,
+  actor: MatchPlayerState,
+  wanted: { x: number; y: number },
+  offset: number,
+  interval: number,
+  difficulty: number,
+  balance = 1,
+) => {
+  const skill = controlSkill(actor);
+  const efficiency = 0.98 - difficulty * (0.12 + (1 - skill) * 0.43) - (1 - balance) * 0.24;
+  const correction = {
+    x: (actor.position.x + wanted.x * offset - state.ball.x) / interval,
+    y: (actor.position.y + wanted.y * offset - state.ball.y) / interval,
+  };
+  const correctionSpeed = Math.hypot(correction.x, correction.y);
+  const scale = Math.min(1, (3.8 + skill * 3.4) / Math.max(0.01, correctionSpeed));
+  const desired = {
+    x: actor.velocity.x + correction.x * scale + wanted.x * 1.6 * interval,
+    y: actor.velocity.y + correction.y * scale + wanted.y * 1.6 * interval,
+  };
+  return {
+    efficiency,
+    velocity: {
+      x: desired.x * efficiency + (state.ball.velocity?.x ?? actor.velocity.x) * (1 - efficiency),
+      y: desired.y * efficiency + (state.ball.velocity?.y ?? actor.velocity.y) * (1 - efficiency),
+    },
+  };
+};
+
 /** One canonical ground integrator, finite contacts and velocity impulses. No ball coordinates
  * are derived from body orientation. The plan can miss; recovery uses the ordinary loose-ball
  * lifecycle. No RNG is needed to author a contact: contested outcomes retain the tackle model. */
@@ -484,22 +517,17 @@ export const advanceControlledBall = (
             state.onBallPreparation.micro?.phase === 'directional_touch'
               ? 0.72
               : 0.43));
-    const efficiency =
-      0.98 - window.difficulty * (0.12 + (1 - skill) * 0.43) - (1 - balance) * 0.24;
-    const correction = {
-      x: (actor.position.x + wanted.x * offset - state.ball.x) / interval,
-      y: (actor.position.y + wanted.y * offset - state.ball.y) / interval,
-    };
-    const correctionSpeed = Math.hypot(correction.x, correction.y);
-    const scale = Math.min(1, (3.8 + skill * 3.4) / Math.max(0.01, correctionSpeed));
-    const desired = {
-      x: actor.velocity.x + correction.x * scale + wanted.x * 1.6 * interval,
-      y: actor.velocity.y + correction.y * scale + wanted.y * 1.6 * interval,
-    };
-    velocity = {
-      x: desired.x * efficiency + velocity.x * (1 - efficiency),
-      y: desired.y * efficiency + velocity.y * (1 - efficiency),
-    };
+    const impulse = deriveGroundControlImpulse(
+      state,
+      actor,
+      wanted,
+      offset,
+      interval,
+      window.difficulty,
+      balance,
+    );
+    const efficiency = impulse.efficiency;
+    velocity = impulse.velocity;
     contactFact = {
       actorId: actor.id,
       at: state.time,

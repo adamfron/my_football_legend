@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "source": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+  "gateBCompleteStateEquality": 57,
+  "gateCvsFinalDifferentStates": 0,
+  "before": {
+    "n": 19,
+    "teamPossessionAt2s": 17,
+    "teamPossessionAt5s": 14,
+    "meanMaximumControlledForwardMetres": 12.55136236015867,
+    "canonicalGroundImpulses": 179,
+    "actualFouls": 0,
+    "cards": 0,
+    "receptionKinds": {
+      "directional_control": 15,
+      "failed_control": 1,
+      "heavy_touch": 2,
+      "clean_control": 1
+    },
+    "meanSpeedBeforeReception": 3.6888745170392068,
+    "meanSpeedAfterReception": 3.0007722396006873,
+    "movingToStoppedContactSamples": 2,
+    "meanNextActionDelay": 1.1527777777780612
+  },
+  "after": {
+    "n": 19,
+    "teamPossessionAt2s": 17,
+    "teamPossessionAt5s": 16,
+    "meanMaximumControlledForwardMetres": 11.934618305217455,
+    "canonicalGroundImpulses": 128,
+    "actualFouls": 4,
+    "cards": 0,
+    "receptionKinds": {
+      "directional_control": 15,
+      "failed_control": 1,
+      "heavy_touch": 2,
+      "clean_control": 1
+    },
+    "meanSpeedBeforeReception": 3.6888745170392068,
+    "meanSpeedAfterReception": 3.0007722396006873,
+    "movingToStoppedContactSamples": 2,
+    "meanNextActionDelay": 1.1527777777780612
+  },
+  "definition": "Reception speeds bracket one 25ms contact tick. A moving-to-stopped sample is not automatically an unintended stop. First-touch physical outcome and explicit human direction remain distinct from subsequent action selection."
+}

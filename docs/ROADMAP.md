@@ -1,6 +1,50 @@
 # Roadmap
 
-Aktualny etap: **PR172 — Evidence-Based Match Realism**.
+Aktualny etap: **PR173 — Dynamic Football Actions & First-Touch Intelligence**.
+[Raport, scenariusze i granice dowodu](PR173_DYNAMIC_FOOTBALL_ACTIONS_FIRST_TOUCH.md).
+
+PR173 łączy ruchome przyjęcie z fizycznym impulsem kontroli, ograniczoną prognozą
+interwencji i istniejącym cyklem kontynuacji. Scenariusze 1a/1b/2a, audyt rezerwy
+zrywu i porównania zamrożonych decyzji poprzedzają zmiany polityki. Odrzucone
+heurystyki nie trafiają do rankingu. Nie deklarujemy rozwiązania nadmiernego recyklingu.
+
+## Autorytatywna kolejność PR173–PR179+
+
+- **PR173 — Dynamic Football Actions & First-Touch Intelligence (bieżący PR)**.
+  Ruchome przyjęcia, względny ruch i orientacja obrońców, fizyczna kontynuacja,
+  istniejące cięcia/krótkie dryblingi/wypchnięcia, rezerwa zrywu oraz zestaw 1a/1b/2a.
+  Zachować autonomię człowieka i jedną kanoniczną fizykę. Wdrażać tylko poprawki
+  uzasadnione parowanymi pomiarami; pozostałe luki pozostawić jawne w raporcie.
+- **PR174 — Combination Play & Tactical Adaptation**. Rzeczywiste pass-and-go,
+  one-two i third-man runs; wykorzystanie overlap/underlap, zbiorowe wyjście spod
+  pressingu, kontrolowane zwody i kombinacje. Rozpoznawać mocne strony partnerów
+  i słabości rywala, adaptować grę przy nieskutecznym recyklingu, oceniać kontekstowe
+  strzały z dystansu oraz krótkie kolektywne kontynuacje. Bez gwarantowanych return pass.
+- **PR175 — Match Reality Validation**. Niezależne, niewykorzystywane do strojenia
+  kohorty i porównanie z rzeczywistym futbolem: rozkłady podań, udział pozycji,
+  progresja, strzały, bloki, obrony, rożne, faule i różnorodność przebiegu. Stosować
+  wyłącznie wąsko uzasadnione dalsze poprawki; nie wymuszać średnich/kwot.
+- **PR176 — Generational Renewal & World Strength**. Dawny zakres PR173:
+  20–25 sezonów wzrostu NPC, OVR kadr/najlepszej XI, wiek i jakość pozycji,
+  akademie, integracja młodych, emerytury, uzupełnienia, pułapy talentu i transfery.
+- **PR177 — Summary Simulation & PlayStyles**. Dawny zakres PR174: kalibrować
+  lekkie mecze względem poprawionego silnika kanonicznego; gole/asysty pozycji,
+  udział i zmiany z prawdziwymi tożsamościami/powodami oraz długofalowy rozwój
+  ludzkich PlayStyles na podstawie właściwie udokumentowanych meczów symulowanych.
+- **PR178 — Career UX Consolidation**. Zwarte wiersze spotkań, zbiorcze archiwum
+  sezonów i kalendarz zgodny z rzeczywistą datą kariery, meczami, treningiem,
+  urazami i życiem. Normalny strzał wskaźnikiem: **klik miejsca w bramce →
+  kontekstowe menu techniki → wybór techniki wykonuje strzał**. Usunąć dodatkowe
+  obowiązkowe potwierdzenie i redundantne suwaki; zachować dostępność klawiaturą.
+- **PR179+ — World Expansion**. Dodatkowe kluby i ligi, puchary, reprezentacje,
+  zaawansowane transfery, ekonomia i dalsze systemy świata.
+
+Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania;
+raporty i receipts PR171/172 pozostają historycznymi, niezmienianymi dowodami.
+
+## Historyczna roadmapa PR172
+
+Poprzedni etap: **PR172 — Evidence-Based Match Realism**.
 [Raport, kontrfakty, poprawki i ograniczenia](PR172_MATCH_REALISM_CALIBRATION.md).
 
 Naprawiono handover keeperów, spakowane cele muru, kickoff readiness, odbicia,
@@ -11,7 +55,7 @@ lub agresji: ofensywna kreacja i recykling pozostają jawnie nierozwiązane.
 Końcowy `npm run verify`: **PASS — 1840 testów**, lint, TypeScript i build. Browser smoke wymaga ręcznego przeglądu
 po zatrzymaniu sterowania przez kontrolę URL narzędzia Computer Use.
 
-## Autorytatywna kolejność PR170–PR175+
+## Dawna kolejność PR170–PR175+ (historyczna)
 
 - **PR170 — Match Atmosphere & Stylized Visual Polish (scalony)**. Zachować atmosferę,
   ceremonie, portrety, ławki, prostych widzów i opcjonalny cel shading. Usunąć

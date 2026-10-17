@@ -1,5 +1,37 @@
 # My Football Legend — Current Project State
 
+## PR173 — Dynamic Football Actions & First-Touch Intelligence
+
+Baza: scalony PR172 `7465773`. Kierunkowy pierwszy kontakt nie przesuwa już
+piłki do przyszłego punktu, gdy nie istniał plan carry. Używa wspólnego skończonego
+impulsu kontroli, zachowując fizyczną pozycję piłki i możliwy pęd zawodnika.
+Świadomie wybrany kierunek człowieka ma pierwszeństwo przed propozycją kontynuacji.
+
+Ograniczona prognoza 2,5 s uwzględnia widoczną prędkość, facing, przyspieszanie,
+hamowanie, zwinność i rezerwy. Jest przybliżeniem kinematycznym z optymistycznym
+założeniem reakcji, bez gwarantowanej granicy czasu ani prawdopodobieństwa. Bliska stopa nadal może
+interweniować; cała lokalna asekuracja jest uwzględniana. Rewalidacja dotyczy
+istniejącej krótkiej kontynuacji. Nie wdrożono uniwersalnych bonusów ani odrzuconej
+zmiany wyboru omijania obrońcy. Stamina i parametry regeneracji pozostają dotychczasowe.
+
+57 parowanych pięciosekundowych prób 1a/1b/2a, naturalne zamrożone decyzje,
+audyt obciążeń, deterministyczność, pełna kohorta i weryfikacja są rozliczone w
+[raporcie PR173](PR173_DYNAMIC_FOOTBALL_ACTIONS_FIRST_TOUCH.md). Ograniczenia
+szerszej kreacji ofensywnej pozostają jawne; lokalna poprawa nie jest dowodem
+skalibrowanego realizmu całego meczu.
+
+16/16 pełnych fixtures kończy się bez awarii/cenzorowania; dwa U-17 mają identyczny
+cały stan observer ON/OFF. Te same 12: podania 25853→25177, strzały 21→21,
+final/box 567/39→608/62, CM 3356→3532 (14,741→16,064% ukończeń).
+Straty 2798→3190 i faule 196→219 pogarszają się. Nie deklarujemy rozwiązania
+recyklingu: mniej podań na sekwencję może też oznaczać stratę. Pełne źródła,
+odrzucone warianty oraz granice prognozy i testów są w raporcie.
+
+Autorytatywna kolejność: **PR174** kombinacje/adaptacja → **PR175** niezależna
+walidacja meczu → **PR176** generacje/siła świata → **PR177** summary/PlayStyles
+→ **PR178** UX kariery i strzału → **PR179+** świat. Zakres na początku
+[ROADMAP](ROADMAP.md) zastępuje starsze numery w historycznych sekcjach poniżej.
+
 ## PR172 — Match Realism: poprawność i zamrożone decyzje
 
 Baza: scalony PR171 `6b2ddaa`. Naprawiono kolejność keeper handover przed geometrią,

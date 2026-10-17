@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "source": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+  "localVerify": {
+    "command": "npm run verify",
+    "result": "FAIL",
+    "stage": "test:main",
+    "passed": 1796,
+    "failed": 1,
+    "testFilesPassed": 211,
+    "testFilesFailed": 1,
+    "durationSeconds": 281.57,
+    "reason": "Unchanged 5000ms pr149Statistics headless/projected test deadline; 5894ms. No functional assertion mismatch remains in this run.",
+    "configuration": "Node v24.19.0, standard package workers/timeouts and all 2400 ticks. Workspace TEMP/TMP for Vite. No permanent runtime/config/test budget changes."
+  },
+  "controls": {
+    "pristinePR172Focused": {
+      "passed": 24,
+      "failed": 0
+    },
+    "finalFocused": {
+      "passed": 23,
+      "failed": 1,
+      "reason": "Same 5000ms deadline"
+    },
+    "largerYoungGeneration": {
+      "result": "FAIL",
+      "deployed": false,
+      "reason": "Ephemeral --max-semi-space-size=64 did not fix the deadline; not used in final production or performance measurements."
+    },
+    "statisticsCpu": "PR173-statistics-test-cpu.json",
+    "finalLint": "PASS",
+    "harnessTypes": "PASS",
+    "productionBuild": "PASS"
+  },
+  "additionalChecks": [],
+  "ci": {
+    "status": "pending",
+    "note": "Existing unchanged GitHub CI runs npm run verify on Node 24/Ubuntu. Pending is not PASS."
+  },
+  "physicalEvidence": {
+    "controlledScenarios": 57,
+    "supplementalFirstTimeOpenings": 16,
+    "genuineFrozenStates": 40,
+    "canonicalActionsPerFrozenState": 4,
+    "fullMatches": 16,
+    "censored": 0,
+    "fullObserverEqualityMatches": 2,
+    "shortObserverEqualityStates": 3,
+    "jsonSaveReloadCheckpoints": 24,
+    "historicalJsonReceiptsUnchanged": 44
+  },
+  "evidence": [
+    {
+      "path": "pr173-experiments/pr173-verify.log.gz",
+      "sha256": "ce2506c2644b5a89243fbb23467c23aff72c765684510d18eae86431beec4b8a",
+      "gzipSha256": "908912f0766be2e8a593913f0d58fa7b3e2fc6f12d40f79dddb74a8a9967c6e3",
+      "bytes": 2634
+    },
+    {
+      "path": "pr173-experiments/pr173-reference-focused.log.gz",
+      "sha256": "18273a76e7639e412c8d50efdce2437dfe4dcb45b4c8970f44d974841ae7738d",
+      "gzipSha256": "7eb4a17284e50795d0de62a3a73b1e457b16109a806ec7202df78dd236717599",
+      "bytes": 1317
+    },
+    {
+      "path": "pr173-experiments/pr173-pr172-test-control.log.gz",
+      "sha256": "c80f10a3ea5b0c89f28334ce5e33b52bad64dc8841fee9332e0ae7417514f561",
+      "gzipSha256": "09bb2de37015f267933c93f25fc8bb0ee37e53c1755af07a61aade081c5b32fe",
+      "bytes": 307
+    },
+    {
+      "path": "pr173-experiments/pr173-reference-recheck.log.gz",
+      "sha256": "cc2c71d21ddd0e24019c5effff2b4d6ca0d1ccdc976b570b421b36fcd85916be",
+      "gzipSha256": "34e714ce012f83ccc77c0da17cbf428a0514cbb25843a94c4cf89cdba0ba4e21",
+      "bytes": 5768
+    },
+    {
+      "path": "pr173-experiments/pr173-reference-heap.log.gz",
+      "sha256": "65018b1eebfa5fed098f7d96a4fb3a977f6d9bc838d13d326fd2397580d99c15",
+      "gzipSha256": "02705dc0162e401551d796dd7a9efb4ff2bad60bf853bc6b62e4339d219b1758",
+      "bytes": 5767
+    },
+    {
+      "path": "pr173-experiments/pr173-final-lint.log.gz",
+      "sha256": "39e781f2eb1b5c98f68c8ee435a6f0b564b9da640d92873269a45f1107e557b5",
+      "gzipSha256": "daf88501805204d9de1253e49ec86c1cba402b3f4df6da80d408203b13082aa0",
+      "bytes": 49
+    },
+    {
+      "path": "pr173-experiments/pr173-harness-types.log.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e",
+      "bytes": 0
+    },
+    {
+      "path": "pr173-experiments/pr173-final-build.log.gz",
+      "sha256": "0a6c240cc28cb60388b4910c5784abadd48f13b45c9dcabf48f3cec5c619f654",
+      "gzipSha256": "2951a9c5c4521cf271b12f316f3bd6e4c7349489c596d5c2a04de46019a56b13",
+      "bytes": 2711
+    }
+  ],
+  "reviewStatus": "Draft: local full verification is not green; gameplay tradeoffs and wider policy gaps remain explicit."
+}
