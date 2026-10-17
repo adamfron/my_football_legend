@@ -1,0 +1,514 @@
+{
+  "phase": "before",
+  "environment": "Actual production Edge, Brotli HTTP, genuine UI decisions and persisted save; no match-state injection.",
+  "scenarios": [
+    {
+      "name": "career-calendar-play3D-action-remainder-save-reload-finance-next3D",
+      "fixtureId": "league_2026_1_1",
+      "target": "player",
+      "chosenAction": "Podaj do nogi",
+      "participation": {
+        "fixtureId": "league_2026_1_1",
+        "participationEvidence": {
+          "substitutions": [],
+          "decisions": {
+            "resolved": 1,
+            "retained": 0,
+            "turnovers": 1
+          }
+        },
+        "ratingProvenance": {
+          "model": "canonical_v1",
+          "source": "canonical_plus_summary",
+          "unavailable": "partial_actions"
+        },
+        "canonicalStats": {
+          "minutesPlayed": 90,
+          "saves": 0,
+          "goalsConceded": 0,
+          "catches": 0,
+          "parries": 0,
+          "touches": 11,
+          "shots": 0,
+          "shotsOnTarget": 0,
+          "tacklesWon": 0,
+          "interceptions": 4,
+          "passesAttempted": 9,
+          "passesCompleted": 4,
+          "distanceCovered": 1440.603587927223,
+          "sprintBursts": 4
+        },
+        "metricsSource": "canonical_plus_summary",
+        "date": "2026-09-05",
+        "opponentId": "u17_pro_60",
+        "venue": "home",
+        "competition": "Polska Liga U-17",
+        "status": "starter",
+        "plannedMinutes": 90,
+        "minutes": 90,
+        "started": true,
+        "assignedPosition": "left_winger",
+        "appearanceMatchId": "league_2026_1_1:1c32f179",
+        "goals": 0,
+        "assists": 0,
+        "xG": 0,
+        "xA": 0,
+        "seasonId": "2026-27",
+        "competitionId": "polish-u17",
+        "homeClubId": "club_vistula_nova",
+        "awayClubId": "u17_pro_60",
+        "fixtureStatus": "completed",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "defensiveActions": 4,
+        "yellowCards": 0
+      },
+      "firstMatchLoadMs": 2443,
+      "secondMatchLoadMs": 706,
+      "careerResources": [
+        {
+          "name": "index-D3VwvitN.js",
+          "transferBytes": 0,
+          "encodedBytes": 54074,
+          "decodedBytes": 196273
+        },
+        {
+          "name": "worldDatabase-DJaTrWsg.js",
+          "transferBytes": 0,
+          "encodedBytes": 60961,
+          "decodedBytes": 234099
+        },
+        {
+          "name": "preload-helper-DNO3CK5E.js",
+          "transferBytes": 0,
+          "encodedBytes": 1676,
+          "decodedBytes": 4757
+        },
+        {
+          "name": "index-CsbR1VJO.css",
+          "transferBytes": 0,
+          "encodedBytes": 7304,
+          "decodedBytes": 33728
+        },
+        {
+          "name": "favicon.ico",
+          "transferBytes": 448,
+          "encodedBytes": 148,
+          "decodedBytes": 406
+        },
+        {
+          "name": "CareerApp-_Q8izkgt.js",
+          "transferBytes": 20209,
+          "encodedBytes": 19909,
+          "decodedBytes": 70137
+        },
+        {
+          "name": "CareerView-CPOnOCTH.js",
+          "transferBytes": 29711,
+          "encodedBytes": 29411,
+          "decodedBytes": 98741
+        },
+        {
+          "name": "npcCareerIdentity-DwWsk1mM.js",
+          "transferBytes": 4214,
+          "encodedBytes": 3914,
+          "decodedBytes": 10388
+        },
+        {
+          "name": "pl-2026-v2.json",
+          "transferBytes": 192277,
+          "encodedBytes": 191977,
+          "decodedBytes": 3279921
+        },
+        {
+          "name": "MatchGame-D8VV30pt.js",
+          "transferBytes": 2769,
+          "encodedBytes": 2469,
+          "decodedBytes": 5909
+        }
+      ],
+      "firstResources": [
+        {
+          "name": "index-D3VwvitN.js",
+          "transferBytes": 0,
+          "encodedBytes": 54074,
+          "decodedBytes": 196273
+        },
+        {
+          "name": "worldDatabase-DJaTrWsg.js",
+          "transferBytes": 0,
+          "encodedBytes": 60961,
+          "decodedBytes": 234099
+        },
+        {
+          "name": "preload-helper-DNO3CK5E.js",
+          "transferBytes": 0,
+          "encodedBytes": 1676,
+          "decodedBytes": 4757
+        },
+        {
+          "name": "index-CsbR1VJO.css",
+          "transferBytes": 0,
+          "encodedBytes": 7304,
+          "decodedBytes": 33728
+        },
+        {
+          "name": "favicon.ico",
+          "transferBytes": 448,
+          "encodedBytes": 148,
+          "decodedBytes": 406
+        },
+        {
+          "name": "CareerApp-_Q8izkgt.js",
+          "transferBytes": 20209,
+          "encodedBytes": 19909,
+          "decodedBytes": 70137
+        },
+        {
+          "name": "CareerView-CPOnOCTH.js",
+          "transferBytes": 29711,
+          "encodedBytes": 29411,
+          "decodedBytes": 98741
+        },
+        {
+          "name": "npcCareerIdentity-DwWsk1mM.js",
+          "transferBytes": 4214,
+          "encodedBytes": 3914,
+          "decodedBytes": 10388
+        },
+        {
+          "name": "pl-2026-v2.json",
+          "transferBytes": 192277,
+          "encodedBytes": 191977,
+          "decodedBytes": 3279921
+        },
+        {
+          "name": "MatchGame-D8VV30pt.js",
+          "transferBytes": 2769,
+          "encodedBytes": 2469,
+          "decodedBytes": 5909
+        },
+        {
+          "name": "CareerCanonicalMatch-BSt_QGgq.js",
+          "transferBytes": 1585,
+          "encodedBytes": 1285,
+          "decodedBytes": 3232
+        },
+        {
+          "name": "TacticalMatchSandbox-CwXAwUbs.js",
+          "transferBytes": 106078,
+          "encodedBytes": 105778,
+          "decodedBytes": 429167
+        },
+        {
+          "name": "model-Dsw0KBOc.js",
+          "transferBytes": 171006,
+          "encodedBytes": 170706,
+          "decodedBytes": 774958
+        },
+        {
+          "name": "TacticalMatchSandbox-0kKGedtd.css",
+          "transferBytes": 2641,
+          "encodedBytes": 2341,
+          "decodedBytes": 9572
+        }
+      ],
+      "secondResources": [
+        {
+          "name": "index-D3VwvitN.js",
+          "transferBytes": 0,
+          "encodedBytes": 54074,
+          "decodedBytes": 196273
+        },
+        {
+          "name": "worldDatabase-DJaTrWsg.js",
+          "transferBytes": 0,
+          "encodedBytes": 60961,
+          "decodedBytes": 234099
+        },
+        {
+          "name": "preload-helper-DNO3CK5E.js",
+          "transferBytes": 0,
+          "encodedBytes": 1676,
+          "decodedBytes": 4757
+        },
+        {
+          "name": "index-CsbR1VJO.css",
+          "transferBytes": 0,
+          "encodedBytes": 7304,
+          "decodedBytes": 33728
+        },
+        {
+          "name": "favicon.ico",
+          "transferBytes": 448,
+          "encodedBytes": 148,
+          "decodedBytes": 406
+        },
+        {
+          "name": "CareerApp-_Q8izkgt.js",
+          "transferBytes": 0,
+          "encodedBytes": 19909,
+          "decodedBytes": 70137
+        },
+        {
+          "name": "CareerView-CPOnOCTH.js",
+          "transferBytes": 0,
+          "encodedBytes": 29411,
+          "decodedBytes": 98741
+        },
+        {
+          "name": "npcCareerIdentity-DwWsk1mM.js",
+          "transferBytes": 0,
+          "encodedBytes": 3914,
+          "decodedBytes": 10388
+        },
+        {
+          "name": "pl-2026-v2.json",
+          "transferBytes": 0,
+          "encodedBytes": 191977,
+          "decodedBytes": 3279921
+        },
+        {
+          "name": "MatchGame-D8VV30pt.js",
+          "transferBytes": 0,
+          "encodedBytes": 2469,
+          "decodedBytes": 5909
+        },
+        {
+          "name": "CareerCanonicalMatch-BSt_QGgq.js",
+          "transferBytes": 0,
+          "encodedBytes": 1285,
+          "decodedBytes": 3232
+        },
+        {
+          "name": "TacticalMatchSandbox-CwXAwUbs.js",
+          "transferBytes": 0,
+          "encodedBytes": 105778,
+          "decodedBytes": 429167
+        },
+        {
+          "name": "model-Dsw0KBOc.js",
+          "transferBytes": 0,
+          "encodedBytes": 170706,
+          "decodedBytes": 774958
+        },
+        {
+          "name": "TacticalMatchSandbox-0kKGedtd.css",
+          "transferBytes": 0,
+          "encodedBytes": 2341,
+          "decodedBytes": 9572
+        }
+      ],
+      "careerNetwork": [
+        {
+          "requestId": "4BD7B1421FF3721A1500D1C6BA4D8A4A",
+          "name": "",
+          "type": "Document",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 344
+        },
+        {
+          "requestId": "476.2",
+          "name": "index-D3VwvitN.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 54290
+        },
+        {
+          "requestId": "476.5",
+          "name": "index-CsbR1VJO.css",
+          "type": "Stylesheet",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 7512
+        },
+        {
+          "requestId": "476.4",
+          "name": "preload-helper-DNO3CK5E.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 1891
+        },
+        {
+          "requestId": "476.3",
+          "name": "worldDatabase-DJaTrWsg.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 61177
+        },
+        {
+          "requestId": "476.10",
+          "name": "favicon.ico",
+          "type": "Other",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 344
+        },
+        {
+          "requestId": "D3433299DE819F0D9D6E01765E099786",
+          "name": "",
+          "type": "Document",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 344
+        },
+        {
+          "requestId": "476.12",
+          "name": "index-D3VwvitN.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        },
+        {
+          "requestId": "476.13",
+          "name": "worldDatabase-DJaTrWsg.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        },
+        {
+          "requestId": "476.14",
+          "name": "preload-helper-DNO3CK5E.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        },
+        {
+          "requestId": "476.15",
+          "name": "index-CsbR1VJO.css",
+          "type": "Stylesheet",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        },
+        {
+          "requestId": "476.20",
+          "name": "favicon.ico",
+          "type": "Other",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 344
+        },
+        {
+          "requestId": "476.21",
+          "name": "CareerApp-_Q8izkgt.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 20125
+        },
+        {
+          "requestId": "476.22",
+          "name": "CareerView-CPOnOCTH.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 29627
+        },
+        {
+          "requestId": "476.23",
+          "name": "npcCareerIdentity-DwWsk1mM.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 4129
+        },
+        {
+          "requestId": "476.24",
+          "name": "pl-2026-v2.json",
+          "type": "Fetch",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 192195
+        },
+        {
+          "requestId": "476.25",
+          "name": "MatchGame-D8VV30pt.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 2684
+        }
+      ],
+      "firstMatchNetwork": [
+        {
+          "requestId": "476.26",
+          "name": "CareerCanonicalMatch-BSt_QGgq.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 1500
+        },
+        {
+          "requestId": "476.27",
+          "name": "TacticalMatchSandbox-CwXAwUbs.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 105995
+        },
+        {
+          "requestId": "476.29",
+          "name": "TacticalMatchSandbox-0kKGedtd.css",
+          "type": "Stylesheet",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 2549
+        },
+        {
+          "requestId": "476.28",
+          "name": "model-Dsw0KBOc.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 170923
+        }
+      ],
+      "secondMatchNetwork": [
+        {
+          "requestId": "476.45",
+          "name": "CareerCanonicalMatch-BSt_QGgq.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        },
+        {
+          "requestId": "476.46",
+          "name": "TacticalMatchSandbox-CwXAwUbs.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        },
+        {
+          "requestId": "476.47",
+          "name": "model-Dsw0KBOc.js",
+          "type": "Script",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        },
+        {
+          "requestId": "476.48",
+          "name": "TacticalMatchSandbox-0kKGedtd.css",
+          "type": "Stylesheet",
+          "fromDiskCache": false,
+          "fromServiceWorker": false,
+          "encodedTransferBytes": 0
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "complete": true
+}

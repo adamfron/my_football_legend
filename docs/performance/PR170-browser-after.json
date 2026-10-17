@@ -1,0 +1,168 @@
+{
+  "phase": "after",
+  "browser": "155.0.4283.45",
+  "production": true,
+  "scenarios": [
+    {
+      "name": "dashboard",
+      "cards": 0,
+      "errors": []
+    },
+    {
+      "name": "completed-calendar-fixture",
+      "fixture": "league_2026_1_1",
+      "readOnly": true,
+      "errors": []
+    },
+    {
+      "name": "offers",
+      "cards": 6,
+      "errors": []
+    },
+    {
+      "name": "responsive-offers",
+      "width": 1920,
+      "height": 1080,
+      "columns": 3,
+      "cards": 6,
+      "errors": []
+    },
+    {
+      "name": "responsive-calendar",
+      "width": 1920,
+      "height": 1080,
+      "focusOutline": "dotted",
+      "readOnly": true,
+      "futureFixture": "league_2026_1_1",
+      "errors": []
+    },
+    {
+      "name": "responsive-offers",
+      "width": 1366,
+      "height": 768,
+      "columns": 3,
+      "cards": 6,
+      "errors": []
+    },
+    {
+      "name": "responsive-calendar",
+      "width": 1366,
+      "height": 768,
+      "focusOutline": "dotted",
+      "readOnly": true,
+      "futureFixture": "league_2026_1_1",
+      "errors": []
+    },
+    {
+      "name": "responsive-offers",
+      "width": 820,
+      "height": 1180,
+      "columns": 2,
+      "cards": 6,
+      "errors": []
+    },
+    {
+      "name": "responsive-calendar",
+      "width": 820,
+      "height": 1180,
+      "focusOutline": "dotted",
+      "readOnly": true,
+      "futureFixture": "league_2026_1_1",
+      "errors": []
+    },
+    {
+      "name": "responsive-offers",
+      "width": 390,
+      "height": 844,
+      "columns": 1,
+      "cards": 6,
+      "errors": []
+    },
+    {
+      "name": "responsive-calendar",
+      "width": 390,
+      "height": 844,
+      "focusOutline": "dotted",
+      "readOnly": true,
+      "futureFixture": "league_2026_1_1",
+      "errors": []
+    },
+    {
+      "name": "table-capacity",
+      "size": 12,
+      "scrolling": {
+        "clientHeight": 251,
+        "scrollHeight": 299
+      },
+      "calendarBounds": {
+        "x": 10,
+        "y": 487,
+        "width": 602.09375,
+        "height": 271
+      },
+      "presentationFixtureOnly": true,
+      "errors": []
+    },
+    {
+      "name": "table-capacity",
+      "size": 16,
+      "scrolling": {
+        "clientHeight": 251,
+        "scrollHeight": 391
+      },
+      "calendarBounds": {
+        "x": 10,
+        "y": 487,
+        "width": 602.09375,
+        "height": 271
+      },
+      "presentationFixtureOnly": true,
+      "errors": []
+    },
+    {
+      "name": "table-capacity",
+      "size": 20,
+      "scrolling": {
+        "clientHeight": 251,
+        "scrollHeight": 483
+      },
+      "calendarBounds": {
+        "x": 10,
+        "y": 487,
+        "width": 602.09375,
+        "height": 271
+      },
+      "presentationFixtureOnly": true,
+      "errors": []
+    },
+    {
+      "name": "table-capacity",
+      "size": 24,
+      "scrolling": {
+        "clientHeight": 251,
+        "scrollHeight": 575
+      },
+      "calendarBounds": {
+        "x": 10,
+        "y": 487,
+        "width": 602.09375,
+        "height": 271
+      },
+      "presentationFixtureOnly": true,
+      "errors": []
+    },
+    {
+      "name": "accept-external",
+      "persistedAfterReload": true,
+      "season": 2028,
+      "errors": []
+    },
+    {
+      "name": "accept-renewal",
+      "persistedAfterReload": true,
+      "season": 2028,
+      "errors": []
+    }
+  ],
+  "complete": true
+}

@@ -1,5 +1,35 @@
 # My Football Legend — Current Project State
 
+## PR170 — Match Atmosphere, Stylized Visual Polish & Career UI Refinement
+
+Baza: scalony PR169 `77fd3a3`. Trzy stadiony PR161 mają czytelniejsze sektory,
+zadaszenia z odcięciem przy kamerze, tunel i strefę techniczną. Statyczne moduły
+są instancjonowane; widownia ma ograniczone kosmetyczne reakcje po prawdziwym
+golu. Ławka wykorzystuje wyłącznie rzeczywistych uczestników, poza pickingiem
+i fizyką. Stabilne DNA PR165 pozostaje; opcjonalne faceted ma klasyczny fallback.
+Krótkie, pomijalne podpisy kanonicznych przejść i podsumowanie końca nie zapisują
+wyniku samodzielnie. Usunięto nadmiarowy status gracza i żółte pole interakcji;
+wybór gracza/piłki/bramki/punktu i akcje klawiatury są w panelu decyzji.
+
+Wspólna polityka generowania/odczytu/przyjęcia ogranicza oferty zewnętrzne do
+sześciu, z osobnym odnowieniem. Siatka 3/2/1 kolumn, prawdziwy ledger finansów,
+mały kalendarz tylko do odczytu pod niezależnie przewijaną tabelą. Edge sprawdził
+1920/1366/820/390 px, tabele 12/16/20/24, transfer i odnowienie z reloadem oraz
+karierę 3D z rzeczywistym podaniem i zapisaną kontynuacją canonical_plus_summary.
+
+Lokalne pełne `npm run verify`: **PASS — 1788 testów**, lint, TypeScript, build.
+Końcowa powtórka po poprawce kontrastu trwa. W porównaniu z PR169 wszystkie
+hasze kanoniczne pozostają identyczne. CPU minuta: 2,378 → 2,464 s bez
+obserwatorów; 3,133 → 3,351 s z kontekstem. Draw calls stadionów 964/983/1009
+→ 901/903/903, pierwszy import 3D +3137 B, drugi 0 B z cache. Bez obietnicy
+przyspieszenia CPU. Dokładna metoda, ograniczenia, zrzuty i 30 odpowiedzi:
+[raport PR170](PR170_MATCH_ATMOSPHERE_VISUAL_POLISH.md).
+
+Następne: **PR171** niezależna diagnostyka, **PR172** kalibracja oparta na
+dowodach, **PR173** pokolenia/siła świata, **PR174** lekka symulacja/PlayStyles,
+**PR175+** rozbudowa świata. Autorytatywny zakres pozostaje na początku
+[roadmapy](ROADMAP.md); poniżej historia wcześniejszych etapów.
+
 ## PR169 — Career Stories, News, Match Narratives & Career History
 
 Baza: scalony PR168 `19cb7af`. Wiadomości, wątki kariery, podsumowania sezonu

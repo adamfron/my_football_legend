@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import process from 'node:process';
 import { createRequire } from 'node:module';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { serveProduction, loadBrowserSave, readBrowserSave } from './pr170BrowserSupport.mjs';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.MFL_PLAYWRIGHT_MODULE ?? 'playwright');
@@ -24,10 +24,41 @@ try {
     await page.screenshot({ path: `docs/images/pr170/${name}-${phase}.png` });
     const cards = await page.locator('.offer-card').count();
     report.scenarios.push({ name, cards, errors: active.errors });
+    if (phase === 'after' && name === 'dashboard') {
+      const career = JSON.parse(initial).career;
+      const completed = career.seasonParticipation.find((row) => row.fixtureStatus === 'completed');
+      const fixture = career.careerCalendar.fixtures.find((row) => row.id === completed.fixtureId);
+      const months = (value) => Number(value.slice(0, 4)) * 12 + Number(value.slice(5, 7));
+      const delta = months(fixture.date) - months(career.currentDate);
+      for (let index = 0; index < Math.abs(delta); index++)
+        await page
+          .getByRole('button', {
+            name: delta > 0 ? 'Następny miesiąc' : 'Poprzedni miesiąc',
+            exact: true,
+          })
+          .click();
+      const date = page.locator(`.calendar-days button[data-date="${fixture.date}"]`);
+      assert((await date.getAttribute('aria-label')).includes('rozegrany mecz'));
+      await date.click();
+      assert(
+        (await page.locator('.calendar-date-details').innerText()).includes(fixture.opponent.name),
+      );
+      await page.screenshot({ path: 'docs/images/pr170/calendar-completed.png' });
+      assert.equal(await readBrowserSave(page), initial);
+      report.scenarios.push({
+        name: 'completed-calendar-fixture',
+        fixture: fixture.id,
+        readOnly: true,
+        errors: active.errors,
+      });
+    }
     await page.locator('.summary-strip > button').nth(2).click();
     await page.getByRole('heading', { name: 'Kontrakt i finanse', exact: true }).waitFor();
     await page.screenshot({ path: `docs/images/pr170/finance-${name}-${phase}.png` });
     assert.equal(await readBrowserSave(page), initial, 'Inspection wrote a save');
+    await page.getByRole('button', { name: 'Zamknij', exact: true }).focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('.finance-view').count(), 0);
     await active.context.close();
   }
   if (phase === 'after') {
@@ -93,6 +124,18 @@ try {
       assert.equal(await readBrowserSave(active.page), initial);
       await calendar.scrollIntoViewIfNeeded();
       await active.page.screenshot({ path: `docs/images/pr170/calendar-${width}.png` });
+      const fixture = JSON.parse(readFileSync('../pr170-dashboard.json', 'utf8')).career
+        .careerCalendar.fixtures[0];
+      for (let month = 0; month < 2; month++)
+        await active.page.getByRole('button', { name: 'Następny miesiąc', exact: true }).click();
+      await calendar.locator(`button[data-date="${fixture.date}"]`).click();
+      assert(
+        (await calendar.locator('.calendar-date-details').innerText()).includes(
+          fixture.opponent.name,
+        ),
+      );
+      assert.equal(await readBrowserSave(active.page), initial);
+      await active.page.screenshot({ path: `docs/images/pr170/calendar-fixture-${width}.png` });
       const docWidth = await active.page.evaluate(() => document.documentElement.scrollWidth);
       assert(docWidth <= width + 1, `Dashboard overflows at ${width}: ${docWidth}`);
       report.scenarios.push({
@@ -101,6 +144,7 @@ try {
         height,
         focusOutline,
         readOnly: true,
+        futureFixture: fixture.id,
         errors: active.errors,
       });
       await active.page.locator('.summary-strip > button').nth(2).click();
@@ -118,12 +162,10 @@ try {
         bounds.y >= 0 && bounds.y + bounds.height <= 768,
         `Calendar hidden below ${size}-team table`,
       );
-      const scrolling = await active.page
-        .locator('.table-scroll')
-        .evaluate((element) => ({
-          clientHeight: element.clientHeight,
-          scrollHeight: element.scrollHeight,
-        }));
+      const scrolling = await active.page.locator('.table-scroll').evaluate((element) => ({
+        clientHeight: element.clientHeight,
+        scrollHeight: element.scrollHeight,
+      }));
       await active.page.screenshot({ path: `docs/images/pr170/table-${size}.png` });
       report.scenarios.push({
         name: 'table-capacity',
