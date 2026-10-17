@@ -25,7 +25,14 @@ export const DecisionTargets = ({
       [
         ...projectSelectableInteractionTargets(state, opportunity),
         { kind: 'ball' as const, point: { x: state.ball.x, y: state.ball.y } },
-        ...(actor ? [{ kind: 'goal' as const, side: actor.team === 'home' ? 'away' as const : 'home' as const }] : []),
+        ...(actor
+          ? [
+              {
+                kind: 'goal' as const,
+                side: actor.team === 'home' ? ('away' as const) : ('home' as const),
+              },
+            ]
+          : []),
         ...state.players.map((player) => ({ kind: 'player' as const, playerId: player.id })),
       ]
         .filter((target) => projectContextualInteractions(state, opportunity, target).length)

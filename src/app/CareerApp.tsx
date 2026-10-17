@@ -742,12 +742,7 @@ export const SeasonEndSummary = ({
                     Trening: {qualityLabel(getClubDevelopmentEnvironment(offer.club))} · Medycyna:{' '}
                     {qualityLabel(getClubMedicalQuality(offer.club))}
                   </p>
-                  <p>
-                    <strong>Transfer:</strong>{' '}
-                    {offer.transferKind === 'free'
-                      ? 'Wolny transfer'
-                      : `Szacowane odstępne: ${(offer.estimatedTransferFee ?? 0).toLocaleString('pl-PL')} PLN`}
-                  </p>
+
                   <p>
                     <strong>Rola:</strong> {squadRoleLabel(offer.contract.squadRole)}
                   </p>
@@ -783,6 +778,12 @@ export const SeasonEndSummary = ({
                   </p>
                   <details className="offer-secondary">
                     <summary>Ocena skautów i konkurencja</summary>
+                    <p>
+                      <strong>Transfer:</strong>{' '}
+                      {offer.transferKind === 'free'
+                        ? 'Wolny transfer'
+                        : `Szacowane odstępne: ${(offer.estimatedTransferFee ?? 0).toLocaleString('pl-PL')} PLN`}
+                    </p>
                     {offer.interestReasons.map((reason) => (
                       <p key={reason}>{reason}</p>
                     ))}

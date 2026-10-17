@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { gunzipSync } from 'node:zlib';
 import { createPr167Career, pr167World } from './pr167Fixtures';
 import {
   hydrateCareerWithWorld,
@@ -22,7 +23,15 @@ import { createLeagueSeason } from '../src/core/leagueSeason';
 import { leagueSeasonSchema } from '../src/schemas/domainSchemas';
 
 export const prepare = (full = false) => {
-  const source = parseCareerSave(readFileSync('../pr170-source-career.json', 'utf8'));
+  const sourceText = gunzipSync(
+    readFileSync('docs/performance/fixtures/PR170-source-career.json.gz'),
+  ).toString('utf8');
+  writeFileSync('../pr170-before-offers.json', sourceText);
+  writeFileSync(
+    '../pr170-hybrid.json',
+    gunzipSync(readFileSync('docs/performance/fixtures/PR170-hybrid-career.json.gz')),
+  );
+  const source = parseCareerSave(sourceText);
   if (!source.ok) throw Error('Source career');
   const career = hydrateCareerWithWorld(source.save.career, pr167World);
   career.professionalOffers = generateSummerWindowOffers(career);

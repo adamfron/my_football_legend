@@ -67,7 +67,27 @@ export const loadBrowserSave = async (
 ) => {
   const context = await browser.newContext({ viewport }),
     page = await context.newPage(),
-    errors = [];
+    errors = [],
+    network = [];
+  const cdp = await context.newCDPSession(page),
+    requests = new Map();
+  await cdp.send('Network.enable');
+  cdp.on('Network.responseReceived', ({ requestId, response, type }) => {
+    const row = {
+      requestId,
+      name: response.url.split('/').at(-1),
+      type,
+      fromDiskCache: !!response.fromDiskCache,
+      fromServiceWorker: !!response.fromServiceWorker,
+      encodedTransferBytes: 0,
+    };
+    requests.set(requestId, row);
+    network.push(row);
+  });
+  cdp.on('Network.loadingFinished', ({ requestId, encodedDataLength }) => {
+    const row = requests.get(requestId);
+    if (row) row.encodedTransferBytes = encodedDataLength;
+  });
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto(url);
   await page.evaluate(
@@ -94,5 +114,5 @@ export const loadBrowserSave = async (
   await page.reload();
   await page.getByRole('button', { name: 'Kontynuuj', exact: true }).click();
   await page.locator('.career-view').first().waitFor();
-  return { context, page, errors };
+  return { context, page, errors, network };
 };

@@ -1,4 +1,4 @@
-/* global document */
+/* global document, performance */
 import assert from 'node:assert/strict';
 import process from 'node:process';
 import { createRequire } from 'node:module';
@@ -69,15 +69,19 @@ const report = {
   browser: browser.version(),
   fixtureHash: fixture.canonicalHash,
   methodology:
-    'Production-bundled real renderer and recorded canonical frame; 100 RAF renders with 11 warmup frames. Same club, kit, frame, camera, 1440x900, DPR1. CPU submission and RAF are separate from GPU timer; JS heap is a Chromium estimate. Scenery identity varies cosmetically over the identical football fixture.',
+    'Three alternating before/after pairs using the production-bundled real renderer and recorded canonical frame; 100 RAF renders with 11 warmup frames. Same club, kit, frame, camera, 1440x900, DPR1. CPU submission and RAF are separate from GPU timer; JS heap before/after explicit GC is a Chromium estimate. Scenery identity varies cosmetically over the identical football fixture.',
   scenarios: [],
   ui: [],
 };
 let active;
 try {
-  for (const [phase, root] of [
-    ['before', baseline],
-    ['after', current],
+  for (const [phase, root, repetition] of [
+    ['before', baseline, 1],
+    ['after', current, 1],
+    ['after', current, 2],
+    ['before', baseline, 2],
+    ['before', baseline, 3],
+    ['after', current, 3],
   ]) {
     await build({
       configFile: false,
@@ -126,11 +130,16 @@ try {
           path: `docs/images/pr170/stadium-${config.stadium}-${config.detail}-${config.shading}-${phase}.png`,
         });
         assert.equal(errors.length, 0, errors.join('\n'));
-        report.scenarios.push({ phase, ...measured, errors });
+        const cdp = await context.newCDPSession(page);
+        await cdp.send('HeapProfiler.collectGarbage');
+        const heapUsedAfterGC = await page.evaluate(
+          () => performance.memory?.usedJSHeapSize ?? null,
+        );
+        report.scenarios.push({ phase, repetition, ...measured, heapUsedAfterGC, errors });
         await context.close();
       }
-      for (const moment of Object.keys(fixture.snapshots).filter((key) =>
-        ['half_time', 'goal', 'full_time'].includes(key),
+      for (const moment of Object.keys(fixture.snapshots).filter(
+        (key) => repetition === 1 && ['half_time', 'goal', 'full_time'].includes(key),
       )) {
         const context = await browser.newContext({ viewport: { width: 1440, height: 900 } }),
           page = await context.newPage(),

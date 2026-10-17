@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createPr167Career, pr167World } from '../../scripts/pr167Fixtures';
 import { financeOverviewSchema, projectFinances } from './career/financePresentation';
 import { CareerCalendar } from './career/CareerCalendar';
@@ -18,6 +18,11 @@ import {
 import { validateProfessionalOfferAcceptance } from '../core/careerSeasons';
 
 const base = createPr167Career(false, 'pr170-career');
+beforeAll(() => {
+  (
+    globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }
+  ).IS_REACT_ACT_ENVIRONMENT = true;
+});
 describe('PR170 career presentation', () => {
   it('projects every real ledger category, chronological duplicate dates and signed running balances without writing', () => {
     const career = {
@@ -76,10 +81,20 @@ describe('PR170 career presentation', () => {
       host.querySelector('.calendar-days button[aria-pressed="true"]')?.getAttribute('data-date'),
     ).not.toBe(chosen.dataset.date);
     expect(host.contains(document.activeElement)).toBe(true);
-    await act(async () => [...host.querySelectorAll<HTMLButtonElement>('.career-calendar button')].find((button) => button.textContent === 'Dziś')!.click());
-    const current = host.querySelector<HTMLButtonElement>('.calendar-days button[aria-pressed="true"]')!;
-    await act(async () => current.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })));
-    expect(document.activeElement).toBe(host.querySelector('.calendar-days button[aria-pressed="true"]'));
+    await act(async () =>
+      [...host.querySelectorAll<HTMLButtonElement>('.career-calendar button')]
+        .find((button) => button.textContent === 'Dziś')!
+        .click(),
+    );
+    const current = host.querySelector<HTMLButtonElement>(
+      '.calendar-days button[aria-pressed="true"]',
+    )!;
+    await act(async () =>
+      current.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })),
+    );
+    expect(document.activeElement).toBe(
+      host.querySelector('.calendar-days button[aria-pressed="true"]'),
+    );
     expect(commit).not.toHaveBeenCalled();
     expect(base).toEqual(before);
     await act(async () => root.unmount());

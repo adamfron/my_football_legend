@@ -46,7 +46,7 @@ export const deriveStadiumConfiguration = (
   });
 };
 
-/** Static modular scenery; no collider, model picking region or animated crowd. */
+/** Static modular scenery and bounded cosmetic crowd reactions; no collider or picking region. */
 export class StadiumModel {
   readonly root = new THREE.Group();
   readonly detail = new THREE.Group();

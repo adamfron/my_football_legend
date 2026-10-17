@@ -122,7 +122,10 @@ export const CareerCalendar = ({ career }: { career: CareerState }) => {
           );
         })}
       </div>
-      <p className="calendar-key">■ rozegrany · □ plan · • wydarzenie · + uraz</p>
+      <p className="calendar-key">
+        <time dateTime={today}>Symulacja: {today.split('-').reverse().join('.')}</time> · ■
+        rozegrany · □ plan · • wydarzenie · + uraz
+      </p>
       <div className="calendar-date-details" aria-live="polite">
         <strong>{selected.split('-').reverse().join('.')}</strong>
         {(byDate.get(selected) ?? []).map((entry) => {

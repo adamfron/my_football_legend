@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createCanonicalWorldDatabase } from '../../../scripts/createCanonicalWorldDatabase';
 import { createSingleMatchSession } from '../../core/singleMatch';
 import { createTacticalMatch, projectPlayerDecisionOpportunity } from '../../core/matchSimulation';
@@ -9,6 +9,11 @@ import { DecisionTargets } from './DecisionTargets';
 import { MatchOccasion } from './MatchOccasion';
 import { DEFAULT_KITS } from './tacticalRenderer/model';
 const world = createCanonicalWorldDatabase();
+beforeAll(() => {
+  (
+    globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }
+  ).IS_REACT_ACT_ENVIRONMENT = true;
+});
 const spectator = createSingleMatchSession(world, {
   homeClubId: world.clubs[0]!.id,
   awayClubId: world.clubs[1]!.id,
@@ -29,7 +34,9 @@ describe('PR170 accessible HUD', () => {
     actor.position = { x: 99, y: 34 };
     actor.facingAngle = Math.PI / 2;
     state.ball = { ...actor.position, ownerId: actor.id };
-    state.players.find((player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper')!.position = { x: 103, y: 34 };
+    state.players.find(
+      (player) => player.team === 'away' && player.profile.primaryPosition === 'goalkeeper',
+    )!.position = { x: 103, y: 34 };
     const opportunity = projectPlayerDecisionOpportunity(state);
     expect(opportunity).toBeDefined();
     if (!opportunity) throw Error('Meaningful close-range choice');
