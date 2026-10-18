@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "node": "v24.19.0",
+  "method": "All 2400 ticks of the same original 60s senior fixture, observers disabled, serial after other measurements. This complementary profiler avoids fixed-37-tick sampling alias of infrequent expensive AI releases. Inclusive instrumented spans overlap and include profiling overhead; action_resolution spans can include no-op/cooldown checks. It is not an isolated algorithm-cost or population estimate. Complete state equals the corresponding unprofiled performance sample.",
+  "rows": [
+    {
+      "engine": "PR173",
+      "sourceHash": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+      "fixtureHash": "4384698678ad37bebde50e293c6f0cfe15bd1cc0149326d26d57865775603ced",
+      "finalStateHash": "b5c5d32f4836cfdcafda09c8898d3278c3aaf9176ee2849847b8d72fef2ef676",
+      "wallMs": 1360.9243000000001,
+      "cpuMs": 2062,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 2400,
+        "sampledTicks": 2400,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 319.1133999999986,
+            "estimatedMs": 319.1133999999986,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 392.3038999999919,
+            "estimatedMs": 392.3038999999919,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 19.367599999987988,
+            "estimatedMs": 19.367599999987988,
+            "sampledCalls": 1075
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 237.90110000000118,
+            "estimatedMs": 237.90110000000118,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 241.9769999999926,
+            "estimatedMs": 241.9769999999926,
+            "sampledCalls": 2376
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 12.472499999986667,
+            "estimatedMs": 12.472499999986667,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 90.52729999999656,
+            "estimatedMs": 90.52729999999656,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "canonical_step",
+            "sampledMs": 1360.091,
+            "estimatedMs": 1360.091,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 247.45650000001092,
+            "estimatedMs": 247.45650000001092,
+            "sampledCalls": 24830
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 29.23699999999485,
+            "estimatedMs": 29.23699999999485,
+            "sampledCalls": 987
+          }
+        ]
+      }
+    },
+    {
+      "engine": "PR174",
+      "sourceHash": "afa0c77c984b8a5b5040dbd976836496c4ccc54034de214f0392a26a426278da",
+      "fixtureHash": "4384698678ad37bebde50e293c6f0cfe15bd1cc0149326d26d57865775603ced",
+      "finalStateHash": "a5b9cc9bcca2c955653ce8d9aed009cbf0bec6fe213b85f67172c6e5bf1d592c",
+      "wallMs": 1690.4712999999997,
+      "cpuMs": 2561,
+      "profile": {
+        "enabled": true,
+        "sampleEveryTicks": 1,
+        "ticks": 2400,
+        "sampledTicks": 2400,
+        "timingSemantics": "inclusive_sampled_spans",
+        "categories": [
+          {
+            "category": "tactical_planning",
+            "sampledMs": 397.46220000001404,
+            "estimatedMs": 397.46220000001404,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "movement_physics",
+            "sampledMs": 495.1440999999986,
+            "estimatedMs": 495.1440999999986,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "ball_contact_control",
+            "sampledMs": 23.994899999973313,
+            "estimatedMs": 23.994899999973313,
+            "sampledCalls": 1051
+          },
+          {
+            "category": "ball_physics",
+            "sampledMs": 266.4111000000057,
+            "estimatedMs": 266.4111000000057,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "action_resolution",
+            "sampledMs": 297.9610000000148,
+            "estimatedMs": 297.9610000000148,
+            "sampledCalls": 2378
+          },
+          {
+            "category": "pass_contact_evidence",
+            "sampledMs": 14.791899999975158,
+            "estimatedMs": 14.791899999975158,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "statistics",
+            "sampledMs": 118.59440000001086,
+            "estimatedMs": 118.59440000001086,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "canonical_step",
+            "sampledMs": 1689.463399999991,
+            "estimatedMs": 1689.463399999991,
+            "sampledCalls": 2400
+          },
+          {
+            "category": "interception_eta",
+            "sampledMs": 309.75330000003214,
+            "estimatedMs": 309.75330000003214,
+            "sampledCalls": 24635
+          },
+          {
+            "category": "pressure_decision",
+            "sampledMs": 36.456699999995635,
+            "estimatedMs": 36.456699999995635,
+            "sampledCalls": 1036
+          }
+        ]
+      }
+    }
+  ]
+}

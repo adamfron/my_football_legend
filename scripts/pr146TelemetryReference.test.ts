@@ -14,7 +14,11 @@ import {
   observeMatchFlow,
 } from '../src/core/matchSimulation/matchFlowTelemetry';
 
-describe('PR173 complete telemetry reference (PR146 observer contract)', () => {
+describe('PR174 complete telemetry reference (PR146 observer contract)', () => {
+  // PR174 preserves the entire telemetry contract. Pristine PR173 and final canonical
+  // outputs repeat twice per seed in fresh processes with every field, schema and
+  // identity ledger retained: PR174-telemetry-reference.json. Seed b intentionally changes
+  // after bounded cooperative decisions; no field, assertion, tick or timeout is removed.
   // PR173 makes every directional reception a finite physical impulse, intentionally
   // changing later trajectories. Both pristine PR172 old hashes and both new complete
   // outputs repeat twice in fresh processes with every exported field, schema and
@@ -86,7 +90,7 @@ describe('PR173 complete telemetry reference (PR146 observer contract)', () => {
   // 8dc0c4e14544e549659965b3a941a46918fd90cea026d789f8b4afe3518eb88c (b).
   it.each([
     ['pr146-flow-reference:a', '82f33657a3d7a0af9586db12f432e8234e0743056382989faef4378e6392b430'],
-    ['pr146-flow-reference:b', '3f1d83f95cc0795806c523398dae71850b3bd901e74b56ea189b33c33fa5f416'],
+    ['pr146-flow-reference:b', '971eca7681a84ea625445c3cc4cc24925a0066b9b72d39db144823422b431903'],
   ])('preserves every exported canonical telemetry field for %s', (seed, expectedHash) => {
     const world = createCanonicalWorldDatabase();
     let state = createTacticalMatch(

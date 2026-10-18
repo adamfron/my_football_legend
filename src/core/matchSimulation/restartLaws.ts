@@ -1,7 +1,7 @@
 import { attacksRight, type TeamOrientation } from './matchSpace';
 import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { z } from 'zod';
-import { distance, type PitchPoint, type TeamSide } from './matchSpace';
+import { distance, distanceToSegment, type PitchPoint, type TeamSide } from './matchSpace';
 import type { MatchPlayerState, RestartScenario, TacticalMatchState } from './matchState';
 
 /** Fixed rule reference; period-end penalty extensions are owned by matchTimekeeping. */
@@ -228,6 +228,67 @@ export const legalizeRestartPlayerTarget = (
         );
       if (inPenaltyArea(spot, state.teams[restart.restartTeam]))
         target = outsidePenaltyArea(target, state.teams[restart.restartTeam]);
+      if (restart.roles[player.id]?.key !== 'wall' && distance(player.position, spot) < 9.3) {
+        const wall = state.players.filter(
+          (p) => p.team === player.team && restart.roles[p.id]?.key === 'wall',
+        );
+        const blocked = (point: PitchPoint) =>
+          wall.some((p) => {
+            const dx = point.x - player.position.x,
+              dy = point.y - player.position.y;
+            const fraction =
+              ((p.position.x - player.position.x) * dx + (p.position.y - player.position.y) * dy) /
+              Math.max(0.001, dx * dx + dy * dy);
+            return (
+              fraction > 0.01 &&
+              fraction < 1 &&
+              distanceToSegment(p.position, player.position, point) < 1.2
+            );
+          });
+        // An encroaching marker can be trapped on the ball side of its own settled wall.
+        // Choose a clear legal destination around an end. Bodies still turn/walk there,
+        // and release still requires the referee's actual physical-distance checks.
+        if (wall.length >= 3 && blocked(target)) {
+          const angle = Math.atan2(target.y - spot.y, target.x - spot.x);
+          const around = [
+            -Math.PI,
+            -2.4,
+            -2,
+            -1.6,
+            -1.2,
+            -1,
+            -0.8,
+            -0.6,
+            -0.4,
+            -0.2,
+            0.2,
+            0.4,
+            0.6,
+            0.8,
+            1,
+            1.2,
+            1.6,
+            2,
+            2.4,
+            Math.PI,
+          ]
+            .map((turn) =>
+              pitchTarget({
+                x: spot.x + Math.cos(angle + turn) * 11,
+                y: spot.y + Math.sin(angle + turn) * 11,
+              }),
+            )
+            .filter((point) => distance(point, spot) >= 9.3 && !blocked(point))
+            .sort(
+              (a, b) =>
+                distance(player.position, a) +
+                distance(target, a) * 0.25 -
+                distance(player.position, b) -
+                distance(target, b) * 0.25,
+            );
+          if (around[0]) target = around[0];
+        }
+      }
     } else {
       const wall = state.players.filter(
         (defender) =>

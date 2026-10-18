@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "method": "One original full youth fixture per engine, serial after all other research and verification. Observers disabled. Actual process CPU and wall time, same runtime/fixture. Complete state equals the corresponding observed full-match receipt. One evolving trajectory per engine is not a general performance distribution.",
+  "rows": [
+    {
+      "engine": "PR173",
+      "node": "v24.19.0",
+      "sourceHash": "72bd46ea3a26de8610e559ede3224e71082e3b9045977d9a7e72c1550e17fbc9",
+      "fixtureHash": "9f6d9dc8f5f73e23d5c9507f614cbe77c108402d9eb98ad1de4976bb8e3ad38a",
+      "initialHash": "d2f42a7232d84c5e8be665141cb53fa0060df13112e18ec6eaeb68165cc7f48b",
+      "finalHash": "88a62e89390bd491d257bc7b86a4ac4e206bf91c7cc2862a17cc1a6900e2252a",
+      "status": "full_time",
+      "time": 5460,
+      "ticks": 218401,
+      "wallMs": 109501.6044,
+      "cpuMs": 122281,
+      "observerDisabledCompleteStateEqual": true
+    },
+    {
+      "engine": "PR174",
+      "node": "v24.19.0",
+      "sourceHash": "afa0c77c984b8a5b5040dbd976836496c4ccc54034de214f0392a26a426278da",
+      "fixtureHash": "9f6d9dc8f5f73e23d5c9507f614cbe77c108402d9eb98ad1de4976bb8e3ad38a",
+      "initialHash": "d2f42a7232d84c5e8be665141cb53fa0060df13112e18ec6eaeb68165cc7f48b",
+      "finalHash": "11fc604f6ebb04edaa0cd4985e838e0be88b122df40867db0a1c385ef264bdb9",
+      "status": "full_time",
+      "time": 5521.5749999897735,
+      "ticks": 220863,
+      "wallMs": 110383.32590000001,
+      "cpuMs": 122250,
+      "observerDisabledCompleteStateEqual": true
+    }
+  ],
+  "cpuRatio": 0.9997464855537656,
+  "wallRatio": 1.0080521331612564,
+  "measurementNote": "Primary uninterrupted quiet repeat after all ancillary research, lint and type checks. The first pair is retained separately as exploratory because a 4.5s format/lint subprocess overlapped its baseline trajectory."
+}

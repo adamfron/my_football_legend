@@ -70,6 +70,11 @@ import { deriveBallContactAccess, estimateCarrierContactWindow } from './ballCon
 import { enumerateCarryChoices, projectCarryOpportunity } from './carryOpportunity';
 import { classifyPass } from './passClassification';
 import { deriveCarryPursuit } from './carryPursuit';
+import {
+  observeCombinationRelease,
+  enumerateCombinationPasses,
+  isMovingCombinationReturn,
+} from './combinationPlay';
 
 const opponents = (state: TacticalMatchState, actor: MatchPlayerState) =>
   state.players.filter((p) => p.team !== actor.team);
@@ -144,13 +149,37 @@ export const shotUtility = (state: TacticalMatchState, actor: MatchPlayerState) 
   const opportunity = evaluateShootingOpportunity(state, actor);
   const styleModifier = state.teams[actor.team].style === 'direct' ? 3 : 0;
   const extremeRangePenalty = Math.pow(Math.max(0, opportunity.distance - 22) / 8, 1.55) * 12;
+  const context = state.teams[actor.team].threatMemory?.response.distanceShotContext ?? 0;
+  const a = actor.profile.attributes;
+  const releaseQuality = (a.finishing + a.technique + a.composure) / 300;
+  const reboundSupport = state.players.filter(
+    (p) =>
+      p.team === actor.team &&
+      p.id !== actor.id &&
+      canParticipatePhysically(p) &&
+      !state.discipline?.[p.id]?.sentOff &&
+      distance(p.position, { x: attacksRight(actor) ? 99 : 6, y: 34 }) < 18,
+  ).length;
+  const distanceContext =
+    opportunity.distance >= 20 &&
+    opportunity.distance <= 31 &&
+    opportunity.angle > 0.5 &&
+    releaseQuality > 0.6 &&
+    opportunity.pressure < 0.65
+      ? context *
+        16 *
+        releaseQuality *
+        Math.exp(-opportunity.blockingDemand) *
+        Math.min(1, reboundSupport / 2 + (1 - opportunity.goalkeeper.goalCoverage) * 0.5)
+      : 0;
   return (
     4 +
     Math.pow(opportunity.effectiveScoringExpectation, 1.18) * 150 -
     opportunity.pressure * 12 -
     opportunity.blockingDefenders * 4 +
     styleModifier -
-    extremeRangePenalty
+    extremeRangePenalty +
+    distanceContext
   );
 };
 
@@ -355,6 +384,19 @@ export const enumerateAvailableActions = (
       }
     });
   actions.push(...enumerateNpcSpacePasses(state, actor));
+  for (const candidate of enumerateCombinationPasses(state, actor)) {
+    if (
+      candidate.type === 'pass' &&
+      !actions.some(
+        (a) =>
+          a.type === 'pass' &&
+          a.receiverId === candidate.receiverId &&
+          a.intent === candidate.intent &&
+          distance(a.target, candidate.target) < 0.5,
+      )
+    )
+      actions.push(candidate);
+  }
   return actions;
 };
 export const scoreActionForAI = (
@@ -642,7 +684,11 @@ export const scoreActionForAI = (
     (underPressure > 0.62 && receiverPressure < underPressure - 0.2) ||
     progression > 9 ||
     switchValue > 6 ||
-    receiverMoved > 4;
+    receiverMoved > 4 ||
+    (isMovingCombinationReturn(state, actor, receiver) &&
+      decision.laneOccupation === 0 &&
+      decision.expectedCompletion > 0.62 &&
+      decision.defenderEta > decision.receiverEta + 0.12);
   const staleReturnPenalty =
     returning && !usefulWallPass
       ? 30 * Math.max(0.35, 1 - (state.time - lastPass!.resolvedAt!) / 12)
@@ -723,6 +769,12 @@ export const scoreActionForAI = (
       decision.expectedCompletion,
     ) +
     adaptationValue +
+    // Evidence changes the cost of a currently risky repeated lane. A safe route remains
+    // available; a single technical error cannot blacklist a teammate or a channel.
+    -(memory?.response.attackVariation ?? 0) *
+      Math.min(3, memory?.attackFailures?.[threatChannel(action.target)] ?? 0) *
+      (1 - (decision.expectedRetainedPossession ?? 0)) *
+      6 +
     progression * (state.teams[actor.team].phase === 'attacking_transition' ? 1.5 : 1.05) -
     length * 0.3 -
     receiverPressure * 17 -
@@ -952,7 +1004,10 @@ export const resolveMatchAction = (
     isHumanControlled(state, action.actorId)
   )
     return next;
-  return emitCanonicalActionEvents(state, reconcileControlledBallContact(next));
+  return emitCanonicalActionEvents(
+    state,
+    observeCombinationRelease(state, reconcileControlledBallContact(next)),
+  );
 };
 
 const resolveMatchActionCanonical = (

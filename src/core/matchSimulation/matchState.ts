@@ -1,4 +1,10 @@
 import { z } from 'zod';
+import {
+  combinationIntentSchema,
+  combinationResultSchema,
+  type CombinationIntent,
+  type CombinationResult,
+} from './combinationState';
 import { playStyleIdSchema } from '../playStyles';
 import {
   looseBallLivenessObservationSchema,
@@ -734,6 +740,8 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  combinationIntent?: CombinationIntent;
+  lastCombination?: CombinationResult;
   endsSwitched?: boolean | undefined;
   injuryAssessment?: InjuryAssessment;
   droppedBallTouchRestriction?: DroppedBallTouchRestriction;
@@ -1105,6 +1113,8 @@ export const tacticalMatchStateSchema = z
     matchEvents: z.array(matchEventSchema).optional(),
     controlledFootballerId: z.string().optional(),
     playerAgencyEnabled: z.boolean().optional(),
+    combinationIntent: combinationIntentSchema.optional(),
+    lastCombination: combinationResultSchema.optional(),
     playerMovementIntent: playerMovementIntentSchema.optional(),
     pendingReceptionIntent: pendingReceptionIntentSchema.optional(),
     shotAgencyRequest: matchActionSchema.optional(),

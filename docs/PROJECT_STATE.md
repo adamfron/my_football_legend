@@ -1,5 +1,38 @@
 # My Football Legend — Current Project State
 
+## PR174 — Combination Play & Tactical Adaptation
+
+Published for review: [PR174](https://github.com/adamfron/my_football_legend/pull/174), based on
+merged PR173 `c499123`. Short shared opportunities preserve physically observed pass-and-go,
+third-man and flank movement across the first pass. The partner still selects and executes
+an ordinary action. Existing threat memory responds gradually to completed attacking evidence.
+Canonical physics, human commands and defensive constraints retain authority. Exact retained
+restart-wall and unavailable-rest-cover defects have narrow fixes and regressions.
+
+Frozen K validation: unchanged `npm run verify` passes 1884 tests locally and in CI on the same
+production/regression source. Original 16 and separate held-out eight matches per engine all
+finish; input hashes match and the pristine PR173 replay reproduces all 16 archived final states.
+There are 127 paired short continuations, two complete careers, save/reload and observer
+equivalence, production-browser smoke, source/raw archives and serial CPU measurements.
+
+Post-publication review extends the available, non-participating rest-cover guard to every
+combination candidate, including flank nominations. Four regressions reproduce injured/dismissed
+cover bypasses; 30 focused PR174 tests pass with the fix. Sixteen paired opening releases retain
+identical ball/pass physics and all four healthy full states. These are separate from the frozen
+K whole-match measurements; the latest PR CI validates the review follow-up.
+
+Results remain mixed: original-16 losses 4058→4080, shots 28→24, box entries 72→58;
+held-out losses 1727→1671, shots 12→11, box entries 33→32. Natural completed combinations
+171+30 include third-man and overlap actions. Completed underlap prevalence, organised pressing
+escape and increased long-shot selection remain unproven. This is a reviewable implementation
+with explicit acceptance limits, not a completed match-realism claim.
+
+[Full report, measurements and all 36 acceptance answers](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
+Historical PR171–173 evidence remains unchanged. PR175 should independently validate
+advantage-to-shot conversion, losses, pressure/underlap and broader CPU distributions.
+Roadmap order remains PR175 reality → PR176 generations/world strength → PR177 summary/PlayStyles
+→ PR178 career UX → PR179+ world expansion. Publication does not imply merge.
+
 ## PR173 — Dynamic Football Actions & First-Touch Intelligence
 
 Baza: scalony PR172 `7465773`. Kierunkowy pierwszy kontakt nie przesuwa już

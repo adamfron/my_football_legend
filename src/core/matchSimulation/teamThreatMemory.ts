@@ -34,6 +34,8 @@ export const tacticalResponseSchema = z.object({
   support: biasSchema,
   flankProtection: z.tuple([biasSchema, biasSchema, biasSchema]),
   doublePress: biasSchema,
+  attackVariation: biasSchema.optional(),
+  distanceShotContext: biasSchema.optional(),
   reason: z.enum([
     'neutral',
     'matchup',
@@ -41,6 +43,7 @@ export const tacticalResponseSchema = z.object({
     'channel_exposure',
     'territorial_pressure',
     'protecting_lead',
+    'ineffective_attack',
   ]),
 });
 export type TacticalResponse = z.infer<typeof tacticalResponseSchema>;
@@ -86,6 +89,17 @@ export const teamThreatMemorySchema = z.object({
   isolationObserved: z.boolean(),
   lastShotId: z.string().optional(),
   response: tacticalResponseSchema,
+  attackFailures: channelsSchema.optional(),
+  qualifyingAttacks: z.number().int().nonnegative().optional(),
+  attackingWindow: z
+    .object({
+      originDepth: z.number().finite(),
+      maximumDepth: z.number().finite(),
+      lastControlledDepth: z.number().finite().optional(),
+      channel: z.number().int().min(0).max(2),
+      passes: z.number().int().nonnegative(),
+    })
+    .optional(),
 });
 export type TeamThreatMemory = z.infer<typeof teamThreatMemorySchema>;
 export const tacticalAdaptationModifiersSchema = z.object({
@@ -159,7 +173,9 @@ export const deriveSolutionPenalty = (
       weight *
         (entry.outcome === 'completed'
           ? 1.5 * (1 - expectedCompletion)
-          : 9 + (1 - expectedCompletion) * 9)
+          : entry.outcome === 'technical_error' || entry.outcome === 'inaccurate'
+            ? 2 * (1 - expectedCompletion)
+            : 9 + (1 - expectedCompletion) * 9)
     );
   }, 0);
 
@@ -241,6 +257,107 @@ const observeRecentSolutions = (
   return {
     ...memory,
     recentSolutions: [...unique.values()].filter((e) => next.time - e.at < 240).slice(-32),
+  };
+};
+
+/** Actual completed-pass windows and possession endings. No elapsed-time failure trigger,
+ * and a technical miss alone is not evidence that the attacking route was a poor decision. */
+const observeAttackingPossession = (
+  previous: TacticalMatchState,
+  next: TacticalMatchState,
+  side: TeamSide,
+  memory: TeamThreatMemory,
+): TeamThreatMemory => {
+  const pass = [next.lastResolvedPass, next.lastPassDiagnostic].find(
+    (p) =>
+      p?.resolvedAt !== undefined &&
+      ![previous.lastResolvedPass, previous.lastPassDiagnostic].some(
+        (old) => old?.passId === p.passId && old.resolvedAt !== undefined,
+      ) &&
+      next.players.some((player) => player.id === p.passerId && player.team === side),
+  );
+  let window = memory.attackingWindow;
+  const completed = pass?.finalResult === 'completed' && pass.actualContactPoint;
+  const newShot =
+    (next.ball.shot ?? next.lastShot)?.shotId !==
+      (previous.ball.shot ?? previous.lastShot)?.shotId &&
+    next.players.some(
+      (p) => p.id === (next.ball.shot ?? next.lastShot)?.shooterId && p.team === side,
+    );
+  const ended =
+    next.possessionTeam !== side ||
+    isRestartSetup(next) ||
+    ['half_time', 'full_time', 'abandoned'].includes(next.status ?? '');
+  if (
+    !pass &&
+    !newShot &&
+    !ended &&
+    next.time - memory.evaluatedAt < TEAM_THREAT_TUNING.evaluationSeconds - 1e-9
+  )
+    return memory;
+  if (completed) {
+    const originDepth = depth(
+      previous.ball.from ?? pass.receiverPositionAtRelease,
+      next.teams[side],
+    );
+    const contactDepth = depth(completed, next.teams[side]);
+    window = window ?? {
+      originDepth,
+      maximumDepth: originDepth,
+      lastControlledDepth: originDepth,
+      channel: threatChannel(completed),
+      passes: 0,
+    };
+    window = {
+      ...window,
+      maximumDepth: Math.max(window.maximumDepth, contactDepth),
+      lastControlledDepth: contactDepth,
+      passes: window.passes + 1,
+    };
+  }
+  if (!window) return memory;
+  const owner = next.players.find((p) => p.id === next.ball.ownerId && p.team === side);
+  const controlledDepth = owner
+    ? depth(owner.position, owner)
+    : (window.lastControlledDepth ?? window.maximumDepth);
+  if (controlledDepth !== window.lastControlledDepth)
+    window = {
+      ...window,
+      lastControlledDepth: controlledDepth,
+      maximumDepth: Math.max(window.maximumDepth, controlledDepth),
+    };
+  if (!ended && !newShot && window.passes < 6)
+    return window === memory.attackingWindow ? memory : { ...memory, attackingWindow: window };
+  const gain = window.maximumDepth - window.originDepth;
+  const retainedGain = controlledDepth - window.originDepth;
+  const success = newShot || (gain >= 10 && retainedGain >= 5);
+  const poorExecution = pass && ['technical_error', 'inaccurate'].includes(pass.finalResult ?? '');
+  const failed =
+    !poorExecution &&
+    !success &&
+    ((window.passes >= 6 && retainedGain < 5) ||
+      (ended && window.maximumDepth >= 70 && window.passes >= 2));
+  const failures = [...(memory.attackFailures ?? [0, 0, 0])] as ChannelScores;
+  if (failed) failures[window.channel] = clamp(failures[window.channel]! + 1, 20);
+  if (success) failures[window.channel] = Math.max(0, failures[window.channel]! - 0.8);
+  const { attackingWindow: _closed, ...rest } = memory;
+  void _closed;
+  return {
+    ...rest,
+    ...(failed || success
+      ? { attackFailures: failures, qualifyingAttacks: (memory.qualifyingAttacks ?? 0) + 1 }
+      : {}),
+    ...(!ended && !newShot
+      ? {
+          attackingWindow: {
+            originDepth: controlledDepth,
+            maximumDepth: controlledDepth,
+            lastControlledDepth: controlledDepth,
+            channel: owner ? threatChannel(owner.position) : window.channel,
+            passes: 0,
+          },
+        }
+      : {}),
   };
 };
 
@@ -327,6 +444,7 @@ const decayMemory = (memory: TeamThreatMemory, time: number): TeamThreatMemory =
     isolation: decay(memory.isolation),
     shots: decay(memory.shots),
     overloads: decay(memory.overloads),
+    ...(memory.attackFailures ? { attackFailures: decay(memory.attackFailures) } : {}),
     pressuredPlayers: memory.pressuredPlayers
       .map((player) => ({ ...player, score: player.score * multiplier }))
       .filter((player) => player.score > 0.03),
@@ -366,6 +484,8 @@ export const evaluateTeamThreatResponse = (
   const late = clamp((state.time - 60 * 60) / (30 * 60));
   const protectingLead = lead > 0 ? late * 0.38 : 0;
   const chasing = lead < 0 ? late * 0.3 : 0;
+  const ineffective = clamp((Math.max(...(memory.attackFailures ?? [0, 0, 0])) - 1.5) / 5, 0.45);
+  const variationDesired = ineffective * (lead > 0 ? 1 - late * 0.85 : 1);
   const desired = clamp(
     (memory.matchupCaution * (0.55 + memory.territorialPressure * 0.45) +
       repeatedLoss * 0.56 +
@@ -377,7 +497,9 @@ export const evaluateTeamThreatResponse = (
       (modifiers.riskTolerance ?? 0),
     0.85,
   );
-  const escalating = desired > memory.response.caution + 0.12;
+  const escalating =
+    desired > memory.response.caution + 0.12 ||
+    variationDesired > (memory.response.attackVariation ?? 0) + 0.12;
   const retainUntil = escalating
     ? state.time + TEAM_THREAT_TUNING.responsePersistenceSeconds
     : memory.retainUntil;
@@ -392,6 +514,14 @@ export const evaluateTeamThreatResponse = (
     elapsed,
     retain,
   );
+  const attackVariation = approach(
+    memory.response.attackVariation ?? 0,
+    variationDesired,
+    elapsed,
+    retain,
+  );
+  const coachRisk = state.teams[side].tacticalPreferences?.verticality ?? 0.5;
+  const distanceShotContext = attackVariation * (0.3 + coachRisk * 0.5 + chasing);
   const reason: TacticalResponse['reason'] =
     repeatedLoss > 0.3
       ? 'repeated_build_up_loss'
@@ -399,11 +529,13 @@ export const evaluateTeamThreatResponse = (
         ? 'channel_exposure'
         : protectingLead > 0.1
           ? 'protecting_lead'
-          : memory.territorialPressure > 0.55
-            ? 'territorial_pressure'
-            : memory.matchupCaution > 0.1
-              ? 'matchup'
-              : 'neutral';
+          : ineffective > 0.1 && protectingLead < 0.1
+            ? 'ineffective_attack'
+            : memory.territorialPressure > 0.55
+              ? 'territorial_pressure'
+              : memory.matchupCaution > 0.1
+                ? 'matchup'
+                : 'neutral';
   return {
     ...memory,
     evaluatedAt: state.time,
@@ -416,6 +548,9 @@ export const evaluateTeamThreatResponse = (
       support: buildUpSafety,
       flankProtection: protection,
       doublePress: clamp(0.15 + repeatedExposure * 0.4),
+      ...(attackVariation > 0 || memory.response.attackVariation !== undefined
+        ? { attackVariation, distanceShotContext }
+        : {}),
       reason,
     },
   };
@@ -444,7 +579,12 @@ export const observeTeamThreats = (
   let teams = next.teams;
   for (const side of ['home', 'away'] as const) {
     const oldMemory = next.teams[side].threatMemory ?? createTeamThreatMemory(0, previous.time);
-    const initial = observeRecentSolutions(previous, next, side, oldMemory);
+    const initial = observeAttackingPossession(
+      previous,
+      next,
+      side,
+      observeRecentSolutions(previous, next, side, oldMemory),
+    );
     const due = next.time - initial.evaluatedAt >= TEAM_THREAT_TUNING.evaluationSeconds - 1e-9;
     const newShot = live && shot && shot.shotId !== initial.lastShotId;
     const turnover =

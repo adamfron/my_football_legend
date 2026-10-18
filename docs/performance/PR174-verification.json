@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "sourceHash": "afa0c77c984b8a5b5040dbd976836496c4ccc54034de214f0392a26a426278da",
+  "local": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "node": "v24.19.0",
+    "platform": "win32",
+    "tests": [
+      {
+        "passed": 1823,
+        "total": 1823
+      },
+      {
+        "passed": 52,
+        "total": 52
+      },
+      {
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "passed": 5,
+        "total": 5
+      }
+    ],
+    "total": 1884,
+    "logSha256": "03531db0ed1b9a837a861878dde833f5c0fcde79877e8d2382dc55dd7e0b549c"
+  },
+  "ci": {
+    "testedCommit": "effbbd24091a914d348d8bf6e101f0684af72492",
+    "runId": 39072709382,
+    "jobId": 117513442393,
+    "node": "v24.21.0",
+    "npm": "11.19.0",
+    "platform": "ubuntu-latest",
+    "conclusion": "success",
+    "tests": [
+      {
+        "passed": 1823,
+        "total": 1823
+      },
+      {
+        "passed": 52,
+        "total": 52
+      },
+      {
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "passed": 5,
+        "total": 5
+      }
+    ],
+    "total": 1884,
+    "url": "https://github.com/adamfron/my_football_legend/actions/runs/39072709382"
+  },
+  "earlierH3Ci": {
+    "commit": "1140dea104dbc68bb12c8d1fb597833c3707b9f2",
+    "runId": 39070908627,
+    "total": 1883,
+    "conclusion": "success"
+  },
+  "initialG": {
+    "localMainPassed": 1812,
+    "localMainTotal": 1818,
+    "timingFailures": 5,
+    "completeTelemetryMismatch": 1,
+    "ciMainPassed": 1817,
+    "ciMainTotal": 1818
+  },
+  "interruptedHostPause": {
+    "testElapsedMs": 12837828,
+    "result": "interrupted",
+    "log": "pr174-verify-suspended-host.log",
+    "note": "The attempt spanned a multi-hour host interruption; no timing limits changed."
+  },
+  "unchangedVerification": {
+    "command": true,
+    "workers": true,
+    "timeouts": true,
+    "assertions": true,
+    "ticks": true
+  },
+  "packageLockSha256": "24070de53eb5592c0211d34a55e69534c2316d31221effe11b49ea1ae70ed3d3"
+}

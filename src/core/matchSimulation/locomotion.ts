@@ -165,6 +165,15 @@ export const projectLocomotion = (
   if (movement?.type === 'hold_shape') return result(metres < 3 ? 'walk' : 'jog', 'contain');
   if (movement?.type === 'attack_space')
     return result(metres > 7 ? 'sprint' : 'run', 'press_commit');
+  const combination = state.combinationIntent;
+  if (
+    combination?.runnerId === player.id &&
+    combination.team === state.possessionTeam &&
+    state.time < combination.expiresAt &&
+    combination.phase !== 'continuation_flight' &&
+    !(state.playerAgencyEnabled !== false && state.controlledFootballerId === player.id)
+  )
+    return result('run', 'support_run');
   // A live delivery does not turn every nearby player into a loose-ball sprinter. The tactical
   // assignment must actually point at a physically loose ball before a race is urgent.
   const looseRace =
