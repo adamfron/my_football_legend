@@ -1,8 +1,37 @@
 # PR174 — Combination Play & Tactical Adaptation
 
-Status: published for review. Base: merged PR173 `c499123`. Final production stage: K (H4 cover availability),
-source hash `afa0c77c984b8a5b5040dbd976836496c4ccc54034de214f0392a26a426278da`.
+Status: published for review. Base: merged PR173 `c499123`. The full research cohort below measures
+frozen stage K (H4 cover availability), source hash
+`afa0c77c984b8a5b5040dbd976836496c4ccc54034de214f0392a26a426278da`.
+The subsequent review fix has source hash
+`9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21`;
+its separate paired receipt and validation are described immediately below.
 Validation and reproducible evidence are recorded below. The PR retains explicit behavioural acceptance limits; do not interpret it as a completed realism claim.
+
+## Post-publication review — covering defenders
+
+The review found that flank nominations could bypass the availability-aware cover guard used
+by pass-and-go and third-man candidates. Two injured or dismissed covering players still
+allowed a recorded overlap/underlap. All combination candidates now require two available
+outfield covering players who are not the passer, partner or committing runner. Existing
+flank nominations remain inputs, rather than certificates of safe defensive cover.
+
+Four new regressions fail on frozen K and pass after the correction; together with the
+existing PR174 regressions, 30 focused tests pass. A separate read-only harness compares
+16 paired full-state actual opening releases: overlap/underlap, both orientations, and
+two/one/no available covering defenders. The four healthy two-cover counterparts preserve
+the entire resulting canonical state. The other twelve now reject the unsafe intention;
+all sixteen preserve identical initial states, released ball physics and pass diagnostics.
+See [paired review receipt](performance/PR174-review-cover.json). Reproduce with
+`node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174ReviewCover.ts --before-root=<frozen-K-tree>`.
+
+These release-level pairs do not repeat the 24 full matches, 127 continuations or CPU
+measurements below. Those remain explicitly attributed to K; no unchanged whole-match
+outcomes or new performance distribution are inferred for the review fix. The original
+verification receipts describe K; the PR's latest CI run validates the follow-up commit.
+The local pre-fix verification was deliberately cancelled when this defect was reproduced;
+full unchanged verification was restarted for the fix. Test limits and golden references
+remain unchanged by this follow-up.
 
 ## 1. Audit, plan and existing foundations
 

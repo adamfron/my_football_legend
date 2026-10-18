@@ -175,7 +175,7 @@ export const observeCombinationRelease = (
       p.id !== b.id &&
       !isMatchGoalkeeper(p) &&
       signedForwardDistance(p.position, a.position, a) > 5,
-  ).length;
+  );
   const candidates: {
     runner: MatchPlayerState;
     target: { x: number; y: number };
@@ -187,7 +187,7 @@ export const observeCombinationRelease = (
   if (
     !isMatchGoalkeeper(a) &&
     a.duty !== 'defend' &&
-    restCover >= 2 &&
+    restCover.length >= 2 &&
     nearbyPresser &&
     (attacksRight(a) ? a.position.x : 105 - a.position.x) > 32 &&
     (!isHumanControlled(previous, a.id) || humanRun)
@@ -207,7 +207,7 @@ export const observeCombinationRelease = (
     .filter((s) => s.role === 'third_man')
     .slice(0, 1)) {
     const runner = previous.players.find((p) => p.id === assignment.playerId)!;
-    if (runner.id !== b.id && restCover >= 2)
+    if (runner.id !== b.id && restCover.length >= 2)
       candidates.push({ runner, target: assignment.target, kind: 'third_man' });
   }
   for (const assignment of deriveFlankRunAssignments(previous, a.team)) {
@@ -232,6 +232,9 @@ export const observeCombinationRelease = (
     .filter(
       ({ runner, target, kind }) =>
         available(previous, runner) &&
+        // Every committed run needs two available non-participants behind the ball.
+        // Legacy flank nominations can include unavailable cover or the runner itself.
+        restCover.filter((p) => p.id !== runner.id).length >= 2 &&
         onside(previous, runner) &&
         (!isHumanControlled(previous, runner.id) || humanRun?.actorId === runner.id) &&
         usefulMovement(runner, target, kind) &&

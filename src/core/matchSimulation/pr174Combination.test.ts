@@ -36,6 +36,44 @@ const planned = () => {
   return { ...f, state };
 };
 describe('PR174 bounded independent combinations', () => {
+  it.each([
+    ['overlap', 'injured'],
+    ['overlap', 'sent_off'],
+    ['underlap', 'injured'],
+    ['underlap', 'sent_off'],
+  ] as const)('requires available cover for %s when defenders are %s', (scenario, status) => {
+    const f = createCombinationFixture({ scenario, variant: 'timed_run' });
+    const teammates = f.state.players.filter(
+      (p) =>
+        p.team === 'home' && ![f.a, f.b, f.c].includes(p.id) && p.slot.position !== 'goalkeeper',
+    );
+    for (const [i, p] of teammates.entries())
+      p.position = i < 2 ? { x: 40 + i * 4, y: 40 } : { x: 85, y: 35 + i * 3 };
+    const healthy = resolveMatchAction(f.state, f.action);
+    expect(healthy.combinationIntent?.kind).toBe(scenario);
+    for (const p of teammates.slice(0, 2)) {
+      if (status === 'injured')
+        p.injury = {
+          id: 'cover',
+          playerId: p.id,
+          at: 20,
+          status: 'unable',
+          mechanism: 'contact',
+          injuryType: 'impact',
+          recoveryDays: 1,
+          assessmentRequired: false,
+        };
+      else
+        f.state.discipline = {
+          ...f.state.discipline,
+          [p.id]: { yellowCards: 0, sentOff: true, team: p.team },
+        };
+    }
+    const exposed = resolveMatchAction(f.state, f.action);
+    expect(exposed.combinationIntent).toBeUndefined();
+    expect(exposed.ball).toEqual(healthy.ball);
+    expect(exposed.lastPassDiagnostic).toEqual(healthy.lastPassDiagnostic);
+  });
   it('does not count physically unavailable teammates as rest cover', () => {
     const f = createCombinationFixture({ scenario: 'winger' });
     const teammates = f.state.players.filter(
