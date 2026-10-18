@@ -1,0 +1,2140 @@
+{
+  "version": 1,
+  "status": "complete",
+  "method": "Canonical combination IDs, unique partner→runner continuation pass and actual completed reception at the canonical combination completion timestamp. Subsequent choices/shots require this runner and the same control chain, ending at their next physical pass. A shot must link the same canonical continuation Pass ID (or its actual first-time contact). Later recycled attacks in the same episode are excluded. Raw broad same-episode hints are retained but never used as causal conversion. Unknown/ambiguous links are left unattributed.",
+  "intentions": {
+    "intentions": 682,
+    "kind_pass_and_go": 380,
+    "first_passes_completed": 490,
+    "result_alternative_selected": 348,
+    "observed_moving_return_attempts": 917,
+    "observed_moving_return_completed": 664,
+    "kind_overlap": 99,
+    "runs_started": 555,
+    "continuation_decisions_probed": 533,
+    "continuation_options_generated": 533,
+    "result_possession_lost": 35,
+    "kind_third_man": 203,
+    "continuations_physically_released": 96,
+    "result_completed": 77,
+    "completed_pass_and_go": 65,
+    "completed_with_controlled_progression": 74,
+    "observed_moving_return_intercepted": 136,
+    "result_contact_failed": 131,
+    "result_unreachable": 35,
+    "observed_moving_return_technical_error": 105,
+    "result_expired": 48,
+    "completed_overlap": 10,
+    "result_restart": 8,
+    "continuation_options_ranked_first": 17,
+    "completed_third_man": 2,
+    "observed_moving_return_out_of_play": 4,
+    "observed_moving_return_unclaimed": 1
+  },
+  "endings": {
+    "pass_and_go:alternative_selected": 188,
+    "overlap:alternative_selected": 49,
+    "pass_and_go:possession_lost": 13,
+    "third_man:alternative_selected": 111,
+    "pass_and_go:completed": 65,
+    "overlap:contact_failed": 22,
+    "pass_and_go:unreachable": 30,
+    "pass_and_go:expired": 27,
+    "third_man:expired": 15,
+    "overlap:completed": 10,
+    "third_man:contact_failed": 54,
+    "pass_and_go:restart": 2,
+    "third_man:completed": 2,
+    "overlap:expired": 6,
+    "third_man:possession_lost": 13,
+    "pass_and_go:contact_failed": 55,
+    "third_man:unreachable": 4,
+    "overlap:unreachable": 1,
+    "third_man:restart": 4,
+    "overlap:possession_lost": 9,
+    "overlap:restart": 2
+  },
+  "completed": 77,
+  "withSubsequentChoice": 77,
+  "withCredibleSubsequentChoice": 0,
+  "withAttributedShot": 0,
+  "attributedShotIds": [],
+  "completedRows": [
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:431:footballer_pro_15_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:50:941.2499999994178",
+      "kind": "pass_and_go",
+      "at": 989.2999999993741,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:433:989.2999999993741:843",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:433:990.2499999993732:844"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_17",
+        "footballer_pro_15_4",
+        "footballer_pro_15_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.441803008555965,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:432:footballer_pro_15_4",
+      "controlChainEndsAt": 990.2499999993732,
+      "rawEpisodeAssociationCounts": {
+        "choices": 7,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:529:footballer_pro_15_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:52:1046.3749999994238",
+      "kind": "pass_and_go",
+      "at": 1191.1999999999507,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:531:1191.1999999999507:1051",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:531:1192.1499999999542:1052"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_7",
+        "footballer_pro_15_17",
+        "footballer_pro_15_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.58263457003968,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:530:footballer_pro_15_17",
+      "controlChainEndsAt": 1192.1499999999542,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:608:footballer_pro_15_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:60:1326.9500000004446",
+      "kind": "pass_and_go",
+      "at": 1365.000000000583,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:610:1365.000000000583:1195",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:610:1365.250000000584:1196"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_7",
+        "footballer_pro_15_17",
+        "footballer_pro_15_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.610483295417005,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:609:footballer_pro_15_17",
+      "controlChainEndsAt": 1365.250000000584,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:691:footballer_pro_15_13:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:75:1547.250000001246",
+      "kind": "pass_and_go",
+      "at": 1551.675000001262,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:693:1551.675000001262:1339",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:693:1552.225000001264:1340"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_13",
+        "footballer_pro_15_21",
+        "footballer_pro_15_13"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.748090225590126,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:692:footballer_pro_15_21",
+      "controlChainEndsAt": 1552.225000001264,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:743:footballer_pro_15_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:81:1631.1500000015512",
+      "kind": "pass_and_go",
+      "at": 1665.5000000016762,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:745:1665.5000000016762:1444",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:745:1666.0500000016782:1445",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:746:1667.375000001683:1446",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:747:1668.7000000016878:1447",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:748:1670.0250000016927:1448",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:749:1671.3500000016975:1449"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_17",
+        "footballer_pro_15_13",
+        "footballer_pro_15_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.508644619020544,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:744:footballer_pro_15_13",
+      "controlChainEndsAt": 1671.3500000016975,
+      "rawEpisodeAssociationCounts": {
+        "choices": 10,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:951:footballer_pro_14_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:104:2029.9000000030019",
+      "kind": "pass_and_go",
+      "at": 2111.8250000033,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:953:2111.8250000033:1837",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:953:2112.375000003302:1838"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_14_7",
+        "footballer_pro_14_17",
+        "footballer_pro_14_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 10.489876499871507,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:952:footballer_pro_14_17",
+      "controlChainEndsAt": 2112.375000003302,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1180:footballer_pro_15_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:132:2645.375000005241",
+      "kind": "overlap",
+      "at": 2672.2000000053386,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1182:2672.2000000053386:2259",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1182:2672.850000005341:2260",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1183:2674.1750000053457:2261",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1184:2675.5000000053506:2262"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_19",
+        "footballer_pro_15_11",
+        "footballer_pro_15_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.173925266063051,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1181:footballer_pro_15_11",
+      "controlChainEndsAt": 2708.9500000054722,
+      "rawEpisodeAssociationCounts": {
+        "choices": 3,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1322:footballer_pro_15_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:154:3013.3750000065797",
+      "kind": "pass_and_go",
+      "at": 3022.6750000066136,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1324:3022.6750000066136:2534",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1324:3023.2250000066156:2535"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_7",
+        "footballer_pro_15_17",
+        "footballer_pro_15_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.89470177121634,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1323:footballer_pro_15_17",
+      "controlChainEndsAt": 3023.2250000066156,
+      "rawEpisodeAssociationCounts": {
+        "choices": 11,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1424:footballer_pro_15_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:168:3204.775000007276",
+      "kind": "pass_and_go",
+      "at": 3234.1000000073827,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1426:3234.1000000073827:2725",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1426:3235.050000007386:2726",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1427:3236.375000007391:2727"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_19",
+        "footballer_pro_15_3",
+        "footballer_pro_15_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.404476049573226,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1425:footballer_pro_15_3",
+      "controlChainEndsAt": 3289.2750000075835,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1495:footballer_pro_15_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:174:3314.5500000076754",
+      "kind": "pass_and_go",
+      "at": 3381.6750000079196,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1497:3381.6750000079196:2853",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1497:3382.625000007923:2854",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1498:3383.950000007928:2855",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1499:3385.2750000079327:2856"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_19",
+        "footballer_pro_15_3",
+        "footballer_pro_15_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.781259619161709,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1496:footballer_pro_15_3",
+      "controlChainEndsAt": 3385.2750000079327,
+      "rawEpisodeAssociationCounts": {
+        "choices": 8,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1512:footballer_pro_15_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:174:3314.5500000076754",
+      "kind": "pass_and_go",
+      "at": 3412.800000008033,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1514:3412.800000008033:2885"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_17",
+        "footballer_pro_15_7",
+        "footballer_pro_15_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.045623085974505,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1513:footballer_pro_15_7",
+      "controlChainEndsAt": 3417.3500000080494,
+      "rawEpisodeAssociationCounts": {
+        "choices": 0,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1518:footballer_pro_15_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:178:3417.4250000080497",
+      "kind": "third_man",
+      "at": 3425.475000008079,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1520:3425.475000008079:2894",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1520:3426.1500000080814:2895",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1521:3427.475000008086:2896",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1522:3428.800000008091:2897",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1523:3430.125000008096:2898",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1524:3431.4500000081007:2899"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_7",
+        "footballer_pro_15_17",
+        "footballer_pro_15_13"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 12.80413911320521,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1519:footballer_pro_15_17",
+      "controlChainEndsAt": 3431.4500000081007,
+      "rawEpisodeAssociationCounts": {
+        "choices": 8,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1652:footballer_pro_15_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:201:3750.7500000092623",
+      "kind": "pass_and_go",
+      "at": 3756.8750000092846,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1654:3756.8750000092846:3132",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1654:3761.2250000093004:3133"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_19",
+        "footballer_pro_15_9",
+        "footballer_pro_15_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.347773232498248,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1653:footballer_pro_15_9",
+      "controlChainEndsAt": 3761.2250000093004,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1718:footballer_pro_15_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:207:3884.77500000975",
+      "kind": "pass_and_go",
+      "at": 3912.600000009851,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1720:3912.600000009851:3258",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1720:3913.150000009853:3259",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1721:3914.475000009858:3260",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1721:3914.750000009859:3261",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1722:3916.0750000098637:3262",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1723:3917.4000000098686:3263",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1724:3918.7250000098734:3264"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_7",
+        "footballer_pro_15_17",
+        "footballer_pro_15_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 11.341999064294825,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1719:footballer_pro_15_17",
+      "controlChainEndsAt": 3940.5000000099526,
+      "rawEpisodeAssociationCounts": {
+        "choices": 6,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1753:footballer_pro_15_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:211:3976.850000010085",
+      "kind": "pass_and_go",
+      "at": 3985.2500000101154,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1755:3985.2500000101154:3321",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1755:3986.200000010119:3322"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_7",
+        "footballer_pro_15_13",
+        "footballer_pro_15_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.97548114292632,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1754:footballer_pro_15_13",
+      "controlChainEndsAt": 3986.200000010119,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:1867:footballer_pro_15_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:223:4213.42500000881",
+      "kind": "pass_and_go",
+      "at": 4250.300000008273,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1869:4250.300000008273:3541",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:1869:4250.850000008265:3542"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_15_17",
+        "footballer_pro_15_7",
+        "footballer_pro_15_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.303436097956315,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:1868:footballer_pro_15_7",
+      "controlChainEndsAt": 4368.525000006553,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:2199:footballer_pro_14_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:256:4925.749999998444",
+      "kind": "pass_and_go",
+      "at": 4940.324999998232,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2201:4940.324999998232:4172",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2201:4940.874999998224:4173"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_14_7",
+        "footballer_pro_14_17",
+        "footballer_pro_14_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 12.215693325451603,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:2200:footballer_pro_14_17",
+      "controlChainEndsAt": 4940.874999998224,
+      "rawEpisodeAssociationCounts": {
+        "choices": 30,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:pass:2446:footballer_pro_14_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:279:5454.674999990747",
+      "kind": "pass_and_go",
+      "at": 5482.749999990338,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2448:5482.749999990338:4654",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2448:5483.449999990328:4655",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2449:5484.774999990309:4656",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2450:5486.09999999029:4657",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2451:5487.42499999027:4658",
+        "pr175-fresh-20261018:dev-balanced:v1:choice:2452:5488.749999990251:4659"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_14_7",
+        "footballer_pro_14_17",
+        "footballer_pro_14_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.734213336778346,
+      "continuationPassId": "pr175-fresh-20261018:dev-balanced:v1:pass:2447:footballer_pro_14_17",
+      "controlChainEndsAt": 5488.749999990251,
+      "rawEpisodeAssociationCounts": {
+        "choices": 5,
+        "shots": 0
+      },
+      "match": "dev-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:132:footballer_pro_22_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:17:310.7999999999912",
+      "kind": "pass_and_go",
+      "at": 320.5749999999823,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:134:320.5749999999823:258",
+        "pr175-fresh-20261018:dev-central:v1:choice:134:321.52499999998145:259"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_22_19",
+        "footballer_pro_22_9",
+        "footballer_pro_22_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.060984725290609,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:133:footballer_pro_22_9",
+      "controlChainEndsAt": 585.1749999997417,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:625:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:77:1505.8750000010955",
+      "kind": "pass_and_go",
+      "at": 1512.0000000011178,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:627:1512.0000000011178:1109",
+        "pr175-fresh-20261018:dev-central:v1:choice:627:1512.60000000112:1110",
+        "pr175-fresh-20261018:dev-central:v1:choice:628:1514.2250000011259:1111"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_21",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 11.527609287674657,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:626:footballer_pro_19_21",
+      "controlChainEndsAt": 1514.2250000011259,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:699:footballer_pro_19_9:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:83:1674.9500000017106",
+      "kind": "pass_and_go",
+      "at": 1703.0250000018127,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:701:1703.0250000018127:1238",
+        "pr175-fresh-20261018:dev-central:v1:choice:701:1703.9750000018162:1239"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_9",
+        "footballer_pro_19_3",
+        "footballer_pro_19_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.44992216021182,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:700:footballer_pro_19_3",
+      "controlChainEndsAt": 1703.9750000018162,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:1191:footballer_pro_19_11:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:144:2925.1000000062586",
+      "kind": "pass_and_go",
+      "at": 2930.375000006278,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:1193:2930.375000006278:2121",
+        "pr175-fresh-20261018:dev-central:v1:choice:1193:2930.92500000628:2122"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_11",
+        "footballer_pro_19_22",
+        "footballer_pro_19_11"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 10.12089209430102,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:1192:footballer_pro_19_22",
+      "controlChainEndsAt": 2930.92500000628,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:1362:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:166:3324.2250000077106",
+      "kind": "pass_and_go",
+      "at": 3335.6750000077523,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:1364:3335.6750000077523:2418",
+        "pr175-fresh-20261018:dev-central:v1:choice:1364:3336.150000007754:2419",
+        "pr175-fresh-20261018:dev-central:v1:choice:1365:3337.475000007759:2420",
+        "pr175-fresh-20261018:dev-central:v1:choice:1366:3338.8000000077636:2421",
+        "pr175-fresh-20261018:dev-central:v1:choice:1366:3342.450000007777:2422",
+        "pr175-fresh-20261018:dev-central:v1:choice:1367:3343.7750000077817:2423",
+        "pr175-fresh-20261018:dev-central:v1:choice:1367:3344.0500000077827:2424"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_12",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.416079457321622,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:1363:footballer_pro_19_12",
+      "controlChainEndsAt": 3444.8000000081493,
+      "rawEpisodeAssociationCounts": {
+        "choices": 6,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:1428:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:170:3434.3500000081112",
+      "kind": "pass_and_go",
+      "at": 3507.425000008377,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:1430:3507.425000008377:2556",
+        "pr175-fresh-20261018:dev-central:v1:choice:1430:3508.3750000083805:2557"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_3",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.994882599658624,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:1429:footballer_pro_19_3",
+      "controlChainEndsAt": 3508.3750000083805,
+      "rawEpisodeAssociationCounts": {
+        "choices": 9,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:1591:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:182:3824.2250000095296",
+      "kind": "pass_and_go",
+      "at": 3868.850000009692,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:1593:3868.850000009692:2865",
+        "pr175-fresh-20261018:dev-central:v1:choice:1593:3869.7750000096953:2866",
+        "pr175-fresh-20261018:dev-central:v1:choice:1594:3871.400000009701:2867"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_4",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 5.537914343638441,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:1592:footballer_pro_19_4",
+      "controlChainEndsAt": 3871.400000009701,
+      "rawEpisodeAssociationCounts": {
+        "choices": 8,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:1786:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:206:4342.150000006936",
+      "kind": "pass_and_go",
+      "at": 4351.950000006794,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:1788:4351.950000006794:3208",
+        "pr175-fresh-20261018:dev-central:v1:choice:1788:4352.625000006784:3209",
+        "pr175-fresh-20261018:dev-central:v1:choice:1789:4354.25000000676:3210",
+        "pr175-fresh-20261018:dev-central:v1:choice:1790:4355.575000006741:3211"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_4",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 10.005650447264898,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:1787:footballer_pro_19_4",
+      "controlChainEndsAt": 4391.925000006212,
+      "rawEpisodeAssociationCounts": {
+        "choices": 3,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:2113:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:247:5100.5749999959",
+      "kind": "pass_and_go",
+      "at": 5122.649999995579,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:2115:5122.649999995579:3795",
+        "pr175-fresh-20261018:dev-central:v1:choice:2115:5123.2749999955695:3796",
+        "pr175-fresh-20261018:dev-central:v1:choice:2116:5124.899999995546:3797"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_4",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.869031912134488,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:2114:footballer_pro_19_4",
+      "controlChainEndsAt": 5124.899999995546,
+      "rawEpisodeAssociationCounts": {
+        "choices": 5,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:2147:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:251:5184.649999994676",
+      "kind": "pass_and_go",
+      "at": 5200.824999994441,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:2149:5200.824999994441:3859",
+        "pr175-fresh-20261018:dev-central:v1:choice:2149:5201.399999994433:3860",
+        "pr175-fresh-20261018:dev-central:v1:choice:2150:5203.024999994409:3861"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_12",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.829725699200445,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:2148:footballer_pro_19_12",
+      "controlChainEndsAt": 5203.024999994409,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:2186:footballer_pro_19_7:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:253:5228.2749999940415",
+      "kind": "pass_and_go",
+      "at": 5286.724999993191,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:2188:5286.724999993191:3934",
+        "pr175-fresh-20261018:dev-central:v1:choice:2188:5287.624999993178:3935",
+        "pr175-fresh-20261018:dev-central:v1:choice:2189:5289.249999993154:3936"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_7",
+        "footballer_pro_19_4",
+        "footballer_pro_19_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.351579848657892,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:2187:footballer_pro_19_4",
+      "controlChainEndsAt": 5289.249999993154,
+      "rawEpisodeAssociationCounts": {
+        "choices": 8,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-central:v1:pass:2278:footballer_pro_19_8:combination",
+      "episodeId": "pr175-fresh-20261018:dev-central:v1:pr175:possession:263:5444.324999990898",
+      "kind": "pass_and_go",
+      "at": 5499.974999990088,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-central:v1:choice:2280:5499.974999990088:4098",
+        "pr175-fresh-20261018:dev-central:v1:choice:2280:5500.774999990076:4099",
+        "pr175-fresh-20261018:dev-central:v1:choice:2281:5502.099999990057:4100"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_19_8",
+        "footballer_pro_19_4",
+        "footballer_pro_19_8"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 10.922344638067052,
+      "continuationPassId": "pr175-fresh-20261018:dev-central:v1:pass:2279:footballer_pro_19_4",
+      "controlChainEndsAt": null,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "dev-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:228:footballer_pro_3_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:33:597.0999999997308",
+      "kind": "pass_and_go",
+      "at": 604.4749999997241,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:230:604.4749999997241:383",
+        "pr175-fresh-20261018:dev-strength:v1:choice:230:604.9499999997237:384",
+        "pr175-fresh-20261018:dev-strength:v1:choice:231:606.2749999997225:385",
+        "pr175-fresh-20261018:dev-strength:v1:choice:232:607.5999999997213:386",
+        "pr175-fresh-20261018:dev-strength:v1:choice:233:611.3749999997178:387",
+        "pr175-fresh-20261018:dev-strength:v1:choice:234:612.6999999997166:388",
+        "pr175-fresh-20261018:dev-strength:v1:choice:234:612.9749999997164:389",
+        "pr175-fresh-20261018:dev-strength:v1:choice:234:613.2499999997161:390",
+        "pr175-fresh-20261018:dev-strength:v1:choice:235:614.5749999997149:391",
+        "pr175-fresh-20261018:dev-strength:v1:choice:236:615.8999999997137:392",
+        "pr175-fresh-20261018:dev-strength:v1:choice:237:617.2249999997125:393",
+        "pr175-fresh-20261018:dev-strength:v1:choice:238:618.5499999997113:394",
+        "pr175-fresh-20261018:dev-strength:v1:choice:238:618.824999999711:395",
+        "pr175-fresh-20261018:dev-strength:v1:choice:238:619.0999999997108:396"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_17",
+        "footballer_pro_3_21",
+        "footballer_pro_3_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 12.455181329487637,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:229:footballer_pro_3_21",
+      "controlChainEndsAt": 619.0999999997108,
+      "rawEpisodeAssociationCounts": {
+        "choices": 13,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:711:footballer_pro_3_13:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:86:1766.1750000020425",
+      "kind": "pass_and_go",
+      "at": 1772.125000002064,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:713:1772.125000002064:1147",
+        "pr175-fresh-20261018:dev-strength:v1:choice:713:1772.9750000020672:1148",
+        "pr175-fresh-20261018:dev-strength:v1:choice:714:1774.300000002072:1149",
+        "pr175-fresh-20261018:dev-strength:v1:choice:715:1778.8750000020887:1150",
+        "pr175-fresh-20261018:dev-strength:v1:choice:716:1780.2000000020935:1151",
+        "pr175-fresh-20261018:dev-strength:v1:choice:716:1780.4750000020945:1152",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1781.8000000020993:1153",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1782.0750000021003:1154",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1782.3500000021013:1155",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1782.6250000021023:1156",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1782.9000000021033:1157",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1783.1750000021043:1158",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1783.4500000021053:1159",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1783.7250000021063:1160",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1784.0000000021073:1161",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1784.2750000021083:1162",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1784.5500000021093:1163",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1784.8250000021103:1164",
+        "pr175-fresh-20261018:dev-strength:v1:choice:717:1785.1000000021113:1165",
+        "pr175-fresh-20261018:dev-strength:v1:choice:718:1786.4250000021161:1166",
+        "pr175-fresh-20261018:dev-strength:v1:choice:719:1786.4750000021163:1167"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_13",
+        "footballer_pro_3_19",
+        "footballer_pro_3_13"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.251555709405224,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:712:footballer_pro_3_19",
+      "controlChainEndsAt": 1870.0250000024203,
+      "rawEpisodeAssociationCounts": {
+        "choices": 20,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:768:footballer_pro_3_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:99:1911.4250000025709",
+      "kind": "pass_and_go",
+      "at": 1923.000000002613,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:770:1923.000000002613:1253",
+        "pr175-fresh-20261018:dev-strength:v1:choice:770:1923.6000000026152:1254",
+        "pr175-fresh-20261018:dev-strength:v1:choice:771:1927.2250000026283:1255",
+        "pr175-fresh-20261018:dev-strength:v1:choice:772:1928.5500000026332:1256",
+        "pr175-fresh-20261018:dev-strength:v1:choice:773:1929.875000002638:1257",
+        "pr175-fresh-20261018:dev-strength:v1:choice:774:1931.2000000026428:1258",
+        "pr175-fresh-20261018:dev-strength:v1:choice:775:1932.5250000026476:1259"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_9",
+        "footballer_pro_3_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.58159871224261,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:769:footballer_pro_3_9",
+      "controlChainEndsAt": 1932.5250000026476,
+      "rawEpisodeAssociationCounts": {
+        "choices": 11,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:848:footballer_pro_3_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:111:2088.6500000032156",
+      "kind": "pass_and_go",
+      "at": 2097.9500000032494,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:850:2097.9500000032494:1380",
+        "pr175-fresh-20261018:dev-strength:v1:choice:850:2098.5250000032515:1381",
+        "pr175-fresh-20261018:dev-strength:v1:choice:851:2099.8500000032564:1382"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_9",
+        "footballer_pro_3_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 3.251925839219993,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:849:footballer_pro_3_9",
+      "controlChainEndsAt": 2099.8500000032564,
+      "rawEpisodeAssociationCounts": {
+        "choices": 7,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1242:footballer_pro_3_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:181:3077.1000000009353",
+      "kind": "pass_and_go",
+      "at": 3099.9000000010183,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1244:3099.9000000010183:2008",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1244:3100.2500000010195:2009"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_9",
+        "footballer_pro_3_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 0.8385071831336433,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1243:footballer_pro_3_9",
+      "controlChainEndsAt": 3132.000000001135,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1364:footballer_pro_3_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:199:3353.9750000019426",
+      "kind": "pass_and_go",
+      "at": 3362.2500000019727,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1366:3362.2500000019727:2215",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1366:3362.850000001975:2216"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_9",
+        "footballer_pro_3_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.25071350535967,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1365:footballer_pro_3_9",
+      "controlChainEndsAt": 3397.0500000020993,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1463:footballer_pro_3_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:211:3555.875000002677",
+      "kind": "pass_and_go",
+      "at": 3575.5250000027486,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1465:3575.5250000027486:2377",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1465:3576.0750000027506:2378"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_9",
+        "footballer_pro_3_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.413685087411409,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1464:footballer_pro_3_9",
+      "controlChainEndsAt": 3600.900000002841,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1639:footballer_pro_3_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:224:3963.0250000041583",
+      "kind": "pass_and_go",
+      "at": 3978.825000004216,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1641:3978.825000004216:2673"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_17",
+        "footballer_pro_3_7",
+        "footballer_pro_3_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.918354950336514,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1640:footballer_pro_3_7",
+      "controlChainEndsAt": 4019.9750000043655,
+      "rawEpisodeAssociationCounts": {
+        "choices": 0,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1668:footballer_pro_3_9:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:226:3996.5500000042803",
+      "kind": "pass_and_go",
+      "at": 4038.275000004432,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1670:4038.275000004432:2726",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1670:4039.2250000044355:2727"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_9",
+        "footballer_pro_3_3",
+        "footballer_pro_3_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.54175508706787,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1669:footballer_pro_3_3",
+      "controlChainEndsAt": 4039.2250000044355,
+      "rawEpisodeAssociationCounts": {
+        "choices": 8,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1790:footballer_pro_3_9:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:232:4116.325000004346",
+      "kind": "pass_and_go",
+      "at": 4263.8250000022,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1792:4263.8250000022:2958",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1792:4264.425000002191:2959"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_9",
+        "footballer_pro_3_19",
+        "footballer_pro_3_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 10.184822054041739,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1791:footballer_pro_3_19",
+      "controlChainEndsAt": 4264.425000002191,
+      "rawEpisodeAssociationCounts": {
+        "choices": 4,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1835:footballer_pro_3_19:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:236:4377.350000000548",
+      "kind": "pass_and_go",
+      "at": 4391.825000000337,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1837:4391.825000000337:3034",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1837:4396.400000000271:3035",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1838:4397.725000000251:3036",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1839:4399.050000000232:3037",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1840:4399.100000000231:3038"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_19",
+        "footballer_pro_3_9",
+        "footballer_pro_3_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.798070457982938,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1836:footballer_pro_3_9",
+      "controlChainEndsAt": 4439.524999999643,
+      "rawEpisodeAssociationCounts": {
+        "choices": 4,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1858:footballer_pro_3_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:239:4433.699999999728",
+      "kind": "pass_and_go",
+      "at": 4449.3249999995005,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1860:4449.3249999995005:3072",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1860:4449.924999999492:3073",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1861:4454.5499999994245:3074",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1862:4455.874999999405:3075",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1863:4457.199999999386:3076"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_17",
+        "footballer_pro_3_7",
+        "footballer_pro_3_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.256151438585661,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1859:footballer_pro_3_7",
+      "controlChainEndsAt": 4473.774999999145,
+      "rawEpisodeAssociationCounts": {
+        "choices": 5,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:pass:1968:footballer_pro_3_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:249:4666.799999996336",
+      "kind": "pass_and_go",
+      "at": 4684.024999996085,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-strength:v1:choice:1970:4684.024999996085:3255",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1970:4688.324999996023:3256",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1971:4689.649999996003:3257",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1971:4689.924999995999:3258",
+        "pr175-fresh-20261018:dev-strength:v1:choice:1971:4690.199999995995:3259"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_3_17",
+        "footballer_pro_3_7",
+        "footballer_pro_3_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.451418952960118,
+      "continuationPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1969:footballer_pro_3_7",
+      "controlChainEndsAt": 4690.199999995995,
+      "rawEpisodeAssociationCounts": {
+        "choices": 5,
+        "shots": 0
+      },
+      "match": "dev-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-wide:v1:pass:511:footballer_pro_29_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-wide:v1:pr175:possession:71:1185.0249999999282",
+      "kind": "pass_and_go",
+      "at": 1206.8500000000076,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-wide:v1:choice:513:1206.8500000000076:930",
+        "pr175-fresh-20261018:dev-wide:v1:choice:513:1207.800000000011:931",
+        "pr175-fresh-20261018:dev-wide:v1:choice:514:1209.125000000016:932"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_29_17",
+        "footballer_pro_29_7",
+        "footballer_pro_29_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 3.6854789596366686,
+      "continuationPassId": "pr175-fresh-20261018:dev-wide:v1:pass:512:footballer_pro_29_7",
+      "controlChainEndsAt": 1209.125000000016,
+      "rawEpisodeAssociationCounts": {
+        "choices": 4,
+        "shots": 0
+      },
+      "match": "dev-wide"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-wide:v1:pass:748:footballer_pro_28_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-wide:v1:pr175:possession:100:1674.6250000017094",
+      "kind": "overlap",
+      "at": 1758.5250000020146,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-wide:v1:choice:750:1758.5250000020146:1353",
+        "pr175-fresh-20261018:dev-wide:v1:choice:750:1759.475000002018:1354",
+        "pr175-fresh-20261018:dev-wide:v1:choice:751:1760.800000002023:1355",
+        "pr175-fresh-20261018:dev-wide:v1:choice:752:1762.1250000020277:1356"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_28_17",
+        "footballer_pro_28_3",
+        "footballer_pro_28_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.004414462314841,
+      "continuationPassId": "pr175-fresh-20261018:dev-wide:v1:pass:749:footballer_pro_28_3",
+      "controlChainEndsAt": 1793.1000000021404,
+      "rawEpisodeAssociationCounts": {
+        "choices": 3,
+        "shots": 0
+      },
+      "match": "dev-wide"
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-wide:v1:pass:1827:footballer_pro_29_17:combination",
+      "episodeId": "pr175-fresh-20261018:dev-wide:v1:pr175:possession:235:4378.725000000964",
+      "kind": "pass_and_go",
+      "at": 4398.325000000679,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:dev-wide:v1:choice:1829:4398.325000000679:3318",
+        "pr175-fresh-20261018:dev-wide:v1:choice:1829:4398.875000000671:3319"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_29_17",
+        "footballer_pro_29_11",
+        "footballer_pro_29_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 5.672607207259652,
+      "continuationPassId": "pr175-fresh-20261018:dev-wide:v1:pass:1828:footballer_pro_29_11",
+      "controlChainEndsAt": 4398.875000000671,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "dev-wide"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:pass:398:footballer_pro_17_12:combination",
+      "episodeId": "pr175-fresh-20261018:val-balanced:v1:pr175:possession:44:938.7249999994201",
+      "kind": "pass_and_go",
+      "at": 943.9749999994153,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-balanced:v1:choice:400:943.9749999994153:731",
+        "pr175-fresh-20261018:val-balanced:v1:choice:400:944.9249999994145:732"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_17_12",
+        "footballer_pro_17_11",
+        "footballer_pro_17_12"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.1066590479804645,
+      "continuationPassId": "pr175-fresh-20261018:val-balanced:v1:pass:399:footballer_pro_17_11",
+      "controlChainEndsAt": 944.9249999994145,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "val-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:pass:552:footballer_pro_17_12:combination",
+      "episodeId": "pr175-fresh-20261018:val-balanced:v1:pr175:possession:59:1272.1500000002452",
+      "kind": "pass_and_go",
+      "at": 1281.425000000279,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-balanced:v1:choice:554:1281.425000000279:1002",
+        "pr175-fresh-20261018:val-balanced:v1:choice:554:1282.000000000281:1003"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_17_12",
+        "footballer_pro_17_21",
+        "footballer_pro_17_12"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.940302797921625,
+      "continuationPassId": "pr175-fresh-20261018:val-balanced:v1:pass:553:footballer_pro_17_21",
+      "controlChainEndsAt": 1282.000000000281,
+      "rawEpisodeAssociationCounts": {
+        "choices": 4,
+        "shots": 0
+      },
+      "match": "val-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:pass:715:footballer_pro_17_12:combination",
+      "episodeId": "pr175-fresh-20261018:val-balanced:v1:pr175:possession:77:1603.9500000014523",
+      "kind": "pass_and_go",
+      "at": 1638.0750000015764,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-balanced:v1:choice:717:1638.0750000015764:1300",
+        "pr175-fresh-20261018:val-balanced:v1:choice:717:1639.0250000015799:1301",
+        "pr175-fresh-20261018:val-balanced:v1:choice:718:1640.3500000015847:1302"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_17_12",
+        "footballer_pro_17_21",
+        "footballer_pro_17_12"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.346064898658767,
+      "continuationPassId": "pr175-fresh-20261018:val-balanced:v1:pass:716:footballer_pro_17_21",
+      "controlChainEndsAt": 1640.3500000015847,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "val-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:pass:1193:footballer_pro_18_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-balanced:v1:pr175:possession:124:2666.1500000053165",
+      "kind": "overlap",
+      "at": 2689.975000005403,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-balanced:v1:choice:1195:2689.975000005403:2136"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_18_17",
+        "footballer_pro_18_13",
+        "footballer_pro_18_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 11.30786077265994,
+      "continuationPassId": "pr175-fresh-20261018:val-balanced:v1:pass:1194:footballer_pro_18_13",
+      "controlChainEndsAt": 2838.8250000059447,
+      "rawEpisodeAssociationCounts": {
+        "choices": 0,
+        "shots": 0
+      },
+      "match": "val-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:pass:1488:footballer_pro_17_12:combination",
+      "episodeId": "pr175-fresh-20261018:val-balanced:v1:pr175:possession:162:3434.9250000081133",
+      "kind": "pass_and_go",
+      "at": 3452.8000000081784,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-balanced:v1:choice:1490:3452.8000000081784:2635"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_17_12",
+        "footballer_pro_17_7",
+        "footballer_pro_17_12"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.094803588581751,
+      "continuationPassId": "pr175-fresh-20261018:val-balanced:v1:pass:1489:footballer_pro_17_7",
+      "controlChainEndsAt": 3575.275000008624,
+      "rawEpisodeAssociationCounts": {
+        "choices": 0,
+        "shots": 0
+      },
+      "match": "val-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:pass:1758:footballer_pro_18_7:combination",
+      "episodeId": "pr175-fresh-20261018:val-balanced:v1:pr175:possession:196:4039.1000000103113",
+      "kind": "pass_and_go",
+      "at": 4061.1500000103915,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-balanced:v1:choice:1761:4061.1500000103915:3085",
+        "pr175-fresh-20261018:val-balanced:v1:choice:1761:4062.100000010395:3086",
+        "pr175-fresh-20261018:val-balanced:v1:choice:1762:4063.4250000104:3087",
+        "pr175-fresh-20261018:val-balanced:v1:choice:1763:4064.7500000104046:3088",
+        "pr175-fresh-20261018:val-balanced:v1:choice:1764:4066.0750000104094:3089"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_18_7",
+        "footballer_pro_18_17",
+        "footballer_pro_18_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.33743335556887,
+      "continuationPassId": "pr175-fresh-20261018:val-balanced:v1:pass:1760:footballer_pro_18_17",
+      "controlChainEndsAt": 4066.0750000104094,
+      "rawEpisodeAssociationCounts": {
+        "choices": 9,
+        "shots": 0
+      },
+      "match": "val-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:pass:1995:footballer_pro_17_9:combination",
+      "episodeId": "pr175-fresh-20261018:val-balanced:v1:pr175:possession:219:4533.925000004146",
+      "kind": "pass_and_go",
+      "at": 4560.8750000037535,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-balanced:v1:choice:1997:4560.8750000037535:3500",
+        "pr175-fresh-20261018:val-balanced:v1:choice:1997:4561.525000003744:3501",
+        "pr175-fresh-20261018:val-balanced:v1:choice:1998:4562.850000003725:3502",
+        "pr175-fresh-20261018:val-balanced:v1:choice:1999:4564.1750000037055:3503",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2000:4565.500000003686:3504",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2001:4566.825000003667:3505",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2002:4568.150000003648:3506",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2003:4569.475000003628:3507",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2004:4570.800000003609:3508",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2005:4572.12500000359:3509",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2006:4573.4500000035705:3510",
+        "pr175-fresh-20261018:val-balanced:v1:choice:2007:4574.775000003551:3511"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_17_9",
+        "footballer_pro_17_5",
+        "footballer_pro_17_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 5.888288014150177,
+      "continuationPassId": "pr175-fresh-20261018:val-balanced:v1:pass:1996:footballer_pro_17_5",
+      "controlChainEndsAt": 4574.775000003551,
+      "rawEpisodeAssociationCounts": {
+        "choices": 11,
+        "shots": 0
+      },
+      "match": "val-balanced"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-central:v1:pass:19:footballer_pro_26_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-central:v1:pr175:possession:4:58.24999999999776",
+      "kind": "overlap",
+      "at": 63.624999999997456,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-central:v1:choice:22:63.624999999997456:37",
+        "pr175-fresh-20261018:val-central:v1:choice:22:63.94999999999744:38",
+        "pr175-fresh-20261018:val-central:v1:choice:23:65.27499999999772:39",
+        "pr175-fresh-20261018:val-central:v1:choice:23:65.54999999999778:40",
+        "pr175-fresh-20261018:val-central:v1:choice:24:66.87499999999808:41"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_26_19",
+        "footballer_pro_26_13",
+        "footballer_pro_26_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.317804878781118,
+      "continuationPassId": "pr175-fresh-20261018:val-central:v1:pass:21:footballer_pro_26_13",
+      "controlChainEndsAt": 66.87499999999808,
+      "rawEpisodeAssociationCounts": {
+        "choices": 9,
+        "shots": 0
+      },
+      "match": "val-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-central:v1:pass:1073:footballer_pro_26_9:combination",
+      "episodeId": "pr175-fresh-20261018:val-central:v1:pr175:possession:160:2414.550000004401",
+      "kind": "pass_and_go",
+      "at": 2451.600000004536,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-central:v1:choice:1075:2451.600000004536:1882",
+        "pr175-fresh-20261018:val-central:v1:choice:1075:2452.5500000045395:1883"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_26_9",
+        "footballer_pro_26_19",
+        "footballer_pro_26_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 11.414443142062353,
+      "continuationPassId": "pr175-fresh-20261018:val-central:v1:pass:1074:footballer_pro_26_19",
+      "controlChainEndsAt": 2452.5500000045395,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "val-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-central:v1:pass:1514:footballer_pro_26_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-central:v1:pr175:possession:231:3537.375000002828",
+      "kind": "pass_and_go",
+      "at": 3558.1750000029037,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-central:v1:choice:1516:3558.1750000029037:2615",
+        "pr175-fresh-20261018:val-central:v1:choice:1516:3558.750000002906:2616"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_26_19",
+        "footballer_pro_26_12",
+        "footballer_pro_26_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.223709448096223,
+      "continuationPassId": "pr175-fresh-20261018:val-central:v1:pass:1515:footballer_pro_26_12",
+      "controlChainEndsAt": 3558.750000002906,
+      "rawEpisodeAssociationCounts": {
+        "choices": 7,
+        "shots": 0
+      },
+      "match": "val-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-central:v1:pass:1681:footballer_pro_26_9:combination",
+      "episodeId": "pr175-fresh-20261018:val-central:v1:pr175:possession:250:3917.475000004211",
+      "kind": "third_man",
+      "at": 3922.200000004228,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-central:v1:choice:1683:3922.200000004228:2912",
+        "pr175-fresh-20261018:val-central:v1:choice:1683:3922.8750000042305:2913"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_26_9",
+        "footballer_pro_26_19",
+        "footballer_pro_26_12"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.234796948250278,
+      "continuationPassId": "pr175-fresh-20261018:val-central:v1:pass:1682:footballer_pro_26_19",
+      "controlChainEndsAt": 3922.8750000042305,
+      "rawEpisodeAssociationCounts": {
+        "choices": 7,
+        "shots": 0
+      },
+      "match": "val-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-central:v1:pass:1780:footballer_pro_26_9:combination",
+      "episodeId": "pr175-fresh-20261018:val-central:v1:pr175:possession:264:4114.500000004591",
+      "kind": "pass_and_go",
+      "at": 4129.8000000043685,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-central:v1:choice:1782:4129.8000000043685:3079",
+        "pr175-fresh-20261018:val-central:v1:choice:1782:4130.750000004355:3080"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_26_9",
+        "footballer_pro_26_19",
+        "footballer_pro_26_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.674249437911719,
+      "continuationPassId": "pr175-fresh-20261018:val-central:v1:pass:1781:footballer_pro_26_19",
+      "controlChainEndsAt": 4130.750000004355,
+      "rawEpisodeAssociationCounts": {
+        "choices": 23,
+        "shots": 0
+      },
+      "match": "val-central"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:165:footballer_pro_7_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:18:374.17499999993356",
+      "kind": "pass_and_go",
+      "at": 404.449999999906,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:167:404.449999999906:300",
+        "pr175-fresh-20261018:val-strength:v1:choice:167:404.84999999990566:301",
+        "pr175-fresh-20261018:val-strength:v1:choice:168:409.0999999999018:302",
+        "pr175-fresh-20261018:val-strength:v1:choice:169:410.4249999999006:303",
+        "pr175-fresh-20261018:val-strength:v1:choice:170:411.7499999998994:304",
+        "pr175-fresh-20261018:val-strength:v1:choice:171:413.0749999998982:305",
+        "pr175-fresh-20261018:val-strength:v1:choice:172:414.399999999897:306",
+        "pr175-fresh-20261018:val-strength:v1:choice:172:414.6749999998967:307",
+        "pr175-fresh-20261018:val-strength:v1:choice:172:414.9499999998965:308",
+        "pr175-fresh-20261018:val-strength:v1:choice:173:416.2749999998953:309",
+        "pr175-fresh-20261018:val-strength:v1:choice:174:417.59999999989407:310",
+        "pr175-fresh-20261018:val-strength:v1:choice:175:418.92499999989286:311"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_17",
+        "footballer_pro_7_7",
+        "footballer_pro_7_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.905786839904309,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:166:footballer_pro_7_7",
+      "controlChainEndsAt": 418.92499999989286,
+      "rawEpisodeAssociationCounts": {
+        "choices": 13,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:210:footballer_pro_7_13:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:20:433.79999999987933",
+      "kind": "overlap",
+      "at": 492.59999999982585,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:212:492.59999999982585:382",
+        "pr175-fresh-20261018:val-strength:v1:choice:212:493.0999999998254:383",
+        "pr175-fresh-20261018:val-strength:v1:choice:213:494.4249999998242:384",
+        "pr175-fresh-20261018:val-strength:v1:choice:214:495.749999999823:385",
+        "pr175-fresh-20261018:val-strength:v1:choice:215:497.0749999998218:386",
+        "pr175-fresh-20261018:val-strength:v1:choice:216:500.94999999981826:387",
+        "pr175-fresh-20261018:val-strength:v1:choice:217:502.27499999981706:388",
+        "pr175-fresh-20261018:val-strength:v1:choice:218:503.59999999981585:389"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_13",
+        "footballer_pro_7_17",
+        "footballer_pro_7_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 2.224118296905978,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:211:footballer_pro_7_17",
+      "controlChainEndsAt": 503.59999999981585,
+      "rawEpisodeAssociationCounts": {
+        "choices": 7,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:685:footballer_pro_7_4:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:67:1598.9750000014342",
+      "kind": "overlap",
+      "at": 1646.0500000016054,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:687:1646.0500000016054:1224",
+        "pr175-fresh-20261018:val-strength:v1:choice:687:1646.7000000016078:1225",
+        "pr175-fresh-20261018:val-strength:v1:choice:688:1648.0250000016126:1226",
+        "pr175-fresh-20261018:val-strength:v1:choice:688:1648.3000000016136:1227",
+        "pr175-fresh-20261018:val-strength:v1:choice:688:1648.5750000016146:1228",
+        "pr175-fresh-20261018:val-strength:v1:choice:688:1648.8500000016156:1229",
+        "pr175-fresh-20261018:val-strength:v1:choice:689:1650.1750000016204:1230",
+        "pr175-fresh-20261018:val-strength:v1:choice:690:1653.8250000016337:1231",
+        "pr175-fresh-20261018:val-strength:v1:choice:691:1655.1500000016385:1232",
+        "pr175-fresh-20261018:val-strength:v1:choice:692:1656.4750000016434:1233",
+        "pr175-fresh-20261018:val-strength:v1:choice:692:1656.7500000016444:1234",
+        "pr175-fresh-20261018:val-strength:v1:choice:692:1657.0250000016454:1235"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_4",
+        "footballer_pro_7_13",
+        "footballer_pro_7_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 11.164637338533566,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:686:footballer_pro_7_13",
+      "controlChainEndsAt": 1657.0250000016454,
+      "rawEpisodeAssociationCounts": {
+        "choices": 11,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:754:footballer_pro_7_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:76:1781.9250000020998",
+      "kind": "overlap",
+      "at": 1821.1750000022425,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:756:1821.1750000022425:1340",
+        "pr175-fresh-20261018:val-strength:v1:choice:756:1821.4500000022435:1341",
+        "pr175-fresh-20261018:val-strength:v1:choice:757:1822.7750000022484:1342",
+        "pr175-fresh-20261018:val-strength:v1:choice:758:1824.1000000022532:1343"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_19",
+        "footballer_pro_7_12",
+        "footballer_pro_7_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.409938328446074,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:755:footballer_pro_7_12",
+      "controlChainEndsAt": 2014.6000000029462,
+      "rawEpisodeAssociationCounts": {
+        "choices": 3,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1094:footballer_pro_7_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:99:2576.2500000049895",
+      "kind": "pass_and_go",
+      "at": 2584.67500000502,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1096:2584.67500000502:1996",
+        "pr175-fresh-20261018:val-strength:v1:choice:1096:2585.6250000050236:1997"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_17",
+        "footballer_pro_7_3",
+        "footballer_pro_7_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.979214818933123,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1095:footballer_pro_7_3",
+      "controlChainEndsAt": 2585.6250000050236,
+      "rawEpisodeAssociationCounts": {
+        "choices": 34,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1274:footballer_pro_7_7:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:115:3028.1000000066333",
+      "kind": "pass_and_go",
+      "at": 3036.775000006665,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1276:3036.775000006665:2321",
+        "pr175-fresh-20261018:val-strength:v1:choice:1276:3037.325000006667:2322",
+        "pr175-fresh-20261018:val-strength:v1:choice:1277:3038.6500000066717:2323"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_7",
+        "footballer_pro_7_13",
+        "footballer_pro_7_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": -3.4025164973367517,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1275:footballer_pro_7_13",
+      "controlChainEndsAt": 3038.6500000066717,
+      "rawEpisodeAssociationCounts": {
+        "choices": 2,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1387:footballer_pro_7_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:131:3315.9000000076803",
+      "kind": "pass_and_go",
+      "at": 3341.5250000077735,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1389:3341.5250000077735:2505",
+        "pr175-fresh-20261018:val-strength:v1:choice:1389:3342.475000007777:2506",
+        "pr175-fresh-20261018:val-strength:v1:choice:1390:3343.800000007782:2507",
+        "pr175-fresh-20261018:val-strength:v1:choice:1391:3345.1250000077866:2508"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_17",
+        "footballer_pro_7_13",
+        "footballer_pro_7_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.809209608354074,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1388:footballer_pro_7_13",
+      "controlChainEndsAt": 3345.1250000077866,
+      "rawEpisodeAssociationCounts": {
+        "choices": 3,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1426:footballer_pro_7_7:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:136:3416.475000008046",
+      "kind": "pass_and_go",
+      "at": 3447.525000008159,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1428:3447.525000008159:2570",
+        "pr175-fresh-20261018:val-strength:v1:choice:1428:3447.77500000816:2571"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_7",
+        "footballer_pro_7_17",
+        "footballer_pro_7_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.411548870865268,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1427:footballer_pro_7_17",
+      "controlChainEndsAt": 3447.77500000816,
+      "rawEpisodeAssociationCounts": {
+        "choices": 26,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1466:footballer_pro_7_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:136:3416.475000008046",
+      "kind": "pass_and_go",
+      "at": 3524.5500000084394,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1468:3524.5500000084394:2652",
+        "pr175-fresh-20261018:val-strength:v1:choice:1468:3524.9250000084407:2653"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_17",
+        "footballer_pro_7_7",
+        "footballer_pro_7_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 9.265031269472082,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1467:footballer_pro_7_7",
+      "controlChainEndsAt": 3549.175000008529,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1574:footballer_pro_7_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:144:3733.5250000091996",
+      "kind": "pass_and_go",
+      "at": 3773.3500000093445,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1576:3773.3500000093445:2860",
+        "pr175-fresh-20261018:val-strength:v1:choice:1576:3774.2250000093477:2861",
+        "pr175-fresh-20261018:val-strength:v1:choice:1577:3775.5500000093525:2862",
+        "pr175-fresh-20261018:val-strength:v1:choice:1578:3776.8750000093573:2863"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_19",
+        "footballer_pro_7_9",
+        "footballer_pro_7_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.796069236564723,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1575:footballer_pro_7_9",
+      "controlChainEndsAt": 3834.4000000095666,
+      "rawEpisodeAssociationCounts": {
+        "choices": 3,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1610:footballer_pro_7_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:150:3833.5500000095635",
+      "kind": "pass_and_go",
+      "at": 3860.02500000966,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1612:3860.02500000966:2921",
+        "pr175-fresh-20261018:val-strength:v1:choice:1612:3860.9750000096633:2922",
+        "pr175-fresh-20261018:val-strength:v1:choice:1613:3862.300000009668:2923",
+        "pr175-fresh-20261018:val-strength:v1:choice:1614:3863.625000009673:2924",
+        "pr175-fresh-20261018:val-strength:v1:choice:1615:3864.9500000096778:2925"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_17",
+        "footballer_pro_7_4",
+        "footballer_pro_7_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.34146285553058,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1611:footballer_pro_7_4",
+      "controlChainEndsAt": 3864.9500000096778,
+      "rawEpisodeAssociationCounts": {
+        "choices": 4,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:1766:footballer_pro_7_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:162:4107.525000010351",
+      "kind": "pass_and_go",
+      "at": 4184.950000009224,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:1768:4184.950000009224:3209",
+        "pr175-fresh-20261018:val-strength:v1:choice:1768:4185.525000009216:3210"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_17",
+        "footballer_pro_7_7",
+        "footballer_pro_7_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.383986693896546,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:1767:footballer_pro_7_7",
+      "controlChainEndsAt": 4232.500000008532,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:2080:footballer_pro_7_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:174:4805.850000000189",
+      "kind": "pass_and_go",
+      "at": 4842.6249999996535,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:2082:4842.6249999996535:3834",
+        "pr175-fresh-20261018:val-strength:v1:choice:2082:4843.1749999996455:3835"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_19",
+        "footballer_pro_7_9",
+        "footballer_pro_7_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.48068178385768,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:2081:footballer_pro_7_9",
+      "controlChainEndsAt": 4906.824999998719,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:pass:2170:footballer_pro_7_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:182:4941.199999998219",
+      "kind": "pass_and_go",
+      "at": 5020.474999997065,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-strength:v1:choice:2172:5020.474999997065:4001",
+        "pr175-fresh-20261018:val-strength:v1:choice:2172:5021.174999997055:4002",
+        "pr175-fresh-20261018:val-strength:v1:choice:2173:5022.499999997036:4003",
+        "pr175-fresh-20261018:val-strength:v1:choice:2174:5023.824999997017:4004",
+        "pr175-fresh-20261018:val-strength:v1:choice:2175:5025.149999996997:4005",
+        "pr175-fresh-20261018:val-strength:v1:choice:2176:5026.474999996978:4006"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_7_17",
+        "footballer_pro_7_7",
+        "footballer_pro_7_17"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 5.17676485402864,
+      "continuationPassId": "pr175-fresh-20261018:val-strength:v1:pass:2171:footballer_pro_7_7",
+      "controlChainEndsAt": 5026.474999996978,
+      "rawEpisodeAssociationCounts": {
+        "choices": 12,
+        "shots": 0
+      },
+      "match": "val-strength"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-wide:v1:pass:291:footballer_pro_43_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-wide:v1:pr175:possession:33:624.7999999997056",
+      "kind": "pass_and_go",
+      "at": 673.5499999996613,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-wide:v1:choice:293:673.5499999996613:498",
+        "pr175-fresh-20261018:val-wide:v1:choice:293:674.4999999996604:499",
+        "pr175-fresh-20261018:val-wide:v1:choice:294:675.8249999996592:500",
+        "pr175-fresh-20261018:val-wide:v1:choice:295:677.149999999658:501",
+        "pr175-fresh-20261018:val-wide:v1:choice:296:678.4749999996568:502",
+        "pr175-fresh-20261018:val-wide:v1:choice:297:679.7999999996556:503"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_43_19",
+        "footballer_pro_43_9",
+        "footballer_pro_43_19"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 8.00733823540839,
+      "continuationPassId": "pr175-fresh-20261018:val-wide:v1:pass:292:footballer_pro_43_9",
+      "controlChainEndsAt": 679.7999999996556,
+      "rawEpisodeAssociationCounts": {
+        "choices": 22,
+        "shots": 0
+      },
+      "match": "val-wide"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-wide:v1:pass:482:footballer_pro_43_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-wide:v1:pr175:possession:59:1066.9749999994988",
+      "kind": "overlap",
+      "at": 1088.749999999578,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-wide:v1:choice:484:1088.749999999578:812",
+        "pr175-fresh-20261018:val-wide:v1:choice:484:1089.549999999581:813",
+        "pr175-fresh-20261018:val-wide:v1:choice:485:1090.8749999995857:814",
+        "pr175-fresh-20261018:val-wide:v1:choice:486:1092.1999999995905:815",
+        "pr175-fresh-20261018:val-wide:v1:choice:487:1093.5249999995954:816",
+        "pr175-fresh-20261018:val-wide:v1:choice:487:1093.7999999995964:817"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_43_19",
+        "footballer_pro_43_13",
+        "footballer_pro_43_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 11.732996365589752,
+      "continuationPassId": "pr175-fresh-20261018:val-wide:v1:pass:483:footballer_pro_43_13",
+      "controlChainEndsAt": 1098.3249999996128,
+      "rawEpisodeAssociationCounts": {
+        "choices": 5,
+        "shots": 0
+      },
+      "match": "val-wide"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-wide:v1:pass:987:footballer_pro_43_19:combination",
+      "episodeId": "pr175-fresh-20261018:val-wide:v1:pr175:possession:123:2370.6250000042414",
+      "kind": "overlap",
+      "at": 2401.575000004354,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-wide:v1:choice:989:2401.575000004354:1608",
+        "pr175-fresh-20261018:val-wide:v1:choice:989:2402.5250000043575:1609",
+        "pr175-fresh-20261018:val-wide:v1:choice:990:2403.8500000043623:1610",
+        "pr175-fresh-20261018:val-wide:v1:choice:991:2406.0750000043704:1611",
+        "pr175-fresh-20261018:val-wide:v1:choice:992:2407.400000004375:1612",
+        "pr175-fresh-20261018:val-wide:v1:choice:992:2407.675000004376:1613"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_43_19",
+        "footballer_pro_43_13",
+        "footballer_pro_43_9"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.399998963534909,
+      "continuationPassId": "pr175-fresh-20261018:val-wide:v1:pass:988:footballer_pro_43_13",
+      "controlChainEndsAt": 2451.7500000045366,
+      "rawEpisodeAssociationCounts": {
+        "choices": 5,
+        "shots": 0
+      },
+      "match": "val-wide"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-wide:v1:pass:1899:footballer_pro_43_17:combination",
+      "episodeId": "pr175-fresh-20261018:val-wide:v1:pr175:possession:211:4547.35000000395",
+      "kind": "overlap",
+      "at": 4574.350000003557,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-wide:v1:choice:1901:4574.350000003557:3102",
+        "pr175-fresh-20261018:val-wide:v1:choice:1901:4575.000000003548:3103",
+        "pr175-fresh-20261018:val-wide:v1:choice:1902:4576.325000003529:3104",
+        "pr175-fresh-20261018:val-wide:v1:choice:1903:4578.9500000034905:3105"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_pro_43_17",
+        "footballer_pro_43_13",
+        "footballer_pro_43_7"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 6.297198045110278,
+      "continuationPassId": "pr175-fresh-20261018:val-wide:v1:pass:1900:footballer_pro_43_13",
+      "controlChainEndsAt": 4617.125000002935,
+      "rawEpisodeAssociationCounts": {
+        "choices": 3,
+        "shots": 0
+      },
+      "match": "val-wide"
+    },
+    {
+      "id": "pr175-fresh-20261018:val-youth:v1:pass:385:footballer_club_vistula_nova_2026_18:combination",
+      "episodeId": "pr175-fresh-20261018:val-youth:v1:pr175:possession:50:936.4999999994221",
+      "kind": "pass_and_go",
+      "at": 973.0749999993889,
+      "outcome": "completed",
+      "subsequentChoiceIds": [
+        "pr175-fresh-20261018:val-youth:v1:choice:388:973.0749999993889:614",
+        "pr175-fresh-20261018:val-youth:v1:choice:388:974.024999999388:615"
+      ],
+      "subsequentShotIds": [],
+      "participantIds": [
+        "footballer_club_vistula_nova_2026_18",
+        "footballer_club_vistula_nova_2026_9",
+        "footballer_club_vistula_nova_2026_18"
+      ],
+      "runnerDisplacementFromRecordedOrigin": 7.953165061642892,
+      "continuationPassId": "pr175-fresh-20261018:val-youth:v1:pass:387:footballer_club_vistula_nova_2026_9",
+      "controlChainEndsAt": 1217.5250000000465,
+      "rawEpisodeAssociationCounts": {
+        "choices": 1,
+        "shots": 0
+      },
+      "match": "val-youth"
+    }
+  ]
+}

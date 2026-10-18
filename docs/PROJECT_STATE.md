@@ -1,5 +1,36 @@
 # My Football Legend — Current Project State
 
+## PR175 — Independent Match Reality Validation
+
+Zweryfikowano scalony PR174 `d6556eba`, łącznie z poprawką asekuracji po review.
+Ponownie zmierzono historyczne 16+8 meczów: wejścia są identyczne z frozen K,
+ale 8/24 końcowych stanów się zmienia. Osobne 24 powtórki rozliczają źródła
+wszystkich historycznych bramek i odtwarzają pełne stany nowej bazy.
+
+Zamrożono 12 nowych projektów bez lustrzanych duplikatów: sześć development
+i sześć zamkniętej walidacji. Wszystkie kończą się prawidłowo. Wynik łączny:
+21 306 podań, 14 strzałów, dziewięć goli i sześć rożnych. Rzeczywiste wybory,
+kontakty, podania, strzały i posiadania mają powiązane identyfikatory.
+208 kontrolowanych strzałów, zamrożone decyzje, próby kombinacji/adaptacji
+i dwa pełne przebiegi kariery uzupełniają pomiary meczów.
+
+Niezmieniony `npm run verify`: **PASS — 1894 testy**, lint, TypeScript i build.
+Dwa pełne nowe mecze z obserwatorami i bez nich zachowują identyczny cały stan
+i liczbę kroków. Koszt diagnostyki i kombinacji oraz startup/save mają osobne
+seryjne pomiary; trzy krótkie próby nie izolują stabilnego narzutu CPU.
+
+**NOT READY do statystycznej kalibracji PR177.** Wąskie gardło pozostaje
+przed dobrym dostępem do pola karnego i groźnych strzałów. Nie przyjęto nowej
+poprawki gameplay: dowody nie izolują bezpiecznej zmiany pojedynczego mechanizmu.
+Poprawiono wyłącznie badawcze przypisanie starych wskazówek wznowień i zbyt
+szerokich powiązań kombinacji. Źródła produkcyjne pozostają bez zmian.
+
+[Pełny raport, odtwarzanie, ograniczenia i 40 odpowiedzi](PR175_MATCH_REALITY_VALIDATION.md).
+Walidacja PR175 została zużyta; przyszłe strojenie wymaga nowego zamkniętego zbioru.
+PR176 generacje/siła świata → PR177 summary/PlayStyles → PR178 career UX
+→ PR179+ ekspansja pozostają w tej kolejności. Częstości zdarzeń obecnego silnika
+nie mogą być traktowane jako wiarygodny cel kalibracji summary.
+
 ## PR174 — Combination Play & Tactical Adaptation
 
 Published for review: [PR174](https://github.com/adamfron/my_football_legend/pull/174), based on

@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "method": "Serial local CPU after all cohorts and verification. Same generated world/profile/seed, one discarded warm-up and seven samples per engine, alternating order. Construction/save/load costs; excludes network, cold module import and browser rendering.",
+  "worldHash": "aa651c89f1dcfbdc3031c30962376218897927af03f77e295535bfcc4f41c0d4",
+  "medians": [
+    {
+      "engine": "PR174-merged",
+      "worldParseValidationMs": 30.24610000000007,
+      "careerConstructionMs": 0.016400000000203363,
+      "saveMs": 0.37009999999986576,
+      "loadValidationMs": 0.20690000000013242
+    },
+    {
+      "engine": "PR175",
+      "worldParseValidationMs": 30.032100000000128,
+      "careerConstructionMs": 0.017200000000002547,
+      "saveMs": 0.3913000000000011,
+      "loadValidationMs": 0.20949999999993452
+    }
+  ],
+  "rows": [
+    {
+      "engine": "PR175",
+      "sample": 0,
+      "worldParseValidationMs": 31.646600000000035,
+      "careerConstructionMs": 0.01710000000002765,
+      "saveMs": 0.3913000000000011,
+      "loadValidationMs": 0.211100000000215,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR174-merged",
+      "sample": 0,
+      "worldParseValidationMs": 35.003600000000006,
+      "careerConstructionMs": 0.01639999999997599,
+      "saveMs": 0.41669999999999163,
+      "loadValidationMs": 0.34619999999995343,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR174-merged",
+      "sample": 1,
+      "worldParseValidationMs": 30.24610000000007,
+      "careerConstructionMs": 0.017900000000054206,
+      "saveMs": 0.37009999999986576,
+      "loadValidationMs": 0.4705999999998767,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR175",
+      "sample": 1,
+      "worldParseValidationMs": 30.032100000000128,
+      "careerConstructionMs": 0.01630000000000109,
+      "saveMs": 0.3791000000001077,
+      "loadValidationMs": 0.20949999999993452,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR175",
+      "sample": 2,
+      "worldParseValidationMs": 29.143299999999954,
+      "careerConstructionMs": 0.017200000000002547,
+      "saveMs": 0.393100000000004,
+      "loadValidationMs": 0.22129999999992833,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR174-merged",
+      "sample": 2,
+      "worldParseValidationMs": 29.62929999999983,
+      "careerConstructionMs": 0.02790000000004511,
+      "saveMs": 0.38779999999997017,
+      "loadValidationMs": 0.20690000000013242,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR174-merged",
+      "sample": 3,
+      "worldParseValidationMs": 29.4541999999999,
+      "careerConstructionMs": 0.016100000000051296,
+      "saveMs": 0.3898999999998978,
+      "loadValidationMs": 0.4033999999999196,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR175",
+      "sample": 3,
+      "worldParseValidationMs": 26.221700000000055,
+      "careerConstructionMs": 0.017399999999952342,
+      "saveMs": 0.41430000000013933,
+      "loadValidationMs": 0.3999999999998636,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR175",
+      "sample": 4,
+      "worldParseValidationMs": 28.765699999999924,
+      "careerConstructionMs": 0.017200000000002547,
+      "saveMs": 0.41820000000006985,
+      "loadValidationMs": 0.10880000000020118,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR174-merged",
+      "sample": 4,
+      "worldParseValidationMs": 30.688100000000077,
+      "careerConstructionMs": 0.016400000000203363,
+      "saveMs": 0.3553999999999178,
+      "loadValidationMs": 0.10840000000007421,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR174-merged",
+      "sample": 5,
+      "worldParseValidationMs": 38.21100000000001,
+      "careerConstructionMs": 0.016100000000051296,
+      "saveMs": 0.2819999999999254,
+      "loadValidationMs": 0.09410000000002583,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR175",
+      "sample": 5,
+      "worldParseValidationMs": 34.09730000000013,
+      "careerConstructionMs": 0.016700000000128057,
+      "saveMs": 0.23890000000005784,
+      "loadValidationMs": 0.12020000000006803,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR175",
+      "sample": 6,
+      "worldParseValidationMs": 30.69640000000004,
+      "careerConstructionMs": 0.017299999999977445,
+      "saveMs": 0.287900000000036,
+      "loadValidationMs": 0.09280000000012478,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    },
+    {
+      "engine": "PR174-merged",
+      "sample": 6,
+      "worldParseValidationMs": 28.92690000000016,
+      "careerConstructionMs": 0.016699999999900683,
+      "saveMs": 0.32539999999994507,
+      "loadValidationMs": 0.10590000000001965,
+      "saveBytes": 3792,
+      "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+    }
+  ]
+}

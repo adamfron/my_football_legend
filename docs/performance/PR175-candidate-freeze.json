@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "frozenAt": "2026-10-18T05:47:20.832Z",
+  "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+  "baseCommit": "d6556eba33d240bfc6ed845e256b185e9a24bc4a",
+  "decision": "No production gameplay correction accepted: development and controlled evidence isolate severe access/selection discrepancies but do not establish a safe narrow mechanical/coefficient repair. Freeze unchanged merged PR174 for one sealed validation evaluation; no tuning after opening it.",
+  "validationInspected": false,
+  "validationCountBeforeFreeze": 0,
+  "development": [
+    {
+      "id": "dev-balanced",
+      "initialHash": "37cdf10da95a268bb82c4f13738f6966f54af02e74b73a54e8a9598eb44ba2ab",
+      "finalHash": "427b7f1fd7cb7f20a0afaad06b943e2734e13576e54f4f096f0139b9e531e585",
+      "status": "full_time",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21"
+    },
+    {
+      "id": "dev-central",
+      "initialHash": "9b83030c2b36c39809f29edc928d10c1cd7d8290694635318aff3e4bd6548a12",
+      "finalHash": "62ce8ed6f396924a6d20fd4fc8feaeaee0b7a621581154b971a5b16706f1a8e5",
+      "status": "full_time",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21"
+    },
+    {
+      "id": "dev-keepers",
+      "initialHash": "c2b29af68b9ab150805797da22262628d1c9ceafb5ecc05d36d44ed97693cb4a",
+      "finalHash": "988ad1d2cfeb2b14116bd189fe459a05ef2009c46b2d490bbc4caa8e7e9f98bc",
+      "status": "full_time",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21"
+    },
+    {
+      "id": "dev-strength",
+      "initialHash": "af84c887b4c5371e955373935388053800561743334c246e37824a1656b4b52b",
+      "finalHash": "e61728d78e28a285ef20f6cf9a1c7e9cdfdb7d9f56c72af6a1313a309530f4d7",
+      "status": "full_time",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21"
+    },
+    {
+      "id": "dev-wide",
+      "initialHash": "ebabe3ec470a5d6d5b5747074566db15d075a4927ed9a155c192b91f9c9a64b5",
+      "finalHash": "a50416b3d93c1ca96120aa0748f69341b9431a6ae38caab8307146449f2f8bf8",
+      "status": "full_time",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21"
+    },
+    {
+      "id": "dev-youth",
+      "initialHash": "f351c541cfc84d3b5cc49724e4ab096843f08c48b101a638fcbc160dc8ad004a",
+      "finalHash": "a90084f9549bd6d516bf82625508e08624fd0c0fcd1851e331551a94c281769c",
+      "status": "full_time",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21"
+    }
+  ],
+  "fixtureManifestHash": "4b2fe07dd70ad930c72ac666c226f5b560c109dcc85c4ccb9ada0f2f0486bc5c",
+  "acceptance": "Do not claim statistical improvement for a diagnostics-only PR; READY requires plausible match-level attacking football, which development does not demonstrate."
+}

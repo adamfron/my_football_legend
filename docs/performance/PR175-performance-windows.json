@@ -1,0 +1,240 @@
+{
+  "version": 1,
+  "manifest": {
+    "baseCommit": "d6556eba33d240bfc6ed845e256b185e9a24bc4a",
+    "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+    "fixedDt": 0.025,
+    "node": "v24.19.0",
+    "scope": "sourceHash identifies measured working tree; baseCommit is its parent, not a claim of an unmodified checkout"
+  },
+  "method": "Serial identical 60s windows after all concurrent research. One warm-up plus three measured runs per mode, alternating mode order. Plain has research callbacks disabled but the opt-in loader still adds symbol checks and disabled combination wrappers; separate full-match plain processes use the ordinary loader. Core source is byte-identical to merged PR174, so these are observer costs, not a claimed gameplay speedup. Snapshot/serialization excluded from stepping timers. Inclusive all-tick spans overlap; do not sum categories. A separate same-state 60s replay times actual reconcile/release/candidate combination invocations with the offline loader, including active-intent calls. These wall-clock spans include timer overhead, are inclusive, and are not a full-match CPU share or a measure of all shared movement/forecast work.",
+  "rows": [
+    {
+      "sample": 0,
+      "mode": "detailed",
+      "wallMs": 1601.9494000000004,
+      "cpuMs": 1859,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 317829120,
+        "heapTotal": 223707136,
+        "heapUsed": 155359896,
+        "external": 12602498,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 243670
+    },
+    {
+      "sample": 0,
+      "mode": "existing",
+      "wallMs": 1484.6915,
+      "cpuMs": 1828,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 313290752,
+        "heapTotal": 227098624,
+        "heapUsed": 154893040,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 13830
+    },
+    {
+      "sample": 0,
+      "mode": "plain",
+      "wallMs": 1451.4176000000007,
+      "cpuMs": 1672,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 312823808,
+        "heapTotal": 230244352,
+        "heapUsed": 130018136,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 0
+    },
+    {
+      "sample": 1,
+      "mode": "plain",
+      "wallMs": 1474.8568000000014,
+      "cpuMs": 1609,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 320987136,
+        "heapTotal": 233390080,
+        "heapUsed": 104635120,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 0
+    },
+    {
+      "sample": 1,
+      "mode": "existing",
+      "wallMs": 1474.8014999999996,
+      "cpuMs": 1532,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 324005888,
+        "heapTotal": 236797952,
+        "heapUsed": 167114360,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 13830
+    },
+    {
+      "sample": 1,
+      "mode": "detailed",
+      "wallMs": 1482.9094999999998,
+      "cpuMs": 1531,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 328204288,
+        "heapTotal": 240730112,
+        "heapUsed": 169764808,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 243670
+    },
+    {
+      "sample": 2,
+      "mode": "detailed",
+      "wallMs": 1451.5305000000008,
+      "cpuMs": 1531,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 330223616,
+        "heapTotal": 244121600,
+        "heapUsed": 168904504,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 243670
+    },
+    {
+      "sample": 2,
+      "mode": "existing",
+      "wallMs": 1468.0849000000017,
+      "cpuMs": 1782,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 334622720,
+        "heapTotal": 247775232,
+        "heapUsed": 155867776,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 13830
+    },
+    {
+      "sample": 2,
+      "mode": "plain",
+      "wallMs": 1431.7517000000007,
+      "cpuMs": 1499,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 338669568,
+        "heapTotal": 250658816,
+        "heapUsed": 118571552,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 0
+    }
+  ],
+  "profiles": [
+    {
+      "enabled": true,
+      "sampleEveryTicks": 1,
+      "ticks": 2400,
+      "sampledTicks": 2400,
+      "timingSemantics": "inclusive_sampled_spans",
+      "categories": [
+        {
+          "category": "tactical_planning",
+          "sampledMs": 370.51200000000244,
+          "estimatedMs": 370.51200000000244,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "movement_physics",
+          "sampledMs": 397.8451999998797,
+          "estimatedMs": 397.8451999998797,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "ball_contact_control",
+          "sampledMs": 15.619300000002113,
+          "estimatedMs": 15.619300000002113,
+          "sampledCalls": 993
+        },
+        {
+          "category": "ball_physics",
+          "sampledMs": 264.2868999999555,
+          "estimatedMs": 264.2868999999555,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "action_resolution",
+          "sampledMs": 255.405799999975,
+          "estimatedMs": 255.405799999975,
+          "sampledCalls": 2373
+        },
+        {
+          "category": "pass_contact_evidence",
+          "sampledMs": 13.036400000110007,
+          "estimatedMs": 13.036400000110007,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "statistics",
+          "sampledMs": 96.46810000014011,
+          "estimatedMs": 96.46810000014011,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "canonical_step",
+          "sampledMs": 1453.8361000001714,
+          "estimatedMs": 1453.8361000001714,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "interception_eta",
+          "sampledMs": 334.9572999997181,
+          "estimatedMs": 334.9572999997181,
+          "sampledCalls": 25146
+        },
+        {
+          "category": "pressure_decision",
+          "sampledMs": 28.499099999971804,
+          "estimatedMs": 28.499099999971804,
+          "sampledCalls": 900
+        }
+      ]
+    }
+  ],
+  "combinationTimings": {
+    "reconcileCombination": {
+      "calls": 4829,
+      "activeCalls": 137,
+      "wallMs": 1.0819000000265078,
+      "activeWallMs": 0.21979999999166466
+    },
+    "enumerateCombinationPasses": {
+      "calls": 56,
+      "activeCalls": 2,
+      "wallMs": 0.09219999999550055,
+      "activeWallMs": 0.003700000001117587
+    },
+    "observeCombinationRelease": {
+      "calls": 29,
+      "activeCalls": 1,
+      "wallMs": 4.670099999995728,
+      "activeWallMs": 0.34950000000026193
+    }
+  },
+  "completeCanonicalStateEqual": true
+}

@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "status": "complete",
+  "method": "Actual progressive Pass IDs aimed into the box from outside it, observed release/result and the same receiver’s first subsequent owner choice in the same possession. A later different reception invalidates the link. Target geometry is not actual box control. Completion-to-self is a reclaim. Credible forecast uses the existing audit thresholds (empty lane, receiverLateBy<0.3, completion>0.5), not validated probabilities. Restarts/uncaptured choices retain null forecast.",
+  "progressiveReleased": 6333,
+  "progressiveResults": {
+    "completed": 5108,
+    "intercepted": 453,
+    "technical_error": 696,
+    "unresolved": 1,
+    "unclaimed": 31,
+    "out_of_play": 36,
+    "passer_reclaim": 4,
+    "inaccurate": 4
+  },
+  "boxTargetReleases": 2,
+  "boxTargetResults": {
+    "completed": 1,
+    "intercepted": 1
+  },
+  "withRecordedForecast": 2,
+  "withCredibleGeneratedForecast": 2,
+  "nextRecipientOpportunities": {
+    "non_viable": 1,
+    "no_linked_owner_choice": 1
+  },
+  "rows": [
+    {
+      "passId": "pr175-fresh-20261018:dev-balanced:v1:pass:1519:footballer_pro_15_17",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:178:3417.4250000080497",
+      "choiceId": "pr175-fresh-20261018:dev-balanced:v1:choice:1519:3424.2000000080743:2893",
+      "releasedAt": 3424.2000000080743,
+      "result": "completed",
+      "actualReceiverId": "footballer_pro_15_13",
+      "forecast": {
+        "expectedCompletion": 0.8951922359947241,
+        "selectionQuality": 0.8951922359947241,
+        "passerAbility": 78.25,
+        "pressure": 0.8780633279347271,
+        "length": 12.847820721262234,
+        "ballEta": 1.3749999999999991,
+        "receiverEta": 1.2899999999999996,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 15.399490979201474,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.40620320520036624,
+        "expectedReceptionQuality": 0.8553808255414818,
+        "expectedRetainedPossession": 0.8951922359947241,
+        "receiverAdjustmentCost": 0.421092372148041,
+        "utilityAdjustment": -0.9432146024953196
+      },
+      "credibleGeneratedForecast": true,
+      "receiverChoiceId": "pr175-fresh-20261018:dev-balanced:v1:choice:1520:3426.1500000080814:2895",
+      "receiverOpportunity": "non_viable",
+      "receiverSelected": "carry"
+    },
+    {
+      "passId": "pr175-fresh-20261018:val-strength:v1:pass:1341:footballer_pro_7_9",
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:119:3118.0750000069606",
+      "choiceId": "pr175-fresh-20261018:val-strength:v1:choice:1341:3179.750000007185:2440",
+      "releasedAt": 3179.750000007185,
+      "result": "intercepted",
+      "actualReceiverId": null,
+      "forecast": {
+        "expectedCompletion": 0.9388143029722967,
+        "selectionQuality": 0.9388143029722967,
+        "passerAbility": 79.25,
+        "pressure": 0.7289635239225938,
+        "length": 9.556554399623943,
+        "ballEta": 1.0500000000000003,
+        "receiverEta": 0.6150000000000002,
+        "defenderEta": 1.2499999999999996,
+        "laneOccupation": 0,
+        "boundaryMargin": 8.619789640156554,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.3234142995052012,
+        "expectedReceptionQuality": 0.7776470625148575,
+        "expectedRetainedPossession": 0.9223850526702815,
+        "receiverAdjustmentCost": 0.510487270700833,
+        "utilityAdjustment": 1.339242826135247
+      },
+      "credibleGeneratedForecast": true,
+      "receiverChoiceId": null,
+      "receiverOpportunity": null,
+      "receiverSelected": null
+    }
+  ]
+}

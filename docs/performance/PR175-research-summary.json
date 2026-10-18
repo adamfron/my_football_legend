@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "status": "complete",
+  "matches": 12,
+  "original": 16,
+  "reserved": 8,
+  "totals": {
+    "goals": 9,
+    "shots": 14,
+    "shotsOnTarget": 13,
+    "blockedShots": 2,
+    "passesAttempted": 21306,
+    "passesCompleted": 16722,
+    "passesReceived": 16722,
+    "touches": 23574,
+    "carries": 5334,
+    "possessionWon": 2850,
+    "possessionLost": 2958,
+    "fouls": 131,
+    "yellowCards": 3,
+    "redCards": 1,
+    "offsides": 1,
+    "corners": 6,
+    "freeKicks": 115,
+    "throwIns": 91,
+    "tacklesAttempted": 1661,
+    "tacklesWon": 690,
+    "interceptions": 1324,
+    "substitutions": 70,
+    "injuries": 6,
+    "saves": 5,
+    "durationMinutes": 1104.4149999987603,
+    "liveSeconds": 62660.499999933
+  },
+  "stages": {
+    "controlled": 3076,
+    "generated_support": 2775,
+    "progressive_candidate": 2820,
+    "progressive_selected": 2338,
+    "physical_progression": 1604,
+    "shot_candidate": 2214,
+    "executable_shot_candidate": 2214,
+    "final_third_control": 632,
+    "box_entry_candidate": 218,
+    "penalty_area_control": 69,
+    "credible_opportunity": 19,
+    "shot_selected": 6,
+    "physical_shot_release": 8
+  },
+  "credible": 54,
+  "owner": 28207,
+  "shots": 14,
+  "goals": 9,
+  "combos": 77,
+  "comparisons": {
+    "club": {
+      "passesAttempted": {
+        "n": 12,
+        "mean": 1166.1666666666667,
+        "median": 1173,
+        "sd": 75.83934375115638,
+        "p10": 1067.1,
+        "p90": 1244.7,
+        "min": 1063,
+        "max": 1288
+      },
+      "shots": {
+        "n": 12,
+        "mean": 25.5,
+        "median": 26.5,
+        "sd": 6.244997998398398,
+        "p10": 16.4,
+        "p90": 30.9,
+        "min": 16,
+        "max": 36
+      },
+      "goals": {
+        "n": 12,
+        "mean": 3.6666666666666665,
+        "median": 3.5,
+        "sd": 1.3706888336846839,
+        "p10": 2,
+        "p90": 5,
+        "min": 2,
+        "max": 6
+      },
+      "corners": {
+        "n": 12,
+        "mean": 9.5,
+        "median": 9,
+        "sd": 3.554766326548573,
+        "p10": 6.1,
+        "p90": 14.8,
+        "min": 4,
+        "max": 15
+      },
+      "fouls": {
+        "n": 12,
+        "mean": 22,
+        "median": 22.5,
+        "sd": 5.799686511904211,
+        "p10": 14.4,
+        "p90": 26.9,
+        "min": 13,
+        "max": 34
+      },
+      "yellowCards": {
+        "n": 12,
+        "mean": 3.8333333333333335,
+        "median": 3.5,
+        "sd": 1.8989630344113089,
+        "p10": 2,
+        "p90": 5,
+        "min": 1,
+        "max": 8
+      },
+      "redCards": {
+        "n": 12,
+        "mean": 0,
+        "median": 0,
+        "sd": 0,
+        "p10": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "world": {
+      "passesAttempted": {
+        "n": 12,
+        "mean": 1039.5833333333333,
+        "median": 1036,
+        "sd": 128.9745981567571,
+        "p10": 893.5,
+        "p90": 1195.9,
+        "min": 882,
+        "max": 1322
+      },
+      "shots": {
+        "n": 12,
+        "mean": 21.25,
+        "median": 19.5,
+        "sd": 8.080560286604793,
+        "p10": 13,
+        "p90": 30.6,
+        "min": 11,
+        "max": 38
+      },
+      "goals": {
+        "n": 12,
+        "mean": 2.75,
+        "median": 2,
+        "sd": 2.6671401094873817,
+        "p10": 0,
+        "p90": 6.800000000000001,
+        "min": 0,
+        "max": 8
+      },
+      "corners": {
+        "n": 12,
+        "mean": 9.5,
+        "median": 8.5,
+        "sd": 4.379705261980329,
+        "p10": 5,
+        "p90": 12.9,
+        "min": 4,
+        "max": 20
+      }
+    }
+  }
+}
