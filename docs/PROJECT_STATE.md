@@ -1,5 +1,42 @@
 # My Football Legend — Current Project State
 
+## PR176 — Match Engine Mathematical Audit & Reform Blueprint
+
+Baza: scalony PR175 `52748e2`. Audyt rekonstruuje aktualny ranking, powiązania
+ryzyka, generowanie kandydatów, czasy i priorytety ruchu. Produkcyjny kod,
+fizyka, RNG, opóźnienia, reguły, UI i formaty zapisu pozostają bez zmian.
+Hash produkcyjnego matchSimulation nadal `9f6123b5…`.
+
+19 rzeczywistych historycznych stanów: wszystkie akcje i oryginalne składniki,
+190 teammate projections, 121 sweeps, 70 planów lotu i 28 rzeczywistych releases
+w geometrii prostej/diagonalnej. Ranking i cztery pełne 3-sekundowe stany są
+identyczne z instrumentacją i bez niej. Potwierdzono m.in. nakładające się kanały
+ryzyka, lokalny paradoks gameReading i niespójność dalekiego lofted planu ponad
+30 m/s z release ograniczonym do 30. Cztery krótkie okna nie potwierdziły
+zniknięcia nowej okazji podczas blokady; wpływu timerów nie przedstawia się jako
+zmierzonej przyczyny całej pasywności.
+
+Wybrano **pakiet B**: wspólna wartość następnego stanu i koszt straty, niezależne
+propozycje biegu, fizycznie wykonalny plan oraz hybrid readiness/intentions.
+**A** jest fallbackiem i porównaniem, **C** większą modularną alternatywą.
+PR177 ma przeprowadzić kontrolowany, materialny eksperyment, a nie ograniczyć
+się do kolejnej małej korekty współczynnika. Zamrożono 12 nowych initial states
+(6 development / 6 validation), bez wykonania ticka i odczytu wyników.
+
+[Audyt i odpowiedzi](PR176_MATCH_ENGINE_MATHEMATICAL_AUDIT.md),
+[warianty](PR176_MATCH_ENGINE_REFORM_OPTIONS.md),
+[wykonalny PR177 blueprint](PR176_MATCH_ENGINE_PR177_BLUEPRINT.md),
+[timery i progi](PR176_TIMING_AND_THRESHOLD_INVENTORY.md),
+[liczby](PR176_NUMERICAL_APPENDIX.md).
+Końcowy wynik wymaganej niezmienionej komendy `npm run verify` jest w
+[receipcie](performance/PR176-verification.json).
+
+Autorytatywna kolejność: **PR177 reforma → PR178 niezależna walidacja → PR179
+generacje/siła świata → PR180 summary/PlayStyles → PR181 career UX → PR182+
+świat**. Pełne zadania zachowano w [ROADMAP](ROADMAP.md). Ocena PR175 **NOT READY**
+obowiązuje; PR176 nie ogłasza poprawy gameplay. Numery w poniższych historycznych
+opisach dokumentują ówczesne plany i nie zastępują tej kolejności.
+
 ## PR175 — Independent Match Reality Validation
 
 Zweryfikowano scalony PR174 `d6556eba`, łącznie z poprawką asekuracji po review.

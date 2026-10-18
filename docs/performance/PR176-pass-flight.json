@@ -1,0 +1,4701 @@
+{
+  "version": 1,
+  "manifest": {
+    "baseCommit": "52748e299115cd4952d176e18d2609f4b358e797",
+    "normalizedProductionHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+    "node": "v24.19.0"
+  },
+  "method": "70 prescribed distances/intents/deliveries through actual launch, integrator, execution and reception forecast. Independent trajectory integration is physical only (no players). Reported ETA uses the existing 0.55m meeting envelope; exact centre crossing separately. No new gameplay policy.",
+  "rows": [
+    {
+      "metres": 5,
+      "intent": "support",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.7585964912280702,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 7.8048737199149585,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 7.8048737199149585,
+        "elevation": 0,
+        "predictedArrivalTime": 0.6750000000000003,
+        "predictedArrivalSpeed": 5.644873719914957,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 0.31640350877193013,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.7585964912280702,
+      "integratedNearestAt": 0.7500000000000003,
+      "integratedNearestMissMetres": 0.04634471006378149,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.3335560271942435,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.959803018433155,
+        "selectionQuality": 0.959803018433155,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.6750000000000003,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.3335560271942435,
+        "expectedReceptionQuality": 0.6083333333333334,
+        "expectedRetainedPossession": 0.6878588298770945,
+        "receiverAdjustmentCost": 0.3335560271942435,
+        "utilityAdjustment": -15.11970653191495
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "support",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.7585964912280702,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 6.357031474080623,
+          "y": 0,
+          "z": 4.668939622655233
+        },
+        "speed": 7.887385267783719,
+        "elevation": 0.6334764291365621,
+        "predictedArrivalTime": 0.8000000000000004,
+        "predictedArrivalSpeed": 6.942302049136598,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 0.44140350877193024,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 0.8000000000000004,
+      "integratedNearestMissMetres": 5.173487060972093e-7,
+      "integratedNearestHeight": 0.5774628272880103,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.38694503399280433,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9597224728072721,
+        "selectionQuality": 0.9597224728072721,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.8000000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.38694503399280433,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6486444286213418,
+        "receiverAdjustmentCost": 0.38694503399280433,
+        "utilityAdjustment": -17.03171823284971
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "progressive",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 9.844759411090543,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 9.844759411090543,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5000000000000001,
+        "predictedArrivalSpeed": 8.244759411090541,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 0.14140350877192998,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.55859649122807,
+      "integratedNearestAt": 0.5500000000000002,
+      "integratedNearestMissMetres": 0.06938232390020005,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.3335560271942435,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9562980462031533,
+        "selectionQuality": 0.9562980462031533,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.5000000000000001,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.3335560271942435,
+        "expectedReceptionQuality": 0.6083333333333334,
+        "expectedRetainedPossession": 0.6853469331122599,
+        "receiverAdjustmentCost": 0.3335560271942435,
+        "utilityAdjustment": -15.23845368838606
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "progressive",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 6.357031474080623,
+          "y": 0,
+          "z": 4.668939622655233
+        },
+        "speed": 7.887385267783719,
+        "elevation": 0.6334764291365621,
+        "predictedArrivalTime": 0.8000000000000004,
+        "predictedArrivalSpeed": 6.942302049136598,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 0.44140350877193024,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 0.8000000000000004,
+      "integratedNearestMissMetres": 5.173487060972093e-7,
+      "integratedNearestHeight": 0.5774628272880103,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.38694503399280433,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9597224728072721,
+        "selectionQuality": 0.9597224728072721,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.8000000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.38694503399280433,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6486444286213418,
+        "receiverAdjustmentCost": 0.38694503399280433,
+        "utilityAdjustment": -17.03171823284971
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "direct",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 9.844759411090543,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 9.844759411090543,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5000000000000001,
+        "predictedArrivalSpeed": 8.244759411090541,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.14140350877192998,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.55859649122807,
+      "integratedNearestAt": 0.5500000000000002,
+      "integratedNearestMissMetres": 0.06938232390020005,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.3335560271942435,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9562980462031533,
+        "selectionQuality": 0.9562980462031533,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.5000000000000001,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.3335560271942435,
+        "expectedReceptionQuality": 0.6083333333333334,
+        "expectedRetainedPossession": 0.6853469331122599,
+        "receiverAdjustmentCost": 0.3335560271942435,
+        "utilityAdjustment": -15.23845368838606
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "direct",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 5.655133012077386,
+          "y": 0,
+          "z": 5.331552869474331
+        },
+        "speed": 7.772128754999329,
+        "elevation": 0.755954650166731,
+        "predictedArrivalTime": 0.9000000000000005,
+        "predictedArrivalSpeed": 6.513503962809301,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.5414035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 0.9000000000000005,
+      "integratedNearestMissMetres": 6.735357338527592e-7,
+      "integratedNearestHeight": 0.7826532867413896,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.38694503399280433,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9599461704393683,
+        "selectionQuality": 0.9599461704393683,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.9000000000000005,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.38694503399280433,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6487956183942879,
+        "receiverAdjustmentCost": 0.38694503399280433,
+        "utilityAdjustment": -17.02457090264243
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "lead",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 9.844759411090543,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 9.844759411090543,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5000000000000001,
+        "predictedArrivalSpeed": 8.244759411090541,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 0.14140350877192998,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.55859649122807,
+      "integratedNearestAt": 0.5500000000000002,
+      "integratedNearestMissMetres": 0.06938232390020005,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 0.37626723263309214,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9478288257953711,
+        "selectionQuality": 0.9478288257953711,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.5000000000000001,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.37626723263309214,
+        "expectedReceptionQuality": 0.6083333333333334,
+        "expectedRetainedPossession": 0.6792773251533494,
+        "receiverAdjustmentCost": 0.37626723263309214,
+        "utilityAdjustment": -8.359708774504984
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "lead",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 6.357031474080623,
+          "y": 0,
+          "z": 4.668939622655233
+        },
+        "speed": 7.887385267783719,
+        "elevation": 0.6334764291365621,
+        "predictedArrivalTime": 0.8000000000000004,
+        "predictedArrivalSpeed": 6.942302049136598,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 0.44140350877193024,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 0.8000000000000004,
+      "integratedNearestMissMetres": 5.173487060972093e-7,
+      "integratedNearestHeight": 0.5774628272880103,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 0.429656239431653,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9587059956337313,
+        "selectionQuality": 0.9587059956337313,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.8000000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.429656239431653,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6479574255823181,
+        "receiverAdjustmentCost": 0.429656239431653,
+        "utilityAdjustment": -9.65921885580247
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "through",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 9.844759411090543,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 9.844759411090543,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5000000000000001,
+        "predictedArrivalSpeed": 8.244759411090541,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.14140350877192998,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.55859649122807,
+      "integratedNearestAt": 0.5500000000000002,
+      "integratedNearestMissMetres": 0.06938232390020005,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 0.37626723263309214,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9478288257953711,
+        "selectionQuality": 0.9478288257953711,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.5000000000000001,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.37626723263309214,
+        "expectedReceptionQuality": 0.6083333333333334,
+        "expectedRetainedPossession": 0.6792773251533494,
+        "receiverAdjustmentCost": 0.37626723263309214,
+        "utilityAdjustment": -8.359708774504984
+      }
+    },
+    {
+      "metres": 5,
+      "intent": "through",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5585964912280701,
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 34
+        },
+        "velocity": {
+          "x": 6.357031474080623,
+          "y": 0,
+          "z": 4.668939622655233
+        },
+        "speed": 7.887385267783719,
+        "elevation": 0.6334764291365621,
+        "predictedArrivalTime": 0.8000000000000004,
+        "predictedArrivalSpeed": 6.942302049136598,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.44140350877193024,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 0.8000000000000004,
+      "integratedNearestMissMetres": 5.173487060972093e-7,
+      "integratedNearestHeight": 0.5774628272880103,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 0.429656239431653,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9587059956337313,
+        "selectionQuality": 0.9587059956337313,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.8000000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 3.4999999999999916,
+        "laneOccupation": 0,
+        "boundaryMargin": 20,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.429656239431653,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6479574255823181,
+        "receiverAdjustmentCost": 0.429656239431653,
+        "utilityAdjustment": -9.65921885580247
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "support",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.1111111111111112,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 10.777777777777779,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 10.777777777777779,
+        "elevation": 0,
+        "predictedArrivalTime": 1.0500000000000003,
+        "predictedArrivalSpeed": 7.417777777777776,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 0.6914035087719301,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.111111111111111,
+      "integratedNearestAt": 1.1,
+      "integratedNearestMissMetres": 0.08044444444443855,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.4925682841214232,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9595793639993951,
+        "selectionQuality": 0.9595793639993951,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.0500000000000003,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.4925682841214232,
+        "expectedReceptionQuality": 0.6083333333333334,
+        "expectedRetainedPossession": 0.6876985441995667,
+        "receiverAdjustmentCost": 0.4925682841214232,
+        "utilityAdjustment": -15.300607221056456
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "support",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.1111111111111112,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 10.08018820741239,
+          "y": 0,
+          "z": 5.701164512623715
+        },
+        "speed": 11.580737070534664,
+        "elevation": 0.5147269609824456,
+        "predictedArrivalTime": 1.0250000000000004,
+        "predictedArrivalSpeed": 10.441208517037662,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 0.6664035087719302,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.0250000000000004,
+      "integratedNearestMissMetres": 0.000014323510313829502,
+      "integratedNearestHeight": 0.5911561185369842,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.585710355151779,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9550091953388122,
+        "selectionQuality": 0.9550091953388122,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.0250000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.585710355151779,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6454588814896587,
+        "receiverAdjustmentCost": 0.585710355151779,
+        "utilityAdjustment": -17.39896566946146
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "progressive",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.7692307692307693,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 14.23076923076923,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 14.23076923076923,
+        "elevation": 0,
+        "predictedArrivalTime": 0.7250000000000003,
+        "predictedArrivalSpeed": 11.910769230769228,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 0.3664035087719302,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.7692307692307693,
+      "integratedNearestAt": 0.7750000000000004,
+      "integratedNearestMissMetres": 0.06784615384615478,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.4925682841214232,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9473652951481453,
+        "selectionQuality": 0.9473652951481453,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 0.7250000000000003,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.4925682841214232,
+        "expectedReceptionQuality": 0.5475902191375879,
+        "expectedRetainedPossession": 0.5638532915729644,
+        "receiverAdjustmentCost": 0.4925682841214232,
+        "utilityAdjustment": -21.15525530920119
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "progressive",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.7692307692307693,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 10.08018820741239,
+          "y": 0,
+          "z": 5.701164512623715
+        },
+        "speed": 11.580737070534664,
+        "elevation": 0.5147269609824456,
+        "predictedArrivalTime": 1.0250000000000004,
+        "predictedArrivalSpeed": 10.441208517037662,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 0.6664035087719302,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.0250000000000004,
+      "integratedNearestMissMetres": 0.000014323510313829502,
+      "integratedNearestHeight": 0.5911561185369842,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.585710355151779,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9550091953388122,
+        "selectionQuality": 0.9550091953388122,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.0250000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.585710355151779,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6454588814896587,
+        "receiverAdjustmentCost": 0.585710355151779,
+        "utilityAdjustment": -17.39896566946146
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "direct",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5882352941176471,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 17.941176470588236,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 17.941176470588236,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5750000000000002,
+        "predictedArrivalSpeed": 16.101176470588275,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.21640350877193004,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.5882352941176472,
+      "integratedNearestAt": 0.6000000000000002,
+      "integratedNearestMissMetres": 0.18870588235295216,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.4925682841214232,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9163401488532338,
+        "selectionQuality": 0.9163401488532338,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 0.5750000000000002,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.4925682841214232,
+        "expectedReceptionQuality": 0.4112928694284723,
+        "expectedRetainedPossession": 0.29559826396210304,
+        "receiverAdjustmentCost": 0.4925682841214232,
+        "utilityAdjustment": -33.83671665897429
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "direct",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5882352941176471,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 8.991862114437419,
+          "y": 0,
+          "z": 6.376434615049385
+        },
+        "speed": 11.023270961246258,
+        "elevation": 0.6168298572773324,
+        "predictedArrivalTime": 1.15,
+        "predictedArrivalSpeed": 9.784299231841509,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.7914035087719298,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.15,
+      "integratedNearestMissMetres": 0.000012242571138187941,
+      "integratedNearestHeight": 0.7067238885016821,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.585710355151779,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9583211402172235,
+        "selectionQuality": 0.9583211402172235,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.15,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.585710355151779,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6476973146348143,
+        "receiverAdjustmentCost": 0.585710355151779,
+        "utilityAdjustment": -17.293146204800692
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "lead",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5882352941176471,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 17.941176470588236,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 17.941176470588236,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5750000000000002,
+        "predictedArrivalSpeed": 16.101176470588275,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 0.21640350877193004,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.5882352941176472,
+      "integratedNearestAt": 0.6000000000000002,
+      "integratedNearestMissMetres": 0.18870588235295216,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 0.5670819409457079,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.8667537035660572,
+        "selectionQuality": 0.8667537035660572,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 0.5750000000000002,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.5670819409457079,
+        "expectedReceptionQuality": 0.4112928694284723,
+        "expectedRetainedPossession": 0.2796023838718497,
+        "receiverAdjustmentCost": 0.5670819409457079,
+        "utilityAdjustment": -29.24554270225812
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "lead",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5882352941176471,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 10.08018820741239,
+          "y": 0,
+          "z": 5.701164512623715
+        },
+        "speed": 11.580737070534664,
+        "elevation": 0.5147269609824456,
+        "predictedArrivalTime": 1.0250000000000004,
+        "predictedArrivalSpeed": 10.441208517037662,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 0.6664035087719302,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.0250000000000004,
+      "integratedNearestMissMetres": 0.000014323510313829502,
+      "integratedNearestHeight": 0.5911561185369842,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 0.6602240119760636,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9447014922025329,
+        "selectionQuality": 0.9447014922025329,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.0250000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.6602240119760636,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.638492248529952,
+        "receiverAdjustmentCost": 0.6602240119760636,
+        "utilityAdjustment": -10.666092636818085
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "through",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5882352941176471,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 17.941176470588236,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 17.941176470588236,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5750000000000002,
+        "predictedArrivalSpeed": 16.101176470588275,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.21640350877193004,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.5882352941176472,
+      "integratedNearestAt": 0.6000000000000002,
+      "integratedNearestMissMetres": 0.18870588235295216,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 0.5670819409457079,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.8667537035660572,
+        "selectionQuality": 0.8667537035660572,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 0.5750000000000002,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.5670819409457079,
+        "expectedReceptionQuality": 0.4112928694284723,
+        "expectedRetainedPossession": 0.2796023838718497,
+        "receiverAdjustmentCost": 0.5670819409457079,
+        "utilityAdjustment": -29.24554270225812
+      }
+    },
+    {
+      "metres": 10,
+      "intent": "through",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.5882352941176471,
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 34
+        },
+        "velocity": {
+          "x": 10.08018820741239,
+          "y": 0,
+          "z": 5.701164512623715
+        },
+        "speed": 11.580737070534664,
+        "elevation": 0.5147269609824456,
+        "predictedArrivalTime": 1.0250000000000004,
+        "predictedArrivalSpeed": 10.441208517037662,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.6664035087719302,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.0250000000000004,
+      "integratedNearestMissMetres": 0.000014323510313829502,
+      "integratedNearestHeight": 0.5911561185369842,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 0.6602240119760636,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9447014922025329,
+        "selectionQuality": 0.9447014922025329,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.0250000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.9749999999999934,
+        "laneOccupation": 0,
+        "boundaryMargin": 25,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.6602240119760636,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.638492248529952,
+        "receiverAdjustmentCost": 0.6602240119760636,
+        "utilityAdjustment": -10.666092636818085
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "support",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.6666666666666667,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 11.666666666666668,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 11.666666666666668,
+        "elevation": 0,
+        "predictedArrivalTime": 1.5999999999999983,
+        "predictedArrivalSpeed": 6.546666666666663,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.2414035087719282,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.6666666666666663,
+      "integratedNearestAt": 1.674999999999998,
+      "integratedNearestMissMetres": 0.052666666666667084,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.7002487332077286,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9595984652278852,
+        "selectionQuality": 0.9595984652278852,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.5999999999999983,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.7002487332077286,
+        "expectedReceptionQuality": 0.6013185003474899,
+        "expectedRetainedPossession": 0.6742493874792271,
+        "receiverAdjustmentCost": 0.8449029978599994,
+        "utilityAdjustment": -16.320446148913163
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "support",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.6666666666666667,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 13.120614392140292,
+          "y": 0,
+          "z": 6.573245499751246
+        },
+        "speed": 14.675083591831394,
+        "elevation": 0.46443618180482105,
+        "predictedArrivalTime": 1.1999999999999997,
+        "predictedArrivalSpeed": 13.060490537809342,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 0.8414035087719296,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.1999999999999997,
+      "integratedNearestMissMetres": 0.00009873752799194335,
+      "integratedNearestHeight": 0.6264021487391271,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.8453109165096607,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9235530906642709,
+        "selectionQuality": 0.9235530906642709,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.1999999999999997,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8453109165096607,
+        "expectedReceptionQuality": 0.5077841500186491,
+        "expectedRetainedPossession": 0.47615469694797086,
+        "receiverAdjustmentCost": 1.0199314809341142,
+        "utilityAdjustment": -25.875935786169503
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "progressive",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.1538461538461537,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 14.846153846153848,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 14.846153846153848,
+        "elevation": 0,
+        "predictedArrivalTime": 1.125,
+        "predictedArrivalSpeed": 11.246153846153845,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 0.7664035087719299,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.1538461538461535,
+      "integratedNearestAt": 1.15,
+      "integratedNearestMissMetres": 0.04292307692307773,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.7002487332077286,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9467583919294267,
+        "selectionQuality": 0.9467583919294267,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.125,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.7002487332077286,
+        "expectedReceptionQuality": 0.567018224060766,
+        "expectedRetainedPossession": 0.600279328048187,
+        "receiverAdjustmentCost": 0.8449029978599994,
+        "utilityAdjustment": -19.817299341450212
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "progressive",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.1538461538461537,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 13.120614392140292,
+          "y": 0,
+          "z": 6.573245499751246
+        },
+        "speed": 14.675083591831394,
+        "elevation": 0.46443618180482105,
+        "predictedArrivalTime": 1.1999999999999997,
+        "predictedArrivalSpeed": 13.060490537809342,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 0.8414035087719296,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.1999999999999997,
+      "integratedNearestMissMetres": 0.00009873752799194335,
+      "integratedNearestHeight": 0.6264021487391271,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.8453109165096607,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9235530906642709,
+        "selectionQuality": 0.9235530906642709,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.1999999999999997,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8453109165096607,
+        "expectedReceptionQuality": 0.5077841500186491,
+        "expectedRetainedPossession": 0.47615469694797086,
+        "receiverAdjustmentCost": 1.0199314809341142,
+        "utilityAdjustment": -25.875935786169503
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "direct",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.8823529411764706,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 18.41176470588235,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 18.41176470588235,
+        "elevation": 0,
+        "predictedArrivalTime": 0.8500000000000004,
+        "predictedArrivalSpeed": 15.691764705882402,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.4914035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.8823529411764708,
+      "integratedNearestAt": 0.8750000000000004,
+      "integratedNearestMissMetres": 0.11470588235291856,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 0.7002487332077286,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.8975687502801791,
+        "selectionQuality": 0.8975687502801791,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 0.8500000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.7002487332077286,
+        "expectedReceptionQuality": 0.41633511835521164,
+        "expectedRetainedPossession": 0.29859440861958597,
+        "receiverAdjustmentCost": 0.8449029978599994,
+        "utilityAdjustment": -34.07912205402596
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "direct",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.8823529411764706,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 11.892812175607556,
+          "y": 0,
+          "z": 7.272714816352967
+        },
+        "speed": 13.940278413442083,
+        "elevation": 0.5488484217856526,
+        "predictedArrivalTime": 1.3249999999999993,
+        "predictedArrivalSpeed": 12.27641029141771,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.9664035087719292,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.3249999999999993,
+      "integratedNearestMissMetres": 0.00009241293846784515,
+      "integratedNearestHeight": 0.7700344313118472,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 0.8453109165096607,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.9398356916691796,
+        "selectionQuality": 0.9398356916691796,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.3249999999999993,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8453109165096607,
+        "expectedReceptionQuality": 0.5500830653874513,
+        "expectedRetainedPossession": 0.5640575506332459,
+        "receiverAdjustmentCost": 1.0199314809341142,
+        "utilityAdjustment": -21.72042507133718
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "lead",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.8823529411764706,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 18.41176470588235,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 18.41176470588235,
+        "elevation": 0,
+        "predictedArrivalTime": 0.8500000000000004,
+        "predictedArrivalSpeed": 15.691764705882402,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 0.4914035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.8823529411764708,
+      "integratedNearestAt": 0.8750000000000004,
+      "integratedNearestMissMetres": 0.11470588235291856,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 0.8162984798492743,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.8315072721108352,
+        "selectionQuality": 0.8315072721108352,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 0.8500000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8162984798492743,
+        "expectedReceptionQuality": 0.41633511835521164,
+        "expectedRetainedPossession": 0.2766177210395499,
+        "receiverAdjustmentCost": 0.9849257843192911,
+        "utilityAdjustment": -30.61751063581807
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "lead",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.8823529411764706,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 13.120614392140292,
+          "y": 0,
+          "z": 6.573245499751246
+        },
+        "speed": 14.675083591831394,
+        "elevation": 0.46443618180482105,
+        "predictedArrivalTime": 1.1999999999999997,
+        "predictedArrivalSpeed": 13.060490537809342,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 0.8414035087719296,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.1999999999999997,
+      "integratedNearestMissMetres": 0.00009873752799194335,
+      "integratedNearestHeight": 0.6264021487391271,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 0.9613606631512065,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.8834517868696484,
+        "selectionQuality": 0.8834517868696484,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.1999999999999997,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.9613606631512065,
+        "expectedReceptionQuality": 0.5077841500186491,
+        "expectedRetainedPossession": 0.4554797359212981,
+        "receiverAdjustmentCost": 1.159954267393406,
+        "utilityAdjustment": -21.210007352356698
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "through",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.8823529411764706,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 18.41176470588235,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 18.41176470588235,
+        "elevation": 0,
+        "predictedArrivalTime": 0.8500000000000004,
+        "predictedArrivalSpeed": 15.691764705882402,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.4914035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 0.8823529411764708,
+      "integratedNearestAt": 0.8750000000000004,
+      "integratedNearestMissMetres": 0.11470588235291856,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 0.8162984798492743,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.8315072721108352,
+        "selectionQuality": 0.8315072721108352,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 0.8500000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8162984798492743,
+        "expectedReceptionQuality": 0.41633511835521164,
+        "expectedRetainedPossession": 0.2766177210395499,
+        "receiverAdjustmentCost": 0.9849257843192911,
+        "utilityAdjustment": -30.61751063581807
+      }
+    },
+    {
+      "metres": 15,
+      "intent": "through",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 0.8823529411764706,
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 34
+        },
+        "velocity": {
+          "x": 13.120614392140292,
+          "y": 0,
+          "z": 6.573245499751246
+        },
+        "speed": 14.675083591831394,
+        "elevation": 0.46443618180482105,
+        "predictedArrivalTime": 1.1999999999999997,
+        "predictedArrivalSpeed": 13.060490537809342,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.8414035087719296,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.1999999999999997,
+      "integratedNearestMissMetres": 0.00009873752799194335,
+      "integratedNearestHeight": 0.6264021487391271,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 0.9613606631512065,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.8834517868696484,
+        "selectionQuality": 0.8834517868696484,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.1999999999999997,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.474999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.9613606631512065,
+        "expectedReceptionQuality": 0.5077841500186491,
+        "expectedRetainedPossession": 0.4554797359212981,
+        "receiverAdjustmentCost": 1.159954267393406,
+        "utilityAdjustment": -21.210007352356698
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "support",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 14.883636363636363,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 14.883636363636363,
+        "elevation": 0,
+        "predictedArrivalTime": 2.1499999999999964,
+        "predictedArrivalSpeed": 8.003636363636357,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.7914035087719262,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.2,
+      "integratedNearestAt": 2.199999999999996,
+      "integratedNearestMissMetres": 7.105427357601002e-15,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 1.2616142078577166,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.690886038681554,
+        "selectionQuality": 0.690886038681554,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.2616142078577166,
+        "expectedReceptionQuality": 0.5276124252807195,
+        "expectedRetainedPossession": 0.29297228327821484,
+        "receiverAdjustmentCost": 2.2881640452669245,
+        "utilityAdjustment": -35.918056386874945
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "support",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 18.058481616765093,
+          "y": 0,
+          "z": 8.038414993019455
+        },
+        "speed": 19.76676184667187,
+        "elevation": 0.4187986487746638,
+        "predictedArrivalTime": 1.4999999999999987,
+        "predictedArrivalSpeed": 16.88653968955068,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.1414035087719285,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.4999999999999987,
+      "integratedNearestMissMetres": 0.000958220771252627,
+      "integratedNearestHeight": 0.5600749787698945,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 1.5470177598221455,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.5479652316743372,
+        "selectionQuality": 0.5479652316743372,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.4999999999999987,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.5470177598221455,
+        "expectedReceptionQuality": 0.3271702504068612,
+        "expectedRetainedPossession": 0.0742130078201969,
+        "receiverAdjustmentCost": 2.8057946663625666,
+        "utilityAdjustment": -46.82387787594399
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "progressive",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 16.76888888888889,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 16.76888888888889,
+        "elevation": 0,
+        "predictedArrivalTime": 1.7749999999999977,
+        "predictedArrivalSpeed": 11.0888888888889,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.4164035087719276,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.7999999999999998,
+      "integratedNearestAt": 1.7999999999999976,
+      "integratedNearestMissMetres": 1.4210854715202004e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 1.2616142078577166,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.690886038681554,
+        "selectionQuality": 0.690886038681554,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.7749999999999977,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.2616142078577166,
+        "expectedReceptionQuality": 0.49011242528071947,
+        "expectedRetainedPossession": 0.2751705721821667,
+        "receiverAdjustmentCost": 2.2881640452669245,
+        "utilityAdjustment": -36.75961269705842
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "progressive",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 18.058481616765093,
+          "y": 0,
+          "z": 8.038414993019455
+        },
+        "speed": 19.76676184667187,
+        "elevation": 0.4187986487746638,
+        "predictedArrivalTime": 1.4999999999999987,
+        "predictedArrivalSpeed": 16.88653968955068,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.1414035087719285,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.4999999999999987,
+      "integratedNearestMissMetres": 0.000958220771252627,
+      "integratedNearestHeight": 0.5600749787698945,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 1.5470177598221455,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.5479652316743372,
+        "selectionQuality": 0.5479652316743372,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.4999999999999987,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.5470177598221455,
+        "expectedReceptionQuality": 0.3271702504068612,
+        "expectedRetainedPossession": 0.0742130078201969,
+        "receiverAdjustmentCost": 2.8057946663625666,
+        "utilityAdjustment": -46.82387787594399
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "direct",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 19.56137931034483,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 19.56137931034483,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 15.001379310344904,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.4499999999999995,
+      "integratedNearestAt": 1.4499999999999988,
+      "integratedNearestMissMetres": 7.105427357601002e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 1.2616142078577166,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.690886038681554,
+        "selectionQuality": 0.690886038681554,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.2616142078577166,
+        "expectedReceptionQuality": 0.3873317405661008,
+        "expectedRetainedPossession": 0.16900603708820336,
+        "receiverAdjustmentCost": 2.2881640452669245,
+        "utilityAdjustment": -41.77842431263693
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "direct",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 16.683889873081903,
+          "y": 0,
+          "z": 8.795413895889151
+        },
+        "speed": 18.86031513249778,
+        "elevation": 0.48515447322981925,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 16.012405669860676,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.6249999999999982,
+      "integratedNearestMissMetres": 0.0025492955677464124,
+      "integratedNearestHeight": 0.7773914048957451,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 1.5470177598221455,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.5479652316743372,
+        "selectionQuality": 0.5479652316743372,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.5470177598221455,
+        "expectedReceptionQuality": 0.3698021829121703,
+        "expectedRetainedPossession": 0.11233916615253867,
+        "receiverAdjustmentCost": 2.8057946663625666,
+        "utilityAdjustment": -45.0215056795567
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "lead",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 19.56137931034483,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 19.56137931034483,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 15.001379310344904,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.4499999999999995,
+      "integratedNearestAt": 1.4499999999999988,
+      "integratedNearestMissMetres": 7.105427357601002e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 1.4899370494292596,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.5743008121079414,
+        "selectionQuality": 0.5743008121079414,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.4899370494292596,
+        "expectedReceptionQuality": 0.3873317405661008,
+        "expectedRetainedPossession": 0.14048670680351888,
+        "receiverAdjustmentCost": 2.702268542143438,
+        "utilityAdjustment": -43.57801818217747
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "lead",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 18.058481616765093,
+          "y": 0,
+          "z": 8.038414993019455
+        },
+        "speed": 19.76676184667187,
+        "elevation": 0.4187986487746638,
+        "predictedArrivalTime": 1.4999999999999987,
+        "predictedArrivalSpeed": 16.88653968955068,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.1414035087719285,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.4999999999999987,
+      "integratedNearestMissMetres": 0.000958220771252627,
+      "integratedNearestHeight": 0.5600749787698945,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 1.775340601393689,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.4549398682152939,
+        "selectionQuality": 0.4549398682152939,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.4999999999999987,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.775340601393689,
+        "expectedReceptionQuality": 0.3271702504068612,
+        "expectedRetainedPossession": 0.06161423033066889,
+        "receiverAdjustmentCost": 3.219899163239081,
+        "utilityAdjustment": -47.87084512470159
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "through",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 19.56137931034483,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 19.56137931034483,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 15.001379310344904,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.4499999999999995,
+      "integratedNearestAt": 1.4499999999999988,
+      "integratedNearestMissMetres": 7.105427357601002e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 1.4899370494292596,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.5743008121079414,
+        "selectionQuality": 0.5743008121079414,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.4899370494292596,
+        "expectedReceptionQuality": 0.3873317405661008,
+        "expectedRetainedPossession": 0.14048670680351888,
+        "receiverAdjustmentCost": 2.702268542143438,
+        "utilityAdjustment": -43.57801818217747
+      }
+    },
+    {
+      "metres": 25,
+      "intent": "through",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 40,
+          "y": 34
+        },
+        "velocity": {
+          "x": 18.058481616765093,
+          "y": 0,
+          "z": 8.038414993019455
+        },
+        "speed": 19.76676184667187,
+        "elevation": 0.4187986487746638,
+        "predictedArrivalTime": 1.4999999999999987,
+        "predictedArrivalSpeed": 16.88653968955068,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 40,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.1414035087719285,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.4999999999999987,
+      "integratedNearestMissMetres": 0.000958220771252627,
+      "integratedNearestHeight": 0.5600749787698945,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 1.775340601393689,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.4549398682152939,
+        "selectionQuality": 0.4549398682152939,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.4999999999999987,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.775340601393689,
+        "expectedReceptionQuality": 0.3271702504068612,
+        "expectedRetainedPossession": 0.06161423033066889,
+        "receiverAdjustmentCost": 3.219899163239081,
+        "utilityAdjustment": -47.87084512470159
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "support",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 19.42909090909091,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 19.42909090909091,
+        "elevation": 0,
+        "predictedArrivalTime": 2.1749999999999963,
+        "predictedArrivalSpeed": 12.469090909090978,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.8164035087719261,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.1999999999999997,
+      "integratedNearestAt": 2.199999999999996,
+      "integratedNearestMissMetres": 1.2789769243681803e-13,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 2.017652451144207,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.36530957783835266,
+        "selectionQuality": 0.36530957783835266,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 2.1749999999999963,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.017652451144207,
+        "expectedReceptionQuality": 0.5446124258425696,
+        "expectedRetainedPossession": 0.1625133587748281,
+        "receiverAdjustmentCost": 3.521375420687042,
+        "utilityAdjustment": -43.42955893716353
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "support",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 22.69362865593392,
+          "y": 0,
+          "z": 9.274948776138874
+        },
+        "speed": 24.515820532330245,
+        "elevation": 0.3879861741672084,
+        "predictedArrivalTime": 1.7249999999999979,
+        "predictedArrivalSpeed": 19.87488695523322,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.3664035087719277,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.7249999999999979,
+      "integratedNearestMissMetres": 0.008422495133565633,
+      "integratedNearestHeight": 0.5913089017552202,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 2.4920655639302587,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2586419114409112,
+        "selectionQuality": 0.2586419114409112,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.7249999999999979,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.4920655639302587,
+        "expectedReceptionQuality": 0.28386740820158773,
+        "expectedRetainedPossession": 0.014606518264007756,
+        "receiverAdjustmentCost": 4.349360772509674,
+        "utilityAdjustment": -51.324196158274674
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "progressive",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 22.324444444444442,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 22.324444444444442,
+        "elevation": 0,
+        "predictedArrivalTime": 1.7749999999999977,
+        "predictedArrivalSpeed": 16.644444444444563,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.4164035087719276,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.8000000000000005,
+      "integratedNearestAt": 1.7999999999999976,
+      "integratedNearestMissMetres": 9.947598300641403e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 2.017652451144207,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.36530957783835266,
+        "selectionQuality": 0.36530957783835266,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.7749999999999977,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.017652451144207,
+        "expectedReceptionQuality": 0.4015657656526919,
+        "expectedRetainedPossession": 0.09135790267779714,
+        "receiverAdjustmentCost": 3.521375420687042,
+        "utilityAdjustment": -46.79335485314896
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "progressive",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 22.69362865593392,
+          "y": 0,
+          "z": 9.274948776138874
+        },
+        "speed": 24.515820532330245,
+        "elevation": 0.3879861741672084,
+        "predictedArrivalTime": 1.7249999999999979,
+        "predictedArrivalSpeed": 19.87488695523322,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.3664035087719277,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.7249999999999979,
+      "integratedNearestMissMetres": 0.008422495133565633,
+      "integratedNearestHeight": 0.5913089017552202,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 2.4920655639302587,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2586419114409112,
+        "selectionQuality": 0.2586419114409112,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.7249999999999979,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.4920655639302587,
+        "expectedReceptionQuality": 0.28386740820158773,
+        "expectedRetainedPossession": 0.014606518264007756,
+        "receiverAdjustmentCost": 4.349360772509674,
+        "utilityAdjustment": -51.324196158274674
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "direct",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.45793103448276,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 26.45793103448276,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 21.897931034482855,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.4500000000000002,
+      "integratedNearestAt": 1.4499999999999988,
+      "integratedNearestMissMetres": 7.105427357601002e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 2.017652451144207,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.36530957783835266,
+        "selectionQuality": 0.36530957783835266,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.017652451144207,
+        "expectedReceptionQuality": 0.2044568700905308,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 3.521375420687042,
+        "utilityAdjustment": -51.11219920854888
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "direct",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 20.901506050251374,
+          "y": 0,
+          "z": 10.090898394097525
+        },
+        "speed": 23.20989413092388,
+        "elevation": 0.449779640364198,
+        "predictedArrivalTime": 1.8749999999999973,
+        "predictedArrivalSpeed": 18.81816304819142,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.5164035087719272,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.8749999999999973,
+      "integratedNearestMissMetres": 0.0078499535678489,
+      "integratedNearestHeight": 0.7028643807955023,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 2.4920655639302587,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2586419114409112,
+        "selectionQuality": 0.2586419114409112,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.8749999999999973,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.4920655639302587,
+        "expectedReceptionQuality": 0.32905951983135334,
+        "expectedRetainedPossession": 0.03302369010275272,
+        "receiverAdjustmentCost": 4.349360772509674,
+        "utilityAdjustment": -50.45354461848702
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "lead",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.45793103448276,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 26.45793103448276,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 21.897931034482855,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.4500000000000002,
+      "integratedNearestAt": 1.4499999999999988,
+      "integratedNearestMissMetres": 7.105427357601002e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 2.3971829413730483,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.27619229500999015,
+        "selectionQuality": 0.27619229500999015,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.3971829413730483,
+        "expectedReceptionQuality": 0.2044568700905308,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 4.183763702145147,
+        "utilityAdjustment": -51.83420243533821
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "lead",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 22.69362865593392,
+          "y": 0,
+          "z": 9.274948776138874
+        },
+        "speed": 24.515820532330245,
+        "elevation": 0.3879861741672084,
+        "predictedArrivalTime": 1.7249999999999979,
+        "predictedArrivalSpeed": 19.87488695523322,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.3664035087719277,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.7249999999999979,
+      "integratedNearestMissMetres": 0.008422495133565633,
+      "integratedNearestHeight": 0.5913089017552202,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 2.8715960541591,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2021287920797878,
+        "selectionQuality": 0.2021287920797878,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.7249999999999979,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.8715960541591,
+        "expectedReceptionQuality": 0.28386740820158773,
+        "expectedRetainedPossession": 0.011415001833025601,
+        "receiverAdjustmentCost": 5.01174905396778,
+        "utilityAdjustment": -52.19707481367062
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "through",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.45793103448276,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 26.45793103448276,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 21.897931034482855,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.4500000000000002,
+      "integratedNearestAt": 1.4499999999999988,
+      "integratedNearestMissMetres": 7.105427357601002e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 2.3971829413730483,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.27619229500999015,
+        "selectionQuality": 0.27619229500999015,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.3971829413730483,
+        "expectedReceptionQuality": 0.2044568700905308,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 4.183763702145147,
+        "utilityAdjustment": -51.83420243533821
+      }
+    },
+    {
+      "metres": 35,
+      "intent": "through",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 50,
+          "y": 34
+        },
+        "velocity": {
+          "x": 22.69362865593392,
+          "y": 0,
+          "z": 9.274948776138874
+        },
+        "speed": 24.515820532330245,
+        "elevation": 0.3879861741672084,
+        "predictedArrivalTime": 1.7249999999999979,
+        "predictedArrivalSpeed": 19.87488695523322,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 50,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.3664035087719277,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.7249999999999979,
+      "integratedNearestMissMetres": 0.008422495133565633,
+      "integratedNearestHeight": 0.5913089017552202,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 2.8715960541591,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2021287920797878,
+        "selectionQuality": 0.2021287920797878,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.7249999999999979,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.8715960541591,
+        "expectedReceptionQuality": 0.28386740820158773,
+        "expectedRetainedPossession": 0.011415001833025601,
+        "receiverAdjustmentCost": 5.01174905396778,
+        "utilityAdjustment": -52.19707481367062
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "support",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 23.974545454545453,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 23.974545454545453,
+        "elevation": 0,
+        "predictedArrivalTime": 2.1749999999999963,
+        "predictedArrivalSpeed": 17.0145454545456,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.8164035087719261,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.1999999999999997,
+      "integratedNearestAt": 2.199999999999996,
+      "integratedNearestMissMetres": 1.5631940186722204e-13,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 2.9683634630672007,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.19704965332585764,
+        "selectionQuality": 0.19704965332585764,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 2.1749999999999963,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.9683634630672007,
+        "expectedReceptionQuality": 0.42234940839690266,
+        "expectedRetainedPossession": 0.05157886284783065,
+        "receiverAdjustmentCost": 5.302294869686627,
+        "utilityAdjustment": -50.61506740357636
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "support",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.99635938091046,
+          "y": 0,
+          "z": 10.36500043415339
+        },
+        "speed": 28.91775672183567,
+        "elevation": 0.36658593819119867,
+        "predictedArrivalTime": 1.9249999999999972,
+        "predictedArrivalSpeed": 22.234605881524676,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.566403508771927,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.9249999999999972,
+      "integratedNearestMissMetres": 0.020722310544982747,
+      "integratedNearestHeight": 0.5220750845532599,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 3.680454328834001,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.1332579726027094,
+        "selectionQuality": 0.1332579726027094,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.9249999999999972,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.680454328834001,
+        "expectedReceptionQuality": 0.22780482476892916,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 6.57428052484106,
+        "utilityAdjustment": -54.43986577207676
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "progressive",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 27.88,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 27.88,
+        "elevation": 0,
+        "predictedArrivalTime": 1.7999999999999976,
+        "predictedArrivalSpeed": 22.120000000000122,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.4414035087719275,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.7999999999999994,
+      "integratedNearestAt": 1.7999999999999976,
+      "integratedNearestMissMetres": 9.947598300641403e-14,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 2.9683634630672007,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.19704965332585764,
+        "selectionQuality": 0.19704965332585764,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.7999999999999976,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.9683634630672007,
+        "expectedReceptionQuality": 0.2389792785267735,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 5.302294869686627,
+        "utilityAdjustment": -53.053401407958425
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "progressive",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.99635938091046,
+          "y": 0,
+          "z": 10.36500043415339
+        },
+        "speed": 28.91775672183567,
+        "elevation": 0.36658593819119867,
+        "predictedArrivalTime": 1.9249999999999972,
+        "predictedArrivalSpeed": 22.234605881524676,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.566403508771927,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.9249999999999972,
+      "integratedNearestMissMetres": 0.020722310544982747,
+      "integratedNearestHeight": 0.5220750845532599,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 3.680454328834001,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.1332579726027094,
+        "selectionQuality": 0.1332579726027094,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.9249999999999972,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.680454328834001,
+        "expectedReceptionQuality": 0.22780482476892916,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 6.57428052484106,
+        "utilityAdjustment": -54.43986577207676
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "direct",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 24.80000000000011,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.644176951966887,
+      "integratedNearestAt": 1.6499999999999981,
+      "integratedNearestMissMetres": 0.14400000000009072,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 2.9683634630672007,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.19704965332585764,
+        "selectionQuality": 0.19704965332585764,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.9683634630672007,
+        "expectedReceptionQuality": 0.14490784995534556,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 5.302294869686627,
+        "utilityAdjustment": -53.053401407958425
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "direct",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 25.074859178523617,
+          "y": 0,
+          "z": 11.238022744237528
+        },
+        "speed": 27.478022454732617,
+        "elevation": 0.4213384642487886,
+        "predictedArrivalTime": 2.0749999999999966,
+        "predictedArrivalSpeed": 21.13931364983118,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.7164035087719265,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 2.0749999999999966,
+      "integratedNearestMissMetres": 0.019948746293202646,
+      "integratedNearestHeight": 0.7110583459712448,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 3.680454328834001,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.1332579726027094,
+        "selectionQuality": 0.1332579726027094,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 2.0749999999999966,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.680454328834001,
+        "expectedReceptionQuality": 0.27409888853160025,
+        "expectedRetainedPossession": 0.004989664626788466,
+        "receiverAdjustmentCost": 6.57428052484106,
+        "utilityAdjustment": -54.203984865476414
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "lead",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 24.80000000000011,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.644176951966887,
+      "integratedNearestAt": 1.6499999999999981,
+      "integratedNearestMissMetres": 0.14400000000009072,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 3.538036155680641,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.14334268367852737,
+        "selectionQuality": 0.14334268367852737,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.538036155680641,
+        "expectedReceptionQuality": 0.14490784995534556,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 6.319883393810173,
+        "utilityAdjustment": -54.16257289925309
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "lead",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.99635938091046,
+          "y": 0,
+          "z": 10.36500043415339
+        },
+        "speed": 28.91775672183567,
+        "elevation": 0.36658593819119867,
+        "predictedArrivalTime": 1.9249999999999972,
+        "predictedArrivalSpeed": 22.234605881524676,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.566403508771927,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.9249999999999972,
+      "integratedNearestMissMetres": 0.020722310544982747,
+      "integratedNearestHeight": 0.5220750845532599,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 4.250127021447441,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.10177276418435628,
+        "selectionQuality": 0.10177276418435628,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.9249999999999972,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.250127021447441,
+        "expectedReceptionQuality": 0.22780482476892916,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 7.591869048964606,
+        "utilityAdjustment": -55.549037263371424
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "through",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 24.80000000000011,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 1.644176951966887,
+      "integratedNearestAt": 1.6499999999999981,
+      "integratedNearestMissMetres": 0.14400000000009072,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 3.538036155680641,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.14334268367852737,
+        "selectionQuality": 0.14334268367852737,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.538036155680641,
+        "expectedReceptionQuality": 0.14490784995534556,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 6.319883393810173,
+        "utilityAdjustment": -54.16257289925309
+      }
+    },
+    {
+      "metres": 45,
+      "intent": "through",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 60,
+          "y": 34
+        },
+        "velocity": {
+          "x": 26.99635938091046,
+          "y": 0,
+          "z": 10.36500043415339
+        },
+        "speed": 28.91775672183567,
+        "elevation": 0.36658593819119867,
+        "predictedArrivalTime": 1.9249999999999972,
+        "predictedArrivalSpeed": 22.234605881524676,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 60,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.566403508771927,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 1.9249999999999972,
+      "integratedNearestMissMetres": 0.020722310544982747,
+      "integratedNearestHeight": 0.5220750845532599,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 4.250127021447441,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.10177276418435628,
+        "selectionQuality": 0.10177276418435628,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.9249999999999972,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 34,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.250127021447441,
+        "expectedReceptionQuality": 0.22780482476892916,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 7.591869048964606,
+        "utilityAdjustment": -55.549037263371424
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "support",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.274999999999996,
+        "predictedArrivalSpeed": 22.720000000000155,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.9164035087719258,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.276364567749658,
+      "integratedNearestAt": 2.274999999999996,
+      "integratedNearestMissMetres": 0.03099999999983538,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 4.759441422145134,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2037023602867369,
+        "selectionQuality": 0.2037023602867369,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.274999999999996,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.759441422145134,
+        "expectedReceptionQuality": 0.4103963915371436,
+        "expectedRetainedPossession": 0.058199001301335304,
+        "receiverAdjustmentCost": 5.317653194477985,
+        "utilityAdjustment": -50.318848214361815
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "support",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 2.2,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 33.4300284770968,
+          "y": 0,
+          "z": 11.812962067153185
+        },
+        "speed": 35.455787634454026,
+        "elevation": 0.33966837897298136,
+        "predictedArrivalTime": 2.1499999999999964,
+        "predictedArrivalSpeed": 25.10714642500241,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 3.8659999999999997,
+          "maximumComfortableArrivalSpeed": 8.368,
+          "preparationMargin": 1.7914035087719262,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 2.1749999999999963,
+      "integratedNearestMissMetres": 0.0621477261484813,
+      "integratedNearestHeight": 0.4014845087481006,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 5.919301777681417,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.1371752277302634,
+        "selectionQuality": 0.1371752277302634,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.919301777681417,
+        "expectedReceptionQuality": 0.3092922079656506,
+        "expectedRetainedPossession": 0.014843495387830821,
+        "receiverAdjustmentCost": 6.613547938778886,
+        "utilityAdjustment": -53.78095733665422
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "progressive",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.274999999999996,
+        "predictedArrivalSpeed": 22.720000000000155,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.9164035087719258,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.276364567749658,
+      "integratedNearestAt": 2.274999999999996,
+      "integratedNearestMissMetres": 0.03099999999983538,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 4.759441422145134,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2037023602867369,
+        "selectionQuality": 0.2037023602867369,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.274999999999996,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.759441422145134,
+        "expectedReceptionQuality": 0.4103963915371436,
+        "expectedRetainedPossession": 0.058199001301335304,
+        "receiverAdjustmentCost": 5.317653194477985,
+        "utilityAdjustment": -50.318848214361815
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "progressive",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.8,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 33.4300284770968,
+          "y": 0,
+          "z": 11.812962067153185
+        },
+        "speed": 35.455787634454026,
+        "elevation": 0.33966837897298136,
+        "predictedArrivalTime": 2.1499999999999964,
+        "predictedArrivalSpeed": 25.10714642500241,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.265999999999999,
+          "maximumComfortableArrivalSpeed": 9.767999999999999,
+          "preparationMargin": 1.7914035087719262,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 2.1749999999999963,
+      "integratedNearestMissMetres": 0.0621477261484813,
+      "integratedNearestHeight": 0.4014845087481006,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 5.919301777681417,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.1371752277302634,
+        "selectionQuality": 0.1371752277302634,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.919301777681417,
+        "expectedReceptionQuality": 0.3092922079656506,
+        "expectedRetainedPossession": 0.014843495387830821,
+        "receiverAdjustmentCost": 6.613547938778886,
+        "utilityAdjustment": -53.78095733665422
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "direct",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.274999999999996,
+        "predictedArrivalSpeed": 22.720000000000155,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.9164035087719258,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.276364567749658,
+      "integratedNearestAt": 2.274999999999996,
+      "integratedNearestMissMetres": 0.03099999999983538,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1,
+        "uncertaintyMetres": 4.759441422145134,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.2037023602867369,
+        "selectionQuality": 0.2037023602867369,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.274999999999996,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.759441422145134,
+        "expectedReceptionQuality": 0.4103963915371436,
+        "expectedRetainedPossession": 0.058199001301335304,
+        "receiverAdjustmentCost": 5.317653194477985,
+        "utilityAdjustment": -50.318848214361815
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "direct",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 31.262290763806206,
+          "y": 0,
+          "z": 12.766892433164779
+        },
+        "speed": 33.76868913950856,
+        "elevation": 0.3877095241019393,
+        "predictedArrivalTime": 2.3249999999999957,
+        "predictedArrivalSpeed": 23.951615914879007,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.9664035087719256,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 2.3249999999999957,
+      "integratedNearestMissMetres": 0.1435099458353477,
+      "integratedNearestHeight": 0.7126858464552335,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.25,
+        "uncertaintyMetres": 5.919301777681417,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.1371752277302634,
+        "selectionQuality": 0.1371752277302634,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.3249999999999957,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.919301777681417,
+        "expectedReceptionQuality": 0.35980736539774755,
+        "expectedRetainedPossession": 0.02656710231344829,
+        "receiverAdjustmentCost": 6.613547938778886,
+        "utilityAdjustment": -53.22673671521326
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "lead",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.274999999999996,
+        "predictedArrivalSpeed": 22.720000000000155,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.9164035087719258,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.276364567749658,
+      "integratedNearestAt": 2.274999999999996,
+      "integratedNearestMissMetres": 0.03099999999983538,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 5.68732970657416,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.14766834908344584,
+        "selectionQuality": 0.14766834908344584,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.274999999999996,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.68732970657416,
+        "expectedReceptionQuality": 0.4103963915371436,
+        "expectedRetainedPossession": 0.04218974403819447,
+        "receiverAdjustmentCost": 6.354368989918706,
+        "utilityAdjustment": -52.20568845832419
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "lead",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 33.4300284770968,
+          "y": 0,
+          "z": 11.812962067153185
+        },
+        "speed": 35.455787634454026,
+        "elevation": 0.33966837897298136,
+        "predictedArrivalTime": 2.1499999999999964,
+        "predictedArrivalSpeed": 25.10714642500241,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 5.866,
+          "maximumComfortableArrivalSpeed": 10.367999999999999,
+          "preparationMargin": 1.7914035087719262,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 2.1749999999999963,
+      "integratedNearestMissMetres": 0.0621477261484813,
+      "integratedNearestHeight": 0.4014845087481006,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 6.847190062110443,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.10448685907728418,
+        "selectionQuality": 0.10448685907728418,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 6.847190062110443,
+        "expectedReceptionQuality": 0.3092922079656506,
+        "expectedRetainedPossession": 0.01130634325501053,
+        "receiverAdjustmentCost": 7.650263734219608,
+        "utilityAdjustment": -55.07819252989633
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "through",
+      "delivery": "ground",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.274999999999996,
+        "predictedArrivalSpeed": 22.720000000000155,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.9164035087719258,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": 2.276364567749658,
+      "integratedNearestAt": 2.274999999999996,
+      "integratedNearestMissMetres": 0.03099999999983538,
+      "integratedNearestHeight": 0.11,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.2,
+        "uncertaintyMetres": 5.68732970657416,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.14766834908344584,
+        "selectionQuality": 0.14766834908344584,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.274999999999996,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.68732970657416,
+        "expectedReceptionQuality": 0.4103963915371436,
+        "expectedRetainedPossession": 0.04218974403819447,
+        "receiverAdjustmentCost": 6.354368989918706,
+        "utilityAdjustment": -52.20568845832419
+      }
+    },
+    {
+      "metres": 60,
+      "intent": "through",
+      "delivery": "lofted",
+      "context": "Prescribed stationary receiver and unchanged frozen opponents; intent labels do not imply autonomous eligibility. Desired ground deadline calculated for comparison only; aerial planner ignores it.",
+      "desiredGroundDeadline": 1.45,
+      "plan": {
+        "target": {
+          "x": 75,
+          "y": 34
+        },
+        "velocity": {
+          "x": 33.4300284770968,
+          "y": 0,
+          "z": 11.812962067153185
+        },
+        "speed": 35.455787634454026,
+        "elevation": 0.33966837897298136,
+        "predictedArrivalTime": 2.1499999999999964,
+        "predictedArrivalSpeed": 25.10714642500241,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 75,
+            "y": 34
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.7914035087719262,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "exactGroundCrossingSeconds": null,
+      "integratedNearestAt": 2.1749999999999963,
+      "integratedNearestMissMetres": 0.0621477261484813,
+      "integratedNearestHeight": 0.4014845087481006,
+      "rollingDeceleration": 3.2,
+      "execution": {
+        "ability": 0.4798005491895046,
+        "difficulty": 1.45,
+        "uncertaintyMetres": 6.847190062110443,
+        "facingError": 0,
+        "pressure": 0
+      },
+      "forecast": {
+        "expectedCompletion": 0.10448685907728418,
+        "selectionQuality": 0.10448685907728418,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.949999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 6.847190062110443,
+        "expectedReceptionQuality": 0.3092922079656506,
+        "expectedRetainedPossession": 0.01130634325501053,
+        "receiverAdjustmentCost": 7.650263734219608,
+        "utilityAdjustment": -55.07819252989633
+      }
+    }
+  ]
+}

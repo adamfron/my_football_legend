@@ -1,0 +1,3162 @@
+{
+  "version": 1,
+  "manifest": {
+    "baseCommit": "52748e299115cd4952d176e18d2609f4b358e797",
+    "normalizedProductionHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+    "node": "v24.19.0"
+  },
+  "method": "Four selected genuine frozen starts, each 3s canonical continuation. Shadow ranks at 0.1s do not execute actions. Valuable-pass proxy is retained forecast>=0.62 and >5m forward; credible shot proxy uses existing evaluator. Appeared-and-vanished requires same owner and still blocked at sampled disappearance. Discrete sampling and selected starts preclude population or causal estimates.",
+  "rows": [
+    {
+      "id": "pr175-natural:0",
+      "duration": 3,
+      "sampleStep": 0.1,
+      "vanishedWhileBlocked": [],
+      "samples": [
+        {
+          "at": 38.999999999998856,
+          "stateHash": "556a9ad45c4d57dc607afa21d58b68166ff2e2a1e9f29480ecdd13b0ef1176ef",
+          "actorId": "footballer_club_vistula_nova_2026_4",
+          "blocked": false,
+          "actionCooldown": 0,
+          "possessionAge": 0.949999999999946,
+          "decisionDelay": 0.7774480773170112,
+          "remaining": 0,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_4",
+            "gainedAt": 38.04999999999891,
+            "readyAt": 38.82744807731592,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.46889639524912,
+            "micro": {
+              "phase": "turning",
+              "startedAt": 38.87499999999886,
+              "origin": {
+                "x": 28.874046500269266,
+                "y": 14.952296759368929
+              },
+              "localTarget": {
+                "x": 28.874046500269266,
+                "y": 14.952296759368929
+              },
+              "orientationTarget": -0.039142391059467485,
+              "passingAngle": -0.03914239105946677,
+              "touchDirection": {
+                "x": 0.15,
+                "y": 1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": -0.38072875355384106,
+                "y": -0.2398866736968491
+              },
+              "pressure": 0.517581501627291,
+              "reason": "open_passing_angle"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 39.25392275388829,
+            "difficulty": 0.5002217842090386,
+            "exposure": 0.3367487383369516,
+            "turnAngle": 2.8728550576364285
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_club_vistula_nova_2026_4",
+              "receiverId": "footballer_club_vistula_nova_2026_5",
+              "target": {
+                "x": 26.953114929722293,
+                "y": 36.67611881260047
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 21.61333623074092,
+            "deterministicNoise": 1.8954165372997522,
+            "score": 23.508752768040672
+          }
+        },
+        {
+          "at": 41.09999999999874,
+          "stateHash": "7df1ad10357ad5f1ff3ba811d6642c3c418671e34b0298badf9f075a8302d75d",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.95,
+          "possessionAge": 0,
+          "decisionDelay": 0.6985126280874411,
+          "remaining": 0.95,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 41.09999999999874,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 3.024109117262798,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.032943134100992734,
+                "y": -0.44879254663552964
+              },
+              "pressure": 0.23043314420186248,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.09999999999874,
+            "difficulty": 0.20538458024926876,
+            "exposure": 0.5177510321746831,
+            "turnAngle": 0.8595417797443847
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_5"
+            },
+            "canonicalScore": 53.69300567394412,
+            "deterministicNoise": -1.331133384257555,
+            "score": 52.361872289686566
+          }
+        },
+        {
+          "at": 41.19999999999873,
+          "stateHash": "8cf0dbc270fba71f1ec549d640e72a3769dbc28e7f03367192f474aa7c322adc",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.8499999999999999,
+          "possessionAge": 0.09999999999999432,
+          "decisionDelay": 0.6927241687013512,
+          "remaining": 0.8499999999999999,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 41.09999999999874,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 3.024109117262798,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.0527460588069632,
+                "y": -0.446898034545166
+              },
+              "pressure": 0.23831026378447454,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.45126132567382,
+            "difficulty": 0.34069074446009484,
+            "exposure": 0.5520690544575797,
+            "turnAngle": 1.8412141636168444
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_5"
+            },
+            "canonicalScore": 53.36782318196446,
+            "deterministicNoise": -1.331133384257555,
+            "score": 52.036689797706906
+          }
+        },
+        {
+          "at": 41.299999999998725,
+          "stateHash": "3b3f84a7bac85be70b9cc26aa49e34929e31d9bc9429ec7d6ccc418ac3874113",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.7499999999999998,
+          "possessionAge": 0.19999999999998863,
+          "decisionDelay": 0.6839892792384709,
+          "remaining": 0.7499999999999998,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 41.09999999999874,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 3.024109117262798,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.0527460588069632,
+                "y": -0.446898034545166
+              },
+              "pressure": 0.253488610679595,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.44602314727655,
+            "difficulty": 0.3233214593141356,
+            "exposure": 0.4602045502161222,
+            "turnAngle": 1.8513937016081048
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_5"
+            },
+            "canonicalScore": 52.87711694508007,
+            "deterministicNoise": -1.331133384257555,
+            "score": 51.54598356082251
+          }
+        },
+        {
+          "at": 41.39999999999872,
+          "stateHash": "afee61058660ddbd52e3729df7aaa60b89a9a45de926798376e8641d00a69ac1",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.6499999999999997,
+          "possessionAge": 0.29999999999998295,
+          "decisionDelay": 0.6749988527733873,
+          "remaining": 0.6499999999999997,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 41.09999999999874,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 3.024109117262798,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.0527460588069632,
+                "y": -0.446898034545166
+              },
+              "pressure": 0.27022080608942184,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.7166153928391,
+            "difficulty": 0.3087055483050238,
+            "exposure": 0.4052785375648902,
+            "turnAngle": 1.8099649839369372
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_5"
+            },
+            "canonicalScore": 52.37205522021055,
+            "deterministicNoise": -1.331133384257555,
+            "score": 51.04092183595299
+          }
+        },
+        {
+          "at": 41.499999999998714,
+          "stateHash": "466c0a08f1aa4a772f93bd2a904d73b7f57310901df47339dab6b7e27f82f2ee",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.5499999999999996,
+          "possessionAge": 0.39999999999997726,
+          "decisionDelay": 0.6660555539602128,
+          "remaining": 0.5499999999999996,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 41.09999999999874,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 3.024109117262798,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.0527460588069632,
+                "y": -0.446898034545166
+              },
+              "pressure": 0.28729697454757214,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.7132119179625,
+            "difficulty": 0.29741964474008026,
+            "exposure": 0.35127932979790244,
+            "turnAngle": 1.8108432804394692
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_5"
+            },
+            "canonicalScore": 51.86964101971093,
+            "deterministicNoise": -1.331133384257555,
+            "score": 50.53850763545338
+          }
+        },
+        {
+          "at": 41.59999999999871,
+          "stateHash": "f6ffe4572ed70c4bb07ec4326a15ddf681a72d4d3a44e92d07d47cd3d372a3d0",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.4499999999999995,
+          "possessionAge": 0.4999999999999716,
+          "decisionDelay": 0.6582097996532221,
+          "remaining": 0.4499999999999995,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 41.09999999999874,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 3.024109117262798,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.0527460588069632,
+                "y": -0.446898034545166
+              },
+              "pressure": 0.30223271670191876,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.71219290056844,
+            "difficulty": 0.29404060313713043,
+            "exposure": 0.33429568524062897,
+            "turnAngle": 1.810896975584921
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_5"
+            },
+            "canonicalScore": 51.418020034783,
+            "deterministicNoise": -1.331133384257555,
+            "score": 50.08688665052544
+          }
+        },
+        {
+          "at": 41.6999999999987,
+          "stateHash": "a7bd752dd796d5b20b80cfd3fb10db4068793e6598084f53f2778a52ee9c3066",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.3499999999999994,
+          "possessionAge": 0.5999999999999659,
+          "decisionDelay": 0.6503756996100618,
+          "remaining": 0.3499999999999994,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "turning",
+              "startedAt": 41.62499999999871,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 0.42347285161243775,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.16064877528846086,
+                "y": -0.420347440813332
+              },
+              "pressure": 0.3169087334992223,
+              "reason": "open_passing_angle"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.97174667626925,
+            "difficulty": 0.3257208993332922,
+            "exposure": 0.3437033625667592,
+            "turnAngle": 1.7279372351078992
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_5"
+            },
+            "canonicalScore": 50.97440938571343,
+            "deterministicNoise": -1.331133384257555,
+            "score": 49.643276001455874
+          }
+        },
+        {
+          "at": 41.7999999999987,
+          "stateHash": "e82b20cb198016d30043e5d7cca92fcd2dd002b0cc269424d4363c6ae3a7a471",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.24999999999999936,
+          "possessionAge": 0.6999999999999602,
+          "decisionDelay": 0.642555215164255,
+          "remaining": 0.24999999999999936,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "turning",
+              "startedAt": 41.62499999999871,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 0.42347285161243775,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.28822247075372964,
+                "y": -0.3455832856962493
+              },
+              "pressure": 0.33155992176608756,
+              "reason": "open_passing_angle"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.966363377559176,
+            "difficulty": 0.3078701101124999,
+            "exposure": 0.32399481707652417,
+            "turnAngle": 1.7272365065776514
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_club_vistula_nova_2026_5",
+              "receiverId": "footballer_club_vistula_nova_2026_9",
+              "target": {
+                "x": 33.37973715628975,
+                "y": 49.60753998669542
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 32.121394250169566,
+            "deterministicNoise": 2.8246694300323725,
+            "score": 34.94606368020194
+          }
+        },
+        {
+          "at": 41.89999999999869,
+          "stateHash": "7802ef0e90f3e242f3fd89e92a46bd992d5e5e03cca24168948842968bac70f9",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.14999999999999938,
+          "possessionAge": 0.7999999999999545,
+          "decisionDelay": 0.6347499199570469,
+          "remaining": 0.14999999999999938,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "turning",
+              "startedAt": 41.62499999999871,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 0.42347285161243775,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.3846756546957791,
+                "y": -0.23350511918237193
+              },
+              "pressure": 0.3461834527400955,
+              "reason": "open_passing_angle"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 41.96188781975942,
+            "difficulty": 0.2930291126037222,
+            "exposure": 0.31954251782389087,
+            "turnAngle": 1.726341471515763
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_club_vistula_nova_2026_5",
+              "receiverId": "footballer_club_vistula_nova_2026_9",
+              "target": {
+                "x": 33.54247337228839,
+                "y": 49.57496341517806
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 38.56999689442685,
+            "deterministicNoise": 2.8246694300323725,
+            "score": 41.39466632445922
+          }
+        },
+        {
+          "at": 41.999999999998685,
+          "stateHash": "c55f96d42d47eb638bcfdeeb40e0f7bf3ac7f2415f32f5c18b04de5b8a88b8bd",
+          "actorId": "footballer_club_vistula_nova_2026_5",
+          "blocked": true,
+          "actionCooldown": 0.0499999999999994,
+          "possessionAge": 0.8999999999999488,
+          "decisionDelay": 0.6269616451538174,
+          "remaining": 0.0499999999999994,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_5",
+            "gainedAt": 41.09999999999874,
+            "readyAt": 41.609168102172546,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 7.035972898352112,
+            "micro": {
+              "phase": "turning",
+              "startedAt": 41.62499999999871,
+              "origin": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "localTarget": {
+                "x": 26.234361939849425,
+                "y": 36.678336719501345
+              },
+              "orientationTarget": 0.42347285161243775,
+              "passingAngle": 0.4234728516124371,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": false,
+              "ballOffset": {
+                "x": 0.43959387898818963,
+                "y": -0.09621445606621148
+              },
+              "pressure": 0.3607760143063766,
+              "reason": "open_passing_angle"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 42.20878786166162,
+            "difficulty": 0.1998440037141261,
+            "exposure": 0.36178855001078136,
+            "turnAngle": 0.8175587863207738
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_club_vistula_nova_2026_5",
+              "receiverId": "footballer_club_vistula_nova_2026_9",
+              "target": {
+                "x": 33.70414255208184,
+                "y": 49.54106150174029
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 39.19596423926818,
+            "deterministicNoise": 2.8246694300323725,
+            "score": 42.02063366930055
+          }
+        }
+      ]
+    },
+    {
+      "id": "pr175-natural:2",
+      "duration": 3,
+      "sampleStep": 0.1,
+      "vanishedWhileBlocked": [],
+      "samples": [
+        {
+          "at": 67.72499999999827,
+          "stateHash": "1ed4c9ac22a280650f39269386743503c8a96a7ee2e4e2cefcfc5f6088e06716",
+          "actorId": "footballer_u17_pro_60_2026_22",
+          "blocked": false,
+          "actionCooldown": 0,
+          "possessionAge": 5.12500000000076,
+          "decisionDelay": 0.5694637478962329,
+          "remaining": 0,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_22",
+            "gainedAt": 62.599999999997515,
+            "readyAt": 63.08264370360389,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 67.8457462877395,
+            "difficulty": 0.16801935821741812,
+            "exposure": 0.2833654393678373,
+            "turnAngle": 1.1237936655847545
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_u17_pro_60_2026_22",
+              "receiverId": "footballer_u17_pro_60_2026_10",
+              "target": {
+                "x": 38.25359729108523,
+                "y": 46.985537186214
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 5.94240528894968,
+            "deterministicNoise": 3.917454292997718,
+            "score": 9.859859581947397
+          }
+        },
+        {
+          "at": 70.62499999999893,
+          "stateHash": "30ea204395276bfcef93e4c24c284be67fd4b7b4e14a52b4aa803ce168adaa90",
+          "actorId": "footballer_club_vistula_nova_2026_18",
+          "blocked": true,
+          "actionCooldown": 0.85,
+          "possessionAge": 0,
+          "decisionDelay": 0.6897090411323368,
+          "remaining": 0.85,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_18",
+            "gainedAt": 70.62499999999893,
+            "readyAt": 71.00191727725984,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 70.62499999999893,
+              "origin": {
+                "x": 40.9640459482567,
+                "y": 45.283211899112615
+              },
+              "localTarget": {
+                "x": 41.27771713214983,
+                "y": 45.7349976762184
+              },
+              "orientationTarget": 0.6068847104030848,
+              "passingAngle": 2.6880407735329563,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": 0.21671827250798636,
+                "y": 0.3121429005458144
+              },
+              "pressure": 0.7991799718822258,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 70.62499999999893,
+            "difficulty": 0.07245609412218149,
+            "exposure": 0.3121365229209858,
+            "turnAngle": 0.15481680451162383
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_18"
+            },
+            "canonicalScore": 28.931582132252817,
+            "deterministicNoise": -2.984500255435705,
+            "score": 25.947081876817112
+          }
+        },
+        {
+          "at": 70.72499999999896,
+          "stateHash": "d58381f49466c3cfd5a0a1a468aa0773009255aac3074184286d16564b759215",
+          "actorId": "footballer_club_vistula_nova_2026_18",
+          "blocked": true,
+          "actionCooldown": 0.7499999999999999,
+          "possessionAge": 0.10000000000002274,
+          "decisionDelay": 0.7103061204490292,
+          "remaining": 0.7499999999999999,
+          "physicalPreparation": {
+            "actorId": "footballer_club_vistula_nova_2026_18",
+            "gainedAt": 70.62499999999893,
+            "readyAt": 71.00191727725984,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 70.62499999999893,
+              "origin": {
+                "x": 40.9640459482567,
+                "y": 45.283211899112615
+              },
+              "localTarget": {
+                "x": 41.18582456248786,
+                "y": 45.78651523336514
+              },
+              "orientationTarget": 0.41504798749000216,
+              "passingAngle": 2.6880407735329563,
+              "touchDirection": {
+                "x": 0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": 0.15322886074152975,
+                "y": 0.34773684911992414
+              },
+              "pressure": 0.7841634866257737,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 70.89306707190833,
+            "difficulty": 0.15437624392730664,
+            "exposure": 0.3012744714960991,
+            "turnAngle": 0.2075743725457233
+          },
+          "opportunities": [
+            {
+              "key": "footballer_club_vistula_nova_2026_18:pass:footballer_club_vistula_nova_2026_21",
+              "action": {
+                "type": "pass",
+                "actorId": "footballer_club_vistula_nova_2026_18",
+                "receiverId": "footballer_club_vistula_nova_2026_21",
+                "target": {
+                  "x": 46.28822303244418,
+                  "y": 35.06518735192835
+                },
+                "intent": "support"
+              },
+              "score": 18.498536610339187,
+              "preparationMargin": -0.4748330822682618
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_club_vistula_nova_2026_18"
+            },
+            "canonicalScore": 29.481997625198396,
+            "deterministicNoise": -2.984500255435705,
+            "score": 26.49749736976269
+          }
+        }
+      ]
+    },
+    {
+      "id": "pr175-natural:6",
+      "duration": 3,
+      "sampleStep": 0.1,
+      "vanishedWhileBlocked": [],
+      "samples": [
+        {
+          "at": 1341.4000000004971,
+          "stateHash": "6e33a4cef52a55475c772ca53591af5af06e5cfee4e9fff6d7cb16fb32d88307",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": false,
+          "actionCooldown": 0,
+          "possessionAge": 10.425000000037926,
+          "decisionDelay": 0.4,
+          "remaining": 0,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1341.5623898770561,
+            "difficulty": 0.06875390927299445,
+            "exposure": 0.43997911861468453,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 19.330733269007172,
+              "preparationMargin": 9.918739450628436
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 15.98502359500587,
+              "preparationMargin": 9.895352993491315
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 13.51937517939415,
+              "preparationMargin": 9.811197751496366
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "target": {
+                "x": 0.4,
+                "y": 34.469856525631684
+              }
+            },
+            "canonicalScore": 36.057079095213766,
+            "deterministicNoise": -3.876960951834917,
+            "score": 32.18011814337885
+          }
+        },
+        {
+          "at": 1341.5000000004975,
+          "stateHash": "35bc005e2e044942a75f8302ef891c4afc5057d9fbc37758cbedc7c378b48365",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 1.2250000000000003,
+          "possessionAge": 10.52500000003829,
+          "decisionDelay": 0.4,
+          "remaining": 1.2250000000000003,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1341.5628629096143,
+            "difficulty": 0.07014850367759465,
+            "exposure": 0.4482314504532276,
+            "turnAngle": 0.004780648041140978
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 19.32811224264989,
+              "preparationMargin": 10.024208089114836
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 10.242976747474367,
+              "preparationMargin": 10.000013856287069
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 8.872111970238274,
+              "preparationMargin": 9.919663100305797
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "target": {
+                "x": 0.4,
+                "y": 34.46240371963106
+              }
+            },
+            "canonicalScore": 34.73209591747049,
+            "deterministicNoise": 0.7746875006705523,
+            "score": 35.50678341814104
+          }
+        },
+        {
+          "at": 1341.6000000004979,
+          "stateHash": "0734f45bacb91102fd83b0341633015ae8f1fad52e5eac0d26f3315d504d6a07",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 1.1250000000000007,
+          "possessionAge": 10.625000000038654,
+          "decisionDelay": 0.4,
+          "remaining": 1.1250000000000007,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1341.8126133145201,
+            "difficulty": 0.06940986026814926,
+            "exposure": 0.4477751886990924,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 20.979597236581192,
+              "preparationMargin": 10.123137589837143
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 11.836149401538297,
+              "preparationMargin": 10.099639094994927
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 10.412894349541473,
+              "preparationMargin": 10.018160685513976
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "carry",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "target": {
+                "x": 0.4,
+                "y": 34.45526621444451
+              }
+            },
+            "canonicalScore": 33.39414800989514,
+            "deterministicNoise": 0.7746875006705523,
+            "score": 34.16883551056569
+          }
+        },
+        {
+          "at": 1341.7000000004982,
+          "stateHash": "ded32ef63b5a44ff787d52905945828e0d787443e66408fe684f1d0afe9351c3",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 1.025000000000001,
+          "possessionAge": 10.725000000039017,
+          "decisionDelay": 0.4,
+          "remaining": 1.025000000000001,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1341.8119899346532,
+            "difficulty": 0.0675650294755571,
+            "exposure": 0.4404442142916791,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 22.779810470585453,
+              "preparationMargin": 10.221967250945681
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 13.578836960304642,
+              "preparationMargin": 10.19922861768191
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 12.103187424227215,
+              "preparationMargin": 10.115940891030732
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 21.08058065461062,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 22.779810470585453
+          }
+        },
+        {
+          "at": 1341.8000000004986,
+          "stateHash": "3ce3a3fd9c103c971ab4de5cc507de72755e5a5af9e4c98c2b766e8c543996f2",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.925000000000001,
+          "possessionAge": 10.825000000039381,
+          "decisionDelay": 0.4,
+          "remaining": 0.925000000000001,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1341.8127797603904,
+            "difficulty": 0.06990005018864826,
+            "exposure": 0.4484617065042265,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 24.741809891122323,
+              "preparationMargin": 10.32068436474674
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 15.483710808997824,
+              "preparationMargin": 10.298777709378328
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 13.955830861331503,
+              "preparationMargin": 10.213523270819906
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 23.04258007514749,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 24.741809891122323
+          }
+        },
+        {
+          "at": 1341.900000000499,
+          "stateHash": "e708a566452b80cdbffba634c8743c3e011555aa3c958e7c717a53d718e22956",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.825000000000001,
+          "possessionAge": 10.925000000039745,
+          "decisionDelay": 0.4,
+          "remaining": 0.825000000000001,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.0619246354072,
+            "difficulty": 0.06737023513862217,
+            "exposure": 0.43959664446225766,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 26.897548032383114,
+              "preparationMargin": 10.41927191455693
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 17.613243033020918,
+              "preparationMargin": 10.398280051148276
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 16.002741970628488,
+              "preparationMargin": 10.310880978324121
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 25.198318216408282,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 26.897548032383114
+          }
+        },
+        {
+          "at": 1342.0000000004993,
+          "stateHash": "86dd7e099dcd9e0702c3ec885c183ff887f1555dddf4601f2d1cf71721fb1ea0",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.7250000000000009,
+          "possessionAge": 11.025000000040109,
+          "decisionDelay": 0.4,
+          "remaining": 0.7250000000000009,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.0625676473703,
+            "difficulty": 0.06927103224968467,
+            "exposure": 0.4471185822249858,
+            "turnAngle": 1.7763568394002505e-15
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 29.25688913285213,
+              "preparationMargin": 10.517707532938402
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 19.934032687039146,
+              "preparationMargin": 10.497727308174717
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 18.253868630839683,
+              "preparationMargin": 10.407979030378101
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 27.5576593168773,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 29.25688913285213
+          }
+        },
+        {
+          "at": 1342.1000000004997,
+          "stateHash": "c774245000b5a486ea52a0993f0f63b4cf5ff771ba98297f5a78887964bc425e",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.6250000000000008,
+          "possessionAge": 11.125000000040473,
+          "decisionDelay": 0.4,
+          "remaining": 0.6250000000000008,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.3132813405746,
+            "difficulty": 0.07137878656445508,
+            "exposure": 0.4515664604357689,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 31.78288798655999,
+              "preparationMargin": 10.611329730529633
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 22.426937530480483,
+              "preparationMargin": 10.592469463990255
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 20.672190840611044,
+              "preparationMargin": 10.50014889107706
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 30.08365817058516,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 31.78288798655999
+          }
+        },
+        {
+          "at": 1342.2000000005,
+          "stateHash": "9c8e742d627980748481cf00e3f57e3150d3c6a1e6636395d6e4dd7794773b19",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.5250000000000007,
+          "possessionAge": 11.225000000040836,
+          "decisionDelay": 0.4,
+          "remaining": 0.5250000000000007,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.3123956696134,
+            "difficulty": 0.06875776282876545,
+            "exposure": 0.44093971605627696,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 34.64121956841585,
+              "preparationMargin": 10.709384860811497
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 25.269495984308325,
+              "preparationMargin": 10.691777377771587
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 23.423713906500467,
+              "preparationMargin": 10.596616041378866
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 32.94198975244102,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 34.64121956841585
+          }
+        },
+        {
+          "at": 1342.3000000005004,
+          "stateHash": "3f9d03c49311bf0b3b38344408610702e7ab0c01d942d5ae64a9c511c4b3e1a6",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.4250000000000006,
+          "possessionAge": 11.3250000000412,
+          "decisionDelay": 0.4,
+          "remaining": 0.4250000000000006,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.313234257695,
+            "difficulty": 0.0712355861282256,
+            "exposure": 0.4496269467005336,
+            "turnAngle": 1.7763568394002505e-15
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 37.79561388946337,
+              "preparationMargin": 10.807195643586283
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 28.41068104895166,
+              "preparationMargin": 10.790994783942551
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 26.472134348350043,
+              "preparationMargin": 10.692691433309392
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 36.09638407348854,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 37.79561388946337
+          }
+        },
+        {
+          "at": 1342.4000000005008,
+          "stateHash": "cd17291ef1d21aa8d7383c54bbc5a867d0e92e3278c87179c780dbae56706ccc",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.3250000000000005,
+          "possessionAge": 11.425000000041564,
+          "decisionDelay": 0.4,
+          "remaining": 0.3250000000000005,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.562338287377,
+            "difficulty": 0.06858644547393973,
+            "exposure": 0.44019013568713283,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 41.28152213863687,
+              "preparationMargin": 10.904713768835563
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 31.886414670626266,
+              "preparationMargin": 10.890102721316225
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 29.85305421980192,
+              "preparationMargin": 10.78831075086191
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 39.58229232266204,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 41.28152213863687
+          }
+        },
+        {
+          "at": 1342.5000000005011,
+          "stateHash": "e4f98bf15d0964ab08e969a62664ab09b5c2d3e97460a4a50f159e2e0e8b36b5",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.22500000000000045,
+          "possessionAge": 11.525000000041928,
+          "decisionDelay": 0.4,
+          "remaining": 0.22500000000000045,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.5630393984823,
+            "difficulty": 0.07065791341757113,
+            "exposure": 0.4483900705776581,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 45.1496185005414,
+              "preparationMargin": 11.001874090607998
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 35.750673002763506,
+              "preparationMargin": 10.989075284413047
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 33.617320941453606,
+              "preparationMargin": 10.883390178552872
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 43.45038868456657,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 45.1496185005414
+          }
+        },
+        {
+          "at": 1342.6000000005015,
+          "stateHash": "675ca97f3654548e4da3a9391cd67b133f7de8479cee3e5ba06105c6f44db01b",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.12500000000000047,
+          "possessionAge": 11.625000000042292,
+          "decisionDelay": 0.4,
+          "remaining": 0.12500000000000047,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.8130056853872,
+            "difficulty": 0.07055759287280813,
+            "exposure": 0.44794553243024915,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 61.90134164799368,
+              "preparationMargin": 11.098601531132772
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 52.80110799953521,
+              "preparationMargin": 11.087881574027506
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 51.172117122825306,
+              "preparationMargin": 10.977843545286078
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 60.20211183201885,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 61.90134164799368
+          }
+        },
+        {
+          "at": 1342.7000000005019,
+          "stateHash": "7c61729b32dab3665de112c9696090095e3519bb4946afbb06c0eeaf46624886",
+          "actorId": "footballer_u17_pro_60_2026_11",
+          "blocked": true,
+          "actionCooldown": 0.02500000000000048,
+          "possessionAge": 11.725000000042655,
+          "decisionDelay": 0.4,
+          "remaining": 0.02500000000000048,
+          "physicalPreparation": {
+            "actorId": "footballer_u17_pro_60_2026_11",
+            "gainedAt": 1330.9750000004592,
+            "readyAt": 1331.3594592084382,
+            "kind": "shielding",
+            "incomingSpeed": 0
+          },
+          "contactWindow": {
+            "earliestContactAt": 1342.8123534562337,
+            "difficulty": 0.06862848407130738,
+            "exposure": 0.4402750390068565,
+            "turnAngle": 0
+          },
+          "opportunities": [
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:driven",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "driven",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.24,
+                  "vertical": 0.24
+                },
+                "target": {
+                  "x": 0,
+                  "y": 33.1216
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 64.43620369040855,
+              "preparationMargin": 11.19478436655163
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:chip",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "chip",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0,
+                  "vertical": 0.62
+                },
+                "target": {
+                  "x": 0,
+                  "y": 34
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 55.25942524950401,
+              "preparationMargin": 11.186475042748043
+            },
+            {
+              "key": "footballer_u17_pro_60_2026_11:shot:placed",
+              "action": {
+                "type": "shot",
+                "actorId": "footballer_u17_pro_60_2026_11",
+                "intent": "placed",
+                "contact": "settled",
+                "goalTarget": {
+                  "horizontal": 0.62,
+                  "vertical": 0.34
+                },
+                "target": {
+                  "x": 0,
+                  "y": 31.7308
+                },
+                "decisionBallHeight": 0
+              },
+              "score": 53.4296799714342,
+              "preparationMargin": 11.071544655710113
+            }
+          ],
+          "winner": {
+            "action": {
+              "type": "shot",
+              "actorId": "footballer_u17_pro_60_2026_11",
+              "intent": "driven",
+              "contact": "settled",
+              "goalTarget": {
+                "horizontal": 0.24,
+                "vertical": 0.24
+              },
+              "target": {
+                "x": 0,
+                "y": 33.1216
+              },
+              "decisionBallHeight": 0
+            },
+            "canonicalScore": 62.73697387443372,
+            "deterministicNoise": 1.6992298159748316,
+            "score": 64.43620369040855
+          }
+        }
+      ]
+    },
+    {
+      "id": "pr175-natural-dev-strength:9",
+      "duration": 3,
+      "sampleStep": 0.1,
+      "vanishedWhileBlocked": [],
+      "samples": [
+        {
+          "at": 81.0000000000013,
+          "stateHash": "0f01cd719dcbe9dd79845c9dadb45013b7e55594ad8aa1dbf882c031bed4acc8",
+          "actorId": "footballer_pro_3_22",
+          "blocked": false,
+          "actionCooldown": 0,
+          "possessionAge": 2.2750000000005173,
+          "decisionDelay": 0.3224292076915134,
+          "remaining": 0,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_3_22",
+            "gainedAt": 78.72500000000078,
+            "readyAt": 79.04742920769229,
+            "kind": "settling",
+            "receptionKind": "clean_control",
+            "incomingSpeed": 3.302812895638244
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.0000000000013,
+            "difficulty": 0.38398500660424983,
+            "exposure": 0.9816975083904008,
+            "turnAngle": 0.7865778833975057
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_3_22",
+              "receiverId": "footballer_pro_3_19",
+              "target": {
+                "x": 93.88287127094503,
+                "y": 45.780973088332836
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 39.63964264016312,
+            "deterministicNoise": -2.938406500965357,
+            "score": 36.70123613919776
+          }
+        },
+        {
+          "at": 81.10000000000132,
+          "stateHash": "54ea75cafac34941e4a91555a8f495ee33281231d29eacb64714d5a71f43de04",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 1.2250000000000008,
+          "possessionAge": 0.05000000000001137,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 1.2250000000000008,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 81.0500000000013,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 89.5317791899263,
+                "y": 37.954583626601796
+              },
+              "orientationTarget": -0.8127070153235465,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.27593738043782906,
+                "y": 0.26126339597637627
+              },
+              "pressure": 0.7790062826980362,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.3202724556638,
+            "difficulty": 0.15325397582261469,
+            "exposure": 0.21809089795431996,
+            "turnAngle": 0.21837917772685067
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_pro_57_7"
+            },
+            "canonicalScore": 15.212880671340702,
+            "deterministicNoise": 1.644814034923911,
+            "score": 16.857694706264613
+          }
+        },
+        {
+          "at": 81.20000000000134,
+          "stateHash": "339688ae5fbf80032aa65f19c956afb9e7a4d63ac17b7bdded400c2feaa381a6",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 1.125000000000001,
+          "possessionAge": 0.1500000000000341,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 1.125000000000001,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 81.0500000000013,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 89.58094592773271,
+                "y": 38.00052476471078
+              },
+              "orientationTarget": -0.6902849623006091,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.2419676343170295,
+                "y": 0.2930045459425848
+              },
+              "pressure": 0.7951705271407081,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.31276544389327,
+            "difficulty": 0.1266077959954353,
+            "exposure": 0.14840500168282963,
+            "turnAngle": 0.10955799488255558
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_pro_57_7"
+            },
+            "canonicalScore": 15.183054256483565,
+            "deterministicNoise": 1.644814034923911,
+            "score": 16.827868291407476
+          }
+        },
+        {
+          "at": 81.30000000000136,
+          "stateHash": "716296b4ad23cbcde1d9688e5fb4f367c431d564e4d9e023a7d7f12f68b8f8c7",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 1.0250000000000015,
+          "possessionAge": 0.25000000000005684,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 1.0250000000000015,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 81.0500000000013,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 89.6479722849067,
+                "y": 38.04792990463451
+              },
+              "orientationTarget": -0.5408802943563398,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.19565851481500587,
+                "y": 0.325757188071708
+              },
+              "pressure": 0.7793560259977078,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.30913470439168,
+            "difficulty": 0.1136886410332067,
+            "exposure": 0.08864045918107682,
+            "turnAngle": 0.04765462503528539
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_pro_57_7"
+            },
+            "canonicalScore": 15.231366128387098,
+            "deterministicNoise": 1.644814034923911,
+            "score": 16.87618016331101
+          }
+        },
+        {
+          "at": 81.40000000000138,
+          "stateHash": "59d9fc92db32263b9366532e3d1a742feb96486a416be82d74e62bd4a158b732",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.9250000000000015,
+          "possessionAge": 0.3500000000000796,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.9250000000000015,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 81.0500000000013,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 89.69462524703965,
+                "y": 38.072977504790316
+              },
+              "orientationTarget": -0.444567278472519,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.16342555915950888,
+                "y": 0.34306280272480993
+              },
+              "pressure": 0.7758386135129067,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.648566924742,
+            "difficulty": 0.1647722796555756,
+            "exposure": 0.14057254605309483,
+            "turnAngle": 0.3749967573132018
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_pro_57_7"
+            },
+            "canonicalScore": 15.249044839747999,
+            "deterministicNoise": 1.644814034923911,
+            "score": 16.89385887467191
+          }
+        },
+        {
+          "at": 81.5000000000014,
+          "stateHash": "53548b228edc1ce7a1a3291d6aab31bdadc4db87f7a4f1b20ce634821ed6fe9e",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.8250000000000014,
+          "possessionAge": 0.4500000000001023,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.8250000000000014,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "controlling",
+              "startedAt": 81.0500000000013,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 89.70635915781514,
+                "y": 38.0783989711219
+              },
+              "orientationTarget": -0.42106523707422383,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.15531849353280675,
+                "y": 0.3468085430993583
+              },
+              "pressure": 0.7688795049272695,
+              "reason": "first_touch"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.6320291384012,
+            "difficulty": 0.10617895611914795,
+            "exposure": 0.05461727924939014,
+            "turnAngle": 0.40713856975063045
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_pro_57_7"
+            },
+            "canonicalScore": 15.280115915181998,
+            "deterministicNoise": 1.644814034923911,
+            "score": 16.92492995010591
+          }
+        },
+        {
+          "at": 81.60000000000143,
+          "stateHash": "0999b2ffdc58320896f128485a348d90d04349ec0b52712029db1c30a0b6781a",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.7250000000000013,
+          "possessionAge": 0.5500000000001251,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.7250000000000013,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.9015160798628,
+                "y": 38.60067254655665
+              },
+              "orientationTarget": -0.4501496549120585,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.1653381085172726,
+                "y": 0.34214515906546245
+              },
+              "pressure": 0.7589846451683917,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.63496854037936,
+            "difficulty": 0.11658873364138023,
+            "exposure": 0.06954135311470105,
+            "turnAngle": 0.4333695431843161
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_pro_57_7"
+            },
+            "canonicalScore": 15.18719357483703,
+            "deterministicNoise": 1.644814034923911,
+            "score": 16.832007609760943
+          }
+        },
+        {
+          "at": 81.70000000000145,
+          "stateHash": "686d547cebc21d08f7818f72a1b3d5a649e5655ef5543ce5d06b6a8cb8a22be9",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.6250000000000012,
+          "possessionAge": 0.6500000000001478,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.6250000000000012,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.85450408692918,
+                "y": 38.64324769246764
+              },
+              "orientationTarget": -0.4951072211977987,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.18054787993893065,
+                "y": 0.3343687530998635
+              },
+              "pressure": 0.7541624381258487,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.93693328224515,
+            "difficulty": 0.12356182688857167,
+            "exposure": 0.15940128206374915,
+            "turnAngle": 0.37484644708728787
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "hold",
+              "actorId": "footballer_pro_57_7"
+            },
+            "canonicalScore": 14.74272084080063,
+            "deterministicNoise": 1.644814034923911,
+            "score": 16.38753487572454
+          }
+        },
+        {
+          "at": 81.80000000000148,
+          "stateHash": "aedfe003c50b896a6d43de850e593ccac0ba3a0a7b5d0714490ab53c5b0965df",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.5250000000000011,
+          "possessionAge": 0.7500000000001705,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.5250000000000011,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.77100417737148,
+                "y": 38.71015259017997
+              },
+              "orientationTarget": -0.5709618369284133,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.20536779676801162,
+                "y": 0.31972498815490275
+              },
+              "pressure": 0.7484716396710211,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.93160772154303,
+            "difficulty": 0.10468612385049142,
+            "exposure": 0.13255549071480716,
+            "turnAngle": 0.3918013802489213
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_57_7",
+              "receiverId": "footballer_pro_57_0",
+              "target": {
+                "x": 102.4985860285155,
+                "y": 34.90340199904807
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 24.11607828835271,
+            "deterministicNoise": -2.0596704445779324,
+            "score": 22.056407843774778
+          }
+        },
+        {
+          "at": 81.9000000000015,
+          "stateHash": "b8f0b8e35a9399e6c2d62beef02b6f4e4b92a565cc7d289474dfbc847e3fd94b",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.42500000000000104,
+          "possessionAge": 0.8500000000001933,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.42500000000000104,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.68989336023918,
+                "y": 38.76596331582862
+              },
+              "orientationTarget": -0.6407591677098807,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.22716559387619062,
+                "y": 0.30462401901176084
+              },
+              "pressure": 0.7421716046586252,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 81.92497930600356,
+            "difficulty": 0.08111371966398294,
+            "exposure": 0.15599006924375342,
+            "turnAngle": 0.4056611128207219
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_57_7",
+              "receiverId": "footballer_pro_57_0",
+              "target": {
+                "x": 102.4985860285155,
+                "y": 34.90340199904807
+              },
+              "intent": "support"
+            },
+            "canonicalScore": 28.17771077606674,
+            "deterministicNoise": -2.0596704445779324,
+            "score": 26.118040331488807
+          }
+        },
+        {
+          "at": 82.00000000000152,
+          "stateHash": "f1bbb8f4a8b0146e7aaf9a089c03b97d0250dfffc6cda0bab7805951a4ee0732",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.32500000000000095,
+          "possessionAge": 0.950000000000216,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.32500000000000095,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.61896272096409,
+                "y": 38.808336531946686
+              },
+              "orientationTarget": -0.6993283721483046,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.24460746401195807,
+                "y": 0.2908043819299129
+              },
+              "pressure": 0.7354605403625103,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 82.1912442425016,
+            "difficulty": 0.04992500881414198,
+            "exposure": 0.14656049219748463,
+            "turnAngle": 0.22986652105301353
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_57_7",
+              "receiverId": "footballer_pro_57_21",
+              "target": {
+                "x": 72.85148925142907,
+                "y": 38.89332327185061
+              },
+              "intent": "through"
+            },
+            "canonicalScore": 30.933920505360888,
+            "deterministicNoise": 0.94142353720963,
+            "score": 31.875344042570518
+          }
+        },
+        {
+          "at": 82.10000000000154,
+          "stateHash": "c0540350927ba4d0397414af7221db039a2aad04527f48e749896eabbbcdd31b",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.2250000000000009,
+          "possessionAge": 1.0500000000002387,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.2250000000000009,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.55713510493597,
+                "y": 38.840875245365325
+              },
+              "orientationTarget": -0.7488529916983051,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.25870364227142656,
+                "y": 0.27833868842742243
+              },
+              "pressure": 0.7284187174652743,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 82.19053516839541,
+            "difficulty": 0.04739933917964313,
+            "exposure": 0.15474376199175144,
+            "turnAngle": 0.23993390260036485
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "pass",
+              "actorId": "footballer_pro_57_7",
+              "receiverId": "footballer_pro_57_21",
+              "target": {
+                "x": 72.52966821038486,
+                "y": 38.91907039117983
+              },
+              "intent": "through"
+            },
+            "canonicalScore": 29.91848744820989,
+            "deterministicNoise": 0.94142353720963,
+            "score": 30.85991098541952
+          }
+        },
+        {
+          "at": 82.20000000000157,
+          "stateHash": "eea490b3acfe237644b71a1659f7ffcbcb7c4a1da5e470541803d5fcb0c9848f",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.12500000000000092,
+          "possessionAge": 1.1500000000002615,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.12500000000000092,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.50315707618982,
+                "y": 38.86619206379804
+              },
+              "orientationTarget": -0.7911129800619108,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.2702317552752908,
+                "y": 0.26716062292343035
+              },
+              "pressure": 0.7211072833616016,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 82.20000000000157,
+            "difficulty": 0.04940368066905621,
+            "exposure": 0.1713838985031602,
+            "turnAngle": 0.2488385966118436
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "space_pass",
+              "actorId": "footballer_pro_57_7",
+              "target": {
+                "x": 68.71504089527208,
+                "y": 38.62892837685869
+              }
+            },
+            "canonicalScore": 23.456313265826154,
+            "deterministicNoise": 0.9018176421523094,
+            "score": 24.358130907978463
+          }
+        },
+        {
+          "at": 82.30000000000159,
+          "stateHash": "33cec70d8d3ae63fcc1b99662fe2cb0f477862b927346359e7da7d127b524d4b",
+          "actorId": "footballer_pro_57_7",
+          "blocked": true,
+          "actionCooldown": 0.025000000000000924,
+          "possessionAge": 1.2500000000002842,
+          "decisionDelay": 0.522844310906919,
+          "remaining": 0.025000000000000924,
+          "physicalPreparation": {
+            "actorId": "footballer_pro_57_7",
+            "gainedAt": 81.0500000000013,
+            "readyAt": 81.57284431090822,
+            "kind": "shielding",
+            "incomingSpeed": 0,
+            "micro": {
+              "phase": "shielding",
+              "startedAt": 81.57500000000142,
+              "origin": {
+                "x": 89.93116224056,
+                "y": 37.57643923768862
+              },
+              "localTarget": {
+                "x": 90.45582792184534,
+                "y": 38.88615919528483
+              },
+              "orientationTarget": -0.8275233827932169,
+              "passingAngle": 1.7799906920941948,
+              "touchDirection": {
+                "x": -0.15,
+                "y": -1
+              },
+              "shielding": true,
+              "ballOffset": {
+                "x": -0.2797779263039597,
+                "y": 0.257146479565745
+              },
+              "pressure": 0.713572960666489,
+              "reason": "protect_from_pressure"
+            }
+          },
+          "contactWindow": {
+            "earliestContactAt": 82.4366961876951,
+            "difficulty": 0.03365679319392134,
+            "exposure": 0.15525568428141745,
+            "turnAngle": 0.14619998744107932
+          },
+          "opportunities": [],
+          "winner": {
+            "action": {
+              "type": "space_pass",
+              "actorId": "footballer_pro_57_7",
+              "target": {
+                "x": 68.3931068859819,
+                "y": 38.65165835598738
+              }
+            },
+            "canonicalScore": 22.198552575009796,
+            "deterministicNoise": 0.9018176421523094,
+            "score": 23.100370217162105
+          }
+        }
+      ]
+    }
+  ]
+}

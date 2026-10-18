@@ -1,0 +1,646 @@
+{
+  "version": 1,
+  "manifest": {
+    "baseCommit": "52748e299115cd4952d176e18d2609f4b358e797",
+    "normalizedProductionHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+    "node": "v24.19.0"
+  },
+  "method": "Original source expressions and exact locations. AST extraction, no second scorer.",
+  "rows": [
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "line": 106,
+      "expression": "carryOpportunitySchema.parse({\n    target: end,\n    freeDistance,\n    carrierEta,\n    defenderEta,\n    recoveryMargin: defenderEta - carrierEta,\n    crossingAccess: wide && support > 0 ? Math.max(0, Math.min(1, (depth - 65) / 25)) : 0,\n    support,\n    turnCost: Math.abs(normalizeAngle(angleForVector(direction) - actor.facingAngle)) / Math.PI,\n  })"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "line": 156,
+      "expression": "actions"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "line": 175,
+      "expression": "actions"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 86,
+      "expression": "{ value: 0, nearestChallengerId: undefined }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 108,
+      "expression": "{\n    value: Math.max(\n      0,\n      Math.min(\n        1,\n        (1 - first.metres / 14) * 0.62 +\n          Math.min(0.15, closing / 35) +\n          Math.min(0.15, (nearby.length - 1) * 0.06) +\n          (defensive - control) * 0.18,\n      ),\n    ),\n    nearestChallengerId: first.defender.id,\n  }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 142,
+      "expression": "(\n    Math.min(1, (Math.max(0, value - 0.38) * Math.max(0, age - preparation)) / 2.8) *\n    (corner && protectingLead ? 0.28 : 1)\n  )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 175,
+      "expression": "(\n    4 +\n    Math.pow(opportunity.effectiveScoringExpectation, 1.18) * 150 -\n    opportunity.pressure * 12 -\n    opportunity.blockingDefenders * 4 +\n    styleModifier -\n    extremeRangePenalty +\n    distanceContext\n  )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 190,
+      "expression": "Math.max(\n    0,\n    opportunity.effectiveScoringExpectation * 62 + Math.max(0, 22 - goalDistance) * 0.7,\n  )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 203,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 205,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 212,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 222,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 231,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 236,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 237,
+      "expression": "{ projection, receiverEta: receiverEta.estimatedTime, defenderEta, laneRisk }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 247,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 249,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 251,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 255,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 256,
+      "expression": "{ projection, receiverEta: receiverEta.estimatedTime }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 263,
+      "expression": "[]"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 265,
+      "expression": "[]"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 267,
+      "expression": "state.restart.takerId === actorId ? enumerateRestartActions(state) : []"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 269,
+      "expression": "[\n      ...enumerateCanonicalShootingOptions(state, actorId),\n      ...enumerateFirstTimePasses(state, actorId),\n      ...enumerateDefensiveChallengeActions(state, actorId),\n    ]"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 400,
+      "expression": "actions"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 409,
+      "expression": "-Infinity"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 412,
+      "expression": "-Infinity"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 413,
+      "expression": "(\n      scoreActionForAI(\n        state,\n        actorId,\n        {\n          type: 'pass',\n          actorId,\n          receiverId: plan.receiverId,\n          target: plan.requestedSpace,\n          requestedSpace: plan.requestedSpace,\n          intent: plan.intent,\n          delivery: plan.delivery,\n        },\n        suppliedPreferences,\n      ) + Math.min(6, Math.max(0, plan.anticipationAdvantage) * 3)\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 433,
+      "expression": "-Infinity"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 436,
+      "expression": "35 + attributes.tackling * 0.15"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 438,
+      "expression": "22 + danger * 0.16 + attributes.aggression * 0.13 - disciplineRisk"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 440,
+      "expression": "14 + danger * 0.2 + attributes.tackling * 0.1 - disciplineRisk"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 441,
+      "expression": "8 + danger * 0.3 + attributes.aggression * 0.12 - disciplineRisk * 1.4"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 493,
+      "expression": "underPressure >= 0.65\n      ? Math.max(utility, 14 + shieldingQuality * 8 - underPressure * 4) -\n          urgency * 35 -\n          deriveSolutionPenalty(state, actor, 'hold', actor.position, undefined, 0.3)\n      : utility"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 542,
+      "expression": "(\n          beatenToContact *\n          Math.max(contact.exposure, access.exposure) *\n          (1 - access.shielding * 0.65)\n        )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 553,
+      "expression": "(\n      18 +\n      (fieldValue(progressionTarget, actor) - fieldValue(actor.position, actor)) * 1.3 +\n      opportunity.crossingAccess * Math.min(10, opportunity.support * 3) +\n      continuity +\n      carryContinuity -\n      burstCost +\n      (actor.profile.attributes.dribbling +\n        actor.profile.attributes.agility +\n        actor.profile.attributes.pace +\n        actor.profile.attributes.composure) /\n        16 -\n      Math.max(\n        underPressure,\n        Math.max(\n          0,\n          1 -\n            Math.min(...opponents(state, actor).map((p) => distance(p.position, action.target))) /\n              9,\n        ),\n      ) *\n        30 -\n      buildUpSafety * underPressure * 18 -\n      opponents(state, actor).filter(\n        (p) =>\n          distance(p.position, actor.position) < 6 &&\n          distanceToSegment(p.position, actor.position, action.target) < 1.7,\n      ).length *\n        (12 + urgency * 12) *\n        (1 - actor.profile.attributes.dribbling / 160) +\n      Math.max(\n        0,\n        distance(\n          action.target,\n          state.players.find((p) => p.id === state.nearestChallengerId)?.position ?? actor.position,\n        ) -\n          distance(\n            actor.position,\n            state.players.find((p) => p.id === state.nearestChallengerId)?.position ??\n              actor.position,\n          ),\n      ) *\n        underPressure *\n        2 -\n      deriveSolutionPenalty(state, actor, 'carry', action.target, undefined, 0.5) -\n      deriveEconomicalMovementCost(actor, action.target) * 2 -\n      contact.difficulty * (8 + underPressure * 10) -\n      contactRisk * 30\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 604,
+      "expression": "(\n      shotUtility(state, actor) + canonicalShotStyleUtility(state, action) - preparationPenalty\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 608,
+      "expression": "action.intent === 'header_shot'\n      ? shotUtility(state, actor) + canonicalShotStyleUtility(state, action)\n      : 35"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 620,
+      "expression": "(\n      24 +\n      delivery +\n      targets.length * 9 -\n      density * 6 -\n      distance(actor.position, action.target) * 0.35 -\n      underPressure * 22 +\n      (action.intent === 'cutback' ? 8 : 0) +\n      (style === 'direct' ? 7 : 0)\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 759,
+      "expression": "(\n    28 +\n    decision.utilityAdjustment +\n    urgency * decision.expectedCompletion * 24 -\n    deriveSolutionPenalty(\n      state,\n      actor,\n      action.intent,\n      action.target,\n      receiver.id,\n      decision.expectedCompletion,\n    ) +\n    adaptationValue +\n    // Evidence changes the cost of a currently risky repeated lane. A safe route remains\n    // available; a single technical error cannot blacklist a teammate or a channel.\n    -(memory?.response.attackVariation ?? 0) *\n      Math.min(3, memory?.attackFailures?.[threatChannel(action.target)] ?? 0) *\n      (1 - (decision.expectedRetainedPossession ?? 0)) *\n      6 +\n    progression * (state.teams[actor.team].phase === 'attacking_transition' ? 1.5 : 1.05) -\n    length * 0.3 -\n    receiverPressure * 17 -\n    laneRisk * 10 +\n    markerSeparation * 0.7 +\n    Math.max(0, widthGained) * 0.35 * switchOpportunity +\n    switchValue +\n    recycleValue -\n    staleReturnPenalty +\n    technical +\n    styleIntent +\n    throughContext +\n    -threatLoss -\n    (offsideRisk && !isDirectOffsideExemptRestart(state) ? 80 : 0) -\n    preparationPenalty +\n    (action.intent === 'lead'\n      ? Math.min(12, Math.max(0, decision.defenderEta - decision.receiverEta) * 8) *\n        decision.expectedCompletion\n      : 0) +\n    (space ? Math.max(-35, Math.min(25, space.utility)) : 0)\n  )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 814,
+      "expression": "enumerateAvailableActions(state, actorId)\n    .map((action) => {\n      const canonicalScore = scoreActionForAI(state, actorId, action, preferences);\n      const deterministicNoise = (rng.float() - 0.5) * 8;\n      return {\n        action,\n        canonicalScore,\n        deterministicNoise,\n        score: canonicalScore + deterministicNoise,\n      };\n    })\n    .sort((a, b) => b.score - a.score)"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 818,
+      "expression": "{\n        action,\n        canonicalScore,\n        deterministicNoise,\n        score: canonicalScore + deterministicNoise,\n      }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 864,
+      "expression": "Math.max(\n    physical,\n    0.2,\n    Math.min(\n      perception,\n      planned && state.time < planned.expiresAt ? 0.25 : Infinity,\n      transition ? 0.6 : Infinity,\n      scoringRange ? 0.4 : Infinity,\n    ),\n  )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 888,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 895,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 896,
+      "expression": "chooseNpcAction(state, actorId)"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 913,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 914,
+      "expression": "rankAvailableActionsForAI(state, actorId).find(\n    ({ action, score }) =>\n      (isShotAction(action)\n        ? canExecuteCanonicalShot(state, action)\n        : action.type === 'pass' && action.firstTime && canExecuteFirstTimePass(state, action)) &&\n      score >\n        controlValue +\n          (action.type === 'pass'\n            ? 18 +\n              (1 - evaluatePressure(state, actor).value) * 18 +\n              Math.hypot(state.ball.velocity?.x ?? 0, state.ball.velocity?.y ?? 0) / 5 +\n              Math.abs(\n                normalizeAngle(\n                  angleForVector({\n                    x: action.target.x - actor.position.x,\n                    y: action.target.y - actor.position.y,\n                  }) - actor.facingAngle,\n                ),\n              ) *\n                6\n            : 0),\n  )?.action"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 945,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 947,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 949,
+      "expression": "(\n      (state.scenario === 'throw_in' &&\n        isRestartSetup(state) &&\n        state.restart.takerId === actor.id) ||\n      (action.receiverId !== actor.id &&\n        state.players.some(\n          (player) =>\n            player.id === action.receiverId &&\n            player.team === actor.team &&\n            canParticipatePhysically(player),\n        ))\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 962,
+      "expression": "state.players.some(\n      (player) =>\n        player.id === action.opponentId &&\n        player.team !== actor.team &&\n        canParticipatePhysically(player),\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 969,
+      "expression": "(\n      !action.intendedTargetId ||\n      state.players.some(\n        (player) => player.id === action.intendedTargetId && canParticipatePhysically(player),\n      )\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 975,
+      "expression": "true"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 984,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1006,
+      "expression": "next"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1007,
+      "expression": "emitCanonicalActionEvents(\n    state,\n    observeCombinationRelease(state, reconcileControlledBallContact(next)),\n  )"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1019,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1021,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1022,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1030,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1031,
+      "expression": "selectRestartAction(state, action, source)"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1036,
+      "expression": "!hasActiveHumanPossession(state) && canExecuteCanonicalShot(state, action)\n      ? { ...state, shotAgencyRequest: action }\n      : state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1044,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1048,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1050,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1067,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1068,
+      "expression": "beginDefensiveChallenge(state, action, source)"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1070,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1082,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1084,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1094,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1097,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1124,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1129,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1136,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1146,
+      "expression": "state"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1166,
+      "expression": "{\n      ...baseState,\n      currentAction: action,\n      latestAction: action,\n      currentActionSource: source,\n      latestActionSource: source,\n      currentActorId: actor.id,\n      // Scanning/orienting is canonical possession time, not a blanket delay after every touch.\n      actionCooldown: 1.6,\n      decisionIndex: state.decisionIndex + 1,\n      ...(restart ? { restart } : {}),\n    }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1180,
+      "expression": "{\n      ...baseState,\n      ballCarrierIntent: {\n        actorId: actor.id,\n        type: 'carry' as const,\n        target: action.target,\n        startedAt: state.time,\n        estimatedArrival,\n        startPosition: { ...actor.position },\n        closestPointReached: { ...actor.position },\n        humanSelected: consciouslySelected,\n        movementMode: action.movementMode ?? 'carry',\n        lastProgressAt: state.time,\n        // Arrival is the primary lifetime; this bounded margin is only a safety net.\n        expiresAt:\n          state.time +\n          (action.movementMode === 'retain'\n            ? 8\n            : Math.min(12, Math.max(1.8, estimatedArrival + 1.25))),\n      },\n      currentAction: action,\n      latestAction: action,\n      currentActionSource: source,\n      latestActionSource: source,\n      currentActorId: actor.id,\n      actionCooldown: 1.3,\n      decisionIndex: state.decisionIndex + 1,\n      ...(consciouslySelected && action.actorId === state.controlledFootballerId\n        ? {\n            postActionAgencyCheckpoint: {\n              actorId: actor.id,\n              completedAction: 'carry' as const,\n              at: state.time,\n            },\n          }\n        : {}),\n      ...(restart ? { restart } : {}),\n    }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1236,
+      "expression": "{\n      ...shotBaseState,\n      ...(penaltyReleased\n        ? {\n            scenario: 'open_play' as const,\n            teams: {\n              home: {\n                ...state.teams.home,\n                phase:\n                  actor.team === 'home'\n                    ? ('attacking_transition' as const)\n                    : ('defensive_transition' as const),\n                phaseElapsed: 0,\n              },\n              away: {\n                ...state.teams.away,\n                phase:\n                  actor.team === 'away'\n                    ? ('attacking_transition' as const)\n                    : ('defensive_transition' as const),\n                phaseElapsed: 0,\n              },\n            },\n          }\n        : {}),\n      ball: {\n        x: state.ball.x,\n        y: state.ball.y,\n        from: { x: state.ball.x, y: state.ball.y },\n        target,\n        travelKind: 'shot',\n        sourceAction: action.type,\n        flightTime: 0,\n        distanceTravelled: 0,\n        targetHeight: Math.max(0, shot.heightMetres),\n        shot,\n        height: state.ball.height ?? 0,\n        releaseHeight: state.ball.height ?? 0,\n        airborne: true,\n        velocity: shotVelocity,\n        spin: shot.launchSpin,\n        launchVelocity: shotVelocity,\n        launchSpeed: shot.speed,\n        launchElevation: shotElevation,\n        bounceCount: 0,\n        lastTouchPlayerId: actor.id,\n      },\n      currentAction: action,\n      latestAction: action,\n      currentActionSource: source,\n      latestActionSource: source,\n      currentActorId: actor.id,\n      actionCooldown: duration + 0.45,\n      decisionIndex: state.decisionIndex + 1,\n      ...(restart && !penaltyReleased ? { restart, restartAction: action } : {}),\n    }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1361,
+      "expression": "{\n      ...baseState,\n      ball: {\n        x: state.ball.x,\n        y: state.ball.y,\n        from: { x: state.ball.x, y: state.ball.y },\n        target: { ...headerTarget },\n        ...(action.intendedTargetId ? { intendedReceiverId: action.intendedTargetId } : {}),\n        travelKind:\n          action.type === 'cross'\n            ? state.scenario === 'corner'\n              ? 'corner_delivery'\n              : state.scenario.startsWith('free_kick')\n                ? 'free_kick_delivery'\n                : 'cross'\n            : 'header',\n        sourceAction: action.type,\n        flightTime: 0,\n        distanceTravelled: 0,\n        ...(headerShot\n          ? { targetHeight: Math.max(0, headerShot.heightMetres), shot: headerShot }\n          : {}),\n        height: action.type === 'header' ? (state.ball.height ?? 0) : 0,\n        ...(action.type === 'header' ? { releaseHeight: state.ball.height ?? 0 } : {}),\n        airborne: true,\n        velocity: launchVelocity,\n        launchVelocity,\n        launchSpeed,\n        launchElevation: elevation,\n        bounceCount: 0,\n        lastTouchPlayerId: actor.id,\n      },\n      currentAction: action,\n      latestAction: action,\n      currentActionSource: source,\n      latestActionSource: source,\n      currentActorId: actor.id,\n      actionCooldown: duration + 0.35,\n      decisionIndex: state.decisionIndex + 1,\n      ...(offsideSnapshot ? { offsideSnapshot } : {}),\n      ...(restart ? { restart, restartAction: action } : {}),\n    }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1507,
+      "expression": "{\n    ...baseState,\n    ball: {\n      x: state.ball.x,\n      y: state.ball.y,\n      from: releasePosition,\n      target: throwPlan ? { ...target } : { ...execution.physicalTarget },\n      intendedReceiverId: receiver.id,\n      travelKind: isThrowIn\n        ? 'throw_in'\n        : isLongDistribution\n          ? 'long_distribution'\n          : action.intent === 'through'\n            ? 'through_ball'\n            : 'pass',\n      sourceAction: action.requestedSpace ? 'space_pass' : action.type,\n      executionType: execution.type,\n      flightTime: 0,\n      distanceTravelled: 0,\n      ...(isThrowIn ? { releaseHeight: 1.9 } : {}),\n      height: isThrowIn ? 1.9 : 0,\n      airborne:\n        isThrowIn ||\n        isLongDistribution ||\n        action.delivery === 'lofted' ||\n        canonicalPlan.elevation > 0,\n      velocity: launchVelocity,\n      launchVelocity,\n      launchSpeed,\n      launchElevation,\n      bounceCount: 0,\n      lastTouchPlayerId: actor.id,\n    },\n    currentAction: action,\n    latestAction: action,\n    currentActionSource: source,\n    latestActionSource: source,\n    currentActorId: actor.id,\n    actionCooldown: duration + 0.35,\n    decisionIndex: state.decisionIndex + 1,\n    ...(projection\n      ? {\n          receptionPreparation: receptionPreparationSchema.parse({\n            actorId: receiver.id,\n            sourceActorId: actor.id,\n            releasedAt: state.time,\n            awarenessAt: state.time + projection.receiverAwarenessDelay,\n            expectedContactPoint: projection.expectedReceptionPoint,\n            expectedArrivalTime: state.time + duration,\n            movement:\n              projection.receiverMovement === 'hold'\n                ? 'wait'\n                : projection.receiverMovement === 'meet_ball'\n                  ? 'meet_ball'\n                  : 'run_onto_ball',\n            ballEpisode: episode,\n            readiness: projection.receiverReadiness,\n          }),\n          lastPassDiagnostic: {\n            receiverRelationshipAtRelease: deriveFlankRelationship(state, receiver),\n            ...(action.firstTime\n              ? {\n                  actionSource: source,\n                  incomingSpeed: execution.incomingSpeed ?? 0,\n                  incomingHeight: execution.incomingHeight ?? 0,\n                }\n              : {}),\n            selectionQuality,\n            intendedTarget: execution.intendedTarget,\n            physicalTarget: execution.physicalTarget,\n            executionQuality: execution.quality,\n            passId: episode,\n            passerId: actor.id,\n            intendedReceiverId: receiver.id,\n            releasedAt: state.time,\n            receiverPositionAtRelease: { ...receiver.position },\n            receiverVelocityAtRelease: { ...receiver.velocity },\n            predictedReceptionPoint: projection.expectedReceptionPoint,\n            awarenessDelay: projection.receiverAwarenessDelay,\n            receiverArrivalEstimate: projection.estimatedReceiverArrival,\n            bestDefenderArrivalEstimate: Number.isFinite(bestDefenderArrival)\n              ? bestDefenderArrival\n              : 99,\n            leadDistance: projection.leadDistance,\n            intent: projection.semanticIntent,\n            executionType: execution.type,\n            delivery: action.delivery ?? 'ground',\n            ...(action.requestedSpace ? { requestedSpace: action.requestedSpace } : {}),\n            ballArrivalEstimate: duration,\n            meetingErrorSeconds: projection.estimatedReceiverArrival - duration,\n            predictionHorizon: projection.predictionHorizon,\n          },\n        }\n      : {\n          ...(throwReadiness\n            ? {\n                receptionPreparation: receptionPreparationSchema.parse({\n                  actorId: receiver.id,\n                  sourceActorId: actor.id,\n                  releasedAt: state.time,\n                  awarenessAt: state.time + throwReadiness.awareAt,\n                  expectedContactPoint: target,\n                  expectedArrivalTime: state.time + duration,\n                  movement: distance(receiver.position, target) < 0.6 ? 'wait' : 'meet_ball',\n                  ballEpisode: episode,\n                  readiness: throwReadiness,\n                }),\n              }\n            : {}),\n          lastPassDiagnostic: {\n            receiverRelationshipAtRelease: deriveFlankRelationship(state, receiver),\n            selectionQuality,\n            intendedTarget: execution.intendedTarget,\n            physicalTarget: execution.physicalTarget,\n            executionQuality: execution.quality,\n            passId: episode,\n            passerId: actor.id,\n            intendedReceiverId: receiver.id,\n            releasedAt: state.time,\n            receiverPositionAtRelease: { ...receiver.position },\n            receiverVelocityAtRelease: { ...receiver.velocity },\n            predictedReceptionPoint: target,\n            awarenessDelay: throwReadiness?.awareAt ?? 0,\n            receiverArrivalEstimate: duration,\n            bestDefenderArrivalEstimate: Number.isFinite(bestDefenderArrival)\n              ? bestDefenderArrival\n              : 99,\n            leadDistance: distance(receiver.position, target),\n            intent: action.intent,\n            executionType: execution.type,\n            delivery: action.delivery ?? 'ground',\n            ...(action.requestedSpace ? { requestedSpace: action.requestedSpace } : {}),\n            ballArrivalEstimate: throwPlan?.predictedFlightTime ?? duration,\n          },\n        }),\n    ...(offsideSnapshot ? { offsideSnapshot } : {}),\n    ...(restart ? { restart, restartAction: action } : {}),\n    ...(isThrowIn\n      ? {\n          throwInRestriction: { throwerId: actor.id, releasedAt: state.time },\n          lastThrowInDiagnostic: throwInDiagnosticSchema.parse({\n            throwerId: actor.id,\n            requestedReceiverId: requestedThrow?.receiverId ?? receiver.id,\n            chosenReceiverId: receiver.id,\n            requestedTarget: requestedThrow?.target ?? target,\n            releaseTarget: target,\n            actualReleaseVector: launchVelocity,\n            releasedAt: state.time,\n            ...(throwFallbackReason ? { fallbackReason: throwFallbackReason } : {}),\n          }),\n        }\n      : {}),\n  }"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1666,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "line": 1675,
+      "expression": "enumerateRestartActions(state)\n    .map((action, index) => ({\n      action,\n      index,\n      score: scoreActionForAI(projected, action.actorId, action),\n    }))\n    .sort((a, b) => b.score - a.score || a.index - b.index)[0]?.action"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "line": 68,
+      "expression": "earliest"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "line": 105,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "line": 107,
+      "expression": "(\n      distanceToSegment(p.position, origin, target) < (delivery === 'lofted' ? 1 : 2.1) &&\n      estimatePlayerArrivalTime(state, p, point, 'intercept').estimatedTime <\n        plan.predictedArrivalTime * fraction + 0.18\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "line": 215,
+      "expression": "{\n    expectedCompletion,\n    selectionQuality,\n    passerAbility,\n    pressure,\n    length,\n    ballEta: plan.predictedArrivalTime,\n    receiverEta,\n    defenderEta,\n    laneOccupation,\n    boundaryMargin,\n    receiverLateBy,\n    targetPredictedOutOfPlay,\n    executionUncertaintyMetres: execution.uncertaintyMetres,\n    expectedReceptionQuality,\n    expectedRetainedPossession,\n    receiverAdjustmentCost,\n    utilityAdjustment:\n      -(1 - (targetPredictedOutOfPlay ? 0 : expectedRetainedPossession)) *\n        (38 + read * 38) *\n        (1 - appetite * 0.3) -\n      receiverAdjustmentCost * (0.7 + read) -\n      (targetPredictedOutOfPlay ? 65 + read * 25 : 0) +\n      (runner && expectedCompletion > 0.62 ? (expectedCompletion - 0.62) * 22 : 0),\n  }"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "line": 62,
+      "expression": "{\n    playerId: player.id,\n    origin: { ...player.position },\n    velocity: { ...player.velocity },\n    intendedDirection: direction,\n    points,\n  }"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "line": 86,
+      "expression": "run.points\n    .map(({ t, position }) => {\n      const defenderArrival = earliestDefenderArrival(state, defenders, position);\n      const attackerArrival = Math.max(\n        t,\n        estimatePlayerArrivalTime(state, runner, position, 'intercept').estimatedTime,\n      );\n      const laneRisk = defenders.reduce(\n        (risk, defender) =>\n          risk +\n          Math.max(0, 1 - distanceToSegment(defender.position, passer.position, position) / 5),\n        0,\n      );\n      const progress = (attacksRight(passer) ? 1 : -1) * (position.x - runner.position.x);\n      const boundary = Math.min(position.y, 68 - position.y, position.x, 105 - position.x);\n      return {\n        target: position,\n        attackerArrival,\n        defenderArrival,\n        laneRisk,\n        utility:\n          progress * 1.4 +\n          (defenderArrival - attackerArrival) * 12 -\n          laneRisk * 8 +\n          Math.min(5, boundary),\n      };\n    })\n    .sort((a, b) => b.utility - a.utility)[0]"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "line": 101,
+      "expression": "{\n        target: position,\n        attackerArrival,\n        defenderArrival,\n        laneRisk,\n        utility:\n          progress * 1.4 +\n          (defenderArrival - attackerArrival) * 12 -\n          laneRisk * 8 +\n          Math.min(5, boundary),\n      }"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "line": 86,
+      "expression": "sum + insideFlight * Math.exp(-((separation / 1.65) ** 2))"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "line": 153,
+      "expression": "shootingOpportunitySchema.parse({\n    distance: metres,\n    angle,\n    pressure,\n    blockingDefenders,\n    blockingDemand,\n    visibleTargetArea,\n    goalkeeper: {\n      ...(goalkeeper ? { goalkeeperId: goalkeeper.id } : {}),\n      distanceFromGoalCentre: goalkeeperDistance,\n      distanceFromGoalLine: goalkeeper ? Math.abs(goalkeeper.position.x - goal.x) : 0,\n      estimatedRecoveryTime,\n      estimatedShotTravelTime,\n      goalCoverage,\n    },\n    baseXg,\n    shooterExecutionQuality,\n    effectiveScoringExpectation,\n    category,\n    value: effectiveScoringExpectation,\n  })"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 26,
+      "expression": "actor\n    ? state.players.filter(\n        (player) =>\n          player.team !== actor.team && state.restart?.roles?.[player.id]?.key.includes('wall'),\n      )\n    : []"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 42,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 51,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 65,
+      "expression": "contact?.kind !== 'defender'"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 72,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 100,
+      "expression": "intent"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 102,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 119,
+      "expression": "[]"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 138,
+      "expression": "profiles"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 169,
+      "expression": "{\n    facingDifficulty,\n    footDifficulty: weakerSide ? 1 - actor.profile.weakFootProficiency / 100 : 0,\n  }"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 190,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 200,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 202,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 252,
+      "expression": "incomingShotContactSchema.parse({\n      point,\n      height,\n      arrivalTime: sample.at,\n      incomingSpeed,\n      verticalSpeed: sample.ball.velocity.z,\n      bounceCount: sample.ball.bounceCount,\n      ...body,\n      executionDifficulty,\n    })"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 263,
+      "expression": "undefined"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 278,
+      "expression": "[]"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 291,
+      "expression": "[]"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 295,
+      "expression": "[]"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 309,
+      "expression": "[]"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 310,
+      "expression": "[\n      {\n        type: 'header',\n        actorId,\n        target: goal,\n        intent: 'header_shot',\n        firstTime: true,\n        goalTarget: goalTarget('placed'),\n        decisionBallHeight: state.ball.height ?? 0,\n      },\n    ]"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 348,
+      "expression": "intents.map((intent) => {\n    const aim = goalTarget(intent);\n    const goalPoint = goalIntentToPitch(actor, aim);\n    return {\n      type: 'shot',\n      actorId,\n      intent,\n      contact,\n      goalTarget: aim,\n      target: { x: goalPoint.x, y: goalPoint.y },\n      decisionBallHeight: state.ball.height ?? 0,\n    };\n  })"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 351,
+      "expression": "{\n      type: 'shot',\n      actorId,\n      intent,\n      contact,\n      goalTarget: aim,\n      target: { x: goalPoint.x, y: goalPoint.y },\n      decisionBallHeight: state.ball.height ?? 0,\n    }"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 367,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 369,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 382,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 390,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 392,
+      "expression": "(\n      action.intent !== 'header_shot' ||\n      (Boolean(evaluateAerialContact(actor, state.ball, 0)) &&\n        (state.ball.height ?? 0) >= 1.45 &&\n        (!action.firstTime ||\n          enumerateCanonicalShootingOptions(state, actor.id).some(\n            (option) => option.type === 'header',\n          )))\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 405,
+      "expression": "false"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 407,
+      "expression": "enumerateCanonicalShootingOptions(state, actor.id).some(\n    (option) =>\n      option.type === 'shot' &&\n      option.intent === action.intent &&\n      option.contact === (action.contact ?? 'settled'),\n  )"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 450,
+      "expression": "shotExecutionProfileSchema.parse({\n    intent,\n    contact,\n    nominalSpeed:\n      (freeKickProfile === 'power_bend'\n        ? 34\n        : freeKickProfile === 'controlled_curl'\n          ? 24\n          : freeKickProfile === 'dipping'\n            ? 27\n            : freeKickProfile === 'under_wall'\n              ? 27\n              : intent === 'driven'\n                ? 31\n                : intent === 'placed'\n                  ? 25\n                  : intent === 'chip'\n                    ? 17\n                    : 19) +\n      actor.profile.attributes.technique * 0.045,\n    errorMultiplier:\n      (intent === 'driven' ? 1.12 : intent === 'placed' ? 0.88 : intent === 'chip' ? 1.05 : 1) *\n      (1 + difficulty * 0.22),\n    pressureSensitivity: intent === 'placed' ? 0.4 : intent === 'driven' ? 0.34 : 0.38,\n    preparationSeconds: shotPreparationSeconds(intent, contact),\n    firstTimeDifficulty: difficulty,\n    orientationDifficulty: body.facingDifficulty,\n    dominantFootDifficulty: header ? 0 : body.footDifficulty,\n    minimumVerticalSpeed: intent === 'chip' ? 8.1 + actor.profile.attributes.technique * 0.012 : 0,\n  })"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 496,
+      "expression": "-8 - executionPenalty + actor.profile.attributes.heading / 20"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 498,
+      "expression": "Math.min(22, opportunity.goalkeeper.distanceFromGoalLine * 3) - 8 - executionPenalty"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 500,
+      "expression": "(\n      actor.profile.attributes.finishing / 30 +\n      opportunity.angle * 3 -\n      opportunity.pressure * 7 -\n      executionPenalty\n    )"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "line": 506,
+      "expression": "(\n    Math.max(0, 20 - opportunity.distance) * 0.22 + opportunity.pressure * 3 - executionPenalty\n  )"
+    }
+  ]
+}

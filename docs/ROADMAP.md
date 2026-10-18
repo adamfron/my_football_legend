@@ -1,62 +1,67 @@
 # Roadmap
 
-Aktualny etap: **PR175 — Independent Match Reality Validation**.
-[Raport, dowody i 40 odpowiedzi](PR175_MATCH_REALITY_VALIDATION.md).
+Aktualny etap: **PR176 — Match Engine Mathematical Audit & Reform Blueprint**.
+[Audyt](PR176_MATCH_ENGINE_MATHEMATICAL_AUDIT.md),
+[warianty reformy](PR176_MATCH_ENGINE_REFORM_OPTIONS.md),
+[PR177 blueprint](PR176_MATCH_ENGINE_PR177_BLUEPRINT.md),
+[timery i progi](PR176_TIMING_AND_THRESHOLD_INVENTORY.md).
 
-Ocena: **NOT READY do statystycznej kalibracji PR177**. Ponownie zmierzono
-scalony PR174 po poprawce asekuracji (16+8 meczów), a nowe 12 projektów
-rozdzielono przed pomiarami na development i zamkniętą walidację. Nadmierna
-cyrkulacja i skrajnie rzadkie groźne strzały pozostają nierozwiązane. Nie przyjęto
-nowej korekty gameplay bez dostatecznie izolowanej przyczyny. Następna korekta
-wymaga odtworzonego łańcucha final-third→box/credible option, parowanych prób
-i nowego zamkniętego zbioru; walidacja PR175 została już zużyta.
+Scalony [PR175](PR175_MATCH_REALITY_VALIDATION.md) pozostawia ocenę **NOT READY**
+do statystycznej kalibracji summary. PR176 nie zmienia gameplay; wybiera jednak
+konkretny eksperyment zamiast odkładać reformę do pełnego rozdzielenia przyczyn.
+Preferowany pakiet B łączy common subsequent-state value/risk, independent run
+candidates, consistent physical delivery plans i hybrid readiness. A jest fallbackiem,
+C większą modularną alternatywą. Utworzono 12 nowych initial states (6+6), bez
+odczytu przyszłych wyników. Dawna validation PR175 jest zużyta.
 
-Poprzedni etap: **PR174 — Combination Play & Tactical Adaptation (scalony)**.
-[Raport PR174](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
+Poprzednie scalone etapy pozostają ważne:
+[PR173 — first-touch/dynamic actions](PR173_DYNAMIC_FOOTBALL_ACTIONS_FIRST_TOUCH.md),
+[PR174 — combinations/adaptation](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md),
+[PR175 — independent reality validation](PR175_MATCH_REALITY_VALIDATION.md).
+Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
 
-Poprzedni etap: **PR173 — Dynamic Football Actions & First-Touch Intelligence (scalony)**.
-[Raport, scenariusze i granice dowodu](PR173_DYNAMIC_FOOTBALL_ACTIONS_FIRST_TOUCH.md).
+## Autorytatywna kolejność PR176–PR182+
 
-PR173 łączy ruchome przyjęcie z fizycznym impulsem kontroli, ograniczoną prognozą
-interwencji i istniejącym cyklem kontynuacji. Scenariusze 1a/1b/2a, audyt rezerwy
-zrywu i porównania zamrożonych decyzji poprzedzają zmiany polityki. Odrzucone
-heurystyki nie trafiają do rankingu. Nie deklarujemy rozwiązania nadmiernego recyklingu.
+- **PR176 — Match Engine Mathematical Audit & Reform Blueprint**. Aktualny PR:
+  pełne mathematical/action pipeline, correlated risk, candidate gates, pass flight,
+  artificial timing, movement authority i trzy reform packages. Reproducible research
+  i executable PR177 specification; bez rebalance, zmiany fizyki, timing lub save.
+- **PR177 — Match Engine Reform Implementation**. Wdrożyć preferowany pakiet B
+  w odizolowanej policy z zachowanym legacy baseline i porównaniem A. Zmiana musi
+  materialnie sprawdzić inny futbol. Frozen states, paired canonical continuations,
+  development i nowe zamknięte fixtures, human/save/replay/defence/CPU regressions.
+  Zachować działające physical mechanisms; nie wymagać pełnego rewrite silnika.
+- **PR178 — Match Engine Reform Validation**. Niezależne pełne mecze i nowe seeds,
+  rozkłady progression, CM, shots/blocks/saves/corners, turnovers/restarts/live-time,
+  defence, determinism i koszt. Rozliczyć pozostałe przyczyny nierealizmu i jawnie
+  zdecydować, czy canonical nadaje się na target lekkiej symulacji. Bez kwot.
+- **PR179 — Generational Renewal & World Strength**. Zachowany dawny PR176:
+  20–25 sezonów rozwoju NPC, suma/średnia OVR kadr i najlepszej XI, jakość pozycji,
+  rozkład wieku, akademie i ich absolwenci, integracja/blokowanie młodych przez
+  dobrych weteranów, aging, retirement, uzupełnienia, trajektorie talentu i pułapy,
+  transfery między silnymi/słabymi klubami oraz długofalowa jakość świata.
+  Powtórzyć pomiary po istotnej rozbudowie bazy.
+- **PR180 — Summary Simulation & PlayStyles**. Zachowany dawny PR177:
+  kalibrować lightweight simulation dopiero przeciw właściwie zweryfikowanemu
+  canonical; gole/asysty DM/CM i innych pozycji. Rozwijać ludzkie PlayStyles na
+  podstawie właściwie udokumentowanych summary matches, zachowując źródło danych,
+  wieloletnie wymagania i progi. Udział/zmiany: starter/substitute, entry/exit,
+  realne ID zastępowanego/zastępującego i tylko rzeczywiście modelowany powód.
+  Nie wnioskować słabej gry z oceny/minut. Tożsamości/minuty/exactly-once zostają.
+- **PR181 — Career UX Consolidation**. Zachowany dawny PR178: zwarte fixture rows,
+  zbiorcze sezonowe archive bez dublowania historii; calendar zgodny z career.currentDate,
+  rzeczywistymi terminami meczów, zapisanym treningiem, urazami/niedostępnością i życiem.
+  Odróżniać saved facts od presentation recurrence; nie wymyślać treningów w pustych dniach.
+  Normalny strzał: **klik miejsca w bramce → kontekstowe menu techniki → wybór
+  techniki wykonuje strzał**. Usunąć dodatkowe obowiązkowe potwierdzenie i redundantne
+  suwaki; zachować keyboard accessibility i accurate substitution records.
+- **PR182+ — World Expansion**. Zachowany dawny PR179+: więcej lig/klubów, puchary,
+  reprezentacje, transfery, ekonomia i dalsze systemy futbolu.
 
-## Autorytatywna kolejność PR173–PR179+
-
-- **PR173 — Dynamic Football Actions & First-Touch Intelligence (scalony)**.
-  Ruchome przyjęcia, względny ruch i orientacja obrońców, fizyczna kontynuacja,
-  istniejące cięcia/krótkie dryblingi/wypchnięcia, rezerwa zrywu oraz zestaw 1a/1b/2a.
-  Zachować autonomię człowieka i jedną kanoniczną fizykę. Wdrażać tylko poprawki
-  uzasadnione parowanymi pomiarami; pozostałe luki pozostawić jawne w raporcie.
-- **PR174 — Combination Play & Tactical Adaptation**. Rzeczywiste pass-and-go,
-  one-two i third-man runs; wykorzystanie overlap/underlap, zbiorowe wyjście spod
-  pressingu, kontrolowane zwody i kombinacje. Rozpoznawać mocne strony partnerów
-  i słabości rywala, adaptować grę przy nieskutecznym recyklingu, oceniać kontekstowe
-  strzały z dystansu oraz krótkie kolektywne kontynuacje. Bez gwarantowanych return pass.
-- **PR175 — Match Reality Validation**. Niezależne, niewykorzystywane do strojenia
-  kohorty i porównanie z rzeczywistym futbolem: rozkłady podań, udział pozycji,
-  progresja, strzały, bloki, obrony, rożne, faule i różnorodność przebiegu. Stosować
-  wyłącznie wąsko uzasadnione dalsze poprawki; nie wymuszać średnich/kwot.
-- **PR176 — Generational Renewal & World Strength**. Dawny zakres PR173:
-  20–25 sezonów wzrostu NPC, OVR kadr/najlepszej XI, wiek i jakość pozycji,
-  akademie, integracja młodych, emerytury, uzupełnienia, pułapy talentu i transfery.
-- **PR177 — Summary Simulation & PlayStyles**. Dawny zakres PR174: kalibrować
-  lekkie mecze względem poprawionego silnika kanonicznego; gole/asysty pozycji,
-  udział i zmiany z prawdziwymi tożsamościami/powodami oraz długofalowy rozwój
-  ludzkich PlayStyles na podstawie właściwie udokumentowanych meczów symulowanych.
-  PR175 blokuje użycie obecnych częstości zdarzeń jako celu tej kalibracji;
-  kontrakty tożsamości, minut i exactly-once pozostają przydatne.
-- **PR178 — Career UX Consolidation**. Zwarte wiersze spotkań, zbiorcze archiwum
-  sezonów i kalendarz zgodny z rzeczywistą datą kariery, meczami, treningiem,
-  urazami i życiem. Normalny strzał wskaźnikiem: **klik miejsca w bramce →
-  kontekstowe menu techniki → wybór techniki wykonuje strzał**. Usunąć dodatkowe
-  obowiązkowe potwierdzenie i redundantne suwaki; zachować dostępność klawiaturą.
-- **PR179+ — World Expansion**. Dodatkowe kluby i ligi, puchary, reprezentacje,
-  zaawansowane transfery, ekonomia i dalsze systemy świata.
-
-Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania;
-raporty i receipts PR171/172 pozostają historycznymi, niezmienianymi dowodami.
+Wyłącznie całkowite numery PR. Kolejność powyżej zastępuje dawne przypisania.
+Historyczne raporty, roadmap tasks i receipts zachowują dawny kontekst i nie są
+przemianowywane na świeże pomiary. PR177/178 nie konsumują zakresu generacji,
+summary, UX lub world expansion. Prerequisite walidacji canonical pozostaje jawny.
 
 ## Historyczna roadmapa PR172
 
