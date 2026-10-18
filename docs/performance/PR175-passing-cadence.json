@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "status": "complete",
+  "method": "Each physical PassDiagnostic release/resolution once. Awareness and preparation overlap rather than add. Flight-to-resolution includes failed/intercepted deliveries; receiver movement only where an actual contact exists. These are MFL rates; reference live-ball seconds unavailable.",
+  "timingInclusion": "Control/decision/release timing requires a controlled choice by this passer to this receiver in the same uninterrupted episode. Restart and incoming paths lack that owner lifecycle; old retained owner/choice hints are excluded. Receiver movement is restricted to the actual intended receiver.",
+  "timedControlledPasses": 20403,
+  "untimedOrDifferentLifecycle": 903,
+  "passes": 21306,
+  "metres": {
+    "n": 21306,
+    "mean": 17.140346577900985,
+    "median": 16.264107040833032,
+    "sd": 7.023441950525806,
+    "p10": 8.87372252847398,
+    "p90": 26.074372717417532,
+    "min": 0.09878196045701942,
+    "max": 58.83683812396152
+  },
+  "flightSeconds": {
+    "n": 21289,
+    "mean": 1.2609634083304435,
+    "median": 1.2500000000045475,
+    "sd": 0.8292321778689234,
+    "p10": 0.175,
+    "p90": 2.025000000007367,
+    "min": 0.024999999999636202,
+    "max": 27.200000000098953
+  },
+  "controlToRelease": {
+    "n": 20403,
+    "mean": 1.2914877714037114,
+    "median": 0.9500000000034561,
+    "sd": 1.018979945138584,
+    "p10": 0.5500000000020009,
+    "p90": 2.3250000000084583,
+    "min": 0.2000000000007276,
+    "max": 14.000000000050932
+  },
+  "controlToDecision": {
+    "n": 20403,
+    "mean": 1.2914877714037114,
+    "median": 0.9500000000034561,
+    "sd": 1.018979945138584,
+    "p10": 0.5500000000020009,
+    "p90": 2.3250000000084583,
+    "min": 0.2000000000007276,
+    "max": 14.000000000050932
+  },
+  "preparationDemand": {
+    "n": 20391,
+    "mean": 0.5257070785356038,
+    "median": 0.4677394684367755,
+    "sd": 0.262599892081493,
+    "p10": 0.2628530892352501,
+    "p90": 0.861680276874722,
+    "min": 0.028310480591926535,
+    "max": 2.250080839517011
+  },
+  "decisionToRelease": {
+    "n": 20403,
+    "mean": 0,
+    "median": 0,
+    "sd": 0,
+    "p10": 0,
+    "p90": 0,
+    "min": 0,
+    "max": 0
+  },
+  "receptionToNextRelease": {
+    "n": 15318,
+    "mean": 2.018003329411811,
+    "median": 0.950000000000216,
+    "sd": 4.92986670098046,
+    "p10": 0.5499999999994998,
+    "p90": 3.500000000012733,
+    "min": 0.049999999999272404,
+    "max": 132.0000000004802
+  },
+  "receiverMovement": {
+    "n": 15760,
+    "mean": 2.271049132698635,
+    "median": 1.8483635082228749,
+    "sd": 1.9651176181258783,
+    "p10": 0.8284444250026313,
+    "p90": 3.870376948498075,
+    "min": 0.00026633196141689095,
+    "max": 37.480244247027706
+  },
+  "executionTypes": {
+    "weak_foot": 4071,
+    "ground_through": 1407,
+    "outside_foot": 837,
+    "weighted_ground": 2572,
+    "driven": 372,
+    "normal": 10026,
+    "turning_pass": 808,
+    "backheel": 247,
+    "cross_field": 433,
+    "lofted_through": 98,
+    "first_time": 417,
+    "chipped": 18
+  },
+  "releaseToResolutionByResult": {
+    "completed": {
+      "n": 16728,
+      "mean": 1.406997250116719,
+      "median": 1.3499999999987722,
+      "sd": 0.6073362288749256,
+      "p10": 0.8250000000030013,
+      "p90": 2.0499999999981355,
+      "min": 0.024999999999636202,
+      "max": 27.200000000098953
+    },
+    "intercepted": {
+      "n": 1848,
+      "mean": 0.2671130952376461,
+      "median": 0.02500000000009095,
+      "sd": 1.2806670025813816,
+      "p10": 0.024999999999636202,
+      "p90": 0.500000000001819,
+      "min": 0.024999999999636202,
+      "max": 23.225000000084492
+    },
+    "technical_error": {
+      "n": 2617,
+      "mean": 0.9188574703842765,
+      "median": 1.000000000003638,
+      "sd": 0.576507342795125,
+      "p10": 0.07499999999993179,
+      "p90": 1.5249999999778083,
+      "min": 0.024999999999636202,
+      "max": 5.149999999925058
+    },
+    "unresolved": {
+      "n": 0,
+      "mean": null,
+      "median": null,
+      "sd": null,
+      "p10": null,
+      "p90": null,
+      "min": null,
+      "max": null
+    },
+    "unclaimed": {
+      "n": 43,
+      "mean": 4.847093023240297,
+      "median": 4.150000000015098,
+      "sd": 3.015254911547488,
+      "p10": 2.924999999966785,
+      "p90": 6.1500000000223745,
+      "min": 1.8000000000065484,
+      "max": 22.574999999979468
+    },
+    "out_of_play": {
+      "n": 47,
+      "mean": 4.120212765952888,
+      "median": 3.3249999999998145,
+      "sd": 4.0604957875588195,
+      "p10": 2.0849999999843933,
+      "p90": 4.729999999965912,
+      "min": 1.0249999999999417,
+      "max": 23.650000000086038
+    },
+    "inaccurate": {
+      "n": 6,
+      "mean": 1.3416666666691224,
+      "median": 1.3875000000050477,
+      "sd": 0.854351606001137,
+      "p10": 0.39999999999417923,
+      "p90": 2.23750000000814,
+      "min": 0.17499999999745341,
+      "max": 2.2500000000081855
+    }
+  },
+  "reciprocal": 1416,
+  "directions": {
+    "forward": 6333,
+    "lateral": 5087,
+    "backward": 9886
+  },
+  "results": {
+    "completed": 16722,
+    "intercepted": 1848,
+    "technical_error": 2617,
+    "unresolved": 17,
+    "passer_reclaim": 6,
+    "unclaimed": 43,
+    "out_of_play": 47,
+    "inaccurate": 6
+  },
+  "perLiveMinute": 20.401369283701325,
+  "byMatch": [
+    {
+      "id": "dev-balanced",
+      "passes": 2156,
+      "liveSeconds": 5134.175000005963,
+      "meanDistance": 17.876722347560786
+    },
+    {
+      "id": "dev-central",
+      "passes": 1755,
+      "liveSeconds": 5110.849999990353,
+      "meanDistance": 17.01888289703825
+    },
+    {
+      "id": "dev-keepers",
+      "passes": 1823,
+      "liveSeconds": 5270.399999986035,
+      "meanDistance": 16.675487053060326
+    },
+    {
+      "id": "dev-strength",
+      "passes": 1630,
+      "liveSeconds": 5056.475000000445,
+      "meanDistance": 17.63441107429568
+    },
+    {
+      "id": "dev-wide",
+      "passes": 1965,
+      "liveSeconds": 5297.424999985207,
+      "meanDistance": 17.380088112686963
+    },
+    {
+      "id": "dev-youth",
+      "passes": 1356,
+      "liveSeconds": 5379.350000005324,
+      "meanDistance": 17.735564552234557
+    },
+    {
+      "id": "val-balanced",
+      "passes": 1929,
+      "liveSeconds": 5251.724999989731,
+      "meanDistance": 17.03467024012986
+    },
+    {
+      "id": "val-central",
+      "passes": 1841,
+      "liveSeconds": 5167.324999983834,
+      "meanDistance": 16.788109926443067
+    },
+    {
+      "id": "val-keepers",
+      "passes": 1989,
+      "liveSeconds": 5372.374999985439,
+      "meanDistance": 16.41898099353707
+    },
+    {
+      "id": "val-strength",
+      "passes": 1945,
+      "liveSeconds": 5144.974999989521,
+      "meanDistance": 16.897688886519305
+    },
+    {
+      "id": "val-wide",
+      "passes": 1466,
+      "liveSeconds": 5156.675000005381,
+      "meanDistance": 17.591084590455225
+    },
+    {
+      "id": "val-youth",
+      "passes": 1451,
+      "liveSeconds": 5318.750000005766,
+      "meanDistance": 16.787313812679468
+    }
+  ]
+}

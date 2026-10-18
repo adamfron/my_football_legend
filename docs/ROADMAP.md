@@ -1,6 +1,17 @@
 # Roadmap
 
-Aktualny etap: **PR174 — Combination Play & Tactical Adaptation (opublikowany do review)**.
+Aktualny etap: **PR175 — Independent Match Reality Validation**.
+[Raport, dowody i 40 odpowiedzi](PR175_MATCH_REALITY_VALIDATION.md).
+
+Ocena: **NOT READY do statystycznej kalibracji PR177**. Ponownie zmierzono
+scalony PR174 po poprawce asekuracji (16+8 meczów), a nowe 12 projektów
+rozdzielono przed pomiarami na development i zamkniętą walidację. Nadmierna
+cyrkulacja i skrajnie rzadkie groźne strzały pozostają nierozwiązane. Nie przyjęto
+nowej korekty gameplay bez dostatecznie izolowanej przyczyny. Następna korekta
+wymaga odtworzonego łańcucha final-third→box/credible option, parowanych prób
+i nowego zamkniętego zbioru; walidacja PR175 została już zużyta.
+
+Poprzedni etap: **PR174 — Combination Play & Tactical Adaptation (scalony)**.
 [Raport PR174](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
 
 Poprzedni etap: **PR173 — Dynamic Football Actions & First-Touch Intelligence (scalony)**.
@@ -34,6 +45,8 @@ heurystyki nie trafiają do rankingu. Nie deklarujemy rozwiązania nadmiernego r
   lekkie mecze względem poprawionego silnika kanonicznego; gole/asysty pozycji,
   udział i zmiany z prawdziwymi tożsamościami/powodami oraz długofalowy rozwój
   ludzkich PlayStyles na podstawie właściwie udokumentowanych meczów symulowanych.
+  PR175 blokuje użycie obecnych częstości zdarzeń jako celu tej kalibracji;
+  kontrakty tożsamości, minut i exactly-once pozostają przydatne.
 - **PR178 — Career UX Consolidation**. Zwarte wiersze spotkań, zbiorcze archiwum
   sezonów i kalendarz zgodny z rzeczywistą datą kariery, meczami, treningiem,
   urazami i życiem. Normalny strzał wskaźnikiem: **klik miejsca w bramce →

@@ -1,0 +1,528 @@
+{
+  "version": 1,
+  "status": "complete",
+  "method": "Lossless gzip container, base64 map of exact raw files and harnesses. SHA256 below hashes original bytes, not decoded text. Restore relative paths; use receipt manifest hashes to identify versions. No reference event dumps included.",
+  "archive": {
+    "path": "docs/performance/pr175-evidence/PR175-raw-and-harnesses.json.gz",
+    "sha256": "e23cabfab7d323a33d3871de86f056a78ef02a5b09e1fdafe5078304e358d6be",
+    "bytes": 41259872
+  },
+  "measuredHarnessFormatting": "pr175-measured-harnesses preserves the exact CRLF/extra-final-blank-line copies used for adaptation, career and startup measurements. Current scripts differ only by LF normalization and trimming final blank lines; no executable changes. Other measured cohort/performance harnesses remain byte-identical to acquisition.",
+  "files": [
+    {
+      "name": "pr175-merged-historical/cohort-central_possession-false.json",
+      "sha256": "46c7e2531e1ba1e18e9d192540ad210c06100c1e2c90124628fe1ec6d641acc3",
+      "bytes": 2291464
+    },
+    {
+      "name": "pr175-merged-historical/cohort-central_possession-true.json",
+      "sha256": "bb6558d2e884336e004a56c778b10ecc2aa8fa714e2d49e657e4495a5ea1167f",
+      "bytes": 2291328
+    },
+    {
+      "name": "pr175-merged-historical/cohort-press_low-false.json",
+      "sha256": "27619d24b12fdfecb21e71a436b6c5e873ff5d6affa1dbfc797c5c153886c179",
+      "bytes": 2114587
+    },
+    {
+      "name": "pr175-merged-historical/cohort-press_low-true.json",
+      "sha256": "d4f58a56ac73e24eea740577ca36fe41b442aa5b316da4e072450419f9fd9522",
+      "bytes": 2157237
+    },
+    {
+      "name": "pr175-merged-historical/cohort-senior_balanced-extra-a-false.json",
+      "sha256": "2424b19b23ef9d4ef446ea5e3778908b0dda181e957567dfe9bf195a4ce0c2a5",
+      "bytes": 2272152
+    },
+    {
+      "name": "pr175-merged-historical/cohort-senior_balanced-extra-a-true.json",
+      "sha256": "c3f18ece227e0a4b9056cca3ddd8d2e73c845b49812be2ee9c44e39bd336f3d9",
+      "bytes": 2261540
+    },
+    {
+      "name": "pr175-merged-historical/cohort-senior_balanced-false.json",
+      "sha256": "a30776334f8ce41f7809c5c211e48aedf36f001c50cdedbccfbaa643bce208ef",
+      "bytes": 2186793
+    },
+    {
+      "name": "pr175-merged-historical/cohort-senior_balanced-true.json",
+      "sha256": "1587cf0b3e7e5b1b30db587bbad9d1bcb2a1e6e0750273313181cb63c4dd8660",
+      "bytes": 2219278
+    },
+    {
+      "name": "pr175-merged-historical/cohort-strong_weak-false.json",
+      "sha256": "efdf028f7629f01a55e7f4d5d12442f70111ea2d3785bddbfa485ca56ac16499",
+      "bytes": 1878246
+    },
+    {
+      "name": "pr175-merged-historical/cohort-strong_weak-true.json",
+      "sha256": "202b066407aff2ae3ca46b7f389d67d1cb0f9ed77deb8d4f62b6418e29161ca6",
+      "bytes": 1917905
+    },
+    {
+      "name": "pr175-merged-historical/cohort-wide_direct-extra-a-false.json",
+      "sha256": "e3d87d3d04a13a0419ba3a0185863c8f4d222b0bcc9ad781160aac7c49cf14ec",
+      "bytes": 2189306
+    },
+    {
+      "name": "pr175-merged-historical/cohort-wide_direct-extra-a-true.json",
+      "sha256": "10b0e4ba6291538388ebc3a9ead6f7a8ea6fb6f22b95698851ec9e31368809be",
+      "bytes": 2220630
+    },
+    {
+      "name": "pr175-merged-historical/cohort-wide_direct-false.json",
+      "sha256": "fdc415ef278b5eaf2b8a970b2affc7e8b7d34c1566e9aff081fbf172239744ac",
+      "bytes": 2119209
+    },
+    {
+      "name": "pr175-merged-historical/cohort-wide_direct-true.json",
+      "sha256": "282111818055744dc3f633a5427d7bf3baee9875e4dfa13c93bb9149c6a40f48",
+      "bytes": 2103145
+    },
+    {
+      "name": "pr175-merged-historical/cohort-youth_native-false.json",
+      "sha256": "7c7599e50144776f1db33045206508f7de36a3e0c718dc331ebef2488d406be0",
+      "bytes": 1943021
+    },
+    {
+      "name": "pr175-merged-historical/cohort-youth_native-true.json",
+      "sha256": "7c288eac8a5efb1583dac7b2465ee61b28c0f755944e7c51cedff20298b672ad",
+      "bytes": 1925544
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-press_low-false.json",
+      "sha256": "94e87fdc443f5755a7c0fdf56cc7e229592dbb3bc2629b368fd05627d9355d60",
+      "bytes": 2207612
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-press_low-true.json",
+      "sha256": "ea8cf39715780dd1d8409f9a89910b6f68dc96f1931ab0782bde946f5d4644bf",
+      "bytes": 2194514
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-senior_balanced-false.json",
+      "sha256": "6af0b169329cb7f6cf6ec276325bd34df6aae63ed29f3b8bd63f11b558ba8465",
+      "bytes": 2260003
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-senior_balanced-true.json",
+      "sha256": "7a03789d152a0c5b8ae0590844ff3b73e7e725498119f165d2d9d10fe418c835",
+      "bytes": 2191799
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-strong_weak-false.json",
+      "sha256": "060256f4cf57e6dc9f141ac1ac5ed623b05f92ac30a0a8ec73ff921ea1e5649b",
+      "bytes": 2057513
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-strong_weak-true.json",
+      "sha256": "558f061ff0caeb4e211d5e79cfd4a4f083e0308ba064f55b53cc9b939b5b213d",
+      "bytes": 2090624
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-youth_native-false.json",
+      "sha256": "0681924339a1d05de0ea018723c280b8d2601947a77883a2e98866f27baaaee8",
+      "bytes": 2149090
+    },
+    {
+      "name": "pr175-merged-reserved/cohort-youth_native-true.json",
+      "sha256": "5aaaf4cde421bf135f20f14e1c75fb6ca95d94e477bdfcaabc8f31e27397d776",
+      "bytes": 2175388
+    },
+    {
+      "name": "pr175-development/dev-balanced-cohort.json",
+      "sha256": "42e952b7ae52d77479cba67c504fdd3edbb0d73cd0e52992fa99aa5bcbf375e6",
+      "bytes": 1299178
+    },
+    {
+      "name": "pr175-development/dev-balanced-observations.json.gz",
+      "sha256": "d74f506b39c7807825692628fce8902c5d05500fe3fed534a214f834112ac766",
+      "bytes": 3106617
+    },
+    {
+      "name": "pr175-development/dev-central-cohort.json",
+      "sha256": "6cbc4df1fbf3b0b793fbe599decaca9a748fb5dd545a3eeeb4f773fb0881e0db",
+      "bytes": 1163247
+    },
+    {
+      "name": "pr175-development/dev-central-observations.json.gz",
+      "sha256": "5dc041fe4ed16dd13f04c85c5274905a27e38ffb18a4aa65761a81e40c7f22fd",
+      "bytes": 2732421
+    },
+    {
+      "name": "pr175-development/dev-keepers-cohort.json",
+      "sha256": "32e3be00bfb8169116075ac331e1944f2a2ac5f46ad740304c30fb1a4a1e0c03",
+      "bytes": 1146120
+    },
+    {
+      "name": "pr175-development/dev-keepers-observations.json.gz",
+      "sha256": "66dc32dc57394123ba8915a85dfc8da7a11bd40b34a77b6e89a38d48e1d9f514",
+      "bytes": 2695946
+    },
+    {
+      "name": "pr175-development/dev-strength-cohort.json",
+      "sha256": "577496d14d3bfada4598bc2ab5fcd0d243bb1913a68dc450fe122c26ede7f296",
+      "bytes": 1192788
+    },
+    {
+      "name": "pr175-development/dev-strength-observations.json.gz",
+      "sha256": "a2a9080090b2ac305918cefdb651eb0f93e1f2010893ad90a4950d3ab857be11",
+      "bytes": 2425945
+    },
+    {
+      "name": "pr175-development/dev-wide-cohort.json",
+      "sha256": "2a35dd20c25fd66227911fddb82bed41dedf11740fdb39f5573064457afb7160",
+      "bytes": 1154627
+    },
+    {
+      "name": "pr175-development/dev-wide-observations.json.gz",
+      "sha256": "b024f5d63b273a384c723d7c6388e756abf9af7fc2bc8e9825a61fd292e09c52",
+      "bytes": 2899831
+    },
+    {
+      "name": "pr175-development/dev-youth-cohort.json",
+      "sha256": "b178b6abc75ed9c55d24e1967d91874caee1068b1d6ff988d41a6001c3ec5524",
+      "bytes": 1191861
+    },
+    {
+      "name": "pr175-development/dev-youth-observations.json.gz",
+      "sha256": "e75e23dc73af97b22a83d258ff7cb8ba4611e569dc5112a23839aae9fb09b27a",
+      "bytes": 2295348
+    },
+    {
+      "name": "pr175-validation/val-balanced-cohort.json",
+      "sha256": "29fb098ce0606708ebae0d933b6feac12cd31368a01584697508a6f5c2891d8f",
+      "bytes": 1214147
+    },
+    {
+      "name": "pr175-validation/val-balanced-observations.json.gz",
+      "sha256": "ada3d4f861edd69f02fdb7f2e6ed9e28a40b4da9ad75da2119713646d034e385",
+      "bytes": 2898622
+    },
+    {
+      "name": "pr175-validation/val-central-cohort.json",
+      "sha256": "c5ed7e9916a245d3551f678706e35894c65811dc2af34b6d79b6f47d48d3115c",
+      "bytes": 1235745
+    },
+    {
+      "name": "pr175-validation/val-central-observations.json.gz",
+      "sha256": "a2f2593550d1a00a23521cb5ea0384926a4da249a6ea10c864a66f0c4a06bdf4",
+      "bytes": 2744537
+    },
+    {
+      "name": "pr175-validation/val-keepers-cohort.json",
+      "sha256": "4409ef3fee0c64384fd92407d8817836019d997eb781ef3ebe8a75685eca27a2",
+      "bytes": 1152879
+    },
+    {
+      "name": "pr175-validation/val-keepers-observations.json.gz",
+      "sha256": "818235ce0a661b53d4f4b34a1e6c853eeac539833134fbae910848702ba8112f",
+      "bytes": 2893031
+    },
+    {
+      "name": "pr175-validation/val-strength-cohort.json",
+      "sha256": "82b8b19e39df3dcae15957da095cb198f59a197e52e3318d75dbb83ee3eabb8f",
+      "bytes": 1248895
+    },
+    {
+      "name": "pr175-validation/val-strength-observations.json.gz",
+      "sha256": "53f30bd1d74243f5137f90d1ae9d1f2585e082ff1b2cdffe6f7f80a27b79c9f2",
+      "bytes": 2843035
+    },
+    {
+      "name": "pr175-validation/val-wide-cohort.json",
+      "sha256": "4479b93a3b3a602d9787d2c2d6f1cb1b1d8f9ce95c9557ffed8e3fae674bdede",
+      "bytes": 1064916
+    },
+    {
+      "name": "pr175-validation/val-wide-observations.json.gz",
+      "sha256": "c7c742c355b8142d4ef2dcc72df93d67b33deb81f5746be679971214142458ff",
+      "bytes": 2394918
+    },
+    {
+      "name": "pr175-validation/val-youth-cohort.json",
+      "sha256": "6edb55455a3691ad5734b1ee85207519fc5d25a7d7aa445e81e29e0af8890b0b",
+      "bytes": 1200104
+    },
+    {
+      "name": "pr175-validation/val-youth-observations.json.gz",
+      "sha256": "98b1da1c70233d86c4c5deb1de2e3444d3d578ec0ff42e78fa434b59a662bae2",
+      "bytes": 2320132
+    },
+    {
+      "name": "pr175-natural/frozen-states.json.gz",
+      "sha256": "9e8b5a6fa173c70b72ed321fe4fbf60d3d4bf3cfb15c5192cc8f6aab342deca9",
+      "bytes": 296699
+    },
+    {
+      "name": "pr175-natural-dev-strength/frozen-states.json.gz",
+      "sha256": "987e0782f8d24117abc565fb8408ddef0675f95055f1425ba83ba570bc68422f",
+      "bytes": 243827
+    },
+    {
+      "name": "pr175-historical-goals/extra-cohort-senior_balanced-extra-a-false.json",
+      "sha256": "c83044a436a84205732900fdde7163708a01838470bdfcd6910597e50c6cf2a9",
+      "bytes": 1236
+    },
+    {
+      "name": "pr175-historical-goals/extra-cohort-senior_balanced-extra-a-true.json",
+      "sha256": "8f42cdb3abe66c03f54d1f64304119fa95f30e9e790f95b3ca0b358ce80b930d",
+      "bytes": 11974
+    },
+    {
+      "name": "pr175-historical-goals/extra-cohort-wide_direct-extra-a-false.json",
+      "sha256": "f85a01e78bedb5cf167c2886d5d52c023f0e9b4933e7adcda1dbe21f67eeb257",
+      "bytes": 1231
+    },
+    {
+      "name": "pr175-historical-goals/extra-cohort-wide_direct-extra-a-true.json",
+      "sha256": "1b1665e9ab6399a23f90b35cfa1ba4b30c0ed9979de2b383ea3c66873f0032ff",
+      "bytes": 10818
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-central_possession-false.json",
+      "sha256": "da52d0d4969bd275cc04016e8001c312fa1d850336b2f43de540ca95a23bbd2c",
+      "bytes": 1243
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-central_possession-true.json",
+      "sha256": "b97079046b14c45537b02b51f1d2ccae8f725118f9b1acfd3f84673c6c168692",
+      "bytes": 23186
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-press_low-false.json",
+      "sha256": "bf33fead8063cded47beeaea41ceccdd6f71cd8c9633efc8ec653b6af35cfeaa",
+      "bytes": 53333
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-press_low-true.json",
+      "sha256": "be59ca26bdb549e059972544b3f4c5f51254d11a9e3d454b254f86f097698b34",
+      "bytes": 45689
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-senior_balanced-false.json",
+      "sha256": "2cc1f321a659297c01aae4b2fbe7f18677f575e171c357de104e106d5010ed1c",
+      "bytes": 11950
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-senior_balanced-true.json",
+      "sha256": "f73dd8646dba10ef05c12bf5319073b427910a8e100c58a4ef24a58076f69dcc",
+      "bytes": 42280
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-strong_weak-false.json",
+      "sha256": "e0a7d89690d1b94eab8f4fa74c0acd578ba1ef3be4facff073c9c53ab2f8fb4f",
+      "bytes": 11882
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-strong_weak-true.json",
+      "sha256": "e522c4d4f8a5bd526f841fd67276c3941e161e279408acc952e0427b52313cdb",
+      "bytes": 1234
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-wide_direct-false.json",
+      "sha256": "262675d778918e7842e63c5b3488d49afce75eae4fc80704fde9b7b4518d5bd5",
+      "bytes": 22797
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-wide_direct-true.json",
+      "sha256": "c7441eb3e67cb5af2b40933b88125d86851e9bfc39fc6cb17f6919fa4e26755a",
+      "bytes": 1234
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-youth_native-false.json",
+      "sha256": "bee27433f70041e2fbaa8dd3173e73352c845a7abe12e6786f92590394f1a0bc",
+      "bytes": 1237
+    },
+    {
+      "name": "pr175-historical-goals/original-cohort-youth_native-true.json",
+      "sha256": "548de3202b839393524c77134eb57e04b64a0d2d94fdaa279f54e079927adc80",
+      "bytes": 32048
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-press_low-false.json",
+      "sha256": "10ba89c49eea0166ee6f0601005ddff41ac387e9bf03da0c795c809fb4c24ed3",
+      "bytes": 1220
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-press_low-true.json",
+      "sha256": "2412290e69a6b8e8defcea0b3b6067c5c19392b55db594735cd9d01160c5f367",
+      "bytes": 11528
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-senior_balanced-false.json",
+      "sha256": "57abbc5cc6961472ae0b3f96345c2d9103a03b0927b247eef76edd23303af3ea",
+      "bytes": 10838
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-senior_balanced-true.json",
+      "sha256": "dbea699b405ca553f5553c1953f7169f2a00c1b033a4035d8f0de087d6ff7bbd",
+      "bytes": 1237
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-strong_weak-false.json",
+      "sha256": "9c58eae3eac52a29aeb409f85ac00f70345270c43c22f167c87e514df4057b90",
+      "bytes": 11522
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-strong_weak-true.json",
+      "sha256": "73b1c202daf4644f831f2a0a9a9d2af997cddbed15f1aadd0578f9710bea766d",
+      "bytes": 34179
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-youth_native-false.json",
+      "sha256": "ce6a390f4ce619fad4d782410541382ba3b40f6aad091ec15fd8c3570f00de2d",
+      "bytes": 20865
+    },
+    {
+      "name": "pr175-historical-goals/reserved-cohort-youth_native-true.json",
+      "sha256": "ff542da107d28959660cd98f538e03283783c526c05f100edbed65f65c87f629",
+      "bytes": 11033
+    },
+    {
+      "name": "pr175-plain/dev-balanced-plain.json",
+      "sha256": "d8a6f8637e3163d143742faca5695d1168e4cf56a52a5624c948455cbf59c737",
+      "bytes": 1035289
+    },
+    {
+      "name": "pr175-plain/dev-youth-plain.json",
+      "sha256": "1f468c199cfbe411ea49582f9120a6f9c3eb412b9ecfea3a94600a7ecd60ee2f",
+      "bytes": 918923
+    },
+    {
+      "name": "pr175-pilot/dev-balanced-equivalence.json",
+      "sha256": "069f36835ad7554f9e7528bfeff1f05db52561d100fb2d196919f3cf36940912",
+      "bytes": 210197
+    },
+    {
+      "name": "pr175-pilot/dev-balanced-observations.json.gz",
+      "sha256": "d80e7ae60d194e641fe425b36f129b61ae391a684e1424b443d2819faef541d3",
+      "bytes": 39731
+    },
+    {
+      "name": "pr175-measured-harnesses/benchmarkPr175Adaptation.ts",
+      "sha256": "bdc5d79b73ea46562335eb302309349c1ca0c8423f646289d4382aa10c8af666",
+      "bytes": 6575
+    },
+    {
+      "name": "pr175-measured-harnesses/benchmarkPr175Career.ts",
+      "sha256": "a9592041437aa45ba19012162ff357fcf9484386fd6f9dab6c47c83acf14e7d5",
+      "bytes": 5713
+    },
+    {
+      "name": "pr175-measured-harnesses/benchmarkPr175Startup.ts",
+      "sha256": "9c2e60ecd0e5518e2cfc84394546fee582e452d2d061218cb1b4c6a20650b5fa",
+      "bytes": 3928
+    },
+    {
+      "name": "scripts/auditPr175Frozen.ts",
+      "sha256": "7cc9e196f70259138166ab2e09e56e15c1e108cf536e14d91c28719676f6256f",
+      "bytes": 3112
+    },
+    {
+      "name": "scripts/benchmarkPr175.ts",
+      "sha256": "780f7942a9adefb1fb1e5abfa2052f5dcae944f5d0f0306094383f51c29fcf0f",
+      "bytes": 9159
+    },
+    {
+      "name": "scripts/benchmarkPr175Adaptation.ts",
+      "sha256": "9317aa21d6a2aefbadb9b4e140a4d1db372f78fb17dd287608470d3639585de0",
+      "bytes": 6403
+    },
+    {
+      "name": "scripts/benchmarkPr175Career.ts",
+      "sha256": "f3d05347ebfc23121bc617149e371ae05cb5d19ae6422a5a95788570d203d84b",
+      "bytes": 5565
+    },
+    {
+      "name": "scripts/benchmarkPr175Controlled.ts",
+      "sha256": "e4609ebd11d63af9fc972ee606982fef21c4b244cead68d2dd287429e5a6c601",
+      "bytes": 7813
+    },
+    {
+      "name": "scripts/benchmarkPr175GoalSources.ts",
+      "sha256": "33913adcfe87efc877967b70cb86684f7fb1cc6fc4f97db0b54feb24addf1e16",
+      "bytes": 3379
+    },
+    {
+      "name": "scripts/benchmarkPr175Natural.ts",
+      "sha256": "4d9e700a8c8f4d020dee40e9fb885f8b149b4fdfd74f422798fcb216159e145c",
+      "bytes": 6391
+    },
+    {
+      "name": "scripts/benchmarkPr175Performance.ts",
+      "sha256": "f59bd127ef10ea10c680caf5c95fc134817bdbd08a186fb4a874f024e2c80ff9",
+      "bytes": 5723
+    },
+    {
+      "name": "scripts/benchmarkPr175Reference.mjs",
+      "sha256": "d0ea5475ae4b32cc9f2f1ee66be458c8f1572b04b132d427a37495c8a389493c",
+      "bytes": 7792
+    },
+    {
+      "name": "scripts/benchmarkPr175Startup.ts",
+      "sha256": "fbb73467e11b3714058d0abf85487b1fcd9fcd84ff96beb215889af2379ab494",
+      "bytes": 3822
+    },
+    {
+      "name": "scripts/finalizePr175.mjs",
+      "sha256": "91c1033d11847ccda617fd772c2f6b6ae37a11d6cecfc8bae061a48238522163",
+      "bytes": 9869
+    },
+    {
+      "name": "scripts/freezePr175.ts",
+      "sha256": "2162281ac3089dbcd7f4a46b1ec9488f3cef0bed1ebbc9c15e0235b0983fd5af",
+      "bytes": 5019
+    },
+    {
+      "name": "scripts/pr175Attribution.test.ts",
+      "sha256": "d0d9ab3e94c4d724b5e00a4456946e2ad63006b70327712452a9bb0b894185e0",
+      "bytes": 3478
+    },
+    {
+      "name": "scripts/pr175Attribution.ts",
+      "sha256": "c7b9b361349649b350a7f600fc449bd973c5ee94f1b44e33b7967bc7273ef85e",
+      "bytes": 4237
+    },
+    {
+      "name": "scripts/pr175Fixtures.ts",
+      "sha256": "25fc79f5ec3791c70d0cfd1bee129bdc8f56cf1aeb1508782e86ffb19ad61113",
+      "bytes": 5409
+    },
+    {
+      "name": "scripts/pr175Observer.test.ts",
+      "sha256": "251b3341fd50ee02bbf9eee2c9800a3cb1dc2701be7e36f84644de9b8f07e693",
+      "bytes": 2316
+    },
+    {
+      "name": "scripts/pr175Observer.ts",
+      "sha256": "a268e5fb738cfe1530da23c6c0167c7cdb4e981576158bff9040e37b55912662",
+      "bytes": 20900
+    },
+    {
+      "name": "scripts/pr175PerformanceLoader.mjs",
+      "sha256": "9362477ac78fc6d2fc7c24f31016ff40454ceb4e5b14bb632c5b292e87d87f70",
+      "bytes": 1415
+    },
+    {
+      "name": "scripts/pr175Provenance.ts",
+      "sha256": "1abd385c3df97bff0d706e76f7e189323f020039d277e739b48257d6f65e9a75",
+      "bytes": 2743
+    },
+    {
+      "name": "scripts/registerPr175Performance.mjs",
+      "sha256": "65a38b6bd72dd20b592fb1b897f1e9456937a1564f95667d3d798aa6cbe50dc8",
+      "bytes": 99
+    },
+    {
+      "name": "scripts/renderPr175Report.mjs",
+      "sha256": "a0ec038954035ae65c932c00881f35e6a6b15d36117d6cd9e65b86bf81f72ff0",
+      "bytes": 42065
+    },
+    {
+      "name": "scripts/reportPr175.mjs",
+      "sha256": "895f5e00f6e60caab7753a3db1a142d6da229ed69d81c561066378331bbb3f0e",
+      "bytes": 27964
+    }
+  ]
+}

@@ -1,0 +1,856 @@
+{
+  "version": 1,
+  "source": "StatsBomb Open Data",
+  "commit": "4b73468fc5b0f1950f9f66fada70ad3a4f9327cb",
+  "attribution": "Data: StatsBomb. Research use subject to the repository LICENSE.pdf and README terms; credit provider and its logo. No event dumps redistributed here.",
+  "readme": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/README.md",
+  "license": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/LICENSE.pdf",
+  "mediaPack": "https://statsbomb.com/media-pack/",
+  "providerLogo": "https://static.hudl.com/craft/productAssets/statsbomb_icon.svg",
+  "providerLogoSource": "https://www.hudl.com/en_gb/products/statsbomb",
+  "supplementaryClockContext": {
+    "provider": "FIFA",
+    "published": "2022-11-30",
+    "url": "https://vod.fifa.com/refereeing/news/collina-weve-asked-referees-to-calculate-stoppage-time-more-accurately",
+    "actualPlayingTimeDescription": "nearly 59 minutes on average in matches played by the publication date",
+    "approximate": true,
+    "highestReportedMatchMinutes": 67.5,
+    "highestMatch": "France–Australia",
+    "limitation": "Different broader early-tournament sample, unspecified N and no per-match linkage to the frozen twelve. Exact annotation convention not documented here. Context for unusually high MFL live exposure only; never combine these minutes with StatsBomb pass totals to manufacture reference per-live rates."
+  },
+  "originalReference": {
+    "path": "docs/performance/PR171-reference-comparison.json",
+    "sha256": "bdd7d65f6428f14d79fdc6cda01593298d3a4af390d231087decd604efae2eac",
+    "competition": "Men’s World Cup 2022, first twelve chronological group-stage matches, periods 1–2"
+  },
+  "additionalReference": {
+    "competition": "Men’s Bundesliga 2023/24",
+    "competitionId": 9,
+    "seasonId": 281,
+    "selection": "First 12 chronological available matches; periods 1–2; no score/outcome filtering",
+    "matches": {
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/9/281.json",
+      "sha256": "13dff90f126d9f73da410ae3292b2773744657d3ba968a2b7a9c02135033581c"
+    },
+    "inventory": {
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/competitions.json",
+      "sha256": "e6cd42f5d8956d6aa30fb917ce8d4c3b3df1879a93f02f8feba820930a6971fa"
+    },
+    "youthAvailableInPinnedInventory": [
+      {
+        "competition": "FIFA U20 World Cup",
+        "season": "1979"
+      }
+    ]
+  },
+  "definitions": {
+    "pass": "MFL released PassDiagnostic IDs include throws/restarts/keeper distribution; exclude crosses and non-shot headers. Reference comparator excludes cross flag, includes throw-ins/restarts.",
+    "completion": "MFL actual teammate physical control, StatsBomb no incomplete outcome; deflection/control differences remain.",
+    "corners": "MFL official corner awards versus StatsBomb Pass events with Corner type (actual deliveries). Unexecuted end-of-period awards can differ; these are qualified comparisons, not identical event definitions.",
+    "savesAndBlocks": "StatsBomb final shot outcomes are compared to final MFL shot diagnostics. MFL official initial save/block contact counters can coexist with a same-shot later goal upgrade; do not treat their sum as mutually exclusive final outcomes.",
+    "discipline": "Foul Committed events; yellow includes Second Yellow, red includes Second Yellow and Red Card across Foul Committed/Bad Behaviour card fields. Provider/referee event coding may differ from MFL contact law episodes.",
+    "shot": "All physical release IDs including penalty/free-kick/header; outcome may upgrade on rebound. Reference all Shot events in periods 1–2.",
+    "possession": "Provider possession IDs are not MFL controlled team episodes; do not use them as equivalent rates.",
+    "per90": "Count × 5400 / sum of actual period elapsed seconds; per-match and per-team distributions also retained.",
+    "live": "No comparable reference live-ball clock; no real-football per-live-minute rates computed.",
+    "uncertainty": "Twelve available chronological club games cover two early rounds and repeated teams; descriptive sample, not league or youth calibration target."
+  },
+  "rows": [
+    {
+      "matchId": 3895052,
+      "date": "2023-08-19",
+      "periodsSeconds": [
+        2882.395,
+        3049.511
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895052.json",
+      "sha256": "ecc00b4e7ddd0154532329091d5d82fd7de4b9f6aa8da174788816001e40e605",
+      "teams": [
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 481,
+          "passesWithoutCrosses": 469,
+          "completedWithoutCrosses": 390,
+          "crosses": 12,
+          "throwInsIncluded": 12,
+          "corners": 4,
+          "shots": 11,
+          "shotOutcomes": {
+            "Saved": 4,
+            "Off T": 3,
+            "Goal": 3,
+            "Blocked": 1
+          },
+          "goalsFromShots": 3,
+          "penalties": 0,
+          "fouls": 14,
+          "yellowCards": 1,
+          "redCards": 0,
+          "shotsOnTargetConservative": 7,
+          "goalkeeperPasses": 26,
+          "secondsElapsed": 5931.906,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 86
+        },
+        {
+          "id": 182,
+          "name": "RB Leipzig",
+          "passAttempts": 600,
+          "passesWithoutCrosses": 595,
+          "completedWithoutCrosses": 510,
+          "crosses": 5,
+          "throwInsIncluded": 23,
+          "corners": 5,
+          "shots": 14,
+          "shotOutcomes": {
+            "Off T": 1,
+            "Blocked": 4,
+            "Saved": 4,
+            "Wayward": 2,
+            "Goal": 2,
+            "Post": 1
+          },
+          "goalsFromShots": 2,
+          "penalties": 0,
+          "fouls": 12,
+          "yellowCards": 2,
+          "redCards": 0,
+          "shotsOnTargetConservative": 6,
+          "goalkeeperPasses": 48,
+          "secondsElapsed": 5931.906,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 95
+        }
+      ]
+    },
+    {
+      "matchId": 3895060,
+      "date": "2023-08-26",
+      "periodsSeconds": [
+        3089.402,
+        2900.049
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895060.json",
+      "sha256": "1b2fcf16823fbf04f4ae40492d492304f8d54fdb991cebc7fdcaa2e1d72e5585",
+      "teams": [
+        {
+          "id": 185,
+          "name": "Borussia Mönchengladbach",
+          "passAttempts": 502,
+          "passesWithoutCrosses": 489,
+          "completedWithoutCrosses": 409,
+          "crosses": 13,
+          "throwInsIncluded": 12,
+          "corners": 5,
+          "shots": 12,
+          "shotOutcomes": {
+            "Off T": 7,
+            "Wayward": 1,
+            "Blocked": 2,
+            "Saved": 2
+          },
+          "goalsFromShots": 0,
+          "penalties": 0,
+          "fouls": 9,
+          "yellowCards": 2,
+          "redCards": 0,
+          "shotsOnTargetConservative": 2,
+          "goalkeeperPasses": 38,
+          "secondsElapsed": 5989.451,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 84
+        },
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 737,
+          "passesWithoutCrosses": 729,
+          "completedWithoutCrosses": 651,
+          "crosses": 8,
+          "throwInsIncluded": 17,
+          "corners": 8,
+          "shots": 24,
+          "shotOutcomes": {
+            "Blocked": 7,
+            "Goal": 3,
+            "Off T": 5,
+            "Saved": 8,
+            "Wayward": 1
+          },
+          "goalsFromShots": 3,
+          "penalties": 0,
+          "fouls": 10,
+          "yellowCards": 3,
+          "redCards": 0,
+          "shotsOnTargetConservative": 11,
+          "goalkeeperPasses": 32,
+          "secondsElapsed": 5989.451,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 90
+        }
+      ]
+    },
+    {
+      "matchId": 3895067,
+      "date": "2023-09-02",
+      "periodsSeconds": [
+        2947.652,
+        2942.476
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895067.json",
+      "sha256": "8bba4bec9d870aa5b88eab122ba50f33c89d038580893e330e9c0ec41e9a946a",
+      "teams": [
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 820,
+          "passesWithoutCrosses": 808,
+          "completedWithoutCrosses": 734,
+          "crosses": 12,
+          "throwInsIncluded": 18,
+          "corners": 4,
+          "shots": 25,
+          "shotOutcomes": {
+            "Blocked": 7,
+            "Wayward": 1,
+            "Saved": 8,
+            "Goal": 5,
+            "Off T": 4
+          },
+          "goalsFromShots": 5,
+          "penalties": 0,
+          "fouls": 8,
+          "yellowCards": 3,
+          "redCards": 0,
+          "shotsOnTargetConservative": 13,
+          "goalkeeperPasses": 21,
+          "secondsElapsed": 5890.128000000001,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 79
+        },
+        {
+          "id": 872,
+          "name": "Darmstadt 98",
+          "passAttempts": 310,
+          "passesWithoutCrosses": 309,
+          "completedWithoutCrosses": 217,
+          "crosses": 1,
+          "throwInsIncluded": 11,
+          "corners": 2,
+          "shots": 5,
+          "shotOutcomes": {
+            "Blocked": 4,
+            "Goal": 1
+          },
+          "goalsFromShots": 1,
+          "penalties": 0,
+          "fouls": 14,
+          "yellowCards": 2,
+          "redCards": 0,
+          "shotsOnTargetConservative": 1,
+          "goalkeeperPasses": 40,
+          "secondsElapsed": 5890.128000000001,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 66
+        }
+      ]
+    },
+    {
+      "matchId": 3895074,
+      "date": "2023-09-15",
+      "periodsSeconds": [
+        2822.881,
+        3204.562
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895074.json",
+      "sha256": "b43f2c87a77eeca368247ac290fa85297183c14f1a1eb7f5d9b335173205427d",
+      "teams": [
+        {
+          "id": 169,
+          "name": "Bayern Munich",
+          "passAttempts": 637,
+          "passesWithoutCrosses": 624,
+          "completedWithoutCrosses": 541,
+          "crosses": 13,
+          "throwInsIncluded": 12,
+          "corners": 7,
+          "shots": 16,
+          "shotOutcomes": {
+            "Off T": 4,
+            "Saved": 7,
+            "Goal": 2,
+            "Blocked": 3
+          },
+          "goalsFromShots": 2,
+          "penalties": 0,
+          "fouls": 7,
+          "yellowCards": 0,
+          "redCards": 0,
+          "shotsOnTargetConservative": 9,
+          "goalkeeperPasses": 36,
+          "secondsElapsed": 6027.442999999999,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 85
+        },
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 603,
+          "passesWithoutCrosses": 600,
+          "completedWithoutCrosses": 521,
+          "crosses": 3,
+          "throwInsIncluded": 18,
+          "corners": 4,
+          "shots": 13,
+          "shotOutcomes": {
+            "Blocked": 3,
+            "Goal": 2,
+            "Saved": 3,
+            "Off T": 4,
+            "Post": 1
+          },
+          "goalsFromShots": 2,
+          "penalties": 1,
+          "fouls": 7,
+          "yellowCards": 3,
+          "redCards": 0,
+          "shotsOnTargetConservative": 5,
+          "goalkeeperPasses": 27,
+          "secondsElapsed": 6027.442999999999,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 85
+        }
+      ]
+    },
+    {
+      "matchId": 3895086,
+      "date": "2023-09-24",
+      "periodsSeconds": [
+        2782.337,
+        3060.927
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895086.json",
+      "sha256": "84d8ce36e84efbe1b168d39efe0b166c50a48da3cf587986a6455cbb06d6e119",
+      "teams": [
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 873,
+          "passesWithoutCrosses": 861,
+          "completedWithoutCrosses": 789,
+          "crosses": 12,
+          "throwInsIncluded": 21,
+          "corners": 7,
+          "shots": 21,
+          "shotOutcomes": {
+            "Blocked": 5,
+            "Off T": 4,
+            "Goal": 4,
+            "Saved": 6,
+            "Wayward": 1,
+            "Post": 1
+          },
+          "goalsFromShots": 4,
+          "penalties": 1,
+          "fouls": 10,
+          "yellowCards": 1,
+          "redCards": 0,
+          "shotsOnTargetConservative": 10,
+          "goalkeeperPasses": 27,
+          "secondsElapsed": 5843.264,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 87
+        },
+        {
+          "id": 201,
+          "name": "FC Heidenheim",
+          "passAttempts": 364,
+          "passesWithoutCrosses": 360,
+          "completedWithoutCrosses": 275,
+          "crosses": 4,
+          "throwInsIncluded": 22,
+          "corners": 2,
+          "shots": 2,
+          "shotOutcomes": {
+            "Saved": 1,
+            "Goal": 1
+          },
+          "goalsFromShots": 1,
+          "penalties": 0,
+          "fouls": 13,
+          "yellowCards": 1,
+          "redCards": 0,
+          "shotsOnTargetConservative": 2,
+          "goalkeeperPasses": 42,
+          "secondsElapsed": 5843.264,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 82
+        }
+      ]
+    },
+    {
+      "matchId": 3895095,
+      "date": "2023-09-30",
+      "periodsSeconds": [
+        2824.044,
+        2955.805
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895095.json",
+      "sha256": "cf37c272322ea2daa3f102783d60dd637585eb029dda0e94e052ab9f5c648a29",
+      "teams": [
+        {
+          "id": 177,
+          "name": "FSV Mainz 05",
+          "passAttempts": 527,
+          "passesWithoutCrosses": 518,
+          "completedWithoutCrosses": 423,
+          "crosses": 9,
+          "throwInsIncluded": 19,
+          "corners": 3,
+          "shots": 10,
+          "shotOutcomes": {
+            "Off T": 4,
+            "Saved": 3,
+            "Blocked": 3
+          },
+          "goalsFromShots": 0,
+          "penalties": 0,
+          "fouls": 16,
+          "yellowCards": 4,
+          "redCards": 0,
+          "shotsOnTargetConservative": 3,
+          "goalkeeperPasses": 34,
+          "secondsElapsed": 5779.849,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 78
+        },
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 635,
+          "passesWithoutCrosses": 631,
+          "completedWithoutCrosses": 550,
+          "crosses": 4,
+          "throwInsIncluded": 17,
+          "corners": 1,
+          "shots": 6,
+          "shotOutcomes": {
+            "Off T": 2,
+            "Goal": 2,
+            "Saved": 1,
+            "Blocked": 1
+          },
+          "goalsFromShots": 2,
+          "penalties": 0,
+          "fouls": 11,
+          "yellowCards": 1,
+          "redCards": 0,
+          "shotsOnTargetConservative": 3,
+          "goalkeeperPasses": 28,
+          "secondsElapsed": 5779.849,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 75
+        }
+      ]
+    },
+    {
+      "matchId": 3895107,
+      "date": "2023-10-08",
+      "periodsSeconds": [
+        2941.817,
+        2886.479
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895107.json",
+      "sha256": "26f6dab51a13ad9877daae29da74bab0be7c5813743994c26e7f4de14719b58c",
+      "teams": [
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 775,
+          "passesWithoutCrosses": 766,
+          "completedWithoutCrosses": 705,
+          "crosses": 9,
+          "throwInsIncluded": 17,
+          "corners": 11,
+          "shots": 23,
+          "shotOutcomes": {
+            "Saved": 7,
+            "Blocked": 8,
+            "Off T": 4,
+            "Goal": 3,
+            "Wayward": 1
+          },
+          "goalsFromShots": 3,
+          "penalties": 0,
+          "fouls": 8,
+          "yellowCards": 3,
+          "redCards": 0,
+          "shotsOnTargetConservative": 10,
+          "goalkeeperPasses": 29,
+          "secondsElapsed": 5828.296,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 79
+        },
+        {
+          "id": 186,
+          "name": "FC Köln",
+          "passAttempts": 436,
+          "passesWithoutCrosses": 431,
+          "completedWithoutCrosses": 353,
+          "crosses": 5,
+          "throwInsIncluded": 12,
+          "corners": 4,
+          "shots": 7,
+          "shotOutcomes": {
+            "Off T": 3,
+            "Blocked": 1,
+            "Saved": 3
+          },
+          "goalsFromShots": 0,
+          "penalties": 0,
+          "fouls": 10,
+          "yellowCards": 0,
+          "redCards": 0,
+          "shotsOnTargetConservative": 3,
+          "goalkeeperPasses": 48,
+          "secondsElapsed": 5828.296,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 70
+        }
+      ]
+    },
+    {
+      "matchId": 3895113,
+      "date": "2023-10-21",
+      "periodsSeconds": [
+        2824.429,
+        2953.87
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895113.json",
+      "sha256": "09b45ef8b6773cd3f6b6e4d4bdd7346e18c8225654a0a1a48ee7577062b5aad7",
+      "teams": [
+        {
+          "id": 179,
+          "name": "Wolfsburg",
+          "passAttempts": 473,
+          "passesWithoutCrosses": 466,
+          "completedWithoutCrosses": 371,
+          "crosses": 7,
+          "throwInsIncluded": 16,
+          "corners": 4,
+          "shots": 18,
+          "shotOutcomes": {
+            "Off T": 6,
+            "Saved": 6,
+            "Wayward": 2,
+            "Blocked": 3,
+            "Goal": 1
+          },
+          "goalsFromShots": 1,
+          "penalties": 0,
+          "fouls": 19,
+          "yellowCards": 3,
+          "redCards": 0,
+          "shotsOnTargetConservative": 7,
+          "goalkeeperPasses": 42,
+          "secondsElapsed": 5778.299,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 88
+        },
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 654,
+          "passesWithoutCrosses": 645,
+          "completedWithoutCrosses": 563,
+          "crosses": 9,
+          "throwInsIncluded": 17,
+          "corners": 3,
+          "shots": 13,
+          "shotOutcomes": {
+            "Saved": 5,
+            "Goal": 2,
+            "Off T": 5,
+            "Wayward": 1
+          },
+          "goalsFromShots": 2,
+          "penalties": 0,
+          "fouls": 15,
+          "yellowCards": 5,
+          "redCards": 0,
+          "shotsOnTargetConservative": 7,
+          "goalkeeperPasses": 41,
+          "secondsElapsed": 5778.299,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 88
+        }
+      ]
+    },
+    {
+      "matchId": 3895121,
+      "date": "2023-10-29",
+      "periodsSeconds": [
+        2758.488,
+        3050.56
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895121.json",
+      "sha256": "de2b29ac79817c66c0089166a8078eeff234e18c72b1627b8d9eed3d0a4e587c",
+      "teams": [
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 752,
+          "passesWithoutCrosses": 743,
+          "completedWithoutCrosses": 673,
+          "crosses": 9,
+          "throwInsIncluded": 15,
+          "corners": 11,
+          "shots": 18,
+          "shotOutcomes": {
+            "Off T": 8,
+            "Blocked": 5,
+            "Goal": 1,
+            "Saved": 1,
+            "Post": 2,
+            "Saved to Post": 1
+          },
+          "goalsFromShots": 1,
+          "penalties": 0,
+          "fouls": 12,
+          "yellowCards": 0,
+          "redCards": 0,
+          "shotsOnTargetConservative": 3,
+          "goalkeeperPasses": 22,
+          "secondsElapsed": 5809.048,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 85
+        },
+        {
+          "id": 183,
+          "name": "Freiburg",
+          "passAttempts": 329,
+          "passesWithoutCrosses": 320,
+          "completedWithoutCrosses": 242,
+          "crosses": 9,
+          "throwInsIncluded": 17,
+          "corners": 4,
+          "shots": 10,
+          "shotOutcomes": {
+            "Saved": 3,
+            "Blocked": 2,
+            "Goal": 1,
+            "Off T": 4
+          },
+          "goalsFromShots": 1,
+          "penalties": 0,
+          "fouls": 13,
+          "yellowCards": 2,
+          "redCards": 0,
+          "shotsOnTargetConservative": 4,
+          "goalkeeperPasses": 34,
+          "secondsElapsed": 5809.048,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 71
+        }
+      ]
+    },
+    {
+      "matchId": 3895134,
+      "date": "2023-11-04",
+      "periodsSeconds": [
+        2856.265,
+        3029.997
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895134.json",
+      "sha256": "b1e71963d53ad18cdaa5f7c8133d8fe3882246716f7cad090db81e7812532327",
+      "teams": [
+        {
+          "id": 175,
+          "name": "Hoffenheim",
+          "passAttempts": 540,
+          "passesWithoutCrosses": 524,
+          "completedWithoutCrosses": 445,
+          "crosses": 16,
+          "throwInsIncluded": 13,
+          "corners": 4,
+          "shots": 12,
+          "shotOutcomes": {
+            "Saved": 4,
+            "Off T": 3,
+            "Goal": 2,
+            "Saved to Post": 1,
+            "Blocked": 2
+          },
+          "goalsFromShots": 2,
+          "penalties": 0,
+          "fouls": 9,
+          "yellowCards": 3,
+          "redCards": 0,
+          "shotsOnTargetConservative": 7,
+          "goalkeeperPasses": 42,
+          "secondsElapsed": 5886.262,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 79
+        },
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 588,
+          "passesWithoutCrosses": 571,
+          "completedWithoutCrosses": 505,
+          "crosses": 17,
+          "throwInsIncluded": 21,
+          "corners": 3,
+          "shots": 10,
+          "shotOutcomes": {
+            "Goal": 3,
+            "Saved": 2,
+            "Off T": 3,
+            "Blocked": 1,
+            "Wayward": 1
+          },
+          "goalsFromShots": 3,
+          "penalties": 0,
+          "fouls": 14,
+          "yellowCards": 2,
+          "redCards": 0,
+          "shotsOnTargetConservative": 5,
+          "goalkeeperPasses": 25,
+          "secondsElapsed": 5886.262,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 79
+        }
+      ]
+    },
+    {
+      "matchId": 3895139,
+      "date": "2023-11-12",
+      "periodsSeconds": [
+        2820.027,
+        2819.321
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895139.json",
+      "sha256": "6f5e7165f5f8ff0b5619f81ed6695ac07e19093f68608a70da70c8976e114650",
+      "teams": [
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 855,
+          "passesWithoutCrosses": 848,
+          "completedWithoutCrosses": 779,
+          "crosses": 7,
+          "throwInsIncluded": 14,
+          "corners": 10,
+          "shots": 18,
+          "shotOutcomes": {
+            "Wayward": 1,
+            "Off T": 3,
+            "Blocked": 4,
+            "Goal": 4,
+            "Saved": 6
+          },
+          "goalsFromShots": 4,
+          "penalties": 0,
+          "fouls": 8,
+          "yellowCards": 0,
+          "redCards": 0,
+          "shotsOnTargetConservative": 10,
+          "goalkeeperPasses": 25,
+          "secondsElapsed": 5639.348,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 78
+        },
+        {
+          "id": 190,
+          "name": "Union Berlin",
+          "passAttempts": 402,
+          "passesWithoutCrosses": 399,
+          "completedWithoutCrosses": 315,
+          "crosses": 3,
+          "throwInsIncluded": 10,
+          "corners": 1,
+          "shots": 2,
+          "shotOutcomes": {
+            "Saved": 2
+          },
+          "goalsFromShots": 0,
+          "penalties": 0,
+          "fouls": 5,
+          "yellowCards": 1,
+          "redCards": 0,
+          "shotsOnTargetConservative": 2,
+          "goalkeeperPasses": 33,
+          "secondsElapsed": 5639.348,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 70
+        }
+      ]
+    },
+    {
+      "matchId": 3895153,
+      "date": "2023-11-25",
+      "periodsSeconds": [
+        2765.927,
+        2881.782
+      ],
+      "url": "https://raw.githubusercontent.com/statsbomb/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3895153.json",
+      "sha256": "ff08bf0f3c1d9717eb60a64571ba9aeb413f61475dd0d14529e39cb00cc47b6b",
+      "teams": [
+        {
+          "id": 176,
+          "name": "Werder Bremen",
+          "passAttempts": 537,
+          "passesWithoutCrosses": 528,
+          "completedWithoutCrosses": 425,
+          "crosses": 9,
+          "throwInsIncluded": 14,
+          "corners": 1,
+          "shots": 2,
+          "shotOutcomes": {
+            "Saved": 1,
+            "Post": 1
+          },
+          "goalsFromShots": 0,
+          "penalties": 0,
+          "fouls": 16,
+          "yellowCards": 3,
+          "redCards": 0,
+          "shotsOnTargetConservative": 1,
+          "goalkeeperPasses": 41,
+          "secondsElapsed": 5647.709000000001,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 71
+        },
+        {
+          "id": 904,
+          "name": "Bayer Leverkusen",
+          "passAttempts": 772,
+          "passesWithoutCrosses": 760,
+          "completedWithoutCrosses": 671,
+          "crosses": 12,
+          "throwInsIncluded": 17,
+          "corners": 6,
+          "shots": 14,
+          "shotOutcomes": {
+            "Blocked": 5,
+            "Off T": 3,
+            "Wayward": 2,
+            "Goal": 2,
+            "Saved": 2
+          },
+          "goalsFromShots": 2,
+          "penalties": 0,
+          "fouls": 4,
+          "yellowCards": 1,
+          "redCards": 0,
+          "shotsOnTargetConservative": 4,
+          "goalkeeperPasses": 29,
+          "secondsElapsed": 5647.709000000001,
+          "liveBallSeconds": null,
+          "possessionProviderIds": 85
+        }
+      ]
+    }
+  ]
+}

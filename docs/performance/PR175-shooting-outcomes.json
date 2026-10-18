@@ -1,0 +1,4681 @@
+{
+  "version": 1,
+  "status": "complete",
+  "method": "One actual shot ID, final diagnostic and canonical score transitions. Initial official block/save can precede a same-shot goal upgrade; do not add them as mutually exclusive final outcomes. Raw legal restart restrictions and last boundary fields can be stale; normalised provenance requires uninterrupted episode lineage. Internal expectation is not validated xG.",
+  "shots": 14,
+  "goals": 9,
+  "finalOutcomes": {
+    "goal": 9,
+    "block": 1,
+    "save": 4
+  },
+  "contexts": {
+    "penalty": 6,
+    "open_play": 8
+  },
+  "byContext": {
+    "penalty": {
+      "shots": 6,
+      "goals": 4,
+      "distance": {
+        "n": 6,
+        "mean": 11.022354450310365,
+        "median": 11.035824192738449,
+        "sd": 0.04035539393274421,
+        "p10": 10.973596578156332,
+        "p90": 11.057642580036308,
+        "min": 10.972184798904452,
+        "max": 11.059271516070945
+      },
+      "outcomes": {
+        "goal": 4,
+        "save": 2
+      }
+    },
+    "open_play": {
+      "shots": 8,
+      "goals": 5,
+      "distance": {
+        "n": 8,
+        "mean": 8.288864674498074,
+        "median": 8.741840591330517,
+        "sd": 2.3016126980734244,
+        "p10": 5.247783955988302,
+        "p90": 10.039977474168325,
+        "min": 4.5497019896503454,
+        "max": 11.996891455212742
+      },
+      "outcomes": {
+        "goal": 5,
+        "block": 1,
+        "save": 2
+      }
+    }
+  },
+  "initialOutcomeCounts": {
+    "shot_outcome:goal": 7,
+    "shot_outcome:block": 2,
+    "shot_outcome:save": 5
+  },
+  "goalSources": {
+    "penalty": 4,
+    "open_play": 5
+  },
+  "reboundGoals": 2,
+  "missingRelease": [],
+  "duplicateReleaseIds": 0,
+  "duplicateGoalIds": 0,
+  "shotDistance": {
+    "n": 14,
+    "mean": 9.460360292703342,
+    "median": 10.086742426312584,
+    "sd": 2.196295136234428,
+    "p10": 6.4355745639777755,
+    "p90": 11.058294154450163,
+    "min": 4.5497019896503454,
+    "max": 11.996891455212742
+  },
+  "shotPressure": {
+    "n": 14,
+    "mean": 0.5555720490116562,
+    "median": 0.6465982404792521,
+    "sd": 0.17693430583541453,
+    "p10": 0.36026591009691583,
+    "p90": 0.7334201203205464,
+    "min": 0.36021424986408757,
+    "max": 0.764131666254922
+  },
+  "finalOutcomesPerMatch": [
+    {
+      "id": "dev-balanced",
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "officialShots": 1,
+      "shots": 1,
+      "finalOutcomes": {
+        "goal": 1
+      }
+    },
+    {
+      "id": "dev-central",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "officialShots": 0,
+      "shots": 0,
+      "finalOutcomes": {}
+    },
+    {
+      "id": "dev-keepers",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "officialShots": 0,
+      "shots": 0,
+      "finalOutcomes": {}
+    },
+    {
+      "id": "dev-strength",
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "officialShots": 4,
+      "shots": 4,
+      "finalOutcomes": {
+        "goal": 2,
+        "block": 1,
+        "save": 1
+      }
+    },
+    {
+      "id": "dev-wide",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "officialShots": 0,
+      "shots": 0,
+      "finalOutcomes": {}
+    },
+    {
+      "id": "dev-youth",
+      "score": {
+        "home": 0,
+        "away": 2
+      },
+      "officialShots": 2,
+      "shots": 2,
+      "finalOutcomes": {
+        "goal": 2
+      }
+    },
+    {
+      "id": "val-balanced",
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "officialShots": 1,
+      "shots": 1,
+      "finalOutcomes": {
+        "goal": 1
+      }
+    },
+    {
+      "id": "val-central",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "officialShots": 2,
+      "shots": 2,
+      "finalOutcomes": {
+        "save": 2
+      }
+    },
+    {
+      "id": "val-keepers",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "officialShots": 0,
+      "shots": 0,
+      "finalOutcomes": {}
+    },
+    {
+      "id": "val-strength",
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "officialShots": 3,
+      "shots": 3,
+      "finalOutcomes": {
+        "save": 1,
+        "goal": 2
+      }
+    },
+    {
+      "id": "val-wide",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "officialShots": 0,
+      "shots": 0,
+      "finalOutcomes": {}
+    },
+    {
+      "id": "val-youth",
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "officialShots": 1,
+      "shots": 1,
+      "finalOutcomes": {
+        "goal": 1
+      }
+    }
+  ],
+  "shotLedger": [
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:dev-balanced:v1:shot:357:footballer_pro_15_12",
+        "shooterId": "footballer_pro_15_12",
+        "releasedAt": 786.9749999995581,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.0999999999999995,
+        "ballHeightAtContact": 0.0999999999999995,
+        "launchSpeed": 29.413134951647372,
+        "launchVerticalComponent": 2.978738739568328,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.735,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.004262973158246599,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.7465997816845932,
+          "horizontalSigma": 0.15696845281904762,
+          "verticalSigma": 0.2212557066121111,
+          "distanceDifficulty": 0.5435157011665789,
+          "angleDifficulty": 0.0011902553703819763,
+          "pressureDifficulty": 0.36021424986408757,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.004262973158246599,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.431631170643333,
+          "horizontalSigmaMetres": 0.5745045373177143,
+          "verticalSigmaMetres": 0.5398639241335511,
+          "ballMovementDifficulty": 0,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.17125564861396714,
+          "blockerDifficulty": 0
+        },
+        "context": "penalty",
+        "distance": 11.052033197574758,
+        "angle": 0.998809744629618,
+        "pressure": 0.36021424986408757,
+        "blockingDefenders": 0,
+        "baseXg": 0.6339975241576947,
+        "effectiveScoringExpectation": 0.6670740633044189,
+        "shooterExecutionQuality": 0.7465997816845932,
+        "intendedTarget": {
+          "horizontal": 0.6,
+          "vertical": 0.34
+        },
+        "actualTarget": {
+          "horizontal": 0.5755550113067672,
+          "vertical": 0.18644471293622647
+        },
+        "error": {
+          "horizontal": -0.024444988693232788,
+          "vertical": -0.15355528706377355
+        },
+        "speed": 29.413134951647372,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "episodeId": null,
+      "choiceId": null,
+      "releasedAt": 786.9749999995581,
+      "resolvedAt": 787.3999999995577,
+      "team": "away",
+      "sourceRestartId": "pr175-fresh-20261018:dev-balanced:v1:restart:762.94999999958:away:penalty",
+      "sourceRestart": "penalty",
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 11.052033197574758,
+        "angle": 0.998809744629618,
+        "pressure": 0.36021424986408757,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8287443513860329,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_14_1",
+          "distanceFromGoalCentre": 1.2266888684358552,
+          "distanceFromGoalLine": 0.07071787120087704,
+          "estimatedRecoveryTime": 0.18872136437474696,
+          "estimatedShotTravelTime": 0.46050138323228157,
+          "goalCoverage": 0.7048480681426154
+        },
+        "baseXg": 0.6339975241576947,
+        "shooterExecutionQuality": 0.746601014615644,
+        "effectiveScoringExpectation": 0.6670740633044189,
+        "category": "high_value",
+        "value": 0.6670740633044189
+      },
+      "shooterAttributes": {
+        "technique": 83,
+        "firstTouch": 85,
+        "passing": 85,
+        "dribbling": 83,
+        "finishing": 80,
+        "tackling": 78,
+        "positioning": 81,
+        "heading": 71,
+        "setPieces": 78,
+        "gameReading": 86,
+        "composure": 85,
+        "concentration": 70,
+        "leadership": 73,
+        "determination": 72,
+        "aggression": 84,
+        "pace": 68,
+        "stamina": 92,
+        "strength": 75,
+        "agility": 68,
+        "jumping": 69,
+        "ambition": 72,
+        "professionalism": 87,
+        "reflexes": 18,
+        "handling": 18,
+        "oneOnOnes": 19,
+        "goalkeeperSweeping": 7,
+        "goalkeeperKicking": 8,
+        "goalkeeperThrowing": 7
+      },
+      "ball": {
+        "x": 11.015697515626158,
+        "y": 34.018154519678774,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_15_17",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "keeper": {
+        "id": "footballer_pro_14_1",
+        "team": "home",
+        "profile": {
+          "id": "footballer_pro_14_1",
+          "firstName": "Oskar",
+          "lastName": "Sikora",
+          "age": 35,
+          "dateOfBirth": "1990-12-09",
+          "nationality": "PL",
+          "heightCm": 194,
+          "weightKg": 86,
+          "attributes": {
+            "technique": 59,
+            "firstTouch": 57,
+            "passing": 46,
+            "dribbling": 65,
+            "finishing": 61,
+            "tackling": 64,
+            "positioning": 61,
+            "heading": 57,
+            "setPieces": 74,
+            "gameReading": 69,
+            "composure": 62,
+            "concentration": 62,
+            "leadership": 50,
+            "determination": 57,
+            "aggression": 59,
+            "pace": 51,
+            "stamina": 51,
+            "strength": 52,
+            "agility": 56,
+            "jumping": 55,
+            "ambition": 58,
+            "professionalism": 62,
+            "reflexes": 70,
+            "handling": 84,
+            "oneOnOnes": 83,
+            "goalkeeperSweeping": 72,
+            "goalkeeperKicking": 67,
+            "goalkeeperThrowing": 67
+          },
+          "hiddenProfile": {
+            "consistency": 85,
+            "importantMatches": 84,
+            "injuryProneness": 16,
+            "adaptability": 21,
+            "loyalty": 89,
+            "pressureResistance": 67,
+            "controversy": 3,
+            "fairPlay": 86
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 45,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.9775375298229085,
+          "burstReadiness": 0.9775375298229085,
+          "exertionSpent": 671.1469715299344,
+          "capacitySpent": 0.031525692817168216,
+          "burstSpent": 2.5314270261427048,
+          "capacityRecovered": 0.009063222638993168,
+          "burstRecovered": 2.5089645559643285,
+          "movementRiskExposure": 0.000756304551170529,
+          "assessedRiskExposure": 0.000756304551170529,
+          "workload": {
+            "seconds": 786.9499999995581,
+            "distanceWalk": 73.21440716928205,
+            "distanceJog": 0.05717851745918351,
+            "distanceRun": 0,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 679.253752953198,
+            "brakingImpulse": 679.2537529531991,
+            "turningLoad": 14.114271034640987,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 0.07071787120087704,
+          "y": 35.224648750718856
+        },
+        "target": {
+          "x": 0,
+          "y": 35.224648750718856
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 1.6805857272326374,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 0,
+          "y": 35.224648750718856
+        },
+        "meanPosition": {
+          "x": 1.4800176985444133,
+          "y": 34.039656813890005
+        },
+        "samples": 31479,
+        "desiredFacingAngle": 1.6805857272326366,
+        "movementMode": "backpedal",
+        "turnRate": 0,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "restart_setup",
+        "targetSpeed": 1.6288329536746273,
+        "locomotionTelemetry": {
+          "distanceTotal": 73.27158568674122,
+          "distanceWalk": 73.21440716928205,
+          "distanceJog": 0.05717851745918351,
+          "distanceRun": 0,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 2.2871406983673404
+        },
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_15_17",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:dev-balanced:v1:restart:762.94999999958:away:penalty",
+        "scenario": "penalty"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:dev-strength:v1:shot:54:footballer_pro_3_22",
+        "shooterId": "footballer_pro_3_22",
+        "releasedAt": 117.5250000000096,
+        "intent": "chip",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "launchSpeed": 10.313348306265725,
+        "launchVerticalComponent": 8.975999999999997,
+        "executionProfile": {
+          "intent": "chip",
+          "contact": "settled",
+          "nominalSpeed": 20.285,
+          "errorMultiplier": 1.05,
+          "pressureSensitivity": 0.38,
+          "preparationSeconds": 0.24,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.4400967782292211,
+          "dominantFootDifficulty": 0.55,
+          "minimumVerticalSpeed": 8.975999999999999
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.5122024753054002,
+          "horizontalSigma": 0.3873083326132926,
+          "verticalSigma": 0.5698014018430189,
+          "distanceDifficulty": 0.4218137499361484,
+          "angleDifficulty": 0.04481114220208782,
+          "pressureDifficulty": 0.7364719386124241,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.4400967782292211,
+          "weakFootDifficulty": 0.55,
+          "intrinsicDifficulty": 2.0955258784929125,
+          "horizontalSigmaMetres": 1.417548497364651,
+          "verticalSigmaMetres": 1.390315420496966,
+          "ballMovementDifficulty": 0.035243417930514165,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.12244470190204115,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 9.023376756896122,
+        "angle": 0.9551888577979122,
+        "pressure": 0.7364719386124241,
+        "blockingDefenders": 1,
+        "baseXg": 0.492364608139172,
+        "effectiveScoringExpectation": 0.3331191616279088,
+        "shooterExecutionQuality": 0.5122024753054002,
+        "intendedTarget": {
+          "horizontal": 0,
+          "vertical": 0.62
+        },
+        "actualTarget": {
+          "horizontal": 0.1156057089621364,
+          "vertical": -0.37160000261184134
+        },
+        "error": {
+          "horizontal": 0.1156057089621364,
+          "vertical": -0.9916000026118413
+        },
+        "speed": 10.313348306265725,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:12:115.7500000000092",
+      "choiceId": "pr175-fresh-20261018:dev-strength:v1:choice:53:117.5250000000096:83",
+      "releasedAt": 117.5250000000096,
+      "resolvedAt": 119.50000000001005,
+      "team": "home",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 9.038539548681975,
+        "angle": 0.9553571688695409,
+        "pressure": 0.7406766537071949,
+        "blockingDefenders": 1,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8782979559939414,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 6.808931185052457,
+          "distanceFromGoalLine": 6.805414676899318,
+          "estimatedRecoveryTime": 1.0475278746234549,
+          "estimatedShotTravelTime": 0.37660581452841563,
+          "goalCoverage": 0.38952937792331305
+        },
+        "baseXg": 0.4913224903037579,
+        "shooterExecutionQuality": 0.5110913695164013,
+        "effectiveScoringExpectation": 0.3301159521636578,
+        "category": "high_value",
+        "value": 0.3301159521636578
+      },
+      "shooterAttributes": {
+        "technique": 73,
+        "firstTouch": 86,
+        "passing": 56,
+        "dribbling": 64,
+        "finishing": 69,
+        "tackling": 63,
+        "positioning": 79,
+        "heading": 71,
+        "setPieces": 73,
+        "gameReading": 76,
+        "composure": 82,
+        "concentration": 73,
+        "leadership": 66,
+        "determination": 80,
+        "aggression": 72,
+        "pace": 85,
+        "stamina": 81,
+        "strength": 77,
+        "agility": 66,
+        "jumping": 62,
+        "ambition": 65,
+        "professionalism": 67,
+        "reflexes": 10,
+        "handling": 8,
+        "oneOnOnes": 12,
+        "goalkeeperSweeping": 22,
+        "goalkeeperKicking": 15,
+        "goalkeeperThrowing": 13
+      },
+      "ball": {
+        "x": 95.73010374722091,
+        "y": 33.277275498694515,
+        "ownerId": "footballer_pro_3_22",
+        "lastTouchPlayerId": "footballer_pro_3_22",
+        "velocity": {
+          "x": 1.9536798195828522,
+          "y": -0.5069765530116,
+          "z": 0
+        },
+        "height": 0,
+        "airborne": false
+      },
+      "keeper": {
+        "id": "footballer_pro_57_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_57_0",
+          "firstName": "Mateusz",
+          "lastName": "Baran",
+          "age": 24,
+          "dateOfBirth": "2001-09-22",
+          "nationality": "PL",
+          "heightCm": 197,
+          "weightKg": 77,
+          "attributes": {
+            "technique": 43,
+            "firstTouch": 48,
+            "passing": 45,
+            "dribbling": 58,
+            "finishing": 44,
+            "tackling": 56,
+            "positioning": 56,
+            "heading": 42,
+            "setPieces": 41,
+            "gameReading": 63,
+            "composure": 34,
+            "concentration": 46,
+            "leadership": 40,
+            "determination": 49,
+            "aggression": 47,
+            "pace": 39,
+            "stamina": 34,
+            "strength": 47,
+            "agility": 49,
+            "jumping": 34,
+            "ambition": 53,
+            "professionalism": 51,
+            "reflexes": 51,
+            "handling": 54,
+            "oneOnOnes": 60,
+            "goalkeeperSweeping": 79,
+            "goalkeeperKicking": 50,
+            "goalkeeperThrowing": 51
+          },
+          "hiddenProfile": {
+            "consistency": 72,
+            "importantMatches": 87,
+            "injuryProneness": 79,
+            "adaptability": 75,
+            "loyalty": 35,
+            "pressureResistance": 71,
+            "controversy": 59,
+            "fairPlay": 71
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 74,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.9936639863547883,
+          "burstReadiness": 0.9804446962679655,
+          "exertionSpent": 135.5276522085371,
+          "capacitySpent": 0.007419397018715512,
+          "burstSpent": 0.5024101973379302,
+          "capacityRecovered": 0.001083383373562002,
+          "burstRecovered": 0.48285489360589334,
+          "movementRiskExposure": 0.00015387264054049225,
+          "assessedRiskExposure": 0.00015041603294547613,
+          "workload": {
+            "seconds": 117.50000000000959,
+            "distanceWalk": 33.38993076481229,
+            "distanceJog": 9.496140947921393,
+            "distanceRun": 3.751120991397051,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 132.04762142364277,
+            "brakingImpulse": 129.94625740060786,
+            "turningLoad": 12.559349454170857,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0.04662702962369549
+          },
+          "lastInjuryContactId": "pr175-fresh-20261018:dev-strength:v1:challenge:115.775000:footballer_pro_57_0:footballer_pro_3_22:committed"
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 98.19458532310068,
+          "y": 33.781196530596056
+        },
+        "target": {
+          "x": 101.02689645069061,
+          "y": 34.118500506849685
+        },
+        "velocity": {
+          "x": 1.6404461480880173,
+          "y": 0.19536307405985553
+        },
+        "facingAngle": -1.7648677593683253,
+        "anchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 101.84431773928651,
+          "y": 33.76550853835596
+        },
+        "meanPosition": {
+          "x": 102.73270005557515,
+          "y": 34.820245604036984
+        },
+        "samples": 4701,
+        "desiredFacingAngle": -1.764867759368325,
+        "movementMode": "backpedal",
+        "turnRate": 0.31710890897151955,
+        "locomotionIntensity": "jog",
+        "locomotionReason": "maintain_shape",
+        "targetSpeed": 3.1769965857358136,
+        "locomotionTelemetry": {
+          "distanceTotal": 46.637192704130705,
+          "distanceWalk": 33.38993076481229,
+          "distanceJog": 9.496140947921393,
+          "distanceRun": 3.751120991397051,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 4.672215840546053
+        },
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_3_22",
+      "rawRestartHint": {
+        "id": null,
+        "scenario": null
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:dev-strength:v1:shot:169:footballer_pro_3_21",
+        "shooterId": "footballer_pro_3_21",
+        "releasedAt": 423.6999999998885,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "launchSpeed": 36.470112332273274,
+        "launchVerticalComponent": 5.06083111544798,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 34.51,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.7732072310886198,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6683288283812835,
+          "horizontalSigma": 0.291942573777468,
+          "verticalSigma": 0.4180895274102461,
+          "distanceDifficulty": 0.3919744680724654,
+          "angleDifficulty": 1,
+          "pressureDifficulty": 0.7262992109728315,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.7732072310886198,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 2.512236352122106,
+          "horizontalSigmaMetres": 1.068509820025533,
+          "verticalSigmaMetres": 1.0201384468810004,
+          "ballMovementDifficulty": 0.010369876060050652,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.10710469810148548,
+          "blockerDifficulty": 0.12804485645536645
+        },
+        "context": "open_play",
+        "distance": 8.509004016281922,
+        "angle": 0,
+        "pressure": 0.7262992109728315,
+        "blockingDefenders": 1,
+        "baseXg": 0.17183424146446347,
+        "effectiveScoringExpectation": 0.15219916242285414,
+        "shooterExecutionQuality": 0.6683288283812835,
+        "intendedTarget": {
+          "horizontal": 0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": 0.44170498948797227,
+          "vertical": 0.4782345457731991
+        },
+        "error": {
+          "horizontal": 0.20170498948797227,
+          "vertical": 0.23823454577319914
+        },
+        "speed": 36.470112332273274,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:23:407.14999999990357",
+      "choiceId": "pr175-fresh-20261018:dev-strength:v1:choice:168:423.6999999998885:286",
+      "releasedAt": 423.6999999998885,
+      "resolvedAt": 424.0249999998882,
+      "team": "home",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": "pr175-fresh-20261018:dev-strength:v1:pass:165:footballer_pro_3_5",
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 8.5177929900388,
+        "angle": 0,
+        "pressure": 0.7260483067573666,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.21953787795837512,
+        "visibleTargetArea": 0.8927922265765968,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.7304330049372085,
+          "distanceFromGoalLine": 1.2188868691469565,
+          "estimatedRecoveryTime": 0.42006661614418594,
+          "estimatedShotTravelTime": 0.3549080412516166,
+          "goalCoverage": 0.5983940249410665
+        },
+        "baseXg": 0.17178405563568225,
+        "shooterExecutionQuality": 0.6686553345415905,
+        "effectiveScoringExpectation": 0.15207064764872066,
+        "category": "credible",
+        "value": 0.15207064764872066
+      },
+      "shooterAttributes": {
+        "technique": 78,
+        "firstTouch": 82,
+        "passing": 84,
+        "dribbling": 61,
+        "finishing": 84,
+        "tackling": 64,
+        "positioning": 69,
+        "heading": 92,
+        "setPieces": 64,
+        "gameReading": 72,
+        "composure": 90,
+        "concentration": 59,
+        "leadership": 65,
+        "determination": 66,
+        "aggression": 74,
+        "pace": 68,
+        "stamina": 79,
+        "strength": 91,
+        "agility": 59,
+        "jumping": 79,
+        "ambition": 73,
+        "professionalism": 84,
+        "reflexes": 17,
+        "handling": 8,
+        "oneOnOnes": 24,
+        "goalkeeperSweeping": 15,
+        "goalkeeperKicking": 9,
+        "goalkeeperThrowing": 16
+      },
+      "ball": {
+        "x": 100.22968589843596,
+        "y": 26.445940172573444,
+        "ownerId": "footballer_pro_3_21",
+        "lastTouchPlayerId": "footballer_pro_3_21",
+        "velocity": {
+          "x": -0.2083252770952504,
+          "y": 0.616073725289099,
+          "z": 0
+        },
+        "height": 0,
+        "airborne": false
+      },
+      "keeper": {
+        "id": "footballer_pro_57_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_57_0",
+          "firstName": "Mateusz",
+          "lastName": "Baran",
+          "age": 24,
+          "dateOfBirth": "2001-09-22",
+          "nationality": "PL",
+          "heightCm": 197,
+          "weightKg": 77,
+          "attributes": {
+            "technique": 43,
+            "firstTouch": 48,
+            "passing": 45,
+            "dribbling": 58,
+            "finishing": 44,
+            "tackling": 56,
+            "positioning": 56,
+            "heading": 42,
+            "setPieces": 41,
+            "gameReading": 63,
+            "composure": 34,
+            "concentration": 46,
+            "leadership": 40,
+            "determination": 49,
+            "aggression": 47,
+            "pace": 39,
+            "stamina": 34,
+            "strength": 47,
+            "agility": 49,
+            "jumping": 34,
+            "ambition": 53,
+            "professionalism": 51,
+            "reflexes": 51,
+            "handling": 54,
+            "oneOnOnes": 60,
+            "goalkeeperSweeping": 79,
+            "goalkeeperKicking": 50,
+            "goalkeeperThrowing": 51
+          },
+          "hiddenProfile": {
+            "consistency": 72,
+            "importantMatches": 87,
+            "injuryProneness": 79,
+            "adaptability": 75,
+            "loyalty": 35,
+            "pressureResistance": 71,
+            "controversy": 59,
+            "fairPlay": 71
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 74,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.983662214210133,
+          "burstReadiness": 0.9814722799186341,
+          "exertionSpent": 374.28580339423223,
+          "capacitySpent": 0.02049009872596162,
+          "burstSpent": 1.399401049996142,
+          "capacityRecovered": 0.004152312936390549,
+          "burstRecovered": 1.3808733299145284,
+          "movementRiskExposure": 0.00043235536340023047,
+          "assessedRiskExposure": 0.00043043670559881486,
+          "workload": {
+            "seconds": 423.67499999988854,
+            "distanceWalk": 80.38646285105536,
+            "distanceJog": 15.225255257067152,
+            "distanceRun": 3.751120991397051,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 370.1409073366558,
+            "brakingImpulse": 369.38786380778686,
+            "turningLoad": 25.074247674518674,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0.04662702962369549
+          },
+          "lastInjuryContactId": "pr175-fresh-20261018:dev-strength:v1:challenge:115.775000:footballer_pro_57_0:footballer_pro_3_22:committed"
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 103.78111313085304,
+          "y": 31.556727769021315
+        },
+        "target": {
+          "x": 103.20669897362937,
+          "y": 31.25151109702964
+        },
+        "velocity": {
+          "x": -0.268206458140412,
+          "y": -0.14251229975926094
+        },
+        "facingAngle": -2.5359714223269822,
+        "anchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 103.31574584650122,
+          "y": 31.30310200535748
+        },
+        "meanPosition": {
+          "x": 103.02411397907886,
+          "y": 34.1322504871772
+        },
+        "samples": 16948,
+        "desiredFacingAngle": -2.5359714223269822,
+        "movementMode": "forward",
+        "turnRate": 0.06620971987331359,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "structural_adjustment",
+        "targetSpeed": 1.5394921590235227,
+        "locomotionTelemetry": {
+          "distanceTotal": 99.36283909951995,
+          "distanceWalk": 80.38646285105536,
+          "distanceJog": 15.225255257067152,
+          "distanceRun": 3.751120991397051,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 4.672215840546053
+        },
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_3_21",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:dev-strength:v1:restart:388.0749999999209:away:throw_in",
+        "scenario": "throw_in"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:dev-strength:v1:shot:1622:footballer_pro_3_22",
+        "shooterId": "footballer_pro_3_22",
+        "releasedAt": 3898.7500000039245,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "launchSpeed": 34.33572633670643,
+        "launchVerticalComponent": 5.455468407476009,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 34.285,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.09566863984446182,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.5673944803725363,
+          "horizontalSigma": 0.31924454243704126,
+          "verticalSigma": 0.46686393055443176,
+          "distanceDifficulty": 0.4073658544968916,
+          "angleDifficulty": 0.2970449260537902,
+          "pressureDifficulty": 0.7096162910075283,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.09566863984446182,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.7820714976946388,
+          "horizontalSigmaMetres": 1.168435025319571,
+          "verticalSigmaMetres": 1.1391479905528135,
+          "ballMovementDifficulty": 0.03632836401031275,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.16143654123444762,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 8.775264263209525,
+        "angle": 0.7029550739462098,
+        "pressure": 0.7096162910075283,
+        "blockingDefenders": 0,
+        "baseXg": 0.4963010196818185,
+        "effectiveScoringExpectation": 0.4118890621795888,
+        "shooterExecutionQuality": 0.5673944803725363,
+        "intendedTarget": {
+          "horizontal": -0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": 0.11148945020693629,
+          "vertical": 0.5037541753810209
+        },
+        "error": {
+          "horizontal": 0.3514894502069363,
+          "vertical": 0.26375417538102086
+        },
+        "speed": 34.33572633670643,
+        "classification": "on_target",
+        "keeperId": "footballer_pro_57_0",
+        "goalkeeperAction": "failed_save",
+        "outcome": "block"
+      },
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:221:3845.1750000037296",
+      "choiceId": "pr175-fresh-20261018:dev-strength:v1:choice:1621:3898.7500000039245:2645",
+      "releasedAt": 3898.7500000039245,
+      "resolvedAt": 3898.925000003925,
+      "team": "home",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": "pr175-fresh-20261018:dev-strength:v1:pass:1613:footballer_pro_3_19",
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 8.819745775483428,
+        "angle": 0.7030743902628376,
+        "pressure": 0.7088384950907091,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8383957890579954,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.776405887278176,
+          "distanceFromGoalLine": 2.654366195093703,
+          "estimatedRecoveryTime": 0.4271393672735655,
+          "estimatedShotTravelTime": 0.3674894073118095,
+          "goalCoverage": 0.6002459622755053
+        },
+        "baseXg": 0.49576033707165396,
+        "shooterExecutionQuality": 0.5675764156068749,
+        "effectiveScoringExpectation": 0.41043738474017616,
+        "category": "high_value",
+        "value": 0.41043738474017616
+      },
+      "shooterAttributes": {
+        "technique": 73,
+        "firstTouch": 86,
+        "passing": 56,
+        "dribbling": 64,
+        "finishing": 69,
+        "tackling": 63,
+        "positioning": 79,
+        "heading": 71,
+        "setPieces": 73,
+        "gameReading": 76,
+        "composure": 82,
+        "concentration": 73,
+        "leadership": 66,
+        "determination": 80,
+        "aggression": 72,
+        "pace": 85,
+        "stamina": 81,
+        "strength": 77,
+        "agility": 66,
+        "jumping": 62,
+        "ambition": 65,
+        "professionalism": 67,
+        "reflexes": 10,
+        "handling": 8,
+        "oneOnOnes": 12,
+        "goalkeeperSweeping": 22,
+        "goalkeeperKicking": 15,
+        "goalkeeperThrowing": 13
+      },
+      "ball": {
+        "x": 8.17686376816753,
+        "y": 35.97502458035283,
+        "ownerId": "footballer_pro_3_22",
+        "lastTouchPlayerId": "footballer_pro_3_22",
+        "velocity": {
+          "x": -1.9968101364861732,
+          "y": 0.5753978866018086,
+          "z": 0
+        },
+        "height": 0,
+        "airborne": false
+      },
+      "keeper": {
+        "id": "footballer_pro_57_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_57_0",
+          "firstName": "Mateusz",
+          "lastName": "Baran",
+          "age": 24,
+          "dateOfBirth": "2001-09-22",
+          "nationality": "PL",
+          "heightCm": 197,
+          "weightKg": 77,
+          "attributes": {
+            "technique": 43,
+            "firstTouch": 48,
+            "passing": 45,
+            "dribbling": 58,
+            "finishing": 44,
+            "tackling": 56,
+            "positioning": 56,
+            "heading": 42,
+            "setPieces": 41,
+            "gameReading": 63,
+            "composure": 34,
+            "concentration": 46,
+            "leadership": 40,
+            "determination": 49,
+            "aggression": 47,
+            "pace": 39,
+            "stamina": 34,
+            "strength": 47,
+            "agility": 49,
+            "jumping": 34,
+            "ambition": 53,
+            "professionalism": 51,
+            "reflexes": 51,
+            "handling": 54,
+            "oneOnOnes": 60,
+            "goalkeeperSweeping": 79,
+            "goalkeeperKicking": 50,
+            "goalkeeperThrowing": 51
+          },
+          "hiddenProfile": {
+            "consistency": 72,
+            "importantMatches": 87,
+            "injuryProneness": 79,
+            "adaptability": 75,
+            "loyalty": 35,
+            "pressureResistance": 71,
+            "controversy": 59,
+            "fairPlay": 71
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 74,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.8582991148747366,
+          "burstReadiness": 0.8582095442952695,
+          "exertionSpent": 3382.5270610921275,
+          "capacitySpent": 0.18517483911088314,
+          "burstSpent": 12.632693873864175,
+          "capacityRecovered": 0.04347395398835552,
+          "burstRecovered": 12.490903418175115,
+          "movementRiskExposure": 0.0034569623573813208,
+          "assessedRiskExposure": 0.0034569623573813208,
+          "workload": {
+            "seconds": 3898.7250000098006,
+            "distanceWalk": 670.5344752858502,
+            "distanceJog": 89.47797877723461,
+            "distanceRun": 78.33841750591948,
+            "distanceSprint": 5.408962793369286,
+            "sprintSeconds": 0.8250000000000004,
+            "sprintBursts": 0,
+            "accelerationImpulse": 3346.375510416248,
+            "brakingImpulse": 3344.5876574527547,
+            "turningLoad": 148.25562667714928,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0.04662702962369549
+          },
+          "lastInjuryContactId": "pr175-fresh-20261018:dev-strength:v1:challenge:115.775000:footballer_pro_57_0:footballer_pro_3_22:committed"
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 2.654366195093703,
+          "y": 34.81410672104872
+        },
+        "target": {
+          "x": 2.8296871363841567,
+          "y": 34.99383572072668
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 1.367958413503592,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 3.11152113833208,
+          "y": 34.730913758959986
+        },
+        "meanPosition": {
+          "x": 75.4688010388596,
+          "y": 34.12756167257486
+        },
+        "samples": 155950,
+        "desiredFacingAngle": 1.3679584135035932,
+        "movementMode": "diagonal",
+        "turnRate": 0.17802447074302563,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "structural_adjustment",
+        "targetSpeed": 1.5205742574738743,
+        "locomotionTelemetry": {
+          "distanceTotal": 843.7598343623783,
+          "distanceWalk": 670.5344752858502,
+          "distanceJog": 89.47797877723461,
+          "distanceRun": 78.33841750591948,
+          "distanceSprint": 5.408962793369286,
+          "sprintSeconds": 0.8250000000000004,
+          "sprintBursts": 0,
+          "maxSpeed": 7.043180683196078
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_3_22",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:dev-strength:v1:restart:3769.3000000034535:home:throw_in",
+        "scenario": "throw_in"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:dev-strength:v1:shot:1628:footballer_pro_3_21",
+        "shooterId": "footballer_pro_3_21",
+        "releasedAt": 3936.225000004061,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.0999999999999995,
+        "ballHeightAtContact": 0.0999999999999995,
+        "launchSpeed": 28.96958820907399,
+        "launchVerticalComponent": 3.6235058730009473,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.509999999999998,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.0007076084266809747,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.764800109402866,
+          "horizontalSigma": 0.14414058552899014,
+          "verticalSigma": 0.2025192804694362,
+          "distanceDifficulty": 0.5415236206258005,
+          "angleDifficulty": 0.000012192685871492692,
+          "pressureDifficulty": 0.36252783535230826,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.0007076084266809747,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.421421261797692,
+          "horizontalSigmaMetres": 0.5275545430361039,
+          "verticalSigmaMetres": 0.49414704434542434,
+          "ballMovementDifficulty": 0,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.12896289501961222,
+          "blockerDifficulty": 0
+        },
+        "context": "penalty",
+        "distance": 11.01961518790214,
+        "angle": 0.9999878073141285,
+        "pressure": 0.36252783535230826,
+        "blockingDefenders": 0,
+        "baseXg": 0.6635094025286066,
+        "effectiveScoringExpectation": 0.7150769972927755,
+        "shooterExecutionQuality": 0.764800109402866,
+        "intendedTarget": {
+          "horizontal": 0.6,
+          "vertical": 0.34
+        },
+        "actualTarget": {
+          "horizontal": 0.8687908578904247,
+          "vertical": 0.3023153149152425
+        },
+        "error": {
+          "horizontal": 0.2687908578904247,
+          "vertical": -0.03768468508475752
+        },
+        "speed": 28.96958820907399,
+        "classification": "on_target",
+        "keeperId": "footballer_pro_57_0",
+        "goalkeeperAction": "parry",
+        "outcome": "save"
+      },
+      "episodeId": null,
+      "choiceId": null,
+      "releasedAt": 3936.225000004061,
+      "resolvedAt": 3936.600000004062,
+      "team": "home",
+      "sourceRestartId": "pr175-fresh-20261018:dev-strength:v1:restart:3923.8250000040157:home:penalty",
+      "sourceRestart": "penalty",
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 11.01961518790214,
+        "angle": 0.9999878073141285,
+        "pressure": 0.36252783535230826,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8710371049803878,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.115898116874477,
+          "distanceFromGoalLine": 0.06588636590986009,
+          "estimatedRecoveryTime": 0.325522787211458,
+          "estimatedShotTravelTime": 0.45915063282925583,
+          "goalCoverage": 0.6630864453701949
+        },
+        "baseXg": 0.6635094025286066,
+        "shooterExecutionQuality": 0.7647981346798235,
+        "effectiveScoringExpectation": 0.7150769972927755,
+        "category": "high_value",
+        "value": 0.7150769972927755
+      },
+      "shooterAttributes": {
+        "technique": 78,
+        "firstTouch": 82,
+        "passing": 84,
+        "dribbling": 61,
+        "finishing": 84,
+        "tackling": 64,
+        "positioning": 69,
+        "heading": 92,
+        "setPieces": 64,
+        "gameReading": 72,
+        "composure": 90,
+        "concentration": 59,
+        "leadership": 65,
+        "determination": 66,
+        "aggression": 74,
+        "pace": 68,
+        "stamina": 79,
+        "strength": 91,
+        "agility": 59,
+        "jumping": 79,
+        "ambition": 73,
+        "professionalism": 84,
+        "reflexes": 17,
+        "handling": 8,
+        "oneOnOnes": 24,
+        "goalkeeperSweeping": 15,
+        "goalkeeperKicking": 9,
+        "goalkeeperThrowing": 16
+      },
+      "ball": {
+        "x": 11.015671001815672,
+        "y": 34.023442640881626,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_3_9",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "keeper": {
+        "id": "footballer_pro_57_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_57_0",
+          "firstName": "Mateusz",
+          "lastName": "Baran",
+          "age": 24,
+          "dateOfBirth": "2001-09-22",
+          "nationality": "PL",
+          "heightCm": 197,
+          "weightKg": 77,
+          "attributes": {
+            "technique": 43,
+            "firstTouch": 48,
+            "passing": 45,
+            "dribbling": 58,
+            "finishing": 44,
+            "tackling": 56,
+            "positioning": 56,
+            "heading": 42,
+            "setPieces": 41,
+            "gameReading": 63,
+            "composure": 34,
+            "concentration": 46,
+            "leadership": 40,
+            "determination": 49,
+            "aggression": 47,
+            "pace": 39,
+            "stamina": 34,
+            "strength": 47,
+            "agility": 49,
+            "jumping": 34,
+            "ambition": 53,
+            "professionalism": 51,
+            "reflexes": 51,
+            "handling": 54,
+            "oneOnOnes": 60,
+            "goalkeeperSweeping": 79,
+            "goalkeeperKicking": 50,
+            "goalkeeperThrowing": 51
+          },
+          "hiddenProfile": {
+            "consistency": 72,
+            "importantMatches": 87,
+            "injuryProneness": 79,
+            "adaptability": 75,
+            "loyalty": 35,
+            "pressureResistance": 71,
+            "controversy": 59,
+            "fairPlay": 71
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 74,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.8578340583244379,
+          "burstReadiness": 0.8578340583244379,
+          "exertionSpent": 3397.968828527857,
+          "capacitySpent": 0.18602019134276618,
+          "burstSpent": 12.690815620200157,
+          "capacityRecovered": 0.043854249669972596,
+          "burstRecovered": 12.548649678540654,
+          "movementRiskExposure": 0.003473206101922666,
+          "assessedRiskExposure": 0.003473206101922666,
+          "workload": {
+            "seconds": 3936.200000009937,
+            "distanceWalk": 675.1126112598398,
+            "distanceJog": 89.47797877723461,
+            "distanceRun": 78.33841750591948,
+            "distanceSprint": 5.408962793369286,
+            "sprintSeconds": 0.8250000000000004,
+            "sprintBursts": 0,
+            "accelerationImpulse": 3361.4875508341456,
+            "brakingImpulse": 3359.6996978706534,
+            "turningLoad": 150.74919549509505,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0.04662702962369549
+          },
+          "lastInjuryContactId": "pr175-fresh-20261018:dev-strength:v1:challenge:115.775000:footballer_pro_57_0:footballer_pro_3_22:committed"
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 0.06588636590986009,
+          "y": 31.88512794056469
+        },
+        "target": {
+          "x": 0,
+          "y": 31.88512794056469
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 1.3779397350985096,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 0,
+          "y": 31.88512794056469
+        },
+        "meanPosition": {
+          "x": 74.76467993928763,
+          "y": 34.117977248353164
+        },
+        "samples": 157449,
+        "desiredFacingAngle": 1.377939735098509,
+        "movementMode": "backpedal",
+        "turnRate": 0,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "restart_setup",
+        "targetSpeed": 1.5205708631910195,
+        "locomotionTelemetry": {
+          "distanceTotal": 848.3379703363679,
+          "distanceWalk": 675.1126112598398,
+          "distanceJog": 89.47797877723461,
+          "distanceRun": 78.33841750591948,
+          "distanceSprint": 5.408962793369286,
+          "sprintSeconds": 0.8250000000000004,
+          "sprintBursts": 0,
+          "maxSpeed": 7.043180683196078
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_3_9",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:dev-strength:v1:restart:3923.8250000040157:home:penalty",
+        "scenario": "penalty"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:dev-youth:v1:shot:583:footballer_u17_pro_60_2026_11",
+        "shooterId": "footballer_u17_pro_60_2026_11",
+        "releasedAt": 1342.725000000502,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "launchSpeed": 31.9859596469067,
+        "launchVerticalComponent": 9.329523843576254,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 33.565,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.047760054142407866,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.30831860663422334,
+          "horizontalSigma": 0.37717965222366096,
+          "verticalSigma": 0.5686792902926658,
+          "distanceDifficulty": 0.17922065374252255,
+          "angleDifficulty": 0.08260879986112613,
+          "pressureDifficulty": 0.691380136191089,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.047760054142407866,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.6118178872879532,
+          "horizontalSigmaMetres": 1.3804775271385992,
+          "verticalSigmaMetres": 1.3875774683141047,
+          "ballMovementDifficulty": 0.07238483939386259,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.16322799990352754,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 4.5497019896503454,
+        "angle": 0.9173912001388739,
+        "pressure": 0.691380136191089,
+        "blockingDefenders": 0,
+        "baseXg": 0.6601216448849864,
+        "effectiveScoringExpectation": 0.4772849699051152,
+        "shooterExecutionQuality": 0.30831860663422334,
+        "intendedTarget": {
+          "horizontal": 0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": -0.40208643117590226,
+          "vertical": 0.5662316296448171
+        },
+        "error": {
+          "horizontal": -0.6420864311759023,
+          "vertical": 0.3262316296448171
+        },
+        "speed": 31.9859596469067,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "episodeId": "pr175-fresh-20261018:dev-youth:v1:pr175:possession:61:1330.9750000004592",
+      "choiceId": "pr175-fresh-20261018:dev-youth:v1:choice:582:1342.725000000502:895",
+      "releasedAt": 1342.725000000502,
+      "resolvedAt": 1342.8750000005025,
+      "team": "away",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 4.652777876913745,
+        "angle": 0.9170012642152879,
+        "pressure": 0.6880571243323915,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8376780827570948,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_club_vistula_nova_2026_1",
+          "distanceFromGoalCentre": 3.2059741764330085,
+          "distanceFromGoalLine": 3.1994304260253403,
+          "estimatedRecoveryTime": 0.493226796374309,
+          "estimatedShotTravelTime": 0.19386574487140604,
+          "goalCoverage": 0.5177162124048605
+        },
+        "baseXg": 0.6608239870858126,
+        "shooterExecutionQuality": 0.3095023260462439,
+        "effectiveScoringExpectation": 0.4715000527119372,
+        "category": "high_value",
+        "value": 0.4715000527119372
+      },
+      "shooterAttributes": {
+        "technique": 57,
+        "firstTouch": 40,
+        "passing": 47,
+        "dribbling": 33,
+        "finishing": 54,
+        "tackling": 42,
+        "positioning": 35,
+        "heading": 42,
+        "setPieces": 47,
+        "gameReading": 57,
+        "composure": 50,
+        "concentration": 36,
+        "leadership": 36,
+        "determination": 54,
+        "aggression": 38,
+        "pace": 54,
+        "stamina": 41,
+        "strength": 36,
+        "agility": 39,
+        "jumping": 49,
+        "ambition": 42,
+        "professionalism": 54,
+        "reflexes": 13,
+        "handling": 17,
+        "oneOnOnes": 9,
+        "goalkeeperSweeping": 12,
+        "goalkeeperKicking": 21,
+        "goalkeeperThrowing": 18
+      },
+      "ball": {
+        "x": 3.780273853694226,
+        "y": 34.55895402006132,
+        "ownerId": "footballer_u17_pro_60_2026_11",
+        "lastTouchPlayerId": "footballer_u17_pro_60_2026_11",
+        "velocity": {
+          "x": -4.059755712579518,
+          "y": -0.10702423754312355,
+          "z": 0
+        },
+        "height": 0,
+        "airborne": false
+      },
+      "keeper": {
+        "id": "footballer_club_vistula_nova_2026_1",
+        "team": "home",
+        "profile": {
+          "id": "footballer_club_vistula_nova_2026_1",
+          "firstName": "Jan",
+          "lastName": "Nowak",
+          "age": 17,
+          "dateOfBirth": "2008-11-12",
+          "nationality": "PL",
+          "heightCm": 190,
+          "weightKg": 88,
+          "attributes": {
+            "technique": 44,
+            "firstTouch": 53,
+            "passing": 51,
+            "dribbling": 44,
+            "finishing": 51,
+            "tackling": 48,
+            "positioning": 44,
+            "heading": 53,
+            "setPieces": 40,
+            "gameReading": 48,
+            "composure": 48,
+            "concentration": 32,
+            "leadership": 37,
+            "determination": 32,
+            "aggression": 45,
+            "pace": 56,
+            "stamina": 39,
+            "strength": 34,
+            "agility": 38,
+            "jumping": 43,
+            "ambition": 39,
+            "professionalism": 38,
+            "reflexes": 47,
+            "handling": 60,
+            "oneOnOnes": 62,
+            "goalkeeperSweeping": 58,
+            "goalkeeperKicking": 44,
+            "goalkeeperThrowing": 42
+          },
+          "hiddenProfile": {
+            "consistency": 48,
+            "importantMatches": 38,
+            "injuryProneness": 14,
+            "adaptability": 59,
+            "loyalty": 91,
+            "pressureResistance": 56,
+            "controversy": 29,
+            "fairPlay": 39
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 45,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.9380520552608593,
+          "burstReadiness": 0.9268923018786259,
+          "exertionSpent": 1455.553721095773,
+          "capacitySpent": 0.07598598311984904,
+          "burstSpent": 5.484252401969685,
+          "capacityRecovered": 0.014038038380695913,
+          "burstRecovered": 5.411144703851709,
+          "movementRiskExposure": 0.0013188774863896,
+          "assessedRiskExposure": 0.001317255328453904,
+          "workload": {
+            "seconds": 1342.7000000005019,
+            "distanceWalk": 190.53822774815006,
+            "distanceJog": 10.712748188004245,
+            "distanceRun": 0,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 1470.1653623075028,
+            "brakingImpulse": 1468.6139075919193,
+            "turningLoad": 32.72502519323532,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 3.1994304260253403,
+          "y": 33.795267567350415
+        },
+        "target": {
+          "x": 3.6151113617792494,
+          "y": 34.25125768667338
+        },
+        "velocity": {
+          "x": 0.10241108782144792,
+          "y": 1.2449630148654478
+        },
+        "facingAngle": 0.7102973242568424,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 3.325276438611957,
+          "y": 34.48101294819319
+        },
+        "meanPosition": {
+          "x": 1.7680137312389426,
+          "y": 33.904134170565776
+        },
+        "samples": 53709,
+        "desiredFacingAngle": 0.7102973242568427,
+        "movementMode": "shuffle",
+        "turnRate": 2.1757051808537398,
+        "locomotionIntensity": "run",
+        "locomotionReason": "press_commit",
+        "targetSpeed": 5.365599510885894,
+        "locomotionTelemetry": {
+          "distanceTotal": 201.2509759361543,
+          "distanceWalk": 190.53822774815006,
+          "distanceJog": 10.712748188004245,
+          "distanceRun": 0,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 3.4266301856869723
+        },
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_u17_pro_60_2026_11",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:dev-youth:v1:restart:454.0749999998609:home:goal_kick",
+        "scenario": "goal_kick"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:dev-youth:v1:shot:1426:footballer_u17_pro_60_2026_22",
+        "shooterId": "footballer_u17_pro_60_2026_22",
+        "releasedAt": 3409.0750000080193,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "launchSpeed": 31.893093345481905,
+        "launchVerticalComponent": 3.5743117010940364,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 32.17,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.6757618246148657,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.16799411327389246,
+          "horizontalSigma": 1.1168536572331744,
+          "verticalSigma": 1.6718153676975958,
+          "distanceDifficulty": 0.4034905658254751,
+          "angleDifficulty": 1,
+          "pressureDifficulty": 0.764131666254922,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.6757618246148657,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 2.4392758924581557,
+          "horizontalSigmaMetres": 4.087684385473419,
+          "verticalSigmaMetres": 4.0792294971821335,
+          "ballMovementDifficulty": 0.023424357885605047,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.11199408370274622,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 8.708416919451508,
+        "angle": 0,
+        "pressure": 0.764131666254922,
+        "blockingDefenders": 0,
+        "baseXg": 0.22692937582661327,
+        "effectiveScoringExpectation": 0.04446210240576993,
+        "shooterExecutionQuality": 0.16799411327389246,
+        "intendedTarget": {
+          "horizontal": -0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": -0.6175203316672963,
+          "vertical": 0.26947115619812323
+        },
+        "error": {
+          "horizontal": -0.37752033166729626,
+          "vertical": 0.029471156198123242
+        },
+        "speed": 31.893093345481905,
+        "classification": "on_target",
+        "keeperId": "footballer_club_vistula_nova_2026_1",
+        "goalkeeperAction": "failed_save",
+        "outcome": "goal"
+      },
+      "episodeId": "pr175-fresh-20261018:dev-youth:v1:pr175:possession:165:3373.825000007891",
+      "choiceId": "pr175-fresh-20261018:dev-youth:v1:choice:1425:3409.0750000080193:2228",
+      "releasedAt": 3409.0750000080193,
+      "resolvedAt": 3409.27500000802,
+      "team": "away",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 8.748745340815123,
+        "angle": 0,
+        "pressure": 0.7623454870624423,
+        "blockingDefenders": 0,
+        "blockingDemand": 2.0518839432698805e-43,
+        "visibleTargetArea": 0.8879043210901202,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_club_vistula_nova_2026_1",
+          "distanceFromGoalCentre": 2.4729379037797234,
+          "distanceFromGoalLine": 0.6945524438486217,
+          "estimatedRecoveryTime": 0.3804519851968805,
+          "estimatedShotTravelTime": 0.3645310558672968,
+          "goalCoverage": 0.6148417666034147
+        },
+        "baseXg": 0.22689276792750868,
+        "shooterExecutionQuality": 0.16937202622669148,
+        "effectiveScoringExpectation": 0.04448695899433155,
+        "category": "speculative",
+        "value": 0.04448695899433155
+      },
+      "shooterAttributes": {
+        "technique": 26,
+        "firstTouch": 56,
+        "passing": 40,
+        "dribbling": 39,
+        "finishing": 54,
+        "tackling": 31,
+        "positioning": 50,
+        "heading": 34,
+        "setPieces": 31,
+        "gameReading": 42,
+        "composure": 40,
+        "concentration": 38,
+        "leadership": 44,
+        "determination": 40,
+        "aggression": 56,
+        "pace": 52,
+        "stamina": 45,
+        "strength": 42,
+        "agility": 40,
+        "jumping": 30,
+        "ambition": 47,
+        "professionalism": 48,
+        "reflexes": 5,
+        "handling": 16,
+        "oneOnOnes": 21,
+        "goalkeeperSweeping": 21,
+        "goalkeeperKicking": 18,
+        "goalkeeperThrowing": 22
+      },
+      "ball": {
+        "x": 104.1305485098347,
+        "y": 42.01257282958871,
+        "ownerId": "footballer_u17_pro_60_2026_22",
+        "lastTouchPlayerId": "footballer_u17_pro_60_2026_22",
+        "velocity": {
+          "x": 1.1052472369063169,
+          "y": 0.806710626756473,
+          "z": 0
+        },
+        "height": 0,
+        "airborne": false
+      },
+      "keeper": {
+        "id": "footballer_club_vistula_nova_2026_1",
+        "team": "home",
+        "profile": {
+          "id": "footballer_club_vistula_nova_2026_1",
+          "firstName": "Jan",
+          "lastName": "Nowak",
+          "age": 17,
+          "dateOfBirth": "2008-11-12",
+          "nationality": "PL",
+          "heightCm": 190,
+          "weightKg": 88,
+          "attributes": {
+            "technique": 44,
+            "firstTouch": 53,
+            "passing": 51,
+            "dribbling": 44,
+            "finishing": 51,
+            "tackling": 48,
+            "positioning": 44,
+            "heading": 53,
+            "setPieces": 40,
+            "gameReading": 48,
+            "composure": 48,
+            "concentration": 32,
+            "leadership": 37,
+            "determination": 32,
+            "aggression": 45,
+            "pace": 56,
+            "stamina": 39,
+            "strength": 34,
+            "agility": 38,
+            "jumping": 43,
+            "ambition": 39,
+            "professionalism": 38,
+            "reflexes": 47,
+            "handling": 60,
+            "oneOnOnes": 62,
+            "goalkeeperSweeping": 58,
+            "goalkeeperKicking": 44,
+            "goalkeeperThrowing": 42
+          },
+          "hiddenProfile": {
+            "consistency": 48,
+            "importantMatches": 38,
+            "injuryProneness": 14,
+            "adaptability": 59,
+            "loyalty": 91,
+            "pressureResistance": 56,
+            "controversy": 29,
+            "fairPlay": 39
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 45,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.8608924858961697,
+          "burstReadiness": 0.8608924858961697,
+          "exertionSpent": 3456.760555051745,
+          "capacitySpent": 0.18045733756070806,
+          "burstSpent": 12.975061317862357,
+          "capacityRecovered": 0.04134982345685623,
+          "burstRecovered": 12.835953803770735,
+          "movementRiskExposure": 0.0031082091630557167,
+          "assessedRiskExposure": 0.0031082091630557167,
+          "workload": {
+            "seconds": 3409.050000008019,
+            "distanceWalk": 486.4804330250905,
+            "distanceJog": 31.066299356021283,
+            "distanceRun": 53.461623253399786,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 3464.5032901572586,
+            "brakingImpulse": 3463.8634949389066,
+            "turningLoad": 88.39999355249083,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 104.30544755615138,
+          "y": 36.37339815005708
+        },
+        "target": {
+          "x": 104.25551637516475,
+          "y": 36.25467172626786
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": -0.03617553387129746,
+        "anchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 104.6,
+          "y": 37.19269506623999
+        },
+        "meanPosition": {
+          "x": 20.62966116446371,
+          "y": 33.96258549857682
+        },
+        "samples": 136363,
+        "desiredFacingAngle": -0.03617553387129695,
+        "movementMode": "backpedal",
+        "turnRate": 0.22014887995545962,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "structural_adjustment",
+        "targetSpeed": 1.6467689998793102,
+        "locomotionTelemetry": {
+          "distanceTotal": 571.0083556345131,
+          "distanceWalk": 486.4804330250905,
+          "distanceJog": 31.066299356021283,
+          "distanceRun": 53.461623253399786,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 5.335387985085216
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_u17_pro_60_2026_22",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:dev-youth:v1:restart:3106.1750000069173:home:goal_kick",
+        "scenario": "goal_kick"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:val-balanced:v1:shot:1302:footballer_pro_17_22",
+        "shooterId": "footballer_pro_17_22",
+        "releasedAt": 2974.8250000064395,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.0999999999999995,
+        "ballHeightAtContact": 0.0999999999999995,
+        "launchSpeed": 34.47396693436429,
+        "launchVerticalComponent": 2.1911425293778684,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 33.655,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.016601871748025448,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6053894145572191,
+          "horizontalSigma": 0.26333756222878063,
+          "verticalSigma": 0.37025283696211825,
+          "distanceDifficulty": 0.5437603996396748,
+          "angleDifficulty": 0.00044105533494687155,
+          "pressureDifficulty": 0.3636942108218545,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.016601871748025448,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.4214700720784021,
+          "horizontalSigmaMetres": 0.9638154777573372,
+          "verticalSigmaMetres": 0.9034169221875685,
+          "ballMovementDifficulty": 0,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.114691389889092,
+          "blockerDifficulty": 0
+        },
+        "context": "penalty",
+        "distance": 11.05601364400167,
+        "angle": 0.9995589446650531,
+        "pressure": 0.3636942108218545,
+        "blockingDefenders": 0,
+        "baseXg": 0.6736287473629679,
+        "effectiveScoringExpectation": 0.6344369301762744,
+        "shooterExecutionQuality": 0.6053894145572191,
+        "intendedTarget": {
+          "horizontal": 0.2,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": -0.0019260743003496894,
+          "vertical": 0.09462186793076216
+        },
+        "error": {
+          "horizontal": -0.2019260743003497,
+          "vertical": -0.14537813206923783
+        },
+        "speed": 34.47396693436429,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "episodeId": null,
+      "choiceId": null,
+      "releasedAt": 2974.8250000064395,
+      "resolvedAt": 2975.1750000064408,
+      "team": "home",
+      "sourceRestartId": "pr175-fresh-20261018:val-balanced:v1:restart:2965.2500000064047:home:penalty",
+      "sourceRestart": "penalty",
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 11.05601364400167,
+        "angle": 0.9995589446650531,
+        "pressure": 0.3636942108218545,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.885308610110908,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_18_0",
+          "distanceFromGoalCentre": 2.479557855274313,
+          "distanceFromGoalLine": 0.06599023753675136,
+          "estimatedRecoveryTime": 0.3814704392729712,
+          "estimatedShotTravelTime": 0.46066723516673624,
+          "goalCoverage": 0.6458565845356626
+        },
+        "baseXg": 0.6736287473629679,
+        "shooterExecutionQuality": 0.6053805675448286,
+        "effectiveScoringExpectation": 0.6344369301762744,
+        "category": "high_value",
+        "value": 0.6344369301762744
+      },
+      "shooterAttributes": {
+        "technique": 59,
+        "firstTouch": 71,
+        "passing": 52,
+        "dribbling": 52,
+        "finishing": 71,
+        "tackling": 21,
+        "positioning": 63,
+        "heading": 63,
+        "setPieces": 46,
+        "gameReading": 75,
+        "composure": 77,
+        "concentration": 42,
+        "leadership": 53,
+        "determination": 53,
+        "aggression": 46,
+        "pace": 52,
+        "stamina": 62,
+        "strength": 51,
+        "agility": 52,
+        "jumping": 53,
+        "ambition": 57,
+        "professionalism": 68,
+        "reflexes": 9,
+        "handling": 12,
+        "oneOnOnes": 15,
+        "goalkeeperSweeping": 21,
+        "goalkeeperKicking": 17,
+        "goalkeeperThrowing": 22
+      },
+      "ball": {
+        "x": 10.990098361631688,
+        "y": 34.03194694557792,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_17_21",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "keeper": {
+        "id": "footballer_pro_18_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_18_0",
+          "firstName": "Tomasz",
+          "lastName": "Kowalski",
+          "age": 24,
+          "dateOfBirth": "2001-11-23",
+          "nationality": "PL",
+          "heightCm": 187,
+          "weightKg": 65,
+          "attributes": {
+            "technique": 69,
+            "firstTouch": 71,
+            "passing": 56,
+            "dribbling": 73,
+            "finishing": 61,
+            "tackling": 73,
+            "positioning": 56,
+            "heading": 73,
+            "setPieces": 71,
+            "gameReading": 74,
+            "composure": 55,
+            "concentration": 61,
+            "leadership": 49,
+            "determination": 49,
+            "aggression": 67,
+            "pace": 61,
+            "stamina": 54,
+            "strength": 57,
+            "agility": 62,
+            "jumping": 53,
+            "ambition": 59,
+            "professionalism": 55,
+            "reflexes": 71,
+            "handling": 74,
+            "oneOnOnes": 82,
+            "goalkeeperSweeping": 78,
+            "goalkeeperKicking": 67,
+            "goalkeeperThrowing": 60
+          },
+          "hiddenProfile": {
+            "consistency": 57,
+            "importantMatches": 77,
+            "injuryProneness": 71,
+            "adaptability": 20,
+            "loyalty": 35,
+            "pressureResistance": 59,
+            "controversy": 41,
+            "fairPlay": 90
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 57,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.9071912227623473,
+          "burstReadiness": 0.9071912227623473,
+          "exertionSpent": 2884.8659182946467,
+          "capacitySpent": 0.1321985400440528,
+          "burstSpent": 10.842650838831789,
+          "capacityRecovered": 0.039389762808099325,
+          "burstRecovered": 10.749842061594189,
+          "movementRiskExposure": 0.0036521222158166834,
+          "assessedRiskExposure": 0.0036521222158166834,
+          "workload": {
+            "seconds": 2974.8000000064394,
+            "distanceWalk": 333.776199776308,
+            "distanceJog": 4.964972705114964,
+            "distanceRun": 47.15421237101014,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 2899.8420145783316,
+            "brakingImpulse": 2899.842014578302,
+            "turningLoad": 51.30411106883282,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0.38943772162786405
+          },
+          "lastInjuryContactId": "pr175-fresh-20261018:val-balanced:v1:challenge:2537.175000:footballer_pro_18_0:footballer_pro_17_12:slide"
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 0.06599023753675136,
+          "y": 36.478679577154416
+        },
+        "target": {
+          "x": 0,
+          "y": 36.478679577154416
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 1.791135426176826,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 0,
+          "y": 36.478679577154416
+        },
+        "meanPosition": {
+          "x": 94.55627150619296,
+          "y": 34.01216641119957
+        },
+        "samples": 118993,
+        "desiredFacingAngle": 1.791135426176826,
+        "movementMode": "backpedal",
+        "turnRate": 0,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "restart_setup",
+        "targetSpeed": 1.691652850010446,
+        "locomotionTelemetry": {
+          "distanceTotal": 385.89538485243304,
+          "distanceWalk": 333.776199776308,
+          "distanceJog": 4.964972705114964,
+          "distanceRun": 47.15421237101014,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 5.441588419524959
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_17_21",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:val-balanced:v1:restart:2965.2500000064047:home:penalty",
+        "scenario": "penalty"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:val-central:v1:shot:1460:footballer_pro_26_21",
+        "shooterId": "footballer_pro_26_21",
+        "releasedAt": 3411.3000000023694,
+        "intent": "driven",
+        "contact": "first_time",
+        "firstTime": true,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 35.640256724152714,
+        "launchVerticalComponent": 3.9310399520241712,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "first_time",
+          "nominalSpeed": 34.78,
+          "errorMultiplier": 1.2068604547099384,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0,
+          "firstTimeDifficulty": 0.3525180791799436,
+          "orientationDifficulty": 0.18716300994485166,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.7121584787353777,
+          "horizontalSigma": 0.418900445371041,
+          "verticalSigma": 0.6345188408813172,
+          "distanceDifficulty": 0.6022062804386104,
+          "angleDifficulty": 0.5508470306864055,
+          "pressureDifficulty": 0.6301756960190639,
+          "contactDifficulty": 0.4054761249706021,
+          "orientationDifficulty": 0.18716300994485166,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 2.129234708981339,
+          "horizontalSigmaMetres": 1.5331756300580102,
+          "verticalSigmaMetres": 1.5482259717504139,
+          "ballMovementDifficulty": 0.1506801785294316,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.1860900983250361,
+          "blockerDifficulty": 0.02863829672568874
+        },
+        "context": "open_play",
+        "distance": 11.996891455212742,
+        "angle": 0.4491529693135945,
+        "pressure": 0.6301756960190639,
+        "blockingDefenders": 0,
+        "baseXg": 0.3543659207077395,
+        "effectiveScoringExpectation": 0.2520240990655801,
+        "shooterExecutionQuality": 0.7121584787353777,
+        "intendedTarget": {
+          "horizontal": -0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": -0.2823019972393135,
+          "vertical": 0.36784235127863374
+        },
+        "error": {
+          "horizontal": -0.04230199723931347,
+          "vertical": 0.12784235127863375
+        },
+        "speed": 35.640256724152714,
+        "classification": "on_target",
+        "keeperId": "footballer_pro_27_0",
+        "goalkeeperAction": "catch",
+        "outcome": "save"
+      },
+      "episodeId": "pr175-fresh-20261018:val-central:v1:pr175:possession:222:3403.3750000023406",
+      "choiceId": "pr175-fresh-20261018:val-central:v1:choice:1459:3411.3000000023694:2527",
+      "releasedAt": 3411.3000000023694,
+      "resolvedAt": 3411.5250000023702,
+      "team": "home",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 12.002574877207257,
+        "angle": 0.44908305130007775,
+        "pressure": 0.6286700557211357,
+        "blockingDefenders": 0,
+        "blockingDemand": 0.04964495117145859,
+        "visibleTargetArea": 0.8138887146426703,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_27_0",
+          "distanceFromGoalCentre": 2.5154460447284657,
+          "distanceFromGoalLine": 2.4407315667632856,
+          "estimatedRecoveryTime": 0.38699169918899473,
+          "estimatedShotTravelTime": 0.5001072865503023,
+          "goalCoverage": 0.6566412081802379
+        },
+        "baseXg": 0.3545883533610988,
+        "shooterExecutionQuality": 0.7284388117663116,
+        "effectiveScoringExpectation": 0.2525737744454744,
+        "category": "high_value",
+        "value": 0.2525737744454744
+      },
+      "shooterAttributes": {
+        "technique": 84,
+        "firstTouch": 84,
+        "passing": 84,
+        "dribbling": 54,
+        "finishing": 94,
+        "tackling": 40,
+        "positioning": 54,
+        "heading": 65,
+        "setPieces": 64,
+        "gameReading": 84,
+        "composure": 76,
+        "concentration": 56,
+        "leadership": 59,
+        "determination": 68,
+        "aggression": 70,
+        "pace": 55,
+        "stamina": 68,
+        "strength": 61,
+        "agility": 70,
+        "jumping": 64,
+        "ambition": 76,
+        "professionalism": 62,
+        "reflexes": 16,
+        "handling": 12,
+        "oneOnOnes": 17,
+        "goalkeeperSweeping": 14,
+        "goalkeeperKicking": 9,
+        "goalkeeperThrowing": 17
+      },
+      "ball": {
+        "x": 10.133412922143323,
+        "y": 38.32173334622903,
+        "from": {
+          "x": 5.89855183579264,
+          "y": 38.88850347790076
+        },
+        "target": {
+          "x": 11.257699747240725,
+          "y": 38.17126508318469
+        },
+        "intendedReceiverId": "footballer_pro_26_21",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "backheel",
+        "flightTime": 0.6500000000000002,
+        "distanceTravelled": 4.302254631538201,
+        "height": 0.11,
+        "airborne": false,
+        "velocity": {
+          "x": 5.484361675829753,
+          "y": -0.7339963048998165,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": 7.545980128326199,
+          "y": -1.0099117925516643,
+          "z": 0
+        },
+        "launchSpeed": 7.61326066320002,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_26_17"
+      },
+      "keeper": {
+        "id": "footballer_pro_27_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_27_0",
+          "firstName": "Mateusz",
+          "lastName": "Krawczyk",
+          "age": 22,
+          "dateOfBirth": "2003-12-05",
+          "nationality": "PL",
+          "heightCm": 184,
+          "weightKg": 90,
+          "attributes": {
+            "technique": 48,
+            "firstTouch": 48,
+            "passing": 48,
+            "dribbling": 63,
+            "finishing": 53,
+            "tackling": 69,
+            "positioning": 62,
+            "heading": 59,
+            "setPieces": 52,
+            "gameReading": 48,
+            "composure": 52,
+            "concentration": 60,
+            "leadership": 49,
+            "determination": 64,
+            "aggression": 51,
+            "pace": 51,
+            "stamina": 48,
+            "strength": 50,
+            "agility": 45,
+            "jumping": 52,
+            "ambition": 52,
+            "professionalism": 72,
+            "reflexes": 77,
+            "handling": 82,
+            "oneOnOnes": 77,
+            "goalkeeperSweeping": 63,
+            "goalkeeperKicking": 74,
+            "goalkeeperThrowing": 58
+          },
+          "hiddenProfile": {
+            "consistency": 41,
+            "importantMatches": 31,
+            "injuryProneness": 44,
+            "adaptability": 28,
+            "loyalty": 32,
+            "pressureResistance": 86,
+            "controversy": 14,
+            "fairPlay": 31
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 60,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.9033287208425436,
+          "burstReadiness": 0.9033287208425436,
+          "exertionSpent": 2875.118175093877,
+          "capacitySpent": 0.1385228242818231,
+          "burstSpent": 10.749117147018502,
+          "capacityRecovered": 0.041851545123561956,
+          "burstRecovered": 10.652445867870716,
+          "movementRiskExposure": 0.002930858107851999,
+          "assessedRiskExposure": 0.002930858107851999,
+          "workload": {
+            "seconds": 3411.2750000080273,
+            "distanceWalk": 500.0831792876286,
+            "distanceJog": 45.34330047650943,
+            "distanceRun": 69.0561713848983,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 2858.1241057765455,
+            "brakingImpulse": 2856.6913839603812,
+            "turningLoad": 109.3166096647428,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 2.4407315667632856,
+          "y": 34.60852134140498
+        },
+        "target": {
+          "x": 2.1821389466969023,
+          "y": 35.01224619042542
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 1.111988800762127,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 2.8489108299274957,
+          "y": 35.26007194659
+        },
+        "meanPosition": {
+          "x": 84.2178097596143,
+          "y": 33.889054527033835
+        },
+        "samples": 136452,
+        "desiredFacingAngle": 1.1119888007621266,
+        "movementMode": "shuffle",
+        "turnRate": 0.37958440722213993,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "structural_adjustment",
+        "targetSpeed": 1.6167183665635954,
+        "locomotionTelemetry": {
+          "distanceTotal": 614.482651149043,
+          "distanceWalk": 500.0831792876286,
+          "distanceJog": 45.34330047650943,
+          "distanceRun": 69.0561713848983,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 5.284051251416715
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_26_17",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:val-central:v1:restart:3290.300000001929:away:throw_in",
+        "scenario": "throw_in"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:val-central:v1:shot:1859:footballer_pro_26_22",
+        "shooterId": "footballer_pro_26_22",
+        "releasedAt": 4295.425000001958,
+        "intent": "driven",
+        "contact": "first_time",
+        "firstTime": true,
+        "ballHeightAtDecision": 0.11,
+        "ballHeightAtContact": 0.11,
+        "launchSpeed": 31.365893515776843,
+        "launchVerticalComponent": 7.118215223950158,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "first_time",
+          "nominalSpeed": 34.78,
+          "errorMultiplier": 1.2508918734669698,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0,
+          "firstTimeDifficulty": 0.5312170189406233,
+          "orientationDifficulty": 0.509557378739172,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.5544413216394849,
+          "horizontalSigma": 0.40020940514972453,
+          "verticalSigma": 0.5892575361256097,
+          "distanceDifficulty": 0.43223592503315855,
+          "angleDifficulty": 0.6701498296152286,
+          "pressureDifficulty": 0.6630207849394404,
+          "contactDifficulty": 0.3553958485447996,
+          "orientationDifficulty": 0.509557378739172,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 2.3012331907877437,
+          "horizontalSigmaMetres": 1.4647664228479917,
+          "verticalSigmaMetres": 1.4377883881464877,
+          "ballMovementDifficulty": 0.07913692649257091,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.12152601311469957,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 9.201300053720717,
+        "angle": 0.3298501703847714,
+        "pressure": 0.6630207849394404,
+        "blockingDefenders": 0,
+        "baseXg": 0.3698277715431432,
+        "effectiveScoringExpectation": 0.2742977139425849,
+        "shooterExecutionQuality": 0.5544413216394849,
+        "intendedTarget": {
+          "horizontal": 0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": 0.062143649975422516,
+          "vertical": 0.8509000721663579
+        },
+        "error": {
+          "horizontal": -0.17785635002457748,
+          "vertical": 0.6109000721663579
+        },
+        "speed": 31.365893515776843,
+        "classification": "on_target",
+        "keeperId": "footballer_pro_27_0",
+        "goalkeeperAction": "parry_away",
+        "outcome": "save"
+      },
+      "episodeId": "pr175-fresh-20261018:val-central:v1:pr175:possession:268:4261.400000002453",
+      "choiceId": "pr175-fresh-20261018:val-central:v1:choice:1858:4295.425000001958:3225",
+      "releasedAt": 4295.425000001958,
+      "resolvedAt": 4295.625000001955,
+      "team": "home",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 9.214615309153956,
+        "angle": 0.3286170511033555,
+        "pressure": 0.6647816276579459,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8784358816630361,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_27_0",
+          "distanceFromGoalCentre": 2.9563778066739097,
+          "distanceFromGoalLine": 2.241485547481701,
+          "estimatedRecoveryTime": 0.4548273548729092,
+          "estimatedShotTravelTime": 0.3839423045480815,
+          "goalCoverage": 0.596465864165368
+        },
+        "baseXg": 0.3686667518302748,
+        "shooterExecutionQuality": 0.5654250627907943,
+        "effectiveScoringExpectation": 0.2726220983652468,
+        "category": "high_value",
+        "value": 0.2726220983652468
+      },
+      "shooterAttributes": {
+        "technique": 84,
+        "firstTouch": 84,
+        "passing": 84,
+        "dribbling": 73,
+        "finishing": 68,
+        "tackling": 47,
+        "positioning": 60,
+        "heading": 62,
+        "setPieces": 63,
+        "gameReading": 84,
+        "composure": 76,
+        "concentration": 50,
+        "leadership": 67,
+        "determination": 57,
+        "aggression": 77,
+        "pace": 65,
+        "stamina": 59,
+        "strength": 68,
+        "agility": 63,
+        "jumping": 55,
+        "ambition": 59,
+        "professionalism": 72,
+        "reflexes": 17,
+        "handling": 21,
+        "oneOnOnes": 7,
+        "goalkeeperSweeping": 18,
+        "goalkeeperKicking": 24,
+        "goalkeeperThrowing": 4
+      },
+      "ball": {
+        "x": 7.2769293644137,
+        "y": 28.38875221475352,
+        "from": {
+          "x": 5.9776895222856865,
+          "y": 26.545346997757125
+        },
+        "target": {
+          "x": 7.857782172163044,
+          "y": 29.212885728361268
+        },
+        "intendedReceiverId": "footballer_pro_26_22",
+        "travelKind": "pass",
+        "sourceAction": "pass",
+        "executionType": "normal",
+        "flightTime": 0.5750000000000002,
+        "distanceTravelled": 2.2980270808500327,
+        "height": 0.11,
+        "airborne": false,
+        "velocity": {
+          "x": 1.7295402517551506,
+          "y": 2.4539299209518535,
+          "z": 0
+        },
+        "launchVelocity": {
+          "x": 2.78955485129881,
+          "y": 3.9579143120790694,
+          "z": 0
+        },
+        "launchSpeed": 4.842179464886144,
+        "launchElevation": 0,
+        "bounceCount": 0,
+        "lastTouchPlayerId": "footballer_pro_26_19"
+      },
+      "keeper": {
+        "id": "footballer_pro_27_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_27_0",
+          "firstName": "Mateusz",
+          "lastName": "Krawczyk",
+          "age": 22,
+          "dateOfBirth": "2003-12-05",
+          "nationality": "PL",
+          "heightCm": 184,
+          "weightKg": 90,
+          "attributes": {
+            "technique": 48,
+            "firstTouch": 48,
+            "passing": 48,
+            "dribbling": 63,
+            "finishing": 53,
+            "tackling": 69,
+            "positioning": 62,
+            "heading": 59,
+            "setPieces": 52,
+            "gameReading": 48,
+            "composure": 52,
+            "concentration": 60,
+            "leadership": 49,
+            "determination": 64,
+            "aggression": 51,
+            "pace": 51,
+            "stamina": 48,
+            "strength": 50,
+            "agility": 45,
+            "jumping": 52,
+            "ambition": 52,
+            "professionalism": 72,
+            "reflexes": 77,
+            "handling": 82,
+            "oneOnOnes": 77,
+            "goalkeeperSweeping": 63,
+            "goalkeeperKicking": 74,
+            "goalkeeperThrowing": 58
+          },
+          "hiddenProfile": {
+            "consistency": 41,
+            "importantMatches": 31,
+            "injuryProneness": 44,
+            "adaptability": 28,
+            "loyalty": 32,
+            "pressureResistance": 86,
+            "controversy": 14,
+            "fairPlay": 31
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 60,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.8797202220313041,
+          "burstReadiness": 0.8797202220313041,
+          "exertionSpent": 3569.9982859757997,
+          "capacitySpent": 0.17200205874615487,
+          "burstSpent": 13.354948091479137,
+          "capacityRecovered": 0.05172228077648741,
+          "burstRecovered": 13.234668313536426,
+          "movementRiskExposure": 0.0036265638501626726,
+          "assessedRiskExposure": 0.00362640619815064,
+          "workload": {
+            "seconds": 4295.400000007617,
+            "distanceWalk": 603.3947992311848,
+            "distanceJog": 54.68269040210488,
+            "distanceRun": 78.71330473303878,
+            "distanceSprint": 2.2232472901926585,
+            "sprintSeconds": 0.325,
+            "sprintBursts": 0,
+            "accelerationImpulse": 3551.666981070939,
+            "brakingImpulse": 3550.085091381177,
+            "turningLoad": 131.43684155787716,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 2.241485547481701,
+          "y": 32.07232983209661
+        },
+        "target": {
+          "x": 2.1412250578783456,
+          "y": 31.47256570194522
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 2.2145565501564466,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 2.461372994316027,
+          "y": 32.00022045572512
+        },
+        "meanPosition": {
+          "x": 67.49861293954464,
+          "y": 33.92282017219978
+        },
+        "samples": 171232,
+        "desiredFacingAngle": 2.2145565501564457,
+        "movementMode": "shuffle",
+        "turnRate": 0.4998543879092665,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "structural_adjustment",
+        "targetSpeed": 1.6128642791326604,
+        "locomotionTelemetry": {
+          "distanceTotal": 739.0140416565256,
+          "distanceWalk": 603.3947992311848,
+          "distanceJog": 54.68269040210488,
+          "distanceRun": 78.71330473303878,
+          "distanceSprint": 2.2232472901926585,
+          "sprintSeconds": 0.325,
+          "sprintBursts": 0,
+          "maxSpeed": 7.150212472632409
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_26_19",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:val-central:v1:restart:3883.0000000040855:home:free_kick_far",
+        "scenario": "free_kick_far"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:val-strength:v1:shot:885:footballer_pro_7_21",
+        "shooterId": "footballer_pro_7_21",
+        "releasedAt": 2154.5750000034554,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.0999999999999995,
+        "ballHeightAtContact": 0.0999999999999995,
+        "launchSpeed": 27.531775256153196,
+        "launchVerticalComponent": 3.2755583585900476,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.375,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.012129453257245154,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.8009298910507633,
+          "horizontalSigma": 0.14805092205941045,
+          "verticalSigma": 0.2117752459406336,
+          "distanceDifficulty": 0.5386116720556952,
+          "angleDifficulty": 0.00013598196245012684,
+          "pressureDifficulty": 0.3602237987703815,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.012129453257245154,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.4181989722831556,
+          "horizontalSigmaMetres": 0.5418663747374423,
+          "verticalSigmaMetres": 0.516731600095146,
+          "ballMovementDifficulty": 0,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.11994054024111633,
+          "blockerDifficulty": 0
+        },
+        "context": "penalty",
+        "distance": 10.972184798904452,
+        "angle": 0.9998640180375499,
+        "pressure": 0.3602237987703815,
+        "blockingDefenders": 0,
+        "baseXg": 0.6737773215973424,
+        "effectiveScoringExpectation": 0.7193275178819619,
+        "shooterExecutionQuality": 0.8009298910507633,
+        "intendedTarget": {
+          "horizontal": 0.6,
+          "vertical": 0.34
+        },
+        "actualTarget": {
+          "horizontal": 0.5080498585982736,
+          "vertical": 0.22847256324009835
+        },
+        "error": {
+          "horizontal": -0.0919501414017264,
+          "vertical": -0.11152743675990168
+        },
+        "speed": 27.531775256153196,
+        "classification": "on_target",
+        "keeperId": "footballer_pro_51_0",
+        "goalkeeperAction": "catch",
+        "outcome": "save"
+      },
+      "episodeId": null,
+      "choiceId": null,
+      "releasedAt": 2154.5750000034554,
+      "resolvedAt": 2154.975000003457,
+      "team": "home",
+      "sourceRestartId": "pr175-fresh-20261018:val-strength:v1:restart:2143.0000000034133:home:penalty",
+      "sourceRestart": "penalty",
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 10.972184798904452,
+        "angle": 0.9998640180375499,
+        "pressure": 0.3602237987703815,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8800594597588837,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_51_0",
+          "distanceFromGoalCentre": 2.3368938692945984,
+          "distanceFromGoalLine": 0.0656629260126067,
+          "estimatedRecoveryTime": 0.35952213373763053,
+          "estimatedShotTravelTime": 0.45717436662101885,
+          "goalCoverage": 0.6517438004362579
+        },
+        "baseXg": 0.6737773215973424,
+        "shooterExecutionQuality": 0.8009389083676638,
+        "effectiveScoringExpectation": 0.7193275178819619,
+        "category": "high_value",
+        "value": 0.7193275178819619
+      },
+      "shooterAttributes": {
+        "technique": 75,
+        "firstTouch": 80,
+        "passing": 76,
+        "dribbling": 80,
+        "finishing": 93,
+        "tackling": 58,
+        "positioning": 80,
+        "heading": 70,
+        "setPieces": 79,
+        "gameReading": 79,
+        "composure": 83,
+        "concentration": 66,
+        "leadership": 81,
+        "determination": 77,
+        "aggression": 64,
+        "pace": 86,
+        "stamina": 73,
+        "strength": 70,
+        "agility": 77,
+        "jumping": 67,
+        "ambition": 72,
+        "professionalism": 70,
+        "reflexes": 24,
+        "handling": 5,
+        "oneOnOnes": 13,
+        "goalkeeperSweeping": 25,
+        "goalkeeperKicking": 10,
+        "goalkeeperThrowing": 11
+      },
+      "ball": {
+        "x": 94.01423367732212,
+        "y": 34.04282110043241,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_7_19",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "keeper": {
+        "id": "footballer_pro_51_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_51_0",
+          "firstName": "Jan",
+          "lastName": "Kowalski",
+          "age": 22,
+          "dateOfBirth": "2003-11-14",
+          "nationality": "PL",
+          "heightCm": 187,
+          "weightKg": 82,
+          "attributes": {
+            "technique": 39,
+            "firstTouch": 35,
+            "passing": 31,
+            "dribbling": 46,
+            "finishing": 41,
+            "tackling": 39,
+            "positioning": 40,
+            "heading": 37,
+            "setPieces": 49,
+            "gameReading": 32,
+            "composure": 33,
+            "concentration": 35,
+            "leadership": 41,
+            "determination": 31,
+            "aggression": 27,
+            "pace": 37,
+            "stamina": 23,
+            "strength": 25,
+            "agility": 29,
+            "jumping": 42,
+            "ambition": 54,
+            "professionalism": 35,
+            "reflexes": 73,
+            "handling": 62,
+            "oneOnOnes": 66,
+            "goalkeeperSweeping": 49,
+            "goalkeeperKicking": 41,
+            "goalkeeperThrowing": 47
+          },
+          "hiddenProfile": {
+            "consistency": 38,
+            "importantMatches": 87,
+            "injuryProneness": 71,
+            "adaptability": 64,
+            "loyalty": 40,
+            "pressureResistance": 57,
+            "controversy": 51,
+            "fairPlay": 78
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 65,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.9020798661429051,
+          "burstReadiness": 0.9020798661429051,
+          "exertionSpent": 1921.317802445765,
+          "capacitySpent": 0.1177919633652045,
+          "burstSpent": 7.236774380495756,
+          "capacityRecovered": 0.019871829509472923,
+          "burstRecovered": 7.138854246645009,
+          "movementRiskExposure": 0.0013156755826223203,
+          "assessedRiskExposure": 0.0013156755826223203,
+          "workload": {
+            "seconds": 2154.5500000034554,
+            "distanceWalk": 339.2328390533204,
+            "distanceJog": 10.51464898308702,
+            "distanceRun": 0,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 1932.5568419514889,
+            "brakingImpulse": 1932.5568419515125,
+            "turningLoad": 67.55799963264441,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 104.9343370739874,
+          "y": 36.335971176297804
+        },
+        "target": {
+          "x": 105,
+          "y": 36.335971176297804
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": -1.7777822379468624,
+        "anchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 105,
+          "y": 36.335971176297804
+        },
+        "meanPosition": {
+          "x": 103.16078785936801,
+          "y": 34.00241616914879
+        },
+        "samples": 86183,
+        "desiredFacingAngle": -1.777782237946862,
+        "movementMode": "backpedal",
+        "turnRate": 0,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "restart_setup",
+        "targetSpeed": 1.5125426629162413,
+        "locomotionTelemetry": {
+          "distanceTotal": 349.7474880364075,
+          "distanceWalk": 339.2328390533204,
+          "distanceJog": 10.51464898308702,
+          "distanceRun": 0,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 3.9531115818760245
+        },
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_7_19",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:val-strength:v1:restart:2143.0000000034133:home:penalty",
+        "scenario": "penalty"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:val-strength:v1:shot:1211:footballer_pro_7_21",
+        "shooterId": "footballer_pro_7_21",
+        "releasedAt": 2859.225000006019,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0,
+        "ballHeightAtContact": 0,
+        "launchSpeed": 34.19184772027656,
+        "launchVerticalComponent": 1.8695620558415498,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 34.375,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.4662375225936851,
+          "dominantFootDifficulty": 0.5,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.6581377894467545,
+          "horizontalSigma": 0.23737750012199757,
+          "verticalSigma": 0.3466442580380729,
+          "distanceDifficulty": 0.22960341925673233,
+          "angleDifficulty": 0.7685128067836503,
+          "pressureDifficulty": 0.6860804306563973,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.4662375225936851,
+          "weakFootDifficulty": 0.5,
+          "intrinsicDifficulty": 2.2937820808479366,
+          "horizontalSigmaMetres": 0.8688016504465111,
+          "verticalSigmaMetres": 0.8458119896128979,
+          "ballMovementDifficulty": 0.08165723098552136,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.10152546856478795,
+          "blockerDifficulty": 0
+        },
+        "context": "open_play",
+        "distance": 5.546961941561712,
+        "angle": 0.2314871932163497,
+        "pressure": 0.6860804306563973,
+        "blockingDefenders": 0,
+        "baseXg": 0.3590796025144769,
+        "effectiveScoringExpectation": 0.352590013977306,
+        "shooterExecutionQuality": 0.6581377894467545,
+        "intendedTarget": {
+          "horizontal": -0.24,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": -0.0014045264920291844,
+          "vertical": -0.28275480356317184
+        },
+        "error": {
+          "horizontal": 0.2385954735079708,
+          "vertical": -0.5227548035631718
+        },
+        "speed": 34.19184772027656,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "episodeId": "pr175-fresh-20261018:val-strength:v1:pr175:possession:105:2818.1000000058693",
+      "choiceId": "pr175-fresh-20261018:val-strength:v1:choice:1210:2859.225000006019:2212",
+      "releasedAt": 2859.225000006019,
+      "resolvedAt": 2859.4250000060197,
+      "team": "home",
+      "sourceRestartId": null,
+      "sourceRestart": null,
+      "previousPassId": "pr175-fresh-20261018:val-strength:v1:pass:1208:footballer_pro_7_17",
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 5.608576050157004,
+        "angle": 0.22565018052930086,
+        "pressure": 0.6784708388399269,
+        "blockingDefenders": 0,
+        "blockingDemand": 5.170318088642497e-24,
+        "visibleTargetArea": 0.8968423465630807,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_51_0",
+          "distanceFromGoalCentre": 2.575098935981377,
+          "distanceFromGoalLine": 1.0083946387746832,
+          "estimatedRecoveryTime": 0.39616906707405797,
+          "estimatedShotTravelTime": 0.23369066875654185,
+          "goalCoverage": 0.5652581793796342
+        },
+        "baseXg": 0.3577924420439454,
+        "shooterExecutionQuality": 0.6612862208490655,
+        "effectiveScoringExpectation": 0.3509272848842885,
+        "category": "high_value",
+        "value": 0.3509272848842885
+      },
+      "shooterAttributes": {
+        "technique": 75,
+        "firstTouch": 80,
+        "passing": 76,
+        "dribbling": 80,
+        "finishing": 93,
+        "tackling": 58,
+        "positioning": 80,
+        "heading": 70,
+        "setPieces": 79,
+        "gameReading": 79,
+        "composure": 83,
+        "concentration": 66,
+        "leadership": 81,
+        "determination": 77,
+        "aggression": 64,
+        "pace": 86,
+        "stamina": 73,
+        "strength": 70,
+        "agility": 77,
+        "jumping": 67,
+        "ambition": 72,
+        "professionalism": 70,
+        "reflexes": 24,
+        "handling": 5,
+        "oneOnOnes": 13,
+        "goalkeeperSweeping": 25,
+        "goalkeeperKicking": 10,
+        "goalkeeperThrowing": 11
+      },
+      "ball": {
+        "x": 0.635027424960475,
+        "y": 39.04694805155914,
+        "ownerId": "footballer_pro_7_21",
+        "lastTouchPlayerId": "footballer_pro_7_21",
+        "height": 0,
+        "velocity": {
+          "x": -4.1469060786482315,
+          "y": -1.923164399763286,
+          "z": 0
+        },
+        "airborne": false
+      },
+      "keeper": {
+        "id": "footballer_pro_51_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_51_0",
+          "firstName": "Jan",
+          "lastName": "Kowalski",
+          "age": 22,
+          "dateOfBirth": "2003-11-14",
+          "nationality": "PL",
+          "heightCm": 187,
+          "weightKg": 82,
+          "attributes": {
+            "technique": 39,
+            "firstTouch": 35,
+            "passing": 31,
+            "dribbling": 46,
+            "finishing": 41,
+            "tackling": 39,
+            "positioning": 40,
+            "heading": 37,
+            "setPieces": 49,
+            "gameReading": 32,
+            "composure": 33,
+            "concentration": 35,
+            "leadership": 41,
+            "determination": 31,
+            "aggression": 27,
+            "pace": 37,
+            "stamina": 23,
+            "strength": 25,
+            "agility": 29,
+            "jumping": 42,
+            "ambition": 54,
+            "professionalism": 35,
+            "reflexes": 73,
+            "handling": 62,
+            "oneOnOnes": 66,
+            "goalkeeperSweeping": 49,
+            "goalkeeperKicking": 41,
+            "goalkeeperThrowing": 47
+          },
+          "hiddenProfile": {
+            "consistency": 38,
+            "importantMatches": 87,
+            "injuryProneness": 71,
+            "adaptability": 64,
+            "loyalty": 40,
+            "pressureResistance": 57,
+            "controversy": 51,
+            "fairPlay": 78
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 65,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.8730282912389602,
+          "burstReadiness": 0.8705036392336241,
+          "exertionSpent": 2586.095604607375,
+          "capacitySpent": 0.15854809565031652,
+          "burstSpent": 9.695766411057527,
+          "capacityRecovered": 0.03157638689104064,
+          "burstRecovered": 9.566270050294442,
+          "movementRiskExposure": 0.0017532938945264817,
+          "assessedRiskExposure": 0.0017532938945264817,
+          "workload": {
+            "seconds": 2859.200000006019,
+            "distanceWalk": 481.89002202483874,
+            "distanceJog": 21.218045140985243,
+            "distanceRun": 46.19598743961385,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 2581.2772045321212,
+            "brakingImpulse": 2579.6152025506613,
+            "turningLoad": 87.55789800732376,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 1.0083946387746832,
+          "y": 36.369446091934336
+        },
+        "target": {
+          "x": 1.31927275063658,
+          "y": 36.162003900658554
+        },
+        "velocity": {
+          "x": -0.31160855754056804,
+          "y": 1.6325289257105169
+        },
+        "facingAngle": -0.09963146596383332,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 0.5376935606993853,
+          "y": 37.26987601230943
+        },
+        "meanPosition": {
+          "x": 98.14720574960678,
+          "y": 34.021441231598835
+        },
+        "samples": 114369,
+        "desiredFacingAngle": -0.09963146596383295,
+        "movementMode": "forward",
+        "turnRate": 1.5061839743461292,
+        "locomotionIntensity": "run",
+        "locomotionReason": "press_commit",
+        "targetSpeed": 4.999801630810464,
+        "locomotionTelemetry": {
+          "distanceTotal": 549.304054605435,
+          "distanceWalk": 481.89002202483874,
+          "distanceJog": 21.218045140985243,
+          "distanceRun": 46.19598743961385,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 4.99589029255017
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_7_21",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:val-strength:v1:restart:2700.10000000544:away:kick_off",
+        "scenario": "kick_off"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:val-strength:v1:shot:1362:footballer_pro_7_22",
+        "shooterId": "footballer_pro_7_22",
+        "releasedAt": 3247.7250000074323,
+        "intent": "placed",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.0999999999999995,
+        "ballHeightAtContact": 0.0999999999999995,
+        "launchSpeed": 31.127196341138333,
+        "launchVerticalComponent": 1.8734034621991142,
+        "executionProfile": {
+          "intent": "placed",
+          "contact": "settled",
+          "nominalSpeed": 28.735,
+          "errorMultiplier": 0.88,
+          "pressureSensitivity": 0.4,
+          "preparationSeconds": 0.28,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.0411443034233037,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.8239104734137397,
+          "horizontalSigma": 0.14172496166763945,
+          "verticalSigma": 0.20224035438455842,
+          "distanceDifficulty": 0.5439606941492497,
+          "angleDifficulty": 0.0010614119004372924,
+          "pressureDifficulty": 0.36380826684202927,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.0411443034233037,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.4238547681561513,
+          "horizontalSigmaMetres": 0.5187133597035605,
+          "verticalSigmaMetres": 0.49346646469832256,
+          "ballMovementDifficulty": 0,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.1012426684936314,
+          "blockerDifficulty": 0
+        },
+        "context": "penalty",
+        "distance": 11.059271516070945,
+        "angle": 0.9989385880995627,
+        "pressure": 0.36380826684202927,
+        "blockingDefenders": 0,
+        "baseXg": 0.6862910478509028,
+        "effectiveScoringExpectation": 0.7412164805370981,
+        "shooterExecutionQuality": 0.8239104734137397,
+        "intendedTarget": {
+          "horizontal": 0.6,
+          "vertical": 0.34
+        },
+        "actualTarget": {
+          "horizontal": 0.5814290745854036,
+          "vertical": 0.006628716121079126
+        },
+        "error": {
+          "horizontal": -0.01857092541459638,
+          "vertical": -0.3333712838789209
+        },
+        "speed": 31.127196341138333,
+        "classification": "on_target",
+        "keeperId": "footballer_pro_51_0",
+        "goalkeeperAction": "parry",
+        "outcome": "goal"
+      },
+      "episodeId": null,
+      "choiceId": null,
+      "releasedAt": 3247.7250000074323,
+      "resolvedAt": 3248.0750000074336,
+      "team": "home",
+      "sourceRestartId": "pr175-fresh-20261018:val-strength:v1:restart:3235.9250000073894:home:penalty",
+      "sourceRestart": "penalty",
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 11.059271516070945,
+        "angle": 0.9989385880995627,
+        "pressure": 0.36380826684202927,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8987573315063686,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_51_0",
+          "distanceFromGoalCentre": 2.859641233641898,
+          "distanceFromGoalLine": 0.06911876191089734,
+          "estimatedRecoveryTime": 0.43994480517567663,
+          "estimatedShotTravelTime": 0.4608029798362894,
+          "goalCoverage": 0.6269610183835609
+        },
+        "baseXg": 0.6862910478509028,
+        "shooterExecutionQuality": 0.8239302604143744,
+        "effectiveScoringExpectation": 0.7412164805370981,
+        "category": "high_value",
+        "value": 0.7412164805370981
+      },
+      "shooterAttributes": {
+        "technique": 83,
+        "firstTouch": 83,
+        "passing": 77,
+        "dribbling": 71,
+        "finishing": 92,
+        "tackling": 56,
+        "positioning": 71,
+        "heading": 91,
+        "setPieces": 78,
+        "gameReading": 91,
+        "composure": 86,
+        "concentration": 74,
+        "leadership": 68,
+        "determination": 81,
+        "aggression": 81,
+        "pace": 62,
+        "stamina": 82,
+        "strength": 83,
+        "agility": 68,
+        "jumping": 90,
+        "ambition": 74,
+        "professionalism": 81,
+        "reflexes": 4,
+        "handling": 16,
+        "oneOnOnes": 11,
+        "goalkeeperSweeping": 17,
+        "goalkeeperKicking": 22,
+        "goalkeeperThrowing": 15
+      },
+      "ball": {
+        "x": 10.97268514409578,
+        "y": 33.95006792670789,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_pro_7_12",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "keeper": {
+        "id": "footballer_pro_51_0",
+        "team": "away",
+        "profile": {
+          "id": "footballer_pro_51_0",
+          "firstName": "Jan",
+          "lastName": "Kowalski",
+          "age": 22,
+          "dateOfBirth": "2003-11-14",
+          "nationality": "PL",
+          "heightCm": 187,
+          "weightKg": 82,
+          "attributes": {
+            "technique": 39,
+            "firstTouch": 35,
+            "passing": 31,
+            "dribbling": 46,
+            "finishing": 41,
+            "tackling": 39,
+            "positioning": 40,
+            "heading": 37,
+            "setPieces": 49,
+            "gameReading": 32,
+            "composure": 33,
+            "concentration": 35,
+            "leadership": 41,
+            "determination": 31,
+            "aggression": 27,
+            "pace": 37,
+            "stamina": 23,
+            "strength": 25,
+            "agility": 29,
+            "jumping": 42,
+            "ambition": 54,
+            "professionalism": 35,
+            "reflexes": 73,
+            "handling": 62,
+            "oneOnOnes": 66,
+            "goalkeeperSweeping": 49,
+            "goalkeeperKicking": 41,
+            "goalkeeperThrowing": 47
+          },
+          "hiddenProfile": {
+            "consistency": 38,
+            "importantMatches": 87,
+            "injuryProneness": 71,
+            "adaptability": 64,
+            "loyalty": 40,
+            "pressureResistance": 57,
+            "controversy": 51,
+            "fairPlay": 78
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 65,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.8570460256565157,
+          "burstReadiness": 0.8570460256565157,
+          "exertionSpent": 2905.0658506357086,
+          "capacitySpent": 0.17810349220518676,
+          "burstSpent": 10.895417194192417,
+          "capacityRecovered": 0.03514951786371347,
+          "burstRecovered": 10.752463219847968,
+          "movementRiskExposure": 0.0019998599039778684,
+          "assessedRiskExposure": 0.0019998599039778684,
+          "workload": {
+            "seconds": 3247.700000007432,
+            "distanceWalk": 543.4032564092445,
+            "distanceJog": 27.182371187724637,
+            "distanceRun": 46.19598743961385,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 2900.6506107061714,
+            "brakingImpulse": 2900.650610706177,
+            "turningLoad": 99.24748623005114,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 0.06911876191089734,
+          "y": 31.14119420353588
+        },
+        "target": {
+          "x": 0,
+          "y": 31.14119420353588
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": 1.3186677194897083,
+        "anchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 5.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 0,
+          "y": 31.14119420353588
+        },
+        "meanPosition": {
+          "x": 86.77777877814971,
+          "y": 33.99812811179567
+        },
+        "samples": 129629,
+        "desiredFacingAngle": 1.3186677194897076,
+        "movementMode": "backpedal",
+        "turnRate": 0,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "restart_setup",
+        "targetSpeed": 1.5056637437819451,
+        "locomotionTelemetry": {
+          "distanceTotal": 616.7816150365845,
+          "distanceWalk": 543.4032564092445,
+          "distanceJog": 27.182371187724637,
+          "distanceRun": 46.19598743961385,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 4.99589029255017
+        },
+        "endsSwitched": true,
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_pro_7_12",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:val-strength:v1:restart:3235.9250000073894:home:penalty",
+        "scenario": "penalty"
+      }
+    },
+    {
+      "diagnostic": {
+        "launchSpin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "shotId": "pr175-fresh-20261018:val-youth:v1:shot:561:footballer_club_vistula_nova_2026_21",
+        "shooterId": "footballer_club_vistula_nova_2026_21",
+        "releasedAt": 1425.725000000804,
+        "intent": "driven",
+        "contact": "settled",
+        "firstTime": false,
+        "ballHeightAtDecision": 0.0999999999999995,
+        "ballHeightAtContact": 0.0999999999999995,
+        "launchSpeed": 30.26465490335599,
+        "launchVerticalComponent": 7.617291572470363,
+        "executionProfile": {
+          "intent": "driven",
+          "contact": "settled",
+          "nominalSpeed": 33.115,
+          "errorMultiplier": 1.12,
+          "pressureSensitivity": 0.34,
+          "preparationSeconds": 0.2,
+          "firstTimeDifficulty": 0,
+          "orientationDifficulty": 0.03020087419242806,
+          "dominantFootDifficulty": 0,
+          "minimumVerticalSpeed": 0
+        },
+        "executionErrorProfile": {
+          "executionQuality": 0.48936195223926365,
+          "horizontalSigma": 0.37728197685338133,
+          "verticalSigma": 0.5412592549913852,
+          "distanceDifficulty": 0.5387849340941542,
+          "angleDifficulty": 0.00033769625084645316,
+          "pressureDifficulty": 0.3603641698588293,
+          "contactDifficulty": 0,
+          "orientationDifficulty": 0.03020087419242806,
+          "weakFootDifficulty": 0,
+          "intrinsicDifficulty": 1.4178173088375337,
+          "horizontalSigmaMetres": 1.3808520352833757,
+          "verticalSigmaMetres": 1.3206725821789798,
+          "ballMovementDifficulty": 0,
+          "ballHeightDifficulty": 0,
+          "targetWindowDifficulty": 0.10356006223260783,
+          "blockerDifficulty": 0
+        },
+        "context": "penalty",
+        "distance": 10.97500835740821,
+        "angle": 0.9996623037491535,
+        "pressure": 0.3603641698588293,
+        "blockingDefenders": 0,
+        "baseXg": 0.6889737637773494,
+        "effectiveScoringExpectation": 0.5086472471508345,
+        "shooterExecutionQuality": 0.48936195223926365,
+        "intendedTarget": {
+          "horizontal": 0.2,
+          "vertical": 0.24
+        },
+        "actualTarget": {
+          "horizontal": 0.18843989259253852,
+          "vertical": 1.0565699532410693
+        },
+        "error": {
+          "horizontal": -0.011560107407461506,
+          "vertical": 0.8165699532410692
+        },
+        "speed": 30.26465490335599,
+        "classification": "on_target",
+        "outcome": "goal"
+      },
+      "episodeId": null,
+      "choiceId": null,
+      "releasedAt": 1425.725000000804,
+      "resolvedAt": 1426.1250000008054,
+      "team": "home",
+      "sourceRestartId": "pr175-fresh-20261018:val-youth:v1:restart:1414.200000000762:home:penalty",
+      "sourceRestart": "penalty",
+      "previousPassId": null,
+      "combinationIds": [],
+      "opportunity": {
+        "distance": 10.97500835740821,
+        "angle": 0.9996623037491535,
+        "pressure": 0.3603641698588293,
+        "blockingDefenders": 0,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8964399377673922,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_u17_pro_60_2026_1",
+          "distanceFromGoalCentre": 2.785540572691067,
+          "distanceFromGoalLine": 0.0682843505869073,
+          "estimatedRecoveryTime": 0.42854470349093343,
+          "estimatedShotTravelTime": 0.45729201489200877,
+          "goalCoverage": 0.6295405407647884
+        },
+        "baseXg": 0.6889737637773494,
+        "shooterExecutionQuality": 0.489363737772282,
+        "effectiveScoringExpectation": 0.5086472471508345,
+        "category": "high_value",
+        "value": 0.5086472471508345
+      },
+      "shooterAttributes": {
+        "technique": 47,
+        "firstTouch": 59,
+        "passing": 50,
+        "dribbling": 51,
+        "finishing": 64,
+        "tackling": 29,
+        "positioning": 40,
+        "heading": 44,
+        "setPieces": 57,
+        "gameReading": 64,
+        "composure": 61,
+        "concentration": 40,
+        "leadership": 54,
+        "determination": 57,
+        "aggression": 52,
+        "pace": 62,
+        "stamina": 51,
+        "strength": 39,
+        "agility": 38,
+        "jumping": 48,
+        "ambition": 57,
+        "professionalism": 51,
+        "reflexes": 19,
+        "handling": 5,
+        "oneOnOnes": 20,
+        "goalkeeperSweeping": 4,
+        "goalkeeperKicking": 20,
+        "goalkeeperThrowing": 12
+      },
+      "ball": {
+        "x": 94.00260409404119,
+        "y": 34.00631032141907,
+        "height": 0.0999999999999995,
+        "lastTouchPlayerId": "footballer_club_vistula_nova_2026_18",
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "airborne": false,
+        "bounceCount": 0
+      },
+      "keeper": {
+        "id": "footballer_u17_pro_60_2026_1",
+        "team": "away",
+        "profile": {
+          "id": "footballer_u17_pro_60_2026_1",
+          "firstName": "Michał",
+          "lastName": "Kowalski",
+          "age": 16,
+          "dateOfBirth": "2009-09-08",
+          "nationality": "PL",
+          "heightCm": 186,
+          "weightKg": 91,
+          "attributes": {
+            "technique": 39,
+            "firstTouch": 30,
+            "passing": 21,
+            "dribbling": 42,
+            "finishing": 38,
+            "tackling": 45,
+            "positioning": 52,
+            "heading": 43,
+            "setPieces": 38,
+            "gameReading": 45,
+            "composure": 39,
+            "concentration": 32,
+            "leadership": 31,
+            "determination": 35,
+            "aggression": 20,
+            "pace": 22,
+            "stamina": 29,
+            "strength": 38,
+            "agility": 39,
+            "jumping": 36,
+            "ambition": 34,
+            "professionalism": 36,
+            "reflexes": 62,
+            "handling": 66,
+            "oneOnOnes": 69,
+            "goalkeeperSweeping": 43,
+            "goalkeeperKicking": 43,
+            "goalkeeperThrowing": 33
+          },
+          "hiddenProfile": {
+            "consistency": 76,
+            "importantMatches": 77,
+            "injuryProneness": 31,
+            "adaptability": 47,
+            "loyalty": 66,
+            "pressureResistance": 78,
+            "controversy": 30,
+            "fairPlay": 70
+          },
+          "dominantFoot": "right",
+          "weakFootProficiency": 41,
+          "traits": [],
+          "primaryPosition": "goalkeeper",
+          "secondaryPositions": [],
+          "positionFamiliarity": {
+            "goalkeeper": 1,
+            "center_back": 0,
+            "left_back": 0,
+            "right_back": 0,
+            "central_midfielder": 0,
+            "left_winger": 0,
+            "right_winger": 0,
+            "striker": 0
+          }
+        },
+        "fitness": {
+          "longTermCapacity": 0.9590900692779977,
+          "burstReadiness": 0.9590900692779977,
+          "exertionSpent": 951.2345203219982,
+          "capacitySpent": 0.05473855935356775,
+          "burstSpent": 3.5494801329869863,
+          "capacityRecovered": 0.013828628629530545,
+          "burstRecovered": 3.508570202262009,
+          "movementRiskExposure": 0.0006974400989864398,
+          "assessedRiskExposure": 0.0006974400989864398,
+          "workload": {
+            "seconds": 1425.7000000008038,
+            "distanceWalk": 167.9143316705576,
+            "distanceJog": 27.104508121557142,
+            "distanceRun": 23.36027732126224,
+            "distanceSprint": 0,
+            "sprintSeconds": 0,
+            "sprintBursts": 0,
+            "accelerationImpulse": 946.1541260861842,
+            "brakingImpulse": 946.154126086191,
+            "turningLoad": 20.03372923755233,
+            "intensivePressSeconds": 0,
+            "bodyContactLoad": 0
+          }
+        },
+        "slotIndex": 0,
+        "slot": {
+          "position": "goalkeeper",
+          "x": 50,
+          "y": 91
+        },
+        "duty": "support",
+        "position": {
+          "x": 104.93171564941309,
+          "y": 36.784703490422814
+        },
+        "target": {
+          "x": 105,
+          "y": 36.784703490422814
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "facingAngle": -1.8197423152265557,
+        "anchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "neutralAnchor": {
+          "x": 99.5,
+          "y": 34
+        },
+        "idealTarget": {
+          "x": 105,
+          "y": 36.784703490422814
+        },
+        "meanPosition": {
+          "x": 103.43572405487606,
+          "y": 34.62113517226842
+        },
+        "samples": 57029,
+        "desiredFacingAngle": -1.8197423152265568,
+        "movementMode": "backpedal",
+        "turnRate": 0,
+        "locomotionIntensity": "walk",
+        "locomotionReason": "restart_setup",
+        "targetSpeed": 1.4092112092085116,
+        "locomotionTelemetry": {
+          "distanceTotal": 218.37911711337722,
+          "distanceWalk": 167.9143316705576,
+          "distanceJog": 27.104508121557142,
+          "distanceRun": 23.36027732126224,
+          "distanceSprint": 0,
+          "sprintSeconds": 0,
+          "sprintBursts": 0,
+          "maxSpeed": 4.7750330984520275
+        },
+        "sprintBurstCounted": false
+      },
+      "lastTouch": "footballer_club_vistula_nova_2026_18",
+      "rawRestartHint": {
+        "id": "pr175-fresh-20261018:val-youth:v1:restart:1414.200000000762:home:penalty",
+        "scenario": "penalty"
+      }
+    }
+  ],
+  "goalLedger": [
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:shot:357:footballer_pro_15_12",
+      "at": 787.3999999995577,
+      "team": "away",
+      "shotId": "pr175-fresh-20261018:dev-balanced:v1:shot:357:footballer_pro_15_12",
+      "shotOutcome": "goal",
+      "source": "penalty",
+      "lastTouchPlayerId": "footballer_pro_15_12",
+      "lastTouchTeam": "away",
+      "ballSource": "shot",
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:dev-balanced:v1:restart:762.94999999958:away:penalty",
+        "scenario": "penalty",
+        "takerId": "footballer_pro_15_12",
+        "team": "away",
+        "indirect": false,
+        "touchedByOther": false
+      },
+      "rawSourceHint": "penalty",
+      "rebound": false,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": false
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:shot:54:footballer_pro_3_22",
+      "at": 119.50000000001005,
+      "team": "home",
+      "shotId": "pr175-fresh-20261018:dev-strength:v1:shot:54:footballer_pro_3_22",
+      "shotOutcome": "goal",
+      "source": "open_play",
+      "lastTouchPlayerId": "footballer_pro_3_22",
+      "lastTouchTeam": "home",
+      "ballSource": "shot",
+      "boundary": null,
+      "restartRestriction": null,
+      "rawSourceHint": "open_play",
+      "rebound": false,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": false
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:shot:169:footballer_pro_3_21",
+      "at": 424.0249999998882,
+      "team": "home",
+      "shotId": "pr175-fresh-20261018:dev-strength:v1:shot:169:footballer_pro_3_21",
+      "shotOutcome": "goal",
+      "source": "open_play",
+      "lastTouchPlayerId": "footballer_pro_3_21",
+      "lastTouchTeam": "home",
+      "ballSource": "shot",
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:dev-strength:v1:restart:388.0749999999209:away:throw_in",
+        "scenario": "throw_in",
+        "takerId": "footballer_pro_57_9",
+        "team": "away",
+        "indirect": false,
+        "touchedByOther": true
+      },
+      "rawSourceHint": "set_piece_sequence",
+      "rebound": false,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": false
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-youth:v1:shot:583:footballer_u17_pro_60_2026_11",
+      "at": 1342.8750000005025,
+      "team": "away",
+      "shotId": "pr175-fresh-20261018:dev-youth:v1:shot:583:footballer_u17_pro_60_2026_11",
+      "shotOutcome": "goal",
+      "source": "open_play",
+      "lastTouchPlayerId": "footballer_u17_pro_60_2026_11",
+      "lastTouchTeam": "away",
+      "ballSource": "shot",
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:dev-youth:v1:restart:454.0749999998609:home:goal_kick",
+        "scenario": "goal_kick",
+        "takerId": "footballer_club_vistula_nova_2026_1",
+        "team": "home",
+        "indirect": false,
+        "touchedByOther": true
+      },
+      "rawSourceHint": "set_piece_sequence",
+      "rebound": false,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": false
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-youth:v1:shot:1426:footballer_u17_pro_60_2026_22",
+      "at": 3409.3500000080203,
+      "team": "away",
+      "shotId": "pr175-fresh-20261018:dev-youth:v1:shot:1426:footballer_u17_pro_60_2026_22",
+      "shotOutcome": "goal",
+      "source": "open_play",
+      "lastTouchPlayerId": "footballer_club_vistula_nova_2026_1",
+      "lastTouchTeam": "home",
+      "ballSource": null,
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:dev-youth:v1:restart:3106.1750000069173:home:goal_kick",
+        "scenario": "goal_kick",
+        "takerId": "footballer_club_vistula_nova_2026_1",
+        "team": "home",
+        "indirect": false,
+        "touchedByOther": true
+      },
+      "rawSourceHint": "set_piece_sequence",
+      "rebound": true,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": true
+    },
+    {
+      "id": "pr175-fresh-20261018:val-balanced:v1:shot:1302:footballer_pro_17_22",
+      "at": 2975.1750000064408,
+      "team": "home",
+      "shotId": "pr175-fresh-20261018:val-balanced:v1:shot:1302:footballer_pro_17_22",
+      "shotOutcome": "goal",
+      "source": "penalty",
+      "lastTouchPlayerId": "footballer_pro_17_22",
+      "lastTouchTeam": "home",
+      "ballSource": "shot",
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:val-balanced:v1:restart:2965.2500000064047:home:penalty",
+        "scenario": "penalty",
+        "takerId": "footballer_pro_17_22",
+        "team": "home",
+        "indirect": false,
+        "touchedByOther": false
+      },
+      "rawSourceHint": "penalty",
+      "rebound": false,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": false
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:shot:1211:footballer_pro_7_21",
+      "at": 2859.4250000060197,
+      "team": "home",
+      "shotId": "pr175-fresh-20261018:val-strength:v1:shot:1211:footballer_pro_7_21",
+      "shotOutcome": "goal",
+      "source": "open_play",
+      "lastTouchPlayerId": "footballer_pro_7_21",
+      "lastTouchTeam": "home",
+      "ballSource": "shot",
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:val-strength:v1:restart:2700.10000000544:away:kick_off",
+        "scenario": "kick_off",
+        "takerId": "footballer_pro_51_21",
+        "team": "away",
+        "indirect": false,
+        "touchedByOther": true
+      },
+      "rawSourceHint": "set_piece_sequence",
+      "rebound": false,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": false
+    },
+    {
+      "id": "pr175-fresh-20261018:val-strength:v1:shot:1362:footballer_pro_7_22",
+      "at": 3248.200000007434,
+      "team": "home",
+      "shotId": "pr175-fresh-20261018:val-strength:v1:shot:1362:footballer_pro_7_22",
+      "shotOutcome": "goal",
+      "source": "penalty",
+      "lastTouchPlayerId": "footballer_pro_51_0",
+      "lastTouchTeam": "away",
+      "ballSource": null,
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:val-strength:v1:restart:3235.9250000073894:home:penalty",
+        "scenario": "penalty",
+        "takerId": "footballer_pro_7_22",
+        "team": "home",
+        "indirect": false,
+        "touchedByOther": true
+      },
+      "rawSourceHint": "penalty",
+      "rebound": true,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": true
+    },
+    {
+      "id": "pr175-fresh-20261018:val-youth:v1:shot:561:footballer_club_vistula_nova_2026_21",
+      "at": 1426.1250000008054,
+      "team": "home",
+      "shotId": "pr175-fresh-20261018:val-youth:v1:shot:561:footballer_club_vistula_nova_2026_21",
+      "shotOutcome": "goal",
+      "source": "penalty",
+      "lastTouchPlayerId": "footballer_club_vistula_nova_2026_21",
+      "lastTouchTeam": "home",
+      "ballSource": "shot",
+      "boundary": null,
+      "restartRestriction": {
+        "awardId": "pr175-fresh-20261018:val-youth:v1:restart:1414.200000000762:home:penalty",
+        "scenario": "penalty",
+        "takerId": "footballer_club_vistula_nova_2026_21",
+        "team": "home",
+        "indirect": false,
+        "touchedByOther": false
+      },
+      "rawSourceHint": "penalty",
+      "rebound": false,
+      "boundaryNote": "Goal geometry is the physical shot/score transition. The lastBoundaryCrossing field may describe an earlier non-goal exit and is not attributed to this goal.",
+      "initialResolutionPrecededGoal": false
+    }
+  ]
+}

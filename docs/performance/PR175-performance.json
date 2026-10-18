@@ -1,0 +1,457 @@
+{
+  "version": 1,
+  "status": "complete",
+  "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+  "productionSourceEqualsMergedPr174": true,
+  "method": "Serial identical 60s windows after all concurrent research. One warm-up plus three measured runs per mode, alternating mode order. Plain has research callbacks disabled but the opt-in loader still adds symbol checks and disabled combination wrappers; separate full-match plain processes use the ordinary loader. Core source is byte-identical to merged PR174, so these are observer costs, not a claimed gameplay speedup. Snapshot/serialization excluded from stepping timers. Inclusive all-tick spans overlap; do not sum categories. A separate same-state 60s replay times actual reconcile/release/candidate combination invocations with the offline loader, including active-intent calls. These wall-clock spans include timer overhead, are inclusive, and are not a full-match CPU share or a measure of all shared movement/forecast work.",
+  "windowMedians": {
+    "plain": {
+      "cpuMs": 1609,
+      "wallMs": 1451.4176000000007,
+      "retainedBytes": 0
+    },
+    "existing": {
+      "cpuMs": 1782,
+      "wallMs": 1474.8014999999996,
+      "retainedBytes": 13830
+    },
+    "detailed": {
+      "cpuMs": 1531,
+      "wallMs": 1482.9094999999998,
+      "retainedBytes": 243670
+    }
+  },
+  "diagnosticCpuRatio": 0.9515226848974518,
+  "windowInterpretation": "Only three short measured samples per mode. A detailed/plain CPU ratio below one, especially with a different wall-time ordering, is not an observer speedup or evidence of zero overhead. Scheduler/JIT/GC contributions were not isolated. Treat these as descriptive mode timings and retention costs; full-match observed research timings were concurrent and are not an overhead comparator.",
+  "fullMatchMethod": "process.cpuUsage and performance.now around the entire canonical stepping loop, excluding imports, fixture creation, final hashing and receipt serialization; whole-process lifetime and startup are separate questions.",
+  "windowRows": [
+    {
+      "sample": 0,
+      "mode": "detailed",
+      "wallMs": 1601.9494000000004,
+      "cpuMs": 1859,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 317829120,
+        "heapTotal": 223707136,
+        "heapUsed": 155359896,
+        "external": 12602498,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 243670
+    },
+    {
+      "sample": 0,
+      "mode": "existing",
+      "wallMs": 1484.6915,
+      "cpuMs": 1828,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 313290752,
+        "heapTotal": 227098624,
+        "heapUsed": 154893040,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 13830
+    },
+    {
+      "sample": 0,
+      "mode": "plain",
+      "wallMs": 1451.4176000000007,
+      "cpuMs": 1672,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 312823808,
+        "heapTotal": 230244352,
+        "heapUsed": 130018136,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 0
+    },
+    {
+      "sample": 1,
+      "mode": "plain",
+      "wallMs": 1474.8568000000014,
+      "cpuMs": 1609,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 320987136,
+        "heapTotal": 233390080,
+        "heapUsed": 104635120,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 0
+    },
+    {
+      "sample": 1,
+      "mode": "existing",
+      "wallMs": 1474.8014999999996,
+      "cpuMs": 1532,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 324005888,
+        "heapTotal": 236797952,
+        "heapUsed": 167114360,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 13830
+    },
+    {
+      "sample": 1,
+      "mode": "detailed",
+      "wallMs": 1482.9094999999998,
+      "cpuMs": 1531,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 328204288,
+        "heapTotal": 240730112,
+        "heapUsed": 169764808,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 243670
+    },
+    {
+      "sample": 2,
+      "mode": "detailed",
+      "wallMs": 1451.5305000000008,
+      "cpuMs": 1531,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 330223616,
+        "heapTotal": 244121600,
+        "heapUsed": 168904504,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 243670
+    },
+    {
+      "sample": 2,
+      "mode": "existing",
+      "wallMs": 1468.0849000000017,
+      "cpuMs": 1782,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 334622720,
+        "heapTotal": 247775232,
+        "heapUsed": 155867776,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 13830
+    },
+    {
+      "sample": 2,
+      "mode": "plain",
+      "wallMs": 1431.7517000000007,
+      "cpuMs": 1499,
+      "finalHash": "cfbdd9ab1e2ec3d6b8b25bda664a3c7128fb40d1ea2f97b58a82a93a1d76cec6",
+      "memory": {
+        "rss": 338669568,
+        "heapTotal": 250658816,
+        "heapUsed": 118571552,
+        "external": 12602538,
+        "arrayBuffers": 143639
+      },
+      "retainedBytes": 0
+    }
+  ],
+  "profiles": [
+    {
+      "enabled": true,
+      "sampleEveryTicks": 1,
+      "ticks": 2400,
+      "sampledTicks": 2400,
+      "timingSemantics": "inclusive_sampled_spans",
+      "categories": [
+        {
+          "category": "tactical_planning",
+          "sampledMs": 370.51200000000244,
+          "estimatedMs": 370.51200000000244,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "movement_physics",
+          "sampledMs": 397.8451999998797,
+          "estimatedMs": 397.8451999998797,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "ball_contact_control",
+          "sampledMs": 15.619300000002113,
+          "estimatedMs": 15.619300000002113,
+          "sampledCalls": 993
+        },
+        {
+          "category": "ball_physics",
+          "sampledMs": 264.2868999999555,
+          "estimatedMs": 264.2868999999555,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "action_resolution",
+          "sampledMs": 255.405799999975,
+          "estimatedMs": 255.405799999975,
+          "sampledCalls": 2373
+        },
+        {
+          "category": "pass_contact_evidence",
+          "sampledMs": 13.036400000110007,
+          "estimatedMs": 13.036400000110007,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "statistics",
+          "sampledMs": 96.46810000014011,
+          "estimatedMs": 96.46810000014011,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "canonical_step",
+          "sampledMs": 1453.8361000001714,
+          "estimatedMs": 1453.8361000001714,
+          "sampledCalls": 2400
+        },
+        {
+          "category": "interception_eta",
+          "sampledMs": 334.9572999997181,
+          "estimatedMs": 334.9572999997181,
+          "sampledCalls": 25146
+        },
+        {
+          "category": "pressure_decision",
+          "sampledMs": 28.499099999971804,
+          "estimatedMs": 28.499099999971804,
+          "sampledCalls": 900
+        }
+      ]
+    }
+  ],
+  "combinationTimings": {
+    "reconcileCombination": {
+      "calls": 4829,
+      "activeCalls": 137,
+      "wallMs": 1.0819000000265078,
+      "activeWallMs": 0.21979999999166466
+    },
+    "enumerateCombinationPasses": {
+      "calls": 56,
+      "activeCalls": 2,
+      "wallMs": 0.09219999999550055,
+      "activeWallMs": 0.003700000001117587
+    },
+    "observeCombinationRelease": {
+      "calls": 29,
+      "activeCalls": 1,
+      "wallMs": 4.670099999995728,
+      "activeWallMs": 0.34950000000026193
+    }
+  },
+  "fullMatchEquivalence": [
+    {
+      "id": "dev-youth",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+      "initialHash": "f351c541cfc84d3b5cc49724e4ab096843f08c48b101a638fcbc160dc8ad004a",
+      "finalHash": "a90084f9549bd6d516bf82625508e08624fd0c0fcd1851e331551a94c281769c",
+      "ticks": 223207,
+      "time": 5580.1500000056585,
+      "cpuMs": 174656,
+      "wallMs": 159645.1985,
+      "memory": {
+        "rss": 428130304,
+        "heapTotal": 311549952,
+        "heapUsed": 185278272,
+        "external": 12501495,
+        "arrayBuffers": 145655
+      },
+      "completeCanonicalStateEqual": true
+    },
+    {
+      "id": "dev-balanced",
+      "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+      "initialHash": "37cdf10da95a268bb82c4f13738f6966f54af02e74b73a54e8a9598eb44ba2ab",
+      "finalHash": "427b7f1fd7cb7f20a0afaad06b943e2734e13576e54f4f096f0139b9e531e585",
+      "ticks": 220817,
+      "time": 5520.400000005659,
+      "cpuMs": 176063,
+      "wallMs": 169242.4613,
+      "memory": {
+        "rss": 519417856,
+        "heapTotal": 365633536,
+        "heapUsed": 223727152,
+        "external": 12501535,
+        "arrayBuffers": 145655
+      },
+      "completeCanonicalStateEqual": true
+    }
+  ],
+  "startup": {
+    "version": 1,
+    "method": "Serial local CPU after all cohorts and verification. Same generated world/profile/seed, one discarded warm-up and seven samples per engine, alternating order. Construction/save/load costs; excludes network, cold module import and browser rendering.",
+    "worldHash": "aa651c89f1dcfbdc3031c30962376218897927af03f77e295535bfcc4f41c0d4",
+    "medians": [
+      {
+        "engine": "PR174-merged",
+        "worldParseValidationMs": 30.24610000000007,
+        "careerConstructionMs": 0.016400000000203363,
+        "saveMs": 0.37009999999986576,
+        "loadValidationMs": 0.20690000000013242
+      },
+      {
+        "engine": "PR175",
+        "worldParseValidationMs": 30.032100000000128,
+        "careerConstructionMs": 0.017200000000002547,
+        "saveMs": 0.3913000000000011,
+        "loadValidationMs": 0.20949999999993452
+      }
+    ],
+    "rows": [
+      {
+        "engine": "PR175",
+        "sample": 0,
+        "worldParseValidationMs": 31.646600000000035,
+        "careerConstructionMs": 0.01710000000002765,
+        "saveMs": 0.3913000000000011,
+        "loadValidationMs": 0.211100000000215,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR174-merged",
+        "sample": 0,
+        "worldParseValidationMs": 35.003600000000006,
+        "careerConstructionMs": 0.01639999999997599,
+        "saveMs": 0.41669999999999163,
+        "loadValidationMs": 0.34619999999995343,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR174-merged",
+        "sample": 1,
+        "worldParseValidationMs": 30.24610000000007,
+        "careerConstructionMs": 0.017900000000054206,
+        "saveMs": 0.37009999999986576,
+        "loadValidationMs": 0.4705999999998767,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR175",
+        "sample": 1,
+        "worldParseValidationMs": 30.032100000000128,
+        "careerConstructionMs": 0.01630000000000109,
+        "saveMs": 0.3791000000001077,
+        "loadValidationMs": 0.20949999999993452,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR175",
+        "sample": 2,
+        "worldParseValidationMs": 29.143299999999954,
+        "careerConstructionMs": 0.017200000000002547,
+        "saveMs": 0.393100000000004,
+        "loadValidationMs": 0.22129999999992833,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR174-merged",
+        "sample": 2,
+        "worldParseValidationMs": 29.62929999999983,
+        "careerConstructionMs": 0.02790000000004511,
+        "saveMs": 0.38779999999997017,
+        "loadValidationMs": 0.20690000000013242,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR174-merged",
+        "sample": 3,
+        "worldParseValidationMs": 29.4541999999999,
+        "careerConstructionMs": 0.016100000000051296,
+        "saveMs": 0.3898999999998978,
+        "loadValidationMs": 0.4033999999999196,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR175",
+        "sample": 3,
+        "worldParseValidationMs": 26.221700000000055,
+        "careerConstructionMs": 0.017399999999952342,
+        "saveMs": 0.41430000000013933,
+        "loadValidationMs": 0.3999999999998636,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR175",
+        "sample": 4,
+        "worldParseValidationMs": 28.765699999999924,
+        "careerConstructionMs": 0.017200000000002547,
+        "saveMs": 0.41820000000006985,
+        "loadValidationMs": 0.10880000000020118,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR174-merged",
+        "sample": 4,
+        "worldParseValidationMs": 30.688100000000077,
+        "careerConstructionMs": 0.016400000000203363,
+        "saveMs": 0.3553999999999178,
+        "loadValidationMs": 0.10840000000007421,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR174-merged",
+        "sample": 5,
+        "worldParseValidationMs": 38.21100000000001,
+        "careerConstructionMs": 0.016100000000051296,
+        "saveMs": 0.2819999999999254,
+        "loadValidationMs": 0.09410000000002583,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR175",
+        "sample": 5,
+        "worldParseValidationMs": 34.09730000000013,
+        "careerConstructionMs": 0.016700000000128057,
+        "saveMs": 0.23890000000005784,
+        "loadValidationMs": 0.12020000000006803,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR175",
+        "sample": 6,
+        "worldParseValidationMs": 30.69640000000004,
+        "careerConstructionMs": 0.017299999999977445,
+        "saveMs": 0.287900000000036,
+        "loadValidationMs": 0.09280000000012478,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      },
+      {
+        "engine": "PR174-merged",
+        "sample": 6,
+        "worldParseValidationMs": 28.92690000000016,
+        "careerConstructionMs": 0.016699999999900683,
+        "saveMs": 0.32539999999994507,
+        "loadValidationMs": 0.10590000000001965,
+        "saveBytes": 3792,
+        "saveHash": "fe4d6411a11ed5c56d0a0d0ee297405b04057d6559fb5001cc6ee527baab2275"
+      }
+    ]
+  },
+  "limitation": "No gameplay change or claimed speedup. Full-match observer-disabled replays run serially after concurrent research/verification; older parallel cohort wall times are not used as performance evidence. Heap/RSS snapshots are not isolated peaks. Inclusive profiler and isolated combination spans overlap; combination invocation timing includes timer overhead and is not a full-match CPU share or a measurement of all shared movement/forecast work."
+}

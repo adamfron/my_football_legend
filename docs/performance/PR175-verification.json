@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "status": "complete",
+  "verify": "PASS",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "node": "v24.19.0",
+  "platform": "win32",
+  "testPhases": [
+    1833,
+    52,
+    4,
+    5
+  ],
+  "totalTests": 1894,
+  "lint": "PASS",
+  "build": "PASS",
+  "unchanged": "Existing commands, workers, timeouts, assertions, seeds/goldens, canonical source, package lock and CI configuration unchanged.",
+  "newRegressionTests": 6,
+  "log": {
+    "path": "docs/performance/pr175-evidence/PR175-verify.log.gz",
+    "sha256": "19a6b28cf8b4f2917e5942db54100657fc419a15dfbe461d44125089f52c40ca",
+    "uncompressedSha256": "1c28333a848b18afa3b6496a0a3c7dccd1db70cb996b9b84a01c89aabee5614b"
+  },
+  "historicalEvidencePreservation": {
+    "filesChecked": 198,
+    "identical": true,
+    "hashMethod": "SHA256 of base64 of exact initial Windows checkout bytes, as recorded before acquisition"
+  },
+  "earlierAttempts": [
+    {
+      "stage": "research factory generation",
+      "result": "invalid creator position rejected by Zod before any match; corrected to supported positions before manifest freeze"
+    },
+    {
+      "stage": "controlled harness module load",
+      "result": "wrong isShotAction export path rejected before any execution; corrected to existing actionAgency export"
+    },
+    {
+      "stage": "focused Vitest in sandbox temp",
+      "result": "EPERM cache rename before collecting tests; rerun with writable workspace TEMP/TMP, unchanged test settings; six focused tests pass"
+    },
+    {
+      "stage": "reference download inside sandbox",
+      "result": "DNS unavailable; explicit opt-in public download succeeded with approved network access; normal tests use no network"
+    }
+  ]
+}

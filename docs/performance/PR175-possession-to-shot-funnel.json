@@ -1,0 +1,2531 @@
+{
+  "version": 1,
+  "status": "complete",
+  "method": "Actual canonical owner/incoming ranker calls, not two-second samples. Episode stages are unique presence in uninterrupted controlled team possession; direct/set-piece/first-time paths can skip stages. Credible is an unvalidated internal opportunity category, not real-world xG. Support/box/progression candidate counts describe generated alternatives, not an exhaustive oracle of physically available options.",
+  "stages": {
+    "controlled": 3076,
+    "generated_support": 2775,
+    "progressive_candidate": 2820,
+    "progressive_selected": 2338,
+    "physical_progression": 1604,
+    "shot_candidate": 2214,
+    "executable_shot_candidate": 2214,
+    "final_third_control": 632,
+    "box_entry_candidate": 218,
+    "penalty_area_control": 69,
+    "credible_opportunity": 19,
+    "shot_selected": 6,
+    "physical_shot_release": 8
+  },
+  "episodeExits": {
+    "claim": 1338,
+    "interception": 782,
+    "tackle": 687,
+    "other": 21,
+    "penalty": 6,
+    "free_kick_far": 92,
+    "foul_stoppage": 17,
+    "free_kick_close": 3,
+    "period_end": 23,
+    "free_kick_wide": 3,
+    "failed_control": 48,
+    "pass_out": 45,
+    "goal": 5,
+    "corner": 3,
+    "goal_kick": 3
+  },
+  "episodes": 3076,
+  "ownerDecisions": 28207,
+  "incomingDecisions": 20404,
+  "credibleDecisionObservations": 54,
+  "credibleEpisodes": 19,
+  "credibleWithShotCandidate": 52,
+  "credibleWithoutShotCandidate": 2,
+  "credibleWithExecutableShot": 52,
+  "credibleSelectedShot": 5,
+  "credibleAlternativeChoices": {
+    "carry": 38,
+    "pass": 9,
+    "hold": 2
+  },
+  "allOwnerShotSelections": 6,
+  "incomingShotSelections": 2,
+  "releasedShots": 14,
+  "releaseChoiceLinks": 8,
+  "physicalShotLifecycle": "Routine accepted shot, preparation eligibility, foot contact and launch are one canonical transaction; no independent asynchronous wind-up state exists. Incoming proposals are revalidated on contact. A missing wind-up counter is not a failed preparation.",
+  "selectedWithoutRelease": [],
+  "byMatch": [
+    {
+      "id": "dev-balanced",
+      "stages": {
+        "controlled": 282,
+        "generated_support": 240,
+        "progressive_candidate": 240,
+        "progressive_selected": 209,
+        "physical_progression": 161,
+        "shot_candidate": 185,
+        "executable_shot_candidate": 185,
+        "final_third_control": 70,
+        "box_entry_candidate": 20,
+        "penalty_area_control": 9,
+        "credible_opportunity": 1
+      },
+      "choices": 4685,
+      "episodes": 282,
+      "credibleChoices": 2,
+      "shots": 1
+    },
+    {
+      "id": "dev-central",
+      "stages": {
+        "controlled": 265,
+        "generated_support": 236,
+        "progressive_candidate": 242,
+        "progressive_selected": 210,
+        "physical_progression": 137,
+        "shot_candidate": 200,
+        "executable_shot_candidate": 200,
+        "final_third_control": 44,
+        "box_entry_candidate": 17,
+        "penalty_area_control": 2
+      },
+      "choices": 4126,
+      "episodes": 265,
+      "credibleChoices": 0,
+      "shots": 0
+    },
+    {
+      "id": "dev-keepers",
+      "stages": {
+        "controlled": 194,
+        "generated_support": 182,
+        "progressive_candidate": 184,
+        "progressive_selected": 145,
+        "physical_progression": 100,
+        "shot_candidate": 161,
+        "executable_shot_candidate": 161,
+        "final_third_control": 21,
+        "box_entry_candidate": 5,
+        "penalty_area_control": 1,
+        "credible_opportunity": 1
+      },
+      "choices": 3908,
+      "episodes": 194,
+      "credibleChoices": 1,
+      "shots": 0
+    },
+    {
+      "id": "dev-strength",
+      "stages": {
+        "controlled": 298,
+        "generated_support": 267,
+        "progressive_candidate": 271,
+        "progressive_selected": 234,
+        "physical_progression": 161,
+        "shot_candidate": 181,
+        "executable_shot_candidate": 181,
+        "final_third_control": 84,
+        "box_entry_candidate": 44,
+        "penalty_area_control": 15,
+        "credible_opportunity": 7,
+        "shot_selected": 3,
+        "physical_shot_release": 3
+      },
+      "choices": 3864,
+      "episodes": 298,
+      "credibleChoices": 29,
+      "shots": 4
+    },
+    {
+      "id": "dev-wide",
+      "stages": {
+        "controlled": 292,
+        "generated_support": 257,
+        "progressive_candidate": 257,
+        "progressive_selected": 199,
+        "physical_progression": 146,
+        "shot_candidate": 190,
+        "executable_shot_candidate": 190,
+        "final_third_control": 54,
+        "box_entry_candidate": 6,
+        "penalty_area_control": 2
+      },
+      "choices": 4119,
+      "episodes": 292,
+      "credibleChoices": 0,
+      "shots": 0
+    },
+    {
+      "id": "dev-youth",
+      "stages": {
+        "controlled": 277,
+        "generated_support": 249,
+        "progressive_candidate": 264,
+        "progressive_selected": 213,
+        "physical_progression": 141,
+        "shot_candidate": 206,
+        "executable_shot_candidate": 206,
+        "final_third_control": 53,
+        "box_entry_candidate": 20,
+        "penalty_area_control": 10,
+        "credible_opportunity": 2,
+        "shot_selected": 2,
+        "physical_shot_release": 2
+      },
+      "choices": 3652,
+      "episodes": 277,
+      "credibleChoices": 3,
+      "shots": 2
+    },
+    {
+      "id": "val-balanced",
+      "stages": {
+        "controlled": 269,
+        "generated_support": 249,
+        "progressive_candidate": 252,
+        "progressive_selected": 215,
+        "physical_progression": 158,
+        "shot_candidate": 200,
+        "executable_shot_candidate": 200,
+        "final_third_control": 74,
+        "box_entry_candidate": 22,
+        "penalty_area_control": 5,
+        "credible_opportunity": 2
+      },
+      "choices": 4211,
+      "episodes": 269,
+      "credibleChoices": 6,
+      "shots": 1
+    },
+    {
+      "id": "val-central",
+      "stages": {
+        "controlled": 339,
+        "generated_support": 308,
+        "progressive_candidate": 309,
+        "progressive_selected": 249,
+        "physical_progression": 185,
+        "shot_candidate": 240,
+        "executable_shot_candidate": 240,
+        "final_third_control": 88,
+        "box_entry_candidate": 28,
+        "penalty_area_control": 10,
+        "credible_opportunity": 3,
+        "physical_shot_release": 2
+      },
+      "choices": 4201,
+      "episodes": 339,
+      "credibleChoices": 6,
+      "shots": 2
+    },
+    {
+      "id": "val-keepers",
+      "stages": {
+        "controlled": 149,
+        "generated_support": 136,
+        "progressive_candidate": 137,
+        "progressive_selected": 110,
+        "physical_progression": 55,
+        "shot_candidate": 125,
+        "executable_shot_candidate": 125,
+        "box_entry_candidate": 3,
+        "final_third_control": 11
+      },
+      "choices": 4121,
+      "episodes": 149,
+      "credibleChoices": 0,
+      "shots": 0
+    },
+    {
+      "id": "val-strength",
+      "stages": {
+        "controlled": 214,
+        "generated_support": 190,
+        "progressive_candidate": 196,
+        "progressive_selected": 162,
+        "physical_progression": 110,
+        "shot_candidate": 132,
+        "executable_shot_candidate": 132,
+        "final_third_control": 47,
+        "box_entry_candidate": 24,
+        "penalty_area_control": 11,
+        "credible_opportunity": 3,
+        "shot_selected": 1,
+        "physical_shot_release": 1
+      },
+      "choices": 4368,
+      "episodes": 214,
+      "credibleChoices": 7,
+      "shots": 3
+    },
+    {
+      "id": "val-wide",
+      "stages": {
+        "controlled": 259,
+        "generated_support": 237,
+        "progressive_candidate": 241,
+        "progressive_selected": 208,
+        "physical_progression": 140,
+        "shot_candidate": 191,
+        "executable_shot_candidate": 191,
+        "final_third_control": 60,
+        "box_entry_candidate": 18,
+        "penalty_area_control": 2
+      },
+      "choices": 3731,
+      "episodes": 259,
+      "credibleChoices": 0,
+      "shots": 0
+    },
+    {
+      "id": "val-youth",
+      "stages": {
+        "controlled": 238,
+        "generated_support": 224,
+        "progressive_candidate": 227,
+        "progressive_selected": 184,
+        "physical_progression": 110,
+        "shot_candidate": 203,
+        "executable_shot_candidate": 203,
+        "final_third_control": 26,
+        "box_entry_candidate": 11,
+        "penalty_area_control": 2
+      },
+      "choices": 3625,
+      "episodes": 238,
+      "credibleChoices": 0,
+      "shots": 1
+    }
+  ],
+  "representativeCredibleDecisions": [
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:choice:1408:3202.525000007268:2691",
+      "at": 3202.525000007268,
+      "decisionIndex": 1408,
+      "actorId": "footballer_pro_14_9",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:167:3197.7750000072506",
+      "incoming": false,
+      "controlled": true,
+      "depth": 104.4118834453305,
+      "opportunity": {
+        "distance": 9.546008693794564,
+        "angle": 0,
+        "pressure": 0.7892597784291525,
+        "blockingDefenders": 0,
+        "blockingDemand": 1.5423863145688787e-15,
+        "visibleTargetArea": 0.8850436867560565,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_15_0",
+          "distanceFromGoalCentre": 2.4471561943220155,
+          "distanceFromGoalLine": 0.6774153345871023,
+          "estimatedRecoveryTime": 0.3764855683572331,
+          "estimatedShotTravelTime": 0.39775036224144017,
+          "goalCoverage": 0.6270941494158119
+        },
+        "baseXg": 0.21414941516048058,
+        "shooterExecutionQuality": 0.3132003436047905,
+        "effectiveScoringExpectation": 0.08616866661594118,
+        "category": "credible",
+        "value": 0.08616866661594118
+      },
+      "count": 18,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 5,
+      "shotScore": 5.053518753768644,
+      "progressiveCandidates": 0,
+      "boxCandidates": 0,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_14_9",
+        "target": {
+          "x": 0.4,
+          "y": 25.262293832276555
+        },
+        "movementMode": "carry"
+      },
+      "selectedScore": 18.460381881759112,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_14_9",
+            "target": {
+              "x": 0.4,
+              "y": 25.262293832276555
+            },
+            "movementMode": "carry"
+          },
+          "score": 18.460381881759112
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_14_9",
+            "target": {
+              "x": 0.4,
+              "y": 27.806881288050192
+            }
+          },
+          "score": 15.080297176935922
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_14_9",
+            "receiverId": "footballer_pro_14_11",
+            "target": {
+              "x": 8.452960387963246,
+              "y": 23.32423557188236
+            },
+            "intent": "support"
+          },
+          "score": 11.691505972383837
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_14_9",
+            "target": {
+              "x": 0.4,
+              "y": 24.472125058538758
+            }
+          },
+          "score": 10.19355871307047
+        }
+      ],
+      "gainedAt": 3197.7750000072506,
+      "readyAt": 3198.6571802928206,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-balanced:v1:choice:1408:3202.800000007269:2692",
+      "at": 3202.800000007269,
+      "decisionIndex": 1408,
+      "actorId": "footballer_pro_14_9",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-balanced:v1:pr175:possession:167:3197.7750000072506",
+      "incoming": false,
+      "controlled": true,
+      "depth": 104.5295009090431,
+      "opportunity": {
+        "distance": 8.923305076614964,
+        "angle": 0,
+        "pressure": 0.7962566381537993,
+        "blockingDefenders": 0,
+        "blockingDemand": 7.735829401066114e-15,
+        "visibleTargetArea": 0.8870914927704738,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_15_0",
+          "distanceFromGoalCentre": 2.459269510621029,
+          "distanceFromGoalLine": 0.6756369638175254,
+          "estimatedRecoveryTime": 0.3783491554801583,
+          "estimatedShotTravelTime": 0.3718043781922902,
+          "goalCoverage": 0.6179455742540861
+        },
+        "baseXg": 0.21896905829771654,
+        "shooterExecutionQuality": 0.30828413180527997,
+        "effectiveScoringExpectation": 0.09303896949557268,
+        "category": "credible",
+        "value": 0.09303896949557268
+      },
+      "count": 19,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 4,
+      "shotScore": 7.574617904686389,
+      "progressiveCandidates": 0,
+      "boxCandidates": 0,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_14_9",
+        "target": {
+          "x": 0.4,
+          "y": 25.089107558961835
+        }
+      },
+      "selectedScore": 10.785667374152924,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_14_9",
+            "target": {
+              "x": 0.4,
+              "y": 25.089107558961835
+            }
+          },
+          "score": 10.785667374152924
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_14_9",
+            "target": {
+              "x": 0.4,
+              "y": 28.207919913325192
+            }
+          },
+          "score": 9.991952197354712
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_14_9",
+            "receiverId": "footballer_pro_14_11",
+            "target": {
+              "x": 8.524129305973624,
+              "y": 24.27496022332289
+            },
+            "intent": "support"
+          },
+          "score": 7.89337284866318
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_14_9",
+            "intent": "driven",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": 0.24,
+              "vertical": 0.24
+            },
+            "target": {
+              "x": 0,
+              "y": 33.1216
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 7.574617904686389
+        }
+      ],
+      "gainedAt": 3197.7750000072506,
+      "readyAt": 3198.6571802928206,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-keepers:v1:choice:858:2134.0000000033806:1531",
+      "at": 2134.0000000033806,
+      "decisionIndex": 858,
+      "actorId": "footballer_pro_36_21",
+      "team": "away",
+      "episodeId": "pr175-fresh-20261018:dev-keepers:v1:pr175:possession:68:2123.2500000033415",
+      "incoming": false,
+      "controlled": true,
+      "depth": 92.97612406742573,
+      "opportunity": {
+        "distance": 12.254973866656352,
+        "angle": 0.6882488912315465,
+        "pressure": 0.7381211263509094,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.4424723988559192,
+        "visibleTargetArea": 0.7994077774476674,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_35_0",
+          "distanceFromGoalCentre": 2.487280327448795,
+          "distanceFromGoalLine": 2.4643223253552655,
+          "estimatedRecoveryTime": 0.38265851191519923,
+          "estimatedShotTravelTime": 0.5106239111106813,
+          "goalCoverage": 0.6613131530163402
+        },
+        "baseXg": 0.28007738230971607,
+        "shooterExecutionQuality": 0.3172566801849637,
+        "effectiveScoringExpectation": 0.08136251219673464,
+        "category": "credible",
+        "value": 0.08136251219673464
+      },
+      "count": 19,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 2,
+      "shotScore": 0.288588813366323,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 0,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_36_21",
+        "target": {
+          "x": 2.0238759325742652,
+          "y": 35.53966218141599
+        }
+      },
+      "selectedScore": 0.5345366479534341,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_36_21",
+            "target": {
+              "x": 2.0238759325742652,
+              "y": 35.53966218141599
+            }
+          },
+          "score": 0.5345366479534341
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_36_21",
+            "intent": "driven",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": -0.24,
+              "vertical": 0.24
+            },
+            "target": {
+              "x": 0,
+              "y": 34.8784
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 0.288588813366323
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_36_21",
+            "target": {
+              "x": 3.7368488710463392,
+              "y": 34.13859855958468
+            },
+            "movementMode": "carry"
+          },
+          "score": -0.7137294311954694
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_36_21",
+            "intent": "placed",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": -0.62,
+              "vertical": 0.34
+            },
+            "target": {
+              "x": 0,
+              "y": 36.2692
+            },
+            "decisionBallHeight": 0
+          },
+          "score": -4.07877045199076
+        }
+      ],
+      "gainedAt": 2123.2500000033415,
+      "readyAt": 2123.6008430705215,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:31:75.55000000000005:52",
+      "at": 75.55000000000005,
+      "decisionIndex": 31,
+      "actorId": "footballer_pro_3_19",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:8:72.47499999999935",
+      "incoming": false,
+      "controlled": true,
+      "depth": 91.17061771633496,
+      "opportunity": {
+        "distance": 15.646552835616145,
+        "angle": 0.24556595115571545,
+        "pressure": 0.7152891768906221,
+        "blockingDefenders": 0,
+        "blockingDemand": 0.0021608936927294334,
+        "visibleTargetArea": 0.8752446089044947,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 3.3527636393911155,
+          "distanceFromGoalLine": 2.483610310960742,
+          "estimatedRecoveryTime": 0.5158097906755562,
+          "estimatedShotTravelTime": 0.651939701484006,
+          "goalCoverage": 0.6638685535291846
+        },
+        "baseXg": 0.2015541147173331,
+        "shooterExecutionQuality": 0.6663597725054827,
+        "effectiveScoringExpectation": 0.12325490010184831,
+        "category": "credible",
+        "value": 0.12325490010184831
+      },
+      "count": 19,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 7,
+      "shotScore": 10.227499910523559,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_19",
+        "target": {
+          "x": 101.17061771633496,
+          "y": 38.757129759110654
+        }
+      },
+      "selectedScore": 45.271864214883124,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 101.17061771633496,
+              "y": 38.757129759110654
+            }
+          },
+          "score": 45.271864214883124
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 101.73729624956371,
+              "y": 40.46374847850852
+            },
+            "movementMode": "carry"
+          },
+          "score": 38.87618262542934
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 97.17061771633496,
+              "y": 41.318661167862544
+            }
+          },
+          "score": 26.60965158646947
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_19",
+            "receiverId": "footballer_pro_3_22",
+            "target": {
+              "x": 84.8605344028353,
+              "y": 39.898435707372784
+            },
+            "intent": "support"
+          },
+          "score": 18.90520753488721
+        }
+      ],
+      "gainedAt": 72.47499999999935,
+      "readyAt": 73.08445341549005,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:32:76.87500000000036:53",
+      "at": 76.87500000000036,
+      "decisionIndex": 32,
+      "actorId": "footballer_pro_3_19",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:8:72.47499999999935",
+      "incoming": false,
+      "controlled": true,
+      "depth": 92.77521120411882,
+      "opportunity": {
+        "distance": 13.539665066442751,
+        "angle": 0.30664874873041437,
+        "pressure": 0.7203741380810592,
+        "blockingDefenders": 0,
+        "blockingDemand": 0.014584378462518043,
+        "visibleTargetArea": 0.8795300391268505,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 3.344207620918337,
+          "distanceFromGoalLine": 2.498671463621008,
+          "estimatedRecoveryTime": 0.5144934801412826,
+          "estimatedShotTravelTime": 0.5641527111017813,
+          "goalCoverage": 0.6363421467647422
+        },
+        "baseXg": 0.26605560434329756,
+        "shooterExecutionQuality": 0.6657180262400043,
+        "effectiveScoringExpectation": 0.18494589168409234,
+        "category": "credible",
+        "value": 0.18494589168409234
+      },
+      "count": 19,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 5,
+      "shotScore": 22.049455060764146,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_19",
+        "target": {
+          "x": 102.77521120411882,
+          "y": 37.78326071738244
+        }
+      },
+      "selectedScore": 43.527592843577594,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 102.77521120411882,
+              "y": 37.78326071738244
+            }
+          },
+          "score": 43.527592843577594
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 101.17061771633496,
+              "y": 38.757129759110654
+            },
+            "movementMode": "carry"
+          },
+          "score": 39.85836886947985
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_19",
+            "receiverId": "footballer_pro_3_22",
+            "target": {
+              "x": 89.73785465444705,
+              "y": 38.73007714154306
+            },
+            "intent": "support"
+          },
+          "score": 31.287391775349867
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 98.77521120411882,
+              "y": 39.82040110366529
+            }
+          },
+          "score": 30.118164835253303
+        }
+      ],
+      "gainedAt": 72.47499999999935,
+      "readyAt": 73.08445341549005,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:33:78.20000000000066:54",
+      "at": 78.20000000000066,
+      "decisionIndex": 33,
+      "actorId": "footballer_pro_3_19",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:8:72.47499999999935",
+      "incoming": false,
+      "controlled": true,
+      "depth": 94.43841114754714,
+      "opportunity": {
+        "distance": 12.118193172163185,
+        "angle": 0.20917754367016594,
+        "pressure": 0.7409179745320457,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.0010319581847290234,
+        "visibleTargetArea": 0.8754396458675746,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 3.273240997737102,
+          "distanceFromGoalLine": 2.5999024518096547,
+          "estimatedRecoveryTime": 0.5035755381134004,
+          "estimatedShotTravelTime": 0.5049247155067994,
+          "goalCoverage": 0.6205512956896149
+        },
+        "baseXg": 0.18932689324760474,
+        "shooterExecutionQuality": 0.6376913380301349,
+        "effectiveScoringExpectation": 0.12667406232761186,
+        "category": "credible",
+        "value": 0.12667406232761186
+      },
+      "count": 21,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 4,
+      "shotScore": 10.735373615956576,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 2,
+      "selected": {
+        "type": "pass",
+        "actorId": "footballer_pro_3_19",
+        "receiverId": "footballer_pro_3_22",
+        "target": {
+          "x": 92.31076229189438,
+          "y": 38.43003185708454
+        },
+        "intent": "support"
+      },
+      "selectedScore": 30.20899070849891,
+      "top": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_19",
+            "receiverId": "footballer_pro_3_22",
+            "target": {
+              "x": 92.31076229189438,
+              "y": 38.43003185708454
+            },
+            "intent": "support"
+          },
+          "score": 30.20899070849891
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 104.43841114754714,
+              "y": 37.862085734147875
+            }
+          },
+          "score": 26.08127900215115
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 102.77521120411882,
+              "y": 37.78326071738244
+            },
+            "movementMode": "carry"
+          },
+          "score": 18.633189995987156
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_19",
+            "intent": "driven",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": -0.24,
+              "vertical": 0.24
+            },
+            "target": {
+              "x": 105,
+              "y": 33.1216
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 10.735373615956576
+        }
+      ],
+      "gainedAt": 72.47499999999935,
+      "readyAt": 73.08445341549005,
+      "winnerTerms": {
+        "forecast": {
+          "expectedCompletion": 0.927976056491868,
+          "selectionQuality": 0.927976056491868,
+          "passerAbility": 76,
+          "pressure": 0.9530935073097511,
+          "length": 3.124500109317688,
+          "ballEta": 0.6750000000000003,
+          "receiverEta": 0.04,
+          "defenderEta": 0.4000000000000001,
+          "laneOccupation": 0,
+          "boundaryMargin": 12.689237708105622,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 0.22689024700634847,
+          "expectedReceptionQuality": 0.7343195265863643,
+          "expectedRetainedPossession": 0.8084246676990666,
+          "receiverAdjustmentCost": 0.4337541852749536,
+          "utilityAdjustment": -13.03866811335913
+        },
+        "terms": {
+          "base": 28,
+          "reception": -13.03866811335913,
+          "urgency": 12.048883220264724,
+          "solution": 0,
+          "adaptation": 0,
+          "progression": -2.2379873084207462,
+          "distance": -0.7829908400122133,
+          "receiverPressure": -10.932974981791464,
+          "laneRisk": 0,
+          "separation": 1.1520346469111622,
+          "width": 0,
+          "switch": 0,
+          "recycle": 0,
+          "staleReturn": 0,
+          "technical": 16.25,
+          "style": -3.3760999999999997,
+          "through": 0,
+          "threat": 0,
+          "offside": 0,
+          "preparation": 0,
+          "lead": 0,
+          "space": 0
+        }
+      },
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:34:79.67500000000099:56",
+      "at": 79.67500000000099,
+      "decisionIndex": 34,
+      "actorId": "footballer_pro_3_22",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:8:72.47499999999935",
+      "incoming": false,
+      "controlled": true,
+      "depth": 92.17333843436111,
+      "opportunity": {
+        "distance": 13.715999558599671,
+        "angle": 0.42867069307365324,
+        "pressure": 0.670202783823896,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.8129246071896219,
+        "visibleTargetArea": 0.843217446352958,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.8779084608608603,
+          "distanceFromGoalLine": 2.5551110075251984,
+          "estimatedRecoveryTime": 0.44275514782474773,
+          "estimatedShotTravelTime": 0.5714999816083196,
+          "goalCoverage": 0.6615575167306429
+        },
+        "baseXg": 0.21529656115622373,
+        "shooterExecutionQuality": 0.5109012253022236,
+        "effectiveScoringExpectation": 0.09162144409700629,
+        "category": "credible",
+        "value": 0.09162144409700629
+      },
+      "count": 20,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 6,
+      "shotScore": -3.4219914145560653,
+      "progressiveCandidates": 2,
+      "boxCandidates": 2,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_22",
+        "target": {
+          "x": 89.17333843436111,
+          "y": 37.64390392255183
+        }
+      },
+      "selectedScore": 17.70890164516521,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 89.17333843436111,
+              "y": 37.64390392255183
+            }
+          },
+          "score": 17.70890164516521
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 102.17333843436111,
+              "y": 37.15805006621158
+            }
+          },
+          "score": 13.147393777707425
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 98.17333843436111,
+              "y": 38.85853856340243
+            }
+          },
+          "score": 10.37928104294506
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 97.17333843436111,
+              "y": 43.85853856340243
+            }
+          },
+          "score": 8.93131584946952
+        }
+      ],
+      "gainedAt": 78.72500000000078,
+      "readyAt": 79.04742920769229,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:35:81.0000000000013:57",
+      "at": 81.0000000000013,
+      "decisionIndex": 35,
+      "actorId": "footballer_pro_3_22",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:8:72.47499999999935",
+      "incoming": false,
+      "controlled": true,
+      "depth": 90.55003280507647,
+      "opportunity": {
+        "distance": 14.787631722596254,
+        "angle": 0.6572927783345427,
+        "pressure": 0.7933620348248988,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.026117564761451363,
+        "visibleTargetArea": 0.8199119715989159,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.6630012914704713,
+          "distanceFromGoalLine": 2.5019631238401416,
+          "estimatedRecoveryTime": 0.4096925063800725,
+          "estimatedShotTravelTime": 0.6161513217748439,
+          "goalCoverage": 0.6854736799250574
+        },
+        "baseXg": 0.21028178390010582,
+        "shooterExecutionQuality": 0.5493628795100943,
+        "effectiveScoringExpectation": 0.1021111712260766,
+        "category": "credible",
+        "value": 0.1021111712260766
+      },
+      "count": 21,
+      "shotCandidates": 0,
+      "executableShots": 0,
+      "shotRank": null,
+      "shotScore": null,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 3,
+      "selected": {
+        "type": "pass",
+        "actorId": "footballer_pro_3_22",
+        "receiverId": "footballer_pro_3_19",
+        "target": {
+          "x": 93.88287127094503,
+          "y": 45.780973088332836
+        },
+        "intent": "support"
+      },
+      "selectedScore": 36.70123613919776,
+      "top": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_22",
+            "receiverId": "footballer_pro_3_19",
+            "target": {
+              "x": 93.88287127094503,
+              "y": 45.780973088332836
+            },
+            "intent": "support"
+          },
+          "score": 36.70123613919776
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_22",
+            "receiverId": "footballer_pro_3_13",
+            "target": {
+              "x": 84.82611919206553,
+              "y": 43.743560124419204
+            },
+            "intent": "lead"
+          },
+          "score": 32.866952592456066
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_22",
+            "receiverId": "footballer_pro_3_13",
+            "target": {
+              "x": 82.66251936917999,
+              "y": 42.10655310922525
+            },
+            "intent": "support"
+          },
+          "score": 15.118238229781403
+        },
+        {
+          "action": {
+            "type": "hold",
+            "actorId": "footballer_pro_3_22"
+          },
+          "score": 8.000440167441534
+        }
+      ],
+      "gainedAt": 78.72500000000078,
+      "readyAt": 79.04742920769229,
+      "winnerTerms": {
+        "forecast": {
+          "expectedCompletion": 0.9161637794103695,
+          "selectionQuality": 0.9161637794103695,
+          "passerAbility": 66.75,
+          "pressure": 0.9415850299301571,
+          "length": 9.27839510539341,
+          "ballEta": 0.9750000000000005,
+          "receiverEta": 0.04,
+          "defenderEta": 1.2749999999999995,
+          "laneOccupation": 0,
+          "boundaryMargin": 11.117128729054969,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 0.4693188157637382,
+          "expectedReceptionQuality": 0.7778029976043802,
+          "expectedRetainedPossession": 0.9161637794103693,
+          "receiverAdjustmentCost": 0.7638875582974218,
+          "utilityAdjustment": -6.241965917934545
+        },
+        "terms": {
+          "base": 28,
+          "reception": -6.241965917934545,
+          "urgency": 5.80687160307137,
+          "solution": 0,
+          "adaptation": 0,
+          "progression": 0.6293304586503503,
+          "distance": -2.777856546329859,
+          "receiverPressure": -8.187492540440914,
+          "laneRisk": 0,
+          "separation": 3.6665449140487887,
+          "width": 0.8909830972065622,
+          "switch": 0,
+          "recycle": 6.87932757189136,
+          "staleReturn": 0,
+          "technical": 14.35,
+          "style": -3.3760999999999997,
+          "through": 0,
+          "threat": 0,
+          "offside": 0,
+          "preparation": 0,
+          "lead": 0,
+          "space": 0
+        }
+      },
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:53:117.5250000000096:83",
+      "at": 117.5250000000096,
+      "decisionIndex": 53,
+      "actorId": "footballer_pro_3_22",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:12:115.7500000000092",
+      "incoming": false,
+      "controlled": true,
+      "depth": 95.98207705665624,
+      "opportunity": {
+        "distance": 9.023376756896122,
+        "angle": 0.9551888577979122,
+        "pressure": 0.7364719386124241,
+        "blockingDefenders": 1,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8775552980979588,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 6.767784510684543,
+          "distanceFromGoalLine": 6.764402834812998,
+          "estimatedRecoveryTime": 1.0411976170283912,
+          "estimatedShotTravelTime": 0.3759740315373384,
+          "goalCoverage": 0.3914281474570292
+        },
+        "baseXg": 0.492364608139172,
+        "shooterExecutionQuality": 0.5125227212621694,
+        "effectiveScoringExpectation": 0.3331191616279088,
+        "category": "high_value",
+        "value": 0.3331191616279088
+      },
+      "count": 19,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 1,
+      "shotScore": 39.01109346272533,
+      "progressiveCandidates": 2,
+      "boxCandidates": 2,
+      "viablePasses": 0,
+      "selected": {
+        "type": "shot",
+        "actorId": "footballer_pro_3_22",
+        "intent": "chip",
+        "contact": "settled",
+        "goalTarget": {
+          "horizontal": 0,
+          "vertical": 0.62
+        },
+        "target": {
+          "x": 105,
+          "y": 34
+        },
+        "decisionBallHeight": 0
+      },
+      "selectedScore": 39.01109346272533,
+      "top": [
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_22",
+            "intent": "chip",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": 0,
+              "vertical": 0.62
+            },
+            "target": {
+              "x": 105,
+              "y": 34
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 39.01109346272533
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_22",
+            "intent": "driven",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": 0.24,
+              "vertical": 0.24
+            },
+            "target": {
+              "x": 105,
+              "y": 34.8784
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 33.89064624750479
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_22",
+            "intent": "placed",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": 0.62,
+              "vertical": 0.34
+            },
+            "target": {
+              "x": 105,
+              "y": 36.2692
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 26.410257214874132
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 104.6,
+              "y": 33.7961093029805
+            }
+          },
+          "score": 23.672656251783042
+        }
+      ],
+      "gainedAt": 115.7500000000092,
+      "readyAt": 115.96223849756576,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:166:420.4499999998915:284",
+      "at": 420.4499999998915,
+      "decisionIndex": 166,
+      "actorId": "footballer_pro_3_21",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:23:407.14999999990357",
+      "incoming": false,
+      "controlled": true,
+      "depth": 100.46965618719867,
+      "opportunity": {
+        "distance": 8.505166363875015,
+        "angle": 0,
+        "pressure": 0.7301508928509172,
+        "blockingDefenders": 2,
+        "blockingDemand": 1.0639644019456259e-12,
+        "visibleTargetArea": 0.8891602879734621,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.5722907120194,
+          "distanceFromGoalLine": 1.0163033166149944,
+          "estimatedRecoveryTime": 0.39573703261836923,
+          "estimatedShotTravelTime": 0.3543819318281256,
+          "goalCoverage": 0.6063756997625251
+        },
+        "baseXg": 0.12241399329170843,
+        "shooterExecutionQuality": 0.6666343270111987,
+        "effectiveScoringExpectation": 0.10808288170639559,
+        "category": "credible",
+        "value": 0.10808288170639559
+      },
+      "count": 18,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 2,
+      "shotScore": 0.9761992559591652,
+      "progressiveCandidates": 0,
+      "boxCandidates": 0,
+      "viablePasses": 0,
+      "selected": {
+        "type": "hold",
+        "actorId": "footballer_pro_3_21"
+      },
+      "selectedScore": 19.322318097786656,
+      "top": [
+        {
+          "action": {
+            "type": "hold",
+            "actorId": "footballer_pro_3_21"
+          },
+          "score": 19.322318097786656
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_21",
+            "intent": "driven",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": 0.24,
+              "vertical": 0.24
+            },
+            "target": {
+              "x": 105,
+              "y": 34.8784
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 0.9761992559591652
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_21",
+            "receiverId": "footballer_pro_3_22",
+            "target": {
+              "x": 82.7031086486299,
+              "y": 40.930915153810076
+            },
+            "intent": "support"
+          },
+          "score": -7.265098173298169
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_21",
+            "intent": "placed",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": 0.62,
+              "vertical": 0.34
+            },
+            "target": {
+              "x": 105,
+              "y": 36.2692
+            },
+            "decisionBallHeight": 0
+          },
+          "score": -9.812551137161604
+        }
+      ],
+      "gainedAt": 419.49999999989234,
+      "readyAt": 420.0025989071797,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:167:422.07499999989:285",
+      "at": 422.07499999989,
+      "decisionIndex": 167,
+      "actorId": "footballer_pro_3_21",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:23:407.14999999990357",
+      "incoming": false,
+      "controlled": true,
+      "depth": 100.34470615356373,
+      "opportunity": {
+        "distance": 8.597928879071965,
+        "angle": 0,
+        "pressure": 0.7356262003899289,
+        "blockingDefenders": 3,
+        "blockingDemand": 0.29641114438862065,
+        "visibleTargetArea": 0.8889243403394951,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.5722907120194,
+          "distanceFromGoalLine": 1.0163033166149944,
+          "estimatedRecoveryTime": 0.39573703261836923,
+          "estimatedShotTravelTime": 0.35824703662799856,
+          "goalCoverage": 0.6076665088871451
+        },
+        "baseXg": 0.08744704169977754,
+        "shooterExecutionQuality": 0.6660954932496319,
+        "effectiveScoringExpectation": 0.07643377360979875,
+        "category": "credible",
+        "value": 0.07643377360979875
+      },
+      "count": 19,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 6,
+      "shotScore": -7.827485342531576,
+      "progressiveCandidates": 0,
+      "boxCandidates": 0,
+      "viablePasses": 1,
+      "selected": {
+        "type": "hold",
+        "actorId": "footballer_pro_3_21"
+      },
+      "selectedScore": 8.354016856189496,
+      "top": [
+        {
+          "action": {
+            "type": "hold",
+            "actorId": "footballer_pro_3_21"
+          },
+          "score": 8.354016856189496
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_21",
+            "receiverId": "footballer_pro_3_22",
+            "target": {
+              "x": 84.74617508917636,
+              "y": 41.079101811775544
+            },
+            "intent": "support"
+          },
+          "score": 3.363677404150868
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_21",
+            "receiverId": "footballer_pro_3_19",
+            "target": {
+              "x": 67.0178997158708,
+              "y": 56.871629018726956
+            },
+            "intent": "support"
+          },
+          "score": -5.070815709905384
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_21",
+            "receiverId": "footballer_pro_3_19",
+            "target": {
+              "x": 67.0178997158708,
+              "y": 56.871629018726956
+            },
+            "intent": "support",
+            "delivery": "lofted"
+          },
+          "score": -5.195742094859748
+        }
+      ],
+      "gainedAt": 419.49999999989234,
+      "readyAt": 420.0025989071797,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:168:423.6999999998885:286",
+      "at": 423.6999999998885,
+      "decisionIndex": 168,
+      "actorId": "footballer_pro_3_21",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:23:407.14999999990357",
+      "incoming": false,
+      "controlled": true,
+      "depth": 100.67550104790287,
+      "opportunity": {
+        "distance": 8.509004016281922,
+        "angle": 0,
+        "pressure": 0.7262992109728315,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.22836216214244498,
+        "visibleTargetArea": 0.8928953018985145,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.733711404544246,
+          "distanceFromGoalLine": 1.2224420021638451,
+          "estimatedRecoveryTime": 0.4205709853144994,
+          "estimatedShotTravelTime": 0.35454183401174677,
+          "goalCoverage": 0.59810108784229
+        },
+        "baseXg": 0.17183424146446347,
+        "shooterExecutionQuality": 0.66868920281834,
+        "effectiveScoringExpectation": 0.15219916242285414,
+        "category": "credible",
+        "value": 0.15219916242285414
+      },
+      "count": 19,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 1,
+      "shotScore": 13.685486047158093,
+      "progressiveCandidates": 0,
+      "boxCandidates": 0,
+      "viablePasses": 1,
+      "selected": {
+        "type": "shot",
+        "actorId": "footballer_pro_3_21",
+        "intent": "driven",
+        "contact": "settled",
+        "goalTarget": {
+          "horizontal": 0.24,
+          "vertical": 0.24
+        },
+        "target": {
+          "x": 105,
+          "y": 34.8784
+        },
+        "decisionBallHeight": 0
+      },
+      "selectedScore": 13.685486047158093,
+      "top": [
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_21",
+            "intent": "driven",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": 0.24,
+              "vertical": 0.24
+            },
+            "target": {
+              "x": 105,
+              "y": 34.8784
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 13.685486047158093
+        },
+        {
+          "action": {
+            "type": "hold",
+            "actorId": "footballer_pro_3_21"
+          },
+          "score": 8.24335405399634
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_21",
+            "target": {
+              "x": 104.6,
+              "y": 21.671844832264213
+            }
+          },
+          "score": 3.179413109463243
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_21",
+            "target": {
+              "x": 104.6,
+              "y": 26.671844832264213
+            }
+          },
+          "score": 2.8429633164336483
+        }
+      ],
+      "gainedAt": 419.49999999989234,
+      "readyAt": 420.0025989071797,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:459:1150.7499999998035:758",
+      "at": 1150.7499999998035,
+      "decisionIndex": 459,
+      "actorId": "footballer_pro_3_22",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:62:1148.974999999797",
+      "incoming": false,
+      "controlled": true,
+      "depth": 88.44091862148964,
+      "opportunity": {
+        "distance": 16.804529145982134,
+        "angle": 0.7253383487306981,
+        "pressure": 0.7194989932754883,
+        "blockingDefenders": 1,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8237447201136918,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.8873560871410433,
+          "distanceFromGoalLine": 2.6764616332148705,
+          "estimatedRecoveryTime": 0.44420862879092976,
+          "estimatedShotTravelTime": 0.7001887144159222,
+          "goalCoverage": 0.7002255460117557
+        },
+        "baseXg": 0.18700922300780012,
+        "shooterExecutionQuality": 0.5657328878482887,
+        "effectiveScoringExpectation": 0.0874106068376902,
+        "category": "credible",
+        "value": 0.0874106068376902
+      },
+      "count": 18,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 6,
+      "shotScore": 8.368725157986992,
+      "progressiveCandidates": 2,
+      "boxCandidates": 2,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_22",
+        "target": {
+          "x": 98.44091862148964,
+          "y": 35.86007056878754
+        }
+      },
+      "selectedScore": 37.55687648614634,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 98.44091862148964,
+              "y": 35.86007056878754
+            }
+          },
+          "score": 37.55687648614634
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 94.44091862148964,
+              "y": 36.86164702890391
+            }
+          },
+          "score": 27.677962685745037
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 93.44091862148964,
+              "y": 41.86164702890391
+            }
+          },
+          "score": 19.663339518783456
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_22",
+            "receiverId": "footballer_pro_3_19",
+            "target": {
+              "x": 84.65121222138947,
+              "y": 39.82240340481937
+            },
+            "intent": "support"
+          },
+          "score": 18.35176418521793
+        }
+      ],
+      "gainedAt": 1148.974999999797,
+      "readyAt": 1149.7616141937954,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:757:1896.8500000025178:1228",
+      "at": 1896.8500000025178,
+      "decisionIndex": 757,
+      "actorId": "footballer_pro_3_19",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:97:1895.0750000025114",
+      "incoming": false,
+      "controlled": true,
+      "depth": 97.93094518223694,
+      "opportunity": {
+        "distance": 12.115741323949687,
+        "angle": 0,
+        "pressure": 0.711586856861437,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.0008357069863164459,
+        "visibleTargetArea": 0.8777768256223354,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.78390782878746,
+          "distanceFromGoalLine": 1.6811678836568973,
+          "estimatedRecoveryTime": 0.4282935121211477,
+          "estimatedShotTravelTime": 0.5048225551645703,
+          "goalCoverage": 0.6450018622378401
+        },
+        "baseXg": 0.14330170646904822,
+        "shooterExecutionQuality": 0.6511522484811991,
+        "effectiveScoringExpectation": 0.10093398781239744,
+        "category": "credible",
+        "value": 0.10093398781239744
+      },
+      "count": 19,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 4,
+      "shotScore": 6.610524080875354,
+      "progressiveCandidates": 2,
+      "boxCandidates": 2,
+      "viablePasses": 0,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_19",
+        "target": {
+          "x": 104.6,
+          "y": 40.39580353753197
+        }
+      },
+      "selectedScore": 22.000694317576645,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 104.6,
+              "y": 40.39580353753197
+            }
+          },
+          "score": 22.000694317576645
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 103.93094518223694,
+              "y": 43.83969775004918
+            }
+          },
+          "score": 14.791122189977479
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 102.93094518223694,
+              "y": 48.83969775004918
+            }
+          },
+          "score": 12.046624337774267
+        },
+        {
+          "action": {
+            "type": "shot",
+            "actorId": "footballer_pro_3_19",
+            "intent": "driven",
+            "contact": "settled",
+            "goalTarget": {
+              "horizontal": -0.24,
+              "vertical": 0.24
+            },
+            "target": {
+              "x": 105,
+              "y": 33.1216
+            },
+            "decisionBallHeight": 0
+          },
+          "score": 6.610524080875354
+        }
+      ],
+      "gainedAt": 1895.0750000025114,
+      "readyAt": 1895.5941365430685,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:758:1898.1750000025227:1229",
+      "at": 1898.1750000025227,
+      "decisionIndex": 758,
+      "actorId": "footballer_pro_3_19",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:97:1895.0750000025114",
+      "incoming": false,
+      "controlled": true,
+      "depth": 97.02293387427088,
+      "opportunity": {
+        "distance": 13.11743120523695,
+        "angle": 0,
+        "pressure": 0.6979658880674686,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.46931119177515745,
+        "visibleTargetArea": 0.8752635330468977,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.78390782878746,
+          "distanceFromGoalLine": 1.6811678836568973,
+          "estimatedRecoveryTime": 0.4282935121211477,
+          "estimatedShotTravelTime": 0.5465596335515396,
+          "goalCoverage": 0.6582651275699672
+        },
+        "baseXg": 0.13383807696008457,
+        "shooterExecutionQuality": 0.6698864183364899,
+        "effectiveScoringExpectation": 0.09442577762325156,
+        "category": "credible",
+        "value": 0.09442577762325156
+      },
+      "count": 20,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 6,
+      "shotScore": 8.553153207071599,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_19",
+        "target": {
+          "x": 104.6,
+          "y": 40.39580353753197
+        },
+        "movementMode": "carry"
+      },
+      "selectedScore": 36.80704753088134,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 104.6,
+              "y": 40.39580353753197
+            },
+            "movementMode": "carry"
+          },
+          "score": 36.80704753088134
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 104.6,
+              "y": 40.76853890234589
+            }
+          },
+          "score": 31.445949929294926
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 103.02293387427088,
+              "y": 44.41313677283983
+            }
+          },
+          "score": 26.63192777568499
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 102.02293387427088,
+              "y": 49.41313677283983
+            }
+          },
+          "score": 15.027701320045178
+        }
+      ],
+      "gainedAt": 1895.0750000025114,
+      "readyAt": 1895.5941365430685,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:758:1898.4500000025237:1230",
+      "at": 1898.4500000025237,
+      "decisionIndex": 758,
+      "actorId": "footballer_pro_3_19",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:97:1895.0750000025114",
+      "incoming": false,
+      "controlled": true,
+      "depth": 96.75945189449554,
+      "opportunity": {
+        "distance": 13.116860084823843,
+        "angle": 0,
+        "pressure": 0.7347303104008515,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.9171005798978229,
+        "visibleTargetArea": 0.8752649531814843,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.78390782878746,
+          "distanceFromGoalLine": 1.6811678836568973,
+          "estimatedRecoveryTime": 0.4282935121211477,
+          "estimatedShotTravelTime": 0.5465358368676602,
+          "goalCoverage": 0.6582576331691905
+        },
+        "baseXg": 0.1300652964543806,
+        "shooterExecutionQuality": 0.6621223832200955,
+        "effectiveScoringExpectation": 0.08831293952700299,
+        "category": "credible",
+        "value": 0.08831293952700299
+      },
+      "count": 20,
+      "shotCandidates": 2,
+      "executableShots": 2,
+      "shotRank": 6,
+      "shotScore": 7.4684651407824685,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_19",
+        "target": {
+          "x": 104.6,
+          "y": 40.39580353753197
+        },
+        "movementMode": "carry"
+      },
+      "selectedScore": 39.95732298046509,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 104.6,
+              "y": 40.39580353753197
+            },
+            "movementMode": "carry"
+          },
+          "score": 39.95732298046509
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 104.6,
+              "y": 40.63335701842689
+            }
+          },
+          "score": 34.83331657553585
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 102.75945189449554,
+              "y": 44.205164643733674
+            }
+          },
+          "score": 29.35095973470495
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_19",
+            "target": {
+              "x": 101.75945189449554,
+              "y": 49.205164643733674
+            }
+          },
+          "score": 16.46200460872291
+        }
+      ],
+      "gainedAt": 1895.0750000025114,
+      "readyAt": 1895.5941365430685,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:1299:3209.550000001417:2096",
+      "at": 3209.550000001417,
+      "decisionIndex": 1299,
+      "actorId": "footballer_pro_3_17",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:191:3203.775000001396",
+      "incoming": false,
+      "controlled": true,
+      "depth": 88.15438744696328,
+      "opportunity": {
+        "distance": 16.84597267868523,
+        "angle": 0.9894537037189676,
+        "pressure": 0.7282421903595299,
+        "blockingDefenders": 1,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.8051158934298632,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.9677424216504407,
+          "distanceFromGoalLine": 2.892648832572462,
+          "estimatedRecoveryTime": 0.4565757571769909,
+          "estimatedShotTravelTime": 0.7019155282785512,
+          "goalCoverage": 0.6970893420349955
+        },
+        "baseXg": 0.22099286959182937,
+        "shooterExecutionQuality": 0.5758143190392444,
+        "effectiveScoringExpectation": 0.08618754064509644,
+        "category": "credible",
+        "value": 0.08618754064509644
+      },
+      "count": 20,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 7,
+      "shotScore": 3.753593908508894,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 2,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_17",
+        "target": {
+          "x": 9.312098460014571,
+          "y": 35.469009272964726
+        },
+        "movementMode": "carry"
+      },
+      "selectedScore": 40.44674418776204,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 9.312098460014571,
+              "y": 35.469009272964726
+            },
+            "movementMode": "carry"
+          },
+          "score": 40.44674418776204
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 6.845612553036716,
+              "y": 33.92840196453833
+            }
+          },
+          "score": 39.40857594301689
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 10.845612553036716,
+              "y": 33.88984917621281
+            }
+          },
+          "score": 25.86591896553698
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 11.845612553036716,
+              "y": 28.889849176212813
+            }
+          },
+          "score": 22.61219969320005
+        }
+      ],
+      "gainedAt": 3203.775000001396,
+      "readyAt": 3204.327301866471,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:1299:3209.825000001418:2097",
+      "at": 3209.825000001418,
+      "decisionIndex": 1299,
+      "actorId": "footballer_pro_3_17",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:191:3203.775000001396",
+      "incoming": false,
+      "controlled": true,
+      "depth": 88.65860876827173,
+      "opportunity": {
+        "distance": 16.34214967868044,
+        "angle": 0.9844608849347953,
+        "pressure": 0.7391401127217294,
+        "blockingDefenders": 1,
+        "blockingDemand": 0,
+        "visibleTargetArea": 0.805378098846325,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 2.979333544604482,
+          "distanceFromGoalLine": 2.912027187407916,
+          "estimatedRecoveryTime": 0.45835900686222797,
+          "estimatedShotTravelTime": 0.6809229032783516,
+          "goalCoverage": 0.6903143782550704
+        },
+        "baseXg": 0.2332328769175007,
+        "shooterExecutionQuality": 0.5725012654921655,
+        "effectiveScoringExpectation": 0.09261751433755216,
+        "category": "credible",
+        "value": 0.09261751433755216
+      },
+      "count": 20,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 6,
+      "shotScore": 4.383945187331802,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 2,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_17",
+        "target": {
+          "x": 6.341391231728267,
+          "y": 33.89766115465927
+        }
+      },
+      "selectedScore": 33.026334018144766,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 6.341391231728267,
+              "y": 33.89766115465927
+            }
+          },
+          "score": 33.026334018144766
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 9.312098460014571,
+              "y": 35.469009272964726
+            },
+            "movementMode": "carry"
+          },
+          "score": 26.637796847108653
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 10.341391231728267,
+              "y": 33.842555622552716
+            }
+          },
+          "score": 19.39493323107439
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 11.341391231728267,
+              "y": 28.842555622552716
+            }
+          },
+          "score": 19.257910245457023
+        }
+      ],
+      "gainedAt": 3203.775000001396,
+      "readyAt": 3204.327301866471,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:1300:3211.150000001423:2098",
+      "at": 3211.150000001423,
+      "decisionIndex": 1300,
+      "actorId": "footballer_pro_3_17",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:191:3203.775000001396",
+      "incoming": false,
+      "controlled": true,
+      "depth": 90.38543063981348,
+      "opportunity": {
+        "distance": 14.802552254497856,
+        "angle": 0.7437694188415211,
+        "pressure": 0.7605274952648933,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.19831129212034845,
+        "visibleTargetArea": 0.7927200332822333,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 3.0499209732920822,
+          "distanceFromGoalLine": 3.040241490798709,
+          "estimatedRecoveryTime": 0.46921861127570497,
+          "estimatedShotTravelTime": 0.6167730106040773,
+          "goalCoverage": 0.6674282259142639
+        },
+        "baseXg": 0.2347071095857301,
+        "shooterExecutionQuality": 0.5347290160191345,
+        "effectiveScoringExpectation": 0.08458769117460947,
+        "category": "credible",
+        "value": 0.08458769117460947
+      },
+      "count": 19,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 9,
+      "shotScore": 5.047348504704211,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 4,
+      "selected": {
+        "type": "pass",
+        "actorId": "footballer_pro_3_17",
+        "receiverId": "footballer_pro_3_22",
+        "target": {
+          "x": 19.41059452209872,
+          "y": 32.11061515550516
+        },
+        "intent": "support"
+      },
+      "selectedScore": 36.42757962952747,
+      "top": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "footballer_pro_3_17",
+            "receiverId": "footballer_pro_3_22",
+            "target": {
+              "x": 19.41059452209872,
+              "y": 32.11061515550516
+            },
+            "intent": "support"
+          },
+          "score": 36.42757962952747
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 6.341391231728267,
+              "y": 33.89766115465927
+            },
+            "movementMode": "carry"
+          },
+          "score": 36.18560573798395
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 4.614569360186529,
+              "y": 32.47147477358011
+            }
+          },
+          "score": 34.184670408049925
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_17",
+            "target": {
+              "x": 8.614569360186529,
+              "y": 31.648422728584784
+            }
+          },
+          "score": 22.00413604669243
+        }
+      ],
+      "gainedAt": 3203.775000001396,
+      "readyAt": 3204.327301866471,
+      "winnerTerms": {
+        "forecast": {
+          "expectedCompletion": 0.9378584880600566,
+          "selectionQuality": 0.9378584880600566,
+          "passerAbility": 82.75,
+          "pressure": 0.9168327925442372,
+          "length": 5.21541030338873,
+          "ballEta": 0.7500000000000003,
+          "receiverEta": 0.11500000000000002,
+          "defenderEta": 1.15,
+          "laneOccupation": 0,
+          "boundaryMargin": 19.41059452209872,
+          "receiverLateBy": 0,
+          "targetPredictedOutOfPlay": false,
+          "executionUncertaintyMetres": 0.21677166293890598,
+          "expectedReceptionQuality": 0.7812083591167898,
+          "expectedRetainedPossession": 0.9378584880600566,
+          "receiverAdjustmentCost": 0.36358927587128886,
+          "utilityAdjustment": -4.072862534226748
+        },
+        "terms": {
+          "base": 28,
+          "reception": -4.072862534226748,
+          "urgency": 16.92156606331673,
+          "solution": 0,
+          "adaptation": 0,
+          "progression": -6.638233594963368,
+          "distance": -1.4454733229595649,
+          "receiverPressure": -9.537640015253405,
+          "laneRisk": 0,
+          "separation": 2.9877946098574597,
+          "width": 0,
+          "switch": 0,
+          "recycle": 0,
+          "staleReturn": 0,
+          "technical": 15.3,
+          "style": -3.3760999999999997,
+          "through": 0,
+          "threat": 0,
+          "offside": 0,
+          "preparation": 0,
+          "lead": 0,
+          "space": 0
+        }
+      },
+      "progressiveTerms": null
+    },
+    {
+      "id": "pr175-fresh-20261018:dev-strength:v1:choice:1302:3213.600000001432:2101",
+      "at": 3213.600000001432,
+      "decisionIndex": 1302,
+      "actorId": "footballer_pro_3_22",
+      "team": "home",
+      "episodeId": "pr175-fresh-20261018:dev-strength:v1:pr175:possession:191:3203.775000001396",
+      "incoming": false,
+      "controlled": true,
+      "depth": 88.66572909846118,
+      "opportunity": {
+        "distance": 16.35028850419418,
+        "angle": 0.9286238751236996,
+        "pressure": 0.7657818385163024,
+        "blockingDefenders": 1,
+        "blockingDemand": 0.021877333322917133,
+        "visibleTargetArea": 0.7742574408267248,
+        "goalkeeper": {
+          "goalkeeperId": "footballer_pro_57_0",
+          "distanceFromGoalCentre": 3.047100270251187,
+          "distanceFromGoalLine": 3.0470424020793705,
+          "estimatedRecoveryTime": 0.4687846569617211,
+          "estimatedShotTravelTime": 0.6812620210080907,
+          "goalCoverage": 0.6872874692429435
+        },
+        "baseXg": 0.22114058171729417,
+        "shooterExecutionQuality": 0.5129869635451062,
+        "effectiveScoringExpectation": 0.07916694505585532,
+        "category": "credible",
+        "value": 0.07916694505585532
+      },
+      "count": 19,
+      "shotCandidates": 3,
+      "executableShots": 3,
+      "shotRank": 7,
+      "shotScore": 2.6268279090989224,
+      "progressiveCandidates": 3,
+      "boxCandidates": 3,
+      "viablePasses": 1,
+      "selected": {
+        "type": "carry",
+        "actorId": "footballer_pro_3_22",
+        "target": {
+          "x": 6.334270901538815,
+          "y": 33.529690845682325
+        }
+      },
+      "selectedScore": 35.90275595482947,
+      "top": [
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 6.334270901538815,
+              "y": 33.529690845682325
+            }
+          },
+          "score": 35.90275595482947
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 8.549546468999822,
+              "y": 32.11775813887751
+            },
+            "movementMode": "carry"
+          },
+          "score": 23.053862143236504
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 10.334270901538815,
+              "y": 33.27644745489588
+            }
+          },
+          "score": 21.328067641591225
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "footballer_pro_3_22",
+            "target": {
+              "x": 11.334270901538815,
+              "y": 28.27644745489588
+            }
+          },
+          "score": 17.72752133836181
+        }
+      ],
+      "gainedAt": 3211.725000001425,
+      "readyAt": 3211.94242249615,
+      "winnerTerms": null,
+      "progressiveTerms": null
+    }
+  ]
+}
