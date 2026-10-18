@@ -30,13 +30,28 @@ const pairs = [
     throw new Error(`Unpaired ${set}`);
   if (set !== 'geometry') {
     const old = read(`../pr174-research/PR174-H3-${set}.json`);
+    const observed = read(`../pr174-research/PR174-I-${set}.json`);
+    const oldBefore = read(
+      `../pr174-research/PR174-${set === 'targeted' ? 'A4' : 'A3'}-${set}.json`,
+    );
+    if (
+      old.runs.some(
+        (r, i) =>
+          r.finalHash !== observed.runs[i].finalHash || r.finalHash !== after.runs[i].finalHash,
+      ) ||
+      oldBefore.runs.some((r, i) => r.finalHash !== before.runs[i].finalHash)
+    )
+      throw new Error('Complete controlled state differs across observer/cover-only revisions');
+  } else {
+    const old = read('../pr174-research/PR174-J-geometry.json');
     if (old.runs.some((r, i) => r.finalHash !== after.runs[i].finalHash))
-      throw new Error('Shot observer changed a complete canonical state');
+      throw new Error('Complete geometry state differs across cover-only revision');
   }
   return { set, before, after };
 });
 const summarise = (runs) => {
   const combinations = runs.flatMap((r) => r.combinations);
+  const shotsObserved = runs.length > 0 && runs.every((r) => Array.isArray(r.actualShots));
   return {
     cases: runs.length,
     actualForwardPasserRuns: runs.filter((r) => r.runInitiated).length,
@@ -49,22 +64,24 @@ const summarise = (runs) => {
     completedByKind: counts(
       combinations.filter((c) => c.result === 'completed').map((c) => c.kind),
     ),
-    actualShots: sum(runs.map((r) => r.actualShots?.length ?? 0)),
-    shotsAfterCompletedCombination: sum(
-      runs.map(
-        (r) =>
-          (r.actualShots ?? []).filter(
-            (s) =>
-              s.shooterId.startsWith('geometry:anchor:') &&
-              r.combinations.some(
-                (c) =>
-                  c.result === 'completed' &&
-                  s.releasedAt >= c.endedAt &&
-                  s.releasedAt - c.endedAt <= 8,
-              ),
-          ).length,
-      ),
-    ),
+    actualShots: shotsObserved ? sum(runs.map((r) => r.actualShots.length)) : null,
+    shotsAfterCompletedCombination: shotsObserved
+      ? sum(
+          runs.map(
+            (r) =>
+              (r.actualShots ?? []).filter(
+                (s) =>
+                  s.shooterId.startsWith('geometry:anchor:') &&
+                  r.combinations.some(
+                    (c) =>
+                      c.result === 'completed' &&
+                      s.releasedAt >= c.endedAt &&
+                      s.releasedAt - c.endedAt <= 8,
+                  ),
+              ).length,
+          ),
+        )
+      : null,
     meanMaxControlledForwardMetres: mean(runs.map((r) => r.maxControlledForward)),
     ownTeamOwnerAt5s: runs.filter((r) => r.samples.find((s) => s.at === 5)?.retained).length,
     ownTeamOwnerAt8s: runs.filter((r) => r.samples.find((s) => s.at === 8)?.retained).length,
@@ -97,7 +114,7 @@ const controlled = (scenarios) =>
       })),
   }));
 const method =
-  'Paired complete canonical states. Only opening prescribed; autonomous 8s continuation. Five human development/two human held-out cases stop at genuine pending choices. Own-team owner excludes a ball in flight. Variants/mirrors share a design block. Geometry grid is post-validation exploration; all 27 cases retained, no policy tuning.';
+  'Paired complete canonical states. Only opening prescribed; autonomous 8s continuation. Human cases stop if a genuine pending choice occurs (four development, two held-out). Own-team owner excludes a ball in flight. Variants/mirrors share a design block. Geometry grid is post-validation exploration; all 27 cases retained, no policy tuning.';
 write('combination-baseline', {
   version: 1,
   method,
@@ -127,7 +144,7 @@ write('advantage-conversion', {
   })),
   fullCohortShotAfterCombination: null,
   limitation:
-    'The bounded natural tracker counts intention, physical run, first completion, independently available option, released continuation, contact outcome and controlled progression. It does not retain an 8s post-combination shot attribution window. Controlled shot observations are complete within the 8s run; baseline shots were not instrumented and must not be interpreted as measured zero.',
+    'The bounded natural tracker counts intention, physical run, first completion, independently available option, released continuation, contact outcome and controlled progression. It does not retain an 8s post-combination shot attribution window. The final paired baselines and final engine record every actual shot within the controlled 8s run. Older intermediate stages without that observer report null rather than measured zero.',
 });
 
 const key = (r) =>
@@ -230,6 +247,14 @@ if (summaryFiles.every(existsSync)) {
         .rows.filter(filter)
         .map((r) => r.stages),
     );
+  const continuation = (dir, filter = () => true) =>
+    sumMaps(
+      readdirSync(dir)
+        .filter((p) => p.startsWith('cohort-'))
+        .map((p) => read(resolve(dir, p)))
+        .filter(filter)
+        .map((r) => r.observed.continuation.counts),
+    );
   const original = (r) => originalKeys.has(key(r));
   const historical = read(`${evidence}/PR173-after-baseline.json`);
   if (
@@ -258,8 +283,16 @@ if (summaryFiles.every(existsSync)) {
       heldOutAfter: stages('heldout-after'),
     },
     naturalCombinations: {
-      original16: natural('../pr174-H3-full'),
-      heldOut8: natural('../pr174-H3-heldout'),
+      original16: natural('../pr174-K-full'),
+      heldOut8: natural('../pr174-K-heldout'),
+    },
+    continuationCounts: {
+      before: continuation('../pr174-pr173-full'),
+      after: continuation('../pr174-K-full'),
+      matched12Before: continuation('../pr174-pr173-full', original),
+      matched12After: continuation('../pr174-K-full', original),
+      heldOutBefore: continuation('../pr174-baseline-heldout'),
+      heldOutAfter: continuation('../pr174-K-heldout'),
     },
     pristinePR173All16FinalHashesEqual: true,
     uncertainty:
@@ -282,5 +315,7 @@ write('evidence-integrity', {
   historicalJsonHashes: historical,
   historicalEvidenceUnchanged: true,
   observationOnlyShotExtensionPreservesAll100FinalHashes: true,
+  unavailableCoverCorrectionPreservesAll127ControlledFinalHashes: true,
+  baselineShotObserverPreservesAll100ControlledFinalHashes: true,
 });
 console.log('PR174 paired controlled receipts and available full-cohort summaries generated.');

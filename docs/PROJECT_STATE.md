@@ -2,18 +2,30 @@
 
 ## PR174 — Combination Play & Tactical Adaptation
 
-Draft based on merged PR173 `c499123`. Bounded shared opportunities connect actual releases,
-supporting runs and independent partner choices through the existing canonical engine.
-Threat memory observes completed possession windows, distinguishes execution failures and
-allows constrained contextual distance-shot consideration. No guaranteed return or success.
+Published for review: [PR174](https://github.com/adamfron/my_football_legend/pull/174), based on
+merged PR173 `c499123`. Short shared opportunities preserve physically observed pass-and-go,
+third-man and flank movement across the first pass. The partner still selects and executes
+an ordinary action. Existing threat memory responds gradually to completed attacking evidence.
+Canonical physics, human commands and defensive constraints retain authority. Exact retained
+restart-wall and unavailable-rest-cover defects have narrow fixes and regressions.
 
-Validation is in progress; do not describe this checkpoint as ready. The report retains
-mixed controlled outcomes and will record the unchanged full verification, matched cohorts,
-held-out fixtures, career/browser evidence and CPU cost:
-[PR174 report](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
+Validation: unchanged `npm run verify` passes 1884 tests locally and in CI on the same
+production/regression source. Original 16 and separate held-out eight matches per engine all
+finish; input hashes match and the pristine PR173 replay reproduces all 16 archived final states.
+There are 127 paired short continuations, two complete careers, save/reload and observer
+equivalence, production-browser smoke, source/raw archives and serial CPU measurements.
 
-Next: PR175 match reality → PR176 generations → PR177 summary/PlayStyles → PR178 career UX
-→ PR179+ world expansion. Historical PR171–173 evidence is preserved.
+Results remain mixed: original-16 losses 4058→4080, shots 28→24, box entries 72→58;
+held-out losses 1727→1671, shots 12→11, box entries 33→32. Natural completed combinations
+171+30 include third-man and overlap actions. Completed underlap prevalence, organised pressing
+escape and increased long-shot selection remain unproven. This is a reviewable implementation
+with explicit acceptance limits, not a completed match-realism claim.
+
+[Full report, measurements and all 36 acceptance answers](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
+Historical PR171–173 evidence remains unchanged. PR175 should independently validate
+advantage-to-shot conversion, losses, pressure/underlap and broader CPU distributions.
+Roadmap order remains PR175 reality → PR176 generations/world strength → PR177 summary/PlayStyles
+→ PR178 career UX → PR179+ world expansion. Publication does not imply merge.
 
 ## PR173 — Dynamic Football Actions & First-Touch Intelligence
 

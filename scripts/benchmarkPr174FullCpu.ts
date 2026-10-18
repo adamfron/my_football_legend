@@ -32,7 +32,7 @@ for (const [i, root] of [resolve(baseline), resolve('.')].entries()) {
   const canonicalHash = pr172Hash(state);
   const observed = JSON.parse(
     readFileSync(
-      resolve(i ? '../pr174-H3-full' : '../pr174-pr173-full', 'cohort-youth_native-false.json'),
+      resolve(i ? '../pr174-K-full' : '../pr174-pr173-full', 'cohort-youth_native-false.json'),
       'utf8',
     ),
   );

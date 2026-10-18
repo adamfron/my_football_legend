@@ -1,6 +1,6 @@
 # Roadmap
 
-Aktualny etap: **PR174 — Combination Play & Tactical Adaptation (draft, walidacja w toku)**.
+Aktualny etap: **PR174 — Combination Play & Tactical Adaptation (opublikowany do review)**.
 [Raport PR174](PR174_COMBINATION_PLAY_TACTICAL_ADAPTATION.md).
 
 Poprzedni etap: **PR173 — Dynamic Football Actions & First-Touch Intelligence (scalony)**.

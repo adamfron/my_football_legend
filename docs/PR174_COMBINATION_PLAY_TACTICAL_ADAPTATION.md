@@ -1,8 +1,8 @@
 # PR174 — Combination Play & Tactical Adaptation
 
-Status: reviewable draft. Base: merged PR173 `c499123`. Final production stage: K (H4 cover availability),
+Status: published for review. Base: merged PR173 `c499123`. Final production stage: K (H4 cover availability),
 source hash `afa0c77c984b8a5b5040dbd976836496c4ccc54034de214f0392a26a426278da`.
-Validation is being assembled below. Do not interpret the draft as a completed realism claim.
+Validation and reproducible evidence are recorded below. The PR retains explicit behavioural acceptance limits; do not interpret it as a completed realism claim.
 
 ## 1. Audit, plan and existing foundations
 
@@ -25,9 +25,16 @@ looked at displacement of B, rather than original passer A. This can reject a us
 return. A pass still has to survive the independent current physical forecast.
 
 The matched original 12 PR172→173 games had passes 25,853→25,177, completions 22,767→21,987,
-central receptions 3,356→3,532, final-third entries 567→608, box entries 39→62, shots 21→21,
+first-time releases 1,024→1,153, central receptions 3,356→3,532, final-third entries 567→608, box entries 39→62, shots 21→21,
 goals 13→12, possession losses 2,798→3,190 and fouls 196→219. More access did not establish
 better shooting or fewer turnovers. These are reused dependent fixtures, not population rates.
+
+PR173 already produces ordinary reciprocal exchanges: 2,113 in the original 16 games versus
+2,289 after; held-out eight 906→944. These include stationary/recycling exchanges and are
+not all tactical one-twos. Zero PR173 shared-intention records reflects absence of the new
+contract, not absence of emergent two-pass football. The sampled continuation-option counter
+means a ranked ordinary pass to the runner exists, including poor scores; it does not certify
+a viable route or a selected pass.
 
 ## 3. Combination-intention data contract
 
@@ -190,18 +197,68 @@ The final K cohort and career runs use the corrected frozen source.
 
 ## 15. Full-match outcomes
 
-<!-- FULL_RESULTS -->
+<!-- GENERATED:FULL_RESULTS -->
+
+Final K: 16/16 original fixtures and 8/8 separate held-out fixtures reach full time; no censoring. Fresh PR173 before: 16/16+8/8. Every paired initial state and fixture hash matches. All 16 pristine replay final states also match the archived PR173 results exactly.
+
+| Metric | Original 16 before | Original 16 after | Held-out 8 before | Held-out 8 after |
+|---|---|---|---|---|
+| passesAttempted | 33,684 | 33,609 | 14,383 | 14,132 |
+| passesCompleted | 29,475 | 29,366 | 11,540 | 11,253 |
+| carries | 4,475 | 4,288 | 2,918 | 2,920 |
+
+Matched original 12: attempts 25,177→25,092, completions 21,987→21,881, shots 21→16, losses 3,190→3,240. First-time releases: original16 1,365→1,311, matched12 1,153→1,098, held-out 329→331. The four extra-a fixtures remain included in the original-16 table.
+
+original16: 1,091 intentions; 919 physical runs; 872 first completions; 845 sampled decisions containing an ordinary ranked pass to the runner (not a viability certificate); 197 continuation releases; 171 completions, including pass-and-go=158, overlap=10, third-man=3, underlap=0. Maximum total ranked ordinary candidates=31.
+
+heldOut8: 412 intentions; 318 physical runs; 298 first completions; 297 sampled decisions containing an ordinary ranked pass to the runner (not a viability certificate); 36 continuation releases; 30 completions, including pass-and-go=25, overlap=4, third-man=1, underlap=0. Maximum total ranked ordinary candidates=33.
+
+All per-fixture paired deltas are retained in `PR174-full-match-comparison.json`. Mirrors and family variants are dependent. No tick-level significance claim or calibrated population improvement is inferred.
+
+<!-- /GENERATED:FULL_RESULTS -->
 
 ## 16. Positional participation
 
-<!-- POSITION_RESULTS -->
+<!-- GENERATED:POSITION_RESULTS -->
+
+| Role | Original 16 receptions before→after | Held-out 8 receptions before→after |
+|---|---|---|
+| center_back | 10,056→10,211 | 4,239→4,168 |
+| central_midfielder | 4,979→4,745 | 1,506→1,396 |
+| goalkeeper | 30→29 | 17→16 |
+| left_back | 4,709→4,572 | 1,989→1,953 |
+| left_winger | 2,376→2,217 | 569→599 |
+| right_back | 3,942→4,138 | 2,147→2,068 |
+| right_winger | 2,380→2,435 | 864→835 |
+| striker | 1,003→1,019 | 209→218 |
+
+Matched original-12 central midfielder receptions: 3,532→3,335. The machine receipt also retains minutes, attempts, touches/control episodes and shots for each role.
+
+<!-- /GENERATED:POSITION_RESULTS -->
 
 Role groups come from actual active/departed players and played minutes, not preferred
 positions or assigned-role bonuses. The full receipt retains every team and paired fixture.
 
 ## 17. Shooting and attacking conversion
 
-<!-- CONVERSION_RESULTS -->
+<!-- GENERATED:CONVERSION_RESULTS -->
+
+| Metric | Original 16 before→after | Held-out 8 before→after |
+|---|---|---|
+| Open-play funnel final_entry | 721→731 | 253→257 |
+| Open-play funnel box_entry | 72→58 | 33→32 |
+| Open-play funnel shot | 14→17 | 7→10 |
+| Open-play funnel shot_after_final | 6→14 | 4→7 |
+| Open-play funnel shot_after_box | 9→15 | 6→9 |
+| Official all-phase shots | 28→24 | 12→11 |
+| Official all-phase shotsOnTarget | 23→22 | 9→7 |
+| Official all-phase blockedShots | 2→1 | 2→1 |
+| Official all-phase goals | 18→19 | 8→6 |
+| Official all-phase corners | 5→3 | 6→6 |
+
+Matched original 12 final-third entries 608→610, box entries 62→45. Funnel shot counts are controlled-possession episodes, not all-phase official attempts. Natural completed-with-controlled-progression=171 original +30 held-out. None of the 127 controlled final continuations shoots within the observed 8 seconds. The completed-with-controlled-progression counter measures forward gain from the runner’s recorded origin, which can differ from A’s initial ball position for third-man/flank runs. It is not a net team-advantage certificate. The natural 8 s post-combination shot window is unmeasured.
+
+<!-- /GENERATED:CONVERSION_RESULTS -->
 
 A completed combination followed by controlled progression is measured separately from
 final-third/box entry and independently released shots. More access alone cannot establish
@@ -210,7 +267,22 @@ validation and is not a natural match-rate sample.
 
 ## 18. Turnovers, defence and discipline
 
-<!-- DEFENCE_RESULTS -->
+<!-- GENERATED:DEFENCE_RESULTS -->
+
+| Metric | Original 16 before→after | Held-out 8 before→after |
+|---|---|---|
+| possessionLost | 4,058→4,080 | 1,727→1,671 |
+| tacklesAttempted | 2,451→2,395 | 923→929 |
+| tacklesWon | 965→932 | 420→440 |
+| interceptions | 1,804→1,767 | 815→764 |
+| fouls | 297→276 | 54→47 |
+| yellowCards | 58→49 | 5→1 |
+| redCards | 6→2 | 0→1 |
+| offsides | 0→1 | 0→1 |
+
+Paired per-match loss delta min/median/max: original -29/-3/47; held-out -32/-8.5/27. Foul delta: original -8/-3/11; held-out -7/-1/5. Intention-ended-possession-loss counts=60 original +24 held-out; these are not a causal estimate of 8 s subsequent turnovers.
+
+<!-- /GENERATED:DEFENCE_RESULTS -->
 
 Unchanged defensive locomotion, tackling, interference, interception, contact and offside rules.
 This does not prove defensive behaviour unaffected: new attacking choices branch future
@@ -219,7 +291,50 @@ nerf or goal/foul target was introduced. The uncovered and covered counterparts 
 
 ## 19. Performance and bounded work
 
-<!-- PERFORMANCE_RESULTS -->
+<!-- GENERATED:PERFORMANCE_RESULTS -->
+
+| Engine/mode | Median 60 s window wall ms | Median process CPU ms | Retained diagnostic bytes |
+|---|---|---|---|
+| PR173/plain | 1,173.802 | 1,312 | 0 |
+| PR173/existing | 1,400.195 | 1,516 | 132,881 |
+| PR173/extended | 1,555.563 | 1,719 | 155,705 |
+| PR174/plain | 1,090.831 | 1,219 | 0 |
+| PR174/existing | 1,518.839 | 1,734 | 125,933 |
+| PR174/extended | 1,495.139 | 1,672 | 149,465 |
+| PR174/combinations | 1,459.047 | 1,672 | 151,151 |
+
+Plain stepping wall change=-7.1%. One discarded warm-up and three measured samples per engine/mode, alternating engine order, identical original senior fixture, 2400 ticks. All modes/profiler preserve each engine's complete final state; profiler samples 65 ticks.
+
+| Full U17 match | Wall ms | Process CPU ms | Ticks | Status |
+|---|---|---|---|---|
+| PR173 | 109,501.604 | 122,281 | 218401 | full_time |
+| PR174 | 110,383.326 | 122,250 | 220863 | full_time |
+
+Full paired CPU change=0.0%; wall=0.8%. A single evolving trajectory per engine does not estimate general cost distribution. No detailed observers in that pair; final states equal the corresponding observed full matches.
+
+| Startup engine | World parse/validate ms | Career construct ms | Save ms | Load/validate ms |
+|---|---|---|---|---|
+| PR173 | 29.278 | 0.017 | 0.365 | 0.177 |
+| PR174 | 28.88 | 0.017 | 0.371 | 0.152 |
+
+Seven serial startup samples/engine after warm-up. All normal-career save hashes match; size=3,792 bytes. Costs exclude network/rendering. Raw spans/heap/rows are in the performance receipts.
+
+Additional all-2400-tick profile (inclusive instrumented spans):
+
+| Category | PR173 ms / calls | PR174 ms / calls |
+|---|---|---|
+| tactical_planning | 319.113 / 2,400 | 397.462 / 2,400 |
+| pressure_decision | 29.237 / 987 | 36.457 / 1,036 |
+| action_resolution | 241.977 / 2,376 | 297.961 / 2,378 |
+| interception_eta | 247.457 / 24,830 | 309.753 / 24,635 |
+| movement_physics | 392.304 / 2,400 | 495.144 / 2,400 |
+| ball_physics | 237.901 / 2,400 | 266.411 / 2,400 |
+| statistics | 90.527 / 2,400 | 118.594 / 2,400 |
+| canonical_step | 1,360.091 / 2,400 | 1,689.463 / 2,400 |
+
+The fixed-37-tick profile can alias infrequent expensive releases; its estimates are retained but do not establish a large AI-cost change. The complementary all-tick profile preserves complete state and captures all spans. Inclusive spans overlap, profiling adds overhead, and action-resolution spans include cooldown/no-op checks. Do not sum them or treat different action mixes as an isolated algorithm comparison. The primary full-match CPU pair is an uninterrupted quiet repeat; the first exploratory pair and its minor format/lint overlap note are retained. Three window samples and one full trajectory support only the stated local scope.
+
+<!-- /GENERATED:PERFORMANCE_RESULTS -->
 
 Release-time local planning checks at most two distinct runners. One active/last record,
 three participants, two passes; no state history or tick-time candidate tree. Candidate counts
@@ -233,17 +348,28 @@ next canonical state after schema normalisation on both paths. No projection exc
 combination/threat/contact fields. Undefined in-memory optional keys are not JSON data;
 raw `deepStrictEqual` can distinguish them, whereas complete serialisable states agree.
 
-Both full career matches exercise 50 reload checkpoints, including 7/5 checkpoints with an
-active intention (periodic checkpoints can add to the four explicitly requested ones).
-U17=5520.725 s, 23 deliberate choices, 1:0, rating 6.4; professional=5580.25 s, 33 choices,
-0:0, rating 6.7. Full evidence, minutes, substitutions, save/hydrate, next fixture and
-idempotent result commit pass. Canonical career payloads are 101,247/128,619 bytes.
+Both final K full career matches pass accounting, schema/JSON continuation, save/hydrate, next fixture and duplicate no-op checks:
 
-<!-- DETERMINISM_RESULTS -->
+| Path | Canonical seconds | Human choices | Reloads/active | Score | Minutes/rating | Save bytes |
+|---|---|---|---|---|---|---|
+| U17 | 5,520.725 | 23 | 50/7 | 1:0 | 92.012/6.4 | 101,247 |
+| Professional | 5,580.25 | 33 | 50/5 | 0:0 | 93.004/6.7 | 128,619 |
+
+Periodic checkpoints can add to the four explicitly requested active-intention reloads. These deliberately selected human actions validate accounting and authority, not natural match rates.
+
+<!-- GENERATED:DETERMINISM_RESULTS -->
+
+Both original U17 fixtures finish with observers enabled/disabled at identical ticks and identical *entire canonical final state* hashes on final K. Repeated fresh-process telemetry: seed a remains `82f33657a3d7a0af9586db12f432e8234e0743056382989faef4378e6392b430`; seed b final `971eca7681a84ea625445c3cc4cc24925a0066b9b72d39db144823422b431903`, twice each, with all-field/identity/statistics invariants. PR171–173 historical receipts remain byte-identical.
+
+<!-- /GENERATED:DETERMINISM_RESULTS -->
 
 ## 21. Tests and production-browser evidence
 
-<!-- VERIFICATION_RESULTS -->
+<!-- GENERATED:VERIFICATION_RESULTS -->
+
+Final local `npm run verify`: exit 0, 1884 tests (1823 + 52 + 4 + 5), lint and production build pass. CI on the same production and regression source: [run 404](https://github.com/adamfron/my_football_legend/actions/runs/39072709382), commit `effbbd24091a914d348d8bf6e101f0684af72492`, 1884 tests (1823 + 52 + 4 + 5), lint/build/world asset check pass. CI Node v24.21.0/npm 11.19.0; local Windows Node v24.19.0. The last evidence-only commit may trigger another CI run; this receipt identifies the exact tested source rather than claiming an unobserved result. New focused PR174 regressions: 24 combination +2 exact restart tests. An earlier interrupted local attempt spanned a long host pause and recorded 12,837,828 ms for a contact-diagnostic test; its complete log is retained. The clean rerun above uses the original limits.
+
+<!-- /GENERATED:VERIFICATION_RESULTS -->
 
 Windows Node v24.19.0; unchanged package lock/dependencies; repo's original npm verify command,
 worker limits, assertions, timeouts and ticks. Research remains outside routine CI.
@@ -255,11 +381,11 @@ processes before updating only the changed all-field golden. Seed a unchanged; n
 Production browser: real youth career, 3D prefix to human choices at 00:38/01:05, explicit
 teammate pass and explicit-point carry, cancel/confirm finish by summary, visible full minutes
 and honest partial-action-stat disclaimer, persisted result/calendar. This physical prefix
-used stage G. Final rebuilt H3 loads the same save and preserves seven appearances after six
+used stage G. Final rebuilt K loads the same save and preserves seven appearances after six
 additional summary-mode fixtures. Its visible data survive reload; selected calendar date
 resets, so whole DOM equality is *false* in that final check. Earlier G result DOM equality
 was true. Neither smoke test is mislabelled a full canonical browser match. Headless careers
-above are full canonical games. PNGs and DOM receipts are archived with this evidence.
+above are full canonical games. PNGs and DOM receipts are archived with this evidence. [Final K browser smoke PNG](performance/pr174-experiments/PR174-browser-final.png).
 
 ## 22. Limitations and acceptance assessment
 
@@ -267,7 +393,10 @@ Mechanisms and reviewable evidence are delivered; several aspirational behaviour
 limited. Development losses worsen, the geometry grid's average gain worsens, the dedicated
 organised press family does not improve, completed underlap prevalence is not established,
 long-range choice selection is not demonstrated, and natural post-combination shot attribution
-is not measured. Keep the PR draft for review; do not assert the entire football-realism DoD.
+is not measured. Publish the PR for review with these acceptance limits; do not assert the entire football-realism DoD.
+A strict retrospective coordinated-combination classifier was not applied to the original full
+PR173 baseline; new intention counts are feature events, not a measured before/after frequency
+increase. Ordinary reciprocal exchanges and paired physical outcomes are reported separately.
 Small reused and mirrored fixtures have dependent outcomes, and reserved eight-game cohort
 has four design blocks. No confidence claim based on counting every tick/variant as a new match.
 
@@ -280,11 +409,11 @@ Restore exact measured source for each rejected stage; do not relabel current co
 
 ```text
 node scripts/benchmarkPr174Telemetry.mjs --baseline-root=../baseline-pr173
-node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174.ts --stage=I --output-dir=../pr174-research
-node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174Cohort.ts --mode=cohort --output-dir=../pr174-H3-full
-node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174Cohort.ts --mode=cohort --families=senior_balanced,wide_direct --replicate=extra-a --output-dir=../pr174-H3-full
-node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174Cohort.ts --held-out --families=youth_native,senior_balanced,strong_weak,press_low --output-dir=../pr174-H3-heldout
-node scripts/summarizePr174.mjs --input-dir=../pr174-H3-full --receipt-prefix=PR174-after --minimum-matches=16
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174.ts --stage=K --output-dir=../pr174-research
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174Cohort.ts --mode=cohort --output-dir=../pr174-K-full
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174Cohort.ts --mode=cohort --families=senior_balanced,wide_direct --replicate=extra-a --output-dir=../pr174-K-full
+node --experimental-transform-types --import ./scripts/registerTypescriptLoader.mjs scripts/benchmarkPr174Cohort.ts --held-out --families=youth_native,senior_balanced,strong_weak,press_low --output-dir=../pr174-K-heldout
+node scripts/summarizePr174.mjs --input-dir=../pr174-K-full --receipt-prefix=PR174-after --minimum-matches=16
 node scripts/reportPr174.mjs
 npm run verify
 ```

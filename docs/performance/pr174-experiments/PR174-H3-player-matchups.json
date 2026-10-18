@@ -1,0 +1,3464 @@
+{
+  "manifest": {
+    "baseCommit": "1140dea104dbc68bb12c8d1fb597833c3707b9f2",
+    "sourceHash": "69624e5b6a3a1a5c4598d2cf428f7c615b5a6421ca2c759f54401499254fcc47",
+    "fixedDt": 0.025,
+    "node": "v24.19.0",
+    "scope": "sourceHash identifies measured working tree; baseCommit is its parent, not a claim of an unmodified checkout"
+  },
+  "method": "Full canonical present states, one attribute/observable-matchup difference where labelled; autonomous initial choice and 8s physical continuation. Receiver passing and receiver first touch are varied separately; no OVR term or forced pass. Shared variants are dependent.",
+  "rows": [
+    {
+      "name": "delegate",
+      "initialHash": "d1c10c890db755c7262ea16ce3f55d5fb3c4d3f73e2ab533f46a4a4659508225",
+      "actorId": "geometry:anchor:8",
+      "ownPassing": 60,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:5",
+            "target": {
+              "x": 54,
+              "y": 38
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 54.54743128458972,
+          "deterministicNoise": 2.5637924280017614,
+          "score": 57.11122371259148
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 65.43689187588653,
+              "y": 6
+            },
+            "intent": "progressive",
+            "delivery": "lofted"
+          },
+          "canonicalScore": 47.1756427802896,
+          "deterministicNoise": 1.5840151458978653,
+          "score": 48.759657926187465
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:4",
+            "target": {
+              "x": 40,
+              "y": 40
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 50.27827056703981,
+          "deterministicNoise": -2.396411783993244,
+          "score": 47.88185878304657
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 48.60004414363718,
+          "deterministicNoise": -1.9135847892612219,
+          "score": 46.686459354375955
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 42.28793483810745,
+          "deterministicNoise": 3.331498611718416,
+          "score": 45.61943344982586
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 28
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 38.62794583962658,
+          "deterministicNoise": 2.5343869905918837,
+          "score": 41.16233283021846
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 26
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 37.79224157484735,
+          "deterministicNoise": 2.5092531610280275,
+          "score": 40.30149473587538
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 28.66
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 38.573889369458925,
+          "deterministicNoise": 0.3940587379038334,
+          "score": 38.96794810736276
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:5",
+        "target": {
+          "x": 54,
+          "y": 38
+        },
+        "intent": "support"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9301957139326356,
+            "selectionQuality": 0.9301957139326356,
+            "passerAbility": 72.5,
+            "pressure": 0.7741230242736872,
+            "length": 10.345167954170682,
+            "ballEta": 1.0750000000000002,
+            "receiverEta": 0.22063157894736835,
+            "defenderEta": 2.199999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 30,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.40733436521439836,
+            "expectedReceptionQuality": 0.9038095238095238,
+            "expectedRetainedPossession": 0.9301957139326356,
+            "receiverAdjustmentCost": 0.4946203006174838,
+            "utilityAdjustment": -5.158642438886569
+          },
+          "intendedTarget": {
+            "x": 54,
+            "y": 38
+          },
+          "physicalTarget": {
+            "x": 53.80967130848307,
+            "y": 38.25318077781922
+          },
+          "executionQuality": 0.5454318609006755,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:8",
+          "passerId": "geometry:anchor:8",
+          "intendedReceiverId": "geometry:anchor:5",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 54,
+            "y": 38
+          },
+          "receiverVelocityAtRelease": {
+            "x": 0,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 54,
+            "y": 38
+          },
+          "awarenessDelay": 0.1034559386768662,
+          "receiverArrivalEstimate": 0,
+          "bestDefenderArrivalEstimate": 1.9855595667870032,
+          "leadDistance": 0,
+          "intent": "support",
+          "executionType": "weak_foot",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.0750000000000002,
+          "meetingErrorSeconds": -1.0750000000000002,
+          "predictionHorizon": 0.288136,
+          "actualContactPoint": {
+            "x": 53.48406528187173,
+            "y": 36.89588663787477
+          },
+          "receptionOutcome": "clean_control",
+          "actualReceiverId": "geometry:anchor:5",
+          "resolvedAt": 20.974999999999945,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "provide_width",
+          "selectionQuality": {
+            "expectedCompletion": 0.9523419263956637,
+            "selectionQuality": 0.9523419263956637,
+            "passerAbility": 88,
+            "pressure": 0.4558305306673519,
+            "length": 12.987094345829579,
+            "ballEta": 1.2749999999999995,
+            "receiverEta": 0.7650000000000003,
+            "defenderEta": 2.4249999999999954,
+            "laneOccupation": 0,
+            "boundaryMargin": 19.36426126485538,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.2954318763426813,
+            "expectedReceptionQuality": 0.8466455723475121,
+            "expectedRetainedPossession": 0.9523419263956637,
+            "receiverAdjustmentCost": 0.2954318763426813,
+            "utilityAdjustment": 3.835865638702752
+          },
+          "intendedTarget": {
+            "x": 46.17038010293556,
+            "y": 48.63573873514462
+          },
+          "physicalTarget": {
+            "x": 46.433514356885674,
+            "y": 48.595045862537454
+          },
+          "executionQuality": 0.7012231363972862,
+          "passId": "pr174-controlled-a:pass:1:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:4",
+          "releasedAt": 21.92499999999989,
+          "receiverPositionAtRelease": {
+            "x": 43.22012315075894,
+            "y": 45.16034887652913
+          },
+          "receiverVelocityAtRelease": {
+            "x": 2.3601964480610604,
+            "y": 2.7803011510167153
+          },
+          "predictedReceptionPoint": {
+            "x": 46.17038010293556,
+            "y": 48.63573873514462
+          },
+          "awarenessDelay": 0.1788715257264672,
+          "receiverArrivalEstimate": 0.7250000000000003,
+          "bestDefenderArrivalEstimate": 3.6885029492744033,
+          "leadDistance": 4.5587663630892425,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2749999999999995,
+          "meetingErrorSeconds": -0.5499999999999992,
+          "predictionHorizon": 1.2499999999999996,
+          "actualContactPoint": {
+            "x": 46.68915220246882,
+            "y": 48.194655004828505
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:4",
+          "resolvedAt": 23.199999999999818,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9599983459049382,
+            "selectionQuality": 0.9599983459049382,
+            "passerAbility": 70,
+            "pressure": 0,
+            "length": 10.419849648272223,
+            "ballEta": 1.0750000000000002,
+            "receiverEta": 0.6150000000000002,
+            "defenderEta": 2.024999999999997,
+            "laneOccupation": 0,
+            "boundaryMargin": 24.408806981742167,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.308619378672654,
+            "expectedReceptionQuality": 0.8813280941458916,
+            "expectedRetainedPossession": 0.9599983459049382,
+            "receiverAdjustmentCost": 0.308619378672654,
+            "utilityAdjustment": 4.735120844952734
+          },
+          "intendedTarget": {
+            "x": 39.84050940058144,
+            "y": 43.59119301825783
+          },
+          "physicalTarget": {
+            "x": 40.27532322887337,
+            "y": 43.500225441321945
+          },
+          "executionQuality": 0.603583682212676,
+          "passId": "pr174-controlled-a:pass:2:geometry:anchor:4",
+          "passerId": "geometry:anchor:4",
+          "intendedReceiverId": "geometry:anchor:3",
+          "releasedAt": 23.749999999999787,
+          "receiverPositionAtRelease": {
+            "x": 42.87393077388558,
+            "y": 41.41177766485638
+          },
+          "receiverVelocityAtRelease": {
+            "x": -2.9468603936027193,
+            "y": 2.117224083231406
+          },
+          "predictedReceptionPoint": {
+            "x": 39.84050940058144,
+            "y": 43.59119301825783
+          },
+          "awarenessDelay": 0.16102104241871518,
+          "receiverArrivalEstimate": 0.5750000000000002,
+          "bestDefenderArrivalEstimate": 2.6665022804528813,
+          "leadDistance": 3.7351702117387333,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.0750000000000002,
+          "meetingErrorSeconds": -0.5,
+          "predictionHorizon": 1.0250000000000004,
+          "actualContactPoint": {
+            "x": 40.52800200047055,
+            "y": 43.79548089709388
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:3",
+          "resolvedAt": 24.824999999999726,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9386248140446057,
+            "selectionQuality": 0.9386248140446057,
+            "passerAbility": 70,
+            "pressure": 0.3247581537420382,
+            "length": 13.793165311248496,
+            "ballEta": 1.2749999999999995,
+            "receiverEta": 0.7400000000000003,
+            "defenderEta": 2.249999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 30.013376287186738,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.5490893786163771,
+            "expectedReceptionQuality": 0.9099352643417176,
+            "expectedRetainedPossession": 0.9386248140446057,
+            "receiverAdjustmentCost": 0.5658891443602649,
+            "utilityAdjustment": 2.668971980493925
+          },
+          "intendedTarget": {
+            "x": 38.547987187076274,
+            "y": 30.013376287186738
+          },
+          "physicalTarget": {
+            "x": 38.76537654765549,
+            "y": 29.94037195493119
+          },
+          "executionQuality": 0.5105512937637741,
+          "passId": "pr174-controlled-a:pass:3:geometry:anchor:3",
+          "passerId": "geometry:anchor:3",
+          "intendedReceiverId": "geometry:anchor:2",
+          "releasedAt": 25.374999999999694,
+          "receiverPositionAtRelease": {
+            "x": 42.784308258534004,
+            "y": 31.43072811434265
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.458207921179053,
+            "y": -1.1570174292954505
+          },
+          "predictedReceptionPoint": {
+            "x": 38.547987187076274,
+            "y": 30.013376287186738
+          },
+          "awarenessDelay": 0.17660211298151207,
+          "receiverArrivalEstimate": 0.7000000000000003,
+          "bestDefenderArrivalEstimate": 2.4497581963878012,
+          "leadDistance": 4.467135818667145,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2749999999999995,
+          "meetingErrorSeconds": -0.5749999999999992,
+          "predictionHorizon": 1.2249999999999996,
+          "actualContactPoint": {
+            "x": 38.82547906928738,
+            "y": 31.17357442595418
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:2",
+          "resolvedAt": 26.549999999999628,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "support_behind",
+          "selectionQuality": {
+            "expectedCompletion": 0.9493114774206716,
+            "selectionQuality": 0.9493114774206716,
+            "passerAbility": 70,
+            "pressure": 0.25448863282906853,
+            "length": 12.203406465935723,
+            "ballEta": 1.2999999999999994,
+            "receiverEta": 0.11500000000000002,
+            "defenderEta": 1.7999999999999976,
+            "laneOccupation": 0,
+            "boundaryMargin": 19.215269288741293,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.35616367410438615,
+            "expectedReceptionQuality": 0.8966641691466551,
+            "expectedRetainedPossession": 0.9493114774206716,
+            "receiverAdjustmentCost": 0.36693671292116414,
+            "utilityAdjustment": -3.4443697080586615
+          },
+          "intendedTarget": {
+            "x": 44.53101636824501,
+            "y": 19.215269288741293
+          },
+          "physicalTarget": {
+            "x": 44.10049141136815,
+            "y": 18.91674937138479
+          },
+          "executionQuality": 0.6178513368934802,
+          "passId": "pr174-controlled-a:pass:4:geometry:anchor:2",
+          "passerId": "geometry:anchor:2",
+          "intendedReceiverId": "geometry:anchor:1",
+          "releasedAt": 27.099999999999596,
+          "receiverPositionAtRelease": {
+            "x": 45.4901175022655,
+            "y": 18.84799614496969
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.405713868550322,
+            "y": 1.3041661561233298
+          },
+          "predictedReceptionPoint": {
+            "x": 44.53101636824501,
+            "y": 19.215269288741293
+          },
+          "awarenessDelay": 0.1803603339668505,
+          "receiverArrivalEstimate": 0.07500000000000001,
+          "bestDefenderArrivalEstimate": 2.4506382421402684,
+          "leadDistance": 1.0270173062880963,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2999999999999994,
+          "meetingErrorSeconds": -1.2249999999999994,
+          "predictionHorizon": 0.2816142124142019
+        }
+      ],
+      "losses": 0,
+      "finalControl": false,
+      "finalHash": "6f14dce18f65b023b88d11f22ddcb510020cae4f20d4c516683ffdb8f77ab82b"
+    },
+    {
+      "name": "receiver_pass_35",
+      "initialHash": "6f3f7d594210bbdbe77e60e5199d394ac5013e7c0182b94e3f30bce48e3aff7b",
+      "actorId": "geometry:anchor:8",
+      "ownPassing": 60,
+      "receiverPassing": 35,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:5",
+            "target": {
+              "x": 54,
+              "y": 38
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 54.43193128458972,
+          "deterministicNoise": 2.5637924280017614,
+          "score": 56.995723712591484
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 65.43689187588653,
+              "y": 6
+            },
+            "intent": "progressive",
+            "delivery": "lofted"
+          },
+          "canonicalScore": 47.0601427802896,
+          "deterministicNoise": 1.5840151458978653,
+          "score": 48.64415792618747
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:4",
+            "target": {
+              "x": 40,
+              "y": 40
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 50.162770567039814,
+          "deterministicNoise": -2.396411783993244,
+          "score": 47.76635878304657
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 48.48454414363718,
+          "deterministicNoise": -1.9135847892612219,
+          "score": 46.57095935437596
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 42.17243483810745,
+          "deterministicNoise": 3.331498611718416,
+          "score": 45.503933449825865
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 28
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 38.62794583962658,
+          "deterministicNoise": 2.5343869905918837,
+          "score": 41.16233283021846
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 26
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 37.79224157484735,
+          "deterministicNoise": 2.5092531610280275,
+          "score": 40.30149473587538
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 28.66
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 38.573889369458925,
+          "deterministicNoise": 0.3940587379038334,
+          "score": 38.96794810736276
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:5",
+        "target": {
+          "x": 54,
+          "y": 38
+        },
+        "intent": "support"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9301957139326356,
+            "selectionQuality": 0.9301957139326356,
+            "passerAbility": 72.5,
+            "pressure": 0.7741230242736872,
+            "length": 10.345167954170682,
+            "ballEta": 1.0750000000000002,
+            "receiverEta": 0.22063157894736835,
+            "defenderEta": 2.199999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 30,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.40733436521439836,
+            "expectedReceptionQuality": 0.9038095238095238,
+            "expectedRetainedPossession": 0.9301957139326356,
+            "receiverAdjustmentCost": 0.4946203006174838,
+            "utilityAdjustment": -5.158642438886569
+          },
+          "intendedTarget": {
+            "x": 54,
+            "y": 38
+          },
+          "physicalTarget": {
+            "x": 53.80967130848307,
+            "y": 38.25318077781922
+          },
+          "executionQuality": 0.5454318609006755,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:8",
+          "passerId": "geometry:anchor:8",
+          "intendedReceiverId": "geometry:anchor:5",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 54,
+            "y": 38
+          },
+          "receiverVelocityAtRelease": {
+            "x": 0,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 54,
+            "y": 38
+          },
+          "awarenessDelay": 0.1034559386768662,
+          "receiverArrivalEstimate": 0,
+          "bestDefenderArrivalEstimate": 1.9855595667870032,
+          "leadDistance": 0,
+          "intent": "support",
+          "executionType": "weak_foot",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.0750000000000002,
+          "meetingErrorSeconds": -1.0750000000000002,
+          "predictionHorizon": 0.288136,
+          "actualContactPoint": {
+            "x": 53.48406528187173,
+            "y": 36.89588663787477
+          },
+          "receptionOutcome": "clean_control",
+          "actualReceiverId": "geometry:anchor:5",
+          "resolvedAt": 20.974999999999945,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9310578633204055,
+            "selectionQuality": 0.9310578633204055,
+            "passerAbility": 60.5,
+            "pressure": 0.4558305306673519,
+            "length": 10.001259181993802,
+            "ballEta": 1.0500000000000003,
+            "receiverEta": 0.19,
+            "defenderEta": 1.999999999999997,
+            "laneOccupation": 0,
+            "boundaryMargin": 27.384760031264143,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.6589540975336354,
+            "expectedReceptionQuality": 0.8433691354183916,
+            "expectedRetainedPossession": 0.9310578633204055,
+            "receiverAdjustmentCost": 0.6589540975336354,
+            "utilityAdjustment": -5.389151439512267
+          },
+          "intendedTarget": {
+            "x": 43.730519052106985,
+            "y": 40.61523996873586
+          },
+          "physicalTarget": {
+            "x": 44.24429631090858,
+            "y": 40.91313311399694
+          },
+          "executionQuality": 0.42776691748519596,
+          "passId": "pr174-controlled-a:pass:1:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:9",
+          "releasedAt": 21.92499999999989,
+          "receiverPositionAtRelease": {
+            "x": 42.325294511594194,
+            "y": 39.871026666351575
+          },
+          "receiverVelocityAtRelease": {
+            "x": 4.989988257567006,
+            "y": 2.6427204570933327
+          },
+          "predictedReceptionPoint": {
+            "x": 43.730519052106985,
+            "y": 40.61523996873586
+          },
+          "awarenessDelay": 0.17305018349359763,
+          "receiverArrivalEstimate": 0.15,
+          "bestDefenderArrivalEstimate": 2.7559631326973277,
+          "leadDistance": 1.5901287522414973,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.0500000000000003,
+          "meetingErrorSeconds": -0.9000000000000002,
+          "predictionHorizon": 0.28160878703108266,
+          "actualContactPoint": {
+            "x": 45.381574566061474,
+            "y": 40.52311501964971
+          },
+          "receptionOutcome": "clean_control",
+          "actualReceiverId": "geometry:anchor:9",
+          "resolvedAt": 22.849999999999838,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9193969359332668,
+            "selectionQuality": 0.9193969359332668,
+            "passerAbility": 70,
+            "pressure": 0.5416457616608166,
+            "length": 12.90521807369473,
+            "ballEta": 1.125,
+            "receiverEta": 0.6900000000000003,
+            "defenderEta": 1.1999999999999997,
+            "laneOccupation": 0,
+            "boundaryMargin": 32.3201054089667,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.5516062457457622,
+            "expectedReceptionQuality": 0.7466310603072602,
+            "expectedRetainedPossession": 0.8772448156046259,
+            "receiverAdjustmentCost": 0.8220837034659272,
+            "utilityAdjustment": -1.661521090507775
+          },
+          "intendedTarget": {
+            "x": 56.830739833255514,
+            "y": 35.6798945910333
+          },
+          "physicalTarget": {
+            "x": 56.68064073264296,
+            "y": 35.3838012811937
+          },
+          "executionQuality": 0.5042650791095467,
+          "passId": "pr174-controlled-a:pass:2:geometry:anchor:9",
+          "passerId": "geometry:anchor:9",
+          "intendedReceiverId": "geometry:anchor:7",
+          "releasedAt": 23.799999999999784,
+          "receiverPositionAtRelease": {
+            "x": 54.28507387544155,
+            "y": 32.47630923777466
+          },
+          "receiverVelocityAtRelease": {
+            "x": 2.2628052375719676,
+            "y": 2.847620165603928
+          },
+          "predictedReceptionPoint": {
+            "x": 56.830739833255514,
+            "y": 35.6798945910333
+          },
+          "awarenessDelay": 0.17853411893099574,
+          "receiverArrivalEstimate": 0.6500000000000002,
+          "bestDefenderArrivalEstimate": 1.2879363963564272,
+          "leadDistance": 4.091866845876858,
+          "intent": "through",
+          "executionType": "lofted_through",
+          "delivery": "lofted",
+          "ballArrivalEstimate": 1.125,
+          "meetingErrorSeconds": -0.47499999999999976,
+          "predictionHorizon": 1.125,
+          "actualContactPoint": {
+            "x": 56.67727515004829,
+            "y": 35.3856574518651
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:7",
+          "resolvedAt": 24.92499999999972,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.927334615589611,
+            "selectionQuality": 0.927334615589611,
+            "passerAbility": 70,
+            "pressure": 0.7777472478527311,
+            "length": 16.397184011968278,
+            "ballEta": 1.7499999999999978,
+            "receiverEta": 0.04,
+            "defenderEta": 1.949999999999997,
+            "laneOccupation": 0,
+            "boundaryMargin": 28.970667490974417,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.46211974937738204,
+            "expectedReceptionQuality": 0.8676375655973227,
+            "expectedRetainedPossession": 0.9111062598167928,
+            "receiverAdjustmentCost": 0.5954495069200796,
+            "utilityAdjustment": -5.9731986858606
+          },
+          "intendedTarget": {
+            "x": 44.70271505280134,
+            "y": 28.970667490974417
+          },
+          "physicalTarget": {
+            "x": 44.9439472218407,
+            "y": 28.739614996526807
+          },
+          "executionQuality": 0.5799395653386539,
+          "passId": "pr174-controlled-a:pass:3:geometry:anchor:7",
+          "passerId": "geometry:anchor:7",
+          "intendedReceiverId": "geometry:anchor:2",
+          "releasedAt": 25.47499999999969,
+          "receiverPositionAtRelease": {
+            "x": 44.75414657101023,
+            "y": 29.44953028830062
+          },
+          "receiverVelocityAtRelease": {
+            "x": -0.18954426588692286,
+            "y": -1.7647874404777042
+          },
+          "predictedReceptionPoint": {
+            "x": 44.70271505280134,
+            "y": 28.970667490974417
+          },
+          "awarenessDelay": 0.18587582825602714,
+          "receiverArrivalEstimate": 0,
+          "bestDefenderArrivalEstimate": 1.7979695453456954,
+          "leadDistance": 0.4816168391245742,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.7499999999999978,
+          "meetingErrorSeconds": -1.7499999999999978,
+          "predictionHorizon": 0.27134249963827883,
+          "actualContactPoint": {
+            "x": 45.88850360924559,
+            "y": 29.18523736799752
+          },
+          "receptionOutcome": "clean_control",
+          "actualReceiverId": "geometry:anchor:2",
+          "resolvedAt": 27.124999999999595,
+          "finalResult": "completed"
+        }
+      ],
+      "losses": 0,
+      "finalControl": true,
+      "finalHash": "be1a824d75b838802e34a0f82f04cc90e3329882b1c0fc99415c6f38226ff2e4"
+    },
+    {
+      "name": "receiver_touch_35",
+      "initialHash": "21d6ddd1e1de7ca69a29155102b369c652a9ad6a651d6d1bdaa1c02c717e578d",
+      "actorId": "geometry:anchor:8",
+      "ownPassing": 60,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 35,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:5",
+            "target": {
+              "x": 54,
+              "y": 38
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 52.54518685895127,
+          "deterministicNoise": 2.5637924280017614,
+          "score": 55.10897928695303
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 65.43689187588653,
+              "y": 6
+            },
+            "intent": "progressive",
+            "delivery": "lofted"
+          },
+          "canonicalScore": 47.068542780289604,
+          "deterministicNoise": 1.5840151458978653,
+          "score": 48.65255792618747
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:4",
+            "target": {
+              "x": 40,
+              "y": 40
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 50.171170567039816,
+          "deterministicNoise": -2.396411783993244,
+          "score": 47.77475878304657
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 48.49294414363718,
+          "deterministicNoise": -1.9135847892612219,
+          "score": 46.57935935437596
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 42.18083483810745,
+          "deterministicNoise": 3.331498611718416,
+          "score": 45.51233344982587
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 28
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 38.62794583962658,
+          "deterministicNoise": 2.5343869905918837,
+          "score": 41.16233283021846
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 26
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 37.79224157484735,
+          "deterministicNoise": 2.5092531610280275,
+          "score": 40.30149473587538
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 65.25375,
+              "y": 28.66
+            },
+            "movementMode": "sprint"
+          },
+          "canonicalScore": 38.573889369458925,
+          "deterministicNoise": 0.3940587379038334,
+          "score": 38.96794810736276
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:5",
+        "target": {
+          "x": 54,
+          "y": 38
+        },
+        "intent": "support"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9301957139326356,
+            "selectionQuality": 0.9301957139326356,
+            "passerAbility": 72.5,
+            "pressure": 0.7741230242736872,
+            "length": 10.345167954170682,
+            "ballEta": 1.0750000000000002,
+            "receiverEta": 0.22063157894736835,
+            "defenderEta": 2.199999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 30,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.40733436521439836,
+            "expectedReceptionQuality": 0.7338095238095239,
+            "expectedRetainedPossession": 0.9000750908148171,
+            "receiverAdjustmentCost": 0.4946203006174838,
+            "utilityAdjustment": -7.053786864525032
+          },
+          "intendedTarget": {
+            "x": 54,
+            "y": 38
+          },
+          "physicalTarget": {
+            "x": 53.80967130848307,
+            "y": 38.25318077781922
+          },
+          "executionQuality": 0.5454318609006755,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:8",
+          "passerId": "geometry:anchor:8",
+          "intendedReceiverId": "geometry:anchor:5",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 54,
+            "y": 38
+          },
+          "receiverVelocityAtRelease": {
+            "x": 0,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 54,
+            "y": 38
+          },
+          "awarenessDelay": 0.1034559386768662,
+          "receiverArrivalEstimate": 0,
+          "bestDefenderArrivalEstimate": 1.9855595667870032,
+          "leadDistance": 0,
+          "intent": "support",
+          "executionType": "weak_foot",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.0750000000000002,
+          "meetingErrorSeconds": -1.0750000000000002,
+          "predictionHorizon": 0.288136,
+          "actualContactPoint": {
+            "x": 53.48406528187173,
+            "y": 36.89588663787477
+          },
+          "receptionOutcome": "clean_control",
+          "actualReceiverId": "geometry:anchor:5",
+          "resolvedAt": 20.974999999999945,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "provide_width",
+          "selectionQuality": {
+            "expectedCompletion": 0.9523940569506479,
+            "selectionQuality": 0.9523940569506479,
+            "passerAbility": 88,
+            "pressure": 0.45272812774101123,
+            "length": 12.94354417885502,
+            "ballEta": 1.2749999999999995,
+            "receiverEta": 0.7650000000000003,
+            "defenderEta": 2.4249999999999954,
+            "laneOccupation": 0,
+            "boundaryMargin": 19.362104514306665,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.294614651020194,
+            "expectedReceptionQuality": 0.8466797678376555,
+            "expectedRetainedPossession": 0.9523940569506479,
+            "receiverAdjustmentCost": 0.294614651020194,
+            "utilityAdjustment": 3.841585088341009
+          },
+          "intendedTarget": {
+            "x": 46.167758757581844,
+            "y": 48.637895485693335
+          },
+          "physicalTarget": {
+            "x": 46.43022608875475,
+            "y": 48.59771135052082
+          },
+          "executionQuality": 0.7017068987783576,
+          "passId": "pr174-controlled-a:pass:1:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:4",
+          "releasedAt": 21.92499999999989,
+          "receiverPositionAtRelease": {
+            "x": 43.21906849656606,
+            "y": 45.161175228963124
+          },
+          "receiverVelocityAtRelease": {
+            "x": 2.358943100080637,
+            "y": 2.781365465526733
+          },
+          "predictedReceptionPoint": {
+            "x": 46.167758757581844,
+            "y": 48.637895485693335
+          },
+          "awarenessDelay": 0.17874125642018135,
+          "receiverArrivalEstimate": 0.7250000000000003,
+          "bestDefenderArrivalEstimate": 3.6889929386794247,
+          "leadDistance": 4.5587671577925,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2749999999999995,
+          "meetingErrorSeconds": -0.5499999999999992,
+          "predictionHorizon": 1.2499999999999996,
+          "actualContactPoint": {
+            "x": 46.68408274354162,
+            "y": 48.20044431248621
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:4",
+          "resolvedAt": 23.199999999999818,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9599981298366476,
+            "selectionQuality": 0.9599981298366476,
+            "passerAbility": 70,
+            "pressure": 0,
+            "length": 10.416719697918232,
+            "ballEta": 1.1,
+            "receiverEta": 0.6400000000000002,
+            "defenderEta": 2.024999999999997,
+            "laneOccupation": 0,
+            "boundaryMargin": 24.357297413025663,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.3100568516213953,
+            "expectedReceptionQuality": 0.8836042548735977,
+            "expectedRetainedPossession": 0.9599981298366476,
+            "receiverAdjustmentCost": 0.3100568516213953,
+            "utilityAdjustment": 4.733091136901745
+          },
+          "intendedTarget": {
+            "x": 39.762802008115656,
+            "y": 43.64270258697434
+          },
+          "physicalTarget": {
+            "x": 40.19884372148708,
+            "y": 43.54757963643424
+          },
+          "executionQuality": 0.6032142357435054,
+          "passId": "pr174-controlled-a:pass:2:geometry:anchor:4",
+          "passerId": "geometry:anchor:4",
+          "intendedReceiverId": "geometry:anchor:3",
+          "releasedAt": 23.749999999999787,
+          "receiverPositionAtRelease": {
+            "x": 42.871506039717396,
+            "y": 41.41194181186267
+          },
+          "receiverVelocityAtRelease": {
+            "x": -2.9486706622319048,
+            "y": 2.1159231580628557
+          },
+          "predictedReceptionPoint": {
+            "x": 39.762802008115656,
+            "y": 43.64270258697434
+          },
+          "awarenessDelay": 0.16119350818878705,
+          "receiverArrivalEstimate": 0.6000000000000002,
+          "bestDefenderArrivalEstimate": 2.682896394451701,
+          "leadDistance": 3.8262689910503838,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.1,
+          "meetingErrorSeconds": -0.4999999999999999,
+          "predictionHorizon": 1.0500000000000003,
+          "actualContactPoint": {
+            "x": 40.529714774691236,
+            "y": 43.928020566071886
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:3",
+          "resolvedAt": 24.824999999999726,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9378884894532936,
+            "selectionQuality": 0.9378884894532936,
+            "passerAbility": 70,
+            "pressure": 0.3233359121211815,
+            "length": 13.963412872481642,
+            "ballEta": 1.2749999999999995,
+            "receiverEta": 0.7400000000000003,
+            "defenderEta": 2.274999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 30.02742574249746,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.5547673403803448,
+            "expectedReceptionQuality": 0.9104585954019686,
+            "expectedRetainedPossession": 0.9378884894532936,
+            "receiverAdjustmentCost": 0.5702205140470041,
+            "utilityAdjustment": 2.6041368430277307
+          },
+          "intendedTarget": {
+            "x": 38.54017551747008,
+            "y": 30.02742574249746
+          },
+          "physicalTarget": {
+            "x": 38.75970504637904,
+            "y": 29.95334630474452
+          },
+          "executionQuality": 0.5105461552888998,
+          "passId": "pr174-controlled-a:pass:3:geometry:anchor:3",
+          "passerId": "geometry:anchor:3",
+          "intendedReceiverId": "geometry:anchor:2",
+          "releasedAt": 25.374999999999694,
+          "receiverPositionAtRelease": {
+            "x": 42.778542390927,
+            "y": 31.438629836685262
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.459877957259323,
+            "y": -1.1519988911889811
+          },
+          "predictedReceptionPoint": {
+            "x": 38.54017551747008,
+            "y": 30.02742574249746
+          },
+          "awarenessDelay": 0.17730138420505456,
+          "receiverArrivalEstimate": 0.7000000000000003,
+          "bestDefenderArrivalEstimate": 2.456683526079011,
+          "leadDistance": 4.467130034985481,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2749999999999995,
+          "meetingErrorSeconds": -0.5749999999999992,
+          "predictionHorizon": 1.2249999999999996,
+          "actualContactPoint": {
+            "x": 38.82377912281449,
+            "y": 31.204013239339478
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:2",
+          "resolvedAt": 26.549999999999628,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "support_behind",
+          "selectionQuality": {
+            "expectedCompletion": 0.949402040454458,
+            "selectionQuality": 0.949402040454458,
+            "passerAbility": 70,
+            "pressure": 0.2523323701189629,
+            "length": 12.228937231604972,
+            "ballEta": 1.2999999999999994,
+            "receiverEta": 0.11500000000000002,
+            "defenderEta": 1.7999999999999976,
+            "laneOccupation": 0,
+            "boundaryMargin": 19.193239007856214,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.3566197888310372,
+            "expectedReceptionQuality": 0.8969879066538647,
+            "expectedRetainedPossession": 0.949402040454458,
+            "receiverAdjustmentCost": 0.3669203910881166,
+            "utilityAdjustment": -3.4391107745679665
+          },
+          "intendedTarget": {
+            "x": 44.52168648855871,
+            "y": 19.193239007856214
+          },
+          "physicalTarget": {
+            "x": 44.09004316747557,
+            "y": 18.895156212612413
+          },
+          "executionQuality": 0.6179601000182527,
+          "passId": "pr174-controlled-a:pass:4:geometry:anchor:2",
+          "passerId": "geometry:anchor:2",
+          "intendedReceiverId": "geometry:anchor:1",
+          "releasedAt": 27.099999999999596,
+          "receiverPositionAtRelease": {
+            "x": 45.48246337142336,
+            "y": 18.83059590722502
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.411937843016233,
+            "y": 1.2878283612144514
+          },
+          "predictedReceptionPoint": {
+            "x": 44.52168648855871,
+            "y": 19.193239007856214
+          },
+          "awarenessDelay": 0.1804812603870786,
+          "receiverArrivalEstimate": 0.07500000000000001,
+          "bestDefenderArrivalEstimate": 2.454083780898181,
+          "leadDistance": 1.0269382829958764,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2999999999999994,
+          "meetingErrorSeconds": -1.2249999999999994,
+          "predictionHorizon": 0.2815916394998227
+        }
+      ],
+      "losses": 0,
+      "finalControl": false,
+      "finalHash": "543fc50dba9c972e68b22e9be01bf1ea8426f4cb769dabad0b36edf30899fd53"
+    },
+    {
+      "name": "own_pass_90",
+      "initialHash": "0f7298c43538d3a95c432e0a9dcd05d27168d976268c0c1ed8081ea4b8200109",
+      "actorId": "geometry:anchor:8",
+      "ownPassing": 90,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:5",
+            "target": {
+              "x": 54,
+              "y": 38
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 57.461003647634456,
+          "deterministicNoise": 2.5637924280017614,
+          "score": 60.02479607563622
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 70.87006737588652,
+              "y": 6
+            },
+            "intent": "through"
+          },
+          "canonicalScore": 56.14371827948102,
+          "deterministicNoise": 2.699269426986575,
+          "score": 58.842987706467596
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 65.71281687588653,
+              "y": 6
+            },
+            "intent": "progressive",
+            "delivery": "lofted"
+          },
+          "canonicalScore": 57.199899134886586,
+          "deterministicNoise": 1.5840151458978653,
+          "score": 58.78391428078445
+        },
+        {
+          "action": {
+            "type": "space_pass",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 62,
+              "y": 38
+            }
+          },
+          "canonicalScore": 54.89068297159394,
+          "deterministicNoise": -1.7933388482779264,
+          "score": 53.09734412331601
+        },
+        {
+          "action": {
+            "type": "space_pass",
+            "actorId": "geometry:anchor:8",
+            "target": {
+              "x": 73,
+              "y": 8.24
+            }
+          },
+          "canonicalScore": 52.29421998673661,
+          "deterministicNoise": 0.5421139672398567,
+          "score": 52.836333953976464
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:4",
+            "target": {
+              "x": 40,
+              "y": 40
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 53.366214320812034,
+          "deterministicNoise": -2.396411783993244,
+          "score": 50.96980253681879
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 51.53700003102102,
+          "deterministicNoise": -1.9135847892612219,
+          "score": 49.6234152417598
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:8",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 45.151739304709565,
+          "deterministicNoise": 3.331498611718416,
+          "score": 48.48323791642798
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:8",
+        "receiverId": "geometry:anchor:5",
+        "target": {
+          "x": 54,
+          "y": 38
+        },
+        "intent": "support"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9464528470752104,
+            "selectionQuality": 0.9464528470752104,
+            "passerAbility": 87.5,
+            "pressure": 0.7741230242736872,
+            "length": 10.345167954170682,
+            "ballEta": 1.0750000000000002,
+            "receiverEta": 0.22063157894736835,
+            "defenderEta": 2.199999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 30,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.25218309552185564,
+            "expectedReceptionQuality": 0.9038095238095238,
+            "expectedRetainedPossession": 0.9464528470752104,
+            "receiverAdjustmentCost": 0.306222330276539,
+            "utilityAdjustment": -3.8437511532270108
+          },
+          "intendedTarget": {
+            "x": 54,
+            "y": 38
+          },
+          "physicalTarget": {
+            "x": 53.8821663903361,
+            "y": 38.156745705075664
+          },
+          "executionQuality": 0.7099043243145056,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:8",
+          "passerId": "geometry:anchor:8",
+          "intendedReceiverId": "geometry:anchor:5",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 54,
+            "y": 38
+          },
+          "receiverVelocityAtRelease": {
+            "x": 0,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 54,
+            "y": 38
+          },
+          "awarenessDelay": 0.1034559386768662,
+          "receiverArrivalEstimate": 0,
+          "bestDefenderArrivalEstimate": 1.9855595667870032,
+          "leadDistance": 0,
+          "intent": "support",
+          "executionType": "weak_foot",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.0750000000000002,
+          "meetingErrorSeconds": -1.0750000000000002,
+          "predictionHorizon": 0.296536,
+          "actualContactPoint": {
+            "x": 53.553635471600955,
+            "y": 36.83897882743978
+          },
+          "receptionOutcome": "clean_control",
+          "actualReceiverId": "geometry:anchor:5",
+          "resolvedAt": 20.974999999999945,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "provide_width",
+          "selectionQuality": {
+            "expectedCompletion": 0.9522951554190368,
+            "selectionQuality": 0.9522951554190368,
+            "passerAbility": 88,
+            "pressure": 0.4586176650913376,
+            "length": 13.058079269905942,
+            "ballEta": 1.2999999999999994,
+            "receiverEta": 0.7650000000000003,
+            "defenderEta": 2.4249999999999954,
+            "laneOccupation": 0,
+            "boundaryMargin": 19.36757500261615,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.29674770485809426,
+            "expectedReceptionQuality": 0.8491792561955577,
+            "expectedRetainedPossession": 0.9522951554190368,
+            "receiverAdjustmentCost": 0.29674770485809426,
+            "utilityAdjustment": 3.8298253182308595
+          },
+          "intendedTarget": {
+            "x": 46.17515350887871,
+            "y": 48.63242499738385
+          },
+          "physicalTarget": {
+            "x": 46.43953154897418,
+            "y": 48.592017952583056
+          },
+          "executionQuality": 0.7007713129139124,
+          "passId": "pr174-controlled-a:pass:1:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:4",
+          "releasedAt": 21.92499999999989,
+          "receiverPositionAtRelease": {
+            "x": 43.22322783818691,
+            "y": 45.158449353624036
+          },
+          "receiverVelocityAtRelease": {
+            "x": 2.3615314177692426,
+            "y": 2.7791697835607465
+          },
+          "predictedReceptionPoint": {
+            "x": 46.17515350887871,
+            "y": 48.63242499738385
+          },
+          "awarenessDelay": 0.179226757362709,
+          "receiverArrivalEstimate": 0.7250000000000003,
+          "bestDefenderArrivalEstimate": 3.6925321085226726,
+          "leadDistance": 4.5587686866878485,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2999999999999994,
+          "meetingErrorSeconds": -0.5749999999999991,
+          "predictionHorizon": 1.2499999999999996,
+          "actualContactPoint": {
+            "x": 46.6985775190118,
+            "y": 48.18807708073531
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:4",
+          "resolvedAt": 23.199999999999818,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9599983437444564,
+            "selectionQuality": 0.9599983437444564,
+            "passerAbility": 70,
+            "pressure": 0,
+            "length": 10.426784617687467,
+            "ballEta": 1.0750000000000002,
+            "receiverEta": 0.6150000000000002,
+            "defenderEta": 1.999999999999997,
+            "laneOccupation": 0,
+            "boundaryMargin": 24.477705433040917,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.30863455665467343,
+            "expectedReceptionQuality": 0.8815764967383478,
+            "expectedRetainedPossession": 0.9599983437444564,
+            "receiverAdjustmentCost": 0.30863455665467343,
+            "utilityAdjustment": 4.735099423334731
+          },
+          "intendedTarget": {
+            "x": 39.90667998619804,
+            "y": 43.52229456695908
+          },
+          "physicalTarget": {
+            "x": 40.342399216655885,
+            "y": 43.435655497830325
+          },
+          "executionQuality": 0.6035401196424831,
+          "passId": "pr174-controlled-a:pass:2:geometry:anchor:4",
+          "passerId": "geometry:anchor:4",
+          "intendedReceiverId": "geometry:anchor:3",
+          "releasedAt": 23.749999999999787,
+          "receiverPositionAtRelease": {
+            "x": 42.9477331266551,
+            "y": 41.35343444750204
+          },
+          "receiverVelocityAtRelease": {
+            "x": -2.9668811126410333,
+            "y": 2.1159610921532135
+          },
+          "predictedReceptionPoint": {
+            "x": 39.90667998619804,
+            "y": 43.52229456695908
+          },
+          "awarenessDelay": 0.1611230025759413,
+          "receiverArrivalEstimate": 0.5750000000000002,
+          "bestDefenderArrivalEstimate": 2.657062361839893,
+          "leadDistance": 3.735232043776526,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.0750000000000002,
+          "meetingErrorSeconds": -0.5,
+          "predictionHorizon": 1.0250000000000004,
+          "actualContactPoint": {
+            "x": 40.59260139422524,
+            "y": 43.733415107048
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:3",
+          "resolvedAt": 24.824999999999726,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9381259858715775,
+            "selectionQuality": 0.9381259858715775,
+            "passerAbility": 70,
+            "pressure": 0.3361032798956598,
+            "length": 13.738509505436154,
+            "ballEta": 1.2749999999999995,
+            "receiverEta": 0.7400000000000003,
+            "defenderEta": 2.249999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 30.00215338411095,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.5492829081507338,
+            "expectedReceptionQuality": 0.9072761355867436,
+            "expectedRetainedPossession": 0.9381259858715775,
+            "receiverAdjustmentCost": 0.5724522260701296,
+            "utilityAdjustment": 2.619968697813518
+          },
+          "intendedTarget": {
+            "x": 38.5587783282014,
+            "y": 30.00215338411095
+          },
+          "physicalTarget": {
+            "x": 38.77589450675722,
+            "y": 29.928089844827518
+          },
+          "executionQuality": 0.5094632288570067,
+          "passId": "pr174-controlled-a:pass:3:geometry:anchor:3",
+          "passerId": "geometry:anchor:3",
+          "intendedReceiverId": "geometry:anchor:2",
+          "releasedAt": 25.374999999999694,
+          "receiverPositionAtRelease": {
+            "x": 42.78909505953558,
+            "y": 31.431056743493937
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.4533063848044776,
+            "y": -1.1664471971273827
+          },
+          "predictedReceptionPoint": {
+            "x": 38.5587783282014,
+            "y": 30.00215338411095
+          },
+          "awarenessDelay": 0.17620820505513496,
+          "receiverArrivalEstimate": 0.7000000000000003,
+          "bestDefenderArrivalEstimate": 2.4204811558010357,
+          "leadDistance": 4.465125357463318,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2749999999999995,
+          "meetingErrorSeconds": -0.5749999999999992,
+          "predictionHorizon": 1.2249999999999996,
+          "actualContactPoint": {
+            "x": 38.841261778244636,
+            "y": 31.158417975071025
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:2",
+          "resolvedAt": 26.549999999999628,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "support_behind",
+          "selectionQuality": {
+            "expectedCompletion": 0.9487819214310663,
+            "selectionQuality": 0.9487819214310663,
+            "passerAbility": 70,
+            "pressure": 0.2670971087665136,
+            "length": 12.22636131488355,
+            "ballEta": 1.2999999999999994,
+            "receiverEta": 0.11500000000000002,
+            "defenderEta": 1.7999999999999976,
+            "laneOccupation": 0,
+            "boundaryMargin": 19.136133646312576,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.358568893879998,
+            "expectedReceptionQuality": 0.8978875506307117,
+            "expectedRetainedPossession": 0.9487819214310663,
+            "receiverAdjustmentCost": 0.36741007303673406,
+            "utilityAdjustment": -3.475649750871466
+          },
+          "intendedTarget": {
+            "x": 44.49224276206682,
+            "y": 19.136133646312576
+          },
+          "physicalTarget": {
+            "x": 44.05687985481471,
+            "y": 18.83840131130727
+          },
+          "executionQuality": 0.6163983384171755,
+          "passId": "pr174-controlled-a:pass:4:geometry:anchor:2",
+          "passerId": "geometry:anchor:2",
+          "intendedReceiverId": "geometry:anchor:1",
+          "releasedAt": 27.099999999999596,
+          "receiverPositionAtRelease": {
+            "x": 45.44802681945407,
+            "y": 18.762727239573422
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.3968492651044357,
+            "y": 1.3270835274073534
+          },
+          "predictedReceptionPoint": {
+            "x": 44.49224276206682,
+            "y": 19.136133646312576
+          },
+          "awarenessDelay": 0.18050128991630787,
+          "receiverArrivalEstimate": 0.07500000000000001,
+          "bestDefenderArrivalEstimate": 2.4647660849658712,
+          "leadDistance": 1.0261362038976487,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2999999999999994,
+          "meetingErrorSeconds": -1.2249999999999994,
+          "predictionHorizon": 0.2813726161251601
+        }
+      ],
+      "losses": 0,
+      "finalControl": false,
+      "finalHash": "3a9daa5f97ccc0ba8680f00aff84f2d4bd5c67b93631b13e407b3cf13321b9a7"
+    },
+    {
+      "name": "runner_fast",
+      "initialHash": "ed68265ef1d92cd9102fc1b74cc7a9c90bacd5e921e9a61f659a41c40c974b1d",
+      "actorId": "geometry:anchor:5",
+      "ownPassing": 90,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 71.85205793650793,
+              "y": 10
+            },
+            "intent": "lead"
+          },
+          "canonicalScore": 54.42841368033099,
+          "deterministicNoise": -3.2735637854784727,
+          "score": 51.15484989485252
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 64.48771553588652,
+              "y": 6
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 47.17602298478242,
+          "deterministicNoise": 0.9872033018618822,
+          "score": 48.1632262866443
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 71,
+              "y": 22.3
+            }
+          },
+          "canonicalScore": 45.18389020506601,
+          "deterministicNoise": -0.18676652945578098,
+          "score": 44.997123675610226
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 69.20566761650794,
+              "y": 10
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 42.74447306409698,
+          "deterministicNoise": 1.0039493776857853,
+          "score": 43.748422441782765
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 39.05175691771894,
+          "deterministicNoise": 2.464575432240963,
+          "score": 41.5163323499599
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 67,
+              "y": 16
+            }
+          },
+          "canonicalScore": 37.83479415778408,
+          "deterministicNoise": 1.1200299933552742,
+          "score": 38.954824151139356
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 30.830930192968367,
+          "deterministicNoise": 1.9241760354489088,
+          "score": 32.755106228417276
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 66,
+              "y": 11
+            }
+          },
+          "canonicalScore": 32.11466493855272,
+          "deterministicNoise": -3.6688986010849476,
+          "score": 28.445766337467774
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 71.85205793650793,
+          "y": 10
+        },
+        "intent": "lead"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9587999321485203,
+            "selectionQuality": 0.9587999321485203,
+            "passerAbility": 88,
+            "pressure": 0.0714285714285714,
+            "length": 12.095173454802921,
+            "ballEta": 0.9500000000000005,
+            "receiverEta": 0.5900000000000002,
+            "defenderEta": 1.2999999999999994,
+            "laneOccupation": 0,
+            "boundaryMargin": 10,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.25094670956235593,
+            "expectedReceptionQuality": 0.8404220227111692,
+            "expectedRetainedPossession": 0.9587999321485203,
+            "receiverAdjustmentCost": 0.4746043494339046,
+            "utilityAdjustment": 4.106957109960943
+          },
+          "intendedTarget": {
+            "x": 71.85205793650793,
+            "y": 10
+          },
+          "physicalTarget": {
+            "x": 71.80641027327347,
+            "y": 9.905378289568487
+          },
+          "executionQuality": 0.7570790749735262,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:8",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 68,
+            "y": 10
+          },
+          "receiverVelocityAtRelease": {
+            "x": 4,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 71.85205793650793,
+            "y": 10
+          },
+          "awarenessDelay": 0.08,
+          "receiverArrivalEstimate": 0.5500000000000002,
+          "bestDefenderArrivalEstimate": 0.33906965123477434,
+          "leadDistance": 3.852057936507933,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 0.9500000000000005,
+          "meetingErrorSeconds": -0.40000000000000036,
+          "predictionHorizon": 0.9500000000000005,
+          "actualContactPoint": {
+            "x": 70.46370327760123,
+            "y": 10.687988285992303
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:8",
+          "resolvedAt": 20.84999999999995,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.88912924424553,
+            "selectionQuality": 0.88912924424553,
+            "passerAbility": 70,
+            "pressure": 0.9174482668520452,
+            "length": 32.09740167750513,
+            "ballEta": 2.1749999999999963,
+            "receiverEta": 0.09,
+            "defenderEta": 2.249999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 28.65940344693047,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 1.506762989822195,
+            "expectedReceptionQuality": 0.897002323171563,
+            "expectedRetainedPossession": 0.8541197802533622,
+            "receiverAdjustmentCost": 1.6827445346990897,
+            "utilityAdjustment": -10.311814577928482
+          },
+          "intendedTarget": {
+            "x": 76.34059655306953,
+            "y": 38.6868687722278
+          },
+          "physicalTarget": {
+            "x": 76.79177540663831,
+            "y": 37.28599701041545
+          },
+          "executionQuality": 0.49886963923224104,
+          "passId": "pr174-controlled-a:pass:1:geometry:opponent:4",
+          "passerId": "geometry:opponent:4",
+          "intendedReceiverId": "geometry:opponent:1",
+          "releasedAt": 24.474999999999746,
+          "receiverPositionAtRelease": {
+            "x": 76.10188385059858,
+            "y": 37.767353124935276
+          },
+          "receiverVelocityAtRelease": {
+            "x": 0.8720957894104231,
+            "y": 3.359292220314103
+          },
+          "predictedReceptionPoint": {
+            "x": 76.34059655306953,
+            "y": 38.6868687722278
+          },
+          "awarenessDelay": 0.26385315768473394,
+          "receiverArrivalEstimate": 0.05,
+          "bestDefenderArrivalEstimate": 2.2319273991071746,
+          "leadDistance": 0.949996199959119,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 2.1749999999999963,
+          "meetingErrorSeconds": -2.1249999999999964,
+          "predictionHorizon": 0.2737230306229629,
+          "actualContactPoint": {
+            "x": 78.45968061957524,
+            "y": 23.91437153439517
+          },
+          "resolvedAt": 25.549999999999685,
+          "actualReceiverId": "geometry:opponent:3",
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "actionSource": "autonomous_npc",
+          "incomingSpeed": 14.336779899769898,
+          "incomingHeight": 0.11,
+          "selectionQuality": {
+            "expectedCompletion": 0.9030221227049908,
+            "selectionQuality": 0.9030221227049908,
+            "passerAbility": 70,
+            "pressure": 0.43949257669656394,
+            "length": 16.246423498186314,
+            "ballEta": 1.2499999999999996,
+            "receiverEta": 0.7650000000000003,
+            "defenderEta": 1.7999999999999976,
+            "laneOccupation": 0,
+            "boundaryMargin": 24.81445914314437,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.6436918952333035,
+            "expectedReceptionQuality": 0.7513935488280014,
+            "expectedRetainedPossession": 0.9030221227049908,
+            "receiverAdjustmentCost": 1.0199896390022913,
+            "utilityAdjustment": -0.47171878723282745
+          },
+          "intendedTarget": {
+            "x": 61.271414980406774,
+            "y": 24.81445914314437
+          },
+          "physicalTarget": {
+            "x": 61.27875521334614,
+            "y": 24.76968864520339
+          },
+          "executionQuality": 0.5139153462431784,
+          "passId": "pr174-controlled-a:pass:2:geometry:opponent:3",
+          "passerId": "geometry:opponent:3",
+          "intendedReceiverId": "geometry:opponent:6",
+          "releasedAt": 25.549999999999685,
+          "receiverPositionAtRelease": {
+            "x": 65.82353852396194,
+            "y": 24.5903324992134
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.6416847514720985,
+            "y": 0.179300621741163
+          },
+          "predictedReceptionPoint": {
+            "x": 61.271414980406774,
+            "y": 24.81445914314437
+          },
+          "awarenessDelay": 0.1731349913392457,
+          "receiverArrivalEstimate": 0.7250000000000003,
+          "bestDefenderArrivalEstimate": 1.0497651089178108,
+          "leadDistance": 4.557637711392715,
+          "intent": "through",
+          "executionType": "first_time",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2499999999999996,
+          "meetingErrorSeconds": -0.5249999999999992,
+          "predictionHorizon": 1.2499999999999996,
+          "actualContactPoint": {
+            "x": 62.99711351437617,
+            "y": 24.684143703786123
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:opponent:6",
+          "resolvedAt": 26.774999999999615,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9373819766381076,
+            "selectionQuality": 0.9373819766381076,
+            "passerAbility": 70,
+            "pressure": 0.5385101088188793,
+            "length": 22.68923061293326,
+            "ballEta": 2.1249999999999964,
+            "receiverEta": 0.11500000000000002,
+            "defenderEta": 2.7499999999999942,
+            "laneOccupation": 0,
+            "boundaryMargin": 24.58952233440889,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.7301863074814484,
+            "expectedReceptionQuality": 0.9296816999757068,
+            "expectedRetainedPossession": 0.9373819766381076,
+            "receiverAdjustmentCost": 0.7301863074814484,
+            "utilityAdjustment": -4.645613923642049
+          },
+          "intendedTarget": {
+            "x": 73.02256620147985,
+            "y": 43.41047766559111
+          },
+          "physicalTarget": {
+            "x": 72.85504959118663,
+            "y": 43.260740267090995
+          },
+          "executionQuality": 0.561359436187943,
+          "passId": "pr174-controlled-a:pass:3:geometry:opponent:6",
+          "passerId": "geometry:opponent:6",
+          "intendedReceiverId": "geometry:opponent:1",
+          "releasedAt": 27.324999999999584,
+          "receiverPositionAtRelease": {
+            "x": 73.90521270992654,
+            "y": 42.948366976502435
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.225788490268542,
+            "y": 1.6888656192790563
+          },
+          "predictedReceptionPoint": {
+            "x": 73.02256620147985,
+            "y": 43.41047766559111
+          },
+          "awarenessDelay": 0.2214112869695888,
+          "receiverArrivalEstimate": 0.07500000000000001,
+          "bestDefenderArrivalEstimate": 2.8931059262315153,
+          "leadDistance": 0.9962987242003053,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 2.1249999999999964,
+          "meetingErrorSeconds": -2.0499999999999963,
+          "predictionHorizon": 0.27362105444785106,
+          "actualContactPoint": {
+            "x": 63.15758725935351,
+            "y": 29.20905022005117
+          },
+          "resolvedAt": 27.74999999999956,
+          "finalResult": "intercepted"
+        }
+      ],
+      "losses": 1,
+      "finalControl": true,
+      "finalHash": "04b56fbc4636250c72fbf85614e8ff61286d1eb0bccfb6fa107563ba783476a4"
+    },
+    {
+      "name": "runner_slow",
+      "initialHash": "3483bae5370b00ee2bc59c2ad5e891469efa82f8ede7528079301999e607f026",
+      "actorId": "geometry:anchor:5",
+      "ownPassing": 90,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 64.48771553588652,
+              "y": 6
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 47.49522298478242,
+          "deterministicNoise": 0.9872033018618822,
+          "score": 48.482426286644305
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 71,
+              "y": 22.3
+            }
+          },
+          "canonicalScore": 45.18389020506601,
+          "deterministicNoise": -0.18676652945578098,
+          "score": 44.997123675610226
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 69.189504,
+              "y": 10
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 43.05688707283567,
+          "deterministicNoise": 1.0039493776857853,
+          "score": 44.06083645052146
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 39.37095691771894,
+          "deterministicNoise": 2.464575432240963,
+          "score": 41.835532349959905
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 67,
+              "y": 16
+            }
+          },
+          "canonicalScore": 37.83479415778408,
+          "deterministicNoise": 1.1200299933552742,
+          "score": 38.954824151139356
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 31.150130192968366,
+          "deterministicNoise": 1.9241760354489088,
+          "score": 33.07430622841727
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 66,
+              "y": 11
+            }
+          },
+          "canonicalScore": 32.11466493855272,
+          "deterministicNoise": -3.6688986010849476,
+          "score": 28.445766337467774
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:4",
+            "target": {
+              "x": 40,
+              "y": 40
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 29.221742849915987,
+          "deterministicNoise": -1.683105293661356,
+          "score": 27.53863755625463
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:1",
+        "target": {
+          "x": 64.48771553588652,
+          "y": 6
+        },
+        "intent": "support"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "overlap",
+          "selectionQuality": {
+            "expectedCompletion": 0.9588,
+            "selectionQuality": 0.9588,
+            "passerAbility": 88,
+            "pressure": 0.0714285714285714,
+            "length": 10.480708887481974,
+            "ballEta": 1.1,
+            "receiverEta": 0.19,
+            "defenderEta": 2.4249999999999954,
+            "laneOccupation": 0,
+            "boundaryMargin": 6,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.2172887529815472,
+            "expectedReceptionQuality": 0.8286079542053896,
+            "expectedRetainedPossession": 0.9588,
+            "receiverAdjustmentCost": 0.2813558478323982,
+            "utilityAdjustment": -3.0451694426185423
+          },
+          "intendedTarget": {
+            "x": 64.48771553588652,
+            "y": 6
+          },
+          "physicalTarget": {
+            "x": 64.40361984218251,
+            "y": 5.965318695215698
+          },
+          "executionQuality": 0.7923274788724524,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:1",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 63,
+            "y": 6
+          },
+          "receiverVelocityAtRelease": {
+            "x": 4,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 64.48771553588652,
+            "y": 6
+          },
+          "awarenessDelay": 0.1663547228508435,
+          "receiverArrivalEstimate": 0.15,
+          "bestDefenderArrivalEstimate": 2.1986930571065706,
+          "leadDistance": 1.4877155358865224,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.1,
+          "meetingErrorSeconds": -0.9500000000000001,
+          "predictionHorizon": 0.29737600000000003,
+          "actualContactPoint": {
+            "x": 64.2128137715125,
+            "y": 6.592337842701695
+          },
+          "receptionOutcome": "clean_control",
+          "actualReceiverId": "geometry:anchor:1",
+          "resolvedAt": 21.07499999999994,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.927524291989324,
+            "selectionQuality": 0.927524291989324,
+            "passerAbility": 70,
+            "pressure": 0.4321500050123601,
+            "length": 14.881845926663676,
+            "ballEta": 1.1999999999999997,
+            "receiverEta": 0.6900000000000003,
+            "defenderEta": 1.2999999999999994,
+            "laneOccupation": 0,
+            "boundaryMargin": 15.575351259577262,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.5754524371215803,
+            "expectedReceptionQuality": 0.9076742384705032,
+            "expectedRetainedPossession": 0.8950609417696976,
+            "receiverAdjustmentCost": 0.8438310102790191,
+            "utilityAdjustment": -0.4830905203268907
+          },
+          "intendedTarget": {
+            "x": 76.30345628369473,
+            "y": 15.575351259577262
+          },
+          "physicalTarget": {
+            "x": 75.96537351597784,
+            "y": 15.500205863642451
+          },
+          "executionQuality": 0.524540965805043,
+          "passId": "pr174-controlled-a:pass:1:geometry:anchor:1",
+          "passerId": "geometry:anchor:1",
+          "intendedReceiverId": "geometry:anchor:8",
+          "releasedAt": 22.024999999999885,
+          "receiverPositionAtRelease": {
+            "x": 72.80218203125644,
+            "y": 13.999647258308048
+          },
+          "receiverVelocityAtRelease": {
+            "x": 2.917705454932502,
+            "y": 1.3130762769184656
+          },
+          "predictedReceptionPoint": {
+            "x": 76.30345628369473,
+            "y": 15.575351259577262
+          },
+          "awarenessDelay": 0.08,
+          "receiverArrivalEstimate": 0.6500000000000002,
+          "bestDefenderArrivalEstimate": 1.38890705478039,
+          "leadDistance": 3.8395005522076877,
+          "intent": "through",
+          "executionType": "lofted_through",
+          "delivery": "lofted",
+          "ballArrivalEstimate": 1.1999999999999997,
+          "meetingErrorSeconds": -0.5499999999999995,
+          "predictionHorizon": 1.1999999999999997,
+          "actualContactPoint": {
+            "x": 75.16316505902086,
+            "y": 14.879717393424688
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:8",
+          "resolvedAt": 23.124999999999822,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9121299471731614,
+            "selectionQuality": 0.9121299471731614,
+            "passerAbility": 70,
+            "pressure": 0.911291859174105,
+            "length": 22.746197700568047,
+            "ballEta": 1.424999999999999,
+            "receiverEta": 0.065,
+            "defenderEta": 2.249999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 26.613541546842555,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.9730062179111975,
+            "expectedReceptionQuality": 0.8305891072985822,
+            "expectedRetainedPossession": 0.9121299471731614,
+            "receiverAdjustmentCost": 0.9730062179111975,
+            "utilityAdjustment": -6.155319215808749
+          },
+          "intendedTarget": {
+            "x": 75.91924054779656,
+            "y": 41.386458453157445
+          },
+          "physicalTarget": {
+            "x": 75.75815384829318,
+            "y": 41.21958257448257
+          },
+          "executionQuality": 0.5031060180981368,
+          "passId": "pr174-controlled-a:pass:2:geometry:opponent:4",
+          "passerId": "geometry:opponent:4",
+          "intendedReceiverId": "geometry:opponent:1",
+          "releasedAt": 26.34999999999964,
+          "receiverPositionAtRelease": {
+            "x": 75.48847435370149,
+            "y": 40.70534615146825
+          },
+          "receiverVelocityAtRelease": {
+            "x": 1.5740702111077098,
+            "y": 2.4888642590912013
+          },
+          "predictedReceptionPoint": {
+            "x": 75.91924054779656,
+            "y": 41.386458453157445
+          },
+          "awarenessDelay": 0.22261146975358126,
+          "receiverArrivalEstimate": 0.025,
+          "bestDefenderArrivalEstimate": 2.6934509964096844,
+          "leadDistance": 0.8058991757580523,
+          "intent": "support",
+          "executionType": "driven",
+          "delivery": "lofted",
+          "ballArrivalEstimate": 1.424999999999999,
+          "meetingErrorSeconds": -1.399999999999999,
+          "predictionHorizon": 0.27366390079381103,
+          "actualContactPoint": {
+            "x": 82.25903837957276,
+            "y": 19.986576130100605
+          },
+          "resolvedAt": 26.374999999999638,
+          "finalResult": "intercepted"
+        }
+      ],
+      "losses": 1,
+      "finalControl": true,
+      "finalHash": "9e3f27ea28172c36b4c7c735ab55d6ccb37d7a58027135a13c8abc71e2eac105"
+    },
+    {
+      "name": "defender_fast",
+      "initialHash": "942aa0a8a100e888449f091b9663e17ba69772c7e2e018d05d4b8af6876c8131",
+      "actorId": "geometry:anchor:5",
+      "ownPassing": 90,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 71.85205793650793,
+              "y": 10
+            },
+            "intent": "lead"
+          },
+          "canonicalScore": 52.67355176746746,
+          "deterministicNoise": -3.2735637854784727,
+          "score": 49.399987981988986
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 64.48771553588652,
+              "y": 6
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 47.17602298478242,
+          "deterministicNoise": 0.9872033018618822,
+          "score": 48.1632262866443
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 71,
+              "y": 22.3
+            }
+          },
+          "canonicalScore": 45.18389020506601,
+          "deterministicNoise": -0.18676652945578098,
+          "score": 44.997123675610226
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 69.20566761650794,
+              "y": 10
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 42.74447306409698,
+          "deterministicNoise": 1.0039493776857853,
+          "score": 43.748422441782765
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 39.05175691771894,
+          "deterministicNoise": 2.464575432240963,
+          "score": 41.5163323499599
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 67,
+              "y": 16
+            }
+          },
+          "canonicalScore": 37.83479415778408,
+          "deterministicNoise": 1.1200299933552742,
+          "score": 38.954824151139356
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 30.830930192968367,
+          "deterministicNoise": 1.9241760354489088,
+          "score": 32.755106228417276
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 66,
+              "y": 11
+            }
+          },
+          "canonicalScore": 32.11466493855272,
+          "deterministicNoise": -3.6688986010849476,
+          "score": 28.445766337467774
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 71.85205793650793,
+          "y": 10
+        },
+        "intent": "lead"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9587999321485203,
+            "selectionQuality": 0.9587999321485203,
+            "passerAbility": 88,
+            "pressure": 0.0714285714285714,
+            "length": 12.095173454802921,
+            "ballEta": 0.9500000000000005,
+            "receiverEta": 0.5900000000000002,
+            "defenderEta": 1.1749999999999998,
+            "laneOccupation": 0,
+            "boundaryMargin": 10,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.25094670956235593,
+            "expectedReceptionQuality": 0.8404220227111692,
+            "expectedRetainedPossession": 0.9462156830390709,
+            "receiverAdjustmentCost": 0.4746043494339046,
+            "utilityAdjustment": 3.3108951292459254
+          },
+          "intendedTarget": {
+            "x": 71.85205793650793,
+            "y": 10
+          },
+          "physicalTarget": {
+            "x": 71.80641027327347,
+            "y": 9.905378289568487
+          },
+          "executionQuality": 0.7570790749735262,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:8",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 68,
+            "y": 10
+          },
+          "receiverVelocityAtRelease": {
+            "x": 4,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 71.85205793650793,
+            "y": 10
+          },
+          "awarenessDelay": 0.08,
+          "receiverArrivalEstimate": 0.5500000000000002,
+          "bestDefenderArrivalEstimate": 0.23102014173659136,
+          "leadDistance": 3.852057936507933,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 0.9500000000000005,
+          "meetingErrorSeconds": -0.40000000000000036,
+          "predictionHorizon": 0.9500000000000005,
+          "actualContactPoint": {
+            "x": 70.46370327760123,
+            "y": 10.687988285992303
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:8",
+          "resolvedAt": 20.84999999999995,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.8552441694009165,
+            "selectionQuality": 0.8552441694009165,
+            "passerAbility": 70,
+            "pressure": 0.8409918222496167,
+            "length": 34.864955070667854,
+            "ballEta": 2.1749999999999963,
+            "receiverEta": 0.04,
+            "defenderEta": 2.849999999999994,
+            "laneOccupation": 0,
+            "boundaryMargin": 26.466631979726102,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 1.713870421505101,
+            "expectedReceptionQuality": 0.9227323461199803,
+            "expectedRetainedPossession": 0.8552441694009165,
+            "receiverAdjustmentCost": 1.713870421505101,
+            "utilityAdjustment": -10.28959647818763
+          },
+          "intendedTarget": {
+            "x": 75.8650605819265,
+            "y": 41.5333680202739
+          },
+          "physicalTarget": {
+            "x": 76.401486310908,
+            "y": 39.94761375574422
+          },
+          "executionQuality": 0.4942281191034915,
+          "passId": "pr174-controlled-a:pass:1:geometry:opponent:4",
+          "passerId": "geometry:opponent:4",
+          "intendedReceiverId": "geometry:opponent:1",
+          "releasedAt": 25.749999999999673,
+          "receiverPositionAtRelease": {
+            "x": 76.29744440251201,
+            "y": 41.35229447573058
+          },
+          "receiverVelocityAtRelease": {
+            "x": -1.1677252983832886,
+            "y": 0.48901959038346376
+          },
+          "predictedReceptionPoint": {
+            "x": 75.8650605819265,
+            "y": 41.5333680202739
+          },
+          "awarenessDelay": 0.27942790651406135,
+          "receiverArrivalEstimate": 0,
+          "bestDefenderArrivalEstimate": 3.079940123957807,
+          "leadDistance": 0.46876795628285683,
+          "intent": "support",
+          "executionType": "normal",
+          "delivery": "ground",
+          "ballArrivalEstimate": 2.1749999999999963,
+          "meetingErrorSeconds": -2.1749999999999963,
+          "predictionHorizon": 0.2746786750153376,
+          "actualContactPoint": {
+            "x": 78.92509329121353,
+            "y": 21.81666670198352
+          },
+          "resolvedAt": 26.599999999999625,
+          "actualReceiverId": "geometry:opponent:3",
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "actionSource": "autonomous_npc",
+          "incomingSpeed": 16.26500732991413,
+          "incomingHeight": 0.11,
+          "selectionQuality": {
+            "expectedCompletion": 0.8966106917365173,
+            "selectionQuality": 0.8966106917365173,
+            "passerAbility": 70,
+            "pressure": 0.11579156013381298,
+            "length": 18.319028308536073,
+            "ballEta": 1.2499999999999996,
+            "receiverEta": 0.7650000000000003,
+            "defenderEta": 1.7999999999999976,
+            "laneOccupation": 0,
+            "boundaryMargin": 20.065407220365874,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.688681722051974,
+            "expectedReceptionQuality": 0.804262720226373,
+            "expectedRetainedPossession": 0.8966106917365173,
+            "receiverAdjustmentCost": 0.9349083900538814,
+            "utilityAdjustment": -1.2010961637418305
+          },
+          "intendedTarget": {
+            "x": 60.993395226022436,
+            "y": 20.065407220365874
+          },
+          "physicalTarget": {
+            "x": 61.00936459744108,
+            "y": 20.019570221021937
+          },
+          "executionQuality": 0.5268772699275909,
+          "passId": "pr174-controlled-a:pass:2:geometry:opponent:3",
+          "passerId": "geometry:opponent:3",
+          "intendedReceiverId": "geometry:opponent:8",
+          "releasedAt": 26.599999999999625,
+          "receiverPositionAtRelease": {
+            "x": 65.38093515953472,
+            "y": 21.258051267904992
+          },
+          "receiverVelocityAtRelease": {
+            "x": -3.509727891341754,
+            "y": -0.9540325880840328
+          },
+          "predictedReceptionPoint": {
+            "x": 60.993395226022436,
+            "y": 20.065407220365874
+          },
+          "awarenessDelay": 0.18281505348538646,
+          "receiverArrivalEstimate": 0.7250000000000003,
+          "bestDefenderArrivalEstimate": 1.6235619870627092,
+          "leadDistance": 4.546746803187465,
+          "intent": "through",
+          "executionType": "first_time",
+          "delivery": "ground",
+          "ballArrivalEstimate": 1.2499999999999996,
+          "meetingErrorSeconds": -0.5249999999999992,
+          "predictionHorizon": 1.2499999999999996,
+          "actualContactPoint": {
+            "x": 62.47692020676017,
+            "y": 20.166778245110812
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:opponent:8",
+          "resolvedAt": 27.74999999999956,
+          "finalResult": "completed"
+        }
+      ],
+      "losses": 1,
+      "finalControl": false,
+      "finalHash": "595987fa20f324b926882bf9b773959ac4a0ca8074386623fd4bebbfb3d681e5"
+    },
+    {
+      "name": "defender_crossing",
+      "initialHash": "9e2b64734a454c5a4c60dc977d6a1bb2d99af57e56fedbe3ee8c388dc6f27f2d",
+      "actorId": "geometry:anchor:5",
+      "ownPassing": 90,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "space_pass",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 78,
+              "y": 11.92
+            }
+          },
+          "canonicalScore": 84.02694481962567,
+          "deterministicNoise": -1.4751683361828327,
+          "score": 82.55177648344284
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 64.48771553588652,
+              "y": 6
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 44.473134639082616,
+          "deterministicNoise": 0.9872033018618822,
+          "score": 45.4603379409445
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 71,
+              "y": 22.3
+            }
+          },
+          "canonicalScore": 44.236409327444015,
+          "deterministicNoise": -0.18676652945578098,
+          "score": 44.049642797988234
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 40.89791076387279,
+          "deterministicNoise": 2.464575432240963,
+          "score": 43.36248619611375
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 67,
+              "y": 16
+            }
+          },
+          "canonicalScore": 38.29043076923076,
+          "deterministicNoise": 1.1200299933552742,
+          "score": 39.410460762586034
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 69.20566761650794,
+              "y": 10
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 32.137088468854316,
+          "deterministicNoise": 1.0039493776857853,
+          "score": 33.1410378465401
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 30.830930192968367,
+          "deterministicNoise": 1.9241760354489088,
+          "score": 32.755106228417276
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 66,
+              "y": 11
+            }
+          },
+          "canonicalScore": 33.707913592231534,
+          "deterministicNoise": -3.6688986010849476,
+          "score": 30.039014991146587
+        }
+      ],
+      "selected": {
+        "type": "space_pass",
+        "actorId": "geometry:anchor:5",
+        "target": {
+          "x": 78,
+          "y": 11.92
+        }
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9576784921699883,
+            "selectionQuality": 0.9576784921699883,
+            "passerAbility": 88,
+            "pressure": 0.0714285714285714,
+            "length": 17.142604819571613,
+            "ballEta": 1.399999999999999,
+            "receiverEta": 1.2399999999999998,
+            "defenderEta": 2.299999999999996,
+            "laneOccupation": 0,
+            "boundaryMargin": 11.92,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.3102455263720359,
+            "expectedReceptionQuality": 0.9324279876522148,
+            "expectedRetainedPossession": 0.9576784921699883,
+            "receiverAdjustmentCost": 0.5078290355934991,
+            "utilityAdjustment": 3.95951419699831
+          },
+          "intendedTarget": {
+            "x": 78,
+            "y": 11.92
+          },
+          "physicalTarget": {
+            "x": 77.97675079666318,
+            "y": 11.792215734780138
+          },
+          "executionQuality": 0.7575231444572623,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:8",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 68,
+            "y": 10
+          },
+          "receiverVelocityAtRelease": {
+            "x": 4,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 78,
+            "y": 11.92
+          },
+          "awarenessDelay": 0.17150877192982455,
+          "receiverArrivalEstimate": 1.1999999999999997,
+          "bestDefenderArrivalEstimate": 1.1322796176974625,
+          "leadDistance": 10.18265191391712,
+          "intent": "through",
+          "executionType": "ground_through",
+          "delivery": "ground",
+          "requestedSpace": {
+            "x": 78,
+            "y": 11.92
+          },
+          "ballArrivalEstimate": 1.399999999999999,
+          "meetingErrorSeconds": -0.1999999999999993,
+          "predictionHorizon": 1.4568954816473434,
+          "actualContactPoint": {
+            "x": 91.6533983636171,
+            "y": 8.331023398588068
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:8",
+          "resolvedAt": 24.349999999999753,
+          "finalResult": "completed"
+        }
+      ],
+      "losses": 0,
+      "finalControl": true,
+      "finalHash": "5a5d4ebcb6acef84532e2286bd1bc2e5c87f17c0dc35055db52e24021dbf4c20"
+    },
+    {
+      "name": "runner_tired",
+      "initialHash": "dc8ad0b000a8f4a41253f818681ac941c60f9f9e4898428a2202ee0c7c9faaec",
+      "actorId": "geometry:anchor:5",
+      "ownPassing": 90,
+      "receiverPassing": 90,
+      "receiverFirstTouch": 86,
+      "ranked": [
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 71.7,
+              "y": 10
+            },
+            "intent": "lead"
+          },
+          "canonicalScore": 54.11196588938368,
+          "deterministicNoise": -3.2735637854784727,
+          "score": 50.83840210390521
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:1",
+            "target": {
+              "x": 64.48771553588652,
+              "y": 6
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 47.17602298478242,
+          "deterministicNoise": 0.9872033018618822,
+          "score": 48.1632262866443
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 71,
+              "y": 22.3
+            }
+          },
+          "canonicalScore": 45.18389020506601,
+          "deterministicNoise": -0.18676652945578098,
+          "score": 44.997123675610226
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:8",
+            "target": {
+              "x": 69.189504,
+              "y": 10
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 42.73768707283567,
+          "deterministicNoise": 1.0039493776857853,
+          "score": 43.741636450521455
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:2",
+            "target": {
+              "x": 45,
+              "y": 30
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 39.05175691771894,
+          "deterministicNoise": 2.464575432240963,
+          "score": 41.5163323499599
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 67,
+              "y": 16
+            }
+          },
+          "canonicalScore": 37.83479415778408,
+          "deterministicNoise": 1.1200299933552742,
+          "score": 38.954824151139356
+        },
+        {
+          "action": {
+            "type": "pass",
+            "actorId": "geometry:anchor:5",
+            "receiverId": "geometry:anchor:7",
+            "target": {
+              "x": 40,
+              "y": 25
+            },
+            "intent": "support"
+          },
+          "canonicalScore": 30.830930192968367,
+          "deterministicNoise": 1.9241760354489088,
+          "score": 32.755106228417276
+        },
+        {
+          "action": {
+            "type": "carry",
+            "actorId": "geometry:anchor:5",
+            "target": {
+              "x": 66,
+              "y": 11
+            }
+          },
+          "canonicalScore": 32.11466493855272,
+          "deterministicNoise": -3.6688986010849476,
+          "score": 28.445766337467774
+        }
+      ],
+      "selected": {
+        "type": "pass",
+        "actorId": "geometry:anchor:5",
+        "receiverId": "geometry:anchor:8",
+        "target": {
+          "x": 71.7,
+          "y": 10
+        },
+        "intent": "lead"
+      },
+      "passes": [
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9587993210126806,
+            "selectionQuality": 0.9587993210126806,
+            "passerAbility": 88,
+            "pressure": 0.0714285714285714,
+            "length": 11.96338162895425,
+            "ballEta": 0.9250000000000005,
+            "receiverEta": 0.6400000000000002,
+            "defenderEta": 1.3249999999999993,
+            "laneOccupation": 0,
+            "boundaryMargin": 10,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.24944732341836967,
+            "expectedReceptionQuality": 0.839860975391062,
+            "expectedRetainedPossession": 0.9587993210126806,
+            "receiverAdjustmentCost": 0.46967150185956313,
+            "utilityAdjustment": 4.114600247590812
+          },
+          "intendedTarget": {
+            "x": 71.7,
+            "y": 10
+          },
+          "physicalTarget": {
+            "x": 71.65406178514519,
+            "y": 9.906217477127464
+          },
+          "executionQuality": 0.7572190963868074,
+          "passId": "pr174-controlled-a:pass:0:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:8",
+          "releasedAt": 20,
+          "receiverPositionAtRelease": {
+            "x": 68,
+            "y": 10
+          },
+          "receiverVelocityAtRelease": {
+            "x": 4,
+            "y": 0
+          },
+          "predictedReceptionPoint": {
+            "x": 71.7,
+            "y": 10
+          },
+          "awarenessDelay": 0.08,
+          "receiverArrivalEstimate": 0.6000000000000002,
+          "bestDefenderArrivalEstimate": 0.3652832843397929,
+          "leadDistance": 3.700000000000003,
+          "intent": "lead",
+          "executionType": "weighted_ground",
+          "delivery": "ground",
+          "ballArrivalEstimate": 0.9250000000000005,
+          "meetingErrorSeconds": -0.3250000000000003,
+          "predictionHorizon": 0.9250000000000005,
+          "actualContactPoint": {
+            "x": 70.75965319526416,
+            "y": 10.435167278377836
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:8",
+          "resolvedAt": 20.87499999999995,
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.8239409749826389,
+            "selectionQuality": 0.8239409749826389,
+            "passerAbility": 70,
+            "pressure": 0.8786949739750507,
+            "length": 29.921451242698954,
+            "ballEta": 1.5999999999999983,
+            "receiverEta": 0.19,
+            "defenderEta": 1.8749999999999973,
+            "laneOccupation": 0,
+            "boundaryMargin": 29.641429709172925,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 1.4273048828336727,
+            "expectedReceptionQuality": 0.7710819651859927,
+            "expectedRetainedPossession": 0.8203362332170897,
+            "receiverAdjustmentCost": 1.5191936082837312,
+            "utilityAdjustment": -11.916343993441716
+          },
+          "intendedTarget": {
+            "x": 66.11583456594093,
+            "y": 38.358570290827075
+          },
+          "physicalTarget": {
+            "x": 66.70281783633502,
+            "y": 37.09404164788872
+          },
+          "executionQuality": 0.4867310782173979,
+          "passId": "pr174-controlled-a:pass:1:geometry:opponent:4",
+          "passerId": "geometry:opponent:4",
+          "intendedReceiverId": "geometry:opponent:9",
+          "releasedAt": 22.674999999999848,
+          "receiverPositionAtRelease": {
+            "x": 67.56422084658985,
+            "y": 38.89593501722267
+          },
+          "receiverVelocityAtRelease": {
+            "x": -5.287352004427248,
+            "y": -1.961656569919512
+          },
+          "predictedReceptionPoint": {
+            "x": 66.11583456594093,
+            "y": 38.358570290827075
+          },
+          "awarenessDelay": 0.25679690980797076,
+          "receiverArrivalEstimate": 0.15,
+          "bestDefenderArrivalEstimate": 2.36438473043308,
+          "leadDistance": 1.5448571672313982,
+          "intent": "support",
+          "executionType": "cross_field",
+          "delivery": "lofted",
+          "ballArrivalEstimate": 1.5999999999999983,
+          "meetingErrorSeconds": -1.4499999999999984,
+          "predictionHorizon": 0.2739341506743159,
+          "actualContactPoint": {
+            "x": 73.6990122652137,
+            "y": 10.449086484928651
+          },
+          "resolvedAt": 22.724999999999845,
+          "finalResult": "intercepted"
+        },
+        {
+          "receiverRelationshipAtRelease": "rest_defence",
+          "selectionQuality": {
+            "expectedCompletion": 0.9247131585206647,
+            "selectionQuality": 0.9247131585206647,
+            "passerAbility": 72.5,
+            "pressure": 0.916490050262736,
+            "length": 9.411773394437834,
+            "ballEta": 0.9750000000000005,
+            "receiverEta": 0.11500000000000002,
+            "defenderEta": 1.424999999999999,
+            "laneOccupation": 0,
+            "boundaryMargin": 12.282125625441944,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.4285574224867597,
+            "expectedReceptionQuality": 0.8744965088088799,
+            "expectedRetainedPossession": 0.9247131585206647,
+            "receiverAdjustmentCost": 0.604624642479351,
+            "utilityAdjustment": -5.674103331460551
+          },
+          "intendedTarget": {
+            "x": 63.75345077478421,
+            "y": 12.282125625441944
+          },
+          "physicalTarget": {
+            "x": 63.69496766388633,
+            "y": 12.17645237014325
+          },
+          "executionQuality": 0.5042415886951469,
+          "passId": "pr174-controlled-a:pass:3:geometry:anchor:8",
+          "passerId": "geometry:anchor:8",
+          "intendedReceiverId": "geometry:anchor:5",
+          "releasedAt": 25.97499999999966,
+          "receiverPositionAtRelease": {
+            "x": 63.104615383786246,
+            "y": 13.079636137337586
+          },
+          "receiverVelocityAtRelease": {
+            "x": 2.2986662378858114,
+            "y": -2.8253860894269422
+          },
+          "predictedReceptionPoint": {
+            "x": 63.75345077478421,
+            "y": 12.282125625441944
+          },
+          "awarenessDelay": 0.10017907426462899,
+          "receiverArrivalEstimate": 0.07500000000000001,
+          "bestDefenderArrivalEstimate": 1.4888597188606234,
+          "leadDistance": 1.0281101016892753,
+          "intent": "support",
+          "executionType": "backheel",
+          "delivery": "ground",
+          "ballArrivalEstimate": 0.9750000000000005,
+          "meetingErrorSeconds": -0.9000000000000006,
+          "predictionHorizon": 0.28226492756375604,
+          "actualContactPoint": {
+            "x": 65.0173458407488,
+            "y": 12.349584909174208
+          },
+          "resolvedAt": 26.84999999999961,
+          "actualReceiverId": "geometry:anchor:5",
+          "finalResult": "completed"
+        },
+        {
+          "receiverRelationshipAtRelease": "support_behind",
+          "actionSource": "autonomous_npc",
+          "incomingSpeed": 7.9935020720675345,
+          "incomingHeight": 0.11,
+          "selectionQuality": {
+            "expectedCompletion": 0.9505118917410394,
+            "selectionQuality": 0.9505118917410394,
+            "passerAbility": 88,
+            "pressure": 0.564768348747578,
+            "length": 7.482835931704458,
+            "ballEta": 0.8750000000000004,
+            "receiverEta": 0.215,
+            "defenderEta": 1.4749999999999988,
+            "laneOccupation": 0,
+            "boundaryMargin": 6.341428755956073,
+            "receiverLateBy": 0,
+            "targetPredictedOutOfPlay": false,
+            "executionUncertaintyMetres": 0.2282176795573843,
+            "expectedReceptionQuality": 0.7456296772361738,
+            "expectedRetainedPossession": 0.9422038042255128,
+            "receiverAdjustmentCost": 0.3548022105311748,
+            "utilityAdjustment": -4.209597878448612
+          },
+          "intendedTarget": {
+            "x": 68.80716588084704,
+            "y": 6.341428755956073
+          },
+          "physicalTarget": {
+            "x": 68.82343688091264,
+            "y": 6.484565837368895
+          },
+          "executionQuality": 0.6856202937302766,
+          "passId": "pr174-controlled-a:pass:4:geometry:anchor:5",
+          "passerId": "geometry:anchor:5",
+          "intendedReceiverId": "geometry:anchor:1",
+          "releasedAt": 26.84999999999961,
+          "receiverPositionAtRelease": {
+            "x": 70.48218521899827,
+            "y": 5.9464226569029295
+          },
+          "receiverVelocityAtRelease": {
+            "x": -5.483955402538072,
+            "y": 1.2932363117245416
+          },
+          "predictedReceptionPoint": {
+            "x": 68.80716588084704,
+            "y": 6.341428755956073
+          },
+          "awarenessDelay": 0.16046578093246286,
+          "receiverArrivalEstimate": 0.175,
+          "bestDefenderArrivalEstimate": 1.1253934051428607,
+          "leadDistance": 1.7209647298738482,
+          "intent": "support",
+          "executionType": "first_time",
+          "delivery": "ground",
+          "ballArrivalEstimate": 0.8750000000000004,
+          "meetingErrorSeconds": -0.7000000000000004,
+          "predictionHorizon": 0.30544,
+          "actualContactPoint": {
+            "x": 68.22170515816074,
+            "y": 7.411807984970861
+          },
+          "receptionOutcome": "directional_control",
+          "actualReceiverId": "geometry:anchor:1",
+          "resolvedAt": 27.57499999999957,
+          "finalResult": "completed"
+        }
+      ],
+      "losses": 1,
+      "finalControl": true,
+      "finalHash": "56321671f444255185ddf75d9ebb63caab5552c3ab7d21b4f482e0f0d2292f35"
+    }
+  ]
+}
