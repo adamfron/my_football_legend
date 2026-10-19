@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "method": "Directed factor/transform graph. Edges represent correlated information paths, not proven statistical independence.",
+  "rows": [
+    {
+      "from": "opponent proximity",
+      "to": "passer pressure",
+      "transformation": "1-nearest/14; geometric completion, execution sigma"
+    },
+    {
+      "from": "opponent proximity",
+      "to": "receiver pressure",
+      "transformation": "forecast nearest target /14; ranker evaluatePressure at current receiver differs"
+    },
+    {
+      "from": "lane occupation",
+      "to": "geometric completion",
+      "transformation": "-0.21 per qualifying intervenor"
+    },
+    {
+      "from": "lane occupation",
+      "to": "pass utility",
+      "transformation": "-10L; build-up -7BL; through space laneRisk additionally"
+    },
+    {
+      "from": "defender arrival time",
+      "to": "race risk",
+      "transformation": "clamp((receiverETA-defenderETA+0.35)/1.1)"
+    },
+    {
+      "from": "receiver arrival time",
+      "to": "timing risk",
+      "transformation": "late=max(0,receiverETA-ballETA-0.12), clamp(late/0.7)"
+    },
+    {
+      "from": "defender arrival time",
+      "to": "recovery risk",
+      "transformation": "0.35*clamp((ballETA-defenderETA+0.3)/2)"
+    },
+    {
+      "from": "receiver pressure",
+      "to": "reception quality",
+      "transformation": "-0.2p plus speed capacity and execution adjustment"
+    },
+    {
+      "from": "receiver pressure",
+      "to": "pass utility",
+      "transformation": "-17p; build-up -19Bp; remembered receiver term"
+    },
+    {
+      "from": "execution uncertainty",
+      "to": "execution reach",
+      "transformation": "1-exp(-reachableRadius^2/(2sigma^2))"
+    },
+    {
+      "from": "execution uncertainty",
+      "to": "pass utility",
+      "transformation": "-sigma*(1+receivingPressure)*(0.7+read)"
+    },
+    {
+      "from": "geometric completion",
+      "to": "expected completion",
+      "transformation": "multiply by execution reach"
+    },
+    {
+      "from": "reception quality",
+      "to": "retention quality",
+      "transformation": "clamp((q-0.25)/0.5)"
+    },
+    {
+      "from": "expected completion",
+      "to": "retained possession",
+      "transformation": "Pcompletion*Qretention*(1-recoveryRisk)"
+    },
+    {
+      "from": "retained possession",
+      "to": "pass utility",
+      "transformation": "-(1-R)*(38+38read)*(1-0.3appetite)"
+    },
+    {
+      "from": "match urgency",
+      "to": "appetite",
+      "transformation": "trailing after 75min +0.15; transition +0.18"
+    },
+    {
+      "from": "match urgency",
+      "to": "pass utility",
+      "transformation": "different urgency: pressure*controlAge; +24uPcompletion"
+    },
+    {
+      "from": "field position",
+      "to": "territorial value",
+      "transformation": "70depth+centrality*(5+15finalThird)+10finalThird"
+    },
+    {
+      "from": "forward progression",
+      "to": "pass utility",
+      "transformation": "delta fieldValue *1.05 or 1.5; not forward metres"
+    },
+    {
+      "from": "passing distance",
+      "to": "ball flight time",
+      "transformation": "desired ETA, v0 ceiling, same physical integrator"
+    },
+    {
+      "from": "passing distance",
+      "to": "execution uncertainty",
+      "transformation": "quadratic rangeDemand"
+    },
+    {
+      "from": "passing distance",
+      "to": "pass utility",
+      "transformation": "-0.3length; preparation demand"
+    },
+    {
+      "from": "teammate ability",
+      "to": "reception quality",
+      "transformation": "firstTouch/technique/agility/composure/concentration"
+    },
+    {
+      "from": "teammate ability",
+      "to": "receiver arrival time",
+      "transformation": "pace/agility/fitness via canonical estimator"
+    },
+    {
+      "from": "tactical memory",
+      "to": "pass utility",
+      "transformation": "solution/adaptation/attack-failure terms"
+    },
+    {
+      "from": "tactical memory",
+      "to": "movement support",
+      "transformation": "relief support, compactness, lineDepth"
+    },
+    {
+      "from": "ball controllability",
+      "to": "candidate availability",
+      "transformation": "finite foot reach, first-time contact, carry exposure"
+    },
+    {
+      "from": "preparation time",
+      "to": "pass utility",
+      "transformation": "min(65,55*negative action-specific margin)"
+    },
+    {
+      "from": "preparation time",
+      "to": "live ranking gate",
+      "transformation": "max(physical, perception,0.2) AND global cooldown"
+    },
+    {
+      "from": "ball flight time",
+      "to": "receiver readiness",
+      "transformation": "overlapping awareness/turn/movement"
+    },
+    {
+      "from": "ball flight speed",
+      "to": "reception quality",
+      "transformation": "excess speed above comfortable capacity"
+    }
+  ]
+}

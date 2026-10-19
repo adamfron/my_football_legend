@@ -1,0 +1,6178 @@
+{
+  "version": 1,
+  "method": "Exploratory prescribed variants of one natural state; all canonical scores/forecasts, generated flags and tactical assignments retained. Completion boundary uses a prescribed through label to an existing safe outlet, not a claim this candidate was naturally generated. Defender-distance sweep includes discrete canonical ETA steps. No gameplay source changes or extra execution RNG.",
+  "baseStateHash": "556a9ad45c4d57dc607afa21d58b68166ff2e2a1e9f29480ecdd13b0ef1176ef",
+  "rows": [
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 0,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.026567189467942544,
+        "selectionQuality": 0.026567189467942544,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.2789585278195094,
+        "expectedRetainedPossession": 0.0010742003233036779,
+        "receiverAdjustmentCost": 5.557205806686418,
+        "utilityAdjustment": -53.306492920265676
+      },
+      "defenderAdvantage": -0.8650000000000004,
+      "canonicalScore": -68.63658743300608,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 0.2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.026567189467942544,
+        "selectionQuality": 0.026567189467942544,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.28155453619216386,
+        "expectedRetainedPossession": 0.0011704977956954114,
+        "receiverAdjustmentCost": 5.5175114794958,
+        "utilityAdjustment": -53.258671238170955
+      },
+      "defenderAdvantage": -0.8650000000000004,
+      "canonicalScore": -67.38171706538179,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 0.4,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.026567189467942544,
+        "selectionQuality": 0.026567189467942544,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.28415054456481836,
+        "expectedRetainedPossession": 0.0012667952680871473,
+        "receiverAdjustmentCost": 5.4778171523051835,
+        "utilityAdjustment": -53.21084955607624
+      },
+      "defenderAdvantage": -0.8650000000000004,
+      "canonicalScore": -66.12620706463773,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 0.6000000000000001,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.026567189467942544,
+        "selectionQuality": 0.026567189467942544,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.2867465529374728,
+        "expectedRetainedPossession": 0.001363092740478881,
+        "receiverAdjustmentCost": 5.438122825114566,
+        "utilityAdjustment": -53.16302787398152
+      },
+      "defenderAdvantage": -0.8650000000000004,
+      "canonicalScore": -65.17016319038662,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 0.8,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.026567189467942544,
+        "selectionQuality": 0.026567189467942544,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.28934256131012714,
+        "expectedRetainedPossession": 0.0014593902128706105,
+        "receiverAdjustmentCost": 5.398428497923949,
+        "utilityAdjustment": -53.115206191886806
+      },
+      "defenderAdvantage": -0.8650000000000004,
+      "canonicalScore": -63.91366799204955,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 1,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.029540554833772246,
+        "selectionQuality": 0.029540554833772246,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.27499999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.29193856968278165,
+        "expectedRetainedPossession": 0.0018490412614160534,
+        "receiverAdjustmentCost": 5.358734170733332,
+        "utilityAdjustment": -53.05350890083262
+      },
+      "defenderAdvantage": -0.5900000000000005,
+      "canonicalScore": -62.64229734959709,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 1.2000000000000002,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.031398908187415815,
+        "selectionQuality": 0.031398908187415815,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.37500000000000006,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.2945345780554361,
+        "expectedRetainedPossession": 0.0021359599622989304,
+        "receiverAdjustmentCost": 5.319039843542714,
+        "utilityAdjustment": -52.99667084450241
+      },
+      "defenderAdvantage": -0.4900000000000004,
+      "canonicalScore": -61.67568333853786,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 1.4000000000000001,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.0327926732026485,
+        "selectionQuality": 0.0327926732026485,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.4500000000000001,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.29713058642809054,
+        "expectedRetainedPossession": 0.0024013795410023045,
+        "receiverAdjustmentCost": 5.279345516352097,
+        "utilityAdjustment": -52.940849695537885
+      },
+      "defenderAdvantage": -0.4150000000000003,
+      "canonicalScore": -60.40989250944342,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 1.6,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.03418643821788118,
+        "selectionQuality": 0.03418643821788118,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.5250000000000001,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.299726594800745,
+        "expectedRetainedPossession": 0.0026859607542872228,
+        "receiverAdjustmentCost": 5.23965118916148,
+        "utilityAdjustment": -52.88412220225002
+      },
+      "defenderAdvantage": -0.3400000000000003,
+      "canonicalScore": -59.44294138425815,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 1.8,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.03558020323311386,
+        "selectionQuality": 0.03558020323311386,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.6000000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3023226031733993,
+        "expectedRetainedPossession": 0.002990273472693406,
+        "receiverAdjustmentCost": 5.199956861970863,
+        "utilityAdjustment": -52.82646140979179
+      },
+      "defenderAdvantage": -0.26500000000000024,
+      "canonicalScore": -58.17483285142487,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.036509379909935635,
+        "selectionQuality": 0.036509379909935635,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.6500000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3049186115460538,
+        "expectedRetainedPossession": 0.0032556909306578918,
+        "receiverAdjustmentCost": 5.160262534780245,
+        "utilityAdjustment": -52.7706403611381
+      },
+      "defenderAdvantage": -0.2150000000000002,
+      "canonicalScore": -56.908461066350675,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 2.2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.037438556586757425,
+        "selectionQuality": 0.037438556586757425,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.7000000000000003,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3075146199187084,
+        "expectedRetainedPossession": 0.003534045118364043,
+        "receiverAdjustmentCost": 5.120568207589627,
+        "utilityAdjustment": -52.71420740583761
+      },
+      "defenderAdvantage": -0.16500000000000015,
+      "canonicalScore": -55.94129982179631,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 2.4000000000000004,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.03836773326357921,
+        "selectionQuality": 0.03836773326357921,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.7500000000000003,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3101106282913627,
+        "expectedRetainedPossession": 0.0038255893116072746,
+        "receiverAdjustmentCost": 5.080873880399011,
+        "utilityAdjustment": -52.657150563958325
+      },
+      "defenderAdvantage": -0.1150000000000001,
+      "canonicalScore": -54.67335546240216,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 2.6,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.039296909940401,
+        "selectionQuality": 0.039296909940401,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.8000000000000004,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.31270663666401727,
+        "expectedRetainedPossession": 0.00413057678618305,
+        "receiverAdjustmentCost": 5.0411795532083925,
+        "utilityAdjustment": -52.599457855568225
+      },
+      "defenderAdvantage": -0.06500000000000006,
+      "canonicalScore": -53.79096748510919,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 2.8000000000000003,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.03976149827881188,
+        "selectionQuality": 0.03976149827881188,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.8250000000000004,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3153026450366716,
+        "expectedRetainedPossession": 0.004375154748863307,
+        "receiverAdjustmentCost": 5.001485226017777,
+        "utilityAdjustment": -52.54462251396222
+      },
+      "defenderAdvantage": -0.040000000000000036,
+      "canonicalScore": -52.79474908881946,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 3,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.042021602187501866,
+        "selectionQuality": 0.042021602187501866,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.8750000000000004,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3178986534093261,
+        "expectedRetainedPossession": 0.004857590369983993,
+        "receiverAdjustmentCost": 4.961790898827158,
+        "utilityAdjustment": -52.47853651743046
+      },
+      "defenderAdvantage": 0.010000000000000009,
+      "canonicalScore": -51.83214465136994,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 3.2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.04595315300562002,
+        "selectionQuality": 0.04595315300562002,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.9000000000000005,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.32049466178198055,
+        "expectedRetainedPossession": 0.00554351219897269,
+        "receiverAdjustmentCost": 4.9220965716365415,
+        "utilityAdjustment": -52.40282563380498
+      },
+      "defenderAdvantage": 0.03500000000000003,
+      "canonicalScore": -51.1595109257947,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 3.4000000000000004,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.05442256088739608,
+        "selectionQuality": 0.05442256088739608,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 0.9500000000000005,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3230906701546349,
+        "expectedRetainedPossession": 0.006876589676140291,
+        "receiverAdjustmentCost": 4.882402244445924,
+        "utilityAdjustment": -52.29650432153641
+      },
+      "defenderAdvantage": 0.08500000000000008,
+      "canonicalScore": -50.15527469174317,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 3.6,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.06371444750215391,
+        "selectionQuality": 0.06371444750215391,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.0000000000000004,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3256866785272894,
+        "expectedRetainedPossession": 0.008421002328972768,
+        "receiverAdjustmentCost": 4.842707917255307,
+        "utilityAdjustment": -52.18018686640381
+      },
+      "defenderAdvantage": 0.135,
+      "canonicalScore": -49.44082146118777,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 3.8000000000000003,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.0686735552050089,
+        "selectionQuality": 0.0686735552050089,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.0250000000000004,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3282826868999438,
+        "expectedRetainedPossession": 0.009434792987836603,
+        "receiverAdjustmentCost": 4.8030135900646895,
+        "utilityAdjustment": -52.088967804105344
+      },
+      "defenderAdvantage": 0.15999999999999992,
+      "canonicalScore": -48.45231400826009,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 4,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.07922628841467114,
+        "selectionQuality": 0.07922628841467114,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.0750000000000002,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3308786952725982,
+        "expectedRetainedPossession": 0.011357681640832099,
+        "receiverAdjustmentCost": 4.763319262874073,
+        "utilityAdjustment": -51.95474845376607
+      },
+      "defenderAdvantage": 0.20999999999999974,
+      "canonicalScore": -19.419606809597475,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 4.2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.08482274568263469,
+        "selectionQuality": 0.08482274568263469,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.1,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3334747036452528,
+        "expectedRetainedPossession": 0.012612236025605341,
+        "receiverAdjustmentCost": 4.723624935683454,
+        "utilityAdjustment": -51.85214127970109
+      },
+      "defenderAdvantage": 0.23499999999999965,
+      "canonicalScore": -18.719494099209214,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 4.4,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.09666180269281734,
+        "selectionQuality": 0.09666180269281734,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.15,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.33607071201790717,
+        "expectedRetainedPossession": 0.01496515064114106,
+        "receiverAdjustmentCost": 4.6839306084928385,
+        "utilityAdjustment": -51.69758172360442
+      },
+      "defenderAdvantage": 0.2849999999999995,
+      "canonicalScore": -17.666101138594012,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 4.6000000000000005,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.10936858323227443,
+        "selectionQuality": 0.10936858323227443,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.1999999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.33866672039056167,
+        "expectedRetainedPossession": 0.01761281845596304,
+        "receiverAdjustmentCost": 4.64423628130222,
+        "utilityAdjustment": -51.5290803564466
+      },
+      "defenderAdvantage": 0.3349999999999993,
+      "canonicalScore": -19.298551008028518,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 4.800000000000001,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.11559217512499435,
+        "selectionQuality": 0.11559217512499435,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.2249999999999996,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.34126272876321606,
+        "expectedRetainedPossession": 0.01925239461918812,
+        "receiverAdjustmentCost": 4.604541954111604,
+        "utilityAdjustment": -51.40826167220088
+      },
+      "defenderAdvantage": 0.3599999999999992,
+      "canonicalScore": -18.27998861063576,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 5,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.12705317190428655,
+        "selectionQuality": 0.12705317190428655,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.2749999999999995,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3438587371358705,
+        "expectedRetainedPossession": 0.02197190511149923,
+        "receiverAdjustmentCost": 4.564847626920986,
+        "utilityAdjustment": -51.2363621501185
+      },
+      "defenderAdvantage": 0.40999999999999903,
+      "canonicalScore": -17.50923188309162,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 5.2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.13293730425839176,
+        "selectionQuality": 0.13293730425839176,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.2999999999999994,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.34645474550852495,
+        "expectedRetainedPossession": 0.02373753066635372,
+        "receiverAdjustmentCost": 4.525153299730368,
+        "utilityAdjustment": -51.10958133617674
+      },
+      "defenderAdvantage": 0.43499999999999894,
+      "canonicalScore": -16.78471570724529,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 5.4,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.14499839697030611,
+        "selectionQuality": 0.14499839697030611,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.3499999999999992,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3490507538811794,
+        "expectedRetainedPossession": 0.026839362243187066,
+        "receiverAdjustmentCost": 4.485458972539751,
+        "utilityAdjustment": -50.91959804659663
+      },
+      "defenderAdvantage": 0.48499999999999877,
+      "canonicalScore": -15.995693180054992,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 5.6000000000000005,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.15743031194628698,
+        "selectionQuality": 0.15743031194628698,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.399999999999999,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.35164676225383384,
+        "expectedRetainedPossession": 0.030184303460420323,
+        "receiverAdjustmentCost": 4.445764645349134,
+        "utilityAdjustment": -50.7181156836161
+      },
+      "defenderAdvantage": 0.5349999999999986,
+      "canonicalScore": -15.19506844524896,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 5.800000000000001,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.424999999999999,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3542427706264883,
+        "expectedRetainedPossession": 0.03235268868972111,
+        "receiverAdjustmentCost": 4.406070318158517,
+        "utilityAdjustment": -50.57228435793169
+      },
+      "defenderAdvantage": 0.5599999999999985,
+      "canonicalScore": -14.45132627721981,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 6,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.4749999999999988,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3568387789991428,
+        "expectedRetainedPossession": 0.03346459540169804,
+        "receiverAdjustmentCost": 4.366375990967899,
+        "utilityAdjustment": -50.47642441140235
+      },
+      "defenderAdvantage": 0.6099999999999983,
+      "canonicalScore": -13.75884276418261,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 6.2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.5249999999999986,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3594347873717972,
+        "expectedRetainedPossession": 0.034591383018939756,
+        "receiverAdjustmentCost": 4.326681663777282,
+        "utilityAdjustment": -50.37986059882465
+      },
+      "defenderAdvantage": 0.6599999999999981,
+      "canonicalScore": -13.06563301058494,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 6.4,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.5499999999999985,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.36203079574445163,
+        "expectedRetainedPossession": 0.03557250509677998,
+        "receiverAdjustmentCost": 4.286987336586665,
+        "utilityAdjustment": -50.29018675871672
+      },
+      "defenderAdvantage": 0.684999999999998,
+      "canonicalScore": -12.379292050991626,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 6.6000000000000005,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.5999999999999983,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3646268041171061,
+        "expectedRetainedPossession": 0.03672533429823513,
+        "receiverAdjustmentCost": 4.2472930093960475,
+        "utilityAdjustment": -50.19239118055441
+      },
+      "defenderAdvantage": 0.7349999999999979,
+      "canonicalScore": -11.684809287246818,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 6.800000000000001,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3672228124897605,
+        "expectedRetainedPossession": 0.037725057507656375,
+        "receiverAdjustmentCost": 4.207598682205431,
+        "utilityAdjustment": -50.10183750788603
+      },
+      "defenderAdvantage": 0.7599999999999978,
+      "canonicalScore": -10.697549398774612,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 7,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.674999999999998,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.369818820862415,
+        "expectedRetainedPossession": 0.038903928293324966,
+        "receiverAdjustmentCost": 4.167904355014813,
+        "utilityAdjustment": -50.002810164139106
+      },
+      "defenderAdvantage": 0.8099999999999976,
+      "canonicalScore": -10.001797774844004,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 7.2,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.4999999999999987,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.37241482923506947,
+        "expectedRetainedPossession": 0.03851883383487818,
+        "receiverAdjustmentCost": 4.1282100278241955,
+        "utilityAdjustment": -49.97775829544207
+      },
+      "defenderAdvantage": 0.6349999999999982,
+      "canonicalScore": -9.380004463206259,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 7.4,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.5249999999999986,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3750108376077238,
+        "expectedRetainedPossession": 0.039514836817983186,
+        "receiverAdjustmentCost": 4.088515700633579,
+        "utilityAdjustment": -49.8873805892858
+      },
+      "defenderAdvantage": 0.6599999999999981,
+      "canonicalScore": -8.692868994002175,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 7.6000000000000005,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.5499999999999985,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3776068459803783,
+        "expectedRetainedPossession": 0.040518280253720645,
+        "receiverAdjustmentCost": 4.048821373442961,
+        "utilityAdjustment": -49.79665095010534
+      },
+      "defenderAdvantage": 0.684999999999998,
+      "canonicalScore": -8.50699434200859,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 7.800000000000001,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.5999999999999983,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.3802028543530327,
+        "expectedRetainedPossession": 0.04171575217097021,
+        "receiverAdjustmentCost": 4.0091270462523445,
+        "utilityAdjustment": -49.69674377379797
+      },
+      "defenderAdvantage": 0.7349999999999979,
+      "canonicalScore": -8.40708716570122,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "defenderDistanceFromThroughTarget",
+      "value": 8,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_16",
+        "target": {
+          "x": 53.37617282508684,
+          "y": 17.23282614669165
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.16377787002937366,
+        "selectionQuality": 0.16377787002937366,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 24.74634727805785,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.8650000000000004,
+        "defenderEta": 1.6249999999999982,
+        "laneOccupation": 0,
+        "boundaryMargin": 17.23282614669165,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.778602903343209,
+        "expectedReceptionQuality": 0.38279886272568714,
+        "expectedRetainedPossession": 0.042737796738288675,
+        "receiverAdjustmentCost": 3.969432719061727,
+        "utilityAdjustment": -49.60513430205706
+      },
+      "defenderAdvantage": 0.7599999999999978,
+      "canonicalScore": -8.315477693960311,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 5,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.013468318258716484,
+        "selectionQuality": 0.013468318258716484,
+        "passerAbility": 25.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 16.969014290714036,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.007759638546757643,
+        "receiverAdjustmentCost": 16.969014290714036,
+        "utilityAdjustment": -65.42914328612099
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -24.123100408046724,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 10,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.03095044129367147,
+        "selectionQuality": 0.03095044129367147,
+        "passerAbility": 28,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 11.150502270806578,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.017831791073551602,
+        "receiverAdjustmentCost": 11.150502270806578,
+        "utilityAdjustment": -58.610552891534866
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -17.05089949417374,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 15,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.05622615384481124,
+        "selectionQuality": 0.05622615384481124,
+        "passerAbility": 30.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 8.221788170098684,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.032394143227775285,
+        "receiverAdjustmentCost": 8.221788170098684,
+        "utilityAdjustment": -54.72945601904341
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -12.91458252069841,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 20,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.09093579029809297,
+        "selectionQuality": 0.09093579029809297,
+        "passerAbility": 33,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 6.40599663934201,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.052391757465359866,
+        "receiverAdjustmentCost": 6.40599663934201,
+        "utilityAdjustment": -51.80435713274458
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -9.73231517942395,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 25,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.13666737030596185,
+        "selectionQuality": 0.13666737030596185,
+        "passerAbility": 35.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.158301829231586,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.0787395556252029,
+        "receiverAdjustmentCost": 5.158301829231586,
+        "utilityAdjustment": -49.19812030129931
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -6.866633571088208,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 30,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.1946909432056152,
+        "selectionQuality": 0.1946909432056152,
+        "passerAbility": 38,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.246236681223011,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.11216926408946218,
+        "receiverAdjustmentCost": 4.246236681223011,
+        "utilityAdjustment": -46.622745810913784
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -4.029275683226995,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 35,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.2655581856865283,
+        "selectionQuality": 0.2655581856865283,
+        "passerAbility": 40.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.5514508512157295,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.15299872593421956,
+        "receiverAdjustmentCost": 3.5514508512157295,
+        "utilityAdjustment": -43.93419782548062
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -1.076091743952734,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 40,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.34860021764614263,
+        "selectionQuality": 0.34860021764614263,
+        "passerAbility": 43,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.0064948556158493,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.20084257249448878,
+        "receiverAdjustmentCost": 3.0064948556158493,
+        "utilityAdjustment": -41.07718432577832
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 2.0480721245812354,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 45,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.44142309345072234,
+        "selectionQuality": 0.44142309345072234,
+        "passerAbility": 45.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.5697636395975225,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.25432155563686926,
+        "receiverAdjustmentCost": 2.5697636395975225,
+        "utilityAdjustment": -38.0715941673262
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 5.322832653970806,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 50,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.5396035427058521,
+        "selectionQuality": 0.5396035427058521,
+        "passerAbility": 48,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.214038458609699,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.31088725180944327,
+        "receiverAdjustmentCost": 2.214038458609699,
+        "utilityAdjustment": -35.00829922058806
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 8.656404451805315,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 55,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.6368725187758882,
+        "selectionQuality": 0.6368725187758882,
+        "passerAbility": 50.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.920681429767833,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.3669278117084657,
+        "receiverAdjustmentCost": 1.920681429767833,
+        "utilityAdjustment": -31.666629065161978
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 12.26816321508593,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 60,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7260386802856144,
+        "selectionQuality": 0.7260386802856144,
+        "passerAbility": 53,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.6764566232690874,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.41830001502490455,
+        "receiverAdjustmentCost": 1.6764566232690874,
+        "utilityAdjustment": -27.00886591653047
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 17.194341526751266,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 65,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.800634111789588,
+        "selectionQuality": 0.800634111789588,
+        "passerAbility": 55.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.471679747307102,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.4612774361543497,
+        "receiverAdjustmentCost": 1.471679747307102,
+        "utilityAdjustment": -23.11172983499497
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 21.35688353144714,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 70,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.8567729544599726,
+        "selectionQuality": 0.8567729544599726,
+        "passerAbility": 58,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.299086586666745,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.4936212759112959,
+        "receiverAdjustmentCost": 1.299086586666745,
+        "utilityAdjustment": -20.158686805711802
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 24.57152071172662,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 75,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.8942986097923877,
+        "selectionQuality": 0.8942986097923877,
+        "passerAbility": 60.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.153112117396148,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.5152413116140682,
+        "receiverAdjustmentCost": 1.153112117396148,
+        "utilityAdjustment": -18.151383647840454
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 26.83657390671067,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 80,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.916450198825069,
+        "selectionQuality": 0.916450198825069,
+        "passerAbility": 63,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.0294151684377368,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.5280037308581103,
+        "receiverAdjustmentCost": 1.0294151684377368,
+        "utilityAdjustment": -16.925557245471165
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 28.316975196196196,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 85,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.9281621315276616,
+        "selectionQuality": 0.9281621315276616,
+        "passerAbility": 65.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.9245556401164327,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.5347514452134087,
+        "receiverAdjustmentCost": 0.9245556401164327,
+        "utilityAdjustment": -16.23443130059811
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 29.260519963933298,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 90,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.9340656836182742,
+        "selectionQuality": 0.9340656836182742,
+        "passerAbility": 68,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8357696737258853,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.538152718444791,
+        "receiverAdjustmentCost": 0.8357696737258853,
+        "utilityAdjustment": -15.846896403544328
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 29.89927410012878,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "passingSkillCompletionBoundary",
+      "value": 95,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "through"
+      },
+      "forecast": {
+        "expectedCompletion": 0.93732912495103,
+        "selectionQuality": 0.93732912495103,
+        "passerAbility": 70.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.7608095310669377,
+        "expectedReceptionQuality": 0.5380700618184355,
+        "expectedRetainedPossession": 0.5400329179377266,
+        "receiverAdjustmentCost": 0.7608095310669377,
+        "utilityAdjustment": -15.604460800083924
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 30.3923836902583,
+      "generated": false,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "returnPassAge",
+      "value": 0,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 2.1249999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5794044541552653,
+        "expectedRetainedPossession": 0.4978035407829175,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -26.04395479657307
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -8.386663769259084,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "returnPassAge",
+      "value": 0.025,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 2.1249999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5794044541552653,
+        "expectedRetainedPossession": 0.4978035407829175,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -26.04395479657307
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -8.324163769259087,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "returnPassAge",
+      "value": 5,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 2.1249999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5794044541552653,
+        "expectedRetainedPossession": 0.4978035407829175,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -26.04395479657307
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 4.11333623074092,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "returnPassAge",
+      "value": 11.975,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 2.1249999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5794044541552653,
+        "expectedRetainedPossession": 0.4978035407829175,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -26.04395479657307
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 11.113336230740916,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "returnPassAge",
+      "value": 12,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 2.1249999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5794044541552653,
+        "expectedRetainedPossession": 0.4978035407829175,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -26.04395479657307
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 21.61333623074092,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "returnPassAge",
+      "value": 12.025,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 22.298143597791857,
+        "ballEta": 2.1249999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5794044541552653,
+        "expectedRetainedPossession": 0.4978035407829175,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -26.04395479657307
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 21.61333623074092,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "carrierDepthSupportBoundary",
+      "value": 61.99,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.451291414430479,
+        "selectionQuality": 0.451291414430479,
+        "passerAbility": 46.5,
+        "pressure": 0.840807922295346,
+        "length": 35.13893748147492,
+        "ballEta": 2.1749999999999963,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.297599965843583,
+        "expectedReceptionQuality": 0.6382046215088755,
+        "expectedRetainedPossession": 0.3503868254583783,
+        "receiverAdjustmentCost": 3.297599965843583,
+        "utilityAdjustment": -34.35900099560756
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -26.574405668086047,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "pivot",
+          "target": {
+            "x": 70.99000000000001,
+            "y": 26
+          },
+          "weight": 0.9480592119407942
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "escape",
+          "target": {
+            "x": 57.99,
+            "y": 44
+          },
+          "weight": 0.9480592119407942
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_18",
+          "role": "width_run",
+          "target": {
+            "x": 77.99000000000001,
+            "y": 59
+          },
+          "weight": 0.8
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "carrierDepthSupportBoundary",
+      "value": 62,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.45102341034719395,
+        "selectionQuality": 0.45102341034719395,
+        "passerAbility": 46.5,
+        "pressure": 0.840808440151218,
+        "length": 35.14890844718238,
+        "ballEta": 2.1749999999999963,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.299017880644645,
+        "expectedReceptionQuality": 0.6382054469300688,
+        "expectedRetainedPossession": 0.35017948917951247,
+        "receiverAdjustmentCost": 3.299017880644645,
+        "utilityAdjustment": -34.37036569413872
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -26.603357945744897,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 58,
+            "y": 44
+          },
+          "weight": 0.9480594665690737
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 71,
+            "y": 47
+          },
+          "weight": 0.85
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_18",
+          "role": "width_run",
+          "target": {
+            "x": 78,
+            "y": 59
+          },
+          "weight": 0.8
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "carrierDepthSupportBoundary",
+      "value": 62.01,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.45075645978640233,
+        "selectionQuality": 0.45075645978640233,
+        "passerAbility": 46.5,
+        "pressure": 0.8408057530611885,
+        "length": 35.1588794293819,
+        "ballEta": 2.1749999999999963,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.300431831734398,
+        "expectedReceptionQuality": 0.6382062718830871,
+        "expectedRetainedPossession": 0.34997296956179585,
+        "receiverAdjustmentCost": 3.300431831734398,
+        "utilityAdjustment": -34.38168699734566
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": -26.63227268127446,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 58.01,
+            "y": 44
+          },
+          "weight": 0.9480581453344449
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 71.00999999999999,
+            "y": 47
+          },
+          "weight": 0.85
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_18",
+          "role": "width_run",
+          "target": {
+            "x": 78.00999999999999,
+            "y": 59
+          },
+          "weight": 0.8
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "wingerWidthOverlapBoundary",
+      "value": 19.99,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 26.739039881108575,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5813827812756891,
+        "expectedRetainedPossession": 0.5007932339487229,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -25.90254246466478
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 21.754748562649205,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "wingerWidthOverlapBoundary",
+      "value": 20,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 26.739039881108575,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5813827812756891,
+        "expectedRetainedPossession": 0.5007932339487229,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -25.90254246466478
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 21.754748562649205,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "wingerWidthOverlapBoundary",
+      "value": 20.01,
+      "action": {
+        "type": "pass",
+        "actorId": "footballer_club_vistula_nova_2026_4",
+        "receiverId": "footballer_club_vistula_nova_2026_5",
+        "target": {
+          "x": 26.953114929722293,
+          "y": 36.67611881260047
+        },
+        "intent": "support"
+      },
+      "forecast": {
+        "expectedCompletion": 0.7556114292071427,
+        "selectionQuality": 0.7556114292071427,
+        "passerAbility": 46.5,
+        "pressure": 0.5359429843061522,
+        "length": 26.739039881108575,
+        "ballEta": 2.1499999999999964,
+        "receiverEta": 0.065,
+        "defenderEta": 2.9249999999999936,
+        "laneOccupation": 0,
+        "boundaryMargin": 26.953114929722293,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.100998425724309,
+        "expectedReceptionQuality": 0.5813827812756891,
+        "expectedRetainedPossession": 0.5007932339487229,
+        "receiverAdjustmentCost": 2.100998425724309,
+        "utilityAdjustment": -25.90254246466478
+      },
+      "defenderAdvantage": 2.8599999999999937,
+      "canonicalScore": 21.754748562649205,
+      "generated": true,
+      "support": [
+        {
+          "playerId": "footballer_club_vistula_nova_2026_11",
+          "role": "pivot",
+          "target": {
+            "x": 38.02091521218464,
+            "y": 42
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_10",
+          "role": "escape",
+          "target": {
+            "x": 25.05109668362493,
+            "y": 24.888409546979386
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_12",
+          "role": "third_man",
+          "target": {
+            "x": 46.99935701829872,
+            "y": 21.012934916331552
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_16",
+          "role": "width_run",
+          "target": {
+            "x": 45.051096683624934,
+            "y": 9
+          },
+          "weight": 0.7990203049998764
+        },
+        {
+          "playerId": "footballer_club_vistula_nova_2026_5",
+          "role": "rest_defence",
+          "weight": 0.52,
+          "target": {
+            "x": 13.072654877510852,
+            "y": 44
+          }
+        }
+      ],
+      "flanks": []
+    },
+    {
+      "factor": "eligibleWingerWidth",
+      "value": 19.99,
+      "prescribedFixture": "PR174 overlap timed_run",
+      "inputHash": "47068a95e71954f8851e38f084606f0f659d7fcb9af8a1aef9cdf8da8dc53393",
+      "actualWingerWidth": 19.99,
+      "actualOutsideClearance": 11.704699910719626,
+      "flanks": [
+        {
+          "playerId": "geometry:anchor:1",
+          "relationship": "provide_width"
+        }
+      ],
+      "support": [
+        {
+          "playerId": "geometry:anchor:5",
+          "role": "escape",
+          "target": {
+            "x": 65,
+            "y": 24.01
+          },
+          "weight": 0.8276174993769894
+        },
+        {
+          "playerId": "geometry:anchor:6",
+          "role": "third_man",
+          "target": {
+            "x": 78,
+            "y": 21
+          },
+          "weight": 0.8276174993769894
+        }
+      ]
+    },
+    {
+      "factor": "eligibleWingerWidth",
+      "value": 20,
+      "prescribedFixture": "PR174 overlap timed_run",
+      "inputHash": "af98bfe6126f64b8ef230299926eb75a57052c0cb7114dce3f87069e77d45f9c",
+      "actualWingerWidth": 20,
+      "actualOutsideClearance": 11.704699910719626,
+      "flanks": [
+        {
+          "playerId": "geometry:anchor:1",
+          "relationship": "overlap"
+        }
+      ],
+      "support": [
+        {
+          "playerId": "geometry:anchor:5",
+          "role": "escape",
+          "target": {
+            "x": 65,
+            "y": 24
+          },
+          "weight": 0.827551664755882
+        },
+        {
+          "playerId": "geometry:anchor:6",
+          "role": "third_man",
+          "target": {
+            "x": 78,
+            "y": 21
+          },
+          "weight": 0.827551664755882
+        }
+      ]
+    },
+    {
+      "factor": "eligibleWingerWidth",
+      "value": 20.01,
+      "prescribedFixture": "PR174 overlap timed_run",
+      "inputHash": "158d31358f5c92bdef8d60f5c6f814725f2c7fba0d1a4ee6bfe77645225af8bb",
+      "actualWingerWidth": 20.01,
+      "actualOutsideClearance": 11.704699910719626,
+      "flanks": [
+        {
+          "playerId": "geometry:anchor:1",
+          "relationship": "overlap"
+        }
+      ],
+      "support": [
+        {
+          "playerId": "geometry:anchor:5",
+          "role": "escape",
+          "target": {
+            "x": 65,
+            "y": 23.99
+          },
+          "weight": 0.827485207584084
+        },
+        {
+          "playerId": "geometry:anchor:6",
+          "role": "third_man",
+          "target": {
+            "x": 78,
+            "y": 21
+          },
+          "weight": 0.827485207584084
+        }
+      ]
+    },
+    {
+      "factor": "eligibleOutsideSpace",
+      "value": 4.99,
+      "prescribedFixture": "PR174 overlap timed_run",
+      "inputHash": "01fc50c8865d887f6c12876cd1e41988a91264068bda7330872731a57f9c8c24",
+      "actualWingerWidth": 23,
+      "actualOutsideClearance": 4.989999999999995,
+      "flanks": [
+        {
+          "playerId": "geometry:anchor:1",
+          "relationship": "underlap"
+        }
+      ],
+      "support": [
+        {
+          "playerId": "geometry:anchor:5",
+          "role": "escape",
+          "target": {
+            "x": 65,
+            "y": 21
+          },
+          "weight": 0.64
+        }
+      ]
+    },
+    {
+      "factor": "eligibleOutsideSpace",
+      "value": 5,
+      "prescribedFixture": "PR174 overlap timed_run",
+      "inputHash": "c09138b39bf91b58881eb6ce8459d0ba66ebe68761bfd10a727a91c1fe781cc7",
+      "actualWingerWidth": 23,
+      "actualOutsideClearance": 5,
+      "flanks": [
+        {
+          "playerId": "geometry:anchor:1",
+          "relationship": "underlap"
+        }
+      ],
+      "support": [
+        {
+          "playerId": "geometry:anchor:5",
+          "role": "escape",
+          "target": {
+            "x": 65,
+            "y": 21
+          },
+          "weight": 0.64
+        }
+      ]
+    },
+    {
+      "factor": "eligibleOutsideSpace",
+      "value": 5.01,
+      "prescribedFixture": "PR174 overlap timed_run",
+      "inputHash": "e468e28c53ef85e36f9553b78dc6fbb5d633ff0d139247a472f93933edbdb3f9",
+      "actualWingerWidth": 23,
+      "actualOutsideClearance": 5.010000000000005,
+      "flanks": [
+        {
+          "playerId": "geometry:anchor:1",
+          "relationship": "overlap"
+        }
+      ],
+      "support": [
+        {
+          "playerId": "geometry:anchor:5",
+          "role": "escape",
+          "target": {
+            "x": 65,
+            "y": 21
+          },
+          "weight": 0.64
+        }
+      ]
+    }
+  ]
+}

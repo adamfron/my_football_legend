@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "method": "Twelve new seed-specific full initial states; six development and six validation, no mirrors. Same predeclared stress strata as PR175 to reduce distribution drift; they are not a random league population. Generated without advancing a tick or reading a match outcome. Recheck hashes and freeze candidate before PR177 validation; if tuning after validation, retire this holdout.",
+  "fixtureFactorySha256": "25fc79f5ec3791c70d0cfd1bee129bdc8f56cf1aeb1508782e86ffb19ad61113",
+  "designs": [
+    {
+      "design": {
+        "id": "pr177-dev-youth",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-4-2"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "8298facd00a689d6d683b006e22543c9a9185bbc2831a03357a6ecfea8edaea9",
+      "sessionHash": "9d22db5848e0ce3c31303318512463adf7b50851e13e18a9637a2c1f57f0fe04",
+      "players": 22,
+      "formations": [
+        "4-3-3",
+        "4-4-2"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-dev-balanced",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_14",
+          "pro_15"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "64c154db5fdf1b68c6aef86c22fe7fac982ba8a63cc650cae89a55708831b722",
+      "sessionHash": "8cf471bbbb5c33b59ab03f845cbb90a871a0b69d49a726046a0befea0a53d0b5",
+      "players": 22,
+      "formations": [
+        "4-3-3",
+        "4-2-3-1"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "sessionHash": "8c3ce3b6ebca1a4a89bc006a8b87fe4a32744bc576e59ce7d87157104eaedab3",
+      "players": 22,
+      "formations": [
+        "4-4-2",
+        "3-5-2"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-dev-central",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-central",
+        "youth": false,
+        "clubs": [
+          "pro_19",
+          "pro_22"
+        ],
+        "formations": [
+          "3-5-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "b659d5cd86d436c021defe6dc91d8c4fb0593e84d929b3d505b33d0eb1d40f65",
+      "sessionHash": "a15a2abd21972207fb15d356e604b645415124b12e5be327e028b6e3e821308e",
+      "players": 22,
+      "formations": [
+        "3-5-2",
+        "4-3-3"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-dev-wide",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-wide",
+        "youth": false,
+        "clubs": [
+          "pro_28",
+          "pro_29"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "direct",
+          "possession"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "b563f66bb41d75b83446859cf3a260304b4c983e0a0bf91e0930852d4ab0765e",
+      "sessionHash": "65a3bd99e81f882b33f3051e8a3ad5ff9ad6cd6ff97f5b7e0b5dc7babc5c8d12",
+      "players": 22,
+      "formations": [
+        "4-2-3-1",
+        "4-4-2"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-dev-keepers",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_35",
+          "pro_36"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "6af503b8aadb151d435fcc5f19561d59b9fab77b09cc9f803de91d64a04d8255",
+      "sessionHash": "bd0cbefffd26848884b5c82efe103e38d27cd744f45902184dd7a2a2012af33b",
+      "players": 22,
+      "formations": [
+        "3-4-2-1",
+        "4-2-3-1"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-youth",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "0682ee30ea2f6bf9969b8d24209ed9da0c7edc708686f0663c90f6e639062a33",
+      "sessionHash": "1261e77bff59ca793aa83c2d5c0f1ef803a34cce7d1f72c0d76eb42161494d44",
+      "players": 22,
+      "formations": [
+        "4-2-3-1",
+        "3-5-2"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-balanced",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_17",
+          "pro_18"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "e42060401042019ec3076931c42cb8eda3933fe7ad6cee9bb4fb99ffa96cab23",
+      "sessionHash": "3a76cf377d263672cce36287e93cf26979271edb1cb5073e82c1e37940f27179",
+      "players": 22,
+      "formations": [
+        "4-4-2",
+        "4-3-3"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-strength",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-strength",
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_51"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "possession",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "bec0335beabe50f2615b7af51c9f255425b6c4600ad7fa62ae1a81c0c99d3ba7",
+      "sessionHash": "bdb4a276182d55e3dbeb6ec253851dab5766f4dece3e20bbea70d3db1c62a4a1",
+      "players": 22,
+      "formations": [
+        "4-2-3-1",
+        "3-4-2-1"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-central",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-central",
+        "youth": false,
+        "clubs": [
+          "pro_26",
+          "pro_27"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "possession"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "0ee4f41f104c370cada89edba89e28b52cba0e8e68c0c8efc364ff6d0c748eed",
+      "sessionHash": "d58c970d845e9fe752276b203ae339b6042f2bdf3ce3333cbb1a0bffd0a5fd38",
+      "players": 22,
+      "formations": [
+        "4-3-3",
+        "3-5-2"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-wide",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-wide",
+        "youth": false,
+        "clubs": [
+          "pro_42",
+          "pro_43"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "direct",
+          "pressing"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "8a02f3a9f65aaa80f0713e25114f7846ea225fbee2c617cce61d78c63f96d63d",
+      "sessionHash": "681b80e098f692dfd48c953cec6f98e548c9a183012ea91d7f920f9c275caefa",
+      "players": 22,
+      "formations": [
+        "4-4-2",
+        "4-2-3-1"
+      ]
+    },
+    {
+      "design": {
+        "id": "pr177-val-keepers",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_46",
+          "pro_47"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "counter_attacking",
+          "possession"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "97aa6e07065443b6f2113dd660f7e49758f2ed155569ccd91390ba99ecfb9895",
+      "sessionHash": "4bfb52e262ed7082580c1db859067c3ebeb122e2ae40eaa141ffc147be9f418e",
+      "players": 22,
+      "formations": [
+        "3-5-2",
+        "3-4-2-1"
+      ]
+    }
+  ]
+}

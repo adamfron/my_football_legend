@@ -1,0 +1,2027 @@
+{
+  "version": 1,
+  "manifest": {
+    "baseCommit": "52748e299115cd4952d176e18d2609f4b358e797",
+    "normalizedProductionHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+    "node": "v24.19.0"
+  },
+  "method": "28 prescribed direct releases in straight/diagonal geometry, all requested distances, actual canonical execution error and launch; then physical-only trajectory integration (no defender intervention). Same seed-derived release branch per case; no diagnostic RNG draws. Planned vs actual includes nominal-height and sampled-target effects, so speed ceiling is isolated by the explicit velocities, not by asserting every miss is caused by the ceiling.",
+  "rows": [
+    {
+      "metres": 5,
+      "geometry": "straight",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 15,
+          "y": 9
+        },
+        "velocity": {
+          "x": 9.844759411090543,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 9.844759411090543,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5000000000000001,
+        "predictedArrivalSpeed": 8.244759411090541,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 15,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.14140350877192998,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 9.842591460169787,
+      "actualReleaseVelocity": {
+        "x": 9.840133900497545,
+        "y": 0.2199351542755638,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 14.996550224018026,
+        "y": 9.111677041743247
+      },
+      "intendedTarget": {
+        "x": 15,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9562980462031533,
+        "selectionQuality": 0.9562980462031533,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.5000000000000001,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.3499999999999956,
+        "laneOccupation": 0,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.3335560271942435,
+        "expectedReceptionQuality": 0.5960336023778308,
+        "expectedRetainedPossession": 0.6618225157491168,
+        "receiverAdjustmentCost": 0.35406927415962086,
+        "utilityAdjustment": -16.372904081561817
+      },
+      "actualNearestAt": 0.5500000000000002,
+      "actualNearestMissMetres": 0.13148720329372254,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.4903537819050356
+    },
+    {
+      "metres": 5,
+      "geometry": "diagonal",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 14,
+          "y": 12
+        },
+        "velocity": {
+          "x": 7.875807528872435,
+          "y": 5.906855646654326,
+          "z": 0
+        },
+        "speed": 9.844759411090543,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5000000000000001,
+        "predictedArrivalSpeed": 8.244759411090541,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 14,
+            "y": 12
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.14140350877192998,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 9.842557208676602,
+      "actualReleaseVelocity": {
+        "x": 7.734894947554423,
+        "y": 6.086651998953845,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 13.92755393191743,
+        "y": 12.090624262229007
+      },
+      "intendedTarget": {
+        "x": 14,
+        "y": 12
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9544573216571478,
+        "selectionQuality": 0.9544573216571478,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.5000000000000001,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.4499999999999953,
+        "laneOccupation": 0,
+        "boundaryMargin": 12,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.3463693888258981,
+        "expectedReceptionQuality": 0.6083333333333334,
+        "expectedRetainedPossession": 0.6840277471876227,
+        "receiverAdjustmentCost": 0.3463693888258981,
+        "utilityAdjustment": -15.314783316047272
+      },
+      "actualNearestAt": 0.5500000000000002,
+      "actualNearestMissMetres": 0.13511323884456614,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.49127126339891997
+    },
+    {
+      "metres": 5,
+      "geometry": "straight",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 15,
+          "y": 9
+        },
+        "velocity": {
+          "x": 5.6551330120773855,
+          "y": 0,
+          "z": 5.331552869474332
+        },
+        "speed": 7.772128754999329,
+        "elevation": 0.7559546501667311,
+        "predictedArrivalTime": 0.9000000000000005,
+        "predictedArrivalSpeed": 6.513503962809299,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 15,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.5414035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 7.77032345975526,
+      "actualReleaseVelocity": {
+        "x": 5.651919520163285,
+        "y": 0.14656089038570108,
+        "z": 5.330314466542243
+      },
+      "physicalTarget": {
+        "x": 14.995998052573533,
+        "y": 9.12955207878283
+      },
+      "intendedTarget": {
+        "x": 15,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9599461704393683,
+        "selectionQuality": 0.9599461704393683,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.9000000000000005,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.3499999999999956,
+        "laneOccupation": 0,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.38694503399280433,
+        "expectedReceptionQuality": 0.5756336023778308,
+        "expectedRetainedPossession": 0.6251814591379492,
+        "receiverAdjustmentCost": 0.41074163305620065,
+        "utilityAdjustment": -18.16684259888976
+      },
+      "actualNearestAt": 0.9000000000000005,
+      "actualNearestMissMetres": 0.12961340763665244,
+      "actualNearestHeight": 0.7815691697118163,
+      "missAtPlannedTimeMetres": 0.12961340763665244
+    },
+    {
+      "metres": 5,
+      "geometry": "diagonal",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 14,
+          "y": 12
+        },
+        "velocity": {
+          "x": 4.524106409661912,
+          "y": 3.393079807246434,
+          "z": 5.331552869474333
+        },
+        "speed": 7.772128754999334,
+        "elevation": 0.7559546501667308,
+        "predictedArrivalTime": 0.9000000000000005,
+        "predictedArrivalSpeed": 6.513503962809303,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 14,
+            "y": 12
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.5414035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 7.7703083580553844,
+      "actualReleaseVelocity": {
+        "x": 4.43057581206631,
+        "y": 3.512199891726513,
+        "z": 5.330304107023781
+      },
+      "physicalTarget": {
+        "x": 13.916387172538085,
+        "y": 12.104592988993979
+      },
+      "intendedTarget": {
+        "x": 14,
+        "y": 12
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9599001882108151,
+        "selectionQuality": 0.9599001882108151,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 5,
+        "ballEta": 0.9000000000000005,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.4499999999999953,
+        "laneOccupation": 0,
+        "boundaryMargin": 12,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.3997583956244589,
+        "expectedReceptionQuality": 0.5879333333333334,
+        "expectedRetainedPossession": 0.6487645405387498,
+        "receiverAdjustmentCost": 0.3997583956244589,
+        "utilityAdjustment": -17.040006638255857
+      },
+      "actualNearestAt": 0.9000000000000005,
+      "actualNearestMissMetres": 0.1339063523679527,
+      "actualNearestHeight": 0.7815601007902123,
+      "missAtPlannedTimeMetres": 0.1339063523679527
+    },
+    {
+      "metres": 10,
+      "geometry": "straight",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 9
+        },
+        "velocity": {
+          "x": 17.941176470588236,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 17.941176470588236,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5750000000000002,
+        "predictedArrivalSpeed": 16.101176470588275,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.21640350877193004,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 17.937826638752817,
+      "actualReleaseVelocity": {
+        "x": 17.935385362819957,
+        "y": 0.2959331159127195,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 19.994905652731454,
+        "y": 9.164915529453749
+      },
+      "intendedTarget": {
+        "x": 20,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9163401488532338,
+        "selectionQuality": 0.9163401488532338,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 0.5750000000000002,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.7499999999999978,
+        "laneOccupation": 0,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.4925682841214232,
+        "expectedReceptionQuality": 0.3394962381639621,
+        "expectedRetainedPossession": 0.16401799240193904,
+        "receiverAdjustmentCost": 0.698547128079177,
+        "utilityAdjustment": -40.28154619859628
+      },
+      "actualNearestAt": 0.6000000000000002,
+      "actualNearestMissMetres": 0.2501656837963346,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.26972615406064493
+    },
+    {
+      "metres": 10,
+      "geometry": "diagonal",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 18,
+          "y": 15
+        },
+        "velocity": {
+          "x": 14.352941176470589,
+          "y": 10.76470588235294,
+          "z": 0
+        },
+        "speed": 17.941176470588236,
+        "elevation": 0,
+        "predictedArrivalTime": 0.5750000000000002,
+        "predictedArrivalSpeed": 16.101176470588275,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 18,
+            "y": 15
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.21640350877193004,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 17.937643456628294,
+      "actualReleaseVelocity": {
+        "x": 14.154112866692953,
+        "y": 11.019080802591336,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 17.887624110052162,
+        "y": 15.140573289736633
+      },
+      "intendedTarget": {
+        "x": 18,
+        "y": 15
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.8885236033735573,
+        "selectionQuality": 0.8885236033735573,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 0.5750000000000002,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.999999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 15,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.537276478215994,
+        "expectedReceptionQuality": 0.3873870599811281,
+        "expectedRetainedPossession": 0.24414329118266198,
+        "receiverAdjustmentCost": 0.6120853982921138,
+        "utilityAdjustment": -36.39946755109836
+      },
+      "actualNearestAt": 0.6000000000000002,
+      "actualNearestMissMetres": 0.26039409538547875,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.2790219949568181
+    },
+    {
+      "metres": 10,
+      "geometry": "straight",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 20,
+          "y": 9
+        },
+        "velocity": {
+          "x": 8.99186211443742,
+          "y": 0,
+          "z": 6.3764346150493845
+        },
+        "speed": 11.023270961246258,
+        "elevation": 0.6168298572773323,
+        "predictedArrivalTime": 1.15,
+        "predictedArrivalSpeed": 9.78429923184151,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 20,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.7914035087719298,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 11.020992261339797,
+      "actualReleaseVelocity": {
+        "x": 8.988273179538217,
+        "y": 0.17636704359424565,
+        "z": 6.375116496224949
+      },
+      "physicalTarget": {
+        "x": 19.99394233846532,
+        "y": 9.196100188420958
+      },
+      "intendedTarget": {
+        "x": 20,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9583211402172235,
+        "selectionQuality": 0.9583211402172235,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.15,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.7499999999999978,
+        "laneOccupation": 0,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.585710355151779,
+        "expectedReceptionQuality": 0.5042986980562566,
+        "expectedRetainedPossession": 0.4873996365540545,
+        "receiverAdjustmentCost": 0.8306387148074097,
+        "utilityAdjustment": -25.13801452064736
+      },
+      "actualNearestAt": 1.15,
+      "actualNearestMissMetres": 0.196181306859039,
+      "actualNearestHeight": 0.7052816919843934,
+      "missAtPlannedTimeMetres": 0.196181306859039
+    },
+    {
+      "metres": 10,
+      "geometry": "diagonal",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 18,
+          "y": 15
+        },
+        "velocity": {
+          "x": 7.193489691549934,
+          "y": 5.3951172686624504,
+          "z": 6.3764346150493845
+        },
+        "speed": 11.023270961246254,
+        "elevation": 0.6168298572773325,
+        "predictedArrivalTime": 1.15,
+        "predictedArrivalSpeed": 9.78429923184151,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 18,
+            "y": 15
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.7914035087719298,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 11.020905474410107,
+      "actualReleaseVelocity": {
+        "x": 7.076443928580569,
+        "y": 5.544621587345245,
+        "z": 6.375066294140238
+      },
+      "physicalTarget": {
+        "x": 17.868142663258926,
+        "y": 15.164943028350718
+      },
+      "intendedTarget": {
+        "x": 18,
+        "y": 15
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9559984628728863,
+        "selectionQuality": 0.9559984628728863,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 10,
+        "ballEta": 1.15,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.999999999999997,
+        "laneOccupation": 0,
+        "boundaryMargin": 15,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.6304185492463499,
+        "expectedReceptionQuality": 0.5600858756056026,
+        "expectedRetainedPossession": 0.5928832408750982,
+        "receiverAdjustmentCost": 0.7181963187509254,
+        "utilityAdjustment": -20.028830946633203
+      },
+      "actualNearestAt": 1.15,
+      "actualNearestMissMetres": 0.21115948916848912,
+      "actualNearestHeight": 0.7052267638656936,
+      "missAtPlannedTimeMetres": 0.21115948916848912
+    },
+    {
+      "metres": 15,
+      "geometry": "straight",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 9
+        },
+        "velocity": {
+          "x": 18.41176470588235,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 18.41176470588235,
+        "elevation": 0,
+        "predictedArrivalTime": 0.8500000000000004,
+        "predictedArrivalSpeed": 15.691764705882402,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.4914035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 18.408444587861123,
+      "actualReleaseVelocity": {
+        "x": 18.40619429369812,
+        "y": 0.2878259317508854,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 24.99275773464042,
+        "y": 9.23444849030881
+      },
+      "intendedTarget": {
+        "x": 25,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.8975687502801791,
+        "selectionQuality": 0.8975687502801791,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 0.8500000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0500000000000003,
+        "laneOccupation": 0,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.7002487332077286,
+        "expectedReceptionQuality": 0.31471699226951655,
+        "expectedRetainedPossession": 0.11414282150092049,
+        "receiverAdjustmentCost": 1.2417985290280948,
+        "utilityAdjustment": -43.23148406728826
+      },
+      "actualNearestAt": 0.8750000000000004,
+      "actualNearestMissMetres": 0.26155334846128386,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.5586081464347195
+    },
+    {
+      "metres": 15,
+      "geometry": "diagonal",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 22,
+          "y": 18
+        },
+        "velocity": {
+          "x": 14.729411764705882,
+          "y": 11.04705882352941,
+          "z": 0
+        },
+        "speed": 18.41176470588235,
+        "elevation": 0,
+        "predictedArrivalTime": 0.8500000000000004,
+        "predictedArrivalSpeed": 15.691764705882406,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 22,
+            "y": 18
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.4914035087719303,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 18.408142261346367,
+      "actualReleaseVelocity": {
+        "x": 14.5256793161703,
+        "y": 11.307711612777736,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 21.831691591858466,
+        "y": 18.210540416042743
+      },
+      "intendedTarget": {
+        "x": 22,
+        "y": 18
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.8387992118581686,
+        "selectionQuality": 0.8387992118581686,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 0.8500000000000004,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.7749999999999977,
+        "laneOccupation": 0,
+        "boundaryMargin": 18,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8046935051851197,
+        "expectedReceptionQuality": 0.41917924651420607,
+        "expectedRetainedPossession": 0.28381483727774975,
+        "receiverAdjustmentCost": 0.9581581666444258,
+        "utilityAdjustment": -34.90125816565781
+      },
+      "actualNearestAt": 0.8750000000000004,
+      "actualNearestMissMetres": 0.293210636980873,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.5738855724505251
+    },
+    {
+      "metres": 15,
+      "geometry": "straight",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 25,
+          "y": 9
+        },
+        "velocity": {
+          "x": 11.892812175607547,
+          "y": 0,
+          "z": 7.272714816352969
+        },
+        "speed": 13.940278413442076,
+        "elevation": 0.5488484217856531,
+        "predictedArrivalTime": 1.3249999999999993,
+        "predictedArrivalSpeed": 12.276410291417704,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 25,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.9664035087719292,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 13.937456941981047,
+      "actualReleaseVelocity": {
+        "x": 11.888286755716859,
+        "y": 0.22443614273834492,
+        "z": 7.271242840206584
+      },
+      "physicalTarget": {
+        "x": 24.991257440851527,
+        "y": 9.283016389489786
+      },
+      "intendedTarget": {
+        "x": 25,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.8905058181300682,
+        "selectionQuality": 0.8905058181300682,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.3249999999999993,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0500000000000003,
+        "laneOccupation": 0,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.8453109165096607,
+        "expectedReceptionQuality": 0.43325978088301687,
+        "expectedRetainedPossession": 0.29354502961364043,
+        "receiverAdjustmentCost": 1.499047128417571,
+        "utilityAdjustment": -35.03084299452288
+      },
+      "actualNearestAt": 1.3249999999999993,
+      "actualNearestMissMetres": 0.2831311568036214,
+      "actualNearestHeight": 0.7682199365366029,
+      "missAtPlannedTimeMetres": 0.2831311568036214
+    },
+    {
+      "metres": 15,
+      "geometry": "diagonal",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 22,
+          "y": 18
+        },
+        "velocity": {
+          "x": 9.514249740486035,
+          "y": 7.1356873053645264,
+          "z": 7.272714816352968
+        },
+        "speed": 13.940278413442073,
+        "elevation": 0.5488484217856532,
+        "predictedArrivalTime": 1.3249999999999993,
+        "predictedArrivalSpeed": 12.2764102914177,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 22,
+            "y": 18
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 0.9664035087719292,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 13.937280720535663,
+      "actualReleaseVelocity": {
+        "x": 9.358762245760106,
+        "y": 7.334284398171751,
+        "z": 7.271150904573823
+      },
+      "physicalTarget": {
+        "x": 21.801350617318768,
+        "y": 18.248494559114185
+      },
+      "intendedTarget": {
+        "x": 22,
+        "y": 18
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.9149924376845164,
+        "selectionQuality": 0.9149924376845164,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 15,
+        "ballEta": 1.3249999999999993,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.7749999999999977,
+        "laneOccupation": 0,
+        "boundaryMargin": 18,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 0.9497556884870519,
+        "expectedReceptionQuality": 0.5463350326347256,
+        "expectedRetainedPossession": 0.5422886277635366,
+        "receiverAdjustmentCost": 1.1308854407014493,
+        "utilityAdjustment": -22.87046677033393
+      },
+      "actualNearestAt": 1.3249999999999993,
+      "actualNearestMissMetres": 0.31812214929869986,
+      "actualNearestHeight": 0.7681066069544449,
+      "missAtPlannedTimeMetres": 0.31812214929869986
+    },
+    {
+      "metres": 25,
+      "geometry": "straight",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 35,
+          "y": 9
+        },
+        "velocity": {
+          "x": 19.56137931034483,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 19.56137931034483,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 15.001379310344904,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 35,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 19.557670850934898,
+      "actualReleaseVelocity": {
+        "x": 19.554876950869993,
+        "y": 0.33057003772594584,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 34.986951858044975,
+        "y": 9.42239783145262
+      },
+      "intendedTarget": {
+        "x": 35,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.4976470120005776,
+        "selectionQuality": 0.4976470120005776,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0000000000000004,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.2616142078577166,
+        "expectedReceptionQuality": 0.43756840394326557,
+        "expectedRetainedPossession": 0.1629999618850158,
+        "receiverAdjustmentCost": 1.9822312191738605,
+        "utilityAdjustment": -41.72888813074346
+      },
+      "actualNearestAt": 1.4499999999999988,
+      "actualNearestMissMetres": 0.4225618929079251,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.5654569907850967
+    },
+    {
+      "metres": 25,
+      "geometry": "diagonal",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 24
+        },
+        "velocity": {
+          "x": 15.649103448275865,
+          "y": 11.736827586206898,
+          "z": 0
+        },
+        "speed": 19.56137931034483,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 15.001379310344904,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 24
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 19.557146420789184,
+      "actualReleaseVelocity": {
+        "x": 15.389911611348477,
+        "y": 12.067833141002097,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 29.664489326327974,
+        "y": 24.419697135762146
+      },
+      "intendedTarget": {
+        "x": 30,
+        "y": 24
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.6748990097748662,
+        "selectionQuality": 0.6748990097748662,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.8499999999999974,
+        "laneOccupation": 0,
+        "boundaryMargin": 24,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.6040984702150314,
+        "expectedReceptionQuality": 0.4487639754231275,
+        "expectedRetainedPossession": 0.2682912203839692,
+        "receiverAdjustmentCost": 2.3261986517525313,
+        "utilityAdjustment": -37.12628420710054
+      },
+      "actualNearestAt": 1.4499999999999988,
+      "actualNearestMissMetres": 0.5372967418371363,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.6548145584489476
+    },
+    {
+      "metres": 25,
+      "geometry": "straight",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 35,
+          "y": 9
+        },
+        "velocity": {
+          "x": 16.68388987308189,
+          "y": 0,
+          "z": 8.795413895889151
+        },
+        "speed": 18.860315132497767,
+        "elevation": 0.48515447322981964,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 16.012405669860662,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 35,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 18.856304422921006,
+      "actualReleaseVelocity": {
+        "x": 16.67675861595786,
+        "y": 0.3457323976086277,
+        "z": 8.79354352148151
+      },
+      "physicalTarget": {
+        "x": 34.98400009510722,
+        "y": 9.517953065919547
+      },
+      "intendedTarget": {
+        "x": 35,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.38654427215357023,
+        "selectionQuality": 0.38654427215357023,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.0000000000000004,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.5470177598221455,
+        "expectedReceptionQuality": 0.4209335994850172,
+        "expectedRetainedPossession": 0.11075554311895527,
+        "receiverAdjustmentCost": 2.430653428787089,
+        "utilityAdjustment": -44.687465767526746
+      },
+      "actualNearestAt": 1.6249999999999982,
+      "actualNearestMissMetres": 0.5181776208845787,
+      "actualNearestHeight": 0.7746879307517014,
+      "missAtPlannedTimeMetres": 0.5181776208845787
+    },
+    {
+      "metres": 25,
+      "geometry": "diagonal",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 30,
+          "y": 24
+        },
+        "velocity": {
+          "x": 13.347111898465526,
+          "y": 10.010333923849144,
+          "z": 8.795413895889151
+        },
+        "speed": 18.86031513249779,
+        "elevation": 0.4851544732298192,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 16.01240566986068,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 30,
+            "y": 24
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 18.855964348858627,
+      "actualReleaseVelocity": {
+        "x": 13.086388308444487,
+        "y": 10.34264057411061,
+        "z": 8.793384929638641
+      },
+      "physicalTarget": {
+        "x": 29.60479477529762,
+        "y": 24.494370265573036
+      },
+      "intendedTarget": {
+        "x": 30,
+        "y": 24
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.6396959697237157,
+        "selectionQuality": 0.6396959697237157,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 25,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.8499999999999974,
+        "laneOccupation": 0,
+        "boundaryMargin": 24,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 1.8895020221794607,
+        "expectedReceptionQuality": 0.425354609036736,
+        "expectedRetainedPossession": 0.22140271538388215,
+        "receiverAdjustmentCost": 2.740079326856,
+        "utilityAdjustment": -39.79401663948694
+      },
+      "actualNearestAt": 1.6249999999999982,
+      "actualNearestMissMetres": 0.6329113350246789,
+      "actualNearestHeight": 0.7744586951054161,
+      "missAtPlannedTimeMetres": 0.6329113350246789
+    },
+    {
+      "metres": 35,
+      "geometry": "straight",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 45,
+          "y": 9
+        },
+        "velocity": {
+          "x": 26.45793103448276,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 26.45793103448276,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 21.897931034482855,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 45,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 26.452508467834992,
+      "actualReleaseVelocity": {
+        "x": 26.44757695383674,
+        "y": 0.5107616976299456,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 44.97913259423169,
+        "y": 9.675525065174673
+      },
+      "intendedTarget": {
+        "x": 45,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.4018351344609308,
+        "selectionQuality": 0.4018351344609308,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.999999999999997,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.017652451144207,
+        "expectedReceptionQuality": 0.35885525520789463,
+        "expectedRetainedPossession": 0.08748373222648655,
+        "receiverAdjustmentCost": 2.017652451144207,
+        "utilityAdjustment": -45.337443962845484
+      },
+      "actualNearestAt": 1.4499999999999988,
+      "actualNearestMissMetres": 0.6758033726991619,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 0.8698444635745266
+    },
+    {
+      "metres": 35,
+      "geometry": "diagonal",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 38,
+          "y": 30
+        },
+        "velocity": {
+          "x": 21.166344827586208,
+          "y": 15.874758620689654,
+          "z": 0
+        },
+        "speed": 26.45793103448276,
+        "elevation": 0,
+        "predictedArrivalTime": 1.424999999999999,
+        "predictedArrivalSpeed": 21.89793103448285,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 38,
+            "y": 30
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.0664035087719288,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 26.451725703437813,
+      "actualReleaseVelocity": {
+        "x": 20.726175031909865,
+        "y": 16.435311412825396,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 37.411288855010326,
+        "y": 30.73643076281071
+      },
+      "intendedTarget": {
+        "x": 38,
+        "y": 30
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.3128332149080629,
+        "selectionQuality": 0.3128332149080629,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.424999999999999,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.424999999999999,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.814666480624774,
+        "expectedReceptionQuality": 0.18922475287640245,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 4.983004841512318,
+        "utilityAdjustment": -52.70537527724843
+      },
+      "actualNearestAt": 1.4499999999999988,
+      "actualNearestMissMetres": 0.9428207646997089,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 1.087796501208037
+    },
+    {
+      "metres": 35,
+      "geometry": "straight",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 45,
+          "y": 9
+        },
+        "velocity": {
+          "x": 20.901506050251385,
+          "y": 0,
+          "z": 10.090898394097525
+        },
+        "speed": 23.20989413092389,
+        "elevation": 0.4497796403641978,
+        "predictedArrivalTime": 1.8749999999999973,
+        "predictedArrivalSpeed": 18.818163048191423,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 45,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.5164035087719272,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 23.20464713137356,
+      "actualReleaseVelocity": {
+        "x": 20.890836926761843,
+        "y": 0.4983819436049348,
+        "z": 10.088617171312212
+      },
+      "physicalTarget": {
+        "x": 44.97422601534061,
+        "y": 9.834362108072112
+      },
+      "intendedTarget": {
+        "x": 45,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.41682044622454584,
+        "selectionQuality": 0.41682044622454584,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.8749999999999973,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.999999999999997,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.4920655639302587,
+        "expectedReceptionQuality": 0.4862078576566563,
+        "expectedRetainedPossession": 0.19088208305178372,
+        "receiverAdjustmentCost": 2.4920655639302587,
+        "utilityAdjustment": -40.966510958702266
+      },
+      "actualNearestAt": 1.8749999999999973,
+      "actualNearestMissMetres": 0.8347543265548076,
+      "actualNearestHeight": 0.6992276542172257,
+      "missAtPlannedTimeMetres": 0.8347543265548076
+    },
+    {
+      "metres": 35,
+      "geometry": "diagonal",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 38,
+          "y": 30
+        },
+        "velocity": {
+          "x": 16.721204840201107,
+          "y": 12.540903630150828,
+          "z": 10.090898394097525
+        },
+        "speed": 23.20989413092389,
+        "elevation": 0.4497796403641978,
+        "predictedArrivalTime": 1.8749999999999973,
+        "predictedArrivalSpeed": 18.818163048191426,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 38,
+            "y": 30
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.5164035087719272,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 23.2043626303387,
+      "actualReleaseVelocity": {
+        "x": 16.314265696021938,
+        "y": 13.05792782915752,
+        "z": 10.08849347962195
+      },
+      "physicalTarget": {
+        "x": 37.312061366159,
+        "y": 30.860556449794014
+      },
+      "intendedTarget": {
+        "x": 38,
+        "y": 30
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.24078863298268657,
+        "selectionQuality": 0.24078863298268657,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 35,
+        "ballEta": 1.8749999999999973,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.424999999999999,
+        "laneOccupation": 0,
+        "boundaryMargin": 30,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.2890795934108255,
+        "expectedReceptionQuality": 0.3026711630115774,
+        "expectedRetainedPossession": 0.022036047626800885,
+        "receiverAdjustmentCost": 5.822892215083158,
+        "utilityAdjustment": -52.57912260253602
+      },
+      "actualNearestAt": 1.8749999999999973,
+      "actualNearestMissMetres": 1.1017352824028241,
+      "actualNearestHeight": 0.6990304600011369,
+      "missAtPlannedTimeMetres": 1.1017352824028241
+    },
+    {
+      "metres": 45,
+      "geometry": "straight",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 55,
+          "y": 9
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 24.80000000000011,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 55,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 29.993426120376633,
+      "actualReleaseVelocity": {
+        "x": 29.986104130097882,
+        "y": 0.6626986776944376,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 54.96929994320057,
+        "y": 9.99383019147497
+      },
+      "intendedTarget": {
+        "x": 55,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.26926826748293564,
+        "selectionQuality": 0.26926826748293564,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.574999999999995,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 2.9683634630672007,
+        "expectedReceptionQuality": 0.31069823046212236,
+        "expectedRetainedPossession": 0.032688214711631275,
+        "receiverAdjustmentCost": 2.9683634630672007,
+        "utilityAdjustment": -48.96411678128706
+      },
+      "actualNearestAt": 1.6499999999999981,
+      "actualNearestMissMetres": 1.0046594265667101,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 1.101772233312313
+    },
+    {
+      "metres": 45,
+      "geometry": "diagonal",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 46,
+          "y": 36
+        },
+        "velocity": {
+          "x": 24,
+          "y": 18,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 1.6249999999999982,
+        "predictedArrivalSpeed": 24.800000000000164,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 46,
+            "y": 36
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.266403508771928,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 29.992900991034663,
+      "actualReleaseVelocity": {
+        "x": 23.377153085704563,
+        "y": 18.79049822291952,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 45.05743189758987,
+        "y": 37.1790776386119
+      },
+      "intendedTarget": {
+        "x": 46,
+        "y": 36
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.09817282087120344,
+        "selectionQuality": 0.09817282087120344,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 1.6249999999999982,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.3499999999999992,
+        "laneOccupation": 1,
+        "boundaryMargin": 32,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.506479733123489,
+        "expectedReceptionQuality": 0.18171975067946197,
+        "expectedRetainedPossession": 0,
+        "receiverAdjustmentCost": 6.81211377538014,
+        "utilityAdjustment": -54.69910401516436
+      },
+      "actualNearestAt": 1.6499999999999981,
+      "actualNearestMissMetres": 1.5177232961584768,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 1.5784034958011288
+    },
+    {
+      "metres": 45,
+      "geometry": "straight",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 55,
+          "y": 9
+        },
+        "velocity": {
+          "x": 25.074859178523617,
+          "y": 0,
+          "z": 11.238022744237528
+        },
+        "speed": 27.478022454732617,
+        "elevation": 0.4213384642487886,
+        "predictedArrivalTime": 2.0749999999999966,
+        "predictedArrivalSpeed": 21.13931364983118,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 55,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.7164035087719265,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 27.47155449483475,
+      "actualReleaseVelocity": {
+        "x": 25.05954742920458,
+        "y": 0.6867912756377543,
+        "z": 11.235377463611497
+      },
+      "physicalTarget": {
+        "x": 54.96193520155171,
+        "y": 10.232243515947482
+      },
+      "intendedTarget": {
+        "x": 55,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.2696862933176423,
+        "selectionQuality": 0.2696862933176423,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 2.0749999999999966,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.574999999999995,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 3.680454328834001,
+        "expectedReceptionQuality": 0.439889269038377,
+        "expectedRetainedPossession": 0.10242106621551288,
+        "receiverAdjustmentCost": 3.680454328834001,
+        "utilityAdjustment": -46.44375197626353
+      },
+      "actualNearestAt": 2.0749999999999966,
+      "actualNearestMissMetres": 1.2328847945204913,
+      "actualNearestHeight": 0.7066005831292989,
+      "missAtPlannedTimeMetres": 1.2328847945204913
+    },
+    {
+      "metres": 45,
+      "geometry": "diagonal",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 46,
+          "y": 36
+        },
+        "velocity": {
+          "x": 20.05988734281889,
+          "y": 15.044915507114165,
+          "z": 11.23802274423753
+        },
+        "speed": 27.478022454732617,
+        "elevation": 0.42133846424878874,
+        "predictedArrivalTime": 2.0749999999999966,
+        "predictedArrivalSpeed": 21.139313649831188,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 46,
+            "y": 36
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.7164035087719265,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 27.471907877743522,
+      "actualReleaseVelocity": {
+        "x": 19.45600777567984,
+        "y": 15.809254551275508,
+        "z": 11.235521990939581
+      },
+      "physicalTarget": {
+        "x": 44.90849210958727,
+        "y": 37.3653894532006
+      },
+      "intendedTarget": {
+        "x": 46,
+        "y": 36
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.07449920249376091,
+        "selectionQuality": 0.07449920249376091,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 45,
+        "ballEta": 2.0749999999999966,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.3499999999999992,
+        "laneOccupation": 1,
+        "boundaryMargin": 32,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.218570598890289,
+        "expectedReceptionQuality": 0.310910789255718,
+        "expectedRetainedPossession": 0.00744767282194764,
+        "receiverAdjustmentCost": 7.888529133549346,
+        "utilityAdjustment": -55.520316215351315
+      },
+      "actualNearestAt": 2.0749999999999966,
+      "actualNearestMissMetres": 1.748002237108313,
+      "actualNearestHeight": 0.7068441440955759,
+      "missAtPlannedTimeMetres": 1.748002237108313
+    },
+    {
+      "metres": 60,
+      "geometry": "straight",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 70,
+          "y": 9
+        },
+        "velocity": {
+          "x": 30,
+          "y": 0,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.274999999999996,
+        "predictedArrivalSpeed": 22.720000000000155,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 70,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.9164035087719258,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 29.992986619676266,
+      "actualReleaseVelocity": {
+        "x": 29.98239719796244,
+        "y": 0.7969345215845768,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 69.95077586562043,
+        "y": 10.59349642950962
+      },
+      "intendedTarget": {
+        "x": 70,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.202376858221654,
+        "selectionQuality": 0.202376858221654,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.274999999999996,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.7499999999999942,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 4.759441422145134,
+        "expectedReceptionQuality": 0.43512680189069236,
+        "expectedRetainedPossession": 0.07493076107852174,
+        "receiverAdjustmentCost": 4.759441422145134,
+        "utilityAdjustment": -48.91942184398827
+      },
+      "actualNearestAt": 2.274999999999996,
+      "actualNearestMissMetres": 1.5944500355415783,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 1.5944500355415783
+    },
+    {
+      "metres": 60,
+      "geometry": "diagonal",
+      "delivery": "ground",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 58,
+          "y": 45
+        },
+        "velocity": {
+          "x": 24,
+          "y": 18,
+          "z": 0
+        },
+        "speed": 30,
+        "elevation": 0,
+        "predictedArrivalTime": 2.274999999999996,
+        "predictedArrivalSpeed": 22.720000000000198,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 58,
+            "y": 45
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.9164035087719258,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 29.994391583639917,
+      "actualReleaseVelocity": {
+        "x": 23.157254465072867,
+        "y": 19.063186829924106,
+        "z": 0
+      },
+      "physicalTarget": {
+        "x": 56.30585056182597,
+        "y": 47.119246040588735
+      },
+      "intendedTarget": {
+        "x": 58,
+        "y": 45
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.04236375943489887,
+        "selectionQuality": 0.04236375943489887,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.274999999999996,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.5999999999999983,
+        "laneOccupation": 1,
+        "boundaryMargin": 23,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 8.09983924608963,
+        "expectedReceptionQuality": 0.32278375240048585,
+        "expectedRetainedPossession": 0.005114578764867459,
+        "receiverAdjustmentCost": 11.604899625565656,
+        "utilityAdjustment": -59.6814545067941
+      },
+      "actualNearestAt": 2.274999999999996,
+      "actualNearestMissMetres": 2.7129578555402674,
+      "actualNearestHeight": 0.11,
+      "missAtPlannedTimeMetres": 2.7129578555402674
+    },
+    {
+      "metres": 60,
+      "geometry": "straight",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 70,
+          "y": 9
+        },
+        "velocity": {
+          "x": 31.26229076380621,
+          "y": 0,
+          "z": 12.766892433164776
+        },
+        "speed": 33.76868913950855,
+        "elevation": 0.3877095241019392,
+        "predictedArrivalTime": 2.3249999999999957,
+        "predictedArrivalSpeed": 23.951615914879007,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 70,
+            "y": 9
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.9664035087719256,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 29.999999999999996,
+      "actualReleaseVelocity": {
+        "x": 27.758154346979023,
+        "y": 0.9178004724620956,
+        "z": 11.342068133371352
+      },
+      "physicalTarget": {
+        "x": 69.93878010457654,
+        "y": 10.981826313490798
+      },
+      "intendedTarget": {
+        "x": 70,
+        "y": 9
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.14295857457455372,
+        "selectionQuality": 0.14295857457455372,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.3249999999999957,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 2.7499999999999942,
+        "laneOccupation": 1,
+        "boundaryMargin": 9,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 5.919301777681417,
+        "expectedReceptionQuality": 0.38453777575129633,
+        "expectedRetainedPossession": 0.038466657295672564,
+        "receiverAdjustmentCost": 5.919301777681417,
+        "utilityAdjustment": -51.90747002734285
+      },
+      "actualNearestAt": 2.7249999999999943,
+      "actualNearestMissMetres": 1.982767407595359,
+      "actualNearestHeight": 1.0125114737628638,
+      "missAtPlannedTimeMetres": 6.693698600351306
+    },
+    {
+      "metres": 60,
+      "geometry": "diagonal",
+      "delivery": "lofted",
+      "intent": "direct",
+      "plan": {
+        "target": {
+          "x": 58,
+          "y": 45
+        },
+        "velocity": {
+          "x": 25.00983261104495,
+          "y": 18.75737445828371,
+          "z": 12.766892433164776
+        },
+        "speed": 33.76868913950853,
+        "elevation": 0.3877095241019395,
+        "predictedArrivalTime": 2.3249999999999957,
+        "predictedArrivalSpeed": 23.95161591487899,
+        "receiverReadiness": {
+          "contactPoint": {
+            "x": 58,
+            "y": 45
+          },
+          "awareAt": 0.35859649122807014,
+          "readyAt": 0.35859649122807014,
+          "earliestUsefulContactTime": 0.47859649122807013,
+          "preferredArrivalSpeed": 7.066,
+          "maximumComfortableArrivalSpeed": 11.568,
+          "preparationMargin": 1.9664035087719256,
+          "movementTime": 0,
+          "orientationTime": 0
+        }
+      },
+      "actualReleaseSpeed": 30,
+      "actualReleaseVelocity": {
+        "x": 21.327706509637213,
+        "y": 17.79006535954099,
+        "z": 11.342068133371361
+      },
+      "physicalTarget": {
+        "x": 56.06325602260215,
+        "y": 47.422712491147344
+      },
+      "intendedTarget": {
+        "x": 58,
+        "y": 45
+      },
+      "selectionForecast": {
+        "expectedCompletion": 0.03263570405974772,
+        "selectionQuality": 0.03263570405974772,
+        "passerAbility": 46.5,
+        "pressure": 0,
+        "length": 60,
+        "ballEta": 2.3249999999999957,
+        "receiverEta": 0.35859649122807014,
+        "defenderEta": 1.5999999999999983,
+        "laneOccupation": 1,
+        "boundaryMargin": 23,
+        "receiverLateBy": 0,
+        "targetPredictedOutOfPlay": false,
+        "executionUncertaintyMetres": 9.259699601625913,
+        "expectedReceptionQuality": 0.2721947262610915,
+        "expectedRetainedPossession": 0.0011888238750757429,
+        "receiverAdjustmentCost": 13.26666877884479,
+        "utilityAdjustment": -61.67836862795288
+      },
+      "actualNearestAt": 2.7249999999999943,
+      "actualNearestMissMetres": 3.10136537241999,
+      "actualNearestHeight": 1.012511473762862,
+      "missAtPlannedTimeMetres": 7.063037072972471
+    }
+  ]
+}

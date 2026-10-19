@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "baseCommit": "52748e299115cd4952d176e18d2609f4b358e797",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "tests": 1894,
+  "productionDiffEmpty": true,
+  "sourceHash": "9f6123b5e9861d07b945253c0f1a98934326fb66da8246ca85fd96735c761d21",
+  "log": {
+    "path": "docs/performance/PR176-verify.log.gz",
+    "sha256": "a9e9a25761a1a76cdedb76d3c33f216cb129db1395769562add258a9a4325768"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "Windows",
+    "fixedDt": 0.025,
+    "dependencyLockfileSha256": "24070de53eb5592c0211d34a55e69534c2316d31221effe11b49ea1ae70ed3d3"
+  },
+  "notes": [
+    "Unchanged lint + main1833 + integration52 + contract4 + full-career5 + TypeScript and production build. Existing workers, limits, assertions, goldens and CI unchanged.",
+    "Workspace reused dependencies matching the existing unchanged lockfile; temporary directory and npm PATH set locally only.",
+    "Research is opt-in; no production benchmark, gameplay tuning, extra football RNG, save schema or UI change.",
+    "Any post-verify edits are documents, receipt finalisation or offline research helpers checked separately by ESLint; measured production source remains byte-identical."
+  ]
+}

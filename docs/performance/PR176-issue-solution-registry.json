@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "method": "Ranked implementation hypotheses, each with source, proposal, confidence and decisive regression risk.",
+  "rows": [
+    {
+      "id": "R1",
+      "priority": 1,
+      "modules": [
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/passDecision.ts"
+      ],
+      "existing": "Confirmed overlapping geometric risk paths and incompatible action-value scales",
+      "proposed": "Unify terminal/continuation state value and one turnover consequence; compare risk-channel ablations",
+      "confidence": "High source; medium causal",
+      "risk": "May increase central turnovers; pair 8s continuations with counterattack value",
+      "reproduction": "Frozen scores / candidate gates / sensitivity / pass flight receipts; PR177 paired continuations and independent heldout",
+      "packages": [
+        "B preferred",
+        "A fallback",
+        "C high risk"
+      ]
+    },
+    {
+      "id": "R2",
+      "priority": 2,
+      "modules": [
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/passReception.ts",
+        "src/core/matchSimulation/spacePassing.ts"
+      ],
+      "existing": "Lead-before-through gates, speed/waypoint discontinuities and nearest-three space shortlist",
+      "proposed": "Generate prospective receiver-run corridors independently; keep physical/offside evaluation",
+      "confidence": "High source and selected-state; population frequency unknown",
+      "risk": "Candidate/CPU explosion; cap three runners and bounded corridors",
+      "reproduction": "Frozen scores / candidate gates / sensitivity / pass flight receipts; PR177 paired continuations and independent heldout",
+      "packages": [
+        "B preferred",
+        "A fallback",
+        "C high risk"
+      ]
+    },
+    {
+      "id": "R3",
+      "priority": 3,
+      "modules": [
+        "src/core/matchSimulation/tacticalPositioning.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/combinationPlay.ts"
+      ],
+      "existing": "Blended support, later overrides and independent short-lived combination values",
+      "proposed": "Explicit movement authority and two-action continuation value; preserve two available nonparticipant cover",
+      "confidence": "High source; medium connection to scarcity",
+      "risk": "Uncovered transitions; one coordinated run budget",
+      "reproduction": "Frozen scores / candidate gates / sensitivity / pass flight receipts; PR177 paired continuations and independent heldout",
+      "packages": [
+        "B preferred",
+        "A fallback",
+        "C high risk"
+      ]
+    },
+    {
+      "id": "R4",
+      "priority": 4,
+      "modules": [
+        "src/core/matchSimulation/passLaunchPlan.ts",
+        "src/core/matchSimulation/receiverReadiness.ts",
+        "src/core/matchSimulation/passReception.ts"
+      ],
+      "existing": "Intent deadline raises arrival speed and can collapse reception forecast",
+      "proposed": "Evaluate feasible speed envelope then optimise tactical arrival among <=3 plans",
+      "confidence": "High quantitative; real-world speed realism not established",
+      "risk": "Slow interception-prone passes or long-pass dominance",
+      "reproduction": "Frozen scores / candidate gates / sensitivity / pass flight receipts; PR177 paired continuations and independent heldout",
+      "packages": [
+        "B preferred",
+        "A fallback",
+        "C high risk"
+      ]
+    },
+    {
+      "id": "R5",
+      "priority": 5,
+      "modules": [
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/matchSimulation.ts",
+        "src/core/matchSimulation/onBallPreparation.ts"
+      ],
+      "existing": "Global hold/carry clock gates routine reevaluation despite physical readiness",
+      "proposed": "Hybrid readiness, latched semantic interrupts and finite physical commitment",
+      "confidence": "High source; opportunity-loss estimate inconclusive (zero in 4 selected 3s windows)",
+      "risk": "Machine-gun passing and CPU churn; minimum perception latency and contact ownership",
+      "reproduction": "Frozen scores / candidate gates / sensitivity / pass flight receipts; PR177 paired continuations and independent heldout",
+      "packages": [
+        "B preferred",
+        "A fallback",
+        "C high risk"
+      ]
+    },
+    {
+      "id": "R6",
+      "priority": 6,
+      "modules": [
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/shootingOpportunity.ts",
+        "src/core/matchSimulation/shootingOptions.ts"
+      ],
+      "existing": "Shot value is terminal-only and highly nonlinear; carry has repeated skill/progression offsets",
+      "proposed": "Common state-value scale; preserve shot eligibility/error/GK; compare moderate-range risk tradeoffs",
+      "confidence": "High source; strong PR175 scarcity; attribution not isolated",
+      "risk": "Low-quality shot spam and inflated conversion if also changing accuracy",
+      "reproduction": "Frozen scores / candidate gates / sensitivity / pass flight receipts; PR177 paired continuations and independent heldout",
+      "packages": [
+        "B preferred",
+        "A fallback",
+        "C high risk"
+      ]
+    },
+    {
+      "id": "R7",
+      "priority": 7,
+      "modules": [
+        "src/core/matchSimulation/matchActions.ts",
+        "src/core/matchSimulation/passDecision.ts",
+        "src/core/matchSimulation/passExecution.ts"
+      ],
+      "existing": "GameReading can reduce risky pass utility despite better execution estimate",
+      "proposed": "Attributes improve information/execution; explicit tactical risk appetite separate from skill",
+      "confidence": "High derivative and frozen sweep",
+      "risk": "Removing all caution would misrepresent decision quality",
+      "reproduction": "Frozen scores / candidate gates / sensitivity / pass flight receipts; PR177 paired continuations and independent heldout",
+      "packages": [
+        "B preferred",
+        "A fallback",
+        "C high risk"
+      ]
+    }
+  ]
+}

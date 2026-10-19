@@ -1,0 +1,762 @@
+{
+  "version": 1,
+  "method": "Interpreted clock/threshold inventory from the human-reviewed document; exhaustive source comparison/numeric census is separate.",
+  "rows": [
+    {
+      "id": "T01",
+      "source": "matchSimulation/FIXED_MATCH_DT",
+      "currentValue": ".025 s",
+      "classification": "F hard physics integration",
+      "interruptibility": "Każdy kolejny tick, bez zmiany dt",
+      "recommendation": "Zachować 40 Hz physics",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T02",
+      "source": "matchActions/hold resolver",
+      "currentValue": "1.6 s",
+      "classification": "F hard global actionCooldown po hold",
+      "interruptibility": "Nowa szansa nie zeruje samego cooldownu; possession/contact może zmienić stan",
+      "recommendation": "Zastąpić hybrid readiness; nieudowodniona częstość szkody",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T03",
+      "source": "matchActions/carry resolver",
+      "currentValue": "1.3 s",
+      "classification": "F hard global cooldown po carry",
+      "interruptibility": "Trwa ruch i obrona, rutynowy ranker czeka",
+      "recommendation": "Oddzielić commitment kontaktu od reconsideration",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T04",
+      "source": "matchSimulation/unchanged carry",
+      "currentValue": ".25 s",
+      "classification": "F hard następna ocena tej samej intencji",
+      "interruptibility": "Kolejna decyzja po expiry; nie wykonuje ponownie carry",
+      "recommendation": "Zachować bounded polling albo semantic dirty flag",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T05",
+      "source": "matchActions/carry expiry",
+      "currentValue": "retain 8 s; inne clamp(ETA+1.25,1.8,12) s",
+      "classification": "E hard safety lifetime",
+      "interruptibility": "Kontakt, utrata, nowy zamiar, waypoint/pursuit; retain ma szczególną kontynuację",
+      "recommendation": "Arrival/opportunity lifecycle, zachować safety bound",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T06",
+      "source": "matchActions/npcPossessionDecisionDelay",
+      "currentValue": "scan=.35+.85(1-skill)+.75 patience; floor.2 s",
+      "classification": "F hard live routine gate",
+      "interruptibility": "Recomputed danger/transition/range mogą skrócić; nie omija physical",
+      "recommendation": "Hybrid perceived readiness, credit incoming flight",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T07",
+      "source": "matchActions/npcPossessionDecisionDelay",
+      "currentValue": "perception=(scan−anticipated)(1−.65 danger)",
+      "classification": "F hard perceived wait",
+      "interruptibility": "Aktualna presja wpływa na delay",
+      "recommendation": "Zachować overlap, nie dodawać czasów sekwencyjnie",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T08",
+      "source": "matchActions/npcPossessionDecisionDelay",
+      "currentValue": "planned cap.25; transition cap.6; range<27 m cap.4 s",
+      "classification": "F hard context caps z max physical,.2",
+      "interruptibility": "Transition progress>55 i possessionChanged<2 s",
+      "recommendation": "Wspólne readiness; testować threshold transitions",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T09",
+      "source": "matchActions/anticipated reception",
+      "currentValue": "resolved ownership difference<.1 s; credit≤scan",
+      "classification": "F soft overlap lotu i skanowania",
+      "interruptibility": "Tylko actual completed receiver lineage",
+      "recommendation": "Zachować actual identity; brak podwójnego awareness",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T10",
+      "source": "onBallPreparation/deriveOnBallPreparation",
+      "currentValue": "max(.12,.34+speed/24+.7 facing/pi+.35 pressure−.52 technique+kind+style) s",
+      "classification": "F physical proxy readyAt",
+      "interruptibility": "Utrata/contact/unavailable zastępuje; age trwa mimo hold",
+      "recommendation": "Zachować physical finite need, rozdzielić action-specific readiness",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T11",
+      "source": "onBallPreparation/reception kind",
+      "currentValue": "directional−.18; heavy+.75 s",
+      "classification": "F physical proxy",
+      "interruptibility": "Dopiero rzeczywisty reception outcome",
+      "recommendation": "Walidować against contact; nie znosić heavy cost",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T12",
+      "source": "onBallPreparation/continuation",
+      "currentValue": "directional 1.15; clean.8 s, target velocity\\*1.15",
+      "classification": "E finite movement continuation",
+      "interruptibility": "Expiry lub carry/explicit movement usuwa micro/continuation",
+      "recommendation": "Zachować pęd, powiązać z episode",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T13",
+      "source": "onBallPreparation/micro phases",
+      "currentValue": "controlDuration; +.65 s turning; +1.6 s adjusting; potem scanning",
+      "classification": "F soft footwork phase, nie osobny AI gate",
+      "interruptibility": "Shield reacts to pressure; passingAngle zapamiętany raz",
+      "recommendation": "Odświeżać angle przy semantic change; brak obowiązku czekania do scanning",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T14",
+      "source": "onBallPreparation/micro shielding",
+      "currentValue": "enter pressure>.7 i distance<2.3 m; retain>.6 i<2.75 m",
+      "classification": "S hysteresis",
+      "interruptibility": "Nowa geometria modyfikuje shield/footwork",
+      "recommendation": "Zachować semantyczną hysteresis, testować approaching body",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T15",
+      "source": "onBallPreparation/micro evasion",
+      "currentValue": "pressure>.6, opponent<3.5 m; anticipation .12+.22 reading s",
+      "classification": "H local response, nie blackout",
+      "interruptibility": "Co advance preparation aktualizuje pocket",
+      "recommendation": "Zachować bounded physical footprint",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T16",
+      "source": "onBallPreparation/preparationMarginForAction",
+      "currentValue": ".55 turn/pi+max(0,length−10)/70+shot/cross need−.22 skill−style s",
+      "classification": "F soft score penalty, bez hold/carry/first-time",
+      "interruptibility": "Aktualny facing/target zmienia margin",
+      "recommendation": "Wspólne physical readiness; nie udawać asynchronicznej kolejki shot",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T17",
+      "source": "matchActions/preparation penalty",
+      "currentValue": "min(65,55\\*negativeMargin) points",
+      "classification": "S soft ranking",
+      "interruptibility": "Nowa geometria lub upływ czasu zmienia karę",
+      "recommendation": "Zastąpić wykonalnością i czasem w EV",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T18",
+      "source": "matchSimulation/changePossession same team",
+      "currentValue": "directional.55; clean/default.95; heavy 1.65; failed 1.9 s, max z istniejącym",
+      "classification": "F hard global receiver gate",
+      "interruptibility": "Incoming first-time jest inną ścieżką; planned carry może obniżyć do physical floor.12",
+      "recommendation": "Oddzielić control failure od globalnego wait",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T19",
+      "source": "matchSimulation/changePossession other team",
+      "currentValue": "max(existing,.85) s",
+      "classification": "F hard global turnover gate",
+      "interruptibility": "Nowy owner nie jest automatycznie gotowy",
+      "recommendation": "Readiness nowego ownera, bez inherited unrelated timer",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T20",
+      "source": "matchActions/pass release",
+      "currentValue": "predicted duration+.35 s",
+      "classification": "F hard global flight/recovery",
+      "interruptibility": "Reception może inherit max; nie kontroluje lotu",
+      "recommendation": "Owner/flight-specific readiness, zachować normalną trajektorię",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T21",
+      "source": "matchActions/cross release",
+      "currentValue": "duration+.35 s",
+      "classification": "F hard global delivery gate",
+      "interruptibility": "Ruch/obrona/kontakt nadal działa",
+      "recommendation": "Jak pass, separate future receiver readiness",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T22",
+      "source": "matchActions/shot release",
+      "currentValue": "max(.28,distance/shotSpeed)+.45 s",
+      "classification": "F delivery/cooldown",
+      "interruptibility": "Sam shot release jest natychmiastowym kontaktem; lot canonical",
+      "recommendation": "Zachować shot episode, nie dodawać fikcyjnego wind-up",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T23",
+      "source": "shotIntent/shotPreparationSeconds",
+      "currentValue": "settled placed.28 / driven.20 / chip/header.24; nonsettled 0 s",
+      "classification": "F physical proxy; restart hard wait",
+      "interruptibility": "Live settled score penalty; restart legal prep rzeczywiście czeka",
+      "recommendation": "Nie stosować podwójnie jako dwóch blackoutów",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T24",
+      "source": "shootingOptions/incomingBallContact",
+      "currentValue": "shot horizon 1.4 / pass 1.8 s; sample.05 s",
+      "classification": "H forecast",
+      "interruptibility": "Live contact ponownie sprawdzany; nie blokada AI",
+      "recommendation": "Zachować finite prediction, porównać near-contact accuracy",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T25",
+      "source": "shootingOptions/incoming contact",
+      "currentValue": "distance 1.05 m; arrival≤sample+.08 s; height.65/1.45 m etc.",
+      "classification": "S hard physical family",
+      "interruptibility": "Bieżący lot/contact invalidates",
+      "recommendation": "Zachować physical reach i height regimes",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T26",
+      "source": "firstTimePassing/enumeration",
+      "currentValue": "contact height≤.65 m; target length≥4 m",
+      "classification": "S hard first-time candidate",
+      "interruptibility": "Zmiana lotu rewaliduje",
+      "recommendation": "4 m gate badać jako policy, height/reach zachować",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T27",
+      "source": "matchActions/incoming control comparison",
+      "currentValue": "pass premium 18+18(1-pressure)+speed/5+6 turn points",
+      "classification": "S hard selection over fresh control",
+      "interruptibility": "Tylko incoming choice; nie sekundy",
+      "recommendation": "Porównać common-value control vs first-time",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T28",
+      "source": "contextualInteractions/pendingReceptionIntent",
+      "currentValue": "max(2,arrival+.8) s",
+      "classification": "E hard pending human intention",
+      "interruptibility": "Episode/possession/restart/expiry",
+      "recommendation": "Zachować user intent i actual contact identity",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T29",
+      "source": "receptionContinuation/plan",
+      "currentValue": "expiry expectedArrival+1.2 s",
+      "classification": "E finite next carry",
+      "interruptibility": "New contact/expiry invalidates; local revalidation możliwa",
+      "recommendation": "Opportunity-linked continuation; nie resetować bez końca",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T30",
+      "source": "receptionContinuation/run-on",
+      "currentValue": "sample.1 s; ETA tolerance.12 s; expiry candidate.at+.2 s",
+      "classification": "H/E forecast and live intention",
+      "interruptibility": "Ball episode, direction, defender/control changes",
+      "recommendation": "Zachować finite physical run-on; log cancellation reason",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T31",
+      "source": "passReception/meeting",
+      "currentValue": "max 2.5 s; support.32 s\\*(.65+.35 read); other.65 read",
+      "classification": "H projection horizon",
+      "interruptibility": "Każdy nowy forecast; nie NPC freeze",
+      "recommendation": "Prospective corridors zamiast starego waypoint cap",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T32",
+      "source": "passReception/motion selection",
+      "currentValue": "speed≥.35 m/s; targetDistance≥1.6 m",
+      "classification": "S hard model branch",
+      "interruptibility": "Small speed/target changes przełączają semantykę",
+      "recommendation": "Ujednolicić finite acceleration; sweep .349/.350 już potwierdza jump",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T33",
+      "source": "passReception/meeting correction",
+      "currentValue": "3 iterations;3 corrections horizon\\*.75; arrival tolerance.2 s",
+      "classification": "H bounded cost/feasibility",
+      "interruptibility": "Per candidate",
+      "recommendation": "Zachować bounded work, naprawić przyczynę reclassification",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T34",
+      "source": "passReception/awareness",
+      "currentValue": "max(.08,.68−(read+concentration)/250+distance/220) s",
+      "classification": "H perception forecast",
+      "interruptibility": "Existing movement pomija część oczekiwania",
+      "recommendation": "Ujednolicić readiness perception, zachować uncertainty",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T35",
+      "source": "receiverReadiness/awareness",
+      "currentValue": "max(.09,.72−(read+concentration)/285+.12 pressure) s",
+      "classification": "H perception, inne od T34",
+      "interruptibility": "Aktualny actor/pressure",
+      "recommendation": "Jedna definicja perceived readiness lub jawne różne cele",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T36",
+      "source": "receiverReadiness/turn and movement",
+      "currentValue": "turnRate 1.9+.025 agility; usefulSpeed max(2.4,2.8+.035 pace,.75 speed); useful contact+.12 s",
+      "classification": "H finite capability approximation",
+      "interruptibility": "Geometry/velocity zmieniają estimate",
+      "recommendation": "Canonical capability envelope; preserve units",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T37",
+      "source": "passLaunchPlan/ground ETA",
+      "currentValue": "cap 2.20/1.80/1.45; floor.72/.48; buffers.28/.08 s",
+      "classification": "H desired timing, nie hard actual-flight cap",
+      "interruptibility": "Plan recomputed, forecast may exceed cap",
+      "recommendation": "Envelope/arrival optimisation",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T38",
+      "source": "passLaunchPlan/integrated forecast",
+      "currentValue": "8 s horizon, .025 s sample, target envelope.55 m; v 0 max 30 m/s",
+      "classification": "H bounded flight/physical limit",
+      "interruptibility": "Nie wymaga czekania 8 s",
+      "recommendation": "Wspólny feasible plan z release; aerial inconsistency naprawić",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T39",
+      "source": "passDecision/receiver and race",
+      "currentValue": "speed>.7 daje.04 s, inaczej awareness; late tolerance.12 s; race offset.35/scale 1.1 s",
+      "classification": "H/S probability proxy",
+      "interruptibility": "Current movement/target recomputed",
+      "recommendation": "Audit forecasts przeciw canonical reception/intervention",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T40",
+      "source": "passDecision/risk thresholds",
+      "currentValue": "late/.7; boundary 3.5 runner/1.2 support m; recovery .3 s offset/2 s scale\\*.35",
+      "classification": "H/S soft risk",
+      "interruptibility": "Nie blokują rankera jako timery",
+      "recommendation": "Unified risk; nie usuwać out-of-play consequences",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T41",
+      "source": "passDecision/lane",
+      "currentValue": "fractions.07–.94; width 2.1 ground/1 lofted m; defenderETA<ballETA\\*f+.18 s",
+      "classification": "H/S lane count",
+      "interruptibility": "Actual geometry może zmieniać liczbę skokowo",
+      "recommendation": "Zachować finite-volume intervention, compare smooth value",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T42",
+      "source": "matchActions/deriveLeadPass",
+      "currentValue": "motionLength 1.2; lead≥1.6 m; defender margin.12 s; static lane<2 at 2.5 m",
+      "classification": "S hard candidate filter",
+      "interruptibility": "Recomputed per decision",
+      "recommendation": "Feasibility oddzielić od ryzyka i old motion intent",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T43",
+      "source": "matchActions/through",
+      "currentValue": "progress>8 m; non-defend; space utility≥6; dedup≥1.6 m",
+      "classification": "S hard candidate dependency",
+      "interruptibility": "Reclassification earlier can suppress",
+      "recommendation": "Independent through/run candidates; preserve bounded count",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T44",
+      "source": "matchActions/throughContext",
+      "currentValue": "margin≥.2 s =>−10, inaczej−38 points",
+      "classification": "S discontinuous ranking, jump 28",
+      "interruptibility": "Small ETA change may flip",
+      "recommendation": "Zastąpić common state consequence; sensitivity test",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T45",
+      "source": "passDecision/runner reward",
+      "currentValue": "Pcompletion>.62, reward 22\\*(P−.62)",
+      "classification": "S continuous value, kink at threshold",
+      "interruptibility": "Nie jest generalną bramką through",
+      "recommendation": "Zachować interpretację; nie mylić availability i derivative",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T46",
+      "source": "matchActions/stale return",
+      "currentValue": "resolvedAge<12 s; penalty 30 max(.35,1−age/12); exemptions pressure.62/escape.2/value 9/switch 6/moved 4 m",
+      "classification": "E/S repetition memory",
+      "interruptibility": "Actual motion/pressure/combination interrupts penalty",
+      "recommendation": "Wycena nowego stanu i moving return; zachować lineage",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T47",
+      "source": "spacePassing/NPC shortlist",
+      "currentValue": "top 3, range<42 m, ahead>2 m, duty≠defend, onside+.01 m",
+      "classification": "S hard bounded generation",
+      "interruptibility": "Further runner może zniknąć przed oceną",
+      "recommendation": "Quality-diverse shortlist, independent prospective run",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T48",
+      "source": "spacePassing/plan gates",
+      "currentValue": "target 1.5–75 m, arrival≤6 s; advantage≥.2 s; receiver≤ballETA+.3 s; boundary≥2 m",
+      "classification": "H/S physical and policy mix",
+      "interruptibility": "Recomputed at decision/release",
+      "recommendation": "Log reason; keep laws, compare risk gates softly",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T49",
+      "source": "tacticalPositioning/replan",
+      "currentValue": ".1 s−FIXED_DT/2 albo semanticKey change",
+      "classification": "F planning cadence, nie perception freeze",
+      "interruptibility": "Owner/phase/scenario/restart semantic changes immediate",
+      "recommendation": "Zachować bounded 10 Hz i semantic invalidation",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T50",
+      "source": "tacticalPositioning/perceived target",
+      "currentValue": "reaction=1−exp(−(.05+.18 reading)); initial 1 s exponent",
+      "classification": "E soft smoothing per plan, nie poprawne dt-scaled ODE",
+      "interruptibility": "Następny plan; high authority może być opóźnione",
+      "recommendation": "Express response in seconds; explicit authoritative jobs",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T51",
+      "source": "tacticalPositioning/position error",
+      "currentValue": "4 s smooth seed segments; amplitude(1-positioning)\\*(2.5+2 freedom)",
+      "classification": "E bounded positioning variability",
+      "interruptibility": "Plan updates; loose assignment zeros error",
+      "recommendation": "Zachować istniejące error; nie dodać decorative noise",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T52",
+      "source": "tacticalPositioning/support",
+      "currentValue": "midfield 46 m/others 34 m; pivot depth<62; third pressure>.15 lub pivot; width pressure>.35 i slow>.4",
+      "classification": "S discrete tactical jobs",
+      "interruptibility": "Plan regenerowany przy nowym ownerze",
+      "recommendation": "Job continuity i cover-shadow awareness",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T53",
+      "source": "tacticalPositioning/runs and depths",
+      "currentValue": "score>43; top 2/3; carrierDepth≥35, line clearance≥7 m; one depth runner",
+      "classification": "S bounded tactical allocation",
+      "interruptibility": "Current geometry/possession",
+      "recommendation": "Testować low block i dropping striker, nie usuwać role budget",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T54",
+      "source": "tacticalPositioning/flank assignments",
+      "currentValue": "one side; cover≥2 >5 mbehind; wingerWidth≥20; outsideSpace>5 m",
+      "classification": "S discrete overlap/underlap/width",
+      "interruptibility": "Plan can change at boundary, bez hysteresis job",
+      "recommendation": "Preserve available cover, latch job while opportunity valid",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T55",
+      "source": "combinationPlay/first intention",
+      "currentValue": "pass 4–28 m; Pcompletion≥.5; retained≥.32; restCover≥2 available nonparticipants",
+      "classification": "S hard collective eligibility",
+      "interruptibility": "Human conflict/loss/restart invalidates",
+      "recommendation": "Zachować cover, rozdzielić forecast risk od generation",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T56",
+      "source": "combinationPlay/lifetime",
+      "currentValue": "clamp(ballETA+2.2,2.5,4.5)s; continuation extends at most startedAt+6 s",
+      "classification": "E hard opportunity expiry",
+      "interruptibility": "Alternative/contact failure/unreachable/loss/period",
+      "recommendation": "ETA/physical progress validity; no unlimited refresh",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T57",
+      "source": "combinationPlay/continuation candidate",
+      "currentValue": "started run; onside; late≤.3 s; ETAdef≥ETArec+.12; lane 0; retained≥.35",
+      "classification": "S hard candidate filter",
+      "interruptibility": "Current geometry, pass ID/contact",
+      "recommendation": "Independent common feasibility; no guaranteed return",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T58",
+      "source": "combinationPlay/moving return",
+      "currentValue": "original passer moved≥1.6 m, live runStarted",
+      "classification": "S football state transition",
+      "interruptibility": "Actual motion required",
+      "recommendation": "Zachować actual motion evidence",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T59",
+      "source": "carryExecution/mode hysteresis",
+      "currentValue": ".65 s; override body≤2.8 m and relative speed≥2.2 m/s",
+      "classification": "F/E semantic hysteresis with interrupt",
+      "interruptibility": "Approaching body can invalidate early",
+      "recommendation": "Zachować interrupt; nie traktować jako cooldown wszystkich działań",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T60",
+      "source": "locomotion/sprint episode",
+      "currentValue": ".82 speed start; .7 end threshold; .65 s maturity;1.2 s recovery;2–8 s speed envelope",
+      "classification": "E accounting/physical speed, nie hard sprint-start wait",
+      "interruptibility": "Actual speed continuous",
+      "recommendation": "Zachować; nie usuwać .65 jako rzekomego freeze",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T61",
+      "source": "locomotion/structural move",
+      "currentValue": "<2.5 m walk;<18 m jog; attack transition forward>14 m and route>16 m sprint",
+      "classification": "S intention bands",
+      "interruptibility": "Target/phase/contact can replace",
+      "recommendation": "Evaluate run urgency separately from target length",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T62",
+      "source": "matchFitness/burst and recovery",
+      "currentValue": "restoration .0105*dt*lowWork*(.55+.65 stamina)*(.3+.7 capacity)\\*injury; sprintCost .0026 per m etc.",
+      "classification": "F continuous physical reserve",
+      "interruptibility": "Work sample changes every tick",
+      "recommendation": "Nie ma fixed blackout; zachować parametry, osobny fatigue study",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T63",
+      "source": "defensiveChallenges/commitment",
+      "currentValue": "standing.55; inne 1.2 s",
+      "classification": "F hard finite technique lifetime",
+      "interruptibility": "Context/contact can resolve earlier",
+      "recommendation": "Zachować physical commitment i legal contact",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T64",
+      "source": "defensiveChallenges/recent duel",
+      "currentValue": "slide 1.35 / inne.8 s; episode repeat lock<1.4 s",
+      "classification": "E hard dedup/duel guard",
+      "interruptibility": "Ball episode/new release/geometry can close active episode",
+      "recommendation": "Nie usuwać do zwiększenia ofensywy; test actual intervention",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T65",
+      "source": "goalkeeperIntervention/reaction",
+      "currentValue": ".36−.002 reflexes+facing/pi\\*.18 s; flight time credited",
+      "classification": "F physical response",
+      "interruptibility": "Already elapsed flight zmniejsza remaining; passive body contact separate",
+      "recommendation": "Zachować corrections; nie restartować reakcji przy każdym projection",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T66",
+      "source": "teamThreatMemory/update",
+      "currentValue": "evaluation 2 s; evidence half-life 180 s; persistence 24 s; rise.035/fall.012 per s",
+      "classification": "E adaptation, nie player freeze",
+      "interruptibility": "New evidence accumulates between evaluations",
+      "recommendation": "Zachować bounded slow learning; usuwać correlated duplicate value, nie całą pamięć",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T67",
+      "source": "teamThreatMemory/solution memory",
+      "currentValue": "45 s half-life; geometry origin 18 m/pressure.6 scales",
+      "classification": "E soft risk history",
+      "interruptibility": "Current geometry reduces relevance",
+      "recommendation": "Residual evidence/common risk; preserve actual lineage",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T68",
+      "source": "matchActions/context urgency",
+      "currentValue": "trailing at time≥4500 s adds appetite.15; lead protection time>4800 s",
+      "classification": "F/S match-context discontinuities",
+      "interruptibility": "Match time/score updates",
+      "recommendation": "Smooth context preference where sensible; law periods remain discrete",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T69",
+      "source": "matchActions/possession urgency",
+      "currentValue": "clamp((pressure−.38)\\*max(0,age−physicalPrep)/2.8); late corner lead factor.28",
+      "classification": "F soft pressure urgency",
+      "interruptibility": "Pressure/owner change",
+      "recommendation": "Separate urgent action value from late-match appetite",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T70",
+      "source": "possessionAgency/route blocked",
+      "currentValue": "noProgress≥1.35 s, speed<1.2 m/s, opponent≤5 m and route 1.8 m",
+      "classification": "F semantic human boundary",
+      "interruptibility": "New progress/contact can stop reason",
+      "recommendation": "Zachować human boundary; nie podmieniać NPC pollingiem",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T71",
+      "source": "possessionAgency/opportunity changes",
+      "currentValue": "shot gains .07 / losses .12; range gain 3 m; angle pi/3; touch gap 1.8 and gain.9 m",
+      "classification": "S semantic human opportunities",
+      "interruptibility": "Physical meaningful changes prompt",
+      "recommendation": "Zachować current-human decisions and dedup",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T72",
+      "source": "playerDecision/context movement",
+      "currentValue": "contain 2 s; challenge 1.5 s; incoming intercept max(.5,arrival)",
+      "classification": "E human movement intent expiry",
+      "interruptibility": "Human replacement/ball episode/actual contact",
+      "recommendation": "Jawny intent lifecycle, preserve agency",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T73",
+      "source": "contextualInteractions/movement proposals",
+      "currentValue": "2.2 s preview intents; pending reception max(2,arrival+.8)s",
+      "classification": "E bounded human interaction",
+      "interruptibility": "New command/restart/episode invalidates",
+      "recommendation": "Nie utożsamiać z autonomous decision wait",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T74",
+      "source": "matchSimulation/restart select",
+      "currentValue": "setup≥2.1 s; watchdog 8 s",
+      "classification": "F setup selection/liveness; legal readiness separate",
+      "interruptibility": "Human multi-choice protected until explicit watchdog contract",
+      "recommendation": "Zachować prawa i watchdog semantics; nie używać do sztucznego live-time target",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T75",
+      "source": "restartLifecycle/strike prep",
+      "currentValue": "legal+tactical ready then .15 s pass/cross lub shotPreparation",
+      "classification": "F hard finite restart execution",
+      "interruptibility": "Readiness loss clears preparation start",
+      "recommendation": "Zachować actual readiness; event-driven ordinary policy nie omija",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T76",
+      "source": "restartLifecycle/ball transfer",
+      "currentValue": "max(.3,distance/4)s",
+      "classification": "F physical retrieval/transport",
+      "interruptibility": "Actual stages determine availability",
+      "recommendation": "Zachować logistics, brak teleportacji",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T77",
+      "source": "restartLifecycle/wall response",
+      "currentValue": ".11+seeded\\*(.32−.12 anticipation)s; jump .65 s",
+      "classification": "F physical reaction/jump",
+      "interruptibility": "Shot phase/actual time",
+      "recommendation": "Zachować wall contacts and legal clearances",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T78",
+      "source": "matchSimulation/released restart retention",
+      "currentValue": "4 s",
+      "classification": "E cleanup presentation/scenario context",
+      "interruptibility": "Actual ball/law restrictions survive separately",
+      "recommendation": "Nie kasować persistent throw/restart law tylko przez expiry",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T79",
+      "source": "postGoalReactions",
+      "currentValue": "urgent.6 s; otherwise 3–7 s plus ball slowed≤3 m/s/retrieval",
+      "classification": "F canonical post-goal dead ball",
+      "interruptibility": "Period end and actual retrieval constrain",
+      "recommendation": "Zachować natural stoppage; nie dopisywać fikcyjnych pauz",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T80",
+      "source": "matchTimekeeping",
+      "currentValue": "nominal 2700 s per period; rounding 60 s; ordinary restart allowance 30 s",
+      "classification": "F law/accounting",
+      "interruptibility": "Released shot/flight/terminal penalty completes before whistle",
+      "recommendation": "Zachować separate elapsed/live/qualifying lost",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T81",
+      "source": "matchRules/advantage",
+      "currentValue": "3 s; loose failure.6 s",
+      "classification": "F referee/lawful sequence",
+      "interruptibility": "Lost/stoppage/useful play ends/recalls",
+      "recommendation": "Zachować, poza scoring experiments",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T82",
+      "source": "halftime/startSecondHalf",
+      "currentValue": "explicit transition; actionCooldown.4 s then lawful kickoff relocation",
+      "classification": "F state transition, bez symulowanej 15 min pauzy",
+      "interruptibility": "User/runner calls startSecondHalf",
+      "recommendation": "Zachować ends/orientation and goalkeeper readiness",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T83",
+      "source": "app/MatchOccasion",
+      "currentValue": "event caption<3 s; kickoff<2 s",
+      "classification": "P display projection of canonical timestamps",
+      "interruptibility": "Dismissible, nie opóźnia football",
+      "recommendation": "Zachować poza policy",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    },
+    {
+      "id": "T84",
+      "source": "app/matchRuntimeClock and TacticalMatchSandbox",
+      "currentValue": "wall debt\\*speed; scheduler 0/16 ms; human pause clears debt",
+      "classification": "P scheduler, nie football action timer",
+      "interruptibility": "Pending human/halftime stops stepping",
+      "recommendation": "Zachować wall/football separation; żadnego timeoutu decision człowieka",
+      "confidence": "Source-confirmed current branch; proposed disposition is experimental engineering judgement. Exact locations in PR176-source-census.json.gz."
+    }
+  ]
+}
