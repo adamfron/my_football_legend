@@ -280,6 +280,7 @@ export const deriveAerialLaunchPlan = (
     arrivalHeight?: number;
     ability?: number;
     executionError?: number;
+    maximumSpeed?: number;
   } = {},
 ): AerialLaunchPlan => {
   const profile = AERIAL_DELIVERY[kind];
@@ -312,7 +313,7 @@ export const deriveAerialLaunchPlan = (
     velocity = deriveLaunchVelocity(
       from,
       target,
-      Math.hypot(horizontalSpeed, verticalSpeed),
+      Math.min(options.maximumSpeed ?? Infinity, Math.hypot(horizontalSpeed, verticalSpeed)),
       Math.atan2(verticalSpeed, horizontalSpeed),
     );
     let ball: PhysicalBall = {

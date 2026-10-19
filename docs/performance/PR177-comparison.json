@@ -1,0 +1,4693 @@
+{
+  "version": 1,
+  "method": "One fixture is one dependent design observation, not a league population or independent tick. Six development and six sealed validation designs. Initial-CM receptions refer to starter identity, not inferred substitute slot/minute labels. Controlled-forward passes measure reception contact gain, not guaranteed retained possession after eight seconds. Transition 5/10m bins are descriptive posthoc reporting bins, not preregistered acceptance quotas. First-forward-action time is actual recorded action time; time to 5m controlled progress is sampled at actual controlled decision observations and can lag the first physical crossing. Do not treat cadence differences as a causal latency estimate. Recovery zones use 105m/3 equal depth thirds from the recovering team perspective.",
+  "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+  "rows": [
+    {
+      "group": "pristine-development",
+      "design": {
+        "id": "pr177-dev-youth",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-4-2"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "8298facd00a689d6d683b006e22543c9a9185bbc2831a03357a6ecfea8edaea9",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "c26660fa5541774476ea7696d27444a7f23cfaf439a2ff0f526d782366ed9d13",
+      "football": {
+        "passes": 1308,
+        "completed": 776,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 4,
+        "offsides": 0,
+        "playerCreditedLosses": 234,
+        "turnoverFacts": 236,
+        "initialCMReceptions": 8,
+        "receptions": 776,
+        "controlledForwardPasses": 184,
+        "controlledForwardMetres": 2812.013179822308,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 52,
+        "completedCombinations": 1,
+        "exposedRecoveries": 138,
+        "transitionAttempts": 90,
+        "transitionsGaining10m": 13,
+        "transitionsFailingToGain5m": 58,
+        "transitionTurnovers": 63,
+        "defenceRecovered": 110,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 36,
+        "recoveryMiddleThird": 170,
+        "recoveryAttackingThird": 15,
+        "firstForwardDelayTotalSeconds": 159.449999999662,
+        "firstForwardDelayObservations": 90,
+        "decisionSampled5mDelayTotalSeconds": 136.94999999975724,
+        "decisionSampled5mDelayObservations": 29,
+        "liveSeconds": 5230.62500000056,
+        "stoppedSeconds": 289.37499999943986,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 142,
+        "contactIdentityCount": 3097
+      },
+      "cpuMs": 163219,
+      "wallMs": 146538.6248,
+      "maxRankedCandidates": 35,
+      "metadata": "docs/performance/pr177-evidence/pristine-development-pr177-dev-youth.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-development-pr177-dev-youth-raw.json.gz"
+    },
+    {
+      "group": "pristine-development",
+      "design": {
+        "id": "pr177-dev-balanced",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_14",
+          "pro_15"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "64c154db5fdf1b68c6aef86c22fe7fac982ba8a63cc650cae89a55708831b722",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5581.075000005443,
+      "score": {
+        "home": 0,
+        "away": 2
+      },
+      "finalHash": "009644732272f5af9fc444660a2fafb6471026b8e74aee64defcf396b4ac5804",
+      "football": {
+        "passes": 2195,
+        "completed": 2040,
+        "shots": 4,
+        "goals": 2,
+        "onTarget": 3,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 19,
+        "offsides": 0,
+        "playerCreditedLosses": 235,
+        "turnoverFacts": 240,
+        "initialCMReceptions": 315,
+        "receptions": 2040,
+        "controlledForwardPasses": 576,
+        "controlledForwardMetres": 8902.117040519119,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 57,
+        "completedCombinations": 19,
+        "exposedRecoveries": 92,
+        "transitionAttempts": 50,
+        "transitionsGaining10m": 12,
+        "transitionsFailingToGain5m": 22,
+        "transitionTurnovers": 46,
+        "defenceRecovered": 79,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 47,
+        "recoveryMiddleThird": 170,
+        "recoveryAttackingThird": 11,
+        "firstForwardDelayTotalSeconds": 110.00000000001027,
+        "firstForwardDelayObservations": 50,
+        "decisionSampled5mDelayTotalSeconds": 102.8749999998794,
+        "decisionSampled5mDelayObservations": 22,
+        "liveSeconds": 5168.550000006534,
+        "stoppedSeconds": 412.52499999890927,
+        "credibleEpisodes": 2,
+        "progressionEpisodes": 160,
+        "contactIdentityCount": 4564
+      },
+      "cpuMs": 213547,
+      "wallMs": 200735.51580000002,
+      "maxRankedCandidates": 35,
+      "metadata": "docs/performance/pr177-evidence/pristine-development-pr177-dev-balanced.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-development-pr177-dev-balanced-raw.json.gz"
+    },
+    {
+      "group": "pristine-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5673.174999987567,
+      "score": {
+        "home": 5,
+        "away": 0
+      },
+      "finalHash": "e330031920a6b9483aaa862ddf4ea93f8c2f2642e179e8849d5bec71cdc288ba",
+      "football": {
+        "passes": 1565,
+        "completed": 1077,
+        "shots": 7,
+        "goals": 5,
+        "onTarget": 6,
+        "blocks": 1,
+        "corners": 4,
+        "fouls": 17,
+        "offsides": 0,
+        "playerCreditedLosses": 294,
+        "turnoverFacts": 303,
+        "initialCMReceptions": 146,
+        "receptions": 1077,
+        "controlledForwardPasses": 338,
+        "controlledForwardMetres": 4329.107594331392,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 67,
+        "completedCombinations": 9,
+        "exposedRecoveries": 112,
+        "transitionAttempts": 55,
+        "transitionsGaining10m": 10,
+        "transitionsFailingToGain5m": 34,
+        "transitionTurnovers": 48,
+        "defenceRecovered": 91,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 72,
+        "recoveryMiddleThird": 190,
+        "recoveryAttackingThird": 14,
+        "firstForwardDelayTotalSeconds": 142.27499999991304,
+        "firstForwardDelayObservations": 55,
+        "decisionSampled5mDelayTotalSeconds": 98.92499999976772,
+        "decisionSampled5mDelayObservations": 18,
+        "liveSeconds": 5007.14999999003,
+        "stoppedSeconds": 666.0249999975372,
+        "credibleEpisodes": 4,
+        "progressionEpisodes": 183,
+        "contactIdentityCount": 3591
+      },
+      "cpuMs": 204094,
+      "wallMs": 196694.2327,
+      "maxRankedCandidates": 33,
+      "metadata": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength-raw.json.gz"
+    },
+    {
+      "group": "pristine-development",
+      "design": {
+        "id": "pr177-dev-central",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-central",
+        "youth": false,
+        "clubs": [
+          "pro_19",
+          "pro_22"
+        ],
+        "formations": [
+          "3-5-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "b659d5cd86d436c021defe6dc91d8c4fb0593e84d929b3d505b33d0eb1d40f65",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5580,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "3be74f3d60277f75466b8ce8ad39507d6ce1c1c4b9273282bd10e4b0b9e0b23f",
+      "football": {
+        "passes": 1777,
+        "completed": 1431,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 2,
+        "fouls": 15,
+        "offsides": 0,
+        "playerCreditedLosses": 294,
+        "turnoverFacts": 298,
+        "initialCMReceptions": 146,
+        "receptions": 1431,
+        "controlledForwardPasses": 409,
+        "controlledForwardMetres": 4477.416111593033,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 62,
+        "completedCombinations": 3,
+        "exposedRecoveries": 160,
+        "transitionAttempts": 56,
+        "transitionsGaining10m": 7,
+        "transitionsFailingToGain5m": 41,
+        "transitionTurnovers": 77,
+        "defenceRecovered": 135,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 18,
+        "recoveryMiddleThird": 240,
+        "recoveryAttackingThird": 6,
+        "firstForwardDelayTotalSeconds": 97.9750000000023,
+        "firstForwardDelayObservations": 56,
+        "decisionSampled5mDelayTotalSeconds": 60.44999999984066,
+        "decisionSampled5mDelayObservations": 13,
+        "liveSeconds": 5089.400000000314,
+        "stoppedSeconds": 490.59999999968545,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 127,
+        "contactIdentityCount": 3916
+      },
+      "cpuMs": 184219,
+      "wallMs": 180102.67489999998,
+      "maxRankedCandidates": 32,
+      "metadata": "docs/performance/pr177-evidence/pristine-development-pr177-dev-central.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-development-pr177-dev-central-raw.json.gz"
+    },
+    {
+      "group": "pristine-development",
+      "design": {
+        "id": "pr177-dev-wide",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-wide",
+        "youth": false,
+        "clubs": [
+          "pro_28",
+          "pro_29"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "direct",
+          "possession"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "b563f66bb41d75b83446859cf3a260304b4c983e0a0bf91e0930852d4ab0765e",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "fcc0eb6813107f4f97be46ef2ed6d4786b9d3d92974e650739233aeffc21c890",
+      "football": {
+        "passes": 1972,
+        "completed": 1736,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 10,
+        "offsides": 0,
+        "playerCreditedLosses": 275,
+        "turnoverFacts": 277,
+        "initialCMReceptions": 182,
+        "receptions": 1736,
+        "controlledForwardPasses": 481,
+        "controlledForwardMetres": 6723.5680221485445,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 47,
+        "completedCombinations": 1,
+        "exposedRecoveries": 114,
+        "transitionAttempts": 49,
+        "transitionsGaining10m": 4,
+        "transitionsFailingToGain5m": 36,
+        "transitionTurnovers": 53,
+        "defenceRecovered": 87,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 56,
+        "recoveryMiddleThird": 193,
+        "recoveryAttackingThird": 21,
+        "firstForwardDelayTotalSeconds": 87.57499999988927,
+        "firstForwardDelayObservations": 49,
+        "decisionSampled5mDelayTotalSeconds": 42.45000000002983,
+        "decisionSampled5mDelayObservations": 9,
+        "liveSeconds": 5308.775000000732,
+        "stoppedSeconds": 211.22499999926845,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 129,
+        "contactIdentityCount": 4203
+      },
+      "cpuMs": 188000,
+      "wallMs": 184782.9920000001,
+      "maxRankedCandidates": 35,
+      "metadata": "docs/performance/pr177-evidence/pristine-development-pr177-dev-wide.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-development-pr177-dev-wide-raw.json.gz"
+    },
+    {
+      "group": "pristine-development",
+      "design": {
+        "id": "pr177-dev-keepers",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_35",
+          "pro_36"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "6af503b8aadb151d435fcc5f19561d59b9fab77b09cc9f803de91d64a04d8255",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5460,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "b77f111ac0a3e1135446ccdf48dbb53848c34dd8369a8e35b1e23f8319f0e157",
+      "football": {
+        "passes": 1784,
+        "completed": 1351,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 2,
+        "offsides": 0,
+        "playerCreditedLosses": 193,
+        "turnoverFacts": 196,
+        "initialCMReceptions": 117,
+        "receptions": 1351,
+        "controlledForwardPasses": 448,
+        "controlledForwardMetres": 4372.69809443538,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 40,
+        "completedCombinations": 1,
+        "exposedRecoveries": 99,
+        "transitionAttempts": 35,
+        "transitionsGaining10m": 2,
+        "transitionsFailingToGain5m": 25,
+        "transitionTurnovers": 46,
+        "defenceRecovered": 81,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 18,
+        "recoveryMiddleThird": 159,
+        "recoveryAttackingThird": 7,
+        "firstForwardDelayTotalSeconds": 51.799999999955844,
+        "firstForwardDelayObservations": 35,
+        "decisionSampled5mDelayTotalSeconds": 33.72499999993806,
+        "decisionSampled5mDelayObservations": 8,
+        "liveSeconds": 5243.975000000613,
+        "stoppedSeconds": 216.02499999938627,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 96,
+        "contactIdentityCount": 3968
+      },
+      "cpuMs": 154219,
+      "wallMs": 150816.35359999991,
+      "maxRankedCandidates": 32,
+      "metadata": "docs/performance/pr177-evidence/pristine-development-pr177-dev-keepers.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-development-pr177-dev-keepers-raw.json.gz"
+    },
+    {
+      "group": "legacy-development",
+      "design": {
+        "id": "pr177-dev-youth",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-4-2"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "8298facd00a689d6d683b006e22543c9a9185bbc2831a03357a6ecfea8edaea9",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5521.074999984341,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "52fc89fbb99d37db3b4a1fd361f7b3537a140c6b574e775184d80e9fb2389ffa",
+      "football": {
+        "passes": 1276,
+        "completed": 751,
+        "shots": 2,
+        "goals": 0,
+        "onTarget": 1,
+        "blocks": 1,
+        "corners": 0,
+        "fouls": 8,
+        "offsides": 0,
+        "playerCreditedLosses": 221,
+        "turnoverFacts": 227,
+        "initialCMReceptions": 8,
+        "receptions": 751,
+        "controlledForwardPasses": 162,
+        "controlledForwardMetres": 2447.3030182767156,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 48,
+        "completedCombinations": 1,
+        "exposedRecoveries": 135,
+        "transitionAttempts": 99,
+        "transitionsGaining10m": 14,
+        "transitionsFailingToGain5m": 68,
+        "transitionTurnovers": 58,
+        "defenceRecovered": 101,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 48,
+        "recoveryMiddleThird": 149,
+        "recoveryAttackingThird": 20,
+        "firstForwardDelayTotalSeconds": 165.32499999988528,
+        "firstForwardDelayObservations": 99,
+        "decisionSampled5mDelayTotalSeconds": 123.62499999993705,
+        "decisionSampled5mDelayObservations": 26,
+        "liveSeconds": 5263.374999985172,
+        "stoppedSeconds": 257.6999999991691,
+        "credibleEpisodes": 2,
+        "progressionEpisodes": 131,
+        "contactIdentityCount": 3065
+      },
+      "cpuMs": 170750,
+      "wallMs": 153949.288,
+      "maxRankedCandidates": 35,
+      "metadata": "docs/performance/pr177-evidence/legacy-development-pr177-dev-youth.json.gz",
+      "raw": "docs/performance/pr177-evidence/legacy-development-pr177-dev-youth-raw.json.gz"
+    },
+    {
+      "group": "legacy-development",
+      "design": {
+        "id": "pr177-dev-balanced",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_14",
+          "pro_15"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "64c154db5fdf1b68c6aef86c22fe7fac982ba8a63cc650cae89a55708831b722",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520.324999984352,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "finalHash": "3b973de4f03b978321f506a116f4530048101b47f18b43f371c2922cbf28542d",
+      "football": {
+        "passes": 2209,
+        "completed": 2021,
+        "shots": 3,
+        "goals": 1,
+        "onTarget": 3,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 14,
+        "offsides": 0,
+        "playerCreditedLosses": 255,
+        "turnoverFacts": 259,
+        "initialCMReceptions": 292,
+        "receptions": 2021,
+        "controlledForwardPasses": 561,
+        "controlledForwardMetres": 8803.473228250192,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 66,
+        "completedCombinations": 15,
+        "exposedRecoveries": 109,
+        "transitionAttempts": 50,
+        "transitionsGaining10m": 18,
+        "transitionsFailingToGain5m": 21,
+        "transitionTurnovers": 54,
+        "defenceRecovered": 91,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 43,
+        "recoveryMiddleThird": 188,
+        "recoveryAttackingThird": 16,
+        "firstForwardDelayTotalSeconds": 109.54999999971521,
+        "firstForwardDelayObservations": 50,
+        "decisionSampled5mDelayTotalSeconds": 112.42499999958991,
+        "decisionSampled5mDelayObservations": 25,
+        "liveSeconds": 5237.699999984568,
+        "stoppedSeconds": 282.6249999997842,
+        "credibleEpisodes": 2,
+        "progressionEpisodes": 151,
+        "contactIdentityCount": 4603
+      },
+      "cpuMs": 204921,
+      "wallMs": 194983.64860000001,
+      "maxRankedCandidates": 33,
+      "metadata": "docs/performance/pr177-evidence/legacy-development-pr177-dev-balanced.json.gz",
+      "raw": "docs/performance/pr177-evidence/legacy-development-pr177-dev-balanced-raw.json.gz"
+    },
+    {
+      "group": "legacy-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5673.174999987567,
+      "score": {
+        "home": 5,
+        "away": 0
+      },
+      "finalHash": "d57f8e8331d3b9b413d3804e8b0b2fa773806154765da37010089ee4fca43990",
+      "football": {
+        "passes": 1565,
+        "completed": 1077,
+        "shots": 7,
+        "goals": 5,
+        "onTarget": 6,
+        "blocks": 1,
+        "corners": 4,
+        "fouls": 17,
+        "offsides": 0,
+        "playerCreditedLosses": 294,
+        "turnoverFacts": 303,
+        "initialCMReceptions": 146,
+        "receptions": 1077,
+        "controlledForwardPasses": 338,
+        "controlledForwardMetres": 4329.107594331392,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 67,
+        "completedCombinations": 9,
+        "exposedRecoveries": 112,
+        "transitionAttempts": 55,
+        "transitionsGaining10m": 10,
+        "transitionsFailingToGain5m": 34,
+        "transitionTurnovers": 48,
+        "defenceRecovered": 91,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 72,
+        "recoveryMiddleThird": 190,
+        "recoveryAttackingThird": 14,
+        "firstForwardDelayTotalSeconds": 142.27499999991304,
+        "firstForwardDelayObservations": 55,
+        "decisionSampled5mDelayTotalSeconds": 98.92499999976772,
+        "decisionSampled5mDelayObservations": 18,
+        "liveSeconds": 5007.14999999003,
+        "stoppedSeconds": 666.0249999975372,
+        "credibleEpisodes": 4,
+        "progressionEpisodes": 183,
+        "contactIdentityCount": 3591
+      },
+      "cpuMs": 158422,
+      "wallMs": 151635.95400000003,
+      "maxRankedCandidates": 33,
+      "metadata": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength-raw.json.gz"
+    },
+    {
+      "group": "legacy-development",
+      "design": {
+        "id": "pr177-dev-central",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-central",
+        "youth": false,
+        "clubs": [
+          "pro_19",
+          "pro_22"
+        ],
+        "formations": [
+          "3-5-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "b659d5cd86d436c021defe6dc91d8c4fb0593e84d929b3d505b33d0eb1d40f65",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5580,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "172ef25549cc6a20d183d0ffd998bf4b1175c97c7341681f77e78639964beb47",
+      "football": {
+        "passes": 1777,
+        "completed": 1431,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 2,
+        "fouls": 15,
+        "offsides": 0,
+        "playerCreditedLosses": 294,
+        "turnoverFacts": 298,
+        "initialCMReceptions": 146,
+        "receptions": 1431,
+        "controlledForwardPasses": 409,
+        "controlledForwardMetres": 4477.416111593033,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 62,
+        "completedCombinations": 3,
+        "exposedRecoveries": 160,
+        "transitionAttempts": 56,
+        "transitionsGaining10m": 7,
+        "transitionsFailingToGain5m": 41,
+        "transitionTurnovers": 77,
+        "defenceRecovered": 135,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 18,
+        "recoveryMiddleThird": 240,
+        "recoveryAttackingThird": 6,
+        "firstForwardDelayTotalSeconds": 97.9750000000023,
+        "firstForwardDelayObservations": 56,
+        "decisionSampled5mDelayTotalSeconds": 60.44999999984066,
+        "decisionSampled5mDelayObservations": 13,
+        "liveSeconds": 5089.400000000314,
+        "stoppedSeconds": 490.59999999968545,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 127,
+        "contactIdentityCount": 3916
+      },
+      "cpuMs": 138172,
+      "wallMs": 133103.51429999998,
+      "maxRankedCandidates": 32,
+      "metadata": "docs/performance/pr177-evidence/legacy-development-pr177-dev-central.json.gz",
+      "raw": "docs/performance/pr177-evidence/legacy-development-pr177-dev-central-raw.json.gz"
+    },
+    {
+      "group": "legacy-development",
+      "design": {
+        "id": "pr177-dev-wide",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-wide",
+        "youth": false,
+        "clubs": [
+          "pro_28",
+          "pro_29"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "direct",
+          "possession"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "b563f66bb41d75b83446859cf3a260304b4c983e0a0bf91e0930852d4ab0765e",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "c4f582ba954aa1f0f28aae25a098bdf25c38df7d9eadb6c4fb319baf84d53428",
+      "football": {
+        "passes": 1972,
+        "completed": 1736,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 10,
+        "offsides": 0,
+        "playerCreditedLosses": 275,
+        "turnoverFacts": 277,
+        "initialCMReceptions": 182,
+        "receptions": 1736,
+        "controlledForwardPasses": 481,
+        "controlledForwardMetres": 6723.5680221485445,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 47,
+        "completedCombinations": 1,
+        "exposedRecoveries": 114,
+        "transitionAttempts": 49,
+        "transitionsGaining10m": 4,
+        "transitionsFailingToGain5m": 36,
+        "transitionTurnovers": 53,
+        "defenceRecovered": 87,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 56,
+        "recoveryMiddleThird": 193,
+        "recoveryAttackingThird": 21,
+        "firstForwardDelayTotalSeconds": 87.57499999988927,
+        "firstForwardDelayObservations": 49,
+        "decisionSampled5mDelayTotalSeconds": 42.45000000002983,
+        "decisionSampled5mDelayObservations": 9,
+        "liveSeconds": 5308.775000000732,
+        "stoppedSeconds": 211.22499999926845,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 129,
+        "contactIdentityCount": 4203
+      },
+      "cpuMs": 170157,
+      "wallMs": 167310.96830000007,
+      "maxRankedCandidates": 35,
+      "metadata": "docs/performance/pr177-evidence/legacy-development-pr177-dev-wide.json.gz",
+      "raw": "docs/performance/pr177-evidence/legacy-development-pr177-dev-wide-raw.json.gz"
+    },
+    {
+      "group": "legacy-development",
+      "design": {
+        "id": "pr177-dev-keepers",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_35",
+          "pro_36"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "6af503b8aadb151d435fcc5f19561d59b9fab77b09cc9f803de91d64a04d8255",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5460,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "fbb8dbce015571707dea54622a4dada63d82a368d123758ed2c89e2701fb790d",
+      "football": {
+        "passes": 1784,
+        "completed": 1351,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 2,
+        "offsides": 0,
+        "playerCreditedLosses": 193,
+        "turnoverFacts": 196,
+        "initialCMReceptions": 117,
+        "receptions": 1351,
+        "controlledForwardPasses": 448,
+        "controlledForwardMetres": 4372.69809443538,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 40,
+        "completedCombinations": 1,
+        "exposedRecoveries": 99,
+        "transitionAttempts": 35,
+        "transitionsGaining10m": 2,
+        "transitionsFailingToGain5m": 25,
+        "transitionTurnovers": 46,
+        "defenceRecovered": 81,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 18,
+        "recoveryMiddleThird": 159,
+        "recoveryAttackingThird": 7,
+        "firstForwardDelayTotalSeconds": 51.799999999955844,
+        "firstForwardDelayObservations": 35,
+        "decisionSampled5mDelayTotalSeconds": 33.72499999993806,
+        "decisionSampled5mDelayObservations": 8,
+        "liveSeconds": 5243.975000000613,
+        "stoppedSeconds": 216.02499999938627,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 96,
+        "contactIdentityCount": 3968
+      },
+      "cpuMs": 183250,
+      "wallMs": 181074.29950000008,
+      "maxRankedCandidates": 32,
+      "metadata": "docs/performance/pr177-evidence/legacy-development-pr177-dev-keepers.json.gz",
+      "raw": "docs/performance/pr177-evidence/legacy-development-pr177-dev-keepers-raw.json.gz"
+    },
+    {
+      "group": "A-development",
+      "design": {
+        "id": "pr177-dev-youth",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-4-2"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "8298facd00a689d6d683b006e22543c9a9185bbc2831a03357a6ecfea8edaea9",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5462.1999999906375,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "457677102cb5fc9b5276ebd5a090cd3d731ea4be11792e69bd902ffb88e76556",
+      "football": {
+        "passes": 1483,
+        "completed": 794,
+        "shots": 2,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 6,
+        "offsides": 0,
+        "playerCreditedLosses": 288,
+        "turnoverFacts": 295,
+        "initialCMReceptions": 14,
+        "receptions": 794,
+        "controlledForwardPasses": 175,
+        "controlledForwardMetres": 2563.8705757544667,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 50,
+        "completedCombinations": 1,
+        "exposedRecoveries": 166,
+        "transitionAttempts": 105,
+        "transitionsGaining10m": 10,
+        "transitionsFailingToGain5m": 75,
+        "transitionTurnovers": 99,
+        "defenceRecovered": 127,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 52,
+        "recoveryMiddleThird": 208,
+        "recoveryAttackingThird": 24,
+        "firstForwardDelayTotalSeconds": 179.0499999997127,
+        "firstForwardDelayObservations": 105,
+        "decisionSampled5mDelayTotalSeconds": 132.54999999971483,
+        "decisionSampled5mDelayObservations": 25,
+        "liveSeconds": 5247.874999991076,
+        "stoppedSeconds": 214.3249999995619,
+        "credibleEpisodes": 5,
+        "progressionEpisodes": 155,
+        "contactIdentityCount": 3522
+      },
+      "cpuMs": 161406,
+      "wallMs": 146043.9247,
+      "maxRankedCandidates": 34,
+      "metadata": "docs/performance/pr177-evidence/A-development-pr177-dev-youth.json.gz",
+      "raw": "docs/performance/pr177-evidence/A-development-pr177-dev-youth-raw.json.gz"
+    },
+    {
+      "group": "A-development",
+      "design": {
+        "id": "pr177-dev-balanced",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_14",
+          "pro_15"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "64c154db5fdf1b68c6aef86c22fe7fac982ba8a63cc650cae89a55708831b722",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "3a908eaba3bb4528c99e1f7102558d2e5b6fc755dbcd69118970bf2c262c1397",
+      "football": {
+        "passes": 2498,
+        "completed": 2290,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 1,
+        "fouls": 17,
+        "offsides": 0,
+        "playerCreditedLosses": 249,
+        "turnoverFacts": 250,
+        "initialCMReceptions": 528,
+        "receptions": 2290,
+        "controlledForwardPasses": 678,
+        "controlledForwardMetres": 8932.231039348326,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 114,
+        "completedCombinations": 35,
+        "exposedRecoveries": 100,
+        "transitionAttempts": 42,
+        "transitionsGaining10m": 11,
+        "transitionsFailingToGain5m": 22,
+        "transitionTurnovers": 53,
+        "defenceRecovered": 91,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 48,
+        "recoveryMiddleThird": 177,
+        "recoveryAttackingThird": 10,
+        "firstForwardDelayTotalSeconds": 78.72499999964899,
+        "firstForwardDelayObservations": 42,
+        "decisionSampled5mDelayTotalSeconds": 59.174999999834085,
+        "decisionSampled5mDelayObservations": 15,
+        "liveSeconds": 5236.300000000615,
+        "stoppedSeconds": 283.699999999385,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 158,
+        "contactIdentityCount": 4996
+      },
+      "cpuMs": 195594,
+      "wallMs": 184876.73960000003,
+      "maxRankedCandidates": 33,
+      "metadata": "docs/performance/pr177-evidence/A-development-pr177-dev-balanced.json.gz",
+      "raw": "docs/performance/pr177-evidence/A-development-pr177-dev-balanced-raw.json.gz"
+    },
+    {
+      "group": "A-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5538.5499999838685,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "finalHash": "d2affabb30d62fb94a8639d8838a1233b004621c5fd6e307c6a8f0fd68668783",
+      "football": {
+        "passes": 1731,
+        "completed": 1108,
+        "shots": 1,
+        "goals": 1,
+        "onTarget": 1,
+        "blocks": 0,
+        "corners": 1,
+        "fouls": 20,
+        "offsides": 0,
+        "playerCreditedLosses": 414,
+        "turnoverFacts": 416,
+        "initialCMReceptions": 211,
+        "receptions": 1108,
+        "controlledForwardPasses": 316,
+        "controlledForwardMetres": 3962.7928988387357,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 78,
+        "completedCombinations": 22,
+        "exposedRecoveries": 135,
+        "transitionAttempts": 74,
+        "transitionsGaining10m": 14,
+        "transitionsFailingToGain5m": 45,
+        "transitionTurnovers": 67,
+        "defenceRecovered": 96,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 96,
+        "recoveryMiddleThird": 255,
+        "recoveryAttackingThird": 38,
+        "firstForwardDelayTotalSeconds": 194.44999999958722,
+        "firstForwardDelayObservations": 74,
+        "decisionSampled5mDelayTotalSeconds": 135.94999999968556,
+        "decisionSampled5mDelayObservations": 25,
+        "liveSeconds": 4968.699999984485,
+        "stoppedSeconds": 569.8499999993842,
+        "credibleEpisodes": 5,
+        "progressionEpisodes": 218,
+        "contactIdentityCount": 3869
+      },
+      "cpuMs": 150937,
+      "wallMs": 144893.10950000002,
+      "maxRankedCandidates": 34,
+      "metadata": "docs/performance/pr177-evidence/A-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/A-development-pr177-dev-strength-raw.json.gz"
+    },
+    {
+      "group": "A-development",
+      "design": {
+        "id": "pr177-dev-central",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-central",
+        "youth": false,
+        "clubs": [
+          "pro_19",
+          "pro_22"
+        ],
+        "formations": [
+          "3-5-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "b659d5cd86d436c021defe6dc91d8c4fb0593e84d929b3d505b33d0eb1d40f65",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5531.624999999831,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "finalHash": "ee8e223e7736f803ef08982ac79ae8284e644e9328cbeab88da3e1b07d15cf4b",
+      "football": {
+        "passes": 2003,
+        "completed": 1654,
+        "shots": 1,
+        "goals": 1,
+        "onTarget": 1,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 9,
+        "offsides": 0,
+        "playerCreditedLosses": 274,
+        "turnoverFacts": 277,
+        "initialCMReceptions": 224,
+        "receptions": 1654,
+        "controlledForwardPasses": 463,
+        "controlledForwardMetres": 5117.653883634804,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 76,
+        "completedCombinations": 9,
+        "exposedRecoveries": 138,
+        "transitionAttempts": 52,
+        "transitionsGaining10m": 11,
+        "transitionsFailingToGain5m": 33,
+        "transitionTurnovers": 70,
+        "defenceRecovered": 110,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 25,
+        "recoveryMiddleThird": 224,
+        "recoveryAttackingThird": 8,
+        "firstForwardDelayTotalSeconds": 78.79999999978654,
+        "firstForwardDelayObservations": 52,
+        "decisionSampled5mDelayTotalSeconds": 68.49999999961994,
+        "decisionSampled5mDelayObservations": 16,
+        "liveSeconds": 5212.37500000039,
+        "stoppedSeconds": 319.24999999944066,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 137,
+        "contactIdentityCount": 4346
+      },
+      "cpuMs": 137298,
+      "wallMs": 132193.86890000006,
+      "maxRankedCandidates": 30,
+      "metadata": "docs/performance/pr177-evidence/A-development-pr177-dev-central.json.gz",
+      "raw": "docs/performance/pr177-evidence/A-development-pr177-dev-central-raw.json.gz"
+    },
+    {
+      "group": "A-development",
+      "design": {
+        "id": "pr177-dev-wide",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-wide",
+        "youth": false,
+        "clubs": [
+          "pro_28",
+          "pro_29"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "direct",
+          "possession"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "b563f66bb41d75b83446859cf3a260304b4c983e0a0bf91e0930852d4ab0765e",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520.725000005443,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "8d7ebbc7730cf0706f06405b3d26c2a7a44724f43e3fda455e87c856647c2f28",
+      "football": {
+        "passes": 2101,
+        "completed": 1815,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 13,
+        "offsides": 0,
+        "playerCreditedLosses": 324,
+        "turnoverFacts": 326,
+        "initialCMReceptions": 329,
+        "receptions": 1815,
+        "controlledForwardPasses": 556,
+        "controlledForwardMetres": 6995.905752034182,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 61,
+        "completedCombinations": 6,
+        "exposedRecoveries": 144,
+        "transitionAttempts": 61,
+        "transitionsGaining10m": 14,
+        "transitionsFailingToGain5m": 33,
+        "transitionTurnovers": 85,
+        "defenceRecovered": 119,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 60,
+        "recoveryMiddleThird": 233,
+        "recoveryAttackingThird": 23,
+        "firstForwardDelayTotalSeconds": 119.92499999980532,
+        "firstForwardDelayObservations": 61,
+        "decisionSampled5mDelayTotalSeconds": 113.47499999975281,
+        "decisionSampled5mDelayObservations": 25,
+        "liveSeconds": 5233.275000006003,
+        "stoppedSeconds": 287.44999999943934,
+        "credibleEpisodes": 2,
+        "progressionEpisodes": 168,
+        "contactIdentityCount": 4386
+      },
+      "cpuMs": 170765,
+      "wallMs": 167295.62549999997,
+      "maxRankedCandidates": 33,
+      "metadata": "docs/performance/pr177-evidence/A-development-pr177-dev-wide.json.gz",
+      "raw": "docs/performance/pr177-evidence/A-development-pr177-dev-wide-raw.json.gz"
+    },
+    {
+      "group": "A-development",
+      "design": {
+        "id": "pr177-dev-keepers",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_35",
+          "pro_36"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "6af503b8aadb151d435fcc5f19561d59b9fab77b09cc9f803de91d64a04d8255",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "risk-ablation-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "c3e667064f5ec539ce1d36253f724488fab5a4a3a3e49285f970240c84ee80ab",
+      "football": {
+        "passes": 1918,
+        "completed": 1429,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 1,
+        "offsides": 0,
+        "playerCreditedLosses": 210,
+        "turnoverFacts": 210,
+        "initialCMReceptions": 189,
+        "receptions": 1429,
+        "controlledForwardPasses": 452,
+        "controlledForwardMetres": 4339.364029948516,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 42,
+        "completedCombinations": 2,
+        "exposedRecoveries": 109,
+        "transitionAttempts": 46,
+        "transitionsGaining10m": 5,
+        "transitionsFailingToGain5m": 25,
+        "transitionTurnovers": 50,
+        "defenceRecovered": 91,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 17,
+        "recoveryMiddleThird": 174,
+        "recoveryAttackingThird": 8,
+        "firstForwardDelayTotalSeconds": 113.22499999994946,
+        "firstForwardDelayObservations": 46,
+        "decisionSampled5mDelayTotalSeconds": 87.02499999992372,
+        "decisionSampled5mDelayObservations": 17,
+        "liveSeconds": 5284.92500000045,
+        "stoppedSeconds": 235.07499999955022,
+        "credibleEpisodes": 2,
+        "progressionEpisodes": 99,
+        "contactIdentityCount": 4234
+      },
+      "cpuMs": 179703,
+      "wallMs": 176513.45669999998,
+      "maxRankedCandidates": 32,
+      "metadata": "docs/performance/pr177-evidence/A-development-pr177-dev-keepers.json.gz",
+      "raw": "docs/performance/pr177-evidence/A-development-pr177-dev-keepers-raw.json.gz"
+    },
+    {
+      "group": "B-development",
+      "design": {
+        "id": "pr177-dev-youth",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-4-2"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "8298facd00a689d6d683b006e22543c9a9185bbc2831a03357a6ecfea8edaea9",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "267ba566e2201431abacd8f7de346c8472755f037927cf647404ba4deb61a6e8",
+      "football": {
+        "passes": 1044,
+        "completed": 362,
+        "shots": 1,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 6,
+        "offsides": 0,
+        "playerCreditedLosses": 472,
+        "turnoverFacts": 487,
+        "initialCMReceptions": 52,
+        "receptions": 362,
+        "controlledForwardPasses": 112,
+        "controlledForwardMetres": 1485.4404936969568,
+        "spatialReleases": 17,
+        "spatialCompletions": 4,
+        "combinations": 85,
+        "completedCombinations": 0,
+        "exposedRecoveries": 266,
+        "transitionAttempts": 189,
+        "transitionsGaining10m": 38,
+        "transitionsFailingToGain5m": 129,
+        "transitionTurnovers": 160,
+        "defenceRecovered": 232,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 51,
+        "recoveryMiddleThird": 403,
+        "recoveryAttackingThird": 21,
+        "firstForwardDelayTotalSeconds": 329.79999999964065,
+        "firstForwardDelayObservations": 189,
+        "decisionSampled5mDelayTotalSeconds": 245.67499999897186,
+        "decisionSampled5mDelayObservations": 58,
+        "liveSeconds": 5274.900000000851,
+        "stoppedSeconds": 245.0999999991484,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 203,
+        "contactIdentityCount": 2762
+      },
+      "cpuMs": 237515,
+      "wallMs": 217001.3779,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-development-pr177-dev-youth.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-development-pr177-dev-youth-raw.json.gz"
+    },
+    {
+      "group": "B-development",
+      "design": {
+        "id": "pr177-dev-balanced",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_14",
+          "pro_15"
+        ],
+        "formations": [
+          "4-3-3",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "64c154db5fdf1b68c6aef86c22fe7fac982ba8a63cc650cae89a55708831b722",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5580,
+      "score": {
+        "home": 2,
+        "away": 1
+      },
+      "finalHash": "62868649cd2b620b5c3c8a2ac9d5ef9815503d347c6aa79c73f8c697e10f3f42",
+      "football": {
+        "passes": 1135,
+        "completed": 873,
+        "shots": 9,
+        "goals": 3,
+        "onTarget": 7,
+        "blocks": 0,
+        "corners": 1,
+        "fouls": 15,
+        "offsides": 0,
+        "playerCreditedLosses": 317,
+        "turnoverFacts": 324,
+        "initialCMReceptions": 281,
+        "receptions": 873,
+        "controlledForwardPasses": 340,
+        "controlledForwardMetres": 4051.1764946855724,
+        "spatialReleases": 231,
+        "spatialCompletions": 159,
+        "combinations": 53,
+        "completedCombinations": 15,
+        "exposedRecoveries": 84,
+        "transitionAttempts": 58,
+        "transitionsGaining10m": 20,
+        "transitionsFailingToGain5m": 29,
+        "transitionTurnovers": 56,
+        "defenceRecovered": 74,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 59,
+        "recoveryMiddleThird": 227,
+        "recoveryAttackingThird": 18,
+        "firstForwardDelayTotalSeconds": 73.47499999966465,
+        "firstForwardDelayObservations": 58,
+        "decisionSampled5mDelayTotalSeconds": 104.34999999947038,
+        "decisionSampled5mDelayObservations": 28,
+        "liveSeconds": 5182.400000000755,
+        "stoppedSeconds": 397.59999999924474,
+        "credibleEpisodes": 4,
+        "progressionEpisodes": 182,
+        "contactIdentityCount": 2124
+      },
+      "cpuMs": 214578,
+      "wallMs": 202334.43980000002,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-development-pr177-dev-balanced.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-development-pr177-dev-balanced-raw.json.gz"
+    },
+    {
+      "group": "B-development",
+      "design": {
+        "id": "pr177-dev-strength",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-strength",
+        "youth": false,
+        "clubs": [
+          "pro_3",
+          "pro_57"
+        ],
+        "formations": [
+          "4-4-2",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "780fb3c17c10343e747fef9dd733cb227bc764c8c31fcb2dad28b6a1efb0b81c",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5460,
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "finalHash": "136cce89331225a890febbb5fa3b2d6f4b62e1d59eac1751c05175770256deea",
+      "football": {
+        "passes": 251,
+        "completed": 150,
+        "shots": 7,
+        "goals": 2,
+        "onTarget": 3,
+        "blocks": 2,
+        "corners": 0,
+        "fouls": 8,
+        "offsides": 0,
+        "playerCreditedLosses": 104,
+        "turnoverFacts": 107,
+        "initialCMReceptions": 40,
+        "receptions": 150,
+        "controlledForwardPasses": 46,
+        "controlledForwardMetres": 573.8563272327651,
+        "spatialReleases": 44,
+        "spatialCompletions": 25,
+        "combinations": 13,
+        "completedCombinations": 4,
+        "exposedRecoveries": 33,
+        "transitionAttempts": 26,
+        "transitionsGaining10m": 4,
+        "transitionsFailingToGain5m": 19,
+        "transitionTurnovers": 23,
+        "defenceRecovered": 30,
+        "transitionShotIds": 3,
+        "recoveryDefensiveThird": 19,
+        "recoveryMiddleThird": 74,
+        "recoveryAttackingThird": 5,
+        "firstForwardDelayTotalSeconds": 34.17499999999343,
+        "firstForwardDelayObservations": 26,
+        "decisionSampled5mDelayTotalSeconds": 26.299999999997624,
+        "decisionSampled5mDelayObservations": 7,
+        "liveSeconds": 5256.674999999943,
+        "stoppedSeconds": 203.32500000005655,
+        "credibleEpisodes": 3,
+        "progressionEpisodes": 42,
+        "contactIdentityCount": 104723
+      },
+      "cpuMs": 279344,
+      "wallMs": 273086.42789999995,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-development-pr177-dev-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-development-pr177-dev-strength-raw.json.gz"
+    },
+    {
+      "group": "B-development",
+      "design": {
+        "id": "pr177-dev-central",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-central",
+        "youth": false,
+        "clubs": [
+          "pro_19",
+          "pro_22"
+        ],
+        "formations": [
+          "3-5-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "possession",
+          "pressing"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "b659d5cd86d436c021defe6dc91d8c4fb0593e84d929b3d505b33d0eb1d40f65",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "91cd5d4e87064fab6af3102293378701a5571b01335cbfc3caa487f223a7da58",
+      "football": {
+        "passes": 1943,
+        "completed": 1282,
+        "shots": 2,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 1,
+        "corners": 0,
+        "fouls": 24,
+        "offsides": 0,
+        "playerCreditedLosses": 605,
+        "turnoverFacts": 612,
+        "initialCMReceptions": 341,
+        "receptions": 1282,
+        "controlledForwardPasses": 371,
+        "controlledForwardMetres": 4531.857425804032,
+        "spatialReleases": 167,
+        "spatialCompletions": 101,
+        "combinations": 96,
+        "completedCombinations": 10,
+        "exposedRecoveries": 239,
+        "transitionAttempts": 183,
+        "transitionsGaining10m": 46,
+        "transitionsFailingToGain5m": 106,
+        "transitionTurnovers": 172,
+        "defenceRecovered": 194,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 87,
+        "recoveryMiddleThird": 478,
+        "recoveryAttackingThird": 26,
+        "firstForwardDelayTotalSeconds": 283.34999999945074,
+        "firstForwardDelayObservations": 183,
+        "decisionSampled5mDelayTotalSeconds": 309.1749999995972,
+        "decisionSampled5mDelayObservations": 79,
+        "liveSeconds": 5126.39999999979,
+        "stoppedSeconds": 393.6000000002092,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 300,
+        "contactIdentityCount": 4073
+      },
+      "cpuMs": 220499,
+      "wallMs": 212826.7049,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-development-pr177-dev-central.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-development-pr177-dev-central-raw.json.gz"
+    },
+    {
+      "group": "B-development",
+      "design": {
+        "id": "pr177-dev-wide",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-wide",
+        "youth": false,
+        "clubs": [
+          "pro_28",
+          "pro_29"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "4-4-2"
+        ],
+        "styles": [
+          "direct",
+          "possession"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "b563f66bb41d75b83446859cf3a260304b4c983e0a0bf91e0930852d4ab0765e",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5522.174999984325,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "finalHash": "ef9cb00b4fea3c63c32b65a84d20a4b5a2cefb302f1093913f67e97fc43959cd",
+      "football": {
+        "passes": 2196,
+        "completed": 1636,
+        "shots": 2,
+        "goals": 1,
+        "onTarget": 1,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 27,
+        "offsides": 0,
+        "playerCreditedLosses": 584,
+        "turnoverFacts": 590,
+        "initialCMReceptions": 503,
+        "receptions": 1636,
+        "controlledForwardPasses": 554,
+        "controlledForwardMetres": 6163.739105918838,
+        "spatialReleases": 175,
+        "spatialCompletions": 119,
+        "combinations": 109,
+        "completedCombinations": 21,
+        "exposedRecoveries": 174,
+        "transitionAttempts": 129,
+        "transitionsGaining10m": 22,
+        "transitionsFailingToGain5m": 81,
+        "transitionTurnovers": 117,
+        "defenceRecovered": 162,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 73,
+        "recoveryMiddleThird": 480,
+        "recoveryAttackingThird": 19,
+        "firstForwardDelayTotalSeconds": 213.37499999944674,
+        "firstForwardDelayObservations": 129,
+        "decisionSampled5mDelayTotalSeconds": 173.89999999979176,
+        "decisionSampled5mDelayObservations": 46,
+        "liveSeconds": 5096.2999999852245,
+        "stoppedSeconds": 425.8749999991006,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 281,
+        "contactIdentityCount": 4228
+      },
+      "cpuMs": 218468,
+      "wallMs": 214603.08070000005,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-development-pr177-dev-wide.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-development-pr177-dev-wide-raw.json.gz"
+    },
+    {
+      "group": "B-development",
+      "design": {
+        "id": "pr177-dev-keepers",
+        "split": "development",
+        "seed": "pr177-unseen-20261018-v1:pr177-dev-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_35",
+          "pro_36"
+        ],
+        "formations": [
+          "3-4-2-1",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "pressing",
+          "counter_attacking"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "6af503b8aadb151d435fcc5f19561d59b9fab77b09cc9f803de91d64a04d8255",
+      "source": {
+        "version": 1,
+        "mode": "development",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5580,
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "finalHash": "7739ceaed85bdf52c04d3a5c782bc57ff147accabd8e99bff68d2c6fade4413c",
+      "football": {
+        "passes": 1518,
+        "completed": 924,
+        "shots": 1,
+        "goals": 1,
+        "onTarget": 1,
+        "blocks": 0,
+        "corners": 1,
+        "fouls": 22,
+        "offsides": 0,
+        "playerCreditedLosses": 473,
+        "turnoverFacts": 480,
+        "initialCMReceptions": 333,
+        "receptions": 924,
+        "controlledForwardPasses": 246,
+        "controlledForwardMetres": 2645.7138702068255,
+        "spatialReleases": 46,
+        "spatialCompletions": 23,
+        "combinations": 103,
+        "completedCombinations": 3,
+        "exposedRecoveries": 192,
+        "transitionAttempts": 137,
+        "transitionsGaining10m": 22,
+        "transitionsFailingToGain5m": 94,
+        "transitionTurnovers": 128,
+        "defenceRecovered": 174,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 71,
+        "recoveryMiddleThird": 372,
+        "recoveryAttackingThird": 29,
+        "firstForwardDelayTotalSeconds": 235.59999999976262,
+        "firstForwardDelayObservations": 137,
+        "decisionSampled5mDelayTotalSeconds": 193.17499999963988,
+        "decisionSampled5mDelayObservations": 43,
+        "liveSeconds": 5276.20000000085,
+        "stoppedSeconds": 303.79999999915003,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 226,
+        "contactIdentityCount": 3459
+      },
+      "cpuMs": 238704,
+      "wallMs": 231370.87509999983,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-development-pr177-dev-keepers.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-development-pr177-dev-keepers-raw.json.gz"
+    },
+    {
+      "group": "pristine-validation",
+      "design": {
+        "id": "pr177-val-youth",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "0682ee30ea2f6bf9969b8d24209ed9da0c7edc708686f0663c90f6e639062a33",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5460,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "6ca3e71b300dc0ccb28f21cc25c358dd775059b96bc4da5db816c5b8e44dfb92",
+      "football": {
+        "passes": 1397,
+        "completed": 714,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 6,
+        "offsides": 0,
+        "playerCreditedLosses": 232,
+        "turnoverFacts": 236,
+        "initialCMReceptions": 31,
+        "receptions": 714,
+        "controlledForwardPasses": 102,
+        "controlledForwardMetres": 1231.4498915364697,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 38,
+        "completedCombinations": 1,
+        "exposedRecoveries": 127,
+        "transitionAttempts": 62,
+        "transitionsGaining10m": 9,
+        "transitionsFailingToGain5m": 42,
+        "transitionTurnovers": 53,
+        "defenceRecovered": 115,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 19,
+        "recoveryMiddleThird": 206,
+        "recoveryAttackingThird": 4,
+        "firstForwardDelayTotalSeconds": 116.84999999975848,
+        "firstForwardDelayObservations": 62,
+        "decisionSampled5mDelayTotalSeconds": 75.19999999990605,
+        "decisionSampled5mDelayObservations": 16,
+        "liveSeconds": 5268.32499999986,
+        "stoppedSeconds": 191.67500000014041,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 109,
+        "contactIdentityCount": 3376
+      },
+      "cpuMs": 178922,
+      "wallMs": 159916.3047,
+      "maxRankedCandidates": 34,
+      "metadata": "docs/performance/pr177-evidence/pristine-validation-pr177-val-youth.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-validation-pr177-val-youth-raw.json.gz"
+    },
+    {
+      "group": "pristine-validation",
+      "design": {
+        "id": "pr177-val-balanced",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_17",
+          "pro_18"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "e42060401042019ec3076931c42cb8eda3933fe7ad6cee9bb4fb99ffa96cab23",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "finalHash": "81b6919c68c5f4acc7b287497ce8bbf1732639d88310ca1980d9b9907353bb35",
+      "football": {
+        "passes": 1978,
+        "completed": 1727,
+        "shots": 1,
+        "goals": 1,
+        "onTarget": 1,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 10,
+        "offsides": 0,
+        "playerCreditedLosses": 239,
+        "turnoverFacts": 242,
+        "initialCMReceptions": 194,
+        "receptions": 1727,
+        "controlledForwardPasses": 514,
+        "controlledForwardMetres": 7223.134283707676,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 58,
+        "completedCombinations": 9,
+        "exposedRecoveries": 93,
+        "transitionAttempts": 43,
+        "transitionsGaining10m": 3,
+        "transitionsFailingToGain5m": 29,
+        "transitionTurnovers": 47,
+        "defenceRecovered": 66,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 55,
+        "recoveryMiddleThird": 168,
+        "recoveryAttackingThird": 14,
+        "firstForwardDelayTotalSeconds": 95.2749999999009,
+        "firstForwardDelayObservations": 43,
+        "decisionSampled5mDelayTotalSeconds": 51.125000000013486,
+        "decisionSampled5mDelayObservations": 12,
+        "liveSeconds": 5331.699999984912,
+        "stoppedSeconds": 188.30000001508813,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 160,
+        "contactIdentityCount": 4209
+      },
+      "cpuMs": 214031,
+      "wallMs": 202807.24970000001,
+      "maxRankedCandidates": 37,
+      "metadata": "docs/performance/pr177-evidence/pristine-validation-pr177-val-balanced.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-validation-pr177-val-balanced-raw.json.gz"
+    },
+    {
+      "group": "pristine-validation",
+      "design": {
+        "id": "pr177-val-strength",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-strength",
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_51"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "possession",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "bec0335beabe50f2615b7af51c9f255425b6c4600ad7fa62ae1a81c0c99d3ba7",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5520.175000005658,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "finalHash": "87dca16f4dea8ba61d5a92a3389ecde2456f92d3ba09180d6914b00d377cb5aa",
+      "football": {
+        "passes": 2005,
+        "completed": 1672,
+        "shots": 3,
+        "goals": 1,
+        "onTarget": 2,
+        "blocks": 1,
+        "corners": 1,
+        "fouls": 6,
+        "offsides": 0,
+        "playerCreditedLosses": 193,
+        "turnoverFacts": 196,
+        "initialCMReceptions": 324,
+        "receptions": 1672,
+        "controlledForwardPasses": 406,
+        "controlledForwardMetres": 5656.575148273432,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 57,
+        "completedCombinations": 12,
+        "exposedRecoveries": 84,
+        "transitionAttempts": 30,
+        "transitionsGaining10m": 3,
+        "transitionsFailingToGain5m": 20,
+        "transitionTurnovers": 39,
+        "defenceRecovered": 60,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 46,
+        "recoveryMiddleThird": 110,
+        "recoveryAttackingThird": 23,
+        "firstForwardDelayTotalSeconds": 77.37500000006608,
+        "firstForwardDelayObservations": 30,
+        "decisionSampled5mDelayTotalSeconds": 38.20000000003449,
+        "decisionSampled5mDelayObservations": 8,
+        "liveSeconds": 5175.100000006498,
+        "stoppedSeconds": 345.0749999991604,
+        "credibleEpisodes": 6,
+        "progressionEpisodes": 91,
+        "contactIdentityCount": 4401
+      },
+      "cpuMs": 207704,
+      "wallMs": 196961.48430000007,
+      "maxRankedCandidates": 31,
+      "metadata": "docs/performance/pr177-evidence/pristine-validation-pr177-val-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-validation-pr177-val-strength-raw.json.gz"
+    },
+    {
+      "group": "pristine-validation",
+      "design": {
+        "id": "pr177-val-central",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-central",
+        "youth": false,
+        "clubs": [
+          "pro_26",
+          "pro_27"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "possession"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "0ee4f41f104c370cada89edba89e28b52cba0e8e68c0c8efc364ff6d0c748eed",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5520.125000005441,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "finalHash": "cd22c07b67801fbcbba7a2700e82ed8d76a8737fcd76ba993f37c81e9917c2f1",
+      "football": {
+        "passes": 1809,
+        "completed": 1533,
+        "shots": 3,
+        "goals": 1,
+        "onTarget": 2,
+        "blocks": 0,
+        "corners": 2,
+        "fouls": 17,
+        "offsides": 0,
+        "playerCreditedLosses": 289,
+        "turnoverFacts": 299,
+        "initialCMReceptions": 175,
+        "receptions": 1533,
+        "controlledForwardPasses": 466,
+        "controlledForwardMetres": 6733.715982824589,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 55,
+        "completedCombinations": 5,
+        "exposedRecoveries": 145,
+        "transitionAttempts": 73,
+        "transitionsGaining10m": 13,
+        "transitionsFailingToGain5m": 41,
+        "transitionTurnovers": 65,
+        "defenceRecovered": 116,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 69,
+        "recoveryMiddleThird": 188,
+        "recoveryAttackingThird": 26,
+        "firstForwardDelayTotalSeconds": 149.99999999966008,
+        "firstForwardDelayObservations": 73,
+        "decisionSampled5mDelayTotalSeconds": 108.44999999961765,
+        "decisionSampled5mDelayObservations": 26,
+        "liveSeconds": 5189.675000005302,
+        "stoppedSeconds": 330.45000000013886,
+        "credibleEpisodes": 3,
+        "progressionEpisodes": 179,
+        "contactIdentityCount": 3955
+      },
+      "cpuMs": 188094,
+      "wallMs": 182284.97419999994,
+      "maxRankedCandidates": 34,
+      "metadata": "docs/performance/pr177-evidence/pristine-validation-pr177-val-central.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-validation-pr177-val-central-raw.json.gz"
+    },
+    {
+      "group": "pristine-validation",
+      "design": {
+        "id": "pr177-val-wide",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-wide",
+        "youth": false,
+        "clubs": [
+          "pro_42",
+          "pro_43"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "direct",
+          "pressing"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "8a02f3a9f65aaa80f0713e25114f7846ea225fbee2c617cce61d78c63f96d63d",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5538.99999998952,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "8f2100eefd22d60d49331530448641e61ce6cf1577004a4cc309f08b9000b397",
+      "football": {
+        "passes": 1498,
+        "completed": 1065,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 5,
+        "offsides": 0,
+        "playerCreditedLosses": 279,
+        "turnoverFacts": 280,
+        "initialCMReceptions": 130,
+        "receptions": 1065,
+        "controlledForwardPasses": 304,
+        "controlledForwardMetres": 4056.27233982947,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 70,
+        "completedCombinations": 2,
+        "exposedRecoveries": 126,
+        "transitionAttempts": 77,
+        "transitionsGaining10m": 8,
+        "transitionsFailingToGain5m": 58,
+        "transitionTurnovers": 69,
+        "defenceRecovered": 100,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 46,
+        "recoveryMiddleThird": 207,
+        "recoveryAttackingThird": 14,
+        "firstForwardDelayTotalSeconds": 135.17499999981445,
+        "firstForwardDelayObservations": 77,
+        "decisionSampled5mDelayTotalSeconds": 94.67500000016241,
+        "decisionSampled5mDelayObservations": 19,
+        "liveSeconds": 5260.299999989991,
+        "stoppedSeconds": 278.6999999995283,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 161,
+        "contactIdentityCount": 3358
+      },
+      "cpuMs": 130516,
+      "wallMs": 127017.7844,
+      "maxRankedCandidates": 34,
+      "metadata": "docs/performance/pr177-evidence/pristine-validation-pr177-val-wide.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-validation-pr177-val-wide-raw.json.gz"
+    },
+    {
+      "group": "pristine-validation",
+      "design": {
+        "id": "pr177-val-keepers",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_46",
+          "pro_47"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "counter_attacking",
+          "possession"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "97aa6e07065443b6f2113dd660f7e49758f2ed155569ccd91390ba99ecfb9895",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "legacy-pr176",
+        "ablation": "none",
+        "sourceHash": "4826038f55e7f866b3ac8a6b69c373d7b7b7a6ddbd45ca1a392892a493a88c3d",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "672cf8a2d43696dafb26d7448aa6fbd9289dff4694f4e1bf86fd2dd14b6434f0"
+      },
+      "status": "full_time",
+      "elapsed": 5460.650000005442,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "86639c3cb1fe581efcb21a37a7d3894a3c3eea32c87fb2492838cb4eff9c3406",
+      "football": {
+        "passes": 2004,
+        "completed": 1625,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 4,
+        "offsides": 0,
+        "playerCreditedLosses": 128,
+        "turnoverFacts": 129,
+        "initialCMReceptions": 108,
+        "receptions": 1625,
+        "controlledForwardPasses": 471,
+        "controlledForwardMetres": 4728.322105380955,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 46,
+        "completedCombinations": 0,
+        "exposedRecoveries": 76,
+        "transitionAttempts": 24,
+        "transitionsGaining10m": 1,
+        "transitionsFailingToGain5m": 16,
+        "transitionTurnovers": 34,
+        "defenceRecovered": 68,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 3,
+        "recoveryMiddleThird": 124,
+        "recoveryAttackingThird": 1,
+        "firstForwardDelayTotalSeconds": 54.92499999984662,
+        "firstForwardDelayObservations": 24,
+        "decisionSampled5mDelayTotalSeconds": 25.824999999916713,
+        "decisionSampled5mDelayObservations": 6,
+        "liveSeconds": 5372.275000005541,
+        "stoppedSeconds": 88.37499999990132,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 45,
+        "contactIdentityCount": 4346
+      },
+      "cpuMs": 145546,
+      "wallMs": 141735.32830000005,
+      "maxRankedCandidates": 28,
+      "metadata": "docs/performance/pr177-evidence/pristine-validation-pr177-val-keepers.json.gz",
+      "raw": "docs/performance/pr177-evidence/pristine-validation-pr177-val-keepers-raw.json.gz"
+    },
+    {
+      "group": "B-validation",
+      "design": {
+        "id": "pr177-val-youth",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-youth",
+        "youth": true,
+        "clubs": [
+          "academy_0",
+          "academy_1"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ],
+        "styles": [
+          "direct",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "0682ee30ea2f6bf9969b8d24209ed9da0c7edc708686f0663c90f6e639062a33",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "10d6e398eec3e86436a15764a0702c9af151e68ea6663ef3fe54702a4513fc40",
+      "football": {
+        "passes": 942,
+        "completed": 313,
+        "shots": 0,
+        "goals": 0,
+        "onTarget": 0,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 13,
+        "offsides": 0,
+        "playerCreditedLosses": 421,
+        "turnoverFacts": 436,
+        "initialCMReceptions": 61,
+        "receptions": 313,
+        "controlledForwardPasses": 92,
+        "controlledForwardMetres": 1184.6894044534668,
+        "spatialReleases": 4,
+        "spatialCompletions": 1,
+        "combinations": 39,
+        "completedCombinations": 0,
+        "exposedRecoveries": 183,
+        "transitionAttempts": 131,
+        "transitionsGaining10m": 21,
+        "transitionsFailingToGain5m": 94,
+        "transitionTurnovers": 93,
+        "defenceRecovered": 159,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 64,
+        "recoveryMiddleThird": 337,
+        "recoveryAttackingThird": 20,
+        "firstForwardDelayTotalSeconds": 212.32499999941842,
+        "firstForwardDelayObservations": 131,
+        "decisionSampled5mDelayTotalSeconds": 168.64999999971334,
+        "decisionSampled5mDelayObservations": 36,
+        "liveSeconds": 5199.975000000771,
+        "stoppedSeconds": 320.0249999992295,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 202,
+        "contactIdentityCount": 2569
+      },
+      "cpuMs": 325672,
+      "wallMs": 234956.47340000002,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-validation-pr177-val-youth.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-validation-pr177-val-youth-raw.json.gz"
+    },
+    {
+      "group": "B-validation",
+      "design": {
+        "id": "pr177-val-balanced",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-balanced",
+        "youth": false,
+        "clubs": [
+          "pro_17",
+          "pro_18"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ],
+        "styles": [
+          "balanced",
+          "balanced"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "e42060401042019ec3076931c42cb8eda3933fe7ad6cee9bb4fb99ffa96cab23",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5640,
+      "score": {
+        "home": 2,
+        "away": 2
+      },
+      "finalHash": "91007b79bdb0ba0813fdd35679906f4f434ae587e874817ac1f38a77c630462d",
+      "football": {
+        "passes": 1942,
+        "completed": 1442,
+        "shots": 6,
+        "goals": 4,
+        "onTarget": 4,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 20,
+        "offsides": 0,
+        "playerCreditedLosses": 547,
+        "turnoverFacts": 563,
+        "initialCMReceptions": 389,
+        "receptions": 1442,
+        "controlledForwardPasses": 539,
+        "controlledForwardMetres": 6363.368025852109,
+        "spatialReleases": 179,
+        "spatialCompletions": 124,
+        "combinations": 103,
+        "completedCombinations": 16,
+        "exposedRecoveries": 176,
+        "transitionAttempts": 126,
+        "transitionsGaining10m": 30,
+        "transitionsFailingToGain5m": 76,
+        "transitionTurnovers": 128,
+        "defenceRecovered": 157,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 101,
+        "recoveryMiddleThird": 419,
+        "recoveryAttackingThird": 28,
+        "firstForwardDelayTotalSeconds": 148.79999999956146,
+        "firstForwardDelayObservations": 126,
+        "decisionSampled5mDelayTotalSeconds": 190.47499999954942,
+        "decisionSampled5mDelayObservations": 50,
+        "liveSeconds": 5277.400000000067,
+        "stoppedSeconds": 362.59999999993323,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 293,
+        "contactIdentityCount": 3852
+      },
+      "cpuMs": 336328,
+      "wallMs": 264383.38859999995,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-validation-pr177-val-balanced.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-validation-pr177-val-balanced-raw.json.gz"
+    },
+    {
+      "group": "B-validation",
+      "design": {
+        "id": "pr177-val-strength",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-strength",
+        "youth": false,
+        "clubs": [
+          "pro_7",
+          "pro_51"
+        ],
+        "formations": [
+          "4-2-3-1",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "possession",
+          "counter_attacking"
+        ],
+        "attributes": "native"
+      },
+      "inputHash": "bec0335beabe50f2615b7af51c9f255425b6c4600ad7fa62ae1a81c0c99d3ba7",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5700.62499998151,
+      "score": {
+        "home": 5,
+        "away": 0
+      },
+      "finalHash": "51251163fd513e63ca68f007ffb51c28d3ac799727e796a78f579c557b6f7196",
+      "football": {
+        "passes": 1374,
+        "completed": 792,
+        "shots": 13,
+        "goals": 5,
+        "onTarget": 9,
+        "blocks": 1,
+        "corners": 2,
+        "fouls": 26,
+        "offsides": 0,
+        "playerCreditedLosses": 539,
+        "turnoverFacts": 557,
+        "initialCMReceptions": 298,
+        "receptions": 792,
+        "controlledForwardPasses": 245,
+        "controlledForwardMetres": 2956.7624124783997,
+        "spatialReleases": 196,
+        "spatialCompletions": 108,
+        "combinations": 95,
+        "completedCombinations": 21,
+        "exposedRecoveries": 194,
+        "transitionAttempts": 151,
+        "transitionsGaining10m": 40,
+        "transitionsFailingToGain5m": 95,
+        "transitionTurnovers": 121,
+        "defenceRecovered": 163,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 123,
+        "recoveryMiddleThird": 366,
+        "recoveryAttackingThird": 45,
+        "firstForwardDelayTotalSeconds": 194.12499999944114,
+        "firstForwardDelayObservations": 151,
+        "decisionSampled5mDelayTotalSeconds": 215.37499999957177,
+        "decisionSampled5mDelayObservations": 56,
+        "liveSeconds": 5123.574999982784,
+        "stoppedSeconds": 577.0499999987264,
+        "credibleEpisodes": 5,
+        "progressionEpisodes": 249,
+        "contactIdentityCount": 3159
+      },
+      "cpuMs": 324890,
+      "wallMs": 255471.8579,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-validation-pr177-val-strength.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-validation-pr177-val-strength-raw.json.gz"
+    },
+    {
+      "group": "B-validation",
+      "design": {
+        "id": "pr177-val-central",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-central",
+        "youth": false,
+        "clubs": [
+          "pro_26",
+          "pro_27"
+        ],
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ],
+        "styles": [
+          "pressing",
+          "possession"
+        ],
+        "attributes": "technical-v-physical"
+      },
+      "inputHash": "0ee4f41f104c370cada89edba89e28b52cba0e8e68c0c8efc364ff6d0c748eed",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5520,
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "finalHash": "dacda0efc9b6a085d26f8102b620d8ddd2cc9fb407bd3840a2d7bfcb42c5e030",
+      "football": {
+        "passes": 1739,
+        "completed": 1067,
+        "shots": 4,
+        "goals": 1,
+        "onTarget": 1,
+        "blocks": 2,
+        "corners": 0,
+        "fouls": 34,
+        "offsides": 0,
+        "playerCreditedLosses": 622,
+        "turnoverFacts": 634,
+        "initialCMReceptions": 241,
+        "receptions": 1067,
+        "controlledForwardPasses": 370,
+        "controlledForwardMetres": 4321.457637546364,
+        "spatialReleases": 197,
+        "spatialCompletions": 116,
+        "combinations": 84,
+        "completedCombinations": 12,
+        "exposedRecoveries": 249,
+        "transitionAttempts": 179,
+        "transitionsGaining10m": 45,
+        "transitionsFailingToGain5m": 109,
+        "transitionTurnovers": 181,
+        "defenceRecovered": 214,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 112,
+        "recoveryMiddleThird": 471,
+        "recoveryAttackingThird": 38,
+        "firstForwardDelayTotalSeconds": 238.97499999979675,
+        "firstForwardDelayObservations": 179,
+        "decisionSampled5mDelayTotalSeconds": 238.54999999983548,
+        "decisionSampled5mDelayObservations": 69,
+        "liveSeconds": 5137.125000000197,
+        "stoppedSeconds": 382.87499999980236,
+        "credibleEpisodes": 0,
+        "progressionEpisodes": 291,
+        "contactIdentityCount": 3746
+      },
+      "cpuMs": 246218,
+      "wallMs": 188039.62199999997,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-validation-pr177-val-central.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-validation-pr177-val-central-raw.json.gz"
+    },
+    {
+      "group": "B-validation",
+      "design": {
+        "id": "pr177-val-wide",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-wide",
+        "youth": false,
+        "clubs": [
+          "pro_42",
+          "pro_43"
+        ],
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ],
+        "styles": [
+          "direct",
+          "pressing"
+        ],
+        "attributes": "fast-v-slow"
+      },
+      "inputHash": "8a02f3a9f65aaa80f0713e25114f7846ea225fbee2c617cce61d78c63f96d63d",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5525.0999999842825,
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "finalHash": "91ac879693bd16531f1abb328b657b6463992f36600b7f9d5a21f12abf02996a",
+      "football": {
+        "passes": 1335,
+        "completed": 682,
+        "shots": 2,
+        "goals": 2,
+        "onTarget": 2,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 23,
+        "offsides": 0,
+        "playerCreditedLosses": 536,
+        "turnoverFacts": 553,
+        "initialCMReceptions": 197,
+        "receptions": 682,
+        "controlledForwardPasses": 219,
+        "controlledForwardMetres": 2592.4519326056547,
+        "spatialReleases": 41,
+        "spatialCompletions": 16,
+        "combinations": 70,
+        "completedCombinations": 3,
+        "exposedRecoveries": 199,
+        "transitionAttempts": 143,
+        "transitionsGaining10m": 26,
+        "transitionsFailingToGain5m": 94,
+        "transitionTurnovers": 125,
+        "defenceRecovered": 176,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 66,
+        "recoveryMiddleThird": 450,
+        "recoveryAttackingThird": 15,
+        "firstForwardDelayTotalSeconds": 229.92499999943252,
+        "firstForwardDelayObservations": 143,
+        "decisionSampled5mDelayTotalSeconds": 195.32499999981513,
+        "decisionSampled5mDelayObservations": 48,
+        "liveSeconds": 5019.424999985109,
+        "stoppedSeconds": 505.6749999991729,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 249,
+        "contactIdentityCount": 3197
+      },
+      "cpuMs": 268688,
+      "wallMs": 206644.1684999999,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-validation-pr177-val-wide.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-validation-pr177-val-wide-raw.json.gz"
+    },
+    {
+      "group": "B-validation",
+      "design": {
+        "id": "pr177-val-keepers",
+        "split": "validation",
+        "seed": "pr177-unseen-20261018-v1:pr177-val-keepers",
+        "youth": false,
+        "clubs": [
+          "pro_46",
+          "pro_47"
+        ],
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ],
+        "styles": [
+          "counter_attacking",
+          "possession"
+        ],
+        "attributes": "keeper-strong-v-weak"
+      },
+      "inputHash": "97aa6e07065443b6f2113dd660f7e49758f2ed155569ccd91390ba99ecfb9895",
+      "source": {
+        "version": 1,
+        "mode": "validation",
+        "policy": "state-value-v1",
+        "ablation": "none",
+        "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+        "node": "v24.19.0",
+        "dt": 0.025,
+        "harnessHash": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+      },
+      "status": "full_time",
+      "elapsed": 5460,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "finalHash": "6058aef3925e55666342443ea5248d182db710ec95bea4574cf7c46ef1952b79",
+      "football": {
+        "passes": 1654,
+        "completed": 959,
+        "shots": 2,
+        "goals": 0,
+        "onTarget": 1,
+        "blocks": 0,
+        "corners": 0,
+        "fouls": 16,
+        "offsides": 0,
+        "playerCreditedLosses": 522,
+        "turnoverFacts": 527,
+        "initialCMReceptions": 302,
+        "receptions": 959,
+        "controlledForwardPasses": 281,
+        "controlledForwardMetres": 2973.78406233781,
+        "spatialReleases": 55,
+        "spatialCompletions": 35,
+        "combinations": 99,
+        "completedCombinations": 8,
+        "exposedRecoveries": 176,
+        "transitionAttempts": 115,
+        "transitionsGaining10m": 17,
+        "transitionsFailingToGain5m": 78,
+        "transitionTurnovers": 115,
+        "defenceRecovered": 159,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 61,
+        "recoveryMiddleThird": 438,
+        "recoveryAttackingThird": 18,
+        "firstForwardDelayTotalSeconds": 218.77499999946642,
+        "firstForwardDelayObservations": 115,
+        "decisionSampled5mDelayTotalSeconds": 167.74999999923898,
+        "decisionSampled5mDelayObservations": 37,
+        "liveSeconds": 5211.5250000005035,
+        "stoppedSeconds": 248.47499999949656,
+        "credibleEpisodes": 1,
+        "progressionEpisodes": 237,
+        "contactIdentityCount": 3599
+      },
+      "cpuMs": 229797,
+      "wallMs": 175276.87080000015,
+      "maxRankedCandidates": 48,
+      "metadata": "docs/performance/pr177-evidence/B-validation-pr177-val-keepers.json.gz",
+      "raw": "docs/performance/pr177-evidence/B-validation-pr177-val-keepers-raw.json.gz"
+    }
+  ],
+  "summary": [
+    {
+      "group": "pristine-development",
+      "matches": 6,
+      "fullTime": 6,
+      "totals": {
+        "passes": 10601,
+        "completed": 8411,
+        "shots": 11,
+        "goals": 7,
+        "onTarget": 9,
+        "blocks": 1,
+        "corners": 6,
+        "fouls": 67,
+        "offsides": 0,
+        "playerCreditedLosses": 1525,
+        "turnoverFacts": 1550,
+        "initialCMReceptions": 914,
+        "receptions": 8411,
+        "controlledForwardPasses": 2436,
+        "controlledForwardMetres": 31616.92004284978,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 325,
+        "completedCombinations": 34,
+        "exposedRecoveries": 715,
+        "transitionAttempts": 335,
+        "transitionsGaining10m": 48,
+        "transitionsFailingToGain5m": 216,
+        "transitionTurnovers": 333,
+        "defenceRecovered": 583,
+        "transitionShotIds": 0,
+        "recoveryDefensiveThird": 247,
+        "recoveryMiddleThird": 1122,
+        "recoveryAttackingThird": 74,
+        "firstForwardDelayTotalSeconds": 649.0749999994327,
+        "firstForwardDelayObservations": 335,
+        "decisionSampled5mDelayTotalSeconds": 475.37499999921295,
+        "decisionSampled5mDelayObservations": 99,
+        "liveSeconds": 31048.474999998783,
+        "stoppedSeconds": 2285.7749999942266,
+        "credibleEpisodes": 8,
+        "progressionEpisodes": 837,
+        "contactIdentityCount": 23339
+      },
+      "ranges": {
+        "shots": {
+          "min": 0,
+          "max": 7
+        },
+        "goals": {
+          "min": 0,
+          "max": 5
+        },
+        "passes": {
+          "min": 1308,
+          "max": 2195
+        },
+        "playerCreditedLosses": {
+          "min": 193,
+          "max": 294
+        },
+        "exposedRecoveries": {
+          "min": 92,
+          "max": 160
+        }
+      }
+    },
+    {
+      "group": "legacy-development",
+      "matches": 6,
+      "fullTime": 6,
+      "totals": {
+        "passes": 10583,
+        "completed": 8367,
+        "shots": 12,
+        "goals": 6,
+        "onTarget": 10,
+        "blocks": 2,
+        "corners": 6,
+        "fouls": 66,
+        "offsides": 0,
+        "playerCreditedLosses": 1532,
+        "turnoverFacts": 1560,
+        "initialCMReceptions": 891,
+        "receptions": 8367,
+        "controlledForwardPasses": 2399,
+        "controlledForwardMetres": 31153.56606903526,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 330,
+        "completedCombinations": 30,
+        "exposedRecoveries": 729,
+        "transitionAttempts": 344,
+        "transitionsGaining10m": 55,
+        "transitionsFailingToGain5m": 225,
+        "transitionTurnovers": 336,
+        "defenceRecovered": 586,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 255,
+        "recoveryMiddleThird": 1119,
+        "recoveryAttackingThird": 84,
+        "firstForwardDelayTotalSeconds": 654.499999999361,
+        "firstForwardDelayObservations": 344,
+        "decisionSampled5mDelayTotalSeconds": 471.59999999910326,
+        "decisionSampled5mDelayObservations": 99,
+        "liveSeconds": 31150.37499996143,
+        "stoppedSeconds": 2124.1999999948307,
+        "credibleEpisodes": 9,
+        "progressionEpisodes": 817,
+        "contactIdentityCount": 23346
+      },
+      "ranges": {
+        "shots": {
+          "min": 0,
+          "max": 7
+        },
+        "goals": {
+          "min": 0,
+          "max": 5
+        },
+        "passes": {
+          "min": 1276,
+          "max": 2209
+        },
+        "playerCreditedLosses": {
+          "min": 193,
+          "max": 294
+        },
+        "exposedRecoveries": {
+          "min": 99,
+          "max": 160
+        }
+      }
+    },
+    {
+      "group": "A-development",
+      "matches": 6,
+      "fullTime": 6,
+      "totals": {
+        "passes": 11734,
+        "completed": 9090,
+        "shots": 4,
+        "goals": 2,
+        "onTarget": 2,
+        "blocks": 0,
+        "corners": 2,
+        "fouls": 66,
+        "offsides": 0,
+        "playerCreditedLosses": 1759,
+        "turnoverFacts": 1774,
+        "initialCMReceptions": 1495,
+        "receptions": 9090,
+        "controlledForwardPasses": 2640,
+        "controlledForwardMetres": 31911.818179559028,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 421,
+        "completedCombinations": 75,
+        "exposedRecoveries": 792,
+        "transitionAttempts": 380,
+        "transitionsGaining10m": 65,
+        "transitionsFailingToGain5m": 233,
+        "transitionTurnovers": 424,
+        "defenceRecovered": 634,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 298,
+        "recoveryMiddleThird": 1271,
+        "recoveryAttackingThird": 111,
+        "firstForwardDelayTotalSeconds": 764.1749999984902,
+        "firstForwardDelayObservations": 380,
+        "decisionSampled5mDelayTotalSeconds": 596.674999998531,
+        "decisionSampled5mDelayObservations": 123,
+        "liveSeconds": 31183.44999998302,
+        "stoppedSeconds": 1909.6499999967614,
+        "credibleEpisodes": 16,
+        "progressionEpisodes": 935,
+        "contactIdentityCount": 25353
+      },
+      "ranges": {
+        "shots": {
+          "min": 0,
+          "max": 2
+        },
+        "goals": {
+          "min": 0,
+          "max": 1
+        },
+        "passes": {
+          "min": 1483,
+          "max": 2498
+        },
+        "playerCreditedLosses": {
+          "min": 210,
+          "max": 414
+        },
+        "exposedRecoveries": {
+          "min": 100,
+          "max": 166
+        }
+      }
+    },
+    {
+      "group": "B-development",
+      "matches": 6,
+      "fullTime": 6,
+      "totals": {
+        "passes": 8087,
+        "completed": 5227,
+        "shots": 22,
+        "goals": 7,
+        "onTarget": 12,
+        "blocks": 3,
+        "corners": 2,
+        "fouls": 102,
+        "offsides": 0,
+        "playerCreditedLosses": 2555,
+        "turnoverFacts": 2600,
+        "initialCMReceptions": 1550,
+        "receptions": 5227,
+        "controlledForwardPasses": 1669,
+        "controlledForwardMetres": 19451.78371754499,
+        "spatialReleases": 680,
+        "spatialCompletions": 431,
+        "combinations": 459,
+        "completedCombinations": 53,
+        "exposedRecoveries": 988,
+        "transitionAttempts": 722,
+        "transitionsGaining10m": 152,
+        "transitionsFailingToGain5m": 458,
+        "transitionTurnovers": 656,
+        "defenceRecovered": 866,
+        "transitionShotIds": 5,
+        "recoveryDefensiveThird": 360,
+        "recoveryMiddleThird": 2034,
+        "recoveryAttackingThird": 118,
+        "firstForwardDelayTotalSeconds": 1169.7749999979587,
+        "firstForwardDelayObservations": 722,
+        "decisionSampled5mDelayTotalSeconds": 1052.5749999974687,
+        "decisionSampled5mDelayObservations": 261,
+        "liveSeconds": 31212.874999987413,
+        "stoppedSeconds": 1969.2999999969095,
+        "credibleEpisodes": 8,
+        "progressionEpisodes": 1234,
+        "contactIdentityCount": 121369
+      },
+      "ranges": {
+        "shots": {
+          "min": 1,
+          "max": 9
+        },
+        "goals": {
+          "min": 0,
+          "max": 3
+        },
+        "passes": {
+          "min": 251,
+          "max": 2196
+        },
+        "playerCreditedLosses": {
+          "min": 104,
+          "max": 605
+        },
+        "exposedRecoveries": {
+          "min": 33,
+          "max": 266
+        }
+      }
+    },
+    {
+      "group": "pristine-validation",
+      "matches": 6,
+      "fullTime": 6,
+      "totals": {
+        "passes": 10691,
+        "completed": 8336,
+        "shots": 7,
+        "goals": 3,
+        "onTarget": 5,
+        "blocks": 1,
+        "corners": 3,
+        "fouls": 48,
+        "offsides": 0,
+        "playerCreditedLosses": 1360,
+        "turnoverFacts": 1382,
+        "initialCMReceptions": 962,
+        "receptions": 8336,
+        "controlledForwardPasses": 2263,
+        "controlledForwardMetres": 29629.46975155259,
+        "spatialReleases": 0,
+        "spatialCompletions": 0,
+        "combinations": 324,
+        "completedCombinations": 29,
+        "exposedRecoveries": 651,
+        "transitionAttempts": 309,
+        "transitionsGaining10m": 37,
+        "transitionsFailingToGain5m": 206,
+        "transitionTurnovers": 307,
+        "defenceRecovered": 525,
+        "transitionShotIds": 1,
+        "recoveryDefensiveThird": 238,
+        "recoveryMiddleThird": 1003,
+        "recoveryAttackingThird": 82,
+        "firstForwardDelayTotalSeconds": 629.5999999990465,
+        "firstForwardDelayObservations": 309,
+        "decisionSampled5mDelayTotalSeconds": 393.47499999965083,
+        "decisionSampled5mDelayObservations": 87,
+        "liveSeconds": 31597.374999992106,
+        "stoppedSeconds": 1422.5750000139574,
+        "credibleEpisodes": 11,
+        "progressionEpisodes": 745,
+        "contactIdentityCount": 23645
+      },
+      "ranges": {
+        "shots": {
+          "min": 0,
+          "max": 3
+        },
+        "goals": {
+          "min": 0,
+          "max": 1
+        },
+        "passes": {
+          "min": 1397,
+          "max": 2005
+        },
+        "playerCreditedLosses": {
+          "min": 128,
+          "max": 289
+        },
+        "exposedRecoveries": {
+          "min": 76,
+          "max": 145
+        }
+      }
+    },
+    {
+      "group": "B-validation",
+      "matches": 6,
+      "fullTime": 6,
+      "totals": {
+        "passes": 8986,
+        "completed": 5255,
+        "shots": 27,
+        "goals": 12,
+        "onTarget": 17,
+        "blocks": 3,
+        "corners": 2,
+        "fouls": 132,
+        "offsides": 0,
+        "playerCreditedLosses": 3187,
+        "turnoverFacts": 3270,
+        "initialCMReceptions": 1488,
+        "receptions": 5255,
+        "controlledForwardPasses": 1746,
+        "controlledForwardMetres": 20392.513475273805,
+        "spatialReleases": 672,
+        "spatialCompletions": 400,
+        "combinations": 490,
+        "completedCombinations": 60,
+        "exposedRecoveries": 1177,
+        "transitionAttempts": 845,
+        "transitionsGaining10m": 179,
+        "transitionsFailingToGain5m": 546,
+        "transitionTurnovers": 763,
+        "defenceRecovered": 1028,
+        "transitionShotIds": 2,
+        "recoveryDefensiveThird": 527,
+        "recoveryMiddleThird": 2481,
+        "recoveryAttackingThird": 164,
+        "firstForwardDelayTotalSeconds": 1242.9249999971166,
+        "firstForwardDelayObservations": 845,
+        "decisionSampled5mDelayTotalSeconds": 1176.124999997724,
+        "decisionSampled5mDelayObservations": 296,
+        "liveSeconds": 30969.02499996943,
+        "stoppedSeconds": 2396.699999996361,
+        "credibleEpisodes": 8,
+        "progressionEpisodes": 1521,
+        "contactIdentityCount": 20122
+      },
+      "ranges": {
+        "shots": {
+          "min": 0,
+          "max": 13
+        },
+        "goals": {
+          "min": 0,
+          "max": 5
+        },
+        "passes": {
+          "min": 942,
+          "max": 1942
+        },
+        "playerCreditedLosses": {
+          "min": 421,
+          "max": 622
+        },
+        "exposedRecoveries": {
+          "min": 176,
+          "max": 249
+        }
+      }
+    }
+  ],
+  "ablations": [
+    {
+      "ablation": "adaptive-risk",
+      "policy": "risk-ablation-v1",
+      "states": 19,
+      "selectedActionChanges": 1,
+      "physicalContinuationChanges": 8,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-adaptive-risk.json.gz"
+    },
+    {
+      "ablation": "continuation",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 0,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-continuation.json.gz"
+    },
+    {
+      "ablation": "delivery",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 3,
+      "physicalContinuationChanges": 11,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-delivery.json.gz"
+    },
+    {
+      "ablation": "direct-risk",
+      "policy": "risk-ablation-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 3,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-direct-risk.json.gz"
+    },
+    {
+      "ablation": "movement",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 19,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-movement.json.gz"
+    },
+    {
+      "ablation": "readiness",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 17,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-readiness.json.gz"
+    },
+    {
+      "ablation": "runs",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 1,
+      "physicalContinuationChanges": 2,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-runs.json.gz"
+    },
+    {
+      "ablation": "transitions",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 2,
+      "physicalContinuationChanges": 13,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-transitions.json.gz"
+    }
+  ],
+  "artifacts": [
+    {
+      "source": "../pr177-pristine-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-youth.json.gz",
+      "originalSha256": "5f9ebff0c585cb9ccdf63556f8c3640c5bcfffc5cb739f50997e6269741a48ab",
+      "compressedSha256": "59fe5ed05e8243a7a68fc47dbf802d232094f67c47ee59d49a2b76e9d55a24a5",
+      "bytes": 51220
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "f39ddbf03a495c52ee06c3875baf384a38ca816ad7b0295718a075cd36b2e665",
+      "compressedSha256": "f39ddbf03a495c52ee06c3875baf384a38ca816ad7b0295718a075cd36b2e665",
+      "bytes": 2515094
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "0895d165d5cadf4cf3490badcc147a84a16d9e2b091f0509a44a924be029ebf6",
+      "compressedSha256": "83b024d857d4a0cb33e1f08edce3a58d82688c9dfadb48f3a822cab3f9aa5f56",
+      "bytes": 60291
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "4555bbe8e99b1d1652e4b4a2150dd8e1dadf5db6c3e63d81c1f2bad28b927a52",
+      "compressedSha256": "4555bbe8e99b1d1652e4b4a2150dd8e1dadf5db6c3e63d81c1f2bad28b927a52",
+      "bytes": 3346616
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength.json.gz",
+      "originalSha256": "530102fe00615e6f013b3c4076ae3ddee2b27aa9f45e5e933830d534cb58be26",
+      "compressedSha256": "9152b8c49ce7e21bf45eba98a05a7489bd9166d0869b1092a9bee8af776b06e2",
+      "bytes": 57214
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "2b585f96030fa192e080d39e9dfe5ff82c433debb0714ff3dcbcb06c5546bcdf",
+      "compressedSha256": "2b585f96030fa192e080d39e9dfe5ff82c433debb0714ff3dcbcb06c5546bcdf",
+      "bytes": 2641034
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-central.json.gz",
+      "originalSha256": "6a320e6e74cfc262814651585684ba33805eca733ef48805ad4096b75e756ef6",
+      "compressedSha256": "fcf0774b9a50dc104a0c5fdbdb64d0319ddd330ee376e5fbb15314dd6a99582f",
+      "bytes": 57267
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "a52e1341aaa3785d34eae54f0cd24d007c05d7fb69276445c99a04db7b0320db",
+      "compressedSha256": "a52e1341aaa3785d34eae54f0cd24d007c05d7fb69276445c99a04db7b0320db",
+      "bytes": 2956085
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-wide.json.gz",
+      "originalSha256": "4628c13b2949c9db9306868181f5decb788b7ecb610305e8847ba0c76f8c0ba3",
+      "compressedSha256": "4b1acba5435d7cf53624dac2c13840222ba5b95bf80b434d84314963348befb0",
+      "bytes": 57538
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "125dd088676afc95cc38e8ccd7e90533f8fa18fdeb5b7d3c2d8a484632611339",
+      "compressedSha256": "125dd088676afc95cc38e8ccd7e90533f8fa18fdeb5b7d3c2d8a484632611339",
+      "bytes": 3091490
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "a387713de26fe0976c3aec73e834034b72e928ec446048d5f6813e9ab77d3a6b",
+      "compressedSha256": "c0bf021788edd1f6ae24b6682f96034b5bc8d78de2816b11b9f403134451db40",
+      "bytes": 53219
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "ab3aa0125b11703efbee23a056b5cb68b0fecb7d9d2d2535ca3498442bc30ab6",
+      "compressedSha256": "ab3aa0125b11703efbee23a056b5cb68b0fecb7d9d2d2535ca3498442bc30ab6",
+      "bytes": 2825688
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-youth.json.gz",
+      "originalSha256": "49c0c80d7490ab396a90807e27235575641c7daf7c3dd5055dcde0e8285b07c0",
+      "compressedSha256": "1ae4e073c8dbee1fcc04b502331ec943cbc695e6da3da0f6b05d623324d2a9bb",
+      "bytes": 51900
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "092cbe3509984d823f9f40dcfc27f59c1c1519c2db46924e402258ef5164d6e1",
+      "compressedSha256": "092cbe3509984d823f9f40dcfc27f59c1c1519c2db46924e402258ef5164d6e1",
+      "bytes": 2518766
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "28f2cb961668a6d7f35472315939792ea4b151c346c15a79c023e8921b179790",
+      "compressedSha256": "8084f93b76592b9df039c396a2bb4772ffd3157ce046c8914b0e745a1e98f80f",
+      "bytes": 60718
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "49bfdae8bebcbcaa792bf263a0e01b1628326f2ed548c2a5fe6884bd2925092f",
+      "compressedSha256": "49bfdae8bebcbcaa792bf263a0e01b1628326f2ed548c2a5fe6884bd2925092f",
+      "bytes": 3396481
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength.json.gz",
+      "originalSha256": "706020ed9d8b1c2731edd92a378166224d582b68acdce9add61e5aef9810f7be",
+      "compressedSha256": "355aa4c84cffcd8410f045f11112c625ae5e9404e30dda5736183b4e3e4c0249",
+      "bytes": 57216
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "f41cf4aec2c56106d39e6939c26837fa407cb89ade713cf11e563022424d0c7d",
+      "compressedSha256": "f41cf4aec2c56106d39e6939c26837fa407cb89ade713cf11e563022424d0c7d",
+      "bytes": 2641026
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-central.json.gz",
+      "originalSha256": "9ff7866c36d7208028974ce02405c8465054dde7ce279c4ef8fb06f88a414980",
+      "compressedSha256": "37925aac10deb36676aa74100297bacec8fa09235fa8aba9af74eea2f6b47a3b",
+      "bytes": 57263
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "c4ed921e19cc29d2acb51386736ceca1064c8305829240f270a3d4357c002f3b",
+      "compressedSha256": "c4ed921e19cc29d2acb51386736ceca1064c8305829240f270a3d4357c002f3b",
+      "bytes": 2956075
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-wide.json.gz",
+      "originalSha256": "31f6456f7c8505c62cbb46139457c932c4d24a44e5eaf755ea434a4a3a4cdaec",
+      "compressedSha256": "be033e4a1d4e6ca6e05b1f6ea0a5feacb4dcfe8bb37fd2556bd938944d69abc6",
+      "bytes": 57534
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "402449f2a8db62d3e3c73a9b2e8c0c827d4abc256ecff3aebfba97f08091ce62",
+      "compressedSha256": "402449f2a8db62d3e3c73a9b2e8c0c827d4abc256ecff3aebfba97f08091ce62",
+      "bytes": 3091525
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "854c8adaea623740aa64c1da09dc41d5e2755c41c79527f50c2862766eeef313",
+      "compressedSha256": "51e17c484c796a96e4fc6eeb5f59761e8e1be518398361ef272cf97c38a024d7",
+      "bytes": 53221
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "41270cf7b1e6e697d2a8101795272588e02b55d620bf1ed7273134a343a339e7",
+      "compressedSha256": "41270cf7b1e6e697d2a8101795272588e02b55d620bf1ed7273134a343a339e7",
+      "bytes": 2825676
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-youth.json.gz",
+      "originalSha256": "2f9e3291f28d206bfd466ae4014af70a16f7868e5e9da2bc66eaff688e82055a",
+      "compressedSha256": "acc73bed4c4dcd20e905da107bbc99029598e1612f8d5704e24274145c22cc7a",
+      "bytes": 56121
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "compressedSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "bytes": 2668043
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "9710168f4969c05e749669d3c021c2391bd47d04129acab7ad09a105682a9107",
+      "compressedSha256": "f1e076b8bc08c83d82fbd73d92c5809ea1ee9e2740837864a3a3b33171675c36",
+      "bytes": 63487
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "compressedSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "bytes": 3670944
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-strength.json.gz",
+      "originalSha256": "8af6d3b420fa862ab52b7b65ef96f0635eebb0eb28706f0cae7c517b76469596",
+      "compressedSha256": "4199b3de22ff2f130645fce0516a0c2474f325c0be120ed82c4f224cf61a7dbe",
+      "bytes": 60592
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "compressedSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "bytes": 2738332
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-central.json.gz",
+      "originalSha256": "5645b0b972c350cefea93539386816767e309baac61c3e0d8d2a29f5e1b53db4",
+      "compressedSha256": "9e59399f1ad737f7ab11a8cd3e0d5929d200dcdcb008f5f28fd476dfe01a8739",
+      "bytes": 60085
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "compressedSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "bytes": 3253221
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-wide.json.gz",
+      "originalSha256": "60e22b942661c6a3852d17da7eb534d15c4925f2198f03140ae4a2db30fa76e6",
+      "compressedSha256": "57395b584870692c8aceefd7e9f4199b27ad2ea5e28370e47935726fc24a04ca",
+      "bytes": 60811
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "compressedSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "bytes": 3276195
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "e2dee11848a92640dd899724d54dca4c574a68034470f28de380b2600ee65e65",
+      "compressedSha256": "1f78ed0bd3b567bbb90a591b4c92b84188569c8753cd57d8b7476532eec30f0c",
+      "bytes": 54227
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "compressedSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "bytes": 2992952
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-youth.json.gz",
+      "originalSha256": "1a894eec0f77a7df1f01c187b79f194f44c53ae8ec8bf40825a317c040f13d88",
+      "compressedSha256": "127bf1dd2168280f1cd83739102725d6a30d06243ab7322e2cbbf9aa1f8e00ab",
+      "bytes": 86429
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "compressedSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "bytes": 11077678
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "649d486eb3b5ff6d254ade9d5f0969d0edd62c597d7b64742fc14f46a56a0150",
+      "compressedSha256": "86d3a0561797e5a622860d4ed4c892ce71893a1d24f2dcfa3f94145ad89b8a12",
+      "bytes": 51439
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "compressedSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "bytes": 5068543
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-strength.json.gz",
+      "originalSha256": "ff34ce40d5a3349121280d04cb92e2b750f54a7028634459280c8b56fe4f7ad7",
+      "compressedSha256": "c1311827fe33b828239e5548120366307dd5b8e2fff920a0436e2330eb288372",
+      "bytes": 288311
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "30e4cf6f56132277d8b5bfa1974a0b454d09a6b16750ebe05597851733aee09d",
+      "compressedSha256": "30e4cf6f56132277d8b5bfa1974a0b454d09a6b16750ebe05597851733aee09d",
+      "bytes": 1863459
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-central.json.gz",
+      "originalSha256": "4db87de553eecadd28ecf30988d9a0b93d8a5dd46c1b6c5fee9ac1d3201c0c26",
+      "compressedSha256": "fee0b157bc8eaf3d4780a05694caf4c3ea8aedebf0bd1e49b4a4fbd1dd92dd72",
+      "bytes": 97066
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "bf809ca3ff112c9f67e54427b486604afa2e0d1c1280aa960fc8e77df2e5579c",
+      "compressedSha256": "bf809ca3ff112c9f67e54427b486604afa2e0d1c1280aa960fc8e77df2e5579c",
+      "bytes": 8956305
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-wide.json.gz",
+      "originalSha256": "9a1be60f639a8ee296c1aacd85a4c97b4a5a698bb4935bdb06aef10eef2f1a78",
+      "compressedSha256": "67d48a0aae5761b8e7f2a4a46249b0315eb83ce20a80f8796d2d13ad023e1151",
+      "bytes": 93224
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "e19786808e2f9176f0ec7f00adde1b92243f5e6d56204ea60cf4c7140e1e4cab",
+      "compressedSha256": "e19786808e2f9176f0ec7f00adde1b92243f5e6d56204ea60cf4c7140e1e4cab",
+      "bytes": 7959627
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "08bd0f6ca09760174dc993e162ecff0bf35eac3ec7f292b6afdc64670742d7c5",
+      "compressedSha256": "009efcde4577aa58d61f9a9d0afcf2ff020c490c76f7c49bf9bad36bb025e4a4",
+      "bytes": 92050
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "038ab14b4d669e9da583780e239f656ebdb2970ba5516957213f2f09fc0d4d4c",
+      "compressedSha256": "038ab14b4d669e9da583780e239f656ebdb2970ba5516957213f2f09fc0d4d4c",
+      "bytes": 9189781
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-youth.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-youth.json.gz",
+      "originalSha256": "865da321e0710c067fa02b3d62343d0c3ceafa21f6f95902f9b4217788d3056e",
+      "compressedSha256": "9ff0b897c86802409a27b328c70e48e017b726da88ee12409e24361a7b99142a",
+      "bytes": 55330
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-youth-raw.json.gz",
+      "originalSha256": "198a35494375b0d631872e9df85ed4945ea344a4e49ba2502f27f4c51b516be3",
+      "compressedSha256": "198a35494375b0d631872e9df85ed4945ea344a4e49ba2502f27f4c51b516be3",
+      "bytes": 2532865
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-balanced.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-balanced.json.gz",
+      "originalSha256": "d04723e6df83157663b5b0d1a5f04cfdd48dd855f7e9d998883cfc4e55eb90c6",
+      "compressedSha256": "4269dc282f78adf6614a9b6fee573c5bb7a594420f13c704f37f2bab2ecb4174",
+      "bytes": 58324
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-balanced-raw.json.gz",
+      "originalSha256": "c4b6711a911395944d9e9be95dac78b0aef9b32b08fa77024482c484e1273d54",
+      "compressedSha256": "c4b6711a911395944d9e9be95dac78b0aef9b32b08fa77024482c484e1273d54",
+      "bytes": 3119006
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-strength.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-strength.json.gz",
+      "originalSha256": "e149147eed5e44bd2b195f5f2c9e200147063dbf208ff48c733aab3cd92d66d4",
+      "compressedSha256": "77a863c35a3bbe79a72871715732e269ed2b9771d4992e6b59e8e5190331c54b",
+      "bytes": 57277
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-strength-raw.json.gz",
+      "originalSha256": "3ed44361716ec8a9707c75c79995bd244d20cae4f060b4bda2efe837ca00e177",
+      "compressedSha256": "3ed44361716ec8a9707c75c79995bd244d20cae4f060b4bda2efe837ca00e177",
+      "bytes": 3086130
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-central.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-central.json.gz",
+      "originalSha256": "0e23ca5e09087df327f8704884b2342d4de021636feb29571ab0f2fa6f2452d9",
+      "compressedSha256": "65db4ef1d65a1c9bf696d45d5d7e7c2536ca0930c395420e42411f8f57a9712a",
+      "bytes": 58785
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-central-raw.json.gz",
+      "originalSha256": "fdbdb7939cf2de039898f7f6bbfcc5c84cf1e4b1a7edab5a4a5d0db80092e8a1",
+      "compressedSha256": "fdbdb7939cf2de039898f7f6bbfcc5c84cf1e4b1a7edab5a4a5d0db80092e8a1",
+      "bytes": 2995183
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-wide.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-wide.json.gz",
+      "originalSha256": "822c4ee66328850a96d0a865d1455318963322a98b1fee80c288243399834755",
+      "compressedSha256": "264adfed5e78a7ba520a841ba7040e52287779aa0f338af82d5a0b893e81280d",
+      "bytes": 55450
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-wide-raw.json.gz",
+      "originalSha256": "f3c6e70fdfb6aff60bd14adf4c17c549a54d5e0cd344162b20c4f347b8ad2ea2",
+      "compressedSha256": "f3c6e70fdfb6aff60bd14adf4c17c549a54d5e0cd344162b20c4f347b8ad2ea2",
+      "bytes": 2690711
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-keepers.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-keepers.json.gz",
+      "originalSha256": "402fa2c513f980cc5e47d939bcee3d1a4f88aca01ca0095929ac5f1e8ecb02ce",
+      "compressedSha256": "eacc673b6c9a68c99ed721967d9c6c88cd46d6ffb9c07850f421df5f86b9f031",
+      "bytes": 51662
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-keepers-raw.json.gz",
+      "originalSha256": "3e1a12c383c24553baa2251b6d7e13c4b917bd6be62ab3e168610c91f8d61e61",
+      "compressedSha256": "3e1a12c383c24553baa2251b6d7e13c4b917bd6be62ab3e168610c91f8d61e61",
+      "bytes": 2998236
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-youth.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-youth.json.gz",
+      "originalSha256": "d53257620f675345c1f442756519217b7fb7c437c15cbab6a30ffe29a0a9af4a",
+      "compressedSha256": "f759f1e7ecf7cd38802b50df4150e024eb272cf9df89da731f06dcf2c27ae9b5",
+      "bytes": 87950
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-youth-raw.json.gz",
+      "originalSha256": "08bfb97ecee24fe53ea87a109cbba3ee27bc9cd45374abd2489c74cec2fe5a6f",
+      "compressedSha256": "08bfb97ecee24fe53ea87a109cbba3ee27bc9cd45374abd2489c74cec2fe5a6f",
+      "bytes": 9529629
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-balanced.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-balanced.json.gz",
+      "originalSha256": "8928cfbd952b5b4c87efaa524f52eccd2560a993ba2093724795b9ae0cc1231d",
+      "compressedSha256": "396fb75f6335043fd79c9068b3447e69ed51353c08dec8fe73ce3ffd59dd3a0d",
+      "bytes": 89549
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-balanced-raw.json.gz",
+      "originalSha256": "4949d489739a2f3c780dde99dc37272a253bd07feea0fcf9116efd8c62b3805b",
+      "compressedSha256": "4949d489739a2f3c780dde99dc37272a253bd07feea0fcf9116efd8c62b3805b",
+      "bytes": 7985301
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-strength.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-strength.json.gz",
+      "originalSha256": "a11fd1e88e514c77609f276991362e3570095315976efd6374892754b6c122f5",
+      "compressedSha256": "6b7796486d64ab2549225a6e4a650b7ad5b470298e3d809789d599e85d38f29d",
+      "bytes": 92731
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-strength-raw.json.gz",
+      "originalSha256": "ebe3e7bc38b3ba0bf778cffc7cfb08a83a78ab4a0ed441780f17957a6327e42c",
+      "compressedSha256": "ebe3e7bc38b3ba0bf778cffc7cfb08a83a78ab4a0ed441780f17957a6327e42c",
+      "bytes": 8668991
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-central.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-central.json.gz",
+      "originalSha256": "32bd55a100e5aaf081e9484bea3b584a729bf2235cc73de97f92a38b56b45d48",
+      "compressedSha256": "fb7de0c69f1a60b6d51d8297d5474357d5a3dd95666aec81504b5896c4680350",
+      "bytes": 93289
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-central-raw.json.gz",
+      "originalSha256": "5b61e9d08f020e2c65a72383c611134309ec5fb02af6bf4930a13fe4612b7f79",
+      "compressedSha256": "5b61e9d08f020e2c65a72383c611134309ec5fb02af6bf4930a13fe4612b7f79",
+      "bytes": 8711317
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-wide.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-wide.json.gz",
+      "originalSha256": "14c345f057ac194a4403530a366d4f45375215a0100e56d0bdb4286fcbc96df4",
+      "compressedSha256": "a11451f3ac0e06dc8e062eae6799eadac711b3b37844955f028b413974029b21",
+      "bytes": 89558
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-wide-raw.json.gz",
+      "originalSha256": "d89ceab8d7329169f3a4b037e85227489b1b1ce0b36c1eb9d40821eb0530eaa8",
+      "compressedSha256": "d89ceab8d7329169f3a4b037e85227489b1b1ce0b36c1eb9d40821eb0530eaa8",
+      "bytes": 9052486
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-keepers.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-keepers.json.gz",
+      "originalSha256": "149fbbeb26e7906fc19574b774a6174c5b6c12ef89d7b6b08389a3d4a7dd4b97",
+      "compressedSha256": "fa323a5bb7e7823b5948c0f47d959871f2aa5f584a7c3504d0fd54af021b53e9",
+      "bytes": 90085
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-keepers-raw.json.gz",
+      "originalSha256": "2e2ce1845ead395fc450992ce976d6542c68774eade3653c6539aaa18038901c",
+      "compressedSha256": "2e2ce1845ead395fc450992ce976d6542c68774eade3653c6539aaa18038901c",
+      "bytes": 8450936
+    },
+    {
+      "source": "../pr177-pristine-frozen/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-pristine.json.gz",
+      "originalSha256": "dbc07b123373f8dbebd52a644fed3bb97a540322f2dd2d4650579ff90e0c50a5",
+      "compressedSha256": "8fe237789268f8534b9571666edacb757501fa83c2b06cae4e61ddd5eb0325ce",
+      "bytes": 191179
+    },
+    {
+      "source": "../pr177-frozen-legacy-pr176/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-legacy.json.gz",
+      "originalSha256": "16b1cb522b65b21e763fd16a55165b4590e65611f6452ff40a4e9cd769dcd7e2",
+      "compressedSha256": "1f1f514a582bb07f7e7baa68e0c2c560daf0b968f1be20e91a790e8f81ed35af",
+      "bytes": 191178
+    },
+    {
+      "source": "../pr177-frozen-risk-ablation-v1/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-A.json.gz",
+      "originalSha256": "0da11fece32e1d6cad8b4990b728b3729e0ba9a5ee56eb85987104a235385b25",
+      "compressedSha256": "687e0a3116d6195cf2b5cdff268d2daf35fd6fefcd08380635aae999da6804af",
+      "bytes": 193447
+    },
+    {
+      "source": "../pr177-final-frozen-B/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-B.json.gz",
+      "originalSha256": "d9d7a8f3b730dda1eb1aae4830599ab43e83af429df05aee1cebf9da0fd5582a",
+      "compressedSha256": "f452daf93f62c8f1ec14645bb11bbc4efa2362f90f18bf773ff1ff2c30d21865",
+      "bytes": 257078
+    },
+    {
+      "source": "../pr177-ablation-adaptive-risk/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-adaptive-risk.json.gz",
+      "originalSha256": "577b8bd5e7cd032dba539cb30a5e3bc384b53c5c3f9d7c5b461b6c67ded15879",
+      "compressedSha256": "8f2a201ecedbcfdc61683364c8b39d2c9b949067bbe6f89ffb7a2e96ff50268c",
+      "bytes": 191322
+    },
+    {
+      "source": "../pr177-ablation-continuation/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-continuation.json.gz",
+      "originalSha256": "1b168bbacc5f3f702611aa506ba4b1f9468d27ff90f214a1be7c2c9de91aaa16",
+      "compressedSha256": "04226b233fe12683fb31b79a3e9adf78a6d9387ea03795ca213d49e9ed9995de",
+      "bytes": 257085
+    },
+    {
+      "source": "../pr177-ablation-delivery/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-delivery.json.gz",
+      "originalSha256": "66879aa331a5d7ffaabfda97fafea7ea731b120d296350573f46ddde94649835",
+      "compressedSha256": "f1accfa9b7551322d5b221f481c2a5220b9201af01024ed0d596f7c2f448037f",
+      "bytes": 213820
+    },
+    {
+      "source": "../pr177-ablation-direct-risk/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-direct-risk.json.gz",
+      "originalSha256": "3a3388420f00f495e50ca3ae8d1e9da7227a3dff48d12d24e8d85b683421475a",
+      "compressedSha256": "09c543763f4cd8663b373fbb8b01c500d8e6afce7a8982b670020240a347a443",
+      "bytes": 193284
+    },
+    {
+      "source": "../pr177-ablation-movement/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-movement.json.gz",
+      "originalSha256": "00c9c6fc24dd02bb742a01ed8275d089df30623261d70436409417a5477ce98a",
+      "compressedSha256": "a5046df10230ad840f5e880f06a1c464934a7fefba796c0ce3fb76cc96f2f0e0",
+      "bytes": 256160
+    },
+    {
+      "source": "../pr177-ablation-readiness/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-readiness.json.gz",
+      "originalSha256": "56a4ffbb87661322cdf151ff178ea95434e6daf0272bf2db3d14114f6be106c3",
+      "compressedSha256": "a3ebe3d5fe0effb8a594b089aa1893364b6eca70ad40f53831609fd5fcdcde70",
+      "bytes": 252689
+    },
+    {
+      "source": "../pr177-ablation-runs/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-runs.json.gz",
+      "originalSha256": "5cb91687cdf015ebfe1d9df94e86a4c93e4c9b0bd0b4e194398f85670fde8d80",
+      "compressedSha256": "4f67307834e4f1e5d09e640401bf6e05726f64195bc0eb01dbab5f671e8b20a1",
+      "bytes": 250444
+    },
+    {
+      "source": "../pr177-ablation-transitions/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-transitions.json.gz",
+      "originalSha256": "b213f4a359e341258c2f9812dccfc6a998c17a44e74ef774df75bcab4fb9743c",
+      "compressedSha256": "c9ef6f4fc00e2a7cfe7ca12739dc32f2076f1333831fb01c0867eb54ef6b58af",
+      "bytes": 256708
+    },
+    {
+      "source": "../pr177-b-initial-short/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/initial-smoke-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "ccb4230e9cd18946b83b0750a49cbb272d381ccfe2df336e1496207c5f26181f",
+      "compressedSha256": "ccb4230e9cd18946b83b0750a49cbb272d381ccfe2df336e1496207c5f26181f",
+      "bytes": 91444
+    },
+    {
+      "source": "../pr177-b-initial-short/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/initial-smoke-pr177-dev-youth.json.gz",
+      "originalSha256": "79edcdd4a68d868a3f78ab794fa86fe190782e5b57aad83e0f09910407df7030",
+      "compressedSha256": "24ff751929ea62d339c4104a828fc66c00f32f442af5df05e1e7b11b0503baf3",
+      "bytes": 2769
+    },
+    {
+      "source": "../pr177-b-r1-short/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-smoke-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "79e12a41e2858125c6fbbfa5999861767fdf4c8cfdb6c03baa9d7a303b02b281",
+      "compressedSha256": "79e12a41e2858125c6fbbfa5999861767fdf4c8cfdb6c03baa9d7a303b02b281",
+      "bytes": 257515
+    },
+    {
+      "source": "../pr177-b-r1-short/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/r1-smoke-pr177-dev-youth.json.gz",
+      "originalSha256": "fdd39ae028d99a3746732b5d7fccd6e9f716b0faddfa3923342ec4785df90b10",
+      "compressedSha256": "25f1b377bb0b61ab537967e6ece2bcf9739e6c1999e99211acba35844f276dc2",
+      "bytes": 7928
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "2b2b74f5707d606373f4e34f97c882d4895b07e7d09448c275f7ea1a2df96b47",
+      "compressedSha256": "2b2b74f5707d606373f4e34f97c882d4895b07e7d09448c275f7ea1a2df96b47",
+      "bytes": 88219
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-balanced.json.gz",
+      "originalSha256": "4b73424990dae66e5ae9720a1fe156db7c743a51d686564d35a0701c6a80ed58",
+      "compressedSha256": "bfb3d45c0d10db1cd51f42cdf32e92e9182974af5090ab7fb3cc6418786214b6",
+      "bytes": 3993
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "d2d9e5882369d6e1943676ebf4d0257b7a590b65713a77c87a67ff6cc38e96a1",
+      "compressedSha256": "d2d9e5882369d6e1943676ebf4d0257b7a590b65713a77c87a67ff6cc38e96a1",
+      "bytes": 922120
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-youth.json.gz",
+      "originalSha256": "7d334e5a944e81b0b8e3ce8c86de12f8e7c020829d14d09899324da9422d1aee",
+      "compressedSha256": "f4503d3ef527d0c369941f847f36bfcf31a2781d6964af616bcf612fc9bcff78",
+      "bytes": 8020
+    },
+    {
+      "source": "../pr177-b-r1-development/source-snapshot.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-rejected-source-snapshot.json.gz",
+      "originalSha256": "85fbc86adc1e42dcb7281204653b8fcec4d545d58866245df085e6397f0cf2e3",
+      "compressedSha256": "85fbc86adc1e42dcb7281204653b8fcec4d545d58866245df085e6397f0cf2e3",
+      "bytes": 364534
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "compressedSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "bytes": 5068543
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-balanced.json.gz",
+      "originalSha256": "0cf4d7dd0359257b027f42b0083ea8b37674b9393fea5fdcb3e116e6320e5d35",
+      "compressedSha256": "d86f587158fcc5850f180e80fd1ab7f7e84f09cf46bc723b672ba1f01809de3e",
+      "bytes": 51438
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "compressedSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "bytes": 11077678
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-youth.json.gz",
+      "originalSha256": "51608d6183d324b2acbc781874f8ac576ccb77821277d59a36d4bb3b9920dcc9",
+      "compressedSha256": "e705657b0fc0b94594ce7ca2d47a3ecb77147a8e63b591a179e05e25186a7094",
+      "bytes": 86432
+    },
+    {
+      "source": "../pr177-b-r2-development/source-before-index-optimization.json.gz",
+      "path": "docs/performance/pr177-evidence/r2-before-index-source-before-index-optimization.json.gz",
+      "originalSha256": "530d9833f66860d954c100c2b86537ebd8a2b61073b7c9648295f383cd7152b7",
+      "compressedSha256": "530d9833f66860d954c100c2b86537ebd8a2b61073b7c9648295f383cd7152b7",
+      "bytes": 360408
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "compressedSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "bytes": 3670944
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-balanced.json.gz",
+      "originalSha256": "a470b277836d22287ed66461e4b81dbb7cd3a9e12c61c2bf75d43881998645c0",
+      "compressedSha256": "e7a64f7a5c15aebe173e82a38c701f8e210e0fd81c9b0070aa8818e3b13a8d9d",
+      "bytes": 63483
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-central-raw.json.gz",
+      "originalSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "compressedSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "bytes": 3253221
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-central.json.gz",
+      "originalSha256": "9c08122337f7e6741e5c17f76c5f881569690043fc0a205506173fac205191f5",
+      "compressedSha256": "4d279cd432ffdc2655c624795bfb9365a387827e4aae781190b7327b6fe7b083",
+      "bytes": 60085
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "compressedSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "bytes": 2992952
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-keepers.json.gz",
+      "originalSha256": "81b007ac748b562c65696432c0db5240ad359af3514ce086dc4568ad31f6166c",
+      "compressedSha256": "daad7c508475bfd155054cd2e6673b8ed6f1cdad2d0b6d43343ea8ccb94a2ac6",
+      "bytes": 54223
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "compressedSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "bytes": 2738332
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-strength.json.gz",
+      "originalSha256": "bc76c4ba920e4f448e918a25748d4bcc15b9269787220cd9290a53ba60eff6b4",
+      "compressedSha256": "05467894c228a335d233a72ecdf96373989739d3c41a46a6f2f9b7a077a52693",
+      "bytes": 60590
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "compressedSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "bytes": 3276195
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-wide.json.gz",
+      "originalSha256": "4bff4ac97b8d2324afb5bccdedf27ac2742b96bc76012224d4c17759e3101caf",
+      "compressedSha256": "df5f8b3ef9a877b7f81c403f097361a85d36219559dc17ceb257e2fe7fc9cca0",
+      "bytes": 60806
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "compressedSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "bytes": 2668043
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-youth.json.gz",
+      "originalSha256": "e8c23e80a5f2aab2c10c7d57baac15f2cab70fd980a93b39bfc9051558020c05",
+      "compressedSha256": "eb135915f052048bbc7506c78d61a99a1a23a7086ea674ca4190a309bdf9f5e0",
+      "bytes": 56123
+    },
+    {
+      "source": "../pr177-final-source.json.gz",
+      "path": "docs/performance/pr177-evidence/pr177-final-source.json.gz",
+      "originalSha256": "c87359b31a0342bc3691d5e5a7d4f021fc737f3728e62d6d2c06b975cff3ed2e",
+      "compressedSha256": "c87359b31a0342bc3691d5e5a7d4f021fc737f3728e62d6d2c06b975cff3ed2e",
+      "bytes": 353561
+    },
+    {
+      "source": "../pr176-plain.json",
+      "path": "docs/performance/pr177-evidence/pr176-plain.json.gz",
+      "originalSha256": "33458b439fa4323ba3dff032339475b105fbef74210700240cab148829b3041a",
+      "compressedSha256": "8e8f4f95829f4f503140113857d150a485143b1bbb19e7b123bce8bff5919651",
+      "bytes": 1052
+    },
+    {
+      "source": "../pr177-debug-strength-half.json",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength-half.json.gz",
+      "originalSha256": "7e27157bdfdc16ec65f4ec24179fbac747af9ac7e5b1e3fb07d48bddc211094d",
+      "compressedSha256": "938474f111819e46f909ce48e529d7fed45b6fb0512604fed272ff9125a769ae",
+      "bytes": 47466
+    },
+    {
+      "source": "../pr177-a-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-a-development.log.gz",
+      "originalSha256": "f885fd170601ef7477ec3e17e56f2ae0340eccc0858c86d7f3ce002530a4dd1e",
+      "compressedSha256": "3a680eaba82cb333460665aae867637bacd31070f8381bc0e2bc6759a359f010",
+      "bytes": 504
+    },
+    {
+      "source": "../pr177-a-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-a-frozen.log.gz",
+      "originalSha256": "811e437906bcd7f8d110555da9fe484c292f2eca0a6242a5e393bb4dd83a3220",
+      "compressedSha256": "f8b84eeb1b2fcdfa58f5953439c00cb7df78b1062d350cb156a141f3b12e0ebd",
+      "bytes": 263
+    },
+    {
+      "source": "../pr177-ablations.log",
+      "path": "docs/performance/pr177-evidence/pr177-ablations.log.gz",
+      "originalSha256": "de4acea3663ccfb6a5ce645beab8e48f85167f32b1daa498e3f2dd1d58c10958",
+      "compressedSha256": "e8054b13e6a6659f54c3c88cd21c911789800675d4d3a1f73d34b833bc5c89b1",
+      "bytes": 336
+    },
+    {
+      "source": "../pr177-b-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-frozen.log.gz",
+      "originalSha256": "f5ac699a98333ef0374bb92f358ca3518f89e47020eb59e1a41e649babcc05b2",
+      "compressedSha256": "e077c6b2cb2672468f9aee2f31b22fe1bdf2490321f2fca9cf767d60680ab148",
+      "bytes": 260
+    },
+    {
+      "source": "../pr177-b-r1-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r1-development.log.gz",
+      "originalSha256": "825fecea78f6976a92b28cac27355a1e1e74129096432561f3aa3ff39807f269",
+      "compressedSha256": "47b216099f4fecdd8ba5133d34ee307c24e3a3056d054143ec4d58139f351a2b",
+      "bytes": 237
+    },
+    {
+      "source": "../pr177-b-r1-short.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r1-short.log.gz",
+      "originalSha256": "e53097b2cba7c2b4c794269204a5174ba9dcb82be81a663df3abf950dfb31d55",
+      "compressedSha256": "3c9e088ffd1b30a6bc9a929b78e513d1b65e848eb85c64611cfc0b938a857ba5",
+      "bytes": 252
+    },
+    {
+      "source": "../pr177-b-r2-development-tail.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r2-development-tail.log.gz",
+      "originalSha256": "5da4e6026aa60e2937351bf510f1c259b161808b3b2212f1aa9a46ef393d2ace",
+      "compressedSha256": "a26aff46fa7ce026545f389e0cfe9b51173b2af29fa6b62f82923f716b96effa",
+      "bytes": 77
+    },
+    {
+      "source": "../pr177-b-r2-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r2-development.log.gz",
+      "originalSha256": "8622ba9a5b4f101c24cc69aa928c5dd907dd7016ff094a8e229ef1a771193b19",
+      "compressedSha256": "ba78327c6d5b8f31a2087d9861150dd662c8fa914cb68156ff5905b13a9d596b",
+      "bytes": 225
+    },
+    {
+      "source": "../pr177-b-r2-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r2-frozen.log.gz",
+      "originalSha256": "1137d99f3114c12f8ee282b293fb084e5c3b6805040232de41a08d63bac54c3a",
+      "compressedSha256": "a22d8fe58014aaf56fd2039f6ac788cf349cfac486874931f8cd7d7d4afe839e",
+      "bytes": 259
+    },
+    {
+      "source": "../pr177-b-short.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-short.log.gz",
+      "originalSha256": "9dd349381e29f75d99f6967dbc44fa6f9e3133110fd86c36071a4662f304ece1",
+      "compressedSha256": "768089b9bd8cbeecef97b76502a80662eed321a442ccb5b25e74881eb7b2dc22",
+      "bytes": 255
+    },
+    {
+      "source": "../pr177-baseline-audit.log",
+      "path": "docs/performance/pr177-evidence/pr177-baseline-audit.log.gz",
+      "originalSha256": "3227f3caf7fb5932cba7e9fce46551d57090c51f114c49194c02031a1358908f",
+      "compressedSha256": "66cf8a90013af8fa55fdd554337d14656034c2db765b7a31879ca3bc48ded54f",
+      "bytes": 261
+    },
+    {
+      "source": "../pr177-build.log",
+      "path": "docs/performance/pr177-evidence/pr177-build.log.gz",
+      "originalSha256": "7a8f234c498e09f451de439ded87e4e0201b6382fa4f4d3cf148159a17c4b08b",
+      "compressedSha256": "1bd4467b8261d2d0ba46dd60a5d946c3aa7da234012d1bcbd11cc154cfb626a2",
+      "bytes": 944
+    },
+    {
+      "source": "../pr177-career.log",
+      "path": "docs/performance/pr177-evidence/pr177-career.log.gz",
+      "originalSha256": "df4f86a650903f0b248ffc808008e92d3ff956dad05c2b4db99d8e7404976d1e",
+      "compressedSha256": "3e5918f5c0c653b068e43f001fe14de98148040f96ed9d118792e819b29f24b9",
+      "bytes": 896
+    },
+    {
+      "source": "../pr177-controlled.log",
+      "path": "docs/performance/pr177-evidence/pr177-controlled.log.gz",
+      "originalSha256": "ddcaff5c5389142a1dacfe6b15e6f0292f0a571ffa7a1ae3cc25ba2a94df1ae2",
+      "compressedSha256": "4e8984c5c535e94e6d015e6f0ffc4e3f35572e8605b0e67d39b90f4d7e9844c7",
+      "bytes": 181
+    },
+    {
+      "source": "../pr177-debug-strength-optimized.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength-optimized.log.gz",
+      "originalSha256": "a246d20308dc2bd665656bc1f2e9221c56b71e68b5ca03d885c7fa5b6d903546",
+      "compressedSha256": "1a225923dcdab33810afb514ecea747eb65212cadcbedc809659bc2a4fbb55d9",
+      "bytes": 270
+    },
+    {
+      "source": "../pr177-debug-strength-second.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength-second.log.gz",
+      "originalSha256": "57a86e991ff3539f4143d159cec009ddb79c0db376deae3d83186d94d5f2b44e",
+      "compressedSha256": "29f38cb957dca1929bf675c990e779c4927177fa0007c29c6f0df8a6490ac06a",
+      "bytes": 270
+    },
+    {
+      "source": "../pr177-debug-strength.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength.log.gz",
+      "originalSha256": "78d46af6eccd1aade61a440bb741267d5cfbd369f43cdee6902caee2e533fb04",
+      "compressedSha256": "cc6ebc435d41665f51dfd1c36981fa992e3d298bb9cbc27972d3ec82dd18ed8a",
+      "bytes": 429
+    },
+    {
+      "source": "../pr177-debug.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug.log.gz",
+      "originalSha256": "0b1a8069f1ea5d546666d69e3644402a4fa80689ee7024ae259bbd1b9cf2fe23",
+      "compressedSha256": "31f4b37854685a8e3f816e8e97b9b22d381fa28009d297f059317d9e25c44821",
+      "bytes": 155
+    },
+    {
+      "source": "../pr177-eslint.log",
+      "path": "docs/performance/pr177-evidence/pr177-eslint.log.gz",
+      "originalSha256": "3cfe66cbdfcc5f429221ce218f1f1ff127096f02452d3d6129efa2e428581a24",
+      "compressedSha256": "6e9066c1e19cb1e8fa766b2562af94159391ad23253551ca3ffb7bea4cf82858",
+      "bytes": 212
+    },
+    {
+      "source": "../pr177-final-development-A.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-development-A.log.gz",
+      "originalSha256": "d9f26198523027d296875045c0343db69ac570864d5325605a47d3195284e0e2",
+      "compressedSha256": "382db1d2d3c362b54325cd4fee1e5182a7614f886a8f9d8f2f0e9637fc472214",
+      "bytes": 504
+    },
+    {
+      "source": "../pr177-final-development-B.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-development-B.log.gz",
+      "originalSha256": "7c93ab2a66d0b8fcfd1e869b4ce467efac7da5d6aaca3d85ea3aff75fef4e908",
+      "compressedSha256": "a5cf7b4496a139e39d554cd70bd2c06df10fea3796c1f6af8fc03de2e06bc36d",
+      "bytes": 481
+    },
+    {
+      "source": "../pr177-final-development-legacy.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-development-legacy.log.gz",
+      "originalSha256": "a541c4827e2530c57b7de78639f38bc9f87a0bda75889b1ee00c6ae9f7f11ae3",
+      "compressedSha256": "09ea5711798ae6dbe7fc6f60e3c525d8dc2ab2038e4b817a7f16b0fb0b535d0c",
+      "bytes": 489
+    },
+    {
+      "source": "../pr177-final-validation-B.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-validation-B.log.gz",
+      "originalSha256": "e53f57305edd77805cac8c7f2226a4f413b7d3e6252defa705b0edc60c9c9601",
+      "compressedSha256": "1bd14501c0fa9060f3d49913b1961bd19e87a88106cf93dbcffa4c5640fdac4d",
+      "bytes": 492
+    },
+    {
+      "source": "../pr177-generate.log",
+      "path": "docs/performance/pr177-evidence/pr177-generate.log.gz",
+      "originalSha256": "70463cd9d4c5fe4eb099d7ba7bab1b7a19c322ed385902c0e595c87ddc476b58",
+      "compressedSha256": "6b87bae96f706b2aba0e8d82ed10a185ba556a122f37995f50364f3e8a8cf115",
+      "bytes": 291
+    },
+    {
+      "source": "../pr177-identity-parity.log",
+      "path": "docs/performance/pr177-evidence/pr177-identity-parity.log.gz",
+      "originalSha256": "db43f477178433b4add3823dae8bc61a8bb1c15a91524feb7f4869c0c7bafe9a",
+      "compressedSha256": "9c364b778d24db43437ed77ad98c3219788a53e98cfc07ac125f31860de94beb",
+      "bytes": 178
+    },
+    {
+      "source": "../pr177-index-tests.log",
+      "path": "docs/performance/pr177-evidence/pr177-index-tests.log.gz",
+      "originalSha256": "5b2dee997a0a2ea20267eebb5b405e9e13690cdf1d05c3752958cf27d2228847",
+      "compressedSha256": "b17549285c8ecf15c7724b268a20ce19b1f270cdda1d5b0cafd1276e8e53b0fc",
+      "bytes": 635
+    },
+    {
+      "source": "../pr177-index-tests2.log",
+      "path": "docs/performance/pr177-evidence/pr177-index-tests2.log.gz",
+      "originalSha256": "c151d9d5160654c4dd50e6c627a746cc948737d4f65f31bd8095c407b53ff13a",
+      "compressedSha256": "5b719daa56205bbaa4f7326309c224541c02bd3399a140e15400061de8f28fff",
+      "bytes": 242
+    },
+    {
+      "source": "../pr177-legacy-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-legacy-frozen.log.gz",
+      "originalSha256": "667be369a1cd4cd3a58c26f0cd98a5a6655104cbe2589bcfaee344e801987e58",
+      "compressedSha256": "6fef7bf3cebb3b38a65d5bb66ba46d09c1e56bfcd46d3ed086ade800eb1b9ff9",
+      "bytes": 259
+    },
+    {
+      "source": "../pr177-lint-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-lint-final.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-loose-loop.log",
+      "path": "docs/performance/pr177-evidence/pr177-loose-loop.log.gz",
+      "originalSha256": "458bb35dfd8b4044d30c8be5df87b860902682e637c23fa28d5418f318d6f725",
+      "compressedSha256": "51720507ad90bb717d19d3487a2d7d92242b8a95ba303185cd05dd7552a33627",
+      "bytes": 234
+    },
+    {
+      "source": "../pr177-performance-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-performance-final.log.gz",
+      "originalSha256": "46223a6ba3677716970bb55b398926d4a458b910f6bbe5a181d79003b1b83726",
+      "compressedSha256": "4e1a1e1bb1b05fb649ab3f44e4733154ffbb6bb84d5ed2e7ce1fe949dcab2e77",
+      "bytes": 224
+    },
+    {
+      "source": "../pr177-pr149-rerun.log",
+      "path": "docs/performance/pr177-evidence/pr177-pr149-rerun.log.gz",
+      "originalSha256": "1528118616ed87c5a4eebd239624f50f68319979b666bfb69be0b834623024e5",
+      "compressedSha256": "0e4de13fbf0ec80e712813f35ae2252d039e28dea5e0d9363324d10d7b4ea8d9",
+      "bytes": 240
+    },
+    {
+      "source": "../pr177-preview.log",
+      "path": "docs/performance/pr177-evidence/pr177-preview.log.gz",
+      "originalSha256": "81a49ac23de6df01a3357e448f85f29a3c4ab155db2a190137bc3a68f7f940a5",
+      "compressedSha256": "ace09ef9e2083e8354bf17bbcb10cb049aa3128e5775c4f0f15066e4a8fbc3a6",
+      "bytes": 79
+    },
+    {
+      "source": "../pr177-pristine-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-pristine-development.log.gz",
+      "originalSha256": "e3dc5faea11313c3b3bc0e5fa1f4f3790a8a445f7610f52e21c9b166274df62a",
+      "compressedSha256": "d7c00597210ab5de04c0d85db3de770455602d3357dcb6bcfeac45d91f5b82a5",
+      "bytes": 480
+    },
+    {
+      "source": "../pr177-pristine-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-pristine-frozen.log.gz",
+      "originalSha256": "7f62e6a31e35546414ff4a18db7a6a289cfad87c657e1f39cdf36108a7328724",
+      "compressedSha256": "011076bedaeb2626f14e42bf33ab1b6a4088fc4d867bab08acb31f8e62cd05e5",
+      "bytes": 259
+    },
+    {
+      "source": "../pr177-pristine-validation.log",
+      "path": "docs/performance/pr177-evidence/pr177-pristine-validation.log.gz",
+      "originalSha256": "219c2e46d43ef8e8bd9e85970c4c4c06552af7229dfa4da44c248da0b6d7b8c1",
+      "compressedSha256": "68f25a4c86b37c1f59467287fcb3e9d16ac4aca9c6d779da49cd8b5c9eb3b3ab",
+      "bytes": 488
+    },
+    {
+      "source": "../pr177-receipt-validation-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-receipt-validation-final.log.gz",
+      "originalSha256": "0a7dfbc153abbf488fe931633e04bb347cf038395d338c5a382c14953a6d4665",
+      "compressedSha256": "ef05c804e1309343b1877a7aa5c6eed302fbcc4f2805ec637e2160feedeea4bb",
+      "bytes": 155
+    },
+    {
+      "source": "../pr177-regressions.log",
+      "path": "docs/performance/pr177-evidence/pr177-regressions.log.gz",
+      "originalSha256": "f18cf26e17710ad0c4ae972cb5863eb4e7966fdd07e8a00edfbc6da79d2021cb",
+      "compressedSha256": "3400c3c9442bfc329645f190782219c0b354fdaa757d1c67a3efadface8599cd",
+      "bytes": 365
+    },
+    {
+      "source": "../pr177-report-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-report-final.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-report-lint.log",
+      "path": "docs/performance/pr177-evidence/pr177-report-lint.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-research-lint.log",
+      "path": "docs/performance/pr177-evidence/pr177-research-lint.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-research-lint2.log",
+      "path": "docs/performance/pr177-evidence/pr177-research-lint2.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-research-tsc.log",
+      "path": "docs/performance/pr177-evidence/pr177-research-tsc.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-targeted.log",
+      "path": "docs/performance/pr177-evidence/pr177-targeted.log.gz",
+      "originalSha256": "56a67f79e663f709fc48b6c2c4e4c1587bc92996f4b2f83145aec8b801735496",
+      "compressedSha256": "e91df3b616d6385b46193cfda8634504c87ba2e051ac4f9d76f4cd64acbe5064",
+      "bytes": 662
+    },
+    {
+      "source": "../pr177-targeted2.log",
+      "path": "docs/performance/pr177-evidence/pr177-targeted2.log.gz",
+      "originalSha256": "a6d470bdbca423d18f487cd7fdd8fb6ec0b30322b4f1cb13dbd448517791cd29",
+      "compressedSha256": "c03221bed29dd066f07c786f494573cf302db6389d5618c43e8d84f4cdc21139",
+      "bytes": 240
+    },
+    {
+      "source": "../pr177-tsc.log",
+      "path": "docs/performance/pr177-evidence/pr177-tsc.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-verify-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify-final.log.gz",
+      "originalSha256": "b7ffbe6e20d5f8c8655f604ea7b50ee79fa471c942258dd73f058e302db5c356",
+      "compressedSha256": "23171750b7388cbc850c2bddc689952221a89a0e5be718619af89486578c87e0",
+      "bytes": 762
+    },
+    {
+      "source": "../pr177-verify-initial.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify-initial.log.gz",
+      "originalSha256": "0ca34e92e73383b6e5478432c09821d79642c2d6b2aa412541a5391535cf2881",
+      "compressedSha256": "1aa7668fc8d7ad7acf20afa102f0fd7643de39b257988b4cb04cd7d8c7780499",
+      "bytes": 276
+    },
+    {
+      "source": "../pr177-verify-serial-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify-serial-final.log.gz",
+      "originalSha256": "b63e790abc5d40d90668a866fcf5847534caaed02dc2b920a5fe595c4a18b716",
+      "compressedSha256": "cf84d31da25312ee0bd412f18067ed0600659b2ba9a94a0ecf18c1d04f5ef6ef",
+      "bytes": 2329
+    },
+    {
+      "source": "../pr177-verify.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify.log.gz",
+      "originalSha256": "7559371fdcefe4aad85697d3e5c9f3b74cb64347da6f2115daa4e785e62123c5",
+      "compressedSha256": "befe2a069c2638af2fab05780f6ccd827f8be7dbe2f18f87c986d5dac7d7c324",
+      "bytes": 1199
+    }
+  ],
+  "decision": {
+    "default": "legacy-pr176",
+    "B": "experimental, promotion rejected",
+    "reason": "Inherited physical overlap/contact loop reproducible in pristine PR176 and B; material changes do not establish complete plausible football or justify promotion. See PR177-loose-contact-loop.json."
+  }
+}

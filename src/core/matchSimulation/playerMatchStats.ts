@@ -2,6 +2,7 @@ import { isMatchGoalkeeper } from './matchGoalkeeper';
 import { findMatchParticipant } from './matchParticipants';
 import { isRestartSetup } from './restartPhase';
 import { z } from 'zod';
+import { containsIdentity, appendIdentityHistory } from './identityHistory';
 import type { TacticalMatchState } from './matchState';
 import {
   collectContactEvidence,
@@ -130,17 +131,6 @@ export const matchStatisticsSchema = z.object({
 });
 export type MatchStatistics = z.infer<typeof matchStatisticsSchema>;
 
-// Snapshot arrays are immutable. Each historical identity list is indexed once, outside the
-// canonical/serialized state; branches use their own array identity and cannot poison a sibling.
-const membershipIndexes = new WeakMap<readonly string[], ReadonlySet<string>>();
-const containsIdentity = (ids: readonly string[], id: string) => {
-  let index = membershipIndexes.get(ids);
-  if (!index) {
-    index = new Set(ids);
-    membershipIndexes.set(ids, index);
-  }
-  return index.has(id);
-};
 type IdentityHistory = {
   [Key in keyof MatchStatistics]: NonNullable<MatchStatistics[Key]> extends string[] ? Key : never;
 }[keyof MatchStatistics] &
@@ -333,7 +323,7 @@ export const observePlayerMatchStats = (
         award?.id ??
         `${next.seed}:restart:${restart!.startedAt}:${restart!.restartTeam}:${next.scenario}`;
       if (!containsIdentity(result.observedRestartIds ?? [], id)) {
-        result.observedRestartIds = [...(result.observedRestartIds ?? []), id];
+        result.observedRestartIds = appendIdentityHistory(result.observedRestartIds ?? [], id);
         const team = accounting[award?.team ?? restart!.restartTeam];
         const scenario = award?.scenario ?? next.scenario;
         if (scenario === 'corner') team.corners++;
@@ -350,14 +340,14 @@ export const observePlayerMatchStats = (
     if (offside) {
       const id = `${next.seed}:offside:${offside.at}:${offside.playerId}`;
       if (!containsIdentity(result.observedOffsideIds ?? [], id)) {
-        result.observedOffsideIds = [...(result.observedOffsideIds ?? []), id];
+        result.observedOffsideIds = appendIdentityHistory(result.observedOffsideIds ?? [], id);
         const team = result.playerTeams?.[offside.playerId];
         if (team) accounting[team].offsides++;
         newOffsidePlayerId = offside.playerId;
       }
     }
     const appendIdentity = (key: IdentityHistory, id: string) => {
-      result[key] = [...(result[key] ?? []), id];
+      result[key] = appendIdentityHistory(result[key] ?? [], id);
     };
     const mutableNetwork = () => {
       if (result.passingNetwork === statistics.passingNetwork)

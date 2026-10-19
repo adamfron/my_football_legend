@@ -1,0 +1,2680 @@
+{
+  "version": 1,
+  "commit": "df8e532ecf29d6c0a7e92ec241795a6a37250e1c",
+  "reference": "df8e532ecf29d6c0a7e92ec241795a6a37250e1c",
+  "statusBeforeChanges": "",
+  "files": [
+    {
+      "path": "package-lock.json",
+      "sha256": "24070de53eb5592c0211d34a55e69534c2316d31221effe11b49ea1ae70ed3d3",
+      "normalizedSha256": "ddd9197351338b130d6273db89c9882b40d94bd698e032e4f0b27eee2db3f05c"
+    },
+    {
+      "path": "package.json",
+      "sha256": "a48d07711a8d17e4398b4e11754af92090eb0ad96dc47673dd6577d47f574417",
+      "normalizedSha256": "b6d80f622e1747fb73d001bc451fa4de67b2486b3293d7694a76ffe63ac08361"
+    },
+    {
+      "path": "src/app/App.css",
+      "sha256": "b6279c5b2c04b2bf9313a391d8300deb34b7cd988089a5ae123caaa68d811b65",
+      "normalizedSha256": "4c729baa08f49d356ba246f93f451be4309332f361701a6fabfe69059d33eee0"
+    },
+    {
+      "path": "src/app/App.test.tsx",
+      "sha256": "70d5c8d10abdca7797b7ee043ab11444c57dc531f63734b644810ebfbb23c242",
+      "normalizedSha256": "a40be174010ebd027e3b332a34742f2acf8ffdd02794de1768e3dd5f5b92f591"
+    },
+    {
+      "path": "src/app/App.tsx",
+      "sha256": "a77510dfc3bc2ca5872c35f64593ddede349bd1212ea90bd2311b2f56b367b5d",
+      "normalizedSha256": "d70858b4da405c899b596e8ee2116f7e0855f64e23157c75a0fc9545da1c41f6"
+    },
+    {
+      "path": "src/app/CareerApp.tsx",
+      "sha256": "8e69e5ae1540e808b53f0c30fc77c8b4a67a6a467f38fb24f1d5e80cfd492e10",
+      "normalizedSha256": "9f00f6cd3831c93bc49878ef3cec20ec9a6c572a07c75e48758dac973c975c83"
+    },
+    {
+      "path": "src/app/StartScreen.tsx",
+      "sha256": "3b39eec958d58050ff625ac2fb4bde83bdde46a1b57f2011f553b244b95ea66d",
+      "normalizedSha256": "589d24f017ae3eb1bf5e0912df3c43004f53c3d33d77bbe60b3edf9e686dc64b"
+    },
+    {
+      "path": "src/app/appearance/AppearanceEditor.test.tsx",
+      "sha256": "c1f7969bc332bbad008d84cba6961bc277f62f705304a0d245eb48d9260b478e",
+      "normalizedSha256": "3f9e4ec4f84e3167b57d9406f0c765b3124a54cea82339bdfad84239d6059830"
+    },
+    {
+      "path": "src/app/appearance/AppearanceEditor.tsx",
+      "sha256": "825526981208ded3f820fc8f7472ef06191fe0c6fd249c2af38f3f220eda76f5",
+      "normalizedSha256": "db008c2b4ea608f95846642356712ea88312274ebd10123df6152795c4075a3c"
+    },
+    {
+      "path": "src/app/appearance/PlayerPreview.tsx",
+      "sha256": "ca55162774bba910627e91878898e3bc2edc555041c0a3e5733cb276fb79de60",
+      "normalizedSha256": "049c106f6b6c010ed21853aaba0ad19aea6bc21152d857bd5b0e10c63a71c746"
+    },
+    {
+      "path": "src/app/appearance/ProfileAppearanceEditor.tsx",
+      "sha256": "c26a10ad7f258f91b219cabd113b6dfc407db31e201f68b5ef1c8ee246465033",
+      "normalizedSha256": "a404a7ea3040d8355bd5db9d6114d1f09fde52a9574d3e246107040a0fffe936"
+    },
+    {
+      "path": "src/app/appearance/VisualGallery.tsx",
+      "sha256": "912ef740ed0ec3fc04aba2ba4b5fb2b0323425d2c88ae52b891a78caf94dacb1",
+      "normalizedSha256": "80713c911121e007863448b1d0c2149e3c595dc464f62edb161c476b18106acc"
+    },
+    {
+      "path": "src/app/appearance/appearanceDraft.ts",
+      "sha256": "4c48f8a8846b5e5141d5a4b0f078f1cba32bf0410c01f5c5389e9d543d8eebe6",
+      "normalizedSha256": "eb942efd7fb5746fd20ddb23608ffe996c56249a426f7698eb1c554f928e85e3"
+    },
+    {
+      "path": "src/app/appearance/galleryExamples.ts",
+      "sha256": "d4c7f5ddb223a0d276ac07b3f71a127fc341119678cf2da33125a6cf54e05b6b",
+      "normalizedSha256": "c41411e9d5a2d5759d354ef9bb6037c11c9e2ecf122d673b6e33b6ccd21d02bf"
+    },
+    {
+      "path": "src/app/appearance/previewScene.ts",
+      "sha256": "802f302ef56f21814a8d975c587dee2d1cc3f77ef4c5fa553872ca843a4a043a",
+      "normalizedSha256": "24141335241677e0ca4ed2b77b6629a9e37d7c3d91387c3ab423f96f12c63d19"
+    },
+    {
+      "path": "src/app/career/CareerCalendar.tsx",
+      "sha256": "7842609e5e779fdd62fcd71cfcaeda4ce81fa868835784ce76c6a3faf7da9272",
+      "normalizedSha256": "eb63b176a35fd3ba2c010343044baf5fbe754f6fe2eaca74276f2d1d0576cad6"
+    },
+    {
+      "path": "src/app/career/CareerView.tsx",
+      "sha256": "fb2c6b4ce3de853bc555710a66599068c5ebbafe69fe4c78c3242cdadc39fc79",
+      "normalizedSha256": "f9d0c0a3ece43c720bc6b5209935b2fc5586c350ccddc1e51530caf5613fde79"
+    },
+    {
+      "path": "src/app/career/ClubView.test.tsx",
+      "sha256": "620684c1ba6b4eb5f656f9557f2f82c8f09ef9a9c1928b78b8fa78d9d749b027",
+      "normalizedSha256": "10705379ca4927ad69ff81be240eed97df528017a0322e2968490d6c6befea79"
+    },
+    {
+      "path": "src/app/career/ClubView.tsx",
+      "sha256": "4a9b0d7ad635c5ff56989086fc23d9fd78520d5df599dfb797566ffdc3f6b858",
+      "normalizedSha256": "d0ec79dfd211311f3e8de72a0dc92eb3ab11abbac4ee4786e6d42d0db75f80bd"
+    },
+    {
+      "path": "src/app/career/FinanceView.tsx",
+      "sha256": "8d0725e06c0b0f1d932fd57eaafe52969df7517ac607c175f0d0b0e3972ccc7b",
+      "normalizedSha256": "f7707c25038b15d0c1634169b57f0a652d2fa88f85a1013952d2be5ccaa65604"
+    },
+    {
+      "path": "src/app/career/HistoryView.tsx",
+      "sha256": "819106d684550d78cb871e1d407658816e06970bbe03d4d3df6d80c49bcbaac2",
+      "normalizedSha256": "5a5cc68d4e9890ec4389d8346e37bd4fa88e578f850e5ca21798d3c05ae441f9"
+    },
+    {
+      "path": "src/app/career/NewsView.tsx",
+      "sha256": "71710057842922662ef9105c64d48d1f00dd928f330c2a0f13c394975084a131",
+      "normalizedSha256": "0c3446af0fc70745a441fb875c03b299a7770d12af12efa2f6895bc100cffe94"
+    },
+    {
+      "path": "src/app/career/SeasonView.tsx",
+      "sha256": "61cc5ce2b867e6607ecaf9a264d775e833eae8ee746893450f7d4b123e4064d4",
+      "normalizedSha256": "4adc7366065ddb172c3a298190d990e6e4129f1a1f31439c7b8c1f464ec2fa03"
+    },
+    {
+      "path": "src/app/career/SquadPitch.tsx",
+      "sha256": "94962ff208f7ef23f2ba6ef23175a4441df9b61883965ccf53f5db24ff3dbaee",
+      "normalizedSha256": "b59479bff9249f1bf0843757cc9636b7f1b55321f430eb84e433c538daba09ae"
+    },
+    {
+      "path": "src/app/career/WorldBrowser.tsx",
+      "sha256": "65160ab80d475bdef5935df9205fef21be1ef00335dcec2c99c5f34ecc6b8e0d",
+      "normalizedSha256": "457e7f6c6307293d0a1e225d2b50b3c0d2126aeba769632a428518a4d10b1a1d"
+    },
+    {
+      "path": "src/app/career/calendarPresentation.ts",
+      "sha256": "ad95183e7e51993d69243ac2e553a94923d4fd47b84b4d68c79ce9deeb2c5e04",
+      "normalizedSha256": "6d89039fe35e5809fae445b6fbc52f933a60bdd6fd72c3354269eac80336c70c"
+    },
+    {
+      "path": "src/app/career/financePresentation.ts",
+      "sha256": "7adfdc33b58255e1aa1609b9ffea6df149445245ed6659344b19e275371b1152",
+      "normalizedSha256": "1837c9f3b6f0ae6e520b2a020c1f0abc2a9c7c94c8986066f418bb1872afe21a"
+    },
+    {
+      "path": "src/app/career/formationCoordinates.ts",
+      "sha256": "8b6432a15b3993d2f0c2c4240c7322b3c8965e808191fa82130301ce59a90354",
+      "normalizedSha256": "ebd11d1fe4e4924f3f923d349b116e04ab1e914f6401308511051f23a2906798"
+    },
+    {
+      "path": "src/app/careerCommit.ts",
+      "sha256": "6c9abaa3274d2836eed0a77df33a96981177e2099c08be3c2a1dfa3b10624bb2",
+      "normalizedSha256": "a0c66b61d014c53d677ac3abf64f68aaa33a6c72e2d582dfd6c61fd0544f68c2"
+    },
+    {
+      "path": "src/app/careerSeasonRendering.test.tsx",
+      "sha256": "66973c7659e17fe076ec0adcce1f66b12b4f8b8d11d6b987a9291628c29dea23",
+      "normalizedSha256": "6aa03f94593b1f8cb9d87b44b55df8cb89e3caa5e68ffd06200748801c0d4f7d"
+    },
+    {
+      "path": "src/app/creator/CreatorHeader.tsx",
+      "sha256": "5240270ff1e25d6c4c5125fb02bc363ecb0098aca841bce04bedaa5026c84e05",
+      "normalizedSha256": "056152d8fcde519d42af215de5bc01ea66bbff0d20a32361abbc214a431bd4d4"
+    },
+    {
+      "path": "src/app/creator/CreatorSteps.tsx",
+      "sha256": "06a1479857a309412a57029568101e808361ccb5a388c184e1db36c5c8b3a0eb",
+      "normalizedSha256": "39ad2c0f90b553f7996ad56c3982f27c0de44aa250c38dc32150f632997fbb7a"
+    },
+    {
+      "path": "src/app/creator/PlayerCreator.test.tsx",
+      "sha256": "510cd01cb7dfcb0c15c3e44700829e4c0355b6e01bb01574417c0b239d35c6e7",
+      "normalizedSha256": "205fe3581d0785eb929136e546ccfb4ac368e2d03e637c3f164e441d8a2e10e2"
+    },
+    {
+      "path": "src/app/creator/PlayerCreator.tsx",
+      "sha256": "9dba9180c2df83a89336033ad4d75d28b187c61421a64b6a5c6b3697aa43bc91",
+      "normalizedSha256": "f219a746640ece57026f400c522867d711af64c12ba987b667219b5f1f465a25"
+    },
+    {
+      "path": "src/app/devTools.ts",
+      "sha256": "c43ade2337a1f1cab0e65cccc77e34f2c807492a9779e82746e1ca4a667fab7b",
+      "normalizedSha256": "b96b10e97bcee9563c295f793e1b999183b6a6a9faf6bb2c3691cb741100be5b"
+    },
+    {
+      "path": "src/app/match/CareerCanonicalMatch.tsx",
+      "sha256": "cbd47b049e95babf5f391fa989667a1f64a3299baca093cdb93a86a31e928f79",
+      "normalizedSha256": "d7f46d4349988d6ec86cbe2730b00bf15c92a71a0f8d6a71d1c86f591b4072de"
+    },
+    {
+      "path": "src/app/match/DecisionTargets.tsx",
+      "sha256": "1337a7a494231adc13aa6600690ea213b09daa6a35b2b125c6f88b887496d695",
+      "normalizedSha256": "71abf0e734ddf1c19369f23e87874c440556e8e83d94f7617c057093ab060366"
+    },
+    {
+      "path": "src/app/match/MatchCentre.test.tsx",
+      "sha256": "75127d745fe2a9e3e94c8ece4ae6ef7e14b4427cd266a03352c2fd373d82ee0c",
+      "normalizedSha256": "8b06b6fae694109cfc351cc6bb06125844030c678971fd98a76876446ddb686a"
+    },
+    {
+      "path": "src/app/match/MatchCentre.tsx",
+      "sha256": "9aac97c11fecef44821b91768235c6d61b3848145474e5351174006a2c868309",
+      "normalizedSha256": "07f5b144bb1d30d945cdf4df66f20a39ca53ca3d26f736dfcc39f7be5b1e0588"
+    },
+    {
+      "path": "src/app/match/MatchGame.tsx",
+      "sha256": "3ff171258cf13cf0e20d31dcb96f6068684914c7f006432b3d48cceacfef9bed",
+      "normalizedSha256": "210efa531bba22072d8d511c766ab76f0761438667e0394b84f0a3397760a147"
+    },
+    {
+      "path": "src/app/match/MatchOccasion.tsx",
+      "sha256": "771a24df55c074495e241f964820946b0d30d674e49c136c0804269cd8603c9b",
+      "normalizedSha256": "86893936150f3e09bb883dbd82abf473b4e4ced3d6ae9c6ff86a2938d8ac1c9a"
+    },
+    {
+      "path": "src/app/match/PlayerFitness.tsx",
+      "sha256": "1a4f9d3328450e8ca981161754d2f831978f4c68d03b3a6941e7017e8e10eb53",
+      "normalizedSha256": "daf1e522044fa9ff252dd4d894b959250d291b14623c9fbfb14c6c9ab7e3dfc9"
+    },
+    {
+      "path": "src/app/match/ReplayControls.tsx",
+      "sha256": "14d9c637d3449d035acca045735d7fea91256ec950f91f9b58f04e5eb5870428",
+      "normalizedSha256": "ad1c48fbada50bb7c5f0c6da92ae749a034baa59f9da440dbf86ee431be9ca08"
+    },
+    {
+      "path": "src/app/match/ShotAimControls.test.tsx",
+      "sha256": "8ede986147de08cc7e8afc96ecf03b18fb366947bd3a91fc6f4daae857c49167",
+      "normalizedSha256": "11b3259c564536f43f5112d5f119060736a1ed636b41a4b12761e1545bcf8ed5"
+    },
+    {
+      "path": "src/app/match/ShotAimControls.tsx",
+      "sha256": "13889f9f874de6153dfd777cf21ea03eba5ae5e891bd8b0c3ee1ef4679b5157b",
+      "normalizedSha256": "4933f280890a39fbbe200b438cf2fc1fd2a127a3a5bc7e4b0936fe2353024f0a"
+    },
+    {
+      "path": "src/app/match/TacticalExplanation.tsx",
+      "sha256": "6262802316537384233c4825ef2d3d827e9a240b1ce13233deec8e5a0a575aec",
+      "normalizedSha256": "06cbf95b998f9b5305a613b389cd04090694f196d2ae0137e41f490c94254841"
+    },
+    {
+      "path": "src/app/match/TacticalMatchSandbox.css",
+      "sha256": "79df20d0f0a548334864bdfc5c97b022b605fd8fa0171d80509a434d6d2ea9d6",
+      "normalizedSha256": "486fd10bb2e2b79c8d6ceac76a10162542d11d1f89c086e946c18e5e539f3e60"
+    },
+    {
+      "path": "src/app/match/TacticalMatchSandbox.tsx",
+      "sha256": "c45e5aabf685458ce4125de0f349d3bf4d9d16e8ce076804e12b5937d93f6074",
+      "normalizedSha256": "9101372bbc143c0782d5b44471019b1a6bf950bcd9d2af7053c570b533079bbd"
+    },
+    {
+      "path": "src/app/match/backgroundOrchestration.test.tsx",
+      "sha256": "c6f6b9bfb08b156d7f0282984a89853b46555653c324bcef9007a4f6cbb24277",
+      "normalizedSha256": "4cf1d79202825b6aeb3d83584b2f04fc0b536838694ac16a889d32cddd62b6ec"
+    },
+    {
+      "path": "src/app/match/backgroundPublication.test.ts",
+      "sha256": "ab161b9a6e30806698f6b46032af6688f927ecbebfec29a9f77ba48f60ab476e",
+      "normalizedSha256": "227f26fe323d8dce6f573ce96a0d467eee9030c528ebe31aee36e96ceedf2d2f"
+    },
+    {
+      "path": "src/app/match/backgroundPublication.ts",
+      "sha256": "13eaaf38fbfb85e6a77b5be209798880110e02a29184e5dc4d0ceaa463422224",
+      "normalizedSha256": "96de89a7e02fc12aa586ebff7e89e655d6303fd825dd6eaf4c9f701a62105522"
+    },
+    {
+      "path": "src/app/match/matchBenchmarkReport.test.ts",
+      "sha256": "d5c45d4ef6c8cac51e7adfabf5af0ec9d7ccd73ff3cb7bd6b96e18a452afd041",
+      "normalizedSha256": "d86944d71f6e13a85c470226c5036030cbea41723ac737d7ea6584c1ab0f7533"
+    },
+    {
+      "path": "src/app/match/matchBenchmarkReport.ts",
+      "sha256": "40093397dbf8d6f74963ba582ba71c0d74cd8a50617c1b3bd6a9206dbfd2a66c",
+      "normalizedSha256": "a2b0d3fabc78d2c196265120c98fffb08b3ad9a2ee36feebe2d4b30595e3f18d"
+    },
+    {
+      "path": "src/app/match/matchDebugCapture.test.ts",
+      "sha256": "2b949023235dd7fc5d3adb5f10f8a08114343045f4dcf06783418a6ba757d08e",
+      "normalizedSha256": "ab24077cff724ebef8f8724291a588cb8f8fdf1ee1abc92b724c3438f3776fe5"
+    },
+    {
+      "path": "src/app/match/matchDebugCapture.ts",
+      "sha256": "738ede5270f14727de1a504d730234e196f4826a1630a82d0cef21a0c515f151",
+      "normalizedSha256": "618ee9874b6edb602c8e2b46edd2375cb3d3e878e5c9a1d5501eac15ea32dcd7"
+    },
+    {
+      "path": "src/app/match/matchEventLabels.ts",
+      "sha256": "91ecec2b281acd1b71ea39303800253768dfe20307274063da654bce294f9ad4",
+      "normalizedSha256": "7ff292a3630aa8b002e7d7ef222040234cb28865339068ca6e6cf6a5ad3b0a4a"
+    },
+    {
+      "path": "src/app/match/matchLabDiagnostics.test.tsx",
+      "sha256": "aa58f8b815fa5a143d0aaa1e986eac776ca4ab11430c8530571601d79760b25e",
+      "normalizedSha256": "7cb6665c2db3c73b2359c99fd18d880b36b990ad54b09080c4ea6170998c178a"
+    },
+    {
+      "path": "src/app/match/matchLabDiagnostics.ts",
+      "sha256": "d590e6ef10794dc1f302ecd74244e53abd936e88c3972543a41bd35670bfa0c0",
+      "normalizedSha256": "2babf51de1808b2668bcd01ba97b53806bc60695e61a854d9ac97ee99c6445fe"
+    },
+    {
+      "path": "src/app/match/matchRuntimeClock.test.ts",
+      "sha256": "52d5b3065b8f55207549ee8c658bb840cc7d8d1f644c0e1d69c57208042e57fb",
+      "normalizedSha256": "c65be4f676b69f2868d25e81294a038d2d149d0a169d076e2a89c1379b65443a"
+    },
+    {
+      "path": "src/app/match/matchRuntimeClock.ts",
+      "sha256": "ce58789867040ca28976fe9637ad6a3fc9edc4d31903c9b55c3a949da2f3779d",
+      "normalizedSha256": "7110967a867d99bf7c2263c96a8817a5c00120d818d65a5b15e1f6009ab245e9"
+    },
+    {
+      "path": "src/app/match/matchTime.test.ts",
+      "sha256": "41bb8bf045ead619b45d474055650d13f0962e1afdc455fa7e57194712ee0a22",
+      "normalizedSha256": "1d3b7646e2ceb8d7f6fd495841d8c451c7f50b86965da2b8931335aa420d5b87"
+    },
+    {
+      "path": "src/app/match/matchTime.ts",
+      "sha256": "ee7389a8fd46aaf1b2ce158914a06eb21e62f3063ed981f73fd8ce80bef62e29",
+      "normalizedSha256": "a807b2a56a9c2a85efe85a740612c6ffc2641eeb11054236a6823b52fca990fc"
+    },
+    {
+      "path": "src/app/match/pitchDomOwnership.test.tsx",
+      "sha256": "469dc558068a2d7137504255bf33a27e3cf9a621f6759dfb454915eaa574f71f",
+      "normalizedSha256": "e22191fb3a3b80b4503bf0f7c1132029d156742075a9c486393478371dddd46c"
+    },
+    {
+      "path": "src/app/match/pr161Viewer.test.tsx",
+      "sha256": "55c4d966685d35d28baa8bc5c92211483b209114c53fe898a01cbbccbc01bcd2",
+      "normalizedSha256": "f1d5c39da66e8c024404c9563420eceafbe79b80a48fe46228a0c3a12ce35a79"
+    },
+    {
+      "path": "src/app/match/pr166CareerMatch.test.tsx",
+      "sha256": "31e3d47d7b6480ec18fa60d079004625183c8e7c2bb318a2a4e460c278857b56",
+      "normalizedSha256": "3cdf289761404fc09fc87986936b730764572f0c119689770a1b48a507961687"
+    },
+    {
+      "path": "src/app/match/pr170Hud.test.tsx",
+      "sha256": "c503479e3d028cc7b3ffdd751c4244582daa4b1ec242383fdf48b6b49f015ea9",
+      "normalizedSha256": "830c4c0267e69c6c1a3b6edcddc4793d4eb8a5ae65a14f09ecd554ea3d82c414"
+    },
+    {
+      "path": "src/app/match/replayViewer.ts",
+      "sha256": "971c16caee360b1471a24345417c4db99610f718f38b4c82499468e7395e0397",
+      "normalizedSha256": "85fcb7b0356cf03d0577dc1def2674d7d26135da32a011d3ee64226faac54642"
+    },
+    {
+      "path": "src/app/match/singleMatchScenarioAliases.ts",
+      "sha256": "7b48f0ff7b2da29c910c4059578148d33936b5408fe7c670d5939e005ea076ac",
+      "normalizedSha256": "48f5de910ba9acb3eec3c9acbd9a15a894d9f29759921fef342e773ceda2b305"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/TacticalPitchRenderer.test.ts",
+      "sha256": "900dc5285ea86ca34f50041c2bb1605fd5d760a07669a8d33468687a9fd48162",
+      "normalizedSha256": "323e45a679046af015545e06eb37a968e6b0cdca6b6f95d680edc1d0c3eede23"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/TacticalPitchRenderer.ts",
+      "sha256": "5e93f15eab2b4fd3ec32e9cf46c28be51e2e34aa2fd1864659b032f995086e37",
+      "normalizedSha256": "7256f366e8e1a50b4e1e884532de47fbe4345c34decaa461b5536e02a1405243"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/actionFeedback.test.ts",
+      "sha256": "afcf51707589776d766b817883fe32d386fb5ddb898a41dc54e832491bbb17c3",
+      "normalizedSha256": "62df7c09d2b283bfe3671cb44d39d62fa38b3ee4c5e0982dc0d021b8713a4c8c"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/actionFeedback.ts",
+      "sha256": "f331e6338ac2b1e718b698e454d79001e1b3b067fbca7bca54aefbad3e75484d",
+      "normalizedSha256": "80c0455626096b5c0bd6ef300bad00930fa5a55e7efab2ce761f40a41072e684"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/animation.test.ts",
+      "sha256": "0465eb940a51eb5905e38771c8d48aa1dcc838ff9e184212c058a4255d16c86a",
+      "normalizedSha256": "13fce373353a210e847ad839b2fdddfd3a77d1923a8b5bddb89f50ae82f7c7f0"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/animation.ts",
+      "sha256": "92cbf34fc954965e6f158c55b63ab5c6715f79bacd9e577085c622bb4a976f28",
+      "normalizedSha256": "6bf0fb70355dca60f3c1f590b822f645ce4a93a6392732e3d5c9c230b15d9482"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/cameraInteraction.ts",
+      "sha256": "4d6abfdf3eb1f33a86b875be8851d7cb232a46f60e5f2d1033212c1710df8c86",
+      "normalizedSha256": "ce610fd360e12ba861d0b2dad6157c5ba4ebc27c456ce20aae6677e576d2992b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/contextHistory.ts",
+      "sha256": "e55142ae546d7248150af40d1695fe630b70f6afc5e85ffc0275bbe06ddd4044",
+      "normalizedSha256": "401c04610e08191d78e8c18eaeb1f2b0c87529dc2b066310ed832a018a05cb9b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/diagnosticOverlay.ts",
+      "sha256": "9d434fab15b71ccc015f14ab0f92330ecece2b3ea11f921da4f000ff6203bcaa",
+      "normalizedSha256": "a9adc6256d80487b55ef9108d3678d1062af0facdd1f184a54f01d266b0fa3df"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/faceModel.ts",
+      "sha256": "a6a69c7bb4c0ec97dbac0a040f1c18f59a533627003b02d55946a1df97fdbdf2",
+      "normalizedSha256": "7205d1f6292731dec97d1f4494ec08fabcc840eab42bf8b031f58cf433f53378"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/frameProjection.ts",
+      "sha256": "7203b9cd1125a3fa807be60f9b6f327d2666a957ad298b68c7620e860759dff4",
+      "normalizedSha256": "aa346074a47e38c9e915ac4cd9e928dac62ddaa17b9b65ef42b6a93c240e782b"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/goalAiming.ts",
+      "sha256": "d219ec04753f2f08d015973f0ce88218310659e9660eda0d37c5d4c9910acb77",
+      "normalizedSha256": "0c4caabd24f08f9e7fb11b90a3ba461ffde0ee6bddcfbfb530d6d953f7793f8e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/kits.ts",
+      "sha256": "9f1d66bda981ab9cd1831cb39a622fa1bb5a055aa65be52d6f6f6d7ca5562d68",
+      "normalizedSha256": "b07fa66b873f0da3a383660944042c627af6870dba2a43b319aae99a30464181"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/model.test.ts",
+      "sha256": "7ce129176ecdf0ae6a8a42f89b044ba2c2b4edad3e10817a56be2b237464b11b",
+      "normalizedSha256": "f79743adab7ec3528258738f4a38c85a9e8f491f70c9934c102f62d36e78f2cc"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/model.ts",
+      "sha256": "a949c2378cc9fbbcdd2b84e649482c4be9b891de32a64eeee396ad99d7e7807a",
+      "normalizedSha256": "a05a8925df7b389fd8fe3301737f521bc304bd1ea305a3662c2612ae5dd77420"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/motionVectors.test.ts",
+      "sha256": "958b251af1377228393b7df366c854cbd4e060ec374875faf074fd649c928074",
+      "normalizedSha256": "726df16d569d38b89e79db881b3a34e3a3842cf9417dc51b0c57bd5f681d8c4d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/motionVectors.ts",
+      "sha256": "a2a9bc815f2b28b3bacaadb06367711577ac4596d8c3690bb060f4b6449c2c42",
+      "normalizedSha256": "873fc90be34f66a877c880f556a7ee44afcb28bae9152a30e1495bd2e70e4376"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerMarkers.test.ts",
+      "sha256": "9fa3e870bf86a73a9409206584c89581b192afdb6bc77c69ed4cdc4d0884e498",
+      "normalizedSha256": "5ce42e1513dcfcf3039748a721462d73c5e1bb5cb2fa92e33fd9c2740afe7de5"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerMarkers.ts",
+      "sha256": "d1237933be2a8a26378e7c3c20e535e8323167236c72a6d3287ed269b5735bd9",
+      "normalizedSha256": "dc53bbe2df0866708fb6481b0301d5907310cd9f4b9852289003375a6cc27a2d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/playerModel.ts",
+      "sha256": "25450d97cc1279a1d56eed8977dea8a28e5a5922b6ae10be077900c379fa3cec",
+      "normalizedSha256": "00b7e0301bc2ce222a16ba7922aba1a4380e3230e2ddaab103674a5f83daeb9e"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/pr161Presentation.test.ts",
+      "sha256": "e8380b10a8b17539e0045b6cceeb45eae08d0a6d0768975115632d06819b887b",
+      "normalizedSha256": "b26806d441f4162b7b109046aefbdba4ebc43248d68d7856d47bb8dbab922390"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/pr161ProjectionReplay.test.ts",
+      "sha256": "3bfe56f2ad089061a1c7b9233f64a09c21361c4f592a29c9c61945dc2d404876",
+      "normalizedSha256": "5fb1dfba3f17aabdb423b09235ef3f31cfc4cb48c748c55e36b25974e460500d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/pr170Presentation.test.ts",
+      "sha256": "f63b790394b7f8766c67aefa2721e1145dfcee4d7f201a1c9eca9d912c298353",
+      "normalizedSha256": "2208bb459d68479b7bc3aaeb2543bfd2864a30989c32de259c30be9b07f1e105"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/presentation.test.ts",
+      "sha256": "ba51bebc101e1ae574028ba4cb608ad25433987308677a6c0e37d62626508400",
+      "normalizedSha256": "1b118b8c9caf906699a395c6747f475480ef59991f247d51169f616cd090f7a3"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/replay.ts",
+      "sha256": "49960d7e010117edbefd83bfe5ff161c37798893df889d7ab47e251fa427345a",
+      "normalizedSha256": "64dc7c6ee82f288af91af18067df89524e065ce3d4da437d882cb966db666b65"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/restartPresentation.test.ts",
+      "sha256": "2bf4f2051b513c2ff616b541e731ba72b4136d61f8913978be7319ff60c2b8e0",
+      "normalizedSha256": "1c0a0b06d6c46856f62a47f903e64a7a0deaeba7124284fd2971e5e1cf4e620c"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/scenarios.ts",
+      "sha256": "e350d966eea3375007bfba257011cd1e0541dd8be898a5b2b3f0663ffe864b4b",
+      "normalizedSha256": "f4518b672808da55a86d772e65ece8025869c082b7d9116606cd79ae32b84c88"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/stadium.ts",
+      "sha256": "508dd0598b00db676e0f29d5cc9522135350b655cb4b91ece5a86f5bd7c7a837",
+      "normalizedSha256": "255aa8ecebf6ad6c8a5b2cc1023ff7183d8946f8972270275b573d4ab69aa30d"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/technicalArea.ts",
+      "sha256": "2320ccb02983ddbe7abc0d615b4479d314ded5b8580a245a3abcc4d6bbbd83cc",
+      "normalizedSha256": "6cc77650ef068871dc49db9f60322e5106796d3aa873701a0d4b29cf8a246c01"
+    },
+    {
+      "path": "src/app/match/tacticalRenderer/visualPlayerModel.test.ts",
+      "sha256": "b7dd47f0a3a2c97f3017a39a09eb2f45f6f3a4441dcd406304e5383693539820",
+      "normalizedSha256": "800759c705a8cddc4c14e8951240bde2df1397bf8e7536f1285bbafc693970fd"
+    },
+    {
+      "path": "src/app/pr169CareerRendering.test.tsx",
+      "sha256": "d5f3c169cf0905baf6066bad5724a7bdc4262283d38700e745b54b87044c37d3",
+      "normalizedSha256": "686daf1dbc51051688be5ce7df098cafb29bbc7b296d008ad7bc871f37e4b1a2"
+    },
+    {
+      "path": "src/app/pr170Career.test.tsx",
+      "sha256": "895d22a89ef0af36bdb37192813d4eebd9a70190d4096dc6bd2c81e84ed46ec3",
+      "normalizedSha256": "ab19dfbea1eab66985d54fe846820fba6f79756eaf0a6daa9127711de75c8623"
+    },
+    {
+      "path": "src/app/shared/ClubPreview.tsx",
+      "sha256": "680997415e6d81e314812be8f5db4103ec1f13ac4848fb993d31c3805afb9a23",
+      "normalizedSha256": "36e45972269871495f5bb8b24b15dd134d5894fde9b90d6ad2c3d823c9b5c957"
+    },
+    {
+      "path": "src/app/shared/FootballerHoverCard.tsx",
+      "sha256": "1fb478fc948abb11aec006619f699142c490625cfa212eb49f08c2edc4e6fc86",
+      "normalizedSha256": "bcadd64f594975bf66f1bf9b6f4a664de3df7e4faf269e4dde8059cf7c5fd3f4"
+    },
+    {
+      "path": "src/app/shared/PlayerCard.tsx",
+      "sha256": "fecf134d8f1d5c9737b88d78758ccf4dfab574f0d03f28f299fec622c9854630",
+      "normalizedSha256": "7632724ce60a4808e2a8179ebaa86fe38516a5a49a5481b70177a0b79800afe6"
+    },
+    {
+      "path": "src/components/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/components/CareerMatchDetails.tsx",
+      "sha256": "34683c4e01f185241a72d7287bbfe115ae2581d83f97e75523d6c318c6b78a14",
+      "normalizedSha256": "5ffd572b89520753891510ccea9d8a01c0812cca7a62aeac5897f3ed91ad09f0"
+    },
+    {
+      "path": "src/components/ClubCrest.tsx",
+      "sha256": "30fda45a02b4528cf169e9152824f533edc04f9f92fafbe7d1b3ee5d7e60ee6c",
+      "normalizedSha256": "ce4b70513af17e9c16e6bfe09ca3f297c18a224fe6c932498fdab72658a8066f"
+    },
+    {
+      "path": "src/components/ClubStrengthTooltip.tsx",
+      "sha256": "57eb7b573cf0785113c43399dd3489559e6b467294674382e9f00c8a4b33176c",
+      "normalizedSha256": "4daef696420bcd83ce9349b84cb5ef1b001e7c6c7f9f25834a51663851707abd"
+    },
+    {
+      "path": "src/components/CompactFixtureList.tsx",
+      "sha256": "360d91c04f93062767ca3604daf272a0d39c74276cbeec13162c9954d70b05d7",
+      "normalizedSha256": "a759382de56aa1f8401f7bdf97ada9dc6e27c9597dc1005b3291f9816a1c9acb"
+    },
+    {
+      "path": "src/components/MatchMomentumChart.tsx",
+      "sha256": "62402b91228a8805fd90bf248f968c44f3ba7602f2bd8942ddff5cc974206df5",
+      "normalizedSha256": "3c223136d743bbf7836410d40d2d66b4015ed488447380ab61947da6ebdd16bd"
+    },
+    {
+      "path": "src/components/MatchParticipationSummary.tsx",
+      "sha256": "8eb00f4c129bd35b8a751885d5f409ccbfaa45e9df24f41ca9a80e84a339862d",
+      "normalizedSha256": "f3996314f3ebeaee44fc25e49de21b5059ff008caad5198929d31a78f65496b6"
+    },
+    {
+      "path": "src/components/PersonAvatar.tsx",
+      "sha256": "facd5c11de105dc00d47ece8239a79852e67009b2d634b677c02f940476e609d",
+      "normalizedSha256": "eacf6905415bd67d5c08fa251ef9aff631070da0328f4e37a981b77ed4e15414"
+    },
+    {
+      "path": "src/components/StarRating.test.tsx",
+      "sha256": "4fde89e146d26582d06ea93f6384d68003fc0767b4c543f636ad5df871025263",
+      "normalizedSha256": "7183241fe0360989083b85270b63bf5f11684d0a1876c3b8807c8ec6529220d6"
+    },
+    {
+      "path": "src/components/StarRating.tsx",
+      "sha256": "a6a6f29d5eca67fc863539da0f2b269f42137278942a7277eebe698edbbe1829",
+      "normalizedSha256": "82eddef17ee6872a8a5a7573e0ea16440c7b4a72f27e37e30a8fabfc304291bb"
+    },
+    {
+      "path": "src/content/archetypes/everyman.ts",
+      "sha256": "3017d8da9be18c859dc4f360db2327d67cb55a154d5ed35f3c4e3fbfdac22ebd",
+      "normalizedSha256": "e0a8a3e2c668c239baa2115811810e8486fb41c2fa115afd44f9b725ab04a97a"
+    },
+    {
+      "path": "src/content/clubs/sampleClub.ts",
+      "sha256": "18cb36c0bd8b159419b10b00cb54897d94f8eb76a83c8aa71477dc41661eaab8",
+      "normalizedSha256": "5b92f4d46e46c199ae7bcf6a486b5d62e477c90949d06b78b154dced688206f9"
+    },
+    {
+      "path": "src/content/events/sampleMatchEvent.ts",
+      "sha256": "dd5bfffef543944c46edb104302e1dce7c1eb456718140408a422fa02bdd1d40",
+      "normalizedSha256": "1b06fa9f08b66ddb0d5d2af7c05a60f069824e0ed1e4cb5273c70b3766b2e99c"
+    },
+    {
+      "path": "src/content/localization/pl/clubs.json",
+      "sha256": "5aa1d1806a335eef4b59eb81fbb56c9763a926b6f77622cce014ca4a0055d25f",
+      "normalizedSha256": "7115bb576d421d74675fdc695f920b41a62b54dfaf899d2ade6b8d833acccee3"
+    },
+    {
+      "path": "src/content/localization/pl/common.json",
+      "sha256": "a918a5a4e81e043db3e83e71f1bfc95212d2eaac826f65cdc356a0bb743a8e04",
+      "normalizedSha256": "fd5f68748e57842bc87d88fe7cd0a092064bd0227eaa410c36fe966b86bddd07"
+    },
+    {
+      "path": "src/content/localization/pl/events.match.json",
+      "sha256": "9450526f428fa649dfe334587b7667fac3e76569047ea6d0ec842d315a1a8dc5",
+      "normalizedSha256": "17e38a45e803d9bb6bcd44b17ae8c5b9dc41b44a3ca122c5c77c3f8f55eee2e8"
+    },
+    {
+      "path": "src/content/localization/pl/history.json",
+      "sha256": "eabec6906d016e1b47702c1d9b80196fae8592b77db66241aa769f69d6336a65",
+      "normalizedSha256": "e78b49e0c5a0ac543fd9e89491fc4c90cf48464186daf864a2af76166b2ff172"
+    },
+    {
+      "path": "src/content/localization/pl/relationships.json",
+      "sha256": "06d9bb9848b0dd1a163edd354004687077bae21e15bcfcda2c1c547c53649522",
+      "normalizedSha256": "5cf8ecaa3ccf73f287fdfdf0dac99ae78ec7dde0e6461dede97f6ec91d44f052"
+    },
+    {
+      "path": "src/content/names/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/content/names/polishAcademyNames.ts",
+      "sha256": "ef8384da4ef478488bd54b855edac4b3a09e397a2435f04915a8e4a0da515832",
+      "normalizedSha256": "f3f446347f61b6c241be843362199b8b4533c520750e499fce32f3d7646dbf70"
+    },
+    {
+      "path": "src/content/sampleContent.ts",
+      "sha256": "11e29502b0994682989df3ebfbe4c35c7d69618454d9874554a5a5e7ad39ab8c",
+      "normalizedSha256": "06f0bc756db30536a8a6aa0e27cb57357f1e5f0abe8bd673ed2d37b036ceced0"
+    },
+    {
+      "path": "src/content/traits/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/content/world/polishU17.ts",
+      "sha256": "0b294661736780a4c5c3990ba10e1c19d121e1f267eacf0e82863a955c191540",
+      "normalizedSha256": "4e4542733fb829f7cfa5085ba96bb873caa226f65221af0e1e1d34a9eff8d0fb"
+    },
+    {
+      "path": "src/core/age.test.ts",
+      "sha256": "10717a60a97a6ec5bbb65ddda86912ba52b5ba2c68c14784a5ca0768499e9e01",
+      "normalizedSha256": "c566f3dc849cecf32fbfd5594d0964481587961c1b50660a81b50f79de94e3c6"
+    },
+    {
+      "path": "src/core/age.ts",
+      "sha256": "a8ed9b3922af9e22943a04b23af09ab25cc482375076d4b42c94acb616e9acb9",
+      "normalizedSha256": "b5d47ae2b5acfa5a70cc26599c66319bb700ca39037eedcfa618a38bd9d01b8a"
+    },
+    {
+      "path": "src/core/appearanceConsequences.ts",
+      "sha256": "66e4fdc9e42fa6087571cd15a0fa288ef96127379e5f3cdb77f451ecc3fbdea1",
+      "normalizedSha256": "ab066207dd1fef30592531f9c2479562589fe9b18e6768ceb7d4bba45c334928"
+    },
+    {
+      "path": "src/core/archetypeCalibration.test.ts",
+      "sha256": "d3aa1b6e8ab6583506392fb28593781c9dfc6e3b1e0ef542cc7f0efe21774f81",
+      "normalizedSha256": "1b83c2580aea394bdf29be7676fa84aa37deb5cb4f990f463cf75db6d0504cd4"
+    },
+    {
+      "path": "src/core/attributePresentation.ts",
+      "sha256": "6db1d330314f806b18e572f72b526d91142d2f4004c3fdd340c9f738928c3b58",
+      "normalizedSha256": "9cbd7cf3f9355677247a6a2b8fef55974b51681e43940c59444c9c7cd3f9bfda"
+    },
+    {
+      "path": "src/core/career/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/core/careerCalendar.ts",
+      "sha256": "f362a5f0ce0af1776dcf0194c9d010741aa92c237a88acc8a258316079f0c801",
+      "normalizedSha256": "171f3f0930a3d95a356b71bbd0b250f4ec8c243ad55ff4bb6d3edf177ee5666c"
+    },
+    {
+      "path": "src/core/careerConsistency.test.ts",
+      "sha256": "ccbf238192c7b8055547eaa36a676860571b9db12c5d66a8681245ab5b9037af",
+      "normalizedSha256": "6deb2bd33b796ea1806393478cc6d2ed5f81eb989988eb3be6612c26e1c00332"
+    },
+    {
+      "path": "src/core/careerFitness.ts",
+      "sha256": "9c415e24eb36f8d61d4e72ab0e4da12ff0ecf392d5066c79efb1f278a3c1cd45",
+      "normalizedSha256": "ee09c104f7a991988c512d9be697be506c7ee212a816880fd0480606abedf47f"
+    },
+    {
+      "path": "src/core/careerFlow.test.ts",
+      "sha256": "fe160444bc5c60255197fca690d9f7bf3fed1c8de9390b416e41b58fd93a3df6",
+      "normalizedSha256": "c8eb38bf231971c552e71a1d0797d228d436a54ee9c5dd32499db70bf75a6830"
+    },
+    {
+      "path": "src/core/careerFlow.ts",
+      "sha256": "6e72aacee620f740c87a1070ab3fbfb08e267d1b6ca4d18da08c6d4715a1accf",
+      "normalizedSha256": "1e7655f1ca54961cab567b478bdb05accd4a6777d65c1826e225a0e42db060b7"
+    },
+    {
+      "path": "src/core/careerLifecycle.test.ts",
+      "sha256": "45d345367c8b4d5a2429147b8f6cdf0de5dd44ba6c05cdba98bda900fbb132a3",
+      "normalizedSha256": "007f2d1a87d2fbef3d606fb5c4d914f22ba1b20746f99b0ae6c3c71fbad9cdc3"
+    },
+    {
+      "path": "src/core/careerMatchContinuation.test.ts",
+      "sha256": "2786c061c983e0bf3d31ea77a08103e32b41c1fd7fc8cc988976076f0034d7e1",
+      "normalizedSha256": "4530d46faa1f5d0e173098c91838f8cb3a34bc4bd32705b7cefce08a538f03ee"
+    },
+    {
+      "path": "src/core/careerMatchContinuation.ts",
+      "sha256": "6bbfd6cd42d46f9f4128804aa92363c70128d90d808c1e6f2b5b3e2d0755452c",
+      "normalizedSha256": "e4e01af1df9adc4020714e5b4403860f2601470e76627c306541d7103803e7de"
+    },
+    {
+      "path": "src/core/careerMatchContract.test.ts",
+      "sha256": "c0bbe5c842ee206f0d6c2fff002121d39f5002da5959c5d31ace713a43c52c2a",
+      "normalizedSha256": "2df0dd56c6bb70b260a0202be85d02156d7fe371a51e3476db0b08c7d529f180"
+    },
+    {
+      "path": "src/core/careerMatchContract.ts",
+      "sha256": "bb8f3d8e24c662337b027ed1b69bd5f72052852920ce7d5ae5407f22ecc9ec29",
+      "normalizedSha256": "161dea0205976c25cb8d9f42ce30f7b92b455d0dd922364b676a3a0b6eaf3226"
+    },
+    {
+      "path": "src/core/careerMatchDiscipline.ts",
+      "sha256": "4e73a3343defaa4b8d8e2e7440da15cc0f7033bc4ff63f8a95fff9c385ebf1fb",
+      "normalizedSha256": "1fa32ba34837be9fffc95dbc967b5b2be983861bbeb11d61f1161ecc39633b7d"
+    },
+    {
+      "path": "src/core/careerMatchMilestones.ts",
+      "sha256": "6a89f3877f2165240a87ead405be88c9867678ac01c633171872cfb59b24310d",
+      "normalizedSha256": "b29867cc52b0af4a445422f9436e6ea047bac91eb81eb4eb66bab2a10e52dfbe"
+    },
+    {
+      "path": "src/core/careerMatchPresentation.ts",
+      "sha256": "ec8c9177e2bf2b33b3dedb616063a5806853e3daa60318c82f928855c9e9ea01",
+      "normalizedSha256": "edcfaaf70c194470da4ea5961a47c926b514c630189f9ea937250c55b11d0e82"
+    },
+    {
+      "path": "src/core/careerMatchProvenance.ts",
+      "sha256": "e7e399d1ab43863035641863326fb750f23d45e24b495de97943ac32a766ebe5",
+      "normalizedSha256": "99a78788686839e9435899ebd8628edca8b3b370f2ec7a893bdd6bf88b3d68c4"
+    },
+    {
+      "path": "src/core/careerMatchRetention.ts",
+      "sha256": "c3f0e74c79ff53d313ac2fdc6d5044a6304b0a5d24ec061fe637a1d2911c7af8",
+      "normalizedSha256": "f8473ad218bd5a3031eed0ddd918c70e89f9fa37396768a0010c4f3c42b92b92"
+    },
+    {
+      "path": "src/core/careerMatchSummary.ts",
+      "sha256": "01c29dd428196406ee8e24671354bbb081e5d9f0e2732e32d91b02f4f507ed07",
+      "normalizedSha256": "da5b7dceb4607d91e6be1969b27089b463e2c7a95136561670e3cc794e300258"
+    },
+    {
+      "path": "src/core/careerPresentation.ts",
+      "sha256": "a63fcf33339b585979a63a5466f945d3084ce6c77908fd59ca023074f1bd0635",
+      "normalizedSha256": "4aa71e9f8030a228be6ff74cf4cf4d21faa0a9b4f62045c3c247eab77297a13c"
+    },
+    {
+      "path": "src/core/careerSeasons.ts",
+      "sha256": "e0ff96277f5a40bc1f450dcb11c7d3cd053bf35b11fd23e9256c4f9fbc3e0677",
+      "normalizedSha256": "c287cb7adab2f05e26ed37889e252491faac421994bd09f70ed4a49c983a7dce"
+    },
+    {
+      "path": "src/core/careerSimulation.ts",
+      "sha256": "2d5ed87b994d6b7bd9270ecffdf6067a23f6030bd3f2eccb4284882dcc750d52",
+      "normalizedSha256": "d967e0918dc48f78eb56f74556c0f682ea21c3cbd11bee5c4f0a99f72d55a271"
+    },
+    {
+      "path": "src/core/careerStats.ts",
+      "sha256": "408f5cb69a174b197e20ff76d41c87625ea65395ed17e2c138ccfb9f11ce093b",
+      "normalizedSha256": "52285130ba33db4c72cb1f9f25823c69443738668011bd13e1d914b8c6442c0f"
+    },
+    {
+      "path": "src/core/careerWeeks.test.ts",
+      "sha256": "d4fb5fb3702613b4340b1800dcf33d161fd5210e2205d32f2f4f47d6ab8a20d3",
+      "normalizedSha256": "3f002765a3cdeb53a4836772081bf513a023f84940b44106bac5454c7400ac50"
+    },
+    {
+      "path": "src/core/careerWeeks.ts",
+      "sha256": "b451dc6efd53544af5e0252aa3eea320935a5ec04e9a45d3bc91ab6e12ebba7e",
+      "normalizedSha256": "54dbe74a1303eb0248e4a037b8634b821aee625372e2405195619d5e4641c3fc"
+    },
+    {
+      "path": "src/core/characters/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/core/characters/avatarGenome.test.ts",
+      "sha256": "7eea8a67e068ab861422ee439dfe8f8c29ad031569b01b31a31feaa122a3a58c",
+      "normalizedSha256": "41753fdbe11d8a8b0253a5e6030f1479bfcdc630fe92cbc204015aa9ec1a58a8"
+    },
+    {
+      "path": "src/core/characters/avatarGenome.ts",
+      "sha256": "484ba299bd977162a51ab99a3ea920f76fe6e5101df31ad5bb9b6924bb10be26",
+      "normalizedSha256": "38c388962bb843d8f5b3f96fa96c5d252c4cd846ad19ae53d2fe727cae0fbf1e"
+    },
+    {
+      "path": "src/core/clubObservability.ts",
+      "sha256": "5f4a9b98bc3e602bf72d98c709569e0cc6abfd45a1bec6ec053ff437f3e39a05",
+      "normalizedSha256": "640033824dc376283a72eb693833868919c294bec369d55da5093d76b18cf19c"
+    },
+    {
+      "path": "src/core/clubStrength.test.ts",
+      "sha256": "ab3124f47dfc073cc8a2ae1fc531baf15621b1c239e91592f15879462b3c4635",
+      "normalizedSha256": "184cfa7ac4a7a4802e752b197800014c2313df6ad228eb675df5925e6dd2a667"
+    },
+    {
+      "path": "src/core/clubStrength.ts",
+      "sha256": "b3cc2839bbf8da61a8455eb004f9894fc61f7798ede1bb874d1699c5181f887d",
+      "normalizedSha256": "78f3be5f826f83506d875f9dd2b8a564f765dd088c543a337710c15b304d35ef"
+    },
+    {
+      "path": "src/core/clubSystems.test.ts",
+      "sha256": "c658e195c7b66bd369770a93b945eba59c6e0035127aac717306646bcd0e2a29",
+      "normalizedSha256": "5481de1b303155b764e9ef25e2f63490a815e031eabe71baefa7c119af3945ac"
+    },
+    {
+      "path": "src/core/clubVisualIdentity.test.ts",
+      "sha256": "da286aad638c3d396819dc8eea0272e7d81d0c0c0ccba77b3ec2464ff9d0f3a0",
+      "normalizedSha256": "f09d68718ff9c5c3467c79b6434bbec20ea1a8ff4abe04e6f9ee3dc35dbe4c9d"
+    },
+    {
+      "path": "src/core/clubVisualIdentity.ts",
+      "sha256": "1699ffac75c53d5aaef51cee3639a684d57f656900097aa8671d180cc16859f0",
+      "normalizedSha256": "5d71844c769e170057ca3c4dbbddd6eb8609c1952f50e24f4c0bacb27a70c4ef"
+    },
+    {
+      "path": "src/core/clubWorld.test.ts",
+      "sha256": "77e3bd4dc20fae1c2686c1f4ce745ef2a4260c210818364890a39d96ba3c718c",
+      "normalizedSha256": "1f4b6af3e638efa243a84f13472c55b66f1d9471f6b6e0865913acf0cb414e21"
+    },
+    {
+      "path": "src/core/clubWorld.ts",
+      "sha256": "518fc8aa5068e593b4d6152ea38eded1ee052a5450727fdfb569afc7237d1679",
+      "normalizedSha256": "c9559fd3e7e3665898541c4a9828237a69e0d80c8316f3ab61edc12ca8a29df7"
+    },
+    {
+      "path": "src/core/clubs/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/core/coachProfiles.test.ts",
+      "sha256": "7dc5d96e6a81940fadda5066510dcaf71d1673130d49d8e017e04ddbadde0bc4",
+      "normalizedSha256": "9cc8ee1d6e77e3a1cadeb9d21a5317516324d78fd21ba7e210ad8b20ab8a6e2d"
+    },
+    {
+      "path": "src/core/coachProfiles.ts",
+      "sha256": "1e179cf6e5af25c9e31a5a63260241c3201af0046dc88edf02c2dc039e64b261",
+      "normalizedSha256": "3edc3007aecd933e55270ba278f005e42b373af7bd9f09140a89858423a2dde2"
+    },
+    {
+      "path": "src/core/coachTactics.ts",
+      "sha256": "0c722a98e6e31679eaf0e8902e3f70bccb5f65d03d5e777559322558ca5b64aa",
+      "normalizedSha256": "f816a79aeeba53f13fb49cc7f6d9fc69ac35020e17bf4bd979d5edaca39811b6"
+    },
+    {
+      "path": "src/core/competitionStrength.ts",
+      "sha256": "2b174d7ac7fd32aafa577944d043564550937e07b8aa087370dbc218b6048cae",
+      "normalizedSha256": "be342600350e71f229aa7e7677326dde3bd789f1dc5f81466b80b5d7d6ae8312"
+    },
+    {
+      "path": "src/core/contractValidity.test.ts",
+      "sha256": "f94ad8ac96f093d2e340637e14a070cdee6adc12b96413f48794d2151826e2b8",
+      "normalizedSha256": "384581f4e96aaf01c8fb027f4db1a6b35ef47a0ca77a5a84017546d348454b34"
+    },
+    {
+      "path": "src/core/contractValidity.ts",
+      "sha256": "82c412ddd5dfbb00443150d6d1c11744afe2270c4551d94f3c2b27a75ab83774",
+      "normalizedSha256": "5cef2a1e8fa0585d8d0ef552e7452b6c8237ae7d9d7903457fa357098cd56f1b"
+    },
+    {
+      "path": "src/core/contracts.ts",
+      "sha256": "f199d7538c3b18bdaca6b299f6e39ce4299153f7f8cc0145360ae583d0bdf4cb",
+      "normalizedSha256": "36b84fb553ddea0b9033f96906448f28160c78d29967a982e1ef66897e583d76"
+    },
+    {
+      "path": "src/core/development.test.ts",
+      "sha256": "537f2535f003ad87e9b2de9242a058a33a02a6cda6322a101f2f06cba24f49e5",
+      "normalizedSha256": "69ae4ac615a2baa6ba9b6fd3c4851bc1869735ea36443f704e224d1e0839c9bc"
+    },
+    {
+      "path": "src/core/development.ts",
+      "sha256": "4ab346a121aca06e751adea24941bfae3d969f181b99692075f3fa2168c33f89",
+      "normalizedSha256": "f86ce765a5f2e1d3d13ead8ebde02755e7081c12e99a73c5a0f9236a0ba6c0ed"
+    },
+    {
+      "path": "src/core/developmentFeedback.test.ts",
+      "sha256": "5a91fafb062c2872f01931eb6f7ec00bb3b7dcdffbc1a151c1228e5757e5a075",
+      "normalizedSha256": "f11b83ebd0646acd5e7e59bf7f7cc47b6f8da674aeba6dde594c0fcd58a11970"
+    },
+    {
+      "path": "src/core/developmentFeedback.ts",
+      "sha256": "9c6a9bf40c506ac42898ad4b0cf57aa4b4d03140e6242a169ecb4139d90e231d",
+      "normalizedSha256": "3680db867f2c405f9e656217f01d1f08fb2fb15294a57b49ef2a3bd1d5f25702"
+    },
+    {
+      "path": "src/core/events/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/core/events/applyEventResolution.ts",
+      "sha256": "004efb7783333ae1f1dc9b9ab11c374cbcf26e5d1586ef6d2a5923abd1050351",
+      "normalizedSha256": "f50ed7c346af894c1c73f3425ef288efbd11f83e178784b50bc63eacfe80685c"
+    },
+    {
+      "path": "src/core/events/decisionAvailability.ts",
+      "sha256": "f9ee98954cdee6894d72d5cb390a1e9babbfabea9eb0a14f5d062d9cc25faf63",
+      "normalizedSha256": "0a7943dfb5d724d5b4d72df1c1c0fef5071c24ec66eabbeeb21c85f92e6b29e5"
+    },
+    {
+      "path": "src/core/events/eventInfrastructure.test.ts",
+      "sha256": "17f1dbe2c0d8724b29f7c6291df09dcd66637fef88326f485a84895c1333c8d7",
+      "normalizedSha256": "103ef1aea34e3c1f72c91dfbb6d594804bda17012ac240c779527e364338cc8f"
+    },
+    {
+      "path": "src/core/events/eventRegistry.ts",
+      "sha256": "3e5d1b53079db524a3c0f52f646de25fd7f7bc5ff0136c95640339d66d8ac823",
+      "normalizedSha256": "2f6d9cd4cc09dddff985607e8c20022d0f7cfcc736d1ebfbedcc6834e608f14b"
+    },
+    {
+      "path": "src/core/events/instantiateEvent.ts",
+      "sha256": "fba443a38e0ef1b96151c33cd77cdb3456e6eee0b4c6515885f69df33d00c1ad",
+      "normalizedSha256": "8304dc76911cd6ec86850a44db13497a50a821a39863a60012544fdb6e6c3e8e"
+    },
+    {
+      "path": "src/core/events/regularSeasonEvents.ts",
+      "sha256": "527ca17b81cfcdef220a529b515024d2867bef33be28aaae31643dd814df1598",
+      "normalizedSha256": "8611ced12df10145a01e333b84417a07054dac477efae6cedb24378dcb4b83cc"
+    },
+    {
+      "path": "src/core/events/resolveEventChoice.ts",
+      "sha256": "879247d2d86ab277f211a493dede49228acaef72891b297cd01c5eef9417a297",
+      "normalizedSha256": "c6d2079be4d076ca6f510747880454a37d7af31b25e6ba630b1c90c6331d8f6f"
+    },
+    {
+      "path": "src/core/events/resolvers/resolverRegistry.ts",
+      "sha256": "388a5a02ea835fd419880270b6f28722e8dbfd427ef0a5cf2ef23f18ef53e5e6",
+      "normalizedSha256": "b4b9ef8f8cd6a869225feab6e1caaff089eea6ddeaf98c7f2472198fbf8e8037"
+    },
+    {
+      "path": "src/core/fitnessRecovery.ts",
+      "sha256": "9a26bb18a85abe01b257237c70136ba5cbf061925f458a42421859dbd0fc0364",
+      "normalizedSha256": "d69160910935ea8f9c5f4c5d6cc93d172b54b280f18f1443167898c5b8451076"
+    },
+    {
+      "path": "src/core/footballArchetypes.ts",
+      "sha256": "a6addfd3fa06b595a143e92d4be7fd2a769a96f8ffd087d46e732e3fb7244342",
+      "normalizedSha256": "92f3fdfcbcd111b46b34435a0a67e3f1d4c0651d21ae85dd8d1999d60350b0d6"
+    },
+    {
+      "path": "src/core/footballerWorld.test.ts",
+      "sha256": "6b7f66da6045ab5e21b01a4a6586d377c7ab2b123832eeecd410ed14a2de43dd",
+      "normalizedSha256": "a0f5b6baae92e0d3bba29ba060a6699ede41fd17047fce50125f2e7d5279113f"
+    },
+    {
+      "path": "src/core/footballerWorld.ts",
+      "sha256": "8d4411e1355b207be3916bf4cc4f2edd9b25d1a4d93c62e813d23411af2ee401",
+      "normalizedSha256": "fdd3d042b1c0b1146a01e1cbbe3fbff356bf59d48159f143f3ae10a74f43a511"
+    },
+    {
+      "path": "src/core/fullCareerSimulation.test.ts",
+      "sha256": "8c87b6dda2ae247ab2ed0c30044083db4616600ee335f67a3c9e1eca79f96708",
+      "normalizedSha256": "d32c8712124667330f0b0d9b70e009417cda3bbe7108cd8439f68238aa738ad7"
+    },
+    {
+      "path": "src/core/goalkeeperAttributes.ts",
+      "sha256": "23fdc4dc89832fac14ab2d02d4e8b75908989ee5ab374f8378834a1270323251",
+      "normalizedSha256": "f47c9bb6e8e6d163e67e88e8ffa788aee3407d880500d01cc81f5b7cea0aa0f0"
+    },
+    {
+      "path": "src/core/goalkeeperModel.test.ts",
+      "sha256": "a1b17ae8039ae66e6758d9af065b0ce376a441c87c284fbd3009d9d89e26c0f7",
+      "normalizedSha256": "72a631936726309d826c232c4a1fd567db5ca76b77907f69f53a781afbb27447"
+    },
+    {
+      "path": "src/core/goalkeeperPerformance.ts",
+      "sha256": "2a26340a8f7612886b7cc625fde712302718b9b1ab7911f09c88f8caf99e4bcb",
+      "normalizedSha256": "568f89885059966f5401c6ddc7fac4936a6a9811f87e5ba19782541f7932814b"
+    },
+    {
+      "path": "src/core/history/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/core/history/careerHistory.ts",
+      "sha256": "e468a2d95567eb0acfce645baa9655af6fd7134b4f4e3d9219f0179d10d162c7",
+      "normalizedSha256": "f2473ad7c7f3987dbdceb97759da1d53a04fa778ec3089ed0d19827d57911c65"
+    },
+    {
+      "path": "src/core/history/careerMemory.ts",
+      "sha256": "bacaa1cb9141ef20c3f3abf7181b5585b69e90c47ad4d5e41eab0084b16ee27b",
+      "normalizedSha256": "871a3de6e51c47c461687659f5bbd24e4177c2ab7db106d31ca7f533116e2155"
+    },
+    {
+      "path": "src/core/history/historyCompaction.ts",
+      "sha256": "e277b493b30288c4949bb1ba2d8d4e34050eea0681d9a65a066abd765a9aa304",
+      "normalizedSha256": "44ffa1c28bb8f4b92286731b9c5178cdcf3ef3837dc44df9f91fe9847ec8cca4"
+    },
+    {
+      "path": "src/core/injuryPresentation.ts",
+      "sha256": "6c453de8c71c85641c419a43780eb0e5809f86b0fb87784555139b8c6739ac27",
+      "normalizedSha256": "1d95da95f1b2578053804a6e1aecd6081781817e2da18be4b6c594515b174fd1"
+    },
+    {
+      "path": "src/core/leaguePyramid.test.ts",
+      "sha256": "8dddddfe14ec82950d65afac5ad5bce33f8c781e47f097d2c20479f22ac31cb3",
+      "normalizedSha256": "7cae076ce459e2625ce3a33459b0d8f21736a59fc0402743258eb51494132121"
+    },
+    {
+      "path": "src/core/leagueSeason.test.ts",
+      "sha256": "f3798d15eff557760bb00e032cdb1afba20b699b0f48a10ca5409b521cb8030b",
+      "normalizedSha256": "91bf89050bb2ed508b0dd20ecd3149fa2e8888b0a98819fadb0dca6d952eb74a"
+    },
+    {
+      "path": "src/core/leagueSeason.ts",
+      "sha256": "4d8fc13132313926e19289e9fa0c1824a65fe41f500e4d608c60562c8da43997",
+      "normalizedSha256": "ead33b550be6a511bc745d6e658b695ca7f3a20ef4c7fa658711183b84e722a2"
+    },
+    {
+      "path": "src/core/managerLifecycle.test.ts",
+      "sha256": "7e2d01fa22463c8f7cc1511b7fa354c77fd532c5fbf17712a7071147113b7fb1",
+      "normalizedSha256": "7bb7074e16cfca2eaf98441a450d9c8df27a02fda25a51ef0dd568e0e7b12c8a"
+    },
+    {
+      "path": "src/core/managerLifecycle.ts",
+      "sha256": "2a29a2232202343ef569e607cded500d8d7587f505964d5c95c8f69bc5e0d088",
+      "normalizedSha256": "1a5e09ca4d4959c523d8cc44db1165de3b9e89bc41b8cb7147aa495aa41f6eb2"
+    },
+    {
+      "path": "src/core/matchBriefing.ts",
+      "sha256": "7b584567ecee460b479ff7791316e7f028de1f07993be61b3fa7afa6b2bffecf",
+      "normalizedSha256": "78ee125e9473097dc1fc9a0cb40fd67d1f8082eb78f2b07d96017c64d893d37a"
+    },
+    {
+      "path": "src/core/matchEngine.ts",
+      "sha256": "1c0ba61963bd1b016b8bbc83e8edbdbd2de3ce1d9326c82917e90dad3134262d",
+      "normalizedSha256": "302f56f06d8949191aa6ff86af4cf371b36dd56af9c8209314e46128f4889689"
+    },
+    {
+      "path": "src/core/matchFeedback.test.ts",
+      "sha256": "819c77241a9478eb708a5d5222ad5ea99223831ebd26b1831f45169a952a8783",
+      "normalizedSha256": "0cf32a66770fb7bad3454ff55e7106d3dbc707cecad53251ef7ca087a42d1f5a"
+    },
+    {
+      "path": "src/core/matchFeedback.ts",
+      "sha256": "4214be20b6c71f3df06908050de40dee4c58357adcc59145cc1a68552cdcf5e5",
+      "normalizedSha256": "3e35a6fca0445ae40128bbb1eb256cdd44d474780956382ec81a0ef866438e17"
+    },
+    {
+      "path": "src/core/matchParticipationPresentation.ts",
+      "sha256": "5ecef3070c76cc025fb9a4839a0640cd1ce454ab15ded1d4c467b552ce38faef",
+      "normalizedSha256": "767d7880e86ed6c9d10ced7f36e047d6377773970af22efd249e8fe9270e0d31"
+    },
+    {
+      "path": "src/core/matchRealism.test.ts",
+      "sha256": "69ee662e73626da9af14b4bb48e88c547910b014ea48b2bd1b89ca81681d06cd",
+      "normalizedSha256": "04a8e37a09b308aab9508b9092a0c0dd1b33d1ad9586840d794e93deb15a4018"
+    },
+    {
+      "path": "src/core/matchSimulation/actionAgency.ts",
+      "sha256": "6f9f7feba6714da47bdd84b54f429b490fb3bff45b2c2120ed1159fff01e0d33",
+      "normalizedSha256": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.test.ts",
+      "sha256": "f37f0a90af9567206ace1ca10c148b379fb3d3aa28afbfaecfb4c05fb80474dd",
+      "normalizedSha256": "99f56396d85da4732949ae4a5a955ee67331a0d3c332acb9a0d742e06f38bdfe"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.ts",
+      "sha256": "74943a6ed24acfb8a8d745a92f0643c36090a65830d44e0de49a2ab7cb085975",
+      "normalizedSha256": "22e6340bb4398bdfdbe8f6c7bd3761925345407115f4465b6a4bce350007db72"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "sha256": "b630e0d81bea22b106939ef3f540a2c5e3673a5b0701515372b382ce9b4e37d2",
+      "normalizedSha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+    },
+    {
+      "path": "src/core/matchSimulation/actionLifecycle.ts",
+      "sha256": "78db359aa28443628270566893c3462903e85f59e8f75a3c091e2d683fd932e8",
+      "normalizedSha256": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.test.ts",
+      "sha256": "e779f0ce18dae7bbdfb132e373f63e84c128a10e4f0118e1dfcfbe57603874b8",
+      "normalizedSha256": "81af2058e90db2e2cd56e3521b51412c9b2521bad4cfd4c30527257e83bc4dc1"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "sha256": "2db4551f3fc69bc60aacbf71a1f8191be9c1dfb59f2aeb3a10480e755cfbd0ec",
+      "normalizedSha256": "effa54d3917992142ad95a38b1c20c0664c53a627f25985ccbfc4226cea17a74"
+    },
+    {
+      "path": "src/core/matchSimulation/agencyCalibration.ts",
+      "sha256": "fb8bdac6c46a6e176287161fe6e055e2e9a3a44b4fd04160595e6d00193b3656",
+      "normalizedSha256": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnel.ts",
+      "sha256": "99c13a72d0bf2c6f1377b13cd30c9b3f579f20cf88f5dbc4f473b0d9e839267d",
+      "normalizedSha256": "d7494825f7de770e9b7199252350af3d8d3123ea79d2b82ef4eee531490c47af"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnelAudit.ts",
+      "sha256": "7041efb1395b36454ba0a8511affe8c84fe25b9297b0215977ad796a185fb978",
+      "normalizedSha256": "b632c5ad1b61a56fc1f17bd8e3fd73df63bdf36c10f1285920e96a5b34542c85"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeMicroLab.ts",
+      "sha256": "b4213b7a8c7ddd8f6e3441d9126ec0a1e20f7b0f50ed5c9875f70f7d0cd86ecc",
+      "normalizedSha256": "cbc983bc122429c7850bbbb50e2c62a9e7a00809f79919d4098a42be0e10c416"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundBenchmark.test.ts",
+      "sha256": "d3fd9295c2d8b4bc448274df61386749b46bc9b2e7f84153b434686d8f9a36dd",
+      "normalizedSha256": "4928e71cc4d4c92342a1df0779ba8a59cac1d6341b352064cdddcd0c2af7e951"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundBenchmark.ts",
+      "sha256": "b4b02a5b408cea087ecfb359f3d353383d069275accc44626d95985a7fed9fd2",
+      "normalizedSha256": "5a22047634f11e1c9259ac5932a73687921ce05ba976bf91d1e4c4c762654007"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundPerformance.test.ts",
+      "sha256": "17f9d8812939fffaef95bf3edf5961e88d5e32c2daf43fceefc7e69affc60720",
+      "normalizedSha256": "3d4eb29247050b5dd485c617673f40cb0c7fbcb998e4999af74b08fbb0179dc1"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundPerformance.ts",
+      "sha256": "5c0eacf95fb87995ba890788b483fd02e202a371c150088b09d4b158b866918e",
+      "normalizedSha256": "798cc91042679d3734ff93c16805c4fef0b75f095a86cf2069650f17e51a642b"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.test.ts",
+      "sha256": "a390114d3c5ea8b19b152ad928f1d55f04aebe092489ce6fc24a53e5de9ba820",
+      "normalizedSha256": "a7a344c3b3f0672a06335b958eba28faf2d42819e527a8ff5aa5cc84453d2c9d"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.ts",
+      "sha256": "a0e5ef10b9afb018db4809ac12f776b92b5683c2bba19bf243d8e32e8a81166f",
+      "normalizedSha256": "cc8f841665370aa2c26f3c7d2b4767eb1a31f3ac8f026d787fcd493aefb9a751"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.test.ts",
+      "sha256": "303cbd12ab66e779f0d038f973362e96ebde4ca4325ef591f9e4fe23d8bc7f32",
+      "normalizedSha256": "cdbf9a6ae3da181f9a2504354d901e348064fb443637d3bb383e577b805dcbe9"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.ts",
+      "sha256": "10501fb58f8f7986ff748ad835777316e3498b2ba26a7f1a6e55fb08d461ca37",
+      "normalizedSha256": "55b1abe5c61072458286445188af7d99a7cb4250244bec33d080395726654f47"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.test.ts",
+      "sha256": "a263119930c190a283fdeb4a9a9e82730d02097b05983ec8ff02fbd0e306e095",
+      "normalizedSha256": "78fea64aee6ff7d67a1832bdf5c80f04740f54d6527ca2bb5c530ddccb3f6cef"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "sha256": "f0ec7125bcd547d7a88ebf955c0031d9adcd0ca2b0c76b4883a37b82e5baf15d",
+      "normalizedSha256": "5d3633e379789d43fd72f4876bd729e9e9e65832e773fa1bbb087a9d30e76a25"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.test.ts",
+      "sha256": "55ab29e601ad839b708290bba0b98ff699ed16ed41b580daf27e27d4d52dbc75",
+      "normalizedSha256": "d9a9dbb00c4eec95ca1b5516e75cec567c22870fef57fe540b2ee8d537f81c4f"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.ts",
+      "sha256": "5fa8d8727545727a39084d58fbd70a01e16a9725565b08b012a59212262f10cd",
+      "normalizedSha256": "b257dab20759879cef30fc479febb7fe1bc352eeb09bb4d2cb0024e1c8d9c4af"
+    },
+    {
+      "path": "src/core/matchSimulation/benchmarkFixtures.ts",
+      "sha256": "cf173438d6532fe0b30fc98d543cb5498498a12e431146164f1e7468f635df20",
+      "normalizedSha256": "fb666b509de5b88543608e59bf123a0260ab69a797951232a40d71454ab648f5"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMatchSanity.test.ts",
+      "sha256": "fae4d8a7a6716821c5f9b2e44398f910606dab594c43d5f4806bbdf30aa4e801",
+      "normalizedSha256": "4fbc0a7f55f13a351bc9d0a16319a30d2e45396fa82bcb9096d235d6e331362a"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMatchSanity.ts",
+      "sha256": "53b8dc95801b68ae395cb1ed5658259fa7814bf96c075127a7f899e76c8d9948",
+      "normalizedSha256": "a4c648f1549db500ad136223cde0ddbadcb714e6d45545bdbcfa4dab6eae7e16"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalPresentation.ts",
+      "sha256": "22a15d60afa4057295a1d1a38df861aafd2ecb866dc815c7288e034c68789d32",
+      "normalizedSha256": "dc0169f29f474c5717cb4b5f12a08620036ea4960cb5e1826f7ab069ed5b019c"
+    },
+    {
+      "path": "src/core/matchSimulation/carryExecution.ts",
+      "sha256": "d1af10a4011e5c95acf9ec13ac13d7541122a8e41054621c471c3ef0ac7f7a62",
+      "normalizedSha256": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "sha256": "38a99920ba1d9217dd3889d571c4f1d7843dccfd90a3b82b5016e2524172bb70",
+      "normalizedSha256": "5fd9f37f3d035dd974cac5e8ca82de8e88a4647ba85a0d2d43ee577ccb2483fe"
+    },
+    {
+      "path": "src/core/matchSimulation/carryPursuit.ts",
+      "sha256": "4c7cf925ffa9e5a9c113c9c2f14b557f063ee94c10f249ed024c09e693830b73",
+      "normalizedSha256": "aeef6d2946c85c453833c8fbd1c5ff2509390266b66b66bfb97eb9f03e54fceb"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationPlay.ts",
+      "sha256": "562a2713d0b94a6d6a74abb9441fe4b91c99e4a7026fa0a0e8c6c6b50d63fd6e",
+      "normalizedSha256": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationState.ts",
+      "sha256": "9fff7ea4c6cbac30f88afde76cf0d85fca4200cce36e95fac3b70da548bccfa4",
+      "normalizedSha256": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5"
+    },
+    {
+      "path": "src/core/matchSimulation/contactEvidence.ts",
+      "sha256": "e8925607c148222066cf062f144ea0835f43db01e4326ab2f07c341312690ddf",
+      "normalizedSha256": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.test.ts",
+      "sha256": "dd70d66c8c4f15d35c0abc8386626928bbcf0b03b88938c2089c61be8de8c1e0",
+      "normalizedSha256": "77503f9f5e2aceaaf17fa60a716921c1107d0a3110db508faf87f8359476777e"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+      "sha256": "94e15c795f1a3fa29067137dd470da7b86d57a66879798c7b43192ed2729da57",
+      "normalizedSha256": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "sha256": "237a6a8d8927ba2d46ca08cdac5aa3ab50f29854273b7da327b33b5b0732515a",
+      "normalizedSha256": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329"
+    },
+    {
+      "path": "src/core/matchSimulation/cooperativePressPhysics.test.ts",
+      "sha256": "f6370e17ac2c07a9dfcca2bdba8525959d8d125ef5a5ae404a06efa32bba47ac",
+      "normalizedSha256": "8620dafe50d19f84e3c087046cf3ac17a19a0bb967d0a0bee7c595257a9170da"
+    },
+    {
+      "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+      "sha256": "09fb3fa13bd79ae6a6af8646a51a958aac41b022f8bbc9153ad15b7cbc66d112",
+      "normalizedSha256": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "sha256": "93c451d8400b715a8680013a903897ad67cd1a2e396d1ffcb12bd1eb5797eb02",
+      "normalizedSha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "sha256": "752486a7d551d8737fede8601aa1c38ff71ed2939970a90f87efef4fe4fc5f97",
+      "normalizedSha256": "f3220bdcedc9ff5b27da1ee572777c10fae318c6cb0d62e2f464e8b250e19f43"
+    },
+    {
+      "path": "src/core/matchSimulation/dynamicIntervention.ts",
+      "sha256": "4066120cd7e03559dd96c7f8db534f62de68990ee50303910de64da59476c02d",
+      "normalizedSha256": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTimePassing.ts",
+      "sha256": "2831a954711c58f5300c0328a0ee5e92c43472b08df55cae659519493c702fde",
+      "normalizedSha256": "67ad6f69a32b75f7440184f7acf20b713ba01b241479933a02e72c7481d671b9"
+    },
+    {
+      "path": "src/core/matchSimulation/fitnessMicroLab.ts",
+      "sha256": "b7ac312fb04bd75a8daa51a1668025a38a6433ceee8f5cc7cbe4c2db77e2458f",
+      "normalizedSha256": "ba9e131b705c4e35c93e4747e8873a8d1314cb372b676512cdcfb26c739c0f0d"
+    },
+    {
+      "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+      "sha256": "7d2bb6aa6a1c7b834f56ca5263541e6f1fa2d910fa65f315a2de6354f792a6dc",
+      "normalizedSha256": "9e8ce023d5a0cf1593c09890ba681979ba5b255ee197b54c7122e6577b8a6fba"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "sha256": "77bc07c12b74b8d1a1d10c5fd0f7fa01ba3b4df55474d724460aa5c6ef1c2c0f",
+      "normalizedSha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "sha256": "608f086547e08a387cd6529624511f66da07b4c3678be7fd0708ccec9455f301",
+      "normalizedSha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.test.ts",
+      "sha256": "1e20a979f95222128f1deff38bb59b0a6640a7bb7bb6905c22d5d288e28c77dc",
+      "normalizedSha256": "c28985155a2d9ed1ea0363e34a6b9b253775664163fa4ac4cd1a751919f55fc3"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "sha256": "05850a14ff5278cf9515a124fbbcf8342b1672697f49bfc2eaaf6465b5410cc6",
+      "normalizedSha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.test.ts",
+      "sha256": "f36fb017c79e3543bc1fc11ba0a97bc32bdb51b9bf45c46c2fa9135a2bdb89ac",
+      "normalizedSha256": "9e7422555457c18412dc6f7e5c8f7a82bea439bc2bfb145aca1cb4a787c0a6f0"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "sha256": "47eb2ee94cd3ffdcdf5310dccf5a582f211d7d8b5e7be225d018ed6ebba4c120",
+      "normalizedSha256": "8e0b66b93dc35f3cc2022d2d660dbb36fa315eceb1a80de732712c578cd80a3a"
+    },
+    {
+      "path": "src/core/matchSimulation/index.ts",
+      "sha256": "48e5ff7268bea2714d0f6638be97572982f4cd4ca15693b430c99c67b48016c2",
+      "normalizedSha256": "aa152f60d02cd9324ea4af4e68258343a0b2461cbfa2be36477daa97d4731661"
+    },
+    {
+      "path": "src/core/matchSimulation/injuryStoppage.ts",
+      "sha256": "3a073cb71f3a9a0e452d0f6e0d55888fa79a6cf7cc449190773e7b4c8d4dae5b",
+      "normalizedSha256": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.test.ts",
+      "sha256": "5dca7dc6ad051c5db449db22a9b39cdd6f810f5c1737132b86e4702370c4509f",
+      "normalizedSha256": "549de726daf73dade81323e7c6543ded8fe9bbeeb0047669ef2716fab2846b1b"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "sha256": "904dadd0f9b38d122e1392d7b2abd6e74bf0c7d0d5174e81a7f3a8ec1f40903c",
+      "normalizedSha256": "433f251dc1a4b1b88a60a2b2884cb9c42b27d20fc31979d165f62f30d718206e"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallLiveness.ts",
+      "sha256": "aa7dca9b2ee3ff558b6b1ef65a364c45e39c8685c932a0d706c8d6403abe14d8",
+      "normalizedSha256": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.test.ts",
+      "sha256": "fc9fd8788351112f5135032f53086a3346b3c704762b32bb532b9b2f177680bf",
+      "normalizedSha256": "327d2397c4e3ba739c3141a072810dde09169ca12d28bde6fd335378d7224c03"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "sha256": "ae21650efefb869cb9397d12a8c3d563477803a369969e22d27ae137fa30579b",
+      "normalizedSha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "sha256": "eb49a85805e54abfa6384cd50981a5d3302dec35db0d9f19532fb6d850a50d10",
+      "normalizedSha256": "d901817a66732efd6057ae4db42b7047cd7809062d4171c780078c51f0480cea"
+    },
+    {
+      "path": "src/core/matchSimulation/matchCentreStatistics.ts",
+      "sha256": "dd85a7c51a94ff3820fd87f85d3b44e35cce135f9c80b87e83c51a4cd2f2383b",
+      "normalizedSha256": "1f6c75d9d1483d112ae084b8219765afeab3d623751cb40423993c48dd12c666"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.test.ts",
+      "sha256": "b3d9b977a9b729029eabf770776daa3c37d8e50f032f487d4159298b81d4946b",
+      "normalizedSha256": "bc0ba8bc200de351a764379c0c087e5d8797b5f2d4d790343f1ab42e637c00f5"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.ts",
+      "sha256": "7773e7bee1096ccb938aff97103e88f2d855a3fd8f8b5dfc797b0fe564af186a",
+      "normalizedSha256": "65ddd25a2212fa32eff27527f0c6d6bd25466d173bb8ae090ded7f673edffda7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "sha256": "78d5141bef432c0298fbb910abfd7fde88d6b34bbd66e763205c4545f21973c8",
+      "normalizedSha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowCalibration.ts",
+      "sha256": "353ebc62044ba9c85f0669fe02f9e785ca062b175d1bfe3e646bbb44fcf495ef",
+      "normalizedSha256": "5f11b0cc7e57afe02c6fec3eb0d9b5cf248df702d77eb5d1dc83bd971afdec31"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.test.ts",
+      "sha256": "50c09f6f97bb5cd9e79a90a483121af576c7ff1a09dc8bc652245d08391cfb25",
+      "normalizedSha256": "c8f6c35236d482fd56e456f634233b530a3331d2c72e5f7094838c1eba02993e"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+      "sha256": "103f45813ca6f629c25304ef284ca27d11492f510263ca968d4c8e362c747551",
+      "normalizedSha256": "21594d86a552f043e5e13245e18511a4dd78299c3ad364167be03f15e4c5ba42"
+    },
+    {
+      "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+      "sha256": "b42e5cae4717bda7f785451791f742d9dcfb0da41b7a18bbb60d32f51042dc04",
+      "normalizedSha256": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f"
+    },
+    {
+      "path": "src/core/matchSimulation/matchInjuries.ts",
+      "sha256": "9d2d895ad0cb0e80127fc5b863f2399504013b70531cf19c6a3acfe9d7b599df",
+      "normalizedSha256": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.test.ts",
+      "sha256": "479b17080a38c2815853ecd99437b3b2e9cd16db9dc149ca1f5d3aa19ca7cd7a",
+      "normalizedSha256": "09c1cf7a5fe645305bf4e3eb1ed0f1232a474c1ff3c4f311412c3b9f5536c94e"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.ts",
+      "sha256": "5473d42bca71b3f02db411980753e8372da60151b039b0a161821f2641f54e81",
+      "normalizedSha256": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchParticipants.ts",
+      "sha256": "10b0f94bed4b58e36720390e84f3b11b20eabd54ea41fbadd1c0cee60c07e178",
+      "normalizedSha256": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchPresentation.test.ts",
+      "sha256": "bd0904468f7c27f2758162dd00271d5dafc502cb43574f206f924c4acf15b162",
+      "normalizedSha256": "4771609971eed9b3498ade78ffcc06557fea8aa3a5b5e457e07688d165279303"
+    },
+    {
+      "path": "src/core/matchSimulation/matchPresentation.ts",
+      "sha256": "076116b3a9621dfc3aa93b580c2373d98a40b8fb06037e2eb88c1b4684484d54",
+      "normalizedSha256": "2bd57cfedf3f7bc615c46cce94b15fdbcbcc91daa1524a8aa6847590d0c2cebf"
+    },
+    {
+      "path": "src/core/matchSimulation/matchReplay.ts",
+      "sha256": "2a7d9f63caaa8d5494c5219f3ebca5bbc61a4277ecc6b131bc7603dd2e34f558",
+      "normalizedSha256": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "sha256": "3eb6dc1dd79fd4ea6d9466cb7ee503ff7c38ed99e6463bfa957abea245b8ca48",
+      "normalizedSha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.test.ts",
+      "sha256": "96fcd8eef6829ceb314fed2aa87fe94363cac284f90ef97e99b0beae4e59c80a",
+      "normalizedSha256": "05458792e6ba7f7d4912249fc2a2a187481496e9e4ad3396b49e18a79adcf6ed"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "sha256": "7ff5aa1d62663b8aa0bc032aeed6f190069a84fd47972e90f43a2f3d2e8fdd8b",
+      "normalizedSha256": "8255ef8ec908e056be7eb55bc95625b21178b8fe99dc23f06ee7587ec9998edc"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.test.ts",
+      "sha256": "4ac500549e359e5ef9b1b24a7897c9cf848de3b0c2eb2e9259b396adba84fa0a",
+      "normalizedSha256": "1dbd8041a9461729a3da525c853f4ffc135806f3d16eabc4454333e7929f9d49"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "sha256": "d2fc6ad5ff5006cef9858e9ee6c52e58abba45382e7e1949ce77106923bd32f6",
+      "normalizedSha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.test.ts",
+      "sha256": "b25a0d7df48bc931e745640f76293bfd9d167ecde877ef60855f198dec154b9d",
+      "normalizedSha256": "90991ee844e09b5dae405cec5cf1a4eefac8a4a1a931b25e38ea46dd9e38b067"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "sha256": "777fabed8bb227f7cafd7966baf3ade18d65c10820713aac1f4f2c31a0dfec46",
+      "normalizedSha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "sha256": "5eed84f9dded5685447f33ed9688f26505aeabbfe0482ec49756340d6778226c",
+      "normalizedSha256": "e75545d7fe1292cac0beb8f1e76aefb195136944d7710c9a58b667729a44ae10"
+    },
+    {
+      "path": "src/core/matchSimulation/matchTimekeeping.ts",
+      "sha256": "13a5f7c7f15c18413e0e4f32ee1f5bde2598a6d736f4470f1fd8678e5f673404",
+      "normalizedSha256": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924"
+    },
+    {
+      "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+      "sha256": "4d638b747bc5101d93cd6db72887af14ee30f4cc667bdcdb2992641fefe3e373",
+      "normalizedSha256": "d8ef2c738a2b8a67c3acb9f623f0a601dde20142dd23f5a4b0e967aa5f9ec911"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "sha256": "bd1113f5455410a0f9254c0d992a15d46f0d046bb5b4796d367ed97c621c80b9",
+      "normalizedSha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "sha256": "59374511aee8325cc6b2b7d20b11e931f21695f153d582ff7fe78661b218a255",
+      "normalizedSha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+    },
+    {
+      "path": "src/core/matchSimulation/passClaimResolver.ts",
+      "sha256": "5f991a7c639105328cc85536695b4c7efb50f1c607a29ea066f2dca9f5f46c55",
+      "normalizedSha256": "2b6ca4e36cca88fcdb9fbd4e8a418e3a315018708c8f053d79386f1a980888a9"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "sha256": "0ceca77abcf0358dd12fb53468f408dea02a11ff9130dff546f54d46d6cd5d1c",
+      "normalizedSha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "sha256": "73a027abbc159bbb1a8f38eae2aa527b40a91a7363557a7a8900e15c6b6df9e9",
+      "normalizedSha256": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657"
+    },
+    {
+      "path": "src/core/matchSimulation/passExecution.ts",
+      "sha256": "1c807c11f982e861778864f569b0ae87caaba6fe6a547d50854236c3285168fd",
+      "normalizedSha256": "45f918ee8f0b0f975b179cae3b3fc25579dd28b9c5c84e9a7af8b04a28676e70"
+    },
+    {
+      "path": "src/core/matchSimulation/passLaunchPlan.ts",
+      "sha256": "5b9405c6287fb600dbad0a1d3160db4d77816fbdd15596dfd424e8ebb5d5edd0",
+      "normalizedSha256": "cab7b29e777efd5f849c8d1da30f577ed0d6384ac85143d569134372aeb2dde2"
+    },
+    {
+      "path": "src/core/matchSimulation/passReception.ts",
+      "sha256": "198df71915cf9792f3e8defc546eca41b47160f4bc96f2635fae3c0a70b9ef72",
+      "normalizedSha256": "5101d4730d46babea7e734e46eed21a36648d6ab5680f0bc2623716f7a143305"
+    },
+    {
+      "path": "src/core/matchSimulation/passReceptionSpin.test.ts",
+      "sha256": "613683926fd66d439f48cc1c459ee3dbf9aeb991d185fce6081fd0357f0477b2",
+      "normalizedSha256": "af9e508dc47afd9416660cf800c87af7bd15d718732d6ecdf7ce20efbc352288"
+    },
+    {
+      "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+      "sha256": "337cedb840c6d93dae6f96e5b8e619ebea4d76b6cb9bc68d25ff197fd0ac9b71",
+      "normalizedSha256": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef"
+    },
+    {
+      "path": "src/core/matchSimulation/performanceProfiling.ts",
+      "sha256": "c8bc1b768001a1c20f23f4106194886f09eea73ca0ff0852c5cb2fb866fad09a",
+      "normalizedSha256": "7f28c66aefe9c3a4c31f27152b1f57dc939f4890c402211d65758326af3737fd"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.test.ts",
+      "sha256": "1e543e04f70c41b80e7b6fe9d31c5e221c4c24d00995c5949e3fd4a4074c99d6",
+      "normalizedSha256": "62d05d24916efc8f46950d4aaca86edc75ae8554b5b4f3df5e2404021b074120"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.ts",
+      "sha256": "b711c9a1baf4c776bee115faea1e0edb25874bf745053f898b8b03a7f299c814",
+      "normalizedSha256": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93"
+    },
+    {
+      "path": "src/core/matchSimulation/playerActiveMinutes.ts",
+      "sha256": "9657a424c39ad0167f5199561156d56fb6a4d2277d2da6a4ba619c7e83f586a4",
+      "normalizedSha256": "06e1ffde7b9bc8eac314b3605c64760bda28bf6f42c18d2fbc5241f8d2e822a8"
+    },
+    {
+      "path": "src/core/matchSimulation/playerAgency.test.ts",
+      "sha256": "20f54e64358711bb887c15385b21a36de968f5c6f5fd0ac3822f5512f218c994",
+      "normalizedSha256": "c0d100a67a2ae2744f566a5e9718a62dfa3f17e03c79496216919e8b4034ebfe"
+    },
+    {
+      "path": "src/core/matchSimulation/playerAgency.ts",
+      "sha256": "b181332bd707f82d98bcb6e6c0cdcac80f8a8b14238ddbea99104bf434b4d7ee",
+      "normalizedSha256": "69f239096bbfc9cb9c1ca14e438647032db02d7f925afff9e759a937372a0f05"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.test.ts",
+      "sha256": "ce9093912af1cc7445adad0baab3868346dda409a37e27160e774772ad271978",
+      "normalizedSha256": "ddf1a15ecc216c5145a2b891edf4650b6886f8e041d9ae0aa58d647d6c34be2b"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.ts",
+      "sha256": "c7ed77fdad0ae41b982d58a5535a4ff3b1821a802fd48709bd3f71ddc8584d66",
+      "normalizedSha256": "a9cecf8b38a0d7c4592e95c5e3e951de4a365fc195b4919f6ce747015273f98b"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.test.ts",
+      "sha256": "5148f39357571ebae5009b4528566de18542f279f0786923e97bb69d2678845d",
+      "normalizedSha256": "47f266b3ed7d8bbf62bf0f0769c919504e57246afac858a4351f2ca4f7165cf6"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "sha256": "b1a275727dbe9b6e5249b56853968ab11bbe94ab215cb2efc6cd09922b142004",
+      "normalizedSha256": "a1cd6b6d8e6412d03fcdd84215d849980926ce9f4e34e90cccfa3bf158f25244"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.test.ts",
+      "sha256": "38f6d8df8073e3e0c50a562aa6bd3de7ac7dec420ffa44568f937b9d56bb7c33",
+      "normalizedSha256": "0f5044f4a427ad6cb7c3358e8226b27cfa729c0c2a8dcd602c4a56fc1c406178"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.ts",
+      "sha256": "97b0f4c15aaf050978eb858f3114539057eb4b30033da5b51eea64dfdd3a3972",
+      "normalizedSha256": "706e1fe9153970cefce577b0eb6def6b497330ebdbafbdbf491fcb766bcc7ea6"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStatsPhysicalContacts.test.ts",
+      "sha256": "4593c585e181f3f62d163d713cec87c2faef0ba0960f932228e6709cd61b69d3",
+      "normalizedSha256": "9c736e1bc6f2e85355a0d829ae95baa5f9857bde5f193994ba0b2ca92376bd2a"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.test.ts",
+      "sha256": "daabe904706e9229029cb52df39ea7d29c9b071beee35570e709f92901cceb63",
+      "normalizedSha256": "e831e7027a4de6a6fa28105dbd7a72a3696bd2f3a6485319f1171f1bb50f2b8d"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "sha256": "440f7eae013c08371204763598a03c84e019a35d02ed07bd39ec42a0792f51d6",
+      "normalizedSha256": "6426c3a5814bb3370018b9138cede371ea86e63ac609a5359466e5d483625bb1"
+    },
+    {
+      "path": "src/core/matchSimulation/positioningReference.ts",
+      "sha256": "4a7442077d721f933fc2ed1b46e1c93b4e2e55463181b3b296b209c0c3b946a4",
+      "normalizedSha256": "0e9c67d5966c85eecff720f3ee6d59bd3265956e8e8635a2af3f118b47caad03"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "sha256": "493c880dc1f2f7cc06a7bd0007d56ca90a2042c3b598c52f0a304c3ad638abf6",
+      "normalizedSha256": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionEvents.ts",
+      "sha256": "20b4d6be07c2340f885196b2bfe838ae340f08c0dfb2a1d65521892d91981870",
+      "normalizedSha256": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "sha256": "801dc0b34f37cde3dfca4ee30f8d6d23758ca28c5dc96855a74f73fccad176a9",
+      "normalizedSha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+    },
+    {
+      "path": "src/core/matchSimulation/pr120.test.ts",
+      "sha256": "a932613863ccc526ccfe27a8370e2a48660ac83af95d69509131e025a24ba53e",
+      "normalizedSha256": "61383acf92cfde8f11c55c8e4cb4f8a283c75e8f188a29a52e0b14f2f54bd7a0"
+    },
+    {
+      "path": "src/core/matchSimulation/pr121.test.ts",
+      "sha256": "f483d0955f3b61df9eeec9af3dc3274fa39d46a22746d4f76dcf21097f74fb42",
+      "normalizedSha256": "90ac25e79970a6f7fddbcb2918e5e47b7d25ea74af32fb0dcc4344735f1c4a5b"
+    },
+    {
+      "path": "src/core/matchSimulation/pr123.test.ts",
+      "sha256": "04ebd86ed3d70b61bbebc70836b7632246c5073823d65547b03ac760ff370328",
+      "normalizedSha256": "86316ededd8f2f409ece38d1711836d847688cf15e02f3e35daf4b56b41af0c3"
+    },
+    {
+      "path": "src/core/matchSimulation/pr130.test.ts",
+      "sha256": "bddd33a43d62079277487024701fd43675523724b07ecea36423d6f8baed7f18",
+      "normalizedSha256": "e71a765013e0a0a862bb62254aeea159bfcdc9202e36858bed2c8a0ac24fcebe"
+    },
+    {
+      "path": "src/core/matchSimulation/pr131.test.ts",
+      "sha256": "703596a584f691b8275924734496da9b0eee6c81fb52cc88fbf9187c524ef4b5",
+      "normalizedSha256": "6f1dfed895448122504079d7268a05e4503108383e7cb6657ff8160ff5daeeb4"
+    },
+    {
+      "path": "src/core/matchSimulation/pr132.test.ts",
+      "sha256": "9af0e621650b9d239a117782d8c0d95d9a198e37f3dbffe2358dad0305e8adca",
+      "normalizedSha256": "ef1c57059b53d383b305f5ccad2177214d6ebb5ecd604107d88aa9df0014d1d5"
+    },
+    {
+      "path": "src/core/matchSimulation/pr134.test.ts",
+      "sha256": "cd1a80d5303c7351427fd742e4fdb7cd7daeba788c875b52d995df37ad2fa1e3",
+      "normalizedSha256": "34d8a12f61fa2a66f2f67b74a22659762e59fb4a05f948ed4b4f181178dd7ef3"
+    },
+    {
+      "path": "src/core/matchSimulation/pr136.test.ts",
+      "sha256": "5159bab4ad9091e59bd7ddb6eede9801feea3f98f0d8429ba4d1380f94e1c57b",
+      "normalizedSha256": "f61f8ba252ad6c720141e7deaeed24eff7498eb59877d9a5b81d65e709a0636c"
+    },
+    {
+      "path": "src/core/matchSimulation/pr138.test.ts",
+      "sha256": "e416df97ace6e2624409b7f45c8f8e334ee52a990d055884a2124ac3d1f86db2",
+      "normalizedSha256": "24045a0eebcda9a83b27f93fbd326006935c810344c71d4c9c436eb77708f321"
+    },
+    {
+      "path": "src/core/matchSimulation/pr139.test.ts",
+      "sha256": "3f6013585b3da94cd9ad2a5c8509566cdac74b6b98e659025bbe399443fb07a4",
+      "normalizedSha256": "ec37b1013180488a6535af7e4deddedebd73afa885c0638dc725f2d534186e20"
+    },
+    {
+      "path": "src/core/matchSimulation/pr140.test.ts",
+      "sha256": "9555af74a2fcf4d3a79b971960589cb86acef92d1b7fc1b9bf46ede3bc24fcb6",
+      "normalizedSha256": "447178de40313a675d2b1482c851edb004d0254c58dc7c1dcaa52fe31034fbe6"
+    },
+    {
+      "path": "src/core/matchSimulation/pr143.test.ts",
+      "sha256": "7d810e4659ace0352c246383d1195e8661c0ae7c0d98424a3e1fce7255fbd3f5",
+      "normalizedSha256": "9b3cf1f735c43ee12f4893afe2aa5d85225c2a64f67eb5ab392c702b2410d44b"
+    },
+    {
+      "path": "src/core/matchSimulation/pr144Agency.test.ts",
+      "sha256": "f129581b049526b28acb9baf4cb1f0fc1118adb5fa84e5bd8cd6768241299002",
+      "normalizedSha256": "3e1a00535d217d2037a294de578da2a329afabd908c8a4b366235f3569a577db"
+    },
+    {
+      "path": "src/core/matchSimulation/pr145Agency.test.ts",
+      "sha256": "00ce4500d21b708403b58f7bba0d8a200a543735560f5d0e2af192548508e4ae",
+      "normalizedSha256": "7cf4f6260f1accc643d52b65da7dc7b2bbfe922b67414549a99d7a0e70f34793"
+    },
+    {
+      "path": "src/core/matchSimulation/pr145Passing.test.ts",
+      "sha256": "3c49469e740a5808f400ada6b95a0d9004fd6ce45557037b1467b5eef2b946d6",
+      "normalizedSha256": "1cf85b5643555be694fda25f26bbfd734695ed4566a741b3d5568b670c2ae360"
+    },
+    {
+      "path": "src/core/matchSimulation/pr147Agency.test.ts",
+      "sha256": "c7165a8239164dc24cf7b52409abd25b327a9f72c503bd65a2c3df48348f4bc0",
+      "normalizedSha256": "1ed8d1056892733e184051f58f4901bc8156a856a713c6f83a91c9c38b2c00c3"
+    },
+    {
+      "path": "src/core/matchSimulation/pr147Rules.test.ts",
+      "sha256": "8c36810d7ff98e86e00caac5f0b3ec62254ed790ecc47473211b3a1973134f5f",
+      "normalizedSha256": "6f15927b3500576e8649f32064b1595cfe0a0bbcb0a7f252f85016ad0a47d84d"
+    },
+    {
+      "path": "src/core/matchSimulation/pr148Agency.test.ts",
+      "sha256": "b4d7c3cd38241c2b9e5a09eb5d16be9dc69f9edec793f0a602c4e3b9d90ef447",
+      "normalizedSha256": "7d54d16641b80b89a25327d098f81393e8c0e8caa8fe0a410d557e15ce038d33"
+    },
+    {
+      "path": "src/core/matchSimulation/pr148Cadence.test.ts",
+      "sha256": "9678caf72122d318552d076a9404ce89c63e4ef737d6058326f4f2920e3a119c",
+      "normalizedSha256": "49193707b0dcf004bef06dd8312ce4381a21f33695417309be761d1d12d7d696"
+    },
+    {
+      "path": "src/core/matchSimulation/pr148Rules.test.ts",
+      "sha256": "e6997f38da6430f3d68d87c65057e023d5821af7c39a40775ca6be54885da850",
+      "normalizedSha256": "924189060ba6109113ea08136e45a961e19e8e0fe18b67253338040c88c846be"
+    },
+    {
+      "path": "src/core/matchSimulation/pr149Possession.test.ts",
+      "sha256": "762cc4be089be7743bbebc30c732944f9f5829dc3fe5132da6024618c9366d91",
+      "normalizedSha256": "a529e3e8a996ae90032306a964a1e856bbd399a199ad870a1eaed34b69aeb82e"
+    },
+    {
+      "path": "src/core/matchSimulation/pr149Statistics.test.ts",
+      "sha256": "b5844589ed3da2237ba6dd92c7ecf0d662d33e1c9e3e1e9579a294df595d2d93",
+      "normalizedSha256": "b3f69c858fc4bd8df4dd8c1735ae5c6f6c9610c31e4de4fac29cb1539b565cbb"
+    },
+    {
+      "path": "src/core/matchSimulation/pr150Intent.test.ts",
+      "sha256": "4c79b8f43ea029545491316e9fc38d32291b40330071357457d03cbd5f3722b3",
+      "normalizedSha256": "ece4d9ded80ab279d9104b5d9fa246c667dbdfba2a8b66d3442bd73e0ac9f4df"
+    },
+    {
+      "path": "src/core/matchSimulation/pr150Interactions.test.ts",
+      "sha256": "7a7df821ced45e50ce25d66b4713a48de5b401c5348988e5addd22b20117ecc4",
+      "normalizedSha256": "6f07c15572ee185a73e3398ead213c70e6252ef0d01e61aa1fc9a8c0229e7b41"
+    },
+    {
+      "path": "src/core/matchSimulation/pr150SetPieces.test.ts",
+      "sha256": "c92fe12b094510b085d69e75c667e62c3b31d4f1355e2ef22789c5c53bf524b9",
+      "normalizedSha256": "41e6170a20d3e3acabfbd647ac5311d808efa507836a3882eb569dd6eb3124a3"
+    },
+    {
+      "path": "src/core/matchSimulation/pr150SpacePassing.test.ts",
+      "sha256": "6a26fc51659cbf701558be326540f978f50cc3b82700d9c7cc201f9264d8106c",
+      "normalizedSha256": "7914187502cb29e3921ffb13533ea0a73f14a0b4c129038b7fa085c98f15f618"
+    },
+    {
+      "path": "src/core/matchSimulation/pr150Statistics.test.ts",
+      "sha256": "57af752b9fd17f1b8bf41b6d2a751d05cd1c6ba261df01438de1489332b6da12",
+      "normalizedSha256": "f790b0c1efae77dd8d79ab1e96a5e7ee38c5ea99634862a8e86e6a1a934b30b6"
+    },
+    {
+      "path": "src/core/matchSimulation/pr151Cadence.test.ts",
+      "sha256": "ebd6ecc50315350a25951fe69c960a68d856840aded5f6490ac15e130e9f1701",
+      "normalizedSha256": "8a41b4eeb60a8ac39233a5ab7c8c275c4495ed14b8966cb9493a82862dbdbcc3"
+    },
+    {
+      "path": "src/core/matchSimulation/pr151Physics.test.ts",
+      "sha256": "d86cf2ca3d0c9609caf3274613090c1c7d5b6053865a2eddfc664afa8859d776",
+      "normalizedSha256": "ba5918ac2369b2124b45a74dd43f7cd6526f5617c0856369b8f99654d7ceb7b7"
+    },
+    {
+      "path": "src/core/matchSimulation/pr152DisciplineCalibration.test.ts",
+      "sha256": "7afc1b8b6841b8430994a770e7657e5c42533d3eb6fc4a42d69ac11d84042091",
+      "normalizedSha256": "31779706776b9b19aa36cf5322e7fd78da95a2a05fb23f80db5d289cbb85a72c"
+    },
+    {
+      "path": "src/core/matchSimulation/pr152Participation.test.ts",
+      "sha256": "1dd46dd882a913c9c05b41e065714cd6e4346c20e2056339483a2a0d02f2342d",
+      "normalizedSha256": "1bc128e425522afe41cdf95a67791ff37bc58f80eb89469e86c90547ba0adce1"
+    },
+    {
+      "path": "src/core/matchSimulation/pr152Statistics.test.ts",
+      "sha256": "261fb583df5871e93c580aaa24655d66220e5fd822ebca6d28304ef0e360d4a4",
+      "normalizedSha256": "71bebc9f69c8452a0270d86cb6cc7089b0e32cd7470e9c1176e24bc87a3dbf5c"
+    },
+    {
+      "path": "src/core/matchSimulation/pr152Turnovers.test.ts",
+      "sha256": "b5c516528053c48b4021046d7e316e6553ffbe7686ba5a53560ce87ad3a1f68c",
+      "normalizedSha256": "306e20c686aad61c9234fddfb9b488fecd74bbdc1552a5d0673ceb584261df5e"
+    },
+    {
+      "path": "src/core/matchSimulation/pr154Intelligence.test.ts",
+      "sha256": "13b152d2475b1f944dce1bfd8e2d73af8ff2a7342f97988b123c66879b36e012",
+      "normalizedSha256": "3096813eedacade46a1a58995599236c009f18ba6f2e137cad8000f05fff816f"
+    },
+    {
+      "path": "src/core/matchSimulation/pr155Stability.test.ts",
+      "sha256": "985987cac2b64770f215ec1083a70a262f9ed3d939d65ea052b0ddfe3a87dbba",
+      "normalizedSha256": "74094ececf9752b93d35f04244de5cc57895f6caffecee9a2e82879b5442961a"
+    },
+    {
+      "path": "src/core/matchSimulation/pr156Integrity.test.ts",
+      "sha256": "137822a2f33b941aede2eeff2a277410f0c605d58d13b243b966267b279f054f",
+      "normalizedSha256": "55ab2ef701fe9c27e2fafce87d5da040172063408cf729adfb994a81a6c540c0"
+    },
+    {
+      "path": "src/core/matchSimulation/pr157Integrity.test.ts",
+      "sha256": "8b2eb560db1f9758acac5a62593554771ad4d935c69338477316c7fe8580026c",
+      "normalizedSha256": "364e3fd506f3f35848d46f223949b1ff32dc6de0349609755a06efe42fa279e1"
+    },
+    {
+      "path": "src/core/matchSimulation/pr157Pressing.test.ts",
+      "sha256": "5d78f803d3b40a78b07489621ae5d785b827b4e28ed82e2d5fbc92914027d1ae",
+      "normalizedSha256": "4370a3b61de5a2228ac0f2b4b0e7f32cf328afaebbb083bd1eb50d75661f767d"
+    },
+    {
+      "path": "src/core/matchSimulation/pr158CrossContracts.test.ts",
+      "sha256": "8c98b7dda59950838f0173d28b9fea0da8f57ddac90b2cc4cab788d9cdc07b9d",
+      "normalizedSha256": "4ff4ba1764b8c89061224a7cb0706930bdd08092c1398dbd3d6f7007feb3636e"
+    },
+    {
+      "path": "src/core/matchSimulation/pr158RestartAccounting.test.ts",
+      "sha256": "2a5a5f0265b43b62c68bafa0981b5cecb1908b44fca0d1d998a0626838ac33a4",
+      "normalizedSha256": "d1750ee495723b56c4f3c0c1a882b7df6be830220265d00a363864f3df2992fb"
+    },
+    {
+      "path": "src/core/matchSimulation/pr159Integrity.test.ts",
+      "sha256": "77fab7c61e14f72dceffc6ece2fba75d41bd169be9283482930bea3072be493e",
+      "normalizedSha256": "e9d9c308fa7f9275b5ea1759f53068bbcdf2c1fbe2b1de564c7fc7decfe31576"
+    },
+    {
+      "path": "src/core/matchSimulation/pr159ReboundIntegration.test.ts",
+      "sha256": "2627718d6c8d6b23cf7ff575c92ff0dc1e1d4bf28841b1a079d4cdd1c0a48c7d",
+      "normalizedSha256": "d316f4b182fb0b79efe2baa2a8d26ff9e0c4d0c8a9b0b0ce07c4b7ad81092ce2"
+    },
+    {
+      "path": "src/core/matchSimulation/pr159RestartContinuity.test.ts",
+      "sha256": "0e2bfeedc66296dfab40261aa885d9ed7218f4dd72054be212665b0e54533dcd",
+      "normalizedSha256": "30c33fc67656d4c476c6f03d5a9e42994e5a18094368f4295e8f7b74064add2b"
+    },
+    {
+      "path": "src/core/matchSimulation/pr159RestartGeometry.test.ts",
+      "sha256": "156ae10310eda1560c1b101d101fd229df87e018b9af67406c8aae0806f858ad",
+      "normalizedSha256": "a6ba3e072969f6f02a16566b24a08adfbb509b73d6e8af0a7d1affab7b3cf6d2"
+    },
+    {
+      "path": "src/core/matchSimulation/pr159RestartLaws.test.ts",
+      "sha256": "5e7dda15b8967e1bb2b96aead916476854ef997bb001d05c1dd261eda9588546",
+      "normalizedSha256": "4a8bdffcf37cfce3b751b51ee0f564c1b86e6e0d635709856317500b71394a58"
+    },
+    {
+      "path": "src/core/matchSimulation/pr159RestartOptions.test.ts",
+      "sha256": "57190920618091ba141b0fac5efa202bc178b3eecf394de978ca30c38518ff93",
+      "normalizedSha256": "ecbdc16dc2ed4daa3b37053e37896bdbf77c771d3710463dab0ea895d1d3f8c0"
+    },
+    {
+      "path": "src/core/matchSimulation/pr160FitnessInjuries.test.ts",
+      "sha256": "6e3d2b93362d24b7be478e303ed48130a5de6b0934080ecbd962ef4f5b88b1e8",
+      "normalizedSha256": "e76e03e32d57b44add18dd633ac0fb7e559e8d4cf126337927718dd9d8dfb750"
+    },
+    {
+      "path": "src/core/matchSimulation/pr160FitnessIntegration.test.ts",
+      "sha256": "7829b5cba7daa00298b86228fe82c5a49073cc4fc68e6c483299b33d9b4002aa",
+      "normalizedSha256": "b2136d5e1f378b5fbf8166850306019c6f675a4495d4c79767fc1849fffb6344"
+    },
+    {
+      "path": "src/core/matchSimulation/pr160PenaltyLiveness.test.ts",
+      "sha256": "e5b1b9f9d347ecebdbbd65e943c784372bc02bfa6a9918bd2adf9982c6552774",
+      "normalizedSha256": "d922213bc6cb9923b53b9fe4368314b31e74b8966499ee85497c8fbe67569e96"
+    },
+    {
+      "path": "src/core/matchSimulation/pr160Substitutions.test.ts",
+      "sha256": "86788ee7a5595a8ba3981c4922d70ef82096c91bd55745a94c23d107a4376406",
+      "normalizedSha256": "5cdc545e010a065519fdb4d26aea49fd03aab5c466142eb7e8875078b513b9dd"
+    },
+    {
+      "path": "src/core/matchSimulation/pr160Timekeeping.test.ts",
+      "sha256": "7ad02300313343fcf2f9a0cd0c7a5e32a9d1330b0ec0a2e3ae65d1db79c377d7",
+      "normalizedSha256": "55d7ade09cf56a04f9b5e5de9a9f89c3798564c4536dfd2ec499b92a7bdfe7ee"
+    },
+    {
+      "path": "src/core/matchSimulation/pr161BoundaryLiveness.test.ts",
+      "sha256": "1d7626800dd3990ce824f6a83db1bb4c889c452ecc1a8f153c5c6cd33d599b43",
+      "normalizedSha256": "5d717e0f21d201db69c8f9620cfcdab647b66c34f729be15592bb14e8da4525f"
+    },
+    {
+      "path": "src/core/matchSimulation/pr162Audit.test.ts",
+      "sha256": "c376280d1718c82dabde8463bb2470d5d897623754ef41f40b63b3fe75aab01d",
+      "normalizedSha256": "e7e29c9c73d27f25d52c39924ffc369d6e5b3208fe77596fe7c57a212f89d2d6"
+    },
+    {
+      "path": "src/core/matchSimulation/pr162Behaviour.test.ts",
+      "sha256": "67a421de4363a9ab4ee7a025d1dc5ce8c850cb8cee6a08f5d7766adf18c33a7a",
+      "normalizedSha256": "f883d56aea0138f91fb48e30077edcc0aa63c6580f9ae2765a1a2f561260d9b6"
+    },
+    {
+      "path": "src/core/matchSimulation/pr163Fixtures.ts",
+      "sha256": "0882260c7091e12bc31e5d6f9aa8e5ab7a86f1c5570383b4aeba6bf035d2e693",
+      "normalizedSha256": "2c209c3eaa6f1430c02a6d4b88eddb0915462011ca43e3ff050ebcea1dd4bc6d"
+    },
+    {
+      "path": "src/core/matchSimulation/pr163Momentum.test.ts",
+      "sha256": "e32d13b809b508badbebf6d30eb69a9be3689394e105af1926789823a4e04165",
+      "normalizedSha256": "edc5e4d09bf97f2f7fda3e257596b19107776f4dadce666f2bf4c6e805d1718c"
+    },
+    {
+      "path": "src/core/matchSimulation/pr164OffsideReplay.test.ts",
+      "sha256": "c7a4ea8d5caa7c972bb91272e0d9cecd23b10a80385d0fec4b395d7719625d50",
+      "normalizedSha256": "9a5bd746610ee78f7e252313048ddf7243019c26b998a6b27e3e0c1de15ad9aa"
+    },
+    {
+      "path": "src/core/matchSimulation/pr164RestartIntegrity.test.ts",
+      "sha256": "2eeb7edf89cf5ff376648f9116b35de76fe8aabc4b96d9475093a5ec9ab0100c",
+      "normalizedSha256": "92673c9e9f194b0cded24aaf67a44fd71cec1e1ba14479ee25cc098d89f35f8f"
+    },
+    {
+      "path": "src/core/matchSimulation/pr165GoalLogistics.test.ts",
+      "sha256": "38ef141986bbffe58d29cf6a2d876d45a93061ae2ed6730df3018f131fdf23cb",
+      "normalizedSha256": "55fe52a17168aac39550dc557b1790614394a0371fc1b9db9e945c5346f58088"
+    },
+    {
+      "path": "src/core/matchSimulation/pr165RestartIntegrity.test.ts",
+      "sha256": "fe9fc6b1204e91807ea247acbe4b758eadaa50c72dd05be7e29df177fcc85462",
+      "normalizedSha256": "da7881fdae4e0deb1655837dc84b3d4bcfbe863b89790b7aa9c27920b38d3624"
+    },
+    {
+      "path": "src/core/matchSimulation/pr166OrientationMenus.test.ts",
+      "sha256": "c43afe9bcf04fc30d0ce59ca7673439ace2c160f4451d66128b24c8f5eb832bc",
+      "normalizedSha256": "0e72fa8e97bbd7f13e496a9bb5fd21ae0d88040a6598a01fe34ec132e1a8cf79"
+    },
+    {
+      "path": "src/core/matchSimulation/pr168Intelligence.test.ts",
+      "sha256": "e56430ec5b3917a261fec20392988d61b70950b6f99e61a51b27b6dff3b4eb5c",
+      "normalizedSha256": "936726d43d5b4a2335e16f41bc19bce5e18ea24a4f15d360da0f99c9f580b42e"
+    },
+    {
+      "path": "src/core/matchSimulation/pr171DiagnosticAudit.test.ts",
+      "sha256": "41e03f986a7a2892f231f45a51d4623a9cbe636e7a2465fbe11e759d2df88892",
+      "normalizedSha256": "de16660aba4742d7c2796e3a56559ccbe2b23b7fca9a589388823e1e20a7abc6"
+    },
+    {
+      "path": "src/core/matchSimulation/pr172HumanCarry.test.ts",
+      "sha256": "9fd630bb381bf334f38bcb36d304ea2aa0b5a1c8706d742ac8cb11c7e82ae82e",
+      "normalizedSha256": "a5d20e35d8ccf41daa43c076da6879105f41b15abff773d276cd2201c847e7bc"
+    },
+    {
+      "path": "src/core/matchSimulation/pr172Mechanical.test.ts",
+      "sha256": "9541e2b7ee060f62221c389f1bbe59d52813db2811286c4066320ec5b798e4f3",
+      "normalizedSha256": "a9fdf9df5e4db3e96e0eb5ff1a3885bb1b7141673c84331be97e1b7c058a6fec"
+    },
+    {
+      "path": "src/core/matchSimulation/pr172Rebounds.test.ts",
+      "sha256": "f847827e06af57016a10cbca26995822303f82988723e01fdef119a541eb6c4d",
+      "normalizedSha256": "3276333b99ea1ae6cf8ad3e45553ee5482828641f37572f520c73229efbbbd1e"
+    },
+    {
+      "path": "src/core/matchSimulation/pr172ShotContact.test.ts",
+      "sha256": "88237055c96d5255f930e0604e752ef0156a9fb350d47cf35326cbfbf7fc9be7",
+      "normalizedSha256": "99564654e918819ae7e6f2b2f1308e865e832f0f7388aaac20ead917b1c3f444"
+    },
+    {
+      "path": "src/core/matchSimulation/pr173Dynamic.test.ts",
+      "sha256": "5064a824afb2d666117c49e95b1f7a0865939e0d09bb77633e549b785bb83922",
+      "normalizedSha256": "bea18144f94e42a5e2e3bc47dd95958304bcda3ae0fba3881ad2bd843fa24cb5"
+    },
+    {
+      "path": "src/core/matchSimulation/pr173Fixtures.ts",
+      "sha256": "c14f299938a60ade2db8cafbfb00d6090a1c37101c8767d3681a2f02175a96c2",
+      "normalizedSha256": "c8490a9c8cd5d51ef2e28a794142bb504f61c0f439d291021a8e5e1322e37c74"
+    },
+    {
+      "path": "src/core/matchSimulation/pr174Combination.test.ts",
+      "sha256": "29d20eb90c77003623ac9af1df0be8ef61023e46dd3e626b8c907a0a21d3cbcd",
+      "normalizedSha256": "87c407562f87f121bf9c20849ff314c9f139444593f574bceb061af07b09503f"
+    },
+    {
+      "path": "src/core/matchSimulation/pr174Restart.test.ts",
+      "sha256": "71800e912cbfd22475c9ee11041f535c12e6fac2bac68488fd08bd4477879626",
+      "normalizedSha256": "ed3abe2acb1dffd6cea04184daff49e76c3d115378c103bdfae424d91795d1c9"
+    },
+    {
+      "path": "src/core/matchSimulation/presentationWindows.ts",
+      "sha256": "d27ec65fd8f0aa2202e971d1beda55d34af88ec6e4118a1fe9ad9a86265d242d",
+      "normalizedSha256": "56be9e47c926c46cb86ff5cd1b7fb2d1d8d6839d546109b4c52abdebcbc33b1c"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.test.ts",
+      "sha256": "2b182498056c30f8fe14d62ba338520e009ea034c0fdb560bf20c7d79bb657a6",
+      "normalizedSha256": "f20316ded32d95c6f5e813f6f0b1d07a320376b942af736c16f02a1e27512f18"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+      "sha256": "b89a5d50b90bcb42b1a7315832ca2e98190458bcec1bd4a11d44f53deea93482",
+      "normalizedSha256": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "sha256": "36aeb6c7e0f711a3621e524741763d53a5bdbe286999f39dfb9b834852740a90",
+      "normalizedSha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+    },
+    {
+      "path": "src/core/matchSimulation/receiverReadiness.ts",
+      "sha256": "56368fde10eced05919dc97f2a7050f16d8fac605c8fe9f45b86e1393ce8902b",
+      "normalizedSha256": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "sha256": "ffd7a5243812cefc9306d5837fd3b4ebf6f39247aa8d8b545d4259a2e78341a2",
+      "normalizedSha256": "a7a1d7ca3ff81e23048c4e59c9e584e612462f736b5e30bc21b2dd6c490fcb38"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+      "sha256": "75b7158c7e3204a7c3df342e050787d218ebbcb9ecae4358fc1d9fcd4d97f5a9",
+      "normalizedSha256": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "sha256": "5e7817373f32deb9f626a3d0c843b5e83949487154d19d64fb9f59c2ec5f4aca",
+      "normalizedSha256": "6fb9e6426a3b556981866320995ab2092211cdece99bfd4e0d754efe094ba60a"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "sha256": "314fe9b8bdb2884296bf310da96139a80db2567a492a3898422412182aaf0540",
+      "normalizedSha256": "52b39179a9677a6c47397dfc7a42fcca8804235f5d2af744b3a42c2d59937a33"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "sha256": "23357d9a56758909308a0ad24eaf127dcc76ff38880b2729f5c89a2fc63acd32",
+      "normalizedSha256": "73c02cf30b048524f0918d96c14e8039de65760964f2306e759c75aa480c846e"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLiveness.ts",
+      "sha256": "919093ec5c28604aaedde8195bb2b2c9bb9c2dbc0df7cc2075f565cf5f34e6a2",
+      "normalizedSha256": "718c5359b852d255a100e04506306c6d8ee8bb3a6e56baad8c9ee9674d364baa"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "sha256": "adc10bdb544c74e57ea2eeb64a335547539fe50fc4770302af0d3a1d50c8880b",
+      "normalizedSha256": "05997e371e4b75e5edbb49d8bcb28bb1b6d9fe89d3891c56598a8c8007e16cfb"
+    },
+    {
+      "path": "src/core/matchSimulation/restartPhase.ts",
+      "sha256": "c211a26518ad5389539d922dd60a56148473dac738276381d12561e0dfe7bd8c",
+      "normalizedSha256": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "sha256": "e85f570e91cfc76a10065244bd738e39f865a3233ce84e4f4911c7f63e985890",
+      "normalizedSha256": "5fdc8a1481bbd85cd8e741cb246508c8e7a8c78932d27b937b7d4b4c5a625c2e"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.test.ts",
+      "sha256": "8b584438409f0c04857826f612fe39e342520b1b4407cd241cffe2840d49521e",
+      "normalizedSha256": "a902301c45db677882883230fe5cab2c487a7edecf4475c3d17bcc09053991bb"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.ts",
+      "sha256": "cb4b2b3e26549fe26fc81d5608049a9ffad4d0d16ea61a5505951ad74fbd91be",
+      "normalizedSha256": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "sha256": "1e486e3ffdce2d1434b3d7e2be4d139ee2cbb6ba5028c1935e3693a6f43ee2a1",
+      "normalizedSha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.test.ts",
+      "sha256": "7171612fe7886fd8fd20e10b9b6061c2415d07c9b810fb38ab4b6c384577cac0",
+      "normalizedSha256": "ba1eaf5c443b8b938f32b2debc20ba00892e112e2c2e4b2c9e1777291902adfb"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "sha256": "4c7fad43ef5abd4602cb7063bd1d335ec233046c0bbfd2401eaf814c32a44979",
+      "normalizedSha256": "782317116ab3c965012ee0c0e042e103bba93d3c9b85df40435fccef04b1f715"
+    },
+    {
+      "path": "src/core/matchSimulation/shotIntent.ts",
+      "sha256": "9996d729ea9bd3e4cc4ef8b040526efb0608a4ead4c4c2fb137105d7b3cf36fc",
+      "normalizedSha256": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0"
+    },
+    {
+      "path": "src/core/matchSimulation/shotParityBenchmark.ts",
+      "sha256": "f12074367f8125dd0cf98ecb54ad920d6a842a1fadca4e58d901024fa9c2a181",
+      "normalizedSha256": "19130ddaed7c7faa4004c2c180bede7b0677b15db6e6ac0b71ef427490c8eea4"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.test.ts",
+      "sha256": "7e856dbb41c78c52f0ecc3c3f5d22f77ee49b8bc0b64e541cbe0c02a11231feb",
+      "normalizedSha256": "cdffe172b56a6429e27db4b472c510407841d60136b684e5a87a0a2cf10a3ab2"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "sha256": "569398076d8c5c3f039e51be4bae3f09736b166daa2e6f333820e69684a7d71f",
+      "normalizedSha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "sha256": "5c30f2acbfb77a0a28aec1501a2ee48b0136da61b451993f37718cd9ef2c3998",
+      "normalizedSha256": "bb5bc914529d5b5283c53eb136e07793ee54b212533de6bc97a8d96464360938"
+    },
+    {
+      "path": "src/core/matchSimulation/spatialHardening.test.ts",
+      "sha256": "f52c1c74837a1fc915103270a89666d3fa6161ac17f66b181c97d8540e0e6e38",
+      "normalizedSha256": "928eaf3d5e5c39686585bf84e2fade16228e1a22c5d90503861a5b82456cc705"
+    },
+    {
+      "path": "src/core/matchSimulation/stoppageLedger.ts",
+      "sha256": "5c4f31cc54c850fad22934ffd3f68526a2db20d6947eddf55fbb4227cad1e5d4",
+      "normalizedSha256": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "sha256": "171885a88ead2194409e398b78b6d2844e5ad35b0ec95890152f361c7a43d774",
+      "normalizedSha256": "23979c527cdc4d42aa0aa72b726255a367e4c2bbf357970237c8b42385af00a4"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalActionEvaluator.ts",
+      "sha256": "c40e42b1cff79e271b8d85239548f87e6b69a4dd27bdcd998190a26637bcd43d",
+      "normalizedSha256": "9acd93a81d4d7ee674f5018f0b4299691537209aef3447d7bf892b017ffebfa2"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "sha256": "5779b3fac393cf9f12ce9ae394495acb46327f6f6d9eb3dcdffb43fb07764aaf",
+      "normalizedSha256": "4381a8432ba5ad0b912fb7a2b99bbfc2e8f759446b5c489aff127a4a2d4a051a"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.test.ts",
+      "sha256": "6bc7d36899a8c4a09dc77bd58ca3eb1b5b1d9027a90eba2bcb4a813878613da2",
+      "normalizedSha256": "4170f7f4f2f552a4d9f860a469213757efcaafe1af8ccc7e65b20c004b43313d"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "sha256": "a5137ac5c246bf4dda92a4dde8cfc39cddbdf8a2e9a40b7b6860ca91fa6e85e1",
+      "normalizedSha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.test.ts",
+      "sha256": "057c0cb0914a851831189674b9ceb173c7d2a1b91696e0854be9fa2ae25bcd67",
+      "normalizedSha256": "65491a3dcc6820fbf42ea008fdd379a2e79ea9314b77f6ac040d17fbc969039a"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.ts",
+      "sha256": "b38e67533657abcb3199e4b9bcc7be3ffb95cc6fd5007d039040ed595c45a255",
+      "normalizedSha256": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7"
+    },
+    {
+      "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+      "sha256": "e3af7122d8e3bd892d4064f4d4bdc675eecd78eb69353413702a18967bc54d64",
+      "normalizedSha256": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.test.ts",
+      "sha256": "545d5be6fa7e840eb2c3f7d22251853b4d21e6bbe961bed7093d3f7330c03e0d",
+      "normalizedSha256": "6364261025d79c700b084b61c7506aa56f95ef0241a8f1f727f4ad2e5c967ff5"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "sha256": "e918fd3a5f209e35c18be619badaac36e17f2db850523afbed80f0032500f299",
+      "normalizedSha256": "7eb97b4479a6e13f92749dd8a774f3d9b27a76856360a7c0a2c856de204ec821"
+    },
+    {
+      "path": "src/core/matchSimulation/throwIn.ts",
+      "sha256": "2f1c61d9d41b2091662cd03491c43cb11103d52f0637944ec150849e07074924",
+      "normalizedSha256": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a"
+    },
+    {
+      "path": "src/core/monthlySalary.test.ts",
+      "sha256": "1140513b267792ba5dc4330409428a40608dec69628547a1047917533eff726d",
+      "normalizedSha256": "800e362f9b910969956bff126e6c624e86e7fc5882172c96f03758724fc443d8"
+    },
+    {
+      "path": "src/core/narrative/careerEvidence.ts",
+      "sha256": "7e4cfe6e6c2f14c9b0ad0603d7686f92fdc05f19d21873db1afbd9624790811f",
+      "normalizedSha256": "35bed6893444bcdfe4c6d3c40ad74b68066f8a73da12f57ae247c8baa4f5189f"
+    },
+    {
+      "path": "src/core/narrative/careerMilestones.test.ts",
+      "sha256": "ee5ccf3191f3c034a0d8299936ac524a64c7cc021c5ba353be8345a2b7f93178",
+      "normalizedSha256": "db00a8ebbc73815922ffc6af89b01a39bdcf2fa33193a8588301c74abf3db8e5"
+    },
+    {
+      "path": "src/core/narrative/careerMilestones.ts",
+      "sha256": "6d198adab1d69118df5c2d5669ea43793cd9281f3a1380c9a5688aaebfe53e1f",
+      "normalizedSha256": "9a5d217fc5f33b33495b83b51890d2d08063ce9bf0cd4ebd469c6ed23e053248"
+    },
+    {
+      "path": "src/core/narrative/careerStories.ts",
+      "sha256": "94492a146c8cd500f63f55510abaab91212d1e9956b1b93c8f8ad11508eab8e7",
+      "normalizedSha256": "f97ab69eb48eb2ce3ceec24464d6d79ed5beb6559f815d890ca17c5745c88371"
+    },
+    {
+      "path": "src/core/narrative/factPresentation.ts",
+      "sha256": "d3ec5cfce17fd6b354cd5fef34fc1a9b74735630f17f3b14bbb6e287d1a456bf",
+      "normalizedSha256": "fb8c1a363ce49d62d7073db0d4bc374eae428b33354b315f63d4c7182978d320"
+    },
+    {
+      "path": "src/core/narrative/localization.ts",
+      "sha256": "29b365928dd89aaa83410631c78ee6eceecd9f64dc6605eca507c9093d0aed8b",
+      "normalizedSha256": "00296594afbac01927e8b684a87fc160eebf6fc7b6acfc24f5cb10eba63bfa65"
+    },
+    {
+      "path": "src/core/narrative/narrativeAudit.ts",
+      "sha256": "865a2ad617caa50e8603f4fc5a48b8980f79d6d17aedc0c4848e5209398d0da7",
+      "normalizedSha256": "41b85180f21df2ab4dd4f7433a3ef72d634755a289d2cceeaee0efb353145bd2"
+    },
+    {
+      "path": "src/core/narrative/narrativeVariants.test.ts",
+      "sha256": "8953aa78017a3e36a9c549f6ed88a76e70912fbe04651388d099a997bc05804e",
+      "normalizedSha256": "a66c9a6140705b6a27f91b24444c90a1aa662ef190ca346fce3bb3c4e78f05f9"
+    },
+    {
+      "path": "src/core/narrative/narrativeVariants.ts",
+      "sha256": "d3d03995e8f7bc58cd13ef7a61c8b57602eabba613decf4aa4df57daeb84dd87",
+      "normalizedSha256": "86e2cbd3a4ca07e421befafb537e33c3594f955b83605d4e6bda71f0a5500b8b"
+    },
+    {
+      "path": "src/core/narrative/playerFacingAudit.ts",
+      "sha256": "ea511fd6c1816309e15947986d327d1e2f4abb18efd5942beb7e6fcdb9a9e9d6",
+      "normalizedSha256": "2ff711d11d7d3de53ff3bc61b226ec65cb60cdf953cb72355bde3e90bcb2f428"
+    },
+    {
+      "path": "src/core/narrative/repeatedTextAudit.test.ts",
+      "sha256": "f9106da790639aa2e5e33155f4ffa5cf7bfad4e7fc2de6b048abbdaa19df1ed3",
+      "normalizedSha256": "583ce25dcb1460845745f63d324691a410d441279fd94472c9585f26b641a5e9"
+    },
+    {
+      "path": "src/core/narrative/repeatedTextAudit.ts",
+      "sha256": "f5fc765c45b880385f1cfdc36a7d320afee1afafaf4d3a5e6b735b8230c3a3a6",
+      "normalizedSha256": "3cbc58cd9601b959e83678ffab8eed949b03e331ad3c3fc102f5b52889f72ad2"
+    },
+    {
+      "path": "src/core/npcCareerIdentity.ts",
+      "sha256": "b1b5606f3edc04f50d22095ace3ffb018eade208fc78de3e64a4c60f9a1e5261",
+      "normalizedSha256": "ca2ffc684165237c14cb11fbd0229dae8dfdf64d37e4996d59656d362d4afcc5"
+    },
+    {
+      "path": "src/core/npcFootballIdentity.ts",
+      "sha256": "9f2d48f04d9dd9b000a6d87337269607db157e5976f0a8d1516cfaca351c1f37",
+      "normalizedSha256": "c0aee0d4ab61d261928f45652067de75e613c0f90c8648cdd5774adb14fbf065"
+    },
+    {
+      "path": "src/core/npcRetirement.test.ts",
+      "sha256": "9d25cff0639de550837ac8e0f59ff34aac6d93067bcb4b4b55b4ba2611862d34",
+      "normalizedSha256": "185e2a0fa8119ffb31a2d82346538d7f513538119843f8ff7b6bebc706e0fa19"
+    },
+    {
+      "path": "src/core/npcRetirement.ts",
+      "sha256": "13ef6f88f705c6b6e0038a9efa468ce3469dc337fdf0e9ad3c23aabb32f51fef",
+      "normalizedSha256": "9961fe2ede12957e27bed5245721447b893079661aa3cae430379cd5d82562f7"
+    },
+    {
+      "path": "src/core/npcTransferEconomics.ts",
+      "sha256": "26066abf5655e76ffd565d4a451c991b30b1ab769166b21d078f7027c66d90ac",
+      "normalizedSha256": "1fb6a65ca12ef7605d7267df5bc94b19cf29e4368755f2f9c4b8525ddf8b9814"
+    },
+    {
+      "path": "src/core/npcTransferMarket.test.ts",
+      "sha256": "9c83f759a0238aec068c0fb0222dc2deb81b161fb857d17e9842033446eabe70",
+      "normalizedSha256": "21731354302365fb4e2458f7b55ffdc0e380b058601664fad5ffb32f1b94e99a"
+    },
+    {
+      "path": "src/core/npcTransferMarket.ts",
+      "sha256": "8489e1fba9b8b7367dc43bca374c3e806b32f28c12a0aed7a2f67bad6dc3627b",
+      "normalizedSha256": "e909718f1a99ddb5901e4f39d40765c496ba2888ed8194cf329f8722b60422a3"
+    },
+    {
+      "path": "src/core/numberPresentation.ts",
+      "sha256": "00ff430b88771000b3843ae4acaf7dcafbe8e81ae0441394d6cd39e35aa0418a",
+      "normalizedSha256": "bd73aefeceeedfa97c7654bc2615007f6083fd24c5ea9066aedcda723f9d5a28"
+    },
+    {
+      "path": "src/core/participationPresentation.ts",
+      "sha256": "92eedec15da39e246bb6e99092bd77b65608144c544043f5436c78a9d40de427",
+      "normalizedSha256": "e31d4598f7ba1e69169292e696447fd60c63ddd8859a4c9e8cb774564e7f90d0"
+    },
+    {
+      "path": "src/core/people.test.ts",
+      "sha256": "1d0127ff042ffaff45568cc56ed245f7a130cfa259d3b3c58b46e9ea34c1799e",
+      "normalizedSha256": "0b74d858443976f4804b706799d63ea9ca8d70770a06c00f4eaea49ff51887d7"
+    },
+    {
+      "path": "src/core/people.ts",
+      "sha256": "e89d9b942083ce1dfdb3ce289e5e11dd9df0bcd0817985747d15330c9c291d04",
+      "normalizedSha256": "360a1d86523135b1d0001a215fdb6d6af71ac4bc0a654b572376698110234fd5"
+    },
+    {
+      "path": "src/core/persistence.test.ts",
+      "sha256": "6997a8126232fcc18e7c31ede9892e6c19a70f4ecae7d6e1c4aa2c0ea3477426",
+      "normalizedSha256": "aeb6ff15f0c6384f25cf9d329182bc7da27218eb274fa7ed1287d74f2ded0e3b"
+    },
+    {
+      "path": "src/core/persistence.ts",
+      "sha256": "2fcee5464cfd48b33e9dc368de637a0e651f8a26946bfd2802a83929eb2e327c",
+      "normalizedSha256": "c365eeee2c63c2b0a4125824c7bfff42f918e6452bee8a2672a10c7df74e00d5"
+    },
+    {
+      "path": "src/core/playStyles.ts",
+      "sha256": "ca99c1cac19d7bb049dde4cc018a53ab48c191d79aa2599dd1a32c60dade2200",
+      "normalizedSha256": "85f7fc287b538c2c6dc68cffad2dd0f6061b7bcd41040a9c5f3fdf2db0b9d3fb"
+    },
+    {
+      "path": "src/core/playerAvailability.ts",
+      "sha256": "1ba9d040ae38bbfd2cb905d67b853dafbd9e4cf7c5417985bd4f7317ad785840",
+      "normalizedSha256": "dd24658b4d322c915654c3d680cf7ef36a72e8fe6e56977d74e2e599353eb1e9"
+    },
+    {
+      "path": "src/core/playerCreator.test.ts",
+      "sha256": "746b194d09d7f37a1acfa5383e17cfd3e18fa647c5a7d94b5de563d1998e0941",
+      "normalizedSha256": "26162453a88b00ef5bd984fb83d5fb9aa59a1da6decd7d62a6157be77e31d850"
+    },
+    {
+      "path": "src/core/playerCreator.ts",
+      "sha256": "522e8212ebb30fa5922d55a1c8062d057aa4dee8f7e0e6ee65da6909a07f4506",
+      "normalizedSha256": "c459efb4cb6044b81b967a3f56d4d493e372b0715f9a6e7addb70cce27bff136"
+    },
+    {
+      "path": "src/core/playerEconomy.test.ts",
+      "sha256": "2b87c481a201e6c531acd89491be2d261929ca0719a8cbba3bafc89b771238e2",
+      "normalizedSha256": "df12774b3d5547287861de76d2fefa0f76dc8a871671bd7ce19ce67313455c89"
+    },
+    {
+      "path": "src/core/playerEconomy.ts",
+      "sha256": "9cf40d747bf4002a59de47fd06e27dfc5a9197fc52718bff3741e212dc53da33",
+      "normalizedSha256": "782df92c9f4c71e517ce1c64088b2824df61e1e5c3e76eadb406e2a9ab9e8de8"
+    },
+    {
+      "path": "src/core/playerOverall.test.ts",
+      "sha256": "b987fd4c3dc55df3351d75bba6aa4ee65ae8ac25e2b8c661746a08f63a6518e3",
+      "normalizedSha256": "68c280825cec07485127e75cb27a9581887c10c2f2b9ae70060e8dfe463a75d8"
+    },
+    {
+      "path": "src/core/playerOverall.ts",
+      "sha256": "511b8b8b4f7bff59b461c43ba6347f3fccd27d63de94d99cdeb74398b87de7fd",
+      "normalizedSha256": "f980eca9dcb35a95152c45a21b9c1d6e04c45490a4b14e7c07eb43583e4f7b52"
+    },
+    {
+      "path": "src/core/playerPreferences.test.ts",
+      "sha256": "033f65d25e30a301d8436eef5f04c79429dc19b43e66199e8ea1351f6b5aac2b",
+      "normalizedSha256": "039321143463cc6f237f7bbafa431b11a10ca02f2d3a3ba0ddeee457067aea3d"
+    },
+    {
+      "path": "src/core/playerPreferences.ts",
+      "sha256": "7cd496ba06e3870e35321375d08fa9e4e306d8048fe82a6d38e370bb2a6f7615",
+      "normalizedSha256": "cccee0480ba76c0ad8ba3c4399cb0bfcde0264b33e5e98805658c0c1ebe41b00"
+    },
+    {
+      "path": "src/core/playerProfilePresentation.ts",
+      "sha256": "b3e453dad0f93e9ea8923ea88fc7dd9d7866b69cdd13583f65af1ca19ead1d2d",
+      "normalizedSha256": "51c64ca390b53975a029b807c16377dca3e6fe0cd10764a08fa5a0ee396ec97f"
+    },
+    {
+      "path": "src/core/positionCompatibility.test.ts",
+      "sha256": "24d6fed7863ef6bf5ce4797ef39d08372e93d7a3c0a05f42967e3d57f9e497f1",
+      "normalizedSha256": "9ba792687ef7bde6b40283537c1bdc01c180384a4073392a7123b4f853b4d503"
+    },
+    {
+      "path": "src/core/positionCompatibility.ts",
+      "sha256": "49711c0b018a863dcc6726bfee41a59e51f47cfb1ba5bb4faf46f487e8c58cc7",
+      "normalizedSha256": "714ae0e566e7a3418f4a8a8f9339759b49740e05cb400fee3007b831ed612f09"
+    },
+    {
+      "path": "src/core/positionLearning.test.ts",
+      "sha256": "42769f6310a5add8ce8a82f616fcb9fcfd8f8dd52e4b941b36180f81e84f16b7",
+      "normalizedSha256": "6cbd118ab4d093ccde1cf58625769f0e378d51a52eafb0da4ef3ab90413f30ae"
+    },
+    {
+      "path": "src/core/positionLearning.ts",
+      "sha256": "707ae39c43ddfb111d588cad77876ff528b629c2c85e0c6374f0ea4bb4208a85",
+      "normalizedSha256": "2ddbf2d0003b9fa3ee43be2dfb7ae4d46c88129c9cb2b66077a00e2770934726"
+    },
+    {
+      "path": "src/core/positionPresentation.ts",
+      "sha256": "21eabab74b48c3a986b2e7d1239bf747db8afb58585eb8748cc9bc6fb3825f33",
+      "normalizedSha256": "4209b9a09e0096ec695fb7ac36cc2f036f17c2d179fc43e796b52883ec88f341"
+    },
+    {
+      "path": "src/core/pr160CareerFitness.test.ts",
+      "sha256": "0c670a5ec0e7f93da11e2f87345a3e78f80c0f2508a51408afaaea29496ffef0",
+      "normalizedSha256": "ac4d96cf3871cc92a0cd7109fd54ea81e4744ca673d62ae551eae738fff46be4"
+    },
+    {
+      "path": "src/core/pr166CareerConsequences.test.ts",
+      "sha256": "9b07b384c109bd04c5dec3066a83ed9e598e309a46667e08f94080cc83820d26",
+      "normalizedSha256": "2a6b718b3b45f1febbb1ea2add18fe49469a56348e6abb4750bc670df8abcc2c"
+    },
+    {
+      "path": "src/core/pr166PlayStyles.test.ts",
+      "sha256": "1e6f5c1e7125140ed05bcdc6e846fd41ed02b3f330ef17ba4ecaf8a3b4116e79",
+      "normalizedSha256": "d825d2cda33db4deb9106690986467e6cb5771ad381987110d22546d8cab52fe"
+    },
+    {
+      "path": "src/core/pr167NpcDevelopment.test.ts",
+      "sha256": "5d655ce596c1e56f84b12c6544fd936847e728f21b2fa272991df0df3e2e11ce",
+      "normalizedSha256": "a811397a763803191830c9249cf84b6eaa734f3d2c355f43ebc4e9f6d0458af7"
+    },
+    {
+      "path": "src/core/pr168Career.test.ts",
+      "sha256": "4de1174c0494276f9bbc594a28e192e65134bb276503d5d1b66f3c09db63ab31",
+      "normalizedSha256": "65ecad1ae076b0b2d5581a068c3b280acd4b70605227968a05e7bf6efc590600"
+    },
+    {
+      "path": "src/core/pr169Career.test.ts",
+      "sha256": "f9a13c579b398238dfafa6c0067765f1bf3e3d6a67d57e28ee20df3c1ffcd641",
+      "normalizedSha256": "254536febd6613e5adba009ee88b965895fab90c885edbdcd3c1288c8ce97e7f"
+    },
+    {
+      "path": "src/core/presentationPolish.test.ts",
+      "sha256": "ba53f9c74a79576fc100bd694aeac2ca989d6cc18bb77b0649f022aa08690d38",
+      "normalizedSha256": "f224252ac04f7ddba0614ceadbaa4e77a5f004b47678c1462d2b4d4a8151a811"
+    },
+    {
+      "path": "src/core/proceduralFootballers.ts",
+      "sha256": "0a7d456d72e80b58bfe2ba5159c7e6abd785f09c7803506b07d5d22d3b8fa838",
+      "normalizedSha256": "a19ade4478e869c39ba0fc8ff073af3cf4036d9451a8aafed448dc85d3e6354e"
+    },
+    {
+      "path": "src/core/professionalClubs.test.ts",
+      "sha256": "213b33ee2557a634b5b428591b8f7eace1f6dec59b5c377611bc4ea96451f82b",
+      "normalizedSha256": "8220b616fa37af1252e69b1efdfd389f151209715bd6795507b946a60eca8f38"
+    },
+    {
+      "path": "src/core/professionalClubs.ts",
+      "sha256": "d876dee16c98c1e235e2d3dc68c209085767623b8e848774688305490205c7db",
+      "normalizedSha256": "51d9553a8cccf577d0d26889d879641e021789cb6b5eae292e842021088a2635"
+    },
+    {
+      "path": "src/core/professionalOfferPolicy.ts",
+      "sha256": "10b4af696c9ed966e791ac950e1e73db557d7d9d03cdb1a9e69313f3b170c684",
+      "normalizedSha256": "388fdc69e829682c9ff8bd1346a039f3e25efd674a6b98b2290cab5e9ce77504"
+    },
+    {
+      "path": "src/core/progressionDiagnostics.ts",
+      "sha256": "7755b663fd97b4ffdcd6ce23f2a0b0b768544d393a448b4f2ed19c9f5a8630b0",
+      "normalizedSha256": "7fef94c66bad3f2ad1287d6a6d9ab0abf1f6e7c09e102a806256a6ae47d677f6"
+    },
+    {
+      "path": "src/core/radar.test.ts",
+      "sha256": "e32ac84a7690307ade3715a4e88d5de56566610b045da1e1a17c1341be2858fe",
+      "normalizedSha256": "4bef01568034646a379bbb5da072c0a61d84682e98024e025170dc0ae185921a"
+    },
+    {
+      "path": "src/core/radar.ts",
+      "sha256": "a092674a0ea4da49a05a538cdb543cf05568a4aa2607fde45c1e1263640b8f9a",
+      "normalizedSha256": "64b95305aba36d6663a78e26d7a87ed4dc84dce3c2cae59177d84c73ce528b16"
+    },
+    {
+      "path": "src/core/random/RandomGenerator.test.ts",
+      "sha256": "e4b1503c7d3f2d7bae148b69929c1423dbf036b4cbd9f445087a6f7deb55e1f8",
+      "normalizedSha256": "038919fa3dd1283aa7d27eab0de4428dee65fab9caa71abe4461e08da875d789"
+    },
+    {
+      "path": "src/core/random/RandomGenerator.ts",
+      "sha256": "1580714c4b4aaaf6da348f9f49e01f635dff6fdaf8fb987d3b9fbb4c0d4ca284",
+      "normalizedSha256": "485ec207596f679f99608b7d2a0feedff459fa0224e138418a0f4160c0137910"
+    },
+    {
+      "path": "src/core/seasonArchive.ts",
+      "sha256": "be675523cffeb5bdea25b8da06a7aa280f5704219753b40c42e64f345bf0c31a",
+      "normalizedSha256": "9d38d200efdb4f62e29befa8da5c18d226d0e588b152f9fa7a8e0f226b9c33b4"
+    },
+    {
+      "path": "src/core/seasonAudit.ts",
+      "sha256": "80e0f6fa36ebfc68cc1bc108cce02a5d55433d7bc836cd9fbb935c026e6cb278",
+      "normalizedSha256": "5dc6be5093bd99b88e466765c5808ce59ccdcf38432f3919986ec15e77b464a5"
+    },
+    {
+      "path": "src/core/seasonBoundaryLifecycle.test.ts",
+      "sha256": "a3cc021828b352d2e3730b1cbe38937933c80b5c52f6dd228e90a09684e8f01e",
+      "normalizedSha256": "14de11ccdddd5c76bcb702fd49428f8269c9b725038d166d8b9747055000bbf4"
+    },
+    {
+      "path": "src/core/seasonDevelopment.test.ts",
+      "sha256": "e28465d37cf2cc1f473ff29d3ec3d72e6eca0e8ce4d6d3bfa87b5e4f2eb08fa1",
+      "normalizedSha256": "a62fd16f28e38df86c34f155ddc3bf30e948228a2bb138b7919846e69330c003"
+    },
+    {
+      "path": "src/core/seasonDevelopment.ts",
+      "sha256": "9247f8b26ae4defb6b452b20cfa86f07b812f8cf26f973c7f35eb2241be2b0d9",
+      "normalizedSha256": "de834d3cc01a2603aa01845d0f85f8be50ac3450a36a3c1c84643146029f8c24"
+    },
+    {
+      "path": "src/core/seasonInjuries.ts",
+      "sha256": "f73ef77927f57b7b0c73d409f6c289f3a5dd42758b6b8e29eb9dce0454455d8e",
+      "normalizedSha256": "3c014b8a9ddff2f9b831746bb0981cd27eb17ae8a9df716257f5df27a1498540"
+    },
+    {
+      "path": "src/core/seasonParticipation.test.ts",
+      "sha256": "803c7c353acd579a267330e311e910d44d80ab433ef6305250439e2014c55c5d",
+      "normalizedSha256": "627aba1572df68138d3ab110d959ecfc8d112f74e1b9fc04243f87875953c837"
+    },
+    {
+      "path": "src/core/seasonParticipation.ts",
+      "sha256": "205bb87dae741eebb27cd01d6cf848f30bf6263356b0f61f2ae9854405ecde57",
+      "normalizedSha256": "0797d656e575f4e9e2f6818072aedd07f4f1efeae9a584bdc70cff4377beba28"
+    },
+    {
+      "path": "src/core/seasonProgress.test.ts",
+      "sha256": "8ce16cc4603c43303f5d8bc07f7535ac1b5a9231724e4db301290e0e48b8a341",
+      "normalizedSha256": "cd06d99bfb379eb447201915ca1d4335c4427e840e34c82b978d565182d0fe2a"
+    },
+    {
+      "path": "src/core/seasonProgress.ts",
+      "sha256": "57943ad967ffe7eb0bec58bb66cb07e3fe1509dde597e204c30eb4593b621788",
+      "normalizedSha256": "4a0f09c8a9c340ccba661c5426ac3c873b34c7990ff60c4ce1d22da04e1a5c19"
+    },
+    {
+      "path": "src/core/seasonSquadReference.ts",
+      "sha256": "5259a04b55984d09dc7249ce52e5112eb4b813a30c06df4f3d9d52abc58ac485",
+      "normalizedSha256": "abd21e9ca206633fb60c4bf9c01e134188c372f525fb2803a185ef26b512a663"
+    },
+    {
+      "path": "src/core/seasonTimeline.ts",
+      "sha256": "9cb80e8f03745d99a9b5d36da642ac55ac0c4ee25782d93f2130250b46b59892",
+      "normalizedSha256": "4b839b3d427d0a28b791c6f65ca5f1840fc3c54556ea9dbad26042830a51b51e"
+    },
+    {
+      "path": "src/core/singleMatch.test.ts",
+      "sha256": "9c8dab3c21c7f287802ab9f8380c4d55804215cd79b103c3f8ae8cbb780999df",
+      "normalizedSha256": "c8cd9d962c6c1b738ed57bba50caaeb6bf98e3dcba40ff17786d0accd5527895"
+    },
+    {
+      "path": "src/core/singleMatch.ts",
+      "sha256": "c435582196bd6c42bde544d905ea4c5e32e9a8044df106c071a2d2f25a34ef23",
+      "normalizedSha256": "7077e60a8a7012684b18b936fb88c7a9b7ac53ed0f1bf5341588702bdc7584e1"
+    },
+    {
+      "path": "src/core/summaryMatchContinuation.ts",
+      "sha256": "895a353fb72e7708f909c2a02c2643a098fe2da0f818c55bf56a1ce2f28dc298",
+      "normalizedSha256": "b09345be60df09f768187c8feddd808a38e64f982172209a16648668a2a4188d"
+    },
+    {
+      "path": "src/core/visualIdentity.test.ts",
+      "sha256": "7385623afc7cb9f8d067d3485e9a519d794928beccffeec4fa4a151a6054ab3b",
+      "normalizedSha256": "3e71f0a01fcc10b58af686142199757e32485f83aa9b724c83b8a177322cbb0b"
+    },
+    {
+      "path": "src/core/visualIdentity.ts",
+      "sha256": "424dec170c55a1a48c54c35df030f9e1d34a0d7945ec3bd757ea66a02899ef27",
+      "normalizedSha256": "bc32bb64cebaf041a8225756fd7ce85ef062ed48603a60b5ed0320b133ec4414"
+    },
+    {
+      "path": "src/core/worldDatabase.test.ts",
+      "sha256": "6b54812e8d5ad31bb92a8ba112d285411873076c7aa403a13e36dd4fe82c97c6",
+      "normalizedSha256": "e758076defe982bc69644b0d9114b78d485d852e2dee633bff2890019daa599e"
+    },
+    {
+      "path": "src/core/worldDatabase.ts",
+      "sha256": "7511640c2e96c39e96440048b5dbf279c3eb15ed5119f3d153573ea93498c075",
+      "normalizedSha256": "f30e35b042fdc5b2cdc6cf21aedd62ce9130021baf98f23a20548797792442d0"
+    },
+    {
+      "path": "src/core/worldIntegrity.test.ts",
+      "sha256": "18ccf27a296c7365beae8cf871ca9ada0f7d8310880f833043de6ae0c26ed758",
+      "normalizedSha256": "72ecae48085b04ad6532d7e96a8a10f7656d9b5a3a35dcbe8d96785d0e63b05a"
+    },
+    {
+      "path": "src/core/worldIntegrity.ts",
+      "sha256": "a9b87d0974905430972785394978a5f12b71cfcc622672dace44370c68872627",
+      "normalizedSha256": "990ff159ddf2f675699a14dae90260bd376856a769576377eeb9f17306611058"
+    },
+    {
+      "path": "src/core/youthGraduation.test.ts",
+      "sha256": "ca86212bd38fb684a9dafdf83f2678d869509a9b9cdc3aabfadcdf944cbcbedb",
+      "normalizedSha256": "5f1664996fbfb9128e3330bc8d36ee68d13097c21f7bf73cbd590dd16b52074d"
+    },
+    {
+      "path": "src/core/youthGraduation.ts",
+      "sha256": "c5deb68141195fd7f36562e32d118bf3a78ab5eb6d562f68aa7a7619e1095578",
+      "normalizedSha256": "2851dc63485d63600b78ab4e3f0ea82521b0a1c35b31949f0597963bec0d81a9"
+    },
+    {
+      "path": "src/core/youthIntake.ts",
+      "sha256": "e0984689bda99f173fca863dd40fc1d06c934cf0ed5cdb08b4a909f4fab6c279",
+      "normalizedSha256": "5193ab0614424e2a610f3246780853a9f30c673560310103bf03f496dc08f8bb"
+    },
+    {
+      "path": "src/core/youthTalent.test.ts",
+      "sha256": "e08b2cb45d3df6e3a295c12f3506ee2010756669122b0b4f7b57915306aea0a1",
+      "normalizedSha256": "e30900102291c1a43666250d6f797783fdd958f6fefa097b1b6b14ad1a1c303f"
+    },
+    {
+      "path": "src/core/youthTalent.ts",
+      "sha256": "35f9bd65443a3e4145d5909b51fa656833319a05bacb16129add52cf72a0cdd9",
+      "normalizedSha256": "c336c613019f2ada3537f22b7bba61478c8ad51842a42ed477782c77d6df10b0"
+    },
+    {
+      "path": "src/core/youthWorld.test.ts",
+      "sha256": "3a13ff6b2aa9440dbe88e7a7d79dacf6039778067ef574b5f372cdc092065e80",
+      "normalizedSha256": "e9b184275cefeec0ac6d69e89b4a7253afde7258bb1c6ed46c3c5cc17bde0403"
+    },
+    {
+      "path": "src/core/youthWorld.ts",
+      "sha256": "40bedf7e3383967d323d87b58860e32c3bcc4c7b6f6385f9912a90914188f333",
+      "normalizedSha256": "decc276ce0ec12a7ae1a9703c0dceedadf528899095433e76e9f9f133a4cd833"
+    },
+    {
+      "path": "src/devtools/randomPreview.ts",
+      "sha256": "9150b821909854f30c0809dcaab17345be2fd02d653932aa9324cc440b1f65bf",
+      "normalizedSha256": "9ffa22ca1f1dae6c3682d40d48929ad2e74559616b484bbfdefc515a3b1f1eae"
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "48faeb50fa95a6daaacd54599118f39572a75c07a2e198fb83a211aa361c883d",
+      "normalizedSha256": "c99083c9c9cec9d57be49b55c69ede6536b3458ea17ce8ce739d14a30f1ec377"
+    },
+    {
+      "path": "src/persistence/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/persistence/careerStorage.test.ts",
+      "sha256": "af4b094d592f0d3d7bb1ecfdd579801837d35e5bd3d009fed0094a5dc38bf48b",
+      "normalizedSha256": "d9e379bec27b2f87ba89d7f2a29bcbb2f00e5eae2fc61a79d4baa1cbbbbfdba3"
+    },
+    {
+      "path": "src/persistence/careerStorage.ts",
+      "sha256": "6f8e94b69c674b6f23908e170c5150e18322eb81e623cee757ab028ce8bb4ae2",
+      "normalizedSha256": "5753978ad81658cddf1521ab407390d105e201823897d600894209a5e9cf9dbc"
+    },
+    {
+      "path": "src/persistence/pr164StorageIntegrity.test.ts",
+      "sha256": "99e3871c26e06737badeeaa5d9eadecd3ca88e9caf5cceadf0d8bdd850081a22",
+      "normalizedSha256": "8427f20ba6eb209571004c11400dacce71b3a7ae12f7994b94ee6660e9a159f1"
+    },
+    {
+      "path": "src/schemas/domainSchemas.ts",
+      "sha256": "92c908e109dcc7b2e209fa032ae3e3fd53e01d983560e55fa0f877e31acc32e7",
+      "normalizedSha256": "3517b61f8462f1f57b4cefe8ba32b605b16abff8218f0179a5d78f46c8e9239f"
+    },
+    {
+      "path": "src/schemas/validateContent.test.ts",
+      "sha256": "9c7003a9bec1eb2a4d021091ddfdf2fe482034d0dcd2063bb051182027d3eb9c",
+      "normalizedSha256": "897e26c6d4998371c42d2872ae7bb54fa92fe970240650a58419834d3e5f5639"
+    },
+    {
+      "path": "src/schemas/validateContent.ts",
+      "sha256": "ed0669cb57a4dc295d0d45a0dfe84e2f68c959b4bbacb1d606f44040881b5566",
+      "normalizedSha256": "a368628f2dc3d8ffdb03eca23f41bb6f6c69b8c49bcf9fc2970d4c381180da73"
+    },
+    {
+      "path": "src/styles/global.css",
+      "sha256": "f0e555004cdcf6d7e777ab6c52043b3ac7caf9da44923765fd0a1d543c23093a",
+      "normalizedSha256": "880c96253eb23dec042a9f241251b28ce0aaba3d1240faf02e2e8672f0f45136"
+    },
+    {
+      "path": "src/types/domain.ts",
+      "sha256": "1a66ba74c05722f6710df5a9081378114c37c87ebee72832afcae719e5dba309",
+      "normalizedSha256": "c447e86ca5fd99d55dde7d8b2a8ac619a2ecabfd5439e6d9a2659bb322c1ad47"
+    },
+    {
+      "path": "src/utils/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalizedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "sha256": "424faf9241dd699dda995b367ed36665732da1e6ec1f33b2fd40394488ecac92",
+      "normalizedSha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    }
+  ],
+  "sourceHash": "d2a97ae8b921fce2e1a90ff066fbcd2a25b7e1476b1a2b4c4213c8c96d1402c5",
+  "evaluation": {
+    "development": "six PR176 frozen development initial states, all policies; at most two documented revisions",
+    "validation": "six sealed initial states, run once after candidate source freeze; no tuning afterwards",
+    "primary": [
+      "controlled progression",
+      "midfield receptions",
+      "natural shot releases and outcomes",
+      "transition exposure, progress and recovery",
+      "pass volume and diversity"
+    ],
+    "correctness": [
+      "physical contacts",
+      "offside and restarts",
+      "ownership",
+      "determinism",
+      "human agency",
+      "exactly-once career result"
+    ],
+    "performance": {
+      "medianRatioBudget": 1.35,
+      "selectedWorstRatioBudget": 1.6,
+      "physicsDt": 0.025
+    },
+    "noQuotas": true,
+    "noTurnoverOrCounterattackRateCeilings": true
+  }
+}

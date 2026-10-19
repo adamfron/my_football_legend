@@ -14,6 +14,10 @@ export const requiresPresentationObservers = (mode: PerformanceObserverMode) =>
 
 export const performanceCategorySchema = z.enum([
   'canonical_step',
+  'decision_candidates',
+  'decision_value',
+  'movement_authority',
+  'pass_planning',
   'movement_physics',
   'ball_physics',
   'ball_contact_control',

@@ -1,0 +1,2362 @@
+{
+  "version": 1,
+  "frozen": {
+    "version": 1,
+    "policy": "state-value-v1",
+    "developmentRevision": 2,
+    "sourceHash": "e0054db436aa0d5d56c218a06c805b911454728c32003c07526e63bada4feeaf",
+    "policyConfigSha256": "42b2bfba9198063f581bc82edcd2c327e119e0803369b91a7c219c83fbfa822b",
+    "files": [
+      {
+        "path": "src/core/matchSimulation/actionAgency.ts",
+        "normalizedSha256": "a952df6514404dbd5930012cbde22773ce3aa55f403dbf9035aa1cd4fb8a822e"
+      },
+      {
+        "path": "src/core/matchSimulation/actionEvents.ts",
+        "normalizedSha256": "22e6340bb4398bdfdbe8f6c7bd3761925345407115f4465b6a4bce350007db72"
+      },
+      {
+        "path": "src/core/matchSimulation/actionImpact.ts",
+        "normalizedSha256": "9ce8abe4f5034839b4179ef5218f4ea3910a4de737887a22e6de00bf44a4d3aa"
+      },
+      {
+        "path": "src/core/matchSimulation/actionLifecycle.ts",
+        "normalizedSha256": "51704a113db2c83b89aaf6571369a6644c5502c353c1f45ec53a61ef04759557"
+      },
+      {
+        "path": "src/core/matchSimulation/aerialPlay.ts",
+        "normalizedSha256": "effa54d3917992142ad95a38b1c20c0664c53a627f25985ccbfc4226cea17a74"
+      },
+      {
+        "path": "src/core/matchSimulation/agencyCalibration.ts",
+        "normalizedSha256": "902f1e7187779f7594193645aeb2f9ae4a3c40bfdc0d71070747ff5a0a73b086"
+      },
+      {
+        "path": "src/core/matchSimulation/attackingFunnel.ts",
+        "normalizedSha256": "d7494825f7de770e9b7199252350af3d8d3123ea79d2b82ef4eee531490c47af"
+      },
+      {
+        "path": "src/core/matchSimulation/attackingFunnelAudit.ts",
+        "normalizedSha256": "b632c5ad1b61a56fc1f17bd8e3fd73df63bdf36c10f1285920e96a5b34542c85"
+      },
+      {
+        "path": "src/core/matchSimulation/attackingTransition.ts",
+        "normalizedSha256": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b"
+      },
+      {
+        "path": "src/core/matchSimulation/attributeMicroLab.ts",
+        "normalizedSha256": "cbc983bc122429c7850bbbb50e2c62a9e7a00809f79919d4098a42be0e10c416"
+      },
+      {
+        "path": "src/core/matchSimulation/backgroundBenchmark.ts",
+        "normalizedSha256": "5a22047634f11e1c9259ac5932a73687921ce05ba976bf91d1e4c4c762654007"
+      },
+      {
+        "path": "src/core/matchSimulation/backgroundPerformance.ts",
+        "normalizedSha256": "798cc91042679d3734ff93c16805c4fef0b75f095a86cf2069650f17e51a642b"
+      },
+      {
+        "path": "src/core/matchSimulation/ballAcquisition.ts",
+        "normalizedSha256": "cc8f841665370aa2c26f3c7d2b4767eb1a31f3ac8f026d787fcd493aefb9a751"
+      },
+      {
+        "path": "src/core/matchSimulation/ballContactGeometry.ts",
+        "normalizedSha256": "55b1abe5c61072458286445188af7d99a7cb4250244bec33d080395726654f47"
+      },
+      {
+        "path": "src/core/matchSimulation/ballFlight.ts",
+        "normalizedSha256": "5d3633e379789d43fd72f4876bd729e9e9e65832e773fa1bbb087a9d30e76a25"
+      },
+      {
+        "path": "src/core/matchSimulation/ballPhysics.ts",
+        "normalizedSha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+      },
+      {
+        "path": "src/core/matchSimulation/benchmarkFixtures.ts",
+        "normalizedSha256": "fb666b509de5b88543608e59bf123a0260ab69a797951232a40d71454ab648f5"
+      },
+      {
+        "path": "src/core/matchSimulation/canonicalMatchSanity.ts",
+        "normalizedSha256": "a4c648f1549db500ad136223cde0ddbadcb714e6d45545bdbcfa4dab6eae7e16"
+      },
+      {
+        "path": "src/core/matchSimulation/canonicalPresentation.ts",
+        "normalizedSha256": "dc0169f29f474c5717cb4b5f12a08620036ea4960cb5e1826f7ab069ed5b019c"
+      },
+      {
+        "path": "src/core/matchSimulation/carryExecution.ts",
+        "normalizedSha256": "7d8058c2ec0b2dfbbeef7abdf2e9674bbd83aa0bc7c246d0e72c58dad27fb2e5"
+      },
+      {
+        "path": "src/core/matchSimulation/carryOpportunity.ts",
+        "normalizedSha256": "5fd9f37f3d035dd974cac5e8ca82de8e88a4647ba85a0d2d43ee577ccb2483fe"
+      },
+      {
+        "path": "src/core/matchSimulation/carryPursuit.ts",
+        "normalizedSha256": "aeef6d2946c85c453833c8fbd1c5ff2509390266b66b66bfb97eb9f03e54fceb"
+      },
+      {
+        "path": "src/core/matchSimulation/combinationPlay.ts",
+        "normalizedSha256": "bcf53d2f81fa097f7b66f6f7c3f0010222094005dedd78a8bd81bda353c4f443"
+      },
+      {
+        "path": "src/core/matchSimulation/combinationState.ts",
+        "normalizedSha256": "a09d657bf69499a46279fff7be12dda19e1fa5e15c23c89e0fc2c6f8da7785e5"
+      },
+      {
+        "path": "src/core/matchSimulation/contactEvidence.ts",
+        "normalizedSha256": "a64b81507736a8dc0dec96af0e5540402cf863940ea482a76f5e8dd0436edab0"
+      },
+      {
+        "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+        "normalizedSha256": "365d78486d344c8e8ce2aaee94062d628fa06912851b933d5c7500267f2959af"
+      },
+      {
+        "path": "src/core/matchSimulation/contextualInteractions.ts",
+        "normalizedSha256": "eea275620bcf1463f0b65fa3faaed6ffe90e7df46dfda9cfde65912dd3f22329"
+      },
+      {
+        "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+        "normalizedSha256": "75c3e5756e669112d65d9168b6affb6df2c9cece16cd68384f96b2556a21f67c"
+      },
+      {
+        "path": "src/core/matchSimulation/decisionOutcome.ts",
+        "normalizedSha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+      },
+      {
+        "path": "src/core/matchSimulation/decisionPolicy.ts",
+        "normalizedSha256": "c4caf5bdf987b9d7c1291407570314e3bb2f0d96c7d8452faf0fa2b7d54f293f"
+      },
+      {
+        "path": "src/core/matchSimulation/decisionPolicyConfig.ts",
+        "normalizedSha256": "42b2bfba9198063f581bc82edcd2c327e119e0803369b91a7c219c83fbfa822b"
+      },
+      {
+        "path": "src/core/matchSimulation/decisionReadiness.ts",
+        "normalizedSha256": "1743d8a8f62f0ef4a73570c0dd9ccb1f45b7b81634ab127b58e10bedef04ba6b"
+      },
+      {
+        "path": "src/core/matchSimulation/decisionStateValue.ts",
+        "normalizedSha256": "5c76d45aa01ac22fc1694026e54c070fec150a9859037a0150566168574fc730"
+      },
+      {
+        "path": "src/core/matchSimulation/defensiveChallenges.ts",
+        "normalizedSha256": "f3220bdcedc9ff5b27da1ee572777c10fae318c6cb0d62e2f464e8b250e19f43"
+      },
+      {
+        "path": "src/core/matchSimulation/dynamicIntervention.ts",
+        "normalizedSha256": "2c247e7a347d637566927df147b7f4431d27de92e16551a8966e8cc52badd640"
+      },
+      {
+        "path": "src/core/matchSimulation/firstTimePassing.ts",
+        "normalizedSha256": "67ad6f69a32b75f7440184f7acf20b713ba01b241479933a02e72c7481d671b9"
+      },
+      {
+        "path": "src/core/matchSimulation/fitnessMicroLab.ts",
+        "normalizedSha256": "ba9e131b705c4e35c93e4747e8873a8d1314cb372b676512cdcfb26c739c0f0d"
+      },
+      {
+        "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+        "normalizedSha256": "9e8ce023d5a0cf1593c09890ba681979ba5b255ee197b54c7122e6577b8a6fba"
+      },
+      {
+        "path": "src/core/matchSimulation/goalCoordinates.ts",
+        "normalizedSha256": "b6277c370055ad317b00acdce5cf2d0d5cff3b859b2e32efd2d3e6c5e115c068"
+      },
+      {
+        "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+        "normalizedSha256": "4c41e5c2e8e2fdba99f21bd3fe24b20998f1febb55f7fc0136dfb4af0a42b56f"
+      },
+      {
+        "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+        "normalizedSha256": "0dbe943e011f145c1c7c779cabea047e0c5be1ad8a2d559f5f62f19a82ef32ac"
+      },
+      {
+        "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+        "normalizedSha256": "8e0b66b93dc35f3cc2022d2d660dbb36fa315eceb1a80de732712c578cd80a3a"
+      },
+      {
+        "path": "src/core/matchSimulation/identityHistory.ts",
+        "normalizedSha256": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f"
+      },
+      {
+        "path": "src/core/matchSimulation/index.ts",
+        "normalizedSha256": "aa152f60d02cd9324ea4af4e68258343a0b2461cbfa2be36477daa97d4731661"
+      },
+      {
+        "path": "src/core/matchSimulation/injuryStoppage.ts",
+        "normalizedSha256": "87ee6f5dbd82616867a781ae649cade58b579b3288c3999b1f5bf0019b7eb5c6"
+      },
+      {
+        "path": "src/core/matchSimulation/locomotion.ts",
+        "normalizedSha256": "c47446e4a763058fcc25945b47667f3c470576826d718aa2a269826137f901e5"
+      },
+      {
+        "path": "src/core/matchSimulation/looseBallLiveness.ts",
+        "normalizedSha256": "6885f539edd5b20bb7e09b8493b9675d3369412ee66926ec51a5da3ebffaaff7"
+      },
+      {
+        "path": "src/core/matchSimulation/looseBallPhysics.ts",
+        "normalizedSha256": "00df4b39314c094be1a3eed43ccbf7ff0434fdef2cec3471a6e8ae177237efda"
+      },
+      {
+        "path": "src/core/matchSimulation/matchActions.ts",
+        "normalizedSha256": "5dcd2599fae21a2e26e48e2f8e5c40ea701895c8f9b7f62c2f3aa7db4569ff82"
+      },
+      {
+        "path": "src/core/matchSimulation/matchCentreStatistics.ts",
+        "normalizedSha256": "1f6c75d9d1483d112ae084b8219765afeab3d623751cb40423993c48dd12c666"
+      },
+      {
+        "path": "src/core/matchSimulation/matchEventFeed.ts",
+        "normalizedSha256": "65ddd25a2212fa32eff27527f0c6d6bd25466d173bb8ae090ded7f673edffda7"
+      },
+      {
+        "path": "src/core/matchSimulation/matchFitness.ts",
+        "normalizedSha256": "a0e827218f33496d1a71129cfb0fa0095381e4f2641077f100b57b702b9201ec"
+      },
+      {
+        "path": "src/core/matchSimulation/matchFlowCalibration.ts",
+        "normalizedSha256": "5f11b0cc7e57afe02c6fec3eb0d9b5cf248df702d77eb5d1dc83bd971afdec31"
+      },
+      {
+        "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+        "normalizedSha256": "21594d86a552f043e5e13245e18511a4dd78299c3ad364167be03f15e4c5ba42"
+      },
+      {
+        "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+        "normalizedSha256": "a03e4270776c986dee6023fde7054421533244039333c17e970749fd834e8d7f"
+      },
+      {
+        "path": "src/core/matchSimulation/matchInjuries.ts",
+        "normalizedSha256": "1356eab111fe24a43ffe2cb9c404641d61ba3810362c0a37fb876590db000ebd"
+      },
+      {
+        "path": "src/core/matchSimulation/matchMoment.ts",
+        "normalizedSha256": "1ca58980b14b2f238860c7f25bcdb99f3f99a145c5e99c07815e15b9831dfaa7"
+      },
+      {
+        "path": "src/core/matchSimulation/matchParticipants.ts",
+        "normalizedSha256": "6f6f5052024e86b4095b8fb59a53284cde5164eea45c312f25c0ab9a502fe89b"
+      },
+      {
+        "path": "src/core/matchSimulation/matchPresentation.ts",
+        "normalizedSha256": "2bd57cfedf3f7bc615c46cce94b15fdbcbcc91daa1524a8aa6847590d0c2cebf"
+      },
+      {
+        "path": "src/core/matchSimulation/matchReplay.ts",
+        "normalizedSha256": "6d575b2a72892cd8bf1a24c08a342afa67cdebe5d263b1f7cab2d1094ce199c7"
+      },
+      {
+        "path": "src/core/matchSimulation/matchRules.ts",
+        "normalizedSha256": "2c6675fd14e2c33917f5948f10b345c82cc95dddaf5e1b42d585ad8a6e15d38a"
+      },
+      {
+        "path": "src/core/matchSimulation/matchSimulation.ts",
+        "normalizedSha256": "b78b8ddab8fdff038e6db53b11077e2a79d0d0d4907d26ac614a364b852a6e45"
+      },
+      {
+        "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+        "normalizedSha256": "7f667cf65b51a93bdd0fe07e60b28e7432745968317d76bda07d1925ebe34a71"
+      },
+      {
+        "path": "src/core/matchSimulation/matchSpace.ts",
+        "normalizedSha256": "ed0c0bba51b8dd0ff47253d7f1beae3ac4db70168a6625f867dbe6f47eb780e8"
+      },
+      {
+        "path": "src/core/matchSimulation/matchState.ts",
+        "normalizedSha256": "25defa65677a3424ba044c71ad2bc46e2f34f3a7a59cd3c1b832bb72bf4af081"
+      },
+      {
+        "path": "src/core/matchSimulation/matchTimekeeping.ts",
+        "normalizedSha256": "de0b3592d72e33135bd8803532df42bb25bb38ec5c47429397d75dfd7ea2f924"
+      },
+      {
+        "path": "src/core/matchSimulation/movementAuthority.ts",
+        "normalizedSha256": "85be85b4e1749ce3b454f4f17a7b8d527af7ce1a2d36192489f55ee8bdb5e755"
+      },
+      {
+        "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+        "normalizedSha256": "d8ef2c738a2b8a67c3acb9f623f0a601dde20142dd23f5a4b0e967aa5f9ec911"
+      },
+      {
+        "path": "src/core/matchSimulation/offside.ts",
+        "normalizedSha256": "82f1da4443c622d66310eb77bb3edb4f5a5c1d6816db39f80e4b432716d15390"
+      },
+      {
+        "path": "src/core/matchSimulation/onBallPreparation.ts",
+        "normalizedSha256": "b508090bd482e6da079089e55d70e9562f33febafdb6f3ce43dda5f2bdf22651"
+      },
+      {
+        "path": "src/core/matchSimulation/passClaimResolver.ts",
+        "normalizedSha256": "2b6ca4e36cca88fcdb9fbd4e8a418e3a315018708c8f053d79386f1a980888a9"
+      },
+      {
+        "path": "src/core/matchSimulation/passClassification.ts",
+        "normalizedSha256": "7a24e03e14556cc37e5a7390554231feef9c7a5408fe96f41460adbfd48bc1e0"
+      },
+      {
+        "path": "src/core/matchSimulation/passDecision.ts",
+        "normalizedSha256": "88b8abcfab41a24bbde2a6f9f82f4b27ede92941aefe7b10752a5dab118fa657"
+      },
+      {
+        "path": "src/core/matchSimulation/passExecution.ts",
+        "normalizedSha256": "45f918ee8f0b0f975b179cae3b3fc25579dd28b9c5c84e9a7af8b04a28676e70"
+      },
+      {
+        "path": "src/core/matchSimulation/passLaunchPlan.ts",
+        "normalizedSha256": "975ff82b98d6a481ceccd5e609e09721f6616f57620ab05bb47d7b8396e8ec34"
+      },
+      {
+        "path": "src/core/matchSimulation/passReception.ts",
+        "normalizedSha256": "5101d4730d46babea7e734e46eed21a36648d6ab5680f0bc2623716f7a143305"
+      },
+      {
+        "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+        "normalizedSha256": "1316512562e76439324226a2a876a34f711188e24c88280b901bb46696120aef"
+      },
+      {
+        "path": "src/core/matchSimulation/performanceProfiling.ts",
+        "normalizedSha256": "5e50073cd69e540f3bd3be4f28edb6b188341e9e9263e13b41a689647c927cb3"
+      },
+      {
+        "path": "src/core/matchSimulation/pitchBoundary.ts",
+        "normalizedSha256": "9b732b20295e190f6f538979f856c12bac35f994d1fce4de5b4ef8d8f2847c93"
+      },
+      {
+        "path": "src/core/matchSimulation/playerActiveMinutes.ts",
+        "normalizedSha256": "06e1ffde7b9bc8eac314b3605c64760bda28bf6f42c18d2fbc5241f8d2e822a8"
+      },
+      {
+        "path": "src/core/matchSimulation/playerAgency.ts",
+        "normalizedSha256": "69f239096bbfc9cb9c1ca14e438647032db02d7f925afff9e759a937372a0f05"
+      },
+      {
+        "path": "src/core/matchSimulation/playerArrival.ts",
+        "normalizedSha256": "a9cecf8b38a0d7c4592e95c5e3e951de4a365fc195b4919f6ce747015273f98b"
+      },
+      {
+        "path": "src/core/matchSimulation/playerDecision.ts",
+        "normalizedSha256": "a1cd6b6d8e6412d03fcdd84215d849980926ce9f4e34e90cccfa3bf158f25244"
+      },
+      {
+        "path": "src/core/matchSimulation/playerMatchStats.ts",
+        "normalizedSha256": "7af8ac035ca7409048efdc415c294ba12049ba6ade0d262f4362fe021fe38f44"
+      },
+      {
+        "path": "src/core/matchSimulation/playerOrientation.ts",
+        "normalizedSha256": "6426c3a5814bb3370018b9138cede371ea86e63ac609a5359466e5d483625bb1"
+      },
+      {
+        "path": "src/core/matchSimulation/positioningReference.ts",
+        "normalizedSha256": "0e9c67d5966c85eecff720f3ee6d59bd3265956e8e8635a2af3f118b47caad03"
+      },
+      {
+        "path": "src/core/matchSimulation/possessionAgency.ts",
+        "normalizedSha256": "18a6ceb5587d25a89237cc0de0828746d8ad6264080e366627e8e738c6f9cfc2"
+      },
+      {
+        "path": "src/core/matchSimulation/possessionEvents.ts",
+        "normalizedSha256": "7bd00202c102be5322f8d6ef0b39a6137d7a5d5d00d964e00353404a88789eea"
+      },
+      {
+        "path": "src/core/matchSimulation/postGoalReactions.ts",
+        "normalizedSha256": "a2fd16718d96373f7465b615b786b23505b202ca9fe61c89a62946e13891b9bf"
+      },
+      {
+        "path": "src/core/matchSimulation/pr163Fixtures.ts",
+        "normalizedSha256": "2c209c3eaa6f1430c02a6d4b88eddb0915462011ca43e3ff050ebcea1dd4bc6d"
+      },
+      {
+        "path": "src/core/matchSimulation/pr173Fixtures.ts",
+        "normalizedSha256": "c8490a9c8cd5d51ef2e28a794142bb504f61c0f439d291021a8e5e1322e37c74"
+      },
+      {
+        "path": "src/core/matchSimulation/presentationWindows.ts",
+        "normalizedSha256": "56be9e47c926c46cb86ff5cd1b7fb2d1d8d6839d546109b4c52abdebcbc33b1c"
+      },
+      {
+        "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+        "normalizedSha256": "1a21f31266d2c4646d81a27cca065f5d41755367743a8ff6ba50de423c5b9028"
+      },
+      {
+        "path": "src/core/matchSimulation/reachableSpace.ts",
+        "normalizedSha256": "d6ffb94c98f7eb9ebe7bc60e01978d9c26ccebf784601bff2fec463e52fe2ffc"
+      },
+      {
+        "path": "src/core/matchSimulation/receiverReadiness.ts",
+        "normalizedSha256": "5ec483ff5951ea8a9c3c4e8e7d66f94609b34acbf47805275ee25ed55aa4bdd1"
+      },
+      {
+        "path": "src/core/matchSimulation/receptionContinuation.ts",
+        "normalizedSha256": "a7a1d7ca3ff81e23048c4e59c9e584e612462f736b5e30bc21b2dd6c490fcb38"
+      },
+      {
+        "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+        "normalizedSha256": "85550ed89812f7328980fa2a24a62ff71f72cf0f09e7aef932f6c324ae1cf403"
+      },
+      {
+        "path": "src/core/matchSimulation/restartGeometry.ts",
+        "normalizedSha256": "6fb9e6426a3b556981866320995ab2092211cdece99bfd4e0d754efe094ba60a"
+      },
+      {
+        "path": "src/core/matchSimulation/restartLaws.ts",
+        "normalizedSha256": "52b39179a9677a6c47397dfc7a42fcca8804235f5d2af744b3a42c2d59937a33"
+      },
+      {
+        "path": "src/core/matchSimulation/restartLifecycle.ts",
+        "normalizedSha256": "73c02cf30b048524f0918d96c14e8039de65760964f2306e759c75aa480c846e"
+      },
+      {
+        "path": "src/core/matchSimulation/restartLiveness.ts",
+        "normalizedSha256": "718c5359b852d255a100e04506306c6d8ee8bb3a6e56baad8c9ee9674d364baa"
+      },
+      {
+        "path": "src/core/matchSimulation/restartOptions.ts",
+        "normalizedSha256": "05997e371e4b75e5edbb49d8bcb28bb1b6d9fe89d3891c56598a8c8007e16cfb"
+      },
+      {
+        "path": "src/core/matchSimulation/restartPhase.ts",
+        "normalizedSha256": "25824e9463b21df657c1225832ea898e32b4b0bde4193fbaa7fadd11eb9e4b9b"
+      },
+      {
+        "path": "src/core/matchSimulation/restartScenarios.ts",
+        "normalizedSha256": "5fdc8a1481bbd85cd8e741cb246508c8e7a8c78932d27b937b7d4b4c5a625c2e"
+      },
+      {
+        "path": "src/core/matchSimulation/shootingDifficulty.ts",
+        "normalizedSha256": "429f7ecd9b6e335a0329e7d908822e92554b581fa52b9b2ec86613882ea3de0a"
+      },
+      {
+        "path": "src/core/matchSimulation/shootingOpportunity.ts",
+        "normalizedSha256": "752796e13ba303b1f18f672dc0e9179d21ed0d6ce5e2795460de3ced6de0ff95"
+      },
+      {
+        "path": "src/core/matchSimulation/shootingOptions.ts",
+        "normalizedSha256": "782317116ab3c965012ee0c0e042e103bba93d3c9b85df40435fccef04b1f715"
+      },
+      {
+        "path": "src/core/matchSimulation/shotIntent.ts",
+        "normalizedSha256": "b6d7553ba010cbdc078528f738ee60828d509b0013b042b60b287a28305480b0"
+      },
+      {
+        "path": "src/core/matchSimulation/shotParityBenchmark.ts",
+        "normalizedSha256": "19130ddaed7c7faa4004c2c180bede7b0677b15db6e6ac0b71ef427490c8eea4"
+      },
+      {
+        "path": "src/core/matchSimulation/shotResolver.ts",
+        "normalizedSha256": "7a84eb30dcbe40d85894730bef14527fb72f3bb9bc8709dffde1db8ce9bde3c7"
+      },
+      {
+        "path": "src/core/matchSimulation/spacePassing.ts",
+        "normalizedSha256": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db"
+      },
+      {
+        "path": "src/core/matchSimulation/stoppageLedger.ts",
+        "normalizedSha256": "526ff56e91e8f3e1fac8c7162e47e4a5defbd63d627bf60934467fa5040e8783"
+      },
+      {
+        "path": "src/core/matchSimulation/substitutions.ts",
+        "normalizedSha256": "23979c527cdc4d42aa0aa72b726255a367e4c2bbf357970237c8b42385af00a4"
+      },
+      {
+        "path": "src/core/matchSimulation/tacticalActionEvaluator.ts",
+        "normalizedSha256": "9acd93a81d4d7ee674f5018f0b4299691537209aef3447d7bf892b017ffebfa2"
+      },
+      {
+        "path": "src/core/matchSimulation/tacticalPositioning.ts",
+        "normalizedSha256": "57bae9687e3ee020cbc49d8fcf92eb803ba2222d5ffe61b79f7ff28c30f98152"
+      },
+      {
+        "path": "src/core/matchSimulation/tacticalPreferences.ts",
+        "normalizedSha256": "19637eaab139c240caca4db0ff1c9f4a1e50a68af0ff4715073f5ba89afbc891"
+      },
+      {
+        "path": "src/core/matchSimulation/tacticalSituations.ts",
+        "normalizedSha256": "fea7f804d00e26f3d339c9f99309ee880f141b6b93328880c7f55e10853d46d7"
+      },
+      {
+        "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+        "normalizedSha256": "53042fec058f8cdb0f35434bc0dc7936709c2243a7b56f7f883de96e7be09a66"
+      },
+      {
+        "path": "src/core/matchSimulation/teamThreatMemory.ts",
+        "normalizedSha256": "7eb97b4479a6e13f92749dd8a774f3d9b27a76856360a7c0a2c856de204ec821"
+      },
+      {
+        "path": "src/core/matchSimulation/throwIn.ts",
+        "normalizedSha256": "32590736ab61799e6495677d77ba35c301eab634cddfa6359f71e403e00edd9a"
+      }
+    ],
+    "validation": [
+      {
+        "design": {
+          "id": "pr177-val-youth",
+          "split": "validation",
+          "seed": "pr177-unseen-20261018-v1:pr177-val-youth",
+          "youth": true,
+          "clubs": [
+            "academy_0",
+            "academy_1"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-5-2"
+          ],
+          "styles": [
+            "direct",
+            "balanced"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "0682ee30ea2f6bf9969b8d24209ed9da0c7edc708686f0663c90f6e639062a33",
+        "sessionHash": "1261e77bff59ca793aa83c2d5c0f1ef803a34cce7d1f72c0d76eb42161494d44",
+        "players": 22,
+        "formations": [
+          "4-2-3-1",
+          "3-5-2"
+        ]
+      },
+      {
+        "design": {
+          "id": "pr177-val-balanced",
+          "split": "validation",
+          "seed": "pr177-unseen-20261018-v1:pr177-val-balanced",
+          "youth": false,
+          "clubs": [
+            "pro_17",
+            "pro_18"
+          ],
+          "formations": [
+            "4-4-2",
+            "4-3-3"
+          ],
+          "styles": [
+            "balanced",
+            "balanced"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "e42060401042019ec3076931c42cb8eda3933fe7ad6cee9bb4fb99ffa96cab23",
+        "sessionHash": "3a76cf377d263672cce36287e93cf26979271edb1cb5073e82c1e37940f27179",
+        "players": 22,
+        "formations": [
+          "4-4-2",
+          "4-3-3"
+        ]
+      },
+      {
+        "design": {
+          "id": "pr177-val-strength",
+          "split": "validation",
+          "seed": "pr177-unseen-20261018-v1:pr177-val-strength",
+          "youth": false,
+          "clubs": [
+            "pro_7",
+            "pro_51"
+          ],
+          "formations": [
+            "4-2-3-1",
+            "3-4-2-1"
+          ],
+          "styles": [
+            "possession",
+            "counter_attacking"
+          ],
+          "attributes": "native"
+        },
+        "inputHash": "bec0335beabe50f2615b7af51c9f255425b6c4600ad7fa62ae1a81c0c99d3ba7",
+        "sessionHash": "bdb4a276182d55e3dbeb6ec253851dab5766f4dece3e20bbea70d3db1c62a4a1",
+        "players": 22,
+        "formations": [
+          "4-2-3-1",
+          "3-4-2-1"
+        ]
+      },
+      {
+        "design": {
+          "id": "pr177-val-central",
+          "split": "validation",
+          "seed": "pr177-unseen-20261018-v1:pr177-val-central",
+          "youth": false,
+          "clubs": [
+            "pro_26",
+            "pro_27"
+          ],
+          "formations": [
+            "4-3-3",
+            "3-5-2"
+          ],
+          "styles": [
+            "pressing",
+            "possession"
+          ],
+          "attributes": "technical-v-physical"
+        },
+        "inputHash": "0ee4f41f104c370cada89edba89e28b52cba0e8e68c0c8efc364ff6d0c748eed",
+        "sessionHash": "d58c970d845e9fe752276b203ae339b6042f2bdf3ce3333cbb1a0bffd0a5fd38",
+        "players": 22,
+        "formations": [
+          "4-3-3",
+          "3-5-2"
+        ]
+      },
+      {
+        "design": {
+          "id": "pr177-val-wide",
+          "split": "validation",
+          "seed": "pr177-unseen-20261018-v1:pr177-val-wide",
+          "youth": false,
+          "clubs": [
+            "pro_42",
+            "pro_43"
+          ],
+          "formations": [
+            "4-4-2",
+            "4-2-3-1"
+          ],
+          "styles": [
+            "direct",
+            "pressing"
+          ],
+          "attributes": "fast-v-slow"
+        },
+        "inputHash": "8a02f3a9f65aaa80f0713e25114f7846ea225fbee2c617cce61d78c63f96d63d",
+        "sessionHash": "681b80e098f692dfd48c953cec6f98e548c9a183012ea91d7f920f9c275caefa",
+        "players": 22,
+        "formations": [
+          "4-4-2",
+          "4-2-3-1"
+        ]
+      },
+      {
+        "design": {
+          "id": "pr177-val-keepers",
+          "split": "validation",
+          "seed": "pr177-unseen-20261018-v1:pr177-val-keepers",
+          "youth": false,
+          "clubs": [
+            "pro_46",
+            "pro_47"
+          ],
+          "formations": [
+            "3-5-2",
+            "3-4-2-1"
+          ],
+          "styles": [
+            "counter_attacking",
+            "possession"
+          ],
+          "attributes": "keeper-strong-v-weak"
+        },
+        "inputHash": "97aa6e07065443b6f2113dd660f7e49758f2ed155569ccd91390ba99ecfb9895",
+        "sessionHash": "4bfb52e262ed7082580c1db859067c3ebeb122e2ae40eaa141ffc147be9f418e",
+        "players": 22,
+        "formations": [
+          "3-5-2",
+          "3-4-2-1"
+        ]
+      }
+    ],
+    "protocol": {
+      "frozenBeforeAnyValidationTick": true,
+      "policies": [
+        "pristine-pr176",
+        "state-value-v1"
+      ],
+      "executionsPerFixturePerPolicy": 1,
+      "noTuningAfterOpening": true,
+      "defaultRemainsLegacyPendingAcceptance": true,
+      "note": "The value model is final after two documented development revisions. Remaining development collection and correctness/performance checks may finish after this freeze; they cannot change the frozen candidate."
+    },
+    "overridenBlueprint": [
+      "no active-match or replay migration",
+      "no turnover or counterattack rate ceiling"
+    ]
+  },
+  "sourceFiles": [
+    {
+      "path": "src/core/matchSimulation/actionAgency.ts",
+      "sha256": "6f9f7feba6714da47bdd84b54f429b490fb3bff45b2c2120ed1159fff01e0d33"
+    },
+    {
+      "path": "src/core/matchSimulation/actionEvents.ts",
+      "sha256": "74943a6ed24acfb8a8d745a92f0643c36090a65830d44e0de49a2ab7cb085975"
+    },
+    {
+      "path": "src/core/matchSimulation/actionImpact.ts",
+      "sha256": "b630e0d81bea22b106939ef3f540a2c5e3673a5b0701515372b382ce9b4e37d2"
+    },
+    {
+      "path": "src/core/matchSimulation/actionLifecycle.ts",
+      "sha256": "78db359aa28443628270566893c3462903e85f59e8f75a3c091e2d683fd932e8"
+    },
+    {
+      "path": "src/core/matchSimulation/aerialPlay.ts",
+      "sha256": "2db4551f3fc69bc60aacbf71a1f8191be9c1dfb59f2aeb3a10480e755cfbd0ec"
+    },
+    {
+      "path": "src/core/matchSimulation/agencyCalibration.ts",
+      "sha256": "fb8bdac6c46a6e176287161fe6e055e2e9a3a44b4fd04160595e6d00193b3656"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnel.ts",
+      "sha256": "99c13a72d0bf2c6f1377b13cd30c9b3f579f20cf88f5dbc4f473b0d9e839267d"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingFunnelAudit.ts",
+      "sha256": "7041efb1395b36454ba0a8511affe8c84fe25b9297b0215977ad796a185fb978"
+    },
+    {
+      "path": "src/core/matchSimulation/attackingTransition.ts",
+      "sha256": "d817ae2c7f16fd2b77626b9b642625176ce1b9c196f606e646d761025673067b"
+    },
+    {
+      "path": "src/core/matchSimulation/attributeMicroLab.ts",
+      "sha256": "b4213b7a8c7ddd8f6e3441d9126ec0a1e20f7b0f50ed5c9875f70f7d0cd86ecc"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundBenchmark.ts",
+      "sha256": "b4b02a5b408cea087ecfb359f3d353383d069275accc44626d95985a7fed9fd2"
+    },
+    {
+      "path": "src/core/matchSimulation/backgroundPerformance.ts",
+      "sha256": "5c0eacf95fb87995ba890788b483fd02e202a371c150088b09d4b158b866918e"
+    },
+    {
+      "path": "src/core/matchSimulation/ballAcquisition.ts",
+      "sha256": "a0e5ef10b9afb018db4809ac12f776b92b5683c2bba19bf243d8e32e8a81166f"
+    },
+    {
+      "path": "src/core/matchSimulation/ballContactGeometry.ts",
+      "sha256": "10501fb58f8f7986ff748ad835777316e3498b2ba26a7f1a6e55fb08d461ca37"
+    },
+    {
+      "path": "src/core/matchSimulation/ballFlight.ts",
+      "sha256": "f0ec7125bcd547d7a88ebf955c0031d9adcd0ca2b0c76b4883a37b82e5baf15d"
+    },
+    {
+      "path": "src/core/matchSimulation/ballPhysics.ts",
+      "sha256": "711579f201eda1cefef028a39f0d629f52a4c1bec973f29666f13b2d14f0eae8"
+    },
+    {
+      "path": "src/core/matchSimulation/benchmarkFixtures.ts",
+      "sha256": "cf173438d6532fe0b30fc98d543cb5498498a12e431146164f1e7468f635df20"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalMatchSanity.ts",
+      "sha256": "53b8dc95801b68ae395cb1ed5658259fa7814bf96c075127a7f899e76c8d9948"
+    },
+    {
+      "path": "src/core/matchSimulation/canonicalPresentation.ts",
+      "sha256": "22a15d60afa4057295a1d1a38df861aafd2ecb866dc815c7288e034c68789d32"
+    },
+    {
+      "path": "src/core/matchSimulation/carryExecution.ts",
+      "sha256": "d1af10a4011e5c95acf9ec13ac13d7541122a8e41054621c471c3ef0ac7f7a62"
+    },
+    {
+      "path": "src/core/matchSimulation/carryOpportunity.ts",
+      "sha256": "38a99920ba1d9217dd3889d571c4f1d7843dccfd90a3b82b5016e2524172bb70"
+    },
+    {
+      "path": "src/core/matchSimulation/carryPursuit.ts",
+      "sha256": "4c7cf925ffa9e5a9c113c9c2f14b557f063ee94c10f249ed024c09e693830b73"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationPlay.ts",
+      "sha256": "562a2713d0b94a6d6a74abb9441fe4b91c99e4a7026fa0a0e8c6c6b50d63fd6e"
+    },
+    {
+      "path": "src/core/matchSimulation/combinationState.ts",
+      "sha256": "9fff7ea4c6cbac30f88afde76cf0d85fca4200cce36e95fac3b70da548bccfa4"
+    },
+    {
+      "path": "src/core/matchSimulation/contactEvidence.ts",
+      "sha256": "e8925607c148222066cf062f144ea0835f43db01e4326ab2f07c341312690ddf"
+    },
+    {
+      "path": "src/core/matchSimulation/contactTacticalDiagnostics.ts",
+      "sha256": "94e15c795f1a3fa29067137dd470da7b86d57a66879798c7b43192ed2729da57"
+    },
+    {
+      "path": "src/core/matchSimulation/contextualInteractions.ts",
+      "sha256": "237a6a8d8927ba2d46ca08cdac5aa3ab50f29854273b7da327b33b5b0732515a"
+    },
+    {
+      "path": "src/core/matchSimulation/deadBallEnclosure.ts",
+      "sha256": "09fb3fa13bd79ae6a6af8646a51a958aac41b022f8bbc9153ad15b7cbc66d112"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionOutcome.ts",
+      "sha256": "11e0ca3a1b9fe9d1c1fb02f9242933ebe361bddc6e082796b16e797d0df604ba"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicy.ts",
+      "sha256": "c4caf5bdf987b9d7c1291407570314e3bb2f0d96c7d8452faf0fa2b7d54f293f"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionPolicyConfig.ts",
+      "sha256": "42b2bfba9198063f581bc82edcd2c327e119e0803369b91a7c219c83fbfa822b"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionReadiness.ts",
+      "sha256": "1743d8a8f62f0ef4a73570c0dd9ccb1f45b7b81634ab127b58e10bedef04ba6b"
+    },
+    {
+      "path": "src/core/matchSimulation/decisionStateValue.ts",
+      "sha256": "5c76d45aa01ac22fc1694026e54c070fec150a9859037a0150566168574fc730"
+    },
+    {
+      "path": "src/core/matchSimulation/defensiveChallenges.ts",
+      "sha256": "752486a7d551d8737fede8601aa1c38ff71ed2939970a90f87efef4fe4fc5f97"
+    },
+    {
+      "path": "src/core/matchSimulation/dynamicIntervention.ts",
+      "sha256": "4066120cd7e03559dd96c7f8db534f62de68990ee50303910de64da59476c02d"
+    },
+    {
+      "path": "src/core/matchSimulation/firstTimePassing.ts",
+      "sha256": "2831a954711c58f5300c0328a0ee5e92c43472b08df55cae659519493c702fde"
+    },
+    {
+      "path": "src/core/matchSimulation/fitnessMicroLab.ts",
+      "sha256": "b7ac312fb04bd75a8daa51a1668025a38a6433ceee8f5cc7cbe4c2db77e2458f"
+    },
+    {
+      "path": "src/core/matchSimulation/footballIntelligenceDiagnostics.ts",
+      "sha256": "7d2bb6aa6a1c7b834f56ca5263541e6f1fa2d910fa65f315a2de6354f792a6dc"
+    },
+    {
+      "path": "src/core/matchSimulation/goalCoordinates.ts",
+      "sha256": "77bc07c12b74b8d1a1d10c5fd0f7fa01ba3b4df55474d724460aa5c6ef1c2c0f"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperClaim.ts",
+      "sha256": "608f086547e08a387cd6529624511f66da07b4c3678be7fd0708ccec9455f301"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperIntervention.ts",
+      "sha256": "05850a14ff5278cf9515a124fbbcf8342b1672697f49bfc2eaaf6465b5410cc6"
+    },
+    {
+      "path": "src/core/matchSimulation/goalkeeperPositioning.ts",
+      "sha256": "47eb2ee94cd3ffdcdf5310dccf5a582f211d7d8b5e7be225d018ed6ebba4c120"
+    },
+    {
+      "path": "src/core/matchSimulation/identityHistory.ts",
+      "sha256": "a053df52915c1994e2699bb3ec9ad915ebb89aece2c939fa2a41fd052f18272f"
+    },
+    {
+      "path": "src/core/matchSimulation/index.ts",
+      "sha256": "48e5ff7268bea2714d0f6638be97572982f4cd4ca15693b430c99c67b48016c2"
+    },
+    {
+      "path": "src/core/matchSimulation/injuryStoppage.ts",
+      "sha256": "3a073cb71f3a9a0e452d0f6e0d55888fa79a6cf7cc449190773e7b4c8d4dae5b"
+    },
+    {
+      "path": "src/core/matchSimulation/locomotion.ts",
+      "sha256": "c47446e4a763058fcc25945b47667f3c470576826d718aa2a269826137f901e5"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallLiveness.ts",
+      "sha256": "aa7dca9b2ee3ff558b6b1ef65a364c45e39c8685c932a0d706c8d6403abe14d8"
+    },
+    {
+      "path": "src/core/matchSimulation/looseBallPhysics.ts",
+      "sha256": "ae21650efefb869cb9397d12a8c3d563477803a369969e22d27ae137fa30579b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchActions.ts",
+      "sha256": "5dcd2599fae21a2e26e48e2f8e5c40ea701895c8f9b7f62c2f3aa7db4569ff82"
+    },
+    {
+      "path": "src/core/matchSimulation/matchCentreStatistics.ts",
+      "sha256": "dd85a7c51a94ff3820fd87f85d3b44e35cce135f9c80b87e83c51a4cd2f2383b"
+    },
+    {
+      "path": "src/core/matchSimulation/matchEventFeed.ts",
+      "sha256": "7773e7bee1096ccb938aff97103e88f2d855a3fd8f8b5dfc797b0fe564af186a"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFitness.ts",
+      "sha256": "78d5141bef432c0298fbb910abfd7fde88d6b34bbd66e763205c4545f21973c8"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowCalibration.ts",
+      "sha256": "353ebc62044ba9c85f0669fe02f9e785ca062b175d1bfe3e646bbb44fcf495ef"
+    },
+    {
+      "path": "src/core/matchSimulation/matchFlowTelemetry.ts",
+      "sha256": "103f45813ca6f629c25304ef284ca27d11492f510263ca968d4c8e362c747551"
+    },
+    {
+      "path": "src/core/matchSimulation/matchGoalkeeper.ts",
+      "sha256": "b42e5cae4717bda7f785451791f742d9dcfb0da41b7a18bbb60d32f51042dc04"
+    },
+    {
+      "path": "src/core/matchSimulation/matchInjuries.ts",
+      "sha256": "9d2d895ad0cb0e80127fc5b863f2399504013b70531cf19c6a3acfe9d7b599df"
+    },
+    {
+      "path": "src/core/matchSimulation/matchMoment.ts",
+      "sha256": "5473d42bca71b3f02db411980753e8372da60151b039b0a161821f2641f54e81"
+    },
+    {
+      "path": "src/core/matchSimulation/matchParticipants.ts",
+      "sha256": "10b0f94bed4b58e36720390e84f3b11b20eabd54ea41fbadd1c0cee60c07e178"
+    },
+    {
+      "path": "src/core/matchSimulation/matchPresentation.ts",
+      "sha256": "076116b3a9621dfc3aa93b580c2373d98a40b8fb06037e2eb88c1b4684484d54"
+    },
+    {
+      "path": "src/core/matchSimulation/matchReplay.ts",
+      "sha256": "2a7d9f63caaa8d5494c5219f3ebca5bbc61a4277ecc6b131bc7603dd2e34f558"
+    },
+    {
+      "path": "src/core/matchSimulation/matchRules.ts",
+      "sha256": "3eb6dc1dd79fd4ea6d9466cb7ee503ff7c38ed99e6463bfa957abea245b8ca48"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSimulation.ts",
+      "sha256": "b78b8ddab8fdff038e6db53b11077e2a79d0d0d4907d26ac614a364b852a6e45"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSituationEvaluator.ts",
+      "sha256": "d2fc6ad5ff5006cef9858e9ee6c52e58abba45382e7e1949ce77106923bd32f6"
+    },
+    {
+      "path": "src/core/matchSimulation/matchSpace.ts",
+      "sha256": "777fabed8bb227f7cafd7966baf3ade18d65c10820713aac1f4f2c31a0dfec46"
+    },
+    {
+      "path": "src/core/matchSimulation/matchState.ts",
+      "sha256": "25defa65677a3424ba044c71ad2bc46e2f34f3a7a59cd3c1b832bb72bf4af081"
+    },
+    {
+      "path": "src/core/matchSimulation/matchTimekeeping.ts",
+      "sha256": "13a5f7c7f15c18413e0e4f32ee1f5bde2598a6d736f4470f1fd8678e5f673404"
+    },
+    {
+      "path": "src/core/matchSimulation/movementAuthority.ts",
+      "sha256": "85be85b4e1749ce3b454f4f17a7b8d527af7ce1a2d36192489f55ee8bdb5e755"
+    },
+    {
+      "path": "src/core/matchSimulation/offensiveContinuationFunnel.ts",
+      "sha256": "4d638b747bc5101d93cd6db72887af14ee30f4cc667bdcdb2992641fefe3e373"
+    },
+    {
+      "path": "src/core/matchSimulation/offside.ts",
+      "sha256": "bd1113f5455410a0f9254c0d992a15d46f0d046bb5b4796d367ed97c621c80b9"
+    },
+    {
+      "path": "src/core/matchSimulation/onBallPreparation.ts",
+      "sha256": "59374511aee8325cc6b2b7d20b11e931f21695f153d582ff7fe78661b218a255"
+    },
+    {
+      "path": "src/core/matchSimulation/passClaimResolver.ts",
+      "sha256": "5f991a7c639105328cc85536695b4c7efb50f1c607a29ea066f2dca9f5f46c55"
+    },
+    {
+      "path": "src/core/matchSimulation/passClassification.ts",
+      "sha256": "0ceca77abcf0358dd12fb53468f408dea02a11ff9130dff546f54d46d6cd5d1c"
+    },
+    {
+      "path": "src/core/matchSimulation/passDecision.ts",
+      "sha256": "73a027abbc159bbb1a8f38eae2aa527b40a91a7363557a7a8900e15c6b6df9e9"
+    },
+    {
+      "path": "src/core/matchSimulation/passExecution.ts",
+      "sha256": "1c807c11f982e861778864f569b0ae87caaba6fe6a547d50854236c3285168fd"
+    },
+    {
+      "path": "src/core/matchSimulation/passLaunchPlan.ts",
+      "sha256": "975ff82b98d6a481ceccd5e609e09721f6616f57620ab05bb47d7b8396e8ec34"
+    },
+    {
+      "path": "src/core/matchSimulation/passReception.ts",
+      "sha256": "198df71915cf9792f3e8defc546eca41b47160f4bc96f2635fae3c0a70b9ef72"
+    },
+    {
+      "path": "src/core/matchSimulation/passingConnectivityDiagnostics.ts",
+      "sha256": "337cedb840c6d93dae6f96e5b8e619ebea4d76b6cb9bc68d25ff197fd0ac9b71"
+    },
+    {
+      "path": "src/core/matchSimulation/performanceProfiling.ts",
+      "sha256": "5e50073cd69e540f3bd3be4f28edb6b188341e9e9263e13b41a689647c927cb3"
+    },
+    {
+      "path": "src/core/matchSimulation/pitchBoundary.ts",
+      "sha256": "b711c9a1baf4c776bee115faea1e0edb25874bf745053f898b8b03a7f299c814"
+    },
+    {
+      "path": "src/core/matchSimulation/playerActiveMinutes.ts",
+      "sha256": "9657a424c39ad0167f5199561156d56fb6a4d2277d2da6a4ba619c7e83f586a4"
+    },
+    {
+      "path": "src/core/matchSimulation/playerAgency.ts",
+      "sha256": "b181332bd707f82d98bcb6e6c0cdcac80f8a8b14238ddbea99104bf434b4d7ee"
+    },
+    {
+      "path": "src/core/matchSimulation/playerArrival.ts",
+      "sha256": "c7ed77fdad0ae41b982d58a5535a4ff3b1821a802fd48709bd3f71ddc8584d66"
+    },
+    {
+      "path": "src/core/matchSimulation/playerDecision.ts",
+      "sha256": "b1a275727dbe9b6e5249b56853968ab11bbe94ab215cb2efc6cd09922b142004"
+    },
+    {
+      "path": "src/core/matchSimulation/playerMatchStats.ts",
+      "sha256": "8ac2a285c8ad35cd6752676e8d9cd7d2db6e1871b7bb0fd3b5ffcae4e2e81964"
+    },
+    {
+      "path": "src/core/matchSimulation/playerOrientation.ts",
+      "sha256": "440f7eae013c08371204763598a03c84e019a35d02ed07bd39ec42a0792f51d6"
+    },
+    {
+      "path": "src/core/matchSimulation/positioningReference.ts",
+      "sha256": "4a7442077d721f933fc2ed1b46e1c93b4e2e55463181b3b296b209c0c3b946a4"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionAgency.ts",
+      "sha256": "493c880dc1f2f7cc06a7bd0007d56ca90a2042c3b598c52f0a304c3ad638abf6"
+    },
+    {
+      "path": "src/core/matchSimulation/possessionEvents.ts",
+      "sha256": "20b4d6be07c2340f885196b2bfe838ae340f08c0dfb2a1d65521892d91981870"
+    },
+    {
+      "path": "src/core/matchSimulation/postGoalReactions.ts",
+      "sha256": "801dc0b34f37cde3dfca4ee30f8d6d23758ca28c5dc96855a74f73fccad176a9"
+    },
+    {
+      "path": "src/core/matchSimulation/pr163Fixtures.ts",
+      "sha256": "0882260c7091e12bc31e5d6f9aa8e5ab7a86f1c5570383b4aeba6bf035d2e693"
+    },
+    {
+      "path": "src/core/matchSimulation/pr173Fixtures.ts",
+      "sha256": "c14f299938a60ade2db8cafbfb00d6090a1c37101c8767d3681a2f02175a96c2"
+    },
+    {
+      "path": "src/core/matchSimulation/presentationWindows.ts",
+      "sha256": "d27ec65fd8f0aa2202e971d1beda55d34af88ec6e4118a1fe9ad9a86265d242d"
+    },
+    {
+      "path": "src/core/matchSimulation/pressingDiagnostics.ts",
+      "sha256": "b89a5d50b90bcb42b1a7315832ca2e98190458bcec1bd4a11d44f53deea93482"
+    },
+    {
+      "path": "src/core/matchSimulation/reachableSpace.ts",
+      "sha256": "36aeb6c7e0f711a3621e524741763d53a5bdbe286999f39dfb9b834852740a90"
+    },
+    {
+      "path": "src/core/matchSimulation/receiverReadiness.ts",
+      "sha256": "56368fde10eced05919dc97f2a7050f16d8fac605c8fe9f45b86e1393ce8902b"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuation.ts",
+      "sha256": "ffd7a5243812cefc9306d5837fd3b4ebf6f39247aa8d8b545d4259a2e78341a2"
+    },
+    {
+      "path": "src/core/matchSimulation/receptionContinuationSchema.ts",
+      "sha256": "75b7158c7e3204a7c3df342e050787d218ebbcb9ecae4358fc1d9fcd4d97f5a9"
+    },
+    {
+      "path": "src/core/matchSimulation/restartGeometry.ts",
+      "sha256": "5e7817373f32deb9f626a3d0c843b5e83949487154d19d64fb9f59c2ec5f4aca"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLaws.ts",
+      "sha256": "314fe9b8bdb2884296bf310da96139a80db2567a492a3898422412182aaf0540"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLifecycle.ts",
+      "sha256": "23357d9a56758909308a0ad24eaf127dcc76ff38880b2729f5c89a2fc63acd32"
+    },
+    {
+      "path": "src/core/matchSimulation/restartLiveness.ts",
+      "sha256": "919093ec5c28604aaedde8195bb2b2c9bb9c2dbc0df7cc2075f565cf5f34e6a2"
+    },
+    {
+      "path": "src/core/matchSimulation/restartOptions.ts",
+      "sha256": "adc10bdb544c74e57ea2eeb64a335547539fe50fc4770302af0d3a1d50c8880b"
+    },
+    {
+      "path": "src/core/matchSimulation/restartPhase.ts",
+      "sha256": "c211a26518ad5389539d922dd60a56148473dac738276381d12561e0dfe7bd8c"
+    },
+    {
+      "path": "src/core/matchSimulation/restartScenarios.ts",
+      "sha256": "e85f570e91cfc76a10065244bd738e39f865a3233ce84e4f4911c7f63e985890"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingDifficulty.ts",
+      "sha256": "cb4b2b3e26549fe26fc81d5608049a9ffad4d0d16ea61a5505951ad74fbd91be"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOpportunity.ts",
+      "sha256": "1e486e3ffdce2d1434b3d7e2be4d139ee2cbb6ba5028c1935e3693a6f43ee2a1"
+    },
+    {
+      "path": "src/core/matchSimulation/shootingOptions.ts",
+      "sha256": "4c7fad43ef5abd4602cb7063bd1d335ec233046c0bbfd2401eaf814c32a44979"
+    },
+    {
+      "path": "src/core/matchSimulation/shotIntent.ts",
+      "sha256": "9996d729ea9bd3e4cc4ef8b040526efb0608a4ead4c4c2fb137105d7b3cf36fc"
+    },
+    {
+      "path": "src/core/matchSimulation/shotParityBenchmark.ts",
+      "sha256": "f12074367f8125dd0cf98ecb54ad920d6a842a1fadca4e58d901024fa9c2a181"
+    },
+    {
+      "path": "src/core/matchSimulation/shotResolver.ts",
+      "sha256": "569398076d8c5c3f039e51be4bae3f09736b166daa2e6f333820e69684a7d71f"
+    },
+    {
+      "path": "src/core/matchSimulation/spacePassing.ts",
+      "sha256": "36f11dd1e67a16d761644f8e314568ebcbeda8b2c9974e977d70ab9598acb7db"
+    },
+    {
+      "path": "src/core/matchSimulation/stoppageLedger.ts",
+      "sha256": "5c4f31cc54c850fad22934ffd3f68526a2db20d6947eddf55fbb4227cad1e5d4"
+    },
+    {
+      "path": "src/core/matchSimulation/substitutions.ts",
+      "sha256": "171885a88ead2194409e398b78b6d2844e5ad35b0ec95890152f361c7a43d774"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalActionEvaluator.ts",
+      "sha256": "c40e42b1cff79e271b8d85239548f87e6b69a4dd27bdcd998190a26637bcd43d"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPositioning.ts",
+      "sha256": "57bae9687e3ee020cbc49d8fcf92eb803ba2222d5ffe61b79f7ff28c30f98152"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalPreferences.ts",
+      "sha256": "a5137ac5c246bf4dda92a4dde8cfc39cddbdf8a2e9a40b7b6860ca91fa6e85e1"
+    },
+    {
+      "path": "src/core/matchSimulation/tacticalSituations.ts",
+      "sha256": "b38e67533657abcb3199e4b9bcc7be3ffb95cc6fd5007d039040ed595c45a255"
+    },
+    {
+      "path": "src/core/matchSimulation/teamShapeMetrics.ts",
+      "sha256": "e3af7122d8e3bd892d4064f4d4bdc675eecd78eb69353413702a18967bc54d64"
+    },
+    {
+      "path": "src/core/matchSimulation/teamThreatMemory.ts",
+      "sha256": "e918fd3a5f209e35c18be619badaac36e17f2db850523afbed80f0032500f299"
+    },
+    {
+      "path": "src/core/matchSimulation/throwIn.ts",
+      "sha256": "2f1c61d9d41b2091662cd03491c43cb11103d52f0637944ec150849e07074924"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/benchmarkPr177.mjs",
+      "sha256": "70c1c9f7c1898bdb7a61d88f3afc320c93a8fc7098a6f66b71add2899c12498d"
+    },
+    {
+      "path": "scripts/benchmarkPr177Career.ts",
+      "sha256": "3ca2071b955a28ed30f79d9644d0a4cb9fb2585bdc0139601e988d689e393c7d"
+    },
+    {
+      "path": "scripts/benchmarkPr177Controlled.mjs",
+      "sha256": "a04264c4c70df234c00100239b9eb92f734c90ccf7aaae5038634b705a9ff274"
+    },
+    {
+      "path": "scripts/benchmarkPr177IdentityParity.mjs",
+      "sha256": "6defb90fc2e93f3d05a3115a4bf2bcf963bbeb92f569033d0d861405ce30e10b"
+    },
+    {
+      "path": "scripts/benchmarkPr177LooseLoop.mjs",
+      "sha256": "0bcc615be0f7685d96a1d6ddc49d8c37622be739fbe4e182ad163e56973eefd3"
+    },
+    {
+      "path": "scripts/benchmarkPr177Performance.mjs",
+      "sha256": "12ff0f21cf7834bd28b0693559ce45eb7e4825308d109b88126f9098a1e4a1dd"
+    },
+    {
+      "path": "scripts/benchmarkPr177Regressions.mjs",
+      "sha256": "80a796acd3ce6d1fb912c03e83874840070eb719e4d16fafd2fb281c4aa6ce88"
+    },
+    {
+      "path": "scripts/freezePr177.mjs",
+      "sha256": "dee8111a8818a46898684bba315d68028f97fe6e79a43aa2b2bda0660d12c0f5"
+    },
+    {
+      "path": "scripts/pr177Fixtures.ts",
+      "sha256": "65f33069aa7ed1a57e854767dbceaf72669f8216c9081b9a11aaff35a7ee646f"
+    },
+    {
+      "path": "scripts/pr177Manifest.mjs",
+      "sha256": "c4efe18b400a11211a6aa0724328f65071b88ba7fb22b0891a32d22088ca0cef"
+    },
+    {
+      "path": "scripts/preparePr177Baseline.mjs",
+      "sha256": "bf7f3de6ee94d36fa0d47f3db8744c7906b03d0ea96401c88a6466cd695791ec"
+    },
+    {
+      "path": "scripts/preparePr177Fixtures.mjs",
+      "sha256": "39b50939220419121bb8bda42467aba8767866e2bf081d9e07a2494a66c42dea"
+    },
+    {
+      "path": "scripts/reportPr177.mjs",
+      "sha256": "feef2e58b39b6999525b203f1a14a48f7ece634c55a80c0fa4e65cff8ed81f04"
+    },
+    {
+      "path": "scripts/validatePr177Receipts.ts",
+      "sha256": "a84a7620c5c65ccf33c5c63f3488e8d6d0c8e0e7b50d6b0038f0bc72d7a7b280"
+    }
+  ],
+  "dependencyLockSha256": "24070de53eb5592c0211d34a55e69534c2316d31221effe11b49ea1ae70ed3d3",
+  "artifacts": [
+    {
+      "source": "../pr177-pristine-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-youth.json.gz",
+      "originalSha256": "5f9ebff0c585cb9ccdf63556f8c3640c5bcfffc5cb739f50997e6269741a48ab",
+      "compressedSha256": "59fe5ed05e8243a7a68fc47dbf802d232094f67c47ee59d49a2b76e9d55a24a5",
+      "bytes": 51220
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "f39ddbf03a495c52ee06c3875baf384a38ca816ad7b0295718a075cd36b2e665",
+      "compressedSha256": "f39ddbf03a495c52ee06c3875baf384a38ca816ad7b0295718a075cd36b2e665",
+      "bytes": 2515094
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "0895d165d5cadf4cf3490badcc147a84a16d9e2b091f0509a44a924be029ebf6",
+      "compressedSha256": "83b024d857d4a0cb33e1f08edce3a58d82688c9dfadb48f3a822cab3f9aa5f56",
+      "bytes": 60291
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "4555bbe8e99b1d1652e4b4a2150dd8e1dadf5db6c3e63d81c1f2bad28b927a52",
+      "compressedSha256": "4555bbe8e99b1d1652e4b4a2150dd8e1dadf5db6c3e63d81c1f2bad28b927a52",
+      "bytes": 3346616
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength.json.gz",
+      "originalSha256": "530102fe00615e6f013b3c4076ae3ddee2b27aa9f45e5e933830d534cb58be26",
+      "compressedSha256": "9152b8c49ce7e21bf45eba98a05a7489bd9166d0869b1092a9bee8af776b06e2",
+      "bytes": 57214
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "2b585f96030fa192e080d39e9dfe5ff82c433debb0714ff3dcbcb06c5546bcdf",
+      "compressedSha256": "2b585f96030fa192e080d39e9dfe5ff82c433debb0714ff3dcbcb06c5546bcdf",
+      "bytes": 2641034
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-central.json.gz",
+      "originalSha256": "6a320e6e74cfc262814651585684ba33805eca733ef48805ad4096b75e756ef6",
+      "compressedSha256": "fcf0774b9a50dc104a0c5fdbdb64d0319ddd330ee376e5fbb15314dd6a99582f",
+      "bytes": 57267
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "a52e1341aaa3785d34eae54f0cd24d007c05d7fb69276445c99a04db7b0320db",
+      "compressedSha256": "a52e1341aaa3785d34eae54f0cd24d007c05d7fb69276445c99a04db7b0320db",
+      "bytes": 2956085
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-wide.json.gz",
+      "originalSha256": "4628c13b2949c9db9306868181f5decb788b7ecb610305e8847ba0c76f8c0ba3",
+      "compressedSha256": "4b1acba5435d7cf53624dac2c13840222ba5b95bf80b434d84314963348befb0",
+      "bytes": 57538
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "125dd088676afc95cc38e8ccd7e90533f8fa18fdeb5b7d3c2d8a484632611339",
+      "compressedSha256": "125dd088676afc95cc38e8ccd7e90533f8fa18fdeb5b7d3c2d8a484632611339",
+      "bytes": 3091490
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "a387713de26fe0976c3aec73e834034b72e928ec446048d5f6813e9ab77d3a6b",
+      "compressedSha256": "c0bf021788edd1f6ae24b6682f96034b5bc8d78de2816b11b9f403134451db40",
+      "bytes": 53219
+    },
+    {
+      "source": "../pr177-pristine-development/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "ab3aa0125b11703efbee23a056b5cb68b0fecb7d9d2d2535ca3498442bc30ab6",
+      "compressedSha256": "ab3aa0125b11703efbee23a056b5cb68b0fecb7d9d2d2535ca3498442bc30ab6",
+      "bytes": 2825688
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-youth.json.gz",
+      "originalSha256": "49c0c80d7490ab396a90807e27235575641c7daf7c3dd5055dcde0e8285b07c0",
+      "compressedSha256": "1ae4e073c8dbee1fcc04b502331ec943cbc695e6da3da0f6b05d623324d2a9bb",
+      "bytes": 51900
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "092cbe3509984d823f9f40dcfc27f59c1c1519c2db46924e402258ef5164d6e1",
+      "compressedSha256": "092cbe3509984d823f9f40dcfc27f59c1c1519c2db46924e402258ef5164d6e1",
+      "bytes": 2518766
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "28f2cb961668a6d7f35472315939792ea4b151c346c15a79c023e8921b179790",
+      "compressedSha256": "8084f93b76592b9df039c396a2bb4772ffd3157ce046c8914b0e745a1e98f80f",
+      "bytes": 60718
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "49bfdae8bebcbcaa792bf263a0e01b1628326f2ed548c2a5fe6884bd2925092f",
+      "compressedSha256": "49bfdae8bebcbcaa792bf263a0e01b1628326f2ed548c2a5fe6884bd2925092f",
+      "bytes": 3396481
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength.json.gz",
+      "originalSha256": "706020ed9d8b1c2731edd92a378166224d582b68acdce9add61e5aef9810f7be",
+      "compressedSha256": "355aa4c84cffcd8410f045f11112c625ae5e9404e30dda5736183b4e3e4c0249",
+      "bytes": 57216
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "f41cf4aec2c56106d39e6939c26837fa407cb89ade713cf11e563022424d0c7d",
+      "compressedSha256": "f41cf4aec2c56106d39e6939c26837fa407cb89ade713cf11e563022424d0c7d",
+      "bytes": 2641026
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-central.json.gz",
+      "originalSha256": "9ff7866c36d7208028974ce02405c8465054dde7ce279c4ef8fb06f88a414980",
+      "compressedSha256": "37925aac10deb36676aa74100297bacec8fa09235fa8aba9af74eea2f6b47a3b",
+      "bytes": 57263
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "c4ed921e19cc29d2acb51386736ceca1064c8305829240f270a3d4357c002f3b",
+      "compressedSha256": "c4ed921e19cc29d2acb51386736ceca1064c8305829240f270a3d4357c002f3b",
+      "bytes": 2956075
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-wide.json.gz",
+      "originalSha256": "31f6456f7c8505c62cbb46139457c932c4d24a44e5eaf755ea434a4a3a4cdaec",
+      "compressedSha256": "be033e4a1d4e6ca6e05b1f6ea0a5feacb4dcfe8bb37fd2556bd938944d69abc6",
+      "bytes": 57534
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "402449f2a8db62d3e3c73a9b2e8c0c827d4abc256ecff3aebfba97f08091ce62",
+      "compressedSha256": "402449f2a8db62d3e3c73a9b2e8c0c827d4abc256ecff3aebfba97f08091ce62",
+      "bytes": 3091525
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "854c8adaea623740aa64c1da09dc41d5e2755c41c79527f50c2862766eeef313",
+      "compressedSha256": "51e17c484c796a96e4fc6eeb5f59761e8e1be518398361ef272cf97c38a024d7",
+      "bytes": 53221
+    },
+    {
+      "source": "../pr177-final-development-legacy/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/legacy-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "41270cf7b1e6e697d2a8101795272588e02b55d620bf1ed7273134a343a339e7",
+      "compressedSha256": "41270cf7b1e6e697d2a8101795272588e02b55d620bf1ed7273134a343a339e7",
+      "bytes": 2825676
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-youth.json.gz",
+      "originalSha256": "2f9e3291f28d206bfd466ae4014af70a16f7868e5e9da2bc66eaff688e82055a",
+      "compressedSha256": "acc73bed4c4dcd20e905da107bbc99029598e1612f8d5704e24274145c22cc7a",
+      "bytes": 56121
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "compressedSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "bytes": 2668043
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "9710168f4969c05e749669d3c021c2391bd47d04129acab7ad09a105682a9107",
+      "compressedSha256": "f1e076b8bc08c83d82fbd73d92c5809ea1ee9e2740837864a3a3b33171675c36",
+      "bytes": 63487
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "compressedSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "bytes": 3670944
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-strength.json.gz",
+      "originalSha256": "8af6d3b420fa862ab52b7b65ef96f0635eebb0eb28706f0cae7c517b76469596",
+      "compressedSha256": "4199b3de22ff2f130645fce0516a0c2474f325c0be120ed82c4f224cf61a7dbe",
+      "bytes": 60592
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "compressedSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "bytes": 2738332
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-central.json.gz",
+      "originalSha256": "5645b0b972c350cefea93539386816767e309baac61c3e0d8d2a29f5e1b53db4",
+      "compressedSha256": "9e59399f1ad737f7ab11a8cd3e0d5929d200dcdcb008f5f28fd476dfe01a8739",
+      "bytes": 60085
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "compressedSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "bytes": 3253221
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-wide.json.gz",
+      "originalSha256": "60e22b942661c6a3852d17da7eb534d15c4925f2198f03140ae4a2db30fa76e6",
+      "compressedSha256": "57395b584870692c8aceefd7e9f4199b27ad2ea5e28370e47935726fc24a04ca",
+      "bytes": 60811
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "compressedSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "bytes": 3276195
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "e2dee11848a92640dd899724d54dca4c574a68034470f28de380b2600ee65e65",
+      "compressedSha256": "1f78ed0bd3b567bbb90a591b4c92b84188569c8753cd57d8b7476532eec30f0c",
+      "bytes": 54227
+    },
+    {
+      "source": "../pr177-final-development-A/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "compressedSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "bytes": 2992952
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-youth.json.gz",
+      "originalSha256": "1a894eec0f77a7df1f01c187b79f194f44c53ae8ec8bf40825a317c040f13d88",
+      "compressedSha256": "127bf1dd2168280f1cd83739102725d6a30d06243ab7322e2cbbf9aa1f8e00ab",
+      "bytes": 86429
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "compressedSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "bytes": 11077678
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-balanced.json.gz",
+      "originalSha256": "649d486eb3b5ff6d254ade9d5f0969d0edd62c597d7b64742fc14f46a56a0150",
+      "compressedSha256": "86d3a0561797e5a622860d4ed4c892ce71893a1d24f2dcfa3f94145ad89b8a12",
+      "bytes": 51439
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "compressedSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "bytes": 5068543
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-strength.json.gz",
+      "originalSha256": "ff34ce40d5a3349121280d04cb92e2b750f54a7028634459280c8b56fe4f7ad7",
+      "compressedSha256": "c1311827fe33b828239e5548120366307dd5b8e2fff920a0436e2330eb288372",
+      "bytes": 288311
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "30e4cf6f56132277d8b5bfa1974a0b454d09a6b16750ebe05597851733aee09d",
+      "compressedSha256": "30e4cf6f56132277d8b5bfa1974a0b454d09a6b16750ebe05597851733aee09d",
+      "bytes": 1863459
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-central.json.gz",
+      "originalSha256": "4db87de553eecadd28ecf30988d9a0b93d8a5dd46c1b6c5fee9ac1d3201c0c26",
+      "compressedSha256": "fee0b157bc8eaf3d4780a05694caf4c3ea8aedebf0bd1e49b4a4fbd1dd92dd72",
+      "bytes": 97066
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-central-raw.json.gz",
+      "originalSha256": "bf809ca3ff112c9f67e54427b486604afa2e0d1c1280aa960fc8e77df2e5579c",
+      "compressedSha256": "bf809ca3ff112c9f67e54427b486604afa2e0d1c1280aa960fc8e77df2e5579c",
+      "bytes": 8956305
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-wide.json.gz",
+      "originalSha256": "9a1be60f639a8ee296c1aacd85a4c97b4a5a698bb4935bdb06aef10eef2f1a78",
+      "compressedSha256": "67d48a0aae5761b8e7f2a4a46249b0315eb83ce20a80f8796d2d13ad023e1151",
+      "bytes": 93224
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "e19786808e2f9176f0ec7f00adde1b92243f5e6d56204ea60cf4c7140e1e4cab",
+      "compressedSha256": "e19786808e2f9176f0ec7f00adde1b92243f5e6d56204ea60cf4c7140e1e4cab",
+      "bytes": 7959627
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-keepers.json.gz",
+      "originalSha256": "08bd0f6ca09760174dc993e162ecff0bf35eac3ec7f292b6afdc64670742d7c5",
+      "compressedSha256": "009efcde4577aa58d61f9a9d0afcf2ff020c490c76f7c49bf9bad36bb025e4a4",
+      "bytes": 92050
+    },
+    {
+      "source": "../pr177-final-development-B/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-development-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "038ab14b4d669e9da583780e239f656ebdb2970ba5516957213f2f09fc0d4d4c",
+      "compressedSha256": "038ab14b4d669e9da583780e239f656ebdb2970ba5516957213f2f09fc0d4d4c",
+      "bytes": 9189781
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-youth.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-youth.json.gz",
+      "originalSha256": "865da321e0710c067fa02b3d62343d0c3ceafa21f6f95902f9b4217788d3056e",
+      "compressedSha256": "9ff0b897c86802409a27b328c70e48e017b726da88ee12409e24361a7b99142a",
+      "bytes": 55330
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-youth-raw.json.gz",
+      "originalSha256": "198a35494375b0d631872e9df85ed4945ea344a4e49ba2502f27f4c51b516be3",
+      "compressedSha256": "198a35494375b0d631872e9df85ed4945ea344a4e49ba2502f27f4c51b516be3",
+      "bytes": 2532865
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-balanced.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-balanced.json.gz",
+      "originalSha256": "d04723e6df83157663b5b0d1a5f04cfdd48dd855f7e9d998883cfc4e55eb90c6",
+      "compressedSha256": "4269dc282f78adf6614a9b6fee573c5bb7a594420f13c704f37f2bab2ecb4174",
+      "bytes": 58324
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-balanced-raw.json.gz",
+      "originalSha256": "c4b6711a911395944d9e9be95dac78b0aef9b32b08fa77024482c484e1273d54",
+      "compressedSha256": "c4b6711a911395944d9e9be95dac78b0aef9b32b08fa77024482c484e1273d54",
+      "bytes": 3119006
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-strength.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-strength.json.gz",
+      "originalSha256": "e149147eed5e44bd2b195f5f2c9e200147063dbf208ff48c733aab3cd92d66d4",
+      "compressedSha256": "77a863c35a3bbe79a72871715732e269ed2b9771d4992e6b59e8e5190331c54b",
+      "bytes": 57277
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-strength-raw.json.gz",
+      "originalSha256": "3ed44361716ec8a9707c75c79995bd244d20cae4f060b4bda2efe837ca00e177",
+      "compressedSha256": "3ed44361716ec8a9707c75c79995bd244d20cae4f060b4bda2efe837ca00e177",
+      "bytes": 3086130
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-central.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-central.json.gz",
+      "originalSha256": "0e23ca5e09087df327f8704884b2342d4de021636feb29571ab0f2fa6f2452d9",
+      "compressedSha256": "65db4ef1d65a1c9bf696d45d5d7e7c2536ca0930c395420e42411f8f57a9712a",
+      "bytes": 58785
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-central-raw.json.gz",
+      "originalSha256": "fdbdb7939cf2de039898f7f6bbfcc5c84cf1e4b1a7edab5a4a5d0db80092e8a1",
+      "compressedSha256": "fdbdb7939cf2de039898f7f6bbfcc5c84cf1e4b1a7edab5a4a5d0db80092e8a1",
+      "bytes": 2995183
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-wide.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-wide.json.gz",
+      "originalSha256": "822c4ee66328850a96d0a865d1455318963322a98b1fee80c288243399834755",
+      "compressedSha256": "264adfed5e78a7ba520a841ba7040e52287779aa0f338af82d5a0b893e81280d",
+      "bytes": 55450
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-wide-raw.json.gz",
+      "originalSha256": "f3c6e70fdfb6aff60bd14adf4c17c549a54d5e0cd344162b20c4f347b8ad2ea2",
+      "compressedSha256": "f3c6e70fdfb6aff60bd14adf4c17c549a54d5e0cd344162b20c4f347b8ad2ea2",
+      "bytes": 2690711
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-keepers.json",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-keepers.json.gz",
+      "originalSha256": "402fa2c513f980cc5e47d939bcee3d1a4f88aca01ca0095929ac5f1e8ecb02ce",
+      "compressedSha256": "eacc673b6c9a68c99ed721967d9c6c88cd46d6ffb9c07850f421df5f86b9f031",
+      "bytes": 51662
+    },
+    {
+      "source": "../pr177-pristine-validation/pr177-val-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/pristine-validation-pr177-val-keepers-raw.json.gz",
+      "originalSha256": "3e1a12c383c24553baa2251b6d7e13c4b917bd6be62ab3e168610c91f8d61e61",
+      "compressedSha256": "3e1a12c383c24553baa2251b6d7e13c4b917bd6be62ab3e168610c91f8d61e61",
+      "bytes": 2998236
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-youth.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-youth.json.gz",
+      "originalSha256": "d53257620f675345c1f442756519217b7fb7c437c15cbab6a30ffe29a0a9af4a",
+      "compressedSha256": "f759f1e7ecf7cd38802b50df4150e024eb272cf9df89da731f06dcf2c27ae9b5",
+      "bytes": 87950
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-youth-raw.json.gz",
+      "originalSha256": "08bfb97ecee24fe53ea87a109cbba3ee27bc9cd45374abd2489c74cec2fe5a6f",
+      "compressedSha256": "08bfb97ecee24fe53ea87a109cbba3ee27bc9cd45374abd2489c74cec2fe5a6f",
+      "bytes": 9529629
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-balanced.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-balanced.json.gz",
+      "originalSha256": "8928cfbd952b5b4c87efaa524f52eccd2560a993ba2093724795b9ae0cc1231d",
+      "compressedSha256": "396fb75f6335043fd79c9068b3447e69ed51353c08dec8fe73ce3ffd59dd3a0d",
+      "bytes": 89549
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-balanced-raw.json.gz",
+      "originalSha256": "4949d489739a2f3c780dde99dc37272a253bd07feea0fcf9116efd8c62b3805b",
+      "compressedSha256": "4949d489739a2f3c780dde99dc37272a253bd07feea0fcf9116efd8c62b3805b",
+      "bytes": 7985301
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-strength.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-strength.json.gz",
+      "originalSha256": "a11fd1e88e514c77609f276991362e3570095315976efd6374892754b6c122f5",
+      "compressedSha256": "6b7796486d64ab2549225a6e4a650b7ad5b470298e3d809789d599e85d38f29d",
+      "bytes": 92731
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-strength-raw.json.gz",
+      "originalSha256": "ebe3e7bc38b3ba0bf778cffc7cfb08a83a78ab4a0ed441780f17957a6327e42c",
+      "compressedSha256": "ebe3e7bc38b3ba0bf778cffc7cfb08a83a78ab4a0ed441780f17957a6327e42c",
+      "bytes": 8668991
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-central.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-central.json.gz",
+      "originalSha256": "32bd55a100e5aaf081e9484bea3b584a729bf2235cc73de97f92a38b56b45d48",
+      "compressedSha256": "fb7de0c69f1a60b6d51d8297d5474357d5a3dd95666aec81504b5896c4680350",
+      "bytes": 93289
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-central-raw.json.gz",
+      "originalSha256": "5b61e9d08f020e2c65a72383c611134309ec5fb02af6bf4930a13fe4612b7f79",
+      "compressedSha256": "5b61e9d08f020e2c65a72383c611134309ec5fb02af6bf4930a13fe4612b7f79",
+      "bytes": 8711317
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-wide.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-wide.json.gz",
+      "originalSha256": "14c345f057ac194a4403530a366d4f45375215a0100e56d0bdb4286fcbc96df4",
+      "compressedSha256": "a11451f3ac0e06dc8e062eae6799eadac711b3b37844955f028b413974029b21",
+      "bytes": 89558
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-wide-raw.json.gz",
+      "originalSha256": "d89ceab8d7329169f3a4b037e85227489b1b1ce0b36c1eb9d40821eb0530eaa8",
+      "compressedSha256": "d89ceab8d7329169f3a4b037e85227489b1b1ce0b36c1eb9d40821eb0530eaa8",
+      "bytes": 9052486
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-keepers.json",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-keepers.json.gz",
+      "originalSha256": "149fbbeb26e7906fc19574b774a6174c5b6c12ef89d7b6b08389a3d4a7dd4b97",
+      "compressedSha256": "fa323a5bb7e7823b5948c0f47d959871f2aa5f584a7c3504d0fd54af021b53e9",
+      "bytes": 90085
+    },
+    {
+      "source": "../pr177-final-validation-B/pr177-val-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/B-validation-pr177-val-keepers-raw.json.gz",
+      "originalSha256": "2e2ce1845ead395fc450992ce976d6542c68774eade3653c6539aaa18038901c",
+      "compressedSha256": "2e2ce1845ead395fc450992ce976d6542c68774eade3653c6539aaa18038901c",
+      "bytes": 8450936
+    },
+    {
+      "source": "../pr177-pristine-frozen/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-pristine.json.gz",
+      "originalSha256": "dbc07b123373f8dbebd52a644fed3bb97a540322f2dd2d4650579ff90e0c50a5",
+      "compressedSha256": "8fe237789268f8534b9571666edacb757501fa83c2b06cae4e61ddd5eb0325ce",
+      "bytes": 191179
+    },
+    {
+      "source": "../pr177-frozen-legacy-pr176/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-legacy.json.gz",
+      "originalSha256": "16b1cb522b65b21e763fd16a55165b4590e65611f6452ff40a4e9cd769dcd7e2",
+      "compressedSha256": "1f1f514a582bb07f7e7baa68e0c2c560daf0b968f1be20e91a790e8f81ed35af",
+      "bytes": 191178
+    },
+    {
+      "source": "../pr177-frozen-risk-ablation-v1/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-A.json.gz",
+      "originalSha256": "0da11fece32e1d6cad8b4990b728b3729e0ba9a5ee56eb85987104a235385b25",
+      "compressedSha256": "687e0a3116d6195cf2b5cdff268d2daf35fd6fefcd08380635aae999da6804af",
+      "bytes": 193447
+    },
+    {
+      "source": "../pr177-final-frozen-B/frozen.json",
+      "path": "docs/performance/pr177-evidence/frozen-B.json.gz",
+      "originalSha256": "d9d7a8f3b730dda1eb1aae4830599ab43e83af429df05aee1cebf9da0fd5582a",
+      "compressedSha256": "f452daf93f62c8f1ec14645bb11bbc4efa2362f90f18bf773ff1ff2c30d21865",
+      "bytes": 257078
+    },
+    {
+      "source": "../pr177-ablation-adaptive-risk/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-adaptive-risk.json.gz",
+      "originalSha256": "577b8bd5e7cd032dba539cb30a5e3bc384b53c5c3f9d7c5b461b6c67ded15879",
+      "compressedSha256": "8f2a201ecedbcfdc61683364c8b39d2c9b949067bbe6f89ffb7a2e96ff50268c",
+      "bytes": 191322
+    },
+    {
+      "source": "../pr177-ablation-continuation/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-continuation.json.gz",
+      "originalSha256": "1b168bbacc5f3f702611aa506ba4b1f9468d27ff90f214a1be7c2c9de91aaa16",
+      "compressedSha256": "04226b233fe12683fb31b79a3e9adf78a6d9387ea03795ca213d49e9ed9995de",
+      "bytes": 257085
+    },
+    {
+      "source": "../pr177-ablation-delivery/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-delivery.json.gz",
+      "originalSha256": "66879aa331a5d7ffaabfda97fafea7ea731b120d296350573f46ddde94649835",
+      "compressedSha256": "f1accfa9b7551322d5b221f481c2a5220b9201af01024ed0d596f7c2f448037f",
+      "bytes": 213820
+    },
+    {
+      "source": "../pr177-ablation-direct-risk/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-direct-risk.json.gz",
+      "originalSha256": "3a3388420f00f495e50ca3ae8d1e9da7227a3dff48d12d24e8d85b683421475a",
+      "compressedSha256": "09c543763f4cd8663b373fbb8b01c500d8e6afce7a8982b670020240a347a443",
+      "bytes": 193284
+    },
+    {
+      "source": "../pr177-ablation-movement/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-movement.json.gz",
+      "originalSha256": "00c9c6fc24dd02bb742a01ed8275d089df30623261d70436409417a5477ce98a",
+      "compressedSha256": "a5046df10230ad840f5e880f06a1c464934a7fefba796c0ce3fb76cc96f2f0e0",
+      "bytes": 256160
+    },
+    {
+      "source": "../pr177-ablation-readiness/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-readiness.json.gz",
+      "originalSha256": "56a4ffbb87661322cdf151ff178ea95434e6daf0272bf2db3d14114f6be106c3",
+      "compressedSha256": "a3ebe3d5fe0effb8a594b089aa1893364b6eca70ad40f53831609fd5fcdcde70",
+      "bytes": 252689
+    },
+    {
+      "source": "../pr177-ablation-runs/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-runs.json.gz",
+      "originalSha256": "5cb91687cdf015ebfe1d9df94e86a4c93e4c9b0bd0b4e194398f85670fde8d80",
+      "compressedSha256": "4f67307834e4f1e5d09e640401bf6e05726f64195bc0eb01dbab5f671e8b20a1",
+      "bytes": 250444
+    },
+    {
+      "source": "../pr177-ablation-transitions/frozen.json",
+      "path": "docs/performance/pr177-evidence/pr177-ablation-transitions.json.gz",
+      "originalSha256": "b213f4a359e341258c2f9812dccfc6a998c17a44e74ef774df75bcab4fb9743c",
+      "compressedSha256": "c9ef6f4fc00e2a7cfe7ca12739dc32f2076f1333831fb01c0867eb54ef6b58af",
+      "bytes": 256708
+    },
+    {
+      "source": "../pr177-b-initial-short/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/initial-smoke-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "ccb4230e9cd18946b83b0750a49cbb272d381ccfe2df336e1496207c5f26181f",
+      "compressedSha256": "ccb4230e9cd18946b83b0750a49cbb272d381ccfe2df336e1496207c5f26181f",
+      "bytes": 91444
+    },
+    {
+      "source": "../pr177-b-initial-short/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/initial-smoke-pr177-dev-youth.json.gz",
+      "originalSha256": "79edcdd4a68d868a3f78ab794fa86fe190782e5b57aad83e0f09910407df7030",
+      "compressedSha256": "24ff751929ea62d339c4104a828fc66c00f32f442af5df05e1e7b11b0503baf3",
+      "bytes": 2769
+    },
+    {
+      "source": "../pr177-b-r1-short/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-smoke-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "79e12a41e2858125c6fbbfa5999861767fdf4c8cfdb6c03baa9d7a303b02b281",
+      "compressedSha256": "79e12a41e2858125c6fbbfa5999861767fdf4c8cfdb6c03baa9d7a303b02b281",
+      "bytes": 257515
+    },
+    {
+      "source": "../pr177-b-r1-short/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/r1-smoke-pr177-dev-youth.json.gz",
+      "originalSha256": "fdd39ae028d99a3746732b5d7fccd6e9f716b0faddfa3923342ec4785df90b10",
+      "compressedSha256": "25f1b377bb0b61ab537967e6ece2bcf9739e6c1999e99211acba35844f276dc2",
+      "bytes": 7928
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "2b2b74f5707d606373f4e34f97c882d4895b07e7d09448c275f7ea1a2df96b47",
+      "compressedSha256": "2b2b74f5707d606373f4e34f97c882d4895b07e7d09448c275f7ea1a2df96b47",
+      "bytes": 88219
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-balanced.json.gz",
+      "originalSha256": "4b73424990dae66e5ae9720a1fe156db7c743a51d686564d35a0701c6a80ed58",
+      "compressedSha256": "bfb3d45c0d10db1cd51f42cdf32e92e9182974af5090ab7fb3cc6418786214b6",
+      "bytes": 3993
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "d2d9e5882369d6e1943676ebf4d0257b7a590b65713a77c87a67ff6cc38e96a1",
+      "compressedSha256": "d2d9e5882369d6e1943676ebf4d0257b7a590b65713a77c87a67ff6cc38e96a1",
+      "bytes": 922120
+    },
+    {
+      "source": "../pr177-b-r1-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/r1-rejected-pr177-dev-youth.json.gz",
+      "originalSha256": "7d334e5a944e81b0b8e3ce8c86de12f8e7c020829d14d09899324da9422d1aee",
+      "compressedSha256": "f4503d3ef527d0c369941f847f36bfcf31a2781d6964af616bcf612fc9bcff78",
+      "bytes": 8020
+    },
+    {
+      "source": "../pr177-b-r1-development/source-snapshot.json.gz",
+      "path": "docs/performance/pr177-evidence/r1-rejected-source-snapshot.json.gz",
+      "originalSha256": "85fbc86adc1e42dcb7281204653b8fcec4d545d58866245df085e6397f0cf2e3",
+      "compressedSha256": "85fbc86adc1e42dcb7281204653b8fcec4d545d58866245df085e6397f0cf2e3",
+      "bytes": 364534
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "compressedSha256": "40c6d574f24218d5b542505c33086ee707742c4b0f2f7a34cc82400d332fc9da",
+      "bytes": 5068543
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-balanced.json.gz",
+      "originalSha256": "0cf4d7dd0359257b027f42b0083ea8b37674b9393fea5fdcb3e116e6320e5d35",
+      "compressedSha256": "d86f587158fcc5850f180e80fd1ab7f7e84f09cf46bc723b672ba1f01809de3e",
+      "bytes": 51438
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "compressedSha256": "ca98e443af12fe1cb11767b5728e915573be116590451f362b758f59df42e04c",
+      "bytes": 11077678
+    },
+    {
+      "source": "../pr177-b-r2-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/r2-before-index-pr177-dev-youth.json.gz",
+      "originalSha256": "51608d6183d324b2acbc781874f8ac576ccb77821277d59a36d4bb3b9920dcc9",
+      "compressedSha256": "e705657b0fc0b94594ce7ca2d47a3ecb77147a8e63b591a179e05e25186a7094",
+      "bytes": 86432
+    },
+    {
+      "source": "../pr177-b-r2-development/source-before-index-optimization.json.gz",
+      "path": "docs/performance/pr177-evidence/r2-before-index-source-before-index-optimization.json.gz",
+      "originalSha256": "530d9833f66860d954c100c2b86537ebd8a2b61073b7c9648295f383cd7152b7",
+      "compressedSha256": "530d9833f66860d954c100c2b86537ebd8a2b61073b7c9648295f383cd7152b7",
+      "bytes": 360408
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-balanced-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-balanced-raw.json.gz",
+      "originalSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "compressedSha256": "8e87b594a0ab3ad56756215005861219778b78a54fd5c80c6564c740b54929e7",
+      "bytes": 3670944
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-balanced.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-balanced.json.gz",
+      "originalSha256": "a470b277836d22287ed66461e4b81dbb7cd3a9e12c61c2bf75d43881998645c0",
+      "compressedSha256": "e7a64f7a5c15aebe173e82a38c701f8e210e0fd81c9b0070aa8818e3b13a8d9d",
+      "bytes": 63483
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-central-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-central-raw.json.gz",
+      "originalSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "compressedSha256": "a081b607a1a5629eee4d038ebc9fbd718510f7c93532b2affeef046e7d36e922",
+      "bytes": 3253221
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-central.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-central.json.gz",
+      "originalSha256": "9c08122337f7e6741e5c17f76c5f881569690043fc0a205506173fac205191f5",
+      "compressedSha256": "4d279cd432ffdc2655c624795bfb9365a387827e4aae781190b7327b6fe7b083",
+      "bytes": 60085
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-keepers-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-keepers-raw.json.gz",
+      "originalSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "compressedSha256": "7fbd68014e3d73eb4559cc94f04e40671f34a166c54a3f1e34c63380fe4f64e3",
+      "bytes": 2992952
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-keepers.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-keepers.json.gz",
+      "originalSha256": "81b007ac748b562c65696432c0db5240ad359af3514ce086dc4568ad31f6166c",
+      "compressedSha256": "daad7c508475bfd155054cd2e6673b8ed6f1cdad2d0b6d43343ea8ccb94a2ac6",
+      "bytes": 54223
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-strength-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-strength-raw.json.gz",
+      "originalSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "compressedSha256": "cbd4c1e88108ef9edde305648d33635113ea3f134f73ea51ab3edb98178d4a0f",
+      "bytes": 2738332
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-strength.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-strength.json.gz",
+      "originalSha256": "bc76c4ba920e4f448e918a25748d4bcc15b9269787220cd9290a53ba60eff6b4",
+      "compressedSha256": "05467894c228a335d233a72ecdf96373989739d3c41a46a6f2f9b7a077a52693",
+      "bytes": 60590
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-wide-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-wide-raw.json.gz",
+      "originalSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "compressedSha256": "c371310285d5860b00310924cf97001db10fe9861dfa544beb2058e0822200b4",
+      "bytes": 3276195
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-wide.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-wide.json.gz",
+      "originalSha256": "4bff4ac97b8d2324afb5bccdedf27ac2742b96bc76012224d4c17759e3101caf",
+      "compressedSha256": "df5f8b3ef9a877b7f81c403f097361a85d36219559dc17ceb257e2fe7fc9cca0",
+      "bytes": 60806
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-youth-raw.json.gz",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-youth-raw.json.gz",
+      "originalSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "compressedSha256": "1bc9728a091dfd1dee057e101235450853e3d4026d6b79d1598e18095596e6a3",
+      "bytes": 2668043
+    },
+    {
+      "source": "../pr177-a-development/pr177-dev-youth.json",
+      "path": "docs/performance/pr177-evidence/A-before-index-pr177-dev-youth.json.gz",
+      "originalSha256": "e8c23e80a5f2aab2c10c7d57baac15f2cab70fd980a93b39bfc9051558020c05",
+      "compressedSha256": "eb135915f052048bbc7506c78d61a99a1a23a7086ea674ca4190a309bdf9f5e0",
+      "bytes": 56123
+    },
+    {
+      "source": "../pr177-final-source.json.gz",
+      "path": "docs/performance/pr177-evidence/pr177-final-source.json.gz",
+      "originalSha256": "c87359b31a0342bc3691d5e5a7d4f021fc737f3728e62d6d2c06b975cff3ed2e",
+      "compressedSha256": "c87359b31a0342bc3691d5e5a7d4f021fc737f3728e62d6d2c06b975cff3ed2e",
+      "bytes": 353561
+    },
+    {
+      "source": "../pr176-plain.json",
+      "path": "docs/performance/pr177-evidence/pr176-plain.json.gz",
+      "originalSha256": "33458b439fa4323ba3dff032339475b105fbef74210700240cab148829b3041a",
+      "compressedSha256": "8e8f4f95829f4f503140113857d150a485143b1bbb19e7b123bce8bff5919651",
+      "bytes": 1052
+    },
+    {
+      "source": "../pr177-debug-strength-half.json",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength-half.json.gz",
+      "originalSha256": "7e27157bdfdc16ec65f4ec24179fbac747af9ac7e5b1e3fb07d48bddc211094d",
+      "compressedSha256": "938474f111819e46f909ce48e529d7fed45b6fb0512604fed272ff9125a769ae",
+      "bytes": 47466
+    },
+    {
+      "source": "../pr177-a-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-a-development.log.gz",
+      "originalSha256": "f885fd170601ef7477ec3e17e56f2ae0340eccc0858c86d7f3ce002530a4dd1e",
+      "compressedSha256": "3a680eaba82cb333460665aae867637bacd31070f8381bc0e2bc6759a359f010",
+      "bytes": 504
+    },
+    {
+      "source": "../pr177-a-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-a-frozen.log.gz",
+      "originalSha256": "811e437906bcd7f8d110555da9fe484c292f2eca0a6242a5e393bb4dd83a3220",
+      "compressedSha256": "f8b84eeb1b2fcdfa58f5953439c00cb7df78b1062d350cb156a141f3b12e0ebd",
+      "bytes": 263
+    },
+    {
+      "source": "../pr177-ablations.log",
+      "path": "docs/performance/pr177-evidence/pr177-ablations.log.gz",
+      "originalSha256": "de4acea3663ccfb6a5ce645beab8e48f85167f32b1daa498e3f2dd1d58c10958",
+      "compressedSha256": "e8054b13e6a6659f54c3c88cd21c911789800675d4d3a1f73d34b833bc5c89b1",
+      "bytes": 336
+    },
+    {
+      "source": "../pr177-b-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-frozen.log.gz",
+      "originalSha256": "f5ac699a98333ef0374bb92f358ca3518f89e47020eb59e1a41e649babcc05b2",
+      "compressedSha256": "e077c6b2cb2672468f9aee2f31b22fe1bdf2490321f2fca9cf767d60680ab148",
+      "bytes": 260
+    },
+    {
+      "source": "../pr177-b-r1-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r1-development.log.gz",
+      "originalSha256": "825fecea78f6976a92b28cac27355a1e1e74129096432561f3aa3ff39807f269",
+      "compressedSha256": "47b216099f4fecdd8ba5133d34ee307c24e3a3056d054143ec4d58139f351a2b",
+      "bytes": 237
+    },
+    {
+      "source": "../pr177-b-r1-short.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r1-short.log.gz",
+      "originalSha256": "e53097b2cba7c2b4c794269204a5174ba9dcb82be81a663df3abf950dfb31d55",
+      "compressedSha256": "3c9e088ffd1b30a6bc9a929b78e513d1b65e848eb85c64611cfc0b938a857ba5",
+      "bytes": 252
+    },
+    {
+      "source": "../pr177-b-r2-development-tail.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r2-development-tail.log.gz",
+      "originalSha256": "5da4e6026aa60e2937351bf510f1c259b161808b3b2212f1aa9a46ef393d2ace",
+      "compressedSha256": "a26aff46fa7ce026545f389e0cfe9b51173b2af29fa6b62f82923f716b96effa",
+      "bytes": 77
+    },
+    {
+      "source": "../pr177-b-r2-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r2-development.log.gz",
+      "originalSha256": "8622ba9a5b4f101c24cc69aa928c5dd907dd7016ff094a8e229ef1a771193b19",
+      "compressedSha256": "ba78327c6d5b8f31a2087d9861150dd662c8fa914cb68156ff5905b13a9d596b",
+      "bytes": 225
+    },
+    {
+      "source": "../pr177-b-r2-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-r2-frozen.log.gz",
+      "originalSha256": "1137d99f3114c12f8ee282b293fb084e5c3b6805040232de41a08d63bac54c3a",
+      "compressedSha256": "a22d8fe58014aaf56fd2039f6ac788cf349cfac486874931f8cd7d7d4afe839e",
+      "bytes": 259
+    },
+    {
+      "source": "../pr177-b-short.log",
+      "path": "docs/performance/pr177-evidence/pr177-b-short.log.gz",
+      "originalSha256": "9dd349381e29f75d99f6967dbc44fa6f9e3133110fd86c36071a4662f304ece1",
+      "compressedSha256": "768089b9bd8cbeecef97b76502a80662eed321a442ccb5b25e74881eb7b2dc22",
+      "bytes": 255
+    },
+    {
+      "source": "../pr177-baseline-audit.log",
+      "path": "docs/performance/pr177-evidence/pr177-baseline-audit.log.gz",
+      "originalSha256": "3227f3caf7fb5932cba7e9fce46551d57090c51f114c49194c02031a1358908f",
+      "compressedSha256": "66cf8a90013af8fa55fdd554337d14656034c2db765b7a31879ca3bc48ded54f",
+      "bytes": 261
+    },
+    {
+      "source": "../pr177-build.log",
+      "path": "docs/performance/pr177-evidence/pr177-build.log.gz",
+      "originalSha256": "7a8f234c498e09f451de439ded87e4e0201b6382fa4f4d3cf148159a17c4b08b",
+      "compressedSha256": "1bd4467b8261d2d0ba46dd60a5d946c3aa7da234012d1bcbd11cc154cfb626a2",
+      "bytes": 944
+    },
+    {
+      "source": "../pr177-career.log",
+      "path": "docs/performance/pr177-evidence/pr177-career.log.gz",
+      "originalSha256": "df4f86a650903f0b248ffc808008e92d3ff956dad05c2b4db99d8e7404976d1e",
+      "compressedSha256": "3e5918f5c0c653b068e43f001fe14de98148040f96ed9d118792e819b29f24b9",
+      "bytes": 896
+    },
+    {
+      "source": "../pr177-controlled.log",
+      "path": "docs/performance/pr177-evidence/pr177-controlled.log.gz",
+      "originalSha256": "ddcaff5c5389142a1dacfe6b15e6f0292f0a571ffa7a1ae3cc25ba2a94df1ae2",
+      "compressedSha256": "4e8984c5c535e94e6d015e6f0ffc4e3f35572e8605b0e67d39b90f4d7e9844c7",
+      "bytes": 181
+    },
+    {
+      "source": "../pr177-debug-strength-optimized.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength-optimized.log.gz",
+      "originalSha256": "a246d20308dc2bd665656bc1f2e9221c56b71e68b5ca03d885c7fa5b6d903546",
+      "compressedSha256": "1a225923dcdab33810afb514ecea747eb65212cadcbedc809659bc2a4fbb55d9",
+      "bytes": 270
+    },
+    {
+      "source": "../pr177-debug-strength-second.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength-second.log.gz",
+      "originalSha256": "57a86e991ff3539f4143d159cec009ddb79c0db376deae3d83186d94d5f2b44e",
+      "compressedSha256": "29f38cb957dca1929bf675c990e779c4927177fa0007c29c6f0df8a6490ac06a",
+      "bytes": 270
+    },
+    {
+      "source": "../pr177-debug-strength.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug-strength.log.gz",
+      "originalSha256": "78d46af6eccd1aade61a440bb741267d5cfbd369f43cdee6902caee2e533fb04",
+      "compressedSha256": "cc6ebc435d41665f51dfd1c36981fa992e3d298bb9cbc27972d3ec82dd18ed8a",
+      "bytes": 429
+    },
+    {
+      "source": "../pr177-debug.log",
+      "path": "docs/performance/pr177-evidence/pr177-debug.log.gz",
+      "originalSha256": "0b1a8069f1ea5d546666d69e3644402a4fa80689ee7024ae259bbd1b9cf2fe23",
+      "compressedSha256": "31f4b37854685a8e3f816e8e97b9b22d381fa28009d297f059317d9e25c44821",
+      "bytes": 155
+    },
+    {
+      "source": "../pr177-eslint.log",
+      "path": "docs/performance/pr177-evidence/pr177-eslint.log.gz",
+      "originalSha256": "3cfe66cbdfcc5f429221ce218f1f1ff127096f02452d3d6129efa2e428581a24",
+      "compressedSha256": "6e9066c1e19cb1e8fa766b2562af94159391ad23253551ca3ffb7bea4cf82858",
+      "bytes": 212
+    },
+    {
+      "source": "../pr177-final-development-A.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-development-A.log.gz",
+      "originalSha256": "d9f26198523027d296875045c0343db69ac570864d5325605a47d3195284e0e2",
+      "compressedSha256": "382db1d2d3c362b54325cd4fee1e5182a7614f886a8f9d8f2f0e9637fc472214",
+      "bytes": 504
+    },
+    {
+      "source": "../pr177-final-development-B.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-development-B.log.gz",
+      "originalSha256": "7c93ab2a66d0b8fcfd1e869b4ce467efac7da5d6aaca3d85ea3aff75fef4e908",
+      "compressedSha256": "a5cf7b4496a139e39d554cd70bd2c06df10fea3796c1f6af8fc03de2e06bc36d",
+      "bytes": 481
+    },
+    {
+      "source": "../pr177-final-development-legacy.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-development-legacy.log.gz",
+      "originalSha256": "a541c4827e2530c57b7de78639f38bc9f87a0bda75889b1ee00c6ae9f7f11ae3",
+      "compressedSha256": "09ea5711798ae6dbe7fc6f60e3c525d8dc2ab2038e4b817a7f16b0fb0b535d0c",
+      "bytes": 489
+    },
+    {
+      "source": "../pr177-final-validation-B.log",
+      "path": "docs/performance/pr177-evidence/pr177-final-validation-B.log.gz",
+      "originalSha256": "e53f57305edd77805cac8c7f2226a4f413b7d3e6252defa705b0edc60c9c9601",
+      "compressedSha256": "1bd14501c0fa9060f3d49913b1961bd19e87a88106cf93dbcffa4c5640fdac4d",
+      "bytes": 492
+    },
+    {
+      "source": "../pr177-generate.log",
+      "path": "docs/performance/pr177-evidence/pr177-generate.log.gz",
+      "originalSha256": "70463cd9d4c5fe4eb099d7ba7bab1b7a19c322ed385902c0e595c87ddc476b58",
+      "compressedSha256": "6b87bae96f706b2aba0e8d82ed10a185ba556a122f37995f50364f3e8a8cf115",
+      "bytes": 291
+    },
+    {
+      "source": "../pr177-identity-parity.log",
+      "path": "docs/performance/pr177-evidence/pr177-identity-parity.log.gz",
+      "originalSha256": "db43f477178433b4add3823dae8bc61a8bb1c15a91524feb7f4869c0c7bafe9a",
+      "compressedSha256": "9c364b778d24db43437ed77ad98c3219788a53e98cfc07ac125f31860de94beb",
+      "bytes": 178
+    },
+    {
+      "source": "../pr177-index-tests.log",
+      "path": "docs/performance/pr177-evidence/pr177-index-tests.log.gz",
+      "originalSha256": "5b2dee997a0a2ea20267eebb5b405e9e13690cdf1d05c3752958cf27d2228847",
+      "compressedSha256": "b17549285c8ecf15c7724b268a20ce19b1f270cdda1d5b0cafd1276e8e53b0fc",
+      "bytes": 635
+    },
+    {
+      "source": "../pr177-index-tests2.log",
+      "path": "docs/performance/pr177-evidence/pr177-index-tests2.log.gz",
+      "originalSha256": "c151d9d5160654c4dd50e6c627a746cc948737d4f65f31bd8095c407b53ff13a",
+      "compressedSha256": "5b719daa56205bbaa4f7326309c224541c02bd3399a140e15400061de8f28fff",
+      "bytes": 242
+    },
+    {
+      "source": "../pr177-legacy-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-legacy-frozen.log.gz",
+      "originalSha256": "667be369a1cd4cd3a58c26f0cd98a5a6655104cbe2589bcfaee344e801987e58",
+      "compressedSha256": "6fef7bf3cebb3b38a65d5bb66ba46d09c1e56bfcd46d3ed086ade800eb1b9ff9",
+      "bytes": 259
+    },
+    {
+      "source": "../pr177-lint-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-lint-final.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-loose-loop.log",
+      "path": "docs/performance/pr177-evidence/pr177-loose-loop.log.gz",
+      "originalSha256": "458bb35dfd8b4044d30c8be5df87b860902682e637c23fa28d5418f318d6f725",
+      "compressedSha256": "51720507ad90bb717d19d3487a2d7d92242b8a95ba303185cd05dd7552a33627",
+      "bytes": 234
+    },
+    {
+      "source": "../pr177-performance-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-performance-final.log.gz",
+      "originalSha256": "46223a6ba3677716970bb55b398926d4a458b910f6bbe5a181d79003b1b83726",
+      "compressedSha256": "4e1a1e1bb1b05fb649ab3f44e4733154ffbb6bb84d5ed2e7ce1fe949dcab2e77",
+      "bytes": 224
+    },
+    {
+      "source": "../pr177-pr149-rerun.log",
+      "path": "docs/performance/pr177-evidence/pr177-pr149-rerun.log.gz",
+      "originalSha256": "1528118616ed87c5a4eebd239624f50f68319979b666bfb69be0b834623024e5",
+      "compressedSha256": "0e4de13fbf0ec80e712813f35ae2252d039e28dea5e0d9363324d10d7b4ea8d9",
+      "bytes": 240
+    },
+    {
+      "source": "../pr177-preview.log",
+      "path": "docs/performance/pr177-evidence/pr177-preview.log.gz",
+      "originalSha256": "81a49ac23de6df01a3357e448f85f29a3c4ab155db2a190137bc3a68f7f940a5",
+      "compressedSha256": "ace09ef9e2083e8354bf17bbcb10cb049aa3128e5775c4f0f15066e4a8fbc3a6",
+      "bytes": 79
+    },
+    {
+      "source": "../pr177-pristine-development.log",
+      "path": "docs/performance/pr177-evidence/pr177-pristine-development.log.gz",
+      "originalSha256": "e3dc5faea11313c3b3bc0e5fa1f4f3790a8a445f7610f52e21c9b166274df62a",
+      "compressedSha256": "d7c00597210ab5de04c0d85db3de770455602d3357dcb6bcfeac45d91f5b82a5",
+      "bytes": 480
+    },
+    {
+      "source": "../pr177-pristine-frozen.log",
+      "path": "docs/performance/pr177-evidence/pr177-pristine-frozen.log.gz",
+      "originalSha256": "7f62e6a31e35546414ff4a18db7a6a289cfad87c657e1f39cdf36108a7328724",
+      "compressedSha256": "011076bedaeb2626f14e42bf33ab1b6a4088fc4d867bab08acb31f8e62cd05e5",
+      "bytes": 259
+    },
+    {
+      "source": "../pr177-pristine-validation.log",
+      "path": "docs/performance/pr177-evidence/pr177-pristine-validation.log.gz",
+      "originalSha256": "219c2e46d43ef8e8bd9e85970c4c4c06552af7229dfa4da44c248da0b6d7b8c1",
+      "compressedSha256": "68f25a4c86b37c1f59467287fcb3e9d16ac4aca9c6d779da49cd8b5c9eb3b3ab",
+      "bytes": 488
+    },
+    {
+      "source": "../pr177-receipt-validation-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-receipt-validation-final.log.gz",
+      "originalSha256": "0a7dfbc153abbf488fe931633e04bb347cf038395d338c5a382c14953a6d4665",
+      "compressedSha256": "ef05c804e1309343b1877a7aa5c6eed302fbcc4f2805ec637e2160feedeea4bb",
+      "bytes": 155
+    },
+    {
+      "source": "../pr177-regressions.log",
+      "path": "docs/performance/pr177-evidence/pr177-regressions.log.gz",
+      "originalSha256": "f18cf26e17710ad0c4ae972cb5863eb4e7966fdd07e8a00edfbc6da79d2021cb",
+      "compressedSha256": "3400c3c9442bfc329645f190782219c0b354fdaa757d1c67a3efadface8599cd",
+      "bytes": 365
+    },
+    {
+      "source": "../pr177-report-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-report-final.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-report-lint.log",
+      "path": "docs/performance/pr177-evidence/pr177-report-lint.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-research-lint.log",
+      "path": "docs/performance/pr177-evidence/pr177-research-lint.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-research-lint2.log",
+      "path": "docs/performance/pr177-evidence/pr177-research-lint2.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-research-tsc.log",
+      "path": "docs/performance/pr177-evidence/pr177-research-tsc.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-targeted.log",
+      "path": "docs/performance/pr177-evidence/pr177-targeted.log.gz",
+      "originalSha256": "56a67f79e663f709fc48b6c2c4e4c1587bc92996f4b2f83145aec8b801735496",
+      "compressedSha256": "e91df3b616d6385b46193cfda8634504c87ba2e051ac4f9d76f4cd64acbe5064",
+      "bytes": 662
+    },
+    {
+      "source": "../pr177-targeted2.log",
+      "path": "docs/performance/pr177-evidence/pr177-targeted2.log.gz",
+      "originalSha256": "a6d470bdbca423d18f487cd7fdd8fb6ec0b30322b4f1cb13dbd448517791cd29",
+      "compressedSha256": "c03221bed29dd066f07c786f494573cf302db6389d5618c43e8d84f4cdc21139",
+      "bytes": 240
+    },
+    {
+      "source": "../pr177-tsc.log",
+      "path": "docs/performance/pr177-evidence/pr177-tsc.log.gz",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "compressedSha256": "9e72928e7a01615b4cf090daa617b4ca9d68531748f887f323f695eb4ca3ef63",
+      "bytes": 20
+    },
+    {
+      "source": "../pr177-verify-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify-final.log.gz",
+      "originalSha256": "b7ffbe6e20d5f8c8655f604ea7b50ee79fa471c942258dd73f058e302db5c356",
+      "compressedSha256": "23171750b7388cbc850c2bddc689952221a89a0e5be718619af89486578c87e0",
+      "bytes": 762
+    },
+    {
+      "source": "../pr177-verify-initial.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify-initial.log.gz",
+      "originalSha256": "0ca34e92e73383b6e5478432c09821d79642c2d6b2aa412541a5391535cf2881",
+      "compressedSha256": "1aa7668fc8d7ad7acf20afa102f0fd7643de39b257988b4cb04cd7d8c7780499",
+      "bytes": 276
+    },
+    {
+      "source": "../pr177-verify-serial-final.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify-serial-final.log.gz",
+      "originalSha256": "b63e790abc5d40d90668a866fcf5847534caaed02dc2b920a5fe595c4a18b716",
+      "compressedSha256": "cf84d31da25312ee0bd412f18067ed0600659b2ba9a94a0ecf18c1d04f5ef6ef",
+      "bytes": 2329
+    },
+    {
+      "source": "../pr177-verify.log",
+      "path": "docs/performance/pr177-evidence/pr177-verify.log.gz",
+      "originalSha256": "7559371fdcefe4aad85697d3e5c9f3b74cb64347da6f2115daa4e785e62123c5",
+      "compressedSha256": "befe2a069c2638af2fab05780f6ccd827f8be7dbe2f18f87c986d5dac7d7c324",
+      "bytes": 1199
+    }
+  ],
+  "historicalEvidencePreserved": true
+}

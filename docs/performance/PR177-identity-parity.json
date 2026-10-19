@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "method": "Same full strong/weak state at halftime, 48,000 ordinary 25ms steps per source. Six whole-state checkpoints including 20-minute continuation. Only statistics membership implementation differs.",
+  "equal": true,
+  "rows": [
+    {
+      "label": "before",
+      "sourceHash": "bb0fd40196cd5cfa97818c8704b2c2a9780d028c2fb3380f3d98553403af3b72",
+      "initialHash": "76c193dd0c71316f19cb5e2ffbaac543d0a42cc5333da2ba98d43cddcb3846d5",
+      "finalHash": "5dd675727630c61d2bd57ef01f1de912a70d38a93fd461231c0ffd15184c5fad",
+      "checkpoints": [
+        {
+          "tick": 80,
+          "time": 2762.0000000000073,
+          "fullStateHash": "d7693726a3f1c253d001cbee9f927c8a7e2a4d0950aab984fde9a8cb29efe0ec"
+        },
+        {
+          "tick": 200,
+          "time": 2765.000000000018,
+          "fullStateHash": "9555dda772f9356b63a7bb6423cfe3b56cf7a24484da4cc76e1f5a7be4297ee0"
+        },
+        {
+          "tick": 2400,
+          "time": 2820.0000000002183,
+          "fullStateHash": "c151320ef945b7c5e21627899e307679f999e2f2a51327999609fecb4e890f04"
+        },
+        {
+          "tick": 12000,
+          "time": 3060.0000000010914,
+          "fullStateHash": "39d868fb063cbe695fddc5c9383ad81ba022cceb78593ffbc666850d0a76ffdd"
+        },
+        {
+          "tick": 24000,
+          "time": 3360.000000002183,
+          "fullStateHash": "9ba7d1c8ac1301b2ac172730ad34e83309ed1f78e026d667330ff0fcb7711408"
+        },
+        {
+          "tick": 48000,
+          "time": 3960.0000000043656,
+          "fullStateHash": "5dd675727630c61d2bd57ef01f1de912a70d38a93fd461231c0ffd15184c5fad"
+        }
+      ],
+      "cpuMs": 334156,
+      "wallMs": 319262.9226
+    },
+    {
+      "label": "after",
+      "sourceHash": "331385925d09a7bed7cc95cd0e875964aae8c050993550dbfbfdce5048f97169",
+      "initialHash": "76c193dd0c71316f19cb5e2ffbaac543d0a42cc5333da2ba98d43cddcb3846d5",
+      "finalHash": "5dd675727630c61d2bd57ef01f1de912a70d38a93fd461231c0ffd15184c5fad",
+      "checkpoints": [
+        {
+          "tick": 80,
+          "time": 2762.0000000000073,
+          "fullStateHash": "d7693726a3f1c253d001cbee9f927c8a7e2a4d0950aab984fde9a8cb29efe0ec"
+        },
+        {
+          "tick": 200,
+          "time": 2765.000000000018,
+          "fullStateHash": "9555dda772f9356b63a7bb6423cfe3b56cf7a24484da4cc76e1f5a7be4297ee0"
+        },
+        {
+          "tick": 2400,
+          "time": 2820.0000000002183,
+          "fullStateHash": "c151320ef945b7c5e21627899e307679f999e2f2a51327999609fecb4e890f04"
+        },
+        {
+          "tick": 12000,
+          "time": 3060.0000000010914,
+          "fullStateHash": "39d868fb063cbe695fddc5c9383ad81ba022cceb78593ffbc666850d0a76ffdd"
+        },
+        {
+          "tick": 24000,
+          "time": 3360.000000002183,
+          "fullStateHash": "9ba7d1c8ac1301b2ac172730ad34e83309ed1f78e026d667330ff0fcb7711408"
+        },
+        {
+          "tick": 48000,
+          "time": 3960.0000000043656,
+          "fullStateHash": "5dd675727630c61d2bd57ef01f1de912a70d38a93fd461231c0ffd15184c5fad"
+        }
+      ],
+      "cpuMs": 66781,
+      "wallMs": 63112.644099999976
+    }
+  ]
+}

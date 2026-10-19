@@ -20,6 +20,8 @@ export const passLaunchPlanSchema = z.object({
   predictedArrivalTime: z.number().positive(),
   predictedArrivalSpeed: z.number().nonnegative(),
   receiverReadiness: receiverReadinessProjectionSchema,
+  feasible: z.boolean().optional(),
+  targetMissMetres: z.number().nonnegative().optional(),
 });
 export type PassLaunchPlan = z.infer<typeof passLaunchPlanSchema>;
 export type PassLaunchIntent = 'support' | 'progressive' | 'direct' | 'lead' | 'through';
@@ -59,6 +61,7 @@ export const derivePassLaunchPlan = (
       {
         releaseHeight: 0.11,
         ability: (passer.profile.attributes.passing + passer.profile.attributes.technique) / 2,
+        maximumSpeed: 30,
       },
     );
     const samples = projectFutureBallTrajectory(
@@ -95,6 +98,8 @@ export const derivePassLaunchPlan = (
         aerial.predictedFlightTime,
         intent,
       ),
+      feasible: distance(arrival.ball.position, target) <= 1.2,
+      targetMissMetres: distance(arrival.ball.position, target),
     });
   }
   const forecast = (candidateSpeed: number) => {
@@ -144,4 +149,62 @@ export const derivePassLaunchPlan = (
     ),
     receiverReadiness: readiness,
   });
+};
+
+/** Three energy envelopes at most. The receiver and the trajectory, not an intent deadline,
+ * determine arrival. Every returned plan is executed unchanged before ordinary kick error. */
+export const deriveFeasiblePassPlans = (
+  state: TacticalMatchState,
+  passer: MatchPlayerState,
+  receiver: MatchPlayerState,
+  target: PitchPoint,
+  intent: PassLaunchIntent,
+  includeLoft = false,
+): PassLaunchPlan[] => {
+  const origin = state.ball.ownerId === passer.id ? state.ball : passer.position;
+  const metres = distance(origin, target);
+  const readiness = projectReceiverReadiness(
+    state,
+    receiver,
+    target,
+    Math.max(0.2, metres / 10),
+    intent,
+  );
+  const speeds = [readiness.preferredArrivalSpeed, readiness.maximumComfortableArrivalSpeed];
+  const plans: PassLaunchPlan[] = [];
+  for (const arrivalSpeed of speeds) {
+    const speed = Math.min(
+      30,
+      Math.sqrt(arrivalSpeed ** 2 + 2 * BALL_PHYSICS.rollingDeceleration * metres),
+    );
+    const velocity = deriveLaunchVelocity(origin, target, speed, 0);
+    const samples = projectFutureBallTrajectory(
+      { position: { ...origin, z: 0.11 }, velocity, airborne: false, bounceCount: 0 },
+      Math.min(8, metres / Math.max(2, arrivalSpeed) + 0.8),
+      0.025,
+    );
+    const arrival =
+      samples.find((s) => distance(s.ball.position, target) <= 0.55) ??
+      samples.reduce((a, b) =>
+        distance(a.ball.position, target) < distance(b.ball.position, target) ? a : b,
+      );
+    const miss = distance(arrival.ball.position, target);
+    if (miss > 1.2 || plans.some((p) => Math.abs(p.speed - speed) < 0.3)) continue;
+    plans.push({
+      target,
+      velocity,
+      speed,
+      elevation: 0,
+      predictedArrivalTime: arrival.at,
+      predictedArrivalSpeed: Math.hypot(arrival.ball.velocity.x, arrival.ball.velocity.y),
+      receiverReadiness: projectReceiverReadiness(state, receiver, target, arrival.at, intent),
+      feasible: true,
+      targetMissMetres: miss,
+    });
+  }
+  if (includeLoft) {
+    const loft = derivePassLaunchPlan(state, passer, receiver, target, intent, 'lofted');
+    if (loft.feasible) plans.push(loft);
+  }
+  return plans;
 };

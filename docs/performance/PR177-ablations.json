@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "rows": [
+    {
+      "ablation": "adaptive-risk",
+      "policy": "risk-ablation-v1",
+      "states": 19,
+      "selectedActionChanges": 1,
+      "physicalContinuationChanges": 8,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-adaptive-risk.json.gz"
+    },
+    {
+      "ablation": "continuation",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 0,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-continuation.json.gz"
+    },
+    {
+      "ablation": "delivery",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 3,
+      "physicalContinuationChanges": 11,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-delivery.json.gz"
+    },
+    {
+      "ablation": "direct-risk",
+      "policy": "risk-ablation-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 3,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-direct-risk.json.gz"
+    },
+    {
+      "ablation": "movement",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 19,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-movement.json.gz"
+    },
+    {
+      "ablation": "readiness",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 0,
+      "physicalContinuationChanges": 17,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-readiness.json.gz"
+    },
+    {
+      "ablation": "runs",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 1,
+      "physicalContinuationChanges": 2,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-runs.json.gz"
+    },
+    {
+      "ablation": "transitions",
+      "policy": "state-value-v1",
+      "states": 19,
+      "selectedActionChanges": 2,
+      "physicalContinuationChanges": 13,
+      "method": "Historical dependent states; compare decisions and ball/player checkpoint content. Policy/ablation-ID-only whole-state hash differences are not counted as football changes.",
+      "archive": "docs/performance/pr177-evidence/pr177-ablation-transitions.json.gz"
+    }
+  ]
+}

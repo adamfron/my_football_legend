@@ -1,6 +1,14 @@
 # Roadmap
 
-Aktualny etap: **PR176 — Match Engine Mathematical Audit & Reform Blueprint**.
+Aktualny etap: **PR177 — Match Engine Reform Implementation**.
+[Wdrożenie, porównania i ograniczenia PR177](PR177_MATCH_ENGINE_REFORM_IMPLEMENTATION.md).
+Polityka B jest eksperymentalna, legacy pozostaje domyślne, a oryginalny PR176
+ma opublikowaną referencję przywracania. PR178 musi niezależnie rozliczyć pętlę
+kontaktów piłki z nakładającymi się ciałami oraz attack-to-shot conversion,
+przyjęcia, kontrataki, odzyskanie ustawienia i koszt CPU. Obecny canonical nadal
+nie jest zaakceptowanym celem kalibracji summary.
+
+Scalony **PR176 — Match Engine Mathematical Audit & Reform Blueprint**:
 [Audyt](PR176_MATCH_ENGINE_MATHEMATICAL_AUDIT.md),
 [warianty reformy](PR176_MATCH_ENGINE_REFORM_OPTIONS.md),
 [PR177 blueprint](PR176_MATCH_ENGINE_PR177_BLUEPRINT.md),
@@ -22,11 +30,11 @@ Zachować ich fizykę, reguły, asekurację, identyfikatory i human agency.
 
 ## Autorytatywna kolejność PR176–PR182+
 
-- **PR176 — Match Engine Mathematical Audit & Reform Blueprint**. Aktualny PR:
+- **PR176 — Match Engine Mathematical Audit & Reform Blueprint**. Scalony audyt:
   pełne mathematical/action pipeline, correlated risk, candidate gates, pass flight,
   artificial timing, movement authority i trzy reform packages. Reproducible research
   i executable PR177 specification; bez rebalance, zmiany fizyki, timing lub save.
-- **PR177 — Match Engine Reform Implementation**. Wdrożyć preferowany pakiet B
+- **PR177 — Match Engine Reform Implementation**. Aktualny PR wdraża pakiet B
   w odizolowanej policy z zachowanym legacy baseline i porównaniem A. Zmiana musi
   materialnie sprawdzić inny futbol. Frozen states, paired canonical continuations,
   development i nowe zamknięte fixtures, human/save/replay/defence/CPU regressions.

@@ -104,6 +104,14 @@ import {
 } from './throwIn';
 import { offsideSnapshotSchema, type OffsideSnapshot } from './offside';
 import { passExecutionTypeSchema, type PassExecutionType } from './passExecution';
+import {
+  decisionPolicyIdSchema,
+  decisionAblationSchema,
+  type DecisionPolicyId,
+  type DecisionAblation,
+} from './decisionPolicyConfig';
+import { decisionReadinessSchema, type DecisionReadiness } from './decisionReadiness';
+import { passLaunchPlanSchema } from './passLaunchPlan';
 import { passDecisionQualitySchema, type PassDecisionQuality } from './passDecision';
 import { pitchBoundaryCrossingSchema, type PitchBoundaryCrossing } from './pitchBoundary';
 import type { ReceptionOutcome, ReceptionPreparation } from './passReception';
@@ -162,6 +170,7 @@ export const matchActionSchema = z.discriminatedUnion('type', [
     delivery: z.enum(['ground', 'lofted']).optional(),
     requestedSpace: pitchPointSchema.optional(),
     firstTime: z.boolean().optional(),
+    deliveryPlan: passLaunchPlanSchema.optional(),
   }),
   z.object({
     type: z.literal('shot'),
@@ -740,6 +749,10 @@ export const passDiagnosticSchema = z.object({
 });
 
 export interface TacticalMatchState {
+  /** Runtime experiment selection, fixed for this match. No career-save migration contract. */
+  decisionPolicy?: DecisionPolicyId;
+  decisionAblation?: DecisionAblation;
+  decisionReadiness?: DecisionReadiness;
   combinationIntent?: CombinationIntent;
   lastCombination?: CombinationResult;
   endsSwitched?: boolean | undefined;
@@ -945,6 +958,9 @@ export interface TacticalMatchState {
 // are already validated by the canonical world database schema.
 export const tacticalMatchStateSchema = z
   .object({
+    decisionPolicy: decisionPolicyIdSchema.optional(),
+    decisionAblation: decisionAblationSchema.optional(),
+    decisionReadiness: decisionReadinessSchema.optional(),
     injuryAssessment: injuryAssessmentSchema.optional(),
     droppedBallTouchRestriction: droppedBallTouchRestrictionSchema.optional(),
     addedTimePolicy: addedTimePolicySchema.optional(),
